@@ -1,0 +1,41 @@
+{% load blog_tags %}
+
+<div id="right-panel">
+
+    {% blog_months as months %}
+    {% if months %}
+    <h2>Archive</h2>
+    {% blog_months as months %}
+    {% for month in months %}
+    {% ifchanged month.year %}{{ month.year }}<ul>{% endifchanged %}
+    <li><a href="{% url blog_post_list_month year=month.year month=month.month %}"
+        >{{ month|date:"F" }}</a></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% blog_tags as tags %}
+    {% if tags %}
+    <h2>Tags</h2>
+    {% for tag in tags %}
+    <a href="{% url blog_post_list_tag tag %}" 
+        class="tag-weight-{{ tag.weight }}">{{ tag }}</a>
+    {% endfor %}
+    {% endif %}
+
+    {% blog_authors as authors %}
+    {% if authors %}
+    <h2>Authors</h2>
+    {% blog_authors as authors %}
+    {% for author in authors %}
+    <a href="{% url blog_post_list_author author.username %}"
+        >{{ author.get_full_name|default:author.username }}</a>
+    {% endfor %}
+    {% endif %}
+
+    <h2>Feeds</h2>
+    <a href="{% url blog_post_feed "rss" %}" />RSS</a> /
+    <a href="{% url blog_post_feed "atom" %}" />Atom</a>
+
+</div>
+

@@ -1,0 +1,11 @@
+{% load pages_tags %}
+
+<ul>
+	{% for page in page_branch %}
+	<li>
+		<a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+		{% page_menu page %}
+	</li>
+	{% endfor %}
+</ul>
+

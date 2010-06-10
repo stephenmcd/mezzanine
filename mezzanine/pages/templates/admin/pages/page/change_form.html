@@ -1,0 +1,21 @@
+{% extends "admin/change_form.html" %}
+
+{% load mezzanine_tags %}
+
+{% block extrahead %}{{ block.super }}
+<style type="text/css">	
+	.hidden-parent-fieldset {visibility:hidden; overflow:hidden; height:1px;}
+</style>
+     
+<script type="text/javascript" 
+    src="/{% setting "MEZZANINE_MEDIA_URL" %}/js/jquery-1.4.2.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$('input[name=_addanother]').hide();
+		{% if original.overridden %}
+		$('.deletelink').hide();
+		{% endif %}
+	});
+</script>
+{% endblock %}

@@ -1,0 +1,8 @@
+syntax: glob
+*.pyc
+*.pyo
+*.db
+build/*
+dist/*
+Mezzanine.egg-info/*
+

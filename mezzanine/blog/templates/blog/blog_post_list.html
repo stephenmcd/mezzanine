@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags blog_tags %}
+
+{% block meta_title %}{% setting "BLOG_TITLE" %}{% endblock %}
+{% block meta_description %}{% setting "BLOG_DESCRIPTION" %}{% endblock %}
+{% block title %}{% setting "BLOG_TITLE" %}{% endblock %}
+
+{% block main %}
+
+<p id="blog-description">
+{% if tag %}
+    {% trans "Viewing posts tagged" %} {{ tag }}
+{% else %}{% if year or month %}
+    {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
+    {{ year }}
+{% else %}{% if user %}
+    {% trans "Viewing posts by" %} {{ user.get_full_name }}
+{% else %}
+    {% setting "BLOG_DESCRIPTION" %}
+{% endif %}{% endif %}{% endif %}
+</p>
+
+{% for blog_post in blog_posts.object_list %}
+<h3><a href="{% url blog_post_detail blog_post.slug %}"
+    >{{ blog_post.title }}</a></h3>
+<em>
+    {% with blog_post.user as author %}
+    <a href="{% url blog_post_list_author author %}">{{ author.first_name }} 
+        {{ author.last_name }}</a>
+    {% endwith %}
+    {{ blog_post.publish_date|timesince }} {% trans "ago" %}
+</em>
+<p class="description">
+    {{ blog_post.description }}<br />
+    <a href="{% url blog_post_detail blog_post.slug %}"
+        >{% trans "read more" %}</a> / 
+    {% if use_disqus %}
+    <a href="{% url blog_post_detail blog_post.slug %}#disqus_thread"
+        >{% trans "Comments" %}</a>
+    {% else %}
+    <a href="{% url blog_post_detail blog_post.slug %}#comments">
+		{% blocktrans count blog_post.num_comments as num_comments %}
+		1 comment
+		{% plural %}
+		{{ num_comments }} comments
+		{% endblocktrans %}
+    </a>
+    {% endif %}
+</p>
+{% endfor %}
+
+<div class="paging">
+    <p>{% trans "Page" %} {{ blog_posts.number }} {% trans "of" %} 
+        {{ blog_posts.paginator.num_pages }}:</p>
+    <ul>
+        {% if blog_posts.has_previous %}
+        <li><a href="?page={{ blog_posts.previous_page_number }}"
+            >&lt;</a></li>
+        {% endif %}
+        {% for page in page_range %}
+        <li>
+	        {% ifequal page blog_posts.number %}
+           	<strong>{{ page }}</strong>
+	        {% else %}
+           	<a href="?page={{ page }}">{{ page }}</a>
+	        {% endifequal %}
+        </li>
+        {% endfor %} 
+        {% if blog_posts.has_next %}
+        <li><a href="?page={{ blog_posts.next_page_number }}"
+            >&gt;</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+{% if use_disqus %}
+{% include "blog/includes/disqus_counts.html" %} 
+{% endif %}
+
+{% endblock %}
+
+{% block right_panel %}
+{% include "blog/includes/filter_panel.html" %}
+{% endblock %}
+

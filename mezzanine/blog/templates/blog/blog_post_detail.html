@@ -1,0 +1,75 @@
+{% extends "blog/blog_post_list.html" %}
+{% load mezzanine_tags i18n %}
+
+{% block meta_title %}{{ blog_post.title }}{% endblock %}
+{% block meta_keywords %}{% spaceless %}
+{% for keyword in blog_post.keywords.all %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endspaceless %}{% endblock %}
+{% block meta_description %}{{ blog_post.description }}{% endblock %}
+{% block title %}{{ blog_post.title }}{% endblock %}
+
+{% block extra_head %}
+<script type="text/javascript" 
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js">
+</script>
+<script type="text/javascript">
+    $(function() {
+        $('.reply').click(function() {
+            $(this).next('.comment').toggle();
+        });
+    });
+</script>
+{% endblock %}
+
+{% block main %}
+
+<em>
+    <strong>
+        {% with blog_post.user as author %}
+        <a href="{% url blog_post_list_author author %}"
+            >{{ author.get_full_name|default:author.username }}</a>
+        {% endwith %}
+    </strong>
+    {{ blog_post.publish_date|timesince }} {% trans "ago" %}
+</em>
+
+{{ blog_post.content|safe }}
+
+{% with blog_post.keywords.all as tags %}
+{% if tags %}
+<div class="tags">
+    {% trans "Tags" %}: 
+    <ul>
+        {% for tag in tags %}
+        <li><a href="{% url blog_post_list_tag tag %}" 
+            class="tag-weight-{{ tag.weight }}">{{ tag }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endwith %}
+
+<div class="share">
+{% set_short_url_for blog_post %}
+{% trans "Share this on " %}: 
+<a target=_"blank" href="http://twitter.com/home?status={{ blog_post.short_url|urlencode }}%20{{ blog_post.title|urlencode }}">Twitter</a>
+ / 
+<a target=_"blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&t={{ blog_post.title|urlencode }}">Facebook</a>
+</div>
+
+
+
+<div id="comments">
+{% if use_disqus %}
+{% include "blog/includes/disqus_comments.html" %} 
+{% else %}
+{% include "blog/includes/comments.html" %} 
+{% endif %}
+</div>
+
+{% endblock %}
+
+

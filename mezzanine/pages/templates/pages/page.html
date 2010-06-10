@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block meta_title %}{{ page.title }}{% endblock %}
+{% block meta_keywords %}{% for keyword in page.keywords.all %}{% if not forloop.first %}, {% endif %}{{ keyword }}{% endfor %}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block main %}
+{{ page.content|safe }}
+{% endblock %}

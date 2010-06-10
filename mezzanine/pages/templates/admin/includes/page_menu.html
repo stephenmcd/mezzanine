@@ -1,0 +1,28 @@
+{% load pages_tags i18n adminmedia %}
+
+<ul>
+	{% for page in page_branch %}
+	<li id="ordering_{{ page.id }}">
+		<div class="{% cycle 'row1' 'row2' %}">
+			<a href="#" class="tree-toggle" id="page-{{ page.id }}">
+				<span class="icon open">+</span>
+				<span class="icon close">-</span>
+			</a>
+			<a href="{% url admin:pages_page_change page.id %}"
+				class="changelink">{{ page.title }}</a>
+			<span class="ordering">
+			    <img src="{% admin_media_prefix %}img/admin/arrow-up.gif" />
+			    <img src="{% admin_media_prefix %}img/admin/arrow-down.gif" />
+			</span>
+			{% if has_add_permission %}
+			<a href="{% url admin:pages_page_add %}?parent={{ page.id }}"
+				class="addlink" id="addlink-{{ page.id }}">
+				{% trans "Add Sub-Page" %}</a>
+			{% endif %}
+		</div>
+		<br clear="all" />
+		{% page_menu_admin page %}
+	</li>
+	{% endfor %}
+</ul>
+

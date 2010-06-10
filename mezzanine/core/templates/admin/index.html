@@ -1,0 +1,189 @@
+{% extends "admin/base_site.html" %}
+
+<!-- LOADING -->
+{% load i18n blog_tags %}
+
+{% block extrahead %}
+{% endblock %}
+
+<!-- STYLES & SCRIPTS -->
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />
+    <style type="text/css">
+        #quick-blog input, textarea {width:400px;}
+        .default {width:auto !important;}
+        .module ul {list-style-type:none !important; margin-left:0px;}
+        .mini {font-size:.9em;}
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% admin_media_prefix %}js/admin/CollapsibleGroup.js"></script>
+{% endblock %}
+
+<!-- COLTYPE/BODYCLASS -->
+{% block coltype %}colMS{% endblock %}
+{% block bodyclass %}dashboard{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumbs %}<div class="breadcrumbs">{% trans "Home" %}</div>{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+<div id="content-main">
+    {% if app_list or group_list %}
+        {% if group_list %}
+            {% for k,v in group_list.items %}
+            {% if v.applications %}
+            <div id="group_{{ k }}" class="group-collapsible {% if v.classes %}{% for class in v.classes %}{{ class }} {% endfor %}{% else %}collapse-open{% endif%}">
+                {% if v.name %}<h2>{{ v.name }}</h2>{% endif %}
+                {% if v.show_apps %}
+                    {% for app in v.applications %}
+                    <div class="module" id="app_{{ app.name|lower }}">
+                        <table summary="{% blocktrans with app.name as name %}Models available in the {{ name }} application.{% endblocktrans %}">
+                            {% if v.show_apps %}<caption><a href="{{ app.app_url }}" class="section">{% trans app.name %}</a></caption>{% endif %}
+                            {% for model in app.models %}
+                            <tr>
+                            {% if model.perms.change %}
+                                <th scope="row" width="100%"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
+                            {% else %}
+                                <th scope="row" width="100%">{{ model.name }}</th>
+                            {% endif %}
+                            
+                            {% if model.perms.add %}
+                                <td><a href="{{ model.admin_url }}add/" class="addlink">{% trans 'Add' %}</a></td>
+                            {% else %}
+                                <td>&nbsp;</td>
+                            {% endif %}
+                            
+                            {% if model.perms.change %}
+                                <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+                            {% else %}
+                                <td>&nbsp;</td>
+                            {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="module" id="app_{{ app.name|lower }}">
+                        {% for app in v.applications %}
+                        <table summary="{% blocktrans with app.name as name %}Models available in the {{ name }} application.{% endblocktrans %}">
+                            {% for model in app.models %}
+                            <tr>
+                            {% if model.perms.change %}
+                                <th scope="row" width="100%"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
+                            {% else %}
+                                <th scope="row" width="100%">{{ model.name }}</th>
+                            {% endif %}
+                            
+                            {% if model.perms.add %}
+                                <td><a href="{{ model.admin_url }}add/" class="addlink">{% trans 'Add' %}</a></td>
+                            {% else %}
+                                <td>&nbsp;</td>
+                            {% endif %}
+                            
+                            {% if model.perms.change %}
+                                <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+                            {% else %}
+                                <td>&nbsp;</td>
+                            {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if app_list %}
+            <div class="group-collapsible">
+               {% for app in app_list %}
+                    {% if forloop.first %}
+               <div class="module" id="app_{{ app.name|lower }}" style="margin-bottom:10px;">
+                   <table summary="{% blocktrans with app.name as name %}Models available in the {{ name }} application.{% endblocktrans %}">
+                       <caption><a href="{{ app.app_url }}" class="section">
+                       <!--{% trans app.name %}-->{% trans "Manage" %}</a></caption>
+                    {% endif %}
+                       {% for model in app.models %}
+                       <tr>
+                       {% if model.perms.change %}
+                           <th scope="row" width="100%"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
+                       {% else %}
+                           <th scope="row" width="100%">{{ model.name }}</th>
+                       {% endif %}
+                       
+                       {% if model.perms.add %}
+                           <td><a href="{{ model.admin_url }}add/" class="addlink">{% trans 'Add' %}</a></td>
+                       {% else %}
+                           <td>&nbsp;</td>
+                       {% endif %}
+                       
+                       {% if model.perms.change %}
+                           <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+                       {% else %}
+                           <td>&nbsp;</td>
+                       {% endif %}
+                       </tr>
+                       {% endfor %}
+                   {% if forloop.last %}
+                   </table>
+               </div>
+                   {% endif %}
+               {% endfor %}
+           </div>
+        {% endif %}
+    {% else %}
+        <p>{% trans "You don't have permission to edit anything." %}</p>
+    {% endif %}
+    <div class="module">
+        <h2>{% trans "Quick Blog" %}</h2>
+        <form method="post" action="{% url admin:blog_blogpost_add %}">
+            {% quick_blog_form as form %}
+            <table id="quick-blog">
+                {{ form.as_table }}
+                <tr><td colspan="2" style="text-align:right;">
+                    <input type="submit" class="default" 
+                        value="{% trans "Save Draft" %}" />
+                </td></tr>
+            </table>
+        </form>
+    </div>
+    
+</div>
+{% endblock %}
+
+<!-- SIDEBAR -->
+{% block sidebar %}
+<div id="content-related" style="float:right; margin:0 -38em 0 10px;">
+    <div class="module" id="recent-actions-module">
+        <h2>{% trans 'Recent Actions' %}</h2>
+        <h3>{% trans 'My Actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+            <p>{% trans 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist" style="margin:0;">
+            {% for entry in admin_log %}
+            <li style="list-style-type:none;" class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">{% if not entry.is_deletion %}<a href="{{ entry.get_admin_url }}">{% endif %}{{ entry.object_repr }}{% if not entry.is_deletion %}</a>{% endif %}<br /><span class="mini quiet">{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}</span></li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+</div>
+
+{% block extendedsidebar %}
+<div id="content-related" style="float:right; margin-right:-19em;">
+    <div class="module" id="comments-module">
+        <h2>{% trans 'Recent Comments' %}</h2>
+        {% recent_comments %}
+    </div>
+</div>
+{% endblock %}
+
+{% endblock %}

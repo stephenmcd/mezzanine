@@ -1,0 +1,21 @@
+{% load i18n blog_tags %}
+
+<ul style="margin:0;">
+    {% for comment in comments %}
+    <li style="padding:10px; list-style-type:none; 
+        background:#{% cycle "fff" "f7f7f7" %};">    
+        <a href="mailto:{{ comment.email }}"><img 
+            src="{% gravatar_url comment.email_hash %}"
+            style="margin:-2px 8px 0 0; float:left; border:1px solid #666;"
+            />{{ comment.name }}</a><br />
+        <span class="mini quiet">
+            {{ comment.time_created|timesince }} {% trans "ago" %}<br />
+            {{ comment.body|truncatewords:"40" }}<br />
+            {% if comment.blog_post %}
+            {% trans "Posted to" %}: <a href="{{ comment.blog_post.get_absolute_url }}">{{ comment.blog_post.title }}</a>
+             / <a href="{{ comment.get_absolute_url }}">{% trans "View comment" %}</a>
+            {% endif %}
+        </span>
+    </li>
+    {% endfor %}
+</ul>

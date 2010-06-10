@@ -1,0 +1,28 @@
+[
+    {
+        "pk": 1, 
+        "model": "pages.page", 
+        "fields": {
+            "status": 2, 
+            "description": "About us", 
+            "title": "About", 
+            "ordering": 0, 
+            "content": "About us", 
+            "titles": "About", 
+            "slug": "about"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "pages.page", 
+        "fields": {
+            "status": 2, 
+            "description": "Blog", 
+            "title": "Blog", 
+            "ordering": 1, 
+            "content": "Blog", 
+            "titles": "Blog", 
+            "slug": "blog"
+        }
+    }
+]

@@ -1,0 +1,116 @@
+{% extends "admin/change_list.html" %}
+{% load mezzanine_tags pages_tags i18n %}
+
+{% block extrahead %}{{ block.super }}
+<style type="text/css">
+
+	#tree {margin-top:10px; width:600px;}
+	#tree div {border:1px solid #ccc; background:#f9f9f9; padding:7px; 
+		float:left; width:100%; margin:2px;}
+	#tree ul {padding:0;}
+	#tree ul ul {padding-left:40px; display:none;}
+	#tree li {list-style-type:none;}
+	#tree .tree-toggle, #tree .changelink {float:left; font-weight:bold; 
+	    font-size:12px;}
+	#tree .tree-toggle {visibility:hidden;}
+	#tree a {float:right;}
+	#tree a .icon {display:block; float:left; width:16px; color:#fff; 
+		text-align:center; background:#c6c6c6; margin:0 8px 0 4px;}
+	#tree a .close {display:none;}
+	#tree a:hover .icon {color:#fff; background:#5B80B2;}
+	.ordering {float:right; cursor:move; margin-left:10px;}
+
+</style>
+            
+<script type="text/javascript" 
+    src="{% setting "CONTENT_MEDIA_URL" %}js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" 
+    src="{% setting "CONTENT_MEDIA_URL" %}js/jquery-ui-1.8.1.custom.min.js"></script>
+
+<script type="text/javascript">
+
+	var cookie = 'mezzanine-admin-tree';
+	var at = ('; ' + document.cookie).indexOf('; ' + cookie + '=');
+	var ids = '';
+
+	if (at > -1) {
+		ids = document.cookie.substr(at + cookie.length + 1).split(';')[0];
+	}
+	
+	var toggleID = function(opened, id) {
+		// Add or remove the page ID from the cookie IDs string.
+		var index = $.inArray(id, ids.split(','));
+		if (opened) {
+			if (index == -1) {
+				if (ids) {ids += ',';}
+				ids += id;
+			}
+		} else if (index > -1) { 
+    		ids = ids.split(',');
+    		ids.splice(index, 1);
+			ids = ids.join(',');
+		}
+		document.cookie = cookie + '=' + ids + '; path=/';
+	};
+	
+	$(function() {
+		$('#tree .tree-toggle').click(function() {
+			// Show/hide the branch and toggle the icon.
+			var pageLink = $(this);
+			pageLink.parent().parent().find('ul').toggle();
+			pageLink.find('.icon').toggle();
+			// Add or remove the page ID from the cookie.
+			var opened = pageLink.find('.close:visible').length == 1;
+			var id = pageLink.attr('id').split('-')[1];
+			toggleID(opened, id);
+			return false;
+		});
+		// Show previously opened branches.
+		if (ids) {
+			$('#page-' + ids.split(',').join(', #page-')).click();
+		}
+		// Show the open/close button for branches that have children
+		$('li:has(li) .tree-toggle').css({visibility: 'visible'});
+		$('li:not(:has(li)) .tree-toggle').css({visibility: 'hidden'});
+		// Ensure the branch is saved as open when adding to it so that the 
+		// new branch will be visible directly after saving.
+		$('.addlink').click(function() {
+			toggleID(true, $(this).attr('id').split('-')[1]);
+			return true;
+		});
+		// AJAX callback that's triggered when dragging a page to re-order 
+		// it has ended.
+		var updateOrdering = function(event, ui) {
+		    var ordering = $(this).sortable('toArray').toString();
+		    $.post('{% url admin_page_ordering %}', {ordering: ordering});
+		};
+		// Make the pages sortable via drag and drop.
+		$('#tree ul').sortable({handle: '.ordering', axis: 'y', opacity: '.7', 
+		    stop: updateOrdering});
+		$('#tree ul').disableSelection();
+	});
+
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+	{% if has_add_permission %}
+	<ul class="object-tools">
+	  <li>
+		<a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
+		  {% blocktrans with cl.opts.verbose_name as name %}Add Primary {{ name }}{% endblocktrans %}
+		</a>
+	  </li>
+	</ul>
+	{% endif %}
+
+	{% ifequal cl.result_count 0 %}
+	<p class="paginator">0 {{ cl.opts.verbose_name_plural }}</p>
+	{% else %}
+	<div id="tree">{% page_menu_admin %}</div>
+	{% endifequal %}
+
+</div>
+{% endblock %}

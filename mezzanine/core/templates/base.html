@@ -1,0 +1,72 @@
+{% load pages_tags %}
+<html>
+
+<head>
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+	<meta name="keywords" content="{% block keywords %}{% endblock %}" /> 
+	<meta name="description" content="{% block description %}{% endblock %}" /> 
+    <title>{% block meta_title %}{% endblock %}</title>
+    <link rel="alternate" type="application/rss+xml" title="RSS" 
+        href="{% url blog_post_feed "rss" %}" />
+    <link rel="alternate" type="application/atom+xml" title="Atom"  
+        href="{% url blog_post_feed "atom" %}" />
+
+    <style type="text/css">
+
+        * {margin:0; padding:0; font-family:sans-serif;}
+        h1, h2 {border-bottom:1px dashed #000; margin:20px 0;}
+        h1 {font-size:250%;}
+        #menu, #main, #right-panel {float:left;}
+        #menu {background:#eee; padding:50px; position:relative; bottom:0;}
+        #main {padding:0 30px; width:450px;}
+        #right-panel {background:#eee; padding:8px 30px;}
+        
+        #menu ul ul {padding-left:20px;}
+        ul {list-style-type:none;}
+        #blog-description {margin:30px 0;}
+        .paging * {display:inline; margin:3px;}
+        em {display:block; font-size:80%; margin-bottom:10px;}
+
+        #comments {margin-top:20px;}
+        #comments img {margin-right:5px; vertical-align:middle;}
+        #comments em {margin-bottom:0;}
+        #comments p, .description {border-bottom:1px solid #ddd; padding:5px 0;
+            margin-bottom:5px;}
+        .description {margin-bottom:20px;}
+        #comments ul {margin:20 0; padding:0;}
+        #comments li ul {padding-left:30px;}
+        .comment {background:#eee; padding:20px; margin-top:20px;}
+        .comment th, .comment td {text-align:left; vertical-align:top; 
+            padding:2px 5px;}
+        .comment .button {float:right; padding:10px; margin:10px 0; 
+            cursor:pointer;}
+        input, textarea {border:1px solid #999;}
+        ul .comment {display:none;}
+        ul .posted {display:block !important;}
+        .errorlist {color:#f00; margin:0 !important; padding:0 !important;}
+        
+        .tags {margin:10px 0;}
+        .tags ul, .tags li {display:inline;}
+        .tag-weight-1 {font-size:80%;}
+        .tag-weight-2 {font-size:120%;}
+        .tag-weight-3 {font-size:160%;}
+        .tag-weight-4 {font-size:200%;}
+
+    </style>
+
+    {% block extra_head %}{% endblock %}
+
+</head>
+
+<body>
+    <div id="menu">{% page_menu %}</div>
+    <div id="main">
+        <h1>{% block title %}{% endblock %}</h1>
+        {% block main %}{% endblock %}
+    </div>
+    {% block right_panel %}{% endblock %}
+</body>
+
+</html>
+
