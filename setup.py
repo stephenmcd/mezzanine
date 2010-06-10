@@ -2,14 +2,22 @@
 from setuptools import setup, find_packages
 import os
 
-db_file = "mezzanine/project_template/mezzanine.db"
-db_data = None
-try:
-    with open("db_file", "r") as f:
-        db_data = f.read()
-    os.remove(db_file)
-except:
-    pass
+exclude = {
+    "mezzanine/project_template/mezzanine.db": None,
+    "mezzanine/project_template/local_settings.py": None,
+}
+for e in exclude:
+    if e.endswith(".py"):
+        try:
+            os.remove("%sc" % e)
+        except:
+            pass
+    try:
+        with open(e, "r") as f:
+            exclude[e] = f.read()
+        os.remove(e)
+    except:
+        pass
 
 try:
     setup(
@@ -54,11 +62,13 @@ try:
         ]
 
     )
+
 finally:
-    if db_data is not None:
-        try:
-            with open(db_file, "w") as f:
-                f.write(db_data)
-        except:
-            pass
+    for e in exclude:
+        if exclude[e] is not None:
+            try:
+                with open(e, "w") as f:
+                    f.write(exclude[e])
+            except:
+                pass
 
