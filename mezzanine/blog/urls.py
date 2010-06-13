@@ -7,7 +7,7 @@ from mezzanine.blog.feeds import PostsRSS, PostsAtom
 # Blog feed patterns.
 blog_feed_dict = {"rss": PostsRSS, "atom": PostsAtom}
 urlpatterns = patterns("",
-    url("^blog/feeds/(?P<url>.*)/$", "django.contrib.syndication.views.feed", 
+    url("^feeds/(?P<url>.*)/$", "django.contrib.syndication.views.feed", 
         {"feed_dict": blog_feed_dict}, name="blog_post_feed"),
 )
 

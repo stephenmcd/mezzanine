@@ -21,6 +21,9 @@ BLOG_POST_PER_PAGE = 5
 # Maximum number of paging links to show on a blog listing page.
 BLOG_POST_MAX_PAGING_LINKS = 10
 
+# Slug of the page object for the blog.
+BLOG_SLUG = "blog"
+
 # Shortname when using the Disqus comments system (http://disqus.com).
 COMMENTS_DISQUS_SHORTNAME = None
 
