@@ -1,7 +1,10 @@
-{% load pages_tags %}
+{% load i18n pages_tags %}
 
 <ul>
 	{% for page in page_branch %}
+	{% if not page.parent and forloop.first %}
+	<li><a href="{% url home %}">{% trans "Home" %}</a></li>
+	{% endif %}
 	<li>
 		<a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
 		{% page_menu page %}

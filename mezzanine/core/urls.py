@@ -56,5 +56,5 @@ for (app, app_patterns) in OPTIONAL_APP_PATTERNS:
 
 # Homepage.
 urlpatterns += patterns("",
-    ("^$", direct_to_template, {"template": "index.html"}),
+    url("^$", direct_to_template, {"template": "index.html"}, name="home"),
 )

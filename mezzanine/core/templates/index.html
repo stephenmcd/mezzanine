@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
+{% block title %}
+{% trans "Home" %}
+{% endblock %}
+
 {% block main %}
-Home 
+{% trans "This is the homepage." %}
 {% endblock %}
