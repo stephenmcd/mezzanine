@@ -14,7 +14,8 @@
     {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
     {{ year }}
 {% else %}{% if user %}
-    {% trans "Viewing posts by" %} {{ user.get_full_name }}
+    {% trans "Viewing posts by" %} 
+    {{ user.get_full_name|default:user.username }}
 {% else %}
     {% setting "BLOG_DESCRIPTION" %}
 {% endif %}{% endif %}{% endif %}
@@ -31,7 +32,7 @@
     {{ blog_post.publish_date|timesince }} {% trans "ago" %}
 </em>
 <p class="description">
-    {{ blog_post.description }}<br />
+    {{ blog_post.description|safe }}<br />
     <a href="{% url blog_post_detail blog_post.slug %}"
         >{% trans "read more" %}</a> / 
     {% if use_disqus %}
