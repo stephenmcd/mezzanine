@@ -44,11 +44,11 @@ class Query(models.Model):
         Request new tweets from the Twitter API.
         """
         if self.type == "user":
-            url = ("http://api.twitter.com/1/statuses/user_timeline/%s.json?include_rts=true" % 
-                self.value.lstrip("@"))
+            url = ("http://api.twitter.com/1/statuses/user_timeline/%s.json?"
+                "include_rts=true" % self.value.lstrip("@"))
         elif self.type == "list":
-            url = ("http://api.twitter.com/1/%s/statuses.json?include_rts=true" % 
-                self.value.lstrip("@").replace("/", "/lists/"))
+            url = ("http://api.twitter.com/1/%s/statuses.json?include_rts"
+                "=true" % self.value.lstrip("@").replace("/", "/lists/"))
         elif self.type == "search":
             url = ("http://search.twitter.com/search.json?q=%s" % 
                 quote(self.value))
@@ -74,16 +74,19 @@ class Query(models.Model):
             if self.type == "search":
                 tweet.user_name = tweet_json["from_user"]
                 tweet.full_name = tweet_json["from_user"]
+                tweet.profile_image_url = tweet_json["profile_image_url"]
+                date_format = "%a, %d %b %Y %H:%M:%S +0000"
             else:
                 user = tweet_json["user"]
                 tweet.user_name = user["screen_name"]
                 tweet.full_name = user["name"]
                 tweet.profile_image_url = user["profile_image_url"]
+                date_format = "%a %b %d %H:%M:%S +0000 %Y"
             tweet.text = urlize(tweet_json["text"])
             tweet.text = re_usernames.sub(replace_usernames, tweet.text)
             tweet.text = re_hashtags.sub(replace_hashtags, tweet.text)
             tweet.created_at = datetime.strptime(tweet_json["created_at"], 
-                "%a %b %d %H:%M:%S +0000 %Y") - timedelta(seconds=timezone)
+                date_format) - timedelta(seconds=timezone)
             tweet.save()
         self.interested = False
         self.save()
