@@ -51,7 +51,14 @@ On top of all the usual features provided by Django such as MVC architecture, OR
   * Sharing via Facebook or Twitter
   * Custom templates per page or blog post
 
+The Mezzanine admin dashboard
+
 .. image:: http://media.tumblr.com/tumblr_l3su7jFBHM1qa0qji.png
+
+Sites Using Mezzanine
+---------------------
+
+  * `Citrus Agency`_
 
 .. _`Django`: http://djangoproject.com/
 .. _`Wordpress`: http://wordpress.org/
@@ -61,4 +68,5 @@ On top of all the usual features provided by Django such as MVC architecture, OR
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`django-grappelli`: http://code.google.com/p/django-grappelli/
 .. _`django-filebrowser`: http://code.google.com/p/django-filebrowser/
+.. _`Citrus Agency`: http://citrus.com.au/
 
