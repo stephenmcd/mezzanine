@@ -38,7 +38,7 @@ try:
         install_requires = [
             "setuptools",
             "grappelli_safe",
-            "django-filebrowser",
+            "filebrowser_safe",
             "PIL",
         ],
 

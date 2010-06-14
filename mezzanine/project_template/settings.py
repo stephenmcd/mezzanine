@@ -8,7 +8,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 LANGUAGE_CODE = "en"
 SITE_ID = 1
 USE_I18N = False
-SECRET_KEY = "5tve)^cpj9gsdfg54445364TW#$%u=!p2aqwtjiwxzzt%g6p"
+SECRET_KEY = "5tve)^cpj9gsdfg54445364TW#$%u#@$%3sdfqwtjiwxzzt%g6p"
 INTERNAL_IPS = ("127.0.0.1",)
 TEMPLATE_LOADERS = (
     "django.template.loaders.filesystem.load_template_source",
@@ -33,8 +33,6 @@ TEMPLATE_DIRS = (os.path.join(project_path, "templates"),)
 ADMIN_MEDIA_PREFIX = "/media/"
 ROOT_URLCONF = "%s.urls" % project_dir
 CACHE_MIDDLEWARE_KEY_PREFIX = project_dir
-if DATABASE_ENGINE == "sqlite3":
-    DATABASE_NAME = os.path.join(project_path, DATABASE_NAME)
 
 # Apps.
 INSTALLED_APPS = (
@@ -67,15 +65,16 @@ MIDDLEWARE_CLASSES = (
 
 # Optional apps.
 import sys
+from mezzanine.settings import PACKAGE_NAME_FILEBROWSER, PACKAGE_NAME_GRAPPELLI
+
 OPTIONAL_APPS = (
     {"apps": ("debug_toolbar",), 
         "middleware": ("debug_toolbar.middleware.DebugToolbarMiddleware",)},
     {"apps": ("south",), 
         "condition": not (len(sys.argv) > 1 and sys.argv[1] == "test")},
     {"apps": ("django_extensions",)},
-    {"apps": ("filebrowser",)},
-    {"apps": ("grappelli_safe",)},
-    {"apps": ("gunicorn",)},
+    {"apps": (PACKAGE_NAME_FILEBROWSER,)},
+    {"apps": (PACKAGE_NAME_GRAPPELLI,)},
 )
 for app in OPTIONAL_APPS:
     if app.get("condition", True):
@@ -92,15 +91,15 @@ INSTALLED_APPS = sorted(INSTALLED_APPS, key=lambda s: s.startswith("django."))
 # Optional apps settings.
 if "debug_toolbar" in INSTALLED_APPS:
     DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
-if "grappelli_safe" in INSTALLED_APPS:
+if PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
     GRAPPELLI_ADMIN_HEADLINE = "Mezzanine"
     GRAPPELLI_ADMIN_TITLE = "Mezzanine"
     GRAPPELLI_MEDIA_PATH = os.path.join(os.path.dirname(
-        __import__("grappelli_safe").__file__), "media")
-if "filebrowser" in INSTALLED_APPS:
+        __import__(PACKAGE_NAME_GRAPPELLI).__file__), "media")
+if PACKAGE_NAME_FILEBROWSER in INSTALLED_APPS:
     FILEBROWSER_URL_FILEBROWSER_MEDIA = "/filebrowser/media/"
     FILEBROWSER_PATH_FILEBROWSER_MEDIA = os.path.join(os.path.dirname(
-        __import__("filebrowser").__file__), "media", "filebrowser")
+        __import__(PACKAGE_NAME_FILEBROWSER).__file__), "media", "filebrowser")
 
 # Caching.
 CACHE_BACKEND = ""
@@ -124,6 +123,8 @@ except ImportError:
     pass
 
 TEMPLATE_DEBUG = DEBUG
-if DEV_SERVER and "grappelli_safe" in INSTALLED_APPS:
+if DEV_SERVER and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
     ADMIN_MEDIA_PREFIX = "http://127.0.0.1:8000/media/admin/"
+if DATABASE_ENGINE == "sqlite3":
+    DATABASE_NAME = os.path.join(project_path, DATABASE_NAME)
 
