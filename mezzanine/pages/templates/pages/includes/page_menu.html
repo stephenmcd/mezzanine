@@ -7,7 +7,9 @@
 	{% endif %}
 	<li>
 		<a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+		{% if page.selected %}
 		{% page_menu page %}
+		{% endif %}
 	</li>
 	{% endfor %}
 </ul>

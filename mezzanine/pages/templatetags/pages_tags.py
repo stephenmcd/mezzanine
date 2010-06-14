@@ -18,6 +18,8 @@ def _page_menu(context, parent_page, page_qs):
     if "menu_pages" not in context:
         pages = defaultdict(list)
         for page in page_qs.order_by("ordering"):
+            slug = context["request"].path.strip("/")
+            setattr(page, "selected", slug.startswith(page.slug))
             pages[page.parent_id].append(page)
         context["menu_pages"] = pages
     if parent_page is not None:
@@ -40,3 +42,4 @@ def page_menu_admin(context, parent_page=None):
     """
     return _page_menu(context, parent_page, 
         Page.objects.published(for_user=context["request"].user))
+
