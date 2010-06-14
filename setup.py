@@ -2,10 +2,11 @@
 from setuptools import setup, find_packages
 import os
 
-exclude = {
-    "mezzanine/project_template/mezzanine.db": None,
-    "mezzanine/project_template/local_settings.py": None,
-}
+exclude = [
+    "mezzanine/project_template/mezzanine.db",
+    "mezzanine/project_template/local_settings.py",
+]
+exclude = dict([(e, None) for e in exclude])
 for e in exclude:
     if e.endswith(".py"):
         try:
@@ -14,7 +15,7 @@ for e in exclude:
             pass
     try:
         with open(e, "r") as f:
-            exclude[e] = f.read()
+            exclude[e] = (f.read(), os.stat(e))
         os.remove(e)
     except:
         pass
@@ -66,9 +67,12 @@ try:
 finally:
     for e in exclude:
         if exclude[e] is not None:
+            data, stat = exclude[e]
             try:
                 with open(e, "w") as f:
-                    f.write(exclude[e])
+                    f.write(data)
+                os.chown(e, stat.st_uid, stat.st_gid)
+                os.chmod(e, stat.st_mode)
             except:
                 pass
 
