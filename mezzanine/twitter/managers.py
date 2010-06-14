@@ -17,7 +17,7 @@ class TweetManager(Manager):
             type, value = "search", search_term
         else:
             return
-        from twitter.models import Query
+        from mezzanine.twitter.models import Query
         query, created = Query.objects.get_or_create(type=type, value=value)
         if created:
             query.run()
