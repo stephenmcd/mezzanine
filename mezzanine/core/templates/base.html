@@ -1,4 +1,4 @@
-{% load pages_tags %}
+{% load pages_tags mezzanine_tags %}
 <html>
 
 <head>
@@ -88,7 +88,19 @@
         <p class="mezzanine">Powered by <a 
             href="http://github.com/stephenmcd/mezzanine">Mezzanine</a></p>
     </div>
-    <div id="footer"></div>
+    <script type="text/javascript">
+        var gaID = '{% setting "GOOGLE_ANALYTICS_ID" %}';
+        if (gaID) {
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    <script type="text/javascript">
+        if (gaID) {
+            var pageTracker = _gat._getTracker(gaID);
+            pageTracker._trackPageview();
+        }
+    </script>
 </body>
 
 </html>

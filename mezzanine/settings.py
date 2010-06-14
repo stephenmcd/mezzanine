@@ -54,6 +54,10 @@ CONTENT_STATUS_CHOICES = (
     (CONTENT_STATUS_PUBLISHED, _("Published")),
 )
 
+# ID for using Google Analytics (http://www.google.com/analytics/) referred to 
+# as "Web Property ID"
+GOOGLE_ANALYTICS_ID = None
+
 # Number of different sizes given to tags when shown as a cloud.
 TAG_CLOUD_SIZES = 4
 

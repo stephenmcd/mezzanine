@@ -16,8 +16,11 @@ def setting(setting_name):
     """
     Return a setting.
     """
-    return getattr(mezzanine_settings, setting_name, 
-        getattr(settings, setting_name, ""))
+    value = getattr(mezzanine_settings, setting_name, 
+        getattr(settings, setting_name, None))
+    if value is None:
+        value = ""
+    return value
 
 def register_as_tag(register):
     """

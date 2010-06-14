@@ -46,6 +46,7 @@ On top of all the usual features provided by Django such as MVC architecture, OR
   * Built-in threaded comments, or:
   * Disqus integration
   * Gravatar integration
+  * Google Analytics integration
   * Twitter feed integration
   * bit.ly integration
   * Sharing via Facebook or Twitter
