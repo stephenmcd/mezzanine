@@ -20,7 +20,7 @@
         #menu, #main, #right-panel {float:left; height:100%;}
         #menu, #right-panel {background:#e9e9e9;}
         #menu {padding:50px; font-size:130%;}
-        #main {padding:0 30px; width:450px;}
+        #main {padding:0 30px; width:400px;}
         #right-panel {padding:8px 30px;}
         a {color:#008;}
         
@@ -56,6 +56,13 @@
         .tag-weight-2 {font-size:120%;}
         .tag-weight-3 {font-size:160%;}
         .tag-weight-4 {font-size:200%;}
+        
+        .tweets li {font-size:70%; width:190px; clear:both; margin-bottom:10px;}
+        .tweets img {float:left; border:1px solid #000; margin:0 5px 5px 0;
+            width:32px; height:32px;}
+        .tweets .timespan {font-style:italic; display:block;}
+        .recycle {font-size:150%;}
+        .retweet  {float:none; margin-bottom:-5px; width:16px; height:16px;}
 
     </style>
 
@@ -64,12 +71,18 @@
 </head>
 
 <body>
-    <div id="menu">{% page_menu %}</div>
+    <div id="menu">
+        {% page_menu %}
+    </div>
     <div id="main">
         <h1>{% block title %}{% endblock %}</h1>
         {% block main %}{% endblock %}
     </div>
-    {% block right_panel %}{% endblock %}
+    <div id="right-panel">
+        {% block right_panel %}
+        {% include "twitter/tweets.html" %}
+        {% endblock %}
+    </div>
 </body>
 
 </html>

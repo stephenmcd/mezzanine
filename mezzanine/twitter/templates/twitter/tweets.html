@@ -1,0 +1,31 @@
+
+{% load twitter_tags i18n %}
+
+{% tweets_for_search "#Django" 5 as tweets %}
+
+{% if tweets %}
+<h2>{% trans "Recent Tweets" %}</h2>
+<ul class="tweets">
+    {% for tweet in tweets %}
+    <li>
+
+        <img src="{{ tweet.profile_image_url }}"><a 
+            href="http://twitter.com/{{ tweet.user_name }}"
+            >{{ tweet.full_name }}</a> 
+
+        {% if tweet.is_retweet %}
+        <br /><span class="recycle">&#x267B;</span>
+        <img class="retweet" src="{{ tweet.retweeter_profile_image_url }}"><a 
+            href="http://twitter.com/{{ tweet.retweeter_user_name }}"
+            >{{ tweet.retweeter_full_name }}</a> 
+        {% endif %}
+
+        <span class="timespan">
+            {{ tweet.created_at|timesince }} {% trans "ago" %}
+        </span>
+        {{ tweet.text|safe }}
+
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
