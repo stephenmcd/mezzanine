@@ -12,7 +12,8 @@ from mezzanine.settings import ADMIN_REMOVAL, CONTENT_MEDIA_PATH, \
 
 
 urlpatterns = patterns("",
-    url("^admin_keywords/$", "mezzanine.core.views.admin_keywords_submit", 
+    url("^admin_keywords_submit/$", 
+        "mezzanine.core.views.admin_keywords_submit", 
         name="admin_keywords_submit"),
     ("^%s/(?P<path>.*)$" % CONTENT_MEDIA_URL.strip("/"), 
         "django.views.static.serve", {'document_root': CONTENT_MEDIA_PATH}),
