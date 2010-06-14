@@ -61,3 +61,6 @@ GOOGLE_ANALYTICS_ID = None
 # Number of different sizes given to tags when shown as a cloud.
 TAG_CLOUD_SIZES = 4
 
+# If True, the pages menu will show all levels of navigation by default, 
+# otherwise child pages are only shown when viewing the parent page.
+PAGES_MENU_SHOW_ALL = True

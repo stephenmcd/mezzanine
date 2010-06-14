@@ -8,7 +8,7 @@
 	<li>
 		<a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
 		{# remove this if tag to always show all nav items #}
-		{% if page.selected %}
+		{% if PAGES_MENU_SHOW_ALL or page.selected %}
 		{% page_menu page %}
 		{% endif %}
 	</li>

@@ -4,6 +4,7 @@ from collections import defaultdict
 from django import template
 
 from mezzanine.pages.models import Page
+from mezzanine.settings import PAGES_MENU_SHOW_ALL
 
 
 register = template.Library()
@@ -25,6 +26,7 @@ def _page_menu(context, parent_page, page_qs):
     if parent_page is not None:
         parent_page = parent_page.id
     context["page_branch"] = context["menu_pages"].get(parent_page, [])
+    context["PAGES_MENU_SHOW_ALL"] = PAGES_MENU_SHOW_ALL
     return context
 
 @register.inclusion_tag("pages/includes/page_menu.html", takes_context=True)
