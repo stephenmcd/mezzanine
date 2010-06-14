@@ -63,6 +63,8 @@
         .tweets .timespan {font-style:italic; display:block;}
         .recycle {font-size:150%;}
         .retweet  {float:none; margin-bottom:-5px; width:16px; height:16px;}
+        
+        .mezzanine {margin-top:30px; font-size:80%;}
 
     </style>
 
@@ -82,7 +84,10 @@
         {% block right_panel %}
         {% include "twitter/tweets.html" %}
         {% endblock %}
+        <p class="mezzanine">Powered by <a 
+            href="http://github.com/stephenmcd/mezzanine">Mezzanine</a></p>
     </div>
+    <div id="footer"></div>
 </body>
 
 </html>
