@@ -1,0 +1,2 @@
+
+from mezzanine import tests
