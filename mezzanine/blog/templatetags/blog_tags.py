@@ -42,11 +42,15 @@ def blog_comments_for(context, parent):
         parent = None
     else:
         parent = parent.id
+    try:
+        replied_to = int(context["request"].POST["replied_to"])
+    except KeyError:
+        replied_to = 0
     context.update({
         "comments_thread": context["blog_comments"].get(parent, []),
         "no_comments": parent is None and not comments,
         "comments_default_approved": blog_settings.COMMENTS_DEFAULT_APPROVED,
-        "replied_to": int(context["request"].POST.get("replied_to", 0)),
+        "replied_to": replied_to,
     })
     return context
 
@@ -137,11 +141,8 @@ def recent_comments(context):
             for comment in comments:
                 try:
                     blog_post = posts[post_from_comment(comment)]
-                    comment_url = "%s#comment-%s" % (
-                        post.get_absolute_url(), comment["id"])
                 except KeyError:
                     blog_post = None
-                    comment_url = ""
                 context["comments"].append({
                     "name": comment["author"]["display_name"],
                     "email": comment["author"]["email"],
@@ -149,10 +150,10 @@ def recent_comments(context):
                     "body": comment["message"],
                     "time_created": datetime.strptime(comment["created_at"], 
                         "%Y-%m-%dT%H:%M") - timedelta(seconds=timezone),
-                    "get_absolute_url": comment_url,
                     "post": blog_post,
                 })
     else:
-        context["comments"] = Comment.objects.all().order_by("-id")[:latest]
+        context["comments"] = Comment.objects.all().select_related(
+            ).order_by("-id")[:latest]
     return context
 
