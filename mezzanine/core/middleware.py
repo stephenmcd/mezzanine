@@ -1,13 +1,9 @@
 
-MOBILE_USERAGENTS = ("2.0 MMP","240x320","400X240","AvantGo","BlackBerry",
-    "Blazer","Cellphone","Danger","DoCoMo","Elaine/3.0","EudoraWeb",
-    "Googlebot-Mobile","hiptop","IEMobile","KYOCERA/WX310K","LG/U990",
-    "MIDP-2.","MMEF20","MOT-V","NetFront","Newt","Nintendo Wii","Nitro",
-    "Nokia","Opera Mini","Palm","PlayStation Portable","portalmmm","Proxinet",
-    "ProxiNet","SHARP-TQ-GX10","SHG-i900","Small","SonyEricsson","Symbian OS",
-    "SymbianOS","TS21i-10","UP.Browser","UP.Link","webOS","Windows CE",
-    "WinWAP","YahooSeeker/M1A1-R2D2","iPhone","iPod","Android",
-    "BlackBerry9530","LG-TU915 Obigo","LGE VX","webOS","Nokia5800")
+from django.template import TemplateDoesNotExist
+from django.template.loader import get_template
+
+from mezzanine.settings import MOBILE_USER_AGENTS
+
 
 class MobileTemplate(object):
     """
@@ -17,8 +13,8 @@ class MobileTemplate(object):
     """
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if any(ua for ua in MOBILE_USERAGENTS if ua in 
-            request.META.get("HTTP_USER_AGENT", "")):
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
+        if [check for check in MOBILE_USER_AGENTS if check in user_agent]:
             template = view_kwargs.get("template")
             if template is None:
                 for default in view_func.func_defaults:

@@ -11,6 +11,7 @@ ADMIN_REMOVAL = ()
 # Blog feed settings.
 BLOG_TITLE = "The Mezzanine Blog"
 BLOG_DESCRIPTION = "The Mezzanine Blog"
+
 # Credentials for bit.ly URL shortening service.
 BLOG_BITLY_USER = None
 BLOG_BITLY_KEY = None
@@ -57,6 +58,17 @@ CONTENT_STATUS_CHOICES = (
 # ID for using Google Analytics (http://www.google.com/analytics/) referred to 
 # as "Web Property ID"
 GOOGLE_ANALYTICS_ID = None
+
+# Strings to check for in user agents when testing for a mobile device.
+MOBILE_USER_AGENTS = ("2.0 MMP","240x320","400X240","AvantGo","BlackBerry",
+    "Blazer","Cellphone","Danger","DoCoMo","Elaine/3.0","EudoraWeb",
+    "Googlebot-Mobile","hiptop","IEMobile","KYOCERA/WX310K","LG/U990",
+    "MIDP-2.","MMEF20","MOT-V","NetFront","Newt","Nintendo Wii","Nitro",
+    "Nokia","Opera Mini","Palm","PlayStation Portable","portalmmm","Proxinet",
+    "ProxiNet","SHARP-TQ-GX10","SHG-i900","Small","SonyEricsson","Symbian OS",
+    "SymbianOS","TS21i-10","UP.Browser","UP.Link","webOS","Windows CE",
+    "WinWAP","YahooSeeker/M1A1-R2D2","iPhone","iPod","Android",
+    "BlackBerry9530","LG-TU915 Obigo","LGE VX","webOS","Nokia5800")
 
 # Number of different sizes given to tags when shown as a cloud.
 TAG_CLOUD_SIZES = 4
