@@ -18,7 +18,7 @@
             {{ comment.time_created|timesince }} {% trans "ago" %}
 	    </em>
 		<p>{{ comment }}</p>
-        <a href="{{ comment.get_absolute_url }}">{% trans "Link" %}</a> / 
+        <a href="{{ request.path }}#comment-{{ comment.id }}">{% trans "Link" %}</a> / 
         <a href="#reply-{{ comment.id }}" class="reply">{% trans "Reply" %}</a>
         <form method="post" id="reply-{{ comment.id }}"
             class="comment{% ifequal replied_to comment.id %} posted{% endifequal %}">
