@@ -64,33 +64,30 @@ MIDDLEWARE_CLASSES = (
 )
 
 # Optional apps.
-import sys
 from mezzanine.settings import PACKAGE_NAME_FILEBROWSER, PACKAGE_NAME_GRAPPELLI
 
 OPTIONAL_APPS = (
-    {"apps": ("debug_toolbar",), 
-        "middleware": ("debug_toolbar.middleware.DebugToolbarMiddleware",)},
-    {"apps": ("south",), 
-        "condition": not (len(sys.argv) > 1 and sys.argv[1] == "test")},
-    {"apps": ("django_extensions",)},
-    {"apps": (PACKAGE_NAME_FILEBROWSER,)},
-    {"apps": (PACKAGE_NAME_GRAPPELLI,)},
+    "debug_toolbar",
+    "south",
+    "django_extensions", 
+    PACKAGE_NAME_FILEBROWSER,
+    PACKAGE_NAME_GRAPPELLI,
 )
-for app in OPTIONAL_APPS:
-    if app.get("condition", True):
+
+import sys
+if not (len(sys.argv) > 1 and sys.argv[1] == "test"):
+    for app in OPTIONAL_APPS:
         try:
-            __import__(app.get("import", app["apps"][0]))
+            __import__(app)
         except ImportError:
             pass
         else:
-            INSTALLED_APPS += app.get("apps", ())
-            MIDDLEWARE_CLASSES += app.get("middleware", ())
-            TEMPLATE_CONTEXT_PROCESSORS += app.get("context_processors", ())
-INSTALLED_APPS = sorted(INSTALLED_APPS, key=lambda s: s.startswith("django."))
+            INSTALLED_APPS = (app,) + INSTALLED_APPS
 
-# Optional apps settings.
+# Optional app settings.
 if "debug_toolbar" in INSTALLED_APPS:
     DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
+    MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 if PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
     GRAPPELLI_ADMIN_HEADLINE = "Mezzanine"
     GRAPPELLI_ADMIN_TITLE = "Mezzanine"
