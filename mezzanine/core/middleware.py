@@ -18,7 +18,7 @@ class MobileTemplate(object):
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         if any(ua for ua in MOBILE_USERAGENTS if ua in 
-            request.META["HTTP_USER_AGENT"]):
+            request.META.get("HTTP_USER_AGENT", "")):
             template = view_kwargs.get("template")
             if template is None:
                 for default in view_func.func_defaults:
