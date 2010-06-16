@@ -51,11 +51,11 @@ On top of all the usual features provided by Django such as MVC architecture, OR
   * Blogging engine
   * Tagging
   * Built-in threaded comments, or:
-  * Disqus integration
-  * Gravatar integration
-  * Google Analytics integration
-  * Twitter feed integration
-  * bit.ly integration
+  * `Disqus` integration
+  * `Gravatar`_ integration
+  * `Google Analytics`_ integration
+  * `Twitter`_ feed integration
+  * `bit.ly`_ integration
   * Sharing via Facebook or Twitter
   * Custom templates per page or blog post
 
@@ -68,6 +68,11 @@ Sites Using Mezzanine
 
   * `Citrus Agency`_
 
+Quotes
+------
+
+  * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `swhite`_
+
 .. _`Django`: http://djangoproject.com/
 .. _`Wordpress`: http://wordpress.org/
 .. _`Pinax`: http://pinaxproject.com/
@@ -76,5 +81,11 @@ Sites Using Mezzanine
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`django-grappelli`: http://code.google.com/p/django-grappelli/
 .. _`django-filebrowser`: http://code.google.com/p/django-filebrowser/
+.. _`Disqus`: http://disqus.com/
+.. _`Gravatar`: http://gravatar.com/
+.. _`Google Analytics`: http://www.google.com/analytics/
+.. _`Twitter`: http://twitter.com/
+.. _`bit.ly`: http://bit.ly/
 .. _`Citrus Agency`: http://citrus.com.au/
+.. _`swhite`: http://bitbucket.org/swhite/
 
