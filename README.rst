@@ -1,9 +1,9 @@
 Overview
 --------
 
-Mezzanine is a content management platform built using the `Django`_ framework. It is BSD licenced and designed to provide both a consistant interface for managing content, and a simple archtiecture that makes diving in and hacking on the code as easy as possible.
+Mezzanine is a content management platform built using the `Django`_ framework. It is BSD licenced and designed to provide both a consistant interface for managing content, and a simple architecture that makes diving in and hacking on the code as easy as possible.
 
-Its goal is to resemble something like `Wordpress`_, with an intuitive interface for managing pages and blog posts. Mezzanine takes a different approach from a lot of other Django applications in this space like `Pinax`_ or `Mingus`_ that glue together a lot of reusable apps, instead opting to provide most of its functionality included with the project by default.
+Its goal is to resemble something like `Wordpress`_, with an intuitive interface for managing pages and blog posts. Mezzanine takes a different approach from other Django applications in this space like `Pinax`_ or `Mingus`_ that glue together a lot of reusable apps, instead opting to provide most of its functionality included with the project by default.
 
 Dependencies
 ------------
@@ -13,12 +13,12 @@ Apart from `Django`_ itself, Mezzanine has no explicit dependencies but is desig
   * `setuptools`_
   * `Python Imaging Library`_ (PIL)
   * `django-grappelli`_ <= 2.0
-  * `django-filebrowser`_
+  * `django-filebrowser`_ <= 3.0
 
 Installation
 ------------
 
-Assuming you have `setuptools`_ installed, the easiest method is to install directly from Pypi by running the following command, which will also attempt to install the dependencies mentioned above::
+Assuming you have `setuptools`_ installed, the easiest method is to install directly from pypi by running the following command, which will also attempt to install the dependencies mentioned above::
 
     $ easy_install -U mezzanine
 
@@ -26,9 +26,15 @@ Otherwise you can download Mezzanine and install it directly from source::
 
     $ python setup.py install
     
-Once installed the command ``mezzanine-project`` should be available which can be for creating a new Mezzaine project in a similar fashion to ``django-admin.py``::
+Once installed, the command ``mezzanine-project`` should be available which can be used for creating a new Mezzaine project in a similar fashion to ``django-admin.py``::
 
     $ mezzanine-project project_name
+
+You can then run your project with the usual Django steps::
+
+    $ cd project_name
+    $ ./manage.py syncdb
+    $ ./manage.py runserver
 
 Features
 --------
@@ -37,6 +43,7 @@ On top of all the usual features provided by Django such as MVC architecture, OR
 
   * Hierarchical page navigation
   * Save as draft and preview on site
+  * Scheduled publishing
   * Drag-n-drop page ordering
   * WYSIWYG editing
   * SEO friendly URLs and meta data
@@ -52,7 +59,7 @@ On top of all the usual features provided by Django such as MVC architecture, OR
   * Sharing via Facebook or Twitter
   * Custom templates per page or blog post
 
-The Mezzanine admin dashboard
+The Mezzanine admin dashboard:
 
 .. image:: http://media.tumblr.com/tumblr_l3su7jFBHM1qa0qji.png
 
