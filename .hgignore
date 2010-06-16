@@ -2,7 +2,6 @@ syntax: glob
 *.pyc
 *.pyo
 *.db
-local_settings.py
 build/*
 dist/*
 Mezzanine.egg-info/*

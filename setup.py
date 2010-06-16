@@ -2,10 +2,7 @@
 from setuptools import setup, find_packages
 import os
 
-exclude = [
-    "mezzanine/project_template/mezzanine.db",
-    "mezzanine/project_template/local_settings.py",
-]
+exclude = ["mezzanine/project_template/mezzanine.db",]
 exclude = dict([(e, None) for e in exclude])
 for e in exclude:
     if e.endswith(".py"):
