@@ -2,7 +2,6 @@
 from datetime import datetime
 from hashlib import md5
 
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -25,8 +24,9 @@ class BlogPost(Displayable):
         verbose_name_plural = "Blog posts"
         ordering = ("-publish_date",)
 
+    @models.permalink
     def get_absolute_url(self):
-        return reverse("blog_post_detail", kwargs={"slug": self.slug})
+        return ("blog_post_detail", (), {"slug": self.slug})
 
 class Comment(models.Model):
     """
@@ -58,8 +58,7 @@ class Comment(models.Model):
         return self.body
         
     def get_absolute_url(self):
-        return "%s#comment-%s" % (reverse("blog_post_detail", 
-            kwargs={"slug": self.blog_post.slug}), self.id)
+        return "%s#comment-%s" % (self.blog_post.get_absolute_url(), self.id)
 
     def save(self, *args, **kwargs):
         if not self.email_hash:

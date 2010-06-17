@@ -1,5 +1,5 @@
 
-from django.core.urlresolvers import resolve, reverse
+from django.core.urlresolvers import resolve
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -26,8 +26,9 @@ class Page(Displayable):
     def __unicode__(self):
         return self.titles
         
+    @models.permalink
     def get_absolute_url(self):
-        return reverse("page", kwargs={"slug": self.get_slug()})
+        return ("page", (), {"slug": self.get_slug()})
 
     def save(self, *args, **kwargs):
         """
