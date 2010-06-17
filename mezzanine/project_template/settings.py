@@ -36,15 +36,15 @@ CACHE_MIDDLEWARE_KEY_PREFIX = project_dir
 
 # Apps.
 INSTALLED_APPS = (
-    "mezzanine.core",
-    "mezzanine.blog",
-    "mezzanine.pages",
-    "mezzanine.twitter",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.sites",
+    "mezzanine.core",
+    "mezzanine.blog",
+    "mezzanine.pages",
+    "mezzanine.twitter",
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -83,7 +83,8 @@ if not (len(sys.argv) > 1 and sys.argv[1] == "test"):
         except ImportError:
             pass
         else:
-            INSTALLED_APPS = (app,) + INSTALLED_APPS
+            INSTALLED_APPS += (app,)
+INSTALLED_APPS = sorted(list(INSTALLED_APPS), reverse=True)
 
 # Optional app settings.
 if "debug_toolbar" in INSTALLED_APPS:
