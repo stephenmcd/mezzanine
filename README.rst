@@ -51,7 +51,7 @@ On top of all the usual features provided by Django such as MVC architecture, OR
   * Blogging engine
   * Tagging
   * Built-in threaded comments, or:
-  * `Disqus` integration
+  * `Disqus`_ integration
   * `Gravatar`_ integration
   * `Google Analytics`_ integration
   * `Twitter`_ feed integration
