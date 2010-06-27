@@ -96,6 +96,6 @@ Quotes
 .. _`bit.ly`: http://bit.ly/
 .. _`Citrus Agency`: http://citrus.com.au/
 .. _`swhite`: http://bitbucket.org/swhite/
-.. _`Github`: http://github.com/stephemcd/mezzanine/
-.. _`Bitbucket`: http://bitbucket.org/stephemcd/mezzanine/
+.. _`Github`: http://github.com/stephenmcd/mezzanine/
+.. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
 
