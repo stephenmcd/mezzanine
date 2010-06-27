@@ -16,6 +16,7 @@ On top of all the usual features provided by Django such as MVC architecture, OR
   * Scheduled publishing
   * Drag-n-drop page ordering
   * WYSIWYG editing
+  * API for custom content types
   * SEO friendly URLs and meta data
   * Mobile device detection and templates
   * Blogging engine
@@ -30,7 +31,7 @@ On top of all the usual features provided by Django such as MVC architecture, OR
   * Custom templates per page or blog post
   * Built-in test suite
 
-The Mezzanine admin dashboard
+The Mezzanine admin dashboard:
 
 .. image:: http://media.tumblr.com/tumblr_l3su7jFBHM1qa0qji.png
 
