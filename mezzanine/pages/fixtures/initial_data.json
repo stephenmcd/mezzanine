@@ -6,7 +6,7 @@
             "status": 2, 
             "description": "About us", 
             "title": "About", 
-            "ordering": 0, 
+            "_order": 0, 
             "content": "About us", 
             "titles": "About", 
             "slug": "about"
@@ -19,7 +19,7 @@
             "status": 2, 
             "description": "Blog", 
             "title": "Blog", 
-            "ordering": 1, 
+            "_order": 1, 
             "content": "Blog", 
             "titles": "Blog", 
             "slug": "blog"
