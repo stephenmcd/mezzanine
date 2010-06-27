@@ -56,7 +56,8 @@ $(function() {
     // select-multiple, and allow form to submit.
     var keywordsSaved = false;
     var form = $('#id_keywords').attr('form');
-    $(form).submit(function() {
+    $(form).find('input[type=submit]').click(function() {
+        var button = this;
         if (!keywordsSaved) {
             var keywords = {text_keywords: form.text_keywords.value};
 	        $.post('/admin_keywords_submit/', keywords, function(ids) {
@@ -67,7 +68,7 @@ $(function() {
 	                }).join(''));
 	            }
 	            keywordsSaved = true;
-	            form.submit();
+	            button.click();
 	        });
         }
         return keywordsSaved;
