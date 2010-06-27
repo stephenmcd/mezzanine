@@ -4,24 +4,24 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.core.models import Displayable
+from mezzanine.core.models import Displayable, Orderable
 
 
-class Page(Displayable):
+class Page(Orderable, Displayable):
     """
     A page in the page tree.
     """
-
-    parent = models.ForeignKey("self", blank=True, null=True, 
+    
+    parent = models.ForeignKey("Page", blank=True, null=True, 
         related_name="children")
-    titles = models.CharField(editable=False, max_length=1000, blank=True, 
-        null=True)
-    ordering = models.IntegerField(editable=False, null=True)
+    titles = models.CharField(editable=False, max_length=1000, null=True)
+    content_model = models.CharField(editable=False, max_length=50, null=True)
 
     class Meta:
         verbose_name = _("Page")
         verbose_name_plural = _("Pages")
         ordering = ("titles",)
+        order_with_respect_to = "parent"
 
     def __unicode__(self):
         return self.titles
@@ -42,16 +42,11 @@ class Page(Displayable):
                 titles.insert(0, parent.title)
                 parent = parent.parent
             self.titles = " / ".join(titles)
-            self.ordering = Page.objects.filter(parent=self.parent).count()
+            self.content_model = self.__class__.__name__.lower()
         super(Page, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Update the ordering values for the sibling pages.
-        """
-        Page.objects.filter(parent=self.parent, ordering__gte=self.ordering
-            ).update(ordering=models.F("ordering") - 1)
-        super(Page, self).delete(*args, **kwargs)
+    
+    def get_content_model(self):
+        return getattr(self, self.content_model, None)
 
     def get_slug(self):
         """

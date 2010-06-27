@@ -45,7 +45,7 @@ def register_render_tag(register):
     """
     Decorator that creates a template tag using the given renderer as the 
     render function for the template tag node - the render function takes two 
-    arguments - the template context and the tag token
+    arguments - the template context and the tag token.
     """
     def wrapper(renderer):
         def tag(parser, token):
@@ -85,7 +85,7 @@ def set_short_url_for(context, token):
 def admin_reorder(context, token):
     """
     Called in admin/base_site.html template override and applies custom ordering 
-    of apps/models defined by settings.ADMIN_REORDER
+    of apps/models defined by settings.ADMIN_REORDER.
     """
     # sort key function - use index of item in order if exists, otherwise item
     sort = lambda order, item: (order.index(item), "") if item in order else (

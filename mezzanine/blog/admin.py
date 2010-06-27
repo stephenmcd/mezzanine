@@ -9,11 +9,6 @@ from mezzanine.settings import COMMENTS_DISQUS_SHORTNAME
 class BlogPostAdmin(DisplayableAdmin):
 
     list_display = ("title", "user", "status", "admin_link")
-    list_display_links = ("title",)
-    list_editable = ("status",)
-    list_filter = ("status",)
-    search_fields = ("title", "body",)
-    date_hierarchy = "publish_date"
 
     def save_model(self, request, obj, form, change):
         """

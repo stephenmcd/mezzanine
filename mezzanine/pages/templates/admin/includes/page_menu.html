@@ -14,11 +14,13 @@
 			    <img src="{% admin_media_prefix %}img/admin/arrow-up.gif" />
 			    <img src="{% admin_media_prefix %}img/admin/arrow-down.gif" />
 			</span>
-			{% if has_add_permission %}
-			<a href="{% url admin:pages_page_add %}?parent={{ page.id }}"
-				class="addlink" id="addlink-{{ page.id }}">
-				{% trans "Add Sub-Page" %}</a>
-			{% endif %}
+			<select class="addlist" id="addlink-{{ page.id }}">
+			    <option value="">{% trans "Add secondary" %} ...</option>
+    			{% for model in page_models %}
+			    <option value="{{ model.add_url }}?parent={{ page.id }}"
+			        >{{ model.name }}</option>
+		    	{% endfor %}
+		    </select>
 		</div>
 		<br clear="all" />
 		{% page_menu_admin page %}

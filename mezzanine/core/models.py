@@ -3,6 +3,7 @@ from datetime import datetime
 
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models.base import ModelBase
 from django.template.defaultfilters import slugify, truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -24,6 +25,7 @@ class Displayable(models.Model):
         choices=blog_settings.CONTENT_STATUS_CHOICES, 
         default=blog_settings.CONTENT_STATUS_DRAFT)
     publish_date = models.DateTimeField(_("Published from"), blank=True, 
+        help_text=_("With published selected, won't be shown until this time"), 
         default=datetime.now)
     slug = models.SlugField(max_length=100, editable=False, null=True)
     keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
@@ -73,7 +75,70 @@ class Displayable(models.Model):
             ugettext("View on site"))
     admin_link.allow_tags = True
     admin_link.short_description = ""
-                
+
+class OrderableBase(ModelBase):
+    """
+    Checks for order_with_respect_to on the model's inner Meta class and if 
+    found, copies it to a custom attribute and deletes it since it will cause 
+    errors when used with ForeignKey("self"). Also specify ordering on the Meta 
+    class if not yet provided.
+    """
+
+    def __new__(cls, name, bases, attrs):
+        if "Meta" not in attrs:
+            attrs["Meta"] = object()
+        if hasattr(attrs["Meta"], "order_with_respect_to"):
+            attrs["order_with_respect_to"] = attrs["Meta"].order_with_respect_to
+            del attrs["Meta"].order_with_respect_to
+        if not hasattr(attrs["Meta"], "ordering"):
+            setattr(attrs["Meta"], "ordering", ("_order",))
+        return super(OrderableBase, cls).__new__(cls, name, bases, attrs)
+
+class Orderable(models.Model):
+    """
+    Provide a custom ordering integer field similar to using Meta's 
+    order_with_respect_to since to date (Django 1.2) order_with_respect_to 
+    doesn't work with ForeignKey("self"). We may also want this feature for 
+    models that aren't ordered with respect to a particular field.
+    """
+
+    __metaclass__ = OrderableBase
+    
+    _order = models.IntegerField(_("Order"), null=True)
+
+    class Meta:
+        abstract = True
+        
+    def with_respect_to(self):
+        """
+        Returns a dict to use as a filter for ordering operations containing 
+        the original Meta.order_with_respect_to value if provided.
+        """
+        try:
+            field = self.order_with_respect_to
+            return {field: getattr(self, field)}
+        except AttributeError:
+            return {}
+        
+    def save(self, *args, **kwargs):
+        """
+        Set the initial ordering value.
+        """
+        if self._order is None:
+            lookup = self.with_respect_to()
+            self._order = self.__class__.objects.filter(**lookup).count()
+        super(Orderable, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """
+        Update the ordering values for siblings.
+        """
+        lookup = self.with_respect_to()
+        lookup["_order__gte"] = self._order
+        after = self.__class__.objects.filter(**lookup)
+        after.update(_order=models.F("_order") - 1)
+        super(Orderable, self).delete(*args, **kwargs)
+
 class Keyword(models.Model):
     """
     Keywords/tags which are managed via a custom Javascript based widget in the 
@@ -86,7 +151,7 @@ class Keyword(models.Model):
         ordering = ("value",)
 
     value = models.CharField(max_length=50)
-    
+
     def __unicode__(self):
         return self.value
-    
+

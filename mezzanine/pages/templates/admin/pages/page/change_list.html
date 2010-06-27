@@ -4,9 +4,10 @@
 {% block extrahead %}{{ block.super }}
 <style type="text/css">
 
+	h1 {width:300px;}
 	#tree {margin-top:10px; width:600px;}
 	#tree div {border:1px solid #ccc; background:#f9f9f9; padding:7px; 
-		float:left; width:100%; margin:2px;}
+		float:left; width:100%; margin:2px; height:18px;}
 	#tree ul {padding:0;}
 	#tree ul ul {padding-left:40px; display:none;}
 	#tree li {list-style-type:none;}
@@ -19,6 +20,10 @@
 	#tree a .close {display:none;}
 	#tree a:hover .icon {color:#fff; background:#5B80B2;}
 	.ordering {float:right; cursor:move; margin-left:10px;}
+
+	.addlist {float:right; margin-top:-3px;}
+	#addlist-primary {float:left; width:620px; text-align:right; 
+	    margin-top:-25px;}
 
 </style>
             
@@ -54,6 +59,7 @@
 	};
 	
 	$(function() {
+
 		$('#tree .tree-toggle').click(function() {
 			// Show/hide the branch and toggle the icon.
 			var pageLink = $(this);
@@ -65,45 +71,63 @@
 			toggleID(opened, id);
 			return false;
 		});
+
 		// Show previously opened branches.
 		if (ids) {
 			$('#page-' + ids.split(',').join(', #page-')).click();
 		}
+
 		// Show the open/close button for branches that have children
 		$('li:has(li) .tree-toggle').css({visibility: 'visible'});
 		$('li:not(:has(li)) .tree-toggle').css({visibility: 'hidden'});
-		// Ensure the branch is saved as open when adding to it so that the 
-		// new branch will be visible directly after saving.
-		$('.addlink').click(function() {
-			toggleID(true, $(this).attr('id').split('-')[1]);
+		
+		// The dropdown list for adding a new page contains URLs for each 
+		// model - redirect when selected.
+		$('.addlist').change(function() {
+		    // Ensure the branch is saved as open when adding to it so that 
+		    // the new branch will be visible directly after saving.
+		    var id = $(this).attr('id');
+		    if (id) {
+    			toggleID(true, id.split('-')[1]);
+    		}
+			var addUrl = this[this.selectedIndex].value;
+			if (addUrl) {
+			    location.href = addUrl;
+			}
+			this.selectedIndex = 0;
 			return true;
 		});
+		
 		// AJAX callback that's triggered when dragging a page to re-order 
 		// it has ended.
 		var updateOrdering = function(event, ui) {
 		    var ordering = $(this).sortable('toArray').toString();
 		    $.post('{% url admin_page_ordering %}', {ordering: ordering});
 		};
+		
 		// Make the pages sortable via drag and drop.
 		$('#tree ul').sortable({handle: '.ordering', axis: 'y', opacity: '.7', 
 		    stop: updateOrdering});
 		$('#tree ul').disableSelection();
+
 	});
 
 </script>
 {% endblock %}
 
 {% block content %}
+{% models_for_pages as page_models %}
 <div id="content-main">
 
 	{% if has_add_permission %}
-	<ul class="object-tools">
-	  <li>
-		<a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
-		  {% blocktrans with cl.opts.verbose_name as name %}Add Primary {{ name }}{% endblocktrans %}
-		</a>
-	  </li>
-	</ul>
+	<div id="addlist-primary">
+	    <select class="addlist">
+	        <option value="">{% trans "Add primary" %} ...</option>
+		    {% for model in page_models %}
+	        <option value="{{ model.add_url }}">{{ model.name }}</option>
+        	{% endfor %}
+        </select>
+    </div>
 	{% endif %}
 
 	{% ifequal cl.result_count 0 %}
