@@ -13,6 +13,9 @@ from mezzanine.settings import BLOG_SLUG, CONTENT_STATUS_DRAFT, \
 
 
 class Tests(TestCase):
+    """
+    Mezzanine tests.
+    """
     
     fixtures = ["initial_data.json"]
     

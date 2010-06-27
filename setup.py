@@ -27,7 +27,7 @@ try:
         description = "A content management platform built using the Django framework.",
         long_description = open("README.rst").read(),
         license = "BSD",
-        url = "http://github.com/stephenmcd/mezzanine/",
+        url = "http://mezzanine.jupo.org/",
         zip_safe = False,
         include_package_data = True,
         packages = find_packages(),
