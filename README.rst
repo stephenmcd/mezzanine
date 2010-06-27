@@ -30,10 +30,9 @@ On top of all the usual features provided by Django such as MVC architecture, OR
   * Custom templates per page or blog post
   * Built-in test suite
 
-.. image:: http://media.tumblr.com/tumblr_l3su7jFBHM1qa0qji.png
-    :align: center
+The Mezzanine admin dashboard
 
-.. centered:: The Mezzanine admin dashboard
+.. image:: http://media.tumblr.com/tumblr_l3su7jFBHM1qa0qji.png
 
 Dependencies
 ------------
