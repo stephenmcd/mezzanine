@@ -7,9 +7,12 @@ Mezzanine primarily revolves around the models found in two packages, ``mezzaine
 The ``Page`` model
 ------------------
 
-The foundation of a Mezzanine site is the model ``mezzanine.pages.models.Page``. Each ``Page`` instance is stored in a heirarchical tree to form the site's navigation, and an interface for managing the structure of the navigation tree is provided in the admin via ``mezzanine.pages.admin.PageAdmin``.
+The foundation of a Mezzanine site is the model ``mezzanine.pages.models.Page``. Each ``Page`` instance is stored in a heirarchical tree to form the site's navigation, and an interface for managing the structure of the navigation tree is provided in the admin via ``mezzanine.pages.admin.PageAdmin``. When creating new pages in the admin with a default Mezzanine project, the ``Page`` model is used which simply contains a WYSIWYG editable field for content.
 
-When creating new pages in the admin with a default Mezzanine project, the ``Page`` model is used which simply contains a WYSIWYG editable field for content. In order to handle different types of pages that require more structured content than provided by the ``Page`` model, you can simply create your own models that inherit from ``Page``. For example if we wanted to have pages that were photo galleries::
+Creating custom content types
+-----------------------------
+
+In order to handle different types of pages that require more structured content than provided by the ``Page`` model, you can simply create your own models that inherit from ``Page``. For example if we wanted to have pages that were photo galleries::
 
     from django.db import models
     from mezzanine.pages.models import Page
@@ -39,6 +42,24 @@ You'll also need to create an admin class for the Gallery model that inherits fr
     admin.site.register(Gallery, GalleryAdmin)
 
 By using an admin class that inherits from ``PageAdmin`` the admin class won't be listed in the admin index page, instead being made available as a type of ``Page`` when creating new pages from the navigation tree.
+
+Displaying custom content types
+-------------------------------
+
+When creating models that inherit from the ``Page`` model, multi-table inheritence is used under the hood. This means that when dealing with the page object, an attribute is created from the subclass model's name. So given a ``Page`` instance using the previous example, accessing the ``Gallery`` instance would be as follows::
+
+    >>> Gallery.objects.create(title="My gallery")
+    <Gallery: My gallery>
+    >>> page = Page.objects.get(title="My gallery")
+    >>> page.gallery
+    <Gallery: My gallery>
+
+The ``Page`` model also contains the method ``Page.get_content_model`` for retrieving the custom instance without knowing its type beforehand::
+
+    >>> page.get_content_model() 
+    <Gallery: My gallery>
+
+The view function ``mezzaine.pages.views.page`` handles returning a ``Page`` instance to a template. By default the template ``pages/page.html`` is used, but if a custom template exists it will be used instead. The check for a custom template will first check for a template with the same name as the ``Page`` instance's slug, and if not then a template with a name derived from the subclass model's name is checked for. So given the above example the templates ``pages/my-gallery.html`` and ``pages/gallery.html`` would be checked for respectively.
 
 The ``Displayable`` model
 -------------------------
