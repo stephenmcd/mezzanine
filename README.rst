@@ -66,6 +66,11 @@ You can then run your project with the usual Django steps::
     $ ./manage.py syncdb
     $ ./manage.py runserver
 
+Contributing
+------------
+
+Mezzanine is an open source project that is managed using both Git and Mercurial version control systems. These repositories are hosted on both `Github`_ and `Bitbucket`_ respectively, so contributing is as easy as forking the project on either of these sites and committing back your enhancements. 
+
 Sites Using Mezzanine
 ---------------------
 
@@ -91,4 +96,6 @@ Quotes
 .. _`bit.ly`: http://bit.ly/
 .. _`Citrus Agency`: http://citrus.com.au/
 .. _`swhite`: http://bitbucket.org/swhite/
+.. _`Github`: http://github.com/stephemcd/mezzanine/
+.. _`Bitbucket`: http://bitbucket.org/stephemcd/mezzanine/
 
