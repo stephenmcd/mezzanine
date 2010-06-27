@@ -420,7 +420,7 @@ span.eqno {
 
 body {margin:0;}
 body * {font-family:georgia, garamond, serif;}
-.body {padding:0 10px;}
+.body {padding:0 20px 40px 20px;}
 h1 {font-size:250%;}
 h1, h2 {background:#eee; padding:10px; border-bottom:1px solid #bbb;}
 h3, h4, .topless, .this-page-menu {margin:0; padding:0 !important;}
@@ -435,9 +435,10 @@ a {color:#336;}
 .related li {color:#ccc;}
 .related .right a {font-size:110%;}
 .document {background:#eee;}
-.bodywrapper {margin:0 0 0 235px; background:#fff; border:1px solid #ccc;}
+.bodywrapper {margin:0 0 0 210px; background:#fff; border:1px solid #ccc;}
 input {border: 1px solid #ccc !important;}
-.documentwrapper {float:left;}
+.documentwrapper {float:left; width:100%;}
+.sphinxsidebar {width:210px !important;}
 .sphinxsidebarwrapper {padding-top:20px !important;}
 .sphinxsidebarwrapper ul {padding:5px;}
 .sphinxsidebarwrapper li {font-size:100%; line-height:120%;}
