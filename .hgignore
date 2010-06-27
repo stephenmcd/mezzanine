@@ -3,6 +3,7 @@ syntax: glob
 *.pyo
 *.db
 build/*
+docs/build/*
 dist/*
 Mezzanine.egg-info/*
 
