@@ -31,6 +31,6 @@ def page(request, slug, template="pages/page.html"):
     if content_model is not None:
         templates.append("pages/%s.html" % content_model)
     templates.append(template)
-    t = select_template()
+    t = select_template(templates)
     return HttpResponse(t.render(RequestContext(request, context)))
 
