@@ -2,7 +2,7 @@
 Architecture
 ------------
 
-Mezzanine primarily revolves around the models found in two packages, ``mezzaine.core`` and ``mezzanine.pages``. This section describes these models and how to extend them to create your own custom content for a Mezzanine site.
+Mezzanine primarily revolves around the models found in two packages, ``mezzanine.core`` and ``mezzanine.pages``. This section describes these models and how to extend them to create your own custom content for a Mezzanine site.
 
 The ``Page`` model
 ------------------
@@ -24,7 +24,7 @@ In order to handle different types of pages that require more structured content
         pass 
         
     class GalleryImage(models.Model):
-        galley = models.ForeignKey("Gallery")
+        gallery = models.ForeignKey("Gallery")
         image = models.ImageField(upload_to="galleries")
 
 You'll also need to create an admin class for the Gallery model that inherits from ``mezzanine.pages.admin.PageAdmin``::
@@ -59,7 +59,7 @@ The ``Page`` model also contains the method ``Page.get_content_model`` for retri
     >>> page.get_content_model() 
     <Gallery: My gallery>
 
-The view function ``mezzaine.pages.views.page`` handles returning a ``Page`` instance to a template. By default the template ``pages/page.html`` is used, but if a custom template exists it will be used instead. The check for a custom template will first check for a template with the same name as the ``Page`` instance's slug, and if not then a template with a name derived from the subclass model's name is checked for. So given the above example the templates ``pages/my-gallery.html`` and ``pages/gallery.html`` would be checked for respectively.
+The view function ``mezzanine.pages.views.page`` handles returning a ``Page`` instance to a template. By default the template ``pages/page.html`` is used, but if a custom template exists it will be used instead. The check for a custom template will first check for a template with the same name as the ``Page`` instance's slug, and if not then a template with a name derived from the subclass model's name is checked for. So given the above example the templates ``pages/my-gallery.html`` and ``pages/gallery.html`` would be checked for respectively.
 
 The ``Displayable`` model
 -------------------------
