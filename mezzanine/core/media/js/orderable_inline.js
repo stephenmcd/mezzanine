@@ -38,7 +38,7 @@ $(function() {
     $(parentSelector).disableSelection();
 
     // Hide the exta inlines.
-    $(parentSelector + ' > *:not(:first):not(.has_original)').hide();
+    $(parentSelector + ' > *:not(.has_original)').hide();
     // Re-show inlines with errors, poetentially hidden by previous line.
     var errors = $(parentSelector + ' ul[class=errorlist]').parent().parent();
     if (grappelli) {
@@ -63,6 +63,12 @@ $(function() {
         }
         return false;
     });
+    // Show the first hidden inline - grappelli's inline header is actually
+    // part of the selector so for it we run this twice.
+    $('.add-another').click();
+    if (grappelli) {
+        $('.add-another').click();
+    }
     
     // Set the value of the _order fields on submit.
     $($('._order input:first').attr('form')).submit(function() {
