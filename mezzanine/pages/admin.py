@@ -48,7 +48,7 @@ class PageAdmin(DisplayableAdmin):
         obj.parent_id = request.GET.get("parent")
         super(PageAdmin, self).save_model(request, obj, form, change)
     
-    def maintain_parent(self, request, response):
+    def _maintain_parent(self, request, response):
         """
         Maintain the parent ID in the querystring for response_add and 
         response_change.
@@ -64,13 +64,13 @@ class PageAdmin(DisplayableAdmin):
         Maintain the parent ID in the querystring.
         """
         response = super(PageAdmin, self).response_add(request, obj)
-        return self.maintain_parent(request, response)
+        return self._maintain_parent(request, response)
 
     def response_change(self, request, obj):
         """
         Maintain the parent ID in the querystring.
         """
         response = super(PageAdmin, self).response_change(request, obj)
-        return self.maintain_parent(request, response)
+        return self._maintain_parent(request, response)
 
 admin.site.register(Page, PageAdmin)
