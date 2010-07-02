@@ -18,9 +18,15 @@ def create_project():
 
     # Ensure a directory name is specified.
     script_name = os.path.basename(sys.argv[0])
-    if len(sys.argv) == 1:
-        raise ProjectException("Usage: %s project_name" % script_name)
+
+    usage_text = "Usage: %s project_name" % script_name
+    usage_text += "\nProject names beginning with \"-\" are illegal."
+
+    if len(sys.argv) != 2:
+        raise ProjectException(usage_text)
     project_name = sys.argv[1]
+    if project_name.startswith("-"):
+        raise ProjectException(usage_text)
 
     # Ensure the given directory name doesn't clash with an existing Python 
     # package/module.
