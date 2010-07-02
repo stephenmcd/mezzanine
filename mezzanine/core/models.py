@@ -86,7 +86,9 @@ class OrderableBase(ModelBase):
 
     def __new__(cls, name, bases, attrs):
         if "Meta" not in attrs:
-            attrs["Meta"] = object()
+            class Meta:
+                pass
+            attrs["Meta"] = Meta
         if hasattr(attrs["Meta"], "order_with_respect_to"):
             attrs["order_with_respect_to"] = attrs["Meta"].order_with_respect_to
             del attrs["Meta"].order_with_respect_to
