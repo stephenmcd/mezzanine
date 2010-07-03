@@ -71,6 +71,11 @@ Contributing
 
 Mezzanine is an open source project that is managed using both Git and Mercurial version control systems. These repositories are hosted on both `Github`_ and `Bitbucket`_ respectively, so contributing is as easy as forking the project on either of these sites and committing back your enhancements. 
 
+Support
+-------
+
+For questions, comments, feature requests or bugs reports please join the `mezzanine-users`_ mailing list. 
+
 Sites Using Mezzanine
 ---------------------
 
@@ -98,4 +103,5 @@ Quotes
 .. _`swhite`: http://bitbucket.org/swhite/
 .. _`Github`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
+.. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users
 
