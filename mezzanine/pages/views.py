@@ -27,9 +27,8 @@ def page(request, slug, template="pages/page.html"):
     page = get_object_or_404(Page.objects.published(request.user), slug=slug)
     context = {"page": page,}
     templates = ["pages/%s.html" % slug]
-    content_model = page.get_content_model()
-    if content_model is not None:
-        templates.append("pages/%s.html" % content_model)
+    if page.content_model is not None:
+        templates.append("pages/%s.html" % page.content_model)
     templates.append(template)
     t = select_template(templates)
     return HttpResponse(t.render(RequestContext(request, context)))
