@@ -42,7 +42,7 @@ class Page(Orderable, Displayable):
                 titles.insert(0, parent.title)
                 parent = parent.parent
             self.titles = " / ".join(titles)
-            self.content_model = self.__class__.__name__.lower()
+            self.content_model = self._meta.object_name.lower()
         super(Page, self).save(*args, **kwargs)
     
     def get_content_model(self):
