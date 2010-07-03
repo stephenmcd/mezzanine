@@ -2,7 +2,7 @@
 Overview
 --------
 
-Mezzanine is a content management platform built using the `Django`_ framework. It is BSD licensed and designed to provide both a consistant interface for managing content, and a simple architecture that makes diving in and hacking on the code as easy as possible.
+Mezzanine is a content management platform built using the `Django`_ framework. It is BSD licensed and designed to provide both a consistent interface for managing content, and a simple architecture that makes diving in and hacking on the code as easy as possible.
 
 Its goal is to resemble something like `Wordpress`_, with an intuitive interface for managing pages and blog posts. Mezzanine takes a different approach from other Django applications in this space like `Pinax`_ or `Mingus`_ that glue together a lot of reusable apps, instead opting to provide most of its functionality included with the project by default.
 

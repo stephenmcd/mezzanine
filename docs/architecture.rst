@@ -7,7 +7,7 @@ Mezzanine primarily revolves around the models found in two packages, ``mezzanin
 The ``Page`` model
 ------------------
 
-The foundation of a Mezzanine site is the model ``mezzanine.pages.models.Page``. Each ``Page`` instance is stored in a heirarchical tree to form the site's navigation, and an interface for managing the structure of the navigation tree is provided in the admin via ``mezzanine.pages.admin.PageAdmin``. When creating new pages in the admin with a default Mezzanine project, the ``Page`` model is used which simply contains a WYSIWYG editable field for content.
+The foundation of a Mezzanine site is the model ``mezzanine.pages.models.Page``. Each ``Page`` instance is stored in a hierarchical tree to form the site's navigation, and an interface for managing the structure of the navigation tree is provided in the admin via ``mezzanine.pages.admin.PageAdmin``. When creating new pages in the admin with a default Mezzanine project, the ``Page`` model is used which simply contains a WYSIWYG editable field for content.
 
 Creating custom content types
 -----------------------------
@@ -46,7 +46,7 @@ By using an admin class that inherits from ``PageAdmin`` the admin class won't b
 Displaying custom content types
 -------------------------------
 
-When creating models that inherit from the ``Page`` model, multi-table inheritence is used under the hood. This means that when dealing with the page object, an attribute is created from the subclass model's name. So given a ``Page`` instance using the previous example, accessing the ``Gallery`` instance would be as follows::
+When creating models that inherit from the ``Page`` model, multi-table inheritance is used under the hood. This means that when dealing with the page object, an attribute is created from the subclass model's name. So given a ``Page`` instance using the previous example, accessing the ``Gallery`` instance would be as follows::
 
     >>> Gallery.objects.create(title="My gallery")
     <Gallery: My gallery>
