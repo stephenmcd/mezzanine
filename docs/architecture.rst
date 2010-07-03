@@ -61,6 +61,37 @@ The ``Page`` model also contains the method ``Page.get_content_model`` for retri
 
 The view function ``mezzanine.pages.views.page`` handles returning a ``Page`` instance to a template. By default the template ``pages/page.html`` is used, but if a custom template exists it will be used instead. The check for a custom template will first check for a template with the same name as the ``Page`` instance's slug, and if not then a template with a name derived from the subclass model's name is checked for. So given the above example the templates ``pages/my-gallery.html`` and ``pages/gallery.html`` would be checked for respectively.
 
+Page Processors
+---------------
+
+So far we've covered how to create and display custom types of pages, but what if we want to extend them further with more advanced features? For example adding a form to the page and handling when a user submits the form. This type of logic would typically go into a view function, but since every ``Page`` instance is handled via the view function ``mezzanine.pages.views.page`` we can't create our own views for pages. Mezzanine solves this problem using *Page Processors*.
+
+*Page Processors* are simply functions that can be associated to any custom ``Page`` models and are then called inside the ``mezzanine.pages.views.page`` view when viewing the associated ``Page`` instance. A Page Processor will always be passed two arguments - the request and the ``Page`` instance, and can either return a dictionary that will be added to the template context, or it can return any of Django's ``HttpResponse`` classes which will override the ``mezzanine.pages.views.page`` view entirely. 
+
+To associate a Page Processor to a custom ``Page`` model you must create the function for it in a module called ``page_processors.py`` inside one of your ``INSTALLED_APPS`` and decorate it using the decorator ``mezzanine.pages.page_processors.processor_for``.
+
+Continuing on from our gallery example, suppose we want to add an enquiry form to each gallery page. Our ``page_processors.py`` module in the gallery app would be as follows::
+
+    from django import forms 
+    from django.http import HttpResponseRedirect
+    from mezzanine.pages.page_processors import processor_for
+    from models import Gallery
+    
+    class GalleryForm(forms.Form):
+        name = forms.CharField()
+        email = forms.EmailField()
+    
+    @processor_for(Gallery)
+    def gallery_form(request, page):
+        form = GalleryForm()
+        if request.method == "POST":
+            form = GalleryForm(request.POST)
+            if form.is_valid():
+                # Form processing goes here.
+                redirect = request.path + "?submitted=true"
+                return HttpResponseRedirect(redirect)
+        return {"form": form}
+
 The ``Displayable`` model
 -------------------------
 

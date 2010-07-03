@@ -47,6 +47,10 @@ Below are auto-generated docs mostly covering each of the packages contained wit
 .. automodule:: mezzanine.pages.templatetags.pages_tags
    :members:
 
+
+.. automodule:: mezzanine.pages.page_processors
+   :members:
+
 ``mezzanine.blog``
 ------------------
 
