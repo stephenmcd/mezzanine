@@ -61,6 +61,8 @@ class Displayable(models.Model):
             i = 0
             while True:
                 if i > 0:
+                    if i > 1:
+                        self.slug = self.slug.rsplit("-", 1)[0]
                     self.slug = "%s-%s" % (self.slug, i)
                 if not self.__class__.objects.filter(slug=self.slug):
                     break
