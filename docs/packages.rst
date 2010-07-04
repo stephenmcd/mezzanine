@@ -1,11 +1,12 @@
---------
+========
 Packages
---------
+========
 
-Below are auto-generated docs mostly covering each of the packages contained within Mezzanine that are added to ``settings.INSTALLED_APPS``.
+Below are auto-generated docs mostly covering each of the packages contained 
+within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 
 ``mezzanine.core``
-------------------
+==================
 
 .. automodule:: mezzanine.core
 
@@ -31,7 +32,7 @@ Below are auto-generated docs mostly covering each of the packages contained wit
    :members:
 
 ``mezzanine.pages``
--------------------
+===================
 
 .. automodule:: mezzanine.pages
 
@@ -47,12 +48,11 @@ Below are auto-generated docs mostly covering each of the packages contained wit
 .. automodule:: mezzanine.pages.templatetags.pages_tags
    :members:
 
-
 .. automodule:: mezzanine.pages.page_processors
    :members:
 
 ``mezzanine.blog``
-------------------
+==================
 
 .. automodule:: mezzanine.blog
 
@@ -75,7 +75,7 @@ Below are auto-generated docs mostly covering each of the packages contained wit
    :members:
 
 ``mezzanine.twitter``
----------------------
+=====================
 
 .. automodule:: mezzanine.twitter
 
@@ -92,7 +92,7 @@ Below are auto-generated docs mostly covering each of the packages contained wit
    :members:
 
 ``mezzanine.tests``
----------------------
+===================
 
 .. automodule:: mezzanine.tests
    :members:
