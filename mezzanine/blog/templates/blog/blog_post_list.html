@@ -22,8 +22,8 @@
 </p>
 
 {% for blog_post in blog_posts.object_list %}
-<h3><a href="{% url blog_post_detail blog_post.slug %}"
-    >{{ blog_post.title }}</a></h3>
+<h2><a href="{% url blog_post_detail blog_post.slug %}"
+    >{{ blog_post.title }}</a></h2>
 <em>
     {% with blog_post.user as author %}
     <a href="{% url blog_post_list_author author %}">{{ author.first_name }} 
@@ -31,8 +31,8 @@
     {% endwith %}
     {{ blog_post.publish_date|timesince }} {% trans "ago" %}
 </em>
+{{ blog_post.description|safe }}
 <p class="description">
-    {{ blog_post.description|safe }}<br />
     <a href="{% url blog_post_detail blog_post.slug %}"
         >{% trans "read more" %}</a> / 
     {% if use_disqus %}

@@ -103,7 +103,7 @@ tinyMCE.init({
     + "-blockquote," +
     + "-code," + 
     + "-div",
-    extended_valid_elements: ""
+    extended_valid_elements: "pre,"
     + "a[name|class|href|target|title|onclick],"
     + "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],"
     + "br[clearfix],"

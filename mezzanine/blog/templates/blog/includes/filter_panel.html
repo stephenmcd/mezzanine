@@ -2,7 +2,7 @@
 
 {% blog_months as months %}
 {% if months %}
-<h2>Archive</h2>
+<h3>Archive</h3>
 {% blog_months as months %}
 {% for month in months %}
 {% ifchanged month.year %}{{ month.year }}<ul>{% endifchanged %}
@@ -14,16 +14,18 @@
 
 {% blog_tags as tags %}
 {% if tags %}
-<h2>Tags</h2>
+<h3>Tags</h3>
+<ul class="tags">
 {% for tag in tags %}
-<a href="{% url blog_post_list_tag tag %}" 
-    class="tag-weight-{{ tag.weight }}">{{ tag }}</a>
+<li><a href="{% url blog_post_list_tag tag %}" 
+    class="tag-weight-{{ tag.weight }}">{{ tag }}</a></li>
 {% endfor %}
+</ul>
 {% endif %}
 
 {% blog_authors as authors %}
 {% if authors %}
-<h2>Authors</h2>
+<h3>Authors</h3>
 {% blog_authors as authors %}
 {% for author in authors %}
 <a href="{% url blog_post_list_author author.username %}"
@@ -31,7 +33,7 @@
 {% endfor %}
 {% endif %}
 
-<h2>Feeds</h2>
+<h3>Feeds</h3>
 <a href="{% url blog_post_feed "rss" %}" />RSS</a> /
 <a href="{% url blog_post_feed "atom" %}" />Atom</a>
 

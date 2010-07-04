@@ -4,7 +4,7 @@
 {% tweets_for_search "#Django" 5 as tweets %}
 
 {% if tweets %}
-<h2>{% trans "Recent Tweets" %}</h2>
+<h3>{% trans "Recent Tweets" %}</h3>
 <ul class="tweets">
     {% for tweet in tweets %}
     <li>

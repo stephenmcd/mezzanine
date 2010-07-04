@@ -15,20 +15,23 @@
     <style type="text/css">
 
         * {margin:0; padding:0; font-family:Garamond,Georgia,serif;}
-        h1, h2 {margin:20px 0; font-weight:normal;}
-        h1 {font-size:250%; border-bottom:1px solid #ccc; padding-bottom:20px;}
+        h1 {font-size:250%; border-bottom:1px solid #ccc; padding-bottom:20px;
+            margin:20px 0; font-weight:normal;}
+        h2 {font-size:150%;}
+        h3 {margin:20px 0 10px 0; font-weight:normal;}
         #menu, #main, #right-panel {float:left; height:100%;}
         #menu, #right-panel {background:#e9e9e9;}
         #menu {padding:50px; font-size:130%;}
         #main {padding:0 30px; width:400px;}
-        #right-panel {padding:8px 30px;}
+        #right-panel {padding:8px 30px; width:190px;}
         a {color:#008;}
         
         ul {list-style-type:none;}
         #menu ul ul {padding-left:30px; list-style-type:disc; font-size:80%;}
         #menu ul ul li {margin:5px auto;}
         #blog-description {margin:30px 0;}
-        .paging {margin-top:30px; padding-top:10px; border-top:1px solid #ccc;}
+        .description {margin:10px 0 20px 0;}
+        .paging {margin:30px 0; padding-top:10px; border-top:1px solid #ccc;}
         .paging * {display:inline; margin-right:3px;}
         em {display:block; font-size:80%; margin-bottom:10px;}
 
@@ -58,7 +61,7 @@
         .tag-weight-3 {font-size:160%;}
         .tag-weight-4 {font-size:200%;}
         
-        .tweets li {font-size:70%; width:190px; clear:both; margin-bottom:10px;}
+        .tweets li {font-size:70%; clear:both; margin-bottom:10px;}
         .tweets img {float:left; border:1px solid #000; margin:0 5px 5px 0;
             width:32px; height:32px;}
         .tweets .timespan {font-style:italic; display:block;}
@@ -85,7 +88,7 @@
         {% include "twitter/tweets.html" %}
         {% endblock %}
         <p class="mezzanine">Powered by <a 
-            href="http://github.com/stephenmcd/mezzanine">Mezzanine</a></p>
+            href="http://mezzanine.jupo.org">Mezzanine</a></p>
     </div>
     <script type="text/javascript">
         var gaID = '{% setting "GOOGLE_ANALYTICS_ID" %}';
