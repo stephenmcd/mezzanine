@@ -66,9 +66,12 @@ MIDDLEWARE_CLASSES = (
     "mezzanine.core.middleware.MobileTemplate",
 )
 
-# Optional apps.
-from mezzanine.settings import PACKAGE_NAME_FILEBROWSER, PACKAGE_NAME_GRAPPELLI
+# Store these package names here as they may change in the future since at the 
+# moment we are using custom forks of them.
+PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
+PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 
+# Optional apps.
 OPTIONAL_APPS = (
     "debug_toolbar",
     "south",
