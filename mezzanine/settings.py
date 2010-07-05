@@ -47,22 +47,21 @@ setting("COMMENTS_NUM_LATEST", 5)
 
 # If True, unapproved comments will have a placeholder visible on the site 
 # with a "waiting for approval" or "comment removed" message based on the 
-# workflow around the COMMENTS_DEFAULT_APPROVED setting - if True then the 
-# former message is used, if False then the latter.
+# workflow around the ``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if 
+# True then the former message is used, if False then the latter.
 setting("COMMENTS_UNAPPROVED_VISIBLE", True)
 
 # Media files for admin.
-setting("CONTENT_MEDIA_PATH", 
-    os.path.join(os.path.dirname(__file__), "core", "media"))
-setting("CONTENT_MEDIA_URL", "/content_media/")
+CONTENT_MEDIA_PATH = os.path.join(os.path.dirname(__file__), "core", "media")
+CONTENT_MEDIA_URL = "/content_media/"
 
 # Content status choices.
-setting("CONTENT_STATUS_DRAFT", 1)
-setting("CONTENT_STATUS_PUBLISHED", 2)
-setting("CONTENT_STATUS_CHOICES", (
+CONTENT_STATUS_DRAFT = 1
+CONTENT_STATUS_PUBLISHED = 2
+CONTENT_STATUS_CHOICES = (
     (CONTENT_STATUS_DRAFT, _("Draft")),
     (CONTENT_STATUS_PUBLISHED, _("Published")),
-))
+)
 
 # ID for using Google Analytics (http://www.google.com/analytics/) referred to 
 # as "Web Property ID"
