@@ -127,3 +127,4 @@ Quotes
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users
 .. _`Github issue tracker`: http://github.com/stephenmcd/mezzanine/issues
+
