@@ -8,7 +8,7 @@
 				<span class="icon open">+</span>
 				<span class="icon close">-</span>
 			</a>
-			<a href="{% url admin:pages_page_change page.id %}"
+			<a href="{% url admin:pages_page_change page.id %}{% if page.parent_id %}?parent={{ page.parent_id }}{% endif %}"
 				class="changelink">{{ page.title }}</a>
 			<span class="ordering">
 			    <img src="{% admin_media_prefix %}img/admin/arrow-up.gif" />
