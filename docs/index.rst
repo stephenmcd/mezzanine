@@ -16,6 +16,7 @@ browsing the auto-generated docs for each of Mezzanine's :doc:`packages`.
 
     overview	
     architecture
+    configuration
     packages
     colophon
 	

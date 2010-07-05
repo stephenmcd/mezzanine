@@ -435,10 +435,10 @@ a {color:#336;}
 .related li {color:#ccc;}
 .related .right a {font-size:110%;}
 .document {background:#eee;}
-.bodywrapper {margin:0 0 0 210px; background:#fff; border:1px solid #ccc;}
+.bodywrapper {margin:0 0 0 330px; background:#fff; border:1px solid #ccc;}
 input {border: 1px solid #ccc !important;}
 .documentwrapper {float:left; width:100%;}
-.sphinxsidebar {width:210px !important;}
+.sphinxsidebar {width:330px !important;}
 .sphinxsidebarwrapper {padding-top:20px !important;}
 .sphinxsidebarwrapper ul {padding:5px;}
 .sphinxsidebarwrapper li {font-size:100%; line-height:120%;}

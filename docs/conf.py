@@ -12,9 +12,34 @@
 # serve to show the default.
 
 import sys, os
-sys.path.insert(0, os.path.join(os.path.abspath(os.path.dirname(__file__)), ".."))
+docs_path = os.path.abspath(os.path.dirname(__file__))
+sys.path.insert(0, os.path.join(docs_path, ".."))
 os.environ["DJANGO_SETTINGS_MODULE"] = "mezzanine.project_template.settings"
 import mezzanine
+
+# Generate the documentation for mezzanine.settings
+import mezzanine.settings
+settings_comment = []
+settings_docs = [".. THIS DOCUMENT IS AUTO GENERATED VIA conf.py"]
+with open(mezzanine.settings.__file__.rstrip("c"), "r") as f:
+    for line in f:
+        if line.startswith("#"):
+            settings_comment.append(line.lstrip("#").strip())
+        elif line.startswith("setting("):
+            settings_name = line.split('setting("', 1)[1].split('"', 1)[0]
+            settings_default = getattr(mezzanine.settings, settings_name)
+            if isinstance(settings_default, basestring):
+                settings_default = '"%s"' % settings_default
+            settings_default = "``%s``" % str(settings_default)
+            settings_name = "``MEZZANINE_%s``" % settings_name
+            settings_docs.extend(["", settings_name, "-" * len(settings_name)])
+            settings_docs.extend(["", "Default: %s" % settings_default, ""])
+            settings_docs.extend(settings_comment)
+            settings_comment = []
+        elif not line.strip():
+            settings_comment = []
+with open(os.path.join(docs_path, "settings.rst"), "w") as f:
+    f.write("\n".join(settings_docs))
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
