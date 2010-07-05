@@ -93,8 +93,9 @@ enhancements.
 Support
 =======
 
-For questions, comments, feature requests or bugs reports please join the 
-`mezzanine-users`_ mailing list. 
+For general questions or comments, please join the 
+`mezzanine-users`_ mailing list. To report a bug or other type of issue, 
+please use the `Github issue tracker`_.
 
 Sites Using Mezzanine
 =====================
@@ -125,4 +126,4 @@ Quotes
 .. _`Github`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users
-
+.. _`Github issue tracker`: http://github.com/stephenmcd/mezzanine/issues
