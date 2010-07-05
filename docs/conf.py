@@ -1,3 +1,4 @@
+from __future__ import with_statement
 # -*- coding: utf-8 -*-
 #
 # Cartridge documentation build configuration file, created by
