@@ -4,26 +4,26 @@
 {% block extrahead %}{{ block.super }}
 <style type="text/css">
 
-	h1 {width:300px;}
-	#tree {margin-top:10px; width:600px;}
-	#tree div {border:1px solid #ccc; background:#f9f9f9; padding:7px; 
-		float:left; width:100%; margin:2px; height:18px;}
-	#tree ul {padding:0;}
-	#tree ul ul {padding-left:40px; display:none;}
-	#tree li {list-style-type:none;}
-	#tree .tree-toggle, #tree .changelink {float:left; font-weight:bold; 
-	    font-size:12px;}
-	#tree .tree-toggle {visibility:hidden;}
-	#tree a {float:right;}
-	#tree a .icon {display:block; float:left; width:16px; color:#fff; 
-		text-align:center; background:#c6c6c6; margin:0 8px 0 4px;}
-	#tree a .close {display:none;}
-	#tree a:hover .icon {color:#fff; background:#5B80B2;}
-	.ordering {float:right; cursor:move; margin-left:10px;}
+    h1 {width:300px;}
+    #tree {margin-top:10px; width:600px;}
+    #tree div {border:1px solid #ccc; background:#f9f9f9; padding:7px; 
+        float:left; width:100%; margin:2px; height:18px;}
+    #tree ul {padding:0;}
+    #tree ul ul {padding-left:40px; display:none;}
+    #tree li {list-style-type:none;}
+    #tree .tree-toggle, #tree .changelink {float:left; font-weight:bold; 
+        font-size:12px;}
+    #tree .tree-toggle {visibility:hidden;}
+    #tree a {float:right;}
+    #tree a .icon {display:block; float:left; width:16px; color:#fff; 
+        text-align:center; background:#c6c6c6; margin:0 8px 0 4px;}
+    #tree a .close {display:none;}
+    #tree a:hover .icon {color:#fff; background:#5B80B2;}
+    .ordering {float:right; cursor:move; margin-left:10px;}
 
-	.addlist {float:right; margin-top:-3px;}
-	#addlist-primary {float:left; width:620px; text-align:right; 
-	    margin-top:-25px;}
+    .addlist {float:right; margin-top:-3px;}
+    #addlist-primary {float:left; width:620px; text-align:right; 
+        margin-top:-25px;}
 
 </style>
             
@@ -34,72 +34,72 @@
 
 <script type="text/javascript">
 
-	var cookie = 'mezzanine-admin-tree';
-	var at = ('; ' + document.cookie).indexOf('; ' + cookie + '=');
-	var ids = '';
+    var cookie = 'mezzanine-admin-tree';
+    var at = ('; ' + document.cookie).indexOf('; ' + cookie + '=');
+    var ids = '';
 
-	if (at > -1) {
-		ids = document.cookie.substr(at + cookie.length + 1).split(';')[0];
-	}
-	
-	var toggleID = function(opened, id) {
-		// Add or remove the page ID from the cookie IDs string.
-		var index = $.inArray(id, ids.split(','));
-		if (opened) {
-			if (index == -1) {
-				if (ids) {ids += ',';}
-				ids += id;
-			}
-		} else if (index > -1) { 
-    		ids = ids.split(',');
-    		ids.splice(index, 1);
-			ids = ids.join(',');
-		}
-		document.cookie = cookie + '=' + ids + '; path=/';
-	};
-	
-	$(function() {
+    if (at > -1) {
+        ids = document.cookie.substr(at + cookie.length + 1).split(';')[0];
+    }
+    
+    var toggleID = function(opened, id) {
+        // Add or remove the page ID from the cookie IDs string.
+        var index = $.inArray(id, ids.split(','));
+        if (opened) {
+            if (index == -1) {
+                if (ids) {ids += ',';}
+                ids += id;
+            }
+        } else if (index > -1) { 
+            ids = ids.split(',');
+            ids.splice(index, 1);
+            ids = ids.join(',');
+        }
+        document.cookie = cookie + '=' + ids + '; path=/';
+    };
+    
+    $(function() {
 
-		$('#tree .tree-toggle').click(function() {
-			// Show/hide the branch and toggle the icon.
-			var pageLink = $(this);
-			pageLink.parent().parent().find('ul').toggle();
-			pageLink.find('.icon').toggle();
-			// Add or remove the page ID from the cookie.
-			var opened = pageLink.find('.close:visible').length == 1;
-			var id = pageLink.attr('id').split('-')[1];
-			toggleID(opened, id);
-			return false;
-		});
+        $('#tree .tree-toggle').click(function() {
+            // Show/hide the branch and toggle the icon.
+            var pageLink = $(this);
+            pageLink.parent().parent().find('ul').toggle();
+            pageLink.find('.icon').toggle();
+            // Add or remove the page ID from the cookie.
+            var opened = pageLink.find('.close:visible').length == 1;
+            var id = pageLink.attr('id').split('-')[1];
+            toggleID(opened, id);
+            return false;
+        });
 
-		// Show previously opened branches.
-		if (ids) {
-			$('#page-' + ids.split(',').join(', #page-')).click();
-		}
+        // Show previously opened branches.
+        if (ids) {
+            $('#page-' + ids.split(',').join(', #page-')).click();
+        }
 
-		// Show the open/close button for branches that have children
-		$('li:has(li) .tree-toggle').css({visibility: 'visible'});
-		$('li:not(:has(li)) .tree-toggle').css({visibility: 'hidden'});
-		
-		// The dropdown list for adding a new page contains URLs for each 
-		// model - redirect when selected.
-		$('.addlist').change(function() {
-		    // Ensure the branch is saved as open when adding to it so that 
-		    // the new branch will be visible directly after saving.
-		    var id = $(this).attr('id');
-		    if (id) {
-    			toggleID(true, id.split('-')[1]);
-    		}
-			var addUrl = this[this.selectedIndex].value;
-			if (addUrl) {
-			    location.href = addUrl;
-			}
-			this.selectedIndex = 0;
-			return true;
-		});
-		
-		// AJAX callback that's triggered when dragging a page to re-order 
-		// it has ended.
+        // Show the open/close button for branches that have children
+        $('li:has(li) .tree-toggle').css({visibility: 'visible'});
+        $('li:not(:has(li)) .tree-toggle').css({visibility: 'hidden'});
+        
+        // The dropdown list for adding a new page contains URLs for each 
+        // model - redirect when selected.
+        $('.addlist').change(function() {
+            // Ensure the branch is saved as open when adding to it so that 
+            // the new branch will be visible directly after saving.
+            var id = $(this).attr('id');
+            if (id) {
+                toggleID(true, id.split('-')[1]);
+            }
+            var addUrl = this[this.selectedIndex].value;
+            if (addUrl) {
+                location.href = addUrl;
+            }
+            this.selectedIndex = 0;
+            return true;
+        });
+        
+        // AJAX callback that's triggered when dragging a page to re-order 
+        // it has ended.
         var updateOrdering = function(event, ui) {
             var ordering = $(this).sortable('toArray').toString();
             $.post('{% url admin_page_ordering %}', {ordering: ordering},
@@ -110,13 +110,13 @@
             });
         };
 
-		
-		// Make the pages sortable via drag and drop.
-		$('#tree ul').sortable({handle: '.ordering', axis: 'y', opacity: '.7', 
-		    stop: updateOrdering});
-		$('#tree ul').disableSelection();
+        
+        // Make the pages sortable via drag and drop.
+        $('#tree ul').sortable({handle: '.ordering', axis: 'y', opacity: '.7', 
+            stop: updateOrdering});
+        $('#tree ul').disableSelection();
 
-	});
+    });
 
 </script>
 {% endblock %}
@@ -125,22 +125,22 @@
 {% models_for_pages as page_models %}
 <div id="content-main">
 
-	{% if has_add_permission %}
-	<div id="addlist-primary">
-	    <select class="addlist">
-	        <option value="">{% trans "Add primary" %} ...</option>
-		    {% for model in page_models %}
-	        <option value="{{ model.add_url }}">{{ model.name }}</option>
-        	{% endfor %}
+    {% if has_add_permission %}
+    <div id="addlist-primary">
+        <select class="addlist">
+            <option value="">{% trans "Add primary" %} ...</option>
+            {% for model in page_models %}
+            <option value="{{ model.add_url }}">{{ model.name }}</option>
+            {% endfor %}
         </select>
     </div>
-	{% endif %}
+    {% endif %}
 
-	{% ifequal cl.result_count 0 %}
-	<p class="paginator">0 {{ cl.opts.verbose_name_plural }}</p>
-	{% else %}
-	<div id="tree">{% page_menu_admin %}</div>
-	{% endifequal %}
+    {% ifequal cl.result_count 0 %}
+    <p class="paginator">0 {{ cl.opts.verbose_name_plural }}</p>
+    {% else %}
+    <div id="tree">{% page_menu_admin %}</div>
+    {% endifequal %}
 
 </div>
 {% endblock %}
