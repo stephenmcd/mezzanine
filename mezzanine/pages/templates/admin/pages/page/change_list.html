@@ -100,10 +100,16 @@
 		
 		// AJAX callback that's triggered when dragging a page to re-order 
 		// it has ended.
-		var updateOrdering = function(event, ui) {
-		    var ordering = $(this).sortable('toArray').toString();
-		    $.post('{% url admin_page_ordering %}', {ordering: ordering});
-		};
+        var updateOrdering = function(event, ui) {
+            var ordering = $(this).sortable('toArray').toString();
+            $.post('{% url admin_page_ordering %}', {ordering: ordering},
+            function(data){
+                if (data !== "ok") {
+                    alert("Error occured: " + data + "\nOrdering wasn't updated.");
+                }
+            });
+        };
+
 		
 		// Make the pages sortable via drag and drop.
 		$('#tree ul').sortable({handle: '.ordering', axis: 'y', opacity: '.7', 
