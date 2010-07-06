@@ -40,11 +40,11 @@
         >{% trans "Comments" %}</a>
     {% else %}
     <a href="{% url blog_post_detail blog_post.slug %}#comments">
-		{% blocktrans count blog_post.num_comments as num_comments %}
-		1 comment
-		{% plural %}
-		{{ num_comments }} comments
-		{% endblocktrans %}
+        {% blocktrans count blog_post.num_comments as num_comments %}
+        1 comment
+        {% plural %}
+        {{ num_comments }} comments
+        {% endblocktrans %}
     </a>
     {% endif %}
 </p>
@@ -60,11 +60,11 @@
         {% endif %}
         {% for page in page_range %}
         <li>
-	        {% ifequal page blog_posts.number %}
-           	<strong>{{ page }}</strong>
-	        {% else %}
-           	<a href="?page={{ page }}">{{ page }}</a>
-	        {% endifequal %}
+            {% ifequal page blog_posts.number %}
+               <strong>{{ page }}</strong>
+            {% else %}
+               <a href="?page={{ page }}">{{ page }}</a>
+            {% endifequal %}
         </li>
         {% endfor %} 
         {% if blog_posts.has_next %}

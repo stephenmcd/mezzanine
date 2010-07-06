@@ -1,23 +1,23 @@
 {% load i18n blog_tags %}
 
 <ul>
-	{% for comment in comments_thread %}
-	<li id="comment-{{ comment.id }}">
-	    {% if comment.approved %}
-	    <em>
-	        <strong>
-	        {% if comment.website %}
-	        <a href="{{ comment.website }}">
-	            <img src="{% gravatar_url comment.email_hash %}" />   
-	            {{ comment.name }}
-	        </a>
-	        {% else %}
-	        <img src="{% gravatar_url comment.email_hash %}" />{{ comment.name }}
-	        {% endif %}
-	        </strong>
+    {% for comment in comments_thread %}
+    <li id="comment-{{ comment.id }}">
+        {% if comment.approved %}
+        <em>
+            <strong>
+            {% if comment.website %}
+            <a href="{{ comment.website }}">
+                <img src="{% gravatar_url comment.email_hash %}" />   
+                {{ comment.name }}
+            </a>
+            {% else %}
+            <img src="{% gravatar_url comment.email_hash %}" />{{ comment.name }}
+            {% endif %}
+            </strong>
             {{ comment.time_created|timesince }} {% trans "ago" %}
-	    </em>
-		<p>{{ comment }}</p>
+        </em>
+        <p>{{ comment }}</p>
         <a href="{{ request.path }}#comment-{{ comment.id }}">{% trans "Link" %}</a> / 
         <a href="#reply-{{ comment.id }}" class="reply">{% trans "Reply" %}</a>
         <form method="post" id="reply-{{ comment.id }}"
@@ -43,11 +43,11 @@
             {% endif %}
         </p>
         {% endif %}
-		{% blog_comments_for comment %}
-	</li>
-	{% endfor %}
-	{% if no_comments %}
-	<li>{% trans "There are currently no comments" %}</li>
-	{% endif %}
+        {% blog_comments_for comment %}
+    </li>
+    {% endfor %}
+    {% if no_comments %}
+    <li>{% trans "There are currently no comments" %}</li>
+    {% endif %}
 </ul>
 

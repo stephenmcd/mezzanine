@@ -69,7 +69,7 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
         comment = posted_comment_form.save(commit=False)
         comment.blog_post = blog_post
         comment.ip_address = request.META.get("HTTP_X_FORWARDED_FOR", 
-	        request.META["REMOTE_ADDR"])
+            request.META["REMOTE_ADDR"])
         comment.replied_to_id = request.POST.get("replied_to")
         comment.save()
         return HttpResponseRedirect(comment.get_absolute_url())
