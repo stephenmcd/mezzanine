@@ -17,3 +17,14 @@ class PublishedManager(Manager):
             return self.all()
         return self.filter(status=CONTENT_STATUS_PUBLISHED, 
             publish_date__lte=datetime.now())
+            
+    def get_by_natural_key(self, slug):
+        return self.get(slug=slug)
+
+class KeywordManager(Manager):
+    """
+    Simply provides natural key method.
+    """
+    def get_by_natural_key(self, value):
+        return self.get(value=value)
+

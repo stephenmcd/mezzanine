@@ -24,7 +24,7 @@ try:
         version = __import__("mezzanine").__version__,
         author = "Stephen McDonald",
         author_email = "stephen.mc@gmail.com",
-        description = "A content management platform built using the Django framework.",
+        description = "An open source content management platform built using the Django framework.",
         long_description = open("README.rst").read(),
         license = "BSD",
         url = "http://mezzanine.jupo.org/",

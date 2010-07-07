@@ -7,7 +7,7 @@ from django.db.models.base import ModelBase
 from django.template.defaultfilters import slugify, truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.core.managers import PublishedManager
+from mezzanine.core.managers import PublishedManager, KeywordManager
 from mezzanine import settings as blog_settings
 
 
@@ -39,7 +39,10 @@ class Displayable(models.Model):
 
     def __unicode__(self):
         return self.title
-        
+
+    def natural_key(self):
+        return self.slug
+
     def save(self, *args, **kwargs):
         """
         Create the description from the content if none given, and create a 
@@ -149,13 +152,18 @@ class Keyword(models.Model):
     admin.
     """
 
+    value = models.CharField(max_length=50)
+
+    objects = KeywordManager()
+
     class Meta:
         verbose_name = "Keyword"
         verbose_name_plural = "Keywords"
         ordering = ("value",)
 
-    value = models.CharField(max_length=50)
-
     def __unicode__(self):
         return self.value
+
+    def natural_key(self):
+        return unicode(self)
 
