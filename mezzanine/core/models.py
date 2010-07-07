@@ -41,7 +41,7 @@ class Displayable(models.Model):
         return self.title
 
     def natural_key(self):
-        return self.slug
+        return (self.slug,)
 
     def save(self, *args, **kwargs):
         """
@@ -165,5 +165,5 @@ class Keyword(models.Model):
         return self.value
 
     def natural_key(self):
-        return unicode(self)
+        return (self.value,)
 
