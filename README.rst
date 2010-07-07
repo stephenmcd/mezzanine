@@ -30,6 +30,7 @@ provides the following features.
   * Mobile device detection and templates
   * Blogging engine
   * Tagging
+  * One step migration from other blogging engines
   * Built-in threaded comments, or:
   * `Disqus`_ integration
   * `Gravatar`_ integration
@@ -78,8 +79,8 @@ can be used for creating a new Mezzaine project in a similar fashion to
 You can then run your project with the usual Django steps::
 
     $ cd project_name
-    $ ./manage.py syncdb
-    $ ./manage.py runserver
+    $ python manage.py syncdb
+    $ python manage.py runserver
 
 Contributing
 ============

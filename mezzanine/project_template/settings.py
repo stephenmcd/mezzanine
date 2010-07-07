@@ -96,6 +96,7 @@ if "debug_toolbar" in INSTALLED_APPS:
     DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
     MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 if PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
+    ADMIN_MEDIA_PREFIX = "/media/admin/"
     GRAPPELLI_ADMIN_HEADLINE = "Mezzanine"
     GRAPPELLI_ADMIN_TITLE = "Mezzanine"
     GRAPPELLI_MEDIA_PATH = os.path.join(os.path.dirname(
@@ -128,7 +129,7 @@ except ImportError:
 
 TEMPLATE_DEBUG = DEBUG
 if DEV_SERVER and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
-    ADMIN_MEDIA_PREFIX = "http://127.0.0.1:8000/media/admin/"
+    ADMIN_MEDIA_PREFIX = "http://127.0.0.1:8000%s" % ADMIN_MEDIA_PREFIX
 if DATABASE_ENGINE == "sqlite3":
     DATABASE_NAME = os.path.join(project_path, DATABASE_NAME)
 
