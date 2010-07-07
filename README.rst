@@ -106,8 +106,7 @@ Sites Using Mezzanine
 Quotes
 ======
 
-  * "Who came up with the name Mezzanine? I love it, like a platform between 
-  the client's ideas and their published website. Very classy!" - `swhite`_
+  * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `swhite`_
 
 .. _`Django`: http://djangoproject.com/
 .. _`Wordpress`: http://wordpress.org/
