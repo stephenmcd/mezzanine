@@ -5,6 +5,15 @@ Packages
 Below are auto-generated docs mostly covering each of the packages contained 
 within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 
+``mezzanine``
+===================
+
+.. automodule:: mezzanine.template
+   :members:
+
+.. automodule:: mezzanine.utils
+   :members:
+
 ``mezzanine.core``
 ==================
 
