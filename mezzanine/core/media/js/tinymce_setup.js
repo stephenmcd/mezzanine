@@ -24,7 +24,7 @@ tinyMCE.init({
     
     // main settings
     mode: "exact",
-    elements: "id_content",
+    elements: "id_content,description",
     theme: "advanced",
     language: "en",
     //skin: "grappelli",
@@ -88,6 +88,7 @@ tinyMCE.init({
     
     // elements
     valid_elements : ""
+    + "span[style],"
     + "-p,"
     + "a[href|target=_blank|class],"
     + "-strong/-b,"
@@ -103,7 +104,7 @@ tinyMCE.init({
     + "-blockquote," +
     + "-code," + 
     + "-div",
-    extended_valid_elements: "pre,"
+    extended_valid_elements: "pre[style],"
     + "a[name|class|href|target|title|onclick],"
     + "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],"
     + "br[clearfix],"

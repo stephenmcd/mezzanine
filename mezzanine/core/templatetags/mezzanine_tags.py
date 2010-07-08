@@ -3,9 +3,11 @@ from urllib import urlopen, urlencode
 
 from django import template
 from django.conf import settings
+from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 
 from mezzanine import settings as mezzanine_settings
+from mezzanine.utils import decode_html_entities
 
 
 register = template.Library()
@@ -24,8 +26,9 @@ def setting(setting_name):
 
 def register_as_tag(register):
     """
-    Decorator that creates a tag with the format: {% func_name as var_name %}
-    The decorated func returns the value that is given to var_name in the 
+    Decorator that creates a tag with the format: 
+    ``{% func_name as var_name %}`` 
+    The decorated func returns the value that is given to ``var_name`` in the 
     template context.
     """
     def wrapper(func):
@@ -44,7 +47,7 @@ def register_as_tag(register):
 def register_render_tag(register):
     """
     Decorator that creates a template tag using the given renderer as the 
-    render function for the template tag node - the render function takes two 
+    render function for the template tag node. The render function takes two 
     arguments - the template context and the tag token.
     """
     def wrapper(renderer):
@@ -84,8 +87,8 @@ def set_short_url_for(context, token):
 @register_render_tag(register)
 def admin_reorder(context, token):
     """
-    Called in admin/base_site.html template override and applies custom ordering 
-    of apps/models defined by settings.ADMIN_REORDER.
+    Called in ``admin/base_site.html`` template override and applies custom 
+    ordering of apps/models defined by ``settings.ADMIN_REORDER``.
     """
     # sort key function - use index of item in order if exists, otherwise item
     sort = lambda order, item: (order.index(item), "") if item in order else (
@@ -104,4 +107,34 @@ def admin_reorder(context, token):
             context["app_list"][i]["models"].sort(key=lambda model: 
                 sort(model_order, model["admin_url"].strip("/").split("/")[-1]))
     return ""
+    
+def register_to_end_tag(register):
+    """
+    Decorator that creates a template tag that parses until it finds the 
+    corresponding end tag, eg if the tag is named ``mytag`` it will parse 
+    until ``endmytag``. The render function takes a single argument which is 
+    the parsed content between the start and end tags, and its return value is 
+    used to render the parsed content.
+    """
+    def wrapper(renderer):
+        def tag(parser, token):
+            nodelist = parser.parse(("end%s" % renderer.__name__,))
+            parser.delete_first_token()
+            class TagNode(template.Node):
+                def render(self, context):
+                    return renderer(nodelist.render(context))
+            return TagNode()
+        for copy_attr in ("__dict__", "__doc__", "__name__"):
+            setattr(tag, copy_attr, getattr(renderer, copy_attr))
+        return register.tag(tag)
+    return wrapper
+
+@register_to_end_tag(register)
+def metablock(parsed):
+    """
+    Remove HTML tags, entities and superfluous characters from meta blocks.
+    """
+    parsed = " ".join(parsed.replace("\n", "").split()).replace(" ,", ",")
+    return strip_tags(decode_html_entities(parsed))
+
 

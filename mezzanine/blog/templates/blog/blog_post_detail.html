@@ -2,13 +2,15 @@
 {% load mezzanine_tags i18n %}
 
 {% block meta_title %}{{ blog_post.title }}{% endblock %}
-{% block meta_keywords %}{% spaceless %}
+{% block meta_keywords %}{% metablock %}
 {% for keyword in blog_post.keywords.all %}
     {% if not forloop.first %}, {% endif %}
     {{ keyword }}
 {% endfor %}
-{% endspaceless %}{% endblock %}
-{% block meta_description %}{{ blog_post.description }}{% endblock %}
+{% endmetablock %}{% endblock %}
+{% block meta_description %}{% metablock %}
+{{ blog_post.description }}
+{% endmetablock %}{% endblock %}
 {% block title %}{{ blog_post.title }}{% endblock %}
 
 {% block extra_head %}
