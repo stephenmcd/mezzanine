@@ -1,12 +1,12 @@
 
 from urllib import urlopen, urlencode
 
-from django import template
 from django.conf import settings
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 
 from mezzanine import settings as mezzanine_settings
+from mezzanine import template
 from mezzanine.utils import decode_html_entities
 
 
@@ -24,44 +24,8 @@ def setting(setting_name):
         value = ""
     return value
 
-def register_as_tag(register):
-    """
-    Decorator that creates a tag with the format: 
-    ``{% func_name as var_name %}`` 
-    The decorated func returns the value that is given to ``var_name`` in the 
-    template context.
-    """
-    def wrapper(func):
-        def tag(parser, token):
-            class TagNode(template.Node):
-                def render(self, context):
-                    parts = token.split_contents()
-                    context[parts[-1]] = func(*parts[1:-2])
-                    return ""
-            return TagNode()
-        for copy_attr in ("__dict__", "__doc__", "__name__"):
-            setattr(tag, copy_attr, getattr(func, copy_attr))
-        return register.tag(tag)
-    return wrapper
 
-def register_render_tag(register):
-    """
-    Decorator that creates a template tag using the given renderer as the 
-    render function for the template tag node. The render function takes two 
-    arguments - the template context and the tag token.
-    """
-    def wrapper(renderer):
-        def tag(parser, token):
-            class TagNode(template.Node):
-                def render(self, context):
-                    return renderer(context, token)
-            return TagNode()
-        for copy_attr in ("__dict__", "__doc__", "__name__"):
-            setattr(tag, copy_attr, getattr(renderer, copy_attr))
-        return register.tag(tag)
-    return wrapper
-
-@register_render_tag(register)
+@register.render_tag
 def set_short_url_for(context, token):
     """
     Sets the ``short_url`` attribute of the given model using the bit.ly 
@@ -84,7 +48,7 @@ def set_short_url_for(context, token):
                 obj.save()
     return ""
 
-@register_render_tag(register)
+@register.render_tag
 def admin_reorder(context, token):
     """
     Called in ``admin/base_site.html`` template override and applies custom 
@@ -107,29 +71,8 @@ def admin_reorder(context, token):
             context["app_list"][i]["models"].sort(key=lambda model: 
                 sort(model_order, model["admin_url"].strip("/").split("/")[-1]))
     return ""
-    
-def register_to_end_tag(register):
-    """
-    Decorator that creates a template tag that parses until it finds the 
-    corresponding end tag, eg if the tag is named ``mytag`` it will parse 
-    until ``endmytag``. The render function takes a single argument which is 
-    the parsed content between the start and end tags, and its return value is 
-    used to render the parsed content.
-    """
-    def wrapper(renderer):
-        def tag(parser, token):
-            nodelist = parser.parse(("end%s" % renderer.__name__,))
-            parser.delete_first_token()
-            class TagNode(template.Node):
-                def render(self, context):
-                    return renderer(nodelist.render(context))
-            return TagNode()
-        for copy_attr in ("__dict__", "__doc__", "__name__"):
-            setattr(tag, copy_attr, getattr(renderer, copy_attr))
-        return register.tag(tag)
-    return wrapper
 
-@register_to_end_tag(register)
+@register.to_end_tag
 def metablock(parsed):
     """
     Remove HTML tags, entities and superfluous characters from meta blocks.

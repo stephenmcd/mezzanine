@@ -1,9 +1,7 @@
 
 from collections import defaultdict
 
-from django import template
-
-from mezzanine.core.templatetags.mezzanine_tags import register_as_tag
+from mezzanine import template
 from mezzanine.twitter.models import Tweet
 
 
@@ -30,15 +28,15 @@ def tweets_for(type, args, per_user=None):
         tweets = tweets[:int(args[-1])]
     return tweets
 
-@register_as_tag(register)
+@register.as_tag
 def tweets_for_user(*args):
     return tweets_for("user_name", args)
 
-@register_as_tag(register)
+@register.as_tag
 def tweets_for_list(*args):
     return tweets_for("list_name", args, per_user=1)
 
-@register_as_tag(register)
+@register.as_tag
 def tweets_for_search(*args):
     return tweets_for("search_term", args)
 

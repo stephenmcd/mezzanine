@@ -5,7 +5,7 @@ from django import template
 from django.core.urlresolvers import reverse
 from django.db.models import get_model, get_models
 
-from mezzanine.core.templatetags.mezzanine_tags import register_as_tag
+from mezzanine import template
 from mezzanine.pages.models import Page
 from mezzanine.settings import PAGES_MENU_SHOW_ALL
 
@@ -53,7 +53,7 @@ def page_menu_admin(context, parent_page=None):
     """
     return _page_menu(context, parent_page)
 
-@register_as_tag(register)
+@register.as_tag
 def models_for_pages(*args):
     """
     Create a select list containing each of the models that subclass Page

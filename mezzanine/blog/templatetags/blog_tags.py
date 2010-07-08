@@ -10,10 +10,10 @@ from django.db.models import Count
 from django.utils.simplejson import loads
 
 from mezzanine import settings as blog_settings
+from mezzanine import template
 from mezzanine.blog.forms import BlogPostForm
 from mezzanine.blog.models import Comment, BlogPost
 from mezzanine.core.models import Keyword
-from mezzanine.core.templatetags.mezzanine_tags import register_as_tag
 
 
 register = template.Library()
@@ -54,7 +54,7 @@ def blog_comments_for(context, parent):
     })
     return context
 
-@register_as_tag(register)
+@register.as_tag
 def blog_months(*args):
     """
     Put a list of dates for blog posts into the template context.
@@ -62,7 +62,7 @@ def blog_months(*args):
     return BlogPost.objects.published().dates("publish_date", "month", 
         order="DESC")
 
-@register_as_tag(register)
+@register.as_tag
 def blog_tags(*args):
     """
     Put a list of tags (keywords) for blog posts into the template context.
@@ -85,7 +85,7 @@ def blog_tags(*args):
         tag.weight = steps.index(c + diff) + 1
     return tags
 
-@register_as_tag(register)
+@register.as_tag
 def blog_authors(*args):
     """
     Put a list of authors (users) for blog posts into the template context.
@@ -93,7 +93,7 @@ def blog_authors(*args):
     blog_posts = BlogPost.objects.published()
     return User.objects.filter(blog_posts__in=blog_posts).distinct()
 
-@register_as_tag(register)
+@register.as_tag
 def quick_blog_form(*args):
     """
     Puts the quick blog form into the admin dashboard.
