@@ -47,8 +47,8 @@ class DisplayableAdmin(admin.ModelAdmin):
 
     def save_form(self, request, form, change):
         """
-        Store the keywords as a single string into the _keywords field for 
-        convenient access when searching.
+        Store the keywords as a single string into the ``_keywords`` field 
+        for convenient access when searching.
         """
         obj = form.save(commit=True)
         obj.set_searchable_keywords()

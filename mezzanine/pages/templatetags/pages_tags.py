@@ -56,7 +56,8 @@ def page_menu_admin(context, parent_page=None):
 @register.as_tag
 def models_for_pages(*args):
     """
-    Create a select list containing each of the models that subclass Page
+    Create a select list containing each of the models that subclass the 
+    ``Page`` model.
     """
     page_models = []
     for model in get_models():
@@ -70,7 +71,8 @@ def models_for_pages(*args):
 @register.filter
 def is_page_content_model(admin_model_dict):
     """
-    Returns True if the model in the given admin dict is a subclass of Page.
+    Returns True if the model in the given admin dict is a subclass of the 
+    ``Page`` model.
     """
     args = admin_model_dict["admin_url"].strip("/").split("/")
     if len(args) == 2:

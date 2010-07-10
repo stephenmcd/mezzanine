@@ -105,11 +105,12 @@ recent_comments_template = "admin/includes/recent_comments.html"
 @register.inclusion_tag(recent_comments_template, takes_context=True)
 def recent_comments(context):
     """
-    If the COMMENTS_DISQUS_SHORTNAME and COMMENTS_DISQUS_KEY settings have been 
-    set, pull the latest comments in from the Disqus API, using the global 
-    DISQUS_FORUM_ID so that this lookup occurs only once, transforming each 
-    comment into a dict that looks like the built-in comments model. If these 
-    are not set then use the built-in comments model.
+    If the ``COMMENTS_DISQUS_SHORTNAME`` and ``COMMENTS_DISQUS_KEY`` settings 
+    have been set, pull the latest comments in from the Disqus API, using the 
+    global ``DISQUS_FORUM_ID`` so that this lookup occurs only once, 
+    transforming each comment into a dict that looks like the built-in 
+    ``Comment`` model. If these are not set then use the built-in ``Comment`` 
+    model.
     """
 
     global DISQUS_FORUM_ID

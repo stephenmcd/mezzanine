@@ -4,9 +4,9 @@ from django import template
 
 class Library(template.Library):
     """
-    Drop-in for django.template.Library that provides several shortcuts that 
-    attempt to take the legwork out of creating different types of template 
-    tags
+    Drop-in replacement for django.template.Library providing several 
+    shortcuts that attempt to take the leg-work out of creating different 
+    types of template tags.
     """
     
     def _make_tag_type(self, func_from, func_to):

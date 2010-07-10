@@ -76,8 +76,8 @@ class Displayable(models.Model):
     
     def set_searchable_keywords(self):
         """
-        Stores the keywords as a single string into the _keywords field for 
-        convenient access when searching.
+        Stores the keywords as a single string into the ``_keywords`` field 
+        for convenient access when searching.
         """
         self._keywords = " ".join([kw.value for kw in self.keywords.all()])
         self.save()
@@ -93,10 +93,10 @@ class Displayable(models.Model):
 
 class OrderableBase(ModelBase):
     """
-    Checks for order_with_respect_to on the model's inner Meta class and if 
-    found, copies it to a custom attribute and deletes it since it will cause 
-    errors when used with ForeignKey("self"). Also specify ordering on the Meta 
-    class if not yet provided.
+    Checks for ``order_with_respect_to`` on the model's inner ``Meta`` class 
+    and if found, copies it to a custom attribute and deletes it since it 
+    will cause errors when used with ``ForeignKey("self")``. Also creates the  
+    ``ordering`` attribute on the ``Meta`` class if not yet provided.
     """
 
     def __new__(cls, name, bases, attrs):
@@ -114,8 +114,8 @@ class OrderableBase(ModelBase):
 class Orderable(models.Model):
     """
     Provide a custom ordering integer field similar to using Meta's 
-    order_with_respect_to since to date (Django 1.2) order_with_respect_to 
-    doesn't work with ForeignKey("self"). We may also want this feature for 
+    ``order_with_respect_to`` since to date (Django 1.2) this doesn't work 
+    with ``ForeignKey("self")``. We may also want this feature for 
     models that aren't ordered with respect to a particular field.
     """
 
@@ -129,7 +129,7 @@ class Orderable(models.Model):
     def with_respect_to(self):
         """
         Returns a dict to use as a filter for ordering operations containing 
-        the original Meta.order_with_respect_to value if provided.
+        the original ``Meta.order_with_respect_to`` value if provided.
         """
         try:
             field = self.order_with_respect_to

@@ -26,8 +26,8 @@ LOADED = False
 
 def autodiscover():
     """
-    Taken from django.contrib.admin.autodiscover and used to run any calls to 
-    the processor_for decorator.
+    Taken from ``django.contrib.admin.autodiscover`` and used to run any 
+    calls to the ``processor_for`` decorator.
     """
     global LOADED
     if LOADED:

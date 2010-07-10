@@ -10,9 +10,9 @@ register = template.Library()
 
 def tweets_for(type, args, per_user=None):
     """
-    Retrieve tweets for a user, list or search term. The per user arg limits 
-    the number of tweets per user, for example to allow a fair spread of 
-    tweets per user for a list.
+    Retrieve tweets for a user, list or search term. The optional 
+    ``per_user`` arg limits the number of tweets per user, for example to 
+    allow a fair spread of tweets per user for a list.
     """
     lookup = {}
     lookup[type] = args[0].strip("\"'")
@@ -30,13 +30,22 @@ def tweets_for(type, args, per_user=None):
 
 @register.as_tag
 def tweets_for_user(*args):
+    """
+    Tweets for a user.
+    """
     return tweets_for("user_name", args)
 
 @register.as_tag
 def tweets_for_list(*args):
+    """
+    Tweets for a user's list.
+    """
     return tweets_for("list_name", args, per_user=1)
 
 @register.as_tag
 def tweets_for_search(*args):
+    """
+    Tweets for a search query.
+    """
     return tweets_for("search_term", args)
 
