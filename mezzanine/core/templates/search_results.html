@@ -18,7 +18,7 @@ Showing {{ results.start_index }} to {{ results.end_index }} of
 
 <div id="search-results">
     {% for result in results.object_list %}
-    <h5><a href="{{ result.get_absolute_url }}">{{ result }}</a> {{ result.result_count }}</h5>
+    <h5><a href="{{ result.get_absolute_url }}">{{ result }}</a></h5>
     {{ result.description|truncatewords_html:20|safe }}
     <a href="{{ result.get_absolute_url }}">read more</a>
     {% endfor %}
