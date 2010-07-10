@@ -27,6 +27,7 @@ provides the following features.
   * WYSIWYG editing
   * API for custom content types
   * SEO friendly URLs and meta data
+  * Search engine and API
   * Mobile device detection and templates
   * Blogging engine
   * Tagging

@@ -32,6 +32,9 @@ class KeywordManager(Manager):
         return self.get(value=value)
 
 class SearchableQuerySet(QuerySet):
+    """
+    QuerySet providing main search functionality for ``SearchableManager``.
+    """
     
     def __init__(self, *args, **kwargs):
         self._search_ordered = False
@@ -147,7 +150,8 @@ class SearchableQuerySet(QuerySet):
                 for (field, weight) in self._search_fields.items():
                     for term in self._search_terms:
                         field_value = getattr(result, field)
-                        count += field_value.lower().count(term) * weight
+                        if field_value:
+                            count += field_value.lower().count(term) * weight
                 results[i].result_count = count
             return iter(results)
         return results
