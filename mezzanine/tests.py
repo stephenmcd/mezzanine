@@ -121,3 +121,32 @@ class Tests(TestCase):
         after = self.queries_used_for_template(template)
         self.assertEquals(before, after)
 
+    def test_search(self):
+        """
+        Test search.
+        """
+        Page.objects.all().delete()
+        first = Page.objects.create(title="test page").id
+        second = Page.objects.create(title="test another test page").id
+        # Either word.
+        results = Page.objects.search("another test")
+        self.assertEqual(len(results), 2)
+        # Must include first word.
+        results = Page.objects.search("+another test")
+        self.assertEqual(len(results), 1)
+        # Mustn't include first word.
+        results = Page.objects.search("-another test")
+        self.assertEqual(len(results), 1)
+        if results:
+            self.assertEqual(results[0].id, first)
+        # Exact phrase.
+        results = Page.objects.search('"another test"')
+        self.assertEqual(len(results), 1)
+        if results:
+            self.assertEqual(results[0].id, second)
+        # Test ordering.
+        results = Page.objects.search("test")
+        self.assertEqual(len(results), 2)
+        if results:
+            self.assertEqual(results[0].id, second)
+

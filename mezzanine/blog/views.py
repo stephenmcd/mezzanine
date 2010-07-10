@@ -2,7 +2,6 @@
 from calendar import month_name
 
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -11,6 +10,7 @@ from django.template.loader import select_template
 
 from mezzanine.blog.forms import CommentForm
 from mezzanine.blog.models import BlogPost
+from mezzanine.utils import paginate
 from mezzanine import settings as blog_settings
 
 
@@ -35,23 +35,11 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     if username is not None:
         user = get_object_or_404(User, username=username)
         blog_posts = blog_posts.filter(user=user)
-    paginator = Paginator(blog_posts, blog_settings.BLOG_POST_PER_PAGE)
-    try:
-        page_num = int(request.GET.get("page", 1))
-    except ValueError:
-        page_num = 1
-    try:
-        blog_posts = paginator.page(page_num)
-    except (EmptyPage, InvalidPage):
-        blog_posts = paginator.page(paginator.num_pages)
-    page_range = blog_posts.paginator.page_range
-    max_links = blog_settings.BLOG_POST_MAX_PAGING_LINKS
-    if len(page_range) > max_links:
-        start = min(blog_posts.paginator.num_pages - max_links, 
-            max(0, blog_posts.number - (max_links / 2) - 1))
-        page_range = page_range[start:start + max_links]
-    context = {"blog_posts": blog_posts, "page_range": page_range, "tag": tag, 
-        "year": year, "month": month, "user": user, "use_disqus": use_disqus}
+    blog_posts = paginate(blog_posts, request.GET.get("page", 1),
+        blog_settings.BLOG_POST_PER_PAGE, 
+        blog_settings.BLOG_POST_MAX_PAGING_LINKS)
+    context = {"blog_posts": blog_posts, "year": year, "month": month, 
+        "tag": tag, "user": user, "use_disqus": use_disqus}
     return render_to_response(template, context, RequestContext(request))
 
 def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):

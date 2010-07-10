@@ -50,29 +50,7 @@
 </p>
 {% endfor %}
 
-<div class="paging">
-    <p>{% trans "Page" %} {{ blog_posts.number }} {% trans "of" %} 
-        {{ blog_posts.paginator.num_pages }}:</p>
-    <ul>
-        {% if blog_posts.has_previous %}
-        <li><a href="?page={{ blog_posts.previous_page_number }}"
-            >&lt;</a></li>
-        {% endif %}
-        {% for page in page_range %}
-        <li>
-            {% ifequal page blog_posts.number %}
-               <strong>{{ page }}</strong>
-            {% else %}
-               <a href="?page={{ page }}">{{ page }}</a>
-            {% endifequal %}
-        </li>
-        {% endfor %} 
-        {% if blog_posts.has_next %}
-        <li><a href="?page={{ blog_posts.next_page_number }}"
-            >&gt;</a></li>
-        {% endif %}
-    </ul>
-</div>
+{% pagination_for blog_posts %} 
 
 {% if use_disqus %}
 {% include "blog/includes/disqus_counts.html" %} 

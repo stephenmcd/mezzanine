@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load i18n mezzanine_tags %}
+
+{% block meta_title %}{% trans "Search Results" %}{% endblock %}
+{% block title %}{% trans "Search Results" %}{% endblock %}
+
+{% block main %}
+
+<p>
+{% ifequal results.paginator.count 0 %}
+No results were found matching your query: <em>{{ query }}</em>
+{% else %}
+Showing {{ results.start_index }} to {{ results.end_index }} of
+{{ results.paginator.count }} results matching your query: <em>{{ query }}</em>
+{% endifequal %}
+</p>
+
+<div id="search-results">
+    {% for result in results.object_list %}
+    <h5><a href="{{ result.get_absolute_url }}">{{ result }}</a> {{ result.result_count }}</h5>
+    {{ result.description|truncatewords_html:20|safe }}
+    <a href="{{ result.get_absolute_url }}">read more</a>
+    {% endfor %}
+</div>
+
+{% pagination_for results %}
+
+{% endblock %}

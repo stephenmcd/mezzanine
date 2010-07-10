@@ -1,8 +1,12 @@
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
-from mezzanine.core.models import Keyword
+from mezzanine.core.models import Keyword, Displayable
+from mezzanine.settings import SEARCH_MAX_PAGING_LINKS, SEARCH_PER_PAGE
+from mezzanine.utils import paginate
 
 
 def admin_keywords_submit(request):
@@ -18,4 +22,15 @@ def admin_keywords_submit(request):
             ids.append(str(keyword.id))
     return HttpResponse(",".join(set(ids)))
 admin_keywords_submit = staff_member_required(admin_keywords_submit)
+
+def search(request, template="search_results.html"):
+    """
+    Display search results.
+    """
+    query = request.GET.get("q", "")
+    results = Displayable.objects.search(query)
+    results = paginate(results, request.GET.get("page", 1), SEARCH_PER_PAGE, 
+        SEARCH_MAX_PAGING_LINKS)
+    context = {"query": query, "results": results}
+    return render_to_response(template, context, RequestContext(request))
 

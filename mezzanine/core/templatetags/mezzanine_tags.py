@@ -80,4 +80,11 @@ def metablock(parsed):
     parsed = " ".join(parsed.replace("\n", "").split()).replace(" ,", ",")
     return strip_tags(decode_html_entities(parsed))
 
+@register.inclusion_tag("includes/pagination.html", takes_context=True)
+def pagination_for(context, current_page):
+    querystring = context["request"].GET.copy()
+    if "page" in querystring:
+        del querystring["page"]
+    querystring = querystring.urlencode()
+    return {"current_page": current_page, "querystring": querystring}
 

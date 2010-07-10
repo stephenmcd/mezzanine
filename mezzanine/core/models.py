@@ -7,7 +7,7 @@ from django.db.models.base import ModelBase
 from django.template.defaultfilters import slugify, truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.core.managers import PublishedManager, KeywordManager
+from mezzanine.core.managers import DisplayableManager, KeywordManager
 from mezzanine import settings as blog_settings
 
 
@@ -30,9 +30,11 @@ class Displayable(models.Model):
     slug = models.SlugField(max_length=100, editable=False, null=True)
     keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
         blank=True)
+    _keywords = models.CharField(max_length=500, editable=False)
     short_url = models.URLField(blank=True, null=True)
         
-    objects = PublishedManager()
+    objects = DisplayableManager()
+    search_fields = {"_keywords": 10, "title": 5, "content": 1}
 
     class Meta:
         abstract = True
@@ -71,7 +73,15 @@ class Displayable(models.Model):
                     break
                 i += 1
         super(Displayable, self).save(*args, **kwargs)
-        
+    
+    def set_searchable_keywords(self):
+        """
+        Stores the keywords as a single string into the _keywords field for 
+        convenient access when searching.
+        """
+        self._keywords = " ".join([kw.value for kw in self.keywords.all()])
+        self.save()
+    
     def get_slug(self):
         return slugify(self.title)
     

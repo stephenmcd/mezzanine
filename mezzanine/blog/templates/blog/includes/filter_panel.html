@@ -5,7 +5,7 @@
 <h3>Archive</h3>
 {% blog_months as months %}
 {% for month in months %}
-{% ifchanged month.year %}{{ month.year }}<ul>{% endifchanged %}
+{% ifchanged month.year %}<h4>{{ month.year }}</h4><ul>{% endifchanged %}
 <li><a href="{% url blog_post_list_month year=month.year month=month.month %}"
     >{{ month|date:"F" }}</a></li>
 {% endfor %}
