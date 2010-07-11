@@ -1,5 +1,6 @@
 
 from calendar import month_name
+from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.db.models import Count
@@ -49,10 +50,15 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
     # Create two comment forms - one with posted data and errors that will be 
     # matched to the form submitted via comment_id, and an empty one for all 
     # other instances.
+    commenter_cookie_prefix = "mezzanine-blog-"
+    commenter_cookie_fields = ("name", "email", "website")
+    initial_comment_data = dict([(f, request.COOKIES.get(
+        commenter_cookie_prefix + f, "")) for f in commenter_cookie_fields])
     blog_post = get_object_or_404(
         BlogPost.objects.published(for_user=request.user), slug=slug)
-    posted_comment_form = CommentForm(request.POST or None)
-    unposted_comment_form = CommentForm()
+    posted_comment_form = CommentForm(request.POST or None, 
+        initial=initial_comment_data)
+    unposted_comment_form = CommentForm(initial=initial_comment_data)
     if request.method == "POST" and posted_comment_form.is_valid():
         comment = posted_comment_form.save(commit=False)
         comment.blog_post = blog_post
@@ -62,7 +68,14 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
             request.META["REMOTE_ADDR"])
         comment.replied_to_id = request.POST.get("replied_to")
         comment.save()
-        return HttpResponseRedirect(comment.get_absolute_url())
+        response = HttpResponseRedirect(comment.get_absolute_url())
+        # Store commenter's details in a cookie for 90 days.
+        expires = datetime.strftime(datetime.utcnow() + 
+            timedelta(seconds=90*24*60*60), "%a, %d-%b-%Y %H:%M:%S GMT")
+        for field in commenter_cookie_fields:
+            response.set_cookie(commenter_cookie_prefix + field, 
+                request.POST.get(field, ""), expires=expires)
+        return response
     context = {"blog_post": blog_post, "use_disqus": use_disqus, 
         "posted_comment_form": posted_comment_form, "unposted_comment_form": 
         unposted_comment_form}
