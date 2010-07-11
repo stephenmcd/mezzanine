@@ -42,6 +42,7 @@ class Comment(models.Model):
     blog_post = models.ForeignKey("BlogPost", related_name="comments")
     approved = models.BooleanField(_("Approved"), 
         default=COMMENTS_DEFAULT_APPROVED)
+    by_author = models.BooleanField(_("By the blog author"), default=False)
     ip_address = models.IPAddressField(_("IP address"), blank=True, null=True)
     time_created = models.DateTimeField(_("Created at"), default=datetime.now)
     replied_to = models.ForeignKey("self", blank=True, null=True, 

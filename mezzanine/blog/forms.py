@@ -6,7 +6,7 @@ from mezzanine.blog.models import Comment, BlogPost
 
 class CommentForm(forms.ModelForm):
     """
-    Model form for comments against a blog post.
+    Model form for ``Comment`` against a ``BlogPost``.
     """
 
     class Meta:
@@ -15,8 +15,8 @@ class CommentForm(forms.ModelForm):
 
 class BlogPostForm(forms.ModelForm):
     """
-    Model form for blog post that provides the quick blog panel in the admin 
-    dashboard. 
+    Model form for ``BlogPost`` that provides the quick blog panel in the 
+    admin dashboard. 
     """
 
     class Meta:

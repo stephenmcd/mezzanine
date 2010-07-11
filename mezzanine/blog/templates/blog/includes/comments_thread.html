@@ -2,7 +2,8 @@
 
 <ul>
     {% for comment in comments_thread %}
-    <li id="comment-{{ comment.id }}">
+    <li id="comment-{{ comment.id }}"{% if comment.by_author %} 
+        class="author"{% endif %}>
         {% if comment.approved %}
         <em>
             <strong>

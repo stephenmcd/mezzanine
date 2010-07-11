@@ -56,6 +56,8 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
     if request.method == "POST" and posted_comment_form.is_valid():
         comment = posted_comment_form.save(commit=False)
         comment.blog_post = blog_post
+        comment.by_author = (request.user == blog_post.user and 
+            request.user.is_authenticated)
         comment.ip_address = request.META.get("HTTP_X_FORWARDED_FOR", 
             request.META["REMOTE_ADDR"])
         comment.replied_to_id = request.POST.get("replied_to")
