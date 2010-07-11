@@ -32,8 +32,8 @@ pages that were photo galleries::
     from mezzanine.pages.models import Page
 
     # The members of Page will be inherited by the Gallery model, such as 
-    # title, slug, WYSIWYG content, etc. In this example the Gallery model is 
-    # essentially a container for GalleryImage instances.
+    # title, slug, WYSIWYG content, etc. In this example the Gallery model 
+    # is essentially a container for GalleryImage instances.
     class Gallery(Page):
         pass 
         
@@ -156,6 +156,7 @@ as slugs). Some of these features are:
 Content models that do not inherit from the ``Page`` model described earlier 
 should inherit from the ``Displayable`` model if any of the above features 
 are required. An example of this can be found in the ``mezzanine.blog`` 
-application, where ``Blo============gPost`` instances contain their own URLs and views 
-that fall outside of the regular URL/view structure of the ``Page`` model.
+application, where ``Blo============gPost`` instances contain their own URLs 
+and views that fall outside of the regular URL/view structure of the 
+``Page`` model.
 

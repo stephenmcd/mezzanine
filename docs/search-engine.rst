@@ -46,7 +46,8 @@ search. For example to search ``Page.title`` and ``Page.content`` only::
 
 If ``search_fields`` is not provided in the call to ``search``, the fields 
 used will be the default fields specified for the model. These are specified 
-by providing a ``search_fields`` attribute on any model that uses the ``SearchableManager``. For example, if we wanted to add search capabilities 
+by providing a ``search_fields`` attribute on any model that uses the 
+``SearchableManager``. For example, if we wanted to add search capabilities 
 to our ``GalleryImage`` model from the previous example in 
 :ref:`creating-custom-content-types`::
 
