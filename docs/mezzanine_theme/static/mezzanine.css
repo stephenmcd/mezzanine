@@ -446,3 +446,13 @@ input {border: 1px solid #ccc !important;}
     letter-spacing:-1px;}
 .footer {padding:10px 0 !important; text-align:center !important; 
     background:#ccc;}
+    
+
+p.admonition-title, p.last {
+    display: inline; padding:0;
+}
+
+div.note {
+    background-color: #eee;
+}
+

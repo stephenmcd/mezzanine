@@ -8,7 +8,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 def decode_html_entities(html): 
     """
     Remove HTML entities from a string.
-    Adapted from http://effbot.org/zone/re-sub.htm
+    Adapted from http://effbot.org/zone/re-sub.htm#unescape-html
     """
     def decode(m):
         html = m.group(0)

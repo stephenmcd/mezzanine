@@ -1,13 +1,13 @@
-============
-Architecture
-============
+====================
+Content Architecture
+====================
 
 Mezzanine primarily revolves around the models found in two packages, 
 ``mezzanine.core`` and ``mezzanine.pages``. This section describes these 
 models and how to extend them to create your own custom content for a 
 Mezzanine site.
 
-The ``Page`` model
+The ``Page`` Model
 ==================
 
 The foundation of a Mezzanine site is the model 
@@ -18,7 +18,9 @@ via ``mezzanine.pages.admin.PageAdmin``. When creating new pages in the
 admin with a default Mezzanine project, the ``Page`` model is used which 
 simply contains a WYSIWYG editable field for content.
 
-Creating custom content types
+.. _creating-custom-content-types:
+
+Creating Custom Content Types
 =============================
 
 In order to handle different types of pages that require more structured 
@@ -58,7 +60,7 @@ By using an admin class that inherits from ``PageAdmin`` the admin class
 won't be listed in the admin index page, instead being made available as 
 a type of ``Page`` when creating new pages from the navigation tree.
 
-Displaying custom content types
+Displaying Custom Content Types
 ===============================
 
 When creating models that inherit from the ``Page`` model, multi-table 
@@ -137,7 +139,7 @@ app would be as follows::
                 return HttpResponseRedirect(redirect)
         return {"form": form}
 
-The ``Displayable`` model
+The ``Displayable`` Model
 =========================
 
 The abstract model ``mezzanine.core.models.Displayable`` and associated 
@@ -154,6 +156,6 @@ as slugs). Some of these features are:
 Content models that do not inherit from the ``Page`` model described earlier 
 should inherit from the ``Displayable`` model if any of the above features 
 are required. An example of this can be found in the ``mezzanine.blog`` 
-application, where ``BlogPost`` instances contain their own URLs and views 
+application, where ``Blo============gPost`` instances contain their own URLs and views 
 that fall outside of the regular URL/view structure of the ``Page`` model.
 
