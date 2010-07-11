@@ -11,7 +11,7 @@ For more technical information, you can read about Mezzanine's
 extend them with your own custom content types. 
 
 Further reading includes information about Mezzanine's :doc:`search-engine`, 
-and section on  Mezzanine's :doc:`configuration` which oulines the various 
+and a section on Mezzanine's :doc:`configuration` which oulines the various 
 settings for configuring Mezzanine. Lastly, you may be interested in browsing 
 the auto-generated docs for each of Mezzanine's :doc:`packages`.
 
