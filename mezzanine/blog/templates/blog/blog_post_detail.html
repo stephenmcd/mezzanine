@@ -29,9 +29,10 @@
 {% block main %}
 
 <em>
+    {% trans "Posted by" %}
     <strong>
         {% with blog_post.user as author %}
-        {% trans "Posted by" %}: <a href="{% url blog_post_list_author author %}"
+        <a href="{% url blog_post_list_author author %}"
             >{{ author.get_full_name|default:author.username }}</a>
         {% endwith %}
     </strong>
