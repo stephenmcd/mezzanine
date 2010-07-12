@@ -14,7 +14,8 @@ from __future__ import with_statement
 
 import sys, os
 docs_path = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(docs_path, ".."))
+mezzanine_path = os.path.join(docs_path, "..")
+sys.path.insert(0, mezzanine_path)
 os.environ["DJANGO_SETTINGS_MODULE"] = "mezzanine.project_template.settings"
 import mezzanine
 
@@ -41,6 +42,63 @@ with open(mezzanine.settings.__file__.rstrip("c"), "r") as f:
             settings_comment = []
 with open(os.path.join(docs_path, "settings.rst"), "w") as f:
     f.write("\n".join(settings_docs))
+
+# Generate the CHANGELOG file.
+
+from datetime import datetime
+from mercurial import ui, hg
+from django.utils.datastructures import SortedDict
+
+repo = hg.repository(ui.ui(), mezzanine_path)
+version_file = "mezzanine/__init__.py"
+version_var = "__version__"
+changelog_file = os.path.join(mezzanine_path, "CHANGELOG")
+versions = SortedDict()
+
+for changeset in reversed(list(repo.changelog)):
+    # Check if the file with the version number is in this changeset and if 
+    # it is, pull it out and assign it as a variable.
+    context = repo.changectx(changeset)
+    if len(context.parents()) > 1:
+        # Ignore merges.
+        continue
+    files = context.files()
+    new_version = False
+    if version_file in files:
+        for line in context[version_file].data().split("\n"):
+            if line.startswith(version_var):
+                exec line
+                version_info = {"changes": set(), "date": 
+                    datetime.fromtimestamp(context.date()[0]
+                    ).strftime("%b %d, %Y")}
+                versions[globals()[version_var]] = version_info
+                new_version = True
+    if new_version and len(files) == 1:
+        # Ignore changeset that bumped version.
+        continue
+    # Ensure we have a current version and if so, add this changeset's 
+    # description to it.
+    try:
+        version = globals()[version_var]
+    except KeyError:
+        continue
+    else:
+        entry = "%s - %s" % (context.description(), context.user().split()[0])
+        versions[version]["changes"].update((entry,))
+
+# Write out the changelog.
+with open(changelog_file, "w") as f:
+    for version, version_info in versions.items():
+        version_header = "Version %s (%s)" % (version, version_info["date"])
+        f.write("%s\n" % version_header)
+        f.write("%s\n" % ("-" * len(version_header)))
+        f.write("\n")
+        if version_info["changes"]:
+            for change in version_info["changes"]:
+                f.write("  * %s\n" % change)
+        else:
+            f.write("  * No changes listed.\n")
+        f.write("\n")
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

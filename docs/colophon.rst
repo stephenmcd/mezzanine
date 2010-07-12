@@ -12,3 +12,9 @@ License
 
 .. include:: ../LICENSE
 
+Change Log
+==========
+
+.. include:: ../CHANGELOG
+
+
