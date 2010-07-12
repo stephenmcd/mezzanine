@@ -107,7 +107,8 @@ Sites Using Mezzanine
 Quotes
 ======
 
-  * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `swhite`_
+  * "Mezzanine looks pretty interesting - tempting to get me off Wordpress." - `Jesse Noller`_
+  * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `Stephen White`_
 
 .. _`Django`: http://djangoproject.com/
 .. _`Wordpress`: http://wordpress.org/
@@ -122,10 +123,11 @@ Quotes
 .. _`Google Analytics`: http://www.google.com/analytics/
 .. _`Twitter`: http://twitter.com/
 .. _`bit.ly`: http://bit.ly/
-.. _`Citrus Agency`: http://citrus.com.au/
-.. _`swhite`: http://bitbucket.org/swhite/
 .. _`Github`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users
 .. _`Github issue tracker`: http://github.com/stephenmcd/mezzanine/issues
+.. _`Citrus Agency`: http://citrus.com.au/
+.. _`Jesse Noller`: http://jessenoller.com/
+.. _`Stephen White`: http://bitbucket.org/swhite/
 
