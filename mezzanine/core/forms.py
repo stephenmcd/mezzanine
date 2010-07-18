@@ -58,7 +58,7 @@ def get_edit_form(obj, attr, data=None):
             """
             super(EditForm, self).__init__(*args, **kwargs)
             if isinstance(obj._meta.get_field_by_name(attr)[0], HtmlField):
-                self.fields[attr].widget = TinyMceField()
+                self.fields[attr].widget = TinyMceWidget()
 
     initial = {"app": obj._meta.app_label, "id": obj.id, "attr": attr, 
         "model": obj._meta.object_name.lower()}
