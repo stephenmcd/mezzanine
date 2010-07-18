@@ -23,8 +23,8 @@ function CustomFileBrowser(field_name, url, type, win) {
 tinyMCE.init({
     
     // main settings
-    mode: "exact",
-    elements: "id_content,description",
+    mode : "specific_textareas",
+    editor_selector : "mceEditor",
     theme: "advanced",
     language: "en",
     //skin: "grappelli",

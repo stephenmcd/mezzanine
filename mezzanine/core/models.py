@@ -10,6 +10,9 @@ from mezzanine.core.managers import DisplayableManager, KeywordManager
 from mezzanine import settings as blog_settings
 
 
+class HtmlField(models.TextField):
+    pass
+    
 class Displayable(models.Model):
     """
     Abstract model representing a visible object on the website with common 
@@ -18,8 +21,8 @@ class Displayable(models.Model):
     """
 
     title = models.CharField(_("Title"), max_length=100)
-    content = models.TextField(_("Content"))
-    description = models.TextField(_("Description"), blank=True)
+    content = HtmlField(_("Content"))
+    description = HtmlField(_("Description"), blank=True)
     status = models.IntegerField(_("Status"), 
         choices=blog_settings.CONTENT_STATUS_CHOICES, 
         default=blog_settings.CONTENT_STATUS_DRAFT)
