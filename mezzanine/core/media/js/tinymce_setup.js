@@ -33,8 +33,8 @@ tinyMCE.init({
     editor_deselector : "mceNoEditor",
     
     // general settings
-    width: '80%',
-    height: '400',
+    width: '500',
+    height: '350',
     indentation : '10px',
     fix_list_elements : true,
     relative_urls: false,

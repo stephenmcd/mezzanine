@@ -10,11 +10,14 @@ from django.views.generic.simple import direct_to_template
 from mezzanine.settings import ADMIN_REMOVAL, CONTENT_MEDIA_PATH, \
     CONTENT_MEDIA_URL
 
-urlpatterns = patterns("",
-    url("^admin_keywords_submit/$", 
-        "mezzanine.core.views.admin_keywords_submit", 
+urlpatterns = patterns("mezzanine.core.views",
+    url("^admin_keywords_submit/$", "admin_keywords_submit", 
         name="admin_keywords_submit"),
-    url("^search/$", "mezzanine.core.views.search", name="search"),
+    url("^edit/$", "edit", name="edit"),
+    url("^search/$", "search", name="search"),
+)
+
+urlpatterns += patterns("",
     ("^%s/(?P<path>.*)$" % CONTENT_MEDIA_URL.strip("/"), 
         "django.views.static.serve", {'document_root': CONTENT_MEDIA_PATH}),
 )

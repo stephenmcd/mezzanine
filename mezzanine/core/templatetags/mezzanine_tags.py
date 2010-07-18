@@ -1,12 +1,18 @@
 
 from urllib import urlopen, urlencode
+from uuid import uuid4
 
 from django.conf import settings
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.db.models import Model
+from django.template import Context
+from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 
 from mezzanine import settings as mezzanine_settings
 from mezzanine import template
+from mezzanine.core.forms import get_edit_form
 from mezzanine.utils import decode_html_entities
 
 
@@ -82,9 +88,44 @@ def metablock(parsed):
 
 @register.inclusion_tag("includes/pagination.html", takes_context=True)
 def pagination_for(context, current_page):
+    """
+    Include the pagination template and data for persisting querystring in 
+    pagination links.
+    """
     querystring = context["request"].GET.copy()
     if "page" in querystring:
         del querystring["page"]
     querystring = querystring.urlencode()
     return {"current_page": current_page, "querystring": querystring}
+
+@register.inclusion_tag("includes/editable_loader.html", takes_context=True)
+def editable_loader(context):
+    """
+    Set up the required JS/CSS for the in-line editing toolbar and controls.
+    """
+    t = get_template("includes/editable_toolbar.html") 
+    context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
+    context["toolbar"] = t.render(Context(context))
+    return context
+
+@register.to_end_tag
+def editable(parsed, context, token):
+    """
+    If the user is staff, add the required HTML to the parsed content for 
+    in-line editing such as the icon and edit form.
+    """
+    var, attr = token.split_contents()[1].split(".")
+    obj = context[var]
+    if not parsed.strip():
+        parsed = getattr(obj, attr)
+    user = context["request"].user
+    if isinstance(obj, Model) and user.is_staff:
+        perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
+        if user.has_perm(perm):
+            context["form"] = get_edit_form(obj, attr)
+            context["original"] = parsed
+            context["uuid"] = uuid4()
+            t = get_template("includes/editable_form.html") 
+            return t.render(Context(context))
+    return parsed
 
