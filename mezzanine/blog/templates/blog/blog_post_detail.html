@@ -2,16 +2,21 @@
 {% load mezzanine_tags i18n %}
 
 {% block meta_title %}{{ blog_post.title }}{% endblock %}
+
 {% block meta_keywords %}{% metablock %}
 {% for keyword in blog_post.keywords.all %}
     {% if not forloop.first %}, {% endif %}
     {{ keyword }}
 {% endfor %}
 {% endmetablock %}{% endblock %}
+
 {% block meta_description %}{% metablock %}
 {{ blog_post.description }}
 {% endmetablock %}{% endblock %}
-{% block title %}{{ blog_post.title }}{% endblock %}
+
+{% block title %}
+{% editable blog_post.title %}{{ blog_post.title }}{% endeditable %}
+{% endblock %}
 
 {% block extra_head %}
 <script type="text/javascript" 
@@ -39,7 +44,9 @@
     {{ blog_post.publish_date|timesince }} {% trans "ago" %}
 </em>
 
+{% editable blog_post.content %}
 {{ blog_post.content|safe }}
+{% endeditable %}
 
 {% with blog_post.keywords.all as tags %}
 {% if tags %}
