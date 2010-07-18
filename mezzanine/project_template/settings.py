@@ -64,6 +64,7 @@ MIDDLEWARE_CLASSES = (
     "django.middleware.common.CommonMiddleware",
     "django.middleware.cache.FetchFromCacheMiddleware",
     "mezzanine.core.middleware.MobileTemplate",
+    "mezzanine.core.middleware.AdminLoginInterfaceSelector",
 )
 
 # Store these package names here as they may change in the future since at the 

@@ -1,7 +1,51 @@
 {% extends "admin/base.html" %}
 
-{% load mezzanine_tags %}
+{% load mezzanine_tags i18n %}
 
 {% block title %}{{ title }} | Mezzanine{% endblock %}
 {% block branding %}<h1 id="site-name">Mezzanine</h1>{% endblock %}
 {% block nav-global %}{% endblock %}
+
+{% block extrahead %}
+{% if not request.user.is_authenticated %}
+<style type="text/css">
+    #extra-login-fields .required {margin-top:1px;}
+    input.interface {margin:0 0 0 5px; vertical-align:middle;}
+    label.interface {display:inline !important; float:none !important; 
+        vertical-align:middle; cursor:pointer;}
+</style>
+<script language="javascript" src="{% setting "CONTENT_MEDIA_URL" %}js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+
+// We "inject" the extra login fields here rather than defining them in the 
+// login.html template, since we don't want to override the login.html 
+// template as it's very different between Grappelli and the regular admin.
+
+$(function() {
+    if ($('#id_password').length == 1) { 
+        $('#extra-login-fields').insertAfter($('#id_password').parent()).show();
+    }
+});
+
+</script>
+{% endif %}
+{% endblock %}
+
+{% block footer %}{{ block.super }}
+{% if not request.user.is_authenticated %}
+<div class="form-row" id="extra-login-fields" style="display:none;">
+
+    <label class="required">{% trans "Interface:" %}</label> 
+
+    <input class="interface" type="radio" name="interface" id="interface_admin" 
+        value="admin"{% ifnotequal request.POST.interface "site" %} checked{% endifnotequal %} />
+    <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
+
+    <input class="interface" type="radio" name="interface" id="interface_site" 
+        value="site"{% ifequal request.POST.interface "site" %} checked{% endifequal %} />
+    <label class="interface" for="interface_site">{% trans "Site" %}</label>
+
+</div>
+{% endif %}
+{% endblock %}
+
