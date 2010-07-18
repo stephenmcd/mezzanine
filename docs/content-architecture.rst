@@ -81,6 +81,9 @@ retrieving the custom instance without knowing its type beforehand::
     >>> page.get_content_model() 
     <Gallery: My gallery>
 
+Page Templates
+==============
+
 The view function ``mezzanine.pages.views.page`` handles returning a 
 ``Page`` instance to a template. By default the template ``pages/page.html`` 
 is used, but if a custom template exists it will be used instead. The check 

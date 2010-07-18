@@ -25,9 +25,10 @@ provides the following features.
   * Scheduled publishing
   * Drag-n-drop page ordering
   * WYSIWYG editing
-  * API for custom content types
+  * `In-line page editing`_
+  * API for `custom content types`_
   * SEO friendly URLs and meta data
-  * Search engine and API
+  * `Search engine and API`_
   * Mobile device detection and templates
   * Blogging engine
   * Tagging
@@ -39,8 +40,8 @@ provides the following features.
   * `Twitter`_ feed integration
   * `bit.ly`_ integration
   * Sharing via Facebook or Twitter
-  * Custom templates per page or blog post
-  * Built-in test suite
+  * `Custom templates`_ per page or blog post
+  * Built-in `test suite`_
 
 The Mezzanine admin dashboard:
 
@@ -118,6 +119,11 @@ Quotes
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`django-grappelli`: http://code.google.com/p/django-grappelli/
 .. _`django-filebrowser`: http://code.google.com/p/django-filebrowser/
+.. _`In-line page editing`: http://mezzanine.jupo.org/docs/inline-editing.html
+.. _`custom content types`: http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types
+.. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
+.. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
+.. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
 .. _`Disqus`: http://disqus.com/
 .. _`Gravatar`: http://gravatar.com/
 .. _`Google Analytics`: http://www.google.com/analytics/
