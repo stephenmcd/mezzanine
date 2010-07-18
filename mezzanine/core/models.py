@@ -1,7 +1,6 @@
 
 from datetime import datetime
 
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.base import ModelBase
 from django.template.defaultfilters import slugify, truncatewords_html
@@ -27,7 +26,7 @@ class Displayable(models.Model):
     publish_date = models.DateTimeField(_("Published from"), blank=True, 
         help_text=_("With published selected, won't be shown until this time"), 
         default=datetime.now)
-    slug = models.SlugField(max_length=100, editable=False, null=True)
+    slug = models.SlugField(_("URL"), max_length=100, blank=True, null=True)
     keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
         blank=True)
     _keywords = models.CharField(max_length=500, editable=False)
@@ -61,7 +60,7 @@ class Displayable(models.Model):
                     break
             else:
                 self.description = truncatewords_html(self.content, 100)
-        if self.id is None:
+        if not self.slug:
             self.slug = self.get_slug()
             i = 0
             while True:
