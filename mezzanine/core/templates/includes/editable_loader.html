@@ -40,6 +40,7 @@ $(function($) {
     $('.editable-form').submit(function() {
         var form = $(this);
         form.hide();
+        tinyMCE.triggerSave();
         $.post(form.attr('action'), form.serialize(), function(data) {
             if (data) {
                 alert('{% trans "Error" %}: ' + data);
@@ -111,7 +112,6 @@ $(function($) {
     if (!closed) {
         $('#editable-toolbar-toggle').click();
     }
-    
   
 });
 
