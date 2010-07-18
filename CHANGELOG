@@ -1,3 +1,22 @@
+Version 0.5 (Jul 18, 2010)
+--------------------------
+
+  * Make slugs editable in admin. - stephenmcd
+  * Created system for inline-editing. - stephenmcd
+  * Update to_end_tag with context and token args, but only use as many args as the tag supports. - stephenmcd
+  * Added routine to Sphinx conf to auto-generate changelog from mercurial repo. - stephenmcd
+  * Added docs for in-line editing. - stephenmcd
+  * Added generated CHANGELOG. - stephenmcd
+  * Added quote from Jesse Noller to README. - stephenmcd
+  * Fixed grammar error in docs. - stephenmcd
+  * Apply in-line editing to templates. - stephenmcd
+  * Formatting fix. - stephenmcd
+  * Add option to admin login screen to log into site for in-line editing. - stephenmcd
+  * Update README to cross-reference features in docs. - stephenmcd
+  * Bugfix links to RSS feeds. - stephenmcd
+  * Added 'Posted by' text to blog posts. - stephenmcd
+  * Change admin title to Mezzanine. - stephenmcd
+
 Version 0.4 (Jul 11, 2010)
 --------------------------
 
