@@ -1,3 +1,13 @@
+Version 0.5.1 (Jul 18, 2010)
+----------------------------
+
+  * Bugfix to TinyMceWidget name. - stephenmcd
+  * Bugfix to permission check for in-line editing. - stephenmcd
+  * Include Csrf Middleware when available. - stephenmcd
+  * Bugfix to persist values for in-line TinyMCE fields. - stephenmcd
+  * Auto update CHANGELOG. - stephenmcd
+  * Created HtmlField and TinyMceWidget for more control over targetting textareas as TinyMCE fields. - stephenmcd
+
 Version 0.5 (Jul 18, 2010)
 --------------------------
 
