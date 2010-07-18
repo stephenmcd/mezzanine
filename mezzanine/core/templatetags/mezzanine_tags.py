@@ -30,7 +30,6 @@ def setting(setting_name):
         value = ""
     return value
 
-
 @register.render_tag
 def set_short_url_for(context, token):
     """
