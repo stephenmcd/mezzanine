@@ -50,9 +50,9 @@ class Library(template.Library):
         """
         Creates a tag that parses until it finds the corresponding end tag, 
         eg: for a tag named ``mytag`` it will parse until ``endmytag``. 
-        The decorated func takes a single argument which is the parsed content 
-        between the start and end tags, and its return value is used to render 
-        the parsed content.
+        The decorated func's return value is used to render the parsed 
+        content and takes three arguments - the parsed content between the 
+        start and end tags, the template context and the tag token.
         """
         def tag(parser, token):
             class TagNode(template.Node):
@@ -60,7 +60,8 @@ class Library(template.Library):
                     self.nodelist = parser.parse(("end%s" % func.__name__,))
                     parser.delete_first_token()
                 def render(self, context):
-                    return func(self.nodelist.render(context))
+                    args = (self.nodelist.render(context), context, token)
+                    return func(*args[:func.func_code.co_argcount])
             return TagNode()
         return self._make_tag_type(func, tag)
 
