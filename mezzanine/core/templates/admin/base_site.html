@@ -38,11 +38,11 @@ $(function() {
     <label class="required">{% trans "Interface:" %}</label> 
 
     <input class="interface" type="radio" name="interface" id="interface_admin" 
-        value="admin"{% ifnotequal request.POST.interface "site" %} checked{% endifnotequal %} />
+        value="admin"{% ifnotequal request.REQUEST.interface "site" %} checked{% endifnotequal %} />
     <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
 
     <input class="interface" type="radio" name="interface" id="interface_site" 
-        value="site"{% ifequal request.POST.interface "site" %} checked{% endifequal %} />
+        value="site"{% ifequal request.REQUEST.interface "site" %} checked{% endifequal %} />
     <label class="interface" for="interface_site">{% trans "Site" %}</label>
 
 </div>
