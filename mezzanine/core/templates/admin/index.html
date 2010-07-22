@@ -82,6 +82,7 @@
     <div class="module">
         <h2>{% trans "Quick Blog" %}</h2>
         <form method="post" action="{% url admin:blog_blogpost_add %}">
+            {% csrf_token %}
             {% quick_blog_form as form %}
             <table id="quick-blog">
                 {{ form.as_table }}
