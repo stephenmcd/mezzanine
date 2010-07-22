@@ -52,7 +52,8 @@ from django.utils.datastructures import SortedDict
 repo = hg.repository(ui.ui(), mezzanine_path)
 version_file = "mezzanine/__init__.py"
 version_var = "__version__"
-changelog_file = os.path.join(mezzanine_path, "CHANGELOG")
+changelog_filename = "CHANGELOG"
+changelog_file = os.path.join(mezzanine_path, changelog_filename)
 versions = SortedDict()
 
 for changeset in reversed(list(repo.changelog)):
@@ -73,7 +74,7 @@ for changeset in reversed(list(repo.changelog)):
                     ).strftime("%b %d, %Y")}
                 versions[globals()[version_var]] = version_info
                 new_version = True
-    if new_version and len(files) == 1:
+    if (new_version or changelog_filename in files) and len(files) == 1:
         # Ignore changeset that bumped version.
         continue
     # Ensure we have a current version and if so, add this changeset's 
