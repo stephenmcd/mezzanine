@@ -10,12 +10,14 @@ class BlogPostAdmin(DisplayableAdmin):
 
     list_display = ("title", "user", "status", "admin_link")
 
-    def save_model(self, request, obj, form, change):
+    def save_form(self, request, form, change):
         """
         Set the author as the logged in user.
         """
-        obj.user = request.user
-        super(BlogPostAdmin, self).save_model(request, obj, form, change)
+        obj = form.save(commit=False)
+        if obj.user_id is None:
+            obj.user = request.user
+        return super(BlogPostAdmin, self).save_form(request, form, change)
 
 class CommentAdmin(admin.ModelAdmin):
 
