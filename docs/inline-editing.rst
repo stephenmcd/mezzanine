@@ -9,7 +9,7 @@ area as usual, but by selecting *Site* on the login screen the author will
 then be redirected back to the website where a small *Edit* icon will be 
 found next to each piece of editable content, such as a page's title or a 
 blog post's introduction text. Clicking on the Edit icon will allow the 
-author to update the individual piece of content withouth leaving the page.
+author to update the individual piece of content without leaving the page.
 
 Template Configuration
 ======================

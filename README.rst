@@ -73,7 +73,7 @@ Otherwise you can download Mezzanine and install it directly from source::
     $ python setup.py install
     
 Once installed, the command ``mezzanine-project`` should be available which 
-can be used for creating a new Mezzaine project in a similar fashion to 
+can be used for creating a new Mezzanine project in a similar fashion to 
 ``django-admin.py``::
 
     $ mezzanine-project project_name
