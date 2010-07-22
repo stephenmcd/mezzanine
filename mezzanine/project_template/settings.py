@@ -70,7 +70,9 @@ MIDDLEWARE_CLASSES = (
 try:
     from django.middleware.csrf import CsrfViewMiddleware
 except ImportError:
-    pass
+    from django.template.loader import add_to_builtins
+    add_to_builtins("mezzanine.core.templatetags.dummy_csrf")
+    print "Ya"
 else:
     MIDDLEWARE_CLASSES += ("django.middleware.csrf.CsrfViewMiddleware",)
 
