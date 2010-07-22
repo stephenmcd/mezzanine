@@ -1,3 +1,11 @@
+Version 0.5.2 (Jul 22, 2010)
+----------------------------
+
+  * Allow interface selection on admin login screen to prepopulate from querystring. - stephenmcd
+  * Bugfix setting author of blog post in BlogPostAdmin to be compatible with DisplayableAdmin. - stephenmcd
+  * Auto update CHANGELOG. - stephenmcd
+  * Added more robust handling for csrf and apply to forms. - stephenmcd
+
 Version 0.5.1 (Jul 18, 2010)
 ----------------------------
 
