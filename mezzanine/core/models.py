@@ -15,9 +15,8 @@ class HtmlField(models.TextField):
     
 class Displayable(models.Model):
     """
-    Abstract model representing a visible object on the website with common 
-    functionality such as auto slug creation and an active field for toggling 
-    visibility.
+    Abstract model that provides features of a visible page on the website 
+    such as auto slug creation, meta data and publishing fields.
     """
 
     title = models.CharField(_("Title"), max_length=100)
@@ -115,10 +114,10 @@ class OrderableBase(ModelBase):
 
 class Orderable(models.Model):
     """
-    Provide a custom ordering integer field similar to using Meta's 
-    ``order_with_respect_to`` since to date (Django 1.2) this doesn't work 
-    with ``ForeignKey("self")``. We may also want this feature for 
-    models that aren't ordered with respect to a particular field.
+    Abstract model that provides a custom ordering integer field similar to 
+    using Meta's ``order_with_respect_to``, since to date (Django 1.2) this 
+    doesn't work with ``ForeignKey("self")``. We may also want this feature 
+    for models that aren't ordered with respect to a particular field.
     """
 
     __metaclass__ = OrderableBase
@@ -157,6 +156,23 @@ class Orderable(models.Model):
         after = self.__class__.objects.filter(**lookup)
         after.update(_order=models.F("_order") - 1)
         super(Orderable, self).delete(*args, **kwargs)
+
+class Ownable(models.Model):
+    """
+    Abstract model that provides ownership of an object for a user.
+    """
+
+    user = models.ForeignKey("auth.User", verbose_name=_("Author"), 
+        related_name="%(class)ss")
+        
+    class Meta:
+        abstract = True
+
+    def is_editable(self, request):
+        """
+        Restrict in-line editing to the objects's owner and superusers.
+        """
+        return request.user.is_superuser or request.user.id == self.user_id
 
 class Keyword(models.Model):
     """

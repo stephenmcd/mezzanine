@@ -11,8 +11,9 @@ from mezzanine.core.models import HtmlField
 media_url = CONTENT_MEDIA_URL.strip("/")
 content_media = lambda files: ["/%s/%s" % (media_url, f) for f in files]
 
-# Build the list of admin JS file for ``Displayable`` models. For Django 1.2 or
-# later, include a backport of the collapse js which targets the earlier admin.
+# Build the list of admin JS file for ``Displayable`` models. 
+# For >= Django 1.2 include a backport of the collapse js which targets 
+# earlier versions of the admin.
 displayable_js = ["js/tinymce_setup.js", "js/jquery-1.4.2.min.js",  
     "js/keywords_field.js"]
 from django import VERSION
@@ -27,7 +28,7 @@ orderable_js = content_media(["js/jquery-1.4.2.min.js",
 
 class DisplayableAdmin(admin.ModelAdmin):
     """
-    Admin model for subclasses of the abstract ``Displayable`` model.
+    Admin class for subclasses of the abstract ``Displayable`` model.
     """
 
     class Media:
@@ -58,7 +59,7 @@ class DisplayableAdmin(admin.ModelAdmin):
 
 class OrderableAdmin(admin.ModelAdmin):
     """
-    Admin model that handles inlines for models that subclass the abstract 
+    Admin class that handles inlines for models that subclass the abstract 
     ``Orderable`` model.
     """
 
@@ -86,4 +87,29 @@ class OrderableAdmin(admin.ModelAdmin):
             inline.fields = fields
         super(OrderableAdmin, self).__init__(*args, **kwargs)
 
+class OwnableAdmin(admin.ModelAdmin):
+    """
+    Admin class for models that subclass the abstract ``Ownable`` model. 
+    Handles limiting the change list to objects owned by the logged in user, 
+    as well as setting the owner of newly created objects to the logged in 
+    user.
+    """
+
+    def save_form(self, request, form, change):
+        """
+        Set the object's owner as the logged in user.
+        """
+        obj = form.save(commit=False)
+        if obj.user_id is None:
+            obj.user = request.user
+        return super(OwnableAdmin, self).save_form(request, form, change)
+
+    def queryset(self, request):
+        """
+        Filter the change list by currently logged in user if not a superuser.
+        """
+        qs = super(OwnableAdmin, self).queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user__id=request.user.id)
 
