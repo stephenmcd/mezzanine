@@ -60,22 +60,22 @@ for changeset in reversed(list(repo.changelog)):
     # Check if the file with the version number is in this changeset and if 
     # it is, pull it out and assign it as a variable.
     context = repo.changectx(changeset)
-    if len(context.parents()) > 1:
-        # Ignore merges.
-        continue
     files = context.files()
     new_version = False
     if version_file in files:
         for line in context[version_file].data().split("\n"):
             if line.startswith(version_var):
                 exec line
-                version_info = {"changes": set(), "date": 
+                version_info = {"changes": [], "date": 
                     datetime.fromtimestamp(context.date()[0]
                     ).strftime("%b %d, %Y")}
                 versions[globals()[version_var]] = version_info
-                new_version = True
-    if (new_version or changelog_filename in files) and len(files) == 1:
-        # Ignore changeset that bumped version.
+                new_version = len(files) == 1
+    # Ignore changesets that are merges, bumped the version or regenerated
+    # the changelog itself
+    merge = len(context.parents()) > 1
+    changelog_update = changelog_filename in files and len(files) == 1
+    if merge or new_version or changelog_update:
         continue
     # Ensure we have a current version and if so, add this changeset's 
     # description to it.
@@ -84,8 +84,11 @@ for changeset in reversed(list(repo.changelog)):
     except KeyError:
         continue
     else:
-        entry = "%s - %s" % (context.description(), context.user().split()[0])
-        versions[version]["changes"].update((entry,))
+        description = context.description().rstrip(".")
+        user = context.user().split()[0]
+        entry = "%s - %s" % (description, user)
+        if entry not in versions[version]["changes"]:
+            versions[version]["changes"].insert(0, entry)
 
 # Write out the changelog.
 with open(changelog_file, "w") as f:
