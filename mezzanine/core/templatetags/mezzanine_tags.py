@@ -13,7 +13,7 @@ from django.utils.simplejson import loads
 from mezzanine import settings as mezzanine_settings
 from mezzanine import template
 from mezzanine.core.forms import get_edit_form
-from mezzanine.utils import decode_html_entities
+from mezzanine.utils import decode_html_entities, is_editable
 
 
 register = template.Library()
@@ -110,21 +110,20 @@ def editable_loader(context):
 @register.to_end_tag
 def editable(parsed, context, token):
     """
-    If the user is staff, add the required HTML to the parsed content for 
-    in-line editing such as the icon and edit form.
+    Add the required HTML to the parsed content for in-line editing, such as 
+    the icon and edit form if the object is deemed to be editable - either it 
+    has an ``editable`` method which returns True, or the logged in user has 
+    change permissions for the model.
     """
     var, attr = token.split_contents()[1].split(".")
     obj = context[var]
     if not parsed.strip():
         parsed = getattr(obj, attr)
-    user = context["request"].user
-    if isinstance(obj, Model) and user.is_staff:
-        perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
-        if user.has_perm(perm):
-            context["form"] = get_edit_form(obj, attr)
-            context["original"] = parsed
-            context["uuid"] = uuid4()
-            t = get_template("includes/editable_form.html") 
-            return t.render(Context(context))
+    if isinstance(obj, Model) and is_editable(obj, context["request"]):
+        context["form"] = get_edit_form(obj, attr)
+        context["original"] = parsed
+        context["uuid"] = uuid4()
+        t = get_template("includes/editable_form.html") 
+        return t.render(Context(context))
     return parsed
 

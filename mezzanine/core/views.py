@@ -41,8 +41,7 @@ def edit(request):
     model = get_model(request.POST["app"], request.POST["model"])
     obj = model.objects.get(id=request.POST["id"])
     form = get_edit_form(obj, request.POST["attr"], data=request.POST)
-    perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
-    if not request.user.has_perm(perm):
+    if not is_editable(obj, request):
         response = _("Permission denied")
     elif form.is_valid():
         form.save()
@@ -50,5 +49,4 @@ def edit(request):
     else:
         response = form.errors.values()[0][0]
     return HttpResponse(unicode(response))
-edit = staff_member_required(edit)
 
