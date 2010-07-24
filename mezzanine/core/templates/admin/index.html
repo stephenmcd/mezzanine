@@ -79,6 +79,7 @@
         <p>{% trans "You don't have permission to edit anything." %}</p>
     {% endif %}
     
+    {% if perms.blog.add_blogpost and perms.blog.change_blogpost %}
     <div class="module">
         <h2>{% trans "Quick Blog" %}</h2>
         <form method="post" action="{% url admin:blog_blogpost_add %}">
@@ -93,6 +94,7 @@
             </table>
         </form>
     </div>
+    {% endif %}
     
 </div>
 {% endblock %}
