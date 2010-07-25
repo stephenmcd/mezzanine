@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Keyword, Displayable
 from mezzanine.settings import SEARCH_MAX_PAGING_LINKS, SEARCH_PER_PAGE
-from mezzanine.utils import paginate
+from mezzanine.utils import is_editable, paginate
 
 
 def admin_keywords_submit(request):
