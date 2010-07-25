@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.settings import CONTENT_MEDIA_URL
-from mezzanine.core.forms import OrderableAdminForm, TinyMceWidget
+from mezzanine.core.forms import OrderableAdminForm
 from mezzanine.core.models import HtmlField
 
 
@@ -41,7 +41,6 @@ class DisplayableAdmin(admin.ModelAdmin):
     search_fields = ("title", "body",)
     date_hierarchy = "publish_date"
     radio_fields = {"status": admin.HORIZONTAL}
-    formfield_overrides = {HtmlField: {"widget": TinyMceWidget}}
     fieldsets = (
         (None, {"fields": ("title", ("status", "publish_date"), "content")}),
         (_("Meta data"), {"fields": ("slug", "description", "keywords"), 

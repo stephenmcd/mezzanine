@@ -4,8 +4,6 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.core.models import HtmlField
-
 
 class OrderWidget(forms.HiddenInput):
     """
@@ -25,14 +23,6 @@ class OrderableAdminForm(forms.ModelForm):
     _order = forms.CharField(label=_("Order"), widget=OrderWidget, 
         required=False)
 
-class TinyMceWidget(forms.Textarea):
-    """
-    Adds the required class to a Textarea field for the TinyMCE editor.
-    """
-    def __init__(self, *args, **kwargs):
-        super(TinyMceWidget, self).__init__(*args, **kwargs)
-        self.attrs["class"] = "mceEditor"
-
 def get_edit_form(obj, attr, data=None):
     """
     Returns the in-line editing form for editing a single model field.
@@ -51,14 +41,6 @@ def get_edit_form(obj, attr, data=None):
         class Meta:
             model = obj.__class__
             fields = (attr,)
-        
-        def __init__(self, *args, **kwargs):
-            """
-            Apply the ``TinyMceWidget`` to ``HtmlField``.
-            """
-            super(EditForm, self).__init__(*args, **kwargs)
-            if isinstance(obj._meta.get_field_by_name(attr)[0], HtmlField):
-                self.fields[attr].widget = TinyMceWidget()
 
     initial = {"app": obj._meta.app_label, "id": obj.id, "attr": attr, 
         "model": obj._meta.object_name.lower()}
