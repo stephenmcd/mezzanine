@@ -1,3 +1,10 @@
+Version 0.5.4 (Jul 25, 2010)
+----------------------------
+
+  * Bugfix to in-line editing view - missing import - stephenmcd
+  * Moved setting of class attribute for TinyMCE into HtmlField - stephenmcd
+  * Added loading animation to in-line editing - stephenmcd
+
 Version 0.5.3 (Jul 24, 2010)
 ----------------------------
 
