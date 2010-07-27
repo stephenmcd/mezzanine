@@ -53,9 +53,10 @@ class Tests(TestCase):
         Test that an alternate template is rendered when a mobile device is 
         used.
         """
-        default = self.client.get(reverse("home")).template[0].name
-        mobile = self.client.get(reverse("home"), 
-            HTTP_USER_AGENT=MOBILE_USER_AGENTS[0]).template[0].name
+        template_name = lambda t: t.name if hasattr(t, "name") else t[0].name
+        default = template_name(self.client.get(reverse("home")).template)
+        mobile = template_name(self.client.get(reverse("home"), 
+            HTTP_USER_AGENT=MOBILE_USER_AGENTS[0]).template)
         self.assertNotEqual(default, mobile)
         self.assertEqual(default, mobile.replace(".mobile", "", 1))
 
