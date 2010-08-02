@@ -115,8 +115,11 @@ def editable(parsed, context, token):
     has an ``editable`` method which returns True, or the logged in user has 
     change permissions for the model.
     """
-    var, attr = token.split_contents()[1].split(".")
-    obj = context[var]
+    parts = token.split_contents()[1].split(".")
+    obj = context[parts.pop(0)]
+    attr = parts.pop()
+    while parts:
+        obj = getattr(obj, parts.pop(0))
     if not parsed.strip():
         parsed = getattr(obj, attr)
     if isinstance(obj, Model) and is_editable(obj, context["request"]):
