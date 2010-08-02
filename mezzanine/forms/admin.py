@@ -1,4 +1,5 @@
 
+from copy import deepcopy
 from csv import writer
 from datetime import datetime
 from mimetypes import guess_type
@@ -19,13 +20,25 @@ from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.forms.settings import UPLOAD_ROOT
 from mezzanine.pages.admin import PageAdmin
 
+
 fs = FileSystemStorage(location=UPLOAD_ROOT)
 
-    
+form_fieldsets = deepcopy(PageAdmin.fieldsets)
+form_fieldsets[0][1]["fields"] += ("response",)
+form_fieldsets = list(form_fieldsets)
+form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from", 
+    "email_copies")}))
+FormMedia = deepcopy(OrderableAdmin.Media)
+FormMedia.js = PageAdmin.Media.js + [js for js in FormMedia.js if js not in 
+    PageAdmin.Media.js]
+
 class FieldAdmin(admin.TabularInline):
     model = Field
 
 class FormAdmin(PageAdmin, OrderableAdmin):
+
+    class Media(FormMedia):
+        pass
 
     inlines = (FieldAdmin,)
     list_display = ("title", "status", "email_from", "email_copies",)
@@ -35,10 +48,7 @@ class FormAdmin(PageAdmin, OrderableAdmin):
     search_fields = ("title", "content", "response", "email_from", 
         "email_copies")
     radio_fields = {"status": admin.HORIZONTAL}
-    fieldsets = (
-        (None, {"fields": ("title", "status", "content", "response")}),
-        (_("Email"), {"fields": ("send_email", "email_from", "email_copies")}),
-    )
+    fieldsets = form_fieldsets
 
     def get_urls(self):
         """
