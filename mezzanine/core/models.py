@@ -6,23 +6,10 @@ from django.db.models.base import ModelBase
 from django.template.defaultfilters import slugify, truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from mezzanine.core.fields import HtmlField
 from mezzanine.core.managers import DisplayableManager, KeywordManager
 from mezzanine import settings as blog_settings
 
-
-class HtmlField(models.TextField):
-    """
-    TextField that stores HTML.
-    """
-
-    def formfield(self, **kwargs):
-        """
-        Apply the class to the widget that will render the field as a 
-        TincyMCE Editor.
-        """
-        formfield = super(HtmlField, self).formfield(**kwargs)
-        formfield.widget.attrs["class"] = "mceEditor"
-        return formfield
     
 class Displayable(models.Model):
     """
