@@ -4,15 +4,11 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from forms_builder.forms.settings import FIELD_MAX_LENGTH, LABEL_MAX_LENGTH
+from mezzanine.core.fields import HtmlField
+from mezzanine.core.models import Orderable
+from mezzanine.forms.settings import FIELD_MAX_LENGTH, LABEL_MAX_LENGTH
+from mezzanine.pages.models import Page
 
-
-STATUS_DRAFT = 1
-STATUS_PUBLISHED = 2
-STATUS_CHOICES = (
-    (STATUS_DRAFT, "Draft"), 
-    (STATUS_PUBLISHED, "Published"),
-)
 
 FIELD_CHOICES = (
     ("CharField", _("Single line text")),
@@ -26,26 +22,12 @@ FIELD_CHOICES = (
     ("DateTimeField", _("Date/time")),
 )
 
-class FormManager(models.Manager):
-    """
-    Only show published forms for non-staff users.
-    """
-    def published(self, for_user=None):
-        if for_user is not None and for_user.is_staff:
-            return self.all()
-        return self.filter(status=STATUS_PUBLISHED)
-
-class Form(models.Model):
+class Form(Page):
     """
     A user-built form.
     """
 
-    title = models.CharField(_("Title"), max_length=50)
-    slug = models.SlugField(editable=False, max_length=100, unique=True)
-    intro = models.TextField(_("Intro"), max_length=2000)
-    response = models.TextField(_("Response"), max_length=2000)
-    status = models.IntegerField(_("Status"), choices=STATUS_CHOICES, 
-        default=STATUS_PUBLISHED)
+    response = HtmlField(_("Response"))
     send_email = models.BooleanField(_("Send email"), default=True, help_text=
         _("If checked, the person entering the form will be sent an email"))
     email_from = models.EmailField(_("From address"), blank=True, 
@@ -54,48 +36,9 @@ class Form(models.Model):
         help_text=_("One or more email addresses, separated by commas"), 
         max_length=200)
 
-    objects = FormManager()
-
     class Meta:
         verbose_name = _("Form")
         verbose_name_plural = _("Forms")
-    
-    def __unicode__(self):
-        return self.title
-
-    def save(self, *args, **kwargs):
-        """
-        Create a unique slug from title - append an index and increment if it 
-        already exists.
-        """
-        if not self.slug:
-            self.slug = slugify(self.title)
-            i = 0
-            while True:
-                if i > 0:
-                    if i > 1:
-                        self.slug = self.slug.rsplit("-", 1)[0]
-                    self.slug = "%s-%s" % (self.slug, i)
-                if not Form.objects.filter(slug=self.slug):
-                    break
-                i += 1
-        super(Form, self).save(*args, **kwargs)
-        
-    @models.permalink
-    def get_absolute_url(self):
-        return ("form_detail", (), {"slug": self.slug})
-
-    def admin_link_view(self):
-        url = self.get_absolute_url()
-        return "<a href='%s'>%s</a>" % (url, ugettext("View on site"))
-    admin_link_view.allow_tags = True
-    admin_link_view.short_description = ""
-
-    def admin_link_export(self):
-        url = reverse("admin:form_export", args=(self.id,))
-        return "<a href='%s'>%s</a>" % (url, ugettext("Export entries"))
-    admin_link_export.allow_tags = True
-    admin_link_export.short_description = ""
 
 class FieldManager(models.Manager):
     """
@@ -104,7 +47,7 @@ class FieldManager(models.Manager):
     def visible(self):
         return self.filter(visible=True)
 
-class Field(models.Model):
+class Field(Orderable):
     """
     A field for a user-built form.
     """

@@ -7,8 +7,8 @@ from django import forms
 from django.core.files.storage import FileSystemStorage
 from django.utils.importlib import import_module
 
-from forms_builder.forms.models import FormEntry
-from forms_builder.forms.settings import FIELD_MAX_LENGTH, UPLOAD_ROOT
+from mezzanine.forms.models import FormEntry
+from mezzanine.forms.settings import FIELD_MAX_LENGTH, UPLOAD_ROOT
 
 
 fs = FileSystemStorage(location=UPLOAD_ROOT)

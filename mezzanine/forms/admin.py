@@ -14,9 +14,10 @@ from django.template import loader, Context
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
-from forms_builder.forms.models import Form, Field, FormEntry, FieldEntry
-from forms_builder.forms.settings import UPLOAD_ROOT
-
+from mezzanine.core.admin import OrderableAdmin
+from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
+from mezzanine.forms.settings import UPLOAD_ROOT
+from mezzanine.pages.admin import PageAdmin
 
 fs = FileSystemStorage(location=UPLOAD_ROOT)
 
@@ -24,19 +25,18 @@ fs = FileSystemStorage(location=UPLOAD_ROOT)
 class FieldAdmin(admin.TabularInline):
     model = Field
 
-class FormAdmin(admin.ModelAdmin):
+class FormAdmin(PageAdmin, OrderableAdmin):
 
     inlines = (FieldAdmin,)
-    list_display = ("title", "status", "email_from", "email_copies", 
-        "admin_link_export", "admin_link_view")
+    list_display = ("title", "status", "email_from", "email_copies",)
     list_display_links = ("title",)
     list_editable = ("status", "email_from", "email_copies")
     list_filter = ("status",)
-    search_fields = ("title", "intro", "response", "email_from", 
+    search_fields = ("title", "content", "response", "email_from", 
         "email_copies")
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = (
-        (None, {"fields": ("title", "status", "intro", "response")}),
+        (None, {"fields": ("title", "status", "content", "response")}),
         (_("Email"), {"fields": ("send_email", "email_from", "email_copies")}),
     )
 

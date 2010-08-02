@@ -33,7 +33,6 @@ class PageAdmin(DisplayableAdmin):
             extra_context=None)
 
     def changelist_view(self, request, extra_context=None):
-
         """
         Redirect to the ``Page`` changelist view for ``Page`` subclasses.
         """
