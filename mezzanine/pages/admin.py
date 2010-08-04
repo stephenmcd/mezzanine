@@ -45,6 +45,16 @@ class PageAdmin(DisplayableAdmin):
         Set the ID of the parent page if passed in via querystring.
         """
         obj.parent_id = request.GET.get("parent")
+        # There is a bug that occurs where models that inherit from the 
+        # Page model and are added as a child page to an existing page, the 
+        # chain of parent calls inside obj.get_slug() fails to find the 
+        # parent page(s) and subsequently the slug saved isn't based on the 
+        # parent page(s) - this patch below sets slug to None and saves the 
+        # object when it's being created and fixes it, but may not be the 
+        # best solution.
+        if obj.parent_id is not None and not change:
+            obj.slug = None
+            obj.save()
         super(PageAdmin, self).save_model(request, obj, form, change)
     
     def _maintain_parent(self, request, response):
