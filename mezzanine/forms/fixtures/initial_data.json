@@ -1,0 +1,73 @@
+[
+    {
+        "pk": 3, 
+        "model": "forms.form", 
+        "fields": {
+            "keywords": [], 
+            "send_email": true, 
+            "email_copies": "", 
+            "response": "<p>Thanks for getting in touch with us. We'll get back to you as soon as possible.</p>", 
+            "email_from": ""
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "forms.field", 
+        "fields": {
+            "field_type": "CharField", 
+            "_order": 0, 
+            "form": [
+                "contact"
+            ], 
+            "required": true, 
+            "label": "Name", 
+            "visible": true, 
+            "choices": ""
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "forms.field", 
+        "fields": {
+            "field_type": "EmailField", 
+            "_order": 1, 
+            "form": [
+                "contact"
+            ], 
+            "required": true, 
+            "label": "Email", 
+            "visible": true, 
+            "choices": ""
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "forms.field", 
+        "fields": {
+            "field_type": "ChoiceField", 
+            "_order": 2, 
+            "form": [
+                "contact"
+            ], 
+            "required": true, 
+            "label": "Subject", 
+            "visible": true, 
+            "choices": "Billing, Sales, Support"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "forms.field", 
+        "fields": {
+            "field_type": "CharField/django.forms.Textarea", 
+            "_order": 3, 
+            "form": [
+                "contact"
+            ], 
+            "required": true, 
+            "label": "Message", 
+            "visible": true, 
+            "choices": ""
+        }
+    }
+]
