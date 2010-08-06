@@ -36,13 +36,13 @@ class Page(Orderable, Displayable):
         the initial value for ordering.
         """
         if self.id is None:
-            titles = [self.title]
-            parent = self.parent
-            while parent is not None:
-                titles.insert(0, parent.title)
-                parent = parent.parent
-            self.titles = " / ".join(titles)
             self.content_model = self._meta.object_name.lower()
+        titles = [self.title]
+        parent = self.parent
+        while parent is not None:
+            titles.insert(0, parent.title)
+            parent = parent.parent
+        self.titles = " / ".join(titles)
         super(Page, self).save(*args, **kwargs)
     
     def get_content_model(self):

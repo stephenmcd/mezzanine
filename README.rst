@@ -108,6 +108,7 @@ Sites Using Mezzanine
 Quotes
 ======
 
+  * "You need to check out the open source project Mezzanine. In one word: Elegant." - `Nick Hagianis`_
   * "Mezzanine looks pretty interesting - tempting to get me off Wordpress." - `Jesse Noller`_
   * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `Stephen White`_
 
@@ -136,4 +137,4 @@ Quotes
 .. _`Citrus Agency`: http://citrus.com.au/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
-
+.. _`Nick Hagianis`: http://hagianis.com/
