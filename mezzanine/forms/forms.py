@@ -31,10 +31,10 @@ class FormForForm(forms.ModelForm):
         for field in self.form_fields:
             field_key = "field_%s" % field.id
             if "/" in field.field_type:
-                field_class, field_widget = field.field_type.split("/")
+                field_class_name, field_widget = field.field_type.split("/")
             else:
-                field_class, field_widget = field.field_type, None
-            field_class = getattr(forms, field_class)
+                field_class_name, field_widget = field.field_type, None
+            field_class = getattr(forms, field_class_name)
             field_args = {"label": field.label, "required": field.required}
             arg_names = field_class.__init__.im_func.func_code.co_varnames
             if "max_length" in arg_names:
@@ -46,6 +46,11 @@ class FormForForm(forms.ModelForm):
                 module, widget = field_widget.rsplit(".", 1)
                 field_args["widget"] = getattr(import_module(module), widget)
             self.fields[field_key] = field_class(**field_args)
+            # Add identifying CSS classes to the field.
+            css_class = field_class_name.lower()
+            if field.required:
+                css_class += " required"
+            self.fields[field_key].widget.attrs["class"] = css_class
 
     def save(self, **kwargs):
         """
