@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-# When project_template is used as the actual project during Mezzanine 
-# development, insert the development path into sys.path so that the 
+# When project_template is used as the actual project during Mezzanine
+# development, insert the development path into sys.path so that the
 # development version of Mezzanine is used rather than the installed version.
 import os, sys
 project_path = os.path.dirname(os.path.abspath(__file__))

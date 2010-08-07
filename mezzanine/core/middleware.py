@@ -9,8 +9,8 @@ from mezzanine.settings import MOBILE_USER_AGENTS
 
 class MobileTemplate(object):
     """
-    If a mobile user agent is detected, inspect the default args for the view 
-    func, and if a template name is found assume it is the template arg and 
+    If a mobile user agent is detected, inspect the default args for the view
+    func, and if a template name is found assume it is the template arg and
     attempt to load a mobile template based on the original template name.
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
@@ -34,7 +34,7 @@ class MobileTemplate(object):
 
 class AdminLoginInterfaceSelector(object):
     """
-    Checks for a POST from the admin login view and if authentication is 
+    Checks for a POST from the admin login view and if authentication is
     successful and the "site" interface is selected, redirect to the site.
     """
     def process_view(self, request, view_func, view_args, view_kwargs):

@@ -11,18 +11,18 @@ from mezzanine.settings import ADMIN_REMOVAL, CONTENT_MEDIA_PATH, \
     CONTENT_MEDIA_URL
 
 urlpatterns = patterns("mezzanine.core.views",
-    url("^admin_keywords_submit/$", "admin_keywords_submit", 
+    url("^admin_keywords_submit/$", "admin_keywords_submit",
         name="admin_keywords_submit"),
     url("^edit/$", "edit", name="edit"),
     url("^search/$", "search", name="search"),
 )
 
 urlpatterns += patterns("",
-    ("^%s/(?P<path>.*)$" % CONTENT_MEDIA_URL.strip("/"), 
+    ("^%s/(?P<path>.*)$" % CONTENT_MEDIA_URL.strip("/"),
         "django.views.static.serve", {'document_root': CONTENT_MEDIA_PATH}),
 )
 
-# Remove unwanted models from the admin that are installed by default with 
+# Remove unwanted models from the admin that are installed by default with
 # third-party apps.
 for model in ADMIN_REMOVAL:
     try:
@@ -39,18 +39,18 @@ for model in ADMIN_REMOVAL:
 # Pairs of optional app names and their urlpatterns.
 OPTIONAL_APP_PATTERNS = (
     (settings.PACKAGE_NAME_FILEBROWSER, patterns("",
-        ("^admin/filebrowser/", include("%s.urls" % 
+        ("^admin/filebrowser/", include("%s.urls" %
             settings.PACKAGE_NAME_FILEBROWSER)),
-        ("^%s/(?P<path>.*)$" % getattr(settings, 
-            "FILEBROWSER_URL_FILEBROWSER_MEDIA", "").strip("/"), 
-            "django.views.static.serve", {'document_root': 
+        ("^%s/(?P<path>.*)$" % getattr(settings,
+            "FILEBROWSER_URL_FILEBROWSER_MEDIA", "").strip("/"),
+            "django.views.static.serve", {'document_root':
             getattr(settings, "FILEBROWSER_PATH_FILEBROWSER_MEDIA", "")}),
     )),
     (settings.PACKAGE_NAME_GRAPPELLI, patterns("",
-        ("^grappelli/", include("%s.urls" % 
+        ("^grappelli/", include("%s.urls" %
             settings.PACKAGE_NAME_GRAPPELLI)),
         ("^%s/admin/(?P<path>.*)$" % urlsplit(settings.ADMIN_MEDIA_PREFIX
-            ).path.strip("/").split("/")[0], "django.views.static.serve", 
+            ).path.strip("/").split("/")[0], "django.views.static.serve",
             {'document_root': getattr(settings, "GRAPPELLI_MEDIA_PATH", "")}),
     )),
 )

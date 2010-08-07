@@ -14,10 +14,10 @@ class PostsRSS(Feed):
 
     title = BLOG_TITLE
     description = BLOG_DESCRIPTION
-    
+
     def link(self):
         return reverse("blog_post_feed", kwargs={"url": "rss"})
-    
+
     def items(self):
         return BlogPost.objects.published()
 
@@ -25,7 +25,7 @@ class PostsAtom(PostsRSS):
     """
     Atom feed for all blog posts.
     """
-    
+
     feed_type = Atom1Feed
     subtitle = PostsRSS.description
 

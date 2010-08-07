@@ -15,25 +15,25 @@ from mezzanine.utils import base_concrete_model
 
 class Displayable(models.Model):
     """
-    Abstract model that provides features of a visible page on the website 
+    Abstract model that provides features of a visible page on the website
     such as auto slug creation, meta data and publishing fields.
     """
 
     title = models.CharField(_("Title"), max_length=100)
     content = HtmlField(_("Content"))
     description = HtmlField(_("Description"), blank=True)
-    status = models.IntegerField(_("Status"), 
-        choices=blog_settings.CONTENT_STATUS_CHOICES, 
+    status = models.IntegerField(_("Status"),
+        choices=blog_settings.CONTENT_STATUS_CHOICES,
         default=blog_settings.CONTENT_STATUS_DRAFT)
-    publish_date = models.DateTimeField(_("Published from"), blank=True, 
-        help_text=_("With published selected, won't be shown until this time"), 
+    publish_date = models.DateTimeField(_("Published from"), blank=True,
+        help_text=_("With published selected, won't be shown until this time"),
         default=datetime.now)
     slug = models.SlugField(_("URL"), max_length=100, blank=True, null=True)
     keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
         blank=True)
     _keywords = models.CharField(max_length=500, editable=False)
     short_url = models.URLField(blank=True, null=True)
-        
+
     objects = DisplayableManager()
     search_fields = {"_keywords": 10, "title": 5, "content": 1}
 
@@ -48,11 +48,11 @@ class Displayable(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Create the description from the content if none given, and create a 
-        unique slug from the title by appending an index. 
+        Create the description from the content if none given, and create a
+        unique slug from the title by appending an index.
         """
         if self.publish_date is None:
-            # publish_date will be blank when a blog post is created from the 
+            # publish_date will be blank when a blog post is created from the
             # quick blog form in the admin dashboard.
             self.publish_date = datetime.now()
         if not self.description:
@@ -63,7 +63,7 @@ class Displayable(models.Model):
             else:
                 self.description = truncatewords_html(self.content, 100)
         if not self.slug:
-            # For custom content types, use the ``Page`` instance for slug 
+            # For custom content types, use the ``Page`` instance for slug
             # lookup.
             concrete_model = base_concrete_model(Displayable, self)
             self.slug = self.get_slug()
@@ -82,29 +82,29 @@ class Displayable(models.Model):
                     break
                 i += 1
         super(Displayable, self).save(*args, **kwargs)
-    
+
     def set_searchable_keywords(self):
         """
-        Stores the keywords as a single string into the ``_keywords`` field 
+        Stores the keywords as a single string into the ``_keywords`` field
         for convenient access when searching.
         """
         self._keywords = " ".join([kw.value for kw in self.keywords.all()])
         self.save()
-    
+
     def get_slug(self):
         return slugify(self.title)
-    
+
     def admin_link(self):
-        return "<a href='%s'>%s</a>" % (self.get_absolute_url(), 
+        return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
             ugettext("View on site"))
     admin_link.allow_tags = True
     admin_link.short_description = ""
 
 class OrderableBase(ModelBase):
     """
-    Checks for ``order_with_respect_to`` on the model's inner ``Meta`` class 
-    and if found, copies it to a custom attribute and deletes it since it 
-    will cause errors when used with ``ForeignKey("self")``. Also creates the  
+    Checks for ``order_with_respect_to`` on the model's inner ``Meta`` class
+    and if found, copies it to a custom attribute and deletes it since it
+    will cause errors when used with ``ForeignKey("self")``. Also creates the
     ``ordering`` attribute on the ``Meta`` class if not yet provided.
     """
 
@@ -122,22 +122,22 @@ class OrderableBase(ModelBase):
 
 class Orderable(models.Model):
     """
-    Abstract model that provides a custom ordering integer field similar to 
-    using Meta's ``order_with_respect_to``, since to date (Django 1.2) this 
-    doesn't work with ``ForeignKey("self")``. We may also want this feature 
+    Abstract model that provides a custom ordering integer field similar to
+    using Meta's ``order_with_respect_to``, since to date (Django 1.2) this
+    doesn't work with ``ForeignKey("self")``. We may also want this feature
     for models that aren't ordered with respect to a particular field.
     """
 
     __metaclass__ = OrderableBase
-    
+
     _order = models.IntegerField(_("Order"), null=True)
 
     class Meta:
         abstract = True
-        
+
     def with_respect_to(self):
         """
-        Returns a dict to use as a filter for ordering operations containing 
+        Returns a dict to use as a filter for ordering operations containing
         the original ``Meta.order_with_respect_to`` value if provided.
         """
         try:
@@ -145,7 +145,7 @@ class Orderable(models.Model):
             return {field: getattr(self, field)}
         except AttributeError:
             return {}
-        
+
     def save(self, *args, **kwargs):
         """
         Set the initial ordering value.
@@ -172,9 +172,9 @@ class Ownable(models.Model):
     Abstract model that provides ownership of an object for a user.
     """
 
-    user = models.ForeignKey("auth.User", verbose_name=_("Author"), 
+    user = models.ForeignKey("auth.User", verbose_name=_("Author"),
         related_name="%(class)ss")
-        
+
     class Meta:
         abstract = True
 
@@ -186,7 +186,7 @@ class Ownable(models.Model):
 
 class Keyword(models.Model):
     """
-    Keywords/tags which are managed via a custom Javascript based widget in the 
+    Keywords/tags which are managed via a custom Javascript based widget in the
     admin.
     """
 

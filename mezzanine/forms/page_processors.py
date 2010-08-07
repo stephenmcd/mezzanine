@@ -13,11 +13,11 @@ from mezzanine.pages.page_processors import processor_for
 def form_processor(request, page):
     """
     Display a built form and handle submission.
-    """    
+    """
     form = FormForForm(page.form, request.POST or None, request.FILES or None)
     if form.is_valid():
         entry = form.save()
-        fields = ["%s: %s" % (v.label, form.cleaned_data[k]) 
+        fields = ["%s: %s" % (v.label, form.cleaned_data[k])
             for (k, v) in form.fields.items()]
         subject = "%s - %s" % (page.form.title, entry.entry_time)
         body = "\n".join(fields)
@@ -27,7 +27,7 @@ def form_processor(request, page):
             msg = EmailMessage(subject, body, email_from, [email_to])
             msg.send()
         email_from = email_to or email_from # Send from the email entered.
-        email_copies = [e.strip() for e in page.form.email_copies.split(",") 
+        email_copies = [e.strip() for e in page.form.email_copies.split(",")
             if e.strip()]
         if email_copies:
             msg = EmailMessage(subject, body, email_from, email_copies)

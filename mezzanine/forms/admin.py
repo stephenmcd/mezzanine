@@ -27,11 +27,11 @@ fs = FileSystemStorage(location=UPLOAD_ROOT)
 form_fieldsets = deepcopy(PageAdmin.fieldsets)
 form_fieldsets[0][1]["fields"] += ("response",)
 form_fieldsets = list(form_fieldsets)
-form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from", 
+form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from",
     "email_copies")}))
 # Merge the js files for OrderableAdmin and PageAdmin.
 FormMedia = deepcopy(OrderableAdmin.Media)
-FormMedia.js = PageAdmin.Media.js + [js for js in FormMedia.js if js not in 
+FormMedia.js = PageAdmin.Media.js + [js for js in FormMedia.js if js not in
     PageAdmin.Media.js]
 
 class FieldAdmin(admin.TabularInline):
@@ -47,7 +47,7 @@ class FormAdmin(PageAdmin, OrderableAdmin):
     list_display_links = ("title",)
     list_editable = ("status", "email_from", "email_copies")
     list_filter = ("status",)
-    search_fields = ("title", "content", "response", "email_from", 
+    search_fields = ("title", "content", "response", "email_from",
         "email_copies")
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = form_fieldsets
@@ -57,28 +57,28 @@ class FormAdmin(PageAdmin, OrderableAdmin):
         Add the export view to urls.
         """
         urls = super(FormAdmin, self).get_urls()
-        extra_urls = patterns("", 
-            url("^export/(?P<form_id>\d+)/$", 
-                self.admin_site.admin_view(self.export_view), 
+        extra_urls = patterns("",
+            url("^export/(?P<form_id>\d+)/$",
+                self.admin_site.admin_view(self.export_view),
                 name="form_export"),
-            url("^file/(?P<field_entry_id>\d+)/$", 
-                self.admin_site.admin_view(self.file_view), 
+            url("^file/(?P<field_entry_id>\d+)/$",
+                self.admin_site.admin_view(self.file_view),
                 name="form_file"),
         )
         return extra_urls + urls
 
     def export_view(self, request, form_id):
         """
-        Output a CSV file to the browser containing the entries for the form. 
+        Output a CSV file to the browser containing the entries for the form.
         """
         form = get_object_or_404(Form, id=form_id)
         response = HttpResponse(mimetype="text/csv")
         csvname = "%s-%s.csv" % (form.slug, slugify(datetime.now().ctime()))
         response["Content-Disposition"] = "attachment; filename=%s" % csvname
         csv = writer(response)
-        # Write out the column names and store the index of each field 
-        # against its ID for building each entry row. Also store the IDs of 
-        # fields with a type of FileField for converting their field values 
+        # Write out the column names and store the index of each field
+        # against its ID for building each entry row. Also store the IDs of
+        # fields with a type of FileField for converting their field values
         # into download URLs.
         columns = []
         field_indexes = {}
@@ -91,7 +91,7 @@ class FormAdmin(PageAdmin, OrderableAdmin):
         entry_time_name = FormEntry._meta.get_field("entry_time").verbose_name
         columns.append(unicode(entry_time_name))
         csv.writerow(columns)
-        # Loop through each field value order by entry, building up each  
+        # Loop through each field value order by entry, building up each
         # entry as a row.
         current_entry = None
         current_row = None
@@ -118,7 +118,7 @@ class FormAdmin(PageAdmin, OrderableAdmin):
         # Write out the final row.
         if current_row is not None:
             csv.writerow(current_row)
-        return response        
+        return response
 
     def file_view(self, request, field_entry_id):
         """

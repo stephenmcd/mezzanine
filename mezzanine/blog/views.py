@@ -18,7 +18,7 @@ from mezzanine import settings as blog_settings
 use_disqus = bool(blog_settings.COMMENTS_DISQUS_SHORTNAME)
 
 
-def blog_post_list(request, tag=None, year=None, month=None, username=None, 
+def blog_post_list(request, tag=None, year=None, month=None, username=None,
     template="blog/blog_post_list.html"):
     """
     Display a list of blog posts.
@@ -28,7 +28,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     if tag is not None:
         blog_posts = blog_posts.filter(keywords__value=tag)
     if year is not None:
-        blog_posts = blog_posts.filter(publish_date__year=year) 
+        blog_posts = blog_posts.filter(publish_date__year=year)
         if month is not None:
             blog_posts = blog_posts.filter(publish_date__month=month)
             month = month_name[int(month)]
@@ -37,9 +37,9 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         user = get_object_or_404(User, username=username)
         blog_posts = blog_posts.filter(user=user)
     blog_posts = paginate(blog_posts, request.GET.get("page", 1),
-        blog_settings.BLOG_POST_PER_PAGE, 
+        blog_settings.BLOG_POST_PER_PAGE,
         blog_settings.BLOG_POST_MAX_PAGING_LINKS)
-    context = {"blog_posts": blog_posts, "year": year, "month": month, 
+    context = {"blog_posts": blog_posts, "year": year, "month": month,
         "tag": tag, "user": user, "use_disqus": use_disqus}
     return render_to_response(template, context, RequestContext(request))
 
@@ -47,8 +47,8 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
     """
     Display a blog post.
     """
-    # Create two comment forms - one with posted data and errors that will be 
-    # matched to the form submitted via comment_id, and an empty one for all 
+    # Create two comment forms - one with posted data and errors that will be
+    # matched to the form submitted via comment_id, and an empty one for all
     # other instances.
     commenter_cookie_prefix = "mezzanine-blog-"
     commenter_cookie_fields = ("name", "email", "website")
@@ -56,28 +56,28 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
         commenter_cookie_prefix + f, "")) for f in commenter_cookie_fields])
     blog_post = get_object_or_404(
         BlogPost.objects.published(for_user=request.user), slug=slug)
-    posted_comment_form = CommentForm(request.POST or None, 
+    posted_comment_form = CommentForm(request.POST or None,
         initial=initial_comment_data)
     unposted_comment_form = CommentForm(initial=initial_comment_data)
     if request.method == "POST" and posted_comment_form.is_valid():
         comment = posted_comment_form.save(commit=False)
         comment.blog_post = blog_post
-        comment.by_author = (request.user == blog_post.user and 
+        comment.by_author = (request.user == blog_post.user and
             request.user.is_authenticated)
-        comment.ip_address = request.META.get("HTTP_X_FORWARDED_FOR", 
+        comment.ip_address = request.META.get("HTTP_X_FORWARDED_FOR",
             request.META["REMOTE_ADDR"])
         comment.replied_to_id = request.POST.get("replied_to")
         comment.save()
         response = HttpResponseRedirect(comment.get_absolute_url())
         # Store commenter's details in a cookie for 90 days.
-        expires = datetime.strftime(datetime.utcnow() + 
+        expires = datetime.strftime(datetime.utcnow() +
             timedelta(seconds=90*24*60*60), "%a, %d-%b-%Y %H:%M:%S GMT")
         for field in commenter_cookie_fields:
-            response.set_cookie(commenter_cookie_prefix + field, 
+            response.set_cookie(commenter_cookie_prefix + field,
                 request.POST.get(field, ""), expires=expires)
         return response
-    context = {"blog_post": blog_post, "use_disqus": use_disqus, 
-        "posted_comment_form": posted_comment_form, "unposted_comment_form": 
+    context = {"blog_post": blog_post, "use_disqus": use_disqus,
+        "posted_comment_form": posted_comment_form, "unposted_comment_form":
         unposted_comment_form}
     t = select_template(["blog/%s.html" % slug, template])
     return HttpResponse(t.render(RequestContext(request, context)))

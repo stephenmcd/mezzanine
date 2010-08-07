@@ -31,18 +31,18 @@ class Comment(models.Model):
     """
 
     name = models.CharField(_("Name"), max_length=100, help_text=_("required"))
-    email = models.EmailField(_("Email"), 
+    email = models.EmailField(_("Email"),
         help_text=_("required (not published)"))
     email_hash = models.CharField(_("Email hash"), max_length=100, blank=True)
     body = models.TextField(_("Comment"))
     website = models.URLField(_("Website"), blank=True, help_text=_("optional"))
     blog_post = models.ForeignKey("BlogPost", related_name="comments")
-    approved = models.BooleanField(_("Approved"), 
+    approved = models.BooleanField(_("Approved"),
         default=COMMENTS_DEFAULT_APPROVED)
     by_author = models.BooleanField(_("By the blog author"), default=False)
     ip_address = models.IPAddressField(_("IP address"), blank=True, null=True)
     time_created = models.DateTimeField(_("Created at"), default=datetime.now)
-    replied_to = models.ForeignKey("self", blank=True, null=True, 
+    replied_to = models.ForeignKey("self", blank=True, null=True,
         related_name="comments")
 
     objects = CommentManager()
@@ -54,7 +54,7 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return self.body
-        
+
     def get_absolute_url(self):
         return "%s#comment-%s" % (self.blog_post.get_absolute_url(), self.id)
 
@@ -74,13 +74,13 @@ class Comment(models.Model):
     def avatar_link(self):
         from mezzanine.blog.templatetags.blog_tags import gravatar_url
         return "<a href='mailto:%s'><img style='vertical-align:middle;" \
-            "margin-right:3px;' src='%s' />%s</a>" % (self.email, 
+            "margin-right:3px;' src='%s' />%s</a>" % (self.email,
             gravatar_url(self.email_hash), self.name)
     avatar_link.allow_tags = True
     avatar_link.short_description = ""
 
     def admin_link(self):
-        return "<a href='%s'>%s</a>" % (self.get_absolute_url(), 
+        return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
             ugettext("View on site"))
     admin_link.allow_tags = True
     admin_link.short_description = ""

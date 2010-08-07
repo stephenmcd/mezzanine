@@ -32,7 +32,7 @@ class Command(BaseCommand):
         if mezzanine_user is not None:
             try:
                 mezzanine_user = User.objects.get(username=mezzanine_user)
-            except User.DoesNotExist: 
+            except User.DoesNotExist:
                 raise CommandError("Invalid Mezzanine user")
 
         from mezzanine.blog.models import BlogPost
@@ -47,14 +47,14 @@ class Command(BaseCommand):
                 print "Importing %s" % entry["regular-title"]
                 post, created = BlogPost.objects.get_or_create(
                     user=mezzanine_user, title=entry["regular-title"],
-                    content=entry["regular-body"], 
-                    status=CONTENT_STATUS_PUBLISHED, 
+                    content=entry["regular-body"],
+                    status=CONTENT_STATUS_PUBLISHED,
                     publish_date=datetime.strptime(entry["date"], date_format))
                 for tag in entry["tags"]:
                     keyword, created = Keyword.objects.get_or_create(value=tag)
                     post.keywords.add(keyword)
                 post.set_searchable_keywords()
-                redirect, created = Redirect.objects.get_or_create(site=site, 
+                redirect, created = Redirect.objects.get_or_create(site=site,
                     old_path=urlparse(entry["url-with-slug"]).path)
                 redirect.new_path = urlparse(post.get_absolute_url()).path
                 redirect.save()

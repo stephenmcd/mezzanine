@@ -19,7 +19,7 @@ class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
 
-    list_display = ("avatar_link", "intro", "time_created", "approved", 
+    list_display = ("avatar_link", "intro", "time_created", "approved",
         "blog_post", "admin_link")
     list_display_links = ("intro", "time_created")
     list_editable = ("approved",)
@@ -28,7 +28,7 @@ class CommentAdmin(admin.ModelAdmin):
     date_hierarchy = "time_created"
     ordering = ("-time_created",)
     fieldsets = (
-        (None, {"fields": (("name", "email", "website"), "body", 
+        (None, {"fields": (("name", "email", "website"), "body",
             ("ip_address", "approved"), ("blog_post", "replied_to"))}),
     )
 

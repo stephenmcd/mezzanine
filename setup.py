@@ -38,7 +38,7 @@ try:
 
         install_requires = [
             "setuptools",
-            settings.PACKAGE_NAME_FILEBROWSER, 
+            settings.PACKAGE_NAME_FILEBROWSER,
             settings.PACKAGE_NAME_GRAPPELLI,
         ],
 

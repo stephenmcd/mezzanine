@@ -11,10 +11,10 @@ from mezzanine.core.models import HtmlField
 media_url = CONTENT_MEDIA_URL.strip("/")
 content_media = lambda files: ["/%s/%s" % (media_url, f) for f in files]
 
-# Build the list of admin JS file for ``Displayable`` models. 
-# For >= Django 1.2 include a backport of the collapse js which targets 
+# Build the list of admin JS file for ``Displayable`` models.
+# For >= Django 1.2 include a backport of the collapse js which targets
 # earlier versions of the admin.
-displayable_js = ["js/tinymce_setup.js", "js/jquery-1.4.2.min.js",  
+displayable_js = ["js/tinymce_setup.js", "js/jquery-1.4.2.min.js",
     "js/keywords_field.js"]
 from django import VERSION
 if not (VERSION[0] <= 1 and VERSION[1] <= 1):
@@ -22,7 +22,7 @@ if not (VERSION[0] <= 1 and VERSION[1] <= 1):
 displayable_js = content_media(displayable_js)
 displayable_js.insert(0, "/media/admin/tinymce/jscripts/tiny_mce/tiny_mce.js")
 
-orderable_js = content_media(["js/jquery-1.4.2.min.js", 
+orderable_js = content_media(["js/jquery-1.4.2.min.js",
     "js/jquery-ui-1.8.1.custom.min.js", "js/orderable_inline.js"])
 
 
@@ -33,7 +33,7 @@ class DisplayableAdmin(admin.ModelAdmin):
 
     class Media:
         js = displayable_js
-        
+
     list_display = ("title", "status", "admin_link")
     list_display_links = ("title",)
     list_editable = ("status",)
@@ -43,13 +43,13 @@ class DisplayableAdmin(admin.ModelAdmin):
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = (
         (None, {"fields": ("title", ("status", "publish_date"), "content")}),
-        (_("Meta data"), {"fields": ("slug", "description", "keywords"), 
+        (_("Meta data"), {"fields": ("slug", "description", "keywords"),
             "classes": ("collapse-closed",)},),
     )
 
     def save_form(self, request, form, change):
         """
-        Store the keywords as a single string into the ``_keywords`` field 
+        Store the keywords as a single string into the ``_keywords`` field
         for convenient access when searching.
         """
         obj = form.save(commit=True)
@@ -58,17 +58,17 @@ class DisplayableAdmin(admin.ModelAdmin):
 
 class OrderableAdmin(admin.ModelAdmin):
     """
-    Admin class that handles inlines for models that subclass the abstract 
+    Admin class that handles inlines for models that subclass the abstract
     ``Orderable`` model.
     """
 
     class Media:
         css = {"all": content_media(["css/orderable_inline.css"])}
         js = orderable_js
-    
+
     def __init__(self, *args, **kwargs):
         """
-        Set the form for each of the inlines, the extras that will be hidden 
+        Set the form for each of the inlines, the extras that will be hidden
         and also ensure the ``_order`` field is last.
         """
         for inline in self.inlines:
@@ -78,7 +78,7 @@ class OrderableAdmin(admin.ModelAdmin):
             if not fields:
                 fields = inline.model._meta.fields
                 exclude = inline.exclude or []
-                fields = [f.name for f in fields if f.editable and 
+                fields = [f.name for f in fields if f.editable and
                     f.name not in exclude and not isinstance(f, AutoField)]
             if "_order" in fields:
                 del fields[fields.index("_order")]
@@ -88,9 +88,9 @@ class OrderableAdmin(admin.ModelAdmin):
 
 class OwnableAdmin(admin.ModelAdmin):
     """
-    Admin class for models that subclass the abstract ``Ownable`` model. 
-    Handles limiting the change list to objects owned by the logged in user, 
-    as well as setting the owner of newly created objects to the logged in 
+    Admin class for models that subclass the abstract ``Ownable`` model.
+    Handles limiting the change list to objects owned by the logged in user,
+    as well as setting the owner of newly created objects to the logged in
     user.
     """
 

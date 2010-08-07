@@ -9,10 +9,10 @@ import mezzanine
 
 class ProjectException(Exception):
     pass
-    
+
 def create_project():
     """
-    Copies the contents of the project_template directory to a new directory 
+    Copies the contents of the project_template directory to a new directory
     specified as an argument to the command line.
     """
 
@@ -28,7 +28,7 @@ def create_project():
     if project_name.startswith("-"):
         raise ProjectException(usage_text)
 
-    # Ensure the given directory name doesn't clash with an existing Python 
+    # Ensure the given directory name doesn't clash with an existing Python
     # package/module.
     try:
         __import__(project_name)
@@ -38,12 +38,12 @@ def create_project():
         raise ProjectException("'%s' conflicts with the name of an existing "
             "Python module and cannot be used as a project name. Please try "
             "another name." % project_name)
-                    
+
     mezzanine_path = os.path.dirname(os.path.abspath(mezzanine.__file__))
     from_path = os.path.join(mezzanine_path, "project_template")
     to_path = os.path.join(os.getcwd(), project_name)
     shutil.copytree(from_path, to_path)
-        
+
 if __name__ == "__main__":
     try:
         create_project()
@@ -51,6 +51,6 @@ if __name__ == "__main__":
         print
         print e
         print
-        
+
 
 

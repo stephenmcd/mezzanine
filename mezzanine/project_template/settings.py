@@ -68,7 +68,7 @@ MIDDLEWARE_CLASSES = (
     "mezzanine.core.middleware.AdminLoginInterfaceSelector",
 )
 
-# For > Django 1.2 add the CSRF middleware. For earlier, add the dummy 
+# For > Django 1.2 add the CSRF middleware. For earlier, add the dummy
 # csrf_token template tag to builtins.
 from django import VERSION
 if VERSION[0] <= 1 and VERSION[1] <= 1:
@@ -77,7 +77,7 @@ if VERSION[0] <= 1 and VERSION[1] <= 1:
 else:
     MIDDLEWARE_CLASSES += ("django.middleware.csrf.CsrfViewMiddleware",)
 
-# Store these package names here as they may change in the future since at the 
+# Store these package names here as they may change in the future since at the
 # moment we are using custom forks of them.
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
@@ -86,7 +86,7 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 OPTIONAL_APPS = (
     "debug_toolbar",
     "south",
-    "django_extensions", 
+    "django_extensions",
     PACKAGE_NAME_FILEBROWSER,
     PACKAGE_NAME_GRAPPELLI,
 )

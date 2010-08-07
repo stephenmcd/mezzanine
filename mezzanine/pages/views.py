@@ -25,8 +25,8 @@ admin_page_ordering = staff_member_required(admin_page_ordering)
 
 def page(request, slug, template="pages/page.html"):
     """
-    Display content for a page. First check for any matching page processors 
-    and handle them. Secondly, build the list of template names to choose 
+    Display content for a page. First check for any matching page processors
+    and handle them. Secondly, build the list of template names to choose
     from given the slug and type of page being viewed.
     """
     page = get_object_or_404(Page.objects.published(request.user), slug=slug)

@@ -17,9 +17,9 @@ class Tests(TestCase):
     """
     Mezzanine tests.
     """
-    
+
     fixtures = ["initial_data.json"]
-    
+
     def setUp(self):
         """
         Create an admin user.
@@ -43,20 +43,20 @@ class Tests(TestCase):
 
     def test_overriden_page(self):
         """
-        Test that a page with a slug matching a non-page urlpattern return 
-        True for its overriden property. The blog page from the fixtures 
+        Test that a page with a slug matching a non-page urlpattern return
+        True for its overriden property. The blog page from the fixtures
         should classify as this case.
         """
         self.assertTrue(Page.objects.get(slug=BLOG_SLUG).overridden())
 
     def test_mobile_middleware(self):
         """
-        Test that an alternate template is rendered when a mobile device is 
+        Test that an alternate template is rendered when a mobile device is
         used.
         """
         template_name = lambda t: t.name if hasattr(t, "name") else t[0].name
         default = template_name(self.client.get(reverse("home")).template)
-        mobile = template_name(self.client.get(reverse("home"), 
+        mobile = template_name(self.client.get(reverse("home"),
             HTTP_USER_AGENT=MOBILE_USER_AGENTS[0]).template)
         self.assertNotEqual(default, mobile)
         self.assertEqual(default, mobile.replace(".mobile", "", 1))
@@ -78,11 +78,11 @@ class Tests(TestCase):
         """
         settings.DEBUG = True
         connection.queries = []
-        t = Template(template) 
+        t = Template(template)
         t.render(Context(context))
         settings.DEBUG = False
         return len(connection.queries)
-        
+
     def create_recursive_objects(self, model, parent_field, **kwargs):
         """
         Create multiple levels of recursive objects.
@@ -100,25 +100,25 @@ class Tests(TestCase):
 
     def test_comments(self):
         """
-        Test that rendering the blog comments executes the same number of 
+        Test that rendering the blog comments executes the same number of
         queries regardless of the number of nested replies.
         """
         blog_post = BlogPost.objects.create(title="Post", user=self._user)
         template = "{% load blog_tags %}{% blog_comments_for blog_post %}"
         before = self.queries_used_for_template(template, blog_post=blog_post)
-        self.create_recursive_objects(Comment, "replied_to", name="Comment", 
+        self.create_recursive_objects(Comment, "replied_to", name="Comment",
             blog_post=blog_post)
         after = self.queries_used_for_template(template, blog_post=blog_post)
         self.assertEquals(before, after)
 
     def test_page_menu(self):
         """
-        Test that rendering the page menu executes the same number of queries 
+        Test that rendering the page menu executes the same number of queries
         regardless of the number of pages or levels of children.
         """
         template = "{% load pages_tags %}{% page_menu %}"
         before = self.queries_used_for_template(template)
-        self.create_recursive_objects(Page, "parent", title="Page", 
+        self.create_recursive_objects(Page, "parent", title="Page",
             status=CONTENT_STATUS_PUBLISHED)
         after = self.queries_used_for_template(template)
         self.assertEquals(before, after)
@@ -154,14 +154,14 @@ class Tests(TestCase):
 
     def test_forms(self):
         """
-        Simple 200 status check against rendering and posting to forms with 
+        Simple 200 status check against rendering and posting to forms with
         both optional and required fields.
         """
         for required in (True, False):
-            form = Form.objects.create(title="Form", 
+            form = Form.objects.create(title="Form",
                 status=CONTENT_STATUS_PUBLISHED)
             for field in FIELD_CHOICES:
-                form.fields.create(label=field[0], field_type=field[0], 
+                form.fields.create(label=field[0], field_type=field[0],
                     required=required, visible=True)
             response = self.client.get(form.get_absolute_url())
             self.assertEqual(response.status_code, 200)

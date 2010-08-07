@@ -7,10 +7,10 @@ from django.conf import settings
 
 def setting(setting_name, default_value):
     """
-    Set the default value for a setting, using the value found in the project 
+    Set the default value for a setting, using the value found in the project
     settings module prefixed with MEZZANINE_ if found.
     """
-    globals()[setting_name] = getattr(settings, 
+    globals()[setting_name] = getattr(settings,
         "MEZZANINE_%s" % setting_name, default_value)
 
 # Unregister these models installed by default (occurs in urlconf).
@@ -45,9 +45,9 @@ setting("COMMENTS_DEFAULT_APPROVED", True)
 # Number of latest comments to show in the admin dashboard.
 setting("COMMENTS_NUM_LATEST", 5)
 
-# If True, unapproved comments will have a placeholder visible on the site 
-# with a "waiting for approval" or "comment removed" message based on the 
-# workflow around the ``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if 
+# If True, unapproved comments will have a placeholder visible on the site
+# with a "waiting for approval" or "comment removed" message based on the
+# workflow around the ``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if
 # True then the former message is used, if False then the latter.
 setting("COMMENTS_UNAPPROVED_VISIBLE", True)
 
@@ -63,7 +63,7 @@ CONTENT_STATUS_CHOICES = (
     (CONTENT_STATUS_PUBLISHED, _("Published")),
 )
 
-# ID for using Google Analytics (http://www.google.com/analytics/) referred to 
+# ID for using Google Analytics (http://www.google.com/analytics/) referred to
 # as "Web Property ID"
 setting("GOOGLE_ANALYTICS_ID", None)
 
@@ -81,7 +81,7 @@ setting("MOBILE_USER_AGENTS", ("2.0 MMP","240x320","400X240","AvantGo",
 # Number of different sizes given to tags when shown as a cloud.
 setting("TAG_CLOUD_SIZES", 4)
 
-# If True, the pages menu will show all levels of navigation by default, 
+# If True, the pages menu will show all levels of navigation by default,
 # otherwise child pages are only shown when viewing the parent page.
 setting("PAGES_MENU_SHOW_ALL", True)
 
@@ -92,7 +92,7 @@ setting("SEARCH_PER_PAGE", 10)
 setting("SEARCH_MAX_PAGING_LINKS", 10)
 
 # List of words which will be stripped from search queries.
-setting("STOP_WORDS", ("a","about","above","above","across","after", 
+setting("STOP_WORDS", ("a","about","above","above","across","after",
     "afterwards","again","against","all","almost","alone","along","already",
     "also","although","always","am","among","amongst","amoungst","amount",
     "an","and","another","any","anyhow","anyone","anything","anyway",

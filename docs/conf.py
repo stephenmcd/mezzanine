@@ -57,7 +57,7 @@ changelog_file = os.path.join(mezzanine_path, changelog_filename)
 versions = SortedDict()
 
 for changeset in reversed(list(repo.changelog)):
-    # Check if the file with the version number is in this changeset and if 
+    # Check if the file with the version number is in this changeset and if
     # it is, pull it out and assign it as a variable.
     context = repo.changectx(changeset)
     files = context.files()
@@ -66,7 +66,7 @@ for changeset in reversed(list(repo.changelog)):
         for line in context[version_file].data().split("\n"):
             if line.startswith(version_var):
                 exec line
-                version_info = {"changes": [], "date": 
+                version_info = {"changes": [], "date":
                     datetime.fromtimestamp(context.date()[0]
                     ).strftime("%b %d, %Y")}
                 versions[globals()[version_var]] = version_info
@@ -77,7 +77,7 @@ for changeset in reversed(list(repo.changelog)):
     changelog_update = changelog_filename in files and len(files) == 1
     if merge or new_version or changelog_update:
         continue
-    # Ensure we have a current version and if so, add this changeset's 
+    # Ensure we have a current version and if so, add this changeset's
     # description to it.
     try:
         version = globals()[version_var]

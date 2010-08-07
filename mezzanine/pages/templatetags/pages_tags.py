@@ -15,8 +15,8 @@ register = template.Library()
 
 def _page_menu(context, parent_page):
     """
-    Return a list of child pages for the given parent, storing all 
-    pages in a dict in the context when first called using parents as keys 
+    Return a list of child pages for the given parent, storing all
+    pages in a dict in the context when first called using parents as keys
     for retrieval on subsequent recursive calls from the menu template.
     """
     if "menu_pages" not in context:
@@ -56,14 +56,14 @@ def page_menu_admin(context, parent_page=None):
 @register.as_tag
 def models_for_pages(*args):
     """
-    Create a select list containing each of the models that subclass the 
+    Create a select list containing each of the models that subclass the
     ``Page`` model.
     """
     page_models = []
     for model in get_models():
         if issubclass(model, Page):
             setattr(model, "name", model._meta.verbose_name)
-            setattr(model, "add_url", reverse("admin:%s_%s_add" % 
+            setattr(model, "add_url", reverse("admin:%s_%s_add" %
                 (model._meta.app_label, model.__name__.lower())))
             page_models.append(model)
     return page_models
@@ -71,7 +71,7 @@ def models_for_pages(*args):
 @register.filter
 def is_page_content_model(admin_model_dict):
     """
-    Returns True if the model in the given admin dict is a subclass of the 
+    Returns True if the model in the given admin dict is a subclass of the
     ``Page`` model.
     """
     args = admin_model_dict["admin_url"].strip("/").split("/")

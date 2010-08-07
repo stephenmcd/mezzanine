@@ -14,7 +14,7 @@ from mezzanine.utils import is_editable, paginate
 
 def admin_keywords_submit(request):
     """
-    Adds any new given keywords from the custom keywords field in the admin and 
+    Adds any new given keywords from the custom keywords field in the admin and
     returns their IDs for use when saving a model with a keywords field.
     """
     ids = []
@@ -32,7 +32,7 @@ def search(request, template="search_results.html"):
     """
     query = request.GET.get("q", "")
     results = Displayable.objects.search(query)
-    results = paginate(results, request.GET.get("page", 1), SEARCH_PER_PAGE, 
+    results = paginate(results, request.GET.get("page", 1), SEARCH_PER_PAGE,
         SEARCH_MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
     return render_to_response(template, context, RequestContext(request))

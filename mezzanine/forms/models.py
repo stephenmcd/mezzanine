@@ -30,10 +30,10 @@ class Form(Page):
     response = HtmlField(_("Response"))
     send_email = models.BooleanField(_("Send email"), default=True, help_text=
         _("If checked, the person entering the form will be sent an email"))
-    email_from = models.EmailField(_("From address"), blank=True, 
+    email_from = models.EmailField(_("From address"), blank=True,
         help_text=_("The address the email will be sent from"))
-    email_copies = models.CharField(_("Send copies to"), blank=True, 
-        help_text=_("One or more email addresses, separated by commas"), 
+    email_copies = models.CharField(_("Send copies to"), blank=True,
+        help_text=_("One or more email addresses, separated by commas"),
         max_length=200)
 
     class Meta:
@@ -51,23 +51,23 @@ class Field(Orderable):
     """
     A field for a user-built form.
     """
-    
+
     form = models.ForeignKey("Form", related_name="fields")
     label = models.CharField(_("Label"), max_length=LABEL_MAX_LENGTH)
-    field_type = models.CharField(_("Type"), choices=FIELD_CHOICES, 
+    field_type = models.CharField(_("Type"), choices=FIELD_CHOICES,
         max_length=50)
     required = models.BooleanField(_("Required"), default=True)
     visible = models.BooleanField(_("Visible"), default=True)
-    choices = models.CharField(_("Choices"), max_length=1000, blank=True, 
+    choices = models.CharField(_("Choices"), max_length=1000, blank=True,
         help_text="Comma separated options where applicable")
-        
+
     objects = FieldManager()
 
     class Meta:
         verbose_name = _("Field")
         verbose_name_plural = _("Fields")
         order_with_respect_to = "form"
-    
+
     def __unicode__(self):
         return self.label
 
@@ -78,7 +78,7 @@ class FormEntry(models.Model):
 
     form = models.ForeignKey("Form", related_name="entries")
     entry_time = models.DateTimeField(_("Date/time"))
-    
+
     class Meta:
         verbose_name = _("Form entry")
         verbose_name_plural = _("Form entries")
@@ -87,7 +87,7 @@ class FieldEntry(models.Model):
     """
     A single field value for a form entry submitted via a user-built form.
     """
-    
+
     entry = models.ForeignKey("FormEntry", related_name="fields")
     field_id = models.IntegerField()
     value = models.CharField(max_length=FIELD_MAX_LENGTH)

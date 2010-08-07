@@ -22,7 +22,7 @@ class FormForForm(forms.ModelForm):
 
     def __init__(self, form, *args, **kwargs):
         """
-        Dynamically add each of the form fields for the given form model 
+        Dynamically add each of the form fields for the given form model
         instance and its related field model instances.
         """
         self.form = form
@@ -54,7 +54,7 @@ class FormForForm(forms.ModelForm):
 
     def save(self, **kwargs):
         """
-        Create a FormEntry instance and related FieldEntry instances for each 
+        Create a FormEntry instance and related FieldEntry instances for each
         form field.
         """
         entry = super(FormForForm, self).save(commit=False)
@@ -68,7 +68,7 @@ class FormForForm(forms.ModelForm):
                 value = fs.save(join("forms", str(uuid4()), value.name), value)
             entry.fields.create(field_id=field.id, value=value)
         return entry
-        
+
     def email_to(self):
         """
         Return the value entered for the first field of type EmailField.
@@ -78,4 +78,4 @@ class FormForForm(forms.ModelForm):
             if field_class == "EmailField":
                 return self.cleaned_data["field_%s" % field.id]
         return None
-        
+
