@@ -91,7 +91,7 @@ def blog_authors(*args):
     Put a list of authors (users) for blog posts into the template context.
     """
     blog_posts = BlogPost.objects.published()
-    return User.objects.filter(blog_posts__in=blog_posts).distinct()
+    return User.objects.filter(blogposts__in=blog_posts).distinct()
 
 @register.as_tag
 def quick_blog_form(*args):

@@ -7,6 +7,7 @@ from django.template import Context, Template
 from django.test import TestCase
 
 from mezzanine.blog.models import BlogPost, Comment
+from mezzanine.forms.models import Form, FIELD_CHOICES
 from mezzanine.pages.models import Page
 from mezzanine.settings import BLOG_SLUG, CONTENT_STATUS_DRAFT, \
     CONTENT_STATUS_PUBLISHED, MOBILE_USER_AGENTS
@@ -53,9 +54,10 @@ class Tests(TestCase):
         Test that an alternate template is rendered when a mobile device is 
         used.
         """
-        default = self.client.get(reverse("home")).template[0].name
-        mobile = self.client.get(reverse("home"), 
-            HTTP_USER_AGENT=MOBILE_USER_AGENTS[0]).template[0].name
+        template_name = lambda t: t.name if hasattr(t, "name") else t[0].name
+        default = template_name(self.client.get(reverse("home")).template)
+        mobile = template_name(self.client.get(reverse("home"), 
+            HTTP_USER_AGENT=MOBILE_USER_AGENTS[0]).template)
         self.assertNotEqual(default, mobile)
         self.assertEqual(default, mobile.replace(".mobile", "", 1))
 
@@ -150,3 +152,20 @@ class Tests(TestCase):
         if results:
             self.assertEqual(results[0].id, second)
 
+    def test_forms(self):
+        """
+        Simple 200 status check against rendering and posting to forms with 
+        both optional and required fields.
+        """
+        for required in (True, False):
+            form = Form.objects.create(title="Form", 
+                status=CONTENT_STATUS_PUBLISHED)
+            for field in FIELD_CHOICES:
+                form.fields.create(label=field[0], field_type=field[0], 
+                    required=required, visible=True)
+            response = self.client.get(form.get_absolute_url())
+            self.assertEqual(response.status_code, 200)
+            fields = form.fields.visible()
+            data = dict([("field_%s" % f.id, "test") for f in fields])
+            response = self.client.post(form.get_absolute_url(), data=data)
+            self.assertEqual(response.status_code, 200)

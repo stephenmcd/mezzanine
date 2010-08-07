@@ -4,10 +4,10 @@
         "model": "pages.page", 
         "fields": {
             "status": 2, 
-            "description": "About us", 
+            "description": "<p>About us</p>", 
             "title": "About", 
             "_order": 0, 
-            "content": "About us", 
+            "content": "<p>About us</p>", 
             "content_model": "pages",
             "titles": "About", 
             "slug": "about"
@@ -18,13 +18,27 @@
         "model": "pages.page", 
         "fields": {
             "status": 2, 
-            "description": "Blog", 
+            "description": "<p>Blog</p>", 
             "title": "Blog", 
             "_order": 1, 
-            "content": "Blog", 
+            "content": "<p>Blog</p>", 
             "content_model": "pages",
             "titles": "Blog", 
             "slug": "blog"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "pages.page", 
+        "fields": {
+            "status": 2, 
+            "description": "<p>Fill in the form below to get in touch with us.</p>", 
+            "title": "Contact", 
+            "_order": 2, 
+            "content": "<p>Fill in the form below to get in touch with us.</p>", 
+            "content_model": "form", 
+            "titles": "Contact", 
+            "slug": "contact"
         }
     }
 ]

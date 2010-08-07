@@ -1,23 +1,22 @@
 
 from datetime import datetime
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.base import ModelBase
 from django.template.defaultfilters import slugify, truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from mezzanine.core.fields import HtmlField
 from mezzanine.core.managers import DisplayableManager, KeywordManager
 from mezzanine import settings as blog_settings
+from mezzanine.utils import base_concrete_model
 
 
-class HtmlField(models.TextField):
-    pass
-    
 class Displayable(models.Model):
     """
-    Abstract model representing a visible object on the website with common 
-    functionality such as auto slug creation and an active field for toggling 
-    visibility.
+    Abstract model that provides features of a visible page on the website 
+    such as auto slug creation, meta data and publishing fields.
     """
 
     title = models.CharField(_("Title"), max_length=100)
@@ -50,7 +49,7 @@ class Displayable(models.Model):
     def save(self, *args, **kwargs):
         """
         Create the description from the content if none given, and create a 
-        unique slug from the title by appending an index.
+        unique slug from the title by appending an index. 
         """
         if self.publish_date is None:
             # publish_date will be blank when a blog post is created from the 
@@ -64,6 +63,9 @@ class Displayable(models.Model):
             else:
                 self.description = truncatewords_html(self.content, 100)
         if not self.slug:
+            # For custom content types, use the ``Page`` instance for slug 
+            # lookup.
+            concrete_model = base_concrete_model(Displayable, self)
             self.slug = self.get_slug()
             i = 0
             while True:
@@ -71,7 +73,12 @@ class Displayable(models.Model):
                     if i > 1:
                         self.slug = self.slug.rsplit("-", 1)[0]
                     self.slug = "%s-%s" % (self.slug, i)
-                if not self.__class__.objects.filter(slug=self.slug):
+                qs = concrete_model.objects.all()
+                if self.id is not None:
+                    qs = qs.exclude(id=self.id)
+                try:
+                    qs.get(slug=self.slug)
+                except ObjectDoesNotExist:
                     break
                 i += 1
         super(Displayable, self).save(*args, **kwargs)
@@ -115,10 +122,10 @@ class OrderableBase(ModelBase):
 
 class Orderable(models.Model):
     """
-    Provide a custom ordering integer field similar to using Meta's 
-    ``order_with_respect_to`` since to date (Django 1.2) this doesn't work 
-    with ``ForeignKey("self")``. We may also want this feature for 
-    models that aren't ordered with respect to a particular field.
+    Abstract model that provides a custom ordering integer field similar to 
+    using Meta's ``order_with_respect_to``, since to date (Django 1.2) this 
+    doesn't work with ``ForeignKey("self")``. We may also want this feature 
+    for models that aren't ordered with respect to a particular field.
     """
 
     __metaclass__ = OrderableBase
@@ -145,7 +152,8 @@ class Orderable(models.Model):
         """
         if self._order is None:
             lookup = self.with_respect_to()
-            self._order = self.__class__.objects.filter(**lookup).count()
+            concrete_model = base_concrete_model(Orderable, self)
+            self._order = concrete_model.objects.filter(**lookup).count()
         super(Orderable, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -154,9 +162,27 @@ class Orderable(models.Model):
         """
         lookup = self.with_respect_to()
         lookup["_order__gte"] = self._order
-        after = self.__class__.objects.filter(**lookup)
+        concrete_model = base_concrete_model(Orderable, self)
+        after = concrete_model.objects.filter(**lookup)
         after.update(_order=models.F("_order") - 1)
         super(Orderable, self).delete(*args, **kwargs)
+
+class Ownable(models.Model):
+    """
+    Abstract model that provides ownership of an object for a user.
+    """
+
+    user = models.ForeignKey("auth.User", verbose_name=_("Author"), 
+        related_name="%(class)ss")
+        
+    class Meta:
+        abstract = True
+
+    def is_editable(self, request):
+        """
+        Restrict in-line editing to the objects's owner and superusers.
+        """
+        return request.user.is_superuser or request.user.id == self.user_id
 
 class Keyword(models.Model):
     """

@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     "django.contrib.sites",
     "mezzanine.core",
     "mezzanine.blog",
+    "mezzanine.forms",
     "mezzanine.pages",
     "mezzanine.twitter",
 )
@@ -67,10 +68,12 @@ MIDDLEWARE_CLASSES = (
     "mezzanine.core.middleware.AdminLoginInterfaceSelector",
 )
 
-try:
-    from django.middleware.csrf import CsrfViewMiddleware
-except ImportError:
-    pass
+# For > Django 1.2 add the CSRF middleware. For earlier, add the dummy 
+# csrf_token template tag to builtins.
+from django import VERSION
+if VERSION[0] <= 1 and VERSION[1] <= 1:
+    from django.template.loader import add_to_builtins
+    add_to_builtins("mezzanine.core.templatetags.dummy_csrf")
 else:
     MIDDLEWARE_CLASSES += ("django.middleware.csrf.CsrfViewMiddleware",)
 

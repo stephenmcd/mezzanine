@@ -14,7 +14,7 @@ var anyFieldsDirty = function(fields) {
                 if (field.value) {return true;}
                 break;
             case 'checkbox':
-                if (field.checked) {return true;}
+                if ($(field).attr('dirty')) {return true;}
                 break;
             default:
                 alert('Unhandled field in orderable_inline.js:' +
@@ -69,6 +69,13 @@ $(function() {
     if (grappelli) {
         $('.add-another').click();
     }
+    
+    // Mark checkboxes with a 'dirty' attribute if they're changed from 
+    // their original state, in order to check inside anyFieldsDirty().
+    $('input:checkbox').change(function() {
+        var checkbox = $(this);
+        checkbox.attr('dirty', !checkbox.attr('dirty'));
+    });
     
     // Set the value of the _order fields on submit.
     $($('._order input:first').attr('form')).submit(function() {

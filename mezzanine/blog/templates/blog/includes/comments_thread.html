@@ -23,6 +23,7 @@
         <a href="#reply-{{ comment.id }}" class="reply">{% trans "Reply" %}</a>
         <form method="post" id="reply-{{ comment.id }}"
             class="comment{% ifequal replied_to comment.id %} posted{% endifequal %}">
+            {% csrf_token %}
             <table>
             {% ifequal replied_to comment.id %}
             {{ posted_comment_form.as_table }}

@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Keyword, Displayable
 from mezzanine.settings import SEARCH_MAX_PAGING_LINKS, SEARCH_PER_PAGE
-from mezzanine.utils import paginate
+from mezzanine.utils import is_editable, paginate
 
 
 def admin_keywords_submit(request):
@@ -41,8 +41,7 @@ def edit(request):
     model = get_model(request.POST["app"], request.POST["model"])
     obj = model.objects.get(id=request.POST["id"])
     form = get_edit_form(obj, request.POST["attr"], data=request.POST)
-    perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
-    if not request.user.has_perm(perm):
+    if not is_editable(obj, request):
         response = _("Permission denied")
     elif form.is_valid():
         form.save()
@@ -50,5 +49,4 @@ def edit(request):
     else:
         response = form.errors.values()[0][0]
     return HttpResponse(unicode(response))
-edit = staff_member_required(edit)
 

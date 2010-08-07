@@ -6,18 +6,15 @@ from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.core.models import Displayable
+from mezzanine.core.models import Displayable, Ownable
 from mezzanine.blog.managers import CommentManager
 from mezzanine.settings import COMMENTS_DEFAULT_APPROVED
 
 
-class BlogPost(Displayable):
+class BlogPost(Displayable, Ownable):
     """
     A blog post.
     """
-
-    user = models.ForeignKey("auth.User", verbose_name=_("Author"), 
-        related_name="blog_posts")
 
     class Meta:
         verbose_name = "Blog post"

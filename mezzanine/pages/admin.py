@@ -33,7 +33,6 @@ class PageAdmin(DisplayableAdmin):
             extra_context=None)
 
     def changelist_view(self, request, extra_context=None):
-
         """
         Redirect to the ``Page`` changelist view for ``Page`` subclasses.
         """
@@ -45,7 +44,13 @@ class PageAdmin(DisplayableAdmin):
         """
         Set the ID of the parent page if passed in via querystring.
         """
-        obj.parent_id = request.GET.get("parent")
+        # Force parent to be saved to trigger handling of ordering and slugs.
+        parent = request.GET.get("parent")
+        if parent is not None and not change:
+            obj.parent_id = parent
+            obj._order = None
+            obj.slug = None
+            obj.save()
         super(PageAdmin, self).save_model(request, obj, form, change)
     
     def _maintain_parent(self, request, response):

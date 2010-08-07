@@ -3,6 +3,7 @@
 <h2>{% trans "Comments" %}</h2>
 {% blog_comments_for blog_post %}
 <form method="post" class="comment" id="comment" action="#comment">
+    {% csrf_token %}
     <table>
     {% if request.POST.replied_to %}
     {{ unposted_comment_form.as_table }}

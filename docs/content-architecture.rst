@@ -48,11 +48,11 @@ inherits from ``mezzanine.pages.admin.PageAdmin``::
     from mezzanine.pages.admin import PageAdmin
     from models import Gallery, GalleryImage
 
-    class GalleryAdmin(PageAdmin):
-        inlines = (GalleryImageInline,)
-        
     class GalleryImageInline(admin.TabularInline):
         model = GalleryImage
+        
+    class GalleryAdmin(PageAdmin):
+        inlines = (GalleryImageInline,)
         
     admin.site.register(Gallery, GalleryAdmin)
 

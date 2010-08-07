@@ -1,62 +1,87 @@
+Version 0.5.4 (Jul 25, 2010)
+----------------------------
+
+  * Bugfix to in-line editing view - missing import - stephenmcd
+  * Moved setting of class attribute for TinyMCE into HtmlField - stephenmcd
+  * Added loading animation to in-line editing - stephenmcd
+
+Version 0.5.3 (Jul 24, 2010)
+----------------------------
+
+  * Added more backward-compatible csrf handling - stephenmcd
+  * Update changelog generator to exclude its own commit of the changelog - stephenmcd
+  * Use names of packages from settings in setup script - stephenmcd
+  * Make changelog generator in Sphinx conf list changesets within a version in chronological order - stephenmcd
+  * Update CSS for in-line editing toolbar to stay fixed at top of the page - stephenmcd
+  * Added handling for models to define their own ``editable`` method for controlling in-line editing - stephenmcd
+  * Added the abstract model ``Ownable`` for defining models with instances owned by users, containing is_editable hook and admin class for setting the owner of new objects and restricting objects to their owners - stephenmcd
+  * Apply ``Ownable`` abstract model to ``BlogPost`` model and related classes - stephenmcd
+  * Wrap quickblog form in permission check - stephenmcd
+
+Version 0.5.2 (Jul 22, 2010)
+----------------------------
+
+  * Allow interface selection on admin login screen to prepopulate from querystring - stephenmcd
+  * Added more robust handling for csrf and apply to forms - stephenmcd
+  * Bugfix setting author of blog post in BlogPostAdmin to be compatible with DisplayableAdmin - stephenmcd
+
 Version 0.5.1 (Jul 18, 2010)
 ----------------------------
 
-  * Bugfix to TinyMceWidget name. - stephenmcd
-  * Bugfix to permission check for in-line editing. - stephenmcd
-  * Include Csrf Middleware when available. - stephenmcd
-  * Bugfix to persist values for in-line TinyMCE fields. - stephenmcd
-  * Auto update CHANGELOG. - stephenmcd
-  * Created HtmlField and TinyMceWidget for more control over targetting textareas as TinyMCE fields. - stephenmcd
+  * Bugfix to permission check for in-line editing - stephenmcd
+  * Bugfix to persist values for in-line TinyMCE fields - stephenmcd
+  * Created HtmlField and TinyMceWidget for more control over targetting textareas as TinyMCE fields - stephenmcd
+  * Bugfix to TinyMceWidget name - stephenmcd
+  * Include Csrf Middleware when available - stephenmcd
 
 Version 0.5 (Jul 18, 2010)
 --------------------------
 
-  * Make slugs editable in admin. - stephenmcd
-  * Created system for inline-editing. - stephenmcd
-  * Update to_end_tag with context and token args, but only use as many args as the tag supports. - stephenmcd
-  * Added routine to Sphinx conf to auto-generate changelog from mercurial repo. - stephenmcd
-  * Added docs for in-line editing. - stephenmcd
-  * Added generated CHANGELOG. - stephenmcd
-  * Added quote from Jesse Noller to README. - stephenmcd
-  * Fixed grammar error in docs. - stephenmcd
-  * Apply in-line editing to templates. - stephenmcd
-  * Formatting fix. - stephenmcd
-  * Add option to admin login screen to log into site for in-line editing. - stephenmcd
-  * Update README to cross-reference features in docs. - stephenmcd
-  * Bugfix links to RSS feeds. - stephenmcd
-  * Added 'Posted by' text to blog posts. - stephenmcd
-  * Change admin title to Mezzanine. - stephenmcd
+  * Added 'Posted by' text to blog posts - stephenmcd
+  * Formatting fix - stephenmcd
+  * Fixed grammar error in docs - stephenmcd
+  * Added quote from Jesse Noller to README - stephenmcd
+  * Added routine to Sphinx conf to auto-generate changelog from mercurial repo - stephenmcd
+  * Change admin title to Mezzanine - stephenmcd
+  * Make slugs editable in admin - stephenmcd
+  * Bugfix links to RSS feeds - stephenmcd
+  * Update to_end_tag with context and token args, but only use as many args as the tag supports - stephenmcd
+  * Created system for inline-editing - stephenmcd
+  * Apply in-line editing to templates - stephenmcd
+  * Add option to admin login screen to log into site for in-line editing - stephenmcd
+  * Added docs for in-line editing - stephenmcd
+  * Update README to cross-reference features in docs - stephenmcd
 
 Version 0.4 (Jul 11, 2010)
 --------------------------
 
-  * Remove weight from search results output. - stephenmcd
-  * A bunch of updates to doc strings. - stephenmcd
-  * Formatting fixes for docs. - stephenmcd
-  * Added documentation for search API. - stephenmcd
-  * Added highlighting to blog post author's own comments. - stephenmcd
-  * Bugfix to search allowing null fields to be ignored when determining weight. - stephenmcd
-  * Added search functionality and moved pagination out into utils and templatetags. - stephenmcd
-  * Save blog commenter's details in a cookie. - stephenmcd
-  * Bugfix to links in recent comments section of admin dashboard. - stephenmcd
+  * Added search functionality and moved pagination out into utils and templatetags - stephenmcd
+  * Bugfix to search allowing null fields to be ignored when determining weight - stephenmcd
+  * Remove weight from search results output - stephenmcd
+  * A bunch of updates to doc strings - stephenmcd
+  * Added documentation for search API - stephenmcd
+  * Formatting fixes for docs - stephenmcd
+  * Added highlighting to blog post author's own comments - stephenmcd
+  * Save blog commenter's details in a cookie - stephenmcd
+  * Bugfix to links in recent comments section of admin dashboard - stephenmcd
 
 Version 0.3.5 (Jul 09, 2010)
 ----------------------------
 
-  * Bugfix to page template missing tag library. - stephenmcd
-  * Bugfix to tests loading and version bump. - stephenmcd
+  * Bugfix to page template missing tag library - stephenmcd
+  * Bugfix to tests loading and version bump - stephenmcd
 
 Version 0.3.4 (Jul 08, 2010)
 ----------------------------
 
-  * Add blog migration to feature list. - stephenmcd
-  * Update docs with references to new modules and version bump. - stephenmcd
-  * Cleaned up formatting of meta data. - stephenmcd
-  * Cleaned up interface for custom tag types. - stephenmcd
-  * Added support for natural keys. - stephenmcd
-  * Formatting fix to README. - stephenmcd
-  * Bugfix ADMIN_MEDIA_PREFIX for grappelli on live sites. - stephenmcd
-  * Bugfix to natural key format. - stephenmcd
+  * Added support for natural keys - stephenmcd
+  * Add blog migration to feature list - stephenmcd
+  * Bugfix ADMIN_MEDIA_PREFIX for grappelli on live sites - stephenmcd
+  * Bugfix to natural key format - stephenmcd
+  * Formatting fix to README - stephenmcd
+  * Cleaned up formatting of meta data - stephenmcd
+  * Cleaned up interface for custom tag types - stephenmcd
+  * Update docs with references to new modules and version bump - stephenmcd
 
 Version 0.3.3 (Jul 07, 2010)
 ----------------------------
@@ -66,139 +91,139 @@ Version 0.3.3 (Jul 07, 2010)
 Version 0.3.2 (Jul 07, 2010)
 ----------------------------
 
-  * Revert some of mezzanine.settings back to not being overridable. - stephenmcd
-  * changed tabs to spaces (only where there was a mixture of the 2, not when just tabs in file. - lexual
-  * Prevent sphinx blank-line warning. - stephenmcd
-  * Make building docs Python2.5 compatible. - stephenmcd
-  * Bugfix for losing parent ID when editing existing child pages. - stephenmcd
-  * Added routine to sphinx conf.py to auto-generate docs for mezzanine.settings. - stephenmcd
-  * change tabs to spaces. - lexual
-  * Reformatted docs to lines less than 80 chars. - stephenmcd
-  * Add a note to README about using the issue tracker on Github. - stephenmcd
-  * Ignore uploads directory in repo. - stephenmcd
-  * fix bug with ordering field in pages. Add error handling for page ordering. - lexual
-  * Update to docs style. - stephenmcd
+  * Ignore uploads directory in repo - stephenmcd
+  * Reformatted docs to lines less than 80 chars - stephenmcd
+  * Revert some of mezzanine.settings back to not being overridable - stephenmcd
+  * Add a note to README about using the issue tracker on Github - stephenmcd
+  * Added routine to sphinx conf.py to auto-generate docs for mezzanine.settings - stephenmcd
+  * Prevent sphinx blank-line warning - stephenmcd
+  * Make building docs Python2.5 compatible - stephenmcd
+  * Update to docs style - stephenmcd
+  * Bugfix for losing parent ID when editing existing child pages - stephenmcd
+  * fix bug with ordering field in pages. Add error handling for page ordering - lexual
+  * change tabs to spaces - lexual
+  * changed tabs to spaces (only where there was a mixture of the 2, not when just tabs in file - lexual
 
 Version 0.3.1 (Jul 05, 2010)
 ----------------------------
 
-  * Added redirects app to default settings. - stephenmcd
-  * Fixed some spelling mistakes throughout docs. - stephenmcd
-  * Allow members of mezzanine.settings to be defined in the project's settings module prefixed with MEZZANINE_. - stephenmcd
-  * Bugfix to unique slug generation method. - stephenmcd
-  * More style updates to default templates. - stephenmcd
-  * Added management command to blog app for migrating a Tumblr blog. - stephenmcd
-  * Style updates to default templates. - stephenmcd
+  * Fixed some spelling mistakes throughout docs - stephenmcd
+  * Style updates to default templates - stephenmcd
+  * More style updates to default templates - stephenmcd
+  * Bugfix to unique slug generation method - stephenmcd
+  * Added redirects app to default settings - stephenmcd
+  * Added management command to blog app for migrating a Tumblr blog - stephenmcd
+  * Allow members of mezzanine.settings to be defined in the project's settings module prefixed with MEZZANINE_ - stephenmcd
 
 Version 0.3.0 (Jul 04, 2010)
 ----------------------------
 
-  * Added page processor system for manipulating context and response per page type. - stephenmcd
-  * Bugfix to template lookup for custom content model. - stephenmcd
-  * Added docs for page processors and bumped version. - stephenmcd
-  * Added section to README about the mailing list. - stephenmcd
+  * Added section to README about the mailing list - stephenmcd
+  * Bugfix to template lookup for custom content model - stephenmcd
+  * Added page processor system for manipulating context and response per page type - stephenmcd
+  * Added docs for page processors and bumped version - stephenmcd
 
 Version 0.2.4 (Jul 02, 2010)
 ----------------------------
 
-  * Make ``maintain_parent`` private. - stephenmcd
-  * Update to authors. - stephenmcd
-  * Bugfix to OrderableBase where cannot dynamically set attribute on new style class. - lexual
-  * Authors formatting. - stephenmcd
-  * make proj name start with "-" illegal and print usage. - lexual
+  * Update to authors - stephenmcd
+  * Authors formatting - stephenmcd
+  * Add warning to mezzanine_project script to prevent the user from creating a project name that conflicts with an existing package or module - stephenmcd
+  * Make ``maintain_parent`` private - stephenmcd
+  * fix mezzanine_project.py handling --options or multiple arguments - lexual
   * project_name variable instead of continual using sys.argv[1] - lexual
-  * Add warning to mezzanine_project script to prevent the user from creating a project name that conflicts with an existing package or module. - stephenmcd
-  * fix mezzanine_project.py handling --options or multiple arguments. - lexual
+  * make proj name start with "-" illegal and print usage - lexual
+  * Bugfix to OrderableBase where cannot dynamically set attribute on new style class - lexual
 
 Version 0.2.3 (Jun 30, 2010)
 ----------------------------
 
-  * Added custom content types to feature list in README. - stephenmcd
-  * added content_model to json. - lexual
-  * typos fixed. - lexual
-  * Bugfix to dynamic admin inlines. - stephenmcd
+  * Added custom content types to feature list in README - stephenmcd
+  * typos fixed - lexual
+  * added content_model to json - lexual
+  * Bugfix to dynamic admin inlines - stephenmcd
 
 Version 0.2.2 (Jun 27, 2010)
 ----------------------------
 
-  * Bugfix to README - remove non-standard directive that broke formatting on pypi. - stephenmcd
+  * Bugfix to README - remove non-standard directive that broke formatting on pypi - stephenmcd
 
 Version 0.2.1 (Jun 27, 2010)
 ----------------------------
 
-  * Fixes to Mezzanine's sphinx theme. - stephenmcd
-  * Fixed typo in README. - stephenmcd
-  * Bugfix to template loading in page view. - stephenmcd
-  * Added initial layout template for docs with GA code. - stephenmcd
-  * Added notes about contributing with links to github and bitbucket repos. - stephenmcd
-  * Update fixtures with new name for ordering field. - stephenmcd
-  * Added more documentation around extending pages. - stephenmcd
+  * Added more documentation around extending pages - stephenmcd
+  * Update fixtures with new name for ordering field - stephenmcd
+  * Added notes about contributing with links to github and bitbucket repos - stephenmcd
+  * Fixes to Mezzanine's sphinx theme - stephenmcd
+  * Added initial layout template for docs with GA code - stephenmcd
+  * Fixed typo in README - stephenmcd
+  * Bugfix to template loading in page view - stephenmcd
 
 Version 0.2 (Jun 27, 2010)
 --------------------------
 
-  * Reintroduce local_settings module. - stephenmcd
-  * Reinstate required ordering for correct admin template loading. - stephenmcd
-  * Use models.permalink decorator. - stephenmcd
-  * README updates. - stephenmcd
-  * Ignore docs build and version bump. - stephenmcd
-  * Added quotes and more links to readme. - stephenmcd
-  * Bugfix to submit overriding for keyword field. - stephenmcd
-  * Created framework for inheriting from ``Page`` model to create custom content types for pages, and added new abstract model ``Orderable`` for managing orderable models. - stephenmcd
-  * Bugfix link markup in readme. - stephenmcd
-  * README update. - stephenmcd
-  * Fixed incorrect project name in license. - stephenmcd
-  * Initial version of documentation. - stephenmcd
+  * Reintroduce local_settings module - stephenmcd
+  * README updates - stephenmcd
+  * Added quotes and more links to readme - stephenmcd
+  * Bugfix link markup in readme - stephenmcd
+  * Reinstate required ordering for correct admin template loading - stephenmcd
+  * Use models.permalink decorator - stephenmcd
+  * Fixed incorrect project name in license - stephenmcd
+  * README update - stephenmcd
+  * Created framework for inheriting from ``Page`` model to create custom content types for pages, and added new abstract model ``Orderable`` for managing orderable models - stephenmcd
+  * Initial version of documentation - stephenmcd
+  * Bugfix to submit overriding for keyword field - stephenmcd
+  * Ignore docs build and version bump - stephenmcd
 
 Version 0.1.4 (Jun 15, 2010)
 ----------------------------
 
-  * Add script for generating fork of filebrowser. - stephenmcd
-  * In mobile middleware, don't assume user-agent exists since the test client doesn't use one. - stephenmcd
-  * Switch out filebrowser to use a custom version as done with grappelli - correctly packaged and Django 1.1 compatible. - stephenmcd
-  * Don't assume request is in context in inclusion tags. - stephenmcd
-  * Made comments IP address nullable. - stephenmcd
-  * Added test suite and version bump. - stephenmcd
-  * Simplify structure for optionally installed apps and exclude all optional apps from testing. - stephenmcd
-  * There is no escaping django.contrib.sites no matter how much we want to. Admin redirects depends on it as to auth tests. - stephenmcd
-  * Use url tags in templates instead of get_absolute_url. - stephenmcd
-  * Bugfix to mobile middleware - missing imports. - stephenmcd
-  * Added error templates and example mobile template for homepage. - stephenmcd
+  * Switch out filebrowser to use a custom version as done with grappelli - correctly packaged and Django 1.1 compatible - stephenmcd
+  * Add script for generating fork of filebrowser - stephenmcd
+  * Simplify structure for optionally installed apps and exclude all optional apps from testing - stephenmcd
+  * In mobile middleware, don't assume user-agent exists since the test client doesn't use one - stephenmcd
+  * There is no escaping django.contrib.sites no matter how much we want to. Admin redirects depends on it as to auth tests - stephenmcd
+  * Bugfix to mobile middleware - missing imports - stephenmcd
+  * Made comments IP address nullable - stephenmcd
+  * Use url tags in templates instead of get_absolute_url - stephenmcd
+  * Don't assume request is in context in inclusion tags - stephenmcd
+  * Added error templates and example mobile template for homepage - stephenmcd
+  * Added test suite and version bump - stephenmcd
 
 Version 0.1.3 (Jun 14, 2010)
 ----------------------------
 
-  * Add homepage to menu. - stephenmcd
-  * Moved the blog landing page's slug into a setting. - stephenmcd
-  * Changed manual file exclusion in setuptools script to maintain owner and permissions. - stephenmcd
-  * Added "powered by" copy. - stephenmcd
-  * Added username fallback for displaying author's name for list of blog posts. - stephenmcd
-  * Update to layout of sharing panel. - stephenmcd
-  * Bugfix to AJAX submit for admin keywords field. - stephenmcd
-  * Added setting GOOGLE_ANALYTICS_ID for integrating Google Analytics. - stephenmcd
-  * CSS updates. - stephenmcd
-  * Bugfix to tweets for search terms - missing profile image and invalid date format. - stephenmcd
-  * Added setting PAGES_MENU_SHOW_ALL to control whether all levels in page menu are shown by default. - stephenmcd
-  * Minor layout fixes. - stephenmcd
-  * Added a dynamically set "selected" attribute for pages rendered in the page menu. - stephenmcd
-  * Bugfix to blog view - old variable name. - stephenmcd
-  * Bugfix to tweets - invalid import. - stephenmcd
-  * Added initial list of sites using Mezzanine to readme. - stephenmcd
-  * Added demo twitter feed. - stephenmcd
+  * Moved the blog landing page's slug into a setting - stephenmcd
+  * CSS updates - stephenmcd
+  * Add homepage to menu - stephenmcd
+  * Update to layout of sharing panel - stephenmcd
+  * Bugfix to AJAX submit for admin keywords field - stephenmcd
+  * Added a dynamically set "selected" attribute for pages rendered in the page menu - stephenmcd
+  * Bugfix to tweets for search terms - missing profile image and invalid date format - stephenmcd
+  * Bugfix to tweets - invalid import - stephenmcd
+  * Added demo twitter feed - stephenmcd
+  * Bugfix to blog view - old variable name - stephenmcd
+  * Added username fallback for displaying author's name for list of blog posts - stephenmcd
+  * Added "powered by" copy - stephenmcd
+  * Minor layout fixes - stephenmcd
+  * Added initial list of sites using Mezzanine to readme - stephenmcd
+  * Added setting GOOGLE_ANALYTICS_ID for integrating Google Analytics - stephenmcd
+  * Added setting PAGES_MENU_SHOW_ALL to control whether all levels in page menu are shown by default - stephenmcd
+  * Changed manual file exclusion in setuptools script to maintain owner and permissions - stephenmcd
 
 Version 0.1.2 (Jun 11, 2010)
 ----------------------------
 
-  * Remove local settings module from repo and packaging. - stephenmcd
-  * Actual local_settings module removal. - stephenmcd
+  * Remove local settings module from repo and packaging - stephenmcd
+  * Actual local_settings module removal - stephenmcd
 
 Version 0.1.1 (Jun 10, 2010)
 ----------------------------
 
-  * Fixes to readme. - stephenmcd
+  * Fixes to readme - stephenmcd
 
 Version 0.1 (Jun 10, 2010)
 --------------------------
 
-  * Original import. - stephenmcd
+  * Original import - stephenmcd
 

@@ -2,20 +2,20 @@
 from django.contrib import admin
 
 from mezzanine.blog.models import BlogPost, Comment
-from mezzanine.core.admin import DisplayableAdmin
+from mezzanine.core.admin import DisplayableAdmin, OwnableAdmin
 from mezzanine.settings import COMMENTS_DISQUS_SHORTNAME
 
 
-class BlogPostAdmin(DisplayableAdmin):
+class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
 
     list_display = ("title", "user", "status", "admin_link")
 
-    def save_model(self, request, obj, form, change):
+    def save_form(self, request, form, change):
         """
-        Set the author as the logged in user.
+        Super class ordering is important here - user must get saved first.
         """
-        obj.user = request.user
-        super(BlogPostAdmin, self).save_model(request, obj, form, change)
+        OwnableAdmin.save_form(self, request, form, change)
+        return DisplayableAdmin.save_form(self, request, form, change)
 
 class CommentAdmin(admin.ModelAdmin):
 

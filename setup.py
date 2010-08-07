@@ -2,6 +2,10 @@
 from setuptools import setup, find_packages
 import os
 
+from mezzanine import __version__ as version
+from mezzanine.project_template import settings
+
+
 exclude = ["mezzanine/project_template/mezzanine.db",]
 exclude = dict([(e, None) for e in exclude])
 for e in exclude:
@@ -21,7 +25,7 @@ try:
     setup(
 
         name = "Mezzanine",
-        version = __import__("mezzanine").__version__,
+        version = version,
         author = "Stephen McDonald",
         author_email = "stephen.mc@gmail.com",
         description = "An open source content management platform built using the Django framework.",
@@ -34,9 +38,8 @@ try:
 
         install_requires = [
             "setuptools",
-            "grappelli_safe",
-            "filebrowser_safe",
-            "PIL",
+            settings.PACKAGE_NAME_FILEBROWSER, 
+            settings.PACKAGE_NAME_GRAPPELLI,
         ],
 
         entry_points = """

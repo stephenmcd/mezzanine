@@ -1,10 +1,13 @@
-{% load i18n %}
+{% load mezzanine_tags i18n %}
 
 <form id="editable-toolbar" method="POST" 
     action="{% url admin:logout %}?{{ REDIRECT_FIELD_NAME }}={{ request.path }}">
-    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+    {% csrf_token %}
     <a id="editable-toolbar-toggle" href="#">&gt;&gt;</a>
     <a href="{% url admin:index %}">{% trans "Admin" %}</a>
     <a id="editable-toolbar-logout" href="#">{% trans "Log out" %}</a>
 </form>
+
+<img id="editable-loading" 
+    src="{% setting "CONTENT_MEDIA_URL" %}img/loadingAnimation.gif" />
 

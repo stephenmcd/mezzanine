@@ -4,8 +4,10 @@
 
 <style type="text/css">
 
-    #editable-toolbar, .editable-highlight, .editable-link {
-        position:absolute; z-index:1000; top:0; left:0; display:none;}
+    #editable-toolbar, .editable-highlight, .editable-link {top:0; left:0;
+        z-index:1000; display:none; position:absolute;}
+    #editable-loading {z-index:10000; display:none; position:absolute;}
+    #editable-toolbar {position:fixed;}
     .editable-highlight {border:1px solid #ccc;}
 
     #editable-toolbar, .editable-link {
@@ -39,11 +41,18 @@ $(function($) {
     // Add AJAX submit handler for each editable form.
     $('.editable-form').submit(function() {
         var form = $(this);
+        var loading = $('#editable-loading');
+        loading.css({
+            top: ($(window).height() - loading.height()) / 2 + $(window).scrollTop() + "px",
+            left: ($(window).width() - loading.width()) / 2 + $(window).scrollLeft() + "px"
+        });
         form.hide();
+        loading.show();
         tinyMCE.triggerSave();
         $.post(form.attr('action'), form.serialize(), function(data) {
             if (data) {
                 alert('{% trans "Error" %}: ' + data);
+                loading.hide();
                 form.show();
             } else {
                 location.reload();
