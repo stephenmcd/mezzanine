@@ -9,6 +9,7 @@ from mezzanine.pages.models import Page
 
 processors = defaultdict(list)
 
+
 def processor_for(content_model):
     """
     Decorator that registers the decorated function as a page processor for
@@ -18,11 +19,13 @@ def processor_for(content_model):
         content_model = get_model(*content_model.split("."))
     if not issubclass(content_model, Page):
         raise TypeError("%s is not a subclass of Page" % content_model)
+
     def decorator(func):
         processors[content_model._meta.object_name.lower()].append(func)
     return decorator
 
 LOADED = False
+
 
 def autodiscover():
     """

@@ -32,6 +32,7 @@ class MobileTemplate(object):
                     return view_func(request, *view_args, **view_kwargs)
         return None
 
+
 class AdminLoginInterfaceSelector(object):
     """
     Checks for a POST from the admin login view and if authentication is

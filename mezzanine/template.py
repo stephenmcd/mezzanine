@@ -59,6 +59,7 @@ class Library(template.Library):
                 def __init__(self):
                     self.nodelist = parser.parse(("end%s" % func.__name__,))
                     parser.delete_first_token()
+
                 def render(self, context):
                     args = (self.nodelist.render(context), context, token)
                     return func(*args[:func.func_code.co_argcount])

@@ -10,6 +10,7 @@ import mezzanine
 class ProjectException(Exception):
     pass
 
+
 def create_project():
     """
     Copies the contents of the project_template directory to a new directory

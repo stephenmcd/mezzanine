@@ -17,6 +17,7 @@ class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
         OwnableAdmin.save_form(self, request, form, change)
         return DisplayableAdmin.save_form(self, request, form, change)
 
+
 class CommentAdmin(admin.ModelAdmin):
 
     list_display = ("avatar_link", "intro", "time_created", "approved",

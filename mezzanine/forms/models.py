@@ -22,14 +22,16 @@ FIELD_CHOICES = (
     ("DateTimeField", _("Date/time")),
 )
 
+
 class Form(Page):
     """
     A user-built form.
     """
 
     response = HtmlField(_("Response"))
-    send_email = models.BooleanField(_("Send email"), default=True, help_text=
-        _("If checked, the person entering the form will be sent an email"))
+    send_email = models.BooleanField(_("Send email"), default=True,
+        help_text=_("If checked, the person entering the form will be sent an "
+                                                                    "email"))
     email_from = models.EmailField(_("From address"), blank=True,
         help_text=_("The address the email will be sent from"))
     email_copies = models.CharField(_("Send copies to"), blank=True,
@@ -40,12 +42,14 @@ class Form(Page):
         verbose_name = _("Form")
         verbose_name_plural = _("Forms")
 
+
 class FieldManager(models.Manager):
     """
     Only show visible fields when displaying actual form..
     """
     def visible(self):
         return self.filter(visible=True)
+
 
 class Field(Orderable):
     """
@@ -71,6 +75,7 @@ class Field(Orderable):
     def __unicode__(self):
         return self.label
 
+
 class FormEntry(models.Model):
     """
     An entry submitted via a user-built form.
@@ -82,6 +87,7 @@ class FormEntry(models.Model):
     class Meta:
         verbose_name = _("Form entry")
         verbose_name_plural = _("Form entries")
+
 
 class FieldEntry(models.Model):
     """

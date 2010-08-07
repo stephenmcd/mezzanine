@@ -13,6 +13,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ("name", "email", "website", "body",)
 
+
 class BlogPostForm(forms.ModelForm):
     """
     Model form for ``BlogPost`` that provides the quick blog panel in the

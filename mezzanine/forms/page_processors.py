@@ -26,7 +26,7 @@ def form_processor(request, page):
         if email_to and page.form.send_email:
             msg = EmailMessage(subject, body, email_from, [email_to])
             msg.send()
-        email_from = email_to or email_from # Send from the email entered.
+        email_from = email_to or email_from  # Send from the email entered.
         email_copies = [e.strip() for e in page.form.email_copies.split(",")
             if e.strip()]
         if email_copies:

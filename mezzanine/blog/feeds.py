@@ -21,6 +21,7 @@ class PostsRSS(Feed):
     def items(self):
         return BlogPost.objects.published()
 
+
 class PostsAtom(PostsRSS):
     """
     Atom feed for all blog posts.

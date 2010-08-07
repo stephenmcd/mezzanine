@@ -7,7 +7,8 @@ package ``filebrowser_safe``.
 
 import os
 
-branch_url = "http://django-filebrowser.googlecode.com/svn/branches/filebrowser_3"
+branch_url = \
+        "http://django-filebrowser.googlecode.com/svn/branches/filebrowser_3"
 package_name_from = branch_url.split("/")[-1]
 package_name_to = "filebrowser_safe"
 
@@ -21,7 +22,8 @@ for (dirpath, dirnames, filenames) in os.walk(package_name_from, False):
         # Delete SVN directories.
         if ".svn" in path:
             print "Deleting svn %s" % path
-            os.rmdir(path)    for name in filenames:
+            os.rmdir(path)
+    for name in filenames:
         path = os.path.join(dirpath, name)
         # Delete SVN files.
         if ".svn" in path:

@@ -21,7 +21,8 @@ for (dirpath, dirnames, filenames) in os.walk(package_name_from, False):
         # Delete SVN directories.
         if ".svn" in path:
             print "Deleting svn %s" % path
-            os.rmdir(path)    for name in filenames:
+            os.rmdir(path)
+    for name in filenames:
         path = os.path.join(dirpath, name)
         # Delete SVN files.
         if ".svn" in path:

@@ -11,6 +11,7 @@ from mezzanine.pages import page_processors
 
 page_processors.autodiscover()
 
+
 def admin_page_ordering(request):
     """
     Updates the ordering of pages via AJAX from within the admin.
@@ -22,6 +23,7 @@ def admin_page_ordering(request):
             return HttpResponse(str(e))
     return HttpResponse("ok")
 admin_page_ordering = staff_member_required(admin_page_ordering)
+
 
 def page(request, slug, template="pages/page.html"):
     """

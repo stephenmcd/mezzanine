@@ -24,12 +24,14 @@ class PublishedManager(Manager):
     def get_by_natural_key(self, slug):
         return self.get(slug=slug)
 
+
 class KeywordManager(Manager):
     """
     Provides natural key method.
     """
     def get_by_natural_key(self, value):
         return self.get(value=value)
+
 
 class SearchableQuerySet(QuerySet):
     """
@@ -55,13 +57,13 @@ class SearchableQuerySet(QuerySet):
         if search_fields is None:
             search_fields = self._search_fields
         if len(search_fields) == 0:
-        	search_fields = getattr(self.model, "search_fields", [])
+            search_fields = getattr(self.model, "search_fields", [])
         if len(search_fields) == 0:
             search_fields = [f.name for f in self.model._meta.fields
                 if issubclass(f.__class__, CharField) or
                 issubclass(f.__class__, TextField)]
         if len(search_fields) == 0:
-        	return self.none()
+            return self.none()
         # Search fields can be a dict or sequence of pairs mapping fields to
         # their relevant weight in ordering the results. If a mapping isn't
         # used then assume a sequence of field names and give them equal
@@ -77,8 +79,11 @@ class SearchableQuerySet(QuerySet):
 
         #### BUILD LIST OF TERMS TO SEARCH FOR ###
         # Remove extra spaces, put modifiers inside quoted terms.
-        terms = " ".join(query.split()).replace("+ ", "+").replace('+"', '"+'
-            ).replace("- ", "-").replace('-"', '"-').split('"')
+        terms = " ".join(query.split()).replace("+ ", "+")      \
+                                        .replace('+"', '"+')    \
+                                        .replace("- ", "-")     \
+                                        .replace('-"', '"-')    \
+                                        .split('"')
         # Strip punctuation other than modifiers from terms and create terms
         # list - first from quoted terms and then remaining words.
         terms = [("" if t[0] not in "+-" else t[0]) + t.strip(punctuation)
@@ -156,6 +161,7 @@ class SearchableQuerySet(QuerySet):
             return iter(results)
         return results
 
+
 class SearchableManager(Manager):
     """
     Manager providing a chainable queryset.
@@ -188,6 +194,7 @@ class SearchableManager(Manager):
             all_results.extend(results)
         sort_key = lambda r: r.result_count
         return sorted(all_results, key=sort_key, reverse=True)
+
 
 class DisplayableManager(PublishedManager, SearchableManager):
     """

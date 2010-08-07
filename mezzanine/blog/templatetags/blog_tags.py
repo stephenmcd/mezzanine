@@ -27,6 +27,8 @@ def gravatar_url(email_hash, size=32):
     return "http://www.gravatar.com/avatar/%s?s=%s" % (email_hash, size)
 
 thread_template = "blog/includes/comments_thread.html"
+
+
 @register.inclusion_tag(thread_template, takes_context=True)
 def blog_comments_for(context, parent):
     """
@@ -54,6 +56,7 @@ def blog_comments_for(context, parent):
     })
     return context
 
+
 @register.as_tag
 def blog_months(*args):
     """
@@ -61,6 +64,7 @@ def blog_months(*args):
     """
     return BlogPost.objects.published().dates("publish_date", "month",
         order="DESC")
+
 
 @register.as_tag
 def blog_tags(*args):
@@ -85,6 +89,7 @@ def blog_tags(*args):
         tag.weight = steps.index(c + diff) + 1
     return tags
 
+
 @register.as_tag
 def blog_authors(*args):
     """
@@ -92,6 +97,7 @@ def blog_authors(*args):
     """
     blog_posts = BlogPost.objects.published()
     return User.objects.filter(blogposts__in=blog_posts).distinct()
+
 
 @register.as_tag
 def quick_blog_form(*args):
@@ -102,6 +108,8 @@ def quick_blog_form(*args):
 
 DISQUS_FORUM_ID = None
 recent_comments_template = "admin/includes/recent_comments.html"
+
+
 @register.inclusion_tag(recent_comments_template, takes_context=True)
 def recent_comments(context):
     """

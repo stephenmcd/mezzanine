@@ -12,7 +12,8 @@ from __future__ import with_statement
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys
+import os
 docs_path = os.path.abspath(os.path.dirname(__file__))
 mezzanine_path = os.path.join(docs_path, "..")
 sys.path.insert(0, mezzanine_path)
@@ -67,8 +68,8 @@ for changeset in reversed(list(repo.changelog)):
             if line.startswith(version_var):
                 exec line
                 version_info = {"changes": [], "date":
-                    datetime.fromtimestamp(context.date()[0]
-                    ).strftime("%b %d, %Y")}
+                    datetime.fromtimestamp(context.date()[0])
+                                                    .strftime("%b %d, %Y")}
                 versions[globals()[version_var]] = version_info
                 new_version = len(files) == 1
     # Ignore changesets that are merges, bumped the version or regenerated

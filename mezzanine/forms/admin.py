@@ -34,8 +34,10 @@ FormMedia = deepcopy(OrderableAdmin.Media)
 FormMedia.js = PageAdmin.Media.js + [js for js in FormMedia.js if js not in
     PageAdmin.Media.js]
 
+
 class FieldAdmin(admin.TabularInline):
     model = Field
+
 
 class FormAdmin(PageAdmin, OrderableAdmin):
 
@@ -95,8 +97,8 @@ class FormAdmin(PageAdmin, OrderableAdmin):
         # entry as a row.
         current_entry = None
         current_row = None
-        values = FieldEntry.objects.filter(entry__form=form
-            ).order_by("-entry__id").select_related(depth=1)
+        values = FieldEntry.objects.filter(entry__form=form) \
+                            .order_by("-entry__id").select_related(depth=1)
         for field_entry in values:
             if field_entry.entry_id != current_entry:
                 # New entry, write out the current row and start a new one.

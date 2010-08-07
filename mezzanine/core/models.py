@@ -100,6 +100,7 @@ class Displayable(models.Model):
     admin_link.allow_tags = True
     admin_link.short_description = ""
 
+
 class OrderableBase(ModelBase):
     """
     Checks for ``order_with_respect_to`` on the model's inner ``Meta`` class
@@ -110,6 +111,7 @@ class OrderableBase(ModelBase):
 
     def __new__(cls, name, bases, attrs):
         if "Meta" not in attrs:
+
             class Meta:
                 pass
             attrs["Meta"] = Meta
@@ -119,6 +121,7 @@ class OrderableBase(ModelBase):
         if not hasattr(attrs["Meta"], "ordering"):
             setattr(attrs["Meta"], "ordering", ("_order",))
         return super(OrderableBase, cls).__new__(cls, name, bases, attrs)
+
 
 class Orderable(models.Model):
     """
@@ -167,6 +170,7 @@ class Orderable(models.Model):
         after.update(_order=models.F("_order") - 1)
         super(Orderable, self).delete(*args, **kwargs)
 
+
 class Ownable(models.Model):
     """
     Abstract model that provides ownership of an object for a user.
@@ -183,6 +187,7 @@ class Ownable(models.Model):
         Restrict in-line editing to the objects's owner and superusers.
         """
         return request.user.is_superuser or request.user.id == self.user_id
+
 
 class Keyword(models.Model):
     """

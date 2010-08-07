@@ -16,12 +16,14 @@ class OrderWidget(forms.HiddenInput):
         arrows = "<span class='ordering'>%s</span>" % "".join(arrows)
         return rendered + mark_safe(arrows)
 
+
 class OrderableAdminForm(forms.ModelForm):
     """
     Form for admin orderable inlines that uses the ``OrderableWidget``.
     """
     _order = forms.CharField(label=_("Order"), widget=OrderWidget,
         required=False)
+
 
 def get_edit_form(obj, attr, data=None):
     """

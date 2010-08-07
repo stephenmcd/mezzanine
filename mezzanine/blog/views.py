@@ -43,6 +43,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         "tag": tag, "user": user, "use_disqus": use_disqus}
     return render_to_response(template, context, RequestContext(request))
 
+
 def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
     """
     Display a blog post.
@@ -71,7 +72,7 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
         response = HttpResponseRedirect(comment.get_absolute_url())
         # Store commenter's details in a cookie for 90 days.
         expires = datetime.strftime(datetime.utcnow() +
-            timedelta(seconds=90*24*60*60), "%a, %d-%b-%Y %H:%M:%S GMT")
+            timedelta(seconds=90 * 24 * 60 * 60), "%a, %d-%b-%Y %H:%M:%S GMT")
         for field in commenter_cookie_fields:
             response.set_cookie(commenter_cookie_prefix + field,
                 request.POST.get(field, ""), expires=expires)

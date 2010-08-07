@@ -91,8 +91,8 @@ class Query(models.Model):
         self.interested = False
         self.save()
 
+
 class Tweet(models.Model):
-    
     remote_id = models.CharField(_("Twitter ID"), max_length=50)
     created_at = models.DateTimeField(_("Date/time"), null=True)
     text = models.TextField(_("Message"), null=True)

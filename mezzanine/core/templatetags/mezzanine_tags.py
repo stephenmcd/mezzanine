@@ -30,6 +30,7 @@ def setting(setting_name):
         value = ""
     return value
 
+
 @register.render_tag
 def set_short_url_for(context, token):
     """
@@ -52,6 +53,7 @@ def set_short_url_for(context, token):
                 obj.short_url = response["data"]["url"]
                 obj.save()
     return ""
+
 
 @register.render_tag
 def admin_reorder(context, token):
@@ -77,6 +79,7 @@ def admin_reorder(context, token):
                 sort(model_order, model["admin_url"].strip("/").split("/")[-1]))
     return ""
 
+
 @register.to_end_tag
 def metablock(parsed):
     """
@@ -84,6 +87,7 @@ def metablock(parsed):
     """
     parsed = " ".join(parsed.replace("\n", "").split()).replace(" ,", ",")
     return strip_tags(decode_html_entities(parsed))
+
 
 @register.inclusion_tag("includes/pagination.html", takes_context=True)
 def pagination_for(context, current_page):
@@ -97,6 +101,7 @@ def pagination_for(context, current_page):
     querystring = querystring.urlencode()
     return {"current_page": current_page, "querystring": querystring}
 
+
 @register.inclusion_tag("includes/editable_loader.html", takes_context=True)
 def editable_loader(context):
     """
@@ -106,6 +111,7 @@ def editable_loader(context):
     context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
     context["toolbar"] = t.render(Context(context))
     return context
+
 
 @register.to_end_tag
 def editable(parsed, context, token):

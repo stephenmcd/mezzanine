@@ -28,6 +28,7 @@ def tweets_for(type, args, per_user=None):
         tweets = tweets[:int(args[-1])]
     return tweets
 
+
 @register.as_tag
 def tweets_for_user(*args):
     """
@@ -35,12 +36,14 @@ def tweets_for_user(*args):
     """
     return tweets_for("user_name", args)
 
+
 @register.as_tag
 def tweets_for_list(*args):
     """
     Tweets for a user's list.
     """
     return tweets_for("list_name", args, per_user=1)
+
 
 @register.as_tag
 def tweets_for_search(*args):

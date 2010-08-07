@@ -29,6 +29,7 @@ def decode_html_entities(html):
         return html
     return sub("&#?\w+;", decode, html.replace("&amp;", "&"))
 
+
 def is_editable(obj, request):
     """
     Returns True if the object is editable for the request. First check for
@@ -40,6 +41,7 @@ def is_editable(obj, request):
     else:
         perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
         return request.user.is_authenticated() and request.user.has_perm(perm)
+
 
 def paginate(objects, page_num, per_page, max_paging_links):
     """
@@ -62,6 +64,7 @@ def paginate(objects, page_num, per_page, max_paging_links):
         page_range = page_range[start:start + max_paging_links]
     objects.visible_page_range = page_range
     return objects
+
 
 def base_concrete_model(abstract, instance):
     """

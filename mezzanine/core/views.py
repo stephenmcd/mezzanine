@@ -26,6 +26,7 @@ def admin_keywords_submit(request):
     return HttpResponse(",".join(set(ids)))
 admin_keywords_submit = staff_member_required(admin_keywords_submit)
 
+
 def search(request, template="search_results.html"):
     """
     Display search results.
@@ -36,6 +37,7 @@ def search(request, template="search_results.html"):
         SEARCH_MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
     return render_to_response(template, context, RequestContext(request))
+
 
 def edit(request):
     model = get_model(request.POST["app"], request.POST["model"])

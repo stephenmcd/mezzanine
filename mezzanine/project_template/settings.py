@@ -129,7 +129,8 @@ except ImportError:
         CACHE_BACKEND = "locmem:///"
 if not CACHE_BACKEND:
     CACHE_TIMEOUT = CACHE_MIDDLEWARE_SECONDS = 180
-    CACHE_BACKEND = "memcached://127.0.0.1:11211/?timeout=%s" % CACHE_MIDDLEWARE_SECONDS
+    CACHE_BACKEND = "memcached://127.0.0.1:11211/?timeout=%s" % \
+                                                    CACHE_MIDDLEWARE_SECONDS
     CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
 # Local settings.

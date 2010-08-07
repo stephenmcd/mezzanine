@@ -39,6 +39,7 @@ def _page_menu(context, parent_page):
     context["PAGES_MENU_SHOW_ALL"] = PAGES_MENU_SHOW_ALL
     return context
 
+
 @register.inclusion_tag("pages/includes/page_menu.html", takes_context=True)
 def page_menu(context, parent_page=None):
     """
@@ -46,12 +47,14 @@ def page_menu(context, parent_page=None):
     """
     return _page_menu(context, parent_page)
 
+
 @register.inclusion_tag("admin/includes/page_menu.html", takes_context=True)
 def page_menu_admin(context, parent_page=None):
     """
     Admin page menu.
     """
     return _page_menu(context, parent_page)
+
 
 @register.as_tag
 def models_for_pages(*args):
@@ -67,6 +70,7 @@ def models_for_pages(*args):
                 (model._meta.app_label, model.__name__.lower())))
             page_models.append(model)
     return page_models
+
 
 @register.filter
 def is_page_content_model(admin_model_dict):

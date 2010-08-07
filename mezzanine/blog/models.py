@@ -25,6 +25,7 @@ class BlogPost(Displayable, Ownable):
     def get_absolute_url(self):
         return ("blog_post_detail", (), {"slug": self.slug})
 
+
 class Comment(models.Model):
     """
     A comment against a blog post.

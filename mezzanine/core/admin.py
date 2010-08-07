@@ -56,6 +56,7 @@ class DisplayableAdmin(admin.ModelAdmin):
         obj.set_searchable_keywords()
         return super(DisplayableAdmin, self).save_form(request, form, change)
 
+
 class OrderableAdmin(admin.ModelAdmin):
     """
     Admin class that handles inlines for models that subclass the abstract
@@ -85,6 +86,7 @@ class OrderableAdmin(admin.ModelAdmin):
                 fields.append("_order")
             inline.fields = fields
         super(OrderableAdmin, self).__init__(*args, **kwargs)
+
 
 class OwnableAdmin(admin.ModelAdmin):
     """
