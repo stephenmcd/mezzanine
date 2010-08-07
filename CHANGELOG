@@ -8,7 +8,6 @@ Version 0.5.4 (Jul 25, 2010)
 Version 0.5.3 (Jul 24, 2010)
 ----------------------------
 
-  * Added more backward-compatible csrf handling - stephenmcd
   * Update changelog generator to exclude its own commit of the changelog - stephenmcd
   * Use names of packages from settings in setup script - stephenmcd
   * Make changelog generator in Sphinx conf list changesets within a version in chronological order - stephenmcd
@@ -22,6 +21,7 @@ Version 0.5.2 (Jul 22, 2010)
 ----------------------------
 
   * Allow interface selection on admin login screen to prepopulate from querystring - stephenmcd
+  * Added more backward-compatible csrf handling - stephenmcd
   * Added more robust handling for csrf and apply to forms - stephenmcd
   * Bugfix setting author of blog post in BlogPostAdmin to be compatible with DisplayableAdmin - stephenmcd
 
@@ -74,9 +74,9 @@ Version 0.3.5 (Jul 09, 2010)
 Version 0.3.4 (Jul 08, 2010)
 ----------------------------
 
-  * Added support for natural keys - stephenmcd
   * Add blog migration to feature list - stephenmcd
   * Bugfix ADMIN_MEDIA_PREFIX for grappelli on live sites - stephenmcd
+  * Added support for natural keys - stephenmcd
   * Bugfix to natural key format - stephenmcd
   * Formatting fix to README - stephenmcd
   * Cleaned up formatting of meta data - stephenmcd
