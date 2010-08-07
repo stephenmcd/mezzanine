@@ -45,4 +45,3 @@ def get_edit_form(obj, attr, data=None):
     initial = {"app": obj._meta.app_label, "id": obj.id, "attr": attr,
         "model": obj._meta.object_name.lower()}
     return EditForm(instance=obj, initial=initial, data=data)
-

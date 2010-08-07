@@ -81,4 +81,3 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
         unposted_comment_form}
     t = select_template(["blog/%s.html" % slug, template])
     return HttpResponse(t.render(RequestContext(request, context)))
-

@@ -48,4 +48,3 @@ class AdminLoginInterfaceSelector(object):
             else:
                 return response
         return None
-

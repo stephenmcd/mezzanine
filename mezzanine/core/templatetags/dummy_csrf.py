@@ -11,4 +11,3 @@ def csrf_token():
     csrf middleware doesn't exist (< Django 1.2).
     """
     return ""
-

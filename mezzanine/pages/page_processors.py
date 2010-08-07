@@ -38,4 +38,3 @@ def autodiscover():
             __import__("%s.page_processors" % app)
         except ImportError:
             pass
-

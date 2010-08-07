@@ -10,5 +10,3 @@ LABEL_MAX_LENGTH = getattr(settings, "FORMS_BUILDER_LABEL_MAX_LENGTH", 20)
 
 # Absolute path where files will be uploaded to.
 UPLOAD_ROOT = getattr(settings, "FORMS_BUILDER_UPLOAD_ROOT", None)
-
-

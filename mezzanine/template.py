@@ -64,4 +64,3 @@ class Library(template.Library):
                     return func(*args[:func.func_code.co_argcount])
             return TagNode()
         return self._make_tag_type(func, tag)
-

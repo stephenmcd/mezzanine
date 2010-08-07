@@ -8,4 +8,3 @@ urlpatterns = patterns("mezzanine.pages.views",
         name="admin_page_ordering"),
     url("^(?P<slug>.*)/$", "page", name="page"),
 )
-

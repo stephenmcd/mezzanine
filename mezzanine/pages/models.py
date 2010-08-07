@@ -65,4 +65,3 @@ class Page(Orderable, Displayable):
         from mezzanine.pages.views import page
         resolved_view = resolve(self.get_absolute_url())[0]
         return resolved_view != page
-

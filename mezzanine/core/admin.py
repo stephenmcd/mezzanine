@@ -111,4 +111,3 @@ class OwnableAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(user__id=request.user.id)
-

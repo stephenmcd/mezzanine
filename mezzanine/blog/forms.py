@@ -26,4 +26,3 @@ class BlogPostForm(forms.ModelForm):
     def __init__(self):
         super(BlogPostForm, self).__init__()
         self.fields["status"].widget = forms.HiddenInput()
-

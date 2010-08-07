@@ -134,4 +134,3 @@ class FormAdmin(PageAdmin, OrderableAdmin):
         return response
 
 admin.site.register(Form, FormAdmin)
-

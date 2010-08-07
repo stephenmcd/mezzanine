@@ -49,4 +49,3 @@ def edit(request):
     else:
         response = form.errors.values()[0][0]
     return HttpResponse(unicode(response))
-

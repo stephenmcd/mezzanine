@@ -23,4 +23,3 @@ urlpatterns += patterns("mezzanine.blog.views",
     url("^(?P<slug>.*)/$", "blog_post_detail", name="blog_post_detail"),
     url("^$", "blog_post_list", name="blog_post_list"),
 )
-

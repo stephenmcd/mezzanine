@@ -84,4 +84,3 @@ class Comment(models.Model):
             ugettext("View on site"))
     admin_link.allow_tags = True
     admin_link.short_description = ""
-

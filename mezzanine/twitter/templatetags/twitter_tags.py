@@ -48,4 +48,3 @@ def tweets_for_search(*args):
     Tweets for a search query.
     """
     return tweets_for("search_term", args)
-

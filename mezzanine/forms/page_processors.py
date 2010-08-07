@@ -37,4 +37,3 @@ def form_processor(request, page):
             msg.send()
         return redirect(page.get_absolute_url() + "?sent=1")
     return {"form": form}
-

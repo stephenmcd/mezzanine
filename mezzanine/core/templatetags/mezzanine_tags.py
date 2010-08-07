@@ -129,4 +129,3 @@ def editable(parsed, context, token):
         t = get_template("includes/editable_form.html")
         return t.render(Context(context))
     return parsed
-

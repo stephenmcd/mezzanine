@@ -78,4 +78,3 @@ class FormForForm(forms.ModelForm):
             if field_class == "EmailField":
                 return self.cleaned_data["field_%s" % field.id]
         return None
-

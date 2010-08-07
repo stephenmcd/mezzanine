@@ -18,4 +18,3 @@ if getattr(settings, "DEV_SERVER", False):
         ("^favicon.ico$", "django.views.static.serve", {"document_root":
             settings.MEDIA_ROOT, "path": "img/favicon.ico"}),
     )
-

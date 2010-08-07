@@ -31,4 +31,3 @@ class PostsAtom(PostsRSS):
 
     def link(self):
         return reverse("blog_post_feed", kwargs={"url": "atom"})
-

@@ -157,4 +157,3 @@ def recent_comments(context):
         context["comments"] = Comment.objects.all().select_related(
             ).order_by("-id")[:latest]
     return context
-

@@ -119,4 +119,3 @@ class Tweet(models.Model):
 
     def is_retweet(self):
         return self.retweeter_user_name is not None
-

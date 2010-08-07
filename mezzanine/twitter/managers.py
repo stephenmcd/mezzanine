@@ -25,4 +25,3 @@ class TweetManager(Manager):
             query.interested = True
             query.save()
         return query.tweets.all()
-

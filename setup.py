@@ -75,4 +75,3 @@ finally:
                 os.chmod(e, stat.st_mode)
             except:
                 pass
-

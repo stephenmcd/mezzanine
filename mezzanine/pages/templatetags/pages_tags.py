@@ -79,4 +79,3 @@ def is_page_content_model(admin_model_dict):
         model = get_model(*args)
         return model is not Page and issubclass(model, Page)
     return False
-

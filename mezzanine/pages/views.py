@@ -48,4 +48,3 @@ def page(request, slug, template="pages/page.html"):
     templates.append(template)
     t = select_template(templates)
     return HttpResponse(t.render(RequestContext(request, context)))
-

@@ -58,4 +58,3 @@ class Command(BaseCommand):
                     old_path=urlparse(entry["url-with-slug"]).path)
                 redirect.new_path = urlparse(post.get_absolute_url()).path
                 redirect.save()
-

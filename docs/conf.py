@@ -287,4 +287,3 @@ latex_documents = [
 
 html_theme_path = ["."]
 html_theme = "mezzanine_theme"
-

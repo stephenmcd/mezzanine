@@ -95,4 +95,3 @@ class FieldEntry(models.Model):
     class Meta:
         verbose_name = _("Form field entry")
         verbose_name_plural = _("Form field entries")
-
