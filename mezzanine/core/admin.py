@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.settings import CONTENT_MEDIA_URL
 from mezzanine.core.forms import OrderableAdminForm
-from mezzanine.core.models import HtmlField
+#from mezzanine.core.models import HtmlField
 
 
 media_url = CONTENT_MEDIA_URL.strip("/")

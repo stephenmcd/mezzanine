@@ -1,8 +1,8 @@
 
-from django.core.urlresolvers import reverse
+#from django.core.urlresolvers import reverse
 from django.db import models
-from django.template.defaultfilters import slugify
-from django.utils.translation import ugettext, ugettext_lazy as _
+#from django.template.defaultfilters import slugify
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.models import Orderable
