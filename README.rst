@@ -3,7 +3,7 @@ Overview
 ========
 
 Mezzanine is a content management platform built using the `Django`_ 
-framework. It is BSD licensed and designed to provide both a consistent 
+framework. It is `BSD licensed`_ and designed to provide both a consistent 
 interface for managing content, and a simple architecture that makes diving 
 in and hacking on the code as easy as possible.
 
@@ -114,6 +114,7 @@ Quotes
   * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `Stephen White`_
 
 .. _`Django`: http://djangoproject.com/
+.. _`BSD licensed`: http://www.linfo.org/bsdlicense.html
 .. _`Wordpress`: http://wordpress.org/
 .. _`Pinax`: http://pinaxproject.com/
 .. _`Mingus`: http://github.com/montylounge/django-mingus
