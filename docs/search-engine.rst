@@ -150,8 +150,8 @@ queryset. By default the query is broken up into keywords, so the query
 **plans prices projects** would return results that contain any of the words 
 **plans** or **prices** or **projects**. 
 
-The query can contain several special operators with allow for this 
-behaviour to be 	controlled further. Quotes around exact phrases will 
+The query can contain several special operators which allow for this 
+behaviour to be controlled further. Quotes around exact phrases will 
 ensure that the phrase is search for specifically, for example the query 
 **"plans prices" projects** will return results matching the exact phrase 
 **plans prices** or the word **projects**, in contrast to the previous 
