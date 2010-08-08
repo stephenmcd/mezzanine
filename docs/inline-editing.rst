@@ -24,9 +24,11 @@ The first step is to ensure you have a single template tag
 ``editable_loader`` inside the HTML ``<head>`` tags for every template. 
 Typically this would only need to be defined in your top-most base template::
 
+    {% load mezzanine_tags %}
     <html>
     <head>
         <title>My Website</title>
+        {% editable_loader %}
     </head>
     <body>
         <!-- Content goes here -->
