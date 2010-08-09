@@ -72,11 +72,12 @@ for changeset in reversed(list(repo.changelog)):
                                                     .strftime("%b %d, %Y")}
                 versions[globals()[version_var]] = version_info
                 new_version = len(files) == 1
-    # Ignore changesets that are merges, bumped the version or regenerated
-    # the changelog itself
+    # Ignore changesets that are merges, bumped the version, closed a branch
+    # or regenerated the changelog itself.
     merge = len(context.parents()) > 1
+    branch_closed = len(files) == 0
     changelog_update = changelog_filename in files and len(files) == 1
-    if merge or new_version or changelog_update:
+    if merge or new_version or branch_closed or changelog_update:
         continue
     # Ensure we have a current version and if so, add this changeset's
     # description to it.
