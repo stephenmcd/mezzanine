@@ -16,9 +16,7 @@
         "fields": {
             "field_type": "CharField", 
             "_order": 0, 
-            "form": [
-                "contact"
-            ], 
+            "form": 3,
             "required": true, 
             "label": "Name", 
             "visible": true, 
@@ -31,9 +29,7 @@
         "fields": {
             "field_type": "EmailField", 
             "_order": 1, 
-            "form": [
-                "contact"
-            ], 
+            "form": 3,
             "required": true, 
             "label": "Email", 
             "visible": true, 
@@ -46,9 +42,7 @@
         "fields": {
             "field_type": "ChoiceField", 
             "_order": 2, 
-            "form": [
-                "contact"
-            ], 
+            "form": 3,
             "required": true, 
             "label": "Subject", 
             "visible": true, 
@@ -61,9 +55,7 @@
         "fields": {
             "field_type": "CharField/django.forms.Textarea", 
             "_order": 3, 
-            "form": [
-                "contact"
-            ], 
+            "form": 3,
             "required": true, 
             "label": "Message", 
             "visible": true, 
