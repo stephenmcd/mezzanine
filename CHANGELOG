@@ -1,3 +1,32 @@
+Version 0.6 (Aug 09, 2010)
+--------------------------
+
+  * Bugfix to mobile template test to allow for no template inheritance - stephenmcd
+  * Initial import of django-forms-builder - stephenmcd
+  * Bugfix to ``DisplayableAdmin.search_fields`` - stephenmcd
+  * Bugfix to orderable_inline.js to correctly detect dirty checkboxes - stephenmcd
+  * Move ``mezzanine.core.models.HtmlField`` to new module ``mezzanine.core.fields`` - stephenmcd
+  * Allow model/field passed to ``editable`` templatetag to contain extra dot notation - stephenmcd
+  * Convert forms_builder app to a Mezzanine content type - stephenmcd
+  * Bugfix for generating slugs with parent pages for subclasses of ``Page`` - stephenmcd
+  * Extend admin definitions from inherited admin classes for ``FormAdmin`` - stephenmcd
+  * Commented ``mezzanine.forms.admin`` - stephenmcd
+  * Added quote from Nick Hagianis to README - stephenmcd
+  * Updated sequence of classes in documentation to run correctly - thanks Nick Hagianis for picking this up - stephenmcd
+  * Handful of patches to correct bugs around creating slugs, titles and ordering for pages and their subclasses - stephenmcd
+  * Update default styles - stephenmcd
+  * Add a contact form to fixtures - stephenmcd
+  * Added built-in styling to form fields in forms app - stephenmcd
+  * spelling fixed in docs - lexual
+  * pep8: removing trailing whitespace from *.py - lexual
+  * pep8: blank lines at end of file - lexual
+  * pep8: formatting fixes so runs cleanly through pep8.py script - lexual
+  * Added quote from Brad Montgomery to README - stephenmcd
+  * Add link to BSD license definition in README - stephenmcd
+  * Added missing line in docs for in-line editing example - stephenmcd
+  * Fixed docs typo - stephenmcd
+  * Remove natural keys from fixtures for Django 1.1 compatibility - stephenmcd
+
 Version 0.5.4 (Jul 25, 2010)
 ----------------------------
 
