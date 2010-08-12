@@ -19,7 +19,7 @@ replace_usernames = "<a href=\"http://twitter.com/\\1\">@\\1</a>"
 
 
 class Query(models.Model):
-
+    
     QUERY_TYPE_CHOICES = (
         ("user", _("User")),
         ("list", _("List")),
@@ -30,7 +30,7 @@ class Query(models.Model):
         max_length=10)
     value = models.CharField(_("Value"), max_length=50)
     interested = models.BooleanField("Interested", default=True)
-
+    
     class Meta:
         verbose_name = _("Twitter query")
         verbose_name_plural = _("Twitter queries")
@@ -38,7 +38,7 @@ class Query(models.Model):
 
     def __unicode__(self):
         return "%s: %s" % (self.get_type_display(), self.value)
-
+    
     def run(self):
         """
         Request new tweets from the Twitter API.
@@ -50,7 +50,7 @@ class Query(models.Model):
             url = ("http://api.twitter.com/1/%s/statuses.json?include_rts"
                 "=true" % self.value.lstrip("@").replace("/", "/lists/"))
         elif self.type == "search":
-            url = ("http://search.twitter.com/search.json?q=%s" %
+            url = ("http://search.twitter.com/search.json?q=%s" % 
                 quote(self.value))
         else:
             return
@@ -85,14 +85,14 @@ class Query(models.Model):
             tweet.text = urlize(tweet_json["text"])
             tweet.text = re_usernames.sub(replace_usernames, tweet.text)
             tweet.text = re_hashtags.sub(replace_hashtags, tweet.text)
-            tweet.created_at = datetime.strptime(tweet_json["created_at"],
+            tweet.created_at = datetime.strptime(tweet_json["created_at"], 
                 date_format) - timedelta(seconds=timezone)
             tweet.save()
         self.interested = False
         self.save()
 
-
 class Tweet(models.Model):
+    
     remote_id = models.CharField(_("Twitter ID"), max_length=50)
     created_at = models.DateTimeField(_("Date/time"), null=True)
     text = models.TextField(_("Message"), null=True)
@@ -106,16 +106,17 @@ class Tweet(models.Model):
     retweeter_full_name = models.CharField(
         _("Full name (Retweeted by)"), max_length=100, null=True)
     query = models.ForeignKey("Query", related_name="tweets")
-
+    
     objects = TweetManager()
 
     class Meta:
         verbose_name = _("Tweet")
         verbose_name_plural = _("Tweets")
         ordering = ("-created_at",)
-
+        
     def __unicode__(self):
         return "%s: %s" % (self.user_name, self.text)
 
     def is_retweet(self):
         return self.retweeter_user_name is not None
+
