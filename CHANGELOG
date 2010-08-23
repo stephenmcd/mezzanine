@@ -1,3 +1,10 @@
+Version 0.6.1 (Aug 23, 2010)
+----------------------------
+
+  * Update CHANGELOG generator to ignore commits that close a branch - stephenmcd
+  * Add forms builder to feature list n README - stephenmcd
+  * Change CHANGELOG generator to fail silently when mercurial isn't installed - stephenmcd
+
 Version 0.6 (Aug 09, 2010)
 --------------------------
 
@@ -25,6 +32,7 @@ Version 0.6 (Aug 09, 2010)
   * Add link to BSD license definition in README - stephenmcd
   * Added missing line in docs for in-line editing example - stephenmcd
   * Fixed docs typo - stephenmcd
+  * Set ``TIME_ZONE`` to use the system timezone - stephenmcd
   * Remove natural keys from fixtures for Django 1.1 compatibility - stephenmcd
 
 Version 0.5.4 (Jul 25, 2010)
@@ -94,7 +102,7 @@ Version 0.4 (Jul 11, 2010)
   * Save blog commenter's details in a cookie - stephenmcd
   * Bugfix to links in recent comments section of admin dashboard - stephenmcd
 
-Version 0.3.5 (Jul 09, 2010)
+Version 0.3.5 (Jul 08, 2010)
 ----------------------------
 
   * Bugfix to page template missing tag library - stephenmcd
@@ -112,12 +120,12 @@ Version 0.3.4 (Jul 08, 2010)
   * Cleaned up interface for custom tag types - stephenmcd
   * Update docs with references to new modules and version bump - stephenmcd
 
-Version 0.3.3 (Jul 07, 2010)
+Version 0.3.3 (Jul 06, 2010)
 ----------------------------
 
   * No changes listed.
 
-Version 0.3.2 (Jul 07, 2010)
+Version 0.3.2 (Jul 06, 2010)
 ----------------------------
 
   * Ignore uploads directory in repo - stephenmcd
@@ -133,7 +141,7 @@ Version 0.3.2 (Jul 07, 2010)
   * change tabs to spaces - lexual
   * changed tabs to spaces (only where there was a mixture of the 2, not when just tabs in file - lexual
 
-Version 0.3.1 (Jul 05, 2010)
+Version 0.3.1 (Jul 04, 2010)
 ----------------------------
 
   * Fixed some spelling mistakes throughout docs - stephenmcd
@@ -144,7 +152,7 @@ Version 0.3.1 (Jul 05, 2010)
   * Added management command to blog app for migrating a Tumblr blog - stephenmcd
   * Allow members of mezzanine.settings to be defined in the project's settings module prefixed with MEZZANINE_ - stephenmcd
 
-Version 0.3.0 (Jul 04, 2010)
+Version 0.3.0 (Jul 03, 2010)
 ----------------------------
 
   * Added section to README about the mailing list - stephenmcd
@@ -240,7 +248,7 @@ Version 0.1.3 (Jun 14, 2010)
   * Added setting PAGES_MENU_SHOW_ALL to control whether all levels in page menu are shown by default - stephenmcd
   * Changed manual file exclusion in setuptools script to maintain owner and permissions - stephenmcd
 
-Version 0.1.2 (Jun 11, 2010)
+Version 0.1.2 (Jun 10, 2010)
 ----------------------------
 
   * Remove local settings module from repo and packaging - stephenmcd
