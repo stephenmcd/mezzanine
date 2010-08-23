@@ -45,17 +45,21 @@ with open(os.path.join(docs_path, "settings.rst"), "w") as f:
     f.write("\n".join(settings_docs))
 
 # Generate the CHANGELOG file.
-
+repo = None
 try:
-    from mercurial import ui, hg
+    from mercurial import ui, hg, error
 except ImportError:
     pass
 else:
+    try:
+        repo = hg.repository(ui.ui(), mezzanine_path)
+    except error.RepoError:
+        pass
+if repo is not None:
+    
     from datetime import datetime
-    from mercurial import ui, hg
     from django.utils.datastructures import SortedDict
 
-    repo = hg.repository(ui.ui(), mezzanine_path)
     version_file = "mezzanine/__init__.py"
     version_var = "__version__"
     changelog_filename = "CHANGELOG"
