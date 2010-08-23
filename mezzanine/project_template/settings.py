@@ -3,7 +3,7 @@
 DEBUG = False
 DEV_SERVER = False
 MANAGERS = ADMINS = ()
-TIME_ZONE = "Australia/Melbourne"
+TIME_ZONE = ""
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 LANGUAGE_CODE = "en"
 SITE_ID = 1
