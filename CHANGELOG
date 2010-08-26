@@ -1,3 +1,13 @@
+Version 0.6.2 (Aug 26, 2010)
+----------------------------
+
+  * More error handling to CHANGELOG generator - ensure hg repo also exists - stephenmcd
+  * Add a button_text field to forms model for editing the text of the form's submit button - stephenmcd
+  * Bugfix to forms button text - stephenmcd
+  * Add new field Displayable.expiry_date and relevant handling in PublishedManager.published - stephenmcd
+  * Add field for default values in forms app and new field types: Check boxes, Radio buttons, Hidden - stephenmcd
+  * Add login_required field to page model for restricting pages to authenticated users - stephenmcd
+
 Version 0.6.1 (Aug 23, 2010)
 ----------------------------
 
