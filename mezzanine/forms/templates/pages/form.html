@@ -13,7 +13,7 @@
     <form method="post" class="form">
         {% csrf_token %}
         <ul>{{ form.as_ul }}</ul>
-        <input class="button" type="{{ page.form.button_text }}" />
+        <input class="button" type="submit" value="{{ page.form.button_text }}" />
     </form>
 {% endif %}
 
