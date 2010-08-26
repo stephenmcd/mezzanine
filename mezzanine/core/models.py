@@ -25,9 +25,12 @@ class Displayable(models.Model):
     status = models.IntegerField(_("Status"),
         choices=blog_settings.CONTENT_STATUS_CHOICES,
         default=blog_settings.CONTENT_STATUS_DRAFT)
-    publish_date = models.DateTimeField(_("Published from"), blank=True,
+    publish_date = models.DateTimeField(_("Published from"), 
         help_text=_("With published selected, won't be shown until this time"),
-        default=datetime.now)
+        blank=True, null=True)
+    expiry_date = models.DateTimeField(_("Expires on"), 
+        help_text=_("With published selected, won't be shown after this time"),
+        blank=True, null=True)
     slug = models.SlugField(_("URL"), max_length=100, blank=True, null=True)
     keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
         blank=True)

@@ -18,8 +18,10 @@ class PublishedManager(Manager):
     def published(self, for_user=None):
         if for_user is not None and for_user.is_staff:
             return self.all()
-        return self.filter(status=CONTENT_STATUS_PUBLISHED,
-            publish_date__lte=datetime.now())
+        return self.filter( 
+            Q(publish_date__lte=datetime.now()) | Q(publish_date__isnull=True), 
+            Q(expiry_date__gte=datetime.now()) | Q(expiry_date__isnull=True),
+            Q(status=CONTENT_STATUS_PUBLISHED))
 
     def get_by_natural_key(self, slug):
         return self.get(slug=slug)
