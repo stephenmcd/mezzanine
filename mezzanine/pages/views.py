@@ -1,10 +1,12 @@
 
+from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.decorators import _CheckLogin
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 from django.template.loader import select_template
+from django.utils.http import urlquote
 
 from mezzanine.pages.models import Page
 from mezzanine.pages import page_processors
@@ -34,7 +36,8 @@ def page(request, slug, template="pages/page.html"):
     """
     page = get_object_or_404(Page.objects.published(request.user), slug=slug)
     if page.login_required and not request.user.is_authenticated():
-        return _CheckLogin(lambda: None, lambda u: False)(request)
+        return redirect("%s?%s=%s" % (settings.LOGIN_URL, REDIRECT_FIELD_NAME, 
+            urlquote(request.get_full_path())))
     context = {"page": page}
     for processor in page_processors.processors[page.content_model]:
         response = processor(request, page)
