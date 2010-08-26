@@ -45,6 +45,7 @@ class FormForForm(forms.ModelForm):
             if field_widget is not None:
                 module, widget = field_widget.rsplit(".", 1)
                 field_args["widget"] = getattr(import_module(module), widget)
+            self.initial[field_key] = field.default
             self.fields[field_key] = field_class(**field_args)
             # Add identifying CSS classes to the field.
             css_class = field_class_name.lower()
@@ -66,6 +67,8 @@ class FormForForm(forms.ModelForm):
             value = self.cleaned_data[field_key]
             if value and self.fields[field_key].widget.needs_multipart_form:
                 value = fs.save(join("forms", str(uuid4()), value.name), value)
+            if isinstance(value, list):
+                value = ", ".join([v.strip() for v in value])
             entry.fields.create(field_id=field.id, value=value)
         return entry
 

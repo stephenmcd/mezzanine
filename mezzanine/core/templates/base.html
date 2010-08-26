@@ -64,7 +64,8 @@
         input, textarea {border:1px solid #999;}
         ul .comment {display:none;}
         ul .posted {display:block !important;}
-        .errorlist {color:#f00; margin:0 !important; padding:0 !important;}
+        .errorlist {color:#f00; float:left; width:100%; 
+            margin:5px 0 !important;}
         
         .tags {margin:10px 0;}
         .tags ul, .tags li {display:inline;}
@@ -83,12 +84,12 @@
 
         .form {width:360px; background:#eee; border-bottom:1px solid #ccc;
             float:left; padding:20px;}
-        .form label {float:left;}
-        .form li {text-align:right;}
-        .form li input, .form li select, textarea {clear:both; 
-            margin-bottom:5px; width:70%;}
-        .form .button {float:right; margin-top:10px;}
-        .datefield {width:23% !important;}
+        .form ul {margin-bottom:20px;}
+        .form li ul, .form li li {display:inline;}
+        .form li label {width:30%; float:left;}
+        .form li li label {width:auto; float:none; margin-right:10px; 
+            cursor:pointer;}
+        .form li input, .form li select, textarea {margin-bottom:10px;}
 
     </style>
 

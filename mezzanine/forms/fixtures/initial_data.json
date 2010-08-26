@@ -20,7 +20,8 @@
             "required": true, 
             "label": "Name", 
             "visible": true, 
-            "choices": ""
+            "choices": "",
+            "default": ""
         }
     }, 
     {
@@ -33,7 +34,8 @@
             "required": true, 
             "label": "Email", 
             "visible": true, 
-            "choices": ""
+            "choices": "",
+            "default": ""
         }
     }, 
     {
@@ -46,7 +48,8 @@
             "required": true, 
             "label": "Subject", 
             "visible": true, 
-            "choices": "Billing, Sales, Support"
+            "choices": "Billing, Sales, Support",
+            "default": ""
         }
     }, 
     {
@@ -59,7 +62,8 @@
             "required": true, 
             "label": "Message", 
             "visible": true, 
-            "choices": ""
+            "choices": "",
+            "default": ""
         }
     }
 ]
