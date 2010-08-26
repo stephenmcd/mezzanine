@@ -105,6 +105,8 @@ Sites Using Mezzanine
 =====================
 
   * `Citrus Agency`_
+  * `Mezzanine Project`_ (self hosted)
+  * `Nick Hagianis`_
 
 Quotes
 ======
@@ -138,7 +140,8 @@ Quotes
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users
 .. _`Github issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`Citrus Agency`: http://citrus.com.au/
+.. _`Mezzanine Project`: http://mezzanine.jupo.org/
+.. _`Nick Hagianis`: http://hagianis.com/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
-.. _`Nick Hagianis`: http://hagianis.com/
 .. _`Brad Montgomery`: http://bradmontgomery.net/
