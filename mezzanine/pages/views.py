@@ -1,5 +1,6 @@
 
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import _CheckLogin
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext
@@ -32,6 +33,8 @@ def page(request, slug, template="pages/page.html"):
     from given the slug and type of page being viewed.
     """
     page = get_object_or_404(Page.objects.published(request.user), slug=slug)
+    if page.login_required and not request.user.is_authenticated():
+        return _CheckLogin(lambda: None, lambda u: False)(request)
     context = {"page": page}
     for processor in page_processors.processors[page.content_model]:
         response = processor(request, page)
