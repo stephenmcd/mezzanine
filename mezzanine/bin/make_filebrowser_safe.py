@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 
 """
-Converts the last backward-compatible filebrowser branch into a newly named
+Converts the last backward-compatible filebrowser branch into a newly named 
 package ``filebrowser_safe``.
 """
 
 import os
 
-branch_url = \
-        "http://django-filebrowser.googlecode.com/svn/branches/filebrowser_3"
+branch_url = "http://django-filebrowser.googlecode.com/svn/branches/filebrowser_3"
 package_name_from = branch_url.split("/")[-1]
 package_name_to = "filebrowser_safe"
 
@@ -22,8 +21,7 @@ for (dirpath, dirnames, filenames) in os.walk(package_name_from, False):
         # Delete SVN directories.
         if ".svn" in path:
             print "Deleting svn %s" % path
-            os.rmdir(path)
-    for name in filenames:
+            os.rmdir(path)    for name in filenames:
         path = os.path.join(dirpath, name)
         # Delete SVN files.
         if ".svn" in path:
@@ -36,13 +34,13 @@ for (dirpath, dirnames, filenames) in os.walk(package_name_from, False):
             if name == "admin.py":
                 # Comment out calls to admin.site.register.
                 update = True
-                data = data.replace("\nadmin.site.register",
+                data = data.replace("\nadmin.site.register", 
                     "\n#admin.site.register")
             # Replace these instances of the package name with the new name.
             for replace_str in ("filebrowser.", "app_label = \"filebrowser\""):
                 if replace_str in data:
                     update = True
-                    data = data.replace(replace_str,
+                    data = data.replace(replace_str, 
                         replace_str.replace("filebrowser", package_name_to))
             if update:
                 print "Rewriting %s" % path
@@ -51,5 +49,5 @@ for (dirpath, dirnames, filenames) in os.walk(package_name_from, False):
 
 # Move the package to the Mezzanine directory using the filebrowser_safe name.
 script_path = os.path.dirname(os.path.abspath(__file__))
-os.renames(package_name_from, os.path.join(script_path, "..", "..",
+os.renames(package_name_from, os.path.join(script_path, "..", "..", 
     package_name_to))

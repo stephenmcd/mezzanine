@@ -1,0 +1,27 @@
+{% load i18n pages_tags %}
+
+{% spaceless %}
+{% url home as home_url %}
+{% if not request.path == home_url %}
+  {% for page in page_branch %}
+    {% if not page.parent_id and forloop.first %}
+  <ul id="breadcrumbs">
+    <li><!-- Home -->
+      <a href="{% url home %}">Home</a>
+    </li>
+  {% endif %}
+    <!-- Forloop got {{ page }} -->
+    {% url page page.slug as page_url %}
+    {% if_startswith request.path page_url %}
+      <li{% if request.path == page_url %} class="active"{% endif %}><!-- Page is on selected branch -->
+        <a href="{{ page_url }}">{{ page.title }}</a>
+      </li>
+      {% breadcrumbs page %}
+    {% endif_startswith %}
+  {% if not page.parent_id and forloop.last %}
+  </ul>
+  {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% endspaceless %}

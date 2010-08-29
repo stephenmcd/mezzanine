@@ -1,0 +1,21 @@
+{% load pages_tags %}
+{% spaceless %}
+
+<ul id="{% block menulist_id %}menulist{% endblock %}" class="{% block menulist_class %}{% endblock %}">
+  {% for page in page_branch %}
+    {% if not page.parent_id %}
+      {% if forloop.first %}
+        {% url home as home_url %}
+        <li id="{% if not page.parent_id %}toplevel_{% endif %}menu_home" class="first{% if request.path == home_url %} active{% endif %}{% if forloop.last %} last{% endif %}">
+          <a href="{% url home %}">Home</a>
+        </li>
+      {% endif %}
+      {% url page page.slug as page_url %}
+      <li id="{% if not page.parent_id %}toplevel_{% endif %}menu_{{ page.slug }}" class="{% if_startswith request.path page_url %}active{% endif_startswith %}{% if forloop.last %} last{% endif %}">
+        <a href="{% url page page.slug %}">{{ page.title }}</a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+{% endspaceless %}

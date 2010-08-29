@@ -2,6 +2,7 @@
 from django.db.models import AutoField
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 from mezzanine.settings import CONTENT_MEDIA_URL
 from mezzanine.core.forms import OrderableAdminForm
@@ -17,10 +18,10 @@ content_media = lambda files: ["/%s/%s" % (media_url, f) for f in files]
 displayable_js = ["js/tinymce_setup.js", "js/jquery-1.4.2.min.js",
     "js/keywords_field.js"]
 from django import VERSION
-if not (VERSION[0] <= 1 and VERSION[1] <= 1):
+if not (VERSION[0] <= 1 or VERSION[1] <= 1):
     displayable_js.append("js/collapse_backport.js")
 displayable_js = content_media(displayable_js)
-displayable_js.insert(0, "/media/admin/tinymce/jscripts/tiny_mce/tiny_mce.js")
+displayable_js.insert(0, "%stinymce/jscripts/tiny_mce/tiny_mce.js" % settings.ADMIN_MEDIA_PREFIX)
 
 orderable_js = content_media(["js/jquery-1.4.2.min.js",
     "js/jquery-ui-1.8.1.custom.min.js", "js/orderable_inline.js"])
