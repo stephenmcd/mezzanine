@@ -8,9 +8,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.template.loader import select_template
+from django.core.urlresolvers import reverse
 
 from mezzanine.blog.forms import CommentForm
 from mezzanine.blog.models import BlogPost
+from mezzanine.pages.models import Page
 from mezzanine.utils import paginate
 from mezzanine import settings as blog_settings
 
@@ -77,8 +79,9 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
             response.set_cookie(commenter_cookie_prefix + field,
                 request.POST.get(field, ""), expires=expires)
         return response
-    context = {"blog_post": blog_post, "use_disqus": use_disqus,
-        "posted_comment_form": posted_comment_form, "unposted_comment_form":
-        unposted_comment_form}
+    blog_page = Page.objects.get(slug=reverse("blog_post_list").strip("/"))
+    context = {"blog_post": blog_post, "blog_page": blog_page, "use_disqus": 
+        use_disqus, "posted_comment_form": posted_comment_form, 
+        "unposted_comment_form": unposted_comment_form}
     t = select_template(["blog/%s.html" % slug, template])
     return HttpResponse(t.render(RequestContext(request, context)))
