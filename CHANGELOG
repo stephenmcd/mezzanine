@@ -1,3 +1,9 @@
+Version 0.7 (Aug 30, 2010)
+--------------------------
+
+  * Add Van Lindberg to AUTHORS - stephenmcd
+  * Integrate 960.gs CSS framework into default templates - stephenmcd
+
 Version 0.6.4 (Aug 29, 2010)
 ----------------------------
 
