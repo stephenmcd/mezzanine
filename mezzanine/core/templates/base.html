@@ -17,8 +17,12 @@
     <style type="text/css">
 
         * {margin:0; padding:0; font-family:Garamond,Georgia,serif;}
-        #primary-menu {background:#ccc; text-align:center; padding:10px 0;}
-        #primary-menu li {display:inline; margin:0 10px;}
+        #primary-menu {background:#ccc; border-bottom:1px solid #999;
+            text-align:center; padding:10px 0;}
+        #primary-menu li {display:inline;
+            border-right:1px solid #999; padding:10px 20px;}
+        #primary-menu .first {border-left:1px solid #999; padding:10px;}
+        #primary-menu .active {background:#eee;}
         h1 {font-size:250%; border-bottom:1px solid #ccc; padding-bottom:20px;
             margin:20px 0; font-weight:normal;}
         h2 {font-size:150%;}
@@ -125,19 +129,19 @@
             href="http://mezzanine.jupo.org">Mezzanine</a></p>
         <br clear="all" />
     </div>
-    <script type="text/javascript">
-        var gaID = '{% setting "GOOGLE_ANALYTICS_ID" %}';
-        if (gaID) {
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        }
+    {% load_settings GOOGLE_ANALYTICS_ID %}
+    {% if GOOGLE_ANALYTICS_ID %}
+    <script> 
+    var _gaq = [['_setAccount', '{{ GOOGLE_ANALYTICS_ID }}'], ['_trackPageview']];
+    (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+    })(document, 'script');
     </script>
-    <script type="text/javascript">
-        if (gaID) {
-            var pageTracker = _gat._getTracker(gaID);
-            pageTracker._trackPageview();
-        }
-    </script>
+    {% endif %}
 </body>
 
 </html>

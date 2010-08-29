@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 {% load i18n mezzanine_tags blog_tags %}
 
-{% block meta_title %}{% setting "BLOG_TITLE" %}{% endblock %}
-{% block meta_description %}{% setting "BLOG_DESCRIPTION" %}{% endblock %}
-{% block title %}{% setting "BLOG_TITLE" %}{% endblock %}
+{% block meta_title %}
+    {% load_settings BLOG_TITLE %}{{ BLOG_TITLE }}
+{% endblock %}
+{% block meta_description %}
+    {% load_settings BLOG_DESCRIPTION %}{{ BLOG_DESCRIPTION }}
+{% endblock %}
+{% block title %}
+    {% load_settings BLOG_TITLE %}{{ BLOG_TITLE }}
+{% endblock %}
 
 {% block main %}
-
+{% load_settings BLOG_DESCRIPTION %}
 <p id="blog-description">
 {% if tag %}
     {% trans "Viewing posts tagged" %} {{ tag }}
@@ -17,7 +23,7 @@
     {% trans "Viewing posts by" %} 
     {{ user.get_full_name|default:user.username }}
 {% else %}
-    {% setting "BLOG_DESCRIPTION" %}
+    {{ BLOG_DESCRIPTION }}
 {% endif %}{% endif %}{% endif %}
 </p>
 

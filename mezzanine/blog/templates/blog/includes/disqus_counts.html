@@ -1,5 +1,6 @@
 
 {% load mezzanine_tags %}
+{% load_settings COMMENTS_DISQUS_SHORTNAME %}
 
 <script type="text/javascript">
 //<![CDATA[
@@ -11,7 +12,7 @@
 		query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
 	}
 	}
-	document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/{% setting "COMMENTS_DISQUS_SHORTNAME" %}/get_num_replies.js' + query + '"></' + 'script>');
+	document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/{{ COMMENTS_DISQUS_SHORTNAME }}/get_num_replies.js' + query + '"></' + 'script>');
 })();
 //]]>
 </script>

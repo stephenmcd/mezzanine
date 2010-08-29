@@ -29,11 +29,11 @@
         margin:5px 0 0 5px;}
 
 </style>
-
-<script language="javascript" src="{% setting "ADMIN_MEDIA_PREFIX" %}tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-<script language="javascript" src="{% setting "CONTENT_MEDIA_URL" %}js/tinymce_setup.js"></script>
-<script language="javascript" src="{% setting "CONTENT_MEDIA_URL" %}js/jquery-1.4.2.min.js"></script>
-<script language="javascript" src="{% setting "CONTENT_MEDIA_URL" %}js/jquery.tools.js"></script>
+{% load_settings ADMIN_MEDIA_PREFIX CONTENT_MEDIA_URL %}
+<script language="javascript" src="{{ ADMIN_MEDIA_PREFIX }}tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script language="javascript" src="{{ CONTENT_MEDIA_URL }}js/tinymce_setup.js"></script>
+<script language="javascript" src="{{ CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
+<script language="javascript" src="{{ CONTENT_MEDIA_URL }}js/jquery.tools.js"></script>
 <script language="javascript">
 
 $(function($) {
