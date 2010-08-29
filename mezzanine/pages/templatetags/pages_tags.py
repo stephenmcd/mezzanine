@@ -39,34 +39,36 @@ def _page_menu(context, parent_page):
     return context
 
 
-@register.inclusion_tag("pages/includes/page_menu.html", takes_context=True)
-def page_menu(context, parent_page=None):
+@register.inclusion_tag("pages/includes/tree_menu.html", takes_context=True)
+def tree_menu(context, parent_page=None):
     """
-    Public page menu.
-    """
-    return _page_menu(context, parent_page)
-
-
-@register.inclusion_tag("pages/includes/toplevel_menu.html", takes_context=True)
-def toplevel_menu(context, parent_page=None):
-    """
-    Toplevel page menu for main nav. Never includes subtrees.
+    Tree menu that renders all pages in the navigation hierarchically.
     """
     return _page_menu(context, parent_page)
 
 
-@register.inclusion_tag("pages/includes/breadcrumbs.html", takes_context=True)
-def breadcrumbs(context, parent_page=None):
+@register.inclusion_tag("pages/includes/primary_menu.html", takes_context=True)
+def primary_menu(context, parent_page=None):
     """
-    Provides a unordered list from Home down to the current page in the hierarchy.
+    Page menu that only renders the primary top-level pages..
     """
     return _page_menu(context, parent_page)
 
 
-@register.inclusion_tag("admin/includes/page_menu.html", takes_context=True)
-def page_menu_admin(context, parent_page=None):
+@register.inclusion_tag("pages/includes/breadcrumb_menu.html", 
+    takes_context=True)
+def breadcrumb_menu(context, parent_page=None):
     """
-    Admin page menu.
+    Page menu that only renders the pages that are parents of the current 
+    page, as well as the current page itself.
+    """
+    return _page_menu(context, parent_page)
+
+
+@register.inclusion_tag("admin/includes/tree_menu.html", takes_context=True)
+def tree_menu_admin(context, parent_page=None):
+    """
+    Admin tree menu for managing pages.
     """
     return _page_menu(context, parent_page)
 

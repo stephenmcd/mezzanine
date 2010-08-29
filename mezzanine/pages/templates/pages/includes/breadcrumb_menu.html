@@ -16,7 +16,7 @@
       <li{% ifequal request.path page_url %} class="active"{% endifequal %}><!-- Page is on selected branch -->
         <a href="{{ page_url }}">{{ page.title }}</a>
       </li>
-      {% breadcrumbs page %}
+      {% breadcrumb_menu page %}
     {% endif %}
   {% if not page.parent_id and forloop.last %}
   </ul>

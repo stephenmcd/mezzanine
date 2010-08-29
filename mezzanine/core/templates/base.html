@@ -17,24 +17,28 @@
     <style type="text/css">
 
         * {margin:0; padding:0; font-family:Garamond,Georgia,serif;}
+        #primary-menu {background:#ccc; text-align:center; padding:5px 0;}
+        #primary-menu li {display:inline; margin:0 5px;}
         h1 {font-size:250%; border-bottom:1px solid #ccc; padding-bottom:20px;
             margin:20px 0; font-weight:normal;}
         h2 {font-size:150%;}
         h3 {margin:20px 0 10px 0; font-weight:normal;}
         h4 {margin-top:10px; font-weight:normal;}
-        #menu, #main, #right-panel {float:left; height:100%;}
-        #menu, #right-panel {background:#e9e9e9;}
-        #menu {padding:50px; font-size:130%;}
+        #tree-menu, #main, #right-panel {float:left; height:100%;}
+        #tree-menu, #right-panel {background:#e9e9e9;}
+        #tree-menu {padding:50px; font-size:130%;}
         #main {padding:0 30px; width:400px;}
         #right-panel {padding:8px 30px; width:190px;}
         a {color:#008;}
         p {margin:20px 0; line-height:150%;}
         pre, pre *, code, code * {font-family:monospace;}
         pre {padding:15px;}
+        #breadcrumbs li {display:inline;}
         
         ul {list-style-type:none;}
-        #menu ul ul {padding-left:30px; list-style-type:disc; font-size:80%;}
-        #menu ul ul li {margin:5px auto;}
+        #tree-menu ul ul {padding-left:30px; list-style-type:disc; 
+            font-size:80%;}
+        #tree-menu ul ul li {margin:5px auto;}
         #blog-description {margin:30px 0;}
         .description {margin:10px 0 20px 0;}
         .paging {margin:30px 0; padding-top:10px; border-top:1px solid #ccc;}
@@ -98,11 +102,15 @@
 </head>
 
 <body>
-    <div id="menu">
-        {% page_menu %}
+    <div id="primary-menu">
+        {% primary_menu %}
+    </div>
+    <div id="tree-menu">
+        {% tree_menu %}
     </div>
     <div id="main">
         <h1>{% block title %}{% endblock %}</h1>
+        {% breadcrumb_menu %}
         {% block main %}{% endblock %}
     </div>
     <div id="right-panel">

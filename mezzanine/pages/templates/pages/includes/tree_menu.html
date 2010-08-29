@@ -9,7 +9,7 @@
 		<a href="{% url page page.slug %}">{{ page.title }}</a>
 		{# remove this if tag to always show all nav items #}
 		{% if PAGES_MENU_SHOW_ALL or page.selected %}
-		{% page_menu page %}
+		{% tree_menu page %}
 		{% endif %}
 	</li>
 	{% endfor %}
