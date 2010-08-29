@@ -1,4 +1,3 @@
-import re
 from collections import defaultdict
 
 from django import template
@@ -9,83 +8,9 @@ from mezzanine import template
 from mezzanine.pages.models import Page
 from mezzanine.settings import PAGES_MENU_SHOW_ALL
 
+
 register = template.Library()
 
-try:
-    from template_utils.templatetags import comparison
-    for tag_name in comparison.COMPARISON_DICT:
-        register.tag('if_%s' % tag_name, comparison.do_comparison)
-except ImportError:
-    # We don't have django template utils. Bring in just enough to make this work.
-    # Copied from django template utils, <http://code.google.com/p/django-template-utils/>
-    # Licensed under the BSD license.
-
-    COMPARISON_DICT = {
-      'startswith': lambda x,y: x.startswith(y),
-      'endswith': lambda x,y: x.endswith(y),
-      'find': lambda x,y: x.find(y) >- 1,
-      'match': lambda x,y: re.compile(y).match(x),
-    }
-
-    class ComparisonNode(template.Node):
-        def __init__(self, comparison, nodelist_true, nodelist_false, negate, *vars):
-            self.vars = map(template.Variable, vars)
-            self.comparison = comparison
-            self.negate = negate
-            self.nodelist_true, self.nodelist_false = nodelist_true, nodelist_false
-
-        def render(self, context):
-            try:
-                if COMPARISON_DICT[self.comparison](
-                  *[var.resolve(context) for var in self.vars]):
-                    if self.negate:
-                        return self.nodelist_false.render(context)
-                    return self.nodelist_true.render(context)
-            # If either variable fails to resolve, return nothing.
-            except template.VariableDoesNotExist:
-                return ''
-            # If the types don't permit comparison, return nothing.
-            except TypeError:
-                return ''
-            if self.negate:
-                return self.nodelist_true.render(context)
-            return self.nodelist_false.render(context)
-
-    def do_comparison(parser, token):
-        """
-        Compares two values.
-
-        Syntax::
-
-            {% if_[comparison] [var1] [var2] [var...] %}
-            ...
-            {% else %}
-            ...
-            {% endif_[comparison] %}
-
-        The {% else %} block is optional, and any ``var`` may be
-        variables or literal values.
-        """
-        negate = False
-        bits = token.contents.split()
-        end_tag = 'end' + bits[0]
-        nodelist_true = parser.parse(('else', end_tag))
-        token = parser.next_token()
-        if token.contents == 'else':
-            nodelist_false = parser.parse((end_tag,))
-            parser.delete_first_token()
-        else:
-            nodelist_false = template.NodeList()
-        if bits[-1] == 'negate':
-            bits = bits[:-1]
-            negate = True
-        comparison = bits[0].split('if_')[1]
-        return ComparisonNode(comparison, nodelist_true, nodelist_false, negate, *bits[1:])
-
-    for tag_name in COMPARISON_DICT:
-        register.tag('if_%s' % tag_name, do_comparison)
-
-### End portion copied from django template utils
 
 def _page_menu(context, parent_page):
     """

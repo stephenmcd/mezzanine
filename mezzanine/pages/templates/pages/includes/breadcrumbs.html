@@ -2,7 +2,7 @@
 
 {% spaceless %}
 {% url home as home_url %}
-{% if not request.path == home_url %}
+{% ifnotequal request.path home_url %}
   {% for page in page_branch %}
     {% if not page.parent_id and forloop.first %}
   <ul id="breadcrumbs">
@@ -12,16 +12,16 @@
   {% endif %}
     <!-- Forloop got {{ page }} -->
     {% url page page.slug as page_url %}
-    {% if_startswith request.path page_url %}
-      <li{% if request.path == page_url %} class="active"{% endif %}><!-- Page is on selected branch -->
+    {% if page.selected %}
+      <li{% ifequal request.path page_url %} class="active"{% endifequal %}><!-- Page is on selected branch -->
         <a href="{{ page_url }}">{{ page.title }}</a>
       </li>
       {% breadcrumbs page %}
-    {% endif_startswith %}
+    {% endif %}
   {% if not page.parent_id and forloop.last %}
   </ul>
   {% endif %}
   {% endfor %}
-{% endif %}
+{% endifnotequal %}
 
 {% endspaceless %}
