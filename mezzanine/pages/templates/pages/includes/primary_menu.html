@@ -1,21 +1,17 @@
-{% load pages_tags %}
+{% load pages_tags i18n %}
+
 {% spaceless %}
-
-<ul id="{% block menulist_id %}menulist{% endblock %}" class="{% block menulist_class %}{% endblock %}">
-  {% for page in page_branch %}
-    {% if not page.parent_id %}
-      {% if forloop.first %}
-        {% url home as home_url %}
-        <li id="{% if not page.parent_id %}toplevel_{% endif %}menu_home" class="first{% ifequal request.path home_url %} active{% endifequal %}{% if forloop.last %} last{% endif %}">
-          <a href="{% url home %}">Home</a>
-        </li>
-      {% endif %}
-      {% url page page.slug as page_url %}
-      <li id="{% if not page.parent_id %}toplevel_{% endif %}menu_{{ page.slug }}" class="{% if page.selected %}active{% endif %}{% if forloop.last %} last{% endif %}">
-        <a href="{% url page page.slug %}">{{ page.title }}</a>
-      </li>
+{% url home as home_url %}
+<ul>
+    {% for page in page_branch %}
+    {% if forloop.first %}
+    <li id="primary-menu-home" class="first{% ifequal request.path home_url %} active{% endifequal %}">
+        <a href="{% url home %}">{% trans "Home" %}</a>
+    </li>
     {% endif %}
-  {% endfor %}
+    <li id="primary-menu-{{ page.slug }}" class="{% if page.selected %}active{% endif %}{% if forloop.last %} last{% endif %}">
+        <a href="{% url page page.slug %}">{{ page.title }}</a>
+    </li>
+    {% endfor %}
 </ul>
-
 {% endspaceless %}

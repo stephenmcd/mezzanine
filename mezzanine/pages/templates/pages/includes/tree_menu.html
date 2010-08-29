@@ -1,11 +1,17 @@
 {% load i18n pages_tags %}
 
+{% spaceless %}
+{% url home as home_url %}
 <ul>
 	{% for page in page_branch %}
 	{% if not page.parent_id and forloop.first %}
-	<li><a href="{% url home %}">{% trans "Home" %}</a></li>
+	<li class="first{% ifequal request.path home_url %} active{% endifequal %}">
+	    <a href="{% url home %}">{% trans "Home" %}</a>
+	</li>
 	{% endif %}
-	<li>
+	<li class="{% if page.selected %}active{% endif %}
+	    {% if forloop.first %} first{% endif %} 
+	    {% if forloop.last %} last{% endif %}">
 		<a href="{% url page page.slug %}">{{ page.title }}</a>
 		{# remove this if tag to always show all nav items #}
 		{% if PAGES_MENU_SHOW_ALL or page.selected %}
@@ -14,4 +20,4 @@
 	</li>
 	{% endfor %}
 </ul>
-
+{% endspaceless %}

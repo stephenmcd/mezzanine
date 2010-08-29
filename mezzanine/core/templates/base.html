@@ -17,8 +17,8 @@
     <style type="text/css">
 
         * {margin:0; padding:0; font-family:Garamond,Georgia,serif;}
-        #primary-menu {background:#ccc; text-align:center; padding:5px 0;}
-        #primary-menu li {display:inline; margin:0 5px;}
+        #primary-menu {background:#ccc; text-align:center; padding:10px 0;}
+        #primary-menu li {display:inline; margin:0 10px;}
         h1 {font-size:250%; border-bottom:1px solid #ccc; padding-bottom:20px;
             margin:20px 0; font-weight:normal;}
         h2 {font-size:150%;}
@@ -30,10 +30,11 @@
         #main {padding:0 30px; width:400px;}
         #right-panel {padding:8px 30px; width:190px;}
         a {color:#008;}
+        .active a {font-style:italic;}
         p {margin:20px 0; line-height:150%;}
         pre, pre *, code, code * {font-family:monospace;}
         pre {padding:15px;}
-        #breadcrumbs li {display:inline;}
+        #breadcrumb-menu li {display:inline; margin-right:2px;}
         
         ul {list-style-type:none;}
         #tree-menu ul ul {padding-left:30px; list-style-type:disc; 
@@ -101,7 +102,7 @@
 
 </head>
 
-<body>
+<body id="{% block body_id %}{% endblock %}">
     <div id="primary-menu">
         {% primary_menu %}
     </div>
@@ -110,7 +111,9 @@
     </div>
     <div id="main">
         <h1>{% block title %}{% endblock %}</h1>
-        {% breadcrumb_menu %}
+        <div id="breadcrumb-menu">
+            {% block breadcrumb_menu %}{% breadcrumb_menu %}{% endblock %}
+        </div>
         {% block main %}{% endblock %}
     </div>
     <div id="right-panel">
