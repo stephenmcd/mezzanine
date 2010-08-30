@@ -17,7 +17,7 @@ class MobileTemplate(object):
         user_agent = request.META.get("HTTP_USER_AGENT", "")
         if [check for check in MOBILE_USER_AGENTS if check in user_agent]:
             template = view_kwargs.get("template")
-            if template is None:
+            if template is None and view_func.func_defaults is not None:
                 for default in view_func.func_defaults:
                     if str(default).endswith(".html"):
                         template = default
