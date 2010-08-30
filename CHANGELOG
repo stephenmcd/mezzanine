@@ -1,3 +1,10 @@
+Version 0.7.1 (Aug 30, 2010)
+----------------------------
+
+  * Add 960.gs to the feature list in README - stephenmcd
+  * CSS tweaks to default templates - stephenmcd
+  * Bugfix to mobile middleware for view functions without keyword args - stephenmcd
+
 Version 0.7 (Aug 30, 2010)
 --------------------------
 
@@ -40,8 +47,6 @@ Version 0.6.1 (Aug 23, 2010)
 
   * Update CHANGELOG generator to ignore commits that close a branch - stephenmcd
   * Add forms builder to feature list n README - stephenmcd
-  * Remove natural keys from fixtures for Django 1.1 compatibility - stephenmcd
-  * Set ``TIME_ZONE`` to use the system timezone - stephenmcd
   * Change CHANGELOG generator to fail silently when mercurial isn't installed - stephenmcd
 
 Version 0.6 (Aug 09, 2010)
@@ -71,6 +76,7 @@ Version 0.6 (Aug 09, 2010)
   * Add link to BSD license definition in README - stephenmcd
   * Added missing line in docs for in-line editing example - stephenmcd
   * Fixed docs typo - stephenmcd
+  * Set ``TIME_ZONE`` to use the system timezone - stephenmcd
   * Remove natural keys from fixtures for Django 1.1 compatibility - stephenmcd
 
 Version 0.5.4 (Jul 25, 2010)
