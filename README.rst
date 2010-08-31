@@ -43,6 +43,7 @@ provides the following features.
   * Sharing via Facebook or Twitter
   * `Custom templates`_ per page or blog post
   * Built-in `test suite`_
+  * `960.gs`_ integration
 
 The Mezzanine admin dashboard:
 
@@ -131,6 +132,7 @@ Quotes
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
+.. _`960.gs`: http://960.gs/
 .. _`Disqus`: http://disqus.com/
 .. _`Gravatar`: http://gravatar.com/
 .. _`Google Analytics`: http://www.google.com/analytics/
