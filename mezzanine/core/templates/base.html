@@ -1,6 +1,5 @@
 {% load pages_tags mezzanine_tags %}
 <html>
-
 <head>
 
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
@@ -39,6 +38,13 @@
         #grid-left li {display:block; margin:5px 30px;}
         #grid-left ul ul li {list-style-type:disc; font-size:80%;}
         #grid-right li {display:block; margin-top:3px;}
+        #grid-bottom {background:#666; text-align:center; float:left; 
+            width:100%; padding:30px;}
+        #grid-bottom .middle {width:430px; margin:0 auto;}
+        #grid-bottom ul {float:left;}
+        #grid-bottom li {display:block; text-align:left; margin:5px;
+            border-top:1px solid #333; width:100px; background:#555; 
+            padding:5px 10px;}
         
         h2, p, #breadcrumb-menu, #description, .paging, .share,
           #comments, .comment {margin:20px 0;}
@@ -55,6 +61,7 @@
         li {list-style-type:none; display:inline;}
         input, textarea {border:1px solid #999;}
         textarea {width:100%;}
+        #grid-bottom a {color:#eee; text-decoration:none;}
 
         .since {display:block; margin-bottom:20px;}
         .paging {border-top:1px solid #ccc;}
@@ -88,7 +95,8 @@
         .tag-weight-3 {font-size:160%;}
         .tag-weight-4 {font-size:200%;}
         
-        .tweets li {font-size:70%; clear:both; margin-bottom:10px;}
+        .tweets li {font-size:70%; clear:both; margin-bottom:10px; 
+            line-height:130%;}
         .tweets img {float:left; border:1px solid #000; margin:0 5px 5px 0;
             width:32px; height:32px;}
         .tweets .timespan {font-style:italic;}
@@ -106,8 +114,8 @@
     {% block extra_head %}{% endblock %}
 
 </head>
-
 <body id="{% block body_id %}{% endblock %}">
+
 <div id="grid-top">{% primary_menu %}</div>
 <div class="container_12">
 
@@ -132,27 +140,23 @@
             href="http://mezzanine.jupo.org">Mezzanine</a></p>
     </div>
     <div class="clear">&nbsp;</div> 
-
-    <div id="grid-bottom" class="grid_12">
-        {% footer_menu %}
-    </div>
-
-    {% load_settings GOOGLE_ANALYTICS_ID %}
-    {% if GOOGLE_ANALYTICS_ID %}
-    <script> 
-    var _gaq = [['_setAccount', '{{ GOOGLE_ANALYTICS_ID }}'], ['_trackPageview']];
-    (function(d, t) {
-    var g = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-    g.async = true;
-    g.src = '//www.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g, s);
-    })(document, 'script');
-    </script>
-    {% endif %}
-
 </div>
-</body>
+<div id="grid-bottom"><div class="middle">{% footer_menu %}</div></div>
 
+{% load_settings GOOGLE_ANALYTICS_ID %}
+{% if GOOGLE_ANALYTICS_ID %}
+<script> 
+var _gaq = [['_setAccount', '{{ GOOGLE_ANALYTICS_ID }}'], ['_trackPageview']];
+(function(d, t) {
+var g = d.createElement(t),
+    s = d.getElementsByTagName(t)[0];
+g.async = true;
+g.src = '//www.google-analytics.com/ga.js';
+s.parentNode.insertBefore(g, s);
+})(document, 'script');
+</script>
+{% endif %}
+
+</body>
 </html>
 

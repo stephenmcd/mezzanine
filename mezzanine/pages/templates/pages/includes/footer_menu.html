@@ -6,14 +6,11 @@
 <ul>
 {% endif %}
 	{% if page.in_footer %}
-	<li class="{% if forloop.first %} first{% endif %} 
-	    {% if forloop.last %} last{% endif %}">
-		<a href="{% url page page.slug %}">{{ page.title }}</a>
-	</li>
+	<li><a href="{% url page page.slug %}">{{ page.title }}</a></li>
     {% endif %}
 	{% footer_menu page %}
 {% if not page.parent_id %}
-<ul>
+</ul>
 {% endif %}
 {% endfor %}
 {% endspaceless %}
