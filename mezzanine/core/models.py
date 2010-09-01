@@ -19,7 +19,7 @@ class Slugged(models.Model):
     """
 
     title = models.CharField(_("Title"), max_length=100)
-    slug = models.SlugField(_("URL"), max_length=100, blank=True, null=True)
+    slug = models.CharField(_("URL"), max_length=100, blank=True, null=True)
 
     class Meta:
         abstract = True
