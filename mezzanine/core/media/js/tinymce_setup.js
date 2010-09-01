@@ -33,7 +33,7 @@ tinyMCE.init({
     editor_deselector : "mceNoEditor",
     
     // general settings
-    width: '500',
+    width: '700',
     height: '350',
     indentation : '10px',
     fix_list_elements : true,
