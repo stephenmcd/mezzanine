@@ -50,7 +50,15 @@ def tree_menu(context, parent_page=None):
 @register.inclusion_tag("pages/includes/primary_menu.html", takes_context=True)
 def primary_menu(context, parent_page=None):
     """
-    Page menu that only renders the primary top-level pages..
+    Page menu that only renders the primary top-level pages.
+    """
+    return _page_menu(context, parent_page)
+
+
+@register.inclusion_tag("pages/includes/footer_menu.html", takes_context=True)
+def footer_menu(context, parent_page=None):
+    """
+    Page menu that only renders the footer pages.
     """
     return _page_menu(context, parent_page)
 

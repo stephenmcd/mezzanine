@@ -10,7 +10,8 @@
             "content": "<p>About us</p>", 
             "content_model": "pages",
             "titles": "About", 
-            "slug": "about"
+            "slug": "about",
+            "in_navigation": true
         }
     }, 
     {
@@ -24,7 +25,8 @@
             "content": "<p>Blog</p>", 
             "content_model": "pages",
             "titles": "Blog", 
-            "slug": "blog"
+            "slug": "blog",
+            "in_navigation": true
         }
     }, 
     {
@@ -38,7 +40,8 @@
             "content": "<p>Fill in the form below to get in touch with us.</p>", 
             "content_model": "form", 
             "titles": "Contact", 
-            "slug": "contact"
+            "slug": "contact",
+            "in_navigation": true
         }
     }
 ]

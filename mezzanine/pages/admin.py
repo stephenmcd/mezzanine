@@ -11,7 +11,8 @@ from mezzanine.core.admin import DisplayableAdmin
 
 
 form_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
-form_fieldsets[0][1]["fields"] += ("login_required",)
+form_fieldsets[0][1]["fields"] += (("in_navigation", "in_footer"), 
+    "login_required",)
 
 
 class PageAdmin(DisplayableAdmin):
