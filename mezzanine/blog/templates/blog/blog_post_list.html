@@ -16,6 +16,8 @@
 <p id="description">
 {% if tag %}
     {% trans "Viewing posts tagged" %} {{ tag }}
+{% else %}{% if category %}
+    {% trans "Viewing posts for the category" %} {{ category }}
 {% else %}{% if year or month %}
     {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
     {{ year }}
@@ -24,7 +26,7 @@
     {{ user.get_full_name|default:user.username }}
 {% else %}
     {{ BLOG_DESCRIPTION }}
-{% endif %}{% endif %}{% endif %}
+{% endif %}{% endif %}{% endif %}{% endif %}
 </p>
 
 {% for blog_post in blog_posts.object_list %}

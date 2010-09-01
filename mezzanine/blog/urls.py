@@ -14,6 +14,8 @@ urlpatterns = patterns("",
 # Blog patterns.
 urlpatterns += patterns("mezzanine.blog.views",
     url("^tag/(?P<tag>.*)/$", "blog_post_list", name="blog_post_list_tag"),
+    url("^category/(?P<category>.*)/$", "blog_post_list", 
+        name="blog_post_list_category"),
     url("^archive/(?P<year>\d{4})/(?P<month>\d{1,2})/$", "blog_post_list",
         name="blog_post_list_month"),
     url("^author/(?P<username>.*)/$", "blog_post_list",

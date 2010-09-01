@@ -12,7 +12,7 @@ from django.utils.simplejson import loads
 from mezzanine import settings as blog_settings
 from mezzanine import template
 from mezzanine.blog.forms import BlogPostForm
-from mezzanine.blog.models import Comment, BlogPost
+from mezzanine.blog.models import BlogPost, BlogCategory, Comment
 from mezzanine.core.models import Keyword
 
 
@@ -64,6 +64,15 @@ def blog_months(*args):
     """
     return BlogPost.objects.published().dates("publish_date", "month",
         order="DESC")
+
+
+@register.as_tag
+def blog_categories(*args):
+    """
+    Put a list of categories for blog posts into the template context.
+    """
+    posts = BlogPost.objects.published()
+    return BlogCategory.objects.filter(blogposts__in=posts)
 
 
 @register.as_tag

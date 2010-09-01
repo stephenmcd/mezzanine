@@ -62,7 +62,7 @@
     {% trans "Tags" %}: 
     <ul>
         {% for tag in tags %}
-        <li><a href="{% url blog_post_list_tag tag %}" 
+        <li><a href="{% url blog_post_list_tag tag.slug %}" 
             class="tag-weight-{{ tag.weight }}">{{ tag }}</a></li>
         {% endfor %}
     </ul>

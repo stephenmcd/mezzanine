@@ -51,7 +51,7 @@ class Command(BaseCommand):
                     status=CONTENT_STATUS_PUBLISHED,
                     publish_date=datetime.strptime(entry["date"], date_format))
                 for tag in entry["tags"]:
-                    keyword, created = Keyword.objects.get_or_create(value=tag)
+                    keyword, created = Keyword.objects.get_or_create(title=tag)
                     post.keywords.add(keyword)
                 post.set_searchable_keywords()
                 redirect, created = Redirect.objects.get_or_create(site=site,

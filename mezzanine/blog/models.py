@@ -6,7 +6,7 @@ from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.core.models import Displayable, Ownable
+from mezzanine.core.models import Displayable, Ownable, Slugged
 from mezzanine.blog.managers import CommentManager
 from mezzanine.settings import COMMENTS_DEFAULT_APPROVED
 
@@ -15,6 +15,9 @@ class BlogPost(Displayable, Ownable):
     """
     A blog post.
     """
+    
+    category = models.ForeignKey("BlogCategory", related_name="blogposts", 
+        blank=True, null=True)
 
     class Meta:
         verbose_name = "Blog post"
@@ -25,6 +28,19 @@ class BlogPost(Displayable, Ownable):
     def get_absolute_url(self):
         return ("blog_post_detail", (), {"slug": self.slug})
 
+
+class BlogCategory(Slugged):
+    """
+    A category for grouping blog posts into a series.
+    """
+
+    class Meta:
+        verbose_name = "Blog Category"
+        verbose_name_plural = "Blog Categories"
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("blog_post_list_category", (), {"slug": self.slug})
 
 class Comment(models.Model):
     """
