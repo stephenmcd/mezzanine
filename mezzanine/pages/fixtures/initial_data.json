@@ -4,14 +4,50 @@
         "model": "pages.page", 
         "fields": {
             "status": 2, 
+            "_order": 0, 
+            "parent": null, 
             "description": "<p>About us</p>", 
             "title": "About", 
-            "_order": 0, 
+            "in_footer": true, 
             "content": "<p>About us</p>", 
-            "content_model": "pages",
             "titles": "About", 
-            "slug": "about",
-            "in_navigation": true
+            "content_model": "pages", 
+            "in_navigation": true, 
+            "slug": "about"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "pages.page", 
+        "fields": {
+            "status": 2, 
+            "_order": 1, 
+            "parent": 1, 
+            "description": "<p>History</p>", 
+            "title": "History", 
+            "in_footer": true, 
+            "content": "<p>History</p>", 
+            "titles": "About / History", 
+            "content_model": "page", 
+            "in_navigation": true, 
+            "slug": "about/history"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "pages.page", 
+        "fields": {
+            "status": 2, 
+            "_order": 0, 
+            "parent": 1, 
+            "description": "<p>Team</p>", 
+            "title": "Team", 
+            "in_footer": true, 
+            "content": "<p>Team</p>", 
+            "titles": "About / Team", 
+            "content_model": "page", 
+            "in_navigation": true, 
+            "slug": "about/team"
         }
     }, 
     {
@@ -19,14 +55,33 @@
         "model": "pages.page", 
         "fields": {
             "status": 2, 
+            "_order": 1, 
+            "parent": null, 
             "description": "<p>Blog</p>", 
             "title": "Blog", 
-            "_order": 1, 
+            "in_footer": true, 
             "content": "<p>Blog</p>", 
-            "content_model": "pages",
             "titles": "Blog", 
-            "slug": "blog",
-            "in_navigation": true
+            "content_model": "pages", 
+            "in_navigation": true, 
+            "slug": "blog"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "pages.page", 
+        "fields": {
+            "status": 2, 
+            "_order": 0, 
+            "parent": 3, 
+            "description": "<p>Legals</p>", 
+            "title": "Legals", 
+            "in_footer": true, 
+            "content": "<p>Legals</p>", 
+            "titles": "Contact / Legals", 
+            "content_model": "page", 
+            "in_navigation": true, 
+            "slug": "contact/legals"
         }
     }, 
     {
@@ -34,14 +89,16 @@
         "model": "pages.page", 
         "fields": {
             "status": 2, 
+            "_order": 2, 
+            "parent": null, 
             "description": "<p>Fill in the form below to get in touch with us.</p>", 
             "title": "Contact", 
-            "_order": 2, 
+            "in_footer": true, 
             "content": "<p>Fill in the form below to get in touch with us.</p>", 
-            "content_model": "form", 
             "titles": "Contact", 
-            "slug": "contact",
-            "in_navigation": true
+            "content_model": "form", 
+            "in_navigation": true, 
+            "slug": "contact"
         }
     }
 ]
