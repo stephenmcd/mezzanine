@@ -38,11 +38,15 @@
         #grid-left li {display:block; margin:5px 30px;}
         #grid-left ul ul li {list-style-type:disc; font-size:80%;}
         #grid-right li {display:block; margin-top:3px;}
-        #grid-bottom {background:#666; text-align:center; float:left; 
-            width:100%; padding:30px;}
-        #grid-bottom .middle {width:430px; margin:0 auto;}
-        #grid-bottom ul {float:left;}
-        #grid-bottom li {display:block; text-align:left; margin:5px;
+
+        #grid-bottom {background:#666; float:left;}
+        #grid-bottom .grid {background:#444; border:1px solid #333;
+            border-top:0px; border-bottom:0px;}
+
+        #grid-bottom ul {margin:0 30px;}
+        #grid-bottom ul ul {margin:0;}
+        #grid-bottom li {float:left;}
+        #grid-bottom li li {clear:both; text-align:left; margin:5px;
             border-top:1px solid #333; width:100px; background:#555; 
             padding:5px 10px;}
         
@@ -141,7 +145,10 @@
     </div>
     <div class="clear">&nbsp;</div> 
 </div>
-<div id="grid-bottom"><div class="middle">{% footer_menu %}</div></div>
+
+<div id="grid-bottom" class="container_12">
+    <div class="grid_6 push_3 grid">{% footer_menu %}</div>
+</div>
 
 {% load_settings GOOGLE_ANALYTICS_ID %}
 {% if GOOGLE_ANALYTICS_ID %}
