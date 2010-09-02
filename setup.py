@@ -16,7 +16,6 @@ for e in exclude:
         os.remove(e)
     except:
         pass
-print os.listdir("mezzanine/project_template")
 
 from setuptools import setup, find_packages
 
