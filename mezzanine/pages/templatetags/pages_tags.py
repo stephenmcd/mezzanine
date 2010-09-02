@@ -30,6 +30,7 @@ def _page_menu(context, parent_page):
             except KeyError:
                 slug = ""
             setattr(page, "selected", slug.startswith(page.slug))
+            setattr(page, "primary", page.parent_id is None)
             pages[page.parent_id].append(page)
         context["menu_pages"] = pages
     if parent_page is not None:

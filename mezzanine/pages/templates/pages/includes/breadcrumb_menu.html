@@ -5,7 +5,7 @@
 {% ifnotequal request.path home_url %}
 {% for page in page_branch %}
 
-    {% if not page.parent_id and forloop.first %}
+    {% if page.primary and forloop.first %}
     <ul>
     <li><a href="{% url home %}">{% trans "Home" %}</a> &gt;</li>
     {% endif %}
@@ -22,7 +22,7 @@
     {% breadcrumb_menu page %}
     {% endif %}
 
-    {% if not page.parent_id and forloop.last %}
+    {% if page.primary and forloop.last %}
     </ul>
     {% endif %}
 

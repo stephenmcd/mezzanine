@@ -4,7 +4,7 @@
 {% url home as home_url %}
 <ul>
 	{% for page in page_branch %}
-	{% if not page.parent_id and forloop.first %}
+	{% if page.primary and forloop.first %}
 	<li class="first{% ifequal request.path home_url %} active{% endifequal %}">
 	    <a href="{% url home %}">{% trans "Home" %}</a>
 	</li>
