@@ -39,7 +39,7 @@
         #grid-left ul ul li {list-style-type:disc; font-size:80%;}
         #grid-right li {display:block; margin-top:3px;}
 
-        #grid-bottom {background:#666; float:left;}
+        #grid-bottom, #grid-bottom .container_12 {background:#666;}
         #grid-bottom .grid {background:#444; border:1px solid #333;
             border-top:0px; border-bottom:0px;}
 
@@ -144,10 +144,13 @@
             href="http://mezzanine.jupo.org">Mezzanine</a></p>
     </div>
     <div class="clear">&nbsp;</div> 
-</div>
 
-<div id="grid-bottom" class="container_12">
-    <div class="grid_6 push_3 grid">{% footer_menu %}</div>
+</div>
+<div id="grid-bottom">
+    <div class="container_12">
+        <div class="grid_6 push_3 grid">{% footer_menu %}</div>
+        <div class="clear">&nbsp;</div> 
+    </div>
 </div>
 
 {% load_settings GOOGLE_ANALYTICS_ID %}
