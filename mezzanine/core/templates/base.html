@@ -41,14 +41,14 @@
 
         #grid-bottom, #grid-bottom .container_12 {background:#666;}
         #grid-bottom .grid {background:#444; border:1px solid #333;
-            border-top:0px; border-bottom:0px;}
+            border-top:0; border-bottom:0;}
 
         #grid-bottom ul {margin:0 30px;}
         #grid-bottom ul ul {margin:0;}
         #grid-bottom li {float:left;}
-        #grid-bottom li li {clear:both; text-align:left; margin:5px;
-            border-top:1px solid #333; width:100px; background:#555; 
-            padding:5px 10px;}
+        #grid-bottom li li {width:100px; clear:both; margin:5px;
+            border:1px solid #333; background:#555; padding:5px 10px;
+            border-right:0; border-bottom:0;}
         
         h2, p, #breadcrumb-menu, #description, .paging, .share,
           #comments, .comment {margin:20px 0;}
@@ -121,18 +121,18 @@
 <body id="{% block body_id %}{% endblock %}">
 
 <div id="grid-top">{% primary_menu %}</div>
-<div class="container_12">
+<div class="container_12 clearfix">
 
     <div id="grid-left" class="grid_3 grid">{% tree_menu %}</div>
 
     <div id="grid-middle" class="grid_6 grid">
-    <div class="gutter">
-        <h1>{% block title %}{% endblock %}</h1>
-        <div id="breadcrumb-menu">
-            {% block breadcrumb_menu %}{% breadcrumb_menu %}{% endblock %}
+        <div class="gutter">
+            <h1>{% block title %}{% endblock %}</h1>
+            <div id="breadcrumb-menu">
+                {% block breadcrumb_menu %}{% breadcrumb_menu %}{% endblock %}
+            </div>
+            {% block main %}{% endblock %}
         </div>
-        {% block main %}{% endblock %}
-    </div>
     </div>
 
     <div id="grid-right" class="grid_3 grid">
@@ -143,13 +143,11 @@
         <p class="mezzanine">Powered by <a 
             href="http://mezzanine.jupo.org">Mezzanine</a></p>
     </div>
-    <div class="clear">&nbsp;</div> 
 
 </div>
 <div id="grid-bottom">
-    <div class="container_12">
+    <div class="container_12 clearfix">
         <div class="grid_6 push_3 grid">{% footer_menu %}</div>
-        <div class="clear">&nbsp;</div> 
     </div>
 </div>
 
