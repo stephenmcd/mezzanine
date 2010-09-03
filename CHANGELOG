@@ -1,3 +1,25 @@
+Version 0.7.3 (Sep 03, 2010)
+----------------------------
+
+  * Remove print debug from setup.py - stephenmcd
+  * Alignment fixes to the footer menu - stephenmcd
+  * More footer style updates - stephenmcd
+
+Version 0.7.2 (Sep 02, 2010)
+----------------------------
+
+  * Refactor mezzanine.template to use functools.wraps - stephenmcd
+  * Move local_settings module into a template - stephenmcd
+  * Align TinyMCE width with other admin fields - stephenmcd
+  * Refactor slug creation functionality out of ``Displayable`` model into ``Slugged`` model - stephenmcd
+  * Add ``BlogCategory`` model and associated functionality - stephenmcd
+  * Added BooleanField ``in_navigation`` and ``in_footer`` to ``Page`` model to allow for controlling navigation placement of pages - stephenmcd
+  * Bugfix to slug fields - change to CharField to allow slashes - stephenmcd
+  * Better styling for the footer nav - stephenmcd
+  * Add a ``primary`` attrib for page objects in menu templates - stephenmcd
+  * More styling enhancements to footer menu - stephenmcd
+  * Add new fixtures for demonstrating footer menu - stephenmcd
+
 Version 0.7.1 (Aug 30, 2010)
 ----------------------------
 
@@ -5,7 +27,7 @@ Version 0.7.1 (Aug 30, 2010)
   * CSS tweaks to default templates - stephenmcd
   * Bugfix to mobile middleware for view functions without keyword args - stephenmcd
 
-Version 0.7 (Aug 30, 2010)
+Version 0.7 (Aug 29, 2010)
 --------------------------
 
   * Add Van Lindberg to AUTHORS - stephenmcd
@@ -146,7 +168,7 @@ Version 0.4 (Jul 11, 2010)
   * Save blog commenter's details in a cookie - stephenmcd
   * Bugfix to links in recent comments section of admin dashboard - stephenmcd
 
-Version 0.3.5 (Jul 09, 2010)
+Version 0.3.5 (Jul 08, 2010)
 ----------------------------
 
   * Bugfix to page template missing tag library - stephenmcd
@@ -164,12 +186,12 @@ Version 0.3.4 (Jul 08, 2010)
   * Cleaned up interface for custom tag types - stephenmcd
   * Update docs with references to new modules and version bump - stephenmcd
 
-Version 0.3.3 (Jul 07, 2010)
+Version 0.3.3 (Jul 06, 2010)
 ----------------------------
 
   * No changes listed.
 
-Version 0.3.2 (Jul 07, 2010)
+Version 0.3.2 (Jul 06, 2010)
 ----------------------------
 
   * Ignore uploads directory in repo - stephenmcd
@@ -185,7 +207,7 @@ Version 0.3.2 (Jul 07, 2010)
   * change tabs to spaces - lexual
   * changed tabs to spaces (only where there was a mixture of the 2, not when just tabs in file - lexual
 
-Version 0.3.1 (Jul 05, 2010)
+Version 0.3.1 (Jul 04, 2010)
 ----------------------------
 
   * Fixed some spelling mistakes throughout docs - stephenmcd
@@ -196,7 +218,7 @@ Version 0.3.1 (Jul 05, 2010)
   * Added management command to blog app for migrating a Tumblr blog - stephenmcd
   * Allow members of mezzanine.settings to be defined in the project's settings module prefixed with MEZZANINE_ - stephenmcd
 
-Version 0.3.0 (Jul 04, 2010)
+Version 0.3.0 (Jul 03, 2010)
 ----------------------------
 
   * Added section to README about the mailing list - stephenmcd
@@ -292,7 +314,7 @@ Version 0.1.3 (Jun 14, 2010)
   * Added setting PAGES_MENU_SHOW_ALL to control whether all levels in page menu are shown by default - stephenmcd
   * Changed manual file exclusion in setuptools script to maintain owner and permissions - stephenmcd
 
-Version 0.1.2 (Jun 11, 2010)
+Version 0.1.2 (Jun 10, 2010)
 ----------------------------
 
   * Remove local settings module from repo and packaging - stephenmcd
