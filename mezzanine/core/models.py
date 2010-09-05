@@ -9,7 +9,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.managers import DisplayableManager, KeywordManager
-from mezzanine import settings as blog_settings
+from mezzanine.settings import CONTENT_STATUS_CHOICES, CONTENT_STATUS_DRAFT
 from mezzanine.utils import base_concrete_model
 
 
@@ -68,8 +68,7 @@ class Displayable(Slugged):
     content = HtmlField(_("Content"))
     description = HtmlField(_("Description"), blank=True)
     status = models.IntegerField(_("Status"),
-        choices=blog_settings.CONTENT_STATUS_CHOICES,
-        default=blog_settings.CONTENT_STATUS_DRAFT)
+        choices=CONTENT_STATUS_CHOICES, default=CONTENT_STATUS_DRAFT)
     publish_date = models.DateTimeField(_("Published from"), 
         help_text=_("With published selected, won't be shown until this time"),
         blank=True, null=True)
@@ -96,12 +95,21 @@ class Displayable(Slugged):
             # quick blog form in the admin dashboard.
             self.publish_date = datetime.now()
         if not self.description:
-            for s in ("</p>", "\n", ". "):
-                if s in self.content:
-                    self.description = self.content.split(s)[0] + s
+            for field_type in (HtmlField, models.TextField):
+                if not self.description:
+                    for field in self._meta.fields:
+                        if isinstance(field, field_type):
+                            self.description = getattr(self, field.name)
+                            if self.description:
+                                break
+            if not self.description:
+                self.description = self.title
+            for end in ("</p>", "<br />", "\n", ". "):
+                if end in self.description:
+                    self.description = self.description.split(end)[0] + end
                     break
             else:
-                self.description = truncatewords_html(self.content, 100)
+                self.description = truncatewords_html(self.description, 100)
         super(Displayable, self).save(*args, **kwargs)
 
     def set_searchable_keywords(self):
