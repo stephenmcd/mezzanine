@@ -91,7 +91,7 @@ class FormAdmin(PageAdmin, OrderableAdmin):
             if field.field_type == "FileField":
                 file_field_ids.append(field.id)
         entry_time_name = FormEntry._meta.get_field("entry_time").verbose_name
-        columns.append(unicode(entry_time_name))
+        columns.append(unicode(entry_time_name).encode("utf-8"))
         csv.writerow(columns)
         # Loop through each field value order by entry, building up each
         # entry as a row.
