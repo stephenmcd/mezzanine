@@ -49,6 +49,14 @@ class Tests(TestCase):
         """
         self.assertTrue(Page.objects.get(slug=BLOG_SLUG).overridden())
 
+    def test_description(self):
+        """
+        Test generated description is first line of content.
+        """
+        description = "<p>How now brown cow</p>"
+        page = Page.objects.create(title="Draft", content=description * 3)
+        self.assertEqual(page.description, description)
+
     def test_mobile_middleware(self):
         """
         Test that an alternate template is rendered when a mobile device is
