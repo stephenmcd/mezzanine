@@ -84,7 +84,10 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
             response.set_cookie(commenter_cookie_prefix + field,
                 request.POST.get(field, ""), expires=expires)
         return response
-    blog_page = Page.objects.get(slug=reverse("blog_post_list").strip("/"))
+    try:
+        blog_page = Page.objects.get(slug=reverse("blog_post_list").strip("/"))
+    except Page.DoesNotExist:
+        blog_page = None
     context = {"blog_post": blog_post, "blog_page": blog_page, "use_disqus": 
         use_disqus, "posted_comment_form": posted_comment_form, 
         "unposted_comment_form": unposted_comment_form}
