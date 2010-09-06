@@ -24,11 +24,11 @@ def _page_menu(context, parent_page):
             user = context["request"].user
         except KeyError:
             user = None
+        try:
+            slug = context["request"].path.strip("/")
+        except KeyError:
+            slug = ""
         for page in Page.objects.published(for_user=user).order_by("_order"):
-            try:
-                slug = context["request"].path.strip("/")
-            except KeyError:
-                slug = ""
             setattr(page, "selected", slug.startswith(page.slug))
             setattr(page, "primary", page.parent_id is None)
             pages[page.parent_id].append(page)
