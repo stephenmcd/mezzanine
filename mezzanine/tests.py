@@ -47,7 +47,8 @@ class Tests(TestCase):
         True for its overriden property. The blog page from the fixtures
         should classify as this case.
         """
-        self.assertTrue(Page.objects.get(slug=BLOG_SLUG).overridden())
+        blog_page, created = Page.objects.get_or_create(slug=BLOG_SLUG)
+        self.assertTrue(blog_page.overridden())
 
     def test_description(self):
         """
