@@ -113,10 +113,10 @@ class Tests(TestCase):
 
     def test_page_menu(self):
         """
-        Test that rendering the page menu executes the same number of queries
+        Test that rendering a page menu executes the same number of queries
         regardless of the number of pages or levels of children.
         """
-        template = "{% load pages_tags %}{% page_menu %}"
+        template = "{% load pages_tags %}{% tree_menu %}"
         before = self.queries_used_for_template(template)
         self.create_recursive_objects(Page, "parent", title="Page",
             status=CONTENT_STATUS_PUBLISHED)

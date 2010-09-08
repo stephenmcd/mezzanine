@@ -13,59 +13,29 @@ from mezzanine import settings as blog_settings
 from mezzanine.utils import base_concrete_model
 
 
-class Displayable(models.Model):
+class Slugged(models.Model):
     """
-    Abstract model that provides features of a visible page on the website
-    such as auto slug creation, meta data and publishing fields.
+    Abstract model that handles auto-generating slugs.
     """
 
     title = models.CharField(_("Title"), max_length=100)
-    content = HtmlField(_("Content"))
-    description = HtmlField(_("Description"), blank=True)
-    status = models.IntegerField(_("Status"),
-        choices=blog_settings.CONTENT_STATUS_CHOICES,
-        default=blog_settings.CONTENT_STATUS_DRAFT)
-    publish_date = models.DateTimeField(_("Published from"), blank=True,
-        help_text=_("With published selected, won't be shown until this time"),
-        default=datetime.now)
-    slug = models.SlugField(_("URL"), max_length=100, blank=True, null=True)
-    keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
-        blank=True)
-    _keywords = models.CharField(max_length=500, editable=False)
-    short_url = models.URLField(blank=True, null=True)
-
-    objects = DisplayableManager()
-    search_fields = {"_keywords": 10, "title": 5, "content": 1}
+    slug = models.CharField(_("URL"), max_length=100, blank=True, null=True)
 
     class Meta:
         abstract = True
+        ordering = ("title",)
 
     def __unicode__(self):
         return self.title
 
-    def natural_key(self):
-        return (self.slug,)
-
     def save(self, *args, **kwargs):
         """
-        Create the description from the content if none given, and create a
-        unique slug from the title by appending an index.
+        Create a unique slug from the title by appending an index.
         """
-        if self.publish_date is None:
-            # publish_date will be blank when a blog post is created from the
-            # quick blog form in the admin dashboard.
-            self.publish_date = datetime.now()
-        if not self.description:
-            for s in ("</p>", "\n", ". "):
-                if s in self.content:
-                    self.description = self.content.split(s)[0] + s
-                    break
-            else:
-                self.description = truncatewords_html(self.content, 100)
         if not self.slug:
             # For custom content types, use the ``Page`` instance for slug
             # lookup.
-            concrete_model = base_concrete_model(Displayable, self)
+            concrete_model = base_concrete_model(Slugged, self)
             self.slug = self.get_slug()
             i = 0
             while True:
@@ -81,6 +51,57 @@ class Displayable(models.Model):
                 except ObjectDoesNotExist:
                     break
                 i += 1
+        super(Slugged, self).save(*args, **kwargs)
+
+    def natural_key(self):
+        return (self.slug,)
+
+    def get_slug(self):
+        return slugify(self.title)
+
+class Displayable(Slugged):
+    """
+    Abstract model that provides features of a visible page on the website
+    such as meta data and publishing fields.
+    """
+
+    content = HtmlField(_("Content"))
+    description = HtmlField(_("Description"), blank=True)
+    status = models.IntegerField(_("Status"),
+        choices=blog_settings.CONTENT_STATUS_CHOICES,
+        default=blog_settings.CONTENT_STATUS_DRAFT)
+    publish_date = models.DateTimeField(_("Published from"), 
+        help_text=_("With published selected, won't be shown until this time"),
+        blank=True, null=True)
+    expiry_date = models.DateTimeField(_("Expires on"), 
+        help_text=_("With published selected, won't be shown after this time"),
+        blank=True, null=True)
+    keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
+        blank=True)
+    _keywords = models.CharField(max_length=500, editable=False)
+    short_url = models.URLField(blank=True, null=True)
+
+    objects = DisplayableManager()
+    search_fields = {"_keywords": 10, "title": 5, "content": 1}
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        """
+        Create the description from the content if none given.
+        """
+        if self.publish_date is None:
+            # publish_date will be blank when a blog post is created from the
+            # quick blog form in the admin dashboard.
+            self.publish_date = datetime.now()
+        if not self.description:
+            for s in ("</p>", "\n", ". "):
+                if s in self.content:
+                    self.description = self.content.split(s)[0] + s
+                    break
+            else:
+                self.description = truncatewords_html(self.content, 100)
         super(Displayable, self).save(*args, **kwargs)
 
     def set_searchable_keywords(self):
@@ -88,11 +109,8 @@ class Displayable(models.Model):
         Stores the keywords as a single string into the ``_keywords`` field
         for convenient access when searching.
         """
-        self._keywords = " ".join([kw.value for kw in self.keywords.all()])
+        self._keywords = " ".join([kw.title for kw in self.keywords.all()])
         self.save()
-
-    def get_slug(self):
-        return slugify(self.title)
 
     def admin_link(self):
         return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
@@ -189,23 +207,15 @@ class Ownable(models.Model):
         return request.user.is_superuser or request.user.id == self.user_id
 
 
-class Keyword(models.Model):
+class Keyword(Slugged):
     """
     Keywords/tags which are managed via a custom Javascript based widget in the
     admin.
     """
-
-    value = models.CharField(max_length=50)
 
     objects = KeywordManager()
 
     class Meta:
         verbose_name = "Keyword"
         verbose_name_plural = "Keywords"
-        ordering = ("value",)
 
-    def __unicode__(self):
-        return self.value
-
-    def natural_key(self):
-        return (self.value,)

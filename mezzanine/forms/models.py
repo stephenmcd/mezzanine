@@ -15,11 +15,15 @@ FIELD_CHOICES = (
     ("CharField/django.forms.Textarea", _("Multi line text")),
     ("EmailField", _("Email")),
     ("BooleanField", _("Check box")),
+    ("MultipleChoiceField/django.forms.CheckboxSelectMultiple", 
+        _("Check boxes")),
     ("ChoiceField", _("Drop down")),
     ("MultipleChoiceField", _("Multi select")),
+    ("ChoiceField/django.forms.RadioSelect", _("Radio buttons")),
     ("FileField", _("File upload")),
     ("DateField/django.forms.extras.SelectDateWidget", _("Date")),
     ("DateTimeField", _("Date/time")),
+    ("CharField/django.forms.HiddenInput", _("Hidden")),
 )
 
 
@@ -28,6 +32,8 @@ class Form(Page):
     A user-built form.
     """
 
+    button_text = models.CharField(_("Button text"), max_length=50, 
+        default=_("Submit"))
     response = HtmlField(_("Response"))
     send_email = models.BooleanField(_("Send email"), default=True,
         help_text=_("If checked, the person entering the form will be sent an "
@@ -64,6 +70,8 @@ class Field(Orderable):
     visible = models.BooleanField(_("Visible"), default=True)
     choices = models.CharField(_("Choices"), max_length=1000, blank=True,
         help_text="Comma separated options where applicable")
+    default = models.CharField(_("Default value"), blank=True, 
+        max_length=FIELD_MAX_LENGTH)
 
     objects = FieldManager()
 

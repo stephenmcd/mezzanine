@@ -8,7 +8,7 @@
 				<span class="icon open">+</span>
 				<span class="icon close">-</span>
 			</a>
-			<a href="{% url admin:pages_page_change page.id %}{% if page.parent_id %}?parent={{ page.parent_id }}{% endif %}"
+			<a href="{% url admin:pages_page_change page.id %}{% if not page.primary %}?parent={{ page.parent_id }}{% endif %}"
 				class="changelink">{{ page.title }}</a>
 			<span class="ordering">
 			    <img src="{% admin_media_prefix %}img/admin/arrow-up.gif" />
@@ -23,7 +23,7 @@
 		    </select>
 		</div>
 		<br clear="all" />
-		{% page_menu_admin page %}
+		{% tree_menu_admin page %}
 	</li>
 	{% endfor %}
 </ul>

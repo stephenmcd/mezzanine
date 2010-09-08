@@ -21,15 +21,30 @@ register = template.Library()
 
 
 @register.simple_tag
-def setting(setting_name):
+def setting(setting_name, called_internally=False):
     """
     Return a setting.
     """
+    if not called_internally:
+        import warnings
+        warnings.warn(
+            "The ``setting`` tag will be deprecated - " \
+            "please use the ``load_settings`` tag.", DeprecationWarning)
     value = getattr(mezzanine_settings, setting_name,
         getattr(settings, setting_name, None))
     if value is None:
         value = ""
     return value
+
+
+@register.render_tag
+def load_settings(context, token):
+    """
+    Push the given setting names into the context.
+    """
+    for setting_name in token.split_contents()[1:]:
+        context[setting_name] = setting(setting_name, called_internally=True)
+    return ""
 
 
 @register.render_tag

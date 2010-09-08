@@ -44,6 +44,9 @@ def create_project():
     from_path = os.path.join(mezzanine_path, "project_template")
     to_path = os.path.join(os.getcwd(), project_name)
     shutil.copytree(from_path, to_path)
+    shutil.move(os.path.join(to_path, "local_settings.py.template"),
+        os.path.join(to_path, "local_settings.py"))
+
 
 if __name__ == "__main__":
     try:

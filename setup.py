@@ -1,12 +1,8 @@
 
-from setuptools import setup, find_packages
 import os
 
-from mezzanine import __version__ as version
-from mezzanine.project_template import settings
-
-
-exclude = ["mezzanine/project_template/mezzanine.db", ]
+exclude = ["mezzanine/project_template/mezzanine.db", 
+    "mezzanine/project_template/local_settings.py"]
 exclude = dict([(e, None) for e in exclude])
 for e in exclude:
     if e.endswith(".py"):
@@ -20,6 +16,11 @@ for e in exclude:
         os.remove(e)
     except:
         pass
+
+from setuptools import setup, find_packages
+
+from mezzanine import __version__ as version
+from mezzanine.project_template import settings
 
 try:
     setup(

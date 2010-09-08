@@ -25,7 +25,7 @@ fs = FileSystemStorage(location=UPLOAD_ROOT)
 
 # Copy the fieldsets for PageAdmin and add the extra fields for FormAdmin.
 form_fieldsets = deepcopy(PageAdmin.fieldsets)
-form_fieldsets[0][1]["fields"] += ("response",)
+form_fieldsets[0][1]["fields"] += ("button_text", "response",)
 form_fieldsets = list(form_fieldsets)
 form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from",
     "email_copies")}))
@@ -91,7 +91,7 @@ class FormAdmin(PageAdmin, OrderableAdmin):
             if field.field_type == "FileField":
                 file_field_ids.append(field.id)
         entry_time_name = FormEntry._meta.get_field("entry_time").verbose_name
-        columns.append(unicode(entry_time_name))
+        columns.append(unicode(entry_time_name).encode("utf-8"))
         csv.writerow(columns)
         # Loop through each field value order by entry, building up each
         # entry as a row.

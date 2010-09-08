@@ -1,4 +1,3 @@
-
 from collections import defaultdict
 
 #from django import template
@@ -31,6 +30,7 @@ def _page_menu(context, parent_page):
             except KeyError:
                 slug = ""
             setattr(page, "selected", slug.startswith(page.slug))
+            setattr(page, "primary", page.parent_id is None)
             pages[page.parent_id].append(page)
         context["menu_pages"] = pages
     if parent_page is not None:
@@ -40,18 +40,44 @@ def _page_menu(context, parent_page):
     return context
 
 
-@register.inclusion_tag("pages/includes/page_menu.html", takes_context=True)
-def page_menu(context, parent_page=None):
+@register.inclusion_tag("pages/includes/tree_menu.html", takes_context=True)
+def tree_menu(context, parent_page=None):
     """
-    Public page menu.
+    Tree menu that renders all pages in the navigation hierarchically.
     """
     return _page_menu(context, parent_page)
 
 
-@register.inclusion_tag("admin/includes/page_menu.html", takes_context=True)
-def page_menu_admin(context, parent_page=None):
+@register.inclusion_tag("pages/includes/primary_menu.html", takes_context=True)
+def primary_menu(context, parent_page=None):
     """
-    Admin page menu.
+    Page menu that only renders the primary top-level pages.
+    """
+    return _page_menu(context, parent_page)
+
+
+@register.inclusion_tag("pages/includes/footer_menu.html", takes_context=True)
+def footer_menu(context, parent_page=None):
+    """
+    Page menu that only renders the footer pages.
+    """
+    return _page_menu(context, parent_page)
+
+
+@register.inclusion_tag("pages/includes/breadcrumb_menu.html", 
+    takes_context=True)
+def breadcrumb_menu(context, parent_page=None):
+    """
+    Page menu that only renders the pages that are parents of the current 
+    page, as well as the current page itself.
+    """
+    return _page_menu(context, parent_page)
+
+
+@register.inclusion_tag("admin/includes/tree_menu.html", takes_context=True)
+def tree_menu_admin(context, parent_page=None):
+    """
+    Admin tree menu for managing pages.
     """
     return _page_menu(context, parent_page)
 

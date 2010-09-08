@@ -18,10 +18,10 @@ def admin_keywords_submit(request):
     returns their IDs for use when saving a model with a keywords field.
     """
     ids = []
-    for value in request.POST.get("text_keywords", "").split(","):
-        value = "".join([c for c in value if c.isalnum() or c == "-"]).lower()
-        if value:
-            keyword, created = Keyword.objects.get_or_create(value=value)
+    for title in request.POST.get("text_keywords", "").split(","):
+        title = "".join([c for c in title if c.isalnum() or c == "-"]).lower()
+        if title:
+            keyword, created = Keyword.objects.get_or_create(title=title)
             ids.append(str(keyword.id))
     return HttpResponse(",".join(set(ids)))
 admin_keywords_submit = staff_member_required(admin_keywords_submit)

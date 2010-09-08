@@ -31,6 +31,14 @@
 </script>
 {% endblock %}
 
+{% block breadcrumb_menu %}
+<ul>
+    <li><a href="{% url home %}">{% trans "Home" %}</a> &gt;</li>
+    <li><a href="{% url blog_post_list %}">{{ blog_page.title }}</a> &gt;</li>
+    <li>{{ blog_post.title }}</li>
+</ul><br />
+{% endblock %}
+
 {% block main %}
 
 <em>
@@ -54,7 +62,7 @@
     {% trans "Tags" %}: 
     <ul>
         {% for tag in tags %}
-        <li><a href="{% url blog_post_list_tag tag %}" 
+        <li><a href="{% url blog_post_list_tag tag.slug %}" 
             class="tag-weight-{{ tag.weight }}">{{ tag }}</a></li>
         {% endfor %}
     </ul>

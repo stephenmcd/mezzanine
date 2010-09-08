@@ -1,4 +1,6 @@
 
+from copy import deepcopy
+
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -8,12 +10,19 @@ from mezzanine.pages.models import Page
 from mezzanine.core.admin import DisplayableAdmin
 
 
+form_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
+form_fieldsets[0][1]["fields"] += (("in_navigation", "in_footer"), 
+    "login_required",)
+
+
 class PageAdmin(DisplayableAdmin):
     """
     Admin class for the ``Page`` model and all subclasses of ``Page``. Handles
     redirections between admin interfaces for the ``Page`` model and its
     subclasses.
     """
+    
+    fieldsets = form_fieldsets
 
     def change_view(self, request, object_id, extra_context=None):
         """
