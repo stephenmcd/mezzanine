@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
 import os
-import shutil
 import sys
+from distutils.dir_util import copy_tree
+from shutil import move
 
 import mezzanine
 
@@ -43,9 +44,15 @@ def create_project():
     mezzanine_path = os.path.dirname(os.path.abspath(mezzanine.__file__))
     from_path = os.path.join(mezzanine_path, "project_template")
     to_path = os.path.join(os.getcwd(), project_name)
-    shutil.copytree(from_path, to_path)
-    shutil.move(os.path.join(to_path, "local_settings.py.template"),
+    copy_tree(from_path, to_path)
+    move(os.path.join(to_path, "local_settings.py.template"),
         os.path.join(to_path, "local_settings.py"))
+
+    to_path = os.path.join(to_path, "templates")
+    for app_dir in os.listdir(mezzanine_path):
+        template_dir = os.path.join(mezzanine_path, app_dir, "templates")
+        if os.path.isdir(template_dir):
+            copy_tree(template_dir, to_path)
 
 
 if __name__ == "__main__":
