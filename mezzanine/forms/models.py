@@ -72,6 +72,7 @@ class Field(Orderable):
         help_text="Comma separated options where applicable")
     default = models.CharField(_("Default value"), blank=True, 
         max_length=FIELD_MAX_LENGTH)
+    help_text = models.CharField(_("Help text"), blank=True, max_length=100)
 
     objects = FieldManager()
 
