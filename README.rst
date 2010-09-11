@@ -113,7 +113,7 @@ Quotes
 ======
 
   * "I am enjoying working with Mezzanine - it is good work." - `Van Lindberg`_
-  * "Impressed with mezzanine so far." - `Brad Montgomery`_
+  * "Impressed with Mezzanine so far." - `Brad Montgomery`_
   * "You need to check out the open source project Mezzanine. In one word: Elegant." - `Nick Hagianis`_
   * "Mezzanine looks pretty interesting - tempting to get me off Wordpress." - `Jesse Noller`_
   * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `Stephen White`_
