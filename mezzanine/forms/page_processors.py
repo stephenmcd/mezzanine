@@ -19,8 +19,12 @@ def form_processor(request, page):
         entry = form.save()
         fields = ["%s: %s" % (v.label, form.cleaned_data[k])
             for (k, v) in form.fields.items()]
-        subject = "%s - %s" % (page.form.title, entry.entry_time)
+        subject = page.form.email_subject
+        if not subject:
+            subject = "%s - %s" % (page.form.title, entry.entry_time)
         body = "\n".join(fields)
+        if page.form.email_message:
+            body = "%s\n\n%s" % (page.form.email_message, body)
         email_from = page.form.email_from or settings.DEFAULT_FROM_EMAIL
         email_to = form.email_to()
         if email_to and page.form.send_email:

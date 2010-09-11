@@ -28,7 +28,7 @@ form_fieldsets = deepcopy(PageAdmin.fieldsets)
 form_fieldsets[0][1]["fields"] += ("button_text", "response",)
 form_fieldsets = list(form_fieldsets)
 form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from",
-    "email_copies")}))
+    "email_copies", "email_subject", "email_message")}))
 # Merge the js files for OrderableAdmin and PageAdmin.
 FormMedia = deepcopy(OrderableAdmin.Media)
 FormMedia.js = PageAdmin.Media.js + [js for js in FormMedia.js if js not in
@@ -45,9 +45,9 @@ class FormAdmin(PageAdmin, OrderableAdmin):
         pass
 
     inlines = (FieldAdmin,)
-    list_display = ("title", "status", "email_from", "email_copies",)
+    list_display = ("title", "status", "email_copies",)
     list_display_links = ("title",)
-    list_editable = ("status", "email_from", "email_copies")
+    list_editable = ("status", "email_copies")
     list_filter = ("status",)
     search_fields = ("title", "content", "response", "email_from",
         "email_copies")

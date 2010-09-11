@@ -43,6 +43,8 @@ class Form(Page):
     email_copies = models.CharField(_("Send copies to"), blank=True,
         help_text=_("One or more email addresses, separated by commas"),
         max_length=200)
+    email_subject = models.CharField(_("Subject"), max_length=200, blank=True)
+    email_message = models.TextField(_("Message"), blank=True)
 
     class Meta:
         verbose_name = _("Form")
