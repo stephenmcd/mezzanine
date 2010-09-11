@@ -83,6 +83,20 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.blog.templatetags.blog_tags
    :members:
 
+``mezzanine.forms``
+=====================
+
+.. automodule:: mezzanine.forms
+
+.. automodule:: mezzanine.forms.models
+   :members:
+
+.. automodule:: mezzanine.forms.forms
+   :members:
+
+.. automodule:: mezzanine.forms.page_processors
+   :members:
+
 ``mezzanine.twitter``
 =====================
 
