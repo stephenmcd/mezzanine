@@ -81,7 +81,7 @@ def base_concrete_model(abstract, instance):
                 abstract = True
 
             def concrete(self):
-                return concrete_model_for(Abstract, self)
+                return base_concrete_model(Abstract, self)
 
         class Super(Abstract):
             pass
@@ -90,7 +90,7 @@ def base_concrete_model(abstract, instance):
             pass
 
         sub = Sub.objects.create()
-        sub.real_obj() # returns Super
+        sub.concrete() # returns Super
 
     In actual Mezzanine usage, this allows methods in the ``Displayable`` and
     ``Orderable`` abstract models to access the ``Page`` instance when
