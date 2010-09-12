@@ -16,10 +16,6 @@ def setting(setting_name, default_value):
 # Unregister these models installed by default (occurs in urlconf).
 setting("ADMIN_REMOVAL", ())
 
-# Blog feed settings.
-setting("BLOG_TITLE", "The Mezzanine Blog")
-setting("BLOG_DESCRIPTION", "The Mezzanine Blog")
-
 # Credentials for bit.ly URL shortening service.
 setting("BLOG_BITLY_USER", None)
 setting("BLOG_BITLY_KEY", None)
