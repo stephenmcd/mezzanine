@@ -18,8 +18,9 @@ $(function() {
     if (!grappelli) {
         parent = parent.parent();
     }
-    parent.append('<p class="add-another"><a href="#">Add another</a></p>');
-    $('.add-another').click(function() {
+    parent.append('<p class="add-another add-another-inline">' +
+        '<a href="#">Add another</a></p>');
+    $('.add-another-inline').click(function() {
         // Show a new inline when the 'Add another' link is clicked.
         var rows = $(this).parent().find(parentSelector + ' > *:hidden');
         $(rows[0]).show();
@@ -30,9 +31,9 @@ $(function() {
     });
     // Show the first hidden inline - grappelli's inline header is actually
     // part of the selector so for it we run this twice.
-    $('.add-another').click();
+    $('.add-another-inline').click();
     if (grappelli) {
-        $('.add-another').click();
+        $('.add-another-inline').click();
     }
 
 });
