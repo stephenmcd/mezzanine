@@ -1,0 +1,11 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags %}
+
+{% block main %}{{ block.super }}
+
+{% editable page.contentpage.content %}
+{{ page.contentpage.content|safe }}
+{% endeditable %}
+
+{% endblock %}

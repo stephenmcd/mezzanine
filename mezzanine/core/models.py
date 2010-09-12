@@ -62,11 +62,9 @@ class Slugged(models.Model):
 class Displayable(Slugged):
     """
     Abstract model that provides features of a visible page on the website
-    such as meta data and publishing fields.
+    such as publishing fields and meta data.
     """
 
-    content = HtmlField(_("Content"))
-    description = HtmlField(_("Description"), blank=True)
     status = models.IntegerField(_("Status"),
         choices=CONTENT_STATUS_CHOICES, default=CONTENT_STATUS_DRAFT)
     publish_date = models.DateTimeField(_("Published from"), 
@@ -75,13 +73,14 @@ class Displayable(Slugged):
     expiry_date = models.DateTimeField(_("Expires on"), 
         help_text=_("With published selected, won't be shown after this time"),
         blank=True, null=True)
+    description = HtmlField(_("Description"), blank=True)
     keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
         blank=True)
     _keywords = models.CharField(max_length=500, editable=False)
     short_url = models.URLField(blank=True, null=True)
 
     objects = DisplayableManager()
-    search_fields = {"_keywords": 10, "title": 5, "content": 1}
+    search_fields = {"_keywords": 10, "title": 5}
 
     class Meta:
         abstract = True
@@ -125,6 +124,19 @@ class Displayable(Slugged):
             ugettext("View on site"))
     admin_link.allow_tags = True
     admin_link.short_description = ""
+
+
+class Content(models.Model):
+    """
+    Provides a HTML field for manging general content and making it searchable.
+    """
+
+    content = HtmlField(_("Content"))
+
+    search_fields = ("content",)
+
+    class Meta:
+        abstract = True
 
 
 class OrderableBase(ModelBase):

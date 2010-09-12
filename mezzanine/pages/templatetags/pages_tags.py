@@ -90,7 +90,7 @@ def models_for_pages(*args):
     """
     page_models = []
     for model in get_models():
-        if issubclass(model, Page):
+        if model is not Page and issubclass(model, Page):
             setattr(model, "name", model._meta.verbose_name)
             setattr(model, "add_url", reverse("admin:%s_%s_add" %
                 (model._meta.app_label, model.__name__.lower())))

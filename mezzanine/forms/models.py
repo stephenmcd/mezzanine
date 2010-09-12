@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import HtmlField
-from mezzanine.core.models import Orderable
+from mezzanine.core.models import Orderable, Content
 from mezzanine.forms.settings import FIELD_MAX_LENGTH, LABEL_MAX_LENGTH
 from mezzanine.pages.models import Page
 
@@ -27,7 +27,7 @@ FIELD_CHOICES = (
 )
 
 
-class Form(Page):
+class Form(Page, Content):
     """
     A user-built form.
     """

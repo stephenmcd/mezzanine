@@ -10,6 +10,7 @@ from mezzanine.settings import COMMENTS_DISQUS_SHORTNAME
 
 blogpost_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 blogpost_fieldsets[0][1]["fields"].insert(1, "category")
+blogpost_fieldsets[0][1]["fields"].append("content")
 blogpost_radio_fields = deepcopy(DisplayableAdmin.radio_fields)
 blogpost_radio_fields["category"] = admin.HORIZONTAL
 
