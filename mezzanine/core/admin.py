@@ -16,7 +16,7 @@ content_media = lambda files: ["/%s/%s" % (media_url, f) for f in files]
 # For >= Django 1.2 include a backport of the collapse js which targets
 # earlier versions of the admin.
 displayable_js = ["js/tinymce_setup.js", "js/jquery-1.4.2.min.js",
-    "js/keywords_field.js"]
+    "js/keywords_field.js", "js/collapse_inline.js"]
 from django import VERSION
 if not (VERSION[0] <= 1 and VERSION[1] <= 1):
     displayable_js.append("js/collapse_backport.js")
