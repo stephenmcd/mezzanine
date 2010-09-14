@@ -143,9 +143,9 @@ def Import(mezzanine_user='', posts_list=[], date_format=None):
             
             post.comments.add(thecomment)
 
-def TestImport():
+def TestImport(mezzanine_user='fishera'):
     """
     Tests the import script
     """
-    #ImportBlogger(mezzanine_user='fishera', blog_id='8183712382911359730')
-    ImportBlogger(mezzanine_user='fishera', blog_id='')
+    ImportBlogger(mezzanine_user=mezzanine_user, blog_id='8183712382911359730')
+    #ImportBlogger(mezzanine_user=mezzanine_user, blog_id='')
