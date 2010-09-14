@@ -9,6 +9,8 @@ from mezzanine.blog.models import BlogPost, Comment
 from mezzanine.core.models import Keyword
 from mezzanine.settings import CONTENT_STATUS_PUBLISHED
 
+from django.core.management.base import BaseCommand, CommandError
+
 class Error(Exception):
     """
     Base class for errors in this module
@@ -28,6 +30,26 @@ class EmptyFeedError(Error):
         self.msg = msg
         self.url = url
 
+class FeedURLError(Error):
+    """
+    Exception raised in the case where the URL that is hit for the feed doesn't
+    return correctly at all
+    
+    Attributes:
+        http_code: http response code returned
+        msg: explanation of the error
+        url: url that was called
+    """
+    def __init__(self, msg, url, http_code):
+        self.msg = msg
+        self.url = url
+        self.http_code = http_code
+        
+    def __str__(self):
+        data = self.msg + " " + self.url
+        return data
+    
+    
 
 class BlogPostImport():
     """
@@ -61,18 +83,22 @@ class BlogCommentImport():
         self.body = body
         
 
-def ImportBlogger():
+def ImportBlogger(mezzanine_user='', blog_id=''):
     import blogger
 
-    posts_list, feed_url = blogger.GetBloggerPosts()
+    try:
+        posts_list, feed_url = blogger.GetBloggerPosts(blog_id)
+    except FeedURLError, err:
+        raise CommandError(err)
 
     if not posts_list:
         raise EmptyFeedError(msg='Blogger returned no data in the feed', url=feed_url)
     else:
-        Import(posts_list=posts_list, date_format = "%Y-%m-%dT%H:%M:%S.%f")
+        Import(mezzanine_user=mezzanine_user, posts_list=posts_list, 
+                date_format = "%Y-%m-%dT%H:%M:%S.%f")
     
     
-def Import(mezzanine_user='fishera', posts_list=[], date_format=None):
+def Import(mezzanine_user='', posts_list=[], date_format=None):
     """
     Does the actual import process into Mezzanine
     
@@ -100,7 +126,6 @@ def Import(mezzanine_user='fishera', posts_list=[], date_format=None):
             status=CONTENT_STATUS_PUBLISHED,
             publish_date=datetime.strptime(entry.publication_date, date_format) - timedelta(seconds = timezone))
         for tag in entry.tags:
-            pass
             keyword, created = Keyword.objects.get_or_create(title=tag)
             post.keywords.add(keyword)
         post.set_searchable_keywords()
@@ -118,3 +143,9 @@ def Import(mezzanine_user='fishera', posts_list=[], date_format=None):
             
             post.comments.add(thecomment)
 
+def TestImport():
+    """
+    Tests the import script
+    """
+    #ImportBlogger(mezzanine_user='fishera', blog_id='8183712382911359730')
+    ImportBlogger(mezzanine_user='fishera', blog_id='')

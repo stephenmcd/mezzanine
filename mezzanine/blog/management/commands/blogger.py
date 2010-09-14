@@ -2,18 +2,18 @@ from gdata import service
 import gdata
 import atom
 
+
 from datetime import datetime
-
-
-
 from importer import BlogPostImport, BlogCommentImport
 
-def GetBloggerPosts(blog_id = '8183712382911359730', server = 'www.blogger.com'):
+def GetBloggerPosts(blog_id = '', server = 'www.blogger.com'):
     """
     Gets posts from blogger and then formats them back into the standard
     style ready for importation into Mezzanine. Returns a list of BlogPostImport
     objects
     """
+    
+    from importer import FeedURLError
     
     blogger = service.GDataService()
     blogger.service = 'blogger'
@@ -22,7 +22,14 @@ def GetBloggerPosts(blog_id = '8183712382911359730', server = 'www.blogger.com')
     query.feed = '/feeds/' + blog_id + '/posts/full'
     query.max_results = 5
 	
-    feed = blogger.Get(query.ToUri())
+    try:
+        feed = blogger.Get(query.ToUri())
+    except gdata.service.RequestError, err:
+
+        message = "There was a service error. The response was: %(status)s %(reason)s - %(body)s" % err.message
+        raise FeedURLError(message, blogger.server + query.feed, err.message["status"])
+        return
+        
     total_posts = len(feed.entry)
 	
     print 'Importing %s POSTS from blogger atom feed at %s' % (total_posts, query.feed)
