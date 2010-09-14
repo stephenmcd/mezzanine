@@ -9,15 +9,15 @@ from mezzanine.settings import MOBILE_USER_AGENTS
 
 class MobileTemplate(object):
     """
-    If a mobile user agent is detected, inspect the default args for the view 
-    func, and if a template name is found assume it is the template arg and 
+    If a mobile user agent is detected, inspect the default args for the view
+    func, and if a template name is found assume it is the template arg and
     attempt to load a mobile template based on the original template name.
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
         user_agent = request.META.get("HTTP_USER_AGENT", "")
         if [check for check in MOBILE_USER_AGENTS if check in user_agent]:
             template = view_kwargs.get("template")
-            if template is None:
+            if template is None and view_func.func_defaults is not None:
                 for default in view_func.func_defaults:
                     if str(default).endswith(".html"):
                         template = default
@@ -32,9 +32,10 @@ class MobileTemplate(object):
                     return view_func(request, *view_args, **view_kwargs)
         return None
 
+
 class AdminLoginInterfaceSelector(object):
     """
-    Checks for a POST from the admin login view and if authentication is 
+    Checks for a POST from the admin login view and if authentication is
     successful and the "site" interface is selected, redirect to the site.
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
@@ -48,4 +49,3 @@ class AdminLoginInterfaceSelector(object):
             else:
                 return response
         return None
-

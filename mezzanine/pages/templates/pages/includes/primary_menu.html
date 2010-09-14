@@ -1,0 +1,19 @@
+{% load pages_tags i18n %}
+
+{% spaceless %}
+{% url home as home_url %}
+<ul>
+    {% for page in page_branch %}
+    {% if forloop.first %}
+    <li id="primary-menu-home" class="first{% ifequal request.path home_url %} active{% endifequal %}">
+        <a href="{% url home %}">{% trans "Home" %}</a>
+    </li>
+    {% endif %}
+    {% if page.in_navigation %}
+    <li id="primary-menu-{{ page.slug }}" class="{% if page.selected %}active{% endif %}{% if forloop.last %} last{% endif %}">
+        <a href="{% url page page.slug %}">{{ page.title }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endspaceless %}

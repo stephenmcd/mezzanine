@@ -13,10 +13,11 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ("name", "email", "website", "body",)
 
+
 class BlogPostForm(forms.ModelForm):
     """
-    Model form for ``BlogPost`` that provides the quick blog panel in the 
-    admin dashboard. 
+    Model form for ``BlogPost`` that provides the quick blog panel in the
+    admin dashboard.
     """
 
     class Meta:
@@ -26,4 +27,3 @@ class BlogPostForm(forms.ModelForm):
     def __init__(self):
         super(BlogPostForm, self).__init__()
         self.fields["status"].widget = forms.HiddenInput()
-

@@ -1,15 +1,29 @@
 {% extends "base.html" %}
 {% load i18n mezzanine_tags blog_tags %}
 
-{% block meta_title %}{% setting "BLOG_TITLE" %}{% endblock %}
-{% block meta_description %}{% setting "BLOG_DESCRIPTION" %}{% endblock %}
-{% block title %}{% setting "BLOG_TITLE" %}{% endblock %}
+{% block meta_title %}{{ blog_page.title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% for keyword in blog_page.keywords.all %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ blog_page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+{% editable blog_page.title %}{{ blog_page.title }}{% endeditable %}
+{% endblock %}
 
 {% block main %}
-
-<p id="blog-description">
+<p id="description">
 {% if tag %}
     {% trans "Viewing posts tagged" %} {{ tag }}
+{% else %}{% if category %}
+    {% trans "Viewing posts for the category" %} {{ category }}
 {% else %}{% if year or month %}
     {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
     {{ year }}
@@ -17,8 +31,10 @@
     {% trans "Viewing posts by" %} 
     {{ user.get_full_name|default:user.username }}
 {% else %}
-    {% setting "BLOG_DESCRIPTION" %}
-{% endif %}{% endif %}{% endif %}
+    {% editable blog_page.content %}
+    {{ blog_page.content|safe }}
+    {% endeditable %}
+{% endif %}{% endif %}{% endif %}{% endif %}
 </p>
 
 {% for blog_post in blog_posts.object_list %}
@@ -27,7 +43,7 @@
     <a href="{% url blog_post_detail blog_post.slug %}">{{ blog_post.title }}</a>
     {% endeditable %}
 </h2>
-<em>
+<em class="since">
     {% with blog_post.user as author %}
     <a href="{% url blog_post_list_author author %}">
         {{ author.first_name }} {{ author.last_name }}

@@ -11,17 +11,19 @@ class OrderWidget(forms.HiddenInput):
     """
     def render(self, *args, **kwargs):
         rendered = super(OrderWidget, self).render(*args, **kwargs)
-        arrows = ["<img src='%simg/admin/arrow-%s.gif' />" % 
+        arrows = ["<img src='%simg/admin/arrow-%s.gif' />" %
             (settings.ADMIN_MEDIA_PREFIX, arrow) for arrow in ("up", "down")]
         arrows = "<span class='ordering'>%s</span>" % "".join(arrows)
-        return rendered + mark_safe(arrows) 
+        return rendered + mark_safe(arrows)
+
 
 class OrderableAdminForm(forms.ModelForm):
     """
     Form for admin orderable inlines that uses the ``OrderableWidget``.
     """
-    _order = forms.CharField(label=_("Order"), widget=OrderWidget, 
+    _order = forms.CharField(label=_("Order"), widget=OrderWidget,
         required=False)
+
 
 def get_edit_form(obj, attr, data=None):
     """
@@ -42,7 +44,6 @@ def get_edit_form(obj, attr, data=None):
             model = obj.__class__
             fields = (attr,)
 
-    initial = {"app": obj._meta.app_label, "id": obj.id, "attr": attr, 
+    initial = {"app": obj._meta.app_label, "id": obj.id, "attr": attr,
         "model": obj._meta.object_name.lower()}
     return EditForm(instance=obj, initial=initial, data=data)
-    

@@ -6,7 +6,7 @@ class TweetManager(Manager):
 
     def get_for(self, user_name=None, list_name=None, search_term=None):
         """
-        Create a query and run it for the given arg if it doesn't exist, and 
+        Create a query and run it for the given arg if it doesn't exist, and
         return the tweets for the query.
         """
         if user_name is not None:
@@ -25,4 +25,3 @@ class TweetManager(Manager):
             query.interested = True
             query.save()
         return query.tweets.all()
-

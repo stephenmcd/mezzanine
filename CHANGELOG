@@ -1,3 +1,107 @@
+Version 0.7.3 (Sep 03, 2010)
+----------------------------
+
+  * Remove print debug from setup.py - stephenmcd
+  * Alignment fixes to the footer menu - stephenmcd
+  * More footer style updates - stephenmcd
+
+Version 0.7.2 (Sep 02, 2010)
+----------------------------
+
+  * Align TinyMCE width with other admin fields - stephenmcd
+  * Refactor slug creation functionality out of ``Displayable`` model into ``Slugged`` model - stephenmcd
+  * Add ``BlogCategory`` model and associated functionality - stephenmcd
+  * Added BooleanField ``in_navigation`` and ``in_footer`` to ``Page`` model to allow for controlling navigation placement of pages - stephenmcd
+  * Bugfix to slug fields - change to CharField to allow slashes - stephenmcd
+  * Better styling for the footer nav - stephenmcd
+  * Add a ``primary`` attrib for page objects in menu templates - stephenmcd
+  * More styling enhancements to footer menu - stephenmcd
+  * Add new fixtures for demonstrating footer menu - stephenmcd
+
+Version 0.7.1 (Aug 30, 2010)
+----------------------------
+
+  * Refactor mezzanine.template to use functools.wraps - stephenmcd
+  * Move local_settings module into a template - stephenmcd
+  * Add 960.gs to the feature list in README - stephenmcd
+  * CSS tweaks to default templates - stephenmcd
+  * Bugfix to mobile middleware for view functions without keyword args - stephenmcd
+
+Version 0.7 (Aug 29, 2010)
+--------------------------
+
+  * Add Van Lindberg to AUTHORS - stephenmcd
+  * Integrate 960.gs CSS framework into default templates - stephenmcd
+
+Version 0.6.4 (Aug 29, 2010)
+----------------------------
+
+  * Added hagianis.com and Mezzanine to sites list in README - stephenmcd
+  * Add quote from Van Lindberg to README - stephenmcd
+  * Update to Mezzanine 0.6 - VanL
+  * Update pages_tags to include comparisons and toplevel/breadcrumbs tags; added associated templates - VanL
+  * Backed out changeset: 8dac998c6f0c - stephenmcd
+  * Add ``expiry_date`` field to ``DisplayableAdmin`` - stephenmcd
+  * Change ``if`` tags in breadcrumbs and toplevel_menu templates to be Django 1.1 compatible, and to use the page.selected attribute rather than ``template_utils`` lib, allowing it to be removed from pages_tags - stephenmcd
+  * Use consistant naming for each type of page menu and include all types of page menus in default templates - stephenmcd
+  * Provide a template block for inserting the body's ID, cleanup menu templates and apply ``active`` class to menu links - stephenmcd
+  * Create a custom breadcrumb menu for blog posts - stephenmcd
+  * Replace the ``setting`` tag with a ``load_settings`` tag that takes a list of setting names and injects them into the template context - stephenmcd
+  * Bugfix template tag name for admin page menu - stephenmcd
+
+Version 0.6.3 (Aug 26, 2010)
+----------------------------
+
+  * Bugfix login redirect to be compatible with Django 1.2 - stephenmcd
+
+Version 0.6.2 (Aug 26, 2010)
+----------------------------
+
+  * More error handling to CHANGELOG generator - ensure hg repo also exists - stephenmcd
+  * Add a button_text field to forms model for editing the text of the form's submit button - stephenmcd
+  * Bugfix to forms button text - stephenmcd
+  * Add new field Displayable.expiry_date and relevant handling in PublishedManager.published - stephenmcd
+  * Add field for default values in forms app and new field types: Check boxes, Radio buttons, Hidden - stephenmcd
+  * Add login_required field to page model for restricting pages to authenticated users - stephenmcd
+
+Version 0.6.1 (Aug 23, 2010)
+----------------------------
+
+  * Update CHANGELOG generator to ignore commits that close a branch - stephenmcd
+  * Add forms builder to feature list n README - stephenmcd
+  * Remove natural keys from fixtures for Django 1.1 compatibility - stephenmcd
+  * Set ``TIME_ZONE`` to use the system timezone - stephenmcd
+  * Change CHANGELOG generator to fail silently when mercurial isn't installed - stephenmcd
+
+Version 0.6 (Aug 09, 2010)
+--------------------------
+
+  * Bugfix to mobile template test to allow for no template inheritance - stephenmcd
+  * Initial import of django-forms-builder - stephenmcd
+  * Bugfix to ``DisplayableAdmin.search_fields`` - stephenmcd
+  * Bugfix to orderable_inline.js to correctly detect dirty checkboxes - stephenmcd
+  * Move ``mezzanine.core.models.HtmlField`` to new module ``mezzanine.core.fields`` - stephenmcd
+  * Allow model/field passed to ``editable`` templatetag to contain extra dot notation - stephenmcd
+  * Convert forms_builder app to a Mezzanine content type - stephenmcd
+  * Bugfix for generating slugs with parent pages for subclasses of ``Page`` - stephenmcd
+  * Extend admin definitions from inherited admin classes for ``FormAdmin`` - stephenmcd
+  * Commented ``mezzanine.forms.admin`` - stephenmcd
+  * Added quote from Nick Hagianis to README - stephenmcd
+  * Updated sequence of classes in documentation to run correctly - thanks Nick Hagianis for picking this up - stephenmcd
+  * Handful of patches to correct bugs around creating slugs, titles and ordering for pages and their subclasses - stephenmcd
+  * Update default styles - stephenmcd
+  * Add a contact form to fixtures - stephenmcd
+  * Added built-in styling to form fields in forms app - stephenmcd
+  * spelling fixed in docs - lexual
+  * pep8: removing trailing whitespace from *.py - lexual
+  * pep8: blank lines at end of file - lexual
+  * pep8: formatting fixes so runs cleanly through pep8.py script - lexual
+  * Added quote from Brad Montgomery to README - stephenmcd
+  * Add link to BSD license definition in README - stephenmcd
+  * Added missing line in docs for in-line editing example - stephenmcd
+  * Fixed docs typo - stephenmcd
+  * Remove natural keys from fixtures for Django 1.1 compatibility - stephenmcd
+
 Version 0.5.4 (Jul 25, 2010)
 ----------------------------
 
@@ -8,7 +112,6 @@ Version 0.5.4 (Jul 25, 2010)
 Version 0.5.3 (Jul 24, 2010)
 ----------------------------
 
-  * Added more backward-compatible csrf handling - stephenmcd
   * Update changelog generator to exclude its own commit of the changelog - stephenmcd
   * Use names of packages from settings in setup script - stephenmcd
   * Make changelog generator in Sphinx conf list changesets within a version in chronological order - stephenmcd
@@ -22,6 +125,7 @@ Version 0.5.2 (Jul 22, 2010)
 ----------------------------
 
   * Allow interface selection on admin login screen to prepopulate from querystring - stephenmcd
+  * Added more backward-compatible csrf handling - stephenmcd
   * Added more robust handling for csrf and apply to forms - stephenmcd
   * Bugfix setting author of blog post in BlogPostAdmin to be compatible with DisplayableAdmin - stephenmcd
 
@@ -65,7 +169,7 @@ Version 0.4 (Jul 11, 2010)
   * Save blog commenter's details in a cookie - stephenmcd
   * Bugfix to links in recent comments section of admin dashboard - stephenmcd
 
-Version 0.3.5 (Jul 09, 2010)
+Version 0.3.5 (Jul 08, 2010)
 ----------------------------
 
   * Bugfix to page template missing tag library - stephenmcd
@@ -74,21 +178,21 @@ Version 0.3.5 (Jul 09, 2010)
 Version 0.3.4 (Jul 08, 2010)
 ----------------------------
 
-  * Added support for natural keys - stephenmcd
   * Add blog migration to feature list - stephenmcd
   * Bugfix ADMIN_MEDIA_PREFIX for grappelli on live sites - stephenmcd
+  * Added support for natural keys - stephenmcd
   * Bugfix to natural key format - stephenmcd
   * Formatting fix to README - stephenmcd
   * Cleaned up formatting of meta data - stephenmcd
   * Cleaned up interface for custom tag types - stephenmcd
   * Update docs with references to new modules and version bump - stephenmcd
 
-Version 0.3.3 (Jul 07, 2010)
+Version 0.3.3 (Jul 06, 2010)
 ----------------------------
 
   * No changes listed.
 
-Version 0.3.2 (Jul 07, 2010)
+Version 0.3.2 (Jul 06, 2010)
 ----------------------------
 
   * Ignore uploads directory in repo - stephenmcd
@@ -104,7 +208,7 @@ Version 0.3.2 (Jul 07, 2010)
   * change tabs to spaces - lexual
   * changed tabs to spaces (only where there was a mixture of the 2, not when just tabs in file - lexual
 
-Version 0.3.1 (Jul 05, 2010)
+Version 0.3.1 (Jul 04, 2010)
 ----------------------------
 
   * Fixed some spelling mistakes throughout docs - stephenmcd
@@ -115,7 +219,7 @@ Version 0.3.1 (Jul 05, 2010)
   * Added management command to blog app for migrating a Tumblr blog - stephenmcd
   * Allow members of mezzanine.settings to be defined in the project's settings module prefixed with MEZZANINE_ - stephenmcd
 
-Version 0.3.0 (Jul 04, 2010)
+Version 0.3.0 (Jul 03, 2010)
 ----------------------------
 
   * Added section to README about the mailing list - stephenmcd
@@ -211,7 +315,7 @@ Version 0.1.3 (Jun 14, 2010)
   * Added setting PAGES_MENU_SHOW_ALL to control whether all levels in page menu are shown by default - stephenmcd
   * Changed manual file exclusion in setuptools script to maintain owner and permissions - stephenmcd
 
-Version 0.1.2 (Jun 11, 2010)
+Version 0.1.2 (Jun 10, 2010)
 ----------------------------
 
   * Remove local settings module from repo and packaging - stephenmcd

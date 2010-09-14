@@ -11,4 +11,3 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         for query in Query.objects.filter(interested=True):
             query.run()
-

@@ -3,7 +3,7 @@ Overview
 ========
 
 Mezzanine is a content management platform built using the `Django`_ 
-framework. It is BSD licensed and designed to provide both a consistent 
+framework. It is `BSD licensed`_ and designed to provide both a consistent 
 interface for managing content, and a simple architecture that makes diving 
 in and hacking on the code as easy as possible.
 
@@ -26,6 +26,7 @@ provides the following features.
   * Drag-n-drop page ordering
   * WYSIWYG editing
   * `In-line page editing`_
+  * Drag-n-drop forms builder with CSV export
   * API for `custom content types`_
   * SEO friendly URLs and meta data
   * `Search engine and API`_
@@ -42,6 +43,7 @@ provides the following features.
   * Sharing via Facebook or Twitter
   * `Custom templates`_ per page or blog post
   * Built-in `test suite`_
+  * `960.gs`_ integration
 
 The Mezzanine admin dashboard:
 
@@ -73,7 +75,7 @@ Otherwise you can download Mezzanine and install it directly from source::
     $ python setup.py install
     
 Once installed, the command ``mezzanine-project`` should be available which 
-can be used for creating a new Mezzaine project in a similar fashion to 
+can be used for creating a new Mezzanine project in a similar fashion to 
 ``django-admin.py``::
 
     $ mezzanine-project project_name
@@ -104,14 +106,20 @@ Sites Using Mezzanine
 =====================
 
   * `Citrus Agency`_
+  * `Mezzanine Project`_ (self hosted)
+  * `Nick Hagianis`_
 
 Quotes
 ======
 
+  * "I am enjoying working with Mezzanine - it is good work." - `Van Lindberg`_
+  * "Impressed with Mezzanine so far." - `Brad Montgomery`_
+  * "You need to check out the open source project Mezzanine. In one word: Elegant." - `Nick Hagianis`_
   * "Mezzanine looks pretty interesting - tempting to get me off Wordpress." - `Jesse Noller`_
   * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `Stephen White`_
 
 .. _`Django`: http://djangoproject.com/
+.. _`BSD licensed`: http://www.linfo.org/bsdlicense.html
 .. _`Wordpress`: http://wordpress.org/
 .. _`Pinax`: http://pinaxproject.com/
 .. _`Mingus`: http://github.com/montylounge/django-mingus
@@ -124,6 +132,7 @@ Quotes
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
+.. _`960.gs`: http://960.gs/
 .. _`Disqus`: http://disqus.com/
 .. _`Gravatar`: http://gravatar.com/
 .. _`Google Analytics`: http://www.google.com/analytics/
@@ -134,6 +143,9 @@ Quotes
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users
 .. _`Github issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`Citrus Agency`: http://citrus.com.au/
+.. _`Mezzanine Project`: http://mezzanine.jupo.org/
+.. _`Van Lindberg`: http://www.lindbergd.info/
+.. _`Nick Hagianis`: http://hagianis.com/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
-
+.. _`Brad Montgomery`: http://bradmontgomery.net/

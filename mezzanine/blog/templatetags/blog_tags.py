@@ -12,7 +12,7 @@ from django.utils.simplejson import loads
 from mezzanine import settings as blog_settings
 from mezzanine import template
 from mezzanine.blog.forms import BlogPostForm
-from mezzanine.blog.models import Comment, BlogPost
+from mezzanine.blog.models import BlogPost, BlogCategory, Comment
 from mezzanine.core.models import Keyword
 
 
@@ -27,11 +27,13 @@ def gravatar_url(email_hash, size=32):
     return "http://www.gravatar.com/avatar/%s?s=%s" % (email_hash, size)
 
 thread_template = "blog/includes/comments_thread.html"
+
+
 @register.inclusion_tag(thread_template, takes_context=True)
 def blog_comments_for(context, parent):
     """
-    Return a list of child comments for the given parent, storing all 
-    comments in a dict in the context when first called using parents as keys 
+    Return a list of child comments for the given parent, storing all
+    comments in a dict in the context when first called using parents as keys
     for retrieval on subsequent recursive calls from the comments template.
     """
     if "blog_comments" not in context:
@@ -54,13 +56,24 @@ def blog_comments_for(context, parent):
     })
     return context
 
+
 @register.as_tag
 def blog_months(*args):
     """
     Put a list of dates for blog posts into the template context.
     """
-    return BlogPost.objects.published().dates("publish_date", "month", 
+    return BlogPost.objects.published().dates("publish_date", "month",
         order="DESC")
+
+
+@register.as_tag
+def blog_categories(*args):
+    """
+    Put a list of categories for blog posts into the template context.
+    """
+    posts = BlogPost.objects.published()
+    return BlogCategory.objects.filter(blogposts__in=posts)
+
 
 @register.as_tag
 def blog_tags(*args):
@@ -85,6 +98,7 @@ def blog_tags(*args):
         tag.weight = steps.index(c + diff) + 1
     return tags
 
+
 @register.as_tag
 def blog_authors(*args):
     """
@@ -92,6 +106,7 @@ def blog_authors(*args):
     """
     blog_posts = BlogPost.objects.published()
     return User.objects.filter(blogposts__in=blog_posts).distinct()
+
 
 @register.as_tag
 def quick_blog_form(*args):
@@ -102,14 +117,16 @@ def quick_blog_form(*args):
 
 DISQUS_FORUM_ID = None
 recent_comments_template = "admin/includes/recent_comments.html"
+
+
 @register.inclusion_tag(recent_comments_template, takes_context=True)
 def recent_comments(context):
     """
-    If the ``COMMENTS_DISQUS_SHORTNAME`` and ``COMMENTS_DISQUS_KEY`` settings 
-    have been set, pull the latest comments in from the Disqus API, using the 
-    global ``DISQUS_FORUM_ID`` so that this lookup occurs only once, 
-    transforming each comment into a dict that looks like the built-in 
-    ``Comment`` model. If these are not set then use the built-in ``Comment`` 
+    If the ``COMMENTS_DISQUS_SHORTNAME`` and ``COMMENTS_DISQUS_KEY`` settings
+    have been set, pull the latest comments in from the Disqus API, using the
+    global ``DISQUS_FORUM_ID`` so that this lookup occurs only once,
+    transforming each comment into a dict that looks like the built-in
+    ``Comment`` model. If these are not set then use the built-in ``Comment``
     model.
     """
 
@@ -128,7 +145,7 @@ def recent_comments(context):
         url = "http://disqus.com/api/%s/?%s" % (method, urlencode(args))
         response = loads(urlopen(url).read())
         return response["message"] if response["succeeded"] else []
-    
+
     if disqus_shortname and disqus_key:
         if DISQUS_FORUM_ID is None:
             forums = disqus_api("get_forum_list")
@@ -136,7 +153,7 @@ def recent_comments(context):
                 if forum["shortname"] == disqus_shortname:
                     DISQUS_FORUM_ID = forum["id"]
         if DISQUS_FORUM_ID is not None:
-            comments = disqus_api("get_forum_posts", forum_id=DISQUS_FORUM_ID, 
+            comments = disqus_api("get_forum_posts", forum_id=DISQUS_FORUM_ID,
                 limit=latest, exclude="spam,killed")
             posts = BlogPost.objects.in_bulk(map(post_from_comment, comments))
             for comment in comments:
@@ -149,7 +166,7 @@ def recent_comments(context):
                     "email": comment["author"]["email"],
                     "email_hash": comment["author"]["email_hash"],
                     "body": comment["message"],
-                    "time_created": datetime.strptime(comment["created_at"], 
+                    "time_created": datetime.strptime(comment["created_at"],
                         "%Y-%m-%dT%H:%M") - timedelta(seconds=timezone),
                     "post": blog_post,
                 })
@@ -157,4 +174,3 @@ def recent_comments(context):
         context["comments"] = Comment.objects.all().select_related(
             ).order_by("-id")[:latest]
     return context
-

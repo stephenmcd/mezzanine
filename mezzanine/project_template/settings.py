@@ -3,7 +3,7 @@
 DEBUG = False
 DEV_SERVER = False
 MANAGERS = ADMINS = ()
-TIME_ZONE = "Australia/Melbourne"
+TIME_ZONE = ""
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 LANGUAGE_CODE = "en"
 SITE_ID = 1
@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     "django.contrib.sites",
     "mezzanine.core",
     "mezzanine.blog",
+    "mezzanine.forms",
     "mezzanine.pages",
     "mezzanine.twitter",
 )
@@ -67,7 +68,7 @@ MIDDLEWARE_CLASSES = (
     "mezzanine.core.middleware.AdminLoginInterfaceSelector",
 )
 
-# For > Django 1.2 add the CSRF middleware. For earlier, add the dummy 
+# For > Django 1.2 add the CSRF middleware. For earlier, add the dummy
 # csrf_token template tag to builtins.
 from django import VERSION
 if VERSION[0] <= 1 and VERSION[1] <= 1:
@@ -76,7 +77,7 @@ if VERSION[0] <= 1 and VERSION[1] <= 1:
 else:
     MIDDLEWARE_CLASSES += ("django.middleware.csrf.CsrfViewMiddleware",)
 
-# Store these package names here as they may change in the future since at the 
+# Store these package names here as they may change in the future since at the
 # moment we are using custom forks of them.
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
@@ -85,7 +86,7 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 OPTIONAL_APPS = (
     "debug_toolbar",
     "south",
-    "django_extensions", 
+    "django_extensions",
     PACKAGE_NAME_FILEBROWSER,
     PACKAGE_NAME_GRAPPELLI,
 )
@@ -128,7 +129,8 @@ except ImportError:
         CACHE_BACKEND = "locmem:///"
 if not CACHE_BACKEND:
     CACHE_TIMEOUT = CACHE_MIDDLEWARE_SECONDS = 180
-    CACHE_BACKEND = "memcached://127.0.0.1:11211/?timeout=%s" % CACHE_MIDDLEWARE_SECONDS
+    CACHE_BACKEND = "memcached://127.0.0.1:11211/?timeout=%s" % \
+                                                    CACHE_MIDDLEWARE_SECONDS
     CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
 # Local settings.
@@ -142,4 +144,3 @@ if DEV_SERVER and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
     ADMIN_MEDIA_PREFIX = "http://127.0.0.1:8000%s" % ADMIN_MEDIA_PREFIX
 if DATABASE_ENGINE == "sqlite3":
     DATABASE_NAME = os.path.join(project_path, DATABASE_NAME)
-

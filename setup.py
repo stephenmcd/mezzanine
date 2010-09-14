@@ -1,12 +1,8 @@
 
-from setuptools import setup, find_packages
 import os
 
-from mezzanine import __version__ as version
-from mezzanine.project_template import settings
-
-
-exclude = ["mezzanine/project_template/mezzanine.db",]
+exclude = ["mezzanine/project_template/mezzanine.db", 
+    "mezzanine/project_template/local_settings.py"]
 exclude = dict([(e, None) for e in exclude])
 for e in exclude:
     if e.endswith(".py"):
@@ -21,33 +17,39 @@ for e in exclude:
     except:
         pass
 
+from setuptools import setup, find_packages
+
+from mezzanine import __version__ as version
+from mezzanine.project_template import settings
+
 try:
     setup(
 
-        name = "Mezzanine",
-        version = version,
-        author = "Stephen McDonald",
-        author_email = "stephen.mc@gmail.com",
-        description = "An open source content management platform built using the Django framework.",
-        long_description = open("README.rst").read(),
-        license = "BSD",
-        url = "http://mezzanine.jupo.org/",
-        zip_safe = False,
-        include_package_data = True,
-        packages = find_packages(),
+        name="Mezzanine",
+        version=version,
+        author="Stephen McDonald",
+        author_email="stephen.mc@gmail.com",
+        description="An open source content management platform built using "
+                        "the Django framework.",
+        long_description=open("README.rst").read(),
+        license="BSD",
+        url="http://mezzanine.jupo.org/",
+        zip_safe=False,
+        include_package_data=True,
+        packages=find_packages(),
 
-        install_requires = [
+        install_requires=[
             "setuptools",
-            settings.PACKAGE_NAME_FILEBROWSER, 
+            settings.PACKAGE_NAME_FILEBROWSER,
             settings.PACKAGE_NAME_GRAPPELLI,
         ],
 
-        entry_points = """
+        entry_points="""
             [console_scripts]
             mezzanine-project=mezzanine.bin.mezzanine_project:create_project
         """,
 
-        classifiers = [
+        classifiers=[
             "Development Status :: 4 - Beta",
             "Environment :: Web Environment",
             "Framework :: Django",
@@ -58,11 +60,10 @@ try:
             "Topic :: Internet :: WWW/HTTP",
             "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
             "Topic :: Internet :: WWW/HTTP :: WSGI",
-            "Topic :: Software Development :: Libraries :: Application Frameworks",
+            "Topic :: Software Development :: Libraries :: "
+                                                "Application Frameworks",
             "Topic :: Software Development :: Libraries :: Python Modules",
-        ]
-
-    )
+        ])
 
 finally:
     for e in exclude:
@@ -75,4 +76,3 @@ finally:
                 os.chmod(e, stat.st_mode)
             except:
                 pass
-

@@ -14,17 +14,18 @@ from mezzanine.utils import is_editable, paginate
 
 def admin_keywords_submit(request):
     """
-    Adds any new given keywords from the custom keywords field in the admin and 
+    Adds any new given keywords from the custom keywords field in the admin and
     returns their IDs for use when saving a model with a keywords field.
     """
     ids = []
-    for value in request.POST.get("text_keywords", "").split(","):
-        value = "".join([c for c in value if c.isalnum() or c == "-"]).lower()
-        if value:
-            keyword, created = Keyword.objects.get_or_create(value=value)
+    for title in request.POST.get("text_keywords", "").split(","):
+        title = "".join([c for c in title if c.isalnum() or c == "-"]).lower()
+        if title:
+            keyword, created = Keyword.objects.get_or_create(title=title)
             ids.append(str(keyword.id))
     return HttpResponse(",".join(set(ids)))
 admin_keywords_submit = staff_member_required(admin_keywords_submit)
+
 
 def search(request, template="search_results.html"):
     """
@@ -32,10 +33,11 @@ def search(request, template="search_results.html"):
     """
     query = request.GET.get("q", "")
     results = Displayable.objects.search(query)
-    results = paginate(results, request.GET.get("page", 1), SEARCH_PER_PAGE, 
+    results = paginate(results, request.GET.get("page", 1), SEARCH_PER_PAGE,
         SEARCH_MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
     return render_to_response(template, context, RequestContext(request))
+
 
 def edit(request):
     model = get_model(request.POST["app"], request.POST["model"])
@@ -49,4 +51,3 @@ def edit(request):
     else:
         response = form.errors.values()[0][0]
     return HttpResponse(unicode(response))
-

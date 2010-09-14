@@ -14,7 +14,7 @@ directly within a page while viewing it on the website. You can read about
 this and how to implement it under :doc:`inline-editing`.
 
 Further reading includes information about Mezzanine's :doc:`search-engine`, 
-and a section on Mezzanine's :doc:`configuration` which oulines the various 
+and a section on Mezzanine's :doc:`configuration` which outlines the various 
 settings for configuring Mezzanine. Lastly, you may be interested in browsing 
 the auto-generated docs for each of Mezzanine's :doc:`packages`.
 

@@ -1,0 +1,32 @@
+{% load i18n pages_tags %}
+
+{% spaceless %}
+{% url home as home_url %}
+{% ifnotequal request.path home_url %}
+{% for page in page_branch %}
+
+    {% if page.primary and forloop.first %}
+    <ul>
+    <li><a href="{% url home %}">{% trans "Home" %}</a> &gt; </li>
+    {% endif %}
+    
+    {% if page.selected %}
+    {% url page page.slug as page_url %}
+    <li>
+        {% ifnotequal request.path page_url %}
+        <a href="{{ page_url }}">{{ page.title }}</a> &gt;
+        {% else %}
+        {{ page.title }}
+        {% endifnotequal %}
+    </li>
+    {% breadcrumb_menu page %}
+    {% endif %}
+
+    {% if page.primary and forloop.last %}
+    </ul>
+    {% endif %}
+
+{% endfor %}
+{% endifnotequal %}
+
+{% endspaceless %}

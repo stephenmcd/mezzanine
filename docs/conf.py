@@ -12,7 +12,8 @@ from __future__ import with_statement
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys
+import os
 docs_path = os.path.abspath(os.path.dirname(__file__))
 mezzanine_path = os.path.join(docs_path, "..")
 sys.path.insert(0, mezzanine_path)
@@ -44,65 +45,75 @@ with open(os.path.join(docs_path, "settings.rst"), "w") as f:
     f.write("\n".join(settings_docs))
 
 # Generate the CHANGELOG file.
-
-from datetime import datetime
-from mercurial import ui, hg
-from django.utils.datastructures import SortedDict
-
-repo = hg.repository(ui.ui(), mezzanine_path)
-version_file = "mezzanine/__init__.py"
-version_var = "__version__"
-changelog_filename = "CHANGELOG"
-changelog_file = os.path.join(mezzanine_path, changelog_filename)
-versions = SortedDict()
-
-for changeset in reversed(list(repo.changelog)):
-    # Check if the file with the version number is in this changeset and if 
-    # it is, pull it out and assign it as a variable.
-    context = repo.changectx(changeset)
-    files = context.files()
-    new_version = False
-    if version_file in files:
-        for line in context[version_file].data().split("\n"):
-            if line.startswith(version_var):
-                exec line
-                version_info = {"changes": [], "date": 
-                    datetime.fromtimestamp(context.date()[0]
-                    ).strftime("%b %d, %Y")}
-                versions[globals()[version_var]] = version_info
-                new_version = len(files) == 1
-    # Ignore changesets that are merges, bumped the version or regenerated
-    # the changelog itself
-    merge = len(context.parents()) > 1
-    changelog_update = changelog_filename in files and len(files) == 1
-    if merge or new_version or changelog_update:
-        continue
-    # Ensure we have a current version and if so, add this changeset's 
-    # description to it.
+repo = None
+try:
+    from mercurial import ui, hg, error
+except ImportError:
+    pass
+else:
     try:
-        version = globals()[version_var]
-    except KeyError:
-        continue
-    else:
-        description = context.description().rstrip(".")
-        user = context.user().split()[0]
-        entry = "%s - %s" % (description, user)
-        if entry not in versions[version]["changes"]:
-            versions[version]["changes"].insert(0, entry)
+        repo = hg.repository(ui.ui(), mezzanine_path)
+    except error.RepoError:
+        pass
+if repo is not None:
+    
+    from datetime import datetime
+    from django.utils.datastructures import SortedDict
 
-# Write out the changelog.
-with open(changelog_file, "w") as f:
-    for version, version_info in versions.items():
-        version_header = "Version %s (%s)" % (version, version_info["date"])
-        f.write("%s\n" % version_header)
-        f.write("%s\n" % ("-" * len(version_header)))
-        f.write("\n")
-        if version_info["changes"]:
-            for change in version_info["changes"]:
-                f.write("  * %s\n" % change)
+    version_file = "mezzanine/__init__.py"
+    version_var = "__version__"
+    changelog_filename = "CHANGELOG"
+    changelog_file = os.path.join(mezzanine_path, changelog_filename)
+    versions = SortedDict()
+
+    for changeset in reversed(list(repo.changelog)):
+        # Check if the file with the version number is in this changeset and if
+        # it is, pull it out and assign it as a variable.
+        context = repo.changectx(changeset)
+        files = context.files()
+        new_version = False
+        if version_file in files:
+            for line in context[version_file].data().split("\n"):
+                if line.startswith(version_var):
+                    exec line
+                    version_info = {"changes": [], "date":
+                        datetime.fromtimestamp(context.date()[0])
+                                                        .strftime("%b %d, %Y")}
+                    versions[globals()[version_var]] = version_info
+                    new_version = len(files) == 1
+        # Ignore changesets that are merges, bumped the version, closed a branch
+        # or regenerated the changelog itself.
+        merge = len(context.parents()) > 1
+        branch_closed = len(files) == 0
+        changelog_update = changelog_filename in files and len(files) == 1
+        if merge or new_version or branch_closed or changelog_update:
+            continue
+        # Ensure we have a current version and if so, add this changeset's
+        # description to it.
+        try:
+            version = globals()[version_var]
+        except KeyError:
+            continue
         else:
-            f.write("  * No changes listed.\n")
-        f.write("\n")
+            description = context.description().rstrip(".")
+            user = context.user().split()[0]
+            entry = "%s - %s" % (description, user)
+            if entry not in versions[version]["changes"]:
+                versions[version]["changes"].insert(0, entry)
+
+    # Write out the changelog.
+    with open(changelog_file, "w") as f:
+        for version, version_info in versions.items():
+            version_header = "Version %s (%s)" % (version, version_info["date"])
+            f.write("%s\n" % version_header)
+            f.write("%s\n" % ("-" * len(version_header)))
+            f.write("\n")
+            if version_info["changes"]:
+                for change in version_info["changes"]:
+                    f.write("  * %s\n" % change)
+            else:
+                f.write("  * No changes listed.\n")
+            f.write("\n")
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -287,4 +298,3 @@ latex_documents = [
 
 html_theme_path = ["."]
 html_theme = "mezzanine_theme"
-

@@ -14,7 +14,7 @@ var anyFieldsDirty = function(fields) {
                 if (field.value) {return true;}
                 break;
             case 'checkbox':
-                if (field.checked) {return true;}
+                if ($(field).attr('dirty')) {return true;}
                 break;
             default:
                 alert('Unhandled field in orderable_inline.js:' +
@@ -27,48 +27,19 @@ var anyFieldsDirty = function(fields) {
 
 $(function() {
 
-    var parentSelector = 'div.items'; // grappelli
-    var grappelli = $(parentSelector).length > 0;
-    if (!grappelli) {
-        parentSelector = 'tbody';
-    }
+    var grappelli = !!$('#bookmarks');
+    var parentSelector = grappelli ? 'div.items' : 'tbody';
 
     // Apply drag and drop to orderable inlines.
     $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7'});
     $(parentSelector).disableSelection();
-
-    // Hide the exta inlines.
-    $(parentSelector + ' > *:not(.has_original)').hide();
-    // Re-show inlines with errors, poetentially hidden by previous line.
-    var errors = $(parentSelector + ' ul[class=errorlist]').parent().parent();
-    if (grappelli) {
-        errors = errors.parent();
-    }
-    errors.show();
     
-    // Add the 'Add another' link to the end of the inlines.
-    var parent = $(parentSelector).parent();
-    if (!grappelli) {
-        parent = parent.parent();
-    }
-    parent.append('<p class="add-another">' +
-        '<img src="' + $('.ordering:first img:first').attr('src').replace(
-        'arrow-up', 'icon_addlink') + '" /><a href="#">Add another</a></p>');
-    $('.add-another').click(function() {
-        // Show a new inline when the 'Add another' link is clicked.
-        var rows = $(this).parent().find(parentSelector + ' > *:hidden');
-        $(rows[0]).show();
-        if (rows.length == 1) {
-            $(this).hide();
-        }
-        return false;
+    // Mark checkboxes with a 'dirty' attribute if they're changed from 
+    // their original state, in order to check inside anyFieldsDirty().
+    $('input:checkbox').change(function() {
+        var checkbox = $(this);
+        checkbox.attr('dirty', !checkbox.attr('dirty'));
     });
-    // Show the first hidden inline - grappelli's inline header is actually
-    // part of the selector so for it we run this twice.
-    $('.add-another').click();
-    if (grappelli) {
-        $('.add-another').click();
-    }
     
     // Set the value of the _order fields on submit.
     $($('._order input:first').attr('form')).submit(function() {
