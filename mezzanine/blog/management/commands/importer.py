@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
 
-from mezzanine.blog.models import BlogPost
+from mezzanine.blog.models import BlogPost, Comment
 from mezzanine.core.models import Keyword
 from mezzanine.settings import CONTENT_STATUS_PUBLISHED
 
@@ -80,9 +80,7 @@ def Import(mezzanine_user='fishera', posts_list=[], date_format=None):
         mezzanine_user: the user to import this against
         post_list: the list of posts to import in BlogPostImport objects
     """
-    from mezzanine.blog.models import BlogPost
-    from mezzanine.core.models import Keyword
-    from mezzanine.settings import CONTENT_STATUS_PUBLISHED
+
     site = Site.objects.get_current()
     #date_format = "%a, %d %b %Y %H:%M:%S"
     
@@ -102,8 +100,21 @@ def Import(mezzanine_user='fishera', posts_list=[], date_format=None):
             status=CONTENT_STATUS_PUBLISHED,
             publish_date=datetime.strptime(entry.publication_date, date_format) - timedelta(seconds = timezone))
         for tag in entry.tags:
-            keyword, created = Keyword.objects.get_or_create(value=tag)
-            post.keywords.add(keyword)
-        post.set_searchable_keywords()
-        #TODO add comments functionality in here
+            pass
+            #keyword, created = Keyword.objects.get_or_create(value=tag)
+            #post.keywords.add(keyword)
+        #post.set_searchable_keywords()
+        
+        
+        for comment in entry.comments:
+            print "Importing %s" % comment.name
+            thecomment, created = Comment.objects.get_or_create(
+                blog_post = post,
+                name = comment.name,
+                email = comment.email,
+                body = comment.body,
+                website = comment.website,
+                time_created = datetime.strptime(comment.time_created, date_format) - timedelta(seconds = timezone))
+            
+            post.comments.add(thecomment)
 
