@@ -68,7 +68,7 @@ def GetBloggerPosts(blog_id = '8183712382911359730', server = 'www.blogger.com')
             email = comment.author[0].email.text
             author_name = comment.author[0].name.text
             #this strips off the time zone info off the end as we want UTC
-            comment_date = comment.published.text[:6]
+            comment_date = comment.published.text[:-6]
             website = ''
             if comment.author[0].uri:
                 website = comment.author[0].uri.text
