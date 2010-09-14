@@ -11,6 +11,10 @@ from mezzanine.settings import CONTENT_STATUS_PUBLISHED
 
 from django.core.management.base import BaseCommand, CommandError
 
+#TODO: get command stuff up and running.
+#TODO: do documentation for how we start importing
+
+
 class Error(Exception):
     """
     Base class for errors in this module
