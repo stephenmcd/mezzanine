@@ -79,10 +79,10 @@ def Import(mezzanine_user='fishera', posts_list=[], date_format=None):
     Attributes:
         mezzanine_user: the user to import this against
         post_list: the list of posts to import in BlogPostImport objects
+        date_format: the format the dates are in in the Posts and Commments
     """
 
     site = Site.objects.get_current()
-    #date_format = "%a, %d %b %Y %H:%M:%S"
     
     # set up the user to import under
     if mezzanine_user is not None:
@@ -101,9 +101,9 @@ def Import(mezzanine_user='fishera', posts_list=[], date_format=None):
             publish_date=datetime.strptime(entry.publication_date, date_format) - timedelta(seconds = timezone))
         for tag in entry.tags:
             pass
-            #keyword, created = Keyword.objects.get_or_create(value=tag)
-            #post.keywords.add(keyword)
-        #post.set_searchable_keywords()
+            keyword, created = Keyword.objects.get_or_create(title=tag)
+            post.keywords.add(keyword)
+        post.set_searchable_keywords()
         
         
         for comment in entry.comments:
