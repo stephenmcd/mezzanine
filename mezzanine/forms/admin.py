@@ -15,7 +15,7 @@ from django.template import loader, Context
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.core.admin import OrderableAdmin
+from mezzanine.core.admin import DynamicInlineAdmin
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.forms.settings import UPLOAD_ROOT
 from mezzanine.pages.admin import PageAdmin
@@ -29,20 +29,21 @@ form_fieldsets[0][1]["fields"][3:0] = ["content", "button_text", "response"]
 form_fieldsets = list(form_fieldsets)
 form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from",
     "email_copies", "email_subject", "email_message")}))
-# Merge the js files for OrderableAdmin and PageAdmin.
-FormMedia = deepcopy(OrderableAdmin.Media)
-FormMedia.js = PageAdmin.Media.js + [js for js in FormMedia.js if js not in
-    PageAdmin.Media.js]
 
 
-class FieldAdmin(admin.TabularInline):
+class FieldAdmin(DynamicInlineAdmin):
+    """
+    Admin class for the form field. Inherits from DynamicInlineAdmin to 
+    add dynamic "Add another" link and drag/drop ordering. 
+    """
     model = Field
 
 
-class FormAdmin(PageAdmin, OrderableAdmin):
-
-    class Media(FormMedia):
-        pass
+class FormAdmin(PageAdmin):
+    """
+    Admin class for the Form model. Includes the urls & views for exporting 
+    form entries as CSV and downloading files uploaded via the forms app.
+    """
 
     inlines = (FieldAdmin,)
     list_display = ("title", "status", "email_copies",)
