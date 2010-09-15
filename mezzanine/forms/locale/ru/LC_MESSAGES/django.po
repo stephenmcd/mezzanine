@@ -1,0 +1,166 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-03 12:43+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: .\admin.py:30 .\models.py:16
+msgid "Email"
+msgstr "Email"
+
+#: .\models.py:14
+msgid "Single line text"
+msgstr "Строка"
+
+#: .\models.py:15
+msgid "Multi line text"
+msgstr "Текст"
+
+#: .\models.py:17
+msgid "Check box"
+msgstr "Чекбокс"
+
+#: .\models.py:19
+msgid "Check boxes"
+msgstr "Чекбоксы"
+
+#: .\models.py:20
+msgid "Drop down"
+msgstr "Список"
+
+#: .\models.py:21
+msgid "Multi select"
+msgstr "Поле с выбором"
+
+#: .\models.py:22
+msgid "Radio buttons"
+msgstr "Радио кнопки"
+
+#: .\models.py:23
+msgid "File upload"
+msgstr "Загрузка файла"
+
+#: .\models.py:24
+msgid "Date"
+msgstr "Дата"
+
+#: .\models.py:25 .\models.py:93
+msgid "Date/time"
+msgstr "Дата/время"
+
+#: .\models.py:26
+msgid "Hidden"
+msgstr "Скрытое"
+
+#: .\models.py:35
+msgid "Button text"
+msgstr "Текст кнопки"
+
+#: .\models.py:36
+msgid "Submit"
+msgstr "Отправить"
+
+#: .\models.py:37
+msgid "Response"
+msgstr "Ответ"
+
+#: .\models.py:38
+msgid "Send email"
+msgstr "Отправить письмо"
+
+#: .\models.py:39
+msgid "If checked, the person entering the form will be sent an email"
+msgstr "Если отмечено, пользователь вводящий форму отправит письмо. Письмо будет отправлено по адресу, который будет в первом сверху поле 'Электронная почта'"
+
+#: .\models.py:41
+msgid "From address"
+msgstr "От кого"
+
+#: .\models.py:42
+msgid "The address the email will be sent from"
+msgstr "Адрес электронной почты, от кого будет отправлено письмо"
+
+#: .\models.py:43
+msgid "Send copies to"
+msgstr "Отправить копии"
+
+#: .\models.py:44
+msgid "One or more email addresses, separated by commas"
+msgstr "Один или более адресов электронной почты, которым будет отправлена копия письма, разделенные запятыми"
+
+#: .\models.py:48
+msgid "Form"
+msgstr "Форма"
+
+#: .\models.py:49
+msgid "Forms"
+msgstr "Формы"
+
+#: .\models.py:66
+msgid "Label"
+msgstr "Имя поля"
+
+#: .\models.py:67
+msgid "Type"
+msgstr "Тип"
+
+#: .\models.py:69
+msgid "Required"
+msgstr "Обязательное"
+
+#: .\models.py:70
+msgid "Visible"
+msgstr "Видимое"
+
+#: .\models.py:71
+msgid "Choices"
+msgstr "Значения"
+
+#: .\models.py:73
+msgid "Default value"
+msgstr "По умолчанию"
+
+#: .\models.py:79
+msgid "Field"
+msgstr "Поле"
+
+#: .\models.py:80
+msgid "Fields"
+msgstr "Поля"
+
+#: .\models.py:96
+msgid "Form entry"
+msgstr "Форма"
+
+#: .\models.py:97
+msgid "Form entries"
+msgstr "Формы"
+
+#: .\models.py:110
+msgid "Form field entry"
+msgstr "Поле формы"
+
+#: .\models.py:111
+msgid "Form field entries"
+msgstr "Поля формы"
+
+#: .\templates\admin\forms\change_form.html.py:9
+msgid "History"
+msgstr "История"
+
+#: .\templates\admin\forms\change_form.html.py:10
+msgid "View on site"
+msgstr "Посмотреть на сайте"
