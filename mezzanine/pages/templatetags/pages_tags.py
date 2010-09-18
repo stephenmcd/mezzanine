@@ -29,7 +29,7 @@ def _page_menu(context, parent_page):
         except KeyError:
             slug = ""
         for page in Page.objects.published(for_user=user).order_by("_order"):
-            setattr(page, "selected", slug.startswith(page.slug))
+            setattr(page, "selected", (slug + "/").startswith(page.slug + "/"))
             setattr(page, "primary", page.parent_id is None)
             pages[page.parent_id].append(page)
         context["menu_pages"] = pages
