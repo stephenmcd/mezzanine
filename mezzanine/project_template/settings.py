@@ -8,7 +8,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 LANGUAGE_CODE = "en"
 SITE_ID = 1
 USE_I18N = False
-SECRET_KEY = "5tve)^cpj9gsdfg54445364TW#$%u#@$%3sdfqwtjiwxzzt%g6p"
+SECRET_KEY = "%(SECRET_KEY)s"
 INTERNAL_IPS = ("127.0.0.1",)
 TEMPLATE_LOADERS = (
     "django.template.loaders.filesystem.load_template_source",
