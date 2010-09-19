@@ -62,12 +62,12 @@ class DynamicInlineAdmin(admin.TabularInline):
     """
 
     form = DynamicInlineAdminForm
+    extra = 20
     template = "admin/includes/dynamic_inline.html"
 
     def __init__(self, *args, **kwargs):
         super(DynamicInlineAdmin, self).__init__(*args, **kwargs)
         if issubclass(self.model, Orderable):
-            self.extra = 20
             fields = self.fields
             if not fields:
                 fields = self.model._meta.fields
