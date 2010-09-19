@@ -24,6 +24,12 @@ class PageAdmin(DisplayableAdmin):
     
     fieldsets = page_fieldsets
     
+    def in_menu(self):
+        """
+        Hide subclasses from the admin menu.
+        """
+        return self.model is Page
+    
     def add_view(self, request, **kwargs):
         """
         For the ``Page`` model, redirect to the add view for the 

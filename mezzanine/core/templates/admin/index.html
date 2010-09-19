@@ -4,6 +4,7 @@
 {% load i18n blog_tags pages_tags %}
 
 {% block extrahead %}
+{{ block.super }}
 {% endblock %}
 
 <!-- STYLES & SCRIPTS -->
@@ -29,58 +30,11 @@
 <!-- BREADCRUMBS -->
 {% block breadcrumbs %}<div class="breadcrumbs">{% trans "Home" %}</div>{% endblock %}
 
+{% block content_title %}<h1>{% trans "Dashboard" %}</h1>{% endblock %}
+
 <!-- CONTENT -->
 {% block content %}
 <div id="content-main">
-
-    {% if app_list %}
-        {% if app_list %}
-            <div class="group-collapsible">
-               {% for app in app_list %}
-
-                    {% if forloop.first %}
-                   <div class="module" style="margin-bottom:10px;">
-                   <table><caption><a href="{{ app.app_url }}" class="section">
-                       <!--{% trans app.name %}-->{% trans "Manage" %}</a></caption>
-                    {% endif %}
-
-                       {% for model in app.models %}
-                       {% if not model|is_page_content_model %}
-                       {% ifnotequal model.admin_url "blog/blogcategory/" %}
-                       <tr>
-                       {% if model.perms.change %}
-                           <th scope="row" width="100%"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
-                       {% else %}
-                           <th scope="row" width="100%">{{ model.name }}</th>
-                       {% endif %}
-                       
-                       {% if model.perms.add %}
-                           <td><a href="{{ model.admin_url }}add/" class="addlink">{% trans 'Add' %}</a></td>
-                       {% else %}
-                           <td>&nbsp;</td>
-                       {% endif %}
-                       
-                       {% if model.perms.change %}
-                           <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
-                       {% else %}
-                           <td>&nbsp;</td>
-                       {% endif %}
-                       </tr>
-                       {% endifnotequal %}
-                       {% endif %}
-                       {% endfor %}
-
-                   {% if forloop.last %}
-                   </table></div>
-                   {% endif %}
-
-               {% endfor %}
-           </div>
-        {% endif %}
-    {% else %}
-        <p>{% trans "You don't have permission to edit anything." %}</p>
-    {% endif %}
-    
     {% if perms.blog.add_blogpost and perms.blog.change_blogpost %}
     <div class="module">
         <h2>{% trans "Quick Blog" %}</h2>
@@ -97,7 +51,6 @@
         </form>
     </div>
     {% endif %}
-    
 </div>
 {% endblock %}
 

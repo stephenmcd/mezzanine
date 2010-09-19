@@ -30,8 +30,14 @@ class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
 
 
 class BlogCategoryAdmin(admin.ModelAdmin):
+
     fieldsets = ((None, {"fields": ("title",)}),)
 
+    def in_menu(self):
+        """
+        Hide from the admin menu.
+        """
+        return False
 
 class CommentAdmin(admin.ModelAdmin):
 

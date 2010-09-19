@@ -16,6 +16,13 @@ def setting(setting_name, default_value):
 # Unregister these models installed by default (occurs in urlconf).
 setting("ADMIN_REMOVAL", ())
 
+# Controls the ordering and grouping of the admin menu.
+setting("ADMIN_MENU_ORDER", (
+    (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",)),
+    (_("Site"), ("auth.User", "auth.Group", "sites.Site", 
+        "redirects.Redirect")),
+))
+
 # Credentials for bit.ly URL shortening service.
 setting("BLOG_BITLY_USER", None)
 setting("BLOG_BITLY_KEY", None)
