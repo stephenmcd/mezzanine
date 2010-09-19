@@ -1,6 +1,6 @@
 {% load pages_tags i18n %}
 <ul class="dropdown-menu" style="display:none;">
-    <li><a href="{% url admin:index %}">{% trans "Dashboard" %}</a></li>
+    <li><a href="{{ admin_url }}">{% trans "Dashboard" %}</a></li>
     {% for app in app_list %}
     <li>
         <a href="#">{% trans app.name %}</a>
