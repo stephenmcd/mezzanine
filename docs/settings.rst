@@ -7,18 +7,12 @@ Default: ``()``
 
 Unregister these models installed by default (occurs in urlconf).
 
-``MEZZANINE_BLOG_TITLE``
-------------------------
-
-Default: ``"The Mezzanine Blog"``
-
-Blog feed settings.
-
-``MEZZANINE_BLOG_DESCRIPTION``
+``MEZZANINE_ADMIN_MENU_ORDER``
 ------------------------------
 
-Default: ``"The Mezzanine Blog"``
+Default: ``((<django.utils.functional.__proxy__ object at 0x981df4c>, ('pages.Page', 'blog.BlogPost', 'blog.Comment')), (<django.utils.functional.__proxy__ object at 0x981dfcc>, ('auth.User', 'auth.Group', 'sites.Site', 'redirects.Redirect')))``
 
+Controls the ordering and grouping of the admin menu.
 
 ``MEZZANINE_BLOG_BITLY_USER``
 -----------------------------
