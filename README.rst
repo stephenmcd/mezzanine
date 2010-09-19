@@ -31,6 +31,7 @@ provides the following features.
   * SEO friendly URLs and meta data
   * `Search engine and API`_
   * Mobile device detection and templates
+  * Shopping cart module (`Cartridge`_)
   * Blogging engine
   * Tagging
   * One step migration from other blogging engines
@@ -130,6 +131,7 @@ Quotes
 .. _`In-line page editing`: http://mezzanine.jupo.org/docs/inline-editing.html
 .. _`custom content types`: http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
+.. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
 .. _`960.gs`: http://960.gs/
