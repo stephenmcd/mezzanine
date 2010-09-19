@@ -8,8 +8,14 @@
 
 {% block extrahead %}
 {% load_settings CONTENT_MEDIA_URL %}
-<script language="javascript" 
-    src="{{ CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+if (typeof $ == 'undefined') {
+    document.write('<scr' + 
+        'ipt src="{{ CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></scr' + 
+        'ipt>');
+}
+</script>
+
 
 {% if not request.user.is_authenticated %}
 <style type="text/css">
@@ -49,6 +55,7 @@ $(function() {
     .cloned {background:#e6e6e6; border-radius:0 0 5px 5px; 
         border-bottom:1px solid #ccc; padding:0;}
     #bookmarks {display:none;}
+    .messagelist {margin-top:14px;}
 </style>
 <script type="text/javascript">
 
