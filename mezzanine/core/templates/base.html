@@ -11,7 +11,6 @@
     <link rel="alternate" type="application/atom+xml" title="Atom"  
         href="{% url blog_post_feed "atom" %}" />
 
-    {% editable_loader %}
 
     <style type="text/css">
 
@@ -155,6 +154,8 @@
         <div class="grid_6 push_3 grid">{% footer_menu %}</div>
     </div>
 </div>
+
+{% editable_loader %}
 
 {% load_settings GOOGLE_ANALYTICS_ID %}
 {% if GOOGLE_ANALYTICS_ID %}
