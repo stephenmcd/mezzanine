@@ -31,6 +31,7 @@ provides the following features.
   * SEO friendly URLs and meta data
   * `Search engine and API`_
   * Mobile device detection and templates
+  * Shopping cart module (`Cartridge`_)
   * Blogging engine
   * Tagging
   * One step migration from other blogging engines
@@ -113,7 +114,7 @@ Quotes
 ======
 
   * "I am enjoying working with Mezzanine - it is good work." - `Van Lindberg`_
-  * "Impressed with mezzanine so far." - `Brad Montgomery`_
+  * "Impressed with Mezzanine so far." - `Brad Montgomery`_
   * "You need to check out the open source project Mezzanine. In one word: Elegant." - `Nick Hagianis`_
   * "Mezzanine looks pretty interesting - tempting to get me off Wordpress." - `Jesse Noller`_
   * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `Stephen White`_
@@ -130,6 +131,7 @@ Quotes
 .. _`In-line page editing`: http://mezzanine.jupo.org/docs/inline-editing.html
 .. _`custom content types`: http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
+.. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
 .. _`960.gs`: http://960.gs/

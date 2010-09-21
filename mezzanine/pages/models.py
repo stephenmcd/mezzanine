@@ -4,7 +4,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.core.models import Displayable, Orderable
+from mezzanine.core.models import Displayable, Orderable, Content
 
 
 class Page(Orderable, Displayable):
@@ -69,3 +69,14 @@ class Page(Orderable, Displayable):
         from mezzanine.pages.views import page
         resolved_view = resolve(self.get_absolute_url())[0]
         return resolved_view != page
+        
+
+class ContentPage(Page, Content):
+    """
+    Implements the default type of page with a single HTML content field.
+    """
+
+    class Meta:
+        verbose_name = _("Content")
+        verbose_name_plural = _("Content pages")
+

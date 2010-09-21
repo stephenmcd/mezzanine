@@ -6,12 +6,12 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
-from mezzanine.pages.models import Page
+from mezzanine.pages.models import Page, ContentPage
 from mezzanine.core.admin import DisplayableAdmin
 
 
-form_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
-form_fieldsets[0][1]["fields"] += (("in_navigation", "in_footer"), 
+page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
+page_fieldsets[0][1]["fields"] += (("in_navigation", "in_footer"), 
     "login_required",)
 
 
@@ -22,7 +22,25 @@ class PageAdmin(DisplayableAdmin):
     subclasses.
     """
     
-    fieldsets = form_fieldsets
+    fieldsets = page_fieldsets
+    
+    def in_menu(self):
+        """
+        Hide subclasses from the admin menu.
+        """
+        return self.model is Page
+    
+    def add_view(self, request, **kwargs):
+        """
+        For the ``Page`` model, redirect to the add view for the 
+        ``ContentPage`` model.
+        """
+        if self.model is Page:
+            app = ContentPage._meta.app_label
+            name = ContentPage.__name__.lower()
+            add_url = reverse("admin:%s_%s_add" % (app, name))
+            return HttpResponseRedirect(add_url)
+        return super(PageAdmin, self).add_view(request, **kwargs)
 
     def change_view(self, request, object_id, extra_context=None):
         """
@@ -87,4 +105,16 @@ class PageAdmin(DisplayableAdmin):
         response = super(PageAdmin, self).response_change(request, obj)
         return self._maintain_parent(request, response)
 
+
+content_page_fieldsets = deepcopy(PageAdmin.fieldsets)
+content_page_fieldsets[0][1]["fields"].insert(3, "content")
+
+class ContentPageAdmin(PageAdmin):
+    """
+    Admin class for the ContentPage default content type.
+    """
+    fieldsets = content_page_fieldsets
+
+
 admin.site.register(Page, PageAdmin)
+admin.site.register(ContentPage, ContentPageAdmin)

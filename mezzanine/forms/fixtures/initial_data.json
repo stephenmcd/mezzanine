@@ -6,6 +6,7 @@
             "keywords": [], 
             "send_email": true, 
             "email_copies": "", 
+            "content": "<p>Fill in the form below to get in touch with us.</p>", 
             "response": "<p>Thanks for getting in touch with us. We'll get back to you as soon as possible.</p>", 
             "email_from": ""
         }

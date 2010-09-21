@@ -6,12 +6,12 @@ from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.core.models import Displayable, Ownable, Slugged
+from mezzanine.core.models import Displayable, Ownable, Content, Slugged
 from mezzanine.blog.managers import CommentManager
 from mezzanine.settings import COMMENTS_DEFAULT_APPROVED
 
 
-class BlogPost(Displayable, Ownable):
+class BlogPost(Displayable, Ownable, Content):
     """
     A blog post.
     """

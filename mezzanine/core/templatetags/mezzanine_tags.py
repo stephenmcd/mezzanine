@@ -3,12 +3,17 @@ from urllib import urlopen, urlencode
 from uuid import uuid4
 
 from django.conf import settings
+from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
 from django.template import Context
 from django.template.loader import get_template
 from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 from django.utils.simplejson import loads
+from django.utils.text import capfirst
+from django.utils.translation import ugettext as _
 
 from mezzanine import settings as mezzanine_settings
 from mezzanine import template
@@ -71,31 +76,6 @@ def set_short_url_for(context, token):
     return ""
 
 
-@register.render_tag
-def admin_reorder(context, token):
-    """
-    Called in ``admin/base_site.html`` template override and applies custom
-    ordering of apps/models defined by ``settings.ADMIN_REORDER``.
-    """
-    # sort key function - use index of item in order if exists, otherwise item
-    sort = lambda order, item: (order.index(item), "") if item in order else (
-        len(order), item)
-    if "app_list" in context:
-        # sort the app list
-        order = SortedDict(mezzanine_settings.ADMIN_REORDER)
-        context["app_list"].sort(key=lambda app: sort(order.keys(),
-            app["app_url"][:-1]))
-        for i, app in enumerate(context["app_list"]):
-            # sort the model list for each app
-            app_name = app["app_url"][:-1]
-            if not app_name:
-                app_name = context["request"].path.strip("/").split("/")[-1]
-            model_order = [m.lower() for m in order.get(app_name, [])]
-            context["app_list"][i]["models"].sort(key=lambda model:
-                sort(model_order, model["admin_url"].strip("/").split("/")[-1]))
-    return ""
-
-
 @register.to_end_tag
 def metablock(parsed):
     """
@@ -151,3 +131,72 @@ def editable(parsed, context, token):
         t = get_template("includes/editable_form.html")
         return t.render(Context(context))
     return parsed
+
+
+@register.inclusion_tag("admin/includes/dropdown_menu.html", takes_context=True)
+def admin_dropdown_menu(context):
+    """
+    Adopted from ``django.contrib.admin.sites.AdminSite.index``. Renders a 
+    list of lists of models grouped and ordered according to 
+    ``mezzanine.settings.ADMIN_MENU_ORDER``.
+    """
+    app_dict = {}
+    user = context["request"].user
+    for model, model_admin in admin.site._registry.items():
+        app_label = model._meta.app_label
+        in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
+        if in_menu and user.has_module_perms(app_label):
+            perms = model_admin.get_model_perms(context["request"])
+            admin_url = ""
+            if perms["change"]:
+                admin_url = "changelist"
+            elif perms["add"]:
+                admin_url = "add"
+            if admin_url:
+                model_label = "%s.%s" % (app_label, model.__name__)
+                for (name, items) in mezzanine_settings.ADMIN_MENU_ORDER:
+                    try:
+                        index = items.index(model_label)
+                    except ValueError:
+                        pass
+                    else:
+                        app_title = name
+                        break
+                else:
+                    index = None
+                    app_title = app_label
+                model_dict = {
+                    "index": index,
+                    "name": capfirst(model._meta.verbose_name_plural),
+                    "admin_url": reverse("admin:%s_%s_%s" % (
+                        app_label, model.__name__.lower(), admin_url))
+                }
+                app_title = app_title.title()
+                if app_title in app_dict:
+                    app_dict[app_title]["models"].append(model_dict)
+                else:
+                    try:
+                        titles = [x[0] for x in 
+                            mezzanine_settings.ADMIN_MENU_ORDER]
+                        index = titles.index(app_title)
+                    except ValueError:
+                        index = None
+                    app_dict[app_title] = {
+                        "index": index,
+                        "name": app_title,
+                        "models": [model_dict],
+                    }
+    app_list = app_dict.values()
+    sort = lambda x: x["name"] if x["index"] is None else x["index"]
+    for app in app_list:
+        app["models"].sort(key=sort)
+    app_list.sort(key=sort)
+    # This silliness is required for the test suite to pass. For some reason 
+    # the admin URLs can't be resolved while testing so in this situation,
+    # trapping it and using an empty string for the index URL is quite 
+    # acceptable.
+    try:
+        admin_url = reverse("admin:index")
+    except NoReverseMatch:
+        admin_url = ""
+    return {"app_list": app_list, "admin_url": admin_url}

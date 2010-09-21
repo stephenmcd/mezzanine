@@ -1,0 +1,15 @@
+{% load pages_tags i18n %}
+<ul class="dropdown-menu" style="display:none;">
+    <li><a href="{{ admin_url }}">{% trans "Dashboard" %}</a></li>
+    {% for app in app_list %}
+    <li>
+        <a href="#">{% trans app.name %}</a>
+        <ul class="dropdown-menu-menu">
+            {% for model in app.models %}
+            <li{% if forloop.first %} class="first"{% endif %}><a 
+                href="{{ model.admin_url }}">{{ model.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>

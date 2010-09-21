@@ -52,6 +52,18 @@ class SearchableQuerySet(QuerySet):
         quoted terms as exact phrases and taking into account + and - symbols
         as modifiers controlling which terms to require and exclude.
         """
+        
+        def search_fields_to_dict(fields):
+            """
+            Convert a sequence of fields to a weighted dict.
+            """
+            if not fields:
+                return {}
+            try:
+                int(dict(fields).values()[0])
+            except (TypeError, ValueError):
+                fields = dict(zip(fields, [1] * len(fields)))
+            return fields
 
         #### DETERMINE FIELDS TO SEARCH ###
         # Use fields arg if given, otherwise check internal list which if
@@ -59,7 +71,10 @@ class SearchableQuerySet(QuerySet):
         if search_fields is None:
             search_fields = self._search_fields
         if len(search_fields) == 0:
-            search_fields = getattr(self.model, "search_fields", [])
+            search_fields = {}
+            for cls in reversed(self.model.__mro__):
+                super_fields = getattr(cls, "search_fields", {})
+                search_fields.update(search_fields_to_dict(super_fields))
         if len(search_fields) == 0:
             search_fields = [f.name for f in self.model._meta.fields
                 if issubclass(f.__class__, CharField) or
@@ -70,14 +85,9 @@ class SearchableQuerySet(QuerySet):
         # their relevant weight in ordering the results. If a mapping isn't
         # used then assume a sequence of field names and give them equal
         # weighting.
-        try:
-            search_fields = dict(search_fields)
-            int(search_fields.values()[0])
-        except (TypeError, ValueError):
-            search_fields = dict(zip(search_fields, [1] * len(search_fields)))
         if not isinstance(self._search_fields, dict):
             self._search_fields = {}
-        self._search_fields.update(search_fields)
+        self._search_fields.update(search_fields_to_dict(search_fields))
 
         #### BUILD LIST OF TERMS TO SEARCH FOR ###
         # Remove extra spaces, put modifiers inside quoted terms.

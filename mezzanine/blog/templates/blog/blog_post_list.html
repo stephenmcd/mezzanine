@@ -1,18 +1,24 @@
 {% extends "base.html" %}
 {% load i18n mezzanine_tags blog_tags %}
 
-{% block meta_title %}
-    {% load_settings BLOG_TITLE %}{{ BLOG_TITLE }}
-{% endblock %}
-{% block meta_description %}
-    {% load_settings BLOG_DESCRIPTION %}{{ BLOG_DESCRIPTION }}
-{% endblock %}
+{% block meta_title %}{{ blog_page.title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% for keyword in blog_page.keywords.all %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ blog_page.description }}
+{% endmetablock %}{% endblock %}
+
 {% block title %}
-    {% load_settings BLOG_TITLE %}{{ BLOG_TITLE }}
+{% editable blog_page.title %}{{ blog_page.title }}{% endeditable %}
 {% endblock %}
 
 {% block main %}
-{% load_settings BLOG_DESCRIPTION %}
 <p id="description">
 {% if tag %}
     {% trans "Viewing posts tagged" %} {{ tag }}
@@ -25,7 +31,9 @@
     {% trans "Viewing posts by" %} 
     {{ user.get_full_name|default:user.username }}
 {% else %}
-    {{ BLOG_DESCRIPTION }}
+    {% editable blog_page.content %}
+    {{ blog_page.content|safe }}
+    {% endeditable %}
 {% endif %}{% endif %}{% endif %}{% endif %}
 </p>
 

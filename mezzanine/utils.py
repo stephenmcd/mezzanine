@@ -4,6 +4,8 @@ from re import sub
 
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
+from mezzanine.settings import CONTENT_MEDIA_URL
+
 
 def decode_html_entities(html):
     """
@@ -65,6 +67,15 @@ def paginate(objects, page_num, per_page, max_paging_links):
     return objects
 
 
+def content_media_urls(*paths):
+    """
+    Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for 
+    internally hosted JS and CSS files.
+    """
+    media_url = CONTENT_MEDIA_URL.strip("/")
+    return ["/%s/%s" % (media_url, path) for path in paths]
+
+
 def base_concrete_model(abstract, instance):
     """
     Used in methods of abstract models to find the super-most concrete
@@ -80,7 +91,7 @@ def base_concrete_model(abstract, instance):
                 abstract = True
 
             def concrete(self):
-                return concrete_model_for(Abstract, self)
+                return base_concrete_model(Abstract, self)
 
         class Super(Abstract):
             pass
@@ -89,7 +100,7 @@ def base_concrete_model(abstract, instance):
             pass
 
         sub = Sub.objects.create()
-        sub.real_obj() # returns Super
+        sub.concrete() # returns Super
 
     In actual Mezzanine usage, this allows methods in the ``Displayable`` and
     ``Orderable`` abstract models to access the ``Page`` instance when

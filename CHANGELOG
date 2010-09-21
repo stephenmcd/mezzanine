@@ -1,3 +1,49 @@
+Version 0.8 (Sep 19, 2010)
+--------------------------
+
+  * Allow search fields for ``SearchableManager`` to be defined across multiple models in an inheritance chain - stephenmcd
+  * Fix typo in README - stephenmcd
+  * Refactor models to remove the ``content`` field from the ``pages.Page`` model (and therefore the ``core.Displayable`` model from which it inherits) so that custom content types can be created without the ``content`` field. Introduces a new default content type ``pages.ContentPage`` - stephenmcd
+  * Remove ``BLOG_TITLE`` and ``BLOG_DESCRIPTION`` from ``mezzanine.settings`` and replace use of these with the title and description of the blog page from the pages app allowing them to be in-line editable - stephenmcd
+  * Separate dynamic inlines into its own js file - stephenmcd
+  * Make class name unique for dynamic inlines - stephenmcd
+  * Fix with statement for Python2.5 in setup.py. Closes #9 - stephenmcd
+  * Refactor ordering and dynamic "Add another" enhancements to admin inlines so that they explicitly target the correct inlines - stephenmcd
+  * Add Russian translations - thanks to Timur Bobrus for providing these - stephenmcd
+  * Fix primary nav style on default tempaltes - stephenmcd
+  * Move scripts into scripts directory and use OptionParser in mezzanine-project script to allow options for copying templates, package source and specifying an alternate package to install from - stephenmcd
+  * Fix logic of checking a page's slug to be selected in ``page_menu`` template tag - stephenmcd
+  * Remove the list of apps/models from the admin dashboard and move them into a navigation menu persistent throughout the entire admin - stephenmcd
+  * Trap failure to resolve admin URLs so that tests can pass - stephenmcd
+  * Add Cartridge to features in README - stephenmcd
+  * Set ``mezzanine.core.admin.DynamicInlineAdmin.extra`` to 20 unconditionally - stephenmcd
+  * Try and check for jQuery before loading it for admin menu - stephenmcd
+  * Fix styling of messages to prevent them being layered on top of the admin menu - stephenmcd
+  * Update auto-generated settings docs - stephenmcd
+
+Version 0.7.4 (Sep 11, 2010)
+----------------------------
+
+  * More footer style updates - stephenmcd
+  * Styled search results - stephenmcd
+  * Use ADMIN_MEDIA_PREFIX in path to TinyMCE js. Closes #6 - stephenmcd
+  * Make Export entries label translatable. Closes #7 - stephenmcd
+  * Add correct handling for non-ascii translated field name for entry time on form submissions. Closes #8 - stephenmcd
+  * Refactor generation of Displayable.description to not explicitly use content field - stephenmcd
+  * Fix sequence of styling for selected nav in tree menu - stephenmcd
+  * Let blog views render even if the blog page object doesn't exist - stephenmcd
+  * Add a test for generated page descriptions - stephenmcd
+  * Allow test for overriden pages to pass when blog page doesn't exist - stephenmcd
+  * Fix field length for field types in forms app - stephenmcd
+  * Update ``mezzanine-project`` script to copy templates into newly created project - stephenmcd
+  * Fix missing enctype in forms template for forms with file uploads - stephenmcd
+  * Add a new ``help_text`` field to form field model in forms app - stephenmcd
+  * Add email_subject and email_message fields to form model in forms app - stephenmcd
+  * Fix ``pages.page_processors.processor_for`` to return the function it decorates so they can be referenced from their modules for documentation purposes - stephenmcd
+  * Fix docs in ``mezzanine.utils`` - stephenmcd
+  * Add ``mezzanine.forms`` to package docs - stephenmcd
+  * Version bump - stephenmcd
+
 Version 0.7.3 (Sep 03, 2010)
 ----------------------------
 
@@ -8,8 +54,6 @@ Version 0.7.3 (Sep 03, 2010)
 Version 0.7.2 (Sep 02, 2010)
 ----------------------------
 
-  * Refactor mezzanine.template to use functools.wraps - stephenmcd
-  * Move local_settings module into a template - stephenmcd
   * Align TinyMCE width with other admin fields - stephenmcd
   * Refactor slug creation functionality out of ``Displayable`` model into ``Slugged`` model - stephenmcd
   * Add ``BlogCategory`` model and associated functionality - stephenmcd
@@ -23,6 +67,8 @@ Version 0.7.2 (Sep 02, 2010)
 Version 0.7.1 (Aug 30, 2010)
 ----------------------------
 
+  * Refactor mezzanine.template to use functools.wraps - stephenmcd
+  * Move local_settings module into a template - stephenmcd
   * Add 960.gs to the feature list in README - stephenmcd
   * CSS tweaks to default templates - stephenmcd
   * Bugfix to mobile middleware for view functions without keyword args - stephenmcd
@@ -69,6 +115,8 @@ Version 0.6.1 (Aug 23, 2010)
 
   * Update CHANGELOG generator to ignore commits that close a branch - stephenmcd
   * Add forms builder to feature list n README - stephenmcd
+  * Remove natural keys from fixtures for Django 1.1 compatibility - stephenmcd
+  * Set ``TIME_ZONE`` to use the system timezone - stephenmcd
   * Change CHANGELOG generator to fail silently when mercurial isn't installed - stephenmcd
 
 Version 0.6 (Aug 09, 2010)
@@ -98,7 +146,6 @@ Version 0.6 (Aug 09, 2010)
   * Add link to BSD license definition in README - stephenmcd
   * Added missing line in docs for in-line editing example - stephenmcd
   * Fixed docs typo - stephenmcd
-  * Set ``TIME_ZONE`` to use the system timezone - stephenmcd
   * Remove natural keys from fixtures for Django 1.1 compatibility - stephenmcd
 
 Version 0.5.4 (Jul 25, 2010)

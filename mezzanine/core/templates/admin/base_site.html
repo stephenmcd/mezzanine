@@ -8,6 +8,15 @@
 
 {% block extrahead %}
 {% load_settings CONTENT_MEDIA_URL %}
+<script type="text/javascript">
+if (typeof $ == 'undefined') {
+    document.write('<scr' + 
+        'ipt src="{{ CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></scr' + 
+        'ipt>');
+}
+</script>
+
+
 {% if not request.user.is_authenticated %}
 <style type="text/css">
     #extra-login-fields .required {margin-top:1px;}
@@ -15,8 +24,6 @@
     label.interface {display:inline !important; float:none !important; 
         vertical-align:middle; cursor:pointer;}
 </style>
-<script language="javascript" 
-    src="{{ CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript">
 
 // We "inject" the extra login fields here rather than defining them in the 
@@ -31,6 +38,86 @@ $(function() {
 
 </script>
 {% endif %}
+
+{% if request.user.is_authenticated %}
+<style type="text/css">
+    .breadcrumbs {display:none; height:30px; margin:0; padding:0;
+        background:#e6e6e6 !important;}
+    .dropdown-menu {left:0; padding:0;}
+    .dropdown-menu ul {display:inline; padding:0; margin:0;}
+    .dropdown-menu li {float:left; width:auto; padding:11px 15px; 
+        cursor:pointer; height:30px;
+        font-size:15px; font-weight:bold; list-style-type:none;}
+    .cloned li {display:block; font-size:13px; font-weight:normal; 
+        padding:15px 20px 15px 20px !important; border-top:1px solid #eee;}
+    .cloned .first {border-top:0px !important;}
+    .dropdown-menu li ul {display:none; float:left;}
+    .cloned {background:#e6e6e6; border-radius:0 0 5px 5px; 
+        border-bottom:1px solid #ccc; padding:0;}
+    #bookmarks {display:none;}
+    .messagelist {margin-top:14px; z-index:0 !important;}
+</style>
+<script type="text/javascript">
+
+// Global flag used for checking whether to hide the visible menu after a small 
+// timeout has passed when mousing out from a menu.
+var onMenu; 
+
+$(function() {
+
+    var grappelli = $('.admin-title').length == 1;
+
+    // Empty out the breadcrumbs div and position the menu over it.
+    var breadcrumb = $('.breadcrumbs');
+    $('.breadcrumbs').html(' ').show();
+    $('body').append($('.dropdown-menu'));
+    $('.dropdown-menu').css({top: breadcrumb.offset().top, 
+        position: grappelli ? 'fixed' : 'absolute'}).show();
+
+    $('.dropdown-menu a').mouseover(function() {
+        var parent = $(this).parent();
+        var menu = parent.find('.dropdown-menu-menu').clone();
+        // If we're over a primary menu link, clone the child menu and show it.
+        if (menu.length == 1) {
+            onMenu = true;
+            $('.cloned').remove();
+            $('body').append(menu);
+            // Position the child menu under its parent.
+            var pos = {
+                top: breadcrumb.offset().top + breadcrumb.height(), 
+                left: parent.offset().left,
+                position: 'absolute'
+            }
+            menu.css(pos).addClass('cloned').show();
+            // Ensure the menu stays visible when we mouse onto another item in it.
+            menu.mouseover(function() {
+                onMenu = true;
+            });
+            // Trigger the parent mouseout if we mouseout of the menu.
+            menu.mouseout(function() {
+                $('.dropdown-menu a').mouseout();
+            });
+        }
+    });
+
+    // Set a timeout to hide visible menus on mouseout of primary menu item.
+    $('.dropdown-menu a').mouseout(function() {
+        var parent = $(this).parent();
+        if (parent.find('.dropdown-menu-menu').length == 1) {
+            onMenu = false;
+            window.setTimeout(function() {
+                if (!onMenu) {
+                    $('.cloned').remove();
+                }
+            }, 1000);
+        }
+    })
+
+});
+
+</script>
+{% endif %}
+
 {% endblock %}
 
 {% block footer %}{{ block.super }}
@@ -48,6 +135,9 @@ $(function() {
     <label class="interface" for="interface_site">{% trans "Site" %}</label>
 
 </div>
+{% endif %}
+{% if request.user.is_authenticated %}
+{% admin_dropdown_menu %}
 {% endif %}
 {% endblock %}
 

@@ -8,7 +8,7 @@ from django.test import TestCase
 
 from mezzanine.blog.models import BlogPost, Comment
 from mezzanine.forms.models import Form, FIELD_CHOICES
-from mezzanine.pages.models import Page
+from mezzanine.pages.models import ContentPage
 from mezzanine.settings import BLOG_SLUG, CONTENT_STATUS_DRAFT, \
     CONTENT_STATUS_PUBLISHED, MOBILE_USER_AGENTS
 
@@ -34,7 +34,8 @@ class Tests(TestCase):
         Test a draft page as only being viewable by a staff member.
         """
         self.client.logout()
-        draft = Page.objects.create(title="Draft", status=CONTENT_STATUS_DRAFT)
+        draft = ContentPage.objects.create(title="Draft", 
+            status=CONTENT_STATUS_DRAFT)
         response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 404)
         self.client.login(username=self._username, password=self._password)
@@ -47,7 +48,17 @@ class Tests(TestCase):
         True for its overriden property. The blog page from the fixtures
         should classify as this case.
         """
-        self.assertTrue(Page.objects.get(slug=BLOG_SLUG).overridden())
+        blog_page, created = ContentPage.objects.get_or_create(slug=BLOG_SLUG)
+        self.assertTrue(blog_page.overridden())
+
+    def test_description(self):
+        """
+        Test generated description is first line of content.
+        """
+        description = "<p>How now brown cow</p>"
+        page = ContentPage.objects.create(title="Draft", 
+            content=description * 3)
+        self.assertEqual(page.description, description)
 
     def test_mobile_middleware(self):
         """
@@ -118,7 +129,7 @@ class Tests(TestCase):
         """
         template = "{% load pages_tags %}{% tree_menu %}"
         before = self.queries_used_for_template(template)
-        self.create_recursive_objects(Page, "parent", title="Page",
+        self.create_recursive_objects(ContentPage, "parent", title="Page",
             status=CONTENT_STATUS_PUBLISHED)
         after = self.queries_used_for_template(template)
         self.assertEquals(before, after)
@@ -127,27 +138,27 @@ class Tests(TestCase):
         """
         Test search.
         """
-        Page.objects.all().delete()
-        first = Page.objects.create(title="test page").id
-        second = Page.objects.create(title="test another test page").id
+        ContentPage.objects.all().delete()
+        first = ContentPage.objects.create(title="test page").id
+        second = ContentPage.objects.create(title="test another test page").id
         # Either word.
-        results = Page.objects.search("another test")
+        results = ContentPage.objects.search("another test")
         self.assertEqual(len(results), 2)
         # Must include first word.
-        results = Page.objects.search("+another test")
+        results = ContentPage.objects.search("+another test")
         self.assertEqual(len(results), 1)
         # Mustn't include first word.
-        results = Page.objects.search("-another test")
+        results = ContentPage.objects.search("-another test")
         self.assertEqual(len(results), 1)
         if results:
             self.assertEqual(results[0].id, first)
         # Exact phrase.
-        results = Page.objects.search('"another test"')
+        results = ContentPage.objects.search('"another test"')
         self.assertEqual(len(results), 1)
         if results:
             self.assertEqual(results[0].id, second)
         # Test ordering.
-        results = Page.objects.search("test")
+        results = ContentPage.objects.search("test")
         self.assertEqual(len(results), 2)
         if results:
             self.assertEqual(results[0].id, second)

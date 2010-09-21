@@ -4,6 +4,9 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.utils import content_media_urls
+from mezzanine.core.models import Orderable
+
 
 class OrderWidget(forms.HiddenInput):
     """
@@ -17,12 +20,21 @@ class OrderWidget(forms.HiddenInput):
         return rendered + mark_safe(arrows)
 
 
-class OrderableAdminForm(forms.ModelForm):
+class DynamicInlineAdminForm(forms.ModelForm):
     """
-    Form for admin orderable inlines that uses the ``OrderableWidget``.
+    Form for ``DynamicInlineAdmin`` that can be collapsed and sorted with 
+    drag and drop using ``OrderWidget``.
     """
-    _order = forms.CharField(label=_("Order"), widget=OrderWidget,
-        required=False)
+    
+    class Media:
+        js = content_media_urls("js/jquery-1.4.2.min.js",
+            "js/jquery-ui-1.8.1.custom.min.js", "js/dynamic_inline.js",)
+
+    def __init__(self, *args, **kwargs):
+        super(DynamicInlineAdminForm, self).__init__(*args, **kwargs)
+        if issubclass(self._meta.model, Orderable):
+            self.fields["_order"] = forms.CharField(label=_("Order"), 
+                widget=OrderWidget, required=False)
 
 
 def get_edit_form(obj, attr, data=None):

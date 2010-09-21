@@ -3,23 +3,32 @@ from calendar import month_name
 from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.template.loader import select_template
-from django.core.urlresolvers import reverse
 
 from mezzanine.blog.forms import CommentForm
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.core.models import Keyword
-from mezzanine.pages.models import Page
+from mezzanine.pages.models import ContentPage
 from mezzanine.utils import paginate
 from mezzanine import settings as blog_settings
 
 
 use_disqus = bool(blog_settings.COMMENTS_DISQUS_SHORTNAME)
 
+
+def blog_page():
+    """
+    Return the Blog page from the pages app.
+    """
+    try:
+        return ContentPage.objects.get(slug=blog_settings.BLOG_SLUG)
+    except Page.DoesNotExist:
+        return None
 
 def blog_post_list(request, tag=None, year=None, month=None, username=None,
     category=None, template="blog/blog_post_list.html"):
@@ -47,7 +56,8 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         blog_settings.BLOG_POST_PER_PAGE,
         blog_settings.BLOG_POST_MAX_PAGING_LINKS)
     context = {"blog_posts": blog_posts, "year": year, "month": month, "tag": 
-        tag, "category": category, "user": user, "use_disqus": use_disqus}
+        tag, "category": category, "user": user, "use_disqus": use_disqus, 
+        "blog_page": blog_page()}
     return render_to_response(template, context, RequestContext(request))
 
 
@@ -84,9 +94,8 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
             response.set_cookie(commenter_cookie_prefix + field,
                 request.POST.get(field, ""), expires=expires)
         return response
-    blog_page = Page.objects.get(slug=reverse("blog_post_list").strip("/"))
-    context = {"blog_post": blog_post, "blog_page": blog_page, "use_disqus": 
-        use_disqus, "posted_comment_form": posted_comment_form, 
+    context = {"blog_post": blog_post, "blog_page": blog_page(), 
+        "use_disqus": use_disqus, "posted_comment_form": posted_comment_form, 
         "unposted_comment_form": unposted_comment_form}
     t = select_template(["blog/%s.html" % slug, template])
     return HttpResponse(t.render(RequestContext(request, context)))

@@ -35,7 +35,8 @@ class FormForForm(forms.ModelForm):
             else:
                 field_class_name, field_widget = field.field_type, None
             field_class = getattr(forms, field_class_name)
-            field_args = {"label": field.label, "required": field.required}
+            field_args = {"label": field.label, "required": field.required,
+                "help_text": field.help_text}
             arg_names = field_class.__init__.im_func.func_code.co_varnames
             if "max_length" in arg_names:
                 field_args["max_length"] = FIELD_MAX_LENGTH

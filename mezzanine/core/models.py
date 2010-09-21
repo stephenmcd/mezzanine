@@ -9,7 +9,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.managers import DisplayableManager, KeywordManager
-from mezzanine import settings as blog_settings
+from mezzanine.settings import CONTENT_STATUS_CHOICES, CONTENT_STATUS_DRAFT
 from mezzanine.utils import base_concrete_model
 
 
@@ -62,27 +62,25 @@ class Slugged(models.Model):
 class Displayable(Slugged):
     """
     Abstract model that provides features of a visible page on the website
-    such as meta data and publishing fields.
+    such as publishing fields and meta data.
     """
 
-    content = HtmlField(_("Content"))
-    description = HtmlField(_("Description"), blank=True)
     status = models.IntegerField(_("Status"),
-        choices=blog_settings.CONTENT_STATUS_CHOICES,
-        default=blog_settings.CONTENT_STATUS_DRAFT)
+        choices=CONTENT_STATUS_CHOICES, default=CONTENT_STATUS_DRAFT)
     publish_date = models.DateTimeField(_("Published from"), 
         help_text=_("With published selected, won't be shown until this time"),
         blank=True, null=True)
     expiry_date = models.DateTimeField(_("Expires on"), 
         help_text=_("With published selected, won't be shown after this time"),
         blank=True, null=True)
+    description = HtmlField(_("Description"), blank=True)
     keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
         blank=True)
     _keywords = models.CharField(max_length=500, editable=False)
     short_url = models.URLField(blank=True, null=True)
 
     objects = DisplayableManager()
-    search_fields = {"_keywords": 10, "title": 5, "content": 1}
+    search_fields = {"_keywords": 10, "title": 5}
 
     class Meta:
         abstract = True
@@ -96,12 +94,21 @@ class Displayable(Slugged):
             # quick blog form in the admin dashboard.
             self.publish_date = datetime.now()
         if not self.description:
-            for s in ("</p>", "\n", ". "):
-                if s in self.content:
-                    self.description = self.content.split(s)[0] + s
+            for field_type in (HtmlField, models.TextField):
+                if not self.description:
+                    for field in self._meta.fields:
+                        if isinstance(field, field_type):
+                            self.description = getattr(self, field.name)
+                            if self.description:
+                                break
+            if not self.description:
+                self.description = self.title
+            for end in ("</p>", "<br />", "\n", ". "):
+                if end in self.description:
+                    self.description = self.description.split(end)[0] + end
                     break
             else:
-                self.description = truncatewords_html(self.content, 100)
+                self.description = truncatewords_html(self.description, 100)
         super(Displayable, self).save(*args, **kwargs)
 
     def set_searchable_keywords(self):
@@ -117,6 +124,19 @@ class Displayable(Slugged):
             ugettext("View on site"))
     admin_link.allow_tags = True
     admin_link.short_description = ""
+
+
+class Content(models.Model):
+    """
+    Provides a HTML field for manging general content and making it searchable.
+    """
+
+    content = HtmlField(_("Content"))
+
+    search_fields = ("content",)
+
+    class Meta:
+        abstract = True
 
 
 class OrderableBase(ModelBase):

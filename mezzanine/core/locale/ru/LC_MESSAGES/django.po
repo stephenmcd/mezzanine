@@ -1,0 +1,215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-03 12:22+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: .\admin.py:47
+msgid "Meta data"
+msgstr "Мета данные"
+
+#: .\forms.py:24 .\models.py:139
+msgid "Order"
+msgstr "Порядок"
+
+#: .\models.py:22
+msgid "Title"
+msgstr "Название"
+
+#: .\models.py:23
+msgid "Content"
+msgstr "Содержимое"
+
+#: .\models.py:24
+msgid "Description"
+msgstr "Описание"
+
+#: .\models.py:25
+msgid "Status"
+msgstr "Статус"
+
+#: .\models.py:28
+msgid "Published from"
+msgstr "Опубликовано с"
+
+#: .\models.py:29
+msgid "With published selected, won't be shown until this time"
+msgstr "Если выбрано 'Опубликовано', то не будет отображаться до этого времени"
+
+#: .\models.py:31
+msgid "Expires on"
+msgstr "Истекает"
+
+#: .\models.py:32
+msgid "With published selected, won't be shown after this time"
+msgstr "Если выбрано 'Опубликовано', то не будет отображаться после этого времени"
+
+#: .\models.py:34
+msgid "URL"
+msgstr ""
+
+#: .\models.py:35
+msgid "Keywords"
+msgstr "Ключевые слова"
+
+#: .\models.py:102
+msgid "View on site"
+msgstr "Посмотреть на сайте"
+
+#: .\models.py:182
+msgid "Author"
+msgstr "Автор"
+
+#: .\views.py:47
+msgid "Permission denied"
+msgstr "В доступе отказано"
+
+#: .\templates\404.html.py:6
+msgid "Page not found"
+msgstr "Страница не найдена"
+
+#: .\templates\404.html.py:10
+msgid "The page you requested does not exist."
+msgstr "Запрошенная страница не существует"
+
+#: .\templates\500.html.py:6 .\templates\includes\editable_loader.html.py:54
+msgid "Error"
+msgstr "Ошибка"
+
+#: .\templates\500.html.py:10
+msgid "Sorry, an error occurred."
+msgstr "Извините, возникла ошибка."
+
+#: .\templates\index.html.py:6 .\templates\admin\index.html.py:30
+msgid "Home"
+msgstr "Домашняя страница"
+
+#: .\templates\index.html.py:10
+msgid "This is the homepage."
+msgstr "Это домашняя страница"
+
+#: .\templates\index.mobile.html.py:6
+msgid "This is the mobile homepage."
+msgstr "Это мобильная домашняя страница"
+
+#: .\templates\search_results.html.py:5 .\templates\search_results.html.py:6
+msgid "Search Results"
+msgstr "Результаты поиска"
+
+#: .\templates\admin\base_site.html.py:40
+msgid "Interface:"
+msgstr "Интерфейс:"
+
+#: .\templates\admin\base_site.html.py:44
+#: .\templates\includes\editable_toolbar.html.py:8
+msgid "Admin"
+msgstr "Администрирование"
+
+#: .\templates\admin\base_site.html.py:48
+msgid "Site"
+msgstr "Сайт"
+
+#: .\templates\admin\index.html.py:44
+msgid "Manage"
+msgstr "Управлять"
+
+#: .\templates\admin\index.html.py:57
+msgid "Add"
+msgstr "Добавить"
+
+#: .\templates\admin\index.html.py:63
+msgid "Change"
+msgstr "Изменить"
+
+#: .\templates\admin\index.html.py:79
+msgid "You don't have permission to edit anything."
+msgstr "У Вас нет разрешения на редактирование."
+
+#: .\templates\admin\index.html.py:84
+msgid "Quick Blog"
+msgstr "Блог"
+
+#: .\templates\admin\index.html.py:92
+msgid "Save Draft"
+msgstr "Сохранить черновик"
+
+#: .\templates\admin\index.html.py:106
+msgid "Recent Actions"
+msgstr "Недавние действия"
+
+#: .\templates\admin\index.html.py:107
+msgid "My Actions"
+msgstr "Мои действия"
+
+#: .\templates\admin\index.html.py:111
+msgid "None available"
+msgstr ""
+
+#: .\templates\admin\index.html.py:125
+msgid "Recent Comments"
+msgstr "Недавние комментарии"
+
+#: .\templates\admin\includes\recent_comments.html.py:12
+msgid "ago"
+msgstr "назад"
+
+#: .\templates\admin\includes\recent_comments.html.py:16
+msgid "Posted to"
+msgstr "Отправлено"
+
+#: .\templates\admin\includes\recent_comments.html.py:19
+msgid "View comment"
+msgstr "Смотреть комментарий"
+
+#: .\templates\includes\editable_form.html.py:6
+msgid "Save"
+msgstr "Сохранить"
+
+#: .\templates\includes\editable_form.html.py:7
+msgid "Cancel"
+msgstr "Отмена"
+
+#: .\templates\includes\editable_form.html.py:14
+msgid "Edit"
+msgstr "Редактировать"
+
+#: .\templates\includes\editable_toolbar.html.py:9
+msgid "Log out"
+msgstr "Выйти"
+
+#: .\templates\includes\pagination.html.py:4
+msgid "Page"
+msgstr "Страница"
+
+#: .\templates\includes\pagination.html.py:4
+msgid "of"
+msgstr "из"
+
+#: .\templates\includes\search.html.py:3
+msgid "Search"
+msgstr "Поиск"
+
+#: .\templates\includes\search.html.py:6
+msgid "Go"
+msgstr "Искать"
+
+#: ..\settings.py:62
+msgid "Draft"
+msgstr "Черновик"
+
+#: ..\settings.py:63
+msgid "Published"
+msgstr "Опубликовано"
