@@ -139,8 +139,26 @@ try:
 except ImportError:
     pass
 
+
+
 TEMPLATE_DEBUG = DEBUG
-if DEV_SERVER and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
-    ADMIN_MEDIA_PREFIX = "http://127.0.0.1:8000%s" % ADMIN_MEDIA_PREFIX
+import sys
+runserver = len(sys.argv) >= 2 and sys.argv[1] == "runserver"
+if runserver and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
+    # Adopted from django.core.management.commands.runserver
+    addrport = ""
+    if len(sys.argv) > 2:
+        addrport = sys.argv[2]
+    if not addrport:
+        addr = ""
+        port = "8000"
+    else:
+        try:
+            addr, port = addrport.split(":")
+        except ValueError:
+            addr, port = "", addrport
+    if not addr:
+        addr = "127.0.0.1"
+    ADMIN_MEDIA_PREFIX = "http://%s:%s%s" % (addr, port, ADMIN_MEDIA_PREFIX)
 if DATABASE_ENGINE == "sqlite3":
     DATABASE_NAME = os.path.join(project_path, DATABASE_NAME)
