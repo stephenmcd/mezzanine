@@ -3,7 +3,6 @@ from htmlentitydefs import name2codepoint
 from re import sub
 
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.db.models.fields.related import ReverseSingleRelatedObjectDescriptor
 
 from mezzanine.settings import CONTENT_MEDIA_URL
 

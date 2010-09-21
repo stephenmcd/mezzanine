@@ -47,7 +47,7 @@ def create_project():
         try:
             __import__(package_name)
         except ImportError:
-            parser.error("Could not import package '%s'" % package) 
+            parser.error("Could not import package '%s'" % package_name) 
     for package_name in packages:
         package = __import__(package_name)
         package_path = os.path.dirname(os.path.abspath(package.__file__))

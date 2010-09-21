@@ -20,6 +20,7 @@ from mezzanine import template
 from mezzanine.core.forms import get_edit_form
 from mezzanine.utils import decode_html_entities, is_editable
 
+from django.utils.datastructures import SortedDict
 
 register = template.Library()
 
