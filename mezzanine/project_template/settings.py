@@ -139,13 +139,12 @@ try:
 except ImportError:
     pass
 
-
-
-TEMPLATE_DEBUG = DEBUG
-import sys
 runserver = len(sys.argv) >= 2 and sys.argv[1] == "runserver"
 if runserver and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
-    # Adopted from django.core.management.commands.runserver
+    # Adopted from django.core.management.commands.runserver - easiest way 
+    # so far to actually get all the media for grappelli working with the dev 
+    # server is to hard-code the host:port to ``ADMIN_MEDIA_PREFIX``, so 
+    # here we check for a custom host:port before doing this.
     addrport = ""
     if len(sys.argv) > 2:
         addrport = sys.argv[2]
@@ -162,3 +161,5 @@ if runserver and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
     ADMIN_MEDIA_PREFIX = "http://%s:%s%s" % (addr, port, ADMIN_MEDIA_PREFIX)
 if DATABASE_ENGINE == "sqlite3":
     DATABASE_NAME = os.path.join(project_path, DATABASE_NAME)
+TEMPLATE_DEBUG = DEBUG
+

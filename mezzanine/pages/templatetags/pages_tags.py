@@ -1,6 +1,6 @@
+
 from collections import defaultdict
 
-#from django import template
 from django.core.urlresolvers import reverse
 from django.db.models import get_model, get_models
 

@@ -3,7 +3,6 @@ from calendar import month_name
 from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -27,7 +26,7 @@ def blog_page():
     """
     try:
         return ContentPage.objects.get(slug=blog_settings.BLOG_SLUG)
-    except Page.DoesNotExist:
+    except ContentPage.DoesNotExist:
         return None
 
 def blog_post_list(request, tag=None, year=None, month=None, username=None,

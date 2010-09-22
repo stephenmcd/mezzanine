@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.utils import content_media_urls
 from mezzanine.core.forms import DynamicInlineAdminForm
-from mezzanine.core.models import Orderable, HtmlField
+from mezzanine.core.models import Orderable
 
 
 # Build the list of admin JS file for ``Displayable`` models.

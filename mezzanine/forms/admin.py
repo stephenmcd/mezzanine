@@ -11,7 +11,6 @@ from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-#from django.template import loader, Context
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 

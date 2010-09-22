@@ -10,10 +10,8 @@ from django.db.models import Model
 from django.template import Context
 from django.template.loader import get_template
 from django.utils.html import strip_tags
-from django.utils.safestring import mark_safe
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
-from django.utils.translation import ugettext as _
 
 from mezzanine import settings as mezzanine_settings
 from mezzanine import template

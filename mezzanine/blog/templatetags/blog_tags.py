@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from time import timezone
 from urllib import urlopen, urlencode
 
-#from django import template
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.utils.simplejson import loads
