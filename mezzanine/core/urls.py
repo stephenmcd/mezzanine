@@ -13,6 +13,9 @@ from mezzanine.settings import ADMIN_REMOVAL, CONTENT_MEDIA_PATH, \
 urlpatterns = patterns("mezzanine.core.views",
     url("^admin_keywords_submit/$", "admin_keywords_submit",
         name="admin_keywords_submit"),
+    url("^mezzanine.js$", direct_to_template,
+        {'template': 'mezzanine.js', 'mimetype': 'text/javascript'},
+        name="mezzanine_js"),
     url("^edit/$", "edit", name="edit"),
     url("^search/$", "search", name="search"),
 )

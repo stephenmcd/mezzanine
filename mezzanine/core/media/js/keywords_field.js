@@ -60,7 +60,7 @@ $(function() {
         var button = this;
         if (!keywordsSaved) {
             var keywords = {text_keywords: form.text_keywords.value};
-            $.post('/admin_keywords_submit/', keywords, function(ids) {
+            $.post(Mezzanine.admin_keywords_submit_url, keywords, function(ids) {
                 $('#id_keywords').html('');
                 if (ids.length > 0) {
                     $('#id_keywords').html($.map(ids.split(','), function(id) {
