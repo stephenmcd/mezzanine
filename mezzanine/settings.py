@@ -58,7 +58,7 @@ setting("COMMENTS_UNAPPROVED_VISIBLE", True)
 CONTENT_MEDIA_PATH = os.path.join(os.path.dirname(__file__), "core", "media")
 
 # URL for serving internal media files.
-settings("CONTENT_MEDIA_URL", "/content_media/")
+setting("CONTENT_MEDIA_URL", "/content_media/")
 
 # Content status choices.
 CONTENT_STATUS_DRAFT = 1
