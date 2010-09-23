@@ -31,7 +31,11 @@
 </style>
 {% load_settings ADMIN_MEDIA_PREFIX CONTENT_MEDIA_URL %}
 <script language="javascript" src="{{ ADMIN_MEDIA_PREFIX }}tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-<script language="javascript" src="{{ CONTENT_MEDIA_URL }}js/tinymce_setup.js"></script>
+<script language="javascript">
+if (typeof tinyMCE != "undefined") {
+  document.write('<script language="javascript" src="', '{{ CONTENT_MEDIA_URL }}js/tinymce_setup.js', '"><\/script>');
+}
+</script>
 <script language="javascript" src="{{ CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
 <script language="javascript" src="{{ CONTENT_MEDIA_URL }}js/jquery.tools.js"></script>
 <script language="javascript">
@@ -48,7 +52,9 @@ $(function($) {
         });
         form.hide();
         loading.show();
-        tinyMCE.triggerSave();
+        if (typeof tinyMCE != "undefined" ) {
+            tinyMCE.triggerSave();
+        }
         $.post(form.attr('action'), form.serialize(), function(data) {
             if (data) {
                 alert('{% trans "Error" %}: ' + data);
