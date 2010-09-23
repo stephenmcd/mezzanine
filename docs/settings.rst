@@ -10,7 +10,7 @@ Unregister these models installed by default (occurs in urlconf).
 ``MEZZANINE_ADMIN_MENU_ORDER``
 ------------------------------
 
-Default: ``((<django.utils.functional.__proxy__ object at 0x981df4c>, ('pages.Page', 'blog.BlogPost', 'blog.Comment')), (<django.utils.functional.__proxy__ object at 0x981dfcc>, ('auth.User', 'auth.Group', 'sites.Site', 'redirects.Redirect')))``
+Default: ``((<django.utils.functional.__proxy__ object at 0x9b4cfec>, ('pages.Page', 'blog.BlogPost', 'blog.Comment')), (<django.utils.functional.__proxy__ object at 0x9b4f1ec>, ('auth.User', 'auth.Group', 'sites.Site', 'redirects.Redirect')))``
 
 Controls the ordering and grouping of the admin menu.
 
@@ -85,6 +85,13 @@ If True, unapproved comments will have a placeholder visible on the site
 with a "waiting for approval" or "comment removed" message based on the
 workflow around the ``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if
 True then the former message is used, if False then the latter.
+
+``MEZZANINE_CONTENT_MEDIA_URL``
+-------------------------------
+
+Default: ``"/content_media/"``
+
+URL for serving internal media files.
 
 ``MEZZANINE_GOOGLE_ANALYTICS_ID``
 ---------------------------------
