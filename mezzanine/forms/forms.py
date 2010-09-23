@@ -70,7 +70,8 @@ class FormForForm(forms.ModelForm):
                 value = fs.save(join("forms", str(uuid4()), value.name), value)
             if isinstance(value, list):
                 value = ", ".join([v.strip() for v in value])
-            entry.fields.create(field_id=field.id, value=value)
+            if value:
+                entry.fields.create(field_id=field.id, value=value)
         return entry
 
     def email_to(self):
