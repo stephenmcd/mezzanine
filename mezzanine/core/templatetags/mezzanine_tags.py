@@ -154,7 +154,7 @@ def admin_dropdown_menu(context):
                 model_label = "%s.%s" % (app_label, model.__name__)
                 for (name, items) in mezzanine_settings.ADMIN_MENU_ORDER:
                     try:
-                        index = items.index(model_label)
+                        index = list(items).index(model_label)
                     except ValueError:
                         pass
                     else:

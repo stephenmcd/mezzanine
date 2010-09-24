@@ -55,9 +55,8 @@ setting("COMMENTS_NUM_LATEST", 5)
 setting("COMMENTS_UNAPPROVED_VISIBLE", True)
 
 # Media files for admin.
-# This should never be overridden
 CONTENT_MEDIA_PATH = os.path.join(os.path.dirname(__file__), "core", "media")
-# This might be overridden when mezzanine is used in a different project.
+# URL for serving internal media files.
 setting("CONTENT_MEDIA_URL", "/content_media/")
 
 # Content status choices.
