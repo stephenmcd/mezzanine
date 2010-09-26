@@ -5,6 +5,7 @@ Converts the last backward-compatible grappelli branch into a newly named
 package ``grappelli_safe``.
 """
 
+from __future__ import with_statement
 import os
 
 branch_url = "http://django-grappelli.googlecode.com/svn/branches/grappelli_2"

@@ -5,6 +5,7 @@ Converts the last backward-compatible filebrowser branch into a newly named
 package ``filebrowser_safe``.
 """
 
+from __future__ import with_statement
 import os
 
 branch_url = \
