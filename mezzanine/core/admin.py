@@ -2,7 +2,6 @@
 from django.conf import settings
 from django.db.models import AutoField
 from django.contrib import admin
-from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.utils import content_media_urls
@@ -13,21 +12,14 @@ from mezzanine.core.models import Orderable
 # Build the list of admin JS file for ``Displayable`` models.
 # For >= Django 1.2 include a backport of the collapse js which targets
 # earlier versions of the admin.
-# This needs to be done as an iterator so that reverse() is not called until it needs to be
-class JS(object):
-    js = None
-    def __iter__(self):
-        if not JS.js:
-            JS.js = ["%stinymce/jscripts/tiny_mce/tiny_mce.js" % settings.ADMIN_MEDIA_PREFIX,
-                     reverse('mezzanine_js')]
-            js = ["js/tinymce_setup.js", "js/jquery-1.4.2.min.js",
-                  "js/keywords_field.js"]
-            from django import VERSION
-            if not (VERSION[0] <= 1 and VERSION[1] <= 1):
-                js.append("js/collapse_backport.js")
-            JS.js.extend(content_media_urls(*js))
-        for js in JS.js:
-            yield js
+displayable_js = ["js/tinymce_setup.js", "js/jquery-1.4.2.min.js",
+    "js/keywords_field.js"]
+from django import VERSION
+if not (VERSION[0] <= 1 and VERSION[1] <= 1):
+    displayable_js.append("js/collapse_backport.js")
+displayable_js = content_media_urls(*displayable_js)
+displayable_js.insert(0, "%stinymce/jscripts/tiny_mce/tiny_mce.js" % 
+    settings.ADMIN_MEDIA_PREFIX)
 
 
 class DisplayableAdmin(admin.ModelAdmin):
@@ -36,7 +28,7 @@ class DisplayableAdmin(admin.ModelAdmin):
     """
 
     class Media:
-        js = JS()
+        js = displayable_js
 
     list_display = ("title", "status", "admin_link")
     list_display_links = ("title",)
