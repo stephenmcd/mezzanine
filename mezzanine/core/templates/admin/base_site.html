@@ -75,8 +75,12 @@ $(function() {
     var breadcrumb = $('.breadcrumbs');
     $('.breadcrumbs').html(' ').show();
     $('body').append($('.dropdown-menu'));
-    $('.dropdown-menu').css({top: breadcrumb.offset().top, 
-        position: grappelli ? 'fixed' : 'absolute'}).show();
+    // The top value here previously used breadcrumb.offset().top but breaks 
+    // when scrolling and reloading in Firefox, so to resolve this it's 
+    // hard-coded for now. Reported in github issue #11 
+    $('.dropdown-menu').css({
+        top: grappelli ? 30 : 37, position: grappelli ? 'fixed' : 'absolute'
+    }).show();
 
     $('.dropdown-menu a').mouseover(function() {
         var parent = $(this).parent();
