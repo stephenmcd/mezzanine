@@ -13,6 +13,9 @@ from mezzanine.settings import ADMIN_REMOVAL, CONTENT_MEDIA_PATH, \
 urlpatterns = patterns("mezzanine.core.views",
     url("^admin_keywords_submit/$", "admin_keywords_submit",
         name="admin_keywords_submit"),
+    url("^mezzanine.js$", direct_to_template,
+        {'template': 'mezzanine.js', 'mimetype': 'text/javascript'},
+        name="mezzanine_js"),
     url("^edit/$", "edit", name="edit"),
     url("^search/$", "search", name="search"),
 )
@@ -37,7 +40,9 @@ for model in ADMIN_REMOVAL:
             pass
 
 # Pairs of optional app names and their urlpatterns.
-OPTIONAL_APP_PATTERNS = (
+OPTIONAL_APP_PATTERNS = []
+if getattr(settings, "PACKAGE_NAME_FILEBROWSER", None):
+    OPTIONAL_APP_PATTERNS.append(
     (settings.PACKAGE_NAME_FILEBROWSER, patterns("",
         ("^admin/filebrowser/", include("%s.urls" %
             settings.PACKAGE_NAME_FILEBROWSER)),
@@ -45,15 +50,16 @@ OPTIONAL_APP_PATTERNS = (
             "FILEBROWSER_URL_FILEBROWSER_MEDIA", "").strip("/"),
             "django.views.static.serve", {'document_root':
             getattr(settings, "FILEBROWSER_PATH_FILEBROWSER_MEDIA", "")}),
-    )),
+    )))
+if getattr(settings, "PACKAGE_NAME_GRAPPELLI", None):
+    OPTIONAL_APP_PATTERNS.append(
     (settings.PACKAGE_NAME_GRAPPELLI, patterns("",
         ("^grappelli/", include("%s.urls" %
             settings.PACKAGE_NAME_GRAPPELLI)),
         ("^%s/admin/(?P<path>.*)$" % urlsplit(settings.ADMIN_MEDIA_PREFIX
             ).path.strip("/").split("/")[0], "django.views.static.serve",
             {'document_root': getattr(settings, "GRAPPELLI_MEDIA_PATH", "")}),
-    )),
-)
+    )))
 
 # Add patterns for optionally installed apps.
 for (app, app_patterns) in OPTIONAL_APP_PATTERNS:
