@@ -13,7 +13,6 @@ def use_mobile_template(view_func):
     template based on the original template name.
     """
     def view(request, *args, **kwargs):
-        import pdb;pdb.set_trace()
         user_agent = request.META.get("HTTP_USER_AGENT", "")
         if [check for check in MOBILE_USER_AGENTS if check in user_agent]:
             template = kwargs.get("template")
