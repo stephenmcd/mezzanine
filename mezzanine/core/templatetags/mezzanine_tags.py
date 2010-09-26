@@ -131,6 +131,20 @@ def editable(parsed, context, token):
     return parsed
 
 
+@register.simple_tag
+def admin_url(url_name):
+    """
+    Mimics Django's ``url`` template tag. Used for urls in admin templates as 
+    for some reason these urls won't resolve when admin tests are running, so 
+    here they just fail silently.
+    """
+    try:
+        url = reverse(url_name)
+    except NoReverseMatch:
+        return ""
+    return url
+
+
 @register.inclusion_tag("admin/includes/dropdown_menu.html", takes_context=True)
 def admin_dropdown_menu(context):
     """
@@ -189,12 +203,4 @@ def admin_dropdown_menu(context):
     for app in app_list:
         app["models"].sort(key=sort)
     app_list.sort(key=sort)
-    # This silliness is required for the test suite to pass. For some reason 
-    # the admin URLs can't be resolved while testing so in this situation,
-    # trapping it and using an empty string for the index URL is quite 
-    # acceptable.
-    try:
-        admin_url = reverse("admin:index")
-    except NoReverseMatch:
-        admin_url = ""
-    return {"app_list": app_list, "admin_url": admin_url}
+    return {"app_list": app_list}
