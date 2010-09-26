@@ -53,9 +53,14 @@ The Mezzanine admin dashboard:
 Dependencies
 ============
 
-Apart from `Django`_ itself, Mezzanine has no explicit dependencies but is 
-designed to be used most effectively in conjunction with the following 
-libraries.
+Mezzanine has no explicit dependencies apart from a standard Django 
+environment using.
+
+  * `Python`_ 2.5 ... 2.7
+  * `Django`_ 1.1 ... 1.2
+  
+Mezzanine is designed however to be used most effectively in conjunction 
+with the following libraries.
 
   * `setuptools`_
   * `Python Imaging Library`_ (PIL)
@@ -124,6 +129,7 @@ Quotes
 .. _`Wordpress`: http://wordpress.org/
 .. _`Pinax`: http://pinaxproject.com/
 .. _`Mingus`: http://github.com/montylounge/django-mingus
+.. _`Python`: http://python.org/
 .. _`setuptools`: http://pypi.python.org/pypi/setuptools
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`django-grappelli`: http://code.google.com/p/django-grappelli/
