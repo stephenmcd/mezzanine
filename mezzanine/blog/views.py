@@ -11,6 +11,7 @@ from django.template.loader import select_template
 
 from mezzanine.blog.forms import CommentForm
 from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.core.decorators import use_mobile_template
 from mezzanine.core.models import Keyword
 from mezzanine.pages.models import ContentPage
 from mezzanine.utils import paginate
@@ -29,6 +30,8 @@ def blog_page():
     except ContentPage.DoesNotExist:
         return None
 
+
+@use_mobile_template
 def blog_post_list(request, tag=None, year=None, month=None, username=None,
     category=None, template="blog/blog_post_list.html"):
     """
@@ -60,6 +63,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     return render_to_response(template, context, RequestContext(request))
 
 
+@use_mobile_template
 def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
     """
     Display a blog post.
