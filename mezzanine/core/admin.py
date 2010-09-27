@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.utils import content_media_urls
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import Orderable
+from mezzanine.settings import TINYMCE_URL
 
 
 # Build the list of admin JS file for ``Displayable`` models.
@@ -18,7 +19,7 @@ class JS(object):
     js = None
     def __iter__(self):
         if not JS.js:
-            JS.js = ["%stinymce/jscripts/tiny_mce/tiny_mce.js" % settings.ADMIN_MEDIA_PREFIX,
+            JS.js = ["%s/jscripts/tiny_mce/tiny_mce.js" % TINYMCE_URL,
                      reverse('mezzanine_js')]
             js = ["js/tinymce_setup.js", "js/jquery-1.4.2.min.js",
                   "js/keywords_field.js"]
