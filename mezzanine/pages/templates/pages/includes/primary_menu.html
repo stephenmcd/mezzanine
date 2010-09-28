@@ -10,7 +10,7 @@
     </li>
     {% endif %}
     {% if page.in_navigation %}
-    <li id="primary-menu-{{ page.slug }}" class="{% if page.selected %}active{% endif %}{% if forloop.last %} last{% endif %}">
+    <li id="primary-menu-{{ page.html_id }}" class="{% if page.selected %}active{% endif %}{% if forloop.last %} last{% endif %}">
         <a href="{% url page page.slug %}">{{ page.title }}</a>
     </li>
     {% endif %}

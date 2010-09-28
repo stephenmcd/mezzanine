@@ -30,12 +30,23 @@ def _page_menu(context, parent_page):
             slug = ""
         for page in Page.objects.published(for_user=user).order_by("_order"):
             setattr(page, "selected", (slug + "/").startswith(page.slug + "/"))
+            setattr(page, "html_id", page.slug.replace("/", "-"))
             setattr(page, "primary", page.parent_id is None)
+            setattr(page, "branch_level", 0)
             pages[page.parent_id].append(page)
         context["menu_pages"] = pages
+    # ``branch_level`` must be stored against each page so that the 
+    # calculation of it is correctly applied. This looks weird but if we do 
+    # the ``branch_level`` as a separate arg to the template tag with the 
+    # addition performed on it, the addition occurs each time the template 
+    # tag is called rather than once per level.
+    context["branch_level"] = 0
     if parent_page is not None:
+        context["branch_level"] = parent_page.branch_level + 1
         parent_page = parent_page.id
     context["page_branch"] = context["menu_pages"].get(parent_page, [])
+    for i, page in enumerate(context["page_branch"]):
+        context["page_branch"][i].branch_level = context["branch_level"]
     context["PAGES_MENU_SHOW_ALL"] = PAGES_MENU_SHOW_ALL
     return context
 
