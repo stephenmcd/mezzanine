@@ -8,13 +8,14 @@ from os.path import join
 from django.conf.urls.defaults import patterns, url
 from django.contrib import admin
 from django.core.files.storage import FileSystemStorage
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.admin import DynamicInlineAdmin
+from mezzanine.forms.forms import ExportForm
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.forms.settings import UPLOAD_ROOT
 from mezzanine.pages.admin import PageAdmin
@@ -74,53 +75,19 @@ class FormAdmin(PageAdmin):
         Output a CSV file to the browser containing the entries for the form.
         """
         form = get_object_or_404(Form, id=form_id)
-        response = HttpResponse(mimetype="text/csv")
-        csvname = "%s-%s.csv" % (form.slug, slugify(datetime.now().ctime()))
-        response["Content-Disposition"] = "attachment; filename=%s" % csvname
-        csv = writer(response)
-        # Write out the column names and store the index of each field
-        # against its ID for building each entry row. Also store the IDs of
-        # fields with a type of FileField for converting their field values
-        # into download URLs.
-        columns = []
-        field_indexes = {}
-        file_field_ids = []
-        for field in form.fields.all():
-            columns.append(field.label.encode("utf-8"))
-            field_indexes[field.id] = len(field_indexes)
-            if field.field_type == "FileField":
-                file_field_ids.append(field.id)
-        entry_time_name = FormEntry._meta.get_field("entry_time").verbose_name
-        columns.append(unicode(entry_time_name).encode("utf-8"))
-        csv.writerow(columns)
-        # Loop through each field value order by entry, building up each
-        # entry as a row.
-        current_entry = None
-        current_row = None
-        values = FieldEntry.objects.filter(entry__form=form) \
-                            .order_by("-entry__id").select_related(depth=1)
-        for field_entry in values:
-            if field_entry.entry_id != current_entry:
-                # New entry, write out the current row and start a new one.
-                current_entry = field_entry.entry_id
-                if current_row is not None:
-                    csv.writerow(current_row)
-                current_row = [""] * len(columns)
-                current_row[-1] = field_entry.entry.entry_time
-            value = field_entry.value.encode("utf-8")
-            # Create download URL for file fields.
-            if field_entry.field_id in file_field_ids:
-                url = reverse("admin:form_file", args=(field_entry.id,))
-                value = request.build_absolute_uri(url)
-            # Only use values for fields that currently exist for the form.
-            try:
-                current_row[field_indexes[field_entry.field_id]] = value
-            except KeyError:
-                pass
-        # Write out the final row.
-        if current_row is not None:
-            csv.writerow(current_row)
-        return response
+        export_form = ExportForm(form, request, request.POST or None)
+        if export_form.is_valid():
+            response = HttpResponse(mimetype="text/csv")
+            fname = "%s-%s.csv" % (form.slug, slugify(datetime.now().ctime()))
+            response["Content-Disposition"] = "attachment; filename=%s" % fname
+            csv = writer(response)
+            csv.writerow(export_form.columns())
+            for rows in export_form.rows():
+                csv.writerow(rows)
+            return response
+        template = "admin/forms/export.html"
+        context = {"title": _("Export Entries"), "export_form": export_form}
+        return render_to_response(template, context, RequestContext(request))
 
     def file_view(self, request, field_entry_id):
         """

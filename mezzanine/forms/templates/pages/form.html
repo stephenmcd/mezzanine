@@ -9,9 +9,9 @@
     {{ page.form.response|safe }}
     {% endeditable %}
 {% else %}
-    {% editable page.form.content %}
+    {# editable page.form.content #}
     {{ page.form.content|safe }}
-    {% endeditable %}
+    {# endeditable #}
     <form method="post" class="form"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         <ul>{{ form.as_ul }}</ul>
