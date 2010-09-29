@@ -56,6 +56,7 @@ setting("COMMENTS_UNAPPROVED_VISIBLE", True)
 
 # Media files for admin.
 CONTENT_MEDIA_PATH = os.path.join(os.path.dirname(__file__), "core", "media")
+
 # URL for serving internal media files.
 setting("CONTENT_MEDIA_URL", "/content_media/")
 
