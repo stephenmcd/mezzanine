@@ -5,7 +5,6 @@ from os.path import join
 from uuid import uuid4
 
 from django import forms
-from django.db.models import Q
 from django.forms.extras import SelectDateWidget
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse

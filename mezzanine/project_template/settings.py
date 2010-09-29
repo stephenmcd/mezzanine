@@ -22,6 +22,7 @@ DATABASE_USER = ""
 DATABASE_PASSWORD = ""
 DATABASE_HOST = ""
 DATABASE_PORT = ""
+TEST_DATABASE_COLLATION = "utf8_general_ci"
 
 # Paths.
 import os
