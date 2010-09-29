@@ -10,11 +10,11 @@ function CustomFileBrowser(field_name, url, type, win) {
         resizable: "yes",
         scrollbars: "yes",
         inline: "no",  // This parameter only has an effect if you use the inlinepopups plugin!
-        close_previous: "no",
+        close_previous: "no"
     }, {
         window: win,
         input: field_name,
-        editor_id: tinyMCE.selectedInstance.editorId,
+        editor_id: tinyMCE.selectedInstance.editorId
     });
     return false;
 }
@@ -122,7 +122,7 @@ tinyMCE.init({
     + "h1/h2/h3/h4/h5/h6/a[%itrans_na],"
     + "table[thead|tbody|tfoot|tr|td],"
     + "strong/b/p/div/em/i/td[%itrans|#text],"
-    + "body[%btrans|#text]",
+    + "body[%btrans|#text]"
     
 //    oninit: function() {
 //        var editor = tinyMCE.getInstanceById('id_content').getWin().document.body;
