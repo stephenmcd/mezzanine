@@ -171,8 +171,8 @@ class Tests(TestCase):
         for required in (True, False):
             form = Form.objects.create(title="Form",
                 status=CONTENT_STATUS_PUBLISHED)
-            for field in FIELD_CHOICES:
-                form.fields.create(label=field[0], field_type=field[0],
+            for (i, field) in enumerate(FIELD_CHOICES):
+                form.fields.create(label="Field %s" % i, field_type=field[0],
                     required=required, visible=True)
             response = self.client.get(form.get_absolute_url())
             self.assertEqual(response.status_code, 200)
