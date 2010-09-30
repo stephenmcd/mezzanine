@@ -3,7 +3,6 @@
 DEBUG = False
 DEV_SERVER = False
 MANAGERS = ADMINS = ()
-TIME_ZONE = ""
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 LANGUAGE_CODE = "en"
 SITE_ID = 1
@@ -22,7 +21,6 @@ DATABASE_USER = ""
 DATABASE_PASSWORD = ""
 DATABASE_HOST = ""
 DATABASE_PORT = ""
-TEST_DATABASE_COLLATION = "utf8_general_ci"
 
 # Paths.
 import os
@@ -140,8 +138,13 @@ try:
 except ImportError:
     pass
 
-runserver = len(sys.argv) >= 2 and sys.argv[1] == "runserver"
-if runserver and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
+TEMPLATE_DEBUG = DEBUG
+
+command = ""
+if len(sys.argv) >= 2:
+    command = sys.argv[1]
+
+if command == "runserver" and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
     # Adopted from django.core.management.commands.runserver - easiest way 
     # so far to actually get all the media for grappelli working with the dev 
     # server is to hard-code the host:port to ``ADMIN_MEDIA_PREFIX``, so 
@@ -160,7 +163,16 @@ if runserver and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
     if not addr:
         addr = "127.0.0.1"
     ADMIN_MEDIA_PREFIX = "http://%s:%s%s" % (addr, port, ADMIN_MEDIA_PREFIX)
-if DATABASE_ENGINE == "sqlite3":
-    DATABASE_NAME = os.path.join(project_path, DATABASE_NAME)
-TEMPLATE_DEBUG = DEBUG
 
+db_engine = DATABASE_ENGINE.split(".")[-1]
+if db_engine == "sqlite3" and "/" not in DATABASE_NAME:
+    # If the sqlite DB name doesn't contain a path, assume it's in the 
+    # project directory and add the path to it.
+    DATABASE_NAME = os.path.join(project_path, DATABASE_NAME)
+elif db_engine == "mysql":
+    # Required MySQL collation for tests.
+    TEST_DATABASE_COLLATION = "utf8_general_ci"
+elif db_engine.startswith("postgresql") and not globals().get("TIME_ZONE", 1):
+    # Specifying a blank time zone to fall back to the system's time zone
+    # will break table creation in Postgres so remove it.
+    del TIME_ZONE
