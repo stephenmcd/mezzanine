@@ -54,8 +54,8 @@
     {% endeditable %}
 </em>
 
-{% editable blog_post.description %}
-{{ blog_post.description|safe }}
+{% editable blog_post.content %}
+{{ blog_post.description_from_content|safe }}
 {% endeditable %}
 
 <p class="description">

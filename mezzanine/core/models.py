@@ -87,29 +87,41 @@ class Displayable(Slugged):
 
     def save(self, *args, **kwargs):
         """
-        Create the description from the content if none given.
+        Set default for ``publsh_date`` and ``description`` if none given.
         """
         if self.publish_date is None:
             # publish_date will be blank when a blog post is created from the
             # quick blog form in the admin dashboard.
             self.publish_date = datetime.now()
         if not self.description:
-            for field_type in (HtmlField, models.TextField):
-                if not self.description:
-                    for field in self._meta.fields:
-                        if isinstance(field, field_type):
-                            self.description = getattr(self, field.name)
-                            if self.description:
-                                break
-            if not self.description:
-                self.description = self.title
-            for end in ("</p>", "<br />", "\n", ". "):
-                if end in self.description:
-                    self.description = self.description.split(end)[0] + end
-                    break
-            else:
-                self.description = truncatewords_html(self.description, 100)
+            self.description = self.description_from_content()
         super(Displayable, self).save(*args, **kwargs)
+
+    def description_from_content(self):
+        """
+        Returns the first paragraph of the first content-like field.
+        """
+        description = ""
+        # Get the value of the first HTMLField, or TextField if none found.
+        for field_type in (HtmlField, models.TextField):
+            if not description:
+                for field in self._meta.fields:
+                    if isinstance(field, field_type) and \
+                        field.name != "description":
+                        description = getattr(self, field.name)
+                        if description:
+                            break
+        # Fall back to the title if description couldn't be determined.
+        if not description:
+            description = self.title
+        # Strip everything after the first paragraph or sentence.
+        for end in ("</p>", "<br />", "\n", ". "):
+            if end in description:
+                description = description.split(end)[0] + end
+                break
+        else:
+            description = truncatewords_html(description, 100)
+        return description
 
     def set_searchable_keywords(self):
         """
