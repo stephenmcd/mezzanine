@@ -1,3 +1,4 @@
+
 function CustomFileBrowser(field_name, url, type, win) {
     
     var cmsURL = "/admin/filebrowser/browse/?pop=2";
@@ -19,7 +20,6 @@ function CustomFileBrowser(field_name, url, type, win) {
     return false;
 }
 
-
 tinyMCE.init({
     
     // main settings
@@ -27,8 +27,6 @@ tinyMCE.init({
     editor_selector : "mceEditor",
     theme: "advanced",
     language: "en",
-    //skin: "grappelli",
-    //browsers: "gecko",
     dialog_type: "window",
     editor_deselector : "mceNoEditor",
     
@@ -41,7 +39,6 @@ tinyMCE.init({
     remove_script_host : true,
     accessibility_warnings : false,
     object_resizing: false,
-    cleanup_on_startup: true,
     forced_root_block: "p",
     remove_trailing_nbsp: true,
     
@@ -67,24 +64,6 @@ tinyMCE.init({
     // plugins
     plugins: "advimage,advlink,paste,media,table",
     advimage_update_dimensions_onchange: true,
-    
-    // grappelli settings
-    grappelli_adv_hidden: false,
-    grappelli_show_documentstructure: 'off',
-    
-    // templates
-    template_templates : [
-        {
-            title : "2 Spalten, symmetrisch",
-            src : "/grappelli/tinymce/templates/2col/",
-            description : "Symmetrical 2 Columns."
-        },
-        {
-            title : "2 Spalten, symmetrisch mit Unterteilung",
-            src : "/grappelli/tinymce/templates/4col/",
-            description : "Asymmetrical 2 Columns: big left, small right."
-        },
-    ],
     
     // elements
     valid_elements : ""
@@ -123,31 +102,5 @@ tinyMCE.init({
     + "table[thead|tbody|tfoot|tr|td],"
     + "strong/b/p/div/em/i/td[%itrans|#text],"
     + "body[%btrans|#text]"
-    
-//    oninit: function() {
-//        var editor = tinyMCE.getInstanceById('id_content').getWin().document.body;
-//        editor.style.backgroundColor='#fff';
-//    }
-    
-    // custom cleanup
-    // setup: function(ed) {
-    //     // Gets executed before DOM to HTML string serialization
-    //     ed.onBeforeGetContent.add(function(ed, o) {
-    //         // State get is set when contents is extracted from editor
-    //         if (o.get) {
-    //             // Remove empty paragraphs (because this is bad)
-    //             tinymce.each(ed.dom.select('p', o.node), function(n) {
-    //                 alert(n.firstChild);
-    //                 ed.dom.remove(n);
-    //             });
-    //             // Remove douple spaces
-    //             // o.content = o.content.replace(/<(strong|b)([^>]*)>/g, '');
-    //         }
-    //     });
-    // }
-    
+
 });
-
-
-
-
