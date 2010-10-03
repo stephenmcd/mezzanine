@@ -5,13 +5,12 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 
-def setting(setting_name, default_value):
+def setting(name, default):
     """
     Set the default value for a setting, using the value found in the project
-    settings module prefixed with MEZZANINE_ if found.
+    settings module prefixed with ``MEZZANINE_`` if found.
     """
-    globals()[setting_name] = getattr(settings,
-        "MEZZANINE_%s" % setting_name, default_value)
+    globals()[name] = getattr(settings, "MEZZANINE_%s" % name, default)
 
 # Unregister these models installed by default (occurs in urlconf).
 setting("ADMIN_REMOVAL", ())
