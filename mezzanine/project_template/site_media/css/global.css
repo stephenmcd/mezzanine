@@ -87,7 +87,7 @@ h3 {
     font-weight:normal; margin:20px 0 10px;
 }
 h4 {
-    font-weight:normal; margin-top:10px;
+    font-weight:bold; margin-top:10px;
 }
 h5 {
     font-weight:bold; margin-top:20px;
@@ -95,6 +95,8 @@ h5 {
 a {
     color:#008;
 }
+table {margin-bottom:30px;}
+td, th {padding:3px;}
 .active,
 .active .active {
     font-style:italic;
@@ -123,6 +125,9 @@ textarea {
 }
 textarea {
     width:100%;
+}
+td, th {
+    padding:4px;
 }
 #grid-bottom a {
     color:#eee; text-decoration:none;
