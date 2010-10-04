@@ -7,7 +7,7 @@ from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
-from django.template import Context
+from django.template import Context, Template
 from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
@@ -204,3 +204,16 @@ def admin_dropdown_menu(context):
         app["models"].sort(key=sort)
     app_list.sort(key=sort)
     return {"app_list": app_list}
+
+@register.render_tag
+def dashboard_column(context, token):
+    """
+    Takes an index for retrieving the sequence of template tags from 
+    ``mezzanine.settings.DASHBOARD_TAGS`` to render into the admin dashboard.
+    """
+    column_index = int(token.split_contents()[1])
+    output = []
+    for tag in mezzanine_settings.DASHBOARD_TAGS[column_index]:
+        t = Template("{%% load %s %%}{%% %s %%}" % tuple(tag.split(".")))
+        output.append(t.render(Context(context)))
+    return "".join(output)

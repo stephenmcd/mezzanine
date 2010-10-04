@@ -1,0 +1,18 @@
+{% load i18n %}
+
+{% if perms.blog.add_blogpost and perms.blog.change_blogpost %}
+<div class="module">
+    <h2>{% trans "Quick Blog" %}</h2>
+    <form method="post" action="{% url admin:blog_blogpost_add %}">
+        {% csrf_token %}
+        <table id="quick-blog">
+            {{ form.as_table }}
+            <tr><td colspan="2" style="text-align:right;">
+                <input type="submit" class="default" 
+                    value="{% trans "Save Draft" %}" />
+            </td></tr>
+        </table>
+    </form>
+</div>
+{% endif %}
+

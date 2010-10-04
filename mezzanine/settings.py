@@ -67,6 +67,14 @@ CONTENT_STATUS_CHOICES = (
     (CONTENT_STATUS_PUBLISHED, _("Published")),
 )
 
+# A sequence of three sequences that make up the template tags used to render 
+# the admin dashboard.
+setting("DASHBOARD_TAGS", (
+    ("blog_tags.quick_blog",),# "mezzanine_tags.app_list"),
+    ("blog_tags.recent_comments",),
+    ("mezzanine_tags.recent_actions",),
+))
+
 # ID for using Google Analytics (http://www.google.com/analytics/) referred to
 # as "Web Property ID"
 setting("GOOGLE_ANALYTICS_ID", None)

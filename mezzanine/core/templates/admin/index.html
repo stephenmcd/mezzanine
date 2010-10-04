@@ -1,7 +1,7 @@
 {% extends "admin/base_site.html" %}
 
 <!-- LOADING -->
-{% load i18n blog_tags pages_tags %}
+{% load i18n mezzanine_tags pages_tags %}
 
 {% block extrahead %}
 {{ block.super }}
@@ -35,22 +35,7 @@
 <!-- CONTENT -->
 {% block content %}
 <div id="content-main">
-    {% if perms.blog.add_blogpost and perms.blog.change_blogpost %}
-    <div class="module">
-        <h2>{% trans "Quick Blog" %}</h2>
-        <form method="post" action="{% url admin:blog_blogpost_add %}">
-            {% csrf_token %}
-            {% quick_blog_form as form %}
-            <table id="quick-blog">
-                {{ form.as_table }}
-                <tr><td colspan="2" style="text-align:right;">
-                    <input type="submit" class="default" 
-                        value="{% trans "Save Draft" %}" />
-                </td></tr>
-            </table>
-        </form>
-    </div>
-    {% endif %}
+    {% dashboard_column 0 %}
 </div>
 {% endblock %}
 
@@ -76,10 +61,7 @@
 
 {% block extendedsidebar %}
 <div id="content-related" style="float:right; margin-right:-19em;">
-    <div class="module" id="comments-module">
-        <h2>{% trans 'Recent Comments' %}</h2>
-        {% recent_comments %}
-    </div>
+    {% dashboard_column 1 %}
 </div>
 {% endblock %}
 
