@@ -145,20 +145,20 @@ def admin_url(url_name):
     return url
 
 
-@register.inclusion_tag("admin/includes/dropdown_menu.html", takes_context=True)
-def admin_dropdown_menu(context):
+def admin_app_list(request):
     """
-    Adopted from ``django.contrib.admin.sites.AdminSite.index``. Renders a 
+    Adopted from ``django.contrib.admin.sites.AdminSite.index``. Returns a 
     list of lists of models grouped and ordered according to 
-    ``mezzanine.settings.ADMIN_MENU_ORDER``.
+    ``mezzanine.settings.ADMIN_MENU_ORDER``. Called from the 
+    ``admin_dropdown_menu`` template tag as well as the ``app_list`` 
+    dashboard widget.
     """
     app_dict = {}
-    user = context["request"].user
-    for model, model_admin in admin.site._registry.items():
+    for (model, model_admin) in admin.site._registry.items():
         app_label = model._meta.app_label
         in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
-        if in_menu and user.has_module_perms(app_label):
-            perms = model_admin.get_model_perms(context["request"])
+        if in_menu and request.user.has_module_perms(app_label):
+            perms = model_admin.get_model_perms(request)
             admin_url = ""
             if perms["change"]:
                 admin_url = "changelist"
@@ -179,6 +179,7 @@ def admin_dropdown_menu(context):
                     app_title = app_label
                 model_dict = {
                     "index": index,
+                    "perms": model_admin.get_model_perms(request),
                     "name": capfirst(model._meta.verbose_name_plural),
                     "admin_url": reverse("admin:%s_%s_%s" % (
                         app_label, model.__name__.lower(), admin_url))
@@ -203,7 +204,34 @@ def admin_dropdown_menu(context):
     for app in app_list:
         app["models"].sort(key=sort)
     app_list.sort(key=sort)
-    return {"app_list": app_list}
+    return app_list
+
+
+@register.inclusion_tag("admin/includes/dropdown_menu.html", takes_context=True)
+def admin_dropdown_menu(context):
+    """
+    Renders the app list for the admin dropdown menu navigation.
+    """
+    context["dropdown_menu_app_list"] = admin_app_list(context["request"])
+    return context
+
+
+@register.inclusion_tag("admin/includes/app_list.html", takes_context=True)
+def app_list(context):
+    """
+    Renders the app list for the admin dashboard widget.
+    """
+    context["dashboard_app_list"] = admin_app_list(context["request"])
+    return context
+
+
+@register.inclusion_tag("admin/includes/recent_actions.html", takes_context=True)
+def recent_actions(context):
+    """
+    Renders the recent actions list for the admin dashboard widget.
+    """
+    return context
+
 
 @register.render_tag
 def dashboard_column(context, token):

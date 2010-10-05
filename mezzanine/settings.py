@@ -70,7 +70,7 @@ CONTENT_STATUS_CHOICES = (
 # A sequence of three sequences that make up the template tags used to render 
 # the admin dashboard.
 setting("DASHBOARD_TAGS", (
-    ("blog_tags.quick_blog",),# "mezzanine_tags.app_list"),
+    ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
     ("blog_tags.recent_comments",),
     ("mezzanine_tags.recent_actions",),
 ))
