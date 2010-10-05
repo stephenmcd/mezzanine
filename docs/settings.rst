@@ -10,7 +10,7 @@ Unregister these models installed by default (occurs in urlconf).
 ``MEZZANINE_ADMIN_MENU_ORDER``
 ------------------------------
 
-Default: ``((<django.utils.functional.__proxy__ object at 0x9b4cfec>, ('pages.Page', 'blog.BlogPost', 'blog.Comment')), (<django.utils.functional.__proxy__ object at 0x9b4f1ec>, ('auth.User', 'auth.Group', 'sites.Site', 'redirects.Redirect')))``
+Default: ``((u'Content', ('pages.Page', 'blog.BlogPost', 'blog.Comment')), (u'Site', ('auth.User', 'auth.Group', 'sites.Site', 'redirects.Redirect')))``
 
 Controls the ordering and grouping of the admin menu.
 
@@ -92,6 +92,14 @@ True then the former message is used, if False then the latter.
 Default: ``"/content_media/"``
 
 URL for serving internal media files.
+
+``MEZZANINE_DASHBOARD_TAGS``
+----------------------------
+
+Default: ``(('blog_tags.quick_blog', 'mezzanine_tags.app_list'), ('blog_tags.recent_comments',), ('mezzanine_tags.recent_actions',))``
+
+A sequence of three sequences that make up the template tags used to render
+the admin dashboard.
 
 ``MEZZANINE_GOOGLE_ANALYTICS_ID``
 ---------------------------------
