@@ -30,6 +30,7 @@ provides the following features.
   * API for `custom content types`_
   * SEO friendly URLs and meta data
   * `Search engine and API`_
+  * Configurable `dashboard`_ widgets
   * Mobile device detection and templates
   * Shopping cart module (`Cartridge`_)
   * Blogging engine
@@ -48,7 +49,7 @@ provides the following features.
 
 The Mezzanine admin dashboard:
 
-.. image:: http://media.tumblr.com/tumblr_l3su7jFBHM1qa0qji.png
+.. image:: http://github.com/stephenmcd/mezzanine/raw/master/docs/img/dashboard.png
 
 Dependencies
 ============
@@ -137,6 +138,7 @@ Quotes
 .. _`In-line page editing`: http://mezzanine.jupo.org/docs/inline-editing.html
 .. _`custom content types`: http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
+.. _`dashboard`: http://mezzanine.jupo.org/docs/admin-customization.html#dashboard
 .. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
