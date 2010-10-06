@@ -145,3 +145,5 @@ setting("STOP_WORDS", ("a", "about", "above", "above", "across", "after",
     "whether", "which", "while", "whither", "who", "whoever", "whole", "whom",
     "whose", "why", "will", "with", "within", "without", "would", "yet", "you",
     "your", "yours", "yourself", "yourselves", "the"))
+
+setting('TINYMCE_URL', '%s/tinymce' % settings.ADMIN_MEDIA_PREFIX)

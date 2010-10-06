@@ -1,5 +1,5 @@
-
-from django.core.urlresolvers import resolve
+from django.contrib.admin.util import quote
+from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -33,6 +33,11 @@ class Page(Orderable, Displayable):
     @models.permalink
     def get_absolute_url(self):
         return ("page", (), {"slug": self.get_slug()})
+
+    def get_admin_url(self):
+        opts = self._meta
+        return reverse("admin:%s_%s_change" % (opts.app_label, opts.object_name.lower()),
+            None, (quote(self._get_pk_val()),))
 
     def save(self, *args, **kwargs):
         """
