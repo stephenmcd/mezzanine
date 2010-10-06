@@ -6,7 +6,6 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.core.decorators import use_mobile_template
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Keyword, Displayable
 from mezzanine.settings import SEARCH_MAX_PAGING_LINKS, SEARCH_PER_PAGE
@@ -28,7 +27,6 @@ def admin_keywords_submit(request):
 admin_keywords_submit = staff_member_required(admin_keywords_submit)
 
 
-@use_mobile_template
 def search(request, template="search_results.html"):
     """
     Display search results.
