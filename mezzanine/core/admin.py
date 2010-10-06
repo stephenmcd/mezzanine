@@ -4,9 +4,10 @@ from django.db.models import AutoField
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.utils import content_media_urls
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import Orderable
+from mezzanine.settings import TINYMCE_URL
+from mezzanine.utils import content_media_urls
 
 
 # Build the list of admin JS file for ``Displayable`` models.
@@ -18,8 +19,7 @@ from django import VERSION
 if not (VERSION[0] <= 1 and VERSION[1] <= 1):
     displayable_js.append("js/collapse_backport.js")
 displayable_js = content_media_urls(*displayable_js)
-displayable_js.insert(0, "%stinymce/jscripts/tiny_mce/tiny_mce.js" % 
-    settings.ADMIN_MEDIA_PREFIX)
+displayable_js.insert(0, "%s/jscripts/tiny_mce/tiny_mce.js" % TINYMCE_URL)
 
 
 class DisplayableAdmin(admin.ModelAdmin):
