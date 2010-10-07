@@ -82,6 +82,6 @@ class ContentPage(Page, Content):
     """
 
     class Meta:
-        verbose_name = _("Content")
+        verbose_name = _("Content page")
         verbose_name_plural = _("Content pages")
 
