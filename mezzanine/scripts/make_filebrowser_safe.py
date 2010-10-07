@@ -52,5 +52,9 @@ for (dirpath, dirnames, filenames) in os.walk(package_name_from, False):
 
 # Move the package to the Mezzanine directory using the filebrowser_safe name.
 script_path = os.path.dirname(os.path.abspath(__file__))
-os.renames(package_name_from, os.path.join(script_path, "..", "..",
-    package_name_to))
+package_path_to = os.path.join(script_path, "..", "..", package_name_to)
+os.renames(package_name_from, package_path_to)
+# Create an empty ``Image`` module which will prevent having no PIL breaking.
+with open(os.path.join(package_path_to, "Image.py"), "w") as f:
+    f.write("")
+
