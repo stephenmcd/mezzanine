@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.models import Orderable, Content
-from mezzanine.forms.settings import FIELD_MAX_LENGTH, LABEL_MAX_LENGTH
+from mezzanine.settings import FORMS_FIELD_MAX_LENGTH, FORMS_LABEL_MAX_LENGTH
 from mezzanine.pages.models import Page
 
 
@@ -63,7 +63,7 @@ class Field(Orderable):
     """
 
     form = models.ForeignKey("Form", related_name="fields")
-    label = models.CharField(_("Label"), max_length=LABEL_MAX_LENGTH)
+    label = models.CharField(_("Label"), max_length=FORMS_LABEL_MAX_LENGTH)
     field_type = models.CharField(_("Type"), choices=FIELD_CHOICES,
         max_length=55)
     required = models.BooleanField(_("Required"), default=True)
@@ -71,7 +71,7 @@ class Field(Orderable):
     choices = models.CharField(_("Choices"), max_length=1000, blank=True,
         help_text="Comma separated options where applicable")
     default = models.CharField(_("Default value"), blank=True, 
-        max_length=FIELD_MAX_LENGTH)
+        max_length=FORMS_FIELD_MAX_LENGTH)
     help_text = models.CharField(_("Help text"), blank=True, max_length=100)
 
     objects = FieldManager()
@@ -105,7 +105,7 @@ class FieldEntry(models.Model):
 
     entry = models.ForeignKey("FormEntry", related_name="fields")
     field_id = models.IntegerField()
-    value = models.CharField(max_length=FIELD_MAX_LENGTH)
+    value = models.CharField(max_length=FORMS_FIELD_MAX_LENGTH)
 
     class Meta:
         verbose_name = _("Form field entry")

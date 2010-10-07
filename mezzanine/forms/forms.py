@@ -12,10 +12,10 @@ from django.utils.importlib import import_module
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.forms.models import FormEntry, FieldEntry
-from mezzanine.forms.settings import FIELD_MAX_LENGTH, UPLOAD_ROOT
+from mezzanine.settings import FORMS_FIELD_MAX_LENGTH, FORMS_UPLOAD_ROOT
 
 
-fs = FileSystemStorage(location=UPLOAD_ROOT)
+fs = FileSystemStorage(location=FORMS_UPLOAD_ROOT)
 
 FILTER_CHOICE_CONTAINS = "1"
 FILTER_CHOICE_DOESNT_CONTAIN = "2"
@@ -92,7 +92,7 @@ class FormForForm(forms.ModelForm):
                 "help_text": field.help_text}
             arg_names = field_class.__init__.im_func.func_code.co_varnames
             if "max_length" in arg_names:
-                field_args["max_length"] = FIELD_MAX_LENGTH
+                field_args["max_length"] = FORMS_FIELD_MAX_LENGTH
             if "choices" in arg_names:
                 choices = field.choices.split(",")
                 field_args["choices"] = zip(choices, choices)

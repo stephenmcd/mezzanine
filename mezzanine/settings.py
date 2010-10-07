@@ -75,6 +75,15 @@ setting("DASHBOARD_TAGS", (
     ("mezzanine_tags.recent_actions",),
 ))
 
+# Maximum allowed length for field values in the forms app.
+setting("FORMS_FIELD_MAX_LENGTH", 2000)
+
+# Maximum allowed length for field labels in the forms app.
+setting("FORMS_LABEL_MAX_LENGTH", 200)
+
+# Absolute path where files will be uploaded to for the forms app.
+setting("FORMS_UPLOAD_ROOT", None)
+
 # ID for using Google Analytics (http://www.google.com/analytics/) referred to
 # as "Web Property ID"
 setting("GOOGLE_ANALYTICS_ID", None)
