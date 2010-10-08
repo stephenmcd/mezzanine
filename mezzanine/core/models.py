@@ -59,6 +59,7 @@ class Slugged(models.Model):
     def get_slug(self):
         return slugify(self.title)
 
+
 class Displayable(Slugged):
     """
     Abstract model that provides features of a visible page on the website
@@ -161,7 +162,6 @@ class OrderableBase(ModelBase):
 
     def __new__(cls, name, bases, attrs):
         if "Meta" not in attrs:
-
             class Meta:
                 pass
             attrs["Meta"] = Meta
@@ -248,6 +248,5 @@ class Keyword(Slugged):
     objects = KeywordManager()
 
     class Meta:
-        verbose_name = "Keyword"
-        verbose_name_plural = "Keywords"
-
+        verbose_name = _("Keyword")
+        verbose_name_plural = _("Keywords")

@@ -1,63 +1,76 @@
 
 import os.path
 
+from django.utils.functional import lazy
 from django.utils.translation import ugettext as _
 from django.conf import settings
 
 
-def setting(name, default):
+def setting(name, editable=False, default=None):
     """
-    Set the default value for a setting, using the value found in the project
-    settings module prefixed with ``MEZZANINE_`` if found.
+    Settings that can be edited via the admin. Uses Django's ``lazy`` util 
+    to allow setting to be lazily loaded from the ``Setting`` model. 
     """
-    globals()[name] = getattr(settings, "MEZZANINE_%s" % name, default)
+    value = getattr(settings, "MEZZANINE_%s" % name, default)
+    setting_type = type(default)
+    if editable:
+        def query():
+            from mezzanine.settings.models import Setting
+            try:
+                setting_obj = Setting.objects.get(name=name)
+            except Setting.DoesNotExist:
+                return default
+            return setting_type(setting_obj.value)
+        value = lazy(query, setting_type)()
+    globals()[name] = value
+    
 
 # Unregister these models installed by default (occurs in urlconf).
-setting("ADMIN_REMOVAL", ())
+setting("ADMIN_REMOVAL", default=())
 
 # Controls the ordering and grouping of the admin menu.
-setting("ADMIN_MENU_ORDER", (
+setting("ADMIN_MENU_ORDER", default=(
     (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",)),
     (_("Site"), ("auth.User", "auth.Group", "sites.Site", 
         "redirects.Redirect")),
 ))
 
 # Credentials for bit.ly URL shortening service.
-setting("BLOG_BITLY_USER", None)
-setting("BLOG_BITLY_KEY", None)
+setting("BLOG_BITLY_USER", editable=True, default="")
+setting("BLOG_BITLY_KEY", editable=True, default="")
 
 # Number of blog posts to show on a blog listing page.
-setting("BLOG_POST_PER_PAGE", 5)
+setting("BLOG_POST_PER_PAGE", editable=True, default=5)
 
 # Maximum number of paging links to show on a blog listing page.
-setting("BLOG_POST_MAX_PAGING_LINKS", 10)
+setting("BLOG_POST_MAX_PAGING_LINKS", editable=True, default=10)
 
 # Slug of the page object for the blog.
-setting("BLOG_SLUG", "blog")
+setting("BLOG_SLUG", default="blog")
 
 # Shortname when using the Disqus comments system (http://disqus.com).
-setting("COMMENTS_DISQUS_SHORTNAME", None)
+setting("COMMENTS_DISQUS_SHORTNAME", editable=True, default="")
 
 # Disqus user's API key for displaying recent comments in the admin dashboard.
-setting("COMMENTS_DISQUS_KEY", None)
+setting("COMMENTS_DISQUS_KEY", editable=True, default="")
 
 # If True, the built-in comments are approved by default.
-setting("COMMENTS_DEFAULT_APPROVED", True)
+setting("COMMENTS_DEFAULT_APPROVED", editable=True, default=True)
 
 # Number of latest comments to show in the admin dashboard.
-setting("COMMENTS_NUM_LATEST", 5)
+setting("COMMENTS_NUM_LATEST", editable=True, default=5)
 
 # If True, unapproved comments will have a placeholder visible on the site
 # with a "waiting for approval" or "comment removed" message based on the
 # workflow around the ``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if
 # True then the former message is used, if False then the latter.
-setting("COMMENTS_UNAPPROVED_VISIBLE", True)
+setting("COMMENTS_UNAPPROVED_VISIBLE", editable=True, default=True)
 
 # Media files for admin.
 CONTENT_MEDIA_PATH = os.path.join(os.path.dirname(__file__), "core", "media")
 
 # URL for serving internal media files.
-setting("CONTENT_MEDIA_URL", "/content_media/")
+setting("CONTENT_MEDIA_URL", default="/content_media/")
 
 # Content status choices.
 CONTENT_STATUS_DRAFT = 1
@@ -69,27 +82,28 @@ CONTENT_STATUS_CHOICES = (
 
 # A sequence of three sequences that make up the template tags used to render 
 # the admin dashboard.
-setting("DASHBOARD_TAGS", (
+setting("DASHBOARD_TAGS", default=(
     ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
     ("blog_tags.recent_comments",),
     ("mezzanine_tags.recent_actions",),
 ))
 
 # Maximum allowed length for field values in the forms app.
-setting("FORMS_FIELD_MAX_LENGTH", 2000)
+setting("FORMS_FIELD_MAX_LENGTH", default=2000)
 
 # Maximum allowed length for field labels in the forms app.
-setting("FORMS_LABEL_MAX_LENGTH", 200)
+setting("FORMS_LABEL_MAX_LENGTH", default=200)
 
 # Absolute path where files will be uploaded to for the forms app.
-setting("FORMS_UPLOAD_ROOT", None)
+setting("FORMS_UPLOAD_ROOT", default="")
 
 # ID for using Google Analytics (http://www.google.com/analytics/) referred to
-# as "Web Property ID"
-setting("GOOGLE_ANALYTICS_ID", None)
+# as "Web Property ID".
+setting("GOOGLE_ANALYTICS_ID", editable=True, default="")
 
 # Strings to check for in user agents when testing for a mobile device.
-setting("MOBILE_USER_AGENTS", ("2.0 MMP", "240x320", "400X240", "AvantGo",
+setting("MOBILE_USER_AGENTS", editable=False, default=(
+    "2.0 MMP", "240x320", "400X240", "AvantGo",
     "BlackBerry", "Blazer", "Cellphone", "Danger", "DoCoMo", "Elaine/3.0",
     "EudoraWeb", "Googlebot-Mobile", "hiptop", "IEMobile", "KYOCERA/WX310K",
     "LG/U990", "MIDP-2.", "MMEF20", "MOT-V", "NetFront", "Newt", "Nintendo Wii",
@@ -101,20 +115,21 @@ setting("MOBILE_USER_AGENTS", ("2.0 MMP", "240x320", "400X240", "AvantGo",
     "webOS", "Nokia5800"))
 
 # Number of different sizes given to tags when shown as a cloud.
-setting("TAG_CLOUD_SIZES", 4)
+setting("TAG_CLOUD_SIZES", editable=True, default=4)
 
 # If True, the pages menu will show all levels of navigation by default,
 # otherwise child pages are only shown when viewing the parent page.
-setting("PAGES_MENU_SHOW_ALL", True)
+setting("PAGES_MENU_SHOW_ALL", default=True)
 
 # Number of results to show in the search results page.
-setting("SEARCH_PER_PAGE", 10)
+setting("SEARCH_PER_PAGE", editable=True, default=10)
 
 # Maximum number of paging links to show in the search results page.
-setting("SEARCH_MAX_PAGING_LINKS", 10)
+setting("SEARCH_MAX_PAGING_LINKS", editable=True, default=10)
 
 # List of words which will be stripped from search queries.
-setting("STOP_WORDS", ("a", "about", "above", "above", "across", "after",
+setting("STOP_WORDS", default=(
+    "a", "about", "above", "above", "across", "after",
     "afterwards", "again", "against", "all", "almost", "alone", "along",
     "already", "also", "although", "always", "am", "among", "amongst",
     "amoungst", "amount", "an", "and", "another", "any", "anyhow", "anyone",
@@ -155,4 +170,4 @@ setting("STOP_WORDS", ("a", "about", "above", "above", "across", "after",
     "whose", "why", "will", "with", "within", "without", "would", "yet", "you",
     "your", "yours", "yourself", "yourselves", "the"))
 
-setting('TINYMCE_URL', '%s/tinymce' % settings.ADMIN_MEDIA_PREFIX)
+setting("TINYMCE_URL", default="%s/tinymce" % settings.ADMIN_MEDIA_PREFIX)
