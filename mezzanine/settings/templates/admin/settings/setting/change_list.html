@@ -1,0 +1,21 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+
+{% block extrahead %}{{ block.super }}
+<style type="text/css">
+    #content-main p {background:#eee; margin-bottom:2px; height:35px;}
+    #content-main label {width:200px; float:left; padding:5px !important;}
+    #content-main p input {margin:5px;}
+    #content-main .button {margin-top:10px;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <form method="post">
+        {% csrf_token %}
+        {{ settings_form.as_p }}
+        <input class="button" type="submit" value="{% trans "Save" %}" />
+    </form>
+</div>
+{% endblock %}
