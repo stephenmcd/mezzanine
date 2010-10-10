@@ -22,14 +22,14 @@ def load_settings(*names):
                 raise AttributeError("Setting does not exist: %s" % name)
             self._loaded = True
             editable = [n for n in names if hasattr(defaults, n) and 
-                getattr(defaults, n)["editable"]]
+                getattr(defaults, n).editable]
             syncdb = len(sys.argv) >= 2 and sys.argv[1] == "syncdb"
             if editable and not syncdb:
                 for setting in Setting.objects.filter(name__in=editable):
                     setattr(self, setting.name, setting.value)
             for n in names:
                 if n not in self.__dict__ and hasattr(defaults, n):
-                    setattr(self, n, getattr(defaults, n)["default"])
+                    setattr(self, n, getattr(defaults, n).default)
             return getattr(self, name)
     
     return Settings()

@@ -6,16 +6,20 @@ from django.utils.translation import ugettext as _
 from django.conf import settings
 
 
-def setting(name="", editable=False, description="", default=None):
+class Setting(object):
     """
-    Settings that can be edited via the admin. Uses Django's ``lazy`` util 
-    to allow setting to be lazily loaded from the ``Setting`` model. 
+    Setting that can be edited via the admin. Registers itself in globals 
+    on creation.
     """
-    globals()[name] = {"description": description, "editable": editable, 
-        "default": getattr(settings, "MEZZANINE_%s" % name, default)}
-    
+    def __init__(self, name="", editable=False, description="", default=None):
+        self.name = name
+        self.description = description
+        self.editable = editable
+        self.default = getattr(settings, "MEZZANINE_%s" % name, default)
+        globals()[name] = self
 
-setting(
+
+Setting(
     name="ADMIN_MENU_ORDER",
     description="Controls the ordering and grouping of the admin menu.",
     editable=False,
@@ -26,77 +30,77 @@ setting(
     ),
 )
 
-setting(
+Setting(
     name="ADMIN_REMOVAL",
     description="Unregister these models from the admin.",
     editable=False,
     default=(),
 )
 
-setting(
+Setting(
     name="BLOG_BITLY_USER",
     description="Username for bit.ly URL shortening service.",
     editable=True, 
     default="",
 )
 
-setting(
+Setting(
     name="BLOG_BITLY_KEY",
     description="Key for bit.ly URL shortening service.",
     editable=True, 
     default="",
 )
 
-setting(
+Setting(
     name="BLOG_POST_PER_PAGE", 
     description="Number of blog posts to show on a blog listing page.",
     editable=True,
     default=5,
 )
 
-setting(
+Setting(
     name="BLOG_POST_MAX_PAGING_LINKS", 
     description="Max number of paging links to show on a blog listing page.",
     editable=True, 
     default=10,
 )
 
-setting(
+Setting(
     name="BLOG_SLUG", 
     description="Slug of the page object for the blog.",
     editable=False,
     default="blog",
 )
 
-setting(
+Setting(
     name="COMMENTS_DISQUS_SHORTNAME", 
     description="Username for the http://disqus.com comments service.",
     editable=True, 
     default="",
 )
 
-setting(
+Setting(
     name="COMMENTS_DISQUS_KEY", 
     description="API key for the http://disqus.com comments service.",
     editable=True, 
     default="",
 )
 
-setting(
+Setting(
     name="COMMENTS_DEFAULT_APPROVED", 
     description="If True, the built-in comments are approved by default.",
     editable=True, 
     default=True,
 )
 
-setting(
+Setting(
     name="COMMENTS_NUM_LATEST", 
     description="Number of latest comments to show in the admin dashboard.",
     editable=True, 
     default=5,
 )
 
-setting(
+Setting(
     name="COMMENTS_UNAPPROVED_VISIBLE", 
     description="If True, unapproved comments will have a placeholder "
         "visible on the site with a 'waiting for approval' or "
@@ -107,21 +111,21 @@ setting(
     default=True,
 )
 
-setting(
+Setting(
     name="CONTENT_MEDIA_PATH", 
     description="Absolute path to Mezzanine's internal media files.",
     editable=False,
     default=os.path.join(os.path.dirname(__file__), "..", "core", "media"),
 )
 
-setting(
+Setting(
     name="CONTENT_MEDIA_URL", 
     description="URL prefix for serving Mezzanine's internal media files.",
     editable=False,
     default="/content_media/",
 )
 
-setting(
+Setting(
     name="DASHBOARD_TAGS", 
     description="A three item sequence, each containing a sequence of "
         "template tags used to render the admin dashboard.",
@@ -133,35 +137,35 @@ setting(
     ),
 )
 
-setting(
+Setting(
     name="FORMS_FIELD_MAX_LENGTH", 
     description="Max length allowed for field values in the forms app.",
     editable=False,
     default=2000,
 )
 
-setting(
+Setting(
     name="FORMS_LABEL_MAX_LENGTH",
     description="Max length allowed for field labels in the forms app.",
     editable=False,
     default=200,
 )
 
-setting(
+Setting(
     name="FORMS_UPLOAD_ROOT",
     description="Absolute path for storing file uploads to for the forms app.",
     editable=False,
     default="",
 )
 
-setting(
+Setting(
     name="GOOGLE_ANALYTICS_ID", 
     editable=True, 
     description="Google Analytics ID (http://www.google.com/analytics/)",
     default="",
 )
 
-setting(
+Setting(
     name="MOBILE_USER_AGENTS",
     description="Strings to search for in user agent when testing for a "
         "mobile device.",
@@ -182,14 +186,14 @@ setting(
     ),
 )
 
-setting(
+Setting(
     name="TAG_CLOUD_SIZES", 
     description="Number of different sizes for tags when shown as a cloud.",
     editable=True, 
     default=4,
 )
 
-setting(
+Setting(
     name="PAGES_MENU_SHOW_ALL", 
     description="If True, the pages menu will show all levels of navigation, "
         "otherwise child pages are only shown when viewing the parent page.",
@@ -197,21 +201,21 @@ setting(
     default=True,
 )
 
-setting(
+Setting(
     name="SEARCH_PER_PAGE",
     description="Number of results to show in the search results page.",
     editable=True, 
     default=10,
 )
 
-setting(
+Setting(
     name="SEARCH_MAX_PAGING_LINKS", 
     description="Max number of page links to show in the search results page.",
     editable=True,
     default=10,
 )
 
-setting(
+Setting(
     name="STOP_WORDS", 
     description="List of words which will be stripped from search queries.",
     editable=False,
@@ -268,7 +272,7 @@ setting(
     ),
 )
 
-setting(
+Setting(
     name="TINYMCE_URL", 
     description="URL prefix for serving Tiny MCE files.",
     editable=False,
