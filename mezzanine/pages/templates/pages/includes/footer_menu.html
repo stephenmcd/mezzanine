@@ -11,7 +11,8 @@
     {% endif %}
 
     {% if page.in_footer %}
-    <li><a href="{% url page page.slug %}">{{ page.title }}</a></li>
+    <li {% if page.selected %}class="active"{% endif %}>
+        <a href="{% url page page.slug %}">{{ page.title }}</a></li>
     {% endif %}
 
     {% footer_menu page %}

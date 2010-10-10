@@ -7,18 +7,12 @@ Default: ``()``
 
 Unregister these models installed by default (occurs in urlconf).
 
-``MEZZANINE_BLOG_TITLE``
-------------------------
-
-Default: ``"The Mezzanine Blog"``
-
-Blog feed settings.
-
-``MEZZANINE_BLOG_DESCRIPTION``
+``MEZZANINE_ADMIN_MENU_ORDER``
 ------------------------------
 
-Default: ``"The Mezzanine Blog"``
+Default: ``((u'Content', ('pages.Page', 'blog.BlogPost', 'blog.Comment')), (u'Site', ('auth.User', 'auth.Group', 'sites.Site', 'redirects.Redirect')))``
 
+Controls the ordering and grouping of the admin menu.
 
 ``MEZZANINE_BLOG_BITLY_USER``
 -----------------------------
@@ -91,6 +85,21 @@ If True, unapproved comments will have a placeholder visible on the site
 with a "waiting for approval" or "comment removed" message based on the
 workflow around the ``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if
 True then the former message is used, if False then the latter.
+
+``MEZZANINE_CONTENT_MEDIA_URL``
+-------------------------------
+
+Default: ``"/content_media/"``
+
+URL for serving internal media files.
+
+``MEZZANINE_DASHBOARD_TAGS``
+----------------------------
+
+Default: ``(('blog_tags.quick_blog', 'mezzanine_tags.app_list'), ('blog_tags.recent_comments',), ('mezzanine_tags.recent_actions',))``
+
+A sequence of three sequences that make up the template tags used to render
+the admin dashboard.
 
 ``MEZZANINE_GOOGLE_ANALYTICS_ID``
 ---------------------------------

@@ -3,12 +3,11 @@
 DEBUG = False
 DEV_SERVER = False
 MANAGERS = ADMINS = ()
-TIME_ZONE = ""
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 LANGUAGE_CODE = "en"
 SITE_ID = 1
 USE_I18N = False
-SECRET_KEY = "5tve)^cpj9gsdfg54445364TW#$%u#@$%3sdfqwtjiwxzzt%g6p"
+SECRET_KEY = "%(SECRET_KEY)s"
 INTERNAL_IPS = ("127.0.0.1",)
 TEMPLATE_LOADERS = (
     "django.template.loaders.filesystem.load_template_source",
@@ -46,6 +45,7 @@ INSTALLED_APPS = (
     "mezzanine.blog",
     "mezzanine.forms",
     "mezzanine.pages",
+    "mezzanine.settings",
     "mezzanine.twitter",
 )
 
@@ -140,7 +140,40 @@ except ImportError:
     pass
 
 TEMPLATE_DEBUG = DEBUG
-if DEV_SERVER and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
-    ADMIN_MEDIA_PREFIX = "http://127.0.0.1:8000%s" % ADMIN_MEDIA_PREFIX
-if DATABASE_ENGINE == "sqlite3":
+
+command = ""
+if len(sys.argv) >= 2:
+    command = sys.argv[1]
+
+if command == "runserver" and PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
+    # Adopted from django.core.management.commands.runserver - easiest way 
+    # so far to actually get all the media for grappelli working with the dev 
+    # server is to hard-code the host:port to ``ADMIN_MEDIA_PREFIX``, so 
+    # here we check for a custom host:port before doing this.
+    addrport = ""
+    if len(sys.argv) > 2:
+        addrport = sys.argv[2]
+    if not addrport:
+        addr = ""
+        port = "8000"
+    else:
+        try:
+            addr, port = addrport.split(":")
+        except ValueError:
+            addr, port = "", addrport
+    if not addr:
+        addr = "127.0.0.1"
+    ADMIN_MEDIA_PREFIX = "http://%s:%s%s" % (addr, port, ADMIN_MEDIA_PREFIX)
+
+db_engine = DATABASE_ENGINE.split(".")[-1]
+if db_engine == "sqlite3" and "/" not in DATABASE_NAME:
+    # If the sqlite DB name doesn't contain a path, assume it's in the 
+    # project directory and add the path to it.
     DATABASE_NAME = os.path.join(project_path, DATABASE_NAME)
+elif db_engine == "mysql":
+    # Required MySQL collation for tests.
+    TEST_DATABASE_COLLATION = "utf8_general_ci"
+elif db_engine.startswith("postgresql") and not globals().get("TIME_ZONE", 1):
+    # Specifying a blank time zone to fall back to the system's time zone
+    # will break table creation in Postgres so remove it.
+    del TIME_ZONE

@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 
 """
-Converts the last backward-compatible grappelli branch into a newly named
-package ``grappelli_safe``.
+Converts the last backward-compatible filebrowser branch into a newly named
+package ``filebrowser_safe``.
 """
 
+from __future__ import with_statement
 import os
 
-branch_url = "http://django-grappelli.googlecode.com/svn/branches/grappelli_2"
+branch_url = \
+        "http://django-filebrowser.googlecode.com/svn/branches/filebrowser_3"
 package_name_from = branch_url.split("/")[-1]
-package_name_to = "grappelli_safe"
+package_name_to = "filebrowser_safe"
 
 if not os.path.exists(package_name_from):
     print "Checking out branch..."
@@ -38,17 +40,21 @@ for (dirpath, dirnames, filenames) in os.walk(package_name_from, False):
                 data = data.replace("\nadmin.site.register",
                     "\n#admin.site.register")
             # Replace these instances of the package name with the new name.
-            for replace_str in ("grappelli.", "app_label = \"grappelli\""):
+            for replace_str in ("filebrowser.", "app_label = \"filebrowser\""):
                 if replace_str in data:
                     update = True
                     data = data.replace(replace_str,
-                        replace_str.replace("grappelli", package_name_to))
+                        replace_str.replace("filebrowser", package_name_to))
             if update:
                 print "Rewriting %s" % path
                 with open(path, "w") as f:
                     f.write(data)
 
-# Move the package to the Mezzanine directory using the grappelli_safe name.
+# Move the package to the Mezzanine directory using the filebrowser_safe name.
 script_path = os.path.dirname(os.path.abspath(__file__))
-os.renames(package_name_from, os.path.join(script_path, "..", "..",
-    package_name_to))
+package_path_to = os.path.join(script_path, "..", "..", package_name_to)
+os.renames(package_name_from, package_path_to)
+# Create an empty ``Image`` module which will prevent having no PIL breaking.
+with open(os.path.join(package_path_to, "Image.py"), "w") as f:
+    f.write("")
+

@@ -1,0 +1,37 @@
+{% load i18n %}
+
+{% if app_list %}
+<div class="group-collapsible">
+   {% for app in dashboard_app_list %}
+   <div class="module" id="app_{{ app.name|lower }}" style="margin:10px 0;">
+       <table>
+           <caption>{% trans app.name %}</caption>
+           {% for model in app.models %}
+           <tr>
+           {% if model.perms.change %}
+               <th scope="row" width="100%"><a 
+                    href="{{ model.admin_url }}">{{ model.name }}</a></th>
+           {% else %}
+               <th scope="row" width="100%">{{ model.name }}</th>
+           {% endif %}
+           
+           {% if model.perms.add %}
+               <td><a href="{{ model.admin_url }}add/" 
+                    class="addlink">{% trans 'Add' %}</a></td>
+           {% else %}
+               <td>&nbsp;</td>
+           {% endif %}
+           
+           {% if model.perms.change %}
+               <td><a href="{{ model.admin_url }}" 
+                    class="changelink">{% trans 'Change' %}</a></td>
+           {% else %}
+               <td>&nbsp;</td>
+           {% endif %}
+           </tr>
+           {% endfor %}
+       </table>
+   </div>
+   {% endfor %}
+</div>
+{% endif %}

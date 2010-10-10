@@ -17,12 +17,18 @@ class MobileTemplate(object):
         user_agent = request.META.get("HTTP_USER_AGENT", "")
         if [check for check in MOBILE_USER_AGENTS if check in user_agent]:
             template = view_kwargs.get("template")
-            if template is None and view_func.func_defaults is not None:
-                for default in view_func.func_defaults:
+            func_defaults = getattr(view_func, "func_defaults", None)
+            if func_defaults is None and hasattr(view_func, "__call__"):
+                func_defaults = getattr(view_func.__call__, "func_defaults")
+            if template is None and func_defaults is not None:
+                for default in func_defaults:
                     if str(default).endswith(".html"):
                         template = default
             if template is not None:
-                template = template.rsplit(".html", 1)[0] + ".mobile.html"
+                if ".html" in template:
+                    template = template.replace(".html", ".mobile.html", 1)
+                else:
+                    template += ".mobile.html"
                 try:
                     get_template(template)
                 except TemplateDoesNotExist:

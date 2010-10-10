@@ -3,18 +3,22 @@ from urllib import urlopen, urlencode
 from uuid import uuid4
 
 from django.conf import settings
+from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
-from django.template import Context
+from django.template import Context, Template
 from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
+from django.utils.text import capfirst
 
 from mezzanine import settings as mezzanine_settings
 from mezzanine import template
 from mezzanine.core.forms import get_edit_form
 from mezzanine.utils import decode_html_entities, is_editable
 
+from django.utils.datastructures import SortedDict
 
 register = template.Library()
 
@@ -67,31 +71,6 @@ def set_short_url_for(context, token):
             if response["status_code"] == 200:
                 obj.short_url = response["data"]["url"]
                 obj.save()
-    return ""
-
-
-@register.render_tag
-def admin_reorder(context, token):
-    """
-    Called in ``admin/base_site.html`` template override and applies custom
-    ordering of apps/models defined by ``settings.ADMIN_REORDER``.
-    """
-    # sort key function - use index of item in order if exists, otherwise item
-    sort = lambda order, item: (order.index(item), "") if item in order else (
-        len(order), item)
-    if "app_list" in context:
-        # sort the app list
-        order = SortedDict(mezzanine_settings.ADMIN_REORDER)
-        context["app_list"].sort(key=lambda app: sort(order.keys(),
-            app["app_url"][:-1]))
-        for i, app in enumerate(context["app_list"]):
-            # sort the model list for each app
-            app_name = app["app_url"][:-1]
-            if not app_name:
-                app_name = context["request"].path.strip("/").split("/")[-1]
-            model_order = [m.lower() for m in order.get(app_name, [])]
-            context["app_list"][i]["models"].sort(key=lambda model:
-                sort(model_order, model["admin_url"].strip("/").split("/")[-1]))
     return ""
 
 
@@ -150,3 +129,119 @@ def editable(parsed, context, token):
         t = get_template("includes/editable_form.html")
         return t.render(Context(context))
     return parsed
+
+
+@register.simple_tag
+def admin_url(url_name):
+    """
+    Mimics Django's ``url`` template tag. Used for urls in admin templates as 
+    for some reason these urls won't resolve when admin tests are running, so 
+    here they just fail silently.
+    """
+    try:
+        url = reverse(url_name)
+    except NoReverseMatch:
+        return ""
+    return url
+
+
+def admin_app_list(request):
+    """
+    Adopted from ``django.contrib.admin.sites.AdminSite.index``. Returns a 
+    list of lists of models grouped and ordered according to 
+    ``mezzanine.settings.ADMIN_MENU_ORDER``. Called from the 
+    ``admin_dropdown_menu`` template tag as well as the ``app_list`` 
+    dashboard widget.
+    """
+    app_dict = {}
+    for (model, model_admin) in admin.site._registry.items():
+        app_label = model._meta.app_label
+        in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
+        if in_menu and request.user.has_module_perms(app_label):
+            perms = model_admin.get_model_perms(request)
+            admin_url = ""
+            if perms["change"]:
+                admin_url = "changelist"
+            elif perms["add"]:
+                admin_url = "add"
+            if admin_url:
+                model_label = "%s.%s" % (app_label, model.__name__)
+                for (name, items) in mezzanine_settings.ADMIN_MENU_ORDER:
+                    try:
+                        index = list(items).index(model_label)
+                    except ValueError:
+                        pass
+                    else:
+                        app_title = name
+                        break
+                else:
+                    index = None
+                    app_title = app_label
+                model_dict = {
+                    "index": index,
+                    "perms": model_admin.get_model_perms(request),
+                    "name": capfirst(model._meta.verbose_name_plural),
+                    "admin_url": reverse("admin:%s_%s_%s" % (
+                        app_label, model.__name__.lower(), admin_url))
+                }
+                app_title = app_title.title()
+                if app_title in app_dict:
+                    app_dict[app_title]["models"].append(model_dict)
+                else:
+                    try:
+                        titles = [x[0] for x in 
+                            mezzanine_settings.ADMIN_MENU_ORDER]
+                        index = titles.index(app_title)
+                    except ValueError:
+                        index = None
+                    app_dict[app_title] = {
+                        "index": index,
+                        "name": app_title,
+                        "models": [model_dict],
+                    }
+    app_list = app_dict.values()
+    sort = lambda x: x["name"] if x["index"] is None else x["index"]
+    for app in app_list:
+        app["models"].sort(key=sort)
+    app_list.sort(key=sort)
+    return app_list
+
+
+@register.inclusion_tag("admin/includes/dropdown_menu.html", takes_context=True)
+def admin_dropdown_menu(context):
+    """
+    Renders the app list for the admin dropdown menu navigation.
+    """
+    context["dropdown_menu_app_list"] = admin_app_list(context["request"])
+    return context
+
+
+@register.inclusion_tag("admin/includes/app_list.html", takes_context=True)
+def app_list(context):
+    """
+    Renders the app list for the admin dashboard widget.
+    """
+    context["dashboard_app_list"] = admin_app_list(context["request"])
+    return context
+
+
+@register.inclusion_tag("admin/includes/recent_actions.html", takes_context=True)
+def recent_actions(context):
+    """
+    Renders the recent actions list for the admin dashboard widget.
+    """
+    return context
+
+
+@register.render_tag
+def dashboard_column(context, token):
+    """
+    Takes an index for retrieving the sequence of template tags from 
+    ``mezzanine.settings.DASHBOARD_TAGS`` to render into the admin dashboard.
+    """
+    column_index = int(token.split_contents()[1])
+    output = []
+    for tag in mezzanine_settings.DASHBOARD_TAGS[column_index]:
+        t = Template("{%% load %s %%}{%% %s %%}" % tuple(tag.split(".")))
+        output.append(t.render(Context(context)))
+    return "".join(output)

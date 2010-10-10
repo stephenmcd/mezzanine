@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from time import timezone
 from urllib import urlopen, urlencode
 
-from django import template
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.utils.simplejson import loads
@@ -108,18 +107,19 @@ def blog_authors(*args):
     return User.objects.filter(blogposts__in=blog_posts).distinct()
 
 
-@register.as_tag
-def quick_blog_form(*args):
+@register.inclusion_tag("admin/includes/quick_blog.html", takes_context=True)
+def quick_blog(context):
     """
-    Puts the quick blog form into the admin dashboard.
+    Admin dashboard tag for the quick blog form.
     """
-    return BlogPostForm()
+    context["form"] = BlogPostForm()
+    return context
+
 
 DISQUS_FORUM_ID = None
-recent_comments_template = "admin/includes/recent_comments.html"
 
-
-@register.inclusion_tag(recent_comments_template, takes_context=True)
+@register.inclusion_tag("admin/includes/recent_comments.html", 
+    takes_context=True)
 def recent_comments(context):
     """
     If the ``COMMENTS_DISQUS_SHORTNAME`` and ``COMMENTS_DISQUS_KEY`` settings

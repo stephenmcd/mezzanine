@@ -21,17 +21,17 @@ editable, but when developing your own templates you'll need to perform
 this step. 
 
 The first step is to ensure you have a single template tag 
-``editable_loader`` inside the HTML ``<head>`` tags for every template. 
+``editable_loader`` right before the closing ``<body>`` tag for every template. 
 Typically this would only need to be defined in your top-most base template::
 
     {% load mezzanine_tags %}
     <html>
     <head>
         <title>My Website</title>
-        {% editable_loader %}
     </head>
     <body>
         <!-- Content goes here -->
+        {% editable_loader %}
     </body>
     </html>
     
@@ -50,7 +50,6 @@ a model instance in the template context. For example, suppose we had a
     <html>
     <head>
         <title>{{ page.title }}</title>
-        {% editable_loader %}
     </head>
     <body>
 
@@ -75,6 +74,7 @@ a model instance in the template context. For example, suppose we had a
             {% endeditable %}
         </div>
 
+        {% editable_loader %}
     </body>
     </html>
 

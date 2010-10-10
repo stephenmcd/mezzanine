@@ -62,7 +62,7 @@ class Query(models.Model):
             tweets = tweets["results"]
         for tweet_json in tweets:
             tweet, created = self.tweets.get_or_create(
-                remote_id=tweet_json["id"])
+                remote_id=str(tweet_json["id"]))
             if not created:
                 continue
             if "retweeted_status" in tweet_json:

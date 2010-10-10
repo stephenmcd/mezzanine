@@ -4,28 +4,22 @@ from django.db.models import AutoField
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.settings import CONTENT_MEDIA_URL
-from mezzanine.core.forms import OrderableAdminForm
-from mezzanine.core.models import HtmlField
+from mezzanine.core.forms import DynamicInlineAdminForm
+from mezzanine.core.models import Orderable
+from mezzanine.settings import TINYMCE_URL
+from mezzanine.utils import content_media_urls
 
-
-media_url = CONTENT_MEDIA_URL.strip("/")
-content_media = lambda files: ["/%s/%s" % (media_url, f) for f in files]
 
 # Build the list of admin JS file for ``Displayable`` models.
 # For >= Django 1.2 include a backport of the collapse js which targets
 # earlier versions of the admin.
 displayable_js = ["js/tinymce_setup.js", "js/jquery-1.4.2.min.js",
-    "js/keywords_field.js", "js/collapse_inline.js"]
+    "js/keywords_field.js"]
 from django import VERSION
 if not (VERSION[0] <= 1 and VERSION[1] <= 1):
     displayable_js.append("js/collapse_backport.js")
-displayable_js = content_media(displayable_js)
-displayable_js.insert(0, "%stinymce/jscripts/tiny_mce/tiny_mce.js" % 
-    settings.ADMIN_MEDIA_PREFIX)
-
-orderable_js = content_media(["js/jquery-1.4.2.min.js",
-    "js/jquery-ui-1.8.1.custom.min.js", "js/orderable_inline.js"])
+displayable_js = content_media_urls(*displayable_js)
+displayable_js.insert(0, "%s/jscripts/tiny_mce/tiny_mce.js" % TINYMCE_URL)
 
 
 class DisplayableAdmin(admin.ModelAdmin):
@@ -60,35 +54,30 @@ class DisplayableAdmin(admin.ModelAdmin):
         return super(DisplayableAdmin, self).save_form(request, form, change)
 
 
-class OrderableAdmin(admin.ModelAdmin):
+class DynamicInlineAdmin(admin.TabularInline):
     """
-    Admin class that handles inlines for models that subclass the abstract
-    ``Orderable`` model.
+    Admin inline that uses JS to inject an "Add another" link when when 
+    clicked, dynamically reveals another fieldset. Also handles adding the 
+    ``_order`` field and its widget for models that subclass ``Orderable``.
     """
 
-    class Media:
-        css = {"all": content_media(["css/orderable_inline.css"])}
-        js = orderable_js
+    form = DynamicInlineAdminForm
+    extra = 20
+    template = "admin/includes/dynamic_inline.html"
 
     def __init__(self, *args, **kwargs):
-        """
-        Set the form for each of the inlines, the extras that will be hidden
-        and also ensure the ``_order`` field is last.
-        """
-        for inline in self.inlines:
-            inline.form = OrderableAdminForm
-            inline.extra = 20
-            fields = inline.fields
+        super(DynamicInlineAdmin, self).__init__(*args, **kwargs)
+        if issubclass(self.model, Orderable):
+            fields = self.fields
             if not fields:
-                fields = inline.model._meta.fields
-                exclude = inline.exclude or []
+                fields = self.model._meta.fields
+                exclude = self.exclude or []
                 fields = [f.name for f in fields if f.editable and
                     f.name not in exclude and not isinstance(f, AutoField)]
             if "_order" in fields:
                 del fields[fields.index("_order")]
                 fields.append("_order")
-            inline.fields = fields
-        super(OrderableAdmin, self).__init__(*args, **kwargs)
+            self.fields = fields
 
 
 class OwnableAdmin(admin.ModelAdmin):

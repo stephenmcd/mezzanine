@@ -40,6 +40,9 @@ def search(request, template="search_results.html"):
 
 
 def edit(request):
+    """
+    Process the inline editing form.
+    """
     model = get_model(request.POST["app"], request.POST["model"])
     obj = model.objects.get(id=request.POST["id"])
     form = get_edit_form(obj, request.POST["attr"], data=request.POST)

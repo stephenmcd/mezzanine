@@ -25,10 +25,14 @@ class Command(BaseCommand):
             raise CommandError("Usage is import_tumblr %s" % self.args)
         try:
             response = urlopen(json_url)
-            if response.code != 200:
-                raise IOError
-        except IOError:
-            raise CommandError("Invalid Tumblr user")
+            if response.code == 404:
+                raise CommandError("Invalid Tumblr user")
+            elif response.code == 503:
+                raise CommandError("Tumblr API currently unavailable")
+            elif response.code != 200:
+                raise IOError("HTTP status %s" % response.code)
+        except IOError, e:
+            raise CommandError("Error communicating with Tumblr API (%s)" % e)
         if mezzanine_user is not None:
             try:
                 mezzanine_user = User.objects.get(username=mezzanine_user)

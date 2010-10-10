@@ -30,7 +30,9 @@ provides the following features.
   * API for `custom content types`_
   * SEO friendly URLs and meta data
   * `Search engine and API`_
+  * Configurable `dashboard`_ widgets
   * Mobile device detection and templates
+  * Shopping cart module (`Cartridge`_)
   * Blogging engine
   * Tagging
   * One step migration from other blogging engines
@@ -47,14 +49,19 @@ provides the following features.
 
 The Mezzanine admin dashboard:
 
-.. image:: http://media.tumblr.com/tumblr_l3su7jFBHM1qa0qji.png
+.. image:: http://github.com/stephenmcd/mezzanine/raw/master/docs/img/dashboard.png
 
 Dependencies
 ============
 
-Apart from `Django`_ itself, Mezzanine has no explicit dependencies but is 
-designed to be used most effectively in conjunction with the following 
-libraries.
+Mezzanine has no explicit dependencies apart from a standard Django 
+environment using.
+
+  * `Python`_ 2.5 ... 2.7
+  * `Django`_ 1.1 ... 1.2
+  
+Mezzanine is designed however to be used most effectively in conjunction 
+with the following libraries.
 
   * `setuptools`_
   * `Python Imaging Library`_ (PIL)
@@ -123,6 +130,7 @@ Quotes
 .. _`Wordpress`: http://wordpress.org/
 .. _`Pinax`: http://pinaxproject.com/
 .. _`Mingus`: http://github.com/montylounge/django-mingus
+.. _`Python`: http://python.org/
 .. _`setuptools`: http://pypi.python.org/pypi/setuptools
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`django-grappelli`: http://code.google.com/p/django-grappelli/
@@ -130,6 +138,8 @@ Quotes
 .. _`In-line page editing`: http://mezzanine.jupo.org/docs/inline-editing.html
 .. _`custom content types`: http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
+.. _`dashboard`: http://mezzanine.jupo.org/docs/admin-customization.html#dashboard
+.. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
 .. _`960.gs`: http://960.gs/

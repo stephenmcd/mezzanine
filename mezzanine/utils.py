@@ -3,7 +3,8 @@ from htmlentitydefs import name2codepoint
 from re import sub
 
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.db.models.fields.related import ReverseSingleRelatedObjectDescriptor
+
+from mezzanine.settings import CONTENT_MEDIA_URL
 
 
 def decode_html_entities(html):
@@ -64,6 +65,15 @@ def paginate(objects, page_num, per_page, max_paging_links):
         page_range = page_range[start:start + max_paging_links]
     objects.visible_page_range = page_range
     return objects
+
+
+def content_media_urls(*paths):
+    """
+    Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for 
+    internally hosted JS and CSS files.
+    """
+    media_url = CONTENT_MEDIA_URL.strip("/")
+    return ["/%s/%s" % (media_url, path) for path in paths]
 
 
 def base_concrete_model(abstract, instance):

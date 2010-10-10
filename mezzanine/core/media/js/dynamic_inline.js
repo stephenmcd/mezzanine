@@ -27,12 +27,13 @@ var anyFieldsDirty = function(fields) {
 
 $(function() {
 
-    var grappelli = !!$('#bookmarks');
-    var parentSelector = grappelli ? 'div.items' : 'tbody';
+    var grappelli = $('.admin-title').length == 1;
+    var parentSelector = '.dynamic-inline ' + (grappelli ? '.items' : 'tbody');
 
     // Apply drag and drop to orderable inlines.
     $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7'});
     $(parentSelector).disableSelection();
+    $('.ordering').css({cursor: 'move'});
     
     // Mark checkboxes with a 'dirty' attribute if they're changed from 
     // their original state, in order to check inside anyFieldsDirty().
@@ -58,6 +59,34 @@ $(function() {
             });
         });
     });
+
+    // Hide the exta inlines.
+    $(parentSelector + ' > *:not(.has_original)').hide();
+    // Re-show inlines with errors, poetentially hidden by previous line.
+    var errors = $(parentSelector + ' ul[class=errorlist]').parent().parent();
+    if (grappelli) {
+        errors = errors.parent();
+    }
+    errors.show();
+    
+    // Show a new inline when the 'Add another' link is clicked.
+    var addAnother = $('.dynamic-inline .add-another a');
+    $(addAnother).click(function() {
+        var rows = $(this).parent().parent().parent().find(
+            parentSelector + ' > *:hidden');
+        $(rows[0]).show();
+        if (rows.length == 1) {
+            $(this).hide();
+        }
+        return false;
+    });
+    
+    // Show the first hidden inline - grappelli's inline header is actually
+    // part of the selector so for it we run this twice.
+    addAnother.click();
+    if (grappelli) {
+        addAnother.click();
+    }
 
 });
 

@@ -2,17 +2,21 @@
 
 {% spaceless %}
 {% url home as home_url %}
-<ul>
+{% if page_branch %}
+<ul class="tree-menu-level-{{ branch_level }}">
 	{% for page in page_branch %}
-	{% if page.primary and forloop.first %}
+
+    {% if forloop.first and page.primary %}
 	<li class="first{% ifequal request.path home_url %} active{% endifequal %}">
 	    <a href="{% url home %}">{% trans "Home" %}</a>
 	</li>
 	{% endif %}
+
 	{% if page.in_navigation %}
 	<li class="{% if page.selected %}active{% endif %}
-	    {% if forloop.first %} first{% endif %} 
-	    {% if forloop.last %} last{% endif %}">
+        {% if not top_level and forloop.first %} first{% endif %}
+        {% if forloop.last %} last{% endif %}"
+        id="tree-menu-{{ page.html_id }}">
 		<a href="{% url page page.slug %}">{{ page.title }}</a>
 		{# remove this if tag to always show all nav items #}
 		{% if PAGES_MENU_SHOW_ALL or page.selected %}
@@ -20,6 +24,8 @@
 		{% endif %}
 	</li>
     {% endif %}
+
 	{% endfor %}
 </ul>
+{% endif %}
 {% endspaceless %}

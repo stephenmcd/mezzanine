@@ -1,4 +1,110 @@
-Version 0.7.3 (Sep 03, 2010)
+Version 0.8.4 (Sep 30, 2010)
+----------------------------
+
+  * Fix settings formatting - stephenmcd
+  * Use dynamically generated intro for posts in blog listing page rather than the description field - stephenmcd
+
+Version 0.8.3 (Sep 29, 2010)
+----------------------------
+
+  * Update auto-generated CHANGELOG and settings docs - stephenmcd
+  * Fix admin menu for earlier than Python 2.6 which lacks ``tuple.index`` - stephenmcd
+  * add active class to footer menu - lexual
+  * Fix grappelli/filebrowser package creation scripts to be Python 2.5 compatible. Closes #12 - stephenmcd
+  * Add a note about required Python and Django versions to the README - stephenmcd
+  * Create a template tag for reversing urls from within admin templates that fail silently when the url can't be reversed, as this is always the case when running admin tests. Apply this to both the admin dropdown menu and to the base admin template making all templates aware of the ``admin_keyword_submit`` URL so that it does not need to be hard-coded - stephenmcd
+  * Oops, typo in settings.py - Toby
+  * Workaround for when mezzanine is hosted under a different urlspace.
+(Only tested with Django admin, not grappelli)
+
+The keywords.js file needs to reference a mezzanine URL, from the admin site.
+It used to use a hard-coded string with a root-absolute path, but this failed when mezzanine was hosted elsewhere.
+Instead, we now reference a global Mezzanine JS object, which is set by template, using URL reversal to find the correct url.
+This requires a reworking in how the PageAdmin object accesses its Media settings - previously the list of js files was calculated at module load time, but at this stage the url reversal mechanism won't work, because the urls.py aren't all loaded yet, Instead, we hide the list generation inside a lazy iterator object and create the list on demand - Toby
+  * Don't fail if PACKAGE_NAME_FILEBROWSER or PACKAGE_NAME_GRAPELLI aren't set - just don't try & load them - Toby
+  * Backed out changeset: d43f3e430d1f - stephenmcd
+  * Fix positioning of admin dropdown menu in Firefox. Closes #11 - stephenmcd
+  * Add a filtering form for exporting responses in the forms app - stephenmcd
+  * Add some stricter styles for the inline editing controls to prevent them being modified - stephenmcd
+  * add id's to tree-menu, fix bug with multiple "first" class being set - lexual
+  * Add ``branch_level`` and ``html_id`` attributes to pages in menu template tags - stephenmcd
+  * Add ``TEST_DATABASE_COLLATION`` for MySQL - stephenmcd
+  * Fix field length of test data - stephenmcd
+  * Add further DB specific tweaks to ``project_template.settings`` - stephenmcd
+  * Fix PostgreSQL error on tweet lookup - stephenmcd
+  * Remove trailing commas from tinymce_setup.js that break IE. Fixes #14 - stephenmcd
+
+Version 0.8.2 (Sep 23, 2010)
+----------------------------
+
+  * Modify absolute ``ADMIN_MEDIA_PREFIX`` value when using grappelli to read in ip/port from ``sys.argv`` - stephenmcd
+  * unnecessary imports removed ? - lexual
+  * fix up footer positioning - lexual
+  * Backed out changeset 0e7907eef4fc - lexual
+  * move editable-loader to bottom of template to fix weird webkit layout bug - lexual
+  * 960 stuff into separate files - lexual
+  * custom css in separate files - lexual
+  * Clean up a bunch of dead code. Fixes #10 - stephenmcd
+  * Update docs and styles around new positioning of editable_loader tag - stephenmcd
+  * Remove dynamic hiding of inline-edit forms as these are now explicitly hidden with inline styles - stephenmcd
+  * Allow overriding CONTENT_MEDIA_URL - Toby
+  * Test for existence of TinyMCE before using it in JS - Toby
+  * Fix missing quotes for CONTENT_MEDIA_URL setting - stephenmcd
+  * Type in setting function - stephenmcd
+  * Fix handling of empty field values in forms app by not saving them - stephenmcd
+
+Version 0.8.1 (Sep 19, 2010)
+----------------------------
+
+  * No changes listed.
+
+Version 0.8 (Sep 19, 2010)
+--------------------------
+
+  * Allow search fields for ``SearchableManager`` to be defined across multiple models in an inheritance chain - stephenmcd
+  * Fix typo in README - stephenmcd
+  * Refactor models to remove the ``content`` field from the ``pages.Page`` model (and therefore the ``core.Displayable`` model from which it inherits) so that custom content types can be created without the ``content`` field. Introduces a new default content type ``pages.ContentPage`` - stephenmcd
+  * Remove ``BLOG_TITLE`` and ``BLOG_DESCRIPTION`` from ``mezzanine.settings`` and replace use of these with the title and description of the blog page from the pages app allowing them to be in-line editable - stephenmcd
+  * Separate dynamic inlines into its own js file - stephenmcd
+  * Make class name unique for dynamic inlines - stephenmcd
+  * Fix with statement for Python2.5 in setup.py. Closes #9 - stephenmcd
+  * Refactor ordering and dynamic "Add another" enhancements to admin inlines so that they explicitly target the correct inlines - stephenmcd
+  * Add Russian translations - thanks to Timur Bobrus for providing these - stephenmcd
+  * Fix primary nav style on default tempaltes - stephenmcd
+  * Move scripts into scripts directory and use OptionParser in mezzanine-project script to allow options for copying templates, package source and specifying an alternate package to install from - stephenmcd
+  * Fix logic of checking a page's slug to be selected in ``page_menu`` template tag - stephenmcd
+  * Remove the list of apps/models from the admin dashboard and move them into a navigation menu persistent throughout the entire admin - stephenmcd
+  * Trap failure to resolve admin URLs so that tests can pass - stephenmcd
+  * Add Cartridge to features in README - stephenmcd
+  * Set ``mezzanine.core.admin.DynamicInlineAdmin.extra`` to 20 unconditionally - stephenmcd
+  * Try and check for jQuery before loading it for admin menu - stephenmcd
+  * Fix styling of messages to prevent them being layered on top of the admin menu - stephenmcd
+  * Update auto-generated settings docs - stephenmcd
+
+Version 0.7.4 (Sep 10, 2010)
+----------------------------
+
+  * More footer style updates - stephenmcd
+  * Styled search results - stephenmcd
+  * Use ADMIN_MEDIA_PREFIX in path to TinyMCE js. Closes #6 - stephenmcd
+  * Make Export entries label translatable. Closes #7 - stephenmcd
+  * Add correct handling for non-ascii translated field name for entry time on form submissions. Closes #8 - stephenmcd
+  * Refactor generation of Displayable.description to not explicitly use content field - stephenmcd
+  * Fix sequence of styling for selected nav in tree menu - stephenmcd
+  * Let blog views render even if the blog page object doesn't exist - stephenmcd
+  * Add a test for generated page descriptions - stephenmcd
+  * Allow test for overriden pages to pass when blog page doesn't exist - stephenmcd
+  * Fix field length for field types in forms app - stephenmcd
+  * Update ``mezzanine-project`` script to copy templates into newly created project - stephenmcd
+  * Fix missing enctype in forms template for forms with file uploads - stephenmcd
+  * Add a new ``help_text`` field to form field model in forms app - stephenmcd
+  * Add email_subject and email_message fields to form model in forms app - stephenmcd
+  * Fix ``pages.page_processors.processor_for`` to return the function it decorates so they can be referenced from their modules for documentation purposes - stephenmcd
+  * Fix docs in ``mezzanine.utils`` - stephenmcd
+  * Add ``mezzanine.forms`` to package docs - stephenmcd
+  * Version bump - stephenmcd
+
+Version 0.7.3 (Sep 02, 2010)
 ----------------------------
 
   * Remove print debug from setup.py - stephenmcd
@@ -18,7 +124,7 @@ Version 0.7.2 (Sep 02, 2010)
   * More styling enhancements to footer menu - stephenmcd
   * Add new fixtures for demonstrating footer menu - stephenmcd
 
-Version 0.7.1 (Aug 30, 2010)
+Version 0.7.1 (Aug 29, 2010)
 ----------------------------
 
   * Refactor mezzanine.template to use functools.wraps - stephenmcd
@@ -156,7 +262,7 @@ Version 0.5 (Jul 18, 2010)
   * Added docs for in-line editing - stephenmcd
   * Update README to cross-reference features in docs - stephenmcd
 
-Version 0.4 (Jul 11, 2010)
+Version 0.4 (Jul 10, 2010)
 --------------------------
 
   * Added search functionality and moved pagination out into utils and templatetags - stephenmcd
