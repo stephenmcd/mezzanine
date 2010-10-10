@@ -1,4 +1,6 @@
 
+import sys
+
 from mezzanine.settings import defaults
 from mezzanine.settings.models import Setting
 
@@ -21,7 +23,8 @@ def load_settings(*names):
             self._loaded = True
             editable = [n for n in names if hasattr(defaults, n) and 
                 getattr(defaults, n)["editable"]]
-            if editable:
+            syncdb = len(sys.argv) >= 2 and sys.argv[1] == "syncdb"
+            if editable and not syncdb:
                 for setting in Setting.objects.filter(name__in=editable):
                     setattr(self, setting.name, setting.value)
             for n in names:
