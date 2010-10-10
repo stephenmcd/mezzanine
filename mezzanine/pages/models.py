@@ -1,3 +1,4 @@
+
 from django.contrib.admin.util import quote
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
@@ -84,4 +85,3 @@ class ContentPage(Page, Content):
     class Meta:
         verbose_name = _("Content page")
         verbose_name_plural = _("Content pages")
-

@@ -8,7 +8,10 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Ownable, Content, Slugged
 from mezzanine.blog.managers import CommentManager
-from mezzanine.settings import COMMENTS_DEFAULT_APPROVED
+from mezzanine.settings import load_settings
+
+
+mezz_settings = load_settings("COMMENTS_DEFAULT_APPROVED")
 
 
 class BlogPost(Displayable, Ownable, Content):
@@ -20,8 +23,8 @@ class BlogPost(Displayable, Ownable, Content):
         blank=True, null=True)
 
     class Meta:
-        verbose_name = "Blog post"
-        verbose_name_plural = "Blog posts"
+        verbose_name = _("Blog post")
+        verbose_name_plural = _("Blog posts")
         ordering = ("-publish_date",)
 
     @models.permalink
@@ -35,8 +38,8 @@ class BlogCategory(Slugged):
     """
 
     class Meta:
-        verbose_name = "Blog Category"
-        verbose_name_plural = "Blog Categories"
+        verbose_name = _("Blog Category")
+        verbose_name_plural = _("Blog Categories")
 
     @models.permalink
     def get_absolute_url(self):
@@ -55,7 +58,7 @@ class Comment(models.Model):
     website = models.URLField(_("Website"), blank=True, help_text=_("optional"))
     blog_post = models.ForeignKey("BlogPost", related_name="comments")
     approved = models.BooleanField(_("Approved"),
-        default=COMMENTS_DEFAULT_APPROVED)
+        default=mezz_settings.COMMENTS_DEFAULT_APPROVED)
     by_author = models.BooleanField(_("By the blog author"), default=False)
     ip_address = models.IPAddressField(_("IP address"), blank=True, null=True)
     time_created = models.DateTimeField(_("Created at"), default=datetime.now)

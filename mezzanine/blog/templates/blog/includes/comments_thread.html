@@ -1,4 +1,6 @@
-{% load i18n blog_tags %}
+{% load i18n mezzanine_tags blog_tags %}
+
+{% load_settings COMMENTS_DEFAULT_APPROVED %}
 
 <ul>
     {% for comment in comments_thread %}
@@ -38,7 +40,7 @@
         </form>
         {% else %}
         <p>
-            {% if comments_default_approved %}
+            {% if COMMENTS_DEFAULT_APPROVED %}
             {% trans "Comment deleted" %}
             {% else %}
             {% trans "Comment awaiting approval" %}

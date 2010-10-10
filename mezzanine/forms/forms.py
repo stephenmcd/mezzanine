@@ -12,10 +12,11 @@ from django.utils.importlib import import_module
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.forms.models import FormEntry, FieldEntry
-from mezzanine.settings import FORMS_FIELD_MAX_LENGTH, FORMS_UPLOAD_ROOT
+from mezzanine.settings import load_settings
 
 
-fs = FileSystemStorage(location=FORMS_UPLOAD_ROOT)
+mezz_settings = load_settings("FORMS_FIELD_MAX_LENGTH", "FORMS_UPLOAD_ROOT")
+fs = FileSystemStorage(location=mezz_settings.FORMS_UPLOAD_ROOT)
 
 FILTER_CHOICE_CONTAINS = "1"
 FILTER_CHOICE_DOESNT_CONTAIN = "2"
@@ -92,7 +93,7 @@ class FormForForm(forms.ModelForm):
                 "help_text": field.help_text}
             arg_names = field_class.__init__.im_func.func_code.co_varnames
             if "max_length" in arg_names:
-                field_args["max_length"] = FORMS_FIELD_MAX_LENGTH
+                field_args["max_length"] = mezz_settings.FORMS_FIELD_MAX_LENGTH
             if "choices" in arg_names:
                 choices = field.choices.split(",")
                 field_args["choices"] = zip(choices, choices)
@@ -167,7 +168,7 @@ class ExportForm(forms.Form):
             if "ChoiceField" in field.field_type or is_bool_field:
                 # A fixed set of choices to filter by.
                 if is_bool_field:
-                    choices = ((True, _("Checked")), False, _("Not checked"))
+                    choices = ((True, _("Checked")), (False, _("Not checked")))
                 else:
                     choices = zip(*([field.choices.split(",")] * 2))
                 contains_field = forms.MultipleChoiceField(label=" ",

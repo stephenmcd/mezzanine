@@ -13,31 +13,15 @@ from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
 
-from mezzanine import settings as mezzanine_settings
 from mezzanine import template
 from mezzanine.core.forms import get_edit_form
+from mezzanine.settings import load_settings as _load_settings
 from mezzanine.utils import decode_html_entities, is_editable
 
-from django.utils.datastructures import SortedDict
+
+mezz_settings = _load_settings("ADMIN_MENU_ORDER", "DASHBOARD_TAGS")
 
 register = template.Library()
-
-
-@register.simple_tag
-def setting(setting_name, called_internally=False):
-    """
-    Return a setting.
-    """
-    if not called_internally:
-        import warnings
-        warnings.warn(
-            "The ``setting`` tag will be deprecated - " \
-            "please use the ``load_settings`` tag.", DeprecationWarning)
-    value = getattr(mezzanine_settings, setting_name,
-        getattr(settings, setting_name, None))
-    if value is None:
-        value = ""
-    return value
 
 
 @register.render_tag
@@ -45,8 +29,13 @@ def load_settings(context, token):
     """
     Push the given setting names into the context.
     """
-    for setting_name in token.split_contents()[1:]:
-        context[setting_name] = setting(setting_name, called_internally=True)
+    names = token.split_contents()[1:]
+    for name in names:
+        if name not in context:
+            mezz_settings = _load_settings(*names)
+            for name in names:
+                context[name] = getattr(mezz_settings, name)
+            break
     return ""
 
 
@@ -60,9 +49,10 @@ def set_short_url_for(context, token):
     request = context["request"]
     if getattr(obj, "short_url") is None:
         obj.short_url = request.build_absolute_uri(request.path)
+        mezz_settings = _load_settings("BLOG_BITLY_USER", "BLOG_BITLY_KEY")
         args = {
-            "login": getattr(mezzanine_settings, "BLOG_BITLY_USER"),
-            "apiKey": getattr(mezzanine_settings, "BLOG_BITLY_KEY"),
+            "login": mezz_settings.BLOG_BITLY_USER,
+            "apiKey": mezz_settings.BLOG_BITLY_KEY,
             "longUrl": obj.short_url,
         }
         if args["login"] and args["apiKey"]:
@@ -166,7 +156,7 @@ def admin_app_list(request):
                 admin_url = "add"
             if admin_url:
                 model_label = "%s.%s" % (app_label, model.__name__)
-                for (name, items) in mezzanine_settings.ADMIN_MENU_ORDER:
+                for (name, items) in mezz_settings.ADMIN_MENU_ORDER:
                     try:
                         index = list(items).index(model_label)
                     except ValueError:
@@ -190,7 +180,7 @@ def admin_app_list(request):
                 else:
                     try:
                         titles = [x[0] for x in 
-                            mezzanine_settings.ADMIN_MENU_ORDER]
+                            mezz_settings.ADMIN_MENU_ORDER]
                         index = titles.index(app_title)
                     except ValueError:
                         index = None
@@ -241,7 +231,7 @@ def dashboard_column(context, token):
     """
     column_index = int(token.split_contents()[1])
     output = []
-    for tag in mezzanine_settings.DASHBOARD_TAGS[column_index]:
+    for tag in mezz_settings.DASHBOARD_TAGS[column_index]:
         t = Template("{%% load %s %%}{%% %s %%}" % tuple(tag.split(".")))
         output.append(t.render(Context(context)))
     return "".join(output)

@@ -4,7 +4,10 @@ from re import sub
 
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
-from mezzanine.settings import CONTENT_MEDIA_URL
+from mezzanine.settings import load_settings
+
+
+mezz_settings = load_settings("CONTENT_MEDIA_URL")
 
 
 def decode_html_entities(html):
@@ -72,7 +75,7 @@ def content_media_urls(*paths):
     Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for 
     internally hosted JS and CSS files.
     """
-    media_url = CONTENT_MEDIA_URL.strip("/")
+    media_url = mezz_settings.CONTENT_MEDIA_URL.strip("/")
     return ["/%s/%s" % (media_url, path) for path in paths]
 
 

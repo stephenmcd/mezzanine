@@ -8,11 +8,11 @@ from django.contrib.auth.models import User
 from django.db.models import Count
 from django.utils.simplejson import loads
 
-from mezzanine import settings as blog_settings
 from mezzanine import template
 from mezzanine.blog.forms import BlogPostForm
 from mezzanine.blog.models import BlogPost, BlogCategory, Comment
 from mezzanine.core.models import Keyword
+from mezzanine.settings import load_settings
 
 
 register = template.Library()
@@ -50,7 +50,6 @@ def blog_comments_for(context, parent):
     context.update({
         "comments_thread": context["blog_comments"].get(parent, []),
         "no_comments": parent is None and not comments,
-        "comments_default_approved": blog_settings.COMMENTS_DEFAULT_APPROVED,
         "replied_to": replied_to,
     })
     return context
@@ -79,13 +78,14 @@ def blog_tags(*args):
     """
     Put a list of tags (keywords) for blog posts into the template context.
     """
+    mezz_settings = load_settings("TAG_CLOUD_SIZES")
     tags = Keyword.objects.filter(blogpost__isnull=False).annotate(
         post_count=Count("blogpost"))
     if not tags:
         return []
     counts = [tag.post_count for tag in tags]
     min_count, max_count = min(counts), max(counts)
-    sizes = blog_settings.TAG_CLOUD_SIZES
+    sizes = mezz_settings.TAG_CLOUD_SIZES
     step = (max_count - min_count) / (sizes - 1)
     if step == 0:
         steps = [sizes / 2]
@@ -131,9 +131,11 @@ def recent_comments(context):
     """
 
     global DISQUS_FORUM_ID
-    disqus_key = blog_settings.COMMENTS_DISQUS_KEY
-    disqus_shortname = blog_settings.COMMENTS_DISQUS_SHORTNAME
-    latest = blog_settings.COMMENTS_NUM_LATEST
+    mezz_settings = load_settings("COMMENTS_DISQUS_KEY", 
+                            "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST")
+    disqus_key = mezz_settings.COMMENTS_DISQUS_KEY
+    disqus_shortname = mezz_settings.COMMENTS_DISQUS_SHORTNAME
+    latest = mezz_settings.COMMENTS_NUM_LATEST
     context["comments"] = []
     post_from_comment = lambda comment: int(comment["thread"]["identifier"][0])
 

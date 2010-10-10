@@ -14,18 +14,16 @@ from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.core.models import Keyword
 from mezzanine.pages.models import ContentPage
 from mezzanine.utils import paginate
-from mezzanine import settings as blog_settings
-
-
-use_disqus = bool(blog_settings.COMMENTS_DISQUS_SHORTNAME)
+from mezzanine.settings import load_settings
 
 
 def blog_page():
     """
     Return the Blog page from the pages app.
     """
+    mezz_settings = load_settings("BLOG_SLUG")
     try:
-        return ContentPage.objects.get(slug=blog_settings.BLOG_SLUG)
+        return ContentPage.objects.get(slug=mezz_settings.BLOG_SLUG)
     except ContentPage.DoesNotExist:
         return None
 
@@ -34,8 +32,10 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     """
     Display a list of blog posts.
     """
+    mezz_settings = load_settings("BLOG_POST_PER_PAGE", 
+                    "BLOG_POST_MAX_PAGING_LINKS", "COMMENTS_DISQUS_SHORTNAME")
     blog_posts = BlogPost.objects.published(for_user=request.user).annotate(
-        num_comments=Count("comments"))
+        num_comments=Count("comments")).select_related(depth=1)
     if tag is not None:
         tag = get_object_or_404(Keyword, slug=tag)
         blog_posts = blog_posts.filter(keywords=tag)
@@ -52,10 +52,11 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         user = get_object_or_404(User, username=username)
         blog_posts = blog_posts.filter(user=user)
     blog_posts = paginate(blog_posts, request.GET.get("page", 1),
-        blog_settings.BLOG_POST_PER_PAGE,
-        blog_settings.BLOG_POST_MAX_PAGING_LINKS)
-    context = {"blog_posts": blog_posts, "year": year, "month": month, "tag": 
-        tag, "category": category, "user": user, "use_disqus": use_disqus, 
+        mezz_settings.BLOG_POST_PER_PAGE,
+        mezz_settings.BLOG_POST_MAX_PAGING_LINKS)
+    context = {"blog_posts": blog_posts, "year": year, "month": month, 
+        "tag": tag, "category": category, "user": user, 
+        "use_disqus": bool(mezz_settings.COMMENTS_DISQUS_SHORTNAME), 
         "blog_page": blog_page()}
     return render_to_response(template, context, RequestContext(request))
 
@@ -93,8 +94,10 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
             response.set_cookie(commenter_cookie_prefix + field,
                 request.POST.get(field, ""), expires=expires)
         return response
+    mezz_settings = load_settings("COMMENTS_DISQUS_SHORTNAME")
     context = {"blog_post": blog_post, "blog_page": blog_page(), 
-        "use_disqus": use_disqus, "posted_comment_form": posted_comment_form, 
+        "use_disqus": bool(mezz_settings.COMMENTS_DISQUS_SHORTNAME), 
+        "posted_comment_form": posted_comment_form, 
         "unposted_comment_form": unposted_comment_form}
     t = select_template(["blog/%s.html" % slug, template])
     return HttpResponse(t.render(RequestContext(request, context)))

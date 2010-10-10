@@ -6,7 +6,6 @@ from django.db.models import get_model, get_models
 
 from mezzanine import template
 from mezzanine.pages.models import Page
-from mezzanine.settings import PAGES_MENU_SHOW_ALL
 
 
 register = template.Library()
@@ -47,7 +46,6 @@ def _page_menu(context, parent_page):
     context["page_branch"] = context["menu_pages"].get(parent_page, [])
     for i, page in enumerate(context["page_branch"]):
         context["page_branch"][i].branch_level = context["branch_level"]
-    context["PAGES_MENU_SHOW_ALL"] = PAGES_MENU_SHOW_ALL
     return context
 
 

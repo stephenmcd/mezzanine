@@ -40,8 +40,7 @@ class Command(BaseCommand):
                 raise CommandError("Invalid Mezzanine user")
 
         from mezzanine.blog.models import BlogPost
-        from mezzanine.core.models import Keyword
-        from mezzanine.settings import CONTENT_STATUS_PUBLISHED
+        from mezzanine.core.models import Keyword, CONTENT_STATUS_PUBLISHED
         site = Site.objects.get_current()
         start = "var tumblr_api_read ="
         date_format = "%a, %d %b %Y %H:%M:%S"

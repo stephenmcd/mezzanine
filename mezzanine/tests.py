@@ -7,10 +7,11 @@ from django.template import Context, Template
 from django.test import TestCase
 
 from mezzanine.blog.models import BlogPost, Comment
+from mezzanine.core.models import CONTENT_STATUS_DRAFT, \
+                                    CONTENT_STATUS_PUBLISHED
 from mezzanine.forms.models import Form, FIELD_CHOICES
 from mezzanine.pages.models import ContentPage
-from mezzanine.settings import BLOG_SLUG, CONTENT_STATUS_DRAFT, \
-    CONTENT_STATUS_PUBLISHED, MOBILE_USER_AGENTS
+from mezzanine.settings import load_settings
 
 
 class Tests(TestCase):
@@ -24,9 +25,10 @@ class Tests(TestCase):
         """
         Create an admin user.
         """
+        self._settings = load_settings("BLOG_SLUG", "MOBILE_USER_AGENTS")
         self._username = "test"
         self._password = "test"
-        args = self._username, "example@example.com", self._password
+        args = (self._username, "example@example.com", self._password)
         self._user = User.objects.create_superuser(*args)
 
     def test_draft_page(self):
@@ -35,7 +37,7 @@ class Tests(TestCase):
         """
         self.client.logout()
         draft = ContentPage.objects.create(title="Draft", 
-            status=CONTENT_STATUS_DRAFT)
+                                                status=CONTENT_STATUS_DRAFT)
         response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 404)
         self.client.login(username=self._username, password=self._password)
@@ -48,7 +50,8 @@ class Tests(TestCase):
         True for its overriden property. The blog page from the fixtures
         should classify as this case.
         """
-        blog_page, created = ContentPage.objects.get_or_create(slug=BLOG_SLUG)
+        blog_page, created = ContentPage.objects.get_or_create(
+                                                slug=self._settings.BLOG_SLUG)
         self.assertTrue(blog_page.overridden())
 
     def test_description(self):
@@ -68,7 +71,7 @@ class Tests(TestCase):
         template_name = lambda t: t.name if hasattr(t, "name") else t[0].name
         default = template_name(self.client.get(reverse("home")).template)
         mobile = template_name(self.client.get(reverse("home"),
-            HTTP_USER_AGENT=MOBILE_USER_AGENTS[0]).template)
+            HTTP_USER_AGENT=self._settings.MOBILE_USER_AGENTS[0]).template)
         self.assertNotEqual(default, mobile)
         self.assertEqual(default, mobile.replace(".mobile", "", 1))
 
