@@ -5,7 +5,7 @@ from django.contrib.auth import models as auth_app
 from django.db.models.signals import post_syncdb
 
 
-def create_demo_user(app, created_models, verbosity, db, **kwargs):
+def create_demo_user(app, created_models, verbosity, **kwargs):
     if settings.DEBUG and User in created_models:
         if verbosity >= 2:
             print "Creating demo User object"
