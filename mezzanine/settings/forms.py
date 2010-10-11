@@ -48,7 +48,7 @@ class SettingsForm(forms.Form):
         Add a HTML tag to the help text so we can style it.
         """
         return self._html_output(
-            normal_row = u"<p%(html_class_attr)s>%(label)s %(field)s%(help_text)s</p>",
+            normal_row = u"<p>%(label)s %(field)s%(help_text)s</p>",
             error_row = u"%s",
             row_ender = "</p>",
             help_text_html = u" <span class=\"help\">%s</span>",
