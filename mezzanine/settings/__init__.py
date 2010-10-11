@@ -28,7 +28,11 @@ def load_settings(*names):
                 for setting in Setting.objects.filter(name__in=editable):
                     default = getattr(defaults, setting.name).default
                     setting_type = type(default)
-                    setattr(self, setting.name, setting_type(setting.value))
+                    if setting_type is bool:
+                        setting_value = setting.value != "False"
+                    else:
+                        setting_value = setting_type(setting.value)
+                    setattr(self, setting.name, setting_value)
             for n in names:
                 if n not in self.__dict__ and hasattr(defaults, n):
                     setattr(self, n, getattr(defaults, n).default)
