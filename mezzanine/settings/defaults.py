@@ -1,9 +1,9 @@
 
 import os.path
 
+from django.conf import settings
 from django.utils.functional import lazy
 from django.utils.translation import ugettext as _
-from django.conf import settings
 
 
 class Setting(object):
@@ -17,6 +17,13 @@ class Setting(object):
         self.editable = editable
         self.default = getattr(settings, "MEZZANINE_%s" % name, default)
         globals()[name] = self
+
+
+for app in settings.INSTALLED_APPS:
+    try:
+        __import__("%s.defaults" % app)
+    except ImportError:
+        pass
 
 
 Setting(
@@ -278,3 +285,4 @@ Setting(
     editable=False,
     default="%s/tinymce" % settings.ADMIN_MEDIA_PREFIX,
 )
+
