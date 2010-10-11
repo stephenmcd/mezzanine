@@ -33,6 +33,7 @@ class SettingsAdmin(admin.ModelAdmin):
         settings_form = SettingsForm(request.POST or None)
         if settings_form.is_valid():
             settings_form.save()
+            return self.changelist_redirect()
         extra_context["settings_form"] = settings_form
         extra_context["title"] = _("Change %s" % 
             force_unicode(Setting._meta.verbose_name_plural))
