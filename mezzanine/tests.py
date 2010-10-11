@@ -11,7 +11,8 @@ from mezzanine.core.models import CONTENT_STATUS_DRAFT, \
                                     CONTENT_STATUS_PUBLISHED
 from mezzanine.forms.models import Form, FIELD_CHOICES
 from mezzanine.pages.models import ContentPage
-from mezzanine.settings import load_settings
+from mezzanine.settings.models import Setting
+from mezzanine.settings import load_settings, defaults
 
 
 class Tests(TestCase):
@@ -183,3 +184,37 @@ class Tests(TestCase):
             data = dict([("field_%s" % f.id, "test") for f in fields])
             response = self.client.post(form.get_absolute_url(), data=data)
             self.assertEqual(response.status_code, 200)
+
+    def test_settings(self):
+        """
+        Test that an editable setting can be overriden with a DB value and 
+        that the data type is preserved when the value is returned back out 
+        of the DB.
+        """
+        Setting.objects.all().delete()
+        names_by_type = {int: None, bool: None, str: None}
+        # Find an editable setting for each supported type.
+        for name in dir(defaults):
+            setting = getattr(defaults, name)
+            if isinstance(setting, defaults.Setting) and setting.editable:
+                for (setting_type, setting_name) in names_by_type.items():
+                    if isinstance(setting.default, setting_type) and \
+                        setting_name is None:
+                        names_by_type[setting_type] = setting.name
+                        break
+        # Create a modified value for each setting and save it.
+        values_by_name = {}
+        for (setting_type, setting_name) in names_by_type.items():
+            setting_value = getattr(defaults, setting_name).default
+            if setting_type is int:
+                setting_value += 1
+            elif setting_type is bool:
+                setting_value = not setting_value
+            elif setting_type is str:
+                setting_value += "test"
+            values_by_name[setting_name] = setting_value
+            Setting.objects.create(name=setting_name, value=str(setting_value))
+        # Load the settings and make sure the DB values have persisted.
+        mezz_settings = load_settings(*names_by_type.values())
+        for (name, value) in values_by_name.items():
+            self.assertEqual(getattr(mezz_settings, name), value)
