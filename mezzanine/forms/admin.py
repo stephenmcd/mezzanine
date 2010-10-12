@@ -8,6 +8,7 @@ from os.path import join
 from django.conf.urls.defaults import patterns, url
 from django.contrib import admin
 from django.core.files.storage import FileSystemStorage
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
