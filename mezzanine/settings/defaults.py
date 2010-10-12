@@ -2,33 +2,14 @@
 import os.path
 
 from django.conf import settings
-from django.utils.functional import lazy
 from django.utils.translation import ugettext as _
 
-
-class Setting(object):
-    """
-    Setting that can be edited via the admin. Registers itself in globals 
-    on creation.
-    """
-    def __init__(self, name="", editable=False, description="", default=None):
-        self.name = name
-        self.description = description
-        self.editable = editable
-        self.default = getattr(settings, "MEZZANINE_%s" % name, default)
-        globals()[name] = self
+from mezzanine.settings import register_setting
 
 
-for app in settings.INSTALLED_APPS:
-    try:
-        __import__("%s.defaults" % app)
-    except ImportError:
-        pass
-
-
-Setting(
+register_setting(
     name="ADMIN_MENU_ORDER",
-    description="Controls the ordering and grouping of the admin menu.",
+    description=_("Controls the ordering and grouping of the admin menu."),
     editable=False,
     default=(
         (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",)),
@@ -37,105 +18,105 @@ Setting(
     ),
 )
 
-Setting(
+register_setting(
     name="ADMIN_REMOVAL",
-    description="Unregister these models from the admin.",
+    description=_("Unregister these models from the admin."),
     editable=False,
     default=(),
 )
 
-Setting(
+register_setting(
     name="BLOG_BITLY_USER",
-    description="Username for bit.ly URL shortening service.",
+    description=_("Username for bit.ly URL shortening service."),
     editable=True, 
     default="",
 )
 
-Setting(
+register_setting(
     name="BLOG_BITLY_KEY",
-    description="Key for bit.ly URL shortening service.",
+    description=_("Key for bit.ly URL shortening service."),
     editable=True, 
     default="",
 )
 
-Setting(
+register_setting(
     name="BLOG_POST_PER_PAGE", 
-    description="Number of blog posts to show on a blog listing page.",
+    description=_("Number of blog posts to show on a blog listing page."),
     editable=True,
     default=5,
 )
 
-Setting(
+register_setting(
     name="BLOG_POST_MAX_PAGING_LINKS", 
-    description="Max number of paging links to show on a blog listing page.",
+    description=_("Max number of paging links to show on a blog listing page."),
     editable=True, 
     default=10,
 )
 
-Setting(
+register_setting(
     name="BLOG_SLUG", 
-    description="Slug of the page object for the blog.",
+    description=_("Slug of the page object for the blog."),
     editable=False,
     default="blog",
 )
 
-Setting(
+register_setting(
     name="COMMENTS_DISQUS_SHORTNAME", 
-    description="Username for the http://disqus.com comments service.",
+    description=_("Username for the http://disqus.com comments service."),
     editable=True, 
     default="",
 )
 
-Setting(
+register_setting(
     name="COMMENTS_DISQUS_KEY", 
-    description="API key for the http://disqus.com comments service.",
+    description=_("API key for the http://disqus.com comments service."),
     editable=True, 
     default="",
 )
 
-Setting(
+register_setting(
     name="COMMENTS_DEFAULT_APPROVED", 
-    description="If True, the built-in comments are approved by default.",
+    description=_("If True, the built-in comments are approved by default."),
     editable=True, 
     default=True,
 )
 
-Setting(
+register_setting(
     name="COMMENTS_NUM_LATEST", 
-    description="Number of latest comments to show in the admin dashboard.",
+    description=_("Number of latest comments to show in the admin dashboard."),
     editable=True, 
     default=5,
 )
 
-Setting(
+register_setting(
     name="COMMENTS_UNAPPROVED_VISIBLE", 
-    description="If True, unapproved comments will have a placeholder "
+    description=_("If True, unapproved comments will have a placeholder "
         "visible on the site with a 'waiting for approval' or "
         "'comment removed' message based on the workflow around the "
         "``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if True then "
-        "the former message is used, if False then the latter.",
+        "the former message is used, if False then the latter."),
     editable=True, 
     default=True,
 )
 
-Setting(
+register_setting(
     name="CONTENT_MEDIA_PATH", 
-    description="Absolute path to Mezzanine's internal media files.",
+    description=_("Absolute path to Mezzanine's internal media files."),
     editable=False,
     default=os.path.join(os.path.dirname(__file__), "..", "core", "media"),
 )
 
-Setting(
+register_setting(
     name="CONTENT_MEDIA_URL", 
-    description="URL prefix for serving Mezzanine's internal media files.",
+    description=_("URL prefix for serving Mezzanine's internal media files."),
     editable=False,
     default="/content_media/",
 )
 
-Setting(
+register_setting(
     name="DASHBOARD_TAGS", 
-    description="A three item sequence, each containing a sequence of "
-        "template tags used to render the admin dashboard.",
+    description=_("A three item sequence, each containing a sequence of "
+        "template tags used to render the admin dashboard."),
     editable=False,
     default=(
         ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
@@ -144,38 +125,38 @@ Setting(
     ),
 )
 
-Setting(
+register_setting(
     name="FORMS_FIELD_MAX_LENGTH", 
-    description="Max length allowed for field values in the forms app.",
+    description=_("Max length allowed for field values in the forms app."),
     editable=False,
     default=2000,
 )
 
-Setting(
+register_setting(
     name="FORMS_LABEL_MAX_LENGTH",
-    description="Max length allowed for field labels in the forms app.",
+    description=_("Max length allowed for field labels in the forms app."),
     editable=False,
     default=200,
 )
 
-Setting(
+register_setting(
     name="FORMS_UPLOAD_ROOT",
-    description="Absolute path for storing file uploads to for the forms app.",
+    description=_("Absolute path for storing file uploads for the forms app."),
     editable=False,
     default="",
 )
 
-Setting(
+register_setting(
     name="GOOGLE_ANALYTICS_ID", 
     editable=True, 
-    description="Google Analytics ID (http://www.google.com/analytics/)",
+    description=_("Google Analytics ID (http://www.google.com/analytics/)"),
     default="",
 )
 
-Setting(
+register_setting(
     name="MOBILE_USER_AGENTS",
-    description="Strings to search for in user agent when testing for a "
-        "mobile device.",
+    description=_("Strings to search user agent for when testing for a "
+        "mobile device."),
     editable=False, 
     default=(
         "2.0 MMP", "240x320", "400X240", "AvantGo", "BlackBerry", 
@@ -193,38 +174,38 @@ Setting(
     ),
 )
 
-Setting(
+register_setting(
     name="TAG_CLOUD_SIZES", 
-    description="Number of different sizes for tags when shown as a cloud.",
+    description=_("Number of different sizes for tags when shown as a cloud."),
     editable=True, 
     default=4,
 )
 
-Setting(
+register_setting(
     name="PAGES_MENU_SHOW_ALL", 
-    description="If True, the pages menu will show all levels of navigation, "
-        "otherwise child pages are only shown when viewing the parent page.",
+    description=_("If True, the pages menu will show all levels of navigation,"
+        " otherwise child pages are only shown when viewing the parent page."),
     editable=False,
     default=True,
 )
 
-Setting(
+register_setting(
     name="SEARCH_PER_PAGE",
-    description="Number of results to show in the search results page.",
+    description=_("Number of results to show in the search results page."),
     editable=True, 
     default=10,
 )
 
-Setting(
+register_setting(
     name="SEARCH_MAX_PAGING_LINKS", 
-    description="Max number of page links to show in the search results page.",
+    description=_("Max number of paging links for the search results page."),
     editable=True,
     default=10,
 )
 
-Setting(
+register_setting(
     name="STOP_WORDS", 
-    description="List of words which will be stripped from search queries.",
+    description=_("List of words which will be stripped from search queries."),
     editable=False,
     default=(
         "a", "about", "above", "above", "across", "after",
@@ -279,10 +260,9 @@ Setting(
     ),
 )
 
-Setting(
+register_setting(
     name="TINYMCE_URL", 
-    description="URL prefix for serving Tiny MCE files.",
+    description=_("URL prefix for serving Tiny MCE files."),
     editable=False,
     default="%s/tinymce" % settings.ADMIN_MEDIA_PREFIX,
 )
-

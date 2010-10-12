@@ -12,7 +12,7 @@ from mezzanine.core.models import CONTENT_STATUS_DRAFT, \
 from mezzanine.forms.models import Form, FIELD_CHOICES
 from mezzanine.pages.models import ContentPage
 from mezzanine.settings.models import Setting
-from mezzanine.settings import load_settings, defaults
+from mezzanine.settings import editable_settings, load_settings, registry
 
 
 class Tests(TestCase):
@@ -189,29 +189,28 @@ class Tests(TestCase):
         """
         Test that an editable setting can be overriden with a DB value and 
         that the data type is preserved when the value is returned back out 
-        of the DB.
+        of the DB. Also checks to ensure no unsupported types are defined 
+        for editable settings.
         """
         Setting.objects.all().delete()
-        names_by_type = {int: None, bool: None, str: None}
         # Find an editable setting for each supported type.
-        for name in dir(defaults):
-            setting = getattr(defaults, name)
-            if isinstance(setting, defaults.Setting) and setting.editable:
-                for (setting_type, setting_name) in names_by_type.items():
-                    if isinstance(setting.default, setting_type) and \
-                        setting_name is None:
-                        names_by_type[setting_type] = setting.name
-                        break
+        names_by_type = {}
+        for setting in registry.values():
+            if setting["editable"] and setting["type"] not in names_by_type:
+                names_by_type[setting["type"]] = setting["name"]
         # Create a modified value for each setting and save it.
         values_by_name = {}
         for (setting_type, setting_name) in names_by_type.items():
-            setting_value = getattr(defaults, setting_name).default
+            setting_value = registry[setting_name]["default"]
             if setting_type is int:
                 setting_value += 1
             elif setting_type is bool:
                 setting_value = not setting_value
             elif setting_type is str:
                 setting_value += "test"
+            else:
+                self.fail("Unsupported setting type for %s: %s" % 
+                                                (setting_name, setting_type))
             values_by_name[setting_name] = setting_value
             Setting.objects.create(name=setting_name, value=str(setting_value))
         # Load the settings and make sure the DB values have persisted.
