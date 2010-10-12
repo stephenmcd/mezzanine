@@ -8,7 +8,7 @@ from os.path import join
 from django.conf.urls.defaults import patterns, url
 from django.contrib import admin
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.template.defaultfilters import slugify
@@ -75,6 +75,10 @@ class FormAdmin(PageAdmin):
         """
         Output a CSV file to the browser containing the entries for the form.
         """
+        if request.POST.get("back"):
+            change_url = reverse("admin:%s_%s_change" % 
+                (Form._meta.app_label, Form.__name__.lower()), args=(form_id,))
+            return HttpResponseRedirect(change_url)
         form = get_object_or_404(Form, id=form_id)
         export_form = ExportForm(form, request, request.POST or None)
         if export_form.is_valid():
