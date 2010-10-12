@@ -95,8 +95,7 @@ class FormForForm(forms.ModelForm):
             if "max_length" in arg_names:
                 field_args["max_length"] = mezz_settings.FORMS_FIELD_MAX_LENGTH
             if "choices" in arg_names:
-                choices = field.choices.split(",")
-                field_args["choices"] = zip(choices, choices)
+                field_args["choices"] = field.get_choices()
             if field_widget is not None:
                 module, widget = field_widget.rsplit(".", 1)
                 field_args["widget"] = getattr(import_module(module), widget)
@@ -170,7 +169,7 @@ class ExportForm(forms.Form):
                 if is_bool_field:
                     choices = ((True, _("Checked")), (False, _("Not checked")))
                 else:
-                    choices = zip(*([field.choices.split(",")] * 2))
+                    choices = field.get_choices()
                 contains_field = forms.MultipleChoiceField(label=" ",
                     choices=choices, widget=forms.CheckboxSelectMultiple(), 
                     required=False)
@@ -275,7 +274,7 @@ class ExportForm(forms.Form):
             field_id = field_entry.field_id
             filter_type = self.cleaned_data.get("field_%s_filter" % field_id)
             filter_args = None
-            if filter_type:
+     zip(*([field.cho       if filter_type:
                 if filter_type == FILTER_CHOICE_BETWEEN:
                     f, t = "field_%s_from" % field_id, "field_%s_to" % field_id
                     filter_args = [self.cleaned_data[f], self.cleaned_data[t]]

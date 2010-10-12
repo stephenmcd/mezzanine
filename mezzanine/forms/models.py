@@ -74,7 +74,8 @@ class Field(Orderable):
     required = models.BooleanField(_("Required"), default=True)
     visible = models.BooleanField(_("Visible"), default=True)
     choices = models.CharField(_("Choices"), max_length=1000, blank=True,
-        help_text="Comma separated options where applicable")
+        help_text=_("Comma separated options where applicable. If an option "
+            "itself contains commas, surround the option with `backticks`."))
     default = models.CharField(_("Default value"), blank=True, 
         max_length=mezz_settings.FORMS_FIELD_MAX_LENGTH)
     help_text = models.CharField(_("Help text"), blank=True, max_length=100)
@@ -88,6 +89,30 @@ class Field(Orderable):
 
     def __unicode__(self):
         return self.label
+
+    def get_choices(self):
+        """
+        Parse a comma separated choice string into a list of choices taking
+        into account quoted choices.
+        """
+        choice = ""
+        (quote, unquote) = ("`", "`")
+        quoted = False
+        for char in self.choices:
+            if not quoted and char == quote:
+                quoted = True
+            elif quoted and char == unquote:
+                quoted = False
+            elif char == "," and not quoted:
+                choice = choice.strip()
+                if choice:
+                    yield choice, choice
+                choice = ""
+            else:
+                choice += char
+        choice = choice.strip()
+        if choice:
+            yield choice, choice
 
 
 class FormEntry(models.Model):
