@@ -273,7 +273,7 @@ class ExportForm(forms.Form):
             field_value = field_entry.value
             # Check for filter.
             field_id = field_entry.field_id
-            filter_type = self.cleaned_data["field_%s_filter" % field_id]
+            filter_type = self.cleaned_data.get("field_%s_filter" % field_id)
             filter_args = None
             if filter_type:
                 if filter_type == FILTER_CHOICE_BETWEEN:
