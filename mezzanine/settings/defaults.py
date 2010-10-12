@@ -76,7 +76,7 @@ register_setting(
 
 register_setting(
     name="COMMENTS_DEFAULT_APPROVED", 
-    description=_("If True, the built-in comments are approved by default."),
+    description=_("If ``True``, built-in comments are approved by default."),
     editable=True, 
     default=True,
 )
@@ -90,11 +90,11 @@ register_setting(
 
 register_setting(
     name="COMMENTS_UNAPPROVED_VISIBLE", 
-    description=_("If True, unapproved comments will have a placeholder "
+    description=_("If ``True``, unapproved comments will have a placeholder "
         "visible on the site with a 'waiting for approval' or "
         "'comment removed' message based on the workflow around the "
-        "``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if True then "
-        "the former message is used, if False then the latter."),
+        "``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if ``True`` then "
+        "the former message is used, if ``False`` then the latter."),
     editable=True, 
     default=True,
 )
@@ -183,8 +183,9 @@ register_setting(
 
 register_setting(
     name="PAGES_MENU_SHOW_ALL", 
-    description=_("If True, the pages menu will show all levels of navigation,"
-        " otherwise child pages are only shown when viewing the parent page."),
+    description=_("If ``True``, the pages menu will show all levels of "
+        "navigation, otherwise child pages are only shown when viewing the "
+        "parent page."),
     editable=False,
     default=True,
 )
@@ -264,5 +265,5 @@ register_setting(
     name="TINYMCE_URL", 
     description=_("URL prefix for serving Tiny MCE files."),
     editable=False,
-    default="%s/tinymce" % settings.ADMIN_MEDIA_PREFIX,
+    default="%stinymce" % settings.ADMIN_MEDIA_PREFIX,
 )
