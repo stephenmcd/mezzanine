@@ -274,7 +274,7 @@ class ExportForm(forms.Form):
             field_id = field_entry.field_id
             filter_type = self.cleaned_data.get("field_%s_filter" % field_id)
             filter_args = None
-     zip(*([field.cho       if filter_type:
+            if filter_type:
                 if filter_type == FILTER_CHOICE_BETWEEN:
                     f, t = "field_%s_from" % field_id, "field_%s_to" % field_id
                     filter_args = [self.cleaned_data[f], self.cleaned_data[t]]
