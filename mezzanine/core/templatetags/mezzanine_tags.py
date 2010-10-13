@@ -105,17 +105,26 @@ def editable(parsed, context, token):
     has an ``editable`` method which returns True, or the logged in user has
     change permissions for the model.
     """
-    parts = token.split_contents()[1].split(".")
-    obj = context[parts.pop(0)]
-    attr = parts.pop()
-    while parts:
-        obj = getattr(obj, parts.pop(0))
+    def parse_field(field):
+        field = field.split(".")
+        obj = context[field.pop(0)]
+        attr = field.pop()
+        while field:
+            obj = getattr(obj, field.pop(0))
+        return obj, attr
+
+    fields = [parse_field(f) for f in token.split_contents()[1:]]
+    if fields:
+        fields = [f for f in fields if len(f) == 2 and f[0] is fields[0][0]]
     if not parsed.strip():
-        parsed = getattr(obj, attr)
-    if isinstance(obj, Model) and is_editable(obj, context["request"]):
-        context["form"] = get_edit_form(obj, attr)
-        context["original"] = parsed
-        context["uuid"] = uuid4()
+        parsed = "".join([unicode(getattr(*field)) for field in fields])
+    if fields:
+        obj = fields[0][0]
+        if isinstance(obj, Model) and is_editable(obj, context["request"]):
+            field_names = ",".join([f[1] for f in fields])
+            context["form"] = get_edit_form(obj, field_names)
+            context["original"] = parsed
+            context["uuid"] = uuid4()
         t = get_template("includes/editable_form.html")
         return t.render(Context(context))
     return parsed

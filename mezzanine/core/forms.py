@@ -37,7 +37,7 @@ class DynamicInlineAdminForm(forms.ModelForm):
                 widget=OrderWidget, required=False)
 
 
-def get_edit_form(obj, attr, data=None):
+def get_edit_form(obj, field_names, data=None):
     """
     Returns the in-line editing form for editing a single model field.
     """
@@ -50,12 +50,12 @@ def get_edit_form(obj, attr, data=None):
         app = forms.CharField(widget=forms.HiddenInput)
         model = forms.CharField(widget=forms.HiddenInput)
         id = forms.CharField(widget=forms.HiddenInput)
-        attr = forms.CharField(widget=forms.HiddenInput)
+        fields = forms.CharField(widget=forms.HiddenInput)
 
         class Meta:
             model = obj.__class__
-            fields = (attr,)
+            fields = field_names.split(",")
 
-    initial = {"app": obj._meta.app_label, "id": obj.id, "attr": attr,
+    initial = {"app": obj._meta.app_label, "id": obj.id, "fields": field_names, 
         "model": obj._meta.object_name.lower()}
     return EditForm(instance=obj, initial=initial, data=data)
