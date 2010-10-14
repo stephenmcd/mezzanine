@@ -1,2 +1,3 @@
 *.pyc
-Mezzanine.egg-info
+Mezzanine.egg-info/
+build/
