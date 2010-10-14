@@ -43,7 +43,7 @@ $(function() {
 </script>
 {% endif %}
 
-{% if request.user.is_authenticated %}
+{% if request.user.is_authenticated and not is_popup and not request.GET.pop %}
 <style type="text/css">
     .breadcrumbs {display:none; height:30px; margin:0; padding:0;
         background:#e6e6e6 !important;}
