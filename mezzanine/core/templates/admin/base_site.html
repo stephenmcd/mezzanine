@@ -60,9 +60,11 @@ $(function() {
         border-bottom:1px solid #ccc; padding:0;}
     #bookmarks {display:none;}
     .messagelist {margin-top:14px; z-index:0 !important;}
+    {% if original.overridden %}
+    .slug, .deletelink {display:none !important;}
+    {% endif %}
 </style>
 <script type="text/javascript">
-
 // Global flag used for checking whether to hide the visible menu after a small 
 // timeout has passed when mousing out from a menu.
 var onMenu; 
