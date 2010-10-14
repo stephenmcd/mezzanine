@@ -90,8 +90,13 @@ can be used for creating a new Mezzanine project in a similar fashion to
 You can then run your project with the usual Django steps::
 
     $ cd project_name
-    $ python manage.py syncdb
+    $ python manage.py syncdb --noinput
     $ python manage.py runserver
+    
+You should then be able to browse to http://127.0.0.1:8000/admin/ and log 
+in using the default account (``username: admin, password: default``). If 
+you'd like to specify a different username and password during set up, simply 
+exclude the ``--noinput`` option included above when running ``syncdb``.
 
 Contributing
 ============
