@@ -125,8 +125,8 @@ def editable(parsed, context, token):
             context["form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
             context["uuid"] = uuid4()
-        t = get_template("includes/editable_form.html")
-        return t.render(Context(context))
+            t = get_template("includes/editable_form.html")
+            return t.render(Context(context))
     return parsed
 
 
