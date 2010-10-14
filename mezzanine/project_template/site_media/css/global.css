@@ -40,6 +40,12 @@
 #grid-left ul ul li {
     list-style-type:disc; font-size:80%;
 }
+#grid-middle ul {
+    list-style:disc;
+}
+#grid-middle ol {
+    list-style:decimal;
+}
 #grid-right li {
     display:block; margin-top:3px;
 } 
@@ -116,7 +122,7 @@ code * {
 pre {
     padding:15px;
 }
-li {
+#breadcrumb-menu li {
     list-style-type:none; display:inline;
 }
 input,
