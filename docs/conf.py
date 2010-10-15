@@ -92,7 +92,7 @@ if repo is not None:
         except KeyError:
             continue
         else:
-            description = context.description().rstrip(".")
+            description = context.description().rstrip(".").replace("\n", "")
             user = context.user().split()[0]
             entry = "%s - %s" % (description, user)
             if entry not in versions[version]["changes"]:
