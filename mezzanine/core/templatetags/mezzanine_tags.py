@@ -1,4 +1,5 @@
 
+import os
 from urllib import urlopen, urlencode
 from uuid import uuid4
 
@@ -84,6 +85,56 @@ def pagination_for(context, current_page):
         del querystring["page"]
     querystring = querystring.urlencode()
     return {"current_page": current_page, "querystring": querystring}
+
+
+@register.simple_tag
+def thumbnail(image_url, width, height):
+    """
+    Given the url to an image, resizes the image using the given width and 
+    height on the first time it is requested, and returns the url to the new 
+    resized image. if width or height are zero then original ratio is 
+    maintained.
+    """
+    
+    image_url = unicode(image_url)
+    image_path = os.path.join(settings.MEDIA_ROOT, image_url)
+    image_dir, image_name = os.path.split(image_path)
+    thumb_name = "%s-%sx%s.jpg" % (os.path.splitext(image_name)[0], width, height)
+    thumb_path = os.path.join(image_dir, thumb_name)
+    thumb_url = "%s/%s" % (os.path.dirname(image_url), thumb_name)
+
+    # abort if thumbnail exists, original image doesn't exist, invalid width or 
+    # height are given, or PIL not installed
+    if not image_url:
+        return ""
+    if os.path.exists(thumb_path):
+        return thumb_url
+    try:
+        width = int(width)
+        height = int(height)
+    except ValueError:
+        return image_url
+    if not os.path.exists(image_path) or (width == 0 and height == 0):
+        return image_url
+    try:
+        from PIL import Image, ImageOps
+    except ImportError:
+        return image_url
+
+    # open image, determine ratio if required and resize/crop/save
+    image = Image.open(image_path)
+    if width == 0:
+        width = image.size[0] * height / image.size[1]
+    elif height == 0:
+        height = image.size[1] * width / image.size[0]
+    if image.mode not in ("L", "RGB"):
+        image = image.convert("RGB")
+    try:
+        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
+            thumb_path, "JPEG", quality=100)
+    except:
+        return image_url
+    return thumb_url
 
 
 @register.inclusion_tag("includes/editable_loader.html", takes_context=True)
