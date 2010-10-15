@@ -61,7 +61,7 @@ def create_project():
             copy_tree(package_path, os.path.join(project_path, package_name))
         copy_tree(os.path.join(package_path, "project_template"), project_path)
         move(os.path.join(project_path, "local_settings.py.template"),
-            os.path.join(project_path, "local_stettings.py"))
+            os.path.join(project_path, "local_settings.py"))
         if options.copy_templates:
             template_path = os.path.join(project_path, "templates")
             for app_dir in os.listdir(package_path):
