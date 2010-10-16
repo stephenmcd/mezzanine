@@ -18,7 +18,7 @@ setting("ADMIN_REMOVAL", ())
 # Controls the ordering and grouping of the admin menu.
 setting("ADMIN_MENU_ORDER", (
     (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",)),
-    (_("Site"), ("auth.User", "auth.Group", "sites.Site", 
+    (_("Site"), ("auth.User", "auth.Group", "sites.Site",
         "redirects.Redirect")),
 ))
 
@@ -67,7 +67,7 @@ CONTENT_STATUS_CHOICES = (
     (CONTENT_STATUS_PUBLISHED, _("Published")),
 )
 
-# A sequence of three sequences that make up the template tags used to render 
+# A sequence of three sequences that make up the template tags used to render
 # the admin dashboard.
 setting("DASHBOARD_TAGS", (
     ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
