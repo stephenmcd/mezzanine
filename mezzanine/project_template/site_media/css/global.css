@@ -243,6 +243,10 @@ ul .posted {
 }
 .tweets .timespan {
     font-style:italic;
+    color: #666;
+}
+.tweets .name {
+    color: #666;
 }
 .recycle {
     font-size:150%;
