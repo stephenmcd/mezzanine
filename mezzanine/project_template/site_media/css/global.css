@@ -46,9 +46,20 @@
 #grid-middle ol {
     list-style:decimal;
 }
+#grid-middle li {
+    margin-left:50px;
+}
+#grid-middle blockquote {
+    border-left: 1px solid #333;
+    margin-left: 30px;
+}
+#grid-middle blockquote p {
+    margin-left: 10px;
+    line-height: 100%;
+}
 #grid-right li {
     display:block; margin-top:3px;
-} 
+}
 #grid-bottom {
     background:#666;
 }
@@ -58,7 +69,7 @@
 #grid-bottom .grid {
     background:#444; border:1px solid #333;
     border-top:0; border-bottom:0;
-} 
+}
 #grid-bottom ul {
     margin:0 30px;
 }
@@ -72,7 +83,7 @@
     width:100px; clear:both; margin:5px;
     border:1px solid #333; background:#555; padding:5px 10px;
     border-right:0; border-bottom:0;
-} 
+}
 h2,
 p,
 #breadcrumb-menu,
@@ -82,7 +93,7 @@ p,
 #comments,
 .comment {
     margin:20px 0;
-} 
+}
 h1 {
     font-size:250%; border-bottom:1px solid #ccc; font-weight:normal;
 }
@@ -124,6 +135,7 @@ pre {
 }
 #breadcrumb-menu li {
     list-style-type:none; display:inline;
+    margin-left:0px;
 }
 input,
 textarea {
@@ -137,7 +149,7 @@ td, th {
 }
 #grid-bottom a {
     color:#eee; text-decoration:none;
-} 
+}
 .since {
     display:block; margin-bottom:20px;
 }
@@ -168,7 +180,7 @@ td, th {
 }
 .form li {
     display:block; padding:5px 10px;
-} 
+}
 #search .button {
     margin:0; padding:1px 5px; float:none;
 }
@@ -206,9 +218,9 @@ ul .posted {
 }
 .comment
 .errorlist li {
-    color:#f00; float:left; width:100%; 
+    color:#f00; float:left; width:100%;
     padding:0 !important;
-} 
+}
 .tag-weight-1 {
     font-size:80%;
 }
@@ -220,9 +232,9 @@ ul .posted {
 }
 .tag-weight-4 {
     font-size:200%;
-} 
+}
 .tweets li {
-    font-size:70%; clear:both; margin-bottom:10px; 
+    font-size:70%; clear:both; margin-bottom:10px;
     line-height:130%;
 }
 .tweets img {
@@ -231,6 +243,10 @@ ul .posted {
 }
 .tweets .timespan {
     font-style:italic;
+    color: #666;
+}
+.tweets .name {
+    color: #666;
 }
 .recycle {
     font-size:150%;
@@ -240,7 +256,7 @@ ul .posted {
 }
 .mezzanine {
     font-size:80%;
-} 
+}
 .form {
     background:#eee; border-bottom:1px solid #ccc; float:left;
 }
@@ -253,7 +269,7 @@ ul .posted {
 }
 .form li li label {
     width:auto; float:none;cursor:pointer;
-} 
+}
 #search-results p {
     margin:5px 0;
 }

@@ -9,22 +9,23 @@
     {% for tweet in tweets %}
     <li>
 
-        <img src="{{ tweet.profile_image_url }}"><a 
+        <img src="{{ tweet.profile_image_url }}"><a
             href="http://twitter.com/{{ tweet.user_name }}"
-            >{{ tweet.full_name }}</a> 
+            >{{ tweet.user_name }}</a>
+            {% ifnotequal tweet.user_name tweet.full_name %}<span class="name">{{ tweet.full_name }}</span>{% endifnotequal %}
 
         {% if tweet.is_retweet %}
-        <br /><span class="recycle">&#x267B;</span>
-        <img class="retweet" src="{{ tweet.retweeter_profile_image_url }}"><a 
+        <p><span class="recycle">&#x267B;</span>
+        <img class="retweet" src="{{ tweet.retweeter_profile_image_url }}"><a
             href="http://twitter.com/{{ tweet.retweeter_user_name }}"
-            >{{ tweet.retweeter_full_name }}</a> 
+            >{{ tweet.retweeter_full_name }}</a></p>
         {% endif %}
+
+        <div>{{ tweet.text|safe }}</div>
 
         <span class="timespan">
             {{ tweet.created_at|timesince }} {% trans "ago" %}
         </span>
-        {{ tweet.text|safe }}
-
     </li>
     {% endfor %}
 </ul>
