@@ -93,7 +93,7 @@ if repo is not None:
             continue
         else:
             description = context.description().rstrip(".").replace("\n", "")
-            user = context.user().split()[0]
+            user = context.user().split("<")[0].strip()
             entry = "%s - %s" % (description, user)
             if entry not in versions[version]["changes"]:
                 versions[version]["changes"].insert(0, entry)
