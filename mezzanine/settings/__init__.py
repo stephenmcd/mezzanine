@@ -18,10 +18,12 @@ def register_setting(name="", editable=False, description="", default=None):
         editable, "default": default, "type": type(default)}
 
 
-def editable_settings(names):
+def editable_settings(names=None):
     """
     Returns the names of editable settings.
     """
+    if names is None:
+        names = registry.keys()
     return [k for (k, v) in registry.items() if v["editable"] and k in names]
 
 
