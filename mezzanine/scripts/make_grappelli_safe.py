@@ -14,22 +14,12 @@ package_name_to = "grappelli_safe"
 
 if not os.path.exists(package_name_from):
     print "Checking out branch..."
-    os.system("svn co %s" % branch_url)
+    os.system("svn export %s" % branch_url)
 
 for (dirpath, dirnames, filenames) in os.walk(package_name_from, False):
-    for name in dirnames:
-        path = os.path.join(dirpath, name)
-        # Delete SVN directories.
-        if ".svn" in path:
-            print "Deleting svn %s" % path
-            os.rmdir(path)
     for name in filenames:
         path = os.path.join(dirpath, name)
-        # Delete SVN files.
-        if ".svn" in path:
-            print "Deleting svn %s" % path
-            os.remove(path)
-        elif path.endswith(".py"):
+        if path.endswith(".py"):
             update = False
             with open(path, "r") as f:
                 data = f.read()
