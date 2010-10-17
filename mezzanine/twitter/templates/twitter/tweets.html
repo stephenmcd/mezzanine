@@ -24,7 +24,7 @@
         <div>{{ tweet.text|safe }}</div>
 
         <span class="timespan">
-            {{ tweet.created_at|tweet_timesince }}
+            {{ tweet.created_at|timesince }} {% trans "ago" %}
         </span>
     </li>
     {% endfor %}
