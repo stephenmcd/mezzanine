@@ -21,7 +21,6 @@ for e in exclude:
 from setuptools import setup, find_packages
 
 from mezzanine import __version__ as version
-from mezzanine.project_template import settings
 
 try:
     setup(
@@ -41,8 +40,9 @@ try:
 
         install_requires=[
             "setuptools",
-            settings.PACKAGE_NAME_FILEBROWSER,
-            settings.PACKAGE_NAME_GRAPPELLI,
+            "django >= 1.1",
+            "filebrowser_safe",
+            "grappelli_safe",
         ],
 
         entry_points="""
