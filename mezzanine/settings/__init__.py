@@ -18,11 +18,13 @@ def register_setting(name="", editable=False, description="", default=None):
         editable, "default": default, "type": type(default)}
 
 
-def editable_settings():
+def editable_settings(names=None):
     """
     Returns the names of editable settings.
     """
-    return [k for (k, v) in registry.items() if v["editable"]]
+    if names is None:
+        names = registry.keys()
+    return [k for (k, v) in registry.items() if v["editable"] and k in names]
 
 
 def load_settings(*names):
@@ -42,7 +44,7 @@ def load_settings(*names):
             if self._loaded:
                 raise AttributeError("Setting does not exist: %s" % name)
             self._loaded = True
-            editable = editable_settings()
+            editable = editable_settings(names)
             syncdb = len(sys.argv) >= 2 and sys.argv[1] == "syncdb"
             if editable and not syncdb:
                 for setting in Setting.objects.filter(name__in=editable):

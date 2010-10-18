@@ -21,7 +21,7 @@ class SettingsForm(forms.Form):
         # Load the editable settings.
         editable = editable_settings()
         mezz_settings = load_settings(*editable)
-        for name in editable:
+        for name in sorted(editable):
             setting = registry[name]
             value = getattr(mezz_settings, name)
             # Create the form field based on the type of the setting.

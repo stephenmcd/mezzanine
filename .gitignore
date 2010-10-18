@@ -1,0 +1,9 @@
+*.pyc
+*.pyo
+*.db
+local_settings.py
+Mezzanine.egg-info/
+build/
+dist/
+mezzanine/project_template/site_media/uploads/
+

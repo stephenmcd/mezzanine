@@ -65,7 +65,7 @@ change at a later point by an admin user would not have any effect without
 reloading your entire project. In the snippet above by loading the 
 settings object within the view the value of the setting is loaded each 
 time the view is run. This ensures that if the value of the setting has 
-been changed by an admin userit will be reflected on the website.
+been changed by an admin user it will be reflected on the website.
 
 Default Settings
 ================
