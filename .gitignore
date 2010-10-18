@@ -1,0 +1,4 @@
+*.pyc
+Mezzanine.egg-info/
+build/
+dist/
