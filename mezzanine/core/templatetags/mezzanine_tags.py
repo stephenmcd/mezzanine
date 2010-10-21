@@ -1,7 +1,6 @@
 
 import os
 from urllib import urlopen, urlencode
-from uuid import uuid4
 
 from django.conf import settings
 from django.contrib import admin
@@ -175,7 +174,6 @@ def editable(parsed, context, token):
             field_names = ",".join([f[1] for f in fields])
             context["form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
-            context["uuid"] = uuid4()
             t = get_template("includes/editable_form.html")
             return t.render(Context(context))
     return parsed
