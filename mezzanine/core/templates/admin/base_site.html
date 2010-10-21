@@ -123,6 +123,9 @@ $(function() {
         }
     })
 
+    // Provides link back to homepage.
+    $('div.admin-title').prepend('<a href="/">&lt;&lt; View Site</a> ');
+    $('div.admin-title a').css('margin-right', '30px');
 });
 
 </script>
@@ -150,4 +153,3 @@ $(function() {
 {% admin_dropdown_menu %}
 {% endif %}
 {% endblock %}
-
