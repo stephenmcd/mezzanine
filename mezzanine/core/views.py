@@ -46,7 +46,8 @@ def edit(request):
     """
     model = get_model(request.POST["app"], request.POST["model"])
     obj = model.objects.get(id=request.POST["id"])
-    form = get_edit_form(obj, request.POST["fields"], data=request.POST)
+    form = get_edit_form(obj, request.POST["fields"], data=request.POST,
+                        files=request.FILES)
     if not is_editable(obj, request):
         response = _("Permission denied")
     elif form.is_valid():
