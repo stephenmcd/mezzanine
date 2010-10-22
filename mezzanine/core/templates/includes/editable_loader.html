@@ -4,7 +4,14 @@
 
 <style type="text/css">
 
-    #editable-toolbar, .editable-highlight, .editable-link {top:0; left:0;
+    #editable-toolbar {
+        top:0;
+        right:0;
+        z-index:1000;
+        display:none;
+        position:absolute;
+    }
+    .editable-highlight, .editable-link {top:0; left:0;
         z-index:1000; display:none; position:absolute;}
     #editable-loading {z-index:10000; display:none; position:absolute;}
     #editable-toolbar {position:fixed;}
@@ -21,7 +28,10 @@
 
     #editable-toolbar a {border-left:1px solid #666; padding:0 5px; 
         display:none;}
-    #editable-toolbar-toggle {border-left:0px !important; 
+    #editable-toolbar a:first-child {
+        border-left: 0px;
+    }
+    #editable-toolbar-toggle {
         text-decoration:none; display:inline !important;}
 
     .editable-form {padding:20px; background:#fffcc3; border:3px solid #999;
@@ -119,12 +129,12 @@ $(function($) {
         var toggle = $(this);
         var controls = $('.editable-link, ' +
             '#editable-toolbar *[id!=editable-toolbar-toggle]');
-        if (toggle.text() == '<<') {
-            toggle.text('>>');
+        if (toggle.text() == '>>') {
+            toggle.text('<<');
             controls.hide();
             document.cookie = cookie + '=1; path=/';
         } else {
-            toggle.text('<<');
+            toggle.text('>>');
             controls.show();
             document.cookie = cookie + '=; path=/';
         }
