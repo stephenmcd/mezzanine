@@ -123,6 +123,8 @@ $(function() {
         }
     })
 
+    // Provides link back to homepage.
+    $('#user-tools li:last').before('<li><a href="/">View Site</a></li>');
 });
 
 </script>
@@ -150,4 +152,3 @@ $(function() {
 {% admin_dropdown_menu %}
 {% endif %}
 {% endblock %}
-
