@@ -63,6 +63,10 @@ $(function() {
     {% if original.overridden %}
     .slug, .deletelink {display:none !important;}
     {% endif %}
+    {% if singleton %}
+    .submit-row * {display:none !important;}
+    .submit-row .default {display:inline !important;}
+    {% endif %}
 </style>
 <script type="text/javascript">
 // Global flag used for checking whether to hide the visible menu after a small 

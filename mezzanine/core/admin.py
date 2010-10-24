@@ -2,12 +2,13 @@
 from django.conf import settings
 from django.contrib import admin
 from django.db.models import AutoField
+from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import Orderable
 from mezzanine.settings import load_settings
-from mezzanine.utils import content_media_urls
+from mezzanine.utils import content_media_urls, admin_url
 
 
 mezz_settings = load_settings("TINYMCE_URL")
@@ -108,3 +109,55 @@ class OwnableAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(user__id=request.user.id)
+
+
+class SingletonAdmin(admin.ModelAdmin):
+    """
+    Admin class for models that should only contain a single instance in the 
+    database. Redirect all views to the change view when the instance exists, 
+    and to the add view when it doesn't.
+    """
+
+    def add_view(self, *args, **kwargs):
+        """
+        Redirect to the change view if the singlton instance exists.
+        """
+        try:
+            singleton = self.model.objects.get()
+        except (self.model.DoesNotExist, self.model.MultipleObjectsReturned):
+            return super(SingletonAdmin, self).add_view(*args, **kwargs)
+        else:
+            change_url = admin_url(self.model, "change", singleton.id)
+            return HttpResponseRedirect(change_url)
+
+    def changelist_view(self, *args, **kwargs):
+        """
+        Redirect to the add view if no records exist or the change view if 
+        the singlton instance exists.
+        """
+        try:
+            singleton = self.model.objects.get()
+        except self.model.MultipleObjectsReturned:
+            return super(SingletonAdmin, self).changelist_view(*args, **kwargs)
+        except self.model.DoesNotExist:
+            add_url = admin_url(model, "add")
+            return HttpResponseRedirect(add_url)
+        else:
+            change_url = admin_url(self.model, "change", singleton.id)
+            return HttpResponseRedirect(change_url)
+
+    def change_view(self, request, object_id, extra_context=None):
+        """
+        If only the singleton instance exists, pass True for ``singleton`` 
+        into the template which will use CSS to hide relevant buttons.
+        """
+        if extra_context is None:
+            extra_context = {}
+        try:
+            self.model.objects.get()
+        except (self.model.DoesNotExist, self.model.MultipleObjectsReturned):
+            pass
+        else:
+            extra_context["singleton"] = True
+        return super(SingletonAdmin, self).change_view(request, object_id, 
+                                                        extra_context)
