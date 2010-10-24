@@ -29,8 +29,8 @@ class DynamicInlineAdminForm(forms.ModelForm):
     """
     
     class Media:
-        js = content_media_urls("js/jquery-1.4.2.min.js",
-            "js/jquery-ui-1.8.1.custom.min.js", "js/dynamic_inline.js",)
+        js = content_media_urls("js/jquery-ui-1.8.1.custom.min.js", 
+                                "js/dynamic_inline.js",)
 
     def __init__(self, *args, **kwargs):
         super(DynamicInlineAdminForm, self).__init__(*args, **kwargs)
