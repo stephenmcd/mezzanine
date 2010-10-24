@@ -131,21 +131,19 @@ $(function() {
     $('#user-tools li:last').before('<li><a href="/">View Site</a></li>');
 });
 
-// A war is waged between three nations, Django, Grappelli and Mezzanine, 
-// each vying for control over who gets to implement dynamic addable inlines. 
-// Mezzanine walks away from the ashes victorious, for its determination 
-// knows no bounds, but the aftermath is devastating with casualties too high 
-// to number............................ but this snippet below cleans it up.
+// Remove extraneous ``template`` forms from inline formsets since we have
+// our own method of dynamic inlines.
 $(function() {
-    var totals_fields = {};
+    var removeRows = {};
     $.each($('*[name*=__prefix__]'), function(i, e) {
-        var parts = e.name.split('__prefix__');
-        var totals_field = e.form[parts[0] + 'TOTAL_FORMS'];
-        e.name = parts.join(totals_field.value);
-        totals_fields[totals_field.name] = totals_field;
+        var row = $(e).parent().parent();
+        if (!row.attr('id')) {
+            row.attr('id', 'remove__prefix__' + i);
+        }
+        removeRows[row.attr('id')] = true;
     });
-    for (var k in totals_fields) {
-        totals_fields[k].value = Number(totals_fields[k].value) + 1;
+    for (var rowID in removeRows) {
+        $('#' + rowID).remove();
     }
 });
 
