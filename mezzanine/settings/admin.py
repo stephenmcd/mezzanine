@@ -1,12 +1,12 @@
 
 from django.contrib import admin
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode
 
 from mezzanine.settings.models import Setting
 from mezzanine.settings.forms import SettingsForm
+from mezzanine.utils import admin_url
 
 
 class SettingsAdmin(admin.ModelAdmin):
@@ -16,9 +16,7 @@ class SettingsAdmin(admin.ModelAdmin):
     """
     
     def changelist_redirect(self):
-        app = Setting._meta.app_label
-        name = Setting.__name__.lower()
-        changelist_url = reverse("admin:%s_%s_changelist" % (app, name))
+        changelist_url = admin_url(Setting, "changelist")
         return HttpResponseRedirect(changelist_url)
 
     def add_view(self, *args, **kwargs):

@@ -2,12 +2,12 @@
 from copy import deepcopy
 
 from django.contrib import admin
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from mezzanine.pages.models import Page, ContentPage
 from mezzanine.core.admin import DisplayableAdmin
+from mezzanine.utils import admin_url
 
 
 page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
@@ -36,9 +36,7 @@ class PageAdmin(DisplayableAdmin):
         ``ContentPage`` model.
         """
         if self.model is Page:
-            app = ContentPage._meta.app_label
-            name = ContentPage.__name__.lower()
-            add_url = reverse("admin:%s_%s_add" % (app, name))
+            add_url = admin_url(ContentPage, "add")
             return HttpResponseRedirect(add_url)
         return super(PageAdmin, self).add_view(request, **kwargs)
 
@@ -51,20 +49,18 @@ class PageAdmin(DisplayableAdmin):
             page = get_object_or_404(Page, pk=object_id)
             content_model = page.get_content_model()
             if content_model is not None:
-                app = content_model.__class__._meta.app_label
-                name = content_model.__class__.__name__.lower()
-                change_url = reverse("admin:%s_%s_change" % (app, name),
-                    args=(content_model.id,))
+                change_url = admin_url(content_model.__class__, "change", 
+                                        content_model.id)
                 return HttpResponseRedirect(change_url)
         return super(PageAdmin, self).change_view(request, object_id,
-            extra_context=None)
+                                                    extra_context=None)
 
     def changelist_view(self, request, extra_context=None):
         """
         Redirect to the ``Page`` changelist view for ``Page`` subclasses.
         """
         if self.model is not Page:
-            return HttpResponseRedirect(reverse("admin:pages_page_changelist"))
+            return HttpResponseRedirect(admin_url(Page, "changelist"))
         return super(PageAdmin, self).changelist_view(request, extra_context)
 
     def save_model(self, request, obj, form, change):

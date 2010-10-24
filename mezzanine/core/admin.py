@@ -1,7 +1,7 @@
 
 from django.conf import settings
-from django.db.models import AutoField
 from django.contrib import admin
+from django.db.models import AutoField
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.forms import DynamicInlineAdminForm

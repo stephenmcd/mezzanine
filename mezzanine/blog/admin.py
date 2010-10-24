@@ -41,6 +41,7 @@ class BlogCategoryAdmin(admin.ModelAdmin):
         """
         return False
 
+
 class CommentAdmin(admin.ModelAdmin):
 
     list_display = ("avatar_link", "intro", "time_created", "approved",

@@ -8,7 +8,6 @@ from os.path import join
 from django.conf.urls.defaults import patterns, url
 from django.contrib import admin
 from django.core.files.storage import FileSystemStorage
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -20,6 +19,7 @@ from mezzanine.forms.forms import ExportForm
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.pages.admin import PageAdmin
 from mezzanine.settings import load_settings
+from mezzanine.utils import admin_url
 
 
 mezz_settings = load_settings("FORMS_UPLOAD_ROOT")
@@ -77,8 +77,7 @@ class FormAdmin(PageAdmin):
         Output a CSV file to the browser containing the entries for the form.
         """
         if request.POST.get("back"):
-            change_url = reverse("admin:%s_%s_change" % 
-                (Form._meta.app_label, Form.__name__.lower()), args=(form_id,))
+            change_url = admin_url(Form, "change", form_id)
             return HttpResponseRedirect(change_url)
         form = get_object_or_404(Form, id=form_id)
         export_form = ExportForm(form, request, request.POST or None)

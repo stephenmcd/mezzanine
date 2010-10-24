@@ -16,7 +16,7 @@ if (typeof $ == 'undefined') {
         'ipt>');
 }
 
-window.__admin_keywords_submit_url = '{% admin_url "admin_keywords_submit" %}';
+window.__admin_keywords_submit_url = '{% try_url "admin_keywords_submit" %}';
 
 </script>
 
