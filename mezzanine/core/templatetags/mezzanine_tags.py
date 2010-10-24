@@ -16,7 +16,7 @@ from django.utils.text import capfirst
 from mezzanine import template
 from mezzanine.core.forms import get_edit_form
 from mezzanine.settings import load_settings as _load_settings
-from mezzanine.utils import decode_html_entities, is_editable
+from mezzanine.utils import admin_url, decode_html_entities, is_editable
 
 
 mezz_settings = _load_settings("ADMIN_MENU_ORDER", "DASHBOARD_TAGS")
@@ -180,11 +180,11 @@ def editable(parsed, context, token):
 
 
 @register.simple_tag
-def admin_url(url_name):
+def try_url(url_name):
     """
-    Mimics Django's ``url`` template tag. Used for urls in admin templates as 
-    for some reason these urls won't resolve when admin tests are running, so 
-    here they just fail silently.
+    Mimics Django's ``url`` template tag but fails silently. Used for urls 
+    in admin templates as these urls won't resolve when admin tests are 
+    running.
     """
     try:
         url = reverse(url_name)
@@ -203,17 +203,17 @@ def admin_app_list(request):
     """
     app_dict = {}
     for (model, model_admin) in admin.site._registry.items():
-        app_label = model._meta.app_label
+        opts = model._meta
         in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
-        if in_menu and request.user.has_module_perms(app_label):
+        if in_menu and request.user.has_module_perms(opts.app_label):
             perms = model_admin.get_model_perms(request)
-            admin_url = ""
+            admin_url_name = ""
             if perms["change"]:
-                admin_url = "changelist"
+                admin_url_name = "changelist"
             elif perms["add"]:
-                admin_url = "add"
-            if admin_url:
-                model_label = "%s.%s" % (app_label, model.__name__)
+                admin_url_name = "add"
+            if admin_url_name:
+                model_label = "%s.%s" % (opts.app_label, opts.object_name)
                 for (name, items) in mezz_settings.ADMIN_MENU_ORDER:
                     try:
                         index = list(items).index(model_label)
@@ -229,8 +229,7 @@ def admin_app_list(request):
                     "index": index,
                     "perms": model_admin.get_model_perms(request),
                     "name": capfirst(model._meta.verbose_name_plural),
-                    "admin_url": reverse("admin:%s_%s_%s" % (
-                        app_label, model.__name__.lower(), admin_url))
+                    "admin_url": admin_url(model, admin_url_name),
                 }
                 app_title = app_title.title()
                 if app_title in app_dict:

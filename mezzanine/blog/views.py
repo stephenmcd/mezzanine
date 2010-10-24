@@ -3,7 +3,6 @@ from calendar import month_name
 from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
-from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -34,8 +33,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     """
     mezz_settings = load_settings("BLOG_POST_PER_PAGE", 
                     "BLOG_POST_MAX_PAGING_LINKS", "COMMENTS_DISQUS_SHORTNAME")
-    blog_posts = BlogPost.objects.published(for_user=request.user).annotate(
-        num_comments=Count("comments")).select_related(depth=1)
+    blog_posts = BlogPost.objects.published(for_user=request.user)
     if tag is not None:
         tag = get_object_or_404(Keyword, slug=tag)
         blog_posts = blog_posts.filter(keywords=tag)
@@ -72,8 +70,8 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
     commenter_cookie_fields = ("name", "email", "website")
     initial_comment_data = dict([(f, request.COOKIES.get(
         commenter_cookie_prefix + f, "")) for f in commenter_cookie_fields])
-    blog_post = get_object_or_404(
-        BlogPost.objects.published(for_user=request.user), slug=slug)
+    blog_posts = BlogPost.objects.published(for_user=request.user)
+    blog_post = get_object_or_404(blog_posts, slug=slug)
     posted_comment_form = CommentForm(request.POST or None,
         initial=initial_comment_data)
     unposted_comment_form = CommentForm(initial=initial_comment_data)

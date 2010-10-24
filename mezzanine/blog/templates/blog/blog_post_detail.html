@@ -41,16 +41,25 @@
 
 {% block main %}
 
-<em>
-    {% trans "Posted by" %}
-    <strong>
-        {% with blog_post.user as author %}
-        <a href="{% url blog_post_list_author author %}"
-            >{{ author.get_full_name|default:author.username }}</a>
-        {% endwith %}
-    </strong>
-    {{ blog_post.publish_date|timesince }} {% trans "ago" %}
-</em>
+<p>
+    <em>
+        {% trans "Posted by" %}
+        <strong>
+            {% with blog_post.user as author %}
+            <a href="{% url blog_post_list_author author %}"
+                >{{ author.get_full_name|default:author.username }}</a>
+            {% endwith %}
+        </strong>
+        {{ blog_post.publish_date|timesince }} {% trans "ago" %}
+    </em>
+    (<a href="#comments">{% spaceless %}
+        {% blocktrans count blog_post.num_comments as num_comments %}
+        1 comment
+        {% plural %}
+        {{ num_comments }} comments
+        {% endblocktrans %}
+    {% endspaceless %}</a>)
+</p>
 
 {% editable blog_post.content %}
 {{ blog_post.content|safe }}

@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, Content
+from mezzanine.utils import admin_url
 
 
 class Page(Orderable, Displayable):
@@ -36,9 +37,7 @@ class Page(Orderable, Displayable):
         return ("page", (), {"slug": self.get_slug()})
 
     def get_admin_url(self):
-        opts = self._meta
-        return reverse("admin:%s_%s_change" % (opts.app_label, opts.object_name.lower()),
-            None, (quote(self._get_pk_val()),))
+        return admin_url(self, "change", self.id)
 
     def save(self, *args, **kwargs):
         """
