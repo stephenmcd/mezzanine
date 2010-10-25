@@ -224,7 +224,7 @@ def admin_app_list(request):
                         break
                 else:
                     index = None
-                    app_title = app_label
+                    app_title = opts.app_label
                 model_dict = {
                     "index": index,
                     "perms": model_admin.get_model_perms(request),
