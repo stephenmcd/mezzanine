@@ -5,10 +5,7 @@
     action="{% url edit %}" id="{{ form.uuid }}" 
     {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
     {% csrf_token %}
-    {% for field in form %}
-        {{ field }}
-        {% if not field.is_hidden %}<br />{% endif %}
-    {% endfor %}
+    {{ form.as_p }}
     <input type="submit" value="{% trans "Save" %}" class="button" />
     <input type="button" value="{% trans "Cancel" %}" class="button" />
 </form>

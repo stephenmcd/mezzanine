@@ -34,13 +34,32 @@
     #editable-toolbar-toggle {
         text-decoration:none; display:inline !important;}
 
+/* --- FORM ----------------- */
     .editable-form {padding:20px; background:#fffcc3; border:3px solid #999;
         line-height:1em; border-radius:5px;}
-    .editable-form input {width:300px;}
+    .editable-form table,
+    .editable-form textarea,
+    .editable-form input {
+       width: 100%;
+        margin-top: .5em;
+    }
+    .editable-form input[type="file"] {
+        width: 300px;
+    }
+    .editable-form p {
+        margin-top: .5em;
+    }
+    .editable-form p:first-child {
+        margin-top: 0px;
+    }
+    .editable-form label {
+        text-transform: capitalize;
+        text-decoration: underline;
+        font-weight: bold;
+    }
     .editable-form .button {width:auto; cursor:pointer; float:right;
         margin:15px 0 0 15px; padding:5px 15px;
         -moz-box-shadow: 0 0 5px #999; -webkit-box-shadow: 0 0 5px #999}
-
 </style>
 {% load_settings CONTENT_MEDIA_URL TINYMCE_URL %}
 <script language="javascript" src="{{ TINYMCE_URL }}/jscripts/tiny_mce/tiny_mce.js"></script>
