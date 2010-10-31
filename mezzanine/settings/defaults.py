@@ -13,7 +13,7 @@ register_setting(
     editable=False,
     default=(
         (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",
-            ("Media Library", "fb_browse"),)),
+            (_("Media Library"), "fb_browse"),)),
         (_("Site"), ("sites.Site", "redirects.Redirect", "settings.Setting")),
         (_("Users"), ("auth.User", "auth.Group",)),
     ),
