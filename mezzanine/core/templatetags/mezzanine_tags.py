@@ -202,6 +202,8 @@ def admin_app_list(request):
     dashboard widget.
     """
     app_dict = {}
+    menu_order = [(x[0], list(x[1])) for x in mezz_settings.ADMIN_MENU_ORDER]
+    found_items = set()
     for (model, model_admin) in admin.site._registry.items():
         opts = model._meta
         in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
@@ -214,12 +216,13 @@ def admin_app_list(request):
                 admin_url_name = "add"
             if admin_url_name:
                 model_label = "%s.%s" % (opts.app_label, opts.object_name)
-                for (name, items) in mezz_settings.ADMIN_MENU_ORDER:
+                for (name, items) in menu_order:
                     try:
                         index = list(items).index(model_label)
                     except ValueError:
                         pass
                     else:
+                        found_items.add(model_label)
                         app_title = name
                         break
                 else:
@@ -246,6 +249,25 @@ def admin_app_list(request):
                         "name": app_title,
                         "models": [model_dict],
                     }
+
+    for (i, (name, items)) in enumerate(menu_order):
+        for unfound_item in set(items) - found_items:
+            if isinstance(unfound_item, (list, tuple)):
+                item_name, item_url = unfound_item[0], try_url(unfound_item[1])
+                if item_url:
+                    if name not in app_dict:
+                        app_dict[name] = {
+                            "index": i, 
+                            "name": name, 
+                            "models": [],
+                        }
+                    app_dict[name]["models"].append({
+                        "index": items.index(unfound_item), 
+                        "perms": {"custom": True},
+                        "name": item_name,  
+                        "admin_url": item_url,  
+                    })
+                
     app_list = app_dict.values()
     sort = lambda x: x["name"] if x["index"] is None else x["index"]
     for app in app_list:
