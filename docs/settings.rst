@@ -3,7 +3,7 @@
 ``MEZZANINE_ADMIN_MENU_ORDER``
 ------------------------------
 
-Default: ``((u'Content', ('pages.Page', 'blog.BlogPost', 'blog.Comment')), (u'Site', ('sites.Site', 'redirects.Redirect', 'settings.Setting')), (u'Users', ('auth.User', 'auth.Group')))``
+Default: ``((u'Content', ('pages.Page', 'blog.BlogPost', 'blog.Comment', ('Media Library', 'fb_browse'))), (u'Site', ('sites.Site', 'redirects.Redirect', 'settings.Setting')), (u'Users', ('auth.User', 'auth.Group')))``
 
 Controls the ordering and grouping of the admin menu.
 
