@@ -5,6 +5,7 @@ import atom
 
 from datetime import datetime
 from importer import BlogPostImport, BlogCommentImport
+from importer import FeedURLError
 
 def GetBloggerPosts(blog_id = '', server = 'www.blogger.com'):
     """
@@ -12,8 +13,6 @@ def GetBloggerPosts(blog_id = '', server = 'www.blogger.com'):
     style ready for importation into Mezzanine. Returns a list of BlogPostImport
     objects
     """
-    
-    from importer import FeedURLError
     
     blogger = service.GDataService()
     blogger.service = 'blogger'
