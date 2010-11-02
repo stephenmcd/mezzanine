@@ -2,6 +2,7 @@
 import sys
 
 from django.conf import settings
+from django.db.utils import DatabaseError
 
 from mezzanine.settings.models import Setting
 
@@ -45,15 +46,20 @@ def load_settings(*names):
                 raise AttributeError("Setting does not exist: %s" % name)
             self._loaded = True
             editable = editable_settings(names)
-            syncdb = len(sys.argv) >= 2 and sys.argv[1] == "syncdb"
-            if editable and not syncdb:
-                for setting in Setting.objects.filter(name__in=editable):
-                    setting_type = registry[setting.name]["type"]
-                    if setting_type is bool:
-                        setting_value = setting.value != "False"
-                    else:
-                        setting_value = setting_type(setting.value)
-                    setattr(self, setting.name, setting_value)
+            if editable:
+                try:
+                    for setting in Setting.objects.filter(name__in=editable):
+                        setting_type = registry[setting.name]["type"]
+                        if setting_type is bool:
+                            setting_value = setting.value != "False"
+                        else:
+                            setting_value = setting_type(setting.value)
+                        setattr(self, setting.name, setting_value)
+                except DatabaseError:
+                    # Allows for syncdb and other commands related to DB 
+                    # management to get up and running without the settings 
+                    # table existing.
+                    pass
             for n in names:
                 if n not in self.__dict__ and n in registry.keys():
                     setattr(self, n, registry[n]["default"])
