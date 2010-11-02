@@ -11,6 +11,7 @@ var anyFieldsDirty = function(fields) {
                 break;
             case 'text':
             case 'textarea':
+            case 'file':
                 if (field.value) {return true;}
                 break;
             case 'checkbox':

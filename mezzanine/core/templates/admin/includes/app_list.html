@@ -8,7 +8,7 @@
            <caption>{% trans app.name %}</caption>
            {% for model in app.models %}
            <tr>
-           {% if model.perms.change %}
+           {% if model.perms.change or model.perms.custom %}
                <th scope="row" width="100%"><a 
                     href="{{ model.admin_url }}">{{ model.name }}</a></th>
            {% else %}

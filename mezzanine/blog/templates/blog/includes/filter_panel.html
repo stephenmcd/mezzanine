@@ -37,7 +37,6 @@
 {% blog_authors as authors %}
 {% if authors %}
 <h3>{% trans "Authors" %}</h3>
-{% blog_authors as authors %}
 {% for author in authors %}
 <a href="{% url blog_post_list_author author.username %}"
     >{{ author.get_full_name|default:author.username }}</a>

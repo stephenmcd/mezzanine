@@ -9,7 +9,6 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.managers import DisplayableManager, KeywordManager
-from mezzanine.settings import CONTENT_STATUS_CHOICES, CONTENT_STATUS_DRAFT
 from mezzanine.utils import base_concrete_model
 
 
@@ -59,6 +58,13 @@ class Slugged(models.Model):
     def get_slug(self):
         return slugify(self.title)
 
+
+CONTENT_STATUS_DRAFT = 1
+CONTENT_STATUS_PUBLISHED = 2
+CONTENT_STATUS_CHOICES = (
+    (CONTENT_STATUS_DRAFT, _("Draft")),
+    (CONTENT_STATUS_PUBLISHED, _("Published")),
+)
 
 class Displayable(Slugged):
     """

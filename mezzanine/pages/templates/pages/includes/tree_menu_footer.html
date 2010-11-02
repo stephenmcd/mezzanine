@@ -5,7 +5,7 @@
 {% spaceless %}
 {% url home as home_url %}
 {% if page_branch %}
-<ul class="tree-menu-level-{{ branch_level }}">
+<ul class="footer-tree-menu-level-{{ branch_level }}">
 	{% for page in page_branch %}
 
     {% if forloop.first and page.primary %}
@@ -14,15 +14,15 @@
 	</li>
 	{% endif %}
 
-	{% if page.in_navigation %}
+	{% if page.in_footer %}
 	<li class="{% if page.selected %}active{% endif %}
         {% if not top_level and forloop.first %} first{% endif %}
         {% if forloop.last %} last{% endif %}"
-        id="tree-menu-{{ page.html_id }}">
+        id="footer-tree-menu-{{ page.html_id }}">
 		<a href="{% url page page.slug %}">{{ page.title }}</a>
 		{# remove this if tag to always show all nav items #}
 		{% if PAGES_MENU_SHOW_ALL or page.selected %}
-		{% tree_menu page %}
+		{% tree_menu_footer page %}
 		{% endif %}
 	</li>
     {% endif %}

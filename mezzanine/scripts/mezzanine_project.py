@@ -28,6 +28,7 @@ def create_project():
     project_name = args[0]
     if project_name.startswith("-"):
         parser.error("project_name cannot start with '-'")
+    project_path = os.path.join(os.getcwd(), project_name)
 
     # Ensure the given directory name doesn't clash with an existing Python
     # package/module.
@@ -37,9 +38,11 @@ def create_project():
         pass
     else:
         parser.error("'%s' conflicts with the name of an existing "
-            "Python module and cannot be used as a project name. Please try "
-            "another name." % project_name)
+            "Python module and cannot be used as a project name. "
+            "Please try another name." % project_name)
     
+    # Create the list of packages to build from - at this stage it should 
+    # only be one or two names, mezzanine plus an alternate package.
     packages = ["mezzanine"]
     if options.alt:
         packages.append(options.alt)
@@ -48,22 +51,25 @@ def create_project():
             __import__(package_name)
         except ImportError:
             parser.error("Could not import package '%s'" % package_name) 
+
+    # Build the project up copying over the project_template from each of 
+    # the packages.
     for package_name in packages:
         package = __import__(package_name)
         package_path = os.path.dirname(os.path.abspath(package.__file__))
-        from_path = os.path.join(package_path, "project_template")
-        to_path = os.path.join(os.getcwd(), project_name)
         if options.copy_source:
-            copy_tree(package_path, os.path.join(to_path, package_name))
-        copy_tree(from_path, to_path)
-        move(os.path.join(to_path, "local_settings.py.template"),
-            os.path.join(to_path, "local_settings.py"))
+            copy_tree(package_path, os.path.join(project_path, package_name))
+        copy_tree(os.path.join(package_path, "project_template"), project_path)
+        move(os.path.join(project_path, "local_settings.py.template"),
+            os.path.join(project_path, "local_settings.py"))
         if options.copy_templates:
-            to_path = os.path.join(to_path, "templates")
+            template_path = os.path.join(project_path, "templates")
             for app_dir in os.listdir(package_path):
                 template_dir = os.path.join(package_path, app_dir, "templates")
                 if os.path.isdir(template_dir):
-                    copy_tree(template_dir, to_path)
+                    copy_tree(template_dir, template_path)
+
+    # Generate a unique SECREY_KEY for the project's setttings module.
     settings_path = os.path.join(os.getcwd(), project_name, "settings.py")
     with open(settings_path, "r") as f:
         data = f.read()
@@ -71,7 +77,11 @@ def create_project():
         secret_key = "%s%s%s" % (uuid4(), uuid4(), uuid4())
         f.write(data.replace("%(SECRET_KEY)s", secret_key))
 
+    # Clean up pyc files.
+    for (root, dirs, files) in os.walk(project_path, False):
+        for f in files:
+            if f.endswith(".pyc"):
+                os.remove(os.path.join(root, f))
 
 if __name__ == "__main__":
     create_project()
-

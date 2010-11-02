@@ -4,7 +4,10 @@ from django.http import HttpResponseRedirect
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 
-from mezzanine.settings import MOBILE_USER_AGENTS
+from mezzanine.settings import load_settings
+
+
+mezz_settings = load_settings("MOBILE_USER_AGENTS")
 
 
 class MobileTemplate(object):
@@ -15,7 +18,7 @@ class MobileTemplate(object):
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
         user_agent = request.META.get("HTTP_USER_AGENT", "")
-        if [check for check in MOBILE_USER_AGENTS if check in user_agent]:
+        if [s for s in mezz_settings.MOBILE_USER_AGENTS if s in user_agent]:
             template = view_kwargs.get("template")
             func_defaults = getattr(view_func, "func_defaults", None)
             if func_defaults is None and hasattr(view_func, "__call__"):

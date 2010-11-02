@@ -16,7 +16,7 @@ if (typeof $ == 'undefined') {
         'ipt>');
 }
 
-window.__admin_keywords_submit_url = '{% admin_url "admin_keywords_submit" %}';
+window.__admin_keywords_submit_url = '{% try_url "admin_keywords_submit" %}';
 
 </script>
 
@@ -43,8 +43,9 @@ $(function() {
 </script>
 {% endif %}
 
-{% if request.user.is_authenticated %}
+{% if request.user.is_authenticated and not is_popup and not request.GET.pop %}
 <style type="text/css">
+    .add-row {display:none;}
     .breadcrumbs {display:none; height:30px; margin:0; padding:0;
         background:#e6e6e6 !important;}
     .dropdown-menu {left:0; padding:0;}
@@ -60,9 +61,15 @@ $(function() {
         border-bottom:1px solid #ccc; padding:0;}
     #bookmarks {display:none;}
     .messagelist {margin-top:14px; z-index:0 !important;}
+    {% if original.overridden %}
+    .slug, .deletelink {display:none !important;}
+    {% endif %}
+    {% if singleton %}
+    .submit-row * {display:none !important;}
+    .submit-row .default {display:inline !important;}
+    {% endif %}
 </style>
 <script type="text/javascript">
-
 // Global flag used for checking whether to hide the visible menu after a small 
 // timeout has passed when mousing out from a menu.
 var onMenu; 
@@ -121,6 +128,24 @@ $(function() {
         }
     })
 
+    // Provides link back to homepage.
+    $('#user-tools li:last').before('<li><a href="/">View Site</a></li>');
+});
+
+// Remove extraneous ``template`` forms from inline formsets since we have
+// our own method of dynamic inlines.
+$(function() {
+    var removeRows = {};
+    $.each($('*[name*=__prefix__]'), function(i, e) {
+        var row = $(e).parent().parent();
+        if (!row.attr('id')) {
+            row.attr('id', 'remove__prefix__' + i);
+        }
+        removeRows[row.attr('id')] = true;
+    });
+    for (var rowID in removeRows) {
+        $('#' + rowID).remove();
+    }
 });
 
 </script>
@@ -148,4 +173,3 @@ $(function() {
 {% admin_dropdown_menu %}
 {% endif %}
 {% endblock %}
-

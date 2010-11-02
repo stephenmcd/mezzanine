@@ -6,7 +6,10 @@ from string import punctuation
 from django.db.models import Manager, Q, CharField, TextField, get_models
 from django.db.models.query import QuerySet
 
-from mezzanine.settings import CONTENT_STATUS_PUBLISHED, STOP_WORDS
+from mezzanine.settings import load_settings
+
+
+mezz_settings = load_settings("STOP_WORDS")
 
 
 class PublishedManager(Manager):
@@ -16,6 +19,7 @@ class PublishedManager(Manager):
     """
 
     def published(self, for_user=None):
+        from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
         if for_user is not None and for_user.is_staff:
             return self.all()
         return self.filter( 
@@ -103,7 +107,8 @@ class SearchableQuerySet(QuerySet):
         # Remove stop words from terms that aren't quoted or use modifiers,
         # since words with these are an explicit part of the search query. If
         # doing so ends up with an empty term list, then keep the stop words.
-        terms_no_stopwords = [t for t in terms if t.lower() not in STOP_WORDS]
+        terms_no_stopwords = [t for t in terms if t.lower() not in 
+            mezz_settings.STOP_WORDS]
         get_positive_terms = lambda terms: [t.lower().strip(punctuation)
             for t in terms if t[0] != "-"]
         positive_terms = get_positive_terms(terms_no_stopwords)

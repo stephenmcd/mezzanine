@@ -17,6 +17,7 @@
     #export-form label {cursor:pointer;}
     .on {background:#eee;}
     .off {background:#fff;}
+    .button {float:left !important; margin-right:10px;}    
     
 </style>
 <script type="text/javascript">
@@ -85,7 +86,10 @@
                 <td colspan="2">&nbsp;</td>
             </tr>
         </table>
-        <input type="submit" class="button" value="{% trans "Export entries" %}" />
+        <input type="submit" name="back" class="button" 
+            value="{% trans "Back to form" %}" />
+        <input type="submit" class="button default" 
+            value="{% trans "Export entries" %}" />    
     </form>
 </div>
 {% endblock %}

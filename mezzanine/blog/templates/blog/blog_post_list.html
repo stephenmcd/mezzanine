@@ -38,10 +38,9 @@
 </p>
 
 {% for blog_post in blog_posts.object_list %}
+{% editable blog_post.title blog_post.publish_date %}
 <h2>
-    {% editable blog_post.title %}
     <a href="{% url blog_post_detail blog_post.slug %}">{{ blog_post.title }}</a>
-    {% endeditable %}
 </h2>
 <em class="since">
     {% with blog_post.user as author %}
@@ -49,10 +48,9 @@
         {{ author.first_name }} {{ author.last_name }}
     </a>
     {% endwith %}
-    {% editable blog_post.publish_date %}
     {{ blog_post.publish_date|timesince }} {% trans "ago" %}
-    {% endeditable %}
 </em>
+{% endeditable %}
 
 {% editable blog_post.content %}
 {{ blog_post.description_from_content|safe }}

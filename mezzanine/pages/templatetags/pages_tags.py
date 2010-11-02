@@ -6,7 +6,7 @@ from django.db.models import get_model, get_models
 
 from mezzanine import template
 from mezzanine.pages.models import Page
-from mezzanine.settings import PAGES_MENU_SHOW_ALL
+from mezzanine.utils import admin_url
 
 
 register = template.Library()
@@ -47,7 +47,6 @@ def _page_menu(context, parent_page):
     context["page_branch"] = context["menu_pages"].get(parent_page, [])
     for i, page in enumerate(context["page_branch"]):
         context["page_branch"][i].branch_level = context["branch_level"]
-    context["PAGES_MENU_SHOW_ALL"] = PAGES_MENU_SHOW_ALL
     return context
 
 
@@ -55,6 +54,14 @@ def _page_menu(context, parent_page):
 def tree_menu(context, parent_page=None):
     """
     Tree menu that renders all pages in the navigation hierarchically.
+    """
+    return _page_menu(context, parent_page)
+
+
+@register.inclusion_tag("pages/includes/tree_menu_footer.html", takes_context=True)
+def tree_menu_footer(context, parent_page=None):
+    """
+    Tree menu that renders all pages in the footer hierarchically.
     """
     return _page_menu(context, parent_page)
 
@@ -103,8 +110,7 @@ def models_for_pages(*args):
     for model in get_models():
         if model is not Page and issubclass(model, Page):
             setattr(model, "name", model._meta.verbose_name)
-            setattr(model, "add_url", reverse("admin:%s_%s_add" %
-                (model._meta.app_label, model.__name__.lower())))
+            setattr(model, "add_url", admin_url(model, "add"))
             page_models.append(model)
     return page_models
 

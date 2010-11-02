@@ -7,10 +7,12 @@ from django.template import Context, Template
 from django.test import TestCase
 
 from mezzanine.blog.models import BlogPost, Comment
+from mezzanine.core.models import CONTENT_STATUS_DRAFT, \
+                                    CONTENT_STATUS_PUBLISHED
 from mezzanine.forms.models import Form, FIELD_CHOICES
 from mezzanine.pages.models import ContentPage
-from mezzanine.settings import BLOG_SLUG, CONTENT_STATUS_DRAFT, \
-    CONTENT_STATUS_PUBLISHED, MOBILE_USER_AGENTS
+from mezzanine.settings.models import Setting
+from mezzanine.settings import editable_settings, load_settings, registry
 
 
 class Tests(TestCase):
@@ -24,9 +26,10 @@ class Tests(TestCase):
         """
         Create an admin user.
         """
+        self._settings = load_settings("BLOG_SLUG", "MOBILE_USER_AGENTS")
         self._username = "test"
         self._password = "test"
-        args = self._username, "example@example.com", self._password
+        args = (self._username, "example@example.com", self._password)
         self._user = User.objects.create_superuser(*args)
 
     def test_draft_page(self):
@@ -35,7 +38,7 @@ class Tests(TestCase):
         """
         self.client.logout()
         draft = ContentPage.objects.create(title="Draft", 
-            status=CONTENT_STATUS_DRAFT)
+                                                status=CONTENT_STATUS_DRAFT)
         response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 404)
         self.client.login(username=self._username, password=self._password)
@@ -48,7 +51,8 @@ class Tests(TestCase):
         True for its overriden property. The blog page from the fixtures
         should classify as this case.
         """
-        blog_page, created = ContentPage.objects.get_or_create(slug=BLOG_SLUG)
+        blog_page, created = ContentPage.objects.get_or_create(
+                                                slug=self._settings.BLOG_SLUG)
         self.assertTrue(blog_page.overridden())
 
     def test_description(self):
@@ -68,7 +72,7 @@ class Tests(TestCase):
         template_name = lambda t: t.name if hasattr(t, "name") else t[0].name
         default = template_name(self.client.get(reverse("home")).template)
         mobile = template_name(self.client.get(reverse("home"),
-            HTTP_USER_AGENT=MOBILE_USER_AGENTS[0]).template)
+            HTTP_USER_AGENT=self._settings.MOBILE_USER_AGENTS[0]).template)
         self.assertNotEqual(default, mobile)
         self.assertEqual(default, mobile.replace(".mobile", "", 1))
 
@@ -180,3 +184,36 @@ class Tests(TestCase):
             data = dict([("field_%s" % f.id, "test") for f in fields])
             response = self.client.post(form.get_absolute_url(), data=data)
             self.assertEqual(response.status_code, 200)
+
+    def test_settings(self):
+        """
+        Test that an editable setting can be overriden with a DB value and 
+        that the data type is preserved when the value is returned back out 
+        of the DB. Also checks to ensure no unsupported types are defined 
+        for editable settings.
+        """
+        Setting.objects.all().delete()
+        # Find an editable setting for each supported type.
+        names_by_type = {}
+        for setting in registry.values():
+            if setting["editable"] and setting["type"] not in names_by_type:
+                names_by_type[setting["type"]] = setting["name"]
+        # Create a modified value for each setting and save it.
+        values_by_name = {}
+        for (setting_type, setting_name) in names_by_type.items():
+            setting_value = registry[setting_name]["default"]
+            if setting_type is int:
+                setting_value += 1
+            elif setting_type is bool:
+                setting_value = not setting_value
+            elif setting_type is str:
+                setting_value += "test"
+            else:
+                self.fail("Unsupported setting type for %s: %s" % 
+                                                (setting_name, setting_type))
+            values_by_name[setting_name] = setting_value
+            Setting.objects.create(name=setting_name, value=str(setting_value))
+        # Load the settings and make sure the DB values have persisted.
+        mezz_settings = load_settings(*names_by_type.values())
+        for (name, value) in values_by_name.items():
+            self.assertEqual(getattr(mezz_settings, name), value)

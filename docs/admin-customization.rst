@@ -41,6 +41,26 @@ you would define the following in your projects's ``settings`` module::
 Any admin classes that aren't specifed are included using Django's normal 
 approach of grouping models alphabetically by application name.
 
+Custom Items
+============
+
+It is possible to inject custom navigation items into the 
+``MEZZANINE_ADMIN_MENU_ORDER`` setting by specifying an 
+item using a two item sequence, the first item containing the title and 
+second containing the named urlpattern that resolves to the url to be used. 
+
+Continuing on from the previous example, Mezzanine includes a fork of the 
+popular `django-filebrowser <http://code.google.com/p/django-filebrowser/>`_ 
+application which contains a named urlpattern ``fb_browse`` and is given 
+the title ``Media Library`` to create a custom navigation item::
+
+    MEZZANINE_ADMIN_MENU_ORDER = (
+        ("Content", ("pages.Page", "blog.BlogPost", "blog.Comment",
+            ("Media Library", "fb_browse"),)),
+        ("Site", ("auth.User", "auth.Group", "sites.Site", "redirects.Redirect")),
+    )
+
+
 Dashboard
 =========
 

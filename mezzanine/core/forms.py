@@ -1,4 +1,6 @@
 
+from uuid import uuid4
+
 from django import forms
 from django.conf import settings
 from django.utils.safestring import mark_safe
@@ -27,8 +29,8 @@ class DynamicInlineAdminForm(forms.ModelForm):
     """
     
     class Media:
-        js = content_media_urls("js/jquery-1.4.2.min.js",
-            "js/jquery-ui-1.8.1.custom.min.js", "js/dynamic_inline.js",)
+        js = content_media_urls("js/jquery-ui-1.8.1.custom.min.js", 
+                                "js/dynamic_inline.js",)
 
     def __init__(self, *args, **kwargs):
         super(DynamicInlineAdminForm, self).__init__(*args, **kwargs)
@@ -37,7 +39,7 @@ class DynamicInlineAdminForm(forms.ModelForm):
                 widget=OrderWidget, required=False)
 
 
-def get_edit_form(obj, attr, data=None):
+def get_edit_form(obj, field_names, data=None, files=None):
     """
     Returns the in-line editing form for editing a single model field.
     """
@@ -50,12 +52,18 @@ def get_edit_form(obj, attr, data=None):
         app = forms.CharField(widget=forms.HiddenInput)
         model = forms.CharField(widget=forms.HiddenInput)
         id = forms.CharField(widget=forms.HiddenInput)
-        attr = forms.CharField(widget=forms.HiddenInput)
+        fields = forms.CharField(widget=forms.HiddenInput)
 
         class Meta:
             model = obj.__class__
-            fields = (attr,)
+            fields = field_names.split(",")
+            
+        def __init__(self, *args, **kwargs):
+            super(EditForm, self).__init__(*args, **kwargs)
+            self.uuid = str(uuid4())
+            for f in self.fields.keys():
+                self.fields[f].widget.attrs["id"] = "%s-%s" % (f, self.uuid)
 
-    initial = {"app": obj._meta.app_label, "id": obj.id, "attr": attr,
+    initial = {"app": obj._meta.app_label, "id": obj.id, "fields": field_names, 
         "model": obj._meta.object_name.lower()}
-    return EditForm(instance=obj, initial=initial, data=data)
+    return EditForm(instance=obj, initial=initial, data=data, files=files)

@@ -24,23 +24,51 @@
     #editable-toolbar-toggle {border-left:0px !important; 
         text-decoration:none; display:inline !important;}
 
+/* --- FORM ----------------- */
     .editable-form {padding:20px; background:#fffcc3; border:3px solid #999;
         line-height:1em; border-radius:5px;}
-    .editable-form input {width:300px;}
+    .editable-form table,
+    .editable-form textarea,
+    .editable-form input {
+       width: 100%;
+        margin-top: .5em;
+    }
+    .editable-form input[type="file"] {
+        width: 300px;
+    }
+    .editable-form p {
+        margin-top: .5em;
+    }
+    .editable-form p:first-child {
+        margin-top: 0px;
+    }
+    .editable-form label {
+        text-transform: capitalize;
+        text-decoration: underline;
+        font-weight: bold;
+    }
     .editable-form .button {width:auto; cursor:pointer; float:right;
         margin:15px 0 0 15px; padding:5px 15px;
         -moz-box-shadow: 0 0 5px #999; -webkit-box-shadow: 0 0 5px #999}
-
 </style>
 {% load_settings CONTENT_MEDIA_URL TINYMCE_URL %}
 <script language="javascript" src="{{ TINYMCE_URL }}/jscripts/tiny_mce/tiny_mce.js"></script>
 <script language="javascript">
-if (typeof tinyMCE != "undefined") {
-  document.write('<script language="javascript" src="', '{{ CONTENT_MEDIA_URL }}js/tinymce_setup.js', '"><\/script>');
+if (typeof tinyMCE != 'undefined') {
+    document.write('<scr' + 
+        'ipt src="{{ CONTENT_MEDIA_URL }}js/tinymce_setup.js"></scr' + 
+        'ipt>');
 }
 </script>
-<script language="javascript" src="{{ CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
+<script language="javascript">
+if (typeof $ == 'undefined') {
+    document.write('<scr' + 
+        'ipt src="{{ CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></scr' + 
+        'ipt>');
+}
+</script>
 <script language="javascript" src="{{ CONTENT_MEDIA_URL }}js/jquery.tools.js"></script>
+<script language="javascript" src="{{ CONTENT_MEDIA_URL }}js/jquery.form.js"></script>
 <script language="javascript">
 
 $(function($) {
@@ -58,8 +86,8 @@ $(function($) {
         if (typeof tinyMCE != "undefined" ) {
             tinyMCE.triggerSave();
         }
-        $.post(form.attr('action'), form.serialize(), function(data) {
-            if (data) {
+        form.ajaxSubmit(function(data) {
+            if (data && data != '<head></head><body></body>') {
                 alert('{% trans "Error" %}: ' + data);
                 loading.hide();
                 form.show();
@@ -132,8 +160,6 @@ $(function($) {
     }
   
 });
-
-$.noConflict();
 
 </script>
 

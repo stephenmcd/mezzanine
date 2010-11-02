@@ -3,8 +3,24 @@ from htmlentitydefs import name2codepoint
 from re import sub
 
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.core.urlresolvers import reverse
 
-from mezzanine.settings import CONTENT_MEDIA_URL
+from mezzanine.settings import load_settings
+
+
+mezz_settings = load_settings("CONTENT_MEDIA_URL")
+
+
+def admin_url(model, url, object_id=None):
+    """
+    Returns the admin url for the given model and url name.
+    """
+    opts = model._meta
+    url = "admin:%s_%s_%s" % (opts.app_label, opts.object_name.lower(), url)
+    args = ()
+    if object_id is not None:
+        args = (object_id,)
+    return reverse(url, args=args)
 
 
 def decode_html_entities(html):
@@ -72,7 +88,7 @@ def content_media_urls(*paths):
     Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for 
     internally hosted JS and CSS files.
     """
-    media_url = CONTENT_MEDIA_URL.strip("/")
+    media_url = mezz_settings.CONTENT_MEDIA_URL.strip("/")
     return ["/%s/%s" % (media_url, path) for path in paths]
 
 

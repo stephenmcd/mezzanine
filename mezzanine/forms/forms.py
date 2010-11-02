@@ -12,10 +12,11 @@ from django.utils.importlib import import_module
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.forms.models import FormEntry, FieldEntry
-from mezzanine.settings import FORMS_FIELD_MAX_LENGTH, FORMS_UPLOAD_ROOT
+from mezzanine.settings import load_settings
 
 
-fs = FileSystemStorage(location=FORMS_UPLOAD_ROOT)
+mezz_settings = load_settings("FORMS_FIELD_MAX_LENGTH", "FORMS_UPLOAD_ROOT")
+fs = FileSystemStorage(location=mezz_settings.FORMS_UPLOAD_ROOT)
 
 FILTER_CHOICE_CONTAINS = "1"
 FILTER_CHOICE_DOESNT_CONTAIN = "2"
@@ -92,10 +93,9 @@ class FormForForm(forms.ModelForm):
                 "help_text": field.help_text}
             arg_names = field_class.__init__.im_func.func_code.co_varnames
             if "max_length" in arg_names:
-                field_args["max_length"] = FORMS_FIELD_MAX_LENGTH
+                field_args["max_length"] = mezz_settings.FORMS_FIELD_MAX_LENGTH
             if "choices" in arg_names:
-                choices = field.choices.split(",")
-                field_args["choices"] = zip(choices, choices)
+                field_args["choices"] = field.get_choices()
             if field_widget is not None:
                 module, widget = field_widget.rsplit(".", 1)
                 field_args["widget"] = getattr(import_module(module), widget)
@@ -167,9 +167,9 @@ class ExportForm(forms.Form):
             if "ChoiceField" in field.field_type or is_bool_field:
                 # A fixed set of choices to filter by.
                 if is_bool_field:
-                    choices = ((True, _("Checked")), False, _("Not checked"))
+                    choices = ((True, _("Checked")), (False, _("Not checked")))
                 else:
-                    choices = zip(*([field.choices.split(",")] * 2))
+                    choices = field.get_choices()
                 contains_field = forms.MultipleChoiceField(label=" ",
                     choices=choices, widget=forms.CheckboxSelectMultiple(), 
                     required=False)
@@ -272,7 +272,7 @@ class ExportForm(forms.Form):
             field_value = field_entry.value
             # Check for filter.
             field_id = field_entry.field_id
-            filter_type = self.cleaned_data["field_%s_filter" % field_id]
+            filter_type = self.cleaned_data.get("field_%s_filter" % field_id)
             filter_args = None
             if filter_type:
                 if filter_type == FILTER_CHOICE_BETWEEN:
