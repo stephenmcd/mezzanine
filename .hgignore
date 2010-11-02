@@ -3,6 +3,7 @@ syntax: glob
 *.pyo
 *.db
 local_settings.py
+migrations/*
 build/*
 docs/build/*
 dist/*
