@@ -1,3 +1,10 @@
+"""
+ Importer module used to import blog posts and comments from a variety
+ of alternative blog systems such as wordpress, blogger and tumblr
+"""
+
+
+
 from datetime import datetime, timedelta
 from time import timezone
 
@@ -7,13 +14,12 @@ from django.contrib.sites.models import Site
 
 from mezzanine.blog.models import BlogPost, Comment
 from mezzanine.core.models import Keyword
-from mezzanine.settings import CONTENT_STATUS_PUBLISHED
 
 from django.core.management.base import BaseCommand, CommandError
 
 from optparse import make_option
 
-#TODO: do documentation for how we start importing
+
 
 
 __VERSION__ = "0.8.1"
@@ -32,6 +38,8 @@ class Command(BaseCommand):
             help="Path to import file"),
         make_option('-u', '--url', dest='importurl',
             help="URL to import file"),
+        make_option('-r', '--tumblr', dest='tumblruser',
+            help="Tumblr user id"),
         make_option('-m', '--mezzanine-user', dest='mezzuser',
             help="Mezzanine username to assign the imported blog posts into"),
     )
@@ -57,10 +65,13 @@ class Command(BaseCommand):
             if options['bloggerid']:
                 ImportBlogger(mezzaning_user=mezzuser, blog_id=options['bloggerid'])
             else:
-                raise CommandError("Please supply a blooger post id")
+                raise CommandError("Please supply a blogger post id")
             
         elif (blogtype=="tumblr"):
-            print "tumblr"
+            if options['tumblruser']:
+                ImportTumblr(mezzanine_user=mezzuser, tumblr_user=options['tumblruser'])
+            else:
+                raise CommandError("Please specify a tumblr user account id")
         else:
             raise CommandError("Please specifiy a blog type for import")
         
@@ -70,8 +81,16 @@ class Command(BaseCommand):
         usagenotes= """
         Imports blog posts and comments into mezzanine from a variety of different sources
         
-        %prog importer --type=[wordpress, blogger, tumblr] [options] --mezzanine-user=[...]
-        %prog importer --type=wordpress [--filepath=[...] | --url=[..]] --mezzanine-user=[...]
+        %prog importer --blogtype=[] [options] --mezzanine-user=[...]
+        
+        eg: WordPress
+        %prog importer -t=wordpress [--filepath=[...] | --url=[..]] -m=[...]
+        
+        eg: Blogger
+        %prog importer -t=blogger [--blogger=[...]] -m=[...]
+        
+        eg: Tumblr (currently todo)
+        %prog importer -t=tumblr [--tumblr=[...]] -m=[...]
         """
     
         return usagenotes
@@ -172,6 +191,10 @@ def ImportBlogger(mezzanine_user='', blog_id=''):
                 date_format = "%Y-%m-%dT%H:%M:%S.%f")
 
 def ImportWordPress(mezzanine_user='', path='', url=''):
+    """
+    Does the set up and importing of the wordpress blog.
+    Takes a mezzanine user as well as either a path or url to the WXR file
+    """ 
     
     import wordpress
     
@@ -190,6 +213,27 @@ def ImportWordPress(mezzanine_user='', path='', url=''):
         Import(mezzanine_user=mezzanine_user, posts_list=posts_list, 
                 date_format = "%c")
         
+
+def ImportTumblr(mezzanine_user='', tumblr_user=''):
+    """
+    Does the set up and importing of the tumblr blog.
+    Takes a mezzanine user as well as the tumblr user as inputs
+    """
+    
+    import tumblr
+    
+    try:
+        posts_list, feed_url = tumblr.GetTumblrPosts(tumblr_user)
+    except FeedURLError, err:
+        raise CommandError(err)
+        
+    if not posts_list:
+        raise EmptyFeedError(msg='Tumblr returned no data in the feed', url=feed_url)
+    else:
+        #pass
+        Import(mezzanine_user=mezzanine_user, posts_list=posts_list, 
+                date_format = "%c")
+                
     
 def Import(mezzanine_user='', posts_list=[], date_format=None):
     """
@@ -200,6 +244,8 @@ def Import(mezzanine_user='', posts_list=[], date_format=None):
         post_list: the list of posts to import in BlogPostImport objects
         date_format: the format the dates are in in the Posts and Commments
     """
+
+    from mezzanine.core.models.displayable import CONTENT_STATUS_PUBLISHED
 
     site = Site.objects.get_current()
     
@@ -236,10 +282,4 @@ def Import(mezzanine_user='', posts_list=[], date_format=None):
             
             post.comments.add(thecomment)
 
-def TestImport(mezzanine_user='fishera'):
-    """
-    Tests the import script
-    """
-    #ImportBlogger(mezzanine_user=mezzanine_user, blog_id='8183712382911359730')
-    #ImportBlogger(mezzanine_user=mezzanine_user, blog_id='')
-    ImportWordPress(mezzanine_user=mezzanine_user, path='/home/fishera/Downloads/wordpress.2010-10-19.xml')
+
