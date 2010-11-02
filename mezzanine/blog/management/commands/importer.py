@@ -11,9 +11,73 @@ from mezzanine.settings import CONTENT_STATUS_PUBLISHED
 
 from django.core.management.base import BaseCommand, CommandError
 
-#TODO: get command stuff up and running.
+from optparse import make_option
+
 #TODO: do documentation for how we start importing
 
+
+__VERSION__ = "0.8.1"
+
+class Command(BaseCommand):
+    """
+    Import Blog Posts into mezzanine from a variety of different sources
+    """
+    
+    option_list = BaseCommand.option_list + (
+        make_option('-t', '--blogtype', dest="blogtype", 
+            help="Type of blog to parse. [blogger, wordpress, tumblr]"),
+        make_option('-b', '--blogger', dest='bloggerid',
+            help="Blogger Blog ID from blogger dashboard"),
+        make_option('-f', '--filepath', dest='filepath',
+            help="Path to import file"),
+        make_option('-u', '--url', dest='importurl',
+            help="URL to import file"),
+        make_option('-m', '--mezzanine-user', dest='mezzuser',
+            help="Mezzanine username to assign the imported blog posts into"),
+    )
+    
+    
+    def handle(self, *args, **options):
+    
+        blogtype = options["blogtype"]   
+        mezzuser = options["mezzuser"]
+        
+        if mezzuser==None:
+            raise CommandError("Please ensure a mezzanine user is specified")
+    
+        if (blogtype=="wordpress"):
+            if options['filepath']:
+                ImportWordPress(mezzanine_user=mezzuser, path=options['filepath'])
+            elif options['importurl']:
+                ImportWordPress(mezzanine_user=mezzuser, url=options['importurl'])
+            else:
+                raise CommandError("Please supply a file path or url to the WP WRX file")
+        
+        elif (blogtype=="blogger"):
+            if options['bloggerid']:
+                ImportBlogger(mezzaning_user=mezzuser, blog_id=options['bloggerid'])
+            else:
+                raise CommandError("Please supply a blooger post id")
+            
+        elif (blogtype=="tumblr"):
+            print "tumblr"
+        else:
+            raise CommandError("Please specifiy a blog type for import")
+        
+    
+    def usage(self, *args):
+    
+        usagenotes= """
+        Imports blog posts and comments into mezzanine from a variety of different sources
+        
+        %prog importer --type=[wordpress, blogger, tumblr] [options] --mezzanine-user=[...]
+        %prog importer --type=wordpress [--filepath=[...] | --url=[..]] --mezzanine-user=[...]
+        """
+    
+        return usagenotes
+    
+    def get_version(self):
+        return "v%s" % __VERSION__
 
 class Error(Exception):
     """
@@ -88,6 +152,12 @@ class BlogCommentImport():
         
 
 def ImportBlogger(mezzanine_user='', blog_id=''):
+    """
+    Does the set up and import of a blogger blog.
+    Takes a mezzanine user to import the blogs as and the
+    blog id (see docs) of the blog to import
+    """
+    
     import blogger
 
     try:
@@ -100,7 +170,26 @@ def ImportBlogger(mezzanine_user='', blog_id=''):
     else:
         Import(mezzanine_user=mezzanine_user, posts_list=posts_list, 
                 date_format = "%Y-%m-%dT%H:%M:%S.%f")
+
+def ImportWordPress(mezzanine_user='', path='', url=''):
     
+    import wordpress
+    
+    if (url == '' and path !=''):
+        url = path
+    
+    try:
+        posts_list, feed_url = wordpress.GetWPPosts(url)
+    except FeedURLError, err:
+        raise CommandError(err)
+    
+    if not posts_list:
+        raise EmptyFeedError(msg='WP returned no data in the feed', url=feed_url)
+    else:
+        #pass
+        Import(mezzanine_user=mezzanine_user, posts_list=posts_list, 
+                date_format = "%c")
+        
     
 def Import(mezzanine_user='', posts_list=[], date_format=None):
     """
@@ -136,7 +225,7 @@ def Import(mezzanine_user='', posts_list=[], date_format=None):
         
         
         for comment in entry.comments:
-            print "Importing %s" % comment.name
+            print "Importing comment %s" % comment.name
             thecomment, created = Comment.objects.get_or_create(
                 blog_post = post,
                 name = comment.name,
@@ -151,5 +240,6 @@ def TestImport(mezzanine_user='fishera'):
     """
     Tests the import script
     """
-    ImportBlogger(mezzanine_user=mezzanine_user, blog_id='8183712382911359730')
+    #ImportBlogger(mezzanine_user=mezzanine_user, blog_id='8183712382911359730')
     #ImportBlogger(mezzanine_user=mezzanine_user, blog_id='')
+    ImportWordPress(mezzanine_user=mezzanine_user, path='/home/fishera/Downloads/wordpress.2010-10-19.xml')
