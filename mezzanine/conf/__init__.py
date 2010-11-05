@@ -2,7 +2,7 @@
 import sys
 
 from django.conf import settings
-from django.db.utils import DatabaseError
+from django.db import DatabaseError
 
 from mezzanine.conf.models import Setting
 
