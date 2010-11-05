@@ -5,7 +5,7 @@ from re import sub
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 mezz_settings = load_settings("CONTENT_MEDIA_URL")

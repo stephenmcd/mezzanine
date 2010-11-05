@@ -4,7 +4,7 @@ import os.path
 from django.conf import settings
 from django.utils.translation import ugettext as _
 
-from mezzanine.settings import register_setting
+from mezzanine.conf import register_setting
 
 
 register_setting(

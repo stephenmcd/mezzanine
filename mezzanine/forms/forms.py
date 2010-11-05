@@ -12,7 +12,7 @@ from django.utils.importlib import import_module
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.forms.models import FormEntry, FieldEntry
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 mezz_settings = load_settings("FORMS_FIELD_MAX_LENGTH", "FORMS_UPLOAD_ROOT")

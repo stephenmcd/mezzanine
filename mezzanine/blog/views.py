@@ -13,7 +13,7 @@ from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.core.models import Keyword
 from mezzanine.pages.models import ContentPage
 from mezzanine.utils import paginate
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 def blog_page():

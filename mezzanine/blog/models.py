@@ -8,7 +8,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Ownable, Content, Slugged
 from mezzanine.blog.managers import BlogPostManager, CommentManager
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 mezz_settings = load_settings("COMMENTS_DEFAULT_APPROVED")

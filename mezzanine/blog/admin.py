@@ -5,7 +5,7 @@ from django.contrib import admin
 
 from mezzanine.blog.models import BlogPost, BlogCategory, Comment
 from mezzanine.core.admin import DisplayableAdmin, OwnableAdmin
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 mezz_settings = load_settings("COMMENTS_DISQUS_SHORTNAME")

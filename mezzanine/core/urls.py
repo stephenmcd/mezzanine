@@ -7,7 +7,7 @@ from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.views.generic.simple import direct_to_template
 
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 mezz_settings = load_settings("ADMIN_REMOVAL", "CONTENT_MEDIA_PATH", 

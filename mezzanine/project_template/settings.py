@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     "mezzanine.blog",
     "mezzanine.forms",
     "mezzanine.pages",
-    "mezzanine.settings",
+    "mezzanine.conf",
     "mezzanine.twitter",
 )
 

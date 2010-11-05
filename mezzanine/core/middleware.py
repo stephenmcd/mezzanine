@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 mezz_settings = load_settings("MOBILE_USER_AGENTS")

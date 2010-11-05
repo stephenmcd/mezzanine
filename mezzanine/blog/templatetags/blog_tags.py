@@ -12,7 +12,7 @@ from mezzanine import template
 from mezzanine.blog.forms import BlogPostForm
 from mezzanine.blog.models import BlogPost, BlogCategory, Comment
 from mezzanine.core.models import Keyword
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 register = template.Library()

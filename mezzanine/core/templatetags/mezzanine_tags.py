@@ -15,7 +15,7 @@ from django.utils.text import capfirst
 
 from mezzanine import template
 from mezzanine.core.forms import get_edit_form
-from mezzanine.settings import load_settings as _load_settings
+from mezzanine.conf import load_settings as _load_settings
 from mezzanine.utils import admin_url, decode_html_entities, is_editable
 
 
@@ -197,7 +197,7 @@ def admin_app_list(request):
     """
     Adopted from ``django.contrib.admin.sites.AdminSite.index``. Returns a 
     list of lists of models grouped and ordered according to 
-    ``mezzanine.settings.ADMIN_MENU_ORDER``. Called from the 
+    ``mezzanine.conf.ADMIN_MENU_ORDER``. Called from the 
     ``admin_dropdown_menu`` template tag as well as the ``app_list`` 
     dashboard widget.
     """
@@ -306,7 +306,7 @@ def recent_actions(context):
 def dashboard_column(context, token):
     """
     Takes an index for retrieving the sequence of template tags from 
-    ``mezzanine.settings.DASHBOARD_TAGS`` to render into the admin dashboard.
+    ``mezzanine.conf.DASHBOARD_TAGS`` to render into the admin dashboard.
     """
     column_index = int(token.split_contents()[1])
     output = []

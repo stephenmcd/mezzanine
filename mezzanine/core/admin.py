@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import Orderable
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 from mezzanine.utils import content_media_urls, admin_url
 
 

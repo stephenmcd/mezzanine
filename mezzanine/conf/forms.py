@@ -1,8 +1,8 @@
 
 from django import forms
 
-from mezzanine.settings import editable_settings, load_settings, registry
-from mezzanine.settings.models import Setting
+from mezzanine.conf import editable_settings, load_settings, registry
+from mezzanine.conf.models import Setting
 
 
 FIELD_TYPES = {
@@ -13,7 +13,7 @@ FIELD_TYPES = {
 class SettingsForm(forms.Form):
     """
     Form for settings - creates a field for each setting in 
-    ``mezzanine.settings`` that is marked as editable.
+    ``mezzanine.conf`` that is marked as editable.
     """
 
     def __init__(self, *args, **kwargs):

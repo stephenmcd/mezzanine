@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Keyword, Displayable
 from mezzanine.utils import is_editable, paginate
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 def admin_keywords_submit(request):

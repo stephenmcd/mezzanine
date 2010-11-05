@@ -6,7 +6,7 @@ from string import punctuation
 from django.db.models import Manager, Q, CharField, TextField, get_models
 from django.db.models.query import QuerySet
 
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 mezz_settings = load_settings("STOP_WORDS")

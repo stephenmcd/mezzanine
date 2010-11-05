@@ -4,7 +4,7 @@ import sys
 from django.conf import settings
 from django.db.utils import DatabaseError
 
-from mezzanine.settings.models import Setting
+from mezzanine.conf.models import Setting
 
 
 registry = {}
@@ -33,7 +33,7 @@ def load_settings(*names):
     Returns a settings object using the given settings names as attributes. 
     Values are loaded when the first name is accessed. Settings are loaded
     from the DB for settings marked as editable, and from 
-    ``mezzanine.settings.registry`` for those not retrieved from the DB.
+    ``mezzanine.conf.registry`` for those not retrieved from the DB.
     """
 
     class Settings(object):

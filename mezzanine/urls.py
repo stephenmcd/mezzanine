@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
 
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 mezz_settings = load_settings("BLOG_SLUG")

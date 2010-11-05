@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.models import Orderable, Content
 from mezzanine.pages.models import Page
-from mezzanine.settings import load_settings
+from mezzanine.conf import load_settings
 
 
 mezz_settings = load_settings("FORMS_FIELD_MAX_LENGTH", 
