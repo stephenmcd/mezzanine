@@ -13,7 +13,7 @@ from django.utils.simplejson import loads
 # line with the more comprehensive set up being used now.
 
 
-def GetTumblrPosts(tumblr_user=""):
+def get_tumblr_posts(tumblr_user=""):
 
     json_url = "http://%s.tumblr.com/api/read/json" % tumblr_user
     

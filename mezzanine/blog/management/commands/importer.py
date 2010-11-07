@@ -3,26 +3,19 @@
  of alternative blog systems such as wordpress, blogger and tumblr
 """
 
-
-
 from datetime import datetime, timedelta
+from optparse import make_option
 from time import timezone
+
 
 from django.contrib.auth.models import User
 from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
+from django.core.management.base import BaseCommand, CommandError
 
 from mezzanine.blog.models import BlogPost, Comment
 from mezzanine.core.models import Keyword
 
-from django.core.management.base import BaseCommand, CommandError
-
-from optparse import make_option
-
-
-
-
-__VERSION__ = "0.8.1"
 
 class Command(BaseCommand):
     """
@@ -30,17 +23,17 @@ class Command(BaseCommand):
     """
     
     option_list = BaseCommand.option_list + (
-        make_option('-t', '--blogtype', dest="blogtype", 
+        make_option("-t", "--blogtype", dest="blogtype", 
             help="Type of blog to parse. [blogger, wordpress, tumblr]"),
-        make_option('-b', '--blogger', dest='bloggerid',
+        make_option("-b", "--blogger", dest="bloggerid",
             help="Blogger Blog ID from blogger dashboard"),
-        make_option('-f', '--filepath', dest='filepath',
+        make_option("-f", "--filepath", dest="filepath",
             help="Path to import file"),
-        make_option('-u', '--url', dest='importurl',
+        make_option("-u", "--url", dest="importurl",
             help="URL to import file"),
-        make_option('-r', '--tumblr', dest='tumblruser',
+        make_option("-r", "--tumblr", dest="tumblruser",
             help="Tumblr user id"),
-        make_option('-m', '--mezzanine-user', dest='mezzuser',
+        make_option("-m", "--mezzanine-user", dest="mezzuser",
             help="Mezzanine username to assign the imported blog posts into"),
     )
     
@@ -54,22 +47,22 @@ class Command(BaseCommand):
             raise CommandError("Please ensure a mezzanine user is specified")
     
         if (blogtype=="wordpress"):
-            if options['filepath']:
-                ImportWordPress(mezzanine_user=mezzuser, path=options['filepath'])
-            elif options['importurl']:
-                ImportWordPress(mezzanine_user=mezzuser, url=options['importurl'])
+            if options["filepath"]:
+                import_word_press(mezzanine_user=mezzuser, path=options["filepath"])
+            elif options["importurl"]:
+                import_word_press(mezzanine_user=mezzuser, url=options["importurl"])
             else:
                 raise CommandError("Please supply a file path or url to the WP WRX file")
         
         elif (blogtype=="blogger"):
-            if options['bloggerid']:
-                ImportBlogger(mezzaning_user=mezzuser, blog_id=options['bloggerid'])
+            if options["bloggerid"]:
+                import_blogger(mezzaning_user=mezzuser, blog_id=options["bloggerid"])
             else:
                 raise CommandError("Please supply a blogger post id")
             
         elif (blogtype=="tumblr"):
-            if options['tumblruser']:
-                ImportTumblr(mezzanine_user=mezzuser, tumblr_user=options['tumblruser'])
+            if options["tumblruser"]:
+                import_tumblr(mezzanine_user=mezzuser, tumblr_user=options["tumblruser"])
             else:
                 raise CommandError("Please specify a tumblr user account id")
         else:
@@ -95,8 +88,6 @@ class Command(BaseCommand):
     
         return usagenotes
     
-    def get_version(self):
-        return "v%s" % __VERSION__
 
 class Error(Exception):
     """
@@ -170,7 +161,7 @@ class BlogCommentImport():
         self.body = body
         
 
-def ImportBlogger(mezzanine_user='', blog_id=''):
+def import_blogger(mezzanine_user="", blog_id=""):
     """
     Does the set up and import of a blogger blog.
     Takes a mezzanine user to import the blogs as and the
@@ -180,17 +171,17 @@ def ImportBlogger(mezzanine_user='', blog_id=''):
     import blogger
 
     try:
-        posts_list, feed_url = blogger.GetBloggerPosts(blog_id)
+        posts_list, feed_url = blogger.get_blogger_posts(blog_id)
     except FeedURLError, err:
         raise CommandError(err)
 
     if not posts_list:
-        raise EmptyFeedError(msg='Blogger returned no data in the feed', url=feed_url)
+        raise EmptyFeedError(msg="Blogger returned no data in the feed", url=feed_url)
     else:
-        Import(mezzanine_user=mezzanine_user, posts_list=posts_list, 
+        importer(mezzanine_user=mezzanine_user, posts_list=posts_list, 
                 date_format = "%Y-%m-%dT%H:%M:%S.%f")
 
-def ImportWordPress(mezzanine_user='', path='', url=''):
+def import_word_press(mezzanine_user="", path="", url=""):
     """
     Does the set up and importing of the wordpress blog.
     Takes a mezzanine user as well as either a path or url to the WXR file
@@ -198,23 +189,23 @@ def ImportWordPress(mezzanine_user='', path='', url=''):
     
     import wordpress
     
-    if (url == '' and path !=''):
+    if (url == "" and path !=""):
         url = path
     
     try:
-        posts_list, feed_url = wordpress.GetWPPosts(url)
+        posts_list, feed_url = wordpress.get_wp_posts(url)
     except FeedURLError, err:
         raise CommandError(err)
     
     if not posts_list:
-        raise EmptyFeedError(msg='WP returned no data in the feed', url=feed_url)
+        raise EmptyFeedError(msg="WP returned no data in the feed", url=feed_url)
     else:
         #pass
-        Import(mezzanine_user=mezzanine_user, posts_list=posts_list, 
+        importer(mezzanine_user=mezzanine_user, posts_list=posts_list, 
                 date_format = "%c")
         
 
-def ImportTumblr(mezzanine_user='', tumblr_user=''):
+def import_tumblr(mezzanine_user="", tumblr_user=""):
     """
     Does the set up and importing of the tumblr blog.
     Takes a mezzanine user as well as the tumblr user as inputs
@@ -223,19 +214,19 @@ def ImportTumblr(mezzanine_user='', tumblr_user=''):
     import tumblr
     
     try:
-        posts_list, feed_url = tumblr.GetTumblrPosts(tumblr_user)
+        posts_list, feed_url = tumblr.get_tumblr_posts(tumblr_user)
     except FeedURLError, err:
         raise CommandError(err)
         
     if not posts_list:
-        raise EmptyFeedError(msg='Tumblr returned no data in the feed', url=feed_url)
+        raise EmptyFeedError(msg="Tumblr returned no data in the feed", url=feed_url)
     else:
         #pass
-        Import(mezzanine_user=mezzanine_user, posts_list=posts_list, 
+        importer(mezzanine_user=mezzanine_user, posts_list=posts_list, 
                 date_format = "%c")
                 
     
-def Import(mezzanine_user='', posts_list=[], date_format=None):
+def importer(mezzanine_user="", posts_list=[], date_format=None):
     """
     Does the actual import process into Mezzanine
     
@@ -245,7 +236,7 @@ def Import(mezzanine_user='', posts_list=[], date_format=None):
         date_format: the format the dates are in in the Posts and Commments
     """
 
-    from mezzanine.core.models.displayable import CONTENT_STATUS_PUBLISHED
+    from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 
     site = Site.objects.get_current()
     
@@ -254,11 +245,11 @@ def Import(mezzanine_user='', posts_list=[], date_format=None):
         try:
             mezzanine_user = User.objects.get(username=mezzanine_user)
         except User.DoesNotExist: 
-            print 'User not valid'
+            print "User not valid"
             return
     
     for entry in posts_list:
-        print 'Imported %s' % entry.title
+        print "Imported %s" % entry.title
         post, created = BlogPost.objects.get_or_create(
             user=mezzanine_user, title=entry.title,
             content=entry.content, 

@@ -1,13 +1,13 @@
+from datetime import datetime
+
 from gdata import service
 import gdata
 import atom
 
-
-from datetime import datetime
 from importer import BlogPostImport, BlogCommentImport
 from importer import FeedURLError
 
-def GetBloggerPosts(blog_id = '', server = 'www.blogger.com'):
+def get_blogger_posts(blog_id="", server="www.blogger.com"):
     """
     Gets posts from blogger and then formats them back into the standard
     style ready for importation into Mezzanine. Returns a list of BlogPostImport
@@ -15,10 +15,10 @@ def GetBloggerPosts(blog_id = '', server = 'www.blogger.com'):
     """
     
     blogger = service.GDataService()
-    blogger.service = 'blogger'
+    blogger.service = "blogger"
     blogger.server = server
     query = service.Query()
-    query.feed = '/feeds/' + blog_id + '/posts/full'
+    query.feed = "/feeds/" + blog_id + "/posts/full"
     query.max_results = 5
 	
     try:
@@ -31,7 +31,7 @@ def GetBloggerPosts(blog_id = '', server = 'www.blogger.com'):
         
     total_posts = len(feed.entry)
 	
-    print 'Importing %s POSTS from blogger atom feed at %s' % (total_posts, query.feed)
+    print "Importing %s POSTS from blogger atom feed at %s" % (total_posts, query.feed)
 
 
     i = 0 #counter for number of posts processed
@@ -44,9 +44,9 @@ def GetBloggerPosts(blog_id = '', server = 'www.blogger.com'):
         
         # this basically gets the unique post id from the URL to itself. Pulls
         # the id off the end.
-        post_id = entry.GetSelfLink().href.split('/')[-1]
+        post_id = entry.GetSelfLink().href.split("/")[-1]
 
-        print 'Processing post: %s/%s \n %s' % (i, total_posts, entry.title.text)
+        print "Processing post: %s/%s \n %s" % (i, total_posts, entry.title.text)
         
         title = entry.title.text
         content = entry.content.text
@@ -56,7 +56,7 @@ def GetBloggerPosts(blog_id = '', server = 'www.blogger.com'):
         # get the tags
         tags = []
         for tag in entry.category:
-            #print 'tag: %s' % tag.term
+            #print "tag: %s" % tag.term
             tags.append(tag.term)
         
         #TODO - issues with content not generating correct <P> tags
@@ -64,10 +64,10 @@ def GetBloggerPosts(blog_id = '', server = 'www.blogger.com'):
         
         
         # get the comments from the post feed and then add them to the post details
-        comment_url = '/feeds/' + blog_id + '/' + post_id + '/comments/full?max-results=1000'
+        comment_url = "/feeds/" + blog_id + "/" + post_id + "/comments/full?max-results=1000"
         comments = blogger.Get(comment_url)
         
-        print 'Comments %s' % len(comments.entry)
+        print "Comments %s" % len(comments.entry)
         
         comments_list = []   
         for comment in comments.entry:
@@ -75,7 +75,7 @@ def GetBloggerPosts(blog_id = '', server = 'www.blogger.com'):
             author_name = comment.author[0].name.text
             #this strips off the time zone info off the end as we want UTC
             comment_date = comment.published.text[:-6]
-            website = ''
+            website = ""
             if comment.author[0].uri:
                 website = comment.author[0].uri.text
             body = comment.content.text
