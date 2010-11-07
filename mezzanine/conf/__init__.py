@@ -1,6 +1,4 @@
 
-import sys
-
 from django.conf import settings
 from django.db import DatabaseError
 
@@ -28,44 +26,56 @@ def editable_settings(names=None):
     return [k for (k, v) in registry.items() if v["editable"] and k in names]
 
 
-def load_settings(*names):
+class Settings(object):
     """
-    Returns a settings object using the given settings names as attributes. 
-    Values are loaded when the first name is accessed. Settings are loaded
-    from the DB for settings marked as editable, and from 
-    ``mezzanine.conf.registry`` for those not retrieved from the DB.
+    An object that provides settings via dynamic attribute access. Settings 
+    that are registered as editable and can therefore be stored in the 
+    database are *all* loaded once only, the first time *any* editable 
+    setting is accessed. When accessing uneditable settings their default 
+    values are used. The Settings object also provides access to Django 
+    settings via django.conf.settings in order to provide a consistent 
+    method of access for all settings.
     """
 
-    class Settings(object):
-        
-        def __init__(self):
-            self._loaded = False
+    def __init__(self):
+        self.use_editable()
     
-        def __getattr__(self, name):
-            if self._loaded:
-                raise AttributeError("Setting does not exist: %s" % name)
-            self._loaded = True
-            editable = editable_settings(names)
-            if editable:
-                try:
-                    for setting in Setting.objects.filter(name__in=editable):
-                        setting_type = registry[setting.name]["type"]
-                        if setting_type is bool:
-                            setting_value = setting.value != "False"
-                        else:
-                            setting_value = setting_type(setting.value)
-                        setattr(self, setting.name, setting_value)
-                except DatabaseError:
-                    # Allows for syncdb and other commands related to DB 
-                    # management to get up and running without the settings 
-                    # table existing.
-                    pass
-            for n in names:
-                if n not in self.__dict__ and n in registry.keys():
-                    setattr(self, n, registry[n]["default"])
-            return getattr(self, name)
+    def use_editable(self):
+        """
+        Set the loaded flag to False if editable settings are enabled so that 
+        settings will be loaded from the DB on next access.
+        """
+        self._loaded = not registry["SETTINGS_EDITABLE"]["default"]
 
-    return Settings()
+    def __getattr__(self, name):
+        try:
+            setting = registry[name]
+        except KeyError:
+            # Try django.conf.settings if requested name isn't registered.
+            from django.conf import settings
+            try:
+                setting = getattr(settings, name)
+            except AttributeError:
+                raise AttributeError("Setting does not exist: %s" % name)
+            return setting
+        if self._loaded or not setting["editable"]:
+            return setting["default"]
+        # First time an editable setting is requested - load from DB.
+        try:
+            for setting in Setting.objects.all():
+                setting_type = registry[setting.name]["type"]
+                if setting_type is bool:
+                    setting_value = setting.value != "False"
+                else:
+                    setting_value = setting_type(setting.value)
+                setattr(self, setting.name, setting_value)
+            self._loaded = True
+            return getattr(self, name)
+        except DatabaseError:
+            # Allows for syncdb and other commands related to DB 
+            # management to get up and running without the settings 
+            # table existing.
+            return setting["default"]
 
 
 for app in settings.INSTALLED_APPS:
@@ -73,3 +83,5 @@ for app in settings.INSTALLED_APPS:
         __import__("%s.defaults" % app)
     except ImportError:
         pass
+        
+settings = Settings()

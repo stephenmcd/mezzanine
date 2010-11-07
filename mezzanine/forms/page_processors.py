@@ -1,9 +1,9 @@
 
 
-from django.conf import settings
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 
+from mezzanine.conf import settings
 from mezzanine.forms.forms import FormForForm
 from mezzanine.forms.models import Form
 from mezzanine.pages.page_processors import processor_for

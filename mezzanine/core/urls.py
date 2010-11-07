@@ -1,17 +1,13 @@
 
 from urlparse import urlsplit
 
-from django.conf import settings
 from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.views.generic.simple import direct_to_template
 
-from mezzanine.conf import load_settings
+from mezzanine.conf import settings
 
-
-mezz_settings = load_settings("ADMIN_REMOVAL", "CONTENT_MEDIA_PATH", 
-                                                "CONTENT_MEDIA_URL")
 
 urlpatterns = patterns("mezzanine.core.views",
     url("^admin_keywords_submit/$", "admin_keywords_submit",
@@ -21,14 +17,14 @@ urlpatterns = patterns("mezzanine.core.views",
 )
 
 urlpatterns += patterns("",
-    ("^%s/(?P<path>.*)$" % mezz_settings.CONTENT_MEDIA_URL.strip("/"),
+    ("^%s/(?P<path>.*)$" % settings.CONTENT_MEDIA_URL.strip("/"),
         "django.views.static.serve", 
-        {"document_root": mezz_settings.CONTENT_MEDIA_PATH}),
+        {"document_root": settings.CONTENT_MEDIA_PATH}),
 )
 
 # Remove unwanted models from the admin that are installed by default with
 # third-party apps.
-for model in mezz_settings.ADMIN_REMOVAL:
+for model in settings.ADMIN_REMOVAL:
     try:
         model = tuple(model.rsplit(".", 1))
         exec "from %s import %s" % model

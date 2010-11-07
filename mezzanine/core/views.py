@@ -6,10 +6,10 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Keyword, Displayable
 from mezzanine.utils import is_editable, paginate
-from mezzanine.conf import load_settings
 
 
 def admin_keywords_submit(request):
@@ -31,11 +31,11 @@ def search(request, template="search_results.html"):
     """
     Display search results.
     """
-    mezz_settings = load_settings("SEARCH_PER_PAGE", "SEARCH_MAX_PAGING_LINKS")
+    settings.use_editable()
     query = request.GET.get("q", "")
     results = Displayable.objects.search(query)
     results = paginate(results, request.GET.get("page", 1), 
-        mezz_settings.SEARCH_PER_PAGE, mezz_settings.SEARCH_MAX_PAGING_LINKS)
+        settings.SEARCH_PER_PAGE, settings.SEARCH_MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
     return render_to_response(template, context, RequestContext(request))
 

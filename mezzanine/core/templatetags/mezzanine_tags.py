@@ -2,7 +2,6 @@
 import os
 from urllib import urlopen, urlencode
 
-from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.urlresolvers import reverse, NoReverseMatch
@@ -14,12 +13,10 @@ from django.utils.simplejson import loads
 from django.utils.text import capfirst
 
 from mezzanine import template
+from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
-from mezzanine.conf import load_settings as _load_settings
 from mezzanine.utils import admin_url, decode_html_entities, is_editable
 
-
-mezz_settings = _load_settings("ADMIN_MENU_ORDER", "DASHBOARD_TAGS")
 
 register = template.Library()
 
@@ -32,9 +29,8 @@ def load_settings(context, token):
     names = token.split_contents()[1:]
     for name in names:
         if name not in context:
-            mezz_settings = _load_settings(*names)
             for name in names:
-                context[name] = getattr(mezz_settings, name)
+                context[name] = getattr(settings, name)
             break
     return ""
 
@@ -49,10 +45,10 @@ def set_short_url_for(context, token):
     request = context["request"]
     if getattr(obj, "short_url") is None:
         obj.short_url = request.build_absolute_uri(request.path)
-        mezz_settings = _load_settings("BLOG_BITLY_USER", "BLOG_BITLY_KEY")
+        settings.use_editable()
         args = {
-            "login": mezz_settings.BLOG_BITLY_USER,
-            "apiKey": mezz_settings.BLOG_BITLY_KEY,
+            "login": settings.BLOG_BITLY_USER,
+            "apiKey": settings.BLOG_BITLY_KEY,
             "longUrl": obj.short_url,
         }
         if args["login"] and args["apiKey"]:
@@ -202,7 +198,7 @@ def admin_app_list(request):
     dashboard widget.
     """
     app_dict = {}
-    menu_order = [(x[0], list(x[1])) for x in mezz_settings.ADMIN_MENU_ORDER]
+    menu_order = [(x[0], list(x[1])) for x in settings.ADMIN_MENU_ORDER]
     found_items = set()
     for (model, model_admin) in admin.site._registry.items():
         opts = model._meta
@@ -240,7 +236,7 @@ def admin_app_list(request):
                 else:
                     try:
                         titles = [x[0] for x in 
-                            mezz_settings.ADMIN_MENU_ORDER]
+                            settings.ADMIN_MENU_ORDER]
                         index = titles.index(app_title)
                     except ValueError:
                         index = None
@@ -310,7 +306,7 @@ def dashboard_column(context, token):
     """
     column_index = int(token.split_contents()[1])
     output = []
-    for tag in mezz_settings.DASHBOARD_TAGS[column_index]:
+    for tag in settings.DASHBOARD_TAGS[column_index]:
         t = Template("{%% load %s %%}{%% %s %%}" % tuple(tag.split(".")))
         output.append(t.render(Context(context)))
     return "".join(output)

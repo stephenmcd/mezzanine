@@ -2,12 +2,12 @@
 from uuid import uuid4
 
 from django import forms
-from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.utils import content_media_urls
+from mezzanine.conf import settings
 from mezzanine.core.models import Orderable
+from mezzanine.utils import content_media_urls
 
 
 class OrderWidget(forms.HiddenInput):

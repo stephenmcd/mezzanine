@@ -14,16 +14,15 @@ from django.template import RequestContext
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.core.admin import DynamicInlineAdmin
 from mezzanine.forms.forms import ExportForm
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.pages.admin import PageAdmin
-from mezzanine.conf import load_settings
 from mezzanine.utils import admin_url
 
 
-mezz_settings = load_settings("FORMS_UPLOAD_ROOT")
-fs = FileSystemStorage(location=mezz_settings.FORMS_UPLOAD_ROOT)
+fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)
 
 # Copy the fieldsets for PageAdmin and add the extra fields for FormAdmin.
 form_fieldsets = deepcopy(PageAdmin.fieldsets)

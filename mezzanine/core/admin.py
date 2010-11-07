@@ -1,17 +1,14 @@
 
-from django.conf import settings
 from django.contrib import admin
 from django.db.models import AutoField
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import Orderable
-from mezzanine.conf import load_settings
 from mezzanine.utils import content_media_urls, admin_url
 
-
-mezz_settings = load_settings("TINYMCE_URL")
 
 # Build the list of admin JS file for ``Displayable`` models.
 # For >= Django 1.2 include a backport of the collapse js which targets
@@ -23,7 +20,7 @@ if not (VERSION[0] <= 1 and VERSION[1] <= 1):
     displayable_js.append("js/collapse_backport.js")
 displayable_js = content_media_urls(*displayable_js)
 displayable_js.insert(0, "%s/jscripts/tiny_mce/tiny_mce.js" % 
-                                                    mezz_settings.TINYMCE_URL)
+                                                    settings.TINYMCE_URL)
 
 
 class DisplayableAdmin(admin.ModelAdmin):

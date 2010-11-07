@@ -1,7 +1,7 @@
 
 from django import forms
 
-from mezzanine.conf import editable_settings, load_settings, registry
+from mezzanine.conf import editable_settings, settings, registry
 from mezzanine.conf.models import Setting
 
 
@@ -18,21 +18,20 @@ class SettingsForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(SettingsForm, self).__init__(*args, **kwargs)
-        # Load the editable settings.
-        editable = editable_settings()
-        mezz_settings = load_settings(*editable)
-        for name in sorted(editable):
+        settings.use_editable()
+        # Create a form field for each editable setting's from its type.
+        for name in sorted(registry.keys()):
             setting = registry[name]
-            value = getattr(mezz_settings, name)
-            # Create the form field based on the type of the setting.
-            field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
-            self.fields[name] = field_class(label=name, initial=value,
-                            help_text=setting["description"], required=False)
+            if setting["editable"]:
+                field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
+                self.fields[name] = field_class(label=name, required=False,
+                                            initial=getattr(settings, name), 
+                                            help_text=setting["description"])
     
     def save(self):
         # Save each of the settings to the DB.
-        for (field, value) in self.cleaned_data.items():
-            setting_obj, created = Setting.objects.get_or_create(name=field)
+        for (name, value) in self.cleaned_data.items():
+            setting_obj, created = Setting.objects.get_or_create(name=name)
             setting_obj.value = value
             setting_obj.save()
 
@@ -41,8 +40,7 @@ class SettingsForm(forms.Form):
         Add a HTML tag to the help text so we can style it.
         """
         return self._html_output(
-            normal_row = u"<p>%(label)s %(field)s%(help_text)s</p>",
-            error_row = u"%s",
-            row_ender = "</p>",
-            help_text_html = u" <span class=\"help\">%s</span>",
-            errors_on_separate_row = True)
+            normal_row=u"<p>%(label)s %(field)s%(help_text)s</p>",
+            error_row=u"%s", row_ender="</p>",
+            help_text_html=u" <span class=\"help\">%s</span>",
+            errors_on_separate_row=True)
