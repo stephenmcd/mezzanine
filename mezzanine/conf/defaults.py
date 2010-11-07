@@ -14,7 +14,7 @@ register_setting(
     default=(
         (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",
             (_("Media Library"), "fb_browse"),)),
-        (_("Site"), ("sites.Site", "redirects.Redirect", "settings.Setting")),
+        (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting")),
         (_("Users"), ("auth.User", "auth.Group",)),
     ),
 )
