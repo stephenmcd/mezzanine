@@ -2,7 +2,7 @@ from datetime import datetime
 from time import strftime, strptime
 from xml.dom.minidom import parse, parseString
 
-import feedparser
+
 
 from importer import BlogPostImport, BlogCommentImport
 
@@ -25,6 +25,12 @@ def get_wp_posts(url=""):
     objects
     """
 
+    try:
+        import feedparser
+    except ImportError:
+        raise CommndError("You need to downlod feedparser - try easy_install feedparser")
+
+
     feed = feedparser.parse(url)
 
     # we use the minidom parser as well because feedparser won't interpret
@@ -39,11 +45,11 @@ def get_wp_posts(url=""):
     print "Importing %s POSTS from Wordpress RSS2.0 feed at %s" % (total_posts, url)
 
 
-    i = 0 #counter for number of posts processed
+    #i = 0 #counter for number of posts processed
     
     post_list = []
     
-    for entry in feed["entries"]:
+    for (i, entry) in enumerate(feed["entries"]):
 
         print "Processing post: %s/%s \n%s" % (i+1, total_posts, entry.title)
         
@@ -65,16 +71,12 @@ def get_wp_posts(url=""):
         published_date = strftime("%c", pd)
         
         
-        # get the tags
-        tags = []
-        for tag in entry.tags:
-            if tag.scheme != "category":
-                tags.append(tag.term)
-             
+     
+        tags = [tag.term for tag in entry.tags if tag.scheme !="category"]
         #tags have a tendency to not be unique in WP for some reason so
         # set the list so we have unique
         tags = list(set(tags))
-        
+
 
         comments_list = []
 
