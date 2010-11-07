@@ -56,7 +56,7 @@ class Command(BaseCommand):
         
         elif (blogtype=="blogger"):
             if options["bloggerid"]:
-                import_blogger(mezzaning_user=mezzuser, blog_id=options["bloggerid"])
+                import_blogger(mezzanine_user=mezzuser, blog_id=options["bloggerid"])
             else:
                 raise CommandError("Please supply a blogger post id")
             
