@@ -55,13 +55,9 @@ def get_blogger_posts(blog_id="", server="www.blogger.com"):
         published_date = entry.published.text[:-6]
         
         # get the tags
-        tags = []
-        for tag in entry.category:
-            #print "tag: %s" % tag.term
-            tags.append(tag.term)
+        tags = [tag.term for tag in entry.category]
         
         #TODO - issues with content not generating correct <P> tags
-        
         
         
         # get the comments from the post feed and then add them to the post details
