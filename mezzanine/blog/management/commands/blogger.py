@@ -1,11 +1,9 @@
 from datetime import datetime
 
-from gdata import service
-import gdata
-import atom
-
 from importer import BlogPostImport, BlogCommentImport
 from importer import FeedURLError
+
+gdata_url = "http://code.google.com/p/gdata-python-client/"
 
 def get_blogger_posts(blog_id="", server="www.blogger.com"):
     """
@@ -13,6 +11,13 @@ def get_blogger_posts(blog_id="", server="www.blogger.com"):
     style ready for importation into Mezzanine. Returns a list of BlogPostImport
     objects
     """
+
+    try:
+        from gdata import service
+        import gdata
+        import atom
+    except ImportError:
+        raise CommandError("You need to download the gdata python client module from %s to import blogger" % gdata_url)
     
     blogger = service.GDataService()
     blogger.service = "blogger"
