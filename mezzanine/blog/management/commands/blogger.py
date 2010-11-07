@@ -19,7 +19,7 @@ def get_blogger_posts(blog_id="", server="www.blogger.com"):
     blogger.server = server
     query = service.Query()
     query.feed = "/feeds/" + blog_id + "/posts/full"
-    query.max_results = 5
+    query.max_results = 500
 	
     try:
         feed = blogger.Get(query.ToUri())
@@ -32,15 +32,11 @@ def get_blogger_posts(blog_id="", server="www.blogger.com"):
     total_posts = len(feed.entry)
 	
     print "Importing %s POSTS from blogger atom feed at %s" % (total_posts, query.feed)
-
-
-    i = 0 #counter for number of posts processed
     
     post_list = []
     
-    for entry in feed.entry:
+    for (i, entry) in enumerate(feed.entry):
 
-        i = i + 1
         
         # this basically gets the unique post id from the URL to itself. Pulls
         # the id off the end.
