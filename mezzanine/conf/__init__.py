@@ -17,15 +17,6 @@ def register_setting(name="", editable=False, description="", default=None):
         editable, "default": default, "type": type(default)}
 
 
-def editable_settings(names=None):
-    """
-    Returns the names of editable settings.
-    """
-    if names is None:
-        names = registry.keys()
-    return [k for (k, v) in registry.items() if v["editable"] and k in names]
-
-
 class Settings(object):
     """
     An object that provides settings via dynamic attribute access. Settings 

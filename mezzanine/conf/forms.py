@@ -1,7 +1,7 @@
 
 from django import forms
 
-from mezzanine.conf import editable_settings, settings, registry
+from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
 
 
