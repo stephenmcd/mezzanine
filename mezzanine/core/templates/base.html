@@ -57,10 +57,9 @@
 
 {% editable_loader %}
 
-{% load_settings GOOGLE_ANALYTICS_ID %}
-{% if GOOGLE_ANALYTICS_ID %}
+{% if settings.GOOGLE_ANALYTICS_ID %}
 <script> 
-var _gaq = [['_setAccount', '{{ GOOGLE_ANALYTICS_ID }}'], ['_trackPageview']];
+var _gaq = [['_setAccount', '{{ settings.GOOGLE_ANALYTICS_ID }}'], ['_trackPageview']];
 (function(d, t) {
 var g = d.createElement(t),
     s = d.getElementsByTagName(t)[0];

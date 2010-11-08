@@ -12,27 +12,13 @@ from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
 
-from mezzanine import template
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.utils import admin_url, decode_html_entities, is_editable
+from mezzanine import template
 
 
 register = template.Library()
-
-
-@register.render_tag
-def load_settings(context, token):
-    """
-    Push the given setting names into the context.
-    """
-    names = token.split_contents()[1:]
-    for name in names:
-        if name not in context:
-            for name in names:
-                context[name] = getattr(settings, name)
-            break
-    return ""
 
 
 @register.render_tag
@@ -43,6 +29,7 @@ def set_short_url_for(context, token):
     """
     obj = context[token.split_contents()[1]]
     request = context["request"]
+    settings = context["settings"]
     if getattr(obj, "short_url") is None:
         obj.short_url = request.build_absolute_uri(request.path)
         settings.use_editable()

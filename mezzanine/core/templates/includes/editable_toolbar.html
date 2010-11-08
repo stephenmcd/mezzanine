@@ -1,5 +1,4 @@
-{% load mezzanine_tags i18n %}
-{% load_settings CONTENT_MEDIA_URL %}
+{% load i18n %}
 
 <form id="editable-toolbar" method="POST" 
     action="{% url admin:logout %}?{{ REDIRECT_FIELD_NAME }}={{ request.path }}">
@@ -13,5 +12,6 @@
     <a id="editable-toolbar-logout" href="#">{% trans "Log out" %}</a>
 </form>
 
-<img id="editable-loading" src="{{ CONTENT_MEDIA_URL }}img/loadingAnimation.gif" />
+<img id="editable-loading" 
+    src="{{ settings.CONTENT_MEDIA_URL }}img/loadingAnimation.gif" />
 

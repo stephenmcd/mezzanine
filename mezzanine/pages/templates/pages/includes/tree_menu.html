@@ -1,6 +1,4 @@
-{% load i18n mezzanine_tags pages_tags %}
-
-{% load_settings PAGES_MENU_SHOW_ALL %}
+{% load i18n pages_tags %}
 
 {% spaceless %}
 {% url home as home_url %}
@@ -21,7 +19,7 @@
         id="tree-menu-{{ page.html_id }}">
 		<a href="{% url page page.slug %}">{{ page.title }}</a>
 		{# remove this if tag to always show all nav items #}
-		{% if PAGES_MENU_SHOW_ALL or page.selected %}
+		{% if settings.PAGES_MENU_SHOW_ALL or page.selected %}
 		{% tree_menu page %}
 		{% endif %}
 	</li>

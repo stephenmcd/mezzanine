@@ -41,11 +41,11 @@ INSTALLED_APPS = (
     "django.contrib.redirects",
     "django.contrib.sessions",
     "django.contrib.sites",
+    "mezzanine.conf",
     "mezzanine.core",
     "mezzanine.blog",
     "mezzanine.forms",
     "mezzanine.pages",
-    "mezzanine.conf",
     "mezzanine.twitter",
 )
 
@@ -55,6 +55,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.request",
+    "mezzanine.conf.context_processors.settings",
 )
 
 MIDDLEWARE_CLASSES = (

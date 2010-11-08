@@ -8,11 +8,11 @@ from django.contrib.auth.models import User
 from django.db.models import Count
 from django.utils.simplejson import loads
 
-from mezzanine import template
 from mezzanine.conf import settings
 from mezzanine.blog.forms import BlogPostForm
 from mezzanine.blog.models import BlogPost, BlogCategory, Comment
 from mezzanine.core.models import Keyword
+from mezzanine import template
 
 
 register = template.Library()
@@ -131,7 +131,7 @@ def recent_comments(context):
     """
 
     global DISQUS_FORUM_ID
-    settings.use_editable()
+    settings = context["settings"]
     disqus_key = settings.COMMENTS_DISQUS_KEY
     disqus_shortname = settings.COMMENTS_DISQUS_SHORTNAME
     latest = settings.COMMENTS_NUM_LATEST
