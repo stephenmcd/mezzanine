@@ -176,13 +176,6 @@ register_setting(
 )
 
 register_setting(
-    name="SETTINGS_EDITABLE", 
-    description=_("If False, disables all features for editable setting."),
-    editable=False, 
-    default=True,
-)
-
-register_setting(
     name="TAG_CLOUD_SIZES", 
     description=_("Number of different sizes for tags when shown as a cloud."),
     editable=True, 

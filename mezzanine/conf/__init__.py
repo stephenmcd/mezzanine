@@ -33,10 +33,12 @@ class Settings(object):
     
     def use_editable(self):
         """
-        Set the loaded flag to False if editable settings are enabled so that 
-        settings will be loaded from the DB on next access.
+        Empty the editable settings cache and set the loaded flag to False 
+        so that settings will be loaded from the DB on next access. If the 
+        conf app is not installed then set the loaded flag to True in order 
+        to bypass DB lookup entirely.
         """
-        self._loaded = not registry["SETTINGS_EDITABLE"]["default"]
+        self._loaded = "mezzanine.conf" not in getattr(self, "INSTALLED_APPS")
         self._editable_cache = {}
 
     def __getattr__(self, name):
@@ -75,7 +77,7 @@ class Settings(object):
         return setting["default"]
 
 
-for app in settings.INSTALLED_APPS:
+for app in ("mezzanine.conf",) + tuple(settings.INSTALLED_APPS):
     try:
         __import__("%s.defaults" % app)
     except ImportError:

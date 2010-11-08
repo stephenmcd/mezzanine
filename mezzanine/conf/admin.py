@@ -39,5 +39,4 @@ class SettingsAdmin(admin.ModelAdmin):
         return super(SettingsAdmin, self).changelist_view(request, extra_context)
 
 
-if settings.SETTINGS_EDITABLE:
-    admin.site.register(Setting, SettingsAdmin)
+admin.site.register(Setting, SettingsAdmin)
