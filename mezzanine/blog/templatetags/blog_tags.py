@@ -60,8 +60,8 @@ def blog_months(*args):
     """
     Put a list of dates for blog posts into the template context.
     """
-    return BlogPost.objects.published().dates("publish_date", "month",
-        order="DESC")
+    return list(BlogPost.objects.published().dates("publish_date", "month",
+                                                   order="DESC"))
 
 
 @register.as_tag
@@ -70,7 +70,7 @@ def blog_categories(*args):
     Put a list of categories for blog posts into the template context.
     """
     posts = BlogPost.objects.published()
-    return BlogCategory.objects.filter(blogposts__in=posts)
+    return list(BlogCategory.objects.filter(blogposts__in=posts))
 
 
 @register.as_tag
@@ -104,7 +104,7 @@ def blog_authors(*args):
     Put a list of authors (users) for blog posts into the template context.
     """
     blog_posts = BlogPost.objects.published()
-    return User.objects.filter(blogposts__in=blog_posts).distinct()
+    return list(User.objects.filter(blogposts__in=blog_posts).distinct())
 
 
 @register.inclusion_tag("admin/includes/quick_blog.html", takes_context=True)
