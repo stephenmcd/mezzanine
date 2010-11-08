@@ -1,5 +1,8 @@
 
+from collections import defaultdict
+
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
@@ -24,9 +27,26 @@ class SettingsForm(forms.Form):
             setting = registry[name]
             if setting["editable"]:
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
-                self.fields[name] = field_class(label=name, required=False,
+                self.fields[name] = field_class(label=name+":", required=False,
                                             initial=getattr(settings, name), 
                                             help_text=setting["description"])
+
+    def __iter__(self):
+        """
+        Calculate and apply a group heading to each field and order by the 
+        heading.
+        """
+        fields = list(super(SettingsForm, self).__iter__())
+        group = lambda field: field.name.split("_", 1)[0].title()
+        misc = _("Miscellaneous")
+        groups = defaultdict(int)
+        for field in fields:
+            groups[group(field)] += 1
+        for (i, field) in enumerate(fields):
+            setattr(fields[i], "group", group(field))
+            if groups[fields[i].group] == 1:
+                fields[i].group = misc
+        return iter(sorted(fields, cmp=lambda x, y: cmp(x.group, y.group)))
     
     def save(self):
         # Save each of the settings to the DB.
@@ -34,13 +54,3 @@ class SettingsForm(forms.Form):
             setting_obj, created = Setting.objects.get_or_create(name=name)
             setting_obj.value = value
             setting_obj.save()
-
-    def as_p(self):
-        """
-        Add a HTML tag to the help text so we can style it.
-        """
-        return self._html_output(
-            normal_row=u"<p>%(label)s %(field)s%(help_text)s</p>",
-            error_row=u"%s", row_ender="</p>",
-            help_text_html=u" <span class=\"help\">%s</span>",
-            errors_on_separate_row=True)
