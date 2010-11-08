@@ -46,36 +46,42 @@ class Settings(object):
         settings will be loaded from the DB on next access.
         """
         self._loaded = not registry["SETTINGS_EDITABLE"]["default"]
+        self._editable_cache = {}
 
     def __getattr__(self, name):
+
+        # Lookup name as a registered setting or a Django setting.
         try:
             setting = registry[name]
         except KeyError:
-            # Try django.conf.settings if requested name isn't registered.
             from django.conf import settings
+            return getattr(settings, name)
+
+        # First access for an editable setting - load from DB into cache.
+        if setting["editable"] and not self._loaded:
             try:
-                setting = getattr(settings, name)
-            except AttributeError:
-                raise AttributeError("Setting does not exist: %s" % name)
-            return setting
-        if self._loaded or not setting["editable"]:
-            return setting["default"]
-        # First time an editable setting is requested - load from DB.
+                for setting_obj in Setting.objects.all():
+                    setting_type = registry[setting_obj.name]["type"]
+                    if setting_type is bool:
+                        setting_value = setting_obj.value != "False"
+                    else:
+                        setting_value = setting_type(setting_obj.value)
+                    self._editable_cache[setting_obj.name] = setting_value
+                self._loaded = True
+            except DatabaseError:
+                # Allows for syncdb and other commands related to DB 
+                # management to get up and running without the settings 
+                # table existing.
+                pass
+
+        # Use cached editable setting if found, otherwise use default.
         try:
-            for setting in Setting.objects.all():
-                setting_type = registry[setting.name]["type"]
-                if setting_type is bool:
-                    setting_value = setting.value != "False"
-                else:
-                    setting_value = setting_type(setting.value)
-                setattr(self, setting.name, setting_value)
-            self._loaded = True
-            return getattr(self, name)
-        except DatabaseError:
-            # Allows for syncdb and other commands related to DB 
-            # management to get up and running without the settings 
-            # table existing.
-            return setting["default"]
+            setting_value = self._editable_cache[name]
+        except KeyError:
+            pass
+        else:
+            return setting_value
+        return setting["default"]
 
 
 for app in settings.INSTALLED_APPS:
