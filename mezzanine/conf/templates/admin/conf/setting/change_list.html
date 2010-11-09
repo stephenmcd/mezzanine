@@ -1,0 +1,40 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+
+{% block extrahead %}{{ block.super }}
+<style type="text/css">
+    .module {margin:10px 0 20px 0; border-bottom:#fff; width:550px;}
+    #content-main p {padding:5px 10px; margin:0; 
+        border-top:1px solid #fff; border-bottom:1px solid #ddd;}
+    #content-main label {width:230px; float:left;}
+    #content-main p input {float:left; margin:2px 10px 5px 0; 
+        width:auto !important;}
+    .help {display:block; clear:left; padding-top:5px; 
+        margin-left:230px;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <form method="post">
+    {% csrf_token %}
+    {% for field in settings_form %}
+        {% ifchanged field.group %}
+            {% if not forloop.first %}
+            </div>
+            {% endif %}
+            <div class="module">
+            <h2>{{ field.group }}</h2>
+        {% endifchanged %}
+        <p>
+            {{ field.label_tag }}{{ field }}{{ field.errors }}
+            <span class="help">{{ field.help_text }}</span>
+        </p>
+        {% if forloop.last %}
+            </div>
+        {% endif %}
+    {% endfor %}
+    <input class="button" type="submit" value="{% trans "Save" %}" />
+    </form>
+</div>
+{% endblock %}

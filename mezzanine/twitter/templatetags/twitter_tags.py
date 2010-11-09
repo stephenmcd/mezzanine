@@ -5,8 +5,8 @@ import math
 
 from django.utils.translation import ugettext, ungettext
 
-from mezzanine import template
 from mezzanine.twitter.models import Tweet
+from mezzanine import template
 
 
 register = template.Library()

@@ -21,12 +21,12 @@ os.environ["DJANGO_SETTINGS_MODULE"] = "mezzanine.project_template.settings"
 import mezzanine
 
 # Generate the documentation for mezzanine.settings
-from mezzanine.settings import registry
+from mezzanine.conf import registry
 
 settings_docs = [".. THIS DOCUMENT IS AUTO GENERATED VIA conf.py"]
 for name in sorted(registry.keys()):
     setting = registry[name]
-    settings_name = "``MEZZANINE_%s``" % name
+    settings_name = "``%s``" % name
     setting_default = setting["default"]
     if isinstance(setting_default, basestring) and \
         setting_default.startswith("/") and \
@@ -35,8 +35,8 @@ for name in sorted(registry.keys()):
     else:
         setting_default = repr(setting_default)
     settings_docs.extend(["", settings_name, "-" * len(settings_name)])
-    settings_docs.extend(["", "Default: ``%s``" % setting_default])
     settings_docs.extend(["", setting["description"]])
+    settings_docs.extend(["", "Default: ``%s``" % setting_default])
 with open(os.path.join(docs_path, "settings.rst"), "w") as f:
     f.write("\n".join(settings_docs))
     

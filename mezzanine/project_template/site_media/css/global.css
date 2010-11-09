@@ -157,7 +157,7 @@ td, th {
     border-top:1px solid #ccc;
 }
 .paging li {
-    padding:0 5px;
+    padding:0 5px; margin:0 !important;
 }
 .paging * {
     display:inline;

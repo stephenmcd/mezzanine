@@ -4,9 +4,9 @@ from collections import defaultdict
 from django.core.urlresolvers import reverse
 from django.db.models import get_model, get_models
 
-from mezzanine import template
 from mezzanine.pages.models import Page
 from mezzanine.utils import admin_url
+from mezzanine import template
 
 
 register = template.Library()

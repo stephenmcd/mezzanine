@@ -10,19 +10,18 @@ from django.template.loader import select_template
 
 from mezzanine.blog.forms import CommentForm
 from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.conf import settings
 from mezzanine.core.models import Keyword
 from mezzanine.pages.models import ContentPage
 from mezzanine.utils import paginate
-from mezzanine.settings import load_settings
 
 
 def blog_page():
     """
     Return the Blog page from the pages app.
     """
-    mezz_settings = load_settings("BLOG_SLUG")
     try:
-        return ContentPage.objects.get(slug=mezz_settings.BLOG_SLUG)
+        return ContentPage.objects.get(slug=settings.BLOG_SLUG)
     except ContentPage.DoesNotExist:
         return None
 
@@ -31,8 +30,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     """
     Display a list of blog posts.
     """
-    mezz_settings = load_settings("BLOG_POST_PER_PAGE", 
-                    "BLOG_POST_MAX_PAGING_LINKS", "COMMENTS_DISQUS_SHORTNAME")
+    settings.use_editable()
     blog_posts = BlogPost.objects.published(for_user=request.user)
     if tag is not None:
         tag = get_object_or_404(Keyword, slug=tag)
@@ -50,11 +48,11 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         user = get_object_or_404(User, username=username)
         blog_posts = blog_posts.filter(user=user)
     blog_posts = paginate(blog_posts, request.GET.get("page", 1),
-        mezz_settings.BLOG_POST_PER_PAGE,
-        mezz_settings.BLOG_POST_MAX_PAGING_LINKS)
+        settings.BLOG_POST_PER_PAGE,
+        settings.BLOG_POST_MAX_PAGING_LINKS)
     context = {"blog_posts": blog_posts, "year": year, "month": month, 
         "tag": tag, "category": category, "user": user, 
-        "use_disqus": bool(mezz_settings.COMMENTS_DISQUS_SHORTNAME), 
+        "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME), 
         "blog_page": blog_page()}
     return render_to_response(template, context, RequestContext(request))
 
@@ -92,9 +90,9 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
             response.set_cookie(commenter_cookie_prefix + field,
                 request.POST.get(field, ""), expires=expires)
         return response
-    mezz_settings = load_settings("COMMENTS_DISQUS_SHORTNAME")
+    settings.use_editable()
     context = {"blog_post": blog_post, "blog_page": blog_page(), 
-        "use_disqus": bool(mezz_settings.COMMENTS_DISQUS_SHORTNAME), 
+        "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME), 
         "posted_comment_form": posted_comment_form, 
         "unposted_comment_form": unposted_comment_form}
     t = select_template(["blog/%s.html" % slug, template])

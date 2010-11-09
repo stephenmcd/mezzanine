@@ -7,12 +7,11 @@
 {% block nav-global %}{% endblock %}
 
 {% block extrahead %}
-{% load_settings CONTENT_MEDIA_URL %}
 <script type="text/javascript">
 
 if (typeof $ == 'undefined') {
     document.write('<scr' + 
-        'ipt src="{{ CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></scr' + 
+        'ipt src="{{ settings.CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></scr' + 
         'ipt>');
 }
 

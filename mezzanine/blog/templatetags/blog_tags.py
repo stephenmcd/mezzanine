@@ -8,11 +8,11 @@ from django.contrib.auth.models import User
 from django.db.models import Count
 from django.utils.simplejson import loads
 
-from mezzanine import template
+from mezzanine.conf import settings
 from mezzanine.blog.forms import BlogPostForm
 from mezzanine.blog.models import BlogPost, BlogCategory, Comment
 from mezzanine.core.models import Keyword
-from mezzanine.settings import load_settings
+from mezzanine import template
 
 
 register = template.Library()
@@ -60,8 +60,8 @@ def blog_months(*args):
     """
     Put a list of dates for blog posts into the template context.
     """
-    return BlogPost.objects.published().dates("publish_date", "month",
-        order="DESC")
+    return list(BlogPost.objects.published().dates("publish_date", "month",
+                                                   order="DESC"))
 
 
 @register.as_tag
@@ -70,7 +70,7 @@ def blog_categories(*args):
     Put a list of categories for blog posts into the template context.
     """
     posts = BlogPost.objects.published()
-    return BlogCategory.objects.filter(blogposts__in=posts)
+    return list(BlogCategory.objects.filter(blogposts__in=posts))
 
 
 @register.as_tag
@@ -78,14 +78,14 @@ def blog_tags(*args):
     """
     Put a list of tags (keywords) for blog posts into the template context.
     """
-    mezz_settings = load_settings("TAG_CLOUD_SIZES")
     tags = Keyword.objects.filter(blogpost__isnull=False).annotate(
         post_count=Count("blogpost"))
     if not tags:
         return []
+    settings.use_editable()
     counts = [tag.post_count for tag in tags]
     min_count, max_count = min(counts), max(counts)
-    sizes = mezz_settings.TAG_CLOUD_SIZES
+    sizes = settings.TAG_CLOUD_SIZES
     step = (max_count - min_count) / (sizes - 1)
     if step == 0:
         steps = [sizes / 2]
@@ -104,7 +104,7 @@ def blog_authors(*args):
     Put a list of authors (users) for blog posts into the template context.
     """
     blog_posts = BlogPost.objects.published()
-    return User.objects.filter(blogposts__in=blog_posts).distinct()
+    return list(User.objects.filter(blogposts__in=blog_posts).distinct())
 
 
 @register.inclusion_tag("admin/includes/quick_blog.html", takes_context=True)
@@ -131,11 +131,10 @@ def recent_comments(context):
     """
 
     global DISQUS_FORUM_ID
-    mezz_settings = load_settings("COMMENTS_DISQUS_KEY", 
-                            "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST")
-    disqus_key = mezz_settings.COMMENTS_DISQUS_KEY
-    disqus_shortname = mezz_settings.COMMENTS_DISQUS_SHORTNAME
-    latest = mezz_settings.COMMENTS_NUM_LATEST
+    settings = context["settings"]
+    disqus_key = settings.COMMENTS_DISQUS_KEY
+    disqus_shortname = settings.COMMENTS_DISQUS_SHORTNAME
+    latest = settings.COMMENTS_NUM_LATEST
     context["comments"] = []
     post_from_comment = lambda comment: int(comment["thread"]["identifier"][0])
 

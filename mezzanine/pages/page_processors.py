@@ -1,9 +1,9 @@
 
 from collections import defaultdict
 
-from django.conf import settings
 from django.db.models import get_model
 
+from mezzanine.conf import settings
 from mezzanine.pages.models import Page
 
 

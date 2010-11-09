@@ -4,8 +4,9 @@ from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode
 
-from mezzanine.settings.models import Setting
-from mezzanine.settings.forms import SettingsForm
+from mezzanine.conf import settings
+from mezzanine.conf.models import Setting
+from mezzanine.conf.forms import SettingsForm
 from mezzanine.utils import admin_url
 
 
@@ -36,5 +37,6 @@ class SettingsAdmin(admin.ModelAdmin):
         extra_context["title"] = _("Change %s" % 
             force_unicode(Setting._meta.verbose_name_plural))
         return super(SettingsAdmin, self).changelist_view(request, extra_context)
+
 
 admin.site.register(Setting, SettingsAdmin)

@@ -1,5 +1,4 @@
 
-from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponse
@@ -8,8 +7,9 @@ from django.template import RequestContext
 from django.template.loader import select_template
 from django.utils.http import urlquote
 
-from mezzanine.pages.models import Page
+from mezzanine.conf import settings
 from mezzanine.pages import page_processors
+from mezzanine.pages.models import Page
 
 
 page_processors.autodiscover()

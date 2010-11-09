@@ -4,7 +4,7 @@ import os.path
 from django.conf import settings
 from django.utils.translation import ugettext as _
 
-from mezzanine.settings import register_setting
+from mezzanine.conf import register_setting
 
 
 register_setting(
@@ -14,7 +14,7 @@ register_setting(
     default=(
         (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",
             (_("Media Library"), "fb_browse"),)),
-        (_("Site"), ("sites.Site", "redirects.Redirect", "settings.Setting")),
+        (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting")),
         (_("Users"), ("auth.User", "auth.Group",)),
     ),
 )

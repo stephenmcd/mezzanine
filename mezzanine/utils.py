@@ -5,10 +5,7 @@ from re import sub
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 
-from mezzanine.settings import load_settings
-
-
-mezz_settings = load_settings("CONTENT_MEDIA_URL")
+from mezzanine.conf import settings
 
 
 def admin_url(model, url, object_id=None):
@@ -88,7 +85,7 @@ def content_media_urls(*paths):
     Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for 
     internally hosted JS and CSS files.
     """
-    media_url = mezz_settings.CONTENT_MEDIA_URL.strip("/")
+    media_url = settings.CONTENT_MEDIA_URL.strip("/")
     return ["/%s/%s" % (media_url, path) for path in paths]
 
 
