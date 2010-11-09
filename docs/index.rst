@@ -16,7 +16,7 @@ this and how to implement it under :doc:`inline-editing`.
 Further reading includes information about Mezzanine's :doc:`search-engine`, 
 a section on the :doc:`admin-customization` provided by Mezzanine, and a 
 section on Mezzanine's :doc:`configuration` which outlines the various 
-settings for configuring Mezzanine, 
+settings for configuring Mezzanine.
 
 Lastly, you may be interested in browsing the auto-generated docs for 
 each of Mezzanine's :doc:`packages`.
