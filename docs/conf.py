@@ -1,7 +1,7 @@
 from __future__ import with_statement
 # -*- coding: utf-8 -*-
 #
-# Cartridge documentation build configuration file, created by
+# Mezzanine documentation build configuration file, created by
 # sphinx-quickstart on Wed Mar 10 07:20:42 2010.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -20,7 +20,7 @@ sys.path.insert(0, mezzanine_path)
 os.environ["DJANGO_SETTINGS_MODULE"] = "mezzanine.project_template.settings"
 import mezzanine
 
-# Generate the documentation for mezzanine.settings
+# Generate the documentation for mezzanine.conf
 from mezzanine.conf import registry
 
 settings_docs = [".. THIS DOCUMENT IS AUTO GENERATED VIA conf.py"]

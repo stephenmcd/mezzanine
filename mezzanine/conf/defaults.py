@@ -94,7 +94,7 @@ register_setting(
     description=_("If ``True``, unapproved comments will have a placeholder "
         "visible on the site with a 'waiting for approval' or "
         "'comment removed' message based on the workflow around the "
-        "``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if ``True`` then "
+        "``COMMENTS_DEFAULT_APPROVED`` setting - if ``True`` then "
         "the former message is used, if ``False`` then the latter."),
     editable=True, 
     default=True,
