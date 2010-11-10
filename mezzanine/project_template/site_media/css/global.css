@@ -170,7 +170,7 @@ td, th {
 }
 .tags ul,
 .tags li {
-    display:inline !important;
+    display:inline !important; margin:0 !important;
 }
 .share {
     background:#eee; padding:5px;
