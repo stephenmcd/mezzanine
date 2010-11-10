@@ -46,9 +46,6 @@
 #grid-middle ol {
     list-style:decimal;
 }
-#grid-middle li {
-    margin-left:50px;
-}
 #grid-middle blockquote {
     border-left: 1px solid #333;
     margin-left: 30px;
