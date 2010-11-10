@@ -234,6 +234,7 @@ def admin_app_list(request):
                     }
 
     for (i, (name, items)) in enumerate(menu_order):
+        name = unicode(name)
         for unfound_item in set(items) - found_items:
             if isinstance(unfound_item, (list, tuple)):
                 item_name, item_url = unfound_item[0], try_url(unfound_item[1])
