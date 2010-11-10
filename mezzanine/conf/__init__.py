@@ -1,8 +1,6 @@
 
 from django.conf import settings
-from django.db import DatabaseError
-
-from mezzanine.conf.models import Setting
+from django.db.utils import DatabaseError
 
 
 registry = {}
@@ -30,7 +28,12 @@ class Settings(object):
     """
 
     def __init__(self):
-        self.use_editable()
+        """
+        Marking loaded as True to begin with prevents some nasty errors 
+        when the DB table is first created.
+        """
+        self._loaded = True
+        self._editable_cache = {}
     
     def use_editable(self):
         """
@@ -53,20 +56,14 @@ class Settings(object):
 
         # First access for an editable setting - load from DB into cache.
         if setting["editable"] and not self._loaded:
-            try:
-                for setting_obj in Setting.objects.all():
-                    setting_type = registry[setting_obj.name]["type"]
-                    if setting_type is bool:
-                        setting_value = setting_obj.value != "False"
-                    else:
-                        setting_value = setting_type(setting_obj.value)
-                    self._editable_cache[setting_obj.name] = setting_value
-                self._loaded = True
-            except DatabaseError:
-                # Allows for syncdb and other commands related to DB 
-                # management to get up and running without the settings 
-                # table existing.
-                pass
+            from mezzanine.conf.models import Setting
+            for setting_obj in Setting.objects.all():
+                setting_type = registry[setting_obj.name]["type"]
+                if setting_type is bool:
+                    setting_value = setting_obj.value != "False"
+                else:
+                    setting_value = setting_type(setting_obj.value)
+                self._editable_cache[setting_obj.name] = setting_value
 
         # Use cached editable setting if found, otherwise use default.
         try:
