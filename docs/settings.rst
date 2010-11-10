@@ -80,7 +80,7 @@ Default: ``5``
 ``COMMENTS_UNAPPROVED_VISIBLE``
 -------------------------------
 
-If ``True``, unapproved comments will have a placeholder visible on the site with a 'waiting for approval' or 'comment removed' message based on the workflow around the ``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if ``True`` then the former message is used, if ``False`` then the latter.
+If ``True``, unapproved comments will have a placeholder visible on the site with a 'waiting for approval' or 'comment removed' message based on the workflow around the ``COMMENTS_DEFAULT_APPROVED`` setting - if ``True`` then the former message is used, if ``False`` then the latter.
 
 Default: ``True``
 
