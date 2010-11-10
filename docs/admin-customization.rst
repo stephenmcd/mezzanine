@@ -19,7 +19,7 @@ of models always accessible.
 
 Using the standard Django admin the grouping and ordering of these models 
 aren't configurable, so Mezzanine provides the setting 
-``MEZZANINE_ADMIN_MENU_ORDER`` that can be used to control the grouping and 
+``ADMIN_MENU_ORDER`` that can be used to control the grouping and 
 ordering of models when listed in the admin area. 
 
 This setting is a sequence of pairs where each pair represents a group of 
@@ -33,7 +33,7 @@ with the first group containing models from Mezzanine's ``pages`` and
 ``blog`` apps, and the second with the remaining models provided by Django, 
 you would define the following in your projects's ``settings`` module::
 
-    MEZZANINE_ADMIN_MENU_ORDER = (
+    ADMIN_MENU_ORDER = (
         ("Content", ("pages.Page", "blog.BlogPost", "blog.Comment",)),
         ("Site", ("auth.User", "auth.Group", "sites.Site", "redirects.Redirect")),
     )
@@ -45,7 +45,7 @@ Custom Items
 ============
 
 It is possible to inject custom navigation items into the 
-``MEZZANINE_ADMIN_MENU_ORDER`` setting by specifying an 
+``ADMIN_MENU_ORDER`` setting by specifying an 
 item using a two item sequence, the first item containing the title and 
 second containing the named urlpattern that resolves to the url to be used. 
 
@@ -54,7 +54,7 @@ popular `django-filebrowser <http://code.google.com/p/django-filebrowser/>`_
 application which contains a named urlpattern ``fb_browse`` and is given 
 the title ``Media Library`` to create a custom navigation item::
 
-    MEZZANINE_ADMIN_MENU_ORDER = (
+    ADMIN_MENU_ORDER = (
         ("Content", ("pages.Page", "blog.BlogPost", "blog.Comment",
             ("Media Library", "fb_browse"),)),
         ("Site", ("auth.User", "auth.Group", "sites.Site", "redirects.Redirect")),
@@ -73,7 +73,7 @@ that will be displayed in the dashboard area.
 
 The dashboard area is broken up into three columns, the first being wide and 
 the second and third being narrow. Mezzanine then provides the setting 
-``MEZZANINE_DASHBOARD_TAGS`` which is a sequence of three sequences - one for 
+``DASHBOARD_TAGS`` which is a sequence of three sequences - one for 
 each the three columns. Each sequence contains the names of the inclusion 
 tags in the format ``tag_lib.tag_name`` that will be rendered in each of the 
 columns . 
@@ -86,7 +86,7 @@ the first column, a list of recent comments in the second column and the
 recent actions list in the third column, you would define the following in 
 your projects's ``settings`` module::
 
-    MEZZANINE_DASHBOARD_TAGS = (
+    DASHBOARD_TAGS = (
         ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
         ("blog_tags.recent_comments",),
         ("mezzanine_tags.recent_actions",),

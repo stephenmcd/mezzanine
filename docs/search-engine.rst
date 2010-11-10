@@ -169,5 +169,5 @@ excluded, a second step is performed where the query is stripped of common
 words know as **stop words**. These are common words such as **and**, 
 **the** or **like** that are generally not meaningful and cause irrelevant 
 results to be returned. The list of stop words is stored in the setting 
-``MEZZANINE_STOP_WORDS`` as described in the :doc:`configuration` section.
+``STOP_WORDS`` as described in the :doc:`configuration` section.
 
