@@ -1,11 +1,12 @@
 
 from htmlentitydefs import name2codepoint
-from re import sub
+import os
+import re
+import sys
 
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
-
-from mezzanine.conf import settings
+from django import VERSION
 
 
 def admin_url(model, url, object_id=None):
@@ -18,75 +19,6 @@ def admin_url(model, url, object_id=None):
     if object_id is not None:
         args = (object_id,)
     return reverse(url, args=args)
-
-
-def decode_html_entities(html):
-    """
-    Remove HTML entities from a string.
-    Adapted from http://effbot.org/zone/re-sub.htm#unescape-html
-    """
-    def decode(m):
-        html = m.group(0)
-        if html[:2] == "&#":
-            try:
-                if html[:3] == "&#x":
-                    return unichr(int(html[3:-1], 16))
-                else:
-                    return unichr(int(html[2:-1]))
-            except ValueError:
-                pass
-        else:
-            try:
-                html = unichr(name2codepoint[html[1:-1]])
-            except KeyError:
-                pass
-        return html
-    return sub("&#?\w+;", decode, html.replace("&amp;", "&"))
-
-
-def is_editable(obj, request):
-    """
-    Returns True if the object is editable for the request. First check for
-    a custom ``editable`` handler on the object, otherwise use the logged
-    in user and check change permissions for the object's model.
-    """
-    if hasattr(obj, "is_editable"):
-        return obj.is_editable(request)
-    else:
-        perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
-        return request.user.is_authenticated() and request.user.has_perm(perm)
-
-
-def paginate(objects, page_num, per_page, max_paging_links):
-    """
-    Return a paginated page for the given objects, giving it a custom
-    ``visible_page_range`` attribute calculated from ``max_paging_links``.
-    """
-    paginator = Paginator(list(objects), per_page)
-    try:
-        page_num = int(page_num)
-    except ValueError:
-        page_num = 1
-    try:
-        objects = paginator.page(page_num)
-    except (EmptyPage, InvalidPage):
-        objects = paginator.page(paginator.num_pages)
-    page_range = objects.paginator.page_range
-    if len(page_range) > max_paging_links:
-        start = min(objects.paginator.num_pages - max_paging_links,
-            max(0, objects.number - (max_paging_links / 2) - 1))
-        page_range = page_range[start:start + max_paging_links]
-    objects.visible_page_range = page_range
-    return objects
-
-
-def content_media_urls(*paths):
-    """
-    Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for 
-    internally hosted JS and CSS files.
-    """
-    media_url = settings.CONTENT_MEDIA_URL.strip("/")
-    return ["/%s/%s" % (media_url, path) for path in paths]
 
 
 def base_concrete_model(abstract, instance):
@@ -126,3 +58,151 @@ def base_concrete_model(abstract, instance):
         if issubclass(cls, abstract) and not cls._meta.abstract:
             return cls
     return instance.__class__
+    
+
+def content_media_urls(*paths):
+    """
+    Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for 
+    internally hosted JS and CSS files.
+    """
+    from mezzanine.conf import settings
+    media_url = settings.CONTENT_MEDIA_URL.strip("/")
+    return ["/%s/%s" % (media_url, path) for path in paths]
+
+
+def decode_html_entities(html):
+    """
+    Remove HTML entities from a string.
+    Adapted from http://effbot.org/zone/re-sub.htm#unescape-html
+    """
+    def decode(m):
+        html = m.group(0)
+        if html[:2] == "&#":
+            try:
+                if html[:3] == "&#x":
+                    return unichr(int(html[3:-1], 16))
+                else:
+                    return unichr(int(html[2:-1]))
+            except ValueError:
+                pass
+        else:
+            try:
+                html = unichr(name2codepoint[html[1:-1]])
+            except KeyError:
+                pass
+        return html
+    return re.sub("&#?\w+;", decode, html.replace("&amp;", "&"))
+
+
+def is_editable(obj, request):
+    """
+    Returns True if the object is editable for the request. First check for
+    a custom ``editable`` handler on the object, otherwise use the logged
+    in user and check change permissions for the object's model.
+    """
+    if hasattr(obj, "is_editable"):
+        return obj.is_editable(request)
+    else:
+        perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
+        return request.user.is_authenticated() and request.user.has_perm(perm)
+
+
+def paginate(objects, page_num, per_page, max_paging_links):
+    """
+    Return a paginated page for the given objects, giving it a custom
+    ``visible_page_range`` attribute calculated from ``max_paging_links``.
+    """
+    paginator = Paginator(list(objects), per_page)
+    try:
+        page_num = int(page_num)
+    except ValueError:
+        page_num = 1
+    try:
+        objects = paginator.page(page_num)
+    except (EmptyPage, InvalidPage):
+        objects = paginator.page(paginator.num_pages)
+    page_range = objects.paginator.page_range
+    if len(page_range) > max_paging_links:
+        start = min(objects.paginator.num_pages - max_paging_links,
+            max(0, objects.number - (max_paging_links / 2) - 1))
+        page_range = page_range[start:start + max_paging_links]
+    objects.visible_page_range = page_range
+    return objects
+
+
+def set_dynamic_settings(s):
+    """
+    Called at the end of the project's settings module and is passed its 
+    globals dict for updating with some final tweaks for settings that 
+    generally aren't specified but can be given some better defaults based on 
+    other settings that have been specified. Broken out into its own 
+    function so that the code need not be replicated in the settings modules 
+    of other project-based apps that leverage Mezzanine's settings module.
+    """
+
+    s["TEMPLATE_DEBUG"] = s["DEBUG"]
+
+    # For Django 1.1, add the dummy csrf_token template tag to builtins 
+    # and remove Django's CsrfViewMiddleware.
+    if VERSION < (1, 2, 0):
+        from django.template.loader import add_to_builtins
+        add_to_builtins("mezzanine.core.templatetags.dummy_csrf")
+        s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if 
+                            mw != "django.middleware.csrf.CsrfViewMiddleware"]        
+    
+    # Set ADMIN_MEDIA_PREFIX for Grappelli.
+    grappelli = s["PACKAGE_NAME_GRAPPELLI"] in s["INSTALLED_APPS"]
+    if grappelli:
+        s["ADMIN_MEDIA_PREFIX"] = "/media/admin/"
+        # Adopted from django.core.management.commands.runserver
+        # Easiest way so far to actually get all the media for Grappelli 
+        # working with the dev server is to hard-code the host:port to 
+        # ADMIN_MEDIA_PREFIX, so here we check for a custom host:port 
+        # before doing this.
+        if len(sys.argv) >= 2 and sys.argv[1] == "runserver":
+            addrport = ""
+            if len(sys.argv) > 2:
+                addrport = sys.argv[2]
+            if not addrport:
+                addr, port = "", "8000"
+            else:
+                try:
+                    addr, port = addrport.split(":")
+                except ValueError:
+                    addr, port = "", addrport
+            if not addr:
+                addr = "127.0.0.1"
+            s["ADMIN_MEDIA_PREFIX"] = "http://%s:%s%s" % (addr, port, 
+                                                  s["ADMIN_MEDIA_PREFIX"])
+
+    # Some settings tweaks for different DB engines.
+    multi_db = (not s.get("DATABASE_ENGINE")) and "DATABASES" in s
+    if multi_db:
+        dbs = DATABASES
+    else:
+        dbs = {None: {
+            "ENGINE": s["DATABASE_ENGINE"], 
+            "NAME": s["DATABASE_NAME"]
+        }}
+    for key, db in dbs.items():
+        engine = db["ENGINE"].split(".")[-1]
+        if engine == "sqlite3" and os.sep not in db["NAME"]:
+            # If the Sqlite DB name doesn't contain a path, assume it's 
+            # in the project directory and add the path to it.
+            name = os.path.join(s.get("_project_path", ""), db["NAME"])
+            if multi_db:
+                s["DATABASES"][key]["NAME"] = name
+            else:
+                s["DATABASE_NAME"] = name
+        elif engine == "mysql":
+            # Required MySQL collation for tests.
+            collation = "utf8_general_ci"
+            if multi_db:
+                s["DATABASES"][key]["TEST_COLLATION"] = collation
+            else:
+                s["TEST_DATABASE_COLLATION"] = collation
+        elif engine.startswith("postgresql") and not s.get("TIME_ZONE", 1):
+            # Specifying a blank time zone to fall back to the system's 
+            # time zone will break table creation in Postgres so remove it.
+            del s["TIME_ZONE"]
+
