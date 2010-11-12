@@ -14,13 +14,17 @@ TEMPLATE_LOADERS = (
     "django.template.loaders.app_directories.load_template_source",
 )
 
-# Database.
-DATABASE_ENGINE = ""
-DATABASE_NAME = ""
-DATABASE_USER = ""
-DATABASE_PASSWORD = ""
-DATABASE_HOST = ""
-DATABASE_PORT = ""
+# Databases.
+DATABASES = {
+    "default": {
+        "ENGINE": "",
+        "HOST": "",
+        "NAME": "",
+        "PASSWORD": "",
+        "PORT": "",
+        "USER": "",
+    }
+}
 
 # Paths.
 import os

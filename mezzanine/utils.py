@@ -141,14 +141,6 @@ def set_dynamic_settings(s):
     """
 
     s["TEMPLATE_DEBUG"] = s["DEBUG"]
-
-    # For Django 1.1, add the dummy csrf_token template tag to builtins 
-    # and remove Django's CsrfViewMiddleware.
-    if VERSION < (1, 2, 0):
-        from django.template.loader import add_to_builtins
-        add_to_builtins("mezzanine.core.templatetags.dummy_csrf")
-        s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if 
-                            mw != "django.middleware.csrf.CsrfViewMiddleware"]        
     
     # Set ADMIN_MEDIA_PREFIX for Grappelli.
     grappelli = s["PACKAGE_NAME_GRAPPELLI"] in s["INSTALLED_APPS"]
@@ -176,33 +168,56 @@ def set_dynamic_settings(s):
                                                   s["ADMIN_MEDIA_PREFIX"])
 
     # Some settings tweaks for different DB engines.
-    multi_db = (not s.get("DATABASE_ENGINE")) and "DATABASES" in s
-    if multi_db:
-        dbs = DATABASES
-    else:
-        dbs = {None: {
-            "ENGINE": s["DATABASE_ENGINE"], 
-            "NAME": s["DATABASE_NAME"]
-        }}
-    for key, db in dbs.items():
-        engine = db["ENGINE"].split(".")[-1]
-        if engine == "sqlite3" and os.sep not in db["NAME"]:
+    backend_path = "django.db.backends."
+    backend_shortnames = (
+        "postgresql_psycopg2",
+        "postgresql",
+        "mysql",
+        "sqlite3",
+        "oracle",
+    )
+    for (key, db) in s["DATABASES"].items():
+        if db["ENGINE"] in backend_shortnames:
+            s["DATABASES"][key]["ENGINE"] = backend_path + db["ENGINE"]
+        shortname = db["ENGINE"].split(".")[-1]
+        if shortname == "sqlite3" and os.sep not in db["NAME"]:
             # If the Sqlite DB name doesn't contain a path, assume it's 
             # in the project directory and add the path to it.
-            name = os.path.join(s.get("_project_path", ""), db["NAME"])
-            if multi_db:
-                s["DATABASES"][key]["NAME"] = name
-            else:
-                s["DATABASE_NAME"] = name
-        elif engine == "mysql":
+            s["DATABASES"][key]["NAME"] = os.path.join(
+                                     s.get("_project_path", ""), db["NAME"])
+        elif shortname == "mysql":
             # Required MySQL collation for tests.
-            collation = "utf8_general_ci"
-            if multi_db:
-                s["DATABASES"][key]["TEST_COLLATION"] = collation
-            else:
-                s["TEST_DATABASE_COLLATION"] = collation
-        elif engine.startswith("postgresql") and not s.get("TIME_ZONE", 1):
+            s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
+        elif shortname.startswith("postgresql") and not s.get("TIME_ZONE", 1):
             # Specifying a blank time zone to fall back to the system's 
             # time zone will break table creation in Postgres so remove it.
             del s["TIME_ZONE"]
 
+    # Remaning code is for Django 1.1 support.
+    if VERSION >= (1, 2, 0):
+        return
+    # Add the dummy csrf_token template tag to builtins and remove 
+    # Django's CsrfViewMiddleware.
+    from django.template.loader import add_to_builtins
+    add_to_builtins("mezzanine.core.templatetags.dummy_csrf")
+    s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if 
+                        mw != "django.middleware.csrf.CsrfViewMiddleware"]
+    # Use the single DB settings.
+    old_db_settings_mapping = {
+        "ENGINE": "DATABASE_ENGINE",
+        "HOST": "DATABASE_HOST",
+        "NAME": "DATABASE_NAME",
+        "OPTIONS": "DATABASE_OPTIONS",
+        "PASSWORD": "DATABASE_PASSWORD",
+        "PORT": "DATABASE_PORT",
+        "USER": "DATABASE_USER",
+        "TEST_CHARSET": "TEST_DATABASE_CHARSET",
+        "TEST_COLLATION": "TEST_DATABASE_COLLATION",
+        "TEST_NAME": "TEST_DATABASE_NAME",
+    }
+    for (new_name, old_name) in old_db_settings_mapping.items():
+        value = s["DATABASES"]["default"].get(new_name)
+        if value is not None:
+            if new_name == "ENGINE" and value.startswith(backend_path):
+                value = value.replace(backend_path, "", 1)
+            s[old_name] = value
