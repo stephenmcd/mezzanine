@@ -77,6 +77,9 @@ tinyMCE.init({
     + "-ol,"
     + "-ul,"
     + "-li,"
+    + "-dl,"
+    + "-dd,"
+    + "-dt,"
     + "br,"
     + "img[class|src|alt=|width|height]," + 
     + "-h2,-h3,-h4," + 
