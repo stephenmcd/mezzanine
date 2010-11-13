@@ -58,7 +58,7 @@ Mezzanine has no explicit dependencies apart from a standard Django
 environment using.
 
   * `Python`_ 2.5 ... 2.7
-  * `Django`_ 1.1 ... 1.2
+  * `Django`_ 1.1 ... 1.3
   
 Mezzanine is designed however to be used most effectively in conjunction 
 with the following libraries.
@@ -120,6 +120,8 @@ Sites Using Mezzanine
   * `Citrus Agency`_
   * `Mezzanine Project`_ (self hosted)
   * `Nick Hagianis`_
+  * `Thomas Johnson`_
+  * `Central Mosque Wembley`_
 
 Quotes
 ======
@@ -159,8 +161,10 @@ Quotes
 .. _`Github issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`Citrus Agency`: http://citrus.com.au/
 .. _`Mezzanine Project`: http://mezzanine.jupo.org/
-.. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Nick Hagianis`: http://hagianis.com/
+.. _`Thomas Johnson`: http://tomfmason.net/
+.. _`Central Mosque Wembley`: http://wembley-mosque.co.uk/
+.. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
 .. _`Brad Montgomery`: http://bradmontgomery.net/
