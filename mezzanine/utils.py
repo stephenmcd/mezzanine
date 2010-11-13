@@ -221,3 +221,15 @@ def set_dynamic_settings(s):
             if new_name == "ENGINE" and value.startswith(backend_path):
                 value = value.replace(backend_path, "", 1)
             s[old_name] = value
+    
+    # Revert to some old names.
+    processors = list(s["TEMPLATE_CONTEXT_PROCESSORS"])
+    for (i, processor) in enumerate(processors):
+        if processor == "django.contrib.auth.context_processors.auth":
+            processors[i] = "django.core.context_processors.auth"
+    s["TEMPLATE_CONTEXT_PROCESSORS"] = processors
+    loaders = list(s["TEMPLATE_LOADERS"])
+    for (i, loader) in enumerate(loaders):
+        if loader.startswith("django.") and loader.endswith(".Loader"):
+            loaders[i] = loader.replace(".Loader", ".load_template_source", 1)
+    s["TEMPLATE_LOADERS"] = loaders
