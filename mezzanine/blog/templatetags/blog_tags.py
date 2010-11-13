@@ -70,7 +70,7 @@ def blog_categories(*args):
     Put a list of categories for blog posts into the template context.
     """
     posts = BlogPost.objects.published()
-    return list(BlogCategory.objects.filter(blogposts__in=posts))
+    return list(BlogCategory.objects.filter(blogposts__in=posts).distinct())
 
 
 @register.as_tag
