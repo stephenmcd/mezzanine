@@ -1,7 +1,7 @@
 
 from django.db.models import Count, Manager
 
-from mezzanine.settings import load_settings
+from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
 
 
@@ -22,7 +22,7 @@ class CommentManager(Manager):
     """
 
     def visible(self):
-        mezz_settings = load_settings("COMMENTS_UNAPPROVED_VISIBLE")
-        if mezz_settings.COMMENTS_UNAPPROVED_VISIBLE:
+        settings.use_editable()
+        if settings.COMMENTS_UNAPPROVED_VISIBLE:
             return self.all()
         return self.filter(approved=True)

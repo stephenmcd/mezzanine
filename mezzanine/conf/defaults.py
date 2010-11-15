@@ -4,7 +4,7 @@ import os.path
 from django.conf import settings
 from django.utils.translation import ugettext as _
 
-from mezzanine.settings import register_setting
+from mezzanine.conf import register_setting
 
 
 register_setting(
@@ -14,7 +14,7 @@ register_setting(
     default=(
         (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",
             (_("Media Library"), "fb_browse"),)),
-        (_("Site"), ("sites.Site", "redirects.Redirect", "settings.Setting")),
+        (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting")),
         (_("Users"), ("auth.User", "auth.Group",)),
     ),
 )
@@ -94,7 +94,7 @@ register_setting(
     description=_("If ``True``, unapproved comments will have a placeholder "
         "visible on the site with a 'waiting for approval' or "
         "'comment removed' message based on the workflow around the "
-        "``MEZZANINE_COMMENTS_DEFAULT_APPROVED`` setting - if ``True`` then "
+        "``COMMENTS_DEFAULT_APPROVED`` setting - if ``True`` then "
         "the former message is used, if ``False`` then the latter."),
     editable=True, 
     default=True,

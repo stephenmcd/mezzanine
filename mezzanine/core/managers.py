@@ -6,10 +6,7 @@ from string import punctuation
 from django.db.models import Manager, Q, CharField, TextField, get_models
 from django.db.models.query import QuerySet
 
-from mezzanine.settings import load_settings
-
-
-mezz_settings = load_settings("STOP_WORDS")
+from mezzanine.conf import settings
 
 
 class PublishedManager(Manager):
@@ -108,7 +105,7 @@ class SearchableQuerySet(QuerySet):
         # since words with these are an explicit part of the search query. If
         # doing so ends up with an empty term list, then keep the stop words.
         terms_no_stopwords = [t for t in terms if t.lower() not in 
-            mezz_settings.STOP_WORDS]
+            settings.STOP_WORDS]
         get_positive_terms = lambda terms: [t.lower().strip(punctuation)
             for t in terms if t[0] != "-"]
         positive_terms = get_positive_terms(terms_no_stopwords)

@@ -16,38 +16,6 @@
         }
     }, 
     {
-        "pk": 5, 
-        "model": "pages.page", 
-        "fields": {
-            "status": 2, 
-            "_order": 1, 
-            "parent": 1, 
-            "description": "<p>History</p>", 
-            "title": "History", 
-            "in_footer": true, 
-            "titles": "About / History", 
-            "content_model": "contentpage", 
-            "in_navigation": true, 
-            "slug": "about/history"
-        }
-    }, 
-    {
-        "pk": 4, 
-        "model": "pages.page", 
-        "fields": {
-            "status": 2, 
-            "_order": 0, 
-            "parent": 1, 
-            "description": "<p>Team</p>", 
-            "title": "Team", 
-            "in_footer": true, 
-            "titles": "About / Team", 
-            "content_model": "contentpage", 
-            "in_navigation": true, 
-            "slug": "about/team"
-        }
-    }, 
-    {
         "pk": 2, 
         "model": "pages.page", 
         "fields": {
@@ -61,22 +29,6 @@
             "content_model": "contentpage", 
             "in_navigation": true, 
             "slug": "blog"
-        }
-    }, 
-    {
-        "pk": 6, 
-        "model": "pages.page", 
-        "fields": {
-            "status": 2, 
-            "_order": 0, 
-            "parent": 3, 
-            "description": "<p>Legals</p>", 
-            "title": "Legals", 
-            "in_footer": true, 
-            "titles": "Contact / Legals", 
-            "content_model": "contentpage", 
-            "in_navigation": true, 
-            "slug": "contact/legals"
         }
     }, 
     {
@@ -95,6 +47,54 @@
             "slug": "contact"
         }
     },
+    {
+        "pk": 4, 
+        "model": "pages.page", 
+        "fields": {
+            "status": 2, 
+            "_order": 0, 
+            "parent": 1, 
+            "description": "<p>Team</p>", 
+            "title": "Team", 
+            "in_footer": true, 
+            "titles": "About / Team", 
+            "content_model": "contentpage", 
+            "in_navigation": true, 
+            "slug": "about/team"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "pages.page", 
+        "fields": {
+            "status": 2, 
+            "_order": 1, 
+            "parent": 1, 
+            "description": "<p>History</p>", 
+            "title": "History", 
+            "in_footer": true, 
+            "titles": "About / History", 
+            "content_model": "contentpage", 
+            "in_navigation": true, 
+            "slug": "about/history"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "pages.page", 
+        "fields": {
+            "status": 2, 
+            "_order": 0, 
+            "parent": 3, 
+            "description": "<p>Legals</p>", 
+            "title": "Legals", 
+            "in_footer": true, 
+            "titles": "Contact / Legals", 
+            "content_model": "contentpage", 
+            "in_navigation": true, 
+            "slug": "contact/legals"
+        }
+    }, 
     {
         "pk": 1,
         "model": "pages.contentpage",

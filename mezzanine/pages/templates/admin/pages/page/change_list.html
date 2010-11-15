@@ -1,8 +1,7 @@
 {% extends "admin/change_list.html" %}
-{% load mezzanine_tags pages_tags i18n %}
+{% load pages_tags i18n %}
 
 {% block extrahead %}{{ block.super }}
-{% load_settings CONTENT_MEDIA_URL %}
 <style type="text/css">
 
     h1 {width:300px;}
@@ -29,9 +28,9 @@
 </style>
             
 <script type="text/javascript" 
-    src="{{ CONTENT_MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
+    src="{{ settings.CONTENT_MEDIA_URL }}js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript" 
-    src="{{ CONTENT_MEDIA_URL }}js/jquery-ui-1.8.1.custom.min.js"></script>
+    src="{{ settings.CONTENT_MEDIA_URL }}js/jquery-ui-1.8.1.custom.min.js"></script>
 
 <script type="text/javascript">
 

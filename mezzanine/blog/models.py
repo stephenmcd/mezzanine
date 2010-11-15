@@ -6,12 +6,9 @@ from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.core.models import Displayable, Ownable, Content, Slugged
 from mezzanine.blog.managers import BlogPostManager, CommentManager
-from mezzanine.settings import load_settings
-
-
-mezz_settings = load_settings("COMMENTS_DEFAULT_APPROVED")
 
 
 class BlogPost(Displayable, Ownable, Content):
@@ -60,7 +57,7 @@ class Comment(models.Model):
     website = models.URLField(_("Website"), blank=True, help_text=_("optional"))
     blog_post = models.ForeignKey("BlogPost", related_name="comments")
     approved = models.BooleanField(_("Approved"),
-        default=mezz_settings.COMMENTS_DEFAULT_APPROVED)
+        default=settings.COMMENTS_DEFAULT_APPROVED)
     by_author = models.BooleanField(_("By the blog author"), default=False)
     ip_address = models.IPAddressField(_("IP address"), blank=True, null=True)
     time_created = models.DateTimeField(_("Created at"), default=datetime.now)

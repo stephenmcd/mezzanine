@@ -1,6 +1,8 @@
 
 from django.db.models import TextField
 
+from mezzanine.conf import settings
+
 
 class HtmlField(TextField):
     """
@@ -15,3 +17,14 @@ class HtmlField(TextField):
         formfield = super(HtmlField, self).formfield(**kwargs)
         formfield.widget.attrs["class"] = "mceEditor"
         return formfield
+
+
+# South requires custom fields to be given "rules".
+# See http://south.aeracode.org/docs/customfields.html
+if "south" in settings.INSTALLED_APPS:
+    try:
+        from south.modelsinspector import add_introspection_rules
+        add_introspection_rules(rules=[((HtmlField,), [], {})], 
+                                      patterns=["mezzanine\.core\.fields\."])
+    except ImportError:
+        pass

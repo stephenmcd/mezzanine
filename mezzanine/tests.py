@@ -1,5 +1,4 @@
 
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import connection
@@ -7,12 +6,12 @@ from django.template import Context, Template
 from django.test import TestCase
 
 from mezzanine.blog.models import BlogPost, Comment
+from mezzanine.conf import settings, registry
+from mezzanine.conf.models import Setting
 from mezzanine.core.models import CONTENT_STATUS_DRAFT, \
                                     CONTENT_STATUS_PUBLISHED
 from mezzanine.forms.models import Form, FIELD_CHOICES
 from mezzanine.pages.models import ContentPage
-from mezzanine.settings.models import Setting
-from mezzanine.settings import editable_settings, load_settings, registry
 
 
 class Tests(TestCase):
@@ -26,7 +25,6 @@ class Tests(TestCase):
         """
         Create an admin user.
         """
-        self._settings = load_settings("BLOG_SLUG", "MOBILE_USER_AGENTS")
         self._username = "test"
         self._password = "test"
         args = (self._username, "example@example.com", self._password)
@@ -52,7 +50,7 @@ class Tests(TestCase):
         should classify as this case.
         """
         blog_page, created = ContentPage.objects.get_or_create(
-                                                slug=self._settings.BLOG_SLUG)
+                                                slug=settings.BLOG_SLUG)
         self.assertTrue(blog_page.overridden())
 
     def test_description(self):
@@ -72,7 +70,7 @@ class Tests(TestCase):
         template_name = lambda t: t.name if hasattr(t, "name") else t[0].name
         default = template_name(self.client.get(reverse("home")).template)
         mobile = template_name(self.client.get(reverse("home"),
-            HTTP_USER_AGENT=self._settings.MOBILE_USER_AGENTS[0]).template)
+            HTTP_USER_AGENT=settings.MOBILE_USER_AGENTS[0]).template)
         self.assertNotEqual(default, mobile)
         self.assertEqual(default, mobile.replace(".mobile", "", 1))
 
@@ -192,7 +190,6 @@ class Tests(TestCase):
         of the DB. Also checks to ensure no unsupported types are defined 
         for editable settings.
         """
-        Setting.objects.all().delete()
         # Find an editable setting for each supported type.
         names_by_type = {}
         for setting in registry.values():
@@ -202,11 +199,11 @@ class Tests(TestCase):
         values_by_name = {}
         for (setting_type, setting_name) in names_by_type.items():
             setting_value = registry[setting_name]["default"]
-            if setting_type is int:
+            if setting_type in (int, float):
                 setting_value += 1
             elif setting_type is bool:
                 setting_value = not setting_value
-            elif setting_type is str:
+            elif setting_type in (str, unicode):
                 setting_value += "test"
             else:
                 self.fail("Unsupported setting type for %s: %s" % 
@@ -214,6 +211,6 @@ class Tests(TestCase):
             values_by_name[setting_name] = setting_value
             Setting.objects.create(name=setting_name, value=str(setting_value))
         # Load the settings and make sure the DB values have persisted.
-        mezz_settings = load_settings(*names_by_type.values())
+        settings.use_editable()
         for (name, value) in values_by_name.items():
-            self.assertEqual(getattr(mezz_settings, name), value)
+            self.assertEqual(getattr(settings, name), value)

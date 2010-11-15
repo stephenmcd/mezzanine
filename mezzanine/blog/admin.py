@@ -4,11 +4,9 @@ from copy import deepcopy
 from django.contrib import admin
 
 from mezzanine.blog.models import BlogPost, BlogCategory, Comment
+from mezzanine.conf import settings
 from mezzanine.core.admin import DisplayableAdmin, OwnableAdmin
-from mezzanine.settings import load_settings
 
-
-mezz_settings = load_settings("COMMENTS_DISQUS_SHORTNAME")
 
 blogpost_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 blogpost_fieldsets[0][1]["fields"].insert(1, "category")
@@ -37,8 +35,11 @@ class BlogCategoryAdmin(admin.ModelAdmin):
 
     def in_menu(self):
         """
-        Hide from the admin menu.
+        Hide from the admin menu unless explicitly set in ``ADMIN_MENU_ORDER``.
         """
+        for (name, items) in settings.ADMIN_MENU_ORDER:
+            if "blog.BlogCategory" in items:
+                return True
         return False
 
 
@@ -59,5 +60,5 @@ class CommentAdmin(admin.ModelAdmin):
 
 admin.site.register(BlogPost, BlogPostAdmin)
 admin.site.register(BlogCategory, BlogCategoryAdmin)
-if not mezz_settings.COMMENTS_DISQUS_SHORTNAME:
+if not settings.COMMENTS_DISQUS_SHORTNAME:
     admin.site.register(Comment, CommentAdmin)

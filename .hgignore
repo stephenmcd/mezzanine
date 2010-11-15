@@ -2,10 +2,11 @@ syntax: glob
 *.pyc
 *.pyo
 *.db
+.coverage
 local_settings.py
+mezzanine/project_template/site_media/uploads/*
+migrations/*
 build/*
 docs/build/*
 dist/*
-mezzanine/project_template/site_media/uploads/*
 Mezzanine.egg-info/*
-
