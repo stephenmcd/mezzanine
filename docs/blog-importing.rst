@@ -103,8 +103,8 @@ to get one piece of data as follows:
 
     * log into your blogger account that you wish to import
     * click on settings - now look in the url and you'll see a url that ends in
-    BlogID= and a big long number. That long number is your unique blog
-    identifier. Copy it and save it for later.
+        BlogID= and a big long number. That long number is your unique blog
+        identifier. Copy it and save it for later.
     * While you're in settings go to "Site Feed" then set Allow Blog Feeds to
     be "Full" - this will give you everything in your Atom feed.
     
