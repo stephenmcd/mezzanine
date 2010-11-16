@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from time import strftime, strptime, timezone
+from time import mktime, strftime, strptime, timezone
 from xml.dom.minidom import parse, parseString
 
 from django.contrib.auth.models import User
@@ -66,10 +66,14 @@ class Importer(object):
         self.posts = []
         self.__dict__.update(kwargs)
         
+        
     def add_post(self, title=None, author=None, pub_date=None, tags=None,
         content=None, comments=None):
         """
         Adds a post to the post list ready for processing
+        
+        Attributes:
+            pub_date is assumed to be a datetime struct
         """
         if not comments:
             comments = []
@@ -87,6 +91,9 @@ class Importer(object):
         website=None, body=None):
         """
         Adds a comment to the post provided.
+        
+        Attributes:
+            pub_date is assumed to be a date time struct
         """
         if not post:
             raise (EmptyPostError)
@@ -98,7 +105,7 @@ class Importer(object):
             "website": website,
             "body": body})
             
-    def process(self, date_format=None, mezzanine_user=None):
+    def process(self, mezzanine_user=None):
         """
         Processes the converted data into the Mezzanine database correctly
         
@@ -112,20 +119,31 @@ class Importer(object):
         site = Site.objects.get_current()
         
         # set up the user to import under
+        # and do some final checks in order to make sure it's legit
         if mezzanine_user is not None:
             try:
                 mezzanine_user = User.objects.get(username=mezzanine_user)
             except User.DoesNotExist: 
-                print "User not valid"
-                return
-        
+                raise CommandError("Mezzanine user %s is not in the system" % mezzanine_user)
+        else:
+            if self.mezzanine_user:
+                mezzanine_user = self.mezzanine_user
+                try:
+                    mezzanine_user = User.objects.get(username=mezzanine_user)
+                except User.DoesNotExist: 
+                    raise CommandError("Mezzanine user %s is not in the system" % mezzanine_user)
+            else:
+                raise CommandError("No user has been specified")
+                    
+        # now process all the data in
         for entry in self.posts:
             print "Imported %s" % entry["title"]
             post, created = BlogPost.objects.get_or_create(
                 user=mezzanine_user, title=entry["title"],
                 content=entry["content"], 
                 status=CONTENT_STATUS_PUBLISHED,
-                publish_date=datetime.strptime(entry["publication_date"], date_format) - timedelta(seconds = timezone))
+                publish_date=entry["publication_date"])
+                
             for tag in entry["tags"]:
                 keyword, created = Keyword.objects.get_or_create(title=tag)
                 post.keywords.add(keyword)
@@ -140,7 +158,7 @@ class Importer(object):
                     email = comment["email"],
                     body = comment["body"],
                     website = comment["website"],
-                    time_created = datetime.strptime(comment["time_created"], date_format) - timedelta(seconds = timezone))
+                    time_created = comment["time_created"] )
                 
                 post.comments.add(thecomment)
 
@@ -223,7 +241,7 @@ class Wordpress(Importer):
             except AttributeError, err:
                 pd = entry.updated_parsed
                 
-            published_date = strftime("%c", pd)
+            published_date = datetime.fromtimestamp(mktime(pd)) - timedelta(seconds = timezone)
             
             tags = [tag.term for tag in entry.tags if tag.scheme !="category"]
             #tags have a tendency to not be unique in WP for some reason so
@@ -254,11 +272,9 @@ class Wordpress(Importer):
 
                 #use the GMT date (closest to UTC we'll end up with so this will
                 # make it relatively timezone fine format is YYYY-MM-DD HH:MM:SS
-                comment_date = strptime(
+                comment_date = datetime.strptime(
                     self.get_text(comment, "wp:comment_date_gmt", comment.TEXT_NODE),
-                    "%Y-%m-%d %H:%M:%S" )
-                comment_date = strftime("%c", comment_date)
-                #print "date: %s" % strftime("%c", comment_date)
+                    "%Y-%m-%d %H:%M:%S" ) - timedelta(seconds = timezone)
                 
                 # add the comment as a dict to the end of the comments list
                 self.add_comment(
@@ -275,6 +291,8 @@ class Blogger(Importer):
     determine which blog it should point to and harvest the XML from
     """   
     gdata_url = "http://code.google.com/p/gdata-python-client/" 
+    
+        
     
     def convert(self):
         """
@@ -296,7 +314,10 @@ class Blogger(Importer):
         blogger.service = "blogger"
         blogger.server = server
         query = service.Query()
-        query.feed = "/feeds/" + blog_id + "/posts/full"
+        try:
+            query.feed = "/feeds/" + blog_id + "/posts/full"
+        except TypeError:
+            raise CommandError("You have not supplied a blog id for blogger")
         query.max_results = 500
 	
         try:
@@ -324,7 +345,8 @@ class Blogger(Importer):
             title = entry.title.text
             content = entry.content.text
             #this strips off the time zone info off the end as we want UTC
-            published_date = entry.published.text[:-6]
+            published_date = datetime.strptime(entry.published.text[:-6], 
+                    "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds = timezone)
             
             # get the tags
             tags = [tag.term for tag in entry.category]
@@ -348,7 +370,8 @@ class Blogger(Importer):
                 email = comment.author[0].email.text
                 author_name = comment.author[0].name.text
                 #this strips off the time zone info off the end as we want UTC
-                comment_date = comment.published.text[:-6]
+                comment_date = datetime.strptime(comment.published.text[:-6], 
+                    "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds = timezone)
                 website = ""
                 if comment.author[0].uri:
                     website = comment.author[0].uri.text
