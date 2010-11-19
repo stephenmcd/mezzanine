@@ -4,10 +4,34 @@ from shutil import copy
 
 from django.core.management.base import CommandError
 from django.core.management.commands.startapp import Command as StartAppCommand
-from django.template.loader import find_template_source
 from django.utils.importlib import import_module
 
 from mezzanine.conf import settings
+
+
+def template_path(template):
+    """
+    Django 1.2 and higher moved to class-based template loaders and 
+    deprecated ``find_template_source`` - there's a ``find_template`` 
+    function that is similar but always returns ``None`` for the 
+    template path so it appears to be broken. This function works as far 
+    as retrieving the template path goes which is all we're concerned 
+    with.
+    """
+    from django import VERSION
+    if VERSION < (1, 2, 0):
+        from django.template.loader import find_template_source
+        return find_template_source(template)[1]
+    from django.template.loader import find_template_loader, \
+                                       TemplateDoesNotExist
+    for loader_name in settings.TEMPLATE_LOADERS:
+        loader = find_template_loader(loader_name)
+        if loader is not None:
+            try:
+                return loader.load_template_source(template, None)[1]
+            except TemplateDoesNotExist:
+                pass
+    return None
 
 
 class Command(StartAppCommand):
@@ -44,7 +68,7 @@ class Command(StartAppCommand):
                         templates.add(template.lstrip("/"))
         os.mkdir(os.path.join(theme_name, "templates"))
         for template in templates:
-            path_from = unicode(find_template_source(template)[1])
+            path_from = unicode(template_path(template))
             path_to = os.path.join(theme_name, "templates", template)
             try:
                 os.makedirs(os.path.dirname(path_to))
