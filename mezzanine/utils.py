@@ -4,8 +4,10 @@ import os
 import re
 import sys
 
+from django.core.exceptions import ImproperlyConfigured
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
+from django.utils.importlib import import_module
 from django import VERSION
 
 
@@ -193,6 +195,18 @@ def set_dynamic_settings(s):
             # time zone will break table creation in Postgres so remove it.
             del s["TIME_ZONE"]
 
+    # If a theme is defined then add its template path to the template dirs.
+    theme_name = s.get("THEME")
+    if theme_name:
+        try:
+            theme_module = import_module(theme_name)
+        except ImportError:
+            raise ImproperlyConfigured("Could not find settings.THEME on "
+                                       "sys.path: %s" % theme_name)
+        theme_path = os.path.dirname(os.path.abspath(theme_module.__file__))
+        s["TEMPLATE_DIRS"] = list(s["TEMPLATE_DIRS"])
+        s["TEMPLATE_DIRS"].insert(0, os.path.join(theme_path, "templates"))
+        
     # Remaning code is for Django 1.1 support.
     if VERSION >= (1, 2, 0):
         return
