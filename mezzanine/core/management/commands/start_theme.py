@@ -1,6 +1,6 @@
 
 import os
-from shutil import copy
+from shutil import copy, copytree
 
 from django.core.management.base import CommandError
 from django.core.management.commands.startapp import Command as StartAppCommand
@@ -37,11 +37,11 @@ def template_path(template):
 class Command(StartAppCommand):
     """
     Creates a theme directory which is a Django app plus all existing 
-    templates in the current project.
+    templates and media files in the current project.
     """
 
     help = ("Creates a theme directory which is a Django app plus all "
-            "existing templates in the current project.")
+            "existing templates and media files in the current project.")
     args = "[theme_name]"
     label = "theme name"
     can_import_settings = True
@@ -52,8 +52,8 @@ class Command(StartAppCommand):
         """
         super(Command, self).handle_label(theme_name, **options)
         # Build a unique list of template names from ``INSTALLED_APPS`` and 
-        # ``TEMPLATE_DIRS`` then use Django's ``find_template_source`` to 
-        # determine which to copy.
+        # ``TEMPLATE_DIRS`` then determine which template files they belong
+        # to and copy them to the theme/templates directory.
         templates = set()
         for app in settings.INSTALLED_APPS:
             if app.startswith("django.") or app in settings.OPTIONAL_APPS:
@@ -75,3 +75,4 @@ class Command(StartAppCommand):
             except OSError:
                 pass
             copy(path_from, path_to)
+        copytree(settings.MEDIA_ROOT, os.path.join(theme_name, "media"))
