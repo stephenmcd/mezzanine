@@ -89,8 +89,6 @@ def thumbnail(image_url, width, height):
     # height are given, or PIL not installed
     if not image_url:
         return ""
-    if os.path.exists(thumb_path):
-        return thumb_url
     try:
         width = int(width)
         height = int(height)
@@ -105,6 +103,12 @@ def thumbnail(image_url, width, height):
 
     # open image, determine ratio if required and resize/crop/save
     image = Image.open(image_path)
+
+    # if already right size, don't do anything.
+    if width == image.size[0] or height == image.size[1]:
+        return image_url
+    if os.path.exists(thumb_path):
+        return thumb_url
     if width == 0:
         width = image.size[0] * height / image.size[1]
     elif height == 0:
