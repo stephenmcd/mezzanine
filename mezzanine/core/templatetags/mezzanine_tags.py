@@ -104,8 +104,8 @@ def thumbnail(image_url, width, height):
     # open image, determine ratio if required and resize/crop/save
     image = Image.open(image_path)
 
-    # if already right size, don't do anything.
-    if width == image.size[0] or height == image.size[1]:
+    # If already right size, don't do anything.
+    if width == image.size[0] and height == image.size[1]:
         return image_url
     if os.path.exists(thumb_path):
         return thumb_url
