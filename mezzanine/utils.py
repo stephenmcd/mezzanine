@@ -132,6 +132,13 @@ def paginate(objects, page_num, per_page, max_paging_links):
     return objects
 
 
+def path_for_import(name):
+    """
+    Returns the directory path for the given package or module.
+    """
+    return os.path.dirname(os.path.abspath(import_module(name).__file__))
+
+
 def set_dynamic_settings(s):
     """
     Called at the end of the project's settings module and is passed its 
@@ -198,14 +205,9 @@ def set_dynamic_settings(s):
     # If a theme is defined then add its template path to the template dirs.
     theme_name = s.get("THEME")
     if theme_name:
-        try:
-            theme_module = import_module(theme_name)
-        except ImportError:
-            raise ImproperlyConfigured("Could not find settings.THEME on "
-                                       "sys.path: %s" % theme_name)
-        theme_path = os.path.dirname(os.path.abspath(theme_module.__file__))
         s["TEMPLATE_DIRS"] = list(s["TEMPLATE_DIRS"])
-        s["TEMPLATE_DIRS"].insert(0, os.path.join(theme_path, "templates"))
+        s["TEMPLATE_DIRS"].insert(0, os.path.join(theme_path(theme_name), 
+                                                  "templates"))
         
     # Remaning code is for Django 1.1 support.
     if VERSION >= (1, 2, 0):

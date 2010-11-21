@@ -7,6 +7,7 @@ from django.core.management.commands.startapp import Command as StartAppCommand
 from django.utils.importlib import import_module
 
 from mezzanine.conf import settings
+from mezzanine.utils import path_for_import
 
 
 def template_path(template):
@@ -58,18 +59,17 @@ class Command(StartAppCommand):
         for app in settings.INSTALLED_APPS:
             if app.startswith("django.") or app in settings.OPTIONAL_APPS:
                 continue
-            app_module = import_module(app)
-            app_path = os.path.dirname(os.path.abspath(app_module.__file__))
-            templates_path = os.path.join(app_path, "templates")
+            templates_path = os.path.join(path_for_import(app), "templates")
             for (root, dirs, files) in os.walk(templates_path):
                 for f in files:
                     template = os.path.join(root, f)[len(templates_path):]
                     if not template.startswith("/admin/"):
                         templates.add(template.lstrip("/"))
-        os.mkdir(os.path.join(theme_name, "templates"))
+        templates_path = os.path.join(theme_name, "templates")
+        os.mkdir(templates_path)
         for template in templates:
             path_from = unicode(template_path(template))
-            path_to = os.path.join(theme_name, "templates", template)
+            path_to = os.path.join(templates_path, template)
             try:
                 os.makedirs(os.path.dirname(path_to))
             except OSError:

@@ -100,7 +100,7 @@ if not (len(sys.argv) > 1 and sys.argv[1] == "test"):
 INSTALLED_APPS = sorted(list(INSTALLED_APPS), reverse=True)
 
 # Optional app settings.
-_package_path = lambda p: os.path.dirname(__import__(p).__file__)
+from mezzanine.utils import path_for_import, set_dynamic_settings
 if "debug_toolbar" in INSTALLED_APPS:
     DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
     MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
@@ -108,11 +108,11 @@ if PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
     GRAPPELLI_ADMIN_HEADLINE = "Mezzanine"
     GRAPPELLI_ADMIN_TITLE = "Mezzanine"
     GRAPPELLI_MEDIA_PATH = os.path.join(
-                               _package_path(PACKAGE_NAME_GRAPPELLI), "media")
+                             path_for_import(PACKAGE_NAME_GRAPPELLI), "media")
 if PACKAGE_NAME_FILEBROWSER in INSTALLED_APPS:
     FILEBROWSER_URL_FILEBROWSER_MEDIA = "/filebrowser/media/"
     FILEBROWSER_PATH_FILEBROWSER_MEDIA = os.path.join(
-              _package_path(PACKAGE_NAME_FILEBROWSER), "media", "filebrowser")
+            path_for_import(PACKAGE_NAME_FILEBROWSER), "media", "filebrowser")
 
 # Caching.
 CACHE_BACKEND = ""
@@ -137,5 +137,4 @@ except ImportError:
     pass
     
 # Dynamic settings.
-from mezzanine.utils import set_dynamic_settings
 set_dynamic_settings(globals())

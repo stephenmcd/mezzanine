@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 from __future__ import with_statement
-import os
-from optparse import OptionParser
 from distutils.dir_util import copy_tree
+from optparse import OptionParser
+import os
 from shutil import move
 from uuid import uuid4
+
+from mezzanine.utils import path_for_import
 
 
 def create_project():
@@ -55,8 +57,7 @@ def create_project():
     # Build the project up copying over the project_template from each of 
     # the packages.
     for package_name in packages:
-        package = __import__(package_name)
-        package_path = os.path.dirname(os.path.abspath(package.__file__))
+        package_path = path_for_import(package_name)
         if options.copy_source:
             copy_tree(package_path, os.path.join(project_path, package_name))
         copy_tree(os.path.join(package_path, "project_template"), project_path)
