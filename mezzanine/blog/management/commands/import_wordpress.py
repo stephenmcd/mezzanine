@@ -1,3 +1,4 @@
+
 from datetime import datetime, timedelta
 from optparse import make_option
 from time import mktime, strftime, strptime, timezone
@@ -6,6 +7,7 @@ from xml.dom.minidom import parse, parseString
 from django.core.management.base import CommandError
 
 from mezzanine.blog.management.base import BaseImporterCommand
+
 
 class Command(BaseImporterCommand):
     """
@@ -18,13 +20,6 @@ class Command(BaseImporterCommand):
             help="URL to import file"),
     )
 
-    def __init__(self):
-        """
-        Call the base command constructor so we have the right bindings
-        for errors
-        """
-        super(BaseImporterCommand, self).__init__()
-
     def get_text(self, xml, element, nodetype):
         """
         Gets the element's text value from the xml object provided, adapted
@@ -36,7 +31,6 @@ class Command(BaseImporterCommand):
                 rc.append(node.data)
         return "".join(rc)
 
-           
     def convert(self):    
         """
         Gets the posts from either the provided URL or else
@@ -75,7 +69,6 @@ class Command(BaseImporterCommand):
             
             # get a pointer to the right position in the minidom as well.
             xmlitem = xmlitems[i]
-            #i = i + 1
             
             title = entry.title
             content = entry.content[0]["value"]
@@ -91,14 +84,13 @@ class Command(BaseImporterCommand):
             published_date = datetime.fromtimestamp(mktime(pd)) - timedelta(seconds = timezone)
             
             tags = [tag.term for tag in entry.tags if tag.scheme !="category"]
-            #tags have a tendency to not be unique in WP for some reason so
+            # tags have a tendency to not be unique in WP for some reason so
             # set the list so we have unique
             tags = list(set(tags))
 
             comments_list = []
 
             # create the temporary post object and append to the post_list
-            
             post = self.add_post(
                 title = title,
                 content = content,
@@ -107,8 +99,6 @@ class Command(BaseImporterCommand):
 
             # get the comments from the xml doc.
             for comment in xmlitem.getElementsByTagName("wp:comment"):
-
-           
                 author_name = self.get_text(comment, "wp:comment_author", comment.CDATA_SECTION_NODE)
                 email = self.get_text(comment, "wp:comment_author_email", comment.TEXT_NODE)
                 website = ""
@@ -116,8 +106,7 @@ class Command(BaseImporterCommand):
                     website = self.get_text(comment, "wp:comment_author_url", comment.TEXT_NODE)
                 body = self.get_text(comment, "wp:comment_content", comment.CDATA_SECTION_NODE)
 
-
-                #use the GMT date (closest to UTC we'll end up with so this will
+                # use the GMT date (closest to UTC we'll end up with so this will
                 # make it relatively timezone fine format is YYYY-MM-DD HH:MM:SS
                 comment_date = datetime.strptime(
                     self.get_text(comment, "wp:comment_date_gmt", comment.TEXT_NODE),
@@ -131,6 +120,3 @@ class Command(BaseImporterCommand):
                     body = body,
                     website = website,
                     pub_date = comment_date)
-                    
-        
-        

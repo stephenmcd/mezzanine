@@ -1,3 +1,4 @@
+
 from datetime import datetime, timedelta
 from optparse import make_option
 from time import mktime, strftime, strptime, timezone
@@ -5,6 +6,7 @@ from time import mktime, strftime, strptime, timezone
 from django.core.management.base import CommandError
 
 from mezzanine.blog.management.base import BaseImporterCommand
+
 
 class Command(BaseImporterCommand):
     """
@@ -18,13 +20,6 @@ class Command(BaseImporterCommand):
             help="Blogger Blog ID from blogger dashboard"),
     )
     
-    def __init__(self):
-        """
-        Call the base command constructor so we have the right bindings
-        for errors
-        """
-        super(BaseImporterCommand, self).__init__()
-
     def convert(self):
         """
         Gets posts from blogger and then formats them back into the standard
@@ -84,7 +79,6 @@ class Command(BaseImporterCommand):
             
             #TODO - issues with content not generating correct <P> tags
             
-
             post = self.add_post(
                 title = title,
                 content = content,
@@ -116,6 +110,3 @@ class Command(BaseImporterCommand):
                     body = body,
                     website = website,
                     pub_date = comment_date)
-                     
-                    
-    

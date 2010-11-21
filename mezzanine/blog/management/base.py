@@ -14,7 +14,8 @@ from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand, CommandError
 
 from mezzanine.blog.models import BlogPost, Comment
-from mezzanine.core.models import Keyword
+from mezzanine.core.models import Keyword, CONTENT_STATUS_PUBLISHED
+
 
 class Error(CommandError):
     """
@@ -22,6 +23,7 @@ class Error(CommandError):
     """
     pass
     
+
 class EmptyFeedError(Error):
     """
     Exception raised for the case where a valid feed has returned no posts
@@ -33,6 +35,7 @@ class EmptyFeedError(Error):
     def __init__(self, msg, url):
         self.msg = msg
         self.url = url
+
 
 class FeedURLError(Error):
     """
@@ -53,6 +56,7 @@ class FeedURLError(Error):
         data = self.msg + " " + self.url
         return data
 
+
 class EmptyPostError(Error):
     """
     Exception raised in the case where a comment is being attempted to be
@@ -72,12 +76,9 @@ class BaseImporterCommand(BaseCommand):
             help="Mezzanine username to assign the imported blog posts into"),
     )
 
-    posts = []
-    
     def __init__ (self, **kwargs):
-        #self.posts = []
-        self.__dict__.update(kwargs)
-        
+        self.posts = []
+        super(BaseImporterCommand, self).__init__()
         
     def add_post(self, title=None, author=None, pub_date=None, tags=None,
         content=None, comments=None):
@@ -126,8 +127,6 @@ class BaseImporterCommand(BaseCommand):
             date_format: the format the dates are in in the Posts and Commments
         """
         
-        from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
-
         self.__dict__.update(options)
 
         site = Site.objects.get_current()
@@ -142,8 +141,7 @@ class BaseImporterCommand(BaseCommand):
         else:
             raise CommandError("No Mezzanine user has been specified")
         
-        
-        #now we try and convert the blog
+        # now we try and convert the blog
         self.convert()
                     
         # now process all the data in
@@ -160,7 +158,6 @@ class BaseImporterCommand(BaseCommand):
                 post.keywords.add(keyword)
             post.set_searchable_keywords()
             
-            
             for comment in entry["comments"]:
                 print "Importing comment %s" % comment["name"]
                 thecomment, created = Comment.objects.get_or_create(
@@ -173,13 +170,9 @@ class BaseImporterCommand(BaseCommand):
                 
                 post.comments.add(thecomment)
 
-                
     def convert(self):
         """
         does the conversion of the originating data source into the interim
         format ready for processing
         """
         raise NotImplementedError
-
-
-
