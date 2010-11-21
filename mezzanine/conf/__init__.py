@@ -41,7 +41,7 @@ class Settings(object):
         conf app is not installed then set the loaded flag to True in order 
         to bypass DB lookup entirely.
         """
-        self._loaded = "mezzanine.conf" not in getattr(self, "INSTALLED_APPS")
+        self._loaded = __name__ not in getattr(self, "INSTALLED_APPS")
         self._editable_cache = {}
 
     def __getattr__(self, name):
@@ -74,7 +74,7 @@ class Settings(object):
         return setting["default"]
 
 
-for app in ("mezzanine.conf",) + tuple(settings.INSTALLED_APPS):
+for app in [__name__] + [a for a in settings.INSTALLED_APPS if a != __name__]:
     try:
         __import__("%s.defaults" % app)
     except ImportError:
