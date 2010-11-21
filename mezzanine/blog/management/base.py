@@ -126,20 +126,19 @@ class BaseImporterCommand(BaseCommand):
             mezzanine_user: the user to put this data in against
             date_format: the format the dates are in in the Posts and Commments
         """
-        
         self.__dict__.update(options)
 
         site = Site.objects.get_current()
         
         # set up the user to import under
         # and do some final checks in order to make sure it's legit
-        if self.mezzanine_user is not None:
-            try:
-                self.mezzanine_user = User.objects.get(username=self.mezzanine_user)
-            except User.DoesNotExist: 
-                raise CommandError("Mezzanine user %s is not in the system" % mezzanine_user)
-        else:
+        if self.mezzanine_user is None:
             raise CommandError("No Mezzanine user has been specified")
+        try:
+            self.mezzanine_user = User.objects.get(username=self.mezzanine_user)
+        except User.DoesNotExist: 
+            raise CommandError("Mezzanine user %s is not in the system" % 
+                                                        self.mezzanine_user)
         
         # now we try and convert the blog
         self.convert()
