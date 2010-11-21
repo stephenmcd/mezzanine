@@ -47,7 +47,7 @@ try:
 
         entry_points="""
             [console_scripts]
-            mezzanine-project=mezzanine.scripts.mezzanine_project:create_project
+            mezzanine-project=mezzanine.bin.mezzanine_project:create_project
         """,
 
         classifiers=[
