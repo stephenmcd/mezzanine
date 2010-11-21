@@ -116,21 +116,6 @@ class Command(BaseImporterCommand):
                     body = body,
                     website = website,
                     pub_date = comment_date)
-                
-    def handle(self, *args, **options):
-        """
-        Handle the import of a blogger blog into mezzanine
-        """
-        
-        self.blog_id = options["blog_id"]
-        self.mezzanine_user = options["mezzanine_user"]
-        
-        # handle a quick mezzanine user check here just to be nice
-        if self.mezzanine_user is None:
-            raise CommandError("Please specify a mezzanine user")
-        
-        self.convert()
-        self.process()
-        
+                     
                     
     

@@ -27,8 +27,8 @@ class Command(BaseImporterCommand):
 
     def get_text(self, xml, element, nodetype):
         """
-        Gets the element's text value from the xml object provided, adapted from
-        minidom examples
+        Gets the element's text value from the xml object provided, adapted
+        from minidom examples
         """
         rc = []
         for node in xml.getElementsByTagName(element)[0].childNodes:
@@ -40,11 +40,14 @@ class Command(BaseImporterCommand):
     def convert(self):    
         """
         Gets the posts from either the provided URL or else
-        from the path if it is local and then formats them back into the standard
-        style ready for importation into Mezzanine. 
+        from the path if it is local and then formats them back into the
+        standard style ready for importation into Mezzanine. 
         """
     
         url = self.url
+
+        if url is None:
+            raise CommandError("Please specify the wordpress file for import")
 
         try:
             import feedparser
@@ -54,18 +57,15 @@ class Command(BaseImporterCommand):
         feed = feedparser.parse(url)
 
         # we use the minidom parser as well because feedparser won't interpret
-        # WXR comments correctly and ends up munging them. Lightweight DOM parser is
-        # used simply to pull the comments when we get to them. If someone wants
-        # to rewrite this please do.
+        # WXR comments correctly and ends up munging them. Lightweight DOM
+        # parser is used simply to pull the comments when we get to them. 
+        # If someone wants to rewrite this please do.
         xml = parse(url)
         xmlitems = xml.getElementsByTagName("item")
 
         total_posts = len(feed["entries"])
 	
         print "Importing %s POSTS from Wordpress RSS2.0 feed at %s" % (total_posts, url)
-
-
-        #i = 0 #counter for number of posts processed
         
         post_list = []
         
@@ -75,7 +75,7 @@ class Command(BaseImporterCommand):
             
             # get a pointer to the right position in the minidom as well.
             xmlitem = xmlitems[i]
-            i = i + 1
+            #i = i + 1
             
             title = entry.title
             content = entry.content[0]["value"]
@@ -132,22 +132,5 @@ class Command(BaseImporterCommand):
                     website = website,
                     pub_date = comment_date)
                     
-                    
-    def handle(self, *args, **options):
-        """
-        Handle the import of a wordpress blog into mezzanine
-        """
-        
-        self.url = options["url"]
-        self.mezzanine_user = options["mezzanine_user"]
-        
-        if self.url is None:
-            raise CommandError("Please provide a URL or path to the import file")
-        # handle a quick mezzanine user check here just to be nice
-        if self.mezzanine_user is None:
-            raise CommandError("Please specify a mezzanine user")
-        
-        self.convert()
-        self.process()
         
         
