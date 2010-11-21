@@ -60,8 +60,12 @@ def blog_months(*args):
     """
     Put a list of dates for blog posts into the template context.
     """
-    return list(BlogPost.objects.published().dates("publish_date", "month",
-                                                   order="DESC").distinct())
+    months = []
+    for month in BlogPost.objects.published().dates("publish_date", "month",
+                                                    order="DESC"):
+        if month not in months:
+            months.append(month)
+    return months
 
 
 @register.as_tag
