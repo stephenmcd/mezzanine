@@ -11,7 +11,7 @@ from mezzanine.utils import content_media_urls, admin_url
 
 
 # Build the list of admin JS file for ``Displayable`` models.
-# For >= Django 1.2 include a backport of the collapse js which targets
+# For >= Django 1.2 include a backport of collapse.js which targets
 # earlier versions of the admin.
 displayable_js = ["js/tinymce_setup.js", "js/jquery-1.4.4.min.js",
     "js/keywords_field.js"]

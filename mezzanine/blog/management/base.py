@@ -1,6 +1,6 @@
 """
-This is the base importer class for the commands to pull in blogs from
-other services into Mezzanine
+Base importer class for the commands to pull in blog posts from other blog 
+platforms into Mezzanine.
 """
 
 from datetime import datetime, timedelta
@@ -19,14 +19,14 @@ from mezzanine.core.models import Keyword, CONTENT_STATUS_PUBLISHED
 
 class Error(CommandError):
     """
-    Base class for errors in this module
+    Base class for errors in this module.
     """
     pass
     
 
 class EmptyFeedError(Error):
     """
-    Exception raised for the case where a valid feed has returned no posts
+    Exception raised for the case where a valid feed has returned no posts.
     
     Attributes:
         msg: explanation of the error
@@ -39,8 +39,8 @@ class EmptyFeedError(Error):
 
 class FeedURLError(Error):
     """
-    Exception raised in the case where the URL that is hit for the feed doesn't
-    return correctly at all
+    Exception raised in the case where the URL that is hit for the feed 
+    doesn't return correctly at all.
     
     Attributes:
         http_code: http response code returned
@@ -60,7 +60,7 @@ class FeedURLError(Error):
 class EmptyPostError(Error):
     """
     Exception raised in the case where a comment is being attempted to be
-    added to an post that has not been specified
+    added to an post that has not been specified.
     """
     def __str__(self):
         return "Attempted to add a comment to no post"
@@ -68,12 +68,12 @@ class EmptyPostError(Error):
 
 class BaseImporterCommand(BaseCommand):
     """
-    Import Blog Posts into mezzanine from a variety of different sources
+    Import Blog Posts into mezzanine from a variety of different sources.
     """
     
     option_list = BaseCommand.option_list + (
         make_option("-m", "--mezzanine-user", dest="mezzanine_user",
-            help="Mezzanine username to assign the imported blog posts into"),
+            help="Mezzanine username to assign the imported blog posts to."),
     )
 
     def __init__ (self, **kwargs):
@@ -83,21 +83,20 @@ class BaseImporterCommand(BaseCommand):
     def add_post(self, title=None, author=None, pub_date=None, tags=None,
         content=None, comments=None):
         """
-        Adds a post to the post list ready for processing
+        Adds a post to the post list for processing.
         
         Attributes:
             pub_date is assumed to be a datetime struct
         """
         if not comments:
             comments = []
-        print "Importing post: %s" % title
+        print "Retrieved post titled: %s" % title
         self.posts.append({
             "title": title,
             "publication_date": pub_date,
             "content": content,
             "tags": tags,
             "comments": comments})
-         
         return self.posts[-1]
                 
     def add_comment(self, post=None, name=None, email=None, pub_date=None, 
@@ -108,20 +107,21 @@ class BaseImporterCommand(BaseCommand):
         Attributes:
             pub_date is assumed to be a date time struct
         """
-        print "Importing comment: %s" % name
+        print "Retrieved comment by: %s" % name
         if not post:
             raise (EmptyPostError)
         else:
-           post["comments"].append({
-            "name": name,
-            "email": email,
-            "time_created": pub_date,
-            "website": website,
-            "body": body})
+            post["comments"].append({
+                "name": name,
+                "email": email,
+                "time_created": pub_date,
+                "website": website,
+                "body": body,
+            })
             
     def handle(self, *args, **options):
         """
-        Processes the converted data into the Mezzanine database correctly
+        Processes the converted data into the Mezzanine database correctly.
         
         Attributes:
             mezzanine_user: the user to put this data in against
@@ -146,7 +146,7 @@ class BaseImporterCommand(BaseCommand):
                     
         # now process all the data in
         for entry in self.posts:
-            print "Imported %s" % entry["title"]
+            print "Importing post titled: %s" % entry["title"]
             post, created = BlogPost.objects.get_or_create(
                 user=self.mezzanine_user, title=entry["title"],
                 content=entry["content"], 
@@ -159,7 +159,7 @@ class BaseImporterCommand(BaseCommand):
             post.set_searchable_keywords()
             
             for comment in entry["comments"]:
-                print "Importing comment %s" % comment["name"]
+                print "Importing comment by: %s" % comment["name"]
                 thecomment, created = Comment.objects.get_or_create(
                     blog_post = post,
                     name = comment["name"],
@@ -172,7 +172,8 @@ class BaseImporterCommand(BaseCommand):
 
     def convert(self):
         """
-        does the conversion of the originating data source into the interim
-        format ready for processing
+        Should be overridden by subclasses - Performs the conversion from 
+        the originating data source into the lists of posts and comments 
+        ready for processing.
         """
         raise NotImplementedError
