@@ -18,8 +18,8 @@ a section on the :doc:`admin-customization` provided by Mezzanine, and a
 section on Mezzanine's :doc:`configuration` which outlines the various 
 settings for configuring Mezzanine.
 
-Lastly, you may be interested in browsing the auto-generated docs for 
-each of Mezzanine's :doc:`packages`.
+Lastly, you can learn about :doc:`blog-importing` into Mezzanine, or just 
+browse the auto-generated docs for each of Mezzanine's :doc:`packages`.
 
 .. toctree::
     :maxdepth: 2
@@ -30,5 +30,6 @@ each of Mezzanine's :doc:`packages`.
     search-engine
     admin-customization
     configuration
+    blog-importing
     packages
     colophon

@@ -175,6 +175,13 @@ Number of different sizes for tags when shown as a cloud.
 
 Default: ``4``
 
+``THEME``
+---------
+
+Package name of theme app to use.
+
+Default: ``''``
+
 ``TINYMCE_URL``
 ---------------
 
