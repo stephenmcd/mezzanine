@@ -61,7 +61,7 @@ def blog_months(*args):
     Put a list of dates for blog posts into the template context.
     """
     return list(BlogPost.objects.published().dates("publish_date", "month",
-                                                   order="DESC"))
+                                                   order="DESC").distinct())
 
 
 @register.as_tag
