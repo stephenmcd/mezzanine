@@ -1,5 +1,6 @@
 
 from distutils.dir_util import copy_tree
+from optparse import make_option
 import os
 
 from django.core.management.base import CommandError, LabelCommand
@@ -14,7 +15,7 @@ class Command(LabelCommand):
     the current project. 
     """
 
-    option_list = AppCommand.option_list + (
+    option_list = LabelCommand.option_list + (
         make_option("--noinput", action="store_false", dest="interactive", 
             help="Tells Django to NOT prompt the user for input of any kind.", 
             default=True),
@@ -40,6 +41,14 @@ class Command(LabelCommand):
             (os.path.join(theme_path, "media"), 
                 settings.MEDIA_ROOT),
         )
-        # TODO: Handle interactive option.
+        if options.get("interactive"):
+            confirm = raw_input("""
+Theme installation may overwrite existing template and media files.
+Are you sure you want to do this?
+
+Type 'yes' to continue, or 'no' to cancel: """)
+            if confirm != "yes":
+                raise CommandError("Theme installation cancelled.")
         for (path_from, path_to) in copy_paths:
-            copy_tree(path_from, path_to)
+            if os.path.exists(path_from):
+                copy_tree(path_from, path_to)
