@@ -15,7 +15,7 @@ urlpatterns = patterns("",
 
 if getattr(settings, "DEV_SERVER", False):
     media_root = settings.MEDIA_ROOT
-    theme = settings.get("THEME")
+    theme = getattr(settings, "THEME")
     if theme:
         media_root = path_for_import(theme)
     urlpatterns += patterns("",
