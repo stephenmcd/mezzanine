@@ -5,12 +5,12 @@ Importing blogs from other systems
 Mezzanine has the ability to import blog posts from other systems. Presently there is support for WordPress and Blogger with experimental (partial) support
 Tumblr and standard RSS feeds.
 
-Importing a blog from another platform is done using the relevant mezzanine import_blog command. There is one for each type of supported blog type.
+Importing a blog from another platform is done using the relevant mezzanine import_blog command. There is one for each type of supported blog type.::
 
     $ python manage.py import_[blogtype] --mezzanine_user=name [options]
 
 For information about all the parameters that the command can take run the 
-following in your project directory:
+following in your project directory::
 
     $ python manage.py import_[blogtype] --help
     
@@ -31,7 +31,7 @@ It is faster to import directly from your filesystem if you can (especially if y
 Dependencies and pre-requisites
 -------------------------------
 
-You will need to install Mark Pilgrim's feedparser library. This can be done as simply as:
+You will need to install Mark Pilgrim's feedparser library. This can be done as simply as::
 
     $ easy_install feedparser
     
@@ -48,7 +48,7 @@ Once you have your export file have your path or URL to the export file handy.
 Import process
 --------------
 
-Once you have your export file import is as simple as running:
+Once you have your export file import is as simple as running::
 
     $ python manage.py import_wordpress --url=[path|url] --mezzanine-user=..
 
@@ -65,7 +65,7 @@ maximum of 500 blogs or 500 comments per blog that can be imported. If you have 
 Dependencies and pre-requisites
 -------------------------------
 
-The blogger import utilises the Google Data library extensively. This must be installed before importing. To do this simply:
+The blogger import utilises the Google Data library extensively. This must be installed before importing. To do this simply::
 
     $ easy_install gdata
     
@@ -82,7 +82,7 @@ Now you're ready to import.
 Import process
 --------------
 
-To import you simply run the following command:
+To import you simply run the following command::
 
     $ python manage.py import_blogger --blogger=blogid --mezzanine-user=..
 
