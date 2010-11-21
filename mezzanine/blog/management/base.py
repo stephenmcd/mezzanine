@@ -16,7 +16,7 @@ from django.core.management.base import BaseCommand, CommandError
 from mezzanine.blog.models import BlogPost, Comment
 from mezzanine.core.models import Keyword
 
-class Error(Exception):
+class Error(CommandError):
     """
     Base class for errors in this module
     """
@@ -117,7 +117,7 @@ class BaseImporterCommand(BaseCommand):
             "website": website,
             "body": body})
             
-    def process(self, mezzanine_user=None):
+    def handle(self, *args, **options):
         """
         Processes the converted data into the Mezzanine database correctly
         
@@ -125,33 +125,32 @@ class BaseImporterCommand(BaseCommand):
             mezzanine_user: the user to put this data in against
             date_format: the format the dates are in in the Posts and Commments
         """
-
+        
         from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
+
+        self.__dict__.update(options)
 
         site = Site.objects.get_current()
         
         # set up the user to import under
         # and do some final checks in order to make sure it's legit
-        if mezzanine_user is not None:
+        if self.mezzanine_user is not None:
             try:
-                mezzanine_user = User.objects.get(username=mezzanine_user)
+                self.mezzanine_user = User.objects.get(username=self.mezzanine_user)
             except User.DoesNotExist: 
                 raise CommandError("Mezzanine user %s is not in the system" % mezzanine_user)
         else:
-            if self.mezzanine_user:
-                mezzanine_user = self.mezzanine_user
-                try:
-                    mezzanine_user = User.objects.get(username=mezzanine_user)
-                except User.DoesNotExist: 
-                    raise CommandError("Mezzanine user %s is not in the system" % mezzanine_user)
-            else:
-                raise CommandError("No Mezzanine user has been specified")
+            raise CommandError("No Mezzanine user has been specified")
+        
+        
+        #now we try and convert the blog
+        self.convert()
                     
         # now process all the data in
         for entry in self.posts:
             print "Imported %s" % entry["title"]
             post, created = BlogPost.objects.get_or_create(
-                user=mezzanine_user, title=entry["title"],
+                user=self.mezzanine_user, title=entry["title"],
                 content=entry["content"], 
                 status=CONTENT_STATUS_PUBLISHED,
                 publish_date=entry["publication_date"])
@@ -183,9 +182,4 @@ class BaseImporterCommand(BaseCommand):
         raise NotImplementedError
 
 
-    def handle(self, *args, **options):
-        """
-        handles the command line options
-        """
-        raise NotImplementedError
 
