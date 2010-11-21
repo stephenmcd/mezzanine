@@ -90,7 +90,7 @@ class BaseImporterCommand(BaseCommand):
         """
         if not comments:
             comments = []
-        
+        print "Importing post: %s" % title
         self.posts.append({
             "title": title,
             "publication_date": pub_date,
@@ -108,6 +108,7 @@ class BaseImporterCommand(BaseCommand):
         Attributes:
             pub_date is assumed to be a date time struct
         """
+        print "Importing comment: %s" % name
         if not post:
             raise (EmptyPostError)
         else:

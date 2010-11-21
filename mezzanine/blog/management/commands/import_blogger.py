@@ -55,9 +55,6 @@ class Command(BaseImporterCommand):
             return
             
         total_posts = len(feed.entry)
-	
-        print "Importing %s POSTS from blogger atom feed at %s" % (total_posts, query.feed)
-        
         post_list = []
         
         for (i, entry) in enumerate(feed.entry):
@@ -65,9 +62,6 @@ class Command(BaseImporterCommand):
             # this basically gets the unique post id from the URL to itself. Pulls
             # the id off the end.
             post_id = entry.GetSelfLink().href.split("/")[-1]
-
-            print "Processing post: %s/%s \n %s" % (i, total_posts, entry.title.text)
-            
             title = entry.title.text
             content = entry.content.text
             #this strips off the time zone info off the end as we want UTC
@@ -88,8 +82,6 @@ class Command(BaseImporterCommand):
             # get the comments from the post feed and then add them to the post details
             comment_url = "/feeds/" + blog_id + "/" + post_id + "/comments/full?max-results=1000"
             comments = blogger.Get(comment_url)
-            
-            print "Comments %s" % len(comments.entry)
             
             for comment in comments.entry:
                 email = comment.author[0].email.text

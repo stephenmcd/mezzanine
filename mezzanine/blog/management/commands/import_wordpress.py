@@ -58,18 +58,12 @@ class Command(BaseImporterCommand):
         xmlitems = xml.getElementsByTagName("item")
 
         total_posts = len(feed["entries"])
-	
-        print "Importing %s POSTS from Wordpress RSS2.0 feed at %s" % (total_posts, url)
         
         post_list = []
         
         for (i, entry) in enumerate(feed["entries"]):
-
-            print "Processing post: %s/%s \n%s" % (i+1, total_posts, entry.title)
-            
             # get a pointer to the right position in the minidom as well.
             xmlitem = xmlitems[i]
-            
             title = entry.title
             content = entry.content[0]["value"]
             content = "<p>".join([content.replace("\n\n", "</p><p>"), "</p>"])
@@ -82,14 +76,12 @@ class Command(BaseImporterCommand):
                 pd = entry.updated_parsed
                 
             published_date = datetime.fromtimestamp(mktime(pd)) - timedelta(seconds = timezone)
-            
             tags = [tag.term for tag in entry.tags if tag.scheme !="category"]
+
             # tags have a tendency to not be unique in WP for some reason so
             # set the list so we have unique
             tags = list(set(tags))
-
             comments_list = []
-
             # create the temporary post object and append to the post_list
             post = self.add_post(
                 title = title,
