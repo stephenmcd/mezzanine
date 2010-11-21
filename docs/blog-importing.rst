@@ -50,7 +50,7 @@ Import process
 
 Once you have your export file import is as simple as running:
 
-$ python manage.py import_wordpress --url=[path|url] --mezzanine-user=..
+    $ python manage.py import_wordpress --url=[path|url] --mezzanine-user=..
 
 The url parameter can also be a file system path but it must go from the system root and the mezzanine-user parameter is the user you wish to import under.
 
@@ -73,9 +73,9 @@ If you don't want it in your packages just ensure it is on your path. You can ge
 
 To import your blogger blog you need to enable one thing on your account and to get one piece of data as follows:
 
-    * log into your blogger account that you wish to import
-    * click on settings - now look in the url and you'll see a url that ends in BlogID= and a big long number. That long number is your unique blog identifier. Copy it and save it for later.
-    * While you're in settings go to "Site Feed" then set Allow Blog Feeds to be "Full" - this will give you everything in your Atom feed.
+* log into your blogger account that you wish to import
+* click on settings - now look in the url and you'll see a url that ends in BlogID= and a big long number. That long number is your unique blog identifier. Copy it and save it for later.
+* While you're in settings go to "Site Feed" then set Allow Blog Feeds to be "Full" - this will give you everything in your Atom feed.
     
 Now you're ready to import.
 
@@ -84,7 +84,7 @@ Import process
 
 To import you simply run the following command:
 
-$ python manage.py import_blogger --blogger=blogid --mezzanine-user=..
+    $ python manage.py import_blogger --blogger=blogid --mezzanine-user=..
 
 The blogger parameter is the blogger ID you saved earlier and then you specify the mezzanine user you'd like to import all the data under.
 
