@@ -107,7 +107,7 @@ Each importer is a subclass of mezzanine.blog.base.BaseImporterCommand which its
 Implementing a new Importer
 ---------------------------
 
-To implement a new Importer, create a new command class subclassing mezzanine.blog.base.BaseImporterCommand thus:
+To implement a new Importer, create a new command class subclassing mezzanine.blog.base.BaseImporterCommand thus::
 
     from django.core.management.base import CommandError
 
@@ -120,13 +120,13 @@ To implement a new Importer, create a new command class subclassing mezzanine.bl
         
 You'll need to import CommandError as well if you want nice error messages (recommended).
 
-The Command class must implement the following methods:
+The Command class must implement the following methods::
 
     def convert(self):
     
 This method converts the data from the specific blog to the mezzanine style using the add_post and add_comment methods as it iterates across the data. 
 
-It is recommended that some kind of indicator us used in order to show how far through the conversion process you are.
+It is recommended that some kind of indicator us used in order to show how far through the conversion process you are.::
 
     def handle(self, `*args`, `**options`):
     
