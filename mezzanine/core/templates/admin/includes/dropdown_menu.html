@@ -1,4 +1,4 @@
-{% load mezzanine_tags pages_tags i18n %}
+{% load mezzanine_tags i18n %}
 <ul class="dropdown-menu" style="display:none;">
     <li><a href="{% try_url "admin:index" %}">{% trans "Dashboard" %}</a></li>
     {% for app in dropdown_menu_app_list %}

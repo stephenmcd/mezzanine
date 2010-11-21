@@ -1,4 +1,6 @@
 
+from django.contrib import admin
+from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import get_model
 from django.http import HttpResponse
@@ -52,6 +54,9 @@ def edit(request):
         response = _("Permission denied")
     elif form.is_valid():
         form.save()
+        model_admin = ModelAdmin(model, admin.site)
+        message = model_admin.construct_change_message(request, form, None)
+        model_admin.log_change(request, obj, message)
         response = ""
     else:
         response = form.errors.values()[0][0]

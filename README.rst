@@ -122,6 +122,7 @@ Sites Using Mezzanine
   * `Nick Hagianis`_
   * `Thomas Johnson`_
   * `Central Mosque Wembley`_
+  * `Ovarian Cancer Research Foundation`_
 
 Quotes
 ======
@@ -164,6 +165,7 @@ Quotes
 .. _`Nick Hagianis`: http://hagianis.com/
 .. _`Thomas Johnson`: http://tomfmason.net/
 .. _`Central Mosque Wembley`: http://wembley-mosque.co.uk/
+.. _`Ovarian Cancer Research Foundation`: http://ocrf.com.au/
 .. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
