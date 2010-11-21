@@ -183,6 +183,13 @@ register_setting(
 )
 
 register_setting(
+    name="THEME", 
+    description=_("Package name of theme app to use."),
+    editable=False, 
+    default="",
+)
+
+register_setting(
     name="PAGES_MENU_SHOW_ALL", 
     description=_("If ``True``, the pages menu will show all levels of "
         "navigation, otherwise child pages are only shown when viewing the "

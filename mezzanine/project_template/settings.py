@@ -1,4 +1,7 @@
 
+# Mezzanine settings.
+THEME = ""
+
 # Main Django settings.
 DEBUG = False
 DEV_SERVER = False

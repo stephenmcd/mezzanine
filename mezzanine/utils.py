@@ -203,11 +203,10 @@ def set_dynamic_settings(s):
             del s["TIME_ZONE"]
 
     # If a theme is defined then add its template path to the template dirs.
-    theme_name = s.get("THEME")
-    if theme_name:
-        s["TEMPLATE_DIRS"] = list(s["TEMPLATE_DIRS"])
-        s["TEMPLATE_DIRS"].insert(0, os.path.join(theme_path(theme_name), 
-                                                  "templates"))
+    theme = s.get("THEME")
+    if theme:
+        theme_templates = os.path.join(path_for_import(theme), "templates")
+        s["TEMPLATE_DIRS"] = [theme_templates] + list(s["TEMPLATE_DIRS"])
         
     # Remaning code is for Django 1.1 support.
     if VERSION >= (1, 2, 0):
