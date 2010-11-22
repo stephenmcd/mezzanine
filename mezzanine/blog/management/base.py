@@ -6,6 +6,7 @@ platforms into Mezzanine.
 from datetime import datetime, timedelta
 from time import mktime, strftime, strptime, timezone
 from optparse import make_option
+from urlparse import urlparse
 from xml.dom.minidom import parse, parseString
 
 from django.contrib.auth.models import User
@@ -35,7 +36,7 @@ class BaseImporterCommand(BaseCommand):
         super(BaseImporterCommand, self).__init__(**kwargs)
         
     def add_post(self, title=None, pub_date=None, tags=None,
-        content=None, comments=None):
+        content=None, comments=None, old_url=None):
         """
         Adds a post to the post list for processing.
         
@@ -52,6 +53,7 @@ class BaseImporterCommand(BaseCommand):
             "content": content,
             "tags": tags,
             "comments": comments,
+            "old_url": old_url,
         })
         return self.posts[-1]
                 
@@ -95,24 +97,34 @@ class BaseImporterCommand(BaseCommand):
         except User.DoesNotExist: 
             raise CommandError("Invalid Mezzanine user: %s" % mezzanine_user)
         
-        # Run the subclassed ``handle_import``
+        # Run the subclassed ``handle_import`` and save posts, tags and 
+        # comments to the DB.
         self.handle_import(options)
-                    
-        # Save posts, tags and comments to the DB.
         for post in self.posts:
+
             print "Importing post titled: %s" % post["title"]
             tags = post.pop("tags")
             comments = post.pop("comments")
+            old_url = post.pop("old_url")
+
             post, created = BlogPost.objects.get_or_create(
                 user=mezzanine_user, status=CONTENT_STATUS_PUBLISHED, **post)
+
             for tag in tags:
                 keyword, created = Keyword.objects.get_or_create(title=tag)
                 post.keywords.add(keyword)
             post.set_searchable_keywords()
+
             for comment in comments:
                 print "Importing comment by: %s" % comment["name"]
                 comment["blog_post"] = post
                 comment, created = Comment.objects.get_or_create(**comment)
+
+            if old_url is not None:
+                redirect, created = Redirect.objects.get_or_create(site=site,
+                    old_path=urlparse(old_url).path)
+                redirect.new_path = urlparse(post.get_absolute_url()).path
+                redirect.save()
 
     def handle_import(self, options):
         """
