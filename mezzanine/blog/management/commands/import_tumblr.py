@@ -1,63 +1,49 @@
 
 from datetime import datetime
+from optparse import make_option
 from urllib import urlopen
-from urlparse import urlparse
 
-from django.contrib.auth.models import User
-from django.contrib.redirects.models import Redirect
-from django.contrib.sites.models import Site
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import CommandError
 from django.utils.simplejson import loads
 
+from mezzanine.blog.management.base import BaseImporterCommand
 
-class Command(BaseCommand):
+
+class Command(BaseImporterCommand):
     """
     Import Tumblr blog posts into the blog app.
     """
 
+    option_list = BaseImporterCommand.option_list + (
+        make_option("-t", "--tumblr-user", dest="tumblr_user",
+            help="Tumblr username"),
+    )
     help = "Import Tumblr blog posts into the blog app."
-    args = "tumblr_user mezzanine_user"
 
-    def handle(self, tumblr_user="", mezzanine_user="", *args, **options):
+    def handle_import(self, options):    
 
-        json_url = "http://%s.tumblr.com/api/read/json" % tumblr_user
-        if not (tumblr_user and mezzanine_user):
+        tumblr_user = options.get("tumblr_user")
+        if tumblr_user is None:
             raise CommandError("Usage is import_tumblr %s" % self.args)
+        json_url = "http://%s.tumblr.com/api/read/json" % tumblr_user
         try:
             response = urlopen(json_url)
             if response.code == 404:
-                raise CommandError("Invalid Tumblr user")
+                raise CommandError("Invalid Tumblr user.")
             elif response.code == 503:
-                raise CommandError("Tumblr API currently unavailable")
+                raise CommandError("Tumblr API currently unavailable, "
+                                   "try again shortly.")
             elif response.code != 200:
                 raise IOError("HTTP status %s" % response.code)
         except IOError, e:
             raise CommandError("Error communicating with Tumblr API (%s)" % e)
-        if mezzanine_user is not None:
-            try:
-                mezzanine_user = User.objects.get(username=mezzanine_user)
-            except User.DoesNotExist:
-                raise CommandError("Invalid Mezzanine user")
 
-        from mezzanine.blog.models import BlogPost
-        from mezzanine.core.models import Keyword, CONTENT_STATUS_PUBLISHED
-        site = Site.objects.get_current()
         start = "var tumblr_api_read ="
         date_format = "%a, %d %b %Y %H:%M:%S"
         json = loads(response.read().split(start, 1)[1].strip().rstrip(";"))
         for entry in json["posts"]:
             if entry["type"] == "regular":
-                print "Importing %s" % entry["regular-title"]
-                post, created = BlogPost.objects.get_or_create(
-                    user=mezzanine_user, title=entry["regular-title"],
-                    content=entry["regular-body"],
-                    status=CONTENT_STATUS_PUBLISHED,
-                    publish_date=datetime.strptime(entry["date"], date_format))
-                for tag in entry["tags"]:
-                    keyword, created = Keyword.objects.get_or_create(title=tag)
-                    post.keywords.add(keyword)
-                post.set_searchable_keywords()
-                redirect, created = Redirect.objects.get_or_create(site=site,
-                    old_path=urlparse(entry["url-with-slug"]).path)
-                redirect.new_path = urlparse(post.get_absolute_url()).path
-                redirect.save()
+                published_date = datetime.strptime(entry["date"], date_format)
+                self.add_post(title=entry["regular-title"],
+                    content=entry["regular-body"], pub_date=published_date, 
+                    tags=entry.get("tags"), old_url=entry["url-with-slug"])
