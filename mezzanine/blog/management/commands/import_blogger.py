@@ -15,7 +15,7 @@ class Command(BaseImporterCommand):
     """   
     
     option_list = BaseImporterCommand.option_list + (
-        make_option("-b", "--blogger", dest="blog_id",
+        make_option("-b", "--blogger-id", dest="blog_id",
             help="Blogger Blog ID from blogger dashboard"),
     )
     

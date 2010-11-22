@@ -3,9 +3,8 @@ Importing External Blogs
 ========================
 
 Mezzanine has the ability to import blog posts from other blogging platforms. 
-There is currently support for `WordPress <http://wordpress.org>`_ and 
-`Blogger <http://blogger.com>`_, with partial support for 
-`Tumblr <http://tumblr.com>`_ and standard RSS feeds.
+There is currently support for `WordPress <http://wordpress.org>`_, 
+`Blogger <http://blogger.com>`_ and `Tumblr <http://tumblr.com>`_.
 
 Importing a blog from another platform is performed via a 
 `Django management command <http://docs.djangoproject.com/en/dev/howto/custom-management-commands/>`_ 
@@ -91,9 +90,17 @@ while you're in settings, go to ``Site Feed`` then set ``Allow Blog Feeds``
 to be ``Full`` - this will give you all your data when you run the import.
 
 The next step is to run the ``import_blogger`` command where the 
-``blog_id`` argument contains the Blogger ID you retrieved::
+``blogger-id`` argument contains the Blogger ID you retrieved::
 
-    $ python manage.py import_blogger --mezzanine-user=.. --blog_id=blog_id
+    $ python manage.py import_blogger --mezzanine-user=.. --blogger-id=XXX
+
+Importing from Tumblr
+=====================
+
+Simply run the ``import_tumblr`` command where the ``tumblr-user`` argument 
+contains your Tumblr username::
+
+    $ python manage.py import_blogger --mezzanine-user=.. --tumblr-user=username
 
 Importer API - Adding New Importers
 ===================================
@@ -121,21 +128,21 @@ with the ``add_comment`` method. For example::
 
     from optparse import make_option
     from django.core.management.base import CommandError
-    from mezzanine.blog.manageurlment.base import BaseImporterCommand
+    from mezzanine.blog.management.base import BaseImporterCommand
 
     class Command(BaseImporterCommand):
 
         option_list = BaseImporterCommand.option_list + (
-            make_option("-s", "--some_arg_name", dest="some_arg_var",
-                help="Description of some_arg_name"),
+            make_option("-s", "--some-arg-name", dest="some_arg_var",
+                help="Description of some-arg-name"),
         )
 
-        def convert(self, options):
+        def handle_import(self, options):
             # Perform the tasks that need to occur to retrieve blog posts.
             # We'll use an imaginary "posts" variable that contains a list of 
             # post dicts with keys: title, author, pub_date, tags and content. 
             # In this example we have access to the command line argument
-            # "some_arg_name" via "options["some_arg_var"]".
+            # "some-arg-name" via "options["some_arg_var"]".
             for retrieved_post in posts:
                 added_post = self.add_post(**retrieved_post)
                 # Another imaginary variable to demo the API.
