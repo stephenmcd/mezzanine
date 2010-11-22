@@ -108,11 +108,13 @@ Importer API - Adding New Importers
 The importer system has been designed to be extensible so that import 
 commands can easily be added for other blogging platforms.
 
-Each import command is a Django management command located in the 
-``mezzanine.blog.management.commands`` package and should have its module 
-named ``import_blogtype`` where ``blog_type`` is the name of the blogging 
-platform the command is for. This module will then contain a class named 
-``Command`` which subclasses ``mezzanine.blog.base.BaseImporterCommand``. 
+Each import command is a 
+`Django management command <http://docs.djangoproject.com/en/dev/ref/django-admin/>`_ 
+located in the ``mezzanine.blog.management.commands`` package and should 
+have its module named ``import_blogtype`` where ``blog_type`` is the name 
+of the blogging platform the command is for. This module will then contain 
+a class named ``Command`` which subclasses 
+``mezzanine.blog.base.BaseImporterCommand``. 
 
 The first step is to define any custom arguments the command will require 
 using Python's `optparse <http://docs.python.org/library/optparse.html>`_ 
