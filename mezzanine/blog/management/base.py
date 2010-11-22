@@ -63,12 +63,15 @@ class EmptyPostError(Error):
     added to an post that has not been specified.
     """
     def __str__(self):
-        return "Attempted to add a comment to no post"
+        return "Attempted to add a comment to no post."
 
 
 class BaseImporterCommand(BaseCommand):
     """
-    Import Blog Posts into mezzanine from a variety of different sources.
+    Imports blog posts into Mezzanine from a variety of different sources. 
+    Should be subclasses for a particular blogging platform and have the 
+    ``handle_import`` method overrdden to provide the import mechanism 
+    specific to the blogging platform being dealt with.
     """
     
     option_list = BaseCommand.option_list + (
@@ -78,7 +81,7 @@ class BaseImporterCommand(BaseCommand):
 
     def __init__ (self, **kwargs):
         self.posts = []
-        super(BaseImporterCommand, self).__init__()
+        super(BaseImporterCommand, self).__init__(**kwargs)
         
     def add_post(self, title=None, author=None, pub_date=None, tags=None,
         content=None, comments=None):
@@ -127,28 +130,27 @@ class BaseImporterCommand(BaseCommand):
             mezzanine_user: the user to put this data in against
             date_format: the format the dates are in in the Posts and Commments
         """
-        self.__dict__.update(options)
 
+        mezzanine_user = options.get("mezzanine_user")
         site = Site.objects.get_current()
         
         # set up the user to import under
         # and do some final checks in order to make sure it's legit
-        if self.mezzanine_user is None:
+        if mezzanine_user is None:
             raise CommandError("No Mezzanine user has been specified")
         try:
-            self.mezzanine_user = User.objects.get(username=self.mezzanine_user)
+            mezzanine_user = User.objects.get(username=mezzanine_user)
         except User.DoesNotExist: 
-            raise CommandError("Mezzanine user %s is not in the system" % 
-                                                        self.mezzanine_user)
+            raise CommandError("Invalid Mezzanine user: %s" % mezzanine_user)
         
-        # now we try and convert the blog
-        self.convert()
+        # now we try and import the blog
+        self.handle_import(options)
                     
         # now process all the data in
         for entry in self.posts:
             print "Importing post titled: %s" % entry["title"]
             post, created = BlogPost.objects.get_or_create(
-                user=self.mezzanine_user, title=entry["title"],
+                user=mezzanine_user, title=entry["title"],
                 content=entry["content"], 
                 status=CONTENT_STATUS_PUBLISHED,
                 publish_date=entry["publication_date"])
@@ -170,7 +172,7 @@ class BaseImporterCommand(BaseCommand):
                 
                 post.comments.add(thecomment)
 
-    def convert(self):
+    def handle_import(self, options):
         """
         Should be overridden by subclasses - Performs the conversion from 
         the originating data source into the lists of posts and comments 

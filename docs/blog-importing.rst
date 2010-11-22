@@ -109,14 +109,14 @@ platform the command is for. This module will then contain a class named
 
 The first step is to define any custom arguments the command will require 
 using Python's `optparse <http://docs.python.org/library/optparse.html>`_ 
-handling. These arguments will then be available as attributes of the 
-``Command`` class when it is executed.
+handling.
 
 The main responsbility of the ``Command`` class is then to implement a 
-``convert`` method which handles retrieving blog posts and comments from 
-the particular blogging platform. The ``add_post`` and ``add_comment`` 
-methods should be called inside the ``convert`` method, adding posts and 
-comments respectively. The ``add_post`` method returns a post to be used 
+``handle_import`` method which handles retrieving blog posts and comments 
+from the particular blogging platform. The ``handle_import`` method is passed 
+a dictionary of options for the command. The ``add_post`` and ``add_comment`` 
+methods should be called inside the ``handle_import`` method, adding posts 
+and comments respectively. The ``add_post`` method returns a post to be used 
 with the ``add_comment`` method. For example::
 
     from optparse import make_option
@@ -130,12 +130,12 @@ with the ``add_comment`` method. For example::
                 help="Description of some_arg_name"),
         )
 
-        def convert(self):
+        def convert(self, options):
             # Perform the tasks that need to occur to retrieve blog posts.
             # We'll use an imaginary "posts" variable that contains a list of 
             # post dicts with keys: title, author, pub_date, tags and content. 
             # In this example we have access to the command line argument
-            # "some_arg_name" via "self.some_arg_var"
+            # "some_arg_name" via "options["some_arg_var"]".
             for retrieved_post in posts:
                 added_post = self.add_post(**retrieved_post)
                 # Another imaginary variable to demo the API.

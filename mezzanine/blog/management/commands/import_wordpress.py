@@ -11,7 +11,7 @@ from mezzanine.blog.management.base import BaseImporterCommand
 
 class Command(BaseImporterCommand):
     """
-    Implements a Wordpress importer.  Takes a file path or a URL in order
+    Implements a Wordpress importer. Takes a file path or a URL in order
     to point to the Wordpress Extended RSS file
     """
 
@@ -22,7 +22,7 @@ class Command(BaseImporterCommand):
 
     def get_text(self, xml, element, nodetype):
         """
-        Gets the element's text value from the xml object provided, adapted
+        Gets the element's text value from the XML object provided, adapted
         from minidom examples
         """
         rc = []
@@ -31,14 +31,14 @@ class Command(BaseImporterCommand):
                 rc.append(node.data)
         return "".join(rc)
 
-    def convert(self):    
+    def handle_import(self, options):    
         """
         Gets the posts from either the provided URL or else
         from the path if it is local and then formats them back into the
         standard style ready for importation into Mezzanine. 
         """
     
-        url = self.url
+        url = options.get("url")
 
         if url is None:
             raise CommandError("Please specify the wordpress file for import")
@@ -46,7 +46,7 @@ class Command(BaseImporterCommand):
         try:
             import feedparser
         except ImportError:
-            raise CommndError("You need to downlod feedparser - try easy_install feedparser")
+            raise CommandError("Could not import the feedparser package.")
 
         feed = feedparser.parse(url)
 
@@ -91,24 +91,26 @@ class Command(BaseImporterCommand):
 
             # get the comments from the xml doc.
             for comment in xmlitem.getElementsByTagName("wp:comment"):
-                author_name = self.get_text(comment, "wp:comment_author", comment.CDATA_SECTION_NODE)
-                email = self.get_text(comment, "wp:comment_author_email", comment.TEXT_NODE)
+                author_name = self.get_text(comment, "wp:comment_author", 
+                                            comment.CDATA_SECTION_NODE)
+                email = self.get_text(comment, "wp:comment_author_email", 
+                                      comment.TEXT_NODE)
                 website = ""
-                if self.get_text(comment, "wp:comment_author_url", comment.TEXT_NODE):
-                    website = self.get_text(comment, "wp:comment_author_url", comment.TEXT_NODE)
-                body = self.get_text(comment, "wp:comment_content", comment.CDATA_SECTION_NODE)
+                if self.get_text(comment, "wp:comment_author_url", 
+                                 comment.TEXT_NODE):
+                    website = self.get_text(comment, "wp:comment_author_url", 
+                                            comment.TEXT_NODE)
+                body = self.get_text(comment, "wp:comment_content", 
+                                     comment.CDATA_SECTION_NODE)
 
                 # use the GMT date (closest to UTC we'll end up with so this will
                 # make it relatively timezone fine format is YYYY-MM-DD HH:MM:SS
-                comment_date = datetime.strptime(
-                    self.get_text(comment, "wp:comment_date_gmt", comment.TEXT_NODE),
-                    "%Y-%m-%d %H:%M:%S" ) - timedelta(seconds = timezone)
+                comment_date = self.get_text(comment, "wp:comment_date_gmt", 
+                                             comment.TEXT_NODE)
+                comment_date = datetime.strptime(comment_date, 
+                                                 "%Y-%m-%d %H:%M:%S")
+                comment_date -= timedelta(seconds = timezone)
                 
                 # add the comment as a dict to the end of the comments list
-                self.add_comment(
-                    post = post,
-                    name = author_name,
-                    email = email,
-                    body = body,
-                    website = website,
-                    pub_date = comment_date)
+                self.add_comment(post=post, name=author_name, email=email,
+                    body=body, website=website, pub_date=comment_date)

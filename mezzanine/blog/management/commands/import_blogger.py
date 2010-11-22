@@ -11,56 +11,48 @@ from mezzanine.blog.management.base import BaseImporterCommand
 class Command(BaseImporterCommand):
     """
     Implements a Blogger importer. Takes a blogger ID in order to be able to
-    determine which blog it should point to and harvest the XML from
+    determine which blog it should point to and harvest the XML from.
     """   
-    gdata_url = "http://code.google.com/p/gdata-python-client/" 
     
     option_list = BaseImporterCommand.option_list + (
         make_option("-b", "--blogger", dest="blog_id",
             help="Blogger Blog ID from blogger dashboard"),
     )
     
-    def convert(self):
+    def handle_import(self, options):
         """
         Gets posts from blogger and then formats them back into the standard
         style ready for importation into Mezzanine.
         """
 
-        blog_id = self.blog_id
-        server = "www.blogger.com"
+        blog_id = options.get("blog_id")
+        if blog_id is None:
+            raise CommandError("You have not supplied a Blogger ID.")
             
         try:
             from gdata import service
             import gdata
             import atom
         except ImportError:
-            raise CommandError("You need to download the gdata python client module from %s to import blogger" % self.gdata_url)
+            raise CommandError("Could not import the gdata library.")
         
         blogger = service.GDataService()
         blogger.service = "blogger"
-        blogger.server = server
+        blogger.server = "www.blogger.com"
         query = service.Query()
-        try:
-            query.feed = "/feeds/" + blog_id + "/posts/full"
-        except TypeError:
-            raise CommandError("You have not supplied a blog id for blogger")
+        query.feed = "/feeds/%s/posts/full" % blog_id
         query.max_results = 500
-	
         try:
             feed = blogger.Get(query.ToUri())
         except gdata.service.RequestError, err:
-
-            message = "There was a service error. The response was: %(status)s %(reason)s - %(body)s" % err.message
-            raise FeedURLError(message, blogger.server + query.feed, err.message["status"])
-            return
-            
-        total_posts = len(feed.entry)
-        post_list = []
+            message = "There was a service error. The response was: " \
+                "%(status)s %(reason)s - %(body)s" % err.message
+            raise CommandError(message, blogger.server + query.feed, 
+                               err.message["status"])
         
         for (i, entry) in enumerate(feed.entry):
-     
-            # this basically gets the unique post id from the URL to itself. Pulls
-            # the id off the end.
+            # this basically gets the unique post ID from the URL to itself 
+            # and pulls the ID off the end.
             post_id = entry.GetSelfLink().href.split("/")[-1]
             title = entry.title.text
             content = entry.content.text
@@ -68,19 +60,16 @@ class Command(BaseImporterCommand):
             published_date = datetime.strptime(entry.published.text[:-6], 
                     "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds = timezone)
             
-            # get the tags
-            tags = [tag.term for tag in entry.category]
-            
             #TODO - issues with content not generating correct <P> tags
             
-            post = self.add_post(
-                title = title,
-                content = content,
-                pub_date = published_date,
-                tags = tags)
+            tags = [tag.term for tag in entry.category]
+            post = self.add_post(title=title, content=content, 
+                                 pub_date=published_date, tags=tags)
             
-            # get the comments from the post feed and then add them to the post details
-            comment_url = "/feeds/" + blog_id + "/" + post_id + "/comments/full?max-results=1000"
+            # get the comments from the post feed and then add them to 
+            # the post details
+            ids = (blog_id, post_id)
+            comment_url = "/feeds/%s/%s/comments/full?max-results=1000" % ids
             comments = blogger.Get(comment_url)
             
             for comment in comments.entry:
@@ -95,10 +84,5 @@ class Command(BaseImporterCommand):
                 body = comment.content.text
                 
                 # add the comment as a dict to the end of the comments list
-                self.add_comment(
-                    post = post,
-                    name = author_name,
-                    email = email,
-                    body = body,
-                    website = website,
-                    pub_date = comment_date)
+                self.add_comment(post=post, name=author_name, email=email,
+                    body=body, website=website, pub_date=comment_date)
