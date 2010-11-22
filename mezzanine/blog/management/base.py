@@ -88,6 +88,7 @@ class BaseImporterCommand(BaseCommand):
 
         mezzanine_user = options.get("mezzanine_user")
         site = Site.objects.get_current()
+        verbosity = int(options.get("verbosity", 1))
         
         # Validate the Mezzanine user.
         if mezzanine_user is None:
@@ -102,7 +103,8 @@ class BaseImporterCommand(BaseCommand):
         self.handle_import(options)
         for post in self.posts:
 
-            print "Importing post titled: %s" % post["title"]
+            if verbosity >= 1:
+                print "Importing post titled: %s" % post["title"]
             tags = post.pop("tags")
             comments = post.pop("comments")
             old_url = post.pop("old_url")
@@ -116,7 +118,8 @@ class BaseImporterCommand(BaseCommand):
             post.set_searchable_keywords()
 
             for comment in comments:
-                print "Importing comment by: %s" % comment["name"]
+                if verbosity >= 1:
+                    print "Importing comment by: %s" % comment["name"]
                 comment["blog_post"] = post
                 comment, created = Comment.objects.get_or_create(**comment)
 
