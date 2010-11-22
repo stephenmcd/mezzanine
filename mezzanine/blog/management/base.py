@@ -34,7 +34,7 @@ class BaseImporterCommand(BaseCommand):
         self.posts = []
         super(BaseImporterCommand, self).__init__(**kwargs)
         
-    def add_post(self, title=None, author=None, pub_date=None, tags=None,
+    def add_post(self, title=None, pub_date=None, tags=None,
         content=None, comments=None):
         """
         Adds a post to the post list for processing.
@@ -42,14 +42,17 @@ class BaseImporterCommand(BaseCommand):
         Attributes:
             pub_date is assumed to be a datetime struct
         """
-        if not comments:
+        if tags is None:
+            tags = []
+        if comments is None:
             comments = []
         self.posts.append({
             "title": title,
-            "publication_date": pub_date,
+            "publish_date": pub_date,
             "content": content,
             "tags": tags,
-            "comments": comments})
+            "comments": comments,
+        })
         return self.posts[-1]
                 
     def add_comment(self, post=None, name=None, email=None, pub_date=None, 
@@ -84,8 +87,7 @@ class BaseImporterCommand(BaseCommand):
         mezzanine_user = options.get("mezzanine_user")
         site = Site.objects.get_current()
         
-        # set up the user to import under
-        # and do some final checks in order to make sure it's legit
+        # Validate the Mezzanine user.
         if mezzanine_user is None:
             raise CommandError("No Mezzanine user has been specified")
         try:
@@ -93,34 +95,24 @@ class BaseImporterCommand(BaseCommand):
         except User.DoesNotExist: 
             raise CommandError("Invalid Mezzanine user: %s" % mezzanine_user)
         
-        # now we try and import the blog
+        # Run the subclassed ``handle_import``
         self.handle_import(options)
                     
-        # now process all the data in
-        for entry in self.posts:
-            print "Importing post titled: %s" % entry["title"]
+        # Save posts, tags and comments to the DB.
+        for post in self.posts:
+            print "Importing post titled: %s" % post["title"]
+            tags = post.pop("tags")
+            comments = post.pop("comments")
             post, created = BlogPost.objects.get_or_create(
-                user=mezzanine_user, title=entry["title"],
-                content=entry["content"], 
-                status=CONTENT_STATUS_PUBLISHED,
-                publish_date=entry["publication_date"])
-                
-            for tag in entry["tags"]:
+                user=mezzanine_user, status=CONTENT_STATUS_PUBLISHED, **post)
+            for tag in tags:
                 keyword, created = Keyword.objects.get_or_create(title=tag)
                 post.keywords.add(keyword)
             post.set_searchable_keywords()
-            
-            for comment in entry["comments"]:
+            for comment in comments:
                 print "Importing comment by: %s" % comment["name"]
-                thecomment, created = Comment.objects.get_or_create(
-                    blog_post = post,
-                    name = comment["name"],
-                    email = comment["email"],
-                    body = comment["body"],
-                    website = comment["website"],
-                    time_created = comment["time_created"] )
-                
-                post.comments.add(thecomment)
+                comment["blog_post"] = post
+                comment, created = Comment.objects.get_or_create(**comment)
 
     def handle_import(self, options):
         """

@@ -42,7 +42,6 @@ class Command(BaseImporterCommand):
 
         if url is None:
             raise CommandError("Please specify the wordpress file for import")
-
         try:
             import feedparser
         except ImportError:
@@ -57,10 +56,6 @@ class Command(BaseImporterCommand):
         xml = parse(url)
         xmlitems = xml.getElementsByTagName("item")
 
-        total_posts = len(feed["entries"])
-        
-        post_list = []
-        
         for (i, entry) in enumerate(feed["entries"]):
             # get a pointer to the right position in the minidom as well.
             xmlitem = xmlitems[i]
@@ -72,22 +67,19 @@ class Command(BaseImporterCommand):
             # updated date if we can"t.
             try:
                 pd = entry.published_parsed
-            except AttributeError, err:
+            except AttributeError:
                 pd = entry.updated_parsed
                 
-            published_date = datetime.fromtimestamp(mktime(pd)) - timedelta(seconds = timezone)
+            published_date = datetime.fromtimestamp(mktime(pd))
+            published_date -= timedelta(seconds=timezone)
             tags = [tag.term for tag in entry.tags if tag.scheme !="category"]
 
             # tags have a tendency to not be unique in WP for some reason so
             # set the list so we have unique
             tags = list(set(tags))
             comments_list = []
-            # create the temporary post object and append to the post_list
-            post = self.add_post(
-                title = title,
-                content = content,
-                pub_date = published_date,
-                tags = tags)
+            post = self.add_post(title=title, content=content,
+                                 pub_date=published_date, tags=tags)
 
             # get the comments from the xml doc.
             for comment in xmlitem.getElementsByTagName("wp:comment"):
@@ -109,7 +101,7 @@ class Command(BaseImporterCommand):
                                              comment.TEXT_NODE)
                 comment_date = datetime.strptime(comment_date, 
                                                  "%Y-%m-%d %H:%M:%S")
-                comment_date -= timedelta(seconds = timezone)
+                comment_date -= timedelta(seconds=timezone)
                 
                 # add the comment as a dict to the end of the comments list
                 self.add_comment(post=post, name=author_name, email=email,
