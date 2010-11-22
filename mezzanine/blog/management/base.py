@@ -17,55 +17,6 @@ from mezzanine.blog.models import BlogPost, Comment
 from mezzanine.core.models import Keyword, CONTENT_STATUS_PUBLISHED
 
 
-class Error(CommandError):
-    """
-    Base class for errors in this module.
-    """
-    pass
-    
-
-class EmptyFeedError(Error):
-    """
-    Exception raised for the case where a valid feed has returned no posts.
-    
-    Attributes:
-        msg: explanation of the error
-        url: the feed url that was called
-    """
-    def __init__(self, msg, url):
-        self.msg = msg
-        self.url = url
-
-
-class FeedURLError(Error):
-    """
-    Exception raised in the case where the URL that is hit for the feed 
-    doesn't return correctly at all.
-    
-    Attributes:
-        http_code: http response code returned
-        msg: explanation of the error
-        url: url that was called
-    """
-    def __init__(self, msg, url, http_code):
-        self.msg = msg
-        self.url = url
-        self.http_code = http_code
-        
-    def __str__(self):
-        data = self.msg + " " + self.url
-        return data
-
-
-class EmptyPostError(Error):
-    """
-    Exception raised in the case where a comment is being attempted to be
-    added to an post that has not been specified.
-    """
-    def __str__(self):
-        return "Attempted to add a comment to no post."
-
-
 class BaseImporterCommand(BaseCommand):
     """
     Imports blog posts into Mezzanine from a variety of different sources. 
@@ -93,7 +44,6 @@ class BaseImporterCommand(BaseCommand):
         """
         if not comments:
             comments = []
-        print "Retrieved post titled: %s" % title
         self.posts.append({
             "title": title,
             "publication_date": pub_date,
@@ -110,17 +60,17 @@ class BaseImporterCommand(BaseCommand):
         Attributes:
             pub_date is assumed to be a date time struct
         """
-        print "Retrieved comment by: %s" % name
-        if not post:
-            raise (EmptyPostError)
-        else:
-            post["comments"].append({
-                "name": name,
-                "email": email,
-                "time_created": pub_date,
-                "website": website,
-                "body": body,
-            })
+        if post is None:
+            if not self.posts:
+                raise CommandError("Cannot add comments without posts")
+            post = self.posts[-1]
+        post["comments"].append({
+            "name": name,
+            "email": email,
+            "time_created": pub_date,
+            "website": website,
+            "body": body,
+        })
             
     def handle(self, *args, **options):
         """
