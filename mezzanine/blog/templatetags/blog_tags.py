@@ -110,12 +110,14 @@ def blog_authors(*args):
     blog_posts = BlogPost.objects.published()
     return list(User.objects.filter(blogposts__in=blog_posts).distinct())
 
+
 @register.as_tag
-def get_recent_posts(limit):
+def blog_recent_posts(limit):
     """
     Put a list of recently published blog posts into the template context.
     """
-    return BlogPost.objects.published()[:limit]
+    return list(BlogPost.objects.published()[:limit])
+
 
 @register.inclusion_tag("admin/includes/quick_blog.html", takes_context=True)
 def quick_blog(context):
