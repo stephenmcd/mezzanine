@@ -112,7 +112,7 @@ def blog_authors(*args):
 
 
 @register.as_tag
-def blog_recent_posts(limit):
+def blog_recent_posts(limit=5):
     """
     Put a list of recently published blog posts into the template context.
     """
