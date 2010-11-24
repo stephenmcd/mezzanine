@@ -17,6 +17,8 @@ var anyFieldsDirty = function(fields) {
             case 'checkbox':
                 if ($(field).attr('dirty')) {return true;}
                 break;
+            case 'hidden:
+                return false;
             default:
                 alert('Unhandled field in orderable_inline.js:' +
                     field.name + ':' + field.type);
@@ -50,7 +52,7 @@ $(function() {
             $.each($(parent).find('._order input'), function(i, field) {
                 field.value = '';
                 var fields = $(field).parent().parent().find(
-                        'input:not(:hidden), select, textarea');
+                        'input, select, textarea');
                 if (anyFieldsDirty(fields)) {
                     field.value = order;
                     order += 1;
