@@ -17,7 +17,7 @@ var anyFieldsDirty = function(fields) {
             case 'checkbox':
                 if ($(field).attr('dirty')) {return true;}
                 break;
-            case 'hidden:
+            case 'hidden':
                 return false;
             default:
                 alert('Unhandled field in orderable_inline.js:' +
