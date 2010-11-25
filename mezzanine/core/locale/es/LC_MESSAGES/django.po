@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine 0.8.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-24 20:58-0430\n"
-"PO-Revision-Date: 2010-11-24 21:00-0400\n"
+"POT-Creation-Date: 2010-11-24 21:55-0430\n"
+"PO-Revision-Date: 2010-11-24 21:58-0400\n"
 "Last-Translator: Carlos David Marrero <cdmarrero2040@gmail.com>\n"
 "Language-Team: Armadillo Integración Tecnológica C.A <info@armadillotec.com>\n"
 "Language: \n"
@@ -129,6 +129,31 @@ msgstr "Esta es la página de inicio para moviles."
 msgid "Search Results"
 msgstr "Resultados de la búsqueda"
 
+#: templates/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr "No se encontraron resultados que coinciden con su consulta:"
+
+#: templates/search_results.html:14
+msgid "Showing"
+msgstr "Mostrando"
+
+#: templates/search_results.html:14
+msgid "to"
+msgstr "hasta"
+
+#: templates/search_results.html:14
+#: templates/includes/pagination.html:4
+msgid "of"
+msgstr "de"
+
+#: templates/search_results.html:15
+msgid "results matching your query:"
+msgstr "resultados que coinciden con su consulta:"
+
+#: templates/search_results.html:23
+msgid "read more"
+msgstr "leer más"
+
 #: templates/admin/base_site.html:159
 msgid "Interface:"
 msgstr "Interfaz:"
@@ -191,10 +216,6 @@ msgstr "Salir"
 #: templates/includes/pagination.html:4
 msgid "Page"
 msgstr "Página"
-
-#: templates/includes/pagination.html:4
-msgid "of"
-msgstr "de"
 
 #: templates/includes/search.html:3
 msgid "Search"

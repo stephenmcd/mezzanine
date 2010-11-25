@@ -9,10 +9,10 @@
 
 <p>
 {% ifequal results.paginator.count 0 %}
-No results were found matching your query: <em>{{ query }}</em>
+{% trans "No results were found matching your query: " %}<em>{{ query }}</em>
 {% else %}
-Showing {{ results.start_index }} to {{ results.end_index }} of
-{{ results.paginator.count }} results matching your query: <em>{{ query }}</em>
+{% trans "Showing" %} {{ results.start_index }} {% trans "to" %} {{ results.end_index }} {% trans "of" %}
+{{ results.paginator.count }} {% trans "results matching your query:" %} <em>{{ query }}</em>
 {% endifequal %}
 </p>
 
@@ -20,7 +20,7 @@ Showing {{ results.start_index }} to {{ results.end_index }} of
     {% for result in results.object_list %}
     <h5><a href="{{ result.get_absolute_url }}">{{ result }}</a></h5>
     {{ result.description|truncatewords_html:20|safe }}
-    <a href="{{ result.get_absolute_url }}">read more</a>
+    <a href="{{ result.get_absolute_url }}">{% trans "read more" %}</a>
     {% endfor %}
 </div>
 
