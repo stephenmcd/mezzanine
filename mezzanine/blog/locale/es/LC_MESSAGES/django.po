@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Mezzanine 0.8.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-11-24 18:47-0430\n"
-"PO-Revision-Date: 2010-11-24 19:17-0400\n"
+"PO-Revision-Date: 2010-11-24 22:08-0400\n"
 "Last-Translator: Carlos David Marrero <cdmarrero2040@gmail.com>\n"
 "Language-Team: Armadillo Integración Tecnológica C.A <info@armadillotec.com>\n"
 "Language: \n"
@@ -114,7 +114,7 @@ msgstr "Comentarios recientes"
 #: templates/blog/blog_post_list.html:51
 #: templates/blog/includes/comments_thread.html:19
 msgid "ago"
-msgstr "Hace"
+msgstr "atrás"
 
 #: templates/admin/includes/recent_comments.html:18
 msgid "Posted to"
