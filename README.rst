@@ -123,6 +123,7 @@ Sites Using Mezzanine
   * `Thomas Johnson`_
   * `Central Mosque Wembley`_
   * `Ovarian Cancer Research Foundation`_
+  * `The Source Procurement`_
 
 Quotes
 ======
@@ -166,6 +167,7 @@ Quotes
 .. _`Thomas Johnson`: http://tomfmason.net/
 .. _`Central Mosque Wembley`: http://wembley-mosque.co.uk/
 .. _`Ovarian Cancer Research Foundation`: http://ocrf.com.au/
+.. _`The Source Procurement`: http://thesource.com.au/
 .. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
