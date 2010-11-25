@@ -1,0 +1,69 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 0.8.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-24 17:34-0430\n"
+"PO-Revision-Date: 2010-11-24 18:43-0400\n"
+"Last-Translator: Carlos David Marrero <cdmarrero2040@gmail.com>\n"
+"Language-Team: Armadillo Integración Tecnológica C.A <info@armadillotec.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: VENEZUELA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: models.py:19
+msgid "Show in navigation"
+msgstr "Mostrar en la navegación"
+
+#: models.py:20
+msgid "Show in footer"
+msgstr "Mostrar en el pie de página"
+
+#: models.py:23
+msgid "Login required"
+msgstr "Requiere estar autenticado"
+
+#: models.py:24
+msgid "If checked, only logged in users can view this page"
+msgstr "Si está marcada, sólo los usuarios registrados pueden ver esta página"
+
+#: models.py:27
+msgid "Page"
+msgstr "Página"
+
+#: models.py:28
+msgid "Pages"
+msgstr "Páginas"
+
+#: models.py:85
+msgid "Content page"
+msgstr "Página de contenido"
+
+#: models.py:86
+msgid "Content pages"
+msgstr "Páginas de contenido"
+
+#: templates/admin/includes/tree_menu.html:18
+msgid "Add secondary"
+msgstr "Añadir hijo"
+
+#: templates/admin/pages/page/change_list.html:131
+msgid "Add primary"
+msgstr "Añadir padre"
+
+#: templates/pages/includes/breadcrumb_menu.html:10
+#: templates/pages/includes/primary_menu.html:9
+#: templates/pages/includes/tree_menu.html:11
+#: templates/pages/includes/tree_menu_footer.html:11
+msgid "Home"
+msgstr "Inicio"
+

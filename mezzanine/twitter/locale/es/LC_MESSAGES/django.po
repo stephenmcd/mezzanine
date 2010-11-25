@@ -1,0 +1,102 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 0.8.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-24 19:21-0430\n"
+"PO-Revision-Date: 2010-11-24 19:28-0400\n"
+"Last-Translator: Carlos David Marrero <cdmarrero2040@gmail.com>\n"
+"Language-Team: Armadillo Integración Tecnológica C.A <info@armadillotec.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: VENEZUELA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: models.py:24
+msgid "User"
+msgstr ""
+
+#: models.py:25
+msgid "List"
+msgstr ""
+
+#: models.py:26
+msgid "Search"
+msgstr ""
+
+#: models.py:29
+msgid "Type"
+msgstr ""
+
+#: models.py:31
+msgid "Value"
+msgstr ""
+
+#: models.py:35
+msgid "Twitter query"
+msgstr ""
+
+#: models.py:36
+msgid "Twitter queries"
+msgstr ""
+
+#: models.py:96
+msgid "Twitter ID"
+msgstr ""
+
+#: models.py:97
+msgid "Date/time"
+msgstr ""
+
+#: models.py:98
+msgid "Message"
+msgstr ""
+
+#: models.py:99
+msgid "Profile image URL"
+msgstr ""
+
+#: models.py:100
+msgid "User name"
+msgstr ""
+
+#: models.py:101
+msgid "Full name"
+msgstr ""
+
+#: models.py:103
+msgid "Profile image URL (Retweeted by)"
+msgstr ""
+
+#: models.py:105
+msgid "User name (Retweeted by)"
+msgstr ""
+
+#: models.py:107
+msgid "Full name (Retweeted by)"
+msgstr ""
+
+#: models.py:113
+msgid "Tweet"
+msgstr ""
+
+#: models.py:114
+msgid "Tweets"
+msgstr ""
+
+#: templates/twitter/tweets.html:7
+msgid "Recent Tweets"
+msgstr "Tweets recientes"
+
+#: templates/twitter/tweets.html:27
+msgid "ago"
+msgstr "atrás"
+
