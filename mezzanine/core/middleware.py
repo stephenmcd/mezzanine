@@ -18,8 +18,9 @@ class MobileTemplate(object):
         if [s for s in settings.MOBILE_USER_AGENTS if s in user_agent]:
             template = view_kwargs.get("template")
             func_defaults = getattr(view_func, "func_defaults", None)
-            if func_defaults is None and hasattr(view_func, "__call__"):
-                func_defaults = getattr(view_func.__call__, "func_defaults")
+            callable_func = getattr(view_func, "__call__", None)
+            if func_defaults is None and callable_func is not None:
+                func_defaults = getattr(callable_func, "func_defaults", None)
             if template is None and func_defaults is not None:
                 for default in func_defaults:
                     if str(default).endswith(".html"):
