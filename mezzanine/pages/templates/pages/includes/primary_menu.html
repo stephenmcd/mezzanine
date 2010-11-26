@@ -2,7 +2,7 @@
 
 {% spaceless %}
 {% url home as home_url %}
-<ul>
+<ul id="primary-menu">
     {% for page in page_branch %}
     {% if forloop.first %}
     <li id="primary-menu-home" class="first{% ifequal request.path home_url %} active{% endifequal %}">
