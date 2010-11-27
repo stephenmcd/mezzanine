@@ -7,8 +7,13 @@ import sys
 from django.core.exceptions import ImproperlyConfigured
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
+from django.template import Context
+from django.template.loader import add_to_builtins
 from django.utils.importlib import import_module
 from django import VERSION
+
+from mezzanine.template.loader import get_template, select_template
 
 
 def admin_url(model, url, object_id=None):
@@ -139,6 +144,24 @@ def path_for_import(name):
     return os.path.dirname(os.path.abspath(import_module(name).__file__))
 
 
+def render_to_response(template_name, dictionary=None, context_instance=None, 
+                       mimetype=None):
+    """
+    Mimics ``django.shortcuts.render_to_response`` but uses Mezzanine's 
+    ``get_template`` which handles device specific template directories.
+    """
+    dictionary = dictionary or {}
+    if context_instance:
+        context_instance.update(dictionary)
+    else:
+        context_instance = Context(dictionary)
+    if isinstance(template_name, (list, tuple)):
+        t = select_template(template_name, context_instance)
+    else:
+        t = get_template(template_name, context_instance)
+    return HttpResponse(t.render(context_instance), mimetype=mimetype)
+
+
 def set_dynamic_settings(s):
     """
     Called at the end of the project's settings module and is passed its 
@@ -150,6 +173,7 @@ def set_dynamic_settings(s):
     """
 
     s["TEMPLATE_DEBUG"] = s["DEBUG"]
+    add_to_builtins("mezzanine.template.loader_tags")
     
     # Set ADMIN_MEDIA_PREFIX for Grappelli.
     grappelli = s["PACKAGE_NAME_GRAPPELLI"] in s["INSTALLED_APPS"]
@@ -213,7 +237,6 @@ def set_dynamic_settings(s):
         return
     # Add the dummy csrf_token template tag to builtins and remove 
     # Django's CsrfViewMiddleware.
-    from django.template.loader import add_to_builtins
     add_to_builtins("mezzanine.core.templatetags.dummy_csrf")
     s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if 
                         mw != "django.middleware.csrf.CsrfViewMiddleware"]
