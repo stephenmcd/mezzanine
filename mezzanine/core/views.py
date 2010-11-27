@@ -4,14 +4,13 @@ from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import get_model
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Keyword, Displayable
-from mezzanine.utils import is_editable, paginate
+from mezzanine.utils import is_editable, paginate, render_to_response
 
 
 def admin_keywords_submit(request):
