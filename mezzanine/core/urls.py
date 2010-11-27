@@ -4,9 +4,9 @@ from urlparse import urlsplit
 from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
-from django.views.generic.simple import direct_to_template
 
 from mezzanine.conf import settings
+from mezzanine.core.views import direct_to_template
 
 
 urlpatterns = patterns("mezzanine.core.views",

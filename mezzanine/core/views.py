@@ -28,6 +28,19 @@ def admin_keywords_submit(request):
 admin_keywords_submit = staff_member_required(admin_keywords_submit)
 
 
+def direct_to_template(request, template, extra_context=None, **kwargs):
+    """
+    Replacement for Django's ``direct_to_template`` that uses Mezzanine's 
+    device-aware ``render_to_response``.
+    """
+    context = extra_context or {}
+    context["params"] = kwargs
+    for (key, value) in context.items():
+        if callable(value):
+            context[key] = value()
+    return render_to_response(template, context, RequestContext(request))
+    
+
 def search(request, template="search_results.html"):
     """
     Display search results.
