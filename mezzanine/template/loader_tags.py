@@ -16,9 +16,12 @@ from mezzanine.template.loader import get_template
 register = Library()
 
 
-class DeviceAwareExtendsNode(ExtendsNode):
+class ContextAwareExtendsNode(ExtendsNode):
 
     def get_parent(self, context):
+        """
+        Override to use Mezzanine's context-aware ``get_template``.
+        """
         if self.parent_name_expr:
             self.parent_name = self.parent_name_expr.resolve(context)
         parent = self.parent_name
@@ -50,7 +53,7 @@ def extends(parser, token):
     if nodelist.get_nodes_by_type(DeviceAwareExtendsNode):
         raise TemplateSyntaxError("'%s' cannot appear more than once in " 
                                   "the same template" % bits[0])
-    return DeviceAwareExtendsNode(nodelist, parent_name, parent_name_expr)
+    return ContextAwareExtendsNode(nodelist, parent_name, parent_name_expr)
 
 
 @register.render_tag
