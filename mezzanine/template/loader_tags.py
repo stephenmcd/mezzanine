@@ -50,7 +50,7 @@ def extends(parser, token):
     else:
         parent_name_expr = parser.compile_filter(bits[1])
     nodelist = parser.parse()
-    if nodelist.get_nodes_by_type(DeviceAwareExtendsNode):
+    if nodelist.get_nodes_by_type(ContextAwareExtendsNode):
         raise TemplateSyntaxError("'%s' cannot appear more than once in " 
                                   "the same template" % bits[0])
     return ContextAwareExtendsNode(nodelist, parent_name, parent_name_expr)
