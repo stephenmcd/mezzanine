@@ -19,23 +19,27 @@
 {% endblock %}
 
 {% block main %}
-<p id="description">
-{% if tag %}
-    {% trans "Viewing posts tagged" %} {{ tag }}
-{% else %}{% if category %}
-    {% trans "Viewing posts for the category" %} {{ category }}
-{% else %}{% if year or month %}
-    {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
+
+{% if tag or category or year or month or user %}
+    <p id="description">
+    {% if tag %}
+        {% trans "Viewing posts tagged" %} {{ tag }}
+    {% else %}{% if category %}
+        {% trans "Viewing posts for the category" %} {{ category }}
+    {% else %}{% if year or month %}
+        {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
     {{ year }}
-{% else %}{% if user %}
-    {% trans "Viewing posts by" %} 
-    {{ user.get_full_name|default:user.username }}
-{% else %}
-    {% editable blog_page.content %}
-    {{ blog_page.content|safe }}
-    {% endeditable %}
+    {% else %}{% if user %}
+        {% trans "Viewing posts by" %} 
+        {{ user.get_full_name|default:user.username }}
 {% endif %}{% endif %}{% endif %}{% endif %}
 </p>
+{% else %}
+    {% editable blog_page.content %}
+        {{ blog_page.content|safe }}
+        {% endeditable %}
+{% endif %}
+
 
 {% for blog_post in blog_posts.object_list %}
 {% editable blog_post.title blog_post.publish_date %}
