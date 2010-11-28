@@ -11,10 +11,11 @@ about Mezzanine's :doc:`content-architecture` which describes the main
 components and how to extend them with your own custom content types. 
 
 Template developers can read about how :doc:`themes` are used to skin a 
-Mezzanine project. Mezzanine also comes with the ability for content authors 
-to edit content directly within a page while viewing it on the website. 
-You can read about this and how to implement it in templates under 
-:doc:`inline-editing`.
+Mezzanine project as well as how to set up templates for specific 
+:doc:`device-handling` such as mobile phones. Mezzanine also comes with the 
+ability for content authors to edit content directly within a page while 
+viewing it on the website. You can read about this and how to implement it 
+in templates under :doc:`inline-editing`.
 
 Further reading includes information about Mezzanine's :doc:`search-engine`, 
 a section on the :doc:`admin-customization` provided by Mezzanine, and a 
@@ -30,6 +31,7 @@ browse the auto-generated docs for each of Mezzanine's :doc:`packages`.
     overview	
     content-architecture
     themes
+    device-handling
     inline-editing
     search-engine
     admin-customization
