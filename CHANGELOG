@@ -1,3 +1,12 @@
+Version 0.9.1 (Nov 28, 2010)
+----------------------------
+
+  * Added "blog-post-tile" class for semantic/styling purposes - Lee Matos
+  * stop creation of empty p id="description" (Potentially needs refactoring) aka not too elegant - Lee Matos
+  * Fixed white-space in blog list template - stephenmcd
+  * Added Lee Matos to AUTHORS - stephenmcd
+  * Fixed branching of admin media hosting for Grappelli - stephenmcd
+
 Version 0.9 (Nov 27, 2010)
 --------------------------
 
@@ -215,6 +224,7 @@ Version 0.8.5 (Nov 09, 2010)
   * Make filebrowser menu item translatable - stephenmcd
   * Ignore migration scripts - stephenmcd
   * Catch DatabaseError instead of trying to check for syncdb when reading DB settings to allow for other DB management related commands to run such as south - stephenmcd
+  * Put fixtures into a potentially more stable order - stephenmcd
   * Rename mezzanine.settings to mezzanine.conf - stephenmcd
   * Make the DatabaseError import compatible with Django 1.1 - stephenmcd
   * Update the admin menu with the new conf name - stephenmcd
@@ -228,7 +238,6 @@ Version 0.8.5 (Nov 09, 2010)
   * Remove the ``MEZZANINE_`` prefix from checking project's settings for default values, since non-mezzanine apps may register settings themselves - stephenmcd
   * Group the form fields for editable settings by prefix - stephenmcd
   * Update documentation to reflect refactoring of the conf app - stephenmcd
-  * Put fixtures into a potentially more stable order - stephenmcd
   * Comment fixes - stephenmcd
   * Allow the ``BlogCategoryAdmin`` to be displayed in the admin menu when explicitly defined in ``ADMIN_MENU_ORDER`` - stephenmcd
   * Add some stricter style declarations for the inline editing controls - stephenmcd
