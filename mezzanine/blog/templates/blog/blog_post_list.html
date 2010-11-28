@@ -32,12 +32,12 @@
     {% else %}{% if user %}
         {% trans "Viewing posts by" %} 
         {{ user.get_full_name|default:user.username }}
-{% endif %}{% endif %}{% endif %}{% endif %}
-</p>
+    {% endif %}{% endif %}{% endif %}{% endif %}
+    </p>
 {% else %}
     {% editable blog_page.content %}
-        {{ blog_page.content|safe }}
-        {% endeditable %}
+    {{ blog_page.content|safe }}
+    {% endeditable %}
 {% endif %}
 
 
