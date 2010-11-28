@@ -176,9 +176,7 @@ def set_dynamic_settings(s):
     add_to_builtins("mezzanine.template.loader_tags")
     
     # Set ADMIN_MEDIA_PREFIX for Grappelli.
-    grappelli = s["PACKAGE_NAME_GRAPPELLI"] in s["INSTALLED_APPS"]
-    if grappelli:
-        s["ADMIN_MEDIA_PREFIX"] = "/media/admin/"
+    if s.get("PACKAGE_NAME_GRAPPELLI") in s["INSTALLED_APPS"]:
         # Adopted from django.core.management.commands.runserver
         # Easiest way so far to actually get all the media for Grappelli 
         # working with the dev server is to hard-code the host:port to 
