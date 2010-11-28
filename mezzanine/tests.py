@@ -62,17 +62,16 @@ class Tests(TestCase):
             content=description * 3)
         self.assertEqual(page.description, description)
 
-    def test_mobile_middleware(self):
+    def test_device_specific_template(self):
         """
         Test that an alternate template is rendered when a mobile device is
         used.
         """
         template_name = lambda t: t.name if hasattr(t, "name") else t[0].name
-        default = template_name(self.client.get(reverse("home")).template)
-        mobile = template_name(self.client.get(reverse("home"),
-            HTTP_USER_AGENT=settings.MOBILE_USER_AGENTS[0]).template)
-        self.assertNotEqual(default, mobile)
-        self.assertEqual(default, mobile.replace(".mobile", "", 1))
+        ua = settings.DEVICE_USER_AGENTS[0][1][0]
+        default = self.client.get(reverse("home")).template
+        mobile = self.client.get(reverse("home"), HTTP_USER_AGENT=ua).template
+        self.assertNotEqual(template_name(default), template_name(mobile))
 
     def test_blog_views(self):
         """

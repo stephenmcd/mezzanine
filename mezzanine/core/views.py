@@ -4,14 +4,13 @@ from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import get_model
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Keyword, Displayable
-from mezzanine.utils import is_editable, paginate
+from mezzanine.utils import is_editable, paginate, render_to_response
 
 
 def admin_keywords_submit(request):
@@ -28,6 +27,19 @@ def admin_keywords_submit(request):
     return HttpResponse(",".join(set(ids)))
 admin_keywords_submit = staff_member_required(admin_keywords_submit)
 
+
+def direct_to_template(request, template, extra_context=None, **kwargs):
+    """
+    Replacement for Django's ``direct_to_template`` that uses Mezzanine's 
+    device-aware ``render_to_response``.
+    """
+    context = extra_context or {}
+    context["params"] = kwargs
+    for (key, value) in context.items():
+        if callable(value):
+            context[key] = value()
+    return render_to_response(template, context, RequestContext(request))
+    
 
 def search(request, template="search_results.html"):
     """

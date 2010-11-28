@@ -8,37 +8,13 @@ from mezzanine.conf import settings
 
 
 class MobileTemplate(object):
-    """
-    If a mobile user agent is detected, inspect the default args for the view
-    func, and if a template name is found assume it is the template arg and
-    attempt to load a mobile template based on the original template name.
-    """
-    def process_view(self, request, view_func, view_args, view_kwargs):
-        user_agent = request.META.get("HTTP_USER_AGENT", "")
-        if [s for s in settings.MOBILE_USER_AGENTS if s in user_agent]:
-            template = view_kwargs.get("template")
-            func_defaults = getattr(view_func, "func_defaults", None)
-            callable_func = getattr(view_func, "__call__", None)
-            if func_defaults is None and callable_func is not None:
-                func_defaults = getattr(callable_func, "func_defaults", None)
-            if template is None and func_defaults is not None:
-                for default in func_defaults:
-                    if str(default).endswith(".html"):
-                        template = default
-            if template is not None:
-                if ".html" in template:
-                    template = template.replace(".html", ".mobile.html", 1)
-                else:
-                    template += ".mobile.html"
-                try:
-                    get_template(template)
-                except TemplateDoesNotExist:
-                    pass
-                else:
-                    view_kwargs["template"] = template
-                    return view_func(request, *view_args, **view_kwargs)
-        return None
 
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        import warnings
+        warnings.warn("mezzanine.core.middleware.MobileTemplate is deprecated."
+                      "Please remove it from settings.MIDDLEWARE_CLASSES.", 
+                      DeprecationWarning)
+        return None
 
 class AdminLoginInterfaceSelector(object):
     """

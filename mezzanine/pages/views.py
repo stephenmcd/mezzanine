@@ -4,12 +4,12 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
-from django.template.loader import select_template
 from django.utils.http import urlquote
 
 from mezzanine.conf import settings
 from mezzanine.pages import page_processors
 from mezzanine.pages.models import Page
+from mezzanine.template.loader import select_template
 
 
 page_processors.autodiscover()
@@ -54,5 +54,6 @@ def page(request, slug, template="pages/page.html"):
     if page.content_model is not None:
         templates.append("pages/%s.html" % page.content_model)
     templates.append(template)
-    t = select_template(templates)
-    return HttpResponse(t.render(RequestContext(request, context)))
+    request_context = RequestContext(request, context)
+    t = select_template(templates, request_context)
+    return HttpResponse(t.render(request_context))

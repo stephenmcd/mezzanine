@@ -4,16 +4,16 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.template import RequestContext
-from django.template.loader import select_template
 
 from mezzanine.blog.forms import CommentForm
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
 from mezzanine.core.models import Keyword
 from mezzanine.pages.models import ContentPage
-from mezzanine.utils import paginate
+from mezzanine.template.loader import select_template
+from mezzanine.utils import paginate, render_to_response
 
 
 def blog_page():
@@ -95,5 +95,6 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
         "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME), 
         "posted_comment_form": posted_comment_form, 
         "unposted_comment_form": unposted_comment_form}
-    t = select_template(["blog/%s.html" % slug, template])
-    return HttpResponse(t.render(RequestContext(request, context)))
+    request_context = RequestContext(request, context)
+    t = select_template(["blog/%s.html" % slug, template], request_context)
+    return HttpResponse(t.render(request_context))
