@@ -38,7 +38,7 @@ for model in settings.ADMIN_REMOVAL:
 
 # Pairs of optional app names and their urlpatterns.
 OPTIONAL_APP_PATTERNS = []
-if getattr(settings, "PACKAGE_NAME_FILEBROWSER", None):
+if hasattr(settings, "PACKAGE_NAME_FILEBROWSER"):
     OPTIONAL_APP_PATTERNS.append(
     (settings.PACKAGE_NAME_FILEBROWSER, patterns("",
         ("^admin/filebrowser/", include("%s.urls" %
@@ -48,12 +48,12 @@ if getattr(settings, "PACKAGE_NAME_FILEBROWSER", None):
             "django.views.static.serve", {'document_root':
             getattr(settings, "FILEBROWSER_PATH_FILEBROWSER_MEDIA", "")}),
     )))
-if getattr(settings, "PACKAGE_NAME_GRAPPELLI", None):
+if hasattr(settings, "PACKAGE_NAME_GRAPPELLI"):
     OPTIONAL_APP_PATTERNS.append(
     (settings.PACKAGE_NAME_GRAPPELLI, patterns("",
         ("^grappelli/", include("%s.urls" %
             settings.PACKAGE_NAME_GRAPPELLI)),
-        ("^%s/admin/(?P<path>.*)$" % urlsplit(settings.ADMIN_MEDIA_PREFIX
+        ("^%s/(?P<path>.*)$" % urlsplit(settings.ADMIN_MEDIA_PREFIX
             ).path.strip("/").split("/")[0], "django.views.static.serve",
             {'document_root': getattr(settings, "GRAPPELLI_MEDIA_PATH", "")}),
     )))

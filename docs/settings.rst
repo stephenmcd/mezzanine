@@ -194,4 +194,4 @@ Default: ``''``
 
 URL prefix for serving Tiny MCE files.
 
-Default: ``'/media/admin/tinymce'``
+Default: ``'/media/tinymce'``
