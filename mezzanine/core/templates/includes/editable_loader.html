@@ -7,7 +7,7 @@
     /*
     You'll notice this littered with !important declarations - this is due 
     to the inline-editing controls being injected into abitrary layouts and 
-    is my hackish attempt at trying to keep them consistant across 
+    this is my hackish attempt at trying to keep them consistant across 
     implementations by not being overridden by the stylesheets for each 
     particular site's layout. If there's a better way of doing this then go 
     right ahead and fix it.
@@ -40,7 +40,7 @@
     .editable-form textarea,
     .editable-form input {
         width: 100%;
-        margin-top: .5em;
+        margin: .5em 0;
     }
     .editable-form input[type="file"] {
         width: 300px;
@@ -50,13 +50,20 @@
         padding: 0 !important;
         line-height: 0 !important;
     }
-    .editable-form p:first-child {
+    .edihtable-form p:first-child {
         margin-top: 0px;
+    }
+    .editable-form .helptext {
+        display: block;
+        margin: 8px;
+        font-size: 70%;
+        color: #444;
+        font-style: italic; 
     }
     .editable-form label {
         text-transform: capitalize !important;
         font-weight: bold !important;
-        line-height: 1em !important;
+        line-height: 1.1em !important;
         font-size: 15px !important;
         color: #000 !important;
     }
