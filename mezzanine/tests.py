@@ -2,14 +2,15 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import connection
-from django.template import Context, Template
+from django.template import Context, Template, TemplateDoesNotExist
+from django.template.loader import get_template
 from django.test import TestCase
 
 from mezzanine.blog.models import BlogPost, Comment
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
-from mezzanine.core.models import CONTENT_STATUS_DRAFT, \
-                                    CONTENT_STATUS_PUBLISHED
+from mezzanine.core.models import CONTENT_STATUS_DRAFT
+from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms.models import Form, FIELD_CHOICES
 from mezzanine.pages.models import ContentPage
 
@@ -18,8 +19,8 @@ class Tests(TestCase):
     """
     Mezzanine tests.
     """
-
-    fixtures = ["initial_data.json"]
+    
+    fixtures = ["mezzanine.json"]
 
     def setUp(self):
         """
@@ -36,7 +37,7 @@ class Tests(TestCase):
         """
         self.client.logout()
         draft = ContentPage.objects.create(title="Draft", 
-                                                status=CONTENT_STATUS_DRAFT)
+                                           status=CONTENT_STATUS_DRAFT)
         response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 404)
         self.client.login(username=self._username, password=self._password)
@@ -59,7 +60,7 @@ class Tests(TestCase):
         """
         description = "<p>How now brown cow</p>"
         page = ContentPage.objects.create(title="Draft", 
-            content=description * 3)
+                                          content=description * 3)
         self.assertEqual(page.description, description)
 
     def test_device_specific_template(self):
@@ -67,6 +68,10 @@ class Tests(TestCase):
         Test that an alternate template is rendered when a mobile device is
         used.
         """
+        try:
+            get_template("mobile/index.html")
+        except TemplateDoesNotExist:
+            return
         template_name = lambda t: t.name if hasattr(t, "name") else t[0].name
         ua = settings.DEVICE_USER_AGENTS[0][1][0]
         default = self.client.get(reverse("home")).template
@@ -80,7 +85,7 @@ class Tests(TestCase):
         response = self.client.get(reverse("blog_post_list"))
         self.assertEqual(response.status_code, 200)
         blog_post = BlogPost.objects.create(title="Post", user=self._user,
-            status=CONTENT_STATUS_PUBLISHED)
+                                            status=CONTENT_STATUS_PUBLISHED)
         response = self.client.get(blog_post.get_absolute_url())
         self.assertEqual(response.status_code, 200)
 
@@ -119,7 +124,7 @@ class Tests(TestCase):
         template = "{% load blog_tags %}{% blog_comments_for blog_post %}"
         before = self.queries_used_for_template(template, blog_post=blog_post)
         self.create_recursive_objects(Comment, "replied_to", name="Comment",
-            blog_post=blog_post)
+                                      blog_post=blog_post)
         after = self.queries_used_for_template(template, blog_post=blog_post)
         self.assertEquals(before, after)
 
@@ -131,7 +136,7 @@ class Tests(TestCase):
         template = "{% load pages_tags %}{% tree_menu %}"
         before = self.queries_used_for_template(template)
         self.create_recursive_objects(ContentPage, "parent", title="Page",
-            status=CONTENT_STATUS_PUBLISHED)
+                                      status=CONTENT_STATUS_PUBLISHED)
         after = self.queries_used_for_template(template)
         self.assertEquals(before, after)
 
@@ -171,10 +176,10 @@ class Tests(TestCase):
         """
         for required in (True, False):
             form = Form.objects.create(title="Form",
-                status=CONTENT_STATUS_PUBLISHED)
+                                       status=CONTENT_STATUS_PUBLISHED)
             for (i, field) in enumerate(FIELD_CHOICES):
                 form.fields.create(label="Field %s" % i, field_type=field[0],
-                    required=required, visible=True)
+                                   required=required, visible=True)
             response = self.client.get(form.get_absolute_url())
             self.assertEqual(response.status_code, 200)
             fields = form.fields.visible()
