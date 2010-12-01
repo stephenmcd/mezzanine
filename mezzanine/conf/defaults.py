@@ -279,6 +279,17 @@ register_setting(
 )
 
 register_setting(
+    name="TEMPLATE_ACCESSIBLE_SETTINGS", 
+    description=_("Sequence of setting names available within templates."),
+    editable=False,
+    default=("BLOG_BITLY_USER", "BLOG_BITLY_KEY", "COMMENTS_DEFAULT_APPROVED", 
+        "COMMENTS_DISQUS_KEY", "COMMENTS_DISQUS_SHORTNAME", 
+        "COMMENTS_NUM_LATEST", "CONTENT_MEDIA_URL", "DEV_SERVER", 
+        "GOOGLE_ANALYTICS_ID", "PAGES_MENU_SHOW_ALL", "TINYMCE_URL",
+    ),
+)
+
+register_setting(
     name="TINYMCE_URL", 
     description=_("URL prefix for serving Tiny MCE files."),
     editable=False,

@@ -32,7 +32,6 @@ def set_short_url_for(context, token):
     settings = context["settings"]
     if getattr(obj, "short_url") is None:
         obj.short_url = request.build_absolute_uri(request.path)
-        settings.use_editable()
         args = {
             "login": settings.BLOG_BITLY_USER,
             "apiKey": settings.BLOG_BITLY_KEY,
