@@ -5,12 +5,18 @@ from django.conf import settings
 registry = {}
 
 
-def register_setting(name="", editable=False, description="", default=None):
+def register_setting(name="", editable=False, description="", default=None,
+                     append=False):
     """
     Registers a setting that can be edited via the admin.
     """
     # Check project's settings module for overriden default.
-    default = getattr(settings, name, default)
+    if hasattr(settings, name):
+        project_default = getattr(settings, name)
+        if append:
+            default += project_default
+        else:
+            default = project_default
     registry[name] = {"name": name, "description": description, "editable":
         editable, "default": default, "type": type(default)}
 
