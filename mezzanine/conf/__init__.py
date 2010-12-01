@@ -11,14 +11,12 @@ def register_setting(name="", editable=False, description="", default=None,
     Registers a setting that can be edited via the admin.
     """
     # Check project's settings module for overriden default.
-    if hasattr(settings, name):
-        project_default = getattr(settings, name)
-        if append:
-            default += project_default
-        else:
-            default = project_default
-    registry[name] = {"name": name, "description": description, "editable":
-        editable, "default": default, "type": type(default)}
+    if append and name in registry:
+        registry[name] += default
+    else:
+        default = getattr(settings, name, default)
+        registry[name] = {"name": name, "description": description, 
+            "editable": editable, "default": default, "type": type(default)}
 
 
 class Settings(object):
