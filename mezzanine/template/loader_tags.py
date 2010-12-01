@@ -6,7 +6,7 @@ handles device specific template loading.
 """
 
 from django.conf import settings
-from django.template import TemplateSyntaxError
+from django.template import TemplateSyntaxError, Variable
 from django.template.loader_tags import ExtendsNode
 
 from mezzanine.template import Library
@@ -65,8 +65,13 @@ def include(context, token):
     if len(bits) != 2:
         raise TemplateSyntaxError("%r tag takes one argument: "
                         "the name of the template to be included" % bits[0])
+    template = bits[1]
+    if template[0] in ('"', "'") and template[-1] == template[0]:
+        template = template[1:-1]
+    else:
+        template = Variable(template).resolve(context)
     try:
-        t = get_template(bits[1][1:-1], context)
+        t = get_template(template, context)
         return t.render(context)
     except TemplateSyntaxError, e:
         if settings.TEMPLATE_DEBUG:
