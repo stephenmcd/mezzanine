@@ -12,7 +12,7 @@ def register_setting(name="", editable=False, description="", default=None,
     """
     # Check project's settings module for overriden default.
     if append and name in registry:
-        registry[name] += default
+        registry[name]["default"] += default
     else:
         default = getattr(settings, name, default)
         registry[name] = {"name": name, "description": description, 
