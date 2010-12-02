@@ -103,6 +103,8 @@ class FormForForm(forms.ModelForm):
             css_class = field_class_name.lower()
             if field.required:
                 css_class += " required"
+                if settings.FORMS_USE_HTML5:
+                    self.fields[field_key].widget.attrs["required"] = ""
             self.fields[field_key].widget.attrs["class"] = css_class
             if field.placeholder_text and not field.default:
                 text = field.placeholder_text
@@ -206,7 +208,7 @@ class ExportForm(forms.Form):
         for field_id in [f.id for f in self.form_fields] + [0]:
             prefix = "field_%s_" % field_id
             fields = [f for f in super(ExportForm, self).__iter__()
-                if f.name.startswith(prefix)]
+                      if f.name.startswith(prefix)]
             yield fields[0], fields[1], fields[2:]
     
     def columns(self):
@@ -214,7 +216,7 @@ class ExportForm(forms.Form):
         Returns the list of selected column names.
         """
         fields = [f.label for f in self.form_fields 
-            if self.cleaned_data["field_%s_export" % f.id]]
+                  if self.cleaned_data["field_%s_export" % f.id]]
         if self.cleaned_data["field_0_export"]:
             fields.append(self.entry_time_name)
         return fields
