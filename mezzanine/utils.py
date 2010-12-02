@@ -4,7 +4,6 @@ import os
 import re
 import sys
 
-from django.core.exceptions import ImproperlyConfigured
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse

@@ -29,12 +29,11 @@ def set_short_url_for(context, token):
     """
     obj = context[token.split_contents()[1]]
     request = context["request"]
-    settings = context["settings"]
     if getattr(obj, "short_url") is None:
         obj.short_url = request.build_absolute_uri(request.path)
         args = {
-            "login": settings.BLOG_BITLY_USER,
-            "apiKey": settings.BLOG_BITLY_KEY,
+            "login": context["settings"].BLOG_BITLY_USER,
+            "apiKey": context["settings"].BLOG_BITLY_KEY,
             "longUrl": obj.short_url,
         }
         if args["login"] and args["apiKey"]:

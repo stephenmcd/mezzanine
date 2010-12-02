@@ -1,10 +1,6 @@
 
 from django.contrib.admin.views.decorators import LOGIN_FORM_KEY
 from django.http import HttpResponseRedirect
-from django.template import TemplateDoesNotExist
-from django.template.loader import get_template
-
-from mezzanine.conf import settings
 
 
 class MobileTemplate(object):

@@ -1,8 +1,8 @@
 
 from datetime import datetime, timedelta
 from optparse import make_option
-from time import mktime, strftime, strptime, timezone
-from xml.dom.minidom import parse, parseString
+from time import mktime, timezone
+from xml.dom.minidom import parse
 
 from django.core.management.base import CommandError
 
@@ -77,7 +77,6 @@ class Command(BaseImporterCommand):
             # tags have a tendency to not be unique in WP for some reason so
             # set the list so we have unique
             tags = list(set(tags))
-            comments_list = []
             post = self.add_post(title=title, content=content,
                                  pub_date=published_date, tags=tags)
 

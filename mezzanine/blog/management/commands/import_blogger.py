@@ -1,7 +1,7 @@
 
 from datetime import datetime, timedelta
 from optparse import make_option
-from time import mktime, strftime, strptime, timezone
+from time import timezone
 
 from django.core.management.base import CommandError
 
@@ -31,8 +31,6 @@ class Command(BaseImporterCommand):
             
         try:
             from gdata import service
-            import gdata
-            import atom
         except ImportError:
             raise CommandError("Could not import the gdata library.")
         
@@ -44,7 +42,7 @@ class Command(BaseImporterCommand):
         query.max_results = 500
         try:
             feed = blogger.Get(query.ToUri())
-        except gdata.service.RequestError, err:
+        except service.RequestError, err:
             message = "There was a service error. The response was: " \
                 "%(status)s %(reason)s - %(body)s" % err.message
             raise CommandError(message, blogger.server + query.feed, 
@@ -58,7 +56,7 @@ class Command(BaseImporterCommand):
             content = entry.content.text
             #this strips off the time zone info off the end as we want UTC
             published_date = datetime.strptime(entry.published.text[:-6], 
-                    "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds = timezone)
+                    "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
             
             #TODO - issues with content not generating correct <P> tags
             
@@ -77,7 +75,7 @@ class Command(BaseImporterCommand):
                 author_name = comment.author[0].name.text
                 #this strips off the time zone info off the end as we want UTC
                 comment_date = datetime.strptime(comment.published.text[:-6], 
-                    "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds = timezone)
+                    "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
                 website = ""
                 if comment.author[0].uri:
                     website = comment.author[0].uri.text

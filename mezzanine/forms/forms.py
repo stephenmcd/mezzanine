@@ -1,6 +1,5 @@
 
 from datetime import date, datetime
-from operator import ior
 from os.path import join
 from uuid import uuid4
 

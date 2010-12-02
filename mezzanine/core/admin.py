@@ -137,7 +137,7 @@ class SingletonAdmin(admin.ModelAdmin):
         except self.model.MultipleObjectsReturned:
             return super(SingletonAdmin, self).changelist_view(*args, **kwargs)
         except self.model.DoesNotExist:
-            add_url = admin_url(model, "add")
+            add_url = admin_url(self.model, "add")
             return HttpResponseRedirect(add_url)
         else:
             change_url = admin_url(self.model, "change", singleton.id)

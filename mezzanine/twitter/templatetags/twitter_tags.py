@@ -1,9 +1,5 @@
 
 from collections import defaultdict
-import datetime
-import math
-
-from django.utils.translation import ugettext, ungettext
 
 from mezzanine.twitter.models import Tweet
 from mezzanine import template

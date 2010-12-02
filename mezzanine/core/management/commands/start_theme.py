@@ -2,9 +2,7 @@
 import os
 from shutil import copy, copytree
 
-from django.core.management.base import CommandError
 from django.core.management.commands.startapp import Command as StartAppCommand
-from django.utils.importlib import import_module
 
 from mezzanine.conf import settings
 from mezzanine.utils import path_for_import

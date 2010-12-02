@@ -3,11 +3,8 @@ Base importer class for the commands to pull in blog posts from other blog
 platforms into Mezzanine.
 """
 
-from datetime import datetime, timedelta
-from time import mktime, strftime, strptime, timezone
 from optparse import make_option
 from urlparse import urlparse
-from xml.dom.minidom import parse, parseString
 
 from django.contrib.auth.models import User
 from django.contrib.redirects.models import Redirect

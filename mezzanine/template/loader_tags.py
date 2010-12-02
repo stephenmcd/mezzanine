@@ -73,7 +73,7 @@ def include(context, token):
     try:
         t = get_template(template, context)
         return t.render(context)
-    except TemplateSyntaxError, e:
+    except TemplateSyntaxError:
         if settings.TEMPLATE_DEBUG:
             raise
     return ""
