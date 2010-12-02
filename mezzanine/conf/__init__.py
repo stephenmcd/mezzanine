@@ -26,7 +26,7 @@ class Settings(object):
     database are *all* loaded once only, the first time *any* editable 
     setting is accessed. When accessing uneditable settings their default 
     values are used. The Settings object also provides access to Django 
-    settings via django.conf.settings in order to provide a consistent 
+    settings via ``django.conf.settings`` in order to provide a consistent 
     method of access for all settings.
     """
 
@@ -81,7 +81,7 @@ class Settings(object):
 for app in [__name__] + [a for a in settings.INSTALLED_APPS if a != __name__]:
     try:
         __import__("%s.defaults" % app)
-    except ImportError:
+    except (ImportError, ValueError): # ValueError raised by convert_to_south
         pass
         
 settings = Settings()
