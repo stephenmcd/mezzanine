@@ -124,6 +124,8 @@ Sites Using Mezzanine
   * `Central Mosque Wembley`_
   * `Ovarian Cancer Research Foundation`_
   * `The Source Procurement`_
+  * `Imageinary`_
+  * `Brad Montgomery`_
 
 Quotes
 ======
@@ -168,7 +170,8 @@ Quotes
 .. _`Central Mosque Wembley`: http://wembley-mosque.co.uk/
 .. _`Ovarian Cancer Research Foundation`: http://ocrf.com.au/
 .. _`The Source Procurement`: http://thesource.com.au/
+.. _`Imageinary`: http://imageinary.com/
 .. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
-.. _`Brad Montgomery`: http://bradmontgomery.net/
+.. _`Brad Montgomery`: http://blog.bradmontgomery.net/

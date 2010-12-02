@@ -182,6 +182,13 @@ Number of different sizes for tags when shown as a cloud.
 
 Default: ``4``
 
+``TEMPLATE_ACCESSIBLE_SETTINGS``
+--------------------------------
+
+Sequence of setting names available within templates.
+
+Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DEFAULT_APPROVED', 'COMMENTS_DISQUS_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'TINYMCE_URL')``
+
 ``THEME``
 ---------
 
