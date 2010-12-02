@@ -34,8 +34,7 @@ class Form(Page, Content):
         default=_("Submit"))
     response = HtmlField(_("Response"))
     send_email = models.BooleanField(_("Send email"), default=True,
-        help_text=_("If checked, the person entering the form will be sent an "
-                                                                    "email"))
+        help_text=_("If checked, the form submitter will be sent an email."))
     email_from = models.EmailField(_("From address"), blank=True,
         help_text=_("The address the email will be sent from"))
     email_copies = models.CharField(_("Send copies to"), blank=True,
@@ -74,6 +73,8 @@ class Field(Orderable):
             "itself contains commas, surround the option with `backticks`."))
     default = models.CharField(_("Default value"), blank=True, 
         max_length=settings.FORMS_FIELD_MAX_LENGTH)
+    placeholder_text = models.CharField(_("Placeholder Text"), blank=True, 
+        max_length=100, editable=settings.FORMS_USE_HTML5)
     help_text = models.CharField(_("Help text"), blank=True, max_length=100)
 
     objects = FieldManager()

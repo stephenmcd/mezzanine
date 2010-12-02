@@ -141,6 +141,14 @@ register_setting(
 )
 
 register_setting(
+    name="FORMS_USE_HTML5",
+    description=_("If ``True``, website forms created by the forms app will "
+        "use HTML5 features."),
+    editable=False,
+    default=True,
+)
+
+register_setting(
     name="FORMS_UPLOAD_ROOT",
     description=_("Absolute path for storing file uploads for the forms app."),
     editable=False,

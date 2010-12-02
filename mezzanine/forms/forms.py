@@ -104,6 +104,9 @@ class FormForForm(forms.ModelForm):
             if field.required:
                 css_class += " required"
             self.fields[field_key].widget.attrs["class"] = css_class
+            if field.placeholder_text and not field.default:
+                text = field.placeholder_text
+                self.fields[field_key].widget.attrs["placeholder"] = text
 
     def save(self, **kwargs):
         """
