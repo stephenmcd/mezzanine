@@ -20,7 +20,7 @@
 
 {% block main %}
 
-{% if tag or category or year or month or user %}
+{% if tag or category or year or month or author %}
     <p id="description">
     {% if tag %}
         {% trans "Viewing posts tagged" %} {{ tag }}
@@ -29,9 +29,9 @@
     {% else %}{% if year or month %}
         {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
     {{ year }}
-    {% else %}{% if user %}
+    {% else %}{% if author %}
         {% trans "Viewing posts by" %} 
-        {{ user.get_full_name|default:user.username }}
+        {{ author.get_full_name|default:author.username }}
     {% endif %}{% endif %}{% endif %}{% endif %}
     </p>
 {% else %}
