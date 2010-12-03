@@ -26,7 +26,7 @@ provides the following features.
   * Drag-n-drop page ordering
   * WYSIWYG editing
   * `In-line page editing`_
-  * Drag-n-drop forms builder with CSV export
+  * Drag-n-drop HTML5 forms builder with CSV export
   * API for `custom content types`_
   * SEO friendly URLs and meta data
   * `Search engine and API`_
