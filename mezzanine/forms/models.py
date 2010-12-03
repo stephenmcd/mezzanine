@@ -5,24 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.models import Orderable, Content
+from mezzanine.forms import fields
 from mezzanine.pages.models import Page
-
-
-FIELD_CHOICES = (
-    ("CharField", _("Single line text")),
-    ("CharField/django.forms.Textarea", _("Multi line text")),
-    ("EmailField", _("Email")),
-    ("BooleanField", _("Check box")),
-    ("MultipleChoiceField/django.forms.CheckboxSelectMultiple", 
-        _("Check boxes")),
-    ("ChoiceField", _("Drop down")),
-    ("MultipleChoiceField", _("Multi select")),
-    ("ChoiceField/django.forms.RadioSelect", _("Radio buttons")),
-    ("FileField", _("File upload")),
-    ("DateField/django.forms.extras.SelectDateWidget", _("Date")),
-    ("DateTimeField", _("Date/time")),
-    ("CharField/django.forms.HiddenInput", _("Hidden")),
-)
 
 
 class Form(Page, Content):
@@ -64,8 +48,7 @@ class Field(Orderable):
     form = models.ForeignKey("Form", related_name="fields")
     label = models.CharField(_("Label"), 
         max_length=settings.FORMS_LABEL_MAX_LENGTH)
-    field_type = models.CharField(_("Type"), choices=FIELD_CHOICES,
-        max_length=55)
+    field_type = models.IntegerField(_("Type"), choices=fields.NAMES)
     required = models.BooleanField(_("Required"), default=True)
     visible = models.BooleanField(_("Visible"), default=True)
     choices = models.CharField(_("Choices"), max_length=1000, blank=True,
@@ -110,6 +93,12 @@ class Field(Orderable):
         choice = choice.strip()
         if choice:
             yield choice, choice
+
+    def is_a(self, *args):
+        """
+        Helper that returns True if the field's type is given in any arg.
+        """
+        return self.field_type in args
 
 
 class FormEntry(models.Model):

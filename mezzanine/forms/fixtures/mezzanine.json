@@ -15,7 +15,7 @@
         "pk": 1, 
         "model": "forms.field", 
         "fields": {
-            "field_type": "CharField", 
+            "field_type": 1, 
             "_order": 0, 
             "form": 3,
             "required": true, 
@@ -29,7 +29,7 @@
         "pk": 2, 
         "model": "forms.field", 
         "fields": {
-            "field_type": "EmailField", 
+            "field_type": 3, 
             "_order": 1, 
             "form": 3,
             "required": true, 
@@ -43,7 +43,7 @@
         "pk": 3, 
         "model": "forms.field", 
         "fields": {
-            "field_type": "ChoiceField", 
+            "field_type": 6, 
             "_order": 2, 
             "form": 3,
             "required": true, 
@@ -57,7 +57,7 @@
         "pk": 4, 
         "model": "forms.field", 
         "fields": {
-            "field_type": "CharField/django.forms.Textarea", 
+            "field_type": 2, 
             "_order": 3, 
             "form": 3,
             "required": true, 

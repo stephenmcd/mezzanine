@@ -11,7 +11,8 @@ from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
 from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
-from mezzanine.forms.models import Form, FIELD_CHOICES
+from mezzanine.forms import fields
+from mezzanine.forms.models import Form
 from mezzanine.pages.models import ContentPage
 
 
@@ -177,13 +178,13 @@ class Tests(TestCase):
         for required in (True, False):
             form = Form.objects.create(title="Form",
                                        status=CONTENT_STATUS_PUBLISHED)
-            for (i, field) in enumerate(FIELD_CHOICES):
-                form.fields.create(label="Field %s" % i, field_type=field[0],
+            for (i, (field, _)) in enumerate(fields.NAMES):
+                form.fields.create(label="Field %s" % i, field_type=field,
                                    required=required, visible=True)
             response = self.client.get(form.get_absolute_url())
             self.assertEqual(response.status_code, 200)
-            fields = form.fields.visible()
-            data = dict([("field_%s" % f.id, "test") for f in fields])
+            visible_fields = form.fields.visible()
+            data = dict([("field_%s" % f.id, "test") for f in visible_fields])
             response = self.client.post(form.get_absolute_url(), data=data)
             self.assertEqual(response.status_code, 200)
 
