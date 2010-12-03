@@ -43,17 +43,17 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     if category is not None:
         category = get_object_or_404(BlogCategory, slug=category)
         blog_posts = blog_posts.filter(category=category)
-    user = None
+    author = None
     if username is not None:
-        user = get_object_or_404(User, username=username)
-        blog_posts = blog_posts.filter(user=user)
+        author = get_object_or_404(User, username=username)
+        blog_posts = blog_posts.filter(user=author)
     blog_posts = paginate(blog_posts, request.GET.get("page", 1),
         settings.BLOG_POST_PER_PAGE,
         settings.BLOG_POST_MAX_PAGING_LINKS)
     context = {"blog_posts": blog_posts, "year": year, "month": month, 
-        "tag": tag, "category": category, "user": user, 
-        "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME), 
-        "blog_page": blog_page()}
+               "tag": tag, "category": category, "author": author, 
+               "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME), 
+               "blog_page": blog_page()}
     return render_to_response(template, context, RequestContext(request))
 
 
@@ -92,9 +92,9 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
         return response
     settings.use_editable()
     context = {"blog_post": blog_post, "blog_page": blog_page(), 
-        "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME), 
-        "posted_comment_form": posted_comment_form, 
-        "unposted_comment_form": unposted_comment_form}
+               "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME), 
+               "posted_comment_form": posted_comment_form, 
+               "unposted_comment_form": unposted_comment_form}
     request_context = RequestContext(request, context)
     t = select_template(["blog/%s.html" % slug, template], request_context)
     return HttpResponse(t.render(request_context))
