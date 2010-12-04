@@ -140,6 +140,13 @@ Absolute path for storing file uploads for the forms app.
 
 Default: ``''``
 
+``FORMS_USE_HTML5``
+-------------------
+
+If ``True``, website forms created by the forms app will use HTML5 features.
+
+Default: ``True``
+
 ``GOOGLE_ANALYTICS_ID``
 -----------------------
 

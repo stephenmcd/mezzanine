@@ -1,7 +1,3 @@
-"""
-Base importer class for the commands to pull in blog posts from other blog 
-platforms into Mezzanine.
-"""
 
 from optparse import make_option
 from urlparse import urlparse
@@ -17,10 +13,10 @@ from mezzanine.core.models import Keyword, CONTENT_STATUS_PUBLISHED
 
 class BaseImporterCommand(BaseCommand):
     """
-    Imports blog posts into Mezzanine from a variety of different sources. 
-    Should be subclasses for a particular blogging platform and have the 
-    ``handle_import`` method overrdden to provide the import mechanism 
-    specific to the blogging platform being dealt with.
+    Base importer command for blogging platform specific management 
+    commands to subclass when importing blog posts into Mezzanine.
+    The ``handle_import`` method should be overridden to provide the 
+    import mechanism specific to the blogging platform being dealt with.
     """
     
     option_list = BaseCommand.option_list + (
@@ -38,7 +34,7 @@ class BaseImporterCommand(BaseCommand):
         Adds a post to the post list for processing.
         
         Attributes:
-            pub_date is assumed to be a datetime struct
+            pub_date is assumed to be a datetime object.
         """
         if tags is None:
             tags = []
@@ -60,7 +56,7 @@ class BaseImporterCommand(BaseCommand):
         Adds a comment to the post provided.
         
         Attributes:
-            pub_date is assumed to be a date time struct
+            pub_date is assumed to be a date time object.
         """
         if post is None:
             if not self.posts:
@@ -80,7 +76,7 @@ class BaseImporterCommand(BaseCommand):
         
         Attributes:
             mezzanine_user: the user to put this data in against
-            date_format: the format the dates are in in the Posts and Commments
+            date_format: the format the dates are in for posts and comments
         """
 
         mezzanine_user = options.get("mezzanine_user")
@@ -128,7 +124,7 @@ class BaseImporterCommand(BaseCommand):
 
     def handle_import(self, options):
         """
-        Should be overridden by subclasses - Performs the conversion from 
+        Should be overridden by subclasses - performs the conversion from 
         the originating data source into the lists of posts and comments 
         ready for processing.
         """

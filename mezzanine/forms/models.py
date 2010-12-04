@@ -96,7 +96,7 @@ class Field(Orderable):
 
     def is_a(self, *args):
         """
-        Helper that returns True if the field's type is given in any arg.
+        Helper that returns ``True`` if the field's type is given in any arg.
         """
         return self.field_type in args
 

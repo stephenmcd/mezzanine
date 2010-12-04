@@ -1,3 +1,8 @@
+"""
+Drop-in replacement for ``django.conf.settings`` that provides a 
+consistent access method for settings defined in applications, the project 
+or Django itself. Settings can also be made editable via the admin.
+"""
 
 from django.conf import settings
 
@@ -10,7 +15,7 @@ def register_setting(name="", editable=False, description="", default=None,
     """
     Registers a setting that can be edited via the admin.
     """
-    # Check project's settings module for overriden default.
+    # Check project's settings module for overridden default.
     if append and name in registry:
         registry[name]["default"] += default
     else:
@@ -40,10 +45,10 @@ class Settings(object):
     
     def use_editable(self):
         """
-        Empty the editable settings cache and set the loaded flag to False 
-        so that settings will be loaded from the DB on next access. If the 
-        conf app is not installed then set the loaded flag to True in order 
-        to bypass DB lookup entirely.
+        Empty the editable settings cache and set the loaded flag to 
+        ``False`` so that settings will be loaded from the DB on next 
+        access. If the conf app is not installed then set the loaded 
+        flag to ``True`` in order to bypass DB lookup entirely.
         """
         self._loaded = __name__ not in getattr(self, "INSTALLED_APPS")
         self._editable_cache = {}

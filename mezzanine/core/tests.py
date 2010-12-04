@@ -45,11 +45,11 @@ class Tests(TestCase):
         response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 200)
 
-    def test_overriden_page(self):
+    def test_overridden_page(self):
         """
         Test that a page with a slug matching a non-page urlpattern return
-        True for its overriden property. The blog page from the fixtures
-        should classify as this case.
+        ``True`` for its overridden property. The blog page from the fixtures
+        should satisfy this case.
         """
         blog_page, created = ContentPage.objects.get_or_create(
                                                 slug=settings.BLOG_SLUG)
@@ -190,7 +190,7 @@ class Tests(TestCase):
 
     def test_settings(self):
         """
-        Test that an editable setting can be overriden with a DB value and 
+        Test that an editable setting can be overridden with a DB value and 
         that the data type is preserved when the value is returned back out 
         of the DB. Also checks to ensure no unsupported types are defined 
         for editable settings.

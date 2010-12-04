@@ -117,7 +117,7 @@ class SingletonAdmin(admin.ModelAdmin):
 
     def add_view(self, *args, **kwargs):
         """
-        Redirect to the change view if the singlton instance exists.
+        Redirect to the change view if the singleton instance exists.
         """
         try:
             singleton = self.model.objects.get()
@@ -130,7 +130,7 @@ class SingletonAdmin(admin.ModelAdmin):
     def changelist_view(self, *args, **kwargs):
         """
         Redirect to the add view if no records exist or the change view if 
-        the singlton instance exists.
+        the singleton instance exists.
         """
         try:
             singleton = self.model.objects.get()
@@ -145,8 +145,9 @@ class SingletonAdmin(admin.ModelAdmin):
 
     def change_view(self, request, object_id, extra_context=None):
         """
-        If only the singleton instance exists, pass True for ``singleton`` 
-        into the template which will use CSS to hide relevant buttons.
+        If only the singleton instance exists, pass ``True`` for 
+        ``singleton`` into the template which will use CSS to hide 
+        relevant buttons.
         """
         if extra_context is None:
             extra_context = {}

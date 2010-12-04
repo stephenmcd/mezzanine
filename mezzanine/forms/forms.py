@@ -129,7 +129,8 @@ class FormForForm(forms.ModelForm):
 
     def email_to(self):
         """
-        Return the value entered for the first field of type ``EmailField``.
+        Return the value entered for the first field of type 
+        ``forms.fields.EMAIL``.
         """
         for field in self.form_fields:
             if field.is_a(fields.EMAIL):

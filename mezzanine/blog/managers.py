@@ -18,7 +18,7 @@ class BlogPostManager(DisplayableManager):
 class CommentManager(Manager):
     """
     Provides filter for restricting comments that are not approved if
-    ``COMMENTS_UNAPPROVED_VISIBLE`` is set to False.
+    ``COMMENTS_UNAPPROVED_VISIBLE`` is set to ``False``.
     """
 
     def visible(self):

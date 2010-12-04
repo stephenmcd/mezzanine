@@ -16,6 +16,11 @@ class PublishedManager(Manager):
     """
 
     def published(self, for_user=None):
+        """
+        For non-staff users, return items with a published status and whose 
+        publish and expiry dates fall before and after the current date 
+        when specified.
+        """
         from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
         if for_user is not None and for_user.is_staff:
             return self.all()
@@ -157,7 +162,7 @@ class SearchableQuerySet(QuerySet):
 
     def iterator(self):
         """
-        If search has occured and no ordering has occurred, decorate each
+        If search has occurred and no ordering has occurred, decorate each
         result with the number of search terms so that it can be sorted by
         the number of occurrence of terms.
         """
@@ -212,6 +217,7 @@ class SearchableManager(Manager):
 
 class DisplayableManager(PublishedManager, SearchableManager):
     """
-    Combined manager for the ``Displayable`` model.
+    Manually combines ``PublishedManager`` and ``SearchableManager`` 
+    for the ``Displayable`` model.
     """
     pass

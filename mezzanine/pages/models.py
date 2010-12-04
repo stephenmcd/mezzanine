@@ -67,8 +67,8 @@ class Page(Orderable, Displayable):
 
     def overridden(self):
         """
-        Return True if the page's slug has an explicitly defined url pattern
-        and is therefore considered to be overriden.
+        Return ``True`` if the page's slug has an explicitly defined 
+        urlpattern and is therefore considered to be overridden.
         """
         from mezzanine.pages.views import page
         resolved_view = resolve(self.get_absolute_url())[0]

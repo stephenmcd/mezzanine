@@ -11,8 +11,8 @@ from mezzanine.blog.management.base import BaseImporterCommand
 
 class Command(BaseImporterCommand):
     """
-    Implements a Wordpress importer. Takes a file path or a URL in order
-    to point to the Wordpress Extended RSS file
+    Implements a Wordpress importer. Takes a file path or a URL for the 
+    Wordpress Extended RSS file.
     """
 
     option_list = BaseImporterCommand.option_list + (
@@ -22,8 +22,7 @@ class Command(BaseImporterCommand):
 
     def get_text(self, xml, element, nodetype):
         """
-        Gets the element's text value from the XML object provided, adapted
-        from minidom examples
+        Gets the element's text value from the XML object provided.
         """
         rc = []
         for node in xml.getElementsByTagName(element)[0].childNodes:
@@ -33,19 +32,18 @@ class Command(BaseImporterCommand):
 
     def handle_import(self, options):    
         """
-        Gets the posts from either the provided URL or else
-        from the path if it is local and then formats them back into the
-        standard style ready for importation into Mezzanine. 
+        Gets the posts from either the provided URL or the path if it 
+        is local. 
         """
     
         url = options.get("url")
 
         if url is None:
-            raise CommandError("Please specify the wordpress file for import")
+            raise CommandError("Usage is import_wordpress %s" % self.args)
         try:
             import feedparser
         except ImportError:
-            raise CommandError("Could not import the feedparser package.")
+            raise CommandError("Could not import the feedparser library.")
 
         feed = feedparser.parse(url)
 
@@ -94,8 +92,6 @@ class Command(BaseImporterCommand):
                 body = self.get_text(comment, "wp:comment_content", 
                                      comment.CDATA_SECTION_NODE)
 
-                # use the GMT date (closest to UTC we'll end up with so this will
-                # make it relatively timezone fine format is YYYY-MM-DD HH:MM:SS
                 comment_date = self.get_text(comment, "wp:comment_date_gmt", 
                                              comment.TEXT_NODE)
                 comment_date = datetime.strptime(comment_date, 

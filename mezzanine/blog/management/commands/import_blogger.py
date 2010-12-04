@@ -10,7 +10,7 @@ from mezzanine.blog.management.base import BaseImporterCommand
 
 class Command(BaseImporterCommand):
     """
-    Implements a Blogger importer. Takes a blogger ID in order to be able to
+    Implements a Blogger importer. Takes a Blogger ID in order to be able to
     determine which blog it should point to and harvest the XML from.
     """   
     
@@ -21,13 +21,12 @@ class Command(BaseImporterCommand):
     
     def handle_import(self, options):
         """
-        Gets posts from blogger and then formats them back into the standard
-        style ready for importation into Mezzanine.
+        Gets posts from Blogger.
         """
 
         blog_id = options.get("blog_id")
         if blog_id is None:
-            raise CommandError("You have not supplied a Blogger ID.")
+            raise CommandError("Usage is import_blogger %s" % self.args)
             
         try:
             from gdata import service

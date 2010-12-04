@@ -1,3 +1,6 @@
+"""
+Various utility functions used throughout the different Mezzanine apps.
+"""
 
 from htmlentitydefs import name2codepoint
 import os
@@ -17,7 +20,7 @@ from mezzanine.template.loader import get_template, select_template
 
 def admin_url(model, url, object_id=None):
     """
-    Returns the admin url for the given model and url name.
+    Returns the URL for the given model and admin url name.
     """
     opts = model._meta
     url = "admin:%s_%s_%s" % (opts.app_label, opts.object_name.lower(), url)
@@ -30,9 +33,9 @@ def admin_url(model, url, object_id=None):
 def base_concrete_model(abstract, instance):
     """
     Used in methods of abstract models to find the super-most concrete
-    (non abstract) model in the inheritence chain that inherits from the
+    (non abstract) model in the inheritance chain that inherits from the
     given abstract model. This is so the methods in the abstract model can
-    query data consistantly across the correct concrete model.
+    query data consistently across the correct concrete model.
 
     Consider the following::
 
@@ -102,8 +105,8 @@ def decode_html_entities(html):
 
 def is_editable(obj, request):
     """
-    Returns True if the object is editable for the request. First check for
-    a custom ``editable`` handler on the object, otherwise use the logged
+    Returns ``True`` if the object is editable for the request. First check 
+    for a custom ``editable`` handler on the object, otherwise use the logged
     in user and check change permissions for the object's model.
     """
     if hasattr(obj, "is_editable"):

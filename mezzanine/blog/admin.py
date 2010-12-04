@@ -16,6 +16,9 @@ blogpost_radio_fields["category"] = admin.HORIZONTAL
 
 
 class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
+    """
+    Admin class for blog posts.
+    """
 
     fieldsets = blogpost_fieldsets
     list_display = ("title", "user", "status", "admin_link")
@@ -30,6 +33,10 @@ class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
 
 
 class BlogCategoryAdmin(admin.ModelAdmin):
+    """
+    Admin class for blog categories. Hides itself from the admin menu 
+    unless explicitly specified.
+    """
 
     fieldsets = ((None, {"fields": ("title",)}),)
 
@@ -44,6 +51,9 @@ class BlogCategoryAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
+    """
+    Admin class for blog comments.
+    """
 
     list_display = ("avatar_link", "intro", "time_created", "approved",
         "blog_post", "admin_link")
