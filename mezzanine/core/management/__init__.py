@@ -36,4 +36,5 @@ def create_initial_pages(app, created_models, verbosity, **kwargs):
 
 
 post_syncdb.connect(create_demo_user, sender=auth_app)
-post_syncdb.connect(create_initial_pages, sender=pages_app)
+if "south" not in settings.INSTALLED_APPS:
+    post_syncdb.connect(create_initial_pages, sender=pages_app)

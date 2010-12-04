@@ -44,6 +44,10 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('pages', ['ContentPage'])
     
+        from mezzanine.core.management import create_initial_pages
+        from mezzanine.pages.models import Page
+        from atexit import register
+        register(create_initial_pages, None, (Page,), 1, interactive=True)
     
     def backwards(self, orm):
         
