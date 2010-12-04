@@ -7,7 +7,6 @@ from django import forms
 from django.forms.extras import SelectDateWidget
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
-from django.utils.importlib import import_module
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
