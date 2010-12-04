@@ -1,4 +1,8 @@
 
+from __future__ import with_statement
+from compiler import parse
+import os
+
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import connection
@@ -14,6 +18,7 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import ContentPage
+from mezzanine.utils import path_for_import
 
 
 class Tests(TestCase):
@@ -219,3 +224,39 @@ class Tests(TestCase):
         settings.use_editable()
         for (name, value) in values_by_name.items():
             self.assertEqual(getattr(settings, name), value)
+
+    def test_pyflakes(self):
+        """
+        Run pyflakes across the code base to check for potential errors.
+        """
+        try:
+            from pyflakes.checker import Checker
+        except ImportError:
+            return
+        for (root, dirs, files) in os.walk(path_for_import("mezzanine")):
+            for f in files:
+                # Ignore migrations.
+                directory = root.split(os.sep)[-1]
+                if not f.endswith(".py") or directory == "migrations":
+                    continue
+                path = os.path.join(root, f)
+                with open(path, "r") as source_file:
+                    source = source_file.read()
+                try:
+                    compile(source, path, "exec")
+                except (SyntaxError, IndentationError), value:
+                    continue
+                result = Checker(parse(source), path)
+                # Ignore these warnings.
+                ignore = (
+                    "'from local_settings import *' used",
+                    "'memcache' imported but unused",
+                    "'cmemcache' imported but unused",
+                )
+                for warning in result.messages:
+                    message = unicode(warning)
+                    for s in ignore:
+                        if message.startswith(s):
+                            break
+                    else:
+                        self.fail(message)
