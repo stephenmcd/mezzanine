@@ -240,15 +240,17 @@ class Tests(TestCase):
                 if not f.endswith(".py") or directory == "migrations":
                     continue
                 path = os.path.join(root, f)
-                with open(path, "r") as source_file:
+                with open(path, "U") as source_file:
                     source = source_file.read()
                 try:
-                    compile(source, path, "exec")
+                    compile(source, f, "exec")
                 except (SyntaxError, IndentationError), value:
-                    continue
+                    self.fail("Invalid syntax in %s:%d: %s" % (path, 
+                                                value.lineno, value.args[0]))
                 result = Checker(parse(source), path)
                 # Ignore these warnings.
                 ignore = (
+                    "'from django.conf.urls.defaults import *' used",
                     "'from local_settings import *' used",
                     "'memcache' imported but unused",
                     "'cmemcache' imported but unused",
@@ -256,7 +258,7 @@ class Tests(TestCase):
                 for warning in result.messages:
                     message = unicode(warning)
                     for s in ignore:
-                        if message.startswith(s):
+                        if s in message:
                             break
                     else:
                         self.fail(message)
