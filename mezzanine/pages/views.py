@@ -36,7 +36,7 @@ def page(request, slug, template="pages/page.html"):
     """
     page = get_object_or_404(Page.objects.published(request.user), slug=slug)
     if page.login_required and not request.user.is_authenticated():
-        return redirect("%s?%s=%s" % (settings.LOGIN_URL, REDIRECT_FIELD_NAME, 
+        return redirect("%s?%s=%s" % (settings.LOGIN_URL, REDIRECT_FIELD_NAME,
             urlquote(request.get_full_path())))
     context = {"page": page}
     for processor in page_processors.processors[page.content_model]:

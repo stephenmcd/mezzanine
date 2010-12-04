@@ -67,11 +67,11 @@ def base_concrete_model(abstract, instance):
         if issubclass(cls, abstract) and not cls._meta.abstract:
             return cls
     return instance.__class__
-    
+
 
 def content_media_urls(*paths):
     """
-    Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for 
+    Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for
     internally hosted JS and CSS files.
     """
     from mezzanine.conf import settings
@@ -105,7 +105,7 @@ def decode_html_entities(html):
 
 def is_editable(obj, request):
     """
-    Returns ``True`` if the object is editable for the request. First check 
+    Returns ``True`` if the object is editable for the request. First check
     for a custom ``editable`` handler on the object, otherwise use the logged
     in user and check change permissions for the object's model.
     """
@@ -146,10 +146,10 @@ def path_for_import(name):
     return os.path.dirname(os.path.abspath(import_module(name).__file__))
 
 
-def render_to_response(template_name, dictionary=None, context_instance=None, 
+def render_to_response(template_name, dictionary=None, context_instance=None,
                        mimetype=None):
     """
-    Mimics ``django.shortcuts.render_to_response`` but uses Mezzanine's 
+    Mimics ``django.shortcuts.render_to_response`` but uses Mezzanine's
     ``get_template`` which handles device specific template directories.
     """
     dictionary = dictionary or {}
@@ -166,23 +166,23 @@ def render_to_response(template_name, dictionary=None, context_instance=None,
 
 def set_dynamic_settings(s):
     """
-    Called at the end of the project's settings module and is passed its 
-    globals dict for updating with some final tweaks for settings that 
-    generally aren't specified but can be given some better defaults based on 
-    other settings that have been specified. Broken out into its own 
-    function so that the code need not be replicated in the settings modules 
+    Called at the end of the project's settings module and is passed its
+    globals dict for updating with some final tweaks for settings that
+    generally aren't specified but can be given some better defaults based on
+    other settings that have been specified. Broken out into its own
+    function so that the code need not be replicated in the settings modules
     of other project-based apps that leverage Mezzanine's settings module.
     """
 
     s["TEMPLATE_DEBUG"] = s["DEBUG"]
     add_to_builtins("mezzanine.template.loader_tags")
-    
+
     # Set ADMIN_MEDIA_PREFIX for Grappelli.
     if s.get("PACKAGE_NAME_GRAPPELLI") in s["INSTALLED_APPS"]:
         # Adopted from django.core.management.commands.runserver
-        # Easiest way so far to actually get all the media for Grappelli 
-        # working with the dev server is to hard-code the host:port to 
-        # ADMIN_MEDIA_PREFIX, so here we check for a custom host:port 
+        # Easiest way so far to actually get all the media for Grappelli
+        # working with the dev server is to hard-code the host:port to
+        # ADMIN_MEDIA_PREFIX, so here we check for a custom host:port
         # before doing this.
         if len(sys.argv) >= 2 and sys.argv[1] == "runserver":
             addrport = ""
@@ -197,7 +197,7 @@ def set_dynamic_settings(s):
                     addr, port = "", addrport
             if not addr:
                 addr = "127.0.0.1"
-            s["ADMIN_MEDIA_PREFIX"] = "http://%s:%s%s" % (addr, port, 
+            s["ADMIN_MEDIA_PREFIX"] = "http://%s:%s%s" % (addr, port,
                                                   s["ADMIN_MEDIA_PREFIX"])
 
     # Some settings tweaks for different DB engines.
@@ -214,7 +214,7 @@ def set_dynamic_settings(s):
             s["DATABASES"][key]["ENGINE"] = backend_path + db["ENGINE"]
         shortname = db["ENGINE"].split(".")[-1]
         if shortname == "sqlite3" and os.sep not in db["NAME"]:
-            # If the Sqlite DB name doesn't contain a path, assume it's 
+            # If the Sqlite DB name doesn't contain a path, assume it's
             # in the project directory and add the path to it.
             s["DATABASES"][key]["NAME"] = os.path.join(
                                      s.get("_project_path", ""), db["NAME"])
@@ -222,7 +222,7 @@ def set_dynamic_settings(s):
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
         elif shortname.startswith("postgresql") and not s.get("TIME_ZONE", 1):
-            # Specifying a blank time zone to fall back to the system's 
+            # Specifying a blank time zone to fall back to the system's
             # time zone will break table creation in Postgres so remove it.
             del s["TIME_ZONE"]
 
@@ -231,14 +231,14 @@ def set_dynamic_settings(s):
     if theme:
         theme_templates = os.path.join(path_for_import(theme), "templates")
         s["TEMPLATE_DIRS"] = [theme_templates] + list(s["TEMPLATE_DIRS"])
-        
+
     # Remaning code is for Django 1.1 support.
     if VERSION >= (1, 2, 0):
         return
-    # Add the dummy csrf_token template tag to builtins and remove 
+    # Add the dummy csrf_token template tag to builtins and remove
     # Django's CsrfViewMiddleware.
     add_to_builtins("mezzanine.core.templatetags.dummy_csrf")
-    s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if 
+    s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if
                         mw != "django.middleware.csrf.CsrfViewMiddleware"]
     # Use the single DB settings.
     old_db_settings_mapping = {
@@ -259,7 +259,7 @@ def set_dynamic_settings(s):
             if new_name == "ENGINE" and value.startswith(backend_path):
                 value = value.replace(backend_path, "", 1)
             s[old_name] = value
-    
+
     # Revert to some old names.
     processors = list(s["TEMPLATE_CONTEXT_PROCESSORS"])
     for (i, processor) in enumerate(processors):

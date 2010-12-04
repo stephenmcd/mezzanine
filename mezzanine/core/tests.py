@@ -20,7 +20,7 @@ class Tests(TestCase):
     """
     Mezzanine tests.
     """
-    
+
     fixtures = ["mezzanine.json"]
 
     def setUp(self):
@@ -37,7 +37,7 @@ class Tests(TestCase):
         Test a draft page as only being viewable by a staff member.
         """
         self.client.logout()
-        draft = ContentPage.objects.create(title="Draft", 
+        draft = ContentPage.objects.create(title="Draft",
                                            status=CONTENT_STATUS_DRAFT)
         response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 404)
@@ -60,7 +60,7 @@ class Tests(TestCase):
         Test generated description is first line of content.
         """
         description = "<p>How now brown cow</p>"
-        page = ContentPage.objects.create(title="Draft", 
+        page = ContentPage.objects.create(title="Draft",
                                           content=description * 3)
         self.assertEqual(page.description, description)
 
@@ -190,9 +190,9 @@ class Tests(TestCase):
 
     def test_settings(self):
         """
-        Test that an editable setting can be overridden with a DB value and 
-        that the data type is preserved when the value is returned back out 
-        of the DB. Also checks to ensure no unsupported types are defined 
+        Test that an editable setting can be overridden with a DB value and
+        that the data type is preserved when the value is returned back out
+        of the DB. Also checks to ensure no unsupported types are defined
         for editable settings.
         """
         # Find an editable setting for each supported type.
@@ -211,7 +211,7 @@ class Tests(TestCase):
             elif setting_type in (str, unicode):
                 setting_value += "test"
             else:
-                self.fail("Unsupported setting type for %s: %s" % 
+                self.fail("Unsupported setting type for %s: %s" %
                                                 (setting_name, setting_type))
             values_by_name[setting_name] = setting_value
             Setting.objects.create(name=setting_name, value=str(setting_value))

@@ -14,7 +14,7 @@ class Form(Page, Content):
     A user-built form.
     """
 
-    button_text = models.CharField(_("Button text"), max_length=50, 
+    button_text = models.CharField(_("Button text"), max_length=50,
         default=_("Submit"))
     response = HtmlField(_("Response"))
     send_email = models.BooleanField(_("Send email"), default=True,
@@ -46,7 +46,7 @@ class Field(Orderable):
     """
 
     form = models.ForeignKey("Form", related_name="fields")
-    label = models.CharField(_("Label"), 
+    label = models.CharField(_("Label"),
         max_length=settings.FORMS_LABEL_MAX_LENGTH)
     field_type = models.IntegerField(_("Type"), choices=fields.NAMES)
     required = models.BooleanField(_("Required"), default=True)
@@ -54,9 +54,9 @@ class Field(Orderable):
     choices = models.CharField(_("Choices"), max_length=1000, blank=True,
         help_text=_("Comma separated options where applicable. If an option "
             "itself contains commas, surround the option with `backticks`."))
-    default = models.CharField(_("Default value"), blank=True, 
+    default = models.CharField(_("Default value"), blank=True,
         max_length=settings.FORMS_FIELD_MAX_LENGTH)
-    placeholder_text = models.CharField(_("Placeholder Text"), blank=True, 
+    placeholder_text = models.CharField(_("Placeholder Text"), blank=True,
         max_length=100, editable=settings.FORMS_USE_HTML5)
     help_text = models.CharField(_("Help text"), blank=True, max_length=100)
 

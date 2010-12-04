@@ -24,7 +24,7 @@ class HtmlField(TextField):
 if "south" in settings.INSTALLED_APPS:
     try:
         from south.modelsinspector import add_introspection_rules
-        add_introspection_rules(rules=[((HtmlField,), [], {})], 
+        add_introspection_rules(rules=[((HtmlField,), [], {})],
                                       patterns=["mezzanine\.core\.fields\."])
     except ImportError:
         pass

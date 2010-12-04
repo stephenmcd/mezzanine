@@ -17,15 +17,15 @@ class PublishedManager(Manager):
 
     def published(self, for_user=None):
         """
-        For non-staff users, return items with a published status and whose 
-        publish and expiry dates fall before and after the current date 
+        For non-staff users, return items with a published status and whose
+        publish and expiry dates fall before and after the current date
         when specified.
         """
         from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
         if for_user is not None and for_user.is_staff:
             return self.all()
-        return self.filter( 
-            Q(publish_date__lte=datetime.now()) | Q(publish_date__isnull=True), 
+        return self.filter(
+            Q(publish_date__lte=datetime.now()) | Q(publish_date__isnull=True),
             Q(expiry_date__gte=datetime.now()) | Q(expiry_date__isnull=True),
             Q(status=CONTENT_STATUS_PUBLISHED))
 
@@ -58,7 +58,7 @@ class SearchableQuerySet(QuerySet):
         quoted terms as exact phrases and taking into account + and - symbols
         as modifiers controlling which terms to require and exclude.
         """
-        
+
         def search_fields_to_dict(fields):
             """
             Convert a sequence of fields to a weighted dict.
@@ -109,7 +109,7 @@ class SearchableQuerySet(QuerySet):
         # Remove stop words from terms that aren't quoted or use modifiers,
         # since words with these are an explicit part of the search query. If
         # doing so ends up with an empty term list, then keep the stop words.
-        terms_no_stopwords = [t for t in terms if t.lower() not in 
+        terms_no_stopwords = [t for t in terms if t.lower() not in
             settings.STOP_WORDS]
         get_positive_terms = lambda terms: [t.lower().strip(punctuation)
             for t in terms if t[0] != "-"]
@@ -217,7 +217,7 @@ class SearchableManager(Manager):
 
 class DisplayableManager(PublishedManager, SearchableManager):
     """
-    Manually combines ``PublishedManager`` and ``SearchableManager`` 
+    Manually combines ``PublishedManager`` and ``SearchableManager``
     for the ``Displayable`` model.
     """
     pass

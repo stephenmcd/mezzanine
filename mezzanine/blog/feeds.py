@@ -12,7 +12,7 @@ class PostsRSS(Feed):
     """
     RSS feed for all blog posts.
     """
-    
+
     def title(self):
         return blog_page().title
 
@@ -32,7 +32,7 @@ class PostsAtom(PostsRSS):
     """
 
     feed_type = Atom1Feed
-    
+
     def subtitle(self):
         return self.description()
 

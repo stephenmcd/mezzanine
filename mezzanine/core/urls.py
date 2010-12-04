@@ -18,7 +18,7 @@ urlpatterns = patterns("mezzanine.core.views",
 
 urlpatterns += patterns("",
     ("^%s/(?P<path>.*)$" % settings.CONTENT_MEDIA_URL.strip("/"),
-        "django.views.static.serve", 
+        "django.views.static.serve",
         {"document_root": settings.CONTENT_MEDIA_PATH}),
 )
 

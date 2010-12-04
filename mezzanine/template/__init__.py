@@ -6,8 +6,8 @@ from django import template
 
 class Library(template.Library):
     """
-    Extends ``django.template.Library`` providing several shortcuts that 
-    attempt to take the leg-work out of creating different types of 
+    Extends ``django.template.Library`` providing several shortcuts that
+    attempt to take the leg-work out of creating different types of
     template tags.
     """
 

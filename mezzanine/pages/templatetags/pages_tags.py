@@ -34,10 +34,10 @@ def _page_menu(context, parent_page):
             setattr(page, "branch_level", 0)
             pages[page.parent_id].append(page)
         context["menu_pages"] = pages
-    # ``branch_level`` must be stored against each page so that the 
-    # calculation of it is correctly applied. This looks weird but if we do 
-    # the ``branch_level`` as a separate arg to the template tag with the 
-    # addition performed on it, the addition occurs each time the template 
+    # ``branch_level`` must be stored against each page so that the
+    # calculation of it is correctly applied. This looks weird but if we do
+    # the ``branch_level`` as a separate arg to the template tag with the
+    # addition performed on it, the addition occurs each time the template
     # tag is called rather than once per level.
     context["branch_level"] = 0
     if parent_page is not None:
@@ -81,11 +81,11 @@ def footer_menu(context, parent_page=None):
     return _page_menu(context, parent_page)
 
 
-@register.inclusion_tag("pages/includes/breadcrumb_menu.html", 
+@register.inclusion_tag("pages/includes/breadcrumb_menu.html",
     takes_context=True)
 def breadcrumb_menu(context, parent_page=None):
     """
-    Page menu that only renders the pages that are parents of the current 
+    Page menu that only renders the pages that are parents of the current
     page, as well as the current page itself.
     """
     return _page_menu(context, parent_page)

@@ -34,7 +34,7 @@ class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
 
 class BlogCategoryAdmin(admin.ModelAdmin):
     """
-    Admin class for blog categories. Hides itself from the admin menu 
+    Admin class for blog categories. Hides itself from the admin menu
     unless explicitly specified.
     """
 

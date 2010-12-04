@@ -5,9 +5,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Adding model 'Form'
         db.create_table('forms_form', (
             ('email_message', self.gf('django.db.models.fields.TextField')(blank=True)),
@@ -53,10 +53,10 @@ class Migration(SchemaMigration):
             ('value', self.gf('django.db.models.fields.CharField')(max_length=2000)),
         ))
         db.send_create_signal('forms', ['FieldEntry'])
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Deleting model 'Form'
         db.delete_table('forms_form')
 
@@ -68,8 +68,8 @@ class Migration(SchemaMigration):
 
         # Deleting model 'FieldEntry'
         db.delete_table('forms_fieldentry')
-    
-    
+
+
     models = {
         'core.keyword': {
             'Meta': {'object_name': 'Keyword'},
@@ -136,5 +136,5 @@ class Migration(SchemaMigration):
             'titles': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'null': 'True'})
         }
     }
-    
+
     complete_apps = ['forms']

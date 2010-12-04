@@ -15,10 +15,10 @@ class BlogPost(Displayable, Ownable, Content):
     """
     A blog post.
     """
-    
-    category = models.ForeignKey("BlogCategory", related_name="blogposts", 
+
+    category = models.ForeignKey("BlogCategory", related_name="blogposts",
         blank=True, null=True)
-    
+
     objects = BlogPostManager()
 
     class Meta:
