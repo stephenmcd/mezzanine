@@ -130,6 +130,7 @@ def quick_blog(context):
 
 DISQUS_FORUM_ID = None
 
+
 @register.inclusion_tag("admin/includes/recent_comments.html",
     takes_context=True)
 def recent_comments(context):

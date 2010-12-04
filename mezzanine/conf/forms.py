@@ -13,6 +13,7 @@ FIELD_TYPES = {
     int: forms.IntegerField,
 }
 
+
 class SettingsForm(forms.Form):
     """
     Form for settings - creates a field for each setting in
@@ -27,9 +28,9 @@ class SettingsForm(forms.Form):
             setting = registry[name]
             if setting["editable"]:
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
-                self.fields[name] = field_class(label=name+":", required=False,
-                                            initial=getattr(settings, name),
-                                            help_text=setting["description"])
+                self.fields[name] = field_class(label=name + ":",
+                                required=False, initial=getattr(settings, name),
+                                help_text=setting["description"])
 
     def __iter__(self):
         """

@@ -52,7 +52,7 @@ FILTER_FUNCS = {
     FILTER_CHOICE_DOESNT_EQUAL:
         lambda val, field: val.lower() != field.lower(),
     FILTER_CHOICE_BETWEEN:
-        lambda val_from, val_to, field: val_from <= field <=  val_to
+        lambda val_from, val_to, field: val_from <= field <= val_to
 }
 
 text_filter_field = forms.ChoiceField(label=" ", required=False,
@@ -136,6 +136,7 @@ class FormForForm(forms.ModelForm):
             if field.is_a(fields.EMAIL):
                 return self.cleaned_data["field_%s" % field.id]
         return None
+
 
 class ExportForm(forms.Form):
     """

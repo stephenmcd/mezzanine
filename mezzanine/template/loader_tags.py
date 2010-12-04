@@ -32,7 +32,7 @@ class ContextAwareExtendsNode(ExtendsNode):
                               self.parent_name_expr.token)
             raise TemplateSyntaxError(error_msg)
         if hasattr(parent, "render"):
-            return parent # parent is a Template object
+            return parent  # parent is a Template object
         return get_template(parent, context)
 
 

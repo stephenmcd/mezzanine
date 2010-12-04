@@ -25,6 +25,7 @@ def blog_page():
     except ContentPage.DoesNotExist:
         return None
 
+
 def blog_post_list(request, tag=None, year=None, month=None, username=None,
     category=None, template="blog/blog_post_list.html"):
     """

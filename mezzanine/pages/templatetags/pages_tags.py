@@ -57,7 +57,8 @@ def tree_menu(context, parent_page=None):
     return _page_menu(context, parent_page)
 
 
-@register.inclusion_tag("pages/includes/tree_menu_footer.html", takes_context=True)
+@register.inclusion_tag("pages/includes/tree_menu_footer.html",
+                                                            takes_context=True)
 def tree_menu_footer(context, parent_page=None):
     """
     Tree menu that renders all pages in the footer hierarchically.

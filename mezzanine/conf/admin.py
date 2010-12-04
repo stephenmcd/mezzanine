@@ -35,7 +35,8 @@ class SettingsAdmin(admin.ModelAdmin):
         extra_context["settings_form"] = settings_form
         extra_context["title"] = _("Change %s" %
             force_unicode(Setting._meta.verbose_name_plural))
-        return super(SettingsAdmin, self).changelist_view(request, extra_context)
+        return super(SettingsAdmin, self).changelist_view(request,
+                                                            extra_context)
 
 
 admin.site.register(Setting, SettingsAdmin)

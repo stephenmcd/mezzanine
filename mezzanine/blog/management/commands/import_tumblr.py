@@ -11,9 +11,9 @@ from django.utils.simplejson import loads
 from mezzanine.blog.management.base import BaseImporterCommand
 
 
-MAX_POSTS_PER_CALL = 50 # Max number of posts Tumblr API will return per call.
-MAX_RETRIES_PER_CALL = 3 # Max times to retry API call after failing.
-SLEEP_PER_RETRY = 3 # Seconds to pause for between retries.
+MAX_POSTS_PER_CALL = 50  # Max number of posts Tumblr API will return per call.
+MAX_RETRIES_PER_CALL = 3  # Max times to retry API call after failing.
+SLEEP_PER_RETRY = 3  # Seconds to pause for between retries.
 
 
 def title_from_content(content):

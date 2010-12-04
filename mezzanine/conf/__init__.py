@@ -86,7 +86,7 @@ class Settings(object):
 for app in [__name__] + [a for a in settings.INSTALLED_APPS if a != __name__]:
     try:
         __import__("%s.defaults" % app)
-    except (ImportError, ValueError): # ValueError raised by convert_to_south
+    except (ImportError, ValueError):  # ValueError raised by convert_to_south
         pass
 
 settings = Settings()

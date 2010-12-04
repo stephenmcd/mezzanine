@@ -12,6 +12,7 @@ class MobileTemplate(object):
                       DeprecationWarning)
         return None
 
+
 class AdminLoginInterfaceSelector(object):
     """
     Checks for a POST from the admin login view and if authentication is

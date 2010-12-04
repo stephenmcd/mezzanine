@@ -24,7 +24,7 @@ class BaseImporterCommand(BaseCommand):
             help="Mezzanine username to assign the imported blog posts to."),
     )
 
-    def __init__ (self, **kwargs):
+    def __init__(self, **kwargs):
         self.posts = []
         super(BaseImporterCommand, self).__init__(**kwargs)
 

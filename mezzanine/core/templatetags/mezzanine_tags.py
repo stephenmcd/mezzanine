@@ -79,7 +79,8 @@ def thumbnail(image_url, width, height):
     image_url = unicode(image_url)
     image_path = os.path.join(settings.MEDIA_ROOT, image_url)
     image_dir, image_name = os.path.split(image_path)
-    thumb_name = "%s-%sx%s.jpg" % (os.path.splitext(image_name)[0], width, height)
+    thumb_name = "%s-%sx%s.jpg" % (os.path.splitext(image_name)[0], width,
+                                                                        height)
     thumb_path = os.path.join(image_dir, thumb_name)
     thumb_url = "%s/%s" % (os.path.dirname(image_url), thumb_name)
 
@@ -280,7 +281,8 @@ def app_list(context):
     return context
 
 
-@register.inclusion_tag("admin/includes/recent_actions.html", takes_context=True)
+@register.inclusion_tag("admin/includes/recent_actions.html",
+                                                            takes_context=True)
 def recent_actions(context):
     """
     Renders the recent actions list for the admin dashboard widget.

@@ -105,6 +105,7 @@ class PageAdmin(DisplayableAdmin):
 content_page_fieldsets = deepcopy(PageAdmin.fieldsets)
 content_page_fieldsets[0][1]["fields"].insert(3, "content")
 
+
 class ContentPageAdmin(PageAdmin):
     """
     Admin class for the ContentPage default content type.

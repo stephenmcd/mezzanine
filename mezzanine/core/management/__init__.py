@@ -10,7 +10,8 @@ from mezzanine.pages import models as pages_app
 
 
 def create_demo_user(app, created_models, verbosity, **kwargs):
-    if settings.DEBUG and User in created_models and not kwargs.get("interactive"):
+    if settings.DEBUG and User in created_models and not \
+                                                    kwargs.get("interactive"):
         print
         print "Creating default account (username: admin / password: default)"
         print

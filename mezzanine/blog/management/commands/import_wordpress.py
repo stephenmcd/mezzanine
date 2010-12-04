@@ -70,7 +70,7 @@ class Command(BaseImporterCommand):
 
             published_date = datetime.fromtimestamp(mktime(pd))
             published_date -= timedelta(seconds=timezone)
-            tags = [tag.term for tag in entry.tags if tag.scheme !="category"]
+            tags = [tag.term for tag in entry.tags if tag.scheme != "category"]
 
             # tags have a tendency to not be unique in WP for some reason so
             # set the list so we have unique

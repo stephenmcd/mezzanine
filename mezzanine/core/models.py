@@ -66,6 +66,7 @@ CONTENT_STATUS_CHOICES = (
     (CONTENT_STATUS_PUBLISHED, _("Published")),
 )
 
+
 class Displayable(Slugged):
     """
     Abstract model that provides features of a visible page on the website
