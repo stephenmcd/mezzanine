@@ -34,7 +34,8 @@
         text-decoration:none; display:inline !important;}
 
     /* --- FORM ----------------- */
-    .editable-form {padding:20px; background:#fffcc3; border:3px solid #999;
+    .editable-form {padding:20px; background:#fffcc3; border:1px solid #000;
+        -moz-box-shadow: 0 0 20px #222; -webkit-box-shadow: 0 0 20px #222;
         line-height:1em; border-radius:5px;}
     .editable-form table,
     .editable-form textarea,
@@ -97,6 +98,16 @@ $(function($) {
     $('.editable-form').submit(function() {
         var form = $(this);
         var loading = $('#editable-loading');
+        var showError = function(msg) {
+            if (msg) {
+                msg = ': ' + msg;
+            } else {
+                msg = '';
+            }
+            alert('{% trans "An error occurred" %}' + msg);
+            loading.hide();
+            form.show();
+        };
         loading.css({
             top: ($(window).height() - loading.height()) / 2 + $(window).scrollTop() + "px",
             left: ($(window).width() - loading.width()) / 2 + $(window).scrollLeft() + "px"
@@ -106,15 +117,15 @@ $(function($) {
         if (typeof tinyMCE != "undefined" ) {
             tinyMCE.triggerSave();
         }
-        form.ajaxSubmit(function(data) {
+        form.ajaxSubmit({success: function(data) {
             if (data && data != '<head></head><body></body>') {
-                alert('{% trans "Error" %}: ' + data);
-                loading.hide();
-                form.show();
+                showError(data);
             } else {
                 location.reload();
             } 
-        });
+        }, error: function() {
+            showError();
+        }});
         return false;
     })
 
