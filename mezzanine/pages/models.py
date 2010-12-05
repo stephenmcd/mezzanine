@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, Content
-from mezzanine.utils import admin_url
+from mezzanine.utils.urls import admin_url
 
 
 class Page(Orderable, Displayable):

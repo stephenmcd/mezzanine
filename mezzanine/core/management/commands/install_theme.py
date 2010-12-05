@@ -6,7 +6,7 @@ import os
 from django.core.management.base import CommandError, LabelCommand
 
 from mezzanine.conf import settings
-from mezzanine.utils import path_for_import
+from mezzanine.utils.path import path_for_import
 
 
 class Command(LabelCommand):

@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 
 from mezzanine.pages.models import Page, ContentPage
 from mezzanine.core.admin import DisplayableAdmin
-from mezzanine.utils import admin_url
+from mezzanine.utils.urls import admin_url
 
 
 page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)

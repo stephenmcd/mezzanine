@@ -108,7 +108,9 @@ if not (len(sys.argv) > 1 and sys.argv[1] == "test"):
 INSTALLED_APPS = sorted(list(INSTALLED_APPS), reverse=True)
 
 # Optional app settings.
-from mezzanine.utils import path_for_import, set_dynamic_settings
+from mezzanine.utils.path import path_for_import
+from mezzanine.utils.conf import set_dynamic_settings
+
 if "debug_toolbar" in INSTALLED_APPS:
     DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
     MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)

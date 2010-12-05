@@ -18,7 +18,7 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import ContentPage
-from mezzanine.utils import path_for_import
+from mezzanine.utils.path import path_for_import
 
 
 class Tests(TestCase):

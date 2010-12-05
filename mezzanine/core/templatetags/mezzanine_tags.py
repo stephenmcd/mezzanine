@@ -14,7 +14,9 @@ from django.utils.text import capfirst
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
-from mezzanine.utils import admin_url, decode_html_entities, is_editable
+from mezzanine.utils.html import decode_entities
+from mezzanine.utils.urls import admin_url
+from mezzanine.utils.views import is_editable
 from mezzanine import template
 
 
@@ -51,7 +53,7 @@ def metablock(parsed):
     Remove HTML tags, entities and superfluous characters from meta blocks.
     """
     parsed = " ".join(parsed.replace("\n", "").split()).replace(" ,", ",")
-    return strip_tags(decode_html_entities(parsed))
+    return strip_tags(decode_entities(parsed))
 
 
 @register.inclusion_tag("includes/pagination.html", takes_context=True)
