@@ -8,18 +8,20 @@ from mezzanine.utils.path import path_for_import
 
 # Ignore these warnings in pyflakes.
 PYFLAKES_IGNORE = (
-    "'from django.conf.urls.defaults import *' used",
-    "'from local_settings import *' used",
+    "import *' used",
     "'memcache' imported but unused",
     "'cmemcache' imported but unused",
 )
 
 
-def run_pyflakes_for_package(package_name):
+def run_pyflakes_for_package(package_name, extra_ignore=None):
     """
     If pyflakes is installed, run it across the given package name 
     returning any warnings found.
     """
+    ignore_strings = PYFLAKES_IGNORE
+    if extra_ignore:
+        ignore_strings += extra_ignore
     try:
         from pyflakes.checker import Checker
     except ImportError:
@@ -42,7 +44,7 @@ def run_pyflakes_for_package(package_name):
             result = Checker(parse(source), path)
             for warning in result.messages:
                 message = unicode(warning)
-                for ignore in PYFLAKES_IGNORE:
+                for ignore in ignore_strings:
                     if ignore in message:
                         break
                 else:
