@@ -1,10 +1,10 @@
 
 from collections import defaultdict
 
-from django.db.models import get_model, get_models
+from django.db.models import get_models
 
 from mezzanine.pages.models import Page
-from mezzanine.utils import admin_url
+from mezzanine.utils.urls import admin_url
 from mezzanine import template
 
 

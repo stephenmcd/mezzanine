@@ -6,7 +6,7 @@ from django.utils.encoding import force_unicode
 
 from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm
-from mezzanine.utils import admin_url
+from mezzanine.utils.urls import admin_url
 
 
 class SettingsAdmin(admin.ModelAdmin):

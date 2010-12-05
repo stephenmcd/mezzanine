@@ -9,7 +9,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.managers import DisplayableManager, KeywordManager
-from mezzanine.utils import base_concrete_model
+from mezzanine.utils.models import base_concrete_model
 
 
 class Slugged(models.Model):

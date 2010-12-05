@@ -19,7 +19,7 @@ from mezzanine.core.admin import DynamicInlineAdmin
 from mezzanine.forms.forms import ExportForm
 from mezzanine.forms.models import Form, Field, FieldEntry
 from mezzanine.pages.admin import PageAdmin
-from mezzanine.utils import admin_url
+from mezzanine.utils.urls import admin_url
 
 
 fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)

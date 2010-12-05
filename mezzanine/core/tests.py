@@ -14,6 +14,7 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import ContentPage
+from mezzanine.utils.tests import run_pyflakes_for_package
 
 
 class Tests(TestCase):
@@ -219,3 +220,12 @@ class Tests(TestCase):
         settings.use_editable()
         for (name, value) in values_by_name.items():
             self.assertEqual(getattr(settings, name), value)
+
+    def test_with_pyflakes(self):
+        """
+        Run pyflakes across the code base to check for potential errors.
+        """
+        warnings = run_pyflakes_for_package("mezzanine")
+        if warnings:
+            warnings.insert(0, "pyflakes warnings:")
+            self.fail("\n".join(warnings))

@@ -3,7 +3,7 @@ from django.conf.urls.defaults import *
 from django.contrib import admin
 
 from mezzanine.conf import settings
-from mezzanine.utils import path_for_import
+from mezzanine.utils.path import path_for_import
 
 
 admin.autodiscover()

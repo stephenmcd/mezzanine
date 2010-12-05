@@ -5,15 +5,6 @@ Packages
 Below are auto-generated docs mostly covering each of the packages contained 
 within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 
-``mezzanine``
-=============
-
-``mezzanine.utils``
--------------------
-
-.. automodule:: mezzanine.utils
-   :members:
-
 ``mezzanine.core``
 ==================
 
@@ -271,5 +262,31 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 -----------------------------------------
 
 .. automodule:: mezzanine.twitter.management.commands.poll_twitter
+   :members:
+
+``mezzanine.utils``
+===================
+
+.. automodule:: mezzanine.utils
+
+.. automodule:: mezzanine.utils.conf
+   :members:
+
+.. automodule:: mezzanine.utils.html
+   :members:
+
+.. automodule:: mezzanine.utils.models
+   :members:
+
+.. automodule:: mezzanine.utils.path
+   :members:
+
+.. automodule:: mezzanine.utils.tests
+   :members:
+
+.. automodule:: mezzanine.utils.urls
+   :members:
+
+.. automodule:: mezzanine.utils.views
    :members:
 

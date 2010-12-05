@@ -34,6 +34,7 @@ provides the following features.
   * Multi-device detection and template handling
   * Shopping cart module (`Cartridge`_)
   * Blogging engine
+  * `Themes`_
   * Tagging
   * One step migration from other blogging engines
   * Built-in threaded comments, or:
@@ -151,6 +152,7 @@ Quotes
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
 .. _`dashboard`: http://mezzanine.jupo.org/docs/admin-customization.html#dashboard
 .. _`Cartridge`: http://cartridge.jupo.org/
+.. _`Themes`: http://mezzanine.jupo.org/docs/themes.html
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
 .. _`960.gs`: http://960.gs/

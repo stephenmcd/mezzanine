@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import Orderable
-from mezzanine.utils import content_media_urls, admin_url
+from mezzanine.utils.urls import content_media_urls, admin_url
 
 
 # Build the list of admin JS file for ``Displayable`` models.
