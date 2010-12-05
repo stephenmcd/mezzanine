@@ -15,8 +15,8 @@ from django.utils.text import capfirst
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.utils.html import decode_entities
-from mezzanine.utils.urls import admin_url
 from mezzanine.utils.views import is_editable
+from mezzanine.utils.urls import admin_url
 from mezzanine import template
 
 

@@ -1,8 +1,4 @@
 
-from __future__ import with_statement
-from compiler import parse
-import os
-
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import connection
@@ -18,7 +14,7 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import ContentPage
-from mezzanine.utils.path import path_for_import
+from mezzanine.utils.tests import run_pyflakes_for_package
 
 
 class Tests(TestCase):
@@ -225,40 +221,11 @@ class Tests(TestCase):
         for (name, value) in values_by_name.items():
             self.assertEqual(getattr(settings, name), value)
 
-    def test_pyflakes(self):
+    def test_with_pyflakes(self):
         """
         Run pyflakes across the code base to check for potential errors.
         """
-        try:
-            from pyflakes.checker import Checker
-        except ImportError:
-            return
-        for (root, dirs, files) in os.walk(path_for_import("mezzanine")):
-            for f in files:
-                # Ignore migrations.
-                directory = root.split(os.sep)[-1]
-                if not f.endswith(".py") or directory == "migrations":
-                    continue
-                path = os.path.join(root, f)
-                with open(path, "U") as source_file:
-                    source = source_file.read()
-                try:
-                    compile(source, f, "exec")
-                except (SyntaxError, IndentationError), value:
-                    self.fail("Invalid syntax in %s:%d: %s" % (path, 
-                                                value.lineno, value.args[0]))
-                result = Checker(parse(source), path)
-                # Ignore these warnings.
-                ignore = (
-                    "'from django.conf.urls.defaults import *' used",
-                    "'from local_settings import *' used",
-                    "'memcache' imported but unused",
-                    "'cmemcache' imported but unused",
-                )
-                for warning in result.messages:
-                    message = unicode(warning)
-                    for s in ignore:
-                        if s in message:
-                            break
-                    else:
-                        self.fail(message)
+        warnings = run_pyflakes_for_package("mezzanine")
+        if warnings:
+            warnings.insert(0, "pyflakes warnings:")
+            self.fail("\n".join(warnings))
