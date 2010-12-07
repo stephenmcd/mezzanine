@@ -27,7 +27,4 @@ if getattr(settings, "DEV_SERVER", False):
     urlpatterns += patterns("",
         ("^%s/(?P<path>.*)$" % settings.MEDIA_URL.strip("/"),
             "django.views.static.serve", {"document_root": media_root}),
-        ("^favicon.ico$", 
-            "django.views.static.serve", {"document_root": media_root, 
-                                          "path": "img/favicon.ico"}),
     )
