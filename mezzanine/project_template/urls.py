@@ -1,4 +1,6 @@
 
+import os
+
 from django.conf.urls.defaults import *
 from django.contrib import admin
 
@@ -17,7 +19,7 @@ if getattr(settings, "DEV_SERVER", False):
     media_root = settings.MEDIA_ROOT
     theme = getattr(settings, "THEME")
     if theme:
-        media_root = path_for_import(theme)
+        media_root = os.path.join(path_for_import(theme), "media")
     urlpatterns += patterns("",
         ("^%s/(?P<path>.*)$" % settings.MEDIA_URL.strip("/"),
             "django.views.static.serve", {"document_root": media_root}),
