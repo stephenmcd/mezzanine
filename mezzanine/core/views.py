@@ -91,6 +91,5 @@ def serve_with_theme(request, path):
         try:
             return serve(request, path, document_root=theme_root)
         except Http404:
-            print "not in theme", path
             pass
     return serve(request, path, document_root=settings.MEDIA_ROOT)
