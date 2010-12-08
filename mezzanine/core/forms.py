@@ -25,18 +25,18 @@ class OrderWidget(forms.HiddenInput):
 
 class DynamicInlineAdminForm(forms.ModelForm):
     """
-    Form for ``DynamicInlineAdmin`` that can be collapsed and sorted with 
+    Form for ``DynamicInlineAdmin`` that can be collapsed and sorted with
     drag and drop using ``OrderWidget``.
     """
-    
+
     class Media:
-        js = content_media_urls("js/jquery-ui-1.8.1.custom.min.js", 
+        js = content_media_urls("js/jquery-ui-1.8.1.custom.min.js",
                                 "js/dynamic_inline.js",)
 
     def __init__(self, *args, **kwargs):
         super(DynamicInlineAdminForm, self).__init__(*args, **kwargs)
         if issubclass(self._meta.model, Orderable):
-            self.fields["_order"] = forms.CharField(label=_("Order"), 
+            self.fields["_order"] = forms.CharField(label=_("Order"),
                 widget=OrderWidget, required=False)
 
 
@@ -74,7 +74,7 @@ def get_edit_form(obj, field_names, data=None, files=None):
         class Meta:
             model = obj.__class__
             fields = field_names.split(",")
-            
+
         def __init__(self, *args, **kwargs):
             super(EditForm, self).__init__(*args, **kwargs)
             self.uuid = str(uuid4())

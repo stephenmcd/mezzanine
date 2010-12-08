@@ -10,10 +10,11 @@ from mezzanine.pages import models as pages_app
 
 
 def create_demo_user(app, created_models, verbosity, **kwargs):
-    if settings.DEBUG and User in created_models and not kwargs.get("interactive"):
-        print 
+    if settings.DEBUG and User in created_models and not \
+                                                    kwargs.get("interactive"):
+        print
         print "Creating default account (username: admin / password: default)"
-        print 
+        print
         User.objects.create_superuser("admin", "example@example.com", "default")
 
 
@@ -21,7 +22,7 @@ def create_initial_pages(app, created_models, verbosity, **kwargs):
     if settings.DEBUG and Page in created_models:
         if kwargs.get("interactive"):
             confirm = raw_input("\nWould you like to install some initial "
-                                "content?\nEg: About page, Blog, Contact " 
+                                "content?\nEg: About page, Blog, Contact "
                                 "form. (yes/no): ")
             while True:
                 if confirm == "yes":
@@ -29,9 +30,9 @@ def create_initial_pages(app, created_models, verbosity, **kwargs):
                 elif confirm == "no":
                     return
                 confirm = raw_input("Please enter either 'yes' or 'no': ")
-        print 
+        print
         print "Creating initial content (About page, Blog, Contact form)."
-        print 
+        print
         call_command("loaddata", "mezzanine.json")
 
 

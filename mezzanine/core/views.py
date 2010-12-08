@@ -30,7 +30,7 @@ admin_keywords_submit = staff_member_required(admin_keywords_submit)
 
 def direct_to_template(request, template, extra_context=None, **kwargs):
     """
-    Replacement for Django's ``direct_to_template`` that uses Mezzanine's 
+    Replacement for Django's ``direct_to_template`` that uses Mezzanine's
     device-aware ``render_to_response``.
     """
     context = extra_context or {}
@@ -39,7 +39,7 @@ def direct_to_template(request, template, extra_context=None, **kwargs):
         if callable(value):
             context[key] = value()
     return render_to_response(template, context, RequestContext(request))
-    
+
 
 def search(request, template="search_results.html"):
     """
@@ -48,7 +48,7 @@ def search(request, template="search_results.html"):
     settings.use_editable()
     query = request.GET.get("q", "")
     results = Displayable.objects.search(query)
-    results = paginate(results, request.GET.get("page", 1), 
+    results = paginate(results, request.GET.get("page", 1),
         settings.SEARCH_PER_PAGE, settings.SEARCH_MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
     return render_to_response(template, context, RequestContext(request))

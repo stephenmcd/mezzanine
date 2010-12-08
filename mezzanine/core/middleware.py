@@ -7,9 +7,10 @@ class MobileTemplate(object):
     def process_view(self, request, view_func, view_args, view_kwargs):
         import warnings
         warnings.warn("mezzanine.core.middleware.MobileTemplate is deprecated."
-                      "Please remove it from settings.MIDDLEWARE_CLASSES.", 
+                      "Please remove it from settings.MIDDLEWARE_CLASSES.",
                       DeprecationWarning)
         return None
+
 
 class AdminLoginInterfaceSelector(object):
     """

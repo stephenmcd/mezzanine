@@ -14,6 +14,7 @@ def format_value(value):
         value = ", ".join([v.strip() for v in value])
     return value
 
+
 @processor_for(Form)
 def form_processor(request, page):
     """

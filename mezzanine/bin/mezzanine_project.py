@@ -17,7 +17,7 @@ def create_project():
     """
 
     parser = OptionParser(usage="usage: %prog [options] project_name")
-    parser.add_option("-a", "--alternate", dest="alt", metavar="PACKAGE", 
+    parser.add_option("-a", "--alternate", dest="alt", metavar="PACKAGE",
         help="Alternate package to use, containing a project_template")
     parser.add_option("-s", "--source", dest="copy_source", default=False,
         action="store_true", help="Copy package source to new project")
@@ -42,8 +42,8 @@ def create_project():
         parser.error("'%s' conflicts with the name of an existing "
             "Python module and cannot be used as a project name. "
             "Please try another name." % project_name)
-    
-    # Create the list of packages to build from - at this stage it should 
+
+    # Create the list of packages to build from - at this stage it should
     # only be one or two names, mezzanine plus an alternate package.
     packages = ["mezzanine"]
     if options.alt:
@@ -52,9 +52,9 @@ def create_project():
         try:
             __import__(package_name)
         except ImportError:
-            parser.error("Could not import package '%s'" % package_name) 
+            parser.error("Could not import package '%s'" % package_name)
 
-    # Build the project up copying over the project_template from each of 
+    # Build the project up copying over the project_template from each of
     # the packages.
     for package_name in packages:
         package_path = path_for_import(package_name)

@@ -5,9 +5,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Adding model 'Page'
         db.create_table('pages_page', (
             ('status', self.gf('django.db.models.fields.IntegerField')(default=1)),
@@ -43,14 +43,14 @@ class Migration(SchemaMigration):
             ('page_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['pages.Page'], unique=True, primary_key=True)),
         ))
         db.send_create_signal('pages', ['ContentPage'])
-    
+
         from mezzanine.core.management import create_initial_pages
         from mezzanine.pages.models import Page
         from atexit import register
         register(create_initial_pages, None, (Page,), 1, interactive=True)
-    
+
     def backwards(self, orm):
-        
+
         # Deleting model 'Page'
         db.delete_table('pages_page')
 
@@ -59,8 +59,8 @@ class Migration(SchemaMigration):
 
         # Deleting model 'ContentPage'
         db.delete_table('pages_contentpage')
-    
-    
+
+
     models = {
         'core.keyword': {
             'Meta': {'object_name': 'Keyword'},
@@ -94,5 +94,5 @@ class Migration(SchemaMigration):
             'titles': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'null': 'True'})
         }
     }
-    
+
     complete_apps = ['pages']

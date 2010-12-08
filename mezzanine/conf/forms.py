@@ -13,9 +13,10 @@ FIELD_TYPES = {
     int: forms.IntegerField,
 }
 
+
 class SettingsForm(forms.Form):
     """
-    Form for settings - creates a field for each setting in 
+    Form for settings - creates a field for each setting in
     ``mezzanine.conf`` that is marked as editable.
     """
 
@@ -27,13 +28,13 @@ class SettingsForm(forms.Form):
             setting = registry[name]
             if setting["editable"]:
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
-                self.fields[name] = field_class(label=name+":", required=False,
-                                            initial=getattr(settings, name), 
-                                            help_text=setting["description"])
+                self.fields[name] = field_class(label=name + ":",
+                                required=False, initial=getattr(settings, name),
+                                help_text=setting["description"])
 
     def __iter__(self):
         """
-        Calculate and apply a group heading to each field and order by the 
+        Calculate and apply a group heading to each field and order by the
         heading.
         """
         fields = list(super(SettingsForm, self).__iter__())
@@ -47,7 +48,7 @@ class SettingsForm(forms.Form):
             if groups[fields[i].group] == 1:
                 fields[i].group = misc
         return iter(sorted(fields, cmp=lambda x, y: cmp(x.group, y.group)))
-    
+
     def save(self):
         # Save each of the settings to the DB.
         for (name, value) in self.cleaned_data.items():

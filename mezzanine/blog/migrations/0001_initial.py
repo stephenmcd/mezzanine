@@ -5,9 +5,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Adding model 'BlogPost'
         db.create_table('blog_blogpost', (
             ('status', self.gf('django.db.models.fields.IntegerField')(default=1)),
@@ -57,10 +57,10 @@ class Migration(SchemaMigration):
             ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
         ))
         db.send_create_signal('blog', ['Comment'])
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Deleting model 'BlogPost'
         db.delete_table('blog_blogpost')
 
@@ -72,8 +72,8 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Comment'
         db.delete_table('blog_comment')
-    
-    
+
+
     models = {
         'auth.group': {
             'Meta': {'object_name': 'Group'},
@@ -155,5 +155,5 @@ class Migration(SchemaMigration):
             'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         }
     }
-    
+
     complete_apps = ['blog']

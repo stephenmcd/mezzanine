@@ -1,7 +1,7 @@
 """
-This module redefines the loader functions from  ``django.template.loader`` 
-that deal with template loading, specifically ``get_template`` and 
-``select_template``. They're reproduced here to pass in a ``context`` arg 
+This module redefines the loader functions from  ``django.template.loader``
+that deal with template loading, specifically ``get_template`` and
+``select_template``. They're reproduced here to pass in a ``context`` arg
 which is used to handle device specific template loading.
 """
 
@@ -11,9 +11,9 @@ from django.template.loader import select_template as _select_template
 
 def get_template(template_name, context_instance):
     """
-    Create a list of template names, prefixed with the device specific 
-    template directory names and ordered based on matching the user agent 
-    string in the request context. Pass the list to Django's original 
+    Create a list of template names, prefixed with the device specific
+    template directory names and ordered based on matching the user agent
+    string in the request context. Pass the list to Django's original
     ``select_template``.
     """
     from mezzanine.conf import settings

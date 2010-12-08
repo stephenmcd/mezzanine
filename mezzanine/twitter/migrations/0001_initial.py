@@ -5,9 +5,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Adding model 'Query'
         db.create_table('twitter_query', (
             ('interested', self.gf('django.db.models.fields.BooleanField')(default=True, blank=True)),
@@ -32,17 +32,17 @@ class Migration(SchemaMigration):
             ('retweeter_full_name', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
         ))
         db.send_create_signal('twitter', ['Tweet'])
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Deleting model 'Query'
         db.delete_table('twitter_query')
 
         # Deleting model 'Tweet'
         db.delete_table('twitter_tweet')
-    
-    
+
+
     models = {
         'twitter.query': {
             'Meta': {'object_name': 'Query'},
@@ -66,5 +66,5 @@ class Migration(SchemaMigration):
             'user_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'})
         }
     }
-    
+
     complete_apps = ['twitter']

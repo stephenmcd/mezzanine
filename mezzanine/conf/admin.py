@@ -11,10 +11,10 @@ from mezzanine.utils.urls import admin_url
 
 class SettingsAdmin(admin.ModelAdmin):
     """
-    Admin class for settings model. Redirect add/change views to the list 
+    Admin class for settings model. Redirect add/change views to the list
     view where a single form is rendered for editing all settings.
     """
-    
+
     def changelist_redirect(self):
         changelist_url = admin_url(Setting, "changelist")
         return HttpResponseRedirect(changelist_url)
@@ -24,7 +24,7 @@ class SettingsAdmin(admin.ModelAdmin):
 
     def change_view(self, *args, **kwargs):
         return self.changelist_redirect()
-    
+
     def changelist_view(self, request, extra_context=None):
         if extra_context is None:
             extra_context = {}
@@ -33,9 +33,10 @@ class SettingsAdmin(admin.ModelAdmin):
             settings_form.save()
             return self.changelist_redirect()
         extra_context["settings_form"] = settings_form
-        extra_context["title"] = _("Change %s" % 
+        extra_context["title"] = _("Change %s" %
             force_unicode(Setting._meta.verbose_name_plural))
-        return super(SettingsAdmin, self).changelist_view(request, extra_context)
+        return super(SettingsAdmin, self).changelist_view(request,
+                                                            extra_context)
 
 
 admin.site.register(Setting, SettingsAdmin)

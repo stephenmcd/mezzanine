@@ -1,7 +1,7 @@
 """
-This module redefines the template tags from ``django.template.loader_tags`` 
-that deal with template loading, specifically ``extend`` and ``include``. 
-They're reproduced here to make use of Mezzanine's ``get_template`` which 
+This module redefines the template tags from ``django.template.loader_tags``
+that deal with template loading, specifically ``extend`` and ``include``.
+They're reproduced here to make use of Mezzanine's ``get_template`` which
 handles device specific template loading.
 """
 
@@ -32,7 +32,7 @@ class ContextAwareExtendsNode(ExtendsNode):
                               self.parent_name_expr.token)
             raise TemplateSyntaxError(error_msg)
         if hasattr(parent, "render"):
-            return parent # parent is a Template object
+            return parent  # parent is a Template object
         return get_template(parent, context)
 
 
@@ -51,7 +51,7 @@ def extends(parser, token):
         parent_name_expr = parser.compile_filter(bits[1])
     nodelist = parser.parse()
     if nodelist.get_nodes_by_type(ContextAwareExtendsNode):
-        raise TemplateSyntaxError("'%s' cannot appear more than once in " 
+        raise TemplateSyntaxError("'%s' cannot appear more than once in "
                                   "the same template" % bits[0])
     return ContextAwareExtendsNode(nodelist, parent_name, parent_name_expr)
 

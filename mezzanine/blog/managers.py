@@ -9,7 +9,7 @@ class BlogPostManager(DisplayableManager):
     """
     Extends ``DisplayableManager.published`` with annotated comment counts.
     """
-    
+
     def published(self, *args, **kwargs):
         return super(BlogPostManager, self).published(*args, **kwargs) \
             .annotate(num_comments=Count("comments")).select_related(depth=1)

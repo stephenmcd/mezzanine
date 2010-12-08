@@ -10,11 +10,11 @@ from mezzanine.utils.path import path_for_import
 
 def template_path(template):
     """
-    Django 1.2 and higher moved to class-based template loaders and 
-    deprecated ``find_template_source`` - there's a ``find_template`` 
-    function that is similar but always returns ``None`` for the 
-    template path so it appears to be broken. This function works as far 
-    as retrieving the template path goes which is all we're concerned 
+    Django 1.2 and higher moved to class-based template loaders and
+    deprecated ``find_template_source`` - there's a ``find_template``
+    function that is similar but always returns ``None`` for the
+    template path so it appears to be broken. This function works as far
+    as retrieving the template path goes which is all we're concerned
     with.
     """
     from django import VERSION
@@ -35,7 +35,7 @@ def template_path(template):
 
 class Command(StartAppCommand):
     """
-    Creates a theme directory which is a Django app plus all existing 
+    Creates a theme directory which is a Django app plus all existing
     templates and media files in the current project.
     """
 
@@ -50,7 +50,7 @@ class Command(StartAppCommand):
         Create a new Django app and copy all available templates into it.
         """
         super(Command, self).handle_label(theme_name, **options)
-        # Build a unique list of template names from ``INSTALLED_APPS`` and 
+        # Build a unique list of template names from ``INSTALLED_APPS`` and
         # ``TEMPLATE_DIRS`` then determine which template files they belong
         # to and copy them to the theme/templates directory.
         templates = set()

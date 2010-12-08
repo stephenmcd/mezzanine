@@ -34,15 +34,15 @@ form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from",
 
 class FieldAdmin(DynamicInlineAdmin):
     """
-    Admin class for the form field. Inherits from DynamicInlineAdmin to 
-    add dynamic "Add another" link and drag/drop ordering. 
+    Admin class for the form field. Inherits from DynamicInlineAdmin to
+    add dynamic "Add another" link and drag/drop ordering.
     """
     model = Field
 
 
 class FormAdmin(PageAdmin):
     """
-    Admin class for the Form model. Includes the urls & views for exporting 
+    Admin class for the Form model. Includes the urls & views for exporting
     form entries as CSV and downloading files uploaded via the forms app.
     """
 

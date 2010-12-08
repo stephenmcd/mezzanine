@@ -6,8 +6,8 @@ from django import template
 
 class Library(template.Library):
     """
-    Extends ``django.template.Library`` providing several shortcuts that 
-    attempt to take the leg-work out of creating different types of 
+    Extends ``django.template.Library`` providing several shortcuts that
+    attempt to take the leg-work out of creating different types of
     template tags.
     """
 
@@ -56,6 +56,7 @@ class Library(template.Library):
                     end_name = "end%s" % tag_func.__name__
                     self.nodelist = parser.parse((end_name,))
                     parser.delete_first_token()
+
                 def render(self, context):
                     args = (self.nodelist.render(context), context, token)
                     return tag_func(*args[:tag_func.func_code.co_argcount])

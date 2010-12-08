@@ -11,9 +11,9 @@ from django.utils.simplejson import loads
 from mezzanine.blog.management.base import BaseImporterCommand
 
 
-MAX_POSTS_PER_CALL = 50 # Max number of posts Tumblr API will return per call.
-MAX_RETRIES_PER_CALL = 3 # Max times to retry API call after failing.
-SLEEP_PER_RETRY = 3 # Seconds to pause for between retries.
+MAX_POSTS_PER_CALL = 50  # Max number of posts Tumblr API will return per call.
+MAX_RETRIES_PER_CALL = 3  # Max times to retry API call after failing.
+SLEEP_PER_RETRY = 3  # Seconds to pause for between retries.
 
 
 def title_from_content(content):
@@ -38,7 +38,7 @@ class Command(BaseImporterCommand):
     )
     help = "Import Tumblr blog posts into the blog app."
 
-    def handle_import(self, options):    
+    def handle_import(self, options):
 
         tumblr_user = options.get("tumblr_user")
         if tumblr_user is None:
@@ -59,7 +59,7 @@ class Command(BaseImporterCommand):
                 if response.code == 404:
                     raise CommandError("Invalid Tumblr user.")
                 elif response.code == 503:
-                    # The Tumblr API is frequently unavailable so make a 
+                    # The Tumblr API is frequently unavailable so make a
                     # few tries, pausing between each.
                     retries -= 1
                     if not retries:
@@ -83,8 +83,8 @@ class Command(BaseImporterCommand):
                 if handler is not None:
                     title, content = handler(post)
                     pub_date = datetime.strptime(post["date"], date_format)
-                    self.add_post(title=title, content=content, 
-                                  pub_date=pub_date, tags=post.get("tags"), 
+                    self.add_post(title=title, content=content,
+                                  pub_date=pub_date, tags=post.get("tags"),
                                   old_url=post["url-with-slug"])
             if len(posts) < MAX_POSTS_PER_CALL:
                 break
@@ -102,7 +102,7 @@ class Command(BaseImporterCommand):
         title = post["quote-text"]
         content = ("<blockquote>%(quote-text)s</blockquote>"
                   "<p>%(quote-source)s</p>") % post
-        return title, content 
+        return title, content
 
     def handle_photo_post(self, post):
         title = title_from_content(post["photo-caption"])

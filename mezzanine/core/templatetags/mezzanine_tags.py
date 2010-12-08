@@ -72,20 +72,21 @@ def pagination_for(context, current_page):
 @register.simple_tag
 def thumbnail(image_url, width, height):
     """
-    Given the URL to an image, resizes the image using the given width and 
-    height on the first time it is requested, and returns the URL to the new 
-    resized image. if width or height are zero then original ratio is 
+    Given the URL to an image, resizes the image using the given width and
+    height on the first time it is requested, and returns the URL to the new
+    resized image. if width or height are zero then original ratio is
     maintained.
     """
-    
+
     image_url = unicode(image_url)
     image_path = os.path.join(settings.MEDIA_ROOT, image_url)
     image_dir, image_name = os.path.split(image_path)
-    thumb_name = "%s-%sx%s.jpg" % (os.path.splitext(image_name)[0], width, height)
+    thumb_name = "%s-%sx%s.jpg" % (os.path.splitext(image_name)[0], width,
+                                                                        height)
     thumb_path = os.path.join(image_dir, thumb_name)
     thumb_url = "%s/%s" % (os.path.dirname(image_url), thumb_name)
 
-    # abort if thumbnail exists, original image doesn't exist, invalid width or 
+    # abort if thumbnail exists, original image doesn't exist, invalid width or
     # height are given, or PIL not installed
     if not image_url:
         return ""
@@ -139,7 +140,7 @@ def editable(parsed, context, token):
     """
     Add the required HTML to the parsed content for in-line editing, such as
     the icon and edit form if the object is deemed to be editable - either it
-    has an ``editable`` method which returns ``True``, or the logged in user 
+    has an ``editable`` method which returns ``True``, or the logged in user
     has change permissions for the model.
     """
     def parse_field(field):
@@ -169,8 +170,8 @@ def editable(parsed, context, token):
 @register.simple_tag
 def try_url(url_name):
     """
-    Mimics Django's ``url`` template tag but fails silently. Used for url 
-    names in admin templates as these won't resolve when admin tests are 
+    Mimics Django's ``url`` template tag but fails silently. Used for url
+    names in admin templates as these won't resolve when admin tests are
     running.
     """
     try:
@@ -182,10 +183,10 @@ def try_url(url_name):
 
 def admin_app_list(request):
     """
-    Adopted from ``django.contrib.admin.sites.AdminSite.index``. Returns a 
-    list of lists of models grouped and ordered according to 
-    ``mezzanine.conf.ADMIN_MENU_ORDER``. Called from the 
-    ``admin_dropdown_menu`` template tag as well as the ``app_list`` 
+    Adopted from ``django.contrib.admin.sites.AdminSite.index``. Returns a
+    list of lists of models grouped and ordered according to
+    ``mezzanine.conf.ADMIN_MENU_ORDER``. Called from the
+    ``admin_dropdown_menu`` template tag as well as the ``app_list``
     dashboard widget.
     """
     app_dict = {}
@@ -226,7 +227,7 @@ def admin_app_list(request):
                     app_dict[app_title]["models"].append(model_dict)
                 else:
                     try:
-                        titles = [x[0] for x in 
+                        titles = [x[0] for x in
                             settings.ADMIN_MENU_ORDER]
                         index = titles.index(app_title)
                     except ValueError:
@@ -245,17 +246,17 @@ def admin_app_list(request):
                 if item_url:
                     if name not in app_dict:
                         app_dict[name] = {
-                            "index": i, 
-                            "name": name, 
+                            "index": i,
+                            "name": name,
                             "models": [],
                         }
                     app_dict[name]["models"].append({
-                        "index": items.index(unfound_item), 
+                        "index": items.index(unfound_item),
                         "perms": {"custom": True},
-                        "name": item_name,  
-                        "admin_url": item_url,  
+                        "name": item_name,
+                        "admin_url": item_url,
                     })
-                
+
     app_list = app_dict.values()
     sort = lambda x: x["name"] if x["index"] is None else x["index"]
     for app in app_list:
@@ -282,7 +283,8 @@ def app_list(context):
     return context
 
 
-@register.inclusion_tag("admin/includes/recent_actions.html", takes_context=True)
+@register.inclusion_tag("admin/includes/recent_actions.html",
+                                                            takes_context=True)
 def recent_actions(context):
     """
     Renders the recent actions list for the admin dashboard widget.
@@ -293,7 +295,7 @@ def recent_actions(context):
 @register.render_tag
 def dashboard_column(context, token):
     """
-    Takes an index for retrieving the sequence of template tags from 
+    Takes an index for retrieving the sequence of template tags from
     ``mezzanine.conf.DASHBOARD_TAGS`` to render into the admin dashboard.
     """
     column_index = int(token.split_contents()[1])

@@ -5,19 +5,19 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Changing field 'Field.field_type'
         db.alter_column('forms_field', 'field_type', self.gf('django.db.models.fields.IntegerField')())
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Changing field 'Field.field_type'
         db.alter_column('forms_field', 'field_type', self.gf('django.db.models.fields.CharField')(max_length=55))
-    
-    
+
+
     models = {
         'core.keyword': {
             'Meta': {'object_name': 'Keyword'},
@@ -85,5 +85,5 @@ class Migration(SchemaMigration):
             'titles': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'null': 'True'})
         }
     }
-    
+
     complete_apps = ['forms']

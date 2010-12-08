@@ -19,7 +19,7 @@ class Page(Orderable, Displayable):
     in_footer = models.BooleanField(_("Show in footer"))
     titles = models.CharField(editable=False, max_length=1000, null=True)
     content_model = models.CharField(editable=False, max_length=50, null=True)
-    login_required = models.BooleanField(_("Login required"), 
+    login_required = models.BooleanField(_("Login required"),
         help_text=_("If checked, only logged in users can view this page"))
 
     class Meta:
@@ -67,13 +67,13 @@ class Page(Orderable, Displayable):
 
     def overridden(self):
         """
-        Return ``True`` if the page's slug has an explicitly defined 
+        Return ``True`` if the page's slug has an explicitly defined
         urlpattern and is therefore considered to be overridden.
         """
         from mezzanine.pages.views import page
         resolved_view = resolve(self.get_absolute_url())[0]
         return resolved_view != page
-        
+
 
 class ContentPage(Page, Content):
     """

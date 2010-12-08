@@ -66,6 +66,7 @@ CONTENT_STATUS_CHOICES = (
     (CONTENT_STATUS_PUBLISHED, _("Published")),
 )
 
+
 class Displayable(Slugged):
     """
     Abstract model that provides features of a visible page on the website
@@ -74,10 +75,10 @@ class Displayable(Slugged):
 
     status = models.IntegerField(_("Status"),
         choices=CONTENT_STATUS_CHOICES, default=CONTENT_STATUS_DRAFT)
-    publish_date = models.DateTimeField(_("Published from"), 
+    publish_date = models.DateTimeField(_("Published from"),
         help_text=_("With published selected, won't be shown until this time"),
         blank=True, null=True)
-    expiry_date = models.DateTimeField(_("Expires on"), 
+    expiry_date = models.DateTimeField(_("Expires on"),
         help_text=_("With published selected, won't be shown after this time"),
         blank=True, null=True)
     description = HtmlField(_("Description"), blank=True)

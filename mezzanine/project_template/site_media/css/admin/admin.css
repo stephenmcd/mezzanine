@@ -1,0 +1,11 @@
+/* make save/delete buttons always available at bottom of screen. */
+.change-form div.submit-row {
+    position: fixed;
+    bottom: 0;
+    text-align: right;
+    width: 99%;
+    background: white;
+    margin-bottom: 0px;
+    border-top: 1px solid black;
+    padding: 5px 0;
+}

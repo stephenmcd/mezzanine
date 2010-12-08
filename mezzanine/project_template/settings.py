@@ -82,7 +82,7 @@ MIDDLEWARE_CLASSES = (
     "mezzanine.core.middleware.AdminLoginInterfaceSelector",
 )
 
-# Store these package names here as they may change in the future since 
+# Store these package names here as they may change in the future since
 # at the moment we are using custom forks of them.
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
@@ -145,6 +145,6 @@ try:
     from local_settings import *
 except ImportError:
     pass
-    
+
 # Dynamic settings.
 set_dynamic_settings(globals())
