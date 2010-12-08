@@ -7,7 +7,6 @@
 {% block nav-global %}{% endblock %}
 
 {% block extrahead %}
-<link rel="stylesheet" href="{{ MEDIA_URL }}css/admin/admin.css" type="text/css" />
 <script type="text/javascript">
 
 if (typeof $ == 'undefined') {
@@ -45,6 +44,7 @@ $(function() {
 
 {% if request.user.is_authenticated and not is_popup and not request.GET.pop %}
 <style type="text/css">
+
     .add-row {display:none;}
     .breadcrumbs {display:none; height:30px; margin:0; padding:0;
         background:#e6e6e6 !important;}
@@ -61,6 +61,7 @@ $(function() {
         border-bottom:1px solid #ccc; padding:0;}
     #bookmarks {display:none;}
     .messagelist {margin-top:14px; z-index:0 !important;}
+
     {% if original.overridden %}
     .slug, .deletelink {display:none !important;}
     {% endif %}
@@ -68,6 +69,15 @@ $(function() {
     .submit-row * {display:none !important;}
     .submit-row .default {display:inline !important;}
     {% endif %}
+
+    /* make save/delete buttons always available at bottom of screen. */
+    .change-form div.submit-row {
+        position: fixed; left: 0; bottom: 0; right: 0; 
+        margin: 0; padding: 10px 15px;
+        background: #e6e6e6; border-top: 1px solid #ccc;
+        text-align: right;
+    }
+
 </style>
 <script type="text/javascript">
 // Global flag used for checking whether to hide the visible menu after a small 
