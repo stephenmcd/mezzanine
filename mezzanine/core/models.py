@@ -147,7 +147,7 @@ class Displayable(Slugged):
 
 class Content(models.Model):
     """
-    Provides a HTML field for manging general content and making it searchable.
+    Provides a HTML field for managing general content and making it searchable.
     """
 
     content = HtmlField(_("Content"))

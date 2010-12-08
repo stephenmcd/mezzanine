@@ -44,7 +44,7 @@ if getattr(settings, "PACKAGE_NAME_FILEBROWSER") in settings.INSTALLED_APPS:
                     settings.FILEBROWSER_PATH_FILEBROWSER_MEDIA),
     )
 
-# Grappelli admin skin
+# Grappelli admin skin.
 _pattern = urlsplit(settings.ADMIN_MEDIA_PREFIX).path.strip("/").split("/")[0]
 if getattr(settings, "PACKAGE_NAME_GRAPPELLI") in settings.INSTALLED_APPS:
     urlpatterns += patterns("",
