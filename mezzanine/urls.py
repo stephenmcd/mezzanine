@@ -6,7 +6,6 @@ when the ``runserver`` command is being used, that also deals with
 hosting theme development when the ``THEME`` setting is defined.
 """
 
-import os
 from urlparse import urlsplit
 
 from django.conf.urls.defaults import *
@@ -14,9 +13,8 @@ from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
  
 from mezzanine.conf import settings
-from mezzanine.utils.path import path_for_import
 from mezzanine.utils.urls import static_urls
- 
+
 
 # Remove unwanted models from the admin that are installed by default with
 # third-party apps.
@@ -72,10 +70,7 @@ if "mezzanine.pages" in settings.INSTALLED_APPS:
 
 # Hosting of static assets when using built-in runserver during development.
 if getattr(settings, "DEV_SERVER", False):
-    media_root = settings.MEDIA_ROOT
-    theme = getattr(settings, "THEME")
-    if theme:
-        media_root = os.path.join(path_for_import(theme), "media")
+    _pattern = "^%s/(?P<path>.*)$" % settings.MEDIA_URL.strip("/")
     urlpatterns += patterns("",
-        static_urls(settings.MEDIA_URL, media_root),
+        (_pattern, "mezzanine.core.views.serve_with_theme"),
     )
