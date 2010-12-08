@@ -1,5 +1,4 @@
 
-from django.contrib.admin.views.decorators import LOGIN_FORM_KEY
 from django.http import HttpResponseRedirect
 
 
@@ -18,10 +17,8 @@ class AdminLoginInterfaceSelector(object):
     successful and the "site" interface is selected, redirect to the site.
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
-        is_login = LOGIN_FORM_KEY in request.POST
-        is_logged_in = request.user.is_authenticated()
-        site_selected = request.POST.get("interface") == "site"
-        if is_login and not is_logged_in and site_selected:
+        site_login = request.POST.get("mezzanine_login_interface") == "site"
+        if site_login and not request.user.is_authenticated():
             response = view_func(request, *view_args, **view_kwargs)
             if request.user.is_authenticated():
                 return HttpResponseRedirect(request.GET.get("next", "/"))

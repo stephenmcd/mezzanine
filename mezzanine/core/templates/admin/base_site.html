@@ -129,6 +129,7 @@ $(function() {
 
     // Provides link back to homepage.
     $('#user-tools li:last').before('<li><a href="/">View Site</a></li>');
+
 });
 
 // Remove extraneous ``template`` forms from inline formsets since we have
@@ -158,12 +159,12 @@ $(function() {
 
     <label class="required">{% trans "Interface:" %}</label> 
 
-    <input class="interface" type="radio" name="interface" id="interface_admin" 
-        value="admin"{% ifnotequal request.REQUEST.interface "site" %} checked{% endifnotequal %} />
+    <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin" 
+        value="admin"{% ifnotequal request.REQUEST.mezzanine_login_interface "site" %} checked{% endifnotequal %} />
     <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
 
-    <input class="interface" type="radio" name="interface" id="interface_site" 
-        value="site"{% ifequal request.REQUEST.interface "site" %} checked{% endifequal %} />
+    <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_site" 
+        value="site"{% ifequal request.REQUEST.mezzanine_login_interface "site" %} checked{% endifequal %} />
     <label class="interface" for="interface_site">{% trans "Site" %}</label>
 
 </div>
