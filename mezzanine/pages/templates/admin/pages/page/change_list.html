@@ -7,10 +7,11 @@
     h1 {width:300px;}
     #tree {margin-top:10px; width:600px;}
     #tree div {border:1px solid #ddd; background:#f9f9f9; padding:7px; 
-        float:left; width:100%; margin:2px; height:18px;
+        border-top-color:#eee; border-bottom-color:#ccc; 
+        float:left; width:100%; margin:3px; height:18px;
         background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#e6e6e6));
-        background: -moz-linear-gradient(top,  #f9f9f9,  #e6e6e6);}
-    #tree ul {padding:0;}
+        background: -moz-linear-gradient(top, #f9f9f9, #e6e6e6);}
+    #tree ul {padding:0; margin:0px !important;}
     #tree ul ul {padding-left:40px; display:none;}
     #tree li {list-style-type:none;}
     #tree .tree-toggle, #tree .changelink {float:left; font-weight:bold; 
@@ -18,7 +19,8 @@
     #tree .tree-toggle {visibility:hidden;}
     #tree a {float:right;}
     #tree a .icon {display:block; float:left; width:16px; color:#fff; 
-        text-align:center; background:#c6c6c6; margin:0 8px 0 4px;}
+        text-align:center; background:#c6c6c6; margin:0 8px 0 4px;
+        border-radius:2px;}
     #tree a .close {display:none;}
     #tree a:hover .icon {color:#fff; background:#5B80B2;}
     .ordering {float:right; cursor:move; margin-left:10px;}
@@ -26,6 +28,8 @@
     .addlist {float:right; margin-top:-3px;}
     #addlist-primary {float:left; width:620px; text-align:right; 
         margin-top:-25px;}
+    
+    .placeholder {border:1px dashed #ddd;}
 
 </style>
             
@@ -103,19 +107,31 @@
         // AJAX callback that's triggered when dragging a page to re-order 
         // it has ended.
         var updateOrdering = function(event, ui) {
-            var ordering = $(this).sortable('toArray').toString();
-            $.post('{% url admin_page_ordering %}', {ordering: ordering},
-            function(data){
+            var args = {
+                'ordering_from': $(this).sortable('toArray').toString(),
+                'ordering_to': $(ui.item).parent().sortable('toArray').toString(),
+            };
+            if (args['ordering_from'] != args['ordering_to']) {
+                // Branch changed - set the new parent ID.
+                args['moved_page'] = $(ui.item).attr('id');
+                args['moved_parent'] = $(ui.item).parent().parent().attr('id');
+                if (args['moved_parent'] == 'tree') {
+                    delete args['moved_parent'];
+                }
+            } else {
+                delete args['ordering_to'];
+            }
+            $.post('{% url admin_page_ordering %}', args, function(data) {
                 if (data !== "ok") {
                     alert("Error occured: " + data + "\nOrdering wasn't updated.");
                 }
             });
         };
-
         
         // Make the pages sortable via drag and drop.
-        $('#tree ul').sortable({handle: '.ordering', axis: 'y', opacity: '.7', 
-            stop: updateOrdering});
+        $('#tree ul').sortable({handle: '.ordering', connectWith: '#tree ul',
+            opacity: '.7', stop:  updateOrdering, forcePlaceholderSize: true, 
+            placeholder: 'placeholder', revert: 150, toleranceElement: ' div'});
         $('#tree ul').disableSelection();
 
     });
