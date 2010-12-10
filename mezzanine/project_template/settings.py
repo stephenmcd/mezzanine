@@ -97,6 +97,8 @@ OPTIONAL_APPS = (
     PACKAGE_NAME_GRAPPELLI,
 )
 
+DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
+
 import sys
 TESTING = len(sys.argv) > 1 and sys.argv[1] == "test"
 if not TESTING:
@@ -109,41 +111,6 @@ if not TESTING:
             INSTALLED_APPS += (app,)
 INSTALLED_APPS = sorted(list(INSTALLED_APPS), reverse=True)
 
-# Optional app settings.
-from mezzanine.utils.path import path_for_import
-from mezzanine.utils.conf import set_dynamic_settings
-
-if "debug_toolbar" in INSTALLED_APPS:
-    DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
-    MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
-if PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
-    GRAPPELLI_ADMIN_HEADLINE = "Mezzanine"
-    GRAPPELLI_ADMIN_TITLE = "Mezzanine"
-    GRAPPELLI_MEDIA_PATH = os.path.join(
-                             path_for_import(PACKAGE_NAME_GRAPPELLI), "media")
-if PACKAGE_NAME_FILEBROWSER in INSTALLED_APPS:
-    FILEBROWSER_URL_FILEBROWSER_MEDIA = "/filebrowser/media/"
-    FILEBROWSER_PATH_FILEBROWSER_MEDIA = os.path.join(
-            path_for_import(PACKAGE_NAME_FILEBROWSER), "media", "filebrowser")
-
-# Caching.
-CACHE_BACKEND = ""
-CACHE_TIMEOUT = CACHE_MIDDLEWARE_SECONDS = 0
-try:
-    import cmemcache
-except ImportError:
-    try:
-        import memcache
-    except ImportError:
-        CACHE_BACKEND = "locmem:///"
-if TESTING:
-    CACHE_BACKEND = "locmem:///"
-if not CACHE_BACKEND:
-    CACHE_TIMEOUT = CACHE_MIDDLEWARE_SECONDS = 180
-    CACHE_BACKEND = "memcached://127.0.0.1:11211/?timeout=%s" % \
-                                                    CACHE_MIDDLEWARE_SECONDS
-    CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
-
 # Local settings.
 try:
     from local_settings import *
@@ -151,4 +118,5 @@ except ImportError:
     pass
 
 # Dynamic settings.
+from mezzanine.utils.conf import set_dynamic_settings
 set_dynamic_settings(globals())

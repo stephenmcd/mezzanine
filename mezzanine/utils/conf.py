@@ -20,9 +20,21 @@ def set_dynamic_settings(s):
 
     s["TEMPLATE_DEBUG"] = s["DEBUG"]
     add_to_builtins("mezzanine.template.loader_tags")
-    
-    # Set ADMIN_MEDIA_PREFIX for Grappelli.
+
+    # Setup for optional apps.
+    if "debug_toolbar" in s["INSTALLED_APPS"]:
+        debug_mw = ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+        s["MIDDLEWARE_CLASSES"] += debug_mw
+    if s.get("PACKAGE_NAME_FILEBROWSER") in s["INSTALLED_APPS"]:
+        s["FILEBROWSER_URL_FILEBROWSER_MEDIA"] = "/filebrowser/media/"
+        fb_path = path_for_import(s["PACKAGE_NAME_FILEBROWSER"])
+        fb_media_path = os.path.join(fb_path, "media", "filebrowser")
+        s["FILEBROWSER_PATH_FILEBROWSER_MEDIA"] = fb_media_path
     if s.get("PACKAGE_NAME_GRAPPELLI") in s["INSTALLED_APPS"]:
+        s["GRAPPELLI_ADMIN_HEADLINE"] = "Mezzanine"
+        s["GRAPPELLI_ADMIN_TITLE"] = "Mezzanine"
+        grappelli_path = path_for_import(s["PACKAGE_NAME_GRAPPELLI"])
+        s["GRAPPELLI_MEDIA_PATH"] = os.path.join(grappelli_path, "media")
         # Adopted from django.core.management.commands.runserver
         # Easiest way so far to actually get all the media for Grappelli 
         # working with the dev server is to hard-code the host:port to 
@@ -43,6 +55,24 @@ def set_dynamic_settings(s):
                 addr = "127.0.0.1"
             s["ADMIN_MEDIA_PREFIX"] = "http://%s:%s%s" % (addr, port, 
                                                   s["ADMIN_MEDIA_PREFIX"])
+
+    # Caching.
+    if not s.get("CACHE_BACKEND"):
+        s["CACHE_TIMEOUT"] = s["CACHE_MIDDLEWARE_SECONDS"] = 0
+        try:
+            import cmemcache
+        except ImportError:
+            try:
+                import memcache
+            except ImportError:
+                s["CACHE_BACKEND"] = "locmem:///"
+        if not s.get("CACHE_BACKEND"):
+            s["CACHE_TIMEOUT"] = s["CACHE_MIDDLEWARE_SECONDS"] = 180
+            s["CACHE_BACKEND"] = "memcached://127.0.0.1:11211/?timeout=%s" % \
+                                                 s["CACHE_MIDDLEWARE_SECONDS"]
+            s["CACHE_MIDDLEWARE_ANONYMOUS_ONLY"] = True
+    if s.get("TESTING"):
+        s["CACHE_TIMEOUT"] = s["CACHE_MIDDLEWARE_SECONDS"] = 0
 
     # Some settings tweaks for different DB engines.
     backend_path = "django.db.backends."
