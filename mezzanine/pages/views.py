@@ -19,9 +19,26 @@ def admin_page_ordering(request):
     """
     Updates the ordering of pages via AJAX from within the admin.
     """
-    for i, page in enumerate(request.POST.get("ordering", "").split(",")):
+    get_id = lambda s: s.split("_")[-1]
+    for ordering in ("ordering_from", "ordering_to"): 
+        ordering = request.POST.get(ordering, "")
+        if ordering:
+            for i, page in enumerate(ordering.split(",")):
+                try:
+                    Page.objects.filter(id=get_id(page)).update(_order=i)
+                except Exception, e:
+                    return HttpResponse(str(e))
+    try:
+        moved_page = int(get_id(request.POST.get("moved_page", "")))
+    except ValueError, e:
+        pass
+    else:
+        moved_parent = get_id(request.POST.get("moved_parent", ""))
+        if not moved_parent:
+            moved_parent = None
         try:
-            Page.objects.filter(id=page.split("_")[-1]).update(_order=i)
+            page = Page.objects.filter(id=moved_page)
+            page.update(parent=moved_parent)
         except Exception, e:
             return HttpResponse(str(e))
     return HttpResponse("ok")

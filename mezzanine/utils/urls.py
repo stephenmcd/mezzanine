@@ -23,3 +23,14 @@ def content_media_urls(*paths):
     """
     media_url = settings.CONTENT_MEDIA_URL.strip("/")
     return ["/%s/%s" % (media_url, path) for path in paths]
+
+
+def static_urls(url_prefix, document_root):
+    """
+    Returns the ``urlpattern`` for serving static content from the given 
+    ``document_root`` over the given ``url_prefix``.
+    """
+    pattern = "^%s/(?P<path>.*)$" % url_prefix.strip("/")
+    view = "django.views.static.serve"
+    args = {"document_root": document_root}
+    return (pattern, view, args)

@@ -1,15 +1,19 @@
 
+import os
+
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import get_model
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
+from django.views.static import serve
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Keyword, Displayable
+from mezzanine.utils.path import path_for_import
 from mezzanine.utils.views import is_editable, paginate, render_to_response
 
 
@@ -41,19 +45,6 @@ def direct_to_template(request, template, extra_context=None, **kwargs):
     return render_to_response(template, context, RequestContext(request))
 
 
-def search(request, template="search_results.html"):
-    """
-    Display search results.
-    """
-    settings.use_editable()
-    query = request.GET.get("q", "")
-    results = Displayable.objects.search(query)
-    results = paginate(results, request.GET.get("page", 1),
-        settings.SEARCH_PER_PAGE, settings.SEARCH_MAX_PAGING_LINKS)
-    context = {"query": query, "results": results}
-    return render_to_response(template, context, RequestContext(request))
-
-
 def edit(request):
     """
     Process the inline editing form.
@@ -73,3 +64,32 @@ def edit(request):
     else:
         response = form.errors.values()[0][0]
     return HttpResponse(unicode(response))
+
+
+def search(request, template="search_results.html"):
+    """
+    Display search results.
+    """
+    settings.use_editable()
+    query = request.GET.get("q", "")
+    results = Displayable.objects.search(query)
+    results = paginate(results, request.GET.get("page", 1),
+        settings.SEARCH_PER_PAGE, settings.SEARCH_MAX_PAGING_LINKS)
+    context = {"query": query, "results": results}
+    return render_to_response(template, context, RequestContext(request))
+
+
+def serve_with_theme(request, path):
+    """
+    Mimics ``django.views.static.serve`` for serving files from 
+    ``MEDIA_ROOT`` during development, first checking for the file in the 
+    theme defined by the ``THEME`` setting if specified.
+    """
+    theme = getattr(settings, "THEME")
+    if theme:
+        theme_root = os.path.join(path_for_import(theme), "media")
+        try:
+            return serve(request, path, document_root=theme_root)
+        except Http404:
+            pass
+    return serve(request, path, document_root=settings.MEDIA_ROOT)
