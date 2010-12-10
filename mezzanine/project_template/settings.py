@@ -87,7 +87,7 @@ MIDDLEWARE_CLASSES = (
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 
-# Optional apps.
+# Optional apps - these will be added to ``INSTALLED_APPS`` if available.
 OPTIONAL_APPS = (
     "debug_toolbar",
     "south",
@@ -97,7 +97,8 @@ OPTIONAL_APPS = (
 )
 
 import sys
-if not (len(sys.argv) > 1 and sys.argv[1] == "test"):
+TESTING = len(sys.argv) > 1 and sys.argv[1] == "test"
+if not TESTING:
     for app in OPTIONAL_APPS:
         try:
             __import__(app)
@@ -134,6 +135,8 @@ except ImportError:
         import memcache
     except ImportError:
         CACHE_BACKEND = "locmem:///"
+if TESTING:
+    CACHE_BACKEND = "locmem:///"
 if not CACHE_BACKEND:
     CACHE_TIMEOUT = CACHE_MIDDLEWARE_SECONDS = 180
     CACHE_BACKEND = "memcached://127.0.0.1:11211/?timeout=%s" % \
