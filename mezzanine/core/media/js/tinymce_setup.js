@@ -39,7 +39,7 @@ tinyMCE.init({
     remove_script_host : true,
     accessibility_warnings : false,
     object_resizing: false,
-    cleanup: false,
+    cleanup: true,
     forced_root_block: "p",
     remove_trailing_nbsp: true,
     
