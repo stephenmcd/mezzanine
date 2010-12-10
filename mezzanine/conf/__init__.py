@@ -72,6 +72,7 @@ class Settings(object):
                 else:
                     setting_value = setting_type(setting_obj.value)
                 self._editable_cache[setting_obj.name] = setting_value
+            self._loaded = True
 
         # Use cached editable setting if found, otherwise use default.
         try:
