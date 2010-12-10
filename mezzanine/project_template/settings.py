@@ -3,6 +3,7 @@
 THEME = ""
 
 # Main Django settings.
+TIME_ZONE = ""
 DEBUG = False
 DEV_SERVER = False
 MANAGERS = ADMINS = ()
