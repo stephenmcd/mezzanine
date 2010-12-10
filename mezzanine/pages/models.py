@@ -10,7 +10,8 @@ from mezzanine.utils.urls import admin_url
 
 class Page(Orderable, Displayable):
     """
-    A page in the page tree.
+    A page in the page tree. This is the base class that custom content types 
+    need to subclass.
     """
 
     parent = models.ForeignKey("Page", blank=True, null=True,
@@ -54,6 +55,10 @@ class Page(Orderable, Displayable):
         super(Page, self).save(*args, **kwargs)
 
     def get_content_model(self):
+        """
+        Provies a generic method of retrieving the instance of the custom 
+        content type's model for this page.
+        """
         return getattr(self, self.content_model, None)
 
     def get_slug(self):
@@ -64,6 +69,16 @@ class Page(Orderable, Displayable):
         if self.parent is not None:
             return "%s/%s" % (self.parent.get_slug(), slug)
         return slug
+
+    def reset_slugs(self):
+        """
+        Called when the parent page is changed in the admin and the slug 
+        plus all child slugs need to be recreated given the new parent.
+        """
+        self.slug = None
+        self.save()
+        for child in self.children.all():
+            child.reset_slugs()
 
     def overridden(self):
         """
