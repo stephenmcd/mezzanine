@@ -6,6 +6,8 @@ or Django itself. Settings can also be made editable via the admin.
 
 from django.conf import settings
 
+from mezzanine import __version__
+
 
 registry = {}
 
