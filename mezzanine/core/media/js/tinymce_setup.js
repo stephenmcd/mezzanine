@@ -39,7 +39,7 @@ tinyMCE.init({
     remove_script_host : true,
     accessibility_warnings : false,
     object_resizing: false,
-    cleanup: true,
+    cleanup: false,
     forced_root_block: "p",
     remove_trailing_nbsp: true,
     
@@ -106,5 +106,6 @@ tinyMCE.init({
     + "table[thead|tbody|tfoot|tr|td],"
     + "strong/b/p/div/em/i/td[%itrans|#text],"
     + "body[%btrans|#text]"
+    invalid_elements: "span,"
 
 });
