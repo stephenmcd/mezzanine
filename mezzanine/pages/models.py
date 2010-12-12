@@ -75,8 +75,9 @@ class Page(Orderable, Displayable):
         Called when the parent page is changed in the admin and the slug 
         plus all child slugs need to be recreated given the new parent.
         """
-        self.slug = None
-        self.save()
+        if not self.overridden():
+            self.slug = None
+            self.save()
         for child in self.children.all():
             child.reset_slugs()
 
