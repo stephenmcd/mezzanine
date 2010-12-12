@@ -1,5 +1,5 @@
 
-from django.core.urlresolvers import resolve
+from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -87,7 +87,8 @@ class Page(Orderable, Displayable):
         urlpattern and is therefore considered to be overridden.
         """
         from mezzanine.pages.views import page
-        resolved_view = resolve(self.get_absolute_url())[0]
+        page_url = reverse("page", kwargs={"slug": self.slug})
+        resolved_view = resolve(page_url)[0]
         return resolved_view != page
 
 
