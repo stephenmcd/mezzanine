@@ -11,6 +11,7 @@ PYFLAKES_IGNORE = (
     "import *' used",
     "'memcache' imported but unused",
     "'cmemcache' imported but unused",
+    "'__version__' imported but unused",
 )
 
 

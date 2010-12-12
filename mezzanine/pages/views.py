@@ -37,8 +37,10 @@ def admin_page_ordering(request):
         if not moved_parent:
             moved_parent = None
         try:
-            page = Page.objects.filter(id=moved_page)
-            page.update(parent=moved_parent)
+            page = Page.objects.get(id=moved_page)
+            page.parent_id = moved_parent
+            page.save()
+            page.reset_slugs()
         except Exception, e:
             return HttpResponse(str(e))
     return HttpResponse("ok")
