@@ -68,6 +68,10 @@ tinyMCE.init({
 
     // remove MS Word's inline styles when copying and pasting.
     paste_remove_spans: true,
+    paste_auto_cleanup_on_paste : true,
+    paste_remove_styles: true,
+    paste_remove_styles_if_webkit: true,
+    paste_strip_class_attributes: true,
     
     // elements
     valid_elements : ""
@@ -109,6 +113,4 @@ tinyMCE.init({
     + "table[thead|tbody|tfoot|tr|td],"
     + "strong/b/p/div/em/i/td[%itrans|#text],"
     + "body[%btrans|#text]"
-    invalid_elements: "span,"
-
 });
