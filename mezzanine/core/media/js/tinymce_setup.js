@@ -50,7 +50,7 @@ tinyMCE.init({
     theme_advanced_toolbar_location: "top",
     theme_advanced_toolbar_align: "left",
     theme_advanced_statusbar_location: "",
-    theme_advanced_buttons1: "bold,italic,|,link,unlink,|,image,|,pasteword,media,charmap,|,code,|,table,|,bullist,numlist,blockquote,|,undo,redo,|,formatselect,styleselect",
+    theme_advanced_buttons1: "bold,italic,|,link,unlink,|,image,|,media,charmap,|,code,|,table,|,bullist,numlist,blockquote,|,undo,redo,|,formatselect",
     theme_advanced_buttons2: "",
     theme_advanced_buttons3: "",
     theme_advanced_path: false,
@@ -65,6 +65,9 @@ tinyMCE.init({
     // plugins
     plugins: "advimage,advlink,paste,media,table",
     advimage_update_dimensions_onchange: true,
+
+    // remove MS Word's inline styles when copying and pasting.
+    paste_remove_spans: true,
     
     // elements
     valid_elements : ""
