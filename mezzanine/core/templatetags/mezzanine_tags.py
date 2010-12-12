@@ -7,7 +7,6 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
 from django.template import Context, Template
-from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
@@ -18,6 +17,7 @@ from mezzanine.utils.html import decode_entities
 from mezzanine.utils.views import is_editable
 from mezzanine.utils.urls import admin_url
 from mezzanine import template
+from mezzanine.template.loader import get_template
 
 
 register = template.Library()
@@ -129,7 +129,7 @@ def editable_loader(context):
     """
     Set up the required JS/CSS for the in-line editing toolbar and controls.
     """
-    t = get_template("includes/editable_toolbar.html")
+    t = get_template("includes/editable_toolbar.html", context)
     context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
     context["toolbar"] = t.render(Context(context))
     return context
@@ -143,6 +143,7 @@ def editable(parsed, context, token):
     has an ``editable`` method which returns ``True``, or the logged in user
     has change permissions for the model.
     """
+
     def parse_field(field):
         field = field.split(".")
         obj = context[field.pop(0)]
@@ -155,14 +156,17 @@ def editable(parsed, context, token):
     if fields:
         fields = [f for f in fields if len(f) == 2 and f[0] is fields[0][0]]
     if not parsed.strip():
-        parsed = "".join([unicode(getattr(*field)) for field in fields])
+        try:
+            parsed = "".join([unicode(getattr(*field)) for field in fields])
+        except AttributeError:
+            pass
     if fields:
         obj = fields[0][0]
         if isinstance(obj, Model) and is_editable(obj, context["request"]):
             field_names = ",".join([f[1] for f in fields])
             context["form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
-            t = get_template("includes/editable_form.html")
+            t = get_template("includes/editable_form.html", context)
             return t.render(Context(context))
     return parsed
 
