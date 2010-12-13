@@ -9,18 +9,17 @@ from mezzanine.pages.models import Page
 from mezzanine.pages import models as pages_app
 
 
-def create_demo_user(app, created_models, verbosity, **kwargs):
-    if settings.DEBUG and User in created_models and not \
-                                                    kwargs.get("interactive"):
+def create_user(app, created_models, verbosity, interactive, **kwargs):
+    if settings.DEBUG and User in created_models and not interactive:
         print
         print "Creating default account (username: admin / password: default)"
         print
         User.objects.create_superuser("admin", "example@example.com", "default")
 
 
-def create_initial_pages(app, created_models, verbosity, **kwargs):
+def create_pages(app, created_models, verbosity, interactive, **kwargs):
     if settings.DEBUG and Page in created_models:
-        if kwargs.get("interactive"):
+        if interactive:
             confirm = raw_input("\nWould you like to install some initial "
                                 "content?\nEg: About page, Blog, Contact "
                                 "form. (yes/no): ")
@@ -36,6 +35,15 @@ def create_initial_pages(app, created_models, verbosity, **kwargs):
         call_command("loaddata", "mezzanine.json")
 
 
-post_syncdb.connect(create_demo_user, sender=auth_app)
+def run_post_syncdb_handlers():
+    """
+    Called by the initial migration in the pages app when South is 
+    installed since South prevents the post_syncdb signal from occurring.
+    """
+    create_user(auth_app, (User,), 1, True)
+    create_pages(pages_app, (Page,), 1, True)
+
+
 if "south" not in settings.INSTALLED_APPS:
+    post_syncdb.connect(create_demo_user, sender=auth_app)
     post_syncdb.connect(create_initial_pages, sender=pages_app)
