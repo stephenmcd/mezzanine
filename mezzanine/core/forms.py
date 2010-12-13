@@ -11,6 +11,24 @@ from mezzanine.core.models import Orderable
 from mezzanine.utils.urls import content_media_urls
 
 
+tinymce_main = [settings.ADMIN_MEDIA_PREFIX + 
+                "tinymce/jscripts/tiny_mce/tiny_mce.js"]
+tinymce_setup = content_media_urls("js/tinymce_setup.js")
+
+
+class TinyMceWidget(forms.Textarea):
+    """
+    Setup the JS files and targetting CSS class for a textarea to use TinyMCE.
+    """
+    
+    class Media:
+        js = tinymce_main + tinymce_setup
+        
+    def __init__(self, *args, **kwargs):
+        super(TinyMceWidget, self).__init__(*args, **kwargs)
+        self.attrs["class"] = "mceEditor"
+
+
 class OrderWidget(forms.HiddenInput):
     """
     Add up and down arrows for ordering controls next to a hidden form field.

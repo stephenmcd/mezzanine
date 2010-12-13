@@ -12,6 +12,7 @@ from django.utils.simplejson import loads
 from django.utils.text import capfirst
 
 from mezzanine.conf import settings
+from mezzanine.core.fields import HtmlField
 from mezzanine.core.forms import get_edit_form
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.views import is_editable
@@ -132,6 +133,7 @@ def editable_loader(context):
     t = get_template("includes/editable_toolbar.html", context)
     context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
     context["toolbar"] = t.render(Context(context))
+    context["html_editor_js"] = HtmlField().formfield().widget.Media.js
     return context
 
 

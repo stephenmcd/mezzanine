@@ -293,13 +293,14 @@ register_setting(
     default=("BLOG_BITLY_USER", "BLOG_BITLY_KEY", "COMMENTS_DEFAULT_APPROVED",
         "COMMENTS_DISQUS_KEY", "COMMENTS_DISQUS_SHORTNAME",
         "COMMENTS_NUM_LATEST", "CONTENT_MEDIA_URL", "DEV_SERVER",
-        "GOOGLE_ANALYTICS_ID", "PAGES_MENU_SHOW_ALL", "TINYMCE_URL",
+        "GOOGLE_ANALYTICS_ID", "PAGES_MENU_SHOW_ALL",
     ),
 )
 
 register_setting(
-    name="TINYMCE_URL",
-    description=_("URL prefix for serving Tiny MCE files."),
+    name="HTML_WIDGET_CLASS",
+    description=_("Dotted package path and class name of the widget to use "
+        "for the ``HtmlField``."),
     editable=False,
-    default="%stinymce" % settings.ADMIN_MEDIA_PREFIX,
+    default="mezzanine.core.forms.TinyMceWidget",
 )
