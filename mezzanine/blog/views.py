@@ -89,7 +89,7 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
             timedelta(seconds=90 * 24 * 60 * 60), "%a, %d-%b-%Y %H:%M:%S GMT")
         for field in commenter_cookie_fields:
             response.set_cookie(commenter_cookie_prefix + field,
-                request.POST.get(field, ""), expires=expires)
+                request.POST.get(field, "").encode("utf-8"), expires=expires)
         return response
     settings.use_editable()
     context = {"blog_post": blog_post, "blog_page": blog_page(),
