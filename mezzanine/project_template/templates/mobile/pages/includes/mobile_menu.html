@@ -1,0 +1,31 @@
+{% load i18n pages_tags %}
+
+{% spaceless %}
+{% if page_branch %}
+{% for page in page_branch %}
+
+	{% if page.primary and forloop.first %}
+	<ul class="mobile-menu">
+		<li><a class="home" href="{% url home %}">{% trans "Home" %}</a></li>
+    {% endif %}
+
+		{% if page.selected and not page.child %}
+		{% mobile_menu page %}
+		{% endif %}
+		
+		{% if page.child %}
+		<li class="
+			{% if forloop.first %} first{% endif %}
+			{% if forloop.last %} last{% endif %}"
+			id="mobile-menu-{{ page.html_id }}">
+			<a href="{% url page page.slug %}">{{ page.title }}</a>
+		</li>
+		{% endif %}
+
+	{% if page.primary and forloop.last %}
+	</ul>
+	{% endif %}
+
+{% endfor %}
+{% endif %}
+{% endspaceless %}
