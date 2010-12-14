@@ -17,6 +17,13 @@
         .module ul {list-style-type:none !important; margin-left:0px;}
         .mini {font-size:.9em;}
     </style>
+	
+	<!--[if IE 7]>
+		<style>
+			.dashboard #content { padding-top: 80px; }
+		</style>
+	<![endif]-->
+
 {% endblock %}
 {% block javascripts %}
     {{ block.super }}
