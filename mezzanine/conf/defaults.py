@@ -126,6 +126,36 @@ register_setting(
 )
 
 register_setting(
+    name="DEFAULT_DEVICE",
+    description=_("Device specific template sub-directory to use as the "
+        "default device."),
+    editable=False,
+    default="",
+)
+
+register_setting(
+    name="DEVICE_USER_AGENTS",
+    description=_("Mapping of device specific template sub-directory names to "
+        "the sequence of strings that may be found in their user agents."),
+    editable=False,
+    default=(
+        ("mobile", ("2.0 MMP", "240x320", "400X240", "AvantGo", "BlackBerry",
+            "Blazer", "Cellphone", "Danger", "DoCoMo", "Elaine/3.0",
+            "EudoraWeb", "Googlebot-Mobile", "hiptop", "IEMobile",
+            "KYOCERA/WX310K", "LG/U990", "MIDP-2.", "MMEF20", "MOT-V",
+            "NetFront", "Newt", "Nintendo Wii", "Nitro", "Nokia",
+            "Opera Mini", "Palm", "PlayStation Portable", "portalmmm",
+            "Proxinet", "ProxiNet", "SHARP-TQ-GX10", "SHG-i900",
+            "Small", "SonyEricsson", "Symbian OS", "SymbianOS",
+            "TS21i-10", "UP.Browser", "UP.Link", "webOS", "Windows CE",
+            "WinWAP", "YahooSeeker/M1A1-R2D2", "iPhone", "iPod", "Android",
+            "BlackBerry9530", "LG-TU915 Obigo", "LGE VX", "webOS",
+            "Nokia5800",)
+        ),
+    ),
+)
+
+register_setting(
     name="FORMS_FIELD_MAX_LENGTH",
     description=_("Max length allowed for field values in the forms app."),
     editable=False,
@@ -162,33 +192,11 @@ register_setting(
 )
 
 register_setting(
-    name="DEFAULT_DEVICE",
-    description=_("Device specific template sub-directory to use as the "
-        "default device."),
+    name="HTML_WIDGET_CLASS",
+    description=_("Dotted package path and class name of the widget to use "
+        "for the ``HtmlField``."),
     editable=False,
-    default="",
-)
-
-register_setting(
-    name="DEVICE_USER_AGENTS",
-    description=_("Mapping of device specific template sub-directory names to "
-        "the sequence of strings that may be found in their user agents."),
-    editable=False,
-    default=(
-        ("mobile", ("2.0 MMP", "240x320", "400X240", "AvantGo", "BlackBerry",
-            "Blazer", "Cellphone", "Danger", "DoCoMo", "Elaine/3.0",
-            "EudoraWeb", "Googlebot-Mobile", "hiptop", "IEMobile",
-            "KYOCERA/WX310K", "LG/U990", "MIDP-2.", "MMEF20", "MOT-V",
-            "NetFront", "Newt", "Nintendo Wii", "Nitro", "Nokia",
-            "Opera Mini", "Palm", "PlayStation Portable", "portalmmm",
-            "Proxinet", "ProxiNet", "SHARP-TQ-GX10", "SHG-i900",
-            "Small", "SonyEricsson", "Symbian OS", "SymbianOS",
-            "TS21i-10", "UP.Browser", "UP.Link", "webOS", "Windows CE",
-            "WinWAP", "YahooSeeker/M1A1-R2D2", "iPhone", "iPod", "Android",
-            "BlackBerry9530", "LG-TU915 Obigo", "LGE VX", "webOS",
-            "Nokia5800",)
-        ),
-    ),
+    default="mezzanine.core.forms.TinyMceWidget",
 )
 
 register_setting(
@@ -294,12 +302,4 @@ register_setting(
         "COMMENTS_NUM_LATEST", "CONTENT_MEDIA_URL", "DEV_SERVER",
         "GOOGLE_ANALYTICS_ID", "PAGES_MENU_SHOW_ALL",
     ),
-)
-
-register_setting(
-    name="HTML_WIDGET_CLASS",
-    description=_("Dotted package path and class name of the widget to use "
-        "for the ``HtmlField``."),
-    editable=False,
-    default="mezzanine.core.forms.TinyMceWidget",
 )
