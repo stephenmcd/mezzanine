@@ -27,7 +27,11 @@ def _page_menu(context, parent_page):
             slug = context["request"].path.strip("/")
         except KeyError:
             slug = ""
+        get_parent_slug = lambda slug: "/".join(slug.split("/")[:-1]) + "/"
+        parent_slug = get_parent_slug(slug)
         for page in Page.objects.published(for_user=user).order_by("_order"):
+            setattr(page, "sibling", parent_slug == get_parent_slug(page.slug))
+            setattr(page, "child", (slug + "/") == get_parent_slug(page.slug))
             setattr(page, "selected", (slug + "/").startswith(page.slug + "/"))
             setattr(page, "html_id", page.slug.replace("/", "-"))
             setattr(page, "primary", page.parent_id is None)
@@ -70,6 +74,14 @@ def tree_menu_footer(context, parent_page=None):
 def primary_menu(context, parent_page=None):
     """
     Page menu that only renders the primary top-level pages.
+    """
+    return _page_menu(context, parent_page)
+
+
+@register.inclusion_tag("mobile/pages/includes/mobile_menu.html", takes_context=True)
+def mobile_menu(context, parent_page=None):
+    """
+    Page menu used in the mobile templates.
     """
     return _page_menu(context, parent_page)
 
