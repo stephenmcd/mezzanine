@@ -72,7 +72,8 @@ def set_dynamic_settings(s):
                                                  s["CACHE_MIDDLEWARE_SECONDS"]
             s["CACHE_MIDDLEWARE_ANONYMOUS_ONLY"] = True
     if s.get("TESTING"):
-        s["CACHE_TIMEOUT"] = s["CACHE_MIDDLEWARE_SECONDS"] = 0
+        s["CACHE_BACKEND"] = "locmem:///"
+        s["CACHE_MIDDLEWARE_SECONDS"] = 0
 
     # Some settings tweaks for different DB engines.
     backend_path = "django.db.backends."
