@@ -39,7 +39,6 @@ try:
         packages=find_packages(),
 
         install_requires=[
-            "setuptools",
             "django >= 1.1",
             "filebrowser_safe",
             "grappelli_safe",

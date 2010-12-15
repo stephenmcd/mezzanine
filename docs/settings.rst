@@ -154,6 +154,13 @@ Google Analytics ID (http://www.google.com/analytics/)
 
 Default: ``''``
 
+``HTML_WIDGET_CLASS``
+---------------------
+
+Dotted package path and class name of the widget to use for the ``HtmlField``.
+
+Default: ``'mezzanine.core.forms.TinyMceWidget'``
+
 ``PAGES_MENU_SHOW_ALL``
 -----------------------
 
@@ -194,7 +201,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DEFAULT_APPROVED', 'COMMENTS_DISQUS_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'TINYMCE_URL')``
+Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DEFAULT_APPROVED', 'COMMENTS_DISQUS_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL')``
 
 ``THEME``
 ---------
@@ -202,10 +209,3 @@ Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DEFAULT_APPROVED', 'C
 Package name of theme app to use.
 
 Default: ``''``
-
-``TINYMCE_URL``
----------------
-
-URL prefix for serving Tiny MCE files.
-
-Default: ``'/media/tinymce'``
