@@ -62,7 +62,7 @@ class Command(StartAppCommand):
                 for f in files:
                     template = os.path.join(root, f)[len(templates_path):]
                     if not template.startswith("/admin/"):
-                        templates.add(template.lstrip("/"))
+                        templates.add(template.lstrip(os.sep))
         templates_path = os.path.join(theme_name, "templates")
         os.mkdir(templates_path)
         for template in templates:
