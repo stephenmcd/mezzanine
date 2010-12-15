@@ -4,6 +4,7 @@ from django.forms.extras import SelectDateWidget
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
+from mezzanine.core.forms import SplitSelectDateTimeWidget
 
 
 # Constants for all available field types.
@@ -58,11 +59,13 @@ WIDGETS = {
     CHECKBOX_MULTIPLE: forms.CheckboxSelectMultiple,
     RADIO_MULTIPLE: forms.RadioSelect,
     DATE: SelectDateWidget,
+    DATE_TIME: SplitSelectDateTimeWidget,
     HIDDEN: forms.HiddenInput,
 }
 
 # Some helper groupings of field types.
-CHOICES = (CHECKBOX, CHECKBOX_MULTIPLE, SELECT, SELECT_MULTIPLE, RADIO_MULTIPLE)
+CHOICES = (CHECKBOX, CHECKBOX_MULTIPLE, SELECT, 
+           SELECT_MULTIPLE, RADIO_MULTIPLE)
 DATES = (DATE, DATE_TIME)
 
 # HTML5 Widgets

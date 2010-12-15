@@ -174,7 +174,7 @@ register_setting(
     description=_("If ``True``, website forms created by the forms app will "
         "use HTML5 features."),
     editable=False,
-    default=True,
+    default=False,
 )
 
 register_setting(
@@ -300,6 +300,6 @@ register_setting(
     default=("BLOG_BITLY_USER", "BLOG_BITLY_KEY", "COMMENTS_DEFAULT_APPROVED",
         "COMMENTS_DISQUS_KEY", "COMMENTS_DISQUS_SHORTNAME",
         "COMMENTS_NUM_LATEST", "CONTENT_MEDIA_URL", "DEV_SERVER",
-        "GOOGLE_ANALYTICS_ID", "PAGES_MENU_SHOW_ALL",
+        "FORMS_USE_HTML5", "GOOGLE_ANALYTICS_ID", "PAGES_MENU_SHOW_ALL",
     ),
 )

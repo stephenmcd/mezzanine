@@ -73,11 +73,15 @@ def get_edit_form(obj, field_names, data=None, files=None):
     """
     Returns the in-line editing form for editing a single model field.
     """
-
-    formfield_overrides = (
-        (forms.DateField, SelectDateWidget),
-        (forms.DateTimeField, SplitSelectDateTimeWidget),
-    )
+    
+    # Map these form fields to their types defined in the forms app so we 
+    # can make use of their custom widgets.
+    from mezzanine.forms import fields
+    widget_overrides = {
+        forms.DateField: fields.DATE,
+        forms.DateTimeField: fields.DATE_TIME,
+        forms.EmailField: fields.EMAIL,
+    }
 
     class EditForm(forms.ModelForm):
         """
@@ -97,11 +101,18 @@ def get_edit_form(obj, field_names, data=None, files=None):
             super(EditForm, self).__init__(*args, **kwargs)
             self.uuid = str(uuid4())
             for f in self.fields.keys():
-                for (field_class, widget_class) in formfield_overrides:
-                    if isinstance(self.fields[f], field_class):
-                        attrs = {"class": field_class.__name__.lower()}
-                        self.fields[f].widget = widget_class(attrs=attrs)
+                field_class = self.fields[f].__class__
+                try:
+                    field_type = widget_overrides[field_class]
+                except KeyError:
+                    pass
+                else:
+                    widget_class = fields.WIDGETS[field_type]
+                    attrs = {"class": field_class.__name__.lower()}
+                    self.fields[f].widget = widget_class(attrs=attrs)
                 self.fields[f].widget.attrs["id"] = "%s-%s" % (f, self.uuid)
+                if settings.FORMS_USE_HTML5 and self.fields[f].required:
+                    self.fields[f].widget.attrs["required"] = ""
 
     initial = {"app": obj._meta.app_label, "id": obj.id, 
                "fields": field_names, "model": obj._meta.object_name.lower()}
