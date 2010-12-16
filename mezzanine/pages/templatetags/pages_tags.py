@@ -78,7 +78,7 @@ def primary_menu(context, parent_page=None):
     return _page_menu(context, parent_page)
 
 
-@register.inclusion_tag("mobile/pages/includes/mobile_menu.html", takes_context=True)
+@register.inclusion_tag("pages/includes/mobile_menu.html", takes_context=True)
 def mobile_menu(context, parent_page=None):
     """
     Page menu used in the mobile templates.

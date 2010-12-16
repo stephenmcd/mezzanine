@@ -63,6 +63,7 @@ application.
 Django                                              Mezzanine
 ==================================================  =============================================
 ``django.shortcuts.render_to_response``             ``mezzanine.utils.views.render_to_response``
+``django.template.Library().inclusion_tag``         ``mezzanine.template.Library().inclusion_tag``
 ``django.template.loader.get_template``             ``mezzanine.template.loader.get_template``
 ``django.template.loader.select_template``          ``mezzanine.template.loader.select_template``
 ``django.views.generic.simple.direct_to_template``  ``mezzanine.core.views.direct_to_template``
