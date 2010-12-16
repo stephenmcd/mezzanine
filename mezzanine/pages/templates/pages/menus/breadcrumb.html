@@ -17,7 +17,7 @@
         <a href="{% url page page.slug %}">{{ page.title }}</a> &gt;
         {% endif %}
     </li>
-    {% breadcrumb_menu page %}
+    {% page_menu page %}
     {% endif %}
 
     {% if page.is_primary and forloop.last %}

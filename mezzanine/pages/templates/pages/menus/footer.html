@@ -15,7 +15,7 @@
         <a href="{% url page page.slug %}">{{ page.title }}</a></li>
     {% endif %}
 
-    {% footer_menu page %}
+    {% page_menu page %}
 
     {% if page.is_primary %}
         </ul></li>
