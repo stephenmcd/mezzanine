@@ -91,6 +91,22 @@ class Page(Orderable, Displayable):
         resolved_view = resolve(page_url)[0]
         return resolved_view != page
 
+    def set_menu_helpers(self, slug):
+        """
+        Called from the ``page_menu`` template tag and assigns a handful 
+        of properties based on the current URL that are used within the 
+        various types of menus.
+        """
+        slug = slug.strip("/")
+        parent_slug = lambda slug: "/".join(slug.split("/")[:-1]) + "/"
+        self.is_current_sibling = parent_slug(slug) == parent_slug(self.slug)
+        self.is_current_or_ascendant = (slug + "/").startswith(self.slug + "/")
+        self.is_current = slug == self.slug
+        self.is_primary = self.parent_id is None
+        self.is_child = (slug + "/") == parent_slug(self.slug)
+        self.html_id = self.slug.replace("/", "-")
+        self.branch_level = 0
+
 
 class ContentPage(Page, Content):
     """

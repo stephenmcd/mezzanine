@@ -1,6 +1,7 @@
 
 from collections import defaultdict
 
+from django.core.urlresolvers import reverse
 from django.db.models import get_models
 
 from mezzanine.pages.models import Page
@@ -21,23 +22,15 @@ def _page_menu(context, parent_page):
         pages = defaultdict(list)
         try:
             user = context["request"].user
+            slug = context["request"].path
         except KeyError:
             user = None
-        try:
-            slug = context["request"].path.strip("/")
-        except KeyError:
             slug = ""
-        get_parent_slug = lambda slug: "/".join(slug.split("/")[:-1]) + "/"
-        parent_slug = get_parent_slug(slug)
         for page in Page.objects.published(for_user=user).order_by("_order"):
-            setattr(page, "sibling", parent_slug == get_parent_slug(page.slug))
-            setattr(page, "child", (slug + "/") == get_parent_slug(page.slug))
-            setattr(page, "selected", (slug + "/").startswith(page.slug + "/"))
-            setattr(page, "html_id", page.slug.replace("/", "-"))
-            setattr(page, "primary", page.parent_id is None)
-            setattr(page, "branch_level", 0)
+            page.set_menu_helpers(slug)
             pages[page.parent_id].append(page)
         context["menu_pages"] = pages
+        context["on_home"] = slug == reverse("home")
     # ``branch_level`` must be stored against each page so that the
     # calculation of it is correctly applied. This looks weird but if we do
     # the ``branch_level`` as a separate arg to the template tag with the

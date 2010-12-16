@@ -4,16 +4,16 @@
 {% if page_branch %}
 {% for page in page_branch %}
 
-	{% if page.primary and forloop.first %}
+	{% if page.is_primary and forloop.first %}
 	<ul class="mobile-menu">
 		<li><a class="home" href="{% url home %}">{% trans "Home" %}</a></li>
     {% endif %}
 
-		{% if page.selected and not page.child %}
+		{% if page.is_current_or_ascendant and not page.is_child %}
 		{% mobile_menu page %}
 		{% endif %}
 		
-		{% if page.child %}
+		{% if page.is_child %}
 		<li class="
 			{% if forloop.first %} first{% endif %}
 			{% if forloop.last %} last{% endif %}"
@@ -22,7 +22,7 @@
 		</li>
 		{% endif %}
 
-	{% if page.primary and forloop.last %}
+	{% if page.is_primary and forloop.last %}
 	</ul>
 	{% endif %}
 

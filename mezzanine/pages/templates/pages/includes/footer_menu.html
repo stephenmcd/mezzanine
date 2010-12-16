@@ -3,7 +3,7 @@
 {% spaceless %}
 {% for page in page_branch %}
 
-    {% if page.primary %}
+    {% if page.is_primary %}
         {% if forloop.first %}
         <ul>
         {% endif %}
@@ -11,13 +11,13 @@
     {% endif %}
 
     {% if page.in_footer %}
-    <li {% if page.selected %}class="active"{% endif %}>
+    <li {% if page.is_current_or_ascendant %}class="active"{% endif %}>
         <a href="{% url page page.slug %}">{{ page.title }}</a></li>
     {% endif %}
 
     {% footer_menu page %}
 
-    {% if page.primary %}
+    {% if page.is_primary %}
         </ul></li>
         {% if forloop.last %}
         </ul>
