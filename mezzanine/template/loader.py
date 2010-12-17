@@ -18,21 +18,26 @@ def get_template(template_name, context_instance):
     """
     from mezzanine.conf import settings
     template_name_list = [template_name]
+    add_device = lambda device: template_name_list.insert(0, 
+                                "%s/%s" % (device, template_name))
     if settings.DEFAULT_DEVICE:
         default = "%s/%s" % (settings.DEFAULT_DEVICE, template_name)
-        template_name_list.insert(0, default)
+        add_device(default)
     try:
         user_agent = context_instance["request"].META["HTTP_USER_AGENT"]
     except KeyError:
         pass
     else:
-        for (device, ua_strings) in settings.DEVICE_USER_AGENTS:
-            if device != settings.DEFAULT_DEVICE:
-                for ua_string in ua_strings:
-                    if ua_string in user_agent:
-                        path = "%s/%s" % (device, template_name)
-                        template_name_list.insert(0, path)
-                        break
+        try:
+            device = context_instance["request"].COOKIES["mezzanine-device"]
+            add_device(device)
+        except KeyError:
+            for (device, ua_strings) in settings.DEVICE_USER_AGENTS:
+                if device != settings.DEFAULT_DEVICE:
+                    for ua_string in ua_strings:
+                        if ua_string in user_agent:
+                            add_device(device)
+                            break
     return _select_template(template_name_list)
 
 
