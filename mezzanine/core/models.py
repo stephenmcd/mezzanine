@@ -136,8 +136,10 @@ class Displayable(Slugged):
         Stores the keywords as a single string into the ``_keywords`` field
         for convenient access when searching.
         """
-        self._keywords = " ".join([kw.title for kw in self.keywords.all()])
-        self.save()
+        keywords = " ".join([kw.title for kw in self.keywords.all()])
+        if self._keywords != keywords:
+            self._keywords = keywords
+            self.save()
 
     def admin_link(self):
         return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
