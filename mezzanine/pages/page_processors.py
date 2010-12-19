@@ -19,6 +19,7 @@ def processor_for(content_model):
         content_model = get_model(*content_model.split("."))
     if not issubclass(content_model, Page):
         raise TypeError("%s is not a subclass of Page" % content_model)
+
     def decorator(func):
         processors[content_model._meta.object_name.lower()].append(func)
         return func

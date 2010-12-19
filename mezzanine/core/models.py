@@ -9,7 +9,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.managers import DisplayableManager, KeywordManager
-from mezzanine.utils import base_concrete_model
+from mezzanine.utils.models import base_concrete_model
 
 
 class Slugged(models.Model):
@@ -66,6 +66,7 @@ CONTENT_STATUS_CHOICES = (
     (CONTENT_STATUS_PUBLISHED, _("Published")),
 )
 
+
 class Displayable(Slugged):
     """
     Abstract model that provides features of a visible page on the website
@@ -74,10 +75,10 @@ class Displayable(Slugged):
 
     status = models.IntegerField(_("Status"),
         choices=CONTENT_STATUS_CHOICES, default=CONTENT_STATUS_DRAFT)
-    publish_date = models.DateTimeField(_("Published from"), 
+    publish_date = models.DateTimeField(_("Published from"),
         help_text=_("With published selected, won't be shown until this time"),
         blank=True, null=True)
-    expiry_date = models.DateTimeField(_("Expires on"), 
+    expiry_date = models.DateTimeField(_("Expires on"),
         help_text=_("With published selected, won't be shown after this time"),
         blank=True, null=True)
     description = HtmlField(_("Description"), blank=True)
@@ -147,7 +148,7 @@ class Displayable(Slugged):
 
 class Content(models.Model):
     """
-    Provides a HTML field for manging general content and making it searchable.
+    Provides a HTML field for managing general content and making it searchable.
     """
 
     content = HtmlField(_("Content"))

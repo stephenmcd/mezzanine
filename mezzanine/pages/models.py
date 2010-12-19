@@ -1,17 +1,17 @@
 
-from django.contrib.admin.util import quote
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, Content
-from mezzanine.utils import admin_url
+from mezzanine.utils.urls import admin_url
 
 
 class Page(Orderable, Displayable):
     """
-    A page in the page tree.
+    A page in the page tree. This is the base class that custom content types 
+    need to subclass.
     """
 
     parent = models.ForeignKey("Page", blank=True, null=True,
@@ -20,7 +20,7 @@ class Page(Orderable, Displayable):
     in_footer = models.BooleanField(_("Show in footer"))
     titles = models.CharField(editable=False, max_length=1000, null=True)
     content_model = models.CharField(editable=False, max_length=50, null=True)
-    login_required = models.BooleanField(_("Login required"), 
+    login_required = models.BooleanField(_("Login required"),
         help_text=_("If checked, only logged in users can view this page"))
 
     class Meta:
@@ -55,6 +55,10 @@ class Page(Orderable, Displayable):
         super(Page, self).save(*args, **kwargs)
 
     def get_content_model(self):
+        """
+        Provies a generic method of retrieving the instance of the custom 
+        content type's model for this page.
+        """
         return getattr(self, self.content_model, None)
 
     def get_slug(self):
@@ -66,15 +70,43 @@ class Page(Orderable, Displayable):
             return "%s/%s" % (self.parent.get_slug(), slug)
         return slug
 
+    def reset_slugs(self):
+        """
+        Called when the parent page is changed in the admin and the slug 
+        plus all child slugs need to be recreated given the new parent.
+        """
+        if not self.overridden():
+            self.slug = None
+            self.save()
+        for child in self.children.all():
+            child.reset_slugs()
+
     def overridden(self):
         """
-        Return True if the page's slug has an explicitly defined url pattern
-        and is therefore considered to be overriden.
+        Return ``True`` if the page's slug has an explicitly defined
+        urlpattern and is therefore considered to be overridden.
         """
         from mezzanine.pages.views import page
-        resolved_view = resolve(self.get_absolute_url())[0]
+        page_url = reverse("page", kwargs={"slug": self.slug})
+        resolved_view = resolve(page_url)[0]
         return resolved_view != page
-        
+
+    def set_menu_helpers(self, slug):
+        """
+        Called from the ``page_menu`` template tag and assigns a handful 
+        of properties based on the current URL that are used within the 
+        various types of menus.
+        """
+        slug = slug.strip("/")
+        parent_slug = lambda slug: "/".join(slug.split("/")[:-1]) + "/"
+        self.is_current_sibling = parent_slug(slug) == parent_slug(self.slug)
+        self.is_current_or_ascendant = (slug + "/").startswith(self.slug + "/")
+        self.is_current = slug == self.slug
+        self.is_primary = self.parent_id is None
+        self.is_child = (slug + "/") == parent_slug(self.slug)
+        self.html_id = self.slug.replace("/", "-")
+        self.branch_level = 0
+
 
 class ContentPage(Page, Content):
     """

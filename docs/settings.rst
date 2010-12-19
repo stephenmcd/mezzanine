@@ -105,6 +105,20 @@ A three item sequence, each containing a sequence of template tags used to rende
 
 Default: ``(('blog_tags.quick_blog', 'mezzanine_tags.app_list'), ('blog_tags.recent_comments',), ('mezzanine_tags.recent_actions',))``
 
+``DEFAULT_DEVICE``
+------------------
+
+Device specific template sub-directory to use as the default device.
+
+Default: ``''``
+
+``DEVICE_USER_AGENTS``
+----------------------
+
+Mapping of device specific template sub-directory names to the sequence of strings that may be found in their user agents.
+
+Default: ``(('mobile', ('2.0 MMP', '240x320', '400X240', 'AvantGo', 'BlackBerry', 'Blazer', 'Cellphone', 'Danger', 'DoCoMo', 'Elaine/3.0', 'EudoraWeb', 'Googlebot-Mobile', 'hiptop', 'IEMobile', 'KYOCERA/WX310K', 'LG/U990', 'MIDP-2.', 'MMEF20', 'MOT-V', 'NetFront', 'Newt', 'Nintendo Wii', 'Nitro', 'Nokia', 'Opera Mini', 'Palm', 'PlayStation Portable', 'portalmmm', 'Proxinet', 'ProxiNet', 'SHARP-TQ-GX10', 'SHG-i900', 'Small', 'SonyEricsson', 'Symbian OS', 'SymbianOS', 'TS21i-10', 'UP.Browser', 'UP.Link', 'webOS', 'Windows CE', 'WinWAP', 'YahooSeeker/M1A1-R2D2', 'iPhone', 'iPod', 'Android', 'BlackBerry9530', 'LG-TU915 Obigo', 'LGE VX', 'webOS', 'Nokia5800')),)``
+
 ``FORMS_FIELD_MAX_LENGTH``
 --------------------------
 
@@ -126,6 +140,13 @@ Absolute path for storing file uploads for the forms app.
 
 Default: ``''``
 
+``FORMS_USE_HTML5``
+-------------------
+
+If ``True``, website forms created by the forms app will use HTML5 features.
+
+Default: ``True``
+
 ``GOOGLE_ANALYTICS_ID``
 -----------------------
 
@@ -133,12 +154,12 @@ Google Analytics ID (http://www.google.com/analytics/)
 
 Default: ``''``
 
-``MOBILE_USER_AGENTS``
-----------------------
+``HTML_WIDGET_CLASS``
+---------------------
 
-Strings to search user agent for when testing for a mobile device.
+Dotted package path and class name of the widget to use for the ``HtmlField``.
 
-Default: ``('2.0 MMP', '240x320', '400X240', 'AvantGo', 'BlackBerry', 'Blazer', 'Cellphone', 'Danger', 'DoCoMo', 'Elaine/3.0', 'EudoraWeb', 'Googlebot-Mobile', 'hiptop', 'IEMobile', 'KYOCERA/WX310K', 'LG/U990', 'MIDP-2.', 'MMEF20', 'MOT-V', 'NetFront', 'Newt', 'Nintendo Wii', 'Nitro', 'Nokia', 'Opera Mini', 'Palm', 'PlayStation Portable', 'portalmmm', 'Proxinet', 'ProxiNet', 'SHARP-TQ-GX10', 'SHG-i900', 'Small', 'SonyEricsson', 'Symbian OS', 'SymbianOS', 'TS21i-10', 'UP.Browser', 'UP.Link', 'webOS', 'Windows CE', 'WinWAP', 'YahooSeeker/M1A1-R2D2', 'iPhone', 'iPod', 'Android', 'BlackBerry9530', 'LG-TU915 Obigo', 'LGE VX', 'webOS', 'Nokia5800')``
+Default: ``'mezzanine.core.forms.TinyMceWidget'``
 
 ``PAGES_MENU_SHOW_ALL``
 -----------------------
@@ -175,16 +196,16 @@ Number of different sizes for tags when shown as a cloud.
 
 Default: ``4``
 
+``TEMPLATE_ACCESSIBLE_SETTINGS``
+--------------------------------
+
+Sequence of setting names available within templates.
+
+Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DEFAULT_APPROVED', 'COMMENTS_DISQUS_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL')``
+
 ``THEME``
 ---------
 
 Package name of theme app to use.
 
 Default: ``''``
-
-``TINYMCE_URL``
----------------
-
-URL prefix for serving Tiny MCE files.
-
-Default: ``'/media/admin/tinymce'``

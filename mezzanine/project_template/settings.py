@@ -3,6 +3,7 @@
 THEME = ""
 
 # Main Django settings.
+TIME_ZONE = ""
 DEBUG = False
 DEV_SERVER = False
 MANAGERS = ADMINS = ()
@@ -20,12 +21,18 @@ TEMPLATE_LOADERS = (
 # Databases.
 DATABASES = {
     "default": {
+        # "postgresql_psycopg2", "postgresql", "mysql", "sqlite3" or "oracle".
         "ENGINE": "",
-        "HOST": "",
+        # DB name or path to database file if using sqlite3.
         "NAME": "",
-        "PASSWORD": "",
-        "PORT": "",
+        # Not used with sqlite3.
         "USER": "",
+        # Not used with sqlite3.
+        "PASSWORD": "",
+        # Set to empty string for localhost. Not used with sqlite3.
+        "HOST": "",
+         # Set to empty string for default. Not used with sqlite3.
+        "PORT": "",
     }
 }
 
@@ -73,16 +80,15 @@ MIDDLEWARE_CLASSES = (
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.cache.FetchFromCacheMiddleware",
-    "mezzanine.core.middleware.MobileTemplate",
     "mezzanine.core.middleware.AdminLoginInterfaceSelector",
 )
 
-# Store these package names here as they may change in the future since 
+# Store these package names here as they may change in the future since
 # at the moment we are using custom forks of them.
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 
-# Optional apps.
+# Optional apps - these will be added to ``INSTALLED_APPS`` if available.
 OPTIONAL_APPS = (
     "debug_toolbar",
     "south",
@@ -91,8 +97,11 @@ OPTIONAL_APPS = (
     PACKAGE_NAME_GRAPPELLI,
 )
 
+DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
+
 import sys
-if not (len(sys.argv) > 1 and sys.argv[1] == "test"):
+TESTING = len(sys.argv) > 1 and sys.argv[1] == "test"
+if not TESTING:
     for app in OPTIONAL_APPS:
         try:
             __import__(app)
@@ -102,42 +111,12 @@ if not (len(sys.argv) > 1 and sys.argv[1] == "test"):
             INSTALLED_APPS += (app,)
 INSTALLED_APPS = sorted(list(INSTALLED_APPS), reverse=True)
 
-# Optional app settings.
-from mezzanine.utils import path_for_import, set_dynamic_settings
-if "debug_toolbar" in INSTALLED_APPS:
-    DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
-    MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
-if PACKAGE_NAME_GRAPPELLI in INSTALLED_APPS:
-    GRAPPELLI_ADMIN_HEADLINE = "Mezzanine"
-    GRAPPELLI_ADMIN_TITLE = "Mezzanine"
-    GRAPPELLI_MEDIA_PATH = os.path.join(
-                             path_for_import(PACKAGE_NAME_GRAPPELLI), "media")
-if PACKAGE_NAME_FILEBROWSER in INSTALLED_APPS:
-    FILEBROWSER_URL_FILEBROWSER_MEDIA = "/filebrowser/media/"
-    FILEBROWSER_PATH_FILEBROWSER_MEDIA = os.path.join(
-            path_for_import(PACKAGE_NAME_FILEBROWSER), "media", "filebrowser")
-
-# Caching.
-CACHE_BACKEND = ""
-CACHE_TIMEOUT = CACHE_MIDDLEWARE_SECONDS = 0
-try:
-    import cmemcache
-except ImportError:
-    try:
-        import memcache
-    except ImportError:
-        CACHE_BACKEND = "locmem:///"
-if not CACHE_BACKEND:
-    CACHE_TIMEOUT = CACHE_MIDDLEWARE_SECONDS = 180
-    CACHE_BACKEND = "memcached://127.0.0.1:11211/?timeout=%s" % \
-                                                    CACHE_MIDDLEWARE_SECONDS
-    CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
-
 # Local settings.
 try:
     from local_settings import *
 except ImportError:
     pass
-    
+
 # Dynamic settings.
+from mezzanine.utils.conf import set_dynamic_settings
 set_dynamic_settings(globals())

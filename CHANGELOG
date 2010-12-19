@@ -1,3 +1,120 @@
+Version 0.9.1 (Nov 28, 2010)
+----------------------------
+
+  * Added "blog-post-tile" class for semantic/styling purposes - Lee Matos
+  * stop creation of empty p id="description" (Potentially needs refactoring) aka not too elegant - Lee Matos
+  * Fixed white-space in blog list template - stephenmcd
+  * Added Lee Matos to AUTHORS - stephenmcd
+  * Fixed branching of admin media hosting for Grappelli - stephenmcd
+
+Version 0.9 (Nov 27, 2010)
+--------------------------
+
+  * Update auto-generated CHANGELOG - stephenmcd
+  * Change the logic around settings loading to avoid some untrappable errors creating the DB table - stephenmcd
+  * Style fix - stephenmcd
+  * Update setting names in docs - stephenmcd
+  * Update conf app name in packages docs - stephenmcd
+  * Remove redundant import - stephenmcd
+  * Move the various settings tweaks into ``mezzanine.utils.set_dynamic_settings()`` so that it can be called from the project's settings module and need not be duplicated in the settings modules of other project-based apps that leverage Mezzanine's settings module - stephenmcd
+  * Update to multiple DB settings - stephenmcd
+  * update to jquery 1.4.4 http://blog.jquery.com/2010/11/11/jquery-1-4-4-release-notes/ - lexual
+  * Fixed the blog_categories template tag so that it returns a list of categories without duplicates - Brad Montgomery
+  * Added a "get_recent_posts" template tag - Brad Montgomery
+  * Add Brad Montgomery to AUTHORS file - stephenmcd
+  * Update template loader and auth context processor names to newest versions with fallbacks for Django 1.1 - stephenmcd
+  * Update supported Django version in README and add new examples of sites using Mezzanine - stephenmcd
+  * Add south introspection rules for mezzanine.core.fields.HtmlField - stephenmcd
+  * allow definition lists in tinymce - lexual
+  * Initial layout for themes - stephenmcd
+  * Remove some old redundant template tag loading - stephenmcd
+  * Add admin change logging to inline editing - stephenmcd
+  * Allow newer versions of Django to determine full paths for templates in the start_theme command - stephenmcd
+  * Add ocrf.com.au to sites using Mezzanine in README - stephenmcd
+  * Add copying of media files to start_theme command - stephenmcd
+  * Initial support for hosting a theme - stephenmcd
+  * if image is already the right size, don't change it (fixes bug where image quality is degraded if same size.) - lexual
+  * Fix check for exact image size in thumbnail template tag - stephenmcd
+  * Make use of conf module's name within itself dynamic - stephenmcd
+  * Create a ``path_for_import`` utils function for calculating package/module paths - stephenmcd
+  * Add media hosting for a theme when defined - stephenmcd
+  * Initial commit of the importer code for blogger.Comprises the baseline generic importer code for mezz that will be used by all input types and the baseline processor for blogger0.1 - ajfisher
+  * Fixed a bug with the stripping of comment dates - ajfisher
+  * Added comment migration to the post importing. Have disabled keywords /tags for the moment due to an error from refactoring - ajfisher
+  * some minor updates and refactored the keyword / tag stuff to workwith new tagging set up - ajfisher
+  * added some exception handling to start cleaning up things ready forthe proper management command set up - ajfisher
+  * removed some of my testing params and made them generic - ajfisher
+  * TODOs - ajfisher
+  * Add Wordpress support to blog importer - ajfisher
+  * Added importer with command line option - ajfisher
+  * minor changes in order to clean some elements up - ajfisher
+  * 1. Some changes to the importer module in order to clean up2. Implementation of framework to use tumblr in importer module3. Addition of new tumblr module, adapting from @stephenmcd 's previous work but extending it to work into new importer framework - ajfisher
+  * general PEP8-ery in order to prep for commits into Mezz proper - ajfisher
+  * fixed typo bug - ajfisher
+  * fixed some code logic to enumerate more cleanly and removed the testing 5 item max results - ajfisher
+  * modified to include tries on the feedparser import and exit gracefully if not.Also cleaned up some enumeration stuff and making the tags code into a list comprehension - ajfisher
+  * added some graceful exit handling if the gdata library isn't available - ajfisher
+  * streamlined tag stuff to use a list comprehension - ajfisher
+  * Modification of the importer script to be more streamlined. Moved importer to the blog module main and still to refactor the changes to the command line module.Can be run from a django shell and import blogger and word press - ajfisher
+  * finished refactoring of importers module and wrote new import blog handler to import the various blog types into mezzanine. Also stripped down the params to be passed in on the word press blog - now treating any path as a url and dealing with it system side rather than user side - ajfisher
+  * Added documentation around blogger import stuff - ajfisher
+  * typo fix - ajfisher
+  * fixes to formatting of RST - ajfisher
+  * typos - ajfisher
+  * more typos - ajfisher
+  * Further refactoring of the import process using a BaseImporterClass which is a Command and then setting up specific implementations for Wordpress and Blogger - ajfisher
+  * Modification to the docs in order to update the new structure of the commands and also how to implement a new importer class - ajfisher
+  * formatting changes - ajfisher
+  * removed all the now-superfluous files - ajfisher
+  * further formatting fixes - ajfisher
+  * final formatting - ajfisher
+  * Wrap lines in blog import docs - stephenmcd
+  * First round of edits for the blog import docs - stephenmcd
+  * Modifications to make the class abstraction more tidy and clean up some other bits and pieces of code as well - ajfisher
+  * Fix up constructor logic - stephenmcd
+  * Fix mezzanune_user reference in base blog importer - stephenmcd
+  * Move the output messages for blog importing into the base importer class - stephenmcd
+  * Add Andrew Fisher to AUTHORS file - stephenmcd
+  * Fix settings access for THEME in urls.py - stephenmcd
+  * Fix duplicate months in archive list for blog - stephenmcd
+  * Initial version of ``install_theme`` command - stephenmcd
+  * Add handling for ``interactive`` option in ``install_theme`` command - stephenmcd
+  * Rename scripts directory to bin for consistency with Django - stephenmcd
+  * Whitespace, grammar, punctuation fixes - stephenmcd
+  * Rename Blog importer ``convert`` method to ``handle_import`` and pass it options directly to mimic Django commands more closely - stephenmcd
+  * Clean up unused exceptions in Blog importer - stephenmcd
+  * Minor cleanups - stephenmcd
+  * Add a ``old_url`` arg for posts in base Blog importer for creating redirects - stephenmcd
+  * Upgrade ``import_tumblr`` command to use new importer base - stephenmcd
+  * Add handling in the ``import_tumblr`` command for more posts that a single call to Tumblr's API allows - stephenmcd
+  * Add handling for verbosity option in base Blog importer - stephenmcd
+  * Add handling for all post types in the ``import_tumblr`` command - stephenmcd
+  * Fix some errors and add Tumblr info to the blog importing doc - stephenmcd
+  * Move Google Analytics and ``editable_loader`` tag into their own include template ``footer_scripts.html`` - stephenmcd
+  * Add docs for themes - stephenmcd
+  * Fix a ton of typos in docs - stephenmcd
+  * Rename recent_posts blog template tag to be consistent with other tags - stephenmcd
+  * Add recent blog posts to filter_panel.html - stephenmcd
+  * js fix for ie bug with formbuilder - lexual
+  * Missing apostrophe - stephenmcd
+  * locale spanish - Carlos David Marrero
+  * search_results.html locale spanish - Carlos David Marrero
+  * better translate for ago in twitter - Carlos David Marrero
+  * Add translators to AUTHORS file - stephenmcd
+  * More robust handling for class-based views in mobile middleware. Closes #23 - stephenmcd
+  * Add thesource.com.au to sites using Mezzanine in README - stephenmcd
+  * add primary menu id to the UL for semantic and/or styling uses - Lee Matos
+  * Moved ``mezzanine.templates`` into a package - stephenmcd
+  * Add context-aware replacements for Django's ``render_to_response``, ``select_template``, ``get_template`` and template tags ``include`` and ``extend`` - stephenmcd
+  * Changed calls to ``select_template`` and ``render_to_response`` to use Mezzanine's context-aware versions - stephenmcd
+  * Deprecated ``mezzanine.core.middleware.MobileTemplate`` - stephenmcd
+  * Added main handling for device specific template directories - stephenmcd
+  * Added a context-aware replacement for Django's ``direct_to_template`` - stephenmcd
+  * Moved the test mobile homepage into its device specific subdirectory - stephenmcd
+  * Fixed renaming of node class in ``extends`` tag - stephenmcd
+  * Replaced mobile middleware test with device specific template test - stephenmcd
+  * Added documentation for device specific template loading - stephenmcd
+
 Version 0.8.5 (Nov 09, 2010)
 ----------------------------
 
@@ -107,6 +224,7 @@ Version 0.8.5 (Nov 09, 2010)
   * Make filebrowser menu item translatable - stephenmcd
   * Ignore migration scripts - stephenmcd
   * Catch DatabaseError instead of trying to check for syncdb when reading DB settings to allow for other DB management related commands to run such as south - stephenmcd
+  * Put fixtures into a potentially more stable order - stephenmcd
   * Rename mezzanine.settings to mezzanine.conf - stephenmcd
   * Make the DatabaseError import compatible with Django 1.1 - stephenmcd
   * Update the admin menu with the new conf name - stephenmcd
@@ -120,7 +238,6 @@ Version 0.8.5 (Nov 09, 2010)
   * Remove the ``MEZZANINE_`` prefix from checking project's settings for default values, since non-mezzanine apps may register settings themselves - stephenmcd
   * Group the form fields for editable settings by prefix - stephenmcd
   * Update documentation to reflect refactoring of the conf app - stephenmcd
-  * Put fixtures into a potentially more stable order - stephenmcd
   * Comment fixes - stephenmcd
   * Allow the ``BlogCategoryAdmin`` to be displayed in the admin menu when explicitly defined in ``ADMIN_MENU_ORDER`` - stephenmcd
   * Add some stricter style declarations for the inline editing controls - stephenmcd

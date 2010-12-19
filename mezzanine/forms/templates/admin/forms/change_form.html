@@ -2,6 +2,12 @@
 
 {% load i18n %}
   
+{% block extrahead %}{{ block.super }}
+<style type="text/css">
+    .dynamic-inline .vTextField {width:100px !important;}
+</style>
+{% endblock %}
+
 {% block object-tools %}
 {% if change %}{% if not is_popup %}
   <ul class="object-tools">

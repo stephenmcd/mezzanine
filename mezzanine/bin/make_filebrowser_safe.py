@@ -47,4 +47,3 @@ os.renames(package_name_from, package_path_to)
 # Create an empty ``Image`` module which will prevent having no PIL breaking.
 with open(os.path.join(package_path_to, "Image.py"), "w") as f:
     f.write("")
-

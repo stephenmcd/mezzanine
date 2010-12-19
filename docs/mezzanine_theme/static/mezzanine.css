@@ -456,3 +456,20 @@ div.note {
     background-color: #eee;
 }
 
+table.docutils {
+    border: 0;
+}
+
+table.docutils td, table.docutils th {
+    padding: 6px;
+    border: 1px solid #ccc;
+}
+
+table.docutils td {
+    font-size:90%;
+}
+
+table.docutils th {
+    background:#ddd;
+}
+

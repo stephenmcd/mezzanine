@@ -7,11 +7,11 @@ from django.shortcuts import get_object_or_404
 
 from mezzanine.pages.models import Page, ContentPage
 from mezzanine.core.admin import DisplayableAdmin
-from mezzanine.utils import admin_url
+from mezzanine.utils.urls import admin_url
 
 
 page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
-page_fieldsets[0][1]["fields"] += (("in_navigation", "in_footer"), 
+page_fieldsets[0][1]["fields"] += (("in_navigation", "in_footer"),
     "login_required",)
 
 
@@ -21,18 +21,18 @@ class PageAdmin(DisplayableAdmin):
     redirections between admin interfaces for the ``Page`` model and its
     subclasses.
     """
-    
+
     fieldsets = page_fieldsets
-    
+
     def in_menu(self):
         """
         Hide subclasses from the admin menu.
         """
         return self.model is Page
-    
+
     def add_view(self, request, **kwargs):
         """
-        For the ``Page`` model, redirect to the add view for the 
+        For the ``Page`` model, redirect to the add view for the
         ``ContentPage`` model.
         """
         if self.model is Page:
@@ -49,7 +49,7 @@ class PageAdmin(DisplayableAdmin):
             page = get_object_or_404(Page, pk=object_id)
             content_model = page.get_content_model()
             if content_model is not None:
-                change_url = admin_url(content_model.__class__, "change", 
+                change_url = admin_url(content_model.__class__, "change",
                                         content_model.id)
                 return HttpResponseRedirect(change_url)
         return super(PageAdmin, self).change_view(request, object_id,
@@ -104,6 +104,7 @@ class PageAdmin(DisplayableAdmin):
 
 content_page_fieldsets = deepcopy(PageAdmin.fieldsets)
 content_page_fieldsets[0][1]["fields"].insert(3, "content")
+
 
 class ContentPageAdmin(PageAdmin):
     """

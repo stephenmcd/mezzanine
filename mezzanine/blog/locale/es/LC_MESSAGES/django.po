@@ -1,0 +1,232 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 0.8.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-24 18:47-0430\n"
+"PO-Revision-Date: 2010-11-24 22:08-0400\n"
+"Last-Translator: Carlos David Marrero <cdmarrero2040@gmail.com>\n"
+"Language-Team: Armadillo Integración Tecnológica C.A <info@armadillotec.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: VENEZUELA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: models.py:25
+msgid "Blog post"
+msgstr "Entrada de blog"
+
+#: models.py:26
+msgid "Blog posts"
+msgstr "Entradas de blog"
+
+#: models.py:40
+msgid "Blog Category"
+msgstr "Categoría del Blog"
+
+#: models.py:41
+msgid "Blog Categories"
+msgstr "Categorías del blog"
+
+#: models.py:52
+msgid "Name"
+msgstr "Nombre"
+
+#: models.py:52
+msgid "required"
+msgstr "requerido"
+
+#: models.py:53
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: models.py:54
+msgid "required (not published)"
+msgstr "requerido (no publicado)"
+
+#: models.py:55
+msgid "Email hash"
+msgstr " Hash del correo electrónico"
+
+#: models.py:56
+#: models.py:70
+#: models.py:91
+#: templates/blog/includes/comments.html:14
+msgid "Comment"
+msgstr "Comentar"
+
+#: models.py:57
+msgid "Website"
+msgstr "Sitio web"
+
+#: models.py:57
+msgid "optional"
+msgstr "opcional"
+
+#: models.py:59
+msgid "Approved"
+msgstr "Aprobado"
+
+#: models.py:61
+msgid "By the blog author"
+msgstr "Por el autor del blog"
+
+#: models.py:62
+msgid "IP address"
+msgstr "Dirección IP"
+
+#: models.py:63
+msgid "Created at"
+msgstr "Creado el"
+
+#: models.py:71
+#: templates/blog/blog_post_list.html:64
+#: templates/blog/includes/comments.html:3
+msgid "Comments"
+msgstr "Comentarios"
+
+#: models.py:103
+msgid "View on site"
+msgstr "Ver en el sitio"
+
+#: templates/admin/includes/quick_blog.html:5
+msgid "Quick Blog"
+msgstr "Publicación blog"
+
+#: templates/admin/includes/quick_blog.html:12
+msgid "Save Draft"
+msgstr "Guardar borrador"
+
+#: templates/admin/includes/recent_comments.html:4
+msgid "Recent Comments"
+msgstr "Comentarios recientes"
+
+#: templates/admin/includes/recent_comments.html:14
+#: templates/blog/blog_post_detail.html:53
+#: templates/blog/blog_post_list.html:51
+#: templates/blog/includes/comments_thread.html:19
+msgid "ago"
+msgstr "atrás"
+
+#: templates/admin/includes/recent_comments.html:18
+msgid "Posted to"
+msgstr "Publicado a"
+
+#: templates/admin/includes/recent_comments.html:21
+msgid "View comment"
+msgstr "Ver comentario"
+
+#: templates/blog/blog_post_detail.html:36
+msgid "Home"
+msgstr "Inicio"
+
+#: templates/blog/blog_post_detail.html:46
+msgid "Posted by"
+msgstr "Publicado por"
+
+#: templates/blog/blog_post_detail.html:56
+#: templates/blog/blog_post_list.html:68
+#, python-format
+msgid ""
+"\n"
+"        1 comment\n"
+"        "
+msgid_plural ""
+"\n"
+"        %(num_comments)s comments\n"
+"        "
+msgstr[0] ""
+"\n"
+"        1 comentario\n"
+"        "
+msgstr[1] ""
+"\n"
+"        %(num_comments)s comentarios\n"
+"        "
+
+#: templates/blog/blog_post_detail.html:71
+#: templates/blog/includes/filter_panel.html:37
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: templates/blog/blog_post_detail.html:84
+msgid "Share this on:"
+msgstr "Comparte esta publicación en:"
+
+#: templates/blog/blog_post_list.html:24
+msgid "Viewing posts tagged"
+msgstr "Ver los mensajes etiquetados"
+
+#: templates/blog/blog_post_list.html:26
+msgid "Viewing posts for the category"
+msgstr "Ver los mensajes de la categoría"
+
+#: templates/blog/blog_post_list.html:28
+msgid "Viewing posts from"
+msgstr "Ver los mensajes de"
+
+#: templates/blog/blog_post_list.html:31
+msgid "Viewing posts by"
+msgstr "Ver los mensajes por"
+
+#: templates/blog/blog_post_list.html:60
+msgid "read more"
+msgstr "leer más"
+
+#: templates/blog/includes/comments_thread.html:22
+msgid "Link"
+msgstr "Enlace"
+
+#: templates/blog/includes/comments_thread.html:23
+#: templates/blog/includes/comments_thread.html:35
+msgid "Reply"
+msgstr "Responder"
+
+#: templates/blog/includes/comments_thread.html:42
+msgid "Comment deleted"
+msgstr "Comentario eliminado"
+
+#: templates/blog/includes/comments_thread.html:44
+msgid "Comment awaiting approval"
+msgstr "Comentario a la espera de aprobación"
+
+#: templates/blog/includes/comments_thread.html:52
+msgid "There are currently no comments"
+msgstr "Actualmente no hay comentarios"
+
+#: templates/blog/includes/filter_panel.html:5
+msgid "Recent Posts"
+msgstr "Mensajes recientes"
+
+#: templates/blog/includes/filter_panel.html:15
+msgid "Archive"
+msgstr "Archivo"
+
+#: templates/blog/includes/filter_panel.html:26
+msgid "Categories"
+msgstr "Categorías"
+
+#: templates/blog/includes/filter_panel.html:48
+msgid "Authors"
+msgstr "Autores"
+
+#: templates/blog/includes/filter_panel.html:55
+msgid "Feeds"
+msgstr "Canal Web"
+
+#: templates/blog/includes/filter_panel.html:56
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:57
+msgid "Atom"
+msgstr "Atom"
+

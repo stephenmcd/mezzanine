@@ -1,6 +1,5 @@
 
 from datetime import date, datetime
-from operator import ior
 from os.path import join
 from uuid import uuid4
 
@@ -8,10 +7,10 @@ from django import forms
 from django.forms.extras import SelectDateWidget
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
-from django.utils.importlib import import_module
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
+from mezzanine.forms import fields
 from mezzanine.forms.models import FormEntry, FieldEntry
 
 
@@ -43,29 +42,29 @@ DATE_FILTER_CHOICES = (
 )
 
 FILTER_FUNCS = {
-    FILTER_CHOICE_CONTAINS: 
+    FILTER_CHOICE_CONTAINS:
         lambda val, field: val.lower() in field.lower(),
-    FILTER_CHOICE_DOESNT_CONTAIN: 
+    FILTER_CHOICE_DOESNT_CONTAIN:
         lambda val, field: val.lower() not in field.lower(),
-    FILTER_CHOICE_EQUALS: 
+    FILTER_CHOICE_EQUALS:
         lambda val, field: val.lower() == field.lower(),
     FILTER_CHOICE_DOESNT_EQUAL:
         lambda val, field: val.lower() != field.lower(),
-    FILTER_CHOICE_BETWEEN: 
-        lambda val_from, val_to, field: val_from <= field <=  val_to
+    FILTER_CHOICE_BETWEEN:
+        lambda val_from, val_to, field: val_from <= field <= val_to
 }
 
-text_filter_field = forms.ChoiceField(label=" ", required=False, 
+text_filter_field = forms.ChoiceField(label=" ", required=False,
     choices=TEXT_FILTER_CHOICES)
-choice_filter_field = forms.ChoiceField(label=" ", required=False, 
+choice_filter_field = forms.ChoiceField(label=" ", required=False,
     choices=CHOICE_FILTER_CHOICES)
-date_filter_field = forms.ChoiceField(label=" ", required=False, 
+date_filter_field = forms.ChoiceField(label=" ", required=False,
     choices=DATE_FILTER_CHOICES)
 
 
 class FormForForm(forms.ModelForm):
     """
-    Form with a set if fields dynamically assigned, directly based on the 
+    Form with a set if fields dynamically assigned, directly based on the
     given ``forms.models.Form`` instance.
     """
 
@@ -83,33 +82,34 @@ class FormForForm(forms.ModelForm):
         super(FormForForm, self).__init__(*args, **kwargs)
         for field in self.form_fields:
             field_key = "field_%s" % field.id
-            if "/" in field.field_type:
-                field_class_name, field_widget = field.field_type.split("/")
-            else:
-                field_class_name, field_widget = field.field_type, None
-            field_class = getattr(forms, field_class_name)
+            field_class = fields.CLASSES[field.field_type]
+            field_widget = fields.WIDGETS.get(field.field_type)
             field_args = {"label": field.label, "required": field.required,
-                "help_text": field.help_text}
+                          "help_text": field.help_text}
             arg_names = field_class.__init__.im_func.func_code.co_varnames
             if "max_length" in arg_names:
                 field_args["max_length"] = settings.FORMS_FIELD_MAX_LENGTH
             if "choices" in arg_names:
                 field_args["choices"] = field.get_choices()
             if field_widget is not None:
-                module, widget = field_widget.rsplit(".", 1)
-                field_args["widget"] = getattr(import_module(module), widget)
+                field_args["widget"] = field_widget
             self.initial[field_key] = field.default
             self.fields[field_key] = field_class(**field_args)
             # Add identifying CSS classes to the field.
-            css_class = field_class_name.lower()
+            css_class = field_class.__name__.lower()
             if field.required:
                 css_class += " required"
+                if settings.FORMS_USE_HTML5:
+                    self.fields[field_key].widget.attrs["required"] = ""
             self.fields[field_key].widget.attrs["class"] = css_class
+            if field.placeholder_text and not field.default:
+                text = field.placeholder_text
+                self.fields[field_key].widget.attrs["placeholder"] = text
 
     def save(self, **kwargs):
         """
-        Create a FormEntry instance and related FieldEntry instances for each
-        form field.
+        Create a ``FormEntry`` instance and related ``FieldEntry``
+        instances for each form field.
         """
         entry = super(FormForForm, self).save(commit=False)
         entry.form = self.form
@@ -128,27 +128,28 @@ class FormForForm(forms.ModelForm):
 
     def email_to(self):
         """
-        Return the value entered for the first field of type EmailField.
+        Return the value entered for the first field of type
+        ``forms.fields.EMAIL``.
         """
         for field in self.form_fields:
-            field_class = field.field_type.split("/")[0]
-            if field_class == "EmailField":
+            if field.is_a(fields.EMAIL):
                 return self.cleaned_data["field_%s" % field.id]
         return None
 
+
 class ExportForm(forms.Form):
     """
-    Form with a set if fields dynamically assigned that can be used to 
+    Form with a set if fields dynamically assigned that can be used to
     filter responses for the given ``forms.models.Form`` instance.
     """
 
     def __init__(self, form, request, *args, **kwargs):
         """
-        Iterate through the fields of the ``forms.models.Form`` instance and 
-        create the form fields required to control including the field in 
-        the export (with a checkbox) or filtering the field which differs 
-        across field types. User a list of checkboxes when a fixed set of 
-        choices can be chosen from, a pair of date fields for date ranges, 
+        Iterate through the fields of the ``forms.models.Form`` instance and
+        create the form fields required to control including the field in
+        the export (with a checkbox) or filtering the field which differs
+        across field types. User a list of checkboxes when a fixed set of
+        choices can be chosen from, a pair of date fields for date ranges,
         and for all other types provide a textbox for text search.
         """
         self.form = form
@@ -162,19 +163,18 @@ class ExportForm(forms.Form):
             # Checkbox for including in export.
             self.fields["%s_export" % field_key] = forms.BooleanField(
                 label=field.label, initial=True, required=False)
-            is_bool_field = field.field_type == "BooleanField"
-            if "ChoiceField" in field.field_type or is_bool_field:
+            if field.is_a(*fields.CHOICES):
                 # A fixed set of choices to filter by.
-                if is_bool_field:
+                if field.is_a(fields.CHECKBOX):
                     choices = ((True, _("Checked")), (False, _("Not checked")))
                 else:
                     choices = field.get_choices()
                 contains_field = forms.MultipleChoiceField(label=" ",
-                    choices=choices, widget=forms.CheckboxSelectMultiple(), 
+                    choices=choices, widget=forms.CheckboxSelectMultiple(),
                     required=False)
                 self.fields["%s_filter" % field_key] = choice_filter_field
                 self.fields["%s_contains" % field_key] = contains_field
-            elif field.field_type.startswith("Date"):
+            elif field.is_a(*fields.DATES):
                 # A date range to filter by.
                 self.fields["%s_filter" % field_key] = date_filter_field
                 self.fields["%s_from" % field_key] = forms.DateField(
@@ -186,17 +186,17 @@ class ExportForm(forms.Form):
                 contains_field = forms.CharField(label=" ", required=False)
                 self.fields["%s_filter" % field_key] = text_filter_field
                 self.fields["%s_contains" % field_key] = contains_field
-        # Add ``FormEntry.entry_time`` as a field.
+        # Add ``FormEntry.entry_time`` as a field.if field.is_a(fields.EMAIL):
         field_key = "field_0"
         self.fields["%s_export" % field_key] = forms.BooleanField(initial=True,
-            label=FormEntry._meta.get_field("entry_time").verbose_name, 
+            label=FormEntry._meta.get_field("entry_time").verbose_name,
             required=False)
         self.fields["%s_filter" % field_key] = date_filter_field
         self.fields["%s_from" % field_key] = forms.DateField(
             label=" ", widget=SelectDateWidget(), required=False)
         self.fields["%s_to" % field_key] = forms.DateField(
             label=_("and"), widget=SelectDateWidget(), required=False)
-        
+
     def __iter__(self):
         """
         Yield pairs of include checkbox / filters for each field.
@@ -204,15 +204,15 @@ class ExportForm(forms.Form):
         for field_id in [f.id for f in self.form_fields] + [0]:
             prefix = "field_%s_" % field_id
             fields = [f for f in super(ExportForm, self).__iter__()
-                if f.name.startswith(prefix)]
+                      if f.name.startswith(prefix)]
             yield fields[0], fields[1], fields[2:]
-    
+
     def columns(self):
         """
         Returns the list of selected column names.
         """
-        fields = [f.label for f in self.form_fields 
-            if self.cleaned_data["field_%s_export" % f.id]]
+        fields = [f.label for f in self.form_fields
+                  if self.cleaned_data["field_%s_export" % f.id]]
         if self.cleaned_data["field_0_export"]:
             fields.append(self.entry_time_name)
         return fields
@@ -222,9 +222,9 @@ class ExportForm(forms.Form):
         Returns each row based on the selected criteria.
         """
 
-        # Store the index of each field against its ID for building each 
-        # entry row with columns in the correct order. Also store the IDs of 
-        # fields with a type of FileField or Date-like for special handling of 
+        # Store the index of each field against its ID for building each
+        # entry row with columns in the correct order. Also store the IDs of
+        # fields with a type of FileField or Date-like for special handling of
         # their values.
         field_indexes = {}
         file_field_ids = []
@@ -232,16 +232,16 @@ class ExportForm(forms.Form):
         for field in self.form_fields:
             if self.cleaned_data["field_%s_export" % field.id]:
                 field_indexes[field.id] = len(field_indexes)
-                if field.field_type == "FileField":
+                if field.is_a(fields.FILE):
                     file_field_ids.append(field.id)
-                elif field.field_type.startswith("Date"):
+                elif field.is_a(*fields.DATES):
                     date_field_ids.append(field.id)
         num_columns = len(field_indexes)
         include_entry_time = self.cleaned_data["field_0_export"]
         if include_entry_time:
             num_columns += 1
 
-        # Get the field entries for the given form and filter by entry_time 
+        # Get the field entries for the given form and filter by entry_time
         # if specified.
         field_entries = FieldEntry.objects.filter(entry__form=self.form
             ).order_by("-entry__id").select_related(depth=1)
@@ -253,7 +253,7 @@ class ExportForm(forms.Form):
                     entry__entry_time__range=(time_from, time_to))
 
         # Loop through each field value ordered by entry, building up each
-        # entry as a row. Use the ``valid_row`` flag for marking a row as 
+        # entry as a row. Use the ``valid_row`` flag for marking a row as
         # invalid if it fails one of the filtering criteria specified.
         current_entry = None
         current_row = None

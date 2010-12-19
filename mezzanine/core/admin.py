@@ -4,23 +4,19 @@ from django.db.models import AutoField
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import Orderable
-from mezzanine.utils import content_media_urls, admin_url
+from mezzanine.utils.urls import content_media_urls, admin_url
 
 
 # Build the list of admin JS file for ``Displayable`` models.
 # For >= Django 1.2 include a backport of collapse.js which targets
 # earlier versions of the admin.
-displayable_js = ["js/tinymce_setup.js", "js/jquery-1.4.4.min.js",
-    "js/keywords_field.js"]
+displayable_js = ["js/jquery-1.4.4.min.js", "js/keywords_field.js"]
 from django import VERSION
 if not (VERSION[0] <= 1 and VERSION[1] <= 1):
     displayable_js.append("js/collapse_backport.js")
 displayable_js = content_media_urls(*displayable_js)
-displayable_js.insert(0, "%s/jscripts/tiny_mce/tiny_mce.js" % 
-                                                    settings.TINYMCE_URL)
 
 
 class DisplayableAdmin(admin.ModelAdmin):
@@ -39,8 +35,8 @@ class DisplayableAdmin(admin.ModelAdmin):
     date_hierarchy = "publish_date"
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = (
-        (None, {"fields": ["title", "status", 
-            ("publish_date", "expiry_date"),]}),
+        (None, {"fields": ["title", "status",
+            ("publish_date", "expiry_date"), ]}),
         (_("Meta data"), {"fields": ("slug", "description", "keywords"),
             "classes": ("collapse-closed",)},),
     )
@@ -57,8 +53,8 @@ class DisplayableAdmin(admin.ModelAdmin):
 
 class DynamicInlineAdmin(admin.TabularInline):
     """
-    Admin inline that uses JS to inject an "Add another" link when when 
-    clicked, dynamically reveals another fieldset. Also handles adding the 
+    Admin inline that uses JS to inject an "Add another" link when when
+    clicked, dynamically reveals another fieldset. Also handles adding the
     ``_order`` field and its widget for models that subclass ``Orderable``.
     """
 
@@ -110,14 +106,14 @@ class OwnableAdmin(admin.ModelAdmin):
 
 class SingletonAdmin(admin.ModelAdmin):
     """
-    Admin class for models that should only contain a single instance in the 
-    database. Redirect all views to the change view when the instance exists, 
+    Admin class for models that should only contain a single instance in the
+    database. Redirect all views to the change view when the instance exists,
     and to the add view when it doesn't.
     """
 
     def add_view(self, *args, **kwargs):
         """
-        Redirect to the change view if the singlton instance exists.
+        Redirect to the change view if the singleton instance exists.
         """
         try:
             singleton = self.model.objects.get()
@@ -129,15 +125,15 @@ class SingletonAdmin(admin.ModelAdmin):
 
     def changelist_view(self, *args, **kwargs):
         """
-        Redirect to the add view if no records exist or the change view if 
-        the singlton instance exists.
+        Redirect to the add view if no records exist or the change view if
+        the singleton instance exists.
         """
         try:
             singleton = self.model.objects.get()
         except self.model.MultipleObjectsReturned:
             return super(SingletonAdmin, self).changelist_view(*args, **kwargs)
         except self.model.DoesNotExist:
-            add_url = admin_url(model, "add")
+            add_url = admin_url(self.model, "add")
             return HttpResponseRedirect(add_url)
         else:
             change_url = admin_url(self.model, "change", singleton.id)
@@ -145,8 +141,9 @@ class SingletonAdmin(admin.ModelAdmin):
 
     def change_view(self, request, object_id, extra_context=None):
         """
-        If only the singleton instance exists, pass True for ``singleton`` 
-        into the template which will use CSS to hide relevant buttons.
+        If only the singleton instance exists, pass ``True`` for
+        ``singleton`` into the template which will use CSS to hide
+        relevant buttons.
         """
         if extra_context is None:
             extra_context = {}
@@ -156,5 +153,5 @@ class SingletonAdmin(admin.ModelAdmin):
             pass
         else:
             extra_context["singleton"] = True
-        return super(SingletonAdmin, self).change_view(request, object_id, 
+        return super(SingletonAdmin, self).change_view(request, object_id,
                                                         extra_context)

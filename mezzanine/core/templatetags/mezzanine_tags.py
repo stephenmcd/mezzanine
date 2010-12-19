@@ -7,15 +7,18 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
 from django.template import Context, Template
-from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
 
 from mezzanine.conf import settings
+from mezzanine.core.fields import HtmlField
 from mezzanine.core.forms import get_edit_form
-from mezzanine.utils import admin_url, decode_html_entities, is_editable
+from mezzanine.utils.html import decode_entities
+from mezzanine.utils.views import is_editable
+from mezzanine.utils.urls import admin_url
 from mezzanine import template
+from mezzanine.template.loader import get_template
 
 
 register = template.Library()
@@ -29,13 +32,11 @@ def set_short_url_for(context, token):
     """
     obj = context[token.split_contents()[1]]
     request = context["request"]
-    settings = context["settings"]
     if getattr(obj, "short_url") is None:
         obj.short_url = request.build_absolute_uri(request.path)
-        settings.use_editable()
         args = {
-            "login": settings.BLOG_BITLY_USER,
-            "apiKey": settings.BLOG_BITLY_KEY,
+            "login": context["settings"].BLOG_BITLY_USER,
+            "apiKey": context["settings"].BLOG_BITLY_KEY,
             "longUrl": obj.short_url,
         }
         if args["login"] and args["apiKey"]:
@@ -53,7 +54,7 @@ def metablock(parsed):
     Remove HTML tags, entities and superfluous characters from meta blocks.
     """
     parsed = " ".join(parsed.replace("\n", "").split()).replace(" ,", ",")
-    return strip_tags(decode_html_entities(parsed))
+    return strip_tags(decode_entities(parsed))
 
 
 @register.inclusion_tag("includes/pagination.html", takes_context=True)
@@ -72,20 +73,21 @@ def pagination_for(context, current_page):
 @register.simple_tag
 def thumbnail(image_url, width, height):
     """
-    Given the url to an image, resizes the image using the given width and 
-    height on the first time it is requested, and returns the url to the new 
-    resized image. if width or height are zero then original ratio is 
+    Given the URL to an image, resizes the image using the given width and
+    height on the first time it is requested, and returns the URL to the new
+    resized image. if width or height are zero then original ratio is
     maintained.
     """
-    
+
     image_url = unicode(image_url)
     image_path = os.path.join(settings.MEDIA_ROOT, image_url)
     image_dir, image_name = os.path.split(image_path)
-    thumb_name = "%s-%sx%s.jpg" % (os.path.splitext(image_name)[0], width, height)
+    thumb_name = "%s-%sx%s.jpg" % (os.path.splitext(image_name)[0], width,
+                                                                        height)
     thumb_path = os.path.join(image_dir, thumb_name)
     thumb_url = "%s/%s" % (os.path.dirname(image_url), thumb_name)
 
-    # abort if thumbnail exists, original image doesn't exist, invalid width or 
+    # abort if thumbnail exists, original image doesn't exist, invalid width or
     # height are given, or PIL not installed
     if not image_url:
         return ""
@@ -128,9 +130,10 @@ def editable_loader(context):
     """
     Set up the required JS/CSS for the in-line editing toolbar and controls.
     """
-    t = get_template("includes/editable_toolbar.html")
+    t = get_template("includes/editable_toolbar.html", context)
     context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
     context["toolbar"] = t.render(Context(context))
+    context["html_editor_js"] = HtmlField().formfield().widget.Media.js
     return context
 
 
@@ -139,9 +142,10 @@ def editable(parsed, context, token):
     """
     Add the required HTML to the parsed content for in-line editing, such as
     the icon and edit form if the object is deemed to be editable - either it
-    has an ``editable`` method which returns True, or the logged in user has
-    change permissions for the model.
+    has an ``editable`` method which returns ``True``, or the logged in user
+    has change permissions for the model.
     """
+
     def parse_field(field):
         field = field.split(".")
         obj = context[field.pop(0)]
@@ -154,14 +158,17 @@ def editable(parsed, context, token):
     if fields:
         fields = [f for f in fields if len(f) == 2 and f[0] is fields[0][0]]
     if not parsed.strip():
-        parsed = "".join([unicode(getattr(*field)) for field in fields])
+        try:
+            parsed = "".join([unicode(getattr(*field)) for field in fields])
+        except AttributeError:
+            pass
     if fields:
         obj = fields[0][0]
         if isinstance(obj, Model) and is_editable(obj, context["request"]):
             field_names = ",".join([f[1] for f in fields])
             context["form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
-            t = get_template("includes/editable_form.html")
+            t = get_template("includes/editable_form.html", context)
             return t.render(Context(context))
     return parsed
 
@@ -169,8 +176,8 @@ def editable(parsed, context, token):
 @register.simple_tag
 def try_url(url_name):
     """
-    Mimics Django's ``url`` template tag but fails silently. Used for urls 
-    in admin templates as these urls won't resolve when admin tests are 
+    Mimics Django's ``url`` template tag but fails silently. Used for url
+    names in admin templates as these won't resolve when admin tests are
     running.
     """
     try:
@@ -182,10 +189,10 @@ def try_url(url_name):
 
 def admin_app_list(request):
     """
-    Adopted from ``django.contrib.admin.sites.AdminSite.index``. Returns a 
-    list of lists of models grouped and ordered according to 
-    ``mezzanine.conf.ADMIN_MENU_ORDER``. Called from the 
-    ``admin_dropdown_menu`` template tag as well as the ``app_list`` 
+    Adopted from ``django.contrib.admin.sites.AdminSite.index``. Returns a
+    list of lists of models grouped and ordered according to
+    ``mezzanine.conf.ADMIN_MENU_ORDER``. Called from the
+    ``admin_dropdown_menu`` template tag as well as the ``app_list``
     dashboard widget.
     """
     app_dict = {}
@@ -226,7 +233,7 @@ def admin_app_list(request):
                     app_dict[app_title]["models"].append(model_dict)
                 else:
                     try:
-                        titles = [x[0] for x in 
+                        titles = [x[0] for x in
                             settings.ADMIN_MENU_ORDER]
                         index = titles.index(app_title)
                     except ValueError:
@@ -245,17 +252,17 @@ def admin_app_list(request):
                 if item_url:
                     if name not in app_dict:
                         app_dict[name] = {
-                            "index": i, 
-                            "name": name, 
+                            "index": i,
+                            "name": name,
                             "models": [],
                         }
                     app_dict[name]["models"].append({
-                        "index": items.index(unfound_item), 
+                        "index": items.index(unfound_item),
                         "perms": {"custom": True},
-                        "name": item_name,  
-                        "admin_url": item_url,  
+                        "name": item_name,
+                        "admin_url": item_url,
                     })
-                
+
     app_list = app_dict.values()
     sort = lambda x: x["name"] if x["index"] is None else x["index"]
     for app in app_list:
@@ -282,7 +289,8 @@ def app_list(context):
     return context
 
 
-@register.inclusion_tag("admin/includes/recent_actions.html", takes_context=True)
+@register.inclusion_tag("admin/includes/recent_actions.html",
+                                                            takes_context=True)
 def recent_actions(context):
     """
     Renders the recent actions list for the admin dashboard widget.
@@ -293,7 +301,7 @@ def recent_actions(context):
 @register.render_tag
 def dashboard_column(context, token):
     """
-    Takes an index for retrieving the sequence of template tags from 
+    Takes an index for retrieving the sequence of template tags from
     ``mezzanine.conf.DASHBOARD_TAGS`` to render into the admin dashboard.
     """
     column_index = int(token.split_contents()[1])

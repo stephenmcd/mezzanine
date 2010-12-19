@@ -4,16 +4,16 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.template import RequestContext
-from django.template.loader import select_template
 
 from mezzanine.blog.forms import CommentForm
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
 from mezzanine.core.models import Keyword
 from mezzanine.pages.models import ContentPage
-from mezzanine.utils import paginate
+from mezzanine.template.loader import select_template
+from mezzanine.utils.views import paginate, render_to_response
 
 
 def blog_page():
@@ -24,6 +24,7 @@ def blog_page():
         return ContentPage.objects.get(slug=settings.BLOG_SLUG)
     except ContentPage.DoesNotExist:
         return None
+
 
 def blog_post_list(request, tag=None, year=None, month=None, username=None,
     category=None, template="blog/blog_post_list.html"):
@@ -43,17 +44,17 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     if category is not None:
         category = get_object_or_404(BlogCategory, slug=category)
         blog_posts = blog_posts.filter(category=category)
-    user = None
+    author = None
     if username is not None:
-        user = get_object_or_404(User, username=username)
-        blog_posts = blog_posts.filter(user=user)
+        author = get_object_or_404(User, username=username)
+        blog_posts = blog_posts.filter(user=author)
     blog_posts = paginate(blog_posts, request.GET.get("page", 1),
         settings.BLOG_POST_PER_PAGE,
         settings.BLOG_POST_MAX_PAGING_LINKS)
-    context = {"blog_posts": blog_posts, "year": year, "month": month, 
-        "tag": tag, "category": category, "user": user, 
-        "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME), 
-        "blog_page": blog_page()}
+    context = {"blog_posts": blog_posts, "year": year, "month": month,
+               "tag": tag, "category": category, "author": author,
+               "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME),
+               "blog_page": blog_page()}
     return render_to_response(template, context, RequestContext(request))
 
 
@@ -88,12 +89,13 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
             timedelta(seconds=90 * 24 * 60 * 60), "%a, %d-%b-%Y %H:%M:%S GMT")
         for field in commenter_cookie_fields:
             response.set_cookie(commenter_cookie_prefix + field,
-                request.POST.get(field, ""), expires=expires)
+                request.POST.get(field, "").encode("utf-8"), expires=expires)
         return response
     settings.use_editable()
-    context = {"blog_post": blog_post, "blog_page": blog_page(), 
-        "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME), 
-        "posted_comment_form": posted_comment_form, 
-        "unposted_comment_form": unposted_comment_form}
-    t = select_template(["blog/%s.html" % slug, template])
-    return HttpResponse(t.render(RequestContext(request, context)))
+    context = {"blog_post": blog_post, "blog_page": blog_page(),
+               "use_disqus": bool(settings.COMMENTS_DISQUS_SHORTNAME),
+               "posted_comment_form": posted_comment_form,
+               "unposted_comment_form": unposted_comment_form}
+    request_context = RequestContext(request, context)
+    t = select_template(["blog/%s.html" % slug, template], request_context)
+    return HttpResponse(t.render(request_context))

@@ -15,10 +15,10 @@ class BlogPost(Displayable, Ownable, Content):
     """
     A blog post.
     """
-    
-    category = models.ForeignKey("BlogCategory", related_name="blogposts", 
+
+    category = models.ForeignKey("BlogCategory", related_name="blogposts",
         blank=True, null=True)
-    
+
     objects = BlogPostManager()
 
     class Meta:
@@ -43,6 +43,7 @@ class BlogCategory(Slugged):
     @models.permalink
     def get_absolute_url(self):
         return ("blog_post_list_category", (), {"slug": self.slug})
+
 
 class Comment(models.Model):
     """

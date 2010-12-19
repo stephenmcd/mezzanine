@@ -1,13 +1,18 @@
 
 from functools import wraps
 
+from django.utils.itercompat import is_iterable
 from django import template
+from django.template.context import Context
+
+from mezzanine.template.loader import get_template, select_template
 
 
 class Library(template.Library):
     """
-    Extends django.template.Library providing several shortcuts that attempt 
-    to take the leg-work out of creating different types of template tags.
+    Extends ``django.template.Library`` providing several shortcuts that
+    attempt to take the leg-work out of creating different types of
+    template tags.
     """
 
     def as_tag(self, tag_func):
@@ -50,6 +55,7 @@ class Library(template.Library):
         """
         @wraps(tag_func)
         def tag_wrapper(parser, token):
+
             class ToEndTagNode(template.Node):
                 def __init__(self):
                     end_name = "end%s" % tag_func.__name__
@@ -58,5 +64,39 @@ class Library(template.Library):
                 def render(self, context):
                     args = (self.nodelist.render(context), context, token)
                     return tag_func(*args[:tag_func.func_code.co_argcount])
+
             return ToEndTagNode()
+
         return self.tag(tag_wrapper)
+
+    def inclusion_tag(self, file_name, context_class=Context, 
+                                                         takes_context=False):
+        """
+        Context aware replacement for Django's ``inclusion_tag`` using 
+        Mezzanine's ``get_template`` and ``select_template``.
+        """
+        def tag_decorator(tag_func):
+            @wraps(tag_func)
+            def tag_wrapper(parser, token):
+
+                class InclusionTagNode(template.Node):
+                    def render(self, context):
+                        if not getattr(self, "nodelist", False):
+                            if not isinstance(file_name, basestring) and \
+                                is_iterable(file_name):
+                                t = select_template(file_name, context)
+                            else:
+                                t = get_template(file_name, context)
+                            self.nodelist = t.nodelist
+                        parts = [template.Variable(part).resolve(context) 
+                                 for part in token.split_contents()[1:]]
+                        if takes_context:
+                            parts.insert(0, context)
+                        result = tag_func(*parts)
+                        autoescape = context.autoescape
+                        context = context_class(result, autoescape=autoescape)
+                        return self.nodelist.render(context)
+
+                return InclusionTagNode()
+            return self.tag(tag_wrapper)
+        return tag_decorator

@@ -1,0 +1,242 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 0.8.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-24 21:55-0430\n"
+"PO-Revision-Date: 2010-11-24 21:58-0400\n"
+"Last-Translator: Carlos David Marrero <cdmarrero2040@gmail.com>\n"
+"Language-Team: Armadillo Integración Tecnológica C.A <info@armadillotec.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: VENEZUELA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: admin.py:44
+msgid "Meta data"
+msgstr "Meta datos"
+
+#: forms.py:38
+#: models.py:192
+msgid "Order"
+msgstr "Orden"
+
+#: models.py:20
+msgid "Title"
+msgstr "Título"
+
+#: models.py:21
+msgid "URL"
+msgstr "Dirección Web"
+
+#: models.py:65
+msgid "Draft"
+msgstr "Borrador"
+
+#: models.py:66
+msgid "Published"
+msgstr "Publicado"
+
+#: models.py:75
+msgid "Status"
+msgstr "Estado"
+
+#: models.py:77
+msgid "Published from"
+msgstr "Fecha de publicación"
+
+#: models.py:78
+msgid "With published selected, won't be shown until this time"
+msgstr "Cuando se selecciona publicar, no se mostrará hasta este momento"
+
+#: models.py:80
+msgid "Expires on"
+msgstr "Fecha de expiración"
+
+#: models.py:81
+msgid "With published selected, won't be shown after this time"
+msgstr "Cuando se selecciona publicar, no se mostrará después de este momento"
+
+#: models.py:83
+msgid "Description"
+msgstr "Descripción"
+
+#: models.py:84
+#: models.py:258
+msgid "Keywords"
+msgstr "Palabras clave"
+
+#: models.py:143
+msgid "View on site"
+msgstr "Ver en el sitio"
+
+#: models.py:153
+msgid "Content"
+msgstr "Contenido"
+
+#: models.py:235
+msgid "Author"
+msgstr "Autor"
+
+#: models.py:257
+msgid "Keyword"
+msgstr "Palabra clave"
+
+#: views.py:54
+msgid "Permission denied"
+msgstr "Permiso denegado"
+
+#: templates/404.html:6
+msgid "Page not found"
+msgstr "Página no encontrada"
+
+#: templates/404.html:10
+msgid "The page you requested does not exist."
+msgstr "La página solicitada no existe."
+
+#: templates/500.html:6
+#: templates/includes/editable_loader.html:104
+msgid "Error"
+msgstr "Error"
+
+#: templates/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "Lo sentimos, ha ocurrido un error."
+
+#: templates/index.html:6
+#: templates/admin/index.html:31
+msgid "Home"
+msgstr "Inicio"
+
+#: templates/index.html:10
+msgid "This is the homepage."
+msgstr "Esta es la página de inicio."
+
+#: templates/index.mobile.html:6
+msgid "This is the mobile homepage."
+msgstr "Esta es la página de inicio para moviles."
+
+#: templates/search_results.html:5
+#: templates/search_results.html.py:6
+msgid "Search Results"
+msgstr "Resultados de la búsqueda"
+
+#: templates/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr "No se encontraron resultados que coinciden con su consulta:"
+
+#: templates/search_results.html:14
+msgid "Showing"
+msgstr "Mostrando"
+
+#: templates/search_results.html:14
+msgid "to"
+msgstr "hasta"
+
+#: templates/search_results.html:14
+#: templates/includes/pagination.html:4
+msgid "of"
+msgstr "de"
+
+#: templates/search_results.html:15
+msgid "results matching your query:"
+msgstr "resultados que coinciden con su consulta:"
+
+#: templates/search_results.html:23
+msgid "read more"
+msgstr "leer más"
+
+#: templates/admin/base_site.html:159
+msgid "Interface:"
+msgstr "Interfaz:"
+
+#: templates/admin/base_site.html:163
+#: templates/includes/editable_toolbar.html:8
+#: templates/includes/editable_toolbar.html:10
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/admin/base_site.html:167
+msgid "Site"
+msgstr "Sitio"
+
+#: templates/admin/index.html:33
+#: templates/admin/includes/dropdown_menu.html:3
+msgid "Dashboard"
+msgstr "Panel de Control"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "Añadir"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "Cambiar"
+
+#: templates/admin/includes/dynamic_inline.html:6
+msgid "Add another"
+msgstr "Añadir otra"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "Acciones recientes"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "Mis acciones"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "Ninguno disponible"
+
+#: templates/includes/editable_form.html:9
+msgid "Save"
+msgstr "Guardar"
+
+#: templates/includes/editable_form.html:10
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/includes/editable_form.html:18
+msgid "Edit"
+msgstr "Editar"
+
+#: templates/includes/editable_toolbar.html:12
+msgid "Log out"
+msgstr "Salir"
+
+#: templates/includes/pagination.html:4
+msgid "Page"
+msgstr "Página"
+
+#: templates/includes/search.html:3
+msgid "Search"
+msgstr "Búsqueda"
+
+#: templates/includes/search.html:6
+msgid "Go"
+msgstr "Ir"
+
+#: templates/includes/search.html:9
+msgid "Use "
+msgstr "Use"
+
+#: templates/includes/search.html:9
+msgid "quotes"
+msgstr "comillas"
+
+#: templates/includes/search.html:9
+msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
+msgstr " para frases exactas, + para hacer una palabra o una frase requerida, y - para excluir una palabra o frase."
+
+#~ msgid "Use"
+#~ msgstr "Use"
+

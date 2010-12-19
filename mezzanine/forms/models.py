@@ -5,24 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.models import Orderable, Content
+from mezzanine.forms import fields
 from mezzanine.pages.models import Page
-
-
-FIELD_CHOICES = (
-    ("CharField", _("Single line text")),
-    ("CharField/django.forms.Textarea", _("Multi line text")),
-    ("EmailField", _("Email")),
-    ("BooleanField", _("Check box")),
-    ("MultipleChoiceField/django.forms.CheckboxSelectMultiple", 
-        _("Check boxes")),
-    ("ChoiceField", _("Drop down")),
-    ("MultipleChoiceField", _("Multi select")),
-    ("ChoiceField/django.forms.RadioSelect", _("Radio buttons")),
-    ("FileField", _("File upload")),
-    ("DateField/django.forms.extras.SelectDateWidget", _("Date")),
-    ("DateTimeField", _("Date/time")),
-    ("CharField/django.forms.HiddenInput", _("Hidden")),
-)
 
 
 class Form(Page, Content):
@@ -30,12 +14,11 @@ class Form(Page, Content):
     A user-built form.
     """
 
-    button_text = models.CharField(_("Button text"), max_length=50, 
+    button_text = models.CharField(_("Button text"), max_length=50,
         default=_("Submit"))
     response = HtmlField(_("Response"))
     send_email = models.BooleanField(_("Send email"), default=True,
-        help_text=_("If checked, the person entering the form will be sent an "
-                                                                    "email"))
+        help_text=_("If checked, the form submitter will be sent an email."))
     email_from = models.EmailField(_("From address"), blank=True,
         help_text=_("The address the email will be sent from"))
     email_copies = models.CharField(_("Send copies to"), blank=True,
@@ -63,17 +46,18 @@ class Field(Orderable):
     """
 
     form = models.ForeignKey("Form", related_name="fields")
-    label = models.CharField(_("Label"), 
+    label = models.CharField(_("Label"),
         max_length=settings.FORMS_LABEL_MAX_LENGTH)
-    field_type = models.CharField(_("Type"), choices=FIELD_CHOICES,
-        max_length=55)
+    field_type = models.IntegerField(_("Type"), choices=fields.NAMES)
     required = models.BooleanField(_("Required"), default=True)
     visible = models.BooleanField(_("Visible"), default=True)
     choices = models.CharField(_("Choices"), max_length=1000, blank=True,
         help_text=_("Comma separated options where applicable. If an option "
             "itself contains commas, surround the option with `backticks`."))
-    default = models.CharField(_("Default value"), blank=True, 
+    default = models.CharField(_("Default value"), blank=True,
         max_length=settings.FORMS_FIELD_MAX_LENGTH)
+    placeholder_text = models.CharField(_("Placeholder Text"), blank=True,
+        max_length=100, editable=settings.FORMS_USE_HTML5)
     help_text = models.CharField(_("Help text"), blank=True, max_length=100)
 
     objects = FieldManager()
@@ -109,6 +93,12 @@ class Field(Orderable):
         choice = choice.strip()
         if choice:
             yield choice, choice
+
+    def is_a(self, *args):
+        """
+        Helper that returns ``True`` if the field's type is given in any arg.
+        """
+        return self.field_type in args
 
 
 class FormEntry(models.Model):

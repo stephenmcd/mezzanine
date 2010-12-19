@@ -6,18 +6,18 @@ import os
 from django.core.management.base import CommandError, LabelCommand
 
 from mezzanine.conf import settings
-from mezzanine.utils import path_for_import
+from mezzanine.utils.path import path_for_import
 
 
 class Command(LabelCommand):
     """
-    Copies the templates and media files from a theme package into 
-    the current project. 
+    Copies the templates and media files from a theme package into
+    the current project.
     """
 
     option_list = LabelCommand.option_list + (
-        make_option("--noinput", action="store_false", dest="interactive", 
-            help="Tells Django to NOT prompt the user for input of any kind.", 
+        make_option("--noinput", action="store_false", dest="interactive",
+            help="Tells Django to NOT prompt the user for input of any kind.",
             default=True),
     )
     help = ("Copies the templates and media files from a theme package into "
@@ -28,17 +28,17 @@ class Command(LabelCommand):
 
     def handle_label(self, theme_name, **options):
         """
-        Copy the templates and media files for the given theme package into 
-        the current project. 
+        Copy the templates and media files for the given theme package into
+        the current project.
         """
         try:
             theme_path = path_for_import(theme_name)
         except ImportError:
             raise CommandError("Could not import the theme: %s" % theme_name)
         copy_paths = (
-            (os.path.join(theme_path, "templates"), 
+            (os.path.join(theme_path, "templates"),
                 settings.TEMPLATE_DIRS[-1]),
-            (os.path.join(theme_path, "media"), 
+            (os.path.join(theme_path, "media"),
                 settings.MEDIA_ROOT),
         )
         if options.get("interactive"):

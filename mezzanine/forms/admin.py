@@ -17,9 +17,9 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.core.admin import DynamicInlineAdmin
 from mezzanine.forms.forms import ExportForm
-from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
+from mezzanine.forms.models import Form, Field, FieldEntry
 from mezzanine.pages.admin import PageAdmin
-from mezzanine.utils import admin_url
+from mezzanine.utils.urls import admin_url
 
 
 fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)
@@ -34,15 +34,15 @@ form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from",
 
 class FieldAdmin(DynamicInlineAdmin):
     """
-    Admin class for the form field. Inherits from DynamicInlineAdmin to 
-    add dynamic "Add another" link and drag/drop ordering. 
+    Admin class for the form field. Inherits from DynamicInlineAdmin to
+    add dynamic "Add another" link and drag/drop ordering.
     """
     model = Field
 
 
 class FormAdmin(PageAdmin):
     """
-    Admin class for the Form model. Includes the urls & views for exporting 
+    Admin class for the Form model. Includes the urls & views for exporting
     form entries as CSV and downloading files uploaded via the forms app.
     """
 

@@ -26,14 +26,15 @@ provides the following features.
   * Drag-n-drop page ordering
   * WYSIWYG editing
   * `In-line page editing`_
-  * Drag-n-drop forms builder with CSV export
+  * Drag-n-drop HTML5 forms builder with CSV export
   * API for `custom content types`_
   * SEO friendly URLs and meta data
   * `Search engine and API`_
   * Configurable `dashboard`_ widgets
-  * Mobile device detection and templates
+  * Multi-device detection and template handling
   * Shopping cart module (`Cartridge`_)
   * Blogging engine
+  * `Themes`_
   * Tagging
   * One step migration from other blogging engines
   * Built-in threaded comments, or:
@@ -123,6 +124,9 @@ Sites Using Mezzanine
   * `Thomas Johnson`_
   * `Central Mosque Wembley`_
   * `Ovarian Cancer Research Foundation`_
+  * `The Source Procurement`_
+  * `Imageinary`_
+  * `Brad Montgomery`_
 
 Quotes
 ======
@@ -148,6 +152,7 @@ Quotes
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
 .. _`dashboard`: http://mezzanine.jupo.org/docs/admin-customization.html#dashboard
 .. _`Cartridge`: http://cartridge.jupo.org/
+.. _`Themes`: http://mezzanine.jupo.org/docs/themes.html
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
 .. _`960.gs`: http://960.gs/
@@ -166,7 +171,9 @@ Quotes
 .. _`Thomas Johnson`: http://tomfmason.net/
 .. _`Central Mosque Wembley`: http://wembley-mosque.co.uk/
 .. _`Ovarian Cancer Research Foundation`: http://ocrf.com.au/
+.. _`The Source Procurement`: http://thesource.com.au/
+.. _`Imageinary`: http://imageinary.com/
 .. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
-.. _`Brad Montgomery`: http://bradmontgomery.net/
+.. _`Brad Montgomery`: http://blog.bradmontgomery.net/

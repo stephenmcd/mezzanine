@@ -9,7 +9,7 @@ class BlogPostManager(DisplayableManager):
     """
     Extends ``DisplayableManager.published`` with annotated comment counts.
     """
-    
+
     def published(self, *args, **kwargs):
         return super(BlogPostManager, self).published(*args, **kwargs) \
             .annotate(num_comments=Count("comments")).select_related(depth=1)
@@ -18,7 +18,7 @@ class BlogPostManager(DisplayableManager):
 class CommentManager(Manager):
     """
     Provides filter for restricting comments that are not approved if
-    ``COMMENTS_UNAPPROVED_VISIBLE`` is set to False.
+    ``COMMENTS_UNAPPROVED_VISIBLE`` is set to ``False``.
     """
 
     def visible(self):

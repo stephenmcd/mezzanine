@@ -4,12 +4,12 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
-from django.template.loader import select_template
 from django.utils.http import urlquote
 
 from mezzanine.conf import settings
 from mezzanine.pages import page_processors
 from mezzanine.pages.models import Page
+from mezzanine.template.loader import select_template
 
 
 page_processors.autodiscover()
@@ -19,9 +19,28 @@ def admin_page_ordering(request):
     """
     Updates the ordering of pages via AJAX from within the admin.
     """
-    for i, page in enumerate(request.POST.get("ordering", "").split(",")):
+    get_id = lambda s: s.split("_")[-1]
+    for ordering in ("ordering_from", "ordering_to"): 
+        ordering = request.POST.get(ordering, "")
+        if ordering:
+            for i, page in enumerate(ordering.split(",")):
+                try:
+                    Page.objects.filter(id=get_id(page)).update(_order=i)
+                except Exception, e:
+                    return HttpResponse(str(e))
+    try:
+        moved_page = int(get_id(request.POST.get("moved_page", "")))
+    except ValueError, e:
+        pass
+    else:
+        moved_parent = get_id(request.POST.get("moved_parent", ""))
+        if not moved_parent:
+            moved_parent = None
         try:
-            Page.objects.filter(id=page.split("_")[-1]).update(_order=i)
+            page = Page.objects.get(id=moved_page)
+            page.parent_id = moved_parent
+            page.save()
+            page.reset_slugs()
         except Exception, e:
             return HttpResponse(str(e))
     return HttpResponse("ok")
@@ -36,7 +55,7 @@ def page(request, slug, template="pages/page.html"):
     """
     page = get_object_or_404(Page.objects.published(request.user), slug=slug)
     if page.login_required and not request.user.is_authenticated():
-        return redirect("%s?%s=%s" % (settings.LOGIN_URL, REDIRECT_FIELD_NAME, 
+        return redirect("%s?%s=%s" % (settings.LOGIN_URL, REDIRECT_FIELD_NAME,
             urlquote(request.get_full_path())))
     context = {"page": page}
     for processor in page_processors.processors[page.content_model]:
@@ -54,5 +73,6 @@ def page(request, slug, template="pages/page.html"):
     if page.content_model is not None:
         templates.append("pages/%s.html" % page.content_model)
     templates.append(template)
-    t = select_template(templates)
-    return HttpResponse(t.render(RequestContext(request, context)))
+    request_context = RequestContext(request, context)
+    t = select_template(templates, request_context)
+    return HttpResponse(t.render(request_context))

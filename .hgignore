@@ -5,7 +5,6 @@ syntax: glob
 .coverage
 local_settings.py
 mezzanine/project_template/site_media/uploads/*
-migrations/*
 build/*
 docs/build/*
 dist/*

@@ -1,0 +1,255 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 0.8.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-24 16:58-0430\n"
+"PO-Revision-Date: 2010-11-24 18:24-0400\n"
+"Last-Translator: Carlos David Marrero <cdmarrero2040@gmail.com>\n"
+"Language-Team: Armadillo Integración Tecnológica C.A <info@armadillotec.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: VENEZUELA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: admin.py:31
+#: models.py:14
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: admin.py:93
+msgid "Export Entries"
+msgstr "Exportar entradas"
+
+#: forms.py:27
+#: forms.py:35
+#: forms.py:41
+msgid "Nothing"
+msgstr "Nada"
+
+#: forms.py:28
+msgid "Contains"
+msgstr "Contiene"
+
+#: forms.py:29
+msgid "Doesn't contain"
+msgstr "No contiene"
+
+#: forms.py:30
+#: forms.py:36
+msgid "Equals"
+msgstr "Es igual"
+
+#: forms.py:31
+#: forms.py:37
+msgid "Doesn't equal"
+msgstr "No es igual"
+
+#: forms.py:42
+msgid "Is between"
+msgstr "Está entre"
+
+#: forms.py:169
+msgid "Checked"
+msgstr "Sleccionado"
+
+#: forms.py:169
+msgid "Not checked"
+msgstr "No Seleccionado"
+
+#: forms.py:183
+#: forms.py:198
+msgid "and"
+msgstr "y"
+
+#: models.py:12
+msgid "Single line text"
+msgstr "Una sola línea de texto"
+
+#: models.py:13
+msgid "Multi line text"
+msgstr "Múltiples líneas de texto"
+
+#: models.py:15
+msgid "Check box"
+msgstr "Casilla de selección"
+
+#: models.py:17
+msgid "Check boxes"
+msgstr "Casillas de seleccióm"
+
+#: models.py:18
+msgid "Drop down"
+msgstr "Lista Desplegable"
+
+#: models.py:19
+msgid "Multi select"
+msgstr "Selección múltiple"
+
+#: models.py:20
+msgid "Radio buttons"
+msgstr "Botones de radio"
+
+#: models.py:21
+msgid "File upload"
+msgstr "Subir Archivo"
+
+#: models.py:22
+msgid "Date"
+msgstr "Fecha"
+
+#: models.py:23
+#: models.py:120
+msgid "Date/time"
+msgstr "Fecha/Hora"
+
+#: models.py:24
+msgid "Hidden"
+msgstr "Oculto"
+
+#: models.py:33
+msgid "Button text"
+msgstr "Botón de texto"
+
+#: models.py:34
+msgid "Submit"
+msgstr "Enviar"
+
+#: models.py:35
+msgid "Response"
+msgstr "Respuesta"
+
+#: models.py:36
+msgid "Send email"
+msgstr "Enviar correo electrónico"
+
+#: models.py:37
+msgid "If checked, the person entering the form will be sent an email"
+msgstr "Si se marca, la persona que entre en el formulario enviará un correo electrónico"
+
+#: models.py:39
+msgid "From address"
+msgstr "Desde la dirección"
+
+#: models.py:40
+msgid "The address the email will be sent from"
+msgstr "Dirección desde donde será el correo electrónico enviado"
+
+#: models.py:41
+msgid "Send copies to"
+msgstr "Enviar copia a"
+
+#: models.py:42
+msgid "One or more email addresses, separated by commas"
+msgstr "Una o más direcciones de correo electrónico, separadas por comas"
+
+#: models.py:44
+msgid "Subject"
+msgstr "Asunto"
+
+#: models.py:45
+msgid "Message"
+msgstr "Mensaje"
+
+#: models.py:48
+msgid "Form"
+msgstr "Formulario"
+
+#: models.py:49
+msgid "Forms"
+msgstr "Formularios"
+
+#: models.py:66
+msgid "Label"
+msgstr "Etiqueta"
+
+#: models.py:68
+msgid "Type"
+msgstr "Tipo"
+
+#: models.py:70
+msgid "Required"
+msgstr "Requerido"
+
+#: models.py:71
+msgid "Visible"
+msgstr "Visible"
+
+#: models.py:72
+msgid "Choices"
+msgstr "Opciones"
+
+#: models.py:73
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr "Separe por comas las opciones. "
+
+#: models.py:75
+msgid "Default value"
+msgstr "Valor por defecto"
+
+#: models.py:77
+msgid "Help text"
+msgstr "Texto de ayuda"
+
+#: models.py:82
+#: templates/admin/forms/export.html:61
+msgid "Field"
+msgstr "Campo"
+
+#: models.py:83
+msgid "Fields"
+msgstr "Campos"
+
+#: models.py:123
+msgid "Form entry"
+msgstr "Formulario"
+
+#: models.py:124
+msgid "Form entries"
+msgstr "Formulario"
+
+#: models.py:137
+msgid "Form field entry"
+msgstr "Formulario de entrada de campo"
+
+#: models.py:138
+msgid "Form field entries"
+msgstr "Formulario de entrada de campos"
+
+#: templates/admin/forms/change_form.html:8
+#: templates/admin/forms/export.html:92
+msgid "Export entries"
+msgstr "Exportar entradas"
+
+#: templates/admin/forms/change_form.html:9
+msgid "History"
+msgstr "Histórico"
+
+#: templates/admin/forms/change_form.html:10
+msgid "View on site"
+msgstr "Ver en el sitio"
+
+#: templates/admin/forms/export.html:62
+msgid "Include"
+msgstr "Incluir"
+
+#: templates/admin/forms/export.html:63
+msgid "Filter by"
+msgstr "Filtrar por"
+
+#: templates/admin/forms/export.html:81
+msgid "All"
+msgstr "Todos"
+
+#: templates/admin/forms/export.html:90
+msgid "Back to form"
+msgstr "Regresar a formulario"
+

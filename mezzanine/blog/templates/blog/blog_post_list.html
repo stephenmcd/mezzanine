@@ -19,27 +19,31 @@
 {% endblock %}
 
 {% block main %}
-<p id="description">
-{% if tag %}
-    {% trans "Viewing posts tagged" %} {{ tag }}
-{% else %}{% if category %}
-    {% trans "Viewing posts for the category" %} {{ category }}
-{% else %}{% if year or month %}
-    {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
+
+{% if tag or category or year or month or author %}
+    <p id="description">
+    {% if tag %}
+        {% trans "Viewing posts tagged" %} {{ tag }}
+    {% else %}{% if category %}
+        {% trans "Viewing posts for the category" %} {{ category }}
+    {% else %}{% if year or month %}
+        {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
     {{ year }}
-{% else %}{% if user %}
-    {% trans "Viewing posts by" %} 
-    {{ user.get_full_name|default:user.username }}
+    {% else %}{% if author %}
+        {% trans "Viewing posts by" %} 
+        {{ author.get_full_name|default:author.username }}
+    {% endif %}{% endif %}{% endif %}{% endif %}
+    </p>
 {% else %}
     {% editable blog_page.content %}
     {{ blog_page.content|safe }}
     {% endeditable %}
-{% endif %}{% endif %}{% endif %}{% endif %}
-</p>
+{% endif %}
+
 
 {% for blog_post in blog_posts.object_list %}
 {% editable blog_post.title blog_post.publish_date %}
-<h2>
+<h2 class="blog-post-title">
     <a href="{% url blog_post_detail blog_post.slug %}">{{ blog_post.title }}</a>
 </h2>
 <em class="since">
