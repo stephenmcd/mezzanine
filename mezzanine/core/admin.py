@@ -41,14 +41,13 @@ class DisplayableAdmin(admin.ModelAdmin):
             "classes": ("collapse-closed",)},),
     )
 
-    def save_form(self, request, form, change):
+    def save_model(self, request, obj, form, change):
         """
         Store the keywords as a single string into the ``_keywords`` field
         for convenient access when searching.
         """
         obj = form.save(commit=True)
         obj.set_searchable_keywords()
-        return super(DisplayableAdmin, self).save_form(request, form, change)
 
 
 class DynamicInlineAdmin(admin.TabularInline):
