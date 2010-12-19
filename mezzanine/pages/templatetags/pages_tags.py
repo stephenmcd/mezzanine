@@ -3,21 +3,42 @@ from collections import defaultdict
 
 from django.core.urlresolvers import reverse
 from django.db.models import get_models
+from django.template import TemplateSyntaxError, Variable
 
 from mezzanine.pages.models import Page
 from mezzanine.utils.urls import admin_url
 from mezzanine import template
+from mezzanine.template.loader import get_template
 
 
 register = template.Library()
 
 
-def _page_menu(context, parent_page):
+@register.render_tag
+def page_menu(context, token):
     """
     Return a list of child pages for the given parent, storing all
     pages in a dict in the context when first called using parents as keys
     for retrieval on subsequent recursive calls from the menu template.
     """
+    # First arg could be the menu template file name, or the parent page.
+    # Also allow for both to be used.
+    template_name = None
+    parent_page = None
+    parts = token.split_contents()[1:]
+    for part in parts:
+        part = Variable(part).resolve(context)
+        if isinstance(part, unicode):
+            template_name = part
+        elif isinstance(part, Page):
+            parent_page = part
+    if template_name is None:
+        try:
+            template_name = context["menu_template_name"]
+        except KeyError:
+            error = "No template found for page_menu in: %s" % parts
+            raise TemplateSyntaxError(error)
+    context["menu_template_name"] = template_name
     if "menu_pages" not in context:
         pages = defaultdict(list)
         try:
@@ -43,66 +64,8 @@ def _page_menu(context, parent_page):
     context["page_branch"] = context["menu_pages"].get(parent_page, [])
     for i, page in enumerate(context["page_branch"]):
         context["page_branch"][i].branch_level = context["branch_level"]
-    return context
-
-
-@register.inclusion_tag("pages/includes/tree_menu.html", takes_context=True)
-def tree_menu(context, parent_page=None):
-    """
-    Tree menu that renders all pages in the navigation hierarchically.
-    """
-    return _page_menu(context, parent_page)
-
-
-@register.inclusion_tag("pages/includes/tree_menu_footer.html",
-                                                            takes_context=True)
-def tree_menu_footer(context, parent_page=None):
-    """
-    Tree menu that renders all pages in the footer hierarchically.
-    """
-    return _page_menu(context, parent_page)
-
-
-@register.inclusion_tag("pages/includes/primary_menu.html", takes_context=True)
-def primary_menu(context, parent_page=None):
-    """
-    Page menu that only renders the primary top-level pages.
-    """
-    return _page_menu(context, parent_page)
-
-
-@register.inclusion_tag("pages/includes/mobile_menu.html", takes_context=True)
-def mobile_menu(context, parent_page=None):
-    """
-    Page menu used in the mobile templates.
-    """
-    return _page_menu(context, parent_page)
-
-
-@register.inclusion_tag("pages/includes/footer_menu.html", takes_context=True)
-def footer_menu(context, parent_page=None):
-    """
-    Page menu that only renders the footer pages.
-    """
-    return _page_menu(context, parent_page)
-
-
-@register.inclusion_tag("pages/includes/breadcrumb_menu.html",
-    takes_context=True)
-def breadcrumb_menu(context, parent_page=None):
-    """
-    Page menu that only renders the pages that are parents of the current
-    page, as well as the current page itself.
-    """
-    return _page_menu(context, parent_page)
-
-
-@register.inclusion_tag("admin/includes/tree_menu.html", takes_context=True)
-def tree_menu_admin(context, parent_page=None):
-    """
-    Admin tree menu for managing pages.
-    """
-    return _page_menu(context, parent_page)
+    t = get_template(template_name, context)
+    return t.render(context)
 
 
 @register.as_tag
