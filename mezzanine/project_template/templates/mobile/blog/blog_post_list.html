@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags blog_tags %}
+
+{% block meta_title %}{{ blog_page.title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% for keyword in blog_page.keywords.all %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ blog_page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+{% editable blog_page.title %}{{ blog_page.title }}{% endeditable %}
+{% endblock %}
+
+{% block main %}
+<ul data-role="listview" data-inset="true" data-splittheme="a">
+    {% for blog_post in blog_posts.object_list %}
+		<li>
+        {% editable blog_post.title blog_post.publish_date %}
+                <h2 class="blog-post-title"><a href="{% url blog_post_detail blog_post.slug %}">{{ blog_post.title }}</a></h2>
+                <em class="since">{{ blog_post.publish_date|timesince }} {% trans "ago" %}</em>
+        {% endeditable %}
+        </li>
+    {% endfor %}    
+</ul>
+{% pagination_for blog_posts %} 
+
+{% endblock %}
+
+

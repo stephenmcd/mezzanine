@@ -1,0 +1,19 @@
+{% load i18n blog_tags %}
+
+<div data-role="collapsible" data-collapsed="true">
+    <h3>{% trans "Comments" %} ({{ blog_post.num_comments }})</h3>
+	{% blog_comments_for blog_post %}
+    <form method="post" class="comment" id="comment" action="#comment">
+        {% csrf_token %}
+        <table>
+        {% if request.POST.replied_to %}
+        {{ unposted_comment_form.as_table }}
+        {% else %}
+        {{ posted_comment_form.as_table }}
+        {% endif %}
+        <tr><td colspan="2">
+        <input class="button" type="submit" value="{% trans "Comment" %}" />
+        </td></tr>
+        </table>
+    </form>
+</div>

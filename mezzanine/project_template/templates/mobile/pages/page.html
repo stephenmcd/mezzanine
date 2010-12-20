@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load mezzanine_tags %}
+
+{% block meta_title %}{{ page.title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% for keyword in page.keywords.all %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+{% editable page.title %}{{ page.title }}{% endeditable %}
+{% endblock %}
+
+{% block main %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% load i18n blog_tags %}
+
+<ul class="comments">
+    {% for comment in comments_thread %}
+    <li id="comment-{{ comment.id }}"{% if comment.by_author %} 
+        class="author"{% endif %}>
+        {% if comment.approved %}
+        <em>
+            <strong>
+            {% if comment.website %}
+            <a href="{{ comment.website }}">
+                <img src="{% gravatar_url comment.email_hash %}" />   
+                {{ comment.name }}
+            </a>
+            {% else %}
+            <img src="{% gravatar_url comment.email_hash %}" />{{ comment.name }}
+            {% endif %}
+            </strong>
+            {{ comment.time_created|timesince }} {% trans "ago" %}
+        </em>
+        <p>{{ comment }}</p>
+		<div data-role="collapsible" data-collapsed="true">
+            <h4>{% trans "Reply" %}</h4>
+            <form method="post" id="reply-{{ comment.id }}"
+                class="comment{% ifequal replied_to comment.id %} posted{% endifequal %}">
+                {% csrf_token %}
+                <table>
+                {% ifequal replied_to comment.id %}
+                {{ posted_comment_form.as_table }}
+                {% else %}
+                {{ unposted_comment_form.as_table }}
+                {% endifequal %}
+                <tr><td colspan="2">
+                <input type="hidden" name="replied_to" value="{{ comment.id }}" />
+                <input class="button" type="submit" value="{% trans "Reply" %}" />
+                </td></tr>
+                </table>
+            </form>
+        </div>
+        {% else %}
+        <p>
+            {% if settings.COMMENTS_DEFAULT_APPROVED %}
+            {% trans "Comment deleted" %}
+            {% else %}
+            {% trans "Comment awaiting approval" %}
+            {% endif %}
+        </p>
+        {% endif %}
+        {% blog_comments_for comment %}
+    </li>
+    {% endfor %}
+    {% if no_comments %}
+    <li>{% trans "There are currently no comments" %}</li>
+    {% endif %}
+</ul>
+

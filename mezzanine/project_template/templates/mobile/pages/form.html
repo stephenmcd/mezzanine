@@ -1,0 +1,23 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags %}
+
+{% block main %}{{ block.super }}
+
+{% if request.GET.sent %}
+    {% editable page.form.response %}
+    {{ page.form.response|safe }}
+    {% endeditable %}
+{% else %}
+    {# editable page.form.content #}
+    {{ page.form.content|safe }}
+    {# endeditable #}
+    <form method="post" class="form"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="button" type="submit" value="{{ page.form.button_text }}" />
+    </form>
+{% endif %}
+
+{% endblock %}
+
