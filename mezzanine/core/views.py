@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import get_model
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from django.views.static import serve
@@ -15,6 +15,7 @@ from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Keyword, Displayable
 from mezzanine.utils.path import path_for_import
 from mezzanine.utils.views import is_editable, paginate, render_to_response
+from mezzanine.utils.views import set_cookie
 
 
 def admin_keywords_submit(request):
@@ -30,6 +31,16 @@ def admin_keywords_submit(request):
             ids.append(str(keyword.id))
     return HttpResponse(",".join(set(ids)))
 admin_keywords_submit = staff_member_required(admin_keywords_submit)
+
+
+def set_device(request, device=""):
+    """
+    Sets a device name in a cookie when a user explicitly wants to go 
+    to the site for a particular device (eg mobile).
+    """
+    response = HttpResponseRedirect(request.GET.get("next", "/"))
+    set_cookie(response, "mezzanine-device", device, 60 * 60 * 24 * 365)
+    return response
 
 
 def direct_to_template(request, template, extra_context=None, **kwargs):

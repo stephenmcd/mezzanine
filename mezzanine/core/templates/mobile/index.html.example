@@ -3,5 +3,10 @@
 {% load i18n %}
 
 {% block main %}
-{% trans "This is the mobile homepage." %}
+<p>{% trans "This is the mobile homepage." %}</p>
+<p>
+    <a href="{% url set_device "default" %}?next={{ request.path }}">
+        {% trans "Click here to view the full site." %}
+    </a>
+</p>
 {% endblock %}
