@@ -23,8 +23,10 @@ def set_dynamic_settings(s):
 
     # Setup for optional apps.
     if "debug_toolbar" in s["INSTALLED_APPS"]:
-        debug_mw = ("debug_toolbar.middleware.DebugToolbarMiddleware",)
-        s["MIDDLEWARE_CLASSES"] += debug_mw
+        debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
+        if debug_mw not in s["MIDDLEWARE_CLASSES"]:
+            s["MIDDLEWARE_CLASSES"] = tuple(s["MIDDLEWARE_CLASSES"])
+            s["MIDDLEWARE_CLASSES"] += (debug_mw,)
     if s.get("PACKAGE_NAME_FILEBROWSER") in s["INSTALLED_APPS"]:
         s["FILEBROWSER_URL_FILEBROWSER_MEDIA"] = "/filebrowser/media/"
         fb_path = path_for_import(s["PACKAGE_NAME_FILEBROWSER"])
@@ -105,7 +107,7 @@ def set_dynamic_settings(s):
     theme = s.get("THEME")
     if theme:
         theme_templates = os.path.join(path_for_import(theme), "templates")
-        s["TEMPLATE_DIRS"] = [theme_templates] + list(s["TEMPLATE_DIRS"])
+        s["TEMPLATE_DIRS"] = (theme_templates,) + tuple(s["TEMPLATE_DIRS"])
         
     # Remaining code is for Django 1.1 support.
     if VERSION >= (1, 2, 0):
