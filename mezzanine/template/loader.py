@@ -29,9 +29,13 @@ def get_template(template_name, context_instance):
         pass
     else:
         try:
-            device = context_instance["request"].COOKIES["mezzanine-device"]
-            add_device(device)
+            # If a device was set via cookie, match available devices.
+            in_cookie = context_instance["request"].COOKIES["mezzanine-device"]
+            for (device, _) in settings.DEVICE_USER_AGENTS:
+                if device == in_cookie and device != settings.DEFAULT_DEVICE:
+                    add_device(device)
         except KeyError:
+            # If a device wasn't set via cookie, match user agent.
             for (device, ua_strings) in settings.DEVICE_USER_AGENTS:
                 if device != settings.DEFAULT_DEVICE:
                     for ua_string in ua_strings:
