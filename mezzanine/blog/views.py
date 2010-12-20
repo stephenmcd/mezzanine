@@ -1,6 +1,5 @@
 
 from calendar import month_name
-from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
@@ -13,7 +12,7 @@ from mezzanine.conf import settings
 from mezzanine.core.models import Keyword
 from mezzanine.pages.models import ContentPage
 from mezzanine.template.loader import select_template
-from mezzanine.utils.views import paginate, render_to_response
+from mezzanine.utils.views import paginate, render_to_response, set_cookie
 
 
 def blog_page():
@@ -67,29 +66,30 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
     # other instances.
     commenter_cookie_prefix = "mezzanine-blog-"
     commenter_cookie_fields = ("name", "email", "website")
-    initial_comment_data = dict([(f, request.COOKIES.get(
-        commenter_cookie_prefix + f, "")) for f in commenter_cookie_fields])
+    comment_data = {}
+    for f in commenter_cookie_fields:
+        comment_data[f] = request.COOKIES.get(commenter_cookie_prefix + f, "")
     blog_posts = BlogPost.objects.published(for_user=request.user)
     blog_post = get_object_or_404(blog_posts, slug=slug)
-    posted_comment_form = CommentForm(request.POST or None,
-        initial=initial_comment_data)
-    unposted_comment_form = CommentForm(initial=initial_comment_data)
+    posted_comment_form = CommentForm(request.POST or None, 
+                                      initial=comment_data)
+    unposted_comment_form = CommentForm(initial=comment_data)
     if request.method == "POST" and posted_comment_form.is_valid():
         comment = posted_comment_form.save(commit=False)
         comment.blog_post = blog_post
         comment.by_author = (request.user == blog_post.user and
-            request.user.is_authenticated)
+                             request.user.is_authenticated)
         comment.ip_address = request.META.get("HTTP_X_FORWARDED_FOR",
-            request.META["REMOTE_ADDR"])
+                                              request.META["REMOTE_ADDR"])
         comment.replied_to_id = request.POST.get("replied_to")
         comment.save()
         response = HttpResponseRedirect(comment.get_absolute_url())
         # Store commenter's details in a cookie for 90 days.
-        expires = datetime.strftime(datetime.utcnow() +
-            timedelta(seconds=90 * 24 * 60 * 60), "%a, %d-%b-%Y %H:%M:%S GMT")
-        for field in commenter_cookie_fields:
-            response.set_cookie(commenter_cookie_prefix + field,
-                request.POST.get(field, "").encode("utf-8"), expires=expires)
+        cookie_expires = 60 * 60 * 24 * 90
+        for f in commenter_cookie_fields:
+            cookie_name = commenter_cookie_prefix + f
+            cookie_value = request.POST.get(f, "")
+            set_cookie(response, cookie_name, cookie_value, cookie_expires)
         return response
     settings.use_editable()
     context = {"blog_post": blog_post, "blog_page": blog_page(),

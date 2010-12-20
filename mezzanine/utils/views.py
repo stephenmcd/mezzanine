@@ -1,4 +1,6 @@
 
+from datetime import datetime, timedelta
+
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.http import HttpResponse
 from django.template import Context
@@ -58,3 +60,14 @@ def render_to_response(template_name, dictionary=None, context_instance=None,
     else:
         t = get_template(template_name, context_instance)
     return HttpResponse(t.render(context_instance), mimetype=mimetype)
+
+
+def set_cookie(response, name, value, expiry_seconds):
+    """
+    Set cookie wrapper that allows number of seconds to be given as the 
+    expiry time, and ensures values are correctly encoded.
+    """
+    expires = datetime.strftime(datetime.utcnow() +
+                                timedelta(seconds=expiry_seconds), 
+                                "%a, %d-%b-%Y %H:%M:%S GMT")
+    response.set_cookie(name, value.encode("utf-8"), expires=expires)
