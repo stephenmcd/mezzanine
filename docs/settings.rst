@@ -145,7 +145,7 @@ Default: ``''``
 
 If ``True``, website forms created by the forms app will use HTML5 features.
 
-Default: ``True``
+Default: ``False``
 
 ``GOOGLE_ANALYTICS_ID``
 -----------------------
@@ -201,7 +201,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DEFAULT_APPROVED', 'COMMENTS_DISQUS_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL')``
+Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DEFAULT_APPROVED', 'COMMENTS_DISQUS_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL')``
 
 ``THEME``
 ---------
