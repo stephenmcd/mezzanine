@@ -81,11 +81,12 @@ class PageAdmin(DisplayableAdmin):
         Maintain the parent ID in the querystring for response_add and
         response_change.
         """
-        location = response._headers["location"][1]
+        location = response._headers.get("location")
         parent = request.GET.get("parent")
-        if parent is not None and "?" not in location:
-            location += "?parent=%s" % parent
-        return HttpResponseRedirect(location)
+        if parent and location and "?" not in location[1]:
+            url = "%s?parent=%s" % (location[1], parent)
+            return HttpResponseRedirect(url)
+        return response
 
     def response_add(self, request, obj):
         """
