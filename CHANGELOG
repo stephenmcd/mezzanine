@@ -1,3 +1,9 @@
+Version 0.10.1 (Jan 13, 2011)
+-----------------------------
+
+  * Added Josh de Blank to AUTHORS - stephenmcd
+  * Fixed bug in PageAdmin._maintain_parent where it was assumed a location header exists for a redirect, which isn't actually the case when the page is being edited via a popup window as a forgien key - stephenmcd
+
 Version 0.10 (Dec 22, 2010)
 ---------------------------
 
