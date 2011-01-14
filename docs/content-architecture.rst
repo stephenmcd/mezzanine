@@ -34,9 +34,9 @@ pages that were photo galleries::
 
     # The members of Page will be inherited by the Gallery model, such as 
     # title, slug, etc. In this example the Gallery model is essentially a 
-    # container for GalleryImage instances.
+    # container for GalleryImage instances. 
     class Gallery(Page):
-        pass 
+        notes = models.TextField("Notes")
         
     class GalleryImage(models.Model):
         gallery = models.ForeignKey("Gallery")
@@ -45,17 +45,30 @@ pages that were photo galleries::
 You'll also need to create an admin class for the Gallery model that 
 inherits from ``mezzanine.pages.admin.PageAdmin``::
 
+    from copy import deepcopy
     from django.contrib import admin 
     from mezzanine.pages.admin import PageAdmin
     from models import Gallery, GalleryImage
+    
+    gallery_extra_fieldsets = (None, {"fields": ("notes",)})
 
     class GalleryImageInline(admin.TabularInline):
         model = GalleryImage
         
     class GalleryAdmin(PageAdmin):
         inlines = (GalleryImageInline,)
+        fieldsets = deepcopy(PageAdmin.fieldsets) + gallery_extra_fieldsets
         
     admin.site.register(Gallery, GalleryAdmin)
+
+In this example we build ``GalleryAdmin.fieldsets`` by copying 
+``PageAdmin.fieldsets`` and appending to it. This is so we can make use 
+of the fieldsets already defined by ``PageAdmin`` which would be lost if 
+we were to define our own ``fieldsets`` from scratch. It's also worth noting 
+that if we weren't to define ``fieldsets``, the fields defined for our 
+``Gallery`` model would not be automatically shown in the admin, as would 
+normally be the case with Django. This is because ``fieldsets`` has already 
+been defined by ``PageAdmin.fieldsets``.
 
 By using an admin class that inherits from ``PageAdmin`` the admin class 
 won't be listed in the admin index page, instead being made available as 
