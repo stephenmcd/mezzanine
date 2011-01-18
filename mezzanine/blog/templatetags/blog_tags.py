@@ -185,6 +185,6 @@ def recent_comments(context):
                     "post": blog_post,
                 })
     else:
-        context["comments"] = Comment.objects.all().select_related(
-            ).order_by("-id")[:latest]
+        comments = Comment.objects.all().select_related(depth=1)
+        context["comments"] = comments.order_by("-id")[:latest]
     return context
