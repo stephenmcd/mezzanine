@@ -12,7 +12,7 @@ class BlogPostManager(DisplayableManager):
 
     def published(self, *args, **kwargs):
         return super(BlogPostManager, self).published(*args, **kwargs) \
-            .annotate(num_comments=Count("comments")).select_related("comments")
+            .annotate(num_comments=Count("comments")).select_related(depth=1)
 
 
 class CommentManager(Manager):
