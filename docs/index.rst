@@ -18,9 +18,9 @@ viewing it on the website. You can read about this and how to implement it
 in templates under :doc:`inline-editing`.
 
 Further reading includes information about Mezzanine's :doc:`search-engine`, 
-a section on the :doc:`admin-customization` provided by Mezzanine, and a 
+a section on the :doc:`admin-customization` provided by Mezzanine, a 
 section on Mezzanine's :doc:`configuration` which outlines the various 
-settings for configuring Mezzanine.
+settings for configuring Mezzanine, and some notes on :doc:`deployment`.
 
 Lastly, you can learn about :doc:`blog-importing` into Mezzanine, or just 
 browse the auto-generated docs for each of Mezzanine's :doc:`packages`.
@@ -36,6 +36,7 @@ browse the auto-generated docs for each of Mezzanine's :doc:`packages`.
     search-engine
     admin-customization
     configuration
+    deployment
     blog-importing
     packages
     colophon
