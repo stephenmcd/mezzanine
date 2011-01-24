@@ -20,8 +20,24 @@ def set_dynamic_settings(s):
 
     s["TEMPLATE_DEBUG"] = s["DEBUG"]
     add_to_builtins("mezzanine.template.loader_tags")
+    # Define some settings based on management command being run.
+    management_command = sys.argv[1] if len(sys.argv) > 1 else ""
+    # Some kind of testing is running via test or testserver
+    s["TESTING"] = management_command.startswith("test")
+    # Some kind of development server is running via runserver or runserver_plus
+    s["DEV_SERVER"] = management_command.startswith("runserver")
 
     # Setup for optional apps.
+    if not s["TESTING"]:
+        for app in s.get("OPTIONAL_APPS", []):
+            try:
+                __import__(app)
+            except ImportError:
+                pass
+            else:
+                s["INSTALLED_APPS"] += (app,)
+    s["INSTALLED_APPS"] = sorted(list(s["INSTALLED_APPS"]), reverse=True)
+
     if "debug_toolbar" in s["INSTALLED_APPS"]:
         debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
         if debug_mw not in s["MIDDLEWARE_CLASSES"]:
@@ -94,7 +110,7 @@ def set_dynamic_settings(s):
             # If the Sqlite DB name doesn't contain a path, assume it's 
             # in the project directory and add the path to it.
             s["DATABASES"][key]["NAME"] = os.path.join(
-                                     s.get("_project_path", ""), db["NAME"])
+                                     s.get("PROJECT_ROOT", ""), db["NAME"])
         elif shortname == "mysql":
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
