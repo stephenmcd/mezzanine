@@ -1,5 +1,27 @@
 {% extends "admin/base.html" %}
 
+{% comment %}
+
+
+    This file contains a handful of unrelated admin customizations that 
+    mostly get applied globally to different parts of the admin.
+
+    In the ``extrahead`` block:
+
+      * CSS for the login form
+      * Javascript for the login form to add the ``interface`` radio buttons
+      * Global CSS fixes (when logged in)
+      * Javascript for injecting Mezzanine's menu into the top of every page
+      * Javascript for fixing inlines to work with Mezzanine's dynamic inlines
+
+    In the ``footer`` block:
+
+      * HTML for the ``interface`` radio buttons in the login form
+      * HTML for Mezzanine's menu
+
+
+{% endcomment %}
+
 {% load mezzanine_tags i18n %}
 
 {% block title %}{{ title }} | Mezzanine{% endblock %}
@@ -19,23 +41,33 @@ window.__admin_keywords_submit_url = '{% try_url "admin_keywords_submit" %}';
 
 </script>
 
-
 {% if not request.user.is_authenticated %}
 <style type="text/css">
     #extra-login-fields .required {margin-top:1px;}
-    input.interface {margin:0 0 0 5px; vertical-align:middle;}
+    input.interface {margin:0 0 0 0px; vertical-align:middle;}
     label.interface {display:inline !important; float:none !important; 
         vertical-align:middle; cursor:pointer;}
+    #forgot-password {margin-top:30px; text-align:center;}
+    .submit-row input {margin-left:8px;}
 </style>
 <script type="text/javascript">
 
-// We "inject" the extra login fields here rather than defining them in the 
-// login.html template, since we don't want to override the login.html 
-// template as it's very different between Grappelli and the regular admin.
-
 $(function() {
+    // We "inject" the extra login fields here rather than defining them in the 
+    // login.html template, since we don't want to override the login.html 
+    // template as it's very different between Grappelli and the regular admin.
     if ($('#id_password').length == 1) { 
+        $('#forgot-password').insertAfter($('.submit-row')).show();
         $('#extra-login-fields').insertAfter($('#id_password').parent()).show();
+    }
+    // Fix the ``Home`` breadcrumb link non logged-in views.
+    var home = $('.breadcrumbs a:first');
+    if (home.length == 1) {
+        home.attr('href', '{% try_url "admin:index" %}');
+    }
+    // Fix the submit margin on the new password form.
+    if ($('#id_new_password1').length == 1) {
+        $('input:submit').css({marginTop: '20px'});
     }
 });
 
@@ -147,8 +179,8 @@ $(function() {
 
 });
 
-// Remove extraneous ``template`` forms from inline formsets since we have
-// our own method of dynamic inlines.
+// Remove extraneous ``template`` forms from inline formsets since 
+// Mezzanine has its own method of dynamic inlines.
 $(function() {
     var removeRows = {};
     $.each($('*[name*=__prefix__]'), function(i, e) {
@@ -170,6 +202,9 @@ $(function() {
 
 {% block footer %}{{ block.super }}
 {% if not request.user.is_authenticated %}
+<p id="forgot-password" style="display:none;">
+    <a href="{% try_url "password_reset" %}">{% trans "Forgot password?" %}</a>
+</p>
 <div class="form-row" id="extra-login-fields" style="display:none;">
 
     <label class="required">{% trans "Interface:" %}</label> 
