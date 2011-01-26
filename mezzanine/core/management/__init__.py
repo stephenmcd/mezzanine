@@ -11,6 +11,8 @@ from mezzanine.pages import models as pages_app
 
 def create_user(app, created_models, verbosity, interactive, **kwargs):
     if settings.DEBUG and User in created_models and not interactive:
+        if User.objects.count() > 0:
+            return
         print
         print "Creating default account (username: admin / password: default)"
         print
@@ -40,7 +42,7 @@ def run_post_syncdb_handlers():
     Called by the initial migration in the pages app when South is 
     installed since South prevents the post_syncdb signal from occurring.
     """
-    create_user(auth_app, (User,), 1, True)
+    create_user(auth_app, (User,), 1, False)
     create_pages(pages_app, (Page,), 1, True)
 
 
