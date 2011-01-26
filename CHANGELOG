@@ -1,3 +1,15 @@
+Version 0.10.2 (Jan 27, 2011)
+-----------------------------
+
+  * Updated docs to describe approach for adding fieldsets to subclasses of PageAdmin - stephenmcd
+  * Added a depth arg for select_related in the recent comments panel of the admin dashboard - stephenmcd
+  * Restored depth arg for select_related in blog manager - stephenmcd
+  * Added deployment section to docs describing the various aliases required for serving media files, and added a management command which prints these out - stephenmcd
+  * Grammar fix in docs - stephenmcd
+  * Added lost password link to login template - stephenmcd
+  * Moved some of the settings tweaks into mezzanine.utils.conf.set_dynamic_settings and also restored all of the comments from Django's generated settings module. Fixes #37 - stephenmcd
+  * Fixed the handling for creating the default user when south is installed. Closes #34 - stephenmcd
+
 Version 0.10.1 (Jan 13, 2011)
 -----------------------------
 
