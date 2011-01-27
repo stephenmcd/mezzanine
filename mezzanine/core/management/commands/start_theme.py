@@ -5,7 +5,7 @@ from shutil import copy, copytree
 from django.core.management.commands.startapp import Command as StartAppCommand
 
 from mezzanine.conf import settings
-from mezzanine.utils.path import path_for_import
+from mezzanine.utils.importing import path_for_import
 
 
 def template_path(template):

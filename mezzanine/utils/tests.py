@@ -3,7 +3,7 @@ from __future__ import with_statement
 from compiler import parse
 import os
 
-from mezzanine.utils.path import path_for_import
+from mezzanine.utils.importing import path_for_import
 
 
 # Ignore these warnings in pyflakes.

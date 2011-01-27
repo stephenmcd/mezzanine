@@ -13,7 +13,7 @@ from django.views.static import serve
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Keyword, Displayable
-from mezzanine.utils.path import path_for_import
+from mezzanine.utils.importing import path_for_import
 from mezzanine.utils.views import is_editable, paginate, render_to_response
 from mezzanine.utils.views import set_cookie
 

@@ -5,7 +5,7 @@ import sys
 from django.template.loader import add_to_builtins
 from django import VERSION
 
-from mezzanine.utils.path import path_for_import
+from mezzanine.utils.importing import path_for_import
 
 
 def set_dynamic_settings(s):

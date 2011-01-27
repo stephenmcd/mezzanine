@@ -7,7 +7,7 @@ import os
 from shutil import move
 from uuid import uuid4
 
-from mezzanine.utils.path import path_for_import
+from mezzanine.utils.importing import path_for_import
 
 
 def create_project():

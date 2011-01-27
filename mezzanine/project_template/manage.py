@@ -11,7 +11,7 @@ if project_dir == "project_template":
     dev_path = os.path.abspath(os.path.join(project_path, "..", ".."))
     if dev_path not in sys.path:
         sys.path.insert(0, dev_path)
-    from mezzanine.utils.path import path_for_import
+    from mezzanine.utils.importing import path_for_import
     mezzanine_path = path_for_import("mezzanine")
     assert os.path.abspath(os.path.join(mezzanine_path, "..")) == dev_path
 
