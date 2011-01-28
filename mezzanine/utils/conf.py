@@ -75,8 +75,8 @@ def set_dynamic_settings(s):
                                                   s["ADMIN_MEDIA_PREFIX"])
 
     # Caching.
-    if s.get("TESTING"):
-        s["CACHE_MIDDLEWARE_SECONDS"] = 0
+    if not (s.get("CACHE_BACKEND") or s.get("CACHES")):
+        s["CACHE_BACKEND"] = "dummy://"
 
     # Some settings tweaks for different DB engines.
     backend_path = "django.db.backends."
