@@ -75,22 +75,7 @@ def set_dynamic_settings(s):
                                                   s["ADMIN_MEDIA_PREFIX"])
 
     # Caching.
-    if not (s.get("CACHE_BACKEND") or s.get("CACHES")):
-        s["CACHE_TIMEOUT"] = s["CACHE_MIDDLEWARE_SECONDS"] = 0
-        try:
-            import cmemcache
-        except ImportError:
-            try:
-                import memcache
-            except ImportError:
-                s["CACHE_BACKEND"] = "locmem:///"
-        if not s.get("CACHE_BACKEND"):
-            s["CACHE_TIMEOUT"] = s["CACHE_MIDDLEWARE_SECONDS"] = 180
-            s["CACHE_BACKEND"] = "memcached://127.0.0.1:11211/?timeout=%s" % \
-                                                 s["CACHE_MIDDLEWARE_SECONDS"]
-            s["CACHE_MIDDLEWARE_ANONYMOUS_ONLY"] = True
     if s.get("TESTING"):
-        s["CACHE_BACKEND"] = "locmem:///"
         s["CACHE_MIDDLEWARE_SECONDS"] = 0
 
     # Some settings tweaks for different DB engines.
