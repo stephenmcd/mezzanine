@@ -1,3 +1,11 @@
+Version 0.10.3 (Jan 28, 2011)
+-----------------------------
+
+  * Renamed the module mezzanine.utils.path to the more accurate mezzanine.utils.importing - stephenmcd
+  * Added the function ``mezzanine.utils.importing.import_dotted_path`` for importing via Python paths to names which are defined as string settings - stephenmcd
+  * Removed the cache defaults - stephenmcd
+  * Removed redundant import - stephenmcd
+
 Version 0.10.2 (Jan 27, 2011)
 -----------------------------
 
@@ -20,6 +28,12 @@ Version 0.10 (Dec 22, 2010)
 ---------------------------
 
   * Updated settings docs for Grappelli URLs fix - stephenmcd
+  * Renamed fixtures to not be installed with syncdb and added signal to install them when pages are first installed - stephenmcd
+  * Renamed example mobile template so that it won't be rendered by default - stephenmcd
+  * Updated device template test to only run when device templates exist - stephenmcd
+  * Added a setting for restricting setting available in templates - stephenmcd
+  * Fixed some CSS around inline editing - stephenmcd
+  * Added hook for third-party apps to extend existing settings - stephenmcd
   * Fixed settings append hook - stephenmcd
   * Backported inline editing helptext markup for Django <= 1.2 - stephenmcd
   * Fixed settings append hook again - stephenmcd
@@ -95,11 +109,11 @@ Version 0.10 (Dec 22, 2010)
   * Added HTML5 form features to inline edit forms - stephenmcd
   * Added a context-aware version of Django's ``inclusion_tag`` template tag - stephenmcd
   * Moved assignment of menu helper page attributes into ``Page.set_menu_helpers`` and renamed some of them to be clearer in purpose - stephenmcd
+  * Refactored menu template tags into a single tag page_menu which accepts the name of the menu template to use - stephenmcd
+  * Added initial handling for overriding device in a cookie - stephenmcd
   * Modified the blog's filter_panel tempate so <ul> tags get closed properly - Brad Montgomery
   * Changed ``mezzanine.core.models.Displayble.set_searchable_keywords`` to only trigger a save when the keyword list changes - stephenmcd
   * Moved the call to ``mezzanine.core.models.Displayble.set_searchable_keywords`` inside ``mezzanine.core.admin.DisplayableAdmin`` from ``save_form`` to ``save_model`` so that it is only triggered when the entire form including inline formsets are valid - stephenmcd
-  * Refactored menu template tags into a single tag page_menu which accepts the name of the menu template to use - stephenmcd
-  * Added initial handling for overriding device in a cookie - stephenmcd
   * Changed mezzanine.utils.conf.set_dynamic_settings to ensure debug_toolbar.middleware.DebugToolbarMiddleware is only ever added once when installed - stephenmcd
   * Added a ``set_cookie`` function to save repeating seconds conversion and encoding - stephenmcd
   * Changed the check for a device in cookies to only match if the value is a valid device - stephenmcd
@@ -118,12 +132,6 @@ Version 0.9.1 (Nov 29, 2010)
   * stop creation of empty p id="description" (Potentially needs refactoring) aka not too elegant - Lee Matos
   * Fixed white-space in blog list template - stephenmcd
   * Added Lee Matos to AUTHORS - stephenmcd
-  * Renamed fixtures to not be installed with syncdb and added signal to install them when pages are first installed - stephenmcd
-  * Renamed example mobile template so that it won't be rendered by default - stephenmcd
-  * Updated device template test to only run when device templates exist - stephenmcd
-  * Added a setting for restricting setting available in templates - stephenmcd
-  * Fixed some CSS around inline editing - stephenmcd
-  * Added hook for third-party apps to extend existing settings - stephenmcd
   * Fixed branching of admin media hosting for Grappelli - stephenmcd
 
 Version 0.9 (Nov 28, 2010)
@@ -343,6 +351,7 @@ Version 0.8.5 (Nov 10, 2010)
   * Make filebrowser menu item translatable - stephenmcd
   * Ignore migration scripts - stephenmcd
   * Catch DatabaseError instead of trying to check for syncdb when reading DB settings to allow for other DB management related commands to run such as south - stephenmcd
+  * Put fixtures into a potentially more stable order - stephenmcd
   * Rename mezzanine.settings to mezzanine.conf - stephenmcd
   * Make the DatabaseError import compatible with Django 1.1 - stephenmcd
   * Update the admin menu with the new conf name - stephenmcd
@@ -356,7 +365,6 @@ Version 0.8.5 (Nov 10, 2010)
   * Remove the ``MEZZANINE_`` prefix from checking project's settings for default values, since non-mezzanine apps may register settings themselves - stephenmcd
   * Group the form fields for editable settings by prefix - stephenmcd
   * Update documentation to reflect refactoring of the conf app - stephenmcd
-  * Put fixtures into a potentially more stable order - stephenmcd
   * Comment fixes - stephenmcd
   * Allow the ``BlogCategoryAdmin`` to be displayed in the admin menu when explicitly defined in ``ADMIN_MENU_ORDER`` - stephenmcd
   * Add some stricter style declarations for the inline editing controls - stephenmcd
