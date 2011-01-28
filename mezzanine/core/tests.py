@@ -15,6 +15,7 @@ from mezzanine.forms import fields
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import ContentPage
 from mezzanine.utils.tests import run_pyflakes_for_package
+from mezzanine.utils.importing import import_dotted_path
 
 
 class Tests(TestCase):
@@ -22,7 +23,7 @@ class Tests(TestCase):
     Mezzanine tests.
     """
 
-    fixtures = ["mezzanine.json"]
+    fixtures = ["mezzanine.json"] # From mezzanine.pages
 
     def setUp(self):
         """
@@ -229,3 +230,16 @@ class Tests(TestCase):
         if warnings:
             warnings.insert(0, "pyflakes warnings:")
             self.fail("\n".join(warnings))
+
+    def test_utils(self):
+        """
+        Miscellanous tests for the ``mezzanine.utils`` package.
+        """
+        self.assertRaises(ImportError, import_dotted_path, "mezzanine")
+        self.assertRaises(ImportError, import_dotted_path, "mezzanine.NO")
+        self.assertRaises(ImportError, import_dotted_path, "mezzanine.core.NO")
+        try:
+            import_dotted_path("mezzanine.core")
+        except ImportError:
+                self.fail("mezzanine.utils.imports.import_dotted_path"
+                          "could not import \"mezzanine.core\"")
