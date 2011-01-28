@@ -275,10 +275,10 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.utils.html
    :members:
 
-.. automodule:: mezzanine.utils.models
+.. automodule:: mezzanine.utils.importing
    :members:
 
-.. automodule:: mezzanine.utils.path
+.. automodule:: mezzanine.utils.models
    :members:
 
 .. automodule:: mezzanine.utils.tests
