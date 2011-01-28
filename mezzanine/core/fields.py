@@ -5,6 +5,7 @@ from django.utils.importlib import import_module
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
+from mezzanine.utils.importing import import_dotted_path
 
 
 class HtmlField(TextField):
@@ -17,24 +18,10 @@ class HtmlField(TextField):
         Apply the widget class defined by the ``HTML_WIDGET_CLASS`` setting.
         """
         try:
-            parts = settings.HTML_WIDGET_CLASS.rsplit(".", 1)
-            widget_module_name, widget_class_name = parts
-        except ValueError:
-            raise ImproperlyConfigured(_("The setting HTML_WIDGET_CLASS "
-                "must be a dotted package path to the widget class, eg: "
-                "package_name.module_name.WidgetClassName"))
-        try:
-            widget_module = import_module(widget_module_name)
+            widget_class = import_dotted_path(settings.HTML_WIDGET_CLASS)
         except ImportError:
-            raise ImproperlyConfigured(_("Could not import the module `%s` "
-                "defined in the setting HTML_WIDGET_CLASS.") % 
-                widget_module_name)
-        try:
-            widget_class = getattr(widget_module, widget_class_name)
-        except AttributeError:
-            raise ImproperlyConfigured(_("The widget class `%s` was not "
-                "found in `%s` defined in the setting HTML_WIDGET_CLASS.") %
-                (widget_class_name, widget_module_name))
+            raise ImproperlyConfigured(_("Could not import the value of "
+                "settings.HTML_WIDGET_CLASS: %s" % settings.HTML_WIDGET_CLASS))
         kwargs["widget"] = widget_class()
         formfield = super(HtmlField, self).formfield(**kwargs)
         return formfield
