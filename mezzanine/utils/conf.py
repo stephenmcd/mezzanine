@@ -29,14 +29,15 @@ def set_dynamic_settings(s):
 
     # Setup for optional apps.
     if not s["TESTING"]:
+        s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
         for app in s.get("OPTIONAL_APPS", []):
-            try:
-                __import__(app)
-            except ImportError:
-                pass
-            else:
-                s["INSTALLED_APPS"] += (app,)
-    s["INSTALLED_APPS"] = sorted(list(s["INSTALLED_APPS"]), reverse=True)
+            if app not in s["INSTALLED_APPS"]:
+                try:
+                    __import__(app)
+                except ImportError:
+                    pass
+                else:
+                    s["INSTALLED_APPS"].append(app)
 
     if "debug_toolbar" in s["INSTALLED_APPS"]:
         debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
@@ -49,6 +50,12 @@ def set_dynamic_settings(s):
         fb_media_path = os.path.join(fb_path, "media", "filebrowser")
         s["FILEBROWSER_PATH_FILEBROWSER_MEDIA"] = fb_media_path
     if s.get("PACKAGE_NAME_GRAPPELLI") in s["INSTALLED_APPS"]:
+        # Ensure grappelli is before django.contrib.admin in app order 
+        # for correct template loading order.
+        s["INSTALLED_APPS"].remove(s["PACKAGE_NAME_GRAPPELLI"])
+        s["INSTALLED_APPS"].remove("django.contrib.admin")
+        s["INSTALLED_APPS"].extend([s["PACKAGE_NAME_GRAPPELLI"], 
+                                    "django.contrib.admin"])
         s["GRAPPELLI_ADMIN_HEADLINE"] = "Mezzanine"
         s["GRAPPELLI_ADMIN_TITLE"] = "Mezzanine"
         grappelli_path = path_for_import(s["PACKAGE_NAME_GRAPPELLI"])
