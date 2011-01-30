@@ -76,7 +76,9 @@ def set_dynamic_settings(s):
 
     # Caching.
     if not (s.get("CACHE_BACKEND") or s.get("CACHES")):
-        s["CACHE_BACKEND"] = "dummy://"
+        s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if not
+                                   mw.endswith("UpdateCacheMiddleware") or 
+                                   mw.endswith("FetchFromCacheMiddleware")]
 
     # Some settings tweaks for different DB engines.
     backend_path = "django.db.backends."
