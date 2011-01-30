@@ -64,7 +64,7 @@ date_filter_field = forms.ChoiceField(label=" ", required=False,
 
 class FormForForm(forms.ModelForm):
     """
-    Form with a set if fields dynamically assigned, directly based on the
+    Form with a set of fields dynamically assigned, directly based on the
     given ``forms.models.Form`` instance.
     """
 
@@ -139,7 +139,7 @@ class FormForForm(forms.ModelForm):
 
 class ExportForm(forms.Form):
     """
-    Form with a set if fields dynamically assigned that can be used to
+    Form with a set of fields dynamically assigned, that can be used to
     filter responses for the given ``forms.models.Form`` instance.
     """
 
