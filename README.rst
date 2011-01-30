@@ -127,6 +127,8 @@ Sites Using Mezzanine
   * `The Source Procurement`_
   * `Imageinary`_
   * `Brad Montgomery`_
+  * `Jashua Cloutier`_
+  * `Alpha & Omega Contractors`_
 
 Quotes
 ======
@@ -177,3 +179,5 @@ Quotes
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
 .. _`Brad Montgomery`: http://blog.bradmontgomery.net/
+.. _`Jashua Cloutier`: http://www.senexcanis.com/
+.. _`Alpha & Omega Contractors`: http://alphaomegacontractors.com/
