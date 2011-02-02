@@ -1,4 +1,3 @@
-from __future__ import with_statement
 # -*- coding: utf-8 -*-
 #
 # Mezzanine documentation build configuration file, created by
@@ -14,103 +13,16 @@ from __future__ import with_statement
 
 import sys
 import os
+
 docs_path = os.path.abspath(os.path.dirname(__file__))
-mezzanine_path = os.path.join(docs_path, "..")
-sys.path.insert(0, mezzanine_path)
+sys.path.insert(0, os.path.join(docs_path, ".."))
 os.environ["DJANGO_SETTINGS_MODULE"] = "mezzanine.project_template.settings"
+
 import mezzanine
+from mezzanine.utils.docs import build_settings_docs, build_changelog
 
-# Generate the documentation for mezzanine.conf
-from mezzanine.conf import registry
-
-settings_docs = [".. THIS DOCUMENT IS AUTO GENERATED VIA conf.py"]
-for name in sorted(registry.keys()):
-    setting = registry[name]
-    settings_name = "``%s``" % name
-    setting_default = setting["default"]
-    if isinstance(setting_default, basestring) and \
-        setting_default.startswith("/") and \
-        os.path.exists(setting_default):
-        setting_default = "[dynamic]"
-    else:
-        setting_default = repr(setting_default)
-    settings_docs.extend(["", settings_name, "-" * len(settings_name)])
-    settings_docs.extend(["", setting["description"]])
-    settings_docs.extend(["", "Default: ``%s``" % setting_default])
-with open(os.path.join(docs_path, "settings.rst"), "w") as f:
-    f.write("\n".join(settings_docs))
-
-
-# Generate the CHANGELOG file.
-repo = None
-try:
-    from mercurial import ui, hg, error
-except ImportError:
-    pass
-else:
-    try:
-        repo = hg.repository(ui.ui(), mezzanine_path)
-    except error.RepoError:
-        pass
-if repo is not None:
-
-    from datetime import datetime
-    from django.utils.datastructures import SortedDict
-
-    version_file = "mezzanine/__init__.py"
-    version_var = "__version__"
-    changelog_filename = "CHANGELOG"
-    changelog_file = os.path.join(mezzanine_path, changelog_filename)
-    versions = SortedDict()
-
-    for changeset in reversed(list(repo.changelog)):
-        # Check if the file with the version number is in this changeset and if
-        # it is, pull it out and assign it as a variable.
-        context = repo.changectx(changeset)
-        files = context.files()
-        new_version = False
-        if version_file in files:
-            for line in context[version_file].data().split("\n"):
-                if line.startswith(version_var):
-                    exec line
-                    version_info = {"changes": [], "date":
-                        datetime.fromtimestamp(context.date()[0])
-                                                        .strftime("%b %d, %Y")}
-                    versions[globals()[version_var]] = version_info
-                    new_version = len(files) == 1
-        # Ignore changesets that are merges, bumped the version, closed a branch
-        # or regenerated the changelog itself.
-        merge = len(context.parents()) > 1
-        branch_closed = len(files) == 0
-        changelog_update = changelog_filename in files and len(files) == 1
-        if merge or new_version or branch_closed or changelog_update:
-            continue
-        # Ensure we have a current version and if so, add this changeset's
-        # description to it.
-        try:
-            version = globals()[version_var]
-        except KeyError:
-            continue
-        else:
-            description = context.description().rstrip(".").replace("\n", "")
-            user = context.user().split("<")[0].strip()
-            entry = "%s - %s" % (description, user)
-            if entry not in versions[version]["changes"]:
-                versions[version]["changes"].insert(0, entry)
-
-    # Write out the changelog.
-    with open(changelog_file, "w") as f:
-        for version, version_info in versions.items():
-            version_header = "Version %s (%s)" % (version, version_info["date"])
-            f.write("%s\n" % version_header)
-            f.write("%s\n" % ("-" * len(version_header)))
-            f.write("\n")
-            if version_info["changes"]:
-                for change in version_info["changes"]:
-                    f.write("  * %s\n" % change)
-            else:
-                f.write("  * No changes listed.\n")
-            f.write("\n")
+build_settings_docs(docs_path)
+build_changelog(docs_path)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

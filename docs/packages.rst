@@ -275,6 +275,9 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.utils.html
    :members:
 
+.. automodule:: mezzanine.utils.docs
+   :members:
+
 .. automodule:: mezzanine.utils.importing
    :members:
 
