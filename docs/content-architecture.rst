@@ -50,7 +50,7 @@ inherits from ``mezzanine.pages.admin.PageAdmin``::
     from mezzanine.pages.admin import PageAdmin
     from models import Gallery, GalleryImage
     
-    gallery_extra_fieldsets = (None, {"fields": ("notes",)})
+    gallery_extra_fieldsets = ((None, {"fields": ("notes",)}),)
 
     class GalleryImageInline(admin.TabularInline):
         model = GalleryImage
