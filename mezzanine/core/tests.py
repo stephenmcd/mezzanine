@@ -49,9 +49,9 @@ class Tests(TestCase):
 
     def test_overridden_page(self):
         """
-        Test that a page with a slug matching a non-page urlpattern return
-        ``True`` for its overridden property. The blog page from the fixtures
-        should satisfy this case.
+        Test that a page with a slug matching a non-page urlpattern 
+        return ``True`` for its overridden property. The blog page from 
+        the fixtures should satisfy this case.
         """
         blog_page, created = ContentPage.objects.get_or_create(
                                                 slug=settings.BLOG_SLUG)
@@ -68,8 +68,8 @@ class Tests(TestCase):
 
     def test_device_specific_template(self):
         """
-        Test that an alternate template is rendered when a mobile device is
-        used.
+        Test that an alternate template is rendered when a mobile 
+        device is used.
         """
         try:
             get_template("mobile/index.html")
@@ -94,7 +94,8 @@ class Tests(TestCase):
 
     def queries_used_for_template(self, template, **context):
         """
-        Return the number of queries used when rendering a template string.
+        Return the number of queries used when rendering a template 
+        string.
         """
         settings.DEBUG = True
         connection.queries = []
@@ -120,8 +121,8 @@ class Tests(TestCase):
 
     def test_comments(self):
         """
-        Test that rendering the blog comments executes the same number of
-        queries regardless of the number of nested replies.
+        Test that rendering the blog comments executes the same number 
+        of queries regardless of the number of nested replies.
         """
         blog_post = BlogPost.objects.create(title="Post", user=self._user)
         template = "{% load blog_tags %}{% blog_comments_for blog_post %}"
@@ -133,10 +134,12 @@ class Tests(TestCase):
 
     def test_page_menu(self):
         """
-        Test that rendering a page menu executes the same number of queries
-        regardless of the number of pages or levels of children.
+        Test that rendering a page menu executes the same number of 
+        queries regardless of the number of pages or levels of 
+        children.
         """
-        template = '{% load pages_tags %}{% page_menu "pages/menus/tree.html" %}'
+        template = ('{% load pages_tags %}' 
+                    '{% page_menu "pages/menus/tree.html" %}') 
         before = self.queries_used_for_template(template)
         self.create_recursive_objects(ContentPage, "parent", title="Page",
                                       status=CONTENT_STATUS_PUBLISHED)
@@ -174,8 +177,8 @@ class Tests(TestCase):
 
     def test_forms(self):
         """
-        Simple 200 status check against rendering and posting to forms with
-        both optional and required fields.
+        Simple 200 status check against rendering and posting to forms 
+        with both optional and required fields.
         """
         for required in (True, False):
             form = Form.objects.create(title="Form",
@@ -192,10 +195,10 @@ class Tests(TestCase):
 
     def test_settings(self):
         """
-        Test that an editable setting can be overridden with a DB value and
-        that the data type is preserved when the value is returned back out
-        of the DB. Also checks to ensure no unsupported types are defined
-        for editable settings.
+        Test that an editable setting can be overridden with a DB 
+        value and that the data type is preserved when the value is 
+        returned back out of the DB. Also checks to ensure no 
+        unsupported types are defined for editable settings.
         """
         # Find an editable setting for each supported type.
         names_by_type = {}
@@ -213,8 +216,8 @@ class Tests(TestCase):
             elif setting_type in (str, unicode):
                 setting_value += "test"
             else:
-                self.fail("Unsupported setting type for %s: %s" %
-                                                (setting_name, setting_type))
+                setting = "%s: %s" % (setting_name, setting_type)
+                self.fail("Unsupported setting type for %s" % setting)
             values_by_name[setting_name] = setting_value
             Setting.objects.create(name=setting_name, value=str(setting_value))
         # Load the settings and make sure the DB values have persisted.
@@ -241,5 +244,5 @@ class Tests(TestCase):
         try:
             import_dotted_path("mezzanine.core")
         except ImportError:
-                self.fail("mezzanine.utils.imports.import_dotted_path"
-                          "could not import \"mezzanine.core\"")
+            self.fail("mezzanine.utils.imports.import_dotted_path"
+                      "could not import \"mezzanine.core\"")
