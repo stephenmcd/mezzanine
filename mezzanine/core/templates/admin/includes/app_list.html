@@ -3,7 +3,7 @@
 {% if app_list %}
 <div class="group-collapsible">
    {% for app in dashboard_app_list %}
-   <div class="module" id="app_{{ app.name|lower }}" style="margin:10px 0;">
+   <div class="module" id="app_{{ app.name|lower }}">
        <table>
            <caption>{% trans app.name %}</caption>
            {% for model in app.models %}
