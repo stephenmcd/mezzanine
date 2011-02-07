@@ -2,15 +2,12 @@
 
 {% editable_loader %}
 
+{% if settings.GOOGLE_ANALYTICS_ID %}
 <script> 
 
-var _gaq = [['_setAccount', '{{ settings.GOOGLE_ANALYTICS_ID }}']];
+var _gaq = _gaq || [['_trackPageview']];
+_gaq.unshift(['_setAccount', '{{ settings.GOOGLE_ANALYTICS_ID }}']);
 
-{% block google_analytics %}
-_gaq.push(['_trackPageview']);
-{% endblock %}
-
-{% if settings.GOOGLE_ANALYTICS_ID %}
 (function(d, t) {
     var g = d.createElement(t),
         s = d.getElementsByTagName(t)[0];
@@ -18,8 +15,6 @@ _gaq.push(['_trackPageview']);
     g.src = '//www.google-analytics.com/ga.js';
     s.parentNode.insertBefore(g, s);
 })(document, 'script');
-{% endif %}
 
 </script>
-
-
+{% endif %}
