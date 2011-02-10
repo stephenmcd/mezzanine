@@ -60,6 +60,13 @@ $(function() {
         var button = this;
         if (!keywordsSaved) {
             var keywords = {text_keywords: form.text_keywords.value};
+            if (window.__csrf_token) {
+                $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        xhr.setRequestHeader("X-CSRFToken", window.__csrf_token);
+                    }
+                });
+            }
             $.post(window.__admin_keywords_submit_url, keywords, function(ids) {
                 $('#id_keywords').html('');
                 if (ids.length > 0) {
@@ -70,6 +77,7 @@ $(function() {
                 keywordsSaved = true;
                 button.click();
             });
+            }
         }
         return keywordsSaved;
     });

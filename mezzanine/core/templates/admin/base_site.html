@@ -38,6 +38,7 @@ if (typeof $ == 'undefined') {
 }
 
 window.__admin_keywords_submit_url = '{% try_url "admin_keywords_submit" %}';
+window.__csrf_token = '{{ csrf_token }}';
 
 </script>
 
