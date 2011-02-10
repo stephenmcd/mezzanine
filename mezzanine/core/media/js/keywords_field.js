@@ -78,8 +78,6 @@ $(function() {
                 button.click();
             });
         }
-    }
-    return keywordsSaved;
+        return keywordsSaved;
     });
-
 });
