@@ -77,9 +77,9 @@ $(function() {
                 keywordsSaved = true;
                 button.click();
             });
-            }
         }
-        return keywordsSaved;
+    }
+    return keywordsSaved;
     });
 
 });
