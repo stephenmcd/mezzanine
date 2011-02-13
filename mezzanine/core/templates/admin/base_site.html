@@ -37,8 +37,13 @@ if (typeof $ == 'undefined') {
         'ipt>');
 }
 
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+    }
+});
+
 window.__admin_keywords_submit_url = '{% try_url "admin_keywords_submit" %}';
-window.__csrf_token = '{{ csrf_token }}';
 
 </script>
 
