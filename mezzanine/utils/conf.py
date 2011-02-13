@@ -26,10 +26,11 @@ def set_dynamic_settings(s):
     s["TESTING"] = management_command.startswith("test")
     # Some kind of development server is running via runserver or runserver_plus
     s["DEV_SERVER"] = management_command.startswith("runserver")
+    # Change INSTALLED_APPS to a list for easier manipulation.
+    s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
 
     # Setup for optional apps.
     if not s["TESTING"]:
-        s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
         for app in s.get("OPTIONAL_APPS", []):
             if app not in s["INSTALLED_APPS"]:
                 try:
@@ -49,13 +50,13 @@ def set_dynamic_settings(s):
         fb_path = path_for_import(s["PACKAGE_NAME_FILEBROWSER"])
         fb_media_path = os.path.join(fb_path, "media", "filebrowser")
         s["FILEBROWSER_PATH_FILEBROWSER_MEDIA"] = fb_media_path
-    if s.get("PACKAGE_NAME_GRAPPELLI") in s["INSTALLED_APPS"]:
-        # Ensure grappelli is before django.contrib.admin in app order 
-        # for correct template loading order.
-        s["INSTALLED_APPS"].remove(s["PACKAGE_NAME_GRAPPELLI"])
-        s["INSTALLED_APPS"].remove("django.contrib.admin")
-        s["INSTALLED_APPS"].extend([s["PACKAGE_NAME_GRAPPELLI"], 
-                                    "django.contrib.admin"])
+    grappelli_name = s.get("PACKAGE_NAME_GRAPPELLI")
+    s["GRAPPELLI_INSTALLED"] = grappelli_name in s["INSTALLED_APPS"]
+    if s["GRAPPELLI_INSTALLED"]:
+        # Ensure Grappelli is after Mezzanine in app order so that 
+        # admin templates are loaded in the correct order.
+        s["INSTALLED_APPS"].remove(grappelli_name)
+        s["INSTALLED_APPS"].append(grappelli_name)
         s["GRAPPELLI_ADMIN_HEADLINE"] = "Mezzanine"
         s["GRAPPELLI_ADMIN_TITLE"] = "Mezzanine"
         grappelli_path = path_for_import(s["PACKAGE_NAME_GRAPPELLI"])
@@ -78,8 +79,15 @@ def set_dynamic_settings(s):
                     addr, port = "", addrport
             if not addr:
                 addr = "127.0.0.1"
-            s["ADMIN_MEDIA_PREFIX"] = "http://%s:%s%s" % (addr, port, 
-                                                  s["ADMIN_MEDIA_PREFIX"])
+            parts = (addr, port, s["ADMIN_MEDIA_PREFIX"])
+            s["ADMIN_MEDIA_PREFIX"] = "http://%s:%s%s" % parts
+    # Ensure admin is last in the app order so that admin templates 
+    # are loaded in the correct order.
+    if "django.contrib.admin" in s["INSTALLED_APPS"]:
+        s["INSTALLED_APPS"].remove("django.contrib.admin")
+        s["INSTALLED_APPS"].append("django.contrib.admin")
+    # Change INSTALLED_APPS back to a tuple.
+    s["INSTALLED_APPS"] = tuple(s["INSTALLED_APPS"])
 
     # Caching.
     if not (s.get("CACHE_BACKEND") or s.get("CACHES")):

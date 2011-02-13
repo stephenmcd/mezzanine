@@ -30,8 +30,8 @@ var anyFieldsDirty = function(fields) {
 
 $(function() {
 
-    var grappelli = $('.admin-title').length == 1;
-    var parentSelector = '.dynamic-inline ' + (grappelli ? '.items' : 'tbody');
+    var parentSelector = '.dynamic-inline ' + (window.__grappelli_installed ? 
+                                               '.items' : 'tbody');
 
     // Apply drag and drop to orderable inlines.
     $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7'});
@@ -67,7 +67,7 @@ $(function() {
     $(parentSelector + ' > *:not(.has_original)').hide();
     // Re-show inlines with errors, poetentially hidden by previous line.
     var errors = $(parentSelector + ' ul[class=errorlist]').parent().parent();
-    if (grappelli) {
+    if (window.__grappelli_installed) {
         errors = errors.parent();
     }
     errors.show();
@@ -87,7 +87,7 @@ $(function() {
     // Show the first hidden inline - grappelli's inline header is actually
     // part of the selector so for it we run this twice.
     addAnother.click();
-    if (grappelli) {
+    if (window.__grappelli_installed) {
         addAnother.click();
     }
 

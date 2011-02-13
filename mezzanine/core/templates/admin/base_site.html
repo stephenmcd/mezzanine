@@ -44,6 +44,7 @@ $.ajaxSetup({
 });
 
 window.__admin_keywords_submit_url = '{% try_url "admin_keywords_submit" %}';
+window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 
 </script>
 
@@ -128,8 +129,6 @@ var onMenu;
 
 $(function() {
 
-    var grappelli = $('.admin-title').length == 1;
-
     // Empty out the breadcrumbs div and position the menu over it.
     var breadcrumb = $('.breadcrumbs');
     $('.breadcrumbs').html(' ').show();
@@ -137,9 +136,13 @@ $(function() {
     // The top value here previously used breadcrumb.offset().top but breaks 
     // when scrolling and reloading in Firefox, so to resolve this it's 
     // hard-coded for now. Reported in github issue #11 
-    $('.dropdown-menu').css({
-        top: grappelli ? 30 : 37, position: grappelli ? 'fixed' : 'absolute'
-    }).show();
+    var menuCss;
+    if (window.__grappelli_installed) {
+        menuCss = {top: 30, position: 'fixed'};
+    } else {
+        menuCss = {top: 37, position: 'absolute'};
+    }
+    $('.dropdown-menu').css(menuCss).show();
 
     $('.dropdown-menu a').mouseover(function() {
         var parent = $(this).parent();
