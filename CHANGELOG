@@ -1,3 +1,10 @@
+Version 0.10.6 (Feb 14, 2011)
+-----------------------------
+
+  * blog strings from html templates - Dominique Guardiola
+  * Added Dominique Guardiola Falco to AUTHORS - stephenmcd
+  * Apply the CSRF token to all AJAX posts in the admin - stephenmcd
+
 Version 0.10.5 (Feb 11, 2011)
 -----------------------------
 
