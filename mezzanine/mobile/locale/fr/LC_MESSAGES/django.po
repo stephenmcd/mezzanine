@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 0.10.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-14 16:16+0100\n"
+"PO-Revision-Date: 2011-02-14 16:21+0100\n"
+"Last-Translator: Dominique Guardiola <dguardiola@quinode.fr>\n"
+"Language-Team: Dominique Guardiola <dguardiola@quinode.fr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+
+#: templates/mobile/404.html:6
+msgid "Page not found"
+msgstr "Page non trouvée"
+
+#: templates/mobile/404.html:10
+msgid "The page you requested does not exist."
+msgstr "La page demandée n'existe pas"
+
+#: templates/mobile/500.html:6
+msgid "Error"
+msgstr "Erreur"
+
+#: templates/mobile/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "Désolé, une erreur est survenue."
+
+#: templates/mobile/base.html:33
+#: templates/mobile/index.html:6
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/mobile/base.html:45
+msgid "Powered by"
+msgstr "Propulsé par"
+
+#: templates/mobile/base.html:46
+msgid "View Full Site"
+msgstr "Version normale"
+
+#: templates/mobile/index.html:10
+msgid "This is the mobile homepage."
+msgstr "Ceci est la page d'accueil pour la version mobile."
+
+#: templates/mobile/search_results.html:5
+#: templates/mobile/search_results.html:6
+msgid "Search Results"
+msgstr "Résultats de recherche"
+
+#: templates/mobile/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr "Aucun résultats ne correspond à votre requête:"
+
+#: templates/mobile/search_results.html:14
+msgid "Showing"
+msgstr "Voici"
+
+#: templates/mobile/search_results.html:14
+msgid "to"
+msgstr "à"
+
+#: templates/mobile/search_results.html:14
+msgid "of"
+msgstr "sur"
+
+#: templates/mobile/search_results.html:15
+msgid "results matching your query:"
+msgstr "résultats correspondant à votre requête:"
+
+#: templates/mobile/search_results.html:23
+msgid "read more"
+msgstr "lire la suite"
+
+#: templates/mobile/blog/blog_post_detail.html:25
+msgid "Posted by"
+msgstr "Posté par"
+
+#: templates/mobile/blog/blog_post_detail.html:32
+#: templates/mobile/blog/blog_post_list.html:27
+#: templates/mobile/blog/includes/comments_thread.html:19
+msgid "ago"
+msgstr "il y a"
+
+#: templates/mobile/blog/blog_post_detail.html:43
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/mobile/blog/blog_post_detail.html:56
+msgid "Share this on:"
+msgstr "Partager sur:"
+
+#: templates/mobile/blog/blog_post_detail.html:58
+msgid "or"
+msgstr "ou"
+
+#: templates/mobile/blog/includes/comments.html:4
+msgid "Comments"
+msgstr "Commentaires"
+
+#: templates/mobile/blog/includes/comments.html:15
+msgid "Comment"
+msgstr "Commentaire"
+
+#: templates/mobile/blog/includes/comments_thread.html:23
+#: templates/mobile/blog/includes/comments_thread.html:35
+msgid "Reply"
+msgstr "Répondre"
+
+#: templates/mobile/blog/includes/comments_thread.html:43
+msgid "Comment deleted"
+msgstr "Commentaire effacé"
+
+#: templates/mobile/blog/includes/comments_thread.html:45
+msgid "Comment awaiting approval"
+msgstr "Commentaire en attente d'approbation"
+
+#: templates/mobile/blog/includes/comments_thread.html:53
+msgid "There are currently no comments"
+msgstr "Pas de commentaires actuellement."
+
+#: templates/mobile/includes/pagination.html:6
+msgid "Previous"
+msgstr "Précédent"
+
+#: templates/mobile/includes/pagination.html:9
+msgid "Next"
+msgstr "Suivant"
+
+#: templates/mobile/includes/search.html:4
+msgid "Search"
+msgstr "Recherche"
+
+#: templates/mobile/includes/search.html:5
+msgid "Use "
+msgstr "Utilisez"
+
+#: templates/mobile/includes/search.html:5
+msgid "quotes"
+msgstr "guillemets"
+
+#: templates/mobile/includes/search.html:5
+msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
+msgstr "pour une phrase exacte, + pour rendre un mot ou une phrase obligatoire, et - pour exclure un mot ou une phrase."
+

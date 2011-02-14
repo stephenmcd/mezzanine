@@ -1,0 +1,253 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 0.10.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-14 15:35+0100\n"
+"PO-Revision-Date: 2011-02-14 15:46+0100\n"
+"Last-Translator: Dominique Guardiola <dguardiola@quinode.fr>\n"
+"Language-Team: Dominique Guardiola <dguardiola@quinode.fr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+
+#: admin.py:40
+msgid "Meta data"
+msgstr "Balises Meta"
+
+#: fields.py:22
+#, python-format
+msgid "Could not import the value of settings.HTML_WIDGET_CLASS: %s"
+msgstr "Impossible d'importer la valeur de settings.HTML_WIDGET_CLASS: %s"
+
+#: forms.py:57
+#: models.py:195
+msgid "Order"
+msgstr "Commande"
+
+#: models.py:20
+msgid "Title"
+msgstr "Titre"
+
+#: models.py:21
+msgid "URL"
+msgstr "URL"
+
+#: models.py:65
+msgid "Draft"
+msgstr "Brouillon"
+
+#: models.py:66
+msgid "Published"
+msgstr "Publié"
+
+#: models.py:76
+msgid "Status"
+msgstr "Statut"
+
+#: models.py:78
+msgid "Published from"
+msgstr "Publié à partir du"
+
+#: models.py:79
+msgid "With published selected, won't be shown until this time"
+msgstr "Avec \"publié\" sélectionné, ne sera pas affiché avant cette date"
+
+#: models.py:81
+msgid "Expires on"
+msgstr "Expirera le"
+
+#: models.py:82
+msgid "With published selected, won't be shown after this time"
+msgstr "Avec \"publié\" sélectionné, ne sera pas affiché après cette date"
+
+#: models.py:84
+msgid "Description"
+msgstr "Description"
+
+#: models.py:85
+#: models.py:261
+msgid "Keywords"
+msgstr "Mots-clés"
+
+#: models.py:146
+msgid "View on site"
+msgstr "Voir sur le site"
+
+#: models.py:156
+msgid "Content"
+msgstr "Contenu"
+
+#: models.py:238
+msgid "Author"
+msgstr "Auteur"
+
+#: models.py:260
+msgid "Keyword"
+msgstr "Mot-clé"
+
+#: views.py:68
+msgid "Permission denied"
+msgstr "Permission refusée"
+
+#: templates/404.html:6
+msgid "Page not found"
+msgstr "Page non trouvée"
+
+#: templates/404.html:10
+msgid "The page you requested does not exist."
+msgstr "La page demandée n'existe pas."
+
+#: templates/500.html:6
+msgid "Error"
+msgstr "Erreur"
+
+#: templates/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "Une erreur est survenue, nous en sommes désolé."
+
+#: templates/base.html:51
+msgid "Powered by"
+msgstr "Propulsé par"
+
+#: templates/base.html:54
+msgid "View Mobile Site."
+msgstr "Version mobile du site."
+
+#: templates/index.html:6
+#: templates/admin/index.html:39
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/index.html:10
+msgid "This is the homepage."
+msgstr "Ceci est la page d'accueil."
+
+#: templates/search_results.html:5
+#: templates/search_results.html.py:6
+msgid "Search Results"
+msgstr "Résultats de recherche"
+
+#: templates/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr "Aucun résultat ne correspond à votre requête."
+
+#: templates/search_results.html:14
+msgid "Showing"
+msgstr "Voici"
+
+#: templates/search_results.html:14
+msgid "to"
+msgstr "à"
+
+#: templates/search_results.html:14
+#: templates/includes/pagination.html:4
+msgid "of"
+msgstr "sur"
+
+#: templates/search_results.html:15
+msgid "results matching your query:"
+msgstr "résultats correspondant à votre requête"
+
+#: templates/search_results.html:23
+msgid "read more"
+msgstr "lire la suite"
+
+#: templates/admin/base_site.html:215
+msgid "Forgot password?"
+msgstr "Mot de passe oublié?"
+
+#: templates/admin/base_site.html:219
+msgid "Interface:"
+msgstr "Interface:"
+
+#: templates/admin/base_site.html:223
+#: templates/includes/editable_toolbar.html:8
+#: templates/includes/editable_toolbar.html:10
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/admin/base_site.html:227
+msgid "Site"
+msgstr "Site"
+
+#: templates/admin/index.html:41
+#: templates/admin/includes/dropdown_menu.html:3
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "Ajouter"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "Modifier"
+
+#: templates/admin/includes/dynamic_inline.html:6
+msgid "Add another"
+msgstr "Ajouter un autre"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "Actions récentes"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "Mes actions"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "Aucun disponible"
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "Enregistrer"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "Editer"
+
+#: templates/includes/editable_loader.html:108
+msgid "An error occurred"
+msgstr "Une erreur est survenue"
+
+#: templates/includes/editable_toolbar.html:12
+msgid "Log out"
+msgstr "Déconnexion"
+
+#: templates/includes/pagination.html:4
+msgid "Page"
+msgstr "Page"
+
+#: templates/includes/search.html:3
+msgid "Search"
+msgstr "Recherche"
+
+#: templates/includes/search.html:6
+msgid "Go"
+msgstr "Ok"
+
+#: templates/includes/search.html:9
+msgid "Use "
+msgstr "Utilisez"
+
+#: templates/includes/search.html:9
+msgid "quotes"
+msgstr "guillemets"
+
+#: templates/includes/search.html:9
+msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
+msgstr "pour une phrase exacte, + pour rendre un mot ou une phrase obligatoire, et - pour exclure un mot ou une phrase."
+

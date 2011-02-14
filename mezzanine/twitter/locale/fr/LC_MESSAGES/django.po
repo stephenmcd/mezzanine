@@ -1,0 +1,100 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-14 16:22+0100\n"
+"PO-Revision-Date: 2011-02-14 16:25+0100\n"
+"Last-Translator: Dominique Guardiola <dguardiola@quinode.fr>\n"
+"Language-Team: Dominique Guardiola <dguardiola@quinode.fr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+
+#: models.py:24
+msgid "User"
+msgstr "Utilisateur"
+
+#: models.py:25
+msgid "List"
+msgstr "Liste"
+
+#: models.py:26
+msgid "Search"
+msgstr "Recherche"
+
+#: models.py:29
+msgid "Type"
+msgstr "Type"
+
+#: models.py:31
+msgid "Value"
+msgstr "Valeur"
+
+#: models.py:35
+msgid "Twitter query"
+msgstr "Requête Twitter"
+
+#: models.py:36
+msgid "Twitter queries"
+msgstr "Requêtes Twitter"
+
+#: models.py:96
+msgid "Twitter ID"
+msgstr "Twitter ID"
+
+#: models.py:97
+msgid "Date/time"
+msgstr "Date/heure"
+
+#: models.py:98
+msgid "Message"
+msgstr "Message"
+
+#: models.py:99
+msgid "Profile image URL"
+msgstr "URL de l'avatar"
+
+#: models.py:100
+msgid "User name"
+msgstr "Nom d'utilisateur"
+
+#: models.py:101
+msgid "Full name"
+msgstr "Nom complet"
+
+#: models.py:103
+msgid "Profile image URL (Retweeted by)"
+msgstr "URL de l'avatar (Retweeté par)"
+
+#: models.py:105
+msgid "User name (Retweeted by)"
+msgstr "Nom d'utilisateur (Retweeté par)"
+
+#: models.py:107
+msgid "Full name (Retweeted by)"
+msgstr "Nom complet (Retweeté par)"
+
+#: models.py:113
+msgid "Tweet"
+msgstr "Tweet"
+
+#: models.py:114
+msgid "Tweets"
+msgstr "Tweets"
+
+#: templates/twitter/tweets.html:7
+msgid "Recent Tweets"
+msgstr "Tweets récents"
+
+#: templates/twitter/tweets.html:27
+msgid "ago"
+msgstr "il y a "
+
