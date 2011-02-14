@@ -3,8 +3,28 @@
 # MEZZANINE SETTINGS #
 ######################
 
+# The following Mezzanine settings are already defined in 
+# mezzanine.conf.defaults, but can be uncommented below in 
+# order to override their defaults.
+
 # Name of the current theme to host during theme development.
-THEME = ""
+# THEME = ""
+
+# Controls the ordering and grouping of the admin menu. 
+# ADMIN_MENU_ORDER = (
+#     (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",
+#         (_("Media Library"), "fb_browse"),)),
+#     (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting")),
+#     (_("Users"), ("auth.User", "auth.Group",)),
+# )
+
+# A three item sequence, each containing a sequence of template tags 
+# used to render the admin dashboard.
+# DASHBOARD_TAGS = (
+#     ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
+#     ("blog_tags.recent_comments",),
+#     ("mezzanine_tags.recent_actions",),
+# )
 
 
 ########################
