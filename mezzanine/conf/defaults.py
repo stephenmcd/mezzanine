@@ -1,6 +1,7 @@
 
 import os.path
 
+from django.conf import settings
 from django.utils.translation import ugettext as _
 
 from mezzanine.conf import register_setting
@@ -113,16 +114,25 @@ register_setting(
     default="/content_media/",
 )
 
+if "mezzanine.blog" in settings.INSTALLED_APPS:
+    dashboard_tags = (
+        ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
+        ("blog_tags.recent_comments",),
+        ("mezzanine_tags.recent_actions",),
+    )
+else:
+    dashboard_tags = (
+        ("mezzanine_tags.app_list",),
+        ("mezzanine_tags.recent_actions",),
+        (),
+    )
+
 register_setting(
     name="DASHBOARD_TAGS",
     description=_("A three item sequence, each containing a sequence of "
         "template tags used to render the admin dashboard."),
     editable=False,
-    default=(
-        ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
-        ("blog_tags.recent_comments",),
-        ("mezzanine_tags.recent_actions",),
-    ),
+    default=dashboard_tags,
 )
 
 register_setting(
