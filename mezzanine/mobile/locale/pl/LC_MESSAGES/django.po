@@ -1,0 +1,155 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-14 20:38+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: templates/mobile/404.html:6
+msgid "Page not found"
+msgstr "Nie odnaleziono strony"
+
+#: templates/mobile/404.html:10
+msgid "The page you requested does not exist."
+msgstr "Strona którą próbowałeś wywołać nie istnieje"
+
+#: templates/mobile/500.html:6
+msgid "Error"
+msgstr "Błąd"
+
+#: templates/mobile/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "Przepraszamy, wystąpił błąd."
+
+#: templates/mobile/base.html:33 templates/mobile/index.html:6
+msgid "Home"
+msgstr "Strona główna"
+
+#: templates/mobile/base.html:45
+msgid "Powered by"
+msgstr "Wspierane przez"
+
+#: templates/mobile/base.html:46
+msgid "View Full Site"
+msgstr "Zobacz pełną stronę"
+
+#: templates/mobile/index.html:10
+msgid "This is the mobile homepage."
+msgstr "To jest wersja mobilna strony głównej."
+
+#: templates/mobile/search_results.html:5
+#: templates/mobile/search_results.html:6
+msgid "Search Results"
+msgstr "Wyniki wyszukiwania"
+
+#: templates/mobile/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr "Nie odnaleziono wyników pasujących do Twojego zapytania:"
+
+#: templates/mobile/search_results.html:14
+msgid "Showing"
+msgstr "Wyświetlono"
+
+#: templates/mobile/search_results.html:14
+msgid "to"
+msgstr "do"
+
+#: templates/mobile/search_results.html:14
+msgid "of"
+msgstr "z"
+
+#: templates/mobile/search_results.html:15
+msgid "results matching your query:"
+msgstr "wyników pasujących do Twojego zapytania:"
+
+#: templates/mobile/search_results.html:23
+msgid "read more"
+msgstr "czytaj więcej"
+
+#: templates/mobile/blog/blog_post_detail.html:25
+msgid "Posted by"
+msgstr "Wysłane przez"
+
+#: templates/mobile/blog/blog_post_detail.html:32
+#: templates/mobile/blog/blog_post_list.html:27
+#: templates/mobile/blog/includes/comments_thread.html:19
+msgid "ago"
+msgstr "temu"
+
+#: templates/mobile/blog/blog_post_detail.html:43
+msgid "Tags"
+msgstr "Tagi"
+
+#: templates/mobile/blog/blog_post_detail.html:56
+msgid "Share this on:"
+msgstr "Podziel się przez:"
+
+#: templates/mobile/blog/blog_post_detail.html:58
+msgid "or"
+msgstr "lub"
+
+#: templates/mobile/blog/includes/comments.html:4
+msgid "Comments"
+msgstr "Komentarzy"
+
+#: templates/mobile/blog/includes/comments.html:15
+msgid "Comment"
+msgstr "Komentarz"
+
+#: templates/mobile/blog/includes/comments_thread.html:23
+#: templates/mobile/blog/includes/comments_thread.html:35
+msgid "Reply"
+msgstr "Odpowiedz"
+
+#: templates/mobile/blog/includes/comments_thread.html:43
+msgid "Comment deleted"
+msgstr "Komentarz usunięty"
+
+#: templates/mobile/blog/includes/comments_thread.html:45
+msgid "Comment awaiting approval"
+msgstr "Komentarz oczekujący na moderację"
+
+#: templates/mobile/blog/includes/comments_thread.html:53
+msgid "There are currently no comments"
+msgstr "Brak komentarzy"
+
+#: templates/mobile/includes/pagination.html:6
+msgid "Previous"
+msgstr "Poprzednia"
+
+#: templates/mobile/includes/pagination.html:9
+msgid "Next"
+msgstr "Następna"
+
+#: templates/mobile/includes/search.html:4
+msgid "Search"
+msgstr "Wyszukaj"
+
+#: templates/mobile/includes/search.html:5
+msgid "Use "
+msgstr "Użyj "
+
+#: templates/mobile/includes/search.html:5
+msgid "quotes"
+msgstr "cudzysłowów"
+
+#: templates/mobile/includes/search.html:5
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr ""
+" dla dokładnych fraz, + aby słowo lub fraza były wymagane, oraz - aby wykluczyć"
+" słowo lub frazę."

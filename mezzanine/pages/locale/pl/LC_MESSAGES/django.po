@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-02 10:59+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:19
+msgid "Show in navigation"
+msgstr "Pokaż w nawigacji"
+
+#: models.py:20
+msgid "Show in footer"
+msgstr "Pokaż w stopce"
+
+#: models.py:23
+msgid "Login required"
+msgstr "Wymagane zalogowanie"
+
+#: models.py:24
+msgid "If checked, only logged in users can view this page"
+msgstr "Jeżeli zaznaczone, tylko zalogowani użytkownicy mogą oglądać tą stronę"
+
+#: models.py:27
+msgid "Page"
+msgstr "Podstrona"
+
+#: models.py:28
+msgid "Pages"
+msgstr "Podstrony"
+
+#: models.py:85
+msgid "Content page"
+msgstr "Strona z treścią"
+
+#: models.py:86
+msgid "Content pages"
+msgstr "Strony z treścią"
+
+#: templates/admin/includes/tree_menu.html:18
+msgid "Add secondary"
+msgstr "Dodaj podstronę"
+
+#: templates/admin/pages/page/change_list.html:132
+msgid "Add primary"
+msgstr "Dodaj stronę"
+
+#: templates/pages/includes/breadcrumb_menu.html:10
+#: templates/pages/includes/primary_menu.html:9
+#: templates/pages/includes/tree_menu.html:13
+#: templates/pages/includes/tree_menu_footer.html:13
+msgid "Home"
+msgstr "Strona główna"
