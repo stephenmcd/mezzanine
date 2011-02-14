@@ -69,6 +69,9 @@ with the following libraries.
   * `django-grappelli`_ <= 2.0
   * `django-filebrowser`_ <= 3.0
   
+Browser Support
+===============
+
 Mezzanine's admin interface works with all modern browsers. 
 Internet Explorer 7 and earlier are generally unsupported.
 
