@@ -29,7 +29,7 @@ class Slugged(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Create a unique slug from the title by appending an index.
+        Create a unique slug by appending an index.
         """
         if not self.slug:
             # For custom content types, use the ``Page`` instance for slug
@@ -56,6 +56,9 @@ class Slugged(models.Model):
         return (self.slug,)
 
     def get_slug(self):
+        """
+        Allows subclasses to implement their own slug creation logic.
+        """
         return slugify(self.title)
 
 

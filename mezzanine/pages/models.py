@@ -34,7 +34,7 @@ class Page(Orderable, Displayable):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("page", (), {"slug": self.get_slug()})
+        return ("page", (), {"slug": self.slug})
 
     def get_admin_url(self):
         return admin_url(self, "change", self.id)
