@@ -45,6 +45,8 @@ If a theme simply provides templates and other asset files, by running the
 ``install_theme`` command you shouldn't need to add the theme to your 
 ``INSTALLED_APPS`` setting as you normally would for a Django reusable app.
 
+.. _creating-themes:
+
 Creating Themes
 ===============
 
