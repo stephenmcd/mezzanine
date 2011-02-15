@@ -73,24 +73,27 @@ class FormAdmin(PageAdmin):
 
     def export_view(self, request, form_id):
         """
-        Output a CSV file to the browser containing the entries for the form.
+        Exports the form entries in either a HTML table or CSV file.
         """
         if request.POST.get("back"):
             change_url = admin_url(Form, "change", form_id)
             return HttpResponseRedirect(change_url)
         form = get_object_or_404(Form, id=form_id)
         export_form = ExportForm(form, request, request.POST or None)
-        if export_form.is_valid():
-            response = HttpResponse(mimetype="text/csv")
-            fname = "%s-%s.csv" % (form.slug, slugify(datetime.now().ctime()))
-            response["Content-Disposition"] = "attachment; filename=%s" % fname
-            csv = writer(response, delimiter=CSV_DELIMITER)
-            csv.writerow(export_form.columns())
-            for rows in export_form.rows():
-                csv.writerow(rows)
-            return response
+        submitted = export_form.is_valid()
+        if submitted:
+            if request.POST.get("export"):
+                response = HttpResponse(mimetype="text/csv")
+                fname = "%s-%s.csv" % (form.slug, slugify(datetime.now().ctime()))
+                response["Content-Disposition"] = "attachment; filename=%s" % fname
+                csv = writer(response, delimiter=settings.FORMS_CSV_DELIMITER)
+                csv.writerow(export_form.columns())
+                for rows in export_form.rows():
+                    csv.writerow(rows)
+                return response
         template = "admin/forms/export.html"
-        context = {"title": _("Export Entries"), "export_form": export_form}
+        context = {"title": _("Export Entries"), "export_form": export_form,
+                   "submitted": submitted}
         return render_to_response(template, context, RequestContext(request))
 
     def file_view(self, request, field_entry_id):

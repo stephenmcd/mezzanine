@@ -17,8 +17,10 @@
     #export-form label {cursor:pointer;}
     .on {background:#eee;}
     .off {background:#fff;}
-    .button {float:left !important; margin-right:10px;}    
-    
+    .button {float:left !important; margin-right:10px; cursor:pointer;}
+    #export-heading {margin:30px 0 10px 5px;}
+    #export-table td {padding:10px}    
+
 </style>
 <script type="text/javascript">
 
@@ -89,8 +91,28 @@
         <input type="submit" name="back" class="button" 
             value="{% trans "Back to form" %}" />
         <input type="submit" class="button default" 
-            value="{% trans "Export entries" %}" />    
+            value="{% trans "View entries" %}" />
+        <input type="submit" class="button default" 
+            name="export" value="{% trans "Export CSV" %}" />
     </form>
+    {% if submitted %}
+    <br clear="both" />
+    <h1 id="export-heading">{% trans "Entries" %}</h1>
+    <table id="export-table">
+        <tr>
+            {% for column in export_form.columns %}
+            <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in export_form.rows %}
+        <tr class="{% cycle on,off %}">
+            {% for field in row %}
+            <td>{{ field }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
 </div>
 {% endblock %}
 
