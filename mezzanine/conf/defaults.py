@@ -188,6 +188,14 @@ register_setting(
 )
 
 register_setting(
+    name="FORMS_CSV_DELIMITER",
+    description=_("Char to use as a field delimiter when exporting form "
+        "responses as CSV."),
+    editable=False,
+    default=",",
+)
+
+register_setting(
     name="FORMS_UPLOAD_ROOT",
     description=_("Absolute path for storing file uploads for the forms app."),
     editable=False,
