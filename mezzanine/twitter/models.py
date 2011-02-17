@@ -28,7 +28,7 @@ class Query(models.Model):
 
     type = models.CharField(_("Type"), choices=QUERY_TYPE_CHOICES,
         max_length=10)
-    value = models.CharField(_("Value"), max_length=50)
+    value = models.CharField(_("Value"), max_length=300)
     interested = models.BooleanField("Interested", default=True)
 
     class Meta:
