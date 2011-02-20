@@ -42,7 +42,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
             month = month_name[int(month)]
     if category is not None:
         category = get_object_or_404(BlogCategory, slug=category)
-        blog_posts = blog_posts.filter(category=category)
+        blog_posts = blog_posts.filter(categories=category)
     author = None
     if username is not None:
         author = get_object_or_404(User, username=username)

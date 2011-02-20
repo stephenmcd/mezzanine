@@ -9,10 +9,8 @@ from mezzanine.core.admin import DisplayableAdmin, OwnableAdmin
 
 
 blogpost_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
-blogpost_fieldsets[0][1]["fields"].insert(1, "category")
+blogpost_fieldsets[0][1]["fields"].insert(1, "categories")
 blogpost_fieldsets[0][1]["fields"].append("content")
-blogpost_radio_fields = deepcopy(DisplayableAdmin.radio_fields)
-blogpost_radio_fields["category"] = admin.HORIZONTAL
 
 
 class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
@@ -22,7 +20,7 @@ class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
 
     fieldsets = blogpost_fieldsets
     list_display = ("title", "user", "status", "admin_link")
-    radio_fields = blogpost_radio_fields
+    filter_horizontal = ("categories",)
 
     def save_form(self, request, form, change):
         """

@@ -16,8 +16,8 @@ class BlogPost(Displayable, Ownable, Content):
     A blog post.
     """
 
-    category = models.ForeignKey("BlogCategory", related_name="blogposts",
-                                 blank=True, null=True)
+    categories = models.ManyToManyField("BlogCategory", blank=True, 
+                                        related_name="blogposts")
 
     objects = BlogPostManager()
 
