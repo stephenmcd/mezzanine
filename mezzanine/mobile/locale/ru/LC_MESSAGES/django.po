@@ -1,7 +1,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Andrew Grigorev, 2011.
+# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
