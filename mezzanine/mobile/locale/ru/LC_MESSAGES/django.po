@@ -1,0 +1,157 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Andrew Grigorev, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-21 18:25+0500\n"
+"PO-Revision-Date: 2011-02-21 20:30+0500\n"
+"Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
+"Language-Team: Russian <>\n"
+"Language: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: templates/mobile/404.html:6
+msgid "Page not found"
+msgstr "Страница не найдена"
+
+#: templates/mobile/404.html:10
+msgid "The page you requested does not exist."
+msgstr "Запрошенная страница не существует."
+
+#: templates/mobile/500.html:6
+msgid "Error"
+msgstr "Ошибка"
+
+#: templates/mobile/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "Извините, возникла ошибка."
+
+#: templates/mobile/base.html:33 templates/mobile/index.html:6
+msgid "Home"
+msgstr "Начало"
+
+#: templates/mobile/base.html:45
+msgid "Powered by"
+msgstr "Основано на"
+
+#: templates/mobile/base.html:46
+msgid "View Full Site"
+msgstr "Полная версия"
+
+#: templates/mobile/index.html:10
+msgid "This is the mobile homepage."
+msgstr "Это мобильная домашняя страница."
+
+#: templates/mobile/search_results.html:5
+#: templates/mobile/search_results.html:6
+msgid "Search Results"
+msgstr "Результаты поиска"
+
+#: templates/mobile/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr "Не найдено результатов удовлетворяющих вашему запросу: "
+
+#: templates/mobile/search_results.html:14
+msgid "Showing"
+msgstr "Показаны результаты с"
+
+#: templates/mobile/search_results.html:14
+msgid "to"
+msgstr "по"
+
+#: templates/mobile/search_results.html:14
+msgid "of"
+msgstr "из"
+
+#: templates/mobile/search_results.html:15
+msgid "results matching your query:"
+msgstr "результатов удовлетворяющих вашему запросу:"
+
+#: templates/mobile/search_results.html:23
+msgid "read more"
+msgstr "читать далее"
+
+#: templates/mobile/blog/blog_post_detail.html:25
+msgid "Posted by"
+msgstr "Написал(а)"
+
+#: templates/mobile/blog/blog_post_detail.html:32
+#: templates/mobile/blog/blog_post_list.html:27
+#: templates/mobile/blog/includes/comments_thread.html:19
+msgid "ago"
+msgstr "назад"
+
+#: templates/mobile/blog/blog_post_detail.html:43
+msgid "Tags"
+msgstr "Теги"
+
+#: templates/mobile/blog/blog_post_detail.html:56
+msgid "Share this on:"
+msgstr "Поделиться этим на:"
+
+#: templates/mobile/blog/blog_post_detail.html:58
+msgid "or"
+msgstr "или"
+
+#: templates/mobile/blog/includes/comments.html:4
+msgid "Comments"
+msgstr "Комментарии"
+
+#: templates/mobile/blog/includes/comments.html:15
+msgid "Comment"
+msgstr "Комментарий"
+
+#: templates/mobile/blog/includes/comments_thread.html:23
+#: templates/mobile/blog/includes/comments_thread.html:35
+msgid "Reply"
+msgstr "Ответить"
+
+#: templates/mobile/blog/includes/comments_thread.html:43
+msgid "Comment deleted"
+msgstr "Комментарий удален"
+
+#: templates/mobile/blog/includes/comments_thread.html:45
+msgid "Comment awaiting approval"
+msgstr "Комментарий ожидает подтверждения"
+
+#: templates/mobile/blog/includes/comments_thread.html:53
+msgid "There are currently no comments"
+msgstr "Комментариев нет"
+
+#: templates/mobile/includes/pagination.html:6
+msgid "Previous"
+msgstr "Предыдущие"
+
+#: templates/mobile/includes/pagination.html:9
+msgid "Next"
+msgstr "Следующие"
+
+# placeholder
+#: templates/mobile/includes/search.html:4
+msgid "Search"
+msgstr "Найти"
+
+#: templates/mobile/includes/search.html:5
+msgid "Use "
+msgstr "Используйте "
+
+#: templates/mobile/includes/search.html:5
+msgid "quotes"
+msgstr "кавычки"
+
+#: templates/mobile/includes/search.html:5
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr ""
+" для точного совпадения, + чтобы сделать слово и фразу обязательным, и - "
+"чтобы исключить слово или фразу."
+
