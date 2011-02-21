@@ -1,95 +1,99 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Timur Bobrus, 2010
+# Andrew Grigorev <andrew@ei-grad.ru>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-24 21:55-0430\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2011-02-21 18:25+0500\n"
+"PO-Revision-Date: 2011-02-21 19:40+0500\n"
+"Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
+"Language-Team: Russian <>\n"
+"Language: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 1.2\n"
 
-#: admin.py:44
+#: admin.py:40
 msgid "Meta data"
-msgstr "Мета данные"
+msgstr "Метаданные"
 
-#: forms.py:38 models.py:192
+#: fields.py:22
+#, python-format
+msgid "Could not import the value of settings.HTML_WIDGET_CLASS: %s"
+msgstr "Не удалось импортировать значение settings.HTML_WIDGET_CLASS: %s"
+
+#: forms.py:57 models.py:198
 msgid "Order"
 msgstr "Порядок"
 
 #: models.py:20
 msgid "Title"
-msgstr "Название"
+msgstr "Заголовок"
 
 #: models.py:21
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
-#: models.py:65
+#: models.py:68
 msgid "Draft"
 msgstr "Черновик"
 
-#: models.py:66
+#: models.py:69
 msgid "Published"
 msgstr "Опубликовано"
 
-#: models.py:75
+#: models.py:79
 msgid "Status"
 msgstr "Статус"
 
-#: models.py:77
+#: models.py:81
 msgid "Published from"
 msgstr "Опубликовано с"
 
-#: models.py:78
+#: models.py:82
 msgid "With published selected, won't be shown until this time"
 msgstr "Если выбрано 'Опубликовано', то не будет отображаться до этого времени"
 
-#: models.py:80
+#: models.py:84
 msgid "Expires on"
 msgstr "Истекает"
 
-#: models.py:81
+#: models.py:85
 msgid "With published selected, won't be shown after this time"
 msgstr ""
 "Если выбрано 'Опубликовано', то не будет отображаться после этого времени"
 
-#: models.py:83
+#: models.py:87
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:84 models.py:258
+#: models.py:88 models.py:264
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: models.py:143
+#: models.py:149
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: models.py:153
+#: models.py:159
 msgid "Content"
 msgstr "Содержимое"
 
-#: models.py:235
+#: models.py:241
 msgid "Author"
 msgstr "Автор"
 
-#: models.py:257
-#, fuzzy
+#: models.py:263
 msgid "Keyword"
-msgstr "Ключевые слова"
+msgstr "Ключевое слово"
 
-#: views.py:54
+#: views.py:68
 msgid "Permission denied"
 msgstr "В доступе отказано"
 
@@ -99,9 +103,9 @@ msgstr "Страница не найдена"
 
 #: templates/404.html:10
 msgid "The page you requested does not exist."
-msgstr "Запрошенная страница не существует"
+msgstr "Запрошенная страница не существует."
 
-#: templates/500.html:6 templates/includes/editable_loader.html:104
+#: templates/500.html:6
 msgid "Error"
 msgstr "Ошибка"
 
@@ -109,17 +113,21 @@ msgstr "Ошибка"
 msgid "Sorry, an error occurred."
 msgstr "Извините, возникла ошибка."
 
-#: templates/index.html:6 templates/admin/index.html:31
+#: templates/base.html:51
+msgid "Powered by"
+msgstr "Основано на"
+
+#: templates/base.html:54
+msgid "View Mobile Site."
+msgstr "Переключиться на мобильную версию."
+
+#: templates/index.html:6 templates/admin/index.html:39
 msgid "Home"
-msgstr "Домашняя страница"
+msgstr "Начало"
 
 #: templates/index.html:10
 msgid "This is the homepage."
 msgstr "Это домашняя страница"
-
-#: templates/index.mobile.html:6
-msgid "This is the mobile homepage."
-msgstr "Это мобильная домашняя страница"
 
 #: templates/search_results.html:5 templates/search_results.html.py:6
 msgid "Search Results"
@@ -127,15 +135,15 @@ msgstr "Результаты поиска"
 
 #: templates/search_results.html:12
 msgid "No results were found matching your query: "
-msgstr ""
+msgstr "Не найдено результатов удовлетворяющих вашему запросу: "
 
 #: templates/search_results.html:14
 msgid "Showing"
-msgstr ""
+msgstr "Показаны результаты с"
 
 #: templates/search_results.html:14
 msgid "to"
-msgstr ""
+msgstr "по"
 
 #: templates/search_results.html:14 templates/includes/pagination.html:4
 msgid "of"
@@ -143,29 +151,33 @@ msgstr "из"
 
 #: templates/search_results.html:15
 msgid "results matching your query:"
-msgstr ""
+msgstr "результатов удовлетворяющих вашему запросу:"
 
 #: templates/search_results.html:23
 msgid "read more"
-msgstr ""
+msgstr "читать далее"
 
-#: templates/admin/base_site.html:159
+#: templates/admin/base_site.html:215
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
+
+#: templates/admin/base_site.html:219
 msgid "Interface:"
 msgstr "Интерфейс:"
 
-#: templates/admin/base_site.html:163
+#: templates/admin/base_site.html:223
 #: templates/includes/editable_toolbar.html:8
 #: templates/includes/editable_toolbar.html:10
 msgid "Admin"
 msgstr "Администрирование"
 
-#: templates/admin/base_site.html:167
+#: templates/admin/base_site.html:227
 msgid "Site"
 msgstr "Сайт"
 
-#: templates/admin/index.html:33 templates/admin/includes/dropdown_menu.html:3
+#: templates/admin/index.html:41 templates/admin/includes/dropdown_menu.html:3
 msgid "Dashboard"
-msgstr ""
+msgstr "Административная панель"
 
 #: templates/admin/includes/app_list.html:20
 msgid "Add"
@@ -177,11 +189,11 @@ msgstr "Изменить"
 
 #: templates/admin/includes/dynamic_inline.html:6
 msgid "Add another"
-msgstr ""
+msgstr "Добавить еще"
 
 #: templates/admin/includes/recent_actions.html:4
 msgid "Recent Actions"
-msgstr "Недавние действия"
+msgstr "Последние действия"
 
 #: templates/admin/includes/recent_actions.html:5
 msgid "My Actions"
@@ -189,19 +201,23 @@ msgstr "Мои действия"
 
 #: templates/admin/includes/recent_actions.html:9
 msgid "None available"
-msgstr ""
+msgstr "Недоступно"
 
-#: templates/includes/editable_form.html:9
+#: templates/includes/editable_form.html:16
 msgid "Save"
 msgstr "Сохранить"
 
-#: templates/includes/editable_form.html:10
+#: templates/includes/editable_form.html:17
 msgid "Cancel"
 msgstr "Отмена"
 
-#: templates/includes/editable_form.html:18
+#: templates/includes/editable_form.html:25
 msgid "Edit"
 msgstr "Редактировать"
+
+#: templates/includes/editable_loader.html:108
+msgid "An error occurred"
+msgstr "Возникла ошибка."
 
 #: templates/includes/editable_toolbar.html:12
 msgid "Log out"
@@ -221,17 +237,22 @@ msgstr "Искать"
 
 #: templates/includes/search.html:9
 msgid "Use "
-msgstr ""
+msgstr "Используйте "
 
 #: templates/includes/search.html:9
 msgid "quotes"
-msgstr ""
+msgstr "кавычки"
 
 #: templates/includes/search.html:9
 msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
 msgstr ""
+" для точного совпадения, + чтобы сделать слово и фразу обязательным, и - "
+"чтобы исключить слово или фразу."
+
+#~ msgid "This is the mobile homepage."
+#~ msgstr "Это мобильная домашняя страница"
 
 #~ msgid "Manage"
 #~ msgstr "Управлять"
