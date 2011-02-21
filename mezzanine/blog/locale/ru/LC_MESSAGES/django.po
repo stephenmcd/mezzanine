@@ -127,7 +127,7 @@ msgstr "Начало"
 
 #: templates/blog/blog_post_detail.html:46
 msgid "Posted by"
-msgstr "Кем написан"
+msgstr "Написал(а)"
 
 #: templates/blog/blog_post_detail.html:56
 #: templates/blog/blog_post_list.html:72
