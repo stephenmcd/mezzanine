@@ -1,0 +1,100 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-21 18:25+0500\n"
+"PO-Revision-Date: 2011-02-21 20:56+0500\n"
+"Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
+"Language-Team: Russian <>\n"
+"Language: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: models.py:24
+msgid "User"
+msgstr "Пользователь"
+
+#: models.py:25
+msgid "List"
+msgstr "Список"
+
+#: models.py:26
+msgid "Search"
+msgstr "Поиск"
+
+#: models.py:29
+msgid "Type"
+msgstr "Тип"
+
+#: models.py:31
+msgid "Value"
+msgstr "Значение"
+
+#: models.py:35
+msgid "Twitter query"
+msgstr "Запрос Twitter"
+
+#: models.py:36
+msgid "Twitter queries"
+msgstr "Запросы Twitter"
+
+#: models.py:96
+msgid "Twitter ID"
+msgstr "Twitter ID"
+
+#: models.py:97
+msgid "Date/time"
+msgstr "Дата и время"
+
+#: models.py:98
+msgid "Message"
+msgstr "Сообщение"
+
+#: models.py:99
+msgid "Profile image URL"
+msgstr "URL изображения профиля"
+
+#: models.py:100
+msgid "User name"
+msgstr "Имя пользователя"
+
+#: models.py:101
+msgid "Full name"
+msgstr "Полное имя"
+
+#: models.py:103
+msgid "Profile image URL (Retweeted by)"
+msgstr "URL изображения профиля (Retweeted by)"
+
+#: models.py:105
+msgid "User name (Retweeted by)"
+msgstr "Имя пользователя (Retweeted by)"
+
+#: models.py:107
+msgid "Full name (Retweeted by)"
+msgstr "Полное имя (Retweeted by)"
+
+#: models.py:113
+msgid "Tweet"
+msgstr "Твит"
+
+#: models.py:114
+msgid "Tweets"
+msgstr "Твиты"
+
+#: templates/twitter/tweets.html:7
+msgid "Recent Tweets"
+msgstr "Последние твиты"
+
+#: templates/twitter/tweets.html:27
+msgid "ago"
+msgstr "назад"
+
