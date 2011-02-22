@@ -43,7 +43,7 @@ msgstr "Kopia robocza"
 
 #: models.py:66
 msgid "Published"
-msgstr "Opublikowane od"
+msgstr "Opublikowane"
 
 #: models.py:76
 msgid "Status"
