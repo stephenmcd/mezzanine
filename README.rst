@@ -140,9 +140,11 @@ Quotes
 ======
 
   * "I am enjoying working with Mezzanine - it is good work." - `Van Lindberg`_
+  * "Mezzanine looks pretty interesting - tempting to get me off Wordpress." - `Jesse Noller`_
+  * "Mezzanine is amazing." - `Audrey Roy`_
+  * "From the moment I installed Mezzanine, I have been delighted, both with the initial experience and the community involved in its development." - `John Campbell`_
   * "Impressed with Mezzanine so far." - `Brad Montgomery`_
   * "You need to check out the open source project Mezzanine. In one word: Elegant." - `Nick Hagianis`_
-  * "Mezzanine looks pretty interesting - tempting to get me off Wordpress." - `Jesse Noller`_
   * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `Stephen White`_
 
 .. _`Django`: http://djangoproject.com/
@@ -183,6 +185,8 @@ Quotes
 .. _`Imageinary`: http://imageinary.com/
 .. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Jesse Noller`: http://jessenoller.com/
+.. _`Audrey Roy`: http://cartwheelweb.com/
+.. _`John Campbell`: http://twitter.com/jpcampbell
 .. _`Stephen White`: http://bitbucket.org/swhite/
 .. _`Brad Montgomery`: http://blog.bradmontgomery.net/
 .. _`Jashua Cloutier`: http://www.senexcanis.com/
