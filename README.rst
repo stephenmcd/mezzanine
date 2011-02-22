@@ -135,6 +135,7 @@ Sites Using Mezzanine
   * `Brad Montgomery`_
   * `Jashua Cloutier`_
   * `Alpha & Omega Contractors`_
+  * `Equity Advance`_
 
 Quotes
 ======
@@ -191,3 +192,4 @@ Quotes
 .. _`Brad Montgomery`: http://blog.bradmontgomery.net/
 .. _`Jashua Cloutier`: http://www.senexcanis.com/
 .. _`Alpha & Omega Contractors`: http://alphaomegacontractors.com/
+.. _`Equity Advance`: http://equityadvance.com.au/
