@@ -1,14 +1,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Timur Bobrus, 2010
-# Andrew Grigorev <andrew@ei-grad.ru>, 2011
+# Timur Bobrus, 2010.
+# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 18:25+0500\n"
-"PO-Revision-Date: 2011-02-21 20:36+0500\n"
+"PO-Revision-Date: 2011-02-22 05:11+0500\n"
 "Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
 "Language-Team: Russian <>\n"
 "Language: Russian\n"
@@ -46,11 +46,11 @@ msgstr "Страницы"
 
 #: models.py:117
 msgid "Content page"
-msgstr "Страница с содержимым"
+msgstr "Простая страница"
 
 #: models.py:118
 msgid "Content pages"
-msgstr "Страницы с содержимым"
+msgstr "Простые страницы"
 
 #: templates/admin/pages/page/change_list.html:147
 msgid "Add primary"
@@ -65,5 +65,6 @@ msgstr "Добавить внутрь"
 #: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:8
 #: templates/pages/menus/tree.html:10
 msgid "Home"
-msgstr "Домашняя страница"
+msgstr "Начало"
+
 

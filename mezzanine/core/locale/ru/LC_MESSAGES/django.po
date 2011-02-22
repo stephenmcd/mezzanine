@@ -1,14 +1,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Timur Bobrus, 2010
-# Andrew Grigorev <andrew@ei-grad.ru>, 2011
+# Timur Bobrus, 2010.
+# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 18:25+0500\n"
-"PO-Revision-Date: 2011-02-21 19:40+0500\n"
+"PO-Revision-Date: 2011-02-22 05:10+0500\n"
 "Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
 "Language-Team: Russian <>\n"
 "Language: Russian\n"
@@ -115,11 +115,11 @@ msgstr "Извините, возникла ошибка."
 
 #: templates/base.html:51
 msgid "Powered by"
-msgstr "Основано на"
+msgstr "Сайт использует"
 
 #: templates/base.html:54
 msgid "View Mobile Site."
-msgstr "Переключиться на мобильную версию."
+msgstr "Мобильная версия"
 
 #: templates/index.html:6 templates/admin/index.html:39
 msgid "Home"
@@ -248,7 +248,7 @@ msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
 msgstr ""
-" для точного совпадения, + чтобы сделать слово и фразу обязательным, и - "
+" для точного совпадения, + чтобы сделать слово или фразу обязательной, и - "
 "чтобы исключить слово или фразу."
 
 #~ msgid "This is the mobile homepage."

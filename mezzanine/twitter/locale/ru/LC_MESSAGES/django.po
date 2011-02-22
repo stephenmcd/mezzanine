@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 18:25+0500\n"
-"PO-Revision-Date: 2011-02-21 20:56+0500\n"
+"PO-Revision-Date: 2011-02-22 05:11+0500\n"
 "Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
 "Language-Team: Russian <>\n"
 "Language: Russian\n"
@@ -97,4 +97,5 @@ msgstr "Последние твиты"
 #: templates/twitter/tweets.html:27
 msgid "ago"
 msgstr "назад"
+
 
