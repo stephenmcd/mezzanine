@@ -188,7 +188,7 @@ Quotes
 .. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Audrey Roy`: http://cartwheelweb.com/
-.. _`John Campbell`: http://twitter.com/jpcampbell
+.. _`John Campbell`: http://head3.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
 .. _`Brad Montgomery`: http://blog.bradmontgomery.net/
 .. _`Jashua Cloutier`: http://www.senexcanis.com/
