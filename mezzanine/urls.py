@@ -1,8 +1,8 @@
 """
-This is the main ``urlconf`` for Mezzanine - it sets up patterns for 
-all the various Mezzanine apps, third-party apps like Grappelli and 
-filebrowser, and adds some handling for media files during development 
-when the ``runserver`` command is being used, that also deals with 
+This is the main ``urlconf`` for Mezzanine - it sets up patterns for
+all the various Mezzanine apps, third-party apps like Grappelli and
+filebrowser, and adds some handling for media files during development
+when the ``runserver`` command is being used, that also deals with
 hosting theme development when the ``THEME`` setting is defined.
 """
 
@@ -11,7 +11,7 @@ from urlparse import urlsplit
 from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
- 
+
 from mezzanine.conf import settings
 from mezzanine.utils.urls import static_urls
 
@@ -36,9 +36,9 @@ urlpatterns = []
 # Filebrowser admin media library.
 if getattr(settings, "PACKAGE_NAME_FILEBROWSER") in settings.INSTALLED_APPS:
     urlpatterns += patterns("",
-        ("^admin/filebrowser/", include("%s.urls" % 
+        ("^admin/filebrowser/", include("%s.urls" %
                                         settings.PACKAGE_NAME_FILEBROWSER)),
-        static_urls(settings.FILEBROWSER_URL_FILEBROWSER_MEDIA.strip("/"), 
+        static_urls(settings.FILEBROWSER_URL_FILEBROWSER_MEDIA.strip("/"),
                     settings.FILEBROWSER_PATH_FILEBROWSER_MEDIA),
     )
 
