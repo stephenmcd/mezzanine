@@ -136,6 +136,7 @@ Sites Using Mezzanine
   * `Jashua Cloutier`_
   * `Alpha & Omega Contractors`_
   * `Equity Advance`_
+  * `Head3 Interactive`_
 
 Quotes
 ======
@@ -193,3 +194,4 @@ Quotes
 .. _`Jashua Cloutier`: http://www.senexcanis.com/
 .. _`Alpha & Omega Contractors`: http://alphaomegacontractors.com/
 .. _`Equity Advance`: http://equityadvance.com.au/
+.. _`Head3 Interactive`: http://head3.com/
