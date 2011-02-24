@@ -12,8 +12,8 @@ from mezzanine import __version__
 registry = {}
 
 
-def register_setting(name="", editable=False, description="", default=None,
-                     append=False):
+def register_setting(name="", label="", editable=False, description="",
+        default=None, append=False):
     """
     Registers a setting that can be edited via the admin.
     """
@@ -22,7 +22,7 @@ def register_setting(name="", editable=False, description="", default=None,
         registry[name]["default"] += default
     else:
         default = getattr(settings, name, default)
-        registry[name] = {"name": name, "description": description,
+        registry[name] = {"name": name, "label": label, "description": description,
             "editable": editable, "default": default, "type": type(default)}
 
 
