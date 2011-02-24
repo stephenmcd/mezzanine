@@ -60,12 +60,15 @@ def blog_months(*args):
     """
     Put a list of dates for blog posts into the template context.
     """
-    months = []
-    for month in BlogPost.objects.published().dates("publish_date", "month",
-                                                    order="DESC"):
-        if month not in months:
-            months.append(month)
-    return months
+    dates = BlogPost.objects.published().values_list("publish_date", flat=True)
+    date_dicts = [{"date": datetime(d.year, d.month, 1)} for d in dates]
+    month_dicts = []
+    for date_dict in date_dicts:
+        if date_dict not in month_dicts:
+            month_dicts.append(date_dict)
+    for i, date_dict in enumerate(month_dicts):
+        month_dicts[i]["post_count"] = date_dicts.count(date_dict)
+    return month_dicts
 
 
 @register.as_tag
@@ -108,7 +111,7 @@ def blog_authors(*args):
     Put a list of authors (users) for blog posts into the template context.
     """
     blog_posts = BlogPost.objects.published()
-    return list(User.objects.filter(blogposts__in=blog_posts).distinct())
+    return list(User.objects.filter(blogposts__in=blog_posts).annotate(post_count=Count("blogposts")))
 
 
 @register.as_tag
