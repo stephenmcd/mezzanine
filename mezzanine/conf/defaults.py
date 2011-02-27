@@ -27,6 +27,22 @@ register_setting(
 )
 
 register_setting(
+    name="SITE_TAGLINE",
+    label="Tagline",
+    description=_(""),
+    editable=True,
+    default="fork me on github",
+)
+
+register_setting(
+    name="SITE_TITLE",
+    description=_(""),
+    label="Site Title",
+    editable=True,
+    default="Mezzanine",
+)
+
+register_setting(
     name="BLOG_BITLY_USER",
     label="bit.ly username",
     description=_("Username for bit.ly URL shortening service."),
