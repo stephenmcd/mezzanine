@@ -31,7 +31,7 @@ register_setting(
     label="Tagline",
     description=_(""),
     editable=True,
-    default="fork me on github",
+    default="An open source content management platform ",
 )
 
 register_setting(
@@ -348,6 +348,6 @@ register_setting(
         "COMMENTS_DISQUS_KEY", "COMMENTS_DISQUS_SHORTNAME",
         "COMMENTS_NUM_LATEST", "CONTENT_MEDIA_URL", "DEV_SERVER",
         "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID", 
-        "PAGES_MENU_SHOW_ALL",
+        "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE"
     ),
 )
