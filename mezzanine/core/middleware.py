@@ -22,11 +22,12 @@ class AdminLoginInterfaceSelector(object):
     successful and the "site" interface is selected, redirect to the site.
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
-        site_login = request.POST.get("mezzanine_login_interface") == "site"
-        if site_login and not request.user.is_authenticated():
+        login_type = request.POST.get("mezzanine_login_interface")
+        if login_type and not request.user.is_authenticated():
             response = view_func(request, *view_args, **view_kwargs)
-            if request.user.is_authenticated():
-                return HttpResponseRedirect(request.GET.get("next", "/"))
+            next = request.GET.get("next", "/" if login_type == "site" else "")
+            if request.user.is_authenticated() and next:
+                return HttpResponseRedirect(next)
             else:
                 return response
         return None
