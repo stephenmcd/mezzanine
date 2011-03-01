@@ -27,22 +27,6 @@ register_setting(
 )
 
 register_setting(
-    name="SITE_TAGLINE",
-    label="Tagline",
-    description=_(""),
-    editable=True,
-    default="An open source content management platform ",
-)
-
-register_setting(
-    name="SITE_TITLE",
-    description=_(""),
-    label="Site Title",
-    editable=True,
-    default="Mezzanine",
-)
-
-register_setting(
     name="BLOG_BITLY_USER",
     label="bit.ly username",
     description=_("Username for bit.ly URL shortening service."),
@@ -281,6 +265,23 @@ register_setting(
     description=_("Max number of paging links for the search results page."),
     editable=True,
     default=10,
+)
+
+register_setting(
+    name="SITE_TITLE",
+    label="Site Title",
+    description=_("Title that will be appended to the content of the "
+        "HTML title tags on every page."),
+    editable=True,
+    default="",
+)
+
+register_setting(
+    name="SITE_TAGLINE",
+    label="Tagline",
+    description=_("A description that will appear at the top of blog pages."),
+    editable=True,
+    default="",
 )
 
 register_setting(
