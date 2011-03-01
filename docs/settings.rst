@@ -189,6 +189,20 @@ Number of results to show in the search results page.
 
 Default: ``10``
 
+``SITE_TAGLINE``
+----------------
+
+A description that will appear at the top of blog pages.
+
+Default: ``''``
+
+``SITE_TITLE``
+--------------
+
+Title that will be appended to the content of the HTML title tags on every page.
+
+Default: ``''``
+
 ``STOP_WORDS``
 --------------
 
@@ -208,7 +222,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DEFAULT_APPROVED', 'COMMENTS_DISQUS_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL')``
+Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DEFAULT_APPROVED', 'COMMENTS_DISQUS_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE')``
 
 ``THEME``
 ---------
