@@ -270,3 +270,7 @@ ul .posted {
 #search-results p {
     margin:5px 0;
 }
+.tagline {
+    font-style:italic;
+    font-size:130%;
+}

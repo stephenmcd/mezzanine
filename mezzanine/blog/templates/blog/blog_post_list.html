@@ -20,6 +20,10 @@
 
 {% block main %}
 
+{% if settings.SITE_TAGLINE %}
+<p class="tagline">{{ settings.SITE_TAGLINE }}</p>
+{% endif %}
+
 {% if tag or category or year or month or author %}
     <p id="description">
     {% if tag %}
