@@ -41,6 +41,10 @@
 
 {% block main %}
 
+{% if settings.SITE_TAGLINE %}
+<p class="tagline">{{ settings.SITE_TAGLINE }}</p>
+{% endif %}
+
 <p>
     <em>
         {% trans "Posted by" %}
