@@ -84,7 +84,7 @@ class Displayable(Slugged):
     expiry_date = models.DateTimeField(_("Expires on"),
         help_text=_("With published selected, won't be shown after this time"),
         blank=True, null=True)
-    description = HtmlField(_("Description"), blank=True)
+    description = models.TextField(_("Description"), blank=True)
     keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
         blank=True)
     _keywords = models.CharField(max_length=500, editable=False)
