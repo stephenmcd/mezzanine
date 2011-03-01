@@ -126,11 +126,6 @@ def set_dynamic_settings(s):
     if theme:
         theme_templates = os.path.join(path_for_import(theme), "templates")
         s["TEMPLATE_DIRS"] = (theme_templates,) + tuple(s["TEMPLATE_DIRS"])
-    
-    # Test that settings.LOGIN_URL is actually reachable and if not, revert 
-    # it to the admin's login URL, since Django defines an invalid value 
-    # for settings.LOGIN_URL by default.
-    s.setdefault("LOGIN_URL", "/admin/")
         
     # Remaining code is for Django 1.1 support.
     if VERSION >= (1, 2, 0):
