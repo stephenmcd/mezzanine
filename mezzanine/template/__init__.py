@@ -10,16 +10,17 @@ from mezzanine.template.loader import get_template, select_template
 
 class Library(template.Library):
     """
-    Extends ``django.template.Library`` providing several shortcuts that
-    attempt to take the leg-work out of creating different types of
-    template tags.
+    Extends ``django.template.Library`` providing several shortcuts 
+    that attempt to take the leg-work out of creating different types 
+    of template tags.
     """
 
     def as_tag(self, tag_func):
         """
-        Creates a tag expecting the format: ``{% tag_name as var_name %}``
-        The decorated func returns the value that is given to ``var_name`` in
-        the template.
+        Creates a tag expecting the format: 
+        ``{% tag_name as var_name %}``
+        The decorated func returns the value that is given to 
+        ``var_name`` in the template.
         """
         @wraps(tag_func)
         def tag_wrapper(parser, token):
@@ -33,9 +34,9 @@ class Library(template.Library):
 
     def render_tag(self, tag_func):
         """
-        Creates a tag using the decorated func as the render function for the
-        template tag node. The render function takes two arguments - the
-        template context and the tag token.
+        Creates a tag using the decorated func as the render function 
+        for the template tag node. The render function takes two 
+        arguments - the template context and the tag token.
         """
         @wraps(tag_func)
         def tag_wrapper(parser, token):
@@ -47,11 +48,12 @@ class Library(template.Library):
 
     def to_end_tag(self, tag_func):
         """
-        Creates a tag that parses until it finds the corresponding end tag,
-        eg: for a tag named ``mytag`` it will parse until ``endmytag``.
-        The decorated func's return value is used to render the parsed
-        content and takes three arguments - the parsed content between the
-        start and end tags, the template context and the tag token.
+        Creates a tag that parses until it finds the corresponding end 
+        tag, eg: for a tag named ``mytag`` it will parse until 
+        ``endmytag``. The decorated func's return value is used to 
+        render the parsed content and takes three arguments - the 
+        parsed content between the start and end tags, the template 
+        context and the tag token.
         """
         @wraps(tag_func)
         def tag_wrapper(parser, token):
@@ -70,7 +72,7 @@ class Library(template.Library):
         return self.tag(tag_wrapper)
 
     def inclusion_tag(self, file_name, context_class=Context, 
-                                                         takes_context=False):
+                      takes_context=False):
         """
         Context aware replacement for Django's ``inclusion_tag`` using 
         Mezzanine's ``get_template`` and ``select_template``.

@@ -60,7 +60,6 @@ the title ``Media Library`` to create a custom navigation item::
         ("Site", ("auth.User", "auth.Group", "sites.Site", "redirects.Redirect")),
     )
 
-
 Dashboard
 =========
 

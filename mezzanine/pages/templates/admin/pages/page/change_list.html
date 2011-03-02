@@ -30,6 +30,7 @@
         margin-top:-25px;}
     
     .placeholder {border:1px dashed #ddd;}
+    .uneditable {margin-left:25px; color:#999;}
 
 </style>
             
@@ -146,7 +147,10 @@
         <select class="addlist">
             <option value="">{% trans "Add primary" %} ...</option>
             {% for model in page_models %}
-            <option value="{{ model.add_url }}">{{ model.name }}</option>
+			    {% set_model_permissions model %}
+			    {% if model.perms.add %}
+                <option value="{{ model.add_url }}">{{ model.name }}</option>
+                {% endif %}
             {% endfor %}
         </select>
     </div>

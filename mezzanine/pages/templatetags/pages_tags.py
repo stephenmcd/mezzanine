@@ -47,7 +47,7 @@ def page_menu(context, token):
         except KeyError:
             user = None
             slug = ""
-        for page in Page.objects.published(for_user=user).order_by("_order"):
+        for page in Page.objects.published(for_user=user).select_related(depth=2).order_by("_order"):
             page.set_menu_helpers(slug)
             pages[page.parent_id].append(page)
         context["menu_pages"] = pages
@@ -81,3 +81,46 @@ def models_for_pages(*args):
             setattr(model, "add_url", admin_url(model, "add"))
             page_models.append(model)
     return page_models
+
+
+@register.render_tag
+def set_model_permissions(context, token):
+    """
+    Assigns a permissions dict to the given model, much like Django 
+    does with its dashboard app list.
+
+    Used within the change list for pages, to implement permission 
+    checks for the navigation tree.
+    """
+    model = context[token.split_contents()[1]]
+    opts = model._meta
+    perm_name = opts.app_label + ".%s_" + opts.object_name.lower()
+    request = context["request"]
+    setattr(model, "perms", {})
+    for perm_type in ("add", "change", "delete"):
+        model.perms[perm_type] = request.user.has_perm(perm_name % perm_type)
+    return ""
+
+
+@register.render_tag
+def set_page_permissions(context, token):
+    """
+    Assigns a permissions dict to the given page instance, combining 
+    Django's permission for the page's model and a permission check 
+    against the instance itself calling the page's ``can_add``, 
+    ``can_change`` and ``can_delete`` custom methods. 
+
+    Used within the change list for pages, to implement permission 
+    checks for the navigation tree.
+    """
+    page = context[token.split_contents()[1]]
+    model = page.get_content_model()
+    opts = model._meta
+    perm_name = opts.app_label + ".%s_" + opts.object_name.lower()
+    request = context["request"]
+    setattr(page, "perms", {})
+    for perm_type in ("add", "change", "delete"):
+        perm = request.user.has_perm(perm_name % perm_type)
+        perm = perm and getattr(page, "can_%s" % perm_type)(request)
+        page.perms[perm_type] = perm
+    return ""

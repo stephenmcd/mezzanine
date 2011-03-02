@@ -83,13 +83,31 @@ class Page(Orderable, Displayable):
 
     def overridden(self):
         """
-        Return ``True`` if the page's slug has an explicitly defined
+        Returns ``True`` if the page's slug has an explicitly defined 
         urlpattern and is therefore considered to be overridden.
         """
         from mezzanine.pages.views import page
         page_url = reverse("page", kwargs={"slug": self.slug})
         resolved_view = resolve(page_url)[0]
         return resolved_view != page
+
+    def can_add(self, request):
+        """
+        Dynamic ``add`` permission for content types to override.
+        """
+        return True
+
+    def can_change(self, request):
+        """
+        Dynamic ``change`` permission for content types to override.
+        """
+        return True
+
+    def can_delete(self, request):
+        """
+        Dynamic ``change`` permission for content types to override.
+        """
+        return not self.overridden()
 
     def set_menu_helpers(self, slug):
         """

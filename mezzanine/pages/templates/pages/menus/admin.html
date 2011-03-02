@@ -8,19 +8,30 @@
 				<span class="icon open">+</span>
 				<span class="icon close">-</span>
 			</a>
+			{% set_page_permissions page %}
+			{% if page.perms.change %}
 			<a href="{% url admin:pages_page_change page.id %}{% if not page.is_primary %}?parent={{ page.parent_id }}{% endif %}"
 				class="changelink">{{ page.title }}</a>
-			<span class="ordering">
+			{% else %}
+			<span class="uneditable">{{ page.title }}</span>
+			{% endif %}
+			<span class="ordering"{% if not page.perms.change %} 
+			    style="visibility:hidden;"{% endif %}>
 			    <img src="{% admin_media_prefix %}img/admin/arrow-up.gif" />
 			    <img src="{% admin_media_prefix %}img/admin/arrow-down.gif" />
 			</span>
+			{% if page.perms.add %}
 			<select class="addlist" id="addlink-{{ page.id }}">
 			    <option value="">{% trans "Add secondary" %} ...</option>
     			{% for model in page_models %}
-			    <option value="{{ model.add_url }}?parent={{ page.id }}"
-			        >{{ model.name }}</option>
+        			{% set_model_permissions model %}
+        			{% if model.perms.add %}
+			        <option value="{{ model.add_url }}?parent={{ page.id }}"
+			            >{{ model.name }}</option>
+			        {% endif %}
 		    	{% endfor %}
 		    </select>
+		    {% endif %}
 		</div>
 		<br clear="all" />
 		{% page_menu page %}

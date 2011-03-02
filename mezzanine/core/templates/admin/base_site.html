@@ -101,9 +101,10 @@ $(function() {
     #bookmarks {display:none;}
     .messagelist {margin-top:14px; z-index:0 !important;}
 
-    {% if original.overridden %}
-    .slug, .deletelink {display:none !important;}
-    {% endif %}
+    {# These are set in PageAdmin's view methods #}
+    {% if hide_delete_link %}.deletelink {display:none !important;}{% endif %}
+    {% if hide_slug_field %}.slug {display:none !important;}{% endif %}
+
     {% if singleton %}
     .submit-row * {display:none !important;}
     .submit-row .default {display:inline !important;}

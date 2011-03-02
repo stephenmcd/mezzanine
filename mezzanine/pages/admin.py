@@ -2,6 +2,7 @@
 from copy import deepcopy
 
 from django.contrib import admin
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
@@ -12,14 +13,14 @@ from mezzanine.utils.urls import admin_url
 
 page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 page_fieldsets[0][1]["fields"] += (("in_navigation", "in_footer"),
-    "login_required",)
+                                    "login_required",)
 
 
 class PageAdmin(DisplayableAdmin):
     """
-    Admin class for the ``Page`` model and all subclasses of ``Page``. Handles
-    redirections between admin interfaces for the ``Page`` model and its
-    subclasses.
+    Admin class for the ``Page`` model and all subclasses of 
+    ``Page``. Handles redirections between admin interfaces for the 
+    ``Page`` model and its subclasses.
     """
 
     fieldsets = page_fieldsets
@@ -29,10 +30,18 @@ class PageAdmin(DisplayableAdmin):
         Hide subclasses from the admin menu.
         """
         return self.model is Page
-
-    def add_view(self, request, **kwargs):
+    
+    def _check_permission(self, request, page, permission):
         """
-        For the ``Page`` model, redirect to the add view for the
+        Runs the custom permission check and raises an 
+        exception if False.
+        """
+        if not getattr(page, "can_" + permission)(request):
+            raise PermissionDenied
+
+    def add_view(self, request, extra_context=None, **kwargs):
+        """
+        For the ``Page`` model, redirect to the add view for the 
         ``ContentPage`` model.
         """
         if self.model is Page:
@@ -42,22 +51,38 @@ class PageAdmin(DisplayableAdmin):
 
     def change_view(self, request, object_id, extra_context=None):
         """
-        For the ``Page`` model, check ``page.get_content_model()`` for a
-        subclass and redirect to its admin change view.
+        For the ``Page`` model, check ``page.get_content_model()`` 
+        for a subclass and redirect to its admin change view.
+        Also enforce custom change permissions for the page instance.
         """
+        page = get_object_or_404(Page, pk=object_id)
+        content_model = page.get_content_model()
+        self._check_permission(request, content_model, "change")
         if self.model is Page:
-            page = get_object_or_404(Page, pk=object_id)
-            content_model = page.get_content_model()
             if content_model is not None:
                 change_url = admin_url(content_model.__class__, "change",
-                                        content_model.id)
+                                       content_model.id)
                 return HttpResponseRedirect(change_url)
-        return super(PageAdmin, self).change_view(request, object_id,
-                                                    extra_context=None)
+        extra_context = extra_context or {}
+        extra_context["hide_delete_link"] = not page.can_delete(request)
+        extra_context["hide_slug_field"] = not page.overridden()
+        return super(PageAdmin, self).change_view(request, object_id, 
+                                                  extra_context)
 
+    def delete_view(self, request, object_id, extra_context=None):
+        """
+        Enforce custom delete permissions for the page instance.
+        """
+        page = get_object_or_404(Page, pk=object_id)
+        content_model = page.get_content_model()
+        self._check_permission(request, content_model, "delete")
+        return super(PageAdmin, self).delete_view(request, object_id, 
+                                                  extra_context)
+        
     def changelist_view(self, request, extra_context=None):
         """
-        Redirect to the ``Page`` changelist view for ``Page`` subclasses.
+        Redirect to the ``Page`` changelist view for ``Page`` 
+        subclasses. 
         """
         if self.model is not Page:
             return HttpResponseRedirect(admin_url(Page, "changelist"))
@@ -78,7 +103,7 @@ class PageAdmin(DisplayableAdmin):
 
     def _maintain_parent(self, request, response):
         """
-        Maintain the parent ID in the querystring for response_add and
+        Maintain the parent ID in the querystring for response_add and 
         response_change.
         """
         location = response._headers.get("location")
@@ -90,14 +115,16 @@ class PageAdmin(DisplayableAdmin):
 
     def response_add(self, request, obj):
         """
-        Maintain the parent ID in the querystring.
+        Enforce page permissions and maintain the parent ID in the 
+        querystring.
         """
         response = super(PageAdmin, self).response_add(request, obj)
         return self._maintain_parent(request, response)
 
     def response_change(self, request, obj):
         """
-        Maintain the parent ID in the querystring.
+        Enforce page permissions and maintain the parent ID in the 
+        querystring.
         """
         response = super(PageAdmin, self).response_change(request, obj)
         return self._maintain_parent(request, response)
