@@ -130,6 +130,14 @@ given a ``Page`` instance using the previous example, accessing the
     >>> page.gallery
     <Gallery: My gallery>
 
+And in a template::
+
+    <h1>{{ page.gallery.title }}</h1>
+    <p>{{ page.gallery.notes }}</p>
+    {% for galleryimage in page.gallery.galleryimage_set.all %}
+    <img src="{{ MEDIA_URL }}{{ galleryimage.image }}" />
+    {% endfor %}
+    
 The ``Page`` model also contains the method ``Page.get_content_model`` for 
 retrieving the custom instance without knowing its type beforehand::
 
