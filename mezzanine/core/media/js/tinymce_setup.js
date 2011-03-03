@@ -39,7 +39,7 @@ tinyMCE.init({
     remove_script_host : true,
     accessibility_warnings : false,
     object_resizing: false,
-    cleanup: false,
+    //cleanup: false, // SETTING THIS TO FALSE WILL BREAK EMBEDDING YOUTUBE VIDEOS
     forced_root_block: "p",
     remove_trailing_nbsp: true,
     
