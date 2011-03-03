@@ -20,6 +20,17 @@
 </head>
 <body id="{% block body_id %}{% endblock %}">
 
+{% if settings.SITE_TITLE or settings.SITE_TAGLINE %}
+<div id="grid-header">
+    {% if settings.SITE_TITLE %}
+    <h1>{{ settings.SITE_TITLE }}</h1>
+    {% endif %}
+    {% if settings.SITE_TAGLINE %}
+    <h2>{{ settings.SITE_TAGLINE }}</h2>
+    {% endif %}
+</div>
+{% endif %}
+
 <div id="grid-top">
     {% page_menu "pages/menus/primary.html" %}
 </div>
