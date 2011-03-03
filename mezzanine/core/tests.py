@@ -5,6 +5,7 @@ from django.db import connection
 from django.template import Context, Template, TemplateDoesNotExist
 from django.template.loader import get_template
 from django.test import TestCase
+from django.utils.html import strip_tags
 
 from mezzanine.blog.models import BlogPost, Comment
 from mezzanine.conf import settings, registry
@@ -59,12 +60,13 @@ class Tests(TestCase):
 
     def test_description(self):
         """
-        Test generated description is first line of content.
+        Test generated description is text version of the first line 
+        of content.
         """
         description = "<p>How now brown cow</p>"
         page = ContentPage.objects.create(title="Draft",
                                           content=description * 3)
-        self.assertEqual(page.description, description)
+        self.assertEqual(page.description, strip_tags(description))
 
     def test_device_specific_template(self):
         """

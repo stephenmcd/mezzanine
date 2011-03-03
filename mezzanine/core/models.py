@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.base import ModelBase
 from django.template.defaultfilters import slugify, truncatewords_html
+from django.utils.html import strip_tags
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import HtmlField
@@ -105,7 +106,7 @@ class Displayable(Slugged):
             # quick blog form in the admin dashboard.
             self.publish_date = datetime.now()
         if not self.description:
-            self.description = self.description_from_content()
+            self.description = strip_tags(self.description_from_content())
         super(Displayable, self).save(*args, **kwargs)
 
     def description_from_content(self):
