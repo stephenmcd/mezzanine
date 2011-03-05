@@ -93,3 +93,22 @@ your projects's ``settings`` module::
 
 Here we can see the ``quick_blog`` and ``recent_comments`` inclusion tags 
 which are provided by the ``mezzanine.blog.templatetags.blog_tags`` module.
+
+WYSIWYG Editor
+==============
+
+By default, Mezzanine uses the 
+`TinyMCE editor <http://tinymce.moxiecode.com/>`_ to provide rich 
+editing for all model fields of the type 
+``mezzanine.core.fields.HtmlField``. The setting ``HTML_WIDGET_CLASS`` 
+contains the import path to the widget class that will be used for 
+editing each of these fields, which therefore provides the ability for 
+implementing your own editor widget which could be a modified version 
+of TinyMCE, a different editor or even no editor at all.
+
+The default value for the ``HTML_WIDGET_CLASS`` setting is the string 
+``"mezzanine.core.forms.TinyMceWidget"``. The ``TinyMceWidget`` class 
+referenced here provides the necessary media files and HTML for 
+implementing the TinyMCE editor, and serves as a good reference point 
+for implementing your own widget class which would then be specified 
+via the ``HTML_WIDGET_CLASS`` setting.
