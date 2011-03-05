@@ -192,16 +192,16 @@ Default: ``10``
 ``SITE_TAGLINE``
 ----------------
 
-A description that will appear at the top of blog pages.
+A tag line that will appear at the top of all pages.
 
-Default: ``''``
+Default: ``u'An open source content management platform.'``
 
 ``SITE_TITLE``
 --------------
 
-Title that will be appended to the content of the HTML title tags on every page.
+Title that will display at the top of the site, and be appended to the content of the HTML title tags on every page.
 
-Default: ``''``
+Default: ``'Mezzanine'``
 
 ``STOP_WORDS``
 --------------
