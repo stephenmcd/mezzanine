@@ -4,7 +4,7 @@ from __future__ import with_statement
 from distutils.dir_util import copy_tree
 from optparse import OptionParser
 import os
-from shutil import move
+from shutil import move, rmtree
 from uuid import uuid4
 
 from mezzanine.utils.importing import path_for_import
@@ -69,6 +69,7 @@ def create_project():
                 template_dir = os.path.join(package_path, app_dir, "templates")
                 if os.path.isdir(template_dir):
                     copy_tree(template_dir, template_path)
+            rmtree(os.path.join(template_path, "admin"))
 
     # Generate a unique SECREY_KEY for the project's setttings module.
     settings_path = os.path.join(os.getcwd(), project_name, "settings.py")
