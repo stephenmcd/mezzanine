@@ -16,3 +16,15 @@ which will print out the actual values of each of these aliases and
 the paths they map to::
 
     $ python manage.py media_paths
+
+Twitter Feeds
+=============
+
+If Twitter feeds are implemented in your templates, a cron job is 
+required that will run the following management command:: 
+
+    $ python manage.py poll_twitter
+    
+This ensures that the data is always available in the site's database 
+when accessed, and allows you to control how often the Twitter API is 
+queried.
