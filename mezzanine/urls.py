@@ -11,6 +11,7 @@ from urlparse import urlsplit
 from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
+from django.http import HttpResponse
 
 from mezzanine.conf import settings
 from mezzanine.utils.urls import static_urls
@@ -32,6 +33,13 @@ for model in settings.ADMIN_REMOVAL:
 
 
 urlpatterns = []
+
+# Return a robots.txt that disallows all spiders when DEBUG is True.
+if getattr(settings, "DEBUG", False):
+    urlpatterns += patterns("", 
+        ("^robots.txt$", lambda r: HttpResponse("User-agent: *\nDisallow: /", 
+                                                mimetype="text/plain")),
+    )
 
 # Filebrowser admin media library.
 if getattr(settings, "PACKAGE_NAME_FILEBROWSER") in settings.INSTALLED_APPS:
