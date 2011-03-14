@@ -107,6 +107,7 @@ tinyMCE.init({
       + "|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
       + "|onmouseout|onmouseover|onmouseup|standby|style|tabindex|title|type|usemap"
       + "|vspace|width],"
+      + "embed[name|src|type|allowscriptaccess|allowfullscreen|width|height],"
     +"param[id|name|type|value|valuetype<DATA?OBJECT?REF],",
     valid_child_elements : ""
     + "h1/h2/h3/h4/h5/h6/a[%itrans_na],"
@@ -114,3 +115,6 @@ tinyMCE.init({
     + "strong/b/p/div/em/i/td[%itrans|#text],"
     + "body[%btrans|#text]"
 });
+
+
+
