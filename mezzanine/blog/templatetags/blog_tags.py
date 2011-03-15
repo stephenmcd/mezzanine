@@ -161,7 +161,6 @@ def recent_comments(context):
         args.update({"user_api_key": disqus_key, "api_version": "1.1"})
         url = "http://disqus.com/api/%s/?%s" % (method, urlencode(args))
         response = loads(urlopen(url).read())
-        print response
         return response["message"] if response["succeeded"] else []
 
     if disqus_shortname and disqus_key:
