@@ -161,6 +161,7 @@ def recent_comments(context):
         args.update({"user_api_key": disqus_key, "api_version": "1.1"})
         url = "http://disqus.com/api/%s/?%s" % (method, urlencode(args))
         response = loads(urlopen(url).read())
+        print response
         return response["message"] if response["succeeded"] else []
 
     if disqus_shortname and disqus_key:
@@ -178,13 +179,20 @@ def recent_comments(context):
                     blog_post = posts[post_from_comment(comment)]
                 except KeyError:
                     blog_post = None
+                if comment["is_anonymous"]:
+                    author = comment["anonymous_author"]
+                    name = author["name"]
+                else:
+                    author = comment["author"]
+                    name = author["display_name"]
+                time_format = "%Y-%m-%dT%H:%M"
+                time = datetime.strptime(comment["created_at"], time_format)
                 context["comments"].append({
-                    "name": comment["author"]["display_name"],
-                    "email": comment["author"]["email"],
-                    "email_hash": comment["author"]["email_hash"],
+                    "name": name,
+                    "email": author["email"],
+                    "email_hash": author["email_hash"],
                     "body": comment["message"],
-                    "time_created": datetime.strptime(comment["created_at"],
-                        "%Y-%m-%dT%H:%M") - timedelta(seconds=timezone),
+                    "time_created": time - timedelta(seconds=timezone),
                     "post": blog_post,
                 })
     else:
