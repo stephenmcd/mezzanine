@@ -175,7 +175,7 @@ Quotes
 .. _`bit.ly`: http://bit.ly/
 .. _`Github`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
-.. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users
+.. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users/topics
 .. _`Github issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`Citrus Agency`: http://citrus.com.au/
 .. _`Mezzanine Project`: http://mezzanine.jupo.org/
