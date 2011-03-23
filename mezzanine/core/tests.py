@@ -1,5 +1,6 @@
 
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.db import connection
 from django.template import Context, Template, TemplateDoesNotExist
@@ -7,13 +8,15 @@ from django.template.loader import get_template
 from django.test import TestCase
 from django.utils.html import strip_tags
 
-from mezzanine.blog.models import BlogPost, Comment
+from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
 from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
+from mezzanine.generic.models import ThreadedComment
+
 from mezzanine.pages.models import ContentPage
 from mezzanine.utils.tests import run_pyflakes_for_package
 from mezzanine.utils.importing import import_dotted_path
@@ -123,14 +126,16 @@ class Tests(TestCase):
 
     def test_comments(self):
         """
-        Test that rendering the blog comments executes the same number 
-        of queries regardless of the number of nested replies.
+        Test that rendering comments executes the same number of 
+        queries, regardless of the number of nested replies.
         """
         blog_post = BlogPost.objects.create(title="Post", user=self._user)
-        template = "{% load blog_tags %}{% blog_comments_for blog_post %}"
+        content_type = ContentType.objects.get_for_model(blog_post)
+        kwargs = {"content_type": content_type, "object_pk": blog_post.id,
+                  "site_id": settings.SITE_ID}
+        template = "{% load comment_tags %}{% comment_thread blog_post %}"
         before = self.queries_used_for_template(template, blog_post=blog_post)
-        self.create_recursive_objects(Comment, "replied_to", name="Comment",
-                                      blog_post=blog_post)
+        self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
         after = self.queries_used_for_template(template, blog_post=blog_post)
         self.assertEquals(before, after)
 

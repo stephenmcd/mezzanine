@@ -1,8 +1,9 @@
 """
-This module redefines the loader functions from  ``django.template.loader``
-that deal with template loading, specifically ``get_template`` and
-``select_template``. They're reproduced here to pass in a ``context`` arg
-which is used to handle device specific template loading.
+This module redefines the loader functions from 
+``django.template.loader`` that deal with template loading, 
+specifically ``get_template`` and ``select_template``. They're 
+reproduced here to pass in a ``context`` arg which is used to 
+handle device specific template loading.
 """
 
 from django.template import TemplateDoesNotExist
@@ -14,8 +15,9 @@ from mezzanine.utils.device import device_from_request
 def get_template(template_name, context_instance):
     """
     Create a list of template paths for the given template name,
-    prefixed with the device determined from the request, a default device 
-    if set, and finally the original template name, all in this order.
+    prefixed with the device determined from the request, a default 
+    device if set, and finally the original template name, all in 
+    this order.
     """
     from mezzanine.conf import settings
     template_name_list = []
@@ -26,8 +28,8 @@ def get_template(template_name, context_instance):
     else:
         if device:
             template_name_list.append("%s/%s" % (device, template_name))
-    if settings.DEFAULT_DEVICE:
-        default = "%s/%s" % (settings.DEFAULT_DEVICE, template_name)
+    if settings.DEVICE_DEFAULT:
+        default = "%s/%s" % (settings.DEVICE_DEFAULT, template_name)
         if default not in template_name_list:
             template_name_list.append(default)
     template_name_list.append(template_name)
@@ -36,7 +38,8 @@ def get_template(template_name, context_instance):
 
 def select_template(template_name_list, context_instance):
     """
-    Given a list of template names, returns the first that can be loaded.
+    Given a list of template names, returns the first that can be 
+    loaded.
     """
     for template_name in template_name_list:
         try:

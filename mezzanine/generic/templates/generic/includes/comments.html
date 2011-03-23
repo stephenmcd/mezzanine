@@ -1,0 +1,25 @@
+{% load i18n comment_tags %}
+
+<h2>{% trans "Comments" %}</h2>
+{% if settings.COMMENTS_DISQUS_SHORTNAME %}
+{% include "generic/includes/disqus_comments.html" %} 
+{% else %}
+{% comment_thread object_for_comments %}
+<form method="post" class="comment" id="comment" action="#comment">
+    {% csrf_token %}
+    <table>
+    {% if not request.POST.replied_to %}
+        {% with posted_comment_form as comment_form %}
+            {% include "generic/includes/comment_fields.html" %}
+        {% endwith %}
+    {% else %}
+        {% with unposted_comment_form as comment_form %}
+            {% include "generic/includes/comment_fields.html" %}
+        {% endwith %}
+    {% endif %}
+    <tr><td colspan="2">
+    <input class="button" type="submit" value="{% trans "Comment" %}" />
+    </td></tr>
+    </table>
+</form>
+{% endif %}

@@ -156,6 +156,7 @@ INSTALLED_APPS = (
     "django.contrib.sites",
     "mezzanine.conf",
     "mezzanine.core",
+    "mezzanine.generic",
     "mezzanine.blog",
     "mezzanine.forms",
     "mezzanine.pages",

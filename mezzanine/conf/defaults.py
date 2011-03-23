@@ -12,8 +12,8 @@ register_setting(
     description=_("Controls the ordering and grouping of the admin menu."),
     editable=False,
     default=(
-        (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",
-            (_("Media Library"), "fb_browse"),)),
+        (_("Content"), ("pages.Page", "blog.BlogPost", 
+           "generic.ThreadedComment", (_("Media Library"), "fb_browse"),)),
         (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting")),
         (_("Users"), ("auth.User", "auth.Group",)),
     ),
@@ -67,16 +67,8 @@ register_setting(
 
 register_setting(
     name="COMMENTS_DISQUS_SHORTNAME",
-    label="Disqus username",
-    description=_("Username for the http://disqus.com comments service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="COMMENTS_DISQUS_KEY",
-    label="Disqus key",
-    description=_("API key for the http://disqus.com comments service."),
+    label="Disqus shortname",
+    description=_("Shortname for the http://disqus.com comments service."),
     editable=True,
     default="",
 )
@@ -100,11 +92,18 @@ register_setting(
 register_setting(
     name="COMMENTS_UNAPPROVED_VISIBLE",
     label="Show unapproved",
-    description=_("If ``True``, unapproved comments will have a placeholder "
-        "visible on the site with a 'waiting for approval' or "
-        "'comment removed' message based on the workflow around the "
-        "``COMMENTS_DEFAULT_APPROVED`` setting - if ``True`` then "
-        "the former message is used, if ``False`` then the latter."),
+    description=_("If ``True``, comments that have ``is_public`` unchecked "
+        "will still be displayed, but replaced with a ``waiting to be "
+        "approved`` message."),
+    editable=True,
+    default=True,
+)
+
+register_setting(
+    name="COMMENTS_REMOVED_VISIBLE",
+    label="Show removed",
+    description=_("If ``True``, comments that have ``removed`` checked "
+        "will still be displayed, but replaced with a ``removed`` message."),
     editable=True,
     default=True,
 )
@@ -126,7 +125,7 @@ register_setting(
 if "mezzanine.blog" in settings.INSTALLED_APPS:
     dashboard_tags = (
         ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
-        ("blog_tags.recent_comments",),
+        ("comment_tags.recent_comments",),
         ("mezzanine_tags.recent_actions",),
     )
 else:
@@ -145,7 +144,7 @@ register_setting(
 )
 
 register_setting(
-    name="DEFAULT_DEVICE",
+    name="DEVICE_DEFAULT",
     description=_("Device specific template sub-directory to use as the "
         "default device."),
     editable=False,
@@ -345,10 +344,11 @@ register_setting(
     name="TEMPLATE_ACCESSIBLE_SETTINGS",
     description=_("Sequence of setting names available within templates."),
     editable=False,
-    default=("BLOG_BITLY_USER", "BLOG_BITLY_KEY", "COMMENTS_DEFAULT_APPROVED",
-        "COMMENTS_DISQUS_KEY", "COMMENTS_DISQUS_SHORTNAME",
-        "COMMENTS_NUM_LATEST", "CONTENT_MEDIA_URL", "DEV_SERVER",
-        "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID", 
-        "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE"
+    default=(
+        "BLOG_BITLY_USER", "BLOG_BITLY_KEY", 
+        "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST", 
+        "CONTENT_MEDIA_URL", "DEV_SERVER", "FORMS_USE_HTML5", 
+        "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID", 
+        "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE",
     ),
 )

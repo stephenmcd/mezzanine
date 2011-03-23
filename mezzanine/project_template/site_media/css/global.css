@@ -106,6 +106,16 @@ p,
 .comment {
     margin:20px 0;
 }
+.comment-unapproved,
+.comment-removed {
+    text-decoration:line-through;
+}
+.comment-unapproved {
+    color:#060;
+}
+.comment-removed {
+    color:#f00;
+}
 h1 {
     font-size:250%; border-bottom:1px solid #ccc; font-weight:normal;
 }
@@ -196,11 +206,9 @@ td, th {
 #search .button {
     margin:0; padding:1px 5px; float:none;
 }
-#comments p {
-    border-bottom:1px solid #ddd;
-}
 #comments li {
     padding:5px; display:block;
+    border-bottom:1px solid #ddd;
 }
 #comments li ul {
     padding:5px 0 0 30px;

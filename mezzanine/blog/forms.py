@@ -1,17 +1,7 @@
 
 from django import forms
 
-from mezzanine.blog.models import Comment, BlogPost
-
-
-class CommentForm(forms.ModelForm):
-    """
-    Model form for ``Comment`` against a ``BlogPost``.
-    """
-
-    class Meta:
-        model = Comment
-        fields = ("name", "email", "website", "body",)
+from mezzanine.blog.models import BlogPost
 
 
 class BlogPostForm(forms.ModelForm):

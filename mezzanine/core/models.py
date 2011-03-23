@@ -80,10 +80,10 @@ class Displayable(Slugged):
     status = models.IntegerField(_("Status"),
         choices=CONTENT_STATUS_CHOICES, default=CONTENT_STATUS_DRAFT)
     publish_date = models.DateTimeField(_("Published from"),
-        help_text=_("With published selected, won't be shown until this time"),
+        help_text=_("With published checked, won't be shown until this time"),
         blank=True, null=True)
     expiry_date = models.DateTimeField(_("Expires on"),
-        help_text=_("With published selected, won't be shown after this time"),
+        help_text=_("With published checked, won't be shown after this time"),
         blank=True, null=True)
     description = models.TextField(_("Description"), blank=True)
     keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),

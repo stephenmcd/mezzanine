@@ -2,14 +2,12 @@
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = '{{ settings.DEV_SERVER }}' == 'True';
-    var disqus_url = 'http{% if request.is_secure %}s{% endif %}://{{ request.META.HTTP_HOST }}{% url blog_post_detail blog_post.slug %}';
-    var disqus_title = '{{ blog_post.title|escapejs }}';
-    var disqus_identifier = {{ blog_post.id }};
+    var disqus_url = 'http{% if request.is_secure %}s{% endif %}://{{ request.META.HTTP_HOST }}{{ object_for_comments.get_absolute_url }}';
+    var disqus_title = '{{ object_for_comments|escapejs }}';
+    var disqus_identifier = {{ object_for_comments.id }};
   (function() {
    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
    dsq.src = 'http://{{ settings.COMMENTS_DISQUS_SHORTNAME }}.disqus.com/embed.js';
    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
-
-   

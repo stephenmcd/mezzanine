@@ -1,5 +1,5 @@
 {% extends "blog/blog_post_list.html" %}
-{% load mezzanine_tags i18n %}
+{% load mezzanine_tags generic_tags i18n %}
 
 {% block meta_title %}{{ blog_post.title }}{% endblock %}
 
@@ -43,7 +43,7 @@
 
 <p>
     <em>
-        {% trans "Posted by" %}
+        {% trans "Posted by" %}: 
         <strong>
             {% with blog_post.user as author %}
             <a href="{% url blog_post_list_author author %}"
@@ -53,10 +53,10 @@
         {{ blog_post.publish_date|timesince }} {% trans "ago" %}
     </em>
     (<a href="#comments">{% spaceless %}
-        {% blocktrans count blog_post.num_comments as num_comments %}
+        {% blocktrans count blog_post.comments_count as comments_count %}
         1 comment
         {% plural %}
-        {{ num_comments }} comments
+        {{ comments_count }} comments
         {% endblocktrans %}
     {% endspaceless %}</a>)
 </p>
@@ -81,7 +81,7 @@
 
 <div class="share">
 {% set_short_url_for blog_post %}
-{% trans "Share this on:" %} 
+{% trans "Share this on" %}: 
 <a target=_"blank" href="http://twitter.com/home?status={{ blog_post.short_url|urlencode }}%20{{ blog_post.title|urlencode }}">Twitter</a>
  / 
 <a target=_"blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&t={{ blog_post.title|urlencode }}">Facebook</a>
@@ -89,9 +89,9 @@
 
 <div id="comments">
 {% if use_disqus %}
-{% include "blog/includes/disqus_comments.html" %} 
+{% include "generic/includes/disqus_comments.html" %} 
 {% else %}
-{% include "blog/includes/comments.html" %} 
+{% comments_for blog_post %}
 {% endif %}
 </div>
 

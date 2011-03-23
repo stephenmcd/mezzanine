@@ -86,6 +86,17 @@ def set_dynamic_settings(s):
     if "django.contrib.admin" in s["INSTALLED_APPS"]:
         s["INSTALLED_APPS"].remove("django.contrib.admin")
         s["INSTALLED_APPS"].append("django.contrib.admin")
+
+    # Add missing apps if existing apps depend on them.
+    if ("mezzanine.blog" in s["INSTALLED_APPS"] and 
+        "mezzanine.generic" not in s["INSTALLED_APPS"]):
+        s["INSTALLED_APPS"].append("mezzanine.generic")
+    if "mezzanine.generic" in s["INSTALLED_APPS"]:
+        s["COMMENTS_APP"] = "mezzanine.generic"
+        if "django.contrib.comments" not in s["INSTALLED_APPS"]:
+            s["INSTALLED_APPS"].append("django.contrib.comments")
+        
+
     # Change INSTALLED_APPS back to a tuple.
     s["INSTALLED_APPS"] = tuple(s["INSTALLED_APPS"])
 

@@ -43,6 +43,9 @@
         width: 100%;
         margin: .5em 0;
     }
+    .editable-form .booleanfield {
+        width: auto;
+    }
     {% if not settings.FORMS_USE_HTML5 %}
     .editable-form input.datetimefield {
         width: 80px;
@@ -53,16 +56,15 @@
         width: 300px;
     }
     .editable-form p {
-        margin: 0 !important;
+        margin: .5em 0 !important;
         padding: 0 !important;
         line-height: 0 !important;
+        border: 0 !important;
     }
     .editable-form p:first-child {
         margin-top: 0px;
     }
     .editable-form .helptext {
-        display: block;
-        margin: 8px;
         font-size: 70%;
         color: #444;
         font-style: italic; 

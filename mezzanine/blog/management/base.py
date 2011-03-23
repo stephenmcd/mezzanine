@@ -7,8 +7,9 @@ from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand, CommandError
 
-from mezzanine.blog.models import BlogPost, Comment
+from mezzanine.blog.models import BlogPost
 from mezzanine.core.models import Keyword, CONTENT_STATUS_PUBLISHED
+from mezzanine.generic.models import ThreadedComment
 
 
 class BaseImporterCommand(BaseCommand):
@@ -113,8 +114,8 @@ class BaseImporterCommand(BaseCommand):
             for comment in comments:
                 if verbosity >= 1:
                     print "Importing comment by: %s" % comment["name"]
-                comment["blog_post"] = post
-                comment, created = Comment.objects.get_or_create(**comment)
+                comment["content_object"] = post
+                ThreadedComment.objects.get_or_create(**comment)
 
             if old_url is not None:
                 redirect, created = Redirect.objects.get_or_create(site=site,

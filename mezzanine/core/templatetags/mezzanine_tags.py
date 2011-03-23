@@ -162,7 +162,7 @@ def editable(parsed, context, token):
             parsed = "".join([unicode(getattr(*field)) for field in fields])
         except AttributeError:
             pass
-    if fields:
+    if fields and "request" in context:
         obj = fields[0][0]
         if isinstance(obj, Model) and is_editable(obj, context["request"]):
             field_names = ",".join([f[1] for f in fields])

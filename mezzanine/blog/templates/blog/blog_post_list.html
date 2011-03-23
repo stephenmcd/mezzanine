@@ -69,10 +69,10 @@
     </a>
     {% else %}
     <a href="{% url blog_post_detail blog_post.slug %}#comments">
-        {% blocktrans count blog_post.num_comments as num_comments %}
+        {% blocktrans count blog_post.comments_count as comments_count %}
         1 comment
         {% plural %}
-        {{ num_comments }} comments
+        {{ comments_count }} comments
         {% endblocktrans %}
     </a>
     {% endif %}

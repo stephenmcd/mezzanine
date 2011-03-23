@@ -18,7 +18,8 @@ tinymce_setup = content_media_urls("js/tinymce_setup.js")
 
 class TinyMceWidget(forms.Textarea):
     """
-    Setup the JS files and targetting CSS class for a textarea to use TinyMCE.
+    Setup the JS files and targetting CSS class for a textarea to 
+    use TinyMCE.
     """
     
     class Media:
@@ -31,7 +32,8 @@ class TinyMceWidget(forms.Textarea):
 
 class OrderWidget(forms.HiddenInput):
     """
-    Add up and down arrows for ordering controls next to a hidden form field.
+    Add up and down arrows for ordering controls next to a hidden 
+    form field.
     """
     def render(self, *args, **kwargs):
         rendered = super(OrderWidget, self).render(*args, **kwargs)
@@ -43,8 +45,8 @@ class OrderWidget(forms.HiddenInput):
 
 class DynamicInlineAdminForm(forms.ModelForm):
     """
-    Form for ``DynamicInlineAdmin`` that can be collapsed and sorted with
-    drag and drop using ``OrderWidget``.
+    Form for ``DynamicInlineAdmin`` that can be collapsed and sorted 
+    with drag and drop using ``OrderWidget``.
     """
 
     class Media:
@@ -74,8 +76,8 @@ def get_edit_form(obj, field_names, data=None, files=None):
     Returns the in-line editing form for editing a single model field.
     """
     
-    # Map these form fields to their types defined in the forms app so we 
-    # can make use of their custom widgets.
+    # Map these form fields to their types defined in the forms app so 
+    # we can make use of their custom widgets.
     from mezzanine.forms import fields
     widget_overrides = {
         forms.DateField: fields.DATE,
@@ -107,9 +109,10 @@ def get_edit_form(obj, field_names, data=None, files=None):
                 except KeyError:
                     pass
                 else:
-                    widget_class = fields.WIDGETS[field_type]
-                    attrs = {"class": field_class.__name__.lower()}
-                    self.fields[f].widget = widget_class(attrs=attrs)
+                    self.fields[f].widget = fields.WIDGETS[field_type]()
+                css_class = self.fields[f].widget.attrs.get("class", "") 
+                css_class += " " + field_class.__name__.lower()
+                self.fields[f].widget.attrs["class"] = css_class
                 self.fields[f].widget.attrs["id"] = "%s-%s" % (f, self.uuid)
                 if settings.FORMS_USE_HTML5 and self.fields[f].required:
                     self.fields[f].widget.attrs["required"] = ""

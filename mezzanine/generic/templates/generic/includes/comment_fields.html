@@ -1,0 +1,14 @@
+{% for field in comment_form %}
+    {% if field.is_hidden %}
+    {{ field }}
+    {% else %}
+    <tr{% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
+        <th>{{ field.label_tag }}:</th>
+        <td>
+            {% if field.errors %}{{ field.errors }}{% endif %}
+            {{ field }}<br />{{ field.help_text }}
+        </td>
+    </tr>
+    {% endif %}
+{% endfor %}
+

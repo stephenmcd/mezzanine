@@ -1,0 +1,35 @@
+{% load i18n comment_tags %}
+
+<style>
+    #comments-module ul {margin:0;}
+    #comments-module li {padding:10px; list-style-type:none; margin:0;}
+    #comments-module img {vertical-align:middle; padding-right:4px; float:left;}
+    #comments-module span {display:block; }
+    #comments-module p {padding:0; border-top: 1px solid #ddd; font-size:80%;
+                        margin-top:4px; clear:both;}
+</style>
+
+<div class="module" id="comments-module">
+    <h2>{% trans "Recent Comments" %}</h2>
+    {% if settings.COMMENTS_DISQUS_SHORTNAME %}
+    <script src="http://{{ settings.COMMENTS_DISQUS_SHORTNAME }}.disqus.com/recent_comments_widget.js?num_items={{ settings.COMMENTS_NUM_LATEST }}&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+    {% else %}
+    <ul>
+        {% for comment in comments %}
+        <li>
+            <a href="mailto:{{ comment.email }}"><img 
+                src="{% gravatar_url comment.email_hash %}"
+                />{{ comment.user_name }}</a>
+            <span>{{ comment.intro }}</span>
+            <p>
+                <a href="{{ comment.content_object.get_absolute_url }}"
+                    >{{ comment.content_object }}</a>
+                    &middot; 
+                <a href="{{ comment.get_absolute_url }}"
+                    >{{ comment.submit_date|timesince }} {% trans "ago" %}</a>
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
