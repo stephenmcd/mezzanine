@@ -22,8 +22,11 @@ def register_setting(name="", label="", editable=False, description="",
         registry[name]["default"] += default
     else:
         default = getattr(settings, name, default)
+        setting_type = type(default)
+        if setting_type is str:
+            setting_type = unicode
         registry[name] = {"name": name, "label": label, "description": description,
-            "editable": editable, "default": default, "type": type(default)}
+            "editable": editable, "default": default, "type": setting_type}
 
 
 class Settings(object):
