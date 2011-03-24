@@ -6,6 +6,7 @@ from django.template import Context, Template, TemplateDoesNotExist
 from django.template.loader import get_template
 from django.test import TestCase
 from django.utils.html import strip_tags
+from django.contrib.sites.models import Site
 
 from mezzanine.blog.models import BlogPost, Comment
 from mezzanine.conf import settings, registry
@@ -248,3 +249,76 @@ class Tests(TestCase):
         except ImportError:
             self.fail("mezzanine.utils.imports.import_dotted_path"
                       "could not import \"mezzanine.core\"")
+
+    def _create_page(self, title, status):
+        return ContentPage.objects.create(title=title, status=status)
+
+    def _test_site_pages(self, title, status, count):
+        # test _default_manager
+        pages = ContentPage._default_manager.all()
+        self.assertEqual(pages.count(), count)
+        self.assertTrue(title in [page.title for page in pages])
+
+        # test objects manager 
+        pages = ContentPage.objects.all()
+        self.assertEqual(pages.count(), count)
+        self.assertTrue(title in [page.title for page in pages])
+
+        # test response status code
+        code = 200 if status == CONTENT_STATUS_PUBLISHED else 404
+        pages = ContentPage.objects.filter(status=status)
+        response = self.client.get(pages[0].get_absolute_url())
+        self.assertEqual(response.status_code, code)
+
+    def test_mulisite(self):
+        from django.conf import settings
+        
+        # setup
+        try:
+            old_site_id = settings.SITE_ID
+        except:
+            old_site_id = None
+
+        site1 = Site.objects.create(domain="site1.com")
+        site2 = Site.objects.create(domain="site2.com")
+
+        # create pages under site1, which should be only accessible when SITE_ID is site1
+        settings.SITE_ID = site1.pk
+        site1_page = self._create_page("Site1 Test", CONTENT_STATUS_PUBLISHED)
+        self._test_site_pages("Site1 Test", CONTENT_STATUS_PUBLISHED, count=1)
+
+        # create pages under site2, which should only be accessible when SITE_ID is site2
+        settings.SITE_ID = site2.pk
+        self._create_page("Site2 Test", CONTENT_STATUS_PUBLISHED)
+        self._test_site_pages("Site2 Test", CONTENT_STATUS_PUBLISHED, count=1)
+
+        # original page should 404
+        response = self.client.get(site1_page.get_absolute_url())
+        self.assertEqual(response.status_code, 404)
+
+        # change back to site1, and only the site1 pages should be retrieved
+        settings.SITE_ID = site1.pk
+        self._test_site_pages("Site1 Test", CONTENT_STATUS_PUBLISHED, count=1)
+
+        # insert a new record, see the count change
+        self._create_page("Site1 Test Draft", CONTENT_STATUS_DRAFT)
+        self._test_site_pages("Site1 Test Draft", CONTENT_STATUS_DRAFT, count=2)
+        self._test_site_pages("Site1 Test Draft", CONTENT_STATUS_PUBLISHED, count=2)
+
+        # change back to site2, and only the site2 pages should be retrieved
+        settings.SITE_ID = site2.pk
+        self._test_site_pages("Site2 Test", CONTENT_STATUS_PUBLISHED, count=1)
+
+        # insert a new record, see the count change
+        self._create_page("Site2 Test Draft", CONTENT_STATUS_DRAFT)
+        self._test_site_pages("Site2 Test Draft", CONTENT_STATUS_DRAFT, count=2)
+        self._test_site_pages("Site2 Test Draft", CONTENT_STATUS_PUBLISHED, count=2)
+
+        # tear down
+        if old_site_id:
+            settings.SITE_ID = old_site_id
+        else:
+            del settings.SITE_ID
+
+        site1.delete()
+        site2.delete()

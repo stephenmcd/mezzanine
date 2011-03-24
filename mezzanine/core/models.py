@@ -7,6 +7,7 @@ from django.db.models.base import ModelBase
 from django.template.defaultfilters import slugify, truncatewords_html
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.contrib.sites.models import Site
 
 from mezzanine.core.fields import HtmlField
 from mezzanine.core.managers import DisplayableManager, KeywordManager
@@ -91,15 +92,20 @@ class Displayable(Slugged):
     _keywords = models.CharField(max_length=500, editable=False)
     short_url = models.URLField(blank=True, null=True)
 
+    # required for multi-site, all displayables must be afiliated with a Site 
+    site = models.ForeignKey(Site, editable=False)
+
     objects = DisplayableManager()
     search_fields = {"_keywords": 10, "title": 5}
 
     class Meta:
         abstract = True
 
-    def save(self, *args, **kwargs):
+    def save(self, update_site=True, *args, **kwargs):
         """
         Set default for ``publsh_date`` and ``description`` if none given.
+
+        Unless the ``update_site`` argument is False, set the site to the current site.
         """
         if self.publish_date is None:
             # publish_date will be blank when a blog post is created from the
@@ -107,6 +113,10 @@ class Displayable(Slugged):
             self.publish_date = datetime.now()
         if not self.description:
             self.description = strip_tags(self.description_from_content())
+
+        if update_site:
+            self.site = Site.objects.get_current()
+
         super(Displayable, self).save(*args, **kwargs)
 
     def description_from_content(self):
