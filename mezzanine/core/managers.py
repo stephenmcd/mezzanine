@@ -222,5 +222,5 @@ class DisplayableManager(CurrentSiteManager, PublishedManager, SearchableManager
     ``SearchableManager`` for the ``Displayable`` model.
 
     Note that ``CurrentSiteManager`` by default will expect for the affiliated
-    model (in this case Displayable) will contain a field ``site`` (which it does).
+    model (in this case Displayable) to contain a field ``site`` (which it does).
     """
