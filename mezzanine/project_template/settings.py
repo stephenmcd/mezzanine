@@ -141,6 +141,7 @@ ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 
 LOGIN_URL = "/admin/"
+LOGIN_REDIRECT_URL = "/admin/"
 
 
 ################
