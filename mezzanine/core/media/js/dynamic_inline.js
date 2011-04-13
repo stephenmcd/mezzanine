@@ -75,8 +75,8 @@ $(function() {
     // Show a new inline when the 'Add another' link is clicked.
     var addAnother = $('.dynamic-inline .add-another a');
     $(addAnother).click(function() {
-        var rows = $(this).parent().parent().parent().find(
-            parentSelector + ' > *:hidden');
+        var rows = $(this).parent().parent().find(
+            (window.__grappelli_installed ? '.items' : 'tbody') +' > *:hidden');
         $(rows[0]).show();
         if (rows.length == 1) {
             $(this).hide();
