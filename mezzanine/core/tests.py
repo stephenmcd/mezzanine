@@ -15,7 +15,7 @@ from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
-from mezzanine.generic.models import ThreadedComment
+from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
 
 from mezzanine.pages.models import ContentPage
 from mezzanine.utils.tests import run_pyflakes_for_package
@@ -153,6 +153,18 @@ class Tests(TestCase):
         after = self.queries_used_for_template(template)
         self.assertEquals(before, after)
 
+    def test_keywords(self):
+        """
+        Test that the keywords_string field is correctly populated.
+        """
+        page = ContentPage.objects.create(title="test keywords")
+        keywords = set(["how", "now", "brown", "cow"])
+        page.keywords = [AssignedKeyword(
+                         keyword_id=Keyword.objects.get_or_create(title=k)[0].id) 
+                         for k in keywords]
+        page = ContentPage.objects.get(id=page.id)
+        self.assertEquals(keywords, set(page.keywords_string.split(" ")))
+        
     def test_search(self):
         """
         Test search.
