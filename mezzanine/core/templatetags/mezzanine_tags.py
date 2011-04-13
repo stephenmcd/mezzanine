@@ -233,8 +233,7 @@ def admin_app_list(request):
                     app_dict[app_title]["models"].append(model_dict)
                 else:
                     try:
-                        titles = [x[0] for x in
-                            settings.ADMIN_MENU_ORDER]
+                        titles = [x[0] for x in settings.ADMIN_MENU_ORDER]
                         index = titles.index(app_title)
                     except ValueError:
                         index = None

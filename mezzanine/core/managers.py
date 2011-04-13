@@ -11,15 +11,15 @@ from mezzanine.conf import settings
 
 class PublishedManager(Manager):
     """
-    Provides filter for restricting items returned by status and publish date
-    when the given user is not a staff member.
+    Provides filter for restricting items returned by status and 
+    publish date when the given user is not a staff member.
     """
 
     def published(self, for_user=None):
         """
-        For non-staff users, return items with a published status and whose
-        publish and expiry dates fall before and after the current date
-        when specified.
+        For non-staff users, return items with a published status and 
+        whose publish and expiry dates fall before and after the 
+        current date when specified.
         """
         from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
         if for_user is not None and for_user.is_staff:
@@ -33,17 +33,10 @@ class PublishedManager(Manager):
         return self.get(slug=slug)
 
 
-class KeywordManager(Manager):
-    """
-    Provides natural key method.
-    """
-    def get_by_natural_key(self, value):
-        return self.get(value=value)
-
-
 class SearchableQuerySet(QuerySet):
     """
-    QuerySet providing main search functionality for ``SearchableManager``.
+    QuerySet providing main search functionality for 
+    ``SearchableManager``.
     """
 
     def __init__(self, *args, **kwargs):
@@ -54,9 +47,10 @@ class SearchableQuerySet(QuerySet):
 
     def search(self, query, search_fields=None):
         """
-        Build a queryset matching words in the given search query, treating
-        quoted terms as exact phrases and taking into account + and - symbols
-        as modifiers controlling which terms to require and exclude.
+        Build a queryset matching words in the given search query, 
+        treating quoted terms as exact phrases and taking into 
+        account + and - symbols as modifiers controlling which terms 
+        to require and exclude.
         """
 
         def search_fields_to_dict(fields):
@@ -72,8 +66,8 @@ class SearchableQuerySet(QuerySet):
             return fields
 
         #### DETERMINE FIELDS TO SEARCH ###
-        # Use fields arg if given, otherwise check internal list which if
-        # empty, populate from model attr or char-like fields.
+        # Use fields arg if given, otherwise check internal list which 
+        # if empty, populate from model attr or char-like fields.
         if search_fields is None:
             search_fields = self._search_fields
         if len(search_fields) == 0:
@@ -87,28 +81,29 @@ class SearchableQuerySet(QuerySet):
                 issubclass(f.__class__, TextField)]
         if len(search_fields) == 0:
             return self.none()
-        # Search fields can be a dict or sequence of pairs mapping fields to
-        # their relevant weight in ordering the results. If a mapping isn't
-        # used then assume a sequence of field names and give them equal
-        # weighting.
+        # Search fields can be a dict or sequence of pairs mapping 
+        # fields to their relevant weight in ordering the results. 
+        # If a mapping isn't used then assume a sequence of field 
+        # names and give them equal weighting.
         if not isinstance(self._search_fields, dict):
             self._search_fields = {}
         self._search_fields.update(search_fields_to_dict(search_fields))
 
         #### BUILD LIST OF TERMS TO SEARCH FOR ###
         # Remove extra spaces, put modifiers inside quoted terms.
-        terms = " ".join(query.split()).replace("+ ", "+")      \
-                                        .replace('+"', '"+')    \
-                                        .replace("- ", "-")     \
-                                        .replace('-"', '"-')    \
-                                        .split('"')
-        # Strip punctuation other than modifiers from terms and create terms
-        # list - first from quoted terms and then remaining words.
+        terms = " ".join(query.split()).replace("+ ", "+")     \
+                                       .replace('+"', '"+')    \
+                                       .replace("- ", "-")     \
+                                       .replace('-"', '"-')    \
+                                       .split('"')
+        # Strip punctuation other than modifiers from terms and create 
+        # terms list, first from quoted terms and then remaining words.
         terms = [("" if t[0] not in "+-" else t[0]) + t.strip(punctuation)
             for t in terms[1::2] + "".join(terms[::2]).split()]
-        # Remove stop words from terms that aren't quoted or use modifiers,
-        # since words with these are an explicit part of the search query. If
-        # doing so ends up with an empty term list, then keep the stop words.
+        # Remove stop words from terms that aren't quoted or use 
+        # modifiers, since words with these are an explicit part of 
+        # the search query. If doing so ends up with an empty term 
+        # list, then keep the stop words.
         terms_no_stopwords = [t for t in terms if t.lower() not in
             settings.STOP_WORDS]
         get_positive_terms = lambda terms: [t.lower().strip(punctuation)
@@ -118,8 +113,8 @@ class SearchableQuerySet(QuerySet):
             terms = terms_no_stopwords
         else:
             positive_terms = get_positive_terms(terms)
-        # Append positive terms (those without the negative modifier) to the
-        # internal list for sorting when results are iterated.
+        # Append positive terms (those without the negative modifier) 
+        # to the internal list for sorting when results are iterated.
         if not positive_terms:
             return self.none()
         else:
@@ -138,8 +133,8 @@ class SearchableQuerySet(QuerySet):
             queryset = queryset.filter(reduce(iand, excluded))
         if required:
             queryset = queryset.filter(reduce(iand, required))
-        # Optional terms aren't relevant to the filter if there are terms
-        # that are explicitly required
+        # Optional terms aren't relevant to the filter if there are 
+        # terms that are explicitly required.
         elif optional:
             queryset = queryset.filter(reduce(ior, optional))
         return queryset
@@ -162,9 +157,9 @@ class SearchableQuerySet(QuerySet):
 
     def iterator(self):
         """
-        If search has occurred and no ordering has occurred, decorate each
-        result with the number of search terms so that it can be sorted by
-        the number of occurrence of terms.
+        If search has occurred and no ordering has occurred, decorate 
+        each result with the number of search terms so that it can be 
+        sorted by the number of occurrence of terms.
         """
         results = super(SearchableQuerySet, self).iterator()
         if self._search_terms and not self._search_ordered:
@@ -185,8 +180,8 @@ class SearchableManager(Manager):
     """
     Manager providing a chainable queryset.
     Adapted from http://www.djangosnippets.org/snippets/562/
-    search method supports spanning across models that subclass the model
-    being used to search.
+    search method supports spanning across models that subclass the 
+    model being used to search.
     """
 
     def __init__(self, *args, **kwargs):
@@ -199,9 +194,9 @@ class SearchableManager(Manager):
 
     def search(self, *args, **kwargs):
         """
-        Proxy to queryset's search method for the manager's model and any
-        models that subclass from this manager's model if the model is
-        abstract.
+        Proxy to queryset's search method for the manager's model and 
+        any models that subclass from this manager's model if the 
+        model is abstract.
         """
         all_results = []
         if getattr(self.model._meta, "abstract", False):

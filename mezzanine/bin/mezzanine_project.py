@@ -12,8 +12,8 @@ from mezzanine.utils.importing import path_for_import
 
 def create_project():
     """
-    Copies the contents of the project_template directory to a new directory
-    specified as an argument to the command line.
+    Copies the contents of the project_template directory to a new 
+    directory specified as an argument to the command line.
     """
 
     parser = OptionParser(usage="usage: %prog [options] project_name")
@@ -32,8 +32,8 @@ def create_project():
         parser.error("project_name cannot start with '-'")
     project_path = os.path.join(os.getcwd(), project_name)
 
-    # Ensure the given directory name doesn't clash with an existing Python
-    # package/module.
+    # Ensure the given directory name doesn't clash with an existing 
+    # Python package/module.
     try:
         __import__(project_name)
     except ImportError:
@@ -43,8 +43,9 @@ def create_project():
             "Python module and cannot be used as a project name. "
             "Please try another name." % project_name)
 
-    # Create the list of packages to build from - at this stage it should
-    # only be one or two names, mezzanine plus an alternate package.
+    # Create the list of packages to build from - at this stage it 
+    # should only be one or two names, mezzanine plus an alternate 
+    # package.
     packages = ["mezzanine"]
     if options.alt:
         packages.append(options.alt)
@@ -54,8 +55,8 @@ def create_project():
         except ImportError:
             parser.error("Could not import package '%s'" % package_name)
 
-    # Build the project up copying over the project_template from each of
-    # the packages.
+    # Build the project up copying over the project_template from 
+    # each of the packages.
     template_path = os.path.join(project_path, "templates")
     for package_name in packages:
         package_path = path_for_import(package_name)

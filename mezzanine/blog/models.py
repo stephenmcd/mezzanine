@@ -13,7 +13,7 @@ class BlogPost(Displayable, Ownable, Content):
 
     categories = models.ManyToManyField("BlogCategory", blank=True, 
                                         related_name="blogposts")
-    comments = CommentsField()
+    comments = CommentsField(verbose_name=_("Comments"))
 
     class Meta:
         verbose_name = _("Blog post")

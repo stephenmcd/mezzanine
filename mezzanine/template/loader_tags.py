@@ -26,11 +26,11 @@ class ContextAwareExtendsNode(ExtendsNode):
             self.parent_name = self.parent_name_expr.resolve(context)
         parent = self.parent_name
         if not parent:
-            error_msg = "Invalid template name in 'extends' tag: %r." % parent
+            error = "Invalid template name in 'extends' tag: %r." % parent
             if self.parent_name_expr:
-                error_msg += (" Got this from the '%s' variable." %
-                              self.parent_name_expr.token)
-            raise TemplateSyntaxError(error_msg)
+                token = self.parent_name_expr.token
+                error += " Got this from the '%s' variable." % token
+            raise TemplateSyntaxError(error)
         if hasattr(parent, "render"):
             return parent  # parent is a Template object
         return get_template(parent, context)
@@ -63,8 +63,8 @@ def include(context, token):
     """
     bits = token.split_contents()
     if len(bits) != 2:
-        raise TemplateSyntaxError("%r tag takes one argument: "
-                        "the name of the template to be included" % bits[0])
+        raise TemplateSyntaxError("%r tag takes one argument: the name of "
+                                  "the template to be included" % bits[0])
     template = bits[1]
     if template[0] in ('"', "'") and template[-1] == template[0]:
         template = template[1:-1]

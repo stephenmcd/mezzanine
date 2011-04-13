@@ -39,20 +39,13 @@ class DisplayableAdmin(admin.ModelAdmin):
             "classes": ("collapse-closed",)},),
     )
 
-    def save_model(self, request, obj, form, change):
-        """
-        Store the keywords as a single string into the ``_keywords`` field
-        for convenient access when searching.
-        """
-        obj = form.save(commit=True)
-        obj.set_searchable_keywords()
-
 
 class DynamicInlineAdmin(admin.TabularInline):
     """
-    Admin inline that uses JS to inject an "Add another" link when when
-    clicked, dynamically reveals another fieldset. Also handles adding the
-    ``_order`` field and its widget for models that subclass ``Orderable``.
+    Admin inline that uses JS to inject an "Add another" link which 
+    when clicked, dynamically reveals another fieldset. Also handles 
+    adding the ``_order`` field and its widget for models that 
+    subclass ``Orderable``.
     """
 
     form = DynamicInlineAdminForm
@@ -76,10 +69,10 @@ class DynamicInlineAdmin(admin.TabularInline):
 
 class OwnableAdmin(admin.ModelAdmin):
     """
-    Admin class for models that subclass the abstract ``Ownable`` model.
-    Handles limiting the change list to objects owned by the logged in user,
-    as well as setting the owner of newly created objects to the logged in
-    user.
+    Admin class for models that subclass the abstract ``Ownable`` 
+    model. Handles limiting the change list to objects owned by the 
+    logged in user, as well as setting the owner of newly created \
+    objects to the logged in user.
     """
 
     def save_form(self, request, form, change):
@@ -93,7 +86,8 @@ class OwnableAdmin(admin.ModelAdmin):
 
     def queryset(self, request):
         """
-        Filter the change list by currently logged in user if not a superuser.
+        Filter the change list by currently logged in user if not a 
+        superuser.
         """
         qs = super(OwnableAdmin, self).queryset(request)
         if request.user.is_superuser:
@@ -103,9 +97,9 @@ class OwnableAdmin(admin.ModelAdmin):
 
 class SingletonAdmin(admin.ModelAdmin):
     """
-    Admin class for models that should only contain a single instance in the
-    database. Redirect all views to the change view when the instance exists,
-    and to the add view when it doesn't.
+    Admin class for models that should only contain a single instance 
+    in the database. Redirect all views to the change view when the 
+    instance exists, and to the add view when it doesn't.
     """
 
     def add_view(self, *args, **kwargs):
@@ -122,8 +116,8 @@ class SingletonAdmin(admin.ModelAdmin):
 
     def changelist_view(self, *args, **kwargs):
         """
-        Redirect to the add view if no records exist or the change view if
-        the singleton instance exists.
+        Redirect to the add view if no records exist or the change 
+        view if the singleton instance exists.
         """
         try:
             singleton = self.model.objects.get()
@@ -151,4 +145,4 @@ class SingletonAdmin(admin.ModelAdmin):
         else:
             extra_context["singleton"] = True
         return super(SingletonAdmin, self).change_view(request, object_id,
-                                                        extra_context)
+                                                       extra_context)
