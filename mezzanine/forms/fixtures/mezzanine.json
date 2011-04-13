@@ -3,7 +3,6 @@
         "pk": 3, 
         "model": "forms.form", 
         "fields": {
-            "keywords": [], 
             "send_email": true, 
             "email_copies": "", 
             "content": "<p>Fill in the form below to get in touch with us.</p>", 

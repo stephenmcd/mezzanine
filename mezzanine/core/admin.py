@@ -9,14 +9,12 @@ from mezzanine.core.models import Orderable
 from mezzanine.utils.urls import content_media_urls, admin_url
 
 
-# Build the list of admin JS file for ``Displayable`` models.
 # For >= Django 1.2 include a backport of collapse.js which targets
 # earlier versions of the admin.
-displayable_js = ["js/jquery-1.4.4.min.js", "js/keywords_field.js"]
 from django import VERSION
-if not (VERSION[0] <= 1 and VERSION[1] <= 1):
-    displayable_js.append("js/collapse_backport.js")
-displayable_js = content_media_urls(*displayable_js)
+displayable_js = []
+if VERSION > (1, 1, 0):
+    displayable_js = content_media_urls("js/collapse_backport.js")
 
 
 class DisplayableAdmin(admin.ModelAdmin):

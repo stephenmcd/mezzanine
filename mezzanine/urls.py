@@ -61,6 +61,7 @@ if getattr(settings, "PACKAGE_NAME_GRAPPELLI") in settings.INSTALLED_APPS:
 # Miscellanous Mezzanine patterns.
 urlpatterns += patterns("",
     ("^mezzanine/", include("mezzanine.core.urls")),
+    ("^mezzanine_generic/", include("mezzanine.generic.urls")),
     static_urls(settings.CONTENT_MEDIA_URL, settings.CONTENT_MEDIA_PATH),
 )
 

@@ -3,7 +3,6 @@ import os
 
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
-from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import get_model
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
@@ -12,25 +11,10 @@ from django.views.static import serve
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
-from mezzanine.core.models import Keyword, Displayable
+from mezzanine.core.models import Displayable
 from mezzanine.utils.importing import path_for_import
 from mezzanine.utils.views import is_editable, paginate, render_to_response
 from mezzanine.utils.views import set_cookie
-
-
-def admin_keywords_submit(request):
-    """
-    Adds any new given keywords from the custom keywords field in the admin and
-    returns their IDs for use when saving a model with a keywords field.
-    """
-    ids = []
-    for title in request.POST.get("text_keywords", "").split(","):
-        title = "".join([c for c in title if c.isalnum() or c == "-"]).lower()
-        if title:
-            keyword, created = Keyword.objects.get_or_create(title=title)
-            ids.append(str(keyword.id))
-    return HttpResponse(",".join(set(ids)))
-admin_keywords_submit = staff_member_required(admin_keywords_submit)
 
 
 def set_device(request, device=""):
@@ -45,8 +29,8 @@ def set_device(request, device=""):
 
 def direct_to_template(request, template, extra_context=None, **kwargs):
     """
-    Replacement for Django's ``direct_to_template`` that uses Mezzanine's
-    device-aware ``render_to_response``.
+    Replacement for Django's ``direct_to_template`` that uses 
+    Mezzanine's device-aware ``render_to_response``.
     """
     context = extra_context or {}
     context["params"] = kwargs
@@ -63,7 +47,7 @@ def edit(request):
     model = get_model(request.POST["app"], request.POST["model"])
     obj = model.objects.get(id=request.POST["id"])
     form = get_edit_form(obj, request.POST["fields"], data=request.POST,
-                        files=request.FILES)
+                         files=request.FILES)
     if not is_editable(obj, request):
         response = _("Permission denied")
     elif form.is_valid():
@@ -85,7 +69,8 @@ def search(request, template="search_results.html"):
     query = request.GET.get("q", "")
     results = Displayable.objects.search(query)
     results = paginate(results, request.GET.get("page", 1),
-        settings.SEARCH_PER_PAGE, settings.SEARCH_MAX_PAGING_LINKS)
+                       settings.SEARCH_PER_PAGE, 
+                       settings.SEARCH_MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
     return render_to_response(template, context, RequestContext(request))
 
@@ -93,8 +78,8 @@ def search(request, template="search_results.html"):
 def serve_with_theme(request, path):
     """
     Mimics ``django.views.static.serve`` for serving files from 
-    ``MEDIA_ROOT`` during development, first checking for the file in the 
-    theme defined by the ``THEME`` setting if specified.
+    ``MEDIA_ROOT`` during development, first checking for the file 
+    in the theme defined by the ``THEME`` setting if specified.
     """
     theme = getattr(settings, "THEME")
     if theme:

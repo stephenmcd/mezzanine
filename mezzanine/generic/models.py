@@ -2,11 +2,13 @@
 from hashlib import md5
 
 from django.contrib.comments.models import Comment
+from django.contrib.contenttypes.generic import GenericForeignKey
 from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.generic.managers import CommentManager
+from mezzanine.generic.managers import CommentManager, KeywordManager
+from mezzanine.core.models import Slugged
 
 
 class ThreadedComment(Comment):
@@ -67,3 +69,30 @@ class ThreadedComment(Comment):
                                         ugettext("View on site"))
     admin_link.allow_tags = True
     admin_link.short_description = ""
+
+
+class Keyword(Slugged):
+    """
+    Keywords/tags which are managed via a custom Javascript based 
+    widget in the admin.
+    """
+
+    objects = KeywordManager()
+
+    class Meta:
+        verbose_name = _("Keyword")
+        verbose_name_plural = _("Keywords")
+
+
+class AssignedKeyword(models.Model):
+    """
+    A ``Keyword`` assigned to a model instance.
+    """
+
+    keyword = models.ForeignKey("Keyword", related_name="assignments")
+    content_type = models.ForeignKey("contenttypes.ContentType")
+    object_pk = models.TextField()
+    content_object = GenericForeignKey("content_type", "object_pk")
+
+    def __unicode__(self):
+        return unicode(self.keyword)

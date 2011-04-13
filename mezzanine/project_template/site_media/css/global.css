@@ -194,6 +194,9 @@ td, th {
 .tags li {
     display:inline !important; margin:0 !important;
 }
+.cloud li {
+    white-space:nowrap;
+}
 .share {
     background:#eee; padding:5px;
 }

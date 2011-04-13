@@ -9,7 +9,8 @@ from django.utils.html import strip_tags
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import HtmlField
-from mezzanine.core.managers import DisplayableManager, KeywordManager
+from mezzanine.core.managers import DisplayableManager
+from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.models import base_concrete_model
 
 
@@ -33,8 +34,8 @@ class Slugged(models.Model):
         Create a unique slug by appending an index.
         """
         if not self.slug:
-            # For custom content types, use the ``Page`` instance for slug
-            # lookup.
+            # For custom content types, use the ``Page`` instance for 
+            # slug lookup.
             concrete_model = base_concrete_model(Slugged, self)
             self.slug = self.get_slug()
             i = 0
@@ -73,8 +74,8 @@ CONTENT_STATUS_CHOICES = (
 
 class Displayable(Slugged):
     """
-    Abstract model that provides features of a visible page on the website
-    such as publishing fields and meta data.
+    Abstract model that provides features of a visible page on the 
+    website such as publishing fields and meta data.
     """
 
     status = models.IntegerField(_("Status"),
@@ -86,24 +87,23 @@ class Displayable(Slugged):
         help_text=_("With published checked, won't be shown after this time"),
         blank=True, null=True)
     description = models.TextField(_("Description"), blank=True)
-    keywords = models.ManyToManyField("Keyword", verbose_name=_("Keywords"),
-        blank=True)
-    _keywords = models.CharField(max_length=500, editable=False)
+    keywords = KeywordsField(verbose_name=_("Keywords"))
     short_url = models.URLField(blank=True, null=True)
 
     objects = DisplayableManager()
-    search_fields = {"_keywords": 10, "title": 5}
+    search_fields = {"keywords": 10, "title": 5}
 
     class Meta:
         abstract = True
 
     def save(self, *args, **kwargs):
         """
-        Set default for ``publsh_date`` and ``description`` if none given.
+        Set default for ``publsh_date`` and ``description`` if none 
+        given.
         """
         if self.publish_date is None:
-            # publish_date will be blank when a blog post is created from the
-            # quick blog form in the admin dashboard.
+            # publish_date will be blank when a blog post is created 
+            # from the quick blog form in the admin dashboard.
             self.publish_date = datetime.now()
         if not self.description:
             self.description = strip_tags(self.description_from_content())
@@ -114,7 +114,7 @@ class Displayable(Slugged):
         Returns the first paragraph of the first content-like field.
         """
         description = ""
-        # Get the value of the first HTMLField, or TextField if none found.
+        # Use the first HTMLField, or TextField if none found.
         for field_type in (HtmlField, models.TextField):
             if not description:
                 for field in self._meta.fields:
@@ -135,16 +135,6 @@ class Displayable(Slugged):
             description = truncatewords_html(description, 100)
         return description
 
-    def set_searchable_keywords(self):
-        """
-        Stores the keywords as a single string into the ``_keywords`` field
-        for convenient access when searching.
-        """
-        keywords = " ".join([kw.title for kw in self.keywords.all()])
-        if self._keywords != keywords:
-            self._keywords = keywords
-            self.save()
-
     def admin_link(self):
         return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
             ugettext("View on site"))
@@ -154,7 +144,8 @@ class Displayable(Slugged):
 
 class Content(models.Model):
     """
-    Provides a HTML field for managing general content and making it searchable.
+    Provides a HTML field for managing general content and making it 
+    searchable.
     """
 
     content = HtmlField(_("Content"))
@@ -167,10 +158,11 @@ class Content(models.Model):
 
 class OrderableBase(ModelBase):
     """
-    Checks for ``order_with_respect_to`` on the model's inner ``Meta`` class
-    and if found, copies it to a custom attribute and deletes it since it
-    will cause errors when used with ``ForeignKey("self")``. Also creates the
-    ``ordering`` attribute on the ``Meta`` class if not yet provided.
+    Checks for ``order_with_respect_to`` on the model's inner ``Meta`` 
+    class and if found, copies it to a custom attribute and deletes it 
+    since it will cause errors when used with ``ForeignKey("self")``. 
+    Also creates the ``ordering`` attribute on the ``Meta`` class if 
+    not yet provided.
     """
 
     def __new__(cls, name, bases, attrs):
@@ -188,10 +180,11 @@ class OrderableBase(ModelBase):
 
 class Orderable(models.Model):
     """
-    Abstract model that provides a custom ordering integer field similar to
-    using Meta's ``order_with_respect_to``, since to date (Django 1.2) this
-    doesn't work with ``ForeignKey("self")``. We may also want this feature
-    for models that aren't ordered with respect to a particular field.
+    Abstract model that provides a custom ordering integer field 
+    similar to using Meta's ``order_with_respect_to``, since to 
+    date (Django 1.2) this doesn't work with ``ForeignKey("self")``. 
+    We may also want this feature for models that aren't ordered with 
+    respect to a particular field.
     """
 
     __metaclass__ = OrderableBase
@@ -203,8 +196,9 @@ class Orderable(models.Model):
 
     def with_respect_to(self):
         """
-        Returns a dict to use as a filter for ordering operations containing
-        the original ``Meta.order_with_respect_to`` value if provided.
+        Returns a dict to use as a filter for ordering operations 
+        containing the original ``Meta.order_with_respect_to`` value 
+        if provided.
         """
         try:
             field = self.order_with_respect_to
@@ -250,16 +244,3 @@ class Ownable(models.Model):
         Restrict in-line editing to the objects's owner and superusers.
         """
         return request.user.is_superuser or request.user.id == self.user_id
-
-
-class Keyword(Slugged):
-    """
-    Keywords/tags which are managed via a custom Javascript based widget in the
-    admin.
-    """
-
-    objects = KeywordManager()
-
-    class Meta:
-        verbose_name = _("Keyword")
-        verbose_name_plural = _("Keywords")

@@ -1,9 +1,75 @@
 
 from django import forms
 from django.contrib.comments.forms import CommentForm
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.generic.models import ThreadedComment
+from mezzanine.generic.models import Keyword, ThreadedComment
+from mezzanine.utils.urls import content_media_urls
+
+
+class KeywordsWidget(forms.MultiWidget):
+    """
+    Form field for the ``KeywordsField`` generic relation field. Since 
+    the admin with model forms has no form field for generic 
+    relations, this form field provides a single field for managing 
+    the keywords. It contains two actual widgets, a text input for 
+    entering keywords, and a hidden input that stores the ID of each 
+    ``Keyword`` instance.
+    
+    The attached JavaScript adds behaviour so that when the form is 
+    submitted, an AJAX post is made that passes the list of keywords 
+    in the text input, and returns a list of keyword IDs which are 
+    then entered into the hidden input before the form submits. The 
+    list of IDs in the hidden input is what is used when retrieving 
+    an actual value from the field for the form.
+    """
+
+    class Media:
+        js = content_media_urls("js/jquery-1.4.4.min.js", 
+                                "js/keywords_field.js")
+
+    def __init__(self, attrs=None):
+        """
+        Setup the text and hidden form field widgets.
+        """
+        widgets = (forms.HiddenInput, 
+                   forms.TextInput(attrs={"class": "vTextField"}))
+        super(KeywordsWidget, self).__init__(widgets, attrs)
+        self._ids = []
+    
+    def decompress(self, value):
+        """
+        Takes the sequence of ``AssignedKeyword`` instances and splits 
+        them into lists of keyword IDs and titles each mapping to one 
+        of the firm field widgets.
+        """
+        if hasattr(value, "select_related"):
+            keywords = [a.keyword for a in value.select_related("keyword")]
+            if keywords:
+                keywords = [(str(k.id), k.title) for k in keywords]
+                self._ids, words = zip(*keywords)
+                return (",".join(self._ids), ", ".join(sorted(words)))
+        return ("", "")
+
+    def format_output(self, rendered_widgets):
+        """
+        Wraps the output HTML with a list of all available ``Keyword`` 
+        instances that can be clicked on to toggle a keyword.
+        """
+        rendered = super(KeywordsWidget, self).format_output(rendered_widgets)
+        links = "".join(["<a href='#'>%s%s</a>" % 
+                         ("+" if str(k.id) not in self._ids else "-", k) 
+                         for k in Keyword.objects.all().order_by("title")])
+        rendered += mark_safe("<p class='keywords-field'>%s</p>" % links)
+        return rendered
+
+    def value_from_datadict(self, data, files, name):
+        """
+        Return the comma separated list of keyword IDs for use in 
+        ``KeywordsField.save_form_data()``.
+        """
+        return data["%s_0" % name]
 
 
 class ThreadedCommentForm(CommentForm):
@@ -17,6 +83,6 @@ class ThreadedCommentForm(CommentForm):
 
     def get_comment_model(self):
         """
-        Use our custom comment model instead of the built-in one.
+        Use the custom comment model instead of the built-in one.
         """
         return ThreadedComment

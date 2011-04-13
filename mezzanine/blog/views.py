@@ -8,7 +8,7 @@ from django.template import RequestContext
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
-from mezzanine.core.models import Keyword
+from mezzanine.generic.models import Keyword
 from mezzanine.generic.utils import handle_comments
 from mezzanine.pages.models import ContentPage
 from mezzanine.template.loader import select_template

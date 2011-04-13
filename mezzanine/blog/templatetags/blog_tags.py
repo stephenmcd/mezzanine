@@ -4,10 +4,8 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.db.models import Count
 
-from mezzanine.conf import settings
 from mezzanine.blog.forms import BlogPostForm
 from mezzanine.blog.models import BlogPost, BlogCategory
-from mezzanine.core.models import Keyword
 from mezzanine import template
 
 
@@ -40,37 +38,13 @@ def blog_categories(*args):
 
 
 @register.as_tag
-def blog_tags(*args):
-    """
-    Put a list of tags (keywords) for blog posts into the template context.
-    """
-    tags = Keyword.objects.filter(blogpost__isnull=False).annotate(
-        post_count=Count("blogpost"))
-    if not tags:
-        return []
-    settings.use_editable()
-    counts = [tag.post_count for tag in tags]
-    min_count, max_count = min(counts), max(counts)
-    sizes = settings.TAG_CLOUD_SIZES
-    step = (max_count - min_count) / (sizes - 1)
-    if step == 0:
-        steps = [sizes / 2]
-    else:
-        steps = range(min_count, max_count, step)[:sizes]
-    for tag in tags:
-        c = tag.post_count
-        diff = min([(abs(s - c), (s - c)) for s in steps])[1]
-        tag.weight = steps.index(c + diff) + 1
-    return tags
-
-
-@register.as_tag
 def blog_authors(*args):
     """
     Put a list of authors (users) for blog posts into the template context.
     """
     blog_posts = BlogPost.objects.published()
-    return list(User.objects.filter(blogposts__in=blog_posts).annotate(post_count=Count("blogposts")))
+    authors = User.objects.filter(blogposts__in=blog_posts)
+    return list(authors.annotate(post_count=Count("blogposts")))
 
 
 @register.as_tag

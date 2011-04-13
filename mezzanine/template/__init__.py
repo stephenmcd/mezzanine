@@ -27,7 +27,9 @@ class Library(template.Library):
             class AsTagNode(template.Node):
                 def render(self, context):
                     parts = token.split_contents()
-                    context[parts[-1]] = tag_func(*parts[1:-2])
+                    # Resolve variables if their names are given.
+                    args = [context.get(arg, arg) for arg in parts[1:-2]]
+                    context[parts[-1]] = tag_func(*args)
                     return ""
             return AsTagNode()
         return self.tag(tag_wrapper)

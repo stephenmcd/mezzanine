@@ -1,5 +1,5 @@
 {% extends "blog/blog_post_list.html" %}
-{% load mezzanine_tags comment_tags i18n %}
+{% load mezzanine_tags comment_tags keyword_tags i18n %}
 
 {% block meta_title %}{{ blog_post.title }}{% endblock %}
 
@@ -65,7 +65,7 @@
 {{ blog_post.content|safe }}
 {% endeditable %}
 
-{% with blog_post.keywords.all as tags %}
+{% keywords_for blog_post as tags %}
 {% if tags %}
 <div class="tags">
     {% trans "Tags" %}: 
@@ -77,7 +77,6 @@
     </ul>
 </div>
 {% endif %}
-{% endwith %}
 
 <div class="share">
 {% set_short_url_for blog_post %}

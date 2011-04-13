@@ -1,57 +1,173 @@
 
 from django.contrib.contenttypes.generic import GenericRelation
-from django.db.models import IntegerField, signals
+from django.db.models import IntegerField, CharField
+from django.db.models.signals import post_save, post_delete
 
 
 class BaseGenericRelation(GenericRelation):
     """
-    Extends ``GenericRelation`` to add a consistent default value 
-    for ``object_id_field`` and check for a ``related_model`` 
-    attribute which can be defined on subclasses as a default 
-    for the ``to`` argument.
+    Extends ``GenericRelation`` to:
+    
+    - Add a consistent default value for ``object_id_field`` and 
+      check for a ``related_model`` attribute which can be defined 
+      on subclasses as a default for the ``to`` argument.
+    
+    - Add one or more custom fields to the model that the relation 
+      field is applied to, and then call a ``related_items_changed`` 
+      method each time related items are saved or deleted, so that a 
+      calculated value can be stored against the custom fields since 
+      aggregates aren't available for GenericRelation instances.
+
     """
 
+    # Mapping of field names to model fields that will be added.
+    fields = {}
+
     def __init__(self, *args, **kwargs):
+        """
+        Set up some defaults and check for a ``related_model`` 
+        attribute for the ``to`` argument.
+        """
         kwargs.setdefault("object_id_field", "object_pk")
         to = getattr(self, "related_model", None)
         if to:
             kwargs.setdefault("to", to)
         super(BaseGenericRelation, self).__init__(*args, **kwargs)
 
-
-class GenericRelationWithCount(BaseGenericRelation):
-    """
-    Generic relation field that stores the count of related items 
-    against an instance, each time a related item is saved or deleted, 
-    using a custom ``RELATION_count`` field.
-    """
-
     def contribute_to_class(self, cls, name):
         """
-        Create the ``RELATION_count`` field for storing the count of 
-        related items, using the related field's name, and set up the 
-        signals for save and delete which will update the count field.
+        Add each of the names and fields in the ``fields`` attribute 
+        to the model the relationship field is applied to, and set up 
+        the related item save and delete signals for calling 
+        ``related_items_changed``.
         """
-        super(GenericRelationWithCount, self).contribute_to_class(cls, name)
+        super(BaseGenericRelation, self).contribute_to_class(cls, name)
         self.related_field_name = name
-        self.count_field_name = "%s_count" % name
-        count_field = IntegerField(editable=False, default=0)
-        cls.add_to_class(self.count_field_name, count_field)
-        signals.post_save.connect(self.save_count, self.rel.to, True)
-        signals.post_delete.connect(self.save_count, self.rel.to, True)
+        # Not applicable to abstract classes, and in fact will break.
+        if not cls._meta.abstract:
+            for (name_string, field) in self.fields.items():
+                if "%s" in name_string:
+                    name_string = name_string % name
+                if not field.verbose_name:
+                    field.verbose_name = self.verbose_name
+                cls.add_to_class(name_string, field)
+            post_save.connect(self._related_items_changed, self.rel.to, True)
+            post_delete.connect(self._related_items_changed, self.rel.to, True)
 
-    def save_count(self, **kwargs):
+    def _related_items_changed(self, **kwargs):
         """
-        Signal handler for save/delete of a related item that updates 
-        the count field. A custom ``count_filter`` queryset gets checked 
-        for, allowing managers to implement custom count logic.
+        Ensure that the given related item is actually for the model 
+        this field applies to, and pass the instance to the real 
+        ``related_items_changed`` handler.
         """
-        instance = self.model.objects.get(id=kwargs["instance"].object_pk)
-        related_field = getattr(instance, self.related_field_name)
-        count = getattr(related_field, "count_queryset", related_field.count)()
-        setattr(instance, self.count_field_name, count)
+        for_model = kwargs["instance"].content_type.model_class()
+        if issubclass(for_model, self.model):
+            instance = self.model.objects.get(id=kwargs["instance"].object_pk)
+            if hasattr(instance, "get_content_model"):
+                instance = instance.get_content_model()
+            related_manager = getattr(instance, self.related_field_name)
+            self.related_items_changed(instance, related_manager)
+
+    def related_items_changed(self, instance, related_manager):
+        """
+        Can be implemented by subclasses - called whenever the 
+        state of related items change, eg they're saved or deleted. 
+        The instance for this field and the related manager for the 
+        field are passed as arguments.
+        """
+        pass
+
+
+class CommentsField(BaseGenericRelation):
+    """
+    Stores the number of comments against the ``COMMENTS_FIELD_count`` 
+    field when a comment is saved or deleted.
+    """
+
+    related_model = "generic.ThreadedComment"
+    fields = {"%s_count": IntegerField(editable=False, default=0)}
+
+    def related_items_changed(self, instance, related_manager):
+        """
+        Stores the number of comments. A custom ``count_filter`` 
+        queryset gets checked for, allowing managers to implement 
+        custom count logic.
+        """
+        try:
+            count = related_manager.count_queryset()
+        except AttributeError:
+            count = related_manager.count()
+        count_field_name = self.fields.keys()[0] % self.related_field_name
+        setattr(instance, count_field_name, count)
         instance.save()
 
 
-class CommentsField(GenericRelationWithCount):
-    related_model = "generic.ThreadedComment"
+class KeywordsField(BaseGenericRelation):
+    """
+    Stores the keywords as a single string into the 
+    ``KEYWORDS_FIELD_string``  field for convenient access when 
+    searching.
+    """
+
+    related_model = "generic.AssignedKeyword"
+    fields = {"%s_string": CharField(blank=True, max_length=500)}
+
+    def __init__(self, *args, **kwargs):
+        """
+        Mark the field as editable so that it can be specified in 
+        admin class fieldsets and pass validation, and also so that 
+        it shows up in the admin form.
+        """
+        super(KeywordsField, self).__init__(*args, **kwargs)
+        self.editable = True
+
+    def formfield(self, **kwargs):
+        """
+        Provide the custom form widget for the admin, since there 
+        isn't a form field mapped to ``GenericRelation`` model fields.
+        """
+        from mezzanine.generic.forms import KeywordsWidget
+        kwargs["widget"] = KeywordsWidget()
+        return super(KeywordsField, self).formfield(**kwargs)
+    
+    def save_form_data(self, instance, data):
+        """
+        The ``KeywordsWidget`` field will return data as a string of 
+        comma separated IDs for the ``Keyword`` model - convert these 
+        into actual ``AssignedKeyword`` instances.
+        """
+        from mezzanine.generic.models import AssignedKeyword
+        # Remove current assigned keywords.
+        related_manager = getattr(instance, self.name)
+        related_manager.all().delete()
+        assigned = [AssignedKeyword(keyword_id=i) for i in data.split(",")]
+        super(KeywordsField, self).save_form_data(instance, assigned)
+    
+    def contribute_to_class(self, cls, name):
+        """
+        Swap out any reference to ``KeywordsField`` with the 
+        ``KEYWORDS_FIELD_string`` field in ``search_fields``.
+        """
+        super(KeywordsField, self).contribute_to_class(cls, name)
+        string_field_name = self.fields.keys()[0] % self.related_field_name
+        if hasattr(cls, "search_fields") and name in cls.search_fields:
+            try:
+                weight = cls.search_fields[name]
+            except AttributeError:
+                # search_fields is a sequence.
+                index = cls.search_fields.index(name)
+                cls.search_fields[index] = string_field_name
+            else:
+                del cls.search_fields[name]
+                cls.search_fields[string_field_name] = weight
+
+    def related_items_changed(self, instance, related_manager):
+        """
+        Stores the keywords as a single string for searching.
+        """
+        assigned = related_manager.select_related("keyword")
+        keywords = " ".join([unicode(a.keyword) for a in assigned])
+        string_field_name = self.fields.keys()[0] % self.related_field_name
+        if getattr(instance, string_field_name) != keywords:
+            setattr(instance, string_field_name, keywords)
+            instance.save()

@@ -1,4 +1,4 @@
-{% load blog_tags i18n %}
+{% load blog_tags keyword_tags i18n %}
 
 {% blog_recent_posts 5 as recent_posts %}
 {% if recent_posts %}
@@ -36,13 +36,13 @@
 </ul>
 {% endif %}
 
-{% blog_tags as tags %}
+{% keywords_for blog.blogpost as tags %}
 {% if tags %}
 <h3>{% trans "Tags" %}</h3>
-<ul class="tags">
+<ul class="tags cloud">
 {% for tag in tags %}
 <li><a href="{% url blog_post_list_tag tag.slug %}" 
-    class="tag-weight-{{ tag.weight }}">{{ tag }}</a></li>
+    class="tag-weight-{{ tag.weight }}">{{ tag }}</a> ({{ tag.item_count }})</li>
 {% endfor %}
 </ul>
 {% endif %}

@@ -7,10 +7,6 @@ from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand, CommandError
 
-from mezzanine.blog.models import BlogPost
-from mezzanine.core.models import Keyword, CONTENT_STATUS_PUBLISHED
-from mezzanine.generic.models import ThreadedComment
-
 
 class BaseImporterCommand(BaseCommand):
     """
@@ -80,6 +76,11 @@ class BaseImporterCommand(BaseCommand):
             date_format: the format the dates are in for posts and comments
         """
 
+        from mezzanine.blog.models import BlogPost
+        from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
+        from mezzanine.generic.models import AssignedKeyword, Keyword
+        from mezzanine.generic.models import ThreadedComment
+
         mezzanine_user = options.get("mezzanine_user")
         site = Site.objects.get_current()
         verbosity = int(options.get("verbosity", 1))
@@ -102,14 +103,14 @@ class BaseImporterCommand(BaseCommand):
             tags = post.pop("tags")
             comments = post.pop("comments")
             old_url = post.pop("old_url")
-
-            post, created = BlogPost.objects.get_or_create(
-                user=mezzanine_user, status=CONTENT_STATUS_PUBLISHED, **post)
+            post_args = post
+            post_args["user"] = mezzanine_user
+            post_args["status"] = CONTENT_STATUS_PUBLISHED
+            post, created = BlogPost.objects.get_or_create(**post_args)
 
             for tag in tags:
                 keyword, created = Keyword.objects.get_or_create(title=tag)
-                post.keywords.add(keyword)
-            post.set_searchable_keywords()
+                post.keywords.add(AssignedKeyword(keyword=keyword))
 
             for comment in comments:
                 if verbosity >= 1:
