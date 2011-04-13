@@ -56,6 +56,7 @@ def create_project():
 
     # Build the project up copying over the project_template from each of
     # the packages.
+    template_path = os.path.join(project_path, "templates")
     for package_name in packages:
         package_path = path_for_import(package_name)
         if options.copy_source:
@@ -64,12 +65,17 @@ def create_project():
         move(os.path.join(project_path, "local_settings.py.template"),
             os.path.join(project_path, "local_settings.py"))
         if options.copy_templates:
-            template_path = os.path.join(project_path, "templates")
             for app_dir in os.listdir(package_path):
                 template_dir = os.path.join(package_path, app_dir, "templates")
                 if os.path.isdir(template_dir):
                     copy_tree(template_dir, template_path)
+    # Remove admin templates from the project to allow for easier 
+    # upgrading, as these templates need not be customised.
+    if options.copy_templates:
+        try:
             rmtree(os.path.join(template_path, "admin"))
+        except OSError:
+            pass
 
     # Generate a unique SECREY_KEY for the project's setttings module.
     settings_path = os.path.join(os.getcwd(), project_name, "settings.py")
