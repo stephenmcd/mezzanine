@@ -4,7 +4,7 @@ consistent access method for settings defined in applications, the project
 or Django itself. Settings can also be made editable via the admin.
 """
 
-from django.conf import settings
+from django.conf import settings as django_settings
 
 from mezzanine import __version__
 
@@ -21,29 +21,31 @@ def register_setting(name="", label="", editable=False, description="",
     if append and name in registry:
         registry[name]["default"] += default
     else:
-        default = getattr(settings, name, default)
+        default = getattr(django_settings, name, default)
         setting_type = type(default)
         if setting_type is str:
             setting_type = unicode
-        registry[name] = {"name": name, "label": label, "description": description,
-            "editable": editable, "default": default, "type": setting_type}
+        registry[name] = {"name": name, "label": label, 
+                          "description": description,
+                          "editable": editable, "default": default, 
+                          "type": setting_type}
 
 
 class Settings(object):
     """
-    An object that provides settings via dynamic attribute access. Settings
-    that are registered as editable and can therefore be stored in the
-    database are *all* loaded once only, the first time *any* editable
-    setting is accessed. When accessing uneditable settings their default
-    values are used. The Settings object also provides access to Django
-    settings via ``django.conf.settings`` in order to provide a consistent
-    method of access for all settings.
+    An object that provides settings via dynamic attribute access. 
+    Settings that are registered as editable and can therefore be 
+    stored in the database are *all* loaded once only, the first 
+    time *any* editable setting is accessed. When accessing uneditable 
+    settings their default values are used. The Settings object also 
+    provides access to Django settings via ``django.conf.settings`` in 
+    order to provide a consistent method of access for all settings.
     """
 
     def __init__(self):
         """
-        Marking loaded as True to begin with prevents some nasty errors
-        when the DB table is first created.
+        Marking loaded as True to begin with prevents some nasty 
+        errors when the DB table is first created.
         """
         self._loaded = True
         self._editable_cache = {}
@@ -64,8 +66,7 @@ class Settings(object):
         try:
             setting = registry[name]
         except KeyError:
-            from django.conf import settings
-            return getattr(settings, name)
+            return getattr(django_settings, name)
 
         # First access for an editable setting - load from DB into cache.
         if setting["editable"] and not self._loaded:
@@ -89,7 +90,7 @@ class Settings(object):
         return setting["default"]
 
 
-for app in [__name__] + [a for a in settings.INSTALLED_APPS if a != __name__]:
+for app in [__name__] + [a for a in django_settings.INSTALLED_APPS if a != __name__]:
     try:
         __import__("%s.defaults" % app)
     except (ImportError, ValueError):  # ValueError raised by convert_to_south
