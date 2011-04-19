@@ -1,0 +1,11 @@
+{% extends "admin/delete_confirmation.html" %}
+
+{% block extrahead %}{{ block.super }}
+<script>
+$(function() {
+    if (location.search == '?fromtree') {
+        $('.cancellink').attr('href', '../../')
+    }
+});
+</script>
+{% endblock %}
