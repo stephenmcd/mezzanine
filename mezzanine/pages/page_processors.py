@@ -12,26 +12,28 @@ processors = defaultdict(list)
 
 def processor_for(content_model):
     """
-    Decorator that registers the decorated function as a page processor for
-    the given content model.
+    Decorator that registers the decorated function as a page 
+    processor for the given content model.
     """
     if isinstance(content_model, basestring):
-        content_model = get_model(*content_model.split("."))
+        try:
+            content_model = get_model(*content_model.split(".", 1))
+        except ValueError:
+            raise ValueError("%s isn't in the form: app.model" % content_model)
     if not issubclass(content_model, Page):
         raise TypeError("%s is not a subclass of Page" % content_model)
-
     def decorator(func):
         processors[content_model._meta.object_name.lower()].append(func)
         return func
     return decorator
 
-LOADED = False
 
+LOADED = False
 
 def autodiscover():
     """
-    Taken from ``django.contrib.admin.autodiscover`` and used to run any
-    calls to the ``processor_for`` decorator.
+    Taken from ``django.contrib.admin.autodiscover`` and used to run 
+    any calls to the ``processor_for`` decorator.
     """
     global LOADED
     if LOADED:

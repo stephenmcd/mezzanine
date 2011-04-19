@@ -1,5 +1,5 @@
 {% extends "admin/change_list.html" %}
-{% load pages_tags i18n %}
+{% load pages_tags i18n adminmedia %}
 
 {% block extrahead %}{{ block.super }}
 <style type="text/css">
@@ -28,9 +28,19 @@
     .addlist {float:right; margin-top:-3px;}
     #addlist-primary {float:left; width:620px; text-align:right; 
         margin-top:-25px;}
-    
+
     .placeholder {border:1px dashed #ddd;}
     .uneditable {margin-left:25px; color:#999;}
+
+    .delete {width:10px; height:10px; margin:2px 4px 0 10px;
+        display:block; float:right; 
+        background:url('{% admin_media_prefix %}img/admin/icon_deletelink.gif');}
+
+    .grappelli-delete {width:11px; height:11px; margin:4px 4px 0 10px;
+        background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink.png');}
+    
+    .grappelli-delete:hover {
+        background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink-hover.png');}
 
 </style>
             
@@ -62,8 +72,12 @@
         }
         document.cookie = cookie + '=' + ids + '; path=/';
     };
-    
+
     $(function() {
+
+        if (window.__grappelli_installed) {
+            $('.delete').addClass('grappelli-delete');
+        }
 
         $('#tree .tree-toggle').click(function() {
             // Show/hide the branch and toggle the icon.
@@ -145,7 +159,7 @@
     {% if has_add_permission %}
     <div id="addlist-primary">
         <select class="addlist">
-            <option value="">{% trans "Add primary" %} ...</option>
+            <option value="">{% trans "Add" %} ...</option>
             {% for model in page_models %}
 			    {% set_model_permissions model %}
 			    {% if model.perms.add %}
