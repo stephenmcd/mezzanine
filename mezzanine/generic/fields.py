@@ -140,8 +140,10 @@ class KeywordsField(BaseGenericRelation):
         # Remove current assigned keywords.
         related_manager = getattr(instance, self.name)
         related_manager.all().delete()
-        assigned = [AssignedKeyword(keyword_id=i) for i in data.split(",")]
-        super(KeywordsField, self).save_form_data(instance, assigned)
+        'Fix to dissalow saving of keyword if keyword is empty'
+        if data:
+            assigned = [AssignedKeyword(keyword_id=i) for i in data.split(",")]
+            super(KeywordsField, self).save_form_data(instance, assigned)
     
     def contribute_to_class(self, cls, name):
         """
