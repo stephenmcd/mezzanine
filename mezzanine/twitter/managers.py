@@ -3,6 +3,10 @@ from django.db.models import Manager
 
 
 class TweetManager(Manager):
+    """
+    Manager that handles generating the initial ``Query`` instance
+    for a user, list or search term.
+    """
 
     def get_for(self, user_name=None, list_name=None, search_term=None):
         """

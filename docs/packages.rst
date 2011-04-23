@@ -2,7 +2,7 @@
 Packages
 ========
 
-Below are auto-generated docs mostly covering each of the packages contained 
+Below are auto-generated docs mostly covering each of the packages contained
 within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 
 ``mezzanine.core``
@@ -101,6 +101,69 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 
 .. automodule:: mezzanine.pages.page_processors
    :members:
+
+``mezzanine.generic``
+=====================
+
+.. automodule:: mezzanine.generic
+
+``mezzanine.generic.models``
+----------------------------
+
+.. automodule:: mezzanine.generic.models
+   :members:
+
+``mezzanine.generic.managers``
+------------------------------
+
+.. automodule:: mezzanine.generic.managers
+   :members:
+
+``mezzanine.generic.fields``
+----------------------------
+
+.. automodule:: mezzanine.generic.fields
+   :members:
+
+``mezzanine.generic.views``
+---------------------------
+
+.. automodule:: mezzanine.generic.views
+   :members:
+
+``mezzanine.generic.forms``
+---------------------------
+
+.. automodule:: mezzanine.generic.forms
+   :members:
+
+``mezzanine.generic.admin``
+---------------------------
+
+.. automodule:: mezzanine.generic.admin
+   :members:
+
+``mezzanine.generic.utils``
+---------------------------
+
+.. automodule:: mezzanine.generic.utils
+   :members:
+
+``mezzanine.generic.templatetags.comment_tags``
+-----------------------------------------------
+
+.. automodule:: mezzanine.generic.templatetags.comment_tags
+   :members:
+
+``mezzanine.generic.templatetags.keyword_tags``
+-----------------------------------------------
+
+.. automodule:: mezzanine.generic.templatetags.keyword_tags
+   :members:
+
+
+
+
 
 ``mezzanine.blog``
 ==================
@@ -292,4 +355,3 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 
 .. automodule:: mezzanine.utils.views
    :members:
-
