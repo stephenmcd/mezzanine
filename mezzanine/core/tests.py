@@ -170,8 +170,17 @@ class Tests(TestCase):
         Test search.
         """
         ContentPage.objects.all().delete()
-        first = ContentPage.objects.create(title="test page").id
-        second = ContentPage.objects.create(title="test another test page").id
+        published = {"status": CONTENT_STATUS_PUBLISHED}
+        first = ContentPage.objects.create(title="test page",
+                                           status=CONTENT_STATUS_DRAFT).id
+        second = ContentPage.objects.create(title="test another test page",
+                                            **published).id
+        # Draft shouldn't be a result.
+        results = ContentPage.objects.search("test")
+        self.assertEqual(len(results), 1)
+        ContentPage.objects.filter(id=first).update(**published)
+        results = ContentPage.objects.search("test")
+        self.assertEqual(len(results), 2)
         # Either word.
         results = ContentPage.objects.search("another test")
         self.assertEqual(len(results), 2)
