@@ -138,6 +138,7 @@ Sites Using Mezzanine
   * `Alpha & Omega Contractors`_
   * `Equity Advance`_
   * `Head3 Interactive`_
+  * `PyLadies`_
 
 Quotes
 ======
@@ -196,3 +197,4 @@ Quotes
 .. _`Alpha & Omega Contractors`: http://alphaomegacontractors.com/
 .. _`Equity Advance`: http://equityadvance.com.au/
 .. _`Head3 Interactive`: http://head3.com/
+.. _`PyLadies`: http://www.pyladies.com/
