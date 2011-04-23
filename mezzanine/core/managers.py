@@ -192,7 +192,7 @@ class SearchableManager(Manager):
         search_fields = self._search_fields
         return SearchableQuerySet(self.model, search_fields=search_fields)
 
-    def search(self, *args, **kwargs):
+    def search(self, for_user=None, *args, **kwargs):
         """
         Proxy to queryset's search method for the manager's model and
         any models that subclass from this manager's model if the
@@ -204,7 +204,7 @@ class SearchableManager(Manager):
         else:
             models = [self.model]
         for model in models:
-            results = model.objects.get_query_set().search(*args, **kwargs)
+            results = model.objects.published(for_user).search(*args, **kwargs)
             all_results.extend(results)
         sort_key = lambda r: r.result_count
         return sorted(all_results, key=sort_key, reverse=True)
