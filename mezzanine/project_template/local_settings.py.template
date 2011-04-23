@@ -1,5 +1,4 @@
 
-DEV_SERVER = True
 DEBUG = True
 
 DATABASES = {
@@ -14,7 +13,7 @@ DATABASES = {
         "PASSWORD": "",
         # Set to empty string for localhost. Not used with sqlite3.
         "HOST": "",
-         # Set to empty string for default. Not used with sqlite3.
+        # Set to empty string for default. Not used with sqlite3.
         "PORT": "",
     }
 }
