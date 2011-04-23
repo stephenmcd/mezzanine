@@ -7,15 +7,15 @@ from django.db.models.signals import post_save, post_delete
 class BaseGenericRelation(GenericRelation):
     """
     Extends ``GenericRelation`` to:
-    
-    - Add a consistent default value for ``object_id_field`` and 
-      check for a ``related_model`` attribute which can be defined 
+
+    - Add a consistent default value for ``object_id_field`` and
+      check for a ``related_model`` attribute which can be defined
       on subclasses as a default for the ``to`` argument.
-    
-    - Add one or more custom fields to the model that the relation 
-      field is applied to, and then call a ``related_items_changed`` 
-      method each time related items are saved or deleted, so that a 
-      calculated value can be stored against the custom fields since 
+
+    - Add one or more custom fields to the model that the relation
+      field is applied to, and then call a ``related_items_changed``
+      method each time related items are saved or deleted, so that a
+      calculated value can be stored against the custom fields since
       aggregates aren't available for GenericRelation instances.
 
     """
@@ -25,7 +25,7 @@ class BaseGenericRelation(GenericRelation):
 
     def __init__(self, *args, **kwargs):
         """
-        Set up some defaults and check for a ``related_model`` 
+        Set up some defaults and check for a ``related_model``
         attribute for the ``to`` argument.
         """
         kwargs.setdefault("object_id_field", "object_pk")
@@ -36,9 +36,9 @@ class BaseGenericRelation(GenericRelation):
 
     def contribute_to_class(self, cls, name):
         """
-        Add each of the names and fields in the ``fields`` attribute 
-        to the model the relationship field is applied to, and set up 
-        the related item save and delete signals for calling 
+        Add each of the names and fields in the ``fields`` attribute
+        to the model the relationship field is applied to, and set up
+        the related item save and delete signals for calling
         ``related_items_changed``.
         """
         super(BaseGenericRelation, self).contribute_to_class(cls, name)
@@ -56,8 +56,8 @@ class BaseGenericRelation(GenericRelation):
 
     def _related_items_changed(self, **kwargs):
         """
-        Ensure that the given related item is actually for the model 
-        this field applies to, and pass the instance to the real 
+        Ensure that the given related item is actually for the model
+        this field applies to, and pass the instance to the real
         ``related_items_changed`` handler.
         """
         for_model = kwargs["instance"].content_type.model_class()
@@ -70,9 +70,9 @@ class BaseGenericRelation(GenericRelation):
 
     def related_items_changed(self, instance, related_manager):
         """
-        Can be implemented by subclasses - called whenever the 
-        state of related items change, eg they're saved or deleted. 
-        The instance for this field and the related manager for the 
+        Can be implemented by subclasses - called whenever the
+        state of related items change, eg they're saved or deleted.
+        The instance for this field and the related manager for the
         field are passed as arguments.
         """
         pass
@@ -80,7 +80,7 @@ class BaseGenericRelation(GenericRelation):
 
 class CommentsField(BaseGenericRelation):
     """
-    Stores the number of comments against the ``COMMENTS_FIELD_count`` 
+    Stores the number of comments against the ``COMMENTS_FIELD_count``
     field when a comment is saved or deleted.
     """
 
@@ -89,8 +89,8 @@ class CommentsField(BaseGenericRelation):
 
     def related_items_changed(self, instance, related_manager):
         """
-        Stores the number of comments. A custom ``count_filter`` 
-        queryset gets checked for, allowing managers to implement 
+        Stores the number of comments. A custom ``count_filter``
+        queryset gets checked for, allowing managers to implement
         custom count logic.
         """
         try:
@@ -104,8 +104,8 @@ class CommentsField(BaseGenericRelation):
 
 class KeywordsField(BaseGenericRelation):
     """
-    Stores the keywords as a single string into the 
-    ``KEYWORDS_FIELD_string``  field for convenient access when 
+    Stores the keywords as a single string into the
+    ``KEYWORDS_FIELD_string``  field for convenient access when
     searching.
     """
 
@@ -114,8 +114,8 @@ class KeywordsField(BaseGenericRelation):
 
     def __init__(self, *args, **kwargs):
         """
-        Mark the field as editable so that it can be specified in 
-        admin class fieldsets and pass validation, and also so that 
+        Mark the field as editable so that it can be specified in
+        admin class fieldsets and pass validation, and also so that
         it shows up in the admin form.
         """
         super(KeywordsField, self).__init__(*args, **kwargs)
@@ -123,17 +123,17 @@ class KeywordsField(BaseGenericRelation):
 
     def formfield(self, **kwargs):
         """
-        Provide the custom form widget for the admin, since there 
+        Provide the custom form widget for the admin, since there
         isn't a form field mapped to ``GenericRelation`` model fields.
         """
         from mezzanine.generic.forms import KeywordsWidget
         kwargs["widget"] = KeywordsWidget()
         return super(KeywordsField, self).formfield(**kwargs)
-    
+
     def save_form_data(self, instance, data):
         """
-        The ``KeywordsWidget`` field will return data as a string of 
-        comma separated IDs for the ``Keyword`` model - convert these 
+        The ``KeywordsWidget`` field will return data as a string of
+        comma separated IDs for the ``Keyword`` model - convert these
         into actual ``AssignedKeyword`` instances.
         """
         from mezzanine.generic.models import AssignedKeyword
@@ -142,10 +142,10 @@ class KeywordsField(BaseGenericRelation):
         related_manager.all().delete()
         assigned = [AssignedKeyword(keyword_id=i) for i in data.split(",")]
         super(KeywordsField, self).save_form_data(instance, assigned)
-    
+
     def contribute_to_class(self, cls, name):
         """
-        Swap out any reference to ``KeywordsField`` with the 
+        Swap out any reference to ``KeywordsField`` with the
         ``KEYWORDS_FIELD_string`` field in ``search_fields``.
         """
         super(KeywordsField, self).contribute_to_class(cls, name)

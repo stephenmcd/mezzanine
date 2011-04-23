@@ -10,38 +10,38 @@ from mezzanine.utils.urls import content_media_urls
 
 class KeywordsWidget(forms.MultiWidget):
     """
-    Form field for the ``KeywordsField`` generic relation field. Since 
-    the admin with model forms has no form field for generic 
-    relations, this form field provides a single field for managing 
-    the keywords. It contains two actual widgets, a text input for 
-    entering keywords, and a hidden input that stores the ID of each 
+    Form field for the ``KeywordsField`` generic relation field. Since
+    the admin with model forms has no form field for generic
+    relations, this form field provides a single field for managing
+    the keywords. It contains two actual widgets, a text input for
+    entering keywords, and a hidden input that stores the ID of each
     ``Keyword`` instance.
-    
-    The attached JavaScript adds behaviour so that when the form is 
-    submitted, an AJAX post is made that passes the list of keywords 
-    in the text input, and returns a list of keyword IDs which are 
-    then entered into the hidden input before the form submits. The 
-    list of IDs in the hidden input is what is used when retrieving 
+
+    The attached JavaScript adds behaviour so that when the form is
+    submitted, an AJAX post is made that passes the list of keywords
+    in the text input, and returns a list of keyword IDs which are
+    then entered into the hidden input before the form submits. The
+    list of IDs in the hidden input is what is used when retrieving
     an actual value from the field for the form.
     """
 
     class Media:
-        js = content_media_urls("js/jquery-1.4.4.min.js", 
+        js = content_media_urls("js/jquery-1.4.4.min.js",
                                 "js/keywords_field.js")
 
     def __init__(self, attrs=None):
         """
         Setup the text and hidden form field widgets.
         """
-        widgets = (forms.HiddenInput, 
+        widgets = (forms.HiddenInput,
                    forms.TextInput(attrs={"class": "vTextField"}))
         super(KeywordsWidget, self).__init__(widgets, attrs)
         self._ids = []
-    
+
     def decompress(self, value):
         """
-        Takes the sequence of ``AssignedKeyword`` instances and splits 
-        them into lists of keyword IDs and titles each mapping to one 
+        Takes the sequence of ``AssignedKeyword`` instances and splits
+        them into lists of keyword IDs and titles each mapping to one
         of the firm field widgets.
         """
         if hasattr(value, "select_related"):
@@ -54,19 +54,19 @@ class KeywordsWidget(forms.MultiWidget):
 
     def format_output(self, rendered_widgets):
         """
-        Wraps the output HTML with a list of all available ``Keyword`` 
+        Wraps the output HTML with a list of all available ``Keyword``
         instances that can be clicked on to toggle a keyword.
         """
         rendered = super(KeywordsWidget, self).format_output(rendered_widgets)
-        links = "".join(["<a href='#'>%s%s</a>" % 
-                         ("+" if str(k.id) not in self._ids else "-", k) 
+        links = "".join(["<a href='#'>%s%s</a>" %
+                         ("+" if str(k.id) not in self._ids else "-", k)
                          for k in Keyword.objects.all().order_by("title")])
         rendered += mark_safe("<p class='keywords-field'>%s</p>" % links)
         return rendered
 
     def value_from_datadict(self, data, files, name):
         """
-        Return the comma separated list of keyword IDs for use in 
+        Return the comma separated list of keyword IDs for use in
         ``KeywordsField.save_form_data()``.
         """
         return data["%s_0" % name]
@@ -76,9 +76,9 @@ class ThreadedCommentForm(CommentForm):
 
     name = forms.CharField(label=_("Name"), help_text=_("required"),
                            max_length=50)
-    email = forms.EmailField(label=_("Email"), 
+    email = forms.EmailField(label=_("Email"),
                              help_text=_("required (not published)"))
-    url = forms.URLField(label=_("Website"), help_text=_("optional"), 
+    url = forms.URLField(label=_("Website"), help_text=_("optional"),
                          required=False)
 
     def get_comment_model(self):

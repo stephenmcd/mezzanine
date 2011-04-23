@@ -10,8 +10,8 @@ if "django.contrib.admin" in settings.INSTALLED_APPS:
     urlpatterns += patterns("django.contrib.auth.views",
         url("^password_reset/$", "password_reset", name="password_reset"),
         ("^password_reset/done/$", "password_reset_done"),
-        ("^reset/(?P<uidb36>[-\w]+)/(?P<token>[-\w]+)/$", 
-            "password_reset_confirm"), 
+        ("^reset/(?P<uidb36>[-\w]+)/(?P<token>[-\w]+)/$",
+            "password_reset_confirm"),
         ("^reset/done/$", "password_reset_complete"),
     )
 

@@ -12,7 +12,7 @@ from mezzanine.utils.importing import path_for_import
 
 def create_project():
     """
-    Copies the contents of the project_template directory to a new 
+    Copies the contents of the project_template directory to a new
     directory specified as an argument to the command line.
     """
 
@@ -32,7 +32,7 @@ def create_project():
         parser.error("project_name cannot start with '-'")
     project_path = os.path.join(os.getcwd(), project_name)
 
-    # Ensure the given directory name doesn't clash with an existing 
+    # Ensure the given directory name doesn't clash with an existing
     # Python package/module.
     try:
         __import__(project_name)
@@ -43,8 +43,8 @@ def create_project():
             "Python module and cannot be used as a project name. "
             "Please try another name." % project_name)
 
-    # Create the list of packages to build from - at this stage it 
-    # should only be one or two names, mezzanine plus an alternate 
+    # Create the list of packages to build from - at this stage it
+    # should only be one or two names, mezzanine plus an alternate
     # package.
     packages = ["mezzanine"]
     if options.alt:
@@ -55,7 +55,7 @@ def create_project():
         except ImportError:
             parser.error("Could not import package '%s'" % package_name)
 
-    # Build the project up copying over the project_template from 
+    # Build the project up copying over the project_template from
     # each of the packages.
     template_path = os.path.join(project_path, "templates")
     for package_name in packages:
@@ -70,7 +70,7 @@ def create_project():
                 template_dir = os.path.join(package_path, app_dir, "templates")
                 if os.path.isdir(template_dir):
                     copy_tree(template_dir, template_path)
-    # Remove admin templates from the project to allow for easier 
+    # Remove admin templates from the project to allow for easier
     # upgrading, as these templates need not be customised.
     if options.copy_templates:
         try:

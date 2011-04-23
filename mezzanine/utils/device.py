@@ -2,9 +2,9 @@
 
 def device_from_request(request):
     """
-    Determine's the device name from the request by first looking for an 
-    overridding cookie, and if not found then matching the user agent. 
-    Used at both the template level for choosing the template to load and 
+    Determine's the device name from the request by first looking for an
+    overridding cookie, and if not found then matching the user agent.
+    Used at both the template level for choosing the template to load and
     also at the cache level as a cache key prefix.
     """
     from mezzanine.conf import settings

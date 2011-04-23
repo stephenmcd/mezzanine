@@ -12,7 +12,7 @@ class PostsRSS(Feed):
     """
     RSS feed for all blog posts.
     """
-    
+
     def title(self):
         return blog_page().title
 
@@ -24,7 +24,7 @@ class PostsRSS(Feed):
 
     def items(self):
         return BlogPost.objects.published().select_related("user")
-    
+
     def categories(self):
         return BlogCategory.objects.all()
 

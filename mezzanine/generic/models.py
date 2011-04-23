@@ -13,7 +13,7 @@ from mezzanine.core.models import Slugged
 
 class ThreadedComment(Comment):
     """
-    Extend the ``Comment`` model from ``django.contrib.comments`` to 
+    Extend the ``Comment`` model from ``django.contrib.comments`` to
     add comment threading.
     """
 
@@ -21,7 +21,7 @@ class ThreadedComment(Comment):
     by_author = models.BooleanField(_("By the blog author"), default=False)
     replied_to = models.ForeignKey("self", null=True, editable=False,
                                    related_name="comments")
-                                   
+
     objects = CommentManager()
 
     class Meta:
@@ -30,7 +30,7 @@ class ThreadedComment(Comment):
 
     def get_absolute_url(self):
         """
-        Use the URL for the comment's content object, with a URL hash 
+        Use the URL for the comment's content object, with a URL hash
         appended that references the individual comment.
         """
         url = self.content_object.get_absolute_url()
@@ -38,8 +38,8 @@ class ThreadedComment(Comment):
 
     def save(self, *args, **kwargs):
         """
-        Store the email hash of the comment for using with 
-        Gravatar.com, and set ``is_public`` based on the setting 
+        Store the email hash of the comment for using with
+        Gravatar.com, and set ``is_public`` based on the setting
         ``COMMENTS_DEFAULT_APPROVED``.
         """
         if not self.id:
@@ -59,7 +59,7 @@ class ThreadedComment(Comment):
     def avatar_link(self):
         from mezzanine.generic.templatetags.comment_tags import gravatar_url
         vars = (self.user_email, gravatar_url(self.email_hash), self.user_name)
-        return ("<a href='mailto:%s'><img style='vertical-align:middle; " 
+        return ("<a href='mailto:%s'><img style='vertical-align:middle; "
                 "margin-right:3px;' src='%s' />%s</a>" % vars)
     avatar_link.allow_tags = True
     avatar_link.short_description = _("User")
@@ -73,7 +73,7 @@ class ThreadedComment(Comment):
 
 class Keyword(Slugged):
     """
-    Keywords/tags which are managed via a custom Javascript based 
+    Keywords/tags which are managed via a custom Javascript based
     widget in the admin.
     """
 

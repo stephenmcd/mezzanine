@@ -8,8 +8,8 @@ from mezzanine.generic.models import Keyword
 @staff_member_required
 def admin_keywords_submit(request):
     """
-    Adds any new given keywords from the custom keywords field in the 
-    admin, and returns their IDs for use when saving a model with a 
+    Adds any new given keywords from the custom keywords field in the
+    admin, and returns their IDs for use when saving a model with a
     keywords field.
     """
     ids = []

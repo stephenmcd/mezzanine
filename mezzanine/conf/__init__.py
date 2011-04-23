@@ -25,26 +25,26 @@ def register_setting(name="", label="", editable=False, description="",
         setting_type = type(default)
         if setting_type is str:
             setting_type = unicode
-        registry[name] = {"name": name, "label": label, 
+        registry[name] = {"name": name, "label": label,
                           "description": description,
-                          "editable": editable, "default": default, 
+                          "editable": editable, "default": default,
                           "type": setting_type}
 
 
 class Settings(object):
     """
-    An object that provides settings via dynamic attribute access. 
-    Settings that are registered as editable and can therefore be 
-    stored in the database are *all* loaded once only, the first 
-    time *any* editable setting is accessed. When accessing uneditable 
-    settings their default values are used. The Settings object also 
-    provides access to Django settings via ``django.conf.settings`` in 
+    An object that provides settings via dynamic attribute access.
+    Settings that are registered as editable and can therefore be
+    stored in the database are *all* loaded once only, the first
+    time *any* editable setting is accessed. When accessing uneditable
+    settings their default values are used. The Settings object also
+    provides access to Django settings via ``django.conf.settings`` in
     order to provide a consistent method of access for all settings.
     """
 
     def __init__(self):
         """
-        Marking loaded as True to begin with prevents some nasty 
+        Marking loaded as True to begin with prevents some nasty
         errors when the DB table is first created.
         """
         self._loaded = True

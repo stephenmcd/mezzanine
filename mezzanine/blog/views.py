@@ -28,9 +28,9 @@ def blog_page():
 def blog_post_list(request, tag=None, year=None, month=None, username=None,
                    category=None, template="blog/blog_post_list.html"):
     """
-    Display a list of blog posts that are filtered by tag, year, month, 
+    Display a list of blog posts that are filtered by tag, year, month,
     author or category. Custom templates are checked for using the name
-    ``blog/blog_post_list_XXX.html`` where ``XXX`` is either the 
+    ``blog/blog_post_list_XXX.html`` where ``XXX`` is either the
     category slug or author's username if given.
     """
     settings.use_editable()
@@ -56,8 +56,8 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     blog_posts = paginate(blog_posts, request.GET.get("page", 1),
                           settings.BLOG_POST_PER_PAGE,
                           settings.BLOG_POST_MAX_PAGING_LINKS)
-    context = {"blog_page": blog_page(), "blog_posts": blog_posts, 
-               "year": year, "month": month, "tag": tag, 
+    context = {"blog_page": blog_page(), "blog_posts": blog_posts,
+               "year": year, "month": month, "tag": tag,
                "category": category, "author": author}
     templates.append(template)
     request_context = RequestContext(request, context)
@@ -67,9 +67,9 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
 
 def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
     """
-    Display a blog post and handle comment submission. Custom 
+    Display a blog post and handle comment submission. Custom
     templates are checked for using the name
-    ``blog/blog_post_detail_XXX.html`` where ``XXX`` is the blog 
+    ``blog/blog_post_detail_XXX.html`` where ``XXX`` is the blog
     posts's slug.
     """
     blog_posts = BlogPost.objects.published(for_user=request.user)
@@ -79,7 +79,7 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
     posted_comment_form, unposted_comment_form, response = comment_parts
     if response is not None:
         return response
-    context = {"blog_page": blog_page(), "blog_post": blog_post, 
+    context = {"blog_page": blog_page(), "blog_post": blog_post,
                "posted_comment_form": posted_comment_form,
                "unposted_comment_form": unposted_comment_form}
     templates = ["blog/blog_post_detail_%s.html" % slug, template]

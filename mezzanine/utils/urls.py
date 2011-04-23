@@ -18,7 +18,7 @@ def admin_url(model, url, object_id=None):
 
 def content_media_urls(*paths):
     """
-    Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for 
+    Prefix the list of paths with the ``CONTENT_MEDIA_URL`` setting for
     internally hosted JS and CSS files.
     """
     media_url = settings.CONTENT_MEDIA_URL.strip("/")
@@ -27,7 +27,7 @@ def content_media_urls(*paths):
 
 def static_urls(url_prefix, document_root):
     """
-    Returns the ``urlpattern`` for serving static content from the given 
+    Returns the ``urlpattern`` for serving static content from the given
     ``document_root`` over the given ``url_prefix``.
     """
     pattern = "^%s/(?P<path>.*)$" % url_prefix.strip("/")

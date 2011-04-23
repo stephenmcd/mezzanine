@@ -42,9 +42,9 @@ class DisplayableAdmin(admin.ModelAdmin):
 
 class DynamicInlineAdmin(admin.TabularInline):
     """
-    Admin inline that uses JS to inject an "Add another" link which 
-    when clicked, dynamically reveals another fieldset. Also handles 
-    adding the ``_order`` field and its widget for models that 
+    Admin inline that uses JS to inject an "Add another" link which
+    when clicked, dynamically reveals another fieldset. Also handles
+    adding the ``_order`` field and its widget for models that
     subclass ``Orderable``.
     """
 
@@ -69,8 +69,8 @@ class DynamicInlineAdmin(admin.TabularInline):
 
 class OwnableAdmin(admin.ModelAdmin):
     """
-    Admin class for models that subclass the abstract ``Ownable`` 
-    model. Handles limiting the change list to objects owned by the 
+    Admin class for models that subclass the abstract ``Ownable``
+    model. Handles limiting the change list to objects owned by the
     logged in user, as well as setting the owner of newly created \
     objects to the logged in user.
     """
@@ -86,7 +86,7 @@ class OwnableAdmin(admin.ModelAdmin):
 
     def queryset(self, request):
         """
-        Filter the change list by currently logged in user if not a 
+        Filter the change list by currently logged in user if not a
         superuser.
         """
         qs = super(OwnableAdmin, self).queryset(request)
@@ -97,8 +97,8 @@ class OwnableAdmin(admin.ModelAdmin):
 
 class SingletonAdmin(admin.ModelAdmin):
     """
-    Admin class for models that should only contain a single instance 
-    in the database. Redirect all views to the change view when the 
+    Admin class for models that should only contain a single instance
+    in the database. Redirect all views to the change view when the
     instance exists, and to the add view when it doesn't.
     """
 
@@ -116,7 +116,7 @@ class SingletonAdmin(admin.ModelAdmin):
 
     def changelist_view(self, *args, **kwargs):
         """
-        Redirect to the add view if no records exist or the change 
+        Redirect to the add view if no records exist or the change
         view if the singleton instance exists.
         """
         try:

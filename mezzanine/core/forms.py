@@ -11,20 +11,20 @@ from mezzanine.core.models import Orderable
 from mezzanine.utils.urls import content_media_urls
 
 
-tinymce_main = [settings.ADMIN_MEDIA_PREFIX + 
+tinymce_main = [settings.ADMIN_MEDIA_PREFIX +
                 "tinymce/jscripts/tiny_mce/tiny_mce.js"]
 tinymce_setup = content_media_urls("js/tinymce_setup.js")
 
 
 class TinyMceWidget(forms.Textarea):
     """
-    Setup the JS files and targetting CSS class for a textarea to 
+    Setup the JS files and targetting CSS class for a textarea to
     use TinyMCE.
     """
-    
+
     class Media:
         js = tinymce_main + tinymce_setup
-        
+
     def __init__(self, *args, **kwargs):
         super(TinyMceWidget, self).__init__(*args, **kwargs)
         self.attrs["class"] = "mceEditor"
@@ -32,7 +32,7 @@ class TinyMceWidget(forms.Textarea):
 
 class OrderWidget(forms.HiddenInput):
     """
-    Add up and down arrows for ordering controls next to a hidden 
+    Add up and down arrows for ordering controls next to a hidden
     form field.
     """
     def render(self, *args, **kwargs):
@@ -45,7 +45,7 @@ class OrderWidget(forms.HiddenInput):
 
 class DynamicInlineAdminForm(forms.ModelForm):
     """
-    Form for ``DynamicInlineAdmin`` that can be collapsed and sorted 
+    Form for ``DynamicInlineAdmin`` that can be collapsed and sorted
     with drag and drop using ``OrderWidget``.
     """
 
@@ -75,8 +75,8 @@ def get_edit_form(obj, field_names, data=None, files=None):
     """
     Returns the in-line editing form for editing a single model field.
     """
-    
-    # Map these form fields to their types defined in the forms app so 
+
+    # Map these form fields to their types defined in the forms app so
     # we can make use of their custom widgets.
     from mezzanine.forms import fields
     widget_overrides = {
@@ -110,13 +110,13 @@ def get_edit_form(obj, field_names, data=None, files=None):
                     pass
                 else:
                     self.fields[f].widget = fields.WIDGETS[field_type]()
-                css_class = self.fields[f].widget.attrs.get("class", "") 
+                css_class = self.fields[f].widget.attrs.get("class", "")
                 css_class += " " + field_class.__name__.lower()
                 self.fields[f].widget.attrs["class"] = css_class
                 self.fields[f].widget.attrs["id"] = "%s-%s" % (f, self.uuid)
                 if settings.FORMS_USE_HTML5 and self.fields[f].required:
                     self.fields[f].widget.attrs["required"] = ""
 
-    initial = {"app": obj._meta.app_label, "id": obj.id, 
+    initial = {"app": obj._meta.app_label, "id": obj.id,
                "fields": field_names, "model": obj._meta.object_name.lower()}
     return EditForm(instance=obj, initial=initial, data=data, files=files)

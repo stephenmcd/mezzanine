@@ -10,7 +10,7 @@ from mezzanine.template.loader import get_template, select_template
 
 def is_editable(obj, request):
     """
-    Returns ``True`` if the object is editable for the request. First check 
+    Returns ``True`` if the object is editable for the request. First check
     for a custom ``editable`` handler on the object, otherwise use the logged
     in user and check change permissions for the object's model.
     """
@@ -20,7 +20,7 @@ def is_editable(obj, request):
         perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
         return request.user.is_authenticated() and request.user.has_perm(perm)
 
-        
+
 def paginate(objects, page_num, per_page, max_paging_links):
     """
     Return a paginated page for the given objects, giving it a custom
@@ -44,10 +44,10 @@ def paginate(objects, page_num, per_page, max_paging_links):
     return objects
 
 
-def render_to_response(template_name, dictionary=None, context_instance=None, 
+def render_to_response(template_name, dictionary=None, context_instance=None,
                        mimetype=None):
     """
-    Mimics ``django.shortcuts.render_to_response`` but uses Mezzanine's 
+    Mimics ``django.shortcuts.render_to_response`` but uses Mezzanine's
     ``get_template`` which handles device specific template directories.
     """
     dictionary = dictionary or {}
@@ -64,10 +64,10 @@ def render_to_response(template_name, dictionary=None, context_instance=None,
 
 def set_cookie(response, name, value, expiry_seconds):
     """
-    Set cookie wrapper that allows number of seconds to be given as the 
+    Set cookie wrapper that allows number of seconds to be given as the
     expiry time, and ensures values are correctly encoded.
     """
     expires = datetime.strftime(datetime.utcnow() +
-                                timedelta(seconds=expiry_seconds), 
+                                timedelta(seconds=expiry_seconds),
                                 "%a, %d-%b-%Y %H:%M:%S GMT")
     response.set_cookie(name, value.encode("utf-8"), expires=expires)

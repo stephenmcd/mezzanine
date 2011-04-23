@@ -36,8 +36,8 @@ urlpatterns = []
 
 # Return a robots.txt that disallows all spiders when DEBUG is True.
 if getattr(settings, "DEBUG", False):
-    urlpatterns += patterns("", 
-        ("^robots.txt$", lambda r: HttpResponse("User-agent: *\nDisallow: /", 
+    urlpatterns += patterns("",
+        ("^robots.txt$", lambda r: HttpResponse("User-agent: *\nDisallow: /",
                                                 mimetype="text/plain")),
     )
 

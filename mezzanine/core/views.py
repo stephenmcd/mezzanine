@@ -19,7 +19,7 @@ from mezzanine.utils.views import set_cookie
 
 def set_device(request, device=""):
     """
-    Sets a device name in a cookie when a user explicitly wants to go 
+    Sets a device name in a cookie when a user explicitly wants to go
     to the site for a particular device (eg mobile).
     """
     response = HttpResponseRedirect(request.GET.get("next", "/"))
@@ -29,7 +29,7 @@ def set_device(request, device=""):
 
 def direct_to_template(request, template, extra_context=None, **kwargs):
     """
-    Replacement for Django's ``direct_to_template`` that uses 
+    Replacement for Django's ``direct_to_template`` that uses
     Mezzanine's device-aware ``render_to_response``.
     """
     context = extra_context or {}
@@ -69,7 +69,7 @@ def search(request, template="search_results.html"):
     query = request.GET.get("q", "")
     results = Displayable.objects.search(query)
     results = paginate(results, request.GET.get("page", 1),
-                       settings.SEARCH_PER_PAGE, 
+                       settings.SEARCH_PER_PAGE,
                        settings.SEARCH_MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
     return render_to_response(template, context, RequestContext(request))
@@ -77,8 +77,8 @@ def search(request, template="search_results.html"):
 
 def serve_with_theme(request, path):
     """
-    Mimics ``django.views.static.serve`` for serving files from 
-    ``MEDIA_ROOT`` during development, first checking for the file 
+    Mimics ``django.views.static.serve`` for serving files from
+    ``MEDIA_ROOT`` during development, first checking for the file
     in the theme defined by the ``THEME`` setting if specified.
     """
     theme = getattr(settings, "THEME")

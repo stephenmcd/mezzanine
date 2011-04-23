@@ -1,6 +1,6 @@
 """
-Utils called from project_root/docs/conf.py when Sphinx 
-documentation is generated. 
+Utils called from project_root/docs/conf.py when Sphinx
+documentation is generated.
 """
 
 from __future__ import with_statement
@@ -15,12 +15,12 @@ from mezzanine.conf import registry
 
 def build_settings_docs(docs_path, prefix=None):
     """
-    Converts names, descriptions and defaults for settings in 
-    ``mezzanine.conf.registry`` into RST format for use in docs, 
+    Converts names, descriptions and defaults for settings in
+    ``mezzanine.conf.registry`` into RST format for use in docs,
     optionally filtered by setting names with the given prefix.
     """
     # String to use instead of setting value for dynamic defaults
-    dynamic = "[dynamic]" 
+    dynamic = "[dynamic]"
     lines = [".. THIS DOCUMENT IS AUTO GENERATED VIA conf.py"]
     for name in sorted(registry.keys()):
         if prefix and not name.startswith(prefix):
@@ -30,7 +30,7 @@ def build_settings_docs(docs_path, prefix=None):
         setting_default = setting["default"]
         if isinstance(setting_default, basestring):
             if gethostname() in setting_default or (
-                setting_default.startswith("/") and 
+                setting_default.startswith("/") and
                 os.path.exists(setting_default)):
                 setting_default = dynamic
         if setting_default != dynamic:
@@ -73,7 +73,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
     # Go through each changeset and assign it to the versions dict.
     changesets = [repo.changectx(changeset) for changeset in repo.changelog]
     for changeset in sorted(changesets, reverse=True, key=_changeset_date):
-        # Check if the file with the version number is in this changeset 
+        # Check if the file with the version number is in this changeset
         # and if it is, pull it out and assign it as a variable.
         files = changeset.files()
         new_version = False
@@ -85,7 +85,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
                     versions[locals()[version_var]] = {
                         "changes": [], "date": date.strftime("%b %d, %Y")}
                     new_version = len(files) == 1
-        # Ignore changesets that are merges, bumped the version, closed 
+        # Ignore changesets that are merges, bumped the version, closed
         # a branch or regenerated the changelog itself.
         merge = len(changeset.parents()) > 1
         branch_closed = len(files) == 0

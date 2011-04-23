@@ -10,12 +10,12 @@ from mezzanine.utils.importing import path_for_import
 
 def set_dynamic_settings(s):
     """
-    Called at the end of the project's settings module and is passed 
-    its globals dict for updating with some final tweaks for settings 
-    that generally aren't specified but can be given some better 
-    defaults based on other settings that have been specified. Broken 
-    out into its own function so that the code need not be replicated 
-    in the settings modules of other project-based apps that leverage 
+    Called at the end of the project's settings module and is passed
+    its globals dict for updating with some final tweaks for settings
+    that generally aren't specified but can be given some better
+    defaults based on other settings that have been specified. Broken
+    out into its own function so that the code need not be replicated
+    in the settings modules of other project-based apps that leverage
     Mezzanine's settings module.
     """
 
@@ -66,9 +66,9 @@ def set_dynamic_settings(s):
         grappelli_path = path_for_import(s["PACKAGE_NAME_GRAPPELLI"])
         s["GRAPPELLI_MEDIA_PATH"] = os.path.join(grappelli_path, "media")
         # Adopted from django.core.management.commands.runserver
-        # Easiest way so far to actually get all the media for 
-        # Grappelli working with the dev server is to hard-code the 
-        # host:port to ADMIN_MEDIA_PREFIX, so here we check for a 
+        # Easiest way so far to actually get all the media for
+        # Grappelli working with the dev server is to hard-code the
+        # host:port to ADMIN_MEDIA_PREFIX, so here we check for a
         # custom host:port before doing this.
         if len(sys.argv) >= 2 and sys.argv[1] == "runserver":
             addrport = ""
@@ -92,7 +92,7 @@ def set_dynamic_settings(s):
         s["INSTALLED_APPS"].append("django.contrib.admin")
 
     # Add missing apps if existing apps depend on them.
-    if ("mezzanine.blog" in s["INSTALLED_APPS"] and 
+    if ("mezzanine.blog" in s["INSTALLED_APPS"] and
         "mezzanine.generic" not in s["INSTALLED_APPS"]):
         s["INSTALLED_APPS"].append("mezzanine.generic")
     if "mezzanine.generic" in s["INSTALLED_APPS"]:
@@ -106,8 +106,8 @@ def set_dynamic_settings(s):
 
     # Caching.
     if not (s.get("CACHE_BACKEND") or s.get("CACHES")):
-        s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if not 
-                                   mw.endswith("UpdateCacheMiddleware") or 
+        s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if not
+                                   mw.endswith("UpdateCacheMiddleware") or
                                    mw.endswith("FetchFromCacheMiddleware")]
 
     # Some settings tweaks for different DB engines.
@@ -124,7 +124,7 @@ def set_dynamic_settings(s):
             s["DATABASES"][key]["ENGINE"] = backend_path + db["ENGINE"]
         shortname = db["ENGINE"].split(".")[-1]
         if shortname == "sqlite3" and os.sep not in db["NAME"]:
-            # If the Sqlite DB name doesn't contain a path, assume 
+            # If the Sqlite DB name doesn't contain a path, assume
             # it's in the project directory and add the path to it.
             s["DATABASES"][key]["NAME"] = os.path.join(
                                      s.get("PROJECT_ROOT", ""), db["NAME"])
@@ -132,12 +132,12 @@ def set_dynamic_settings(s):
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
         elif shortname.startswith("postgresql") and not s.get("TIME_ZONE", 1):
-            # Specifying a blank time zone to fall back to the 
-            # system's time zone will break table creation in Postgres 
+            # Specifying a blank time zone to fall back to the
+            # system's time zone will break table creation in Postgres
             # so remove it.
             del s["TIME_ZONE"]
 
-    # If a theme is defined then add its template path to the 
+    # If a theme is defined then add its template path to the
     # template dirs.
     theme = s.get("THEME")
     if theme:

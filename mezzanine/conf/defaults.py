@@ -12,7 +12,7 @@ register_setting(
     description=_("Controls the ordering and grouping of the admin menu."),
     editable=False,
     default=(
-        (_("Content"), ("pages.Page", "blog.BlogPost", 
+        (_("Content"), ("pages.Page", "blog.BlogPost",
            "generic.ThreadedComment", (_("Media Library"), "fb_browse"),)),
         (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting")),
         (_("Users"), ("auth.User", "auth.Group",)),
@@ -345,10 +345,10 @@ register_setting(
     description=_("Sequence of setting names available within templates."),
     editable=False,
     default=(
-        "BLOG_BITLY_USER", "BLOG_BITLY_KEY", 
-        "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST", 
-        "CONTENT_MEDIA_URL", "DEV_SERVER", "FORMS_USE_HTML5", 
-        "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID", 
+        "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
+        "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
+        "CONTENT_MEDIA_URL", "DEV_SERVER", "FORMS_USE_HTML5",
+        "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID",
         "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE",
     ),
 )

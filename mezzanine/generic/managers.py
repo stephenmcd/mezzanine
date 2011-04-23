@@ -6,16 +6,16 @@ from mezzanine.conf import settings
 
 class CommentManager(Manager):
     """
-    Provides filter for restricting comments that are not approved 
+    Provides filter for restricting comments that are not approved
     if ``COMMENTS_UNAPPROVED_VISIBLE`` is set to ``False``.
     """
 
     def visible(self):
         """
-        Return the comments that are visible based on the 
-        ``COMMENTS_XXX_VISIBLE`` settings. When these settings 
-        are set to ``True``, the relevant comments are returned 
-        that shouldn't be shown, and are given placeholders in 
+        Return the comments that are visible based on the
+        ``COMMENTS_XXX_VISIBLE`` settings. When these settings
+        are set to ``True``, the relevant comments are returned
+        that shouldn't be shown, and are given placeholders in
         the template ``generic/includes/comment.html``.
         """
         settings.use_editable()
@@ -28,7 +28,7 @@ class CommentManager(Manager):
 
     def count_queryset(self):
         """
-        Called from ``CommentsField.related_items_changed`` to store 
+        Called from ``CommentsField.related_items_changed`` to store
         the comment count against an item each time a comment is saved.
         """
         return self.visible().count()

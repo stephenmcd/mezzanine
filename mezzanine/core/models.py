@@ -34,7 +34,7 @@ class Slugged(models.Model):
         Create a unique slug by appending an index.
         """
         if not self.slug:
-            # For custom content types, use the ``Page`` instance for 
+            # For custom content types, use the ``Page`` instance for
             # slug lookup.
             concrete_model = base_concrete_model(Slugged, self)
             self.slug = self.get_slug()
@@ -74,7 +74,7 @@ CONTENT_STATUS_CHOICES = (
 
 class Displayable(Slugged):
     """
-    Abstract model that provides features of a visible page on the 
+    Abstract model that provides features of a visible page on the
     website such as publishing fields and meta data.
     """
 
@@ -98,11 +98,11 @@ class Displayable(Slugged):
 
     def save(self, *args, **kwargs):
         """
-        Set default for ``publsh_date`` and ``description`` if none 
+        Set default for ``publsh_date`` and ``description`` if none
         given.
         """
         if self.publish_date is None:
-            # publish_date will be blank when a blog post is created 
+            # publish_date will be blank when a blog post is created
             # from the quick blog form in the admin dashboard.
             self.publish_date = datetime.now()
         if not self.description:
@@ -144,7 +144,7 @@ class Displayable(Slugged):
 
 class Content(models.Model):
     """
-    Provides a HTML field for managing general content and making it 
+    Provides a HTML field for managing general content and making it
     searchable.
     """
 
@@ -158,10 +158,10 @@ class Content(models.Model):
 
 class OrderableBase(ModelBase):
     """
-    Checks for ``order_with_respect_to`` on the model's inner ``Meta`` 
-    class and if found, copies it to a custom attribute and deletes it 
-    since it will cause errors when used with ``ForeignKey("self")``. 
-    Also creates the ``ordering`` attribute on the ``Meta`` class if 
+    Checks for ``order_with_respect_to`` on the model's inner ``Meta``
+    class and if found, copies it to a custom attribute and deletes it
+    since it will cause errors when used with ``ForeignKey("self")``.
+    Also creates the ``ordering`` attribute on the ``Meta`` class if
     not yet provided.
     """
 
@@ -180,10 +180,10 @@ class OrderableBase(ModelBase):
 
 class Orderable(models.Model):
     """
-    Abstract model that provides a custom ordering integer field 
-    similar to using Meta's ``order_with_respect_to``, since to 
-    date (Django 1.2) this doesn't work with ``ForeignKey("self")``. 
-    We may also want this feature for models that aren't ordered with 
+    Abstract model that provides a custom ordering integer field
+    similar to using Meta's ``order_with_respect_to``, since to
+    date (Django 1.2) this doesn't work with ``ForeignKey("self")``.
+    We may also want this feature for models that aren't ordered with
     respect to a particular field.
     """
 
@@ -196,8 +196,8 @@ class Orderable(models.Model):
 
     def with_respect_to(self):
         """
-        Returns a dict to use as a filter for ordering operations 
-        containing the original ``Meta.order_with_respect_to`` value 
+        Returns a dict to use as a filter for ordering operations
+        containing the original ``Meta.order_with_respect_to`` value
         if provided.
         """
         try:

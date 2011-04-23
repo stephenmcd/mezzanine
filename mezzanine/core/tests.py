@@ -53,8 +53,8 @@ class Tests(TestCase):
 
     def test_overridden_page(self):
         """
-        Test that a page with a slug matching a non-page urlpattern 
-        return ``True`` for its overridden property. The blog page from 
+        Test that a page with a slug matching a non-page urlpattern
+        return ``True`` for its overridden property. The blog page from
         the fixtures should satisfy this case.
         """
         blog_page, created = ContentPage.objects.get_or_create(
@@ -63,7 +63,7 @@ class Tests(TestCase):
 
     def test_description(self):
         """
-        Test generated description is text version of the first line 
+        Test generated description is text version of the first line
         of content.
         """
         description = "<p>How now brown cow</p>"
@@ -73,7 +73,7 @@ class Tests(TestCase):
 
     def test_device_specific_template(self):
         """
-        Test that an alternate template is rendered when a mobile 
+        Test that an alternate template is rendered when a mobile
         device is used.
         """
         try:
@@ -99,7 +99,7 @@ class Tests(TestCase):
 
     def queries_used_for_template(self, template, **context):
         """
-        Return the number of queries used when rendering a template 
+        Return the number of queries used when rendering a template
         string.
         """
         settings.DEBUG = True
@@ -126,7 +126,7 @@ class Tests(TestCase):
 
     def test_comments(self):
         """
-        Test that rendering comments executes the same number of 
+        Test that rendering comments executes the same number of
         queries, regardless of the number of nested replies.
         """
         blog_post = BlogPost.objects.create(title="Post", user=self._user)
@@ -141,12 +141,12 @@ class Tests(TestCase):
 
     def test_page_menu(self):
         """
-        Test that rendering a page menu executes the same number of 
-        queries regardless of the number of pages or levels of 
+        Test that rendering a page menu executes the same number of
+        queries regardless of the number of pages or levels of
         children.
         """
-        template = ('{% load pages_tags %}' 
-                    '{% page_menu "pages/menus/tree.html" %}') 
+        template = ('{% load pages_tags %}'
+                    '{% page_menu "pages/menus/tree.html" %}')
         before = self.queries_used_for_template(template)
         self.create_recursive_objects(ContentPage, "parent", title="Page",
                                       status=CONTENT_STATUS_PUBLISHED)
@@ -160,11 +160,11 @@ class Tests(TestCase):
         page = ContentPage.objects.create(title="test keywords")
         keywords = set(["how", "now", "brown", "cow"])
         page.keywords = [AssignedKeyword(
-                         keyword_id=Keyword.objects.get_or_create(title=k)[0].id) 
+                         keyword_id=Keyword.objects.get_or_create(title=k)[0].id)
                          for k in keywords]
         page = ContentPage.objects.get(id=page.id)
         self.assertEquals(keywords, set(page.keywords_string.split(" ")))
-        
+
     def test_search(self):
         """
         Test search.
@@ -196,7 +196,7 @@ class Tests(TestCase):
 
     def test_forms(self):
         """
-        Simple 200 status check against rendering and posting to forms 
+        Simple 200 status check against rendering and posting to forms
         with both optional and required fields.
         """
         for required in (True, False):
@@ -214,9 +214,9 @@ class Tests(TestCase):
 
     def test_settings(self):
         """
-        Test that an editable setting can be overridden with a DB 
-        value and that the data type is preserved when the value is 
-        returned back out of the DB. Also checks to ensure no 
+        Test that an editable setting can be overridden with a DB
+        value and that the data type is preserved when the value is
+        returned back out of the DB. Also checks to ensure no
         unsupported types are defined for editable settings.
         """
         # Find an editable setting for each supported type.

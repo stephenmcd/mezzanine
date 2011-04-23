@@ -11,7 +11,7 @@ register = template.Library()
 @register.inclusion_tag("generic/includes/comments.html", takes_context=True)
 def comments_for(context, obj):
     """
-    Provides a generic context variable name for the object that 
+    Provides a generic context variable name for the object that
     comments are being rendered for.
     """
     context["object_for_comments"] = obj
@@ -22,8 +22,8 @@ def comments_for(context, obj):
 def comment_thread(context, parent):
     """
     Return a list of child comments for the given parent, storing all
-    comments in a dict in the context when first called, using parents 
-    as keys for retrieval on subsequent recursive calls from the 
+    comments in a dict in the context when first called, using parents
+    as keys for retrieval on subsequent recursive calls from the
     comments template.
     """
     if "all_comments" not in context:
@@ -64,7 +64,7 @@ def gravatar_url(email_hash, size=32):
     takes_context=True)
 def recent_comments(context):
     """
-    Dashboard widget for displaying recent comments. 
+    Dashboard widget for displaying recent comments.
     """
     latest = context["settings"].COMMENTS_NUM_LATEST
     comments = ThreadedComment.objects.all().select_related(depth=1)

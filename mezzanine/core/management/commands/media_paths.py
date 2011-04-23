@@ -8,7 +8,7 @@ from mezzanine.conf import settings
 
 class Command(NoArgsCommand):
     """
-    Prints out each of the media paths that should be configued for a 
+    Prints out each of the media paths that should be configued for a
     live deployment.
     """
     def handle_noargs(self, **options):
@@ -18,7 +18,6 @@ class Command(NoArgsCommand):
             (settings.CONTENT_MEDIA_URL, settings.CONTENT_MEDIA_PATH),
         )
         for alias, path in paths:
-            print "\nAlias '%s' required which resides in:\n%s/" % (alias, 
+            print "\nAlias '%s' required which resides in:\n%s/" % (alias,
                   os.path.dirname(os.path.abspath(path)))
         print
-

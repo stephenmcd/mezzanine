@@ -12,7 +12,7 @@ class ThreadedCommentAdmin(CommentsAdmin):
     Admin class for comments.
     """
 
-    list_display = ("avatar_link", "intro", "submit_date", "is_public", 
+    list_display = ("avatar_link", "intro", "submit_date", "is_public",
                     "is_removed", "admin_link")
     list_display_links = ("intro", "submit_date")
     fieldsets = (

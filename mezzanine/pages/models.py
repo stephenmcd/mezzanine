@@ -10,7 +10,7 @@ from mezzanine.utils.urls import admin_url
 
 class Page(Orderable, Displayable):
     """
-    A page in the page tree. This is the base class that custom content types 
+    A page in the page tree. This is the base class that custom content types
     need to subclass.
     """
 
@@ -56,7 +56,7 @@ class Page(Orderable, Displayable):
 
     def get_content_model(self):
         """
-        Provies a generic method of retrieving the instance of the custom 
+        Provies a generic method of retrieving the instance of the custom
         content type's model for this page.
         """
         return getattr(self, self.content_model, None)
@@ -72,7 +72,7 @@ class Page(Orderable, Displayable):
 
     def reset_slugs(self):
         """
-        Called when the parent page is changed in the admin and the slug 
+        Called when the parent page is changed in the admin and the slug
         plus all child slugs need to be recreated given the new parent.
         """
         if not self.overridden():
@@ -83,7 +83,7 @@ class Page(Orderable, Displayable):
 
     def overridden(self):
         """
-        Returns ``True`` if the page's slug has an explicitly defined 
+        Returns ``True`` if the page's slug has an explicitly defined
         urlpattern and is therefore considered to be overridden.
         """
         from mezzanine.pages.views import page
@@ -111,8 +111,8 @@ class Page(Orderable, Displayable):
 
     def set_menu_helpers(self, slug):
         """
-        Called from the ``page_menu`` template tag and assigns a handful 
-        of properties based on the current URL that are used within the 
+        Called from the ``page_menu`` template tag and assigns a handful
+        of properties based on the current URL that are used within the
         various types of menus.
         """
         slug = slug.strip("/")

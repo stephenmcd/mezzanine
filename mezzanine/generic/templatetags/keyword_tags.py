@@ -15,9 +15,9 @@ register = template.Library()
 @register.as_tag
 def keywords_for(*args):
     """
-    Return a list of ``Keyword`` objects for the given model instance 
-    or a model class. In the case of a model class, retrieve all 
-    keywords for all instances of the model and apply a ``weight`` 
+    Return a list of ``Keyword`` objects for the given model instance
+    or a model class. In the case of a model class, retrieve all
+    keywords for all instances of the model and apply a ``weight``
     attribute that can be used to create a tag cloud.
     """
 
@@ -64,4 +64,4 @@ def keywords_for(*args):
         c = keyword.item_count
         diff = min([(abs(s - c), (s - c)) for s in steps])[1]
         keyword.weight = steps.index(c + diff) + 1
-    return keywords    
+    return keywords

@@ -20,7 +20,7 @@ def admin_page_ordering(request):
     Updates the ordering of pages via AJAX from within the admin.
     """
     get_id = lambda s: s.split("_")[-1]
-    for ordering in ("ordering_from", "ordering_to"): 
+    for ordering in ("ordering_from", "ordering_to"):
         ordering = request.POST.get(ordering, "")
         if ordering:
             for i, page in enumerate(ordering.split(",")):

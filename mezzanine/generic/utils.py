@@ -7,17 +7,17 @@ from mezzanine.utils.views import set_cookie
 
 def handle_comments(obj, request):
     """
-    A problem exists with having a single URL to handle posting 
-    generic data. If there's an error with the form, we have to either 
-    display the form with errors on a different page than the page 
-    where the form was originally rendered, or redirect back to the 
-    original page and lose the form errors. 
-    
-    This function can be called from any view that contains comments. 
-    It returns a 3-item sequence containing two forms, one with posted 
-    data and one without, which are each used to build the threaded 
-    comment tree with forms for replying. The third item returned is 
-    a response object to redirect to if a comment is successfully 
+    A problem exists with having a single URL to handle posting
+    generic data. If there's an error with the form, we have to either
+    display the form with errors on a different page than the page
+    where the form was originally rendered, or redirect back to the
+    original page and lose the form errors.
+
+    This function can be called from any view that contains comments.
+    It returns a 3-item sequence containing two forms, one with posted
+    data and one without, which are each used to build the threaded
+    comment tree with forms for replying. The third item returned is
+    a response object to redirect to if a comment is successfully
     posted.
     """
 
@@ -49,4 +49,3 @@ def handle_comments(obj, request):
             cookie_value = request.POST.get(field, "")
             set_cookie(response, cookie_name, cookie_value, cookie_expires)
     return posted_comment_form, unposted_comment_form, response
-

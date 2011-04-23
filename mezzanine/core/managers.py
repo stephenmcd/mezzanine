@@ -11,14 +11,14 @@ from mezzanine.conf import settings
 
 class PublishedManager(Manager):
     """
-    Provides filter for restricting items returned by status and 
+    Provides filter for restricting items returned by status and
     publish date when the given user is not a staff member.
     """
 
     def published(self, for_user=None):
         """
-        For non-staff users, return items with a published status and 
-        whose publish and expiry dates fall before and after the 
+        For non-staff users, return items with a published status and
+        whose publish and expiry dates fall before and after the
         current date when specified.
         """
         from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
@@ -35,7 +35,7 @@ class PublishedManager(Manager):
 
 class SearchableQuerySet(QuerySet):
     """
-    QuerySet providing main search functionality for 
+    QuerySet providing main search functionality for
     ``SearchableManager``.
     """
 
@@ -47,9 +47,9 @@ class SearchableQuerySet(QuerySet):
 
     def search(self, query, search_fields=None):
         """
-        Build a queryset matching words in the given search query, 
-        treating quoted terms as exact phrases and taking into 
-        account + and - symbols as modifiers controlling which terms 
+        Build a queryset matching words in the given search query,
+        treating quoted terms as exact phrases and taking into
+        account + and - symbols as modifiers controlling which terms
         to require and exclude.
         """
 
@@ -66,7 +66,7 @@ class SearchableQuerySet(QuerySet):
             return fields
 
         #### DETERMINE FIELDS TO SEARCH ###
-        # Use fields arg if given, otherwise check internal list which 
+        # Use fields arg if given, otherwise check internal list which
         # if empty, populate from model attr or char-like fields.
         if search_fields is None:
             search_fields = self._search_fields
@@ -81,9 +81,9 @@ class SearchableQuerySet(QuerySet):
                 issubclass(f.__class__, TextField)]
         if len(search_fields) == 0:
             return self.none()
-        # Search fields can be a dict or sequence of pairs mapping 
-        # fields to their relevant weight in ordering the results. 
-        # If a mapping isn't used then assume a sequence of field 
+        # Search fields can be a dict or sequence of pairs mapping
+        # fields to their relevant weight in ordering the results.
+        # If a mapping isn't used then assume a sequence of field
         # names and give them equal weighting.
         if not isinstance(self._search_fields, dict):
             self._search_fields = {}
@@ -96,13 +96,13 @@ class SearchableQuerySet(QuerySet):
                                        .replace("- ", "-")     \
                                        .replace('-"', '"-')    \
                                        .split('"')
-        # Strip punctuation other than modifiers from terms and create 
+        # Strip punctuation other than modifiers from terms and create
         # terms list, first from quoted terms and then remaining words.
         terms = [("" if t[0] not in "+-" else t[0]) + t.strip(punctuation)
             for t in terms[1::2] + "".join(terms[::2]).split()]
-        # Remove stop words from terms that aren't quoted or use 
-        # modifiers, since words with these are an explicit part of 
-        # the search query. If doing so ends up with an empty term 
+        # Remove stop words from terms that aren't quoted or use
+        # modifiers, since words with these are an explicit part of
+        # the search query. If doing so ends up with an empty term
         # list, then keep the stop words.
         terms_no_stopwords = [t for t in terms if t.lower() not in
             settings.STOP_WORDS]
@@ -113,7 +113,7 @@ class SearchableQuerySet(QuerySet):
             terms = terms_no_stopwords
         else:
             positive_terms = get_positive_terms(terms)
-        # Append positive terms (those without the negative modifier) 
+        # Append positive terms (those without the negative modifier)
         # to the internal list for sorting when results are iterated.
         if not positive_terms:
             return self.none()
@@ -133,7 +133,7 @@ class SearchableQuerySet(QuerySet):
             queryset = queryset.filter(reduce(iand, excluded))
         if required:
             queryset = queryset.filter(reduce(iand, required))
-        # Optional terms aren't relevant to the filter if there are 
+        # Optional terms aren't relevant to the filter if there are
         # terms that are explicitly required.
         elif optional:
             queryset = queryset.filter(reduce(ior, optional))
@@ -157,8 +157,8 @@ class SearchableQuerySet(QuerySet):
 
     def iterator(self):
         """
-        If search has occurred and no ordering has occurred, decorate 
-        each result with the number of search terms so that it can be 
+        If search has occurred and no ordering has occurred, decorate
+        each result with the number of search terms so that it can be
         sorted by the number of occurrence of terms.
         """
         results = super(SearchableQuerySet, self).iterator()
@@ -180,7 +180,7 @@ class SearchableManager(Manager):
     """
     Manager providing a chainable queryset.
     Adapted from http://www.djangosnippets.org/snippets/562/
-    search method supports spanning across models that subclass the 
+    search method supports spanning across models that subclass the
     model being used to search.
     """
 
@@ -194,8 +194,8 @@ class SearchableManager(Manager):
 
     def search(self, *args, **kwargs):
         """
-        Proxy to queryset's search method for the manager's model and 
-        any models that subclass from this manager's model if the 
+        Proxy to queryset's search method for the manager's model and
+        any models that subclass from this manager's model if the
         model is abstract.
         """
         all_results = []

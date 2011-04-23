@@ -1,6 +1,6 @@
 """
-Provides various models and associated functionality, that can be 
-related to any other model using generic relationshipswith Django's 
+Provides various models and associated functionality, that can be
+related to any other model using generic relationshipswith Django's
 contenttypes framework, such as comments, keywords/tags and voting.
 """
 

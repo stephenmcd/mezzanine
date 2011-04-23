@@ -17,7 +17,7 @@ PYFLAKES_IGNORE = (
 
 def run_pyflakes_for_package(package_name, extra_ignore=None):
     """
-    If pyflakes is installed, run it across the given package name 
+    If pyflakes is installed, run it across the given package name
     returning any warnings found.
     """
     ignore_strings = PYFLAKES_IGNORE

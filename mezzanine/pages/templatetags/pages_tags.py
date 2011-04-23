@@ -86,10 +86,10 @@ def models_for_pages(*args):
 @register.render_tag
 def set_model_permissions(context, token):
     """
-    Assigns a permissions dict to the given model, much like Django 
+    Assigns a permissions dict to the given model, much like Django
     does with its dashboard app list.
 
-    Used within the change list for pages, to implement permission 
+    Used within the change list for pages, to implement permission
     checks for the navigation tree.
     """
     model = context[token.split_contents()[1]]
@@ -105,12 +105,12 @@ def set_model_permissions(context, token):
 @register.render_tag
 def set_page_permissions(context, token):
     """
-    Assigns a permissions dict to the given page instance, combining 
-    Django's permission for the page's model and a permission check 
-    against the instance itself calling the page's ``can_add``, 
-    ``can_change`` and ``can_delete`` custom methods. 
+    Assigns a permissions dict to the given page instance, combining
+    Django's permission for the page's model and a permission check
+    against the instance itself calling the page's ``can_add``,
+    ``can_change`` and ``can_delete`` custom methods.
 
-    Used within the change list for pages, to implement permission 
+    Used within the change list for pages, to implement permission
     checks for the navigation tree.
     """
     page = context[token.split_contents()[1]]

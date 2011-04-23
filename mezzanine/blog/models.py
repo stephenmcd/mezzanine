@@ -11,7 +11,7 @@ class BlogPost(Displayable, Ownable, Content):
     A blog post.
     """
 
-    categories = models.ManyToManyField("BlogCategory", blank=True, 
+    categories = models.ManyToManyField("BlogCategory", blank=True,
                                         related_name="blogposts")
     comments = CommentsField(verbose_name=_("Comments"))
 

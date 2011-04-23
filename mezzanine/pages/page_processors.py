@@ -12,7 +12,7 @@ processors = defaultdict(list)
 
 def processor_for(content_model):
     """
-    Decorator that registers the decorated function as a page 
+    Decorator that registers the decorated function as a page
     processor for the given content model.
     """
     if isinstance(content_model, basestring):
@@ -32,7 +32,7 @@ LOADED = False
 
 def autodiscover():
     """
-    Taken from ``django.contrib.admin.autodiscover`` and used to run 
+    Taken from ``django.contrib.admin.autodiscover`` and used to run
     any calls to the ``processor_for`` decorator.
     """
     global LOADED
