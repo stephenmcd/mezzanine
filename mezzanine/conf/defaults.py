@@ -352,3 +352,18 @@ register_setting(
         "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE",
     ),
 )
+
+# The following settings are defined here for documentation purposes
+# as this file is used to auto-generate the documentation for all
+# available settings. They are Mezzanine specific, but their values
+# are *always* overridden by the project's settings or local_settings
+# modules, so the default values defined here will never be used.
+
+register_setting(
+    name="USE_SOUTH",
+    label="Use South",
+    description=_("If ``True``, the south application will be "
+        "automatically added to the ``INSTALLED_APPS`` setting."),
+    editable=False,
+    default=False,
+)

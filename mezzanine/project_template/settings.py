@@ -7,13 +7,10 @@
 # mezzanine.conf.defaults, but can be uncommented below in 
 # order to override their defaults.
 
-# Name of the current theme to host during theme development.
-# THEME = ""
-
-# Controls the ordering and grouping of the admin menu. 
+# Controls the ordering and grouping of the admin menu.
 # ADMIN_MENU_ORDER = (
-#     (_("Content"), ("pages.Page", "blog.BlogPost", "blog.Comment",
-#         (_("Media Library"), "fb_browse"),)),
+#     (_("Content"), ("pages.Page", "blog.BlogPost",
+#        "generic.ThreadedComment", (_("Media Library"), "fb_browse"),)),
 #     (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting")),
 #     (_("Users"), ("auth.User", "auth.Group",)),
 # )
@@ -25,6 +22,14 @@
 #     ("blog_tags.recent_comments",),
 #     ("mezzanine_tags.recent_actions",),
 # )
+
+# Name of the current theme to host during theme development.
+# THEME = ""
+
+# If True, the south application will be automatically added to the
+# INSTALLED_APPS setting. This setting is not defined in
+# mezzanine.conf.defaults as is the case with the above settings.
+USE_SOUTH = False
 
 
 ########################
@@ -203,7 +208,6 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 # These will be added to ``INSTALLED_APPS``, only if available.
 OPTIONAL_APPS = (
     "debug_toolbar",
-    "south",
     "django_extensions",
     PACKAGE_NAME_FILEBROWSER,
     PACKAGE_NAME_GRAPPELLI,
@@ -229,8 +233,8 @@ except ImportError:
 # DYNAMIC SETTINGS #
 ####################
 
-# set_dynamic_settings() will rewrite globals based on what has been 
-# defined so far, in order to provide some better defaults where 
+# set_dynamic_settings() will rewrite globals based on what has been
+# defined so far, in order to provide some better defaults where
 # applicable.
 from mezzanine.utils.conf import set_dynamic_settings
 set_dynamic_settings(globals())
