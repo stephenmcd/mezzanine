@@ -30,23 +30,24 @@ var anyFieldsDirty = function(fields) {
 
 $(function() {
 
-    var parentSelector = '.dynamic-inline ' + (window.__grappelli_installed ? 
+    var parentSelector = '.dynamic-inline ' + (window.__grappelli_installed ?
                                                '.items' : 'tbody');
 
     // Apply drag and drop to orderable inlines.
     $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7'});
     $(parentSelector).disableSelection();
     $('.ordering').css({cursor: 'move'});
-    
-    // Mark checkboxes with a 'dirty' attribute if they're changed from 
+
+    // Mark checkboxes with a 'dirty' attribute if they're changed from
     // their original state, in order to check inside anyFieldsDirty().
     $('input:checkbox').change(function() {
         var checkbox = $(this);
         checkbox.attr('dirty', !checkbox.attr('dirty'));
     });
-    
+
     // Set the value of the _order fields on submit.
-    $($('._order input:first').attr('form')).submit(function() {
+    var form = $('._order input:first').attr('form');
+    $(form).find('input[type=submit]').click(function() {
         $.each($(parentSelector), function(i, parent) {
             var order = 0;
             $.each($(parent).find('._order input'), function(i, field) {
@@ -71,7 +72,7 @@ $(function() {
         errors = errors.parent();
     }
     errors.show();
-    
+
     // Show a new inline when the 'Add another' link is clicked.
     var addAnother = $('.dynamic-inline .add-another a');
     $(addAnother).click(function() {
@@ -83,7 +84,7 @@ $(function() {
         }
         return false;
     });
-    
+
     // Show the first hidden inline - grappelli's inline header is actually
     // part of the selector so for it we run this twice.
     addAnother.click();
@@ -92,5 +93,3 @@ $(function() {
     }
 
 });
-
-
