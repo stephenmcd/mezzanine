@@ -200,6 +200,13 @@ class SearchableManager(Manager):
         """
         if getattr(self.model._meta, "abstract", False):
             models = [m for m in get_models() if issubclass(m, self.model)]
+            # Strip out any models that are superclasses of models,
+            # specifically the Page model which will generally be the
+            # superclass for all custom content types, since if we
+            # query the Page model as well, we will get duplicate
+            # results.
+            parents = reduce(ior, [m._meta.get_parent_list() for m in models])
+            models = [m for m in models if m not in parents]
         else:
             models = [self.model]
         all_results = []
