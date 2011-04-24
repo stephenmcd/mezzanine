@@ -30,7 +30,7 @@ try:
         author="Stephen McDonald",
         author_email="stephen.mc@gmail.com",
         description="An open source content management platform built using "
-                        "the Django framework.",
+                    "the Django framework.",
         long_description=open("README.rst").read(),
         license="BSD",
         url="http://mezzanine.jupo.org/",

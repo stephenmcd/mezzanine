@@ -2,22 +2,22 @@
 Overview
 ========
 
-Mezzanine is a content management platform built using the `Django`_ 
-framework. It is `BSD licensed`_ and designed to provide both a consistent 
-interface for managing content, and a simple architecture that makes diving 
+Mezzanine is a content management platform built using the `Django`_
+framework. It is `BSD licensed`_ and designed to provide both a consistent
+interface for managing content, and a simple architecture that makes diving
 in and hacking on the code as easy as possible.
 
-Its goal is to resemble something like `Wordpress`_, with an intuitive 
-interface for managing pages and blog posts. Mezzanine takes a different 
-approach from other Django applications in this space like `Pinax`_ or 
-`Mingus`_ that glue together a lot of reusable apps, instead opting to 
+Its goal is to resemble something like `Wordpress`_, with an intuitive
+interface for managing pages and blog posts. Mezzanine takes a different
+approach from other Django applications in this space like `Pinax`_ or
+`Mingus`_ that glue together a lot of reusable apps, instead opting to
 provide most of its functionality included with the project by default.
 
 Features
 ========
 
-On top of all the usual features provided by Django such as MVC architecture, 
-ORM, templating, caching and the automatic admin interface, Mezzanine 
+On top of all the usual features provided by Django such as MVC architecture,
+ORM, templating, caching and the automatic admin interface, Mezzanine
 provides the following features.
 
   * Hierarchical page navigation
@@ -55,31 +55,31 @@ The Mezzanine admin dashboard:
 Dependencies
 ============
 
-Mezzanine has no explicit dependencies apart from a standard Django 
+Mezzanine has no explicit dependencies apart from a standard Django
 environment using.
 
   * `Python`_ 2.5 ... 2.7
   * `Django`_ 1.1 ... 1.3
-  
-Mezzanine is designed however to be used most effectively in conjunction 
+
+Mezzanine is designed however to be used most effectively in conjunction
 with the following libraries.
 
   * `setuptools`_
   * `Python Imaging Library`_ (PIL)
   * `django-grappelli`_ <= 2.0
   * `django-filebrowser`_ <= 3.0
-  
+
 Browser Support
 ===============
 
-Mezzanine's admin interface works with all modern browsers. 
+Mezzanine's admin interface works with all modern browsers.
 Internet Explorer 7 and earlier are generally unsupported.
 
 Installation
 ============
 
-Assuming you have `setuptools`_ installed, the easiest method is to install 
-directly from pypi by running the following command, which will also attempt 
+Assuming you have `setuptools`_ installed, the easiest method is to install
+directly from pypi by running the following command, which will also attempt
 to install the dependencies mentioned above::
 
     $ easy_install -U mezzanine
@@ -87,9 +87,9 @@ to install the dependencies mentioned above::
 Otherwise you can download Mezzanine and install it directly from source::
 
     $ python setup.py install
-    
-Once installed, the command ``mezzanine-project`` should be available which 
-can be used for creating a new Mezzanine project in a similar fashion to 
+
+Once installed, the command ``mezzanine-project`` should be available which
+can be used for creating a new Mezzanine project in a similar fashion to
 ``django-admin.py``::
 
     $ mezzanine-project project_name
@@ -100,26 +100,26 @@ You can then run your project with the usual Django steps::
     $ python manage.py syncdb --noinput
     $ python manage.py migrate
     $ python manage.py runserver
-    
-You should then be able to browse to http://127.0.0.1:8000/admin/ and log 
-in using the default account (``username: admin, password: default``). If 
-you'd like to specify a different username and password during set up, simply 
+
+You should then be able to browse to http://127.0.0.1:8000/admin/ and log
+in using the default account (``username: admin, password: default``). If
+you'd like to specify a different username and password during set up, simply
 exclude the ``--noinput`` option included above when running ``syncdb``.
 
 Contributing
 ============
 
-Mezzanine is an open source project that is managed using both Git and 
-Mercurial version control systems. These repositories are hosted on both 
-`Github`_ and `Bitbucket`_ respectively, so contributing is as easy as 
-forking the project on either of these sites and committing back your 
-enhancements. 
+Mezzanine is an open source project that is managed using both Git and
+Mercurial version control systems. These repositories are hosted on both
+`Github`_ and `Bitbucket`_ respectively, so contributing is as easy as
+forking the project on either of these sites and committing back your
+enhancements.
 
 Support
 =======
 
-For general questions or comments, please join the 
-`mezzanine-users`_ mailing list. To report a bug or other type of issue, 
+For general questions or comments, please join the
+`mezzanine-users`_ mailing list. To report a bug or other type of issue,
 please use the `Github issue tracker`_.
 
 Sites Using Mezzanine
