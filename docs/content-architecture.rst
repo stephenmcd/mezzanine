@@ -205,6 +205,10 @@ app would be as follows::
                 return HttpResponseRedirect(redirect)
         return {"form": form}
 
+The ``processor_for`` decorator can also be given a ``slug`` argument rather
+than a Page subclass. In this case the Page Processor will be run when the
+exact slug matches the page being viewed.
+
 The ``Displayable`` Model
 =========================
 
