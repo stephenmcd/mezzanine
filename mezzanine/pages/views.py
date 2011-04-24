@@ -61,17 +61,20 @@ def page(request, slug, template="pages/page.html", extra_context=None):
     context = {"page": page}
     if extra_context is not None:
         context.update(extra_context)
-    for processor in page_processors.processors[page.content_model] or page_processors.processors["slug:%s" % page.slug]:
+    model_processors = page_processors.processors[page.content_model]
+    slug_processors = page_processors.processors["slug:%s" % page.slug]
+    for processor in model_processors + slug_processors:
         response = processor(request, page)
         if isinstance(response, HttpResponse):
             return response
         elif response:
-            if isinstance(response, dict):
+            try:
                 context.update(response)
-            else:
-                raise ValueError("The page processor %s.%s returned %s but "
-                    "must return HttpResponse or dict." % (
-                    processor.__module__, processor.__name__, type(response)))
+            except (TypeError, ValueError):
+                name = "%s.%s" % (processor.__module__, processor.__name__)
+                error = ("The page processor %s returned %s but must return "
+                         "HttpResponse or dict." % (name, type(response)))
+                raise ValueError(error)
     templates = ["pages/%s.html" % slug]
     if page.content_model is not None:
         templates.append("pages/%s.html" % page.content_model)

@@ -10,28 +10,30 @@ from mezzanine.pages.models import Page
 processors = defaultdict(list)
 
 
-def processor_for(content_model=None, slug=None):
+def processor_for(content_model_or_slug):
     """
     Decorator that registers the decorated function as a page
-    processor for the given content model.
+    processor for the given content model or slug.
     """
-    if slug:
-        page = Page.objects.get(slug=slug)
-        if not page:
-            raise TypeError("%s is not a valid Page slug" % slug)
-    elif content_model:
-        if isinstance(content_model, basestring):
-            try:
-                content_model = get_model(*content_model.split(".", 1))
-            except ValueError:
-                raise ValueError("%s isn't in the form: app.model" % content_model)
-        if not issubclass(content_model, Page):
-            raise TypeError("%s is not a subclass of Page" % content_model)
+    content_model = None
+    slug = ""
+    if isinstance(content_model_or_slug, basestring):
+        try:
+            content_model = get_model(*content_model_or_slug.split(".", 1))
+        except ValueError:
+            slug = content_model_or_slug
+    elif issubclass(content_model_or_slug, Page):
+        content_model = content_model_or_slug
+    else:
+        raise TypeError("%s is not a valid argument for page_processor, "
+                        "which should be a model subclass of Page in class "
+                        "or string form (app.model), or a valid slug" %
+                        content_model_or_slug)
     def decorator(func):
-        if slug:
-            processors["slug:%s" % slug].append(func)    
-        else:
+        if content_model:
             processors[content_model._meta.object_name.lower()].append(func)
+        else:
+            processors["slug:%s" % slug].append(func)
         return func
     return decorator
 
