@@ -1,4 +1,6 @@
 
+from uuid import uuid4
+
 from django.contrib.contenttypes.generic import GenericRelation
 from django.db.models import IntegerField, CharField
 from django.db.models.signals import post_save, post_delete
@@ -33,6 +35,8 @@ class BaseGenericRelation(GenericRelation):
         if to:
             kwargs.setdefault("to", to)
         super(BaseGenericRelation, self).__init__(*args, **kwargs)
+        self._save_id = uuid4()
+        self._delete_id = uuid4()
 
     def contribute_to_class(self, cls, name):
         """
@@ -51,8 +55,13 @@ class BaseGenericRelation(GenericRelation):
                 if not field.verbose_name:
                     field.verbose_name = self.verbose_name
                 cls.add_to_class(name_string, field)
-            post_save.connect(self._related_items_changed, self.rel.to, True)
-            post_delete.connect(self._related_items_changed, self.rel.to, True)
+            # For some unknown reason the signal won't be triggered
+            # if given a sender arg, particularly when running
+            # Cartridge with the field ContentPage.keywords - so
+            # instead of specifying self.rel.to as the sender, we
+            # check for it inside the signal itself.
+            post_save.connect(self._related_items_changed)
+            post_delete.connect(self._related_items_changed)
 
     def _related_items_changed(self, **kwargs):
         """
@@ -60,6 +69,10 @@ class BaseGenericRelation(GenericRelation):
         this field applies to, and pass the instance to the real
         ``related_items_changed`` handler.
         """
+        # Manually check that the instance matches the relation,
+        # since we don't specify a sender for the signal.
+        if not isinstance(kwargs["instance"], self.rel.to):
+            return
         for_model = kwargs["instance"].content_type.model_class()
         if issubclass(for_model, self.model):
             instance = self.model.objects.get(id=kwargs["instance"].object_pk)
