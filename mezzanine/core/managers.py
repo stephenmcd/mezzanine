@@ -5,6 +5,7 @@ from string import punctuation
 
 from django.db.models import Manager, Q, CharField, TextField, get_models
 from django.db.models.query import QuerySet
+from django.contrib.sites.managers import CurrentSiteManager
 
 from mezzanine.conf import settings
 
@@ -217,9 +218,11 @@ class SearchableManager(Manager):
         return sorted(all_results, key=lambda r: r.result_count, reverse=True)
 
 
-class DisplayableManager(PublishedManager, SearchableManager):
+class DisplayableManager(CurrentSiteManager, PublishedManager, SearchableManager):
     """
-    Manually combines ``PublishedManager`` and ``SearchableManager``
-    for the ``Displayable`` model.
+    Manually combines ``CurrentSiteManager``, ``PublishedManager`` and 
+    ``SearchableManager`` for the ``Displayable`` model.
+
+    Note that ``CurrentSiteManager`` by default will expect for the affiliated
+    model (in this case Displayable) to contain a field ``site`` (which it does).
     """
-    pass

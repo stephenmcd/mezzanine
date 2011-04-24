@@ -12,7 +12,8 @@
             "titles": "About", 
             "content_model": "contentpage", 
             "in_navigation": true, 
-            "slug": "about"
+            "slug": "about",
+            "site": 1
         }
     }, 
     {
@@ -28,7 +29,8 @@
             "titles": "Blog", 
             "content_model": "contentpage", 
             "in_navigation": true, 
-            "slug": "blog"
+            "slug": "blog",
+            "site": 1
         }
     }, 
     {
@@ -44,7 +46,8 @@
             "titles": "Contact", 
             "content_model": "form", 
             "in_navigation": true, 
-            "slug": "contact"
+            "slug": "contact",
+            "site": 1
         }
     },
     {
@@ -60,7 +63,8 @@
             "titles": "About / Team", 
             "content_model": "contentpage", 
             "in_navigation": true, 
-            "slug": "about/team"
+            "slug": "about/team",
+            "site": 1
         }
     }, 
     {
@@ -76,7 +80,8 @@
             "titles": "About / History", 
             "content_model": "contentpage", 
             "in_navigation": true, 
-            "slug": "about/history"
+            "slug": "about/history",
+            "site": 1
         }
     }, 
     {
@@ -92,7 +97,8 @@
             "titles": "Contact / Legals", 
             "content_model": "contentpage", 
             "in_navigation": true, 
-            "slug": "contact/legals"
+            "slug": "contact/legals",
+            "site": 1
         }
     }, 
     {
