@@ -1,6 +1,4 @@
 
-from uuid import uuid4
-
 from django.contrib.contenttypes.generic import GenericRelation
 from django.db.models import IntegerField, CharField
 from django.db.models.signals import post_save, post_delete
@@ -35,8 +33,6 @@ class BaseGenericRelation(GenericRelation):
         if to:
             kwargs.setdefault("to", to)
         super(BaseGenericRelation, self).__init__(*args, **kwargs)
-        self._save_id = uuid4()
-        self._delete_id = uuid4()
 
     def contribute_to_class(self, cls, name):
         """
