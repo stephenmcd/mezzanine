@@ -47,7 +47,7 @@ def admin_page_ordering(request):
 admin_page_ordering = staff_member_required(admin_page_ordering)
 
 
-def page(request, slug, template="pages/page.html"):
+def page(request, slug, template="pages/page.html", extra_context=None):
     """
     Display content for a page. First check for any matching page processors
     and handle them. Secondly, build the list of template names to choose
@@ -55,9 +55,12 @@ def page(request, slug, template="pages/page.html"):
     """
     page = get_object_or_404(Page.objects.published(request.user), slug=slug)
     if page.login_required and not request.user.is_authenticated():
-        return redirect("%s?%s=%s" % (settings.LOGIN_URL, REDIRECT_FIELD_NAME,
-            urlquote(request.get_full_path())))
+        path = urlquote(request.get_full_path())
+        url = "%s?%s=%s" % (settings.LOGIN_URL, REDIRECT_FIELD_NAME, path)
+        return redirect(url)
     context = {"page": page}
+    if extra_context is not None:
+        context.update(extra_context)
     for processor in page_processors.processors[page.content_model] or page_processors.processors["slug:%s" % page.slug]:
         response = processor(request, page)
         if isinstance(response, HttpResponse):
