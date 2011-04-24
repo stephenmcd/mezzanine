@@ -16,5 +16,3 @@ Change Log
 ==========
 
 .. include:: ../CHANGELOG
-
-
