@@ -175,6 +175,20 @@ If ``True``, the pages menu will show all levels of navigation, otherwise child 
 
 Default: ``True``
 
+``RATINGS_MAX``
+---------------
+
+Max value for a rating.
+
+Default: ``5``
+
+``RATINGS_MIN``
+---------------
+
+Min value for a rating.
+
+Default: ``1``
+
 ``SEARCH_MAX_PAGING_LINKS``
 ---------------------------
 
@@ -222,7 +236,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE')``
+Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
 
 ``THEME``
 ---------
