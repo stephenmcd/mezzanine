@@ -1,0 +1,16 @@
+{% load i18n rating_tags i18n %}
+
+<p id="rating-{{ object_for_rating.id }}">
+    {% if object_for_rating.rating_average %}
+    {% trans "Current rating" %}: {{ object_for_rating.rating_average|floatformat }}
+    {% else %}
+    {% trans "Currently unrated" %}
+    {% endif %}
+</p>
+
+<form method="post" action="{% url rating %}">
+    {% csrf_token %}
+    {{ form_for_rating }}
+    <input type="submit" class="button" value="{% trans "Rate" %}"
+        onclick="return $(this.form).find('input:checked').length == 1; " />
+</form>

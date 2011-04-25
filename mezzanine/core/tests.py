@@ -16,7 +16,9 @@ from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
+from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
+from mezzanine.generic.models import RATING_RANGE
 
 from mezzanine.pages.models import ContentPage
 from mezzanine.utils.tests import run_pyflakes_for_package
@@ -97,6 +99,23 @@ class Tests(TestCase):
                                             status=CONTENT_STATUS_PUBLISHED)
         response = self.client.get(blog_post.get_absolute_url())
         self.assertEqual(response.status_code, 200)
+
+    def test_rating(self):
+        """
+        Test that ratings can be posted and avarage/count are calculated.
+        """
+        blog_post = BlogPost.objects.create(title="Ratings", user=self._user,
+                                            status=CONTENT_STATUS_PUBLISHED)
+        data = RatingForm(blog_post).initial
+        for value in RATING_RANGE:
+            data["value"] = value
+            response = self.client.post(reverse("rating"), data=data)
+            response.delete_cookie("mezzanine-rating")
+        blog_post = BlogPost.objects.get(id=blog_post.id)
+        count = len(RATING_RANGE)
+        average = sum(RATING_RANGE) / float(count)
+        self.assertEqual(blog_post.rating_count, count)
+        self.assertEqual(blog_post.rating_average, average)
 
     def queries_used_for_template(self, template, **context):
         """
@@ -285,7 +304,7 @@ class Tests(TestCase):
         self.assertEqual(pages.count(), count)
         self.assertTrue(title in [page.title for page in pages])
 
-        # test objects manager 
+        # test objects manager
         pages = ContentPage.objects.all()
         self.assertEqual(pages.count(), count)
         self.assertTrue(title in [page.title for page in pages])
@@ -298,7 +317,7 @@ class Tests(TestCase):
 
     def test_mulisite(self):
         from django.conf import settings
-        
+
         # setup
         try:
             old_site_id = settings.SITE_ID

@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Ownable, Content, Slugged
-from mezzanine.generic.fields import CommentsField
+from mezzanine.generic.fields import CommentsField, RatingField
 
 
 class BlogPost(Displayable, Ownable, Content):
@@ -14,6 +14,7 @@ class BlogPost(Displayable, Ownable, Content):
     categories = models.ManyToManyField("BlogCategory", blank=True,
                                         related_name="blogposts")
     comments = CommentsField(verbose_name=_("Comments"))
+    rating = RatingField(verbose_name=_("Rating"))
 
     class Meta:
         verbose_name = _("Blog post")

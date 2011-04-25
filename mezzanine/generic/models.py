@@ -9,6 +9,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.generic.managers import CommentManager, KeywordManager
 from mezzanine.core.models import Slugged
+from mezzanine.conf import settings
 
 
 class ThreadedComment(Comment):
@@ -96,3 +97,29 @@ class AssignedKeyword(models.Model):
 
     def __unicode__(self):
         return unicode(self.keyword)
+
+
+RATING_RANGE = range(settings.RATINGS_MIN, settings.RATINGS_MAX + 1)
+
+class Rating(models.Model):
+    """
+    A rating that can be given to a piece of content.
+    """
+
+    value = models.IntegerField(_("Value"))
+    content_type = models.ForeignKey("contenttypes.ContentType")
+    object_pk = models.TextField()
+    content_object = GenericForeignKey("content_type", "object_pk")
+
+    class Meta:
+        verbose_name = _("Rating")
+        verbose_name_plural = _("Ratings")
+
+    def save(self, *args, **kwargs):
+        """
+        Validate that the rating falls between the min and max values.
+        """
+        if self.value not in RATING_RANGE:
+            raise ValueError("Invalid rating. %s is not within %s and %s" %
+                             (self.value, RATING_RANGE[0], RATING_RANGE[-1]))
+        super(Rating, self).save(*args, **kwargs)

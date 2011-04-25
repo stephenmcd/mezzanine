@@ -107,6 +107,15 @@ input, textarea {border:1px solid #999;}
 textarea {width:100%;}
 .button {float:right; padding:10px; margin:10px;}
 
+/* Ratings */
+.rating {margin-top:20px; text-align:center;}
+.rating p {margin:0;}
+.rating ul, .rating li {display:inline;}
+.rating li, .rating label {cursor:pointer;}
+.rating label {display:none;}
+.rating li label {display:inline;}
+.rating .button {padding:5px 10px; float:none;}
+
 /* Misc */
 .share {background:#eee; padding:5px;}
 .mezzanine {font-size:80%;}

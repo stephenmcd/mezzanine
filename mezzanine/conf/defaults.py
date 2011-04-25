@@ -251,6 +251,20 @@ register_setting(
 )
 
 register_setting(
+    name="RATINGS_MIN",
+    description=_("Min value for a rating."),
+    editable=False,
+    default=1,
+)
+
+register_setting(
+    name="RATINGS_MAX",
+    description=_("Max value for a rating."),
+    editable=False,
+    default=5,
+)
+
+register_setting(
     name="SEARCH_PER_PAGE",
     label=_("Search results per page"),
     description=_("Number of results to show in the search results page."),
@@ -350,6 +364,7 @@ register_setting(
         "CONTENT_MEDIA_URL", "DEV_SERVER", "FORMS_USE_HTML5",
         "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID",
         "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE",
+        "RATINGS_MAX",
     ),
 )
 

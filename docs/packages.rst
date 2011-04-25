@@ -161,9 +161,11 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.generic.templatetags.keyword_tags
    :members:
 
+``mezzanine.generic.templatetags.rating_tags``
+-----------------------------------------------
 
-
-
+.. automodule:: mezzanine.generic.templatetags.rating_tags
+   :members:
 
 ``mezzanine.blog``
 ==================

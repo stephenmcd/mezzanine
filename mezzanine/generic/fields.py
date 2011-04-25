@@ -1,6 +1,6 @@
 
 from django.contrib.contenttypes.generic import GenericRelation
-from django.db.models import IntegerField, CharField
+from django.db.models import IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
 
 
@@ -181,3 +181,25 @@ class KeywordsField(BaseGenericRelation):
         if getattr(instance, string_field_name) != keywords:
             setattr(instance, string_field_name, keywords)
             instance.save()
+
+
+class RatingField(BaseGenericRelation):
+    """
+    Stores the average rating against the ``RATING_FIELD_average``
+    field when a rating is saved or deleted.
+    """
+
+    related_model = "generic.Rating"
+    fields = {"%s_count": IntegerField(default=0),
+              "%s_average": FloatField(default=0),}
+
+    def related_items_changed(self, instance, related_manager):
+        """
+        Calculates and saves the average rating.
+        """
+        ratings = [r.value for r in related_manager.all()]
+        count = len(ratings)
+        average = sum(ratings) / float(count) if count > 0 else 0
+        setattr(instance, "%s_count" % self.related_field_name, count)
+        setattr(instance, "%s_average" % self.related_field_name, average)
+        instance.save()

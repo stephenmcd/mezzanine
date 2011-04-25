@@ -1,10 +1,10 @@
 
 from django import forms
-from django.contrib.comments.forms import CommentForm
+from django.contrib.comments.forms import CommentSecurityForm, CommentForm
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.generic.models import Keyword, ThreadedComment
+from mezzanine.generic.models import Keyword, ThreadedComment, RATING_RANGE
 from mezzanine.utils.urls import content_media_urls
 
 
@@ -86,3 +86,12 @@ class ThreadedCommentForm(CommentForm):
         Use the custom comment model instead of the built-in one.
         """
         return ThreadedComment
+
+
+class RatingForm(CommentSecurityForm):
+    """
+    Form for a rating. Subclasses ``CommentSecurityForm`` to make use
+    of its easy setup for generic relations.
+    """
+    value = forms.ChoiceField(label=_("Rating"), widget=forms.RadioSelect,
+                              choices=zip(RATING_RANGE, RATING_RANGE))
