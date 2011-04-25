@@ -59,7 +59,7 @@ def page_menu(context, token):
     # tag is called rather than once per level.
     context["branch_level"] = 0
     if parent_page is not None:
-        context["branch_level"] = parent_page.branch_level + 1
+        context["branch_level"] = getattr(parent_page, "branch_level", 0) + 1
         parent_page = parent_page.id
     context["page_branch"] = context["menu_pages"].get(parent_page, [])
     for i, page in enumerate(context["page_branch"]):
