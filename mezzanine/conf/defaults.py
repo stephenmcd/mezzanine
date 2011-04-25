@@ -28,7 +28,7 @@ register_setting(
 
 register_setting(
     name="BLOG_BITLY_USER",
-    label="bit.ly username",
+    label=_("bit.ly username"),
     description=_("Username for bit.ly URL shortening service."),
     editable=True,
     default="",
@@ -36,7 +36,7 @@ register_setting(
 
 register_setting(
     name="BLOG_BITLY_KEY",
-    label="bit.ly key",
+    label=_("bit.ly key"),
     description=_("Key for bit.ly URL shortening service."),
     editable=True,
     default="",
@@ -44,7 +44,7 @@ register_setting(
 
 register_setting(
     name="BLOG_POST_PER_PAGE",
-    label="Posts per page",
+    label=_("Blog posts per page"),
     description=_("Number of blog posts to show on a blog listing page."),
     editable=True,
     default=5,
@@ -52,7 +52,7 @@ register_setting(
 
 register_setting(
     name="BLOG_POST_MAX_PAGING_LINKS",
-    label="Paging links",
+    label=_("Max blog paging links"),
     description=_("Max number of paging links to show on a blog listing page."),
     editable=True,
     default=10,
@@ -67,7 +67,7 @@ register_setting(
 
 register_setting(
     name="COMMENTS_DISQUS_SHORTNAME",
-    label="Disqus shortname",
+    label=_("Disqus shortname"),
     description=_("Shortname for the http://disqus.com comments service."),
     editable=True,
     default="",
@@ -75,7 +75,7 @@ register_setting(
 
 register_setting(
     name="COMMENTS_DEFAULT_APPROVED",
-    label="Auto-approve comments",
+    label=_("Auto-approve comments"),
     description=_("If ``True``, built-in comments are approved by default."),
     editable=True,
     default=True,
@@ -83,7 +83,7 @@ register_setting(
 
 register_setting(
     name="COMMENTS_NUM_LATEST",
-    label="Admin comments",
+    label=_("Admin comments"),
     description=_("Number of latest comments to show in the admin dashboard."),
     editable=True,
     default=5,
@@ -91,7 +91,7 @@ register_setting(
 
 register_setting(
     name="COMMENTS_UNAPPROVED_VISIBLE",
-    label="Show unapproved",
+    label=_("Show unapproved comments"),
     description=_("If ``True``, comments that have ``is_public`` unchecked "
         "will still be displayed, but replaced with a ``waiting to be "
         "approved`` message."),
@@ -101,7 +101,7 @@ register_setting(
 
 register_setting(
     name="COMMENTS_REMOVED_VISIBLE",
-    label="Show removed",
+    label=_("Show removed comments"),
     description=_("If ``True``, comments that have ``removed`` checked "
         "will still be displayed, but replaced with a ``removed`` message."),
     editable=True,
@@ -212,7 +212,7 @@ register_setting(
 
 register_setting(
     name="GOOGLE_ANALYTICS_ID",
-    label="Google Analytics ID",
+    label=_("Google Analytics ID"),
     editable=True,
     description=_("Google Analytics ID (http://www.google.com/analytics/)"),
     default="",
@@ -228,7 +228,7 @@ register_setting(
 
 register_setting(
     name="TAG_CLOUD_SIZES",
-    label="Tag Cloud Sizes",
+    label=_("Tag Cloud Sizes"),
     description=_("Number of different sizes for tags when shown as a cloud."),
     editable=True,
     default=4,
@@ -252,7 +252,7 @@ register_setting(
 
 register_setting(
     name="SEARCH_PER_PAGE",
-    label="Search results per page",
+    label=_("Search results per page"),
     description=_("Number of results to show in the search results page."),
     editable=True,
     default=10,
@@ -260,7 +260,7 @@ register_setting(
 
 register_setting(
     name="SEARCH_MAX_PAGING_LINKS",
-    label="Max paging links",
+    label=_("Max search paging links"),
     description=_("Max number of paging links for the search results page."),
     editable=True,
     default=10,
@@ -268,7 +268,7 @@ register_setting(
 
 register_setting(
     name="SITE_TITLE",
-    label="Site Title",
+    label=_("Site Title"),
     description=_("Title that will display at the top of the site, and be "
         "appended to the content of the HTML title tags on every page."),
     editable=True,
@@ -277,7 +277,7 @@ register_setting(
 
 register_setting(
     name="SITE_TAGLINE",
-    label="Tagline",
+    label=_("Tagline"),
     description=_("A tag line that will appear at the top of all pages."),
     editable=True,
     default=_("An open source content management platform."),
@@ -361,7 +361,6 @@ register_setting(
 
 register_setting(
     name="USE_SOUTH",
-    label="Use South",
     description=_("If ``True``, the south application will be "
         "automatically added to the ``INSTALLED_APPS`` setting."),
     editable=False,
