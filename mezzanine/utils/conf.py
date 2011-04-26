@@ -35,6 +35,8 @@ def set_dynamic_settings(s):
         optional = list(s.get("OPTIONAL_APPS", []))
         if s.get("USE_SOUTH"):
             optional.append("south")
+        elif not s.get("USE_SOUTH", True) and "south" in s["INSTALLED_APPS"]:
+            s["INSTALLED_APPS"].remove("south")
         for app in optional:
             if app not in s["INSTALLED_APPS"]:
                 try:
