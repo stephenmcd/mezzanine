@@ -20,7 +20,7 @@ from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
 from mezzanine.generic.models import RATING_RANGE
 
-from mezzanine.pages.models import ContentPage
+from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.tests import run_pyflakes_for_package
 from mezzanine.utils.importing import import_dotted_path
 
@@ -46,7 +46,7 @@ class Tests(TestCase):
         Test a draft page as only being viewable by a staff member.
         """
         self.client.logout()
-        draft = ContentPage.objects.create(title="Draft",
+        draft = RichTextPage.objects.create(title="Draft",
                                            status=CONTENT_STATUS_DRAFT)
         response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 404)
@@ -60,7 +60,7 @@ class Tests(TestCase):
         return ``True`` for its overridden property. The blog page from
         the fixtures should satisfy this case.
         """
-        blog_page, created = ContentPage.objects.get_or_create(
+        blog_page, created = RichTextPage.objects.get_or_create(
                                                 slug=settings.BLOG_SLUG)
         self.assertTrue(blog_page.overridden())
 
@@ -70,7 +70,7 @@ class Tests(TestCase):
         of content.
         """
         description = "<p>How now brown cow</p>"
-        page = ContentPage.objects.create(title="Draft",
+        page = RichTextPage.objects.create(title="Draft",
                                           content=description * 3)
         self.assertEqual(page.description, strip_tags(description))
 
@@ -168,7 +168,7 @@ class Tests(TestCase):
         template = ('{% load pages_tags %}'
                     '{% page_menu "pages/menus/tree.html" %}')
         before = self.queries_used_for_template(template)
-        self.create_recursive_objects(ContentPage, "parent", title="Page",
+        self.create_recursive_objects(RichTextPage, "parent", title="Page",
                                       status=CONTENT_STATUS_PUBLISHED)
         after = self.queries_used_for_template(template)
         self.assertEquals(before, after)
@@ -177,48 +177,48 @@ class Tests(TestCase):
         """
         Test that the keywords_string field is correctly populated.
         """
-        page = ContentPage.objects.create(title="test keywords")
+        page = RichTextPage.objects.create(title="test keywords")
         keywords = set(["how", "now", "brown", "cow"])
         page.keywords = [AssignedKeyword(
                          keyword_id=Keyword.objects.get_or_create(title=k)[0].id)
                          for k in keywords]
-        page = ContentPage.objects.get(id=page.id)
+        page = RichTextPage.objects.get(id=page.id)
         self.assertEquals(keywords, set(page.keywords_string.split(" ")))
 
     def test_search(self):
         """
         Test search.
         """
-        ContentPage.objects.all().delete()
+        RichTextPage.objects.all().delete()
         published = {"status": CONTENT_STATUS_PUBLISHED}
-        first = ContentPage.objects.create(title="test page",
+        first = RichTextPage.objects.create(title="test page",
                                            status=CONTENT_STATUS_DRAFT).id
-        second = ContentPage.objects.create(title="test another test page",
+        second = RichTextPage.objects.create(title="test another test page",
                                             **published).id
         # Draft shouldn't be a result.
-        results = ContentPage.objects.search("test")
+        results = RichTextPage.objects.search("test")
         self.assertEqual(len(results), 1)
-        ContentPage.objects.filter(id=first).update(**published)
-        results = ContentPage.objects.search("test")
+        RichTextPage.objects.filter(id=first).update(**published)
+        results = RichTextPage.objects.search("test")
         self.assertEqual(len(results), 2)
         # Either word.
-        results = ContentPage.objects.search("another test")
+        results = RichTextPage.objects.search("another test")
         self.assertEqual(len(results), 2)
         # Must include first word.
-        results = ContentPage.objects.search("+another test")
+        results = RichTextPage.objects.search("+another test")
         self.assertEqual(len(results), 1)
         # Mustn't include first word.
-        results = ContentPage.objects.search("-another test")
+        results = RichTextPage.objects.search("-another test")
         self.assertEqual(len(results), 1)
         if results:
             self.assertEqual(results[0].id, first)
         # Exact phrase.
-        results = ContentPage.objects.search('"another test"')
+        results = RichTextPage.objects.search('"another test"')
         self.assertEqual(len(results), 1)
         if results:
             self.assertEqual(results[0].id, second)
         # Test ordering.
-        results = ContentPage.objects.search("test")
+        results = RichTextPage.objects.search("test")
         self.assertEqual(len(results), 2)
         if results:
             self.assertEqual(results[0].id, second)
@@ -296,22 +296,22 @@ class Tests(TestCase):
                       "could not import \"mezzanine.core\"")
 
     def _create_page(self, title, status):
-        return ContentPage.objects.create(title=title, status=status)
+        return RichTextPage.objects.create(title=title, status=status)
 
     def _test_site_pages(self, title, status, count):
         # test _default_manager
-        pages = ContentPage._default_manager.all()
+        pages = RichTextPage._default_manager.all()
         self.assertEqual(pages.count(), count)
         self.assertTrue(title in [page.title for page in pages])
 
         # test objects manager
-        pages = ContentPage.objects.all()
+        pages = RichTextPage.objects.all()
         self.assertEqual(pages.count(), count)
         self.assertTrue(title in [page.title for page in pages])
 
         # test response status code
         code = 200 if status == CONTENT_STATUS_PUBLISHED else 404
-        pages = ContentPage.objects.filter(status=status)
+        pages = RichTextPage.objects.filter(status=status)
         response = self.client.get(pages[0].get_absolute_url())
         self.assertEqual(response.status_code, code)
 

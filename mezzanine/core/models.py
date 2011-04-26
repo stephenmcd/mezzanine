@@ -9,7 +9,7 @@ from django.template.defaultfilters import slugify, truncatewords_html
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.core.fields import HtmlField
+from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.models import base_concrete_model
@@ -119,8 +119,8 @@ class Displayable(Slugged):
         Returns the first paragraph of the first content-like field.
         """
         description = ""
-        # Use the first HTMLField, or TextField if none found.
-        for field_type in (HtmlField, models.TextField):
+        # Use the first RichTextField, or TextField if none found.
+        for field_type in (RichTextField, models.TextField):
             if not description:
                 for field in self._meta.fields:
                     if isinstance(field, field_type) and \
@@ -147,13 +147,13 @@ class Displayable(Slugged):
     admin_link.short_description = ""
 
 
-class Content(models.Model):
+class RichText(models.Model):
     """
-    Provides a HTML field for managing general content and making it
-    searchable.
+    Provides a Rich Text field for managing general content and making
+    it searchable.
     """
 
-    content = HtmlField(_("Content"))
+    content = RichTextField(_("Content"))
 
     search_fields = ("content",)
 

@@ -10,7 +10,7 @@ from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
 from mezzanine.generic.models import Keyword
 from mezzanine.generic.utils import handle_comments
-from mezzanine.pages.models import ContentPage
+from mezzanine.pages.models import RichTextPage
 from mezzanine.template.loader import select_template
 from mezzanine.utils.views import paginate
 
@@ -20,8 +20,8 @@ def blog_page():
     Return the Blog page from the pages app.
     """
     try:
-        return ContentPage.objects.get(slug=settings.BLOG_SLUG)
-    except ContentPage.DoesNotExist:
+        return RichTextPage.objects.get(slug=settings.BLOG_SLUG)
+    except RichTextPage.DoesNotExist:
         return None
 
 

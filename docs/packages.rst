@@ -172,13 +172,10 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 
 .. automodule:: mezzanine.blog
 
-.. automodule:: mezzanine.blog.models
-   :members:
-
 ``mezzanine.blog.models``
 -------------------------
 
-.. automodule:: mezzanine.blog.managers
+.. automodule:: mezzanine.blog.models
    :members:
 
 ``mezzanine.blog.views``

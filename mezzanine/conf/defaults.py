@@ -219,9 +219,9 @@ register_setting(
 )
 
 register_setting(
-    name="HTML_WIDGET_CLASS",
+    name="RICHTEXT_WIDGET_CLASS",
     description=_("Dotted package path and class name of the widget to use "
-        "for the ``HtmlField``."),
+        "for the ``RichTextField``."),
     editable=False,
     default="mezzanine.core.forms.TinyMceWidget",
 )

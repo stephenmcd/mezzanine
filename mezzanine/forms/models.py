@@ -3,20 +3,20 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
-from mezzanine.core.fields import HtmlField
-from mezzanine.core.models import Orderable, Content
+from mezzanine.core.fields import RichTextField
+from mezzanine.core.models import Orderable, RichText
 from mezzanine.forms import fields
 from mezzanine.pages.models import Page
 
 
-class Form(Page, Content):
+class Form(Page, RichText):
     """
     A user-built form.
     """
 
     button_text = models.CharField(_("Button text"), max_length=50,
         default=_("Submit"))
-    response = HtmlField(_("Response"))
+    response = RichTextField(_("Response"))
     send_email = models.BooleanField(_("Send email"), default=True,
         help_text=_("If checked, the form submitter will be sent an email."))
     email_from = models.EmailField(_("From address"), blank=True,

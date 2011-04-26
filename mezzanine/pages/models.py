@@ -4,7 +4,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.core.models import Displayable, Orderable, Content
+from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.utils.urls import admin_url
 
 
@@ -126,11 +126,12 @@ class Page(Orderable, Displayable):
         self.branch_level = 0
 
 
-class ContentPage(Page, Content):
+class RichTextPage(Page, RichText):
     """
-    Implements the default type of page with a single HTML content field.
+    Implements the default type of page with a single Rich Text
+    content field.
     """
 
     class Meta:
-        verbose_name = _("Content page")
-        verbose_name_plural = _("Content pages")
+        verbose_name = _("Rich text page")
+        verbose_name_plural = _("Rich text pages")

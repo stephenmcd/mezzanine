@@ -2,11 +2,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.core.models import Displayable, Ownable, Content, Slugged
+from mezzanine.core.models import Displayable, Ownable, RichText, Slugged
 from mezzanine.generic.fields import CommentsField, RatingField
 
 
-class BlogPost(Displayable, Ownable, Content):
+class BlogPost(Displayable, Ownable, RichText):
     """
     A blog post.
     """

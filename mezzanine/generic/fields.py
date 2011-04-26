@@ -53,7 +53,7 @@ class BaseGenericRelation(GenericRelation):
                 cls.add_to_class(name_string, field)
             # For some unknown reason the signal won't be triggered
             # if given a sender arg, particularly when running
-            # Cartridge with the field ContentPage.keywords - so
+            # Cartridge with the field RichTextPage.keywords - so
             # instead of specifying self.rel.to as the sender, we
             # check for it inside the signal itself.
             post_save.connect(self._related_items_changed)

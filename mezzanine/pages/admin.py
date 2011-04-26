@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
-from mezzanine.pages.models import Page, ContentPage
+from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.core.admin import DisplayableAdmin
 from mezzanine.utils.urls import admin_url
 
@@ -42,10 +42,10 @@ class PageAdmin(DisplayableAdmin):
     def add_view(self, request, extra_context=None, **kwargs):
         """
         For the ``Page`` model, redirect to the add view for the
-        ``ContentPage`` model.
+        ``RichText`` model.
         """
         if self.model is Page:
-            add_url = admin_url(ContentPage, "add")
+            add_url = admin_url(RichTextPage, "add")
             return HttpResponseRedirect(add_url)
         return super(PageAdmin, self).add_view(request, **kwargs)
 
@@ -130,16 +130,16 @@ class PageAdmin(DisplayableAdmin):
         return self._maintain_parent(request, response)
 
 
-content_page_fieldsets = deepcopy(PageAdmin.fieldsets)
-content_page_fieldsets[0][1]["fields"].insert(3, "content")
+richtext_fieldsets = deepcopy(PageAdmin.fieldsets)
+richtext_fieldsets[0][1]["fields"].insert(3, "content")
 
 
-class ContentPageAdmin(PageAdmin):
+class RichTextPageAdmin(PageAdmin):
     """
-    Admin class for the ContentPage default content type.
+    Admin class for the ``RichText`` default content type.
     """
-    fieldsets = content_page_fieldsets
+    fieldsets = richtext_fieldsets
 
 
 admin.site.register(Page, PageAdmin)
-admin.site.register(ContentPage, ContentPageAdmin)
+admin.site.register(RichTextPage, RichTextPageAdmin)

@@ -161,13 +161,6 @@ Google Analytics ID (http://www.google.com/analytics/)
 
 Default: ``''``
 
-``HTML_WIDGET_CLASS``
----------------------
-
-Dotted package path and class name of the widget to use for the ``HtmlField``.
-
-Default: ``'mezzanine.core.forms.TinyMceWidget'``
-
 ``PAGES_MENU_SHOW_ALL``
 -----------------------
 
@@ -188,6 +181,13 @@ Default: ``5``
 Min value for a rating.
 
 Default: ``1``
+
+``RICHTEXT_WIDGET_CLASS``
+-------------------------
+
+Dotted package path and class name of the widget to use for the ``RichTextField``.
+
+Default: ``'mezzanine.core.forms.TinyMceWidget'``
 
 ``SEARCH_MAX_PAGING_LINKS``
 ---------------------------

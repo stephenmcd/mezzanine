@@ -16,7 +16,7 @@ hierarchical tree to form the site's navigation, and an interface for
 managing the structure of the navigation tree is provided in the admin
 via ``mezzanine.pages.admin.PageAdmin``. All types of content inherit from
 the ``Page`` model and Mezzanine provides a default content type via the
-``mezzanine.pages.models.ContentPage`` model which simply contains a WYSIWYG
+``mezzanine.pages.models.RichTextPage`` model which simply contains a WYSIWYG
 editable field for managing content.
 
 .. _creating-custom-content-types:
@@ -25,7 +25,7 @@ Creating Custom Content Types
 =============================
 
 In order to handle different types of pages that require more structured
-content than provided by the ``ContentPage`` model, you can simply create
+content than provided by the ``RichTextPage`` model, you can simply create
 your own models that inherit from ``Page``. For example if we wanted to have
 pages that were photo galleries::
 
