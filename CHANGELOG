@@ -1,3 +1,126 @@
+Version 0.11 (Apr 30, 2011)
+---------------------------
+
+  * Created a ``GRAPPELLI_INSTALLED`` setting that is dynamically set, and made it available to JavaScript in the admin so that this can be determined reliably without depending on Grappelli specific HTML/CSS - stephenmcd
+  * Made the default value for the ``DASHBOARD_TAGS`` setting dynamically created based on whether ``mezzanine.blog`` is in ``settings.INSTALLED_APPS`` - stephenmcd
+  * Added commented-out versions of some common Mezzanine settings to the project_template's settings module - stephenmcd
+  * French locale for all other apps - Dominique Guardiola
+  * Add Polish translation - Michał Oleniec
+  * Added Michał Oleniec to AUTHORS - stephenmcd
+  * Added a note to README about browser support - stephenmcd
+  * Added a heading to the browser info in README - stephenmcd
+  * Updated inline-editing docs to include a note about the tags already being provided by themes - stephenmcd
+  * Added setting for specifying the delimiter for CSV exports in the forms app - stephenmcd
+  * Added an option to view entries in a HTML table when exporting for the forms app - stephenmcd
+  * Fixed Page.get_absolute_url to use its static slug rather than dynamic get_slug. Fixes #45 - stephenmcd
+  * Making Query.value a varchar(300) to allow for larger queries - John Campbell
+  * make value length 140 instead of 300 since the max twitter query is 140 currently - John Campbell
+  * Added migration for twitter query length - stephenmcd
+  * Added John Campbell to AUTHORS - stephenmcd
+  * Converted blog categories to a ManyToManyField - stephenmcd
+  * Added migration scripts for blog categories - stephenmcd
+  * Added russian translation of blog app - Andrew Grigorev
+  * Updated russian translation for core app - Andrew Grigorev
+  * Updated russian translation for forms app - Andrew Grigorev
+  * Minor update in russian translation of blog: s/Кем написан/Написал(а)/ - Andrew Grigorev
+  * Added russian translation of mobile app - Andrew Grigorev
+  * Updated russian translation for pages app - Andrew Grigorev
+  * Added russian translation of twitter app - Andrew Grigorev
+  * Fixed a bug in russian translation of blog app - Andrew Grigorev
+  * Updated russian translations - Andrew Grigorev
+  * Added Andrew Grigorev to AUTHORS - stephenmcd
+  * Added quotes from Audrey Roy and John Campbell to README - stephenmcd
+  * Added equityadvance.com.au to sites in README - stephenmcd
+  * Fixed Polish translation for core app - Michał Oleniec
+  * Fixed forms app compiled message file for Polish translation - Michał Oleniec
+  * Added Polish translation for conf app - Michał Oleniec
+  * Added Head3 Interactive to sites in README - stephenmcd
+  * Updated link to John Campbell in README - stephenmcd
+  * whitespace - Tom von Schwerdtner
+  * not sure how there wasn't one of these already - Tom von Schwerdtner
+  * Added post counts to archive and author listings for blog posts - stephenmcd
+  * add a label to registered settings for a more human-friendly admin UI - Tom von Schwerdtner
+  * A meta title for the default project homepage - Tom von Schwerdtner
+  * add title/tagline to admin settings - Tom von Schwerdtner
+  * a (slightly) better default tagline... and make settings available to templates - Tom von Schwerdtner
+  * Move the ``LOGIN_URL`` default into the project's settings module so it can be modified - stephenmcd
+  * Modified the ``AdminLoginInterfaceSelector`` middleware to recognise ``next`` paramters in the querystring, and redirect to those regardless of the interface option selected on the login form - stephenmcd
+  * Added missing methods for the blog feed such as categories, authors and publish dates - stephenmcd
+  * Applied ``SITE_TITLE`` and ``SITE_TAGLINE`` to templates - stephenmcd
+  * Made description field for meta data into plain text - stephenmcd
+  * Added descriptions for new settings - stephenmcd
+  * Added styling for the blog tagline - stephenmcd
+  * Updated the auto-generated settings docs - stephenmcd
+  * Implemented initial version of custom per-page permissions - stephenmcd
+  * Added some template code to the gallery example in docs - stephenmcd
+  * Changed TinyMCE setup to properly support embed code - stephenmcd
+  * Integrated the SITE_TITLE and SITE_TAGLINE settings better into templates - stephenmcd
+  * Removed handling of HTML from ``Displayable.description`` - stephenmcd
+  * Updated the settings docs with the restored defaults for the SITE_TITLE and SITE_TAGLINE settings - stephenmcd
+  * Added a section to the admin customization docs about defining custom widget classes for HtmlField fields - stephenmcd
+  * Changed mezzanine-project script to exclude admin templates - stephenmcd
+  * Added note to deployment docs about setting up a cron job for Twitter feeds - stephenmcd
+  * Added embedded robots.txt to prevent spidering when DEBUG is enabled - stephenmcd
+  * Added more tweaks to tinymce_setup.js for better handling of embedded media - stephenmcd
+  * Fixed handling of anonymous comments in the Disqus API - stephenmcd
+  * Removed print debugging - stephenmcd
+  * Updated the mailing list link in README - stephenmcd
+  * Changed handling of editable settings to force unicode for settings with string defaults. Fixes #52 - stephenmcd
+  * Initial version of refactoring comments into Django's built-in comments, and moving them into the new generic package - stephenmcd
+  * Added multi-site capability and tests, updated jso page fixtures to include site reference - legutierr
+  * grammar - legutierr
+  * added migrations for the new site field on Displayable - legutierr
+  * Fixed bug in login redirect - was defaulting to /accounts/profile/ upon login before and showing the logged in user a 404 error. Now defaults to /admin/ - Audrey M Roy
+  * Added Audrey Roy to AUTHORS - stephenmcd
+  * Added migrate command to setup steps. Closes #54 - stephenmcd
+  * Fixed incorrect tag lib name in template - stephenmcd
+  * Added documentation regarding multi-site to the deployment page in the docs - legutierr
+  * Fixed mezzanine-project script where an error would occur when more than one project template with admin templates was used - stephenmcd
+  * Refactored the ``Keywords`` model to use generic relations and moved it and all related functionality into ``mezzanine.generic`` - stephenmcd
+  * Formatting fixes - stephenmcd
+  * Fixed a bug where ``django.conf.settings`` would override ``mezzanine.conf.settings`` - stephenmcd
+  * Added tests for keywords - stephenmcd
+  * Added migrations for keywords - stephenmcd
+  * Updated mezzanine/core/media/js/dynamic_inline.js to allow multiple DynamicInlineAdmins on a single admin page - Josh Cartmell
+  * Fixed a potential circular import bug - stephenmcd
+  * Added more error handling to the processor_for page processor decorator - stephenmcd
+  * Added delete links to the admin page tree - stephenmcd
+  * Changed some tabs to spaces - stephenmcd
+  * Added support for slug based page_processors.  Adding slug=some_slug to the processor_for decorator will cause any specified content model to be ignored and the page_processor to only run for a page which matches the slug - Josh Cartmell
+  * Updated search to respect published status - Josh Cartmell
+  * Small fix to Keywords Field. Stops instance from saving if keyword data is empty - Osiloke Emoekpere
+  * Added pyladies.com to sites using Mezzanine in README - stephenmcd
+  * Removed ``DEV_SERVER`` setting from local_settings module template, since this is defined dynamically - stephenmcd
+  * Removed ``south`` from the ``OPTIONAL_APPS`` setting, since the addition of this to a project needs to be controlled manually, as the order of initial migrations for each app cannot be guarenteed and will break if used to create the tables for these apps. Added the ``USE_SOUTH`` boolean setting which can be defined to automatically have south added to ``INSTALLED_APPS`` when available. Fixes #53 - stephenmcd
+  * Removed trailing whitespace - stephenmcd
+  * Updated package docs - stephenmcd
+  * Added Josh Cartmell and Osiloke Emoekpere to AUTHORS - stephenmcd
+  * Removed handling of admin user for returning unpublished search results - stephenmcd
+  * Added test to ensure only published objects are returned as search results - stephenmcd
+  * Fixed bug where superclasses in concrete model inheritence chains would cause duplicate search results - stephenmcd
+  * Fixed bug where _order values were not being set for dynamic inlines - stephenmcd
+  * Added extra_context arg to mezzanine.pages.views.page - stephenmcd
+  * Refactored the page processor to only accept one argument since its behaviour is to only deal with one - stephenmcd
+  * Removed trailing whitespace from docs - stephenmcd
+  * Added note to docs about slug-based page processors - stephenmcd
+  * Cleaned up white-space - stephenmcd
+  * Removed migrate command from installation notes since south is no longer automatically configured - stephenmcd
+  * Re-sequenced the migrations for the ``Displayable.site`` field - stephenmcd
+  * Added Eduardo Gutierrez to AUTHORS - stephenmcd
+  * Applied workaround for unexplainable Django issue where certain signals get lost - stephenmcd
+  * Removed unused code - stephenmcd
+  * Made labels for settings translatable - stephenmcd
+  * Updated settings form template to have a submit row and error note consistent with other admin change forms - stephenmcd
+  * Reverted CSS formatting style in global.css to be consistent with the rest of the project - stephenmcd
+  * Added ratings to ``mezzanine.generic`` and applied to the blog app - stephenmcd
+  * Updated auto-generated settings docs - stephenmcd
+  * Added handling for page menus where parent page is explicitly provided. Fixes #58 - stephenmcd
+  * Renamed ``Content`` to ``RichText``, ``ContentPage`` to ``RichTextPage``, and ``HtmlField`` to ``RichTextField`` - stephenmcd
+  * Fixed handling of USE_SOUTH setting so that south is also removed when explicitly set to False - stephenmcd
+  * Updated template for RichTextPage - stephenmcd
+  * Reverted inline editing styles to the formatting that the rest of the project uses - stephenmcd
+  * Fixed toolbar styling for TinyMce inside the inline editing form - stephenmcd
+
 Version 0.10.6 (Feb 14, 2011)
 -----------------------------
 
