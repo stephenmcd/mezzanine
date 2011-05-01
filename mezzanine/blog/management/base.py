@@ -60,11 +60,11 @@ class BaseImporterCommand(BaseCommand):
                 raise CommandError("Cannot add comments without posts")
             post = self.posts[-1]
         post["comments"].append({
-            "name": name,
-            "email": email,
-            "time_created": pub_date,
-            "website": website,
-            "body": body,
+            "user_name": name,
+            "user_email": email,
+            "submit_date": pub_date,
+            "user_url": website,
+            "comment": body,
         })
 
     def handle(self, *args, **options):
@@ -114,9 +114,9 @@ class BaseImporterCommand(BaseCommand):
 
             for comment in comments:
                 if verbosity >= 1:
-                    print "Importing comment by: %s" % comment["name"]
-                comment["content_object"] = post
-                ThreadedComment.objects.get_or_create(**comment)
+                    print "Importing comment by: %s" % comment["user_name"]
+                comment["site"] = site
+                post.comments.add(ThreadedComment(**comment))
 
             if old_url is not None:
                 redirect, created = Redirect.objects.get_or_create(site=site,
