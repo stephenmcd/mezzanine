@@ -70,13 +70,16 @@ class Command(BaseImporterCommand):
 
             published_date = datetime.fromtimestamp(mktime(pd))
             published_date -= timedelta(seconds=timezone)
-            tags = [tag.term for tag in entry.tags if tag.scheme != "category"]
 
-            # tags have a tendency to not be unique in WP for some reason so
-            # set the list so we have unique
-            tags = list(set(tags))
-            post = self.add_post(title=title, content=content,
-                                 pub_date=published_date, tags=tags)
+            # Only look for tags if it is't going to throw and AttributeError
+            if hasattr(entry, 'tags'):
+                tags = [tag.term for tag in entry.tags if tag.scheme != "category"]
+
+                # tags have a tendency to not be unique in WP for some reason so
+                # set the list so we have unique
+                tags = list(set(tags))
+            else:
+                tags = []
 
             # get the comments from the xml doc.
             for comment in xmlitem.getElementsByTagName("wp:comment"):
