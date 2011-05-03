@@ -18,7 +18,7 @@ Features
 
 On top of all the usual features provided by Django such as MVC architecture,
 ORM, templating, caching and the automatic admin interface, Mezzanine
-provides the following features.
+provides the following features:
 
   * Hierarchical page navigation
   * Save as draft and preview on site
@@ -56,13 +56,13 @@ Dependencies
 ============
 
 Mezzanine has no explicit dependencies apart from a standard Django
-environment using.
+environment using:
 
   * `Python`_ 2.5 ... 2.7
   * `Django`_ 1.1 ... 1.3
 
 Mezzanine is designed however to be used most effectively in conjunction
-with the following libraries.
+with the following libraries:
 
   * `setuptools`_
   * `Python Imaging Library`_ (PIL)
@@ -114,6 +114,12 @@ Mercurial version control systems. These repositories are hosted on both
 forking the project on either of these sites and committing back your
 enhancements.
 
+Please note the following points around contributing:
+
+  * Contributed code must be written in the existing style. This is as simple as following the `Django coding style`_ and most importantly `PEP 8`_.
+  * Run the tests before committing your changes. If your changes causes the tests to break, they won't be accepted.
+  * If you're adding new functionality, you must include basics tests and documentation.
+
 Support
 =======
 
@@ -125,7 +131,7 @@ Sites Using Mezzanine
 =====================
 
   * `Citrus Agency`_
-  * `Mezzanine Project`_ (self hosted)
+  * `Mezzanine Project`_
   * `Nick Hagianis`_
   * `Thomas Johnson`_
   * `Central Mosque Wembley`_
@@ -197,3 +203,5 @@ Quotes
 .. _`Equity Advance`: http://equityadvance.com.au/
 .. _`Head3 Interactive`: http://head3.com/
 .. _`PyLadies`: http://www.pyladies.com/
+.. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
+.. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
