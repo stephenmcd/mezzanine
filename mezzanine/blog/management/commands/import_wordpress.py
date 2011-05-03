@@ -81,6 +81,10 @@ class Command(BaseImporterCommand):
             else:
                 tags = []
 
+            # create the post
+            post = self.add_post(title=title, content=content,
+                                 pub_date=published_date, tags=tags)
+
             # get the comments from the xml doc.
             for comment in xmlitem.getElementsByTagName("wp:comment"):
                 author_name = self.get_text(comment, "wp:comment_author",
