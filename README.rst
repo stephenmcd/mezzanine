@@ -120,6 +120,12 @@ Please note the following points around contributing:
   * Run the tests before committing your changes. If your changes causes the tests to break, they won't be accepted.
   * If you're adding new functionality, you must include basics tests and documentation.
 
+Donating
+========
+
+If you would like to make a donation to continue development of the
+project, you can do so via the `Mezzanine Project`_ website.
+
 Support
 =======
 
