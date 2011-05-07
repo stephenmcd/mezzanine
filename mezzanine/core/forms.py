@@ -49,9 +49,9 @@ class DynamicInlineAdminForm(forms.ModelForm):
     with drag and drop using ``OrderWidget``.
     """
 
-#    class Media:
-#        js = content_media_urls("js/jquery-ui-1.8.1.custom.min.js",
-#                                "js/dynamic_inline.js",)
+    class Media:
+        js = content_media_urls("js/jquery-ui-1.8.1.custom.min.js",
+                                "js/dynamic_inline.js",)
 
     def __init__(self, *args, **kwargs):
         super(DynamicInlineAdminForm, self).__init__(*args, **kwargs)
