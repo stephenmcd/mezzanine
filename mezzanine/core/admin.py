@@ -40,7 +40,7 @@ class DisplayableAdmin(admin.ModelAdmin):
     )
 
 
-class DynamicInlineAdmin(admin.TabularInline):
+class BaseDynamicInlineAdmin(object):
     """
     Admin inline that uses JS to inject an "Add another" link which
     when clicked, dynamically reveals another fieldset. Also handles
@@ -50,10 +50,9 @@ class DynamicInlineAdmin(admin.TabularInline):
 
     form = DynamicInlineAdminForm
     extra = 20
-    template = "admin/includes/dynamic_inline.html"
 
     def __init__(self, *args, **kwargs):
-        super(DynamicInlineAdmin, self).__init__(*args, **kwargs)
+        super(BaseDynamicInlineAdmin, self).__init__(*args, **kwargs)
         if issubclass(self.model, Orderable):
             fields = self.fields
             if not fields:
@@ -65,6 +64,12 @@ class DynamicInlineAdmin(admin.TabularInline):
                 del fields[fields.index("_order")]
                 fields.append("_order")
             self.fields = fields
+
+class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.TabularInline):
+    template = "admin/includes/dynamic_inline_tabular.html"
+
+class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.StackedInline):
+    template = "admin/includes/dynamic_inline_stacked.html"
 
 
 class OwnableAdmin(admin.ModelAdmin):
