@@ -24,6 +24,15 @@ from mezzanine.template.loader import get_template
 register = template.Library()
 
 
+@register.filter
+def is_installed(app_name):
+    """
+    Returns ``True`` if the given app name is in the 
+    ``INSTALLED_APPS`` setting/
+    """
+    return app_name in settings.INSTALLED_APPS
+
+
 @register.render_tag
 def set_short_url_for(context, token):
     """
