@@ -28,7 +28,7 @@ register = template.Library()
 def is_installed(app_name):
     """
     Returns ``True`` if the given app name is in the 
-    ``INSTALLED_APPS`` setting/
+    ``INSTALLED_APPS`` setting.
     """
     return app_name in settings.INSTALLED_APPS
 

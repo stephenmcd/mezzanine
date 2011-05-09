@@ -1,4 +1,4 @@
-{% load i18n pages_tags %}
+{% load pages_tags mezzanine_tags i18n %}
 <!doctype html>
 <html>
 <head>
@@ -11,10 +11,12 @@
     
     <title>{% block meta_title %}{% endblock %}</title>
     
+    {% if "mezzanine.blog"|is_installed %}
     <link rel="alternate" type="application/rss+xml" title="RSS" 
         href="{% url blog_post_feed "rss" %}" />
     <link rel="alternate" type="application/atom+xml" title="Atom"  
         href="{% url blog_post_feed "atom" %}" />
+    {% endif %}
     <link rel="apple-touch-icon" href="" />     
         
     <link rel="stylesheet" href="{{ MEDIA_URL }}css/global-mobile.css" type="text/css" />
