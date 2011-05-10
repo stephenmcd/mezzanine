@@ -160,6 +160,7 @@ INSTALLED_APPS = (
     "django.contrib.redirects",
     "django.contrib.sessions",
     "django.contrib.sites",
+    "django.contrib.sitemaps",
     "mezzanine.conf",
     "mezzanine.core",
     "mezzanine.generic",

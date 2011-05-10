@@ -14,6 +14,7 @@ from django.contrib.admin.sites import NotRegistered
 from django.http import HttpResponse
 
 from mezzanine.conf import settings
+from mezzanine.core.sitemaps import DisplayableSitemap
 from mezzanine.utils.urls import static_urls
 
 
@@ -33,6 +34,13 @@ for model in settings.ADMIN_REMOVAL:
 
 
 urlpatterns = []
+
+# Django's sitemap app.
+if "django.contrib.sitemaps" in settings.INSTALLED_APPS:
+    urlpatterns += patterns("django.contrib.sitemaps.views",
+        ("^sitemap\.xml$", "sitemap", {"sitemaps": {"all": DisplayableSitemap}})
+    )
+
 
 # Return a robots.txt that disallows all spiders when DEBUG is True.
 if getattr(settings, "DEBUG", False):
