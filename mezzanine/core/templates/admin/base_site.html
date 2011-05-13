@@ -196,7 +196,7 @@ $(function() {
 $(function() {
     var removeRows = {};
     $.each($('*[name*=__prefix__]'), function(i, e) {
-        var row = $(e).parent().parent();
+        var row = $(e).parent();
         if (!row.attr('id')) {
             row.attr('id', 'remove__prefix__' + i);
         }
