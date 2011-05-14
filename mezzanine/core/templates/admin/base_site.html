@@ -3,7 +3,7 @@
 {% comment %}
 
 
-    This file contains a handful of unrelated admin customizations that 
+    This file contains a handful of unrelated admin customizations that
     mostly get applied globally to different parts of the admin.
 
     In the ``extrahead`` block:
@@ -32,8 +32,8 @@
 <script type="text/javascript">
 
 if (typeof $ == 'undefined') {
-    document.write('<scr' + 
-        'ipt src="{{ settings.CONTENT_MEDIA_URL }}js/jquery-1.4.4.min.js"></scr' + 
+    document.write('<scr' +
+        'ipt src="{{ settings.CONTENT_MEDIA_URL }}js/jquery-1.4.4.min.js"></scr' +
         'ipt>');
 }
 
@@ -52,7 +52,7 @@ window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 <style type="text/css">
     #extra-login-fields .required {margin-top:1px;}
     input.interface {margin:0 0 0 0px; vertical-align:middle;}
-    label.interface {display:inline !important; float:none !important; 
+    label.interface {display:inline !important; float:none !important;
         vertical-align:middle; cursor:pointer;}
     #forgot-password {margin-top:30px; text-align:center;}
     .submit-row input {margin-left:8px;}
@@ -60,10 +60,10 @@ window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 <script type="text/javascript">
 
 $(function() {
-    // We "inject" the extra login fields here rather than defining them in the 
-    // login.html template, since we don't want to override the login.html 
+    // We "inject" the extra login fields here rather than defining them in the
+    // login.html template, since we don't want to override the login.html
     // template as it's very different between Grappelli and the regular admin.
-    if ($('#id_password').length == 1) { 
+    if ($('#id_password').length == 1) {
         $('#forgot-password').insertAfter($('.submit-row')).show();
         $('#extra-login-fields').insertAfter($('#id_password').parent()).show();
     }
@@ -89,14 +89,14 @@ $(function() {
         background:#e6e6e6 !important;}
     .dropdown-menu {left:0; padding:0;}
     .dropdown-menu ul {display:inline; padding:0; margin:0;}
-    .dropdown-menu li {float:left; width:auto; padding:11px 15px; 
+    .dropdown-menu li {float:left; width:auto; padding:11px 15px;
         cursor:pointer; height:30px;
         font-size:15px; font-weight:bold; list-style-type:none;}
-    .cloned li {display:block; font-size:13px; font-weight:normal; 
+    .cloned li {display:block; font-size:13px; font-weight:normal;
         padding:15px 20px 15px 20px !important; border-top:1px solid #eee;}
     .cloned .first {border-top:0px !important;}
     .dropdown-menu li ul {display:none; float:left;}
-    .cloned {background:#e6e6e6; border-radius:0 0 5px 5px; 
+    .cloned {background:#e6e6e6; border-radius:0 0 5px 5px;
         border-bottom:1px solid #ccc; padding:0;}
     #bookmarks {display:none;}
     .messagelist {margin-top:14px; z-index:0 !important;}
@@ -114,7 +114,7 @@ $(function() {
 
     /* make save/delete buttons always available at bottom of screen. */
     .change-form div.submit-row {
-        position: fixed; left: 0; bottom: 0; right: 0; 
+        position: fixed; left: 0; bottom: 0; right: 0;
         margin: 0; padding: 10px 15px;
         background: #e6e6e6; border-top: 1px solid #ccc;
         text-align: right;
@@ -126,9 +126,9 @@ $(function() {
 </style>
 
 <script type="text/javascript">
-// Global flag used for checking whether to hide the visible menu after a small 
+// Global flag used for checking whether to hide the visible menu after a small
 // timeout has passed when mousing out from a menu.
-var onMenu; 
+var onMenu;
 
 $(function() {
 
@@ -136,9 +136,9 @@ $(function() {
     var breadcrumb = $('.breadcrumbs');
     $('.breadcrumbs').html(' ').show();
     $('body').append($('.dropdown-menu'));
-    // The top value here previously used breadcrumb.offset().top but breaks 
-    // when scrolling and reloading in Firefox, so to resolve this it's 
-    // hard-coded for now. Reported in github issue #11 
+    // The top value here previously used breadcrumb.offset().top but breaks
+    // when scrolling and reloading in Firefox, so to resolve this it's
+    // hard-coded for now. Reported in github issue #11
     var menuCss;
     if (window.__grappelli_installed) {
         menuCss = {top: 30, position: 'fixed'};
@@ -157,7 +157,7 @@ $(function() {
             $('body').append(menu);
             // Position the child menu under its parent.
             var pos = {
-                top: breadcrumb.offset().top + breadcrumb.height(), 
+                top: breadcrumb.offset().top + breadcrumb.height(),
                 left: parent.offset().left,
                 position: 'absolute'
             }
@@ -191,7 +191,7 @@ $(function() {
 
 });
 
-// Remove extraneous ``template`` forms from inline formsets since 
+// Remove extraneous ``template`` forms from inline formsets since
 // Mezzanine has its own method of dynamic inlines.
 $(function() {
     var removeRows = {};
@@ -219,13 +219,13 @@ $(function() {
 </p>
 <div class="form-row" id="extra-login-fields" style="display:none;">
 
-    <label class="required">{% trans "Interface:" %}</label> 
+    <label class="required">{% trans "Interface:" %}</label>
 
-    <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin" 
+    <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
         value="admin"{% ifnotequal request.REQUEST.mezzanine_login_interface "site" %} checked{% endifnotequal %} />
     <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
 
-    <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_site" 
+    <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_site"
         value="site"{% ifequal request.REQUEST.mezzanine_login_interface "site" %} checked{% endifequal %} />
     <label class="interface" for="interface_site">{% trans "Site" %}</label>
 
