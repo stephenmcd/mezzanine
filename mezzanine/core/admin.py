@@ -4,6 +4,7 @@ from django.db.models import AutoField
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import Orderable
 from mezzanine.utils.urls import content_media_urls, admin_url
@@ -70,6 +71,19 @@ class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.TabularInline):
 
 class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.StackedInline):
     template = "admin/includes/dynamic_inline_stacked.html"
+
+    def __init__(self, *args, **kwargs):
+        """
+        Stacked dynamic inlines won't work without grappelli
+        installed, as the JavaScript in dynamic_inline.js isn't
+        able to target each of the inlines to set the value of
+        the order field.
+        """
+        grappelli_name = getattr(settings, "PACKAGE_NAME_GRAPPELLI")
+        if grappelli_name not in settings.INSTALLED_APPS:
+            error = "StackedDynamicInlineAdmin requires Grappelli installed."
+            raise Exception(error)
+        super(StackedDynamicInlineAdmin, self).__init__(*args, **kwargs)
 
 
 class OwnableAdmin(admin.ModelAdmin):

@@ -21,7 +21,7 @@ var anyFieldsDirty = function(fields) {
                 return false;
             default:
                 alert('Unhandled field in orderable_inline.js:' +
-                    field.name + ':' + field.type);
+                      field.name + ':' + field.type);
         }
         return false;
     });
@@ -30,8 +30,8 @@ var anyFieldsDirty = function(fields) {
 
 $(function() {
 
-    var parentSelector = '.dynamic-inline ' + (window.__grappelli_installed ?
-                                               '.items' : 'tbody');
+    var itemSelector = window.__grappelli_installed ? '.items' : 'tbody';
+    var parentSelector = '.dynamic-inline ' + itemSelector;
 
     // Apply drag and drop to orderable inlines.
     $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7'});
@@ -51,10 +51,11 @@ $(function() {
         $.each($(parentSelector), function(i, parent) {
             var order = 0;
             $.each($(parent).find('._order input'), function(i, field) {
-                field.value = '';
-                var fields = $(field).parent().parent().find(
-                        'input, select, textarea');
-                if (anyFieldsDirty(fields)) {
+                var parent = $(field).parent().parent();
+                if (window.__grappelli_installed) {
+                    parent = parent.parent();
+                }
+                if (anyFieldsDirty(parent.find('input, select, textarea'))) {
                     field.value = order;
                     order += 1;
                 } else {
@@ -76,20 +77,24 @@ $(function() {
     // Show a new inline when the 'Add another' link is clicked.
     var addAnother = $('.dynamic-inline .add-another a');
     $(addAnother).click(function() {
-        var rows = $(this).parent().parent().find(
-            (window.__grappelli_installed ? '.items' : 'tbody') +' > *:hidden');
+        var button = $(this);
+        var getRows = function() {
+            return button.parent().parent().find(itemSelector +' > *:hidden');
+        };
+        var rows = getRows();
         $(rows[0]).show();
-        if (rows.length == 1) {
+        // Grappelli's inline header for tabular inlines is
+        // actually part of the selector, so for it we run this twice.
+        if (window.__grappelli_installed && $(rows[0]).hasClass('legend')) {
+            $(rows[1]).show();
+        }
+        if (getRows().length == 0) {
             $(this).hide();
         }
         return false;
     });
 
-    // Show the first hidden inline - grappelli's inline header is actually
-    // part of the selector so for it we run this twice.
+    // Show the first hidden inline
     addAnother.click();
-    if (window.__grappelli_installed) {
-        addAnother.click();
-    }
 
 });
