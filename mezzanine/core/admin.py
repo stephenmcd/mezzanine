@@ -14,7 +14,7 @@ from mezzanine.utils.urls import content_media_urls, admin_url
 # earlier versions of the admin.
 from django import VERSION
 displayable_js = []
-if VERSION > (1, 1, 0):
+if VERSION >= (1, 2, 0):
     displayable_js = content_media_urls("js/collapse_backport.js")
 
 
