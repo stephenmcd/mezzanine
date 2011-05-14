@@ -69,7 +69,7 @@ class KeywordsWidget(forms.MultiWidget):
         Return the comma separated list of keyword IDs for use in
         ``KeywordsField.save_form_data()``.
         """
-        return data.get("%s_0" % name, None)
+        return data.get("%s_0" % name, "")
 
 
 class ThreadedCommentForm(CommentForm):
