@@ -40,7 +40,6 @@ def handle_comments(obj, request):
                                               request.META["REMOTE_ADDR"])
         comment.replied_to_id = request.POST.get("replied_to")
         comment.save()
-        #blog_post.comments.add(comment)
         response = HttpResponseRedirect(comment.get_absolute_url())
         # Store commenter's details in a cookie for 90 days.
         cookie_expires = 60 * 60 * 24 * 90

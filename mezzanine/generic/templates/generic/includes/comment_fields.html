@@ -2,7 +2,8 @@
     {% if field.is_hidden %}
     {{ field }}
     {% else %}
-    <tr{% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
+    <tr class="comment_field_{{ field.name }}"
+        {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
         <th>{{ field.label_tag }}:</th>
         <td>
             {% if field.errors %}{{ field.errors }}{% endif %}
@@ -11,4 +12,3 @@
     </tr>
     {% endif %}
 {% endfor %}
-
