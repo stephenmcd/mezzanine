@@ -56,6 +56,20 @@ If ``True``, built-in comments are approved by default.
 
 Default: ``True``
 
+``COMMENTS_DISQUS_API_PUBLIC_KEY``
+----------------------------------
+
+Public key for Disqus developer API
+
+Default: ``''``
+
+``COMMENTS_DISQUS_API_SECRET_KEY``
+----------------------------------
+
+Secret key for Disqus developer API
+
+Default: ``''``
+
 ``COMMENTS_DISQUS_SHORTNAME``
 -----------------------------
 
@@ -236,7 +250,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
+Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
 
 ``THEME``
 ---------
