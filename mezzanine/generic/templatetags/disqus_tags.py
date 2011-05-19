@@ -11,20 +11,22 @@ register = template.Library()
 @register.inclusion_tag("generic/includes/disqus_sso.html", takes_context=True)
 def disqus_sso_script(context):
     """
-    Provides a generic context variable which adds single-sign-on support
-    to DISQUS if COMMENTS_DISQUS_API_PUBLIC_KEY  and COMMENTS_DISQUS_API_SECRET_KEY are specified.
+    Provides a generic context variable which adds single-sign-on
+    support to DISQUS if ``COMMENTS_DISQUS_API_PUBLIC_KEY`` and
+    ``COMMENTS_DISQUS_API_SECRET_KEY`` are specified.
     """
-    public_key = context["settings"].COMMENTS_DISQUS_API_PUBLIC_KEY
-    secret_key = context["settings"].COMMENTS_DISQUS_API_SECRET_KEY
+    settings = context["settings"]
+    public_key = getattr(settings, "COMMENTS_DISQUS_API_PUBLIC_KEY", "")
+    secret_key = getattr(settings, "COMMENTS_DISQUS_API_SECRET_KEY", "")
     user = context["request"].user
-    if public_key and secret_key:
+    if public_key and secret_key and user.is_authenticated():
         context["public_key"] = public_key
-        context["sso_data"] = _get_disqus_sso(user, public_key=public_key, secret_key=secret_key)
+        context["sso_data"] = _get_disqus_sso(user, public_key, secret_key)
     return context
 
 def _get_disqus_sso(user, public_key, secret_key):
     # Based on snippet provided on http://docs.disqus.com/developers/sso/
-    
+
     # create a JSON packet of our data attributes
     data = simplejson.dumps({
         'id': user.id,
@@ -36,7 +38,8 @@ def _get_disqus_sso(user, public_key, secret_key):
     # generate a timestamp for signing the message
     timestamp = int(time.time())
     # generate our hmac signature
-    sig = hmac.HMAC(secret_key, '%s %s' % (message, timestamp), hashlib.sha1).hexdigest()
-    
+    message = '%s %s' % (message, timestamp)
+    sig = hmac.HMAC(secret_key, message, hashlib.sha1).hexdigest()
+
     # Messages are of the form <message> <signature> <timestamp>
     return '%s %s %s' % (message, sig, timestamp)
