@@ -74,6 +74,22 @@ register_setting(
 )
 
 register_setting(
+    name="COMMENTS_DISQUS_API_PUBLIC_KEY",
+    label=_("Disqus public key"),
+    description=_("Public key for Disqus developer API"),
+    editable=True,
+    default="",
+)
+
+register_setting(
+    name="COMMENTS_DISQUS_API_SECRET_KEY",
+    label=_("Disqus secret key"),
+    description=_("Secret key for Disqus developer API"),
+    editable=True,
+    default="",
+)
+
+register_setting(
     name="COMMENTS_DEFAULT_APPROVED",
     label=_("Auto-approve comments"),
     description=_("If ``True``, built-in comments are approved by default."),
