@@ -15,6 +15,9 @@ if project_dir == "project_template":
     mezzanine_path = path_for_import("mezzanine")
     assert os.path.abspath(os.path.join(mezzanine_path, "..")) == dev_path
 
+# Corrects some pathing issues in various contexts, such as cron jobs.
+os.chdir(project_path)
+
 from django.core.management import execute_manager
 try:
     import settings  # Assumed to be in the same directory.
