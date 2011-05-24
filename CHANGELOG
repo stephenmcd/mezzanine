@@ -1,3 +1,37 @@
+Version 0.11.1 (May 24, 2011)
+-----------------------------
+
+  * Upgraded comment handling to work with new comment models in base blog importer. Fixes #59 - stephenmcd
+  * Only look for tags if it isn't going to throw an AtributeError - rich
+  * Only look for tags if it isn't going to throw an AttributeError - rich
+  * whoops! Reinserted line that I shouldn't have deleted - rich
+  * Added Rich Atkinson to AUTHORS - stephenmcd
+  * Added notes around contributing to README - stephenmcd
+  * Added donation notes to README - stephenmcd
+  * Fixed typo in README - stephenmcd
+  * Split ``mezzanine.core.admin.DynamicInlineAdmin`` out into ``TabularDynamicInlineAdmin`` and ``StackedDynamicInlineAdmin`` - stephenmcd
+  * Fixed missing media from dynamic admin form - stephenmcd
+  * Added the template filter is_installed which can be used to test for values in the INSTALLED_APPS setting from within templates - stephenmcd
+  * Added is_installed for blog app around feed urls in mobile base template - stephenmcd
+  * Added integration with django's sitemaps app - stephenmcd
+  * Added handling in KeywordsWidget for the keywords field not existing in the request. Fixes #64 - stephenmcd
+  * Fixed issue where admin.StackedInlines would not display in the admin - Josh Cartmell
+  * Cleaned up white-space - stephenmcd
+  * Updated tinymce_setup.js to only initialize when TinyMCE is available - stephenmcd
+  * Updated dynamic_inline.js to support StackedDynamicInlineAdmin - stephenmcd
+  * Reordered jQuery in base_site.html to avoid issues when Grappelli isn't installed - stephenmcd
+  * Added CSS classes to each of the comment fields - stephenmcd
+  * Addd better hanadling in the keyword widget for when no keyword field is in the request. Previous fix only corrected the field not existing in the form object - stephenmcd
+  * Fixed the version check for collapse_backport.js - stephenmcd
+  * Added Single-Sign-On support to Disqus templates - Brett Clouser
+  * Added handling for unauthenticated users and empty key settings for Disqus single sign-on - stephenmcd
+  * Updated auto-generated settings docs - stephenmcd
+  * Added Brett Clouser to AUTHORS - stephenmcd
+  * Added some sys.path fixing in manage.py to avoid some cron issues - stephenmcd
+  * Changed object_pk fields to integer fields in the generic app to resolve some issues with Postgres - stephenmcd
+  * Added migrations for object_pk change in generic. Fixes #66 - stephenmcd
+  * Fixed loading of blog posts for a tag - stephenmcd
+
 Version 0.11 (Apr 30, 2011)
 ---------------------------
 
