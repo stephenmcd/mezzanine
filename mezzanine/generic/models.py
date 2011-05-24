@@ -92,7 +92,7 @@ class AssignedKeyword(models.Model):
 
     keyword = models.ForeignKey("Keyword", related_name="assignments")
     content_type = models.ForeignKey("contenttypes.ContentType")
-    object_pk = models.TextField()
+    object_pk = models.IntegerField()
     content_object = GenericForeignKey("content_type", "object_pk")
 
     def __unicode__(self):
@@ -108,7 +108,7 @@ class Rating(models.Model):
 
     value = models.IntegerField(_("Value"))
     content_type = models.ForeignKey("contenttypes.ContentType")
-    object_pk = models.TextField()
+    object_pk = models.IntegerField()
     content_object = GenericForeignKey("content_type", "object_pk")
 
     class Meta:
