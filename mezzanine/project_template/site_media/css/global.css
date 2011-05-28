@@ -96,7 +96,7 @@ ul .posted {display:block !important;}
 .since {display:block; margin-bottom:20px;}
 
 /* Forms */
-.form {background:#eee; border-bottom:1px solid #ccc; float:left;}
+.form {background:#eee; border-bottom:1px solid #ccc; float:left; width:100%;}
 .form li {display:block; padding:5px 10px;}
 .form li ul, .form li li {display:inline;}
 .form li label {width:30%; float:left;}
