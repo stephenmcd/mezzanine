@@ -1,3 +1,5 @@
+import os
+from os.path import getsize
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -8,6 +10,7 @@ from django.template.loader import get_template
 from django.test import TestCase
 from django.utils.html import strip_tags
 from django.contrib.sites.models import Site
+
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings, registry
@@ -23,6 +26,7 @@ from mezzanine.generic.models import RATING_RANGE
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.tests import run_pyflakes_for_package
 from mezzanine.utils.importing import import_dotted_path
+from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 
 
 class Tests(TestCase):
@@ -367,3 +371,23 @@ class Tests(TestCase):
 
         site1.delete()
         site2.delete()
+
+
+class TestImageThumbnails(TestCase):
+
+    def setUp(self):
+        pass
+
+    def test_thumbnail_generation(self):
+        image_url = 'testleaf.jpg'
+        # read in existing image from project
+        image_file = os.path.join('./site_media/', 'testleaf.jpg')
+        with open(image_file, 'r') as f:
+            image = f.read()
+        new_thumbnail = thumbnail(image_url, 24, 24)
+        self.assertEqual(new_thumbnail, 'testleaf-24x24.jpg')
+        self.assertNotEqual(0, getsize(os.path.join(thumb_path, newthumbnail)))
+
+
+
+
