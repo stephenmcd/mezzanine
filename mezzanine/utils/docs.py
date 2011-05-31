@@ -10,6 +10,7 @@ from socket import gethostname
 
 from django.utils.datastructures import SortedDict
 
+from mezzanine import __version__
 from mezzanine.conf import registry
 
 
@@ -118,3 +119,20 @@ def build_changelog(docs_path, package_name="mezzanine"):
             else:
                 f.write("  * No changes listed.\n")
             f.write("\n")
+
+def build_requirements(docs_path, package_name="mezzanine"):
+    """
+    Updates the requirements file with Mezzanine's version number.
+    """
+    mezz_string = "Mezzanine=="
+    project_path = os.path.join(docs_path, "..")
+    requirements_file = os.path.join(project_path, package_name,
+                                     "project_template", "requirements",
+                                     "project.txt")
+    with open(requirements_file, "r") as f:
+        requirements = f.readlines()
+    with open(requirements_file, "w") as f:
+        f.write("Mezzanine==%s\n" % __version__)
+        for requirement in requirements:
+            if requirement.strip() and not requirement.startswith(mezz_string):
+                f.write(requirement)

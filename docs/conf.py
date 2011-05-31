@@ -19,10 +19,11 @@ sys.path.insert(0, os.path.join(docs_path, ".."))
 os.environ["DJANGO_SETTINGS_MODULE"] = "mezzanine.project_template.settings"
 
 import mezzanine
-from mezzanine.utils.docs import build_settings_docs, build_changelog
+from mezzanine.utils import docs
 
-build_settings_docs(docs_path)
-build_changelog(docs_path)
+docs.build_settings_docs(docs_path)
+docs.build_changelog(docs_path)
+docs.build_requirements(docs_path)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
