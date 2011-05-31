@@ -264,4 +264,4 @@ Default: ``''``
 
 If ``True``, the south application will be automatically added to the ``INSTALLED_APPS`` setting.
 
-Default: ``True``
+Default: ``False``

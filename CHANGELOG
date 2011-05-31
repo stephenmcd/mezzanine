@@ -1,3 +1,16 @@
+Version 0.11.2 (Jun 01, 2011)
+-----------------------------
+
+  * Updated 960.gs to fluid version - stephenmcd
+  * Remove mezzanine from internal Mezzanine urls - stephenmcd
+  * Test to verify if thumbnail generation is working - Brent Hoover
+  * Added 500 handler view that adds MEDIA_URL to the context - stephenmcd
+  * Fixed unicode handling in KeywordsWidget rendering - stephenmcd
+  * Added pip requirments to project_template and use it to define Mezzanine's actual version number - stephenmcd
+  * Fixed thumbnail test - stephenmcd
+  * Added Brent Hoover to AUTHORS - stephenmcd
+  * Reverted change to storing version number to work with docs generation - stephenmcd
+
 Version 0.11.1 (May 24, 2011)
 -----------------------------
 
