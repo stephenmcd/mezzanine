@@ -1,5 +1,5 @@
+
 import os
-from os.path import getsize
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -372,22 +372,21 @@ class Tests(TestCase):
         site1.delete()
         site2.delete()
 
-
-class TestImageThumbnails(TestCase):
-
-    def setUp(self):
-        pass
-
     def test_thumbnail_generation(self):
-        image_url = 'testleaf.jpg'
-        # read in existing image from project
-        image_file = os.path.join('./site_media/', 'testleaf.jpg')
-        with open(image_file, 'r') as f:
-            image = f.read()
-        new_thumbnail = thumbnail(image_url, 24, 24)
-        self.assertEqual(new_thumbnail, 'testleaf-24x24.jpg')
-        self.assertNotEqual(0, getsize(os.path.join(thumb_path, newthumbnail)))
-
-
-
-
+        """
+        Test that a thumbnail is created.
+        """
+        original_name = "testleaf.jpg"
+        thumbnail_name = "testleaf-24x24.jpg"
+        thumbnail_path = os.path.join(settings.MEDIA_ROOT, thumbnail_name)
+        try:
+            os.remove(thumbnail_path)
+        except OSError:
+            pass
+        thumbnail_image = thumbnail(original_name, 24, 24)
+        self.assertEqual(thumbnail_image.lstrip("/"), thumbnail_name)
+        self.assertNotEqual(0, os.path.getsize(thumbnail_path))
+        try:
+            os.remove(thumbnail_path)
+        except OSError:
+            pass
