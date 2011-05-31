@@ -4,7 +4,7 @@ import os
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from django.db.models import get_model
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django import http
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from django.views.static import serve
@@ -12,6 +12,7 @@ from django.views.static import serve
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Displayable
+from mezzanine.template.loader import get_template
 from mezzanine.utils.importing import path_for_import
 from mezzanine.utils.views import is_editable, paginate, render_to_response
 from mezzanine.utils.views import set_cookie
@@ -22,7 +23,7 @@ def set_device(request, device=""):
     Sets a device name in a cookie when a user explicitly wants to go
     to the site for a particular device (eg mobile).
     """
-    response = HttpResponseRedirect(request.GET.get("next", "/"))
+    response = http.HttpResponseRedirect(request.GET.get("next", "/"))
     set_cookie(response, "mezzanine-device", device, 60 * 60 * 24 * 365)
     return response
 
@@ -58,7 +59,7 @@ def edit(request):
         response = ""
     else:
         response = form.errors.values()[0][0]
-    return HttpResponse(unicode(response))
+    return http.HttpResponse(unicode(response))
 
 
 def search(request, template="search_results.html"):
@@ -86,6 +87,16 @@ def serve_with_theme(request, path):
         theme_root = os.path.join(path_for_import(theme), "media")
         try:
             return serve(request, path, document_root=theme_root)
-        except Http404:
+        except http.Http404:
             pass
     return serve(request, path, document_root=settings.MEDIA_ROOT)
+
+
+def server_error(request, template_name='500.html'):
+    """
+    Mimics Django's error handler but adds ``MEDIA_URL`` to the
+    context.
+    """
+    context = RequestContext(request, {"MEDIA_URL": settings.MEDIA_URL})
+    t = get_template(template_name, context)
+    return http.HttpResponseServerError(t.render(context))

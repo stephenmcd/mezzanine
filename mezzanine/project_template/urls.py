@@ -15,3 +15,7 @@ urlpatterns = patterns("",
     url("^$", direct_to_template, {"template": "index.html"}, name="home"),
     ("^", include("mezzanine.urls")),
 )
+
+# Adds ``MEDIA_URL`` to the context.
+handler500 = "mezzanine.core.views.server_error"
+
