@@ -58,9 +58,10 @@ class KeywordsWidget(forms.MultiWidget):
         instances that can be clicked on to toggle a keyword.
         """
         rendered = super(KeywordsWidget, self).format_output(rendered_widgets)
-        links = "".join(["<a href='#'>%s%s</a>" %
-                         ("+" if str(k.id) not in self._ids else "-", k)
-                         for k in Keyword.objects.all().order_by("title")])
+        links = ""
+        for keyword in Keyword.objects.all().order_by("title"):
+            prefix = "+" if str(keyword.id) not in self._ids else "-"
+            links += ("<a href='#'>%s%s</a>" % (prefix, unicode(keyword)))
         rendered += mark_safe("<p class='keywords-field'>%s</p>" % links)
         return rendered
 
