@@ -3,6 +3,7 @@ from copy import deepcopy
 
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import NoReverseMatch 
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
@@ -45,8 +46,11 @@ class PageAdmin(DisplayableAdmin):
         ``RichText`` model.
         """
         if self.model is Page:
-            add_url = admin_url(RichTextPage, "add")
-            return HttpResponseRedirect(add_url)
+            try:
+                add_url = admin_url(RichTextPage, "add")
+                return HttpResponseRedirect(add_url)
+            except NoReverseMatch, e:
+                pass
         return super(PageAdmin, self).add_view(request, **kwargs)
 
     def change_view(self, request, object_id, extra_context=None):

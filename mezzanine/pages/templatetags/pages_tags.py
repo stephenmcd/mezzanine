@@ -1,7 +1,7 @@
 
 from collections import defaultdict
 
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import get_models
 from django.template import TemplateSyntaxError, Variable
 
@@ -77,9 +77,14 @@ def models_for_pages(*args):
     page_models = []
     for model in get_models():
         if model is not Page and issubclass(model, Page):
-            setattr(model, "name", model._meta.verbose_name)
-            setattr(model, "add_url", admin_url(model, "add"))
-            page_models.append(model)
+            try:
+                url = admin_url(model, "add")
+            except NoReverseMatch, e:
+                continue
+            else:
+                setattr(model, "name", model._meta.verbose_name)
+                setattr(model, "add_url", admin_url(model, "add"))
+                page_models.append(model)
     return page_models
 
 
