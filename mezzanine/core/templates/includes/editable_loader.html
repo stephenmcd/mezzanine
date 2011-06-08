@@ -60,9 +60,7 @@
         -moz-box-shadow: 0 0 5px #999; -webkit-box-shadow: 0 0 5px #999}
 
 </style>
-{% for js in html_editor_js %}
-<script language="javascript" src="{{ js }}"></script>
-{% endfor %}
+{{ richtext_media|safe }}
 <script language="javascript">
 if (typeof $ == 'undefined') {
     document.write('<scr' +

@@ -142,7 +142,7 @@ def editable_loader(context):
     t = get_template("includes/editable_toolbar.html", context)
     context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
     context["toolbar"] = t.render(Context(context))
-    context["html_editor_js"] = RichTextField().formfield().widget.Media.js
+    context["richtext_media"] = RichTextField().formfield().widget.media
     return context
 
 
