@@ -196,22 +196,19 @@ Min value for a rating.
 
 Default: ``1``
 
+``RICHTEXT_FILTER``
+-------------------
+
+Dotted path to the function to call on a ``RichTextField`` value before it is rendered to the template.
+
+Default: ``None``
+
 ``RICHTEXT_WIDGET_CLASS``
 -------------------------
 
 Dotted package path and class name of the widget to use for the ``RichTextField``.
 
 Default: ``'mezzanine.core.forms.TinyMceWidget'``
-
-
-``RICHTEXT_FILTER``
--------------------------
-
-Dotted path to the function to call on a ``RichTextField`` value before it is
-rendered to the template. 
-
-Default: ``None``
-
 
 ``SEARCH_MAX_PAGING_LINKS``
 ---------------------------

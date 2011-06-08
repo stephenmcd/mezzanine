@@ -112,3 +112,28 @@ referenced here provides the necessary media files and HTML for
 implementing the TinyMCE editor, and serves as a good reference point
 for implementing your own widget class which would then be specified
 via the ``RICHTEXT_WIDGET_CLASS`` setting.
+
+In addition to ``RICHTEXT_WIDGET_CLASS`` you may need to customize the way
+your content is rendered at the template level. Post processing of the content
+can be achieved through the ``RICHTEXT_FILTER`` setting.
+
+The default behaviour for ``RICHTEXT_FILTER`` is to simply return the parameter
+passed to it.
+
+Say, for example, you had a ``RICHTEXT_WIDGET_CLASS`` that allowed you to write
+your content in a popular wiki syntax. You'd need a way to convert that wiki
+syntax into html right before the content was rendered::
+
+    # ... in myproj.filter
+    from markdown import markdown
+    
+    def markdown_filter(content):
+        """
+        Converts markdown formatted content to html
+        """
+        return markdown(content)
+
+Then by setting ``RICHTEXT_FILTER`` to ``'myproj.filter.markdown_filter'``
+you'd see the converted html content rendered to the template, rather than
+the raw markdown formatting.
+
