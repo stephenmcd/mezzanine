@@ -5,7 +5,7 @@
 {% block main %}{{ block.super }}
 
 {% editable page.richtextpage.content %}
-{{ page.richtextpage.content|safe }}
+{{ page.richtextpage.content|richtext_filter|safe }}
 {% endeditable %}
 
 {% endblock %}

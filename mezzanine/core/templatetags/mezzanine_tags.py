@@ -15,6 +15,7 @@ from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.forms import get_edit_form
 from mezzanine.utils.html import decode_entities
+from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.views import is_editable
 from mezzanine.utils.urls import admin_url
 from mezzanine import template
@@ -145,6 +146,19 @@ def editable_loader(context):
     context["richtext_media"] = RichTextField().formfield().widget.media
     return context
 
+@register.filter
+def richtext_filter(content):
+    """
+    This template filter takes a string value and passes it through the 
+    function specified by the RICHTEXT_FILTER setting.
+    """
+    
+    if settings.RICHTEXT_FILTER:
+        func = import_dotted_path(settings.RICHTEXT_FILTER)
+    else:
+        func = lambda s: s
+    
+    return func(content)
 
 @register.to_end_tag
 def editable(parsed, context, token):
@@ -154,7 +168,6 @@ def editable(parsed, context, token):
     has an ``editable`` method which returns ``True``, or the logged in user
     has change permissions for the model.
     """
-
     def parse_field(field):
         field = field.split(".")
         obj = context[field.pop(0)]
