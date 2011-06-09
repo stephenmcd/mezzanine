@@ -1,3 +1,15 @@
+Version 0.11.3 (Jun 09, 2011)
+-----------------------------
+
+  * Updated auto-generated CHANGELOG, settings docs and requirments.txt - stephenmcd
+  * catches exception generated when trying to retrieve the admin url for a model that is not registered, to allow some Page models not to be registered in the admin - legutierr
+  * migration 0004 conflated a schema migration and a data migration, which was causing problems with MySQL.  The two are now separated - legutierr
+  * pass all form media to the template - Owen Nelson
+  * implementing richtext_filter - Owen Nelson
+  * adding docs for RICHTEXT_FILTER setting - Owen Nelson
+  * updated docs on how to customize RICHTEXT_FILTER - Owen Nelson
+  * Added Owen Nelson to AUTHORS - stephenmcd
+
 Version 0.11.2 (Jun 01, 2011)
 -----------------------------
 
