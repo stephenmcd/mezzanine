@@ -20,7 +20,7 @@ def processor_for(content_model_or_slug):
     if isinstance(content_model_or_slug, basestring):
         try:
             content_model = get_model(*content_model_or_slug.split(".", 1))
-        except ValueError:
+        except TypeError:
             slug = content_model_or_slug
     elif issubclass(content_model_or_slug, Page):
         content_model = content_model_or_slug
