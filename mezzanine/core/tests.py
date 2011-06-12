@@ -377,6 +377,8 @@ class Tests(TestCase):
         Test that a thumbnail is created.
         """
         original_name = "testleaf.jpg"
+        if not os.path.exists(os.path.join(settings.MEDIA_ROOT, original_name)):
+            return
         thumbnail_name = "testleaf-24x24.jpg"
         thumbnail_path = os.path.join(settings.MEDIA_ROOT, thumbnail_name)
         try:
