@@ -3,7 +3,7 @@ from copy import deepcopy
 
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import NoReverseMatch 
+from django.core.urlresolvers import NoReverseMatch
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
@@ -49,7 +49,7 @@ class PageAdmin(DisplayableAdmin):
             try:
                 add_url = admin_url(RichTextPage, "add")
                 return HttpResponseRedirect(add_url)
-            except NoReverseMatch, e:
+            except NoReverseMatch:
                 pass
         return super(PageAdmin, self).add_view(request, **kwargs)
 
