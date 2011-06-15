@@ -120,6 +120,16 @@ Please note the following points around contributing:
   * Run the tests before committing your changes. If your changes causes the tests to break, they won't be accepted.
   * If you're adding new functionality, you must include basic tests and documentation.
 
+Third-party Modules
+===================
+
+The following modules have been developed outside of Mezzanine. If you
+have developed a module to integrate with Mezzanine and would like it
+listed here, send an email to the `mezzanine-users`_ mailing list.
+
+  * `mezzanine-html5boilerplate`_ - Integrates the `html5boilerplate project`_ into Mezzanine.
+  * `mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich text editor.
+
 Donating
 ========
 
@@ -211,3 +221,7 @@ Quotes
 .. _`PyLadies`: http://www.pyladies.com/
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
+.. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
+.. _`html5boilerplate project`: http://html5boilerplate.com/
+.. _`mezzanine-mdown`: https://bitbucket.org/onelson/mezzanine-mdown
+.. _`Markdown`: http://en.wikipedia.org/wiki/Markdown
