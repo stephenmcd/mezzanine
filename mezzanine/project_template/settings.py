@@ -8,6 +8,7 @@
 # order to override their defaults.
 
 # Controls the ordering and grouping of the admin menu.
+# from django.utils.translation import ugettext as _
 # ADMIN_MENU_ORDER = (
 #     (_("Content"), ("pages.Page", "blog.BlogPost",
 #        "generic.ThreadedComment", (_("Media Library"), "fb_browse"),)),
@@ -19,7 +20,7 @@
 # used to render the admin dashboard.
 # DASHBOARD_TAGS = (
 #     ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
-#     ("blog_tags.recent_comments",),
+#     ("comment_tags.recent_comments",),
 #     ("mezzanine_tags.recent_actions",),
 # )
 

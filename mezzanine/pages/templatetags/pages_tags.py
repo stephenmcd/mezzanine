@@ -78,8 +78,8 @@ def models_for_pages(*args):
     for model in get_models():
         if model is not Page and issubclass(model, Page):
             try:
-                url = admin_url(model, "add")
-            except NoReverseMatch, e:
+                admin_url(model, "add")
+            except NoReverseMatch:
                 continue
             else:
                 setattr(model, "name", model._meta.verbose_name)

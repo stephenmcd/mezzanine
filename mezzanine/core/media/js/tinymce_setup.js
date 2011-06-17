@@ -90,11 +90,21 @@ if (typeof tinyMCE != 'undefined') {
         + "-dd,"
         + "-dt,"
         + "br,"
-        + "img[class|src|alt=|width|height]," +
-        + "-h2,-h3,-h4," +
-        + "-pre," +
-        + "-blockquote," +
-        + "-code," +
+        + "img[class|src|alt=|width|height],"
+        + "-h2,-h3,-h4,"
+        + "-pre,"
+        + "-blockquote,"
+        + "-code,"
+        + "-table[border=0|cellspacing|cellpadding|width|frame|rules|height|"
+        + "align|summary|bgcolor|background|bordercolor],"
+        + "-tr[rowspan|width|height|align|valign|bgcolor|"
+        + "background|bordercolor],"
+        + "tbody,"
+        + "thead,"
+        + "tfoot,"
+        + "#td[colspan|rowspan|width|height|align|valign|bgcolor|background|"
+        + "bordercolor|scope],"
+        + "#th[colspan|rowspan|width|height|align|valign|scope],"
         + "-div",
         extended_valid_elements: "pre[style],"
         + "a[name|class|href|target|title|onclick],"
@@ -111,7 +121,7 @@ if (typeof tinyMCE != 'undefined') {
           + "|vspace|width],"
           + "embed[name|src|type|allowscriptaccess|allowfullscreen|width|height],"
         +"param[id|name|type|value|valuetype<DATA?OBJECT?REF],",
-        valid_child_elements : ""
+        valid_children : ""
         + "h1/h2/h3/h4/h5/h6/a[%itrans_na],"
         + "table[thead|tbody|tfoot|tr|td],"
         + "strong/b/p/div/em/i/td[%itrans|#text],"
