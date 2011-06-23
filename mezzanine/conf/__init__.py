@@ -4,6 +4,7 @@ consistent access method for settings defined in applications, the project
 or Django itself. Settings can also be made editable via the admin.
 """
 
+from django.contrib.sites.models import Site
 from django.conf import settings as django_settings
 
 from mezzanine import __version__
@@ -71,7 +72,7 @@ class Settings(object):
         # First access for an editable setting - load from DB into cache.
         if setting["editable"] and not self._loaded:
             from mezzanine.conf.models import Setting
-            for setting_obj in Setting.objects.all():
+            for setting_obj in Setting.objects.filter(site=Site.objects.get_current()):
                 setting_type = registry[setting_obj.name]["type"]
                 if setting_type is bool:
                     setting_value = setting_obj.value != "False"
