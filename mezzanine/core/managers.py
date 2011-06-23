@@ -223,8 +223,5 @@ class DisplayableManager(CurrentSiteManager, PublishedManager, SearchableManager
     Manually combines ``CurrentSiteManager``, ``PublishedManager``
     and ``SearchableManager`` for the ``Displayable`` model.
 
-    Note that ``CurrentSiteManager`` by default will expect for the
-    affiliated model (in this case Displayable) to contain a field
-    ``site`` (which it does).
     """
     pass
