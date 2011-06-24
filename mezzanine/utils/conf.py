@@ -63,14 +63,8 @@ def set_dynamic_settings(s):
         # admin templates are loaded in the correct order.
         s["INSTALLED_APPS"].remove(grappelli_name)
         s["INSTALLED_APPS"].append(grappelli_name)
-        try:
-            from settings import GRAPPELLI_ADMIN_HEADLINE
-        except: 
-            s["GRAPPELLI_ADMIN_HEADLINE"] = "Mezzanine"
-        try:
-            from settings import GRAPPELLI_ADMIN_TITLE
-        except:
-            s["GRAPPELLI_ADMIN_TITLE"] = "Mezzanine"
+        s.setdefault("GRAPPELLI_ADMIN_HEADLINE", "Mezzanine")
+        s.setdefault("GRAPPELLI_ADMIN_TITLE", "Mezzanine")
         grappelli_path = path_for_import(s["PACKAGE_NAME_GRAPPELLI"])
         s["GRAPPELLI_MEDIA_PATH"] = os.path.join(grappelli_path, "media")
         # Adopted from django.core.management.commands.runserver
