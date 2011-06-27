@@ -7,13 +7,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
+
         # Adding field 'Setting.site'
         db.add_column('conf_setting', 'site', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['sites.Site']), keep_default=False)
+        from django.contrib.sites.models import Site
+        orm.Setting.objects.all().update(site=Site.objects.get_current())
 
 
     def backwards(self, orm):
-        
+
         # Deleting field 'Setting.site'
         db.delete_column('conf_setting', 'site_id')
 
