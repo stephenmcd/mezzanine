@@ -160,6 +160,8 @@ Sites Using Mezzanine
   * `Equity Advance`_
   * `Head3 Interactive`_
   * `PyLadies`_
+  * `Ripe Maternity`_
+  * `Cotton On`_
 
 Quotes
 ======
@@ -219,6 +221,8 @@ Quotes
 .. _`Equity Advance`: http://equityadvance.com.au/
 .. _`Head3 Interactive`: http://head3.com/
 .. _`PyLadies`: http://www.pyladies.com/
+.. _`Ripe Maternity`: http://www.ripematernity.com/
+.. _`Cotton On`: http://shop.cottonon.com/
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
