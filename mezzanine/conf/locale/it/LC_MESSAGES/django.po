@@ -495,7 +495,7 @@ msgstr "Scade il"
 
 #: core/models.py:88
 msgid "With published checked, won't be shown after this time"
-msgstr "Se è stato pubblicato, non verrà visualizzato fino dopo quest'ora"
+msgstr "Se è stato pubblicato, non verrà visualizzato dopo quest'ora"
 
 #: core/models.py:90
 msgid "Description"
@@ -590,7 +590,7 @@ msgstr "Interfaccia:"
 #: core/templates/includes/editable_toolbar.html:8
 #: core/templates/includes/editable_toolbar.html:10
 msgid "Admin"
-msgstr "Amministratore"
+msgstr "Amministra"
 
 #: core/templates/admin/index.html:41
 #: core/templates/admin/includes/dropdown_menu.html:3
