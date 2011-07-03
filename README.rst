@@ -169,8 +169,9 @@ Quotes
   * "I am enjoying working with Mezzanine - it is good work." - `Van Lindberg`_
   * "Mezzanine looks pretty interesting - tempting to get me off Wordpress." - `Jesse Noller`_
   * "Mezzanine is amazing." - `Audrey Roy`_
-  * "From the moment I installed Mezzanine, I have been delighted, both with the initial experience and the community involved in its development." - `John Campbell`_
+  * "Mezzanine convinced me to switch from the Ruby world over to Python." - `Michael Delaney`_
   * "Impressed with Mezzanine so far." - `Brad Montgomery`_
+  * "From the moment I installed Mezzanine, I have been delighted, both with the initial experience and the community involved in its development." - `John Campbell`_
   * "You need to check out the open source project Mezzanine. In one word: Elegant." - `Nick Hagianis`_
   * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `Stephen White`_
 
@@ -215,6 +216,7 @@ Quotes
 .. _`Audrey Roy`: http://cartwheelweb.com/
 .. _`John Campbell`: http://head3.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
+.. _`Michael Delaney`: http://github.com/fusepilot/
 .. _`Brad Montgomery`: http://blog.bradmontgomery.net/
 .. _`Jashua Cloutier`: http://www.senexcanis.com/
 .. _`Alpha & Omega Contractors`: http://alphaomegacontractors.com/
