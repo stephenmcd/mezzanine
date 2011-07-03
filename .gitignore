@@ -1,9 +1,11 @@
 *.pyc
 *.pyo
 *.db
+.DS_Store
+.coverage
 local_settings.py
 Mezzanine.egg-info/
 build/
+docs/build/
 dist/
 mezzanine/project_template/site_media/uploads/
-
