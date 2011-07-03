@@ -53,7 +53,8 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         author = get_object_or_404(User, username=username)
         blog_posts = blog_posts.filter(user=author)
         templates.append("blog/blog_post_list_%s.html" % username)
-    blog_posts = paginate(blog_posts, request.GET.get("page", 1),
+    blog_posts = paginate(blog_posts.select_related("user"),
+                          request.GET.get("page", 1),
                           settings.BLOG_POST_PER_PAGE,
                           settings.BLOG_POST_MAX_PAGING_LINKS)
     context = {"blog_page": blog_page(), "blog_posts": blog_posts,
