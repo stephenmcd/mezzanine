@@ -1,3 +1,11 @@
+Version 0.11.5 (Jul 04, 2011)
+-----------------------------
+
+  * Updated auto-generated CHANGELOG and requirements - stephenmcd
+  * Added new quote to README - stephenmcd
+  * Changed device test to use a page it creates itself - stephenmcd
+  * Updated old contentpage template in the mobile theme to richtextpage - stephenmcd
+
 Version 0.11.4 (Jul 03, 2011)
 -----------------------------
 
