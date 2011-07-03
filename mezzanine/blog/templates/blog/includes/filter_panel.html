@@ -31,7 +31,7 @@
 <ul>
 {% for category in categories %}
 <li><a href="{% url blog_post_list_category category.slug %}"
-    >{{ category }}</a></li>
+    >{{ category }}</a> ({{ category.post_count }})</li>
 {% endfor %}
 </ul>
 {% endif %}
