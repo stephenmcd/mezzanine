@@ -162,6 +162,7 @@ Sites Using Mezzanine
   * `PyLadies`_
   * `Ripe Maternity`_
   * `Cotton On`_
+  * `List G Barristers`_
 
 Quotes
 ======
@@ -225,6 +226,7 @@ Quotes
 .. _`PyLadies`: http://www.pyladies.com/
 .. _`Ripe Maternity`: http://www.ripematernity.com/
 .. _`Cotton On`: http://shop.cottonon.com/
+.. _`List G Barristers`: http://www.listgbarristers.com.au/
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
