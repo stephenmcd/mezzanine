@@ -163,6 +163,7 @@ Sites Using Mezzanine
   * `Ripe Maternity`_
   * `Cotton On`_
   * `List G Barristers`_
+  * `Tri-Cities Flower Farm`_
 
 Quotes
 ======
@@ -227,6 +228,7 @@ Quotes
 .. _`Ripe Maternity`: http://www.ripematernity.com/
 .. _`Cotton On`: http://shop.cottonon.com/
 .. _`List G Barristers`: http://www.listgbarristers.com.au/
+.. _`Tri-Cities Flower Farm`: http://www.tricitiesflowerfarm.com/
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
