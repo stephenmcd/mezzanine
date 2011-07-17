@@ -164,6 +164,7 @@ Sites Using Mezzanine
   * `Cotton On`_
   * `List G Barristers`_
   * `Tri-Cities Flower Farm`_
+  * `daon.ru`_
 
 Quotes
 ======
@@ -229,6 +230,7 @@ Quotes
 .. _`Cotton On`: http://shop.cottonon.com/
 .. _`List G Barristers`: http://www.listgbarristers.com.au/
 .. _`Tri-Cities Flower Farm`: http://www.tricitiesflowerfarm.com/
+.. _`daon.ru`: http://daon.ru/
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
