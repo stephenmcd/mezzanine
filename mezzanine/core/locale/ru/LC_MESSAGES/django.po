@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-21 18:25+0500\n"
+"POT-Creation-Date: 2011-07-17 18:42+0400\n"
 "PO-Revision-Date: 2011-02-22 05:10+0500\n"
 "Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
 "Language-Team: Russian <>\n"
@@ -15,73 +15,75 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
-"=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 1.2\n"
 
-#: admin.py:40
+#: admin.py:39
 msgid "Meta data"
 msgstr "Метаданные"
 
-#: fields.py:22
-#, python-format
-msgid "Could not import the value of settings.HTML_WIDGET_CLASS: %s"
+#: fields.py:23
+#, fuzzy, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Не удалось импортировать значение settings.HTML_WIDGET_CLASS: %s"
 
-#: forms.py:57 models.py:198
+#: forms.py:59 models.py:197
 msgid "Order"
 msgstr "Порядок"
 
-#: models.py:20
+#: models.py:23
 msgid "Title"
 msgstr "Заголовок"
 
-#: models.py:21
+#: models.py:24
 msgid "URL"
 msgstr "URL"
 
-#: models.py:68
+#: models.py:71
 msgid "Draft"
 msgstr "Черновик"
 
-#: models.py:69
+#: models.py:72
 msgid "Published"
 msgstr "Опубликовано"
 
-#: models.py:79
+#: models.py:82
 msgid "Status"
 msgstr "Статус"
 
-#: models.py:81
+#: models.py:84
 msgid "Published from"
 msgstr "Опубликовано с"
 
-#: models.py:82
-msgid "With published selected, won't be shown until this time"
+#: models.py:85
+#, fuzzy
+msgid "With published checked, won't be shown until this time"
 msgstr "Если выбрано 'Опубликовано', то не будет отображаться до этого времени"
 
-#: models.py:84
+#: models.py:87
 msgid "Expires on"
 msgstr "Истекает"
 
-#: models.py:85
-msgid "With published selected, won't be shown after this time"
+#: models.py:88
+#, fuzzy
+msgid "With published checked, won't be shown after this time"
 msgstr ""
 "Если выбрано 'Опубликовано', то не будет отображаться после этого времени"
 
-#: models.py:87
+#: models.py:90
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:88 models.py:264
+#: models.py:91
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: models.py:149
+#: models.py:145
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: models.py:159
+#: models.py:156
 msgid "Content"
 msgstr "Содержимое"
 
@@ -89,11 +91,7 @@ msgstr "Содержимое"
 msgid "Author"
 msgstr "Автор"
 
-#: models.py:263
-msgid "Keyword"
-msgstr "Ключевое слово"
-
-#: views.py:68
+#: views.py:53
 msgid "Permission denied"
 msgstr "В доступе отказано"
 
@@ -113,19 +111,20 @@ msgstr "Ошибка"
 msgid "Sorry, an error occurred."
 msgstr "Извините, возникла ошибка."
 
-#: templates/base.html:51
+#: templates/base.html:66
 msgid "Powered by"
 msgstr "Сайт использует"
 
-#: templates/base.html:54
+#: templates/base.html:69
 msgid "View Mobile Site."
 msgstr "Мобильная версия"
 
-#: templates/index.html:6 templates/admin/index.html:39
+#: templates/index.html:5 templates/index.html.py:8
+#: templates/admin/index.html:39
 msgid "Home"
 msgstr "Начало"
 
-#: templates/index.html:10
+#: templates/index.html:12
 msgid "This is the homepage."
 msgstr "Это домашняя страница"
 
@@ -157,21 +156,26 @@ msgstr "результатов удовлетворяющих вашему за�
 msgid "read more"
 msgstr "читать далее"
 
-#: templates/admin/base_site.html:215
+#: templates/admin/base_site.html:190
+#, fuzzy
+msgid "View Site"
+msgstr "Посмотреть на сайте"
+
+#: templates/admin/base_site.html:218
 msgid "Forgot password?"
 msgstr "Забыли пароль?"
 
-#: templates/admin/base_site.html:219
+#: templates/admin/base_site.html:222
 msgid "Interface:"
 msgstr "Интерфейс:"
 
-#: templates/admin/base_site.html:223
+#: templates/admin/base_site.html:226
 #: templates/includes/editable_toolbar.html:8
 #: templates/includes/editable_toolbar.html:10
 msgid "Admin"
 msgstr "Администрирование"
 
-#: templates/admin/base_site.html:227
+#: templates/admin/base_site.html:230
 msgid "Site"
 msgstr "Сайт"
 
@@ -187,7 +191,8 @@ msgstr "Добавить"
 msgid "Change"
 msgstr "Изменить"
 
-#: templates/admin/includes/dynamic_inline.html:6
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
 msgid "Add another"
 msgstr "Добавить еще"
 
@@ -215,7 +220,7 @@ msgstr "Отмена"
 msgid "Edit"
 msgstr "Редактировать"
 
-#: templates/includes/editable_loader.html:108
+#: templates/includes/editable_loader.html:87
 msgid "An error occurred"
 msgstr "Возникла ошибка."
 
@@ -251,29 +256,35 @@ msgstr ""
 " для точного совпадения, + чтобы сделать слово или фразу обязательной, и - "
 "чтобы исключить слово или фразу."
 
-#~ msgid "This is the mobile homepage."
-#~ msgstr "Это мобильная домашняя страница"
+msgid "Keyword"
+msgstr "Ключевое слово"
 
-#~ msgid "Manage"
-#~ msgstr "Управлять"
+msgid "This is the mobile homepage."
+msgstr "Это мобильная домашняя страница"
 
-#~ msgid "You don't have permission to edit anything."
-#~ msgstr "У Вас нет разрешения на редактирование."
+msgid "Manage"
+msgstr "Управлять"
 
-#~ msgid "Quick Blog"
-#~ msgstr "Блог"
+msgid "You don't have permission to edit anything."
+msgstr "У Вас нет разрешения на редактирование."
 
-#~ msgid "Save Draft"
-#~ msgstr "Сохранить черновик"
+msgid "Quick Blog"
+msgstr "Блог"
 
-#~ msgid "Recent Comments"
-#~ msgstr "Недавние комментарии"
+msgid "Save Draft"
+msgstr "Сохранить черновик"
 
-#~ msgid "ago"
-#~ msgstr "назад"
+msgid "Recent Comments"
+msgstr "Недавние комментарии"
 
-#~ msgid "Posted to"
-#~ msgstr "Отправлено"
+msgid "ago"
+msgstr "назад"
 
-#~ msgid "View comment"
-#~ msgstr "Смотреть комментарий"
+msgid "Posted to"
+msgstr "Отправлено"
+
+msgid "View comment"
+msgstr "Смотреть комментарий"
+
+msgid "Users"
+msgstr "Пользователи"

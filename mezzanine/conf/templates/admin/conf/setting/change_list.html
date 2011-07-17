@@ -30,7 +30,7 @@
             </div>
             {% endif %}
             <div class="module">
-            <h2>{{ field.group }}</h2>
+            <h2>{% trans field.group %}</h2>
         {% endifchanged %}
         <p>
             {{ field.label_tag }}{{ field }}{{ field.errors }}
