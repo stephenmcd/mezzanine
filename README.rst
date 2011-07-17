@@ -165,6 +165,8 @@ Sites Using Mezzanine
   * `List G Barristers`_
   * `Tri-Cities Flower Farm`_
   * `daon.ru`_
+  * `autoindeks.ru`_
+  * `immiau.ru`_
 
 Quotes
 ======
@@ -231,6 +233,8 @@ Quotes
 .. _`List G Barristers`: http://www.listgbarristers.com.au/
 .. _`Tri-Cities Flower Farm`: http://www.tricitiesflowerfarm.com/
 .. _`daon.ru`: http://daon.ru/
+.. _`autoindeks.ru`: http://autoindeks.ru/
+.. _`immiau.ru`: http://immiau.ru/
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
