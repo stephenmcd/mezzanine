@@ -8,20 +8,52 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
+        # Create temporary columns
+        db.add_column('generic_rating', 'object_pk_migrating', self.gf('django.db.models.fields.IntegerField')())
+        db.add_column('generic_assignedkeyword', 'object_pk_migrating', self.gf('django.db.models.fields.IntegerField')())
+
+        # Migrating field 'Rating.object_pk'        
+        for item in orm.Rating.objects.all():
+            item.object_pk_migrating = int(item.object_pk)
+            item.save()
+
+        # Migrating field 'AssignedKeyword.object_pk'        
+        for item in orm.AssignedKeyword.objects.all():
+            item.object_pk_migrating = int(item.object_pk)
+            item.save()
+
         # Changing field 'Rating.object_pk'
-        db.alter_column('generic_rating', 'object_pk', self.gf('django.db.models.fields.IntegerField')())
+        db.delete_column('generic_rating', 'object_pk')
+        db.rename_column('generic_rating', 'object_pk_migrating', 'object_pk')
 
         # Changing field 'AssignedKeyword.object_pk'
-        db.alter_column('generic_assignedkeyword', 'object_pk', self.gf('django.db.models.fields.IntegerField')())
+        db.delete_column('generic_assignedkeyword', 'object_pk')
+        db.rename_column('generic_assignedkeyword', 'object_pk_migrating', 'object_pk')
 
 
     def backwards(self, orm):
-        
+
+        # Create temporary columns
+        db.add_column('generic_rating', 'object_pk_migrating', self.gf('django.db.models.fields.TextField')())
+        db.add_column('generic_assignedkeyword', 'object_pk_migrating', self.gf('django.db.models.fields.TextField')())
+
+        # Migrating field 'Rating.object_pk' 
+        for item in orm.Rating.objects.all():
+            item.object_pk_migrating = str(item.object_pk)
+            item.save()
+
+        # Migrating field 'AssignedKeyword.object_pk' 
+        for item in orm.AssignedKeyword.objects.all():
+            item.object_pk_migrating = str(item.object_pk)
+            item.save()
+
         # Changing field 'Rating.object_pk'
-        db.alter_column('generic_rating', 'object_pk', self.gf('django.db.models.fields.TextField')())
+        db.delete_column('generic_rating', 'object_pk')
+        db.rename_column('generic_rating', 'object_pk_migrating', 'object_pk')
 
         # Changing field 'AssignedKeyword.object_pk'
-        db.alter_column('generic_assignedkeyword', 'object_pk', self.gf('django.db.models.fields.TextField')())
+        db.delete_column('generic_assignedkeyword', 'object_pk')
+        db.rename_column('generic_assignedkeyword', 'object_pk_migrating', 'object_pk')
 
 
     models = {
