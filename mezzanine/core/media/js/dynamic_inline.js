@@ -55,7 +55,7 @@ $(function() {
                 if (window.__grappelli_installed) {
                     parent = parent.parent();
                 }
-                if (anyFieldsDirty(parent.find('input, select, textarea'))) {
+                if (field.value.length > 0 || anyFieldsDirty(parent.find('input, select, textarea'))) {
                     field.value = order;
                     order += 1;
                 } else {
