@@ -12,13 +12,15 @@
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />
     <style type="text/css">
-        #quick-blog input, textarea {width:360px;}
+        #quick-blog input, textarea {width:98%;}
+        #quick-blog label {white-space:nowrap; width:auto;}
+        #quick-blog th {width:auto;}
         .default {width:auto !important;}
         .module {margin-bottom:10px !important;}
         .module ul {list-style-type:none !important; margin-left:0px;}
         .mini {font-size:.9em;}
     </style>
-	
+
 	<!--[if IE 7]>
 		<style>
 			.dashboard #content { padding-top: 80px; }
