@@ -7,17 +7,17 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
-        # Create temporary columns
-        db.add_column('generic_rating', 'object_pk_migrating', self.gf('django.db.models.fields.IntegerField')())
-        db.add_column('generic_assignedkeyword', 'object_pk_migrating', self.gf('django.db.models.fields.IntegerField')())
 
-        # Migrating field 'Rating.object_pk'        
+        # Create temporary columns
+        db.add_column('generic_rating', 'object_pk_migrating', self.gf('django.db.models.fields.IntegerField')(null=True))
+        db.add_column('generic_assignedkeyword', 'object_pk_migrating', self.gf('django.db.models.fields.IntegerField')(null=True))
+
+        # Migrating field 'Rating.object_pk'
         for item in orm.Rating.objects.all():
             item.object_pk_migrating = int(item.object_pk)
             item.save()
 
-        # Migrating field 'AssignedKeyword.object_pk'        
+        # Migrating field 'AssignedKeyword.object_pk'
         for item in orm.AssignedKeyword.objects.all():
             item.object_pk_migrating = int(item.object_pk)
             item.save()
@@ -37,12 +37,12 @@ class Migration(SchemaMigration):
         db.add_column('generic_rating', 'object_pk_migrating', self.gf('django.db.models.fields.TextField')())
         db.add_column('generic_assignedkeyword', 'object_pk_migrating', self.gf('django.db.models.fields.TextField')())
 
-        # Migrating field 'Rating.object_pk' 
+        # Migrating field 'Rating.object_pk'
         for item in orm.Rating.objects.all():
             item.object_pk_migrating = str(item.object_pk)
             item.save()
 
-        # Migrating field 'AssignedKeyword.object_pk' 
+        # Migrating field 'AssignedKeyword.object_pk'
         for item in orm.AssignedKeyword.objects.all():
             item.object_pk_migrating = str(item.object_pk)
             item.save()
