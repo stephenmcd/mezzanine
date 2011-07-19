@@ -37,8 +37,7 @@ provides the following features:
   * `Themes`_
   * Tagging
   * One step migration from other blogging engines
-  * Built-in threaded comments, or:
-  * `Disqus`_ integration
+  * `Disqus`_ integration or built-in threaded comments
   * `Gravatar`_ integration
   * `Google Analytics`_ integration
   * `Twitter`_ feed integration
@@ -78,9 +77,13 @@ Internet Explorer 7 and earlier are generally unsupported.
 Installation
 ============
 
-Assuming you have `setuptools`_ installed, the easiest method is to install
-directly from pypi by running the following command, which will also attempt
-to install the dependencies mentioned above::
+The easiest method is to install directly from pypi using `pip`_ or
+`setuptools`_ by running the respective command below, which will also
+attempt to install the dependencies mentioned above::
+
+    $ pip install -U mezzanine
+
+or::
 
     $ easy_install -U mezzanine
 
@@ -97,13 +100,13 @@ can be used for creating a new Mezzanine project in a similar fashion to
 You can then run your project with the usual Django steps::
 
     $ cd project_name
-    $ python manage.py syncdb --noinput
+    $ python manage.py install --noinput
     $ python manage.py runserver
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and log
 in using the default account (``username: admin, password: default``). If
 you'd like to specify a different username and password during set up, simply
-exclude the ``--noinput`` option included above when running ``syncdb``.
+exclude the ``--noinput`` option included above when running ``install``.
 
 Contributing
 ============
@@ -186,6 +189,7 @@ Quotes
 .. _`Pinax`: http://pinaxproject.com/
 .. _`Mingus`: http://github.com/montylounge/django-mingus
 .. _`Python`: http://python.org/
+.. _`pip`: http://www.pip-installer.org/
 .. _`setuptools`: http://pypi.python.org/pypi/setuptools
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`django-grappelli`: http://code.google.com/p/django-grappelli/

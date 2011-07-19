@@ -44,10 +44,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('pages', ['ContentPage'])
 
-        from mezzanine.core.management import run_post_syncdb_handlers
-        from atexit import register
-        register(run_post_syncdb_handlers)
-
     def backwards(self, orm):
 
         # Deleting model 'Page'

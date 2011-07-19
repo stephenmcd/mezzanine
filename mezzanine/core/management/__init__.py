@@ -13,9 +13,11 @@ def create_user(app, created_models, verbosity, interactive, **kwargs):
     if settings.DEBUG and User in created_models and not interactive:
         if User.objects.count() > 0:
             return
-        print
-        print "Creating default account (username: admin / password: default)"
-        print
+        if verbosity >= 1:
+            print
+            print ("Creating default account "
+                   "(username: admin / password: default) ...")
+            print
         User.objects.create_superuser("admin", "example@example.com", "default")
 
 
@@ -31,21 +33,13 @@ def create_pages(app, created_models, verbosity, interactive, **kwargs):
                 elif confirm == "no":
                     return
                 confirm = raw_input("Please enter either 'yes' or 'no': ")
-        print
-        print "Creating initial content (About page, Blog, Contact form)."
-        print
+        if verbosity >= 1:
+            print
+            print ("Creating initial content "
+                   "(About page, Blog, Contact form) ...")
+            print
         call_command("loaddata", "mezzanine.json")
 
 
-def run_post_syncdb_handlers():
-    """
-    Called by the initial migration in the pages app when South is 
-    installed since South prevents the post_syncdb signal from occurring.
-    """
-    create_user(auth_app, (User,), 1, False)
-    create_pages(pages_app, (Page,), 1, True)
-
-
-if "south" not in settings.INSTALLED_APPS:
-    post_syncdb.connect(create_user, sender=auth_app)
-    post_syncdb.connect(create_pages, sender=pages_app)
+post_syncdb.connect(create_user, sender=auth_app)
+post_syncdb.connect(create_pages, sender=pages_app)

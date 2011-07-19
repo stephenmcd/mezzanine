@@ -404,5 +404,5 @@ register_setting(
     description=_("If ``True``, the south application will be "
         "automatically added to the ``INSTALLED_APPS`` setting."),
     editable=False,
-    default=False,
+    default=True,
 )
