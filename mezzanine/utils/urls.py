@@ -1,5 +1,9 @@
 
+import re
+import unicodedata
+
 from django.core.urlresolvers import reverse
+from django.utils.encoding import smart_unicode
 
 from mezzanine.conf import settings
 
@@ -23,6 +27,22 @@ def content_media_urls(*paths):
     """
     media_url = settings.CONTENT_MEDIA_URL.strip("/")
     return ["/%s/%s" % (media_url, path) for path in paths]
+
+
+def slugify(s):
+    """
+    Replacement for Django's slugify which allows unicode chars in
+    slugs, for URLs in Chinese, Russian, etc.
+    Adopted from https://github.com/mozilla/unicode-slugify/
+    """
+    chars = []
+    for char in smart_unicode(s):
+        cat = unicodedata.category(char)[0]
+        if cat in "LN" or char in "-_~":
+            chars.append(char)
+        elif cat == "Z":
+            chars.append(" ")
+    return re.sub("[-\s]+", "-", "".join(chars).strip()).lower()
 
 
 def static_urls(url_prefix, document_root):

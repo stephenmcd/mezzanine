@@ -5,7 +5,7 @@ from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.base import ModelBase
-from django.template.defaultfilters import slugify, truncatewords_html
+from django.template.defaultfilters import truncatewords_html
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -13,6 +13,7 @@ from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.models import base_concrete_model
+from mezzanine.utils.urls import slugify
 
 
 class Slugged(models.Model):

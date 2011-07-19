@@ -1,11 +1,10 @@
 
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
-from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, RichText
-from mezzanine.utils.urls import admin_url
+from mezzanine.utils.urls import admin_url, slugify
 
 
 class Page(Orderable, Displayable):
