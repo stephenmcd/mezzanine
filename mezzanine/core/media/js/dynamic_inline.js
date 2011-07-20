@@ -34,7 +34,8 @@ $(function() {
     var parentSelector = '.dynamic-inline ' + itemSelector;
 
     // Apply drag and drop to orderable inlines.
-    $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7'});
+    $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7',
+                                placeholder: 'placeholder'});
     $(parentSelector).disableSelection();
     $('.ordering').css({cursor: 'move'});
 
