@@ -1,4 +1,5 @@
 
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.middleware.cache import UpdateCacheMiddleware
 from django.middleware.cache import FetchFromCacheMiddleware
@@ -25,8 +26,11 @@ class AdminLoginInterfaceSelector(object):
         login_type = request.POST.get("mezzanine_login_interface")
         if login_type and not request.user.is_authenticated():
             response = view_func(request, *view_args, **view_kwargs)
-            next = request.GET.get("next", "/" if login_type == "site" else "")
-            if request.user.is_authenticated() and next:
+            if request.user.is_authenticated():
+                next = request.GET.get("next", "/")
+                admin_url = reverse("admin:index")
+                if login_type == "admin" and not next.startswith(admin_url):
+                    next = admin_url
                 return HttpResponseRedirect(next)
             else:
                 return response
