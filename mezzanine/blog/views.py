@@ -60,12 +60,14 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     # the database inside the template loop for posts.
     blog_posts = list(blog_posts.select_related("user"))
     categories = defaultdict(list)
-    for cat in BlogCategory.objects.raw(
-        "SELECT * FROM blog_blogcategory "
-        "JOIN blog_blogpost_categories "
-        "ON blog_blogcategory.id = blog_blogpost_categories.blogcategory_id "
-        "WHERE blogpost_id IN (%s)" % ",".join([str(p.id) for p in blog_posts])):
-        categories[cat.blogpost_id].append(cat)
+    if blog_posts:
+        ids = ",".join([str(p.id) for p in blog_posts])
+        for cat in BlogCategory.objects.raw(
+            "SELECT * FROM blog_blogcategory "
+            "JOIN blog_blogpost_categories "
+            "ON blog_blogcategory.id = blogcategory_id "
+            "WHERE blogpost_id IN (%s)" % ids):
+            categories[cat.blogpost_id].append(cat)
     keywords = defaultdict(list)
     blogpost_type = ContentType.objects.get(app_label="blog", model="blogpost")
     assigned = AssignedKeyword.objects.filter(blogpost__in=blog_posts,
