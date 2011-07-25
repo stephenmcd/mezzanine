@@ -1,21 +1,18 @@
 # encoding: utf-8
 import datetime
 from south.db import db
-from south.v2 import SchemaMigration
+from south.v2 import DataMigration
 from django.db import models
 
-class Migration(SchemaMigration):
+class Migration(DataMigration):
 
     def forwards(self, orm):
-        
-        # Adding field 'Setting.site'
-        db.add_column('conf_setting', 'site', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['sites.Site']), keep_default=False)
+        from django.contrib.sites.models import Site
+        orm.Setting.objects.all().update(site=Site.objects.get_current())
 
 
     def backwards(self, orm):
-        
-        # Deleting field 'Setting.site'
-        db.delete_column('conf_setting', 'site_id')
+        pass
 
 
     models = {
