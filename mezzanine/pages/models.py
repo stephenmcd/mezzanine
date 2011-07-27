@@ -66,7 +66,7 @@ class Page(Orderable, Displayable):
         """
         slug = slugify(self.title)
         if self.parent is not None:
-            return "%s/%s" % (self.parent.get_slug(), slug)
+            return "%s/%s" % (self.parent.slug, slug)
         return slug
 
     def reset_slugs(self):
