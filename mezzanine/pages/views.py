@@ -75,9 +75,9 @@ def page(request, slug, template="pages/page.html", extra_context=None):
                 error = ("The page processor %s returned %s but must return "
                          "HttpResponse or dict." % (name, type(response)))
                 raise ValueError(error)
-    templates = ["pages/%s.html" % slug]
+    templates = [u"pages/%s.html" % slug]
     if page.content_model is not None:
-        templates.append("pages/%s.html" % page.content_model)
+        templates.append(u"pages/%s.html" % page.content_model)
     templates.append(template)
     request_context = RequestContext(request, context)
     t = select_template(templates, request_context)
