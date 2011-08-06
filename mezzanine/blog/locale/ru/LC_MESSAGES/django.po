@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-21 18:22+0500\n"
+"POT-Creation-Date: 2011-08-06 23:47+0600\n"
 "PO-Revision-Date: 2011-02-22 05:10+0500\n"
 "Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
 "Language-Team: Russian <>\n"
@@ -14,131 +14,67 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
-"=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 1.2\n"
 
-#: models.py:25
-msgid "Blog post"
-msgstr "Запись в блоге"
-
-#: models.py:26
-msgid "Blog posts"
-msgstr "Записи в блоге"
-
-#: models.py:40
-msgid "Blog Category"
-msgstr "Категория блога"
-
-#: models.py:41
-msgid "Blog Categories"
-msgstr "Категории блога"
-
-#: models.py:53
-msgid "Name"
-msgstr "Имя"
-
-#: models.py:53
-msgid "required"
-msgstr "обязательное поле"
-
-#: models.py:54
-msgid "Email"
-msgstr "Электронный адрес"
-
-#: models.py:55
-msgid "required (not published)"
-msgstr "обязательное поле (не публикуется)"
-
-#: models.py:56
-#, fuzzy
-msgid "Email hash"
-msgstr "Хэш электронного адреса"
-
-#: models.py:57 models.py:71 models.py:92
-#: templates/blog/includes/comments.html:14
-msgid "Comment"
-msgstr "Комментарий"
-
-#: models.py:58
-msgid "Website"
-msgstr "Веб-сайт"
-
-#: models.py:58
-msgid "optional"
-msgstr "необязательное поле"
-
-#: models.py:60
-msgid "Approved"
-msgstr "Подтвержден"
-
-#: models.py:62
-msgid "By the blog author"
-msgstr "От автора блога"
-
-#: models.py:63
-msgid "IP address"
-msgstr "IP адрес"
-
-#: models.py:64
-msgid "Created at"
-msgstr "Когда создан"
-
-#: models.py:72 templates/blog/blog_post_list.html:68
-#: templates/blog/includes/comments.html:3
+#: models.py:16 templates/blog/blog_post_list.html:82
 msgid "Comments"
 msgstr "Комментарии"
 
-#: models.py:104
-msgid "View on site"
-msgstr "Смотреть на сайте"
+#: models.py:17
+msgid "Rating"
+msgstr ""
+
+#: models.py:20
+msgid "Blog post"
+msgstr "Запись в блоге"
+
+#: models.py:21
+msgid "Blog posts"
+msgstr "Записи в блоге"
+
+#: models.py:35
+msgid "Blog Category"
+msgstr "Категория блога"
+
+#: models.py:36
+msgid "Blog Categories"
+msgstr "Категории блога"
 
 #: templates/admin/includes/quick_blog.html:5
 #, fuzzy
 msgid "Quick Blog"
 msgstr "Быстрый Блог"
 
-#: templates/admin/includes/quick_blog.html:12
+#: templates/admin/includes/quick_blog.html:14
 msgid "Save Draft"
 msgstr "Сохранить черновик"
-
-#: templates/admin/includes/recent_comments.html:4
-msgid "Recent Comments"
-msgstr "Последние комментарии"
-
-#: templates/admin/includes/recent_comments.html:14
-#: templates/blog/blog_post_detail.html:53
-#: templates/blog/blog_post_list.html:55
-#: templates/blog/includes/comments_thread.html:19
-msgid "ago"
-msgstr "назад"
-
-#: templates/admin/includes/recent_comments.html:18
-msgid "Posted to"
-msgstr "Куда написан"
-
-#: templates/admin/includes/recent_comments.html:21
-msgid "View comment"
-msgstr "Посмотреть комментарий"
 
 #: templates/blog/blog_post_detail.html:36
 msgid "Home"
 msgstr "Начало"
 
 #: templates/blog/blog_post_detail.html:46
+#: templates/blog/blog_post_list.html:50
 msgid "Posted by"
 msgstr "Написал(а)"
 
+#: templates/blog/blog_post_detail.html:53
+#: templates/blog/blog_post_list.html:62
+msgid "ago"
+msgstr "назад"
+
 #: templates/blog/blog_post_detail.html:56
-#: templates/blog/blog_post_list.html:72
-#, python-format
+#: templates/blog/blog_post_list.html:86
+#, fuzzy, python-format
 msgid ""
 "\n"
 "        1 comment\n"
 "        "
 msgid_plural ""
 "\n"
-"        %(num_comments)s comments\n"
+"        %(comments_count)s comments\n"
 "        "
 msgstr[0] ""
 "\n"
@@ -154,12 +90,14 @@ msgstr[2] ""
 "        "
 
 #: templates/blog/blog_post_detail.html:71
-#: templates/blog/includes/filter_panel.html:38
+#: templates/blog/blog_post_list.html:72
+#: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
 msgstr "Теги"
 
-#: templates/blog/blog_post_detail.html:84
-msgid "Share this on:"
+#: templates/blog/blog_post_detail.html:85
+#, fuzzy
+msgid "Share this on"
 msgstr "Поделиться этим на:"
 
 #: templates/blog/blog_post_list.html:26
@@ -178,30 +116,14 @@ msgstr "Просмотр записей от"
 msgid "Viewing posts by"
 msgstr "Просмотр записей от"
 
-#: templates/blog/blog_post_list.html:64
-msgid "read more"
-msgstr "читать далее"
-
-#: templates/blog/includes/comments_thread.html:22
-msgid "Link"
+#: templates/blog/blog_post_list.html:57
+#, fuzzy
+msgid "in"
 msgstr "Ссылка"
 
-#: templates/blog/includes/comments_thread.html:23
-#: templates/blog/includes/comments_thread.html:35
-msgid "Reply"
-msgstr "Ответить"
-
-#: templates/blog/includes/comments_thread.html:42
-msgid "Comment deleted"
-msgstr "Комментарий удален"
-
-#: templates/blog/includes/comments_thread.html:44
-msgid "Comment awaiting approval"
-msgstr "Комментарий ожидает подтверждения"
-
-#: templates/blog/includes/comments_thread.html:52
-msgid "There are currently no comments"
-msgstr "Комментариев нет"
+#: templates/blog/blog_post_list.html:78
+msgid "read more"
+msgstr "читать далее"
 
 #: templates/blog/includes/filter_panel.html:5
 msgid "Recent Posts"
@@ -211,25 +133,84 @@ msgstr "Последние записи"
 msgid "Archive"
 msgstr "Архив"
 
-#: templates/blog/includes/filter_panel.html:27
+#: templates/blog/includes/filter_panel.html:30
 msgid "Categories"
 msgstr "Категории"
 
-#: templates/blog/includes/filter_panel.html:49
+#: templates/blog/includes/filter_panel.html:52
 msgid "Authors"
 msgstr "Авторы"
 
-#: templates/blog/includes/filter_panel.html:56
+#: templates/blog/includes/filter_panel.html:62
 #, fuzzy
 msgid "Feeds"
 msgstr "Ленты"
 
-#: templates/blog/includes/filter_panel.html:57
+#: templates/blog/includes/filter_panel.html:63
 msgid "RSS"
 msgstr "RSS"
 
-#: templates/blog/includes/filter_panel.html:58
+#: templates/blog/includes/filter_panel.html:64
 msgid "Atom"
 msgstr "Atom"
 
+#~ msgid "Name"
+#~ msgstr "Имя"
 
+#~ msgid "required"
+#~ msgstr "обязательное поле"
+
+#~ msgid "Email"
+#~ msgstr "Электронный адрес"
+
+#~ msgid "required (not published)"
+#~ msgstr "обязательное поле (не публикуется)"
+
+#, fuzzy
+#~ msgid "Email hash"
+#~ msgstr "Хэш электронного адреса"
+
+#~ msgid "Comment"
+#~ msgstr "Комментарий"
+
+#~ msgid "Website"
+#~ msgstr "Веб-сайт"
+
+#~ msgid "optional"
+#~ msgstr "необязательное поле"
+
+#~ msgid "Approved"
+#~ msgstr "Подтвержден"
+
+#~ msgid "By the blog author"
+#~ msgstr "От автора блога"
+
+#~ msgid "IP address"
+#~ msgstr "IP адрес"
+
+#~ msgid "Created at"
+#~ msgstr "Когда создан"
+
+#~ msgid "View on site"
+#~ msgstr "Смотреть на сайте"
+
+#~ msgid "Recent Comments"
+#~ msgstr "Последние комментарии"
+
+#~ msgid "Posted to"
+#~ msgstr "Куда написан"
+
+#~ msgid "View comment"
+#~ msgstr "Посмотреть комментарий"
+
+#~ msgid "Reply"
+#~ msgstr "Ответить"
+
+#~ msgid "Comment deleted"
+#~ msgstr "Комментарий удален"
+
+#~ msgid "Comment awaiting approval"
+#~ msgstr "Комментарий ожидает подтверждения"
+
+#~ msgid "There are currently no comments"
+#~ msgstr "Комментариев нет"
