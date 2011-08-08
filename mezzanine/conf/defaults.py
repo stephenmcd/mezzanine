@@ -383,7 +383,7 @@ register_setting(
     description=_("Sequence of setting names available within templates."),
     editable=False,
     default=(
-        "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
+        "BLOG_BITLY_USER", "BLOG_BITLY_KEY","BLOG_USE_COMMENTS",
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
         "CONTENT_MEDIA_URL", "DEV_SERVER", "FORMS_USE_HTML5",

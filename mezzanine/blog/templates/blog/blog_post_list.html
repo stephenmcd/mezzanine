@@ -76,6 +76,7 @@
     <br>
     {% endif %}
     <a href="{% url blog_post_detail blog_post.slug %}">{% trans "read more" %}</a>
+    {% if settings.BLOG_USE_COMMENTS %}
     /
     {% if use_disqus %}
     <a href="{% url blog_post_detail blog_post.slug %}#disqus_thread">
@@ -89,6 +90,7 @@
         {{ comments_count }} comments
         {% endblocktrans %}
     </a>
+    {% endif %}
     {% endif %}
 </p>
 {% endfor %}
