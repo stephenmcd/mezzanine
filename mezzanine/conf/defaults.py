@@ -235,6 +235,14 @@ register_setting(
 )
 
 register_setting(
+    name="GOOGLE_ANALYTICS_ADMIN",
+    label=_("Load analytics for logged in admin users?"),
+    editable=True,
+    description=_("Uncheck to disregard activity of admin users from analytics"),
+    default=False
+)
+
+register_setting(
     name="RICHTEXT_WIDGET_CLASS",
     description=_("Dotted package path and class name of the widget to use "
         "for the ``RichTextField``."),
