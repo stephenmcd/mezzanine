@@ -1,3 +1,40 @@
+Version 0.11.6 (Aug 13, 2011)
+-----------------------------
+
+  * Updated auto-generated CHANGELOG and requirements - stephenmcd
+  * Added List G Barristers to sites in README - stephenmcd
+  * Decorate blog posts in blog_post_list with lists of categories and keywords - stephenmcd
+  * Added Tri-Cities Flower Farm to sites using Mezzanine in README - stephenmcd
+  * Added a has_childen helper to page objects in the page menus - stephenmcd
+  * Generic module translated to Russian - Alexey Makarenya
+  * Fixed styling of fixed footer in admin change form when Grappelli is not used - stephenmcd
+  * Added daon.ru to sites using Mezzanine in README - stephenmcd
+  * Full Russian translation for all Mezzanine modules - Alexey Makarenya
+  * Added autoindeks.ru and immiau.ru to sites in README - stephenmcd
+  * fixed quick blog size in russian translation - Alexey Makarenya
+  * Fixed migration of object_pk in Rating and AssignedKeyword - David Prusaczyk
+  * Added null defaults for generic migration fix - stephenmcd
+  * Added David Prusaczyk to AUTHORS - stephenmcd
+  * Created an install management command that combines syncdb and migrate --fake to correct the issue of initial migrations failing with multiple apps. As a result reverted USE_SOUTH default to True and removed the handling of south for fixture loading - stephenmcd
+  * Fixed a bug in orderable inlines where order fields would be wiped on inlines that only contain a file upload field - stephenmcd
+  * Fixed quick-blog form styling to be fluid - stephenmcd
+  * Added Alexey Makarenya to AUTHORS - stephenmcd
+  * Fixed bug with url field hiding logic - stephenmcd
+  * Added a custom slugify function to mezzanine.utils.urls that preserves unicode chars to support non-English URLs - stephenmcd
+  * Updated jquery-ui version. Fixes #80 - stephenmcd
+  * Add placeholders for dynamic inline sorting - stephenmcd
+  * Fixed login interface selector so that next param is ignored if not an admin URL when admin interface is selected - stephenmcd
+  * Fixed category decorator query in blog post list when there are no blog posts - stephenmcd
+  * merging pending changes to mezzanine trunk - legutierr
+  * Migration adding site field to dynamic settings needs to be split into separate schema and data migrations - legutierr
+  * Fixed slug calculation for pages so that actual parent slugs are used. Fixes #82 - stephenmcd
+  * fixed unicode encode error with cyrillic slugs in template loader - Andrew Grigrev
+  * fixed unicode encode error with cyrillic slugs in template loader in other places - Andrew Grigrev
+  * bug fixed: outdated l10n caused KeyErrors in string formatting while rendering templates... updated&compiled messages - Andrew Grigrev
+  * Added ARA Consultants to site using Mezzanine - stephenmcd
+  * Added Boîte à Z'images to sites in README - stephenmcd
+  * Added link to sites gallery in README - stephenmcd
+
 Version 0.11.5 (Jul 04, 2011)
 -----------------------------
 
@@ -17,6 +54,7 @@ Version 0.11.4 (Jul 03, 2011)
   * Fixed tinyMCE setup to allow tables - Zeke Harris
   * Added Zeke Harris to AUTHORS - stephenmcd
   * Added third-party modules section to README - stephenmcd
+  * Fix allowing inline editing of form content on form pages by avoiding naming conflicts with the inline editing form - Josh Cartmell
   * Update example settings. Fixes #70 - stephenmcd
   * Don't use HTML5 required attributes on multiple checkboxes - stephenmcd
   * Adding site FK to mezzanine.conf.models.Setting and read/write hooks to present content based on current_site - Ken Bolton
@@ -49,6 +87,7 @@ Version 0.11.3 (Jun 09, 2011)
 Version 0.11.2 (Jun 01, 2011)
 -----------------------------
 
+  * compile language files, compiled blog, mobile, twitter language files - Alexey Makarenya
   * Updated 960.gs to fluid version - stephenmcd
   * Remove mezzanine from internal Mezzanine urls - stephenmcd
   * Test to verify if thumbnail generation is working - Brent Hoover
