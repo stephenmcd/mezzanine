@@ -7,11 +7,14 @@ framework. It is `BSD licensed`_ and designed to provide both a consistent
 interface for managing content, and a simple architecture that makes diving
 in and hacking on the code as easy as possible.
 
-Its goal is to resemble something like `Wordpress`_, with an intuitive
+Mezzanine resembles tools like `Wordpress`_, with an intuitive
 interface for managing pages and blog posts. Mezzanine takes a different
 approach from other Django applications in this space like `Pinax`_ or
 `Mingus`_ that glue together a lot of reusable apps, instead opting to
 provide most of its functionality included with the project by default.
+
+Visit the `gallery of sites powered by Mezzanine`_ to see some of the
+great sites people have built using Mezzanine.
 
 Features
 ========
@@ -190,6 +193,7 @@ Quotes
 .. _`Wordpress`: http://wordpress.org/
 .. _`Pinax`: http://pinaxproject.com/
 .. _`Mingus`: http://github.com/montylounge/django-mingus
+.. _`gallery of sites powered by Mezzanine`: http://mezzanine.jupo.org/sites/
 .. _`Python`: http://python.org/
 .. _`pip`: http://www.pip-installer.org/
 .. _`setuptools`: http://pypi.python.org/pypi/setuptools
