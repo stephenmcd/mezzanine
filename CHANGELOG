@@ -1,3 +1,9 @@
+Version 0.11.7 (Aug 19, 2011)
+-----------------------------
+
+  * Updated auto-generated CHANGELOG and settings docs - stephenmcd
+  * Upgraded DISQUS handling in the blog templates to properly use the generic app, as well as fixing DISQUS identifiers to be unique across different models - stephenmcd
+
 Version 0.11.6 (Aug 13, 2011)
 -----------------------------
 
