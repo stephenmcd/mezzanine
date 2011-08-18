@@ -8,6 +8,15 @@ from mezzanine import template
 
 register = template.Library()
 
+
+@register.simple_tag
+def disqus_id_for(obj):
+    """
+    Returns a unique identifier for the object to be used in
+    DISQUS JavaScript.
+    """
+    return "%s-%s" % (obj._meta.object_name, obj.id)
+
 @register.inclusion_tag("generic/includes/disqus_sso.html", takes_context=True)
 def disqus_sso_script(context):
     """

@@ -6,7 +6,7 @@
     var disqus_developer = '{{ settings.DEV_SERVER }}' == 'True';
     var disqus_url = 'http{% if request.is_secure %}s{% endif %}://{{ request.META.HTTP_HOST }}{{ object_for_comments.get_absolute_url }}';
     var disqus_title = '{{ object_for_comments|escapejs }}';
-    var disqus_identifier = {{ object_for_comments.id }};
+    var disqus_identifier = '{% disqus_id_for object_for_comments %}';
   (function() {
    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
    dsq.src = 'http://{{ settings.COMMENTS_DISQUS_SHORTNAME }}.disqus.com/embed.js';

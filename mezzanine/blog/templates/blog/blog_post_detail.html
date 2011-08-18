@@ -88,12 +88,6 @@
 <a target=_"blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&t={{ blog_post.title|urlencode }}">Facebook</a>
 </div>
 
-<div id="comments">
-{% if use_disqus %}
-{% include "generic/includes/disqus_comments.html" %}
-{% else %}
-{% comments_for blog_post %}
-{% endif %}
-</div>
+<div id="comments">{% comments_for blog_post %}</div>
 
 {% endblock %}

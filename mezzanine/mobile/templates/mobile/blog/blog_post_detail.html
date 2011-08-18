@@ -40,10 +40,10 @@
 {% with blog_post.keywords.all as tags %}
 {% if tags %}
 <div class="tags">
-    {% trans "Tags" %}: 
+    {% trans "Tags" %}:
     <ul>
         {% for tag in tags %}
-        <li><a href="{% url blog_post_list_tag tag.slug %}" 
+        <li><a href="{% url blog_post_list_tag tag.slug %}"
             class="tag-weight-{{ tag.weight }}">{{ tag }}</a></li>
         {% endfor %}
     </ul>
@@ -53,18 +53,12 @@
 
 {% set_short_url_for blog_post %}
 <div data-inline="true" class="share-links">
-	{% trans "Share this on:" %} 
+	{% trans "Share this on:" %}
     <a target=_"blank" href="http://twitter.com/home?status={{ blog_post.short_url|urlencode }}%20{{ blog_post.title|urlencode }}">Twitter</a>
-    {% trans "or" %} 
+    {% trans "or" %}
     <a target=_"blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&t={{ blog_post.title|urlencode }}">Facebook</a>
 </div>
 
-{% if use_disqus %}
-{% include "blog/includes/disqus_comments.html" %} 
-{% else %}
-{% include "blog/includes/comments.html" %} 
-{% endif %}
+{% comments_for blog_post %}
 
 {% endblock %}
-
-
