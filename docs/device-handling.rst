@@ -33,12 +33,12 @@ be searched for, and if a Windows OS made the request then the template
     templates is entirely optional.
 
 You can also specify which device should be treated as the default by
-defining the setting ``DEFAULT_DEVICE``. For example to ensure templates
+defining the setting ``DEVICE_DEFAULT``. For example to ensure templates
 for the ``mobile`` device group are used even when no matching user agent
 is found, simply define the following in your project's ``settings``
 module::
 
-    DEFAULT_DEVICE = "mobile"
+    DEVICE_DEFAULT = "mobile"
 
 Mobile Theme
 ============
