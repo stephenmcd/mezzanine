@@ -1,8 +1,9 @@
 import base64
 import hashlib
 import hmac
-import simplejson
 import time
+
+from django.utils import simplejson
 
 from mezzanine import template
 
