@@ -1,3 +1,10 @@
+Version 0.11.8 (Aug 24, 2011)
+-----------------------------
+
+  * Updated auto-generated CHANGELOG - stephenmcd
+  * Fixed incorrect setting name in device handling docs - stephenmcd
+  * Use Django's simplejson - stephenmcd
+
 Version 0.11.7 (Aug 19, 2011)
 -----------------------------
 
