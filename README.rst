@@ -175,6 +175,7 @@ Sites Using Mezzanine
   * `immiau.ru`_
   * `ARA Consultants`_
   * `Boîte à Z'images`_
+  * `The Melbourne Cup`_
 
 Quotes
 ======
@@ -247,6 +248,7 @@ Quotes
 .. _`immiau.ru`: http://immiau.ru/
 .. _`ARA Consultants`: http://www.araconsultants.com.au/
 .. _`Boîte à Z'images`: http://boiteazimages.com/
+.. _`The Melbourne Cup`: http://www.melbournecup.com/
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
