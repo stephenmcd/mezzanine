@@ -30,6 +30,15 @@ def set_dynamic_settings(s):
     # Change INSTALLED_APPS to a list for easier manipulation.
     s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
 
+    # Set up cookie messaging if none specified for Django >= 1.3
+    if VERSION >= (1, 3, 0):
+        msg_mw = "django.contrib.messages.middleware.MessageMiddleware"
+        if msg_mw not in s["MIDDLEWARE_CLASSES"]:
+            s["MIDDLEWARE_CLASSES"] = tuple(s["MIDDLEWARE_CLASSES"]) + (msg_mw,)
+        if not s.get("MESSAGE_STORAGE"):
+            storage = "django.contrib.messages.storage.cookie.CookieStorage"
+            s["MESSAGE_STORAGE"] = storage
+
     # Setup for optional apps.
     if not s["TESTING"]:
         optional = list(s.get("OPTIONAL_APPS", []))
