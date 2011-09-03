@@ -66,6 +66,18 @@ class Slugged(models.Model):
         return slugify(self.title)
 
 
+class MetaData(models.Model):
+    """
+    Abstract model that provides meta data for content.
+    """
+
+    description = models.TextField(_("Description"), blank=True)
+    keywords = KeywordsField(verbose_name=_("Keywords"))
+
+    class Meta:
+        abstract = True
+
+
 CONTENT_STATUS_DRAFT = 1
 CONTENT_STATUS_PUBLISHED = 2
 CONTENT_STATUS_CHOICES = (
@@ -74,10 +86,11 @@ CONTENT_STATUS_CHOICES = (
 )
 
 
-class Displayable(Slugged):
+class Displayable(Slugged, MetaData):
     """
     Abstract model that provides features of a visible page on the
-    website such as publishing fields and meta data.
+    website such as publishing fields. Basis of Mezzanine pages and
+    blog posts.
     """
 
     status = models.IntegerField(_("Status"),
@@ -88,8 +101,6 @@ class Displayable(Slugged):
     expiry_date = models.DateTimeField(_("Expires on"),
         help_text=_("With published checked, won't be shown after this time"),
         blank=True, null=True)
-    description = models.TextField(_("Description"), blank=True)
-    keywords = KeywordsField(verbose_name=_("Keywords"))
     short_url = models.URLField(blank=True, null=True)
     site = models.ForeignKey(Site, editable=False)
 
