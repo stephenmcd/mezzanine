@@ -1,5 +1,10 @@
 
-from django.contrib.syndication.feeds import Feed
+try:
+    # Django <= 1.3
+    from django.contrib.syndication.feeds import Feed
+except ImportError:
+    # Django >= 1.4
+    from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 from django.utils.feedgenerator import Atom1Feed
 from django.utils.html import strip_tags
