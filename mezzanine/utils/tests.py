@@ -12,6 +12,8 @@ PYFLAKES_IGNORE = (
     "'memcache' imported but unused",
     "'cmemcache' imported but unused",
     "'__version__' imported but unused",
+    "redefinition of unused 'Feed'",
+    "redefinition of unused 'feed'",
 )
 
 
