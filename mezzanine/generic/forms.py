@@ -42,7 +42,7 @@ class KeywordsWidget(forms.MultiWidget):
         """
         Takes the sequence of ``AssignedKeyword`` instances and splits
         them into lists of keyword IDs and titles each mapping to one
-        of the firm field widgets.
+        of the form field widgets.
         """
         if hasattr(value, "select_related"):
             keywords = [a.keyword for a in value.select_related("keyword")]
