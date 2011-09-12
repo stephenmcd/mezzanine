@@ -87,11 +87,12 @@ class Tests(TestCase):
             return
         template_name = lambda t: t.name if hasattr(t, "name") else t[0].name
         ua = settings.DEVICE_USER_AGENTS[0][1][0]
-        slug_args = {"slug": "device-test"}
-        RichTextPage.objects.get_or_create(**slug_args)
-        default = self.client.get(reverse("page", kwargs=slug_args)).template
-        mobile = self.client.get(reverse("page"), kwargs=slug_args,
-                                 HTTP_USER_AGENT=ua).template
+        kwargs = {"slug": "device-test"}
+        url = reverse("page", kwargs=kwargs)
+        kwargs["status"] = CONTENT_STATUS_PUBLISHED
+        RichTextPage.objects.get_or_create(**kwargs)
+        default = self.client.get(url).template
+        mobile = self.client.get(url, HTTP_USER_AGENT=ua).template
         self.assertNotEqual(template_name(default), template_name(mobile))
 
     def test_blog_views(self):
