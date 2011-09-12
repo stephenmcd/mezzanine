@@ -34,8 +34,6 @@ class Tests(TestCase):
     Mezzanine tests.
     """
 
-    fixtures = ["mezzanine.json"] # From mezzanine.pages
-
     def setUp(self):
         """
         Create an admin user.
