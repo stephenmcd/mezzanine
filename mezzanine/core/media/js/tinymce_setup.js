@@ -76,7 +76,7 @@ if (typeof tinyMCE != 'undefined') {
         paste_strip_class_attributes: true,
 
         // elements
-		valid_elements : ""
+        valid_elements : ""
 		+ "span[style],"
 		+ "-p,"
 		+ "a[href|target=_blank|class],"
@@ -96,6 +96,7 @@ if (typeof tinyMCE != 'undefined') {
 		+ "-blockquote,"
 		+ "-cite,"
 		+ "-code,"
+		+ "-iframe,"
 		+ "-table[border=0|cellspacing|cellpadding|width|frame|rules|height|"
 		+ "align|summary|bgcolor|background|bordercolor],"
 		+ "-tr[rowspan|width|height|align|valign|bgcolor|"
@@ -106,12 +107,12 @@ if (typeof tinyMCE != 'undefined') {
 		+ "#td[colspan|rowspan|width|height|align|valign|bgcolor|background|"
 		+ "bordercolor|scope],"
 		+ "#th[colspan|rowspan|width|height|align|valign|scope],"
-		+ "-div",
-        extended_valid_elements: ""
-        + "pre[style],"
+		+ "-div,"
+		+ "",
+        extended_valid_elements: "pre[style],"
         + "a[name|class|href|target|title|onclick],"
         + "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],"
-        + "iframe[src|title|byline|portrait|frameborder|width|height]."
+        + "iframe[src|title|byline|portrait|frameborder|width|height],"
         + "br[clearfix],"
         + "-p[class<clearfix?summary?code],"
         + "h2[class<clearfix],h3[class<clearfix],h4[class<clearfix],"
@@ -128,7 +129,8 @@ if (typeof tinyMCE != 'undefined') {
         + "h1/h2/h3/h4/h5/h6/a[%itrans_na],"
         + "table[thead|tbody|tfoot|tr|td],"
         + "strong/b/p/div/em/i/td[%itrans|#text],"
-        //+ "body[%btrans|#text]"
-    });
+		//+ "body[%btrans|#text]"
+        + "",
+	});
 
 }
