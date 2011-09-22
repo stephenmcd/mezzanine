@@ -143,7 +143,7 @@ msgstr "Atom"
 #: conf/admin.py:36
 #, python-format
 msgid "Change %s"
-msgstr ""
+msgstr "Modifica %s"
 
 #: conf/defaults.py:12
 msgid "Controls the ordering and grouping of the admin menu."

@@ -38,6 +38,8 @@ $(function() {
                                 placeholder: 'placeholder'});
     $(parentSelector).disableSelection();
     $('.ordering').css({cursor: 'move'});
+    $(parentSelector).enableSelection();
+
 
     // Mark checkboxes with a 'dirty' attribute if they're changed from
     // their original state, in order to check inside anyFieldsDirty().
