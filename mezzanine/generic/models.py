@@ -101,6 +101,7 @@ class AssignedKeyword(models.Model):
 
 RATING_RANGE = range(settings.RATINGS_MIN, settings.RATINGS_MAX + 1)
 
+
 class Rating(models.Model):
     """
     A rating that can be given to a piece of content.

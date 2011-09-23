@@ -218,7 +218,8 @@ class SearchableManager(Manager):
         return sorted(all_results, key=lambda r: r.result_count, reverse=True)
 
 
-class DisplayableManager(CurrentSiteManager, PublishedManager, SearchableManager):
+class DisplayableManager(CurrentSiteManager, PublishedManager,
+                         SearchableManager):
     """
     Manually combines ``CurrentSiteManager``, ``PublishedManager``
     and ``SearchableManager`` for the ``Displayable`` model.

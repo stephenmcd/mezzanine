@@ -191,7 +191,7 @@ class RatingField(BaseGenericRelation):
 
     related_model = "generic.Rating"
     fields = {"%s_count": IntegerField(default=0),
-              "%s_average": FloatField(default=0),}
+              "%s_average": FloatField(default=0)}
 
     def related_items_changed(self, instance, related_manager):
         """

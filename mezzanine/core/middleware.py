@@ -36,6 +36,7 @@ class AdminLoginInterfaceSelector(object):
                 return response
         return None
 
+
 class DeviceAwareCacheMiddleware(object):
     """
     Mixin for device-aware cache middleware that provides the method for

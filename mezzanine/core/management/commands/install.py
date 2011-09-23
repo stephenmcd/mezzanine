@@ -31,4 +31,3 @@ class Command(NoArgsCommand):
                 print
             from south.management.commands import migrate
             migrate.Command().execute(fake=True)
-

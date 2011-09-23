@@ -29,6 +29,7 @@ def processor_for(content_model_or_slug):
                         "which should be a model subclass of Page in class "
                         "or string form (app.model), or a valid slug" %
                         content_model_or_slug)
+
     def decorator(func):
         if content_model:
             processors[content_model._meta.object_name.lower()].append(func)
@@ -39,6 +40,7 @@ def processor_for(content_model_or_slug):
 
 
 LOADED = False
+
 
 def autodiscover():
     """

@@ -28,7 +28,7 @@ register = template.Library()
 @register.filter
 def is_installed(app_name):
     """
-    Returns ``True`` if the given app name is in the 
+    Returns ``True`` if the given app name is in the
     ``INSTALLED_APPS`` setting.
     """
     return app_name in settings.INSTALLED_APPS
@@ -146,19 +146,21 @@ def editable_loader(context):
     context["richtext_media"] = RichTextField().formfield().widget.media
     return context
 
+
 @register.filter
 def richtext_filter(content):
     """
-    This template filter takes a string value and passes it through the 
+    This template filter takes a string value and passes it through the
     function specified by the RICHTEXT_FILTER setting.
     """
-    
+
     if settings.RICHTEXT_FILTER:
         func = import_dotted_path(settings.RICHTEXT_FILTER)
     else:
         func = lambda s: s
-    
+
     return func(content)
+
 
 @register.to_end_tag
 def editable(parsed, context, token):
@@ -292,7 +294,8 @@ def admin_app_list(request):
     return app_list
 
 
-@register.inclusion_tag("admin/includes/dropdown_menu.html", takes_context=True)
+@register.inclusion_tag("admin/includes/dropdown_menu.html",
+                        takes_context=True)
 def admin_dropdown_menu(context):
     """
     Renders the app list for the admin dropdown menu navigation.
@@ -311,7 +314,7 @@ def app_list(context):
 
 
 @register.inclusion_tag("admin/includes/recent_actions.html",
-                                                            takes_context=True)
+                        takes_context=True)
 def recent_actions(context):
     """
     Renders the recent actions list for the admin dashboard widget.

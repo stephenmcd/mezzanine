@@ -83,8 +83,10 @@ class FormAdmin(PageAdmin):
         if submitted:
             if request.POST.get("export"):
                 response = HttpResponse(mimetype="text/csv")
-                fname = "%s-%s.csv" % (form.slug, slugify(datetime.now().ctime()))
-                response["Content-Disposition"] = "attachment; filename=%s" % fname
+                timestamp = slugify(datetime.now().ctime())
+                fname = "%s-%s.csv" % (form.slug, timestamp)
+                header = "attachment; filename=%s" % fname
+                response["Content-Disposition"] = header
                 csv = writer(response, delimiter=settings.FORMS_CSV_DELIMITER)
                 csv.writerow(export_form.columns())
                 for rows in export_form.rows():

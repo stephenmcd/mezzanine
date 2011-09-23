@@ -37,8 +37,9 @@ urlpatterns = []
 
 # Django's sitemap app.
 if "django.contrib.sitemaps" in settings.INSTALLED_APPS:
+    sitemaps = {"sitemaps": {"all": DisplayableSitemap}}
     urlpatterns += patterns("django.contrib.sitemaps.views",
-        ("^sitemap\.xml$", "sitemap", {"sitemaps": {"all": DisplayableSitemap}})
+        ("^sitemap\.xml$", "sitemap", sitemaps)
     )
 
 

@@ -24,7 +24,8 @@ from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
 from mezzanine.generic.models import RATING_RANGE
 
 from mezzanine.pages.models import RichTextPage
-from mezzanine.utils.tests import run_pyflakes_for_package, run_pep8_for_package
+from mezzanine.utils.tests import run_pyflakes_for_package
+from mezzanine.utils.tests import run_pep8_for_package
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 
@@ -185,9 +186,9 @@ class Tests(TestCase):
         """
         page = RichTextPage.objects.create(title="test keywords")
         keywords = set(["how", "now", "brown", "cow"])
-        page.keywords = [AssignedKeyword(
-                         keyword_id=Keyword.objects.get_or_create(title=k)[0].id)
-                         for k in keywords]
+        for keyword in keywords:
+            keyword_id = Keyword.objects.get_or_create(title=keyword)[0].id
+            page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
         page = RichTextPage.objects.get(id=page.id)
         self.assertEquals(keywords, set(page.keywords_string.split(" ")))
 
@@ -334,15 +335,17 @@ class Tests(TestCase):
         site1 = Site.objects.create(domain="site1.com")
         site2 = Site.objects.create(domain="site2.com")
 
-        # create pages under site1, which should be only accessible when SITE_ID is site1
+        # create pages under site1, which should be only accessible
+        # when SITE_ID is site1
         settings.SITE_ID = site1.pk
-        site1_page = self._create_page("Site1 Test", CONTENT_STATUS_PUBLISHED)
-        self._test_site_pages("Site1 Test", CONTENT_STATUS_PUBLISHED, count=1)
+        site1_page = self._create_page("Site1", CONTENT_STATUS_PUBLISHED)
+        self._test_site_pages("Site1", CONTENT_STATUS_PUBLISHED, count=1)
 
-        # create pages under site2, which should only be accessible when SITE_ID is site2
+        # create pages under site2, which should only be accessible
+        # when SITE_ID is site2
         settings.SITE_ID = site2.pk
-        self._create_page("Site2 Test", CONTENT_STATUS_PUBLISHED)
-        self._test_site_pages("Site2 Test", CONTENT_STATUS_PUBLISHED, count=1)
+        self._create_page("Site2", CONTENT_STATUS_PUBLISHED)
+        self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
 
         # original page should 404
         response = self.client.get(site1_page.get_absolute_url())
@@ -350,21 +353,21 @@ class Tests(TestCase):
 
         # change back to site1, and only the site1 pages should be retrieved
         settings.SITE_ID = site1.pk
-        self._test_site_pages("Site1 Test", CONTENT_STATUS_PUBLISHED, count=1)
+        self._test_site_pages("Site1", CONTENT_STATUS_PUBLISHED, count=1)
 
         # insert a new record, see the count change
-        self._create_page("Site1 Test Draft", CONTENT_STATUS_DRAFT)
-        self._test_site_pages("Site1 Test Draft", CONTENT_STATUS_DRAFT, count=2)
-        self._test_site_pages("Site1 Test Draft", CONTENT_STATUS_PUBLISHED, count=2)
+        self._create_page("Site1 Draft", CONTENT_STATUS_DRAFT)
+        self._test_site_pages("Site1 Draft", CONTENT_STATUS_DRAFT, count=2)
+        self._test_site_pages("Site1 Draft", CONTENT_STATUS_PUBLISHED, count=2)
 
         # change back to site2, and only the site2 pages should be retrieved
         settings.SITE_ID = site2.pk
-        self._test_site_pages("Site2 Test", CONTENT_STATUS_PUBLISHED, count=1)
+        self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
 
         # insert a new record, see the count change
-        self._create_page("Site2 Test Draft", CONTENT_STATUS_DRAFT)
-        self._test_site_pages("Site2 Test Draft", CONTENT_STATUS_DRAFT, count=2)
-        self._test_site_pages("Site2 Test Draft", CONTENT_STATUS_PUBLISHED, count=2)
+        self._create_page("Site2 Draft", CONTENT_STATUS_DRAFT)
+        self._test_site_pages("Site2 Draft", CONTENT_STATUS_DRAFT, count=2)
+        self._test_site_pages("Site2 Draft", CONTENT_STATUS_PUBLISHED, count=2)
 
         # tear down
         if old_site_id:
@@ -379,8 +382,8 @@ class Tests(TestCase):
         """
         Test that a thumbnail is created.
         """
-        original_name = "testleaf.jpg"
-        if not os.path.exists(os.path.join(settings.MEDIA_ROOT, original_name)):
+        orig_name = "testleaf.jpg"
+        if not os.path.exists(os.path.join(settings.MEDIA_ROOT, orig_name)):
             return
         thumbnail_name = "testleaf-24x24.jpg"
         thumbnail_path = os.path.join(settings.MEDIA_ROOT, thumbnail_name)
@@ -388,7 +391,7 @@ class Tests(TestCase):
             os.remove(thumbnail_path)
         except OSError:
             pass
-        thumbnail_image = thumbnail(original_name, 24, 24)
+        thumbnail_image = thumbnail(orig_name, 24, 24)
         self.assertEqual(thumbnail_image.lstrip("/"), thumbnail_name)
         self.assertNotEqual(0, os.path.getsize(thumbnail_path))
         try:

@@ -188,7 +188,8 @@ class OrderableBase(ModelBase):
                 pass
             attrs["Meta"] = Meta
         if hasattr(attrs["Meta"], "order_with_respect_to"):
-            attrs["order_with_respect_to"] = attrs["Meta"].order_with_respect_to
+            order_field = attrs["Meta"].order_with_respect_to
+            attrs["order_with_respect_to"] = order_field
             del attrs["Meta"].order_with_respect_to
         if not hasattr(attrs["Meta"], "ordering"):
             setattr(attrs["Meta"], "ordering", ("_order",))

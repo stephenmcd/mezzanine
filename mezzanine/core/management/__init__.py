@@ -18,7 +18,8 @@ def create_user(app, created_models, verbosity, interactive, **kwargs):
             print ("Creating default account "
                    "(username: admin / password: default) ...")
             print
-        User.objects.create_superuser("admin", "example@example.com", "default")
+        args = "admin", "example@example.com", "default"
+        User.objects.create_superuser(*args)
 
 
 def create_pages(app, created_models, verbosity, interactive, **kwargs):
