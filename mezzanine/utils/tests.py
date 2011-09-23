@@ -15,34 +15,41 @@ PYFLAKES_IGNORE = (
 )
 
 
-def run_pyflakes_for_package(package_name, extra_ignore=None):
+def _run_checker_for_package(checker, package_name):
     """
-    If pyflakes is installed, run it across the given package name
-    returning any warnings found.
+    Runs the checker function across every Python module in the
+    given package.
     """
-    ignore_strings = PYFLAKES_IGNORE
-    if extra_ignore:
-        ignore_strings += extra_ignore
-    try:
-        from pyflakes.checker import Checker
-    except ImportError:
-        return []
-    warnings = []
-    for (root, dirs, files) in os.walk(path_for_import(package_name)):
+    package_path = path_for_import(package_name)
+    for (root, dirs, files) in os.walk(package_path):
         for f in files:
             # Ignore migrations.
             directory = root.split(os.sep)[-1]
             if not f.endswith(".py") or directory == "migrations":
                 continue
-            path = os.path.join(root, f)
-            with open(path, "U") as source_file:
-                source = source_file.read()
-            try:
-                tree = compile(source, f, "exec", PyCF_ONLY_AST)
-            except (SyntaxError, IndentationError), value:
-                info = (path, value.lineno, value.args[0])
-                warnings.append("Invalid syntax in %s:%d: %s" % info)
-                continue
+            for warning in checker(os.path.join(root, f)):
+                yield warning.replace(package_path, package_name, 1)
+
+
+def run_pyflakes_for_package(package_name, extra_ignore=None):
+    """
+    If pyflakes is installed, run it across the given package name
+    returning any warnings found.
+    """
+    from pyflakes.checker import Checker
+    ignore_strings = PYFLAKES_IGNORE
+    if extra_ignore:
+        ignore_strings += extra_ignore
+
+    def pyflakes_checker(path):
+        with open(path, "U") as source_file:
+            source = source_file.read()
+        try:
+            tree = compile(source, path, "exec", PyCF_ONLY_AST)
+        except (SyntaxError, IndentationError), value:
+            info = (path, value.lineno, value.args[0])
+            yield "Invalid syntax in %s:%d: %s" % info
+        else:
             result = Checker(tree, path)
             for warning in result.messages:
                 message = unicode(warning)
@@ -50,6 +57,24 @@ def run_pyflakes_for_package(package_name, extra_ignore=None):
                     if ignore in message:
                         break
                 else:
-                    warnings.append(message)
+                    yield message
 
-    return warnings
+    return _run_checker_for_package(pyflakes_checker, package_name)
+
+
+def run_pep8_for_package(package_name):
+    """
+    If pep8 is installed, run it across the given package name
+    returning any warnings or errors found.
+    """
+    import pep8
+    package_path = path_for_import(package_name)
+    pep8.process_options(["-qq", package_path])
+
+    def pep8_checker(path):
+        pep8.input_file(path)
+        for grp in pep8.get_error_statistics(), pep8.get_warning_statistics():
+            for warning in grp:
+                yield "%s:%s: %s" % (path, warning.split(" ")[0], warning[13:])
+
+    return _run_checker_for_package(pep8_checker, package_name)

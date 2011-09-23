@@ -24,7 +24,7 @@ from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
 from mezzanine.generic.models import RATING_RANGE
 
 from mezzanine.pages.models import RichTextPage
-from mezzanine.utils.tests import run_pyflakes_for_package
+from mezzanine.utils.tests import run_pyflakes_for_package, run_pep8_for_package
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 
@@ -283,10 +283,11 @@ class Tests(TestCase):
         """
         Run pyflakes across the code base to check for potential errors.
         """
-        warnings = run_pyflakes_for_package("mezzanine")
+        warnings = []
+        warnings.extend(run_pyflakes_for_package("mezzanine"))
+        warnings.extend(run_pep8_for_package("mezzanine"))
         if warnings:
-            warnings.insert(0, "pyflakes warnings:")
-            self.fail("\n".join(warnings))
+            self.fail("Syntax warnings!\n\n%s" % "\n".join(warnings))
 
     def test_utils(self):
         """
