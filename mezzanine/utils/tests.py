@@ -69,12 +69,29 @@ def run_pep8_for_package(package_name):
     """
     import pep8
     package_path = path_for_import(package_name)
-    pep8.process_options(["-qq", package_path])
+    pep8.process_options(["-r", package_path])
+
+    class Checker(pep8.Checker):
+        """
+        Subclass pep8's Checker to hook into error reporting.
+        """
+
+        def report_error(self, line_number, offset, text, check):
+            """
+            Store pairs of line numbers and errors.
+            """
+            self.errors.append((line_number, text.split(" ", 1)[1]))
+
+        def check_all(self, *args, **kwargs):
+            """
+            Assign the errors attribute and return it after running.
+            """
+            self.errors = []
+            super(Checker, self).check_all(*args, **kwargs)
+            return self.errors
 
     def pep8_checker(path):
-        pep8.input_file(path)
-        for grp in pep8.get_error_statistics(), pep8.get_warning_statistics():
-            for warning in grp:
-                yield "%s:%s: %s" % (path, warning.split(" ")[0], warning[13:])
+        for line_number, text in Checker(path).check_all():
+            yield "%s:%s: %s" % (path, line_number, text)
 
     return _run_checker_for_package(pep8_checker, package_name)

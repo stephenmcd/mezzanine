@@ -279,9 +279,9 @@ class Tests(TestCase):
         for (name, value) in values_by_name.items():
             self.assertEqual(getattr(settings, name), value)
 
-    def test_with_pyflakes(self):
+    def test_syntax(self):
         """
-        Run pyflakes across the code base to check for potential errors.
+        Run pyflakes/pep8 across the code base to check for potential errors.
         """
         warnings = []
         warnings.extend(run_pyflakes_for_package("mezzanine"))
