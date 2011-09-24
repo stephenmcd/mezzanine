@@ -36,8 +36,9 @@ $(function() {
     // Apply drag and drop to orderable inlines.
     $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7',
                                 placeholder: 'placeholder'});
-    $(parentSelector).disableSelection();
+    $(parentSelector + ' .order').disableSelection();
     $('.ordering').css({cursor: 'move'});
+
 
     // Mark checkboxes with a 'dirty' attribute if they're changed from
     // their original state, in order to check inside anyFieldsDirty().
