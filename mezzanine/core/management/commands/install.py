@@ -16,6 +16,10 @@ class Command(NoArgsCommand):
         verbosity = int(options.get('verbosity', 0))
         syncdb.Command().execute(**options)
         if settings.USE_SOUTH:
+            try:
+                from south.management.commands import migrate
+            except ImportError:
+                return
             if options.get("interactive"):
                 confirm = raw_input("\nWould you like to fake initial "
                                     "migrations? (yes/no): ")
@@ -29,5 +33,4 @@ class Command(NoArgsCommand):
                 print
                 print "Faking initial migrations ..."
                 print
-            from south.management.commands import migrate
             migrate.Command().execute(fake=True)
