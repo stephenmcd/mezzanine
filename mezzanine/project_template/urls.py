@@ -18,4 +18,3 @@ urlpatterns = patterns("",
 
 # Adds ``MEDIA_URL`` to the context.
 handler500 = "mezzanine.core.views.server_error"
-

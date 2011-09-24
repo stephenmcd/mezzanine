@@ -25,7 +25,8 @@ def set_dynamic_settings(s):
     management_command = sys.argv[1] if len(sys.argv) > 1 else ""
     # Some kind of testing is running via test or testserver
     s["TESTING"] = management_command.startswith("test")
-    # Some kind of development server is running via runserver or runserver_plus
+    # Some kind of development server is running via runserver or
+    # runserver_plus
     s["DEV_SERVER"] = management_command.startswith("runserver")
     # Change INSTALLED_APPS to a list for easier manipulation.
     s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
@@ -34,7 +35,8 @@ def set_dynamic_settings(s):
     if VERSION >= (1, 3, 0):
         msg_mw = "django.contrib.messages.middleware.MessageMiddleware"
         if msg_mw not in s["MIDDLEWARE_CLASSES"]:
-            s["MIDDLEWARE_CLASSES"] = tuple(s["MIDDLEWARE_CLASSES"]) + (msg_mw,)
+            s["MIDDLEWARE_CLASSES"] = tuple(s["MIDDLEWARE_CLASSES"])
+            s["MIDDLEWARE_CLASSES"] += (msg_mw,)
         if not s.get("MESSAGE_STORAGE"):
             storage = "django.contrib.messages.storage.cookie.CookieStorage"
             s["MESSAGE_STORAGE"] = storage
@@ -110,7 +112,6 @@ def set_dynamic_settings(s):
         s["COMMENTS_APP"] = "mezzanine.generic"
         if "django.contrib.comments" not in s["INSTALLED_APPS"]:
             s["INSTALLED_APPS"].append("django.contrib.comments")
-
 
     # Change INSTALLED_APPS back to a tuple.
     s["INSTALLED_APPS"] = tuple(s["INSTALLED_APPS"])

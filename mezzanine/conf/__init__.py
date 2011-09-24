@@ -72,7 +72,8 @@ class Settings(object):
         # First access for an editable setting - load from DB into cache.
         if setting["editable"] and not self._loaded:
             from mezzanine.conf.models import Setting
-            for setting_obj in Setting.objects.filter(site=Site.objects.get_current()):
+            settings = Setting.objects.filter(site=Site.objects.get_current())
+            for setting_obj in settings:
                 setting_type = registry[setting_obj.name]["type"]
                 if setting_type is bool:
                     setting_value = setting_obj.value != "False"
@@ -91,7 +92,8 @@ class Settings(object):
         return setting["default"]
 
 
-for app in [__name__] + [a for a in django_settings.INSTALLED_APPS if a != __name__]:
+other_apps = [a for a in django_settings.INSTALLED_APPS if a != __name__]
+for app in [__name__] + other_apps:
     try:
         __import__("%s.defaults" % app)
     except (ImportError, ValueError):  # ValueError raised by convert_to_south

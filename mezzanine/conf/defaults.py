@@ -45,7 +45,7 @@ register_setting(
 register_setting(
     name="BLOG_POST_PER_PAGE",
     label=_("Blog posts per page"),
-    description=_("Number of blog posts to show on a blog listing page."),
+    description=_("Number of blog posts shown on a blog listing page."),
     editable=True,
     default=5,
 )
@@ -53,7 +53,7 @@ register_setting(
 register_setting(
     name="BLOG_POST_MAX_PAGING_LINKS",
     label=_("Max blog paging links"),
-    description=_("Max number of paging links to show on a blog listing page."),
+    description=_("Max number of paging links shown on a blog listing page."),
     editable=True,
     default=10,
 )
@@ -100,7 +100,7 @@ register_setting(
 register_setting(
     name="COMMENTS_NUM_LATEST",
     label=_("Admin comments"),
-    description=_("Number of latest comments to show in the admin dashboard."),
+    description=_("Number of latest comments shown in the admin dashboard."),
     editable=True,
     default=5,
 )
@@ -291,7 +291,7 @@ register_setting(
 register_setting(
     name="SEARCH_PER_PAGE",
     label=_("Search results per page"),
-    description=_("Number of results to show in the search results page."),
+    description=_("Number of results shown in the search results page."),
     editable=True,
     default=10,
 )

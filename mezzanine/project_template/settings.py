@@ -38,7 +38,8 @@ USE_SOUTH = True
 ########################
 
 # People who get code error notifications.
-# In the format (('Full Name', 'email@example.com'), ('Full Name', 'anotheremail@example.com'))
+# In the format (('Full Name', 'email@example.com'),
+#                ('Full Name', 'anotheremail@example.com'))
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
@@ -141,7 +142,8 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, MEDIA_URL.strip("/"))
 # Package/module name to import the root urlpatterns from for the project.
 ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 
-# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+# Put strings here, like "/home/html/django_templates"
+# or "C:/www/django/templates".
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)

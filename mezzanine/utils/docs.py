@@ -45,6 +45,7 @@ def build_settings_docs(docs_path, prefix=None):
 # Python complains if this is inside build_changelog which uses exec.
 _changeset_date = lambda c: datetime.fromtimestamp(c.date()[0])
 
+
 def build_changelog(docs_path, package_name="mezzanine"):
     """
     Converts Mercurial commits into a changelog in RST format.
@@ -119,6 +120,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
             else:
                 f.write("  * No changes listed.\n")
             f.write("\n")
+
 
 def build_requirements(docs_path, package_name="mezzanine"):
     """
