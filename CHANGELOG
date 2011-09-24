@@ -1,4 +1,19 @@
-Version 0.11.9 (Sep 21, 2011)
+Version 0.11.10 (Sep 24, 2011)
+------------------------------
+
+  * Updated auto-generated CHANGELOG and requirements.txt - stephenmcd
+  * fix issue with the mouse loosing focus in dynamic inline fields. Affects Firefox usersadded an Italian translation message - Eli Spizzichino
+  * Upgraded pyflakes test to handle latest version of pyflakes - stephenmcd
+  * Added pep8 tests and removed import checks so that pyflakes/pep8 are always required for tests - stephenmcd
+  * Changed pep8 test approach to subclass its checker to obtain correct information - stephenmcd
+  * pep8 fixes - stephenmcd
+  * better fix by Stephen for dynamic inline fields focus issue - Eli Spizzichino
+  * More pep8 fixes - stephenmcd
+  * Changed install command to only fake migrations when South is installed - stephenmcd
+  * Renamed install command to createdb and added deprecation warning for install - stephenmcd
+  * Updated dependencies and install instructions in README - stephenmcd
+
+Version 0.11.9 (Sep 22, 2011)
 -----------------------------
 
   * Updated auto-generated CHANGELOG - stephenmcd
@@ -15,20 +30,20 @@ Version 0.11.9 (Sep 21, 2011)
   * Fix typo - Ken Bolton
   * Bumped grappelli-safe version requirement - stephenmcd
 
-Version 0.11.8 (Aug 23, 2011)
+Version 0.11.8 (Aug 24, 2011)
 -----------------------------
 
   * Updated auto-generated CHANGELOG - stephenmcd
   * Fixed incorrect setting name in device handling docs - stephenmcd
   * Use Django's simplejson - stephenmcd
 
-Version 0.11.7 (Aug 18, 2011)
+Version 0.11.7 (Aug 19, 2011)
 -----------------------------
 
   * Updated auto-generated CHANGELOG and settings docs - stephenmcd
   * Upgraded DISQUS handling in the blog templates to properly use the generic app, as well as fixing DISQUS identifiers to be unique across different models - stephenmcd
 
-Version 0.11.6 (Aug 12, 2011)
+Version 0.11.6 (Aug 13, 2011)
 -----------------------------
 
   * Updated auto-generated CHANGELOG and requirements - stephenmcd
@@ -65,7 +80,7 @@ Version 0.11.6 (Aug 12, 2011)
   * Added Boîte à Z'images to sites in README - stephenmcd
   * Added link to sites gallery in README - stephenmcd
 
-Version 0.11.5 (Jul 03, 2011)
+Version 0.11.5 (Jul 04, 2011)
 -----------------------------
 
   * Updated auto-generated CHANGELOG and requirements - stephenmcd
@@ -114,7 +129,7 @@ Version 0.11.3 (Jun 09, 2011)
   * updated docs on how to customize RICHTEXT_FILTER - Owen Nelson
   * Added Owen Nelson to AUTHORS - stephenmcd
 
-Version 0.11.2 (May 31, 2011)
+Version 0.11.2 (Jun 01, 2011)
 -----------------------------
 
   * compile language files, compiled blog, mobile, twitter language files - Alexey Makarenya
@@ -128,7 +143,7 @@ Version 0.11.2 (May 31, 2011)
   * Added Brent Hoover to AUTHORS - stephenmcd
   * Reverted change to storing version number to work with docs generation - stephenmcd
 
-Version 0.11.1 (May 23, 2011)
+Version 0.11.1 (May 24, 2011)
 -----------------------------
 
   * Upgraded comment handling to work with new comment models in base blog importer. Fixes #59 - stephenmcd
@@ -162,7 +177,7 @@ Version 0.11.1 (May 23, 2011)
   * Added migrations for object_pk change in generic. Fixes #66 - stephenmcd
   * Fixed loading of blog posts for a tag - stephenmcd
 
-Version 0.11 (Apr 29, 2011)
+Version 0.11 (Apr 30, 2011)
 ---------------------------
 
   * Created a ``GRAPPELLI_INSTALLED`` setting that is dynamically set, and made it available to JavaScript in the admin so that this can be determined reliably without depending on Grappelli specific HTML/CSS - stephenmcd
@@ -285,14 +300,14 @@ Version 0.11 (Apr 29, 2011)
   * Reverted inline editing styles to the formatting that the rest of the project uses - stephenmcd
   * Fixed toolbar styling for TinyMce inside the inline editing form - stephenmcd
 
-Version 0.10.6 (Feb 13, 2011)
+Version 0.10.6 (Feb 14, 2011)
 -----------------------------
 
   * blog strings from html templates - Dominique Guardiola
   * Added Dominique Guardiola Falco to AUTHORS - stephenmcd
   * Apply the CSRF token to all AJAX posts in the admin - stephenmcd
 
-Version 0.10.5 (Feb 10, 2011)
+Version 0.10.5 (Feb 11, 2011)
 -----------------------------
 
   * Updated mezzanine.utils.importing name in package docs - stephenmcd
@@ -312,7 +327,7 @@ Version 0.10.5 (Feb 10, 2011)
   * fix up whitespace formatting for last js fix - lexual
   * fix javascript syntax - lexual
 
-Version 0.10.4 (Jan 28, 2011)
+Version 0.10.4 (Jan 29, 2011)
 -----------------------------
 
   * Fixed regression in cache defaults. Django defaults to a 5 minute memory cache which functions with Mezzanine's caching middleware installed by default. We now set the cache backend to dummy if no cache backend is defined in the project's settings module - stephenmcd
@@ -325,7 +340,7 @@ Version 0.10.3 (Jan 28, 2011)
   * Removed the cache defaults - stephenmcd
   * Removed redundant import - stephenmcd
 
-Version 0.10.2 (Jan 26, 2011)
+Version 0.10.2 (Jan 27, 2011)
 -----------------------------
 
   * Updated docs to describe approach for adding fieldsets to subclasses of PageAdmin - stephenmcd
@@ -337,13 +352,13 @@ Version 0.10.2 (Jan 26, 2011)
   * Moved some of the settings tweaks into mezzanine.utils.conf.set_dynamic_settings and also restored all of the comments from Django's generated settings module. Fixes #37 - stephenmcd
   * Fixed the handling for creating the default user when south is installed. Closes #34 - stephenmcd
 
-Version 0.10.1 (Jan 12, 2011)
+Version 0.10.1 (Jan 13, 2011)
 -----------------------------
 
   * Added Josh de Blank to AUTHORS - stephenmcd
   * Fixed bug in PageAdmin._maintain_parent where it was assumed a location header exists for a redirect, which isn't actually the case when the page is being edited via a popup window as a forgien key - stephenmcd
 
-Version 0.10 (Dec 21, 2010)
+Version 0.10 (Dec 22, 2010)
 ---------------------------
 
   * Updated settings docs for Grappelli URLs fix - stephenmcd
@@ -443,7 +458,7 @@ Version 0.10 (Dec 21, 2010)
   * Updated device section in docs to include a section about the ``mezzanine.mobile`` theme - stephenmcd
   * Updated text for link to mobile site - stephenmcd
 
-Version 0.9.1 (Nov 28, 2010)
+Version 0.9.1 (Nov 29, 2010)
 ----------------------------
 
   * stop creation of empty p id="description" (Potentially needs refactoring) aka not too elegant - Lee Matos
@@ -451,7 +466,7 @@ Version 0.9.1 (Nov 28, 2010)
   * Added Lee Matos to AUTHORS - stephenmcd
   * Fixed branching of admin media hosting for Grappelli - stephenmcd
 
-Version 0.9 (Nov 27, 2010)
+Version 0.9 (Nov 28, 2010)
 --------------------------
 
   * Update auto-generated CHANGELOG - stephenmcd
@@ -544,7 +559,7 @@ Version 0.9 (Nov 27, 2010)
   * Added "blog-post-tile" class for semantic/styling purposes - Lee Matos
   * Added documentation for device specific template loading - stephenmcd
 
-Version 0.8.5 (Nov 09, 2010)
+Version 0.8.5 (Nov 10, 2010)
 ----------------------------
 
   * CSS update for default templates - stephenmcd
@@ -678,7 +693,7 @@ Version 0.8.5 (Nov 09, 2010)
   * Add some stricter style declarations for the inline editing controls - stephenmcd
   * Allow admin menu names to match regardless of the translation function used - stephenmcd
 
-Version 0.8.4 (Sep 30, 2010)
+Version 0.8.4 (Oct 01, 2010)
 ----------------------------
 
   * Fix settings formatting - stephenmcd
@@ -686,7 +701,7 @@ Version 0.8.4 (Sep 30, 2010)
   * Fix PostgreSQL error on tweet lookup - stephenmcd
   * Use dynamically generated intro for posts in blog listing page rather than the description field - stephenmcd
 
-Version 0.8.3 (Sep 29, 2010)
+Version 0.8.3 (Sep 30, 2010)
 ----------------------------
 
   * Update auto-generated CHANGELOG and settings docs - stephenmcd
@@ -712,7 +727,7 @@ Version 0.8.3 (Sep 29, 2010)
   * Fix field length of test data - stephenmcd
   * Remove trailing commas from tinymce_setup.js that break IE. Fixes #14 - stephenmcd
 
-Version 0.8.2 (Sep 23, 2010)
+Version 0.8.2 (Sep 24, 2010)
 ----------------------------
 
   * Backed out changeset 0e7907eef4fc - lexual
@@ -729,7 +744,7 @@ Version 0.8.2 (Sep 23, 2010)
   * Type in setting function - stephenmcd
   * Fix handling of empty field values in forms app by not saving them - stephenmcd
 
-Version 0.8.1 (Sep 19, 2010)
+Version 0.8.1 (Sep 20, 2010)
 ----------------------------
 
   * No changes listed.
@@ -763,7 +778,7 @@ Version 0.8 (Sep 19, 2010)
   * Fix styling of messages to prevent them being layered on top of the admin menu - stephenmcd
   * Update auto-generated settings docs - stephenmcd
 
-Version 0.7.4 (Sep 10, 2010)
+Version 0.7.4 (Sep 11, 2010)
 ----------------------------
 
   * More footer style updates - stephenmcd
@@ -787,14 +802,14 @@ Version 0.7.4 (Sep 10, 2010)
   * Add ``mezzanine.forms`` to package docs - stephenmcd
   * Version bump - stephenmcd
 
-Version 0.7.3 (Sep 02, 2010)
+Version 0.7.3 (Sep 03, 2010)
 ----------------------------
 
   * Remove print debug from setup.py - stephenmcd
   * Alignment fixes to the footer menu - stephenmcd
   * More footer style updates - stephenmcd
 
-Version 0.7.2 (Sep 02, 2010)
+Version 0.7.2 (Sep 03, 2010)
 ----------------------------
 
   * Refactor mezzanine.template to use functools.wraps - stephenmcd
@@ -809,14 +824,14 @@ Version 0.7.2 (Sep 02, 2010)
   * More styling enhancements to footer menu - stephenmcd
   * Add new fixtures for demonstrating footer menu - stephenmcd
 
-Version 0.7.1 (Aug 29, 2010)
+Version 0.7.1 (Aug 30, 2010)
 ----------------------------
 
   * Add 960.gs to the feature list in README - stephenmcd
   * CSS tweaks to default templates - stephenmcd
   * Bugfix to mobile middleware for view functions without keyword args - stephenmcd
 
-Version 0.7 (Aug 29, 2010)
+Version 0.7 (Aug 30, 2010)
 --------------------------
 
   * Add Van Lindberg to AUTHORS - stephenmcd
@@ -946,7 +961,7 @@ Version 0.5 (Jul 18, 2010)
   * Added docs for in-line editing - stephenmcd
   * Update README to cross-reference features in docs - stephenmcd
 
-Version 0.4 (Jul 10, 2010)
+Version 0.4 (Jul 11, 2010)
 --------------------------
 
   * Added search functionality and moved pagination out into utils and templatetags - stephenmcd
@@ -959,7 +974,7 @@ Version 0.4 (Jul 10, 2010)
   * Save blog commenter's details in a cookie - stephenmcd
   * Bugfix to links in recent comments section of admin dashboard - stephenmcd
 
-Version 0.3.5 (Jul 08, 2010)
+Version 0.3.5 (Jul 09, 2010)
 ----------------------------
 
   * Bugfix to page template missing tag library - stephenmcd
@@ -977,12 +992,12 @@ Version 0.3.4 (Jul 08, 2010)
   * Cleaned up interface for custom tag types - stephenmcd
   * Update docs with references to new modules and version bump - stephenmcd
 
-Version 0.3.3 (Jul 06, 2010)
+Version 0.3.3 (Jul 07, 2010)
 ----------------------------
 
   * No changes listed.
 
-Version 0.3.2 (Jul 06, 2010)
+Version 0.3.2 (Jul 07, 2010)
 ----------------------------
 
   * Ignore uploads directory in repo - stephenmcd
@@ -998,7 +1013,7 @@ Version 0.3.2 (Jul 06, 2010)
   * change tabs to spaces - lexual
   * changed tabs to spaces (only where there was a mixture of the 2, not when just tabs in file - lexual
 
-Version 0.3.1 (Jul 04, 2010)
+Version 0.3.1 (Jul 05, 2010)
 ----------------------------
 
   * Fixed some spelling mistakes throughout docs - stephenmcd
@@ -1009,7 +1024,7 @@ Version 0.3.1 (Jul 04, 2010)
   * Added management command to blog app for migrating a Tumblr blog - stephenmcd
   * Allow members of mezzanine.settings to be defined in the project's settings module prefixed with MEZZANINE_ - stephenmcd
 
-Version 0.3.0 (Jul 03, 2010)
+Version 0.3.0 (Jul 04, 2010)
 ----------------------------
 
   * Added section to README about the mailing list - stephenmcd
@@ -1105,7 +1120,7 @@ Version 0.1.3 (Jun 14, 2010)
   * Added setting PAGES_MENU_SHOW_ALL to control whether all levels in page menu are shown by default - stephenmcd
   * Changed manual file exclusion in setuptools script to maintain owner and permissions - stephenmcd
 
-Version 0.1.2 (Jun 10, 2010)
+Version 0.1.2 (Jun 11, 2010)
 ----------------------------
 
   * Remove local settings module from repo and packaging - stephenmcd

@@ -31,14 +31,14 @@ Default: ``''``
 ``BLOG_POST_MAX_PAGING_LINKS``
 ------------------------------
 
-Max number of paging links to show on a blog listing page.
+Max number of paging links shown on a blog listing page.
 
 Default: ``10``
 
 ``BLOG_POST_PER_PAGE``
 ----------------------
 
-Number of blog posts to show on a blog listing page.
+Number of blog posts shown on a blog listing page.
 
 Default: ``5``
 
@@ -80,7 +80,7 @@ Default: ``''``
 ``COMMENTS_NUM_LATEST``
 -----------------------
 
-Number of latest comments to show in the admin dashboard.
+Number of latest comments shown in the admin dashboard.
 
 Default: ``5``
 
@@ -220,7 +220,7 @@ Default: ``10``
 ``SEARCH_PER_PAGE``
 -------------------
 
-Number of results to show in the search results page.
+Number of results shown in the search results page.
 
 Default: ``10``
 
