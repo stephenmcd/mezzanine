@@ -66,10 +66,11 @@ environment using:
 Mezzanine is designed however to be used most effectively in conjunction
 with the following libraries:
 
-  * `setuptools`_
   * `Python Imaging Library`_ (PIL)
   * `django-grappelli`_ <= 2.0
   * `django-filebrowser`_ <= 3.0
+  * `South`_
+  * `pyflakes`_ and `pep8`_ (required for running the test suite)
 
 Browser Support
 ===============
@@ -103,13 +104,18 @@ can be used for creating a new Mezzanine project in a similar fashion to
 You can then run your project with the usual Django steps::
 
     $ cd project_name
-    $ python manage.py install --noinput
+    $ python manage.py createdb --noinput
     $ python manage.py runserver
+
+.. note::
+
+    The ``createdb`` command performs the same task as Django's ``syncdb``
+    command, and also handles setting the initial migration state for `South`_.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and log
 in using the default account (``username: admin, password: default``). If
 you'd like to specify a different username and password during set up, simply
-exclude the ``--noinput`` option included above when running ``install``.
+exclude the ``--noinput`` option included above when running ``createdb``.
 
 Contributing
 ============
@@ -201,6 +207,9 @@ Quotes
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`django-grappelli`: http://code.google.com/p/django-grappelli/
 .. _`django-filebrowser`: http://code.google.com/p/django-filebrowser/
+.. _`South`: http://south.aeracode.org/
+.. _`pyflakes`: http://pypi.python.org/pypi/pyflakes
+.. _`pep8`: http://pypi.python.org/pypi/pep8
 .. _`In-line page editing`: http://mezzanine.jupo.org/docs/inline-editing.html
 .. _`custom content types`: http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
