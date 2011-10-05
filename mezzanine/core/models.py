@@ -8,6 +8,7 @@ from django.db.models.base import ModelBase
 from django.template.defaultfilters import truncatewords_html
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.contrib.sites.managers import CurrentSiteManager
 
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager
@@ -18,11 +19,15 @@ from mezzanine.utils.urls import slugify
 
 class Slugged(models.Model):
     """
-    Abstract model that handles auto-generating slugs.
+    Abstract model that handles auto-generating slugs. Each slugged object is 
+    also affiliated with a specific site object.
     """
 
     title = models.CharField(_("Title"), max_length=100)
     slug = models.CharField(_("URL"), max_length=100, blank=True, null=True)
+    site = models.ForeignKey(Site, editable=False)
+
+    objects = CurrentSiteManager()
 
     class Meta:
         abstract = True
@@ -31,9 +36,11 @@ class Slugged(models.Model):
     def __unicode__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
+    def save(self, update_site=False, *args, **kwargs):
         """
-        Create a unique slug by appending an index.
+        Create a unique slug by appending an index. Set the site to the current site 
+        when the record is first created, unless the ``update_site`` argument is 
+        explicitly set to ``True``, 
         """
         if not self.slug:
             # For custom content types, use the ``Page`` instance for
@@ -54,6 +61,8 @@ class Slugged(models.Model):
                 except ObjectDoesNotExist:
                     break
                 i += 1
+        if update_site or not site.id:
+            self.site = Site.objects.get_current()
         super(Slugged, self).save(*args, **kwargs)
 
     def natural_key(self):
@@ -102,7 +111,6 @@ class Displayable(Slugged, MetaData):
         help_text=_("With published checked, won't be shown after this time"),
         blank=True, null=True)
     short_url = models.URLField(blank=True, null=True)
-    site = models.ForeignKey(Site, editable=False)
 
     objects = DisplayableManager()
     search_fields = {"keywords": 10, "title": 5}
@@ -110,11 +118,10 @@ class Displayable(Slugged, MetaData):
     class Meta:
         abstract = True
 
-    def save(self, update_site=True, *args, **kwargs):
+    def save(self, *args, **kwargs):
         """
         Set default for ``publsh_date`` and ``description`` if none
-        given. Unless the ``update_site`` argument is ``False``, set
-        the site to the current site.
+        given. 
         """
         if self.publish_date is None:
             # publish_date will be blank when a blog post is created
@@ -122,8 +129,6 @@ class Displayable(Slugged, MetaData):
             self.publish_date = datetime.now()
         if not self.description:
             self.description = strip_tags(self.description_from_content())
-        if update_site:
-            self.site = Site.objects.get_current()
         super(Displayable, self).save(*args, **kwargs)
 
     def description_from_content(self):

@@ -11,6 +11,7 @@ from mezzanine.core.admin import DisplayableAdmin, OwnableAdmin
 blogpost_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 blogpost_fieldsets[0][1]["fields"].insert(1, "categories")
 blogpost_fieldsets[0][1]["fields"].append("content")
+blogpost_fieldsets[0][1]["fields"].append("allow_comments")
 
 
 class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
