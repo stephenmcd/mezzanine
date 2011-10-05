@@ -61,7 +61,7 @@ class Slugged(models.Model):
                 except ObjectDoesNotExist:
                     break
                 i += 1
-        if update_site or not site.id:
+        if update_site or not self.id:
             self.site = Site.objects.get_current()
         super(Slugged, self).save(*args, **kwargs)
 
