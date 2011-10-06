@@ -41,7 +41,7 @@ class Migration(DataMigration):
                            attr.field.rel.to is Site:
                             site = getattr(related, attr_name)
                             if site:
-                                break;
+                                break
                     if site:
                         dict_keyword = site_dict.get(site.pk, None)
                         if not dict_keyword:
