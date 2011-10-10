@@ -20,7 +20,7 @@ def admin_keywords_submit(request):
         if title:
             keyword, created = Keyword.objects.get_or_create(title=title)
             ids.append(str(keyword.id))
-    return HttpResponse(",".join(set(ids)))
+    return HttpResponse(",".join(ids))
 
 
 def rating(request):

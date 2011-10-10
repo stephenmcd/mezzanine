@@ -205,9 +205,9 @@ class Orderable(models.Model):
     """
     Abstract model that provides a custom ordering integer field
     similar to using Meta's ``order_with_respect_to``, since to
-    date (Django 1.2) this doesn't work with ``ForeignKey("self")``.
-    We may also want this feature for models that aren't ordered with
-    respect to a particular field.
+    date (Django 1.2) this doesn't work with ``ForeignKey("self")``,
+    or with Generic Relations. We may also want this feature for
+    models that aren't ordered with respect to a particular field.
     """
 
     __metaclass__ = OrderableBase
@@ -221,13 +221,23 @@ class Orderable(models.Model):
         """
         Returns a dict to use as a filter for ordering operations
         containing the original ``Meta.order_with_respect_to`` value
-        if provided.
+        if provided. If the field is a Generic Relation, the dict
+        returned contains names and values for looking up the
+        relation's ``ct_field`` and ``fk_field`` attributes.
         """
         try:
-            field = self.order_with_respect_to
-            return {field: getattr(self, field)}
+            name = self.order_with_respect_to
+            field = getattr(self, name)
         except AttributeError:
+            # No ``order_with_respect_to`` specified on the model.
             return {}
+        if isinstance(field, models.Model):
+            # Support for generic relations.
+            generic_relation = getattr(self.__class__, name)
+            names = (generic_relation.ct_field, generic_relation.fk_field)
+            return dict([(name, getattr(self, name)) for name in names])
+        else:
+            return {name: field}
 
     def save(self, *args, **kwargs):
         """
@@ -235,6 +245,7 @@ class Orderable(models.Model):
         """
         if self._order is None:
             lookup = self.with_respect_to()
+            lookup["_order__isnull"] = False
             concrete_model = base_concrete_model(Orderable, self)
             self._order = concrete_model.objects.filter(**lookup).count()
         super(Orderable, self).save(*args, **kwargs)

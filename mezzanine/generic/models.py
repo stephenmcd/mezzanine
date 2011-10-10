@@ -8,7 +8,7 @@ from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.generic.managers import CommentManager, KeywordManager
-from mezzanine.core.models import Slugged
+from mezzanine.core.models import Slugged, Orderable
 from mezzanine.conf import settings
 
 
@@ -85,7 +85,7 @@ class Keyword(Slugged):
         verbose_name_plural = _("Keywords")
 
 
-class AssignedKeyword(models.Model):
+class AssignedKeyword(Orderable):
     """
     A ``Keyword`` assigned to a model instance.
     """
@@ -94,6 +94,9 @@ class AssignedKeyword(models.Model):
     content_type = models.ForeignKey("contenttypes.ContentType")
     object_pk = models.IntegerField()
     content_object = GenericForeignKey("content_type", "object_pk")
+
+    class Meta:
+        order_with_respect_to = "content_object"
 
     def __unicode__(self):
         return unicode(self.keyword)
