@@ -21,9 +21,9 @@ class PostsRSS(Feed):
 
     def __init__(self, *args, **kwargs):
         """
-        Use the title and description of the Blog page for the
-        feed's title and description. If the blog page has somehow
-        been removed, fall back to the SITE_TITLE and SITE_TAGLINE
+        Use the title and description of the Blog page for the feed's
+        title and description. If the blog page has somehow been
+        removed, fall back to the ``SITE_TITLE`` and ``SITE_TAGLINE``
         settings.
         """
         super(PostsRSS, self).__init__(*args, **kwargs)
