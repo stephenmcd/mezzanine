@@ -11,6 +11,7 @@ from django.utils.html import strip_tags
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.blog.views import blog_page
+from mezzanine.conf import settings
 
 
 class PostsRSS(Feed):
@@ -18,11 +19,22 @@ class PostsRSS(Feed):
     RSS feed for all blog posts.
     """
 
-    def title(self):
-        return blog_page().title
-
-    def description(self):
-        return strip_tags(blog_page().description)
+    def __init__(self, *args, **kwargs):
+        """
+        Use the title and description of the Blog page for the
+        feed's title and description. If the blog page has somehow
+        been removed, fall back to the SITE_TITLE and SITE_TAGLINE
+        settings.
+        """
+        super(PostsRSS, self).__init__(*args, **kwargs)
+        page = blog_page()
+        if page is not None:
+            self.title = page.title
+            self.description = strip_tags(page.description)
+        else:
+            settings.use_editable()
+            self.title = settings.SITE_TITLE
+            self.description = settings.SITE_TAGLINE
 
     def link(self):
         return reverse("blog_post_feed", kwargs={"url": "rss"})
@@ -55,7 +67,7 @@ class PostsAtom(PostsRSS):
     feed_type = Atom1Feed
 
     def subtitle(self):
-        return self.description()
+        return self.description
 
     def link(self):
         return reverse("blog_post_feed", kwargs={"url": "atom"})
