@@ -8,3 +8,6 @@ nav { margin-top: 0; }
 
 .comments { list-style: none; }
 #comment th { vertical-align: top; }
+
+.tags ul {padding:0;}
+.tags ul, .tags li { list-style: none; display:inline;}
