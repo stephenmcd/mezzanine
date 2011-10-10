@@ -157,7 +157,7 @@ class ExportForm(forms.Form):
         self.request = request
         self.form_fields = form.fields.all()
         self.entry_time_name = unicode(FormEntry._meta.get_field(
-            "entry_time").verbose_name).encode("utf-8")
+            "entry_time").verbose_name)
         super(ExportForm, self).__init__(*args, **kwargs)
         for field in self.form_fields:
             field_key = "field_%s" % field.id
@@ -212,10 +212,10 @@ class ExportForm(forms.Form):
         """
         Returns the list of selected column names.
         """
-        fields = [f.label for f in self.form_fields
+        fields = [f.label.encode("utf-8") for f in self.form_fields
                   if self.cleaned_data["field_%s_export" % f.id]]
         if self.cleaned_data["field_0_export"]:
-            fields.append(self.entry_time_name)
+            fields.append(self.entry_time_name).encode("utf-8")
         return fields
 
     def rows(self):
@@ -310,6 +310,7 @@ class ExportForm(forms.Form):
                 field_value = self.request.build_absolute_uri(url)
             # Only use values for fields that were selected.
             try:
+                field_value = field_value.encode("utf-8")
                 current_row[field_indexes[field_id]] = field_value
             except KeyError:
                 pass
