@@ -1,6 +1,7 @@
 
 from datetime import datetime
 
+from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -227,17 +228,16 @@ class Orderable(models.Model):
         """
         try:
             name = self.order_with_respect_to
-            field = getattr(self, name)
+            value = getattr(self, name)
         except AttributeError:
             # No ``order_with_respect_to`` specified on the model.
             return {}
-        if isinstance(field, models.Model):
-            # Support for generic relations.
-            generic_relation = getattr(self.__class__, name)
-            names = (generic_relation.ct_field, generic_relation.fk_field)
+        # Support for generic relations.
+        field = getattr(self.__class__, name)
+        if isinstance(field, GenericForeignKey):
+            names = (field.ct_field, field.fk_field)
             return dict([(name, getattr(self, name)) for name in names])
-        else:
-            return {name: field}
+        return {name: value}
 
     def save(self, *args, **kwargs):
         """
