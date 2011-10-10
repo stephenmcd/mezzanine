@@ -19,8 +19,8 @@ from mezzanine.utils.urls import slugify
 
 class Slugged(models.Model):
     """
-    Abstract model that handles auto-generating slugs. Each slugged object is 
-    also affiliated with a specific site object.
+    Abstract model that handles auto-generating slugs. Each slugged
+    object is also affiliated with a specific site object.
     """
 
     title = models.CharField(_("Title"), max_length=100)
@@ -38,9 +38,9 @@ class Slugged(models.Model):
 
     def save(self, update_site=False, *args, **kwargs):
         """
-        Create a unique slug by appending an index. Set the site to the current site 
-        when the record is first created, unless the ``update_site`` argument is 
-        explicitly set to ``True``, 
+        Create a unique slug by appending an index. Set the site to
+        the current site when the record is first created, unless the
+        ``update_site`` argument is explicitly set to ``True``.
         """
         if not self.slug:
             # For custom content types, use the ``Page`` instance for
@@ -121,7 +121,7 @@ class Displayable(Slugged, MetaData):
     def save(self, *args, **kwargs):
         """
         Set default for ``publsh_date`` and ``description`` if none
-        given. 
+        given.
         """
         if self.publish_date is None:
             # publish_date will be blank when a blog post is created
