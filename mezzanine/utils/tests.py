@@ -25,7 +25,8 @@ def _run_checker_for_package(checker, package_name):
         for f in files:
             # Ignore migrations.
             directory = root.split(os.sep)[-1]
-            if not f.endswith(".py") or directory == "migrations":
+            if (f == "local_settings.py" or not f.endswith(".py")
+                or directory == "migrations"):
                 continue
             for warning in checker(os.path.join(root, f)):
                 yield warning.replace(package_path, package_name, 1)
