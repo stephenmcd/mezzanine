@@ -3,16 +3,17 @@ from django.conf.urls.defaults import *
 
 from mezzanine.blog.feeds import PostsRSS, PostsAtom
 
+
+blog_feed_dict = {"rss": PostsRSS, "atom": PostsAtom}
 try:
     # Django <= 1.3
     from django.contrib.syndication.views import feed
+    blog_feed_dict = {"feed_dict": blog_feed_dict}
 except ImportError:
     # Django >= 1.4
     feed = lambda request, url, **kwargs: kwargs[url]()(request)
 
-
 # Blog feed patterns.
-blog_feed_dict = {"rss": PostsRSS, "atom": PostsAtom}
 urlpatterns = patterns("",
     url("^feeds/(?P<url>.*)/$", feed, blog_feed_dict, name="blog_post_feed"),
 )
