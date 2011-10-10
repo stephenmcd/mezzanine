@@ -102,6 +102,10 @@ class Tests(TestCase):
         """
         response = self.client.get(reverse("blog_post_list"))
         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse("blog_post_feed", args=("rss",)))
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse("blog_post_feed", args=("atom",)))
+        self.assertEqual(response.status_code, 200)
         blog_post = BlogPost.objects.create(title="Post", user=self._user,
                                             status=CONTENT_STATUS_PUBLISHED)
         response = self.client.get(blog_post.get_absolute_url())
