@@ -4,10 +4,8 @@
 {% block meta_title %}{{ blog_post.title }}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
-{% for keyword in blog_post.keywords.all %}
-    {% if not forloop.first %}, {% endif %}
-    {{ keyword }}
-{% endfor %}
+{% keywords_for blog_post as tags %}
+{% for tag in tags %}{% if not forloop.first %}, {% endif %}{{ tag }}{% endfor %}
 {% endmetablock %}{% endblock %}
 
 {% block meta_description %}{% metablock %}
@@ -71,8 +69,7 @@
     {% trans "Tags" %}:
     <ul>
         {% for tag in tags %}
-        <li><a href="{% url blog_post_list_tag tag.slug %}"
-            class="tag-weight-{{ tag.weight }}">{{ tag }}</a></li>
+        <li><a href="{% url blog_post_list_tag tag.slug %}">{{ tag }}</a></li>
         {% endfor %}
     </ul>
 </div>
