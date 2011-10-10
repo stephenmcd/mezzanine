@@ -14,7 +14,7 @@ class Migration(DataMigration):
         This migration exists because prior to giving Keyword a site field, keywords were
         shared between different sites. In order to add the site field, the "current site"
         was assigned as a default.  This migration attempts to determine the correct site
-        for the keyword by finding what objects the keyword was assigned to, and if 
+        for the keyword by finding what objects the keyword was assigned to, and if
         that object contains a reference to the site table, it uses that site.
         If there is no reference, however, the default previously assigned is used.
 
@@ -54,12 +54,11 @@ class Migration(DataMigration):
                     else:
                         uses_original = True
                 except Exception, e:
-                    import pdb; pdb.set_trace()
                     uses_original = True
- 
+
             if not uses_original:
                 keyword.delete()
-                
+
 
     def backwards(self, orm):
         "Write your backwards methods here."
