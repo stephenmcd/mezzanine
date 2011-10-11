@@ -80,9 +80,6 @@ def pagination_for(context, current_page):
     return {"current_page": current_page, "querystring": querystring}
 
 
-import logging
-logger = logging.getLogger(__name__)
-
 @register.simple_tag
 def thumbnail(image_url, width, height):
     """
