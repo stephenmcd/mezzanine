@@ -8,10 +8,15 @@ from mezzanine.utils.importing import path_for_import
 
 # Ignore these warnings in pyflakes - if added to, please comment why.
 PYFLAKES_IGNORE = (
-    "import *' used",  # Required by Django's urlconf API.
+    "import *' used",                     # Required by Django's urlconf API.
     "'__version__' imported but unused",  # Used to version subpackages.
-    "redefinition of unused 'Feed'",  # Compatibility for Django 1.3/1.4
-    "redefinition of unused 'feed'",  # Compatibility for Django 1.3/1.4
+    "redefinition of unused 'Feed'",      # Compatibility for Django 1.3/1.4
+    "redefinition of unused 'feed'",      # Compatibility for Django 1.3/1.4
+    "redefinition of unused 'debug'",     # Compatibility for Django <= 1.2
+    "redefinition of unused 'info'",      # Compatibility for Django <= 1.2
+    "redefinition of unused 'success'",   # Compatibility for Django <= 1.2
+    "redefinition of unused 'warning'",   # Compatibility for Django <= 1.2
+    "redefinition of unused 'error'",     # Compatibility for Django <= 1.2
 )
 
 

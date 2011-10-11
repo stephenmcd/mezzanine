@@ -18,6 +18,7 @@ from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.forms.forms import EntriesForm
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.pages.admin import PageAdmin
+from mezzanine.utils.messages import info
 from mezzanine.utils.urls import admin_url, slugify
 
 
@@ -98,11 +99,6 @@ class FormAdmin(PageAdmin):
             elif request.POST.get("delete") and can_delete_entries:
                 selected = request.POST.getlist("selected")
                 if selected:
-                    try:
-                        from django.contrib.messages import info
-                    except ImportError:
-                        def info(request, message, fail_silently=True):
-                            request.user.message_set.create(message=message)
                     entries = FormEntry.objects.filter(id__in=selected)
                     count = entries.count()
                     if count > 0:
