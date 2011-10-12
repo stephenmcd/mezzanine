@@ -24,7 +24,6 @@
     .on {background:#eee;}
     .off {background:#fff;}
     .button {float:left !important; margin-right:10px; cursor:pointer;}
-    #entries-count {display:none;}
 
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
@@ -67,13 +66,6 @@
                 return confirm('{% trans "Delete selected entries?" %}');
             }
         });
-        // Show the total number of entries - implemented with a
-        // hidden div after the entries are displayed to avoid
-        // running the rows method twice.
-        var title = $('#entries-title');
-        if (title.length == 1) {
-            title.text(title.text() + ' (' + $('#entries-count').text() + ')');
-        }
     });
 
 </script>
@@ -155,7 +147,11 @@
         </tr>
     {% if forloop.last %}
     </table>
-    <div id="entries-count">{{ forloop.counter }}</div>
+    <!--
+    count is injected into the title here with the :after selector
+    to avoid calling the expensive "entries_form.rows" twice.
+    -->
+    <style>#entries-title:after {content: ' ({{ forloop.counter }})';}</style>
     {% if can_delete_entries %}
     <input type="submit" name="back" class="button" value="{% trans "Back to form" %}" />
     <input type="submit" name="delete" class="button default" value="{% trans "Delete selected" %}" />
