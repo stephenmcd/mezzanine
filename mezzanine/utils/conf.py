@@ -83,7 +83,7 @@ def set_dynamic_settings(s):
         # Grappelli working with the dev server is to hard-code the
         # host:port to ADMIN_MEDIA_PREFIX, so here we check for a
         # custom host:port before doing this.
-        if len(sys.argv) >= 2 and sys.argv[1] == "runserver":
+        if s["DEV_SERVER"]:
             addrport = ""
             if len(sys.argv) > 2:
                 addrport = sys.argv[2]
