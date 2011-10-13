@@ -190,6 +190,20 @@ register_setting(
 )
 
 register_setting(
+    name="EXTRA_MODEL_FIELDS",
+    description=_("A sequence of custom fields to inject into Mezzanine's "
+        "(or any third-party) models. Each item in the sequence is a three "
+        "item sequence containing the dotted path to the model and its field "
+        "name to be added, the dotted path to the field class to use for the "
+        "field, and a dictionary of keyword args to use when creating the "
+        "field. When specifying the field class, the path "
+        "``django.models.db.`` can be omitted for regular Django model "
+        "fields."),
+    editable=False,
+    default=(),
+)
+
+register_setting(
     name="FORMS_FIELD_MAX_LENGTH",
     description=_("Max length allowed for field values in the forms app."),
     editable=False,
