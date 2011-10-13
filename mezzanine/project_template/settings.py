@@ -8,6 +8,7 @@
 # order to override their defaults.
 
 # Controls the ordering and grouping of the admin menu.
+#
 # from django.utils.translation import ugettext as _
 # ADMIN_MENU_ORDER = (
 #     (_("Content"), ("pages.Page", "blog.BlogPost",
@@ -18,13 +19,33 @@
 
 # A three item sequence, each containing a sequence of template tags
 # used to render the admin dashboard.
+#
 # DASHBOARD_TAGS = (
 #     ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
 #     ("comment_tags.recent_comments",),
 #     ("mezzanine_tags.recent_actions",),
 # )
 
+# A sequence of custom fields to inject into Mezzanine's
+# (or any third-party) models. Each item in the sequence is a three
+# item sequence containing the dotted path to the model and its field
+# name to be added, the dotted path to the field class to use for the
+# field, and a dictionary of keyword args to use when creating the
+# field. When specifying the field class, the path
+# ``django.models.db.`` can be omitted for regular Django model fields.
+#
+# from django.utils.translation import ugettext as _
+# EXTRA_MODEL_FIELDS = (
+#     ("mezzanine.blog.models.BlogPost.field_name", "CharField", {
+#         "verbose_name": _("Name"), "max_length": 200, "default": "value"
+#     }),
+#     ("mezzanine.pages.models.Page.another_field", "IntegerField", {
+#         "verbose_name": _("Another name"), "blank": True, "default": 1
+#     }),
+# )
+
 # Name of the current theme to host during theme development.
+#
 # THEME = ""
 
 # If True, the south application will be automatically added to the
@@ -157,6 +178,7 @@ LOGIN_REDIRECT_URL = "/admin/"
 ################
 
 INSTALLED_APPS = (
+    "mezzanine.boot",  # Should be first.
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
