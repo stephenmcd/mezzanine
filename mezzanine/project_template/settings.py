@@ -36,9 +36,10 @@
 #
 # from django.utils.translation import ugettext as _
 # EXTRA_MODEL_FIELDS = (
-#     ("mezzanine.blog.models.BlogPost.field_name", "CharField", {
+#     ("mezzanine.blog.models.BlogPost.field_name", "mylib.fields.CharField", {
 #         "verbose_name": _("Name"), "max_length": 200, "default": "value"
 #     }),
+#     # Example of adding a field to *all* of Mezzanine's content types:
 #     ("mezzanine.pages.models.Page.another_field", "IntegerField", {
 #         "verbose_name": _("Another name"), "blank": True, "default": 1
 #     }),
