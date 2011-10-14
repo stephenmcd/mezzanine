@@ -21,8 +21,7 @@ from mezzanine.utils.importing import import_dotted_path
 fields = defaultdict(dict)
 for entry in getattr(settings, "EXTRA_MODEL_FIELDS", []):
     model_path, field_name = entry[0].rsplit(".", 1)
-    field_path = entry[1]
-    field_args = entry[2] or {}
+    field_path, field_args, field_kwargs = entry[1:]
     if "." not in field_path:
         field_path = "django.db.models.%s" % field_path
     try:
@@ -32,7 +31,7 @@ for entry in getattr(settings, "EXTRA_MODEL_FIELDS", []):
                                    "the field '%s' which could not be "
                                    "imported." % entry[1])
     try:
-        field = field_class(**field_args)
+        field = field_class(*field_args, **field_kwargs)
     except TypeError, e:
         raise ImproperlyConfigured("The EXTRA_MODEL_FIELDS setting contains "
                                    "arguments for the field '%s' which could "
