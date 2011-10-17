@@ -90,10 +90,14 @@ def thumbnail(image_url, width, height):
     """
 
     image_url = unicode(image_url)
+    if image_url.startswith(settings.MEDIA_URL):
+        image_url = image_url.replace(settings.MEDIA_URL, '', 1)
     image_path = os.path.join(settings.MEDIA_ROOT, image_url)
     image_dir, image_name = os.path.split(image_path)
-    thumb_name = "%s-%sx%s.jpg" % (os.path.splitext(image_name)[0], width,
-                                                                        height)
+    extension = os.path.splitext(image_name)[1]
+    filetype = {".png": "PNG", ".gif": "GIF"}.get(extension, "JPEG")
+    thumb_name = "%s-%sx%s%s" % (os.path.splitext(image_name)[0], width,
+                                    height, extension)
     thumb_path = os.path.join(image_dir, thumb_name)
     thumb_url = "%s/%s" % (os.path.dirname(image_url), thumb_name)
 
@@ -129,7 +133,7 @@ def thumbnail(image_url, width, height):
         image = image.convert("RGB")
     try:
         image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
-            thumb_path, "JPEG", quality=100)
+            thumb_path, filetype, quality=100)
     except:
         return image_url
     return thumb_url
