@@ -20,7 +20,7 @@ from mezzanine.utils.views import is_editable
 from mezzanine.utils.urls import admin_url
 from mezzanine import template
 from mezzanine.template.loader import get_template
-
+ 
 
 register = template.Library()
 
@@ -90,48 +90,60 @@ def thumbnail(image_url, width, height):
     """
 
     image_url = unicode(image_url)
-    image_path = os.path.join(settings.MEDIA_ROOT, image_url)
+    if "django.contrib.staticfiles" in settings.INSTALLED_APPS:
+		image_url = image_url.strip('/media/')
+		image_path = os.path.join(settings.STATIC_ROOT, image_url)
+    else:
+		image_path = os.path.join(settings.MEDIA_ROOT, image_url)
     image_dir, image_name = os.path.split(image_path)
-    thumb_name = "%s-%sx%s.jpg" % (os.path.splitext(image_name)[0], width,
-                                                                        height)
+    thumb_name = "%s-%sx%s%s" % (os.path.splitext(image_name)[0], width,
+									height, os.path.splitext(image_name)[1])
     thumb_path = os.path.join(image_dir, thumb_name)
-    thumb_url = "%s/%s" % (os.path.dirname(image_url), thumb_name)
+    thumb_url = "%s/%s" % ('/static/' + os.path.dirname(image_url), thumb_name)
 
     # abort if thumbnail exists, original image doesn't exist, invalid width or
     # height are given, or PIL not installed
     if not image_url:
-        return ""
+		return ""
     try:
         width = int(width)
         height = int(height)
     except ValueError:
-        return image_url
+		return image_url
     if not os.path.exists(image_path) or (width == 0 and height == 0):
-        return image_url
+		return image_url
     try:
         from PIL import Image, ImageOps
     except ImportError:
-        return image_url
+		return image_url
 
     # open image, determine ratio if required and resize/crop/save
     image = Image.open(image_path)
 
     # If already right size, don't do anything.
     if width == image.size[0] and height == image.size[1]:
-        return image_url
+		logger.debug('already right size')
+		return image_url
     if os.path.exists(thumb_path):
-        return thumb_url
+		return thumb_url
     if width == 0:
         width = image.size[0] * height / image.size[1]
     elif height == 0:
         height = image.size[1] * width / image.size[0]
     if image.mode not in ("L", "RGB"):
         image = image.convert("RGB")
-    try:
-        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
-            thumb_path, "JPEG", quality=100)
-    except:
-        return image_url
+	if os.path.splitext(image_name)[1] == '.jpg':
+		try:
+			image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
+				thumb_path, "JPEG", quality=100)
+		except:
+			return image_url
+	elif os.path.splitext(image_name)[1] == '.png':
+		try:
+			image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
+				thumb_path, "PNG", quality=100)
+		except:
+			return image_url
     return thumb_url
 
 
