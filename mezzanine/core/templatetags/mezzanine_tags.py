@@ -103,27 +103,27 @@ def thumbnail(image_url, width, height):
     # abort if thumbnail exists, original image doesn't exist, invalid width or
     # height are given, or PIL not installed
     if not image_url:
-		return ""
+        return ""
     try:
         width = int(width)
         height = int(height)
     except ValueError:
-		return image_url
+        return image_url
     if not os.path.exists(image_path) or (width == 0 and height == 0):
-		return image_url
+        return image_url
     try:
         from PIL import Image, ImageOps
     except ImportError:
-		return image_url
+        return image_url
 
     # open image, determine ratio if required and resize/crop/save
     image = Image.open(image_path)
 
     # If already right size, don't do anything.
     if width == image.size[0] and height == image.size[1]:
-		return image_url
+        return image_url
     if os.path.exists(thumb_path):
-		return thumb_url
+        return thumb_url
     if width == 0:
         width = image.size[0] * height / image.size[1]
     elif height == 0:
