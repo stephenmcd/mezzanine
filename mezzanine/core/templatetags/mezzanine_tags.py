@@ -90,16 +90,6 @@ def thumbnail(image_url, width, height):
     """
 
     image_url = unicode(image_url)
-<<<<<<< HEAD
-    if "django.contrib.staticfiles" in settings.INSTALLED_APPS:
-		image_url = image_url.strip('/media/')
-		image_path = os.path.join(settings.STATIC_ROOT, image_url)
-    else:
-		image_path = os.path.join(settings.MEDIA_ROOT, image_url)
-    image_dir, image_name = os.path.split(image_path)
-    thumb_name = "%s-%sx%s%s" % (os.path.splitext(image_name)[0], width,
-									height, os.path.splitext(image_name)[1])
-=======
     if image_url.startswith(settings.MEDIA_URL):
         image_url = image_url.replace(settings.MEDIA_URL, '', 1)
     image_path = os.path.join(settings.MEDIA_ROOT, image_url)
@@ -108,10 +98,8 @@ def thumbnail(image_url, width, height):
     filetype = {".png": "PNG", ".gif": "GIF"}.get(extension, "JPEG")
     thumb_name = "%s-%sx%s%s" % (os.path.splitext(image_name)[0], width,
                                     height, extension)
->>>>>>> upstream/master
     thumb_path = os.path.join(image_dir, thumb_name)
-    thumb_url = "%s/%s" % ('/static/' + os.path.dirname(image_url), thumb_name)
-
+    thumb_url = "%s/%s" % (os.path.dirname(image_url), thumb_name)
     # abort if thumbnail exists, original image doesn't exist, invalid width or
     # height are given, or PIL not installed
     if not image_url:
@@ -133,7 +121,6 @@ def thumbnail(image_url, width, height):
 
     # If already right size, don't do anything.
     if width == image.size[0] and height == image.size[1]:
-		logger.debug('already right size')
 		return image_url
     if os.path.exists(thumb_path):
 		return thumb_url
@@ -143,26 +130,11 @@ def thumbnail(image_url, width, height):
         height = image.size[1] * width / image.size[0]
     if image.mode not in ("L", "RGB"):
         image = image.convert("RGB")
-<<<<<<< HEAD
-	if os.path.splitext(image_name)[1] == '.jpg':
-		try:
-			image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
-				thumb_path, "JPEG", quality=100)
-		except:
-			return image_url
-	elif os.path.splitext(image_name)[1] == '.png':
-		try:
-			image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
-				thumb_path, "PNG", quality=100)
-		except:
-			return image_url
-=======
     try:
         image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
             thumb_path, filetype, quality=100)
     except:
         return image_url
->>>>>>> upstream/master
     return thumb_url
 
 
