@@ -129,6 +129,7 @@ enhancements.
 Please note the following points around contributing:
 
   * Contributed code must be written in the existing style. This is as simple as following the `Django coding style`_ and most importantly `PEP 8`_.
+  * Contributions must be available on a separately named branch that is based on the latest version of the main branch.
   * Run the tests before committing your changes. If your changes causes the tests to break, they won't be accepted.
   * If you're adding new functionality, you must include basic tests and documentation.
 
