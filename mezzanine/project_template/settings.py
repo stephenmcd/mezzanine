@@ -179,7 +179,6 @@ LOGIN_REDIRECT_URL = "/admin/"
 ################
 
 INSTALLED_APPS = (
-    "mezzanine.boot",  # Should be first.
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -187,6 +186,7 @@ INSTALLED_APPS = (
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.sitemaps",
+    "mezzanine.boot",
     "mezzanine.conf",
     "mezzanine.core",
     "mezzanine.generic",
