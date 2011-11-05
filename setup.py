@@ -41,7 +41,7 @@ try:
         install_requires=[
             "django >= 1.1",
             "filebrowser_safe",
-            "grappelli_safe >= 0.1.8",
+            "grappelli_safe >= 0.1.9",
         ],
 
         entry_points="""
