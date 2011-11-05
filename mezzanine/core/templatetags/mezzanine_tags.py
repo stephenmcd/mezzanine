@@ -20,7 +20,7 @@ from mezzanine.utils.views import is_editable
 from mezzanine.utils.urls import admin_url
 from mezzanine import template
 from mezzanine.template.loader import get_template
- 
+
 
 register = template.Library()
 
