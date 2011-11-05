@@ -76,13 +76,14 @@ class Settings(object):
             for setting_obj in settings:
                 try:
                     setting_type = registry[setting_obj.name]["type"]
+                except KeyError:
+                    setting_obj.delete()
+                else:
                     if setting_type is bool:
                         setting_value = setting_obj.value != "False"
                     else:
                         setting_value = setting_type(setting_obj.value)
                     self._editable_cache[setting_obj.name] = setting_value
-                except KeyError:
-                    setting_obj.delete()
             self._loaded = True
 
         # Use cached editable setting if found, otherwise use default.
