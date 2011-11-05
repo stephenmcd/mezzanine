@@ -63,7 +63,7 @@ class ModelMixinBase(type):
             mixin_for = attrs.pop("Meta").mixin_for
             if not issubclass(mixin_for, Model):
                 raise TypeError
-        except (TypeError, KeyError, AttributeError), e:
+        except (TypeError, KeyError, AttributeError):
             raise ImproperlyConfigured("The ModelMixin class '%s' requires "
                                        "an inner Meta class with the "
                                        "``mixin_for`` attribute defined, "
@@ -76,6 +76,7 @@ class ModelMixinBase(type):
             elif k != "__module__":
                 setattr(mixin_for, k, v)
         return mixin_for
+
 
 class ModelMixin(object):
     """

@@ -83,7 +83,7 @@ def set_dynamic_settings(s):
         s["GRAPPELLI_INSTALLED"] = True
         s.setdefault("GRAPPELLI_ADMIN_HEADLINE", "Mezzanine")
         s.setdefault("GRAPPELLI_ADMIN_TITLE", "Mezzanine")
-        grappelli_path = path_for_import(s["PACKAGE_NAME_GRAPPELLI"])
+        grappelli_path = path_for_import(grappelli_name)
         s["GRAPPELLI_MEDIA_PATH"] = os.path.join(grappelli_path, "media")
         # Adopted from django.core.management.commands.runserver
         # Easiest way so far to actually get all the media for

@@ -26,23 +26,34 @@
 #     ("mezzanine_tags.recent_actions",),
 # )
 
-# A sequence of custom fields to inject into Mezzanine's
-# (or any third-party) models. Each item in the sequence is a three
-# item sequence containing the dotted path to the model and its field
-# name to be added, the dotted path to the field class to use for the
-# field, and a dictionary of keyword args to use when creating the
-# field. When specifying the field class, the path
+# A sequence of fields that will be injected into Mezzanine's (or any
+# library's) models. Each item in the sequence is a four item sequence.
+# The first two items are the dotted path to the model and its field
+# name to be added, and the dotted path to the field class to use for
+# the field. The third and fourth items are a sequence of positional
+# args and a dictionary of keyword args, to use when creating the
+# field instance. When specifying the field class, the path
 # ``django.models.db.`` can be omitted for regular Django model fields.
 #
 # from django.utils.translation import ugettext as _
 # EXTRA_MODEL_FIELDS = (
-#     ("mezzanine.blog.models.BlogPost.field_name", "mylib.fields.CharField", {
-#         "verbose_name": _("Name"), "max_length": 200, "default": "value"
-#     }),
+#     (
+#         # Dotted path to field.
+#         "mezzanine.blog.models.BlogPost.image",
+#         # Dotted path to field class.
+#         "somelib.fields.ImageField",
+#         # Positional args for field class.
+#         (_("Image"),),
+#         # Keyword args for field class.
+#         {"blank": True, "upload_to: "blog"},
+#     ),
 #     # Example of adding a field to *all* of Mezzanine's content types:
-#     ("mezzanine.pages.models.Page.another_field", "IntegerField", {
-#         "verbose_name": _("Another name"), "blank": True, "default": 1
-#     }),
+#     (
+#         "mezzanine.pages.models.Page.another_field",
+#         "IntegerField", # 'django.db.models.' is implied if path is omitted.
+#         (_("Another name"),),
+#         {"blank": True, "default": 1},
+#     ),
 # )
 
 # Name of the current theme to host during theme development.
