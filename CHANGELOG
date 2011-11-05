@@ -1,3 +1,53 @@
+Version 0.12 (Nov 05, 2011)
+---------------------------
+
+  * Updated auto-generated CHANGELOG and requirements.txt - stephenmcd
+  * added allow_comments flag to blog, and moved the site filed up the class hierarchy from Displayable to Slugged, plus migrations - legutierr
+  * fixes a typo bug - legutierr
+  * adds migration that attempts to deal with keywords that may be shared by related/assigned objects that exist on different sites - legutierr
+  * KeywordManager needs to subclass CurrentSiteManager in order to take advantage of multi-site capability added to Slugged - legutierr
+  * This is probably the most complex migration I have written.  Read inline comments for more information - legutierr
+  * Fixed unicode handling in CSV export in the forms app - stephenmcd
+  * Fixed Django 1.3/1.4 feed handling - stephenmcd
+  * Added fallbacks for blog feed title and description for when the blog page doesn't exist - stephenmcd
+  * Added response tests for the blog feeds - stephenmcd
+  * Fixed comment formatting - stephenmcd
+  * Added handling for spaces in keywords - stephenmcd
+  * Removed debugging - stephenmcd
+  * Fixed meta keywords loading in blog post templates - stephenmcd
+  * Upgraded keyword handling in mobile templates - stephenmcd
+  * Changed keywords_for template tag to handle None being given as an instance - stephenmcd
+  * Ignore local_settings.py in syntax check tests - stephenmcd
+  * Cleaned up docstring formatting - stephenmcd
+  * Added support for using generic relations as order_with_respect_to on subclasses of Orderable, and applied to AssignedKeyword so that keyword order is maintained - stephenmcd
+  * Fixed check for generic relations in Orderable - stephenmcd
+  * Stringify secret_key because hmac hates unicode - Ken Bolton
+  * Fix issue #97. Add PNG support - Ken Bolton
+  * Remove logger code - Ken Bolton
+  * Renamed export related areas to entries in the forms app and added handling for deleting form entries - stephenmcd
+  * Added mezzanine.utils.messages module with fallbacks for the django.contrib.messages app - stephenmcd
+  * Added a count for the number of entries displayed in the admin for the forms app - stephenmcd
+  * Use css selectors rather than JS for injecting the count in the admin entries view for the forms app - stephenmcd
+  * Added a comment to the urlconf in project_template describing the importance of ordering in relation to mezzanine.pages urlpatterns when adding your own - stephenmcd
+  * Added the mezzanine.boot app which exists for handling setup code, and added the EXTRA_MODEL_FIELDS setting which is used by boot to inject extra fields onto any models required via the class_prepared signal - stephenmcd
+  * Use the DEV_SERVER setting when setting up Grappelli media hosting - stephenmcd
+  * Updated the EXTRA_MODEL_FIELDS example in settings.py - stephenmcd
+  * Added EXTRA_MODEL_FIELDS to mezzanine.conf.defaults - stephenmcd
+  * Added initial docs for model field customization - stephenmcd
+  * Restructured the docs into more logical paragraphs and added some missing modules to the packages docs - stephenmcd
+  * Allow for non-keyword args for fields in EXTRA_MODEL_FIELDS - stephenmcd
+  * Initial attempt at a subclassable MixinModel for injecting fields and methods into external models - stephenmcd
+  * Add png & gif thumbnailing. Support for filebrowser FileBrowseField thumbnailing - Ken Bolton
+  * Somehow, this didn't make it up to my repo - Ken Bolton
+  * Removing bad whitespace - Ken Bolton
+  * Added a note about mezzanine-openshift to README - stephenmcd
+  * Added a note about branching requirements for contributions to README - stephenmcd
+  * Cleaned up mezzanine.utils.conf.set_dynamic_settings - stephenmcd
+  * Added sections to the model customizations docs about field injection caveats and exposing custom fields in the admin - stephenmcd
+  * Cleaned up whitespace - stephenmcd
+  * Removed invalid ignore file - stephenmcd
+  * Updated grappelli version requirement - stephenmcd
+
 Version 0.11.10 (Sep 24, 2011)
 ------------------------------
 
@@ -74,8 +124,12 @@ Version 0.11.6 (Aug 13, 2011)
   * Migration adding site field to dynamic settings needs to be split into separate schema and data migrations - legutierr
   * Fixed slug calculation for pages so that actual parent slugs are used. Fixes #82 - stephenmcd
   * fixed unicode encode error with cyrillic slugs in template loader - Andrew Grigrev
+  * switch to turn comments  on blog posts on/off - Johnny Brown
   * fixed unicode encode error with cyrillic slugs in template loader in other places - Andrew Grigrev
   * bug fixed: outdated l10n caused KeyErrors in string formatting while rendering templates... updated&compiled messages - Andrew Grigrev
+  * changed google analytics js to what they gave me - Johnny Brown
+  * modified gitignore - Johnny Brown
+  * selectively load analytics - Johnny Brown
   * Added ARA Consultants to site using Mezzanine - stephenmcd
   * Added Boîte à Z'images to sites in README - stephenmcd
   * Added link to sites gallery in README - stephenmcd
