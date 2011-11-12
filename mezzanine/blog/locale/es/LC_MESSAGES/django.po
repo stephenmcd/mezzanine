@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-11 22:13-0430\n"
-"PO-Revision-Date: 2011-11-12 02:51+0000\n"
+"PO-Revision-Date: 2011-11-12 03:20+0000\n"
 "Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/team/es/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +24,7 @@ msgstr "Comentarios"
 
 #: models.py:18
 msgid "Rating"
-msgstr ""
+msgstr "Puntuación"
 
 #: models.py:21
 msgid "Blog post"
@@ -75,7 +76,11 @@ msgid_plural ""
 "        %(comments_count)s comments\n"
 "        "
 msgstr[0] ""
+"\n"
+"1 comentario"
 msgstr[1] ""
+"\n"
+"%(comments_count)s comentarios"
 
 #: templates/blog/blog_post_detail.html:69
 #: templates/blog/blog_post_list.html:71
@@ -85,7 +90,7 @@ msgstr "Etiquetas"
 
 #: templates/blog/blog_post_detail.html:82
 msgid "Share this on"
-msgstr ""
+msgstr "Compartir esto en"
 
 #: templates/blog/blog_post_list.html:27
 msgid "Viewing posts tagged"
@@ -105,7 +110,7 @@ msgstr "Ver los mensajes por"
 
 #: templates/blog/blog_post_list.html:56
 msgid "in"
-msgstr ""
+msgstr "en"
 
 #: templates/blog/blog_post_list.html:77
 msgid "read more"

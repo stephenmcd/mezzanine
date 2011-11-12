@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-11 22:39-0430\n"
-"PO-Revision-Date: 2011-11-12 03:08+0000\n"
+"PO-Revision-Date: 2011-11-12 03:36+0000\n"
 "Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/team/es/)\n"
 "MIME-Version: 1.0\n"
@@ -25,12 +26,12 @@ msgstr "Correo electrónico"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 entrada eliminada"
+msgstr[1] "%(count)s entradas eliminadas"
 
 #: admin.py:110
 msgid "View Entries"
-msgstr ""
+msgstr "Ver entradas"
 
 #: fields.py:26
 msgid "Single line text"
@@ -130,7 +131,7 @@ msgstr "Enviar correo electrónico"
 
 #: models.py:21
 msgid "If checked, the form submitter will be sent an email."
-msgstr ""
+msgstr "Si está activado, se enviará un correo a quien envíe el formulario"
 
 #: models.py:22
 msgid "From address"
@@ -196,7 +197,7 @@ msgstr "Valor por defecto"
 
 #: models.py:59
 msgid "Placeholder Text"
-msgstr ""
+msgstr "Texto que ocupa el espacio por defecto"
 
 #: models.py:61
 msgid "Help text"
@@ -229,7 +230,7 @@ msgstr "Formulario de entrada de campos"
 #: templates/admin/forms/change_form.html:14
 #: templates/admin/forms/entries.html:119
 msgid "View entries"
-msgstr ""
+msgstr "Ver entradas"
 
 #: templates/admin/forms/change_form.html:15
 msgid "History"
@@ -241,15 +242,15 @@ msgstr "Ver en el sitio"
 
 #: templates/admin/forms/entries.html:63
 msgid "No entries selected"
-msgstr ""
+msgstr "No hay entradas seleccionadas"
 
 #: templates/admin/forms/entries.html:66
 msgid "Delete selected entries?"
-msgstr ""
+msgstr "¿Eliminar entradas seleccionadas?"
 
 #: templates/admin/forms/entries.html:76
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
 #: templates/admin/forms/entries.html:91
 msgid "Include"
@@ -270,18 +271,18 @@ msgstr "Regresar a formulario"
 
 #: templates/admin/forms/entries.html:120
 msgid "Export CSV"
-msgstr ""
+msgstr "Exportar CSV"
 
 #: templates/admin/forms/entries.html:123
 msgid "Entries"
-msgstr ""
+msgstr "Entradas"
 
 #: templates/admin/forms/entries.html:157
 msgid "Delete selected"
-msgstr ""
+msgstr "Eliminar seleccionados"
 
 #: templates/admin/forms/entries.html:161
 msgid "No entries to display"
-msgstr ""
+msgstr "No hay entradas que mostrar"
 
 
