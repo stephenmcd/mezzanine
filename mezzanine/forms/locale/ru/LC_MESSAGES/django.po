@@ -1,31 +1,39 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Timur Bobrus, 2010.
+# 
+# Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
+# Timur Bobrus, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-21 18:24+0500\n"
-"PO-Revision-Date: 2011-02-22 05:10+0500\n"
-"Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
-"Language-Team: Russian <>\n"
-"Language: Russian\n"
+"POT-Creation-Date: 2011-11-11 22:39-0430\n"
+"PO-Revision-Date: 2011-11-12 03:08+0000\n"
+"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
-"=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.2\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: admin.py:31 fields.py:28
 msgid "Email"
 msgstr "Email"
 
-#: admin.py:95
-msgid "Export Entries"
-msgstr "Экспортировать записи"
+#: admin.py:106
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: admin.py:110
+msgid "View Entries"
+msgstr ""
 
 #: fields.py:26
 msgid "Single line text"
@@ -71,39 +79,39 @@ msgstr "Дата/время"
 msgid "Hidden"
 msgstr "Скрытое"
 
-#: forms.py:26 forms.py:34 forms.py:40
+#: forms.py:27 forms.py:35 forms.py:41
 msgid "Nothing"
 msgstr "Ничего"
 
-#: forms.py:27
+#: forms.py:28
 msgid "Contains"
 msgstr "Содержит"
 
-#: forms.py:28
+#: forms.py:29
 msgid "Doesn't contain"
 msgstr "Не содержит"
 
-#: forms.py:29 forms.py:35
+#: forms.py:30 forms.py:36
 msgid "Equals"
 msgstr "Равно"
 
-#: forms.py:30 forms.py:36
+#: forms.py:31 forms.py:37
 msgid "Doesn't equal"
 msgstr "Не равно"
 
-#: forms.py:41
+#: forms.py:42
 msgid "Is between"
 msgstr "Между"
 
-#: forms.py:169
+#: forms.py:171
 msgid "Checked"
 msgstr "Отмечен"
 
-#: forms.py:169
+#: forms.py:171
 msgid "Not checked"
 msgstr "Не отмечен"
 
-#: forms.py:183 forms.py:198
+#: forms.py:185 forms.py:200
 msgid "and"
 msgstr "и"
 
@@ -186,8 +194,8 @@ msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
 msgstr ""
-"Варианты, разделенные запятыми. Если значение содержит запятые, окружите его "
-"`обратными кавычками`."
+"Варианты, разделенные запятыми. Если значение содержит запятые, окружите его"
+" `обратными кавычками`."
 
 #: models.py:57
 msgid "Default value"
@@ -201,7 +209,7 @@ msgstr "Замещающий текст"
 msgid "Help text"
 msgstr "Подсказка"
 
-#: models.py:66 templates/admin/forms/export.html:63
+#: models.py:66 templates/admin/forms/entries.html:90
 msgid "Field"
 msgstr "Поле"
 
@@ -226,8 +234,9 @@ msgid "Form field entries"
 msgstr "Поля формы"
 
 #: templates/admin/forms/change_form.html:14
-msgid "Export entries"
-msgstr "Экспортировать записи"
+#: templates/admin/forms/entries.html:119
+msgid "View entries"
+msgstr "Просмотр записей"
 
 #: templates/admin/forms/change_form.html:15
 msgid "History"
@@ -237,32 +246,49 @@ msgstr "История"
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: templates/admin/forms/export.html:64
+#: templates/admin/forms/entries.html:63
+msgid "No entries selected"
+msgstr ""
+
+#: templates/admin/forms/entries.html:66
+msgid "Delete selected entries?"
+msgstr ""
+
+#: templates/admin/forms/entries.html:76
+msgid "Home"
+msgstr ""
+
+#: templates/admin/forms/entries.html:91
 msgid "Include"
 msgstr "Включать"
 
-#: templates/admin/forms/export.html:65
+#: templates/admin/forms/entries.html:92
 msgid "Filter by"
 msgstr "Фильтровать по"
 
-#: templates/admin/forms/export.html:83
+#: templates/admin/forms/entries.html:110
 msgid "All"
 msgstr "Все"
 
-#: templates/admin/forms/export.html:92
+#: templates/admin/forms/entries.html:118
+#: templates/admin/forms/entries.html:156
 msgid "Back to form"
 msgstr "Назад к форме"
 
-#: templates/admin/forms/export.html:94
-msgid "View entries"
-msgstr "Просмотр записей"
-
-#: templates/admin/forms/export.html:96
+#: templates/admin/forms/entries.html:120
 msgid "Export CSV"
 msgstr "Экспортировать в CSV"
 
-#: templates/admin/forms/export.html:100
+#: templates/admin/forms/entries.html:123
 msgid "Entries"
 msgstr "Записи"
+
+#: templates/admin/forms/entries.html:157
+msgid "Delete selected"
+msgstr ""
+
+#: templates/admin/forms/entries.html:161
+msgid "No entries to display"
+msgstr ""
 
 

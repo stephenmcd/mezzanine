@@ -1,25 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Mezzanine\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-11 22:13-0430\n"
-"PO-Revision-Date: 2011-11-12 02:51+0000\n"
-"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: models.py:17 templates/blog/blog_post_list.html:82
 msgid "Comments"
-msgstr "Commentaires"
+msgstr ""
 
 #: models.py:18
 msgid "Rating"
@@ -27,41 +27,41 @@ msgstr ""
 
 #: models.py:21
 msgid "Blog post"
-msgstr "Article de blog"
+msgstr ""
 
 #: models.py:22
 msgid "Blog posts"
-msgstr "Articles de blog"
+msgstr ""
 
 #: models.py:36
 msgid "Blog Category"
-msgstr "Catégorie d'articles"
+msgstr ""
 
 #: models.py:37
 msgid "Blog Categories"
-msgstr "Catégories d'articles"
+msgstr ""
 
 #: templates/admin/includes/quick_blog.html:5
 msgid "Quick Blog"
-msgstr "Article rapide"
+msgstr ""
 
 #: templates/admin/includes/quick_blog.html:14
 msgid "Save Draft"
-msgstr "Enregistrer en tant que brouillon"
+msgstr ""
 
 #: templates/blog/blog_post_detail.html:34
 msgid "Home"
-msgstr "Accueil"
+msgstr ""
 
 #: templates/blog/blog_post_detail.html:44
 #: templates/blog/blog_post_list.html:51
 msgid "Posted by"
-msgstr "Posté par"
+msgstr ""
 
 #: templates/blog/blog_post_detail.html:51
 #: templates/blog/blog_post_list.html:61
 msgid "ago"
-msgstr "il y a "
+msgstr ""
 
 #: templates/blog/blog_post_detail.html:54
 #: templates/blog/blog_post_list.html:86
@@ -81,7 +81,7 @@ msgstr[1] ""
 #: templates/blog/blog_post_list.html:71
 #: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
-msgstr "Tags"
+msgstr ""
 
 #: templates/blog/blog_post_detail.html:82
 msgid "Share this on"
@@ -89,19 +89,19 @@ msgstr ""
 
 #: templates/blog/blog_post_list.html:27
 msgid "Viewing posts tagged"
-msgstr "Afficher les articles taggués"
+msgstr ""
 
 #: templates/blog/blog_post_list.html:29
 msgid "Viewing posts for the category"
-msgstr "Affichés les articles de la catégorie"
+msgstr ""
 
 #: templates/blog/blog_post_list.html:31
 msgid "Viewing posts from"
-msgstr "Afficher les articles de"
+msgstr ""
 
 #: templates/blog/blog_post_list.html:34
 msgid "Viewing posts by"
-msgstr "Afficher les articles écrits par"
+msgstr ""
 
 #: templates/blog/blog_post_list.html:56
 msgid "in"
@@ -109,34 +109,32 @@ msgstr ""
 
 #: templates/blog/blog_post_list.html:77
 msgid "read more"
-msgstr "lire la suite"
+msgstr ""
 
 #: templates/blog/includes/filter_panel.html:5
 msgid "Recent Posts"
-msgstr "Articles récents"
+msgstr ""
 
 #: templates/blog/includes/filter_panel.html:16
 msgid "Archive"
-msgstr "Archive"
+msgstr ""
 
 #: templates/blog/includes/filter_panel.html:30
 msgid "Categories"
-msgstr "Catégories"
+msgstr ""
 
 #: templates/blog/includes/filter_panel.html:52
 msgid "Authors"
-msgstr "Auteurs"
+msgstr ""
 
 #: templates/blog/includes/filter_panel.html:62
 msgid "Feeds"
-msgstr "Flux"
+msgstr ""
 
 #: templates/blog/includes/filter_panel.html:63
 msgid "RSS"
-msgstr "RSS"
+msgstr ""
 
 #: templates/blog/includes/filter_panel.html:64
 msgid "Atom"
-msgstr "Atom"
-
-
+msgstr ""

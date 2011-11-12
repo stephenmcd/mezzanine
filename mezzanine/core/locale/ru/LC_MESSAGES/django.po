@@ -1,93 +1,90 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Timur Bobrus, 2010.
+# 
+# Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
+# Timur Bobrus, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-17 18:42+0400\n"
-"PO-Revision-Date: 2011-02-22 05:10+0500\n"
-"Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
-"Language-Team: Russian <>\n"
-"Language: Russian\n"
+"POT-Creation-Date: 2011-11-11 22:16-0430\n"
+"PO-Revision-Date: 2011-11-12 02:51+0000\n"
+"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.2\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: admin.py:39
 msgid "Meta data"
 msgstr "Метаданные"
 
 #: fields.py:23
-#, fuzzy, python-format
+#, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
-msgstr "Не удалось импортировать значение settings.HTML_WIDGET_CLASS: %s"
+msgstr ""
 
-#: forms.py:59 models.py:197
+#: forms.py:59 models.py:216
 msgid "Order"
 msgstr "Порядок"
 
-#: models.py:23
+#: models.py:27
 msgid "Title"
 msgstr "Заголовок"
 
-#: models.py:24
+#: models.py:28
 msgid "URL"
 msgstr "URL"
 
-#: models.py:71
-msgid "Draft"
-msgstr "Черновик"
-
-#: models.py:72
-msgid "Published"
-msgstr "Опубликовано"
-
-#: models.py:82
-msgid "Status"
-msgstr "Статус"
-
 #: models.py:84
-msgid "Published from"
-msgstr "Опубликовано с"
-
-#: models.py:85
-#, fuzzy
-msgid "With published checked, won't be shown until this time"
-msgstr "Если выбрано 'Опубликовано', то не будет отображаться до этого времени"
-
-#: models.py:87
-msgid "Expires on"
-msgstr "Истекает"
-
-#: models.py:88
-#, fuzzy
-msgid "With published checked, won't be shown after this time"
-msgstr ""
-"Если выбрано 'Опубликовано', то не будет отображаться после этого времени"
-
-#: models.py:90
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:91
+#: models.py:85
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: models.py:145
+#: models.py:94
+msgid "Draft"
+msgstr "Черновик"
+
+#: models.py:95
+msgid "Published"
+msgstr "Опубликовано"
+
+#: models.py:106
+msgid "Status"
+msgstr "Статус"
+
+#: models.py:108
+msgid "Published from"
+msgstr "Опубликовано с"
+
+#: models.py:109
+msgid "With published checked, won't be shown until this time"
+msgstr ""
+
+#: models.py:111
+msgid "Expires on"
+msgstr "Истекает"
+
+#: models.py:112
+msgid "With published checked, won't be shown after this time"
+msgstr ""
+
+#: models.py:163
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: models.py:156
+#: models.py:174
 msgid "Content"
 msgstr "Содержимое"
 
-#: models.py:241
+#: models.py:270
 msgid "Author"
 msgstr "Автор"
 
@@ -120,7 +117,7 @@ msgid "View Mobile Site."
 msgstr "Мобильная версия"
 
 #: templates/index.html:5 templates/index.html.py:8
-#: templates/admin/index.html:39
+#: templates/admin/index.html:41
 msgid "Home"
 msgstr "Начало"
 
@@ -156,30 +153,29 @@ msgstr "результатов удовлетворяющих вашему за�
 msgid "read more"
 msgstr "читать далее"
 
-#: templates/admin/base_site.html:190
-#, fuzzy
+#: templates/admin/base_site.html:191
 msgid "View Site"
-msgstr "Посмотреть на сайте"
+msgstr ""
 
-#: templates/admin/base_site.html:218
+#: templates/admin/base_site.html:219
 msgid "Forgot password?"
 msgstr "Забыли пароль?"
 
-#: templates/admin/base_site.html:222
+#: templates/admin/base_site.html:223
 msgid "Interface:"
 msgstr "Интерфейс:"
 
-#: templates/admin/base_site.html:226
+#: templates/admin/base_site.html:227
 #: templates/includes/editable_toolbar.html:8
 #: templates/includes/editable_toolbar.html:10
 msgid "Admin"
 msgstr "Администрирование"
 
-#: templates/admin/base_site.html:230
+#: templates/admin/base_site.html:231
 msgid "Site"
 msgstr "Сайт"
 
-#: templates/admin/index.html:41 templates/admin/includes/dropdown_menu.html:3
+#: templates/admin/index.html:43 templates/admin/includes/dropdown_menu.html:3
 msgid "Dashboard"
 msgstr "Административная панель"
 
@@ -256,35 +252,4 @@ msgstr ""
 " для точного совпадения, + чтобы сделать слово или фразу обязательной, и - "
 "чтобы исключить слово или фразу."
 
-msgid "Keyword"
-msgstr "Ключевое слово"
 
-msgid "This is the mobile homepage."
-msgstr "Это мобильная домашняя страница"
-
-msgid "Manage"
-msgstr "Управлять"
-
-msgid "You don't have permission to edit anything."
-msgstr "У Вас нет разрешения на редактирование."
-
-msgid "Quick Blog"
-msgstr "Блог"
-
-msgid "Save Draft"
-msgstr "Сохранить черновик"
-
-msgid "Recent Comments"
-msgstr "Недавние комментарии"
-
-msgid "ago"
-msgstr "назад"
-
-msgid "Posted to"
-msgstr "Отправлено"
-
-msgid "View comment"
-msgstr "Смотреть комментарий"
-
-msgid "Users"
-msgstr "Пользователи"

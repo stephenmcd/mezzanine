@@ -3,155 +3,152 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-11 22:18-0430\n"
 "PO-Revision-Date: 2011-11-12 03:09+0000\n"
-"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/team/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
-msgstr "Страница не найдена"
+msgstr ""
 
 #: templates/mobile/404.html:10
 msgid "The page you requested does not exist."
-msgstr "Запрошенная страница не существует."
+msgstr ""
 
 #: templates/mobile/500.html:6
 msgid "Error"
-msgstr "Ошибка"
+msgstr ""
 
 #: templates/mobile/500.html:10
 msgid "Sorry, an error occurred."
-msgstr "Извините, возникла ошибка."
+msgstr ""
 
 #: templates/mobile/base.html:35 templates/mobile/index.html:6
 msgid "Home"
-msgstr "Начало"
+msgstr ""
 
 #: templates/mobile/base.html:47
 msgid "Powered by"
-msgstr "Основано на"
+msgstr ""
 
 #: templates/mobile/base.html:48
 msgid "View Full Site"
-msgstr "Полная версия"
+msgstr ""
 
 #: templates/mobile/index.html:10
 msgid "This is the mobile homepage."
-msgstr "Это мобильная домашняя страница."
+msgstr ""
 
 #: templates/mobile/search_results.html:5
 #: templates/mobile/search_results.html:6
 msgid "Search Results"
-msgstr "Результаты поиска"
+msgstr ""
 
 #: templates/mobile/search_results.html:12
 msgid "No results were found matching your query: "
-msgstr "Не найдено результатов удовлетворяющих вашему запросу: "
+msgstr ""
 
 #: templates/mobile/search_results.html:14
 msgid "Showing"
-msgstr "Показаны результаты с"
+msgstr ""
 
 #: templates/mobile/search_results.html:14
 msgid "to"
-msgstr "по"
+msgstr ""
 
 #: templates/mobile/search_results.html:14
 msgid "of"
-msgstr "из"
+msgstr ""
 
 #: templates/mobile/search_results.html:15
 msgid "results matching your query:"
-msgstr "результатов удовлетворяющих вашему запросу:"
+msgstr ""
 
 #: templates/mobile/search_results.html:23
 msgid "read more"
-msgstr "читать далее"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:23
 msgid "Posted by"
-msgstr "Написал(а)"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
 #: templates/mobile/blog/includes/comments_thread.html:19
 msgid "ago"
-msgstr "назад"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
-msgstr "Теги"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:52
 msgid "Share this on:"
-msgstr "Поделиться этим на:"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:54
 msgid "or"
-msgstr "или"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments.html:4
 msgid "Comments"
-msgstr "Комментарии"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments.html:15
 msgid "Comment"
-msgstr "Комментарий"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments_thread.html:23
 #: templates/mobile/blog/includes/comments_thread.html:35
 msgid "Reply"
-msgstr "Ответить"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments_thread.html:43
 msgid "Comment deleted"
-msgstr "Комментарий удален"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments_thread.html:45
 msgid "Comment awaiting approval"
-msgstr "Комментарий ожидает подтверждения"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments_thread.html:53
 msgid "There are currently no comments"
-msgstr "Комментариев нет"
+msgstr ""
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"
-msgstr "Предыдущие"
+msgstr ""
 
 #: templates/mobile/includes/pagination.html:9
 msgid "Next"
-msgstr "Следующие"
+msgstr ""
 
 #: templates/mobile/includes/search.html:4
 msgid "Search"
-msgstr "Найти"
+msgstr ""
 
 #: templates/mobile/includes/search.html:5
 msgid "Use "
-msgstr "Используйте "
+msgstr ""
 
 #: templates/mobile/includes/search.html:5
 msgid "quotes"
-msgstr "кавычки"
+msgstr ""
 
 #: templates/mobile/includes/search.html:5
 msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
 msgstr ""
-" для точного совпадения, + чтобы сделать слово и фразу обязательным, и - "
-"чтобы исключить слово или фразу."
 
 
