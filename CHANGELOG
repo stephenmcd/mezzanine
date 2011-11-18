@@ -1,3 +1,13 @@
+Version 0.12.1 (Nov 19, 2011)
+-----------------------------
+
+  * Updated auto-generated CHANGELOG and requirements.txt - stephenmcd
+  * Add transifex setup and spanish .po files - Sebastián Ramírez Magrí
+  * Update translations from transifex - Sebastián Ramírez Magrí
+  * Added Sebastián Magrí to AUTHORS - stephenmcd
+  * Added handling in BaseGenericRelation for actual instance being deleted. Fixes #103 - stephenmcd
+  * Added testing for correct keyword string population on keyword removal - stephenmcd
+
 Version 0.12 (Nov 05, 2011)
 ---------------------------
 
