@@ -190,11 +190,19 @@ class Tests(TestCase):
         """
         page = RichTextPage.objects.create(title="test keywords")
         keywords = set(["how", "now", "brown", "cow"])
+        Keyword.objects.all().delete()
         for keyword in keywords:
             keyword_id = Keyword.objects.get_or_create(title=keyword)[0].id
             page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
         page = RichTextPage.objects.get(id=page.id)
-        self.assertEquals(keywords, set(page.keywords_string.split(" ")))
+        self.assertEquals(keywords, set(page.keywords_string.split()))
+        # Test removal.
+        first = Keyword.objects.all()[0]
+        keywords.remove(first.title)
+        first.delete()
+        page = RichTextPage.objects.get(id=page.id)
+        self.assertEquals(keywords, set(page.keywords_string.split()))
+        page.delete()
 
     def test_search(self):
         """
