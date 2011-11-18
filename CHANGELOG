@@ -1,3 +1,9 @@
+Version 0.12.2 (Nov 19, 2011)
+-----------------------------
+
+  * Updated auto-generated CHANGELOG - stephenmcd
+  * Added the mezzanine.utils.html.TagCloser class that closes open tags in a string of HTML. Used in Displayable.description_from_content to ensure valid HTML is returned when extracting the first block/sentence. Fixes #100 - stephenmcd
+
 Version 0.12.1 (Nov 19, 2011)
 -----------------------------
 
