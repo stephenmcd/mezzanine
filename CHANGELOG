@@ -1,13 +1,11 @@
 Version 0.12.2 (Nov 19, 2011)
 -----------------------------
 
-  * Updated auto-generated CHANGELOG - stephenmcd
   * Added the mezzanine.utils.html.TagCloser class that closes open tags in a string of HTML. Used in Displayable.description_from_content to ensure valid HTML is returned when extracting the first block/sentence. Fixes #100 - stephenmcd
 
 Version 0.12.1 (Nov 19, 2011)
 -----------------------------
 
-  * Updated auto-generated CHANGELOG and requirements.txt - stephenmcd
   * Add transifex setup and spanish .po files - Sebastián Ramírez Magrí
   * Update translations from transifex - Sebastián Ramírez Magrí
   * Added Sebastián Magrí to AUTHORS - stephenmcd
@@ -17,7 +15,6 @@ Version 0.12.1 (Nov 19, 2011)
 Version 0.12 (Nov 05, 2011)
 ---------------------------
 
-  * Updated auto-generated CHANGELOG and requirements.txt - stephenmcd
   * added allow_comments flag to blog, and moved the site filed up the class hierarchy from Displayable to Slugged, plus migrations - legutierr
   * fixes a typo bug - legutierr
   * adds migration that attempts to deal with keywords that may be shared by related/assigned objects that exist on different sites - legutierr
@@ -67,7 +64,6 @@ Version 0.12 (Nov 05, 2011)
 Version 0.11.10 (Sep 24, 2011)
 ------------------------------
 
-  * Updated auto-generated CHANGELOG and requirements.txt - stephenmcd
   * fix issue with the mouse loosing focus in dynamic inline fields. Affects Firefox usersadded an Italian translation message - Eli Spizzichino
   * Upgraded pyflakes test to handle latest version of pyflakes - stephenmcd
   * Added pep8 tests and removed import checks so that pyflakes/pep8 are always required for tests - stephenmcd
@@ -82,7 +78,6 @@ Version 0.11.10 (Sep 24, 2011)
 Version 0.11.9 (Sep 22, 2011)
 -----------------------------
 
-  * Updated auto-generated CHANGELOG - stephenmcd
   * Added Melbourne Cup to sites in README - stephenmcd
   * Added defaults for cookie messaging with Django >= 1.3 - stephenmcd
   * Moved description and keywords fields out of Displayable and into their own MetaData abstract model - stephenmcd
@@ -99,20 +94,17 @@ Version 0.11.9 (Sep 22, 2011)
 Version 0.11.8 (Aug 24, 2011)
 -----------------------------
 
-  * Updated auto-generated CHANGELOG - stephenmcd
   * Fixed incorrect setting name in device handling docs - stephenmcd
   * Use Django's simplejson - stephenmcd
 
 Version 0.11.7 (Aug 19, 2011)
 -----------------------------
 
-  * Updated auto-generated CHANGELOG and settings docs - stephenmcd
   * Upgraded DISQUS handling in the blog templates to properly use the generic app, as well as fixing DISQUS identifiers to be unique across different models - stephenmcd
 
 Version 0.11.6 (Aug 13, 2011)
 -----------------------------
 
-  * Updated auto-generated CHANGELOG and requirements - stephenmcd
   * Added List G Barristers to sites in README - stephenmcd
   * Decorate blog posts in blog_post_list with lists of categories and keywords - stephenmcd
   * Added Tri-Cities Flower Farm to sites using Mezzanine in README - stephenmcd
@@ -153,7 +145,6 @@ Version 0.11.6 (Aug 13, 2011)
 Version 0.11.5 (Jul 04, 2011)
 -----------------------------
 
-  * Updated auto-generated CHANGELOG and requirements - stephenmcd
   * Added new quote to README - stephenmcd
   * Changed device test to use a page it creates itself - stephenmcd
   * Updated old contentpage template in the mobile theme to richtextpage - stephenmcd
@@ -161,7 +152,6 @@ Version 0.11.5 (Jul 04, 2011)
 Version 0.11.4 (Jul 03, 2011)
 -----------------------------
 
-  * Updated auto-generated CHANGELOG and requirements - stephenmcd
   * fixes 500 error on mobile theme (bad template tag) - Owen Nelson
   * Updated processor_for as exceptions received were TypeError get_model() takes at least 3 arguments (2 given) not a ValueError - Josh Cartmell
   * Fixed some new pyflakes warnings - stephenmcd
@@ -190,7 +180,6 @@ Version 0.11.4 (Jul 03, 2011)
 Version 0.11.3 (Jun 09, 2011)
 -----------------------------
 
-  * Updated auto-generated CHANGELOG, settings docs and requirments.txt - stephenmcd
   * catches exception generated when trying to retrieve the admin url for a model that is not registered, to allow some Page models not to be registered in the admin - legutierr
   * migration 0004 conflated a schema migration and a data migration, which was causing problems with MySQL.  The two are now separated - legutierr
   * pass all form media to the template - Owen Nelson
@@ -431,7 +420,6 @@ Version 0.10.1 (Jan 13, 2011)
 Version 0.10 (Dec 22, 2010)
 ---------------------------
 
-  * Updated settings docs for Grappelli URLs fix - stephenmcd
   * Renamed fixtures to not be installed with syncdb and added signal to install them when pages are first installed - stephenmcd
   * Renamed example mobile template so that it won't be rendered by default - stephenmcd
   * Updated device template test to only run when device templates exist - stephenmcd
@@ -539,7 +527,6 @@ Version 0.9.1 (Nov 29, 2010)
 Version 0.9 (Nov 28, 2010)
 --------------------------
 
-  * Update auto-generated CHANGELOG - stephenmcd
   * Change the logic around settings loading to avoid some untrappable errors creating the DB table - stephenmcd
   * Style fix - stephenmcd
   * Update setting names in docs - stephenmcd
@@ -641,7 +628,6 @@ Version 0.8.5 (Nov 10, 2010)
   * CSS updates to inline editing form - stephenmcd
   * Initial version of admin dashboard plugin system with Quick Blog and Recent Comments implemented as dashboard widgets - stephenmcd
   * Convert remaining dashboard sections into dashboard tags - app list and recent actions - stephenmcd
-  * Add docs for controlling admin navigation and dashboard - stephenmcd
   * Add the new screenshot - stephenmcd
   * Add configurable dashboard to feature list in README - stephenmcd
   * Add docstring to inline editing view - stephenmcd
@@ -774,7 +760,6 @@ Version 0.8.4 (Oct 01, 2010)
 Version 0.8.3 (Sep 30, 2010)
 ----------------------------
 
-  * Update auto-generated CHANGELOG and settings docs - stephenmcd
   * Oops, typo in settings.py - Toby White
   * Workaround for when mezzanine is hosted under a different urlspace.(Only tested with Django admin, not grappelli)The keywords.js file needs to reference a mezzanine URL, from the admin site.It used to use a hard-coded string with a root-absolute path, but this failed when mezzanine was hosted elsewhere.Instead, we now reference a global Mezzanine JS object, which is set by template, using URL reversal to find the correct url.This requires a reworking in how the PageAdmin object accesses its Media settings - previously the list of js files was calculated at module load time, but at this stage the url reversal mechanism won't work, because the urls.py aren't all loaded yet, Instead, we hide the list generation inside a lazy iterator object and create the list on demand - Toby White
   * Fix admin menu for earlier than Python 2.6 which lacks ``tuple.index`` - stephenmcd
@@ -870,7 +855,6 @@ Version 0.7.4 (Sep 11, 2010)
   * Fix ``pages.page_processors.processor_for`` to return the function it decorates so they can be referenced from their modules for documentation purposes - stephenmcd
   * Fix docs in ``mezzanine.utils`` - stephenmcd
   * Add ``mezzanine.forms`` to package docs - stephenmcd
-  * Version bump - stephenmcd
 
 Version 0.7.3 (Sep 03, 2010)
 ----------------------------
@@ -970,7 +954,6 @@ Version 0.6 (Aug 09, 2010)
   * pep8: blank lines at end of file - lexual
   * pep8: formatting fixes so runs cleanly through pep8.py script - lexual
   * unnecessary imports removed ? - lexual
-  * Added quote from Brad Montgomery to README - stephenmcd
   * Add link to BSD license definition in README - stephenmcd
   * Added missing line in docs for in-line editing example - stephenmcd
   * Fixed docs typo - stephenmcd
@@ -986,7 +969,6 @@ Version 0.5.4 (Jul 25, 2010)
 Version 0.5.3 (Jul 24, 2010)
 ----------------------------
 
-  * Update changelog generator to exclude its own commit of the changelog - stephenmcd
   * Use names of packages from settings in setup script - stephenmcd
   * Make changelog generator in Sphinx conf list changesets within a version in chronological order - stephenmcd
   * Update CSS for in-line editing toolbar to stay fixed at top of the page - stephenmcd

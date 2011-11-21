@@ -91,7 +91,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
         # a branch or regenerated the changelog itself.
         merge = len(changeset.parents()) > 1
         branch_closed = len(files) == 0
-        changelog_update = changelog_filename in files and len(files) == 1
+        changelog_update = changelog_filename in files
         if merge or new_version or branch_closed or changelog_update:
             continue
         # Ensure we have a current version and if so, add this changeset's
