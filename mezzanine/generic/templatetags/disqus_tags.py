@@ -39,7 +39,7 @@ def _get_disqus_sso(user, public_key, secret_key):
 
     # create a JSON packet of our data attributes
     data = simplejson.dumps({
-        'id': user.id,
+        'id': '%s' % user.id,
         'username': user.username,
         'email': user.email,
     })
@@ -48,8 +48,7 @@ def _get_disqus_sso(user, public_key, secret_key):
     # generate a timestamp for signing the message
     timestamp = int(time.time())
     # generate our hmac signature
-    message = '%s %s' % (message, timestamp)
-    sig = hmac.HMAC(secret_key, message, hashlib.sha1).hexdigest()
+    sig = hmac.HMAC(secret_key, '%s %s' % (message, timestamp), hashlib.sha1).hexdigest()
 
     # Messages are of the form <message> <signature> <timestamp>
     return '%s %s %s' % (message, sig, timestamp)
