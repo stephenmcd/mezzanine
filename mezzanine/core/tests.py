@@ -404,9 +404,10 @@ class Tests(TestCase):
         except OSError:
             pass
         thumbnail_image = thumbnail(orig_name, 24, 24)
-        self.assertEqual(thumbnail_image.lstrip("/"), thumbnail_name)
-        self.assertNotEqual(0, os.path.getsize(thumbnail_path))
+        thumbnail_size = os.path.getsize(thumbnail_path)
         try:
             os.remove(thumbnail_path)
         except OSError:
             pass
+        self.assertEqual(thumbnail_image.lstrip("/"), thumbnail_name)
+        self.assertNotEqual(0, thumbnail_size)
