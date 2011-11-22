@@ -1,3 +1,9 @@
+Version 0.12.3 (Nov 23, 2011)
+-----------------------------
+
+  * Fixed Disqus single-sign-on bug where message is overwritten to <message, timestamp> and returned incorrectly in payload - Brett Clouser
+  * Changed thumbnail test to remove test thumbnail even if test fails - Stephen McDonald
+
 Version 0.12.2 (Nov 19, 2011)
 -----------------------------
 
