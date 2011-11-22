@@ -50,7 +50,8 @@ def _get_disqus_sso(user, public_key, secret_key):
     # generate a timestamp for signing the message
     timestamp = int(time.time())
     # generate our hmac signature
-    sig = hmac.HMAC(str(secret_key), '%s %s' % (message, timestamp), hashlib.sha1).hexdigest()
+    sig = hmac.HMAC(str(secret_key), '%s %s' % (message, timestamp),
+                    hashlib.sha1).hexdigest()
 
     # Messages are of the form <message> <signature> <timestamp>
     return '%s %s %s' % (message, sig, timestamp)
