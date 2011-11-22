@@ -30,9 +30,13 @@ class SettingsForm(forms.Form):
             setting = registry[name]
             if setting["editable"]:
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
-                self.fields[name] = field_class(label=setting["label"] + ":",
-                                required=False, initial=getattr(settings, name),
-                                help_text=setting["description"])
+                kwargs = {
+                    "label": setting["label"] + ":",
+                    "required": False,
+                    "initial": getattr(settings, name),
+                    "help_text": setting["description"]
+                }
+                self.fields[name] = field_class(**kwargs)
 
     def __iter__(self):
         """
@@ -54,6 +58,7 @@ class SettingsForm(forms.Form):
     def save(self):
         # Save each of the settings to the DB.
         for (name, value) in self.cleaned_data.items():
-            setting_obj, created = Setting.objects.get_or_create(name=name, site=Site.objects.get_current())
+            kwargs = {"name": name, "site": Site.objects.get_current()}
+            setting_obj, created = Setting.objects.get_or_create(**kwargs)
             setting_obj.value = value
             setting_obj.save()

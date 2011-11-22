@@ -1,0 +1,166 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}{{ block.super }}
+<style type="text/css">
+
+    #content-main table {margin:10px 0 20px 0;}
+    #content-main ul, #content-main li {display:inline; padding:0;}
+    #content-main label {cursor:pointer;}
+    h1 {margin-top:20px;}
+    #content-main h1 {margin:30px 0 0 0;}
+    table {border:1px solid #ddd;}
+    th, td {border-right:1px solid #ddd; padding:5px 15px;}
+    .last {border-right:0;}
+    .include, .include-all {text-align:center;}
+    .empty {margin-top:10px;}
+    .field {padding-top:8px;}
+    .filter select {width:140px;}
+    .options {vertical-align:middle;}
+    .options label {margin:0 10px; font-weight:normal; vertical-align:middle;}
+    .options-div {visibility:hidden;}
+    .options select {min-width:0;}
+    .on {background:#eee;}
+    .off {background:#fff;}
+    .button {float:left !important; margin-right:10px; cursor:pointer;}
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $(function() {
+        // Show the filter criteria fields when a filter option is selected.
+        $('.filter select').change(function() {
+            var filtering = this.selectedIndex > 0;
+            var options = $(this).parent().parent().find('.options-div');
+            options.css({visibility: filtering ? 'visible' : 'hidden'});
+            // Focus the first field.
+            if (filtering) {
+                var input = options.find('input:first');
+                if (input.length == 1) {
+                    input.focus();
+                } else {
+                    options.find('select:first').focus();
+                }
+            }
+        }).change();
+        // Toggle the include `All` checkboxes - grouped within table tags.
+        $('#content-main table').each(function(i, table) {
+            table = $(table);
+            var all = table.find(':checkbox.include-all');
+            var others = table.find('.include :checkbox');
+            others.change(function() {
+                all.attr('checked', table.find('.include :checkbox:not(:checked)').length == 0);
+            });
+            all.change(function() {
+                others.attr('checked', !!all.attr('checked'));
+            });
+        });
+        // Add a confirmation prompt for deleting entries.
+        $('input[name="delete"]').click(function() {
+            if ($('input[name="selected"]:checked').length == 0) {
+                alert('{% trans "No entries selected" %}');
+                return false;
+            } else {
+                return confirm('{% trans "Delete selected entries?" %}');
+            }
+        });
+    });
+
+</script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+     <a href="../../../../">{% trans "Home" %}</a> &rsaquo;
+     <a href="../../../">{{ opts.app_label|capfirst|escape }}</a> &rsaquo;
+     <a href="../../">{{ opts.verbose_name_plural|capfirst }}</a> &rsaquo;
+     <a href="../">{{ original|truncatewords:"18" }}</a> &rsaquo;
+     {{ title }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <form method="post">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <th>{% trans "Field" %}</th>
+            <th>{% trans "Include" %}</th>
+            <th class="last" colspan="2">{% trans "Filter by" %}</th>
+        </tr>
+        {% for include_field, filter_field, filter_option_fields in entries_form %}
+        <tr class="{% cycle on,off as row %}">
+            <td class="field">{{ include_field.label_tag }}</td>
+            <td class="include">{{ include_field }}</td>
+            <td class="filter last">{{ filter_field }}</td>
+            <td class="options last">
+                <div class="options-div">
+                    {% for option_field in filter_option_fields %}
+                    {{ option_field.label_tag }} {{ option_field }}
+                    {% endfor %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr class="{% cycle row %}">
+            <td class="field" style="text-align:right;">
+                <label for="include-all">{% trans "All" %}</label>
+            </td>
+            <td class="include-all">
+                <input type="checkbox" id="include-all" class="include-all" checked="checked" />
+            </td>
+            <td class="last" colspan="2">&nbsp;</td>
+        </tr>
+    </table>
+    <input type="submit" name="back" class="button" value="{% trans "Back to form" %}" />
+    <input type="submit" class="button default" value="{% trans "View entries" %}" />
+    <input type="submit" class="button default" name="export" value="{% trans "Export CSV" %}" />
+    {% if submitted %}
+    <br clear="both" />
+    <h1 id="entries-title">{% trans "Entries" %}</h1>
+    {% for row in entries_form.rows %}
+    {% if forloop.first %}
+    <table id="entries-table">
+        <tr>
+            {% if can_delete_entries %}
+            <th><input type="checkbox" class="include-all"></th>
+            {% endif %}
+            {% for column in entries_form.columns %}
+            <th{% if forloop.last %} class="last"{% endif %}>{{ column }}</th>
+            {% endfor %}
+        </tr>
+    {% endif %}
+        <tr class="{% cycle on,off %}">
+            {% if can_delete_entries %}
+            <td class="include">
+                <input type="checkbox" name="selected" value="{{ row.0 }}">
+            </td>
+            {% endif %}
+            {% for field in row %}
+            {% if not forloop.first %}
+            <td{% if forloop.last %} class="last"{% endif %}>{{ field }}</td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+    {% if forloop.last %}
+    </table>
+    <!--
+    count is injected into the title here with the :after selector
+    to avoid calling the expensive "entries_form.rows" twice.
+    -->
+    <style>#entries-title:after {content: ' ({{ forloop.counter }})';}</style>
+    {% if can_delete_entries %}
+    <input type="submit" name="back" class="button" value="{% trans "Back to form" %}" />
+    <input type="submit" name="delete" class="button default" value="{% trans "Delete selected" %}" />
+    {% endif %}
+    {% endif %}
+    {% empty %}
+    <p class="empty">{% trans "No entries to display" %}</p>
+    {% endfor %}
+    {% endif %}
+    </form>
+</div>
+{% endblock %}

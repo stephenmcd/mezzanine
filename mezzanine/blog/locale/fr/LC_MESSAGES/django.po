@@ -1,43 +1,43 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-06 23:47+0600\n"
-"PO-Revision-Date: 2011-02-13 14:37+0100\n"
-"Last-Translator: Dominique Guardiola <dguardiola@quinode.fr>\n"
+"POT-Creation-Date: 2011-11-11 22:13-0430\n"
+"PO-Revision-Date: 2011-11-12 03:20+0000\n"
+"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n>1;\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: models.py:16 templates/blog/blog_post_list.html:82
+#: models.py:17 templates/blog/blog_post_list.html:82
 msgid "Comments"
 msgstr "Commentaires"
 
-#: models.py:17
+#: models.py:18
 msgid "Rating"
 msgstr ""
 
-#: models.py:20
+#: models.py:21
 msgid "Blog post"
 msgstr "Article de blog"
 
-#: models.py:21
+#: models.py:22
 msgid "Blog posts"
 msgstr "Articles de blog"
 
-#: models.py:35
+#: models.py:36
 msgid "Blog Category"
 msgstr "Catégorie d'articles"
 
-#: models.py:36
+#: models.py:37
 msgid "Blog Categories"
 msgstr "Catégories d'articles"
 
@@ -49,23 +49,23 @@ msgstr "Article rapide"
 msgid "Save Draft"
 msgstr "Enregistrer en tant que brouillon"
 
-#: templates/blog/blog_post_detail.html:36
+#: templates/blog/blog_post_detail.html:34
 msgid "Home"
 msgstr "Accueil"
 
-#: templates/blog/blog_post_detail.html:46
-#: templates/blog/blog_post_list.html:50
+#: templates/blog/blog_post_detail.html:44
+#: templates/blog/blog_post_list.html:51
 msgid "Posted by"
 msgstr "Posté par"
 
-#: templates/blog/blog_post_detail.html:53
-#: templates/blog/blog_post_list.html:62
+#: templates/blog/blog_post_detail.html:51
+#: templates/blog/blog_post_list.html:61
 msgid "ago"
 msgstr "il y a "
 
-#: templates/blog/blog_post_detail.html:56
+#: templates/blog/blog_post_detail.html:54
 #: templates/blog/blog_post_list.html:86
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "        1 comment\n"
@@ -75,47 +75,39 @@ msgid_plural ""
 "        %(comments_count)s comments\n"
 "        "
 msgstr[0] ""
-"\n"
-"        1 commentaire\n"
-"        "
 msgstr[1] ""
-"\n"
-"        %(num_comments)s commentaires\n"
-"        "
 
-#: templates/blog/blog_post_detail.html:71
-#: templates/blog/blog_post_list.html:72
+#: templates/blog/blog_post_detail.html:69
+#: templates/blog/blog_post_list.html:71
 #: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
 msgstr "Tags"
 
-#: templates/blog/blog_post_detail.html:85
-#, fuzzy
+#: templates/blog/blog_post_detail.html:82
 msgid "Share this on"
-msgstr "Partager sur:"
+msgstr ""
 
-#: templates/blog/blog_post_list.html:26
+#: templates/blog/blog_post_list.html:27
 msgid "Viewing posts tagged"
 msgstr "Afficher les articles taggués"
 
-#: templates/blog/blog_post_list.html:28
+#: templates/blog/blog_post_list.html:29
 msgid "Viewing posts for the category"
 msgstr "Affichés les articles de la catégorie"
 
-#: templates/blog/blog_post_list.html:30
+#: templates/blog/blog_post_list.html:31
 msgid "Viewing posts from"
 msgstr "Afficher les articles de"
 
-#: templates/blog/blog_post_list.html:33
+#: templates/blog/blog_post_list.html:34
 msgid "Viewing posts by"
 msgstr "Afficher les articles écrits par"
 
-#: templates/blog/blog_post_list.html:57
-#, fuzzy
+#: templates/blog/blog_post_list.html:56
 msgid "in"
-msgstr "Lien"
+msgstr ""
 
-#: templates/blog/blog_post_list.html:78
+#: templates/blog/blog_post_list.html:77
 msgid "read more"
 msgstr "lire la suite"
 
@@ -147,62 +139,4 @@ msgstr "RSS"
 msgid "Atom"
 msgstr "Atom"
 
-#~ msgid "Name"
-#~ msgstr "Nom"
 
-#~ msgid "required"
-#~ msgstr "obligatoire"
-
-#~ msgid "Email"
-#~ msgstr "Courriel"
-
-#~ msgid "required (not published)"
-#~ msgstr "obligatoire (non publié)"
-
-#~ msgid "Email hash"
-#~ msgstr "Hash courriel"
-
-#~ msgid "Comment"
-#~ msgstr "Commentaire"
-
-#~ msgid "Website"
-#~ msgstr "Site web"
-
-#~ msgid "optional"
-#~ msgstr "optionnel"
-
-#~ msgid "Approved"
-#~ msgstr "Approuvé"
-
-#~ msgid "By the blog author"
-#~ msgstr "Par l'auteur du blog"
-
-#~ msgid "IP address"
-#~ msgstr "Adresse IP"
-
-#~ msgid "Created at"
-#~ msgstr "Créé à "
-
-#~ msgid "View on site"
-#~ msgstr "Voir sur le site"
-
-#~ msgid "Recent Comments"
-#~ msgstr "Commentaires récents"
-
-#~ msgid "Posted to"
-#~ msgstr "Posté sur"
-
-#~ msgid "View comment"
-#~ msgstr "Voir commentaire"
-
-#~ msgid "Reply"
-#~ msgstr "Réponse"
-
-#~ msgid "Comment deleted"
-#~ msgstr "Commentaire effacé"
-
-#~ msgid "Comment awaiting approval"
-#~ msgstr "Commentaire en attente d'approbation"
-
-#~ msgid "There are currently no comments"
-#~ msgstr "Il n'y a pas de commentaires actuellement"

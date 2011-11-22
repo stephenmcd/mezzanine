@@ -45,6 +45,7 @@ def build_settings_docs(docs_path, prefix=None):
 # Python complains if this is inside build_changelog which uses exec.
 _changeset_date = lambda c: datetime.fromtimestamp(c.date()[0])
 
+
 def build_changelog(docs_path, package_name="mezzanine"):
     """
     Converts Mercurial commits into a changelog in RST format.
@@ -90,7 +91,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
         # a branch or regenerated the changelog itself.
         merge = len(changeset.parents()) > 1
         branch_closed = len(files) == 0
-        changelog_update = changelog_filename in files and len(files) == 1
+        changelog_update = changelog_filename in files
         if merge or new_version or branch_closed or changelog_update:
             continue
         # Ensure we have a current version and if so, add this changeset's
@@ -119,6 +120,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
             else:
                 f.write("  * No changes listed.\n")
             f.write("\n")
+
 
 def build_requirements(docs_path, package_name="mezzanine"):
     """

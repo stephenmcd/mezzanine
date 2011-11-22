@@ -1,12 +1,13 @@
 
 from datetime import date, datetime
-from os.path import join
+from os.path import join, split
 from uuid import uuid4
 
 from django import forms
 from django.forms.extras import SelectDateWidget
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -138,10 +139,10 @@ class FormForForm(forms.ModelForm):
         return None
 
 
-class ExportForm(forms.Form):
+class EntriesForm(forms.Form):
     """
-    Form with a set of fields dynamically assigned, that can be used to
-    filter responses for the given ``forms.models.Form`` instance.
+    Form with a set of fields dynamically assigned that can be used to
+    filter entries for the given ``forms.models.Form`` instance.
     """
 
     def __init__(self, form, request, *args, **kwargs):
@@ -158,7 +159,7 @@ class ExportForm(forms.Form):
         self.form_fields = form.fields.all()
         self.entry_time_name = unicode(FormEntry._meta.get_field(
             "entry_time").verbose_name).encode("utf-8")
-        super(ExportForm, self).__init__(*args, **kwargs)
+        super(EntriesForm, self).__init__(*args, **kwargs)
         for field in self.form_fields:
             field_key = "field_%s" % field.id
             # Checkbox for including in export.
@@ -187,7 +188,7 @@ class ExportForm(forms.Form):
                 contains_field = forms.CharField(label=" ", required=False)
                 self.fields["%s_filter" % field_key] = text_filter_field
                 self.fields["%s_contains" % field_key] = contains_field
-        # Add ``FormEntry.entry_time`` as a field.if field.is_a(fields.EMAIL):
+        # Add ``FormEntry.entry_time`` as a field.
         field_key = "field_0"
         self.fields["%s_export" % field_key] = forms.BooleanField(initial=True,
             label=FormEntry._meta.get_field("entry_time").verbose_name,
@@ -204,7 +205,7 @@ class ExportForm(forms.Form):
         """
         for field_id in [f.id for f in self.form_fields] + [0]:
             prefix = "field_%s_" % field_id
-            fields = [f for f in super(ExportForm, self).__iter__()
+            fields = [f for f in super(EntriesForm, self).__iter__()
                       if f.name.startswith(prefix)]
             yield fields[0], fields[1], fields[2:]
 
@@ -212,13 +213,13 @@ class ExportForm(forms.Form):
         """
         Returns the list of selected column names.
         """
-        fields = [f.label for f in self.form_fields
+        fields = [f.label.encode("utf-8") for f in self.form_fields
                   if self.cleaned_data["field_%s_export" % f.id]]
         if self.cleaned_data["field_0_export"]:
-            fields.append(self.entry_time_name)
+            fields.append(self.entry_time_name.encode("utf-8"))
         return fields
 
-    def rows(self):
+    def rows(self, csv=False):
         """
         Returns each row based on the selected criteria.
         """
@@ -263,6 +264,8 @@ class ExportForm(forms.Form):
             if field_entry.entry_id != current_entry:
                 # New entry, write out the current row and start a new one.
                 if valid_row and current_row is not None:
+                    if not csv:
+                        current_row.insert(0, current_entry)
                     yield current_row
                 current_entry = field_entry.entry_id
                 current_row = [""] * num_columns
@@ -308,11 +311,17 @@ class ExportForm(forms.Form):
             if field_id in file_field_ids:
                 url = reverse("admin:form_file", args=(field_entry.id,))
                 field_value = self.request.build_absolute_uri(url)
+                if not csv:
+                    parts = (field_value, split(field_entry.value)[1])
+                    field_value = mark_safe("<a href=\"%s\">%s</a>" % parts)
             # Only use values for fields that were selected.
             try:
+                field_value = field_value.encode("utf-8")
                 current_row[field_indexes[field_id]] = field_value
             except KeyError:
                 pass
         # Output the final row.
         if valid_row and current_row is not None:
+            if not csv:
+                current_row.insert(0, current_entry)
             yield current_row

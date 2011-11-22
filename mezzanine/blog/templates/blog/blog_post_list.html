@@ -1,10 +1,11 @@
 {% extends "base.html" %}
-{% load i18n mezzanine_tags blog_tags disqus_tags %}
+{% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
 
 {% block meta_title %}{{ blog_page.title }}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
-{% for keyword in blog_page.keywords.all %}
+{% keywords_for blog_page as keywords %}
+{% for keyword in keywords %}
     {% if not forloop.first %}, {% endif %}
     {{ keyword }}
 {% endfor %}

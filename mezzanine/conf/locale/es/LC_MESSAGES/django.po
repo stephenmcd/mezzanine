@@ -1,0 +1,375 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-11 22:15-0430\n"
+"PO-Revision-Date: 2011-11-12 03:51+0000\n"
+"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
+"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/team/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:36
+#, python-format
+msgid "Change %s"
+msgstr "Cambiar %s"
+
+#: defaults.py:12
+msgid "Controls the ordering and grouping of the admin menu."
+msgstr "Controla el orden y agrupamiento del menú de administración"
+
+#: defaults.py:15
+msgid "Content"
+msgstr "Contenido"
+
+#: defaults.py:16
+msgid "Media Library"
+msgstr "Biblioteca de medios"
+
+#: defaults.py:17
+msgid "Site"
+msgstr "Sitio"
+
+#: defaults.py:18
+msgid "Users"
+msgstr "Usuarios"
+
+#: defaults.py:24
+msgid "Unregister these models from the admin."
+msgstr "Anular el registro de estos modelos del sitio administrativo"
+
+#: defaults.py:31
+msgid "bit.ly username"
+msgstr "Nombre de usuario en bit.ly"
+
+#: defaults.py:32
+msgid "Username for bit.ly URL shortening service."
+msgstr "Nombre de usuario para el servicio de acortado de URLs bit.ly"
+
+#: defaults.py:39
+msgid "bit.ly key"
+msgstr "Llave bit.ly"
+
+#: defaults.py:40
+msgid "Key for bit.ly URL shortening service."
+msgstr "Llave para el servicio de acortado de URLs bit.ly"
+
+#: defaults.py:47
+msgid "Blog posts per page"
+msgstr "Publicaciones de la bitácora a mostrar por página"
+
+#: defaults.py:48
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Número de publicaciones a mostrar en una página de la bitácora."
+
+#: defaults.py:55
+msgid "Max blog paging links"
+msgstr "Máximo de enlaces de paginación en la bitácora"
+
+#: defaults.py:56
+msgid "Max number of paging links shown on a blog listing page."
+msgstr ""
+"Número máximo de enlaces de paginación a mostrar en una página de la "
+"bitácora."
+
+#: defaults.py:63
+msgid "Slug of the page object for the blog."
+msgstr "Slug de la página para el blog"
+
+#: defaults.py:70
+msgid "Disqus shortname"
+msgstr "Nombre corto de Disqus"
+
+#: defaults.py:71
+msgid "Shortname for the http://disqus.com comments service."
+msgstr "Nombre corto para el servicio de comentarios http://disqus.com"
+
+#: defaults.py:78
+msgid "Disqus public key"
+msgstr "Llave pública de Disqus"
+
+#: defaults.py:79
+msgid "Public key for Disqus developer API"
+msgstr "Llave pública para el API de desarrolladores de Disqus"
+
+#: defaults.py:86
+msgid "Disqus secret key"
+msgstr "Llave secreta de Disqus"
+
+#: defaults.py:87
+msgid "Secret key for Disqus developer API"
+msgstr "Llave secreta para el API de desarrolladores de Disqus"
+
+#: defaults.py:94
+msgid "Auto-approve comments"
+msgstr "Aprobar comentarios automáticamente"
+
+#: defaults.py:95
+msgid "If ``True``, built-in comments are approved by default."
+msgstr ""
+"Si es ``True``, los comentarios incluidos en el sistema son aprobados por "
+"defecto."
+
+#: defaults.py:102
+msgid "Admin comments"
+msgstr "Comentarios en el sitio administrativo"
+
+#: defaults.py:103
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr ""
+"Número de comentarios más recientes mostrados en el panel de administración."
+
+#: defaults.py:110
+msgid "Show unapproved comments"
+msgstr "Mostrar comentarios aún no aprobados"
+
+#: defaults.py:111
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+"Si es ``True``, los comentarios que tienen ``is_public`` desactivado serán "
+"mostrados, pero reemplazados por un mensaje de ``En espera de aprobación``."
+
+#: defaults.py:120
+msgid "Show removed comments"
+msgstr "Mostrar comentarios borrados"
+
+#: defaults.py:121
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr ""
+"Si es ``True``, los comentarios que tienen ``removed`` activado serán "
+"mostrados pero reemplazados por un mensaje de ``Borrado``."
+
+#: defaults.py:129
+msgid "Absolute path to Mezzanine's internal media files."
+msgstr "Ruta absoluta a los archivos de medios internos de Mezzanine."
+
+#: defaults.py:136
+msgid "URL prefix for serving Mezzanine's internal media files."
+msgstr "Prefijo de URL para los archivos de medios internos de Mezzanine."
+
+#: defaults.py:156
+msgid ""
+"A three item sequence, each containing a sequence of template tags used to "
+"render the admin dashboard."
+msgstr ""
+"Una secuencia de tres elementos, cada uno conteniendo una secuencia de "
+"``template tags`` usados para generar el panel de administración."
+
+#: defaults.py:164
+msgid "Device specific template sub-directory to use as the default device."
+msgstr ""
+"Sub-directorio de plantillas específico a un dispositivo que se usará como "
+"dispositivo por defecto."
+
+#: defaults.py:172
+msgid ""
+"Mapping of device specific template sub-directory names to the sequence of "
+"strings that may be found in their user agents."
+msgstr ""
+"Pareo de nombres de sub-directorios con plantillas específicas a un "
+"dispositivo con las secuencias de cadenas de caracteres que podrían "
+"encontrarse en sus agentes de usuario (User Agents)."
+
+#: defaults.py:194
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
+msgstr ""
+"Una secuencia de campos que se inyectarán en los modelos de Mezzanine (o "
+"cualquier aplicación). Cada ítem en la secuencia es a su vez una secuencia "
+"de 4 ítems. Los primeros dos ítems son la ruta puntuada al modelo y el "
+"nombre del campo a ser añadido, y la ruta puntuada a la clase de campo a "
+"usar para el campo. El tercer y cuarto ítems son una secuencia de parámetros"
+" posicionales y un diccionaro de parámetros con palabra clave, que se usarán"
+" cuando se cree la instancia del campo. Cuando se especifique la clase de "
+"campo, la ruta ``django.models.db.`` puede omitirse de los campos de modelos"
+" regulares de Django."
+
+#: defaults.py:209
+msgid "Max length allowed for field values in the forms app."
+msgstr ""
+"Máxima longitud permitida para los valores de campos en la aplicación de "
+"formularios."
+
+#: defaults.py:216
+msgid "Max length allowed for field labels in the forms app."
+msgstr ""
+"Máxima longitud permitida para las etiquetas de los campos en la aplicación "
+"de formularios."
+
+#: defaults.py:223
+msgid ""
+"If ``True``, website forms created by the forms app will use HTML5 features."
+msgstr ""
+"Si es ``True``, los formularios del sitio creados con la aplicación de "
+"formularios utilizarán características de HTML5."
+
+#: defaults.py:231
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr ""
+"Carácter a usar como delimitador de campos cuando se exporten las respuestas"
+" a un formulario como CSV."
+
+#: defaults.py:239
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr ""
+"Ruta absoluta donde se almacenarán los archivos para la aplicación de "
+"formularios."
+
+#: defaults.py:246
+msgid "Google Analytics ID"
+msgstr "Número de identificación de Google Analytics"
+
+#: defaults.py:248
+msgid "Google Analytics ID (http://www.google.com/analytics/)"
+msgstr ""
+"Número de identificación de Google Analytics "
+"(http://www.google.com/analytics/)"
+
+#: defaults.py:254
+msgid ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
+msgstr ""
+"Ruta puntuada al paquete y el nombre de clase a usar para el campo de texto "
+"enriquecido."
+
+#: defaults.py:262
+msgid ""
+"Dotted path to the function to call on a ``RichTextField`` value before it "
+"is rendered to the template."
+msgstr ""
+"Ruta puntuada a la función a llamar sobre un campo de texto enriquecido "
+"antes de ser renderizado por la plantilla."
+
+#: defaults.py:270
+msgid "Tag Cloud Sizes"
+msgstr "Tamaños de la nube de etiquetas"
+
+#: defaults.py:271
+msgid "Number of different sizes for tags when shown as a cloud."
+msgstr ""
+"Número de tamaños distintos a usar para las etiquetas cuando se muestren "
+"como una nube."
+
+#: defaults.py:278
+msgid "Package name of theme app to use."
+msgstr "Nombre del paquete del tema a utilizar."
+
+#: defaults.py:285
+msgid ""
+"If ``True``, the pages menu will show all levels of navigation, otherwise "
+"child pages are only shown when viewing the parent page."
+msgstr ""
+"Si es ``True``, el menú de páginas mostrará todos los niveles de navegación."
+" De otra manera, las páginas hijas se mostrarán solo cuando se esté viendo "
+"su página padre."
+
+#: defaults.py:294
+msgid "Min value for a rating."
+msgstr "Valor mínimo para una puntuación."
+
+#: defaults.py:301
+msgid "Max value for a rating."
+msgstr "Valor máximo para una puntuación."
+
+#: defaults.py:308
+msgid "Search results per page"
+msgstr "Resultados de búsqueda por página"
+
+#: defaults.py:309
+msgid "Number of results shown in the search results page."
+msgstr ""
+"Número de resultados a mostrar en la página de resultados de búsqueda."
+
+#: defaults.py:316
+msgid "Max search paging links"
+msgstr "Máximo de enlaces de paginación de búsqueda"
+
+#: defaults.py:317
+msgid "Max number of paging links for the search results page."
+msgstr ""
+"Número máximo de enlaces de paginación a mostrar en la página de resultados "
+"de búsqueda."
+
+#: defaults.py:324
+msgid "Site Title"
+msgstr "Título del Sitio"
+
+#: defaults.py:325
+msgid ""
+"Title that will display at the top of the site, and be appended to the "
+"content of the HTML title tags on every page."
+msgstr ""
+"Título que se mostrará en la parte superior del sitio, y que se incluirá en "
+"el contenido de la etiqueta title del HTML de todas las páginas."
+
+#: defaults.py:333
+msgid "Tagline"
+msgstr "Lema"
+
+#: defaults.py:334
+msgid "A tag line that will appear at the top of all pages."
+msgstr ""
+"Un lema o eslogan que aparecerá en la parte superior de todas las páginas."
+
+#: defaults.py:336
+msgid "An open source content management platform."
+msgstr "Una plataforma de manejo de contenidos de código abierto."
+
+#: defaults.py:341
+msgid "List of words which will be stripped from search queries."
+msgstr "Lista de palabras que se eliminarán de las consultas de búsqueda."
+
+#: defaults.py:398
+msgid "Sequence of setting names available within templates."
+msgstr "Secuencia de nombres de opciones disponibles en las plantillas."
+
+#: defaults.py:419
+msgid ""
+"If ``True``, the south application will be automatically added to the "
+"``INSTALLED_APPS`` setting."
+msgstr ""
+"Si es ``True``, la aplicación ``South`` se añadirá automáticamente a "
+"``INSTALLED_APPS``."
+
+#: forms.py:48
+msgid "Miscellaneous"
+msgstr "Misceláneos"
+
+#: models.py:17
+msgid "Setting"
+msgstr "Opción"
+
+#: models.py:18
+msgid "Settings"
+msgstr "Opciones"
+
+#: templates/admin/conf/setting/change_list.html:21
+msgid "Please correct the errors below."
+msgstr "Por favor corrija los errores debajo"
+
+#: templates/admin/conf/setting/change_list.html:44
+msgid "Save"
+msgstr "Guardar"
+
+

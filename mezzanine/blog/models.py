@@ -13,6 +13,7 @@ class BlogPost(Displayable, Ownable, RichText):
 
     categories = models.ManyToManyField("BlogCategory", blank=True,
                                         related_name="blogposts")
+    allow_comments = models.BooleanField(default=True)
     comments = CommentsField(verbose_name=_("Comments"))
     rating = RatingField(verbose_name=_("Rating"))
 

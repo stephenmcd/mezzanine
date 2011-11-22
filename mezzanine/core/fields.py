@@ -28,7 +28,7 @@ class RichTextField(TextField):
         return formfield
 
 
-HtmlField = RichTextField # For backward compatibility in south migrations.
+HtmlField = RichTextField  # For backward compatibility in south migrations.
 
 # South requires custom fields to be given "rules".
 # See http://south.aeracode.org/docs/customfields.html

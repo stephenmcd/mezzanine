@@ -1,23 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-17 22:49+0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2011-11-11 22:15-0430\n"
+"PO-Revision-Date: 2011-11-12 03:20+0000\n"
+"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: admin.py:36
 #, python-format
@@ -69,16 +67,16 @@ msgid "Blog posts per page"
 msgstr "Сообщений блога на страницу"
 
 #: defaults.py:48
-msgid "Number of blog posts to show on a blog listing page."
-msgstr "Количество сообщений блога, отображаемое на одной странице листинга"
+msgid "Number of blog posts shown on a blog listing page."
+msgstr ""
 
 #: defaults.py:55
 msgid "Max blog paging links"
 msgstr "Максимум ссылок на страницы блога"
 
 #: defaults.py:56
-msgid "Max number of paging links to show on a blog listing page."
-msgstr "Максимальное количество ссылок на страницы листинга"
+msgid "Max number of paging links shown on a blog listing page."
+msgstr ""
 
 #: defaults.py:63
 msgid "Slug of the page object for the blog."
@@ -121,8 +119,8 @@ msgid "Admin comments"
 msgstr "Комментариев в админке"
 
 #: defaults.py:103
-msgid "Number of latest comments to show in the admin dashboard."
-msgstr "Количество комментариев, отображаемых на административной панели"
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr ""
 
 #: defaults.py:110
 msgid "Show unapproved comments"
@@ -133,8 +131,8 @@ msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
 msgstr ""
-"Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом "
-"будут заменены на надпись ``ожидает подтверждения``"
+"Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом"
+" будут заменены на надпись ``ожидает подтверждения``"
 
 #: defaults.py:120
 msgid "Show removed comments"
@@ -142,8 +140,8 @@ msgstr "Удалённые комментарии"
 
 #: defaults.py:121
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
 msgstr ""
 "Если ``Да``, то удалённые комментарии продолжат отображаться, но при этом "
 "будут заменены на надпись ``Удалено``"
@@ -173,38 +171,51 @@ msgid ""
 msgstr "Соответствие различных моделей мобильных устройств с шаблонами"
 
 #: defaults.py:194
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
+msgstr ""
+
+#: defaults.py:209
 msgid "Max length allowed for field values in the forms app."
 msgstr "Максимальная длина, допустимая для полей пользовательских форм"
 
-#: defaults.py:201
+#: defaults.py:216
 msgid "Max length allowed for field labels in the forms app."
 msgstr "Максимально допустимая длина названий полей пользовательских форм"
 
-#: defaults.py:208
+#: defaults.py:223
 msgid ""
 "If ``True``, website forms created by the forms app will use HTML5 features."
 msgstr ""
-"Если ``Да``, то пользовательские формы будут использовать преимущества HTML5."
+"Если ``Да``, то пользовательские формы будут использовать преимущества "
+"HTML5."
 
-#: defaults.py:216
+#: defaults.py:231
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
 msgstr ""
 "Символ, используемый как разделитель полей, при экспорте ответов на форму в "
 "формате CSV"
 
-#: defaults.py:224
+#: defaults.py:239
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Пусть для сохранения файлов, закачанных через пользовательские формы"
 
-#: defaults.py:231
+#: defaults.py:246
 msgid "Google Analytics ID"
 msgstr "Google Analytics ID"
 
-#: defaults.py:233
+#: defaults.py:248
 msgid "Google Analytics ID (http://www.google.com/analytics/)"
 msgstr "Google Analytics ID (http://www.google.com/analytics/)"
 
-#: defaults.py:239
+#: defaults.py:254
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
@@ -212,7 +223,7 @@ msgstr ""
 "Разделённый точками путь к пакету и имя класса виджета, используемый для "
 "отображения виджета ``RichTextField``."
 
-#: defaults.py:247
+#: defaults.py:262
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
@@ -220,20 +231,20 @@ msgstr ""
 "Разделённый точками путь до функции, преобразующей значение "
 "``RichTextField``, при отображении в шаблоне"
 
-#: defaults.py:255
+#: defaults.py:270
 msgid "Tag Cloud Sizes"
 msgstr "Размеры облака тэгов"
 
-#: defaults.py:256
+#: defaults.py:271
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr ""
 "Количество разнообразных размеров надписей, отображаемых в облаке тэгов"
 
-#: defaults.py:263
+#: defaults.py:278
 msgid "Package name of theme app to use."
 msgstr "компонента, используемая в качестве Темы"
 
-#: defaults.py:270
+#: defaults.py:285
 msgid ""
 "If ``True``, the pages menu will show all levels of navigation, otherwise "
 "child pages are only shown when viewing the parent page."
@@ -241,37 +252,37 @@ msgstr ""
 "Если ``Да``, то административное меню отображает как приложения, так и "
 "модели, в другом случае в меню отображаются только приложения"
 
-#: defaults.py:279
+#: defaults.py:294
 msgid "Min value for a rating."
 msgstr "Минимальное значение для голосования"
 
-#: defaults.py:286
+#: defaults.py:301
 msgid "Max value for a rating."
 msgstr "Максимальное значение для голосования"
 
-#: defaults.py:293
+#: defaults.py:308
 msgid "Search results per page"
 msgstr "Количество результатов поиска на страницу"
 
-#: defaults.py:294
-msgid "Number of results to show in the search results page."
-msgstr "Количкество рузельтатов, отображаемых на странице поиска"
+#: defaults.py:309
+msgid "Number of results shown in the search results page."
+msgstr ""
 
-#: defaults.py:301
+#: defaults.py:316
 msgid "Max search paging links"
 msgstr "Максимальное количество страниц поиска"
 
-#: defaults.py:302
+#: defaults.py:317
 msgid "Max number of paging links for the search results page."
 msgstr ""
 "Максимальное количество ссылок на страницы, отображаемых на странице "
 "результатов поиска"
 
-#: defaults.py:309
+#: defaults.py:324
 msgid "Site Title"
 msgstr "Заголовок сайта"
 
-#: defaults.py:310
+#: defaults.py:325
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
@@ -280,27 +291,27 @@ msgstr ""
 "браузера), состоит из заголовка отображаемой страницы с добавлением данной "
 "части"
 
-#: defaults.py:318
+#: defaults.py:333
 msgid "Tagline"
 msgstr "Подзаголовок"
 
-#: defaults.py:319
+#: defaults.py:334
 msgid "A tag line that will appear at the top of all pages."
 msgstr "Подзаголовок, отображаемый на всех страницах сайта"
 
-#: defaults.py:321
+#: defaults.py:336
 msgid "An open source content management platform."
 msgstr ""
 
-#: defaults.py:326
+#: defaults.py:341
 msgid "List of words which will be stripped from search queries."
 msgstr "Список слов, исключаемых из поисковых запросов"
 
-#: defaults.py:383
+#: defaults.py:398
 msgid "Sequence of setting names available within templates."
 msgstr "Список настроек, переопределяемых пользователем"
 
-#: defaults.py:404
+#: defaults.py:419
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
@@ -308,7 +319,7 @@ msgstr ""
 "Если ``Да``, то South будет автоматически добавлен в список приложений "
 "(INSTALLED_APPS)"
 
-#: forms.py:44
+#: forms.py:48
 msgid "Miscellaneous"
 msgstr "Прочее"
 
@@ -328,11 +339,4 @@ msgstr "Пожалуста, исправьте следующие ошибки"
 msgid "Save"
 msgstr "Сохранить"
 
-msgid "Search"
-msgstr "Поиск"
 
-msgid "Blog"
-msgstr "Блог"
-
-msgid "View Site"
-msgstr "Перейти на Сайт"

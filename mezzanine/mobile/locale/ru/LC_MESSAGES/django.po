@@ -1,22 +1,22 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
+# Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-22 03:23+0500\n"
-"PO-Revision-Date: 2011-02-22 05:10+0500\n"
-"Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
-"Language-Team: Russian <>\n"
-"Language: Russian\n"
+"POT-Creation-Date: 2011-11-11 22:18-0430\n"
+"PO-Revision-Date: 2011-11-12 03:36+0000\n"
+"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
-"=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.2\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
@@ -34,15 +34,15 @@ msgstr "Ошибка"
 msgid "Sorry, an error occurred."
 msgstr "Извините, возникла ошибка."
 
-#: templates/mobile/base.html:33 templates/mobile/index.html:6
+#: templates/mobile/base.html:35 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Начало"
 
-#: templates/mobile/base.html:45
+#: templates/mobile/base.html:47
 msgid "Powered by"
 msgstr "Основано на"
 
-#: templates/mobile/base.html:46
+#: templates/mobile/base.html:48
 msgid "View Full Site"
 msgstr "Полная версия"
 
@@ -79,25 +79,25 @@ msgstr "результатов удовлетворяющих вашему за�
 msgid "read more"
 msgstr "читать далее"
 
-#: templates/mobile/blog/blog_post_detail.html:25
+#: templates/mobile/blog/blog_post_detail.html:23
 msgid "Posted by"
 msgstr "Написал(а)"
 
-#: templates/mobile/blog/blog_post_detail.html:32
-#: templates/mobile/blog/blog_post_list.html:27
+#: templates/mobile/blog/blog_post_detail.html:30
+#: templates/mobile/blog/blog_post_list.html:28
 #: templates/mobile/blog/includes/comments_thread.html:19
 msgid "ago"
 msgstr "назад"
 
-#: templates/mobile/blog/blog_post_detail.html:43
+#: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
 msgstr "Теги"
 
-#: templates/mobile/blog/blog_post_detail.html:56
+#: templates/mobile/blog/blog_post_detail.html:52
 msgid "Share this on:"
 msgstr "Поделиться этим на:"
 
-#: templates/mobile/blog/blog_post_detail.html:58
+#: templates/mobile/blog/blog_post_detail.html:54
 msgid "or"
 msgstr "или"
 
@@ -134,7 +134,6 @@ msgstr "Предыдущие"
 msgid "Next"
 msgstr "Следующие"
 
-# placeholder
 #: templates/mobile/includes/search.html:4
 msgid "Search"
 msgstr "Найти"

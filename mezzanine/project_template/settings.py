@@ -8,6 +8,7 @@
 # order to override their defaults.
 
 # Controls the ordering and grouping of the admin menu.
+#
 # from django.utils.translation import ugettext as _
 # ADMIN_MENU_ORDER = (
 #     (_("Content"), ("pages.Page", "blog.BlogPost",
@@ -18,13 +19,45 @@
 
 # A three item sequence, each containing a sequence of template tags
 # used to render the admin dashboard.
+#
 # DASHBOARD_TAGS = (
 #     ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
 #     ("comment_tags.recent_comments",),
 #     ("mezzanine_tags.recent_actions",),
 # )
 
+# A sequence of fields that will be injected into Mezzanine's (or any
+# library's) models. Each item in the sequence is a four item sequence.
+# The first two items are the dotted path to the model and its field
+# name to be added, and the dotted path to the field class to use for
+# the field. The third and fourth items are a sequence of positional
+# args and a dictionary of keyword args, to use when creating the
+# field instance. When specifying the field class, the path
+# ``django.models.db.`` can be omitted for regular Django model fields.
+#
+# from django.utils.translation import ugettext as _
+# EXTRA_MODEL_FIELDS = (
+#     (
+#         # Dotted path to field.
+#         "mezzanine.blog.models.BlogPost.image",
+#         # Dotted path to field class.
+#         "somelib.fields.ImageField",
+#         # Positional args for field class.
+#         (_("Image"),),
+#         # Keyword args for field class.
+#         {"blank": True, "upload_to: "blog"},
+#     ),
+#     # Example of adding a field to *all* of Mezzanine's content types:
+#     (
+#         "mezzanine.pages.models.Page.another_field",
+#         "IntegerField", # 'django.db.models.' is implied if path is omitted.
+#         (_("Another name"),),
+#         {"blank": True, "default": 1},
+#     ),
+# )
+
 # Name of the current theme to host during theme development.
+#
 # THEME = ""
 
 # If True, the south application will be automatically added to the
@@ -38,7 +71,8 @@ USE_SOUTH = True
 ########################
 
 # People who get code error notifications.
-# In the format (('Full Name', 'email@example.com'), ('Full Name', 'anotheremail@example.com'))
+# In the format (('Full Name', 'email@example.com'),
+#                ('Full Name', 'anotheremail@example.com'))
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
@@ -141,7 +175,8 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, MEDIA_URL.strip("/"))
 # Package/module name to import the root urlpatterns from for the project.
 ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 
-# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+# Put strings here, like "/home/html/django_templates"
+# or "C:/www/django/templates".
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
@@ -162,6 +197,7 @@ INSTALLED_APPS = (
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.sitemaps",
+    "mezzanine.boot",
     "mezzanine.conf",
     "mezzanine.core",
     "mezzanine.generic",

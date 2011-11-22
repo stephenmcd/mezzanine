@@ -66,8 +66,10 @@ class BaseDynamicInlineAdmin(object):
                 fields.append("_order")
             self.fields = fields
 
+
 class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.TabularInline):
     template = "admin/includes/dynamic_inline_tabular.html"
+
 
 class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.StackedInline):
     template = "admin/includes/dynamic_inline_stacked.html"

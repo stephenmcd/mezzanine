@@ -1,30 +1,37 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-14 20:54+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2011-11-11 22:39-0430\n"
+"PO-Revision-Date: 2011-11-12 03:36+0000\n"
+"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: admin.py:31 fields.py:28
 msgid "Email"
 msgstr ""
 
-#: admin.py:93
-msgid "Export Entries"
-msgstr "Eksportuj wpisy"
+#: admin.py:106
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: admin.py:110
+msgid "View Entries"
+msgstr ""
 
 #: fields.py:26
 msgid "Single line text"
@@ -70,39 +77,39 @@ msgstr "Data/czas"
 msgid "Hidden"
 msgstr "Ukryte"
 
-#: forms.py:26 forms.py:34 forms.py:40
+#: forms.py:27 forms.py:35 forms.py:41
 msgid "Nothing"
 msgstr "Puste"
 
-#: forms.py:27
+#: forms.py:28
 msgid "Contains"
 msgstr "Zawiera"
 
-#: forms.py:28
+#: forms.py:29
 msgid "Doesn't contain"
 msgstr "Nie zawiera"
 
-#: forms.py:29 forms.py:35
+#: forms.py:30 forms.py:36
 msgid "Equals"
 msgstr "Równa się"
 
-#: forms.py:30 forms.py:36
+#: forms.py:31 forms.py:37
 msgid "Doesn't equal"
 msgstr "Nie równa się"
 
-#: forms.py:41
+#: forms.py:42
 msgid "Is between"
 msgstr "Pomiędzy"
 
-#: forms.py:169
+#: forms.py:171
 msgid "Checked"
 msgstr "Zaznaczone"
 
-#: forms.py:169
+#: forms.py:171
 msgid "Not checked"
 msgstr "Niezaznaczone"
 
-#: forms.py:183 forms.py:198
+#: forms.py:185 forms.py:200
 msgid "and"
 msgstr "i"
 
@@ -183,8 +190,8 @@ msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
 msgstr ""
-"Opcje oddzielone przecinkami. Jeżeli opcja sama w sobie zawiera "
-"przecinek należy ją otoczyć `lewym apostrofem`"
+"Opcje oddzielone przecinkami. Jeżeli opcja sama w sobie zawiera przecinek "
+"należy ją otoczyć `lewym apostrofem`"
 
 #: models.py:57
 msgid "Default value"
@@ -198,7 +205,7 @@ msgstr "Tekst obszaru"
 msgid "Help text"
 msgstr "Tekst pomocy"
 
-#: models.py:66 templates/admin/forms/export.html:61
+#: models.py:66 templates/admin/forms/entries.html:90
 msgid "Field"
 msgstr "Pole"
 
@@ -223,9 +230,9 @@ msgid "Form field entries"
 msgstr "Wpisy pola formularza"
 
 #: templates/admin/forms/change_form.html:14
-#: templates/admin/forms/export.html:92
-msgid "Export entries"
-msgstr "Eksportuj wpisy"
+#: templates/admin/forms/entries.html:119
+msgid "View entries"
+msgstr ""
 
 #: templates/admin/forms/change_form.html:15
 msgid "History"
@@ -235,18 +242,49 @@ msgstr "Historia"
 msgid "View on site"
 msgstr "Zobacz na stronie"
 
-#: templates/admin/forms/export.html:62
+#: templates/admin/forms/entries.html:63
+msgid "No entries selected"
+msgstr ""
+
+#: templates/admin/forms/entries.html:66
+msgid "Delete selected entries?"
+msgstr ""
+
+#: templates/admin/forms/entries.html:76
+msgid "Home"
+msgstr "Strona główna"
+
+#: templates/admin/forms/entries.html:91
 msgid "Include"
 msgstr "Dołącz"
 
-#: templates/admin/forms/export.html:63
+#: templates/admin/forms/entries.html:92
 msgid "Filter by"
 msgstr "Sortuj wg."
 
-#: templates/admin/forms/export.html:81
+#: templates/admin/forms/entries.html:110
 msgid "All"
 msgstr "Wszystko"
 
-#: templates/admin/forms/export.html:90
+#: templates/admin/forms/entries.html:118
+#: templates/admin/forms/entries.html:156
 msgid "Back to form"
 msgstr "Powrót do formularza"
+
+#: templates/admin/forms/entries.html:120
+msgid "Export CSV"
+msgstr ""
+
+#: templates/admin/forms/entries.html:123
+msgid "Entries"
+msgstr ""
+
+#: templates/admin/forms/entries.html:157
+msgid "Delete selected"
+msgstr ""
+
+#: templates/admin/forms/entries.html:161
+msgid "No entries to display"
+msgstr ""
+
+

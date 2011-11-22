@@ -1,0 +1,249 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-11 22:16-0430\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin.py:39
+msgid "Meta data"
+msgstr ""
+
+#: fields.py:23
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr ""
+
+#: forms.py:59 models.py:216
+msgid "Order"
+msgstr ""
+
+#: models.py:27
+msgid "Title"
+msgstr ""
+
+#: models.py:28
+msgid "URL"
+msgstr ""
+
+#: models.py:84
+msgid "Description"
+msgstr ""
+
+#: models.py:85
+msgid "Keywords"
+msgstr ""
+
+#: models.py:94
+msgid "Draft"
+msgstr ""
+
+#: models.py:95
+msgid "Published"
+msgstr ""
+
+#: models.py:106
+msgid "Status"
+msgstr ""
+
+#: models.py:108
+msgid "Published from"
+msgstr ""
+
+#: models.py:109
+msgid "With published checked, won't be shown until this time"
+msgstr ""
+
+#: models.py:111
+msgid "Expires on"
+msgstr ""
+
+#: models.py:112
+msgid "With published checked, won't be shown after this time"
+msgstr ""
+
+#: models.py:163
+msgid "View on site"
+msgstr ""
+
+#: models.py:174
+msgid "Content"
+msgstr ""
+
+#: models.py:270
+msgid "Author"
+msgstr ""
+
+#: views.py:53
+msgid "Permission denied"
+msgstr ""
+
+#: templates/404.html:6
+msgid "Page not found"
+msgstr ""
+
+#: templates/404.html:10
+msgid "The page you requested does not exist."
+msgstr ""
+
+#: templates/500.html:6
+msgid "Error"
+msgstr ""
+
+#: templates/500.html:10
+msgid "Sorry, an error occurred."
+msgstr ""
+
+#: templates/base.html:66
+msgid "Powered by"
+msgstr ""
+
+#: templates/base.html:69
+msgid "View Mobile Site."
+msgstr ""
+
+#: templates/index.html:5 templates/index.html.py:8
+#: templates/admin/index.html:41
+msgid "Home"
+msgstr ""
+
+#: templates/index.html:12
+msgid "This is the homepage."
+msgstr ""
+
+#: templates/search_results.html:5 templates/search_results.html.py:6
+msgid "Search Results"
+msgstr ""
+
+#: templates/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr ""
+
+#: templates/search_results.html:14
+msgid "Showing"
+msgstr ""
+
+#: templates/search_results.html:14
+msgid "to"
+msgstr ""
+
+#: templates/search_results.html:14 templates/includes/pagination.html:4
+msgid "of"
+msgstr ""
+
+#: templates/search_results.html:15
+msgid "results matching your query:"
+msgstr ""
+
+#: templates/search_results.html:23
+msgid "read more"
+msgstr ""
+
+#: templates/admin/base_site.html:191
+msgid "View Site"
+msgstr ""
+
+#: templates/admin/base_site.html:219
+msgid "Forgot password?"
+msgstr ""
+
+#: templates/admin/base_site.html:223
+msgid "Interface:"
+msgstr ""
+
+#: templates/admin/base_site.html:227
+#: templates/includes/editable_toolbar.html:8
+#: templates/includes/editable_toolbar.html:10
+msgid "Admin"
+msgstr ""
+
+#: templates/admin/base_site.html:231
+msgid "Site"
+msgstr ""
+
+#: templates/admin/index.html:43 templates/admin/includes/dropdown_menu.html:3
+msgid "Dashboard"
+msgstr ""
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr ""
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr ""
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr ""
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr ""
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr ""
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr ""
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr ""
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr ""
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr ""
+
+#: templates/includes/editable_loader.html:87
+msgid "An error occurred"
+msgstr ""
+
+#: templates/includes/editable_toolbar.html:12
+msgid "Log out"
+msgstr ""
+
+#: templates/includes/pagination.html:4
+msgid "Page"
+msgstr ""
+
+#: templates/includes/search.html:3
+msgid "Search"
+msgstr ""
+
+#: templates/includes/search.html:6
+msgid "Go"
+msgstr ""
+
+#: templates/includes/search.html:9
+msgid "Use "
+msgstr ""
+
+#: templates/includes/search.html:9
+msgid "quotes"
+msgstr ""
+
+#: templates/includes/search.html:9
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr ""

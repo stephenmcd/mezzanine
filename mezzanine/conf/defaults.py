@@ -45,7 +45,7 @@ register_setting(
 register_setting(
     name="BLOG_POST_PER_PAGE",
     label=_("Blog posts per page"),
-    description=_("Number of blog posts to show on a blog listing page."),
+    description=_("Number of blog posts shown on a blog listing page."),
     editable=True,
     default=5,
 )
@@ -53,7 +53,7 @@ register_setting(
 register_setting(
     name="BLOG_POST_MAX_PAGING_LINKS",
     label=_("Max blog paging links"),
-    description=_("Max number of paging links to show on a blog listing page."),
+    description=_("Max number of paging links shown on a blog listing page."),
     editable=True,
     default=10,
 )
@@ -100,7 +100,7 @@ register_setting(
 register_setting(
     name="COMMENTS_NUM_LATEST",
     label=_("Admin comments"),
-    description=_("Number of latest comments to show in the admin dashboard."),
+    description=_("Number of latest comments shown in the admin dashboard."),
     editable=True,
     default=5,
 )
@@ -187,6 +187,21 @@ register_setting(
             "Nokia5800",)
         ),
     ),
+)
+
+register_setting(
+    name="EXTRA_MODEL_FIELDS",
+    description=_("A sequence of fields that will be injected into "
+        "Mezzanine's (or any library's) models. Each item in the sequence is "
+        "a four item sequence. The first two items are the dotted path to the "
+        "model and its field name to be added, and the dotted path to the "
+        "field class to use for the field. The third and fourth items are a "
+        "sequence of positional args and a dictionary of keyword args, to use "
+        "when creating the field instance. When specifying the field class, "
+        "the path ``django.models.db.`` can be omitted for regular Django "
+        "model fields."),
+    editable=False,
+    default=(),
 )
 
 register_setting(
@@ -291,7 +306,7 @@ register_setting(
 register_setting(
     name="SEARCH_PER_PAGE",
     label=_("Search results per page"),
-    description=_("Number of results to show in the search results page."),
+    description=_("Number of results shown in the search results page."),
     editable=True,
     default=10,
 )

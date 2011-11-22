@@ -16,11 +16,11 @@ def admin_keywords_submit(request):
     """
     ids = []
     for title in request.POST.get("text_keywords", "").split(","):
-        title = "".join([c for c in title if c.isalnum() or c == "-"]).lower()
+        title = "".join([c for c in title if c.isalnum() or c in "- "]).lower()
         if title:
             keyword, created = Keyword.objects.get_or_create(title=title)
             ids.append(str(keyword.id))
-    return HttpResponse(",".join(set(ids)))
+    return HttpResponse(",".join(ids))
 
 
 def rating(request):

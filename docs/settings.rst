@@ -31,14 +31,14 @@ Default: ``''``
 ``BLOG_POST_MAX_PAGING_LINKS``
 ------------------------------
 
-Max number of paging links to show on a blog listing page.
+Max number of paging links shown on a blog listing page.
 
 Default: ``10``
 
 ``BLOG_POST_PER_PAGE``
 ----------------------
 
-Number of blog posts to show on a blog listing page.
+Number of blog posts shown on a blog listing page.
 
 Default: ``5``
 
@@ -80,7 +80,7 @@ Default: ``''``
 ``COMMENTS_NUM_LATEST``
 -----------------------
 
-Number of latest comments to show in the admin dashboard.
+Number of latest comments shown in the admin dashboard.
 
 Default: ``5``
 
@@ -132,6 +132,13 @@ Default: ``''``
 Mapping of device specific template sub-directory names to the sequence of strings that may be found in their user agents.
 
 Default: ``(('mobile', ('2.0 MMP', '240x320', '400X240', 'AvantGo', 'BlackBerry', 'Blazer', 'Cellphone', 'Danger', 'DoCoMo', 'Elaine/3.0', 'EudoraWeb', 'Googlebot-Mobile', 'hiptop', 'IEMobile', 'KYOCERA/WX310K', 'LG/U990', 'MIDP-2.', 'MMEF20', 'MOT-V', 'NetFront', 'Newt', 'Nintendo Wii', 'Nitro', 'Nokia', 'Opera Mini', 'Palm', 'PlayStation Portable', 'portalmmm', 'Proxinet', 'ProxiNet', 'SHARP-TQ-GX10', 'SHG-i900', 'Small', 'SonyEricsson', 'Symbian OS', 'SymbianOS', 'TS21i-10', 'UP.Browser', 'UP.Link', 'webOS', 'Windows CE', 'WinWAP', 'YahooSeeker/M1A1-R2D2', 'iPhone', 'iPod', 'Android', 'BlackBerry9530', 'LG-TU915 Obigo', 'LGE VX', 'webOS', 'Nokia5800')),)``
+
+``EXTRA_MODEL_FIELDS``
+----------------------
+
+A sequence of fields that will be injected into Mezzanine's (or any library's) models. Each item in the sequence is a four item sequence. The first two items are the dotted path to the model and its field name to be added, and the dotted path to the field class to use for the field. The third and fourth items are a sequence of positional args and a dictionary of keyword args, to use when creating the field instance. When specifying the field class, the path ``django.models.db.`` can be omitted for regular Django model fields.
+
+Default: ``()``
 
 ``FORMS_CSV_DELIMITER``
 -----------------------
@@ -220,7 +227,7 @@ Default: ``10``
 ``SEARCH_PER_PAGE``
 -------------------
 
-Number of results to show in the search results page.
+Number of results shown in the search results page.
 
 Default: ``10``
 

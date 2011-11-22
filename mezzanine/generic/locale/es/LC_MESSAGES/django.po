@@ -1,0 +1,132 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-11 22:18-0430\n"
+"PO-Revision-Date: 2011-11-12 03:55+0000\n"
+"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
+"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/team/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:19 models.py:66
+msgid "User"
+msgstr "Usuario"
+
+#: forms.py:78
+msgid "Name"
+msgstr "Nombre"
+
+#: forms.py:78
+msgid "required"
+msgstr "obligatorio"
+
+#: forms.py:80
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: forms.py:81
+msgid "required (not published)"
+msgstr "obligatorio (no publicado)"
+
+#: forms.py:82
+msgid "Website"
+msgstr "Sitio Web"
+
+#: forms.py:82
+msgid "optional"
+msgstr "opcional"
+
+#: forms.py:97 models.py:119
+msgid "Rating"
+msgstr "Puntuación"
+
+#: models.py:21
+msgid "Email hash"
+msgstr "Hash de correo electrónico"
+
+#: models.py:22
+msgid "By the blog author"
+msgstr "Por el autor del blog"
+
+#: models.py:29 models.py:58 templates/generic/includes/comments.html:21
+msgid "Comment"
+msgstr "Comentario"
+
+#: models.py:30 templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr "Comentarios"
+
+#: models.py:70
+msgid "View on site"
+msgstr "Ver en el sitio"
+
+#: models.py:84
+msgid "Keyword"
+msgstr "Palabra clave"
+
+#: models.py:85
+msgid "Keywords"
+msgstr "Palabras clave"
+
+#: models.py:113
+msgid "Value"
+msgstr "Valor"
+
+#: models.py:120
+msgid "Ratings"
+msgstr "Puntuaciones"
+
+#: templates/admin/includes/recent_comments.html:13
+msgid "Recent Comments"
+msgstr "Comentarios recientes"
+
+#: templates/admin/includes/recent_comments.html:29
+#: templates/generic/includes/comment.html:19
+#: templates/generic/includes/comment.html:57
+msgid "ago"
+msgstr "atrás"
+
+#: templates/generic/includes/comment.html:22
+msgid "Link"
+msgstr "Enlace"
+
+#: templates/generic/includes/comment.html:23
+#: templates/generic/includes/comment.html:39
+msgid "Reply"
+msgstr "Responder"
+
+#: templates/generic/includes/comment.html:65
+msgid "Comment deleted"
+msgstr "Comentario eliminado"
+
+#: templates/generic/includes/comment.html:68
+msgid "Comment awaiting approval"
+msgstr "Comentario esperando aprobación"
+
+#: templates/generic/includes/comment.html:77
+msgid "There are currently no comments"
+msgstr "No existen comentarios"
+
+#: templates/generic/includes/rating.html:5
+msgid "Current rating"
+msgstr "Puntuación actual"
+
+#: templates/generic/includes/rating.html:7
+msgid "Currently unrated"
+msgstr "No ha sido puntuado aún"
+
+#: templates/generic/includes/rating.html:14
+msgid "Rate"
+msgstr "Puntuar"
+
+

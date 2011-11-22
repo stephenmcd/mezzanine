@@ -5,6 +5,11 @@ Packages
 Below are auto-generated docs mostly covering each of the packages contained
 within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 
+``mezzanine.boot``
+==================
+
+.. automodule:: mezzanine.boot
+
 ``mezzanine.core``
 ==================
 
@@ -55,10 +60,16 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 ``mezzanine.core.management.commands``
 --------------------------------------
 
+.. automodule:: mezzanine.core.management.commands.createdb
+   :members:
+
 .. automodule:: mezzanine.core.management.commands.install_theme
    :members:
 
 .. automodule:: mezzanine.core.management.commands.start_theme
+   :members:
+
+.. automodule:: mezzanine.core.management.commands.media_paths
    :members:
 
 ``mezzanine.core.tests``
@@ -155,6 +166,12 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.generic.templatetags.comment_tags
    :members:
 
+``mezzanine.generic.templatetags.disqus_tags``
+-----------------------------------------------
+
+.. automodule:: mezzanine.generic.templatetags.disqus_tags
+   :members:
+
 ``mezzanine.generic.templatetags.keyword_tags``
 -----------------------------------------------
 
@@ -249,6 +266,12 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.forms.page_processors
    :members:
 
+``mezzanine.blog.forms.admin``
+------------------------------
+
+.. automodule:: mezzanine.forms.admin
+   :members:
+
 ``mezzanine.conf``
 ======================
 
@@ -341,6 +364,9 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
    :members:
 
 .. automodule:: mezzanine.utils.importing
+   :members:
+
+.. automodule:: mezzanine.utils.messages
    :members:
 
 .. automodule:: mezzanine.utils.models

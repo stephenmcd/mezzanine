@@ -28,7 +28,7 @@ register = template.Library()
 @register.filter
 def is_installed(app_name):
     """
-    Returns ``True`` if the given app name is in the 
+    Returns ``True`` if the given app name is in the
     ``INSTALLED_APPS`` setting.
     """
     return app_name in settings.INSTALLED_APPS
@@ -90,13 +90,16 @@ def thumbnail(image_url, width, height):
     """
 
     image_url = unicode(image_url)
+    if image_url.startswith(settings.MEDIA_URL):
+        image_url = image_url.replace(settings.MEDIA_URL, '', 1)
     image_path = os.path.join(settings.MEDIA_ROOT, image_url)
     image_dir, image_name = os.path.split(image_path)
-    thumb_name = "%s-%sx%s.jpg" % (os.path.splitext(image_name)[0], width,
-                                                                        height)
+    extension = os.path.splitext(image_name)[1]
+    filetype = {".png": "PNG", ".gif": "GIF"}.get(extension, "JPEG")
+    thumb_name = "%s-%sx%s%s" % (os.path.splitext(image_name)[0], width,
+                                    height, extension)
     thumb_path = os.path.join(image_dir, thumb_name)
     thumb_url = "%s/%s" % (os.path.dirname(image_url), thumb_name)
-
     # abort if thumbnail exists, original image doesn't exist, invalid width or
     # height are given, or PIL not installed
     if not image_url:
@@ -129,7 +132,7 @@ def thumbnail(image_url, width, height):
         image = image.convert("RGB")
     try:
         image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
-            thumb_path, "JPEG", quality=100)
+            thumb_path, filetype, quality=100)
     except:
         return image_url
     return thumb_url
@@ -146,19 +149,21 @@ def editable_loader(context):
     context["richtext_media"] = RichTextField().formfield().widget.media
     return context
 
+
 @register.filter
 def richtext_filter(content):
     """
-    This template filter takes a string value and passes it through the 
+    This template filter takes a string value and passes it through the
     function specified by the RICHTEXT_FILTER setting.
     """
-    
+
     if settings.RICHTEXT_FILTER:
         func = import_dotted_path(settings.RICHTEXT_FILTER)
     else:
         func = lambda s: s
-    
+
     return func(content)
+
 
 @register.to_end_tag
 def editable(parsed, context, token):
@@ -292,7 +297,8 @@ def admin_app_list(request):
     return app_list
 
 
-@register.inclusion_tag("admin/includes/dropdown_menu.html", takes_context=True)
+@register.inclusion_tag("admin/includes/dropdown_menu.html",
+                        takes_context=True)
 def admin_dropdown_menu(context):
     """
     Renders the app list for the admin dropdown menu navigation.
@@ -311,7 +317,7 @@ def app_list(context):
 
 
 @register.inclusion_tag("admin/includes/recent_actions.html",
-                                                            takes_context=True)
+                        takes_context=True)
 def recent_actions(context):
     """
     Renders the recent actions list for the admin dashboard widget.

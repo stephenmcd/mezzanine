@@ -4,10 +4,8 @@
 {% block meta_title %}{{ blog_post.title }}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
-{% for keyword in blog_post.keywords.all %}
-    {% if not forloop.first %}, {% endif %}
-    {{ keyword }}
-{% endfor %}
+{% keywords_for blog_post as tags %}
+{% for tag in tags %}{% if not forloop.first %}, {% endif %}{{ tag }}{% endfor %}
 {% endmetablock %}{% endblock %}
 
 {% block meta_description %}{% metablock %}
@@ -52,13 +50,13 @@
         </strong>
         {{ blog_post.publish_date|timesince }} {% trans "ago" %}
     </em>
-    (<a href="#comments">{% spaceless %}
+    {% if blog_post.allow_comments %}(<a href="#comments">{% spaceless %}
         {% blocktrans count blog_post.comments_count as comments_count %}
         1 comment
         {% plural %}
         {{ comments_count }} comments
         {% endblocktrans %}
-    {% endspaceless %}</a>)
+    {% endspaceless %}</a>){% endif %}
 </p>
 
 {% editable blog_post.content %}
@@ -71,8 +69,7 @@
     {% trans "Tags" %}:
     <ul>
         {% for tag in tags %}
-        <li><a href="{% url blog_post_list_tag tag.slug %}"
-            class="tag-weight-{{ tag.weight }}">{{ tag }}</a></li>
+        <li><a href="{% url blog_post_list_tag tag.slug %}">{{ tag }}</a></li>
         {% endfor %}
     </ul>
 </div>
@@ -88,6 +85,6 @@
 <a target=_"blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&t={{ blog_post.title|urlencode }}">Facebook</a>
 </div>
 
-<div id="comments">{% comments_for blog_post %}</div>
+{% if blog_post.allow_comments %}<div id="comments">{% comments_for blog_post %}</div>{% endif %}
 
 {% endblock %}

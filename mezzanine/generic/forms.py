@@ -49,7 +49,7 @@ class KeywordsWidget(forms.MultiWidget):
             if keywords:
                 keywords = [(str(k.id), k.title) for k in keywords]
                 self._ids, words = zip(*keywords)
-                return (",".join(self._ids), ", ".join(sorted(words)))
+                return (",".join(self._ids), ", ".join(words))
         return ("", "")
 
     def format_output(self, rendered_widgets):

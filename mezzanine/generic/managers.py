@@ -1,5 +1,6 @@
 
 from django.db.models import Manager
+from django.contrib.sites.managers import CurrentSiteManager
 
 from mezzanine.conf import settings
 
@@ -34,7 +35,7 @@ class CommentManager(Manager):
         return self.visible().count()
 
 
-class KeywordManager(Manager):
+class KeywordManager(CurrentSiteManager):
     """
     Provides natural key method.
     """

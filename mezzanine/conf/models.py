@@ -16,7 +16,7 @@ class Setting(models.Model):
     class Meta:
         verbose_name = _("Setting")
         verbose_name_plural = _("Settings")
- 
+
     def save(self, *args, **kwargs):
         """
         Set the site to the current site.

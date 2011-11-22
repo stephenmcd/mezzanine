@@ -61,10 +61,12 @@ class Library(template.Library):
         def tag_wrapper(parser, token):
 
             class ToEndTagNode(template.Node):
+
                 def __init__(self):
                     end_name = "end%s" % tag_func.__name__
                     self.nodelist = parser.parse((end_name,))
                     parser.delete_first_token()
+
                 def render(self, context):
                     args = (self.nodelist.render(context), context, token)
                     return tag_func(*args[:tag_func.func_code.co_argcount])
@@ -84,6 +86,7 @@ class Library(template.Library):
             def tag_wrapper(parser, token):
 
                 class InclusionTagNode(template.Node):
+
                     def render(self, context):
                         if not getattr(self, "nodelist", False):
                             if not isinstance(file_name, basestring) and \

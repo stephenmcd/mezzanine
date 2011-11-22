@@ -1,0 +1,129 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-11 22:18-0430\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin.py:19 models.py:66
+msgid "User"
+msgstr ""
+
+#: forms.py:78
+msgid "Name"
+msgstr ""
+
+#: forms.py:78
+msgid "required"
+msgstr ""
+
+#: forms.py:80
+msgid "Email"
+msgstr ""
+
+#: forms.py:81
+msgid "required (not published)"
+msgstr ""
+
+#: forms.py:82
+msgid "Website"
+msgstr ""
+
+#: forms.py:82
+msgid "optional"
+msgstr ""
+
+#: forms.py:97 models.py:119
+msgid "Rating"
+msgstr ""
+
+#: models.py:21
+msgid "Email hash"
+msgstr ""
+
+#: models.py:22
+msgid "By the blog author"
+msgstr ""
+
+#: models.py:29 models.py:58 templates/generic/includes/comments.html:21
+msgid "Comment"
+msgstr ""
+
+#: models.py:30 templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr ""
+
+#: models.py:70
+msgid "View on site"
+msgstr ""
+
+#: models.py:84
+msgid "Keyword"
+msgstr ""
+
+#: models.py:85
+msgid "Keywords"
+msgstr ""
+
+#: models.py:113
+msgid "Value"
+msgstr ""
+
+#: models.py:120
+msgid "Ratings"
+msgstr ""
+
+#: templates/admin/includes/recent_comments.html:13
+msgid "Recent Comments"
+msgstr ""
+
+#: templates/admin/includes/recent_comments.html:29
+#: templates/generic/includes/comment.html:19
+#: templates/generic/includes/comment.html:57
+msgid "ago"
+msgstr ""
+
+#: templates/generic/includes/comment.html:22
+msgid "Link"
+msgstr ""
+
+#: templates/generic/includes/comment.html:23
+#: templates/generic/includes/comment.html:39
+msgid "Reply"
+msgstr ""
+
+#: templates/generic/includes/comment.html:65
+msgid "Comment deleted"
+msgstr ""
+
+#: templates/generic/includes/comment.html:68
+msgid "Comment awaiting approval"
+msgstr ""
+
+#: templates/generic/includes/comment.html:77
+msgid "There are currently no comments"
+msgstr ""
+
+#: templates/generic/includes/rating.html:5
+msgid "Current rating"
+msgstr ""
+
+#: templates/generic/includes/rating.html:7
+msgid "Currently unrated"
+msgstr ""
+
+#: templates/generic/includes/rating.html:14
+msgid "Rate"
+msgstr ""

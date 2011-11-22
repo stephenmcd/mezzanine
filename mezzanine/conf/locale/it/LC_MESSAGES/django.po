@@ -1,425 +1,325 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-28 17:02+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Eli Spizzichino <scrivi@gmail.com>\n"
+"POT-Creation-Date: 2011-11-11 22:15-0430\n"
+"PO-Revision-Date: 2011-11-12 03:20+0000\n"
+"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:16 templates/blog/blog_post_list.html:68
-msgid "Comments"
-msgstr "Commenti"
-
-#: models.py:17
-msgid "Rating"
-msgstr "Valutazione"
-
-#: models.py:20
-msgid "Blog post"
-msgstr "Blog post"
-
-#: models.py:21
-msgid "Blog posts"
-msgstr "Blog posts"
-
-#: models.py:35
-msgid "Blog Category"
-msgstr "Categoria del Blog"
-
-#: models.py:36
-msgid "Blog Categories"
-msgstr "Catogorie del Blog"
-
-#: templates/admin/includes/quick_blog.html:5
-msgid "Quick Blog"
-msgstr "Blog rapido"
-
-#: templates/admin/includes/quick_blog.html:12
-msgid "Save Draft"
-msgstr "Salva bozza"
-
-#: templates/blog/blog_post_detail.html:36
-msgid "Home"
-msgstr "Inizio"
-
-#: templates/blog/blog_post_detail.html:46
-msgid "Posted by"
-msgstr "Pubblicato da"
-
-#: templates/blog/blog_post_detail.html:53
-#: templates/blog/blog_post_list.html:55
-msgid "ago"
-msgstr "fà"
-
-#: templates/blog/blog_post_detail.html:56
-#: templates/blog/blog_post_list.html:72
-#, python-format
-msgid ""
-"\n"
-"        1 commento\n"
-"        "
-msgid_plural ""
-"\n"
-"        %(comments_count) commenti\n"
-"        "
-msgstr[0] ""
-"\n"
-"        1 commento\n"
-"        "
-msgstr[1] ""
-"\n"
-"        %(comments_count) commenti\n"
-"        "
-
-#: templates/blog/blog_post_detail.html:71
-#: templates/blog/includes/filter_panel.html:41
-msgid "Tags"
-msgstr "Tags"
-
-#: templates/blog/blog_post_detail.html:85
-msgid "Share this on"
-msgstr "Condividilo su"
-
-#: templates/blog/blog_post_list.html:26
-msgid "Viewing posts tagged"
-msgstr "Stai guardando post con tag"
-
-#: templates/blog/blog_post_list.html:28
-msgid "Viewing posts for the category"
-msgstr "Stai guardando post per la categoria"
-
-#: templates/blog/blog_post_list.html:30
-msgid "Viewing posts from"
-msgstr "Stai guardando post da"
-
-#: templates/blog/blog_post_list.html:33
-msgid "Viewing posts by"
-msgstr "Stai guardando post da"
-
-#: templates/blog/blog_post_list.html:64
-msgid "read more"
-msgstr "leggi in più"
-
-#: templates/blog/includes/filter_panel.html:5
-msgid "Recent Posts"
-msgstr "Post recenti"
-
-#: templates/blog/includes/filter_panel.html:16
-msgid "Archive"
-msgstr "Archivio"
-
-#: templates/blog/includes/filter_panel.html:30
-msgid "Categories"
-msgstr "Categorie"
-
-#: templates/blog/includes/filter_panel.html:52
-msgid "Authors"
-msgstr "Autori"
-
-#: templates/blog/includes/filter_panel.html:62
-msgid "Feeds"
-msgstr "Canali"
-
-#: templates/blog/includes/filter_panel.html:63
-msgid "RSS"
-msgstr "RSS"
-
-#: templates/blog/includes/filter_panel.html:64
-msgid "Atom"
-msgstr "Atom"
-
-#: conf/admin.py:36
+#: admin.py:36
 #, python-format
 msgid "Change %s"
-msgstr ""
+msgstr "Modifica %s"
 
-#: conf/defaults.py:12
+#: defaults.py:12
 msgid "Controls the ordering and grouping of the admin menu."
 msgstr "Controlla l'ordinamento e raggruppamento del menu di amministrazione"
 
-#: conf/defaults.py:15 core/models.py:156
+#: defaults.py:15
 msgid "Content"
 msgstr "Contenuto"
 
-#: conf/defaults.py:16
+#: defaults.py:16
 msgid "Media Library"
 msgstr "Media Library"
 
-#: conf/defaults.py:17 core/templates/admin/base_site.html:229
+#: defaults.py:17
 msgid "Site"
 msgstr "Sito"
 
-#: conf/defaults.py:18
+#: defaults.py:18
 msgid "Users"
 msgstr "Utenti"
 
-#: conf/defaults.py:24
+#: defaults.py:24
 msgid "Unregister these models from the admin."
 msgstr "Rimuovi questi modelli dall'amministrazione"
 
-#: conf/defaults.py:31
+#: defaults.py:31
 msgid "bit.ly username"
 msgstr "bit.ly username"
 
-#: conf/defaults.py:32
+#: defaults.py:32
 msgid "Username for bit.ly URL shortening service."
 msgstr "Username per il servizio di bit.ly URL shortening service."
 
-#: conf/defaults.py:39
+#: defaults.py:39
 msgid "bit.ly key"
 msgstr "chiave bit.ly"
 
-#: conf/defaults.py:40
+#: defaults.py:40
 msgid "Key for bit.ly URL shortening service."
 msgstr "chiave per il servizio di bit.ly URL shortening service."
 
-#: conf/defaults.py:47
+#: defaults.py:47
 msgid "Blog posts per page"
 msgstr "Blog posts per pagina"
 
-#: conf/defaults.py:48
-msgid "Number of blog posts to show on a blog listing page."
-msgstr "Numero di blog posts da mostrare nell'elenco del blog"
+#: defaults.py:48
+msgid "Number of blog posts shown on a blog listing page."
+msgstr ""
 
-#: conf/defaults.py:55
+#: defaults.py:55
 msgid "Max blog paging links"
 msgstr "Numero massimo di links per paging"
 
-#: conf/defaults.py:56
-msgid "Max number of paging links to show on a blog listing page."
-msgstr "Numero massimo di links per paging da mostrare nell'elenco del blog"
+#: defaults.py:56
+msgid "Max number of paging links shown on a blog listing page."
+msgstr ""
 
-#: conf/defaults.py:63
+#: defaults.py:63
 msgid "Slug of the page object for the blog."
 msgstr "Slug della pagina per il blog"
 
-#: conf/defaults.py:70
+#: defaults.py:70
 msgid "Disqus shortname"
 msgstr "Disqus abbreviazione"
 
-#: conf/defaults.py:71
+#: defaults.py:71
 msgid "Shortname for the http://disqus.com comments service."
 msgstr "Abbreviazione per il servizio commenti http://disqus.com"
 
-#: conf/defaults.py:78
+#: defaults.py:78
 msgid "Disqus public key"
 msgstr "Disqus chiave pubblica"
 
-#: conf/defaults.py:79
+#: defaults.py:79
 msgid "Public key for Disqus developer API"
 msgstr "Chiave pubblica per l'API Disqus"
 
-#: conf/defaults.py:86
+#: defaults.py:86
 msgid "Disqus secret key"
 msgstr "Chiave segreta Disqus"
 
-#: conf/defaults.py:87
+#: defaults.py:87
 msgid "Secret key for Disqus developer API"
 msgstr "Chiave segreta per l'API Disqus"
 
-#: conf/defaults.py:94
+#: defaults.py:94
 msgid "Auto-approve comments"
 msgstr "Approva automaticamente i commenti"
 
-#: conf/defaults.py:95
+#: defaults.py:95
 msgid "If ``True``, built-in comments are approved by default."
 msgstr "Se ``True``, i commenti sono approvati di default"
 
-#: conf/defaults.py:102
+#: defaults.py:102
 msgid "Admin comments"
 msgstr "Commenti dell'admin"
 
-#: conf/defaults.py:103
-msgid "Number of latest comments to show in the admin dashboard."
-msgstr "Numero degli ultimi commenti da mostrare nel pannello di amministrazione "
+#: defaults.py:103
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr ""
 
-#: conf/defaults.py:110
+#: defaults.py:110
 msgid "Show unapproved comments"
 msgstr "Mostra commenti non ancora approvati"
 
-#: conf/defaults.py:111
+#: defaults.py:111
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
 msgstr ""
-"Se ``True``, commenti che NON hanno il valore ``is_public`` verrano mostrati comunque, "
-"ma avranno un messaggio ``waiting to be approved``."
+"Se ``True``, commenti che NON hanno il valore ``is_public`` verrano mostrati"
+" comunque, ma avranno un messaggio ``waiting to be approved``."
 
-#: conf/defaults.py:120
+#: defaults.py:120
 msgid "Show removed comments"
 msgstr "Mostra commenti rimossi"
 
-#: conf/defaults.py:121
+#: defaults.py:121
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
 msgstr ""
-"Se ``True``, i commenti con il valore ``removed`` verranno mostrati comunque, "
-"ma avranno un messaggio ``removed``."
+"Se ``True``, i commenti con il valore ``removed`` verranno mostrati "
+"comunque, ma avranno un messaggio ``removed``."
 
-#: conf/defaults.py:129
+#: defaults.py:129
 msgid "Absolute path to Mezzanine's internal media files."
 msgstr "Percorso assoluto dei media files interni a Mezzanine"
 
-#: conf/defaults.py:136
+#: defaults.py:136
 msgid "URL prefix for serving Mezzanine's internal media files."
 msgstr "Prefisso URL usato per servire i media files interni a Mezzanine"
 
-#: conf/defaults.py:156
+#: defaults.py:156
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
 msgstr ""
-"Una sequenza di tre elementi, ognuno contenente una sequenza di template tags"
-"usati per visualizzare il pannello di controllo"
+"Una sequenza di tre elementi, ognuno contenente una sequenza di template "
+"tagsusati per visualizzare il pannello di controllo"
 
-#: conf/defaults.py:164
+#: defaults.py:164
 msgid "Device specific template sub-directory to use as the default device."
 msgstr "Sub-directory di template specifici per device da usa come default"
 
-#: conf/defaults.py:172
+#: defaults.py:172
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
 msgstr ""
-"Associazione tra sub-directory di template specifici per device alla sequenza "
-"di string che si può trovare negli user agents del device"
+"Associazione tra sub-directory di template specifici per device alla "
+"sequenza di string che si può trovare negli user agents del device"
 
-#: conf/defaults.py:194
+#: defaults.py:194
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
+msgstr ""
+
+#: defaults.py:209
 msgid "Max length allowed for field values in the forms app."
-msgstr "Massima lunghezza permessa per i valori dei campi nella applicazione form"
+msgstr ""
+"Massima lunghezza permessa per i valori dei campi nella applicazione form"
 
-#: conf/defaults.py:201
+#: defaults.py:216
 msgid "Max length allowed for field labels in the forms app."
-msgstr "Massima lunghezza permessa per le etichette dei campi nella applicazione form"
+msgstr ""
+"Massima lunghezza permessa per le etichette dei campi nella applicazione "
+"form"
 
-#: conf/defaults.py:208
+#: defaults.py:223
 msgid ""
 "If ``True``, website forms created by the forms app will use HTML5 features."
 msgstr ""
-"Se ``True``, le form dei website creati dalla applicazione form avranno le features HTML5."
+"Se ``True``, le form dei website creati dalla applicazione form avranno le "
+"features HTML5."
 
-
-#: conf/defaults.py:216
+#: defaults.py:231
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr "Carattare da usare come delimitatore di campo usato quando si esporta le risposte in CSV."
+msgstr ""
+"Carattare da usare come delimitatore di campo usato quando si esporta le "
+"risposte in CSV."
 
-#: conf/defaults.py:224
+#: defaults.py:239
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Path assoluto per salvare l'upload dei file per l'applicazione forn"
 
-#: conf/defaults.py:231
+#: defaults.py:246
 msgid "Google Analytics ID"
 msgstr "Google Analytics ID"
 
-#: conf/defaults.py:233
+#: defaults.py:248
 msgid "Google Analytics ID (http://www.google.com/analytics/)"
 msgstr "Google Analytics ID (http://www.google.com/analytics/)"
 
-#: conf/defaults.py:239
+#: defaults.py:254
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
 msgstr ""
-"Percorso del pacchetto usando i punti (.) e nome della classe "
-"per il widget da usare per il campo ``RichTextField``."
+"Percorso del pacchetto usando i punti (.) e nome della classe per il widget "
+"da usare per il campo ``RichTextField``."
 
-#: conf/defaults.py:247
+#: defaults.py:262
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
 msgstr ""
 "Percorso della funzione da chiamare sul valore del campo ``RichTextField`` "
 "prima che venga visualizzato nel template"
-#: conf/defaults.py:255
+
+#: defaults.py:270
 msgid "Tag Cloud Sizes"
 msgstr "Dimensione Tag Cloud"
 
-#: conf/defaults.py:256
+#: defaults.py:271
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr "Numero delle varie dimensioni per i tags quando mostrati come cloud"
 
-#: conf/defaults.py:263
+#: defaults.py:278
 msgid "Package name of theme app to use."
 msgstr "Nome da usare della theme app"
 
-#: conf/defaults.py:270
+#: defaults.py:285
 msgid ""
 "If ``True``, the pages menu will show all levels of navigation, otherwise "
 "child pages are only shown when viewing the parent page."
 msgstr ""
-"Se ``True``, il menù delle pagine mostreranno tutti i livelli di navigazione"
-", altrimenti le sotto-pagine vengono mostrate solo quando si visita la pagina"
-" gerarchicamente superiore"
-#: conf/defaults.py:279
+"Se ``True``, il menù delle pagine mostreranno tutti i livelli di "
+"navigazione, altrimenti le sotto-pagine vengono mostrate solo quando si "
+"visita la pagina gerarchicamente superiore"
+
+#: defaults.py:294
 msgid "Min value for a rating."
 msgstr "Valore minimo per un rating."
 
-#: conf/defaults.py:286
+#: defaults.py:301
 msgid "Max value for a rating."
 msgstr "Valore massimo per un rating."
 
-#: conf/defaults.py:293
+#: defaults.py:308
 msgid "Search results per page"
 msgstr "Risultati della ricerca per pagina"
 
-#: conf/defaults.py:294
-msgid "Number of results to show in the search results page."
-msgstr "Numero di risultati da mostrare nella pagina di risposta della ricerca"
+#: defaults.py:309
+msgid "Number of results shown in the search results page."
+msgstr ""
 
-#: conf/defaults.py:301
+#: defaults.py:316
 msgid "Max search paging links"
 msgstr "Numero massimo di link "
 
-#: conf/defaults.py:302
+#: defaults.py:317
 msgid "Max number of paging links for the search results page."
-msgstr "Massimo numero di links di paging nella pagina di risposta della ricerca"
+msgstr ""
+"Massimo numero di links di paging nella pagina di risposta della ricerca"
 
-#: conf/defaults.py:309
+#: defaults.py:324
 msgid "Site Title"
 msgstr "Titolo del sito"
 
-#: conf/defaults.py:310
+#: defaults.py:325
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
 msgstr ""
-"Titolo che verrà visualizzato nel top del sito, e viene inserito "
-"nel tag HTML title di ogni pagina"
+"Titolo che verrà visualizzato nel top del sito, e viene inserito nel tag "
+"HTML title di ogni pagina"
 
-#: conf/defaults.py:318
+#: defaults.py:333
 msgid "Tagline"
 msgstr "Tagline"
 
-#: conf/defaults.py:319
+#: defaults.py:334
 msgid "A tag line that will appear at the top of all pages."
 msgstr "Una tagline che compare in alto in ogni pagina"
 
-#: conf/defaults.py:321
+#: defaults.py:336
 msgid "An open source content management platform."
 msgstr "Una piataforma open source per la gestione dei contenuti web"
 
-#: conf/defaults.py:326
+#: defaults.py:341
 msgid "List of words which will be stripped from search queries."
-msgstr "Lista di parole che non vengono considerate quando si effettua una ricerca"
+msgstr ""
+"Lista di parole che non vengono considerate quando si effettua una ricerca"
 
-#: conf/defaults.py:383
+#: defaults.py:398
 msgid "Sequence of setting names available within templates."
-msgstr "Seguenza di nomi di variabili in setting disponibili all'interno dei template"
+msgstr ""
+"Seguenza di nomi di variabili in setting disponibili all'interno dei "
+"template"
 
-#: conf/defaults.py:404
+#: defaults.py:419
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
@@ -427,683 +327,24 @@ msgstr ""
 "Se ``True``, l'applicazione south viene automaticamente aggiunta alle "
 "``INSTALLED_APPS`` in setting."
 
-#: conf/forms.py:44
+#: forms.py:48
 msgid "Miscellaneous"
 msgstr "Vario"
 
-#: conf/models.py:17
+#: models.py:17
 msgid "Setting"
 msgstr "Impostazione"
 
-#: conf/models.py:18
+#: models.py:18
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: conf/templates/admin/conf/setting/change_list.html:21
+#: templates/admin/conf/setting/change_list.html:21
 msgid "Please correct the errors below."
 msgstr "Correggi gli errori prima di continuare"
 
-#: conf/templates/admin/conf/setting/change_list.html:44
-#: core/templates/includes/editable_form.html:16
+#: templates/admin/conf/setting/change_list.html:44
 msgid "Save"
 msgstr "Salva"
 
-#: core/admin.py:39
-msgid "Meta data"
-msgstr "Meta data"
 
-#: core/fields.py:23
-#, python-format
-msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
-msgstr "Non riesco ad importare il valore di settings.RICHTEXT_WIDGET_CLASS: %s"
-
-#: core/forms.py:59 core/models.py:197
-msgid "Order"
-msgstr "Ordine"
-
-#: core/models.py:23
-msgid "Title"
-msgstr "Titolo"
-
-#: core/models.py:24
-msgid "URL"
-msgstr "URL"
-
-#: core/models.py:71
-msgid "Draft"
-msgstr "Bozza"
-
-#: core/models.py:72
-msgid "Published"
-msgstr "Pubblicato"
-
-#: core/models.py:82
-msgid "Status"
-msgstr "Stato"
-
-#: core/models.py:84
-msgid "Published from"
-msgstr "Pubblicato da"
-
-#: core/models.py:85
-msgid "With published checked, won't be shown until this time"
-msgstr "Se è stato pubblicato, non verrà visualizzato fino a questa ora"
-
-#: core/models.py:87
-msgid "Expires on"
-msgstr "Scade il"
-
-#: core/models.py:88
-msgid "With published checked, won't be shown after this time"
-msgstr "Se è stato pubblicato, non verrà visualizzato dopo quest'ora"
-
-#: core/models.py:90
-msgid "Description"
-msgstr "Descrizione"
-
-#: core/models.py:91 generic/models.py:85
-msgid "Keywords"
-msgstr "Parole chiave"
-
-#: core/models.py:145 forms/templates/admin/forms/change_form.html:16
-#: generic/models.py:70
-msgid "View on site"
-msgstr "Visualizza sul sito"
-
-#: core/models.py:241
-msgid "Author"
-msgstr "Autore"
-
-#: core/views.py:53
-msgid "Permission denied"
-msgstr "Permesso negato"
-
-#: core/templates/404.html:6 mobile/templates/mobile/404.html:6
-msgid "Page not found"
-msgstr "Pagina non trovata"
-
-#: core/templates/404.html:10 mobile/templates/mobile/404.html:10
-msgid "The page you requested does not exist."
-msgstr "La pagina che hai richiesto non esiste"
-
-#: core/templates/500.html:6 mobile/templates/mobile/500.html:6
-msgid "Error"
-msgstr "Errore"
-
-#: core/templates/500.html:10 mobile/templates/mobile/500.html:10
-msgid "Sorry, an error occurred."
-msgstr "Spiacenti, c'è un errore "
-
-#: core/templates/base.html:66 mobile/templates/mobile/base.html:47
-msgid "Powered by"
-msgstr "Powered by"
-
-#: core/templates/base.html:69
-msgid "View Mobile Site."
-msgstr "Guarda versione mobile"
-
-#: core/templates/index.html:12
-msgid "This is the homepage."
-msgstr "Questa è la homepage"
-
-#: core/templates/search_results.html:5 core/templates/search_results.html:6
-#: mobile/templates/mobile/search_results.html:5
-#: mobile/templates/mobile/search_results.html:6
-msgid "Search Results"
-msgstr "Risultati della ricerca"
-
-#: core/templates/search_results.html:12
-#: mobile/templates/mobile/search_results.html:12
-msgid "No results were found matching your query: "
-msgstr "Nessun risultato corrispondente alla ricerca"
-
-#: core/templates/search_results.html:14
-#: mobile/templates/mobile/search_results.html:14
-msgid "Showing"
-msgstr "Risultati"
-
-#: core/templates/search_results.html:14
-#: mobile/templates/mobile/search_results.html:14
-msgid "to"
-msgstr "a"
-
-#: core/templates/search_results.html:14
-#: core/templates/includes/pagination.html:4
-#: mobile/templates/mobile/search_results.html:14
-msgid "of"
-msgstr "di"
-
-#: core/templates/search_results.html:15
-#: mobile/templates/mobile/search_results.html:15
-msgid "results matching your query:"
-msgstr "risultati corrispondenti alla ricerca:"
-
-#: core/templates/admin/base_site.html:217
-msgid "Forgot password?"
-msgstr "Password dimenticata?"
-
-#: core/templates/admin/base_site.html:221
-msgid "Interface:"
-msgstr "Interfaccia:"
-
-#: core/templates/admin/base_site.html:225
-#: core/templates/includes/editable_toolbar.html:8
-#: core/templates/includes/editable_toolbar.html:10
-msgid "Admin"
-msgstr "Amministra"
-
-#: core/templates/admin/index.html:41
-#: core/templates/admin/includes/dropdown_menu.html:3
-msgid "Dashboard"
-msgstr "Pannello di controllo"
-
-#: core/templates/admin/includes/app_list.html:20
-#: pages/templates/admin/pages/page/change_list.html:162
-#: pages/templates/pages/menus/admin.html:30
-msgid "Add"
-msgstr "Aggiungi"
-
-#: core/templates/admin/includes/app_list.html:27
-msgid "Change"
-msgstr "Cambia"
-
-#: core/templates/admin/includes/dynamic_inline_stacked.html:6
-#: core/templates/admin/includes/dynamic_inline_tabular.html:6
-msgid "Add another"
-msgstr "Aggiungi altro"
-
-#: core/templates/admin/includes/recent_actions.html:4
-msgid "Recent Actions"
-msgstr "Azioni recenti"
-
-#: core/templates/admin/includes/recent_actions.html:5
-msgid "My Actions"
-msgstr "Mie azioni"
-
-#: core/templates/admin/includes/recent_actions.html:9
-msgid "None available"
-msgstr "Non disponibile"
-
-#: core/templates/includes/editable_form.html:17
-msgid "Cancel"
-msgstr "Cancella"
-
-#: core/templates/includes/editable_form.html:25
-msgid "Edit"
-msgstr "Modifica"
-
-#: core/templates/includes/editable_loader.html:87
-msgid "An error occurred"
-msgstr "C'è un errore"
-
-#: core/templates/includes/editable_toolbar.html:12
-msgid "Log out"
-msgstr "Esci"
-
-#: core/templates/includes/pagination.html:4 pages/models.py:27
-msgid "Page"
-msgstr "Pagina"
-
-#: core/templates/includes/search.html:3
-#: mobile/templates/mobile/includes/search.html:4 twitter/models.py:26
-msgid "Search"
-msgstr "Cerca"
-
-#: core/templates/includes/search.html:6
-msgid "Go"
-msgstr "Vai"
-
-#: core/templates/includes/search.html:9
-#: mobile/templates/mobile/includes/search.html:5
-msgid "Use "
-msgstr "Usa"
-
-#: core/templates/includes/search.html:9
-#: mobile/templates/mobile/includes/search.html:5
-msgid "quotes"
-msgstr "citazioni"
-
-#: core/templates/includes/search.html:9
-#: mobile/templates/mobile/includes/search.html:5
-msgid ""
-" for exact phrases, + to make a word or phrase required, and - to exclude a "
-"word or phrase."
-msgstr ""
-" per frasi esatte, + per includere la parola o frase come richiesta,"
-" e  - per escludere la parola o frase "
-
-#: forms/admin.py:31 forms/fields.py:28 generic/forms.py:80
-msgid "Email"
-msgstr "Email"
-
-#: forms/admin.py:95
-msgid "Export Entries"
-msgstr "Esporta Contenuti"
-
-#: forms/fields.py:26
-msgid "Single line text"
-msgstr "Singola linea di testo"
-
-#: forms/fields.py:27
-msgid "Multi line text"
-msgstr "Testo multilinea"
-
-#: forms/fields.py:29
-msgid "Check box"
-msgstr "Check box"
-
-#: forms/fields.py:30
-msgid "Check boxes"
-msgstr "Check boxes"
-
-#: forms/fields.py:31
-msgid "Drop down"
-msgstr "Drop down"
-
-#: forms/fields.py:32
-msgid "Multi select"
-msgstr "Multi select"
-
-#: forms/fields.py:33
-msgid "Radio buttons"
-msgstr "Radio buttons"
-
-#: forms/fields.py:34
-msgid "File upload"
-msgstr "File upload"
-
-#: forms/fields.py:35
-msgid "Date"
-msgstr "Data"
-
-#: forms/fields.py:36 forms/models.py:110 twitter/models.py:97
-msgid "Date/time"
-msgstr "Data/Ora"
-
-#: forms/fields.py:37
-msgid "Hidden"
-msgstr "Nascosto"
-
-#: forms/forms.py:26 forms/forms.py:34 forms/forms.py:40
-msgid "Nothing"
-msgstr "Niente"
-
-#: forms/forms.py:27
-msgid "Contains"
-msgstr "Contiene"
-
-#: forms/forms.py:28
-msgid "Doesn't contain"
-msgstr "Non contiene"
-
-#: forms/forms.py:29 forms/forms.py:35
-msgid "Equals"
-msgstr "Uguale a"
-
-#: forms/forms.py:30 forms/forms.py:36
-msgid "Doesn't equal"
-msgstr "Non uguale"
-
-#: forms/forms.py:41
-msgid "Is between"
-msgstr "E' tra"
-
-#: forms/forms.py:170
-msgid "Checked"
-msgstr "Checked"
-
-#: forms/forms.py:170
-msgid "Not checked"
-msgstr "Non checked"
-
-#: forms/forms.py:184 forms/forms.py:199
-msgid "and"
-msgstr "E"
-
-#: forms/models.py:17
-msgid "Button text"
-msgstr "Testo del bottone"
-
-#: forms/models.py:18
-msgid "Submit"
-msgstr "Invia"
-
-#: forms/models.py:19
-msgid "Response"
-msgstr "Risposta"
-
-#: forms/models.py:20
-msgid "Send email"
-msgstr "Manda email"
-
-#: forms/models.py:21
-msgid "If checked, the form submitter will be sent an email."
-msgstr "Se checked, quando si invia il form viene inviata una email"
-
-#: forms/models.py:22
-msgid "From address"
-msgstr "Indirizzo mittente"
-
-#: forms/models.py:23
-msgid "The address the email will be sent from"
-msgstr "L'indirizzo di chi spedisce il messaggio"
-
-#: forms/models.py:24
-msgid "Send copies to"
-msgstr "Manda copie a"
-
-#: forms/models.py:25
-msgid "One or more email addresses, separated by commas"
-msgstr "Uno o più indirizzi separati da virgola"
-
-#: forms/models.py:27
-msgid "Subject"
-msgstr "Oggetto"
-
-#: forms/models.py:28 twitter/models.py:98
-msgid "Message"
-msgstr "Messaggio"
-
-#: forms/models.py:31
-msgid "Form"
-msgstr "Form"
-
-#: forms/models.py:32
-msgid "Forms"
-msgstr "Forms"
-
-#: forms/models.py:49
-msgid "Label"
-msgstr "Etichetta"
-
-#: forms/models.py:51 twitter/models.py:29
-msgid "Type"
-msgstr "Tipo"
-
-#: forms/models.py:52
-msgid "Required"
-msgstr "Richiesto"
-
-#: forms/models.py:53
-msgid "Visible"
-msgstr "Visibile"
-
-#: forms/models.py:54
-msgid "Choices"
-msgstr "Scelte"
-
-#: forms/models.py:55
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
-msgstr ""
-"Opzioni separate da virgola se più di una. Se una opzione contiene virgole, "
-"inserisci intorno alla opzione `backticks`."
-
-#: forms/models.py:57
-msgid "Default value"
-msgstr "Valore di default"
-
-#: forms/models.py:59
-msgid "Placeholder Text"
-msgstr "Testo di esempio"
-
-#: forms/models.py:61
-msgid "Help text"
-msgstr "Testo di aiuto"
-
-#: forms/models.py:66 forms/templates/admin/forms/export.html:63
-msgid "Field"
-msgstr "Campo"
-
-#: forms/models.py:67
-msgid "Fields"
-msgstr "Campi"
-
-#: forms/models.py:113
-msgid "Form entry"
-msgstr "Elemento Form"
-
-#: forms/models.py:114
-msgid "Form entries"
-msgstr "Elementi Form"
-
-#: forms/models.py:127
-msgid "Form field entry"
-msgstr "Form field entry"
-
-#: forms/models.py:128
-msgid "Form field entries"
-msgstr "Form field entries"
-
-#: forms/templates/admin/forms/change_form.html:14
-msgid "Export entries"
-msgstr "Export elementi"
-
-#: forms/templates/admin/forms/change_form.html:15
-msgid "History"
-msgstr "Storia"
-
-#: forms/templates/admin/forms/export.html:64
-msgid "Include"
-msgstr "Includi"
-
-#: forms/templates/admin/forms/export.html:65
-msgid "Filter by"
-msgstr "Filtato da"
-
-#: forms/templates/admin/forms/export.html:83
-msgid "All"
-msgstr "Tutti"
-
-#: forms/templates/admin/forms/export.html:92
-msgid "Back to form"
-msgstr "indietro al form"
-
-#: forms/templates/admin/forms/export.html:94
-msgid "View entries"
-msgstr "Visualizza elementi"
-
-#: forms/templates/admin/forms/export.html:96
-msgid "Export CSV"
-msgstr "Esporta in CSV"
-
-#: forms/templates/admin/forms/export.html:100
-msgid "Entries"
-msgstr "Elementi"
-
-#: generic/admin.py:19 generic/models.py:66 twitter/models.py:24
-msgid "User"
-msgstr "Utente"
-
-#: generic/forms.py:78
-msgid "Name"
-msgstr "Nome"
-
-#: generic/forms.py:78
-msgid "required"
-msgstr "richiesto"
-
-#: generic/forms.py:81
-msgid "required (not published)"
-msgstr "richiesto (non pubblicato)"
-
-#: generic/forms.py:82
-msgid "Website"
-msgstr "Website"
-
-#: generic/forms.py:82
-msgid "optional"
-msgstr "opzionale"
-
-#: generic/models.py:21
-msgid "Email hash"
-msgstr "Email hash"
-
-#: generic/models.py:22
-msgid "By the blog author"
-msgstr "dall'autore del blog"
-
-#: generic/models.py:29 generic/models.py:58
-#: generic/templates/generic/includes/comments.html:21
-#: mobile/templates/mobile/blog/includes/comments.html:15
-msgid "Comment"
-msgstr "Commento"
-
-#: generic/models.py:84
-msgid "Keyword"
-msgstr "Parola chiave"
-
-#: generic/models.py:109 twitter/models.py:31
-msgid "Value"
-msgstr "Valore"
-
-#: generic/models.py:116
-msgid "Ratings"
-msgstr "Valutazione"
-
-#: generic/templates/admin/includes/recent_comments.html:13
-msgid "Recent Comments"
-msgstr "Commenti recenti"
-
-#: generic/templates/generic/includes/comment.html:22
-msgid "Link"
-msgstr "Link"
-
-#: generic/templates/generic/includes/comment.html:23
-#: generic/templates/generic/includes/comment.html:39
-#: mobile/templates/mobile/blog/includes/comments_thread.html:23
-#: mobile/templates/mobile/blog/includes/comments_thread.html:35
-msgid "Reply"
-msgstr "Risposta"
-
-#: generic/templates/generic/includes/comment.html:65
-#: mobile/templates/mobile/blog/includes/comments_thread.html:43
-msgid "Comment deleted"
-msgstr "Commento cancellato"
-
-#: generic/templates/generic/includes/comment.html:68
-#: mobile/templates/mobile/blog/includes/comments_thread.html:45
-msgid "Comment awaiting approval"
-msgstr "Commento aspetta approvazione"
-
-#: generic/templates/generic/includes/comment.html:77
-#: mobile/templates/mobile/blog/includes/comments_thread.html:53
-msgid "There are currently no comments"
-msgstr "Non ci sono commenti al momento"
-
-#: generic/templates/generic/includes/rating.html:5
-msgid "Current rating"
-msgstr "Valutazione attuale"
-
-#: generic/templates/generic/includes/rating.html:7
-msgid "Currently unrated"
-msgstr "Attualmente non valutato"
-
-#: generic/templates/generic/includes/rating.html:14
-msgid "Rate"
-msgstr "Valuatazione"
-
-#: mobile/templates/mobile/base.html:48
-msgid "View Full Site"
-msgstr "Guarda tutto il sito"
-
-#: mobile/templates/mobile/index.html:10
-msgid "This is the mobile homepage."
-msgstr "Questa è la versione mobile della homepage"
-
-#: mobile/templates/mobile/blog/blog_post_detail.html:56
-msgid "Share this on:"
-msgstr "Condividi questo su:"
-
-#: mobile/templates/mobile/blog/blog_post_detail.html:58
-msgid "or"
-msgstr "oppure"
-
-#: mobile/templates/mobile/includes/pagination.html:6
-msgid "Previous"
-msgstr "Precedente"
-
-#: mobile/templates/mobile/includes/pagination.html:9
-msgid "Next"
-msgstr "Successivo"
-
-#: pages/models.py:19
-msgid "Show in navigation"
-msgstr "Mostra nella navigazione"
-
-#: pages/models.py:20
-msgid "Show in footer"
-msgstr "Mostra nel piè di pagina"
-
-#: pages/models.py:23
-msgid "Login required"
-msgstr "Login richiesto"
-
-#: pages/models.py:24
-msgid "If checked, only logged in users can view this page"
-msgstr "Se checked, solo gli utenti autenticati possono vedere la pagina"
-
-#: pages/models.py:28
-msgid "Pages"
-msgstr "Pagine"
-
-#: pages/models.py:136
-msgid "Rich text page"
-msgstr "Rich text page"
-
-#: pages/models.py:137
-msgid "Rich text pages"
-msgstr "Rich text pages"
-
-#: twitter/models.py:25
-msgid "List"
-msgstr "Lista"
-
-#: twitter/models.py:35
-msgid "Twitter query"
-msgstr "Twitter query"
-
-#: twitter/models.py:36
-msgid "Twitter queries"
-msgstr "Twitter queries"
-
-#: twitter/models.py:96
-msgid "Twitter ID"
-msgstr "Twitter ID"
-
-#: twitter/models.py:99
-msgid "Profile image URL"
-msgstr "URL dell'immagine del profilo"
-
-#: twitter/models.py:100
-msgid "User name"
-msgstr "User name"
-
-#: twitter/models.py:101
-msgid "Full name"
-msgstr "Nome completo"
-
-#: twitter/models.py:103
-msgid "Profile image URL (Retweeted by)"
-msgstr "URL dell'immagine del profilo (Retweeted by)"
-
-#: twitter/models.py:105
-msgid "User name (Retweeted by)"
-msgstr "User name (Retweeted by)"
-
-#: twitter/models.py:107
-msgid "Full name (Retweeted by)"
-msgstr "Nome completo (Retweeted by)"
-
-#: twitter/models.py:113
-msgid "Tweet"
-msgstr "Tweet"
-
-#: twitter/models.py:114
-msgid "Tweets"
-msgstr "Tweets"
-
-#: twitter/templates/twitter/tweets.html:7
-msgid "Recent Tweets"
-msgstr "Tweets recenti"
