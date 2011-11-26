@@ -1,0 +1,132 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Rivo Zängov <eraser@eraser.ee>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-11 22:18-0430\n"
+"PO-Revision-Date: 2011-11-18 19:33+0000\n"
+"Last-Translator: Eraser <eraser@eraser.ee>\n"
+"Language-Team: Estonian (http://www.transifex.net/projects/p/mezzanine/team/et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:19 models.py:66
+msgid "User"
+msgstr "Kasutaja"
+
+#: forms.py:78
+msgid "Name"
+msgstr "Nimi"
+
+#: forms.py:78
+msgid "required"
+msgstr "kohustuslik"
+
+#: forms.py:80
+msgid "Email"
+msgstr "E-post"
+
+#: forms.py:81
+msgid "required (not published)"
+msgstr "kohustuslik (ei avaldata)"
+
+#: forms.py:82
+msgid "Website"
+msgstr "Veebisait"
+
+#: forms.py:82
+msgid "optional"
+msgstr "valikuline"
+
+#: forms.py:97 models.py:119
+msgid "Rating"
+msgstr "Hinnang"
+
+#: models.py:21
+msgid "Email hash"
+msgstr ""
+
+#: models.py:22
+msgid "By the blog author"
+msgstr ""
+
+#: models.py:29 models.py:58 templates/generic/includes/comments.html:21
+msgid "Comment"
+msgstr "Kommentaar"
+
+#: models.py:30 templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr "Kommentaari"
+
+#: models.py:70
+msgid "View on site"
+msgstr "Vaata saidil"
+
+#: models.py:84
+msgid "Keyword"
+msgstr "Märksõna"
+
+#: models.py:85
+msgid "Keywords"
+msgstr "Märksõnad"
+
+#: models.py:113
+msgid "Value"
+msgstr "Väärtus"
+
+#: models.py:120
+msgid "Ratings"
+msgstr "Hinnang"
+
+#: templates/admin/includes/recent_comments.html:13
+msgid "Recent Comments"
+msgstr "Viimased kommentaarid"
+
+#: templates/admin/includes/recent_comments.html:29
+#: templates/generic/includes/comment.html:19
+#: templates/generic/includes/comment.html:57
+msgid "ago"
+msgstr "tagasi"
+
+#: templates/generic/includes/comment.html:22
+msgid "Link"
+msgstr "Link"
+
+#: templates/generic/includes/comment.html:23
+#: templates/generic/includes/comment.html:39
+msgid "Reply"
+msgstr "Vasta"
+
+#: templates/generic/includes/comment.html:65
+msgid "Comment deleted"
+msgstr "Kommentaar on kustutatud"
+
+#: templates/generic/includes/comment.html:68
+msgid "Comment awaiting approval"
+msgstr "Kommentaar ootab heakskiitu"
+
+#: templates/generic/includes/comment.html:77
+msgid "There are currently no comments"
+msgstr "Praegu kommentaare pole"
+
+#: templates/generic/includes/rating.html:5
+msgid "Current rating"
+msgstr "Praegune hinnang"
+
+#: templates/generic/includes/rating.html:7
+msgid "Currently unrated"
+msgstr "Praegu hindamata"
+
+#: templates/generic/includes/rating.html:14
+msgid "Rate"
+msgstr "Hinda"
+
+

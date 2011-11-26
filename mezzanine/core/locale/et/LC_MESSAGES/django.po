@@ -1,0 +1,252 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Rivo Zängov <eraser@eraser.ee>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-11 22:16-0430\n"
+"PO-Revision-Date: 2011-11-18 10:11+0000\n"
+"Last-Translator: Eraser <eraser@eraser.ee>\n"
+"Language-Team: Estonian (http://www.transifex.net/projects/p/mezzanine/team/et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:39
+msgid "Meta data"
+msgstr "META andmed"
+
+#: fields.py:23
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr ""
+
+#: forms.py:59 models.py:216
+msgid "Order"
+msgstr "Järjekord"
+
+#: models.py:27
+msgid "Title"
+msgstr "Pealkiri"
+
+#: models.py:28
+msgid "URL"
+msgstr "URL"
+
+#: models.py:84
+msgid "Description"
+msgstr "Kirjeldus"
+
+#: models.py:85
+msgid "Keywords"
+msgstr "Märksõnad"
+
+#: models.py:94
+msgid "Draft"
+msgstr "Mustand"
+
+#: models.py:95
+msgid "Published"
+msgstr "Avaldatud"
+
+#: models.py:106
+msgid "Status"
+msgstr "Staatus"
+
+#: models.py:108
+msgid "Published from"
+msgstr "Avaldatud alates"
+
+#: models.py:109
+msgid "With published checked, won't be shown until this time"
+msgstr ""
+
+#: models.py:111
+msgid "Expires on"
+msgstr "Aegub"
+
+#: models.py:112
+msgid "With published checked, won't be shown after this time"
+msgstr ""
+
+#: models.py:163
+msgid "View on site"
+msgstr "Vaata saidil"
+
+#: models.py:174
+msgid "Content"
+msgstr "Sisu"
+
+#: models.py:270
+msgid "Author"
+msgstr "Autor"
+
+#: views.py:53
+msgid "Permission denied"
+msgstr "Õigus on keelatud"
+
+#: templates/404.html:6
+msgid "Page not found"
+msgstr "Lehekülge ei leitud"
+
+#: templates/404.html:10
+msgid "The page you requested does not exist."
+msgstr "Sinu poolt päritud lehekülge pole olemas."
+
+#: templates/500.html:6
+msgid "Error"
+msgstr "Viga"
+
+#: templates/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "Vabandust, tekkis viga."
+
+#: templates/base.html:66
+msgid "Powered by"
+msgstr "Kasutatud tarkvara"
+
+#: templates/base.html:69
+msgid "View Mobile Site."
+msgstr "Vaata mobiilset saiti."
+
+#: templates/index.html:5 templates/index.html.py:8
+#: templates/admin/index.html:41
+msgid "Home"
+msgstr "Avaleht"
+
+#: templates/index.html:12
+msgid "This is the homepage."
+msgstr "See on avaleht."
+
+#: templates/search_results.html:5 templates/search_results.html.py:6
+msgid "Search Results"
+msgstr "Otsingu tulemused"
+
+#: templates/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr "Sinu päringule vastavaid tulemusi ei leitud:"
+
+#: templates/search_results.html:14
+msgid "Showing"
+msgstr "Näidatakse"
+
+#: templates/search_results.html:14
+msgid "to"
+msgstr "/"
+
+#: templates/search_results.html:14 templates/includes/pagination.html:4
+msgid "of"
+msgstr "Kokku"
+
+#: templates/search_results.html:15
+msgid "results matching your query:"
+msgstr "sinu päringule vastavaid tulemusi:"
+
+#: templates/search_results.html:23
+msgid "read more"
+msgstr "loe lisa"
+
+#: templates/admin/base_site.html:191
+msgid "View Site"
+msgstr "Vaata saiti"
+
+#: templates/admin/base_site.html:219
+msgid "Forgot password?"
+msgstr "Unustasid parooli?"
+
+#: templates/admin/base_site.html:223
+msgid "Interface:"
+msgstr "Kasutajaliides:"
+
+#: templates/admin/base_site.html:227
+#: templates/includes/editable_toolbar.html:8
+#: templates/includes/editable_toolbar.html:10
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/admin/base_site.html:231
+msgid "Site"
+msgstr "Sait"
+
+#: templates/admin/index.html:43 templates/admin/includes/dropdown_menu.html:3
+msgid "Dashboard"
+msgstr "Töölaud"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "Lisa"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "Muuda"
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr "Lisa veel üks"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "Viimased tegevused"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "Minu tegevused"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "Ühtegi pole saadavalt"
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "Salvesta"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "Loobu"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "Muuda"
+
+#: templates/includes/editable_loader.html:87
+msgid "An error occurred"
+msgstr "Tekkis viga"
+
+#: templates/includes/editable_toolbar.html:12
+msgid "Log out"
+msgstr "Logi välja"
+
+#: templates/includes/pagination.html:4
+msgid "Page"
+msgstr "Lehekülg"
+
+#: templates/includes/search.html:3
+msgid "Search"
+msgstr "Otsi"
+
+#: templates/includes/search.html:6
+msgid "Go"
+msgstr "Mine"
+
+#: templates/includes/search.html:9
+msgid "Use "
+msgstr "Kasuta "
+
+#: templates/includes/search.html:9
+msgid "quotes"
+msgstr ""
+
+#: templates/includes/search.html:9
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr ""
+
+
