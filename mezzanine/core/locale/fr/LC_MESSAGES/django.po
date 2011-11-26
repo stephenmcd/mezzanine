@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <vincent.rialland@gmail.com>, 2011.
 # Vincent Rialland <vincent.rialland@gmail.com>, 2011.
@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-11 22:16-0430\n"
+"POT-Creation-Date: 2011-11-26 09:45-0430\n"
 "PO-Revision-Date: 2011-11-16 10:19+0000\n"
 "Last-Translator: vrialland <vincent.rialland@gmail.com>\n"
-"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/team/fr/)\n"
+"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/team/"
+"fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: admin.py:39
@@ -28,63 +29,63 @@ msgstr "Balises Meta"
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Ne peut importer la valeur de settings.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:59 models.py:216
+#: forms.py:59 models.py:220
 msgid "Order"
 msgstr "Commande"
 
-#: models.py:27
+#: models.py:28
 msgid "Title"
 msgstr "Titre"
 
-#: models.py:28
+#: models.py:29
 msgid "URL"
 msgstr "URL"
 
-#: models.py:84
+#: models.py:85
 msgid "Description"
 msgstr "Description"
 
-#: models.py:85
+#: models.py:86
 msgid "Keywords"
 msgstr "Mots-clés"
 
-#: models.py:94
+#: models.py:95
 msgid "Draft"
 msgstr "Brouillon"
 
-#: models.py:95
+#: models.py:96
 msgid "Published"
 msgstr "Publié"
 
-#: models.py:106
+#: models.py:107
 msgid "Status"
 msgstr "Statut"
 
-#: models.py:108
+#: models.py:109
 msgid "Published from"
 msgstr "Publié à partir du"
 
-#: models.py:109
+#: models.py:110
 msgid "With published checked, won't be shown until this time"
 msgstr ""
 
-#: models.py:111
+#: models.py:112
 msgid "Expires on"
 msgstr "Expirera le"
 
-#: models.py:112
+#: models.py:113
 msgid "With published checked, won't be shown after this time"
 msgstr ""
 
-#: models.py:163
+#: models.py:167
 msgid "View on site"
 msgstr "Voir sur le site"
 
-#: models.py:174
+#: models.py:178
 msgid "Content"
 msgstr "Contenu"
 
-#: models.py:270
+#: models.py:274
 msgid "Author"
 msgstr "Auteur"
 
@@ -249,7 +250,5 @@ msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
 msgstr ""
-"pour une phrase exacte, + pour rendre un mot ou une phrase obligatoire, et -"
-" pour exclure un mot ou une phrase."
-
-
+"pour une phrase exacte, + pour rendre un mot ou une phrase obligatoire, et - "
+"pour exclure un mot ou une phrase."

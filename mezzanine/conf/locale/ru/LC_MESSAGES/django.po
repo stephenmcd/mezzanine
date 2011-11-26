@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-11 22:15-0430\n"
+"POT-Creation-Date: 2011-11-26 09:46-0430\n"
 "PO-Revision-Date: 2011-11-12 03:20+0000\n"
 "Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: admin.py:36
 #, python-format
@@ -131,8 +132,8 @@ msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
 msgstr ""
-"Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом"
-" будут заменены на надпись ``ожидает подтверждения``"
+"Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом "
+"будут заменены на надпись ``ожидает подтверждения``"
 
 #: defaults.py:120
 msgid "Show removed comments"
@@ -140,8 +141,8 @@ msgstr "Удалённые комментарии"
 
 #: defaults.py:121
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
 msgstr ""
 "Если ``Да``, то удалённые комментарии продолжат отображаться, но при этом "
 "будут заменены на надпись ``Удалено``"
@@ -176,8 +177,8 @@ msgid ""
 "library's) models. Each item in the sequence is a four item sequence. The "
 "first two items are the dotted path to the model and its field name to be "
 "added, and the dotted path to the field class to use for the field. The "
-"third and fourth items are a sequence of positional args and a dictionary of"
-" keyword args, to use when creating the field instance. When specifying the "
+"third and fourth items are a sequence of positional args and a dictionary of "
+"keyword args, to use when creating the field instance. When specifying the "
 "field class, the path ``django.models.db.`` can be omitted for regular "
 "Django model fields."
 msgstr ""
@@ -194,8 +195,7 @@ msgstr "Максимально допустимая длина названий 
 msgid ""
 "If ``True``, website forms created by the forms app will use HTML5 features."
 msgstr ""
-"Если ``Да``, то пользовательские формы будут использовать преимущества "
-"HTML5."
+"Если ``Да``, то пользовательские формы будут использовать преимущества HTML5."
 
 #: defaults.py:231
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
@@ -338,5 +338,3 @@ msgstr "Пожалуста, исправьте следующие ошибки"
 #: templates/admin/conf/setting/change_list.html:44
 msgid "Save"
 msgstr "Сохранить"
-
-
