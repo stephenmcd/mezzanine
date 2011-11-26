@@ -71,7 +71,12 @@ class BaseGenericRelation(GenericRelation):
             return
         for_model = kwargs["instance"].content_type.model_class()
         if issubclass(for_model, self.model):
-            instance = self.model.objects.get(id=kwargs["instance"].object_pk)
+            instance_id = kwargs["instance"].object_pk
+            try:
+                instance = self.model.objects.get(id=instance_id)
+            except self.model.DoesNotExist:
+                # Instance itself was deleted - signals are irrelevant.
+                return
             if hasattr(instance, "get_content_model"):
                 instance = instance.get_content_model()
             related_manager = getattr(instance, self.related_field_name)

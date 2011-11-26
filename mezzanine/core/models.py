@@ -14,6 +14,7 @@ from django.contrib.sites.managers import CurrentSiteManager
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.generic.fields import KeywordsField
+from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model
 from mezzanine.utils.urls import slugify
 
@@ -128,13 +129,13 @@ class Displayable(Slugged, MetaData):
             # publish_date will be blank when a blog post is created
             # from the quick blog form in the admin dashboard.
             self.publish_date = datetime.now()
-        if not self.description:
-            self.description = strip_tags(self.description_from_content())
+        self.description = strip_tags(self.description_from_content())
         super(Displayable, self).save(*args, **kwargs)
 
     def description_from_content(self):
         """
-        Returns the first paragraph of the first content-like field.
+        Returns the first block or sentence of the first content-like
+        field.
         """
         description = ""
         # Use the first RichTextField, or TextField if none found.
@@ -149,10 +150,13 @@ class Displayable(Slugged, MetaData):
         # Fall back to the title if description couldn't be determined.
         if not description:
             description = self.title
-        # Strip everything after the first paragraph or sentence.
-        for end in ("</p>", "<br />", "\n", ". "):
-            if end in description:
-                description = description.split(end)[0] + end
+        # Strip everything after the first block or sentence.
+        ends = ("</p>", "<br />", "<br/>", "<br>", "</ul>",
+                "\n", ". ", "! ", "? ")
+        for end in ends:
+            pos = description.lower().find(end)
+            if pos > -1:
+                description = TagCloser(description[:pos]).html
                 break
         else:
             description = truncatewords_html(description, 100)
