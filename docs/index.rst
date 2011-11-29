@@ -6,6 +6,14 @@ Welcome to the Mezzanine project. To learn more about Mezzanine please
 read the :doc:`overview` which contains a feature list, installation
 guide and other general information.
 
+.. note::
+    A working knowledge of `Django <https://www.djangoproject.com/>`_
+    is required to work with Mezzanine and the documentation assumes as
+    much. If you're new to Django, you'll need to work through the
+    `Django tutorial <https://docs.djangoproject.com/en/dev/intro/tutorial01/>`_
+    before being able to understand the concepts used throughout the
+    Mezzanine documentation.
+
 *Front-end developers* can read about how :doc:`themes` are used to
 skin a Mezzanine project as well as how to set up templates for
 specific :doc:`device-handling` such as phones. Mezzanine also comes
