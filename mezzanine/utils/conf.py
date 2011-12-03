@@ -38,8 +38,12 @@ def set_dynamic_settings(s):
     s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
     s["MIDDLEWARE_CLASSES"] = list(s["MIDDLEWARE_CLASSES"])
 
-    # Set up cookie messaging if none specified for Django >= 1.3
-    if VERSION >= (1, 3, 0):
+    # Set up cookie messaging if available.
+    try:
+        from django.contrib.messages import debug
+    except ImportError:
+        pass
+    else:
         msg_mw = "django.contrib.messages.middleware.MessageMiddleware"
         append("MIDDLEWARE_CLASSES", msg_mw)
         if not s.get("MESSAGE_STORAGE"):
