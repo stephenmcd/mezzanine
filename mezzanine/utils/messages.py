@@ -3,7 +3,7 @@ Backward compatible user messaging functions.
 """
 
 
-def message_fallback(request, message, extra_tags="", fail_silently=False):
+def message_fallback(request, message, extra_tags="", fail_silently=True):
     """
     Fallback for Django prior to ``django.contrib.messages``.
     """
