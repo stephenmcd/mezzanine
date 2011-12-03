@@ -1,3 +1,16 @@
+Version 0.12.4 (Dec 03, 2011)
+-----------------------------
+
+  * pep8 fix - Stephen McDonald
+  * Update translations from transifex - Sebastián Ramírez Magrí
+  * Synchronize PO files with tip - Sebastián Ramírez Magrí
+  * Add new translations from transifex for Estonian, French and Polish - Sebastián Ramírez Magrí
+  * Synchronize PO files - Sebastián Ramírez Magrí
+  * Added a note to the documentation overview about assumed Django knowledge with a reference to the tutorial - Stephen McDonald
+  * Let messages fail silently for Django < 1.3 - stephenmcd
+  * Don't rely on version checking for adding cookie-based messaging - stephenmcd
+  * Added pyflakes ignore for dummy import for messaging handling - stephenmcd
+
 Version 0.12.3 (Nov 23, 2011)
 -----------------------------
 
