@@ -185,6 +185,7 @@ Sites Using Mezzanine
   * `Boîte à Z'images`_
   * `The Melbourne Cup`_
   * `Diablo News`_
+  * `Goldman Travel`_
 
 Quotes
 ======
@@ -270,3 +271,4 @@ Quotes
 .. _`Markdown`: http://en.wikipedia.org/wiki/Markdown
 .. _`mezzanine-openshift`: https://github.com/k4ml/mezzanine-openshift
 .. _`Redhat's OpenShift`: https://openshift.redhat.com/
+.. _`Goldman Travel`: http://www.goldmantravel.com.au/
