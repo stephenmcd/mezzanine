@@ -1,0 +1,254 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-13 13:46+0100\n"
+"PO-Revision-Date: 2011-12-13 15:57+0100\n"
+"Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
+"Language-Team: Catalan <LL@li.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:39
+msgid "Meta data"
+msgstr "Metadades"
+
+#: fields.py:23
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "No s'ha pogut importa el valor de l'ajustament RICHTEXT_WIDGET_CLASS: %s"
+
+#: forms.py:59
+#: models.py:220
+msgid "Order"
+msgstr "Odre"
+
+#: models.py:28
+msgid "Title"
+msgstr "Títol"
+
+#: models.py:29
+msgid "URL"
+msgstr "URL"
+
+#: models.py:85
+msgid "Description"
+msgstr "Descripció"
+
+#: models.py:86
+msgid "Keywords"
+msgstr "Paraules clau"
+
+#: models.py:95
+msgid "Draft"
+msgstr "Esborrany"
+
+#: models.py:96
+msgid "Published"
+msgstr "Publicat"
+
+#: models.py:107
+msgid "Status"
+msgstr "Estat"
+
+#: models.py:109
+msgid "Published from"
+msgstr "Publicat desde"
+
+#: models.py:110
+msgid "With published checked, won't be shown until this time"
+msgstr "Si es marca l'opció publicat no és mostrarà fins aquesta data"
+
+#: models.py:112
+msgid "Expires on"
+msgstr "Caduca"
+
+#: models.py:113
+msgid "With published checked, won't be shown after this time"
+msgstr "Si es marca l'opció publicat no és mostrarà desprès d'aquesta data"
+
+#: models.py:167
+msgid "View on site"
+msgstr "Veure al lloc"
+
+#: models.py:178
+msgid "Content"
+msgstr "Contingut"
+
+#: models.py:274
+msgid "Author"
+msgstr "Autor"
+
+#: views.py:53
+msgid "Permission denied"
+msgstr "Permís denegat"
+
+#: templates/404.html:6
+msgid "Page not found"
+msgstr "No s'ha trobat la pàgina"
+
+#: templates/404.html:10
+msgid "The page you requested does not exist."
+msgstr "La pàgina no existeix"
+
+#: templates/500.html:6
+msgid "Error"
+msgstr "Error"
+
+#: templates/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "S'ha produït un error."
+
+#: templates/base.html:67
+msgid "Powered by"
+msgstr "Desenvolupat per"
+
+#: templates/base.html:70
+msgid "View Mobile Site."
+msgstr "Veure lloc mòbil"
+
+#: templates/index.html:5
+#: templates/index.html.py:8
+#: templates/admin/index.html:41
+msgid "Home"
+msgstr "Inici"
+
+#: templates/index.html:12
+msgid "This is the homepage."
+msgstr "Aquesta es la pàgina inicial."
+
+#: templates/search_results.html:5
+#: templates/search_results.html.py:6
+msgid "Search Results"
+msgstr "Resultats de la cerca"
+
+#: templates/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr "No s'han trobat resultats"
+
+#: templates/search_results.html:14
+msgid "Showing"
+msgstr "Mostrant"
+
+#: templates/search_results.html:14
+msgid "to"
+msgstr "a"
+
+#: templates/search_results.html:14
+#: templates/includes/pagination.html:4
+msgid "of"
+msgstr "de"
+
+#: templates/search_results.html:15
+msgid "results matching your query:"
+msgstr "resultats que coincideixen amb la vostra consulta"
+
+#: templates/search_results.html:23
+msgid "read more"
+msgstr "Llegir més"
+
+#: templates/admin/base_site.html:191
+msgid "View Site"
+msgstr "Veure lloc"
+
+#: templates/admin/base_site.html:219
+msgid "Forgot password?"
+msgstr "Heu oblidat la contrasenya?"
+
+#: templates/admin/base_site.html:223
+msgid "Interface:"
+msgstr "Interfície:"
+
+#: templates/admin/base_site.html:227
+#: templates/includes/editable_toolbar.html:8
+#: templates/includes/editable_toolbar.html:10
+msgid "Admin"
+msgstr "Administració"
+
+#: templates/admin/base_site.html:231
+msgid "Site"
+msgstr "Lloc"
+
+#: templates/admin/index.html:43
+#: templates/admin/includes/dropdown_menu.html:3
+msgid "Dashboard"
+msgstr "Taulell"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "Afegir"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "Canviar"
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr "Afegir un altre"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "Accions recents"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "Les meves accions"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "Cap disponible"
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "Guardar"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "Editar"
+
+#: templates/includes/editable_loader.html:87
+msgid "An error occurred"
+msgstr "S'ha produït un error"
+
+#: templates/includes/editable_toolbar.html:12
+msgid "Log out"
+msgstr "Desconectar"
+
+#: templates/includes/pagination.html:4
+msgid "Page"
+msgstr "Pàgina"
+
+#: templates/includes/search.html:3
+msgid "Search"
+msgstr "Buscar"
+
+#: templates/includes/search.html:6
+msgid "Go"
+msgstr "Anar"
+
+#: templates/includes/search.html:9
+msgid "Use "
+msgstr "Utilitzar"
+
+#: templates/includes/search.html:9
+msgid "quotes"
+msgstr "cometes"
+
+#: templates/includes/search.html:9
+msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
+msgstr "per frases exactes, + per formar una paraula o una frase necesària, i - per excloure una paraula o frase."
+
