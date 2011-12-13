@@ -186,6 +186,7 @@ Sites Using Mezzanine
   * `The Melbourne Cup`_
   * `Diablo News`_
   * `Goldman Travel`_
+  * `IJC Digital`_
 
 Quotes
 ======
@@ -263,6 +264,7 @@ Quotes
 .. _`Boîte à Z'images`: http://boiteazimages.com/
 .. _`The Melbourne Cup`: http://www.melbournecup.com/
 .. _`Diablo News`: http://www.diablo-news.com/
+.. _`IJC Digital`: http://ijcdigital.com/
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
