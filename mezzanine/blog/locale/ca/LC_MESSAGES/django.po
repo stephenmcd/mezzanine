@@ -1,0 +1,149 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-13 13:46+0100\n"
+"PO-Revision-Date: 2011-12-13 15:04+0100\n"
+"Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: models.py:17
+#: templates/blog/blog_post_list.html:82
+msgid "Comments"
+msgstr "Comentaris"
+
+#: models.py:18
+msgid "Rating"
+msgstr "Rating"
+
+#: models.py:21
+msgid "Blog post"
+msgstr "Entrada"
+
+#: models.py:22
+msgid "Blog posts"
+msgstr "Entrades"
+
+#: models.py:36
+msgid "Blog Category"
+msgstr "Categoria"
+
+#: models.py:37
+msgid "Blog Categories"
+msgstr "Categories"
+
+#: templates/admin/includes/quick_blog.html:5
+msgid "Quick Blog"
+msgstr "Entrada Rapida"
+
+#: templates/admin/includes/quick_blog.html:14
+msgid "Save Draft"
+msgstr "Desar Esborrany"
+
+#: templates/blog/blog_post_detail.html:34
+msgid "Home"
+msgstr "Inici"
+
+#: templates/blog/blog_post_detail.html:44
+#: templates/blog/blog_post_list.html:51
+msgid "Posted by"
+msgstr "Publicat per"
+
+#: templates/blog/blog_post_detail.html:51
+#: templates/blog/blog_post_list.html:61
+msgid "ago"
+msgstr "enrere"
+
+#: templates/blog/blog_post_detail.html:54
+#: templates/blog/blog_post_list.html:86
+#, python-format
+msgid ""
+"\n"
+"        1 comment\n"
+"        "
+msgid_plural ""
+"\n"
+"        %(comments_count)s comments\n"
+"        "
+msgstr[0] ""
+"\n"
+"        1 comentari\n"
+"        "
+msgstr[1] ""
+"\n"
+"        %(comments_count)s comentaris\n"
+"        "
+
+#: templates/blog/blog_post_detail.html:69
+#: templates/blog/blog_post_list.html:71
+#: templates/blog/includes/filter_panel.html:41
+msgid "Tags"
+msgstr "Etiquetes"
+
+#: templates/blog/blog_post_detail.html:82
+msgid "Share this on"
+msgstr "Comparteix a"
+
+#: templates/blog/blog_post_list.html:27
+msgid "Viewing posts tagged"
+msgstr "Veuient entrades etiquetades"
+
+#: templates/blog/blog_post_list.html:29
+msgid "Viewing posts for the category"
+msgstr "Veient entrades de la categoria"
+
+#: templates/blog/blog_post_list.html:31
+msgid "Viewing posts from"
+msgstr "Veient entrades de"
+
+#: templates/blog/blog_post_list.html:34
+msgid "Viewing posts by"
+msgstr "Veient post escrits per"
+
+#: templates/blog/blog_post_list.html:56
+msgid "in"
+msgstr "entre"
+
+#: templates/blog/blog_post_list.html:77
+msgid "read more"
+msgstr "llegir més"
+
+#: templates/blog/includes/filter_panel.html:5
+msgid "Recent Posts"
+msgstr "Ultimes entrades"
+
+#: templates/blog/includes/filter_panel.html:16
+msgid "Archive"
+msgstr "Arxiu"
+
+#: templates/blog/includes/filter_panel.html:30
+msgid "Categories"
+msgstr "Categories"
+
+#: templates/blog/includes/filter_panel.html:52
+msgid "Authors"
+msgstr "Autors"
+
+#: templates/blog/includes/filter_panel.html:62
+msgid "Feeds"
+msgstr "Feeds"
+
+#: templates/blog/includes/filter_panel.html:63
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:64
+msgid "Atom"
+msgstr "Atom"
+

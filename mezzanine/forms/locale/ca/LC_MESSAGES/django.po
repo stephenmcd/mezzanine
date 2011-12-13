@@ -1,0 +1,293 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-13 13:46+0100\n"
+"PO-Revision-Date: 2011-12-13 15:46+0100\n"
+"Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
+"Language-Team: Catalan <LL@li.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:31
+#: fields.py:28
+msgid "Email"
+msgstr "Email"
+
+#: admin.py:106
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] "1 entrada eliminada"
+msgstr[1] "%(count)s entrades eliminades"
+
+#: admin.py:110
+msgid "View Entries"
+msgstr "Veure entrades"
+
+#: fields.py:26
+msgid "Single line text"
+msgstr "Línea de text"
+
+#: fields.py:27
+msgid "Multi line text"
+msgstr "Multilínea de text"
+
+#: fields.py:29
+msgid "Check box"
+msgstr "Casella de verificació"
+
+#: fields.py:30
+msgid "Check boxes"
+msgstr "Caselles de verificació"
+
+#: fields.py:31
+msgid "Drop down"
+msgstr "Desplegable"
+
+#: fields.py:32
+msgid "Multi select"
+msgstr "Multiple selecció"
+
+#: fields.py:33
+msgid "Radio buttons"
+msgstr "Boto de radio"
+
+#: fields.py:34
+msgid "File upload"
+msgstr "Pujada de Fitxers"
+
+#: fields.py:35
+msgid "Date"
+msgstr "Dia"
+
+#: fields.py:36
+#: models.py:110
+msgid "Date/time"
+msgstr "Dia/Hora"
+
+#: fields.py:37
+msgid "Hidden"
+msgstr "Amagat"
+
+#: forms.py:27
+#: forms.py:35
+#: forms.py:41
+msgid "Nothing"
+msgstr "Res"
+
+#: forms.py:28
+msgid "Contains"
+msgstr "Conté"
+
+#: forms.py:29
+msgid "Doesn't contain"
+msgstr "No conté"
+
+#: forms.py:30
+#: forms.py:36
+msgid "Equals"
+msgstr "Igual"
+
+#: forms.py:31
+#: forms.py:37
+msgid "Doesn't equal"
+msgstr "Diferent"
+
+#: forms.py:42
+msgid "Is between"
+msgstr "entre"
+
+#: forms.py:171
+msgid "Checked"
+msgstr "Marcat"
+
+#: forms.py:171
+msgid "Not checked"
+msgstr "Desmarcat"
+
+#: forms.py:185
+#: forms.py:200
+msgid "and"
+msgstr "i"
+
+#: models.py:17
+msgid "Button text"
+msgstr "Text del botó"
+
+#: models.py:18
+msgid "Submit"
+msgstr "Enviar"
+
+#: models.py:19
+msgid "Response"
+msgstr "Resposta"
+
+#: models.py:20
+msgid "Send email"
+msgstr "Enviar email"
+
+#: models.py:21
+msgid "If checked, the form submitter will be sent an email."
+msgstr "Si es marca, s'enviar un email al enviar el formulari."
+
+#: models.py:22
+msgid "From address"
+msgstr "Adreça origen:"
+
+#: models.py:23
+msgid "The address the email will be sent from"
+msgstr "L'adreça des d'on s'enviarà el correu."
+
+#: models.py:24
+msgid "Send copies to"
+msgstr "Enviar copies a"
+
+#: models.py:25
+msgid "One or more email addresses, separated by commas"
+msgstr "Una o més direccións de coreru electrònic, separades per comes."
+
+#: models.py:27
+msgid "Subject"
+msgstr "Assumpte"
+
+#: models.py:28
+msgid "Message"
+msgstr "Missatge"
+
+#: models.py:31
+msgid "Form"
+msgstr "Formulari"
+
+#: models.py:32
+msgid "Forms"
+msgstr "Formularis"
+
+#: models.py:49
+msgid "Label"
+msgstr "Etiqueta"
+
+#: models.py:51
+msgid "Type"
+msgstr "Tipus"
+
+#: models.py:52
+msgid "Required"
+msgstr "Obligatori"
+
+#: models.py:53
+msgid "Visible"
+msgstr "Visible"
+
+#: models.py:54
+msgid "Choices"
+msgstr "Opcions"
+
+#: models.py:55
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr "Opcions separades per comes. Si una opció conté comes, envoltar amb `accents oberts`."
+
+#: models.py:57
+msgid "Default value"
+msgstr "Valor per defecte"
+
+#: models.py:59
+msgid "Placeholder Text"
+msgstr "Marcador del Text"
+
+#: models.py:61
+msgid "Help text"
+msgstr "Text d'ajuda"
+
+#: models.py:66
+#: templates/admin/forms/entries.html:90
+msgid "Field"
+msgstr "Camp"
+
+#: models.py:67
+msgid "Fields"
+msgstr "Camps"
+
+#: models.py:113
+msgid "Form entry"
+msgstr "Entrada del formulari"
+
+#: models.py:114
+msgid "Form entries"
+msgstr "Entrades del formulari"
+
+#: models.py:127
+msgid "Form field entry"
+msgstr "Entrada del camp del formulari"
+
+#: models.py:128
+msgid "Form field entries"
+msgstr "Entrada del camp del formulari"
+
+#: templates/admin/forms/change_form.html:14
+#: templates/admin/forms/entries.html:119
+msgid "View entries"
+msgstr "Veure entrades"
+
+#: templates/admin/forms/change_form.html:15
+msgid "History"
+msgstr "Història"
+
+#: templates/admin/forms/change_form.html:16
+msgid "View on site"
+msgstr "Veure al lloc"
+
+#: templates/admin/forms/entries.html:63
+msgid "No entries selected"
+msgstr "No s'han seleccionat entrades"
+
+#: templates/admin/forms/entries.html:66
+msgid "Delete selected entries?"
+msgstr "Eliminar entrades seleccionades?"
+
+#: templates/admin/forms/entries.html:76
+msgid "Home"
+msgstr "Inici"
+
+#: templates/admin/forms/entries.html:91
+msgid "Include"
+msgstr "Incloure"
+
+#: templates/admin/forms/entries.html:92
+msgid "Filter by"
+msgstr "Filtrar per"
+
+#: templates/admin/forms/entries.html:110
+msgid "All"
+msgstr "Tots"
+
+#: templates/admin/forms/entries.html:118
+#: templates/admin/forms/entries.html:156
+msgid "Back to form"
+msgstr "Tornar al formulari"
+
+#: templates/admin/forms/entries.html:120
+msgid "Export CSV"
+msgstr "Exportar a CSV"
+
+#: templates/admin/forms/entries.html:123
+msgid "Entries"
+msgstr "Entrades"
+
+#: templates/admin/forms/entries.html:157
+msgid "Delete selected"
+msgstr "Esborrar seleccionat"
+
+#: templates/admin/forms/entries.html:161
+msgid "No entries to display"
+msgstr "No s'han trobat entrades."
+
