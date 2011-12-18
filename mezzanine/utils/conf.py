@@ -2,6 +2,7 @@
 import os
 import sys
 
+from django.core.management.commands import runserver
 from django.template.loader import add_to_builtins
 from django import VERSION
 
@@ -95,11 +96,13 @@ def set_dynamic_settings(s):
         # host:port to ADMIN_MEDIA_PREFIX, so here we check for a
         # custom host:port before doing this.
         if s["DEV_SERVER"]:
-            addrport = ""
-            if len(sys.argv) > 2:
-                addrport = sys.argv[2]
-            if not addrport:
-                addr, port = "", "8000"
+            cmd = runserver.BaseRunserverCommand()
+            parser = cmd.create_parser(*sys.argv[:2])
+            _, args = parser.parse_args(sys.argv[2:])
+            try:
+                addrport = args[0]
+            except IndexError:
+                addr, port = "", runserver.DEFAULT_PORT
             else:
                 try:
                     addr, port = addrport.split(":")
