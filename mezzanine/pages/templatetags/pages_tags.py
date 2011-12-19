@@ -5,6 +5,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import get_models
 from django.template import TemplateSyntaxError, Variable
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.pages.models import Page
 from mezzanine.utils.urls import admin_url
