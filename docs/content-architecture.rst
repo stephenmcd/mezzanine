@@ -74,6 +74,16 @@ By using an admin class that inherits from ``PageAdmin`` the admin class
 won't be listed in the admin index page, instead being made available as
 a type of ``Page`` when creating new pages from the navigation tree.
 
+.. note::
+
+    When creating custom content types, you must inherit directly from
+    the ``Page`` model. Further levels of subclassing are currently not
+    supported. Therefore you cannot subclass the ``RichTextPage`` or
+    any other custom content types you create yourself. Should you need
+    to implement a WYSIWYG editable field in the way the ``RichTextPage``
+    model does, you can simply subclass both ``Page`` and ``RichText``,
+    the latter being imported from ``mezzanine.core.models``.
+
 Page Permissions
 ================
 
