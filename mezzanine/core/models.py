@@ -1,4 +1,3 @@
-
 from datetime import datetime
 
 from django.contrib.contenttypes.generic import GenericForeignKey
@@ -66,9 +65,6 @@ class Slugged(models.Model):
         if update_site or not self.id:
             self.site = Site.objects.get_current()
         super(Slugged, self).save(*args, **kwargs)
-
-    def natural_key(self):
-        return (self.slug,)
 
     def get_slug(self):
         """
