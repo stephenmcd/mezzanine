@@ -81,9 +81,19 @@ class Command(BaseImporterCommand):
             else:
                 tags = []
 
+            # Only look for categories if it is't going to throw and AttributeError
+            if hasattr(entry, 'tags'):
+                categories = [t.term for t in entry.tags if t.scheme == "category"]
+
+                # Tags have a tendency to not be unique in WP for
+                # some reason so set the list so we have unique.
+                categories = list(set(categories))
+            else:
+                categories = []
+
             # create the post
             post = self.add_post(title=title, content=content,
-                                 pub_date=published_date, tags=tags)
+                                 pub_date=published_date, tags=tags, categories=categories)
 
             # get the comments from the xml doc.
             for comment in xmlitem.getElementsByTagName("wp:comment"):
