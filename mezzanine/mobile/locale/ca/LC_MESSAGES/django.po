@@ -3,15 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-13 13:46+0100\n"
-"PO-Revision-Date: 2011-12-13 16:04+0100\n"
-"Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
-"Language-Team: Catalan <LL@li.org>\n"
+"POT-Creation-Date: 2011-12-21 21:00-0430\n"
+"PO-Revision-Date: 2011-11-12 03:09+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,134 +19,134 @@ msgstr ""
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
-msgstr "Pàgina no trobada"
+msgstr ""
 
 #: templates/mobile/404.html:10
 msgid "The page you requested does not exist."
-msgstr "La pàgina no existeix"
+msgstr ""
 
 #: templates/mobile/500.html:6
 msgid "Error"
-msgstr "Error"
+msgstr ""
 
 #: templates/mobile/500.html:10
 msgid "Sorry, an error occurred."
-msgstr "S'ha produït un error"
+msgstr ""
 
-#: templates/mobile/base.html:35
-#: templates/mobile/index.html:6
+#: templates/mobile/base.html:35 templates/mobile/index.html:6
 msgid "Home"
-msgstr "Inici"
+msgstr ""
 
 #: templates/mobile/base.html:47
 msgid "Powered by"
-msgstr "Desenvolupat per"
+msgstr ""
 
 #: templates/mobile/base.html:48
 msgid "View Full Site"
-msgstr "Veure lloc complert"
+msgstr ""
 
 #: templates/mobile/index.html:10
 msgid "This is the mobile homepage."
-msgstr "Aquesta es la pàgina d'inici per a mòbils"
+msgstr ""
 
 #: templates/mobile/search_results.html:5
 #: templates/mobile/search_results.html:6
 msgid "Search Results"
-msgstr "Resultats de la búsqueda"
+msgstr ""
 
 #: templates/mobile/search_results.html:12
 msgid "No results were found matching your query: "
-msgstr "No s'han trobat resultats que coincideixen amb la vostra consulta:"
+msgstr ""
 
 #: templates/mobile/search_results.html:14
 msgid "Showing"
-msgstr "Mostrant"
+msgstr ""
 
 #: templates/mobile/search_results.html:14
 msgid "to"
-msgstr "a"
+msgstr ""
 
 #: templates/mobile/search_results.html:14
 msgid "of"
-msgstr "de"
+msgstr ""
 
 #: templates/mobile/search_results.html:15
 msgid "results matching your query:"
-msgstr "resultats que coincideixen amb la vostra consulta:"
+msgstr ""
 
 #: templates/mobile/search_results.html:23
 msgid "read more"
-msgstr "llegir més"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:23
 msgid "Posted by"
-msgstr "Publicat per"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
 #: templates/mobile/blog/includes/comments_thread.html:19
 msgid "ago"
-msgstr "fa"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
-msgstr "Etiquetes"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:52
 msgid "Share this on:"
-msgstr "Compartir a:"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:54
 msgid "or"
-msgstr "o"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments.html:4
 msgid "Comments"
-msgstr "Comentaris"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments.html:15
 msgid "Comment"
-msgstr "Comentari"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments_thread.html:23
 #: templates/mobile/blog/includes/comments_thread.html:35
 msgid "Reply"
-msgstr "Resposta"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments_thread.html:43
 msgid "Comment deleted"
-msgstr "Comentari esborrat"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments_thread.html:45
 msgid "Comment awaiting approval"
-msgstr "Comentari a l'espera d'aprovació"
+msgstr ""
 
 #: templates/mobile/blog/includes/comments_thread.html:53
 msgid "There are currently no comments"
-msgstr "Actualment no hi ha comentaris"
+msgstr ""
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"
-msgstr "Anterior"
+msgstr ""
 
 #: templates/mobile/includes/pagination.html:9
 msgid "Next"
-msgstr "Següent"
+msgstr ""
 
 #: templates/mobile/includes/search.html:4
 msgid "Search"
-msgstr "Buscar"
+msgstr ""
 
 #: templates/mobile/includes/search.html:5
 msgid "Use "
-msgstr "Utilitzar"
+msgstr ""
 
 #: templates/mobile/includes/search.html:5
 msgid "quotes"
-msgstr "cometes"
+msgstr ""
 
 #: templates/mobile/includes/search.html:5
-msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
-msgstr "per frases exactes, + per formar una paraula o una frase necessària, i - per excloure una paraula o frase."
-
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr ""

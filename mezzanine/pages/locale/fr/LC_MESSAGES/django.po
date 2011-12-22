@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 10:03-0430\n"
+"POT-Creation-Date: 2011-12-21 21:00-0430\n"
 "PO-Revision-Date: 2011-11-16 10:25+0000\n"
 "Last-Translator: vrialland <vincent.rialland@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/mezzanine/team/"
@@ -62,3 +62,8 @@ msgstr "Ajouter"
 #: templates/pages/menus/tree.html:10
 msgid "Home"
 msgstr "Accueil"
+
+#: templatetags/pages_tags.py:133
+msgid ""
+"An error occured with the following class. Does it subclass Page directly?"
+msgstr ""

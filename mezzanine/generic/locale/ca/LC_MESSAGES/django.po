@@ -3,134 +3,127 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-13 13:46+0100\n"
-"PO-Revision-Date: 2011-12-13 16:00+0100\n"
-"Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
-"Language-Team: Catalan <LL@li.org>\n"
+"POT-Creation-Date: 2011-12-21 21:00-0430\n"
+"PO-Revision-Date: 2011-11-12 03:09+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:19
-#: models.py:66
+#: admin.py:19 models.py:66
 msgid "User"
-msgstr "Usuari"
+msgstr ""
 
 #: forms.py:78
 msgid "Name"
-msgstr "Nom"
+msgstr ""
 
 #: forms.py:78
 msgid "required"
-msgstr "Obligatori"
+msgstr ""
 
 #: forms.py:80
 msgid "Email"
-msgstr "Correu electrònic"
+msgstr ""
 
 #: forms.py:81
 msgid "required (not published)"
-msgstr "Obligatori (no publicat)"
+msgstr ""
 
 #: forms.py:82
 msgid "Website"
-msgstr "Pàgina web"
+msgstr ""
 
 #: forms.py:82
 msgid "optional"
-msgstr "opcional"
+msgstr ""
 
-#: forms.py:97
-#: models.py:119
+#: forms.py:97 models.py:119
 msgid "Rating"
-msgstr "Rating"
+msgstr ""
 
 #: models.py:21
 msgid "Email hash"
-msgstr "Hash Correu electrònic"
+msgstr ""
 
 #: models.py:22
 msgid "By the blog author"
-msgstr "Per l'autor del blog"
+msgstr ""
 
-#: models.py:29
-#: models.py:58
-#: templates/generic/includes/comments.html:21
+#: models.py:29 models.py:58 templates/generic/includes/comments.html:21
 msgid "Comment"
-msgstr "Comentari"
+msgstr ""
 
-#: models.py:30
-#: templates/generic/includes/comments.html:3
+#: models.py:30 templates/generic/includes/comments.html:3
 msgid "Comments"
-msgstr "Comentaris"
+msgstr ""
 
 #: models.py:70
 msgid "View on site"
-msgstr "Veuer al lloc"
+msgstr ""
 
 #: models.py:84
 msgid "Keyword"
-msgstr "Paraula clau"
+msgstr ""
 
 #: models.py:85
 msgid "Keywords"
-msgstr "Paraules clau"
+msgstr ""
 
 #: models.py:113
 msgid "Value"
-msgstr "Valor"
+msgstr ""
 
 #: models.py:120
 msgid "Ratings"
-msgstr "Ratings"
+msgstr ""
 
 #: templates/admin/includes/recent_comments.html:13
 msgid "Recent Comments"
-msgstr "Comentaris recents"
+msgstr ""
 
 #: templates/admin/includes/recent_comments.html:29
 #: templates/generic/includes/comment.html:19
 #: templates/generic/includes/comment.html:57
 msgid "ago"
-msgstr "fa"
+msgstr ""
 
 #: templates/generic/includes/comment.html:22
 msgid "Link"
-msgstr "Enllaç"
+msgstr ""
 
 #: templates/generic/includes/comment.html:23
 #: templates/generic/includes/comment.html:39
 msgid "Reply"
-msgstr "Resposta"
+msgstr ""
 
 #: templates/generic/includes/comment.html:65
 msgid "Comment deleted"
-msgstr "Comentari esborrat"
+msgstr ""
 
 #: templates/generic/includes/comment.html:68
 msgid "Comment awaiting approval"
-msgstr "Comentari esperant aprovació"
+msgstr ""
 
 #: templates/generic/includes/comment.html:77
 msgid "There are currently no comments"
-msgstr "No hi ha comentaris actualment"
+msgstr ""
 
 #: templates/generic/includes/rating.html:5
 msgid "Current rating"
-msgstr "Rating actual"
+msgstr ""
 
 #: templates/generic/includes/rating.html:7
 msgid "Currently unrated"
-msgstr "Actualment sense rating"
+msgstr ""
 
 #: templates/generic/includes/rating.html:14
 msgid "Rate"
-msgstr "Clasificació"
-
+msgstr ""

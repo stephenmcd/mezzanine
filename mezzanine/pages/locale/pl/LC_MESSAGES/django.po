@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 10:03-0430\n"
+"POT-Creation-Date: 2011-12-21 21:00-0430\n"
 "PO-Revision-Date: 2011-11-12 03:36+0000\n"
 "Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,3 +61,8 @@ msgstr "Dodaj"
 #: templates/pages/menus/tree.html:10
 msgid "Home"
 msgstr "Strona główna"
+
+#: templatetags/pages_tags.py:133
+msgid ""
+"An error occured with the following class. Does it subclass Page directly?"
+msgstr ""

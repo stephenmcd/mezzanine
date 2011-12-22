@@ -3,15 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-13 13:46+0100\n"
-"PO-Revision-Date: 2011-12-13 15:57+0100\n"
-"Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
-"Language-Team: Catalan <LL@li.org>\n"
+"POT-Creation-Date: 2011-12-21 21:00-0430\n"
+"PO-Revision-Date: 2011-11-12 02:51+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,235 +19,231 @@ msgstr ""
 
 #: admin.py:39
 msgid "Meta data"
-msgstr "Metadades"
+msgstr ""
 
 #: fields.py:23
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
-msgstr "No s'ha pogut importa el valor de l'ajustament RICHTEXT_WIDGET_CLASS: %s"
+msgstr ""
 
-#: forms.py:59
-#: models.py:220
+#: forms.py:59 models.py:216
 msgid "Order"
-msgstr "Odre"
+msgstr ""
+
+#: models.py:27
+msgid "Title"
+msgstr ""
 
 #: models.py:28
-msgid "Title"
-msgstr "Títol"
-
-#: models.py:29
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
-#: models.py:85
+#: models.py:81
 msgid "Description"
-msgstr "Descripció"
+msgstr ""
 
-#: models.py:86
+#: models.py:82
 msgid "Keywords"
-msgstr "Paraules clau"
+msgstr ""
 
-#: models.py:95
+#: models.py:91
 msgid "Draft"
-msgstr "Esborrany"
+msgstr ""
 
-#: models.py:96
+#: models.py:92
 msgid "Published"
-msgstr "Publicat"
+msgstr ""
 
-#: models.py:107
+#: models.py:103
 msgid "Status"
-msgstr "Estat"
+msgstr ""
+
+#: models.py:105
+msgid "Published from"
+msgstr ""
+
+#: models.py:106
+msgid "With published checked, won't be shown until this time"
+msgstr ""
+
+#: models.py:108
+msgid "Expires on"
+msgstr ""
 
 #: models.py:109
-msgid "Published from"
-msgstr "Publicat desde"
-
-#: models.py:110
-msgid "With published checked, won't be shown until this time"
-msgstr "Si es marca l'opció publicat no és mostrarà fins aquesta data"
-
-#: models.py:112
-msgid "Expires on"
-msgstr "Caduca"
-
-#: models.py:113
 msgid "With published checked, won't be shown after this time"
-msgstr "Si es marca l'opció publicat no és mostrarà desprès d'aquesta data"
+msgstr ""
 
-#: models.py:167
+#: models.py:163
 msgid "View on site"
-msgstr "Veure al lloc"
+msgstr ""
 
-#: models.py:178
+#: models.py:174
 msgid "Content"
-msgstr "Contingut"
+msgstr ""
 
-#: models.py:274
+#: models.py:270
 msgid "Author"
-msgstr "Autor"
+msgstr ""
 
 #: views.py:53
 msgid "Permission denied"
-msgstr "Permís denegat"
+msgstr ""
 
 #: templates/404.html:6
 msgid "Page not found"
-msgstr "No s'ha trobat la pàgina"
+msgstr ""
 
 #: templates/404.html:10
 msgid "The page you requested does not exist."
-msgstr "La pàgina no existeix"
+msgstr ""
 
 #: templates/500.html:6
 msgid "Error"
-msgstr "Error"
+msgstr ""
 
 #: templates/500.html:10
 msgid "Sorry, an error occurred."
-msgstr "S'ha produït un error."
+msgstr ""
 
-#: templates/base.html:67
+#: templates/base.html:66
 msgid "Powered by"
-msgstr "Desenvolupat per"
+msgstr ""
 
-#: templates/base.html:70
+#: templates/base.html:69
 msgid "View Mobile Site."
-msgstr "Veure lloc mòbil"
+msgstr ""
 
-#: templates/index.html:5
-#: templates/index.html.py:8
+#: templates/index.html:5 templates/index.html.py:8
 #: templates/admin/index.html:41
 msgid "Home"
-msgstr "Inici"
+msgstr ""
 
 #: templates/index.html:12
 msgid "This is the homepage."
-msgstr "Aquesta es la pàgina inicial."
+msgstr ""
 
-#: templates/search_results.html:5
-#: templates/search_results.html.py:6
+#: templates/search_results.html:5 templates/search_results.html.py:6
 msgid "Search Results"
-msgstr "Resultats de la cerca"
+msgstr ""
 
 #: templates/search_results.html:12
 msgid "No results were found matching your query: "
-msgstr "No s'han trobat resultats"
+msgstr ""
 
 #: templates/search_results.html:14
 msgid "Showing"
-msgstr "Mostrant"
+msgstr ""
 
 #: templates/search_results.html:14
 msgid "to"
-msgstr "a"
+msgstr ""
 
-#: templates/search_results.html:14
-#: templates/includes/pagination.html:4
+#: templates/search_results.html:14 templates/includes/pagination.html:4
 msgid "of"
-msgstr "de"
+msgstr ""
 
 #: templates/search_results.html:15
 msgid "results matching your query:"
-msgstr "resultats que coincideixen amb la vostra consulta"
+msgstr ""
 
 #: templates/search_results.html:23
 msgid "read more"
-msgstr "Llegir més"
+msgstr ""
 
-#: templates/admin/base_site.html:191
+#: templates/admin/base_site.html:190
 msgid "View Site"
-msgstr "Veure lloc"
+msgstr ""
 
-#: templates/admin/base_site.html:219
+#: templates/admin/base_site.html:218
 msgid "Forgot password?"
-msgstr "Heu oblidat la contrasenya?"
+msgstr ""
 
-#: templates/admin/base_site.html:223
+#: templates/admin/base_site.html:222
 msgid "Interface:"
-msgstr "Interfície:"
+msgstr ""
 
-#: templates/admin/base_site.html:227
+#: templates/admin/base_site.html:226
 #: templates/includes/editable_toolbar.html:8
 #: templates/includes/editable_toolbar.html:10
 msgid "Admin"
-msgstr "Administració"
+msgstr ""
 
-#: templates/admin/base_site.html:231
+#: templates/admin/base_site.html:230
 msgid "Site"
-msgstr "Lloc"
+msgstr ""
 
-#: templates/admin/index.html:43
-#: templates/admin/includes/dropdown_menu.html:3
+#: templates/admin/index.html:43 templates/admin/includes/dropdown_menu.html:3
 msgid "Dashboard"
-msgstr "Taulell"
+msgstr ""
 
 #: templates/admin/includes/app_list.html:20
 msgid "Add"
-msgstr "Afegir"
+msgstr ""
 
 #: templates/admin/includes/app_list.html:27
 msgid "Change"
-msgstr "Canviar"
+msgstr ""
 
 #: templates/admin/includes/dynamic_inline_stacked.html:6
 #: templates/admin/includes/dynamic_inline_tabular.html:6
 msgid "Add another"
-msgstr "Afegir un altre"
+msgstr ""
 
 #: templates/admin/includes/recent_actions.html:4
 msgid "Recent Actions"
-msgstr "Accions recents"
+msgstr ""
 
 #: templates/admin/includes/recent_actions.html:5
 msgid "My Actions"
-msgstr "Les meves accions"
+msgstr ""
 
 #: templates/admin/includes/recent_actions.html:9
 msgid "None available"
-msgstr "Cap disponible"
+msgstr ""
 
 #: templates/includes/editable_form.html:16
 msgid "Save"
-msgstr "Guardar"
+msgstr ""
 
 #: templates/includes/editable_form.html:17
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr ""
 
 #: templates/includes/editable_form.html:25
 msgid "Edit"
-msgstr "Editar"
+msgstr ""
 
 #: templates/includes/editable_loader.html:87
 msgid "An error occurred"
-msgstr "S'ha produït un error"
+msgstr ""
 
 #: templates/includes/editable_toolbar.html:12
 msgid "Log out"
-msgstr "Desconectar"
+msgstr ""
 
 #: templates/includes/pagination.html:4
 msgid "Page"
-msgstr "Pàgina"
+msgstr ""
 
 #: templates/includes/search.html:3
 msgid "Search"
-msgstr "Buscar"
+msgstr ""
 
 #: templates/includes/search.html:6
 msgid "Go"
-msgstr "Anar"
+msgstr ""
 
 #: templates/includes/search.html:9
 msgid "Use "
-msgstr "Utilitzar"
+msgstr ""
 
 #: templates/includes/search.html:9
 msgid "quotes"
-msgstr "cometes"
+msgstr ""
 
 #: templates/includes/search.html:9
-msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
-msgstr "per frases exactes, + per formar una paraula o una frase necesària, i - per excloure una paraula o frase."
-
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr ""

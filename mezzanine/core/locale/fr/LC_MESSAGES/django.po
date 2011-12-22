@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 10:03-0430\n"
+"POT-Creation-Date: 2011-12-21 21:00-0430\n"
 "PO-Revision-Date: 2011-11-16 10:19+0000\n"
 "Last-Translator: vrialland <vincent.rialland@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/mezzanine/team/"
@@ -29,63 +29,63 @@ msgstr "Balises Meta"
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Ne peut importer la valeur de settings.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:59 models.py:220
+#: forms.py:59 models.py:216
 msgid "Order"
 msgstr "Commande"
 
-#: models.py:28
+#: models.py:27
 msgid "Title"
 msgstr "Titre"
 
-#: models.py:29
+#: models.py:28
 msgid "URL"
 msgstr "URL"
 
-#: models.py:85
+#: models.py:81
 msgid "Description"
 msgstr "Description"
 
-#: models.py:86
+#: models.py:82
 msgid "Keywords"
 msgstr "Mots-clés"
 
-#: models.py:95
+#: models.py:91
 msgid "Draft"
 msgstr "Brouillon"
 
-#: models.py:96
+#: models.py:92
 msgid "Published"
 msgstr "Publié"
 
-#: models.py:107
+#: models.py:103
 msgid "Status"
 msgstr "Statut"
 
-#: models.py:109
+#: models.py:105
 msgid "Published from"
 msgstr "Publié à partir du"
 
-#: models.py:110
+#: models.py:106
 msgid "With published checked, won't be shown until this time"
 msgstr ""
 
-#: models.py:112
+#: models.py:108
 msgid "Expires on"
 msgstr "Expirera le"
 
-#: models.py:113
+#: models.py:109
 msgid "With published checked, won't be shown after this time"
 msgstr ""
 
-#: models.py:167
+#: models.py:163
 msgid "View on site"
 msgstr "Voir sur le site"
 
-#: models.py:178
+#: models.py:174
 msgid "Content"
 msgstr "Contenu"
 
-#: models.py:274
+#: models.py:270
 msgid "Author"
 msgstr "Auteur"
 
@@ -154,25 +154,25 @@ msgstr "résultats correspondant à votre requête"
 msgid "read more"
 msgstr "lire la suite"
 
-#: templates/admin/base_site.html:191
+#: templates/admin/base_site.html:190
 msgid "View Site"
 msgstr "Voir le site"
 
-#: templates/admin/base_site.html:219
+#: templates/admin/base_site.html:218
 msgid "Forgot password?"
 msgstr "Mot de passe oublié?"
 
-#: templates/admin/base_site.html:223
+#: templates/admin/base_site.html:222
 msgid "Interface:"
 msgstr "Interface:"
 
-#: templates/admin/base_site.html:227
+#: templates/admin/base_site.html:226
 #: templates/includes/editable_toolbar.html:8
 #: templates/includes/editable_toolbar.html:10
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/admin/base_site.html:231
+#: templates/admin/base_site.html:230
 msgid "Site"
 msgstr "Site"
 
