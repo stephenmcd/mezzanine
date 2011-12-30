@@ -44,8 +44,10 @@ $(function() {
         var submitKeywords = function() {
             var field = fields.shift();
             var keywords = {text_keywords: field.value};
-            $.post(window.__admin_keywords_submit_url, keywords, function(ids) {
-                $(field).prev('input').attr('value', ids.split(','));
+            $.post(window.__admin_keywords_submit_url, keywords, function(data) {
+                var ids = data.split("|")[0].split(',');
+                field.value = data.split("|")[1];
+                $(field).prev('input').attr('value', ids);
                 if (fields.length > 0) {
                     submitKeywords();
                 } else {
