@@ -1,11 +1,11 @@
 
 $(function() {
 
-    $('.keywords-field').css(window.__grappelli_installed ? 
-                            {margin: '5px 0 0 130px', width: '700px'} : 
+    $('.keywords-field').css(window.__grappelli_installed ?
+                            {margin: '5px 0 0 130px', width: '700px'} :
                             {margin: '5px 0 0 75px', width: '620px'} );
 
-    // Add click functionality to each keyword so that it toggles 
+    // Add click functionality to each keyword so that it toggles
     // the keyword's existance in the associated input box.
     $('.keywords-field a').click(function() {
         var field = $(this).parent().prev('input[type=text]');
@@ -30,8 +30,8 @@ $(function() {
         return false;
     });
 
-    // When submitting the form, go through each of the keywords 
-    // fields and post their keywords via AJAX, to retrieve a list of 
+    // When submitting the form, go through each of the keywords
+    // fields and post their keywords via AJAX, to retrieve a list of
     // keyword IDs for storing in each of the associated hidden fields.
     var keywordsSaved = false;
     var form = $('.keywords-field:first').prev('input[type=text]').attr('form');
