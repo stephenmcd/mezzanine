@@ -10,7 +10,6 @@ registered.
 """
 
 from collections import defaultdict
-from functools import wraps
 
 from django.conf import settings
 from django.contrib import admin
