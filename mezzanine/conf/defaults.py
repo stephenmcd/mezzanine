@@ -251,34 +251,11 @@ register_setting(
 )
 
 register_setting(
-    name="RICHTEXT_WIDGET_CLASS",
-    description=_("Dotted package path and class name of the widget to use "
-        "for the ``RichTextField``."),
-    editable=False,
-    default="mezzanine.core.forms.TinyMceWidget",
-)
-
-register_setting(
-    name="RICHTEXT_FILTER",
-    description=_("Dotted path to the function to call on a ``RichTextField`` "
-        "value before it is rendered to the template."),
-    editable=False,
-    default=None,
-)
-
-register_setting(
-    name="TAG_CLOUD_SIZES",
-    label=_("Tag Cloud Sizes"),
-    description=_("Number of different sizes for tags when shown as a cloud."),
+    name="MAX_PAGING_LINKS",
+    label=_("Max paging links"),
+    description=_("Max number of paging links to display when paginating."),
     editable=True,
-    default=4,
-)
-
-register_setting(
-    name="THEME",
-    description=_("Package name of theme app to use."),
-    editable=False,
-    default="",
+    default=10,
 )
 
 register_setting(
@@ -305,17 +282,25 @@ register_setting(
 )
 
 register_setting(
-    name="SEARCH_PER_PAGE",
-    label=_("Search results per page"),
-    description=_("Number of results shown in the search results page."),
-    editable=True,
-    default=10,
+    name="RICHTEXT_WIDGET_CLASS",
+    description=_("Dotted package path and class name of the widget to use "
+        "for the ``RichTextField``."),
+    editable=False,
+    default="mezzanine.core.forms.TinyMceWidget",
 )
 
 register_setting(
-    name="MAX_PAGING_LINKS",
-    label=_("Max paging links"),
-    description=_("Max number of paging links to display when paginating."),
+    name="RICHTEXT_FILTER",
+    description=_("Dotted path to the function to call on a ``RichTextField`` "
+        "value before it is rendered to the template."),
+    editable=False,
+    default=None,
+)
+
+register_setting(
+    name="SEARCH_PER_PAGE",
+    label=_("Search results per page"),
+    description=_("Number of results shown in the search results page."),
     editable=True,
     default=10,
 )
@@ -395,6 +380,14 @@ register_setting(
 )
 
 register_setting(
+    name="TAG_CLOUD_SIZES",
+    label=_("Tag Cloud Sizes"),
+    description=_("Number of different sizes for tags when shown as a cloud."),
+    editable=True,
+    default=4,
+)
+
+register_setting(
     name="TEMPLATE_ACCESSIBLE_SETTINGS",
     description=_("Sequence of setting names available within templates."),
     editable=False,
@@ -407,6 +400,13 @@ register_setting(
         "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE",
         "RATINGS_MAX",
     ),
+)
+
+register_setting(
+    name="THEME",
+    description=_("Package name of theme app to use."),
+    editable=False,
+    default="",
 )
 
 # The following settings are defined here for documentation purposes
