@@ -187,6 +187,7 @@ Sites Using Mezzanine
   * `Diablo News`_
   * `Goldman Travel`_
   * `IJC Digital`_
+  * `Coopers`_
 
 Quotes
 ======
@@ -199,6 +200,8 @@ Quotes
   * "From the moment I installed Mezzanine, I have been delighted, both with the initial experience and the community involved in its development." - `John Campbell`_
   * "You need to check out the open source project Mezzanine. In one word: Elegant." - `Nick Hagianis`_
   * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `Stephen White`_
+
+.. GENERAL LINKS
 
 .. _`Django`: http://djangoproject.com/
 .. _`BSD licensed`: http://www.linfo.org/bsdlicense.html
@@ -233,22 +236,17 @@ Quotes
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users/topics
 .. _`Github issue tracker`: http://github.com/stephenmcd/mezzanine/issues
+.. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
+.. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
+
+.. SITES USING MEZZANINE
+
 .. _`Citrus Agency`: http://citrus.com.au/
 .. _`Mezzanine Project`: http://mezzanine.jupo.org/
-.. _`Nick Hagianis`: http://hagianis.com/
-.. _`Thomas Johnson`: http://tomfmason.net/
 .. _`Central Mosque Wembley`: http://wembley-mosque.co.uk/
 .. _`Ovarian Cancer Research Foundation`: http://ocrf.com.au/
 .. _`The Source Procurement`: http://thesource.com.au/
 .. _`Imageinary`: http://imageinary.com/
-.. _`Van Lindberg`: http://www.lindbergd.info/
-.. _`Jesse Noller`: http://jessenoller.com/
-.. _`Audrey Roy`: http://cartwheelweb.com/
-.. _`John Campbell`: http://head3.com/
-.. _`Stephen White`: http://bitbucket.org/swhite/
-.. _`Michael Delaney`: http://github.com/fusepilot/
-.. _`Brad Montgomery`: http://blog.bradmontgomery.net/
-.. _`Jashua Cloutier`: http://www.senexcanis.com/
 .. _`Alpha & Omega Contractors`: http://alphaomegacontractors.com/
 .. _`Equity Advance`: http://equityadvance.com.au/
 .. _`Head3 Interactive`: http://head3.com/
@@ -264,13 +262,28 @@ Quotes
 .. _`Boîte à Z'images`: http://boiteazimages.com/
 .. _`The Melbourne Cup`: http://www.melbournecup.com/
 .. _`Diablo News`: http://www.diablo-news.com/
+.. _`Goldman Travel`: http://www.goldmantravel.com.au/
 .. _`IJC Digital`: http://ijcdigital.com/
-.. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
-.. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
+.. _`Coopers`: http://store.coopers.com.au/
+
+.. THIRD PARTY LIBS
+
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
 .. _`html5boilerplate project`: http://html5boilerplate.com/
 .. _`mezzanine-mdown`: https://bitbucket.org/onelson/mezzanine-mdown
 .. _`Markdown`: http://en.wikipedia.org/wiki/Markdown
 .. _`mezzanine-openshift`: https://github.com/k4ml/mezzanine-openshift
 .. _`Redhat's OpenShift`: https://openshift.redhat.com/
-.. _`Goldman Travel`: http://www.goldmantravel.com.au/
+
+.. PEOPLE WITH QUOTES
+
+.. _`Nick Hagianis`: http://hagianis.com/
+.. _`Thomas Johnson`: http://tomfmason.net/
+.. _`Van Lindberg`: http://www.lindbergd.info/
+.. _`Jesse Noller`: http://jessenoller.com/
+.. _`Audrey Roy`: http://cartwheelweb.com/
+.. _`John Campbell`: http://head3.com/
+.. _`Stephen White`: http://bitbucket.org/swhite/
+.. _`Michael Delaney`: http://github.com/fusepilot/
+.. _`Brad Montgomery`: http://blog.bradmontgomery.net/
+.. _`Jashua Cloutier`: http://www.senexcanis.com/

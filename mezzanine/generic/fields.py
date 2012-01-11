@@ -148,14 +148,27 @@ class KeywordsField(BaseGenericRelation):
         """
         The ``KeywordsWidget`` field will return data as a string of
         comma separated IDs for the ``Keyword`` model - convert these
-        into actual ``AssignedKeyword`` instances.
+        into actual ``AssignedKeyword`` instances. Also delete
+        ``Keyword`` instances if their last related ``AssignedKeyword``
+        instance is being removed.
         """
-        from mezzanine.generic.models import AssignedKeyword
-        # Remove current assigned keywords.
+        from mezzanine.generic.models import AssignedKeyword, Keyword
         related_manager = getattr(instance, self.name)
+        # Get a list of Keyword IDs being removed.
+        old_ids = [str(a.keyword_id) for a in related_manager.all()]
+        new_ids = data.split(",")
+        removed_ids = set(old_ids) - set(new_ids)
+        # Remove current AssignedKeyword instances.
         related_manager.all().delete()
+        # Convert the data into AssignedKeyword instances.
         if data:
-            data = [AssignedKeyword(keyword_id=i) for i in data.split(",")]
+            data = [AssignedKeyword(keyword_id=i) for i in new_ids]
+        # Remove Keyword instances than no longer have a
+        # related AssignedKeyword instance.
+        existing = AssignedKeyword.objects.filter(keyword__id__in=removed_ids)
+        existing_ids = set([str(a.keyword_id) for a in existing])
+        unused_ids = removed_ids - existing_ids
+        Keyword.objects.filter(id__in=unused_ids).delete()
         super(KeywordsField, self).save_form_data(instance, data)
 
     def contribute_to_class(self, cls, name):

@@ -29,7 +29,7 @@ class BaseImporterCommand(BaseCommand):
         super(BaseImporterCommand, self).__init__(**kwargs)
 
     def add_post(self, title=None, pub_date=None, tags=None,
-        content=None, comments=None, old_url=None):
+        content=None, comments=None, old_url=None, categories=None):
         """
         Adds a post to the post list for processing.
 
@@ -38,6 +38,8 @@ class BaseImporterCommand(BaseCommand):
         """
         if not title:
             title = decode_entities(strip_tags(content).split(". ")[0])
+        if categories is None:
+            categories = []
         if tags is None:
             tags = []
         if comments is None:
@@ -46,6 +48,7 @@ class BaseImporterCommand(BaseCommand):
             "title": title,
             "publish_date": pub_date,
             "content": content,
+            "categories": categories,
             "tags": tags,
             "comments": comments,
             "old_url": old_url,
@@ -81,7 +84,7 @@ class BaseImporterCommand(BaseCommand):
             date_format: the format the dates are in for posts and comments
         """
 
-        from mezzanine.blog.models import BlogPost
+        from mezzanine.blog.models import BlogPost, BlogCategory
         from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
         from mezzanine.generic.models import AssignedKeyword, Keyword
         from mezzanine.generic.models import ThreadedComment
@@ -105,6 +108,7 @@ class BaseImporterCommand(BaseCommand):
 
             if verbosity >= 1:
                 print "Importing post titled: %s" % post["title"]
+            categories = post.pop("categories")
             tags = post.pop("tags")
             comments = post.pop("comments")
             old_url = post.pop("old_url")
@@ -116,6 +120,11 @@ class BaseImporterCommand(BaseCommand):
             for tag in tags:
                 keyword, created = Keyword.objects.get_or_create(title=tag)
                 post.keywords.add(AssignedKeyword(keyword=keyword))
+
+            for name in categories:
+                cat, created = BlogCategory.objects.get_or_create(title=name)
+                print "Importing Category by: %s" % cat
+                post.categories.add(cat)
 
             for comment in comments:
                 if verbosity >= 1:

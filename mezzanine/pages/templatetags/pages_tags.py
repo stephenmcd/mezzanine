@@ -1,9 +1,11 @@
 
 from collections import defaultdict
 
+from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import get_models
 from django.template import TemplateSyntaxError, Variable
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.pages.models import Page
 from mezzanine.utils.urls import admin_url
@@ -123,7 +125,14 @@ def set_page_permissions(context, token):
     """
     page = context[token.split_contents()[1]]
     model = page.get_content_model()
-    opts = model._meta
+    try:
+        opts = model._meta
+    except AttributeError:
+        # A missing inner Meta class usually means the Page model
+        # hasn't been directly subclassed.
+        error = _("An error occured with the following class. Does "
+                  "it subclass Page directly?")
+        raise ImproperlyConfigured(error + " '%s'" % page.__class__.__name__)
     perm_name = opts.app_label + ".%s_" + opts.object_name.lower()
     request = context["request"]
     setattr(page, "perms", {})
