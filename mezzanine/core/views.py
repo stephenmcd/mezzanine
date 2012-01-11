@@ -71,7 +71,7 @@ def search(request, template="search_results.html"):
     results = Displayable.objects.search(query)
     results = paginate(results, request.GET.get("page", 1),
                        settings.SEARCH_PER_PAGE,
-                       settings.SEARCH_MAX_PAGING_LINKS)
+                       settings.MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
     return render_to_response(template, context, RequestContext(request))
 

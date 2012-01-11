@@ -51,14 +51,6 @@ register_setting(
 )
 
 register_setting(
-    name="BLOG_POST_MAX_PAGING_LINKS",
-    label=_("Max blog paging links"),
-    description=_("Max number of paging links shown on a blog listing page."),
-    editable=True,
-    default=10,
-)
-
-register_setting(
     name="BLOG_SLUG",
     description=_("Slug of the page object for the blog."),
     editable=False,
@@ -321,9 +313,9 @@ register_setting(
 )
 
 register_setting(
-    name="SEARCH_MAX_PAGING_LINKS",
-    label=_("Max search paging links"),
-    description=_("Max number of paging links for the search results page."),
+    name="MAX_PAGING_LINKS",
+    label=_("Max paging links"),
+    description=_("Max number of paging links to display when paginating."),
     editable=True,
     default=10,
 )
