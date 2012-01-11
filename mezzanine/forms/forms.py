@@ -96,14 +96,12 @@ class FormForForm(forms.ModelForm):
                 field_args["widget"] = field_widget
             self.initial[field_key] = field.default
             self.fields[field_key] = field_class(**field_args)
-            # Add identifying CSS classes to the field.
-            css_class = field_class.__name__.lower()
-            if field.required:
-                css_class += " required"
-                if (settings.FORMS_USE_HTML5 and
-                    field.field_type != fields.CHECKBOX_MULTIPLE):
-                    self.fields[field_key].widget.attrs["required"] = ""
-            self.fields[field_key].widget.attrs["class"] = css_class
+            # Add identifying type attr to the field for styling.
+            setattr(self.fields[field_key], "type",
+                    field_class.__name__.lower())
+            if (field.required and settings.FORMS_USE_HTML5 and
+                field.field_type != fields.CHECKBOX_MULTIPLE):
+                self.fields[field_key].widget.attrs["required"] = ""
             if field.placeholder_text and not field.default:
                 text = field.placeholder_text
                 self.fields[field_key].widget.attrs["placeholder"] = text
