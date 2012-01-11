@@ -19,17 +19,35 @@
 {% editable blog_page.title %}{{ blog_page.title }}{% endeditable %}
 {% endblock %}
 
+{% block breadcrumb_menu %}
+{{ block.super }}
+{% if tag or category or year or month or author %}
+<li>{% spaceless %}
+{% if tag %}
+    {% trans "Tag:" %} {{ tag }}
+{% else %}{% if category %}
+    {% trans "Category:" %} {{ category }}
+{% else %}{% if year or month %}
+    {% if month %}{{ month }}, {% endif %}{{ year }}
+{% else %}{% if author %}
+    {% trans "Author:" %} {{ author.get_full_name|default:author.username }}
+{% endif %}{% endif %}{% endif %}{% endif %}
+{% endspaceless %}
+</li>
+{% endif %}
+{% endblock %}
+
 {% block main %}
 
 {% if tag or category or year or month or author %}
-    <p id="description">
+    <p>
     {% if tag %}
         {% trans "Viewing posts tagged" %} {{ tag }}
     {% else %}{% if category %}
         {% trans "Viewing posts for the category" %} {{ category }}
     {% else %}{% if year or month %}
         {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
-    {{ year }}
+        {{ year }}
     {% else %}{% if author %}
         {% trans "Viewing posts by" %}
         {{ author.get_full_name|default:author.username }}
@@ -41,13 +59,12 @@
     {% endeditable %}
 {% endif %}
 
-
 {% for blog_post in blog_posts.object_list %}
 {% editable blog_post.title blog_post.publish_date %}
-<h2 class="blog-post-title">
+<h2>
     <a href="{% url blog_post_detail blog_post.slug %}">{{ blog_post.title }}</a>
 </h2>
-<em class="since">
+<h6>
     {% trans "Posted by" %}:
     {% with blog_post.user as author %}
     <a href="{% url blog_post_list_author author %}">{{ author.get_full_name|default:author.username }}</a>
@@ -59,14 +76,14 @@
     {% endfor %}
     {% endif %}
     {{ blog_post.publish_date|timesince }} {% trans "ago" %}
-</em>
+</h6>
 {% endeditable %}
 
 {% editable blog_post.content %}
 {{ blog_post.description_from_content|safe }}
 {% endeditable %}
 
-<p class="description">
+<p class="blog-list-detail">
     {% if blog_post.keyword_list %}
     {% trans "Tags" %}:
     {% for tag in blog_post.keyword_list %}

@@ -25,6 +25,14 @@ from mezzanine.template.loader import get_template
 register = template.Library()
 
 
+@register.inclusion_tag("includes/form_fields.html", takes_context=True)
+def fields_for(context, form):
+    """
+    Renders fields for a form.
+    """
+    return {"form": form}
+
+
 @register.filter
 def is_installed(app_name):
     """

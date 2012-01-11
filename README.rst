@@ -48,7 +48,7 @@ provides the following features:
   * Sharing via Facebook or Twitter
   * `Custom templates`_ per page or blog post
   * Built-in `test suite`_
-  * `960.gs`_ integration
+  * `Twitter Bootstrap`_ integration
 
 The Mezzanine admin dashboard:
 
@@ -223,7 +223,7 @@ Quotes
 .. _`Themes`: http://mezzanine.jupo.org/docs/themes.html
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
-.. _`960.gs`: http://960.gs/
+.. _`Twitter Bootstrap`: http://twitter.github.com/bootstrap/
 .. _`Disqus`: http://disqus.com/
 .. _`Gravatar`: http://gravatar.com/
 .. _`Google Analytics`: http://www.google.com/analytics/
