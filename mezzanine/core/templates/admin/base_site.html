@@ -39,7 +39,7 @@ if (typeof $ == 'undefined') {
 }
 </script>
 
-{% if not request.user.is_authenticated %}
+{% if not request.user.is_staff %}
 <style type="text/css">
     #extra-login-fields .required {margin-top:1px;}
     input.interface {margin:0 0 0 0px; vertical-align:middle;}
@@ -72,7 +72,7 @@ $(function() {
 </script>
 {% endif %}
 
-{% if request.user.is_authenticated and not is_popup and not request.GET.pop %}
+{% if request.user.is_staff and not is_popup and not request.GET.pop %}
 <style type="text/css">
 
     .add-row {display:none;}
@@ -214,7 +214,7 @@ $(function() {
 {% endblock %}
 
 {% block footer %}{{ block.super }}
-{% if not request.user.is_authenticated %}
+{% if not request.user.is_staff %}
 <p id="forgot-password" style="display:none;">
     <a href="{% try_url "password_reset" %}">{% trans "Forgot password?" %}</a>
 </p>
@@ -232,7 +232,7 @@ $(function() {
 
 </div>
 {% endif %}
-{% if request.user.is_authenticated %}
+{% if request.user.is_staff %}
 {% admin_dropdown_menu %}
 {% endif %}
 {% endblock %}
