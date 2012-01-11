@@ -109,8 +109,9 @@ You can then run your project with the usual Django steps::
 
 .. note::
 
-    The ``createdb`` command performs the same task as Django's ``syncdb``
-    command, and also handles setting the initial migration state for `South`_.
+    The ``createdb`` is a shortcut for using Django's ``syncdb`` command and
+    setting the initial migration state for `South`_. You can alternatively use
+    ``syncdb`` and ``migrate`` as you normally would.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and log
 in using the default account (``username: admin, password: default``). If
