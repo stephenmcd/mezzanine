@@ -142,7 +142,7 @@ listed here, send an email to the `mezzanine-users`_ mailing list.
 
   * `mezzanine-html5boilerplate`_ - Integrates the `html5boilerplate project`_ into Mezzanine.
   * `mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich text editor.
-  * `mezzanine-openshift`_ Setup for running Mezzanine on `Redhat's OpenShift` cloud platform.
+  * `mezzanine-openshift`_ Setup for running Mezzanine on `Redhat's OpenShift`_ cloud platform.
 
 Donating
 ========
