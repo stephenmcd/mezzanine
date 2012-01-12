@@ -165,9 +165,14 @@ class Tests(TestCase):
         kwargs = {"content_type": content_type, "object_pk": blog_post.id,
                   "site_id": settings.SITE_ID}
         template = "{% load comment_tags %}{% comment_thread blog_post %}"
-        before = self.queries_used_for_template(template, blog_post=blog_post)
+        context = {
+            "blog_post": blog_post,
+            "posted_comment_form": None,
+            "unposted_comment_form": None,
+        }
+        before = self.queries_used_for_template(template, **context)
         self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
-        after = self.queries_used_for_template(template, blog_post=blog_post)
+        after = self.queries_used_for_template(template, **context)
         self.assertEquals(before, after)
 
     def test_page_menu(self):
