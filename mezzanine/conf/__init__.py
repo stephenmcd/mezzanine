@@ -74,12 +74,16 @@ class Settings(object):
             from mezzanine.conf.models import Setting
             settings = Setting.objects.filter(site=Site.objects.get_current())
             for setting_obj in settings:
-                setting_type = registry[setting_obj.name]["type"]
-                if setting_type is bool:
-                    setting_value = setting_obj.value != "False"
+                try:
+                    setting_type = registry[setting_obj.name]["type"]
+                except KeyError:
+                    setting_obj.delete()
                 else:
-                    setting_value = setting_type(setting_obj.value)
-                self._editable_cache[setting_obj.name] = setting_value
+                    if setting_type is bool:
+                        setting_value = setting_obj.value != "False"
+                    else:
+                        setting_value = setting_type(setting_obj.value)
+                    self._editable_cache[setting_obj.name] = setting_value
             self._loaded = True
 
         # Use cached editable setting if found, otherwise use default.
