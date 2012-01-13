@@ -142,9 +142,13 @@
         };
 
         // Make the pages sortable via drag and drop.
-        $('#tree ul').sortable({handle: '.ordering', connectWith: '#tree ul',
-            opacity: '.7', stop:  updateOrdering, forcePlaceholderSize: true,
-            placeholder: 'placeholder', revert: 150, toleranceElement: ' div'});
+        // The `connectWith` option needs to be set separately to get
+        // around a performance bug with `sortable`.
+        $('#tree ul').sortable({
+            handle: '.ordering', opacity: '.7', stop: updateOrdering,
+            forcePlaceholderSize: true, placeholder: 'placeholder',
+            revert: 150, toleranceElement: ' div'
+        }).sortable('option', 'connectWith', '#tree ul');
         $('#tree ul').disableSelection();
 
     });
