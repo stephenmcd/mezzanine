@@ -4,9 +4,9 @@ from copy import deepcopy
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import NoReverseMatch
+from django.forms import MediaDefiningClass
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.core.admin import DisplayableAdmin
 from mezzanine.utils.urls import admin_url
@@ -16,7 +16,6 @@ page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 page_fieldsets[0][1]["fields"] += (("in_navigation", "in_footer"),
                                     "login_required",)
 
-
 class PageAdmin(DisplayableAdmin):
     """
     Admin class for the ``Page`` model and all subclasses of
@@ -25,6 +24,27 @@ class PageAdmin(DisplayableAdmin):
     """
 
     fieldsets = page_fieldsets
+
+    def __init__(self, *args, **kwargs):
+        """
+        For ``Page`` subclasses that are registered with an Admin class
+        that doesn't implement fieldsets, add any extra model fields
+        to this instance's fieldsets. This mimics Django's behaviour of
+        adding all model fields when no fieldsets are defined on the
+        Admin class.
+        """
+        super(PageAdmin, self).__init__(*args, **kwargs)
+        # Test that the fieldsets don't differ from PageAdmin's.
+        if self.model is not Page and self.fieldsets == PageAdmin.fieldsets:
+            # Make a copy so that we aren't modifying other Admin
+            # classes' fieldsets.
+            self.fieldsets = deepcopy(self.fieldsets)
+            # Insert each field between the publishing fields and nav
+            # fields. Do so in reverse order to retain the order of
+            # the model's fields.
+            for field in reversed(self.model._meta.fields):
+                if field not in Page._meta.fields and field.name != "page_ptr":
+                    self.fieldsets[0][1]["fields"].insert(3, field.name)
 
     def in_menu(self):
         """
@@ -134,16 +154,5 @@ class PageAdmin(DisplayableAdmin):
         return self._maintain_parent(request, response)
 
 
-richtext_fieldsets = deepcopy(PageAdmin.fieldsets)
-richtext_fieldsets[0][1]["fields"].insert(3, "content")
-
-
-class RichTextPageAdmin(PageAdmin):
-    """
-    Admin class for the ``RichText`` default content type.
-    """
-    fieldsets = richtext_fieldsets
-
-
 admin.site.register(Page, PageAdmin)
-admin.site.register(RichTextPage, RichTextPageAdmin)
+admin.site.register(RichTextPage, PageAdmin)
