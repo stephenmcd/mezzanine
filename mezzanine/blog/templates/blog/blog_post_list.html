@@ -62,7 +62,7 @@
 {% for blog_post in blog_posts.object_list %}
 {% editable blog_post.title blog_post.publish_date %}
 <h2>
-    <a href="{% url blog_post_detail blog_post.slug %}">{{ blog_post.title }}</a>
+    <a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a>
 </h2>
 <h6>
     {% trans "Posted by" %}:
@@ -91,15 +91,15 @@
     {% endfor %}
     <br>
     {% endif %}
-    <a href="{% url blog_post_detail blog_post.slug %}">{% trans "read more" %}</a>
+    <a href="{{ blog_post.get_absolute_url }}">{% trans "read more" %}</a>
     /
     {% if settings.COMMENTS_DISQUS_SHORTNAME %}
-    <a href="{% url blog_post_detail blog_post.slug %}#disqus_thread"
+    <a href="{{ blog_post.get_absolute_url }}#disqus_thread"
         data-disqus-identifier="{% disqus_id_for blog_post %}">
         {% trans "Comments" %}
     </a>
     {% else %}
-    <a href="{% url blog_post_detail blog_post.slug %}#comments">
+    <a href="{{ blog_post.get_absolute_url }}#comments">
         {% blocktrans count blog_post.comments_count as comments_count %}
         1 comment
         {% plural %}

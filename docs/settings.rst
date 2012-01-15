@@ -42,6 +42,13 @@ Slug of the page object for the blog.
 
 Default: ``'blog'``
 
+``BLOG_URLS_USE_DATE``
+----------------------
+
+If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/
+
+Default: ``False``
+
 ``COMMENTS_DEFAULT_APPROVED``
 -----------------------------
 

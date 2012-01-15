@@ -2,6 +2,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.core.models import Displayable, Ownable, RichText, Slugged
 from mezzanine.generic.fields import CommentsField, RatingField
 
@@ -24,7 +25,15 @@ class BlogPost(Displayable, Ownable, RichText):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("blog_post_detail", (), {"slug": self.slug})
+        url_name = "blog_post_detail"
+        kwargs = {"slug": self.slug}
+        if settings.BLOG_URLS_USE_DATE:
+            url_name = "blog_post_detail_date"
+            month = str(self.publish_date.month)
+            if len(month) == 1:
+                month = "0" + month
+            kwargs.update({"month": month, "year": self.publish_date.year})
+        return (url_name, (), kwargs)
 
 
 class BlogCategory(Slugged):

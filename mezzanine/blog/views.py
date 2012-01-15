@@ -90,7 +90,8 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     return HttpResponse(t.render(request_context))
 
 
-def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
+def blog_post_detail(request, slug, template="blog/blog_post_detail.html",
+                             year=None, month=None,):
     """
     Display a blog post and handle comment submission. Custom
     templates are checked for using the name
