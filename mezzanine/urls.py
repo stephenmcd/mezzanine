@@ -53,7 +53,7 @@ if getattr(settings, "DEBUG", False):
 # Filebrowser admin media library.
 if getattr(settings, "PACKAGE_NAME_FILEBROWSER") in settings.INSTALLED_APPS:
     urlpatterns += patterns("",
-        ("^admin/filebrowser/", include("%s.urls" %
+        ("^admin/media-library/", include("%s.urls" %
                                         settings.PACKAGE_NAME_FILEBROWSER)),
         static_urls(settings.FILEBROWSER_URL_FILEBROWSER_MEDIA.strip("/"),
                     settings.FILEBROWSER_PATH_FILEBROWSER_MEDIA),
