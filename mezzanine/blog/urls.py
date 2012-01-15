@@ -29,6 +29,7 @@ urlpatterns += patterns("mezzanine.blog.views",
         name="blog_post_list_author"),
     url("^archive/(?P<year>.*)/$", "blog_post_list",
         name="blog_post_list_year"),
+    url("^(?P<year>.*)/(?P<month>.*)/(?P<slug>.*)/$", "blog_post_detail", name="blog_post_detail"),
     url("^(?P<slug>.*)/$", "blog_post_detail", name="blog_post_detail"),
     url("^$", "blog_post_list", name="blog_post_list"),
 )
