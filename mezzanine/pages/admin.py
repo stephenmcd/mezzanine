@@ -4,7 +4,6 @@ from copy import deepcopy
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import NoReverseMatch
-from django.forms import MediaDefiningClass
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from mezzanine.pages.models import Page, RichTextPage
@@ -15,6 +14,7 @@ from mezzanine.utils.urls import admin_url
 page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 page_fieldsets[0][1]["fields"] += (("in_navigation", "in_footer"),
                                     "login_required",)
+
 
 class PageAdmin(DisplayableAdmin):
     """
