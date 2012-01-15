@@ -273,6 +273,13 @@ Package name of theme app to use.
 
 Default: ``''``
 
+``THUMBNAILS_DIR_NAME``
+-----------------------
+
+Directory name to store thumbnails in, that will be created relative to the original image's directory.
+
+Default: ``'thmbs'``
+
 ``USE_SOUTH``
 -------------
 

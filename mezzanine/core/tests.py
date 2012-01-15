@@ -402,7 +402,7 @@ class Tests(TestCase):
         orig_name = "testleaf.jpg"
         if not os.path.exists(os.path.join(settings.MEDIA_ROOT, orig_name)):
             return
-        thumbnail_name = "testleaf-24x24.jpg"
+        thumbnail_name = "%s/testleaf-24x24.jpg" % settings.THUMBNAILS_DIR_NAME
         thumbnail_path = os.path.join(settings.MEDIA_ROOT, thumbnail_name)
         try:
             os.remove(thumbnail_path)

@@ -409,6 +409,14 @@ register_setting(
     default="",
 )
 
+register_setting(
+    name="THUMBNAILS_DIR_NAME",
+    description=_("Directory name to store thumbnails in, that will be "
+        "created relative to the original image's directory."),
+    editable=False,
+    default="thmbs",
+)
+
 # The following settings are defined here for documentation purposes
 # as this file is used to auto-generate the documentation for all
 # available settings. They are Mezzanine specific, but their values
