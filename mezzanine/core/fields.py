@@ -1,13 +1,13 @@
 
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import TextField
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.utils.importing import import_dotted_path
 
 
-class RichTextField(TextField):
+class RichTextField(models.TextField):
     """
     TextField that stores HTML.
     """
@@ -28,6 +28,20 @@ class RichTextField(TextField):
         return formfield
 
 
+# Define a ``FileField`` that maps to filebrowser's ``FileBrowseField``
+# if available, falling back to Django's ``FileField`` otherwise.
+try:
+    FileBrowseField = import_dotted_path("%s.fields.FileBrowseField" %
+                                         settings.PACKAGE_NAME_FILEBROWSER)
+except ImportError:
+    FileField = models.FileField
+else:
+    class FileField(FileBrowseField):
+        def __init__(self, *args, **kwargs):
+            kwargs.pop("upload_to", "")
+            super(FileField, self).__init__(*args, **kwargs)
+
+
 HtmlField = RichTextField  # For backward compatibility in south migrations.
 
 # South requires custom fields to be given "rules".
@@ -35,7 +49,7 @@ HtmlField = RichTextField  # For backward compatibility in south migrations.
 if "south" in settings.INSTALLED_APPS:
     try:
         from south.modelsinspector import add_introspection_rules
-        add_introspection_rules(rules=[((RichTextField,), [], {})],
+        add_introspection_rules(rules=[((FileField, RichTextField,), [], {})],
             patterns=["mezzanine\.core\.fields\.",
                       "mezzanine\.generic\.fields\."])
     except ImportError:
