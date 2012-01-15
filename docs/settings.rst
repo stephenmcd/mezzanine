@@ -49,6 +49,13 @@ Slug of the page object for the blog.
 
 Default: ``'blog'``
 
+``BLOG_URLS_USE_DATE``
+----------------------
+
+If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/
+
+Default: ``False``
+
 ``COMMENTS_DEFAULT_APPROVED``
 -----------------------------
 
@@ -146,6 +153,13 @@ Default: ``()``
 Char to use as a field delimiter when exporting form responses as CSV.
 
 Default: ``','``
+
+``FORMS_DISABLE_SEND_FROM_EMAIL_FIELD``
+---------------------------------------
+
+If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields.
+
+Default: ``False``
 
 ``FORMS_FIELD_MAX_LENGTH``
 --------------------------

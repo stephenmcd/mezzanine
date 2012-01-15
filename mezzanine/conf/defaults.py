@@ -43,6 +43,15 @@ register_setting(
 )
 
 register_setting(
+    name="BLOG_URLS_USE_DATE",
+    label=_("Use date URLs"),
+    description=_("If ``True``, URLs for blog post include the month and "
+        "year. Eg: /blog/yyyy/mm/slug/"),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="BLOG_POST_PER_PAGE",
     label=_("Blog posts per page"),
     description=_("Number of blog posts shown on a blog listing page."),
