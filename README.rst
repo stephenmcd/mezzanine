@@ -188,6 +188,7 @@ Sites Using Mezzanine
   * `Goldman Travel`_
   * `IJC Digital`_
   * `Coopers`_
+  * `Joe Julian`_
 
 Quotes
 ======
