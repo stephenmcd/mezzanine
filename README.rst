@@ -265,6 +265,7 @@ Quotes
 .. _`Goldman Travel`: http://www.goldmantravel.com.au/
 .. _`IJC Digital`: http://ijcdigital.com/
 .. _`Coopers`: http://store.coopers.com.au/
+.. _`Joe Julian`: http://joejulian.name/
 
 .. THIRD PARTY LIBS
 
