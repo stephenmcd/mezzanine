@@ -94,5 +94,5 @@ class RatingForm(CommentSecurityForm):
     Form for a rating. Subclasses ``CommentSecurityForm`` to make use
     of its easy setup for generic relations.
     """
-    value = forms.ChoiceField(label=_("Rating"), widget=forms.RadioSelect,
+    value = forms.ChoiceField(label="", widget=forms.RadioSelect,
                               choices=zip(RATING_RANGE, RATING_RANGE))

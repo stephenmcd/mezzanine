@@ -36,7 +36,7 @@ class DisplayableAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {"fields": ["title", "status",
             ("publish_date", "expiry_date"), ]}),
-        (_("Meta data"), {"fields": ("slug", "description", "keywords"),
+        (_("Meta data"), {"fields": ["slug", "description", "keywords"],
             "classes": ("collapse-closed",)},),
     )
 

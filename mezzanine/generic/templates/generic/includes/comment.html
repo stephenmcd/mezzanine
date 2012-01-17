@@ -1,63 +1,55 @@
 {% load i18n mezzanine_tags comment_tags %}
 
-<ul>
+<ul class="unstyled">
     {% for comment in comments_for_thread %}
     {% editable comment.is_public comment.is_removed %}
     <li id="comment-{{ comment.id }}"
         {% if comment.by_author %} class="author"{% endif %}>
         {% if not comment.is_removed and comment.is_public %}
-        <em>
             <strong>
-            {% if comment.user_url %}
-            <a href="{{ comment.user_url }}"><img 
-                src="{% gravatar_url comment.email_hash %}" />{{ comment.name }}</a>
-            {% else %}
-            <img src="{% gravatar_url comment.email_hash %}" />
-            {{ comment.user_name }}
-            {% endif %}
+                {% if comment.user_url %}
+                <a href="{{ comment.user_url }}">
+                    <img src="{% gravatar_url comment.email_hash %}">
+                    {{ comment.name }}
+                </a>
+                {% else %}
+                <img src="{% gravatar_url comment.email_hash %}">
+                {{ comment.user_name }}
+                {% endif %}
             </strong>
-            {{ comment.submit_date|timesince }} {% trans "ago" %}
-        </em>
+            <span class="timespan">{{ comment.submit_date|timesince }} {% trans "ago" %}</span>
         <p>{{ comment.comment }}</p>
-        <a href="{{ request.path }}#comment-{{ comment.id }}">{% trans "Link" %}</a> / 
+        <a href="{{ request.path }}#comment-{{ comment.id }}">{% trans "Link" %}</a> /
         <a href="#reply-{{ comment.id }}" class="reply">{% trans "Reply" %}</a>
         <form method="post" id="reply-{{ comment.id }}"
-            class="comment form{% ifequal replied_to comment.id %} posted{% endifequal %}">
+            class="form-stacked reply-form{% ifequal replied_to comment.id %} posted{% endifequal %}">
             {% csrf_token %}
-            <table>
             {% ifequal replied_to comment.id %}
-                {% with posted_comment_form as comment_form %}
-                    {% include "generic/includes/comment_fields.html" %}
-                {% endwith %}
+            {% fields_for posted_comment_form %}
             {% else %}
-                {% with unposted_comment_form as comment_form %}
-                    {% include "generic/includes/comment_fields.html" %}
-                {% endwith %}
+            {% fields_for unposted_comment_form %}
             {% endifequal %}
-            <tr><td colspan="2">
-            <input type="hidden" name="replied_to" value="{{ comment.id }}" />
-            <input class="button" type="submit" value="{% trans "Reply" %}" />
-            </td></tr>
-            </table>
+            <input type="hidden" name="replied_to" value="{{ comment.id }}">
+            <input class="btn primary" type="submit" value="{% trans "Reply" %}">
         </form>
         {% else %}
         {% if request.user.is_staff %}
-        <em class="
-            {% if comment.is_removed %}comment-removed{% endif %} 
+            {% if comment.is_removed %}comment-removed{% endif %}
             {% if not comment.is_public %}unapproved{% endif %}">
             <strong>
-            {% if comment.user_url %}
-            <a href="{{ comment.user_url }}"><img 
-                src="{% gravatar_url comment.email_hash %}" />{{ comment.name }}</a>
+                {% if comment.user_url %}
+                <a href="{{ comment.user_url }}">
+                    <img src="{% gravatar_url comment.email_hash %}">
+                    {{ comment.name }}
+                </a>
             {% else %}
-            <img src="{% gravatar_url comment.email_hash %}" />
-            {{ comment.user_name }}
+                <img src="{% gravatar_url comment.email_hash %}">
+                {{ comment.user_name }}
             {% endif %}
             </strong>
-            {{ comment.submit_date|timesince }} {% trans "ago" %}
-        </em>
+            <span class="timespan">{{ comment.submit_date|timesince }} {% trans "ago" %}</span>
         <p class="
-            {% if comment.is_removed %}comment-removed{% endif %} 
+            {% if comment.is_removed %}comment-removed{% endif %}
             {% if not comment.is_public %}comment-unapproved{% endif %}">{{ comment.comment }}</p>
         {% endif %}
         <p>

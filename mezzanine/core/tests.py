@@ -165,9 +165,14 @@ class Tests(TestCase):
         kwargs = {"content_type": content_type, "object_pk": blog_post.id,
                   "site_id": settings.SITE_ID}
         template = "{% load comment_tags %}{% comment_thread blog_post %}"
-        before = self.queries_used_for_template(template, blog_post=blog_post)
+        context = {
+            "blog_post": blog_post,
+            "posted_comment_form": None,
+            "unposted_comment_form": None,
+        }
+        before = self.queries_used_for_template(template, **context)
         self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
-        after = self.queries_used_for_template(template, blog_post=blog_post)
+        after = self.queries_used_for_template(template, **context)
         self.assertEquals(before, after)
 
     def test_page_menu(self):
@@ -397,7 +402,7 @@ class Tests(TestCase):
         orig_name = "testleaf.jpg"
         if not os.path.exists(os.path.join(settings.MEDIA_ROOT, orig_name)):
             return
-        thumbnail_name = "testleaf-24x24.jpg"
+        thumbnail_name = "%s/testleaf-24x24.jpg" % settings.THUMBNAILS_DIR_NAME
         thumbnail_path = os.path.join(settings.MEDIA_ROOT, thumbnail_name)
         try:
             os.remove(thumbnail_path)

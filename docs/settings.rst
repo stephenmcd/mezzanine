@@ -28,13 +28,6 @@ Username for bit.ly URL shortening service.
 
 Default: ``''``
 
-``BLOG_POST_MAX_PAGING_LINKS``
-------------------------------
-
-Max number of paging links shown on a blog listing page.
-
-Default: ``10``
-
 ``BLOG_POST_PER_PAGE``
 ----------------------
 
@@ -196,6 +189,13 @@ Google Analytics ID (http://www.google.com/analytics/)
 
 Default: ``''``
 
+``MAX_PAGING_LINKS``
+--------------------
+
+Max number of paging links to display when paginating.
+
+Default: ``10``
+
 ``PAGES_MENU_SHOW_ALL``
 -----------------------
 
@@ -230,13 +230,6 @@ Default: ``None``
 Dotted package path and class name of the widget to use for the ``RichTextField``.
 
 Default: ``'mezzanine.core.forms.TinyMceWidget'``
-
-``SEARCH_MAX_PAGING_LINKS``
----------------------------
-
-Max number of paging links for the search results page.
-
-Default: ``10``
 
 ``SEARCH_PER_PAGE``
 -------------------
@@ -286,6 +279,13 @@ Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'C
 Package name of theme app to use.
 
 Default: ``''``
+
+``THUMBNAILS_DIR_NAME``
+-----------------------
+
+Directory name to store thumbnails in, that will be created relative to the original image's directory.
+
+Default: ``'thmbs'``
 
 ``USE_SOUTH``
 -------------
