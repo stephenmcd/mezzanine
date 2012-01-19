@@ -9,7 +9,9 @@ $(function() {
     var close = 'img';
     var expose = {color: '#333', loadSpeed: 200, opacity: 0.9};
     var overlay = {expose: expose, close: close};
-    $('.gallery a').overlay(overlay);
+    $('.gallery a[rel]').overlay(overlay).click(function() {
+        location = $(this).attr('rel') + '-show';
+    });
     $('.image-overlay-prev, .image-overlay-next').click(function() {
         var dir = $(this).attr('class').replace('image-overlay-', '');
         var to = $(this).parent().parent()[dir]();
@@ -23,8 +25,12 @@ $(function() {
     $('body').click(function(e) {
         if (!$(e.target).hasClass('image-overlay-thumb') && !$(e.target).hasClass('image-overlay-full')) {
             $('.image-overlay img:visible').click();
+            location = '#';
         }
     });
+    if (location.hash.indexOf('#image-') == 0) {
+        $('a[rel=' + location.hash.replace('-show', '') + ']').click();
+    }
 });
 </script>
 {% endblock %}
@@ -42,7 +48,7 @@ $(function() {
     <div id="image-{{ image.id }}" class="image-overlay" style="display:none;">
         <a href="#" class="image-overlay-prev">&larr;</a>
         <a href="#" class="image-overlay-next">&rarr;</a>
-        <img class="image-overlay-full" src="{{ MEDIA_URL }}{% thumbnail image.file 0 500 %}"><br>
+        <img class="image-overlay-full" src="{{ MEDIA_URL }}{% thumbnail image.file 0 600 %}"><br>
         <p>{{ image.description }}<br>{{ forloop.counter }} / {{ images|length }}</p>
     </div>
 {% endfor %}
