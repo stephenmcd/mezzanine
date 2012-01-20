@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.utils.urls import admin_url, slugify
+from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 
 
 class Page(Orderable, Displayable):
@@ -21,6 +22,7 @@ class Page(Orderable, Displayable):
     content_model = models.CharField(editable=False, max_length=50, null=True)
     login_required = models.BooleanField(_("Login required"),
         help_text=_("If checked, only logged in users can view this page"))
+    children_count=models.PositiveIntegerField(default=0, editable=False)
 
     class Meta:
         verbose_name = _("Page")
@@ -51,7 +53,14 @@ class Page(Orderable, Displayable):
             titles.insert(0, parent.title)
             parent = parent.parent
         self.titles = " / ".join(titles)
+
         super(Page, self).save(*args, **kwargs)
+
+        if self.parent:
+            count = self.__class__.objects.filter(parent=self.parent,
+                status=CONTENT_STATUS_PUBLISHED).count()
+            self.parent.children_count = count
+            self.parent.save()
 
     def get_content_model(self):
         """
