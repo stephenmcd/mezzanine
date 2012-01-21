@@ -49,10 +49,12 @@ def page_menu(context, token):
         except KeyError:
             user = None
             slug = ""
-        has_children = lambda page_id: lambda: page_id in context["menu_pages"]
+        num_children = lambda id: lambda: len(context["menu_pages"][id])
+        has_children = lambda id: lambda: num_children(id)() > 0
         published = Page.objects.published(for_user=user)
         for page in published.select_related(depth=2).order_by("_order"):
             page.set_menu_helpers(slug)
+            setattr(page, "num_children", num_children(page.id))
             setattr(page, "has_children", has_children(page.id))
             pages[page.parent_id].append(page)
         context["menu_pages"] = pages
