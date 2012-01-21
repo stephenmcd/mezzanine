@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-13 13:46+0100\n"
+"POT-Creation-Date: 2012-01-20 21:47-0430\n"
 "PO-Revision-Date: 2011-12-13 15:35+0100\n"
 "Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
 "Language-Team: Catalan <LL@li.org>\n"
@@ -32,7 +32,8 @@ msgstr "Necessàri estar identificat"
 
 #: models.py:23
 msgid "If checked, only logged in users can view this page"
-msgstr "Si es marca, només els usuaris identificats podrán veure aquesta pàgina."
+msgstr ""
+"Si es marca, només els usuaris identificats podrán veure aquesta pàgina."
 
 #: models.py:26
 msgid "Page"
@@ -50,16 +51,19 @@ msgstr "Pàgina de contingut ric."
 msgid "Rich text pages"
 msgstr "Pàgines de contingut ric."
 
-#: templates/admin/pages/page/change_list.html:162
+#: templates/admin/pages/page/change_list.html:166
 #: templates/pages/menus/admin.html:30
 msgid "Add"
 msgstr "Afegir"
 
 #: templates/pages/menus/breadcrumb.html:9
 #: templates/pages/menus/footer_tree.html:10
-#: templates/pages/menus/mobile.html:9
-#: templates/pages/menus/primary.html:8
+#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:8
 #: templates/pages/menus/tree.html:10
 msgid "Home"
 msgstr "Inici"
 
+#: templatetags/pages_tags.py:135
+msgid ""
+"An error occured with the following class. Does it subclass Page directly?"
+msgstr ""

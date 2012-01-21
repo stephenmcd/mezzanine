@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 10:03-0430\n"
+"POT-Creation-Date: 2012-01-20 21:47-0430\n"
 "PO-Revision-Date: 2011-11-12 03:20+0000\n"
 "Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,27 +19,27 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: models.py:17 templates/blog/blog_post_list.html:82
+#: models.py:18 templates/blog/blog_post_list.html:82
 msgid "Comments"
 msgstr "Комментарии"
 
-#: models.py:18
+#: models.py:19
 msgid "Rating"
 msgstr ""
 
-#: models.py:21
+#: models.py:22
 msgid "Blog post"
 msgstr "Запись в блоге"
 
-#: models.py:22
+#: models.py:23
 msgid "Blog posts"
 msgstr "Записи в блоге"
 
-#: models.py:36
+#: models.py:45
 msgid "Blog Category"
 msgstr "Категория блога"
 
-#: models.py:37
+#: models.py:46
 msgid "Blog Categories"
 msgstr "Категории блога"
 
