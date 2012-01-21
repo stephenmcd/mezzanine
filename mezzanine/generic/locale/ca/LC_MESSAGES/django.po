@@ -1,25 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-13 13:46+0100\n"
-"PO-Revision-Date: 2011-12-13 16:00+0100\n"
-"Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
-"Language-Team: Catalan <LL@li.org>\n"
-"Language: ca\n"
+"POT-Creation-Date: 2012-01-20 21:47-0430\n"
+"PO-Revision-Date: 2012-01-21 02:18+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/team/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:19
-#: models.py:66
+#: admin.py:19 models.py:66
 msgid "User"
 msgstr "Usuari"
 
@@ -47,8 +46,7 @@ msgstr "Pàgina web"
 msgid "optional"
 msgstr "opcional"
 
-#: forms.py:97
-#: models.py:119
+#: forms.py:97 models.py:119
 msgid "Rating"
 msgstr "Rating"
 
@@ -60,14 +58,11 @@ msgstr "Hash Correu electrònic"
 msgid "By the blog author"
 msgstr "Per l'autor del blog"
 
-#: models.py:29
-#: models.py:58
-#: templates/generic/includes/comments.html:21
+#: models.py:29 models.py:58 templates/generic/includes/comments.html:21
 msgid "Comment"
 msgstr "Comentari"
 
-#: models.py:30
-#: templates/generic/includes/comments.html:3
+#: models.py:30 templates/generic/includes/comments.html:3
 msgid "Comments"
 msgstr "Comentaris"
 
@@ -133,4 +128,5 @@ msgstr "Actualment sense rating"
 #: templates/generic/includes/rating.html:14
 msgid "Rate"
 msgstr "Clasificació"
+
 

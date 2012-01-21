@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 10:03-0430\n"
+"POT-Creation-Date: 2012-01-20 21:47-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:17 templates/blog/blog_post_list.html:82
+#: models.py:18 templates/blog/blog_post_list.html:82
 msgid "Comments"
 msgstr ""
 
-#: models.py:18
+#: models.py:19
 msgid "Rating"
 msgstr ""
 
-#: models.py:21
+#: models.py:22
 msgid "Blog post"
 msgstr ""
 
-#: models.py:22
+#: models.py:23
 msgid "Blog posts"
 msgstr ""
 
-#: models.py:36
+#: models.py:45
 msgid "Blog Category"
 msgstr ""
 
-#: models.py:37
+#: models.py:46
 msgid "Blog Categories"
 msgstr ""
 

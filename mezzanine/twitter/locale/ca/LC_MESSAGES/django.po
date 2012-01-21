@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-13 13:46+0100\n"
+"POT-Creation-Date: 2012-01-20 21:47-0430\n"
 "PO-Revision-Date: 2011-12-13 15:38+0100\n"
 "Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
 "Language-Team: Catalan <LL@li.org>\n"
@@ -97,4 +97,3 @@ msgstr "Últims Tweets"
 #: templates/twitter/tweets.html:27
 msgid "ago"
 msgstr "fa"
-
