@@ -1,7 +1,7 @@
 
 from cStringIO import StringIO
 import os
-import re
+from string import punctuation
 from zipfile import ZipFile
 
 from django.core.files.base import ContentFile
@@ -52,9 +52,9 @@ class Gallery(Page, RichText):
                                    settings.PACKAGE_NAME_FILEBROWSER).DIRECTORY
                 except ImportError:
                     dir_name = "galleries"
-                file_path = os.path.join(dir_name, self.slug, name)
-                file_path = default_storage.save(file_path, ContentFile(data))
-                self.images.add(GalleryImage(file=file_path))
+                path = os.path.join(dir_name, self.slug, name.decode("utf-8"))
+                path = default_storage.save(path, ContentFile(data))
+                self.images.add(GalleryImage(file=path))
             self.zip_import.delete(save=True)
 
 
@@ -78,6 +78,11 @@ class GalleryImage(Orderable):
         """
         if not self.id and not self.description:
             name = self.file.path.split("/")[-1].rsplit(".", 1)[0]
-            name = re.sub("[^a-zA-Z0-9]", " ", name.replace("'", ""))
-            self.description = name.title()
+            name = name.replace("'", "")
+            name = "".join([c if c not in punctuation else " " for c in name])
+            # str.title() doesn't deal with unicode very well.
+            # http://bugs.python.org/issue6412
+            name = "".join([s.upper() if i == 0 or name[i - 1] == " " else s
+                            for i, s in enumerate(name)])
+            self.description = name
         super(GalleryImage, self).save(*args, **kwargs)
