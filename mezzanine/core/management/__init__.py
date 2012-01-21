@@ -5,6 +5,7 @@ from django.contrib.auth import models as auth_app
 from django.core.management import call_command
 from django.db.models.signals import post_syncdb
 
+from mezzanine.forms.models import Form
 from mezzanine.pages.models import Page
 from mezzanine.pages import models as pages_app
 
@@ -23,7 +24,7 @@ def create_user(app, created_models, verbosity, interactive, **kwargs):
 
 
 def create_pages(app, created_models, verbosity, interactive, **kwargs):
-    if settings.DEBUG and Page in created_models:
+    if settings.DEBUG and Page in created_models and Form in created_models:
         if interactive:
             confirm = raw_input("\nWould you like to install some initial "
                                 "content?\nEg: About page, Blog, Contact "
