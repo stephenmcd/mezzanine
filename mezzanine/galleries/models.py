@@ -29,7 +29,7 @@ class Gallery(Page, RichText):
         verbose_name = _("Gallery")
         verbose_name_plural = _("Galleries")
 
-    def save(self, *args, **kwargs):
+    def save(self, delete_zip_import=True, *args, **kwargs):
         """
         If a zip file is uploaded, extract any images from it and add
         them to the gallery, before removing the zip file.
@@ -47,15 +47,16 @@ class Gallery(Page, RichText):
                     image.verify()
                 except:
                     continue
+                fb_settings = "%s.settings" % settings.PACKAGE_NAME_FILEBROWSER
                 try:
-                    dir_name = import_dotted_path("%s.settings" %
-                                   settings.PACKAGE_NAME_FILEBROWSER).DIRECTORY
+                    dir_name = import_dotted_path(fb_settings).DIRECTORY
                 except ImportError:
                     dir_name = "galleries"
                 path = os.path.join(dir_name, self.slug, name.decode("utf-8"))
                 path = default_storage.save(path, ContentFile(data))
                 self.images.add(GalleryImage(file=path))
-            self.zip_import.delete(save=True)
+            if delete_zip_import:
+                self.zip_import.delete(save=True)
 
 
 class GalleryImage(Orderable):
