@@ -80,7 +80,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     blog_posts = paginate(blog_posts,
                           request.GET.get("page", 1),
                           settings.BLOG_POST_PER_PAGE,
-                          settings.BLOG_POST_MAX_PAGING_LINKS)
+                          settings.MAX_PAGING_LINKS)
     context = {"blog_page": blog_page(), "blog_posts": blog_posts,
                "year": year, "month": month, "tag": tag,
                "category": category, "author": author}

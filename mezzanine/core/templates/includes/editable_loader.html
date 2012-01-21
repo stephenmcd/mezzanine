@@ -47,6 +47,7 @@
     {% if not settings.FORMS_USE_HTML5 %}
     .editable-form input.datetimefield {width: 80px; margin-left: 8px;}
     {% endif %}
+    .editable-form select {width:auto;}
     .editable-form input[type="file"] {width: 300px;}
     .editable-form p {margin: .5em 0 !important; padding: 0 !important;
         line-height: 0 !important; border: 0 !important;}
@@ -54,10 +55,9 @@
     .editable-form .helptext {font-size: 70%; color: #444; font-style: italic;}
     .editable-form label {text-transform: capitalize !important;
         font-weight: bold !important; line-height: 1.1em !important;
-        font-size: 15px !important; color: #000 !important;}
-    .editable-form .button {width:auto; cursor:pointer; float:right;
-        margin:15px 0 0 15px; padding:5px 15px;
-        -moz-box-shadow: 0 0 5px #999; -webkit-box-shadow: 0 0 5px #999}
+        font-size: 15px !important; color: #000 !important; float:none;}
+    .editable-form .btn {width:auto; cursor:pointer; float:right;
+        margin:15px 0 0 15px; padding:5px 15px;}
 
 </style>
 {{ richtext_media|safe }}

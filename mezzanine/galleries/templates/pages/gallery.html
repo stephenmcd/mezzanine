@@ -1,0 +1,58 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags %}
+
+{% block extra_head %}
+<script src="{{ settings.CONTENT_MEDIA_URL }}js/jquery.tools.js"></script>
+<script>
+$(function() {
+    var close = 'img';
+    var expose = {color: '#333', loadSpeed: 200, opacity: 0.9};
+    var overlay = {expose: expose, close: close};
+    $('.gallery a[rel]').overlay(overlay).click(function() {
+        location = $(this).attr('rel') + '-show';
+    });
+    $('.image-overlay-prev, .image-overlay-next').click(function() {
+        var dir = $(this).attr('class').replace('image-overlay-', '');
+        var to = $(this).parent().parent()[dir]();
+        if (to.length == 0) {
+            to = $('.gallery li:' + {prev: 'last', next: 'first'}[dir]);
+        }
+        $(this).parent().find(close).click();
+        to.find('a:first').click();
+        return false;
+    });
+    $('body').click(function(e) {
+        if (!$(e.target).hasClass('image-overlay-thumb') && !$(e.target).hasClass('image-overlay-full')) {
+            $('.image-overlay img:visible').click();
+            location = '#';
+        }
+    });
+    if (location.hash.indexOf('#image-') == 0) {
+        $('a[rel=' + location.hash.replace('-show', '') + ']').click();
+    }
+});
+</script>
+{% endblock %}
+
+{% block main %}
+{{ block.super }}
+{{ page.gallery }}
+<ul class="media-grid gallery">
+{% with page.gallery.images.all as images %}
+{% for image in images %}
+<li>
+    <a rel="#image-{{ image.id }}" title="{{ image.description }}" href="{{ image.file }}">
+        <img class="image-overlay-thumb" src="{{ MEDIA_URL }}{% thumbnail image.file 60 60 %}">
+    </a>
+    <div id="image-{{ image.id }}" class="image-overlay" style="display:none;">
+        <a href="#" class="image-overlay-prev">&larr;</a>
+        <a href="#" class="image-overlay-next">&rarr;</a>
+        <img class="image-overlay-full" src="{{ MEDIA_URL }}{% thumbnail image.file 0 600 %}"><br>
+        <p>{{ image.description }}<br>{{ forloop.counter }} / {{ images|length }}</p>
+    </div>
+{% endfor %}
+{% endwith %}
+</ul>
+{% endblock %}
+

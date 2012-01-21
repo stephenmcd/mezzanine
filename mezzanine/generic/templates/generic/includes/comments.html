@@ -1,25 +1,28 @@
-{% load i18n comment_tags %}
-
-<h2>{% trans "Comments" %}</h2>
+{% load i18n mezzanine_tags comment_tags %}
+<div id="comments">
+<h3>{% trans "Comments" %}</h3>
 {% if settings.COMMENTS_DISQUS_SHORTNAME %}
-{% include "generic/includes/disqus_comments.html" %} 
+{% include "generic/includes/disqus_comments.html" %}
 {% else %}
+<script type="text/javascript">
+$(function() {
+    $('.reply').click(function() {
+        $(this).next('.reply-form').toggle();
+    });
+});
+</script>
 {% comment_thread object_for_comments %}
-<form method="post" class="comment" id="comment" action="#comment">
+<h3>{% trans "New Comment" %}</h3>
+<form method="post" class="form-stacked" id="comment" action="#comment">
     {% csrf_token %}
-    <table>
     {% if not request.POST.replied_to %}
-        {% with posted_comment_form as comment_form %}
-            {% include "generic/includes/comment_fields.html" %}
-        {% endwith %}
+    {% fields_for posted_comment_form %}
     {% else %}
-        {% with unposted_comment_form as comment_form %}
-            {% include "generic/includes/comment_fields.html" %}
-        {% endwith %}
+    {% fields_for unposted_comment_form %}
     {% endif %}
-    <tr><td colspan="2">
-    <input class="button" type="submit" value="{% trans "Comment" %}" />
-    </td></tr>
-    </table>
+    <div class="actions">
+        <input class="btn primary" type="submit" value="{% trans "Comment" %}">
+    </div>
 </form>
 {% endif %}
+</div>

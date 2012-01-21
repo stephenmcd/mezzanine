@@ -25,6 +25,14 @@ from mezzanine.template.loader import get_template
 register = template.Library()
 
 
+@register.inclusion_tag("includes/form_fields.html", takes_context=True)
+def fields_for(context, form):
+    """
+    Renders fields for a form.
+    """
+    return {"form": form}
+
+
 @register.filter
 def is_installed(app_name):
     """
@@ -91,17 +99,21 @@ def thumbnail(image_url, width, height):
 
     image_url = unicode(image_url)
     if image_url.startswith(settings.MEDIA_URL):
-        image_url = image_url.replace(settings.MEDIA_URL, '', 1)
+        image_url = image_url.replace(settings.MEDIA_URL, "", 1)
     image_path = os.path.join(settings.MEDIA_ROOT, image_url)
     image_dir, image_name = os.path.split(image_path)
     extension = os.path.splitext(image_name)[1]
     filetype = {".png": "PNG", ".gif": "GIF"}.get(extension, "JPEG")
     thumb_name = "%s-%sx%s%s" % (os.path.splitext(image_name)[0], width,
                                     height, extension)
-    thumb_path = os.path.join(image_dir, thumb_name)
-    thumb_url = "%s/%s" % (os.path.dirname(image_url), thumb_name)
-    # abort if thumbnail exists, original image doesn't exist, invalid width or
-    # height are given, or PIL not installed
+    thumb_dir = os.path.join(image_dir, settings.THUMBNAILS_DIR_NAME)
+    if not os.path.exists(thumb_dir):
+        os.mkdir(thumb_dir)
+    thumb_path = os.path.join(thumb_dir, thumb_name)
+    thumb_url = "%s/%s/%s" % (os.path.dirname(image_url),
+                              settings.THUMBNAILS_DIR_NAME, thumb_name)
+    # Abort if thumbnail exists, original image doesn't exist, invalid
+    # width or height are given, or PIL not installed.
     if not image_url:
         return ""
     try:
@@ -116,7 +128,7 @@ def thumbnail(image_url, width, height):
     except ImportError:
         return image_url
 
-    # open image, determine ratio if required and resize/crop/save
+    # Open image, determine ratio if required and resize/crop/save.
     image = Image.open(image_path)
 
     # If already right size, don't do anything.
@@ -131,8 +143,8 @@ def thumbnail(image_url, width, height):
     if image.mode not in ("L", "RGB"):
         image = image.convert("RGB")
     try:
-        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
-            thumb_path, filetype, quality=100)
+        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
+        image = image.save(thumb_path, filetype, quality=100)
     except:
         return image_url
     return thumb_url

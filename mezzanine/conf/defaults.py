@@ -60,14 +60,6 @@ register_setting(
 )
 
 register_setting(
-    name="BLOG_POST_MAX_PAGING_LINKS",
-    label=_("Max blog paging links"),
-    description=_("Max number of paging links shown on a blog listing page."),
-    editable=True,
-    default=10,
-)
-
-register_setting(
     name="BLOG_SLUG",
     description=_("Slug of the page object for the blog."),
     editable=False,
@@ -268,34 +260,11 @@ register_setting(
 )
 
 register_setting(
-    name="RICHTEXT_WIDGET_CLASS",
-    description=_("Dotted package path and class name of the widget to use "
-        "for the ``RichTextField``."),
-    editable=False,
-    default="mezzanine.core.forms.TinyMceWidget",
-)
-
-register_setting(
-    name="RICHTEXT_FILTER",
-    description=_("Dotted path to the function to call on a ``RichTextField`` "
-        "value before it is rendered to the template."),
-    editable=False,
-    default=None,
-)
-
-register_setting(
-    name="TAG_CLOUD_SIZES",
-    label=_("Tag Cloud Sizes"),
-    description=_("Number of different sizes for tags when shown as a cloud."),
+    name="MAX_PAGING_LINKS",
+    label=_("Max paging links"),
+    description=_("Max number of paging links to display when paginating."),
     editable=True,
-    default=4,
-)
-
-register_setting(
-    name="THEME",
-    description=_("Package name of theme app to use."),
-    editable=False,
-    default="",
+    default=10,
 )
 
 register_setting(
@@ -322,17 +291,25 @@ register_setting(
 )
 
 register_setting(
-    name="SEARCH_PER_PAGE",
-    label=_("Search results per page"),
-    description=_("Number of results shown in the search results page."),
-    editable=True,
-    default=10,
+    name="RICHTEXT_WIDGET_CLASS",
+    description=_("Dotted package path and class name of the widget to use "
+        "for the ``RichTextField``."),
+    editable=False,
+    default="mezzanine.core.forms.TinyMceWidget",
 )
 
 register_setting(
-    name="SEARCH_MAX_PAGING_LINKS",
-    label=_("Max search paging links"),
-    description=_("Max number of paging links for the search results page."),
+    name="RICHTEXT_FILTER",
+    description=_("Dotted path to the function to call on a ``RichTextField`` "
+        "value before it is rendered to the template."),
+    editable=False,
+    default=None,
+)
+
+register_setting(
+    name="SEARCH_PER_PAGE",
+    label=_("Search results per page"),
+    description=_("Number of results shown in the search results page."),
     editable=True,
     default=10,
 )
@@ -412,6 +389,14 @@ register_setting(
 )
 
 register_setting(
+    name="TAG_CLOUD_SIZES",
+    label=_("Tag Cloud Sizes"),
+    description=_("Number of different sizes for tags when shown as a cloud."),
+    editable=True,
+    default=4,
+)
+
+register_setting(
     name="TEMPLATE_ACCESSIBLE_SETTINGS",
     description=_("Sequence of setting names available within templates."),
     editable=False,
@@ -424,6 +409,21 @@ register_setting(
         "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE",
         "RATINGS_MAX",
     ),
+)
+
+register_setting(
+    name="THEME",
+    description=_("Package name of theme app to use."),
+    editable=False,
+    default="",
+)
+
+register_setting(
+    name="THUMBNAILS_DIR_NAME",
+    description=_("Directory name to store thumbnails in, that will be "
+        "created relative to the original image's directory."),
+    editable=False,
+    default="thmbs",
 )
 
 # The following settings are defined here for documentation purposes

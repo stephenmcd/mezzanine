@@ -1,5 +1,6 @@
 
 from copy import deepcopy
+from cStringIO import StringIO
 from csv import writer
 from datetime import datetime
 from mimetypes import guess_type
@@ -91,10 +92,15 @@ class FormAdmin(PageAdmin):
                 fname = "%s-%s.csv" % (form.slug, timestamp)
                 header = "attachment; filename=%s" % fname
                 response["Content-Disposition"] = header
-                csv = writer(response, delimiter=settings.FORMS_CSV_DELIMITER)
+                queue = StringIO()
+                csv = writer(queue, delimiter=settings.FORMS_CSV_DELIMITER)
                 csv.writerow(entries_form.columns())
                 for row in entries_form.rows(csv=True):
                     csv.writerow(row)
+                    # Decode and reencode the response into utf-16 to be
+                    # Excel compatible.
+                    data = queue.getvalue().decode("utf-8").encode("utf-16")
+                    response.write(data)
                 return response
             elif request.POST.get("delete") and can_delete_entries:
                 selected = request.POST.getlist("selected")

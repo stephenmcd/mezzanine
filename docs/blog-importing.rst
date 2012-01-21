@@ -2,17 +2,14 @@
 Importing External Blogs
 ========================
 
-Mezzanine has the ability to import blog posts from other blogging platforms.
-There is currently support for `WordPress <http://wordpress.org>`_,
-`Blogger <http://blogger.com>`_ and `Tumblr <http://tumblr.com>`_.
+Mezzanine has the ability to import blog posts from other blogging platforms
+using a `Django management command <http://docs.djangoproject.com/en/dev/howto/custom-management-commands/>`_.
+These are the currently supported formats and their commands::
 
-Importing a blog from another platform is performed via a
-`Django management command <http://docs.djangoproject.com/en/dev/howto/custom-management-commands/>`_
-with each supported platform having its own command.
-
-  * Wordpress: ``import_wordpress``
-  * Blogger: ``import_blogger``
-  * Tumblr: ``import_tumblr``
+  * `WordPress <http://wordpress.org>`_: ``import_wordpress``
+  * `Blogger <http://blogger.com>`_: ``import_blogger``
+  * `Tumblr <http://tumblr.com>`_: ``import_tumblr``
+  * `RSS <http://en.wikipedia.org/wiki/RSS>`_: ``import_rss``
 
 Each command takes a Mezzanine username to assign the blog posts to as well
 as certain arguments specific to the blog platform. For example to import an
@@ -102,19 +99,30 @@ contains your Tumblr username::
 
     $ python manage.py import_blogger --mezzanine-user=.. --tumblr-user=username
 
+Importing RSS
+=============
+
+Dependencies
+------------
+
+  * Mark Pilgrim's `feedparser <http://www.feedparser.org/>`_
+
+Simply run the ``import_rss`` command where the ``rss-url`` argument
+contains the URL for your RSS feed::
+
+    $ python manage.py import_rss --mezzanine-user=.. --rss-url=url
+
 Importer API - Adding New Importers
 ===================================
 
 The importer system has been designed to be extensible so that import
 commands can easily be added for other blogging platforms.
 
-Each import command is a
-`Django management command <http://docs.djangoproject.com/en/dev/ref/django-admin/>`_
-located in the ``mezzanine.blog.management.commands`` package and should
-have its module named ``import_blogtype`` where ``blog_type`` is the name
-of the blogging platform the command is for. This module will then contain
-a class named ``Command`` which subclasses
-``mezzanine.blog.base.BaseImporterCommand``.
+Each importer's management command is located in the
+``mezzanine.blog.management.commands`` package, and should have its module
+named ``import_type`` where ``type`` represents the type of import the
+command is for. This module will then contain a class named ``Command``
+which subclasses ``mezzanine.blog.base.BaseImporterCommand``.
 
 The first step is to define any custom arguments the command will require
 using Python's `optparse <http://docs.python.org/library/optparse.html>`_

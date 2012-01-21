@@ -48,7 +48,7 @@ provides the following features:
   * Sharing via Facebook or Twitter
   * `Custom templates`_ per page or blog post
   * Built-in `test suite`_
-  * `960.gs`_ integration
+  * `Twitter Bootstrap`_ integration
 
 The Mezzanine admin dashboard:
 
@@ -109,20 +109,43 @@ You can then run your project with the usual Django steps::
 
 .. note::
 
-    The ``createdb`` command performs the same task as Django's ``syncdb``
-    command, and also handles setting the initial migration state for `South`_.
+    The ``createdb`` is a shortcut for using Django's ``syncdb`` command and
+    setting the initial migration state for `South`_. You can alternatively
+    use ``syncdb`` and ``migrate`` if preferred.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and log
 in using the default account (``username: admin, password: default``). If
 you'd like to specify a different username and password during set up, simply
 exclude the ``--noinput`` option included above when running ``createdb``.
 
+Integrating an Existing Django Project
+======================================
+
+Mezzanine is structured as a regular Django project, and as such allows you
+to add other third party Django apps to your Mezzanine project as required.
+Inversely, you can add Mezzanine to an existing project by copying the
+relevant parts from Mezzanine's `project_template`_  package:
+
+  * Settings defined in the ``settings`` module.
+  * URL patterns defined in the ``urls`` module.
+  * Static assets in the ``site_meda`` directory.
+
+Take the time to look over Mezzanine's ``project_template.settings`` module,
+as it contains many optional settings commented out. Of particular note when
+integrating with an existing project are the following:
+
+  * ``INSTALLED_APPS``
+  * ``TEMPLATE_CONTEXT_PROCESSORS``
+  * ``MIDDLEWARE_CLASSES``
+  * ``PACKAGE_NAME_*`` (for `django-grappelli`_ and `django-filebrowser`_ integration)
+  * The call to ``mezzanine.utils.conf.set_dynamic_settings`` at the very end of the ``settings`` module.
+
 Contributing
 ============
 
 Mezzanine is an open source project that is managed using both Git and
 Mercurial version control systems. These repositories are hosted on both
-`Github`_ and `Bitbucket`_ respectively, so contributing is as easy as
+`GitHub`_ and `Bitbucket`_ respectively, so contributing is as easy as
 forking the project on either of these sites and committing back your
 enhancements.
 
@@ -142,7 +165,7 @@ listed here, send an email to the `mezzanine-users`_ mailing list.
 
   * `mezzanine-html5boilerplate`_ - Integrates the `html5boilerplate project`_ into Mezzanine.
   * `mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich text editor.
-  * `mezzanine-openshift`_ Setup for running Mezzanine on `Redhat's OpenShift` cloud platform.
+  * `mezzanine-openshift`_ Setup for running Mezzanine on `Redhat's OpenShift`_ cloud platform.
 
 Donating
 ========
@@ -155,7 +178,7 @@ Support
 
 For general questions or comments, please join the
 `mezzanine-users`_ mailing list. To report a bug or other type of issue,
-please use the `Github issue tracker`_.
+please use the `GitHub issue tracker`_.
 
 Sites Using Mezzanine
 =====================
@@ -227,16 +250,17 @@ Quotes
 .. _`Themes`: http://mezzanine.jupo.org/docs/themes.html
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
-.. _`960.gs`: http://960.gs/
+.. _`Twitter Bootstrap`: http://twitter.github.com/bootstrap/
 .. _`Disqus`: http://disqus.com/
 .. _`Gravatar`: http://gravatar.com/
 .. _`Google Analytics`: http://www.google.com/analytics/
 .. _`Twitter`: http://twitter.com/
 .. _`bit.ly`: http://bit.ly/
-.. _`Github`: http://github.com/stephenmcd/mezzanine/
+.. _`project_template`: https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template
+.. _`GitHub`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users/topics
-.. _`Github issue tracker`: http://github.com/stephenmcd/mezzanine/issues
+.. _`GitHub issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 

@@ -42,6 +42,7 @@ try:
             "django >= 1.1",
             "filebrowser_safe",
             "grappelli_safe >= 0.1.9",
+            "pillow",
         ],
 
         entry_points="""

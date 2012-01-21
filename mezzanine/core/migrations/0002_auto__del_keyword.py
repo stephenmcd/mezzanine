@@ -5,7 +5,12 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
+    depends_on = [
+        ('blog', '0006_auto__del_field_blogpost__keywords__add_field_blogpost_keywords_string'),
+        ('pages', '0002_auto__del_field_page__keywords__add_field_page_keywords_string__chg_fi'),
+        ]
+
     def forwards(self, orm):
         
         # Deleting model 'Keyword'

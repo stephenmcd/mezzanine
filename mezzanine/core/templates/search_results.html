@@ -5,6 +5,14 @@
 {% block meta_title %}{% trans "Search Results" %}{% endblock %}
 {% block title %}{% trans "Search Results" %}{% endblock %}
 
+{% block breadcrumb_menu %}
+<li>
+    <a href="{% url home %}">{% trans "Home" %}</a>
+    <span class="divider">/</span>
+</li>
+<li class="active">{% trans "Search Results" %}</li>
+{% endblock %}
+
 {% block main %}
 
 <p>
@@ -18,7 +26,8 @@
 
 <div id="search-results">
     {% for result in results.object_list %}
-    <h5><a href="{{ result.get_absolute_url }}">{{ result }}</a></h5>
+    <h5>{{ forloop.counter0|add:results.start_index }})
+        <a href="{{ result.get_absolute_url }}">{{ result }}</a></h5>
     <p>{{ result.description|truncatewords_html:20|safe }}</p>
     <a href="{{ result.get_absolute_url }}">{% trans "read more" %}</a>
     {% endfor %}

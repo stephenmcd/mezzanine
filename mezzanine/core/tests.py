@@ -19,6 +19,7 @@ from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
+from mezzanine.galleries.models import Gallery
 from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
 from mezzanine.generic.models import RATING_RANGE
@@ -165,9 +166,14 @@ class Tests(TestCase):
         kwargs = {"content_type": content_type, "object_pk": blog_post.id,
                   "site_id": settings.SITE_ID}
         template = "{% load comment_tags %}{% comment_thread blog_post %}"
-        before = self.queries_used_for_template(template, blog_post=blog_post)
+        context = {
+            "blog_post": blog_post,
+            "posted_comment_form": None,
+            "unposted_comment_form": None,
+        }
+        before = self.queries_used_for_template(template, **context)
         self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
-        after = self.queries_used_for_template(template, blog_post=blog_post)
+        after = self.queries_used_for_template(template, **context)
         self.assertEquals(before, after)
 
     def test_page_menu(self):
@@ -390,14 +396,29 @@ class Tests(TestCase):
         site1.delete()
         site2.delete()
 
+    def test_gallery_import(self):
+        """
+        Test that a gallery creates images when given a zip file to
+        import, and that descriptions are created.
+        """
+        zip_path = os.path.join("test", "gallery.zip")
+        if not os.path.exists(os.path.join(settings.MEDIA_ROOT, zip_path)):
+            return
+        gallery = Gallery(title="test", zip_import=zip_path)
+        gallery.save(delete_zip_import=False)
+        images = list(gallery.images.all())
+        self.assertTrue(images)
+        self.assertTrue(all([image.description for image in images]))
+
     def test_thumbnail_generation(self):
         """
         Test that a thumbnail is created.
         """
-        orig_name = "testleaf.jpg"
+        orig_name = os.path.join("test", "image.jpg")
         if not os.path.exists(os.path.join(settings.MEDIA_ROOT, orig_name)):
             return
-        thumbnail_name = "testleaf-24x24.jpg"
+        thumbnail_dir = settings.THUMBNAILS_DIR_NAME
+        thumbnail_name = os.path.join("test", thumbnail_dir, "image-24x24.jpg")
         thumbnail_path = os.path.join(settings.MEDIA_ROOT, thumbnail_name)
         try:
             os.remove(thumbnail_path)

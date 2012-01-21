@@ -1,89 +1,112 @@
 {% load pages_tags mezzanine_tags i18n %}
+<!DOCTYPE html>
 <html>
 <head>
 
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
-    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}" /> 
-    <meta name="description" content="{% block meta_description %}{% endblock %}" /> 
-    <title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}" />
+<meta name="description" content="{% block meta_description %}{% endblock %}" />
+<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
 
-    {% if "mezzanine.blog"|is_installed %}
-    <link rel="alternate" type="application/rss+xml" title="RSS" 
-        href="{% url blog_post_feed "rss" %}" />
-    <link rel="alternate" type="application/atom+xml" title="Atom"  
-        href="{% url blog_post_feed "atom" %}" />
-    {% endif %}
+{% if "mezzanine.blog"|is_installed %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="{% url blog_post_feed "rss" %}">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="{% url blog_post_feed "atom" %}">
+{% endif %}
 
-    <link rel="stylesheet" href="{{ MEDIA_URL }}css/960.css" type="text/css" />
-    <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css" type="text/css" />
-    <link rel="stylesheet" href="{{ MEDIA_URL }}css/global.css" type="text/css" />
-    {% block extra_head %}{% endblock %}
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/bootstrap.css">
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/mezzanine.css">
+{% if "cartridge.shop"|is_installed %}
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/cartridge.css">
+{% endif %}
+<script src="{{ MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
+<script>
+$(function() {$('.form-stacked').find('input:text, textarea').addClass('xlarge');});
+</script>
+
+{% block extra_head %}{% endblock %}
 
 </head>
 <body id="{% block body_id %}{% endblock %}">
 
-{% if settings.SITE_TITLE or settings.SITE_TAGLINE %}
-<div id="grid-header">
-    {% if settings.SITE_TITLE %}
-    <h1>{{ settings.SITE_TITLE }}</h1>
+<div class="topbar">
+<div class="topbar-inner">
+<div class="container">
+    {% if settings.SITE_TITLE %}<a class="brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
+    {% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}
+    <div class="pull-right">
+        {% page_menu "pages/menus/primary.html" %}
+        <form action="{% url search %}">
+        <input placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.REQUEST.q }}">
+        </form>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="container">
+
+{% for message in messages %}
+<div class="alert-message {{ message.tags }}" data-alert="alert">
+<a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
+</div>
+{% endfor %}
+
+<h1>{% block title %}{% endblock %}</h1>
+
+<ul class="breadcrumb">
+{% spaceless %}
+{% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
+{% endspaceless %}
+</ul>
+
+</div>
+
+<div class="container">
+<div class="row">
+
+<div class="span3 left">
+    <div class="panel">{% page_menu "pages/menus/tree.html" %}</div>
+</div>
+
+<div class="span9 middle">
+    {% block main %}{% endblock %}
+</div>
+
+<div class="span4 right">
+    {% if "cartridge.shop"|is_installed %}
+    {% include "shop/includes/cart_panel.html" %}
     {% endif %}
-    {% if settings.SITE_TAGLINE %}
-    <h2>{{ settings.SITE_TAGLINE }}</h2>
+    <div class="panel">
+    {% block right_panel %}
+    {% if "mezzanine.twitter"|is_installed %}
+    {% include "twitter/tweets.html" %}
     {% endif %}
-</div>
-{% endif %}
-
-<div id="grid-top">
-    {% page_menu "pages/menus/primary.html" %}
-</div>
-
-<div class="container_12 clearfix">
-
-    <div id="grid-left" class="grid_3 grid">
-        {% page_menu "pages/menus/tree.html" %}
-    </div>
-
-    <div id="grid-middle" class="grid_6 grid">
-        <div class="gutter">
-            <h1>{% block title %}{% endblock %}</h1>
-            <div id="breadcrumb-menu">
-                {% block breadcrumb_menu %}
-                    {% page_menu "pages/menus/breadcrumb.html" %}
-                {% endblock %}
-            </div>
-            {% block main %}{% endblock %}
-        </div>
-    </div>
-
-    <div id="grid-right" class="grid_3 grid">
-        {% include "includes/search.html" %}
-        {% block right_panel %}
-            {% if "mezzanine.twitter"|is_installed %}
-            {% include "twitter/tweets.html" %}
-            {% endif %}
-        {% endblock %}
-        <p class="mezzanine">
-            {% trans "Powered by" %} 
-            <a href="http://mezzanine.jupo.org">Mezzanine</a><br />
-            <a href="{% url set_device "mobile" %}?next={{ request.path }}">
-                {% trans "View Mobile Site." %}
-            </a>
-        </p>
-    </div>
-
-</div>
-
-<div id="grid-bottom">
-    <div class="container_12 clearfix">
-        <div class="grid_3">&nbsp;</div>
-        <div class="grid_6 push_3 grid">
-            {% page_menu "pages/menus/footer.html" %}
-        </div>
+    {% endblock %}
     </div>
 </div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+{% page_menu "pages/menus/footer.html" %}
+<br clear="all">
+<p>
+    {% trans "Powered by" %}
+    <a href="http://mezzanine.jupo.org">Mezzanine</a>{% if "cartridge.shop"|is_installed %},
+    <a href="http://cartridge.jupo.org">Cartridge</a>{% endif %}
+    {% trans "and" %}
+    <a href="http://www.djangoproject.com">Django</a>.
+    {% if "mezzanine.mobile"|is_installed %}
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="{% url set_device "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site." %}</a>
+    {% endif %}
+</p>
+</div>
+</footer>
 
 {% include "includes/footer_scripts.html" %}
 
 </body>
 </html>
-
