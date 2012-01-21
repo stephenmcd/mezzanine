@@ -101,6 +101,66 @@ can be used for creating a new Mezzanine project in a similar fashion to
 
     $ mezzanine-project project_name
 
+Alternatively, if you have an existing Django project, you can install Mezzanine
+into it by the following steps (which assume experience with previous Django
+projects):
+
+* Add the following apps to your INSTALLED_APPS::
+
+      "django.contrib.comments",
+      "south",
+      "mezzanine.boot",
+      "mezzanine.conf",
+      "mezzanine.core",
+      "mezzanine.generic",
+      "mezzanine.blog",
+      "mezzanine.forms",
+      "mezzanine.pages",
+      "mezzanine.twitter",
+
+* Add the following to TEMPLATE_CONTEXT_PROCESSORS::
+
+      "django.core.context_processors.request",
+      "mezzanine.conf.context_processors.settings",
+
+  If the setting doesn't already exist, remember to start with the Django
+  defaults for your version of Django.
+
+* Modify MIDDLEWARE_CLASSES:
+
+  * Add "mezzanine.core.middleware.AdminLoginInterfaceSelector" to the end.
+
+  * You may want to replace Django's "UpdateCacheMiddleware" with
+    "mezzanine.core.middleware.DeviceAwareUpdateCacheMiddleware" and Django's
+    "FetchFromMiddleware" with
+    "mezzanine.core.middleware.DeviceAwareFetchFromCacheMiddleware"
+
+* At the bottom of settings.py, add these lines::
+
+      PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
+      PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
+      from mezzanine.utils.conf import set_dynamic_settings
+      set_dynamic_settings(globals())
+
+* Modify your urls.py so that it contains the named URL 'home'::
+
+      from mezzanine.core.views import direct_to_template
+
+      urlpatterns =  patterns("",
+          ...
+          url("^$", direct_to_template, {"template": "index.html"}, name="home"),
+          ...
+
+  and, *after* all your other URLs, the catch-all mezzanine handler::
+
+          ("^", include("mezzanine.urls")),
+
+
+* To make use of the CSS included with the default template,
+  copy the files from mezzanine/project_template/site_media to a folder
+  where they will be served as static files in your project.
+
+
 You can then run your project with the usual Django steps::
 
     $ cd project_name
@@ -109,8 +169,9 @@ You can then run your project with the usual Django steps::
 
 .. note::
 
-    The ``createdb`` command performs the same task as Django's ``syncdb``
-    command, and also handles setting the initial migration state for `South`_.
+    The ``createdb`` is a shortcut for using Django's ``syncdb`` command and
+    setting the initial migration state for `South`_. You can alternatively use
+    ``syncdb`` and ``migrate`` as you normally would.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and log
 in using the default account (``username: admin, password: default``). If
