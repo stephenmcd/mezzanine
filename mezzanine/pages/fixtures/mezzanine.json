@@ -38,7 +38,7 @@
         "model": "pages.page",
         "fields": {
             "status": 2,
-            "_order": 2,
+            "_order": 3,
             "parent": null,
             "description": "Fill in the form below to get in touch with us.",
             "title": "Contact",
@@ -98,6 +98,23 @@
             "content_model": "richtextpage",
             "in_navigation": true,
             "slug": "contact/legals",
+            "site": 1
+        }
+    },
+    {
+        "pk": 8,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 2,
+            "parent": null,
+            "description": "Gallery",
+            "title": "Gallery",
+            "in_footer": true,
+            "titles": "Gallery",
+            "content_model": "gallery",
+            "in_navigation": true,
+            "slug": "gallery",
             "site": 1
         }
     },

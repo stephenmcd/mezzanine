@@ -37,7 +37,11 @@ $(function() {
 
 {% block main %}
 {{ block.super }}
-{{ page.gallery }}
+
+{% editable page.gallery.content %}
+{{ page.gallery.content|richtext_filter|safe }}
+{% endeditable %}
+
 <ul class="media-grid gallery">
 {% with page.gallery.images.all as images %}
 {% for image in images %}

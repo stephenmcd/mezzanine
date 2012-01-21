@@ -1,4 +1,7 @@
 
+import os
+from shutil import copyfile
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth import models as auth_app
@@ -9,8 +12,10 @@ from django.core.management import call_command
 from django.db.models.signals import post_syncdb
 
 from mezzanine.forms.models import Form
+from mezzanine.galleries.models import Gallery
 from mezzanine.pages.models import Page
 from mezzanine.pages import models as pages_app
+from mezzanine.utils.importing import path_for_import
 
 
 def create_user(app, created_models, verbosity, interactive, **kwargs):
@@ -27,12 +32,12 @@ def create_user(app, created_models, verbosity, interactive, **kwargs):
 
 
 def create_pages(app, created_models, verbosity, interactive, **kwargs):
-    required = set([Page, Form])
+    required = set([Page, Form, Gallery])
     if settings.DEBUG and required.issubset(set(created_models)):
         if interactive:
             confirm = raw_input("\nWould you like to install some initial "
                                 "content?\nEg: About page, Blog, Contact "
-                                "form. (yes/no): ")
+                                "form, Gallery. (yes/no): ")
             while True:
                 if confirm == "yes":
                     break
@@ -42,9 +47,17 @@ def create_pages(app, created_models, verbosity, interactive, **kwargs):
         if verbosity >= 1:
             print
             print ("Creating initial content "
-                   "(About page, Blog, Contact form) ...")
+                   "(About page, Blog, Contact form, Gallery) ...")
             print
         call_command("loaddata", "mezzanine.json")
+        template_path = path_for_import("mezzanine.project_template")
+        zip_name = "gallery.zip"
+        zip_path = os.path.join(template_path, settings.MEDIA_URL.strip("/"),
+                                "test", zip_name)
+        copyfile(zip_path, os.path.join(settings.MEDIA_ROOT, zip_name))
+        gallery = Gallery.objects.get()
+        gallery.zip_import = zip_name
+        gallery.save()
 
 
 def create_site(app, created_models, verbosity, interactive, **kwargs):
