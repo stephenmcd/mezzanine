@@ -43,6 +43,20 @@ register_setting(
 )
 
 register_setting(
+    name="BLOG_USE_FEATURED_IMAGE",
+    description=_("Enable featured images in blog posts"),
+    editable=False,
+    default=False,
+)
+
+register_setting(
+    name="BLOG_FEATURED_IMAGE_DIR",
+    description=_("Folder where featured images should be stored"),
+    editable=False,
+    default="blog_featured_images",
+)
+
+register_setting(
     name="BLOG_POST_PER_PAGE",
     label=_("Blog posts per page"),
     description=_("Number of blog posts shown on a blog listing page."),

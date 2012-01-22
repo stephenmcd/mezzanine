@@ -21,6 +21,20 @@ Key for bit.ly URL shortening service.
 
 Default: ``''``
 
+``BLOG_USE_FEATURED_IMAGE``
+------------------
+
+Enable featured images in blog posts
+
+Default: ``False``
+
+``BLOG_FEATURED_IMAGE_DIR``
+------------------
+
+Where to store featured images
+
+Default: ``blog_featured_images``
+
 ``BLOG_BITLY_USER``
 -------------------
 

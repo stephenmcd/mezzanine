@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Ownable, RichText, Slugged
+from mezzanine.conf import settings
 from mezzanine.generic.fields import CommentsField, RatingField
 
 
@@ -16,7 +17,9 @@ class BlogPost(Displayable, Ownable, RichText):
     allow_comments = models.BooleanField(default=True)
     comments = CommentsField(verbose_name=_("Comments"))
     rating = RatingField(verbose_name=_("Rating"))
-
+    featured_image = models.FileField(verbose_name=_("Featured Image"), blank=True, 
+                                    upload_to=settings.BLOG_FEATURED_IMAGE_DIR,
+                                    max_length=255)
     class Meta:
         verbose_name = _("Blog post")
         verbose_name_plural = _("Blog posts")

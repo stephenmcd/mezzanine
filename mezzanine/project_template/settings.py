@@ -56,6 +56,11 @@
 #     ),
 # )
 
+# Setting to turn on featured images on blog posts. Defaults to False
+# BLOG_USE_FEATURED_IMAGE = False
+# Directory where featured images should be uploaded
+# BLOG_FEATURED_IMAGE_DIR = "blog_featured_images"
+
 # Name of the current theme to host during theme development.
 #
 # THEME = ""
