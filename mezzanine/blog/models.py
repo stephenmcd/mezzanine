@@ -19,7 +19,7 @@ class BlogPost(Displayable, Ownable, RichText):
     rating = RatingField(verbose_name=_("Rating"))
     featured_image = models.FileField(verbose_name=_("Featured Image"), blank=True, 
                                     upload_to=settings.BLOG_FEATURED_IMAGE_DIR,
-                                    max_length=255)
+                                    max_length=255, null=True)
     class Meta:
         verbose_name = _("Blog post")
         verbose_name_plural = _("Blog posts")
