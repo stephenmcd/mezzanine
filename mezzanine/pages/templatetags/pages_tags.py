@@ -69,6 +69,17 @@ def page_menu(context, token):
         context["branch_level"] = getattr(parent_page, "branch_level", 0) + 1
         parent_page = parent_page.id
     context["page_branch"] = context["menu_pages"].get(parent_page, [])
+    context['page_branch_in_navigation'] = False
+    context['page_branch_in_footer'] = False
+    for page in context["page_branch"]:
+        if page.in_navigation:
+            context['page_branch_in_navigation'] = True
+            if context['page_branch_in_footer'] == True:
+                break
+        if page.in_footer:
+            context['page_branch_in_footer'] = True
+            if context['page_branch_in_navigation'] == True:
+                break
     for i, page in enumerate(context["page_branch"]):
         context["page_branch"][i].branch_level = context["branch_level"]
     t = get_template(template_name, context)
