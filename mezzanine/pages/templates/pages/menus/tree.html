@@ -1,7 +1,7 @@
 {% load i18n pages_tags %}
 
 {% spaceless %}
-{% page_branch_in_navigation %}
+{% if page_branch_in_navigation %}
 <ul class="tree-menu-level-{{ branch_level }}">
 	{% for page in page_branch %}
 
