@@ -3,13 +3,12 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
-from django.template import RequestContext
 from django.utils.http import urlquote
 
 from mezzanine.conf import settings
 from mezzanine.pages import page_processors
 from mezzanine.pages.models import Page
-from mezzanine.template.loader import select_template
+from mezzanine.utils.views import render
 
 
 page_processors.autodiscover()
@@ -79,6 +78,4 @@ def page(request, slug, template="pages/page.html", extra_context=None):
     if page.content_model is not None:
         templates.append(u"pages/%s.html" % page.content_model)
     templates.append(template)
-    request_context = RequestContext(request, context)
-    t = select_template(templates, request_context)
-    return HttpResponse(t.render(request_context))
+    return render(request, templates, context)

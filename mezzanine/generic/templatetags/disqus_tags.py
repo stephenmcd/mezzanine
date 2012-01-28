@@ -7,6 +7,7 @@ from django.utils import simplejson
 
 from mezzanine import template
 
+
 register = template.Library()
 
 

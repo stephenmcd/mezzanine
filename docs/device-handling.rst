@@ -55,28 +55,21 @@ Using the ``DEVICE_USER_AGENTS`` setting, Mezzanine simply prefixes
 any referenced template path with the device specific sub-directory name
 if a user agent matches one of the strings specified for the device. For
 example if a user agent matches the ``mobile`` device set of templates,
-a reference to ``blog/index.html`` will be changed to call
-``select_template(["mobile/blog/index.html", "blog/index.html"])`` under
-the hood.
+a reference to ``blog/index.html`` will be changed to the list
+``["mobile/blog/index.html", "blog/index.html"]`` under the hood.
 
-To achieve this, a request's user agent string (via the template context)
-must be accessible at the time a template name is passed to
-Django's template loading system. Mezzanine therefore provides its own
-implementation of the following Django functions which are all context
-aware and should be used in place of their Django counterparts when
-developing custom functionality for a Mezzanine based project or
-application.
+To achieve this, the middleware
+``mezzanine.core.middleware.TemplateForDeviceMiddleware`` catches Django
+``TemplateResponse`` responses, and changes the template list prior to
+the response being rendered. As such, any views you implement should
+return ``TemplateResponse`` objects. The table below lists Mezzanine
+versions of Django features that can be used to ensure a
+``TemplateResponse`` is returned.
 
 ==================================================  =============================================
 Django                                              Mezzanine
 ==================================================  =============================================
-``django.shortcuts.render_to_response``             ``mezzanine.utils.views.render_to_response``
+``django.shortcuts.render``                         ``mezzanine.utils.views.render``
 ``django.template.Library().inclusion_tag``         ``mezzanine.template.Library().inclusion_tag``
-``django.template.loader.get_template``             ``mezzanine.template.loader.get_template``
-``django.template.loader.select_template``          ``mezzanine.template.loader.select_template``
 ``django.views.generic.simple.direct_to_template``  ``mezzanine.core.views.direct_to_template``
 ==================================================  =============================================
-
-Mezzanine also provides replacements for the ``extends`` and ``include``
-template tags however this is implemented transparently with no changes
-required to your code.

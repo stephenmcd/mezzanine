@@ -2,8 +2,6 @@
 import os
 import sys
 
-from django.template.loader import add_to_builtins
-
 from mezzanine.utils.importing import path_for_import
 
 
@@ -24,7 +22,6 @@ def set_dynamic_settings(s):
     append = lambda n, k: s[n].append(k) if k not in s[n] else None
 
     s["TEMPLATE_DEBUG"] = s.get("TEMPLATE_DEBUG", s.get("DEBUG", False))
-    add_to_builtins("mezzanine.template.loader_tags")
     # Define some settings based on management command being run.
     management_command = sys.argv[1] if len(sys.argv) > 1 else ""
     # Some kind of testing is running via test or testserver.

@@ -5,19 +5,10 @@ from django.middleware.cache import UpdateCacheMiddleware
 from django.middleware.cache import FetchFromCacheMiddleware
 
 from mezzanine.conf import settings
-from mezzanine.utils.device import device_from_request
+from mezzanine.utils.device import device_from_request, templates_for_device
 
 
-class MobileTemplate(object):
-    def process_view(self, request, view_func, view_args, view_kwargs):
-        import warnings
-        warnings.warn("mezzanine.core.middleware.MobileTemplate is deprecated."
-                      "Please remove it from settings.MIDDLEWARE_CLASSES.",
-                      DeprecationWarning)
-        return None
-
-
-class AdminLoginInterfaceSelector(object):
+class AdminLoginInterfaceSelectorMiddleware(object):
     """
     Checks for a POST from the admin login view and if authentication is
     successful and the "site" interface is selected, redirect to the site.
@@ -35,6 +26,17 @@ class AdminLoginInterfaceSelector(object):
             else:
                 return response
         return None
+
+
+class TemplateForDeviceMiddleware(object):
+
+    def process_template_response(self, request, response):
+        """
+        Inserts device-specific templates to the template list.
+        """
+        templates = templates_for_device(request, response.template_name)
+        response.template_name = templates
+        return response
 
 
 class DeviceAwareCacheMiddleware(object):

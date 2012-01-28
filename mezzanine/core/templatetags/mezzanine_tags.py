@@ -7,6 +7,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
 from django.template import Context, Template
+from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
@@ -20,7 +21,6 @@ from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.views import is_editable
 from mezzanine.utils.urls import admin_url
 from mezzanine import template
-from mezzanine.template.loader import get_template
 
 
 register = template.Library()
@@ -149,7 +149,7 @@ def editable_loader(context):
     """
     Set up the required JS/CSS for the in-line editing toolbar and controls.
     """
-    t = get_template("includes/editable_toolbar.html", context)
+    t = get_template("includes/editable_toolbar.html")
     context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
     context["toolbar"] = t.render(Context(context))
     context["richtext_media"] = RichTextField().formfield().widget.media
@@ -199,7 +199,7 @@ def editable(parsed, context, token):
             field_names = ",".join([f[1] for f in fields])
             context["form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
-            t = get_template("includes/editable_form.html", context)
+            t = get_template("includes/editable_form.html")
             return t.render(Context(context))
     return parsed
 

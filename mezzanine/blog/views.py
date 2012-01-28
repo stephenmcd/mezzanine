@@ -4,17 +4,14 @@ from collections import defaultdict
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.template import RequestContext
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
 from mezzanine.generic.models import AssignedKeyword, Keyword
 from mezzanine.generic.utils import handle_comments
 from mezzanine.pages.models import RichTextPage
-from mezzanine.template.loader import select_template
-from mezzanine.utils.views import paginate
+from mezzanine.utils.views import render, paginate
 
 
 def blog_page():
@@ -85,9 +82,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
                "year": year, "month": month, "tag": tag,
                "category": category, "author": author}
     templates.append(template)
-    request_context = RequestContext(request, context)
-    t = select_template(templates, request_context)
-    return HttpResponse(t.render(request_context))
+    return render(request, templates, context)
 
 
 def blog_post_detail(request, slug, template="blog/blog_post_detail.html",
@@ -109,6 +104,4 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html",
                "posted_comment_form": posted_comment_form,
                "unposted_comment_form": unposted_comment_form}
     templates = [u"blog/blog_post_detail_%s.html" % slug, template]
-    request_context = RequestContext(request, context)
-    t = select_template(templates, request_context)
-    return HttpResponse(t.render(request_context))
+    return render(request, templates, context)

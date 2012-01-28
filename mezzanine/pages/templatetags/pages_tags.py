@@ -5,12 +5,12 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import get_models
 from django.template import TemplateSyntaxError, Variable
+from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.pages.models import Page
 from mezzanine.utils.urls import admin_url
 from mezzanine import template
-from mezzanine.template.loader import get_template
 
 
 register = template.Library()
@@ -71,7 +71,7 @@ def page_menu(context, token):
     context["page_branch"] = context["menu_pages"].get(parent_page, [])
     for i, page in enumerate(context["page_branch"]):
         context["page_branch"][i].branch_level = context["branch_level"]
-    t = get_template(template_name, context)
+    t = get_template(template_name)
     return t.render(context)
 
 

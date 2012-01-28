@@ -3,14 +3,15 @@ from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from django.db.models import get_model
 from django import http
+from django.shortcuts import redirect
 from django.template import RequestContext
+from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Displayable
-from mezzanine.template.loader import get_template
-from mezzanine.utils.views import is_editable, paginate, render_to_response
+from mezzanine.utils.views import is_editable, paginate, render
 from mezzanine.utils.views import set_cookie
 
 
@@ -19,7 +20,7 @@ def set_device(request, device=""):
     Sets a device name in a cookie when a user explicitly wants to go
     to the site for a particular device (eg mobile).
     """
-    response = http.HttpResponseRedirect(request.GET.get("next", "/"))
+    response = redirect(request.GET.get("next", "/"))
     set_cookie(response, "mezzanine-device", device, 60 * 60 * 24 * 365)
     return response
 
@@ -27,14 +28,14 @@ def set_device(request, device=""):
 def direct_to_template(request, template, extra_context=None, **kwargs):
     """
     Replacement for Django's ``direct_to_template`` that uses
-    Mezzanine's device-aware ``render_to_response``.
+    ``TemplateResponse`` via ``mezzanine.utils.views.render``.
     """
     context = extra_context or {}
     context["params"] = kwargs
     for (key, value) in context.items():
         if callable(value):
             context[key] = value()
-    return render_to_response(template, context, RequestContext(request))
+    return render(request, template, context)
 
 
 def edit(request):
@@ -69,7 +70,7 @@ def search(request, template="search_results.html"):
                        settings.SEARCH_PER_PAGE,
                        settings.MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
-    return render_to_response(template, context, RequestContext(request))
+    return render(request, template, context)
 
 
 def server_error(request, template_name='500.html'):

@@ -2,10 +2,8 @@
 from datetime import datetime, timedelta
 
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.http import HttpResponse
-from django.template import Context
-
-from mezzanine.template.loader import get_template, select_template
+from django.template import RequestContext
+from django.template.response import TemplateResponse
 
 
 def is_editable(obj, request):
@@ -44,22 +42,18 @@ def paginate(objects, page_num, per_page, max_paging_links):
     return objects
 
 
-def render_to_response(template_name, dictionary=None, context_instance=None,
-                       mimetype=None):
+def render(request, templates, dictionary=None, context_instance=None,
+           **kwargs):
     """
-    Mimics ``django.shortcuts.render_to_response`` but uses Mezzanine's
-    ``get_template`` which handles device specific template directories.
+    Mimics ``django.shortcuts.render`` but uses a TemplateResponse for
+    ``mezzanine.core.middleware.TemplateForDeviceMiddleware``
     """
     dictionary = dictionary or {}
     if context_instance:
         context_instance.update(dictionary)
     else:
-        context_instance = Context(dictionary)
-    if isinstance(template_name, (list, tuple)):
-        t = select_template(template_name, context_instance)
-    else:
-        t = get_template(template_name, context_instance)
-    return HttpResponse(t.render(context_instance), mimetype=mimetype)
+        context_instance = RequestContext(request, dictionary)
+    return TemplateResponse(request, templates, context_instance, **kwargs)
 
 
 def set_cookie(response, name, value, expiry_seconds):
