@@ -27,7 +27,9 @@ reading about Mezzanine's :doc:`content-architecture` which describes
 the main components and how to extend them with your own custom
 content types, or by reading about :doc:`model-customization` for
 implementing more low-level customizations as required. There is also
-a section on the :doc:`admin-customization` provided by Mezzanine.
+a section on the :doc:`admin-customization` provided by Mezzanine, as
+well as a :doc:`model-graph` depicting the relationships between all
+the models.
 
 *Further reading* includes information about Mezzanine's
 :doc:`search-engine`, a section on Mezzanine's :doc:`configuration`
@@ -43,6 +45,7 @@ auto-generated docs for each of Mezzanine's :doc:`packages`.
     content-architecture
     model-customization
     admin-customization
+    model-graph
     device-handling
     inline-editing
     search-engine

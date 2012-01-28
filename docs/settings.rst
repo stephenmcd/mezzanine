@@ -54,7 +54,7 @@ Default: ``False``
 
 Enable featured images in blog posts
 
-Default: ``False``
+Default: ``True``
 
 ``COMMENTS_DEFAULT_APPROVED``
 -----------------------------

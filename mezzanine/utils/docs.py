@@ -6,12 +6,16 @@ documentation is generated.
 from __future__ import with_statement
 from datetime import datetime
 import os.path
+from shutil import copyfile, move
 from socket import gethostname
+import sys
 
 from django.utils.datastructures import SortedDict
+from PIL import Image
 
 from mezzanine import __version__
 from mezzanine.conf import registry
+from mezzanine.utils.importing import import_dotted_path
 
 
 def build_settings_docs(docs_path, prefix=None):
@@ -120,6 +124,33 @@ def build_changelog(docs_path, package_name="mezzanine"):
             else:
                 f.write("  * No changes listed.\n")
             f.write("\n")
+
+
+def build_modelgraph(docs_path, package_name="mezzanine"):
+    """
+    Creates a diagram of all the models for mezzanine and the given
+    package name, generates a smaller version and add it to the
+    docs directory for use in model-graph.rst
+    """
+    project_path = os.path.join(docs_path, "..", package_name,
+                                "project_template")
+    settings = import_dotted_path(package_name + ".project_template.settings")
+    apps = [a.rsplit(".")[1] for a in settings.INSTALLED_APPS
+            if a.startswith("mezzanine.") or a.startswith(package_name + ".")]
+    os.chdir(project_path)
+    cmd = "python manage.py graph_models -e -o graph.png %s" % " ".join(apps)
+    os.system(cmd)
+    to_path = os.path.join(docs_path, "img", "graph.png")
+    move(os.path.join(project_path, "graph.png"), to_path)
+    build_path = os.path.join(docs_path, "build", "_images")
+    if not os.path.exists(build_path):
+        os.makedirs(build_path)
+    copyfile(to_path, os.path.join(build_path, "graph.png"))
+    image = Image.open(to_path)
+    image.width = 800
+    image.height = image.size[1] * 800 / image.size[0]
+    resized_path = os.path.join(os.path.dirname(to_path), "graph-small.png")
+    image.save(resized_path, "PNG", quality=100)
 
 
 def build_requirements(docs_path, package_name="mezzanine"):

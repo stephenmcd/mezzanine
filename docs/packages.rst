@@ -299,18 +299,6 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.template
    :members:
 
-``mezzanine.template.loader``
------------------------------
-
-.. automodule:: mezzanine.template.loader
-   :members:
-
-``mezzanine.template.loader_tags``
-----------------------------------
-
-.. automodule:: mezzanine.template.loader_tags
-   :members:
-
 ``mezzanine.twitter``
 =====================
 
