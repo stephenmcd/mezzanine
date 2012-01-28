@@ -10,6 +10,7 @@ from django.template import Context, Template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
+from PIL import Image, ImageOps
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
@@ -97,45 +98,38 @@ def thumbnail(image_url, width, height):
     maintained.
     """
 
+    if not image_url:
+        return ""
+
     image_url = unicode(image_url)
     if image_url.startswith(settings.MEDIA_URL):
         image_url = image_url.replace(settings.MEDIA_URL, "", 1)
     image_path = os.path.join(settings.MEDIA_ROOT, image_url)
     image_dir, image_name = os.path.split(image_path)
-    extension = os.path.splitext(image_name)[1]
-    filetype = {".png": "PNG", ".gif": "GIF"}.get(extension, "JPEG")
-    thumb_name = "%s-%sx%s%s" % (os.path.splitext(image_name)[0], width,
-                                    height, extension)
+    image_prefix, image_ext = os.path.splitext(image_name)
+    filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext, "JPEG")
+    thumb_name = "%s-%sx%s%s" % (image_prefix, width, height, image_ext)
     thumb_dir = os.path.join(image_dir, settings.THUMBNAILS_DIR_NAME)
     if not os.path.exists(thumb_dir):
         os.mkdir(thumb_dir)
     thumb_path = os.path.join(thumb_dir, thumb_name)
     thumb_url = "%s/%s/%s" % (os.path.dirname(image_url),
                               settings.THUMBNAILS_DIR_NAME, thumb_name)
-    # Abort if thumbnail exists, original image doesn't exist, invalid
-    # width or height are given, or PIL not installed.
-    if not image_url:
-        return ""
-    try:
-        width = int(width)
-        height = int(height)
-    except ValueError:
-        return image_url
-    if not os.path.exists(image_path) or (width == 0 and height == 0):
-        return image_url
-    try:
-        from PIL import Image, ImageOps
-    except ImportError:
-        return image_url
 
-    # Open image, determine ratio if required and resize/crop/save.
+    # Abort if thumbnail exists or original image doesn't exist.
+    if not os.path.exists(image_path):
+        return image_url
+    elif os.path.exists(thumb_path):
+        return thumb_url
+
     image = Image.open(image_path)
+    width = int(width)
+    height = int(height)
 
     # If already right size, don't do anything.
     if width == image.size[0] and height == image.size[1]:
         return image_url
-    if os.path.exists(thumb_path):
-        return thumb_url
+    # Set dimensions.
     if width == 0:
         width = image.size[0] * height / image.size[1]
     elif height == 0:
@@ -168,12 +162,10 @@ def richtext_filter(content):
     This template filter takes a string value and passes it through the
     function specified by the RICHTEXT_FILTER setting.
     """
-
     if settings.RICHTEXT_FILTER:
         func = import_dotted_path(settings.RICHTEXT_FILTER)
     else:
         func = lambda s: s
-
     return func(content)
 
 

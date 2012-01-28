@@ -14,12 +14,12 @@ guide and other general information.
     before being able to understand the concepts used throughout the
     Mezzanine documentation.
 
-*Front-end developers* can read about how :doc:`themes` are used to
-skin a Mezzanine project as well as how to set up templates for
-specific :doc:`device-handling` such as phones. Mezzanine also comes
-with the ability for content authors to edit content directly within a
-page while viewing it on the website. You can read about this and how
-to implement this feature within templates under :doc:`inline-editing`.
+*Front-end developers* can read about how to set up templates for
+specific :doc:`device-handling` such as phones and tablets. Mezzanine
+also comes with the ability for content authors to edit content directly
+within a page while viewing it on the website. You can read about this
+and how to implement this feature within templates under
+:doc:`inline-editing`.
 
 *Back-end developers* can get a better technical overview of how
 content is managed and how to customize Mezzanine in general by
@@ -43,7 +43,6 @@ auto-generated docs for each of Mezzanine's :doc:`packages`.
     content-architecture
     model-customization
     admin-customization
-    themes
     device-handling
     inline-editing
     search-engine

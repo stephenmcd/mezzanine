@@ -43,15 +43,10 @@ module::
 Mobile Theme
 ============
 
-As described in the :doc:`themes` section, a Mezzanine theme is simply a
-Django reusable app with templates that can be installed into a project
-using the ``install_theme`` management command. Mezzanine includes the
-package ``mezzanine.mobile`` which contains a full set of default templates
-and assests for creating a mobile version of your site. To install the
-``mezzanine.mobile`` templates and assets directly into your project
-simply run the following command in your project directory::
-
-    $ python manage.py install_theme mezzanine.mobile
+Mezzanine includes the app ``mezzanine.mobile`` which contains a full
+set of default templates and assets for creating a mobile version of
+your site. Simply add ``mezzanine.mobile`` to your ``INSTALLED_APPS``
+setting to use it.
 
 Implementation Considerations
 =============================

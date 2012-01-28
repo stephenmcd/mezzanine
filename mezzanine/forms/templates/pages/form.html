@@ -2,6 +2,12 @@
 
 {% load mezzanine_tags %}
 
+{% block extra_head %}
+<script>
+$(function() {$('.middle :input:visible:enabled:first').focus();});
+</script>
+{% endblock %}
+
 {% block main %}{{ block.super }}
 {% if request.GET.sent %}
     {% editable page.form.response %}

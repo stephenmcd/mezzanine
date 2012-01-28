@@ -1,5 +1,5 @@
 
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 
 from mezzanine.core.views import direct_to_template
@@ -20,5 +20,5 @@ urlpatterns = patterns("",
     ("^", include("mezzanine.urls")),
 )
 
-# Adds ``MEDIA_URL`` to the context.
+# Adds ``STATIC_URL`` to the context.
 handler500 = "mezzanine.core.views.server_error"

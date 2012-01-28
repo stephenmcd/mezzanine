@@ -25,6 +25,9 @@ Version 0.12.2 (Nov 19, 2011)
 Version 0.12.1 (Nov 19, 2011)
 -----------------------------
 
+  * IDE config directory .idea added to .gitignore - Zdeněk Softič
+  * better try-except block (PEP8 compliant) - Zdeněk Softič
+  * possibility to insert fieldsets' fields in classes extended from DisplayableAdmin (was not possible, tuples are immutable) - Zdeněk Softič
   * Add transifex setup and spanish .po files - Sebastián Ramírez Magrí
   * Update translations from transifex - Sebastián Ramírez Magrí
   * Added Sebastián Magrí to AUTHORS - stephenmcd
@@ -72,6 +75,7 @@ Version 0.12 (Nov 05, 2011)
   * Add png & gif thumbnailing. Support for filebrowser FileBrowseField thumbnailing - Ken Bolton
   * Somehow, this didn't make it up to my repo - Ken Bolton
   * Removing bad whitespace - Ken Bolton
+  * if setting in registry is no more registered, delete it from registry - btx
   * Added a note about mezzanine-openshift to README - stephenmcd
   * Added a note about branching requirements for contributions to README - stephenmcd
   * Cleaned up mezzanine.utils.conf.set_dynamic_settings - stephenmcd

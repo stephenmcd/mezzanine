@@ -1,0 +1,6 @@
+.module {margin:10px 0 20px 0; border-bottom:#fff; width:550px;}
+#content-main p {padding:5px 10px; margin:0; border-top:1px solid #fff;
+                 border-bottom:1px solid #ddd;}
+#content-main label {width:230px; float:left;}
+#content-main p input {float:left; margin:2px 10px 5px 0; width:auto !important;}
+.help {display:block; clear:left; padding-top:5px; margin-left:230px;}

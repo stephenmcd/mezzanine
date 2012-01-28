@@ -98,20 +98,6 @@ If ``True``, comments that have ``is_public`` unchecked will still be displayed,
 
 Default: ``True``
 
-``CONTENT_MEDIA_PATH``
-----------------------
-
-Absolute path to Mezzanine's internal media files.
-
-Default: ``[dynamic]``
-
-``CONTENT_MEDIA_URL``
----------------------
-
-URL prefix for serving Mezzanine's internal media files.
-
-Default: ``'/content_media/'``
-
 ``DASHBOARD_TAGS``
 ------------------
 
@@ -271,7 +257,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
+Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
 
 ``THEME``
 ---------

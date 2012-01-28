@@ -13,12 +13,12 @@
 <link rel="alternate" type="application/atom+xml" title="Atom" href="{% url blog_post_feed "atom" %}">
 {% endif %}
 
-<link rel="stylesheet" href="{{ MEDIA_URL }}css/bootstrap.css">
-<link rel="stylesheet" href="{{ MEDIA_URL }}css/mezzanine.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/mezzanine.css">
 {% if "cartridge.shop"|is_installed %}
-<link rel="stylesheet" href="{{ MEDIA_URL }}css/cartridge.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
 {% endif %}
-<script src="{{ MEDIA_URL }}js/jquery-1.4.2.min.js"></script>
+<script src="{{ STATIC_URL }}mezzanine/js/jquery-1.4.4.min.js"></script>
 <script>
 $(function() {$('.form-stacked').find('input:text, textarea').addClass('xlarge');});
 </script>

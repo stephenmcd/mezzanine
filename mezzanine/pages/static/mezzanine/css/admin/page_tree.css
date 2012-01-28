@@ -1,0 +1,24 @@
+h1 {width:300px;}
+#tree {margin-top:10px; width:600px;}
+#tree div {border:1px solid #ddd; background:#f9f9f9; padding:7px;
+           border-top-color:#eee; border-bottom-color:#ccc;
+           float:left; width:100%; margin:3px; height:18px;
+           background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#e6e6e6));
+           background: -moz-linear-gradient(top, #f9f9f9, #e6e6e6);}
+#tree ul {padding:0; margin:0px !important;}
+#tree ul ul {padding-left:40px; display:none;}
+#tree li {list-style-type:none;}
+#tree .tree-toggle, #tree .changelink {float:left; font-weight:bold; font-size:12px;}
+#tree a {float:right;}
+#tree a .icon {display:block; float:left; width:16px; color:#fff;
+               text-align:center; background:#c6c6c6; margin:0 8px 0 4px;
+               border-radius:2px;}
+#tree a .close {display:none;}
+#tree a:hover .icon {color:#fff; background:#5B80B2;}
+.ordering {float:right; cursor:move; margin-left:10px;}
+
+.addlist {float:right; margin-top:-3px;}
+#addlist-primary {float:left; width:620px; text-align:right; margin-top:-25px;}
+
+.placeholder {border:1px dashed #ddd;}
+.uneditable {margin-left:25px; color:#999;}

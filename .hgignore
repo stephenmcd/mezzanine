@@ -8,6 +8,5 @@ local_settings.py
 build/*
 dist/*
 *.egg-info/*
+project_template/static
 
-site_media/uploads/*
-site_media/galleries/*

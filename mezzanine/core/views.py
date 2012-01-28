@@ -1,19 +1,15 @@
 
-import os
-
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from django.db.models import get_model
 from django import http
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
-from django.views.static import serve
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Displayable
 from mezzanine.template.loader import get_template
-from mezzanine.utils.importing import path_for_import
 from mezzanine.utils.views import is_editable, paginate, render_to_response
 from mezzanine.utils.views import set_cookie
 
@@ -76,27 +72,11 @@ def search(request, template="search_results.html"):
     return render_to_response(template, context, RequestContext(request))
 
 
-def serve_with_theme(request, path):
-    """
-    Mimics ``django.views.static.serve`` for serving files from
-    ``MEDIA_ROOT`` during development, first checking for the file
-    in the theme defined by the ``THEME`` setting if specified.
-    """
-    theme = getattr(settings, "THEME")
-    if theme:
-        theme_root = os.path.join(path_for_import(theme), "media")
-        try:
-            return serve(request, path, document_root=theme_root)
-        except http.Http404:
-            pass
-    return serve(request, path, document_root=settings.MEDIA_ROOT)
-
-
 def server_error(request, template_name='500.html'):
     """
-    Mimics Django's error handler but adds ``MEDIA_URL`` to the
+    Mimics Django's error handler but adds ``STATIC_URL`` to the
     context.
     """
-    context = RequestContext(request, {"MEDIA_URL": settings.MEDIA_URL})
+    context = RequestContext(request, {"STATIC_URL": settings.STATIC_URL})
     t = get_template(template_name, context)
     return http.HttpResponseServerError(t.render(context))

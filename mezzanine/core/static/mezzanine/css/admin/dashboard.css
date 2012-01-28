@@ -1,0 +1,16 @@
+#quick-blog input, textarea {width:98%;}
+#quick-blog label {white-space:nowrap; width:auto;}
+#quick-blog th {width:auto;}
+.default {width:auto !important;}
+.module {margin-bottom:10px !important;}
+.module ul {list-style-type:none !important; margin-left:0px;}
+.mini {font-size:.9em;}
+.dashboard1 {float:right !important; margin:0 -38em 0 10px !important;}
+.dashboard2 {float:right !important; margin-right:-19em !important;}
+
+#comments-module ul {margin:0;}
+#comments-module li {padding:10px; list-style-type:none; margin:0;}
+#comments-module img {vertical-align:middle; padding-right:4px; float:left;}
+#comments-module span {display:block; }
+#comments-module p {padding:0; border-top: 1px solid #ddd; font-size:80%;
+                    margin-top:4px; clear:both;}

@@ -1,6 +1,4 @@
 
-import os.path
-
 from django.conf import settings
 from django.utils.translation import ugettext as _
 
@@ -123,20 +121,6 @@ register_setting(
         "will still be displayed, but replaced with a ``removed`` message."),
     editable=True,
     default=True,
-)
-
-register_setting(
-    name="CONTENT_MEDIA_PATH",
-    description=_("Absolute path to Mezzanine's internal media files."),
-    editable=False,
-    default=os.path.join(os.path.dirname(__file__), "..", "core", "media"),
-)
-
-register_setting(
-    name="CONTENT_MEDIA_URL",
-    description=_("URL prefix for serving Mezzanine's internal media files."),
-    editable=False,
-    default="/content_media/",
 )
 
 if "mezzanine.blog" in settings.INSTALLED_APPS:
@@ -404,7 +388,7 @@ register_setting(
         "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
-        "CONTENT_MEDIA_URL", "DEV_SERVER", "FORMS_USE_HTML5",
+        "DEV_SERVER", "FORMS_USE_HTML5",
         "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID",
         "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE",
         "RATINGS_MAX",
@@ -412,18 +396,11 @@ register_setting(
 )
 
 register_setting(
-    name="THEME",
-    description=_("Package name of theme app to use."),
-    editable=False,
-    default="",
-)
-
-register_setting(
     name="THUMBNAILS_DIR_NAME",
     description=_("Directory name to store thumbnails in, that will be "
         "created relative to the original image's directory."),
     editable=False,
-    default="thmbs",
+    default=".thumbnails",
 )
 
 # The following settings are defined here for documentation purposes

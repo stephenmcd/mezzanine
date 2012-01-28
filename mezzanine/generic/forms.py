@@ -5,7 +5,6 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.generic.models import Keyword, ThreadedComment, RATING_RANGE
-from mezzanine.utils.urls import content_media_urls
 
 
 class KeywordsWidget(forms.MultiWidget):
@@ -26,8 +25,8 @@ class KeywordsWidget(forms.MultiWidget):
     """
 
     class Media:
-        js = content_media_urls("js/jquery-1.4.4.min.js",
-                                "js/keywords_field.js")
+        js = ("mezzanine/js/jquery-1.4.4.min.js",
+              "mezzanine/js/admin/keywords_field.js",)
 
     def __init__(self, attrs=None):
         """

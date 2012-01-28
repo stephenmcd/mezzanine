@@ -1,7 +1,4 @@
 
-import os
-from shutil import copyfile
-
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth import models as auth_app
@@ -15,7 +12,7 @@ from mezzanine.forms.models import Form
 from mezzanine.galleries.models import Gallery
 from mezzanine.pages.models import Page
 from mezzanine.pages import models as pages_app
-from mezzanine.utils.importing import path_for_import
+from mezzanine.utils.tests import copy_test_to_media
 
 
 def create_user(app, created_models, verbosity, interactive, **kwargs):
@@ -50,11 +47,8 @@ def create_pages(app, created_models, verbosity, interactive, **kwargs):
                    "(About page, Blog, Contact form, Gallery) ...")
             print
         call_command("loaddata", "mezzanine.json")
-        template_path = path_for_import("mezzanine.project_template")
         zip_name = "gallery.zip"
-        zip_path = os.path.join(template_path, settings.MEDIA_URL.strip("/"),
-                                "test", zip_name)
-        copyfile(zip_path, os.path.join(settings.MEDIA_ROOT, zip_name))
+        copy_test_to_media("mezzanine.core", zip_name)
         gallery = Gallery.objects.get()
         gallery.zip_import = zip_name
         gallery.save()
@@ -70,7 +64,8 @@ def create_site(app, created_models, verbosity, interactive, **kwargs):
         Site.objects.create(name="Local development", domain=domain)
 
 
-post_syncdb.connect(create_user, sender=auth_app)
-post_syncdb.connect(create_pages, sender=pages_app)
-post_syncdb.connect(create_site, sender=sites_app)
-post_syncdb.disconnect(create_default_site, sender=sites_app)
+if not settings.TESTING:
+    post_syncdb.connect(create_user, sender=auth_app)
+    post_syncdb.connect(create_pages, sender=pages_app)
+    post_syncdb.connect(create_site, sender=sites_app)
+    post_syncdb.disconnect(create_default_site, sender=sites_app)

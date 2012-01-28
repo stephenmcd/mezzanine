@@ -15,6 +15,9 @@ class SettingsAdmin(admin.ModelAdmin):
     view where a single form is rendered for editing all settings.
     """
 
+    class Media:
+        css = {"all": ("mezzanine/css/admin/settings.css",)}
+
     def changelist_redirect(self):
         changelist_url = admin_url(Setting, "changelist")
         return HttpResponseRedirect(changelist_url)

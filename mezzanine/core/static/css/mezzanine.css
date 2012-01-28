@@ -1,0 +1,99 @@
+/* General elements */
+body {padding-top:60px;}
+h5 {line-height:140%; margin:20px 0 10px 0;}
+h6 a {color:#666;}
+.middle img {max-width:600px;}
+.middle h6 {line-height:100%; margin:10px 0 15px 0;}
+.right h6 {margin-top:-5px;}
+.panel {background:#fcfcfc; padding:10px; margin-bottom:20px;
+        line-height:170%; border:1px solid #eee; border-radius:5px;}
+p {line-height:23px;}
+li {line-height:20px;}
+img {box-shadow:0 0 10px #bbb;}
+pre code {background:inherit;}
+#search-results h3 {float:left;}
+
+/* Navigation */
+.topbar {z-index:500;}
+#primary-menu {overflow:hidden; max-width:500px; height:40px;}
+.tree-menu-level-0 .active {font-weight:bold;}
+.tree-menu-level-0 li {margin:5px; padding:5px 0;}
+.tree-menu-level-1 li, footer li li {list-style:square inside;}
+.tree-menu-level-0 li, footer li li {border-bottom:1px dashed #eee;}
+.tree-menu-level-1 li {margin:10px 15px; padding:0; border-bottom:0px;}
+.tagline {float:left; color:#888; font-size:11px; font-style:italic;}
+.breadcrumb {margin-bottom:25px;}
+.breadcrumb .divider {margin:0 5px;}
+.breadcrumb strong {color:#333;}
+footer {background:#fcfcfc; padding-bottom:50px; text-align:center;}
+footer .container {text-align:left; display:inline-block; width:auto;}
+footer li {float:left; list-style-type:none;}
+footer li li {float:none; clear:both; width:120px; padding:10px 0; margin-right:30px;}
+footer p {margin-top:40px; text-align:center; font-size:11px;}
+.pagination {margin-top:40px;}
+.pagination p {float:left;}
+
+/* Forms */
+.form-stacked {padding-left:0;}
+.input ul {margin:0;}
+.input li {list-style-type:none;}
+.input li input {width:auto;}
+.input label {font-weight:normal;}
+textarea.xlarge {width:480px; height:120px;}
+.datefield select, .datetimefield select,
+.datefield input, .datetimefield input {width:auto; margin-right:5px;}
+.actions {margin-left:-10px !important; margin-top:30px; background:#fcfcfc; border-top:1px solid #eee;}
+.small {width:auto; margin:5px 0;}
+a.large, input.large {width:auto; min-width:100px; margin-right:10px;}
+
+/* Blog */
+.recent-posts li {margin:10px 0;}
+.blog-list-detail {margin-bottom:20px; padding-bottom:30px; line-height:25px;
+                   border-bottom:1px dashed #ccc;}
+.middle .tags {margin-top:40px;}
+.tags li {display:inline-block; white-space:nowrap;}
+.tag-weight-1 {font-size:90%;}
+.tag-weight-2 {font-size:120%;}
+.tag-weight-3 {font-size:150%;}
+.tag-weight-4 {font-size:180%;}
+.share-twitter, .share-facebook {margin:5px 5px 30px 0; font-weight:bold;}
+.share-twitter {background:#00a3d4 !important;}
+.share-facebook {background:#4667a6 !important;}
+
+/* Tweets */
+.tweets img {float:left; margin-right:5px; width:32px; height:32px;}
+.tweets li {margin:5px 0 15px 0;}
+.timespan {color:#bbb;}
+
+/* Ratings */
+.rating {padding:15px 20px; margin-right:10px;}
+.rating * {display:inline; list-style-type:none;}
+.rating p {float:left; margin:5px 10px 0 0;}
+.rating label {width:auto; margin-right:15px; float:none;}
+
+/* Comments */
+.author {background:#fafbd2;}
+.comment-unapproved, .comment-removed {text-decoration:line-through;}
+.comment-unapproved {color:#060;}
+.comment-removed {color:#f00;}
+#comment {margin-top:10px;}
+#comments li {padding:15px; display:block; border:1px solid #eee;
+              border-top-width:5px; margin-top:10px;}
+#comments li ul {padding:5px 0 0 30px;}
+#comments img {margin-right:5px; vertical-align:middle;}
+.reply-form {display:none; margin-top:10px;}
+.reply-form textarea {width:270px; margin-bottom:10px;}
+.input_id_honeypot {display:none;}
+
+/* Galleries */
+.gallery {margin-top:20px;}
+.image-overlay {text-align:center; width:100%;}
+.image-overlay p {color:#fff; font-size:16px; display:inline-block; margin-top:5px;}
+.image-overlay-prev,
+.image-overlay-next {position:absolute; top:40%; color:#999; font-size:100px;
+                     border:0 !important; background:#333; height:43px;}
+.image-overlay-prev:hover,
+.image-overlay-next:hover {color:#fff; text-decoration:none; background:#222;}
+.image-overlay-prev {left:30px;}
+.image-overlay-next {right:30px;}
+.image-overlay-full {border-radius:5px; max-width:none !important; box-shadow:0 0 30px #222;}

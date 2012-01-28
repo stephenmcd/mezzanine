@@ -8,6 +8,7 @@ from os.path import join
 
 from django.conf.urls.defaults import patterns, url
 from django.contrib import admin
+from django.contrib.messages import info
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -19,7 +20,6 @@ from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.forms.forms import EntriesForm
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.pages.admin import PageAdmin
-from mezzanine.utils.messages import info
 from mezzanine.utils.urls import admin_url, slugify
 
 
@@ -46,6 +46,9 @@ class FormAdmin(PageAdmin):
     Admin class for the Form model. Includes the urls & views for exporting
     form entries as CSV and downloading files uploaded via the forms app.
     """
+
+    class Media:
+        css = {"all": ("mezzanine/css/admin/form.css",)}
 
     inlines = (FieldAdmin,)
     list_display = ("title", "status", "email_copies",)

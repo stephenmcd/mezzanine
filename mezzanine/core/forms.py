@@ -8,12 +8,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.models import Orderable
-from mezzanine.utils.urls import content_media_urls
-
-
-tinymce_main = [settings.ADMIN_MEDIA_PREFIX +
-                "tinymce/jscripts/tiny_mce/tiny_mce.js"]
-tinymce_setup = content_media_urls("js/tinymce_setup.js")
 
 
 class TinyMceWidget(forms.Textarea):
@@ -23,7 +17,9 @@ class TinyMceWidget(forms.Textarea):
     """
 
     class Media:
-        js = tinymce_main + tinymce_setup
+        js = (settings.ADMIN_MEDIA_PREFIX +
+              "tinymce/jscripts/tiny_mce/tiny_mce.js",
+              "mezzanine/js/tinymce_setup.js",)
 
     def __init__(self, *args, **kwargs):
         super(TinyMceWidget, self).__init__(*args, **kwargs)
@@ -50,8 +46,8 @@ class DynamicInlineAdminForm(forms.ModelForm):
     """
 
     class Media:
-        js = content_media_urls("js/jquery-ui-1.8.14.custom.min.js",
-                                "js/dynamic_inline.js",)
+        js = ("mezzanine/js/jquery-ui-1.8.14.custom.min.js",
+              "mezzanine/js/admin/dynamic_inline.js",)
 
     def __init__(self, *args, **kwargs):
         super(DynamicInlineAdminForm, self).__init__(*args, **kwargs)

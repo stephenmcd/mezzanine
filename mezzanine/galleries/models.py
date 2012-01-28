@@ -16,6 +16,18 @@ from mezzanine.pages.models import Page
 from mezzanine.utils.importing import import_dotted_path
 
 
+# Set the directory where gallery images are uploaded to,
+# either MEDIA_ROOT + 'galleries', or filebrowser's upload
+# directory if being used.
+GALLERIES_UPLOAD_DIR = "galleries"
+if settings.PACKAGE_NAME_FILEBROWSER in settings.INSTALLED_APPS:
+    fb_settings = "%s.settings" % settings.PACKAGE_NAME_FILEBROWSER
+    try:
+        GALLERIES_UPLOAD_DIR = import_dotted_path(fb_settings).DIRECTORY
+    except ImportError:
+        pass
+
+
 class Gallery(Page, RichText):
     """
     Page bucket for gallery photos.
@@ -47,13 +59,8 @@ class Gallery(Page, RichText):
                     image.verify()
                 except:
                     continue
-                fb_settings = "%s.settings" % settings.PACKAGE_NAME_FILEBROWSER
-                try:
-                    dir_name = import_dotted_path(fb_settings).DIRECTORY
-                except ImportError:
-                    dir_name = "galleries"
-                path = os.path.join(dir_name, self.slug, name.decode("utf-8"))
-                path = default_storage.save(path, ContentFile(data))
+                path = default_storage.save(os.path.join(GALLERIES_UPLOAD_DIR,
+                          self.slug, name.decode("utf-8")), ContentFile(data))
                 self.images.add(GalleryImage(file=path))
             if delete_zip_import:
                 self.zip_import.delete(save=True)

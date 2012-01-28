@@ -8,14 +8,13 @@ hosting theme development when the ``THEME`` setting is defined.
 
 from urlparse import urlsplit
 
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, include
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.http import HttpResponse
 
 from mezzanine.conf import settings
 from mezzanine.core.sitemaps import DisplayableSitemap
-from mezzanine.utils.urls import static_urls
 
 
 # Remove unwanted models from the admin that are installed by default with
@@ -42,7 +41,6 @@ if "django.contrib.sitemaps" in settings.INSTALLED_APPS:
         ("^sitemap\.xml$", "sitemap", sitemaps)
     )
 
-
 # Return a robots.txt that disallows all spiders when DEBUG is True.
 if getattr(settings, "DEBUG", False):
     urlpatterns += patterns("",
@@ -55,8 +53,6 @@ if getattr(settings, "PACKAGE_NAME_FILEBROWSER") in settings.INSTALLED_APPS:
     urlpatterns += patterns("",
         ("^admin/media-library/", include("%s.urls" %
                                         settings.PACKAGE_NAME_FILEBROWSER)),
-        static_urls(settings.FILEBROWSER_URL_FILEBROWSER_MEDIA.strip("/"),
-                    settings.FILEBROWSER_PATH_FILEBROWSER_MEDIA),
     )
 
 # Grappelli admin skin.
@@ -64,14 +60,12 @@ _pattern = urlsplit(settings.ADMIN_MEDIA_PREFIX).path.strip("/").split("/")[0]
 if getattr(settings, "PACKAGE_NAME_GRAPPELLI") in settings.INSTALLED_APPS:
     urlpatterns += patterns("",
         ("^grappelli/", include("%s.urls" % settings.PACKAGE_NAME_GRAPPELLI)),
-        static_urls(_pattern, settings.GRAPPELLI_MEDIA_PATH),
     )
 
 # Miscellanous Mezzanine patterns.
 urlpatterns += patterns("",
     ("^", include("mezzanine.core.urls")),
     ("^", include("mezzanine.generic.urls")),
-    static_urls(settings.CONTENT_MEDIA_URL, settings.CONTENT_MEDIA_PATH),
 )
 
 # Mezzanine's Blog app.
@@ -84,11 +78,4 @@ if "mezzanine.blog" in settings.INSTALLED_APPS:
 if "mezzanine.pages" in settings.INSTALLED_APPS:
     urlpatterns += patterns("",
         ("^", include("mezzanine.pages.urls")),
-    )
-
-# Hosting of static assets when using built-in runserver during development.
-if getattr(settings, "DEV_SERVER", False):
-    _pattern = "^%s/(?P<path>.*)$" % settings.MEDIA_URL.strip("/")
-    urlpatterns += patterns("",
-        (_pattern, "mezzanine.core.views.serve_with_theme"),
     )

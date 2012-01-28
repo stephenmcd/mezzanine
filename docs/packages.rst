@@ -63,15 +63,6 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.core.management.commands.createdb
    :members:
 
-.. automodule:: mezzanine.core.management.commands.install_theme
-   :members:
-
-.. automodule:: mezzanine.core.management.commands.start_theme
-   :members:
-
-.. automodule:: mezzanine.core.management.commands.media_paths
-   :members:
-
 ``mezzanine.core.tests``
 ------------------------
 
@@ -364,9 +355,6 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
    :members:
 
 .. automodule:: mezzanine.utils.importing
-   :members:
-
-.. automodule:: mezzanine.utils.messages
    :members:
 
 .. automodule:: mezzanine.utils.models

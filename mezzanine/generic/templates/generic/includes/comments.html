@@ -4,7 +4,7 @@
 {% if settings.COMMENTS_DISQUS_SHORTNAME %}
 {% include "generic/includes/disqus_comments.html" %}
 {% else %}
-<script type="text/javascript">
+<script>
 $(function() {
     $('.reply').click(function() {
         $(this).next('.reply-form').toggle();

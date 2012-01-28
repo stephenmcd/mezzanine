@@ -1,237 +1,74 @@
 {% extends "admin/base.html" %}
-
+{% load mezzanine_tags i18n %}
 {% comment %}
 
+This file contains a handful of unrelated admin customizations that
+mostly get applied globally to different parts of the admin.
 
-    This file contains a handful of unrelated admin customizations that
-    mostly get applied globally to different parts of the admin.
+In the ``extrahead`` block:
 
-    In the ``extrahead`` block:
+  * CSS for the login form
+  * Javascript for the login form to add the ``interface`` radio buttons
+  * Global CSS fixes (when logged in)
+  * Javascript for injecting Mezzanine's menu into the top of every page
+  * Javascript for fixing inlines to work with Mezzanine's dynamic inlines
 
-      * CSS for the login form
-      * Javascript for the login form to add the ``interface`` radio buttons
-      * Global CSS fixes (when logged in)
-      * Javascript for injecting Mezzanine's menu into the top of every page
-      * Javascript for fixing inlines to work with Mezzanine's dynamic inlines
+In the ``footer`` block:
 
-    In the ``footer`` block:
-
-      * HTML for the ``interface`` radio buttons in the login form
-      * HTML for Mezzanine's menu
-
+  * HTML for the ``interface`` radio buttons in the login form
+  * HTML for Mezzanine's menu
 
 {% endcomment %}
-
-{% load mezzanine_tags i18n %}
 
 {% block title %}{{ title }} | Mezzanine{% endblock %}
 {% block branding %}<h1 id="site-name">Mezzanine</h1>{% endblock %}
 {% block nav-global %}{% endblock %}
 
 {% block extrahead %}
-<script type="text/javascript">
+<link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/global.css">
+<style>
+{# These are set in PageAdmin's view methods #}
+{% if hide_delete_link %}.deletelink {display:none !important;}{% endif %}
+{% if hide_slug_field %}.slug {display:none !important;}{% endif %}
+{% if singleton %}
+.submit-row * {display:none !important;}
+.submit-row .default {display:inline !important;}
+{% endif %}
+</style>
+<script>
+window.__csrf_token = '{{ csrf_token }}';
 window.__admin_keywords_submit_url = '{% try_url "admin_keywords_submit" %}';
+window.__filebrowser_url = '{% try_url "fb_browse" %}';
+window.__admin_url = '{% try_url "admin:index" %}';
 window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
-if (typeof $ == 'undefined') {
-    document.write('<scr' +
-        'ipt src="{{ settings.CONTENT_MEDIA_URL }}js/jquery-1.4.4.min.js"></scr' +
-        'ipt>');
-}
 </script>
-
+{% if not settings.GRAPPELLI_INSTALLED %}
+<script src="{{ STATIC_URL }}mezzanine/js/jquery-1.4.4.min.js"></script>
+{% endif %}
 {% if not request.user.is_staff %}
-<style type="text/css">
-    #extra-login-fields .required {margin-top:1px;}
-    input.interface {margin:0 0 0 0px; vertical-align:middle;}
-    label.interface {display:inline !important; float:none !important;
-        vertical-align:middle; cursor:pointer;}
-    #forgot-password {margin-top:30px; text-align:center;}
-    .submit-row input {margin-left:8px;}
-</style>
-<script type="text/javascript">
-
-$(function() {
-    // We "inject" the extra login fields here rather than defining them in the
-    // login.html template, since we don't want to override the login.html
-    // template as it's very different between Grappelli and the regular admin.
-    if ($('#id_password').length == 1) {
-        $('#forgot-password').insertAfter($('.submit-row')).show();
-        $('#extra-login-fields').insertAfter($('#id_password').parent()).show();
-    }
-    // Fix the ``Home`` breadcrumb link non logged-in views.
-    var home = $('.breadcrumbs a:first');
-    if (home.length == 1) {
-        home.attr('href', '{% try_url "admin:index" %}');
-    }
-    // Fix the submit margin on the new password form.
-    if ($('#id_new_password1').length == 1) {
-        $('input:submit').css({marginTop: '20px'});
-    }
-});
-
-</script>
+<script src="{{ STATIC_URL }}mezzanine/js/admin/login.js"></script>
+{% else %}
+<script src="{{ STATIC_URL }}mezzanine/js/admin/navigation.js"></script>
+<script src="{{ STATIC_URL }}mezzanine/js/admin/collapse_backport.js"></script>
 {% endif %}
-
-{% if request.user.is_staff and not is_popup and not request.GET.pop %}
-<style type="text/css">
-
-    .add-row {display:none;}
-    .breadcrumbs {display:none; height:30px; margin:0; padding:0;
-        background:#e6e6e6 !important;}
-    .dropdown-menu {left:0; padding:0;}
-    .dropdown-menu ul {display:inline; padding:0; margin:0;}
-    .dropdown-menu li {float:left; width:auto; padding:11px 15px;
-        cursor:pointer; height:30px;
-        font-size:15px; font-weight:bold; list-style-type:none;}
-    .cloned li {display:block; font-size:13px; font-weight:normal;
-        padding:15px 20px 15px 20px !important; border-top:1px solid #eee;}
-    .cloned .first {border-top:0px !important;}
-    .dropdown-menu li ul {display:none; float:left;}
-    .cloned {background:#e6e6e6; border-radius:0 0 5px 5px;
-        border-bottom:1px solid #ccc; padding:0;}
-    .messagelist {margin-top:14px; z-index:0 !important;}
-    .inline-stacked ._order, div.dynamic-fields ._order {display:none;}
-    .items .placeholder {display:block;}
-
-    {# These are set in PageAdmin's view methods #}
-    {% if hide_delete_link %}.deletelink {display:none !important;}{% endif %}
-    {% if hide_slug_field %}.slug {display:none !important;}{% endif %}
-
-    {% if singleton %}
-    .submit-row * {display:none !important;}
-    .submit-row .default {display:inline !important;}
-    {% endif %}
-
-    .keywords-field a {margin-right:10px; float:left;}
-
-    /* make save/delete buttons always available at bottom of screen. */
-    .change-form div.submit-row {
-        position: fixed; left: 0; bottom: 0; right: 0;
-        margin: 0; padding: 10px 15px;
-        background: #e6e6e6; border-top: 1px solid #ccc;
-        text-align: right;
-    }
-
-	/* Fix for IE7 layout issue */
-	#content { margin-left: 0; margin-right: 0; padding: 0 15px; }
-
-</style>
-
-<script type="text/javascript">
-
-// Global flag used for checking whether to hide the visible menu after a small
-// timeout has passed when mousing out from a menu.
-var onMenu;
-
-$(function() {
-
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
-        }
-    });
-
-    // Empty out the breadcrumbs div and position the menu over it.
-    var breadcrumb = $('.breadcrumbs');
-    $('.breadcrumbs').html(' ').show();
-    $('body').append($('.dropdown-menu'));
-    // The top value here previously used breadcrumb.offset().top but breaks
-    // when scrolling and reloading in Firefox, so to resolve this it's
-    // hard-coded for now. Reported in github issue #11
-    var menuCss;
-    if (window.__grappelli_installed) {
-        menuCss = {top: 30, position: 'fixed'};
-    } else {
-        menuCss = {top: 37, position: 'absolute'};
-        $('.change-form').css({marginBottom: '30px'});
-    }
-    $('.dropdown-menu').css(menuCss).show();
-
-    $('.dropdown-menu a').mouseover(function() {
-        var parent = $(this).parent();
-        var menu = parent.find('.dropdown-menu-menu').clone();
-        // If we're over a primary menu link, clone the child menu and show it.
-        if (menu.length == 1) {
-            onMenu = true;
-            $('.cloned').remove();
-            $('body').append(menu);
-            // Position the child menu under its parent.
-            var pos = {
-                top: breadcrumb.offset().top + breadcrumb.height(),
-                left: parent.offset().left,
-                position: 'absolute'
-            }
-            menu.css(pos).addClass('cloned').show();
-            // Ensure the menu stays visible when we mouse onto another item in it.
-            menu.mouseover(function() {
-                onMenu = true;
-            });
-            // Trigger the parent mouseout if we mouseout of the menu.
-            menu.mouseout(function() {
-                $('.dropdown-menu a').mouseout();
-            });
-        }
-    });
-
-    // Set a timeout to hide visible menus on mouseout of primary menu item.
-    $('.dropdown-menu a').mouseout(function() {
-        var parent = $(this).parent();
-        if (parent.find('.dropdown-menu-menu').length == 1) {
-            onMenu = false;
-            window.setTimeout(function() {
-                if (!onMenu) {
-                    $('.cloned').remove();
-                }
-            }, 1000);
-        }
-    })
-
-    // Provides link back to homepage.
-    $('#user-tools li:last').before('<li><a href="/">{% blocktrans %}View Site{% endblocktrans %}</a></li>');
-
-});
-
-// Remove extraneous ``template`` forms from inline formsets since
-// Mezzanine has its own method of dynamic inlines.
-$(function() {
-    var removeRows = {};
-    $.each($('*[name*=__prefix__]'), function(i, e) {
-        var row = $(e).parent();
-        if (!row.attr('id')) {
-            row.attr('id', 'remove__prefix__' + i);
-        }
-        removeRows[row.attr('id')] = true;
-    });
-    for (var rowID in removeRows) {
-        $('#' + rowID).remove();
-    }
-});
-
-</script>
-{% endif %}
-
 {% endblock %}
 
-{% block footer %}{{ block.super }}
-{% if not request.user.is_staff %}
+{% block footer %}
+{{ block.super }}
+{% if request.user.is_staff %}
+{% admin_dropdown_menu %}
+{% else %}
 <p id="forgot-password" style="display:none;">
     <a href="{% try_url "password_reset" %}">{% trans "Forgot password?" %}</a>
 </p>
 <div class="form-row" id="extra-login-fields" style="display:none;">
-
     <label class="required">{% trans "Interface:" %}</label>
-
     <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
         value="admin"{% ifnotequal request.REQUEST.mezzanine_login_interface "site" %} checked{% endifnotequal %} />
     <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
-
     <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_site"
         value="site"{% ifequal request.REQUEST.mezzanine_login_interface "site" %} checked{% endifequal %} />
     <label class="interface" for="interface_site">{% trans "Site" %}</label>
-
 </div>
-{% endif %}
-{% if request.user.is_staff %}
-{% admin_dropdown_menu %}
 {% endif %}
 {% endblock %}

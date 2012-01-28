@@ -1,0 +1,19 @@
+#content-main table {margin:10px 0 20px 0;}
+#content-main ul, #content-main li {display:inline; padding:0;}
+#content-main label {cursor:pointer;}
+h1 {margin-top:20px;}
+#content-main h1 {margin:30px 0 0 0;}
+table {border:1px solid #ddd;}
+th, td {border-right:1px solid #ddd; padding:5px 15px;}
+.last {border-right:0;}
+.include, .include-all {text-align:center;}
+.empty {margin-top:10px;}
+.field {padding-top:8px;}
+.filter select {width:140px;}
+.options {vertical-align:middle;}
+.options label {margin:0 10px; font-weight:normal; vertical-align:middle;}
+.options-div {visibility:hidden;}
+.options select {min-width:0;}
+.on {background:#eee;}
+.off {background:#fff;}
+.button {float:left !important; margin-right:10px; cursor:pointer;}
