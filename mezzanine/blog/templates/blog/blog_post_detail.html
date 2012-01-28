@@ -48,6 +48,10 @@
     {% endspaceless %}</a>){% endif %}
 </p>
 
+{% if blog_post.featured_image %}
+<p><img src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 600 0 %}"></p>
+{% endif %}
+
 {% editable blog_post.content %}
 {{ blog_post.content|richtext_filter|safe }}
 {% endeditable %}

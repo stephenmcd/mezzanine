@@ -79,6 +79,10 @@
 </h6>
 {% endeditable %}
 
+{% if blog_post.featured_image %}
+<img class="featured-thumb" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 90 90 %}">
+{% endif %}
+
 {% editable blog_post.content %}
 {{ blog_post.description_from_content|safe }}
 {% endeditable %}

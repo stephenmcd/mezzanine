@@ -59,6 +59,7 @@ a.large, input.large {width:auto; min-width:100px; margin-right:10px;}
 .share-twitter, .share-facebook {margin:5px 5px 30px 0; font-weight:bold;}
 .share-twitter {background:#00a3d4 !important;}
 .share-facebook {background:#4667a6 !important;}
+.featured-thumb {float:right; width:90px; height:90px; margin:0 0 10px 10px;}
 
 /* Tweets */
 .tweets img {float:left; margin-right:5px; width:32px; height:32px;}
