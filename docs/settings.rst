@@ -49,6 +49,13 @@ If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/sl
 
 Default: ``False``
 
+``BLOG_USE_FEATURED_IMAGE``
+---------------------------
+
+Enable featured images in blog posts
+
+Default: ``False``
+
 ``COMMENTS_DEFAULT_APPROVED``
 -----------------------------
 
@@ -259,19 +266,12 @@ Sequence of setting names available within templates.
 
 Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
 
-``THEME``
----------
-
-Package name of theme app to use.
-
-Default: ``''``
-
 ``THUMBNAILS_DIR_NAME``
 -----------------------
 
 Directory name to store thumbnails in, that will be created relative to the original image's directory.
 
-Default: ``'thmbs'``
+Default: ``'.thumbnails'``
 
 ``USE_SOUTH``
 -------------

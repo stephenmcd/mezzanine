@@ -1,9 +1,7 @@
 """
 This is the main ``urlconf`` for Mezzanine - it sets up patterns for
 all the various Mezzanine apps, third-party apps like Grappelli and
-filebrowser, and adds some handling for media files during development
-when the ``runserver`` command is being used, that also deals with
-hosting theme development when the ``THEME`` setting is defined.
+filebrowser.
 """
 
 from urlparse import urlsplit

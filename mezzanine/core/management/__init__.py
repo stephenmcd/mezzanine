@@ -63,7 +63,6 @@ def create_site(app, created_models, verbosity, interactive, **kwargs):
             print
         Site.objects.create(name="Local development", domain=domain)
 
-
 if not settings.TESTING:
     post_syncdb.connect(create_user, sender=auth_app)
     post_syncdb.connect(create_pages, sender=pages_app)

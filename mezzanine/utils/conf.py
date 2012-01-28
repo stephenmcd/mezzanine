@@ -2,8 +2,6 @@
 import os
 import sys
 
-from mezzanine.utils.importing import path_for_import
-
 
 def set_dynamic_settings(s):
     """
@@ -123,10 +121,3 @@ def set_dynamic_settings(s):
             # system's time zone will break table creation in Postgres
             # so remove it.
             del s["TIME_ZONE"]
-
-    # If a theme is defined then add its template path to the
-    # template dirs.
-    theme = s.get("THEME")
-    if theme:
-        theme_templates = os.path.join(path_for_import(theme), "templates")
-        s["TEMPLATE_DIRS"] = (theme_templates,) + tuple(s["TEMPLATE_DIRS"])

@@ -17,6 +17,9 @@ class BlogPost(Displayable, Ownable, RichText):
     allow_comments = models.BooleanField(default=True)
     comments = CommentsField(verbose_name=_("Comments"))
     rating = RatingField(verbose_name=_("Rating"))
+    featured_image = models.FileField(verbose_name=_("Featured Image"),
+                                      upload_to="blog", blank=True,
+                                      max_length=255, null=True)
 
     class Meta:
         verbose_name = _("Blog post")

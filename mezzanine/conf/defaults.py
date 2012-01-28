@@ -41,6 +41,13 @@ register_setting(
 )
 
 register_setting(
+    name="BLOG_USE_FEATURED_IMAGE",
+    description=_("Enable featured images in blog posts"),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="BLOG_URLS_USE_DATE",
     label=_("Use date URLs"),
     description=_("If ``True``, URLs for blog post include the month and "

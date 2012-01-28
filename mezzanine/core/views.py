@@ -79,5 +79,5 @@ def server_error(request, template_name='500.html'):
     context.
     """
     context = RequestContext(request, {"STATIC_URL": settings.STATIC_URL})
-    t = get_template(template_name, context)
+    t = get_template(template_name)
     return http.HttpResponseServerError(t.render(context))
