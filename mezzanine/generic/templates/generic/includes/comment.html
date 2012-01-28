@@ -22,13 +22,13 @@
         <a href="{{ request.path }}#comment-{{ comment.id }}">{% trans "Link" %}</a> /
         <a href="#reply-{{ comment.id }}" class="reply">{% trans "Reply" %}</a>
         <form method="post" id="reply-{{ comment.id }}"
-            class="form-stacked reply-form{% ifequal replied_to comment.id %} posted{% endifequal %}">
+            class="form-stacked reply-form{% if replied_to == comment.id %} posted{% endif %}">
             {% csrf_token %}
-            {% ifequal replied_to comment.id %}
+            {% if replied_to == comment.id %}
             {% fields_for posted_comment_form %}
             {% else %}
             {% fields_for unposted_comment_form %}
-            {% endifequal %}
+            {% endif %}
             <input type="hidden" name="replied_to" value="{{ comment.id }}">
             <input class="btn primary" type="submit" value="{% trans "Reply" %}">
         </form>

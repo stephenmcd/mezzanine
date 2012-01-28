@@ -66,10 +66,10 @@ window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 <div class="form-row" id="extra-login-fields" style="display:none;">
     <label class="required">{% trans "Interface:" %}</label>
     <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
-        value="admin"{% ifnotequal request.REQUEST.mezzanine_login_interface "site" %} checked{% endifnotequal %} />
+        value="admin"{% if request.REQUEST.mezzanine_login_interface != "site" %} checked{% endif %} />
     <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
     <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_site"
-        value="site"{% ifequal request.REQUEST.mezzanine_login_interface "site" %} checked{% endifequal %} />
+        value="site"{% if request.REQUEST.mezzanine_login_interface == "site" %} checked{% endif %} />
     <label class="interface" for="interface_site">{% trans "Site" %}</label>
 </div>
 {% endif %}
