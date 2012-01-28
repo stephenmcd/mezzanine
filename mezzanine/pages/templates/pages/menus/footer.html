@@ -2,25 +2,37 @@
 
 {% spaceless %}
 {% for page in page_branch %}
-
     {% if page.is_primary %}
         {% if forloop.first %}
-        <ul>
+            <ul>
         {% endif %}
-        <li><ul>
+        {% if page.in_footer %}
+            <li><ul>
+        {% endif %}
     {% endif %}
 
     {% if page.in_footer %}
-    <li {% if page.is_current_or_ascendant %}class="active"{% endif %}>
-        <a href="{% url page page.slug %}">{{ page.title }}</a></li>
+        {% if forloop.first and not page.parent.in_footer %}
+            <li><ul>
+        {% endif %}
+        <li {% if page.is_current_or_ascendant %}class="active"{% endif %}>
+            <a href="{% url page page.slug %}">{{ page.title }}</a></li>
     {% endif %}
 
     {% page_menu page %}
 
+    {% if page.in_footer %}
+        {% if forloop.first and not page.parent.in_footer %}
+            </li></ul>
+        {% endif %}
+    {% endif %}
+
     {% if page.is_primary %}
-        </ul></li>
+        {% if page.in_footer %}
+            </ul></li>
+        {% endif %}
         {% if forloop.last %}
-        </ul>
+            </ul>
         {% endif %}
     {% endif %}
 
