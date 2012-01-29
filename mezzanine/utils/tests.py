@@ -31,11 +31,15 @@ def copy_test_to_media(module, name):
     """
     mezzanine_path = path_for_import(module)
     test_path = os.path.join(mezzanine_path, "static", "test", name)
+    to_path = os.path.join(settings.MEDIA_ROOT, name)
+    to_dir = os.path.dirname(to_path)
+    if not os.path.exists(to_dir):
+        os.makedirs(to_dir)
     if os.path.isdir(test_path):
         copy = copytree
     else:
         copy = copyfile
-    copy(test_path, os.path.join(settings.MEDIA_ROOT, name))
+    copy(test_path, to_path)
 
 
 def _run_checker_for_package(checker, package_name):
