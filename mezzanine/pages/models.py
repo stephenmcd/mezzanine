@@ -94,7 +94,7 @@ class Page(Orderable, Displayable):
         """
         Dynamic ``add`` permission for content types to override.
         """
-        return True
+        return not self.overridden()
 
     def can_change(self, request):
         """
