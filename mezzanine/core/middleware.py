@@ -92,14 +92,20 @@ class SSLMiddleware(object):
                 if not request.is_secure():
                     return HttpResponseRedirect("https://%s" % url)
 
-if settings.SHOP_SSL_ENABLED:
+try:
+    settings.SHOP_SSL_ENABLED
     import warnings
     warnings.warn("SHOP_SSL_ENABLED deprecated; "
                   "use SITE_SSL_ENABLED, "
                   "mezzanine.core.middleware.SSLMiddleware and "
                   "SITE_FORCE_SSL_URL_PREFIXES",)
+except AttributeError:
+    pass
 
-if settings.SHOP_FORCE_HOST:
+try:
+    settings.SHOP_FORCE_HOST
     import warnings
     warnings.warn("SHOP_FORCE_HOST deprecated; "
                   "use SITE_FORCE_HOST",)
+except AttributeError:
+    pass
