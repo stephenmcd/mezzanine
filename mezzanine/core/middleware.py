@@ -91,6 +91,8 @@ class SSLMiddleware(object):
             if request.path.startswith(settings.SITE_FORCE_SSL_URL_PREFIXES):
                 if not request.is_secure():
                     return HttpResponseRedirect("https://%s" % url)
+            elif request.is_secure():
+                return HttpResponseRedirect("http://%s" % url)
 
 try:
     settings.SHOP_SSL_ENABLED
