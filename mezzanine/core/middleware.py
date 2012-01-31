@@ -72,3 +72,34 @@ class DeviceAwareFetchFromCacheMiddleware(DeviceAwareCacheMiddleware,
         self.set_key_prefix_for_device(request)
         return super(DeviceAwareFetchFromCacheMiddleware,
                      self).process_request(request)
+
+class SSLMiddleware(object):
+    """
+    Handles redirections required for SSL. If SITE_FORCE_HOST
+    is set and is not the current host, redirect to it if
+    SITE_SSL_ENABLED is True, and ensure checkout views are
+    accessed over HTTPS and all other views are accessed over HTTP.
+    """
+    def process_request(self, request):
+        settings.use_editable()
+        force_host = settings.SITE_FORCE_HOST
+        if force_host and request.get_host().split(":")[0] != force_host:
+            url = "http://%s%s" % (force_host, request.get_full_path())
+            return HttpResponsePermanentRedirect(url)
+        if settings.SITE_SSL_ENABLED and not settings.DEV_SERVER:
+            url = "%s%s" % (request.get_host(), request.get_full_path())
+            if request.path.startswith(settings.SITE_FORCE_SSL_URL_PREFIXES):
+                if not request.is_secure():
+                    return HttpResponseRedirect("https://%s" % url)
+
+if settings.SHOP_SSL_ENABLED:
+    import warnings
+    warnings.warn("SHOP_SSL_ENABLED deprecated; "
+                  "use SITE_SSL_ENABLED, "
+                  "mezzanine.core.middleware.SSLMiddleware and "
+                  "SITE_FORCE_SSL_URL_PREFIXES",)
+
+if settings.SHOP_FORCE_HOST:
+    import warnings
+    warnings.warn("SHOP_FORCE_HOST deprecated; "
+                  "use SITE_FORCE_HOST",)

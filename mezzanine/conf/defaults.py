@@ -4,6 +4,12 @@ from django.utils.translation import ugettext as _
 
 from mezzanine.conf import register_setting
 
+cartridge_installed = True
+
+try:
+    import cartridge
+except ImportError:
+        cartridge_installed = False
 
 register_setting(
     name="ADMIN_MENU_ORDER",
@@ -303,6 +309,34 @@ register_setting(
     description=_("Number of results shown in the search results page."),
     editable=True,
     default=10,
+)
+
+register_setting(
+    name="SITE_FORCE_HOST",
+    label=_("Force Host"),
+    description="Host name that the site should always be accessed via that "
+                "matches the SSL certificate.",
+    editable=True,
+    default="",
+)
+
+register_setting(
+    name="SITE_FORCE_SSL_URL_PREFIXES",
+    description="Sequence of prefixes.  URLs that start with any of them "
+                "will be forced to run over SSL when SITE_SSL_ENABLED is "
+                "True. i.e. ('/admin', '/example') would force all urls "
+                "beginning with /admin or /example to run over ssl.",
+    editable=False,
+    default=('/shop/checkout', '/shop/account') if cartridge_installed else (),
+)
+
+register_setting(
+    name="SITE_SSL_ENABLED",
+    label=_("Enable SSL"),
+    description="If True, users will be automatically redirect to HTTPS "
+                "for specified URL prefixes.",
+    editable=True,
+    default=False,
 )
 
 register_setting(
