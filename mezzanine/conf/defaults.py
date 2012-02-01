@@ -4,13 +4,6 @@ from django.utils.translation import ugettext as _
 
 from mezzanine.conf import register_setting
 
-cartridge_installed = True
-
-try:
-    import cartridge
-except ImportError:
-        cartridge_installed = False
-
 register_setting(
     name="ADMIN_MENU_ORDER",
     description=_("Controls the ordering and grouping of the admin menu."),
@@ -327,7 +320,7 @@ register_setting(
                 "True. i.e. ('/admin', '/example') would force all urls "
                 "beginning with /admin or /example to run over ssl.",
     editable=False,
-    default=('/shop/checkout', '/shop/account') if cartridge_installed else (),
+    default=(),
 )
 
 register_setting(
