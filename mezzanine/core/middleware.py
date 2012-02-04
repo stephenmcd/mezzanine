@@ -28,6 +28,14 @@ class AdminLoginInterfaceSelectorMiddleware(object):
         return None
 
 
+class AdminLoginInterfaceSelector(AdminLoginInterfaceSelectorMiddleware):
+    def __init__(self):
+        import warnings
+        old = "mezzanine.core.middleware.AdminLoginInterfaceSelector"
+        warnings.warn("%s is deprecated. Please change the MIDDLEWARE_CLASSES "
+                      "setting to use %sMiddleware" % (old, old))
+
+
 class TemplateForDeviceMiddleware(object):
 
     def process_template_response(self, request, response):

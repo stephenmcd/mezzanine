@@ -8,7 +8,6 @@ from datetime import datetime
 import os.path
 from shutil import copyfile, move
 from socket import gethostname
-import sys
 
 from django.utils.datastructures import SortedDict
 from PIL import Image
