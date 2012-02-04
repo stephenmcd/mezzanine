@@ -305,34 +305,6 @@ register_setting(
 )
 
 register_setting(
-    name="SITE_FORCE_HOST",
-    label=_("Force Host"),
-    description="Host name that the site should always be accessed via that "
-                "matches the SSL certificate.",
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="SITE_FORCE_SSL_URL_PREFIXES",
-    description="Sequence of prefixes.  URLs that start with any of them "
-                "will be forced to run over SSL when SITE_SSL_ENABLED is "
-                "True. i.e. ('/admin', '/example') would force all urls "
-                "beginning with /admin or /example to run over ssl.",
-    editable=False,
-    default=(),
-)
-
-register_setting(
-    name="SITE_SSL_ENABLED",
-    label=_("Enable SSL"),
-    description="If True, users will be automatically redirect to HTTPS "
-                "for specified URL prefixes.",
-    editable=True,
-    default=False,
-)
-
-register_setting(
     name="SITE_TITLE",
     label=_("Site Title"),
     description=_("Title that will display at the top of the site, and be "
@@ -347,6 +319,35 @@ register_setting(
     description=_("A tag line that will appear at the top of all pages."),
     editable=True,
     default=_("An open source content management platform."),
+)
+
+register_setting(
+    name="SSL_FORCE_HOST",
+    label=_("Force Host"),
+    description="Host name that the site should always be accessed via that "
+                "matches the SSL certificate.",
+    editable=True,
+    default="",
+)
+
+register_setting(
+    name="SSL_FORCE_URL_PREFIXES",
+    description="Sequence of URL prefixes that will be forced to run over "
+                "SSL when ``SSL_ENABLED`` is ``True``. i.e. "
+                "('/admin', '/example') would force all URLs beginning with "
+                "/admin or /example to run over SSL.",
+    editable=False,
+    default=(),
+)
+
+register_setting(
+    name="SSL_ENABLED",
+    label=_("Enable SSL"),
+    description="If ``True``, users will be automatically redirect to HTTPS "
+                "for the URLs soecified by the ``SSL_FORCE_URL_PREFIXES`` "
+                "setting.",
+    editable=True,
+    default=False,
 )
 
 register_setting(

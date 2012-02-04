@@ -1,6 +1,6 @@
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.middleware.cache import UpdateCacheMiddleware
 from django.middleware.cache import FetchFromCacheMiddleware
 
@@ -73,41 +73,27 @@ class DeviceAwareFetchFromCacheMiddleware(DeviceAwareCacheMiddleware,
         return super(DeviceAwareFetchFromCacheMiddleware,
                      self).process_request(request)
 
-class SSLMiddleware(object):
+
+class SSLRedirectMiddleware(object):
     """
-    Handles redirections required for SSL. If SITE_FORCE_HOST
-    is set and is not the current host, redirect to it if
-    SITE_SSL_ENABLED is True, and ensure checkout views are
-    accessed over HTTPS and all other views are accessed over HTTP.
+    Handles redirections required for SSL when ``SSL_ENABLED`` is ``True``.
+
+    If ``SSL_FORCE_HOST`` is ``True``, and is not the current host,
+    redirect to it.
+
+    Also ensure URLs defined by ``SSL_FORCE_URL_PREFIXES`` are redirect
+    to HTTPS, and redirect all other URLs to HTTP if on HTTPS.
     """
     def process_request(self, request):
         settings.use_editable()
-        force_host = settings.SITE_FORCE_HOST
+        force_host = settings.SSL_FORCE_HOST
         if force_host and request.get_host().split(":")[0] != force_host:
             url = "http://%s%s" % (force_host, request.get_full_path())
             return HttpResponsePermanentRedirect(url)
-        if settings.SITE_SSL_ENABLED and not settings.DEV_SERVER:
+        if settings.SSL_ENABLED and not settings.DEV_SERVER:
             url = "%s%s" % (request.get_host(), request.get_full_path())
-            if request.path.startswith(settings.SITE_FORCE_SSL_URL_PREFIXES):
+            if request.path.startswith(settings.SSL_FORCE_URL_PREFIXES):
                 if not request.is_secure():
                     return HttpResponseRedirect("https://%s" % url)
             elif request.is_secure():
                 return HttpResponseRedirect("http://%s" % url)
-
-try:
-    settings.SHOP_SSL_ENABLED
-    import warnings
-    warnings.warn("SHOP_SSL_ENABLED deprecated; "
-                  "use SITE_SSL_ENABLED, "
-                  "mezzanine.core.middleware.SSLMiddleware and "
-                  "SITE_FORCE_SSL_URL_PREFIXES",)
-except AttributeError:
-    pass
-
-try:
-    settings.SHOP_FORCE_HOST
-    import warnings
-    warnings.warn("SHOP_FORCE_HOST deprecated; "
-                  "use SITE_FORCE_HOST",)
-except AttributeError:
-    pass
