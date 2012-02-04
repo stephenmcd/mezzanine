@@ -1,3 +1,14 @@
+"""
+Default settings for all of Mezzanine's apps. Each of these can be
+overridden in your project's settings module, just like regular
+Django settings. The ``editable`` argument for each controls whether
+the setting is editable via Django's admin.
+
+Thought should be given to how a setting is actually used before
+making it editable, as it may be inappropriate - for example settings
+that are only read during startup shouldn't be editable, since changing
+them would require an application reload.
+"""
 
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -408,6 +419,15 @@ register_setting(
         "created relative to the original image's directory."),
     editable=False,
     default=".thumbnails",
+)
+
+register_setting(
+    name="TINYMCE_SETUP_JS",
+    description=_("URL for the JavaScript file (relative to ``STATIC_URL``) "
+        "that handles configuring TinyMCE when the default "
+        "``RICHTEXT_WIDGET_CLASS`` is used."),
+    editable=False,
+    default="mezzanine/js/tinymce_setup.js",
 )
 
 # The following settings are defined here for documentation purposes

@@ -19,7 +19,7 @@ class TinyMceWidget(forms.Textarea):
     class Media:
         js = (settings.ADMIN_MEDIA_PREFIX +
               "tinymce/jscripts/tiny_mce/tiny_mce.js",
-              "mezzanine/js/tinymce_setup.js",)
+              settings.TINYMCE_SETUP_JS,)
 
     def __init__(self, *args, **kwargs):
         super(TinyMceWidget, self).__init__(*args, **kwargs)
