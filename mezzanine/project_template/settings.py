@@ -3,9 +3,9 @@
 # MEZZANINE SETTINGS #
 ######################
 
-# The following Mezzanine settings are already defined in
-# mezzanine.conf.defaults, but can be uncommented below in
-# order to override their defaults.
+# The following settings are already defined in mezzanine.conf.defaults
+# with default values, but are common enough to be put here, commented
+# out, for convenient overriding.
 
 # Controls the ordering and grouping of the admin menu.
 #
@@ -58,7 +58,30 @@
 
 # Setting to turn on featured images for blog posts. Defaults to False.
 #
-BLOG_USE_FEATURED_IMAGE = True
+# BLOG_USE_FEATURED_IMAGE = True
+
+# Turns on accounts for website visitors. Will add the
+# LOGIN_URL/LOGOUT_URL values to urlpatterns, and show login/logout
+# links in templates/includes/user_panel.html. Defaults to False.
+#
+# ACCOUNTS_ENABLED = True
+
+# If ``True``, users will be automatically redirected to HTTPS
+# for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting.
+#
+# SSL_ENABLED = True
+
+# Host name that the site should always be accessed via that matches
+# the SSL certificate.
+#
+# SSL_FORCE_HOST = "www.example.com"
+
+# Sequence of URL prefixes that will be forced to run over
+# SSL when ``SSL_ENABLED`` is ``True``. i.e.
+# ('/admin', '/example') would force all URLs beginning with
+# /admin or /example to run over SSL. Defaults to:
+#
+# SSL_FORCE_URL_PREFIXES = ("/admin", "/account")
 
 # If True, the south application will be automatically added to the
 # INSTALLED_APPS setting. This setting is not defined in
@@ -118,6 +141,10 @@ TEMPLATE_LOADERS = (
     "django.template.loaders.filesystem.Loader",
     "django.template.loaders.app_directories.Loader",
 )
+
+# URLs used for login/logout when ACCOUNTS_ENABLED is set to True.
+LOGIN_URL = "/account/"
+LOGOUT_URL = "/account/logout/"
 
 
 #############
@@ -191,9 +218,6 @@ ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
-
-LOGIN_URL = "/admin/"
-LOGIN_REDIRECT_URL = "/admin/"
 
 
 ################

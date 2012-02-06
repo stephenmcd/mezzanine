@@ -73,9 +73,7 @@ $(function() {$('.form-stacked').find('input:text, textarea').addClass('xlarge')
 </div>
 
 <div class="span4 right">
-    {% if "cartridge.shop"|is_installed %}
-    {% include "shop/includes/cart_panel.html" %}
-    {% endif %}
+    {% include "includes/user_panel.html" %}
     <div class="panel">
     {% block right_panel %}
     {% if "mezzanine.twitter"|is_installed %}

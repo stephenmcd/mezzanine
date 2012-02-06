@@ -15,6 +15,14 @@ from django.utils.translation import ugettext as _
 
 from mezzanine.conf import register_setting
 
+
+register_setting(
+    name="ACCOUNTS_ENABLED",
+    description="If True, users can create an account.",
+    editable=False,
+    default=False,
+)
+
 register_setting(
     name="ADMIN_MENU_ORDER",
     description=_("Controls the ordering and grouping of the admin menu."),
@@ -333,6 +341,16 @@ register_setting(
 )
 
 register_setting(
+    name="SSL_ENABLED",
+    label=_("Enable SSL"),
+    description="If ``True``, users will be automatically redirected to HTTPS "
+                "for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` "
+                "setting.",
+    editable=True,
+    default=False,
+)
+
+register_setting(
     name="SSL_FORCE_HOST",
     label=_("Force Host"),
     description="Host name that the site should always be accessed via that "
@@ -348,17 +366,7 @@ register_setting(
                 "('/admin', '/example') would force all URLs beginning with "
                 "/admin or /example to run over SSL.",
     editable=False,
-    default=(),
-)
-
-register_setting(
-    name="SSL_ENABLED",
-    label=_("Enable SSL"),
-    description="If ``True``, users will be automatically redirect to HTTPS "
-                "for the URLs soecified by the ``SSL_FORCE_URL_PREFIXES`` "
-                "setting.",
-    editable=True,
-    default=False,
+    default=("/admin", "/account"),
 )
 
 register_setting(
@@ -431,13 +439,12 @@ register_setting(
     description=_("Sequence of setting names available within templates."),
     editable=False,
     default=(
-        "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
+        "ACCOUNTS_ENABLED", "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
-        "DEV_SERVER", "FORMS_USE_HTML5",
-        "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID",
-        "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE",
-        "RATINGS_MAX",
+        "DEV_SERVER", "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED",
+        "GOOGLE_ANALYTICS_ID", "LOGIN_URL", "LOGOUT_URL",
+        "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE", "RATINGS_MAX",
     ),
 )
 

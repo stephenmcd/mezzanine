@@ -39,7 +39,10 @@ def copy_test_to_media(module, name):
         copy = copytree
     else:
         copy = copyfile
-    copy(test_path, to_path)
+    try:
+        copy(test_path, to_path)
+    except OSError:
+        pass
 
 
 def _run_checker_for_package(checker, package_name):

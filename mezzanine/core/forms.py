@@ -1,6 +1,8 @@
 
 from uuid import uuid4
 
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.safestring import mark_safe
@@ -24,6 +26,65 @@ class TinyMceWidget(forms.Textarea):
     def __init__(self, *args, **kwargs):
         super(TinyMceWidget, self).__init__(*args, **kwargs)
         self.attrs["class"] = "mceEditor"
+
+
+class UserForm(forms.Form):
+    """
+    Fields for signup & login.
+    """
+    email = forms.EmailField(label=_("Email Address"))
+    password = forms.CharField(label=_("Password"),
+        widget=forms.PasswordInput(render_value=False))
+
+    def authenticate(self):
+        """
+        Validate email and password as well as setting the user for login.
+        """
+        self._user = authenticate(username=self.cleaned_data.get("email", ""),
+                               password=self.cleaned_data.get("password", ""))
+
+    def login(self, request):
+        """
+        Log the user in.
+        """
+        login(request, self._user)
+
+
+class SignupForm(UserForm):
+
+    def clean_email(self):
+        """
+        Ensure the email address is not already registered.
+        """
+        email = self.cleaned_data["email"]
+        try:
+            User.objects.get(username=email)
+        except User.DoesNotExist:
+            return email
+        raise forms.ValidationError(_("This email is already registered"))
+
+    def save(self):
+        """
+        Create the new user using their email address as their username.
+        """
+        User.objects.create_user(self.cleaned_data["email"],
+            self.cleaned_data["email"], self.cleaned_data["password"])
+        self.authenticate()
+
+
+class LoginForm(UserForm):
+
+    def clean(self):
+        """
+        Authenticate the email/password.
+        """
+        if "email" in self.cleaned_data and "password" in self.cleaned_data:
+            self.authenticate()
+            if self._user is None:
+                raise forms.ValidationError(_("Invalid email/password"))
+            elif not self._user.is_active:
+                raise forms.ValidationError(_("Your account is inactive"))
+        return self.cleaned_data
 
 
 class OrderWidget(forms.HiddenInput):

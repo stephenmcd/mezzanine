@@ -32,6 +32,8 @@ footer li li {float:none; clear:both; width:120px; padding:10px 0; margin-right:
 footer p {margin-top:40px; text-align:center; font-size:11px;}
 .pagination {margin-top:40px;}
 .pagination p {float:left;}
+.account-btn, .account-btn:active {float:right; margin:0 5px 5px 0 !important;
+                                   box-shadow:none; -webkit-box-shadow:none;}
 
 /* Forms */
 .form-stacked {padding-left:0;}

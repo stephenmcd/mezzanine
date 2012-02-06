@@ -46,13 +46,21 @@ class Tests(TestCase):
         args = (self._username, "example@example.com", self._password)
         self._user = User.objects.create_superuser(*args)
 
+    def test_account(self):
+        """
+        Test the account views.
+        """
+        if settings.ACCOUNTS_ENABLED:
+            response = self.client.get(reverse("account"))
+            self.assertEqual(response.status_code, 200)
+
     def test_draft_page(self):
         """
         Test a draft page as only being viewable by a staff member.
         """
         self.client.logout()
         draft = RichTextPage.objects.create(title="Draft",
-                                           status=CONTENT_STATUS_DRAFT)
+                                            status=CONTENT_STATUS_DRAFT)
         response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 404)
         self.client.login(username=self._username, password=self._password)

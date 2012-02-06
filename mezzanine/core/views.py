@@ -1,6 +1,8 @@
 
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
+from django.contrib.auth import logout as auth_logout
+from django.contrib.messages import info
 from django.db.models import get_model
 from django import http
 from django.shortcuts import redirect
@@ -9,10 +11,47 @@ from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
-from mezzanine.core.forms import get_edit_form
+from mezzanine.core.forms import LoginForm, SignupForm, get_edit_form
 from mezzanine.core.models import Displayable
 from mezzanine.utils.views import is_editable, paginate, render
 from mezzanine.utils.views import set_cookie
+
+
+def account(request, template="account.html"):
+    """
+    Display and handle both the login and signup forms.
+    """
+    login_form = LoginForm()
+    signup_form = SignupForm()
+    if request.method == "POST":
+        posted_form = None
+        message = ""
+        if request.POST.get("login") is not None:
+            login_form = LoginForm(request.POST)
+            if login_form.is_valid():
+                posted_form = login_form
+                message = _("Successfully logged in")
+        else:
+            signup_form = SignupForm(request.POST)
+            if signup_form.is_valid():
+                signup_form.save()
+                posted_form = signup_form
+                message = _("Successfully signed up")
+        if posted_form is not None:
+            posted_form.login(request)
+            info(request, message)
+            return redirect(request.GET.get("next", "/"))
+    context = {"login_form": login_form, "signup_form": signup_form}
+    return render(request, template, context)
+
+
+def logout(request):
+    """
+    Log the user out.
+    """
+    auth_logout(request)
+    info(request, _("Successfully logged out"))
+    return redirect(request.GET.get("next", "/"))
 
 
 def set_device(request, device=""):
