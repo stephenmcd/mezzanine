@@ -1,4 +1,6 @@
 
+from copy import copy
+
 from django.contrib.contenttypes.generic import GenericRelation
 from django.db.models import IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
@@ -50,7 +52,7 @@ class BaseGenericRelation(GenericRelation):
                     name_string = name_string % name
                 if not field.verbose_name:
                     field.verbose_name = self.verbose_name
-                cls.add_to_class(name_string, field)
+                cls.add_to_class(name_string, copy(field))
             # For some unknown reason the signal won't be triggered
             # if given a sender arg, particularly when running
             # Cartridge with the field RichTextPage.keywords - so
