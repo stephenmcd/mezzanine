@@ -94,8 +94,9 @@ class BaseGenericRelation(GenericRelation):
 
 class CommentsField(BaseGenericRelation):
     """
-    Stores the number of comments against the ``COMMENTS_FIELD_count``
-    field when a comment is saved or deleted.
+    Stores the number of comments against the
+    ``COMMENTS_FIELD_NAME_count`` field when a comment is saved or
+    deleted.
     """
 
     related_model = "generic.ThreadedComment"
@@ -119,12 +120,13 @@ class CommentsField(BaseGenericRelation):
 class KeywordsField(BaseGenericRelation):
     """
     Stores the keywords as a single string into the
-    ``KEYWORDS_FIELD_string``  field for convenient access when
+    ``KEYWORDS_FIELD_NAME_string`` field for convenient access when
     searching.
     """
 
     related_model = "generic.AssignedKeyword"
-    fields = {"%s_string": CharField(blank=True, max_length=500)}
+    fields = {"%s_string": CharField(editable=False, blank=True,
+                                     max_length=500)}
 
     def __init__(self, *args, **kwargs):
         """
@@ -203,13 +205,14 @@ class KeywordsField(BaseGenericRelation):
 
 class RatingField(BaseGenericRelation):
     """
-    Stores the average rating against the ``RATING_FIELD_average``
-    field when a rating is saved or deleted.
+    Stores the rating count and average against the
+    ``RATING_FIELD_NAME_count`` and ``RATING_FIELD_NAME_average``
+    fields when a rating is saved or deleted.
     """
 
     related_model = "generic.Rating"
-    fields = {"%s_count": IntegerField(default=0),
-              "%s_average": FloatField(default=0)}
+    fields = {"%s_count": IntegerField(default=0, editable=False),
+              "%s_average": FloatField(default=0, editable=False)}
 
     def related_items_changed(self, instance, related_manager):
         """
