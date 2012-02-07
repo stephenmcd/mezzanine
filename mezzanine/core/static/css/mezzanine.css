@@ -15,7 +15,7 @@ pre code {background:inherit;}
 
 /* Navigation */
 .topbar {z-index:500;}
-#primary-menu {overflow:hidden; max-width:500px; height:40px;}
+.topbar #primary-menu {overflow:hidden; max-width:500px; height:40px;}
 .tree-menu-level-0 .active {font-weight:bold;}
 .tree-menu-level-0 li {margin:5px; padding:5px 0;}
 .tree-menu-level-1 li, footer li li {list-style:square inside;}
