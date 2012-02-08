@@ -43,8 +43,13 @@ $(function() {
 
     // Show previously opened branches.
     if (ids) {
-        $('#page-' + ids.split(',').join(', #page-')).click();
-    }
+    	$('#page-' + ids.split(',').join(', #page-')).each(function(){
+			var pageLink = $(this);
+			pageLink.parent().parent().find('ul:first').toggle();			
+			pageLink.find('.close').css('display', 'inline');
+			pageLink.find('.open').css('display', 'none');
+		});
+	}
 
     // The dropdown list for adding a new page contains URLs for each
     // model - redirect when selected.
