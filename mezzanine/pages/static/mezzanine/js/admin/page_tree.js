@@ -32,7 +32,7 @@ $(function() {
     $('#tree .tree-toggle').click(function() {
         // Show/hide the branch and toggle the icon.
         var pageLink = $(this);
-        pageLink.parent().parent().find('ul').toggle();
+        pageLink.parent().parent().find('ul:first').toggle();
         pageLink.find('.icon').toggle();
         // Add or remove the page ID from the cookie.
         var opened = pageLink.find('.close:visible').length == 1;
