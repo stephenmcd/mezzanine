@@ -2,6 +2,7 @@
 from __future__ import with_statement
 import os
 
+
 exclude = ["mezzanine/project_template/mezzanine.db",
            "mezzanine/project_template/local_settings.py"]
 exclude = dict([(e, None) for e in exclude])
