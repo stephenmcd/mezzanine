@@ -36,6 +36,9 @@ def rating(request):
         model = get_model(*request.POST["content_type"].split(".", 1))
         obj = model.objects.get(id=request.POST["object_pk"])
         url = obj.get_absolute_url() + "#rating-%s" % obj.id
+        field = getattr(obj, request.POST["field_name"])
+        if field.model != Rating:
+            raise TypeError("Not a rating field.")
     except (KeyError, TypeError, AttributeError, ObjectDoesNotExist):
         # Something was missing from the post so abort.
         return HttpResponseRedirect("/")
@@ -43,15 +46,14 @@ def rating(request):
         rating_value = int(request.POST["value"])
     except (KeyError, ValueError):
         return HttpResponseRedirect(url)
-    ratings = request.COOKIES.get("mezzanine-rating", "").split(",")
-    rating_string = "%s.%s" % (request.POST["content_type"],
-                               request.POST["object_pk"])
-    if rating_string in ratings:
+    rated = request.COOKIES.get("mezzanine-rating", "").split(",")
+    cookie = "%(content_type)s.%(object_pk)s.%(field_name)s" % request.POST
+    if cookie in rated:
         # Already rated so abort.
         return HttpResponseRedirect(url)
-    obj.rating.add(Rating(value=rating_value))
+    field.add(Rating(value=rating_value))
     response = HttpResponseRedirect(url)
-    ratings.append(rating_string)
+    rated.append(cookie)
     expiry = 60 * 60 * 24 * 365
-    set_cookie(response, "mezzanine-rating", ",".join(ratings), expiry)
+    set_cookie(response, "mezzanine-rating", ",".join(rated), expiry)
     return response

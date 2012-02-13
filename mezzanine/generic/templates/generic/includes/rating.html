@@ -3,8 +3,8 @@
 <div class="panel rating">
 
 <p id="rating-{{ object_for_rating.id }}">
-    {% if object_for_rating.rating_average %}
-    {% trans "Current rating" %}: {{ object_for_rating.rating_average|floatformat }}
+    {% if rating_average %}
+    {% trans "Current rating" %}: {{ rating_average|floatformat }}
     {% else %}
     {% trans "Currently unrated" %}
     {% endif %}
