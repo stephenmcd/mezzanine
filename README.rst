@@ -212,6 +212,7 @@ Sites Using Mezzanine
   * `IJC Digital`_
   * `Coopers`_
   * `Joe Julian`_
+  * `Sheer Ethic`_
 
 Quotes
 ======
@@ -291,6 +292,7 @@ Quotes
 .. _`IJC Digital`: http://ijcdigital.com/
 .. _`Coopers`: http://store.coopers.com.au/
 .. _`Joe Julian`: http://joejulian.name/
+.. _`Sheer Ethic`: http://sheerethic.com/
 
 .. THIRD PARTY LIBS
 
