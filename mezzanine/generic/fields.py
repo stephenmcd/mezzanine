@@ -2,6 +2,7 @@
 from copy import copy
 
 from django.contrib.contenttypes.generic import GenericRelation
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
 
@@ -43,6 +44,12 @@ class BaseGenericRelation(GenericRelation):
         the related item save and delete signals for calling
         ``related_items_changed``.
         """
+        for field in cls._meta.many_to_many:
+            if isinstance(field, self.__class__):
+                e = "Multiple %s fields are not supported (%s.%s, %s.%s)" % (
+                    self.__class__.__name__, cls.__name__, cls.__name__,
+                    name, field.name)
+                raise ImproperlyConfigured(e)
         super(BaseGenericRelation, self).contribute_to_class(cls, name)
         self.related_field_name = name
         # Not applicable to abstract classes, and in fact will break.
