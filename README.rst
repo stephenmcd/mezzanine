@@ -213,6 +213,8 @@ Sites Using Mezzanine
   * `Coopers`_
   * `Joe Julian`_
   * `Sheer Ethic`_
+  * `Salt Lake Magazine`_
+  * `Boca Raton Magazine`_
 
 Quotes
 ======
@@ -293,6 +295,8 @@ Quotes
 .. _`Coopers`: http://store.coopers.com.au/
 .. _`Joe Julian`: http://joejulian.name/
 .. _`Sheer Ethic`: http://sheerethic.com/
+.. _`Salt Lake Magazine`: http://saltlakemagazine.com/
+.. _`Boca Raton Magazine`: http://bocamag.com/
 
 .. THIRD PARTY LIBS
 
