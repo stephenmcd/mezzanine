@@ -100,10 +100,10 @@ class FormAdmin(PageAdmin):
                 csv.writerow(entries_form.columns())
                 for row in entries_form.rows(csv=True):
                     csv.writerow(row)
-                    # Decode and reencode the response into utf-16 to be
-                    # Excel compatible.
-                    data = queue.getvalue().decode("utf-8").encode("utf-16")
-                    response.write(data)
+                # Decode and reencode the response into utf-16 to be
+                # Excel compatible.
+                data = queue.getvalue().decode("utf-8").encode("utf-16")
+                response.write(data)
                 return response
             elif request.POST.get("delete") and can_delete_entries:
                 selected = request.POST.getlist("selected")
