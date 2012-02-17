@@ -40,6 +40,7 @@ window.__csrf_token = '{{ csrf_token }}';
 window.__admin_keywords_submit_url = '{% try_url "admin_keywords_submit" %}';
 window.__filebrowser_url = '{% try_url "fb_browse" %}';
 window.__admin_url = '{% try_url "admin:index" %}';
+window.__admin_media_prefix__ = '{{ settings.ADMIN_MEDIA_PREFIX }}';
 window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 </script>
 {% if not settings.GRAPPELLI_INSTALLED %}
