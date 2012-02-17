@@ -29,14 +29,12 @@ def keywords_for(*args):
         obj = args[0]
         if hasattr(obj, "get_content_model"):
             obj = obj.get_content_model()
-        # For now we just use the first ``KeywordsField`` found.
+        # There can only be one ``KeywordsField``, find it.
         for field in obj._meta.many_to_many:
             if isinstance(field, KeywordsField):
                 break
         else:
-            error = ("The first argument `%s` given for the keywords_for tag "
-                     "does not contain a `KeywordsField`." % args[0])
-            raise TemplateSyntaxError(error)
+            return []
         keywords_manager = getattr(obj, field.name)
         return [a.keyword for a in keywords_manager.select_related("keyword")]
 
