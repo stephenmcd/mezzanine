@@ -127,7 +127,7 @@ class Tests(TestCase):
         """
         blog_post = BlogPost.objects.create(title="Ratings", user=self._user,
                                             status=CONTENT_STATUS_PUBLISHED)
-        data = RatingForm(blog_post, initial={"field_name": "rating"}).initial
+        data = RatingForm(blog_post).initial
         for value in RATING_RANGE:
             data["value"] = value
             response = self.client.post(reverse("rating"), data=data)

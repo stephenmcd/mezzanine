@@ -3,6 +3,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import get_model, ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 
+from mezzanine.generic.fields import RatingField
 from mezzanine.generic.forms import ThreadedCommentForm
 from mezzanine.generic.models import Keyword, Rating
 from mezzanine.utils.views import render, set_cookie
@@ -74,9 +75,6 @@ def rating(request):
         model = get_model(*request.POST["content_type"].split(".", 1))
         obj = model.objects.get(id=request.POST["object_pk"])
         url = obj.get_absolute_url() + "#rating-%s" % obj.id
-        field = getattr(obj, request.POST["field_name"])
-        if field.model != Rating:
-            raise TypeError("Not a rating field.")
     except (KeyError, TypeError, AttributeError, ObjectDoesNotExist):
         # Something was missing from the post so abort.
         return HttpResponseRedirect("/")
@@ -84,14 +82,22 @@ def rating(request):
         rating_value = int(request.POST["value"])
     except (KeyError, ValueError):
         return HttpResponseRedirect(url)
-    rated = request.COOKIES.get("mezzanine-rating", "").split(",")
-    cookie = "%(content_type)s.%(object_pk)s.%(field_name)s" % request.POST
-    if cookie in rated:
+    # There can only be one ``RatingField``, find its manager.
+    for field in obj._meta.many_to_many:
+        if isinstance(field, RatingField):
+            rating_manager = getattr(obj, field.name)
+            break
+    else:
+        raise TypeError("%s doesn't contain a RatingField." % obj)
+    ratings = request.COOKIES.get("mezzanine-rating", "").split(",")
+    rating_string = "%s.%s" % (request.POST["content_type"],
+                               request.POST["object_pk"])
+    if rating_string in ratings:
         # Already rated so abort.
         return HttpResponseRedirect(url)
-    field.add(Rating(value=rating_value))
+    rating_manager.add(Rating(value=rating_value))
     response = HttpResponseRedirect(url)
-    rated.append(cookie)
+    ratings.append(rating_string)
     expiry = 60 * 60 * 24 * 365
-    set_cookie(response, "mezzanine-rating", ",".join(rated), expiry)
+    set_cookie(response, "mezzanine-rating", ",".join(ratings), expiry)
     return response
