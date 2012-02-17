@@ -297,6 +297,7 @@ Quotes
 .. _`Sheer Ethic`: http://sheerethic.com/
 .. _`Salt Lake Magazine`: http://saltlakemagazine.com/
 .. _`Boca Raton Magazine`: http://bocamag.com/
+.. _`Photog.me`: http://www.photog.me/
 
 .. THIRD PARTY LIBS
 
