@@ -9,7 +9,6 @@ from django.shortcuts import get_object_or_404
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
 from mezzanine.generic.models import AssignedKeyword, Keyword
-from mezzanine.generic.utils import handle_comments
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.views import render, paginate
 
@@ -85,8 +84,8 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     return render(request, templates, context)
 
 
-def blog_post_detail(request, slug, template="blog/blog_post_detail.html",
-                             year=None, month=None,):
+def blog_post_detail(request, slug, year=None, month=None,
+                     template="blog/blog_post_detail.html"):
     """
     Display a blog post and handle comment submission. Custom
     templates are checked for using the name
@@ -95,13 +94,6 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html",
     """
     blog_posts = BlogPost.objects.published(for_user=request.user)
     blog_post = get_object_or_404(blog_posts, slug=slug)
-    # Handle comments
-    comment_parts = handle_comments(blog_post, request)
-    posted_comment_form, unposted_comment_form, response = comment_parts
-    if response is not None:
-        return response
-    context = {"blog_page": blog_page(), "blog_post": blog_post,
-               "posted_comment_form": posted_comment_form,
-               "unposted_comment_form": unposted_comment_form}
+    context = {"blog_page": blog_page(), "blog_post": blog_post}
     templates = [u"blog/blog_post_detail_%s.html" % slug, template]
     return render(request, templates, context)

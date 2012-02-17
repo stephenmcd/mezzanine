@@ -81,6 +81,24 @@ class ThreadedCommentForm(CommentForm):
     url = forms.URLField(label=_("Website"), help_text=_("optional"),
                          required=False)
 
+    # These are used to get/set prepopulated fields via cookies.
+    cookie_fields = ("name", "email", "url")
+    cookie_prefix = "mezzanine-comment-"
+
+    def __init__(self, request, *args, **kwargs):
+        kwargs.setdefault("initial", {})
+        user = request.user
+        for field in ThreadedCommentForm.cookie_fields:
+            cookie_name = ThreadedCommentForm.cookie_prefix + field
+            value = request.COOKIES.get(cookie_name, "")
+            if not value and user.is_authenticated():
+                if field == "name":
+                    value = user.get_full_name() or user.username
+                elif field == "email":
+                    value = user.email
+            kwargs["initial"][field] = value
+        super(ThreadedCommentForm, self).__init__(*args, **kwargs)
+
     def get_comment_model(self):
         """
         Use the custom comment model instead of the built-in one.

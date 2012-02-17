@@ -75,18 +75,14 @@ a.large, input.large {width:auto; min-width:100px; margin-right:10px;}
 .rating label {width:auto; margin-right:15px; float:none;}
 
 /* Comments */
-.author {background:#fafbd2;}
-.comment-unapproved, .comment-removed {text-decoration:line-through;}
-.comment-unapproved {color:#060;}
-.comment-removed {color:#f00;}
+.comment-author {background:#feffee !important;}
 #comment {margin-top:10px;}
-#comments li {padding:15px; display:block; border:1px solid #eee;
-              border-top-width:5px; margin-top:10px;}
+#comments li {padding:15px; display:block; border:2px solid #eee;
+              margin-top:10px; background:#fff; border-radius:3px;}
 #comments li ul {padding:5px 0 0 30px;}
 #comments img {margin-right:5px; vertical-align:middle;}
-.reply-form {display:none; margin-top:10px;}
+.reply-form {margin-top:10px;}
 .reply-form textarea {width:270px; margin-bottom:10px;}
-.input_id_honeypot {display:none;}
 
 /* Galleries */
 .gallery {margin-top:20px;}
