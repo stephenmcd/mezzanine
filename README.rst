@@ -183,38 +183,39 @@ please use the `GitHub issue tracker`_.
 Sites Using Mezzanine
 =====================
 
-  * `Citrus Agency`_
-  * `Mezzanine Project`_
-  * `Nick Hagianis`_
-  * `Thomas Johnson`_
-  * `Central Mosque Wembley`_
-  * `Ovarian Cancer Research Foundation`_
-  * `The Source Procurement`_
-  * `Imageinary`_
-  * `Brad Montgomery`_
-  * `Jashua Cloutier`_
-  * `Alpha & Omega Contractors`_
-  * `Equity Advance`_
-  * `Head3 Interactive`_
-  * `PyLadies`_
-  * `Ripe Maternity`_
-  * `Cotton On`_
-  * `List G Barristers`_
-  * `Tri-Cities Flower Farm`_
-  * `daon.ru`_
-  * `autoindeks.ru`_
-  * `immiau.ru`_
-  * `ARA Consultants`_
-  * `Boîte à Z'images`_
-  * `The Melbourne Cup`_
-  * `Diablo News`_
-  * `Goldman Travel`_
-  * `IJC Digital`_
-  * `Coopers`_
-  * `Joe Julian`_
-  * `Sheer Ethic`_
-  * `Salt Lake Magazine`_
-  * `Boca Raton Magazine`_
+  * `Citrus Agency <http://citrus.com.au>`_
+  * `Mezzanine Project <http://mezzanine.jupo.org>`_
+  * `Nick Hagianis <http://hagianis.com>`_
+  * `Thomas Johnson <http://tomfmason.net>`_
+  * `Central Mosque Wembley <http://wembley-mosque.co.uk>`_
+  * `Ovarian Cancer Research Foundation <http://ocrf.com.au>`_
+  * `The Source Procurement <http://thesource.com.au>`_
+  * `Imageinary <http://imageinary.com>`_
+  * `Brad Montgomery <http://blog.bradmontgomery.net>`_
+  * `Jashua Cloutier <http://www.senexcanis.com>`_
+  * `Alpha & Omega Contractors <http://alphaomegacontractors.com>`_
+  * `Equity Advance <http://equityadvance.com.au>`_
+  * `Head3 Interactive <http://head3.com>`_
+  * `PyLadies <http://www.pyladies.com>`_
+  * `Ripe Maternity <http://www.ripematernity.com>`_
+  * `Cotton On <http://shop.cottonon.com>`_
+  * `List G Barristers <http://www.listgbarristers.com.au>`_
+  * `Tri-Cities Flower Farm <http://www.tricitiesflowerfarm.com>`_
+  * `daon.ru <http://daon.ru>`_
+  * `autoindeks.ru <http://autoindeks.ru>`_
+  * `immiau.ru <http://immiau.ru>`_
+  * `ARA Consultants <http://www.araconsultants.com.au>`_
+  * `Boîte à Z'images <http://boiteazimages.com>`_
+  * `The Melbourne Cup <http://www.melbournecup.com>`_
+  * `Diablo News <http://www.diablo-news.com>`_
+  * `Goldman Travel <http://www.goldmantravel.com.au>`_
+  * `IJC Digital <http://ijcdigital.com>`_
+  * `Coopers <http://store.coopers.com.au>`_
+  * `Joe Julian <http://joejulian.name>`_
+  * `Sheer Ethic <http://sheerethic.com>`_
+  * `Salt Lake Magazine <http://saltlakemagazine.com>`_
+  * `Boca Raton Magazine <http://bocamag.com>`_
+  * `Photog.me <http://www.photog.me>`_
 
 Quotes
 ======
@@ -267,38 +268,6 @@ Quotes
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 
-.. SITES USING MEZZANINE
-
-.. _`Citrus Agency`: http://citrus.com.au/
-.. _`Mezzanine Project`: http://mezzanine.jupo.org/
-.. _`Central Mosque Wembley`: http://wembley-mosque.co.uk/
-.. _`Ovarian Cancer Research Foundation`: http://ocrf.com.au/
-.. _`The Source Procurement`: http://thesource.com.au/
-.. _`Imageinary`: http://imageinary.com/
-.. _`Alpha & Omega Contractors`: http://alphaomegacontractors.com/
-.. _`Equity Advance`: http://equityadvance.com.au/
-.. _`Head3 Interactive`: http://head3.com/
-.. _`PyLadies`: http://www.pyladies.com/
-.. _`Ripe Maternity`: http://www.ripematernity.com/
-.. _`Cotton On`: http://shop.cottonon.com/
-.. _`List G Barristers`: http://www.listgbarristers.com.au/
-.. _`Tri-Cities Flower Farm`: http://www.tricitiesflowerfarm.com/
-.. _`daon.ru`: http://daon.ru/
-.. _`autoindeks.ru`: http://autoindeks.ru/
-.. _`immiau.ru`: http://immiau.ru/
-.. _`ARA Consultants`: http://www.araconsultants.com.au/
-.. _`Boîte à Z'images`: http://boiteazimages.com/
-.. _`The Melbourne Cup`: http://www.melbournecup.com/
-.. _`Diablo News`: http://www.diablo-news.com/
-.. _`Goldman Travel`: http://www.goldmantravel.com.au/
-.. _`IJC Digital`: http://ijcdigital.com/
-.. _`Coopers`: http://store.coopers.com.au/
-.. _`Joe Julian`: http://joejulian.name/
-.. _`Sheer Ethic`: http://sheerethic.com/
-.. _`Salt Lake Magazine`: http://saltlakemagazine.com/
-.. _`Boca Raton Magazine`: http://bocamag.com/
-.. _`Photog.me`: http://www.photog.me/
-
 .. THIRD PARTY LIBS
 
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
@@ -310,13 +279,9 @@ Quotes
 
 .. PEOPLE WITH QUOTES
 
-.. _`Nick Hagianis`: http://hagianis.com/
-.. _`Thomas Johnson`: http://tomfmason.net/
 .. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Audrey Roy`: http://cartwheelweb.com/
 .. _`John Campbell`: http://head3.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
 .. _`Michael Delaney`: http://github.com/fusepilot/
-.. _`Brad Montgomery`: http://blog.bradmontgomery.net/
-.. _`Jashua Cloutier`: http://www.senexcanis.com/
