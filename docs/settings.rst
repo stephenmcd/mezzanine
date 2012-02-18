@@ -1,5 +1,12 @@
 .. THIS DOCUMENT IS AUTO GENERATED VIA conf.py
 
+``ACCOUNTS_ENABLED``
+--------------------
+
+If True, users can create an account.
+
+Default: ``False``
+
 ``ADMIN_MENU_ORDER``
 --------------------
 
@@ -54,7 +61,7 @@ Default: ``False``
 
 Enable featured images in blog posts
 
-Default: ``True``
+Default: ``False``
 
 ``COMMENTS_DEFAULT_APPROVED``
 -----------------------------
@@ -245,6 +252,27 @@ Title that will display at the top of the site, and be appended to the content o
 
 Default: ``'Mezzanine'``
 
+``SSL_ENABLED``
+---------------
+
+If ``True``, users will be automatically redirected to HTTPS for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting.
+
+Default: ``False``
+
+``SSL_FORCE_HOST``
+------------------
+
+Host name that the site should always be accessed via that matches the SSL certificate.
+
+Default: ``''``
+
+``SSL_FORCE_URL_PREFIXES``
+--------------------------
+
+Sequence of URL prefixes that will be forced to run over SSL when ``SSL_ENABLED`` is ``True``. i.e. ('/admin', '/example') would force all URLs beginning with /admin or /example to run over SSL.
+
+Default: ``('/admin', '/account')``
+
 ``STOP_WORDS``
 --------------
 
@@ -264,7 +292,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
+Default: ``('ACCOUNTS_ENABLED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'LOGIN_URL', 'LOGOUT_URL', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
 
 ``THUMBNAILS_DIR_NAME``
 -----------------------
@@ -272,6 +300,13 @@ Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'C
 Directory name to store thumbnails in, that will be created relative to the original image's directory.
 
 Default: ``'.thumbnails'``
+
+``TINYMCE_SETUP_JS``
+--------------------
+
+URL for the JavaScript file (relative to ``STATIC_URL``) that handles configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used.
+
+Default: ``'mezzanine/js/tinymce_setup.js'``
 
 ``USE_SOUTH``
 -------------
