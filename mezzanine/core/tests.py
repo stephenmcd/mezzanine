@@ -75,7 +75,7 @@ class Tests(TestCase):
         """
         # BLOG_SLUG is empty then urlpatterns for pages are prefixed
         # with PAGE_SLUG, and generally won't be overridden. In this
-        # case, there aren't any overridding URLs be default, so bail
+        # case, there aren't any overridding URLs by default, so bail
         # on the test.
         if PAGES_SLUG:
             return
