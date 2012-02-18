@@ -123,7 +123,6 @@ class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
     """
     def __init__(self, attrs=None, date_format=None, time_format=None):
         date_widget = SelectDateWidget(attrs=attrs)
-        time_format = forms.SplitDateTimeWidget.time_format
         time_widget = forms.TimeInput(attrs=attrs, format=time_format)
         forms.MultiWidget.__init__(self, (date_widget, time_widget), attrs)
 
