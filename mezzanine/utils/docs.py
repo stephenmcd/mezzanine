@@ -144,7 +144,11 @@ def build_modelgraph(docs_path, package_name="mezzanine"):
     build_path = os.path.join(docs_path, "build", "_images")
     if not os.path.exists(build_path):
         os.makedirs(build_path)
-    copyfile(to_path, os.path.join(build_path, "graph.png"))
+    try:
+        copyfile(to_path, os.path.join(build_path, "graph.png"))
+    except IOError, e:
+        import warnings
+        warnings.warn("Couldn't build model graph: %s" % e)
     image = Image.open(to_path)
     image.width = 800
     image.height = image.size[1] * 800 / image.size[0]
