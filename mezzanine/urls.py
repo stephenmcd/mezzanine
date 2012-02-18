@@ -67,13 +67,26 @@ urlpatterns += patterns("",
 )
 
 # Mezzanine's Blog app.
-if "mezzanine.blog" in settings.INSTALLED_APPS:
+BLOG_SLUG = settings.BLOG_SLUG
+blog_installed = "mezzanine.blog" in settings.INSTALLED_APPS
+if blog_installed:
+    if BLOG_SLUG:
+        BLOG_SLUG += "/"
     urlpatterns += patterns("",
-        ("^%s/" % settings.BLOG_SLUG, include("mezzanine.blog.urls")),
+        ("^%s" % BLOG_SLUG, include("mezzanine.blog.urls")),
     )
 
 # Mezzanine's Pages app.
+PAGES_SLUG = ""
 if "mezzanine.pages" in settings.INSTALLED_APPS:
-    urlpatterns += patterns("",
-        ("^", include("mezzanine.pages.urls")),
-    )
+    # No BLOG_SLUG means catch-all patterns belong to the blog,
+    # so give pages their own prefix.
+    if not BLOG_SLUG and blog_installed:
+        PAGES_SLUG = "pages/"
+        urlpatterns[-1:1] = patterns("",
+            ("^%s" % PAGES_SLUG, include("mezzanine.pages.urls")),
+        )
+    else:
+        urlpatterns += patterns("",
+            ("^", include("mezzanine.pages.urls")),
+        )

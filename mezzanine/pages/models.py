@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, RichText
+from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.urls import admin_url, slugify
 
 
@@ -114,7 +115,7 @@ class Page(Orderable, Displayable):
         of properties based on the current URL that are used within the
         various types of menus.
         """
-        slug = slug.strip("/")
+        slug = slug.strip("/").replace(PAGES_SLUG, "", 1)
         parent_slug = lambda slug: "/".join(slug.split("/")[:-1]) + "/"
         self.is_current_sibling = parent_slug(slug) == parent_slug(self.slug)
         self.is_current_or_ascendant = (slug + "/").startswith(self.slug + "/")

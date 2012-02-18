@@ -27,6 +27,7 @@ from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
 from mezzanine.generic.models import RATING_RANGE
 from mezzanine.pages.models import RichTextPage
+from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import copy_test_to_media, run_pyflakes_for_package
 from mezzanine.utils.tests import run_pep8_for_package
@@ -70,12 +71,16 @@ class Tests(TestCase):
     def test_overridden_page(self):
         """
         Test that a page with a slug matching a non-page urlpattern
-        return ``True`` for its overridden property. The blog page from
-        the fixtures should satisfy this case.
+        return ``True`` for its overridden property.
         """
-        blog_page, created = RichTextPage.objects.get_or_create(
-                                                slug=settings.BLOG_SLUG)
-        self.assertTrue(blog_page.overridden())
+        # BLOG_SLUG is empty then urlpatterns for pages are prefixed
+        # with PAGE_SLUG, and generally won't be overridden. In this
+        # case, there aren't any overridding URLs be default, so bail
+        # on the test.
+        if PAGES_SLUG:
+            return
+        page, created = RichTextPage.objects.get_or_create(slug="edit")
+        self.assertTrue(page.overridden())
 
     def test_description(self):
         """
