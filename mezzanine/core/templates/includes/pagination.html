@@ -4,7 +4,7 @@
 <ul>
 
 <li class="disabled">
-    <a>{% trans "Page" %} {{ current_page.number }} {% trans "of" %}{{ current_page.paginator.num_pages }}</a>
+    <a>{% trans "Page" %} {{ current_page.number }} {% trans "of" %} {{ current_page.paginator.num_pages }}</a>
 </li>
 <li class="prev{% if not current_page.has_previous %} disabled{% endif %}">
     <a{% if current_page.has_previous %} href="?page={{ current_page.previous_page_number }}&{{ querystring }}"{% endif %}>&larr;</a>

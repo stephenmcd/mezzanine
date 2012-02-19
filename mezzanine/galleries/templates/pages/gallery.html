@@ -15,12 +15,12 @@
 {{ page.gallery.content|richtext_filter|safe }}
 {% endeditable %}
 
-<ul class="media-grid gallery">
+<ul class="thumbnails gallery">
 {% with page.gallery.images.all as images %}
 {% for image in images %}
 <li>
-    <a rel="#image-{{ image.id }}" title="{{ image.description }}" href="{{ image.file }}">
-        <img class="image-overlay-thumb" src="{{ MEDIA_URL }}{% thumbnail image.file 60 60 %}">
+    <a class="thumbnail" rel="#image-{{ image.id }}" title="{{ image.description }}" href="{{ image.file }}">
+        <img class="image-overlay-thumb" src="{{ MEDIA_URL }}{% thumbnail image.file 75 75 %}">
     </a>
     <div id="image-{{ image.id }}" class="image-overlay" style="display:none;">
         <a href="#" class="image-overlay-prev">&larr;</a>

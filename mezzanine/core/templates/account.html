@@ -3,6 +3,7 @@
 
 {% block meta_title %}{% trans "Login / Signup" %}{% endblock %}
 {% block title %}{% trans "Login / Signup" %}{% endblock %}
+{% block body_id %}account{% endblock %}
 
 {% block breadcrumb_menu %}
 {{ block.super }}
@@ -16,8 +17,8 @@
     <form method="post">
     {% csrf_token %}
     {% fields_for login_form %}
-    <div class="actions">
-        <input class="btn primary" name="login" type="submit" value="{% trans "Login" %}">
+    <div class="form-actions">
+        <input class="btn btn-primary btn-large" name="login" type="submit" value="{% trans "Login" %}">
     </div>
     </form>
 </fieldset>
@@ -27,8 +28,8 @@
     <form method="post">
     {% csrf_token %}
     {% fields_for signup_form %}
-    <div class="actions">
-        <input class="btn primary" name="signup" type="submit" value="{% trans "Signup" %}">
+    <div class="form-actions">
+        <input class="btn btn-primary btn-large" name="signup" type="submit" value="{% trans "Signup" %}">
     </div>
     </form>
 </fieldset>
