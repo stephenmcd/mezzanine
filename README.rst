@@ -216,6 +216,8 @@ Sites Using Mezzanine
   * `Salt Lake Magazine <http://saltlakemagazine.com>`_
   * `Boca Raton Magazine <http://bocamag.com>`_
   * `Photog.me <http://www.photog.me>`_
+  * `Elephant Juice Soup <http://www.elephantjuicesoup.com>`_
+  * `National Positions <http://www.nationalpositions.co.uk>`_
 
 Quotes
 ======
