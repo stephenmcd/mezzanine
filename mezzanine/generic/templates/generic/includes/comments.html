@@ -14,15 +14,15 @@ $(function() {
 <style>.input_id_honeypot {display:none !important;}</style>
 {% comment_thread object_for_comments %}
 <h3>{% trans "New Comment" %}</h3>
-<form method="post" class="form-stacked" id="comment" action="{{ comment_url }}#comment">
+<form method="post" id="comment" action="{{ comment_url }}#comment">
     {% csrf_token %}
     {% if not request.POST.replied_to %}
     {% fields_for posted_comment_form %}
     {% else %}
     {% fields_for unposted_comment_form %}
     {% endif %}
-    <div class="actions">
-        <input class="btn primary" type="submit" value="{% trans "Comment" %}">
+    <div class="form-actions">
+        <input class="btn btn-primary btn-large" type="submit" value="{% trans "Comment" %}">
     </div>
 </form>
 {% endif %}

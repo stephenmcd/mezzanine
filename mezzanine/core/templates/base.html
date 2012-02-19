@@ -20,7 +20,10 @@
 {% endif %}
 <script src="{{ STATIC_URL }}mezzanine/js/jquery-1.4.4.min.js"></script>
 <script>
-$(function() {$('.form-stacked').find('input:text, textarea').addClass('xlarge');});
+$(function() {
+    $('.middleinput:text, textarea').addClass('xlarge');
+    $('.control-group label').addClass('control-label');
+});
 </script>
 
 {% block extra_head %}{% endblock %}
@@ -28,15 +31,15 @@ $(function() {$('.form-stacked').find('input:text, textarea').addClass('xlarge')
 </head>
 <body id="{% block body_id %}{% endblock %}">
 
-<div class="topbar">
-<div class="topbar-inner">
+<div class="navbar">
+<div class="navbar-inner">
 <div class="container">
     {% if settings.SITE_TITLE %}<a class="brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
     {% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}
     <div class="pull-right">
         {% page_menu "pages/menus/primary.html" %}
-        <form action="{% url search %}">
-        <input placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.REQUEST.q }}">
+        <form action="{% url search %}" class="navbar-search">
+        <input class="search-query" placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.REQUEST.q }}">
         </form>
     </div>
 </div>
@@ -46,7 +49,7 @@ $(function() {$('.form-stacked').find('input:text, textarea').addClass('xlarge')
 <div class="container">
 
 {% for message in messages %}
-<div class="alert-message {{ message.tags }}" data-alert="alert">
+<div class="alert alert-{{ message.tags }}" data-alert="alert">
 <a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
 </div>
 {% endfor %}
@@ -64,15 +67,15 @@ $(function() {$('.form-stacked').find('input:text, textarea').addClass('xlarge')
 <div class="container">
 <div class="row">
 
-<div class="span3 left">
+<div class="span2 left">
     <div class="panel">{% page_menu "pages/menus/tree.html" %}</div>
 </div>
 
-<div class="span9 middle">
+<div class="span7 middle">
     {% block main %}{% endblock %}
 </div>
 
-<div class="span4 right">
+<div class="span3 right">
     {% include "includes/user_panel.html" %}
     <div class="panel">
     {% block right_panel %}

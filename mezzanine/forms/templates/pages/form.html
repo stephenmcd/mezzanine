@@ -19,11 +19,11 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
     {{ page_form.content|safe }}
     {% endeditable %}
     {% endwith %}
-    <form method="post" class="form-stacked"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {% fields_for form %}
-        <div class="actions">
-            <input class="btn primary" type="submit" value="{{ page.form.button_text }}">
+        <div class="form-actions">
+            <input class="btn btn-primary btn-large" type="submit" value="{{ page.form.button_text }}">
         </div>
     </form>
 {% endif %}
