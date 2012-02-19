@@ -23,7 +23,14 @@ var toggleID = function(opened, id) {
     document.cookie = cookie + '=' + ids + '; path=/';
 };
 
+function showButtonWithChildren(){
+	$('li:has(li) .tree-toggle').css({visibility: 'visible'});
+	$('li:not(:has(li)) .tree-toggle').css({visibility: 'hidden'});
+}
+
 $(function() {
+
+	showButtonWithChildren();
 
     if (window.__grappelli_installed) {
         $('.delete').addClass('grappelli-delete');
@@ -90,6 +97,7 @@ $(function() {
                 alert("Error occured: " + data + "\nOrdering wasn't updated.");
             }
         });
+		showButtonWithChildren();
     };
 
     // Make the pages sortable via drag and drop.
