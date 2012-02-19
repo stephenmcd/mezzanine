@@ -23,7 +23,7 @@ img {box-shadow:0 0 10px #bbb;}
 .tree-menu-level-0 li, footer li li {border-bottom:1px dashed #eee;}
 .tree-menu-level-1 li, footer li li {list-style:square inside;}
 .tree-menu-level-1 li {margin:10px 15px; padding:0; border-bottom:0px;}
-.tagline {float:left; font-size:12px; font-style:italic; margin:10px 5px 0 0; color:#fff; opacity:.5;}
+.tagline {float:left; font-size:12px; font-style:italic; margin:9px 5px 0 -4px; color:#fff; opacity:.5;}
 .breadcrumb {margin:20px 0 25px 0;}
 .breadcrumb .divider {margin:0 5px;}
 .breadcrumb strong {color:#333;}
