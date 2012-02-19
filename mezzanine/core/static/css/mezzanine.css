@@ -7,7 +7,7 @@ h6 a {color:#666;}
 .middle img {max-width:600px;}
 .middle h6 {line-height:100%; margin:10px 0 15px 0;}
 .right h6 {margin-top:10px;}
-.panel {background:#fcfcfc; padding:10px 20px; margin-bottom:20px;
+.panel {background:rgba(220,220,220, 0.1); padding:10px 20px; margin-bottom:20px;
         line-height:170%; border:1px solid #eee; border-radius:5px;}
 p, ul {line-height:22px; margin-top:5px; margin-bottom:15px;}
 li {line-height:20px;}
@@ -23,15 +23,15 @@ img {box-shadow:0 0 10px #bbb;}
 .tree-menu-level-0 li, footer li li {border-bottom:1px dashed #eee;}
 .tree-menu-level-1 li, footer li li {list-style:square inside;}
 .tree-menu-level-1 li {margin:10px 15px; padding:0; border-bottom:0px;}
-.tagline {float:left; color:#888; font-size:11px; font-style:italic; margin:8px 0 0 0;}
+.tagline {float:left; font-size:12px; font-style:italic; margin:10px 5px 0 0; color:#fff; opacity:.5;}
 .breadcrumb {margin:20px 0 25px 0;}
 .breadcrumb .divider {margin:0 5px;}
 .breadcrumb strong {color:#333;}
-footer {background:#fcfcfc; padding:30px 0; text-align:center;}
+footer {background:rgba(220,220,220, 0.1); padding:30px 0; text-align:center;}
 footer .container {text-align:left; display:inline-block; width:auto;}
 footer li {float:left; list-style-type:none;}
 footer li li {float:none; clear:both; width:120px; padding:10px 0; margin-right:30px;}
-footer p {margin-top:40px; text-align:center; font-size:11px;}
+footer p {margin-top:40px; text-align:center; font-size:12px;}
 .pagination {margin:40px 0;}
 .pagination p {float:left;}
 
@@ -51,7 +51,7 @@ footer p {margin-top:40px; text-align:center; font-size:11px;}
 textarea.xlarge {width:480px; height:120px;}
 .datefield select, .datetimefield select,
 .datefield input, .datetimefield input {width:auto; margin-right:5px;}
-.form-actions {margin-left:-10px !important; background:#fcfcfc; border-top:1px solid #eee;}
+.form-actions {background:rgba(220,220,220, 0.1); margin-left:-10px !important; border-top:1px solid #eee;}
 .btn-small {width:auto; margin:5px 0; line-height:10px;}
 a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 .help-inline {color:#999;}
@@ -93,7 +93,8 @@ a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 /* Comments */
 .comment-author {background:#feffee !important;}
 #comments li {padding:15px; display:block; border:2px solid #eee;
-              margin-top:10px; background:#fff; border-radius:3px;}
+              margin-top:10px; background:rgba(220,220,220, 0.1);
+              border-radius:3px;}
 #comments li ul {padding:5px 0 0 30px;}
 #comments img {margin-right:5px; vertical-align:middle;}
 .reply-form {margin-top:20px;}
