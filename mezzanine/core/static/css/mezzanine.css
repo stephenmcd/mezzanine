@@ -16,7 +16,7 @@ img {box-shadow:0 0 10px #bbb;}
 
 /* Navigation */
 .navbar {z-index:500;}
-/*.navbar #primary-menu {overflow:hidden; max-width:500px; height:40px;}*/
+.navbar-search {margin-left:10px;}
 .tree-menu-level-0 .active {font-weight:bold !important;}
 .tree-menu-level-0 .active li {font-weight:normal;}
 .tree-menu-level-0 li {margin:5px 0; padding:5px 0;}
@@ -32,6 +32,7 @@ footer .container {text-align:left; display:inline-block; width:auto;}
 footer li {float:left; list-style-type:none;}
 footer li li {float:none; clear:both; width:120px; padding:10px 0; margin-right:30px;}
 footer p {margin-top:40px; text-align:center; font-size:12px;}
+footer .separator {opacity:0.3; margin:0 10px;}
 .pagination {margin:40px 0;}
 .pagination p {float:left;}
 

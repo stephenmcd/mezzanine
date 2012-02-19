@@ -97,10 +97,12 @@ $(function() {
     <a href="http://mezzanine.jupo.org">Mezzanine</a>{% if "cartridge.shop"|is_installed %},
     <a href="http://cartridge.jupo.org">Cartridge</a>{% endif %}
     {% trans "and" %}
-    <a href="http://www.djangoproject.com">Django</a>.
+    <a href="http://www.djangoproject.com">Django</a>
+    <span class="separator">|</span>
+    Theme by <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>
     {% if "mezzanine.mobile"|is_installed %}
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="{% url set_device "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site." %}</a>
+    <span class="separator">|</span>
+    <a href="{% url set_device "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
     {% endif %}
 </p>
 </div>
