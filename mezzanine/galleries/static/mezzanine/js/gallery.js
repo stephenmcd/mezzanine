@@ -16,7 +16,9 @@ $(function() {
         return false;
     });
     $('body').click(function(e) {
-        if (!$(e.target).hasClass('image-overlay-thumb') && !$(e.target).hasClass('image-overlay-full')) {
+        var ignore = ['image-overlay-thumb', 'image-overlay-full', 'thumbnail'];
+        var target = $(e.target);
+        if ($.grep(ignore, function(name) {return target.hasClass(name)}).length == 0) {
             $('.image-overlay img:visible').click();
             location = '#';
         }
