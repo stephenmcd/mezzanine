@@ -244,6 +244,8 @@ Quotes
 .. _`pip`: http://www.pip-installer.org/
 .. _`setuptools`: http://pypi.python.org/pypi/setuptools
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
+.. _`grappelli-safe`: http://github.com/stephenmcd/grappelli-safe
+.. _`filebrowser-safe`: http://github.com/stephenmcd/filebrowser-safe/
 .. _`django-grappelli`: http://code.google.com/p/django-grappelli/
 .. _`django-filebrowser`: http://code.google.com/p/django-filebrowser/
 .. _`South`: http://south.aeracode.org/
