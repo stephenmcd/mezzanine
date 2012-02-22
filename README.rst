@@ -61,14 +61,14 @@ Mezzanine has no explicit dependencies apart from a standard Django
 environment using:
 
   * `Python`_ 2.5 ... 2.7
-  * `Django`_ 1.1 ... 1.3
+  * `Django`_ 1.3 ... 1.4
 
 Mezzanine is designed however to be used most effectively in conjunction
 with the following libraries:
 
   * `Python Imaging Library`_ (PIL)
-  * `django-grappelli`_ <= 2.0
-  * `django-filebrowser`_ <= 3.0
+  * `grappelli-safe`_ (Mezzanine's fork of Grappelli)
+  * `filebrowser-safe`_ (Mezzanine's fork of FileBrowser)
   * `South`_
   * `pyflakes`_ and `pep8`_ (required for running the test suite)
 
