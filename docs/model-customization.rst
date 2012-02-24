@@ -115,7 +115,9 @@ associated model. Continuing on from the first example::
     # In myapp/admin.py
 
     from copy import deepcopy
+    from django.contrib import admin
     from mezzanine.blog.admin import BlogPostAdmin
+    from mezzanine.blog.models import BlogPost
 
     blog_fieldsets = deepcopy(BlogPostAdmin.fieldsets)
     blog_fieldsets[0][1]["fields"].insert(-2, "image")
@@ -123,13 +125,8 @@ associated model. Continuing on from the first example::
     class MyBlogPostAdmin(BlogPostAdmin):
         fieldsets = blog_fieldsets
 
-    # In myproject/urls.py
 
-    from django.contrib import admin
-    from mezzanine.blog.models import BlogPost
-    from myapp.admin import MyBlogPostAdmin
 
-    admin.autodiscover()
     admin.site.unregister(BlogPost)
     admin.site.register(BlogPost, MyBlogPostAdmin)
 
