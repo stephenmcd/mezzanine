@@ -3,18 +3,20 @@ Overview
 ========
 
 Mezzanine is a content management platform built using the `Django`_
-framework. It is `BSD licensed`_ and designed to provide both a consistent
-interface for managing content, and a simple architecture that makes diving
-in and hacking on the code as easy as possible.
+framework. It is `BSD licensed`_ and designed to provide both a
+consistent interface for managing content, and a simple, extensible
+architecture that makes diving in and hacking on the code as easy as
+possible.
 
 Mezzanine resembles tools like `Wordpress`_, with an intuitive
-interface for managing pages and blog posts. Mezzanine takes a different
+interface for managing pages, blog posts, form data, store products,
+or any other type of content you can imagine. Mezzanine takes a different
 approach from other Django applications in this space like `Pinax`_ or
 `Mingus`_ that glue together a lot of reusable apps, instead opting to
 provide most of its functionality included with the project by default.
 
-Visit the `gallery of sites powered by Mezzanine`_ to see some of the
-great sites people have built using Mezzanine.
+Visit the `Mezzanine project page`_ to see some of the great sites people
+have built using Mezzanine.
 
 Features
 ========
@@ -239,7 +241,7 @@ Quotes
 .. _`Wordpress`: http://wordpress.org/
 .. _`Pinax`: http://pinaxproject.com/
 .. _`Mingus`: http://github.com/montylounge/django-mingus
-.. _`gallery of sites powered by Mezzanine`: http://mezzanine.jupo.org/sites/
+.. _`Mezzanine project page`: http://mezzanine.jupo.org
 .. _`Python`: http://python.org/
 .. _`pip`: http://www.pip-installer.org/
 .. _`setuptools`: http://pypi.python.org/pypi/setuptools
