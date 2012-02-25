@@ -21,8 +21,9 @@ def create_project():
         help="Alternate package to use, containing a project_template")
     parser.add_option("-s", "--source", dest="copy_source", default=False,
         action="store_true", help="Copy package source to new project")
-    parser.add_option("-t", "--templates", dest="copy_templates", default=True,
-        action="store_false", help="Copy templates to the project [default]")
+    parser.add_option("-t", "--templates", dest="copy_templates",
+        default=False, action="store_true",
+        help="Copy templates to the project [default]")
     (options, args) = parser.parse_args()
 
     if len(args) != 1:
