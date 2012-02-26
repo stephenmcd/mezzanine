@@ -133,10 +133,9 @@ class FormForForm(forms.ModelForm):
                 value = fs.save(join("forms", str(uuid4()), value.name), value)
             if isinstance(value, list):
                 value = ", ".join([v.strip() for v in value])
-            if value:
-                field_entry, _ = entry.fields.get_or_create(field_id=field.id)
-                field_entry.value = value
-                field_entry.save()
+            field_entry, _ = entry.fields.get_or_create(field_id=field.id)
+            field_entry.value = value
+            field_entry.save()
         return entry
 
     def email_to(self):
