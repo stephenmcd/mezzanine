@@ -1,3 +1,5 @@
+.. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
+
 ========
 Overview
 ========
