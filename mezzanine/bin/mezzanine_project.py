@@ -23,7 +23,7 @@ def create_project():
         action="store_true", help="Copy package source to new project")
     parser.add_option("-t", "--templates", dest="copy_templates",
         default=False, action="store_true",
-        help="Copy templates to the project [default]")
+        help="Copy templates to the project")
     (options, args) = parser.parse_args()
 
     if len(args) != 1:
