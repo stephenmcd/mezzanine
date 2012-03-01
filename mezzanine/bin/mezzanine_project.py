@@ -71,10 +71,12 @@ def create_project():
             os.path.join(project_path, "local_settings.py"))
         if options.copy_templates:
             for app_dir in os.listdir(package_path):
-                if not app_dir == "mobile":
-                    template_dir = os.path.join(package_path, app_dir, "templates")
-                    if os.path.isdir(template_dir):
-                        copy_tree(template_dir, template_path)
+                # Mobile templates handled by -m option below.
+                if app_dir == "mobile":
+                    continue
+                template_dir = os.path.join(package_path, app_dir, "templates")
+                if os.path.isdir(template_dir):
+                    copy_tree(template_dir, template_path)
         if options.copy_mobile_templates:
             template_dir = os.path.join(package_path, "mobile", "templates")
             if os.path.isdir(template_dir):
