@@ -71,6 +71,9 @@ if (typeof tinyMCE != 'undefined') {
         paste_remove_styles_if_webkit: true,
         paste_strip_class_attributes: true,
 
+        // allow inline styles
+        inline_styles : true,
+
         // elements
         valid_elements : ""
 		+ "span[style],"
@@ -107,7 +110,7 @@ if (typeof tinyMCE != 'undefined') {
 		+ "",
         extended_valid_elements: "pre[style],"
         + "a[name|class|href|target|title|onclick],"
-        + "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],"
+        + "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style],"
         + "iframe[src|title|byline|portrait|frameborder|width|height],"
         + "br[clearfix],"
         + "-p[class<clearfix?summary?code],"
