@@ -6,6 +6,7 @@ from django.middleware.cache import FetchFromCacheMiddleware
 
 from mezzanine.conf import settings
 from mezzanine.utils.device import device_from_request, templates_for_device
+from mezzanine.utils.sites import templates_for_host
 
 
 class AdminLoginInterfaceSelectorMiddleware(object):
@@ -46,6 +47,15 @@ class TemplateForDeviceMiddleware(object):
         response.template_name = templates
         return response
 
+class TemplateForHostMiddleware(object):
+
+    def process_template_response(self, request, response):
+        """
+        Inserts device-specific templates to the template list.
+        """
+        templates = templates_for_host(request, response.template_name)
+        response.template_name = templates
+        return response
 
 class DeviceAwareCacheMiddleware(object):
     """

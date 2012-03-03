@@ -269,6 +269,17 @@ register_setting(
 )
 
 register_setting(
+    name="HOST_THEMES",
+    description=_("Mapping of host names to themes.  If the current host "
+                  "matches, the associated theme's templates will be served, "
+                  "if it exists.  The theme must be in installed apps."),
+    editable=False,
+    default=(
+        ("", ""),
+    ),
+)
+
+register_setting(
     name="MAX_PAGING_LINKS",
     label=_("Max paging links"),
     description=_("Max number of paging links to display when paginating."),
