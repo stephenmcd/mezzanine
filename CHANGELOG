@@ -1,3 +1,162 @@
+Version 1.0.0 (Mar 03, 2012)
+----------------------------
+
+  * Added www.diablo-news.com as web site using mezzanine - wesleyb
+  * Update README.rst - John Barham
+  * Added catalan translations - pokoli
+  * Added IJC Digital to sites in README - Stephen McDonald
+  * Fixed runserver arg parsing for grappelli media hosting. Closes #110 - Stephen McDonald
+  * Added a note to the docs about not subclassing RichTextPage - Stephen McDonald
+  * Raise a more meaningful error message when someone tries to subclass a custom content type, which isn't supported - Stephen McDonald
+  * Fixed missing translation import - Stephen McDonald
+  * Added Coopers to sites in README - Stephen McDonald
+  * Every model mixing Slugged in with a cyclical dependency fails with dumpdata in current Django (including a tree with a fix applied for Django ticket #14226). The natural key declared in Slugged is the culprit - derkaderka
+  * Added Kevin Levenstein to AUTHORS - Stephen McDonald
+  * Added category support - Josh
+  * Bookmarks are removed from grappelli_safe - Stephen McDonald
+  * Added Josh Batchelor to AUTHORS - Stephen McDonald
+  * Update translations - Sebastián Ramírez Magrí
+  * Fixed duplicate keyword handling regression and added support for automatically removing unused keywords. Closes #116 - Stephen McDonald
+  * Added patching of django.contrib.admin.site in mezzanine.boot to defer certains calls to unregister/register to work around some loading issues for custom model fields - Stephen McDonald
+  * Removed unused import - Stephen McDonald
+  * Don't use form email field as from address if FORMS_DISABLE_SEND_FROM_EMAIL_FIELD setting is True - John Barham
+  * Register FORMS_DISABLE_SEND_FROM_EMAIL_FIELD in mezzanine.conf - Stephen McDonald
+  * Fixed migration forms/0003 failure for Postgres - Luke Plant
+  * Fixed dependencies of migrations, so that './manage.py migrate' works even if starting from scratch - Luke Plant
+  * In README, clarified that use of 'createdb' is optional and 'syncdb' and 'migrate' can be used as normal - Luke Plant
+  * Added installation instructions for adding Mezzanine to an existing project - Luke Plant
+  * README formatting fix - Stephen McDonald
+  * Added a generic RSS blog importer - Stephen McDonald
+  * Added a type attribute to fields in mezzanine.forms.forms.FormForForm for use in styling, and removed CSS class assignments - Stephen McDonald
+  * Addedmezzanine.mobile commented out to INSTALLED_APPS in project_template.settings - Stephen McDonald
+  * Fixed authentication check in base admin template - Stephen McDonald
+  * Ported default templates from 960.gs to Twitter Bootstrap - Stephen McDonald
+  * Added Luke Plant to AUTHORS - Stephen McDonald
+  * Merge paging links settings into a single MAX_PAGING_LINKS setting - Stephen McDonald
+  * Cleaned up settings ordering - Stephen McDonald
+  * Stub out empty comment forms in the context for the comments test - Stephen McDonald
+  * Don't show help text for form fields with errors assigned, and show all errors rather than just the first - Stephen McDonald
+  * Added docs for the RSS importer - Stephen McDonald
+  * Update the docs copyright date and fix some warnings - Stephen McDonald
+  * Regenerated settings docs - Stephen McDonald
+  * Fix template path for cartridge hook - Stephen McDonald
+  * Added Number and URL field types to mezzanine.forms - Stephen McDonald
+  * Unicode fixes for MS Excel in forms export - Stephen McDonald
+  * Tweak footer formatting - Stephen McDonald
+  * Added Zdeněk Softič to AUTHORS - Stephen McDonald
+  * Moved setting cleanup into a single query - Stephen McDonald
+  * Added a work-around for performance issues with jQuery.ui.sortable and large page trees - Stephen McDonald
+  * Cleaned up whitespace - Stephen McDonald
+  * Add pillow as a dependency for getting PIL install properly - Stephen McDonald
+  * Added handling in PageAdmin for picking up any extra fields defined by subclasses of Page, when the admin class being used doesn't implement any fieldsets - Stephen McDonald
+  * Added a wrapper field mezzanine.core.fields.FileField for filebrowser's FileBrowseField, falling back to Django's FileField if unavailable - Stephen McDonald
+  * Changed the filebrowser urlpattern to match the admin menu name - Stephen McDonald
+  * Changed thumbnailing to use a separate directory defined by the setting THUMBNAILS_DIR_NAME - Stephen McDonald
+  * Added additional URL structureTo better mimic wordpress and other blogs URL I added a/year/month/slug url path - Josh
+  * Changing name of url pattern - Josh
+  * Added an image gallery app mezzanine.galleries - Stephen McDonald
+  * Give blog post with date urlpattern a unique name and correct regex - Stephen McDonald
+  * Added the setting BLOG_URLS_USE_DATE to control blog post url format - Stephen McDonald
+  * Added my site which has taken the fairly popular pixel theme from Wordpress and partially created it from the html5boilerplate. I'll be working on rounding it out even further - joejulian
+  * Fixed Joe Julian's site link - Stephen McDonald
+  * Device detection uses lowercase strings - Alvin Mites
+  * Added unique URLs for gallery photo overlays - Stephen McDonald
+  * Updated device checking based on conversation from Stephen McDonald - Alvin Mites
+  * Added Alvin Mites to AUTHORS - Stephen McDonald
+  * Added a num_children attribute to page objects in page menus - Stephen McDonald
+  * Updated translations from transifex - Sebastián Ramírez Magrí
+  * Changed LICENSE from 3-clause to 2-clause BSD - Stephen McDonald
+  * Updated ignore - Stephen McDonald
+  * Fixed unicode handling in gallery image description from name - Stephen McDonald
+  * Added gallery image tests - Stephen McDonald
+  * Added a replacement post_syncdb handler for the sites app that points to runserver's default host:port - Stephen McDonald
+  * Added demo fixtures for galleries - Stephen McDonald
+  * Add Blog Featured ImagesAdded featured images for blogs as well as settings to turn the featureon and off - Josh
+  * Migration file for Featured image and setting the field to null - Josh
+  * Updated page_menu and tree.html to avoid creating uls if no pages in the page_branch are in_navigation - Josh Cartmell
+  * Updated page_menu page_branch_in_navigation and page_branch_in_footer to be more concise.  Updated tree.html and footer_tree.html not print out uls unless page_branch_in_navigation or page_branch_in_footer are set - Josh Cartmell
+  * Accidentally omitted if from tag - Josh Cartmell
+  * Updated footer.html to avoid unecessary uls - Josh Cartmell
+  * Rolling back as the previous change to footer.html did not work with 3rd level menus - Josh Cartmell
+  * Updated footer.html again to avoid unecessary uls - Josh Cartmell
+  * Updated footer.html identation to be more consistent - Josh Cartmell
+  * Refactored device handling to be based on TemplateResponse objects since dropping Django 1.1/1.2 support - Stephen McDonald
+  * Requirements version bumps - Stephen McDonald
+  * Use filebrowser field for blog feature image, and add template handling for it - Stephen McDonald
+  * Removed all uses of ifequal and ifnotequal templatetags - Stephen McDonald
+  * Added model graph to docs - Stephen McDonald
+  * Temp remove requirements - Stephen McDonald
+  * Change Displayable.status default to published - Stephen McDonald
+  * Create dest directories in mezzanine.utils.tests.copy_test_to_media - Stephen McDonald
+  * Prevent child pages being added to protected pages. Closes #131 - Stephen McDonald
+  * Added SSLMiddleware which redirects based on matching url prefixes.  Updated defaults.py with new settings related to the middleware.  Added deprecation warning if SHOP_SSL_ENABLED or SHOP_FORCE_HOST is found in settings - Josh Cartmell
+  * Updated deprecation warnings to work - Josh Cartmell
+  * Middleware now redirects back to non-secure if the request is secure but does not have a prefix from SITE_FORCE_SSL_URL_PREFIXES - Josh Cartmell
+  * Added fix for footer.html if a page is primary, in footer and the first in the loop - Josh Cartmell
+  * Removed cartridge checks from SITE_FORCE_SSL_URL_PREFIXES defaults.  Moving to cartridge and using append - Josh Cartmell
+  * Restored mezzanine.core.AdminLoginInterfaceSelector and added a deprecation warning - Stephen McDonald
+  * Added the setting TINYMCE_SETUP_JS which controls the URL for the TinyMCE setup JavaScript file - Stephen McDonald
+  * Renamed SSL settings to begin with SSL and moved deprecation warnings to Cartridge - Stephen McDonald
+  * Moved account functionality from Cartridge into Mezzanine, and added data migrations for editable setting name changes - Stephen McDonald
+  * Make generated fields in mezzanine.generic (_string, _count, _average, etc) uneditable, to prevent them from appearing in admin change views that don't have explicit admin classes registered - Stephen McDonald
+  * Ensure generated fields in mezzanine.generic are unique instances - Stephen McDonald
+  * Only style the primary menu when it's in the top nav - Stephen McDonald
+  * Fixed branch clicking in admin page tree so that open/close for a branch doesn't toggle its children (Thanks Jason Kowaleski) - Stephen McDonald
+  * Changed admin dropdown menu to be injected into breadcrumb area, rather than floating on it, to allow for the breadcrumb background to wrap with menu items when the browser window is thin - Stephen McDonald
+  * Fixed admin page tree on reload.The problem occured when reloading a page after setting an open child branch'sparent as closed. When you reloaded a page the routine that wouldreopen previously opened child branches (that are currently hidden by a parent)was causing said child branch displaying both the show(+) and hide(-)icons side by side which could be seen when reopening the parent.It would also cause this said hidden, opened child branchto no longer be registered in the opened branch cookie. So if you were toreload the page again, this branch wouldn't be opened at all.The solution involves simply reopening all previously opened branches onreload without worrying about adding their ID's again to the cookie. It alsoavoids using the Jquery toggle() function which seemed to be the problemthat caused both the show(+) and hide(-) buttons to appear - Kowaleski, Jason
+  * Dummy commit - Stephen McDonald
+  * Refactored rating form and templatetag to remove hard-coded field name - Stephen McDonald
+  * Added sheerethic.com to sites - Stephen McDonald
+  * Raise exception if any of the generic fields are used multiple times on the same model, since we don't have access to the field being modified in the signals - Stephen McDonald
+  * Added saltlakemagazine.com and bocamag.com to sites - Stephen McDonald
+  * Add German and Italian translations from transifex - Sebastián Ramírez Magrí
+  * Added migrations for mezzanine.galleries - Stephen McDonald
+  * Fail silently and return an empty list for objects given without a KeywordsField - Stephen McDonald
+  * Refactored comment handling into its own view, and removed mezzanine.generic.utils.handle_comments - Stephen McDonald
+  * Revert previous change for removing hard-coded rating field name, and remove the hard-coded field name by simply finding the first RatingField for the given object, since there can only be one - Stephen McDonald
+  * Misc tweaks to static file names and locations in line with Django 1.4 - Stephen McDonald
+  * Fix logic in form export - Stephen McDonald
+  * Added photog.me to list of sites using mezzanine - Josh Cartmell
+  * In mezzanine.forms, allow FormEntry instances to be provided for FormForForm and handle loading and updating FieldEntry values - Stephen McDonald
+  * Move site links in README into inline links - Stephen McDonald
+  * Update packages docs and re-generate settings docs - Stephen McDonald
+  * Remove unnecessary time_format handling in SplitSelectDateTimeWidget which doesn't exist in Django 1.4 - Stephen McDonald
+  * Add missing messages context processor for Django 1.4 - Stephen McDonald
+  * Allow docs to build even if model graph can't be built - Stephen McDonald
+  * Allow BLOG_SLUG to be set to an empty string, in which case the catch-all urlpatterns belong to the blog, and page urlpatterns get their own URL prefix - Stephen McDonald
+  * Use a generic sqlite db name in local_settings.py - Stephen McDonald
+  * Upgrade to Bootstrap 2.0 - Stephen McDonald
+  * Added Javascript to show only pages with children in tree, and to update this after moving pages (via drag and drop) - Kowaleski, Jason
+  * Move bootstrap responsive into its own stylesheet, and use transparent panel backgrounds, for easier bootstrap theming - Stephen McDonald
+  * Tagline tweak - Stephen McDonald
+  * Add a bootstrap footer link and properly style footer separators - Stephen McDonald
+  * Added elephantjuicesoup.com and nationalpositions.co.uk to sites in README - Stephen McDonald
+  * Added Nicola Larosa to AUTHORS, and mezzanine-stackato to third party projects in README - Stephen McDonald
+  * Add fallback for blog title when blog page isn't available - Stephen McDonald
+  * Fix gallery overlay close handler - Stephen McDonald
+  * Add the missing viewport for the responsive layout to work correctly - Stephen McDonald
+  * Update dependency notes for Grappelli and Filebrowser in README. Closes #137 and #138 - Stephen McDonald
+  * Fix dependency links in README - Stephen McDonald
+  * Add Like Humans Do to sites using Mezzanine - scobuntu
+  * Updating doc for model customization, registering works better in admin.py - Ismail Dhorat
+  * README tweaks - Stephen McDonald
+  * More responsive footer - Stephen McDonald
+  * Change the template copying option in the mezzanine-project script to default to False - Stephen McDonald
+  * Create entries for empty fields, so that export filtering works correctly - Stephen McDonald
+  * Added travis config - Stephen McDonald
+  * Setup local_settings template when testing - Stephen McDonald
+  * Add pep8/pyflakes to ci build - Stephen McDonald
+  * Added build status badge to README - Stephen McDonald
+  * Updated -t help text to reflect that it is no longer the default - Josh Cartmell
+  * Updated the mezzanine-project command to have a -m option which must be specified to copy over mobile templates.  The -t option now skips over mobile templates - Josh Cartmell
+  * Enabled inline styling to image elements in TinyMCE.Added inline_styles and set it to true.Also added style to the list of valid style elements - Anders Hofstee
+  * Removed the make_grappelli/filebrowser_safe scripts as they're no longer useful since we've customized those packages - Stephen McDonald
+  * pep8 fixes - Stephen McDonald
+  * Add Anders Hofstee to AUTHORS - Stephen McDonald
+  * Remove themes from feature list - Stephen McDonald
+  * Restore requirements - Stephen McDonald
+  * Version bump to 1.0 - Stephen McDonald
+
 Version 0.12.4 (Dec 03, 2011)
 -----------------------------
 

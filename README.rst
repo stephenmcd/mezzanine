@@ -34,6 +34,8 @@ provides the following features:
   * WYSIWYG editing
   * `In-line page editing`_
   * Drag-n-drop HTML5 forms builder with CSV export
+  * `Custom templates`_ per page or blog post
+  * `Twitter Bootstrap`_ integration
   * API for `custom content types`_
   * SEO friendly URLs and meta data
   * `Search engine and API`_
@@ -41,7 +43,6 @@ provides the following features:
   * Multi-device detection and template handling
   * Shopping cart module (`Cartridge`_)
   * Blogging engine
-  * `Themes`_
   * Tagging
   * One step migration from other blogging engines
   * `Disqus`_ integration or built-in threaded comments
@@ -50,9 +51,7 @@ provides the following features:
   * `Twitter`_ feed integration
   * `bit.ly`_ integration
   * Sharing via Facebook or Twitter
-  * `Custom templates`_ per page or blog post
   * Built-in `test suite`_
-  * `Twitter Bootstrap`_ integration
 
 The Mezzanine admin dashboard:
 
