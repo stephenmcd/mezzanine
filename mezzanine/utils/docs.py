@@ -86,6 +86,9 @@ def build_changelog(docs_path, package_name="mezzanine"):
             for line in changeset[version_file].data().split("\n"):
                 if line.startswith(version_var):
                     exec line
+                    if locals()[version_var] == "0.1.0":
+                        locals()[version_var] = "1.0.0"
+                        break
                     date = _changeset_date(changeset)
                     versions[locals()[version_var]] = {
                         "changes": [], "date": date.strftime("%b %d, %Y")}
