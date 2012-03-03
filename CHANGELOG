@@ -1,4 +1,4 @@
-Version 0.1.0 (Mar 03, 2012)
+Version 1.0.0 (Mar 03, 2012)
 ----------------------------
 
   * Added www.diablo-news.com as web site using mezzanine - wesleyb
@@ -152,8 +152,10 @@ Version 0.1.0 (Mar 03, 2012)
   * Enabled inline styling to image elements in TinyMCE.Added inline_styles and set it to true.Also added style to the list of valid style elements - Anders Hofstee
   * Removed the make_grappelli/filebrowser_safe scripts as they're no longer useful since we've customized those packages - Stephen McDonald
   * pep8 fixes - Stephen McDonald
+  * Add Anders Hofstee to AUTHORS - Stephen McDonald
   * Remove themes from feature list - Stephen McDonald
   * Restore requirements - Stephen McDonald
+  * Version bump to 1.0 - Stephen McDonald
 
 Version 0.12.4 (Dec 03, 2011)
 -----------------------------
