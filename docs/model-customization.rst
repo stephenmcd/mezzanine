@@ -59,7 +59,7 @@ from the previous example, suppose you wanted to add a regular Django
             "mezzanine.blog.models.BlogPost.image",
             "somelib.fields.ImageField",
             (_("Image"),),
-            {"blank": True, "upload_to: "blog"},
+            {"blank": True, "upload_to": "blog"},
         ),
         # Example of adding a field to *all* of Mezzanine's content types:
         (
