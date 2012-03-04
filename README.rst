@@ -226,14 +226,24 @@ Sites Using Mezzanine
 Quotes
 ======
 
-  * "I am enjoying working with Mezzanine - it is good work." - `Van Lindberg`_
-  * "Mezzanine looks pretty interesting - tempting to get me off Wordpress." - `Jesse Noller`_
-  * "Mezzanine is amazing." - `Audrey Roy`_
-  * "Mezzanine convinced me to switch from the Ruby world over to Python." - `Michael Delaney`_
-  * "Impressed with Mezzanine so far." - `Brad Montgomery`_
-  * "From the moment I installed Mezzanine, I have been delighted, both with the initial experience and the community involved in its development." - `John Campbell`_
-  * "You need to check out the open source project Mezzanine. In one word: Elegant." - `Nick Hagianis`_
-  * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!" - `Stephen White`_
+  * "I'm enjoying working with Mezzanine, it's good work"
+    - `Van Lindberg`_, engineer, IP lawyer for the `Python Software Foundation`_
+  * "Mezzanine looks like it may be Django's killer app"
+    - `Antonio Rodriguez`_, ex CTO of `Hewlett Packard`_, founder of `Tabblo`_
+  * "Mezzanine looks pretty interesting, tempting to get me off Wordpress"
+    - `Jesse Noller`_, Python core contributor, `Python Software Foundation`_ board member
+  * "Mezzanine is amazing"
+    - `Audrey Roy`_, founder of `PyLadies`_ and `Django Packages`_
+  * "Mezzanine convinced me to switch from the Ruby world over to Python"
+    - `Michael Delaney`_, developer
+  * "Impressed with Mezzanine so far"
+    - `Brad Montgomery`_, founder of `Work For Pie`_
+  * "From the moment I installed Mezzanine, I have been delighted, both with the initial experience and the community involved in its development"
+    - `John Campbell`_, founder of `Head3 Interactive`_
+  * "You need to check out the open source project Mezzanine. In one word: Elegant"
+    - `Nick Hagianis`_, developer
+  * "Who came up with the name Mezzanine? I love it, like a platform between the client's ideas and their published website. Very classy!"
+    - `Stephen White`_, developer
 
 .. GENERAL LINKS
 
@@ -275,6 +285,12 @@ Quotes
 .. _`GitHub issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
+.. _`Python Software Foundation`: http://www.python.org/psf/
+.. _`Django Packages`: http://djangopackages.com/
+.. _`Hewlett Packard`: http://www.hp.com/
+.. _`Tabblo`: http://www.tabblo.com/
+.. _`Work For Pie`: http://workforpie.com/
+
 
 .. THIRD PARTY LIBS
 
@@ -290,8 +306,9 @@ Quotes
 .. PEOPLE WITH QUOTES
 
 .. _`Van Lindberg`: http://www.lindbergd.info/
+.. _`Antonio Rodriguez`: http://an.ton.io/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Audrey Roy`: http://cartwheelweb.com/
+.. _`Michael Delaney`: http://github.com/fusepilot/
 .. _`John Campbell`: http://head3.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
-.. _`Michael Delaney`: http://github.com/fusepilot/
