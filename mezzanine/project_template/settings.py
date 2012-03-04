@@ -45,7 +45,7 @@
 #         # Positional args for field class.
 #         (_("Image"),),
 #         # Keyword args for field class.
-#         {"blank": True, "upload_to: "blog"},
+#         {"blank": True, "upload_to": "blog"},
 #     ),
 #     # Example of adding a field to *all* of Mezzanine's content types:
 #     (
