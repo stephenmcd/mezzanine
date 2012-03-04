@@ -131,7 +131,6 @@ relevant parts from Mezzanine's `project_template`_  package:
 
   * Settings defined in the ``settings`` module.
   * URL patterns defined in the ``urls`` module.
-  * Static assets in the ``site_meda`` directory.
 
 Take the time to look over Mezzanine's ``project_template.settings`` module,
 as it contains many optional settings commented out. Of particular note when
