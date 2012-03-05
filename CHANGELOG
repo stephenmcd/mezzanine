@@ -1,3 +1,20 @@
+Version 1.0.1 (Mar 06, 2012)
+----------------------------
+
+  * Add a patch to the changelog generator for the versioning blunder - Stephen McDonald
+  * Added a new middleware which will serve templates from a theme, based upon the host accessing the site - Josh Cartmell
+  * Separated the logic a little more to make host_theme_path more reusable - Josh Cartmell
+  * Remove mention of site_media which no longer applies with staticfiles used - Stephen McDonald
+  * Avoid file-in-use exception when deleting (on Windows) - Chris Trengove
+  * Added quote by Antonio Rodriguez and one line bio for each of the quoters - Stephen McDonald
+  * Added Chris Trengove to AUTHORS - Stephen McDonald
+  * Fix typo in EXTRA_MODEL_FIELDS example - Michał Oleniec
+  * Fix a couple of test failures on Windows - Chris Trengove
+  * Fixed typo in content-arch docs - Chris Smith
+  * pep8 fixes and docstring cleanup - Stephen McDonald
+  * More pep8 fixes - unused imports - Stephen McDonald
+  * Added Chris Smith to AUTHORS - Stephen McDonald
+
 Version 1.0.0 (Mar 03, 2012)
 ----------------------------
 
