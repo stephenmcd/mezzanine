@@ -1,3 +1,9 @@
+Version 1.0.2 (Mar 06, 2012)
+----------------------------
+
+  * Fix docstring typo in Displayable's save method - Michał Oleniec
+  * Update setup to exclude new dev db name - Stephen McDonald
+
 Version 1.0.1 (Mar 06, 2012)
 ----------------------------
 
