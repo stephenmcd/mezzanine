@@ -1,4 +1,6 @@
 
+from mezzanine.conf import settings
+
 
 def device_from_request(request):
     """
@@ -7,7 +9,6 @@ def device_from_request(request):
     Used at both the template level for choosing the template to load and
     also at the cache level as a cache key prefix.
     """
-    from mezzanine.conf import settings
     try:
         # If a device was set via cookie, match available devices.
         for (device, _) in settings.DEVICE_USER_AGENTS:
@@ -33,7 +34,6 @@ def templates_for_device(request, templates):
     as a list, with each name prefixed with the device directory
     inserted into the front of the list.
     """
-    from mezzanine.conf import settings
     if not isinstance(templates, (list, tuple)):
         templates = [templates]
     device = device_from_request(request)
