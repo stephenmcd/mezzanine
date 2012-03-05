@@ -423,7 +423,8 @@ class Tests(TestCase):
         self.assertTrue(images)
         self.assertTrue(all([image.description for image in images]))
         # Clean up.
-        rmtree(os.path.join(settings.MEDIA_ROOT, GALLERIES_UPLOAD_DIR, title))
+        rmtree(unicode(os.path.join(settings.MEDIA_ROOT,
+                                    GALLERIES_UPLOAD_DIR, title)))
 
     def test_thumbnail_generation(self):
         """
@@ -436,11 +437,12 @@ class Tests(TestCase):
                                   image_name.replace(".", "-%sx%s." % size))
         thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
         thumb_image = thumbnail(image_name, *size)
-        self.assertEqual(thumb_image.lstrip("/"), thumb_name)
+        self.assertEqual(os.path.normpath(thumb_image.lstrip("/")), thumb_name)
         self.assertNotEqual(os.path.getsize(thumb_path), 0)
         thumb = Image.open(thumb_path)
         self.assertEqual(thumb.size, size)
         # Clean up.
+        del thumb
         os.remove(os.path.join(settings.MEDIA_ROOT, image_name))
         os.remove(os.path.join(thumb_path))
         rmtree(os.path.join(os.path.dirname(thumb_path)))
