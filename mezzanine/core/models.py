@@ -118,7 +118,7 @@ class Displayable(Slugged, MetaData):
 
     def save(self, *args, **kwargs):
         """
-        Set default for ``publsh_date`` and ``description`` if none
+        Set default for ``publish_date`` and ``description`` if none
         given.
         """
         if self.publish_date is None:
