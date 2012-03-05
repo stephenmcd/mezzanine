@@ -3,15 +3,17 @@ import os
 
 def host_theme_path(request):
     """
-    Returns the directory of the theme associated with the given host
+    Returns the directory of the theme associated with the given host.
     """
     from mezzanine.conf import settings
     for (host, theme) in settings.HOST_THEMES:
-        if host == request.get_host().split(":")[0]:
+        if host.lower() == request.get_host().split(":")[0].lower():
             try:
-                return ("%s" % os.path.dirname(os.path.abspath(__import__(theme).__file__)))
+                module = __import__(theme)
             except ImportError:
                 pass
+            else:
+                return os.path.dirname(os.path.abspath(module.__file__))
     return ""
 
 def templates_for_host(request, templates):

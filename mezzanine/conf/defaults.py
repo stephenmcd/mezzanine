@@ -270,13 +270,16 @@ register_setting(
 
 register_setting(
     name="HOST_THEMES",
-    description=_("Mapping of host names to themes.  If the current host "
-                  "matches, the associated theme's templates will be served, "
-                  "if it exists.  The theme must be in installed apps."),
+    description=_("A sequence mapping host names to themes, allowing "
+                  "different templates to be served per HTTP hosts "
+                  "Each item in the sequence is a two item sequence, "
+                  "containing a host such as ``othersite.example.com``, and "
+                  "the name of an importable Python package for the theme. "
+                  "If the host is matched for a request, the templates "
+                  "directory inside the theme package will be first searched "
+                  "when loading templates."),
     editable=False,
-    default=(
-        ("", ""),
-    ),
+    default=(),
 )
 
 register_setting(

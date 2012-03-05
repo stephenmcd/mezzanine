@@ -271,6 +271,7 @@ MIDDLEWARE_CLASSES = (
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "mezzanine.core.middleware.TemplateForDeviceMiddleware",
+    "mezzanine.core.middleware.TemplateForHostMiddleware",
     "mezzanine.core.middleware.DeviceAwareFetchFromCacheMiddleware",
     "mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware",
     # Uncomment the following if using any of the SSL settings:

@@ -47,15 +47,17 @@ class TemplateForDeviceMiddleware(object):
         response.template_name = templates
         return response
 
+
 class TemplateForHostMiddleware(object):
 
     def process_template_response(self, request, response):
         """
-        Inserts device-specific templates to the template list.
+        Inserts host-specific templates to the template list.
         """
         templates = templates_for_host(request, response.template_name)
         response.template_name = templates
         return response
+
 
 class DeviceAwareCacheMiddleware(object):
     """
