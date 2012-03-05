@@ -63,6 +63,7 @@ class Gallery(Page, RichText):
                           self.slug, name.decode("utf-8")), ContentFile(data))
                 self.images.add(GalleryImage(file=path))
             if delete_zip_import:
+                zip_file.close()
                 self.zip_import.delete(save=True)
 
 
