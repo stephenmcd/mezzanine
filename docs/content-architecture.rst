@@ -55,7 +55,7 @@ register your model using the ``mezzanine.pages.admin.PageAdmin`` class::
 
 Any regular model fields on your content type will be available when adding
 or changing an instance of it in the admin. This is similar to Django's
-behaviour when registering models in the adminm without using an
+behaviour when registering models in the admin without using an
 admin class, or when using an admin class without fieldsets defined. In these
 cases all the fields on the model are available in the admin.
 
