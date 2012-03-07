@@ -125,6 +125,8 @@ class BaseImporterCommand(BaseCommand):
                 if verbosity >= 1:
                     print "Importing comment by: %s" % comment["user_name"]
                 comment["site"] = site
+#                print comment
+                
                 post.comments.add(ThreadedComment(**comment))
 
             if old_url is not None:
