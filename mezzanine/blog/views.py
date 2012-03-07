@@ -4,17 +4,13 @@ from collections import defaultdict
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.template import RequestContext
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
 from mezzanine.generic.models import AssignedKeyword, Keyword
-from mezzanine.generic.utils import handle_comments
 from mezzanine.pages.models import RichTextPage
-from mezzanine.template.loader import select_template
-from mezzanine.utils.views import paginate
+from mezzanine.utils.views import render, paginate
 
 
 def blog_page():
@@ -80,17 +76,16 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     blog_posts = paginate(blog_posts,
                           request.GET.get("page", 1),
                           settings.BLOG_POST_PER_PAGE,
-                          settings.BLOG_POST_MAX_PAGING_LINKS)
+                          settings.MAX_PAGING_LINKS)
     context = {"blog_page": blog_page(), "blog_posts": blog_posts,
                "year": year, "month": month, "tag": tag,
                "category": category, "author": author}
     templates.append(template)
-    request_context = RequestContext(request, context)
-    t = select_template(templates, request_context)
-    return HttpResponse(t.render(request_context))
+    return render(request, templates, context)
 
 
-def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
+def blog_post_detail(request, slug, year=None, month=None,
+                     template="blog/blog_post_detail.html"):
     """
     Display a blog post and handle comment submission. Custom
     templates are checked for using the name
@@ -99,15 +94,6 @@ def blog_post_detail(request, slug, template="blog/blog_post_detail.html"):
     """
     blog_posts = BlogPost.objects.published(for_user=request.user)
     blog_post = get_object_or_404(blog_posts, slug=slug)
-    # Handle comments
-    comment_parts = handle_comments(blog_post, request)
-    posted_comment_form, unposted_comment_form, response = comment_parts
-    if response is not None:
-        return response
-    context = {"blog_page": blog_page(), "blog_post": blog_post,
-               "posted_comment_form": posted_comment_form,
-               "unposted_comment_form": unposted_comment_form}
+    context = {"blog_page": blog_page(), "blog_post": blog_post}
     templates = [u"blog/blog_post_detail_%s.html" % slug, template]
-    request_context = RequestContext(request, context)
-    t = select_template(templates, request_context)
-    return HttpResponse(t.render(request_context))
+    return render(request, templates, context)

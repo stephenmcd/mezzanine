@@ -2,8 +2,13 @@
 
 {% load mezzanine_tags %}
 
-{% block main %}{{ block.super }}
+{% block extra_head %}
+<script>
+$(function() {$('.middle :input:visible:enabled:first').focus();});
+</script>
+{% endblock %}
 
+{% block main %}{{ block.super }}
 {% if request.GET.sent %}
     {% editable page.form.response %}
     {{ page.form.response|safe }}
@@ -14,10 +19,12 @@
     {{ page_form.content|safe }}
     {% endeditable %}
     {% endwith %}
-    <form method="post" class="form"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
-        <ul>{{ form.as_ul }}</ul>
-        <input class="button" type="submit" value="{{ page.form.button_text }}" />
+        {% fields_for form %}
+        <div class="form-actions">
+            <input class="btn btn-primary btn-large" type="submit" value="{{ page.form.button_text }}">
+        </div>
     </form>
 {% endif %}
 

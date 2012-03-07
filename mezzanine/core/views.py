@@ -1,21 +1,57 @@
 
-import os
-
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
+from django.contrib.auth import logout as auth_logout
+from django.contrib.messages import info
 from django.db.models import get_model
 from django import http
+from django.shortcuts import redirect
 from django.template import RequestContext
+from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
-from django.views.static import serve
 
 from mezzanine.conf import settings
-from mezzanine.core.forms import get_edit_form
+from mezzanine.core.forms import LoginForm, SignupForm, get_edit_form
 from mezzanine.core.models import Displayable
-from mezzanine.template.loader import get_template
-from mezzanine.utils.importing import path_for_import
-from mezzanine.utils.views import is_editable, paginate, render_to_response
+from mezzanine.utils.views import is_editable, paginate, render
 from mezzanine.utils.views import set_cookie
+
+
+def account(request, template="account.html"):
+    """
+    Display and handle both the login and signup forms.
+    """
+    login_form = LoginForm()
+    signup_form = SignupForm()
+    if request.method == "POST":
+        posted_form = None
+        message = ""
+        if request.POST.get("login") is not None:
+            login_form = LoginForm(request.POST)
+            if login_form.is_valid():
+                posted_form = login_form
+                message = _("Successfully logged in")
+        else:
+            signup_form = SignupForm(request.POST)
+            if signup_form.is_valid():
+                signup_form.save()
+                posted_form = signup_form
+                message = _("Successfully signed up")
+        if posted_form is not None:
+            posted_form.login(request)
+            info(request, message)
+            return redirect(request.GET.get("next", "/"))
+    context = {"login_form": login_form, "signup_form": signup_form}
+    return render(request, template, context)
+
+
+def logout(request):
+    """
+    Log the user out.
+    """
+    auth_logout(request)
+    info(request, _("Successfully logged out"))
+    return redirect(request.GET.get("next", "/"))
 
 
 def set_device(request, device=""):
@@ -23,7 +59,7 @@ def set_device(request, device=""):
     Sets a device name in a cookie when a user explicitly wants to go
     to the site for a particular device (eg mobile).
     """
-    response = http.HttpResponseRedirect(request.GET.get("next", "/"))
+    response = redirect(request.GET.get("next", "/"))
     set_cookie(response, "mezzanine-device", device, 60 * 60 * 24 * 365)
     return response
 
@@ -31,14 +67,14 @@ def set_device(request, device=""):
 def direct_to_template(request, template, extra_context=None, **kwargs):
     """
     Replacement for Django's ``direct_to_template`` that uses
-    Mezzanine's device-aware ``render_to_response``.
+    ``TemplateResponse`` via ``mezzanine.utils.views.render``.
     """
     context = extra_context or {}
     context["params"] = kwargs
     for (key, value) in context.items():
         if callable(value):
             context[key] = value()
-    return render_to_response(template, context, RequestContext(request))
+    return render(request, template, context)
 
 
 def edit(request):
@@ -71,32 +107,16 @@ def search(request, template="search_results.html"):
     results = Displayable.objects.search(query)
     results = paginate(results, request.GET.get("page", 1),
                        settings.SEARCH_PER_PAGE,
-                       settings.SEARCH_MAX_PAGING_LINKS)
+                       settings.MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
-    return render_to_response(template, context, RequestContext(request))
-
-
-def serve_with_theme(request, path):
-    """
-    Mimics ``django.views.static.serve`` for serving files from
-    ``MEDIA_ROOT`` during development, first checking for the file
-    in the theme defined by the ``THEME`` setting if specified.
-    """
-    theme = getattr(settings, "THEME")
-    if theme:
-        theme_root = os.path.join(path_for_import(theme), "media")
-        try:
-            return serve(request, path, document_root=theme_root)
-        except http.Http404:
-            pass
-    return serve(request, path, document_root=settings.MEDIA_ROOT)
+    return render(request, template, context)
 
 
 def server_error(request, template_name='500.html'):
     """
-    Mimics Django's error handler but adds ``MEDIA_URL`` to the
+    Mimics Django's error handler but adds ``STATIC_URL`` to the
     context.
     """
-    context = RequestContext(request, {"MEDIA_URL": settings.MEDIA_URL})
-    t = get_template(template_name, context)
+    context = RequestContext(request, {"STATIC_URL": settings.STATIC_URL})
+    t = get_template(template_name)
     return http.HttpResponseServerError(t.render(context))

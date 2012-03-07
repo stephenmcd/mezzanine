@@ -1,5 +1,6 @@
 
 from copy import deepcopy
+from cStringIO import StringIO
 from csv import writer
 from datetime import datetime
 from mimetypes import guess_type
@@ -7,6 +8,7 @@ from os.path import join
 
 from django.conf.urls.defaults import patterns, url
 from django.contrib import admin
+from django.contrib.messages import info
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -18,7 +20,6 @@ from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.forms.forms import EntriesForm
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.pages.admin import PageAdmin
-from mezzanine.utils.messages import info
 from mezzanine.utils.urls import admin_url, slugify
 
 
@@ -45,6 +46,9 @@ class FormAdmin(PageAdmin):
     Admin class for the Form model. Includes the urls & views for exporting
     form entries as CSV and downloading files uploaded via the forms app.
     """
+
+    class Media:
+        css = {"all": ("mezzanine/css/admin/form.css",)}
 
     inlines = (FieldAdmin,)
     list_display = ("title", "status", "email_copies",)
@@ -91,10 +95,15 @@ class FormAdmin(PageAdmin):
                 fname = "%s-%s.csv" % (form.slug, timestamp)
                 header = "attachment; filename=%s" % fname
                 response["Content-Disposition"] = header
-                csv = writer(response, delimiter=settings.FORMS_CSV_DELIMITER)
+                queue = StringIO()
+                csv = writer(queue, delimiter=settings.FORMS_CSV_DELIMITER)
                 csv.writerow(entries_form.columns())
                 for row in entries_form.rows(csv=True):
                     csv.writerow(row)
+                # Decode and reencode the response into utf-16 to be
+                # Excel compatible.
+                data = queue.getvalue().decode("utf-8").encode("utf-16")
+                response.write(data)
                 return response
             elif request.POST.get("delete") and can_delete_entries:
                 selected = request.POST.getlist("selected")

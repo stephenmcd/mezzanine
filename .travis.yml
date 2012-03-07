@@ -1,0 +1,8 @@
+language: python
+python:
+  - "2.5"
+  - "2.6"
+  - "2.7"
+install: pip install . pep8 pyflakes --use-mirrors
+before_script: "cp mezzanine/project_template/local_settings.py.template mezzanine/project_template/local_settings.py"
+script: ./mezzanine/project_template/manage.py test

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load mezzanine_tags comment_tags keyword_tags %}
+
+{% block meta_title %}{{ obj }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for obj as tags %}
+{% for tag in tags %}{% if not forloop.first %}, {% endif %}{{ tag }}{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ obj.description }}
+{% endmetablock %}{% endblock %}
+
+{% block main %}
+{% comments_for obj %}
+{% endblock %}

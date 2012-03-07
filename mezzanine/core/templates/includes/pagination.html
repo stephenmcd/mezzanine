@@ -1,24 +1,23 @@
 {% load i18n %}
 
-<div class="paging">
-    <p>{% trans "Page" %} {{ current_page.number }} {% trans "of" %} 
-        {{ current_page.paginator.num_pages }}:</p>
-    <ul>
-        {% if current_page.has_previous %}
-        <li><a href="?page={{ current_page.previous_page_number }}&{{ querystring }}">&lt;</a></li>
-        {% endif %}
-        {% for page in current_page.visible_page_range %}
-        <li>
-            {% ifequal page current_page.number %}
-            <strong>{{ page }}</strong>
-            {% else %}
-            <a href="?page={{ page }}&{{ querystring }}">{{ page }}</a>
-            {% endifequal %}
-        </li>
-        {% endfor %} 
-        {% if current_page.has_next %}
-        <li><a href="?page={{ current_page.next_page_number }}&{{ querystring }}">&gt;</a></li>
-        {% endif %}
-    </ul>
+<div class="pagination">
+<ul>
+
+<li class="disabled">
+    <a>{% trans "Page" %} {{ current_page.number }} {% trans "of" %} {{ current_page.paginator.num_pages }}</a>
+</li>
+<li class="prev{% if not current_page.has_previous %} disabled{% endif %}">
+    <a{% if current_page.has_previous %} href="?page={{ current_page.previous_page_number }}&{{ querystring }}"{% endif %}>&larr;</a>
+</li>
+{% for page in current_page.visible_page_range %}
+<li{% if page == current_page.number %} class="active"{% endif %}>
+    <a href="?page={{ page }}&{{ querystring }}">{{ page }}</a>
+</li>
+{% endfor %}
+<li class="next{% if not current_page.has_next %} disabled{% endif %}">
+    <a{% if current_page.has_next %} href="?page={{ current_page.next_page_number }}&{{ querystring }}"{% endif %}>&rarr;</a>
+</li>
+
+</ul>
 </div>
 

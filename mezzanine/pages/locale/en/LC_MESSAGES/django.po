@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 10:03-0430\n"
+"POT-Creation-Date: 2012-01-20 21:47-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Rich text pages"
 msgstr ""
 
-#: templates/admin/pages/page/change_list.html:162
+#: templates/admin/pages/page/change_list.html:166
 #: templates/pages/menus/admin.html:30
 msgid "Add"
 msgstr ""
@@ -59,4 +59,9 @@ msgstr ""
 #: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:8
 #: templates/pages/menus/tree.html:10
 msgid "Home"
+msgstr ""
+
+#: templatetags/pages_tags.py:135
+msgid ""
+"An error occured with the following class. Does it subclass Page directly?"
 msgstr ""

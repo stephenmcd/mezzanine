@@ -106,6 +106,13 @@ editing each of these fields, which therefore provides the ability for
 implementing your own editor widget which could be a modified version
 of TinyMCE, a different editor or even no editor at all.
 
+.. note::
+
+    If you'd only like to customize the TinyMCE options specified in its
+    JavaScript setup, you can do so via the ``TINYMCE_SETUP_JS`` setting
+    which lets you specify the URL to your own TinyMCE setup JavaScript
+    file.
+
 The default value for the ``RICHTEXT_WIDGET_CLASS`` setting is the string
 ``"mezzanine.core.forms.TinyMceWidget"``. The ``TinyMceWidget`` class
 referenced here provides the necessary media files and HTML for
@@ -126,7 +133,7 @@ syntax into html right before the content was rendered::
 
     # ... in myproj.filter
     from markdown import markdown
-    
+
     def markdown_filter(content):
         """
         Converts markdown formatted content to html

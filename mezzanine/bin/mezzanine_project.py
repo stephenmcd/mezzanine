@@ -21,8 +21,12 @@ def create_project():
         help="Alternate package to use, containing a project_template")
     parser.add_option("-s", "--source", dest="copy_source", default=False,
         action="store_true", help="Copy package source to new project")
-    parser.add_option("-t", "--templates", dest="copy_templates", default=True,
-        action="store_false", help="Copy templates to the project [default]")
+    parser.add_option("-t", "--templates", dest="copy_templates",
+        default=False, action="store_true",
+        help="Copy templates to the project")
+    parser.add_option("-m", "--mobiletemplates", dest="copy_mobile_templates",
+        default=False, action="store_true",
+        help="Copy mobile templates to the project")
     (options, args) = parser.parse_args()
 
     if len(args) != 1:
@@ -67,9 +71,16 @@ def create_project():
             os.path.join(project_path, "local_settings.py"))
         if options.copy_templates:
             for app_dir in os.listdir(package_path):
+                # Mobile templates handled by -m option below.
+                if app_dir == "mobile":
+                    continue
                 template_dir = os.path.join(package_path, app_dir, "templates")
                 if os.path.isdir(template_dir):
                     copy_tree(template_dir, template_path)
+        if options.copy_mobile_templates:
+            template_dir = os.path.join(package_path, "mobile", "templates")
+            if os.path.isdir(template_dir):
+                copy_tree(template_dir, template_path)
     # Remove admin templates from the project to allow for easier
     # upgrading, as these templates need not be customised.
     if options.copy_templates:

@@ -1,0 +1,47 @@
+
+#extra-login-fields .required {margin-top:1px;}
+input.interface {margin:0 0 0 0px; vertical-align:middle;}
+label.interface {display:inline !important; float:none !important;
+    vertical-align:middle; cursor:pointer;}
+#forgot-password {margin-top:30px; text-align:center;}
+.submit-row input {margin-left:8px;}
+
+.add-row {display:none;}
+.breadcrumbs {
+    display:none; margin:0; padding:0; background:#e6e6e6 !important;
+    width:100%;
+}
+.dropdown-menu {left:0; padding:0; display:block;}
+.dropdown-menu ul {display:inline; padding:0; margin:0;}
+.dropdown-menu li {
+    float:left; width:auto; padding:7px 23px 7px 0; cursor:pointer;
+    font-size:15px; font-weight:bold; list-style-type:none;
+}
+.cloned {margin:5px 0 0 -20px;}
+.cloned li {display:block; font-size:13px; font-weight:normal;
+            padding:15px 25px 15px 20px !important;
+            border-top:1px solid #eee;}
+.cloned .first {border-top:0px !important;}
+.dropdown-menu li ul {display:none; float:left;}
+.cloned {
+    background:#e6e6e6; border-radius:0 0 5px 5px; padding:0;
+    border-bottom:1px solid #ccc;
+}
+.messagelist {margin-top:14px; z-index:0 !important;}
+.inline-stacked ._order, div.dynamic-fields ._order {display:none;}
+.items .placeholder {display:block;}
+
+.keywords-field a {margin-right:10px; float:left;}
+
+/* make save/delete buttons always available at bottom of screen. */
+.change-form div.submit-row {
+    position: fixed; left: 0; bottom: 0; right: 0;
+    margin: 0; padding: 10px 15px;
+    background: #e6e6e6; border-top: 1px solid #ccc;
+    text-align: right;
+}
+
+fieldset .field-box {margin-right:150px !important;}
+
+/* Fix for IE7 layout issue */
+#content { margin-left: 0; margin-right: 0; padding: 0 15px; }

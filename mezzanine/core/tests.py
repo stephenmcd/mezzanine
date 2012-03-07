@@ -1,5 +1,7 @@
 
 import os
+from shutil import rmtree
+from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -10,24 +12,25 @@ from django.template.loader import get_template
 from django.test import TestCase
 from django.utils.html import strip_tags
 from django.contrib.sites.models import Site
-
+from PIL import Image
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
 from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
+from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
+from mezzanine.galleries.models import Gallery, GALLERIES_UPLOAD_DIR
 from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
 from mezzanine.generic.models import RATING_RANGE
-
 from mezzanine.pages.models import RichTextPage
-from mezzanine.utils.tests import run_pyflakes_for_package
-from mezzanine.utils.tests import run_pep8_for_package
+from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.core.templatetags.mezzanine_tags import thumbnail
+from mezzanine.utils.tests import copy_test_to_media, run_pyflakes_for_package
+from mezzanine.utils.tests import run_pep8_for_package
 
 
 class Tests(TestCase):
@@ -44,13 +47,21 @@ class Tests(TestCase):
         args = (self._username, "example@example.com", self._password)
         self._user = User.objects.create_superuser(*args)
 
+    def test_account(self):
+        """
+        Test the account views.
+        """
+        if settings.ACCOUNTS_ENABLED:
+            response = self.client.get(reverse("account"))
+            self.assertEqual(response.status_code, 200)
+
     def test_draft_page(self):
         """
         Test a draft page as only being viewable by a staff member.
         """
         self.client.logout()
         draft = RichTextPage.objects.create(title="Draft",
-                                           status=CONTENT_STATUS_DRAFT)
+                                            status=CONTENT_STATUS_DRAFT)
         response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 404)
         self.client.login(username=self._username, password=self._password)
@@ -60,12 +71,16 @@ class Tests(TestCase):
     def test_overridden_page(self):
         """
         Test that a page with a slug matching a non-page urlpattern
-        return ``True`` for its overridden property. The blog page from
-        the fixtures should satisfy this case.
+        return ``True`` for its overridden property.
         """
-        blog_page, created = RichTextPage.objects.get_or_create(
-                                                slug=settings.BLOG_SLUG)
-        self.assertTrue(blog_page.overridden())
+        # BLOG_SLUG is empty then urlpatterns for pages are prefixed
+        # with PAGE_SLUG, and generally won't be overridden. In this
+        # case, there aren't any overridding URLs by default, so bail
+        # on the test.
+        if PAGES_SLUG:
+            return
+        page, created = RichTextPage.objects.get_or_create(slug="edit")
+        self.assertTrue(page.overridden())
 
     def test_description(self):
         """
@@ -165,9 +180,14 @@ class Tests(TestCase):
         kwargs = {"content_type": content_type, "object_pk": blog_post.id,
                   "site_id": settings.SITE_ID}
         template = "{% load comment_tags %}{% comment_thread blog_post %}"
-        before = self.queries_used_for_template(template, blog_post=blog_post)
+        context = {
+            "blog_post": blog_post,
+            "posted_comment_form": None,
+            "unposted_comment_form": None,
+        }
+        before = self.queries_used_for_template(template, **context)
         self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
-        after = self.queries_used_for_template(template, blog_post=blog_post)
+        after = self.queries_used_for_template(template, **context)
         self.assertEquals(before, after)
 
     def test_page_menu(self):
@@ -390,24 +410,39 @@ class Tests(TestCase):
         site1.delete()
         site2.delete()
 
+    def test_gallery_import(self):
+        """
+        Test that a gallery creates images when given a zip file to
+        import, and that descriptions are created.
+        """
+        zip_name = "gallery.zip"
+        copy_test_to_media("mezzanine.core", zip_name)
+        title = str(uuid4())
+        gallery = Gallery.objects.create(title=title, zip_import=zip_name)
+        images = list(gallery.images.all())
+        self.assertTrue(images)
+        self.assertTrue(all([image.description for image in images]))
+        # Clean up.
+        rmtree(unicode(os.path.join(settings.MEDIA_ROOT,
+                                    GALLERIES_UPLOAD_DIR, title)))
+
     def test_thumbnail_generation(self):
         """
-        Test that a thumbnail is created.
+        Test that a thumbnail is created and resized.
         """
-        orig_name = "testleaf.jpg"
-        if not os.path.exists(os.path.join(settings.MEDIA_ROOT, orig_name)):
-            return
-        thumbnail_name = "testleaf-24x24.jpg"
-        thumbnail_path = os.path.join(settings.MEDIA_ROOT, thumbnail_name)
-        try:
-            os.remove(thumbnail_path)
-        except OSError:
-            pass
-        thumbnail_image = thumbnail(orig_name, 24, 24)
-        thumbnail_size = os.path.getsize(thumbnail_path)
-        try:
-            os.remove(thumbnail_path)
-        except OSError:
-            pass
-        self.assertEqual(thumbnail_image.lstrip("/"), thumbnail_name)
-        self.assertNotEqual(0, thumbnail_size)
+        image_name = "image.jpg"
+        size = (24, 24)
+        copy_test_to_media("mezzanine.core", image_name)
+        thumb_name = os.path.join(settings.THUMBNAILS_DIR_NAME,
+                                  image_name.replace(".", "-%sx%s." % size))
+        thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
+        thumb_image = thumbnail(image_name, *size)
+        self.assertEqual(os.path.normpath(thumb_image.lstrip("/")), thumb_name)
+        self.assertNotEqual(os.path.getsize(thumb_path), 0)
+        thumb = Image.open(thumb_path)
+        self.assertEqual(thumb.size, size)
+        # Clean up.
+        del thumb
+        os.remove(os.path.join(settings.MEDIA_ROOT, image_name))
+        os.remove(os.path.join(thumb_path))
+        rmtree(os.path.join(os.path.dirname(thumb_path)))

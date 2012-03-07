@@ -1,89 +1,115 @@
 {% load pages_tags mezzanine_tags i18n %}
+<!DOCTYPE html>
 <html>
 <head>
 
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
-    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}" /> 
-    <meta name="description" content="{% block meta_description %}{% endblock %}" /> 
-    <title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{% endblock %}">
+<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
 
-    {% if "mezzanine.blog"|is_installed %}
-    <link rel="alternate" type="application/rss+xml" title="RSS" 
-        href="{% url blog_post_feed "rss" %}" />
-    <link rel="alternate" type="application/atom+xml" title="Atom"  
-        href="{% url blog_post_feed "atom" %}" />
-    {% endif %}
+{% if "mezzanine.blog"|is_installed %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="{% url blog_post_feed "rss" %}">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="{% url blog_post_feed "atom" %}">
+{% endif %}
 
-    <link rel="stylesheet" href="{{ MEDIA_URL }}css/960.css" type="text/css" />
-    <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css" type="text/css" />
-    <link rel="stylesheet" href="{{ MEDIA_URL }}css/global.css" type="text/css" />
-    {% block extra_head %}{% endblock %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/mezzanine.css">
+{% if "cartridge.shop"|is_installed %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
+{% endif %}
+<script src="{{ STATIC_URL }}mezzanine/js/jquery-1.4.4.min.js"></script>
+<script>
+$(function() {
+    $('.middleinput:text, textarea').addClass('xlarge');
+    $('.control-group label').addClass('control-label');
+});
+</script>
+
+{% block extra_head %}{% endblock %}
 
 </head>
 <body id="{% block body_id %}{% endblock %}">
 
-{% if settings.SITE_TITLE or settings.SITE_TAGLINE %}
-<div id="grid-header">
-    {% if settings.SITE_TITLE %}
-    <h1>{{ settings.SITE_TITLE }}</h1>
-    {% endif %}
-    {% if settings.SITE_TAGLINE %}
-    <h2>{{ settings.SITE_TAGLINE }}</h2>
-    {% endif %}
-</div>
-{% endif %}
-
-<div id="grid-top">
+<div class="navbar">
+<div class="navbar-inner">
+<div class="container">
+    {% if settings.SITE_TITLE %}<a class="brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
+    {% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}
+    <form action="{% url search %}" class="navbar-search pull-right">
+    <input class="search-query" placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.REQUEST.q }}">
+    </form>
     {% page_menu "pages/menus/primary.html" %}
 </div>
+</div>
+</div>
 
-<div class="container_12 clearfix">
+<div class="container">
 
-    <div id="grid-left" class="grid_3 grid">
-        {% page_menu "pages/menus/tree.html" %}
-    </div>
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}" data-alert="alert">
+<a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
+</div>
+{% endfor %}
 
-    <div id="grid-middle" class="grid_6 grid">
-        <div class="gutter">
-            <h1>{% block title %}{% endblock %}</h1>
-            <div id="breadcrumb-menu">
-                {% block breadcrumb_menu %}
-                    {% page_menu "pages/menus/breadcrumb.html" %}
-                {% endblock %}
-            </div>
-            {% block main %}{% endblock %}
-        </div>
-    </div>
+<h1>{% block title %}{% endblock %}</h1>
 
-    <div id="grid-right" class="grid_3 grid">
-        {% include "includes/search.html" %}
-        {% block right_panel %}
-            {% if "mezzanine.twitter"|is_installed %}
-            {% include "twitter/tweets.html" %}
-            {% endif %}
-        {% endblock %}
-        <p class="mezzanine">
-            {% trans "Powered by" %} 
-            <a href="http://mezzanine.jupo.org">Mezzanine</a><br />
-            <a href="{% url set_device "mobile" %}?next={{ request.path }}">
-                {% trans "View Mobile Site." %}
-            </a>
-        </p>
-    </div>
+<ul class="breadcrumb">
+{% spaceless %}
+{% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
+{% endspaceless %}
+</ul>
 
 </div>
 
-<div id="grid-bottom">
-    <div class="container_12 clearfix">
-        <div class="grid_3">&nbsp;</div>
-        <div class="grid_6 push_3 grid">
-            {% page_menu "pages/menus/footer.html" %}
-        </div>
+<div class="container">
+<div class="row">
+
+<div class="span2 left">
+    <div class="panel">{% page_menu "pages/menus/tree.html" %}</div>
+</div>
+
+<div class="span7 middle">
+    {% block main %}{% endblock %}
+</div>
+
+<div class="span3 right">
+    {% include "includes/user_panel.html" %}
+    <div class="panel">
+    {% block right_panel %}
+    {% if "mezzanine.twitter"|is_installed %}
+    {% include "twitter/tweets.html" %}
+    {% endif %}
+    {% endblock %}
     </div>
 </div>
+
+</div>
+</div>
+
+<footer>
+<div class="container">
+{% page_menu "pages/menus/footer.html" %}
+<br clear="all">
+<p>
+    {% trans "Powered by" %}
+    <a href="http://mezzanine.jupo.org">Mezzanine</a>{% if "cartridge.shop"|is_installed %},
+    <a href="http://cartridge.jupo.org">Cartridge</a>{% endif %}
+    {% trans "and" %}
+    <a href="http://www.djangoproject.com">Django</a>
+    <span class="separator">|</span>
+    Theme by <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>
+    {% if "mezzanine.mobile"|is_installed %}
+    <span class="separator">|</span>
+    <a href="{% url set_device "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
+    {% endif %}
+</p>
+</div>
+</footer>
 
 {% include "includes/footer_scripts.html" %}
 
 </body>
 </html>
-

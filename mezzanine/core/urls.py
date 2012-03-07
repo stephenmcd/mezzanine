@@ -1,5 +1,5 @@
 
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, url
 
 from mezzanine.conf import settings
 
@@ -13,6 +13,14 @@ if "django.contrib.admin" in settings.INSTALLED_APPS:
         ("^reset/(?P<uidb36>[-\w]+)/(?P<token>[-\w]+)/$",
             "password_reset_confirm"),
         ("^reset/done/$", "password_reset_complete"),
+    )
+
+if getattr(settings, "ACCOUNTS_ENABLED", False):
+    urlpatterns += patterns("mezzanine.core.views",
+        url("^%s$" % settings.LOGIN_URL.lstrip("/"), "account",
+            name="account"),
+        url("^%s$" % settings.LOGOUT_URL.lstrip("/"), "logout",
+            name="logout"),
     )
 
 urlpatterns += patterns("mezzanine.core.views",

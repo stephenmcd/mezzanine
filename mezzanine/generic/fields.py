@@ -1,5 +1,8 @@
 
+from copy import copy
+
 from django.contrib.contenttypes.generic import GenericRelation
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
 
@@ -41,6 +44,12 @@ class BaseGenericRelation(GenericRelation):
         the related item save and delete signals for calling
         ``related_items_changed``.
         """
+        for field in cls._meta.many_to_many:
+            if isinstance(field, self.__class__):
+                e = "Multiple %s fields are not supported (%s.%s, %s.%s)" % (
+                    self.__class__.__name__, cls.__name__, cls.__name__,
+                    name, field.name)
+                raise ImproperlyConfigured(e)
         super(BaseGenericRelation, self).contribute_to_class(cls, name)
         self.related_field_name = name
         # Not applicable to abstract classes, and in fact will break.
@@ -50,7 +59,7 @@ class BaseGenericRelation(GenericRelation):
                     name_string = name_string % name
                 if not field.verbose_name:
                     field.verbose_name = self.verbose_name
-                cls.add_to_class(name_string, field)
+                cls.add_to_class(name_string, copy(field))
             # For some unknown reason the signal won't be triggered
             # if given a sender arg, particularly when running
             # Cartridge with the field RichTextPage.keywords - so
@@ -94,8 +103,9 @@ class BaseGenericRelation(GenericRelation):
 
 class CommentsField(BaseGenericRelation):
     """
-    Stores the number of comments against the ``COMMENTS_FIELD_count``
-    field when a comment is saved or deleted.
+    Stores the number of comments against the
+    ``COMMENTS_FIELD_NAME_count`` field when a comment is saved or
+    deleted.
     """
 
     related_model = "generic.ThreadedComment"
@@ -119,12 +129,13 @@ class CommentsField(BaseGenericRelation):
 class KeywordsField(BaseGenericRelation):
     """
     Stores the keywords as a single string into the
-    ``KEYWORDS_FIELD_string``  field for convenient access when
+    ``KEYWORDS_FIELD_NAME_string`` field for convenient access when
     searching.
     """
 
     related_model = "generic.AssignedKeyword"
-    fields = {"%s_string": CharField(blank=True, max_length=500)}
+    fields = {"%s_string": CharField(editable=False, blank=True,
+                                     max_length=500)}
 
     def __init__(self, *args, **kwargs):
         """
@@ -203,13 +214,14 @@ class KeywordsField(BaseGenericRelation):
 
 class RatingField(BaseGenericRelation):
     """
-    Stores the average rating against the ``RATING_FIELD_average``
-    field when a rating is saved or deleted.
+    Stores the rating count and average against the
+    ``RATING_FIELD_NAME_count`` and ``RATING_FIELD_NAME_average``
+    fields when a rating is saved or deleted.
     """
 
     related_model = "generic.Rating"
-    fields = {"%s_count": IntegerField(default=0),
-              "%s_average": FloatField(default=0)}
+    fields = {"%s_count": IntegerField(default=0, editable=False),
+              "%s_average": FloatField(default=0, editable=False)}
 
     def related_items_changed(self, instance, related_manager):
         """

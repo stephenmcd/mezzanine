@@ -1,8 +1,8 @@
 {% load i18n pages_tags %}
 
 {% spaceless %}
-{% if page_branch %}
-<ul class="tree-menu-level-{{ branch_level }}">
+{% if page_branch_in_navigation %}
+<ul class="unstyled tree-menu-level-{{ branch_level }}">
 	{% for page in page_branch %}
 
     {% if page.is_primary and forloop.first %}
@@ -12,8 +12,9 @@
 	{% endif %}
 
 	{% if page.in_navigation %}
-	<li class="{% if page.is_current_or_ascendant %}active{% endif %}
-        {% if not top_level and forloop.first %} first{% endif %}
+	<li class="
+        {% if page.is_current_or_ascendant %} active{% endif %}
+        {% if not page.is_primary and forloop.first %} first{% endif %}
         {% if forloop.last %} last{% endif %}"
         id="tree-menu-{{ page.html_id }}">
 		<a href="{% url page page.slug %}">{{ page.title }}</a>

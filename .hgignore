@@ -5,8 +5,8 @@ syntax: glob
 .DS_Store
 .coverage
 local_settings.py
-mezzanine/project_template/site_media/uploads/*
 build/*
-docs/build/*
 dist/*
-Mezzanine.egg-info/*
+*.egg-info/*
+project_template/static
+

@@ -2,8 +2,9 @@
 from __future__ import with_statement
 import os
 
-exclude = ["mezzanine/project_template/mezzanine.db",
-    "mezzanine/project_template/local_settings.py"]
+
+exclude = ["mezzanine/project_template/dev.db",
+           "mezzanine/project_template/local_settings.py"]
 exclude = dict([(e, None) for e in exclude])
 for e in exclude:
     if e.endswith(".py"):
@@ -39,9 +40,10 @@ try:
         packages=find_packages(),
 
         install_requires=[
-            "django >= 1.1",
-            "filebrowser_safe",
-            "grappelli_safe >= 0.1.9",
+            "django >= 1.3",
+            "filebrowser_safe >= 0.2.0",
+            "grappelli_safe >= 0.2.0",
+            "pillow",
         ],
 
         entry_points="""

@@ -7,24 +7,13 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import Orderable
-from mezzanine.utils.urls import content_media_urls, admin_url
-
-
-# For >= Django 1.2 include a backport of collapse.js which targets
-# earlier versions of the admin.
-from django import VERSION
-displayable_js = []
-if VERSION >= (1, 2, 0):
-    displayable_js = content_media_urls("js/collapse_backport.js")
+from mezzanine.utils.urls import admin_url
 
 
 class DisplayableAdmin(admin.ModelAdmin):
     """
     Admin class for subclasses of the abstract ``Displayable`` model.
     """
-
-    class Media:
-        js = displayable_js
 
     list_display = ("title", "status", "admin_link")
     list_display_links = ("title",)
@@ -36,7 +25,7 @@ class DisplayableAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {"fields": ["title", "status",
             ("publish_date", "expiry_date"), ]}),
-        (_("Meta data"), {"fields": ("slug", "description", "keywords"),
+        (_("Meta data"), {"fields": ["slug", "description", "keywords"],
             "classes": ("collapse-closed",)},),
     )
 

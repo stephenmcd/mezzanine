@@ -1,11 +1,27 @@
+"""
+Default settings for all of Mezzanine's apps. Each of these can be
+overridden in your project's settings module, just like regular
+Django settings. The ``editable`` argument for each controls whether
+the setting is editable via Django's admin.
 
-import os.path
+Thought should be given to how a setting is actually used before
+making it editable, as it may be inappropriate - for example settings
+that are only read during startup shouldn't be editable, since changing
+them would require an application reload.
+"""
 
 from django.conf import settings
 from django.utils.translation import ugettext as _
 
 from mezzanine.conf import register_setting
 
+
+register_setting(
+    name="ACCOUNTS_ENABLED",
+    description="If True, users can create an account.",
+    editable=False,
+    default=False,
+)
 
 register_setting(
     name="ADMIN_MENU_ORDER",
@@ -43,19 +59,27 @@ register_setting(
 )
 
 register_setting(
+    name="BLOG_USE_FEATURED_IMAGE",
+    description=_("Enable featured images in blog posts"),
+    editable=False,
+    default=False,
+)
+
+register_setting(
+    name="BLOG_URLS_USE_DATE",
+    label=_("Use date URLs"),
+    description=_("If ``True``, URLs for blog post include the month and "
+        "year. Eg: /blog/yyyy/mm/slug/"),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="BLOG_POST_PER_PAGE",
     label=_("Blog posts per page"),
     description=_("Number of blog posts shown on a blog listing page."),
     editable=True,
     default=5,
-)
-
-register_setting(
-    name="BLOG_POST_MAX_PAGING_LINKS",
-    label=_("Max blog paging links"),
-    description=_("Max number of paging links shown on a blog listing page."),
-    editable=True,
-    default=10,
 )
 
 register_setting(
@@ -122,20 +146,6 @@ register_setting(
         "will still be displayed, but replaced with a ``removed`` message."),
     editable=True,
     default=True,
-)
-
-register_setting(
-    name="CONTENT_MEDIA_PATH",
-    description=_("Absolute path to Mezzanine's internal media files."),
-    editable=False,
-    default=os.path.join(os.path.dirname(__file__), "..", "core", "media"),
-)
-
-register_setting(
-    name="CONTENT_MEDIA_URL",
-    description=_("URL prefix for serving Mezzanine's internal media files."),
-    editable=False,
-    default="/content_media/",
 )
 
 if "mezzanine.blog" in settings.INSTALLED_APPS:
@@ -205,6 +215,15 @@ register_setting(
 )
 
 register_setting(
+    name="FORMS_DISABLE_SEND_FROM_EMAIL_FIELD",
+    description=_("If ``True``, emails sent to extra recipients for form "
+        "submissions won't be sent from an address taken from one of the "
+        "form's email fields."),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="FORMS_FIELD_MAX_LENGTH",
     description=_("Max length allowed for field values in the forms app."),
     editable=False,
@@ -250,34 +269,25 @@ register_setting(
 )
 
 register_setting(
-    name="RICHTEXT_WIDGET_CLASS",
-    description=_("Dotted package path and class name of the widget to use "
-        "for the ``RichTextField``."),
+    name="HOST_THEMES",
+    description=_("A sequence mapping host names to themes, allowing "
+                  "different templates to be served per HTTP hosts "
+                  "Each item in the sequence is a two item sequence, "
+                  "containing a host such as ``othersite.example.com``, and "
+                  "the name of an importable Python package for the theme. "
+                  "If the host is matched for a request, the templates "
+                  "directory inside the theme package will be first searched "
+                  "when loading templates."),
     editable=False,
-    default="mezzanine.core.forms.TinyMceWidget",
+    default=(),
 )
 
 register_setting(
-    name="RICHTEXT_FILTER",
-    description=_("Dotted path to the function to call on a ``RichTextField`` "
-        "value before it is rendered to the template."),
-    editable=False,
-    default=None,
-)
-
-register_setting(
-    name="TAG_CLOUD_SIZES",
-    label=_("Tag Cloud Sizes"),
-    description=_("Number of different sizes for tags when shown as a cloud."),
+    name="MAX_PAGING_LINKS",
+    label=_("Max paging links"),
+    description=_("Max number of paging links to display when paginating."),
     editable=True,
-    default=4,
-)
-
-register_setting(
-    name="THEME",
-    description=_("Package name of theme app to use."),
-    editable=False,
-    default="",
+    default=10,
 )
 
 register_setting(
@@ -304,17 +314,25 @@ register_setting(
 )
 
 register_setting(
-    name="SEARCH_PER_PAGE",
-    label=_("Search results per page"),
-    description=_("Number of results shown in the search results page."),
-    editable=True,
-    default=10,
+    name="RICHTEXT_WIDGET_CLASS",
+    description=_("Dotted package path and class name of the widget to use "
+        "for the ``RichTextField``."),
+    editable=False,
+    default="mezzanine.core.forms.TinyMceWidget",
 )
 
 register_setting(
-    name="SEARCH_MAX_PAGING_LINKS",
-    label=_("Max search paging links"),
-    description=_("Max number of paging links for the search results page."),
+    name="RICHTEXT_FILTER",
+    description=_("Dotted path to the function to call on a ``RichTextField`` "
+        "value before it is rendered to the template."),
+    editable=False,
+    default=None,
+)
+
+register_setting(
+    name="SEARCH_PER_PAGE",
+    label=_("Search results per page"),
+    description=_("Number of results shown in the search results page."),
     editable=True,
     default=10,
 )
@@ -334,6 +352,35 @@ register_setting(
     description=_("A tag line that will appear at the top of all pages."),
     editable=True,
     default=_("An open source content management platform."),
+)
+
+register_setting(
+    name="SSL_ENABLED",
+    label=_("Enable SSL"),
+    description="If ``True``, users will be automatically redirected to HTTPS "
+                "for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` "
+                "setting.",
+    editable=True,
+    default=False,
+)
+
+register_setting(
+    name="SSL_FORCE_HOST",
+    label=_("Force Host"),
+    description="Host name that the site should always be accessed via that "
+                "matches the SSL certificate.",
+    editable=True,
+    default="",
+)
+
+register_setting(
+    name="SSL_FORCE_URL_PREFIXES",
+    description="Sequence of URL prefixes that will be forced to run over "
+                "SSL when ``SSL_ENABLED`` is ``True``. i.e. "
+                "('/admin', '/example') would force all URLs beginning with "
+                "/admin or /example to run over SSL.",
+    editable=False,
+    default=("/admin", "/account"),
 )
 
 register_setting(
@@ -394,18 +441,43 @@ register_setting(
 )
 
 register_setting(
+    name="TAG_CLOUD_SIZES",
+    label=_("Tag Cloud Sizes"),
+    description=_("Number of different sizes for tags when shown as a cloud."),
+    editable=True,
+    default=4,
+)
+
+register_setting(
     name="TEMPLATE_ACCESSIBLE_SETTINGS",
     description=_("Sequence of setting names available within templates."),
     editable=False,
     default=(
+        "ACCOUNTS_ENABLED", "ADMIN_MEDIA_PREFIX",
         "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
-        "CONTENT_MEDIA_URL", "DEV_SERVER", "FORMS_USE_HTML5",
-        "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID",
-        "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE",
-        "RATINGS_MAX",
+        "DEV_SERVER", "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED",
+        "GOOGLE_ANALYTICS_ID", "LOGIN_URL", "LOGOUT_URL",
+        "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE", "RATINGS_MAX",
     ),
+)
+
+register_setting(
+    name="THUMBNAILS_DIR_NAME",
+    description=_("Directory name to store thumbnails in, that will be "
+        "created relative to the original image's directory."),
+    editable=False,
+    default=".thumbnails",
+)
+
+register_setting(
+    name="TINYMCE_SETUP_JS",
+    description=_("URL for the JavaScript file (relative to ``STATIC_URL``) "
+        "that handles configuring TinyMCE when the default "
+        "``RICHTEXT_WIDGET_CLASS`` is used."),
+    editable=False,
+    default="mezzanine/js/tinymce_setup.js",
 )
 
 # The following settings are defined here for documentation purposes

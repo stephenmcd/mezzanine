@@ -1,155 +1,17 @@
 {% extends "admin/change_list.html" %}
 {% load pages_tags i18n adminmedia %}
 
-{% block extrahead %}{{ block.super }}
-<style type="text/css">
-
-    h1 {width:300px;}
-    #tree {margin-top:10px; width:600px;}
-    #tree div {border:1px solid #ddd; background:#f9f9f9; padding:7px;
-        border-top-color:#eee; border-bottom-color:#ccc;
-        float:left; width:100%; margin:3px; height:18px;
-        background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#e6e6e6));
-        background: -moz-linear-gradient(top, #f9f9f9, #e6e6e6);}
-    #tree ul {padding:0; margin:0px !important;}
-    #tree ul ul {padding-left:40px; display:none;}
-    #tree li {list-style-type:none;}
-    #tree .tree-toggle, #tree .changelink {float:left; font-weight:bold;
-        font-size:12px;}
-    #tree .tree-toggle {visibility:hidden;}
-    #tree a {float:right;}
-    #tree a .icon {display:block; float:left; width:16px; color:#fff;
-        text-align:center; background:#c6c6c6; margin:0 8px 0 4px;
-        border-radius:2px;}
-    #tree a .close {display:none;}
-    #tree a:hover .icon {color:#fff; background:#5B80B2;}
-    .ordering {float:right; cursor:move; margin-left:10px;}
-
-    .addlist {float:right; margin-top:-3px;}
-    #addlist-primary {float:left; width:620px; text-align:right;
-        margin-top:-25px;}
-
-    .placeholder {border:1px dashed #ddd;}
-    .uneditable {margin-left:25px; color:#999;}
-
-    .delete {width:10px; height:10px; margin:2px 4px 0 10px;
-        display:block; float:right;
-        background:url('{% admin_media_prefix %}img/admin/icon_deletelink.gif');}
-
-    .grappelli-delete {width:11px; height:11px; margin:4px 4px 0 10px;
-        background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink.png');}
-
-    .grappelli-delete:hover {
-        background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink-hover.png');}
-
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/page_tree.css">
+<style>
+.delete {width:10px; height:10px; margin:2px 4px 0 10px; display:block; float:right; background:url('{% admin_media_prefix %}img/admin/icon_deletelink.gif');}
+.grappelli-delete {width:11px; height:11px; margin:4px 4px 0 10px; background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink.png');}
+.grappelli-delete:hover {background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink-hover.png');}
 </style>
-
-<script type="text/javascript"
-    src="{{ settings.CONTENT_MEDIA_URL }}js/jquery-ui-1.8.14.custom.min.js"></script>
-
-<script type="text/javascript">
-
-    var cookie = 'mezzanine-admin-tree';
-    var at = ('; ' + document.cookie).indexOf('; ' + cookie + '=');
-    var ids = '';
-
-    if (at > -1) {
-        ids = document.cookie.substr(at + cookie.length + 1).split(';')[0];
-    }
-
-    var toggleID = function(opened, id) {
-        // Add or remove the page ID from the cookie IDs string.
-        var index = $.inArray(id, ids.split(','));
-        if (opened) {
-            if (index == -1) {
-                if (ids) {ids += ',';}
-                ids += id;
-            }
-        } else if (index > -1) {
-            ids = ids.split(',');
-            ids.splice(index, 1);
-            ids = ids.join(',');
-        }
-        document.cookie = cookie + '=' + ids + '; path=/';
-    };
-
-    $(function() {
-
-        if (window.__grappelli_installed) {
-            $('.delete').addClass('grappelli-delete');
-        }
-
-        $('#tree .tree-toggle').click(function() {
-            // Show/hide the branch and toggle the icon.
-            var pageLink = $(this);
-            pageLink.parent().parent().find('ul').toggle();
-            pageLink.find('.icon').toggle();
-            // Add or remove the page ID from the cookie.
-            var opened = pageLink.find('.close:visible').length == 1;
-            var id = pageLink.attr('id').split('-')[1];
-            toggleID(opened, id);
-            return false;
-        });
-
-        // Show previously opened branches.
-        if (ids) {
-            $('#page-' + ids.split(',').join(', #page-')).click();
-        }
-
-        // Show the open/close button for branches that have children
-        $('li:has(li) .tree-toggle').css({visibility: 'visible'});
-        $('li:not(:has(li)) .tree-toggle').css({visibility: 'hidden'});
-
-        // The dropdown list for adding a new page contains URLs for each
-        // model - redirect when selected.
-        $('.addlist').change(function() {
-            // Ensure the branch is saved as open when adding to it so that
-            // the new branch will be visible directly after saving.
-            var id = $(this).attr('id');
-            if (id) {
-                toggleID(true, id.split('-')[1]);
-            }
-            var addUrl = this[this.selectedIndex].value;
-            if (addUrl) {
-                location.href = addUrl;
-            }
-            this.selectedIndex = 0;
-            return true;
-        });
-
-        // AJAX callback that's triggered when dragging a page to re-order
-        // it has ended.
-        var updateOrdering = function(event, ui) {
-            var args = {
-                'ordering_from': $(this).sortable('toArray').toString(),
-                'ordering_to': $(ui.item).parent().sortable('toArray').toString(),
-            };
-            if (args['ordering_from'] != args['ordering_to']) {
-                // Branch changed - set the new parent ID.
-                args['moved_page'] = $(ui.item).attr('id');
-                args['moved_parent'] = $(ui.item).parent().parent().attr('id');
-                if (args['moved_parent'] == 'tree') {
-                    delete args['moved_parent'];
-                }
-            } else {
-                delete args['ordering_to'];
-            }
-            $.post('{% url admin_page_ordering %}', args, function(data) {
-                if (data !== "ok") {
-                    alert("Error occured: " + data + "\nOrdering wasn't updated.");
-                }
-            });
-        };
-
-        // Make the pages sortable via drag and drop.
-        $('#tree ul').sortable({handle: '.ordering', connectWith: '#tree ul',
-            opacity: '.7', stop:  updateOrdering, forcePlaceholderSize: true,
-            placeholder: 'placeholder', revert: 150, toleranceElement: ' div'});
-        $('#tree ul').disableSelection();
-
-    });
-
-</script>
+<script>window.__page_ordering_url = '{% url admin_page_ordering %}';</script>
+<script src="{{ STATIC_URL }}mezzanine/js/jquery-ui-1.8.14.custom.min.js"></script>
+<script src="{{ STATIC_URL }}mezzanine/js/admin/page_tree.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -170,11 +32,11 @@
     </div>
     {% endif %}
 
-    {% ifequal cl.result_count 0 %}
+    {% if cl.result_count == 0 %}
     <p class="paginator">0 {{ cl.opts.verbose_name_plural }}</p>
     {% else %}
     <div id="tree">{% page_menu "pages/menus/admin.html" %}</div>
-    {% endifequal %}
+    {% endif %}
 
 </div>
 {% endblock %}

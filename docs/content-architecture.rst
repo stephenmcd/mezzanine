@@ -42,8 +42,28 @@ pages that were photo galleries::
         gallery = models.ForeignKey("Gallery")
         image = models.ImageField(upload_to="galleries")
 
-You'll also need to create an admin class for the Gallery model that
-inherits from ``mezzanine.pages.admin.PageAdmin``::
+Next you'll need to register your model with Django's admin to make it
+available as a content type. If your content type only exposes some new
+fields that you'd like to make editable in the admin, you can simply
+register your model using the ``mezzanine.pages.admin.PageAdmin`` class::
+
+    from django.contrib import admin
+    from mezzanine.pages.admin import PageAdmin
+    from models import Gallery
+
+    admin.site.register(Gallery, PageAdmin)
+
+Any regular model fields on your content type will be available when adding
+or changing an instance of it in the admin. This is similar to Django's
+behaviour when registering models in the admin without using an
+admin class, or when using an admin class without fieldsets defined. In these
+cases all the fields on the model are available in the admin.
+
+If however you need to customize your admin class, you can inherit from
+``PageAdmin`` and implement your own admin class. The only difference is
+that you'll need to take a copy of ``PageAdmin.fieldsets`` and modify it
+if you want to implement your own fieldsets, otherwise you'll lose the fields
+that the ``Page`` model implements::
 
     from copy import deepcopy
     from django.contrib import admin
@@ -61,18 +81,10 @@ inherits from ``mezzanine.pages.admin.PageAdmin``::
 
     admin.site.register(Gallery, GalleryAdmin)
 
-In this example we build ``GalleryAdmin.fieldsets`` by copying
-``PageAdmin.fieldsets`` and appending to it. This is so we can make use
-of the fieldsets already defined by ``PageAdmin`` which would be lost if
-we were to define our own ``fieldsets`` from scratch. It's also worth noting
-that if we weren't to define ``fieldsets``, the fields defined for our
-``Gallery`` model would not be automatically shown in the admin, as would
-normally be the case with Django. This is because ``fieldsets`` has already
-been defined by ``PageAdmin.fieldsets``.
-
-By using an admin class that inherits from ``PageAdmin`` the admin class
-won't be listed in the admin index page, instead being made available as
-a type of ``Page`` when creating new pages from the navigation tree.
+When registering content type models with ``PageAdmin`` or subclasses of
+it, the admin class won't be listed in the admin index page, instead being
+made available as a type of ``Page`` when creating new pages from the
+navigation tree.
 
 .. note::
 

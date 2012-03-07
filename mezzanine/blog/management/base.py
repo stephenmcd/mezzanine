@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand, CommandError
+from django.utils.html import strip_tags
+
+from mezzanine.utils.html import decode_entities
 
 
 class BaseImporterCommand(BaseCommand):
@@ -33,6 +36,8 @@ class BaseImporterCommand(BaseCommand):
         Attributes:
             pub_date is assumed to be a datetime object.
         """
+        if not title:
+            title = decode_entities(strip_tags(content).split(". ")[0])
         if categories is None:
             categories = []
         if tags is None:

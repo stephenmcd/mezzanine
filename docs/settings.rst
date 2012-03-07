@@ -1,5 +1,12 @@
 .. THIS DOCUMENT IS AUTO GENERATED VIA conf.py
 
+``ACCOUNTS_ENABLED``
+--------------------
+
+If True, users can create an account.
+
+Default: ``False``
+
 ``ADMIN_MENU_ORDER``
 --------------------
 
@@ -28,13 +35,6 @@ Username for bit.ly URL shortening service.
 
 Default: ``''``
 
-``BLOG_POST_MAX_PAGING_LINKS``
-------------------------------
-
-Max number of paging links shown on a blog listing page.
-
-Default: ``10``
-
 ``BLOG_POST_PER_PAGE``
 ----------------------
 
@@ -48,6 +48,20 @@ Default: ``5``
 Slug of the page object for the blog.
 
 Default: ``'blog'``
+
+``BLOG_URLS_USE_DATE``
+----------------------
+
+If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/
+
+Default: ``False``
+
+``BLOG_USE_FEATURED_IMAGE``
+---------------------------
+
+Enable featured images in blog posts
+
+Default: ``False``
 
 ``COMMENTS_DEFAULT_APPROVED``
 -----------------------------
@@ -98,20 +112,6 @@ If ``True``, comments that have ``is_public`` unchecked will still be displayed,
 
 Default: ``True``
 
-``CONTENT_MEDIA_PATH``
-----------------------
-
-Absolute path to Mezzanine's internal media files.
-
-Default: ``[dynamic]``
-
-``CONTENT_MEDIA_URL``
----------------------
-
-URL prefix for serving Mezzanine's internal media files.
-
-Default: ``'/content_media/'``
-
 ``DASHBOARD_TAGS``
 ------------------
 
@@ -146,6 +146,13 @@ Default: ``()``
 Char to use as a field delimiter when exporting form responses as CSV.
 
 Default: ``','``
+
+``FORMS_DISABLE_SEND_FROM_EMAIL_FIELD``
+---------------------------------------
+
+If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields.
+
+Default: ``False``
 
 ``FORMS_FIELD_MAX_LENGTH``
 --------------------------
@@ -182,6 +189,20 @@ Google Analytics ID (http://www.google.com/analytics/)
 
 Default: ``''``
 
+``HOST_THEMES``
+---------------
+
+A sequence mapping host names to themes, allowing different templates to be served per HTTP hosts Each item in the sequence is a two item sequence, containing a host such as ``othersite.example.com``, and the name of an importable Python package for the theme. If the host is matched for a request, the templates directory inside the theme package will be first searched when loading templates.
+
+Default: ``()``
+
+``MAX_PAGING_LINKS``
+--------------------
+
+Max number of paging links to display when paginating.
+
+Default: ``10``
+
 ``PAGES_MENU_SHOW_ALL``
 -----------------------
 
@@ -217,13 +238,6 @@ Dotted package path and class name of the widget to use for the ``RichTextField`
 
 Default: ``'mezzanine.core.forms.TinyMceWidget'``
 
-``SEARCH_MAX_PAGING_LINKS``
----------------------------
-
-Max number of paging links for the search results page.
-
-Default: ``10``
-
 ``SEARCH_PER_PAGE``
 -------------------
 
@@ -245,6 +259,27 @@ Title that will display at the top of the site, and be appended to the content o
 
 Default: ``'Mezzanine'``
 
+``SSL_ENABLED``
+---------------
+
+If ``True``, users will be automatically redirected to HTTPS for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting.
+
+Default: ``False``
+
+``SSL_FORCE_HOST``
+------------------
+
+Host name that the site should always be accessed via that matches the SSL certificate.
+
+Default: ``''``
+
+``SSL_FORCE_URL_PREFIXES``
+--------------------------
+
+Sequence of URL prefixes that will be forced to run over SSL when ``SSL_ENABLED`` is ``True``. i.e. ('/admin', '/example') would force all URLs beginning with /admin or /example to run over SSL.
+
+Default: ``('/admin', '/account')``
+
 ``STOP_WORDS``
 --------------
 
@@ -264,14 +299,21 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'CONTENT_MEDIA_URL', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
+Default: ``('ACCOUNTS_ENABLED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'LOGIN_URL', 'LOGOUT_URL', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
 
-``THEME``
----------
+``THUMBNAILS_DIR_NAME``
+-----------------------
 
-Package name of theme app to use.
+Directory name to store thumbnails in, that will be created relative to the original image's directory.
 
-Default: ``''``
+Default: ``'.thumbnails'``
+
+``TINYMCE_SETUP_JS``
+--------------------
+
+URL for the JavaScript file (relative to ``STATIC_URL``) that handles configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used.
+
+Default: ``'mezzanine/js/tinymce_setup.js'``
 
 ``USE_SOUTH``
 -------------

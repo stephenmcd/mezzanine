@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 10:03-0430\n"
+"POT-Creation-Date: 2012-01-20 21:47-0430\n"
 "PO-Revision-Date: 2011-11-12 03:36+0000\n"
 "Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/"
@@ -51,7 +51,7 @@ msgstr "Página de texto enriquecido"
 msgid "Rich text pages"
 msgstr "Páginas de texto enriquecido"
 
-#: templates/admin/pages/page/change_list.html:162
+#: templates/admin/pages/page/change_list.html:166
 #: templates/pages/menus/admin.html:30
 msgid "Add"
 msgstr "Añadir"
@@ -62,3 +62,8 @@ msgstr "Añadir"
 #: templates/pages/menus/tree.html:10
 msgid "Home"
 msgstr "Inicio"
+
+#: templatetags/pages_tags.py:135
+msgid ""
+"An error occured with the following class. Does it subclass Page directly?"
+msgstr ""

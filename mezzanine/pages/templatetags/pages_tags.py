@@ -5,12 +5,12 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import get_models
 from django.template import TemplateSyntaxError, Variable
+from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.pages.models import Page
 from mezzanine.utils.urls import admin_url
 from mezzanine import template
-from mezzanine.template.loader import get_template
 
 
 register = template.Library()
@@ -49,10 +49,12 @@ def page_menu(context, token):
         except KeyError:
             user = None
             slug = ""
-        has_children = lambda page_id: lambda: page_id in context["menu_pages"]
+        num_children = lambda id: lambda: len(context["menu_pages"][id])
+        has_children = lambda id: lambda: num_children(id)() > 0
         published = Page.objects.published(for_user=user)
         for page in published.select_related(depth=2).order_by("_order"):
             page.set_menu_helpers(slug)
+            setattr(page, "num_children", num_children(page.id))
             setattr(page, "has_children", has_children(page.id))
             pages[page.parent_id].append(page)
         context["menu_pages"] = pages
@@ -67,9 +69,19 @@ def page_menu(context, token):
         context["branch_level"] = getattr(parent_page, "branch_level", 0) + 1
         parent_page = parent_page.id
     context["page_branch"] = context["menu_pages"].get(parent_page, [])
+    context['page_branch_in_navigation'] = False
+    context['page_branch_in_footer'] = False
+    for page in context["page_branch"]:
+        if page.in_navigation:
+            context['page_branch_in_navigation'] = True
+        if page.in_footer:
+            context['page_branch_in_footer'] = True
+        if (context.get('page_branch_in_navigation') and
+            context.get('page_branch_in_footer')):
+            break
     for i, page in enumerate(context["page_branch"]):
         context["page_branch"][i].branch_level = context["branch_level"]
-    t = get_template(template_name, context)
+    t = get_template(template_name)
     return t.render(context)
 
 

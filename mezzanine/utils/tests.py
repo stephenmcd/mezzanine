@@ -2,15 +2,17 @@
 from __future__ import with_statement
 from _ast import PyCF_ONLY_AST
 import os
+from shutil import copyfile, copytree
 
+from mezzanine.conf import settings
 from mezzanine.utils.importing import path_for_import
 
 
 # Ignore these warnings in pyflakes - if added to, please comment why.
 PYFLAKES_IGNORE = (
 
-    # Required by Django's urlconf API.
-    "import *' used",
+    # local_settings import.
+    "'from local_settings import *' used",
 
     # Used to version subpackages.
     "'__version__' imported but unused",
@@ -19,15 +21,28 @@ PYFLAKES_IGNORE = (
     "redefinition of unused 'Feed'",
     "redefinition of unused 'feed'",
 
-    # Backward compatibility for messaging changed in Django 1.2
-    "'debug' imported but unused",
-    "redefinition of unused 'debug'",
-    "redefinition of unused 'info'",
-    "redefinition of unused 'success'",
-    "redefinition of unused 'warning'",
-    "redefinition of unused 'error'",
-
 )
+
+
+def copy_test_to_media(module, name):
+    """
+    Copies a file from Mezzanine's test data path to MEDIA_ROOT.
+    Used in tests and demo fixtures.
+    """
+    mezzanine_path = path_for_import(module)
+    test_path = os.path.join(mezzanine_path, "static", "test", name)
+    to_path = os.path.join(settings.MEDIA_ROOT, name)
+    to_dir = os.path.dirname(to_path)
+    if not os.path.exists(to_dir):
+        os.makedirs(to_dir)
+    if os.path.isdir(test_path):
+        copy = copytree
+    else:
+        copy = copyfile
+    try:
+        copy(test_path, to_path)
+    except OSError:
+        pass
 
 
 def _run_checker_for_package(checker, package_name):

@@ -101,7 +101,7 @@ class Displayable(Slugged, MetaData):
     """
 
     status = models.IntegerField(_("Status"),
-        choices=CONTENT_STATUS_CHOICES, default=CONTENT_STATUS_DRAFT)
+        choices=CONTENT_STATUS_CHOICES, default=CONTENT_STATUS_PUBLISHED)
     publish_date = models.DateTimeField(_("Published from"),
         help_text=_("With published checked, won't be shown until this time"),
         blank=True, null=True)
@@ -118,7 +118,7 @@ class Displayable(Slugged, MetaData):
 
     def save(self, *args, **kwargs):
         """
-        Set default for ``publsh_date`` and ``description`` if none
+        Set default for ``publish_date`` and ``description`` if none
         given.
         """
         if self.publish_date is None:

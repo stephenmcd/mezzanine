@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "mobile/base.html" %}
 
 {% load i18n mezzanine_tags %}
 
@@ -8,12 +8,12 @@
 {% block main %}
 
 <p>
-{% ifequal results.paginator.count 0 %}
+{% if results.paginator.count == 0 %}
 {% trans "No results were found matching your query: " %}<em>{{ query }}</em>
 {% else %}
 {% trans "Showing" %} {{ results.start_index }} {% trans "to" %} {{ results.end_index }} {% trans "of" %}
 {{ results.paginator.count }} {% trans "results matching your query:" %} <em>{{ query }}</em>
-{% endifequal %}
+{% endif %}
 </p>
 
 <div id="search-results">

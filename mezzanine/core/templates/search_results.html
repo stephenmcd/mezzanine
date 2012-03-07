@@ -5,20 +5,29 @@
 {% block meta_title %}{% trans "Search Results" %}{% endblock %}
 {% block title %}{% trans "Search Results" %}{% endblock %}
 
+{% block breadcrumb_menu %}
+<li>
+    <a href="{% url home %}">{% trans "Home" %}</a>
+    <span class="divider">/</span>
+</li>
+<li class="active">{% trans "Search Results" %}</li>
+{% endblock %}
+
 {% block main %}
 
 <p>
-{% ifequal results.paginator.count 0 %}
+{% if results.paginator.count == 0 %}
 {% trans "No results were found matching your query: " %}<em>{{ query }}</em>
 {% else %}
 {% trans "Showing" %} {{ results.start_index }} {% trans "to" %} {{ results.end_index }} {% trans "of" %}
 {{ results.paginator.count }} {% trans "results matching your query:" %} <em>{{ query }}</em>
-{% endifequal %}
+{% endif %}
 </p>
 
 <div id="search-results">
     {% for result in results.object_list %}
-    <h5><a href="{{ result.get_absolute_url }}">{{ result }}</a></h5>
+    <h5>{{ forloop.counter0|add:results.start_index }})
+        <a href="{{ result.get_absolute_url }}">{{ result }}</a></h5>
     <p>{{ result.description|truncatewords_html:20|safe }}</p>
     <a href="{{ result.get_absolute_url }}">{% trans "read more" %}</a>
     {% endfor %}

@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-13 13:46+0100\n"
-"PO-Revision-Date: 2011-12-13 16:04+0100\n"
-"Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
-"Language-Team: Catalan <LL@li.org>\n"
-"Language: ca\n"
+"POT-Creation-Date: 2012-01-20 21:47-0430\n"
+"PO-Revision-Date: 2012-01-21 02:18+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/team/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: templates/mobile/404.html:6
@@ -34,8 +34,7 @@ msgstr "Error"
 msgid "Sorry, an error occurred."
 msgstr "S'ha produït un error"
 
-#: templates/mobile/base.html:35
-#: templates/mobile/index.html:6
+#: templates/mobile/base.html:35 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Inici"
 
@@ -148,6 +147,11 @@ msgid "quotes"
 msgstr "cometes"
 
 #: templates/mobile/includes/search.html:5
-msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
-msgstr "per frases exactes, + per formar una paraula o una frase necessària, i - per excloure una paraula o frase."
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr ""
+"per frases exactes, + per formar una paraula o una frase necessària, i - per"
+" excloure una paraula o frase."
+
 

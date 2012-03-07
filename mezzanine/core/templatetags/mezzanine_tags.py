@@ -7,9 +7,11 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
 from django.template import Context, Template
+from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
+from PIL import Image, ImageOps
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
@@ -19,10 +21,17 @@ from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.views import is_editable
 from mezzanine.utils.urls import admin_url
 from mezzanine import template
-from mezzanine.template.loader import get_template
 
 
 register = template.Library()
+
+
+@register.inclusion_tag("includes/form_fields.html", takes_context=True)
+def fields_for(context, form):
+    """
+    Renders fields for a form.
+    """
+    return {"form": form}
 
 
 @register.filter
@@ -89,41 +98,38 @@ def thumbnail(image_url, width, height):
     maintained.
     """
 
-    image_url = unicode(image_url)
-    if image_url.startswith(settings.MEDIA_URL):
-        image_url = image_url.replace(settings.MEDIA_URL, '', 1)
-    image_path = os.path.join(settings.MEDIA_ROOT, image_url)
-    image_dir, image_name = os.path.split(image_path)
-    extension = os.path.splitext(image_name)[1]
-    filetype = {".png": "PNG", ".gif": "GIF"}.get(extension, "JPEG")
-    thumb_name = "%s-%sx%s%s" % (os.path.splitext(image_name)[0], width,
-                                    height, extension)
-    thumb_path = os.path.join(image_dir, thumb_name)
-    thumb_url = "%s/%s" % (os.path.dirname(image_url), thumb_name)
-    # abort if thumbnail exists, original image doesn't exist, invalid width or
-    # height are given, or PIL not installed
     if not image_url:
         return ""
-    try:
-        width = int(width)
-        height = int(height)
-    except ValueError:
-        return image_url
-    if not os.path.exists(image_path) or (width == 0 and height == 0):
-        return image_url
-    try:
-        from PIL import Image, ImageOps
-    except ImportError:
-        return image_url
 
-    # open image, determine ratio if required and resize/crop/save
+    image_url = unicode(image_url)
+    if image_url.startswith(settings.MEDIA_URL):
+        image_url = image_url.replace(settings.MEDIA_URL, "", 1)
+    image_path = os.path.join(settings.MEDIA_ROOT, image_url)
+    image_dir, image_name = os.path.split(image_path)
+    image_prefix, image_ext = os.path.splitext(image_name)
+    filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext, "JPEG")
+    thumb_name = "%s-%sx%s%s" % (image_prefix, width, height, image_ext)
+    thumb_dir = os.path.join(image_dir, settings.THUMBNAILS_DIR_NAME)
+    if not os.path.exists(thumb_dir):
+        os.mkdir(thumb_dir)
+    thumb_path = os.path.join(thumb_dir, thumb_name)
+    thumb_url = "%s/%s/%s" % (os.path.dirname(image_url),
+                              settings.THUMBNAILS_DIR_NAME, thumb_name)
+
+    # Abort if thumbnail exists or original image doesn't exist.
+    if not os.path.exists(image_path):
+        return image_url
+    elif os.path.exists(thumb_path):
+        return thumb_url
+
     image = Image.open(image_path)
+    width = int(width)
+    height = int(height)
 
     # If already right size, don't do anything.
     if width == image.size[0] and height == image.size[1]:
         return image_url
-    if os.path.exists(thumb_path):
-        return thumb_url
+    # Set dimensions.
     if width == 0:
         width = image.size[0] * height / image.size[1]
     elif height == 0:
@@ -131,8 +137,8 @@ def thumbnail(image_url, width, height):
     if image.mode not in ("L", "RGB"):
         image = image.convert("RGB")
     try:
-        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS).save(
-            thumb_path, filetype, quality=100)
+        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
+        image = image.save(thumb_path, filetype, quality=100)
     except:
         return image_url
     return thumb_url
@@ -143,7 +149,7 @@ def editable_loader(context):
     """
     Set up the required JS/CSS for the in-line editing toolbar and controls.
     """
-    t = get_template("includes/editable_toolbar.html", context)
+    t = get_template("includes/editable_toolbar.html")
     context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
     context["toolbar"] = t.render(Context(context))
     context["richtext_media"] = RichTextField().formfield().widget.media
@@ -156,12 +162,10 @@ def richtext_filter(content):
     This template filter takes a string value and passes it through the
     function specified by the RICHTEXT_FILTER setting.
     """
-
     if settings.RICHTEXT_FILTER:
         func = import_dotted_path(settings.RICHTEXT_FILTER)
     else:
         func = lambda s: s
-
     return func(content)
 
 
@@ -195,7 +199,7 @@ def editable(parsed, context, token):
             field_names = ",".join([f[1] for f in fields])
             context["form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
-            t = get_template("includes/editable_form.html", context)
+            t = get_template("includes/editable_form.html")
             return t.render(Context(context))
     return parsed
 

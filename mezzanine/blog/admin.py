@@ -12,6 +12,8 @@ blogpost_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 blogpost_fieldsets[0][1]["fields"].insert(1, "categories")
 blogpost_fieldsets[0][1]["fields"].append("content")
 blogpost_fieldsets[0][1]["fields"].append("allow_comments")
+if settings.BLOG_USE_FEATURED_IMAGE:
+    blogpost_fieldsets[0][1]["fields"].insert(-2, "featured_image")
 
 
 class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):

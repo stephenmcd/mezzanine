@@ -1,0 +1,4 @@
+These files were removed in Django 1.4, so they're replicated here.
+
+They're provided by grappelli-safe, so if that is installed which it
+should be by default, they're not necessary.

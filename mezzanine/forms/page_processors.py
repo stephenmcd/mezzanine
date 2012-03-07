@@ -1,5 +1,4 @@
 
-
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 
@@ -36,9 +35,12 @@ def form_processor(request, page):
         if email_to and page.form.send_email:
             msg = EmailMessage(subject, body, email_from, [email_to])
             msg.send()
-        email_from = email_to or email_from  # Send from the email entered.
-        email_copies = [e.strip() for e in page.form.email_copies.split(",")
-            if e.strip()]
+        if not settings.FORMS_DISABLE_SEND_FROM_EMAIL_FIELD:
+            # Send from the email entered,
+            # unless FORMS_DISABLE_SEND_FROM_EMAIL_FIELD is True.
+            email_from = email_to or email_from
+        email_copies = page.form.email_copies.split(",")
+        email_copies = [e.strip() for e in email_copies if e.strip()]
         if email_copies:
             msg = EmailMessage(subject, body, email_from, email_copies)
             for f in form.files.values():

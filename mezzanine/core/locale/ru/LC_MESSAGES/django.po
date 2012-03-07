@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 10:03-0430\n"
+"POT-Creation-Date: 2012-01-20 21:47-0430\n"
 "PO-Revision-Date: 2011-11-12 03:20+0000\n"
 "Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,63 +29,63 @@ msgstr "Метаданные"
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr ""
 
-#: forms.py:59 models.py:220
+#: forms.py:59 models.py:216
 msgid "Order"
 msgstr "Порядок"
 
-#: models.py:28
+#: models.py:27
 msgid "Title"
 msgstr "Заголовок"
 
-#: models.py:29
+#: models.py:28
 msgid "URL"
 msgstr "URL"
 
-#: models.py:85
+#: models.py:81
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:86
+#: models.py:82
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: models.py:95
+#: models.py:91
 msgid "Draft"
 msgstr "Черновик"
 
-#: models.py:96
+#: models.py:92
 msgid "Published"
 msgstr "Опубликовано"
 
-#: models.py:107
+#: models.py:103
 msgid "Status"
 msgstr "Статус"
 
-#: models.py:109
+#: models.py:105
 msgid "Published from"
 msgstr "Опубликовано с"
 
-#: models.py:110
+#: models.py:106
 msgid "With published checked, won't be shown until this time"
 msgstr ""
 
-#: models.py:112
+#: models.py:108
 msgid "Expires on"
 msgstr "Истекает"
 
-#: models.py:113
+#: models.py:109
 msgid "With published checked, won't be shown after this time"
 msgstr ""
 
-#: models.py:167
+#: models.py:163
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: models.py:178
+#: models.py:174
 msgid "Content"
 msgstr "Содержимое"
 
-#: models.py:274
+#: models.py:270
 msgid "Author"
 msgstr "Автор"
 
@@ -154,25 +154,25 @@ msgstr "результатов удовлетворяющих вашему за�
 msgid "read more"
 msgstr "читать далее"
 
-#: templates/admin/base_site.html:191
+#: templates/admin/base_site.html:190
 msgid "View Site"
 msgstr ""
 
-#: templates/admin/base_site.html:219
+#: templates/admin/base_site.html:218
 msgid "Forgot password?"
 msgstr "Забыли пароль?"
 
-#: templates/admin/base_site.html:223
+#: templates/admin/base_site.html:222
 msgid "Interface:"
 msgstr "Интерфейс:"
 
-#: templates/admin/base_site.html:227
+#: templates/admin/base_site.html:226
 #: templates/includes/editable_toolbar.html:8
 #: templates/includes/editable_toolbar.html:10
 msgid "Admin"
 msgstr "Администрирование"
 
-#: templates/admin/base_site.html:231
+#: templates/admin/base_site.html:230
 msgid "Site"
 msgstr "Сайт"
 

@@ -1,0 +1,53 @@
+/*
+You'll notice this littered with !important declarations - this is due
+to the inline-editing controls being injected into abitrary layouts and
+this is my hackish attempt at trying to keep them consistant across
+implementations by not being overridden by the stylesheets for each
+particular site's layout. If there's a better way of doing this then go
+right ahead and fix it.
+*/
+
+/* TOOLBAR */
+
+#editable-toolbar, .editable-highlight, .editable-link {top:0; left:0;
+    z-index:300; display:none; position:absolute;}
+#editable-toolbar {z-index:700;}
+#editable-loading {z-index:10000; display:none; position:absolute;}
+#editable-toolbar {position:fixed;}
+.editable-highlight {border:1px solid #ccc;}
+
+#editable-toolbar, .editable-link {
+    background:#fffcc3; float:left; cursor:pointer; padding:4px;
+    white-space:nowrap; border:1px solid #ccc; line-height:1em;
+    -moz-box-shadow: 0 0 5px #999; -webkit-box-shadow: 0 0 5px #999}
+
+#editable-toolbar a, .editable-link {text-decoration:none;
+    color:#000 !important; font-size:15px !important; font-style:italic;
+    font-weight:normal;}
+
+#editable-toolbar a {border-left:1px solid #666; padding:0 5px;
+    display:none;}
+#editable-toolbar-toggle {border-left:0px !important;
+    text-decoration:none; display:inline !important;}
+
+/* FORM */
+
+.editable-form {padding:20px; background:#fffcc3; border:1px solid #000;
+    -moz-box-shadow: 0 0 20px #222; -webkit-box-shadow: 0 0 20px #222;
+    line-height:1em; border-radius:5px;}
+.editable-form table, .editable-form textarea, .editable-form input {
+    width: 100%; margin: .5em 0;}
+.mceToolbar table {width: auto !important; margin: 0 !important;}
+.editable-form .booleanfield {width: auto;}
+.editable-form input.datetimefield {width: 80px; margin-left: 8px;}
+.editable-form select {width:auto;}
+.editable-form input[type="file"] {width: 300px;}
+.editable-form p {margin: .5em 0 !important; padding: 0 !important;
+    line-height: 0 !important; border: 0 !important;}
+.editable-form p:first-child {margin-top: 0px;}
+.editable-form .helptext {font-size: 70%; color: #444; font-style: italic;}
+.editable-form label {text-transform: capitalize !important;
+    font-weight: bold !important; line-height: 1.1em !important;
+    font-size: 15px !important; color: #000 !important; float:none;}
+.editable-form .btn {width:auto; cursor:pointer; float:right;
+    margin:15px 0 0 15px; padding:5px 15px;}

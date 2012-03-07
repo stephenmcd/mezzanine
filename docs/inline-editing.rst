@@ -17,9 +17,8 @@ Template Configuration
 Making content in-line editable is as simple as wrapping model
 fields with a template tag in your templates. The default templates
 installed with Mezzanine all have their content configured to be in-line
-editable. This is also the case for the templates provided when
-:ref:`creating-themes`. When developing your own templates from
-scratch though, you'll need to perform this step yourself.
+editable. When developing your own templates from scratch though, you'll
+need to perform this step yourself.
 
 The first step is to ensure you have a the template tag ``editable_loader``
 specified right before the closing ``</body>`` tag in each template.
