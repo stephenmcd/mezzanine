@@ -135,6 +135,9 @@ def build_modelgraph(docs_path, package_name="mezzanine"):
     package name, generates a smaller version and add it to the
     docs directory for use in model-graph.rst
     """
+    to_path = os.path.join(docs_path, "img", "graph.png")
+    build_path = os.path.join(docs_path, "build", "_images")
+    resized_path = os.path.join(os.path.dirname(to_path), "graph-small.png")
     settings = import_dotted_path(package_name + ".project_template.settings")
     apps = [a.rsplit(".")[1] for a in settings.INSTALLED_APPS
             if a.startswith("mezzanine.") or a.startswith(package_name + ".")]
@@ -142,24 +145,25 @@ def build_modelgraph(docs_path, package_name="mezzanine"):
         from django_extensions.management.commands import graph_models
     except ImportError:
         warn("Couldn't build model_graph, django_extensions not installed")
-        return
-    options = {"inheritance": True, "outputfile": "graph.png", "layout": "dot"}
+    else:
+        options = {"inheritance": True, "outputfile": "graph.png",
+                  "layout": "dot"}
+        try:
+            graph_models.Command().execute(*apps, **options)
+        except Exception, e:
+            warn("Couldn't build model_graph, graph_models failed on: %s" % e)
+        else:
+            try:
+                move("graph.png", to_path)
+            except OSError, e:
+                warn("Couldn't build model_graph, move failed on: %s" % e)
+    # docs/img/graph.png should exist in the repo - move it to the build path.
     try:
-        graph_models.Command().execute(*apps, **options)
-    except Exception, e:
-        warn("Couldn't build model_graph, graph_models failed on: %s" % e)
-        return
-    to_path = os.path.join(docs_path, "img", "graph.png")
-    build_path = os.path.join(docs_path, "build", "_images")
-    try:
-        move("graph.png", to_path)
         if not os.path.exists(build_path):
             os.makedirs(build_path)
         copyfile(to_path, os.path.join(build_path, "graph.png"))
     except OSError, e:
-        warn("Couldn't build model_graph, move/copy failed on: %s" % e)
-        return
-    resized_path = os.path.join(os.path.dirname(to_path), "graph-small.png")
+        warn("Couldn't build model_graph, copy to build failed on: %s" % e)
     try:
         image = Image.open(to_path)
         image.width = 800
