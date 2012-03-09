@@ -70,7 +70,13 @@ class Slugged(models.Model):
         """
         Allows subclasses to implement their own slug creation logic.
         """
-        return slugify(self.title)
+        return slugify(self)
+
+    def admin_link(self):
+        return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
+                                        ugettext("View on site"))
+    admin_link.allow_tags = True
+    admin_link.short_description = ""
 
 
 class MetaData(models.Model):
@@ -84,6 +90,43 @@ class MetaData(models.Model):
     class Meta:
         abstract = True
 
+    def save(self, *args, **kwargs):
+        """
+        Set the description field on save.
+        """
+        self.description = strip_tags(self.description_from_content())
+        super(MetaData, self).save(*args, **kwargs)
+
+    def description_from_content(self):
+        """
+        Returns the first block or sentence of the first content-like
+        field.
+        """
+        description = ""
+        # Use the first RichTextField, or TextField if none found.
+        for field_type in (RichTextField, models.TextField):
+            if not description:
+                for field in self._meta.fields:
+                    if isinstance(field, field_type) and \
+                        field.name != "description":
+                        description = getattr(self, field.name)
+                        if description:
+                            break
+        # Fall back to the title if description couldn't be determined.
+        if not description:
+            description = unicode(self)
+        # Strip everything after the first block or sentence.
+        ends = ("</p>", "<br />", "<br/>", "<br>", "</ul>",
+                "\n", ". ", "! ", "? ")
+        for end in ends:
+            pos = description.lower().find(end)
+            if pos > -1:
+                description = TagCloser(description[:pos]).html
+                break
+        else:
+            description = truncatewords_html(description, 100)
+        return description
+
 
 CONTENT_STATUS_DRAFT = 1
 CONTENT_STATUS_PUBLISHED = 2
@@ -96,8 +139,8 @@ CONTENT_STATUS_CHOICES = (
 class Displayable(Slugged, MetaData):
     """
     Abstract model that provides features of a visible page on the
-    website such as publishing fields. Basis of Mezzanine pages and
-    blog posts.
+    website such as publishing fields. Basis of Mezzanine pages,
+    blog posts, and Cartridge products.
     """
 
     status = models.IntegerField(_("Status"),
@@ -118,51 +161,13 @@ class Displayable(Slugged, MetaData):
 
     def save(self, *args, **kwargs):
         """
-        Set default for ``publish_date`` and ``description`` if none
-        given.
+        Set default for ``publish_date``. We can't use ``auto_add`` on
+        the field as it will be blank when a blog post is created from
+        the quick blog form in the admin dashboard.
         """
         if self.publish_date is None:
-            # publish_date will be blank when a blog post is created
-            # from the quick blog form in the admin dashboard.
             self.publish_date = datetime.now()
-        self.description = strip_tags(self.description_from_content())
         super(Displayable, self).save(*args, **kwargs)
-
-    def description_from_content(self):
-        """
-        Returns the first block or sentence of the first content-like
-        field.
-        """
-        description = ""
-        # Use the first RichTextField, or TextField if none found.
-        for field_type in (RichTextField, models.TextField):
-            if not description:
-                for field in self._meta.fields:
-                    if isinstance(field, field_type) and \
-                        field.name != "description":
-                        description = getattr(self, field.name)
-                        if description:
-                            break
-        # Fall back to the title if description couldn't be determined.
-        if not description:
-            description = self.title
-        # Strip everything after the first block or sentence.
-        ends = ("</p>", "<br />", "<br/>", "<br>", "</ul>",
-                "\n", ". ", "! ", "? ")
-        for end in ends:
-            pos = description.lower().find(end)
-            if pos > -1:
-                description = TagCloser(description[:pos]).html
-                break
-        else:
-            description = truncatewords_html(description, 100)
-        return description
-
-    def admin_link(self):
-        return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
-                                        ugettext("View on site"))
-    admin_link.allow_tags = True
-    admin_link.short_description = ""
 
 
 class RichText(models.Model):
