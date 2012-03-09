@@ -1,4 +1,3 @@
-
 from datetime import date, datetime
 from os.path import join, split
 from uuid import uuid4
@@ -168,7 +167,7 @@ class EntriesForm(forms.Form):
         self.request = request
         self.form_fields = form.fields.all()
         self.entry_time_name = unicode(FormEntry._meta.get_field(
-            "entry_time").verbose_name).encode("utf-8")
+            "entry_time").verbose_name)
         super(EntriesForm, self).__init__(*args, **kwargs)
         for field in self.form_fields:
             field_key = "field_%s" % field.id
@@ -226,7 +225,7 @@ class EntriesForm(forms.Form):
         fields = [f.label.encode("utf-8") for f in self.form_fields
                   if self.cleaned_data["field_%s_export" % f.id]]
         if self.cleaned_data["field_0_export"]:
-            fields.append(self.entry_time_name.encode("utf-8"))
+            fields.append(self.entry_time_name)
         return fields
 
     def rows(self, csv=False):
