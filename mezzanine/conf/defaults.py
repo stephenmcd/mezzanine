@@ -283,6 +283,15 @@ register_setting(
 )
 
 register_setting(
+    name="JQUERY_FILENAME",
+    label=_("Name of the jQuery file."),
+    description=_("Name of the jQuery file found in "
+                  "mezzanine/core/static/mezzanine/js/"),
+    editable=False,
+    default="jquery-1.7.1.min.js",
+)
+
+register_setting(
     name="MAX_PAGING_LINKS",
     label=_("Max paging links"),
     description=_("Max number of paging links to display when paginating."),
@@ -458,7 +467,7 @@ register_setting(
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
         "DEV_SERVER", "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED",
-        "GOOGLE_ANALYTICS_ID", "LOGIN_URL", "LOGOUT_URL",
+        "GOOGLE_ANALYTICS_ID", "JQUERY_FILENAME", "LOGIN_URL", "LOGOUT_URL",
         "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE", "RATINGS_MAX",
     ),
 )

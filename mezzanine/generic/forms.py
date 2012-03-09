@@ -4,6 +4,7 @@ from django.contrib.comments.forms import CommentSecurityForm, CommentForm
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.generic.models import Keyword, ThreadedComment, RATING_RANGE
 
 
@@ -25,7 +26,7 @@ class KeywordsWidget(forms.MultiWidget):
     """
 
     class Media:
-        js = ("mezzanine/js/jquery-1.4.4.min.js",
+        js = ("mezzanine/js/%s" % settings.JQUERY_FILENAME,
               "mezzanine/js/admin/keywords_field.js",)
 
     def __init__(self, attrs=None):

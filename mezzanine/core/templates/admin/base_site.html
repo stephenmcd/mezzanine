@@ -43,7 +43,7 @@ window.__admin_media_prefix__ = '{{ settings.ADMIN_MEDIA_PREFIX }}';
 window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 </script>
 {% if not settings.GRAPPELLI_INSTALLED %}
-<script src="{{ STATIC_URL }}mezzanine/js/jquery-1.4.4.min.js"></script>
+<script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
 {% endif %}
 {% if not request.user.is_staff %}
 <script src="{{ STATIC_URL }}mezzanine/js/admin/login.js"></script>
