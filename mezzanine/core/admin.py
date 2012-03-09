@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.db.models import AutoField
-from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -122,7 +122,7 @@ class SingletonAdmin(admin.ModelAdmin):
             return super(SingletonAdmin, self).add_view(*args, **kwargs)
         else:
             change_url = admin_url(self.model, "change", singleton.id)
-            return HttpResponseRedirect(change_url)
+            return redirect(change_url)
 
     def changelist_view(self, *args, **kwargs):
         """
@@ -135,16 +135,16 @@ class SingletonAdmin(admin.ModelAdmin):
             return super(SingletonAdmin, self).changelist_view(*args, **kwargs)
         except self.model.DoesNotExist:
             add_url = admin_url(self.model, "add")
-            return HttpResponseRedirect(add_url)
+            return redirect(add_url)
         else:
             change_url = admin_url(self.model, "change", singleton.id)
-            return HttpResponseRedirect(change_url)
+            return redirect(change_url)
 
     def change_view(self, request, object_id, extra_context=None):
         """
         If only the singleton instance exists, pass ``True`` for
         ``singleton`` into the template which will use CSS to hide
-        relevant buttons.
+        the "save and add another" button.
         """
         if extra_context is None:
             extra_context = {}
@@ -154,5 +154,8 @@ class SingletonAdmin(admin.ModelAdmin):
             pass
         else:
             extra_context["singleton"] = True
-        return super(SingletonAdmin, self).change_view(request, object_id,
-                                                       extra_context)
+        response = super(SingletonAdmin, self).change_view(request, object_id,
+                                                           extra_context)
+        if request.POST.get("_save"):
+            response = redirect("admin:index")
+        return response
