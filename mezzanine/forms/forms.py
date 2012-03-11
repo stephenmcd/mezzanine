@@ -167,7 +167,7 @@ class EntriesForm(forms.Form):
         self.request = request
         self.form_fields = form.fields.all()
         self.entry_time_name = unicode(FormEntry._meta.get_field(
-            "entry_time").verbose_name)
+            "entry_time").verbose_name).encode("utf-8")
         super(EntriesForm, self).__init__(*args, **kwargs)
         for field in self.form_fields:
             field_key = "field_%s" % field.id
