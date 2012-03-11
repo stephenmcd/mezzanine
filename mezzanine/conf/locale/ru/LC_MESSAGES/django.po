@@ -65,13 +65,15 @@ msgstr "Ключ на сервисе сокращения URL bit.ly"
 
 #: defaults.py:47
 msgid "Use date URLs"
-msgstr ""
+msgstr "Использовать адреса с датой"
 
 #: defaults.py:48
 msgid ""
 "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
 "mm/slug/"
 msgstr ""
+"Если ``Да``, адреса страниц блога будут содержать год и месяц: /blog/yyyy/"
+"mm/slug/"
 
 #: defaults.py:56
 msgid "Blog posts per page"
@@ -79,7 +81,7 @@ msgstr "Сообщений блога на страницу"
 
 #: defaults.py:57
 msgid "Number of blog posts shown on a blog listing page."
-msgstr ""
+msgstr "Количество постов, отображаемых в списке постов"
 
 #: defaults.py:64
 msgid "Max blog paging links"
@@ -87,11 +89,11 @@ msgstr "Максимум ссылок на страницы блога"
 
 #: defaults.py:65
 msgid "Max number of paging links shown on a blog listing page."
-msgstr ""
+msgstr "Максимальное количество ссылко на страницы, отображаемое в списке постов"
 
 #: defaults.py:72
 msgid "Slug of the page object for the blog."
-msgstr "Внутренний URL галвной страницы блога"
+msgstr "Внутренний URL главной страницы блога"
 
 #: defaults.py:79
 msgid "Disqus shortname"
@@ -131,7 +133,7 @@ msgstr "Комментариев в админке"
 
 #: defaults.py:112
 msgid "Number of latest comments shown in the admin dashboard."
-msgstr ""
+msgstr "Количество последнийх комментариев, отображаемых на dashboard в админке"
 
 #: defaults.py:119
 msgid "Show unapproved comments"
