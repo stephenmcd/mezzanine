@@ -25,7 +25,7 @@ msgstr "Комментарии"
 
 #: models.py:19
 msgid "Rating"
-msgstr ""
+msgstr "Рейтинг"
 
 #: models.py:22
 msgid "Blog post"
@@ -88,7 +88,7 @@ msgstr "Теги"
 
 #: templates/blog/blog_post_detail.html:82
 msgid "Share this on"
-msgstr ""
+msgstr "Поделиться через"
 
 #: templates/blog/blog_post_list.html:27
 msgid "Viewing posts tagged"
@@ -108,7 +108,7 @@ msgstr "Просмотр записей от"
 
 #: templates/blog/blog_post_list.html:56
 msgid "in"
-msgstr ""
+msgstr "в"
 
 #: templates/blog/blog_post_list.html:77
 msgid "read more"
@@ -132,7 +132,7 @@ msgstr "Авторы"
 
 #: templates/blog/includes/filter_panel.html:62
 msgid "Feeds"
-msgstr ""
+msgstr "Ленты"
 
 #: templates/blog/includes/filter_panel.html:63
 msgid "RSS"

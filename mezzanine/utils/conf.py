@@ -89,7 +89,7 @@ def set_dynamic_settings(s):
     except ValueError:
         pass
 
-    # Remove caching middleware of no backend defined.
+    # Remove caching middleware if no backend defined.
     if not (s.get("CACHE_BACKEND") or s.get("CACHES")):
         s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if not
                                    mw.endswith("UpdateCacheMiddleware") or
@@ -117,7 +117,7 @@ def set_dynamic_settings(s):
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
         elif shortname.startswith("postgresql") and not s.get("TIME_ZONE", 1):
-            # Specifying a blank time zone to fall back to the
-            # system's time zone will break table creation in Postgres
-            # so remove it.
+            # Specifying a blank time zone to fall back to the system's
+            # time zone, which will break table creation in Postgres so
+            # remove it.
             del s["TIME_ZONE"]

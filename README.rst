@@ -64,7 +64,7 @@ Mezzanine has no explicit dependencies apart from a standard Django
 environment using:
 
   * `Python`_ 2.5 ... 2.7
-  * `Django`_ 1.3 ... 1.4
+  * `Django`_ 1.3.x
 
 Mezzanine is designed however to be used most effectively in conjunction
 with the following libraries:

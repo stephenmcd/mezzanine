@@ -23,6 +23,18 @@ from setuptools import setup, find_packages
 
 from mezzanine import __version__ as version
 
+install_requires = [
+    "django == 1.3.1",
+    "filebrowser_safe == 0.2.0",
+    "grappelli_safe == 0.2.1",
+]
+
+try:
+    from PIL import Image, ImageOps
+except ImportError:
+    install_requires += ["pillow"]
+
+
 try:
     setup(
 
@@ -38,19 +50,11 @@ try:
         zip_safe=False,
         include_package_data=True,
         packages=find_packages(),
-
-        install_requires=[
-            "django >= 1.3",
-            "filebrowser_safe >= 0.2.0",
-            "grappelli_safe >= 0.2.0",
-            "pillow",
-        ],
-
+        install_requires=install_requires,
         entry_points="""
             [console_scripts]
             mezzanine-project=mezzanine.bin.mezzanine_project:create_project
         """,
-
         classifiers=[
             "Development Status :: 4 - Beta",
             "Environment :: Web Environment",
