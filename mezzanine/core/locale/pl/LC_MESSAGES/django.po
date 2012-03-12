@@ -1,33 +1,53 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Michał Oleniec <moleniec@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-20 21:47-0430\n"
-"PO-Revision-Date: 2011-11-12 03:20+0000\n"
-"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: pl\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-03-11 19:15-0430\n"
+"PO-Revision-Date: 2012-03-11 23:55+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Polish (http://www.transifex.net/projects/p/mezzanine/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2)\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:39
+#: admin.py:28
 msgid "Meta data"
 msgstr "Meta dane"
 
 #: fields.py:23
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "Nie można było zaimportować wartości settings.RICHTEXT_WIDGET_CLASS: %s"
+
+#: forms.py:35
+msgid "Email Address"
 msgstr ""
 
-#: forms.py:59 models.py:216
+#: forms.py:36
+msgid "Password"
+msgstr ""
+
+#: forms.py:64
+msgid "This email is already registered"
+msgstr ""
+
+#: forms.py:84
+msgid "Invalid email/password"
+msgstr ""
+
+#: forms.py:86
+msgid "Your account is inactive"
+msgstr ""
+
+#: forms.py:116 models.py:221
 msgid "Order"
 msgstr "Kolejność"
 
@@ -37,57 +57,69 @@ msgstr "Tytuł"
 
 #: models.py:28
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
-#: models.py:81
-msgid "Description"
-msgstr "Opis"
-
-#: models.py:82
-msgid "Keywords"
-msgstr "Słowa kluczowe"
-
-#: models.py:91
-msgid "Draft"
-msgstr "Kopia robocza"
-
-#: models.py:92
-msgid "Published"
-msgstr "Opublikowane"
-
-#: models.py:103
-msgid "Status"
-msgstr "Status"
-
-#: models.py:105
-msgid "Published from"
-msgstr "Opublikowane od"
-
-#: models.py:106
-msgid "With published checked, won't be shown until this time"
-msgstr ""
-
-#: models.py:108
-msgid "Expires on"
-msgstr "Wygasa"
-
-#: models.py:109
-msgid "With published checked, won't be shown after this time"
-msgstr ""
-
-#: models.py:163
+#: models.py:77
 msgid "View on site"
 msgstr "Zobacz na stronie"
 
-#: models.py:174
+#: models.py:87
+msgid "Description"
+msgstr "Opis"
+
+#: models.py:88
+msgid "Keywords"
+msgstr "Słowa kluczowe"
+
+#: models.py:134
+msgid "Draft"
+msgstr "Kopia robocza"
+
+#: models.py:135
+msgid "Published"
+msgstr "Opublikowane"
+
+#: models.py:146
+msgid "Status"
+msgstr "Status"
+
+#: models.py:148
+msgid "Published from"
+msgstr "Opublikowane od"
+
+#: models.py:149
+msgid "With published checked, won't be shown until this time"
+msgstr "Z zaznaczonym 'opublikowany', nie pojawi się do tego czasu"
+
+#: models.py:151
+msgid "Expires on"
+msgstr "Wygasa"
+
+#: models.py:152
+msgid "With published checked, won't be shown after this time"
+msgstr "Z zaznaczonym 'opublikowany', nie pojawi się po tym czasie"
+
+#: models.py:179
 msgid "Content"
 msgstr "Treść"
 
-#: models.py:270
+#: models.py:275
 msgid "Author"
 msgstr "Autor"
 
+#: views.py:33
+msgid "Successfully logged in"
+msgstr ""
+
+#: views.py:39
+msgid "Successfully signed up"
+msgstr ""
+
 #: views.py:53
+msgid "Successfully logged out"
+msgstr ""
+
+#: views.py:89
 msgid "Permission denied"
 msgstr "Dostęp zabroniony"
 
@@ -107,74 +139,95 @@ msgstr "Błąd"
 msgid "Sorry, an error occurred."
 msgstr "Przepraszamy, wystąpił błąd."
 
-#: templates/base.html:66
+#: templates/account.html:4 templates/account.html.py:5
+msgid "Login / Signup"
+msgstr ""
+
+#: templates/account.html:10
+msgid "Account"
+msgstr ""
+
+#: templates/account.html:16 templates/account.html.py:21
+msgid "Login"
+msgstr ""
+
+#: templates/account.html:27 templates/account.html.py:32
+msgid "Signup"
+msgstr ""
+
+#: templates/base.html:49
+msgid "Search"
+msgstr "Wyszukaj"
+
+#: templates/base.html:105
 msgid "Powered by"
 msgstr "Wspierane przez"
 
-#: templates/base.html:69
-msgid "View Mobile Site."
-msgstr "Zobacz wersję mobilną strony"
+#: templates/base.html:108
+msgid "and"
+msgstr ""
 
-#: templates/index.html:5 templates/index.html.py:8
-#: templates/admin/index.html:41
+#: templates/base.html:114
+msgid "View Mobile Site"
+msgstr ""
+
+#: templates/index.html:5 templates/index.html.py:8 templates/index.html:12
+#: templates/search_results.html:10 templates/admin/index.html:15
 msgid "Home"
 msgstr "Strona główna"
 
-#: templates/index.html:12
+#: templates/index.html:16
 msgid "This is the homepage."
 msgstr "To jest strona główna"
 
 #: templates/search_results.html:5 templates/search_results.html.py:6
+#: templates/search_results.html:13
 msgid "Search Results"
 msgstr "Wyniki wyszukiwania"
 
-#: templates/search_results.html:12
+#: templates/search_results.html:20
 msgid "No results were found matching your query: "
 msgstr "Nie znaleziono wyników pasujących do Twojego zapytania: "
 
-#: templates/search_results.html:14
+#: templates/search_results.html:22
 msgid "Showing"
 msgstr "Wyświetla"
 
-#: templates/search_results.html:14
+#: templates/search_results.html:22
 msgid "to"
 msgstr "do"
 
-#: templates/search_results.html:14 templates/includes/pagination.html:4
+#: templates/search_results.html:22 templates/includes/pagination.html:7
 msgid "of"
 msgstr "z"
 
-#: templates/search_results.html:15
+#: templates/search_results.html:23
 msgid "results matching your query:"
 msgstr "wyników pasujących do Twojego zapytania:"
 
-#: templates/search_results.html:23
+#: templates/search_results.html:32
 msgid "read more"
 msgstr "czytaj więcej"
 
-#: templates/admin/base_site.html:190
-msgid "View Site"
-msgstr ""
-
-#: templates/admin/base_site.html:218
+#: templates/admin/base_site.html:64
 msgid "Forgot password?"
 msgstr "Zapomniałeś hasła?"
 
-#: templates/admin/base_site.html:222
+#: templates/admin/base_site.html:67
 msgid "Interface:"
 msgstr "Interfejs:"
 
-#: templates/admin/base_site.html:226
-#: templates/includes/editable_toolbar.html:8
-#: templates/includes/editable_toolbar.html:10
+#: templates/admin/base_site.html:70
+#: templates/includes/editable_toolbar.html:7
+#: templates/includes/editable_toolbar.html:9
 msgid "Admin"
 msgstr "Administrator"
 
-#: templates/admin/base_site.html:230
+#: templates/admin/base_site.html:73
 msgid "Site"
 msgstr "Strona"
 
-#: templates/admin/index.html:43 templates/admin/includes/dropdown_menu.html:3
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
 msgid "Dashboard"
 msgstr "Kokpit"
 
@@ -203,6 +256,23 @@ msgstr "Moje akcje"
 msgid "None available"
 msgstr "Brak"
 
+#: templates/includes/account_panel.html:5
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr "Wyloguj"
+
+#: templates/includes/account_panel.html:6
+msgid "Logged in as: "
+msgstr ""
+
+#: templates/includes/account_panel.html:9
+msgid "Log in or sign up"
+msgstr ""
+
+#: templates/includes/account_panel.html:10
+msgid "Not logged in"
+msgstr ""
+
 #: templates/includes/editable_form.html:16
 msgid "Save"
 msgstr "Zapisz"
@@ -215,38 +285,6 @@ msgstr "Anuluj"
 msgid "Edit"
 msgstr "Edytuj"
 
-#: templates/includes/editable_loader.html:87
-msgid "An error occurred"
-msgstr "Przepraszamy, wystąpił błąd."
-
-#: templates/includes/editable_toolbar.html:12
-msgid "Log out"
-msgstr "Wyloguj"
-
-#: templates/includes/pagination.html:4
+#: templates/includes/pagination.html:7
 msgid "Page"
 msgstr "Strona"
-
-#: templates/includes/search.html:3
-msgid "Search"
-msgstr "Wyszukaj"
-
-#: templates/includes/search.html:6
-msgid "Go"
-msgstr "Szukaj"
-
-#: templates/includes/search.html:9
-msgid "Use "
-msgstr "Użyj "
-
-#: templates/includes/search.html:9
-msgid "quotes"
-msgstr "cudzysłowów"
-
-#: templates/includes/search.html:9
-msgid ""
-" for exact phrases, + to make a word or phrase required, and - to exclude a "
-"word or phrase."
-msgstr ""
-" dla dokładnych fraz, + aby słowo lub fraza były wymagane, oraz - aby "
-"wykluczyć słowo lub frazę."

@@ -1,0 +1,250 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Hilton Medeiros <medeiros.hilton@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-01-20 21:47-0430\n"
+"PO-Revision-Date: 2012-03-11 19:23+0000\n"
+"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.net/projects/p/mezzanine/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: admin.py:39
+msgid "Meta data"
+msgstr "Metadado"
+
+#: fields.py:23
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "Não foi possível importar o valor de settings.RICHTEXT_WIDGET_CLASS: %s"
+
+#: forms.py:59 models.py:216
+msgid "Order"
+msgstr "Pedido"
+
+#: models.py:27
+msgid "Title"
+msgstr "Título"
+
+#: models.py:28
+msgid "URL"
+msgstr "URL"
+
+#: models.py:81
+msgid "Description"
+msgstr "Descrição"
+
+#: models.py:82
+msgid "Keywords"
+msgstr "Palavras-chave"
+
+#: models.py:91
+msgid "Draft"
+msgstr "Rascunho"
+
+#: models.py:92
+msgid "Published"
+msgstr "Publicado"
+
+#: models.py:103
+msgid "Status"
+msgstr "Status"
+
+#: models.py:105
+msgid "Published from"
+msgstr "Publicado de"
+
+#: models.py:106
+msgid "With published checked, won't be shown until this time"
+msgstr "Com publicado checado, não será exibido até esse tempo"
+
+#: models.py:108
+msgid "Expires on"
+msgstr "Vence em"
+
+#: models.py:109
+msgid "With published checked, won't be shown after this time"
+msgstr "Com publicado checado, não será exibido após esse tempo"
+
+#: models.py:163
+msgid "View on site"
+msgstr "Ver no site"
+
+#: models.py:174
+msgid "Content"
+msgstr "Conteúdo"
+
+#: models.py:270
+msgid "Author"
+msgstr "Autor"
+
+#: views.py:53
+msgid "Permission denied"
+msgstr "Permissão negada"
+
+#: templates/404.html:6
+msgid "Page not found"
+msgstr "Página não encontrada"
+
+#: templates/404.html:10
+msgid "The page you requested does not exist."
+msgstr "A página que você procura não existe."
+
+#: templates/500.html:6
+msgid "Error"
+msgstr "Erro"
+
+#: templates/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "Desculpe-nos, ocorreu um erro."
+
+#: templates/base.html:66
+msgid "Powered by"
+msgstr "Powered by"
+
+#: templates/base.html:69
+msgid "View Mobile Site."
+msgstr "Ver Site Mobile."
+
+#: templates/index.html:5 templates/index.html.py:8
+#: templates/admin/index.html:41
+msgid "Home"
+msgstr "Início"
+
+#: templates/index.html:12
+msgid "This is the homepage."
+msgstr "Esta é a página inicial."
+
+#: templates/search_results.html:5 templates/search_results.html.py:6
+msgid "Search Results"
+msgstr "Resultados da Pesquisa"
+
+#: templates/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr "Nenhum resultado foi encontrado para sua consulta: "
+
+#: templates/search_results.html:14
+msgid "Showing"
+msgstr "Exibindo"
+
+#: templates/search_results.html:14
+msgid "to"
+msgstr "para"
+
+#: templates/search_results.html:14 templates/includes/pagination.html:4
+msgid "of"
+msgstr "de"
+
+#: templates/search_results.html:15
+msgid "results matching your query:"
+msgstr "resultados que correspondem à sua consulta:"
+
+#: templates/search_results.html:23
+msgid "read more"
+msgstr "leia mais"
+
+#: templates/admin/base_site.html:190
+msgid "View Site"
+msgstr "Ver Site"
+
+#: templates/admin/base_site.html:218
+msgid "Forgot password?"
+msgstr "Esqueceu sua senha?"
+
+#: templates/admin/base_site.html:222
+msgid "Interface:"
+msgstr "Interface:"
+
+#: templates/admin/base_site.html:226
+#: templates/includes/editable_toolbar.html:8
+#: templates/includes/editable_toolbar.html:10
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/admin/base_site.html:230
+msgid "Site"
+msgstr "Site"
+
+#: templates/admin/index.html:43 templates/admin/includes/dropdown_menu.html:3
+msgid "Dashboard"
+msgstr "Painel"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "Adicionar"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "Modificar"
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr "Adicionar outro"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "Ações Recentes"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "Minhas Ações"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "Nada disponível"
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "Salvar"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "Editar"
+
+#: templates/includes/editable_loader.html:87
+msgid "An error occurred"
+msgstr "Ocorreu um erro"
+
+#: templates/includes/editable_toolbar.html:12
+msgid "Log out"
+msgstr "Sair"
+
+#: templates/includes/pagination.html:4
+msgid "Page"
+msgstr "Página"
+
+#: templates/includes/search.html:3
+msgid "Search"
+msgstr "Pesquisar"
+
+#: templates/includes/search.html:6
+msgid "Go"
+msgstr "Ir"
+
+#: templates/includes/search.html:9
+msgid "Use "
+msgstr "Use "
+
+#: templates/includes/search.html:9
+msgid "quotes"
+msgstr "aspas"
+
+#: templates/includes/search.html:9
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr " para frases exatas, + para marcar uma palavra ou frase como obrigatória, e - para excluir uma palavra ou frase."

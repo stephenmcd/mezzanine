@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-20 21:47-0430\n"
+"POT-Creation-Date: 2012-03-11 19:14-0430\n"
 "PO-Revision-Date: 2011-11-14 23:24+0000\n"
 "Last-Translator: tourist <moleniec@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/mezzanine/team/"
@@ -20,27 +20,31 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2)\n"
 
-#: models.py:18 templates/blog/blog_post_list.html:82
+#: models.py:19 templates/blog/blog_post_list.html:107
 msgid "Comments"
 msgstr "Komentarze"
 
-#: models.py:19
+#: models.py:20
 msgid "Rating"
 msgstr "Ocena"
 
-#: models.py:22
+#: models.py:21
+msgid "Featured Image"
+msgstr ""
+
+#: models.py:25
 msgid "Blog post"
 msgstr "Post na blogu"
 
-#: models.py:23
+#: models.py:26
 msgid "Blog posts"
 msgstr "Posty na blogu"
 
-#: models.py:45
+#: models.py:48
 msgid "Blog Category"
 msgstr "Kategoria bloga"
 
-#: models.py:46
+#: models.py:49
 msgid "Blog Categories"
 msgstr "Kategorie bloga"
 
@@ -52,22 +56,22 @@ msgstr "Szybki Blog"
 msgid "Save Draft"
 msgstr "Zapisz wersję roboczą"
 
-#: templates/blog/blog_post_detail.html:34
+#: templates/blog/blog_post_detail.html:21
 msgid "Home"
 msgstr "Strona główna"
 
-#: templates/blog/blog_post_detail.html:44
-#: templates/blog/blog_post_list.html:51
+#: templates/blog/blog_post_detail.html:34
+#: templates/blog/blog_post_list.html:72
 msgid "Posted by"
 msgstr "Dodane przez"
 
-#: templates/blog/blog_post_detail.html:51
-#: templates/blog/blog_post_list.html:61
+#: templates/blog/blog_post_detail.html:38
+#: templates/blog/blog_post_list.html:82
 msgid "ago"
 msgstr "temu"
 
-#: templates/blog/blog_post_detail.html:54
-#: templates/blog/blog_post_list.html:86
+#: templates/blog/blog_post_detail.html:42
+#: templates/blog/blog_post_list.html:111
 #, python-format
 msgid ""
 "\n"
@@ -90,37 +94,60 @@ msgstr[2] ""
 "        %(comments_count)s komentarzy\n"
 "        "
 
-#: templates/blog/blog_post_detail.html:69
-#: templates/blog/blog_post_list.html:71
+#: templates/blog/blog_post_detail.html:61
+#: templates/blog/blog_post_list.html:96
 #: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
 msgstr "Tagi"
 
-#: templates/blog/blog_post_detail.html:82
-msgid "Share this on"
-msgstr "Podziel się tym na"
+#: templates/blog/blog_post_detail.html:71
+msgid "Share on Twitter"
+msgstr ""
 
-#: templates/blog/blog_post_list.html:27
+#: templates/blog/blog_post_detail.html:72
+msgid "Share on Facebook"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
+#, fuzzy
+msgid "Blog"
+msgstr "Post na blogu"
+
+#: templates/blog/blog_post_list.html:31
+msgid "Tag:"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:33
+#, fuzzy
+msgid "Category:"
+msgstr "Kategorie"
+
+#: templates/blog/blog_post_list.html:37
+#, fuzzy
+msgid "Author:"
+msgstr "Autorzy"
+
+#: templates/blog/blog_post_list.html:49
 msgid "Viewing posts tagged"
 msgstr "Oglądasz posty otagowane"
 
-#: templates/blog/blog_post_list.html:29
+#: templates/blog/blog_post_list.html:51
 msgid "Viewing posts for the category"
 msgstr "Oglądasz posty z kategorii"
 
-#: templates/blog/blog_post_list.html:31
+#: templates/blog/blog_post_list.html:53
 msgid "Viewing posts from"
 msgstr "Oglądasz posty z"
 
-#: templates/blog/blog_post_list.html:34
+#: templates/blog/blog_post_list.html:56
 msgid "Viewing posts by"
 msgstr "Oglądasz posty dodane przez"
 
-#: templates/blog/blog_post_list.html:56
+#: templates/blog/blog_post_list.html:77
 msgid "in"
 msgstr "w"
 
-#: templates/blog/blog_post_list.html:77
+#: templates/blog/blog_post_list.html:102
 msgid "read more"
 msgstr "czytaj więcej"
 
@@ -136,18 +163,21 @@ msgstr "Archiwum"
 msgid "Categories"
 msgstr "Kategorie"
 
-#: templates/blog/includes/filter_panel.html:52
+#: templates/blog/includes/filter_panel.html:55
 msgid "Authors"
 msgstr "Autorzy"
 
-#: templates/blog/includes/filter_panel.html:62
+#: templates/blog/includes/filter_panel.html:65
 msgid "Feeds"
 msgstr "Subskrypcja"
 
-#: templates/blog/includes/filter_panel.html:63
+#: templates/blog/includes/filter_panel.html:66
 msgid "RSS"
 msgstr "RSS"
 
-#: templates/blog/includes/filter_panel.html:64
+#: templates/blog/includes/filter_panel.html:67
 msgid "Atom"
 msgstr "Atom"
+
+#~ msgid "Share this on"
+#~ msgstr "Podziel się tym na"

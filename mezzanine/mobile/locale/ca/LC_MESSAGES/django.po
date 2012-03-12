@@ -7,11 +7,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-20 21:47-0430\n"
-"PO-Revision-Date: 2012-01-21 02:18+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-03-11 19:15-0430\n"
+"PO-Revision-Date: 2012-03-11 23:56+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/team/ca/)\n"
+"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,15 +34,15 @@ msgstr "Error"
 msgid "Sorry, an error occurred."
 msgstr "S'ha produït un error"
 
-#: templates/mobile/base.html:35 templates/mobile/index.html:6
+#: templates/mobile/base.html:31 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Inici"
 
-#: templates/mobile/base.html:47
+#: templates/mobile/base.html:43
 msgid "Powered by"
 msgstr "Desenvolupat per"
 
-#: templates/mobile/base.html:48
+#: templates/mobile/base.html:44
 msgid "View Full Site"
 msgstr "Veure lloc complert"
 
@@ -85,7 +85,6 @@ msgstr "Publicat per"
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
-#: templates/mobile/blog/includes/comments_thread.html:19
 msgid "ago"
 msgstr "fa"
 
@@ -100,31 +99,6 @@ msgstr "Compartir a:"
 #: templates/mobile/blog/blog_post_detail.html:54
 msgid "or"
 msgstr "o"
-
-#: templates/mobile/blog/includes/comments.html:4
-msgid "Comments"
-msgstr "Comentaris"
-
-#: templates/mobile/blog/includes/comments.html:15
-msgid "Comment"
-msgstr "Comentari"
-
-#: templates/mobile/blog/includes/comments_thread.html:23
-#: templates/mobile/blog/includes/comments_thread.html:35
-msgid "Reply"
-msgstr "Resposta"
-
-#: templates/mobile/blog/includes/comments_thread.html:43
-msgid "Comment deleted"
-msgstr "Comentari esborrat"
-
-#: templates/mobile/blog/includes/comments_thread.html:45
-msgid "Comment awaiting approval"
-msgstr "Comentari a l'espera d'aprovació"
-
-#: templates/mobile/blog/includes/comments_thread.html:53
-msgid "There are currently no comments"
-msgstr "Actualment no hi ha comentaris"
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"
@@ -150,8 +124,4 @@ msgstr "cometes"
 msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
-msgstr ""
-"per frases exactes, + per formar una paraula o una frase necessària, i - per"
-" excloure una paraula o frase."
-
-
+msgstr "per frases exactes, + per formar una paraula o una frase necessària, i - per excloure una paraula o frase."

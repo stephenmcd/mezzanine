@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Nicola Larosa <transifex@teknico.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-20 21:47-0430\n"
-"PO-Revision-Date: 2011-11-12 03:08+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-03-11 19:15-0430\n"
+"PO-Revision-Date: 2012-03-11 23:55+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,269 +18,268 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:31 fields.py:28
+#: admin.py:32 fields.py:30
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
-#: admin.py:106
+#: admin.py:115
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 elemento cancellato"
+msgstr[1] "%(count)s elementi cancellati"
 
-#: admin.py:110
+#: admin.py:119
 msgid "View Entries"
-msgstr ""
+msgstr "Vedi elementi"
 
-#: fields.py:26
+#: fields.py:28
 msgid "Single line text"
-msgstr ""
-
-#: fields.py:27
-msgid "Multi line text"
-msgstr ""
+msgstr "Testo a linea singola"
 
 #: fields.py:29
-msgid "Check box"
-msgstr ""
-
-#: fields.py:30
-msgid "Check boxes"
-msgstr ""
+msgid "Multi line text"
+msgstr "Testo a linea multipla"
 
 #: fields.py:31
-msgid "Drop down"
+msgid "Number"
 msgstr ""
 
 #: fields.py:32
-msgid "Multi select"
+msgid "URL"
 msgstr ""
 
 #: fields.py:33
-msgid "Radio buttons"
-msgstr ""
+msgid "Check box"
+msgstr "Casella selezionabile"
 
 #: fields.py:34
-msgid "File upload"
-msgstr ""
+msgid "Check boxes"
+msgstr "Caselle selezionabili"
 
 #: fields.py:35
-msgid "Date"
-msgstr ""
+msgid "Drop down"
+msgstr "Lista a discesa"
 
-#: fields.py:36 models.py:110
-msgid "Date/time"
-msgstr ""
+#: fields.py:36
+msgid "Multi select"
+msgstr "Selezione multipla"
 
 #: fields.py:37
-msgid "Hidden"
-msgstr ""
+msgid "Radio buttons"
+msgstr "Pulsanti radio"
 
-#: forms.py:27 forms.py:35 forms.py:41
+#: fields.py:38
+msgid "File upload"
+msgstr "Caricamento file"
+
+#: fields.py:39
+msgid "Date"
+msgstr "Data"
+
+#: fields.py:40 models.py:110
+msgid "Date/time"
+msgstr "Data/ora"
+
+#: fields.py:41
+msgid "Hidden"
+msgstr "Nascosto"
+
+#: forms.py:26 forms.py:34 forms.py:40
 msgid "Nothing"
-msgstr ""
+msgstr "Nulla"
+
+#: forms.py:27
+msgid "Contains"
+msgstr "Contiene"
 
 #: forms.py:28
-msgid "Contains"
-msgstr ""
-
-#: forms.py:29
 msgid "Doesn't contain"
-msgstr ""
+msgstr "Non contiene"
+
+#: forms.py:29 forms.py:35
+msgid "Equals"
+msgstr "È uguale a"
 
 #: forms.py:30 forms.py:36
-msgid "Equals"
-msgstr ""
-
-#: forms.py:31 forms.py:37
 msgid "Doesn't equal"
-msgstr ""
+msgstr "Non è uguale a"
 
-#: forms.py:42
+#: forms.py:41
 msgid "Is between"
-msgstr ""
+msgstr "È compreso fra"
 
-#: forms.py:171
+#: forms.py:180
 msgid "Checked"
-msgstr ""
+msgstr "Selezionato"
 
-#: forms.py:171
+#: forms.py:180
 msgid "Not checked"
-msgstr ""
+msgstr "Non selezionato"
 
-#: forms.py:185 forms.py:200
+#: forms.py:194 forms.py:209
 msgid "and"
-msgstr ""
+msgstr "e"
 
 #: models.py:17
 msgid "Button text"
-msgstr ""
+msgstr "Testo del pulsante"
 
 #: models.py:18
 msgid "Submit"
-msgstr ""
+msgstr "Inoltra"
 
 #: models.py:19
 msgid "Response"
-msgstr ""
+msgstr "Risposta"
 
 #: models.py:20
 msgid "Send email"
-msgstr ""
+msgstr "Invia email"
 
 #: models.py:21
 msgid "If checked, the form submitter will be sent an email."
-msgstr ""
+msgstr "Se selezionato, una email verrà inviata a chi compila la form."
 
 #: models.py:22
 msgid "From address"
-msgstr ""
+msgstr "Indirizzo mittente"
 
 #: models.py:23
 msgid "The address the email will be sent from"
-msgstr ""
+msgstr "L'indirizzo da cui l'email verrà inviata"
 
 #: models.py:24
 msgid "Send copies to"
-msgstr ""
+msgstr "Invia copie a"
 
 #: models.py:25
 msgid "One or more email addresses, separated by commas"
-msgstr ""
+msgstr "Uno o più indirizzi email, separati da virgole"
 
 #: models.py:27
 msgid "Subject"
-msgstr ""
+msgstr "Oggetto"
 
 #: models.py:28
 msgid "Message"
-msgstr ""
+msgstr "Messaggio"
 
 #: models.py:31
 msgid "Form"
-msgstr ""
+msgstr "Form"
 
 #: models.py:32
 msgid "Forms"
-msgstr ""
+msgstr "Form"
 
 #: models.py:49
 msgid "Label"
-msgstr ""
+msgstr "Etichetta"
 
 #: models.py:51
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: models.py:52
 msgid "Required"
-msgstr ""
+msgstr "Obbligatorio"
 
 #: models.py:53
 msgid "Visible"
-msgstr ""
+msgstr "Visibile"
 
 #: models.py:54
 msgid "Choices"
-msgstr ""
+msgstr "Scelte"
 
 #: models.py:55
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
+msgstr "Opzioni separate da virgole, se applicabile. Se una delle opzioni contiene a sua volta virgole, delimitarla con `apostrofi inversi`."
 
 #: models.py:57
 msgid "Default value"
-msgstr ""
+msgstr "Valore di default"
 
 #: models.py:59
 msgid "Placeholder Text"
-msgstr ""
+msgstr "Testo segnaposto"
 
 #: models.py:61
 msgid "Help text"
-msgstr ""
+msgstr "Testo d'aiuto"
 
-#: models.py:66 templates/admin/forms/entries.html:90
+#: models.py:66 templates/admin/forms/entries.html:27
 msgid "Field"
-msgstr ""
+msgstr "Campo"
 
 #: models.py:67
 msgid "Fields"
-msgstr ""
+msgstr "Campi"
 
 #: models.py:113
 msgid "Form entry"
-msgstr ""
+msgstr "Elemento form"
 
 #: models.py:114
 msgid "Form entries"
-msgstr ""
+msgstr "Elementi form"
 
 #: models.py:127
 msgid "Form field entry"
-msgstr ""
+msgstr "Elemento campo form"
 
 #: models.py:128
 msgid "Form field entries"
-msgstr ""
+msgstr "Elementi campi form"
 
-#: templates/admin/forms/change_form.html:14
-#: templates/admin/forms/entries.html:119
+#: templates/admin/forms/change_form.html:9
+#: templates/admin/forms/entries.html:56
 msgid "View entries"
-msgstr ""
+msgstr "Vedi elementi"
 
-#: templates/admin/forms/change_form.html:15
+#: templates/admin/forms/change_form.html:10
 msgid "History"
-msgstr ""
+msgstr "Storico"
 
-#: templates/admin/forms/change_form.html:16
+#: templates/admin/forms/change_form.html:11
 msgid "View on site"
-msgstr ""
+msgstr "Vedi sul sito"
 
-#: templates/admin/forms/entries.html:63
-msgid "No entries selected"
-msgstr ""
-
-#: templates/admin/forms/entries.html:66
-msgid "Delete selected entries?"
-msgstr ""
-
-#: templates/admin/forms/entries.html:76
+#: templates/admin/forms/entries.html:13
 msgid "Home"
-msgstr ""
+msgstr "Pagina principale"
 
-#: templates/admin/forms/entries.html:91
+#: templates/admin/forms/entries.html:28
 msgid "Include"
-msgstr ""
+msgstr "Includi"
 
-#: templates/admin/forms/entries.html:92
+#: templates/admin/forms/entries.html:29
 msgid "Filter by"
-msgstr ""
+msgstr "Filtra per"
 
-#: templates/admin/forms/entries.html:110
+#: templates/admin/forms/entries.html:47
 msgid "All"
-msgstr ""
+msgstr "Tutto"
 
-#: templates/admin/forms/entries.html:118
-#: templates/admin/forms/entries.html:156
+#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:93
 msgid "Back to form"
-msgstr ""
+msgstr "Ritorna alla form"
 
-#: templates/admin/forms/entries.html:120
+#: templates/admin/forms/entries.html:57
 msgid "Export CSV"
-msgstr ""
+msgstr "Esporta CSV"
 
-#: templates/admin/forms/entries.html:123
+#: templates/admin/forms/entries.html:60
 msgid "Entries"
-msgstr ""
+msgstr "Elementi"
 
-#: templates/admin/forms/entries.html:157
+#: templates/admin/forms/entries.html:94
 msgid "Delete selected"
-msgstr ""
+msgstr "Cancella selezionati"
 
-#: templates/admin/forms/entries.html:161
+#: templates/admin/forms/entries.html:98
 msgid "No entries to display"
-msgstr ""
+msgstr "Nessun elemento da mostrare"

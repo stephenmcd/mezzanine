@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-20 21:47-0430\n"
+"POT-Creation-Date: 2012-03-11 19:15-0430\n"
 "PO-Revision-Date: 2011-11-16 10:25+0000\n"
 "Last-Translator: vrialland <vincent.rialland@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/mezzanine/team/"
@@ -43,27 +43,28 @@ msgstr "Page"
 msgid "Pages"
 msgstr "Pages"
 
-#: models.py:135
+#: models.py:136
 msgid "Rich text page"
 msgstr "Page de texte enrichi"
 
-#: models.py:136
+#: models.py:137
 msgid "Rich text pages"
 msgstr "Pages de texte enrichi"
 
-#: templates/admin/pages/page/change_list.html:166
-#: templates/pages/menus/admin.html:30
+#: templates/admin/pages/page/change_list.html:24
+#: templates/pages/menus/admin.html:31
 msgid "Add"
 msgstr "Ajouter"
 
-#: templates/pages/menus/breadcrumb.html:9
+#: templates/pages/menus/breadcrumb.html:4
+#: templates/pages/menus/breadcrumb.html:10
 #: templates/pages/menus/footer_tree.html:10
 #: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:8
 #: templates/pages/menus/tree.html:10
 msgid "Home"
 msgstr "Accueil"
 
-#: templatetags/pages_tags.py:135
+#: templatetags/pages_tags.py:145
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""

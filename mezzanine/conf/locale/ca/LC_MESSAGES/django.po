@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-20 21:47-0430\n"
+"POT-Creation-Date: 2012-03-11 19:14-0430\n"
 "PO-Revision-Date: 2011-12-13 15:33+0100\n"
 "Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
 "Language-Team: Catalan <LL@li.org>\n"
@@ -18,126 +18,122 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:36
+#: admin.py:39
 #, python-format
 msgid "Change %s"
 msgstr "Canvia %s"
 
-#: defaults.py:12
+#: defaults.py:28
 msgid "Controls the ordering and grouping of the admin menu."
 msgstr "Contrla l'ordre i l'agrupament del menu d'Administració"
 
-#: defaults.py:15
+#: defaults.py:31
 msgid "Content"
 msgstr "Contingut"
 
-#: defaults.py:16
+#: defaults.py:32
 msgid "Media Library"
 msgstr "Llibreria Multimèdia"
 
-#: defaults.py:17
+#: defaults.py:33
 msgid "Site"
 msgstr "Lloc"
 
-#: defaults.py:18
+#: defaults.py:34
 msgid "Users"
 msgstr "Usuaris"
 
-#: defaults.py:24
+#: defaults.py:40
 msgid "Unregister these models from the admin."
 msgstr "Desregistrar aquests models the l'administració."
 
-#: defaults.py:31
+#: defaults.py:47
 msgid "bit.ly username"
 msgstr "Nom d'usuari bit.ly"
 
-#: defaults.py:32
+#: defaults.py:48
 msgid "Username for bit.ly URL shortening service."
 msgstr "Nom d'usuari per servei d'escursament de URL bit.ly"
 
-#: defaults.py:39
+#: defaults.py:55
 msgid "bit.ly key"
 msgstr "Clau bit.ly"
 
-#: defaults.py:40
+#: defaults.py:56
 msgid "Key for bit.ly URL shortening service."
 msgstr "Clau pel servei d'escursament de URL bit.ly"
 
-#: defaults.py:47
+#: defaults.py:63
+msgid "Enable featured images in blog posts"
+msgstr ""
+
+#: defaults.py:70
 msgid "Use date URLs"
 msgstr ""
 
-#: defaults.py:48
+#: defaults.py:71
 msgid ""
 "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
 "mm/slug/"
 msgstr ""
 
-#: defaults.py:56
+#: defaults.py:79
 msgid "Blog posts per page"
 msgstr "Entrades per pàgina"
 
-#: defaults.py:57
+#: defaults.py:80
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "Nombre d'entrades del bloc que es mostrarar a la llista."
 
-#: defaults.py:64
-msgid "Max blog paging links"
-msgstr "Max. Links a pàgines (bloc)"
-
-#: defaults.py:65
-msgid "Max number of paging links shown on a blog listing page."
-msgstr "Nombre maxim de pagines que es mostrarà al llistat de pagines"
-
-#: defaults.py:72
+#: defaults.py:87
 msgid "Slug of the page object for the blog."
 msgstr "Descripció reduida de l'objecte pàgina del bloc."
 
-#: defaults.py:79
+#: defaults.py:94
 msgid "Disqus shortname"
 msgstr "Nom reduit de Disqus"
 
-#: defaults.py:80
+#: defaults.py:95
 msgid "Shortname for the http://disqus.com comments service."
 msgstr "Nom reduit pel servei de comentaris http://disqus.com"
 
-#: defaults.py:87
+#: defaults.py:102
 msgid "Disqus public key"
 msgstr "Clau pública Disqus"
 
-#: defaults.py:88
+#: defaults.py:103
 msgid "Public key for Disqus developer API"
 msgstr "Clau publica de la API de desenvolupadors de Disqus"
 
-#: defaults.py:95
+#: defaults.py:110
 msgid "Disqus secret key"
 msgstr "Clau privada Disqus"
 
-#: defaults.py:96
+#: defaults.py:111
 msgid "Secret key for Disqus developer API"
 msgstr "Clau privada de la API de desenvolupadors de Disqus"
 
-#: defaults.py:103
+#: defaults.py:118
 msgid "Auto-approve comments"
 msgstr "Aprovar els comentaris automàticament"
 
-#: defaults.py:104
+#: defaults.py:119
 msgid "If ``True``, built-in comments are approved by default."
 msgstr "Si es marca, els comentaris son aprovats per defecte."
 
-#: defaults.py:111
+#: defaults.py:126
 msgid "Admin comments"
 msgstr "Comentaris Administració"
 
-#: defaults.py:112
+#: defaults.py:127
 msgid "Number of latest comments shown in the admin dashboard."
 msgstr "Nombre de comentaris que es mostren al tauler d'Administració."
 
-#: defaults.py:119
+#: defaults.py:134
 msgid "Show unapproved comments"
 msgstr "Mostrar comentaris no aprovats"
 
-#: defaults.py:120
+#: defaults.py:135
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
@@ -145,11 +141,11 @@ msgstr ""
 "Si es marca, els comentaris que tenen marcat ``is_public`` es mostraran, "
 "pero remplaçats per un missatge de ``esperant per ser aprovats``"
 
-#: defaults.py:129
+#: defaults.py:144
 msgid "Show removed comments"
 msgstr "Mostrar comentaris eliminats"
 
-#: defaults.py:130
+#: defaults.py:145
 msgid ""
 "If ``True``, comments that have ``removed`` checked will still be displayed, "
 "but replaced with a ``removed`` message."
@@ -157,15 +153,7 @@ msgstr ""
 "Si es marca, els comentaris que tenen marcat ``removed`` es mostran pero "
 "remplaáts per un missatge de ``esborrat``."
 
-#: defaults.py:138
-msgid "Absolute path to Mezzanine's internal media files."
-msgstr "Ruta absoluta cap als fitxers multimèdia interns de Mezzanine."
-
-#: defaults.py:145
-msgid "URL prefix for serving Mezzanine's internal media files."
-msgstr "Prefix de URL per a servir els fitxers multimèdia de Mezzanine"
-
-#: defaults.py:165
+#: defaults.py:166
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
@@ -173,13 +161,13 @@ msgstr ""
 "Una seqüència de tres objectes que conten una seqüència de etiquetes de "
 "plantilla utilitzats per a fer el taulell d'administració"
 
-#: defaults.py:173
+#: defaults.py:174
 msgid "Device specific template sub-directory to use as the default device."
 msgstr ""
 "Subcarpeta que conté les plantilles especifiques per dispositiu que "
 "s'utilitzarà pel dispositiu per defecte."
 
-#: defaults.py:181
+#: defaults.py:182
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
@@ -187,7 +175,7 @@ msgstr ""
 "Mapeig dels subdirectoris específics per a cada dispositiu amb les noms de "
 "les sequencies que es troben en el seus agents d'usuari."
 
-#: defaults.py:203
+#: defaults.py:204
 msgid ""
 "A sequence of fields that will be injected into Mezzanine's (or any "
 "library's) models. Each item in the sequence is a four item sequence. The "
@@ -207,79 +195,78 @@ msgstr ""
 "camp, la ruta ``django.models.db`` pot ser omesa per als models regulars de "
 "camps de Django."
 
-#: defaults.py:218
+#: defaults.py:219
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
 msgstr ""
 
-#: defaults.py:227
+#: defaults.py:228
 msgid "Max length allowed for field values in the forms app."
 msgstr ""
 "Longitud màxima permesa pels valors dels camps de l'aplicació formulari."
 
-#: defaults.py:234
+#: defaults.py:235
 msgid "Max length allowed for field labels in the forms app."
 msgstr ""
 "Longitud màxima permesa per les etiquetes dels camps de l'aplicació "
 "formulari."
 
-#: defaults.py:241
+#: defaults.py:242
 msgid ""
 "If ``True``, website forms created by the forms app will use HTML5 features."
 msgstr ""
 "Si es marca, els formularis creats per l'aplicació de formulari faràn servir "
 "les característiques de HTML5"
 
-#: defaults.py:249
+#: defaults.py:250
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
 msgstr ""
 "Caràcter utilitzar com a delimitador de camps al exportar les respostes a "
 "CSV."
 
-#: defaults.py:257
+#: defaults.py:258
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr ""
 "Ruta absoluta per guardar els fitxers pujats a l'aplicació de formulari."
 
-#: defaults.py:264
+#: defaults.py:265
 msgid "Google Analytics ID"
 msgstr "Identificador Google Analytics"
 
-#: defaults.py:266
+#: defaults.py:267
 msgid "Google Analytics ID (http://www.google.com/analytics/)"
 msgstr "Identificador Google Analytics (http://www.google.com/analytics/)"
 
-#: defaults.py:272
+#: defaults.py:273
 msgid ""
-"Dotted package path and class name of the widget to use for the "
-"``RichTextField``."
+"A sequence mapping host names to themes, allowing different templates to be "
+"served per HTTP hosts Each item in the sequence is a two item sequence, "
+"containing a host such as ``othersite.example.com``, and the name of an "
+"importable Python package for the theme. If the host is matched for a "
+"request, the templates directory inside the theme package will be first "
+"searched when loading templates."
 msgstr ""
-"Ruta completa del nom de la classe que s'utilitzarà pel widget "
-"``RichTextField``."
 
-#: defaults.py:280
-msgid ""
-"Dotted path to the function to call on a ``RichTextField`` value before it "
-"is rendered to the template."
+#: defaults.py:287
+msgid "Name of the jQuery file."
 msgstr ""
-"Ruta completa de la funció que es cridarà abans de la plantilla per al "
-"widget ``RichTextField``."
 
 #: defaults.py:288
-msgid "Tag Cloud Sizes"
-msgstr "Tamanys del núvol d'etiquets"
-
-#: defaults.py:289
-msgid "Number of different sizes for tags when shown as a cloud."
+msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
 msgstr ""
-"Nombre diferent de tamanys a utilitzar quan es mostra el núvol d'etiquetes"
 
 #: defaults.py:296
-msgid "Package name of theme app to use."
-msgstr "Nom del paquet a utilitzar com a tema."
+#, fuzzy
+msgid "Max paging links"
+msgstr "Max. Links a pàgines (bloc)"
 
-#: defaults.py:303
+#: defaults.py:297
+#, fuzzy
+msgid "Max number of paging links to display when paginating."
+msgstr "Nombre maxim de pagines que es mostrarà al llistat de pagines"
+
+#: defaults.py:304
 msgid ""
 "If ``True``, the pages menu will show all levels of navigation, otherwise "
 "child pages are only shown when viewing the parent page."
@@ -287,38 +274,44 @@ msgstr ""
 "Si es marca, el menú de pàgines mostrarà tots els nivells de navegació, "
 "d'altra forma les pàgines filles només es mostren al visitar la pàgina pare."
 
-#: defaults.py:312
+#: defaults.py:313
 msgid "Min value for a rating."
 msgstr "Valor mínim pel rating"
 
-#: defaults.py:319
+#: defaults.py:320
 msgid "Max value for a rating."
 msgstr "Valor máxim pel rating."
 
-#: defaults.py:326
+#: defaults.py:327
+msgid ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
+msgstr ""
+"Ruta completa del nom de la classe que s'utilitzarà pel widget "
+"``RichTextField``."
+
+#: defaults.py:335
+msgid ""
+"Dotted path to the function to call on a ``RichTextField`` value before it "
+"is rendered to the template."
+msgstr ""
+"Ruta completa de la funció que es cridarà abans de la plantilla per al "
+"widget ``RichTextField``."
+
+#: defaults.py:343
 msgid "Search results per page"
 msgstr "Resultats de búsqueda per pàgina."
 
-#: defaults.py:327
+#: defaults.py:344
 msgid "Number of results shown in the search results page."
 msgstr ""
 "Nombre de resultats que es mostren a la pàgina de resultats de la cerca."
 
-#: defaults.py:334
-msgid "Max search paging links"
-msgstr "Màx. enllaços per la busqueda"
-
-#: defaults.py:335
-msgid "Max number of paging links for the search results page."
-msgstr ""
-"Nombre màxim de enllaços a pàgines que es mostraran al pàgina de resultats "
-"de la cerca."
-
-#: defaults.py:342
+#: defaults.py:351
 msgid "Site Title"
 msgstr "Títol del Lloc"
 
-#: defaults.py:343
+#: defaults.py:352
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
@@ -326,27 +319,56 @@ msgstr ""
 "Títol que es mostrará a la part superior del lloc i que s'utilitzarà a la "
 "part posterior de l'etiqueta HTML title per a cada pàgina."
 
-#: defaults.py:351
+#: defaults.py:360
 msgid "Tagline"
 msgstr "Subtítol"
 
-#: defaults.py:352
+#: defaults.py:361
 msgid "A tag line that will appear at the top of all pages."
 msgstr "Subtítol que apareixierà a la part superior de totes les pàgines."
 
-#: defaults.py:354
+#: defaults.py:363
 msgid "An open source content management platform."
 msgstr "An open source content management platform."
 
-#: defaults.py:359
+#: defaults.py:368
+msgid "Enable SSL"
+msgstr ""
+
+#: defaults.py:378
+msgid "Force Host"
+msgstr ""
+
+#: defaults.py:397
 msgid "List of words which will be stripped from search queries."
 msgstr "Llista de paraules que no es tindrán en compte a les búsquedes."
 
-#: defaults.py:416
+#: defaults.py:454
+msgid "Tag Cloud Sizes"
+msgstr "Tamanys del núvol d'etiquets"
+
+#: defaults.py:455
+msgid "Number of different sizes for tags when shown as a cloud."
+msgstr ""
+"Nombre diferent de tamanys a utilitzar quan es mostra el núvol d'etiquetes"
+
+#: defaults.py:462
 msgid "Sequence of setting names available within templates."
 msgstr "Seqüència de noms d'ajustaments disponibles a les plantilles"
 
-#: defaults.py:437
+#: defaults.py:477
+msgid ""
+"Directory name to store thumbnails in, that will be created relative to the "
+"original image's directory."
+msgstr ""
+
+#: defaults.py:485
+msgid ""
+"URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
+"configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+msgstr ""
+
+#: defaults.py:500
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
@@ -366,10 +388,27 @@ msgstr "Ajustament"
 msgid "Settings"
 msgstr "Ajustaments"
 
-#: templates/admin/conf/setting/change_list.html:21
+#: templates/admin/conf/setting/change_list.html:8
 msgid "Please correct the errors below."
 msgstr "Corregiu els errors"
 
-#: templates/admin/conf/setting/change_list.html:44
+#: templates/admin/conf/setting/change_list.html:31
 msgid "Save"
 msgstr "Desa"
+
+#~ msgid "Absolute path to Mezzanine's internal media files."
+#~ msgstr "Ruta absoluta cap als fitxers multimèdia interns de Mezzanine."
+
+#~ msgid "URL prefix for serving Mezzanine's internal media files."
+#~ msgstr "Prefix de URL per a servir els fitxers multimèdia de Mezzanine"
+
+#~ msgid "Package name of theme app to use."
+#~ msgstr "Nom del paquet a utilitzar com a tema."
+
+#~ msgid "Max search paging links"
+#~ msgstr "Màx. enllaços per la busqueda"
+
+#~ msgid "Max number of paging links for the search results page."
+#~ msgstr ""
+#~ "Nombre màxim de enllaços a pàgines que es mostraran al pàgina de "
+#~ "resultats de la cerca."
