@@ -9,4 +9,4 @@ Mezzanine.egg-info/
 build/
 docs/build/
 dist/
-mezzanine/project_template/site_media/uploads/
+mezzanine/project_template/static/
