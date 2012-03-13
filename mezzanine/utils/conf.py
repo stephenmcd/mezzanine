@@ -96,17 +96,7 @@ def set_dynamic_settings(s):
                                    mw.endswith("FetchFromCacheMiddleware")]
 
     # Some settings tweaks for different DB engines.
-    backend_path = "django.db.backends."
-    backend_shortnames = (
-        "postgresql_psycopg2",
-        "postgresql",
-        "mysql",
-        "sqlite3",
-        "oracle",
-    )
     for (key, db) in s["DATABASES"].items():
-        if db["ENGINE"] in backend_shortnames:
-            s["DATABASES"][key]["ENGINE"] = backend_path + db["ENGINE"]
         shortname = db["ENGINE"].split(".")[-1]
         if shortname == "sqlite3" and os.sep not in db["NAME"]:
             # If the Sqlite DB name doesn't contain a path, assume
