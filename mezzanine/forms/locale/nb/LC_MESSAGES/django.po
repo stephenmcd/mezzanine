@@ -1,0 +1,285 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Olav  <>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"PO-Revision-Date: 2012-03-15 08:52+0000\n"
+"Last-Translator: Olav <>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/mezzanine/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:32 fields.py:30
+msgid "Email"
+msgstr "E-post"
+
+#: admin.py:115
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] "1 oppføring slettet"
+msgstr[1] "%(count)s oppføringer slettet"
+
+#: admin.py:119
+msgid "View Entries"
+msgstr "Vis oppføringer"
+
+#: fields.py:28
+msgid "Single line text"
+msgstr "Enlinjetekst"
+
+#: fields.py:29
+msgid "Multi line text"
+msgstr "Flerlinjetekst"
+
+#: fields.py:31
+msgid "Number"
+msgstr "Tall"
+
+#: fields.py:32
+msgid "URL"
+msgstr "URL"
+
+#: fields.py:33
+msgid "Check box"
+msgstr "Valgboks"
+
+#: fields.py:34
+msgid "Check boxes"
+msgstr "Valgbokser"
+
+#: fields.py:35
+msgid "Drop down"
+msgstr "Nedtrekksmeny"
+
+#: fields.py:36
+msgid "Multi select"
+msgstr "Flervalg"
+
+#: fields.py:37
+msgid "Radio buttons"
+msgstr "Radioknapper"
+
+#: fields.py:38
+msgid "File upload"
+msgstr "Filopplasting"
+
+#: fields.py:39
+msgid "Date"
+msgstr "Dato"
+
+#: fields.py:40 models.py:110
+msgid "Date/time"
+msgstr "Dato/tid"
+
+#: fields.py:41
+msgid "Hidden"
+msgstr "Skjult"
+
+#: forms.py:26 forms.py:34 forms.py:40
+msgid "Nothing"
+msgstr "Ingenting"
+
+#: forms.py:27
+msgid "Contains"
+msgstr "Inneholder"
+
+#: forms.py:28
+msgid "Doesn't contain"
+msgstr "Inneholder ikke"
+
+#: forms.py:29 forms.py:35
+msgid "Equals"
+msgstr "Er lik"
+
+#: forms.py:30 forms.py:36
+msgid "Doesn't equal"
+msgstr "Er ulik"
+
+#: forms.py:41
+msgid "Is between"
+msgstr "Er mellom"
+
+#: forms.py:180
+msgid "Checked"
+msgstr "Valgt"
+
+#: forms.py:180
+msgid "Not checked"
+msgstr "Ikke valgt"
+
+#: forms.py:194 forms.py:209
+msgid "and"
+msgstr "og"
+
+#: models.py:17
+msgid "Button text"
+msgstr "Knapptekst"
+
+#: models.py:18
+msgid "Submit"
+msgstr "Send inn"
+
+#: models.py:19
+msgid "Response"
+msgstr "Tilbakemelding"
+
+#: models.py:20
+msgid "Send email"
+msgstr "Send e-post"
+
+#: models.py:21
+msgid "If checked, the form submitter will be sent an email."
+msgstr "Hvis valgt vil innsenderen motta en e-post."
+
+#: models.py:22
+msgid "From address"
+msgstr "Fra adresse"
+
+#: models.py:23
+msgid "The address the email will be sent from"
+msgstr "Adressen e-posten vil bli sendt fra"
+
+#: models.py:24
+msgid "Send copies to"
+msgstr "Send kopi til"
+
+#: models.py:25
+msgid "One or more email addresses, separated by commas"
+msgstr "En eller flere e-postadresser med komma mellom"
+
+#: models.py:27
+msgid "Subject"
+msgstr "Emne"
+
+#: models.py:28
+msgid "Message"
+msgstr "Melding"
+
+#: models.py:31
+msgid "Form"
+msgstr "Skjema"
+
+#: models.py:32
+msgid "Forms"
+msgstr "Skjemaer"
+
+#: models.py:49
+msgid "Label"
+msgstr "Etikett"
+
+#: models.py:51
+msgid "Type"
+msgstr "Type"
+
+#: models.py:52
+msgid "Required"
+msgstr "Påkrevet"
+
+#: models.py:53
+msgid "Visible"
+msgstr "Synlig"
+
+#: models.py:54
+msgid "Choices"
+msgstr "Valg"
+
+#: models.py:55
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr "Flere valg inndelt med komma. Hvis et valg selv inneholder komma, legg det mellom to `backticks`."
+
+#: models.py:57
+msgid "Default value"
+msgstr "Standardverdi"
+
+#: models.py:59
+msgid "Placeholder Text"
+msgstr "Plassholdertekst"
+
+#: models.py:61
+msgid "Help text"
+msgstr "Hjelpetekst"
+
+#: models.py:66 templates/admin/forms/entries.html:27
+msgid "Field"
+msgstr "Felt"
+
+#: models.py:67
+msgid "Fields"
+msgstr "Felter"
+
+#: models.py:113
+msgid "Form entry"
+msgstr "Skjemaoppføring"
+
+#: models.py:114
+msgid "Form entries"
+msgstr "Skjemaoppføringer"
+
+#: models.py:127
+msgid "Form field entry"
+msgstr "Feltoppføring for skjema"
+
+#: models.py:128
+msgid "Form field entries"
+msgstr "Feltoppføringer for skjema"
+
+#: templates/admin/forms/change_form.html:9
+#: templates/admin/forms/entries.html:56
+msgid "View entries"
+msgstr "Vis oppføringer"
+
+#: templates/admin/forms/change_form.html:10
+msgid "History"
+msgstr "Historie"
+
+#: templates/admin/forms/change_form.html:11
+msgid "View on site"
+msgstr "Vis på siden"
+
+#: templates/admin/forms/entries.html:13
+msgid "Home"
+msgstr "Hjem"
+
+#: templates/admin/forms/entries.html:28
+msgid "Include"
+msgstr "Inkluder"
+
+#: templates/admin/forms/entries.html:29
+msgid "Filter by"
+msgstr "Filtrér etter"
+
+#: templates/admin/forms/entries.html:47
+msgid "All"
+msgstr "Alle"
+
+#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:93
+msgid "Back to form"
+msgstr "Tilbake til skjema"
+
+#: templates/admin/forms/entries.html:57
+msgid "Export CSV"
+msgstr "Eksporter CSV"
+
+#: templates/admin/forms/entries.html:60
+msgid "Entries"
+msgstr "Oppføringer"
+
+#: templates/admin/forms/entries.html:94
+msgid "Delete selected"
+msgstr "Slett valgte"
+
+#: templates/admin/forms/entries.html:98
+msgid "No entries to display"
+msgstr "Ingen oppføringer å vise"

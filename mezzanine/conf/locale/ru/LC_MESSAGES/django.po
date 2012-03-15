@@ -1,21 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-03-11 19:14-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-15 07:00-0430\n"
 "PO-Revision-Date: 2012-03-11 23:54+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: admin.py:39
 #, python-format
@@ -72,9 +74,11 @@ msgstr "Использовать адреса с датой"
 
 #: defaults.py:71
 msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: "
-"/blog/yyyy/mm/slug/"
-msgstr "Если ``Да``, адреса страниц блога будут содержать год и месяц: /blog/yyyy/mm/slug/"
+"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
+"mm/slug/"
+msgstr ""
+"Если ``Да``, адреса страниц блога будут содержать год и месяц: /blog/yyyy/mm/"
+"slug/"
 
 #: defaults.py:79
 msgid "Blog posts per page"
@@ -126,7 +130,8 @@ msgstr "Комментариев в админке"
 
 #: defaults.py:127
 msgid "Number of latest comments shown in the admin dashboard."
-msgstr "Количество последнийх комментариев, отображаемых на dashboard в админке"
+msgstr ""
+"Количество последнийх комментариев, отображаемых на dashboard в админке"
 
 #: defaults.py:134
 msgid "Show unapproved comments"
@@ -136,7 +141,9 @@ msgstr "Неподтверждённые комментарии"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом будут заменены на надпись ``ожидает подтверждения``"
+msgstr ""
+"Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом "
+"будут заменены на надпись ``ожидает подтверждения``"
 
 #: defaults.py:144
 msgid "Show removed comments"
@@ -144,9 +151,11 @@ msgstr "Удалённые комментарии"
 
 #: defaults.py:145
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
-msgstr "Если ``Да``, то удалённые комментарии продолжат отображаться, но при этом будут заменены на надпись ``Удалено``"
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Если ``Да``, то удалённые комментарии продолжат отображаться, но при этом "
+"будут заменены на надпись ``Удалено``"
 
 #: defaults.py:166
 msgid ""
@@ -170,8 +179,8 @@ msgid ""
 "library's) models. Each item in the sequence is a four item sequence. The "
 "first two items are the dotted path to the model and its field name to be "
 "added, and the dotted path to the field class to use for the field. The "
-"third and fourth items are a sequence of positional args and a dictionary of"
-" keyword args, to use when creating the field instance. When specifying the "
+"third and fourth items are a sequence of positional args and a dictionary of "
+"keyword args, to use when creating the field instance. When specifying the "
 "field class, the path ``django.models.db.`` can be omitted for regular "
 "Django model fields."
 msgstr ""
@@ -193,11 +202,14 @@ msgstr "Максимально допустимая длина названий 
 #: defaults.py:242
 msgid ""
 "If ``True``, website forms created by the forms app will use HTML5 features."
-msgstr "Если ``Да``, то пользовательские формы будут использовать преимущества HTML5."
+msgstr ""
+"Если ``Да``, то пользовательские формы будут использовать преимущества HTML5."
 
 #: defaults.py:250
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr "Символ, используемый как разделитель полей, при экспорте ответов на форму в формате CSV"
+msgstr ""
+"Символ, используемый как разделитель полей, при экспорте ответов на форму в "
+"формате CSV"
 
 #: defaults.py:258
 msgid "Absolute path for storing file uploads for the forms app."
@@ -241,7 +253,9 @@ msgstr ""
 msgid ""
 "If ``True``, the pages menu will show all levels of navigation, otherwise "
 "child pages are only shown when viewing the parent page."
-msgstr "Если ``Да``, то административное меню отображает как приложения, так и модели, в другом случае в меню отображаются только приложения"
+msgstr ""
+"Если ``Да``, то административное меню отображает как приложения, так и "
+"модели, в другом случае в меню отображаются только приложения"
 
 #: defaults.py:313
 msgid "Min value for a rating."
@@ -255,13 +269,17 @@ msgstr "Максимальное значение для голосования"
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
-msgstr "Разделённый точками путь к пакету и имя класса виджета, используемый для отображения виджета ``RichTextField``."
+msgstr ""
+"Разделённый точками путь к пакету и имя класса виджета, используемый для "
+"отображения виджета ``RichTextField``."
 
 #: defaults.py:335
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
-msgstr "Разделённый точками путь до функции, преобразующей значение ``RichTextField``, при отображении в шаблоне"
+msgstr ""
+"Разделённый точками путь до функции, преобразующей значение "
+"``RichTextField``, при отображении в шаблоне"
 
 #: defaults.py:343
 msgid "Search results per page"
@@ -279,7 +297,10 @@ msgstr "Заголовок сайта"
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
-msgstr "Заголовок, отображаемый как название вкладки браузера (или название окна браузера), состоит из заголовка отображаемой страницы с добавлением данной части"
+msgstr ""
+"Заголовок, отображаемый как название вкладки браузера (или название окна "
+"браузера), состоит из заголовка отображаемой страницы с добавлением данной "
+"части"
 
 #: defaults.py:360
 msgid "Tagline"
@@ -311,7 +332,8 @@ msgstr "Размеры облака тэгов"
 
 #: defaults.py:455
 msgid "Number of different sizes for tags when shown as a cloud."
-msgstr "Количество разнообразных размеров надписей, отображаемых в облаке тэгов"
+msgstr ""
+"Количество разнообразных размеров надписей, отображаемых в облаке тэгов"
 
 #: defaults.py:462
 msgid "Sequence of setting names available within templates."
@@ -333,7 +355,9 @@ msgstr ""
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
-msgstr "Если ``Да``, то South будет автоматически добавлен в список приложений (INSTALLED_APPS)"
+msgstr ""
+"Если ``Да``, то South будет автоматически добавлен в список приложений "
+"(INSTALLED_APPS)"
 
 #: forms.py:48
 msgid "Miscellaneous"

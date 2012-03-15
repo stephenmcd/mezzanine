@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Olav  <>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-03-15 07:00-0430\n"
+"PO-Revision-Date: 2012-03-15 08:28+0000\n"
+"Last-Translator: Olav <>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/mezzanine/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: models.py:19 templates/blog/blog_post_list.html:107
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: models.py:20
+msgid "Rating"
+msgstr "Vurdering"
+
+#: models.py:21
+msgid "Featured Image"
+msgstr "Fremhevet bilde"
+
+#: models.py:25
+msgid "Blog post"
+msgstr "Bloggpost"
+
+#: models.py:26
+msgid "Blog posts"
+msgstr "Bloggposter"
+
+#: models.py:48
+msgid "Blog Category"
+msgstr "Bloggkategori"
+
+#: models.py:49
+msgid "Blog Categories"
+msgstr "Bloggkategorier"
+
+#: templates/admin/includes/quick_blog.html:5
+msgid "Quick Blog"
+msgstr "Hurtigblogg"
+
+#: templates/admin/includes/quick_blog.html:14
+msgid "Save Draft"
+msgstr "Lagre kladd"
+
+#: templates/blog/blog_post_detail.html:21
+msgid "Home"
+msgstr "Hjem"
+
+#: templates/blog/blog_post_detail.html:34
+#: templates/blog/blog_post_list.html:72
+msgid "Posted by"
+msgstr "Skrevet av"
+
+#: templates/blog/blog_post_detail.html:38
+#: templates/blog/blog_post_list.html:82
+msgid "ago"
+msgstr "siden"
+
+#: templates/blog/blog_post_detail.html:42
+#: templates/blog/blog_post_list.html:111
+#, python-format
+msgid ""
+"\n"
+"        1 comment\n"
+"        "
+msgid_plural ""
+"\n"
+"        %(comments_count)s comments\n"
+"        "
+msgstr[0] "\n        1 kommentar\n        "
+msgstr[1] "\n        %(comments_count)s kommentarer\n        "
+
+#: templates/blog/blog_post_detail.html:61
+#: templates/blog/blog_post_list.html:96
+#: templates/blog/includes/filter_panel.html:41
+msgid "Tags"
+msgstr "Tagger"
+
+#: templates/blog/blog_post_detail.html:71
+msgid "Share on Twitter"
+msgstr "Del på Twitter"
+
+#: templates/blog/blog_post_detail.html:72
+msgid "Share on Facebook"
+msgstr "Del på Facebook"
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
+msgid "Blog"
+msgstr "Blogg"
+
+#: templates/blog/blog_post_list.html:31
+msgid "Tag:"
+msgstr "Tagg:"
+
+#: templates/blog/blog_post_list.html:33
+msgid "Category:"
+msgstr "Kategori:"
+
+#: templates/blog/blog_post_list.html:37
+msgid "Author:"
+msgstr "Forfatter:"
+
+#: templates/blog/blog_post_list.html:49
+msgid "Viewing posts tagged"
+msgstr "Viser poster tagget med"
+
+#: templates/blog/blog_post_list.html:51
+msgid "Viewing posts for the category"
+msgstr "Viser poster i kategorien"
+
+#: templates/blog/blog_post_list.html:53
+msgid "Viewing posts from"
+msgstr "Viser poster fra"
+
+#: templates/blog/blog_post_list.html:56
+msgid "Viewing posts by"
+msgstr "Viser poster av"
+
+#: templates/blog/blog_post_list.html:77
+msgid "in"
+msgstr "i"
+
+#: templates/blog/blog_post_list.html:102
+msgid "read more"
+msgstr "les mer"
+
+#: templates/blog/includes/filter_panel.html:5
+msgid "Recent Posts"
+msgstr "Siste poster"
+
+#: templates/blog/includes/filter_panel.html:16
+msgid "Archive"
+msgstr "Arkiv"
+
+#: templates/blog/includes/filter_panel.html:30
+msgid "Categories"
+msgstr "Kategorier"
+
+#: templates/blog/includes/filter_panel.html:55
+msgid "Authors"
+msgstr "Forfattere"
+
+#: templates/blog/includes/filter_panel.html:65
+msgid "Feeds"
+msgstr "Nyhetsstrømmer"
+
+#: templates/blog/includes/filter_panel.html:66
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:67
+msgid "Atom"
+msgstr "Atom"
