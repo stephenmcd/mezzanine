@@ -1,0 +1,357 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Olav  <>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-03-15 07:00-0430\n"
+"PO-Revision-Date: 2012-03-15 09:56+0000\n"
+"Last-Translator: Olav <>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/mezzanine/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:39
+#, python-format
+msgid "Change %s"
+msgstr "Endre %s"
+
+#: defaults.py:28
+msgid "Controls the ordering and grouping of the admin menu."
+msgstr "Kontrollerer sortering og gruppering i administratormenyen."
+
+#: defaults.py:31
+msgid "Content"
+msgstr "Innhold"
+
+#: defaults.py:32
+msgid "Media Library"
+msgstr "Mediebibliotek"
+
+#: defaults.py:33
+msgid "Site"
+msgstr "Side"
+
+#: defaults.py:34
+msgid "Users"
+msgstr "Brukere"
+
+#: defaults.py:40
+msgid "Unregister these models from the admin."
+msgstr "Fjern disse datamodellene fra admin."
+
+#: defaults.py:47
+msgid "bit.ly username"
+msgstr "Brukernavn for bit.ly"
+
+#: defaults.py:48
+msgid "Username for bit.ly URL shortening service."
+msgstr "Brukernavn for URL-forkortingstjenesten bit.ly."
+
+#: defaults.py:55
+msgid "bit.ly key"
+msgstr "bit.ly-nøkkel"
+
+#: defaults.py:56
+msgid "Key for bit.ly URL shortening service."
+msgstr "Nøkkel for URL-forkortingstjenesten bit.ly."
+
+#: defaults.py:63
+msgid "Enable featured images in blog posts"
+msgstr "Aktiver fremhevet bilde i bloggposter"
+
+#: defaults.py:70
+msgid "Use date URLs"
+msgstr "Bruk datobaserte URLer"
+
+#: defaults.py:71
+msgid ""
+"If ``True``, URLs for blog post include the month and year. Eg: "
+"/blog/yyyy/mm/slug/"
+msgstr "Hvis sant vil URLer for bloggposter inkludere måned og år, som /blogg/åååå/mm/slugg/"
+
+#: defaults.py:79
+msgid "Blog posts per page"
+msgstr "Bloggposter per side"
+
+#: defaults.py:80
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Antall bloggposter som vises på en side."
+
+#: defaults.py:87
+msgid "Slug of the page object for the blog."
+msgstr "URL-vennlig navn for sideobjektet i bloggen."
+
+#: defaults.py:94
+msgid "Disqus shortname"
+msgstr "Kort navn for Disqus"
+
+#: defaults.py:95
+msgid "Shortname for the http://disqus.com comments service."
+msgstr "Kort navn / shortname for kommentartjenesten http://disqus.com."
+
+#: defaults.py:102
+msgid "Disqus public key"
+msgstr "Offentlig nøkkel for Disqus"
+
+#: defaults.py:103
+msgid "Public key for Disqus developer API"
+msgstr "Offentlig nøkkel for Disqus utvikler-API"
+
+#: defaults.py:110
+msgid "Disqus secret key"
+msgstr "Hemmelig nøkkel for Disqus"
+
+#: defaults.py:111
+msgid "Secret key for Disqus developer API"
+msgstr "Hemmelig nøkkel for Disqus utvikler-API"
+
+#: defaults.py:118
+msgid "Auto-approve comments"
+msgstr "Autogodkjenning av kommentarer"
+
+#: defaults.py:119
+msgid "If ``True``, built-in comments are approved by default."
+msgstr "Hvis sant vil kommentarer automatisk bli godkjent."
+
+#: defaults.py:126
+msgid "Admin comments"
+msgstr "Adminkommentarer"
+
+#: defaults.py:127
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr "Antall kommentarer som skal vises på dashbordet i administrasjonspanelet."
+
+#: defaults.py:134
+msgid "Show unapproved comments"
+msgstr "Vis ikke-godkjente kommentarer"
+
+#: defaults.py:135
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr "Hvis sant vil kommentarer som har ``is_public`` umarkert likevel bli vist, men byttet ut med en ``venter på godkjenning``-melding."
+
+#: defaults.py:144
+msgid "Show removed comments"
+msgstr "Vis fjernede kommentarer"
+
+#: defaults.py:145
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Hvis sant vil kommentarer som har ``removed`` markert fremdeles vises, men erstattes med en  ``fjernet``-melding."
+
+#: defaults.py:166
+msgid ""
+"A three item sequence, each containing a sequence of template tags used to "
+"render the admin dashboard."
+msgstr "En liste med tre underlister av maltagger/template tags brukt til å vise dashbordet i kontrollpanelet."
+
+#: defaults.py:174
+msgid "Device specific template sub-directory to use as the default device."
+msgstr "Enhetsspesifikk undermappe for maler som brukes som standard for alle enheter/plattformer."
+
+#: defaults.py:182
+msgid ""
+"Mapping of device specific template sub-directory names to the sequence of "
+"strings that may be found in their user agents."
+msgstr "Kobling av enhetsspesifikke malmapper til ord som finnes i enhetens User Agent."
+
+#: defaults.py:204
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
+msgstr "Felter som blir koblet opp mot Mezzanine (eller andre bibliotekers) datamodeller. Hver oppføring er en liste med fire oppføringer. De to første er datamodellens dottede sti og feltnavnet som skal legges til, og  den dottede stien til feltklassen som skal brukes på feltet. De tredje og fjerde elementene er lister med posisjoner og en ordbok/dict med nøkkelordargumenter som skal brukes når feltinstansen lages. Når du velger en feltklasse, stien ``django.models.db.`` trenger ikke være med for vanlige Django datamodellfelter."
+
+#: defaults.py:219
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr "Hvis sant vil ikke ekstra mottakere etter en skjemainnsending bli hentet fra et av skjemaets felter."
+
+#: defaults.py:228
+msgid "Max length allowed for field values in the forms app."
+msgstr "Maksimal lengde for feltverdier i skjema-appen."
+
+#: defaults.py:235
+msgid "Max length allowed for field labels in the forms app."
+msgstr "Maksimal lengde for felt-etiketter i skjema-appen."
+
+#: defaults.py:242
+msgid ""
+"If ``True``, website forms created by the forms app will use HTML5 features."
+msgstr "Hvis sant vil skjemaer laget med skjema-appen bruke HTML5-funksjonalitet."
+
+#: defaults.py:250
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr "Tegn som brukes mellom felter når du eksporterer som CSV."
+
+#: defaults.py:258
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Absolutt sti for lagring av opplastede filer med skjema-appen."
+
+#: defaults.py:265
+msgid "Google Analytics ID"
+msgstr "Google Analytics ID"
+
+#: defaults.py:267
+msgid "Google Analytics ID (http://www.google.com/analytics/)"
+msgstr "Google Analytics ID (http://www.google.com/analytics/)"
+
+#: defaults.py:273
+msgid ""
+"A sequence mapping host names to themes, allowing different templates to be "
+"served per HTTP hosts Each item in the sequence is a two item sequence, "
+"containing a host such as ``othersite.example.com``, and the name of an "
+"importable Python package for the theme. If the host is matched for a "
+"request, the templates directory inside the theme package will be first "
+"searched when loading templates."
+msgstr "En sekvens som kobler tjenernavn til temaer, slik at forskjellige malfiler kan sendes til forskjellige HTTP-tjenere. Hvert element i sekvensen er en liste på to elementer, som inneholder tjener, som f.eks ``annenside.example.com``, og navnet på en importerbar Pythonpakke for temaet. Hvis en tjener treffer på en forespørsel vil malmappen inni denne temapakken være det første stedet det søkes etter filer."
+
+#: defaults.py:287
+msgid "Name of the jQuery file."
+msgstr "Navn på jQueryfil."
+
+#: defaults.py:288
+msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
+msgstr "Navn på jQueryfilen som finnes i mezzanine/core/static/mezzanine/js/"
+
+#: defaults.py:296
+msgid "Max paging links"
+msgstr "Maksimalt antall sidelenker"
+
+#: defaults.py:297
+msgid "Max number of paging links to display when paginating."
+msgstr "Maksimalt antall lenker til sider ved sidenavigasjon."
+
+#: defaults.py:304
+msgid ""
+"If ``True``, the pages menu will show all levels of navigation, otherwise "
+"child pages are only shown when viewing the parent page."
+msgstr "Hvis sann vil sidens meny vise alle nivåer i navigasjonen. Ellers vises bare undermenyer når man er inne på foreldresiden."
+
+#: defaults.py:313
+msgid "Min value for a rating."
+msgstr "Minimal verdi for vurdering."
+
+#: defaults.py:320
+msgid "Max value for a rating."
+msgstr "Maksimal verdi for vurdering."
+
+#: defaults.py:327
+msgid ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
+msgstr "Punktuminndelt pakkesti og klassenavn for widgeten du vil bruke for ``RichTextField``."
+
+#: defaults.py:335
+msgid ""
+"Dotted path to the function to call on a ``RichTextField`` value before it "
+"is rendered to the template."
+msgstr "Punktuminndelt sti til funksjonen som som kalles på et ``RichTextField`` før det rendres til malfilen."
+
+#: defaults.py:343
+msgid "Search results per page"
+msgstr "Søkeresultater per side"
+
+#: defaults.py:344
+msgid "Number of results shown in the search results page."
+msgstr "Antall resultater som vises i et søk."
+
+#: defaults.py:351
+msgid "Site Title"
+msgstr "Sidetittel"
+
+#: defaults.py:352
+msgid ""
+"Title that will display at the top of the site, and be appended to the "
+"content of the HTML title tags on every page."
+msgstr "Tittelen som vil vises på toppen av siden, og på slutten av HTML-titteltaggen på hver side."
+
+#: defaults.py:360
+msgid "Tagline"
+msgstr "Tagglinje"
+
+#: defaults.py:361
+msgid "A tag line that will appear at the top of all pages."
+msgstr "En tagglinje som vises på toppen av alle sider."
+
+#: defaults.py:363
+msgid "An open source content management platform."
+msgstr "En åpen kildekode-basert publiseringsplattform."
+
+#: defaults.py:368
+msgid "Enable SSL"
+msgstr "Aktiver SSL"
+
+#: defaults.py:378
+msgid "Force Host"
+msgstr "Tving tjener"
+
+#: defaults.py:397
+msgid "List of words which will be stripped from search queries."
+msgstr "Liste med ord som fjernes fra søkestrenger."
+
+#: defaults.py:454
+msgid "Tag Cloud Sizes"
+msgstr "Størrelse på taggsky"
+
+#: defaults.py:455
+msgid "Number of different sizes for tags when shown as a cloud."
+msgstr "Antall forskjellige størrelser for tagger som vises i taggskyen"
+
+#: defaults.py:462
+msgid "Sequence of setting names available within templates."
+msgstr "Innstillinger/setting navn som er tilgjengelig i maler."
+
+#: defaults.py:477
+msgid ""
+"Directory name to store thumbnails in, that will be created relative to the "
+"original image's directory."
+msgstr "Mappenavn for lagring av miniatyrbilder som vil opprettes relativt i forhold til bildemappen."
+
+#: defaults.py:485
+msgid ""
+"URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
+"configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+msgstr "URL for JavaScriptfilen (relativt i forhold til ``STATIC_URL``) som konfigurerer TinyMCE når standardklassen for ``RICHTEXT_WIDGET_CLASS`` brukes."
+
+#: defaults.py:500
+msgid ""
+"If ``True``, the south application will be automatically added to the "
+"``INSTALLED_APPS`` setting."
+msgstr "Hvis sant vil South-applikasjonen automatisk legges til i ``INSTALLED_APPS``-innstillingen."
+
+#: forms.py:48
+msgid "Miscellaneous"
+msgstr "Diverse"
+
+#: models.py:17
+msgid "Setting"
+msgstr "Innstilling"
+
+#: models.py:18
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: templates/admin/conf/setting/change_list.html:8
+msgid "Please correct the errors below."
+msgstr "Vennligst rett opp i feilene under."
+
+#: templates/admin/conf/setting/change_list.html:31
+msgid "Save"
+msgstr "Lagre"

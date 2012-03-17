@@ -1,0 +1,135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Olav  <>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"PO-Revision-Date: 2012-03-15 08:56+0000\n"
+"Last-Translator: Olav <>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/mezzanine/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:19 models.py:66
+msgid "User"
+msgstr "Bruker"
+
+#: forms.py:78
+msgid "Name"
+msgstr "Navn"
+
+#: forms.py:78
+msgid "required"
+msgstr "påkrevet"
+
+#: forms.py:80
+msgid "Email"
+msgstr "E-post"
+
+#: forms.py:81
+msgid "required (not published)"
+msgstr "påkrevet (ikke publisert)"
+
+#: forms.py:82
+msgid "Website"
+msgstr "Nettside"
+
+#: forms.py:82
+msgid "optional"
+msgstr "valgfri"
+
+#: models.py:21
+msgid "Email hash"
+msgstr "E-posthash"
+
+#: models.py:22
+msgid "By the blog author"
+msgstr "Etter bloggforfatter"
+
+#: models.py:29 models.py:58 templates/generic/includes/comments.html:25
+msgid "Comment"
+msgstr "Kommentar"
+
+#: models.py:30 templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: models.py:70
+msgid "View on site"
+msgstr "Vis på side"
+
+#: models.py:84
+msgid "Keyword"
+msgstr "Nøkkelord"
+
+#: models.py:85
+msgid "Keywords"
+msgstr "Nøkkelord"
+
+#: models.py:113
+msgid "Value"
+msgstr "Verdi"
+
+#: models.py:119
+msgid "Rating"
+msgstr "Vurdering"
+
+#: models.py:120
+msgid "Ratings"
+msgstr "Vurderinger"
+
+#: templates/admin/includes/recent_comments.html:4
+msgid "Recent Comments"
+msgstr "Siste kommentarer"
+
+#: templates/admin/includes/recent_comments.html:20
+#: templates/generic/includes/comment.html:22
+#: templates/generic/includes/comment.html:54
+#: templates/generic/includes/comment.html:64
+msgid "ago"
+msgstr "siden"
+
+#: templates/generic/includes/comment.html:25
+msgid "Link"
+msgstr "Lenke"
+
+#: templates/generic/includes/comment.html:26
+#: templates/generic/includes/comment.html:37
+msgid "Reply"
+msgstr "Svar"
+
+#: templates/generic/includes/comment.html:60
+msgid "Comment deleted"
+msgstr "Kommentar slettet"
+
+#: templates/generic/includes/comment.html:62
+msgid "Comment awaiting approval"
+msgstr "Kommentar venter på godkjenning"
+
+#: templates/generic/includes/comment.html:73
+msgid "There are currently no comments"
+msgstr "Det finnes foreløpig ingen kommentarer"
+
+#: templates/generic/includes/comments.html:16
+msgid "New Comment"
+msgstr "Ny kommentar"
+
+#: templates/generic/includes/rating.html:7
+msgid "Current rating"
+msgstr "Nåværende vurdering"
+
+#: templates/generic/includes/rating.html:9
+msgid "Currently unrated"
+msgstr "Foreløpig ikke vurdert"
+
+#: templates/generic/includes/rating.html:16
+msgid "Rate"
+msgstr "Vurder"

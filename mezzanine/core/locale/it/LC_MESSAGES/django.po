@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Nicola Larosa <transifex@teknico.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-03-11 19:15-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-15 07:01-0430\n"
 "PO-Revision-Date: 2012-03-11 23:55+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/"
+"language/it/)\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:28
@@ -89,7 +90,9 @@ msgstr "Pubblicato da"
 
 #: models.py:149
 msgid "With published checked, won't be shown until this time"
-msgstr "Una volta che \"pubblicato\" è selezionato, non verrà mostrato prima di questo momento"
+msgstr ""
+"Una volta che \"pubblicato\" è selezionato, non verrà mostrato prima di "
+"questo momento"
 
 #: models.py:151
 msgid "Expires on"
@@ -97,7 +100,9 @@ msgstr "Espira il"
 
 #: models.py:152
 msgid "With published checked, won't be shown after this time"
-msgstr "Una volta che \"pubblicato\" è selezionato, non verrà mostrato dopo questo momento"
+msgstr ""
+"Una volta che \"pubblicato\" è selezionato, non verrà mostrato dopo questo "
+"momento"
 
 #: models.py:179
 msgid "Content"
