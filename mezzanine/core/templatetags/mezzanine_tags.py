@@ -1,4 +1,5 @@
 
+from __future__ import with_statement
 import os
 from urllib import urlopen, urlencode
 
