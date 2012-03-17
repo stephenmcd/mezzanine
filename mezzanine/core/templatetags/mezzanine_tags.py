@@ -4,6 +4,8 @@ from urllib import urlopen, urlencode
 
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.core.files import File
+from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
 from django.template import Context, Template
@@ -97,32 +99,31 @@ def thumbnail(image_url, width, height):
     resized image. if width or height are zero then original ratio is
     maintained.
     """
-
     if not image_url:
         return ""
 
     image_url = unicode(image_url)
     if image_url.startswith(settings.MEDIA_URL):
         image_url = image_url.replace(settings.MEDIA_URL, "", 1)
-    image_path = os.path.join(settings.MEDIA_ROOT, image_url)
-    image_dir, image_name = os.path.split(image_path)
+    image_dir, image_name = os.path.split(image_url)
     image_prefix, image_ext = os.path.splitext(image_name)
     filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext, "JPEG")
     thumb_name = "%s-%sx%s%s" % (image_prefix, width, height, image_ext)
-    thumb_dir = os.path.join(image_dir, settings.THUMBNAILS_DIR_NAME)
+    thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
+                             settings.THUMBNAILS_DIR_NAME)
     if not os.path.exists(thumb_dir):
-        os.mkdir(thumb_dir)
+        os.makedirs(thumb_dir)
     thumb_path = os.path.join(thumb_dir, thumb_name)
     thumb_url = "%s/%s/%s" % (os.path.dirname(image_url),
                               settings.THUMBNAILS_DIR_NAME, thumb_name)
 
     # Abort if thumbnail exists or original image doesn't exist.
-    if not os.path.exists(image_path):
-        return image_url
-    elif os.path.exists(thumb_path):
+    if os.path.exists(thumb_path):
         return thumb_url
+    elif not default_storage.exists(image_url):
+        return image_url
 
-    image = Image.open(image_path)
+    image = Image.open(default_storage.open(image_url))
     width = int(width)
     height = int(height)
 
@@ -139,6 +140,11 @@ def thumbnail(image_url, width, height):
     try:
         image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
         image = image.save(thumb_path, filetype, quality=100)
+        # Push a remote copy of the thumbnail if MEDIA_URL is
+        # absolute.
+        if "://" in settings.MEDIA_URL:
+            with open(thumb_path, "r") as f:
+                default_storage.save(thumb_url, File(f))
     except:
         return image_url
     return thumb_url

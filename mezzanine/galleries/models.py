@@ -48,7 +48,7 @@ class Gallery(Page, RichText):
         """
         super(Gallery, self).save(*args, **kwargs)
         if self.zip_import:
-            zip_file = ZipFile(self.zip_import.path)
+            zip_file = ZipFile(self.zip_import)
             from PIL import Image
             for name in zip_file.namelist():
                 data = zip_file.read(name)
