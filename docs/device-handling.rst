@@ -18,7 +18,7 @@ to user agent strings is defined in the setting ``DEVICE_USER_AGENTS``::
         ("desktop", ("Windows", "Macintosh", "Linux")),
     )
 
-Give the above example value for ``DEVICE_USER_AGENTS``, suppose a view or
+Given the above example value for ``DEVICE_USER_AGENTS``, suppose a view or
 template referenced the template ``blog/index.html``. If an iPhone made
 the request to the website, the template ``mobile/blog/index.html`` would
 be searched for, and if a Windows OS made the request then the template

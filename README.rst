@@ -121,26 +121,8 @@ in using the default account (``username: admin, password: default``). If
 you'd like to specify a different username and password during set up, simply
 exclude the ``--noinput`` option included above when running ``createdb``.
 
-Integrating an Existing Django Project
-======================================
-
-Mezzanine is structured as a regular Django project, and as such allows you
-to add other third party Django apps to your Mezzanine project as required.
-Inversely, you can add Mezzanine to an existing project by copying the
-relevant parts from Mezzanine's `project_template`_  package:
-
-  * Settings defined in the ``settings`` module.
-  * URL patterns defined in the ``urls`` module.
-
-Take the time to look over Mezzanine's ``project_template.settings`` module,
-as it contains many optional settings commented out. Of particular note when
-integrating with an existing project are the following:
-
-  * ``INSTALLED_APPS``
-  * ``TEMPLATE_CONTEXT_PROCESSORS``
-  * ``MIDDLEWARE_CLASSES``
-  * ``PACKAGE_NAME_*`` (for `django-grappelli`_ and `django-filebrowser`_ integration)
-  * The call to ``mezzanine.utils.conf.set_dynamic_settings`` at the very end of the ``settings`` module.
+For information on how to add Mezzanine to an existing Django project,
+see the FAQs section of the documentation.
 
 Contributing
 ============
