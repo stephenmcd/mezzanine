@@ -45,7 +45,7 @@ urlpatterns = patterns("",
     # and is useful for sites that are primarily blogs. If you use this
     # pattern, you'll also need to set BLOG_SLUG = "" in your
     # ``settings.py`` module, and delete the blog page object from the
-    # page tree in the admin if it was installed
+    # page tree in the admin if it was installed.
 
     # url("^$", "mezzanine.blog.views.blog_post_list", name="home"),
 
