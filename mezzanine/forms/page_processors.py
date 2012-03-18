@@ -1,11 +1,11 @@
 
-from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 
 from mezzanine.conf import settings
 from mezzanine.forms.forms import FormForForm
 from mezzanine.forms.models import Form
 from mezzanine.pages.page_processors import processor_for
+from mezzanine.utils.email import send_mail_template
 
 
 def format_value(value):
@@ -22,19 +22,21 @@ def form_processor(request, page):
     form = FormForForm(page.form, request.POST or None, request.FILES or None)
     if form.is_valid():
         entry = form.save()
-        fields = ["%s: %s" % (v.label, format_value(form.cleaned_data[k]))
-            for (k, v) in form.fields.items()]
         subject = page.form.email_subject
         if not subject:
             subject = "%s - %s" % (page.form.title, entry.entry_time)
-        body = "\n".join(fields)
-        if page.form.email_message:
-            body = "%s\n\n%s" % (page.form.email_message, body)
+        fields = [(v.label, format_value(form.cleaned_data[k]))
+                  for (k, v) in form.fields.items()]
+        context = {
+            "fields": fields,
+            "message": page.form.email_message,
+            "request": request,
+        }
         email_from = page.form.email_from or settings.DEFAULT_FROM_EMAIL
         email_to = form.email_to()
         if email_to and page.form.send_email:
-            msg = EmailMessage(subject, body, email_from, [email_to])
-            msg.send()
+            send_mail_template(subject, "email/form_response", email_from,
+                               email_to, context, fail_silently=settings.DEBUG)
         if not settings.FORMS_DISABLE_SEND_FROM_EMAIL_FIELD:
             # Send from the email entered,
             # unless FORMS_DISABLE_SEND_FROM_EMAIL_FIELD is True.
@@ -42,10 +44,13 @@ def form_processor(request, page):
         email_copies = page.form.email_copies.split(",")
         email_copies = [e.strip() for e in email_copies if e.strip()]
         if email_copies:
-            msg = EmailMessage(subject, body, email_from, email_copies)
+            attachments = []
+            # msg = EmailMessage(subject, body, email_from, email_copies)
             for f in form.files.values():
                 f.seek(0)
-                msg.attach(f.name, f.read())
-            msg.send()
+                attachments.append((f.name, f.read()))
+            send_mail_template(subject, "email/form_response", email_from,
+                               email_copies, context, attachments=attachments,
+                               fail_silently=settings.DEBUG)
         return redirect(page.get_absolute_url() + "?sent=1")
     return {"form": form}
