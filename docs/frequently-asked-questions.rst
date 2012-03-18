@@ -251,8 +251,8 @@ picture.
 
 .. _grappelli-filebrowser-forks:
 
-Why are Grappelli and Filebrowser forked, and out of date?
-----------------------------------------------------------
+Why are Grappelli and Filebrowser forked?
+-----------------------------------------
 
 `Grappelli <https://github.com/sehmaschine/django-grappelli>`_ and
 `Filebrowser <https://github.com/sehmaschine/django-filebrowser>`_ are
