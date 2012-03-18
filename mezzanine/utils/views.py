@@ -56,12 +56,15 @@ def render(request, templates, dictionary=None, context_instance=None,
     return TemplateResponse(request, templates, context_instance, **kwargs)
 
 
-def set_cookie(response, name, value, expiry_seconds):
+def set_cookie(response, name, value, expiry_seconds=None, secure=False):
     """
     Set cookie wrapper that allows number of seconds to be given as the
     expiry time, and ensures values are correctly encoded.
     """
+    if expiry_seconds is None:
+        expiry_seconds = 365 * 24 * 60 * 60
     expires = datetime.strftime(datetime.utcnow() +
                                 timedelta(seconds=expiry_seconds),
                                 "%a, %d-%b-%Y %H:%M:%S GMT")
-    response.set_cookie(name, value.encode("utf-8"), expires=expires)
+    value = value.encode("utf-8")
+    response.set_cookie(name, value, expires=expires, secure=secure)
