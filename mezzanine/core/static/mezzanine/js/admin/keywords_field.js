@@ -34,8 +34,7 @@ $(function() {
     // fields and post their keywords via AJAX, to retrieve a list of
     // keyword IDs for storing in each of the associated hidden fields.
     var keywordsSaved = false;
-    var form = $('.keywords-field:first').prev('input[type=text]').attr('form');
-    $(form).find('input[type=submit]').click(function() {
+    $('input[type=submit]').click(function() {
         if (keywordsSaved) {
             return true;
         }
