@@ -143,12 +143,14 @@ base template ``mezzanine/core/templates/base.html`` (or
 ``templates/base.html`` if stored directly in your project) which is
 the foundation for the entire site, going more granular as needed.
 
-You can also have all of the templates copied into your project when
-you create it with the ``mezzanine-project`` command, using the ``-t``
-option. Run ``mezzanine-project --help`` for more info. Be mindful that
-this means the copied templates will always be used, rather than the
-ones stored within Mezzanine itself, which is something to keep in mind
-if you upgrade to a newer version of Mezzanine.
+Once you're familiar with the templates you'd like to modify, copy them
+into your project's ``templates`` directory and modify them there. You
+can also use the ``collecttemplates`` command to copy templates over
+automatically. Run ``python manage.pt collecttemplates --help`` for
+more info. Be mindful that this means the copied templates will always
+be used, rather than the ones stored within Mezzanine itself, which is
+something to keep in mind if you upgrade to a newer version of
+Mezzanine.
 
 `Back to top <#>`_
 
