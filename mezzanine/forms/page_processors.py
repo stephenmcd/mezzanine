@@ -45,7 +45,6 @@ def form_processor(request, page):
         email_copies = [e.strip() for e in email_copies if e.strip()]
         if email_copies:
             attachments = []
-            # msg = EmailMessage(subject, body, email_from, email_copies)
             for f in form.files.values():
                 f.seek(0)
                 attachments.append((f.name, f.read()))

@@ -1,0 +1,14 @@
+{% extends "email/base.html" %}
+{% load shop_tags i18n %}
+
+{% block main %}
+{% if message %}<p>{{ message }}</p>{% endif %}
+<table border="0">
+{% for field, value in fields %}
+<tr>
+    <td><b>{{ field }}:</b></td>
+    <td>{{ value }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
