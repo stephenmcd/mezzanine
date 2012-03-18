@@ -146,7 +146,7 @@ the foundation for the entire site, going more granular as needed.
 Once you're familiar with the templates you'd like to modify, copy them
 into your project's ``templates`` directory and modify them there. You
 can also use the ``collecttemplates`` command to copy templates over
-automatically. Run ``python manage.pt collecttemplates --help`` for
+automatically. Run ``python manage.py collecttemplates --help`` for
 more info. Be mindful that this means the copied templates will always
 be used, rather than the ones stored within Mezzanine itself, which is
 something to keep in mind if you upgrade to a newer version of
