@@ -1,3 +1,9 @@
+Version 1.0.5 (Mar 20, 2012)
+----------------------------
+
+  * Fixed admin navigation showing in inline filebrowser popups when called from TinyMCE - Stephen McDonald
+  * Bump filebrowser_safe to 0.2.3 - Stephen McDonald
+
 Version 1.0.4 (Mar 19, 2012)
 ----------------------------
 
