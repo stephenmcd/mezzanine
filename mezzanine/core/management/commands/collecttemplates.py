@@ -64,7 +64,7 @@ class Command(BaseCommand):
                         # specified.
                         if single_template and name != single_template:
                             continue
-                        if not admin and name.startswith("admin/"):
+                        if not admin and name.startswith("admin" + os.sep):
                             continue
                         templates.append((name, path))
 
