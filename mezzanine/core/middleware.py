@@ -19,7 +19,7 @@ class AdminLoginInterfaceSelectorMiddleware(object):
         if login_type and not request.user.is_authenticated():
             response = view_func(request, *view_args, **view_kwargs)
             if request.user.is_authenticated():
-                next = request.GET.get("next", "/")
+                next = request.GET.get("next", request.get_full_path())
                 admin_url = reverse("admin:index")
                 if login_type == "admin" and not next.startswith(admin_url):
                     next = admin_url
