@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 
 from __future__ import with_statement
+from distutils.dir_util import copy_tree
 from optparse import OptionParser
 import os
+from shutil import move
 from uuid import uuid4
+
+from mezzanine.utils.importing import path_for_import
 
 
 def create_project():
@@ -46,6 +50,15 @@ def create_project():
             __import__(package_name)
         except ImportError:
             parser.error("Could not import package '%s'" % package_name)
+
+    # Build the project up copying over the project_template from
+    # each of the packages. An alternate package will overwrite
+    # files from Mezzanine.
+    for package_name in packages:
+        package_path = path_for_import(package_name)
+        copy_tree(os.path.join(package_path, "project_template"), project_path)
+        move(os.path.join(project_path, "local_settings.py.template"),
+             os.path.join(project_path, "local_settings.py"))
 
     # Generate a unique SECREY_KEY for the project's setttings module.
     settings_path = os.path.join(os.getcwd(), project_name, "settings.py")
