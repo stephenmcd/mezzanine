@@ -2,6 +2,7 @@
 from django import forms
 
 from mezzanine.blog.models import BlogPost
+from mezzanine.core.models import CONTENT_STATUS_DRAFT
 
 
 class BlogPostForm(forms.ModelForm):
@@ -15,5 +16,6 @@ class BlogPostForm(forms.ModelForm):
         fields = ("title", "content", "status")
 
     def __init__(self):
-        super(BlogPostForm, self).__init__()
+        initial = {"status": CONTENT_STATUS_DRAFT}
+        super(BlogPostForm, self).__init__(initial=initial)
         self.fields["status"].widget = forms.HiddenInput()
