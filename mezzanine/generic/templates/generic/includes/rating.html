@@ -12,11 +12,11 @@
 
 <form method="post" action="{% url rating %}">
     {% csrf_token %}
-    {{ form_for_rating }}
+    <ul>{{ form_for_rating.as_ul }}</ul>
     <input type="submit" class="btn" value="{% trans "Rate" %}"
         onclick="return $(this.form).find('input:checked').length == 1;">
 </form>
 
-<br clear="all">
+<br style="clear:both">
 
 </div>
