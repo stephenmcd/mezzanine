@@ -32,7 +32,7 @@ $(function() {
 {% block extra_head %}{% endblock %}
 
 </head>
-<body id="{% block body_id %}{% endblock %}">
+<body{% if body_id %} id="{% block body_id %}{% endblock %}"{% endif %}>
 
 <div class="navbar">
 <div class="navbar-inner">
@@ -100,7 +100,7 @@ $(function() {
 <footer>
 <div class="container">
 {% page_menu "pages/menus/footer.html" %}
-<br clear="all">
+<br style="clear:both">
 <p>
     {% trans "Powered by" %}
     <a href="http://mezzanine.jupo.org">Mezzanine</a>{% if "cartridge.shop"|is_installed %},

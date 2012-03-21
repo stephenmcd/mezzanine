@@ -90,6 +90,8 @@ a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 .rating {padding:10px 20px;}
 .rating * {display:inline; list-style-type:none;}
 .rating label {margin-right:15px;}
+.rating p {margin-right:20px;}
+.rating ul {margin-left:0 !important;}
 
 
 /* Comments */

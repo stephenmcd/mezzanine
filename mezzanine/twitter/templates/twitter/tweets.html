@@ -8,7 +8,7 @@
 <ul class="unstyled tweets">
     {% for tweet in tweets %}
     <li>
-        <img src="{{ tweet.profile_image_url }}">
+        <img src="{{ tweet.profile_image_url }}" alt="">
         <a href="http://twitter.com/{{ tweet.user_name }}">@{{ tweet.user_name }}</a>
         {% if tweet.user_name != tweet.full_name %}<span class="name">@{{ tweet.full_name }}</span>{% endif %}
         {% if tweet.is_retweet %}

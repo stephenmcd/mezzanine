@@ -68,8 +68,8 @@
 {% rating_for blog_post %}
 
 {% set_short_url_for blog_post %}
-<a class="btn small primary share-twitter" target=_"blank" href="http://twitter.com/home?status={{ blog_post.short_url|urlencode }}%20{{ blog_post.title|urlencode }}">{% trans "Share on Twitter" %}</a>
-<a class="btn small primary share-facebook" target=_"blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&t={{ blog_post.title|urlencode }}">{% trans "Share on Facebook" %}</a>
+<a class="btn small primary share-twitter" target="_blank" href="http://twitter.com/home?status={{ blog_post.short_url|urlencode }}%20{{ blog_post.title|urlencode }}">{% trans "Share on Twitter" %}</a>
+<a class="btn small primary share-facebook" target="_blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&amp;t={{ blog_post.title|urlencode }}">{% trans "Share on Facebook" %}</a>
 
 {% if blog_post.allow_comments %}{% comments_for blog_post %}{% endif %}
 
