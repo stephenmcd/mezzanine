@@ -1,3 +1,11 @@
+Version 1.0.6 (Mar 22, 2012)
+----------------------------
+
+  * Fixed draft status for quick blog form in dashboard. Closes #172 - Stephen McDonald
+  * Format newlines in the quick blog form since the expected format is HTML - Stephen McDonald
+  * Markup validation improvements - Paolo Dina
+  * Added Paolo Dina to AUTHORS - Stephen McDonald
+
 Version 1.0.5 (Mar 20, 2012)
 ----------------------------
 
