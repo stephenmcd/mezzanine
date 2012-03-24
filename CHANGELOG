@@ -1,3 +1,11 @@
+Version 1.0.8 (Mar 24, 2012)
+----------------------------
+
+  * Fixed .navbar .container responsive width - Stephen McDonald
+  * Added default blank favicon and replace Bootstrap's collapse JS with all Bootstrap JS - Stephen McDonald
+  * Added nav dividers in primary menu - Stephen McDonald
+  * Fixed leftover tag loading in form response emails - Stephen McDonald
+
 Version 1.0.7 (Mar 24, 2012)
 ----------------------------
 
