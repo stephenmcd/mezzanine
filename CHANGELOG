@@ -1,3 +1,10 @@
+Version 1.0.7 (Mar 24, 2012)
+----------------------------
+
+  * Added html5shiv for IE to recognise and style the HTML5 elements - Paolo Dina
+  * Fixed body_id block - Stephen McDonald
+  * Upgrade Bootstrap to 2.0.2 - Stephen McDonald
+
 Version 1.0.6 (Mar 22, 2012)
 ----------------------------
 
