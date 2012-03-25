@@ -1,5 +1,6 @@
 
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.comments.signals import comment_was_posted
 from django.db.models import get_model, ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -52,6 +53,8 @@ def comment(request, template="generic/comments.html"):
                                               request.META["REMOTE_ADDR"])
         comment.replied_to_id = request.POST.get("replied_to")
         comment.save()
+        comment_was_posted.send(sender=comment.__class__, comment=comment,
+                                request=request)
         response = HttpResponseRedirect(comment.get_absolute_url())
         # Store commenter's details in a cookie for 90 days.
         cookie_expires = 60 * 60 * 24 * 90
