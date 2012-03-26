@@ -42,6 +42,7 @@ label.interface {display:inline !important; float:none !important;
 }
 
 fieldset .field-box {margin-right:150px !important;}
+.help b {color:#666;}
 
 /* Fix for IE7 layout issue */
 #content { margin-left: 0; margin-right: 0; padding: 0 15px; }

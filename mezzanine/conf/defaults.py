@@ -45,7 +45,7 @@ register_setting(
 register_setting(
     name="BLOG_BITLY_USER",
     label=_("bit.ly username"),
-    description=_("Username for bit.ly URL shortening service."),
+    description=_("Username for http://bit.ly URL shortening service."),
     editable=True,
     default="",
 )
@@ -53,7 +53,7 @@ register_setting(
 register_setting(
     name="BLOG_BITLY_KEY",
     label=_("bit.ly key"),
-    description=_("Key for bit.ly URL shortening service."),
+    description=_("Key for http://bit.ly URL shortening service."),
     editable=True,
     default="",
 )
@@ -108,7 +108,7 @@ register_setting(
 register_setting(
     name="COMMENTS_DISQUS_API_PUBLIC_KEY",
     label=_("Disqus public key"),
-    description=_("Public key for Disqus developer API"),
+    description=_("Public key for http://disqus.com developer API"),
     editable=True,
     default="",
 )
@@ -116,7 +116,7 @@ register_setting(
 register_setting(
     name="COMMENTS_DISQUS_API_SECRET_KEY",
     label=_("Disqus secret key"),
-    description=_("Secret key for Disqus developer API"),
+    description=_("Secret key for http://disqus.com developer API"),
     editable=True,
     default="",
 )
