@@ -10,7 +10,8 @@ class Migration(SchemaMigration):
 
         # Adding field 'BlogPost.gen_description'
         db.add_column('blog_blogpost', 'gen_description', self.gf('django.db.models.fields.BooleanField')(default=True), keep_default=False)
-        orm["blog.BlogPost"].objects.update(gen_description=True)
+        if not db.dry_run:
+            orm["blog.BlogPost"].objects.update(gen_description=True)
 
 
     def backwards(self, orm):

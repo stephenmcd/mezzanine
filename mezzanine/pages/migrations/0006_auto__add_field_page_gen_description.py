@@ -10,7 +10,8 @@ class Migration(SchemaMigration):
 
         # Adding field 'Page.gen_description'
         db.add_column('pages_page', 'gen_description', self.gf('django.db.models.fields.BooleanField')(default=True), keep_default=False)
-        orm["pages.Page"].objects.update(gen_description=True)
+        if not db.dry_run:
+            orm["pages.Page"].objects.update(gen_description=True)
 
 
     def backwards(self, orm):
