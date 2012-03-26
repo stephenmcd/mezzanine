@@ -24,6 +24,8 @@ def register_setting(name="", label="", editable=False, description="",
     else:
         default = getattr(django_settings, name, default)
         setting_type = type(default)
+        if not label:
+            label = name.replace("_", " ").title()
         if setting_type is str:
             setting_type = unicode
         registry[name] = {"name": name, "label": label,
