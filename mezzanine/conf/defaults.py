@@ -90,6 +90,14 @@ register_setting(
 )
 
 register_setting(
+    name="COMMENTS_ACCOUNT_REQUIRED",
+    label=_("Accounts required for commenting"),
+    description="If ``True``, users must log in to comment.",
+    editable=True,
+    default=True,
+)
+
+register_setting(
     name="COMMENTS_DISQUS_SHORTNAME",
     label=_("Disqus shortname"),
     description=_("Shortname for the http://disqus.com comments service."),
