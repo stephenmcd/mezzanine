@@ -31,23 +31,23 @@ msgstr "Ne peut importer la valeur de settings.RICHTEXT_WIDGET_CLASS: %s"
 
 #: forms.py:35
 msgid "Email Address"
-msgstr ""
+msgstr "Adresse email"
 
 #: forms.py:36
 msgid "Password"
-msgstr ""
+msgstr "Mot de passe"
 
 #: forms.py:64
 msgid "This email is already registered"
-msgstr ""
+msgstr "Cette adresse email est déjà enregistrée"
 
 #: forms.py:84
 msgid "Invalid email/password"
-msgstr ""
+msgstr "Email/Mot de passe invalide(s)"
 
 #: forms.py:86
 msgid "Your account is inactive"
-msgstr ""
+msgstr "Votre compte est inactif"
 
 #: forms.py:116 models.py:221
 msgid "Order"
@@ -91,7 +91,7 @@ msgstr "Publié à partir du"
 
 #: models.py:149
 msgid "With published checked, won't be shown until this time"
-msgstr ""
+msgstr "Ne sera pas affiché avant cette date si coché"
 
 #: models.py:151
 msgid "Expires on"
@@ -99,7 +99,7 @@ msgstr "Expirera le"
 
 #: models.py:152
 msgid "With published checked, won't be shown after this time"
-msgstr ""
+msgstr "Ne sera pas affiché après cette date si checké"
 
 #: models.py:179
 msgid "Content"
@@ -111,15 +111,15 @@ msgstr "Auteur"
 
 #: views.py:33
 msgid "Successfully logged in"
-msgstr ""
+msgstr "Vous êtes désormais authentifié"
 
 #: views.py:39
 msgid "Successfully signed up"
-msgstr ""
+msgstr "Inscription effectuée"
 
 #: views.py:53
 msgid "Successfully logged out"
-msgstr ""
+msgstr "Déconnexion réussie"
 
 #: views.py:89
 msgid "Permission denied"
@@ -143,19 +143,19 @@ msgstr "Une erreur est survenue, nous en sommes désolé."
 
 #: templates/account.html:4 templates/account.html.py:5
 msgid "Login / Signup"
-msgstr ""
+msgstr "Connexion / Inscription"
 
 #: templates/account.html:10
 msgid "Account"
-msgstr ""
+msgstr "Compte"
 
 #: templates/account.html:16 templates/account.html.py:21
 msgid "Login"
-msgstr ""
+msgstr "Connexion"
 
 #: templates/account.html:27 templates/account.html.py:32
 msgid "Signup"
-msgstr ""
+msgstr "Inscription"
 
 #: templates/base.html:49
 msgid "Search"
@@ -167,11 +167,11 @@ msgstr "Propulsé par"
 
 #: templates/base.html:108
 msgid "and"
-msgstr ""
+msgstr "et"
 
 #: templates/base.html:114
 msgid "View Mobile Site"
-msgstr ""
+msgstr "Version mobile"
 
 #: templates/index.html:5 templates/index.html.py:8 templates/index.html:12
 #: templates/search_results.html:10 templates/admin/index.html:15
@@ -265,15 +265,15 @@ msgstr "Déconnexion"
 
 #: templates/includes/account_panel.html:6
 msgid "Logged in as: "
-msgstr ""
+msgstr "Connecté en tant que : "
 
 #: templates/includes/account_panel.html:9
 msgid "Log in or sign up"
-msgstr ""
+msgstr "Connectez-vous ou inscrivez-vous"
 
 #: templates/includes/account_panel.html:10
 msgid "Not logged in"
-msgstr ""
+msgstr "Non connecté"
 
 #: templates/includes/editable_form.html:16
 msgid "Save"

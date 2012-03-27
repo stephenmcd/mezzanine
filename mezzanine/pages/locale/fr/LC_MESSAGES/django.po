@@ -45,11 +45,11 @@ msgstr "Pages"
 
 #: models.py:136
 msgid "Rich text page"
-msgstr "Page de texte enrichi"
+msgstr "Page de texte riche"
 
 #: models.py:137
 msgid "Rich text pages"
-msgstr "Pages de texte enrichi"
+msgstr "Pages de texte riche"
 
 #: templates/admin/pages/page/change_list.html:24
 #: templates/pages/menus/admin.html:31
