@@ -91,9 +91,7 @@ $(function() {
     {% include "includes/user_panel.html" %}
     <div class="panel">
     {% block right_panel %}
-    {% if "mezzanine.twitter"|is_installed %}
-    {% include "twitter/tweets.html" %}
-    {% endif %}
+    {% include_if_installed mezzanine.twitter twitter/tweets.html %}
     {% endblock %}
     </div>
 </div>
