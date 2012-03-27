@@ -22,11 +22,11 @@ msgstr ""
 #: admin.py:39
 #, python-format
 msgid "Change %s"
-msgstr ""
+msgstr "Changer %s"
 
 #: defaults.py:28
 msgid "Controls the ordering and grouping of the admin menu."
-msgstr ""
+msgstr "Contrôler l'ordre et le regroupement du menu d'administration"
 
 #: defaults.py:31
 msgid "Content"
@@ -34,7 +34,7 @@ msgstr "Contenu"
 
 #: defaults.py:32
 msgid "Media Library"
-msgstr ""
+msgstr "Librairie de médias"
 
 #: defaults.py:33
 msgid "Site"
@@ -46,7 +46,7 @@ msgstr "Utilisateurs"
 
 #: defaults.py:40
 msgid "Unregister these models from the admin."
-msgstr ""
+msgstr "Désassocier ces modèles de l'administration"
 
 #: defaults.py:47
 msgid "bit.ly username"
@@ -66,11 +66,11 @@ msgstr "Clé pour le réducteur d'URL bit.ly"
 
 #: defaults.py:63
 msgid "Enable featured images in blog posts"
-msgstr ""
+msgstr "Activer l'image du jour"
 
 #: defaults.py:70
 msgid "Use date URLs"
-msgstr ""
+msgstr "Utiliser des urls contenant des dates"
 
 #: defaults.py:71
 msgid ""
@@ -84,19 +84,19 @@ msgstr "Billets de blog par page"
 
 #: defaults.py:80
 msgid "Number of blog posts shown on a blog listing page."
-msgstr ""
+msgstr "Nombre de billets de blog affichés en mode liste"
 
 #: defaults.py:87
 msgid "Slug of the page object for the blog."
-msgstr ""
+msgstr "Slug de la page associée au blog."
 
 #: defaults.py:94
 msgid "Disqus shortname"
-msgstr ""
+msgstr "Nom d'utilisateur Disqus"
 
 #: defaults.py:95
 msgid "Shortname for the http://disqus.com comments service."
-msgstr ""
+msgstr "Diminutif pour le service de commentaire http://disqus.com"
 
 #: defaults.py:102
 msgid "Disqus public key"
@@ -120,19 +120,19 @@ msgstr "Valider automatiquement les commentaires"
 
 #: defaults.py:119
 msgid "If ``True``, built-in comments are approved by default."
-msgstr ""
+msgstr "Si ``True``, les commentaires seront approuvés par défaut."
 
 #: defaults.py:126
 msgid "Admin comments"
-msgstr ""
+msgstr "Commentaires de l'admin"
 
 #: defaults.py:127
 msgid "Number of latest comments shown in the admin dashboard."
-msgstr ""
+msgstr "Nombre de comentaires récents à afficher sur le tableau de bord."
 
 #: defaults.py:134
 msgid "Show unapproved comments"
-msgstr ""
+msgstr "Afficher les commentaires non-modérés"
 
 #: defaults.py:135
 msgid ""
@@ -186,11 +186,11 @@ msgstr ""
 
 #: defaults.py:228
 msgid "Max length allowed for field values in the forms app."
-msgstr ""
+msgstr "Longeur maximum autorisée pour les champs de formulaire."
 
 #: defaults.py:235
 msgid "Max length allowed for field labels in the forms app."
-msgstr ""
+msgstr "Longeur maximum autorisée pour les libellés de champs de formulaire."
 
 #: defaults.py:242
 msgid ""
@@ -199,11 +199,13 @@ msgstr ""
 
 #: defaults.py:250
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
+msgstr "Caractère à utiliser comme séparateur de champs lors d'un export CSV."
 
 #: defaults.py:258
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr ""
+"Chemin absolu pour stocker les fichiers téléchargés depuis un formulaire"
+
 
 #: defaults.py:265
 msgid "Google Analytics ID"
@@ -225,19 +227,19 @@ msgstr ""
 
 #: defaults.py:287
 msgid "Name of the jQuery file."
-msgstr ""
+msgstr "Nom du fichier jQuery."
 
 #: defaults.py:288
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
-msgstr ""
+msgstr "Nom du fichier jQuery trouvé dans mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:296
 msgid "Max paging links"
-msgstr ""
+msgstr "Nombre maximum de liens de pagination"
 
 #: defaults.py:297
 msgid "Max number of paging links to display when paginating."
-msgstr ""
+msgstr "Nombre maximum de liens de pagination à afficher lors de la pagination"
 
 #: defaults.py:304
 msgid ""
@@ -247,11 +249,11 @@ msgstr ""
 
 #: defaults.py:313
 msgid "Min value for a rating."
-msgstr ""
+msgstr "Valeur minimale d'une évaluation."
 
 #: defaults.py:320
 msgid "Max value for a rating."
-msgstr ""
+msgstr "Valeur maximale d'une évaluation."
 
 #: defaults.py:327
 msgid ""
@@ -271,11 +273,11 @@ msgstr "Nombre de résultats de recherche par page"
 
 #: defaults.py:344
 msgid "Number of results shown in the search results page."
-msgstr ""
+msgstr "Nombre de résultats affichés dans la page de résultats de recherche."
 
 #: defaults.py:351
 msgid "Site Title"
-msgstr ""
+msgstr "Titre du site"
 
 #: defaults.py:352
 msgid ""
@@ -285,39 +287,39 @@ msgstr ""
 
 #: defaults.py:360
 msgid "Tagline"
-msgstr ""
+msgstr "Slogan"
 
 #: defaults.py:361
 msgid "A tag line that will appear at the top of all pages."
-msgstr ""
+msgstr "Un slogan qui sera affiché en haut de chaque page."
 
 #: defaults.py:363
 msgid "An open source content management platform."
-msgstr ""
+msgstr "Une plateforme de gestion de contenu open-source."
 
 #: defaults.py:368
 msgid "Enable SSL"
-msgstr ""
+msgstr "Activer SSL"
 
 #: defaults.py:378
 msgid "Force Host"
-msgstr ""
+msgstr "Forcer le nom d'hôte"
 
 #: defaults.py:397
 msgid "List of words which will be stripped from search queries."
-msgstr ""
+msgstr "Liste de mots à supprimer des termes de recherche."
 
 #: defaults.py:454
 msgid "Tag Cloud Sizes"
-msgstr ""
+msgstr "Taille du nuage de tags"
 
 #: defaults.py:455
 msgid "Number of different sizes for tags when shown as a cloud."
-msgstr ""
+msgstr "Nombre de tailles de tag différentes à afficher dans un nuage."
 
 #: defaults.py:462
 msgid "Sequence of setting names available within templates."
-msgstr ""
+msgstr "Séquance de noms de paramètres accessibles depuis les templates."
 
 #: defaults.py:477
 msgid ""
@@ -339,19 +341,19 @@ msgstr ""
 
 #: forms.py:48
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Divers"
 
 #: models.py:17
 msgid "Setting"
-msgstr ""
+msgstr "Paramètre"
 
 #: models.py:18
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: templates/admin/conf/setting/change_list.html:8
 msgid "Please correct the errors below."
-msgstr ""
+msgstr "Veuillez corriger les erreurs ci-dessous."
 
 #: templates/admin/conf/setting/change_list.html:31
 msgid "Save"

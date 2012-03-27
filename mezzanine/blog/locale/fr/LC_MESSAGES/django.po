@@ -30,7 +30,7 @@ msgstr "Note"
 
 #: models.py:21
 msgid "Featured Image"
-msgstr ""
+msgstr "Image du jour"
 
 #: models.py:25
 msgid "Blog post"
@@ -98,11 +98,11 @@ msgstr "Tags"
 
 #: templates/blog/blog_post_detail.html:71
 msgid "Share on Twitter"
-msgstr ""
+msgstr "Partager sur Twitter"
 
 #: templates/blog/blog_post_detail.html:72
 msgid "Share on Facebook"
-msgstr ""
+msgstr "Partager sur Facebook"
 
 #: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 #, fuzzy
@@ -111,17 +111,17 @@ msgstr "Article de blog"
 
 #: templates/blog/blog_post_list.html:31
 msgid "Tag:"
-msgstr ""
+msgstr "Tag :"
 
 #: templates/blog/blog_post_list.html:33
 #, fuzzy
 msgid "Category:"
-msgstr "Catégories"
+msgstr "Catégories :"
 
 #: templates/blog/blog_post_list.html:37
 #, fuzzy
 msgid "Author:"
-msgstr "Auteurs"
+msgstr "Auteurs :"
 
 #: templates/blog/blog_post_list.html:49
 msgid "Viewing posts tagged"
@@ -129,7 +129,7 @@ msgstr "Afficher les articles taggués"
 
 #: templates/blog/blog_post_list.html:51
 msgid "Viewing posts for the category"
-msgstr "Affichés les articles de la catégorie"
+msgstr "Afficher les articles de la catégorie"
 
 #: templates/blog/blog_post_list.html:53
 msgid "Viewing posts from"
