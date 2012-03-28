@@ -30,7 +30,6 @@ For example suppose you want to inject a custom ``ImageField`` from a
 third party library into Mezzanine's ``BlogPost`` model, you would
 define the following in your projects’s settings module::
 
-    from django.utils.translation import ugettext as _
     EXTRA_MODEL_FIELDS = (
         # Four-item sequence for one field injected.
         (
@@ -39,7 +38,7 @@ define the following in your projects’s settings module::
             # Dotted path to field class.
             "somelib.fields.ImageField",
             # Positional args for field class.
-            (_("Image"),),
+            ("Image",),
             # Keyword args for field class.
             {"blank": True, "upload_to: "blog"},
         ),
@@ -53,19 +52,18 @@ content types by injecting fields into the ``Page`` class. Continuing on
 from the previous example, suppose you wanted to add a regular Django
 ``IntegerField`` to all content types::
 
-    from django.utils.translation import ugettext as _
     EXTRA_MODEL_FIELDS = (
         (
             "mezzanine.blog.models.BlogPost.image",
             "somelib.fields.ImageField",
-            (_("Image"),),
+            ("Image",),
             {"blank": True, "upload_to": "blog"},
         ),
         # Example of adding a field to *all* of Mezzanine's content types:
         (
             "mezzanine.pages.models.Page.another_field",
             "IntegerField", # 'django.db.models.' is implied if path is omitted.
-            (_("Another name"),),
+            ("Another name",),
             {"blank": True, "default": 1},
         ),
     )

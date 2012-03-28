@@ -9,12 +9,11 @@
 
 # Controls the ordering and grouping of the admin menu.
 #
-# from django.utils.translation import ugettext as _
 # ADMIN_MENU_ORDER = (
-#     (_("Content"), ("pages.Page", "blog.BlogPost",
-#        "generic.ThreadedComment", (_("Media Library"), "fb_browse"),)),
-#     (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting")),
-#     (_("Users"), ("auth.User", "auth.Group",)),
+#     ("Content", ("pages.Page", "blog.BlogPost",
+#        "generic.ThreadedComment", ("Media Library", "fb_browse"),)),
+#     ("Site", ("sites.Site", "redirects.Redirect", "conf.Setting")),
+#     ("Users", ("auth.User", "auth.Group",)),
 # )
 
 # A three item sequence, each containing a sequence of template tags
@@ -35,7 +34,6 @@
 # field instance. When specifying the field class, the path
 # ``django.models.db.`` can be omitted for regular Django model fields.
 #
-# from django.utils.translation import ugettext as _
 # EXTRA_MODEL_FIELDS = (
 #     (
 #         # Dotted path to field.
@@ -43,7 +41,7 @@
 #         # Dotted path to field class.
 #         "somelib.fields.ImageField",
 #         # Positional args for field class.
-#         (_("Image"),),
+#         ("Image",),
 #         # Keyword args for field class.
 #         {"blank": True, "upload_to": "blog"},
 #     ),
@@ -51,7 +49,7 @@
 #     (
 #         "mezzanine.pages.models.Page.another_field",
 #         "IntegerField", # 'django.db.models.' is implied if path is omitted.
-#         (_("Another name"),),
+#         ("Another name",),
 #         {"blank": True, "default": 1},
 #     ),
 # )
