@@ -1,10 +1,12 @@
 
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.messages import error
 from django.contrib.comments.signals import comment_was_posted
 from django.core.urlresolvers import reverse
 from django.db.models import get_model, ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.generic.fields import RatingField
@@ -40,11 +42,14 @@ def comment(request, template="generic/comments.html"):
     """
 
     post_data = request.POST
+    settings.use_editable()
     if settings.COMMENTS_ACCOUNT_REQUIRED:
         if not request.user.is_authenticated():
             # Account required but user isn't authenticated - store
             # their post data in the session and redirect to login.
             request.session["unauthenticated_comment"] = post_data
+            error(request, _("You must log in to comment. Please log in or "
+                             "sign up, and your comment will be posted."))
             url = "%s?next=%s" % (settings.LOGIN_URL, reverse("comment"))
             return redirect(url)
         elif "unauthenticated_comment" in request.session:

@@ -40,8 +40,11 @@ def set_dynamic_settings(s):
     storage = "django.contrib.messages.storage.cookie.CookieStorage"
     s.setdefault("MESSAGE_STORAGE", storage)
 
-    # Setup for optional apps.
-    if not s["TESTING"]:
+    if s["TESTING"]:
+        # Enable accounts when testing so the URLs exist.
+        s["ACCOUNTS_ENABLED"] = True
+    else:
+        # Setup for optional apps.
         optional = list(s.get("OPTIONAL_APPS", []))
         if s.get("USE_SOUTH"):
             optional.append("south")

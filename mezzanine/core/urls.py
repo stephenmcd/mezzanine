@@ -21,6 +21,8 @@ if getattr(settings, "ACCOUNTS_ENABLED", False):
             name="account"),
         url("^%s$" % settings.LOGOUT_URL.lstrip("/"), "logout",
             name="logout"),
+        url("^verify_account/(?P<uidb36>[-\w]+)/(?P<token>[-\w]+)/$",
+            "verify_account", name="verify_account"),
     )
 
 urlpatterns += patterns("mezzanine.core.views",

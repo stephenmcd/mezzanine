@@ -18,7 +18,16 @@ from mezzanine.conf import register_setting
 
 register_setting(
     name="ACCOUNTS_ENABLED",
-    description="If True, users can create an account.",
+    description="If ``True``, users can create an account.",
+    editable=False,
+    default=False,
+)
+
+register_setting(
+    name="ACCOUNTS_VERIFICATION_REQUIRED",
+    description="If ``True``, when users create an account, they will be "
+        "sent an email with a verification link, which they must click to "
+        "enable their account.",
     editable=False,
     default=False,
 )

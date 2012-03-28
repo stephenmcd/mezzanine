@@ -4,13 +4,16 @@ from shutil import rmtree
 from uuid import uuid4
 
 from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.contenttypes.models import ContentType
+from django.core import mail
 from django.core.urlresolvers import reverse
 from django.db import connection
 from django.template import Context, Template, TemplateDoesNotExist
 from django.template.loader import get_template
 from django.test import TestCase
 from django.utils.html import strip_tags
+from django.utils.http import int_to_base36
 from django.contrib.sites.models import Site
 from PIL import Image
 
@@ -49,11 +52,37 @@ class Tests(TestCase):
 
     def test_account(self):
         """
-        Test the account views.
+        Test account creation.
         """
-        if settings.ACCOUNTS_ENABLED:
-            response = self.client.get(reverse("account"))
-            self.assertEqual(response.status_code, 200)
+        # Verification not required - test an active user is created.
+        data = {"email": "test1@example.com", "password": "test"}
+        settings.ACCOUNTS_VERIFICATION_REQUIRED = False
+        response = self.client.post(reverse("account"), data, follow=True)
+        self.assertEqual(response.status_code, 200)
+        users = User.objects.filter(email=data["email"], is_active=True)
+        self.assertEqual(len(users), 1)
+        # Verification required - test an inactive user is created,
+        settings.ACCOUNTS_VERIFICATION_REQUIRED = True
+        data["email"] = "test2@example.com"
+        emails = len(mail.outbox)
+        response = self.client.post(reverse("account"), data, follow=True)
+        self.assertEqual(response.status_code, 200)
+        users = User.objects.filter(email=data["email"], is_active=False)
+        self.assertEqual(len(users), 1)
+        # Test the verification email.
+        self.assertEqual(len(mail.outbox), emails + 1)
+        self.assertEqual(len(mail.outbox[0].to), 1)
+        self.assertEqual(mail.outbox[0].to[0], data["email"])
+        # Test the verification link.
+        new_user = users[0]
+        verification_url = reverse("verify_account", kwargs={
+            "uidb36": int_to_base36(new_user.id),
+            "token": default_token_generator.make_token(new_user),
+        })
+        response = self.client.get(verification_url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        users = User.objects.filter(email=data["email"], is_active=True)
+        self.assertEqual(len(users), 1)
 
     def test_draft_page(self):
         """
