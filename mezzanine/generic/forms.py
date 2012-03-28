@@ -94,7 +94,9 @@ class ThreadedCommentForm(CommentForm):
             value = request.COOKIES.get(cookie_name, "")
             if not value and user.is_authenticated():
                 if field == "name":
-                    value = user.get_full_name() or user.username
+                    value = user.get_full_name()
+                    if not value and user.username != user.email:
+                        value = user.username
                 elif field == "email":
                     value = user.email
             kwargs["initial"][field] = value
