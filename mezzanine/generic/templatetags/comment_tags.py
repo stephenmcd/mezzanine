@@ -42,7 +42,7 @@ def comment_thread(context, parent):
             comments_queryset = parent.comments.all()
         else:
             comments_queryset = parent.comments.visible()
-        for comment in comments_queryset:
+        for comment in comments_queryset.select_related("user"):
             comments[comment.replied_to_id].append(comment)
         context["all_comments"] = comments
         parent = None
