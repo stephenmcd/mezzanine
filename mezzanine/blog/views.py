@@ -45,7 +45,8 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     if category is not None:
         category = get_object_or_404(BlogCategory, slug=category)
         blog_posts = blog_posts.filter(categories=category)
-        templates.append(u"blog/blog_post_list_%s.html" % category.slug)
+        templates.append(u"blog/blog_post_list_%s.html" %
+                          unicode(category.slug))
     author = None
     if username is not None:
         author = get_object_or_404(User, username=username)
@@ -95,5 +96,5 @@ def blog_post_detail(request, slug, year=None, month=None,
     blog_posts = BlogPost.objects.published(for_user=request.user)
     blog_post = get_object_or_404(blog_posts, slug=slug)
     context = {"blog_page": blog_page(), "blog_post": blog_post}
-    templates = [u"blog/blog_post_detail_%s.html" % slug, template]
+    templates = [u"blog/blog_post_detail_%s.html" % unicode(slug), template]
     return render(request, templates, context)
