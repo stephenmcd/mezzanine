@@ -381,6 +381,17 @@ register_setting(
 )
 
 register_setting(
+    name="SLUGIFY",
+    description=_("Dotted Python path to the callable for converting "
+        "strings into URL slugs. Defaults to "
+        "``mezzanine.utils.urls.slugify_unicode`` which allows for non-ascii "
+        "URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+        "Django's slugify function, or something of your own if required."),
+    editable=False,
+    default="mezzanine.utils.urls.slugify_unicode",
+)
+
+register_setting(
     name="SSL_ENABLED",
     label=_("Enable SSL"),
     description="If ``True``, users will be automatically redirected to HTTPS "
