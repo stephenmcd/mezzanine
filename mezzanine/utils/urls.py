@@ -1,9 +1,8 @@
+# -*- coding: utf-8 -*-
 
-import re
 import unicodedata
 
 from django.core.urlresolvers import reverse
-from django.utils.encoding import smart_unicode
 
 
 def admin_url(model, url, object_id=None):
@@ -22,13 +21,6 @@ def slugify(s):
     """
     Replacement for Django's slugify which allows unicode chars in
     slugs, for URLs in Chinese, Russian, etc.
-    Adopted from https://github.com/mozilla/unicode-slugify/
     """
-    chars = []
-    for char in smart_unicode(s):
-        cat = unicodedata.category(char)[0]
-        if cat in "LN" or char in "-_~":
-            chars.append(char)
-        elif cat == "Z":
-            chars.append(" ")
-    return re.sub("[-\s]+", "-", "".join(chars).strip()).lower()
+    return (u''.join((c for c in unicodedata.normalize(u'NFKD', s).lower()
+            if unicodedata.category(c) != u'Mn')))
