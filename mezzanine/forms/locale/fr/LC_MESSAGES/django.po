@@ -32,7 +32,7 @@ msgstr[1] ""
 
 #: admin.py:119
 msgid "View Entries"
-msgstr ""
+msgstr "Voir les enregistrements"
 
 #: fields.py:28
 msgid "Single line text"
@@ -44,11 +44,11 @@ msgstr "Texte sur plusieurs lignes"
 
 #: fields.py:31
 msgid "Number"
-msgstr ""
+msgstr "Nombre"
 
 #: fields.py:32
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: fields.py:33
 msgid "Check box"
@@ -241,7 +241,7 @@ msgstr "Champs de réponses du formulaire"
 #: templates/admin/forms/change_form.html:9
 #: templates/admin/forms/entries.html:56
 msgid "View entries"
-msgstr ""
+msgstr "Voir les enregistrements"
 
 #: templates/admin/forms/change_form.html:10
 msgid "History"
@@ -277,12 +277,12 @@ msgstr "Export CSV"
 
 #: templates/admin/forms/entries.html:60
 msgid "Entries"
-msgstr ""
+msgstr "Entregistrements"
 
 #: templates/admin/forms/entries.html:94
 msgid "Delete selected"
-msgstr ""
+msgstr "Effacer la sélection"
 
 #: templates/admin/forms/entries.html:98
 msgid "No entries to display"
-msgstr ""
+msgstr "Aucun enregistrement à afficher"
