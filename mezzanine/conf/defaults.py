@@ -519,3 +519,12 @@ register_setting(
     editable=False,
     default=True,
 )
+
+register_setting(
+    name="MEZZANINE_SLUGIFY",
+    description=_("A Python callable to use to generate slugs; can also be "
+        "a string referencing the python path to the symbol to use, eg. "
+        "``MEZZANINE_SLUGIFY = 'myapp.utils.slugify'``."),
+    editable=False,
+    default=None,
+)
