@@ -50,6 +50,7 @@ provides the following features:
   * `Google Analytics`_ integration
   * `Twitter`_ feed integration
   * `bit.ly`_ integration
+  * `Akismet`_ spam filtering
   * Sharing via Facebook or Twitter
   * Built-in `test suite`_
   * User accounts with email verification
@@ -261,6 +262,7 @@ Quotes
 .. _`Google Analytics`: http://www.google.com/analytics/
 .. _`Twitter`: http://twitter.com/
 .. _`bit.ly`: http://bit.ly/
+.. _`Akismet`: http://akismet.com/
 .. _`project_template`: https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template
 .. _`GitHub`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
