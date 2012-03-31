@@ -87,6 +87,11 @@ class ThreadedCommentForm(CommentForm):
     cookie_prefix = "mezzanine-comment-"
 
     def __init__(self, request, *args, **kwargs):
+        """
+        Set some initial field values from cookies or the logged in
+        user, and apply some HTML5 attributes to the fields if the
+        ``FORMS_USE_HTML5`` setting is ``True``.
+        """
         kwargs.setdefault("initial", {})
         user = request.user
         for field in ThreadedCommentForm.cookie_fields:
@@ -101,6 +106,14 @@ class ThreadedCommentForm(CommentForm):
                     value = user.email
             kwargs["initial"][field] = value
         super(ThreadedCommentForm, self).__init__(*args, **kwargs)
+        if settings.FORMS_USE_HTML5:
+            for name, field in self.fields.items():
+                if isinstance(field, forms.EmailField):
+                    self.fields[name].widget.input_type = "email"
+                elif  isinstance(field, forms.URLField):
+                    self.fields[name].widget.input_type = "url"
+                if field.required:
+                    self.fields[name].widget.attrs["required"] = ""
 
     def get_comment_model(self):
         """
