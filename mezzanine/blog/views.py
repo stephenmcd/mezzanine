@@ -54,7 +54,9 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         templates.append(u"blog/blog_post_list_%s.html" % username)
     # Create dicts mapping blog post IDs to lists of categories and
     # keywords, and assign these to each blog post, to avoid querying
-    # the database inside the template loop for posts.
+    # the database inside the template loop for posts. This can be
+    # replaced with prefetch_related once Django 1.3 support is
+    # dropped.
     blog_posts = list(blog_posts.select_related("user"))
     categories = defaultdict(list)
     if blog_posts:
@@ -87,9 +89,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
 
 def blog_post_detail(request, slug, year=None, month=None,
                      template="blog/blog_post_detail.html"):
-    """
-    Display a blog post and handle comment submission. Custom
-    templates are checked for using the name
+    """. Custom templates are checked for using the name
     ``blog/blog_post_detail_XXX.html`` where ``XXX`` is the blog
     posts's slug.
     """

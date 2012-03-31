@@ -34,7 +34,8 @@ def fields_for(context, form):
     """
     Renders fields for a form.
     """
-    return {"form": form}
+    context["form_for_fields"] = form
+    return context
 
 
 @register.filter

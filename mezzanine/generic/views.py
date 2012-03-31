@@ -12,7 +12,7 @@ from mezzanine.conf import settings
 from mezzanine.generic.fields import RatingField
 from mezzanine.generic.forms import ThreadedCommentForm
 from mezzanine.generic.models import Keyword, Rating
-from mezzanine.utils.views import render, set_cookie
+from mezzanine.utils.views import render, set_cookie, is_spam
 
 
 @staff_member_required
@@ -66,6 +66,9 @@ def comment(request, template="generic/comments.html"):
 
     form = ThreadedCommentForm(request, obj, post_data)
     if form.is_valid():
+        url = obj.get_absolute_url()
+        if is_spam(request, form, url):
+            return redirect(url)
         comment = form.get_comment_object()
         if request.user.is_authenticated():
             comment.user = request.user

@@ -103,7 +103,16 @@ register_setting(
     label=_("Accounts required for commenting"),
     description="If ``True``, users must log in to comment.",
     editable=True,
-    default=True,
+    default=False,
+)
+
+register_setting(
+    name="AKISMET_API_KEY",
+    label=_("Akismet API Key"),
+    description=_("Key for http://akismet.com spam filtering service. Used "
+        "for filtering comments and forms."),
+    editable=True,
+    default="",
 )
 
 register_setting(
@@ -256,8 +265,7 @@ register_setting(
 
 register_setting(
     name="FORMS_USE_HTML5",
-    description=_("If ``True``, website forms created by the forms app will "
-        "use HTML5 features."),
+    description=_("If ``True``, website forms will use HTML5 features."),
     editable=False,
     default=False,
 )

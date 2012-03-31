@@ -52,6 +52,7 @@ provides the following features:
   * `bit.ly`_ integration
   * Sharing via Facebook or Twitter
   * Built-in `test suite`_
+  * User accounts with email verification
 
 The Mezzanine admin dashboard:
 
