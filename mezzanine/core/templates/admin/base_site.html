@@ -27,9 +27,16 @@ In the ``footer`` block:
 {% block extrahead %}
 <link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/global.css">
 <style>
-{# These are set in PageAdmin's view methods #}
-{% if hide_delete_link %}.deletelink {display:none !important;}{% endif %}
-{% if hide_slug_field %}.slug {display:none !important;}{% endif %}
+{#
+These are set in PageAdmin's view methods, and
+mezzanine.core.admin.SingletonAdmin
+#}
+{% if hide_delete_link or singleton %}
+.deletelink {display:none !important;}
+{% endif %}
+{% if hide_slug_field %}
+.slug {display:none !important;}
+{% endif %}
 {% if singleton %}
 .change-view-save-another {display:none !important;}
 {% endif %}
