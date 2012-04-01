@@ -6,6 +6,7 @@
 <script>
 window.__filebrowser_url = '{% try_url "fb_browse" %}';
 window.__toolbar_html = '{{ toolbar|escapejs }}';
+window.__static_proxy = '{% try_url "static_proxy" %}';
 </script>
 <script src="{{ STATIC_URL }}mezzanine/js/jquery.tools.js"></script>
 <script src="{{ STATIC_URL }}mezzanine/js/jquery.form.js"></script>

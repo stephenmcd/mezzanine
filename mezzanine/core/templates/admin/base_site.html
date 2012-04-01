@@ -27,10 +27,10 @@ In the ``footer`` block:
 {% block extrahead %}
 <link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/global.css">
 <style>
-{#
+{% comment %}
 These are set in PageAdmin's view methods, and
 mezzanine.core.admin.SingletonAdmin
-#}
+{% endcomment %}
 {% if hide_delete_link or singleton %}
 .deletelink {display:none !important;}
 {% endif %}
@@ -46,6 +46,7 @@ window.__csrf_token = '{{ csrf_token }}';
 window.__admin_keywords_submit_url = '{% try_url "admin_keywords_submit" %}';
 window.__filebrowser_url = '{% try_url "fb_browse" %}';
 window.__admin_url = '{% try_url "admin:index" %}';
+window.__static_proxy = '{% try_url "static_proxy" %}';
 window.__admin_media_prefix__ = '{{ settings.ADMIN_MEDIA_PREFIX }}';
 window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 </script>

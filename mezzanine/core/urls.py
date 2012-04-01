@@ -29,4 +29,5 @@ urlpatterns += patterns("mezzanine.core.views",
     url("^edit/$", "edit", name="edit"),
     url("^search/$", "search", name="search"),
     url("^set_device/(?P<device>.*)/$", "set_device", name="set_device"),
+    url("^static_proxy/$", "static_proxy", name="static_proxy"),
 )

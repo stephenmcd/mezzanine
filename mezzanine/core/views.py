@@ -1,10 +1,14 @@
 
+import os
+
 from django.contrib import admin
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.auth import login, logout as auth_logout
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.messages import info, error
+from django.contrib.staticfiles import finders
 from django.db.models import get_model
 from django.http import HttpResponse, HttpResponseServerError
 from django.shortcuts import redirect
@@ -113,6 +117,7 @@ def direct_to_template(request, template, extra_context=None, **kwargs):
     return render(request, template, context)
 
 
+@staff_member_required
 def edit(request):
     """
     Process the inline editing form.
@@ -145,6 +150,41 @@ def search(request, template="search_results.html"):
                        settings.SEARCH_PER_PAGE, settings.MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
     return render(request, template, context)
+
+
+@staff_member_required
+def static_proxy(request):
+    """
+    Serves TinyMCE plugins inside the inline popups and the uploadify
+    SWF, as these are normally static files, and will break with
+    cross-domain JavaScript errors if ``STATIC_URL`` is an external
+    host. URL for the file is passed in via querystring in the inline
+    popup plugin template.
+    """
+    # Get the relative URL after STATIC_URL.
+    url = request.GET["u"]
+    protocol = "http" if not request.is_secure() else "https"
+    host = protocol + "://" + request.get_host()
+    for prefix in (host, settings.STATIC_URL):
+        if url.startswith(prefix):
+            url = url.replace(prefix, "", 1)
+    response = ""
+    path = finders.find(url)
+    if path:
+        if isinstance(path, (list, tuple)):
+            path = path[0]
+        with open(path, "rb") as f:
+            response = f.read()
+        mimetype = "application/octet-stream"
+        if url.endswith(".htm"):
+            # Inject <base href="{{ STATIC_URL }}"> into TinyMCE
+            # plugins, since the path static files in these won't be
+            # on the same domain.
+            mimetype = "text/html"
+            static_url = settings.STATIC_URL + os.path.split(url)[0] + "/"
+            base_tag = "<base href='%s'>" % static_url
+            response = response.replace("<head>", "<head>" + base_tag)
+    return HttpResponse(response, mimetype=mimetype)
 
 
 def server_error(request, template_name='500.html'):
