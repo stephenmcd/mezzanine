@@ -1,3 +1,4 @@
-{% if settings.ACCOUNTS_ENABLED %}
+{% load mezzanine_tags %}
+{% if "mezzanine.accounts"|is_installed %}
 <div class="panel">{% include "includes/account_panel.html" %}</div>
 {% endif %}

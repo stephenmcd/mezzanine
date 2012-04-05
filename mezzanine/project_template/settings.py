@@ -58,12 +58,6 @@
 #
 # BLOG_USE_FEATURED_IMAGE = True
 
-# Turns on accounts for website visitors. Will add the
-# LOGIN_URL/LOGOUT_URL values to urlpatterns, and show login/logout
-# links in templates/includes/user_panel.html. Defaults to False.
-#
-# ACCOUNTS_ENABLED = True
-
 # If ``True``, users will be automatically redirected to HTTPS
 # for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting.
 #
@@ -140,7 +134,7 @@ TEMPLATE_LOADERS = (
     "django.template.loaders.app_directories.Loader",
 )
 
-# URLs used for login/logout when ACCOUNTS_ENABLED is set to True.
+# URLs used for login/logout when mezzanine.accounts is in INSTALLED_APPS.
 LOGIN_URL = "/account/"
 LOGOUT_URL = "/account/logout/"
 
@@ -240,6 +234,7 @@ INSTALLED_APPS = (
     "mezzanine.pages",
     "mezzanine.galleries",
     "mezzanine.twitter",
+    "mezzanine.accounts",
     #"mezzanine.mobile",
 )
 

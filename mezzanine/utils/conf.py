@@ -42,7 +42,7 @@ def set_dynamic_settings(s):
 
     if s["TESTING"]:
         # Enable accounts when testing so the URLs exist.
-        s["ACCOUNTS_ENABLED"] = True
+        append("INSTALLED_APPS", "mezzanine.accounts")
     else:
         # Setup for optional apps.
         optional = list(s.get("OPTIONAL_APPS", []))

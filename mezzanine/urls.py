@@ -76,6 +76,17 @@ if blog_installed:
         ("^%s" % BLOG_SLUG, include("mezzanine.blog.urls")),
     )
 
+# Mezzanine's Accounts app
+_old_accounts_enabled = getattr(settings, "ACCOUNTS_ENABLED", False)
+if _old_accounts_enabled:
+    import warnings
+    warnings.warn("The setting ACCOUNTS_ENABLED is deprecated. Please "
+                  "add mezzanine.accounts to INSTALLED_APPS.")
+if _old_accounts_enabled or "mezzanine.accounts" in settings.INSTALLED_APPS:
+    urlpatterns += patterns("",
+        ("^", include("mezzanine.accounts.urls")),
+    )
+
 # Mezzanine's Pages app.
 PAGES_SLUG = ""
 if "mezzanine.pages" in settings.INSTALLED_APPS:
