@@ -123,6 +123,11 @@ in using the default account (``username: admin, password: default``). If
 you'd like to specify a different username and password during set up, simply
 exclude the ``--noinput`` option included above when running ``createdb``.
 
+.. note::
+    If your static files are not showing up it may be because you have to run
+    the collectstatic command on your livesite. For more information please 
+    see the FAQs section.
+
 For information on how to add Mezzanine to an existing Django project,
 see the FAQs section of the documentation.
 
