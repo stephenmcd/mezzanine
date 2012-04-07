@@ -119,10 +119,19 @@ def thumbnail(image_url, width, height):
     thumb_url = "%s/%s/%s" % (os.path.dirname(image_url),
                               settings.THUMBNAILS_DIR_NAME, thumb_name)
 
-    # Abort if thumbnail exists or original image doesn't exist.
-    if os.path.exists(thumb_path):
+    try:
+        thumb_exists = os.path.exists(thumb_path)
+    except UnicodeEncodeError:
+        # The image that was saved to a filesystem with utf-8 support,
+        # but somehow the locale has changed and the filesystem does not
+        # support utf-8.
+        from mezzanine.core.exceptions import FileSystemEncodingChanged
+        raise FileSystemEncodingChanged()
+    if thumb_exists:
+        # Thumbnail exists, don't generate it.
         return thumb_url
     elif not default_storage.exists(image_url):
+        # Requested image does not exist, just return its URL.
         return image_url
 
     image = Image.open(default_storage.open(image_url))

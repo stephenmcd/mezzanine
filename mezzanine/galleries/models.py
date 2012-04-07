@@ -59,9 +59,19 @@ class Gallery(Page, RichText):
                     image.verify()
                 except:
                     continue
-                path = default_storage.save(os.path.join(GALLERIES_UPLOAD_DIR,
-                          self.slug, name.decode("utf-8")), ContentFile(data))
-                self.images.add(GalleryImage(file=path))
+                path = os.path.join(GALLERIES_UPLOAD_DIR, self.slug,
+                                    name.decode("utf-8"))
+                try:
+                    saved_path = default_storage.save(path, ContentFile(data))
+                except UnicodeEncodeError:
+                    from warnings import warn
+                    warn("Your filesystem encoding doesn't seem to support "
+                         "utf-8. You may need to set LC_CTYPE to a correct "
+                         "value via your terminal, eg: en_US.utf8")
+                    path = os.path.join(GALLERIES_UPLOAD_DIR, self.slug,
+                                        unicode(name, errors="ignore"))
+                    saved_path = default_storage.save(path, ContentFile(data))
+                self.images.add(GalleryImage(file=saved_path))
             if delete_zip_import:
                 zip_file.close()
                 self.zip_import.delete(save=True)
