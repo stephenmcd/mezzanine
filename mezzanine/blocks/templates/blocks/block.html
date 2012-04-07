@@ -1,0 +1,6 @@
+<div class="flatblock block-{{ flatblock.slug }}">
+{% if flatblock.title and flatblock.show_title %}
+    <h2 class="title">{{ flatblock.title }}</h2>
+{% endif %}
+    <div class="content">{{ flatblock.content|safe }}</div>
+</div>
