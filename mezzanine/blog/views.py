@@ -9,20 +9,11 @@ from django.shortcuts import get_object_or_404
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
 from mezzanine.generic.models import AssignedKeyword, Keyword
-from mezzanine.pages.models import RichTextPage
+from mezzanine.pages.decorators import for_page
 from mezzanine.utils.views import render, paginate
 
 
-def blog_page():
-    """
-    Return the Blog page from the pages app.
-    """
-    try:
-        return RichTextPage.objects.get(slug=settings.BLOG_SLUG)
-    except RichTextPage.DoesNotExist:
-        return None
-
-
+@for_page(settings.BLOG_SLUG)
 def blog_post_list(request, tag=None, year=None, month=None, username=None,
                    category=None, template="blog/blog_post_list.html"):
     """
@@ -80,13 +71,13 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
                           request.GET.get("page", 1),
                           settings.BLOG_POST_PER_PAGE,
                           settings.MAX_PAGING_LINKS)
-    context = {"blog_page": blog_page(), "blog_posts": blog_posts,
-               "year": year, "month": month, "tag": tag,
-               "category": category, "author": author}
+    context = {"blog_posts": blog_posts, "year": year, "month": month,
+               "tag": tag, "category": category, "author": author}
     templates.append(template)
     return render(request, templates, context)
 
 
+@for_page(settings.BLOG_SLUG)
 def blog_post_detail(request, slug, year=None, month=None,
                      template="blog/blog_post_detail.html"):
     """. Custom templates are checked for using the name
@@ -95,6 +86,6 @@ def blog_post_detail(request, slug, year=None, month=None,
     """
     blog_posts = BlogPost.objects.published(for_user=request.user)
     blog_post = get_object_or_404(blog_posts, slug=slug)
-    context = {"blog_page": blog_page(), "blog_post": blog_post}
+    context = {"blog_post": blog_post}
     templates = [u"blog/blog_post_detail_%s.html" % unicode(slug), template]
     return render(request, templates, context)

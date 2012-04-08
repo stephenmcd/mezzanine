@@ -10,7 +10,7 @@ from django.utils.feedgenerator import Atom1Feed
 from django.utils.html import strip_tags
 
 from mezzanine.blog.models import BlogPost, BlogCategory
-from mezzanine.blog.views import blog_page
+from mezzanine.pages.models import Page
 from mezzanine.conf import settings
 
 
@@ -27,22 +27,33 @@ class PostsRSS(Feed):
         settings.
         """
         super(PostsRSS, self).__init__(*args, **kwargs)
-        page = blog_page()
-        if page is not None:
-            self.title = page.title
-            self.description = strip_tags(page.description)
+        self._public = True
+        try:
+            page = Page.objects.published().get(slug=settings.BLOG_SLUG)
+        except Page.DoesNotExist:
+            page = None
         else:
-            settings.use_editable()
-            self.title = settings.SITE_TITLE
-            self.description = settings.SITE_TAGLINE
+            self._public = not page.login_required
+        if self._public:
+            if page is not None:
+                self.title = page.title
+                self.description = strip_tags(page.description)
+            else:
+                settings.use_editable()
+                self.title = settings.SITE_TITLE
+                self.description = settings.SITE_TAGLINE
 
     def link(self):
         return reverse("blog_post_feed", kwargs={"url": "rss"})
 
     def items(self):
+        if not self._public:
+            return []
         return BlogPost.objects.published().select_related("user")
 
     def categories(self):
+        if not self._public:
+            return []
         return BlogCategory.objects.all()
 
     def item_author_name(self, item):

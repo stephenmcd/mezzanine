@@ -113,6 +113,12 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.pages.page_processors
    :members:
 
+``mezzanine.pages.decorators``
+-----------------------------------
+
+.. automodule:: mezzanine.pages.decorators
+   :members:
+
 
 
 
