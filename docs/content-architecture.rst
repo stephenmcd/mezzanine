@@ -281,10 +281,10 @@ since it points to a separate Django app.
 The second optional step, is to wrap the application's views in the
 ``mezzanine.pages.decorators.for_page`` decorator. This will add the page
 instance to the context variable named ``page``, so the title, description,
-and any specific fields for the content type that you choosed to use when
+and any specific fields for the content type that you chose to use when
 creating the page, will be available in the template that gets loaded. The
 ``for_page`` decorator takes a single argument, the URL for the page that
-the view should include. For example here's the start of the view that
+the view should include. For example, here's the start of the view that
 lists blog posts in Mezzanine's blog application::
 
     from mezzanine.pages.decorators import for_page
