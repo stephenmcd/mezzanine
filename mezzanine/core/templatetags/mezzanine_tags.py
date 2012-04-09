@@ -358,3 +358,29 @@ def dashboard_column(context, token):
         t = Template("{%% load %s %%}{%% %s %%}" % tuple(tag.split(".")))
         output.append(t.render(Context(context)))
     return "".join(output)
+
+
+@register.render_tag
+def include_if_installed(context, token):
+    """
+    Loads a template and renders it with the current context if a specified app
+    is installed. Otherwise, doesn't check for the existance of the template.
+    """
+    bits = token.split_contents()
+    if len(bits) < 3:
+        raise TemplateSyntaxError("%r tag takes at least two argument: the "
+        "name of the app that to check for installation and the template to be"
+        "included." % bits[0])
+    app = bits[1]
+    if app in settings.INSTALLED_APPS:
+        path = bits[2]
+        try:
+            template = get_template(path)
+            output = template.render(context)
+            return output
+        except:
+            if settings.TEMPLATE_DEBUG:
+                raise
+            return ''
+    else:
+        return ''
