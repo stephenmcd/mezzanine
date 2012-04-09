@@ -9,7 +9,8 @@ from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
-from django.template import Context, Template
+from django.template import (Context, Node, Template, TemplateSyntaxError,
+                             TOKEN_BLOCK)
 from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
@@ -44,7 +45,52 @@ def is_installed(app_name):
     Returns ``True`` if the given app name is in the
     ``INSTALLED_APPS`` setting.
     """
+    from warnings import warn
+    warn("The is_installed filter is deprecated. Please use the tag "
+         "{% ifinstalled appname %}{% endifinstalled %}")
     return app_name in settings.INSTALLED_APPS
+
+
+@register.tag
+def ifinstalled(parser, token):
+    """
+    Old-style ``if`` tag that renders contents if the given app is
+    installed. The main use case is:
+    {% ifinstalled app_name %}
+        {% include "app_name/template.html" %}
+    {% endifinstalled %}
+    so we need to manually pull out include tags if the app isn't
+    installed, since if we used a normal ``if``tag with a False arg,
+    the include tag will still try and find the template to include.
+    """
+    try:
+        tag, app = token.split_contents()
+    except ValueError:
+        raise TemplateSyntaxError("ifinstalled should be in the form: "
+                                  "{% ifinstalled app_name %}"
+                                  "{% endifinstalled %}")
+
+    end_tag = "end" + tag
+    if app.strip("\"'") not in settings.INSTALLED_APPS:
+        end_tag_found = False
+        tokens = []
+        for token in parser.tokens:
+            if token.token_type == TOKEN_BLOCK:
+                tag = token.split_contents()[0]
+                if tag == end_tag:
+                    end_tag_found = True
+                elif tag == "include" and not end_tag_found:
+                    continue
+            tokens.append(token)
+        parser.tokens = tokens
+    nodelist = parser.parse((end_tag,))
+    parser.delete_first_token()
+
+    class IfInstalledNode(Node):
+        def render(self, context):
+            return nodelist.render(context)
+
+    return IfInstalledNode()
 
 
 @register.render_tag
