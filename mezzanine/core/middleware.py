@@ -38,24 +38,24 @@ class AdminLoginInterfaceSelector(AdminLoginInterfaceSelectorMiddleware):
 
 
 class TemplateForDeviceMiddleware(object):
-
+    """
+    Inserts device-specific templates to the template list.
+    """
     def process_template_response(self, request, response):
-        """
-        Inserts device-specific templates to the template list.
-        """
-        templates = templates_for_device(request, response.template_name)
-        response.template_name = templates
+        if hasattr(response, "template_name"):
+            templates = templates_for_device(request, response.template_name)
+            response.template_name = templates
         return response
 
 
 class TemplateForHostMiddleware(object):
-
+    """
+    Inserts host-specific templates to the template list.
+    """
     def process_template_response(self, request, response):
-        """
-        Inserts host-specific templates to the template list.
-        """
-        templates = templates_for_host(request, response.template_name)
-        response.template_name = templates
+        if hasattr(response, "template_name"):
+            templates = templates_for_host(request, response.template_name)
+            response.template_name = templates
         return response
 
 

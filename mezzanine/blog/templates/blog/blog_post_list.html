@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
 
-{% block meta_title %}{% if blog_page %}{{ blog_page.title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
+{% block meta_title %}{% if page %}{{ page.richtextpage.title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
-{% keywords_for blog_page as keywords %}
+{% keywords_for page as keywords %}
 {% for keyword in keywords %}
     {% if not forloop.first %}, {% endif %}
     {{ keyword }}
@@ -12,12 +12,12 @@
 {% endmetablock %}{% endblock %}
 
 {% block meta_description %}{% metablock %}
-{{ blog_page.description }}
+{{ page.description }}
 {% endmetablock %}{% endblock %}
 
 {% block title %}
-{% if blog_page %}
-{% editable blog_page.title %}{{ blog_page.title }}{% endeditable %}
+{% if page %}
+{% editable page.title %}{{ page.title }}{% endeditable %}
 {% else %}
 {% trans "Blog" %}
 {% endif %}
@@ -58,9 +58,11 @@
     {% endif %}{% endif %}{% endif %}{% endif %}
     </p>
 {% else %}
-    {% editable blog_page.content %}
-    {{ blog_page.content|safe }}
+    {% if page %}
+    {% editable page.richtextpage.content %}
+    {{ page.richtextpage.content|safe }}
     {% endeditable %}
+    {% endif %}
 {% endif %}
 
 {% for blog_post in blog_posts.object_list %}
