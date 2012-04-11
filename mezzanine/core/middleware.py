@@ -1,5 +1,4 @@
 
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.middleware.cache import UpdateCacheMiddleware
 from django.middleware.cache import FetchFromCacheMiddleware
