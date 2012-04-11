@@ -59,7 +59,7 @@ def ifinstalled(parser, token):
     {% ifinstalled app_name %}
         {% include "app_name/template.html" %}
     {% endifinstalled %}
-    so we need to manually pull out include tags if the app isn't
+    so we need to manually pull out all tokens if the app isn't
     installed, since if we used a normal ``if``tag with a False arg,
     the include tag will still try and find the template to include.
     """
@@ -72,17 +72,11 @@ def ifinstalled(parser, token):
 
     end_tag = "end" + tag
     if app.strip("\"'") not in settings.INSTALLED_APPS:
-        end_tag_found = False
-        tokens = []
-        for token in parser.tokens:
-            if token.token_type == TOKEN_BLOCK:
-                tag = token.split_contents()[0]
-                if tag == end_tag:
-                    end_tag_found = True
-                elif tag == "include" and not end_tag_found:
-                    continue
-            tokens.append(token)
-        parser.tokens = tokens
+        while True:
+            token = parser.tokens.pop(0)
+            if token.token_type == TOKEN_BLOCK and token.contents == end_tag:
+                parser.tokens.insert(0, token)
+                break
     nodelist = parser.parse((end_tag,))
     parser.delete_first_token()
 
