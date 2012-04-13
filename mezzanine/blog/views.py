@@ -1,13 +1,14 @@
-
 from calendar import month_name
 from collections import defaultdict
 
+from django.http import Http404
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
 from django import VERSION
 
 from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.blog.feeds import PostsRSS, PostsAtom
 from mezzanine.conf import settings
 from mezzanine.generic.models import AssignedKeyword, Keyword
 from mezzanine.pages.decorators import for_page
@@ -106,3 +107,16 @@ def blog_post_detail(request, slug, year=None, month=None,
     context = {"blog_post": blog_post}
     templates = [u"blog/blog_post_detail_%s.html" % unicode(slug), template]
     return render(request, templates, context)
+
+blog_feed_dict = {"rss": PostsRSS, "atom": PostsAtom}
+try:
+    # Django <= 1.3
+    from django.contrib.syndication.views import feed
+    def blog_post_feed(request, url):
+        return feed(request, url, feed_dict=blog_feed_dict)
+except ImportError:
+    # Django >= 1.4
+    def blog_post_feed(request, url):
+        if url not in blog_feed_dict:
+            raise Http404()
+        return blog_feed_dict[url]()(request)
