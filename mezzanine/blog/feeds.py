@@ -44,7 +44,7 @@ class PostsRSS(Feed):
                 self.description = settings.SITE_TAGLINE
 
     def link(self):
-        return reverse("blog_post_feed", kwargs={"url": "rss"})
+        return reverse("blog_post_feed", kwargs={"format": "rss"})
 
     def items(self):
         if not self._public:
@@ -81,4 +81,4 @@ class PostsAtom(PostsRSS):
         return self.description
 
     def link(self):
-        return reverse("blog_post_feed", kwargs={"url": "atom"})
+        return reverse("blog_post_feed", kwargs={"format": "atom"})

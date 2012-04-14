@@ -108,15 +108,21 @@ def blog_post_detail(request, slug, year=None, month=None,
     templates = [u"blog/blog_post_detail_%s.html" % unicode(slug), template]
     return render(request, templates, context)
 
-blog_feed_dict = {"rss": PostsRSS, "atom": PostsAtom}
-try:
-    # Django <= 1.3
-    from django.contrib.syndication.views import feed
-    def blog_post_feed(request, url):
-        return feed(request, url, feed_dict=blog_feed_dict)
-except ImportError:
-    # Django >= 1.4
-    def blog_post_feed(request, url):
-        if url not in blog_feed_dict:
-            raise Http404()
-        return blog_feed_dict[url]()(request)
+
+def blog_post_feed(request, format):
+    """
+    Blog posts feeds - handle difference between Django 1.3 and 1.4
+    """
+    blog_feed_dict = {"rss": PostsRSS, "atom": PostsAtom}
+    try:
+        blog_feed_dict[format]
+    except KeyError:
+        raise Http404()
+    try:
+        # Django <= 1.3
+        from django.contrib.syndication.views import feed
+    except ImportError:
+        # Django >= 1.4
+        return blog_feed_dict[format]()(request)
+    else:
+        return feed(request, format, feed_dict=blog_feed_dict)
