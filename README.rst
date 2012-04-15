@@ -1,4 +1,4 @@
-.. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
+  .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
 
 ========
 Overview
@@ -255,7 +255,7 @@ Quotes
 .. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Themes`: http://mezzanine.jupo.org/docs/themes.html
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
-.. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
+.. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.core.tests
 .. _`Twitter Bootstrap`: http://twitter.github.com/bootstrap/
 .. _`Disqus`: http://disqus.com/
 .. _`Gravatar`: http://gravatar.com/
