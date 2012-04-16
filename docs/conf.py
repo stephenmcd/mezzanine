@@ -51,7 +51,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Mezzanine'
-copyright = u'2010 - 2012, Stephen McDonald'
+from datetime import datetime
+copyright = u'2009 - %s, Stephen McDonald' % datetime.now().year
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
