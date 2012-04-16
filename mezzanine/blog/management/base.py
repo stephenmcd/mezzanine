@@ -113,6 +113,12 @@ class BaseImporterCommand(BaseCommand):
             comments = post.pop("comments")
             old_url = post.pop("old_url")
             post_args = post
+            for var, val in post_args.iteritems():
+                try:
+                    if BlogPost._meta.get_field(var).max_length < len(val):
+                        post_args[var] = val[:BlogPost._meta.get_field(var).max_length-1]
+                except TypeError:
+                    pass
             post_args["user"] = mezzanine_user
             post_args["status"] = CONTENT_STATUS_PUBLISHED
             post, created = BlogPost.objects.get_or_create(**post_args)
@@ -122,6 +128,11 @@ class BaseImporterCommand(BaseCommand):
                 post.keywords.add(AssignedKeyword(keyword=keyword))
 
             for name in categories:
+                try:
+                    if BlogCategory._meta.get_field('title').max_length < len(val):
+                        name = val[:BlogCategory._meta.get_field('title').max_length-1]
+                except TypeError:
+                    pass
                 cat, created = BlogCategory.objects.get_or_create(title=name)
                 print "Importing Category by: %s" % cat
                 post.categories.add(cat)
@@ -130,6 +141,13 @@ class BaseImporterCommand(BaseCommand):
                 if verbosity >= 1:
                     print "Importing comment by: %s" % comment["user_name"]
                 comment["site"] = site
+#                print comment
+                for var, val in comment.iteritems():
+                    try:
+                        if ThreadedComment._meta.get_field(var).max_length < len(val):
+                            comment[var] = val[:ThreadedComment._meta.get_field(var).max_length-1]
+                    except TypeError:
+                        pass
                 post.comments.add(ThreadedComment(**comment))
 
             if old_url is not None:
