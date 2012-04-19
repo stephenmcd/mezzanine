@@ -1,205 +1,281 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
+# Nicola Larosa <transifex@teknico.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-20 21:47-0430\n"
-"PO-Revision-Date: 2011-11-12 02:51+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/language/it/)\n"
+"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"PO-Revision-Date: 2012-03-11 23:55+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/"
+"language/it/)\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:39
+#: admin.py:28
 msgid "Meta data"
-msgstr ""
+msgstr "Metadati"
 
 #: fields.py:23
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "Impossibile importare il valore settings.RICHTEXT_WIDGET_CLASS: %s"
+
+#: forms.py:35
+msgid "Email Address"
 msgstr ""
 
-#: forms.py:59 models.py:216
-msgid "Order"
+#: forms.py:36
+msgid "Password"
 msgstr ""
+
+#: forms.py:64
+msgid "This email is already registered"
+msgstr ""
+
+#: forms.py:84
+msgid "Invalid email/password"
+msgstr ""
+
+#: forms.py:86
+msgid "Your account is inactive"
+msgstr ""
+
+#: forms.py:116 models.py:221
+msgid "Order"
+msgstr "Ordine"
 
 #: models.py:27
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
 #: models.py:28
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
-#: models.py:81
+#: models.py:77
+msgid "View on site"
+msgstr "Vedi sul sito"
+
+#: models.py:87
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
-#: models.py:82
+#: models.py:88
 msgid "Keywords"
-msgstr ""
+msgstr "Parole chiave"
 
-#: models.py:91
+#: models.py:134
 msgid "Draft"
-msgstr ""
+msgstr "Bozza"
 
-#: models.py:92
+#: models.py:135
 msgid "Published"
-msgstr ""
+msgstr "Pubblicato"
 
-#: models.py:103
+#: models.py:146
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
-#: models.py:105
+#: models.py:148
 msgid "Published from"
-msgstr ""
+msgstr "Pubblicato da"
 
-#: models.py:106
+#: models.py:149
 msgid "With published checked, won't be shown until this time"
 msgstr ""
+"Una volta che \"pubblicato\" è selezionato, non verrà mostrato prima di "
+"questo momento"
 
-#: models.py:108
+#: models.py:151
 msgid "Expires on"
-msgstr ""
+msgstr "Espira il"
 
-#: models.py:109
+#: models.py:152
 msgid "With published checked, won't be shown after this time"
 msgstr ""
+"Una volta che \"pubblicato\" è selezionato, non verrà mostrato dopo questo "
+"momento"
 
-#: models.py:163
-msgid "View on site"
-msgstr ""
-
-#: models.py:174
+#: models.py:179
 msgid "Content"
 msgstr "Contenuto"
 
-#: models.py:270
+#: models.py:275
 msgid "Author"
+msgstr "Autore"
+
+#: views.py:33
+msgid "Successfully logged in"
+msgstr ""
+
+#: views.py:39
+msgid "Successfully signed up"
 msgstr ""
 
 #: views.py:53
-msgid "Permission denied"
+msgid "Successfully logged out"
 msgstr ""
+
+#: views.py:89
+msgid "Permission denied"
+msgstr "Permesso negato"
 
 #: templates/404.html:6
 msgid "Page not found"
-msgstr ""
+msgstr "Pagina non trovata"
 
 #: templates/404.html:10
 msgid "The page you requested does not exist."
-msgstr ""
+msgstr "La pagina richiesta non esiste."
 
 #: templates/500.html:6
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 #: templates/500.html:10
 msgid "Sorry, an error occurred."
+msgstr "Spiacenti, si è verificato un errore."
+
+#: templates/account.html:4 templates/account.html.py:5
+msgid "Login / Signup"
 msgstr ""
 
-#: templates/base.html:66
+#: templates/account.html:10
+msgid "Account"
+msgstr ""
+
+#: templates/account.html:16 templates/account.html.py:21
+msgid "Login"
+msgstr ""
+
+#: templates/account.html:27 templates/account.html.py:32
+msgid "Signup"
+msgstr ""
+
+#: templates/base.html:49
+msgid "Search"
+msgstr "Cerca"
+
+#: templates/base.html:105
 msgid "Powered by"
+msgstr "Realizzato con"
+
+#: templates/base.html:108
+msgid "and"
 msgstr ""
 
-#: templates/base.html:69
-msgid "View Mobile Site."
+#: templates/base.html:114
+msgid "View Mobile Site"
 msgstr ""
 
-#: templates/index.html:5 templates/index.html.py:8
-#: templates/admin/index.html:41
+#: templates/index.html:5 templates/index.html.py:8 templates/index.html:12
+#: templates/search_results.html:10 templates/admin/index.html:15
 msgid "Home"
-msgstr ""
+msgstr "Pagina principale"
 
-#: templates/index.html:12
+#: templates/index.html:16
 msgid "This is the homepage."
-msgstr ""
+msgstr "Questa è la pagina principale."
 
 #: templates/search_results.html:5 templates/search_results.html.py:6
+#: templates/search_results.html:13
 msgid "Search Results"
-msgstr ""
+msgstr "Risultati della ricerca"
 
-#: templates/search_results.html:12
+#: templates/search_results.html:20
 msgid "No results were found matching your query: "
-msgstr ""
+msgstr "La ricerca non ha prodotto risultati: "
 
-#: templates/search_results.html:14
+#: templates/search_results.html:22
 msgid "Showing"
-msgstr ""
+msgstr "Mostrato"
 
-#: templates/search_results.html:14
+#: templates/search_results.html:22
 msgid "to"
-msgstr ""
+msgstr "a"
 
-#: templates/search_results.html:14 templates/includes/pagination.html:4
+#: templates/search_results.html:22 templates/includes/pagination.html:7
 msgid "of"
-msgstr ""
-
-#: templates/search_results.html:15
-msgid "results matching your query:"
-msgstr ""
+msgstr "di"
 
 #: templates/search_results.html:23
+msgid "results matching your query:"
+msgstr "risultati della ricerca:"
+
+#: templates/search_results.html:32
 msgid "read more"
-msgstr ""
+msgstr "leggi il resto"
 
-#: templates/admin/base_site.html:190
-msgid "View Site"
-msgstr ""
-
-#: templates/admin/base_site.html:218
+#: templates/admin/base_site.html:64
 msgid "Forgot password?"
-msgstr ""
+msgstr "Password dimenticata?"
 
-#: templates/admin/base_site.html:222
+#: templates/admin/base_site.html:67
 msgid "Interface:"
-msgstr ""
+msgstr "Interfaccia:"
 
-#: templates/admin/base_site.html:226
-#: templates/includes/editable_toolbar.html:8
-#: templates/includes/editable_toolbar.html:10
+#: templates/admin/base_site.html:70
+#: templates/includes/editable_toolbar.html:7
+#: templates/includes/editable_toolbar.html:9
 msgid "Admin"
-msgstr ""
+msgstr "Ammin."
 
-#: templates/admin/base_site.html:230
+#: templates/admin/base_site.html:73
 msgid "Site"
 msgstr "Sito"
 
-#: templates/admin/index.html:43 templates/admin/includes/dropdown_menu.html:3
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
 msgid "Dashboard"
-msgstr ""
+msgstr "Pannello di controllo"
 
 #: templates/admin/includes/app_list.html:20
 msgid "Add"
-msgstr ""
+msgstr "Aggiungi"
 
 #: templates/admin/includes/app_list.html:27
 msgid "Change"
-msgstr ""
+msgstr "Cambia"
 
 #: templates/admin/includes/dynamic_inline_stacked.html:6
 #: templates/admin/includes/dynamic_inline_tabular.html:6
 msgid "Add another"
-msgstr ""
+msgstr "Aggiungi un altro"
 
 #: templates/admin/includes/recent_actions.html:4
 msgid "Recent Actions"
-msgstr ""
+msgstr "Azioni recenti"
 
 #: templates/admin/includes/recent_actions.html:5
 msgid "My Actions"
-msgstr ""
+msgstr "Le mie azioni"
 
 #: templates/admin/includes/recent_actions.html:9
 msgid "None available"
+msgstr "Nessuno disponibile"
+
+#: templates/includes/account_panel.html:5
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr "Esci"
+
+#: templates/includes/account_panel.html:6
+msgid "Logged in as: "
+msgstr ""
+
+#: templates/includes/account_panel.html:9
+msgid "Log in or sign up"
+msgstr ""
+
+#: templates/includes/account_panel.html:10
+msgid "Not logged in"
 msgstr ""
 
 #: templates/includes/editable_form.html:16
@@ -208,42 +284,12 @@ msgstr "Salva"
 
 #: templates/includes/editable_form.html:17
 msgid "Cancel"
-msgstr ""
+msgstr "Annulla"
 
 #: templates/includes/editable_form.html:25
 msgid "Edit"
-msgstr ""
+msgstr "Modifica"
 
-#: templates/includes/editable_loader.html:87
-msgid "An error occurred"
-msgstr ""
-
-#: templates/includes/editable_toolbar.html:12
-msgid "Log out"
-msgstr ""
-
-#: templates/includes/pagination.html:4
+#: templates/includes/pagination.html:7
 msgid "Page"
-msgstr ""
-
-#: templates/includes/search.html:3
-msgid "Search"
-msgstr ""
-
-#: templates/includes/search.html:6
-msgid "Go"
-msgstr ""
-
-#: templates/includes/search.html:9
-msgid "Use "
-msgstr ""
-
-#: templates/includes/search.html:9
-msgid "quotes"
-msgstr ""
-
-#: templates/includes/search.html:9
-msgid ""
-" for exact phrases, + to make a word or phrase required, and - to exclude a "
-"word or phrase."
-msgstr ""
+msgstr "Pagina"

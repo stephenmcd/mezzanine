@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-20 21:47-0430\n"
+"POT-Creation-Date: 2012-03-15 07:00-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:18 templates/blog/blog_post_list.html:82
+#: models.py:19 templates/blog/blog_post_list.html:107
 msgid "Comments"
 msgstr ""
 
-#: models.py:19
+#: models.py:20
 msgid "Rating"
 msgstr ""
 
-#: models.py:22
+#: models.py:21
+msgid "Featured Image"
+msgstr ""
+
+#: models.py:25
 msgid "Blog post"
 msgstr ""
 
-#: models.py:23
+#: models.py:26
 msgid "Blog posts"
 msgstr ""
 
-#: models.py:45
+#: models.py:48
 msgid "Blog Category"
 msgstr ""
 
-#: models.py:46
+#: models.py:49
 msgid "Blog Categories"
 msgstr ""
 
@@ -49,22 +53,22 @@ msgstr ""
 msgid "Save Draft"
 msgstr ""
 
-#: templates/blog/blog_post_detail.html:34
+#: templates/blog/blog_post_detail.html:21
 msgid "Home"
 msgstr ""
 
-#: templates/blog/blog_post_detail.html:44
-#: templates/blog/blog_post_list.html:51
+#: templates/blog/blog_post_detail.html:34
+#: templates/blog/blog_post_list.html:72
 msgid "Posted by"
 msgstr ""
 
-#: templates/blog/blog_post_detail.html:51
-#: templates/blog/blog_post_list.html:61
+#: templates/blog/blog_post_detail.html:38
+#: templates/blog/blog_post_list.html:82
 msgid "ago"
 msgstr ""
 
-#: templates/blog/blog_post_detail.html:54
-#: templates/blog/blog_post_list.html:86
+#: templates/blog/blog_post_detail.html:42
+#: templates/blog/blog_post_list.html:111
 #, python-format
 msgid ""
 "\n"
@@ -77,37 +81,57 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/blog/blog_post_detail.html:69
-#: templates/blog/blog_post_list.html:71
+#: templates/blog/blog_post_detail.html:61
+#: templates/blog/blog_post_list.html:96
 #: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
 msgstr ""
 
-#: templates/blog/blog_post_detail.html:82
-msgid "Share this on"
+#: templates/blog/blog_post_detail.html:71
+msgid "Share on Twitter"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:27
-msgid "Viewing posts tagged"
+#: templates/blog/blog_post_detail.html:72
+msgid "Share on Facebook"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:29
-msgid "Viewing posts for the category"
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
+msgid "Blog"
 msgstr ""
 
 #: templates/blog/blog_post_list.html:31
+msgid "Tag:"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:33
+msgid "Category:"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:37
+msgid "Author:"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:49
+msgid "Viewing posts tagged"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:51
+msgid "Viewing posts for the category"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:53
 msgid "Viewing posts from"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:34
+#: templates/blog/blog_post_list.html:56
 msgid "Viewing posts by"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:56
+#: templates/blog/blog_post_list.html:77
 msgid "in"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:77
+#: templates/blog/blog_post_list.html:102
 msgid "read more"
 msgstr ""
 
@@ -123,18 +147,18 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: templates/blog/includes/filter_panel.html:52
+#: templates/blog/includes/filter_panel.html:55
 msgid "Authors"
 msgstr ""
 
-#: templates/blog/includes/filter_panel.html:62
+#: templates/blog/includes/filter_panel.html:65
 msgid "Feeds"
 msgstr ""
 
-#: templates/blog/includes/filter_panel.html:63
+#: templates/blog/includes/filter_panel.html:66
 msgid "RSS"
 msgstr ""
 
-#: templates/blog/includes/filter_panel.html:64
+#: templates/blog/includes/filter_panel.html:67
 msgid "Atom"
 msgstr ""

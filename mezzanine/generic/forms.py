@@ -4,6 +4,7 @@ from django.contrib.comments.forms import CommentSecurityForm, CommentForm
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.generic.models import Keyword, ThreadedComment, RATING_RANGE
 
 
@@ -25,7 +26,7 @@ class KeywordsWidget(forms.MultiWidget):
     """
 
     class Media:
-        js = ("mezzanine/js/jquery-1.4.4.min.js",
+        js = ("mezzanine/js/%s" % settings.JQUERY_FILENAME,
               "mezzanine/js/admin/keywords_field.js",)
 
     def __init__(self, attrs=None):
@@ -86,6 +87,11 @@ class ThreadedCommentForm(CommentForm):
     cookie_prefix = "mezzanine-comment-"
 
     def __init__(self, request, *args, **kwargs):
+        """
+        Set some initial field values from cookies or the logged in
+        user, and apply some HTML5 attributes to the fields if the
+        ``FORMS_USE_HTML5`` setting is ``True``.
+        """
         kwargs.setdefault("initial", {})
         user = request.user
         for field in ThreadedCommentForm.cookie_fields:
@@ -93,11 +99,21 @@ class ThreadedCommentForm(CommentForm):
             value = request.COOKIES.get(cookie_name, "")
             if not value and user.is_authenticated():
                 if field == "name":
-                    value = user.get_full_name() or user.username
+                    value = user.get_full_name()
+                    if not value and user.username != user.email:
+                        value = user.username
                 elif field == "email":
                     value = user.email
             kwargs["initial"][field] = value
         super(ThreadedCommentForm, self).__init__(*args, **kwargs)
+        if settings.FORMS_USE_HTML5:
+            for name, field in self.fields.items():
+                if isinstance(field, forms.EmailField):
+                    self.fields[name].widget.input_type = "email"
+                elif  isinstance(field, forms.URLField):
+                    self.fields[name].widget.input_type = "url"
+                if field.required:
+                    self.fields[name].widget.attrs["required"] = ""
 
     def get_comment_model(self):
         """

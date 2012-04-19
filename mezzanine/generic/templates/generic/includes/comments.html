@@ -15,7 +15,6 @@ $(function() {
 {% comment_thread object_for_comments %}
 <h3>{% trans "New Comment" %}</h3>
 <form method="post" id="comment" action="{{ comment_url }}#comment">
-    {% csrf_token %}
     {% if not request.POST.replied_to %}
     {% fields_for posted_comment_form %}
     {% else %}

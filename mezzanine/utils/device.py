@@ -32,7 +32,7 @@ def templates_for_device(request, templates):
     """
     Given a template name (or list of them), returns the template names
     as a list, with each name prefixed with the device directory
-    inserted into the front of the list.
+    inserted before it's associate default in the list.
     """
     if not isinstance(templates, (list, tuple)):
         templates = [templates]
@@ -44,4 +44,5 @@ def templates_for_device(request, templates):
         if settings.DEVICE_DEFAULT and settings.DEVICE_DEFAULT != device:
             default = "%s/%s" % (settings.DEVICE_DEFAULT, template)
             device_templates.append(default)
-    return device_templates + templates
+        device_templates.append(template)
+    return device_templates

@@ -5,6 +5,9 @@ import unicodedata
 from django.core.urlresolvers import reverse
 from django.utils.encoding import smart_unicode
 
+from mezzanine.conf import settings
+from mezzanine.utils.importing import import_dotted_path
+
 
 def admin_url(model, url, object_id=None):
     """
@@ -19,6 +22,14 @@ def admin_url(model, url, object_id=None):
 
 
 def slugify(s):
+    """
+    Loads the callable defined by the ``SLUGIFY`` setting, which defaults
+    to the ``slugify_unicode`` function.
+    """
+    return import_dotted_path(settings.SLUGIFY)(s)
+
+
+def slugify_unicode(s):
     """
     Replacement for Django's slugify which allows unicode chars in
     slugs, for URLs in Chinese, Russian, etc.

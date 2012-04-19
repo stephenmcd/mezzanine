@@ -6,6 +6,7 @@ or Django itself. Settings can also be made editable via the admin.
 
 from django.contrib.sites.models import Site
 from django.conf import settings as django_settings
+from django.template.defaultfilters import urlize
 
 from mezzanine import __version__
 
@@ -24,6 +25,12 @@ def register_setting(name="", label="", editable=False, description="",
     else:
         default = getattr(django_settings, name, default)
         setting_type = type(default)
+        if not label:
+            label = name.replace("_", " ").title()
+        parts = []
+        for i, s in enumerate(description.split("``")):
+            parts.append(s if i % 2 == 0 else "<b>%s</b>" % s)
+        description = urlize("".join(parts))
         if setting_type is str:
             setting_type = unicode
         registry[name] = {"name": name, "label": label,

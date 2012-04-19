@@ -20,7 +20,6 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
     {% endeditable %}
     {% endwith %}
     <form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-        {% csrf_token %}
         {% fields_for form %}
         <div class="form-actions">
             <input class="btn btn-primary btn-large" type="submit" value="{{ page.form.button_text }}">

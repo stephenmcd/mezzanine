@@ -21,10 +21,13 @@ if getattr(settings, "ACCOUNTS_ENABLED", False):
             name="account"),
         url("^%s$" % settings.LOGOUT_URL.lstrip("/"), "logout",
             name="logout"),
+        url("^verify_account/(?P<uidb36>[-\w]+)/(?P<token>[-\w]+)/$",
+            "verify_account", name="verify_account"),
     )
 
 urlpatterns += patterns("mezzanine.core.views",
     url("^edit/$", "edit", name="edit"),
     url("^search/$", "search", name="search"),
     url("^set_device/(?P<device>.*)/$", "set_device", name="set_device"),
+    url("^static_proxy/$", "static_proxy", name="static_proxy"),
 )

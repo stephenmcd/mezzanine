@@ -1,5 +1,4 @@
 
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.middleware.cache import UpdateCacheMiddleware
 from django.middleware.cache import FetchFromCacheMiddleware
@@ -19,10 +18,10 @@ class AdminLoginInterfaceSelectorMiddleware(object):
         if login_type and not request.user.is_authenticated():
             response = view_func(request, *view_args, **view_kwargs)
             if request.user.is_authenticated():
-                next = request.GET.get("next", "/")
-                admin_url = reverse("admin:index")
-                if login_type == "admin" and not next.startswith(admin_url):
-                    next = admin_url
+                if login_type == "admin":
+                    next = request.get_full_path()
+                else:
+                    next = request.GET.get("next", "/")
                 return HttpResponseRedirect(next)
             else:
                 return response
@@ -38,24 +37,24 @@ class AdminLoginInterfaceSelector(AdminLoginInterfaceSelectorMiddleware):
 
 
 class TemplateForDeviceMiddleware(object):
-
+    """
+    Inserts device-specific templates to the template list.
+    """
     def process_template_response(self, request, response):
-        """
-        Inserts device-specific templates to the template list.
-        """
-        templates = templates_for_device(request, response.template_name)
-        response.template_name = templates
+        if hasattr(response, "template_name"):
+            templates = templates_for_device(request, response.template_name)
+            response.template_name = templates
         return response
 
 
 class TemplateForHostMiddleware(object):
-
+    """
+    Inserts host-specific templates to the template list.
+    """
     def process_template_response(self, request, response):
-        """
-        Inserts host-specific templates to the template list.
-        """
-        templates = templates_for_host(request, response.template_name)
-        response.template_name = templates
+        if hasattr(response, "template_name"):
+            templates = templates_for_host(request, response.template_name)
+            response.template_name = templates
         return response
 
 

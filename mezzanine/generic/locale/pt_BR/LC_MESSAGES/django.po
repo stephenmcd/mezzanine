@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Hilton Medeiros <medeiros.hilton@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"PO-Revision-Date: 2012-03-11 23:43+0000\n"
+"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.net/projects/p/"
+"mezzanine/language/pt_BR/)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: admin.py:19 models.py:66
+msgid "User"
+msgstr "Usuário"
+
+#: forms.py:78
+msgid "Name"
+msgstr "Nome"
+
+#: forms.py:78
+msgid "required"
+msgstr "obrigatório"
+
+#: forms.py:80
+msgid "Email"
+msgstr "Email"
+
+#: forms.py:81
+msgid "required (not published)"
+msgstr "obrigatório (não publicado)"
+
+#: forms.py:82
+msgid "Website"
+msgstr "Website"
+
+#: forms.py:82
+msgid "optional"
+msgstr "opcional"
+
+#: models.py:21
+msgid "Email hash"
+msgstr "Hash de email"
+
+#: models.py:22
+msgid "By the blog author"
+msgstr "Pelo autor do blog"
+
+#: models.py:29 models.py:58 templates/generic/includes/comments.html:25
+msgid "Comment"
+msgstr "Comentário"
+
+#: models.py:30 templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr "Comentários"
+
+#: models.py:70
+msgid "View on site"
+msgstr "Ver no site"
+
+#: models.py:84
+msgid "Keyword"
+msgstr "Palavra-chave"
+
+#: models.py:85
+msgid "Keywords"
+msgstr "Palavras-chave"
+
+#: models.py:113
+msgid "Value"
+msgstr "Valor"
+
+#: models.py:119
+msgid "Rating"
+msgstr "Avaliação"
+
+#: models.py:120
+msgid "Ratings"
+msgstr "Avaliações"
+
+#: templates/admin/includes/recent_comments.html:4
+msgid "Recent Comments"
+msgstr "Comentários Recentes"
+
+#: templates/admin/includes/recent_comments.html:20
+#: templates/generic/includes/comment.html:22
+#: templates/generic/includes/comment.html:54
+#: templates/generic/includes/comment.html:64
+msgid "ago"
+msgstr "atrás"
+
+#: templates/generic/includes/comment.html:25
+msgid "Link"
+msgstr "Link"
+
+#: templates/generic/includes/comment.html:26
+#: templates/generic/includes/comment.html:37
+msgid "Reply"
+msgstr "Responder"
+
+#: templates/generic/includes/comment.html:60
+msgid "Comment deleted"
+msgstr "Comentário removido"
+
+#: templates/generic/includes/comment.html:62
+msgid "Comment awaiting approval"
+msgstr "Comentário aguardando aprovação"
+
+#: templates/generic/includes/comment.html:73
+msgid "There are currently no comments"
+msgstr "Não há comentários no momento."
+
+#: templates/generic/includes/comments.html:16
+#, fuzzy
+msgid "New Comment"
+msgstr "Comentário"
+
+#: templates/generic/includes/rating.html:7
+msgid "Current rating"
+msgstr "Avaliação atual"
+
+#: templates/generic/includes/rating.html:9
+msgid "Currently unrated"
+msgstr "Atualmente não avaliado"
+
+#: templates/generic/includes/rating.html:16
+msgid "Rate"
+msgstr "Avalie"

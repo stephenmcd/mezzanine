@@ -135,10 +135,9 @@ def set_page_permissions(context, token):
     Used within the change list for pages, to implement permission
     checks for the navigation tree.
     """
-    page = context[token.split_contents()[1]]
-    model = page.get_content_model()
+    page = context[token.split_contents()[1]].get_content_model()
     try:
-        opts = model._meta
+        opts = page._meta
     except AttributeError:
         # A missing inner Meta class usually means the Page model
         # hasn't been directly subclassed.
@@ -152,4 +151,5 @@ def set_page_permissions(context, token):
         perm = request.user.has_perm(perm_name % perm_type)
         perm = perm and getattr(page, "can_%s" % perm_type)(request)
         page.perms[perm_type] = perm
+    context[token.split_contents()[1]] = page
     return ""

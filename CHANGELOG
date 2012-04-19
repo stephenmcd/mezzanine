@@ -1,3 +1,90 @@
+Version 1.0.8 (Mar 24, 2012)
+----------------------------
+
+  * Fixed .navbar .container responsive width - Stephen McDonald
+  * Added default blank favicon and replace Bootstrap's collapse JS with all Bootstrap JS - Stephen McDonald
+  * Added nav dividers in primary menu - Stephen McDonald
+  * Fixed leftover tag loading in form response emails - Stephen McDonald
+
+Version 1.0.7 (Mar 24, 2012)
+----------------------------
+
+  * Added html5shiv for IE to recognise and style the HTML5 elements - Paolo Dina
+  * Fixed body_id block - Stephen McDonald
+  * Upgrade Bootstrap to 2.0.2 - Stephen McDonald
+
+Version 1.0.6 (Mar 22, 2012)
+----------------------------
+
+  * Fixed draft status for quick blog form in dashboard. Closes #172 - Stephen McDonald
+  * Format newlines in the quick blog form since the expected format is HTML - Stephen McDonald
+  * Markup validation improvements - Paolo Dina
+  * Added Paolo Dina to AUTHORS - Stephen McDonald
+
+Version 1.0.5 (Mar 20, 2012)
+----------------------------
+
+  * Fixed admin navigation showing in inline filebrowser popups when called from TinyMCE - Stephen McDonald
+  * Bump filebrowser_safe to 0.2.3 - Stephen McDonald
+
+Version 1.0.4 (Mar 19, 2012)
+----------------------------
+
+  * Bump dependencies - Stephen McDonald
+
+Version 1.0.3 (Mar 19, 2012)
+----------------------------
+
+  * Don't restrict image width in default css since it's now responsive - Stephen McDonald
+  * Updated templates_for_host to insert default templates after the associated custom template, rather than putting all defaults at the end - Josh Cartmell
+  * Updated templates_for_device to insert default templates after the associated custom template, rather than putting all defaults after all custom templates - Josh Cartmell
+  * Disable nav in popups. Closes #152 - Stephen McDonald
+  * Refactored model graph building in docs - call management command natively, and handle all the error conditions - Stephen McDonald
+  * Update mezzanine/forms/forms.py - Magic
+  * Update mezzanine/blog/locale/ru/LC_MESSAGES/django.po - Mikhail
+  * Update mezzanine/conf/locale/ru/LC_MESSAGES/django.po - Mikhail
+  * Internal refactoring of abstract models in mezzanine.core. Move admin_link from Displayable to Slugged, since it is more closely related to URLs. Move description_from_content from Slugged to MetaData, since it is more related to description on MetaData. Don't rely on title in description_from_content, just use string version of an instance, which is title anyway via Slugged - Stephen McDonald
+  * Fixed some comment typos - Stephen McDonald
+  * Added handling for having 'save' and 'save and continue' in SingletonAdmin - Stephen McDonald
+  * Make pillow an optional dependency, only used when PIL isn't installed - Stephen McDonald
+  * Added bootstrap's collapsible navbar, upgraded jQuery to 1.7, and added a setting JQUERY_FILENAME so that the jQuery file/version is stored in one place - Stephen McDonald
+  * Fix cyclic import in Django 1.4 - Stephen McDonald
+  * Don't abort on graph generation in docs build, since we can use the repo version of it - Stephen McDonald
+  * Pin exact versions in dependencies - Stephen McDonald
+  * Remove Django 1.4 from supported versions in README - Stephen McDonald
+  * Fix form export encoding - Stephen McDonald
+  * Added Tommy Wolber to AUTHORS - Stephen McDonald
+  * Update translations from transifex - Sebastián Ramírez Magrí
+  * Updated database settings to use prefixed formatunprefixed format removed from django 1.4. Added django.db.backends. tosettings.py and local_settings.py templates - Patrick Taylor
+  * Clean up db settings and remove helpers from mezzanine.utils.conf - Stephen McDonald
+  * Add vcs ignore files to project_template - Stephen McDonald
+  * Added Patrick Taylor to AUTHORS - Stephen McDonald
+  * Update translations from transifex adding nb - Sebastián Ramírez Magrí
+  * Added more info and examples of different homepage patterns in project_template/urls.py - Stephen McDonald
+  * Added FAQs section to docs - Stephen McDonald
+  * Skinned the docs to be in line with the Mezzanine project's homepage styling - Stephen McDonald
+  * Docs cleanup - Stephen McDonald
+  * Fixed formatting - Stephen McDonald
+  * Added storage API to thumbnail template tag, and zip upload for galleries - Stephen McDonald
+  * Fix use of with statement for Python 2.5 - Stephen McDonald
+  * Use django's conf at the module level in mezzanine.core.fields, so that fields can be loaded prior to mezzanine.conf being loaded - Stephen McDonald
+  * Exclude static dir from package - Stephen McDonald
+  * FAQs tweak - Stephen McDonald
+  * Added the collecttemplates management command, for copying all (or app specific) templates to a project - Stephen McDonald
+  * Fixed typo - Stephen McDonald
+  * Actual collecttemplates command - Stephen McDonald
+  * Added secure arg and default expiry seconds to mezzanine.utils.views.set_cookie - Stephen McDonald
+  * Added mezzanine.utils.email.send_mail_template for sending templated email, and integrated with mezzanine.forms. Closes #165 - Stephen McDonald
+  * Missing files - Stephen McDonald
+  * Fixed weird double-click bug in admin page tree - Stephen McDonald
+  * Fixed regression in orderable inlines from upgrading to latest jQuery - Stephen McDonald
+  * Fixed regression in keywords field from upgrading to latest jQuery - Stephen McDonald
+  * Fixed signature change in Django 1.4's admin change_view - Stephen McDonald
+  * Fixed admin login redirect for non-login view URLs - Stephen McDonald
+  * Fixed removed project_template setup in mezzanine-project. Closes #167 - Stephen McDonald
+  * Use operating system separator - Chris Trengove
+  * Bump dependencies - Stephen McDonald
+
 Version 1.0.2 (Mar 06, 2012)
 ----------------------------
 

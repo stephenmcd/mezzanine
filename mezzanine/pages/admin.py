@@ -91,7 +91,7 @@ class PageAdmin(DisplayableAdmin):
         extra_context["hide_delete_link"] = not page.can_delete(request)
         extra_context["hide_slug_field"] = page.overridden()
         return super(PageAdmin, self).change_view(request, object_id,
-                                                  extra_context)
+                                                  extra_context=extra_context)
 
     def delete_view(self, request, object_id, extra_context=None):
         """

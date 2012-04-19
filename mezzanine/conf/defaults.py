@@ -18,7 +18,16 @@ from mezzanine.conf import register_setting
 
 register_setting(
     name="ACCOUNTS_ENABLED",
-    description="If True, users can create an account.",
+    description="If ``True``, users can create an account.",
+    editable=False,
+    default=False,
+)
+
+register_setting(
+    name="ACCOUNTS_VERIFICATION_REQUIRED",
+    description="If ``True``, when users create an account, they will be "
+        "sent an email with a verification link, which they must click to "
+        "enable their account.",
     editable=False,
     default=False,
 )
@@ -45,7 +54,7 @@ register_setting(
 register_setting(
     name="BLOG_BITLY_USER",
     label=_("bit.ly username"),
-    description=_("Username for bit.ly URL shortening service."),
+    description=_("Username for http://bit.ly URL shortening service."),
     editable=True,
     default="",
 )
@@ -53,7 +62,7 @@ register_setting(
 register_setting(
     name="BLOG_BITLY_KEY",
     label=_("bit.ly key"),
-    description=_("Key for bit.ly URL shortening service."),
+    description=_("Key for http://bit.ly URL shortening service."),
     editable=True,
     default="",
 )
@@ -90,6 +99,23 @@ register_setting(
 )
 
 register_setting(
+    name="COMMENTS_ACCOUNT_REQUIRED",
+    label=_("Accounts required for commenting"),
+    description="If ``True``, users must log in to comment.",
+    editable=True,
+    default=False,
+)
+
+register_setting(
+    name="AKISMET_API_KEY",
+    label=_("Akismet API Key"),
+    description=_("Key for http://akismet.com spam filtering service. Used "
+        "for filtering comments and forms."),
+    editable=True,
+    default="",
+)
+
+register_setting(
     name="COMMENTS_DISQUS_SHORTNAME",
     label=_("Disqus shortname"),
     description=_("Shortname for the http://disqus.com comments service."),
@@ -100,7 +126,7 @@ register_setting(
 register_setting(
     name="COMMENTS_DISQUS_API_PUBLIC_KEY",
     label=_("Disqus public key"),
-    description=_("Public key for Disqus developer API"),
+    description=_("Public key for http://disqus.com developer API"),
     editable=True,
     default="",
 )
@@ -108,7 +134,7 @@ register_setting(
 register_setting(
     name="COMMENTS_DISQUS_API_SECRET_KEY",
     label=_("Disqus secret key"),
-    description=_("Secret key for Disqus developer API"),
+    description=_("Secret key for http://disqus.com developer API"),
     editable=True,
     default="",
 )
@@ -239,8 +265,7 @@ register_setting(
 
 register_setting(
     name="FORMS_USE_HTML5",
-    description=_("If ``True``, website forms created by the forms app will "
-        "use HTML5 features."),
+    description=_("If ``True``, website forms will use HTML5 features."),
     editable=False,
     default=False,
 )
@@ -280,6 +305,15 @@ register_setting(
                   "when loading templates."),
     editable=False,
     default=(),
+)
+
+register_setting(
+    name="JQUERY_FILENAME",
+    label=_("Name of the jQuery file."),
+    description=_("Name of the jQuery file found in "
+                  "mezzanine/core/static/mezzanine/js/"),
+    editable=False,
+    default="jquery-1.7.1.min.js",
 )
 
 register_setting(
@@ -352,6 +386,17 @@ register_setting(
     description=_("A tag line that will appear at the top of all pages."),
     editable=True,
     default=_("An open source content management platform."),
+)
+
+register_setting(
+    name="SLUGIFY",
+    description=_("Dotted Python path to the callable for converting "
+        "strings into URL slugs. Defaults to "
+        "``mezzanine.utils.urls.slugify_unicode`` which allows for non-ascii "
+        "URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+        "Django's slugify function, or something of your own if required."),
+    editable=False,
+    default="mezzanine.utils.urls.slugify_unicode",
 )
 
 register_setting(
@@ -458,7 +503,7 @@ register_setting(
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
         "DEV_SERVER", "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED",
-        "GOOGLE_ANALYTICS_ID", "LOGIN_URL", "LOGOUT_URL",
+        "GOOGLE_ANALYTICS_ID", "JQUERY_FILENAME", "LOGIN_URL", "LOGOUT_URL",
         "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE", "RATINGS_MAX",
     ),
 )

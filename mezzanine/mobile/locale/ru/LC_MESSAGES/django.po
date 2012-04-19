@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-20 21:47-0430\n"
-"PO-Revision-Date: 2011-11-12 03:36+0000\n"
-"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"PO-Revision-Date: 2012-03-11 23:56+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
+"language/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,15 +36,15 @@ msgstr "Ошибка"
 msgid "Sorry, an error occurred."
 msgstr "Извините, возникла ошибка."
 
-#: templates/mobile/base.html:35 templates/mobile/index.html:6
+#: templates/mobile/base.html:31 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Начало"
 
-#: templates/mobile/base.html:47
+#: templates/mobile/base.html:43
 msgid "Powered by"
 msgstr "Основано на"
 
-#: templates/mobile/base.html:48
+#: templates/mobile/base.html:44
 msgid "View Full Site"
 msgstr "Полная версия"
 
@@ -86,7 +87,6 @@ msgstr "Написал(а)"
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
-#: templates/mobile/blog/includes/comments_thread.html:19
 msgid "ago"
 msgstr "назад"
 
@@ -101,31 +101,6 @@ msgstr "Поделиться этим на:"
 #: templates/mobile/blog/blog_post_detail.html:54
 msgid "or"
 msgstr "или"
-
-#: templates/mobile/blog/includes/comments.html:4
-msgid "Comments"
-msgstr "Комментарии"
-
-#: templates/mobile/blog/includes/comments.html:15
-msgid "Comment"
-msgstr "Комментарий"
-
-#: templates/mobile/blog/includes/comments_thread.html:23
-#: templates/mobile/blog/includes/comments_thread.html:35
-msgid "Reply"
-msgstr "Ответить"
-
-#: templates/mobile/blog/includes/comments_thread.html:43
-msgid "Comment deleted"
-msgstr "Комментарий удален"
-
-#: templates/mobile/blog/includes/comments_thread.html:45
-msgid "Comment awaiting approval"
-msgstr "Комментарий ожидает подтверждения"
-
-#: templates/mobile/blog/includes/comments_thread.html:53
-msgid "There are currently no comments"
-msgstr "Комментариев нет"
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"

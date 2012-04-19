@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-20 21:47-0430\n"
-"PO-Revision-Date: 2011-11-16 10:27+0000\n"
-"Last-Translator: vrialland <vincent.rialland@gmail.com>\n"
-"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/team/"
-"fr/)\n"
+"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"PO-Revision-Date: 2012-03-11 23:56+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/"
+"language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,10 +47,6 @@ msgstr "Site web"
 msgid "optional"
 msgstr "optionnel"
 
-#: forms.py:97 models.py:119
-msgid "Rating"
-msgstr "Note"
-
 #: models.py:21
 msgid "Email hash"
 msgstr "Hash de l'adresse e-mail"
@@ -59,7 +55,7 @@ msgstr "Hash de l'adresse e-mail"
 msgid "By the blog author"
 msgstr "Par l'auteur du blog"
 
-#: models.py:29 models.py:58 templates/generic/includes/comments.html:21
+#: models.py:29 models.py:58 templates/generic/includes/comments.html:25
 msgid "Comment"
 msgstr "Commentaire"
 
@@ -83,49 +79,58 @@ msgstr "Mots-clés"
 msgid "Value"
 msgstr "Valeur"
 
+#: models.py:119
+msgid "Rating"
+msgstr "Note"
+
 #: models.py:120
 msgid "Ratings"
 msgstr "Notes"
 
-#: templates/admin/includes/recent_comments.html:13
+#: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
 msgstr "Commentaires récents"
 
-#: templates/admin/includes/recent_comments.html:29
-#: templates/generic/includes/comment.html:19
-#: templates/generic/includes/comment.html:57
+#: templates/admin/includes/recent_comments.html:20
+#: templates/generic/includes/comment.html:22
+#: templates/generic/includes/comment.html:54
+#: templates/generic/includes/comment.html:64
 msgid "ago"
 msgstr "il y a"
 
-#: templates/generic/includes/comment.html:22
+#: templates/generic/includes/comment.html:25
 msgid "Link"
 msgstr "Lien"
 
-#: templates/generic/includes/comment.html:23
-#: templates/generic/includes/comment.html:39
+#: templates/generic/includes/comment.html:26
+#: templates/generic/includes/comment.html:37
 msgid "Reply"
 msgstr "Répondre"
 
-#: templates/generic/includes/comment.html:65
+#: templates/generic/includes/comment.html:60
 msgid "Comment deleted"
 msgstr "Commentaire effacé"
 
-#: templates/generic/includes/comment.html:68
+#: templates/generic/includes/comment.html:62
 msgid "Comment awaiting approval"
 msgstr "Commentaire en attente d'approbation"
 
-#: templates/generic/includes/comment.html:77
+#: templates/generic/includes/comment.html:73
 msgid "There are currently no comments"
 msgstr "Pas de commentaires actuellement."
 
-#: templates/generic/includes/rating.html:5
+#: templates/generic/includes/comments.html:16
+msgid "New Comment"
+msgstr "Nouveau commentaire"
+
+#: templates/generic/includes/rating.html:7
 msgid "Current rating"
 msgstr "Note courante"
 
-#: templates/generic/includes/rating.html:7
+#: templates/generic/includes/rating.html:9
 msgid "Currently unrated"
 msgstr "N'a pas de note"
 
-#: templates/generic/includes/rating.html:14
+#: templates/generic/includes/rating.html:16
 msgid "Rate"
 msgstr "Note"

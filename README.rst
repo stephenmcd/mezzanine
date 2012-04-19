@@ -1,4 +1,4 @@
-.. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
+  .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
 
 ========
 Overview
@@ -50,8 +50,10 @@ provides the following features:
   * `Google Analytics`_ integration
   * `Twitter`_ feed integration
   * `bit.ly`_ integration
+  * `Akismet`_ spam filtering
   * Sharing via Facebook or Twitter
   * Built-in `test suite`_
+  * User accounts with email verification
 
 The Mezzanine admin dashboard:
 
@@ -64,7 +66,7 @@ Mezzanine has no explicit dependencies apart from a standard Django
 environment using:
 
   * `Python`_ 2.5 ... 2.7
-  * `Django`_ 1.3 ... 1.4
+  * `Django`_ 1.3.x
 
 Mezzanine is designed however to be used most effectively in conjunction
 with the following libraries:
@@ -121,26 +123,8 @@ in using the default account (``username: admin, password: default``). If
 you'd like to specify a different username and password during set up, simply
 exclude the ``--noinput`` option included above when running ``createdb``.
 
-Integrating an Existing Django Project
-======================================
-
-Mezzanine is structured as a regular Django project, and as such allows you
-to add other third party Django apps to your Mezzanine project as required.
-Inversely, you can add Mezzanine to an existing project by copying the
-relevant parts from Mezzanine's `project_template`_  package:
-
-  * Settings defined in the ``settings`` module.
-  * URL patterns defined in the ``urls`` module.
-
-Take the time to look over Mezzanine's ``project_template.settings`` module,
-as it contains many optional settings commented out. Of particular note when
-integrating with an existing project are the following:
-
-  * ``INSTALLED_APPS``
-  * ``TEMPLATE_CONTEXT_PROCESSORS``
-  * ``MIDDLEWARE_CLASSES``
-  * ``PACKAGE_NAME_*`` (for `django-grappelli`_ and `django-filebrowser`_ integration)
-  * The call to ``mezzanine.utils.conf.set_dynamic_settings`` at the very end of the ``settings`` module.
+For information on how to add Mezzanine to an existing Django project,
+see the FAQs section of the documentation.
 
 Contributing
 ============
@@ -271,13 +255,14 @@ Quotes
 .. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Themes`: http://mezzanine.jupo.org/docs/themes.html
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
-.. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
+.. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.core.tests
 .. _`Twitter Bootstrap`: http://twitter.github.com/bootstrap/
 .. _`Disqus`: http://disqus.com/
 .. _`Gravatar`: http://gravatar.com/
 .. _`Google Analytics`: http://www.google.com/analytics/
 .. _`Twitter`: http://twitter.com/
 .. _`bit.ly`: http://bit.ly/
+.. _`Akismet`: http://akismet.com/
 .. _`project_template`: https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template
 .. _`GitHub`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/

@@ -32,4 +32,6 @@ def templates_for_host(request, templates):
     if theme_dir:
         for template in templates:
             host_templates.append("%s/templates/%s" % (theme_dir, template))
-    return host_templates + templates
+            host_templates.append(template)
+        return host_templates
+    return templates

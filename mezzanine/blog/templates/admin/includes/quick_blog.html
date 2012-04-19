@@ -1,9 +1,22 @@
 {% load i18n %}
 
 {% if perms.blog.add_blogpost and perms.blog.change_blogpost %}
+<script>
+// Format newlines for HTML in the quick blog form, since the content
+// is HTML but the form field is plain text.
+$(function() {
+    $('#quick-blog-form').submit(function() {
+        var field = $('#quick-blog-form #id_content');
+        var value = field.attr('value').split('\n\n').join('</p><p>');
+        value = '<p>' + value.split('\n').join('<br>') + '</p>';
+        field.attr('value', value);
+        return true;
+    });
+});
+</script>
 <div class="module">
     <h2>{% trans "Quick Blog" %}</h2>
-    <form method="post" action="{% url admin:blog_blogpost_add %}">
+    <form method="post" id="quick-blog-form" action="{% url admin:blog_blogpost_add %}">
         {% csrf_token %}
         <table id="quick-blog">
             {{ form.as_table }}

@@ -12,11 +12,11 @@
             {% if comment.url %}
             <a href="{{ comment.url }}">
                 <img src="{% gravatar_url comment.email_hash %}">
-                {{ comment.name }}
+                {{ comment.user_name }}
             </a>
             {% else %}
             <img src="{% gravatar_url comment.email_hash %}">
-            {{ comment.name }}
+            {{ comment.user_name }}
             {% endif %}
         </strong>
         <span class="timespan">{{ comment.submit_date|timesince }} {% trans "ago" %}</span>
@@ -27,7 +27,6 @@
         <form class="reply-form" method="post" id="reply-{{ comment.id }}"
             action="{{ comment_url }}#reply-{{ comment.id }}"
             {% if replied_to != comment.id %}style="display:none;"{% endif %}>
-            {% csrf_token %}
             {% if replied_to == comment.id %}
             {% fields_for posted_comment_form %}
             {% else %}
@@ -44,11 +43,11 @@
             {% if comment.url %}
             <a href="{{ comment.url }}">
                 <img src="{% gravatar_url comment.email_hash %}">
-                {{ comment.name }}
+                {{ comment.user_name }}
             </a>
             {% else %}
             <img src="{% gravatar_url comment.email_hash %}">
-            {{ comment.name }}
+            {{ comment.user_name }}
             {% endif %}
         </strong>
         <span class="timespan">{{ comment.submit_date|timesince }} {% trans "ago" %}</span>

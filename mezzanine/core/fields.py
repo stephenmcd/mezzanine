@@ -1,9 +1,9 @@
 
+from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.conf import settings
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -17,6 +17,7 @@ class RichTextField(models.TextField):
         Apply the widget class defined by the
         ``RICHTEXT_WIDGET_CLASS`` setting.
         """
+        from mezzanine.conf import settings
         try:
             widget_class = import_dotted_path(settings.RICHTEXT_WIDGET_CLASS)
         except ImportError:

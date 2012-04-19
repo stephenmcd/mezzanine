@@ -3,6 +3,7 @@ from uuid import uuid4
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from django.core.validators import validate_email, ValidationError
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.safestring import mark_safe
@@ -34,7 +35,22 @@ class UserForm(forms.Form):
     """
     email = forms.EmailField(label=_("Email Address"))
     password = forms.CharField(label=_("Password"),
-        widget=forms.PasswordInput(render_value=False))
+                               widget=forms.PasswordInput(render_value=False))
+
+    def __init__(self, request, *args, **kwargs):
+        """
+        Try and pre-populate the email field with a cookie value.
+        """
+        initial = {}
+        for value in request.COOKIES.values():
+            try:
+                validate_email(value)
+            except ValidationError:
+                pass
+            else:
+                initial["email"] = value
+                break
+        super(UserForm, self).__init__(initial=initial, *args, **kwargs)
 
     def authenticate(self):
         """
@@ -67,9 +83,16 @@ class SignupForm(UserForm):
         """
         Create the new user using their email address as their username.
         """
-        User.objects.create_user(self.cleaned_data["email"],
-            self.cleaned_data["email"], self.cleaned_data["password"])
-        self.authenticate()
+        user = User.objects.create_user(self.cleaned_data["email"],
+                                        self.cleaned_data["email"],
+                                        self.cleaned_data["password"])
+        settings.use_editable()
+        if settings.ACCOUNTS_VERIFICATION_REQUIRED:
+            user.is_active = False
+            user.save()
+        else:
+            self.authenticate()
+        return user
 
 
 class LoginForm(UserForm):

@@ -1,48 +1,89 @@
 
+from __future__ import with_statement
+import os
+
 from django.contrib import admin
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin.options import ModelAdmin
-from django.contrib.auth import logout as auth_logout
-from django.contrib.messages import info
+from django.contrib.auth import login, logout as auth_logout
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.messages import info, error
+from django.contrib.staticfiles import finders
 from django.db.models import get_model
-from django import http
+from django.http import HttpResponse, HttpResponseServerError
 from django.shortcuts import redirect
 from django.template import RequestContext
 from django.template.loader import get_template
+from django.utils.http import base36_to_int
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import LoginForm, SignupForm, get_edit_form
 from mezzanine.core.models import Displayable
-from mezzanine.utils.views import is_editable, paginate, render
-from mezzanine.utils.views import set_cookie
+from mezzanine.utils.email import send_verification_mail
+from mezzanine.utils.views import is_editable, paginate, render, set_cookie
 
 
 def account(request, template="account.html"):
     """
     Display and handle both the login and signup forms.
     """
-    login_form = LoginForm()
-    signup_form = SignupForm()
+    login_form = LoginForm(request)
+    signup_form = SignupForm(request)
     if request.method == "POST":
         posted_form = None
         message = ""
         if request.POST.get("login") is not None:
-            login_form = LoginForm(request.POST)
+            login_form = LoginForm(request, request.POST)
             if login_form.is_valid():
                 posted_form = login_form
                 message = _("Successfully logged in")
         else:
-            signup_form = SignupForm(request.POST)
+            signup_form = SignupForm(request, request.POST)
             if signup_form.is_valid():
-                signup_form.save()
-                posted_form = signup_form
-                message = _("Successfully signed up")
+                new_user = signup_form.save()
+                if not new_user.is_active:
+                    send_verification_mail(request, new_user)
+                    info(request, _("A verification email has been sent with "
+                                    "a link for activating your account."))
+                else:
+                    posted_form = signup_form
+                    message = _("Successfully signed up")
         if posted_form is not None:
             posted_form.login(request)
             info(request, message)
             return redirect(request.GET.get("next", "/"))
     context = {"login_form": login_form, "signup_form": signup_form}
     return render(request, template, context)
+
+
+def verify_account(request, uidb36=None, token=None):
+    """
+    View for the link in the verification email sent to a new user
+    when they create an account and ``ACCOUNTS_VERIFICATION_REQUIRED``
+    is set to ``True``. Activates the user and logs them in,
+    redirecting to the URL they tried to access when signing up.
+    """
+    user = None
+    if uidb36 and token:
+        try:
+            user = User.objects.get(is_active=False, id=base36_to_int(uidb36))
+        except User.DoesNotExist:
+            pass
+        else:
+            if default_token_generator.check_token(user, token):
+                user.is_active = True
+                user.save()
+                user.backend = settings.AUTHENTICATION_BACKENDS[0]
+                login(request, user)
+            else:
+                user = None
+    url = request.GET.get("next", "/")
+    if user is None:
+        error(request, _("The link you clicked is no longer valid."))
+        url = "/"
+    return redirect(url)
 
 
 def logout(request):
@@ -77,6 +118,7 @@ def direct_to_template(request, template, extra_context=None, **kwargs):
     return render(request, template, context)
 
 
+@staff_member_required
 def edit(request):
     """
     Process the inline editing form.
@@ -95,7 +137,7 @@ def edit(request):
         response = ""
     else:
         response = form.errors.values()[0][0]
-    return http.HttpResponse(unicode(response))
+    return HttpResponse(unicode(response))
 
 
 def search(request, template="search_results.html"):
@@ -104,12 +146,46 @@ def search(request, template="search_results.html"):
     """
     settings.use_editable()
     query = request.GET.get("q", "")
-    results = Displayable.objects.search(query)
-    results = paginate(results, request.GET.get("page", 1),
-                       settings.SEARCH_PER_PAGE,
-                       settings.MAX_PAGING_LINKS)
+    page = request.GET.get("page", 1)
+    results = paginate(Displayable.objects.search(query), page,
+                       settings.SEARCH_PER_PAGE, settings.MAX_PAGING_LINKS)
     context = {"query": query, "results": results}
     return render(request, template, context)
+
+
+@staff_member_required
+def static_proxy(request):
+    """
+    Serves TinyMCE plugins inside the inline popups and the uploadify
+    SWF, as these are normally static files, and will break with
+    cross-domain JavaScript errors if ``STATIC_URL`` is an external
+    host. URL for the file is passed in via querystring in the inline
+    popup plugin template.
+    """
+    # Get the relative URL after STATIC_URL.
+    url = request.GET["u"]
+    protocol = "http" if not request.is_secure() else "https"
+    host = protocol + "://" + request.get_host()
+    for prefix in (host, settings.STATIC_URL):
+        if url.startswith(prefix):
+            url = url.replace(prefix, "", 1)
+    response = ""
+    path = finders.find(url)
+    if path:
+        if isinstance(path, (list, tuple)):
+            path = path[0]
+        with open(path, "rb") as f:
+            response = f.read()
+        mimetype = "application/octet-stream"
+        if url.endswith(".htm"):
+            # Inject <base href="{{ STATIC_URL }}"> into TinyMCE
+            # plugins, since the path static files in these won't be
+            # on the same domain.
+            mimetype = "text/html"
+            static_url = settings.STATIC_URL + os.path.split(url)[0] + "/"
+            base_tag = "<base href='%s'>" % static_url
+            response = response.replace("<head>", "<head>" + base_tag)
+    return HttpResponse(response, mimetype=mimetype)
 
 
 def server_error(request, template_name='500.html'):
@@ -119,4 +195,4 @@ def server_error(request, template_name='500.html'):
     """
     context = RequestContext(request, {"STATIC_URL": settings.STATIC_URL})
     t = get_template(template_name)
-    return http.HttpResponseServerError(t.render(context))
+    return HttpResponseServerError(t.render(context))

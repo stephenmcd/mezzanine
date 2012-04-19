@@ -3,7 +3,14 @@
 ``ACCOUNTS_ENABLED``
 --------------------
 
-If True, users can create an account.
+If ``True``, users can create an account.
+
+Default: ``False``
+
+``ACCOUNTS_VERIFICATION_REQUIRED``
+----------------------------------
+
+If ``True``, when users create an account, they will be sent an email with a verification link, which they must click to enable their account.
 
 Default: ``False``
 
@@ -21,17 +28,24 @@ Unregister these models from the admin.
 
 Default: ``()``
 
+``AKISMET_API_KEY``
+-------------------
+
+Key for `http://akismet.com <http://akismet.com>`_ spam filtering service. Used for filtering comments and forms.
+
+Default: ``''``
+
 ``BLOG_BITLY_KEY``
 ------------------
 
-Key for bit.ly URL shortening service.
+Key for `http://bit.ly <http://bit.ly>`_ URL shortening service.
 
 Default: ``''``
 
 ``BLOG_BITLY_USER``
 -------------------
 
-Username for bit.ly URL shortening service.
+Username for `http://bit.ly <http://bit.ly>`_ URL shortening service.
 
 Default: ``''``
 
@@ -63,6 +77,13 @@ Enable featured images in blog posts
 
 Default: ``False``
 
+``COMMENTS_ACCOUNT_REQUIRED``
+-----------------------------
+
+If ``True``, users must log in to comment.
+
+Default: ``False``
+
 ``COMMENTS_DEFAULT_APPROVED``
 -----------------------------
 
@@ -73,21 +94,21 @@ Default: ``True``
 ``COMMENTS_DISQUS_API_PUBLIC_KEY``
 ----------------------------------
 
-Public key for Disqus developer API
+Public key for `http://disqus.com <http://disqus.com>`_ developer API
 
 Default: ``''``
 
 ``COMMENTS_DISQUS_API_SECRET_KEY``
 ----------------------------------
 
-Secret key for Disqus developer API
+Secret key for `http://disqus.com <http://disqus.com>`_ developer API
 
 Default: ``''``
 
 ``COMMENTS_DISQUS_SHORTNAME``
 -----------------------------
 
-Shortname for the http://disqus.com comments service.
+Shortname for the `http://disqus.com <http://disqus.com>`_ comments service.
 
 Default: ``''``
 
@@ -178,14 +199,14 @@ Default: ``''``
 ``FORMS_USE_HTML5``
 -------------------
 
-If ``True``, website forms created by the forms app will use HTML5 features.
+If ``True``, website forms will use HTML5 features.
 
 Default: ``False``
 
 ``GOOGLE_ANALYTICS_ID``
 -----------------------
 
-Google Analytics ID (http://www.google.com/analytics/)
+Google Analytics ID (`http://www.google.com/analytics/ <http://www.google.com/analytics/>`_)
 
 Default: ``''``
 
@@ -195,6 +216,13 @@ Default: ``''``
 A sequence mapping host names to themes, allowing different templates to be served per HTTP hosts Each item in the sequence is a two item sequence, containing a host such as ``othersite.example.com``, and the name of an importable Python package for the theme. If the host is matched for a request, the templates directory inside the theme package will be first searched when loading templates.
 
 Default: ``()``
+
+``JQUERY_FILENAME``
+-------------------
+
+Name of the jQuery file found in mezzanine/core/static/mezzanine/js/
+
+Default: ``'jquery-1.7.1.min.js'``
 
 ``MAX_PAGING_LINKS``
 --------------------
@@ -259,6 +287,13 @@ Title that will display at the top of the site, and be appended to the content o
 
 Default: ``'Mezzanine'``
 
+``SLUGIFY``
+-----------
+
+Dotted Python path to the callable for converting strings into URL slugs. Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use Django's slugify function, or something of your own if required.
+
+Default: ``'mezzanine.utils.urls.slugify_unicode'``
+
 ``SSL_ENABLED``
 ---------------
 
@@ -299,7 +334,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('ACCOUNTS_ENABLED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'LOGIN_URL', 'LOGOUT_URL', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
+Default: ``('ACCOUNTS_ENABLED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'JQUERY_FILENAME', 'LOGIN_URL', 'LOGOUT_URL', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
 
 ``THUMBNAILS_DIR_NAME``
 -----------------------

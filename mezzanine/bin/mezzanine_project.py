@@ -4,7 +4,7 @@ from __future__ import with_statement
 from distutils.dir_util import copy_tree
 from optparse import OptionParser
 import os
-from shutil import move, rmtree
+from shutil import move
 from uuid import uuid4
 
 from mezzanine.utils.importing import path_for_import
@@ -19,14 +19,6 @@ def create_project():
     parser = OptionParser(usage="usage: %prog [options] project_name")
     parser.add_option("-a", "--alternate", dest="alt", metavar="PACKAGE",
         help="Alternate package to use, containing a project_template")
-    parser.add_option("-s", "--source", dest="copy_source", default=False,
-        action="store_true", help="Copy package source to new project")
-    parser.add_option("-t", "--templates", dest="copy_templates",
-        default=False, action="store_true",
-        help="Copy templates to the project")
-    parser.add_option("-m", "--mobiletemplates", dest="copy_mobile_templates",
-        default=False, action="store_true",
-        help="Copy mobile templates to the project")
     (options, args) = parser.parse_args()
 
     if len(args) != 1:
@@ -44,8 +36,8 @@ def create_project():
         pass
     else:
         parser.error("'%s' conflicts with the name of an existing "
-            "Python module and cannot be used as a project name. "
-            "Please try another name." % project_name)
+                     "Python module and cannot be used as a project "
+                     "name. Please try another name." % project_name)
 
     # Create the list of packages to build from - at this stage it
     # should only be one or two names, mezzanine plus an alternate
@@ -60,34 +52,13 @@ def create_project():
             parser.error("Could not import package '%s'" % package_name)
 
     # Build the project up copying over the project_template from
-    # each of the packages.
-    template_path = os.path.join(project_path, "templates")
+    # each of the packages. An alternate package will overwrite
+    # files from Mezzanine.
     for package_name in packages:
         package_path = path_for_import(package_name)
-        if options.copy_source:
-            copy_tree(package_path, os.path.join(project_path, package_name))
         copy_tree(os.path.join(package_path, "project_template"), project_path)
         move(os.path.join(project_path, "local_settings.py.template"),
-            os.path.join(project_path, "local_settings.py"))
-        if options.copy_templates:
-            for app_dir in os.listdir(package_path):
-                # Mobile templates handled by -m option below.
-                if app_dir == "mobile":
-                    continue
-                template_dir = os.path.join(package_path, app_dir, "templates")
-                if os.path.isdir(template_dir):
-                    copy_tree(template_dir, template_path)
-        if options.copy_mobile_templates:
-            template_dir = os.path.join(package_path, "mobile", "templates")
-            if os.path.isdir(template_dir):
-                copy_tree(template_dir, template_path)
-    # Remove admin templates from the project to allow for easier
-    # upgrading, as these templates need not be customised.
-    if options.copy_templates:
-        try:
-            rmtree(os.path.join(template_path, "admin"))
-        except OSError:
-            pass
+             os.path.join(project_path, "local_settings.py"))
 
     # Generate a unique SECREY_KEY for the project's setttings module.
     settings_path = os.path.join(os.getcwd(), project_name, "settings.py")

@@ -1,4 +1,3 @@
-
 from datetime import date, datetime
 from os.path import join, split
 from uuid import uuid4
@@ -95,6 +94,8 @@ class FormForForm(forms.ModelForm):
             field_widget = fields.WIDGETS.get(field.field_type)
             field_args = {"label": field.label, "required": field.required,
                           "help_text": field.help_text}
+            if field.required and not field.help_text:
+                field_args["help_text"] = _("required")
             arg_names = field_class.__init__.im_func.func_code.co_varnames
             if "max_length" in arg_names:
                 field_args["max_length"] = settings.FORMS_FIELD_MAX_LENGTH
@@ -226,7 +227,7 @@ class EntriesForm(forms.Form):
         fields = [f.label.encode("utf-8") for f in self.form_fields
                   if self.cleaned_data["field_%s_export" % f.id]]
         if self.cleaned_data["field_0_export"]:
-            fields.append(self.entry_time_name.encode("utf-8"))
+            fields.append(self.entry_time_name)
         return fields
 
     def rows(self, csv=False):

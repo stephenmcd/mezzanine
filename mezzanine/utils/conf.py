@@ -40,8 +40,11 @@ def set_dynamic_settings(s):
     storage = "django.contrib.messages.storage.cookie.CookieStorage"
     s.setdefault("MESSAGE_STORAGE", storage)
 
-    # Setup for optional apps.
-    if not s["TESTING"]:
+    if s["TESTING"]:
+        # Enable accounts when testing so the URLs exist.
+        s["ACCOUNTS_ENABLED"] = True
+    else:
+        # Setup for optional apps.
         optional = list(s.get("OPTIONAL_APPS", []))
         if s.get("USE_SOUTH"):
             optional.append("south")
@@ -89,24 +92,14 @@ def set_dynamic_settings(s):
     except ValueError:
         pass
 
-    # Remove caching middleware of no backend defined.
+    # Remove caching middleware if no backend defined.
     if not (s.get("CACHE_BACKEND") or s.get("CACHES")):
         s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if not
                                    mw.endswith("UpdateCacheMiddleware") or
                                    mw.endswith("FetchFromCacheMiddleware")]
 
     # Some settings tweaks for different DB engines.
-    backend_path = "django.db.backends."
-    backend_shortnames = (
-        "postgresql_psycopg2",
-        "postgresql",
-        "mysql",
-        "sqlite3",
-        "oracle",
-    )
     for (key, db) in s["DATABASES"].items():
-        if db["ENGINE"] in backend_shortnames:
-            s["DATABASES"][key]["ENGINE"] = backend_path + db["ENGINE"]
         shortname = db["ENGINE"].split(".")[-1]
         if shortname == "sqlite3" and os.sep not in db["NAME"]:
             # If the Sqlite DB name doesn't contain a path, assume
@@ -117,7 +110,7 @@ def set_dynamic_settings(s):
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
         elif shortname.startswith("postgresql") and not s.get("TIME_ZONE", 1):
-            # Specifying a blank time zone to fall back to the
-            # system's time zone will break table creation in Postgres
-            # so remove it.
+            # Specifying a blank time zone to fall back to the system's
+            # time zone, which will break table creation in Postgres so
+            # remove it.
             del s["TIME_ZONE"]

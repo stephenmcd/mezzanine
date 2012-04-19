@@ -1,0 +1,9 @@
+{% extends "email/base.txt" %}
+
+{% block main %}{% if message %}
+{{ message }}
+
+{% endif %}{% for field, value in fields %}
+{{ field }}: {{ value }}
+{% endfor %}
+{% endblock %}

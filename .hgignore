@@ -5,8 +5,8 @@ syntax: glob
 .DS_Store
 .coverage
 local_settings.py
-build/*
-dist/*
-*.egg-info/*
+build
+dist
+*.egg-info
 project_template/static
 
