@@ -1,7 +1,7 @@
 
 from __future__ import with_statement
 import os
-from urllib import urlopen, urlencode
+from urllib import urlopen, urlencode, unquote
 
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -15,7 +15,6 @@ from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
-from django.utils.http import urlunquote
 
 from PIL import Image, ImageOps
 
@@ -146,8 +145,7 @@ def thumbnail(image_url, width, height):
     if not image_url:
         return ""
 
-    image_url = urlunquote(image_url)
-    image_url = unicode(image_url)
+    image_url = unquote(unicode(image_url))
     if image_url.startswith(settings.MEDIA_URL):
         image_url = image_url.replace(settings.MEDIA_URL, "", 1)
     image_dir, image_name = os.path.split(image_url)
