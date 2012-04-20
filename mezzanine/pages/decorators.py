@@ -14,6 +14,8 @@ def for_page(slug):
     Decorator for views that have a urlpattern matching a page in
     Mezzanine's navigation tree.
     """
+    slug = slug or "/"
+
     def decorator(view_func):
         @wraps(view_func)
         def wrapper(request, *args, **kwargs):

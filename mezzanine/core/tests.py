@@ -157,7 +157,8 @@ class Tests(TestCase):
         self.assertEqual(response.status_code, 200)
         # Test the blog is login protected if its page has login_required
         # set to True.
-        RichTextPage.objects.create(title="blog", slug=settings.BLOG_SLUG,
+        slug = settings.BLOG_SLUG or "/"
+        RichTextPage.objects.create(title="blog", slug=slug,
                                     login_required=True)
         response = self.client.get(reverse("blog_post_list"), follow=True)
         self.assertEqual(response.status_code, 200)
