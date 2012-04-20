@@ -51,6 +51,9 @@ class PostsRSS(Feed):
             return []
         return BlogPost.objects.published().select_related("user")
 
+    def item_description(self, item):
+        return item.content
+
     def categories(self):
         if not self._public:
             return []
