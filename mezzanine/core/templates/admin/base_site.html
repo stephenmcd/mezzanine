@@ -59,6 +59,7 @@ window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 {% if not is_popup and not request.GET.pop %}
 <script src="{{ STATIC_URL }}mezzanine/js/admin/navigation.js"></script>
 {% endif %}
+<script src="{{ STATIC_URL }}mezzanine/js/admin/ajax_csrf.js"></script>
 <script src="{{ STATIC_URL }}mezzanine/js/admin/collapse_backport.js"></script>
 {% endif %}
 {% endblock %}

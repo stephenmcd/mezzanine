@@ -5,12 +5,6 @@ var onMenu;
 
 $(function() {
 
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            xhr.setRequestHeader('X-CSRFToken', window.__csrf_token);
-        }
-    });
-
     // Empty out the breadcrumbs div and add the menu into it.
     $('.breadcrumbs').html('')
                      .append($('.dropdown-menu').show())
