@@ -107,7 +107,7 @@ class Command(BaseImporterCommand):
                 if imatch.group(1) == 'align':
                     meta += 'class="wp-caption %s" ' % imatch.group(2)
                 if imatch.group(1) == 'width':
-                    width = str(int(imatch.group(2)) + 10)
+                    width = int(imatch.group(2)) + 10
                     meta += 'style="width: %spx;" ' % width
                 if imatch.group(1) == 'caption':
                     caption = imatch.group(2)
