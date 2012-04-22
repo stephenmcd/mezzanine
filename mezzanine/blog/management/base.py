@@ -189,7 +189,7 @@ class BaseImporterCommand(BaseCommand):
             for name in categories:
                 name = self.trunc_for_model(name,
                                 BlogCategory, field='title', user_input=name)
-                if len(name) > 0:
+                if name and len(name) > 0:
                     cat, created = BlogCategory.objects.get_or_create(title=name)
                     print "Importing Category by: %s" % cat
                     post.categories.add(cat)

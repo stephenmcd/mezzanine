@@ -95,6 +95,8 @@ class Command(BaseImporterCommand):
             else:
                 cats = []
 
+            old_url = entry.link
+
             if entry.wp_post_type == 'post':
                 # create the post
                 post = self.add_post(title=title, content=content,
@@ -123,15 +125,16 @@ class Command(BaseImporterCommand):
 
                     # add the comment as a dict to the end of the comments list
                     self.add_comment(post=post, name=author_name, email=email,
-                        body=body, website=website, pub_date=comment_date)
+                        body=body, website=website, pub_date=comment_date,
+                        old_url=old_url)
 
             elif entry.wp_post_type == 'page':
                 old_id = getattr(entry, 'wp_post_id', False)
                 parent_id = getattr(entry, 'wp_post_parent', False)
 
-                page = self.add_page(title=title, content=content,
-                                 pub_date=published_date, tags=tags,
-                                 old_id=old_id, old_parent_id=parent_id)
+                self.add_page(title=title, content=content,
+                     pub_date=published_date, tags=tags,
+                     old_id=old_id, old_parent_id=parent_id, old_url=old_url)
 
     def wp_caption(self, post):
         '''
