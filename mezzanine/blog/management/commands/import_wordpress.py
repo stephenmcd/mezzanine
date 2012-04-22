@@ -95,7 +95,7 @@ class Command(BaseImporterCommand):
             else:
                 cats = []
 
-            old_url = entry.link
+            old_url = getattr(entry, 'link', False)
 
             if entry.wp_post_type == 'post':
                 # create the post
