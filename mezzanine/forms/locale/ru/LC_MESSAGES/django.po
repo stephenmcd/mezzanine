@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"POT-Creation-Date: 2012-04-25 01:09+0400\n"
 "PO-Revision-Date: 2012-03-11 23:55+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
@@ -29,13 +29,13 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "1 запись удалена"
+msgstr[1] "%(count)s записи удалено"
+msgstr[2] "%(count)s записей удалено"
 
 #: admin.py:119
 msgid "View Entries"
-msgstr ""
+msgstr "Просмотреть"
 
 #: fields.py:28
 msgid "Single line text"
@@ -47,7 +47,7 @@ msgstr "Текст"
 
 #: fields.py:31
 msgid "Number"
-msgstr ""
+msgstr "Число"
 
 #: fields.py:32
 msgid "URL"
@@ -113,15 +113,19 @@ msgstr "Не равно"
 msgid "Is between"
 msgstr "Между"
 
-#: forms.py:180
+#: forms.py:98
+msgid "required"
+msgstr "обязательное"
+
+#: forms.py:182
 msgid "Checked"
 msgstr "Отмечен"
 
-#: forms.py:180
+#: forms.py:182
 msgid "Not checked"
 msgstr "Не отмечен"
 
-#: forms.py:194 forms.py:209
+#: forms.py:196 forms.py:211
 msgid "and"
 msgstr "и"
 
@@ -286,8 +290,8 @@ msgstr "Записи"
 
 #: templates/admin/forms/entries.html:94
 msgid "Delete selected"
-msgstr ""
+msgstr "Удалить выделенное"
 
 #: templates/admin/forms/entries.html:98
 msgid "No entries to display"
-msgstr ""
+msgstr "Нет объектов для отображения"
