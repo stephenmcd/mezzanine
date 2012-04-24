@@ -1,4 +1,4 @@
 {% load mezzanine_tags %}
-{% if "mezzanine.accounts"|is_installed %}
+{% ifinstalled mezzanine.accounts %}
 {% include "accounts/includes/user_panel.html" %}
-{% endif %}
+{% endifinstalled %}
