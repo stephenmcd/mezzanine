@@ -24,8 +24,8 @@ class Slugged(models.Model):
     object is also affiliated with a specific site object.
     """
 
-    title = models.CharField(_("Title"), max_length=100)
-    slug = models.CharField(_("URL"), max_length=100, blank=True, null=True)
+    title = models.CharField(_("Title"), max_length=500)
+    slug = models.CharField(_("URL"), max_length=2000, blank=True, null=True)
     site = models.ForeignKey(Site, editable=False)
 
     objects = CurrentSiteManager()

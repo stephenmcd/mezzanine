@@ -9,17 +9,17 @@
 <meta name="description" content="{% block meta_description %}{% endblock %}">
 <title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
 
-{% if "mezzanine.blog"|is_installed %}
+{% ifinstalled mezzanine.blog %}
 <link rel="alternate" type="application/rss+xml" title="RSS" href="{% url blog_post_feed "rss" %}">
 <link rel="alternate" type="application/atom+xml" title="Atom" href="{% url blog_post_feed "atom" %}">
-{% endif %}
+{% endifinstalled %}
 <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
 <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
 <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
 <link rel="stylesheet" href="{{ STATIC_URL }}css/mezzanine.css">
-{% if "cartridge.shop"|is_installed %}
+{% ifinstalled cartridge.shop %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
-{% endif %}
+{% endifinstalled %}
 
 <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
 <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
@@ -91,9 +91,9 @@ $(function() {
     {% include "includes/user_panel.html" %}
     <div class="panel">
     {% block right_panel %}
-    {% if "mezzanine.twitter"|is_installed %}
+    {% ifinstalled mezzanine.twitter %}
     {% include "twitter/tweets.html" %}
-    {% endif %}
+    {% endifinstalled %}
     {% endblock %}
     </div>
 </div>
@@ -107,16 +107,16 @@ $(function() {
 <br style="clear:both">
 <p>
     {% trans "Powered by" %}
-    <a href="http://mezzanine.jupo.org">Mezzanine</a>{% if "cartridge.shop"|is_installed %},
-    <a href="http://cartridge.jupo.org">Cartridge</a>{% endif %}
+    <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},
+    <a href="http://cartridge.jupo.org">Cartridge</a>{% endifinstalled %}
     {% trans "and" %}
     <a href="http://www.djangoproject.com">Django</a>
     <span class="separator">|</span>
     Theme by <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>
-    {% if "mezzanine.mobile"|is_installed %}
+    {% ifinstalled mezzanine.mobile %}
     <span class="separator">|</span>
     <a href="{% url set_device "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
-    {% endif %}
+    {% endifinstalled %}
 </p>
 </div>
 </footer>

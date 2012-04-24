@@ -11,10 +11,10 @@
 
     <title>{% block meta_title %}{% endblock %}</title>
 
-    {% if "mezzanine.blog"|is_installed %}
+    {% ifinstalled mezzanine.blog %}
     <link rel="alternate" type="application/rss+xml" title="RSS" href="{% url blog_post_feed "rss" %}" />
     <link rel="alternate" type="application/atom+xml" title="Atom" href="{% url blog_post_feed "atom" %}" />
-    {% endif %}
+    {% endifinstalled %}
     <link rel="apple-touch-icon" href="" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/global-mobile.css" type="text/css" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css" />

@@ -2,7 +2,7 @@
 from __future__ import with_statement
 from hashlib import md5
 import os
-from urllib import urlopen, urlencode
+from urllib import urlopen, urlencode, unquote
 
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -10,11 +10,13 @@ from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
-from django.template import Context, Template
+from django.template import (Context, Node, Template, TemplateSyntaxError,
+                             TOKEN_BLOCK)
 from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
+
 from PIL import Image, ImageOps
 
 from mezzanine.conf import settings
@@ -45,7 +47,46 @@ def is_installed(app_name):
     Returns ``True`` if the given app name is in the
     ``INSTALLED_APPS`` setting.
     """
+    from warnings import warn
+    warn("The is_installed filter is deprecated. Please use the tag "
+         "{% ifinstalled appname %}{% endifinstalled %}")
     return app_name in settings.INSTALLED_APPS
+
+
+@register.tag
+def ifinstalled(parser, token):
+    """
+    Old-style ``if`` tag that renders contents if the given app is
+    installed. The main use case is:
+    {% ifinstalled app_name %}
+        {% include "app_name/template.html" %}
+    {% endifinstalled %}
+    so we need to manually pull out all tokens if the app isn't
+    installed, since if we used a normal ``if``tag with a False arg,
+    the include tag will still try and find the template to include.
+    """
+    try:
+        tag, app = token.split_contents()
+    except ValueError:
+        raise TemplateSyntaxError("ifinstalled should be in the form: "
+                                  "{% ifinstalled app_name %}"
+                                  "{% endifinstalled %}")
+
+    end_tag = "end" + tag
+    if app.strip("\"'") not in settings.INSTALLED_APPS:
+        while True:
+            token = parser.tokens.pop(0)
+            if token.token_type == TOKEN_BLOCK and token.contents == end_tag:
+                parser.tokens.insert(0, token)
+                break
+    nodelist = parser.parse((end_tag,))
+    parser.delete_first_token()
+
+    class IfInstalledNode(Node):
+        def render(self, context):
+            return nodelist.render(context)
+
+    return IfInstalledNode()
 
 
 @register.render_tag
@@ -114,7 +155,7 @@ def thumbnail(image_url, width, height):
     if not image_url:
         return ""
 
-    image_url = unicode(image_url)
+    image_url = unquote(unicode(image_url))
     if image_url.startswith(settings.MEDIA_URL):
         image_url = image_url.replace(settings.MEDIA_URL, "", 1)
     image_dir, image_name = os.path.split(image_url)
@@ -129,10 +170,19 @@ def thumbnail(image_url, width, height):
     thumb_url = "%s/%s/%s" % (os.path.dirname(image_url),
                               settings.THUMBNAILS_DIR_NAME, thumb_name)
 
-    # Abort if thumbnail exists or original image doesn't exist.
-    if os.path.exists(thumb_path):
+    try:
+        thumb_exists = os.path.exists(thumb_path)
+    except UnicodeEncodeError:
+        # The image that was saved to a filesystem with utf-8 support,
+        # but somehow the locale has changed and the filesystem does not
+        # support utf-8.
+        from mezzanine.core.exceptions import FileSystemEncodingChanged
+        raise FileSystemEncodingChanged()
+    if thumb_exists:
+        # Thumbnail exists, don't generate it.
         return thumb_url
     elif not default_storage.exists(image_url):
+        # Requested image does not exist, just return its URL.
         return image_url
 
     image = Image.open(default_storage.open(image_url))

@@ -1,6 +1,7 @@
 
 import os
 from shutil import rmtree
+from urlparse import urlparse
 from uuid import uuid4
 
 from django.contrib.auth.models import User
@@ -178,6 +179,16 @@ class Tests(TestCase):
                                             status=CONTENT_STATUS_PUBLISHED)
         response = self.client.get(blog_post.get_absolute_url())
         self.assertEqual(response.status_code, 200)
+        # Test the blog is login protected if its page has login_required
+        # set to True.
+        slug = settings.BLOG_SLUG or "/"
+        RichTextPage.objects.create(title="blog", slug=slug,
+                                    login_required=True)
+        response = self.client.get(reverse("blog_post_list"), follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(len(response.redirect_chain) > 0)
+        redirect_path = urlparse(response.redirect_chain[0][0]).path
+        self.assertEqual(redirect_path, settings.LOGIN_URL)
 
     def test_rating(self):
         """

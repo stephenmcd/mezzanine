@@ -67,4 +67,5 @@ if not settings.TESTING:
     post_syncdb.connect(create_user, sender=auth_app)
     post_syncdb.connect(create_pages, sender=pages_app)
     post_syncdb.connect(create_site, sender=sites_app)
-    post_syncdb.disconnect(create_default_site, sender=sites_app)
+    if not settings.DEBUG:
+        post_syncdb.disconnect(create_default_site, sender=sites_app)
