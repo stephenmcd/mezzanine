@@ -1,0 +1,10 @@
+{% extends "accounts/account_form.html" %}
+{% load i18n %}
+
+{% block main %}
+{{ block.super }}
+{% if settings.ACCOUNTS_VERIFICATION_REQUIRED %}
+<p>{% trans "After signing up, you'll receive an email with a link you need to click, in order to activate your account." %}</p>
+{% endif %}
+{% endblock %}
+

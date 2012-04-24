@@ -32,23 +32,27 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
     msg.send(fail_silently=fail_silently)
 
 
-def send_verification_mail(request, new_user):
+def send_verification_mail(request, user, verifcation_type):
     """
-    Sends an email with a verification link to new users when
-    ``ACCOUNTS_VERIFICATION_REQUIRED`` is ```True``.
+    Sends an email with a verification link to users when
+    ``ACCOUNTS_VERIFICATION_REQUIRED`` is ```True`` and they're signing
+    up, or when they retrieve a lost password.
+    The ``verifcation_type`` arg is both the name of the urlpattern for
+    the verification link, as well as the names of the email templates
+    to use.
     """
-    verification_url = reverse("verify_account", kwargs={
-        "uidb36": int_to_base36(new_user.id),
-        "token": default_token_generator.make_token(new_user),
+    verify_url = reverse(verifcation_type, kwargs={
+        "uidb36": int_to_base36(user.id),
+        "token": default_token_generator.make_token(user),
     }) + "?next=" + request.GET.get("next", "/")
     context = {
         "request": request,
-        "user": new_user,
-        "verification_url": verification_url,
+        "user": user,
+        "verify_url": verify_url,
     }
-    subject_template = "email/signup_verification_subject.txt"
+    subject_template = "email/%s_subject.txt" % verifcation_type
     subject = loader.get_template(subject_template).render(Context(context))
     send_mail_template("".join(subject.splitlines()),
-                       "email/signup_verification",
-                       settings.DEFAULT_FROM_EMAIL, new_user.email,
+                       "email/%s" % verifcation_type,
+                       settings.DEFAULT_FROM_EMAIL, user.email,
                        context=context, fail_silently=settings.DEBUG)

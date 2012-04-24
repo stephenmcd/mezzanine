@@ -1,13 +1,13 @@
-{% load mezzanine_tags i18n %}
+{% load i18n %}
 <ul class="dropdown-menu" style="display:none;">
-    <li><a href="{% try_url "admin:index" %}">{% trans "Dashboard" %}</a></li>
+    <li><a href="{% url admin:index %}">{% trans "Dashboard" %}</a></li>
     {% for app in dropdown_menu_app_list %}
     <li>
         <a href="#">{% trans app.name %}</a>
         <ul class="dropdown-menu-menu">
         {% for model in app.models %}
             {% if model.perms.add or model.perms.change or model.perms.custom %}
-            <li{% if forloop.first %} class="first"{% endif %}><a 
+            <li{% if forloop.first %} class="first"{% endif %}><a
                 href="{{ model.admin_url }}{% if not model.perms.change and not model.perms.custom %}add/{% endif %}">{{ model.name }}</a></li>
             {% endif %}
         {% endfor %}

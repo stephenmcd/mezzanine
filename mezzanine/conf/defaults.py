@@ -491,7 +491,8 @@ register_setting(
     description=_("Sequence of setting names available within templates."),
     editable=False,
     default=(
-        "ADMIN_MEDIA_PREFIX", "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
+        "ACCOUNTS_VERIFICATION_REQUIRED", "ADMIN_MEDIA_PREFIX",
+        "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
         "DEV_SERVER", "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED",

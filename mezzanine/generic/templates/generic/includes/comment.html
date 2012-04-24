@@ -11,11 +11,11 @@
         <strong>
             {% if comment.url %}
             <a href="{{ comment.url }}">
-                <img src="{% gravatar_url comment.email_hash %}">
+                <img src="{% gravatar_url comment.email %}">
                 {{ comment.user_name }}
             </a>
             {% else %}
-            <img src="{% gravatar_url comment.email_hash %}">
+            <img src="{% gravatar_url comment.email %}">
             {{ comment.user_name }}
             {% endif %}
         </strong>
@@ -42,11 +42,11 @@
         <strong>
             {% if comment.url %}
             <a href="{{ comment.url }}">
-                <img src="{% gravatar_url comment.email_hash %}">
+                <img src="{% gravatar_url comment.email %}">
                 {{ comment.user_name }}
             </a>
             {% else %}
-            <img src="{% gravatar_url comment.email_hash %}">
+            <img src="{% gravatar_url comment.email %}">
             {{ comment.user_name }}
             {% endif %}
         </strong>

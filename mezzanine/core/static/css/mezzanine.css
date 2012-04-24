@@ -57,10 +57,10 @@ textarea.xlarge {width:480px; height:120px;}
 .btn-small {width:auto; margin:5px 0; line-height:10px;}
 a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 .help-inline {color:#999;}
-.btn-account, .btn-account:active {float:right; margin:0 5px 5px 0 !important;
+.btn-account, .btn-account:active {margin:0 5px !important;
                                    box-shadow:none; -webkit-box-shadow:none;}
 #account .middle form {padding-top:20px;}
-#account fieldset {float:left; width:40%; margin-right:50px;}
+.non-field-errors .help-inline {padding:0; margin-bottom:5px; display:block;}
 
 
 /* Blog */

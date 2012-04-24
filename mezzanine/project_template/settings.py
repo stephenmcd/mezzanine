@@ -134,9 +134,7 @@ TEMPLATE_LOADERS = (
     "django.template.loaders.app_directories.Loader",
 )
 
-# URLs used for login/logout when mezzanine.accounts is in INSTALLED_APPS.
-LOGIN_URL = "/account/"
-LOGOUT_URL = "/account/logout/"
+AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 
 
 #############
@@ -234,7 +232,7 @@ INSTALLED_APPS = (
     "mezzanine.pages",
     "mezzanine.galleries",
     "mezzanine.twitter",
-    "mezzanine.accounts",
+    #"mezzanine.accounts",
     #"mezzanine.mobile",
 )
 
@@ -253,7 +251,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 # List of middleware classes to use. Order is important; in the request phase,
-# this middleware classes will be applied in the order given, and in the
+# these middleware classes will be applied in the order given, and in the
 # response phase the middleware will be applied in reverse order.
 MIDDLEWARE_CLASSES = (
     "django.contrib.sessions.middleware.SessionMiddleware",

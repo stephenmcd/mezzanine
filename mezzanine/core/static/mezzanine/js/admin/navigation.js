@@ -41,6 +41,10 @@ $(function() {
                 $('.dropdown-menu a').mouseout();
             });
         }
+    }).click(function() {
+        var first = $(this).parent().find('.dropdown-menu-menu a:first');
+        location = first.attr('href');
+        return false;
     });
 
     // Set a timeout to hide visible menus on mouseout of primary

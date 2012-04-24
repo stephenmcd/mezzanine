@@ -60,14 +60,6 @@ def comment_thread(context, parent):
     return context
 
 
-@register.simple_tag
-def gravatar_url(email_hash, size=32):
-    """
-    Return the full URL for a Gravatar given an email hash.
-    """
-    return "http://www.gravatar.com/avatar/%s?s=%s" % (email_hash, size)
-
-
 @register.inclusion_tag("admin/includes/recent_comments.html",
     takes_context=True)
 def recent_comments(context):

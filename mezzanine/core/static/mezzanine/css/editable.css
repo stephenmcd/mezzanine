@@ -34,7 +34,7 @@ right ahead and fix it.
 
 .editable-form {padding:20px; background:#fffcc3; border:1px solid #000;
     -moz-box-shadow: 0 0 20px #222; -webkit-box-shadow: 0 0 20px #222;
-    line-height:1em; border-radius:5px;}
+    line-height:1em; border-radius:5px; min-width:350px;}
 .editable-form table, .editable-form textarea, .editable-form input {
     width: 100%; margin: .5em 0;}
 .mceToolbar table {width: auto !important; margin: 0 !important;}

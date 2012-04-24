@@ -1,5 +1,6 @@
 
 from __future__ import with_statement
+from hashlib import md5
 import os
 from urllib import urlopen, urlencode
 
@@ -69,6 +70,15 @@ def set_short_url_for(context, token):
                 obj.short_url = response["data"]["url"]
                 obj.save()
     return ""
+
+
+@register.simple_tag
+def gravatar_url(email, size=32):
+    """
+    Return the full URL for a Gravatar given an email hash.
+    """
+    email_hash = md5(email).hexdigest()
+    return "http://www.gravatar.com/avatar/%s?s=%s" % (email_hash, size)
 
 
 @register.to_end_tag
@@ -219,6 +229,8 @@ def try_url(url_name):
     names in admin templates as these won't resolve when admin tests are
     running.
     """
+    from warnings import warn
+    warn("try_url is deprecated, use the url tag with the 'as' arg instead.")
     try:
         url = reverse(url_name)
     except NoReverseMatch:
@@ -286,20 +298,23 @@ def admin_app_list(request):
         name = unicode(name)
         for unfound_item in set(items) - found_items:
             if isinstance(unfound_item, (list, tuple)):
-                item_name, item_url = unfound_item[0], try_url(unfound_item[1])
-                if item_url:
-                    if name not in app_dict:
-                        app_dict[name] = {
-                            "index": i,
-                            "name": name,
-                            "models": [],
-                        }
-                    app_dict[name]["models"].append({
-                        "index": items.index(unfound_item),
-                        "perms": {"custom": True},
-                        "name": item_name,
-                        "admin_url": item_url,
-                    })
+                item_name, item_url = unfound_item[0], unfound_item[1]
+                try:
+                    item_url = reverse(item_url)
+                except NoReverseMatch:
+                    continue
+                if name not in app_dict:
+                    app_dict[name] = {
+                        "index": i,
+                        "name": name,
+                        "models": [],
+                    }
+                app_dict[name]["models"].append({
+                    "index": items.index(unfound_item),
+                    "perms": {"custom": True},
+                    "name": item_name,
+                    "admin_url": item_url,
+                })
 
     app_list = app_dict.values()
     sort = lambda x: x["name"] if x["index"] is None else x["index"]

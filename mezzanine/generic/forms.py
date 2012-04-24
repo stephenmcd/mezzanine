@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
+from mezzanine.core.forms import Html5Mixin
 from mezzanine.generic.models import Keyword, ThreadedComment, RATING_RANGE
 
 
@@ -73,7 +74,7 @@ class KeywordsWidget(forms.MultiWidget):
         return data.get("%s_0" % name, "")
 
 
-class ThreadedCommentForm(CommentForm):
+class ThreadedCommentForm(CommentForm, Html5Mixin):
 
     name = forms.CharField(label=_("Name"), help_text=_("required"),
                            max_length=50)
@@ -106,14 +107,6 @@ class ThreadedCommentForm(CommentForm):
                     value = user.email
             kwargs["initial"][field] = value
         super(ThreadedCommentForm, self).__init__(*args, **kwargs)
-        if settings.FORMS_USE_HTML5:
-            for name, field in self.fields.items():
-                if isinstance(field, forms.EmailField):
-                    self.fields[name].widget.input_type = "email"
-                elif  isinstance(field, forms.URLField):
-                    self.fields[name].widget.input_type = "url"
-                if field.required:
-                    self.fields[name].widget.attrs["required"] = ""
 
     def get_comment_model(self):
         """

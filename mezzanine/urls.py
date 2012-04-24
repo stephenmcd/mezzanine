@@ -83,6 +83,9 @@ if _old_accounts_enabled:
     warnings.warn("The setting ACCOUNTS_ENABLED is deprecated. Please "
                   "add mezzanine.accounts to INSTALLED_APPS.")
 if _old_accounts_enabled or "mezzanine.accounts" in settings.INSTALLED_APPS:
+    # We don't define a URL prefix here such as /account/ since we want
+    # to honour the LOGIN_* settings, which Django has prefixed with
+    # /account/ by default. So those settings are used in accounts.urls
     urlpatterns += patterns("",
         ("^", include("mezzanine.accounts.urls")),
     )

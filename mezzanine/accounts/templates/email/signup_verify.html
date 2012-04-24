@@ -2,5 +2,5 @@
 {% block main %}
 <p>{% trans "Hey there, thanks for creating your account." %}</p>
 <p>{% trans "Please use the link below to activate it." %}</p>
-<p><a href="http://{{ request.get_host }}{{ verification_url }}">http://{{ request.get_host }}{{ verification_url }}</a></p>
+<p><a href="http://{{ request.get_host }}{{ verify_url }}">http://{{ request.get_host }}{{ verify_url }}</a></p>
 {% endblock %}

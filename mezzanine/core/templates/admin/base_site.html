@@ -5,18 +5,10 @@
 This file contains a handful of unrelated admin customizations that
 mostly get applied globally to different parts of the admin.
 
-In the ``extrahead`` block:
-
-  * CSS for the login form
-  * Javascript for the login form to add the ``interface`` radio buttons
   * Global CSS fixes (when logged in)
-  * Javascript for injecting Mezzanine's menu into the top of every page
+  * Javascript and HTML for injecting Mezzanine's menu into the top of
+    every page
   * Javascript for fixing inlines to work with Mezzanine's dynamic inlines
-
-In the ``footer`` block:
-
-  * HTML for the ``interface`` radio buttons in the login form
-  * HTML for Mezzanine's menu
 
 {% endcomment %}
 
@@ -27,58 +19,40 @@ In the ``footer`` block:
 {% block extrahead %}
 <link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/global.css">
 <style>
-{% comment %}
-These are set in PageAdmin's view methods, and
-mezzanine.core.admin.SingletonAdmin
-{% endcomment %}
-{% if hide_delete_link or singleton %}
-.deletelink {display:none !important;}
-{% endif %}
-{% if hide_slug_field %}
-.slug {display:none !important;}
-{% endif %}
-{% if singleton %}
-.change-view-save-another {display:none !important;}
-{% endif %}
+/*
+These are set in PageAdmin's view methods,
+and mezzanine.core.admin.SingletonAdmin
+*/
+{% if hide_delete_link or singleton %}.deletelink {display:none !important;}{% endif %}
+{% if hide_slug_field %}.slug {display:none !important;}{% endif %}
+{% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
 </style>
 <script>
+{% url static_proxy as static_proxy_url %}
+{% url fb_browse as fb_browse_url %}
+{% url admin:index as admin_index_url %}
 window.__csrf_token = '{{ csrf_token }}';
-window.__admin_keywords_submit_url = '{% try_url "admin_keywords_submit" %}';
-window.__filebrowser_url = '{% try_url "fb_browse" %}';
-window.__admin_url = '{% try_url "admin:index" %}';
-window.__static_proxy = '{% try_url "static_proxy" %}';
+window.__admin_keywords_submit_url = '{% url admin_keywords_submit %}';
+window.__filebrowser_url = '{{ fb_browse_url }}';
+window.__admin_url = '{{ admin_index_url }}';
+window.__static_proxy = '{{ static_proxy_url }}';
 window.__admin_media_prefix__ = '{{ settings.ADMIN_MEDIA_PREFIX }}';
 window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 </script>
 {% if not settings.GRAPPELLI_INSTALLED %}
 <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
 {% endif %}
-{% if not request.user.is_staff %}
-<script src="{{ STATIC_URL }}mezzanine/js/admin/login.js"></script>
-{% else %}
-{% if not is_popup and not request.GET.pop %}
-<script src="{{ STATIC_URL }}mezzanine/js/admin/navigation.js"></script>
-{% endif %}
-<script src="{{ STATIC_URL }}mezzanine/js/admin/collapse_backport.js"></script>
-{% endif %}
 {% endblock %}
 
 {% block footer %}
 {{ block.super }}
 {% if request.user.is_staff %}
-{% admin_dropdown_menu %}
+    {% if not is_popup and not request.GET.pop %}
+    <script src="{{ STATIC_URL }}mezzanine/js/admin/navigation.js"></script>
+    {% endif %}
+    <script src="{{ STATIC_URL }}mezzanine/js/admin/collapse_backport.js"></script>
+    {% admin_dropdown_menu %}
 {% else %}
-<p id="forgot-password" style="display:none;">
-    <a href="{% try_url "password_reset" %}">{% trans "Forgot password?" %}</a>
-</p>
-<div class="form-row" id="extra-login-fields" style="display:none;">
-    <label class="required">{% trans "Interface:" %}</label>
-    <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
-        value="admin"{% if request.REQUEST.mezzanine_login_interface != "site" %} checked{% endif %} />
-    <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
-    <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_site"
-        value="site"{% if request.REQUEST.mezzanine_login_interface == "site" %} checked{% endif %} />
-    <label class="interface" for="interface_site">{% trans "Site" %}</label>
-</div>
+    <script src="{{ STATIC_URL }}mezzanine/js/admin/login.js"></script>
 {% endif %}
 {% endblock %}

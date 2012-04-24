@@ -1,11 +1,14 @@
 
+/* Login stuff */
 #extra-login-fields .required {margin-top:1px;}
 input.interface {margin:0 0 0 0px; vertical-align:middle;}
 label.interface {display:inline !important; float:none !important;
     vertical-align:middle; cursor:pointer;}
 #forgot-password {margin-top:30px; text-align:center;}
 .submit-row input {margin-left:8px;}
+.login .errornote {width:110%; margin-left:-15px !important; padding-left:15px;}
 
+/* Nav stuff */
 .add-row {display:none;}
 .breadcrumbs {
     display:none; margin:0; padding:0; background:#e6e6e6 !important;

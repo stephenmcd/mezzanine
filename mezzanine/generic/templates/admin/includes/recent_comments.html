@@ -1,4 +1,4 @@
-{% load i18n comment_tags %}
+{% load i18n mezzanine_tags %}
 
 <div class="module" id="comments-module">
     <h2>{% trans "Recent Comments" %}</h2>
@@ -8,16 +8,19 @@
     <ul>
         {% for comment in comments %}
         <li>
-            <a href="mailto:{{ comment.email }}"><img
-                src="{% gravatar_url comment.email_hash %}"
-                />{{ comment.user_name }}</a>
+            <a href="mailto:{{ comment.email }}">
+                <img src="{% gravatar_url comment.email %}">
+                {{ comment.user_name }}
+            </a>
             <span>{{ comment.intro }}</span>
             <p>
-                <a href="{{ comment.content_object.get_absolute_url }}"
-                    >{{ comment.content_object }}</a>
-                    &middot;
-                <a href="{{ comment.get_absolute_url }}"
-                    >{{ comment.submit_date|timesince }} {% trans "ago" %}</a>
+                <a href="{{ comment.content_object.get_absolute_url }}">
+                    {{ comment.content_object }}
+                </a>
+                &middot;
+                <a href="{{ comment.get_absolute_url }}">
+                    {{ comment.submit_date|timesince }} {% trans "ago" %}
+                </a>
             </p>
         </li>
         {% endfor %}

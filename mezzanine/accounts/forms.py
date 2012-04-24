@@ -1,51 +1,127 @@
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.core.validators import validate_email, ValidationError
+from django.db.models import Q
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
 from mezzanine.conf import settings
+from mezzanine.core.forms import Html5Mixin
+from mezzanine.utils.urls import slugify
 
 
-class UserForm(forms.Form):
+class LoginForm(Html5Mixin, forms.Form):
     """
-    Fields for signup & login.
+    Fields for login.
     """
-    email = forms.EmailField(label=_("Email Address"))
+    username = forms.CharField(label=_("Username or email address"))
     password = forms.CharField(label=_("Password"),
                                widget=forms.PasswordInput(render_value=False))
 
-    def __init__(self, request, *args, **kwargs):
+    def clean(self):
         """
-        Try and pre-populate the email field with a cookie value.
+        Authenticate the given username/email and password. If the fields
+        are valid, store the authenticated user for returning via save().
         """
-        initial = {}
-        for value in request.COOKIES.values():
-            try:
-                validate_email(value)
-            except ValidationError:
-                pass
-            else:
-                initial["email"] = value
-                break
-        super(UserForm, self).__init__(initial=initial, *args, **kwargs)
+        self._user = authenticate(**self.cleaned_data)
+        if self._user is None:
+            raise forms.ValidationError(
+                             _("Invalid username/email and password"))
+        elif not self._user.is_active:
+            raise forms.ValidationError(_("Your account is inactive"))
+        return self.cleaned_data
 
-    def authenticate(self):
+    def save(self):
         """
-        Validate email and password as well as setting the user for login.
+        Just return the authenticated user - used for logging in.
         """
-        self._user = authenticate(username=self.cleaned_data.get("email", ""),
-                               password=self.cleaned_data.get("password", ""))
-
-    def login(self, request):
-        """
-        Log the user in.
-        """
-        login(request, self._user)
+        return getattr(self, "_user", None)
 
 
-class SignupForm(UserForm):
+# If a profile model has been configured with the ``AUTH_PROFILE_MODULE``
+# setting, create a model form for it that will have its fields added to
+# ``ProfileForm``.
+Profile = get_profile_model()
+if Profile is not None:
+    class ProfileFieldsForm(forms.ModelForm):
+        class Meta:
+            model = Profile
+            exclude = (get_profile_user_fieldname(),)
+
+
+class ProfileForm(Html5Mixin, forms.ModelForm):
+    """
+    ModelForm for auth.User - used for signup and profile update.
+    If a Profile model is defined via ``AUTH_PROFILE_MODULE``, its
+    fields are injected into the form.
+    """
+
+    password1 = forms.CharField(label=_("Password"),
+                                widget=forms.PasswordInput(render_value=False))
+    password2 = forms.CharField(label=_("Password (again)"),
+                                widget=forms.PasswordInput(render_value=False))
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email", "username")
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self._signup = self.instance.id is None
+        user_fields = User._meta.get_all_field_names()
+        self.fields["username"].help_text = _(
+                        "Only letters, numbers, dashes or underscores please")
+        for field in self.fields:
+            # Make user fields required.
+            if field in user_fields:
+                self.fields[field].required = True
+            # Disable auto-complete for password fields.
+            # Password isn't required for profile update.
+            if field.startswith("password"):
+                self.fields[field].widget.attrs["autocomplete"] = "off"
+                self.fields[field].widget.attrs.pop("required", "")
+                if not self._signup:
+                    self.fields[field].required = False
+                    if field == "password1":
+                        self.fields[field].help_text = _(
+                        "Leave blank unless you want to change your password")
+        # Add any profile fields to the form.
+        self._has_profile = Profile is not None
+        if self._has_profile:
+            profile_fields = ProfileFieldsForm().fields
+            self.fields.update(profile_fields)
+            if not self._signup:
+                for field in profile_fields:
+                    value = getattr(self.instance.get_profile(), field)
+                    self.initial[field] = value
+
+    def clean_username(self):
+        """
+        Ensure the username doesn't exist or contain invalid chars.
+        We limit it to slugifiable chars since it's used as the slug
+        for the user's profile view.
+        """
+        username = self.cleaned_data["username"]
+        if username != slugify(username):
+            raise forms.ValidationError(_("Username can only contain letters "
+                                          "numbers dashes or underscores."))
+        try:
+            User.objects.exclude(id=self.instance.id).get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(_("This username is already registered"))
+
+    def clean_password2(self):
+        """
+        Ensure the password fields are equal.
+        """
+        password1 = self.cleaned_data["password1"]
+        password2 = self.cleaned_data["password2"]
+        if password1 and not password1 == password2:
+            error = self.error_class([_("Passwords do not match")])
+            self._errors["password1"] = error
+        return password2
 
     def clean_email(self):
         """
@@ -53,37 +129,60 @@ class SignupForm(UserForm):
         """
         email = self.cleaned_data["email"]
         try:
-            User.objects.get(username=email)
+            User.objects.exclude(id=self.instance.id).get(email=email)
         except User.DoesNotExist:
             return email
         raise forms.ValidationError(_("This email is already registered"))
 
-    def save(self):
+    def save(self, *args, **kwargs):
         """
         Create the new user using their email address as their username.
         """
-        user = User.objects.create_user(self.cleaned_data["email"],
-                                        self.cleaned_data["email"],
-                                        self.cleaned_data["password"])
-        settings.use_editable()
-        if settings.ACCOUNTS_VERIFICATION_REQUIRED:
-            user.is_active = False
+        user = super(ProfileForm, self).save(*args, **kwargs)
+        password = self.cleaned_data["password1"]
+        if password:
+            user.set_password(password)
             user.save()
-        else:
-            self.authenticate()
+
+        # Save profile model.
+        if self._has_profile:
+            profile = user.get_profile()
+            ProfileFieldsForm(self.cleaned_data, instance=profile).save()
+
+        if self._signup:
+            settings.use_editable()
+            if settings.ACCOUNTS_VERIFICATION_REQUIRED:
+                user.is_active = False
+                user.save()
+            else:
+                user = authenticate(username=user.username,
+                                    password=password, is_active=True)
         return user
 
 
-class LoginForm(UserForm):
+class PasswordResetForm(forms.Form):
+    """
+    Validates the user's username or email for sending a login
+    token for authenticating to change their password.
+    """
+
+    username = forms.CharField(label=_("Username or email address"))
 
     def clean(self):
-        """
-        Authenticate the email/password.
-        """
-        if "email" in self.cleaned_data and "password" in self.cleaned_data:
-            self.authenticate()
-            if self._user is None:
-                raise forms.ValidationError(_("Invalid email/password"))
-            elif not self._user.is_active:
-                raise forms.ValidationError(_("Your account is inactive"))
+        username = self.cleaned_data["username"]
+        username_or_email = Q(username=username) | Q(email=username)
+        try:
+            user = User.objects.get(username_or_email, is_active=True)
+        except User.DoesNotExist:
+            raise forms.ValidationError(
+                             _("Invalid username/email"))
+        else:
+            self._user = user
         return self.cleaned_data
+
+    def save(self):
+        """
+        Just return the authenticated user - used for sending login
+        email.
+        """
+        return getattr(self, "_user", None)

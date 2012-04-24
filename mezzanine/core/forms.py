@@ -10,6 +10,26 @@ from mezzanine.conf import settings
 from mezzanine.core.models import Orderable
 
 
+class Html5Mixin(object):
+    """
+    Mixin for form classes. Adds HTML5 features to forms for client
+    side validation by the browser, like a "required" attribute and
+    "email" and "url" input types.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super(Html5Mixin, self).__init__(*args, **kwargs)
+        if hasattr(self, "fields"):
+            for name, field in self.fields.items():
+                if settings.FORMS_USE_HTML5:
+                    if isinstance(field, forms.EmailField):
+                        self.fields[name].widget.input_type = "email"
+                    elif  isinstance(field, forms.URLField):
+                        self.fields[name].widget.input_type = "url"
+                if field.required:
+                    self.fields[name].widget.attrs["required"] = ""
+
+
 class TinyMceWidget(forms.Textarea):
     """
     Setup the JS files and targetting CSS class for a textarea to

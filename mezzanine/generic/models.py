@@ -1,6 +1,4 @@
 
-from hashlib import md5
-
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.db import models
@@ -18,7 +16,6 @@ class ThreadedComment(Comment):
     add comment threading.
     """
 
-    email_hash = models.CharField(_("Email hash"), max_length=100, blank=True)
     by_author = models.BooleanField(_("By the blog author"), default=False)
     replied_to = models.ForeignKey("self", null=True, editable=False,
                                    related_name="comments")
@@ -45,7 +42,6 @@ class ThreadedComment(Comment):
         """
         if not self.id:
             from mezzanine.conf import settings
-            self.email_hash = md5(self.email).hexdigest()
             self.is_public = settings.COMMENTS_DEFAULT_APPROVED
         super(ThreadedComment, self).save(*args, **kwargs)
 
@@ -70,6 +66,12 @@ class ThreadedComment(Comment):
                                         ugettext("View on site"))
     admin_link.allow_tags = True
     admin_link.short_description = ""
+
+    # Exists for backward compatibility when the gravatar_url template
+    # tag took the hash instead of the email address.
+    @property
+    def email_hash(self):
+        return self.email
 
 
 class Keyword(Slugged):

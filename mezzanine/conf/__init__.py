@@ -15,7 +15,7 @@ registry = {}
 
 
 def register_setting(name="", label="", editable=False, description="",
-        default=None, append=False):
+                     default=None, append=False):
     """
     Registers a setting that can be edited via the admin.
     """
@@ -52,7 +52,7 @@ class Settings(object):
 
     def __init__(self):
         """
-        Marking loaded as True to begin with prevents some nasty
+        Marking loaded as ``True`` to begin with prevents some nasty
         errors when the DB table is first created.
         """
         self._loaded = True

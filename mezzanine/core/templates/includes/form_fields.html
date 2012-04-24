@@ -1,3 +1,10 @@
+{% if form.non_field_errors %}
+<div class="control-group error non-field-errors">
+    {% for error in form.non_field_errors %}
+    <span class="help-inline">{{ error }}</span>
+    {% endfor %}
+</div>
+{% endif %}
 <input type="hidden" name="referrer" value="{{ request.META.HTTP_REFERER }}">
 {% csrf_token %}
 {% for field in form_for_fields %}

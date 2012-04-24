@@ -2,7 +2,8 @@
 import re
 import unicodedata
 
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
+from django.shortcuts import redirect
 from django.utils.encoding import smart_unicode
 
 from mezzanine.conf import settings
@@ -43,3 +44,19 @@ def slugify_unicode(s):
         elif cat == "Z":
             chars.append(" ")
     return re.sub("[-\s]+", "-", "".join(chars).strip()).lower()
+
+
+def login_redirect(request):
+    """
+    Returns the redirect response for login/signup. Favors:
+    - next param
+    - LOGIN_REDIRECT_URL setting
+    - homepage
+    """
+    next = request.GET.get("next")
+    if not next:
+        try:
+            next = reverse(settings.LOGIN_REDIRECT_URL)
+        except NoReverseMatch:
+            next = "/"
+    return redirect(next)

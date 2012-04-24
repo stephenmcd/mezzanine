@@ -44,8 +44,9 @@ def base_concrete_model(abstract, instance):
 
 class ModelMixinBase(type):
     """
-    Metaclass for ``ModelMixin`` which is ued for injecting model
+    Metaclass for ``ModelMixin`` which is used for injecting model
     fields and methods into models defined outside of a project.
+    This currently isn't used anywhere.
     """
 
     def __new__(cls, name, bases, attrs):

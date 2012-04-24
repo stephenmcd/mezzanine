@@ -1,0 +1,26 @@
+{% load i18n %}
+<style>
+{% if not change %}
+#user_form p, .aligned {display:none;}
+.wide {display:block;}
+{% endif %}
+.profile fieldset {border-width:0;}
+</style>
+<fieldset class="module aligned profile">
+    <h2>{% trans "Profile information" %}</h2>
+    {{ inline_admin_formset.formset.management_form }}
+    {{ inline_admin_formset.formset.non_form_errors }}
+    <div class="items">
+        {% for inline_admin_form in inline_admin_formset %}
+        <div class="{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}">
+            {% if inline_admin_form.form.non_field_errors %}{{ inline_admin_form.form.non_field_errors }}{% endif %}
+            {% for fieldset in inline_admin_form %}
+                {% include "admin/includes/fieldset.html" %}
+            {% endfor %}
+            {{ inline_admin_form.pk_field.field }}
+            {{ inline_admin_form.fk_field.field }}
+        </div>
+        {% endfor %}
+        {{ inline_admin_formset.extra_forms }}
+    </div>
+</fieldset>

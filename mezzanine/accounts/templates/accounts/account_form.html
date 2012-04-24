@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags %}
+
+{% block meta_title %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block body_id %}account{% endblock %}
+
+{% block breadcrumb_menu %}
+{{ block.super }}
+<li>{{ title }}</li>
+{% endblock %}
+
+{% block main %}
+<fieldset>
+    <legend>{{ title }}</legend>
+    <form method="post">
+    {% fields_for form %}
+    <div class="form-actions">
+        <input class="btn btn-primary btn-large" type="submit" value="{{ title }}">
+    </div>
+    </form>
+</fieldset>
+{% endblock %}
+
+
+
