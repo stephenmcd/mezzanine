@@ -104,8 +104,8 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         """
         username = self.cleaned_data["username"]
         if username != slugify(username):
-            raise forms.ValidationError(_("Username can only contain letters "
-                                          "numbers dashes or underscores."))
+            raise forms.ValidationError(_("Username can only contain letters, "
+                                          "numbers, dashes or underscores."))
         try:
             User.objects.exclude(id=self.instance.id).get(username=username)
         except User.DoesNotExist:
