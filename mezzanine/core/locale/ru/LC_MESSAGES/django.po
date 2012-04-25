@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"POT-Creation-Date: 2012-04-25 01:17+0400\n"
 "PO-Revision-Date: 2012-03-11 23:55+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
@@ -21,36 +21,16 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:28
+#: admin.py:29
 msgid "Meta data"
 msgstr "Метаданные"
 
-#: fields.py:23
+#: fields.py:24
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr ""
 
-#: forms.py:35
-msgid "Email Address"
-msgstr ""
-
-#: forms.py:36
-msgid "Password"
-msgstr ""
-
-#: forms.py:64
-msgid "This email is already registered"
-msgstr ""
-
-#: forms.py:84
-msgid "Invalid email/password"
-msgstr ""
-
-#: forms.py:86
-msgid "Your account is inactive"
-msgstr ""
-
-#: forms.py:116 models.py:221
+#: forms.py:75 models.py:226
 msgid "Order"
 msgstr "Порядок"
 
@@ -71,58 +51,56 @@ msgid "Description"
 msgstr "Описание"
 
 #: models.py:88
+msgid "Generate description"
+msgstr "Описание"
+
+#: models.py:89
+msgid ""
+"If checked, the description will be automatically generated from content. "
+"Uncheck if you want to manually set a custom description."
+msgstr "Если отметить, то описание будет генерироваться автоматически."
+
+#: models.py:92
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: models.py:134
+#: models.py:139
 msgid "Draft"
 msgstr "Черновик"
 
-#: models.py:135
+#: models.py:140
 msgid "Published"
 msgstr "Опубликовано"
 
-#: models.py:146
+#: models.py:151
 msgid "Status"
 msgstr "Статус"
 
-#: models.py:148
+#: models.py:153
 msgid "Published from"
 msgstr "Опубликовано с"
 
-#: models.py:149
+#: models.py:154
 msgid "With published checked, won't be shown until this time"
-msgstr ""
+msgstr "Не будет показано до этого времени"
 
-#: models.py:151
+#: models.py:156
 msgid "Expires on"
 msgstr "Истекает"
 
-#: models.py:152
+#: models.py:157
 msgid "With published checked, won't be shown after this time"
-msgstr ""
+msgstr "Не будет показано после этого времени"
 
-#: models.py:179
+#: models.py:184
 msgid "Content"
 msgstr "Содержимое"
 
-#: models.py:275
+#: models.py:280
 msgid "Author"
 msgstr "Автор"
 
-#: views.py:33
-msgid "Successfully logged in"
-msgstr ""
-
-#: views.py:39
-msgid "Successfully signed up"
-msgstr ""
-
-#: views.py:53
-msgid "Successfully logged out"
-msgstr ""
-
-#: views.py:89
+#: views.py:55
 msgid "Permission denied"
 msgstr "В доступе отказано"
 
@@ -142,42 +120,26 @@ msgstr "Ошибка"
 msgid "Sorry, an error occurred."
 msgstr "Извините, возникла ошибка."
 
-#: templates/account.html:4 templates/account.html.py:5
-msgid "Login / Signup"
-msgstr ""
-
-#: templates/account.html:10
-msgid "Account"
-msgstr ""
-
-#: templates/account.html:16 templates/account.html.py:21
-msgid "Login"
-msgstr ""
-
-#: templates/account.html:27 templates/account.html.py:32
-msgid "Signup"
-msgstr ""
-
-#: templates/base.html:49
+#: templates/base.html:53
 msgid "Search"
 msgstr "Поиск"
 
-#: templates/base.html:105
+#: templates/base.html:109
 msgid "Powered by"
 msgstr "Сайт использует"
 
-#: templates/base.html:108
+#: templates/base.html:112
 msgid "and"
-msgstr ""
+msgstr "и"
 
-#: templates/base.html:114
+#: templates/base.html:118
 msgid "View Mobile Site"
-msgstr ""
+msgstr "Мобильная версия"
 
 #: templates/index.html:5 templates/index.html.py:8 templates/index.html:12
 #: templates/search_results.html:10 templates/admin/index.html:15
 msgid "Home"
-msgstr "Начало"
+msgstr "Главная"
 
 #: templates/index.html:16
 msgid "This is the homepage."
@@ -212,27 +174,38 @@ msgstr "результатов удовлетворяющих вашему за�
 msgid "read more"
 msgstr "читать далее"
 
-#: templates/admin/base_site.html:64
-msgid "Forgot password?"
-msgstr "Забыли пароль?"
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
+msgid "Dashboard"
+msgstr "Административная панель"
 
-#: templates/admin/base_site.html:67
+#: templates/admin/login.html:25
+msgid "Username or email:"
+msgstr "Имя или эл.почта:"
+
+#: templates/admin/login.html:29
+msgid "Password:"
+msgstr "Пароль"
+
+#: templates/admin/login.html:34
 msgid "Interface:"
 msgstr "Интерфейс:"
 
-#: templates/admin/base_site.html:70
-#: templates/includes/editable_toolbar.html:7
+#: templates/admin/login.html:37 templates/includes/editable_toolbar.html:7
 #: templates/includes/editable_toolbar.html:9
 msgid "Admin"
 msgstr "Администрирование"
 
-#: templates/admin/base_site.html:73
+#: templates/admin/login.html:40
 msgid "Site"
 msgstr "Сайт"
 
-#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
-msgid "Dashboard"
-msgstr "Административная панель"
+#: templates/admin/login.html:44
+msgid "Log in"
+msgstr "Войти"
+
+#: templates/admin/login.html:47
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
 
 #: templates/admin/includes/app_list.html:20
 msgid "Add"
@@ -259,23 +232,6 @@ msgstr "Мои действия"
 msgid "None available"
 msgstr "Недоступно"
 
-#: templates/includes/account_panel.html:5
-#: templates/includes/editable_toolbar.html:11
-msgid "Log out"
-msgstr "Выйти"
-
-#: templates/includes/account_panel.html:6
-msgid "Logged in as: "
-msgstr ""
-
-#: templates/includes/account_panel.html:9
-msgid "Log in or sign up"
-msgstr ""
-
-#: templates/includes/account_panel.html:10
-msgid "Not logged in"
-msgstr ""
-
 #: templates/includes/editable_form.html:16
 msgid "Save"
 msgstr "Сохранить"
@@ -288,6 +244,52 @@ msgstr "Отмена"
 msgid "Edit"
 msgstr "Редактировать"
 
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr "Выйти"
+
 #: templates/includes/pagination.html:7
 msgid "Page"
 msgstr "Страница"
+
+#~ msgid "Email Address"
+#~ msgstr "Адрес эл.почты"
+
+#~ msgid "This email is already registered"
+#~ msgstr "Этот адрес эл.почты уже зарегистрирован"
+
+#~ msgid "Invalid email/password"
+#~ msgstr "Неверный адрес эл.почты или пароль"
+
+#~ msgid "Your account is inactive"
+#~ msgstr "Ваш аккаунт неактивен"
+
+#~ msgid "Successfully logged in"
+#~ msgstr "Вы успешно вошли"
+
+#~ msgid "Successfully signed up"
+#~ msgstr "Вы успешно зарегистрировались"
+
+#~ msgid "Successfully logged out"
+#~ msgstr "Вы вышли"
+
+#~ msgid "Login / Signup"
+#~ msgstr "Вход / Регистрация"
+
+#~ msgid "Account"
+#~ msgstr "Аккаунт"
+
+#~ msgid "Login"
+#~ msgstr "Вход"
+
+#~ msgid "Signup"
+#~ msgstr "Регистрация"
+
+#~ msgid "Logged in as: "
+#~ msgstr "Вы вошли как: "
+
+#~ msgid "Log in or sign up"
+#~ msgstr "Войдите или зарегистрируйтесь"
+
+#~ msgid "Not logged in"
+#~ msgstr "Не вошил"

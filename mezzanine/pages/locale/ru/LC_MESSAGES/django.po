@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"POT-Creation-Date: 2012-04-25 01:13+0400\n"
 "PO-Revision-Date: 2011-11-12 03:36+0000\n"
 "Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,11 +47,11 @@ msgstr "Страницы"
 
 #: models.py:136
 msgid "Rich text page"
-msgstr ""
+msgstr "Текстовая страница"
 
 #: models.py:137
 msgid "Rich text pages"
-msgstr ""
+msgstr "Текстовые страницы"
 
 #: templates/admin/pages/page/change_list.html:24
 #: templates/pages/menus/admin.html:31
@@ -61,12 +61,12 @@ msgstr "Добавить"
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
 #: templates/pages/menus/footer_tree.html:10
-#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:8
+#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:9
 #: templates/pages/menus/tree.html:10
 msgid "Home"
-msgstr "Начало"
+msgstr "Главная"
 
-#: templatetags/pages_tags.py:145
+#: templatetags/pages_tags.py:144
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""
