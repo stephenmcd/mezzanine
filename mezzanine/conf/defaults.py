@@ -94,7 +94,7 @@ register_setting(
 register_setting(
     name="COMMENTS_ACCOUNT_REQUIRED",
     label=_("Accounts required for commenting"),
-    description="If ``True``, users must log in to comment.",
+    description=_("If ``True``, users must log in to comment."),
     editable=True,
     default=False,
 )
