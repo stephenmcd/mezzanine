@@ -30,6 +30,9 @@ label.interface {display:inline !important; float:none !important;
     background:#e6e6e6; border-radius:0 0 5px 5px; padding:0;
     border-bottom:1px solid #ccc;
 }
+.dropdown-menu-hover {cursor:pointer;}
+.dropdown-menu-hover a {color:#444;}
+
 .messagelist {margin-top:14px; z-index:0 !important;}
 .inline-stacked ._order, div.dynamic-fields ._order {display:none;}
 .items .placeholder {display:block;}
@@ -49,3 +52,4 @@ fieldset .field-box {margin-right:150px !important;}
 
 /* Fix for IE7 layout issue */
 #content { margin-left: 0; margin-right: 0; padding: 0 15px; }
+
