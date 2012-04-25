@@ -53,7 +53,7 @@ provides the following features:
   * `Akismet`_ spam filtering
   * Sharing via Facebook or Twitter
   * Built-in `test suite`_
-  * User accounts with email verification
+  * User accounts and profiles with email verification
 
 The Mezzanine admin dashboard:
 

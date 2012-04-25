@@ -121,7 +121,8 @@ class FieldEntry(models.Model):
 
     entry = models.ForeignKey("FormEntry", related_name="fields")
     field_id = models.IntegerField()
-    value = models.CharField(max_length=settings.FORMS_FIELD_MAX_LENGTH)
+    value = models.CharField(max_length=settings.FORMS_FIELD_MAX_LENGTH,
+                             null=True)
 
     class Meta:
         verbose_name = _("Form field entry")
