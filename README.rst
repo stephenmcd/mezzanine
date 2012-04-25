@@ -1,3 +1,4 @@
+                                                                                                                                                                        
   .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
 
 ========
@@ -100,6 +101,17 @@ Otherwise you can download Mezzanine and install it directly from source::
 
     $ python setup.py install
 
+
+If you want to use the South package for automatic database
+migrations, you should install it now::
+
+    $ pip install -U south
+
+or::
+
+    $ easy_instal -U south 
+
+
 Once installed, the command ``mezzanine-project`` should be available which
 can be used for creating a new Mezzanine project in a similar fashion to
 ``django-admin.py``::
@@ -116,7 +128,9 @@ You can then run your project with the usual Django steps::
 
     The ``createdb`` is a shortcut for using Django's ``syncdb`` command and
     setting the initial migration state for `South`_. You can alternatively
-    use ``syncdb`` and ``migrate`` if preferred.
+    use ``syncdb`` and ``migrate`` if preferred.  South is automatically
+    added to INSTALLED_APPS if ``settings.USE_SOUTH = True``.
+
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and log
 in using the default account (``username: admin, password: default``). If
