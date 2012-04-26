@@ -27,6 +27,7 @@ install_requires = [
     "django >= 1.3.1",
     "filebrowser_safe == 0.2.3",
     "grappelli_safe == 0.2.2",
+    "bleach",
 ]
 
 try:
