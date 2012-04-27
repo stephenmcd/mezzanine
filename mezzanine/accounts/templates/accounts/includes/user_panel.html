@@ -1,6 +1,5 @@
 {% load i18n mezzanine_tags %}
 
-<div class="panel">
 {% if request.user.is_authenticated %}
     {% trans "Logged in as: " %}
     {% url profile user.username as profile_url %}
@@ -20,5 +19,3 @@
     <a href="{% url signup %}?next={{ request.path }}"
         class="btn btn-small btn-account">{% trans "Sign up" %}</a>
 {% endif %}
-<br clear="all">
-</div>
