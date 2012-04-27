@@ -1,8 +1,9 @@
 
-from django.conf import settings
+from bleach import clean
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from mezzanine.conf import settings
 
 from mezzanine.utils.importing import import_dotted_path
 
@@ -27,6 +28,13 @@ class RichTextField(models.TextField):
         kwargs["widget"] = widget_class()
         formfield = super(RichTextField, self).formfield(**kwargs)
         return formfield
+
+    def clean(self, value, model_instance):
+        """
+        Remove potentially dangerous HTML tags and attributes.
+        """
+        return clean(value, settings.RICHTEXT_ALLOWED_TAGS,
+                            settings.RICHTEXT_ALLOWED_ATTRIBUTES)
 
 
 # Define a ``FileField`` that maps to filebrowser's ``FileBrowseField``
