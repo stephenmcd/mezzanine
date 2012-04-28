@@ -62,20 +62,17 @@ The Mezzanine admin dashboard:
 Dependencies
 ============
 
-Mezzanine has no explicit dependencies apart from a standard Django
-environment using:
+Mezzanine makes use of as few libraries as possible, apart from a
+standard Django environment. The following dependencies are used:
 
   * `Python`_ 2.5 ... 2.7
-  * `Django`_ 1.3.x
-
-Mezzanine is designed however to be used most effectively in conjunction
-with the following libraries:
-
-  * `Python Imaging Library`_ (PIL)
-  * `grappelli-safe`_ (Mezzanine's fork of Grappelli)
-  * `filebrowser-safe`_ (Mezzanine's fork of FileBrowser)
-  * `South`_
-  * `pyflakes`_ and `pep8`_ (required for running the test suite)
+  * `Django`_ 1.3 ... 1.4
+  * `Python Imaging Library`_ - for image resizing
+  * `grappelli-safe`_ - admin skin (Grappelli fork)
+  * `filebrowser-safe`_ - for manaaging file uploads (Filebrowser fork)
+  * `bleach`_ - for sanitizing markup in content
+  * `South`_ - for database migrations (optional)
+  * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
 Browser Support
 ===============
@@ -86,15 +83,11 @@ Internet Explorer 7 and earlier are generally unsupported.
 Installation
 ============
 
-The easiest method is to install directly from pypi using `pip`_ or
-`setuptools`_ by running the respective command below, which will also
-attempt to install the dependencies mentioned above::
+The easiest method is to install directly from pypi using `pip`_ by
+running the respective command below, which will also install the
+required dependencies mentioned above::
 
     $ pip install -U mezzanine
-
-or::
-
-    $ easy_install -U mezzanine
 
 Otherwise you can download Mezzanine and install it directly from source::
 
@@ -243,7 +236,7 @@ Quotes
 .. _`Mezzanine project page`: http://mezzanine.jupo.org
 .. _`Python`: http://python.org/
 .. _`pip`: http://www.pip-installer.org/
-.. _`setuptools`: http://pypi.python.org/pypi/setuptools
+.. _`bleach`: http://pypi.python.org/pypi/bleach
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`grappelli-safe`: http://github.com/stephenmcd/grappelli-safe
 .. _`filebrowser-safe`: http://github.com/stephenmcd/filebrowser-safe/
