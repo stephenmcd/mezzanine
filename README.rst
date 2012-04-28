@@ -163,9 +163,13 @@ project, you can do so via the `Mezzanine Project`_ website.
 Support
 =======
 
+To report a security issue, please send an email privately to
+`security@jupo.org`_. This gives us a chance to fix this issue and
+create an official release for it, prior to the issue being made public.
+
 For general questions or comments, please join the
-`mezzanine-users`_ mailing list. To report a bug or other type of issue,
-please use the `GitHub issue tracker`_.
+`mezzanine-users`_ mailing list. To report a bug or other
+type of issue, please use the `GitHub issue tracker`_.
 
 Sites Using Mezzanine
 =====================
@@ -267,6 +271,7 @@ Quotes
 .. _`GitHub`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users/topics
+.. _`security@jupo.org`: mailto:security@jupo.org?subject=Mezzanine+Security+Issue
 .. _`GitHub issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
