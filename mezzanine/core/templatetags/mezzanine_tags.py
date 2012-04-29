@@ -59,10 +59,10 @@ def ifinstalled(parser, token):
     Old-style ``if`` tag that renders contents if the given app is
     installed. The main use case is:
     {% ifinstalled app_name %}
-        {% include "app_name/template.html" %}
+    {% include "app_name/template.html" %}
     {% endifinstalled %}
     so we need to manually pull out all tokens if the app isn't
-    installed, since if we used a normal ``if``tag with a False arg,
+    installed, since if we used a normal ``if`` tag with a False arg,
     the include tag will still try and find the template to include.
     """
     try:
