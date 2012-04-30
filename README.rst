@@ -218,6 +218,7 @@ Sites Using Mezzanine
   * `Elephant Juice Soup <http://www.elephantjuicesoup.com>`_
   * `National Positions <http://www.nationalpositions.co.uk>`_
   * `Like Humans Do <http://www.likehumansdo.com>`_
+  * `Connecting Countries <http://connectingcountries.net>`_
 
 Quotes
 ======
