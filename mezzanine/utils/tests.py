@@ -21,6 +21,9 @@ PYFLAKES_IGNORE = (
     "redefinition of unused 'Feed'",
     "redefinition of unused 'feed'",
 
+    # Backward compatibility for timezone support
+    "redefinition of unused 'now'",
+
 )
 
 

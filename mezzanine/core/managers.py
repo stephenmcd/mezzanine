@@ -1,5 +1,4 @@
 
-from datetime import datetime
 from operator import ior, iand
 from string import punctuation
 
@@ -8,6 +7,7 @@ from django.db.models.query import QuerySet
 from django.contrib.sites.managers import CurrentSiteManager
 
 from mezzanine.conf import settings
+from mezzanine.utils.timezone import now
 
 
 class PublishedManager(Manager):
@@ -26,8 +26,8 @@ class PublishedManager(Manager):
         if for_user is not None and for_user.is_staff:
             return self.all()
         return self.filter(
-            Q(publish_date__lte=datetime.now()) | Q(publish_date__isnull=True),
-            Q(expiry_date__gte=datetime.now()) | Q(expiry_date__isnull=True),
+            Q(publish_date__lte=now()) | Q(publish_date__isnull=True),
+            Q(expiry_date__gte=now()) | Q(expiry_date__isnull=True),
             Q(status=CONTENT_STATUS_PUBLISHED))
 
     def get_by_natural_key(self, slug):

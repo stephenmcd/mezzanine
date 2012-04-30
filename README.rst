@@ -1,4 +1,4 @@
-                                                                                                                                                                        
+
   .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
 
 ========
@@ -72,6 +72,7 @@ standard Django environment. The following dependencies are used:
   * `grappelli-safe`_ - admin skin (Grappelli fork)
   * `filebrowser-safe`_ - for manaaging file uploads (Filebrowser fork)
   * `bleach`_ - for sanitizing markup in content
+  * `pytz`_ - for timezone support
   * `South`_ - for database migrations (optional)
   * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
@@ -102,7 +103,7 @@ migrations, you should install it now::
 
 or::
 
-    $ easy_instal -U south 
+    $ easy_instal -U south
 
 
 Once installed, the command ``mezzanine-project`` should be available which
@@ -251,6 +252,7 @@ Quotes
 .. _`Python`: http://python.org/
 .. _`pip`: http://www.pip-installer.org/
 .. _`bleach`: http://pypi.python.org/pypi/bleach
+.. _`pytz`: http://pypi.python.org/pypi/pytz/
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`grappelli-safe`: http://github.com/stephenmcd/grappelli-safe
 .. _`filebrowser-safe`: http://github.com/stephenmcd/filebrowser-safe/

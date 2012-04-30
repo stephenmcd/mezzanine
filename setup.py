@@ -28,6 +28,7 @@ install_requires = [
     "filebrowser_safe >= 0.2.6",
     "grappelli_safe >= 0.2.3",
     "bleach",
+    "pytz",
 ]
 
 try:

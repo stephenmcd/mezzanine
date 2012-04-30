@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 from os.path import join, split
 from uuid import uuid4
 
@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.forms import fields
 from mezzanine.forms.models import FormEntry, FieldEntry
+from mezzanine.utils.timezone import now
 
 
 fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)
@@ -125,7 +126,7 @@ class FormForForm(forms.ModelForm):
         """
         entry = super(FormForForm, self).save(commit=False)
         entry.form = self.form
-        entry.entry_time = datetime.now()
+        entry.entry_time = now()
         entry.save()
         for field in self.form_fields:
             field_key = "field_%s" % field.id

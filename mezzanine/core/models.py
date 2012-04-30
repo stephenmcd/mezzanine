@@ -1,4 +1,3 @@
-from datetime import datetime
 
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.sites.models import Site
@@ -15,6 +14,7 @@ from mezzanine.core.managers import DisplayableManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model
+from mezzanine.utils.timezone import now
 from mezzanine.utils.urls import slugify
 
 
@@ -171,7 +171,7 @@ class Displayable(Slugged, MetaData):
         the quick blog form in the admin dashboard.
         """
         if self.publish_date is None:
-            self.publish_date = datetime.now()
+            self.publish_date = now()
         super(Displayable, self).save(*args, **kwargs)
 
 
