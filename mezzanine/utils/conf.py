@@ -111,8 +111,3 @@ def set_dynamic_settings(s):
         elif shortname == "mysql":
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
-        elif shortname.startswith("postgresql") and not s.get("TIME_ZONE", 1):
-            # Specifying a blank time zone to fall back to the system's
-            # time zone, which will break table creation in Postgres so
-            # remove it.
-            del s["TIME_ZONE"]
