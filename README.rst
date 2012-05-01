@@ -69,11 +69,12 @@ standard Django environment. The following dependencies are used:
   * `Python`_ 2.5 ... 2.7
   * `Django`_ 1.3 ... 1.4
   * `Python Imaging Library`_ - for image resizing
-  * `grappelli-safe`_ - admin skin (Grappelli fork)
-  * `filebrowser-safe`_ - for manaaging file uploads (Filebrowser fork)
+  * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
+  * `filebrowser-safe`_ - for manaaging file uploads (`FileBrowser`_ fork)
   * `bleach`_ - for sanitizing markup in content
   * `pytz`_ - for timezone support
   * `South`_ - for database migrations (optional)
+  * `django-compressor`_ - for merging JS/CSS assets (optional)
   * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
 Browser Support
@@ -254,11 +255,12 @@ Quotes
 .. _`pip`: http://www.pip-installer.org/
 .. _`bleach`: http://pypi.python.org/pypi/bleach
 .. _`pytz`: http://pypi.python.org/pypi/pytz/
+.. _`django-compressor`: http://pypi.python.org/pypi/django-compressor/
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`grappelli-safe`: http://github.com/stephenmcd/grappelli-safe
 .. _`filebrowser-safe`: http://github.com/stephenmcd/filebrowser-safe/
-.. _`django-grappelli`: http://code.google.com/p/django-grappelli/
-.. _`django-filebrowser`: http://code.google.com/p/django-filebrowser/
+.. _`Grappelli`: http://code.google.com/p/django-grappelli/
+.. _`FileBrowser`: http://code.google.com/p/django-filebrowser/
 .. _`South`: http://south.aeracode.org/
 .. _`pyflakes`: http://pypi.python.org/pypi/pyflakes
 .. _`pep8`: http://pypi.python.org/pypi/pep8

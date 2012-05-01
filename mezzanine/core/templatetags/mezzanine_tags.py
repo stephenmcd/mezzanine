@@ -32,6 +32,17 @@ from mezzanine import template
 register = template.Library()
 
 
+if "compressor" in settings.INSTALLED_APPS:
+    @register.tag
+    def compress(parser, token):
+        from compressor.templatetags.compress import compress
+        return compress(parser, token)
+else:
+    @register.to_end_tag
+    def compress(parsed, context, token):
+        return parsed
+
+
 @register.inclusion_tag("includes/form_fields.html", takes_context=True)
 def fields_for(context, form):
     """

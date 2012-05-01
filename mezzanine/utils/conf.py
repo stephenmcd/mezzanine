@@ -5,9 +5,9 @@ import sys
 
 def set_dynamic_settings(s):
     """
-    Called at the end of the project's settings module and is passed
+    Called at the end of the project's settings module, and is passed
     its globals dict for updating with some final tweaks for settings
-    that generally aren't specified but can be given some better
+    that generally aren't specified, but can be given some better
     defaults based on other settings that have been specified. Broken
     out into its own function so that the code need not be replicated
     in the settings modules of other project-based apps that leverage
@@ -27,10 +27,10 @@ def set_dynamic_settings(s):
     # Some kind of development server is running via runserver or
     # runserver_plus
     s["DEV_SERVER"] = management_command.startswith("runserver")
-    # Change INSTALLED_APPS and MIDDLEWARE_CLASSES to lists for
-    # easier manipulation.
+    # Change tuple settings to lists for easier manipulation.
     s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
     s["MIDDLEWARE_CLASSES"] = list(s["MIDDLEWARE_CLASSES"])
+    s["STATICFILES_FINDERS"] = list(s["STATICFILES_FINDERS"])
 
     if s["DEV_SERVER"]:
         s["STATICFILES_DIRS"] = list(s.get("STATICFILES_DIRS", []))
@@ -61,6 +61,8 @@ def set_dynamic_settings(s):
     if "debug_toolbar" in s["INSTALLED_APPS"]:
         debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
         append("MIDDLEWARE_CLASSES", debug_mw)
+    if "compressor" in s["INSTALLED_APPS"]:
+        append("STATICFILES_FINDERS", "compressor.finders.CompressorFinder")
 
     # Ensure Grappelli is after Mezzanine in app order so that
     # admin templates are loaded in the correct order.
