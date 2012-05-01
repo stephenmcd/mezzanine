@@ -80,7 +80,7 @@ class FormForForm(forms.ModelForm):
         """
         self.form = form
         self.form_fields = form.fields.visible()
-        field_entries = {}
+        initial = kwargs.pop("initial", {})
         # If a FormEntry instance is given to edit, populate initial
         # with its field values.
         field_entries = {}
@@ -104,10 +104,24 @@ class FormForForm(forms.ModelForm):
                 field_args["choices"] = field.get_choices()
             if field_widget is not None:
                 field_args["widget"] = field_widget
+            #
+            #   Initial value for field, in order of preference:
+            #
+            # - If a form model instance is given (eg we're editing a
+            #   form response), then use the instance's value for the
+            #   field.
+            # - If the developer has provided an explicit "initial"
+            #   dict, use it.
+            # - The default value for the field instance as given in
+            #   the admin.
+            #
             try:
                 self.initial[field_key] = field_entries[field.id]
             except KeyError:
-                self.initial[field_key] = field.default
+                try:
+                    self.initial[field_key] = initial[field_key]
+                except KeyError:
+                    self.initial[field_key] = field.default
             self.fields[field_key] = field_class(**field_args)
             # Add identifying type attr to the field for styling.
             setattr(self.fields[field_key], "type",
