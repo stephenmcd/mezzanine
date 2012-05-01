@@ -178,8 +178,10 @@ def thumbnail(image_url, width, height):
     if not os.path.exists(thumb_dir):
         os.makedirs(thumb_dir)
     thumb_path = os.path.join(thumb_dir, thumb_name)
-    thumb_url = "%s/%s/%s" % (os.path.dirname(image_url),
-                              settings.THUMBNAILS_DIR_NAME, thumb_name)
+    thumb_url = "%s/%s" % (settings.THUMBNAILS_DIR_NAME, thumb_name)
+    image_url_path = os.path.dirname(image_url)
+    if image_url_path:
+        thumb_url = "%s/%s" % (image_url_path, thumb_url)
 
     try:
         thumb_exists = os.path.exists(thumb_path)
