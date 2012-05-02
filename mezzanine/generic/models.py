@@ -54,8 +54,8 @@ class ThreadedComment(Comment):
     intro.short_description = _("Comment")
 
     def avatar_link(self):
-        from mezzanine.generic.templatetags.comment_tags import gravatar_url
-        vars = (self.user_email, gravatar_url(self.email_hash), self.user_name)
+        from mezzanine.core.templatetags.mezzanine_tags import gravatar_url
+        vars = (self.user_email, gravatar_url(self.email), self.user_name)
         return ("<a href='mailto:%s'><img style='vertical-align:middle; "
                 "margin-right:3px;' src='%s' />%s</a>" % vars)
     avatar_link.allow_tags = True
