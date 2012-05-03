@@ -5,9 +5,10 @@ from string import punctuation
 
 from django.db.models import Manager, Q, CharField, TextField, get_models
 from django.db.models.query import QuerySet
-from django.contrib.sites.managers import CurrentSiteManager
+from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
 
 from mezzanine.conf import settings
+from mezzanine.utils.sites import current_site_id
 
 
 class PublishedManager(Manager):
@@ -67,6 +68,7 @@ class SearchableQuerySet(QuerySet):
             return fields
 
         #### DETERMINE FIELDS TO SEARCH ###
+
         # Use fields arg if given, otherwise check internal list which
         # if empty, populate from model attr or char-like fields.
         if search_fields is None:
@@ -91,6 +93,7 @@ class SearchableQuerySet(QuerySet):
         self._search_fields.update(search_fields_to_dict(search_fields))
 
         #### BUILD LIST OF TERMS TO SEARCH FOR ###
+
         # Remove extra spaces, put modifiers inside quoted terms.
         terms = " ".join(query.split()).replace("+ ", "+")     \
                                        .replace('+"', '"+')    \
@@ -122,6 +125,7 @@ class SearchableQuerySet(QuerySet):
             self._search_terms.update(positive_terms)
 
         #### BUILD QUERYSET FILTER ###
+
         # Create the queryset combining each set of terms.
         excluded = [reduce(iand, [~Q(**{"%s__icontains" % f: t[1:]}) for f in
             search_fields.keys()]) for t in terms if t[0] == "-"]
@@ -216,6 +220,23 @@ class SearchableManager(Manager):
                                model.objects.get_query_set)
             all_results.extend(queryset().search(*args, **kwargs))
         return sorted(all_results, key=lambda r: r.result_count, reverse=True)
+
+
+class CurrentSiteManager(DjangoCSM):
+    """
+    Extends Django's site manager to first look up site by ID stored in
+    the request, the session, then domain for the current request
+    (accessible via threadlocals in ``mezzanine.core.request``), the
+    environment variable ``MEZZANINE_SITE_ID`` (which can be used by
+    management commands with the ``--site`` arg, finally falling back
+    to ``settings.SITE_ID`` if none of those match a site.
+    """
+
+    def get_query_set(self):
+        if not self.__is_validated:
+            self._validate_field_name()
+        lookup = {self.__field_name + "__id__exact": current_site_id()}
+        return super(DjangoCSM, self).get_query_set().filter(**lookup)
 
 
 class DisplayableManager(CurrentSiteManager, PublishedManager,

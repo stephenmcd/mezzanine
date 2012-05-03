@@ -1,11 +1,11 @@
 
-from django.db.models import Manager
-from django.contrib.sites.managers import CurrentSiteManager
+from django.contrib.comments.managers import CommentManager as DjangoCM
 
 from mezzanine.conf import settings
+from mezzanine.core.managers import CurrentSiteManager
 
 
-class CommentManager(Manager):
+class CommentManager(CurrentSiteManager, DjangoCM):
     """
     Provides filter for restricting comments that are not approved
     if ``COMMENTS_UNAPPROVED_VISIBLE`` is set to ``False``.

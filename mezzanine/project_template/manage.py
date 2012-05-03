@@ -19,6 +19,11 @@ if project_dir == "project_template":
 # Corrects some pathing issues in various contexts, such as cron jobs.
 os.chdir(project_path)
 
+for i, arg in enumerate(sys.argv):
+    if arg.startswith("--site"):
+        os.environ["MEZZANINE_SITE_ID"] = arg.split("=")[1]
+        sys.argv.pop(i)
+
 from django.core.management import execute_manager
 try:
     import settings  # Assumed to be in the same directory.

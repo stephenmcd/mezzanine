@@ -1,5 +1,6 @@
 {% load i18n %}
-<ul class="dropdown-menu" style="display:none;">
+<div class="dropdown-menu" style="display:none;">
+<ul>
     <li><a href="{% url admin:index %}">{% trans "Dashboard" %}</a></li>
     {% for app in dropdown_menu_app_list %}
     <li>
@@ -15,3 +16,16 @@
     </li>
     {% endfor %}
 </ul>
+{% if dropdown_menu_sites %}
+<form action="{% url set_site %}">
+<input type="hidden" name="next" value="{{ request.path }}">
+<select name="site_id" onchange="this.form.submit();">
+{% for site in dropdown_menu_sites %}
+<option value="{{ site.id }}"
+    {% if site.id == dropdown_menu_selected_site_id %} selected{% endif %}
+    >{{ site }}</option>
+{% endfor %}
+</select>
+</form>
+{% endif %}
+</div>

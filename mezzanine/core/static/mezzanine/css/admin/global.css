@@ -33,6 +33,9 @@ label.interface {display:inline !important; float:none !important;
 .dropdown-menu-hover {cursor:pointer;}
 .dropdown-menu-hover a {color:#444;}
 
+.dropdown-menu form {float:right; margin:3px 22px 0 0;}
+#djDebugToolbarHandle {margin-top:50px !important;}
+
 .messagelist {margin-top:14px; z-index:0 !important;}
 .inline-stacked ._order, div.dynamic-fields ._order {display:none;}
 .items .placeholder {display:block;}

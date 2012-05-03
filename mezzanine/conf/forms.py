@@ -3,8 +3,6 @@ from collections import defaultdict
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.sites.models import Site
-
 
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
@@ -58,7 +56,6 @@ class SettingsForm(forms.Form):
     def save(self):
         # Save each of the settings to the DB.
         for (name, value) in self.cleaned_data.items():
-            kwargs = {"name": name, "site": Site.objects.get_current()}
-            setting_obj, created = Setting.objects.get_or_create(**kwargs)
+            setting_obj, created = Setting.objects.get_or_create(name=name)
             setting_obj.value = value
             setting_obj.save()

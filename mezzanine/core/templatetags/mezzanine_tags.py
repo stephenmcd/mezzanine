@@ -6,6 +6,7 @@ from urllib import urlopen, urlencode, unquote
 
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.sites.models import Site
 from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, NoReverseMatch
@@ -24,8 +25,9 @@ from mezzanine.core.fields import RichTextField
 from mezzanine.core.forms import get_edit_form
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.views import is_editable
+from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import admin_url
+from mezzanine.utils.views import is_editable
 from mezzanine import template
 
 
@@ -58,9 +60,11 @@ def ifinstalled(parser, token):
     """
     Old-style ``if`` tag that renders contents if the given app is
     installed. The main use case is:
+
     {% ifinstalled app_name %}
         {% include "app_name/template.html" %}
     {% endifinstalled %}
+
     so we need to manually pull out all tokens if the app isn't
     installed, since if we used a normal ``if``tag with a False arg,
     the include tag will still try and find the template to include.
@@ -381,6 +385,8 @@ def admin_dropdown_menu(context):
     Renders the app list for the admin dropdown menu navigation.
     """
     context["dropdown_menu_app_list"] = admin_app_list(context["request"])
+    context["dropdown_menu_sites"] = list(Site.objects.all())
+    context["dropdown_menu_selected_site_id"] = current_site_id()
     return context
 
 

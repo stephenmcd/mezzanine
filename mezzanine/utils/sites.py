@@ -1,7 +1,30 @@
 
 import os
 
+from django.contrib.sites.models import Site
+
 from mezzanine.conf import settings
+from mezzanine.core.request import current_request
+
+
+def current_site_id():
+    request = current_request()
+    site_id = getattr(request, "site_id", None)
+    if request and not site_id:
+        site_id = request.session.get("site_id", None)
+        if not site_id:
+            domain = request.get_host().lower()
+            try:
+                site = Site.objects.get(domain__iexact=domain)
+            except Site.DoesNotExist:
+                pass
+            else:
+                site_id = site.id
+        if request and site_id:
+            request.site_id = site_id
+    if not site_id:
+        site_id = os.environ.get("MEZZANINE_SITE_ID", settings.SITE_ID)
+    return site_id
 
 
 def host_theme_path(request):

@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.staticfiles import finders
+from django.core.urlresolvers import reverse
 from django.db.models import get_model
 from django.http import HttpResponse, HttpResponseServerError
 from django.shortcuts import redirect
@@ -27,6 +28,26 @@ def set_device(request, device=""):
     response = redirect(request.GET.get("next", "/"))
     set_cookie(response, "mezzanine-device", device, 60 * 60 * 24 * 365)
     return response
+
+
+@staff_member_required
+def set_site(request):
+    """
+    Put the selected site ID into the session - posted to from
+    the "Select site" drop-down in the header of the admin. The
+    site ID is then used in favour of the current request's
+    domain in ``mezzanine.core.managers.CurrentSiteManager``.
+    """
+    request.session["site_id"] = int(request.GET["site_id"])
+    admin_url = reverse("admin:index")
+    next = request.GET.get("next", admin_url)
+    # Don't redirect to a change view for an object that won't exist
+    # on the selected site - go to its list view instead.
+    if next.startswith(admin_url):
+        parts = next.split("/")
+        if len(parts) > 4 and parts[4].isdigit():
+            next = "/".join(parts[:4])
+    return redirect(next)
 
 
 def direct_to_template(request, template, extra_context=None, **kwargs):

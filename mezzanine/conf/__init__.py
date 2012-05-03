@@ -4,7 +4,6 @@ consistent access method for settings defined in applications, the project
 or Django itself. Settings can also be made editable via the admin.
 """
 
-from django.contrib.sites.models import Site
 from django.conf import settings as django_settings
 from django.template.defaultfilters import urlize
 
@@ -80,7 +79,7 @@ class Settings(object):
         # Also remove settings from the DB that are no longer registered.
         if setting["editable"] and not self._loaded:
             from mezzanine.conf.models import Setting
-            settings = Setting.objects.filter(site=Site.objects.get_current())
+            settings = Setting.objects.all()
             removed = []
             for setting_obj in settings:
                 try:
