@@ -143,7 +143,7 @@ class Tests(TestCase):
         """
         description = "<p>How now brown cow</p>"
         page = RichTextPage.objects.create(title="Draft",
-                                          content=description * 3)
+                                           content=description * 3)
         self.assertEqual(page.description, strip_tags(description))
 
     def test_device_specific_template(self):

@@ -1,3 +1,4 @@
+
   .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
 
 ========
@@ -62,20 +63,19 @@ The Mezzanine admin dashboard:
 Dependencies
 ============
 
-Mezzanine has no explicit dependencies apart from a standard Django
-environment using:
+Mezzanine makes use of as few libraries as possible, apart from a
+standard Django environment. The following dependencies are used:
 
   * `Python`_ 2.5 ... 2.7
-  * `Django`_ 1.3.x
-
-Mezzanine is designed however to be used most effectively in conjunction
-with the following libraries:
-
-  * `Python Imaging Library`_ (PIL)
-  * `grappelli-safe`_ (Mezzanine's fork of Grappelli)
-  * `filebrowser-safe`_ (Mezzanine's fork of FileBrowser)
-  * `South`_
-  * `pyflakes`_ and `pep8`_ (required for running the test suite)
+  * `Django`_ 1.3 ... 1.4
+  * `Python Imaging Library`_ - for image resizing
+  * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
+  * `filebrowser-safe`_ - for manaaging file uploads (`FileBrowser`_ fork)
+  * `bleach`_ - for sanitizing markup in content
+  * `pytz`_ - for timezone support
+  * `South`_ - for database migrations (optional)
+  * `django-compressor`_ - for merging JS/CSS assets (optional)
+  * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
 Browser Support
 ===============
@@ -86,19 +86,26 @@ Internet Explorer 7 and earlier are generally unsupported.
 Installation
 ============
 
-The easiest method is to install directly from pypi using `pip`_ or
-`setuptools`_ by running the respective command below, which will also
-attempt to install the dependencies mentioned above::
+The easiest method is to install directly from pypi using `pip`_ by
+running the respective command below, which will also install the
+required dependencies mentioned above::
 
     $ pip install -U mezzanine
-
-or::
-
-    $ easy_install -U mezzanine
 
 Otherwise you can download Mezzanine and install it directly from source::
 
     $ python setup.py install
+
+
+If you want to use the South package for automatic database
+migrations, you should install it now::
+
+    $ pip install -U south
+
+or::
+
+    $ easy_instal -U south
+
 
 Once installed, the command ``mezzanine-project`` should be available which
 can be used for creating a new Mezzanine project in a similar fashion to
@@ -116,7 +123,9 @@ You can then run your project with the usual Django steps::
 
     The ``createdb`` is a shortcut for using Django's ``syncdb`` command and
     setting the initial migration state for `South`_. You can alternatively
-    use ``syncdb`` and ``migrate`` if preferred.
+    use ``syncdb`` and ``migrate`` if preferred.  South is automatically
+    added to INSTALLED_APPS if ``settings.USE_SOUTH = True``.
+
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and log
 in using the default account (``username: admin, password: default``). If
@@ -163,9 +172,13 @@ project, you can do so via the `Mezzanine Project`_ website.
 Support
 =======
 
+To report a security issue, please send an email privately to
+`security@jupo.org`_. This gives us a chance to fix this issue and
+create an official release for it, prior to the issue being made public.
+
 For general questions or comments, please join the
-`mezzanine-users`_ mailing list. To report a bug or other type of issue,
-please use the `GitHub issue tracker`_.
+`mezzanine-users`_ mailing list. To report a bug or other
+type of issue, please use the `GitHub issue tracker`_.
 
 Sites Using Mezzanine
 =====================
@@ -206,6 +219,7 @@ Sites Using Mezzanine
   * `Elephant Juice Soup <http://www.elephantjuicesoup.com>`_
   * `National Positions <http://www.nationalpositions.co.uk>`_
   * `Like Humans Do <http://www.likehumansdo.com>`_
+  * `Connecting Countries <http://connectingcountries.net>`_
 
 Quotes
 ======
@@ -239,12 +253,14 @@ Quotes
 .. _`Mezzanine project page`: http://mezzanine.jupo.org
 .. _`Python`: http://python.org/
 .. _`pip`: http://www.pip-installer.org/
-.. _`setuptools`: http://pypi.python.org/pypi/setuptools
+.. _`bleach`: http://pypi.python.org/pypi/bleach
+.. _`pytz`: http://pypi.python.org/pypi/pytz/
+.. _`django-compressor`: http://pypi.python.org/pypi/django-compressor/
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`grappelli-safe`: http://github.com/stephenmcd/grappelli-safe
 .. _`filebrowser-safe`: http://github.com/stephenmcd/filebrowser-safe/
-.. _`django-grappelli`: http://code.google.com/p/django-grappelli/
-.. _`django-filebrowser`: http://code.google.com/p/django-filebrowser/
+.. _`Grappelli`: http://code.google.com/p/django-grappelli/
+.. _`FileBrowser`: http://code.google.com/p/django-filebrowser/
 .. _`South`: http://south.aeracode.org/
 .. _`pyflakes`: http://pypi.python.org/pypi/pyflakes
 .. _`pep8`: http://pypi.python.org/pypi/pep8
@@ -267,6 +283,7 @@ Quotes
 .. _`GitHub`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users/topics
+.. _`security@jupo.org`: mailto:security@jupo.org?subject=Mezzanine+Security+Issue
 .. _`GitHub issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/

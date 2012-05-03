@@ -1,12 +1,13 @@
 
 from django.contrib import admin
 from django.db.models import AutoField
+from django.forms import ValidationError
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
-from mezzanine.core.models import Orderable
+from mezzanine.core.models import CONTENT_STATUS_PUBLISHED, Orderable
 from mezzanine.utils.urls import admin_url
 
 
@@ -31,6 +32,27 @@ class DisplayableAdmin(admin.ModelAdmin):
             "classes": ("collapse-closed",)
         }),
     )
+
+    def get_form(self, request, obj=None, **kwargs):
+        """
+        Add validation for the content field - it's required if status
+        is set to published. We patch this method onto the form to avoid
+        problems that come up with trying to use a form class. See:
+        https://bitbucket.org/stephenmcd/mezzanine/pull-request/23/
+        allow-content-field-on-richtextpage-to-be
+        """
+        form = super(DisplayableAdmin, self).get_form(request, obj, **kwargs)
+
+        def clean_content(form):
+            status = form.cleaned_data.get("status")
+            content = form.cleaned_data.get("content")
+            if status == CONTENT_STATUS_PUBLISHED and not content:
+                raise ValidationError(_("This field is required if status "
+                                        "is set to published."))
+            return content
+
+        form.clean_content = clean_content
+        return form
 
 
 class BaseDynamicInlineAdmin(object):

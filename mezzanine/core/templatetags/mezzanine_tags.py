@@ -34,6 +34,17 @@ from mezzanine import template
 register = template.Library()
 
 
+if "compressor" in settings.INSTALLED_APPS:
+    @register.tag
+    def compress(parser, token):
+        from compressor.templatetags.compress import compress
+        return compress(parser, token)
+else:
+    @register.to_end_tag
+    def compress(parsed, context, token):
+        return parsed
+
+
 @register.inclusion_tag("includes/form_fields.html", takes_context=True)
 def fields_for(context, form):
     """
@@ -62,11 +73,11 @@ def ifinstalled(parser, token):
     installed. The main use case is:
 
     {% ifinstalled app_name %}
-        {% include "app_name/template.html" %}
+    {% include "app_name/template.html" %}
     {% endifinstalled %}
 
     so we need to manually pull out all tokens if the app isn't
-    installed, since if we used a normal ``if``tag with a False arg,
+    installed, since if we used a normal ``if`` tag with a False arg,
     the include tag will still try and find the template to include.
     """
     try:
@@ -171,8 +182,10 @@ def thumbnail(image_url, width, height):
     if not os.path.exists(thumb_dir):
         os.makedirs(thumb_dir)
     thumb_path = os.path.join(thumb_dir, thumb_name)
-    thumb_url = "%s/%s/%s" % (os.path.dirname(image_url),
-                              settings.THUMBNAILS_DIR_NAME, thumb_name)
+    thumb_url = "%s/%s" % (settings.THUMBNAILS_DIR_NAME, thumb_name)
+    image_url_path = os.path.dirname(image_url)
+    if image_url_path:
+        thumb_url = "%s/%s" % (image_url_path, thumb_url)
 
     try:
         thumb_exists = os.path.exists(thumb_path)

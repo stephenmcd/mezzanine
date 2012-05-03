@@ -1,7 +1,8 @@
-from datetime import date, datetime
+from datetime import date
 from os.path import join, split
 from uuid import uuid4
 
+import django
 from django import forms
 from django.forms.extras import SelectDateWidget
 from django.core.files.storage import FileSystemStorage
@@ -12,6 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.forms import fields
 from mezzanine.forms.models import FormEntry, FieldEntry
+from mezzanine.utils.timezone import now
 
 
 fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)
@@ -79,7 +81,7 @@ class FormForForm(forms.ModelForm):
         """
         self.form = form
         self.form_fields = form.fields.visible()
-        field_entries = {}
+        initial = kwargs.pop("initial", {})
         # If a FormEntry instance is given to edit, populate initial
         # with its field values.
         field_entries = {}
@@ -103,10 +105,24 @@ class FormForForm(forms.ModelForm):
                 field_args["choices"] = field.get_choices()
             if field_widget is not None:
                 field_args["widget"] = field_widget
+            #
+            #   Initial value for field, in order of preference:
+            #
+            # - If a form model instance is given (eg we're editing a
+            #   form response), then use the instance's value for the
+            #   field.
+            # - If the developer has provided an explicit "initial"
+            #   dict, use it.
+            # - The default value for the field instance as given in
+            #   the admin.
+            #
             try:
                 self.initial[field_key] = field_entries[field.id]
             except KeyError:
-                self.initial[field_key] = field.default
+                try:
+                    self.initial[field_key] = initial[field_key]
+                except KeyError:
+                    self.initial[field_key] = field.default
             self.fields[field_key] = field_class(**field_args)
             # Add identifying type attr to the field for styling.
             setattr(self.fields[field_key], "type",
@@ -125,8 +141,10 @@ class FormForForm(forms.ModelForm):
         """
         entry = super(FormForForm, self).save(commit=False)
         entry.form = self.form
-        entry.entry_time = datetime.now()
+        entry.entry_time = now()
         entry.save()
+        entry_fields = entry.fields.values_list("field_id", flat=True)
+        new_entry_fields = []
         for field in self.form_fields:
             field_key = "field_%s" % field.id
             value = self.cleaned_data[field_key]
@@ -134,9 +152,19 @@ class FormForForm(forms.ModelForm):
                 value = fs.save(join("forms", str(uuid4()), value.name), value)
             if isinstance(value, list):
                 value = ", ".join([v.strip() for v in value])
-            field_entry, _ = entry.fields.get_or_create(field_id=field.id)
-            field_entry.value = value
-            field_entry.save()
+            if field.id in entry_fields:
+                field_entry = entry.fields.get(field_id=field.id)
+                field_entry.value = value
+                field_entry.save()
+            else:
+                new = {"entry": entry, "field_id": field.id, "value": value}
+                new_entry_fields.append(FieldEntry(**new))
+        if new_entry_fields:
+            if django.VERSION >= (1, 4, 0):
+                FieldEntry.objects.bulk_create(new_entry_fields)
+            else:
+                for field_entry in new_entry_fields:
+                    field_entry.save()
         return entry
 
     def email_to(self):

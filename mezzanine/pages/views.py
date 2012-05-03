@@ -74,7 +74,11 @@ def page(request, slug, template="pages/page.html", extra_context=None):
                 error = ("The page processor %s returned %s but must return "
                          "HttpResponse or dict." % (name, type(response)))
                 raise ValueError(error)
-    templates = [u"pages/%s.html" % unicode(slug)]
+    # Check for a template name matching the page's slug. If the homepage
+    # is configured as a page instance, the template "pages/index.html" is
+    # used, since the slug "/" won't match a template name.
+    templates = [u"pages/%s.html" % unicode(slug) if slug != "/" else "index"]
+    # Check for a template matching the page's content model.
     if page.content_model is not None:
         templates.append(u"pages/%s.html" % page.content_model)
     templates.append(template)
