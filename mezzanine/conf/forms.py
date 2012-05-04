@@ -32,9 +32,14 @@ class SettingsForm(forms.Form):
                     "label": setting["label"] + ":",
                     "required": False,
                     "initial": getattr(settings, name),
-                    "help_text": setting["description"]
+                    "help_text": setting["description"],
                 }
+                if setting["choices"]:
+                    field_class = forms.ChoiceField
+                    kwargs["choices"] = setting["choices"]
                 self.fields[name] = field_class(**kwargs)
+                css_class = field_class.__name__.lower()
+                self.fields[name].widget.attrs["class"] = css_class
 
     def __iter__(self):
         """
@@ -51,7 +56,7 @@ class SettingsForm(forms.Form):
             setattr(fields[i], "group", group(field))
             if groups[fields[i].group] == 1:
                 fields[i].group = misc
-        return iter(sorted(fields, cmp=lambda x, y: cmp(x.group, y.group)))
+        return iter(sorted(fields, key=lambda x: x.group != misc or x.group))
 
     def save(self):
         # Save each of the settings to the DB.

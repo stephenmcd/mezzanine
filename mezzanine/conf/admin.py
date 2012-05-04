@@ -1,5 +1,6 @@
 
 from django.contrib import admin
+from django.contrib.messages import info
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_unicode
@@ -34,6 +35,7 @@ class SettingsAdmin(admin.ModelAdmin):
         settings_form = SettingsForm(request.POST or None)
         if settings_form.is_valid():
             settings_form.save()
+            info(request, _("Settings were successfully updated."))
             return self.changelist_redirect()
         extra_context["settings_form"] = settings_form
         extra_context["title"] = _("Change %s" %

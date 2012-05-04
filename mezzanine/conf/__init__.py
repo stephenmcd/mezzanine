@@ -14,7 +14,7 @@ registry = {}
 
 
 def register_setting(name="", label="", editable=False, description="",
-                     default=None, append=False):
+                     default=None, choices=None, append=False):
     """
     Registers a setting that can be edited via the admin.
     """
@@ -29,13 +29,13 @@ def register_setting(name="", label="", editable=False, description="",
         parts = []
         for i, s in enumerate(description.split("``")):
             parts.append(s if i % 2 == 0 else "<b>%s</b>" % s)
-        description = urlize("".join(parts))
+        description = urlize("".join(parts).replace("\n", "<br>"))
         if setting_type is str:
             setting_type = unicode
         registry[name] = {"name": name, "label": label,
                           "description": description,
                           "editable": editable, "default": default,
-                          "type": setting_type}
+                          "choices": choices, "type": setting_type}
 
 
 class Settings(object):

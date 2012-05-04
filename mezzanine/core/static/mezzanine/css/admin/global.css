@@ -42,6 +42,11 @@ label.interface {display:inline !important; float:none !important;
 
 .keywords-field a {margin-right:10px; float:left;}
 
+#settings-form .module {width:50%;}
+#settings-form .help {margin-right:10px;}
+#settings-form .charfield {width:50% !important;}
+#settings-form .integerfield {width:30px !important;}
+
 /* make save/delete buttons always available at bottom of screen. */
 .change-form div.submit-row {
     position: fixed; left: 0; bottom: 0; right: 0;
