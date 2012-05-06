@@ -230,6 +230,8 @@ Quotes
     - `Antonio Rodriguez`_, ex CTO of `Hewlett Packard`_, founder of `Tabblo`_
   * "Mezzanine looks pretty interesting, tempting to get me off Wordpress"
     - `Jesse Noller`_, Python core contributor, `Python Software Foundation`_ board member
+  * "I think I'm your newest fan. Love these frameworks"
+    - `Emile Petrone`_, integrations engineer at `Urban Airship`_
   * "Mezzanine is amazing"
     - `Audrey Roy`_, founder of `PyLadies`_ and `Django Packages`_
   * "Mezzanine convinced me to switch from the Ruby world over to Python"
@@ -288,6 +290,7 @@ Quotes
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`Python Software Foundation`: http://www.python.org/psf/
+.. _`Urban Airship`: http://urbanairship.com/
 .. _`Django Packages`: http://djangopackages.com/
 .. _`Hewlett Packard`: http://www.hp.com/
 .. _`Tabblo`: http://www.tabblo.com/
@@ -310,6 +313,7 @@ Quotes
 .. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Antonio Rodriguez`: http://an.ton.io/
 .. _`Jesse Noller`: http://jessenoller.com/
+.. _`Emile Petrone`: https://twitter.com/emilepetrone
 .. _`Audrey Roy`: http://cartwheelweb.com/
 .. _`Michael Delaney`: http://github.com/fusepilot/
 .. _`John Campbell`: http://head3.com/
