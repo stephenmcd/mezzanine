@@ -8,6 +8,20 @@ from mezzanine.core.request import current_request
 
 
 def current_site_id():
+    """
+    Responsible for determining the current ``Site`` instance to use
+    when retrieving data for any ``SiteRelated`` models. If a request
+    is available, and the site can be determined from it, we store the
+    site against the request for subsequent retrievals. Otherwise the
+    order of checks is as follows:
+    - ``site_id`` in session. Used in the admin so that admin users can
+      switch sites and stay on the same domain for the admin.
+    - host for the current request matched to the domain of the site
+      instance.
+    - ``MEZZANINE_SITE_ID`` environment variable, so management commands
+      or anything else outside of a request can specify a site.
+    - ``SITE_ID`` setting.
+    """
     request = current_request()
     site_id = getattr(request, "site_id", None)
     if request and not site_id:
