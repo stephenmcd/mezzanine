@@ -9,45 +9,43 @@ see the Django docs for
 `deployment <https://docs.djangoproject.com/en/dev/howto/deployment/>`_ and
 `staticfiles <https://docs.djangoproject.com/en/dev/howto/static-files/>`_.
 
-Multi-Site
-==========
+Multiplie Sites and Multi-Tenancy
+=================================
 
-Mezzanine currently supports multi-site functionality through the use
-of Django's ``sites`` app. This functionality is always "turned on" in
-Mezzanine: a single-site deployment is a deployment of Mezzanine
-that references a single ``Site`` record, which is how Mezzanine is
-configured out of the box.
+Mezzanine makes use of of Django's ``sites`` app to support multiple
+sites in a single project. This functionality is always "turned on" in
+Mezzanine: a single ``Site`` record always exists, and is referenced
+when retrieving site related data, which most content in Mezzanine falls
+under.
 
-Migrating from a single-site deployment to a multi-site deployment is
-simply a matter of adding another site to the ``sites`` application's
-``Site`` table, and then creating a new instance of Django that
-references that record via the ``SITE_ID`` setting in its ``settings``
-module.
+Where Mezzanine diverges from Django is how the ``Site`` record is
+retrieved. Typically a running instance of a Django project is bound
+to a single site defined by the ``SITE_ID`` setting, so while a project
+may contain support for multiple sites, a separate running instance of
+the project is required per site.
 
-A multi-site Mezzanine deployment that supports three sites would be
-configured as so:
+Mezzanine uses a pipeline of checks to determine which site to
+reference when accessing content. The most import of these is one where
+the host name of the current request is compared to the domain name
+specified for each ``Site`` record. With this in place, true
+multi-tenancy is achieved, and multiple sites can be hosted within a
+single running instance of the project.
 
-  * A shared database will exist to store data for all three sites.
-  * Three separate runtime instances of Django, each with its own
-    settings.py file, will be created, each responsible for managing
-    a single site.
-  * Each settings.py file used by these three instances will point to
-    a different ``Site`` record via the ``SITE_ID`` setting.
-  * If the different sites use different themes or templates, then
-    different ``INSTALLED_APPS`` can be specified for each of these
-    three independant instances.
-  * All three settings.py files will contain the same ``DATABASES``
-    settings.
+Here's the list of checks in the pipeline, in order:
 
-The content of each individual site will be editable via the admin
-application, running within the instance serving that site. In other
-words, the admin running at ``siteone.com/admin`` will allow the
-content of ``siteone.com`` to be edited, while the admin running at
-``sitetwo.com/admin`` will allow the content of ``sitetwo.com`` to be
-edited.
-
-For more information regarding the Django sites application, see the
-`Django Sites documentation <http://docs.djangoproject.com/en/dev/ref/contrib/sites/>`:
+  * The session variable ``site_id``. This allows a project to include
+    features where a user's session is expliticly associated with a site.
+    Mezzanine uses this in it's admin to allow admin users to switch
+    between sites to manage, while acessing the admin on a single domain.
+  * The domain matching the host of the current request, as described
+    above.
+  * The environment variable ``MEZZANINE_SITE_ID``. This allows
+    developers to specify the site for contexts outside of a HTTP
+    request, such as management commands. Mezzanine includes a custom
+    ``manage.py`` which will check for (and remove) a ``--site=ID``
+    argument.
+  * Finally Mezzanine will fall back to the ``SITE_ID`` setting if none
+    of the above checks can occur.
 
 Twitter Feeds
 =============
