@@ -34,9 +34,9 @@ single running instance of the project.
 Here's the list of checks in the pipeline, in order:
 
   * The session variable ``site_id``. This allows a project to include
-    features where a user's session is expliticly associated with a site.
+    features where a user's session is explicitly associated with a site.
     Mezzanine uses this in it's admin to allow admin users to switch
-    between sites to manage, while acessing the admin on a single domain.
+    between sites to manage, while accessing the admin on a single domain.
   * The domain matching the host of the current request, as described
     above.
   * The environment variable ``MEZZANINE_SITE_ID``. This allows
