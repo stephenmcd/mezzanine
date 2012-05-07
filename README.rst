@@ -220,7 +220,8 @@ Sites Using Mezzanine
   * `National Positions <http://www.nationalpositions.co.uk>`_
   * `Like Humans Do <http://www.likehumansdo.com>`_
   * `Connecting Countries <http://connectingcountries.net>`_
-  * `tindie.com` <http://tindie.com/>`_
+  * `tindie.com` <http://tindie.com>`_
+  * `Environmental World Products` <http://ewp-sa.com>_
 
 Quotes
 ======
