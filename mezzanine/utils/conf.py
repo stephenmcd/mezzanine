@@ -2,6 +2,8 @@
 import os
 import sys
 
+from django.conf.global_settings import STATICFILES_FINDERS
+
 
 def set_dynamic_settings(s):
     """
@@ -30,7 +32,8 @@ def set_dynamic_settings(s):
     # Change tuple settings to lists for easier manipulation.
     s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
     s["MIDDLEWARE_CLASSES"] = list(s["MIDDLEWARE_CLASSES"])
-    s["STATICFILES_FINDERS"] = list(s["STATICFILES_FINDERS"])
+    s["STATICFILES_FINDERS"] = list(s.get("STATICFILES_FINDERS",
+                                    STATICFILES_FINDERS))
 
     if s["DEV_SERVER"]:
         s["STATICFILES_DIRS"] = list(s.get("STATICFILES_DIRS", []))
