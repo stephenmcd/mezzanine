@@ -14,3 +14,5 @@ before_script:
   - "cp mezzanine/project_template/local_settings.py.template mezzanine/project_template/local_settings.py"
 script:
   - ./mezzanine/project_template/manage.py test
+notifications:
+  irc: "irc.freenode.org#mezzanine"
