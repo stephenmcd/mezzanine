@@ -33,7 +33,7 @@ msgstr "Неверный логин или пароль"
 
 #: forms.py:32
 msgid "Your account is inactive"
-msgstr "Ваша учетная запись неактивна"
+msgstr "Ваша учетная запись не активна"
 
 #: forms.py:62
 msgid "Password (again)"
@@ -190,7 +190,7 @@ msgstr "Пожалуйста, используйте ссылку ниже, дл
 msgid ""
 "If you didn't request for your password to be reset, please ignore this "
 "email."
-msgstr "Если вы не запрашивали сброс пароля, проинорируйте это письмо."
+msgstr "Если вы не запрашивали сброс пароля, проигнорируйте это письмо."
 
 #: templates/email/signup_verify.html:3
 msgid "Hey there, thanks for creating your account."
@@ -198,4 +198,4 @@ msgstr "Благодарим за создание учетной записи."
 
 #: templates/email/signup_verify.html:4
 msgid "Please use the link below to activate it."
-msgstr "Пожалуйста, используется ссылку ниже для активации учетной записи."
+msgstr "Пожалуйста, используйте ссылку ниже для активации учетной записи."
