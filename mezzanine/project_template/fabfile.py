@@ -3,7 +3,7 @@ import os
 from getpass import getpass, getuser
 from contextlib import contextmanager
 
-from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, put, hide
+from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, hide
 from fabric.contrib.files import exists, upload_template
 
 try:
@@ -45,6 +45,7 @@ def virtualenv():
         with prefix("source %s/bin/activate" % env.venv_path):
             yield
 
+
 @contextmanager
 def project():
     with virtualenv():
@@ -59,26 +60,33 @@ def project():
 def sudo(command):
     return _sudo(command)
 
+
 def run(command):
     return _run(command)
 
+
 def installed(command):
     return run("which " + command)
+
 
 def db_pass():
     if not env.db_pass:
         env.db_pass = getpass("Enter the database password: ")
     return env.db_pass
 
+
 def apt(packages):
     return sudo("apt-get install -y -q " + packages)
+
 
 def pip(packages):
     with virtualenv():
         return sudo("pip install %s" % packages)
 
+
 def psql(sql):
     return run('sudo -u root sudo -u postgres psql -c "%s"' % sql)
+
 
 def python(code):
     with project():
@@ -86,8 +94,10 @@ def python(code):
                    'os.environ[\'DJANGO_SETTINGS_MODULE\'] = \'settings\'; '
                    '%s"' % code)
 
+
 def locale():
     return sudo("sudo update-locale LC_ALL=%s" % env.locale)
+
 
 def manage(command):
     with project():
@@ -105,18 +115,22 @@ def install_base():
     sudo("easy_install pip")
     sudo("pip install virtualenv mercurial")
 
+
 def install_nginx_base():
     apt("nginx")
     default_conf = "/etc/nginx/sites-enabled/default"
     if exists(default_conf):
         sudo("rm " + default_conf)
 
+
 def install_postgres_base():
     locale()
     apt("postgresql libpq-dev")
 
+
 def install_memcached_base():
     apt("memcached")
+
 
 def install_supervisor_base():
     apt("supervisor")
@@ -137,6 +151,7 @@ def install_nginx_project():
     upload_template("deploy/nginx.conf", path, context, use_sudo=True)
     sudo("service nginx restart")
 
+
 def install_postgres_project():
     password = db_pass()
     user_sql_args = (env.proj_name, password.replace("'", "\'"))
@@ -147,6 +162,7 @@ def install_postgres_project():
     psql("CREATE DATABASE %s WITH OWNER %s ENCODING = 'UTF8' "
          "LC_CTYPE = '%s' LC_COLLATE = '%s' TEMPLATE template0;" %
          (env.proj_name, env.proj_name, env.locale, env.locale))
+
 
 def install_supervisor_project():
     path = "/etc/supervisor/conf.d/%s.conf" % env.proj_name
@@ -207,9 +223,11 @@ def install_project():
 def gunicorn_start():
     sudo("supervisorctl start %s:gunicorn" % env.proj_name)
 
+
 def gunicorn_reload():
     with project():
         sudo("kill -HUP `cat gunicorn.pid`")
+
 
 def deploy():
     with project():
@@ -222,6 +240,7 @@ def deploy():
         manage("collectstatic -v 0 --noinput")
     gunicorn_reload()
 
+
 def install_all():
     install_base()
     install_nginx_base()
@@ -230,4 +249,3 @@ def install_all():
     install_supervisor_base()
     if install_project():
         deploy()
-

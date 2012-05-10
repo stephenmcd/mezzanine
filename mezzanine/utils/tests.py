@@ -27,6 +27,9 @@ PYFLAKES_IGNORE = (
     # Dummy fallback in templates for django-compressor
     "redefinition of function 'compress'",
 
+    # Fabic config fallback
+    "redefinition of unused 'conf'",
+
 )
 
 
