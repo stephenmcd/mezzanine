@@ -277,6 +277,7 @@ MIDDLEWARE_CLASSES = (
     "mezzanine.core.middleware.TemplateForHostMiddleware",
     "mezzanine.core.middleware.DeviceAwareFetchFromCacheMiddleware",
     "mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware",
+    "mezzanine.pages.middleware.PageMiddleware",
     # Uncomment the following if using any of the SSL settings:
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
 )

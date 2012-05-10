@@ -11,11 +11,9 @@ from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.blog.feeds import PostsRSS, PostsAtom
 from mezzanine.conf import settings
 from mezzanine.generic.models import AssignedKeyword, Keyword
-from mezzanine.pages.decorators import for_page
 from mezzanine.utils.views import render, paginate
 
 
-@for_page(settings.BLOG_SLUG)
 def blog_post_list(request, tag=None, year=None, month=None, username=None,
                    category=None, template="blog/blog_post_list.html"):
     """
@@ -95,7 +93,6 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     return render(request, templates, context)
 
 
-@for_page(settings.BLOG_SLUG)
 def blog_post_detail(request, slug, year=None, month=None,
                      template="blog/blog_post_detail.html"):
     """. Custom templates are checked for using the name
