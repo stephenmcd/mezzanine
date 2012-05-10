@@ -85,7 +85,8 @@ class Command(BaseCommand):
                     prev = ' [copied from %s]' % template_src[name]
                 else:
                     prev = ''
-                self.stdout.write("While copying %s [from %s]:\n" % (name, app))
+                self.stdout.write("While copying %s [from %s]:\n" %
+                                  (name, app))
                 self.stdout.write("Template exists%s.\n" % prev)
                 confirm = raw_input("Overwrite?  (yes/no/abort): ")
                 while True:
