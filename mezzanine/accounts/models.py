@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
 
 
+
 # Signal for ensuring users have a profile instance.
 Profile = get_profile_model()
 if Profile:

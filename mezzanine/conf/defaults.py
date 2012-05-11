@@ -17,19 +17,26 @@ from mezzanine.conf import register_setting
 
 
 register_setting(
+    name="ACCOUNTS_MIN_PASSWORD_LENGTH",
+    description=_("Minimum length for passwords"),
+    editable=False,
+    default=6,
+)
+
+register_setting(
+    name="ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS",
+    description=_("List of fields to exclude from the profile form."),
+    editable=False,
+    default=(),
+)
+
+register_setting(
     name="ACCOUNTS_VERIFICATION_REQUIRED",
     description=_("If ``True``, when users create an account, they will be "
         "sent an email with a verification link, which they must click to "
         "enable their account."),
     editable=False,
     default=False,
-)
-
-register_setting(
-    name="ACCOUNTS_MIN_PASSWORD_LENGTH",
-    description=_("Minimum length for passwords"),
-    editable=False,
-    default=6,
 )
 
 register_setting(
