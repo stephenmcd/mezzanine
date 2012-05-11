@@ -52,7 +52,7 @@ if (typeof tinyMCE != 'undefined') {
         theme_advanced_buttons2: "",
         theme_advanced_buttons3: "",
         theme_advanced_path: false,
-        theme_advanced_blockformats: "p,h2,h3,h4,pre",
+        theme_advanced_blockformats: "p,h1,h2,h3,h4,pre",
         theme_advanced_styles: "[all] clearfix=clearfix;[p] small=small;[img] Image left-aligned=img_left;[img] Image left-aligned (nospace)=img_left_nospacetop;[img] Image right-aligned=img_right;[img] Image right-aligned (nospace)=img_right_nospacetop;[img] Image Block=img_block;[img] Image Block (nospace)=img_block_nospacetop;[div] column span-2=column span-2;[div] column span-4=column span-4;[div] column span-8=column span-8",
         theme_advanced_resizing : true,
         theme_advanced_resize_horizontal : false,
@@ -90,7 +90,7 @@ if (typeof tinyMCE != 'undefined') {
 		+ "-dt,"
 		+ "br,"
 		+ "img[class|src|alt=|width|height],"
-		+ "-h2,-h3,-h4,"
+		+ "-h1,-h2,-h3,-h4,"
 		+ "-pre,"
 		+ "-blockquote,"
 		+ "-cite,"
