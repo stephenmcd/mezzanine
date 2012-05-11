@@ -1,5 +1,6 @@
 {% load i18n %}
 
+{% if current_page.has_previous or current_page.has_next %}
 <div class="pagination">
 <ul>
 
@@ -20,4 +21,4 @@
 
 </ul>
 </div>
-
+{% endif %}
