@@ -41,6 +41,7 @@ provides the following features:
   * SEO friendly URLs and meta data
   * `Search engine and API`_
   * Configurable `dashboard`_ widgets
+  * Seamless integration with third-party Django apps
   * Multi-device detection and template handling
   * Shopping cart module (`Cartridge`_)
   * Blogging engine
