@@ -1,4 +1,3 @@
-
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -33,7 +32,9 @@ class PageMiddleware(object):
 
     def process_view(self, request, view_func, view_args, view_kwargs):
 
-        slug = request.path.strip("/")
+        slug = request.path
+        if slug != "/":
+            slug = slug.strip("/")
         pages_for_user = Page.objects.published(request.user)
         try:
             page = pages_for_user.get(slug=slug)
