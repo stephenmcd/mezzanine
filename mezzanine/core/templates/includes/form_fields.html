@@ -17,7 +17,11 @@
     <div class="controls">
         {{ field }}
         {% if field.errors %}
-        <span class="help-inline">{% for e in field.errors %}{{ e }} {% endfor %}</span>
+        <span class="help-inline">
+            {% for e in field.errors %}
+            {% if not forloop.first %} / {% endif %}{{ e }}
+            {% endfor %}
+        </span>
         {% else %}
         <span class="help-inline">{{ field.help_text }}</span>
         {% endif %}
