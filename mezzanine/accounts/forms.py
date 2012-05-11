@@ -43,9 +43,8 @@ class LoginForm(Html5Mixin, forms.Form):
 # setting, create a model form for it that will have its fields added to
 # ``ProfileForm``.
 Profile = get_profile_model()
+_exclude_fields = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
 if Profile is not None:
-    _exclude_fields = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
-
     class ProfileFieldsForm(forms.ModelForm):
         class Meta:
             model = Profile
@@ -67,6 +66,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
     class Meta:
         model = User
         fields = ("first_name", "last_name", "email", "username")
+        exclude = _exclude_fields
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
