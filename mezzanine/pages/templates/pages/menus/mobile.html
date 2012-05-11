@@ -12,13 +12,13 @@
 		{% if page.is_current_or_ascendant and not page.is_child %}
 		{% page_menu page %}
 		{% endif %}
-		
+
 		{% if page.is_child %}
 		<li class="
 			{% if forloop.first %} first{% endif %}
 			{% if forloop.last %} last{% endif %}"
 			id="mobile-menu-{{ page.html_id }}">
-			<a href="{% url page page.slug %}">{{ page.title }}</a>
+			<a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
 		</li>
 		{% endif %}
 

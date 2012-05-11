@@ -17,7 +17,7 @@
     <li class="active">{{ page.title }}</li>
     {% else %}
     <li>
-        <a href="{% url page page.slug %}">{{ page.title }}</a>
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
         <span class="divider">/</span>
     </li>
     {% endif %}

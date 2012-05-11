@@ -31,9 +31,10 @@ class Page(Orderable, Displayable):
     def __unicode__(self):
         return self.titles
 
-    @models.permalink
     def get_absolute_url(self):
-        return ("page", (), {"slug": self.slug})
+        if self.content_model == "link":
+            return self.slug
+        return reverse("page", kwargs={"slug": self.slug})
 
     def get_admin_url(self):
         return admin_url(self, "change", self.id)
@@ -135,3 +136,14 @@ class RichTextPage(Page, RichText):
     class Meta:
         verbose_name = _("Rich text page")
         verbose_name_plural = _("Rich text pages")
+
+
+class Link(Page):
+    """
+    A general content type for creating external links in the page
+    menu.
+    """
+
+    class Meta:
+        verbose_name = _("Link")
+        verbose_name_plural = _("Links")
