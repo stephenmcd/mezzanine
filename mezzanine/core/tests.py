@@ -60,7 +60,11 @@ class Tests(TestCase):
         data = {"email": test_value + "@example.com"}
         for field in ("first_name", "last_name", "username",
                       "password1", "password2"):
-            data[field] = test_value
+            if field.startswith("password"):
+                value = "x" * settings.ACCOUNTS_MIN_PASSWORD_LENGTH
+            else:
+                value = test_value
+            data[field] = value
         # Profile fields
         Profile = get_profile_model()
         if Profile is not None:

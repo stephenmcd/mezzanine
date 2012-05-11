@@ -45,11 +45,11 @@ class LoginForm(Html5Mixin, forms.Form):
 Profile = get_profile_model()
 if Profile is not None:
     _exclude_fields = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
+
     class ProfileFieldsForm(forms.ModelForm):
         class Meta:
             model = Profile
             exclude = (get_profile_user_fieldname(),) + _exclude_fields
-
 
 
 class ProfileForm(Html5Mixin, forms.ModelForm):
