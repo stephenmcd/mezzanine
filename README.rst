@@ -227,7 +227,7 @@ Quotes
 ======
 
   * "I'm enjoying working with Mezzanine, it's good work"
-    - `Van Lindberg`_, engineer, IP lawyer for the `Python Software Foundation`_
+    - `Van Lindberg`_, `Python Software Foundation`_ chairman
   * "Mezzanine looks like it may be Django's killer app"
     - `Antonio Rodriguez`_, ex CTO of `Hewlett Packard`_, founder of `Tabblo`_
   * "Mezzanine looks pretty interesting, tempting to get me off Wordpress"
