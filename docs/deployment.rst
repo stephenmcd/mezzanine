@@ -9,6 +9,59 @@ see the Django docs for
 `deployment <https://docs.djangoproject.com/en/dev/howto/deployment/>`_ and
 `staticfiles <https://docs.djangoproject.com/en/dev/howto/static-files/>`_.
 
+Fabric
+======
+
+Each Mezzanine project comes bundled with utilities for deploying
+production Mezzanine sites, using `Fabric <http://fabfile.org>`_.
+The provided ``fabfile.py`` contains composable commands that can be
+used to set up all the system-level requirements on a new
+`Debian <http://debian.org>`_ based system, manage each of the
+project-level virtual environments for initial and continuous
+deployments, and much more.
+
+Stack
+-----
+
+The deployed stack consists of the following components:
+
+  * `NGINX <http://nginx.org>`_ - public facing web server
+  * `gunicorn <http://gunicorn.org>`_ - internal HTTP application server
+  * `PostgreSQL <http://postgresql.org>`_ - database server
+  * `memcached <http://memcached.org>`_ - in-memory caching server
+  * `supervisord <http://supervisord.org>`_ - process control and monitor
+
+Configuration
+-------------
+
+Configurable variables are implemented in the project's ``settings.py``
+module. Here's an example::
+
+  FABRIC = {
+      "SSH_USER": "", # SSH username
+      "SSH_PASS":  "", # SSH password (consider key-based authentication)
+      "SSH_KEY_PATH":  "", # Local path to SSH key file, for key-based auth
+      "HOSTS": [], # List of hosts to deploy to
+      "VIRTUALENV_HOME":  "", # Absolute remote path for virtualenvs
+      "PROJECT_NAME": "", # Unique identifier for project
+      "REQUIREMENTS_PATH": "requirements/project.txt", # Path to pip requirements, relative to project
+      "GUNICORN_PORT": 8000, # Port gunicorn will listen on
+      "LOCALE": "en_US.utf8", # Should end with ".utf8"
+      "LIVE_HOSTNAME": "www.example.com", # Host for public site.
+      "REPO_URL": "", # Git or Mercurial remote repo URL for the project
+  }
+
+Commands
+--------
+
+Here's the list of commands provided in a Mezzanine project's
+``fabfile.py``. Consult the `Fabric documentation <http://fabfile.org>`_
+for more information on working with these.
+
+.. automodule:: mezzanine.project_template.fabfile
+   :members:
+
+
 Multiplie Sites and Multi-Tenancy
 =================================
 

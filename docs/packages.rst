@@ -69,6 +69,12 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.core.management.commands.createdb
    :members:
 
+``mezzanine.core.request``
+--------------------------
+
+.. automodule:: mezzanine.core.request
+   :members:
+
 ``mezzanine.core.tests``
 ------------------------
 
@@ -111,12 +117,6 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 -----------------------------------
 
 .. automodule:: mezzanine.pages.page_processors
-   :members:
-
-``mezzanine.pages.decorators``
------------------------------------
-
-.. automodule:: mezzanine.pages.decorators
    :members:
 
 

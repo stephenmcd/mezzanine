@@ -41,6 +41,9 @@ env.locale = conf.get("LOCALE", "en_US.utf8")
 
 @contextmanager
 def virtualenv():
+    """
+    Run commands within the project's virtualenv.
+    """
     with cd(env.venv_path):
         with prefix("source %s/bin/activate" % env.venv_path):
             yield
@@ -48,6 +51,9 @@ def virtualenv():
 
 @contextmanager
 def project():
+    """
+    Run commands within the project's directory.
+    """
     with virtualenv():
         with cd(env.proj_dirname):
             yield
@@ -57,51 +63,82 @@ def project():
 # Utils and wrappers for various commands #
 ###########################################
 
-def sudo(command):
-    return _sudo(command)
-
-
 def run(command):
+    """
+    Run a shell comand on the remote server.
+    """
     return _run(command)
 
 
+def sudo(command):
+    """
+    Run a command as sudo.
+    """
+    return _sudo(command)
+
+
 def installed(command):
+    """
+    Check to see if the given command is installed on the remote server.
+    """
     return run("which " + command)
 
 
 def db_pass():
+    """
+    Prompt for the database password if unknown.
+    """
     if not env.db_pass:
         env.db_pass = getpass("Enter the database password: ")
     return env.db_pass
 
 
 def apt(packages):
+    """
+    Install one or more system packages via apt.
+    """
     return sudo("apt-get install -y -q " + packages)
 
 
 def pip(packages):
+    """
+    Install one or more Python packages within the virtual environment.
+    """
     with virtualenv():
         return sudo("pip install %s" % packages)
 
 
 def psql(sql):
+    """
+    Run SQL against the project's database.
+    """
     return run('sudo -u root sudo -u postgres psql -c "%s"' % sql)
 
 
 def python(code):
+    """
+    Run Python code in the virtual environment, with the Django
+    project loaded.
+    """
     with project():
         return run('python -c "import os; '
                    'os.environ[\'DJANGO_SETTINGS_MODULE\'] = \'settings\'; '
                    '%s"' % code)
 
 
-def locale():
-    return sudo("sudo update-locale LC_ALL=%s" % env.locale)
-
-
 def manage(command):
+    """
+    Run a Django management command.
+    """
     with project():
         return run("python manage.py %s" % command)
+
+
+def locale():
+    """
+    Set the system locale.
+    """
+    return sudo("sudo update-locale LC_ALL=%s" % env.locale)
 
 
 #########################
@@ -109,6 +146,10 @@ def manage(command):
 #########################
 
 def install_base():
+    """
+    Install the base system-level and Python requirements for the
+    entire server.
+    """
     locale()
     sudo("apt-get update -y -q")
     apt("libjpeg-dev python-dev python-setuptools git-core")
@@ -117,6 +158,9 @@ def install_base():
 
 
 def install_nginx_base():
+    """
+    Install NGINX on the system.
+    """
     apt("nginx")
     default_conf = "/etc/nginx/sites-enabled/default"
     if exists(default_conf):
@@ -124,15 +168,24 @@ def install_nginx_base():
 
 
 def install_postgres_base():
+    """
+    Install PostgreSQL on the system.
+    """
     locale()
     apt("postgresql libpq-dev")
 
 
 def install_memcached_base():
+    """
+    Install memcached on the system.
+    """
     apt("memcached")
 
 
 def install_supervisor_base():
+    """
+    Install supervisor on the system.
+    """
     apt("supervisor")
 
 
@@ -141,6 +194,9 @@ def install_supervisor_base():
 ##########################
 
 def install_nginx_project():
+    """
+    Install NGINX configuration for the project.
+    """
     path = "/etc/nginx/sites-enabled/%s.conf" % env.proj_name
     context = {
         "live_host": env.live_host,
@@ -153,6 +209,9 @@ def install_nginx_project():
 
 
 def install_postgres_project():
+    """
+    Install a PostgreSQL database and user for the project.
+    """
     password = db_pass()
     user_sql_args = (env.proj_name, password.replace("'", "\'"))
     user_sql = "CREATE USER %s WITH ENCRYPTED PASSWORD '%s';" % user_sql_args
@@ -165,6 +224,9 @@ def install_postgres_project():
 
 
 def install_supervisor_project():
+    """
+    Install supervisor configuration for the project.
+    """
     path = "/etc/supervisor/conf.d/%s.conf" % env.proj_name
     context = {
         "project_name": env.proj_name,
@@ -181,6 +243,11 @@ def install_supervisor_project():
 #################
 
 def install_project():
+    """
+    Create a virtual environment, pull the project's repo from
+    viersion control, add system-level configs for the project,
+    and initialise the database with the live host.
+    """
     with cd(env.venv_home):
         if exists(env.proj_name):
             print "Aborting, virtualenv exists: %s" % env.proj_name
@@ -221,15 +288,27 @@ def install_project():
 ######################
 
 def gunicorn_start():
+    """
+    Start gunicorn for the project via supervisor.
+    """
     sudo("supervisorctl start %s:gunicorn" % env.proj_name)
 
 
 def gunicorn_reload():
+    """
+    Restart gunicorn worker processes for the project.
+    """
     with project():
         sudo("kill -HUP `cat gunicorn.pid`")
 
 
 def deploy():
+    """
+    Check out the latest version of the project from version
+    control, install new requirements, sync andmigrate the database,
+    collect any new static assets, and restart gunicorn's work
+    processes for the project.
+    """
     with project():
         git = env.repo_url.startswith("git")
         run("git pull" if git else "hg pull && hg up")
@@ -242,6 +321,10 @@ def deploy():
 
 
 def install_all():
+    """
+    Install everything required on a new system, from the base
+    software, up to the deployed project.
+    """
     install_base()
     install_nginx_base()
     install_postgres_base()
