@@ -116,7 +116,8 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
 
     def clean_password2(self):
         """
-        Ensure the password fields are equal.
+        Ensure the password fields are equal, and match the minimum
+        length defined by ``ACCOUNTS_MIN_PASSWORD_LENGTH``.
         """
         password1 = self.cleaned_data["password1"]
         password2 = self.cleaned_data["password2"]

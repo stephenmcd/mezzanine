@@ -20,7 +20,7 @@
 <h2>{{ profile_user.get_full_name }}</h2>
 <div style="float:left;">
 {% for field, value in profile_fields %}
-{{ field }}: {{ value }}<br>
+{{ field }}: {{ value|linebreaks }}<br>
 {% endfor %}
 </div>
 {% endblock %}
