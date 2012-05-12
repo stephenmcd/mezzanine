@@ -94,7 +94,7 @@ msgstr "Опубликовать в Facebook"
 
 #: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"
-msgstr "Запись в блоге"
+msgstr "Блог"
 
 #: templates/blog/blog_post_list.html:31
 msgid "Tag:"
