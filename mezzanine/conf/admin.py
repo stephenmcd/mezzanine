@@ -38,8 +38,8 @@ class SettingsAdmin(admin.ModelAdmin):
             info(request, _("Settings were successfully updated."))
             return self.changelist_redirect()
         extra_context["settings_form"] = settings_form
-        extra_context["title"] = _("Change %s" %
-            force_unicode(Setting._meta.verbose_name_plural))
+        extra_context["title"] = u"%s %s" % (
+            _("Change"), force_unicode(Setting._meta.verbose_name_plural))
         return super(SettingsAdmin, self).changelist_view(request,
                                                             extra_context)
 
