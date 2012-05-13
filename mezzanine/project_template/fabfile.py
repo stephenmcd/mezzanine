@@ -245,13 +245,17 @@ def install_supervisor_project():
 def install_project():
     """
     Create a virtual environment, pull the project's repo from
-    viersion control, add system-level configs for the project,
+    version control, add system-level configs for the project,
     and initialise the database with the live host.
     """
     with cd(env.venv_home):
         if exists(env.proj_name):
-            print "Aborting, virtualenv exists: %s" % env.proj_name
-            return False
+            remove = raw_input("\nVirtualenv exists: %s\nWould you like "
+                               "to replace it? (yes/no) " % env.proj_name)
+            if remove.lower() != "yes":
+                print "\nAborting!"
+                return False
+            remove_project()
         run("virtualenv %s --distribute" % env.proj_name)
     with virtualenv():
         vcs = "git" if env.repo_url.startswith("git") else "hg"
@@ -318,6 +322,17 @@ def deploy():
         manage("migrate --noinput")
         manage("collectstatic -v 0 --noinput")
     gunicorn_reload()
+
+
+def remove_project():
+    """
+    Blow away the current project.
+    """
+    sudo("rm -rf %s" % env.venv_path)
+    sudo("rm /etc/supervisor/conf.d/%s.conf" % env.proj_name)
+    sudo("rm /etc/nginx/sites-enabled/%s.conf" % env.proj_name)
+    psql("DROP DATABASE %s;" % env.proj_name)
+    psql("DROP USER %s;" % env.proj_name)
 
 
 def install_all():
