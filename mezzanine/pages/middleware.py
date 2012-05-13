@@ -80,6 +80,11 @@ class PageMiddleware(object):
             bits = (settings.LOGIN_URL, REDIRECT_FIELD_NAME, path)
             return redirect("%s?%s=%s" % bits)
 
+        # If we don't have a response that we can add context to,
+        # eg a redirect, just return it.
+        if not hasattr(response, "context_data"):
+            return response
+
         # Run page processors.
         model_processors = page_processors.processors[page.content_model]
         slug_processors = page_processors.processors["slug:%s" % page.slug]
