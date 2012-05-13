@@ -106,7 +106,6 @@ def log_call(func):
     return logged
 
 
-
 def installed(command):
     """
     Check to see if the given command is installed on the remote server.
