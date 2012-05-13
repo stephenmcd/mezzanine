@@ -1,10 +1,12 @@
 
 import os
+from functools import wraps
 from getpass import getpass, getuser
 from contextlib import contextmanager
 
 from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, hide
 from fabric.contrib.files import exists, upload_template
+from fabric.colors import yellow, green, blue, red
 
 try:
     from settings import FABRIC as conf
@@ -63,18 +65,46 @@ def project():
 # Utils and wrappers for various commands #
 ###########################################
 
-def run(command):
+def _print(output):
+    print
+    print output
+    print
+
+
+def print_command(command):
+    _print(blue(">>> ", bold=True) +
+           yellow(command, bold=True) +
+           red(" ->", bold=True))
+
+
+def run(command, show=True):
     """
     Run a shell comand on the remote server.
     """
-    return _run(command)
+    if show:
+        print_command(command)
+    with hide("running"):
+        return _run(command)
 
 
-def sudo(command):
+def sudo(command, show=True):
     """
     Run a command as sudo.
     """
-    return _sudo(command)
+    if show:
+        print_command(command)
+    with hide("running"):
+        return _sudo(command)
+
+
+def log_call(func):
+    @wraps(func)
+    def logged(*args, **kawrgs):
+        header = "-" * len(func.__name__)
+        _print(green("\n".join([header, func.__name__, header]), bold=True))
+        return func(*args, **kawrgs)
+    return logged
+
 
 
 def installed(command):
@@ -108,11 +138,14 @@ def pip(packages):
         return sudo("pip install %s" % packages)
 
 
-def psql(sql):
+def psql(sql, show=True):
     """
     Run SQL against the project's database.
     """
-    return run('sudo -u root sudo -u postgres psql -c "%s"' % sql)
+    out = run('sudo -u root sudo -u postgres psql -c "%s"' % sql, show=False)
+    if show:
+        print_command(sql)
+    return out
 
 
 def python(code):
@@ -145,6 +178,7 @@ def locale():
 # System level installs #
 #########################
 
+@log_call
 def install_base():
     """
     Install the base system-level and Python requirements for the
@@ -157,6 +191,7 @@ def install_base():
     sudo("pip install virtualenv mercurial")
 
 
+@log_call
 def install_nginx_base():
     """
     Install NGINX on the system.
@@ -167,6 +202,7 @@ def install_nginx_base():
         sudo("rm " + default_conf)
 
 
+@log_call
 def install_postgres_base():
     """
     Install PostgreSQL on the system.
@@ -175,6 +211,7 @@ def install_postgres_base():
     apt("postgresql libpq-dev")
 
 
+@log_call
 def install_memcached_base():
     """
     Install memcached on the system.
@@ -182,6 +219,7 @@ def install_memcached_base():
     apt("memcached")
 
 
+@log_call
 def install_supervisor_base():
     """
     Install supervisor on the system.
@@ -193,6 +231,7 @@ def install_supervisor_base():
 # Project level installs #
 ##########################
 
+@log_call
 def install_nginx_project():
     """
     Install NGINX configuration for the project.
@@ -208,6 +247,7 @@ def install_nginx_project():
     sudo("service nginx restart")
 
 
+@log_call
 def install_postgres_project():
     """
     Install a PostgreSQL database and user for the project.
@@ -215,14 +255,15 @@ def install_postgres_project():
     password = db_pass()
     user_sql_args = (env.proj_name, password.replace("'", "\'"))
     user_sql = "CREATE USER %s WITH ENCRYPTED PASSWORD '%s';" % user_sql_args
-    with hide("running"):
-        psql(user_sql)
-    print user_sql.replace("'%s'" % password, "'%s'" % ("*" * len(password)))
+    psql(user_sql, show=False)
+    shadowed = "*" * len(password)
+    print_command(user_sql.replace("'%s'" % password, "'%s'" % shadowed))
     psql("CREATE DATABASE %s WITH OWNER %s ENCODING = 'UTF8' "
          "LC_CTYPE = '%s' LC_COLLATE = '%s' TEMPLATE template0;" %
          (env.proj_name, env.proj_name, env.locale, env.locale))
 
 
+@log_call
 def install_supervisor_project():
     """
     Install supervisor configuration for the project.
@@ -242,6 +283,7 @@ def install_supervisor_project():
 # Project setup #
 #################
 
+@log_call
 def install_project():
     """
     Create a virtual environment, pull the project's repo from
@@ -291,6 +333,7 @@ def install_project():
 # Project management #
 ######################
 
+@log_call
 def gunicorn_start():
     """
     Start gunicorn for the project via supervisor.
@@ -298,6 +341,7 @@ def gunicorn_start():
     sudo("supervisorctl start %s:gunicorn" % env.proj_name)
 
 
+@log_call
 def gunicorn_reload():
     """
     Restart gunicorn worker processes for the project.
@@ -306,6 +350,7 @@ def gunicorn_reload():
         sudo("kill -HUP `cat gunicorn.pid`")
 
 
+@log_call
 def deploy():
     """
     Check out the latest version of the project from version
@@ -324,17 +369,22 @@ def deploy():
     gunicorn_reload()
 
 
+@log_call
 def remove_project():
     """
     Blow away the current project.
     """
-    sudo("rm -rf %s" % env.venv_path)
-    sudo("rm /etc/supervisor/conf.d/%s.conf" % env.proj_name)
-    sudo("rm /etc/nginx/sites-enabled/%s.conf" % env.proj_name)
+    if exists(env.venv_path):
+        sudo("rm -rf %s" % env.venv_path)
+    for path in ("supervisor/conf.d", "nginx/sites-enabled"):
+        full_path = "/etc/%s/%s.conf" % (path, env.proj_name)
+        if exists(full_path):
+            sudo("rm %s" % full_path)
     psql("DROP DATABASE %s;" % env.proj_name)
     psql("DROP USER %s;" % env.proj_name)
 
 
+@log_call
 def install_all():
     """
     Install everything required on a new system, from the base
