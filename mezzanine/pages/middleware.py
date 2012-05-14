@@ -1,5 +1,5 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.http import urlquote
 
@@ -87,6 +87,8 @@ class PageMiddleware(object):
             processor_response = processor(request, page)
             if isinstance(processor_response, HttpResponse):
                 return processor_response
+            elif isinstance(response, HttpResponseRedirect):
+                return response
             elif processor_response:
                 try:
                     response.context_data.update(processor_response)
