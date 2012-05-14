@@ -1,0 +1,29 @@
+{% load i18n pages_tags %}
+{% spaceless %}
+{% if page_branch_in_navigation %}
+<ul class="nav" id="dropdown-menu-nav-top">
+  {% for page in page_branch %}
+  {% if page.is_primary and forloop.first %}
+  <li class="dropdown{% if on_home %} active{% endif %}"
+      id="dropdown-menu-{{ page.html_id }}">
+    <a href="{% url home %}">
+      {% trans "Home" %}
+    </a>
+  </li>
+  {% endif %}
+  {% if page.in_navigation %}
+  <li class="dropdown{% if page.is_current_or_ascendant %} active{% endif %}"
+      id="dropdown-menu-{{ page.html_id }}">
+    <a href="{% url page page.slug %}">
+      {{ page.title }}
+      {% if page.has_children %}<span class="caret"></span>{% endif %}
+    </a>
+    {% if settings.PAGES_MENU_SHOW_ALL or page.is_current_or_ascendant %}
+    {% page_menu page "pages/menus/dropdown_sub.html"%}
+    {% endif %}
+  </li>
+  {% endif %}
+  {% endfor %}
+</ul>
+{% endif %}
+{% endspaceless %}
