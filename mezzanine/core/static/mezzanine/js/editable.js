@@ -65,7 +65,7 @@ $(function($) {
     	$(this).next('.editable-highlight').hide();
     });
 
-    $('.editable-original').on('resize', function(e) {
+    $('body, .editable-original').on('resize', function(e) {
     	realign();
     });
 
