@@ -40,11 +40,14 @@ def build_settings_docs(docs_path, prefix=None):
                 setting_default = dynamic
         if setting_default != dynamic:
             setting_default = repr(setting_default)
-            #`WordPress <http://wordpress.org>`_
         lines.extend(["", settings_name, "-" * len(settings_name)])
         lines.extend(["", setting["description"].replace("<b>", "``"
             ).replace("</b>", "``").replace("<a href=\"", "`"
             ).replace("\" rel=\"nofollow\">", " <").replace("</a>", ">`_")])
+        if setting["choices"]:
+            choices = ", ".join(["%s: ``%s``" % (v, k) for k, v in
+                                 setting["choices"]])
+            lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
     with open(os.path.join(docs_path, "settings.rst"), "w") as f:
         f.write("\n".join(lines))

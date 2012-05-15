@@ -26,14 +26,10 @@ def register_setting(name="", label="", editable=False, description="",
         setting_type = type(default)
         if not label:
             label = name.replace("_", " ").title()
-        parts = []
-        for i, s in enumerate(description.split("``")):
-            parts.append(s if i % 2 == 0 else "<b>%s</b>" % s)
-        description = urlize("".join(parts).replace("\n", "<br>"))
         if setting_type is str:
             setting_type = unicode
         registry[name] = {"name": name, "label": label,
-                          "description": description,
+                          "description": urlize(description),
                           "editable": editable, "default": default,
                           "choices": choices, "type": setting_type}
 

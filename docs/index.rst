@@ -31,12 +31,15 @@ a section on the :doc:`admin-customization` provided by Mezzanine, as
 well as a :doc:`model-graph` depicting the relationships between all
 the models.
 
-**Further reading** includes :doc:`frequently-asked-questions`,
-information about Mezzanine's :doc:`search-engine`, a section on
-Mezzanine's :doc:`configuration` which outlines the various settings
-for configuring Mezzanine, and some notes on :doc:`deployment`. Lastly,
-you can learn about :doc:`blog-importing` into Mezzanine, or just browse
-the auto-generated docs for each of Mezzanine's :doc:`packages`.
+**System administrators** can find out about some of the production
+requirements and operations in the :doc:`deployment` section.
+
+**Further reading** includes :doc:`frequently-asked-questions`, a
+section on :doc:`user-accounts`, information about Mezzanine's
+:doc:`search-engine`, and a section on Mezzanine's :doc:`configuration`
+which outlines the various settings for configuring Mezzanine. Lastly,
+you can learn about :doc:`blog-importing` into Mezzanine, or just
+browse the auto-generated docs for each of Mezzanine's :doc:`packages`.
 
 .. toctree::
     :maxdepth: 2
@@ -48,10 +51,11 @@ the auto-generated docs for each of Mezzanine's :doc:`packages`.
     model-graph
     device-handling
     inline-editing
+    deployment
     frequently-asked-questions
+    user-accounts
     search-engine
     configuration
-    deployment
     blog-importing
     packages
     colophon

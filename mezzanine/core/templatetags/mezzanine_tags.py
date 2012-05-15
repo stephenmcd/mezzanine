@@ -160,7 +160,7 @@ def pagination_for(context, current_page):
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height):
+def thumbnail(image_url, width, height, quality=95):
     """
     Given the URL to an image, resizes the image using the given width and
     height on the first time it is requested, and returns the URL to the new
@@ -203,6 +203,7 @@ def thumbnail(image_url, width, height):
         return image_url
 
     image = Image.open(default_storage.open(image_url))
+    image_info = image.info
     width = int(width)
     height = int(height)
 
@@ -214,11 +215,11 @@ def thumbnail(image_url, width, height):
         width = image.size[0] * height / image.size[1]
     elif height == 0:
         height = image.size[1] * width / image.size[0]
-    if image.mode not in ("L", "RGB"):
-        image = image.convert("RGB")
+    if image.mode not in ("L", "RGBA"):
+        image = image.convert("RGBA")
     try:
         image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
-        image = image.save(thumb_path, filetype, quality=100)
+        image = image.save(thumb_path, filetype, quality=quality, **image_info)
         # Push a remote copy of the thumbnail if MEDIA_URL is
         # absolute.
         if "://" in settings.MEDIA_URL:

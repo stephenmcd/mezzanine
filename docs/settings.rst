@@ -1,5 +1,19 @@
 .. THIS DOCUMENT IS AUTO GENERATED VIA conf.py
 
+``ACCOUNTS_MIN_PASSWORD_LENGTH``
+--------------------------------
+
+Minimum length for passwords
+
+Default: ``6``
+
+``ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS``
+----------------------------------------
+
+List of fields to exclude from the profile form.
+
+Default: ``()``
+
 ``ACCOUNTS_VERIFICATION_REQUIRED``
 ----------------------------------
 
@@ -265,6 +279,22 @@ Default: ``('a', 'abbr', 'acronym', 'address', 'area', 'b', 'bdo', 'big', 'block
 Dotted path to the function to call on a ``RichTextField`` value before it is rendered to the template.
 
 Default: ``None``
+
+``RICHTEXT_FILTER_LEVEL``
+-------------------------
+
+*Do not change this setting unless you know what you're doing.*
+
+When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and attributes are stripped from the content to protect against staff members intentionally adding code that could be used to cause problems, such as changing their account to a super-user with full access to the system.
+
+This setting allows you to change the level of filtering that occurs. Setting it to low will allow certain extra tags to be permitted, such as those required for embedding video. While these tags are not the main candidates for users adding malicious code, they are still considered dangerous and could potentially be mis-used by a particularly technical user, and so are filtered out when the filtering level is set to high.
+
+Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags.
+
+Choices: High: ``1``, Low (allows video, iframe, Flash, etc): ``2``, No filtering: ``3``
+
+
+Default: ``1``
 
 ``RICHTEXT_WIDGET_CLASS``
 -------------------------

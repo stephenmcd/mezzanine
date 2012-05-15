@@ -12,7 +12,7 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 ==================
 
 .. automodule:: mezzanine.boot
-
+   :members:
 
 
 
@@ -251,6 +251,31 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 
 
 
+``mezzanine.accounts``
+======================
+
+.. automodule:: mezzanine.accounts
+   :members:
+
+``mezzanine.accounts.views``
+----------------------------
+
+.. automodule:: mezzanine.accounts.views
+   :members:
+
+``mezzanine.accounts.forms``
+----------------------------
+
+.. automodule:: mezzanine.accounts.forms
+   :members:
+
+``mezzanine.accounts.admin``
+----------------------------
+
+.. automodule:: mezzanine.accounts.admin
+   :members:
+
+
 
 ``mezzanine.forms``
 ===================
@@ -386,10 +411,16 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.utils.conf
    :members:
 
-.. automodule:: mezzanine.utils.html
+.. automodule:: mezzanine.utils.device
    :members:
 
 .. automodule:: mezzanine.utils.docs
+   :members:
+
+.. automodule:: mezzanine.utils.email
+   :members:
+
+.. automodule:: mezzanine.utils.html
    :members:
 
 .. automodule:: mezzanine.utils.importing
@@ -398,7 +429,13 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.utils.models
    :members:
 
+.. automodule:: mezzanine.utils.sites
+   :members:
+
 .. automodule:: mezzanine.utils.tests
+   :members:
+
+.. automodule:: mezzanine.utils.timezone
    :members:
 
 .. automodule:: mezzanine.utils.urls

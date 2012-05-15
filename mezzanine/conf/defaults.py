@@ -415,8 +415,8 @@ RICHTEXT_FILTER_LEVELS = (
 
 register_setting(
     name="RICHTEXT_FILTER_LEVEL",
-    description="``Do not change this setting unless you know what you're "
-        "doing.``\n\nWhen content is saved in a Rich Text (WYSIWYG) field, "
+    description="*Do not change this setting unless you know what you're "
+        "doing.*\n\nWhen content is saved in a Rich Text (WYSIWYG) field, "
         "unsafe HTML tags and attributes are stripped from the content to "
         "protect against staff members intentionally adding code that could "
         "be used to cause problems, such as changing their account to "
