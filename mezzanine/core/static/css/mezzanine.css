@@ -14,20 +14,16 @@ img {box-shadow:0 0 10px #bbb;}
 
 
 /* Navigation */
+@media (max-width:979px){.brand {padding-right:20px !important;}}
 .navbar {z-index:500;}
 .navbar-search {margin-left:10px;}
-.tree-menu-level-0 .active {font-weight:bold !important;}
-.tree-menu-level-0 .active li {font-weight:normal;}
-.tree-menu-level-0 li {margin:5px 0; padding:5px 0;}
-.tree-menu-level-0 li, footer li li {border-bottom:1px dashed #eee;}
-.tree-menu-level-1 li, footer li li {list-style:square inside;}
-.tree-menu-level-1 li {margin:10px 15px; padding:0; border-bottom:0px;}
-ul.nav li.dropdown:hover ul.dropdown-menu {display:block;}
-@media (max-width:979px){.brand {padding-right:20px !important;}}
 .tagline {float:left; font-size:12px; font-style:italic; margin:9px 5px 0 -4px; color:#fff; opacity:.5;}
 .breadcrumb {margin:20px 0 25px 0;}
 .breadcrumb .divider {margin:0 5px;}
 .breadcrumb strong {color:#333;}
+ul.nav li.dropdown:hover ul.dropdown-menu {display:block;}
+.tree {padding:8px;}
+.tree li {margin:3px 0;}
 footer {background:rgba(220,220,220, 0.1); padding:30px 0; text-align:center;}
 footer .container {text-align:left; display:inline-block; width:auto;}
 footer li {float:left; list-style-type:none;}
