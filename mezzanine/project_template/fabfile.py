@@ -338,6 +338,13 @@ def deploy():
     collect any new static assets, and restart gunicorn's work
     processes for the project.
     """
+    if not exists(env.venv_path):
+        prompt = raw_input("\nVirtualenv doesn't exist: %s\nWould you like "
+                           "to create it? (yes/no) " % env.proj_name)
+        if prompt.lower() != "yes":
+            print "\nAborting!"
+            return False
+        create()
     for name in get_templates():
         upload_template_and_reload(name)
     with project():
@@ -349,6 +356,7 @@ def deploy():
         manage("migrate --noinput")
         manage("collectstatic -v 0 --noinput")
     restart()
+    return True
 
 
 @log_call
