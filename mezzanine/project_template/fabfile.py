@@ -29,12 +29,48 @@ env.venv_home = conf.get("VIRTUALENV_HOME", "/home/%s" % env.user)
 env.venv_path = "%s/%s" % (env.venv_home, env.proj_name)
 env.proj_dirname = "project"
 env.proj_path = "%s/%s" % (env.venv_path, env.proj_dirname)
+env.manage = "%s/bin/python %s/project/manage.py" % (env.venv_path,
+                                                     env.venv_path)
 
 env.live_host = conf.get("LIVE_HOSTNAME", env.hosts[0])
 env.repo_url = conf.get("REPO_URL", None)
 env.reqs_path = conf.get("REQUIREMENTS_PATH", None)
 env.gunicorn_port = conf.get("GUNICORN_PORT", 8000)
-env.locale = conf.get("LOCALE", "en_US.utf8")
+env.locale = conf.get("LOCALE", "en_US.UTF-8")
+
+
+##################
+# Template setup #
+##################
+
+# Each template gets uploaded at deploy time, only if their
+# contents has changed, in which case, the reload command is
+# also run.
+
+templates = {
+    "nginx": {
+        "local_path": "deploy/nginx.conf",
+        "remote_path": "/etc/nginx/sites-enabled/%(proj_name)s.conf",
+        "reload_command": "service nginx restart",
+    },
+    "supervisor": {
+        "local_path": "deploy/supervisor.conf",
+        "remote_path": "/etc/supervisor/conf.d/%(proj_name)s.conf",
+        "reload_command": "supervisorctl reload",
+    },
+    "cron": {
+        "local_path": "deploy/crontab",
+        "remote_path": "/etc/cron.d/%(proj_name)s",
+    },
+    "gunicorn": {
+        "local_path": "deploy/gunicorn.conf.py",
+        "remote_path": "%(proj_path)s/gunicorn.conf.py",
+    },
+    "settings": {
+        "local_path": "deploy/live_settings.py",
+        "remote_path": "%(proj_path)s/local_settings.py",
+    },
+}
 
 
 ######################################
@@ -72,7 +108,7 @@ def _print(output):
 
 
 def print_command(command):
-    _print(blue(">>> ", bold=True) +
+    _print(blue("$ ", bold=True) +
            yellow(command, bold=True) +
            red(" ->", bold=True))
 
@@ -106,11 +142,40 @@ def log_call(func):
     return logged
 
 
-def installed(command):
+def get_templates():
     """
-    Check to see if the given command is installed on the remote server.
+    Return each of the templates with env vars injected.
     """
-    return run("which " + command)
+    injected = {}
+    for name, data in templates.items():
+        injected[name] = dict([(k, v % env) for k, v in data.items()])
+    return injected
+
+
+def upload_template_and_reload(name):
+    """
+    Upload a template only if it has changed, and if so, reload a
+    related service.
+    """
+    template = get_templates()[name]
+    local_path = template["local_path"]
+    remote_path = template["remote_path"]
+    reload_command = template.get("reload_command")
+    remote_data = ""
+    if exists(remote_path):
+        with hide("stdout"):
+            remote_data = sudo("cat %s" % remote_path, show=False)
+    with open(local_path, "r") as f:
+        local_data = f.read()
+        if "%(db_pass)s" in local_data:
+            env.db_pass = db_pass()
+        local_data %= env
+    clean = lambda s: s.replace("\n", "").replace("\r", "").strip()
+    if clean(remote_data) == clean(local_data):
+        return
+    upload_template(local_path, remote_path, env, use_sudo=True, backup=False)
+    if reload_command:
+        sudo(reload_command)
 
 
 def db_pass():
@@ -152,105 +217,62 @@ def python(code):
     Run Python code in the virtual environment, with the Django
     project loaded.
     """
+    setup = "import os;os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';"
     with project():
-        return run('python -c "import os; '
-                   'os.environ[\'DJANGO_SETTINGS_MODULE\'] = \'settings\'; '
-                   '%s"' % code)
+        return run('python -c "%s%s"' % (setup, code))
 
 
 def manage(command):
     """
     Run a Django management command.
     """
-    with project():
-        return run("python manage.py %s" % command)
-
-
-def locale():
-    """
-    Set the system locale.
-    """
-    return sudo("sudo update-locale LC_ALL=%s" % env.locale)
+    return run("%s %s" % (env.manage, command))
 
 
 #########################
-# System level installs #
+# Install and configure #
 #########################
 
 @log_call
-def install_base():
+def install():
     """
     Install the base system-level and Python requirements for the
     entire server.
     """
-    locale()
+    locale = "LC_ALL=%s" % env.locale
+    with hide("stdout"):
+        if locale not in sudo("cat /etc/default/locale"):
+            sudo("update-locale %s" % locale)
+            run("exit")
     sudo("apt-get update -y -q")
-    apt("libjpeg-dev python-dev python-setuptools git-core")
+    apt("nginx libjpeg-dev python-dev python-setuptools git-core "
+        "postgresql libpq-dev memcached supervisor")
     sudo("easy_install pip")
     sudo("pip install virtualenv mercurial")
 
 
 @log_call
-def install_nginx_base():
+def create():
     """
-    Install NGINX on the system.
+    Create a virtual environment, pull the project's repo from
+    version control, add system-level configs for the project,
+    and initialise the database with the live host.
     """
-    apt("nginx")
-    default_conf = "/etc/nginx/sites-enabled/default"
-    if exists(default_conf):
-        sudo("rm " + default_conf)
 
+    # Create virtualenv
+    with cd(env.venv_home):
+        if exists(env.proj_name):
+            prompt = raw_input("\nVirtualenv exists: %s\nWould you like "
+                               "to replace it? (yes/no) " % env.proj_name)
+            if prompt.lower() != "yes":
+                print "\nAborting!"
+                return False
+            remove()
+        run("virtualenv %s --distribute" % env.proj_name)
+        vcs = "git" if env.repo_url.startswith("git") else "hg"
+        run("%s clone %s %s" % (vcs, env.repo_url, env.proj_path))
 
-@log_call
-def install_postgres_base():
-    """
-    Install PostgreSQL on the system.
-    """
-    locale()
-    apt("postgresql libpq-dev")
-
-
-@log_call
-def install_memcached_base():
-    """
-    Install memcached on the system.
-    """
-    apt("memcached")
-
-
-@log_call
-def install_supervisor_base():
-    """
-    Install supervisor on the system.
-    """
-    apt("supervisor")
-
-
-##########################
-# Project level installs #
-##########################
-
-@log_call
-def install_nginx_project():
-    """
-    Install NGINX configuration for the project.
-    """
-    path = "/etc/nginx/sites-enabled/%s.conf" % env.proj_name
-    context = {
-        "live_host": env.live_host,
-        "static_root": env.proj_path,
-        "project_name": env.proj_name,
-        "gunicorn_port": env.gunicorn_port,
-    }
-    upload_template("deploy/nginx.conf", path, context, use_sudo=True)
-    sudo("service nginx restart")
-
-
-@log_call
-def install_postgres_project():
-    """
-    Install a PostgreSQL database and user for the project.
-    """
+    # Create DB and DB user.
     password = db_pass()
     user_sql_args = (env.proj_name, password.replace("'", "\'"))
     user_sql = "CREATE USER %s WITH ENCRYPTED PASSWORD '%s';" % user_sql_args
@@ -261,92 +283,51 @@ def install_postgres_project():
          "LC_CTYPE = '%s' LC_COLLATE = '%s' TEMPLATE template0;" %
          (env.proj_name, env.proj_name, env.locale, env.locale))
 
-
-@log_call
-def install_supervisor_project():
-    """
-    Install supervisor configuration for the project.
-    """
-    path = "/etc/supervisor/conf.d/%s.conf" % env.proj_name
-    context = {
-        "project_name": env.proj_name,
-        "project_path": env.proj_path,
-        "venv_path": env.venv_path,
-        "user": env.user,
-    }
-    upload_template("deploy/supervisor.conf", path, context, use_sudo=True)
-    sudo("supervisorctl reload")
-
-
-#################
-# Project setup #
-#################
-
-@log_call
-def install_project():
-    """
-    Create a virtual environment, pull the project's repo from
-    version control, add system-level configs for the project,
-    and initialise the database with the live host.
-    """
-    with cd(env.venv_home):
-        if exists(env.proj_name):
-            remove = raw_input("\nVirtualenv exists: %s\nWould you like "
-                               "to replace it? (yes/no) " % env.proj_name)
-            if remove.lower() != "yes":
-                print "\nAborting!"
-                return False
-            remove_project()
-        run("virtualenv %s --distribute" % env.proj_name)
-    with virtualenv():
-        vcs = "git" if env.repo_url.startswith("git") else "hg"
-        run("%s clone %s %s" % (vcs, env.repo_url, env.proj_dirname))
-    install_nginx_project()
-    install_postgres_project()
-    install_supervisor_project()
+    # Set up project
+    upload_template_and_reload("settings")
     with project():
-        path = "local_settings.py"
-        context = {
-            "db_name": env.proj_name,
-            "db_user": env.proj_name,
-            "db_pass": db_pass(),
-        }
-        upload_template("deploy/live_settings.py", path, context)
-        path = "gunicorn.conf"
-        context = {"port": env.gunicorn_port}
-        upload_template("deploy/gunicorn.conf", path, context)
         if env.reqs_path:
             pip("-r %s/%s" % (env.proj_path, env.reqs_path))
-        pip("gunicorn south psycopg2 python-memcached")
+        pip("gunicorn setproctitle south psycopg2 "
+            "django-compressor python-memcached")
         manage("createdb --noinput")
         python("from django.conf import settings;"
                "from django.contrib.sites.models import Site;"
                "site, _ = Site.objects.get_or_create(id=settings.SITE_ID);"
                "site.domain = '" + env.live_host + "';"
                "site.save();")
-    gunicorn_start()
     return True
 
 
-######################
-# Project management #
-######################
+@log_call
+def remove():
+    """
+    Blow away the current project.
+    """
+    if exists(env.venv_path):
+        sudo("rm -rf %s" % env.venv_path)
+    for template in get_templates().values():
+        remote_path = template["remote_path"]
+        if exists(remote_path):
+            sudo("rm %s" % remote_path)
+    psql("DROP DATABASE %s;" % env.proj_name)
+    psql("DROP USER %s;" % env.proj_name)
+
+
+##############
+# Deployment #
+##############
 
 @log_call
-def gunicorn_start():
-    """
-    Start gunicorn for the project via supervisor.
-    """
-    sudo("supervisorctl start %s:gunicorn" % env.proj_name)
-
-
-@log_call
-def gunicorn_reload():
+def restart():
     """
     Restart gunicorn worker processes for the project.
     """
-    with project():
-        sudo("kill -HUP `cat gunicorn.pid`")
+    pid_path = "%s/gunicorn.pid" % env.proj_path
+    if exists(pid_path):
+        sudo("kill -HUP `cat %s`" % pid_path)
+    else:
+        sudo("supervisorctl start %s:gunicorn" % env.proj_name)
 
 
 @log_call
@@ -357,42 +338,25 @@ def deploy():
     collect any new static assets, and restart gunicorn's work
     processes for the project.
     """
+    for name in get_templates():
+        upload_template_and_reload(name)
     with project():
         git = env.repo_url.startswith("git")
         run("git pull" if git else "hg pull && hg up")
         if env.reqs_path:
-            pip("-U -r %s/%s" % (env.proj_path, env.reqs_path))
+            pip("-r %s/%s" % (env.proj_path, env.reqs_path))
         manage("syncdb --noinput")
         manage("migrate --noinput")
         manage("collectstatic -v 0 --noinput")
-    gunicorn_reload()
+    restart()
 
 
 @log_call
-def remove_project():
-    """
-    Blow away the current project.
-    """
-    if exists(env.venv_path):
-        sudo("rm -rf %s" % env.venv_path)
-    for path in ("supervisor/conf.d", "nginx/sites-enabled"):
-        full_path = "/etc/%s/%s.conf" % (path, env.proj_name)
-        if exists(full_path):
-            sudo("rm %s" % full_path)
-    psql("DROP DATABASE %s;" % env.proj_name)
-    psql("DROP USER %s;" % env.proj_name)
-
-
-@log_call
-def install_all():
+def all():
     """
     Install everything required on a new system, from the base
     software, up to the deployed project.
     """
-    install_base()
-    install_nginx_base()
-    install_postgres_base()
-    install_memcached_base()
-    install_supervisor_base()
-    if install_project():
+    install()
+    if create():
         deploy()
