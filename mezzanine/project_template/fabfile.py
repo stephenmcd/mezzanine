@@ -8,16 +8,18 @@ from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, hide
 from fabric.contrib.files import exists, upload_template
 from fabric.colors import yellow, green, blue, red
 
-try:
-    from settings import FABRIC as conf
-except ImportError:
-    conf = {}
 
+# Ensure we import settings from the current dir
 try:
-    conf["HOSTS"][0]
-except (KeyError, ValueError):
+    conf = __import__("settings", globals(), locals(), [], 0).FABRIC
+    try:
+        conf["HOSTS"][0]
+    except (KeyError, ValueError):
+        raise ImportError
+except (ImportError, AttributeError):
     print "Aborting, no hosts defined."
     exit()
+
 
 ################
 # Config setup #
