@@ -28,6 +28,7 @@
         <img class="image-overlay-full" src="{{ MEDIA_URL }}{% thumbnail image.file 0 600 %}"><br>
         <p>{{ image.description }}<br>{{ forloop.counter }} / {{ images|length }}</p>
     </div>
+</li>
 {% endfor %}
 {% endwith %}
 </ul>
