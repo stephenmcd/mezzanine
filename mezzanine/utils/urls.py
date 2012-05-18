@@ -53,7 +53,7 @@ def login_redirect(request):
     - LOGIN_REDIRECT_URL setting
     - homepage
     """
-    next = request.GET.get("next")
+    next = request.REQUEST.get("next")
     if not next:
         try:
             next = reverse(settings.LOGIN_REDIRECT_URL)

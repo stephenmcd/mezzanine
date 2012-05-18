@@ -1,0 +1,14 @@
+{% load i18n mezzanine_tags %}
+
+{% block main %}
+{% url signup as signup_url %}
+<fieldset>
+    <legend>{{ title }}</legend>
+    <form method="post" action="{{signup_url}}">
+    {% fields_for form %}
+    <div class="form-actions">
+        <input class="btn btn-primary btn-large" type="submit" value="{{ title }}">
+    </div>
+    </form>
+</fieldset>
+{% endblock %}
