@@ -1,5 +1,6 @@
 
 import os
+import sys
 from functools import wraps
 from getpass import getpass, getuser
 from contextlib import contextmanager
@@ -10,15 +11,16 @@ from fabric.colors import yellow, green, blue, red
 
 
 # Ensure we import settings from the current dir
-try:
-    conf = __import__("settings", globals(), locals(), [], 0).FABRIC
+if sys.argv[0].split(os.sep)[-1] == "fab":
     try:
-        conf["HOSTS"][0]
-    except (KeyError, ValueError):
-        raise ImportError
-except (ImportError, AttributeError):
-    print "Aborting, no hosts defined."
-    exit()
+        conf = __import__("settings", globals(), locals(), [], 0).FABRIC
+        try:
+            conf["HOSTS"][0]
+        except (KeyError, ValueError):
+            raise ImportError
+    except (ImportError, AttributeError):
+        print "Aborting, no hosts defined."
+        exit()
 
 
 ################
@@ -306,7 +308,7 @@ def create():
                "site.save();")
         if env.admin_pass:
             python("from django.contrib.auth.models import User;"
-                   "user, _ = User.objects.get_or_create(username='admin')"
+                   "user, _ = User.objects.get_or_create(username='admin');"
                    "user.is_staff = user.is_superuser = True;"
                    "user.set_password('%s');"
                    "user.save();" % env.admin_pass)
