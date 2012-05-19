@@ -20,8 +20,8 @@ used to set up all the system-level requirements on a new
 project-level virtual environments for initial and continuous
 deployments, and much more.
 
-Stack
------
+Server Stack
+------------
 
 The deployed stack consists of the following components:
 
@@ -49,6 +49,8 @@ module. Here's an example::
       "LOCALE": "en_US.utf8", # Should end with ".utf8"
       "LIVE_HOSTNAME": "www.example.com", # Host for public site.
       "REPO_URL": "", # Git or Mercurial remote repo URL for the project
+      "DB_PASS": "", # Live database password
+      "ADMIN_PASS": "", # Live admin user password
   }
 
 Commands

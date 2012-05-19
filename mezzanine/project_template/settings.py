@@ -322,6 +322,8 @@ DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
 #     "LOCALE": "en_US.UTF-8", # Should end with ".UTF-8"
 #     "LIVE_HOSTNAME": "www.example.com", # Host for public site.
 #     "REPO_URL": "", # Git or Mercurial remote repo URL for the project
+#     "DB_PASS": "", # Live database password
+#     "ADMIN_PASS": "", # Live admin user password
 # }
 
 

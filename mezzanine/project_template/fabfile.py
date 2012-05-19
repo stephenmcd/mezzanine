@@ -26,6 +26,7 @@ except (ImportError, AttributeError):
 ################
 
 env.db_pass = conf.get("DB_PASS", None)
+env.admin_pass = conf.get("ADMIN_PASS", None)
 env.user = conf.get("SSH_USER", getuser())
 env.password = conf.get("SSH_PASS", None)
 env.key_filename = conf.get("SSH_KEY_PATH", None)
@@ -224,7 +225,7 @@ def python(code):
     Run Python code in the virtual environment, with the Django
     project loaded.
     """
-    setup = "import os;os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';"
+    setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';"
     with project():
         return run('python -c "%s%s"' % (setup, code))
 
@@ -303,6 +304,13 @@ def create():
                "site, _ = Site.objects.get_or_create(id=settings.SITE_ID);"
                "site.domain = '" + env.live_host + "';"
                "site.save();")
+        if env.admin_pass:
+            python("from django.contrib.auth.models import User;"
+                   "user, _ = User.objects.get_or_create(username='admin')"
+                   "user.is_staff = user.is_superuser = True;"
+                   "user.set_password('%s');"
+                   "user.save();" % env.admin_pass)
+
     return True
 
 
@@ -356,7 +364,7 @@ def deploy():
         upload_template_and_reload(name)
     with project():
         git = env.repo_url.startswith("git")
-        run("git pull" if git else "hg pull && hg up")
+        run("git pull" if git else "hg pull && hg up -C")
         if env.reqs_path:
             pip("-r %s/%s" % (env.proj_path, env.reqs_path))
         manage("syncdb --noinput")
