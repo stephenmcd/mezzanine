@@ -97,25 +97,11 @@ Otherwise you can download Mezzanine and install it directly from source::
 
     $ python setup.py install
 
-
-If you want to use the South package for automatic database
-migrations, you should install it now::
-
-    $ pip install -U south
-
-or::
-
-    $ easy_instal -U south
-
-
 Once installed, the command ``mezzanine-project`` should be available which
 can be used for creating a new Mezzanine project in a similar fashion to
 ``django-admin.py``::
 
     $ mezzanine-project project_name
-
-You can then run your project with the usual Django steps::
-
     $ cd project_name
     $ python manage.py createdb --noinput
     $ python manage.py runserver
@@ -124,7 +110,7 @@ You can then run your project with the usual Django steps::
 
     The ``createdb`` is a shortcut for using Django's ``syncdb`` command and
     setting the initial migration state for `South`_. You can alternatively
-    use ``syncdb`` and ``migrate`` if preferred.  South is automatically
+    use ``syncdb`` and ``migrate`` if preferred. South is automatically
     added to INSTALLED_APPS if ``settings.USE_SOUTH = True``.
 
 
@@ -180,7 +166,8 @@ create an official release for it, prior to the issue being made public.
 
 For general questions or comments, please join the
 `mezzanine-users`_ mailing list. To report a bug or other
-type of issue, please use the `GitHub issue tracker`_.
+type of issue, please use the `GitHub issue tracker`_. There's also a
+`#mezzanine IRC channel`_ on `Freenode`_, so drop by for a chat.
 
 Sites Using Mezzanine
 =====================
@@ -291,6 +278,8 @@ Quotes
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users/topics
 .. _`security@jupo.org`: mailto:security@jupo.org?subject=Mezzanine+Security+Issue
 .. _`GitHub issue tracker`: http://github.com/stephenmcd/mezzanine/issues
+.. _`#mezzanine IRC channel`: irc://freenode.net/mezzanine
+.. _`Freenode`: http://freenode.net
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`Python Software Foundation`: http://www.python.org/psf/
