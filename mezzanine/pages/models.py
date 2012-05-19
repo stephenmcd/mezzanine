@@ -34,7 +34,10 @@ class Page(Orderable, Displayable):
     def get_absolute_url(self):
         if self.content_model == "link":
             return self.slug
-        return reverse("page", kwargs={"slug": self.slug})
+        if self.slug == "/":
+            return reverse("home")
+        else:
+            return reverse("page", kwargs={"slug": self.slug})
 
     def get_admin_url(self):
         return admin_url(self, "change", self.id)
