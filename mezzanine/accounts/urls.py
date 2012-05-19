@@ -1,7 +1,6 @@
 
 from django.conf.urls.defaults import patterns, url
 
-from mezzanine.accounts import get_profile_model
 from mezzanine.conf import settings
 
 
@@ -33,7 +32,7 @@ urlpatterns = patterns("mezzanine.accounts.views",
         "password_reset_verify", name="password_reset_verify"),
 )
 
-if get_profile_model():
+if settings.ACCOUNTS_PROFILE_VIEWS_ENABLED:
     urlpatterns += patterns("mezzanine.accounts.views",
         url("^%s/(?P<username>.*)/$" % PROFILE_URL.strip("/"), "profile",
             name="profile"),
