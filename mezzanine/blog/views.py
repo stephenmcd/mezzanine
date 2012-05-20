@@ -53,8 +53,8 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     # For Django 1.4 we just use prefetch related.
 
     if VERSION >= (1, 4):
-        blog_posts = blog_posts.select_related("user"
-                                ).prefetch_related("categories", "keywords")
+        rel = ("categories", "keywords__keyword")
+        blog_posts = blog_posts.select_related("user").prefetch_related(*rel)
     else:
         blog_posts = list(blog_posts.select_related("user"))
         categories = defaultdict(list)
@@ -79,9 +79,9 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
             setattr(blog_posts[i], "keyword_list", keywords[post.id])
         else:
             setattr(blog_posts[i], "category_list",
-                    lambda: post.categories.all())
+                    post.categories.all())
             setattr(blog_posts[i], "keyword_list",
-                    lambda: post.keywords.all())
+                    [k.keyword for k in post.keywords.all()])
 
     blog_posts = paginate(blog_posts,
                           request.GET.get("page", 1),
