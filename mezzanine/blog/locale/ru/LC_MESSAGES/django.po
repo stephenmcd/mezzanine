@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-25 00:55+0400\n"
+"POT-Creation-Date: 2012-05-21 02:00+0400\n"
 "PO-Revision-Date: 2011-11-12 03:20+0000\n"
 "Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,31 +19,39 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: models.py:19 templates/blog/blog_post_list.html:109
+#: models.py:17 templates/blog/includes/filter_panel.html:30
+msgid "Categories"
+msgstr "Категории"
+
+#: models.py:19
+msgid "Allow comments"
+msgstr "Разрешить комментарии"
+
+#: models.py:21 templates/blog/blog_post_list.html:111
 msgid "Comments"
 msgstr "Комментарии"
 
-#: models.py:20
+#: models.py:22
 msgid "Rating"
 msgstr "Рейтинг"
 
-#: models.py:21
+#: models.py:23
 msgid "Featured Image"
 msgstr "Изображение"
 
-#: models.py:25
+#: models.py:27
 msgid "Blog post"
 msgstr "Запись в блоге"
 
-#: models.py:26
+#: models.py:28
 msgid "Blog posts"
 msgstr "Записи в блоге"
 
-#: models.py:48
+#: models.py:50
 msgid "Blog Category"
 msgstr "Категория блога"
 
-#: models.py:49
+#: models.py:51
 msgid "Blog Categories"
 msgstr "Категории блога"
 
@@ -57,7 +65,7 @@ msgstr "Сохранить черновик"
 
 #: templates/blog/blog_post_detail.html:21
 msgid "Home"
-msgstr "Начало"
+msgstr "Главная"
 
 #: templates/blog/blog_post_detail.html:34
 #: templates/blog/blog_post_list.html:74
@@ -70,7 +78,7 @@ msgid "ago"
 msgstr "назад"
 
 #: templates/blog/blog_post_detail.html:42
-#: templates/blog/blog_post_list.html:113
+#: templates/blog/blog_post_list.html:115
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
@@ -78,17 +86,17 @@ msgstr[0] "1 комментарий"
 msgstr[1] "%(comments_count)s комментария"
 msgstr[2] "%(comments_count)s комментариев"
 
-#: templates/blog/blog_post_detail.html:57
+#: templates/blog/blog_post_detail.html:58
 #: templates/blog/blog_post_list.html:98
 #: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
 msgstr "Теги"
 
-#: templates/blog/blog_post_detail.html:67
+#: templates/blog/blog_post_detail.html:69
 msgid "Share on Twitter"
 msgstr "Опубликовать в Twitter"
 
-#: templates/blog/blog_post_detail.html:68
+#: templates/blog/blog_post_detail.html:70
 msgid "Share on Facebook"
 msgstr "Опубликовать в Facebook"
 
@@ -98,7 +106,7 @@ msgstr "Блог"
 
 #: templates/blog/blog_post_list.html:31
 msgid "Tag:"
-msgstr "Метка:"
+msgstr "Тег:"
 
 #: templates/blog/blog_post_list.html:33
 msgid "Category:"
@@ -128,7 +136,7 @@ msgstr "Просмотр записей от"
 msgid "in"
 msgstr "в"
 
-#: templates/blog/blog_post_list.html:104
+#: templates/blog/blog_post_list.html:106
 msgid "read more"
 msgstr "читать далее"
 
@@ -139,10 +147,6 @@ msgstr "Последние записи"
 #: templates/blog/includes/filter_panel.html:16
 msgid "Archive"
 msgstr "Архив"
-
-#: templates/blog/includes/filter_panel.html:30
-msgid "Categories"
-msgstr "Категории"
 
 #: templates/blog/includes/filter_panel.html:55
 msgid "Authors"
