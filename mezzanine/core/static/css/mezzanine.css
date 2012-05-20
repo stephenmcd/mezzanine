@@ -65,7 +65,7 @@ a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 .blog-list-detail {margin-bottom:20px; padding-bottom:30px; line-height:25px;
                    border-bottom:1px dashed #ccc;}
 .middle .tags {margin:40px 0 20px 0;}
-.tags li {display:inline-block; white-space:nowrap;}
+.tag, .tags li {display:inline-block; white-space:nowrap; margin-right:5px;}
 .tag-weight-1 {font-size:90%;}
 .tag-weight-2 {font-size:120%;}
 .tag-weight-3 {font-size:150%;}

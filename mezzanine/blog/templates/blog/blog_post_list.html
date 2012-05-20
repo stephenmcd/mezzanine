@@ -96,9 +96,11 @@
 <p class="blog-list-detail">
     {% if blog_post.keyword_list %}
     {% trans "Tags" %}:
+    {% spaceless %}
     {% for tag in blog_post.keyword_list %}
-    <a href="{% url blog_post_list_tag tag.slug %}">{{ tag }}</a>
+    <a href="{% url blog_post_list_tag tag.slug %}" class="tag">{{ tag }}</a>
     {% endfor %}
+    {% endspaceless %}
     <br>
     {% endif %}
     <a href="{{ blog_post.get_absolute_url }}">{% trans "read more" %}</a>

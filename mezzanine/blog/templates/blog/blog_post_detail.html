@@ -53,12 +53,14 @@
 
 {% keywords_for blog_post as tags %}
 {% if tags %}
+{% spaceless %}
 <ul class="unstyled tags">
     <li>{% trans "Tags" %}:</li>
     {% for tag in tags %}
     <li><a href="{% url blog_post_list_tag tag.slug %}">{{ tag }}</a></li>
     {% endfor %}
 </ul>
+{% endspaceless %}
 {% endif %}
 
 {% rating_for blog_post %}
