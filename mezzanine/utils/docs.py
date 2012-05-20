@@ -53,7 +53,7 @@ def build_settings_docs(docs_path, prefix=None):
         f.write("\n".join(lines))
 
 # Python complains if this is inside build_changelog which uses exec.
-_changeset_date = lambda c: datetime.fromtimestamp(c.date()[0])
+_changeset_date = lambda cs: datetime.fromtimestamp(cs.date()[0])
 
 
 def build_changelog(docs_path, package_name="mezzanine"):
@@ -68,6 +68,10 @@ def build_changelog(docs_path, package_name="mezzanine"):
     changelog_file = os.path.join(project_path, changelog_filename)
     versions = SortedDict()
     repo = None
+    hotfixes = {
+        "40cbc47b8d8a": "1.0.9",
+        "a25749986abc": "1.0.10",
+    }
 
     # Load the repo.
     try:
@@ -84,25 +88,26 @@ def build_changelog(docs_path, package_name="mezzanine"):
 
     # Go through each changeset and assign it to the versions dict.
     changesets = [repo.changectx(changeset) for changeset in repo.changelog]
-    for changeset in sorted(changesets, reverse=True, key=_changeset_date):
+    for cs in sorted(changesets, reverse=True, key=_changeset_date):
         # Check if the file with the version number is in this changeset
         # and if it is, pull it out and assign it as a variable.
-        files = changeset.files()
+        files = cs.files()
         new_version = False
         if version_file in files:
-            for line in changeset[version_file].data().split("\n"):
+            for line in cs[version_file].data().split("\n"):
                 if line.startswith(version_var):
                     exec line
                     if locals()[version_var] == "0.1.0":
                         locals()[version_var] = "1.0.0"
                         break
-                    date = _changeset_date(changeset)
                     versions[locals()[version_var]] = {
-                        "changes": [], "date": date.strftime("%b %d, %Y")}
+                        "changes": [],
+                        "date": _changeset_date(cs).strftime("%b %d, %Y")
+                    }
                     new_version = len(files) == 1
         # Ignore changesets that are merges, bumped the version, closed
         # a branch or regenerated the changelog itself.
-        merge = len(changeset.parents()) > 1
+        merge = len(cs.parents()) > 1
         branch_closed = len(files) == 0
         changelog_update = changelog_filename in files
         if merge or new_version or branch_closed or changelog_update:
@@ -114,11 +119,18 @@ def build_changelog(docs_path, package_name="mezzanine"):
         except KeyError:
             continue
         else:
-            description = changeset.description().rstrip(".").replace("\n", "")
-            user = changeset.user().split("<")[0].strip()
+            description = cs.description().rstrip(".").replace("\n", "")
+            user = cs.user().split("<")[0].strip()
             entry = "%s - %s" % (description, user)
             if entry not in versions[version]["changes"]:
-                versions[version]["changes"].insert(0, entry)
+                hotfix = hotfixes.get(cs.hex()[:12])
+                if hotfix:
+                    versions[hotfix] = {
+                        "changes": [entry],
+                        "date": _changeset_date(cs).strftime("%b %d, %Y"),
+                    }
+                else:
+                    versions[version]["changes"].insert(0, entry)
 
     # Write out the changelog.
     with open(changelog_file, "w") as f:
