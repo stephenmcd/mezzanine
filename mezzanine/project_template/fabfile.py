@@ -10,8 +10,13 @@ from fabric.contrib.files import exists, upload_template
 from fabric.colors import yellow, green, blue, red
 
 
-# Ensure we import settings from the current dir
+################
+# Config setup #
+################
+
+conf = {}
 if sys.argv[0].split(os.sep)[-1] == "fab":
+    # Ensure we import settings from the current dir
     try:
         conf = __import__("settings", globals(), locals(), [], 0).FABRIC
         try:
@@ -22,17 +27,12 @@ if sys.argv[0].split(os.sep)[-1] == "fab":
         print "Aborting, no hosts defined."
         exit()
 
-
-################
-# Config setup #
-################
-
 env.db_pass = conf.get("DB_PASS", None)
 env.admin_pass = conf.get("ADMIN_PASS", None)
 env.user = conf.get("SSH_USER", getuser())
 env.password = conf.get("SSH_PASS", None)
 env.key_filename = conf.get("SSH_KEY_PATH", None)
-env.hosts = conf["HOSTS"]
+env.hosts = conf.get("HOSTS", [])
 
 env.proj_name = conf.get("PROJECT_NAME", os.getcwd().split(os.sep)[-1])
 env.venv_home = conf.get("VIRTUALENV_HOME", "/home/%s" % env.user)
@@ -41,7 +41,6 @@ env.proj_dirname = "project"
 env.proj_path = "%s/%s" % (env.venv_path, env.proj_dirname)
 env.manage = "%s/bin/python %s/project/manage.py" % (env.venv_path,
                                                      env.venv_path)
-
 env.live_host = conf.get("LIVE_HOSTNAME", env.hosts[0])
 env.repo_url = conf.get("REPO_URL", None)
 env.reqs_path = conf.get("REQUIREMENTS_PATH", None)
@@ -222,14 +221,16 @@ def psql(sql, show=True):
     return out
 
 
-def python(code):
+def python(code, show=True):
     """
     Run Python code in the virtual environment, with the Django
     project loaded.
     """
     setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';"
     with project():
-        return run('python -c "%s%s"' % (setup, code))
+        return run('python -c "%s%s"' % (setup, code), show=False)
+        if show:
+            print_command(code)
 
 
 def manage(command):
@@ -283,12 +284,12 @@ def create():
         run("%s clone %s %s" % (vcs, env.repo_url, env.proj_path))
 
     # Create DB and DB user.
-    password = db_pass()
-    user_sql_args = (env.proj_name, password.replace("'", "\'"))
+    pw = db_pass()
+    user_sql_args = (env.proj_name, pw.replace("'", "\'"))
     user_sql = "CREATE USER %s WITH ENCRYPTED PASSWORD '%s';" % user_sql_args
     psql(user_sql, show=False)
-    shadowed = "*" * len(password)
-    print_command(user_sql.replace("'%s'" % password, "'%s'" % shadowed))
+    shadowed = "*" * len(pw)
+    print_command(user_sql.replace("'%s'" % pw, "'%s'" % shadowed))
     psql("CREATE DATABASE %s WITH OWNER %s ENCODING = 'UTF8' "
          "LC_CTYPE = '%s' LC_COLLATE = '%s' TEMPLATE template0;" %
          (env.proj_name, env.proj_name, env.locale, env.locale))
@@ -307,11 +308,15 @@ def create():
                "site.domain = '" + env.live_host + "';"
                "site.save();")
         if env.admin_pass:
-            python("from django.contrib.auth.models import User;"
-                   "user, _ = User.objects.get_or_create(username='admin');"
-                   "user.is_staff = user.is_superuser = True;"
-                   "user.set_password('%s');"
-                   "user.save();" % env.admin_pass)
+            pw = env.admin_pass
+            user_py = ("from django.contrib.auth.models import User;"
+                       "u, _ = User.objects.get_or_create(username='admin');"
+                       "u.is_staff = u.is_superuser = True;"
+                       "u.set_password('%s');"
+                       "u.save();" % pw)
+            python(user_py, show=False)
+            shadowed = "*" * len(pw)
+            print_command(user_py.replace("'%s'" % pw, "'%s'" % shadowed))
 
     return True
 
