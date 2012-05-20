@@ -70,6 +70,8 @@ templates = {
     "cron": {
         "local_path": "deploy/crontab",
         "remote_path": "/etc/cron.d/%(proj_name)s",
+        "owner": "root",
+        "mode": "600",
     },
     "gunicorn": {
         "local_path": "deploy/gunicorn.conf.py",
@@ -170,6 +172,8 @@ def upload_template_and_reload(name):
     local_path = template["local_path"]
     remote_path = template["remote_path"]
     reload_command = template.get("reload_command")
+    owner = template.get("owner")
+    mode = template.get("mode")
     remote_data = ""
     if exists(remote_path):
         with hide("stdout"):
@@ -183,6 +187,10 @@ def upload_template_and_reload(name):
     if clean(remote_data) == clean(local_data):
         return
     upload_template(local_path, remote_path, env, use_sudo=True, backup=False)
+    if owner:
+        sudo("chown %s %s" % (owner, remote_path))
+    if mode:
+        sudo("chmod %s %s" % (mode, remote_path))
     if reload_command:
         sudo(reload_command)
 
