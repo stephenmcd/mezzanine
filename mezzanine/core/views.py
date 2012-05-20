@@ -1,6 +1,7 @@
 
 from __future__ import with_statement
 import os
+from time import time
 
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
@@ -25,7 +26,10 @@ def set_device(request, device=""):
     Sets a device name in a cookie when a user explicitly wants to go
     to the site for a particular device (eg mobile).
     """
-    response = redirect(request.GET.get("next", "/"))
+    url = request.GET.get("next", "/")
+    url += "?" if "?" not in url else "&"
+    url += "device-time=" + str(time()).replace(".", "")
+    response = redirect(url)
     set_cookie(response, "mezzanine-device", device, 60 * 60 * 24 * 365)
     return response
 
