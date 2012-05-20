@@ -1,7 +1,7 @@
 
 /* Login stuff */
 #extra-login-fields .required {margin-top:1px;}
-input.interface {margin:0 0 0 0px; vertical-align:middle;}
+input.interface {margin:0 5px 0 0px; vertical-align:middle;}
 label.interface {display:inline !important; float:none !important;
     vertical-align:middle; cursor:pointer;}
 #forgot-password {margin-top:30px; text-align:center;}
