@@ -106,10 +106,13 @@ Twitter Feeds
 =============
 
 If Twitter feeds are implemented in your templates, a cron job is
-required that will run the following management command::
+required that will run the following management command. For example
+if we want the tweets to be updated every 10 minutes::
 
-    $ python manage.py poll_twitter
+    */10 * * * * python path/to/your/site/manage.py poll_twitter
 
 This ensures that the data is always available in the site's database
 when accessed, and allows you to control how often the Twitter API is
-queried.
+queried. Note that the fabric script described earlier includes
+features for deploying templates for cron jobs, which includes the
+job for polling twitter by default.
