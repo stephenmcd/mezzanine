@@ -310,8 +310,8 @@ Quotes
 .. _`Freenode`: http://freenode.net
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
-.. _`Transiflex`: https://docs.djangoproject.com/en/dev/topics/i18n/translation/
-.. _`Django's internationalization`: https://www.transifex.net/projects/p/mezzanine/
+.. _`Transiflex`: https://www.transifex.net/projects/p/mezzanine/
+.. _`Django's internationalization`: https://docs.djangoproject.com/en/dev/topics/i18n/translation/
 .. _`Python Software Foundation`: http://www.python.org/psf/
 .. _`Urban Airship`: http://urbanairship.com/
 .. _`Django Packages`: http://djangopackages.com/
