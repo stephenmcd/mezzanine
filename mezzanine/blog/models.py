@@ -13,9 +13,11 @@ class BlogPost(Displayable, Ownable, RichText):
     A blog post.
     """
 
-    categories = models.ManyToManyField("BlogCategory", blank=True,
-                                        related_name="blogposts")
-    allow_comments = models.BooleanField(default=True)
+    categories = models.ManyToManyField("BlogCategory",
+                                        verbose_name=_("Categories"),
+                                        blank=True, related_name="blogposts")
+    allow_comments = models.BooleanField(verbose_name=_("Allow comments"),
+                                         default=True)
     comments = CommentsField(verbose_name=_("Comments"))
     rating = RatingField(verbose_name=_("Rating"))
     featured_image = FileField(verbose_name=_("Featured Image"), null=True,
