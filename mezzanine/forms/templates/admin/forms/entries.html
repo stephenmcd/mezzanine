@@ -56,7 +56,6 @@
     <input type="submit" class="button default" value="{% trans "View entries" %}" />
     <input type="submit" class="button default" name="export" value="{% trans "Export CSV" %}" />
     {% if submitted %}
-    <br clear="both" />
     <h1 id="entries-title">{% trans "Entries" %}</h1>
     {% for row in entries_form.rows %}
     {% if forloop.first %}

@@ -17,3 +17,4 @@ th, td {border-right:1px solid #ddd; padding:5px 15px;}
 .on {background:#eee;}
 .off {background:#fff;}
 .button {float:left !important; margin-right:10px; cursor:pointer;}
+#entries-title {margin-top:70px !important;}
