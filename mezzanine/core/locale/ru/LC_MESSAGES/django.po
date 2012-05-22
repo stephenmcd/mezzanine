@@ -5,6 +5,7 @@
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Timur Bobrus, 2010.
+# Dmitry Falk <tfalc@mail.ru>, 2012 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
@@ -176,15 +177,15 @@ msgstr "читать далее"
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
 msgid "Dashboard"
-msgstr "Административная панель"
+msgstr "Панель управления"
 
 #: templates/admin/login.html:25
 msgid "Username or email:"
-msgstr "Имя или эл.почта:"
+msgstr "Логин или email:"
 
 #: templates/admin/login.html:29
 msgid "Password:"
-msgstr "Пароль"
+msgstr "Пароль:"
 
 #: templates/admin/login.html:34
 msgid "Interface:"
@@ -201,7 +202,7 @@ msgstr "Сайт"
 
 #: templates/admin/login.html:44
 msgid "Log in"
-msgstr "Войти"
+msgstr "Вход"
 
 #: templates/admin/login.html:47
 msgid "Forgot password?"
@@ -242,11 +243,11 @@ msgstr "Отмена"
 
 #: templates/includes/editable_form.html:25
 msgid "Edit"
-msgstr "Редактировать"
+msgstr "Ред."
 
 #: templates/includes/editable_toolbar.html:11
 msgid "Log out"
-msgstr "Выйти"
+msgstr "Выход"
 
 #: templates/includes/pagination.html:7
 msgid "Page"
