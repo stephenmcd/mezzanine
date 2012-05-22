@@ -15,7 +15,8 @@
 {% else %}
     {% trans "Not logged in" %}
     <a href="{% url login %}?next={{ request.path }}"
-        class="btn btn-small btn-account">{% trans "Log in" %}</a> or
+        class="btn btn-small btn-account">{% trans "Log in" %}</a>
+    {% trans "or" %}
     <a href="{% url signup %}?next={{ request.path }}"
         class="btn btn-small btn-account">{% trans "Sign up" %}</a>
 {% endif %}
