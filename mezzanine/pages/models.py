@@ -1,4 +1,3 @@
-
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -108,7 +107,7 @@ class Page(Orderable, Displayable):
 
     def can_delete(self, request):
         """
-        Dynamic ``change`` permission for content types to override.
+        Dynamic ``delete`` permission for content types to override.
         """
         return not self.overridden()
 
