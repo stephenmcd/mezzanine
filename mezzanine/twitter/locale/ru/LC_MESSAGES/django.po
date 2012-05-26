@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"POT-Creation-Date: 2012-05-26 12:27-0430\n"
 "PO-Revision-Date: 2011-02-22 05:11+0500\n"
 "Last-Translator: Andrew Grigorev <andrew@ei-grad.ru>\n"
 "Language-Team: Russian <>\n"
@@ -18,75 +18,75 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 1.2\n"
 
-#: models.py:24
+#: models.py:25
 msgid "User"
 msgstr "Пользователь"
 
-#: models.py:25
+#: models.py:26
 msgid "List"
 msgstr "Список"
 
-#: models.py:26
+#: models.py:27
 msgid "Search"
 msgstr "Поиск"
 
-#: models.py:29
+#: models.py:30
 msgid "Type"
 msgstr "Тип"
 
-#: models.py:31
+#: models.py:32
 msgid "Value"
 msgstr "Значение"
 
-#: models.py:35
+#: models.py:36
 msgid "Twitter query"
 msgstr "Запрос Twitter"
 
-#: models.py:36
+#: models.py:37
 msgid "Twitter queries"
 msgstr "Запросы Twitter"
 
-#: models.py:96
+#: models.py:98
 msgid "Twitter ID"
 msgstr "Twitter ID"
 
-#: models.py:97
+#: models.py:99
 msgid "Date/time"
 msgstr "Дата и время"
 
-#: models.py:98
+#: models.py:100
 msgid "Message"
 msgstr "Сообщение"
 
-#: models.py:99
+#: models.py:101
 msgid "Profile image URL"
 msgstr "URL изображения профиля"
 
-#: models.py:100
+#: models.py:102
 msgid "User name"
 msgstr "Имя пользователя"
 
-#: models.py:101
+#: models.py:103
 msgid "Full name"
 msgstr "Полное имя"
 
-#: models.py:103
+#: models.py:105
 msgid "Profile image URL (Retweeted by)"
 msgstr "URL изображения профиля (Retweeted by)"
 
-#: models.py:105
+#: models.py:107
 msgid "User name (Retweeted by)"
 msgstr "Имя пользователя (Retweeted by)"
 
-#: models.py:107
+#: models.py:109
 msgid "Full name (Retweeted by)"
 msgstr "Полное имя (Retweeted by)"
 
-#: models.py:113
+#: models.py:115
 msgid "Tweet"
 msgstr "Твит"
 
-#: models.py:114
+#: models.py:116
 msgid "Tweets"
 msgstr "Твиты"
 

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Timur Bobrus, 2010.
@@ -9,97 +9,103 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-26 12:27-0430\n"
 "PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:29
+#: admin.py:30
 msgid "Meta data"
 msgstr "Метаданные"
 
-#: fields.py:24
+#: admin.py:50
+msgid "This field is required if status is set to published."
+msgstr ""
+
+#: fields.py:36
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr ""
 
-#: forms.py:75 models.py:226
+#: forms.py:75 models.py:244
 msgid "Order"
 msgstr "Порядок"
 
-#: models.py:27
+#: models.py:52
 msgid "Title"
 msgstr "Заголовок"
 
-#: models.py:28
+#: models.py:53
 msgid "URL"
 msgstr "URL"
 
-#: models.py:77
+#: models.py:95
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: models.py:87
+#: models.py:105
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:88
+#: models.py:106
 msgid "Generate description"
 msgstr "Описание"
 
-#: models.py:89
+#: models.py:107
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
 msgstr "Если отметить, то описание будет генерироваться автоматически."
 
-#: models.py:92
+#: models.py:110
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: models.py:139
+#: models.py:157
 msgid "Draft"
 msgstr "Черновик"
 
-#: models.py:140
+#: models.py:158
 msgid "Published"
 msgstr "Опубликовано"
 
-#: models.py:151
+#: models.py:169
 msgid "Status"
 msgstr "Статус"
 
-#: models.py:153
+#: models.py:171
 msgid "Published from"
 msgstr "Опубликовано с"
 
-#: models.py:154
+#: models.py:172
 msgid "With published checked, won't be shown until this time"
 msgstr "Не будет показано до этого времени"
 
-#: models.py:156
+#: models.py:174
 msgid "Expires on"
 msgstr "Истекает"
 
-#: models.py:157
+#: models.py:175
 msgid "With published checked, won't be shown after this time"
 msgstr "Не будет показано после этого времени"
 
-#: models.py:184
+#: models.py:202
 msgid "Content"
 msgstr "Содержимое"
 
-#: models.py:280
+#: models.py:298
 msgid "Author"
 msgstr "Автор"
 
-#: views.py:55
+#: views.py:80
 msgid "Permission denied"
 msgstr "В доступе отказано"
 
@@ -119,19 +125,19 @@ msgstr "Ошибка"
 msgid "Sorry, an error occurred."
 msgstr "Извините, возникла ошибка."
 
-#: templates/base.html:53
+#: templates/base.html:60
 msgid "Search"
 msgstr "Поиск"
 
-#: templates/base.html:109
+#: templates/base.html:116
 msgid "Powered by"
 msgstr "Сайт использует"
 
-#: templates/base.html:112
+#: templates/base.html:119
 msgid "and"
 msgstr "и"
 
-#: templates/base.html:118
+#: templates/base.html:125
 msgid "View Mobile Site"
 msgstr "Мобильная версия"
 
@@ -161,7 +167,7 @@ msgstr "Показаны результаты с"
 msgid "to"
 msgstr "по"
 
-#: templates/search_results.html:22 templates/includes/pagination.html:7
+#: templates/search_results.html:22 templates/includes/pagination.html:8
 msgid "of"
 msgstr "из"
 
@@ -173,7 +179,7 @@ msgstr "результатов удовлетворяющих вашему за�
 msgid "read more"
 msgstr "читать далее"
 
-#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"
 msgstr "Панель управления"
 
@@ -247,6 +253,6 @@ msgstr "Ред."
 msgid "Log out"
 msgstr "Выход"
 
-#: templates/includes/pagination.html:7
+#: templates/includes/pagination.html:8
 msgid "Page"
 msgstr "Страница"

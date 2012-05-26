@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Nicola Larosa <transifex@teknico.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-26 12:27-0430\n"
 "PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/"
+"language/it/)\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:32 fields.py:30
@@ -85,43 +86,43 @@ msgstr "Data/ora"
 msgid "Hidden"
 msgstr "Nascosto"
 
-#: forms.py:26 forms.py:34 forms.py:40
+#: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
 msgstr "Nulla"
 
-#: forms.py:27
+#: forms.py:29
 msgid "Contains"
 msgstr "Contiene"
 
-#: forms.py:28
+#: forms.py:30
 msgid "Doesn't contain"
 msgstr "Non contiene"
 
-#: forms.py:29 forms.py:35
+#: forms.py:31 forms.py:37
 msgid "Equals"
 msgstr "È uguale a"
 
-#: forms.py:30 forms.py:36
+#: forms.py:32 forms.py:38
 msgid "Doesn't equal"
 msgstr "Non è uguale a"
 
-#: forms.py:41
+#: forms.py:43
 msgid "Is between"
 msgstr "È compreso fra"
 
-#: forms.py:98
+#: forms.py:100
 msgid "required"
 msgstr "obbligatorio"
 
-#: forms.py:182
+#: forms.py:210
 msgid "Checked"
 msgstr "Selezionato"
 
-#: forms.py:182
+#: forms.py:210
 msgid "Not checked"
 msgstr "Non selezionato"
 
-#: forms.py:196 forms.py:211
+#: forms.py:224 forms.py:239
 msgid "and"
 msgstr "e"
 
@@ -201,7 +202,9 @@ msgstr "Scelte"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr "Opzioni separate da virgole, se applicabile. Se una delle opzioni contiene a sua volta virgole, delimitarla con `apostrofi inversi`."
+msgstr ""
+"Opzioni separate da virgole, se applicabile. Se una delle opzioni contiene a "
+"sua volta virgole, delimitarla con `apostrofi inversi`."
 
 #: models.py:57
 msgid "Default value"
@@ -268,7 +271,7 @@ msgstr "Filtra per"
 msgid "All"
 msgstr "Tutto"
 
-#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
 msgid "Back to form"
 msgstr "Ritorna alla form"
 
@@ -276,14 +279,14 @@ msgstr "Ritorna alla form"
 msgid "Export CSV"
 msgstr "Esporta CSV"
 
-#: templates/admin/forms/entries.html:60
+#: templates/admin/forms/entries.html:59
 msgid "Entries"
 msgstr "Elementi"
 
-#: templates/admin/forms/entries.html:94
+#: templates/admin/forms/entries.html:93
 msgid "Delete selected"
 msgstr "Cancella selezionati"
 
-#: templates/admin/forms/entries.html:98
+#: templates/admin/forms/entries.html:97
 msgid "No entries to display"
 msgstr "Nessun elemento da mostrare"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"POT-Creation-Date: 2012-05-26 12:27-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:19 models.py:62
+#: admin.py:20 models.py:67
 msgid "User"
 msgstr ""
 
@@ -45,39 +45,39 @@ msgstr ""
 msgid "optional"
 msgstr ""
 
-#: models.py:19
+#: models.py:24
 msgid "By the blog author"
 msgstr ""
 
-#: models.py:26 models.py:54 templates/generic/includes/comments.html:24
+#: models.py:31 models.py:59 templates/generic/includes/comments.html:24
 msgid "Comment"
 msgstr ""
 
-#: models.py:27 templates/generic/includes/comments.html:3
+#: models.py:32 templates/generic/includes/comments.html:3
 msgid "Comments"
 msgstr ""
 
-#: models.py:66
+#: models.py:71
 msgid "View on site"
 msgstr ""
 
-#: models.py:86
+#: models.py:91
 msgid "Keyword"
 msgstr ""
 
-#: models.py:87
+#: models.py:92
 msgid "Keywords"
 msgstr ""
 
-#: models.py:115
+#: models.py:120
 msgid "Value"
 msgstr ""
 
-#: models.py:121
+#: models.py:126
 msgid "Rating"
 msgstr ""
 
-#: models.py:122
+#: models.py:127
 msgid "Ratings"
 msgstr ""
 

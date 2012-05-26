@@ -1,103 +1,108 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Yassine Elassad <yassine.elassad@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-26 12:27-0430\n"
 "PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: German (http://www.transifex.net/projects/p/mezzanine/language/de/)\n"
+"Language-Team: German (http://www.transifex.net/projects/p/mezzanine/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:29
+#: admin.py:30
 msgid "Meta data"
 msgstr "Metadaten"
 
-#: fields.py:24
+#: admin.py:50
+msgid "This field is required if status is set to published."
+msgstr ""
+
+#: fields.py:36
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr ""
 
-#: forms.py:75 models.py:226
+#: forms.py:75 models.py:244
 msgid "Order"
 msgstr "Bestellung"
 
-#: models.py:27
+#: models.py:52
 msgid "Title"
 msgstr "Title"
 
-#: models.py:28
+#: models.py:53
 msgid "URL"
 msgstr "URL"
 
-#: models.py:77
+#: models.py:95
 msgid "View on site"
 msgstr "Seite Sicht"
 
-#: models.py:87
+#: models.py:105
 msgid "Description"
 msgstr "Beschreibung"
 
-#: models.py:88
+#: models.py:106
 msgid "Generate description"
 msgstr ""
 
-#: models.py:89
+#: models.py:107
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
 msgstr ""
 
-#: models.py:92
+#: models.py:110
 msgid "Keywords"
 msgstr "Schlüsselwöter"
 
-#: models.py:139
+#: models.py:157
 msgid "Draft"
 msgstr "Vorlage"
 
-#: models.py:140
+#: models.py:158
 msgid "Published"
 msgstr ""
 
-#: models.py:151
+#: models.py:169
 msgid "Status"
 msgstr "Status"
 
-#: models.py:153
+#: models.py:171
 msgid "Published from"
 msgstr "Veröffentlicht von"
 
-#: models.py:154
+#: models.py:172
 msgid "With published checked, won't be shown until this time"
 msgstr ""
 
-#: models.py:156
+#: models.py:174
 msgid "Expires on"
 msgstr "Endet am"
 
-#: models.py:157
+#: models.py:175
 msgid "With published checked, won't be shown after this time"
 msgstr ""
 
-#: models.py:184
+#: models.py:202
 msgid "Content"
 msgstr "Inhalt"
 
-#: models.py:280
+#: models.py:298
 msgid "Author"
 msgstr "Autor"
 
-#: views.py:55
+#: views.py:80
 msgid "Permission denied"
 msgstr "Zugang verweigert"
 
@@ -117,19 +122,19 @@ msgstr "Fehler"
 msgid "Sorry, an error occurred."
 msgstr ""
 
-#: templates/base.html:53
+#: templates/base.html:60
 msgid "Search"
 msgstr ""
 
-#: templates/base.html:109
+#: templates/base.html:116
 msgid "Powered by"
 msgstr ""
 
-#: templates/base.html:112
+#: templates/base.html:119
 msgid "and"
 msgstr ""
 
-#: templates/base.html:118
+#: templates/base.html:125
 msgid "View Mobile Site"
 msgstr ""
 
@@ -159,7 +164,7 @@ msgstr ""
 msgid "to"
 msgstr "an"
 
-#: templates/search_results.html:22 templates/includes/pagination.html:7
+#: templates/search_results.html:22 templates/includes/pagination.html:8
 msgid "of"
 msgstr ""
 
@@ -171,7 +176,7 @@ msgstr ""
 msgid "read more"
 msgstr "mehr lesen"
 
-#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -245,6 +250,6 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: templates/includes/pagination.html:7
+#: templates/includes/pagination.html:8
 msgid "Page"
 msgstr ""

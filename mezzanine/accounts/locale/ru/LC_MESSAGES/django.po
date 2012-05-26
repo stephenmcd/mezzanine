@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-09 15:19+0400\n"
+"POT-Creation-Date: 2012-05-26 12:27-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: forms.py:18 forms.py:169
+#: forms.py:18 forms.py:179
 msgid "Username or email address"
 msgstr "Логин или email"
 
-#: forms.py:19 forms.py:60
+#: forms.py:19 forms.py:61
 msgid "Password"
 msgstr "Пароль"
 
@@ -36,82 +36,87 @@ msgstr "Неверный логин или пароль"
 msgid "Your account is inactive"
 msgstr "Ваша учетная запись не активна"
 
-#: forms.py:62
+#: forms.py:63
 msgid "Password (again)"
 msgstr "Пароль (еще раз)"
 
-#: forms.py:74
+#: forms.py:76
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr "Только буквы, цифры, тире или нижняя черта"
 
-#: forms.py:88
+#: forms.py:90
 msgid "Leave blank unless you want to change your password"
 msgstr "Оставьте пустым, если не хотите менять пароль"
 
-#: forms.py:107
+#: forms.py:109
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr "Логин может содержать только буквы, цифры, тире или нижнюю черту"
 
-#: forms.py:113
+#: forms.py:115
 msgid "This username is already registered"
 msgstr "Пользователь с таким логинов уже зарегистрирован"
 
-#: forms.py:122
+#: forms.py:128
 msgid "Passwords do not match"
 msgstr "Пароли не совпадают"
 
-#: forms.py:135
+#: forms.py:130
+#, python-format
+msgid "Password must be at least %s characters"
+msgstr ""
+
+#: forms.py:145
 msgid "This email is already registered"
 msgstr "Этот email уже зарегистрирован"
 
-#: forms.py:178
+#: forms.py:188
 msgid "Invalid username/email"
 msgstr "Неправильный логин/email"
 
-#: views.py:26
+#: views.py:27
 msgid "Successfully logged in"
 msgstr "Вы успешно вошли"
 
-#: views.py:29
+#: views.py:30
 msgid "Login"
 msgstr "Вход"
 
-#: views.py:38
+#: views.py:39
 msgid "Successfully logged out"
 msgstr "Вы успешно вышли"
 
-#: views.py:51
+#: views.py:52
 msgid ""
 "A verification email has been sent with a link for activating your account."
 msgstr "Письмо с подтверждающей ссылкой было выслано на ваш email."
 
-#: views.py:54 views.py:73
+#: views.py:55 views.py:74
 msgid "Successfully signed up"
 msgstr "Вы успешно зарегистрированы"
 
-#: views.py:57
+#: views.py:58
 msgid "Signup"
 msgstr "Регистрация"
 
-#: views.py:76 views.py:134
+#: views.py:77 views.py:136
 msgid "The link you clicked is no longer valid."
 msgstr "Ссылка больше не действует"
 
-#: views.py:109
+#: views.py:111
 msgid "Profile updated"
 msgstr "Профиль обновлен"
 
-#: views.py:114
+#: views.py:116
 msgid "Update Profile"
 msgstr "Обновить профиль"
 
-#: views.py:123
+#: views.py:125
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr ""
 "Письмо с подтверждающей ссылкой для сброса пароля было выслано на ваш email."
 
-#: views.py:125
+#: views.py:127
 msgid "Password Reset"
 msgstr "Сброс пароля"
 
@@ -142,8 +147,7 @@ msgstr ""
 "по которой сможете задать пароль."
 
 #: templates/accounts/account_profile.html:17
-#: templates/accounts/account_profiles.html:17
-#: templates/accounts/includes/user_panel.html:10
+#: templates/accounts/includes/user_panel.html:9
 msgid "Update profile"
 msgstr "Обновить профиль"
 
@@ -155,21 +159,25 @@ msgstr ""
 "После регистрации вы получите письмо со ссылкой, по которой необходимо "
 "пройти, чтобы ваша учетная запись активировалась."
 
-#: templates/accounts/includes/user_panel.html:5
+#: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
 msgstr "Вы вошли как: "
 
-#: templates/accounts/includes/user_panel.html:15
+#: templates/accounts/includes/user_panel.html:14
 msgid "Log out"
 msgstr "Выход"
 
-#: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel.html:16
 msgid "Not logged in"
 msgstr "Вы не залогинены"
 
-#: templates/accounts/includes/user_panel.html:19
+#: templates/accounts/includes/user_panel.html:18
 msgid "Log in"
 msgstr "Вход"
+
+#: templates/accounts/includes/user_panel.html:19
+msgid "or"
+msgstr ""
 
 #: templates/accounts/includes/user_panel.html:21
 msgid "Sign up"
@@ -180,23 +188,37 @@ msgid "Profile information"
 msgstr "Информация профиля"
 
 #: templates/email/password_reset_verify.html:3
+#: templates/email/password_reset_verify.txt:3
 msgid "Hey there, the password reset form was used for your account."
-msgstr "Внимание, форма сброса пароля была использована для вашей учетной записи"
+msgstr ""
+"Внимание, форма сброса пароля была использована для вашей учетной записи"
 
 #: templates/email/password_reset_verify.html:4
+#: templates/email/password_reset_verify.txt:4
 msgid "Please use the link below to log in and update your password."
-msgstr "Пожалуйста, используйте ссылку ниже, для того чтобы залогиниться и обновить ваш пароль."
+msgstr ""
+"Пожалуйста, используйте ссылку ниже, для того чтобы залогиниться и обновить "
+"ваш пароль."
 
 #: templates/email/password_reset_verify.html:6
+#: templates/email/password_reset_verify.txt:6
 msgid ""
 "If you didn't request for your password to be reset, please ignore this "
 "email."
 msgstr "Если вы не запрашивали сброс пароля, проигнорируйте это письмо."
 
-#: templates/email/signup_verify.html:3
+#: templates/email/password_reset_verify_subject.txt:2
+msgid "Reset your password"
+msgstr ""
+
+#: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
 msgstr "Благодарим за создание учетной записи."
 
-#: templates/email/signup_verify.html:4
+#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
 msgid "Please use the link below to activate it."
 msgstr "Пожалуйста, используйте ссылку ниже для активации учетной записи."
+
+#: templates/email/signup_verify_subject.txt:2
+msgid "Activate your account"
+msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"POT-Creation-Date: 2012-05-26 12:27-0430\n"
 "PO-Revision-Date: 2011-11-12 03:08+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/"
@@ -18,52 +18,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:18
+#: models.py:17
 msgid "Show in navigation"
 msgstr ""
 
-#: models.py:19
+#: models.py:18
 msgid "Show in footer"
 msgstr ""
 
-#: models.py:22
+#: models.py:21
 msgid "Login required"
 msgstr ""
 
-#: models.py:23
+#: models.py:22
 msgid "If checked, only logged in users can view this page"
 msgstr ""
 
-#: models.py:26
+#: models.py:25
 msgid "Page"
 msgstr ""
 
-#: models.py:27
+#: models.py:26
 msgid "Pages"
 msgstr ""
 
-#: models.py:136
+#: models.py:139
 msgid "Rich text page"
 msgstr ""
 
-#: models.py:137
+#: models.py:140
 msgid "Rich text pages"
 msgstr ""
 
+#: models.py:150
+msgid "Link"
+msgstr ""
+
+#: models.py:151
+msgid "Links"
+msgstr ""
+
 #: templates/admin/pages/page/change_list.html:24
-#: templates/pages/menus/admin.html:31
+#: templates/pages/menus/admin.html:32
 msgid "Add"
 msgstr ""
 
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
+#: templates/pages/menus/dropdown.html:10
 #: templates/pages/menus/footer_tree.html:10
 #: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:9
-#: templates/pages/menus/tree.html:10
+#: templates/pages/menus/tree.html:9
 msgid "Home"
 msgstr ""
 
-#: templatetags/pages_tags.py:144
+#: templatetags/pages_tags.py:146
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""

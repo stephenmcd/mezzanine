@@ -1,23 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Timur Bobrus, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-26 12:27-0430\n"
 "PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: admin.py:32 fields.py:30
 msgid "Email"
@@ -87,43 +89,43 @@ msgstr "Дата/время"
 msgid "Hidden"
 msgstr "Скрытое"
 
-#: forms.py:26 forms.py:34 forms.py:40
+#: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
 msgstr "Ничего"
 
-#: forms.py:27
+#: forms.py:29
 msgid "Contains"
 msgstr "Содержит"
 
-#: forms.py:28
+#: forms.py:30
 msgid "Doesn't contain"
 msgstr "Не содержит"
 
-#: forms.py:29 forms.py:35
+#: forms.py:31 forms.py:37
 msgid "Equals"
 msgstr "Равно"
 
-#: forms.py:30 forms.py:36
+#: forms.py:32 forms.py:38
 msgid "Doesn't equal"
 msgstr "Не равно"
 
-#: forms.py:41
+#: forms.py:43
 msgid "Is between"
 msgstr "Между"
 
-#: forms.py:98
+#: forms.py:100
 msgid "required"
 msgstr "обязательно"
 
-#: forms.py:182
+#: forms.py:210
 msgid "Checked"
 msgstr "Отмечен"
 
-#: forms.py:182
+#: forms.py:210
 msgid "Not checked"
 msgstr "Не отмечен"
 
-#: forms.py:196 forms.py:211
+#: forms.py:224 forms.py:239
 msgid "and"
 msgstr "и"
 
@@ -161,7 +163,9 @@ msgstr "Отправить копии"
 
 #: models.py:25
 msgid "One or more email addresses, separated by commas"
-msgstr "Один или более адресов электронной почты, которым будет отправлена копия письма, разделенные запятыми"
+msgstr ""
+"Один или более адресов электронной почты, которым будет отправлена копия "
+"письма, разделенные запятыми"
 
 #: models.py:27
 msgid "Subject"
@@ -203,7 +207,9 @@ msgstr "Значения"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr "Варианты, разделенные запятыми. Если значение содержит запятые, окружите его `обратными кавычками`."
+msgstr ""
+"Варианты, разделенные запятыми. Если значение содержит запятые, окружите его "
+"`обратными кавычками`."
 
 #: models.py:57
 msgid "Default value"
@@ -270,7 +276,7 @@ msgstr "Фильтровать по"
 msgid "All"
 msgstr "Все"
 
-#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
 msgid "Back to form"
 msgstr "Назад к форме"
 
@@ -278,14 +284,14 @@ msgstr "Назад к форме"
 msgid "Export CSV"
 msgstr "Экспортировать в CSV"
 
-#: templates/admin/forms/entries.html:60
+#: templates/admin/forms/entries.html:59
 msgid "Entries"
 msgstr "Записи"
 
-#: templates/admin/forms/entries.html:94
+#: templates/admin/forms/entries.html:93
 msgid "Delete selected"
 msgstr ""
 
-#: templates/admin/forms/entries.html:98
+#: templates/admin/forms/entries.html:97
 msgid "No entries to display"
 msgstr ""

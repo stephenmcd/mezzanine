@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"POT-Creation-Date: 2012-05-26 12:27-0430\n"
 "PO-Revision-Date: 2012-03-15 09:04+0000\n"
 "Last-Translator: Olav <>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/"
@@ -100,6 +100,10 @@ msgstr "Del dette på"
 #: templates/mobile/blog/blog_post_detail.html:54
 msgid "or"
 msgstr "eller"
+
+#: templates/mobile/blog/blog_post_list.html:4
+msgid "Blog"
+msgstr ""
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"

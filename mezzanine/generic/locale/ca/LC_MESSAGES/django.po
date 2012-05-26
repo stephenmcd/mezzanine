@@ -1,25 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-26 12:27-0430\n"
 "PO-Revision-Date: 2012-05-22 09:54+0000\n"
 "Last-Translator: Sergi Almacellas <pokoli@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/language/ca/)\n"
+"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/"
+"language/ca/)\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:19 models.py:62
+#: admin.py:20 models.py:67
 msgid "User"
 msgstr "Usuari"
 
@@ -47,39 +48,39 @@ msgstr "Pàgina web"
 msgid "optional"
 msgstr "opcional"
 
-#: models.py:19
+#: models.py:24
 msgid "By the blog author"
 msgstr "Per l'autor del blog"
 
-#: models.py:26 models.py:54 templates/generic/includes/comments.html:24
+#: models.py:31 models.py:59 templates/generic/includes/comments.html:24
 msgid "Comment"
 msgstr "Comentari"
 
-#: models.py:27 templates/generic/includes/comments.html:3
+#: models.py:32 templates/generic/includes/comments.html:3
 msgid "Comments"
 msgstr "Comentaris"
 
-#: models.py:66
+#: models.py:71
 msgid "View on site"
 msgstr "Veuer al lloc"
 
-#: models.py:86
+#: models.py:91
 msgid "Keyword"
 msgstr "Paraula clau"
 
-#: models.py:87
+#: models.py:92
 msgid "Keywords"
 msgstr "Paraules clau"
 
-#: models.py:115
+#: models.py:120
 msgid "Value"
 msgstr "Valor"
 
-#: models.py:121
+#: models.py:126
 msgid "Rating"
 msgstr "Rating"
 
-#: models.py:122
+#: models.py:127
 msgid "Ratings"
 msgstr "Ratings"
 
@@ -87,7 +88,9 @@ msgstr "Ratings"
 msgid ""
 "You must log in to comment. Please log in or sign up, and your comment will "
 "be posted."
-msgstr "Heu d'estar identificat per comentar. Sisplau, identifiqueu-vos o  registreu-vos per a que el vostre comentari sigui publicat."
+msgstr ""
+"Heu d'estar identificat per comentar. Sisplau, identifiqueu-vos o  registreu-"
+"vos per a que el vostre comentari sigui publicat."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
