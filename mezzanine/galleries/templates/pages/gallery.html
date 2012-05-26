@@ -19,7 +19,7 @@
 {% with page.gallery.images.all as images %}
 {% for image in images %}
 <li>
-    <a class="thumbnail" rel="#image-{{ image.id }}" title="{{ image.description }}" href="{{ image.file }}">
+    <a class="thumbnail" rel="#image-{{ image.id }}" title="{{ image.description }}" href="{{ MEDIA_URL }}{{ image.file }}">
         <img class="image-overlay-thumb" src="{{ MEDIA_URL }}{% thumbnail image.file 75 75 %}">
     </a>
     <div id="image-{{ image.id }}" class="image-overlay" style="display:none;">
@@ -28,6 +28,7 @@
         <img class="image-overlay-full" src="{{ MEDIA_URL }}{% thumbnail image.file 0 600 %}"><br>
         <p>{{ image.description }}<br>{{ forloop.counter }} / {{ images|length }}</p>
     </div>
+</li>
 {% endfor %}
 {% endwith %}
 </ul>

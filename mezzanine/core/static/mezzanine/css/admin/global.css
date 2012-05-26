@@ -1,7 +1,7 @@
 
 /* Login stuff */
 #extra-login-fields .required {margin-top:1px;}
-input.interface {margin:0 0 0 0px; vertical-align:middle;}
+input.interface {margin:0 5px 0 0px; vertical-align:middle;}
 label.interface {display:inline !important; float:none !important;
     vertical-align:middle; cursor:pointer;}
 #forgot-password {margin-top:30px; text-align:center;}
@@ -33,11 +33,19 @@ label.interface {display:inline !important; float:none !important;
 .dropdown-menu-hover {cursor:pointer;}
 .dropdown-menu-hover a {color:#444;}
 
+.dropdown-menu form {float:right; margin:3px 22px 0 0;}
+#djDebugToolbarHandle {margin-top:50px !important;}
+
 .messagelist {margin-top:14px; z-index:0 !important;}
 .inline-stacked ._order, div.dynamic-fields ._order {display:none;}
 .items .placeholder {display:block;}
 
 .keywords-field a {margin-right:10px; float:left;}
+
+#settings-form .module {width:50%;}
+#settings-form .help {margin-right:10px;}
+#settings-form .charfield {width:50% !important;}
+#settings-form .integerfield {width:30px !important;}
 
 /* make save/delete buttons always available at bottom of screen. */
 .change-form div.submit-row {

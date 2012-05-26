@@ -36,30 +36,37 @@ $(function($) {
     })
 
     // Iterate through each of the editable areas and set them up.
-    $.each($('.editable-original'), function(i, editable) {
-        editable = $(editable);
-        // Position the editable area's edit link.
-        var link = editable.next('.editable-link');
-        link.css({top: editable.offset().top,
-            left: editable.offset().left - link.width() - 12});
-        // Apply the editable area's overlay handler.
-        var expose = {color: '#333', loadSpeed: 200, opacity: 0.9};
-        var overlay = {expose: expose, closeOnClick: true, close: ':button'};
-        link.overlay(overlay);
-        // Position the editable area's highlight.
-        link.next('.editable-highlight').css({
-            width: editable.width(), height: editable.height(),
-            top: editable.offset().top, left: editable.offset().left
+    var realign = function() {
+        $.each($('.editable-original'), function(i, editable) {
+            editable = $(editable);
+            // Position the editable area's edit link.
+            var link = editable.next('.editable-link');
+            link.css({top: editable.offset().top,
+                left: editable.offset().left - link.width() - 12});
+            // Apply the editable area's overlay handler.
+            var expose = {color: '#333', loadSpeed: 200, opacity: 0.9};
+            var overlay = {expose: expose, closeOnClick: true, close: ':button'};
+            link.overlay(overlay);
+            // Position the editable area's highlight.
+            link.next('.editable-highlight').css({
+                width: editable.width(), height: editable.height(),
+                top: editable.offset().top, left: editable.offset().left
+            });
         });
-    });
+    };
+
+	realign();
 
     // Show/hide the editable area's highlight when mousing over/out the of
     // the edit link.
-    $('.editable-link').mouseover(function() {
-        $(this).next('.editable-highlight').show();
+    $('.editable-link').hover(function(e) {
+    	$(this).next('.editable-highlight').show();
+    }, function(e) {
+    	$(this).next('.editable-highlight').hide();
     });
-    $('.editable-link').mouseout(function() {
-        $(this).next('.editable-highlight').hide();
+
+    $('body, .editable-original').on('resize', function(e) {
+    	realign();
     });
 
     // Add the toolbar HTML and handlers.

@@ -43,11 +43,12 @@ class LoginForm(Html5Mixin, forms.Form):
 # setting, create a model form for it that will have its fields added to
 # ``ProfileForm``.
 Profile = get_profile_model()
+_exclude_fields = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
 if Profile is not None:
     class ProfileFieldsForm(forms.ModelForm):
         class Meta:
             model = Profile
-            exclude = (get_profile_user_fieldname(),)
+            exclude = (get_profile_user_fieldname(),) + _exclude_fields
 
 
 class ProfileForm(Html5Mixin, forms.ModelForm):
@@ -65,6 +66,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
     class Meta:
         model = User
         fields = ("first_name", "last_name", "email", "username")
+        exclude = _exclude_fields
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
@@ -114,13 +116,21 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
 
     def clean_password2(self):
         """
-        Ensure the password fields are equal.
+        Ensure the password fields are equal, and match the minimum
+        length defined by ``ACCOUNTS_MIN_PASSWORD_LENGTH``.
         """
         password1 = self.cleaned_data["password1"]
         password2 = self.cleaned_data["password2"]
-        if password1 and not password1 == password2:
-            error = self.error_class([_("Passwords do not match")])
-            self._errors["password1"] = error
+
+        if password1:
+            errors = []
+            if password1 != password2:
+                errors.append(_("Passwords do not match"))
+            if len(password1) < settings.ACCOUNTS_MIN_PASSWORD_LENGTH:
+                errors.append(_("Password must be at least %s characters" %
+                              settings.ACCOUNTS_MIN_PASSWORD_LENGTH))
+            if errors:
+                self._errors["password1"] = self.error_class(errors)
         return password2
 
     def clean_email(self):

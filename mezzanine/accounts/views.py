@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
 from mezzanine.accounts.forms import LoginForm, ProfileForm, PasswordResetForm
+from mezzanine.conf import settings
 from mezzanine.utils.email import send_verification_mail
 from mezzanine.utils.urls import login_redirect
 from mezzanine.utils.views import render
@@ -87,8 +88,9 @@ def profile(request, username, template="accounts/account_profile.html"):
     if Profile is not None:
         profile = profile_user.get_profile()
         user_fieldname = get_profile_user_fieldname()
+        exclude = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
         for field in Profile._meta.fields:
-            if field.name not in ("id", user_fieldname):
+            if field.name not in ("id", user_fieldname) + exclude:
                 value = getattr(profile, field.name)
                 profile_fields[field.verbose_name.title()] = value
     context = {

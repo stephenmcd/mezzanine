@@ -4,7 +4,6 @@ consistent access method for settings defined in applications, the project
 or Django itself. Settings can also be made editable via the admin.
 """
 
-from django.contrib.sites.models import Site
 from django.conf import settings as django_settings
 from django.template.defaultfilters import urlize
 
@@ -15,7 +14,7 @@ registry = {}
 
 
 def register_setting(name="", label="", editable=False, description="",
-                     default=None, append=False):
+                     default=None, choices=None, append=False):
     """
     Registers a setting that can be edited via the admin.
     """
@@ -27,16 +26,12 @@ def register_setting(name="", label="", editable=False, description="",
         setting_type = type(default)
         if not label:
             label = name.replace("_", " ").title()
-        parts = []
-        for i, s in enumerate(description.split("``")):
-            parts.append(s if i % 2 == 0 else "<b>%s</b>" % s)
-        description = urlize("".join(parts))
         if setting_type is str:
             setting_type = unicode
         registry[name] = {"name": name, "label": label,
-                          "description": description,
+                          "description": urlize(description),
                           "editable": editable, "default": default,
-                          "type": setting_type}
+                          "choices": choices, "type": setting_type}
 
 
 class Settings(object):
@@ -80,7 +75,7 @@ class Settings(object):
         # Also remove settings from the DB that are no longer registered.
         if setting["editable"] and not self._loaded:
             from mezzanine.conf.models import Setting
-            settings = Setting.objects.filter(site=Site.objects.get_current())
+            settings = Setting.objects.all()
             removed = []
             for setting_obj in settings:
                 try:

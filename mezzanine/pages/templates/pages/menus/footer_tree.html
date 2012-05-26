@@ -16,7 +16,7 @@
         {% if not top_level and forloop.first %} first{% endif %}
         {% if forloop.last %} last{% endif %}"
         id="footer-tree-menu-{{ page.html_id }}">
-		<a href="{% url page page.slug %}">{{ page.title }}</a>
+		<a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
 		{# remove this if tag to always show all nav items #}
 		{% if settings.PAGES_MENU_SHOW_ALL or page.is_current_or_ascendant %}
 		{% page_menu page %}

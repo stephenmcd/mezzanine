@@ -17,10 +17,32 @@ from mezzanine.conf import register_setting
 
 
 register_setting(
+    name="ACCOUNTS_MIN_PASSWORD_LENGTH",
+    description=_("Minimum length for passwords"),
+    editable=False,
+    default=6,
+)
+
+register_setting(
+    name="ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS",
+    description=_("List of fields to exclude from the profile form."),
+    editable=False,
+    default=(),
+)
+
+register_setting(
+    name="ACCOUNTS_PROFILE_VIEWS_ENABLED",
+    description=_("If ``True``, users will have their own public profile "
+        "pages."),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="ACCOUNTS_VERIFICATION_REQUIRED",
-    description="If ``True``, when users create an account, they will be "
+    description=_("If ``True``, when users create an account, they will be "
         "sent an email with a verification link, which they must click to "
-        "enable their account.",
+        "enable their account."),
     editable=False,
     default=False,
 )
@@ -388,6 +410,38 @@ register_setting(
         "value before it is rendered to the template."),
     editable=False,
     default=None,
+)
+
+RICHTEXT_FILTER_LEVEL_HIGH = 1
+RICHTEXT_FILTER_LEVEL_LOW = 2
+RICHTEXT_FILTER_LEVEL_NONE = 3
+RICHTEXT_FILTER_LEVELS = (
+    (RICHTEXT_FILTER_LEVEL_HIGH, _("High")),
+    (RICHTEXT_FILTER_LEVEL_LOW, _("Low (allows video, iframe, Flash, etc)")),
+    (RICHTEXT_FILTER_LEVEL_NONE, _("No filtering")),
+)
+
+register_setting(
+    name="RICHTEXT_FILTER_LEVEL",
+    description="*Do not change this setting unless you know what you're "
+        "doing.*\n\nWhen content is saved in a Rich Text (WYSIWYG) field, "
+        "unsafe HTML tags and attributes are stripped from the content to "
+        "protect against staff members intentionally adding code that could "
+        "be used to cause problems, such as changing their account to "
+        "a super-user with full access to the system.\n\n"
+        "This setting allows you to change the level of filtering that "
+        "occurs. Setting it to low will allow certain extra tags to be "
+        "permitted, such as those required for embedding video. While these "
+        "tags are not the main candidates for users adding malicious code, "
+        "they are still considered dangerous and could potentially be "
+        "mis-used by a particularly technical user, and so are filtered out "
+        "when the filtering level is set to high.\n\n"
+        "Setting the filtering level to no filtering, will disable all "
+        "filtering, and allow any code to be entered by staff members, "
+        "including script tags.",
+    editable=True,
+    choices=RICHTEXT_FILTER_LEVELS,
+    default=RICHTEXT_FILTER_LEVEL_HIGH,
 )
 
 register_setting(

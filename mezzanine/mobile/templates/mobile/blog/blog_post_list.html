@@ -1,10 +1,10 @@
 {% extends "mobile/base.html" %}
 {% load i18n mezzanine_tags blog_tags keyword_tags %}
 
-{% block meta_title %}{{ blog_page.title }}{% endblock %}
+{% block meta_title %}{% if page %}{{ page.richtextpage.title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
-{% keywords_for blog_page as keywords %}
+{% keywords_for page as keywords %}
 {% for keyword in keywords %}
     {% if not forloop.first %}, {% endif %}
     {{ keyword }}
@@ -12,11 +12,11 @@
 {% endmetablock %}{% endblock %}
 
 {% block meta_description %}{% metablock %}
-{{ blog_page.description }}
+{{ page.description }}
 {% endmetablock %}{% endblock %}
 
 {% block title %}
-{% editable blog_page.title %}{{ blog_page.title }}{% endeditable %}
+{% editable page.title %}{{ page.title }}{% endeditable %}
 {% endblock %}
 
 {% block main %}

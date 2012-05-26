@@ -2,9 +2,8 @@
 from collections import defaultdict
 
 from django import forms
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.sites.models import Site
-
 
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
@@ -34,9 +33,14 @@ class SettingsForm(forms.Form):
                     "label": setting["label"] + ":",
                     "required": False,
                     "initial": getattr(settings, name),
-                    "help_text": setting["description"]
+                    "help_text": self.format_help(setting["description"]),
                 }
+                if setting["choices"]:
+                    field_class = forms.ChoiceField
+                    kwargs["choices"] = setting["choices"]
                 self.fields[name] = field_class(**kwargs)
+                css_class = field_class.__name__.lower()
+                self.fields[name].widget.attrs["class"] = css_class
 
     def __iter__(self):
         """
@@ -53,12 +57,24 @@ class SettingsForm(forms.Form):
             setattr(fields[i], "group", group(field))
             if groups[fields[i].group] == 1:
                 fields[i].group = misc
-        return iter(sorted(fields, cmp=lambda x, y: cmp(x.group, y.group)))
+        return iter(sorted(fields, key=lambda x: x.group != misc or x.group))
 
     def save(self):
-        # Save each of the settings to the DB.
+        """
+        Save each of the settings to the DB.
+        """
         for (name, value) in self.cleaned_data.items():
-            kwargs = {"name": name, "site": Site.objects.get_current()}
-            setting_obj, created = Setting.objects.get_or_create(**kwargs)
+            setting_obj, created = Setting.objects.get_or_create(name=name)
             setting_obj.value = value
             setting_obj.save()
+
+    def format_help(self, description):
+        """
+        Format the setting's description into HTML.
+        """
+        for bold in ("``", "*"):
+            parts = []
+            for i, s in enumerate(description.split(bold)):
+                parts.append(s if i % 2 == 0 else "<b>%s</b>" % s)
+            description = "".join(parts)
+        return mark_safe(description.replace("\n", "<br>"))

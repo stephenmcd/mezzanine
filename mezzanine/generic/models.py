@@ -8,12 +8,17 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from mezzanine.generic.managers import CommentManager, KeywordManager
 from mezzanine.core.models import Slugged, Orderable
 from mezzanine.conf import settings
+from mezzanine.utils.sites import current_site_id
 
 
 class ThreadedComment(Comment):
     """
     Extend the ``Comment`` model from ``django.contrib.comments`` to
-    add comment threading.
+    add comment threading. ``Comment`` provides its own site foreign key,
+    so we can't inherit from ``SiteRelated`` in ``mezzanine.core``, and
+    therefore need to set the site on ``save``. ``CommentManager``
+    inherits from Mezzanine's ``CurrentSiteManager``, so everything else
+    site related is already provided.
     """
 
     by_author = models.BooleanField(_("By the blog author"), default=False)
@@ -36,13 +41,13 @@ class ThreadedComment(Comment):
 
     def save(self, *args, **kwargs):
         """
-        Store the email hash of the comment for using with
-        Gravatar.com, and set ``is_public`` based on the setting
+        Set the current site ID, and ``is_public`` based on the setting
         ``COMMENTS_DEFAULT_APPROVED``.
         """
         if not self.id:
             from mezzanine.conf import settings
             self.is_public = settings.COMMENTS_DEFAULT_APPROVED
+            self.site_id = current_site_id()
         super(ThreadedComment, self).save(*args, **kwargs)
 
     ################################
@@ -68,7 +73,7 @@ class ThreadedComment(Comment):
     admin_link.short_description = ""
 
     # Exists for backward compatibility when the gravatar_url template
-    # tag took the hash instead of the email address.
+    # tag which took the email address hash instead of the email address.
     @property
     def email_hash(self):
         return self.email
@@ -76,7 +81,7 @@ class ThreadedComment(Comment):
 
 class Keyword(Slugged):
     """
-    Keywords/tags which are managed via a custom Javascript based
+    Keywords/tags which are managed via a custom JavaScript based
     widget in the admin.
     """
 

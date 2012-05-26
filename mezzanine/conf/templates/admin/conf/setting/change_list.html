@@ -9,7 +9,7 @@
         {{ settings_form.non_field_errors }}
     {% endif %}
 
-    <form method="post" class="change-form">
+    <form method="post" class="change-form" id="settings-form">
     {% csrf_token %}
     {% for field in settings_form %}
         {% ifchanged field.group %}

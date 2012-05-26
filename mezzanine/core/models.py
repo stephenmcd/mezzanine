@@ -1,24 +1,49 @@
 
 from django.contrib.contenttypes.generic import GenericForeignKey
-from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.base import ModelBase
 from django.template.defaultfilters import truncatewords_html
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext, ugettext_lazy as _
-from django.contrib.sites.managers import CurrentSiteManager
 
 from mezzanine.core.fields import RichTextField
-from mezzanine.core.managers import DisplayableManager
+from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model
+from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.timezone import now
 from mezzanine.utils.urls import slugify
 
 
-class Slugged(models.Model):
+class SiteRelated(models.Model):
+    """
+    Abstract model for all things site-related. Adds a foreignkey to
+    Django's ``Site`` model, and filters by site with all querysets.
+    See ``mezzanine.utils.sites.current_site_id`` for implementation
+    details.
+    """
+
+    objects = CurrentSiteManager()
+
+    class Meta:
+        abstract = True
+
+    site = models.ForeignKey("sites.Site", editable=False)
+
+    def save(self, update_site=False, *args, **kwargs):
+        """
+        Set the site to the current site when the record is first
+        created, or the ``update_site`` argument is explicitly set
+        to ``True``.
+        """
+        if update_site or not self.id:
+            self.site_id = current_site_id()
+        super(SiteRelated, self).save(*args, **kwargs)
+
+
+class Slugged(SiteRelated):
     """
     Abstract model that handles auto-generating slugs. Each slugged
     object is also affiliated with a specific site object.
@@ -26,9 +51,6 @@ class Slugged(models.Model):
 
     title = models.CharField(_("Title"), max_length=500)
     slug = models.CharField(_("URL"), max_length=2000, blank=True, null=True)
-    site = models.ForeignKey(Site, editable=False)
-
-    objects = CurrentSiteManager()
 
     class Meta:
         abstract = True
@@ -37,11 +59,9 @@ class Slugged(models.Model):
     def __unicode__(self):
         return self.title
 
-    def save(self, update_site=False, *args, **kwargs):
+    def save(self, *args, **kwargs):
         """
-        Create a unique slug by appending an index. Set the site to
-        the current site when the record is first created, unless the
-        ``update_site`` argument is explicitly set to ``True``.
+        Create a unique slug by appending an index.
         """
         if not self.slug:
             # For custom content types, use the ``Page`` instance for
@@ -62,8 +82,6 @@ class Slugged(models.Model):
                 except ObjectDoesNotExist:
                     break
                 i += 1
-        if update_site or not self.id:
-            self.site = Site.objects.get_current()
         super(Slugged, self).save(*args, **kwargs)
 
     def get_slug(self):

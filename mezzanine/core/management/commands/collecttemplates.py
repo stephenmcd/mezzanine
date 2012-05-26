@@ -66,17 +66,29 @@ class Command(BaseCommand):
                             continue
                         if not admin and name.startswith("admin" + os.sep):
                             continue
-                        templates.append((name, path))
+                        templates.append((name, path, app))
 
         # Copy templates.
         count = 0
-        for name, path in templates:
+        template_src = {}
+        for name, path, app in templates:
             dest = os.path.join(to_dir, name)
             # Prompt user to overwrite template if interactive and
             # template exists.
+            if verbosity >= 2:
+                self.stdout.write("\nCopying: %s"
+                                  "\nFrom:    %s"
+                                  "\nTo:      %s"
+                                  "\n" % (name, path, dest))
             if options.get("interactive") and os.path.exists(dest):
-                confirm = raw_input("Template exists: %s Overwrite? "
-                                    "(yes/no/abort): " % name)
+                if name in template_src:
+                    prev = ' [copied from %s]' % template_src[name]
+                else:
+                    prev = ''
+                self.stdout.write("While copying %s [from %s]:\n" %
+                                  (name, app))
+                self.stdout.write("Template exists%s.\n" % prev)
+                confirm = raw_input("Overwrite?  (yes/no/abort): ")
                 while True:
                     if confirm in ("yes", "no"):
                         break
@@ -85,17 +97,14 @@ class Command(BaseCommand):
                         return
                     confirm = raw_input("Please enter either 'yes' or 'no': ")
                 if confirm == "no":
+                    self.stdout.write("[Skipped]\n")
                     continue
-            if verbosity >= 2:
-                self.stdout.write("\nCopying: %s"
-                                  "\nFrom:    %s"
-                                  "\nTo:      %s"
-                                  "\n" % (name, path, dest))
             try:
                 os.makedirs(os.path.dirname(dest))
             except OSError:
                 pass
             shutil.copy2(path, dest)
+            template_src[name] = app
             count += 1
         if verbosity >= 1:
             s = "s" if count != 1 else ""

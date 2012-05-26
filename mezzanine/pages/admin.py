@@ -6,7 +6,8 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import NoReverseMatch
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from mezzanine.pages.models import Page, RichTextPage
+
+from mezzanine.pages.models import Page, RichTextPage, Link
 from mezzanine.core.admin import DisplayableAdmin
 from mezzanine.utils.urls import admin_url
 
@@ -154,5 +155,25 @@ class PageAdmin(DisplayableAdmin):
         return self._maintain_parent(request, response)
 
 
+# Drop the meta data fields, and move slug towards the stop.
+link_fieldsets = deepcopy(page_fieldsets[:1])
+link_fieldsets[0][1]["fields"] = link_fieldsets[0][1]["fields"][:-1]
+link_fieldsets[0][1]["fields"].insert(1, "slug")
+
+
+class LinkAdmin(PageAdmin):
+
+    fieldsets = link_fieldsets
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        """
+        Make slug mandatory.
+        """
+        if db_field.name == "slug":
+            kwargs["required"] = True
+        return super(LinkAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+
+
 admin.site.register(Page, PageAdmin)
 admin.site.register(RichTextPage, PageAdmin)
+admin.site.register(Link, LinkAdmin)

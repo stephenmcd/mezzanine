@@ -6,6 +6,7 @@ from urllib import urlopen, urlencode, unquote
 
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.sites.models import Site
 from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, NoReverseMatch
@@ -24,8 +25,9 @@ from mezzanine.core.fields import RichTextField
 from mezzanine.core.forms import get_edit_form
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.views import is_editable
+from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import admin_url
+from mezzanine.utils.views import is_editable
 from mezzanine import template
 
 
@@ -69,9 +71,11 @@ def ifinstalled(parser, token):
     """
     Old-style ``if`` tag that renders contents if the given app is
     installed. The main use case is:
+
     {% ifinstalled app_name %}
     {% include "app_name/template.html" %}
     {% endifinstalled %}
+
     so we need to manually pull out all tokens if the app isn't
     installed, since if we used a normal ``if`` tag with a False arg,
     the include tag will still try and find the template to include.
@@ -156,7 +160,7 @@ def pagination_for(context, current_page):
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height):
+def thumbnail(image_url, width, height, quality=95):
     """
     Given the URL to an image, resizes the image using the given width and
     height on the first time it is requested, and returns the URL to the new
@@ -199,6 +203,7 @@ def thumbnail(image_url, width, height):
         return image_url
 
     image = Image.open(default_storage.open(image_url))
+    image_info = image.info
     width = int(width)
     height = int(height)
 
@@ -210,11 +215,11 @@ def thumbnail(image_url, width, height):
         width = image.size[0] * height / image.size[1]
     elif height == 0:
         height = image.size[1] * width / image.size[0]
-    if image.mode not in ("L", "RGB"):
-        image = image.convert("RGB")
+    if image.mode not in ("L", "RGBA"):
+        image = image.convert("RGBA")
     try:
         image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
-        image = image.save(thumb_path, filetype, quality=100)
+        image = image.save(thumb_path, filetype, quality=quality, **image_info)
         # Push a remote copy of the thumbnail if MEDIA_URL is
         # absolute.
         if "://" in settings.MEDIA_URL:
@@ -394,6 +399,8 @@ def admin_dropdown_menu(context):
     Renders the app list for the admin dropdown menu navigation.
     """
     context["dropdown_menu_app_list"] = admin_app_list(context["request"])
+    context["dropdown_menu_sites"] = list(Site.objects.all())
+    context["dropdown_menu_selected_site_id"] = current_site_id()
     return context
 
 

@@ -9,54 +9,110 @@ see the Django docs for
 `deployment <https://docs.djangoproject.com/en/dev/howto/deployment/>`_ and
 `staticfiles <https://docs.djangoproject.com/en/dev/howto/static-files/>`_.
 
-Multi-Site
-==========
+Fabric
+======
 
-Mezzanine currently supports multi-site functionality through the use
-of Django's ``sites`` app. This functionality is always "turned on" in
-Mezzanine: a single-site deployment is a deployment of Mezzanine
-that references a single ``Site`` record, which is how Mezzanine is
-configured out of the box.
+Each Mezzanine project comes bundled with utilities for deploying
+production Mezzanine sites, using `Fabric <http://fabfile.org>`_.
+The provided ``fabfile.py`` contains composable commands that can be
+used to set up all the system-level requirements on a new
+`Debian <http://debian.org>`_ based system, manage each of the
+project-level virtual environments for initial and continuous
+deployments, and much more.
 
-Migrating from a single-site deployment to a multi-site deployment is
-simply a matter of adding another site to the ``sites`` application's
-``Site`` table, and then creating a new instance of Django that
-references that record via the ``SITE_ID`` setting in its ``settings``
-module.
+Server Stack
+------------
 
-A multi-site Mezzanine deployment that supports three sites would be
-configured as so:
+The deployed stack consists of the following components:
 
-  * A shared database will exist to store data for all three sites.
-  * Three separate runtime instances of Django, each with its own
-    settings.py file, will be created, each responsible for managing
-    a single site.
-  * Each settings.py file used by these three instances will point to
-    a different ``Site`` record via the ``SITE_ID`` setting.
-  * If the different sites use different themes or templates, then
-    different ``INSTALLED_APPS`` can be specified for each of these
-    three independant instances.
-  * All three settings.py files will contain the same ``DATABASES``
-    settings.
+  * `NGINX <http://nginx.org>`_ - public facing web server
+  * `gunicorn <http://gunicorn.org>`_ - internal HTTP application server
+  * `PostgreSQL <http://postgresql.org>`_ - database server
+  * `memcached <http://memcached.org>`_ - in-memory caching server
+  * `supervisord <http://supervisord.org>`_ - process control and monitor
 
-The content of each individual site will be editable via the admin
-application, running within the instance serving that site. In other
-words, the admin running at ``siteone.com/admin`` will allow the
-content of ``siteone.com`` to be edited, while the admin running at
-``sitetwo.com/admin`` will allow the content of ``sitetwo.com`` to be
-edited.
+Configuration
+-------------
 
-For more information regarding the Django sites application, see the
-`Django Sites documentation <http://docs.djangoproject.com/en/dev/ref/contrib/sites/>`:
+Configurable variables are implemented in the project's ``settings.py``
+module. Here's an example::
+
+  FABRIC = {
+      "SSH_USER": "", # SSH username
+      "SSH_PASS":  "", # SSH password (consider key-based authentication)
+      "SSH_KEY_PATH":  "", # Local path to SSH key file, for key-based auth
+      "HOSTS": [], # List of hosts to deploy to
+      "VIRTUALENV_HOME":  "", # Absolute remote path for virtualenvs
+      "PROJECT_NAME": "", # Unique identifier for project
+      "REQUIREMENTS_PATH": "requirements/project.txt", # Path to pip requirements, relative to project
+      "GUNICORN_PORT": 8000, # Port gunicorn will listen on
+      "LOCALE": "en_US.utf8", # Should end with ".utf8"
+      "LIVE_HOSTNAME": "www.example.com", # Host for public site.
+      "REPO_URL": "", # Git or Mercurial remote repo URL for the project
+      "DB_PASS": "", # Live database password
+      "ADMIN_PASS": "", # Live admin user password
+  }
+
+Commands
+--------
+
+Here's the list of commands provided in a Mezzanine project's
+``fabfile.py``. Consult the `Fabric documentation <http://fabfile.org>`_
+for more information on working with these.
+
+.. automodule:: mezzanine.project_template.fabfile
+   :members:
+
+
+Multiplie Sites and Multi-Tenancy
+=================================
+
+Mezzanine makes use of of Django's ``sites`` app to support multiple
+sites in a single project. This functionality is always "turned on" in
+Mezzanine: a single ``Site`` record always exists, and is referenced
+when retrieving site related data, which most content in Mezzanine falls
+under.
+
+Where Mezzanine diverges from Django is how the ``Site`` record is
+retrieved. Typically a running instance of a Django project is bound
+to a single site defined by the ``SITE_ID`` setting, so while a project
+may contain support for multiple sites, a separate running instance of
+the project is required per site.
+
+Mezzanine uses a pipeline of checks to determine which site to
+reference when accessing content. The most import of these is one where
+the host name of the current request is compared to the domain name
+specified for each ``Site`` record. With this in place, true
+multi-tenancy is achieved, and multiple sites can be hosted within a
+single running instance of the project.
+
+Here's the list of checks in the pipeline, in order:
+
+  * The session variable ``site_id``. This allows a project to include
+    features where a user's session is explicitly associated with a site.
+    Mezzanine uses this in it's admin to allow admin users to switch
+    between sites to manage, while accessing the admin on a single domain.
+  * The domain matching the host of the current request, as described
+    above.
+  * The environment variable ``MEZZANINE_SITE_ID``. This allows
+    developers to specify the site for contexts outside of a HTTP
+    request, such as management commands. Mezzanine includes a custom
+    ``manage.py`` which will check for (and remove) a ``--site=ID``
+    argument.
+  * Finally Mezzanine will fall back to the ``SITE_ID`` setting if none
+    of the above checks can occur.
 
 Twitter Feeds
 =============
 
 If Twitter feeds are implemented in your templates, a cron job is
-required that will run the following management command::
+required that will run the following management command. For example
+if we want the tweets to be updated every 10 minutes::
 
-    $ python manage.py poll_twitter
+    */10 * * * * python path/to/your/site/manage.py poll_twitter
 
 This ensures that the data is always available in the site's database
 when accessed, and allows you to control how often the Twitter API is
-queried.
+queried. Note that the fabric script described earlier includes
+features for deploying templates for cron jobs, which includes the
+job for polling twitter by default.

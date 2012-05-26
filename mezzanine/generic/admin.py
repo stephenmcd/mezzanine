@@ -15,6 +15,7 @@ class ThreadedCommentAdmin(CommentsAdmin):
     list_display = ("avatar_link", "intro", "submit_date", "is_public",
                     "is_removed", "admin_link")
     list_display_links = ("intro", "submit_date")
+    list_filter = [f for f in CommentsAdmin.list_filter if f != "site"]
     fieldsets = (
         (_("User"), {"fields": ("user_name", "user_email", "user_url")}),
         (None, {"fields": ("comment", ("is_public", "is_removed"))}),

@@ -10,6 +10,7 @@ from django.utils.simplejson import loads
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.twitter.managers import TweetManager
+from mezzanine.utils.timezone import make_aware
 
 
 re_usernames = re.compile("@([0-9a-zA-Z+_]+)", re.IGNORECASE)
@@ -85,8 +86,9 @@ class Query(models.Model):
             tweet.text = urlize(tweet_json["text"])
             tweet.text = re_usernames.sub(replace_usernames, tweet.text)
             tweet.text = re_hashtags.sub(replace_hashtags, tweet.text)
-            tweet.created_at = datetime.strptime(tweet_json["created_at"],
-                date_format) - timedelta(seconds=timezone)
+            d = datetime.strptime(tweet_json["created_at"], date_format)
+            d -= timedelta(seconds=timezone)
+            tweet.created_at = make_aware(d)
             tweet.save()
         self.interested = False
         self.save()
