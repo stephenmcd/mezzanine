@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,36 +17,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:28
+#: admin.py:29
 msgid "Meta data"
 msgstr ""
 
-#: fields.py:23
+#: fields.py:24
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr ""
 
-#: forms.py:35
-msgid "Email Address"
-msgstr ""
-
-#: forms.py:36
-msgid "Password"
-msgstr ""
-
-#: forms.py:64
-msgid "This email is already registered"
-msgstr ""
-
-#: forms.py:84
-msgid "Invalid email/password"
-msgstr ""
-
-#: forms.py:86
-msgid "Your account is inactive"
-msgstr ""
-
-#: forms.py:116 models.py:221
+#: forms.py:75 models.py:226
 msgid "Order"
 msgstr ""
 
@@ -67,58 +47,56 @@ msgid "Description"
 msgstr ""
 
 #: models.py:88
+msgid "Generate description"
+msgstr ""
+
+#: models.py:89
+msgid ""
+"If checked, the description will be automatically generated from content. "
+"Uncheck if you want to manually set a custom description."
+msgstr ""
+
+#: models.py:92
 msgid "Keywords"
 msgstr ""
 
-#: models.py:134
+#: models.py:139
 msgid "Draft"
 msgstr ""
 
-#: models.py:135
+#: models.py:140
 msgid "Published"
 msgstr ""
 
-#: models.py:146
+#: models.py:151
 msgid "Status"
 msgstr ""
 
-#: models.py:148
+#: models.py:153
 msgid "Published from"
 msgstr ""
 
-#: models.py:149
+#: models.py:154
 msgid "With published checked, won't be shown until this time"
 msgstr ""
 
-#: models.py:151
+#: models.py:156
 msgid "Expires on"
 msgstr ""
 
-#: models.py:152
+#: models.py:157
 msgid "With published checked, won't be shown after this time"
 msgstr ""
 
-#: models.py:179
+#: models.py:184
 msgid "Content"
 msgstr ""
 
-#: models.py:275
+#: models.py:280
 msgid "Author"
 msgstr ""
 
-#: views.py:33
-msgid "Successfully logged in"
-msgstr ""
-
-#: views.py:39
-msgid "Successfully signed up"
-msgstr ""
-
-#: views.py:53
-msgid "Successfully logged out"
-msgstr ""
-
-#: views.py:89
+#: views.py:55
 msgid "Permission denied"
 msgstr ""
 
@@ -138,35 +116,19 @@ msgstr ""
 msgid "Sorry, an error occurred."
 msgstr ""
 
-#: templates/account.html:4 templates/account.html.py:5
-msgid "Login / Signup"
-msgstr ""
-
-#: templates/account.html:10
-msgid "Account"
-msgstr ""
-
-#: templates/account.html:16 templates/account.html.py:21
-msgid "Login"
-msgstr ""
-
-#: templates/account.html:27 templates/account.html.py:32
-msgid "Signup"
-msgstr ""
-
-#: templates/base.html:49
+#: templates/base.html:53
 msgid "Search"
 msgstr ""
 
-#: templates/base.html:105
+#: templates/base.html:109
 msgid "Powered by"
 msgstr ""
 
-#: templates/base.html:108
+#: templates/base.html:112
 msgid "and"
 msgstr ""
 
-#: templates/base.html:114
+#: templates/base.html:118
 msgid "View Mobile Site"
 msgstr ""
 
@@ -208,26 +170,37 @@ msgstr ""
 msgid "read more"
 msgstr ""
 
-#: templates/admin/base_site.html:64
-msgid "Forgot password?"
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
+msgid "Dashboard"
 msgstr ""
 
-#: templates/admin/base_site.html:67
+#: templates/admin/login.html:25
+msgid "Username or email:"
+msgstr ""
+
+#: templates/admin/login.html:29
+msgid "Password:"
+msgstr ""
+
+#: templates/admin/login.html:34
 msgid "Interface:"
 msgstr ""
 
-#: templates/admin/base_site.html:70
-#: templates/includes/editable_toolbar.html:7
+#: templates/admin/login.html:37 templates/includes/editable_toolbar.html:7
 #: templates/includes/editable_toolbar.html:9
 msgid "Admin"
 msgstr ""
 
-#: templates/admin/base_site.html:73
+#: templates/admin/login.html:40
 msgid "Site"
 msgstr ""
 
-#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
-msgid "Dashboard"
+#: templates/admin/login.html:44
+msgid "Log in"
+msgstr ""
+
+#: templates/admin/login.html:47
+msgid "Forgot password?"
 msgstr ""
 
 #: templates/admin/includes/app_list.html:20
@@ -255,23 +228,6 @@ msgstr ""
 msgid "None available"
 msgstr ""
 
-#: templates/includes/account_panel.html:5
-#: templates/includes/editable_toolbar.html:11
-msgid "Log out"
-msgstr ""
-
-#: templates/includes/account_panel.html:6
-msgid "Logged in as: "
-msgstr ""
-
-#: templates/includes/account_panel.html:9
-msgid "Log in or sign up"
-msgstr ""
-
-#: templates/includes/account_panel.html:10
-msgid "Not logged in"
-msgstr ""
-
 #: templates/includes/editable_form.html:16
 msgid "Save"
 msgstr ""
@@ -282,6 +238,10 @@ msgstr ""
 
 #: templates/includes/editable_form.html:25
 msgid "Edit"
+msgstr ""
+
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
 msgstr ""
 
 #: templates/includes/pagination.html:7

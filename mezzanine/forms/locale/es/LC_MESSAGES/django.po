@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
-"PO-Revision-Date: 2012-03-12 00:10+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/"
-"mezzanine/language/es/)\n"
-"Language: es\n"
+"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:32 fields.py:30
@@ -110,15 +109,19 @@ msgstr "No es igual"
 msgid "Is between"
 msgstr "Está entre"
 
-#: forms.py:180
+#: forms.py:98
+msgid "required"
+msgstr "obligatorio"
+
+#: forms.py:182
 msgid "Checked"
 msgstr "Sleccionado"
 
-#: forms.py:180
+#: forms.py:182
 msgid "Not checked"
 msgstr "No Seleccionado"
 
-#: forms.py:194 forms.py:209
+#: forms.py:196 forms.py:211
 msgid "and"
 msgstr "y"
 
@@ -228,11 +231,11 @@ msgstr "Formulario"
 msgid "Form entries"
 msgstr "Formulario"
 
-#: models.py:127
+#: models.py:128
 msgid "Form field entry"
 msgstr "Formulario de entrada de campo"
 
-#: models.py:128
+#: models.py:129
 msgid "Form field entries"
 msgstr "Formulario de entrada de campos"
 

@@ -1,100 +1,101 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Nicola Larosa <transifex@teknico.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
-"PO-Revision-Date: 2012-03-11 23:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/"
-"language/it/)\n"
-"Language: it\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"PO-Revision-Date: 2012-05-06 19:40+0000\n"
+"Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
+"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:19 models.py:66
+#: admin.py:19 models.py:62
 msgid "User"
 msgstr "Utente"
 
-#: forms.py:78
+#: forms.py:79
 msgid "Name"
 msgstr "Nome"
 
-#: forms.py:78
+#: forms.py:79
 msgid "required"
 msgstr "obbligatorio"
 
-#: forms.py:80
+#: forms.py:81
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:81
+#: forms.py:82
 msgid "required (not published)"
 msgstr "obbligatorio (non pubblicato)"
 
-#: forms.py:82
+#: forms.py:83
 msgid "Website"
 msgstr "Sito web"
 
-#: forms.py:82
+#: forms.py:83
 msgid "optional"
 msgstr "facoltativo"
 
-#: models.py:21
-msgid "Email hash"
-msgstr "Hash dell'email"
-
-#: models.py:22
+#: models.py:19
 msgid "By the blog author"
 msgstr "Dell'autore del blog"
 
-#: models.py:29 models.py:58 templates/generic/includes/comments.html:25
+#: models.py:26 models.py:54 templates/generic/includes/comments.html:24
 msgid "Comment"
 msgstr "Commento"
 
-#: models.py:30 templates/generic/includes/comments.html:3
+#: models.py:27 templates/generic/includes/comments.html:3
 msgid "Comments"
 msgstr "Commenti"
 
-#: models.py:70
+#: models.py:66
 msgid "View on site"
 msgstr "Vedi sul sito"
 
-#: models.py:84
+#: models.py:86
 msgid "Keyword"
 msgstr "Parola chiave"
 
-#: models.py:85
+#: models.py:87
 msgid "Keywords"
 msgstr "Parole chiave"
 
-#: models.py:113
+#: models.py:115
 msgid "Value"
 msgstr "Valore"
 
-#: models.py:119
+#: models.py:121
 msgid "Rating"
 msgstr "Valutazione"
 
-#: models.py:120
+#: models.py:122
 msgid "Ratings"
 msgstr "Valutazioni"
+
+#: views.py:51
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr "Occorre accedere per commentare. Accedi o iscriviti, e il tuo commento verrà inserito."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
 msgstr "Commenti recenti"
 
-#: templates/admin/includes/recent_comments.html:20
+#: templates/admin/includes/recent_comments.html:22
 #: templates/generic/includes/comment.html:22
-#: templates/generic/includes/comment.html:54
-#: templates/generic/includes/comment.html:64
+#: templates/generic/includes/comment.html:53
+#: templates/generic/includes/comment.html:63
 msgid "ago"
 msgstr "fa"
 
@@ -103,25 +104,25 @@ msgid "Link"
 msgstr "Collegamento"
 
 #: templates/generic/includes/comment.html:26
-#: templates/generic/includes/comment.html:37
+#: templates/generic/includes/comment.html:36
 msgid "Reply"
 msgstr "Rispondi"
 
-#: templates/generic/includes/comment.html:60
+#: templates/generic/includes/comment.html:59
 msgid "Comment deleted"
 msgstr "Commento cancellato"
 
-#: templates/generic/includes/comment.html:62
+#: templates/generic/includes/comment.html:61
 msgid "Comment awaiting approval"
 msgstr "Commento in attesa di approvazione"
 
-#: templates/generic/includes/comment.html:73
+#: templates/generic/includes/comment.html:72
 msgid "There are currently no comments"
 msgstr "Al momento non ci sono commenti"
 
 #: templates/generic/includes/comments.html:16
 msgid "New Comment"
-msgstr ""
+msgstr "Nuovo Commento"
 
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"

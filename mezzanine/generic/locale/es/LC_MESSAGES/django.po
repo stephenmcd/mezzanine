@@ -1,100 +1,102 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011, 2012.
+# Sergi Almacellas <pokoli@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
-"PO-Revision-Date: 2012-03-12 00:09+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/"
-"mezzanine/language/es/)\n"
-"Language: es\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"PO-Revision-Date: 2012-05-22 09:08+0000\n"
+"Last-Translator: Sergi Almacellas <pokoli@gmail.com>\n"
+"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:19 models.py:66
+#: admin.py:19 models.py:62
 msgid "User"
 msgstr "Usuario"
 
-#: forms.py:78
+#: forms.py:79
 msgid "Name"
 msgstr "Nombre"
 
-#: forms.py:78
+#: forms.py:79
 msgid "required"
 msgstr "obligatorio"
 
-#: forms.py:80
+#: forms.py:81
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: forms.py:81
+#: forms.py:82
 msgid "required (not published)"
 msgstr "obligatorio (no publicado)"
 
-#: forms.py:82
+#: forms.py:83
 msgid "Website"
 msgstr "Sitio Web"
 
-#: forms.py:82
+#: forms.py:83
 msgid "optional"
 msgstr "opcional"
 
-#: models.py:21
-msgid "Email hash"
-msgstr "Hash de correo electrónico"
-
-#: models.py:22
+#: models.py:19
 msgid "By the blog author"
 msgstr "Por el autor del blog"
 
-#: models.py:29 models.py:58 templates/generic/includes/comments.html:25
+#: models.py:26 models.py:54 templates/generic/includes/comments.html:24
 msgid "Comment"
 msgstr "Comentario"
 
-#: models.py:30 templates/generic/includes/comments.html:3
+#: models.py:27 templates/generic/includes/comments.html:3
 msgid "Comments"
 msgstr "Comentarios"
 
-#: models.py:70
+#: models.py:66
 msgid "View on site"
 msgstr "Ver en el sitio"
 
-#: models.py:84
+#: models.py:86
 msgid "Keyword"
 msgstr "Palabra clave"
 
-#: models.py:85
+#: models.py:87
 msgid "Keywords"
 msgstr "Palabras clave"
 
-#: models.py:113
+#: models.py:115
 msgid "Value"
 msgstr "Valor"
 
-#: models.py:119
+#: models.py:121
 msgid "Rating"
 msgstr "Puntuación"
 
-#: models.py:120
+#: models.py:122
 msgid "Ratings"
 msgstr "Puntuaciones"
+
+#: views.py:51
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr "Tienes que estar identificado en el sistema para comentar. Por favor identificate o registrate para que tu comentario sea publicado."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
 msgstr "Comentarios recientes"
 
-#: templates/admin/includes/recent_comments.html:20
+#: templates/admin/includes/recent_comments.html:22
 #: templates/generic/includes/comment.html:22
-#: templates/generic/includes/comment.html:54
-#: templates/generic/includes/comment.html:64
+#: templates/generic/includes/comment.html:53
+#: templates/generic/includes/comment.html:63
 msgid "ago"
 msgstr "atrás"
 
@@ -103,19 +105,19 @@ msgid "Link"
 msgstr "Enlace"
 
 #: templates/generic/includes/comment.html:26
-#: templates/generic/includes/comment.html:37
+#: templates/generic/includes/comment.html:36
 msgid "Reply"
 msgstr "Responder"
 
-#: templates/generic/includes/comment.html:60
+#: templates/generic/includes/comment.html:59
 msgid "Comment deleted"
 msgstr "Comentario eliminado"
 
-#: templates/generic/includes/comment.html:62
+#: templates/generic/includes/comment.html:61
 msgid "Comment awaiting approval"
 msgstr "Comentario esperando aprobación"
 
-#: templates/generic/includes/comment.html:73
+#: templates/generic/includes/comment.html:72
 msgid "There are currently no comments"
 msgstr "No existen comentarios"
 

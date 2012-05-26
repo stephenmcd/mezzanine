@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Hilton Medeiros <medeiros.hilton@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
-"PO-Revision-Date: 2012-03-12 00:11+0000\n"
-"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.net/projects/p/"
-"mezzanine/language/pt_BR/)\n"
-"Language: pt_BR\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.net/projects/p/mezzanine/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: admin.py:32 fields.py:30
@@ -44,11 +43,11 @@ msgstr "Múltiplas linhas de texto"
 
 #: fields.py:31
 msgid "Number"
-msgstr ""
+msgstr "Número"
 
 #: fields.py:32
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: fields.py:33
 msgid "Check box"
@@ -110,15 +109,19 @@ msgstr "Não igual"
 msgid "Is between"
 msgstr "Está entre"
 
-#: forms.py:180
+#: forms.py:98
+msgid "required"
+msgstr "obrigatório"
+
+#: forms.py:182
 msgid "Checked"
 msgstr "Checado"
 
-#: forms.py:180
+#: forms.py:182
 msgid "Not checked"
 msgstr "Não checado"
 
-#: forms.py:194 forms.py:209
+#: forms.py:196 forms.py:211
 msgid "and"
 msgstr "e"
 
@@ -198,89 +201,89 @@ msgstr "Escolhas"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
+msgstr "Opções separadas por vírgulas onde aplicável. Se uma opção conter vírgula, cerque a opção com `acentos graves`."
 
 #: models.py:57
 msgid "Default value"
-msgstr ""
+msgstr "Valor padrão"
 
 #: models.py:59
 msgid "Placeholder Text"
-msgstr ""
+msgstr "Texto de reserva"
 
 #: models.py:61
 msgid "Help text"
-msgstr ""
+msgstr "Texto de ajuda"
 
 #: models.py:66 templates/admin/forms/entries.html:27
 msgid "Field"
-msgstr ""
+msgstr "Campo"
 
 #: models.py:67
 msgid "Fields"
-msgstr ""
+msgstr "Campos"
 
 #: models.py:113
 msgid "Form entry"
-msgstr ""
+msgstr "Entrada de form"
 
 #: models.py:114
 msgid "Form entries"
-msgstr ""
-
-#: models.py:127
-msgid "Form field entry"
-msgstr ""
+msgstr "Entradas de form"
 
 #: models.py:128
+msgid "Form field entry"
+msgstr "Entrada de campo de form"
+
+#: models.py:129
 msgid "Form field entries"
-msgstr ""
+msgstr "Entradas de campo de form"
 
 #: templates/admin/forms/change_form.html:9
 #: templates/admin/forms/entries.html:56
 msgid "View entries"
-msgstr ""
+msgstr "Ver entradas"
 
 #: templates/admin/forms/change_form.html:10
 msgid "History"
-msgstr ""
+msgstr "Histórico"
 
 #: templates/admin/forms/change_form.html:11
 msgid "View on site"
-msgstr ""
+msgstr "Ver no site"
 
 #: templates/admin/forms/entries.html:13
 msgid "Home"
-msgstr ""
+msgstr "Início"
 
 #: templates/admin/forms/entries.html:28
 msgid "Include"
-msgstr ""
+msgstr "Inclue"
 
 #: templates/admin/forms/entries.html:29
 msgid "Filter by"
-msgstr ""
+msgstr "Filtro por"
 
 #: templates/admin/forms/entries.html:47
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:93
 msgid "Back to form"
-msgstr ""
+msgstr "Voltar ao form"
 
 #: templates/admin/forms/entries.html:57
 msgid "Export CSV"
-msgstr ""
+msgstr "Exportar CSV"
 
 #: templates/admin/forms/entries.html:60
 msgid "Entries"
-msgstr ""
+msgstr "Entradas"
 
 #: templates/admin/forms/entries.html:94
 msgid "Delete selected"
-msgstr ""
+msgstr "Remover selecionados"
 
 #: templates/admin/forms/entries.html:98
 msgid "No entries to display"
-msgstr ""
+msgstr "Nenhuma entrada para exibir"

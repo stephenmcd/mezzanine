@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Olav  <>, 2012.
+# Olav Lindekleiv <>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
-"PO-Revision-Date: 2012-03-15 08:18+0000\n"
-"Last-Translator: Olav <>\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"PO-Revision-Date: 2012-05-24 18:09+0000\n"
+"Last-Translator: Olav Lindekleiv <>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/mezzanine/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,36 +19,16 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:28
+#: admin.py:29
 msgid "Meta data"
 msgstr "Metadata"
 
-#: fields.py:23
+#: fields.py:24
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Kunne ikke importere verdi for settings.RICHTEXT_WIDGET_CLASS:%s"
 
-#: forms.py:35
-msgid "Email Address"
-msgstr "E-postadresse"
-
-#: forms.py:36
-msgid "Password"
-msgstr "Passord"
-
-#: forms.py:64
-msgid "This email is already registered"
-msgstr "Denne e-posten er allerede registrert"
-
-#: forms.py:84
-msgid "Invalid email/password"
-msgstr "Ugyldig e-post/passord"
-
-#: forms.py:86
-msgid "Your account is inactive"
-msgstr "Kontoen din er inaktiv"
-
-#: forms.py:116 models.py:221
+#: forms.py:75 models.py:226
 msgid "Order"
 msgstr "Rekkefølge"
 
@@ -68,58 +49,56 @@ msgid "Description"
 msgstr "Beskrivelse"
 
 #: models.py:88
+msgid "Generate description"
+msgstr "Generer beskrivelse"
+
+#: models.py:89
+msgid ""
+"If checked, the description will be automatically generated from content. "
+"Uncheck if you want to manually set a custom description."
+msgstr "Hvis dette er valgt vil en beskrivelse automatisk bli generert ut fra innholdet. Hvis ikke, kan du velge en egen beskrivelse."
+
+#: models.py:92
 msgid "Keywords"
 msgstr "Nøkkelord"
 
-#: models.py:134
+#: models.py:139
 msgid "Draft"
 msgstr "Kladd"
 
-#: models.py:135
+#: models.py:140
 msgid "Published"
 msgstr "Publisert"
 
-#: models.py:146
+#: models.py:151
 msgid "Status"
 msgstr "Status"
 
-#: models.py:148
+#: models.py:153
 msgid "Published from"
 msgstr "Publisert fra"
 
-#: models.py:149
+#: models.py:154
 msgid "With published checked, won't be shown until this time"
 msgstr "Hvis publisert er valgt vil den ikke vises før dette tidspunktet"
 
-#: models.py:151
+#: models.py:156
 msgid "Expires on"
 msgstr "Utløper"
 
-#: models.py:152
+#: models.py:157
 msgid "With published checked, won't be shown after this time"
 msgstr "Hvis publisert er valgt vil den ikke vises etter dette tidspunktet"
 
-#: models.py:179
+#: models.py:184
 msgid "Content"
 msgstr "Innhold"
 
-#: models.py:275
+#: models.py:280
 msgid "Author"
 msgstr "Forfatter"
 
-#: views.py:33
-msgid "Successfully logged in"
-msgstr "Innloggingen var vellykket"
-
-#: views.py:39
-msgid "Successfully signed up"
-msgstr "Registreringen var vellykket"
-
-#: views.py:53
-msgid "Successfully logged out"
-msgstr "Utloggingen var vellykket"
-
-#: views.py:89
+#: views.py:55
 msgid "Permission denied"
 msgstr "Manglende rettigheter"
 
@@ -139,35 +118,19 @@ msgstr "Feil"
 msgid "Sorry, an error occurred."
 msgstr "Beklager, en feil har oppstått."
 
-#: templates/account.html:4 templates/account.html.py:5
-msgid "Login / Signup"
-msgstr "Logg inn / Registrer"
-
-#: templates/account.html:10
-msgid "Account"
-msgstr "Konto"
-
-#: templates/account.html:16 templates/account.html.py:21
-msgid "Login"
-msgstr "Logg inn"
-
-#: templates/account.html:27 templates/account.html.py:32
-msgid "Signup"
-msgstr "Registrer"
-
-#: templates/base.html:49
+#: templates/base.html:53
 msgid "Search"
 msgstr "Søk"
 
-#: templates/base.html:105
+#: templates/base.html:109
 msgid "Powered by"
 msgstr "Drevet av"
 
-#: templates/base.html:108
+#: templates/base.html:112
 msgid "and"
 msgstr "og"
 
-#: templates/base.html:114
+#: templates/base.html:118
 msgid "View Mobile Site"
 msgstr "Vis mobilversjon"
 
@@ -209,27 +172,38 @@ msgstr "resultater fra ditt søk:"
 msgid "read more"
 msgstr "les mer"
 
-#: templates/admin/base_site.html:64
-msgid "Forgot password?"
-msgstr "Glemt passord?"
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
+msgid "Dashboard"
+msgstr "Dashbord"
 
-#: templates/admin/base_site.html:67
+#: templates/admin/login.html:25
+msgid "Username or email:"
+msgstr "Brukernavn eller epost:"
+
+#: templates/admin/login.html:29
+msgid "Password:"
+msgstr "Passord:"
+
+#: templates/admin/login.html:34
 msgid "Interface:"
 msgstr "Grensesnitt:"
 
-#: templates/admin/base_site.html:70
-#: templates/includes/editable_toolbar.html:7
+#: templates/admin/login.html:37 templates/includes/editable_toolbar.html:7
 #: templates/includes/editable_toolbar.html:9
 msgid "Admin"
 msgstr "Administrator"
 
-#: templates/admin/base_site.html:73
+#: templates/admin/login.html:40
 msgid "Site"
 msgstr "Side"
 
-#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
-msgid "Dashboard"
-msgstr "Dashbord"
+#: templates/admin/login.html:44
+msgid "Log in"
+msgstr "Logg inn"
+
+#: templates/admin/login.html:47
+msgid "Forgot password?"
+msgstr "Glemt passord?"
 
 #: templates/admin/includes/app_list.html:20
 msgid "Add"
@@ -256,23 +230,6 @@ msgstr "Mine handlinger"
 msgid "None available"
 msgstr "Ingen tilgjengelig"
 
-#: templates/includes/account_panel.html:5
-#: templates/includes/editable_toolbar.html:11
-msgid "Log out"
-msgstr "Logg ut"
-
-#: templates/includes/account_panel.html:6
-msgid "Logged in as: "
-msgstr "Logget inn som:  "
-
-#: templates/includes/account_panel.html:9
-msgid "Log in or sign up"
-msgstr "Logg inn eller registrer"
-
-#: templates/includes/account_panel.html:10
-msgid "Not logged in"
-msgstr "Ikke logget inn"
-
 #: templates/includes/editable_form.html:16
 msgid "Save"
 msgstr "Lagre"
@@ -284,6 +241,10 @@ msgstr "Avbryt"
 #: templates/includes/editable_form.html:25
 msgid "Edit"
 msgstr "Endre"
+
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr "Logg ut"
 
 #: templates/includes/pagination.html:7
 msgid "Page"

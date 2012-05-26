@@ -1,54 +1,33 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Nicola Larosa <transifex@teknico.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
-"PO-Revision-Date: 2012-03-11 23:55+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/"
-"language/it/)\n"
-"Language: it\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"PO-Revision-Date: 2012-05-06 19:52+0000\n"
+"Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
+"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:28
+#: admin.py:29
 msgid "Meta data"
 msgstr "Metadati"
 
-#: fields.py:23
+#: fields.py:24
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Impossibile importare il valore settings.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:35
-msgid "Email Address"
-msgstr ""
-
-#: forms.py:36
-msgid "Password"
-msgstr ""
-
-#: forms.py:64
-msgid "This email is already registered"
-msgstr ""
-
-#: forms.py:84
-msgid "Invalid email/password"
-msgstr ""
-
-#: forms.py:86
-msgid "Your account is inactive"
-msgstr ""
-
-#: forms.py:116 models.py:221
+#: forms.py:75 models.py:226
 msgid "Order"
 msgstr "Ordine"
 
@@ -69,62 +48,56 @@ msgid "Description"
 msgstr "Descrizione"
 
 #: models.py:88
+msgid "Generate description"
+msgstr "Genera descrizione"
+
+#: models.py:89
+msgid ""
+"If checked, the description will be automatically generated from content. "
+"Uncheck if you want to manually set a custom description."
+msgstr "Se selezionato, la descrizione verrà generata automaticamente a partire dal contenuto. Deseleziona se vuoi impostare manualmente una descrizione specifica."
+
+#: models.py:92
 msgid "Keywords"
 msgstr "Parole chiave"
 
-#: models.py:134
+#: models.py:139
 msgid "Draft"
 msgstr "Bozza"
 
-#: models.py:135
+#: models.py:140
 msgid "Published"
 msgstr "Pubblicato"
 
-#: models.py:146
+#: models.py:151
 msgid "Status"
 msgstr "Stato"
 
-#: models.py:148
+#: models.py:153
 msgid "Published from"
 msgstr "Pubblicato da"
 
-#: models.py:149
+#: models.py:154
 msgid "With published checked, won't be shown until this time"
-msgstr ""
-"Una volta che \"pubblicato\" è selezionato, non verrà mostrato prima di "
-"questo momento"
+msgstr "Una volta che \"pubblicato\" è selezionato, non verrà mostrato prima di questo momento"
 
-#: models.py:151
+#: models.py:156
 msgid "Expires on"
 msgstr "Espira il"
 
-#: models.py:152
+#: models.py:157
 msgid "With published checked, won't be shown after this time"
-msgstr ""
-"Una volta che \"pubblicato\" è selezionato, non verrà mostrato dopo questo "
-"momento"
+msgstr "Una volta che \"pubblicato\" è selezionato, non verrà mostrato dopo questo momento"
 
-#: models.py:179
+#: models.py:184
 msgid "Content"
 msgstr "Contenuto"
 
-#: models.py:275
+#: models.py:280
 msgid "Author"
 msgstr "Autore"
 
-#: views.py:33
-msgid "Successfully logged in"
-msgstr ""
-
-#: views.py:39
-msgid "Successfully signed up"
-msgstr ""
-
-#: views.py:53
-msgid "Successfully logged out"
-msgstr ""
-
-#: views.py:89
+#: views.py:55
 msgid "Permission denied"
 msgstr "Permesso negato"
 
@@ -144,37 +117,21 @@ msgstr "Errore"
 msgid "Sorry, an error occurred."
 msgstr "Spiacenti, si è verificato un errore."
 
-#: templates/account.html:4 templates/account.html.py:5
-msgid "Login / Signup"
-msgstr ""
-
-#: templates/account.html:10
-msgid "Account"
-msgstr ""
-
-#: templates/account.html:16 templates/account.html.py:21
-msgid "Login"
-msgstr ""
-
-#: templates/account.html:27 templates/account.html.py:32
-msgid "Signup"
-msgstr ""
-
-#: templates/base.html:49
+#: templates/base.html:53
 msgid "Search"
 msgstr "Cerca"
 
-#: templates/base.html:105
+#: templates/base.html:109
 msgid "Powered by"
 msgstr "Realizzato con"
 
-#: templates/base.html:108
+#: templates/base.html:112
 msgid "and"
-msgstr ""
+msgstr "e"
 
-#: templates/base.html:114
+#: templates/base.html:118
 msgid "View Mobile Site"
-msgstr ""
+msgstr "Vedi il sito mobile"
 
 #: templates/index.html:5 templates/index.html.py:8 templates/index.html:12
 #: templates/search_results.html:10 templates/admin/index.html:15
@@ -214,27 +171,38 @@ msgstr "risultati della ricerca:"
 msgid "read more"
 msgstr "leggi il resto"
 
-#: templates/admin/base_site.html:64
-msgid "Forgot password?"
-msgstr "Password dimenticata?"
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
+msgid "Dashboard"
+msgstr "Pannello di controllo"
 
-#: templates/admin/base_site.html:67
+#: templates/admin/login.html:25
+msgid "Username or email:"
+msgstr "Nome utente o email:"
+
+#: templates/admin/login.html:29
+msgid "Password:"
+msgstr "Password:"
+
+#: templates/admin/login.html:34
 msgid "Interface:"
 msgstr "Interfaccia:"
 
-#: templates/admin/base_site.html:70
-#: templates/includes/editable_toolbar.html:7
+#: templates/admin/login.html:37 templates/includes/editable_toolbar.html:7
 #: templates/includes/editable_toolbar.html:9
 msgid "Admin"
 msgstr "Ammin."
 
-#: templates/admin/base_site.html:73
+#: templates/admin/login.html:40
 msgid "Site"
 msgstr "Sito"
 
-#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:3
-msgid "Dashboard"
-msgstr "Pannello di controllo"
+#: templates/admin/login.html:44
+msgid "Log in"
+msgstr "Accedi"
+
+#: templates/admin/login.html:47
+msgid "Forgot password?"
+msgstr "Password dimenticata?"
 
 #: templates/admin/includes/app_list.html:20
 msgid "Add"
@@ -261,23 +229,6 @@ msgstr "Le mie azioni"
 msgid "None available"
 msgstr "Nessuno disponibile"
 
-#: templates/includes/account_panel.html:5
-#: templates/includes/editable_toolbar.html:11
-msgid "Log out"
-msgstr "Esci"
-
-#: templates/includes/account_panel.html:6
-msgid "Logged in as: "
-msgstr ""
-
-#: templates/includes/account_panel.html:9
-msgid "Log in or sign up"
-msgstr ""
-
-#: templates/includes/account_panel.html:10
-msgid "Not logged in"
-msgstr ""
-
 #: templates/includes/editable_form.html:16
 msgid "Save"
 msgstr "Salva"
@@ -289,6 +240,10 @@ msgstr "Annulla"
 #: templates/includes/editable_form.html:25
 msgid "Edit"
 msgstr "Modifica"
+
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr "Esci"
 
 #: templates/includes/pagination.html:7
 msgid "Page"

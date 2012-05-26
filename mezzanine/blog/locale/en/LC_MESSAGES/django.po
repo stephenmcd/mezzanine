@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:00-0430\n"
+"POT-Creation-Date: 2012-04-25 07:02-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:19 templates/blog/blog_post_list.html:107
+#: models.py:19 templates/blog/blog_post_list.html:109
 msgid "Comments"
 msgstr ""
 
@@ -45,11 +45,11 @@ msgstr ""
 msgid "Blog Categories"
 msgstr ""
 
-#: templates/admin/includes/quick_blog.html:5
+#: templates/admin/includes/quick_blog.html:18
 msgid "Quick Blog"
 msgstr ""
 
-#: templates/admin/includes/quick_blog.html:14
+#: templates/admin/includes/quick_blog.html:27
 msgid "Save Draft"
 msgstr ""
 
@@ -58,40 +58,34 @@ msgid "Home"
 msgstr ""
 
 #: templates/blog/blog_post_detail.html:34
-#: templates/blog/blog_post_list.html:72
+#: templates/blog/blog_post_list.html:74
 msgid "Posted by"
 msgstr ""
 
 #: templates/blog/blog_post_detail.html:38
-#: templates/blog/blog_post_list.html:82
+#: templates/blog/blog_post_list.html:84
 msgid "ago"
 msgstr ""
 
 #: templates/blog/blog_post_detail.html:42
-#: templates/blog/blog_post_list.html:111
+#: templates/blog/blog_post_list.html:113
 #, python-format
-msgid ""
-"\n"
-"        1 comment\n"
-"        "
-msgid_plural ""
-"\n"
-"        %(comments_count)s comments\n"
-"        "
+msgid "1 comment"
+msgid_plural "%(comments_count)s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/blog/blog_post_detail.html:61
-#: templates/blog/blog_post_list.html:96
+#: templates/blog/blog_post_detail.html:57
+#: templates/blog/blog_post_list.html:98
 #: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
 msgstr ""
 
-#: templates/blog/blog_post_detail.html:71
+#: templates/blog/blog_post_detail.html:67
 msgid "Share on Twitter"
 msgstr ""
 
-#: templates/blog/blog_post_detail.html:72
+#: templates/blog/blog_post_detail.html:68
 msgid "Share on Facebook"
 msgstr ""
 
@@ -127,11 +121,11 @@ msgstr ""
 msgid "Viewing posts by"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:77
+#: templates/blog/blog_post_list.html:79
 msgid "in"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:102
+#: templates/blog/blog_post_list.html:104
 msgid "read more"
 msgstr ""
 

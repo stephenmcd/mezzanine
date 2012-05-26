@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
 "PO-Revision-Date: 2012-03-11 23:34+0000\n"
 "Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.net/projects/p/"
@@ -59,12 +59,12 @@ msgstr "Adicionar"
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
 #: templates/pages/menus/footer_tree.html:10
-#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:8
+#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:9
 #: templates/pages/menus/tree.html:10
 msgid "Home"
 msgstr "Início"
 
-#: templatetags/pages_tags.py:145
+#: templatetags/pages_tags.py:144
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr "Ocorreu um erro com a seguinte classe. Ela herda Page diretamente?"

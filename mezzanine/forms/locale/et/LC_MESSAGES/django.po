@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Rivo Zängov <eraser@eraser.ee>, 2011.
+# Rivo Zängov <eraser@eraser.ee>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
-"PO-Revision-Date: 2012-03-11 23:55+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Estonian (http://www.transifex.net/projects/p/mezzanine/"
-"language/et/)\n"
-"Language: et\n"
+"Language-Team: Estonian (http://www.transifex.net/projects/p/mezzanine/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:32 fields.py:30
@@ -27,8 +26,8 @@ msgstr "E-post"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 sissekanne kustutati"
+msgstr[1] "%(count)s sissekannet kustutati"
 
 #: admin.py:119
 msgid "View Entries"
@@ -44,11 +43,11 @@ msgstr "Mitmerealine tekst"
 
 #: fields.py:31
 msgid "Number"
-msgstr ""
+msgstr "Arv"
 
 #: fields.py:32
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: fields.py:33
 msgid "Check box"
@@ -110,15 +109,19 @@ msgstr "Ei võrdu"
 msgid "Is between"
 msgstr "On vahepeal"
 
-#: forms.py:180
+#: forms.py:98
+msgid "required"
+msgstr "kohustuslik"
+
+#: forms.py:182
 msgid "Checked"
 msgstr "Märgitud"
 
-#: forms.py:180
+#: forms.py:182
 msgid "Not checked"
 msgstr "POle märgitud"
 
-#: forms.py:194 forms.py:209
+#: forms.py:196 forms.py:211
 msgid "and"
 msgstr "ja"
 
@@ -140,7 +143,7 @@ msgstr "Saada e-post"
 
 #: models.py:21
 msgid "If checked, the form submitter will be sent an email."
-msgstr ""
+msgstr "Kui see valik on märgitud, saadetakse vormi saatjale e-mail."
 
 #: models.py:22
 msgid "From address"
@@ -148,7 +151,7 @@ msgstr "Saatja aadress"
 
 #: models.py:23
 msgid "The address the email will be sent from"
-msgstr ""
+msgstr "Aadress, millelt kiri saadetakse"
 
 #: models.py:24
 msgid "Send copies to"
@@ -156,7 +159,7 @@ msgstr "Saada koopia"
 
 #: models.py:25
 msgid "One or more email addresses, separated by commas"
-msgstr ""
+msgstr "Üks või mitu e-posti aaadressi, eraldatuna komadega"
 
 #: models.py:27
 msgid "Subject"
@@ -222,24 +225,24 @@ msgstr "Väljad"
 
 #: models.py:113
 msgid "Form entry"
-msgstr ""
+msgstr "Vormi sissekanne"
 
 #: models.py:114
 msgid "Form entries"
-msgstr ""
-
-#: models.py:127
-msgid "Form field entry"
-msgstr ""
+msgstr "Vormi sissekanded"
 
 #: models.py:128
+msgid "Form field entry"
+msgstr "Vormi välja sissekanne"
+
+#: models.py:129
 msgid "Form field entries"
-msgstr ""
+msgstr "Vormi välja sissekanded"
 
 #: templates/admin/forms/change_form.html:9
 #: templates/admin/forms/entries.html:56
 msgid "View entries"
-msgstr ""
+msgstr "Vaata sissekandeid"
 
 #: templates/admin/forms/change_form.html:10
 msgid "History"
@@ -247,15 +250,15 @@ msgstr "Ajalugu"
 
 #: templates/admin/forms/change_form.html:11
 msgid "View on site"
-msgstr ""
+msgstr "Vaata saidil"
 
 #: templates/admin/forms/entries.html:13
 msgid "Home"
-msgstr ""
+msgstr "Koduleht"
 
 #: templates/admin/forms/entries.html:28
 msgid "Include"
-msgstr ""
+msgstr "Kaasa"
 
 #: templates/admin/forms/entries.html:29
 msgid "Filter by"
@@ -275,7 +278,7 @@ msgstr "kspordi CSV-na"
 
 #: templates/admin/forms/entries.html:60
 msgid "Entries"
-msgstr ""
+msgstr "Sissekanded"
 
 #: templates/admin/forms/entries.html:94
 msgid "Delete selected"
@@ -283,4 +286,4 @@ msgstr "Kustuta valitud"
 
 #: templates/admin/forms/entries.html:98
 msgid "No entries to display"
-msgstr ""
+msgstr "Pole sissekandeid, mida näidata"

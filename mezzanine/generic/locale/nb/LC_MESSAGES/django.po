@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Olav  <>, 2012.
+# Olav Lindekleiv <>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
-"PO-Revision-Date: 2012-03-15 08:56+0000\n"
-"Last-Translator: Olav <>\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"PO-Revision-Date: 2012-05-24 18:12+0000\n"
+"Last-Translator: Olav Lindekleiv <>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/mezzanine/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,82 +19,84 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:19 models.py:66
+#: admin.py:19 models.py:62
 msgid "User"
 msgstr "Bruker"
 
-#: forms.py:78
+#: forms.py:79
 msgid "Name"
 msgstr "Navn"
 
-#: forms.py:78
+#: forms.py:79
 msgid "required"
 msgstr "påkrevet"
 
-#: forms.py:80
+#: forms.py:81
 msgid "Email"
 msgstr "E-post"
 
-#: forms.py:81
+#: forms.py:82
 msgid "required (not published)"
 msgstr "påkrevet (ikke publisert)"
 
-#: forms.py:82
+#: forms.py:83
 msgid "Website"
 msgstr "Nettside"
 
-#: forms.py:82
+#: forms.py:83
 msgid "optional"
 msgstr "valgfri"
 
-#: models.py:21
-msgid "Email hash"
-msgstr "E-posthash"
-
-#: models.py:22
+#: models.py:19
 msgid "By the blog author"
 msgstr "Etter bloggforfatter"
 
-#: models.py:29 models.py:58 templates/generic/includes/comments.html:25
+#: models.py:26 models.py:54 templates/generic/includes/comments.html:24
 msgid "Comment"
 msgstr "Kommentar"
 
-#: models.py:30 templates/generic/includes/comments.html:3
+#: models.py:27 templates/generic/includes/comments.html:3
 msgid "Comments"
 msgstr "Kommentarer"
 
-#: models.py:70
+#: models.py:66
 msgid "View on site"
 msgstr "Vis på side"
 
-#: models.py:84
+#: models.py:86
 msgid "Keyword"
 msgstr "Nøkkelord"
 
-#: models.py:85
+#: models.py:87
 msgid "Keywords"
 msgstr "Nøkkelord"
 
-#: models.py:113
+#: models.py:115
 msgid "Value"
 msgstr "Verdi"
 
-#: models.py:119
+#: models.py:121
 msgid "Rating"
 msgstr "Vurdering"
 
-#: models.py:120
+#: models.py:122
 msgid "Ratings"
 msgstr "Vurderinger"
+
+#: views.py:51
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr "Du må være logget inn for å kommentere. Logg inn eller registrer, så blir kommentaren lagt inn."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
 msgstr "Siste kommentarer"
 
-#: templates/admin/includes/recent_comments.html:20
+#: templates/admin/includes/recent_comments.html:22
 #: templates/generic/includes/comment.html:22
-#: templates/generic/includes/comment.html:54
-#: templates/generic/includes/comment.html:64
+#: templates/generic/includes/comment.html:53
+#: templates/generic/includes/comment.html:63
 msgid "ago"
 msgstr "siden"
 
@@ -102,19 +105,19 @@ msgid "Link"
 msgstr "Lenke"
 
 #: templates/generic/includes/comment.html:26
-#: templates/generic/includes/comment.html:37
+#: templates/generic/includes/comment.html:36
 msgid "Reply"
 msgstr "Svar"
 
-#: templates/generic/includes/comment.html:60
+#: templates/generic/includes/comment.html:59
 msgid "Comment deleted"
 msgstr "Kommentar slettet"
 
-#: templates/generic/includes/comment.html:62
+#: templates/generic/includes/comment.html:61
 msgid "Comment awaiting approval"
 msgstr "Kommentar venter på godkjenning"
 
-#: templates/generic/includes/comment.html:73
+#: templates/generic/includes/comment.html:72
 msgid "There are currently no comments"
 msgstr "Det finnes foreløpig ingen kommentarer"
 

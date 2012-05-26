@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Olav  <>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
 "PO-Revision-Date: 2012-03-15 08:59+0000\n"
 "Last-Translator: Olav <>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/mezzanine/language/nb/)\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/"
+"mezzanine/language/nb/)\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: models.py:18
@@ -58,12 +59,13 @@ msgstr "Legg til"
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
 #: templates/pages/menus/footer_tree.html:10
-#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:8
+#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:9
 #: templates/pages/menus/tree.html:10
 msgid "Home"
 msgstr "Hjem"
 
-#: templatetags/pages_tags.py:145
+#: templatetags/pages_tags.py:144
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
-msgstr "En feil oppsto med denne klassen. Er det en direkte underklasse av Page?"
+msgstr ""
+"En feil oppsto med denne klassen. Er det en direkte underklasse av Page?"

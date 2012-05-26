@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
-"PO-Revision-Date: 2012-03-15 08:52+0000\n"
-"Last-Translator: Olav <>\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/mezzanine/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -109,15 +109,19 @@ msgstr "Er ulik"
 msgid "Is between"
 msgstr "Er mellom"
 
-#: forms.py:180
+#: forms.py:98
+msgid "required"
+msgstr "påkrevet"
+
+#: forms.py:182
 msgid "Checked"
 msgstr "Valgt"
 
-#: forms.py:180
+#: forms.py:182
 msgid "Not checked"
 msgstr "Ikke valgt"
 
-#: forms.py:194 forms.py:209
+#: forms.py:196 forms.py:211
 msgid "and"
 msgstr "og"
 
@@ -227,11 +231,11 @@ msgstr "Skjemaoppføring"
 msgid "Form entries"
 msgstr "Skjemaoppføringer"
 
-#: models.py:127
+#: models.py:128
 msgid "Form field entry"
 msgstr "Feltoppføring for skjema"
 
-#: models.py:128
+#: models.py:129
 msgid "Form field entries"
 msgstr "Feltoppføringer for skjema"
 

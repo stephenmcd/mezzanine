@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
+# Sergi Almacellas <pokoli@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 07:01-0430\n"
-"PO-Revision-Date: 2012-03-11 23:55+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/"
-"language/ca/)\n"
-"Language: ca\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-04-25 07:03-0430\n"
+"PO-Revision-Date: 2012-05-22 09:53+0000\n"
+"Last-Translator: Sergi Almacellas <pokoli@gmail.com>\n"
+"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:32 fields.py:30
@@ -44,11 +44,11 @@ msgstr "Multilínea de text"
 
 #: fields.py:31
 msgid "Number"
-msgstr ""
+msgstr "Número"
 
 #: fields.py:32
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: fields.py:33
 msgid "Check box"
@@ -110,15 +110,19 @@ msgstr "Diferent"
 msgid "Is between"
 msgstr "entre"
 
-#: forms.py:180
+#: forms.py:98
+msgid "required"
+msgstr "Obligatori"
+
+#: forms.py:182
 msgid "Checked"
 msgstr "Marcat"
 
-#: forms.py:180
+#: forms.py:182
 msgid "Not checked"
 msgstr "Desmarcat"
 
-#: forms.py:194 forms.py:209
+#: forms.py:196 forms.py:211
 msgid "and"
 msgstr "i"
 
@@ -198,9 +202,7 @@ msgstr "Opcions"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Opcions separades per comes. Si una opció conté comes, envoltar amb `accents "
-"oberts`."
+msgstr "Opcions separades per comes. Si una opció conté comes, envoltar amb `accents oberts`."
 
 #: models.py:57
 msgid "Default value"
@@ -230,11 +232,11 @@ msgstr "Entrada del formulari"
 msgid "Form entries"
 msgstr "Entrades del formulari"
 
-#: models.py:127
+#: models.py:128
 msgid "Form field entry"
 msgstr "Entrada del camp del formulari"
 
-#: models.py:128
+#: models.py:129
 msgid "Form field entries"
 msgstr "Entrada del camp del formulari"
 
