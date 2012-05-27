@@ -65,9 +65,10 @@ class Gallery(Page, RichText):
                     saved_path = default_storage.save(path, ContentFile(data))
                 except UnicodeEncodeError:
                     from warnings import warn
-                    warn("Your filesystem encoding doesn't seem to support "
-                         "utf-8. You may need to set LC_CTYPE to a correct "
-                         "value via your terminal, eg: en_US.utf8")
+                    warn("A file was saved that contains unicode "
+                         "characters in its path, but somehow the current "
+                         "locale does not support utf-8. You may need to set "
+                         "'LC_ALL' to a correct value, eg: 'en_US.UTF-8'.")
                     path = os.path.join(GALLERIES_UPLOAD_DIR, self.slug,
                                         unicode(name, errors="ignore"))
                     saved_path = default_storage.save(path, ContentFile(data))
