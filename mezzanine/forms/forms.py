@@ -117,12 +117,16 @@ class FormForForm(forms.ModelForm):
             #   the admin.
             #
             try:
-                self.initial[field_key] = field_entries[field.id]
+                initial_val = field_entries[field.id]
             except KeyError:
                 try:
                     self.initial[field_key] = initial[field_key]
                 except KeyError:
                     self.initial[field_key] = field.default
+            else:
+                if field.is_a(*fields.MULTIPLE):
+                    initial_val = [x.strip() for x in initial_val.split(",")]
+                self.initial[field_key] = initial_val
             self.fields[field_key] = field_class(**field_args)
             # Add identifying type attr to the field for styling.
             setattr(self.fields[field_key], "type",
