@@ -67,11 +67,14 @@ $(function() {
 
 <div class="container">
 
+{% nevercache %}
 {% for message in messages %}
 <div class="alert alert-{{ message.tags }}" data-alert="alert">
 <a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
 </div>
 {% endfor %}
+{% endnevercache %}
+
 
 <h1>{% block title %}{% endblock %}</h1>
 
@@ -95,7 +98,9 @@ $(function() {
 </div>
 
 <div class="span3 right">
+    {% nevercache %}
     {% include "includes/user_panel.html" %}
+    {% endnevercache %}
     <div class="panel">
     {% block right_panel %}
     {% ifinstalled mezzanine.twitter %}

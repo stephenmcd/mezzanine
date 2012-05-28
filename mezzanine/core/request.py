@@ -7,7 +7,7 @@ _thread_local = threading.local()
 
 def current_request():
     """
-    Retrieves the rquest from the current thread.
+    Retrieves the request from the current thread.
     """
     return getattr(_thread_local, "request", None)
 

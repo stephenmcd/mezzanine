@@ -24,7 +24,7 @@ class Html5Mixin(object):
                 if settings.FORMS_USE_HTML5:
                     if isinstance(field, forms.EmailField):
                         self.fields[name].widget.input_type = "email"
-                    elif  isinstance(field, forms.URLField):
+                    elif isinstance(field, forms.URLField):
                         self.fields[name].widget.input_type = "url"
                 if field.required:
                     self.fields[name].widget.attrs["required"] = ""

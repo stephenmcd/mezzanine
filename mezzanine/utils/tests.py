@@ -24,6 +24,9 @@ PYFLAKES_IGNORE = (
     # Backward compatibility for timezone support
     "redefinition of unused 'now'",
 
+    # No caching fallback
+    "redefinition of function 'nevercache'",
+
     # Dummy fallback in templates for django-compressor
     "redefinition of function 'compress'",
 
