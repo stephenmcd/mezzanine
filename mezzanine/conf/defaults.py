@@ -114,6 +114,21 @@ register_setting(
 )
 
 register_setting(
+    name="CACHE_SET_DELAY_SECONDS",
+    description=_("Mezzanine's caching uses a technique know as mint "
+        "caching. This is where the requested expiry for a cache entry "
+        "is stored with the cache entry in cache, and the real expiry "
+        "used has the ``CACHE_SET_DELAY`` added to it. Then on a cache get, "
+        "the store expiry is checked, and if it has past, the cache entry "
+        "is set again, and no entry is returned. This tries to ensure that "
+        "cache misses never occur, and if many clients were to get a cache "
+        "miss at once, only one would actually need to re-generated the "
+        "cache entry."),
+    editable=False,
+    default=30,
+)
+
+register_setting(
     name="COMMENTS_ACCOUNT_REQUIRED",
     label=_("Accounts required for commenting"),
     description=_("If ``True``, users must log in to comment."),

@@ -11,8 +11,10 @@ from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model
-from django.template import (Context, Node, Template, TemplateSyntaxError,
-                             TOKEN_BLOCK)
+from django.template import (Context, Node, TextNode, Template,
+                             TemplateSyntaxError, TOKEN_TEXT, TOKEN_VAR,
+                             TOKEN_COMMENT, TOKEN_BLOCK)
+
 from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
@@ -23,6 +25,7 @@ from PIL import Image, ImageOps
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.forms import get_edit_form
+from mezzanine.utils.cache import nevercache_token, cache_installed
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.sites import current_site_id
@@ -37,11 +40,54 @@ register = template.Library()
 if "compressor" in settings.INSTALLED_APPS:
     @register.tag
     def compress(parser, token):
+        """
+        Shadows django-compressor's compress tag so it can be
+        loaded from ``mezzanine_tags``, allowing us to provide
+        a dummy version when django-compressor isn't installed.
+        """
         from compressor.templatetags.compress import compress
         return compress(parser, token)
 else:
     @register.to_end_tag
     def compress(parsed, context, token):
+        """
+        Dummy tag for fallback when django-compressor isn't installed.
+        """
+        return parsed
+
+
+if cache_installed():
+    @register.tag
+    def nevercache(parser, token):
+        """
+        Tag for two phased rendering. Converts enclosed template
+        code and content into text, which gets rendered separately
+        in ``mezzanine.core.middleware.UpdateCacheMiddleware``.
+        This is to bypass caching for the enclosed code and content.
+        """
+        text = []
+        end_tag = "endnevercache"
+        tag_mapping = {
+            TOKEN_TEXT: ("", ""),
+            TOKEN_VAR: ("{{", "}}"),
+            TOKEN_BLOCK: ("{%", "%}"),
+            TOKEN_COMMENT: ("{#", "#}"),
+        }
+        delimiter = nevercache_token()
+        while parser.tokens:
+            token = parser.next_token()
+            if token.token_type == TOKEN_BLOCK and token.contents == end_tag:
+                return TextNode(delimiter + "".join(text) + delimiter)
+            start, end = tag_mapping[token.token_type]
+            text.append("%s%s%s" % (start, token.contents, end))
+        parser.unclosed_block_tag(end_tag)
+else:
+    @register.to_end_tag
+    def nevercache(parsed, context, token):
+        """
+        Dummy fallback ``nevercache`` for when caching is not
+        configured.
+        """
         return parsed
 
 

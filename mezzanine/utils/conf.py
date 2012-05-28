@@ -19,8 +19,10 @@ def set_dynamic_settings(s):
 
     # Moves an existing list setting value to a different position.
     move = lambda n, k, i: s[n].insert(i, s[n].pop(s[n].index(k)))
-    # Add a value to a list setting if not in the list.
+    # Add a value to the end of a list setting if not in the list.
     append = lambda n, k: s[n].append(k) if k not in s[n] else None
+    # Add a value to the start of a list setting if not in the list.
+    prepend = lambda n, k: s[n].insert(0, k) if k not in s[n] else None
 
     s["TEMPLATE_DEBUG"] = s.get("TEMPLATE_DEBUG", s.get("DEBUG", False))
     add_to_builtins("mezzanine.template.loader_tags")
@@ -65,7 +67,7 @@ def set_dynamic_settings(s):
                     s["INSTALLED_APPS"].append(app)
     if "debug_toolbar" in s["INSTALLED_APPS"]:
         debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
-        append("MIDDLEWARE_CLASSES", debug_mw)
+        prepend("MIDDLEWARE_CLASSES", debug_mw)
     if "compressor" in s["INSTALLED_APPS"]:
         append("STATICFILES_FINDERS", "compressor.finders.CompressorFinder")
 
@@ -102,8 +104,8 @@ def set_dynamic_settings(s):
     # Remove caching middleware if no backend defined.
     if not (s.get("CACHE_BACKEND") or s.get("CACHES")):
         s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if not
-                                   mw.endswith("UpdateCacheMiddleware") or
-                                   mw.endswith("FetchFromCacheMiddleware")]
+                                   (mw.endswith("UpdateCacheMiddleware") or
+                                    mw.endswith("FetchFromCacheMiddleware"))]
 
     # Some settings tweaks for different DB engines.
     for (key, db) in s["DATABASES"].items():

@@ -1,4 +1,4 @@
-{% load i18n rating_tags i18n %}
+{% load mezzanine_tags rating_tags i18n %}
 
 <div class="panel rating">
 
@@ -11,7 +11,9 @@
 </p>
 
 <form method="post" action="{% url rating %}">
+    {% nevercache %}
     {% csrf_token %}
+    {% endnevercache %}
     <ul>{{ form_for_rating.as_ul }}</ul>
     <input type="submit" class="btn" value="{% trans "Rate" %}"
         onclick="return $(this.form).find('input:checked').length == 1;">

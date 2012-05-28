@@ -1,3 +1,5 @@
+{% load mezzanine_tags %}
+
 {% if form_for_fields.non_field_errors %}
 <div class="control-group error non-field-errors">
     {% for error in form_for_fields.non_field_errors %}
@@ -5,8 +7,12 @@
     {% endfor %}
 </div>
 {% endif %}
+
+{% nevercache %}
 <input type="hidden" name="referrer" value="{{ request.META.HTTP_REFERER }}">
 {% csrf_token %}
+{% endnevercache %}
+
 {% for field in form_for_fields %}
 {% if field.is_hidden %}
 {{ field }}

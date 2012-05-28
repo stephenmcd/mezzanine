@@ -25,18 +25,28 @@ def current_site_id():
       - ``SITE_ID`` setting.
 
     """
+    from mezzanine.utils.cache import cache_installed, cache_get, cache_set
     request = current_request()
     site_id = getattr(request, "site_id", None)
     if request and not site_id:
         site_id = request.session.get("site_id", None)
         if not site_id:
             domain = request.get_host().lower()
-            try:
-                site = Site.objects.get(domain__iexact=domain)
-            except Site.DoesNotExist:
-                pass
-            else:
-                site_id = site.id
+            if cache_installed():
+                # Don't use Mezzanine's cache_key_prefix here, since it
+                # uses this very function we're in right now to create a
+                # per-site cache key.
+                cache_key = settings.CACHE_MIDDLEWARE_KEY_PREFIX + ".site_id"
+                site_id = cache_get(cache_key)
+            if not site_id:
+                try:
+                    site = Site.objects.get(domain__iexact=domain)
+                except Site.DoesNotExist:
+                    pass
+                else:
+                    site_id = site.id
+                    if cache_installed():
+                        cache_set(cache_key, site_id)
         if request and site_id:
             request.site_id = site_id
     if not site_id:

@@ -5,17 +5,16 @@
 {% block main %}{{ block.super }}
 
 {% if request.GET.sent %}
-    {% editable page.form.response %}
     {{ page.form.response|safe }}
-    {% endeditable %}
 {% else %}
-    {# editable page.form.content #}
     {{ page.form.content|safe }}
-    {# endeditable #}
     <form method="post" class="form"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        {% nevercache %}
+        <input type="hidden" name="referrer" value="{{ request.META.HTTP_REFERER }}">
         {% csrf_token %}
+        {% endnevercache %}
         {{ form.as_p }}
-        <input class="button" type="submit" value="{{ page.form.button_text }}" />
+        <input class="button" type="submit" value="{{ page.form.button_text }}">
     </form>
 {% endif %}
 
