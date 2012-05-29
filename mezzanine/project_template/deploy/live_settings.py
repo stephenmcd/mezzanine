@@ -16,6 +16,8 @@ DATABASES = {
     }
 }
 
+CACHE_MIDDLEWARE_SECONDS = 60
+
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
