@@ -17,6 +17,7 @@ _deprecated = {
     "DeviceAwareFetchFromCacheMiddleware": "FetchFromCacheMiddleware",
 }
 
+
 class _Deprecated(object):
     def __init__(self, *args, **kwargs):
         from warnings import warn
