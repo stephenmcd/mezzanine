@@ -11,6 +11,25 @@ from mezzanine.utils.device import templates_for_device
 from mezzanine.utils.sites import templates_for_host
 
 
+_deprecated = {
+    "AdminLoginInterfaceSelector": "AdminLoginInterfaceSelectorMiddleware",
+    "DeviceAwareUpdateCacheMiddleware": "UpdateCacheMiddleware",
+    "DeviceAwareFetchFromCacheMiddleware": "FetchFromCacheMiddleware",
+}
+
+class _Deprecated(object):
+    def __init__(self, *args, **kwargs):
+        from warnings import warn
+        msg = "mezzanine.core.middleware.%s is deprecated." % self.old
+        if self.new:
+            msg += (" Please change the MIDDLEWARE_CLASSES setting to use "
+                    "mezzanine.core.middleware.%s" % self.new)
+        warn(msg)
+
+for old, new in _deprecated.items():
+    globals()[old] = type(old, (_Deprecated,), {"old": old, "new": new})
+
+
 class AdminLoginInterfaceSelectorMiddleware(object):
     """
     Checks for a POST from the admin login view and if authentication is
@@ -33,14 +52,6 @@ class AdminLoginInterfaceSelectorMiddleware(object):
         return None
 
 
-class AdminLoginInterfaceSelector(AdminLoginInterfaceSelectorMiddleware):
-    def __init__(self):
-        import warnings
-        old = "mezzanine.core.middleware.AdminLoginInterfaceSelector"
-        warnings.warn("%s is deprecated. Please change the MIDDLEWARE_CLASSES "
-                      "setting to use %sMiddleware" % (old, old))
-
-
 class TemplateForDeviceMiddleware(object):
     """
     Inserts device-specific templates to the template list.
@@ -61,24 +72,6 @@ class TemplateForHostMiddleware(object):
             templates = templates_for_host(request, response.template_name)
             response.template_name = templates
         return response
-
-
-class DeviceAwareUpdateCacheMiddleware(object):
-    def __init__(self):
-        import warnings
-        old = "mezzanine.core.middleware.DeviceAwareUpdateCacheMiddleware"
-        new = "mezzanine.core.middleware.UpdateCacheMiddleware"
-        warnings.warn("%s is deprecated. Please change the MIDDLEWARE_CLASSES "
-                      "setting to use %s" % (old, new))
-
-
-class DeviceAwareFetchFromCacheMiddleware(object):
-    def __init__(self):
-        import warnings
-        old = "mezzanine.core.middleware.DeviceAwareFetchFromCacheMiddleware"
-        new = "mezzanine.core.middleware.FetchFromCacheMiddleware"
-        warnings.warn("%s is deprecated. Please change the MIDDLEWARE_CLASSES "
-                      "setting to use %s" % (old, new))
 
 
 class UpdateCacheMiddleware(object):
