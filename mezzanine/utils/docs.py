@@ -68,6 +68,10 @@ def build_changelog(docs_path, package_name="mezzanine"):
     changelog_file = os.path.join(project_path, changelog_filename)
     versions = SortedDict()
     repo = None
+    ignore = ("AUTHORS", "formatting", "typo", "pep8", "whitespace",
+              "README", "translation", "print debug", "debugging",
+              "tabs", "style", "sites", "ignore", "tweak", "cleanup",
+              "minor")
     hotfixes = {
         "40cbc47b8d8a": "1.0.9",
         "a25749986abc": "1.0.10",
@@ -93,6 +97,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
         # and if it is, pull it out and assign it as a variable.
         files = cs.files()
         new_version = False
+        description = cs.description().rstrip(".").replace("\n", "")
         if version_file in files:
             for line in cs[version_file].data().split("\n"):
                 if line.startswith(version_var):
@@ -106,31 +111,35 @@ def build_changelog(docs_path, package_name="mezzanine"):
                     }
                     new_version = len(files) == 1
         # Ignore changesets that are merges, bumped the version, closed
-        # a branch or regenerated the changelog itself.
+        # a branch, regenerated the changelog itself, contain an ignore
+        # word, or are one word long.
         merge = len(cs.parents()) > 1
         branch_closed = len(files) == 0
         changelog_update = changelog_filename in files
-        if merge or new_version or branch_closed or changelog_update:
+        ignored = [w for w in ignore if w.lower() in description.lower()]
+        one_word = len(description.split()) == 1
+        if (merge or new_version or branch_closed or changelog_update or
+            ignored or one_word):
             continue
         # Ensure we have a current version and if so, add this changeset's
         # description to it.
+        hotfix = hotfixes.get(cs.hex()[:12])
+        version = None
         try:
             version = locals()[version_var]
         except KeyError:
-            continue
-        else:
-            description = cs.description().rstrip(".").replace("\n", "")
-            user = cs.user().split("<")[0].strip()
-            entry = "%s - %s" % (description, user)
-            if entry not in versions[version]["changes"]:
-                hotfix = hotfixes.get(cs.hex()[:12])
-                if hotfix:
-                    versions[hotfix] = {
-                        "changes": [entry],
-                        "date": _changeset_date(cs).strftime("%b %d, %Y"),
-                    }
-                else:
-                    versions[version]["changes"].insert(0, entry)
+            if not hotfix:
+                continue
+        user = cs.user().split("<")[0].strip()
+        entry = "%s - %s" % (description, user)
+        if hotfix or entry not in versions[version]["changes"]:
+            if hotfix:
+                versions[hotfix] = {
+                    "changes": [entry],
+                    "date": _changeset_date(cs).strftime("%b %d, %Y"),
+                }
+            else:
+                versions[version]["changes"].insert(0, entry)
 
     # Write out the changelog.
     with open(changelog_file, "w") as f:
