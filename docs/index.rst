@@ -32,7 +32,8 @@ well as a :doc:`model-graph` depicting the relationships between all
 the models.
 
 **System administrators** can find out about some of the production
-requirements and operations in the :doc:`deployment` section.
+requirements and operations in the :doc:`deployment` and
+:doc:`caching-strategy` sections.
 
 **Further reading** includes :doc:`frequently-asked-questions`, a
 section on :doc:`user-accounts`, information about Mezzanine's
@@ -51,6 +52,7 @@ browse the auto-generated docs for each of Mezzanine's :doc:`packages`.
     model-graph
     device-handling
     inline-editing
+    caching-strategy
     deployment
     frequently-asked-questions
     user-accounts
