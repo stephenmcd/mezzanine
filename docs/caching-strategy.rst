@@ -79,11 +79,11 @@ originally described the technique.
 
     The template code inside ``nevercache`` and ``endnevercache`` will
     only have access to template tags and variables provided by a
-    normal request context. This excludes any variables passed to the
-    template from a view function. Variables added via context
+    normal request context, with the exception of any variables passed
+    to the template from a view function. Variables added via context
     processors such as the current request and via Mezzanine's
     settings will be available. Template tag libraries should be
-    loaded inside these areas of content in order to make use of their
+    loaded inside these areas of content so as to make use of their
     template tags.
 
 Mint Cache
