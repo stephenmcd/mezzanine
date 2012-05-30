@@ -100,8 +100,8 @@ along with a new expiry time using the value of
 ``CACHE_SET_DELAY_SECONDS``. In this case, no cache entry is returned,
 which has the effect of essentially faking a cache miss, so that the
 caller can know to regenerate the cache entry. This approach ensures
-that real cache misses never actually occur, so only one client will
-ever perform regeneration of a cache entry.
+that cache misses never actually occur and that (almost) only one
+client will ever perform regeneration of a cache entry.
 
 Mezzanine's mint cache is based on `this snippet
 <http://djangosnippets.org/snippets/793/>`_ created by
