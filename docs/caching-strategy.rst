@@ -14,9 +14,9 @@ production site with a cache backend installed.
     By using Mezzanine's bundled deployment tools, Mezzanine's caching
     will be properly configured and in use for your production site.
     Consult the :doc:`deployment` section for more information. If you
-    would like to have a cache backend configured but use a different
-    caching strategy, simply removed the cache middleware described
-    next.
+    would like to have a cache backend configured but to use a
+    different caching strategy, simply remove the cache middleware
+    described in the next section.
 
 Cache Middleware
 ================
