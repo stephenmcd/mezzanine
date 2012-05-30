@@ -6,7 +6,7 @@ Mezzanine takes great care to appropriately minimize database queries.
 This strategy enables Mezzanine to perform well without a caching
 configuration. However, caching is also well-supported in the event
 that you wish to implement customized caching for your Mezzanine site.
-Mezzanine is pre-configured to cache aggressively when deployed to a
+Mezzanine is preconfigured to cache aggressively when deployed to a
 production site with a cache backend installed.
 
 .. note::
