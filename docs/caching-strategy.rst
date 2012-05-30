@@ -62,7 +62,7 @@ object, including session-specific data.
 
 Accordingly, Mezzanine provides the start and end template tags
 ``nevercache`` and ``endnevercache``. Content wrapped in these tags
-will ensure that the enclosed content is not cached. With two-phased
+will not be cached. With two-phased
 rendering, the page is cached without any of the template code
 inside ``nevercache`` and ``endnevercache`` executed for the first
 phase. The second phase then occurs after the page is retrieved from
