@@ -30,9 +30,9 @@ cache>`_, and behaves in a similar way.
 
 Pages are fetched from cache by
 ``mezzanine.core.middleware.FetchFromCacheMiddleware``, which should
-be at the end of the ``MIDDLEWARE_CLASSES`` setting and therefore
-activated at the end of the request phase. If a cache miss occurs, the
-request is marked as requiring a cache update, which is handled by
+appear at the end of the ``MIDDLEWARE_CLASSES`` setting and therefore
+be activated at the end of the request phase. If a cache miss occurs,
+the request is marked as requiring a cache update, which is handled by
 ``mezzanine.core.middleware.UpdateCacheMiddleware``, which in turn
 should appear at the start of ``MIDDLEWARE_CLASSES`` and therefore
 activated at the end of the response phase.
