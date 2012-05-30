@@ -35,7 +35,7 @@ be activated at the end of the request phase. If a cache miss occurs,
 the request is marked as requiring a cache update, which is handled by
 ``mezzanine.core.middleware.UpdateCacheMiddleware``, which in turn
 should appear at the start of ``MIDDLEWARE_CLASSES`` and therefore
-activated at the end of the response phase.
+be activated at the end of the response phase.
 
 Mezzanine's cache middleware differs from its Django counterpart in
 a few subtle yet significant ways:
