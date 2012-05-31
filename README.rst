@@ -5,19 +5,19 @@
 Overview
 ========
 
-Mezzanine is a content management platform built using the `Django`_
-framework. It is `BSD licensed`_ and designed to provide both a
-consistent interface for managing content, and a simple, extensible
-architecture that makes diving in and hacking on the code as easy as
-possible.
+Mezzanine is a powerful, consistent, and flexible content management
+platform. Built using the `Django`_ framework, Mezzanine provides a
+simple yet highly extensible architecture that encourages diving in
+and hacking on the code. Mezzanine is `BSD licensed`_ and supported by
+a diverse and active community.
 
-Mezzanine resembles tools like `Wordpress`_, with an intuitive
-interface for managing pages, blog posts, form data, store products,
-or any other type of content you can imagine. Mezzanine takes a
-different approach from other Django applications in this space like
-`Pinax`_ or `Mingus`_ that glue together a lot of reusable apps,
-instead opting to provide most of its functionality included with the
-project by default.
+In some ways, Mezzanine resembles tools such as `Wordpress`_ that
+provide an intuitive interface for managing pages, blog posts, form
+data, store products, and other types of content. But Mezzanine is
+also different. Unlike many other platforms that make extensive use of
+modules or reusable applications, Mezzanine provides most of its
+functionality by default. This approach yields a more integrated and
+efficient platform.
 
 Visit the `Mezzanine project page`_ to see some of the great sites
 people have built using Mezzanine.
@@ -25,17 +25,17 @@ people have built using Mezzanine.
 Features
 ========
 
-On top of all the usual features provided by Django such as MVC
-architecture, ORM, templating, caching and the automatic admin
-interface, Mezzanine provides the following features:
+In addition to the usual features provided by Django such as MVC
+architecture, ORM, templating, caching and an automatic admin
+interface, Mezzanine provides the following:
 
   * Hierarchical page navigation
   * Save as draft and preview on site
   * Scheduled publishing
-  * Drag-n-drop page ordering
+  * Drag-and-drop page ordering
   * WYSIWYG editing
   * `In-line page editing`_
-  * Drag-n-drop HTML5 forms builder with CSV export
+  * Drag-and-drop HTML5 forms builder with CSV export
   * `Custom templates`_ per page or blog post
   * `Twitter Bootstrap`_ integration
   * API for `custom content types`_
@@ -45,10 +45,10 @@ interface, Mezzanine provides the following features:
   * Seamless integration with third-party Django apps
   * Multi-device detection and template handling
   * Shopping cart module (`Cartridge`_)
-  * Blogging engine
+  * Blog engine
   * Tagging
   * One step migration from other blogging engines
-  * `Disqus`_ integration or built-in threaded comments
+  * `Disqus`_ integration for built-in threaded comments
   * `Gravatar`_ integration
   * `Google Analytics`_ integration
   * `Twitter`_ feed integration
@@ -65,8 +65,8 @@ The Mezzanine admin dashboard:
 Dependencies
 ============
 
-Mezzanine makes use of as few libraries as possible, apart from a
-standard Django environment. The following dependencies are used:
+Mezzanine makes use of as few libraries as possible (apart from a
+standard Django environment), with the following dependencies:
 
   * `Python`_ 2.5 ... 2.7
   * `Django`_ 1.3 ... 1.4
@@ -89,19 +89,19 @@ Installation
 ============
 
 The easiest method is to install directly from pypi using `pip`_ by
-running the respective command below, which will also install the
-required dependencies mentioned above::
+running the command below, which will also install the required
+dependencies mentioned above::
 
     $ pip install -U mezzanine
 
-Otherwise you can download Mezzanine and install it directly from
+If you prefer, you can download Mezzanine and install it directly from
 source::
 
     $ python setup.py install
 
-Once installed, the command ``mezzanine-project`` should be available
-which can be used for creating a new Mezzanine project in a similar
-fashion to ``django-admin.py``::
+Once installed, the command ``mezzanine-project`` can be used to
+create a new Mezzanine project in similar fashion to ``django-
+admin.py``::
 
     $ mezzanine-project project_name
     $ cd project_name
@@ -113,55 +113,56 @@ fashion to ``django-admin.py``::
     The ``createdb`` is a shortcut for using Django's ``syncdb``
     command and setting the initial migration state for `South`_. You
     can alternatively use ``syncdb`` and ``migrate`` if preferred.
-    South is automatically added to INSTALLED_APPS if the ``USE_SOUTH``
-    setting is set to ``True``.
+    South is automatically added to INSTALLED_APPS if the
+    ``USE_SOUTH`` setting is set to ``True``.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and
-log in using the default account (``username: admin, password: default``).
-If you'd like to specify a different username and password during set
-up, simply exclude the ``--noinput`` option included above when running
-``createdb``.
+log in using the default account (``username: admin, password:
+default``). If you'd like to specify a different username and password
+during set up, simply exclude the ``--noinput`` option included above
+when running ``createdb``.
 
 For information on how to add Mezzanine to an existing Django project,
-see the FAQs section of the documentation.
+see the FAQ section of the documentation.
 
 Contributing
 ============
 
-Mezzanine is an open source project that is managed using both Git and
+Mezzanine is an open source project managed using both the Git and
 Mercurial version control systems. These repositories are hosted on
 both `GitHub`_ and `Bitbucket`_ respectively, so contributing is as
 easy as forking the project on either of these sites and committing
 back your enhancements.
 
-Please note the following points around contributing:
+Please note the following guidelines for contributing:
 
   * Contributed code must be written in the existing style. This is
-    as simple as following the `Django coding style`_ and most
-    importantly `PEP 8`_.
-  * Contributions must be available on a separately named branch that
-    is based on the latest version of the main branch.
+    as simple as following the `Django coding style`_ and (most
+    importantly) `PEP 8`_.
+  * Contributions must be available on a separately named branch
+    based on the latest version of the main branch.
   * Run the tests before committing your changes. If your changes
-    causes the tests to break, they won't be accepted.
-  * If you're adding new functionality, you must include basic tests
+    cause the tests to break, they won't be accepted.
+  * If you are adding new functionality, you must include basic tests
     and documentation.
 
 Language Translations
 =====================
 
-Mezzanine makes full use of translation strings, which allows it to be
-translated into multiple languages using `Django's internationalization`_.
-Translations are managed on the `Transiflex`_ website, but can also be
-submitted via `GitHub`_ or `Bitbucket`_. Consult the documentation for
-`Django's internationalization`_ for more information on creating
+Mezzanine makes full use of translation strings, which allow Mezzanine
+to be translated into multiple languages using `Django's
+internationalization`_ methodology. Translations are managed on the
+`Transiflex`_ website but can also be submitted via `GitHub`_ or
+`Bitbucket`_. Consult the documentation for `Django's
+internationalization`_ methodology for more information on creating
 translations and using them.
 
 Third-party Modules
 ===================
 
 The following modules have been developed outside of Mezzanine. If you
-have developed a module to integrate with Mezzanine and would like it
-listed here, send an email to the `mezzanine-users`_ mailing list.
+have developed a module to integrate with Mezzanine and would like to
+list it here, send an email to the `mezzanine-users`_ mailing list.
 
   * `mezzanine-html5boilerplate`_ - Integrates the
     `html5boilerplate project`_  into Mezzanine.
@@ -177,21 +178,21 @@ listed here, send an email to the `mezzanine-users`_ mailing list.
 Donating
 ========
 
-If you would like to make a donation to continue development of the
-project, you can do so via the `Mezzanine Project`_ website.
+If you would like to make a donation to continue development of
+Mezzanine, you can do so via the `Mezzanine Project`_ website.
 
 Support
 =======
 
 To report a security issue, please send an email privately to
-`security@jupo.org`_. This gives us a chance to fix this issue and
-create an official release for it, prior to the issue being made
+`security@jupo.org`_. This gives us a chance to fix the issue and
+create an official release prior to the issue being made
 public.
 
-For general questions or comments, please join the
-`mezzanine-users`_ mailing list. To report a bug or other
-type of issue, please use the `GitHub issue tracker`_. There's also a
-`#mezzanine IRC channel`_ on `Freenode`_, so drop by for a chat.
+For general questions or comments, please join the `mezzanine-users`_
+mailing list. To report a bug or other type of issue, please use the
+`GitHub issue tracker`_. And feel free to drop by the `#mezzanine
+IRC channel`_ on `Freenode`_, for a chat.
 
 Sites Using Mezzanine
 =====================
@@ -235,6 +236,7 @@ Sites Using Mezzanine
   * `Connecting Countries <http://connectingcountries.net>`_
   * `tindie.com <http://tindie.com>`_
   * `Environmental World Products <http://ewp-sa.com>`_
+  * `Ross A. Laird <http://rosslaird.com>`_
 
 Quotes
 ======
