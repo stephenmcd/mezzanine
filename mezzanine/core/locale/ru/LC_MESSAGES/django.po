@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-05-31 02:44+0400\n"
 "PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
@@ -57,7 +57,7 @@ msgstr "Описание"
 
 #: models.py:106
 msgid "Generate description"
-msgstr "Описание"
+msgstr "Генерировать описание"
 
 #: models.py:107
 msgid ""
@@ -129,15 +129,15 @@ msgstr "Извините, возникла ошибка."
 msgid "Search"
 msgstr "Поиск"
 
-#: templates/base.html:116
+#: templates/base.html:121
 msgid "Powered by"
 msgstr "Сайт использует"
 
-#: templates/base.html:119
+#: templates/base.html:124
 msgid "and"
 msgstr "и"
 
-#: templates/base.html:125
+#: templates/base.html:130
 msgid "View Mobile Site"
 msgstr "Мобильная версия"
 
