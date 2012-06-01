@@ -38,7 +38,7 @@ class OverExtendsNode(ExtendsNode):
     context dictionary for each template name this occurs for, and on
     subsequent runs for the same template name in a single page, we
     reuse this directory list, removing each absolute directory that
-    gets used. This allows for inheritence to reach beyond a single
+    gets used. This allows for inheritance to reach beyond a single
     step, so a project template can extend itself from a third-party
     app version, which extends itself from our own app's version.
 
@@ -50,7 +50,7 @@ class OverExtendsNode(ExtendsNode):
 
         # These imports want Django settings, which won't be available
         # when this module is imported to ``add_to_builtins``, so do
-        #them here.
+        # them here.
         from django.template.loaders.app_directories import app_template_dirs
         from mezzanine.conf import settings
 
@@ -72,7 +72,7 @@ class OverExtendsNode(ExtendsNode):
                 # also store the list of directories to reuse in the
                 # template context, and remove each directory we use
                 # each time a circular extend occurs. This way circular
-                # inheritence can each beyond a single level.
+                # inheritance can reach beyond a single level.
                 if not hasattr(t, "origin"):
                     # Template won't have an origin during tests, so
                     # we can't determine it s path - just bail out.
@@ -86,7 +86,7 @@ class OverExtendsNode(ExtendsNode):
                     context[context_name][parent] = all_dirs
                     # This is the first circular extend for this
                     # template name. Remove the initial directory for
-                    # the first inheritence step.
+                    # the first inheritance step.
                     context[context_name][parent].remove(template_dirname(t))
                 next = find_template(parent, context[context_name][parent])[0]
                 # Remove the origin for the next parent (the one we'll
@@ -95,7 +95,7 @@ class OverExtendsNode(ExtendsNode):
                 # circular extends for this template name.
                 context[context_name][parent].remove(template_dirname(next))
                 return next
-        return get_template(parent)
+        return t
 
 
 @register.tag
