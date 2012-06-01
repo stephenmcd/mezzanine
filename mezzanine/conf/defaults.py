@@ -499,9 +499,9 @@ register_setting(
 register_setting(
     name="SSL_ENABLED",
     label=_("Enable SSL"),
-    description=_("If ``True``, users will be automatically redirected to HTTPS "
-                "for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` "
-                "setting."),
+    description=_("If ``True``, users will be automatically redirected to "
+        "HTTPS for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` "
+        "setting."),
     editable=True,
     default=False,
 )
