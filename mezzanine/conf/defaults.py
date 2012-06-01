@@ -438,7 +438,8 @@ RICHTEXT_FILTER_LEVELS = (
 
 register_setting(
     name="RICHTEXT_FILTER_LEVEL",
-    description="*Do not change this setting unless you know what you're "
+    label=_("Rich Text filter level"),
+    description=_("*Do not change this setting unless you know what you're "
         "doing.*\n\nWhen content is saved in a Rich Text (WYSIWYG) field, "
         "unsafe HTML tags and attributes are stripped from the content to "
         "protect against staff members intentionally adding code that could "
@@ -453,7 +454,7 @@ register_setting(
         "when the filtering level is set to high.\n\n"
         "Setting the filtering level to no filtering, will disable all "
         "filtering, and allow any code to be entered by staff members, "
-        "including script tags.",
+        "including script tags."),
     editable=True,
     choices=RICHTEXT_FILTER_LEVELS,
     default=RICHTEXT_FILTER_LEVEL_HIGH,
@@ -498,9 +499,9 @@ register_setting(
 register_setting(
     name="SSL_ENABLED",
     label=_("Enable SSL"),
-    description="If ``True``, users will be automatically redirected to HTTPS "
+    description=_("If ``True``, users will be automatically redirected to HTTPS "
                 "for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` "
-                "setting.",
+                "setting."),
     editable=True,
     default=False,
 )
@@ -508,8 +509,8 @@ register_setting(
 register_setting(
     name="SSL_FORCE_HOST",
     label=_("Force Host"),
-    description="Host name that the site should always be accessed via that "
-                "matches the SSL certificate.",
+    description=_("Host name that the site should always be accessed via that "
+                "matches the SSL certificate."),
     editable=True,
     default="",
 )
