@@ -193,12 +193,13 @@ class Displayable(Slugged, MetaData):
             self.publish_date = now()
         super(Displayable, self).save(*args, **kwargs)
 
-    def since(self):
+    def publish_date_since(self):
         """
-        Returns the time since the post was created.
+        Returns the time since ``publish_date``.
         """
         return timesince(self.publish_date)
-    since.short_description = _('Since')
+    publish_date_since.short_description = _("Published from")
+
 
 class RichText(models.Model):
     """

@@ -2,6 +2,8 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model, Field
 
+from mezzanine.conf import settings
+
 
 def base_concrete_model(abstract, instance):
     """
@@ -40,6 +42,27 @@ def base_concrete_model(abstract, instance):
         if issubclass(cls, abstract) and not cls._meta.abstract:
             return cls
     return instance.__class__
+
+
+class AdminThumbMixin(object):
+    """
+    Provides a thumbnail method on models for admin classes to
+    reference in the ``list_display`` definition.
+    """
+
+    admin_thumb_field = None
+
+    def admin_thumb(self):
+        thumb = None
+        if self.admin_thumb_field:
+            thumb = getattr(self, self.admin_thumb_field, None)
+        if thumb is None:
+            return ""
+        from mezzanine.core.templatetags.mezzanine_tags import thumbnail
+        thumb_url = thumbnail(thumb, 24, 24)
+        return "<img src='%s%s'>" % (settings.MEDIA_URL, thumb_url)
+    admin_thumb.allow_tags = True
+    admin_thumb.short_description = ""
 
 
 class ModelMixinBase(type):
