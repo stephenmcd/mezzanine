@@ -1,8 +1,6 @@
 
 from django.db.models import Manager
 
-from mezzanine.utils.cache import cache_installed
-
 
 class TweetManager(Manager):
     """
@@ -25,7 +23,7 @@ class TweetManager(Manager):
             return
         from mezzanine.twitter.models import Query
         query, created = Query.objects.get_or_create(type=type, value=value)
-        if created or cache_installed():
+        if created:
             query.run()
         elif not query.interested:
             query.interested = True
