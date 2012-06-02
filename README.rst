@@ -48,6 +48,7 @@ interface, Mezzanine provides the following:
   * Blog engine
   * Tagging
   * One step migration from other blogging engines
+  * Automated production provisioning and deployments
   * `Disqus`_ integration, or built-in threaded comments
   * `Gravatar`_ integration
   * `Google Analytics`_ integration
