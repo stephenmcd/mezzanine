@@ -3,6 +3,7 @@ import os
 import sys
 from functools import wraps
 from getpass import getpass, getuser
+from glob import glob
 from contextlib import contextmanager
 
 from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, hide
@@ -302,7 +303,26 @@ def create():
          "LC_CTYPE = '%s' LC_COLLATE = '%s' TEMPLATE template0;" %
          (env.proj_name, env.proj_name, env.locale, env.locale))
 
-    # Set up project
+    # Set up SSL certificate.
+    conf_path = "/etc/nginx/conf"
+    if not exists(conf_path):
+        sudo("mkdir %s" % conf_path)
+    with cd(conf_path):
+        crt_file = env.proj_name + ".crt"
+        key_file = env.proj_name + ".key"
+        if not exists(crt_file) and not exists(key_file):
+            try:
+                crt_local, = glob(os.path.join("deploy", "*.crt"))
+                key_local, = glob(os.path.join("deploy", "*.key"))
+            except ValueError:
+                parts = (crt_file, key_file, env.live_host)
+                sudo("openssl req -new -x509 -nodes -out %s -keyout %s "
+                     "-subj '/CN=%s' -days 3650" % parts)
+            else:
+                upload_template(crt_file, crt_local, use_sudo=True)
+                upload_template(key_file, key_local, use_sudo=True)
+
+    # Set up project.
     upload_template_and_reload("settings")
     with project():
         if env.reqs_path:
@@ -340,6 +360,11 @@ def remove():
         remote_path = template["remote_path"]
         if exists(remote_path):
             sudo("rm %s" % remote_path)
+    with cd("/etc/nginx/conf"):
+        for ext in (".key", ".crt"):
+            f = env.proj_name + ext
+            if exists(f):
+                sudo("rm %s" % f)
     psql("DROP DATABASE %s;" % env.proj_name)
     psql("DROP USER %s;" % env.proj_name)
 
@@ -364,7 +389,7 @@ def restart():
 def deploy():
     """
     Check out the latest version of the project from version
-    control, install new requirements, sync andmigrate the database,
+    control, install new requirements, sync and migrate the database,
     collect any new static assets, and restart gunicorn's work
     processes for the project.
     """
