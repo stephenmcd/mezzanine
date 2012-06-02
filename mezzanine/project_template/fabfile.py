@@ -404,7 +404,7 @@ def deploy():
         upload_template_and_reload(name)
     with project():
         git = env.repo_url.startswith("git")
-        run("git pull" if git else "hg pull && hg up -C")
+        run("git pull -f" if git else "hg pull && hg up -C")
         if env.reqs_path:
             pip("-r %s/%s" % (env.proj_path, env.reqs_path))
         manage("syncdb --noinput")
