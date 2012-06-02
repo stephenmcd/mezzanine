@@ -5,8 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.core.fields import FileField
 from mezzanine.core.models import Displayable, Ownable, RichText, Slugged
+from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 from mezzanine.generic.fields import CommentsField, RatingField
-
 
 class BlogPost(Displayable, Ownable, RichText):
     """
@@ -40,6 +40,20 @@ class BlogPost(Displayable, Ownable, RichText):
             kwargs.update({"month": month, "year": self.publish_date.year})
         return (url_name, (), kwargs)
 
+    def thumb(self, image_size=50, noimage=''):
+        """
+        Default thumbnail. Normally used in admin models.
+        """
+        if settings.BLOG_USE_FEATURED_IMAGE:
+            if self.featured_image:
+                image_url = thumbnail(self.featured_image, image_size, image_size)
+            else:
+                image_url = noimage
+
+            return u'<img src="%s%s" height="%s" width="%s" />' % (settings.MEDIA_URL, image_url, image_size, image_size)
+        return None
+    thumb.allow_tags        = True
+    thumb.short_description = 'Thumbnail'
 
 class BlogCategory(Slugged):
     """
