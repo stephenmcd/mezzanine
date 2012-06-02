@@ -7,14 +7,14 @@ from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
 from mezzanine.core.admin import DisplayableAdmin, OwnableAdmin
 
-
 blogpost_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 blogpost_fieldsets[0][1]["fields"].insert(1, "categories")
 blogpost_fieldsets[0][1]["fields"].append("content")
 blogpost_fieldsets[0][1]["fields"].append("allow_comments")
+blogpost_list_display = ("title", "user", "status", "admin_link")
 if settings.BLOG_USE_FEATURED_IMAGE:
     blogpost_fieldsets[0][1]["fields"].insert(-2, "featured_image")
-
+    blogpost_list_display = ("thumb", "title", "user", "status", "admin_link")
 
 class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
     """
@@ -22,7 +22,7 @@ class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
     """
 
     fieldsets = blogpost_fieldsets
-    list_display = ("title", "user", "status", "admin_link")
+    list_display = blogpost_list_display
     filter_horizontal = ("categories",)
 
     def save_form(self, request, form, change):
