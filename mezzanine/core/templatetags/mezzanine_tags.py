@@ -2,7 +2,7 @@
 from __future__ import with_statement
 from hashlib import md5
 import os
-from urllib import urlopen, urlencode, unquote
+from urllib import urlopen, urlencode, quote, unquote
 
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -228,7 +228,7 @@ def thumbnail(image_url, width, height, quality=95):
     if not os.path.exists(thumb_dir):
         os.makedirs(thumb_dir)
     thumb_path = os.path.join(thumb_dir, thumb_name)
-    thumb_url = "%s/%s" % (settings.THUMBNAILS_DIR_NAME, thumb_name)
+    thumb_url = "%s/%s" % (settings.THUMBNAILS_DIR_NAME, quote(thumb_name))
     image_url_path = os.path.dirname(image_url)
     if image_url_path:
         thumb_url = "%s/%s" % (image_url_path, thumb_url)
