@@ -5,6 +5,7 @@ from django.db import models
 from django.db.models.base import ModelBase
 from django.template.defaultfilters import truncatewords_html
 from django.utils.html import strip_tags
+from django.utils.timesince import timesince
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import RichTextField
@@ -192,6 +193,12 @@ class Displayable(Slugged, MetaData):
             self.publish_date = now()
         super(Displayable, self).save(*args, **kwargs)
 
+    def since(self):
+        """
+        Returns the time since the post was created.
+        """
+        return timesince(self.publish_date)
+    since.short_description = _('Since')
 
 class RichText(models.Model):
     """
