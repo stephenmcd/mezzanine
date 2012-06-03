@@ -14,6 +14,13 @@ List of fields to exclude from the profile form.
 
 Default: ``()``
 
+``ACCOUNTS_PROFILE_VIEWS_ENABLED``
+----------------------------------
+
+If ``True``, users will have their own public profile pages.
+
+Default: ``False``
+
 ``ACCOUNTS_VERIFICATION_REQUIRED``
 ----------------------------------
 
@@ -83,6 +90,13 @@ Default: ``False``
 Enable featured images in blog posts
 
 Default: ``False``
+
+``CACHE_SET_DELAY_SECONDS``
+---------------------------
+
+Mezzanine's caching uses a technique know as mint caching. This is where the requested expiry for a cache entry is stored with the cache entry in cache, and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a cache get, the store expiry is checked, and if it has past, the cache entry is set again, and no entry is returned. This tries to ensure that cache misses never occur, and if many clients were to get a cache miss at once, only one would actually need to re-generated the cache entry.
+
+Default: ``30``
 
 ``COMMENTS_ACCOUNT_REQUIRED``
 -----------------------------

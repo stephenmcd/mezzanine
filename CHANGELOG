@@ -1,3 +1,178 @@
+Version 1.1.0 (Jun 03, 2012)
+----------------------------
+
+  * Added MetaData.gen_description bool field for controlling whether description fields are automatically populated via MetaData.description_from_content - Stephen McDonald
+  * Emit the comment_was_posted signal in the comments view - Stephen McDonald
+  * Correctly handle model field defaults in the quick blog post form - Stephen McDonald
+  * Added the setting COMMENTS_ACCOUNT_REQUIRED, which when True, will store an unauthenticated user's comment in the session and redirect to login/signup, and save their comment once they're authenticated - Stephen McDonald
+  * Use setting names as labels if they're missing - Stephen McDonald
+  * Wrap data access in migrations with checks against the dry_run arg - Stephen McDonald
+  * added missing fr django.mo for the conf app - Nicolas Perriault
+  * Only pre-populate name in the comment form with the user's username if it's not their email address, which it is by default - Stephen McDonald
+  * Always use the name from the comment form, rather than the user's username, since by default it's their email address - Stephen McDonald
+  * Use comments.select_related(user) when loading comments, since Django's Comment model will query for the user each time a comment is loaded - Stephen McDonald
+  * Added the setting ACCOUNTS_VERIFICATION_REQUIRED which when set to True, will create new accounts as inactive, and send the user an email with a verification link to activate their account - Stephen McDonald
+  * Remove invalid examples of gettext in settings module - Stephen McDonald
+  * Fixed slug-based template name loading for non-ascii slugs - Stephen McDonald
+  * Fix unencoded template names from slugs in blog also - Stephen McDonald
+  * Added the SLUGIFY which takes a dotted Python path to the slugify function to use when converting strings into slugs. Defaults to mezzanine.utils.urls.slugify_unicode which allows for non-ascii URLs - Stephen McDonald
+  * Use the text required for the help text for required fields in mezzanine.forms when no help text is entered - Stephen McDonald
+  * Add HTML5 features to the comments form - Stephen McDonald
+  * Added akismet.com spam filtering for comments and forms. API key must be configured by the AKISMET_API_KEY setting - Stephen McDonald
+  * Fixed assignment of page permissions in the admin page tree - Stephen McDonald
+  * Hide the delete button for mezzanine.core.admin.SingletonAdmin - Stephen McDonald
+  * Added the view mezzanine.core.static_proxy which is used to serve TinyMCE plugin templates, and uploadify's SWF, as these break with cross-domain errors when STATIC_URL is an external host - Stephen McDonald
+  * Fix with statement in Python 2.5 - Stephen McDonald
+  * Bump grappelli and filebrowser versions - Stephen McDonald
+  * Fix grappelli version - Stephen McDonald
+  * Moved all user account features into a new app mezzanine.accounts - Stephen McDonald
+  * Handle non-ascii filenames on non-utf8 filesystems. Convert filenames and warn when saving them, and raise exceptions if trying to access them and the filesystem encoding has changed. Closes #186 - Stephen McDonald
+  * Add new exceptions module - Stephen McDonald
+  * Added the decorator mezzanine.pages.decorators.for_page, which can be used for wrapping views that map to protected pages. The decorator adds the page instance to the template context, and handles login redirects if page.login_required is True.. Applied to the blog views, and also added handling for login_required on the blog page in the blog feeds, which if True, stops the feeds from producing any blog posts or meta data - Stephen McDonald
+  * Grammar fix - Stephen McDonald
+  * Don't disconnect the default site signal if we're not connecting our own one - Stephen McDonald
+  * Only try and modify template lists when they're available - not the case when the response is pulled from cache - Stephen McDonald
+  * Added the ifisinstalled template tag to replace the is_installed template filter, which properly handles include tags when the given app is not installed. Closes #181 - Stephen McDonald
+  * Allow pages without children to serve as targets for sortable - Aleksandr Vladimirskiy
+  * Fixed regression in admin login interface selector middleware. Closes #192 - Stephen McDonald
+  * Fixed ifinstalled template tag so that it removes all tokens, not just include tags. Closes #193 - Stephen McDonald
+  * Use prefetch_related in Django 1.4 for categories and keywords in the blog post list view. Closes #190 - Stephen McDonald
+  * Backout admin tree empty child fix for now as it doesn't work quite correctly - Stephen McDonald
+  * Fixed settings docs generator. Closes #189 - Stephen McDonald
+  * Refactoring of blog feed viewReturns a http 404 instead of http 500 when the feed does not exists - Thomas Wajs
+  * Clean up the blog feeds - Stephen McDonald
+  * Dev started in 2009 - Stephen McDonald
+  * Added fix for thumbnail generation which would previously not work for images which contained special characters in the file path and used url encoding - Kowaleski, Jason
+  * Added page import to wordpress - Alvin Mites
+  * restore utils/device for fork - Alvin Mites
+  * Added blog post content for the feed description - Thomas Wajs
+  * Allow the homepage to be login protected - Stephen McDonald
+  * Added handling for filebrowser's FileBrowseField directory arg. Closes #202 - Stephen McDonald
+  * Increased field lengths for Displayable.title from 100 to 500 and Displayable.slug from 100 to 2000 - Stephen McDonald
+  * Move ajax csrf setup into its own JS file that's loaded even when a popup interface is loaded. Closes #206 - Stephen McDonald
+  * Remove redundant cast - Stephen McDonald
+  * Added the new app mezzanine.accounts, which handles user login, signup, update, password reset, profile, and integration with Django's user->profile features - Stephen McDonald
+  * Use ifinstalled for the accounts user panel - Stephen McDonald
+  * Added some commas to the username format error - Stephen McDonald
+  * Give the admin drop-down menu elements the same hover/click state as their anchors. Also closes #208 - Stephen McDonald
+  * Bump filebrowser-safe to 0.2.5 - Stephen McDonald
+  * Properly handle optional file upload fields in mezzanine.forms - Stephen McDonald
+  * clarify south usage in overview - Brian Schott
+  * Fix user_panel.html layouts - Stephen McDonald
+  * Manually assign the parent to each page in the page_menu template tag, to prevent queries being triggered if they're accessed - Stephen McDonald
+  * Update notes about dependencies, and remove notes about setuptools - Stephen McDonald
+  * fixed docstring error in mezzanine_tags.ifinstalled - Brian Schott
+  * Added dynamic validation for content in DisplayableAdmin based on the value of status - Stephen McDonald
+  * Added handling for slug-based template when the homepage is a page object - Stephen McDonald
+  * Add handling for Django 1.4's timezone support - Stephen McDonald
+  * Remove DEBUG check from site/content signals, and prompt the user for the site domain in interactive mode, with local/live fallbacks for non-interactive mode - Stephen McDonald
+  * Added optional support for django-compressor - Stephen McDonald
+  * Fix thumb_url for root images on remote CDNs - Stephen McDonald
+  * Remove old fixes for Postgres and timezones - Stephen McDonald
+  * Allow initial dicts to be used for forms in mezzanine.forms - Stephen McDonald
+  * Update to new gravatar_url in comments admin - Stephen McDonald
+  * Use Django 1.4's bulk_create when creating field entries in mezzanine.forms - Stephen McDonald
+  * Added multi-tenancy support. A threadlocal object is used to store the current request, and a custom manager for site-related models is used, that checks for the current request and matches the host to a site domain. Current site can also be defined by a session var (for the admin), and an environment var (for management commands) - Stephen McDonald
+  * Made some visual enhancements to the settings admin, added support for settings with choices, and added the RICHTEXT_FILTER_LEVEL setting with choices for controlling the level of HTML filtering that occurs on the RichTextField - Stephen McDonald
+  * Proper timezone support for tweets - Stephen McDonald
+  * Update docs on multi-site to describe the new multi-tenancy approach - Stephen McDonald
+  * Use default STATICFILES_FINDERS setting when setting up compressor - Stephen McDonald
+  * Update travis config to test multiple Django versions - Stephen McDonald
+  * Fix Django install for travis - Stephen McDonald
+  * Added IRC notifications for travis builds - Stephen McDonald
+  * added remote url config script - Kent Hauser
+  * improved collecttemplates conflict messages - Kent Hauser
+  * remove git.config.sh for pull request - Kent Hauser
+  * Added mezzanine.pages.middleware.PageMiddleware, which handles loading the current page, running page processors, and checking page.login_required. Previously handled in mezzanine.pages.views.page, but move to middleware to allow pages to point to non-page urlpatterns, without any configuration via the now redundant page_for decorator. The page view remains for handling template selection and 404 handling - Stephen McDonald
+  * Added fabfile and configs for server setup and deploys - Stephen McDonald
+  * allow H1s in tinymce - lexual
+  * Handle homepage as page object in the new age middleware - Stephen McDonald
+  * Added a Link content type for creating external URLs in the page tree - Stephen McDonald
+  * Update Van's title - Stephen McDonald
+  * Added the setting ACCOUNTS_MIN_PASSWORD_LENGTH for minimum password length for user accounts - Stephen McDonald
+  * Added the setting ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS for excluding profile model fields from the profile form - Stephen McDonald
+  * Ensure min password length in accounts tests - Stephen McDonald
+  * Hides pagination if only one page - Renyi Khor
+  * Allow auth.User fields to be excluded from the profile form via the ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS setting - Stephen McDonald
+  * Initial docs for the bundled fab deployments - Stephen McDonald
+  * fix i18n settings title in admin - Dmitry Falk
+  * Don't show excluded profile fields in profile view - Stephen McDonald
+  * Allow existing virtualenvs to be removed/replaced in fabfile - Stephen McDonald
+  * Added handling for settings with choices in settings doc generator - Stephen McDonald
+  * Added docs for mezzanine.accounts - Stephen McDonald
+  * Added optional quality arg to be passed to the thumbnail tag, and changed default from 100 to 95 as per PIL docs. Closes #221 - Stephen McDonald
+  * Ensure responses in PageMiddleware are valid responses for adding context to via page processors, eg not redirects - Stephen McDonald
+  * Added the {% overextends %} built-in template tag which allows templates to be both overridden and extended at the same time - Stephen McDonald
+  * Prettify fab outout - Stephen McDonald
+  * In-line edit enhancements re-align on show/resize/expand - Van Nguyen
+  * Added body resize event for triggering realign of edit controls - Stephen McDonald
+  * added dropdown menu support - Brian Schott
+  * added default navlist sidebar - Brian Schott
+  * only activate current page - Brian Schott
+  * Fix original image links in gallery template - Stephen McDonald
+  * Refactored fabfile:- Move all templates into a config- Move template upload and optional reload into deploy- Added crontab handling - Stephen McDonald
+  * Add proc name to gunicorn conf - Stephen McDonald
+  * Clean up the new primary dropdown menu - Stephen McDonald
+  * Fixed non field errors in fields_for template tag - Stephen McDonald
+  * Merge navlist into tree menu - Stephen McDonald
+  * In fabfile, prompt to create project if it doesn't exist on deploy - Stephen McDonald
+  * Require hosts in fabfile - Stephen McDonald
+  * Ensure fabfile has hosts, and imports settings from the current path - Stephen McDonald
+  * Clean up ^M characters at end of lines using dos2unix and find:find . -type f -exec egrep -q $'\r$' {} \; -exec dos2unix {} \; - Thomas Lockhart
+  * Fix missing </li> tag - Pavel Ponomarev
+  * fix get_absolute_url for homepage - Dmitry Falk
+  * Allow superuser password to be defined in fabric settings, and create superuser if defined - Stephen McDonald
+  * Added the setting ACCOUNTS_PROFILE_VIEWS_ENABLED for explicitly enabling public profile pages, which defaults to False - Stephen McDonald
+  * Only validate fabric settings when fab is run - Stephen McDonald
+  * Shadow the admin password in fabfile - Stephen McDonald
+  * Add handling for the hotfix releases in the changelog builder - Stephen McDonald
+  * Allow large uploads in nginx.conf - Stephen McDonald
+  * Don't fail on fabfile import (for docs build) - Stephen McDonald
+  * Added owner/mode handling for templates in fabfile - Stephen McDonald
+  * Fix keyword queries in blog listing - Stephen McDonald
+  * Use standard page in mobile blog post listing - Stephen McDonald
+  * Add a cache-busting querystring to device switching - Stephen McDonald
+  * add some verbose names for blog - Dmitry Falk
+  * Remove deprecated clear attr from br tags. Closes #241 - Stephen McDonald
+  * Added some more notes around twitter cron jobs - Stephen McDonald
+  * Fixed docstring - Stephen McDonald
+  * Sync .po files - Sebastián Ramírez Magrí
+  * Fixed initial values for entry instances on multi-value fields - Stephen McDonald
+  * Better locale error messages - Stephen McDonald
+  * Added Mezzanine's own cache system - combination of Django's cache middleware, two-phased render cache, and mint cache - Stephen McDonald
+  * Added robots.txt/favicon.ico handling in nginx.conf - Stephen McDonald
+  * Added docs for the new cache middleware - Stephen McDonald
+  * Clean up the deprecated middleware classes - Stephen McDonald
+  * Default CACHE_MIDDLEWARE_SECONDS to a minute in deployed settings - Stephen McDonald
+  * Add SECURE_PROXY_SSL_HEADER to deployed settings. Closes #246 - Stephen McDonald
+  * Fix var names in deploy configs - Stephen McDonald
+  * Cleaned up descriptive text - Ross Laird
+  * Added "timesince" to displayable - Renyi Khor
+  * Added thumbnail to blogpost admin - Renyi Khor
+  * Add SSL config to nginx.conf and self signed cert setup to fabfile - Stephen McDonald
+  * git pull -f in deploy - Stephen McDonald
+  * Added mezzanine.utls.models.AdminThumbMixin which provides a method for admin classes to refernce in their list_display that will render a thumbnail. Used for BlogPost.featured_image and Product.image in Cartridge - Stephen McDonald
+  * Revert cache changes to Twitter queries - since authenticated users bypass the cache, and the Twitter call will generate a lot of queries - Stephen McDonald
+  * Quote thumb names in thumbnail template tag - Stephen McDonald
+  * Use cache backend for sessions in deployed settings - Stephen McDonald
+  * Don't remove key/cert when blowing away a deployed instance in fabfile - Stephen McDonald
+  * Use the parent breadcrumb in blog templates, so as not to assume a single root blog page - Stephen McDonald
+  * Rewrite Page.set_menu_helpers to use the currently viewed page instead of the current URL - Stephen McDonald
+  * Ensure Page.get_absolute_url returns absolute URLs for Link page types - Stephen McDonald
+  * Allow overridden pages (eg the blog) to be deleted and have child pages added to - Stephen McDonald
+  * Recompile all .mo files - Closes #250. Closes #251 - Stephen McDonald
+  * Right-align drop-down menus when .pull-right is used - Stephen McDonald
+
+Version 1.0.10 (Apr 28, 2012)
+-----------------------------
+
+  * Bump filebrowser-safe for security fix to 0.2.6 - Stephen McDonald
+
+Version 1.0.9 (Apr 27, 2012)
+----------------------------
+
+  * Add HTML sanitizing on RichTextField instances. Closes #211 - Stephen McDonald
+
 Version 1.0.8 (Mar 24, 2012)
 ----------------------------
 
@@ -9,7 +184,6 @@ Version 1.0.8 (Mar 24, 2012)
 Version 1.0.7 (Mar 24, 2012)
 ----------------------------
 
-  * Added html5shiv for IE to recognise and style the HTML5 elements - Paolo Dina
   * Fixed body_id block - Stephen McDonald
   * Upgrade Bootstrap to 2.0.2 - Stephen McDonald
 
@@ -19,7 +193,6 @@ Version 1.0.6 (Mar 22, 2012)
   * Fixed draft status for quick blog form in dashboard. Closes #172 - Stephen McDonald
   * Format newlines in the quick blog form since the expected format is HTML - Stephen McDonald
   * Markup validation improvements - Paolo Dina
-  * Added Paolo Dina to AUTHORS - Stephen McDonald
 
 Version 1.0.5 (Mar 20, 2012)
 ----------------------------
@@ -44,34 +217,23 @@ Version 1.0.3 (Mar 19, 2012)
   * Update mezzanine/blog/locale/ru/LC_MESSAGES/django.po - Mikhail
   * Update mezzanine/conf/locale/ru/LC_MESSAGES/django.po - Mikhail
   * Internal refactoring of abstract models in mezzanine.core. Move admin_link from Displayable to Slugged, since it is more closely related to URLs. Move description_from_content from Slugged to MetaData, since it is more related to description on MetaData. Don't rely on title in description_from_content, just use string version of an instance, which is title anyway via Slugged - Stephen McDonald
-  * Fixed some comment typos - Stephen McDonald
   * Added handling for having 'save' and 'save and continue' in SingletonAdmin - Stephen McDonald
   * Make pillow an optional dependency, only used when PIL isn't installed - Stephen McDonald
   * Added bootstrap's collapsible navbar, upgraded jQuery to 1.7, and added a setting JQUERY_FILENAME so that the jQuery file/version is stored in one place - Stephen McDonald
   * Fix cyclic import in Django 1.4 - Stephen McDonald
   * Don't abort on graph generation in docs build, since we can use the repo version of it - Stephen McDonald
   * Pin exact versions in dependencies - Stephen McDonald
-  * Remove Django 1.4 from supported versions in README - Stephen McDonald
   * Fix form export encoding - Stephen McDonald
-  * Added Tommy Wolber to AUTHORS - Stephen McDonald
-  * Update translations from transifex - Sebastián Ramírez Magrí
   * Updated database settings to use prefixed formatunprefixed format removed from django 1.4. Added django.db.backends. tosettings.py and local_settings.py templates - Patrick Taylor
   * Clean up db settings and remove helpers from mezzanine.utils.conf - Stephen McDonald
-  * Add vcs ignore files to project_template - Stephen McDonald
-  * Added Patrick Taylor to AUTHORS - Stephen McDonald
-  * Update translations from transifex adding nb - Sebastián Ramírez Magrí
   * Added more info and examples of different homepage patterns in project_template/urls.py - Stephen McDonald
   * Added FAQs section to docs - Stephen McDonald
   * Skinned the docs to be in line with the Mezzanine project's homepage styling - Stephen McDonald
-  * Docs cleanup - Stephen McDonald
-  * Fixed formatting - Stephen McDonald
   * Added storage API to thumbnail template tag, and zip upload for galleries - Stephen McDonald
   * Fix use of with statement for Python 2.5 - Stephen McDonald
   * Use django's conf at the module level in mezzanine.core.fields, so that fields can be loaded prior to mezzanine.conf being loaded - Stephen McDonald
   * Exclude static dir from package - Stephen McDonald
-  * FAQs tweak - Stephen McDonald
   * Added the collecttemplates management command, for copying all (or app specific) templates to a project - Stephen McDonald
-  * Fixed typo - Stephen McDonald
   * Actual collecttemplates command - Stephen McDonald
   * Added secure arg and default expiry seconds to mezzanine.utils.views.set_cookie - Stephen McDonald
   * Added mezzanine.utils.email.send_mail_template for sending templated email, and integrated with mezzanine.forms. Closes #165 - Stephen McDonald
@@ -88,7 +250,6 @@ Version 1.0.3 (Mar 19, 2012)
 Version 1.0.2 (Mar 06, 2012)
 ----------------------------
 
-  * Fix docstring typo in Displayable's save method - Michał Oleniec
   * Update setup to exclude new dev db name - Stephen McDonald
 
 Version 1.0.1 (Mar 06, 2012)
@@ -100,32 +261,18 @@ Version 1.0.1 (Mar 06, 2012)
   * Remove mention of site_media which no longer applies with staticfiles used - Stephen McDonald
   * Avoid file-in-use exception when deleting (on Windows) - Chris Trengove
   * Added quote by Antonio Rodriguez and one line bio for each of the quoters - Stephen McDonald
-  * Added Chris Trengove to AUTHORS - Stephen McDonald
-  * Fix typo in EXTRA_MODEL_FIELDS example - Michał Oleniec
   * Fix a couple of test failures on Windows - Chris Trengove
-  * Fixed typo in content-arch docs - Chris Smith
-  * pep8 fixes and docstring cleanup - Stephen McDonald
-  * More pep8 fixes - unused imports - Stephen McDonald
-  * Added Chris Smith to AUTHORS - Stephen McDonald
 
 Version 1.0.0 (Mar 03, 2012)
 ----------------------------
 
   * Added www.diablo-news.com as web site using mezzanine - wesleyb
-  * Update README.rst - John Barham
-  * Added catalan translations - pokoli
-  * Added IJC Digital to sites in README - Stephen McDonald
   * Fixed runserver arg parsing for grappelli media hosting. Closes #110 - Stephen McDonald
   * Added a note to the docs about not subclassing RichTextPage - Stephen McDonald
   * Raise a more meaningful error message when someone tries to subclass a custom content type, which isn't supported - Stephen McDonald
-  * Fixed missing translation import - Stephen McDonald
-  * Added Coopers to sites in README - Stephen McDonald
   * Every model mixing Slugged in with a cyclical dependency fails with dumpdata in current Django (including a tree with a fix applied for Django ticket #14226). The natural key declared in Slugged is the culprit - derkaderka
-  * Added Kevin Levenstein to AUTHORS - Stephen McDonald
   * Added category support - Josh
   * Bookmarks are removed from grappelli_safe - Stephen McDonald
-  * Added Josh Batchelor to AUTHORS - Stephen McDonald
-  * Update translations - Sebastián Ramírez Magrí
   * Fixed duplicate keyword handling regression and added support for automatically removing unused keywords. Closes #116 - Stephen McDonald
   * Added patching of django.contrib.admin.site in mezzanine.boot to defer certains calls to unregister/register to work around some loading issues for custom model fields - Stephen McDonald
   * Removed unused import - Stephen McDonald
@@ -133,15 +280,12 @@ Version 1.0.0 (Mar 03, 2012)
   * Register FORMS_DISABLE_SEND_FROM_EMAIL_FIELD in mezzanine.conf - Stephen McDonald
   * Fixed migration forms/0003 failure for Postgres - Luke Plant
   * Fixed dependencies of migrations, so that './manage.py migrate' works even if starting from scratch - Luke Plant
-  * In README, clarified that use of 'createdb' is optional and 'syncdb' and 'migrate' can be used as normal - Luke Plant
   * Added installation instructions for adding Mezzanine to an existing project - Luke Plant
-  * README formatting fix - Stephen McDonald
   * Added a generic RSS blog importer - Stephen McDonald
   * Added a type attribute to fields in mezzanine.forms.forms.FormForForm for use in styling, and removed CSS class assignments - Stephen McDonald
   * Addedmezzanine.mobile commented out to INSTALLED_APPS in project_template.settings - Stephen McDonald
   * Fixed authentication check in base admin template - Stephen McDonald
   * Ported default templates from 960.gs to Twitter Bootstrap - Stephen McDonald
-  * Added Luke Plant to AUTHORS - Stephen McDonald
   * Merge paging links settings into a single MAX_PAGING_LINKS setting - Stephen McDonald
   * Cleaned up settings ordering - Stephen McDonald
   * Stub out empty comment forms in the context for the comments test - Stephen McDonald
@@ -152,11 +296,7 @@ Version 1.0.0 (Mar 03, 2012)
   * Fix template path for cartridge hook - Stephen McDonald
   * Added Number and URL field types to mezzanine.forms - Stephen McDonald
   * Unicode fixes for MS Excel in forms export - Stephen McDonald
-  * Tweak footer formatting - Stephen McDonald
-  * Added Zdeněk Softič to AUTHORS - Stephen McDonald
-  * Moved setting cleanup into a single query - Stephen McDonald
   * Added a work-around for performance issues with jQuery.ui.sortable and large page trees - Stephen McDonald
-  * Cleaned up whitespace - Stephen McDonald
   * Add pillow as a dependency for getting PIL install properly - Stephen McDonald
   * Added handling in PageAdmin for picking up any extra fields defined by subclasses of Page, when the admin class being used doesn't implement any fieldsets - Stephen McDonald
   * Added a wrapper field mezzanine.core.fields.FileField for filebrowser's FileBrowseField, falling back to Django's FileField if unavailable - Stephen McDonald
@@ -172,14 +312,10 @@ Version 1.0.0 (Mar 03, 2012)
   * Device detection uses lowercase strings - Alvin Mites
   * Added unique URLs for gallery photo overlays - Stephen McDonald
   * Updated device checking based on conversation from Stephen McDonald - Alvin Mites
-  * Added Alvin Mites to AUTHORS - Stephen McDonald
   * Added a num_children attribute to page objects in page menus - Stephen McDonald
-  * Updated translations from transifex - Sebastián Ramírez Magrí
   * Changed LICENSE from 3-clause to 2-clause BSD - Stephen McDonald
-  * Updated ignore - Stephen McDonald
   * Fixed unicode handling in gallery image description from name - Stephen McDonald
   * Added gallery image tests - Stephen McDonald
-  * Added a replacement post_syncdb handler for the sites app that points to runserver's default host:port - Stephen McDonald
   * Added demo fixtures for galleries - Stephen McDonald
   * Add Blog Featured ImagesAdded featured images for blogs as well as settings to turn the featureon and off - Josh
   * Migration file for Featured image and setting the field to null - Josh
@@ -210,25 +346,18 @@ Version 1.0.0 (Mar 03, 2012)
   * Moved account functionality from Cartridge into Mezzanine, and added data migrations for editable setting name changes - Stephen McDonald
   * Make generated fields in mezzanine.generic (_string, _count, _average, etc) uneditable, to prevent them from appearing in admin change views that don't have explicit admin classes registered - Stephen McDonald
   * Ensure generated fields in mezzanine.generic are unique instances - Stephen McDonald
-  * Only style the primary menu when it's in the top nav - Stephen McDonald
   * Fixed branch clicking in admin page tree so that open/close for a branch doesn't toggle its children (Thanks Jason Kowaleski) - Stephen McDonald
   * Changed admin dropdown menu to be injected into breadcrumb area, rather than floating on it, to allow for the breadcrumb background to wrap with menu items when the browser window is thin - Stephen McDonald
   * Fixed admin page tree on reload.The problem occured when reloading a page after setting an open child branch'sparent as closed. When you reloaded a page the routine that wouldreopen previously opened child branches (that are currently hidden by a parent)was causing said child branch displaying both the show(+) and hide(-)icons side by side which could be seen when reopening the parent.It would also cause this said hidden, opened child branchto no longer be registered in the opened branch cookie. So if you were toreload the page again, this branch wouldn't be opened at all.The solution involves simply reopening all previously opened branches onreload without worrying about adding their ID's again to the cookie. It alsoavoids using the Jquery toggle() function which seemed to be the problemthat caused both the show(+) and hide(-) buttons to appear - Kowaleski, Jason
   * Dummy commit - Stephen McDonald
   * Refactored rating form and templatetag to remove hard-coded field name - Stephen McDonald
-  * Added sheerethic.com to sites - Stephen McDonald
   * Raise exception if any of the generic fields are used multiple times on the same model, since we don't have access to the field being modified in the signals - Stephen McDonald
-  * Added saltlakemagazine.com and bocamag.com to sites - Stephen McDonald
-  * Add German and Italian translations from transifex - Sebastián Ramírez Magrí
   * Added migrations for mezzanine.galleries - Stephen McDonald
   * Fail silently and return an empty list for objects given without a KeywordsField - Stephen McDonald
   * Refactored comment handling into its own view, and removed mezzanine.generic.utils.handle_comments - Stephen McDonald
   * Revert previous change for removing hard-coded rating field name, and remove the hard-coded field name by simply finding the first RatingField for the given object, since there can only be one - Stephen McDonald
-  * Misc tweaks to static file names and locations in line with Django 1.4 - Stephen McDonald
   * Fix logic in form export - Stephen McDonald
-  * Added photog.me to list of sites using mezzanine - Josh Cartmell
   * In mezzanine.forms, allow FormEntry instances to be provided for FormForForm and handle loading and updating FieldEntry values - Stephen McDonald
-  * Move site links in README into inline links - Stephen McDonald
   * Update packages docs and re-generate settings docs - Stephen McDonald
   * Remove unnecessary time_format handling in SplitSelectDateTimeWidget which doesn't exist in Django 1.4 - Stephen McDonald
   * Add missing messages context processor for Django 1.4 - Stephen McDonald
@@ -237,32 +366,18 @@ Version 1.0.0 (Mar 03, 2012)
   * Use a generic sqlite db name in local_settings.py - Stephen McDonald
   * Upgrade to Bootstrap 2.0 - Stephen McDonald
   * Added Javascript to show only pages with children in tree, and to update this after moving pages (via drag and drop) - Kowaleski, Jason
-  * Move bootstrap responsive into its own stylesheet, and use transparent panel backgrounds, for easier bootstrap theming - Stephen McDonald
-  * Tagline tweak - Stephen McDonald
-  * Add a bootstrap footer link and properly style footer separators - Stephen McDonald
-  * Added elephantjuicesoup.com and nationalpositions.co.uk to sites in README - Stephen McDonald
-  * Added Nicola Larosa to AUTHORS, and mezzanine-stackato to third party projects in README - Stephen McDonald
   * Add fallback for blog title when blog page isn't available - Stephen McDonald
   * Fix gallery overlay close handler - Stephen McDonald
   * Add the missing viewport for the responsive layout to work correctly - Stephen McDonald
-  * Update dependency notes for Grappelli and Filebrowser in README. Closes #137 and #138 - Stephen McDonald
-  * Fix dependency links in README - Stephen McDonald
-  * Add Like Humans Do to sites using Mezzanine - scobuntu
   * Updating doc for model customization, registering works better in admin.py - Ismail Dhorat
-  * README tweaks - Stephen McDonald
   * More responsive footer - Stephen McDonald
   * Change the template copying option in the mezzanine-project script to default to False - Stephen McDonald
   * Create entries for empty fields, so that export filtering works correctly - Stephen McDonald
   * Added travis config - Stephen McDonald
   * Setup local_settings template when testing - Stephen McDonald
-  * Add pep8/pyflakes to ci build - Stephen McDonald
-  * Added build status badge to README - Stephen McDonald
   * Updated -t help text to reflect that it is no longer the default - Josh Cartmell
   * Updated the mezzanine-project command to have a -m option which must be specified to copy over mobile templates.  The -t option now skips over mobile templates - Josh Cartmell
-  * Enabled inline styling to image elements in TinyMCE.Added inline_styles and set it to true.Also added style to the list of valid style elements - Anders Hofstee
   * Removed the make_grappelli/filebrowser_safe scripts as they're no longer useful since we've customized those packages - Stephen McDonald
-  * pep8 fixes - Stephen McDonald
-  * Add Anders Hofstee to AUTHORS - Stephen McDonald
   * Remove themes from feature list - Stephen McDonald
   * Restore requirements - Stephen McDonald
   * Version bump to 1.0 - Stephen McDonald
@@ -270,15 +385,11 @@ Version 1.0.0 (Mar 03, 2012)
 Version 0.12.4 (Dec 03, 2011)
 -----------------------------
 
-  * pep8 fix - Stephen McDonald
-  * Update translations from transifex - Sebastián Ramírez Magrí
   * Synchronize PO files with tip - Sebastián Ramírez Magrí
-  * Add new translations from transifex for Estonian, French and Polish - Sebastián Ramírez Magrí
   * Synchronize PO files - Sebastián Ramírez Magrí
   * Added a note to the documentation overview about assumed Django knowledge with a reference to the tutorial - Stephen McDonald
   * Let messages fail silently for Django < 1.3 - stephenmcd
   * Don't rely on version checking for adding cookie-based messaging - stephenmcd
-  * Added pyflakes ignore for dummy import for messaging handling - stephenmcd
 
 Version 0.12.3 (Nov 23, 2011)
 -----------------------------
@@ -294,12 +405,7 @@ Version 0.12.2 (Nov 19, 2011)
 Version 0.12.1 (Nov 19, 2011)
 -----------------------------
 
-  * IDE config directory .idea added to .gitignore - Zdeněk Softič
-  * better try-except block (PEP8 compliant) - Zdeněk Softič
   * possibility to insert fieldsets' fields in classes extended from DisplayableAdmin (was not possible, tuples are immutable) - Zdeněk Softič
-  * Add transifex setup and spanish .po files - Sebastián Ramírez Magrí
-  * Update translations from transifex - Sebastián Ramírez Magrí
-  * Added Sebastián Magrí to AUTHORS - stephenmcd
   * Added handling in BaseGenericRelation for actual instance being deleted. Fixes #103 - stephenmcd
   * Added testing for correct keyword string population on keyword removal - stephenmcd
 
@@ -307,22 +413,16 @@ Version 0.12 (Nov 05, 2011)
 ---------------------------
 
   * added allow_comments flag to blog, and moved the site filed up the class hierarchy from Displayable to Slugged, plus migrations - legutierr
-  * fixes a typo bug - legutierr
-  * adds migration that attempts to deal with keywords that may be shared by related/assigned objects that exist on different sites - legutierr
   * KeywordManager needs to subclass CurrentSiteManager in order to take advantage of multi-site capability added to Slugged - legutierr
   * This is probably the most complex migration I have written.  Read inline comments for more information - legutierr
   * Fixed unicode handling in CSV export in the forms app - stephenmcd
   * Fixed Django 1.3/1.4 feed handling - stephenmcd
   * Added fallbacks for blog feed title and description for when the blog page doesn't exist - stephenmcd
   * Added response tests for the blog feeds - stephenmcd
-  * Fixed comment formatting - stephenmcd
   * Added handling for spaces in keywords - stephenmcd
-  * Removed debugging - stephenmcd
   * Fixed meta keywords loading in blog post templates - stephenmcd
   * Upgraded keyword handling in mobile templates - stephenmcd
   * Changed keywords_for template tag to handle None being given as an instance - stephenmcd
-  * Ignore local_settings.py in syntax check tests - stephenmcd
-  * Cleaned up docstring formatting - stephenmcd
   * Added support for using generic relations as order_with_respect_to on subclasses of Orderable, and applied to AssignedKeyword so that keyword order is maintained - stephenmcd
   * Fixed check for generic relations in Orderable - stephenmcd
   * Stringify secret_key because hmac hates unicode - Ken Bolton
@@ -343,44 +443,29 @@ Version 0.12 (Nov 05, 2011)
   * Initial attempt at a subclassable MixinModel for injecting fields and methods into external models - stephenmcd
   * Add png & gif thumbnailing. Support for filebrowser FileBrowseField thumbnailing - Ken Bolton
   * Somehow, this didn't make it up to my repo - Ken Bolton
-  * Removing bad whitespace - Ken Bolton
   * if setting in registry is no more registered, delete it from registry - btx
-  * Added a note about mezzanine-openshift to README - stephenmcd
-  * Added a note about branching requirements for contributions to README - stephenmcd
   * Cleaned up mezzanine.utils.conf.set_dynamic_settings - stephenmcd
   * Added sections to the model customizations docs about field injection caveats and exposing custom fields in the admin - stephenmcd
-  * Cleaned up whitespace - stephenmcd
-  * Removed invalid ignore file - stephenmcd
   * Updated grappelli version requirement - stephenmcd
 
 Version 0.11.10 (Sep 24, 2011)
 ------------------------------
 
-  * fix issue with the mouse loosing focus in dynamic inline fields. Affects Firefox usersadded an Italian translation message - Eli Spizzichino
   * Upgraded pyflakes test to handle latest version of pyflakes - stephenmcd
-  * Added pep8 tests and removed import checks so that pyflakes/pep8 are always required for tests - stephenmcd
-  * Changed pep8 test approach to subclass its checker to obtain correct information - stephenmcd
-  * pep8 fixes - stephenmcd
   * better fix by Stephen for dynamic inline fields focus issue - Eli Spizzichino
-  * More pep8 fixes - stephenmcd
   * Changed install command to only fake migrations when South is installed - stephenmcd
   * Renamed install command to createdb and added deprecation warning for install - stephenmcd
-  * Updated dependencies and install instructions in README - stephenmcd
 
 Version 0.11.9 (Sep 22, 2011)
 -----------------------------
 
-  * Added Melbourne Cup to sites in README - stephenmcd
   * Added defaults for cookie messaging with Django >= 1.3 - stephenmcd
   * Moved description and keywords fields out of Displayable and into their own MetaData abstract model - stephenmcd
-  * Cleaned up whitespace - stephenmcd
   * Added handling for changes to the syndication app in Django 1.4 - stephenmcd
   * Added feed imports to suppressed pyflakes warnings - stephenmcd
-  * Fixed typo in docstring - stephenmcd
   * Removed fixtures from tests - stephenmcd
   * Fixed device template test - stephenmcd
   * Enable iframe, xhtmlxtras in tinymce - Ken Bolton
-  * Fix typo - Ken Bolton
   * Bumped grappelli-safe version requirement - stephenmcd
 
 Version 0.11.8 (Aug 24, 2011)
@@ -397,28 +482,18 @@ Version 0.11.7 (Aug 19, 2011)
 Version 0.11.6 (Aug 13, 2011)
 -----------------------------
 
-  * Added List G Barristers to sites in README - stephenmcd
   * Decorate blog posts in blog_post_list with lists of categories and keywords - stephenmcd
-  * Added Tri-Cities Flower Farm to sites using Mezzanine in README - stephenmcd
   * Added a has_childen helper to page objects in the page menus - stephenmcd
-  * Generic module translated to Russian - Alexey Makarenya
   * Fixed styling of fixed footer in admin change form when Grappelli is not used - stephenmcd
-  * Added daon.ru to sites using Mezzanine in README - stephenmcd
-  * Full Russian translation for all Mezzanine modules - Alexey Makarenya
-  * Added autoindeks.ru and immiau.ru to sites in README - stephenmcd
-  * fixed quick blog size in russian translation - Alexey Makarenya
   * Fixed migration of object_pk in Rating and AssignedKeyword - David Prusaczyk
   * Added null defaults for generic migration fix - stephenmcd
-  * Added David Prusaczyk to AUTHORS - stephenmcd
   * Created an install management command that combines syncdb and migrate --fake to correct the issue of initial migrations failing with multiple apps. As a result reverted USE_SOUTH default to True and removed the handling of south for fixture loading - stephenmcd
   * Fixed a bug in orderable inlines where order fields would be wiped on inlines that only contain a file upload field - stephenmcd
   * Fixed quick-blog form styling to be fluid - stephenmcd
-  * Added Alexey Makarenya to AUTHORS - stephenmcd
   * Fixed bug with url field hiding logic - stephenmcd
   * Added a custom slugify function to mezzanine.utils.urls that preserves unicode chars to support non-English URLs - stephenmcd
   * Updated jquery-ui version. Fixes #80 - stephenmcd
   * Add placeholders for dynamic inline sorting - stephenmcd
-  * Fixed login interface selector so that next param is ignored if not an admin URL when admin interface is selected - stephenmcd
   * Fixed category decorator query in blog post list when there are no blog posts - stephenmcd
   * merging pending changes to mezzanine trunk - legutierr
   * Migration adding site field to dynamic settings needs to be split into separate schema and data migrations - legutierr
@@ -426,18 +501,13 @@ Version 0.11.6 (Aug 13, 2011)
   * fixed unicode encode error with cyrillic slugs in template loader - Andrew Grigrev
   * switch to turn comments  on blog posts on/off - Johnny Brown
   * fixed unicode encode error with cyrillic slugs in template loader in other places - Andrew Grigrev
-  * bug fixed: outdated l10n caused KeyErrors in string formatting while rendering templates... updated&compiled messages - Andrew Grigrev
   * changed google analytics js to what they gave me - Johnny Brown
-  * modified gitignore - Johnny Brown
   * selectively load analytics - Johnny Brown
   * Added ARA Consultants to site using Mezzanine - stephenmcd
-  * Added Boîte à Z'images to sites in README - stephenmcd
-  * Added link to sites gallery in README - stephenmcd
 
 Version 0.11.5 (Jul 04, 2011)
 -----------------------------
 
-  * Added new quote to README - stephenmcd
   * Changed device test to use a page it creates itself - stephenmcd
   * Updated old contentpage template in the mobile theme to richtextpage - stephenmcd
 
@@ -449,8 +519,6 @@ Version 0.11.4 (Jul 03, 2011)
   * Fixed some new pyflakes warnings - stephenmcd
   * Only run thumbnail test when the test image is in the current project (eg Mezzanine dev) - stephenmcd
   * Fixed tinyMCE setup to allow tables - Zeke Harris
-  * Added Zeke Harris to AUTHORS - stephenmcd
-  * Added third-party modules section to README - stephenmcd
   * Fix allowing inline editing of form content on form pages by avoiding naming conflicts with the inline editing form - Josh Cartmell
   * Update example settings. Fixes #70 - stephenmcd
   * Don't use HTML5 required attributes on multiple checkboxes - stephenmcd
@@ -459,15 +527,8 @@ Version 0.11.4 (Jul 03, 2011)
   * Proper setting of default values for GRAPPELLI_ADMIN_HEADLINE and _TITLE, to fix #74 - Ken Bolton
   * Proper setting of default values for GRAPPELLI_ADMIN_HEADLINE and _TITLE - Ken Bolton
   * Update the site for existing settings when migrating - stephenmcd
-  * italian translation for all app - Eli Spizzichino
-  * Added Ken Bolton to AUTHORS - stephenmcd
-  * Added Eli Spizzichino to AUTHORS - stephenmcd
-  * Added Ripe and Cotton On to sites using Mezzanine - stephenmcd
-  * minor tweaks to the italian translation - Eli Spizzichino
   * added post_count to blog_categories tag - Michael Delaney
-  * Removed/ignored DSStore files - stephenmcd
   * Added select_related for blog list view - stephenmcd
-  * Added Michael Delaney to AUTHORS - stephenmcd
 
 Version 0.11.3 (Jun 09, 2011)
 -----------------------------
@@ -478,7 +539,6 @@ Version 0.11.3 (Jun 09, 2011)
   * implementing richtext_filter - Owen Nelson
   * adding docs for RICHTEXT_FILTER setting - Owen Nelson
   * updated docs on how to customize RICHTEXT_FILTER - Owen Nelson
-  * Added Owen Nelson to AUTHORS - stephenmcd
 
 Version 0.11.2 (Jun 01, 2011)
 -----------------------------
@@ -491,7 +551,6 @@ Version 0.11.2 (Jun 01, 2011)
   * Fixed unicode handling in KeywordsWidget rendering - stephenmcd
   * Added pip requirments to project_template and use it to define Mezzanine's actual version number - stephenmcd
   * Fixed thumbnail test - stephenmcd
-  * Added Brent Hoover to AUTHORS - stephenmcd
   * Reverted change to storing version number to work with docs generation - stephenmcd
 
 Version 0.11.1 (May 24, 2011)
@@ -501,10 +560,6 @@ Version 0.11.1 (May 24, 2011)
   * Only look for tags if it isn't going to throw an AtributeError - rich
   * Only look for tags if it isn't going to throw an AttributeError - rich
   * whoops! Reinserted line that I shouldn't have deleted - rich
-  * Added Rich Atkinson to AUTHORS - stephenmcd
-  * Added notes around contributing to README - stephenmcd
-  * Added donation notes to README - stephenmcd
-  * Fixed typo in README - stephenmcd
   * Split ``mezzanine.core.admin.DynamicInlineAdmin`` out into ``TabularDynamicInlineAdmin`` and ``StackedDynamicInlineAdmin`` - stephenmcd
   * Fixed missing media from dynamic admin form - stephenmcd
   * Added the template filter is_installed which can be used to test for values in the INSTALLED_APPS setting from within templates - stephenmcd
@@ -522,7 +577,6 @@ Version 0.11.1 (May 24, 2011)
   * Added Single-Sign-On support to Disqus templates - Brett Clouser
   * Added handling for unauthenticated users and empty key settings for Disqus single sign-on - stephenmcd
   * Updated auto-generated settings docs - stephenmcd
-  * Added Brett Clouser to AUTHORS - stephenmcd
   * Added some sys.path fixing in manage.py to avoid some cron issues - stephenmcd
   * Changed object_pk fields to integer fields in the generic app to resolve some issues with Postgres - stephenmcd
   * Added migrations for object_pk change in generic. Fixes #66 - stephenmcd
@@ -535,10 +589,6 @@ Version 0.11 (Apr 30, 2011)
   * Made the default value for the ``DASHBOARD_TAGS`` setting dynamically created based on whether ``mezzanine.blog`` is in ``settings.INSTALLED_APPS`` - stephenmcd
   * Added commented-out versions of some common Mezzanine settings to the project_template's settings module - stephenmcd
   * French locale for all other apps - Dominique Guardiola
-  * Add Polish translation - Michał Oleniec
-  * Added Michał Oleniec to AUTHORS - stephenmcd
-  * Added a note to README about browser support - stephenmcd
-  * Added a heading to the browser info in README - stephenmcd
   * Updated inline-editing docs to include a note about the tags already being provided by themes - stephenmcd
   * Added setting for specifying the delimiter for CSV exports in the forms app - stephenmcd
   * Added an option to view entries in a HTML table when exporting for the forms app - stephenmcd
@@ -546,27 +596,8 @@ Version 0.11 (Apr 30, 2011)
   * Making Query.value a varchar(300) to allow for larger queries - John Campbell
   * make value length 140 instead of 300 since the max twitter query is 140 currently - John Campbell
   * Added migration for twitter query length - stephenmcd
-  * Added John Campbell to AUTHORS - stephenmcd
   * Converted blog categories to a ManyToManyField - stephenmcd
   * Added migration scripts for blog categories - stephenmcd
-  * Added russian translation of blog app - Andrew Grigorev
-  * Updated russian translation for core app - Andrew Grigorev
-  * Updated russian translation for forms app - Andrew Grigorev
-  * Minor update in russian translation of blog: s/Кем написан/Написал(а)/ - Andrew Grigorev
-  * Added russian translation of mobile app - Andrew Grigorev
-  * Updated russian translation for pages app - Andrew Grigorev
-  * Added russian translation of twitter app - Andrew Grigorev
-  * Fixed a bug in russian translation of blog app - Andrew Grigorev
-  * Updated russian translations - Andrew Grigorev
-  * Added Andrew Grigorev to AUTHORS - stephenmcd
-  * Added quotes from Audrey Roy and John Campbell to README - stephenmcd
-  * Added equityadvance.com.au to sites in README - stephenmcd
-  * Fixed Polish translation for core app - Michał Oleniec
-  * Fixed forms app compiled message file for Polish translation - Michał Oleniec
-  * Added Polish translation for conf app - Michał Oleniec
-  * Added Head3 Interactive to sites in README - stephenmcd
-  * Updated link to John Campbell in README - stephenmcd
-  * whitespace - Tom von Schwerdtner
   * not sure how there wasn't one of these already - Tom von Schwerdtner
   * Added post counts to archive and author listings for blog posts - stephenmcd
   * add a label to registered settings for a more human-friendly admin UI - Tom von Schwerdtner
@@ -575,7 +606,6 @@ Version 0.11 (Apr 30, 2011)
   * a (slightly) better default tagline... and make settings available to templates - Tom von Schwerdtner
   * Move the ``LOGIN_URL`` default into the project's settings module so it can be modified - stephenmcd
   * Modified the ``AdminLoginInterfaceSelector`` middleware to recognise ``next`` paramters in the querystring, and redirect to those regardless of the interface option selected on the login form - stephenmcd
-  * Added missing methods for the blog feed such as categories, authors and publish dates - stephenmcd
   * Applied ``SITE_TITLE`` and ``SITE_TAGLINE`` to templates - stephenmcd
   * Made description field for meta data into plain text - stephenmcd
   * Added descriptions for new settings - stephenmcd
@@ -591,23 +621,17 @@ Version 0.11 (Apr 30, 2011)
   * Changed mezzanine-project script to exclude admin templates - stephenmcd
   * Added note to deployment docs about setting up a cron job for Twitter feeds - stephenmcd
   * Added embedded robots.txt to prevent spidering when DEBUG is enabled - stephenmcd
-  * Added more tweaks to tinymce_setup.js for better handling of embedded media - stephenmcd
   * Fixed handling of anonymous comments in the Disqus API - stephenmcd
-  * Removed print debugging - stephenmcd
-  * Updated the mailing list link in README - stephenmcd
   * Changed handling of editable settings to force unicode for settings with string defaults. Fixes #52 - stephenmcd
   * Initial version of refactoring comments into Django's built-in comments, and moving them into the new generic package - stephenmcd
   * Added multi-site capability and tests, updated jso page fixtures to include site reference - legutierr
-  * grammar - legutierr
   * added migrations for the new site field on Displayable - legutierr
   * Fixed bug in login redirect - was defaulting to /accounts/profile/ upon login before and showing the logged in user a 404 error. Now defaults to /admin/ - Audrey M Roy
-  * Added Audrey Roy to AUTHORS - stephenmcd
   * Added migrate command to setup steps. Closes #54 - stephenmcd
   * Fixed incorrect tag lib name in template - stephenmcd
   * Added documentation regarding multi-site to the deployment page in the docs - legutierr
   * Fixed mezzanine-project script where an error would occur when more than one project template with admin templates was used - stephenmcd
   * Refactored the ``Keywords`` model to use generic relations and moved it and all related functionality into ``mezzanine.generic`` - stephenmcd
-  * Formatting fixes - stephenmcd
   * Fixed a bug where ``django.conf.settings`` would override ``mezzanine.conf.settings`` - stephenmcd
   * Added tests for keywords - stephenmcd
   * Added migrations for keywords - stephenmcd
@@ -615,47 +639,36 @@ Version 0.11 (Apr 30, 2011)
   * Fixed a potential circular import bug - stephenmcd
   * Added more error handling to the processor_for page processor decorator - stephenmcd
   * Added delete links to the admin page tree - stephenmcd
-  * Changed some tabs to spaces - stephenmcd
-  * Added support for slug based page_processors.  Adding slug=some_slug to the processor_for decorator will cause any specified content model to be ignored and the page_processor to only run for a page which matches the slug - Josh Cartmell
   * Updated search to respect published status - Josh Cartmell
   * Small fix to Keywords Field. Stops instance from saving if keyword data is empty - Osiloke Emoekpere
-  * Added pyladies.com to sites using Mezzanine in README - stephenmcd
   * Removed ``DEV_SERVER`` setting from local_settings module template, since this is defined dynamically - stephenmcd
   * Removed ``south`` from the ``OPTIONAL_APPS`` setting, since the addition of this to a project needs to be controlled manually, as the order of initial migrations for each app cannot be guarenteed and will break if used to create the tables for these apps. Added the ``USE_SOUTH`` boolean setting which can be defined to automatically have south added to ``INSTALLED_APPS`` when available. Fixes #53 - stephenmcd
-  * Removed trailing whitespace - stephenmcd
   * Updated package docs - stephenmcd
-  * Added Josh Cartmell and Osiloke Emoekpere to AUTHORS - stephenmcd
   * Removed handling of admin user for returning unpublished search results - stephenmcd
   * Added test to ensure only published objects are returned as search results - stephenmcd
   * Fixed bug where superclasses in concrete model inheritence chains would cause duplicate search results - stephenmcd
   * Fixed bug where _order values were not being set for dynamic inlines - stephenmcd
   * Added extra_context arg to mezzanine.pages.views.page - stephenmcd
   * Refactored the page processor to only accept one argument since its behaviour is to only deal with one - stephenmcd
-  * Removed trailing whitespace from docs - stephenmcd
   * Added note to docs about slug-based page processors - stephenmcd
   * Cleaned up white-space - stephenmcd
   * Removed migrate command from installation notes since south is no longer automatically configured - stephenmcd
   * Re-sequenced the migrations for the ``Displayable.site`` field - stephenmcd
-  * Added Eduardo Gutierrez to AUTHORS - stephenmcd
   * Applied workaround for unexplainable Django issue where certain signals get lost - stephenmcd
   * Removed unused code - stephenmcd
-  * Made labels for settings translatable - stephenmcd
   * Updated settings form template to have a submit row and error note consistent with other admin change forms - stephenmcd
-  * Reverted CSS formatting style in global.css to be consistent with the rest of the project - stephenmcd
   * Added ratings to ``mezzanine.generic`` and applied to the blog app - stephenmcd
   * Updated auto-generated settings docs - stephenmcd
   * Added handling for page menus where parent page is explicitly provided. Fixes #58 - stephenmcd
   * Renamed ``Content`` to ``RichText``, ``ContentPage`` to ``RichTextPage``, and ``HtmlField`` to ``RichTextField`` - stephenmcd
   * Fixed handling of USE_SOUTH setting so that south is also removed when explicitly set to False - stephenmcd
   * Updated template for RichTextPage - stephenmcd
-  * Reverted inline editing styles to the formatting that the rest of the project uses - stephenmcd
   * Fixed toolbar styling for TinyMce inside the inline editing form - stephenmcd
 
 Version 0.10.6 (Feb 14, 2011)
 -----------------------------
 
   * blog strings from html templates - Dominique Guardiola
-  * Added Dominique Guardiola Falco to AUTHORS - stephenmcd
   * Apply the CSRF token to all AJAX posts in the admin - stephenmcd
 
 Version 0.10.5 (Feb 11, 2011)
@@ -663,19 +676,15 @@ Version 0.10.5 (Feb 11, 2011)
 
   * Updated mezzanine.utils.importing name in package docs - stephenmcd
   * Changed cache handling to remove middleware classes if no cache backend specified - stephenmcd
-  * Formatting fixes - stephenmcd
   * Refactored adding of optional apps so that it only occurs once, and the ordering of installed apps so that order is not modified unless necessary (eg grappelli) - stephenmcd
-  * Added alphaomegacontractors.com and senexcanis.com to sites using Mezzanine in README - stephenmcd
   * Moved generation of docs/settings.rst and CHANGELOG from docs/conf.py into functions in ``mezzanine.utils.docs`` - stephenmcd
   * Fixed admin fieldsets example in docs - stephenmcd
   * Removed includes from mobile theme that replicated JavaScript common to all devices - stephenmcd
   * Fixed JavaScript for Discus comments - include the absolute URL - stephenmcd
   * Fixed module margin in admin dashboard - stephenmcd
-  * Fixed formatting/indentation in tests - stephenmcd
   * Changed Google Anylatics code so that the main tracking args can be overridden via a block - stephenmcd
   * Reverted Google Analytics block in favour of checking for an existing ``_gaq`` JavaScript var - stephenmcd
   * fix for ajax in admin not using csrf token for forms. fix for django 1.2.5 - lexual
-  * fix up whitespace formatting for last js fix - lexual
   * fix javascript syntax - lexual
 
 Version 0.10.4 (Jan 29, 2011)
@@ -700,13 +709,11 @@ Version 0.10.2 (Jan 27, 2011)
   * Added deployment section to docs describing the various aliases required for serving media files, and added a management command which prints these out - stephenmcd
   * Grammar fix in docs - stephenmcd
   * Added lost password link to login template - stephenmcd
-  * Moved some of the settings tweaks into mezzanine.utils.conf.set_dynamic_settings and also restored all of the comments from Django's generated settings module. Fixes #37 - stephenmcd
   * Fixed the handling for creating the default user when south is installed. Closes #34 - stephenmcd
 
 Version 0.10.1 (Jan 13, 2011)
 -----------------------------
 
-  * Added Josh de Blank to AUTHORS - stephenmcd
   * Fixed bug in PageAdmin._maintain_parent where it was assumed a location header exists for a redirect, which isn't actually the case when the page is being edited via a popup window as a forgien key - stephenmcd
 
 Version 0.10 (Dec 22, 2010)
@@ -724,21 +731,17 @@ Version 0.10 (Dec 22, 2010)
   * Added handling for variable template names in include tags - stephenmcd
   * Cleaned up a ton of unused imports. Fixes #29 - stephenmcd
   * Updated local_settings template - stephenmcd
-  * Updated docs with new settings and sites - stephenmcd
   * Added initial south migrations for all apps - stephenmcd
   * Added initial optional support for HTML5 with placeholder attributes in the forms app - stephenmcd
   * Added support for HTML5 required attributes in the forms app - stephenmcd
   * Refactored values for field types in the forms app to separate out classes and widgets - stephenmcd
   * Added HTML5 field types to the forms app: date, datetime, email - stephenmcd
-  * Added note about HTML5 forms under features in README - stephenmcd
   * Rename user variable to author in mezzanine.blog.views.blog_post_list to avoid clobbering Django's user context variable. Fixes #30 - stephenmcd
   * Update to new author var in blog listing template - stephenmcd
   * Reduced the width of text fields for field inlines in the form admin - stephenmcd
   * Updated the layout for auto generated packages docs as well as adding new missing modules. Made a giant sweep of the code base adding and updating docstrings that appear in the packages docs - stephenmcd
   * Removed unused admin template filter ``is_page_content_model`` - stephenmcd
   * Fixed south compatibility with fixture loading - stephenmcd
-  * pep8: trailing whitespace deleted - lexual
-  * pep8 cleanups - lexual
   * make save/delete buttons in admin, always visible at screen's bottom edge - lexual
   * Added pyflakes test - stephenmcd
   * Fixed pyflakes test - stephenmcd
@@ -749,32 +752,25 @@ Version 0.10 (Dec 22, 2010)
   * Refactored ``mezzanine.utils`` module into a package - stephenmcd
   * Moved pyflakes test runner into utils - stephenmcd
   * Updated package docs layout with new utils package - stephenmcd
-  * Allow extra ignore strings to be passed to pyflakes testing - stephenmcd
-  * Added themes to the feature list in README - stephenmcd
   * make static save buttons in admin, not affect admin login page - lexual
   * Fixed path for serving of theme assets - stephenmcd
   * Moved handling of serving assets during development from project's urlconf into ``mezzanine.urls`` - stephenmcd
   * Removed favicon handling during development - stephenmcd
   * Refactored urls so that ``mezzanine.urls`` becomes the main point for combining urls for all the different apps. Also moved homepage url into the project's ``urlconf`` as it's expected to be modified - stephenmcd
-  * Fixed typos in docstrings - stephenmcd
   * Removed use of Django's ``LOGIN_FORM_KEY`` from Mezzanine's ``AdminLoginInterfaceSelector`` middleware since it was just removed from Django trunk and now breaks. Fixes #31 - stephenmcd
   * Added a background gradient to pages in the admin page tree - stephenmcd
   * Moved admin submit-row buttons CSS into base admin template - stephenmcd
   * Fixed serving of media files outside of a theme when a theme is defined as in development - stephenmcd
-  * Removed debugging - stephenmcd
   * Added support in the admin page tree for changing parents via dragging between branches - stephenmcd
   * Fixed failures in Django's tests caused by automatically using a cache backend when available - stephenmcd
   * Added handling for regenerating slugs when a page's parent changes - stephenmcd
   * Fixed bug where editable settings were being loaded from the DB on every access - stephenmcd
   * Updated each of Mezzanine's apps to use its version number as their own - stephenmcd
   * Restored empty string as default ``TIME_ZONE`` value so Django uses the system timezone - stephenmcd
-  * use tinymce's cleanup functionality to fix dodgy html - lexual
   * Moved the Grappelli/Filebrowser/caching setup into ``mezzanine.utils.conf`` - stephenmcd
-  * Updated pyflakes test to ignore version imports - stephenmcd
   * Made ``editable`` template tag fail silently if None is given - stephenmcd
   * Fixed overridden slugs changing on pages when their parent changes - stephenmcd
   * Changed Page.overridden to be more reliable by not using get_absolute_url which can be incorrect without a permalink - stephenmcd
-  * change back cleanup config in tinymce - lexual
   * tinymce: remove word styling when cutting and pasting. Remove unnecessary toolbar buttons - lexual
   * remove more MS word paste junk from tinymce pasting - lexual
   * Updated handling of post_syncdb signal to still execute when south is installed - stephenmcd
@@ -787,8 +783,6 @@ Version 0.10 (Dec 22, 2010)
   * Cleaned up unused imports - stephenmcd
   * Fixed default settings ordering - stephenmcd
   * Updated auto-generated settings docs - stephenmcd
-  * Fixed cache settings tweaks for Django's test cases - stephenmcd
-  * Admin style fixes for IE7 - jdeblank
   * Fixed a pathing bug in creating themes on Windows - stephenmcd
   * Added HTML5 form features to inline edit forms - stephenmcd
   * Added a context-aware version of Django's ``inclusion_tag`` template tag - stephenmcd
@@ -813,39 +807,29 @@ Version 0.9.1 (Nov 29, 2010)
 
   * stop creation of empty p id="description" (Potentially needs refactoring) aka not too elegant - Lee Matos
   * Fixed white-space in blog list template - stephenmcd
-  * Added Lee Matos to AUTHORS - stephenmcd
   * Fixed branching of admin media hosting for Grappelli - stephenmcd
 
 Version 0.9 (Nov 28, 2010)
 --------------------------
 
   * Change the logic around settings loading to avoid some untrappable errors creating the DB table - stephenmcd
-  * Style fix - stephenmcd
   * Update setting names in docs - stephenmcd
   * Update conf app name in packages docs - stephenmcd
   * Remove redundant import - stephenmcd
-  * Move the various settings tweaks into ``mezzanine.utils.set_dynamic_settings()`` so that it can be called from the project's settings module and need not be duplicated in the settings modules of other project-based apps that leverage Mezzanine's settings module - stephenmcd
   * Update to multiple DB settings - stephenmcd
   * update to jquery 1.4.4 http://blog.jquery.com/2010/11/11/jquery-1-4-4-release-notes/ - lexual
   * Fixed the blog_categories template tag so that it returns a list of categories without duplicates - Brad Montgomery
   * Added a "get_recent_posts" template tag - Brad Montgomery
-  * Add Brad Montgomery to AUTHORS file - stephenmcd
   * Update template loader and auth context processor names to newest versions with fallbacks for Django 1.1 - stephenmcd
-  * Update supported Django version in README and add new examples of sites using Mezzanine - stephenmcd
   * Add south introspection rules for mezzanine.core.fields.HtmlField - stephenmcd
   * allow definition lists in tinymce - lexual
   * Modification of the importer script to be more streamlined. Moved importer to the blog module main and still to refactor the changes to the command line module.Can be run from a django shell and import blogger and word press - ajfisher
   * Initial layout for themes - stephenmcd
   * finished refactoring of importers module and wrote new import blog handler to import the various blog types into mezzanine. Also stripped down the params to be passed in on the word press blog - now treating any path as a url and dealing with it system side rather than user side - ajfisher
   * Added documentation around blogger import stuff - ajfisher
-  * typo fix - ajfisher
-  * fixes to formatting of RST - ajfisher
-  * typos - ajfisher
-  * more typos - ajfisher
   * Remove some old redundant template tag loading - stephenmcd
   * Add admin change logging to inline editing - stephenmcd
   * Allow newer versions of Django to determine full paths for templates in the start_theme command - stephenmcd
-  * Add ocrf.com.au to sites using Mezzanine in README - stephenmcd
   * if image is already the right size, don't change it (fixes bug where image quality is degraded if same size.) - lexual
   * Add copying of media files to start_theme command - stephenmcd
   * Initial support for hosting a theme - stephenmcd
@@ -855,26 +839,20 @@ Version 0.9 (Nov 28, 2010)
   * Add media hosting for a theme when defined - stephenmcd
   * Further refactoring of the import process using a BaseImporterClass which is a Command and then setting up specific implementations for Wordpress and Blogger - ajfisher
   * Modification to the docs in order to update the new structure of the commands and also how to implement a new importer class - ajfisher
-  * formatting changes - ajfisher
   * removed all the now-superfluous files - ajfisher
-  * further formatting fixes - ajfisher
-  * final formatting - ajfisher
   * Wrap lines in blog import docs - stephenmcd
   * Modifications to make the class abstraction more tidy and clean up some other bits and pieces of code as well - ajfisher
   * First round of edits for the blog import docs - stephenmcd
   * Fix up constructor logic - stephenmcd
   * Fix mezzanune_user reference in base blog importer - stephenmcd
   * Move the output messages for blog importing into the base importer class - stephenmcd
-  * Add Andrew Fisher to AUTHORS file - stephenmcd
   * Fix settings access for THEME in urls.py - stephenmcd
   * Fix duplicate months in archive list for blog - stephenmcd
   * Initial version of ``install_theme`` command - stephenmcd
   * Add handling for ``interactive`` option in ``install_theme`` command - stephenmcd
   * Rename scripts directory to bin for consistency with Django - stephenmcd
-  * Whitespace, grammar, punctuation fixes - stephenmcd
   * Rename Blog importer ``convert`` method to ``handle_import`` and pass it options directly to mimic Django commands more closely - stephenmcd
   * Clean up unused exceptions in Blog importer - stephenmcd
-  * Minor cleanups - stephenmcd
   * Add a ``old_url`` arg for posts in base Blog importer for creating redirects - stephenmcd
   * Upgrade ``import_tumblr`` command to use new importer base - stephenmcd
   * Add handling in the ``import_tumblr`` command for more posts that a single call to Tumblr's API allows - stephenmcd
@@ -883,7 +861,6 @@ Version 0.9 (Nov 28, 2010)
   * Fix some errors and add Tumblr info to the blog importing doc - stephenmcd
   * Move Google Analytics and ``editable_loader`` tag into their own include template ``footer_scripts.html`` - stephenmcd
   * Add docs for themes - stephenmcd
-  * Fix a ton of typos in docs - stephenmcd
   * Rename recent_posts blog template tag to be consistent with other tags - stephenmcd
   * Add recent blog posts to filter_panel.html - stephenmcd
   * js fix for ie bug with formbuilder - lexual
@@ -891,10 +868,7 @@ Version 0.9 (Nov 28, 2010)
   * Modified the blog's filter_panel tempate so <ul> tags get closed properly - Brad Montgomery
   * locale spanish - Carlos David Marrero
   * search_results.html locale spanish - Carlos David Marrero
-  * better translate for ago in twitter - Carlos David Marrero
-  * Add translators to AUTHORS file - stephenmcd
   * More robust handling for class-based views in mobile middleware. Closes #23 - stephenmcd
-  * Add thesource.com.au to sites using Mezzanine in README - stephenmcd
   * add primary menu id to the UL for semantic and/or styling uses - Lee Matos
   * Moved ``mezzanine.templates`` into a package - stephenmcd
   * Add context-aware replacements for Django's ``render_to_response``, ``select_template``, ``get_template`` and template tags ``include`` and ``extend`` - stephenmcd
@@ -912,16 +886,13 @@ Version 0.8.5 (Nov 10, 2010)
 ----------------------------
 
   * CSS update for default templates - stephenmcd
-  * Tag cleanup - stephenmcd
   * Add more fine-grained error handling for tumblr_import management command - stephenmcd
   * Change TinyMCE options to relax allowed HTML - stephenmcd
   * More TinyMCE allowances - stephenmcd
-  * Fix formatting of multi-value fields for sending email in forms app - stephenmcd
   * CSS updates to inline editing form - stephenmcd
   * Initial version of admin dashboard plugin system with Quick Blog and Recent Comments implemented as dashboard widgets - stephenmcd
   * Convert remaining dashboard sections into dashboard tags - app list and recent actions - stephenmcd
   * Add the new screenshot - stephenmcd
-  * Add configurable dashboard to feature list in README - stephenmcd
   * Add docstring to inline editing view - stephenmcd
   * Add basic support for class-based views in mobile middleware and a more explicit check for unique mobile template names - stephenmcd
   * Backed out changeset: c2ed0a189648 - stephenmcd
@@ -929,8 +900,6 @@ Version 0.8.5 (Nov 10, 2010)
   * Move settings for forms app into main settings module - stephenmcd
   * Fix ``filebrowser_safe`` generator script to add a dummy ``Image`` module which will prevent breaking when PIL isn't installed. Closes #15 - stephenmcd
   * Give the ``ContentPage`` model a more descriptive name for the content type dropdown menu in the admin page tree - stephenmcd
-  * Add Toby White to AUTHORS - stephenmcd
-  * Add some missing translation calls - stephenmcd
   * Convert ``mezzanine.settings`` into an app with values lazy loaded via DB - stephenmcd
   * Add a default user when syncdb is called - stephenmcd
   * Rewrite settings app to give more control over when settings are loaded so that fewer DB queries are used - stephenmcd
@@ -938,7 +907,6 @@ Version 0.8.5 (Nov 10, 2010)
   * Change settings from dicts into objects so they can be more easily identified when iterating through the ``mezzanine.settings.defaults`` module - stephenmcd
   * Add admin view and form for editing all settings - stephenmcd
   * Fix post_syncdb signal for demo user to work with Django 1.1 - stephenmcd
-  * Style and text updates to the settings form in admin - stephenmcd
   * Fix casting of boolean settings from DB - stephenmcd
   * Add a redirect on successful update of settings - stephenmcd
   * Add tests for settings app - stephenmcd
@@ -954,27 +922,16 @@ Version 0.8.5 (Nov 10, 2010)
   * Allow multiple fields to be used in a single editable tag - stephenmcd
   * Update docs with information about grouping together fields for inline editing - stephenmcd
   * Update creation of default user to only run with ``--noinput`` passed to ``syncdb`` - stephenmcd
-  * Add notes about default user to installation instructions in README - stephenmcd
   * tree_menu_footer tag added. Exact same as "tree_menu" but checks if in footer not if in nav - lexual
   * Hide the slug field and delete button in the admin for pages with an overridden urlpattern - stephenmcd
   * Display list bullets and numbers in content - Eric Floehr
   * Fix rendering editable fields when not authenticated - stephenmcd
-  * Add Eric Floehr to AUTHORS - stephenmcd
   * Update ``mezzanine-project`` script to remove pyc files when creating new projects - stephenmcd
   * Remove admin menu from popups - stephenmcd
-  * ignore some things - Tom von Schwerdtner
-  * ignore build dir - Tom von Schwerdtner
   * Add ``mezzanine.core.templatetags.mezzanine_tags.thumbnail`` for image resizing - stephenmcd
   * Add docs for the ``mezzanine.settings`` app - stephenmcd
   * Strip newlines from commit messages in the auto-generated CHANGELOG - stephenmcd
-  * fixed typo, improved lists (indent), and added a style for block quotes, which previously didn't have one - Eric Floehr
-  * Fix typo in mezzanine-project script - stephenmcd
-  * Fix typo in docs - stephenmcd
-  * Improved default twitter feed style, more closely matching the way Twitter itself looks - Eric Floehr
   * use export instead of checkout - Tom von Schwerdtner
-  * pep8 whitespace changes - Tom von Schwerdtner
-  * pep8 whitespace - Tom von Schwerdtner
-  * ignore dist - Tom von Schwerdtner
   * Use svn export in grappelli/filebrowser scripts. Closes #16 - stephenmcd
   * Fix split on commit author in automated CHANGELOG generator - stephenmcd
   * removing tweet_timesince filter - Eric Floehr
@@ -982,8 +939,6 @@ Version 0.8.5 (Nov 10, 2010)
   * Allow no names to be provided when calling editable_settings - stephenmcd
   * Sort setting names for settings form in admin - stephenmcd
   * Add Django as a dependency and remove import from project_template.settings in setup.py which depends on Django - stephenmcd
-  * Add some extra entries to .gitignore - stephenmcd
-  * Add Tom von Schwerdtner to AUTHORS - stephenmcd
   * Remove redundant call to jQuery.noConflict since editable_loader is now at end of the document. Also check for an existing jQuery instance before including it - stephenmcd
   * Fix isDirty() check for file fields in dynamic inlines - stephenmcd
   * Fix inline editing for file uploads - stephenmcd
@@ -1006,28 +961,21 @@ Version 0.8.5 (Nov 10, 2010)
   * make inline editable forms pretty - lexual
   * Backed out changeset: 7a1d5a321032 - stephenmcd
   * Removed tag git/git/master - stephenmcd
-  * Update the db specific tweaks in settings.py to support multiple databases - stephenmcd
   * Add support for custom navigation items in ``ADMIN_MENU_ORDER`` and configure ``filebrowser`` as an item - stephenmcd
   * Add docs for custom navigation items in admin - stephenmcd
-  * Make filebrowser menu item translatable - stephenmcd
   * Add Wordpress support to blog importer - ajfisher
   * Added importer with command line option - ajfisher
-  * minor changes in order to clean some elements up - ajfisher
   * 1. Some changes to the importer module in order to clean up2. Implementation of framework to use tumblr in importer module3. Addition of new tumblr module, adapting from @stephenmcd 's previous work but extending it to work into new importer framework - ajfisher
-  * Ignore migration scripts - stephenmcd
   * Catch DatabaseError instead of trying to check for syncdb when reading DB settings to allow for other DB management related commands to run such as south - stephenmcd
   * Rename mezzanine.settings to mezzanine.conf - stephenmcd
   * Make the DatabaseError import compatible with Django 1.1 - stephenmcd
   * Put fixtures into a potentially more stable order - stephenmcd
   * Update the admin menu with the new conf name - stephenmcd
-  * general PEP8-ery in order to prep for commits into Mezz proper - ajfisher
-  * fixed typo bug - ajfisher
   * fixed some code logic to enumerate more cleanly and removed the testing 5 item max results - ajfisher
   * modified to include tries on the feedparser import and exit gracefully if not.Also cleaned up some enumeration stuff and making the tags code into a list comprehension - ajfisher
   * added some graceful exit handling if the gdata library isn't available - ajfisher
   * streamlined tag stuff to use a list comprehension - ajfisher
   * Replace the approach of calling ``mezzanine.conf.load_settings`` to create new instances of settings objects with a single instance via ``mezzanine.conf.settings`` that contains a method ``use_editable`` which when called will mark the settings object for reloading settings from the db - stephenmcd
-  * Fix style for paging links - stephenmcd
   * Refactor settings loading to reload settings when ``use_editable`` called - stephenmcd
   * Remove unused func ``editable_settings`` - stephenmcd
   * Explicitly evaluate the results for blog template tags so that queries are only executed once - stephenmcd
@@ -1038,27 +986,21 @@ Version 0.8.5 (Nov 10, 2010)
   * Update documentation to reflect refactoring of the conf app - stephenmcd
   * Comment fixes - stephenmcd
   * Allow the ``BlogCategoryAdmin`` to be displayed in the admin menu when explicitly defined in ``ADMIN_MENU_ORDER`` - stephenmcd
-  * Add some stricter style declarations for the inline editing controls - stephenmcd
-  * Allow admin menu names to match regardless of the translation function used - stephenmcd
 
 Version 0.8.4 (Oct 01, 2010)
 ----------------------------
 
-  * Fix settings formatting - stephenmcd
-  * Add further DB specific tweaks to ``project_template.settings`` - stephenmcd
   * Fix PostgreSQL error on tweet lookup - stephenmcd
   * Use dynamically generated intro for posts in blog listing page rather than the description field - stephenmcd
 
 Version 0.8.3 (Sep 30, 2010)
 ----------------------------
 
-  * Oops, typo in settings.py - Toby White
   * Workaround for when mezzanine is hosted under a different urlspace.(Only tested with Django admin, not grappelli)The keywords.js file needs to reference a mezzanine URL, from the admin site.It used to use a hard-coded string with a root-absolute path, but this failed when mezzanine was hosted elsewhere.Instead, we now reference a global Mezzanine JS object, which is set by template, using URL reversal to find the correct url.This requires a reworking in how the PageAdmin object accesses its Media settings - previously the list of js files was calculated at module load time, but at this stage the url reversal mechanism won't work, because the urls.py aren't all loaded yet, Instead, we hide the list generation inside a lazy iterator object and create the list on demand - Toby White
   * Fix admin menu for earlier than Python 2.6 which lacks ``tuple.index`` - stephenmcd
   * add active class to footer menu - lexual
   * Don't fail if PACKAGE_NAME_FILEBROWSER or PACKAGE_NAME_GRAPELLI aren't set - just don't try & load them - Toby White
   * Fix grappelli/filebrowser package creation scripts to be Python 2.5 compatible. Closes #12 - stephenmcd
-  * Add a note about required Python and Django versions to the README - stephenmcd
   * Create a template tag for reversing urls from within admin templates that fail silently when the url can't be reversed, as this is always the case when running admin tests. Apply this to both the admin dropdown menu and to the base admin template making all templates aware of the ``admin_keyword_submit`` URL so that it does not need to be hard-coded - stephenmcd
   * Backed out changeset: d43f3e430d1f - stephenmcd
   * Replace MobileTemplate middleware with a decorator.If mezzanine is being used as an application within another project, then the MobileTemplate middleware may not be appropriate to use on URLs outside of mezzanine's control.In fact, if the project uses other calling conventions (eg class-based views) then the middleware may fail completely - Toby White
@@ -1068,7 +1010,6 @@ Version 0.8.3 (Sep 30, 2010)
   * Give the Page object a get_admin_url property, which we can use to provide direct links to a Page's admin page from the editable toolbar - Toby White
   * add id's to tree-menu, fix bug with multiple "first" class being set - lexual
   * Add a filtering form for exporting responses in the forms app - stephenmcd
-  * Add some stricter styles for the inline editing controls to prevent them being modified - stephenmcd
   * Add ``branch_level`` and ``html_id`` attributes to pages in menu template tags - stephenmcd
   * Add ``TEST_DATABASE_COLLATION`` for MySQL - stephenmcd
   * Fix field length of test data - stephenmcd
@@ -1083,10 +1024,8 @@ Version 0.8.2 (Sep 24, 2010)
   * custom css in separate files - lexual
   * Modify absolute ``ADMIN_MEDIA_PREFIX`` value when using grappelli to read in ip/port from ``sys.argv`` - stephenmcd
   * Clean up a bunch of dead code. Fixes #10 - stephenmcd
-  * Update docs and styles around new positioning of editable_loader tag - stephenmcd
   * Allow overriding CONTENT_MEDIA_URL - Toby White
   * Test for existence of TinyMCE before using it in JS - Toby White
-  * Remove dynamic hiding of inline-edit forms as these are now explicitly hidden with inline styles - stephenmcd
   * Fix missing quotes for CONTENT_MEDIA_URL setting - stephenmcd
   * Type in setting function - stephenmcd
   * Fix handling of empty field values in forms app by not saving them - stephenmcd
@@ -1100,26 +1039,20 @@ Version 0.8 (Sep 19, 2010)
 --------------------------
 
   * Allow search fields for ``SearchableManager`` to be defined across multiple models in an inheritance chain - stephenmcd
-  * Fix typo in README - stephenmcd
   * Refactor models to remove the ``content`` field from the ``pages.Page`` model (and therefore the ``core.Displayable`` model from which it inherits) so that custom content types can be created without the ``content`` field. Introduces a new default content type ``pages.ContentPage`` - stephenmcd
   * Remove ``BLOG_TITLE`` and ``BLOG_DESCRIPTION`` from ``mezzanine.settings`` and replace use of these with the title and description of the blog page from the pages app allowing them to be in-line editable - stephenmcd
   * Separate dynamic inlines into its own js file - stephenmcd
   * Make class name unique for dynamic inlines - stephenmcd
   * Fixed a bug with the stripping of comment dates - ajfisher
   * Added comment migration to the post importing. Have disabled keywords /tags for the moment due to an error from refactoring - ajfisher
-  * some minor updates and refactored the keyword / tag stuff to workwith new tagging set up - ajfisher
   * added some exception handling to start cleaning up things ready forthe proper management command set up - ajfisher
   * removed some of my testing params and made them generic - ajfisher
-  * TODOs - ajfisher
   * Fix with statement for Python2.5 in setup.py. Closes #9 - stephenmcd
   * Refactor ordering and dynamic "Add another" enhancements to admin inlines so that they explicitly target the correct inlines - stephenmcd
-  * Add Russian translations - thanks to Timur Bobrus for providing these - stephenmcd
-  * Fix primary nav style on default tempaltes - stephenmcd
   * Move scripts into scripts directory and use OptionParser in mezzanine-project script to allow options for copying templates, package source and specifying an alternate package to install from - stephenmcd
   * Fix logic of checking a page's slug to be selected in ``page_menu`` template tag - stephenmcd
   * Remove the list of apps/models from the admin dashboard and move them into a navigation menu persistent throughout the entire admin - stephenmcd
   * Trap failure to resolve admin URLs so that tests can pass - stephenmcd
-  * Add Cartridge to features in README - stephenmcd
   * Set ``mezzanine.core.admin.DynamicInlineAdmin.extra`` to 20 unconditionally - stephenmcd
   * Try and check for jQuery before loading it for admin menu - stephenmcd
   * Fix styling of messages to prevent them being layered on top of the admin menu - stephenmcd
@@ -1128,11 +1061,7 @@ Version 0.8 (Sep 19, 2010)
 Version 0.7.4 (Sep 11, 2010)
 ----------------------------
 
-  * More footer style updates - stephenmcd
-  * Styled search results - stephenmcd
   * Use ADMIN_MEDIA_PREFIX in path to TinyMCE js. Closes #6 - stephenmcd
-  * Make Export entries label translatable. Closes #7 - stephenmcd
-  * Add correct handling for non-ascii translated field name for entry time on form submissions. Closes #8 - stephenmcd
   * Refactor generation of Displayable.description to not explicitly use content field - stephenmcd
   * Fix sequence of styling for selected nav in tree menu - stephenmcd
   * Let blog views render even if the blog page object doesn't exist - stephenmcd
@@ -1151,9 +1080,7 @@ Version 0.7.4 (Sep 11, 2010)
 Version 0.7.3 (Sep 03, 2010)
 ----------------------------
 
-  * Remove print debug from setup.py - stephenmcd
   * Alignment fixes to the footer menu - stephenmcd
-  * More footer style updates - stephenmcd
 
 Version 0.7.2 (Sep 03, 2010)
 ----------------------------
@@ -1173,26 +1100,20 @@ Version 0.7.2 (Sep 03, 2010)
 Version 0.7.1 (Aug 30, 2010)
 ----------------------------
 
-  * Add 960.gs to the feature list in README - stephenmcd
-  * CSS tweaks to default templates - stephenmcd
   * Bugfix to mobile middleware for view functions without keyword args - stephenmcd
 
 Version 0.7 (Aug 30, 2010)
 --------------------------
 
-  * Add Van Lindberg to AUTHORS - stephenmcd
   * Integrate 960.gs CSS framework into default templates - stephenmcd
 
 Version 0.6.4 (Aug 29, 2010)
 ----------------------------
 
-  * Added hagianis.com and Mezzanine to sites list in README - stephenmcd
-  * Add quote from Van Lindberg to README - stephenmcd
   * Backed out changeset: 8dac998c6f0c - stephenmcd
   * Add ``expiry_date`` field to ``DisplayableAdmin`` - stephenmcd
   * Change ``if`` tags in breadcrumbs and toplevel_menu templates to be Django 1.1 compatible, and to use the page.selected attribute rather than ``template_utils`` lib, allowing it to be removed from pages_tags - stephenmcd
   * Use consistant naming for each type of page menu and include all types of page menus in default templates - stephenmcd
-  * Provide a template block for inserting the body's ID, cleanup menu templates and apply ``active`` class to menu links - stephenmcd
   * Create a custom breadcrumb menu for blog posts - stephenmcd
   * Replace the ``setting`` tag with a ``load_settings`` tag that takes a list of setting names and injects them into the template context - stephenmcd
   * Bugfix template tag name for admin page menu - stephenmcd
@@ -1215,8 +1136,6 @@ Version 0.6.2 (Aug 26, 2010)
 Version 0.6.1 (Aug 23, 2010)
 ----------------------------
 
-  * Update CHANGELOG generator to ignore commits that close a branch - stephenmcd
-  * Add forms builder to feature list n README - stephenmcd
   * Update to Mezzanine 0.6 - VanL
   * Update pages_tags to include comparisons and toplevel/breadcrumbs tags; added associated templates - VanL
   * Set ``TIME_ZONE`` to use the system timezone - stephenmcd
@@ -1236,19 +1155,12 @@ Version 0.6 (Aug 09, 2010)
   * Bugfix for generating slugs with parent pages for subclasses of ``Page`` - stephenmcd
   * Commented ``mezzanine.forms.admin`` - stephenmcd
   * Initial commit of the importer code for blogger.Comprises the baseline generic importer code for mezz that will be used by all input types and the baseline processor for blogger0.1 - ajfisher
-  * Added quote from Nick Hagianis to README - stephenmcd
   * Updated sequence of classes in documentation to run correctly - thanks Nick Hagianis for picking this up - stephenmcd
   * Handful of patches to correct bugs around creating slugs, titles and ordering for pages and their subclasses - stephenmcd
-  * Update default styles - stephenmcd
   * Add a contact form to fixtures - stephenmcd
   * Added built-in styling to form fields in forms app - stephenmcd
-  * pep8: removing trailing whitespace from *.py - lexual
-  * pep8: blank lines at end of file - lexual
-  * pep8: formatting fixes so runs cleanly through pep8.py script - lexual
   * unnecessary imports removed ? - lexual
-  * Add link to BSD license definition in README - stephenmcd
   * Added missing line in docs for in-line editing example - stephenmcd
-  * Fixed docs typo - stephenmcd
   * Remove natural keys from fixtures for Django 1.1 compatibility - stephenmcd
 
 Version 0.5.4 (Jul 25, 2010)
@@ -1291,9 +1203,7 @@ Version 0.5 (Jul 18, 2010)
 --------------------------
 
   * Added 'Posted by' text to blog posts - stephenmcd
-  * Formatting fix - stephenmcd
   * Fixed grammar error in docs - stephenmcd
-  * Added quote from Jesse Noller to README - stephenmcd
   * Added routine to Sphinx conf to auto-generate changelog from mercurial repo - stephenmcd
   * Change admin title to Mezzanine - stephenmcd
   * Make slugs editable in admin - stephenmcd
@@ -1303,17 +1213,14 @@ Version 0.5 (Jul 18, 2010)
   * Apply in-line editing to templates - stephenmcd
   * Add option to admin login screen to log into site for in-line editing - stephenmcd
   * Added docs for in-line editing - stephenmcd
-  * Update README to cross-reference features in docs - stephenmcd
 
 Version 0.4 (Jul 11, 2010)
 --------------------------
 
   * Added search functionality and moved pagination out into utils and templatetags - stephenmcd
-  * Bugfix to search allowing null fields to be ignored when determining weight - stephenmcd
   * Remove weight from search results output - stephenmcd
   * A bunch of updates to doc strings - stephenmcd
   * Added documentation for search API - stephenmcd
-  * Formatting fixes for docs - stephenmcd
   * Added highlighting to blog post author's own comments - stephenmcd
   * Save blog commenter's details in a cookie - stephenmcd
   * Bugfix to links in recent comments section of admin dashboard - stephenmcd
@@ -1328,11 +1235,8 @@ Version 0.3.4 (Jul 08, 2010)
 ----------------------------
 
   * Add blog migration to feature list - stephenmcd
-  * Bugfix ADMIN_MEDIA_PREFIX for grappelli on live sites - stephenmcd
   * Added support for natural keys - stephenmcd
   * Bugfix to natural key format - stephenmcd
-  * Formatting fix to README - stephenmcd
-  * Cleaned up formatting of meta data - stephenmcd
   * Cleaned up interface for custom tag types - stephenmcd
   * Update docs with references to new modules and version bump - stephenmcd
 
@@ -1344,25 +1248,18 @@ Version 0.3.3 (Jul 07, 2010)
 Version 0.3.2 (Jul 07, 2010)
 ----------------------------
 
-  * Ignore uploads directory in repo - stephenmcd
   * Reformatted docs to lines less than 80 chars - stephenmcd
   * Revert some of mezzanine.settings back to not being overridable - stephenmcd
-  * Add a note to README about using the issue tracker on Github - stephenmcd
   * Added routine to sphinx conf.py to auto-generate docs for mezzanine.settings - stephenmcd
   * Prevent sphinx blank-line warning - stephenmcd
   * Make building docs Python2.5 compatible - stephenmcd
-  * Update to docs style - stephenmcd
   * Bugfix for losing parent ID when editing existing child pages - stephenmcd
   * fix bug with ordering field in pages. Add error handling for page ordering - lexual
-  * change tabs to spaces - lexual
-  * changed tabs to spaces (only where there was a mixture of the 2, not when just tabs in file - lexual
 
 Version 0.3.1 (Jul 05, 2010)
 ----------------------------
 
   * Fixed some spelling mistakes throughout docs - stephenmcd
-  * Style updates to default templates - stephenmcd
-  * More style updates to default templates - stephenmcd
   * Bugfix to unique slug generation method - stephenmcd
   * Added redirects app to default settings - stephenmcd
   * Added management command to blog app for migrating a Tumblr blog - stephenmcd
@@ -1371,7 +1268,6 @@ Version 0.3.1 (Jul 05, 2010)
 Version 0.3.0 (Jul 04, 2010)
 ----------------------------
 
-  * Added section to README about the mailing list - stephenmcd
   * Bugfix to template lookup for custom content model - stephenmcd
   * Added page processor system for manipulating context and response per page type - stephenmcd
   * Added docs for page processors and bumped version - stephenmcd
@@ -1379,27 +1275,22 @@ Version 0.3.0 (Jul 04, 2010)
 Version 0.2.4 (Jul 02, 2010)
 ----------------------------
 
-  * Update to authors - stephenmcd
-  * Authors formatting - stephenmcd
   * Add warning to mezzanine_project script to prevent the user from creating a project name that conflicts with an existing package or module - stephenmcd
   * Make ``maintain_parent`` private - stephenmcd
   * fix mezzanine_project.py handling --options or multiple arguments - lexual
   * project_name variable instead of continual using sys.argv[1] - lexual
   * make proj name start with "-" illegal and print usage - lexual
-  * Bugfix to OrderableBase where cannot dynamically set attribute on new style class - lexual
 
 Version 0.2.3 (Jun 30, 2010)
 ----------------------------
 
-  * Added custom content types to feature list in README - stephenmcd
-  * typos fixed - lexual
   * added content_model to json - lexual
   * Bugfix to dynamic admin inlines - stephenmcd
 
 Version 0.2.2 (Jun 27, 2010)
 ----------------------------
 
-  * Bugfix to README - remove non-standard directive that broke formatting on pypi - stephenmcd
+  * No changes listed.
 
 Version 0.2.1 (Jun 27, 2010)
 ----------------------------
@@ -1409,24 +1300,18 @@ Version 0.2.1 (Jun 27, 2010)
   * Added notes about contributing with links to github and bitbucket repos - stephenmcd
   * Fixes to Mezzanine's sphinx theme - stephenmcd
   * Added initial layout template for docs with GA code - stephenmcd
-  * Fixed typo in README - stephenmcd
   * Bugfix to template loading in page view - stephenmcd
 
 Version 0.2 (Jun 27, 2010)
 --------------------------
 
   * Reintroduce local_settings module - stephenmcd
-  * README updates - stephenmcd
-  * Added quotes and more links to readme - stephenmcd
-  * Bugfix link markup in readme - stephenmcd
   * Reinstate required ordering for correct admin template loading - stephenmcd
   * Use models.permalink decorator - stephenmcd
   * Fixed incorrect project name in license - stephenmcd
-  * README update - stephenmcd
   * Created framework for inheriting from ``Page`` model to create custom content types for pages, and added new abstract model ``Orderable`` for managing orderable models - stephenmcd
   * Initial version of documentation - stephenmcd
   * Bugfix to submit overriding for keyword field - stephenmcd
-  * Ignore docs build and version bump - stephenmcd
 
 Version 0.1.4 (Jun 15, 2010)
 ----------------------------
@@ -1435,7 +1320,6 @@ Version 0.1.4 (Jun 15, 2010)
   * Add script for generating fork of filebrowser - stephenmcd
   * Simplify structure for optionally installed apps and exclude all optional apps from testing - stephenmcd
   * In mobile middleware, don't assume user-agent exists since the test client doesn't use one - stephenmcd
-  * There is no escaping django.contrib.sites no matter how much we want to. Admin redirects depends on it as to auth tests - stephenmcd
   * Bugfix to mobile middleware - missing imports - stephenmcd
   * Made comments IP address nullable - stephenmcd
   * Use url tags in templates instead of get_absolute_url - stephenmcd
@@ -1458,8 +1342,6 @@ Version 0.1.3 (Jun 14, 2010)
   * Bugfix to blog view - old variable name - stephenmcd
   * Added username fallback for displaying author's name for list of blog posts - stephenmcd
   * Added "powered by" copy - stephenmcd
-  * Minor layout fixes - stephenmcd
-  * Added initial list of sites using Mezzanine to readme - stephenmcd
   * Added setting GOOGLE_ANALYTICS_ID for integrating Google Analytics - stephenmcd
   * Added setting PAGES_MENU_SHOW_ALL to control whether all levels in page menu are shown by default - stephenmcd
   * Changed manual file exclusion in setuptools script to maintain owner and permissions - stephenmcd
@@ -1473,7 +1355,7 @@ Version 0.1.2 (Jun 11, 2010)
 Version 0.1.1 (Jun 10, 2010)
 ----------------------------
 
-  * Fixes to readme - stephenmcd
+  * No changes listed.
 
 Version 0.1 (Jun 10, 2010)
 --------------------------
