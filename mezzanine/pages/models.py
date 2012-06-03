@@ -106,7 +106,7 @@ class Page(Orderable, Displayable):
         """
         Dynamic ``add`` permission for content types to override.
         """
-        return not self.overridden()
+        return True
 
     def can_change(self, request):
         """
@@ -118,7 +118,7 @@ class Page(Orderable, Displayable):
         """
         Dynamic ``delete`` permission for content types to override.
         """
-        return not self.overridden()
+        return True
 
     def set_menu_helpers(self, context):
         """
