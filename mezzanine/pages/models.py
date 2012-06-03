@@ -31,12 +31,21 @@ class Page(Orderable, Displayable):
         return self.titles
 
     def get_absolute_url(self):
+        """
+        URL for a page - for ``Link`` page types, simply return its
+        slug since these don't have an actual URL pattern. Also handle
+        the special case of the homepage being a page object.
+        """
+        slug = self.slug
         if self.content_model == "link":
-            return self.slug
-        if self.slug == "/":
+            # Ensure the URL is absolute.
+            if not slug.lower().startswith("http"):
+                slug = "/" + self.slug.lstrip("/")
+            return slug
+        if slug == "/":
             return reverse("home")
         else:
-            return reverse("page", kwargs={"slug": self.slug})
+            return reverse("page", kwargs={"slug": slug})
 
     def get_admin_url(self):
         return admin_url(self, "change", self.id)
