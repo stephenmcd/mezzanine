@@ -360,11 +360,6 @@ def remove():
         remote_path = template["remote_path"]
         if exists(remote_path):
             sudo("rm %s" % remote_path)
-    with cd("/etc/nginx/conf"):
-        for ext in (".key", ".crt"):
-            f = env.proj_name + ext
-            if exists(f):
-                sudo("rm %s" % f)
     psql("DROP DATABASE %s;" % env.proj_name)
     psql("DROP USER %s;" % env.proj_name)
 
