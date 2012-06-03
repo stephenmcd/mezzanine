@@ -17,14 +17,7 @@
 {% endblock %}
 
 {% block breadcrumb_menu %}
-<li>
-    <a href="{% url home %}">{% trans "Home" %}</a>
-    <span class="divider">/</span>
-</li>
-<li>
-    <a href="{% url blog_post_list %}">{{ page.richtextpage.title }}</a>
-    <span class="divider">/</span>
-</li>
+{{ block.super }}
 <li class="active">{{ blog_post.title }}</li>
 {% endblock %}
 
