@@ -22,6 +22,7 @@ img {box-shadow:0 0 10px #bbb;}
 .breadcrumb .divider {margin:0 5px;}
 .breadcrumb strong {color:#333;}
 ul.nav li.dropdown:hover ul.dropdown-menu {display:block;}
+.pull-right .dropdown-menu a {text-align:right;}
 .tree {padding:8px;}
 .tree li {margin:3px 0;}
 footer {background:rgba(220,220,220, 0.1); padding:30px 0; text-align:center;}
