@@ -42,7 +42,6 @@ def page_menu(context, token):
             raise TemplateSyntaxError(error)
     context["menu_template_name"] = template_name
     if "menu_pages" not in context:
-        pages = defaultdict(list)
         try:
             user = context["request"].user
             slug = context["request"].path
@@ -52,8 +51,23 @@ def page_menu(context, token):
         num_children = lambda id: lambda: len(context["menu_pages"][id])
         has_children = lambda id: lambda: num_children(id)() > 0
         published = Page.objects.published(for_user=user)
+        # Store the current page being viewed in the context. Used
+        # for comparisons in page.set_menu_helpers.
+        if "page" not in context:
+            try:
+                context["_current_page"] = published.get(slug=slug)
+            except Page.DoesNotExist:
+                context["_current_page"] = None
+        elif slug:
+            context["_current_page"] = context["page"]
+        # Maintain a dict of page IDs -> parent IDs for fast
+        # lookup in setting page.is_current_or_ascendant in
+        # page.set_menu_helpers.
+        context["_parent_page_ids"] = {}
+        pages = defaultdict(list)
         for page in published.select_related(depth=2).order_by("_order"):
-            page.set_menu_helpers(slug)
+            context["_parent_page_ids"][page.id] = page.parent_id
+            page.set_menu_helpers(context)
             setattr(page, "num_children", num_children(page.id))
             setattr(page, "has_children", has_children(page.id))
             pages[page.parent_id].append(page)

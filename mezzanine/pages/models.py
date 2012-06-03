@@ -111,21 +111,32 @@ class Page(Orderable, Displayable):
         """
         return not self.overridden()
 
-    def set_menu_helpers(self, slug):
+    def set_menu_helpers(self, context):
         """
-        Called from the ``page_menu`` template tag and assigns a handful
-        of properties based on the current URL that are used within the
-        various types of menus.
+        Called from the ``page_menu`` template tag and assigns a
+        handful of properties based on the current page, that are used
+        within the various types of menus.
         """
-        from mezzanine.urls import PAGES_SLUG
-        slug = slug.strip("/").replace(PAGES_SLUG, "", 1)
-        parent_slug = lambda slug: "/".join(slug.split("/")[:-1]) + "/"
-        self.is_current_sibling = parent_slug(slug) == parent_slug(self.slug)
-        self.is_current_or_ascendant = (slug + "/").startswith(self.slug + "/")
-        self.is_current = slug == self.slug
+        current_page = context["_current_page"]
+        current_page_id = getattr(current_page, "id", None)
+        current_parent_id = getattr(current_page, "parent_id", None)
+        # Am I a child of the current page?
+        self.is_child = self.parent_id == current_page_id
+        # Is my parent the same as the current page's?
+        self.is_current_sibling = self.parent_id == current_parent_id
+        # Am I the current page?
+        self.is_current = self.id == current_page_id
+
+        # Is the current page me or any page up the parent chain?
+        def is_c_or_a(page_id):
+            parent_id = context["_parent_page_ids"].get(page_id)
+            return self.id == page_id or (parent_id and is_c_or_a(parent_id))
+        self.is_current_or_ascendant = lambda: bool(is_c_or_a(current_page_id))
+        # Am I a primary page?
         self.is_primary = self.parent_id is None
-        self.is_child = (slug + "/") == parent_slug(self.slug)
+        # What's an ID I can use in HTML?
         self.html_id = self.slug.replace("/", "-")
+        # Default branch level - gets assigned in the page_menu tag.
         self.branch_level = 0
 
 
