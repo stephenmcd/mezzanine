@@ -1,3 +1,8 @@
+Version 1.1.2 (Jun 05, 2012)
+----------------------------
+
+  * Fix slug handling in page middleware for homepage as page object - Stephen McDonald
+
 Version 1.1.1 (Jun 04, 2012)
 ----------------------------
 
