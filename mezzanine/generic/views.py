@@ -12,6 +12,7 @@ from mezzanine.conf import settings
 from mezzanine.generic.fields import RatingField
 from mezzanine.generic.forms import ThreadedCommentForm
 from mezzanine.generic.models import Keyword, Rating
+from mezzanine.utils.cache import add_cache_bypass
 from mezzanine.utils.views import render, set_cookie, is_spam
 
 
@@ -79,7 +80,8 @@ def comment(request, template="generic/comments.html"):
         comment.save()
         comment_was_posted.send(sender=comment.__class__, comment=comment,
                                 request=request)
-        response = HttpResponseRedirect(comment.get_absolute_url())
+        url = add_cache_bypass(comment.get_absolute_url())
+        response = HttpResponseRedirect(url)
         # Store commenter's details in a cookie for 90 days.
         cookie_expires = 60 * 60 * 24 * 90
         for field in ThreadedCommentForm.cookie_fields:
@@ -101,7 +103,7 @@ def rating(request):
     try:
         model = get_model(*request.POST["content_type"].split(".", 1))
         obj = model.objects.get(id=request.POST["object_pk"])
-        url = obj.get_absolute_url() + "#rating-%s" % obj.id
+        url = add_cache_bypass(obj.get_absolute_url()) + "#rating-%s" % obj.id
     except (KeyError, TypeError, AttributeError, ObjectDoesNotExist):
         # Something was missing from the post so abort.
         return HttpResponseRedirect("/")
