@@ -134,7 +134,9 @@ class Page(Orderable, Displayable):
         # Is my parent the same as the current page's?
         self.is_current_sibling = self.parent_id == current_parent_id
         # Am I the current page?
-        self.is_current = self.id == current_page_id
+        from mezzanine.urls import PAGES_SLUG
+        slug = context["request"].path.strip("/").replace(PAGES_SLUG, "", 1)
+        self.is_current = self.slug == slug
 
         # Is the current page me or any page up the parent chain?
         def is_c_or_a(page_id):
