@@ -32,7 +32,11 @@ class PageMiddleware(object):
 
     def process_view(self, request, view_func, view_args, view_kwargs):
 
-        slug = request.path
+        # Remove the page slug which is set when the blog is at
+        # the root of the site (BLOG_SLUG is empty).
+        from mezzanine.urls import PAGES_SLUG
+        slug = request.path.strip("/").replace(PAGES_SLUG, "", 1)
+
         if slug != "/":
             slug = slug.strip("/")
         pages_for_user = Page.objects.published(request.user)
