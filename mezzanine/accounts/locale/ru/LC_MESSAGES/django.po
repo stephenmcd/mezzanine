@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-04 18:36+0400\n"
+"POT-Creation-Date: 2012-06-04 18:59+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,26 +188,37 @@ msgid "Profile information"
 msgstr "Информация профиля"
 
 #: templates/email/password_reset_verify.html:3
+#: templates/email/password_reset_verify.txt:3
 msgid "Hey there, the password reset form was used for your account."
 msgstr ""
 "Внимание, форма сброса пароля была использована для вашей учетной записи."
 
 #: templates/email/password_reset_verify.html:4
+#: templates/email/password_reset_verify.txt:4
 msgid "Please use the link below to log in and update your password."
 msgstr ""
 "Пожалуйста, используйте ссылку ниже, для того чтобы войти на сайт и обновить "
 "ваш пароль."
 
 #: templates/email/password_reset_verify.html:6
+#: templates/email/password_reset_verify.txt:6
 msgid ""
 "If you didn't request for your password to be reset, please ignore this "
 "email."
 msgstr "Если вы не запрашивали сброс пароля, проигнорируйте это письмо."
 
-#: templates/email/signup_verify.html:3
+#: templates/email/password_reset_verify_subject.txt:2
+msgid "Reset your password"
+msgstr "Сброс вашего пароля"
+
+#: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
 msgstr "Благодарим за создание учетной записи."
 
-#: templates/email/signup_verify.html:4
+#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
 msgid "Please use the link below to activate it."
 msgstr "Пожалуйста, используйте ссылку ниже для активации учетной записи."
+
+#: templates/email/signup_verify_subject.txt:2
+msgid "Activate your account"
+msgstr "Активация вашей учетной записи"
