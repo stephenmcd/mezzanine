@@ -1,3 +1,14 @@
+Version 1.1.1 (Jun 04, 2012)
+----------------------------
+
+  * Don't assume rating field is named rating - Stephen McDonald
+  * Handle PAGES_SLUG in the page middleware - Stephen McDonald
+  * Make the creation of PAGES_SLUG not dependant on the position of the blog urlpatterns in urlpatterns created before the page urlpatterns - Stephen McDonald
+  * Fix quoting unicode thumbnail filenames - Stephen McDonald
+  * Move lookup of page subclasses into classmethod Page.get_content_models, and call select_related on all page subclasses in the page_menu template tag when used for the admin page tree, since we need to touch all the related content type instances to check page paermissions - Stephen McDonald
+  * Don't assume request is available in page.set_menu_helpers - Stephen McDonald
+  * Move cache-busting querystring into mezzanine.utils.cache.add_cache_bypass and apply it to comments and ratings redirects so that posted content appears immediately - Stephen McDonald
+
 Version 1.1.0 (Jun 03, 2012)
 ----------------------------
 
