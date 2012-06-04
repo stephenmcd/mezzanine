@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dmitry Falk <tfalc@mail.ru>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"POT-Creation-Date: 2012-06-04 18:51+0400\n"
+"PO-Revision-Date: 2012-03-11 23:56+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
 "language/ru/)\n"
@@ -51,7 +52,7 @@ msgstr "необязательно"
 msgid "By the blog author"
 msgstr "По автору блога"
 
-#: models.py:31 models.py:59 templates/generic/includes/comments.html:24
+#: models.py:31 models.py:59
 msgid "Comment"
 msgstr "Комментарий"
 
@@ -83,7 +84,7 @@ msgstr "Рейтинг"
 msgid "Ratings"
 msgstr "Рейтинг"
 
-#: views.py:51
+#: views.py:52
 msgid ""
 "You must log in to comment. Please log in or sign up, and your comment will "
 "be posted."
@@ -127,6 +128,10 @@ msgstr "Пока комментариев нет"
 msgid "New Comment"
 msgstr "Новый комментарий"
 
+#: templates/generic/includes/comments.html:24
+msgid "Send"
+msgstr "Отправить"
+
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"
 msgstr "Текущий рейтинг"
@@ -135,6 +140,7 @@ msgstr "Текущий рейтинг"
 msgid "Currently unrated"
 msgstr "Ещё не оценен"
 
-#: templates/generic/includes/rating.html:16
+#: templates/generic/includes/rating.html:18
 msgid "Rate"
 msgstr "Оценить"
+
