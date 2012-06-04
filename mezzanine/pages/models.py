@@ -65,6 +65,14 @@ class Page(Orderable, Displayable):
         self.titles = " / ".join(titles)
         super(Page, self).save(*args, **kwargs)
 
+    @classmethod
+    def get_content_models(cls):
+        """
+        Return all Page subclasses.
+        """
+        is_content_model = lambda m: m is not Page and issubclass(m, Page)
+        return filter(is_content_model, models.get_models())
+
     def get_content_model(self):
         """
         Provies a generic method of retrieving the instance of the custom

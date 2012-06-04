@@ -3,7 +3,6 @@ from collections import defaultdict
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse, NoReverseMatch
-from django.db.models import get_models
 from django.template import TemplateSyntaxError, Variable
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
@@ -51,6 +50,11 @@ def page_menu(context, token):
         num_children = lambda id: lambda: len(context["menu_pages"][id])
         has_children = lambda id: lambda: num_children(id)() > 0
         published = Page.objects.published(for_user=user)
+        if slug == admin_url(Page, "changelist"):
+            related = [m.__name__.lower() for m in Page.get_content_models()]
+            published = published.select_related(*related)
+        else:
+            published = published.select_related(depth=2)
         # Store the current page being viewed in the context. Used
         # for comparisons in page.set_menu_helpers.
         if "page" not in context:
@@ -65,7 +69,7 @@ def page_menu(context, token):
         # page.set_menu_helpers.
         context["_parent_page_ids"] = {}
         pages = defaultdict(list)
-        for page in published.select_related(depth=2).order_by("_order"):
+        for page in published.order_by("_order"):
             context["_parent_page_ids"][page.id] = page.parent_id
             page.set_menu_helpers(context)
             setattr(page, "num_children", num_children(page.id))
@@ -108,16 +112,15 @@ def models_for_pages(*args):
     ``Page`` model.
     """
     page_models = []
-    for model in get_models():
-        if model is not Page and issubclass(model, Page):
-            try:
-                admin_url(model, "add")
-            except NoReverseMatch:
-                continue
-            else:
-                setattr(model, "name", model._meta.verbose_name)
-                setattr(model, "add_url", admin_url(model, "add"))
-                page_models.append(model)
+    for model in Page.get_content_models():
+        try:
+            admin_url(model, "add")
+        except NoReverseMatch:
+            continue
+        else:
+            setattr(model, "name", model._meta.verbose_name)
+            setattr(model, "add_url", admin_url(model, "add"))
+            page_models.append(model)
     return page_models
 
 
