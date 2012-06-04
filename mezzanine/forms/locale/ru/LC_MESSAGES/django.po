@@ -5,12 +5,13 @@
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Timur Bobrus, 2010.
+# Dmitry Falk <tfalc@mail.ru>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"POT-Creation-Date: 2012-06-04 18:49+0400\n"
+"PO-Revision-Date: 2012-03-11 23:55+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
 "language/ru/)\n"
@@ -29,13 +30,13 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "1 запись удалена"
+msgstr[1] "%(count)s записи удалено"
+msgstr[2] "%(count)s записей удалено"
 
 #: admin.py:119
 msgid "View Entries"
-msgstr ""
+msgstr "Просмотреть"
 
 #: fields.py:28
 msgid "Single line text"
@@ -47,11 +48,11 @@ msgstr "Текст"
 
 #: fields.py:31
 msgid "Number"
-msgstr ""
+msgstr "Число"
 
 #: fields.py:32
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: fields.py:33
 msgid "Check box"
@@ -115,17 +116,17 @@ msgstr "Между"
 
 #: forms.py:100
 msgid "required"
-msgstr "обязательно"
+msgstr "обязательное"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Checked"
 msgstr "Отмечен"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Not checked"
 msgstr "Не отмечен"
 
-#: forms.py:224 forms.py:239
+#: forms.py:228 forms.py:243
 msgid "and"
 msgstr "и"
 
@@ -165,7 +166,7 @@ msgstr "Отправить копии"
 msgid "One or more email addresses, separated by commas"
 msgstr ""
 "Один или более адресов электронной почты, которым будет отправлена копия "
-"письма, разделенные запятыми"
+"письма, разделяется запятыми"
 
 #: models.py:27
 msgid "Subject"
@@ -290,8 +291,8 @@ msgstr "Записи"
 
 #: templates/admin/forms/entries.html:93
 msgid "Delete selected"
-msgstr ""
+msgstr "Удалить выделенное"
 
 #: templates/admin/forms/entries.html:97
 msgid "No entries to display"
-msgstr ""
+msgstr "Нет объектов для отображения"

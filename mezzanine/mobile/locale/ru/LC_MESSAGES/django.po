@@ -4,11 +4,12 @@
 #
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
+# Dmitry Falk <tfalc@mail.ru>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-04 18:52+0400\n"
 "PO-Revision-Date: 2012-03-11 23:56+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
@@ -104,7 +105,7 @@ msgstr "или"
 
 #: templates/mobile/blog/blog_post_list.html:4
 msgid "Blog"
-msgstr ""
+msgstr "Блог"
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"
