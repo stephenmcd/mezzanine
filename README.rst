@@ -238,6 +238,8 @@ Sites Using Mezzanine
   * `tindie.com <http://tindie.com>`_
   * `Environmental World Products <http://ewp-sa.com>`_
   * `Ross A. Laird <http://rosslaird.com>`_
+  * `Etienne B. Roesch <http://etienneroes.ch>`_
+  * `Recruiterbox <http://recruiterbox.com>`_
 
 Quotes
 ======
