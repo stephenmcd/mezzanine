@@ -109,7 +109,7 @@ if (typeof tinyMCE != 'undefined') {
 		+ "-div,"
 		+ "",
         extended_valid_elements: "pre[style],"
-        + "a[name|class|href|target|title|onclick],"
+        + "a[name|class|href|target|title|onclick|rel],"
         + "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style],"
         + "iframe[src|title|byline|portrait|frameborder|width|height],"
         + "br[clearfix],"
