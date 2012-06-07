@@ -60,3 +60,22 @@ def login_redirect(request):
         except NoReverseMatch:
             next = "/"
     return redirect(next)
+
+
+def get_page_slug_from_path(path):
+    """
+    Removes everything from the passed slug including the PAGES_SLUG
+    if it is set, resulting in the real slug
+    """
+    from mezzanine.urls import PAGES_SLUG
+
+    slug = path.strip("/")
+    if settings.SITE_PREFIX:
+        slug = slug.replace("%s" % settings.SITE_PREFIX, "", 1)
+        slug = slug.strip("/")
+
+    if PAGES_SLUG:
+        slug = slug.replace("%s" % PAGES_SLUG, "", 1)
+        slug = slug.strip("/")
+
+    return slug
