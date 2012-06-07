@@ -324,6 +324,15 @@ Number of results shown in the search results page.
 
 Default: ``10``
 
+``SITE_PREFIX``
+----------------
+
+A prefix of the site. If you set this, you also need to configure your urls.py accordingly.
+The prefix is anything in the request path before Mezzanine's url configuration, e.g.
+on ``http://some.site/content/blog/post1`` the prefix had to be set to ``content``.
+
+Default: ``u''``
+
 ``SITE_TAGLINE``
 ----------------
 

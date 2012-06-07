@@ -469,6 +469,13 @@ register_setting(
 )
 
 register_setting(
+    name="SITE_PREFIX",
+    description=_("Prefix part of the site."),
+    editable=True,
+    default="",
+)
+
+register_setting(
     name="SITE_TITLE",
     label=_("Site Title"),
     description=_("Title that will display at the top of the site, and be "
