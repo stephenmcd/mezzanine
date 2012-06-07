@@ -55,7 +55,10 @@ class PageMiddleware(object):
                         page = pages_for_user.get(slug="/".join(slug[:i + 1]))
                     except Page.DoesNotExist:
                         break
+                if page is not None:
+                    page.is_current = False
         else:
+            page.is_current = True
             if view_func == page_view:
                 # Add the page to the ``extra_context`` arg for the
                 # page view, which is responsible for choosing which
