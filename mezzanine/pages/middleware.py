@@ -95,7 +95,10 @@ class PageMiddleware(object):
         # Run page processors.
         model_processors = page_processors.processors[page.content_model]
         slug_processors = page_processors.processors["slug:%s" % page.slug]
-        for processor in model_processors + slug_processors:
+        processors = (processor for processor, only_current
+                      in model_processors + slug_processors
+                      if page.is_current or not only_current)
+        for processor in processors:
             processor_response = processor(request, page)
             if isinstance(processor_response, HttpResponse):
                 return processor_response
