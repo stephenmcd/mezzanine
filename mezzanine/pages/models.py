@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, RichText
-from mezzanine.utils.urls import admin_url, slugify
+from mezzanine.utils.urls import admin_url, get_page_slug_from_path, slugify
 
 
 class Page(Orderable, Displayable):
@@ -142,14 +142,13 @@ class Page(Orderable, Displayable):
         # Is my parent the same as the current page's?
         self.is_current_sibling = self.parent_id == current_parent_id
         # Am I the current page?
-        from mezzanine.urls import PAGES_SLUG
         try:
             request = context["request"]
         except KeyError:
             # No request context, most likely when tests are run.
             self.is_current = False
         else:
-            slug = request.path.strip("/").replace(PAGES_SLUG, "", 1)
+            slug = get_page_slug_from_path(request.path)
             self.is_current = self.slug == slug
 
         # Is the current page me or any page up the parent chain?

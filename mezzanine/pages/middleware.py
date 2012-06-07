@@ -7,6 +7,7 @@ from mezzanine.conf import settings
 from mezzanine.pages import page_processors
 from mezzanine.pages.models import Page
 from mezzanine.pages.views import page as page_view
+from mezzanine.utils.urls import get_page_slug_from_path
 
 
 class PageMiddleware(object):
@@ -37,8 +38,7 @@ class PageMiddleware(object):
 
         slug = request.path
         if slug != "/":
-            from mezzanine.urls import PAGES_SLUG
-            slug = slug.strip("/").replace(PAGES_SLUG, "", 1)
+            slug = get_page_slug_from_path(slug)
         pages_for_user = Page.objects.published(request.user)
         try:
             page = pages_for_user.get(slug=slug)
