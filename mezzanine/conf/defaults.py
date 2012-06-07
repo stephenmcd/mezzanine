@@ -622,6 +622,34 @@ register_setting(
     default="mezzanine/js/tinymce_setup.js",
 )
 
+from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_SEARCH
+
+register_setting(
+    name="TWITTER_DEFAULT_QUERY_TYPE",
+    label=_("Default Twitter Query Type"),
+    description=_("Type of query that will be used to retrieve tweets for "
+        "the default Twitter feed."),
+    editable=True,
+    default=QUERY_TYPE_SEARCH,
+    choices=QUERY_TYPE_CHOICES,
+)
+
+register_setting(
+    name="TWITTER_DEFAULT_QUERY",
+    label=_("Default Twitter Query"),
+    description=_("Twitter query to use for the default query type."),
+    editable=True,
+    default="#django",
+)
+
+register_setting(
+    name="TWITTER_DEFAULT_NUM_TWEETS",
+    label=_("Default Number of Tweets"),
+    description=_("Number of tweets to display in the default Twitter feed."),
+    editable=True,
+    default=3,
+)
+
 # The following settings are defined here for documentation purposes
 # as this file is used to auto-generate the documentation for all
 # available settings. They are Mezzanine specific, but their values
