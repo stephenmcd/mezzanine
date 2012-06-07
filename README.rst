@@ -240,6 +240,7 @@ Sites Using Mezzanine
   * `Ross A. Laird <http://rosslaird.com>`_
   * `Etienne B. Roesch <http://etienneroes.ch>`_
   * `Recruiterbox <http://recruiterbox.com>`_
+  * `Mod Productions <http://modprods.com>`_
 
 Quotes
 ======
