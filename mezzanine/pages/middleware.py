@@ -55,7 +55,10 @@ class PageMiddleware(object):
                         page = pages_for_user.get(slug="/".join(slug[:i + 1]))
                     except Page.DoesNotExist:
                         break
+                if page is not None:
+                    page.is_current = False
         else:
+            page.is_current = True
             if view_func == page_view:
                 # Add the page to the ``extra_context`` arg for the
                 # page view, which is responsible for choosing which
@@ -92,7 +95,10 @@ class PageMiddleware(object):
         # Run page processors.
         model_processors = page_processors.processors[page.content_model]
         slug_processors = page_processors.processors["slug:%s" % page.slug]
-        for processor in model_processors + slug_processors:
+        processors = (processor for processor, only_current
+                      in model_processors + slug_processors
+                      if page.is_current or not only_current)
+        for processor in processors:
             processor_response = processor(request, page)
             if isinstance(processor_response, HttpResponse):
                 return processor_response

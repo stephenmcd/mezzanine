@@ -10,7 +10,7 @@ from mezzanine.pages.models import Page
 processors = defaultdict(list)
 
 
-def processor_for(content_model_or_slug):
+def processor_for(content_model_or_slug, only_current=False):
     """
     Decorator that registers the decorated function as a page
     processor for the given content model or slug.
@@ -31,10 +31,11 @@ def processor_for(content_model_or_slug):
                         content_model_or_slug)
 
     def decorator(func):
+        func_params = (func, only_current)
         if content_model:
-            processors[content_model._meta.object_name.lower()].append(func)
+            processors[content_model._meta.object_name.lower()].append(func_params)
         else:
-            processors["slug:%s" % slug].append(func)
+            processors["slug:%s" % slug].append(func_params)
         return func
     return decorator
 
