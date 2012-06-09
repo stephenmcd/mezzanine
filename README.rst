@@ -169,13 +169,13 @@ list it here, send an email to the `mezzanine-users`_ mailing list.
     `html5boilerplate project`_  into Mezzanine.
   * `mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich
     text editor.
-  * `mezzanine-openshift`_ Setup for running Mezzanine on
+  * `mezzanine-openshift`_ - Setup for running Mezzanine on
     `Redhat's OpenShift`_ cloud platform.
-  * `mezzanine-stackato`_ Setup for running Mezzanine on
+  * `mezzanine-stackato`_ - Setup for running Mezzanine on
     `ActiveState's Stackato`_ cloud platform.
-  * `mezzanine-blocks`_ A mezzanine flavored fork of django-flatblocks.
-  * `mezzanine-widgets`_ Widget system for Mezzanine.
-  * `mezzanine-themes`_ A collection of Django/Mezzanine templates.
+  * `mezzanine-blocks`_ - A mezzanine flavored fork of django-flatblocks.
+  * `mezzanine-widgets`_ - Widget system for Mezzanine.
+  * `mezzanine-themes`_ - A collection of Django/Mezzanine templates.
 
 Donating
 ========
