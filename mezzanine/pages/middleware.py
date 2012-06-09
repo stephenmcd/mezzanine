@@ -62,9 +62,7 @@ class PageMiddleware(object):
                 # template to use, and raising 404 if there's no page
                 # instance loaded.
                 view_kwargs.setdefault("extra_context", {})
-                view_kwargs["extra_context"].update({
-                    "page": page, "_current_page": page,
-                })
+                view_kwargs["extra_context"]["page"] = page
 
         # Create the response, and add the page to its template
         # context. Response could also be a redirect, which we catch
@@ -72,6 +70,7 @@ class PageMiddleware(object):
         response = view_func(request, *view_args, **view_kwargs)
         try:
             response.context_data["page"] = page
+            response.context_data["_current_page"] = page
         except AttributeError:
             pass
 
