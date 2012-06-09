@@ -27,6 +27,7 @@ class Library(template.Library):
             class AsTagNode(template.Node):
                 def render(self, context):
                     parts = token.split_contents()
+
                     # Resolve variables if their names are given.
                     def resolve(arg):
                         try:
