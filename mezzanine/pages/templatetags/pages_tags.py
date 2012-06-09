@@ -71,7 +71,7 @@ def page_menu(context, token):
         pages = defaultdict(list)
         for page in published.order_by("_order"):
             context["_parent_page_ids"][page.id] = page.parent_id
-            page.set_menu_helpers(context)
+            page.set_helpers(context)
             setattr(page, "num_children", num_children(page.id))
             setattr(page, "has_children", has_children(page.id))
             pages[page.parent_id].append(page)

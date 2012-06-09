@@ -10,10 +10,17 @@ from mezzanine.pages.models import Page
 processors = defaultdict(list)
 
 
-def processor_for(content_model_or_slug):
+def processor_for(content_model_or_slug, exact_page=False):
     """
     Decorator that registers the decorated function as a page
     processor for the given content model or slug.
+
+    When a page exists that forms the prefix of custom urlpatterns
+    in a project (eg: the blog page and app), the page will be
+    added to the template context. Passing in ``True`` for the
+    ``exact_page`` arg, will ensure that the page processor is not
+    run in this situation, requiring that the loaded page object
+    is for the exact URL currently being viewed.
     """
     content_model = None
     slug = ""
@@ -31,10 +38,11 @@ def processor_for(content_model_or_slug):
                         content_model_or_slug)
 
     def decorator(func):
+        parts = (func, exact_page)
         if content_model:
-            processors[content_model._meta.object_name.lower()].append(func)
+            processors[content_model._meta.object_name.lower()].append(parts)
         else:
-            processors["slug:%s" % slug].append(func)
+            processors["slug:%s" % slug].append(parts)
         return func
     return decorator
 

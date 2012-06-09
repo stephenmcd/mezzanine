@@ -128,7 +128,7 @@ class Page(Orderable, Displayable):
         """
         return True
 
-    def set_menu_helpers(self, context):
+    def set_helpers(self, context):
         """
         Called from the ``page_menu`` template tag and assigns a
         handful of properties based on the current page, that are used
