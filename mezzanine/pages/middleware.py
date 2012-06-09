@@ -55,17 +55,16 @@ class PageMiddleware(object):
                         page = pages_for_user.get(slug="/".join(slug[:i + 1]))
                     except Page.DoesNotExist:
                         break
-                if page is not None:
-                    page.is_current = False
         else:
-            page.is_current = True
             if view_func == page_view:
                 # Add the page to the ``extra_context`` arg for the
                 # page view, which is responsible for choosing which
                 # template to use, and raising 404 if there's no page
                 # instance loaded.
                 view_kwargs.setdefault("extra_context", {})
-                view_kwargs["extra_context"]["page"] = page
+                view_kwargs["extra_context"].update({
+                    "page": page, "_current_page": page,
+                })
 
         # Create the response, and add the page to its template
         # context. Response could also be a redirect, which we catch
@@ -91,14 +90,14 @@ class PageMiddleware(object):
         # eg a redirect, just return it.
         if not hasattr(response, "context_data"):
             return response
+        page.set_helpers(response.context_data)
 
         # Run page processors.
         model_processors = page_processors.processors[page.content_model]
         slug_processors = page_processors.processors["slug:%s" % page.slug]
-        processors = (processor for processor, only_current
-                      in model_processors + slug_processors
-                      if page.is_current or not only_current)
-        for processor in processors:
+        for (processor, exact_page) in model_processors + slug_processors:
+            if exact_page and not page.is_current:
+                continue
             processor_response = processor(request, page)
             if isinstance(processor_response, HttpResponse):
                 return processor_response
