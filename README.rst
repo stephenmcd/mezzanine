@@ -242,6 +242,7 @@ Sites Using Mezzanine
   * `Etienne B. Roesch <http://etienneroes.ch>`_
   * `Recruiterbox <http://recruiterbox.com>`_
   * `Mod Productions <http://modprods.com>`_
+  * `Appsembler <http://appsembler.com>`_
 
 Quotes
 ======
