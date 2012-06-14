@@ -70,6 +70,7 @@ else:
         def __init__(self, *args, **kwargs):
             kwargs.setdefault("directory", kwargs.pop("upload_to", None))
             super(FileField, self).__init__(*args, **kwargs)
+            self.format = self.format or 'Image'
 
 
 HtmlField = RichTextField  # For backward compatibility in south migrations.
