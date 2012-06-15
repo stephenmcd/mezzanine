@@ -35,7 +35,7 @@ class PageMiddleware(object):
         # Remove the page slug which is set when the blog is at
         # the root of the site (BLOG_SLUG is empty).
 
-        slug = request.path
+        slug = request.path_info
         if slug != "/":
             from mezzanine.urls import PAGES_SLUG
             slug = slug.strip("/").replace(PAGES_SLUG, "", 1)
