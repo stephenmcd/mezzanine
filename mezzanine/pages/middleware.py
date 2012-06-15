@@ -34,18 +34,24 @@ class PageMiddleware(object):
 
         # Remove the page slug which is set when the blog is at
         # the root of the site (BLOG_SLUG is empty).
+        from mezzanine.urls import PAGES_SLUG
+        slug = request.path.replace(PAGES_SLUG, "", 1)
 
-        slug = request.path
-        if slug != "/":
-            from mezzanine.urls import PAGES_SLUG
-            slug = slug.strip("/").replace(PAGES_SLUG, "", 1)
+        if slug == "/":
+            slugs = [slug]
+        else:
+            slug = slug.strip("/")
+            # Create a list containing this slug, plus each of the
+            # ascendant slugs: ['about', 'about/team', 'about/team/mike']
+            slug_parts = slug.split("/")
+            slugs = ["/".join(slug_parts[:i])
+                     for i,_ in enumerate(slug_parts, start=1)]
+
         pages_for_user = Page.objects.published(request.user)
-
-        # Create a list containing this slug, plus each of the
-        # ancestor slugs: ['about/team/mike', 'about/team', 'about']
-        parts = slug.split("/")
-        slugs = ["/".join(parts[:i]) for i in range(len(parts),0,-1)]
         try:
+            # Find the deepest page that matches one of our slugs.
+            # Sorting by "-slug" ensures that the page with the
+            # longest slug is selected if more than one page matches.
             page = pages_for_user.filter(slug__in=slugs).order_by("-slug")[0]
         except IndexError:
             # If we can't find a page matching this slug or any
