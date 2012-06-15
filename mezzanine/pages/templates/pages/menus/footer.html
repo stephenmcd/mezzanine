@@ -1,6 +1,8 @@
 {% load i18n pages_tags %}
 
 {% spaceless %}
+{% if page_branch_in_footer %}
+
 {% for page in page_branch %}
     {% if page.is_primary %}
         {% if forloop.first %}
@@ -37,4 +39,6 @@
     {% endif %}
 
 {% endfor %}
+
+{% endif %}
 {% endspaceless %}
