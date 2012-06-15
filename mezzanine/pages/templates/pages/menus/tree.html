@@ -18,7 +18,7 @@
     <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
     {# remove this if tag to always show all nav items #}
     {% if settings.PAGES_MENU_SHOW_ALL or page.is_current_or_ascendant %}
-    {% page_menu page %}
+    {% if page.has_children %}{% page_menu page %}{% endif %}
     {% endif %}
   </li>
   {% endif %}
