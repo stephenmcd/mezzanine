@@ -4,11 +4,13 @@
 {% block meta_title %}{% if page %}{{ page.richtextpage.title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
+{% if page %}
 {% keywords_for page as keywords %}
 {% for keyword in keywords %}
     {% if not forloop.first %}, {% endif %}
     {{ keyword }}
 {% endfor %}
+{% endif %}
 {% endmetablock %}{% endblock %}
 
 {% block meta_description %}{% metablock %}
