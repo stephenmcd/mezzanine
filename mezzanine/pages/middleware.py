@@ -44,7 +44,7 @@ class PageMiddleware(object):
             # Create a list containing this slug, plus each of the
             # ascendant slugs: ['about', 'about/team', 'about/team/mike']
             parts = slug.split("/")
-            slugs = ["/".join(parts[:i]) for i, _ in enumerate(parts, start=1)]
+            slugs = ["/".join(parts[:i]) for i in range(1, len(parts) + 1)]
 
         pages_for_user = Page.objects.published(request.user)
         try:
