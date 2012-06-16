@@ -64,7 +64,11 @@ try:
     FileBrowseField = import_dotted_path("%s.fields.FileBrowseField" %
                                          settings.PACKAGE_NAME_FILEBROWSER)
 except ImportError:
-    FileField = models.FileField
+    class FileField(models.FileField):
+        def __init__(self, *args, **kwargs):
+            for fb_arg in ("format", "extensions"):
+                kwargs.pop(fb_arg, None)
+            super(FileField, self).__init__(*args, **kwargs)
 else:
     class FileField(FileBrowseField):
         def __init__(self, *args, **kwargs):
