@@ -1,6 +1,8 @@
 {% load i18n pages_tags %}
 
 {% spaceless %}
+{% if page_branch_in_footer %}
+
 {% for page in page_branch %}
     {% if page.is_primary %}
         {% if forloop.first %}
@@ -19,7 +21,7 @@
             <a href="{{ page.get_absolute_url }}">{{ page.title }}</a></li>
     {% endif %}
 
-    {% page_menu page %}
+    {% if page.has_children %}{% page_menu page %}{% endif %}
 
     {% if page.in_footer %}
         {% if forloop.first and not page.parent.in_footer and not page.is_primary %}
@@ -37,4 +39,6 @@
     {% endif %}
 
 {% endfor %}
+
+{% endif %}
 {% endspaceless %}
