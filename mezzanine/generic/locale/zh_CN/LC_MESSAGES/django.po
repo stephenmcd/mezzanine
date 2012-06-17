@@ -1,20 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2011-11-12 03:09+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-06-17 16:14+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.net/projects/p/mezzanine/language/zh_CN/)\n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: admin.py:20 models.py:67
@@ -82,7 +82,9 @@ msgid "Ratings"
 msgstr ""
 
 #: views.py:52
-msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
 msgstr ""
 
 #: templates/admin/includes/recent_comments.html:4

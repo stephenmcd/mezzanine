@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Michał Oleniec <moleniec@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-05-26 18:09+0000\n"
+"PO-Revision-Date: 2012-06-17 16:10+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/mezzanine/language/pl/)\n"
-"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: admin.py:38
@@ -39,7 +39,9 @@ msgid "If ``True``, users will have their own public profile pages."
 msgstr ""
 
 #: defaults.py:43
-msgid "If ``True``, when users create an account, they will be sent an email with a verification link, which they must click to enable their account."
+msgid ""
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
 msgstr ""
 
 #: defaults.py:52
@@ -91,7 +93,9 @@ msgid "Use date URLs"
 msgstr ""
 
 #: defaults.py:95
-msgid "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/"
+msgid ""
+"If ``True``, URLs for blog post include the month and year. Eg: "
+"/blog/yyyy/mm/slug/"
 msgstr ""
 
 #: defaults.py:103
@@ -107,7 +111,14 @@ msgid "Slug of the page object for the blog."
 msgstr "Slug dla stron bloga."
 
 #: defaults.py:118
-msgid "Mezzanine's caching uses a technique know as mint caching. This is where the requested expiry for a cache entry is stored with the cache entry in cache, and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a cache get, the store expiry is checked, and if it has past, the cache entry is set again, and no entry is returned. This tries to ensure that cache misses never occur, and if many clients were to get a cache miss at once, only one would actually need to re-generated the cache entry."
+msgid ""
+"Mezzanine's caching uses a technique know as mint caching. This is where the"
+" requested expiry for a cache entry is stored with the cache entry in cache,"
+" and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a"
+" cache get, the store expiry is checked, and if it has past, the cache entry"
+" is set again, and no entry is returned. This tries to ensure that cache "
+"misses never occur, and if many clients were to get a cache miss at once, "
+"only one would actually need to re-generated the cache entry."
 msgstr ""
 
 #: defaults.py:133
@@ -123,7 +134,9 @@ msgid "Akismet API Key"
 msgstr ""
 
 #: defaults.py:142
-msgid "Key for http://akismet.com spam filtering service. Used for filtering comments and forms."
+msgid ""
+"Key for http://akismet.com spam filtering service. Used for filtering "
+"comments and forms."
 msgstr ""
 
 #: defaults.py:150
@@ -171,7 +184,9 @@ msgid "Show unapproved comments"
 msgstr "Pokazuj niezaakceptowane komentarze"
 
 #: defaults.py:191
-msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
 msgstr "Jeśli ``True`` komentarze nie oznaczone jako ``opublikowane`` będą wyświetlane, ale zastąpione informacją ``czeka na akceptacje``"
 
 #: defaults.py:200
@@ -179,11 +194,15 @@ msgid "Show removed comments"
 msgstr "Pokaż usunięte komentarze"
 
 #: defaults.py:201
-msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
 msgstr "Jeśli ``True``, komentarze, które zostały oznaczone jako ``usunięte`` będą nadal wyświetlane, ale zastąpione komunikatem ``usunięty``."
 
 #: defaults.py:222
-msgid "A three item sequence, each containing a sequence of template tags used to render the admin dashboard."
+msgid ""
+"A three item sequence, each containing a sequence of template tags used to "
+"render the admin dashboard."
 msgstr "Sekwencja zawierająca, trzy osobne sekwencje template tagów użytych do wygenerowania kokpitu panelu administracyjnego."
 
 #: defaults.py:230
@@ -191,15 +210,27 @@ msgid "Device specific template sub-directory to use as the default device."
 msgstr ""
 
 #: defaults.py:238
-msgid "Mapping of device specific template sub-directory names to the sequence of strings that may be found in their user agents."
+msgid ""
+"Mapping of device specific template sub-directory names to the sequence of "
+"strings that may be found in their user agents."
 msgstr ""
 
 #: defaults.py:260
-msgid "A sequence of fields that will be injected into Mezzanine's (or any library's) models. Each item in the sequence is a four item sequence. The first two items are the dotted path to the model and its field name to be added, and the dotted path to the field class to use for the field. The third and fourth items are a sequence of positional args and a dictionary of keyword args, to use when creating the field instance. When specifying the field class, the path ``django.models.db.`` can be omitted for regular Django model fields."
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
 msgstr ""
 
 #: defaults.py:275
-msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
 msgstr ""
 
 #: defaults.py:284
@@ -231,7 +262,13 @@ msgid "Google Analytics ID (http://www.google.com/analytics/)"
 msgstr "ID Google Analytics (http://www.google.com/analytics/)"
 
 #: defaults.py:328
-msgid "A sequence mapping host names to themes, allowing different templates to be served per HTTP hosts Each item in the sequence is a two item sequence, containing a host such as ``othersite.example.com``, and the name of an importable Python package for the theme. If the host is matched for a request, the templates directory inside the theme package will be first searched when loading templates."
+msgid ""
+"A sequence mapping host names to themes, allowing different templates to be "
+"served per HTTP hosts Each item in the sequence is a two item sequence, "
+"containing a host such as ``othersite.example.com``, and the name of an "
+"importable Python package for the theme. If the host is matched for a "
+"request, the templates directory inside the theme package will be first "
+"searched when loading templates."
 msgstr ""
 
 #: defaults.py:342
@@ -251,7 +288,9 @@ msgid "Max number of paging links to display when paginating."
 msgstr ""
 
 #: defaults.py:359
-msgid "If ``True``, the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page."
+msgid ""
+"If ``True``, the pages menu will show all levels of navigation, otherwise "
+"child pages are only shown when viewing the parent page."
 msgstr "Jeżeli ``True``, menu stron będzie pokazywać wszystkie poziomy zagnieżdżenia stron, w przeciwnym wypadku podstrony będą widoczne tylko podczas wizyty na stronie nadrzędnej."
 
 #: defaults.py:368
@@ -263,19 +302,26 @@ msgid "Max value for a rating."
 msgstr "Maksymalna wartość dla ocen."
 
 #: defaults.py:382
-msgid "Dotted package path and class name of the widget to use for the ``RichTextField``."
+msgid ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
 msgstr "Ścieżki pakietu i nazwa klasy widgetu do użycia dla pola ``RichTextField``."
 
 #: defaults.py:390
-msgid "List of HTML tags that won't be stripped from ``RichTextField`` instances."
+msgid ""
+"List of HTML tags that won't be stripped from ``RichTextField`` instances."
 msgstr ""
 
 #: defaults.py:406
-msgid "List of HTML attributes that won't be stripped from ``RichTextField`` instances."
+msgid ""
+"List of HTML attributes that won't be stripped from ``RichTextField`` "
+"instances."
 msgstr ""
 
 #: defaults.py:424
-msgid "Dotted path to the function to call on a ``RichTextField`` value before it is rendered to the template."
+msgid ""
+"Dotted path to the function to call on a ``RichTextField`` value before it "
+"is rendered to the template."
 msgstr "Ścieżkę do funkcji wywoływanej na polu ``RichTextField`` zanim jego wartość zostanie przekazana do szablonu."
 
 #: defaults.py:434
@@ -318,7 +364,9 @@ msgid "Site Title"
 msgstr "Tytuł strony"
 
 #: defaults.py:474
-msgid "Title that will display at the top of the site, and be appended to the content of the HTML title tags on every page."
+msgid ""
+"Title that will display at the top of the site, and be appended to the "
+"content of the HTML title tags on every page."
 msgstr "Tytuł, który będzie wyświetlany w górnej części witryny i będzie dołączony do tagu ``title`` HTML tytuł na każdej stronie."
 
 #: defaults.py:482
@@ -334,7 +382,11 @@ msgid "An open source content management platform."
 msgstr "CMS z otwartym kodem źródłowym."
 
 #: defaults.py:490
-msgid "Dotted Python path to the callable for converting strings into URL slugs. Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use Django's slugify function, or something of your own if required."
+msgid ""
+"Dotted Python path to the callable for converting strings into URL slugs. "
+"Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
+"ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+"Django's slugify function, or something of your own if required."
 msgstr ""
 
 #: defaults.py:501
@@ -342,16 +394,19 @@ msgid "Enable SSL"
 msgstr ""
 
 #: defaults.py:502
-#, fuzzy
-msgid "If ``True``, users will be automatically redirected to HTTPS for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
-msgstr "Jeśli ``True``, aplikacja south zostanie automatycznie dodana do ustawienia ``INSTALLED_APPS``."
+msgid ""
+"If ``True``, users will be automatically redirected to HTTPS for the URLs "
+"specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
+msgstr ""
 
 #: defaults.py:511
 msgid "Force Host"
 msgstr ""
 
 #: defaults.py:512
-msgid "Host name that the site should always be accessed via that matches the SSL certificate."
+msgid ""
+"Host name that the site should always be accessed via that matches the SSL "
+"certificate."
 msgstr ""
 
 #: defaults.py:530
@@ -371,11 +426,15 @@ msgid "Sequence of setting names available within templates."
 msgstr "Sekwencja ustawień dostępnych w szablonach."
 
 #: defaults.py:610
-msgid "Directory name to store thumbnails in, that will be created relative to the original image's directory."
+msgid ""
+"Directory name to store thumbnails in, that will be created relative to the "
+"original image's directory."
 msgstr ""
 
 #: defaults.py:618
-msgid "URL for the JavaScript file (relative to ``STATIC_URL``) that handles configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+msgid ""
+"URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
+"configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
 msgstr ""
 
 #: defaults.py:629
@@ -383,7 +442,9 @@ msgid "Default Twitter Query Type"
 msgstr ""
 
 #: defaults.py:630
-msgid "Type of query that will be used to retrieve tweets for the default Twitter feed."
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
 msgstr ""
 
 #: defaults.py:639
@@ -403,7 +464,9 @@ msgid "Number of tweets to display in the default Twitter feed."
 msgstr ""
 
 #: defaults.py:661
-msgid "If ``True``, the south application will be automatically added to the ``INSTALLED_APPS`` setting."
+msgid ""
+"If ``True``, the south application will be automatically added to the "
+"``INSTALLED_APPS`` setting."
 msgstr "Jeśli ``True``, aplikacja south zostanie automatycznie dodana do ustawienia ``INSTALLED_APPS``."
 
 #: forms.py:52
