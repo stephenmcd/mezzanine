@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-05-22 09:55+0000\n"
-"Last-Translator: Sergi Almacellas <pokoli@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/"
-"language/ca/)\n"
-"Language: ca\n"
+"PO-Revision-Date: 2012-05-26 18:10+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: models.py:17
@@ -34,8 +33,7 @@ msgstr "Necessàri estar identificat"
 
 #: models.py:22
 msgid "If checked, only logged in users can view this page"
-msgstr ""
-"Si es marca, només els usuaris identificats podrán veure aquesta pàgina."
+msgstr "Si es marca, només els usuaris identificats podrán veure aquesta pàgina."
 
 #: models.py:25
 msgid "Page"
@@ -55,7 +53,7 @@ msgstr "Pàgines de contingut ric."
 
 #: models.py:150
 msgid "Link"
-msgstr ""
+msgstr "Enllaç"
 
 #: models.py:151
 msgid "Links"
@@ -78,5 +76,4 @@ msgstr "Inici"
 #: templatetags/pages_tags.py:146
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
-msgstr ""
-"S'ha trobat un error amb la següent classe. És una subclase directa de Page?"
+msgstr "S'ha trobat un error amb la següent classe. És una subclase directa de Page?"

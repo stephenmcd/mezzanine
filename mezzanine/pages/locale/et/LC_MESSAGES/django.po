@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Rivo Zängov <eraser@eraser.ee>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2011-11-18 19:36+0000\n"
-"Last-Translator: Eraser <eraser@eraser.ee>\n"
-"Language-Team: Estonian (http://www.transifex.net/projects/p/mezzanine/team/"
-"et/)\n"
-"Language: et\n"
+"PO-Revision-Date: 2012-05-26 18:10+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Estonian (http://www.transifex.net/projects/p/mezzanine/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: models.py:17
@@ -33,9 +32,7 @@ msgstr "Vajalik on sisselogimine"
 
 #: models.py:22
 msgid "If checked, only logged in users can view this page"
-msgstr ""
-"Kui see valik on märgitud, siis saavad seda lehekülge vaadata ainult "
-"sisseloginud kasutajad"
+msgstr "Kui see valik on märgitud, siis saavad seda lehekülge vaadata ainult sisseloginud kasutajad"
 
 #: models.py:25
 msgid "Page"
@@ -55,7 +52,7 @@ msgstr ""
 
 #: models.py:150
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: models.py:151
 msgid "Links"
