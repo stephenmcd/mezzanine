@@ -78,9 +78,9 @@ msgstr "назад"
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "1 комментарий"
-msgstr[1] "%(comments_count)s комментария"
-msgstr[2] "%(comments_count)s комментариев"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: templates/blog/blog_post_detail.html:51
 #: templates/blog/blog_post_list.html:100

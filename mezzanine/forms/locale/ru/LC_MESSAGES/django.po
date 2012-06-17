@@ -28,9 +28,9 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] "1 запись удалена"
-msgstr[1] "%(count)s записи удалено"
-msgstr[2] "%(count)s записей удалено"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: admin.py:119
 msgid "View Entries"
