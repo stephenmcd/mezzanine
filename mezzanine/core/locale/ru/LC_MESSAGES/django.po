@@ -5,12 +5,12 @@
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Timur Bobrus, 2010.
-# Dmitry Falk <tfalc@mail.ru>, 2012 
+# Dmitry Falk <tfalc@mail.ru>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-31 02:44+0400\n"
+"POT-Creation-Date: 2012-06-04 18:44+0400\n"
 "PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
@@ -28,84 +28,84 @@ msgstr "Метаданные"
 
 #: admin.py:50
 msgid "This field is required if status is set to published."
-msgstr ""
+msgstr "Это поле обязательное, если статус установлен в Опубликовано."
 
 #: fields.py:36
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr ""
 
-#: forms.py:75 models.py:244
+#: forms.py:75 models.py:252
 msgid "Order"
 msgstr "Порядок"
 
-#: models.py:52
+#: models.py:53
 msgid "Title"
 msgstr "Заголовок"
 
-#: models.py:53
+#: models.py:54
 msgid "URL"
 msgstr "URL"
 
-#: models.py:95
+#: models.py:96
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: models.py:105
+#: models.py:106
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:106
+#: models.py:107
 msgid "Generate description"
 msgstr "Генерировать описание"
 
-#: models.py:107
+#: models.py:108
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
 msgstr "Если отметить, то описание будет генерироваться автоматически."
 
-#: models.py:110
+#: models.py:111
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: models.py:157
+#: models.py:158
 msgid "Draft"
 msgstr "Черновик"
 
-#: models.py:158
+#: models.py:159
 msgid "Published"
 msgstr "Опубликовано"
 
-#: models.py:169
+#: models.py:170
 msgid "Status"
 msgstr "Статус"
 
-#: models.py:171
+#: models.py:172 models.py:201
 msgid "Published from"
 msgstr "Опубликовано с"
 
-#: models.py:172
+#: models.py:173
 msgid "With published checked, won't be shown until this time"
 msgstr "Не будет показано до этого времени"
 
-#: models.py:174
+#: models.py:175
 msgid "Expires on"
 msgstr "Истекает"
 
-#: models.py:175
+#: models.py:176
 msgid "With published checked, won't be shown after this time"
 msgstr "Не будет показано после этого времени"
 
-#: models.py:202
+#: models.py:210
 msgid "Content"
 msgstr "Содержимое"
 
-#: models.py:298
+#: models.py:306
 msgid "Author"
 msgstr "Автор"
 
-#: views.py:80
+#: views.py:77
 msgid "Permission denied"
 msgstr "В доступе отказано"
 

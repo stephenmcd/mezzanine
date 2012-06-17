@@ -81,7 +81,7 @@ class Gallery(Page, RichText):
 class GalleryImage(Orderable):
 
     gallery = models.ForeignKey("Gallery", related_name="images")
-    file = FileField(max_length=200, upload_to="galleries")
+    file = FileField(max_length=200, upload_to="galleries", extensions="Image")
     description = models.CharField(max_length=1000, blank=True)
 
     class Meta:

@@ -1,7 +1,6 @@
 
 from __future__ import with_statement
 import os
-from time import time
 
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
@@ -18,6 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Displayable
+from mezzanine.utils.cache import add_cache_bypass
 from mezzanine.utils.views import is_editable, paginate, render, set_cookie
 
 
@@ -26,10 +26,7 @@ def set_device(request, device=""):
     Sets a device name in a cookie when a user explicitly wants to go
     to the site for a particular device (eg mobile).
     """
-    url = request.GET.get("next", "/")
-    url += "?" if "?" not in url else "&"
-    url += "device-time=" + str(time()).replace(".", "")
-    response = redirect(url)
+    response = redirect(add_cache_bypass(request.GET.get("next", "/")))
     set_cookie(response, "mezzanine-device", device, 60 * 60 * 24 * 365)
     return response
 
@@ -119,6 +116,7 @@ def static_proxy(request):
         if url.startswith(prefix):
             url = url.replace(prefix, "", 1)
     response = ""
+    mimetype = ""
     path = finders.find(url)
     if path:
         if isinstance(path, (list, tuple)):

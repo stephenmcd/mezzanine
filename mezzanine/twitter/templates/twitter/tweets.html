@@ -1,7 +1,7 @@
 
 {% load twitter_tags i18n %}
 
-{% tweets_for_search "#Django" 3 as tweets %}
+{% tweets_default as tweets %}
 
 {% if tweets %}
 <h3>{% trans "Recent Tweets" %}</h3>

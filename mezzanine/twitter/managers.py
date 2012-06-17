@@ -8,21 +8,14 @@ class TweetManager(Manager):
     for a user, list or search term.
     """
 
-    def get_for(self, user_name=None, list_name=None, search_term=None):
+    def get_for(self, query_type, value):
         """
         Create a query and run it for the given arg if it doesn't exist, and
         return the tweets for the query.
         """
-        if user_name is not None:
-            type, value = "user", user_name
-        elif list_name is not None:
-            type, value = "list", list_name
-        elif search_term is not None:
-            type, value = "search", search_term
-        else:
-            return
         from mezzanine.twitter.models import Query
-        query, created = Query.objects.get_or_create(type=type, value=value)
+        lookup = {"type": query_type, "value": value}
+        query, created = Query.objects.get_or_create(**lookup)
         if created:
             query.run()
         elif not query.interested:

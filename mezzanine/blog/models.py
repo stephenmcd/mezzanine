@@ -21,8 +21,9 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
                                          default=True)
     comments = CommentsField(verbose_name=_("Comments"))
     rating = RatingField(verbose_name=_("Rating"))
-    featured_image = FileField(verbose_name=_("Featured Image"), null=True,
-                               upload_to="blog", max_length=255, blank=True)
+    featured_image = FileField(verbose_name=_("Featured Image"),
+                               upload_to="blog", extensions="Image",
+                               max_length=255, null=True, blank=True)
 
     admin_thumb_field = "featured_image"
 

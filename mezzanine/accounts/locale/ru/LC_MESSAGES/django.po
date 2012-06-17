@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-04 18:59+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgstr "Логин может содержать только буквы, циф
 
 #: forms.py:115
 msgid "This username is already registered"
-msgstr "Пользователь с таким логинов уже зарегистрирован"
+msgstr "Пользователь с таким логином уже зарегистрирован"
 
 #: forms.py:128
 msgid "Passwords do not match"
@@ -63,7 +63,7 @@ msgstr "Пароли не совпадают"
 #: forms.py:130
 #, python-format
 msgid "Password must be at least %s characters"
-msgstr ""
+msgstr "Длина пароля должна быть не меньше %s символов"
 
 #: forms.py:145
 msgid "This email is already registered"
@@ -169,7 +169,7 @@ msgstr "Выход"
 
 #: templates/accounts/includes/user_panel.html:16
 msgid "Not logged in"
-msgstr "Вы не залогинены"
+msgstr "Вы не вошли"
 
 #: templates/accounts/includes/user_panel.html:18
 msgid "Log in"
@@ -177,7 +177,7 @@ msgstr "Вход"
 
 #: templates/accounts/includes/user_panel.html:19
 msgid "or"
-msgstr ""
+msgstr "или"
 
 #: templates/accounts/includes/user_panel.html:21
 msgid "Sign up"
@@ -191,13 +191,13 @@ msgstr "Информация профиля"
 #: templates/email/password_reset_verify.txt:3
 msgid "Hey there, the password reset form was used for your account."
 msgstr ""
-"Внимание, форма сброса пароля была использована для вашей учетной записи"
+"Внимание, форма сброса пароля была использована для вашей учетной записи."
 
 #: templates/email/password_reset_verify.html:4
 #: templates/email/password_reset_verify.txt:4
 msgid "Please use the link below to log in and update your password."
 msgstr ""
-"Пожалуйста, используйте ссылку ниже, для того чтобы залогиниться и обновить "
+"Пожалуйста, используйте ссылку ниже, для того чтобы войти на сайт и обновить "
 "ваш пароль."
 
 #: templates/email/password_reset_verify.html:6
@@ -209,7 +209,7 @@ msgstr "Если вы не запрашивали сброс пароля, пр�
 
 #: templates/email/password_reset_verify_subject.txt:2
 msgid "Reset your password"
-msgstr ""
+msgstr "Сброс вашего пароля"
 
 #: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
@@ -221,4 +221,4 @@ msgstr "Пожалуйста, используйте ссылку ниже дл�
 
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"
-msgstr ""
+msgstr "Активация вашей учетной записи"

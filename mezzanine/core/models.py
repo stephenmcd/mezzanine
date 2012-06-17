@@ -200,6 +200,16 @@ class Displayable(Slugged, MetaData):
         return timesince(self.publish_date)
     publish_date_since.short_description = _("Published from")
 
+    def get_absolute_url(self):
+        """
+        Raise an error if called on a subclass without
+        ``get_absolute_url`` defined, to ensure all search results
+        contains a URL.
+        """
+        name = self.__class__.__name__
+        raise NotImplementedError("The model %s does not have "
+                                  "get_absolute_url defined" % name)
+
 
 class RichText(models.Model):
     """

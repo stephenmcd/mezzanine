@@ -169,12 +169,13 @@ list it here, send an email to the `mezzanine-users`_ mailing list.
     `html5boilerplate project`_  into Mezzanine.
   * `mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich
     text editor.
-  * `mezzanine-openshift`_ Setup for running Mezzanine on
+  * `mezzanine-openshift`_ - Setup for running Mezzanine on
     `Redhat's OpenShift`_ cloud platform.
-  * `mezzanine-stackato`_ Setup for running Mezzanine on
+  * `mezzanine-stackato`_ - Setup for running Mezzanine on
     `ActiveState's Stackato`_ cloud platform.
-  * `mezzanine-blocks`_ Mezzanine + django-flatblocks.
-  * `mezzanine-widgets`_ Widget system for Mezzanine.
+  * `mezzanine-blocks`_ - A mezzanine flavored fork of django-flatblocks.
+  * `mezzanine-widgets`_ - Widget system for Mezzanine.
+  * `mezzanine-themes`_ - A collection of Django/Mezzanine templates.
 
 Donating
 ========
@@ -238,6 +239,10 @@ Sites Using Mezzanine
   * `tindie.com <http://tindie.com>`_
   * `Environmental World Products <http://ewp-sa.com>`_
   * `Ross A. Laird <http://rosslaird.com>`_
+  * `Etienne B. Roesch <http://etienneroes.ch>`_
+  * `Recruiterbox <http://recruiterbox.com>`_
+  * `Mod Productions <http://modprods.com>`_
+  * `Appsembler <http://appsembler.com>`_
 
 Quotes
 ======
@@ -335,7 +340,7 @@ Quotes
 .. _`ActiveState's Stackato`: http://www.activestate.com/stackato
 .. _`mezzanine-blocks`: https://github.com/renyi/mezzanine-blocks
 .. _`mezzanine-widgets`: https://github.com/osiloke/mezzanine_widgets
-
+.. _`mezzanine-themes`: https://github.com/renyi/mezzanine-themes
 
 .. PEOPLE WITH QUOTES
 

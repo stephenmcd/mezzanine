@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from mezzanine.conf import settings
 from mezzanine.forms.forms import FormForForm
 from mezzanine.forms.models import Form
+from mezzanine.forms.signals import form_invalid, form_valid
 from mezzanine.pages.page_processors import processor_for
 from mezzanine.utils.email import send_mail_template
 from mezzanine.utils.views import is_spam
@@ -59,5 +60,7 @@ def form_processor(request, page):
             send_mail_template(subject, "email/form_response", email_from,
                                email_copies, context, attachments=attachments,
                                fail_silently=settings.DEBUG)
+        form_valid.send(sender=request, form=form, entry=entry)
         return redirect(url)
+    form_invalid.send(sender=request, form=form)
     return {"form": form}

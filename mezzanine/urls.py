@@ -72,9 +72,10 @@ blog_installed = "mezzanine.blog" in settings.INSTALLED_APPS
 if blog_installed:
     if BLOG_SLUG:
         BLOG_SLUG += "/"
-    urlpatterns += patterns("",
+    blog_patterns = patterns("",
         ("^%s" % BLOG_SLUG, include("mezzanine.blog.urls")),
     )
+    urlpatterns += blog_patterns
 
 # Mezzanine's Accounts app
 _old_accounts_enabled = getattr(settings, "ACCOUNTS_ENABLED", False)
@@ -94,10 +95,12 @@ if _old_accounts_enabled or "mezzanine.accounts" in settings.INSTALLED_APPS:
 PAGES_SLUG = ""
 if "mezzanine.pages" in settings.INSTALLED_APPS:
     # No BLOG_SLUG means catch-all patterns belong to the blog,
-    # so give pages their own prefix.
+    # so give pages their own prefix and inject them before the
+    # blog urlpatterns.
     if not BLOG_SLUG and blog_installed:
         PAGES_SLUG = "pages/"
-        urlpatterns[-1:1] = patterns("",
+        blog_patterns_start = urlpatterns.index(blog_patterns[0])
+        urlpatterns[blog_patterns_start:len(blog_patterns)] = patterns("",
             ("^%s" % PAGES_SLUG, include("mezzanine.pages.urls")),
         )
     else:

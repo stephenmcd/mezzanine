@@ -11,6 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.twitter.managers import TweetManager
 from mezzanine.utils.timezone import make_aware
+from mezzanine.twitter import (QUERY_TYPE_CHOICES, QUERY_TYPE_USER,
+                               QUERY_TYPE_LIST, QUERY_TYPE_SEARCH)
 
 
 re_usernames = re.compile("@([0-9a-zA-Z+_]+)", re.IGNORECASE)
@@ -21,14 +23,8 @@ replace_usernames = "<a href=\"http://twitter.com/\\1\">@\\1</a>"
 
 class Query(models.Model):
 
-    QUERY_TYPE_CHOICES = (
-        ("user", _("User")),
-        ("list", _("List")),
-        ("search", _("Search")),
-    )
-
     type = models.CharField(_("Type"), choices=QUERY_TYPE_CHOICES,
-        max_length=10)
+                            max_length=10)
     value = models.CharField(_("Value"), max_length=140)
     interested = models.BooleanField("Interested", default=True)
 
@@ -44,16 +40,19 @@ class Query(models.Model):
         """
         Request new tweets from the Twitter API.
         """
-        if self.type == "user":
-            url = ("http://api.twitter.com/1/statuses/user_timeline/%s.json?"
-                "include_rts=true" % self.value.lstrip("@"))
-        elif self.type == "list":
-            url = ("http://api.twitter.com/1/%s/statuses.json?include_rts"
-                "=true" % self.value.lstrip("@").replace("/", "/lists/"))
-        elif self.type == "search":
-            url = ("http://search.twitter.com/search.json?q=%s" %
-                quote(self.value))
-        else:
+        urls = {
+            QUERY_TYPE_USER: ("http://api.twitter.com/1/statuses/"
+                              "user_timeline/%s.json?include_rts=true" %
+                              self.value.lstrip("@")),
+            QUERY_TYPE_LIST: ("http://api.twitter.com/1/%s/statuses.json"
+                              "?include_rts=true" %
+                              self.value.lstrip("@").replace("/", "/lists/")),
+            QUERY_TYPE_SEARCH: "http://search.twitter.com/search.json?q=%s" %
+                               quote(self.value),
+        }
+        try:
+            url = urls[self.type]
+        except KeyError:
             return
         try:
             tweets = loads(urlopen(url).read())
@@ -62,8 +61,8 @@ class Query(models.Model):
         if self.type == "search":
             tweets = tweets["results"]
         for tweet_json in tweets:
-            tweet, created = self.tweets.get_or_create(
-                remote_id=str(tweet_json["id"]))
+            remote_id = str(tweet_json["id"])
+            tweet, created = self.tweets.get_or_create(remote_id=remote_id)
             if not created:
                 continue
             if "retweeted_status" in tweet_json:
@@ -72,7 +71,7 @@ class Query(models.Model):
                 tweet.retweeter_full_name = user["name"]
                 tweet.retweeter_profile_image_url = user["profile_image_url"]
                 tweet_json = tweet_json["retweeted_status"]
-            if self.type == "search":
+            if self.type == QUERY_TYPE_SEARCH:
                 tweet.user_name = tweet_json["from_user"]
                 tweet.full_name = tweet_json["from_user"]
                 tweet.profile_image_url = tweet_json["profile_image_url"]
@@ -95,6 +94,7 @@ class Query(models.Model):
 
 
 class Tweet(models.Model):
+
     remote_id = models.CharField(_("Twitter ID"), max_length=50)
     created_at = models.DateTimeField(_("Date/time"), null=True)
     text = models.TextField(_("Message"), null=True)

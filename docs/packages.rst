@@ -107,6 +107,12 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.pages.admin
    :members:
 
+``mezzanine.pages.middleware``
+------------------------------
+
+.. automodule:: mezzanine.pages.middleware
+   :members:
+
 ``mezzanine.pages.templatetags.pages_tags``
 -------------------------------------------
 
@@ -240,6 +246,9 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 ``mezzanine.blog.management.commands``
 --------------------------------------
 
+.. automodule:: mezzanine.blog.management.commands.import_rss
+   :members:
+
 .. automodule:: mezzanine.blog.management.commands.import_blogger
    :members:
 
@@ -267,6 +276,12 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 ----------------------------
 
 .. automodule:: mezzanine.accounts.forms
+   :members:
+
+``mezzanine.accounts.templatetags.accounts_tags``
+-------------------------------------------------
+
+.. automodule:: mezzanine.accounts.templatetags.accounts_tags
    :members:
 
 ``mezzanine.accounts.admin``
@@ -368,6 +383,12 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.template
    :members:
 
+``mezzanine.template.loader_tags``
+==================================
+
+.. automodule:: mezzanine.template.loader_tags
+   :members:
+
 
 
 
@@ -407,6 +428,9 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 ===================
 
 .. automodule:: mezzanine.utils
+
+.. automodule:: mezzanine.utils.cache
+   :members:
 
 .. automodule:: mezzanine.utils.conf
    :members:

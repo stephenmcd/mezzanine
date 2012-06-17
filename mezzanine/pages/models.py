@@ -65,6 +65,14 @@ class Page(Orderable, Displayable):
         self.titles = " / ".join(titles)
         super(Page, self).save(*args, **kwargs)
 
+    @classmethod
+    def get_content_models(cls):
+        """
+        Return all Page subclasses.
+        """
+        is_content_model = lambda m: m is not Page and issubclass(m, Page)
+        return filter(is_content_model, models.get_models())
+
     def get_content_model(self):
         """
         Provies a generic method of retrieving the instance of the custom
@@ -120,7 +128,7 @@ class Page(Orderable, Displayable):
         """
         return True
 
-    def set_menu_helpers(self, context):
+    def set_helpers(self, context):
         """
         Called from the ``page_menu`` template tag and assigns a
         handful of properties based on the current page, that are used
@@ -134,7 +142,15 @@ class Page(Orderable, Displayable):
         # Is my parent the same as the current page's?
         self.is_current_sibling = self.parent_id == current_parent_id
         # Am I the current page?
-        self.is_current = self.id == current_page_id
+        from mezzanine.urls import PAGES_SLUG
+        try:
+            request = context["request"]
+        except KeyError:
+            # No request context, most likely when tests are run.
+            self.is_current = False
+        else:
+            slug = request.path.strip("/").replace(PAGES_SLUG, "", 1)
+            self.is_current = self.slug == slug
 
         # Is the current page me or any page up the parent chain?
         def is_c_or_a(page_id):

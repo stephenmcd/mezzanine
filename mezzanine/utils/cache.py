@@ -73,3 +73,20 @@ def nevercache_token():
     the ``nevercache`` template tag.
     """
     return "nevercache." + settings.SECRET_KEY
+
+
+def add_cache_bypass(url):
+    """
+    Adds the current time to the querystring of the URL to force a
+    cache reload. Used for when a form post redirects back to a
+    page that should display updated content, such as new comments or
+    ratings.
+    """
+    if not cache_installed():
+        return url
+    hash_str = ""
+    if "#" in url:
+        url, hash_str = url.split("#", 1)
+        hash_str = "#" + hash_str
+    url += "?" if "?" not in url else "&"
+    return url + "t=" + str(time()).replace(".", "") + hash_str
