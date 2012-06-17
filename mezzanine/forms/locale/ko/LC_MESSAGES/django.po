@@ -1,20 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-06-11 15:43+0000\n"
 "Last-Translator: Yong Choi <sk8er.choi@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.net/projects/p/mezzanine/language/ko/)\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: admin.py:32 fields.py:30
@@ -111,15 +111,15 @@ msgstr "범위:"
 msgid "required"
 msgstr "필수"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Checked"
 msgstr "체크됨"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Not checked"
 msgstr "체크되지 않음"
 
-#: forms.py:224 forms.py:239
+#: forms.py:228 forms.py:243
 msgid "and"
 msgstr ""
 
@@ -196,9 +196,7 @@ msgid "Choices"
 msgstr "선택"
 
 #: models.py:55
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
 msgstr "적용가능한 경우 쉼표로 구분된 옵션. 옵션 자체가 쉼표를 갖는 경우, 옵션을 `backticks`로 둘러쌉니다."
 
 #: models.py:57

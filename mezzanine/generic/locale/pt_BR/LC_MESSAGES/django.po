@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-05-23 18:10+0000\n"
 "Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.net/projects/p/"
-"mezzanine/language/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.net/projects/p/mezzanine/language/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +50,7 @@ msgstr "opcional"
 msgid "By the blog author"
 msgstr "Pelo autor do blog"
 
-#: models.py:31 models.py:59 templates/generic/includes/comments.html:24
+#: models.py:31 models.py:59
 msgid "Comment"
 msgstr "Comentário"
 
@@ -83,13 +82,9 @@ msgstr "Avaliação"
 msgid "Ratings"
 msgstr "Avaliações"
 
-#: views.py:51
-msgid ""
-"You must log in to comment. Please log in or sign up, and your comment will "
-"be posted."
-msgstr ""
-"Você deve logar para comentar. Por favor faça o login ou registre-se, e seu "
-"comentário será postado."
+#: views.py:52
+msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
+msgstr "Você deve logar para comentar. Por favor faça o login ou registre-se, e seu comentário será postado."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -127,6 +122,10 @@ msgstr "Não há comentários no momento."
 msgid "New Comment"
 msgstr "Novo Comentário"
 
+#: templates/generic/includes/comments.html:24
+msgid "Send"
+msgstr ""
+
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"
 msgstr "Avaliação atual"
@@ -135,6 +134,6 @@ msgstr "Avaliação atual"
 msgid "Currently unrated"
 msgstr "Atualmente não avaliado"
 
-#: templates/generic/includes/rating.html:16
+#: templates/generic/includes/rating.html:18
 msgid "Rate"
 msgstr "Avalie"

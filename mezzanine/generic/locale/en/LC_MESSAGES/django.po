@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "By the blog author"
 msgstr ""
 
-#: models.py:31 models.py:59 templates/generic/includes/comments.html:24
+#: models.py:31 models.py:59
 msgid "Comment"
 msgstr ""
 
@@ -81,10 +81,8 @@ msgstr ""
 msgid "Ratings"
 msgstr ""
 
-#: views.py:51
-msgid ""
-"You must log in to comment. Please log in or sign up, and your comment will "
-"be posted."
+#: views.py:52
+msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
 msgstr ""
 
 #: templates/admin/includes/recent_comments.html:4
@@ -123,6 +121,10 @@ msgstr ""
 msgid "New Comment"
 msgstr ""
 
+#: templates/generic/includes/comments.html:24
+msgid "Send"
+msgstr ""
+
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"
 msgstr ""
@@ -131,6 +133,6 @@ msgstr ""
 msgid "Currently unrated"
 msgstr ""
 
-#: templates/generic/includes/rating.html:16
+#: templates/generic/includes/rating.html:18
 msgid "Rate"
 msgstr ""

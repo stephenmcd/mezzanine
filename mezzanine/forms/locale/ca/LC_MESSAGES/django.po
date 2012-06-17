@@ -9,11 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-05-22 09:53+0000\n"
 "Last-Translator: Sergi Almacellas <pokoli@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/"
-"language/ca/)\n"
+"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/language/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -115,15 +114,15 @@ msgstr "entre"
 msgid "required"
 msgstr "Obligatori"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Checked"
 msgstr "Marcat"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Not checked"
 msgstr "Desmarcat"
 
-#: forms.py:224 forms.py:239
+#: forms.py:228 forms.py:243
 msgid "and"
 msgstr "i"
 
@@ -200,12 +199,8 @@ msgid "Choices"
 msgstr "Opcions"
 
 #: models.py:55
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
-msgstr ""
-"Opcions separades per comes. Si una opció conté comes, envoltar amb `accents "
-"oberts`."
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr "Opcions separades per comes. Si una opció conté comes, envoltar amb `accents oberts`."
 
 #: models.py:57
 msgid "Default value"

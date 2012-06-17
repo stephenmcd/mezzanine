@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Edita Menclová <edi.menclova@centrum.cz>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.net/projects/p/mezzanine/language/cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 
 #: admin.py:32 fields.py:30
@@ -114,15 +114,15 @@ msgstr "Je mezi"
 msgid "required"
 msgstr "požadováno"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Checked"
 msgstr "Zkontrolováno"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Not checked"
 msgstr "Nezkotrolováno"
 
-#: forms.py:224 forms.py:239
+#: forms.py:228 forms.py:243
 msgid "and"
 msgstr "a"
 
@@ -199,9 +199,7 @@ msgid "Choices"
 msgstr "Výběry"
 
 #: models.py:55
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
 msgstr ""
 
 #: models.py:57

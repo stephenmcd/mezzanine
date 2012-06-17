@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Martin Jahn <don@mums.cz>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-05-26 18:09+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.net/projects/p/mezzanine/language/sk/)\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 
 #: admin.py:30
@@ -31,77 +31,75 @@ msgstr ""
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr ""
 
-#: forms.py:75 models.py:244
+#: forms.py:75 models.py:262
 msgid "Order"
 msgstr "Objednať"
 
-#: models.py:52
+#: models.py:53
 msgid "Title"
 msgstr "Titul"
 
-#: models.py:53
+#: models.py:54
 msgid "URL"
 msgstr "URL"
 
-#: models.py:95
+#: models.py:96
 msgid "View on site"
 msgstr "Zobraziť na stránke"
 
-#: models.py:105
+#: models.py:106
 msgid "Description"
 msgstr "Vysvetlivka"
 
-#: models.py:106
+#: models.py:107
 msgid "Generate description"
 msgstr "Generovať popis"
 
-#: models.py:107
-msgid ""
-"If checked, the description will be automatically generated from content. "
-"Uncheck if you want to manually set a custom description."
+#: models.py:108
+msgid "If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description."
 msgstr ""
 
-#: models.py:110
+#: models.py:111
 msgid "Keywords"
 msgstr "Kľúčové slová"
 
-#: models.py:157
+#: models.py:158
 msgid "Draft"
 msgstr "Nedokončené"
 
-#: models.py:158
+#: models.py:159
 msgid "Published"
 msgstr "Publikované"
 
-#: models.py:169
+#: models.py:170
 msgid "Status"
 msgstr "Status"
 
-#: models.py:171
+#: models.py:172 models.py:201
 msgid "Published from"
 msgstr "Publikované z"
 
-#: models.py:172
+#: models.py:173
 msgid "With published checked, won't be shown until this time"
 msgstr "Ak je publikované zaškrtnuté, tak to nebude zobrazené do tohto času"
 
-#: models.py:174
+#: models.py:175
 msgid "Expires on"
 msgstr "Expiruje dňa"
 
-#: models.py:175
+#: models.py:176
 msgid "With published checked, won't be shown after this time"
 msgstr "Ak je publikované zaškrtnuté, tak to nebude zobrazené po tomto čase"
 
-#: models.py:202
+#: models.py:220
 msgid "Content"
 msgstr "Obsah"
 
-#: models.py:298
+#: models.py:316
 msgid "Author"
 msgstr "Autor"
 
-#: views.py:80
+#: views.py:77
 msgid "Permission denied"
 msgstr "Prístup zamietnutý"
 
@@ -125,15 +123,15 @@ msgstr "Prepáčte, nastala chyba"
 msgid "Search"
 msgstr "Vyhľadávanie"
 
-#: templates/base.html:116
+#: templates/base.html:121
 msgid "Powered by"
 msgstr "Poháňa"
 
-#: templates/base.html:119
+#: templates/base.html:124
 msgid "and"
 msgstr "a"
 
-#: templates/base.html:125
+#: templates/base.html:130
 msgid "View Mobile Site"
 msgstr "Zobraziť mobilnú verziu"
 

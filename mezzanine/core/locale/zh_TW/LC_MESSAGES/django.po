@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <lueoad@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-06-13 11:14+0000\n"
 "Last-Translator: lueo <lueoad@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.net/projects/p/mezzanine/language/zh_TW/)\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: admin.py:30
@@ -31,77 +31,77 @@ msgstr "若狀態設為「已發佈」，則此欄位必填。"
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "無法匯入設定值：.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:75 models.py:244
+#: forms.py:75 models.py:262
 msgid "Order"
 msgstr "順序"
 
-#: models.py:52
+#: models.py:53
 msgid "Title"
 msgstr "標題"
 
-#: models.py:53
+#: models.py:54
 msgid "URL"
 msgstr "URL"
 
-#: models.py:95
+#: models.py:96
 msgid "View on site"
 msgstr "前往網站觀看"
 
-#: models.py:105
+#: models.py:106
 msgid "Description"
 msgstr "描述"
 
-#: models.py:106
+#: models.py:107
 msgid "Generate description"
 msgstr "產生描述"
 
-#: models.py:107
-msgid ""
-"If checked, the description will be automatically generated from content. "
-"Uncheck if you want to manually set a custom description."
-msgstr "選擇此項，描述會由內容自動產生。\n取消選擇此項，則可自定描述。"
+#: models.py:108
+msgid "If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description."
+msgstr ""
+"選擇此項，描述會由內容自動產生。\n"
+"取消選擇此項，則可自定描述。"
 
-#: models.py:110
+#: models.py:111
 msgid "Keywords"
 msgstr "關鍵字"
 
-#: models.py:157
+#: models.py:158
 msgid "Draft"
 msgstr "草稿"
 
-#: models.py:158
+#: models.py:159
 msgid "Published"
 msgstr "已發佈"
 
-#: models.py:169
+#: models.py:170
 msgid "Status"
 msgstr "狀態"
 
-#: models.py:171
+#: models.py:172 models.py:201
 msgid "Published from"
 msgstr "由誰發佈"
 
-#: models.py:172
+#: models.py:173
 msgid "With published checked, won't be shown until this time"
 msgstr "當選擇「已發佈」時，直到指定時間才顯示"
 
-#: models.py:174
+#: models.py:175
 msgid "Expires on"
 msgstr "過期日"
 
-#: models.py:175
+#: models.py:176
 msgid "With published checked, won't be shown after this time"
 msgstr "當選擇「已發佈」時，直到指定時間才顯示"
 
-#: models.py:202
+#: models.py:220
 msgid "Content"
 msgstr "內容"
 
-#: models.py:298
+#: models.py:316
 msgid "Author"
 msgstr "作者"
 
-#: views.py:80
+#: views.py:77
 msgid "Permission denied"
 msgstr "權限不足"
 
@@ -125,15 +125,15 @@ msgstr "抱歉，出現錯誤。"
 msgid "Search"
 msgstr "搜尋"
 
-#: templates/base.html:116
+#: templates/base.html:121
 msgid "Powered by"
 msgstr "技術提供"
 
-#: templates/base.html:119
+#: templates/base.html:124
 msgid "and"
 msgstr "而且"
 
-#: templates/base.html:125
+#: templates/base.html:130
 msgid "View Mobile Site"
 msgstr "看手機版網站"
 

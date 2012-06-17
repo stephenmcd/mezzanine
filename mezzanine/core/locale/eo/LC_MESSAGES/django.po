@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012.
 #   <kristjan.schmidt@googlemail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-05-26 18:09+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Esperanto (http://www.transifex.net/projects/p/mezzanine/language/eo/)\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: eo\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:30
@@ -32,77 +32,75 @@ msgstr ""
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Neeblis importi la valoron de agordoj.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:75 models.py:244
+#: forms.py:75 models.py:262
 msgid "Order"
 msgstr "Mendo"
 
-#: models.py:52
+#: models.py:53
 msgid "Title"
 msgstr "Titolo"
 
-#: models.py:53
+#: models.py:54
 msgid "URL"
 msgstr "URL"
 
-#: models.py:95
+#: models.py:96
 msgid "View on site"
 msgstr "Rigardu sur retejo"
 
-#: models.py:105
+#: models.py:106
 msgid "Description"
 msgstr "Priskribo"
 
-#: models.py:106
+#: models.py:107
 msgid "Generate description"
 msgstr "Generi priskribon"
 
-#: models.py:107
-msgid ""
-"If checked, the description will be automatically generated from content. "
-"Uncheck if you want to manually set a custom description."
+#: models.py:108
+msgid "If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description."
 msgstr "Se kontrolita, la priskribo estos aŭtomate generita de enhavo. Malmarku se vi volas permane agordi kutimo priskribo."
 
-#: models.py:110
+#: models.py:111
 msgid "Keywords"
 msgstr "Ŝlosilvortoj"
 
-#: models.py:157
+#: models.py:158
 msgid "Draft"
 msgstr "Malneto"
 
-#: models.py:158
+#: models.py:159
 msgid "Published"
 msgstr "Publikite"
 
-#: models.py:169
+#: models.py:170
 msgid "Status"
 msgstr "Stato"
 
-#: models.py:171
+#: models.py:172 models.py:201
 msgid "Published from"
 msgstr "Publikite de"
 
-#: models.py:172
+#: models.py:173
 msgid "With published checked, won't be shown until this time"
 msgstr "Kun eldonita kontrolita, ne montriĝos ĝis tiu tempo"
 
-#: models.py:174
+#: models.py:175
 msgid "Expires on"
 msgstr "Senvalidiĝos je"
 
-#: models.py:175
+#: models.py:176
 msgid "With published checked, won't be shown after this time"
 msgstr "Kun eldonita kontrolita, ne estos montrata post tiu tempo"
 
-#: models.py:202
+#: models.py:220
 msgid "Content"
 msgstr "Enhavo"
 
-#: models.py:298
+#: models.py:316
 msgid "Author"
 msgstr "Aŭtoro"
 
-#: views.py:80
+#: views.py:77
 msgid "Permission denied"
 msgstr "Permeso rifuzita"
 
@@ -126,15 +124,15 @@ msgstr "Pardonu, eraro aperis."
 msgid "Search"
 msgstr "Serĉi"
 
-#: templates/base.html:116
+#: templates/base.html:121
 msgid "Powered by"
 msgstr "Funkciigita per"
 
-#: templates/base.html:119
+#: templates/base.html:124
 msgid "and"
 msgstr "kaj"
 
-#: templates/base.html:125
+#: templates/base.html:130
 msgid "View Mobile Site"
 msgstr "Rigardu Porteblan Retejon"
 

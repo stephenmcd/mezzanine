@@ -1,20 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-06-11 14:26+0000\n"
 "Last-Translator: Yong Choi <sk8er.choi@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.net/projects/p/mezzanine/language/ko/)\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: admin.py:20 models.py:67
@@ -49,7 +49,7 @@ msgstr "선택"
 msgid "By the blog author"
 msgstr "블로그 글쓴이로"
 
-#: models.py:31 models.py:59 templates/generic/includes/comments.html:24
+#: models.py:31 models.py:59
 msgid "Comment"
 msgstr "댓글"
 
@@ -81,10 +81,8 @@ msgstr "평가"
 msgid "Ratings"
 msgstr "평가"
 
-#: views.py:51
-msgid ""
-"You must log in to comment. Please log in or sign up, and your comment will "
-"be posted."
+#: views.py:52
+msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
 msgstr "댓글을 쓰려면 로그인하셔야 합니다. 로그인 또는 회원 가입 후에 댓글이 게시됩니다."
 
 #: templates/admin/includes/recent_comments.html:4
@@ -123,6 +121,10 @@ msgstr "댓글이 없습니다"
 msgid "New Comment"
 msgstr "댓글 쓰기"
 
+#: templates/generic/includes/comments.html:24
+msgid "Send"
+msgstr ""
+
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"
 msgstr "현재 평가"
@@ -131,6 +133,6 @@ msgstr "현재 평가"
 msgid "Currently unrated"
 msgstr "평가가 없습니다"
 
-#: templates/generic/includes/rating.html:16
+#: templates/generic/includes/rating.html:18
 msgid "Rate"
 msgstr "평가"

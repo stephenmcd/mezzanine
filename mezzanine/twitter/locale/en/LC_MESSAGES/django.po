@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:25
+#: __init__.py:16
 msgid "User"
 msgstr ""
 
-#: models.py:26
+#: __init__.py:17
 msgid "List"
 msgstr ""
 
-#: models.py:27
+#: __init__.py:18
 msgid "Search"
 msgstr ""
 
-#: models.py:30
+#: models.py:26
 msgid "Type"
 msgstr ""
 
-#: models.py:32
+#: models.py:28
 msgid "Value"
 msgstr ""
 
-#: models.py:36
+#: models.py:32
 msgid "Twitter query"
 msgstr ""
 
-#: models.py:37
+#: models.py:33
 msgid "Twitter queries"
 msgstr ""
 
