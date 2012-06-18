@@ -1,6 +1,8 @@
 
   .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
 
+Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_
+
 ========
 Overview
 ========
@@ -58,6 +60,7 @@ interface, Mezzanine provides the following:
   * Sharing via Facebook or Twitter
   * Built-in `test suite`_
   * User accounts and profiles with email verification
+  * Translated to over 20 languages
 
 The Mezzanine admin dashboard:
 
