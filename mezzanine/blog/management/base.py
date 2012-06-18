@@ -226,9 +226,8 @@ class BaseImporterCommand(BaseCommand):
             redirect = self.trunc(Redirect, prompt,
                                   old_path=urlparse(old_url).path,
                                   new_path=obj.get_absolute_url())
-            Redirect.objects.filter(old_path=redirect["old_path"])
-            redirect, created = Redirect.objects.create(**redirect)
-            redirect.save()
+            redirect['site'] = Site.objects.get_current()
+            redirect, created = Redirect.objects.get_or_create(**redirect)
             if created and verbosity >= 1:
                 print "Created redirect for: %s" % redirect.old_path
 
