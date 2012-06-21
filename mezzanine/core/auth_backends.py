@@ -21,24 +21,25 @@ class MezzanineBackend(ModelBackend):
     """
 
     def authenticate(self, **kwargs):
-        username = kwargs.pop("username", None)
-        if username:
-            username_or_email = Q(username=username) | Q(email=username)
-            password = kwargs.pop("password")
-            try:
-                user = User.objects.get(username_or_email, **kwargs)
-            except User.DoesNotExist:
-                pass
+        if kwargs:
+            username = kwargs.pop("username", None)
+            if username:
+                username_or_email = Q(username=username) | Q(email=username)
+                password = kwargs.pop("password")
+                try:
+                    user = User.objects.get(username_or_email, **kwargs)
+                except User.DoesNotExist:
+                    pass
+                else:
+                    if user.check_password(password):
+                        return user
             else:
-                if user.check_password(password):
-                    return user
-        else:
-            kwargs["id"] = base36_to_int(kwargs.pop("uidb36"))
-            token = kwargs.pop("token")
-            try:
-                user = User.objects.get(**kwargs)
-            except User.DoesNotExist:
-                pass
-            else:
-                if default_token_generator.check_token(user, token):
-                    return user
+                kwargs["id"] = base36_to_int(kwargs.pop("uidb36"))
+                token = kwargs.pop("token")
+                try:
+                    user = User.objects.get(**kwargs)
+                except User.DoesNotExist:
+                    pass
+                else:
+                    if default_token_generator.check_token(user, token):
+                        return user
