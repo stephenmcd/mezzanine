@@ -104,7 +104,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         We limit it to slugifiable chars since it's used as the slug
         for the user's profile view.
         """
-        username = self.cleaned_data["username"]
+        username = self.cleaned_data.get("username")
         if username != slugify(username):
             raise forms.ValidationError(_("Username can only contain letters, "
                                           "numbers, dashes or underscores."))
@@ -119,8 +119,8 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         Ensure the password fields are equal, and match the minimum
         length defined by ``ACCOUNTS_MIN_PASSWORD_LENGTH``.
         """
-        password1 = self.cleaned_data["password1"]
-        password2 = self.cleaned_data["password2"]
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
 
         if password1:
             errors = []
@@ -137,7 +137,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         """
         Ensure the email address is not already registered.
         """
-        email = self.cleaned_data["email"]
+        email = self.cleaned_data.get("email")
         try:
             User.objects.exclude(id=self.instance.id).get(email=email)
         except User.DoesNotExist:
@@ -149,7 +149,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         Create the new user using their email address as their username.
         """
         user = super(ProfileForm, self).save(*args, **kwargs)
-        password = self.cleaned_data["password1"]
+        password = self.cleaned_data.get("password1")
         if password:
             user.set_password(password)
             user.save()
@@ -179,7 +179,7 @@ class PasswordResetForm(forms.Form):
     username = forms.CharField(label=_("Username or email address"))
 
     def clean(self):
-        username = self.cleaned_data["username"]
+        username = self.cleaned_data.get("username")
         username_or_email = Q(username=username) | Q(email=username)
         try:
             user = User.objects.get(username_or_email, is_active=True)
