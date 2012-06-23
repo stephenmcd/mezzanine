@@ -246,6 +246,7 @@ Sites Using Mezzanine
   * `Recruiterbox <http://recruiterbox.com>`_
   * `Mod Productions <http://modprods.com>`_
   * `Appsembler <http://appsembler.com>`_
+  * `Pink Twig <http://www.pinktwig.ca>`_
 
 Quotes
 ======
