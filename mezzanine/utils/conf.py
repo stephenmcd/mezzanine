@@ -71,6 +71,13 @@ def set_dynamic_settings(s):
     if "compressor" in s["INSTALLED_APPS"]:
         append("STATICFILES_FINDERS", "compressor.finders.CompressorFinder")
 
+    # Ensure the Mezzanine auth backend is enabled if
+    # mezzanine.accounts is being used.
+    if "mezzanine.accounts" in s["INSTALLED_APPS"]:
+        auth_backend = "mezzanine.core.auth_backends.MezzanineBackend"
+        s.setdefault("AUTHENTICATION_BACKENDS", [])
+        prepend("AUTHENTICATION_BACKENDS", auth_backend)
+
     # Ensure Grappelli is after Mezzanine in app order so that
     # admin templates are loaded in the correct order.
     grappelli_name = s.get("PACKAGE_NAME_GRAPPELLI")
