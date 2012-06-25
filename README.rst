@@ -76,7 +76,7 @@ standard Django environment), with the following dependencies:
   * `Django`_ 1.3 ... 1.4
   * `Python Imaging Library`_ - for image resizing
   * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
-  * `filebrowser-safe`_ - for manaaging file uploads (`FileBrowser`_ fork)
+  * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
   * `bleach`_ - for sanitizing markup in content
   * `pytz`_ - for timezone support
   * `South`_ - for database migrations (optional)
