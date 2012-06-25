@@ -104,8 +104,8 @@ source::
     $ python setup.py install
 
 Once installed, the command ``mezzanine-project`` can be used to
-create a new Mezzanine project in similar fashion to ``django-
-admin.py``::
+create a new Mezzanine project in similar fashion to
+``django-admin.py``::
 
     $ mezzanine-project project_name
     $ cd project_name
