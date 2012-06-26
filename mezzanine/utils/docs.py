@@ -45,8 +45,8 @@ def build_settings_docs(docs_path, prefix=None):
             ).replace("</b>", "``").replace("<a href=\"", "`"
             ).replace("\" rel=\"nofollow\">", " <").replace("</a>", ">`_")])
         if setting["choices"]:
-            choices = ", ".join(["%s: ``%s``" % (v, k) for k, v in
-                                 setting["choices"]])
+            choices = ", ".join(["%s: ``%s``" % (unicode(v), unicode(k))
+                                 for k, v in setting["choices"]])
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
     with open(os.path.join(docs_path, "settings.rst"), "w") as f:
