@@ -121,3 +121,27 @@ class Tweet(models.Model):
 
     def is_retweet(self):
         return self.retweeter_user_name is not None
+
+
+class Topic(models.Model):
+    """
+    Organizes twitter feeds by topic.
+    Define each feed using the Query model
+    then define a category or topic here.
+    Use the tweets_on template tag to access
+    the most recent content and use::
+
+       manage.py poll_topics
+
+    to pull the content into the database.
+    """
+    name = models.CharField(_("Name"), max_length=20)
+    query = models.ManyToManyField(Query)
+
+    class Meta:
+        verbose_name = _("topic")
+        verbose_name_plural = _("topics")
+        # ordering = ("-query",)
+
+    def __unicode__(self):
+        return "%s" % (self.name,)
