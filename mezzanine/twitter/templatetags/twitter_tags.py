@@ -68,3 +68,34 @@ def tweets_default(*args):
     if query_type == QUERY_TYPE_LIST:
         per_user = 1
     return tweets_for(query_type, args, per_user=per_user)
+
+
+@register.as_tag
+def tweets_on(*args):
+    """
+    tweets_on "topic" per_user total
+    Retrieve tweets for a particular topic. We limit the number
+    of tweets per source to allow a fair spread of tweets among
+    several sources in a category.
+    The per_user parameter is optional and defaults to 2.
+    """
+    topic = args[0].strip("\"'")
+    per_user = 2
+    if (len(args) > 2):
+        per_user = args[:-2]
+        pass
+    tweets = Tweet.objects.filter(query__topic__name=topic).order_by('-created_at')
+    if per_user is not None:
+        _tweets = defaultdict(list)
+        for tweet in tweets:
+            if len(_tweets[tweet.user_name]) < per_user:
+                _tweets[tweet.user_name].append(tweet)
+                pass
+            pass
+        tweets = sum(_tweets.values(), [])
+        tweets.sort(key=lambda t: t.created_at, reverse=True)
+        pass
+    # 
+    if len(args) > 1 and str(args[-1]).isdigit():
+        tweets = tweets[:int(args[-1])]
+    return tweets
