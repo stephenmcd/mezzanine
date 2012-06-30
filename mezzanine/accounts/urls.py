@@ -34,6 +34,8 @@ urlpatterns = patterns("mezzanine.accounts.views",
 
 if settings.ACCOUNTS_PROFILE_VIEWS_ENABLED:
     urlpatterns += patterns("mezzanine.accounts.views",
+        url("^account/$", "profile"),
+        url("^%s/$" % PROFILE_URL.strip("/"), "profile"),
         url("^%s/(?P<username>.*)/$" % PROFILE_URL.strip("/"), "profile",
             name="profile"),
     )
