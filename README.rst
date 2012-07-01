@@ -176,9 +176,11 @@ list it here, send an email to the `mezzanine-users`_ mailing list.
     `Redhat's OpenShift`_ cloud platform.
   * `mezzanine-stackato`_ - Setup for running Mezzanine on
     `ActiveState's Stackato`_ cloud platform.
-  * `mezzanine-blocks`_ - A mezzanine flavored fork of django-flatblocks.
+  * `mezzanine-blocks`_ - A Mezzanine flavored fork of django-flatblocks.
   * `mezzanine-widgets`_ - Widget system for Mezzanine.
   * `mezzanine-themes`_ - A collection of Django/Mezzanine templates.
+  * `mezzanine-twittertopic`_ - Manage multiple Twitter topic feeds from
+    the Mezzanine admin interface.
 
 Donating
 ========
@@ -345,6 +347,7 @@ Quotes
 .. _`mezzanine-blocks`: https://github.com/renyi/mezzanine-blocks
 .. _`mezzanine-widgets`: https://github.com/osiloke/mezzanine_widgets
 .. _`mezzanine-themes`: https://github.com/renyi/mezzanine-themes
+.. _`mezzanine-twittertopic`: https://github.com/lockhart/mezzanine-twittertopic
 
 .. PEOPLE WITH QUOTES
 
