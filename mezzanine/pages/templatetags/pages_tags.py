@@ -7,6 +7,7 @@ from django.template import TemplateSyntaxError, Variable
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.pages.models import Page
 from mezzanine.utils.urls import admin_url
 from mezzanine import template
@@ -70,8 +71,8 @@ def page_menu(context, token):
         context["_parent_page_ids"] = {}
         pages = defaultdict(list)
         for page in published.order_by("_order"):
-            context["_parent_page_ids"][page.id] = page.parent_id
             page.set_helpers(context)
+            context["_parent_page_ids"][page.id] = page.parent_id
             setattr(page, "num_children", num_children(page.id))
             setattr(page, "has_children", has_children(page.id))
             pages[page.parent_id].append(page)
@@ -87,17 +88,25 @@ def page_menu(context, token):
     if parent_page is not None:
         context["branch_level"] = getattr(parent_page, "branch_level", 0) + 1
         parent_page_id = parent_page.id
+
     context["page_branch"] = context["menu_pages"].get(parent_page_id, [])
-    context['page_branch_in_navigation'] = False
-    context['page_branch_in_footer'] = False
+    context["page_branch_in_menu"] = False
     for page in context["page_branch"]:
-        if page.in_navigation:
-            context['page_branch_in_navigation'] = True
-        if page.in_footer:
-            context['page_branch_in_footer'] = True
-        if (context.get('page_branch_in_navigation') and
-            context.get('page_branch_in_footer')):
-            break
+        # footer/nav for backward compatibility.
+        page.in_footer = page.in_navigation = page.in_menu = True
+        for i, l, t in settings.PAGE_MENU_TEMPLATES:
+            if not unicode(i) in page.in_menus and t == template_name:
+                page.in_navigation = page.in_menu = False
+                if "footer" in template_name:
+                    page.in_footer = False
+                break
+        if page.in_menu:
+            context["page_branch_in_menu"] = True
+    # Backwards compatibility
+    context['page_branch_in_navigation'] = context["page_branch_in_menu"]
+    context['page_branch_in_footer'] = (context["page_branch_in_menu"] and
+                                    template_name == "pages/menu/footer.html")
+
     for i, page in enumerate(context["page_branch"]):
         context["page_branch"][i].branch_level = context["branch_level"]
         context["page_branch"][i].parent = parent_page
