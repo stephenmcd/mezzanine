@@ -47,7 +47,7 @@ label.interface {display:inline !important; float:none !important;
 #settings-form .charfield {width:50% !important;}
 #settings-form .integerfield {width:30px !important;}
 
-/* make save/delete buttons always available at bottom of screen. */
+/* Make save/delete buttons always available at bottom of screen. */
 .change-form div.submit-row {
     position: fixed; left: 0; bottom: 0; right: 0;
     margin: 0; padding: 10px 15px;
@@ -57,6 +57,11 @@ label.interface {display:inline !important; float:none !important;
 
 fieldset .field-box {margin-right:150px !important;}
 .help b {color:#666;}
+
+/* mezzanine.core.fields.MultiChoiceField */
+.multicheckbox li {list-style-type:none; float:left; margin-right:10px;}
+.multicheckbox li label {width:auto; font-weight:normal;}
+.multicheckbox input {margin:-1px 6px 0 0;}
 
 /* Fix for IE7 layout issue */
 #content { margin-left: 0; margin-right: 0; padding: 0 15px; }

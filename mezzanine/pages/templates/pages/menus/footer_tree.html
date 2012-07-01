@@ -1,7 +1,7 @@
 {% load i18n pages_tags %}
 
 {% spaceless %}
-{% if page_branch_in_footer %}
+{% if page_branch_in_menu %}
 <ul class="footer-tree-menu-level-{{ branch_level }}">
 	{% for page in page_branch %}
 
@@ -11,7 +11,7 @@
 	</li>
 	{% endif %}
 
-	{% if page.in_footer %}
+	{% if page.in_menu %}
 	<li class="{% if page.is_current_or_ascendant %}active{% endif %}
         {% if not top_level and forloop.first %} first{% endif %}
         {% if forloop.last %} last{% endif %}"

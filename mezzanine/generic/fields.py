@@ -249,4 +249,3 @@ if "south" in settings.INSTALLED_APPS:
             patterns=["mezzanine\.generic\.fields\."])
     except ImportError:
         pass
-

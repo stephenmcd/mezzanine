@@ -1,8 +1,9 @@
 
-from bleach import clean
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.db import models
+from django.forms import MultipleChoiceField
+from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.utils.importing import import_dotted_path
@@ -55,7 +56,50 @@ class RichTextField(models.TextField):
         if settings.RICHTEXT_FILTER_LEVEL == RICHTEXT_FILTER_LEVEL_LOW:
             tags += LOW_FILTER_TAGS
             attrs += LOW_FILTER_ATTRS
-        return clean(value, tags=tags, attributes=attrs, strip=True)
+        try:
+            from bleach import clean
+        except ImportError:
+            return value
+        else:
+            return clean(value, tags=tags, attributes=attrs, strip=True)
+
+
+class MultiChoiceField(models.CharField):
+    """
+    Charfield that stores multiple choices selected as a comma
+    separated string. Based on http://djangosnippets.org/snippets/2753/
+    """
+
+    __metaclass__ = models.SubfieldBase  # triggers to_python()
+
+    def formfield(self, *args, **kwargs):
+        from mezzanine.core.forms import CheckboxSelectMultiple
+        defaults = {
+            "required": not self.blank,
+            "label": capfirst(self.verbose_name),
+            "help_text": self.help_text,
+            "choices": self.choices,
+            "widget": CheckboxSelectMultiple,
+            "initial": self.get_default() if self.has_default() else None,
+        }
+        defaults.update(kwargs)
+        return MultipleChoiceField(**defaults)
+
+    def get_db_prep_value(self, value, **kwargs):
+        if isinstance(value, list):
+            value = ",".join([unicode(i) for i in value])
+        return value
+
+    def to_python(self, value):
+        if isinstance(value, basestring):
+            value = value.split(",")
+        return value
+
+    def validate(self, value, instance):
+        choices = [unicode(choice[0]) for choice in self.choices]
+        if set(value) - set(choices):
+            error = self.error_messages["invalid_choice"] % value
+            raise ValidationError(error)
 
 
 # Define a ``FileField`` that maps to filebrowser's ``FileBrowseField``
@@ -83,7 +127,7 @@ HtmlField = RichTextField  # For backward compatibility in south migrations.
 if "south" in settings.INSTALLED_APPS:
     try:
         from south.modelsinspector import add_introspection_rules
-        add_introspection_rules(rules=[((FileField, RichTextField,), [], {})],
-                                patterns=["mezzanine\.core\.fields\."])
+        add_introspection_rules(patterns=["mezzanine\.core\.fields\."],
+            rules=[((FileField, RichTextField, MultiChoiceField), [], {})])
     except ImportError:
         pass

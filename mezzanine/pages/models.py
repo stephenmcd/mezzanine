@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, RichText
+from mezzanine.pages.fields import MenusField
 from mezzanine.utils.urls import admin_url, slugify
 
 
@@ -14,8 +15,7 @@ class Page(Orderable, Displayable):
 
     parent = models.ForeignKey("Page", blank=True, null=True,
         related_name="children")
-    in_navigation = models.BooleanField(_("Show in navigation"), default=True)
-    in_footer = models.BooleanField(_("Show in footer"))
+    in_menus = MenusField(_("Show in menus"), blank=True, null=True)
     titles = models.CharField(editable=False, max_length=1000, null=True)
     content_model = models.CharField(editable=False, max_length=50, null=True)
     login_required = models.BooleanField(_("Login required"),
