@@ -101,48 +101,6 @@ the navigation tree.
     and ``RichText``, the latter being imported from
     ``mezzanine.core.models``.
 
-Page Permissions
-================
-
-The navigation tree in the admin where pages are managed will take
-into account any permissions defined using `Django's permission system
-<http://docs.djangoproject.com/en/dev/topics/auth/#permissions>`_. For
-example if a logged in user doesn't have permission to add new
-instances of the ``Author`` model from our previous example, it won't
-be listed in the types of pages that user can add when viewing the
-navigation tree in the admin.
-
-In conjunction with Django's permission system, the ``Page`` model also
-implements the methods ``can_add``, ``can_change`` and ``can_delete``.
-These methods provide a way for custom page types to implement their
-own permissions by being overridden on subclasses of the ``Page``
-model.
-
-Each of these methods takes a single argument which is the current
-request object. This provides the ability to define custom permission
-methods with access to the current user as well.
-
-.. note::
-
-    The ``can_add`` permission in the context of an existing page has
-    a different meaning than in the context of an overall model as is
-    the case with Django's permission system. In the case of a page
-    instance, ``can_add`` refers to the ability to add child pages.
-
-For example, if our ``Author`` content type should only contain one
-child page at most, and only be deletable when added as a child page
-(unless you're a superuser), the following permission methodss could
-be implemented::
-
-    class Author(Page):
-        dob = models.DateField("Date of birth")
-
-        def can_add(self, request):
-            return self.children.count() == 0
-
-        def can_delete(self, request):
-            return request.user.is_superuser or self.parent is not None
-
 Displaying Custom Content Types
 ===============================
 
@@ -266,6 +224,48 @@ the author app would be as follows::
 The ``processor_for`` decorator can also be given a ``slug`` argument
 rather than a Page subclass. In this case the Page Processor will be
 run when the exact slug matches the page being viewed.
+
+Page Permissions
+================
+
+The navigation tree in the admin where pages are managed will take
+into account any permissions defined using `Django's permission system
+<http://docs.djangoproject.com/en/dev/topics/auth/#permissions>`_. For
+example if a logged in user doesn't have permission to add new
+instances of the ``Author`` model from our previous example, it won't
+be listed in the types of pages that user can add when viewing the
+navigation tree in the admin.
+
+In conjunction with Django's permission system, the ``Page`` model also
+implements the methods ``can_add``, ``can_change`` and ``can_delete``.
+These methods provide a way for custom page types to implement their
+own permissions by being overridden on subclasses of the ``Page``
+model.
+
+Each of these methods takes a single argument which is the current
+request object. This provides the ability to define custom permission
+methods with access to the current user as well.
+
+.. note::
+
+    The ``can_add`` permission in the context of an existing page has
+    a different meaning than in the context of an overall model as is
+    the case with Django's permission system. In the case of a page
+    instance, ``can_add`` refers to the ability to add child pages.
+
+For example, if our ``Author`` content type should only contain one
+child page at most, and only be deletable when added as a child page
+(unless you're a superuser), the following permission methodss could
+be implemented::
+
+    class Author(Page):
+        dob = models.DateField("Date of birth")
+
+        def can_add(self, request):
+            return self.children.count() == 0
+
+        def can_delete(self, request):
+            return request.user.is_superuser or self.parent is not None
 
 Non-Page Content
 ================
