@@ -181,6 +181,8 @@ list it here, send an email to the `mezzanine-users`_ mailing list.
   * `mezzanine-themes`_ - A collection of Django/Mezzanine templates.
   * `mezzanine-twittertopic`_ - Manage multiple Twitter topic feeds from
     the Mezzanine admin interface.
+  * `mezzanine-captcha`_ - Adds CAPTCHA field types to Mezzanine's forms
+    builder app.
 
 Donating
 ========
@@ -267,6 +269,8 @@ Quotes
     and `Django Packages`_
   * "Mezzanine convinced me to switch from the Ruby world over
     to Python" - `Michael Delaney`_, developer
+  * "Like Linux and Python, Mezzanine just feels right" - `Phil Hughes`_,
+    Linux For Dummies author, `The Linux Journal`_ columnist
   * "Impressed with Mezzanine so far" - `Brad Montgomery`_, founder
     of `Work For Pie`_
   * "From the moment I installed Mezzanine, I have been delighted, both
@@ -274,9 +278,6 @@ Quotes
     development" - `John Campbell`_, founder of `Head3 Interactive`_
   * "You need to check out the open source project Mezzanine. In one
     word: Elegant" - `Nick Hagianis`_, developer
-  * "Who came up with the name Mezzanine? I love it, like a platform
-    between the client's ideas and their published website. Very
-    classy!" - `Stephen White`_, developer
 
 .. GENERAL LINKS
 
@@ -331,6 +332,7 @@ Quotes
 .. _`Django Packages`: http://djangopackages.com/
 .. _`Hewlett Packard`: http://www.hp.com/
 .. _`Tabblo`: http://www.tabblo.com/
+.. _`The Linux Journal`: http://www.linuxjournal.com
 .. _`Work For Pie`: http://workforpie.com/
 
 
@@ -348,6 +350,8 @@ Quotes
 .. _`mezzanine-widgets`: https://github.com/osiloke/mezzanine_widgets
 .. _`mezzanine-themes`: https://github.com/renyi/mezzanine-themes
 .. _`mezzanine-twittertopic`: https://github.com/lockhart/mezzanine-twittertopic
+.. _`mezzanine-captcha`: https://github.com/mjtorn/mezzanine-captcha
+
 
 .. PEOPLE WITH QUOTES
 
@@ -358,4 +362,4 @@ Quotes
 .. _`Audrey Roy`: http://cartwheelweb.com/
 .. _`Michael Delaney`: http://github.com/fusepilot/
 .. _`John Campbell`: http://head3.com/
-.. _`Stephen White`: http://bitbucket.org/swhite/
+.. _`Phil Hughes`: http://www.linuxjournal.com/blogs/phil-hughes
