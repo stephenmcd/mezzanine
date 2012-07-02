@@ -138,7 +138,8 @@ class Page(Orderable, Displayable):
         current_page_id = getattr(current_page, "id", None)
         current_parent_id = getattr(current_page, "parent_id", None)
         # Am I a child of the current page?
-        self.is_child = self.parent_id == current_page_id
+        self.is_current_child = self.parent_id == current_page_id
+        self.is_child = self.is_current_child  # Backward compatibility
         # Is my parent the same as the current page's?
         self.is_current_sibling = self.parent_id == current_parent_id
         # Am I the current page?
