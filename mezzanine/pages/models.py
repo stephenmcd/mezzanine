@@ -114,7 +114,7 @@ class Page(Orderable, Displayable):
         """
         Dynamic ``add`` permission for content types to override.
         """
-        return True
+        return self.slug != "/"
 
     def can_change(self, request):
         """
