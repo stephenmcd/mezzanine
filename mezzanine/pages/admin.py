@@ -120,8 +120,6 @@ class PageAdmin(DisplayableAdmin):
         parent = request.GET.get("parent")
         if parent is not None and not change:
             obj.parent_id = parent
-            obj._order = None
-            obj.slug = None
             obj.save()
         super(PageAdmin, self).save_model(request, obj, form, change)
 
