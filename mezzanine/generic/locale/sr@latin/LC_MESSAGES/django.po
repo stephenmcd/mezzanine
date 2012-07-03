@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Milorad Pop-Tosic <poptosic@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:14+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Serbian (Latin) (http://www.transifex.net/projects/p/mezzanine/language/sr@latin/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr@latin\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: admin.py:20 models.py:67
+msgid "User"
+msgstr "Korisnik"
+
+#: forms.py:79
+msgid "Name"
+msgstr "Ime"
+
+#: forms.py:79
+msgid "required"
+msgstr "obavezno"
+
+#: forms.py:81
+msgid "Email"
+msgstr "Imejl"
+
+#: forms.py:82
+msgid "required (not published)"
+msgstr "obavezno (nije objavljeno)"
+
+#: forms.py:83
+msgid "Website"
+msgstr "Sajt"
+
+#: forms.py:83
+msgid "optional"
+msgstr "opciono"
+
+#: models.py:24
+msgid "By the blog author"
+msgstr "Od autora"
+
+#: models.py:31 models.py:59
+msgid "Comment"
+msgstr "Komentar"
+
+#: models.py:32 templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr "Komentari"
+
+#: models.py:71
+msgid "View on site"
+msgstr "Prikaži na sajtu"
+
+#: models.py:91
+msgid "Keyword"
+msgstr "Ključna reč"
+
+#: models.py:92
+msgid "Keywords"
+msgstr "Ključne reči"
+
+#: models.py:120
+msgid "Value"
+msgstr "Vrednost"
+
+#: models.py:126
+msgid "Rating"
+msgstr "Ocena"
+
+#: models.py:127
+msgid "Ratings"
+msgstr "Ocene"
+
+#: views.py:52
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr "Morate se prijaviti da biste ostavili komentar. Molimo prijavite se ili napravite nalog i Vaš komentar će biti postavljen."
+
+#: templates/admin/includes/recent_comments.html:4
+msgid "Recent Comments"
+msgstr "Skoriji komentari"
+
+#: templates/admin/includes/recent_comments.html:22
+#: templates/generic/includes/comment.html:22
+#: templates/generic/includes/comment.html:53
+#: templates/generic/includes/comment.html:63
+msgid "ago"
+msgstr "ranije"
+
+#: templates/generic/includes/comment.html:25
+msgid "Link"
+msgstr "Link"
+
+#: templates/generic/includes/comment.html:26
+#: templates/generic/includes/comment.html:36
+msgid "Reply"
+msgstr "Odgovori"
+
+#: templates/generic/includes/comment.html:59
+msgid "Comment deleted"
+msgstr "Komentar je izbrisan"
+
+#: templates/generic/includes/comment.html:61
+msgid "Comment awaiting approval"
+msgstr "Komentar čeka na odobrenje"
+
+#: templates/generic/includes/comment.html:72
+msgid "There are currently no comments"
+msgstr "Trenutno nema komentara"
+
+#: templates/generic/includes/comments.html:16
+msgid "New Comment"
+msgstr "Novi komentar"
+
+#: templates/generic/includes/comments.html:24
+msgid "Send"
+msgstr ""
+
+#: templates/generic/includes/rating.html:7
+msgid "Current rating"
+msgstr "Trenutna ocena"
+
+#: templates/generic/includes/rating.html:9
+msgid "Currently unrated"
+msgstr "Trenutno neocenjeni"
+
+#: templates/generic/includes/rating.html:18
+msgid "Rate"
+msgstr "Oceni"

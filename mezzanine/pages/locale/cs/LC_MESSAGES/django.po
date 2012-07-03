@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-05-26 18:10+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.net/projects/p/mezzanine/language/cs/)\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+
+#: models.py:17
+msgid "Show in navigation"
+msgstr "Zobrazovat v menu"
+
+#: models.py:18
+msgid "Show in footer"
+msgstr "Zobrazovat v patičce"
+
+#: models.py:21
+msgid "Login required"
+msgstr "Je vyžadováno přihlášení"
+
+#: models.py:22
+msgid "If checked, only logged in users can view this page"
+msgstr "Je-li tato volba zaškrnuta, daná stránka je dostupná pouze přihlášeným uživatelům"
+
+#: models.py:25
+msgid "Page"
+msgstr "Stránka"
+
+#: models.py:26
+msgid "Pages"
+msgstr "Stránky"
+
+#: models.py:175
+msgid "Rich text page"
+msgstr "Stránka s formátovaným textem"
+
+#: models.py:176
+msgid "Rich text pages"
+msgstr "Stránky s formátovaným textem"
+
+#: models.py:186
+msgid "Link"
+msgstr "Odkaz"
+
+#: models.py:187
+msgid "Links"
+msgstr ""
+
+#: templates/admin/pages/page/change_list.html:24
+#: templates/pages/menus/admin.html:32
+msgid "Add"
+msgstr "Přidat"
+
+#: templates/pages/menus/breadcrumb.html:4
+#: templates/pages/menus/breadcrumb.html:10
+#: templates/pages/menus/dropdown.html:10
+#: templates/pages/menus/footer_tree.html:10
+#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:9
+#: templates/pages/menus/tree.html:9
+msgid "Home"
+msgstr "Výchozí stránka"
+
+#: templatetags/pages_tags.py:164
+msgid "An error occured with the following class. Does it subclass Page directly?"
+msgstr "Chyba během manipulace s objektem této třídy. Je poděděn přímo od třídy Page?"

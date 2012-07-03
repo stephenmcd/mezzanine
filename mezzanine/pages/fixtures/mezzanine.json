@@ -8,10 +8,9 @@
             "parent": null,
             "description": "About us",
             "title": "About",
-            "in_footer": true,
             "titles": "About",
             "content_model": "richtextpage",
-            "in_navigation": true,
+            "in_menus": [1, 2, 3],
             "slug": "about",
             "site": 1
         }
@@ -25,10 +24,9 @@
             "parent": null,
             "description": "Blog",
             "title": "Blog",
-            "in_footer": true,
             "titles": "Blog",
             "content_model": "richtextpage",
-            "in_navigation": true,
+            "in_menus": [1, 2, 3],
             "slug": "blog",
             "site": 1
         }
@@ -42,10 +40,9 @@
             "parent": null,
             "description": "Fill in the form below to get in touch with us.",
             "title": "Contact",
-            "in_footer": true,
             "titles": "Contact",
             "content_model": "form",
-            "in_navigation": true,
+            "in_menus": [1, 2, 3],
             "slug": "contact",
             "site": 1
         }
@@ -59,10 +56,9 @@
             "parent": 1,
             "description": "Team",
             "title": "Team",
-            "in_footer": true,
             "titles": "About / Team",
             "content_model": "richtextpage",
-            "in_navigation": true,
+            "in_menus": [1, 2, 3],
             "slug": "about/team",
             "site": 1
         }
@@ -76,10 +72,9 @@
             "parent": 1,
             "description": "History",
             "title": "History",
-            "in_footer": true,
             "titles": "About / History",
             "content_model": "richtextpage",
-            "in_navigation": true,
+            "in_menus": [1, 2, 3],
             "slug": "about/history",
             "site": 1
         }
@@ -93,10 +88,9 @@
             "parent": 3,
             "description": "Legals",
             "title": "Legals",
-            "in_footer": true,
             "titles": "Contact / Legals",
             "content_model": "richtextpage",
-            "in_navigation": true,
+            "in_menus": [1, 2, 3],
             "slug": "contact/legals",
             "site": 1
         }
@@ -110,10 +104,9 @@
             "parent": null,
             "description": "Gallery",
             "title": "Gallery",
-            "in_footer": true,
             "titles": "Gallery",
             "content_model": "gallery",
-            "in_navigation": true,
+            "in_menus": [1, 2, 3],
             "slug": "gallery",
             "site": 1
         }

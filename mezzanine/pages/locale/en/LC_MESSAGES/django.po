@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,19 +41,19 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: models.py:139
+#: models.py:175
 msgid "Rich text page"
 msgstr ""
 
-#: models.py:140
+#: models.py:176
 msgid "Rich text pages"
 msgstr ""
 
-#: models.py:150
+#: models.py:186
 msgid "Link"
 msgstr ""
 
-#: models.py:151
+#: models.py:187
 msgid "Links"
 msgstr ""
 
@@ -71,7 +71,6 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: templatetags/pages_tags.py:146
-msgid ""
-"An error occured with the following class. Does it subclass Page directly?"
+#: templatetags/pages_tags.py:164
+msgid "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""

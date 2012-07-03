@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Edita Menclová <edi.menclova@centrum.cz>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:13+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.net/projects/p/mezzanine/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+
+#: models.py:18 templates/blog/includes/filter_panel.html:30
+msgid "Categories"
+msgstr "Kategorie"
+
+#: models.py:20
+msgid "Allow comments"
+msgstr ""
+
+#: models.py:22 templates/blog/blog_post_list.html:113
+msgid "Comments"
+msgstr "Komentáře"
+
+#: models.py:23
+msgid "Rating"
+msgstr "Hodnocení"
+
+#: models.py:24
+msgid "Featured Image"
+msgstr "Doporučené fotografie"
+
+#: models.py:31
+msgid "Blog post"
+msgstr "Příspěvek blogu"
+
+#: models.py:32
+msgid "Blog posts"
+msgstr "Příspěvky blogu"
+
+#: models.py:54
+msgid "Blog Category"
+msgstr "Kategorie Blogu"
+
+#: models.py:55
+msgid "Blog Categories"
+msgstr "Kategorie Blogu"
+
+#: templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr "Quick Blog"
+
+#: templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr "Uložit koncept"
+
+#: templates/blog/blog_post_detail.html:27
+#: templates/blog/blog_post_list.html:76
+msgid "Posted by"
+msgstr "Napsal"
+
+#: templates/blog/blog_post_detail.html:31
+#: templates/blog/blog_post_list.html:86
+msgid "ago"
+msgstr "Před"
+
+#: templates/blog/blog_post_detail.html:35
+#: templates/blog/blog_post_list.html:117
+#, python-format
+msgid "1 comment"
+msgid_plural "%(comments_count)s comments"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: templates/blog/blog_post_detail.html:51
+#: templates/blog/blog_post_list.html:100
+#: templates/blog/includes/filter_panel.html:41
+msgid "Tags"
+msgstr "Tagy"
+
+#: templates/blog/blog_post_detail.html:62
+msgid "Share on Twitter"
+msgstr "Sdílet na Twitteru"
+
+#: templates/blog/blog_post_detail.html:63
+msgid "Share on Facebook"
+msgstr "Sdílet na Facebooku"
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:24
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/blog/blog_post_list.html:33
+msgid "Tag:"
+msgstr "Tag:"
+
+#: templates/blog/blog_post_list.html:35
+msgid "Category:"
+msgstr "Kategorie:"
+
+#: templates/blog/blog_post_list.html:39
+msgid "Author:"
+msgstr "Autor:"
+
+#: templates/blog/blog_post_list.html:51
+msgid "Viewing posts tagged"
+msgstr "Zobrazení označených příspěvků"
+
+#: templates/blog/blog_post_list.html:53
+msgid "Viewing posts for the category"
+msgstr "Zobrazení příspěvků pro kategorii"
+
+#: templates/blog/blog_post_list.html:55
+msgid "Viewing posts from"
+msgstr "Zobrazení příspěvků z"
+
+#: templates/blog/blog_post_list.html:58
+msgid "Viewing posts by"
+msgstr "Zobrazení příspěvků od"
+
+#: templates/blog/blog_post_list.html:81
+msgid "in"
+msgstr "v"
+
+#: templates/blog/blog_post_list.html:108
+msgid "read more"
+msgstr "více"
+
+#: templates/blog/includes/filter_panel.html:5
+msgid "Recent Posts"
+msgstr "Nejnovější Příspěvky"
+
+#: templates/blog/includes/filter_panel.html:16
+msgid "Archive"
+msgstr "Archive"
+
+#: templates/blog/includes/filter_panel.html:55
+msgid "Authors"
+msgstr "Autoři"
+
+#: templates/blog/includes/filter_panel.html:65
+msgid "Feeds"
+msgstr "Feeds"
+
+#: templates/blog/includes/filter_panel.html:66
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:67
+msgid "Atom"
+msgstr "Atom"

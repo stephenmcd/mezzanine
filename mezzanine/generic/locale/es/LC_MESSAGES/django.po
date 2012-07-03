@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011, 2012.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-05-22 09:08+0000\n"
-"Last-Translator: Sergi Almacellas <pokoli@gmail.com>\n"
-"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/"
-"mezzanine/language/es/)\n"
-"Language: es\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:56+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:20 models.py:67
@@ -52,7 +51,7 @@ msgstr "opcional"
 msgid "By the blog author"
 msgstr "Por el autor del blog"
 
-#: models.py:31 models.py:59 templates/generic/includes/comments.html:24
+#: models.py:31 models.py:59
 msgid "Comment"
 msgstr "Comentario"
 
@@ -84,13 +83,11 @@ msgstr "Puntuación"
 msgid "Ratings"
 msgstr "Puntuaciones"
 
-#: views.py:51
+#: views.py:52
 msgid ""
 "You must log in to comment. Please log in or sign up, and your comment will "
 "be posted."
-msgstr ""
-"Tienes que estar identificado en el sistema para comentar. Por favor "
-"identificate o registrate para que tu comentario sea publicado."
+msgstr "Tienes que estar identificado en el sistema para comentar. Por favor identificate o registrate para que tu comentario sea publicado."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -128,6 +125,10 @@ msgstr "No existen comentarios"
 msgid "New Comment"
 msgstr "Nuevo comentario"
 
+#: templates/generic/includes/comments.html:24
+msgid "Send"
+msgstr "Enviar"
+
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"
 msgstr "Puntuación actual"
@@ -136,6 +137,6 @@ msgstr "Puntuación actual"
 msgid "Currently unrated"
 msgstr "No ha sido puntuado aún"
 
-#: templates/generic/includes/rating.html:16
+#: templates/generic/includes/rating.html:18
 msgid "Rate"
 msgstr "Puntuar"

@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Christopher R. Parr <fosstux@gmail.com>, 2012.
 # Yassine Elassad <yassine.elassad@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-05-05 23:20+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: German (http://www.transifex.net/projects/p/mezzanine/"
-"language/de/)\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-15 10:50+0000\n"
+"Last-Translator: Christopher R. Parr <fosstux@gmail.com>\n"
+"Language-Team: German (http://www.transifex.net/projects/p/mezzanine/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,84 +25,82 @@ msgstr "Metadaten"
 
 #: admin.py:50
 msgid "This field is required if status is set to published."
-msgstr ""
+msgstr "Dieses Feld wird benötigt, wenn der Status auf Veröffentlicht gesetzt wird."
 
 #: fields.py:36
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
-msgstr ""
+msgstr "Konnte den Wert der Einstellungen nicht laden. RICHTEXT_WIDGET_CLASS %s"
 
-#: forms.py:75 models.py:244
+#: forms.py:75 models.py:262
 msgid "Order"
-msgstr "Bestellung"
-
-#: models.py:52
-msgid "Title"
-msgstr "Title"
+msgstr "Sortierung"
 
 #: models.py:53
+msgid "Title"
+msgstr "Titel"
+
+#: models.py:54
 msgid "URL"
 msgstr "URL"
 
-#: models.py:95
+#: models.py:96
 msgid "View on site"
-msgstr "Seite Sicht"
+msgstr "Auf der Seite ansehen"
 
-#: models.py:105
+#: models.py:106
 msgid "Description"
 msgstr "Beschreibung"
 
-#: models.py:106
-msgid "Generate description"
-msgstr ""
-
 #: models.py:107
-msgid ""
-"If checked, the description will be automatically generated from content. "
-"Uncheck if you want to manually set a custom description."
-msgstr ""
+msgid "Generate description"
+msgstr "Beschreibung erzeugem"
 
-#: models.py:110
+#: models.py:108
+msgid "If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description."
+msgstr "Wenn aktiviert, wird die Beschreibung automatisch vom Inhalt generiert. Deaktivieren, wenn Sie eine eigene Beschreibung einstellen möchten."
+
+#: models.py:111
 msgid "Keywords"
 msgstr "Schlüsselwöter"
 
-#: models.py:157
-msgid "Draft"
-msgstr "Vorlage"
-
 #: models.py:158
-msgid "Published"
-msgstr ""
+msgid "Draft"
+msgstr "Entwurf"
 
-#: models.py:169
+#: models.py:159
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: models.py:170
 msgid "Status"
 msgstr "Status"
 
-#: models.py:171
+#: models.py:172 models.py:201
 msgid "Published from"
 msgstr "Veröffentlicht von"
 
-#: models.py:172
+#: models.py:173
 msgid "With published checked, won't be shown until this time"
-msgstr ""
+msgstr "Wenn Veröffentlicht aktiv ist, wird der Inhalt bis zu diesem Zeitpunkt nicht sichtbar sein"
 
-#: models.py:174
+#: models.py:175
 msgid "Expires on"
 msgstr "Endet am"
 
-#: models.py:175
+#: models.py:176
 msgid "With published checked, won't be shown after this time"
-msgstr ""
+msgstr "Wenn Veröffentlicht aktiv ist, wird der Inhalt nach diesem Zeitpunkt nicht sichtbar sein"
 
-#: models.py:202
+#: models.py:220
 msgid "Content"
 msgstr "Inhalt"
 
-#: models.py:298
+#: models.py:316
 msgid "Author"
 msgstr "Autor"
 
-#: views.py:80
+#: views.py:77
 msgid "Permission denied"
 msgstr "Zugang verweigert"
 
@@ -112,7 +110,7 @@ msgstr "Seite könnte nicht gefunden werden"
 
 #: templates/404.html:10
 msgid "The page you requested does not exist."
-msgstr "Die aufgerufenen Seite könnte nicht gefunden werden"
+msgstr "Die aufgerufene Seite existiert nicht."
 
 #: templates/500.html:6
 msgid "Error"
@@ -120,37 +118,37 @@ msgstr "Fehler"
 
 #: templates/500.html:10
 msgid "Sorry, an error occurred."
-msgstr ""
+msgstr "Entschuldigen Sie, ein Fehler trat auf."
 
 #: templates/base.html:60
 msgid "Search"
-msgstr ""
+msgstr "Suchen"
 
-#: templates/base.html:116
+#: templates/base.html:121
 msgid "Powered by"
-msgstr ""
+msgstr "Umgesetzt mit"
 
-#: templates/base.html:119
+#: templates/base.html:124
 msgid "and"
-msgstr ""
+msgstr "und"
 
-#: templates/base.html:125
+#: templates/base.html:130
 msgid "View Mobile Site"
-msgstr ""
+msgstr "Mobile Seite ansehen"
 
 #: templates/index.html:5 templates/index.html.py:8 templates/index.html:12
 #: templates/search_results.html:10 templates/admin/index.html:15
 msgid "Home"
-msgstr "Home"
+msgstr "Startseite"
 
 #: templates/index.html:16
 msgid "This is the homepage."
-msgstr ""
+msgstr "Das ist die Startseite."
 
 #: templates/search_results.html:5 templates/search_results.html.py:6
 #: templates/search_results.html:13
 msgid "Search Results"
-msgstr "Treffer "
+msgstr "Suchergebnisse"
 
 #: templates/search_results.html:20
 msgid "No results were found matching your query: "
@@ -158,23 +156,23 @@ msgstr "Für diese Suchkriterien wurden keine Einträge gefunden"
 
 #: templates/search_results.html:22
 msgid "Showing"
-msgstr ""
+msgstr "Anzeige von"
 
 #: templates/search_results.html:22
 msgid "to"
-msgstr "an"
+msgstr "bis"
 
 #: templates/search_results.html:22 templates/includes/pagination.html:8
 msgid "of"
-msgstr ""
+msgstr "von"
 
 #: templates/search_results.html:23
 msgid "results matching your query:"
-msgstr ""
+msgstr "Ergebnisse entsprechen Ihrer Abfrage:"
 
 #: templates/search_results.html:32
 msgid "read more"
-msgstr "mehr lesen"
+msgstr "Weiter lesen"
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"
@@ -182,11 +180,11 @@ msgstr "Dashboard"
 
 #: templates/admin/login.html:25
 msgid "Username or email:"
-msgstr ""
+msgstr "Benutzername oder E-Mail"
 
 #: templates/admin/login.html:29
 msgid "Password:"
-msgstr ""
+msgstr "Passwort"
 
 #: templates/admin/login.html:34
 msgid "Interface:"
@@ -203,53 +201,53 @@ msgstr "Seite"
 
 #: templates/admin/login.html:44
 msgid "Log in"
-msgstr ""
+msgstr "Anmelden"
 
 #: templates/admin/login.html:47
 msgid "Forgot password?"
-msgstr "Passwort Vergessen?"
+msgstr "Passwort vergessen?"
 
 #: templates/admin/includes/app_list.html:20
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: templates/admin/includes/app_list.html:27
 msgid "Change"
-msgstr ""
+msgstr "Verändern"
 
 #: templates/admin/includes/dynamic_inline_stacked.html:6
 #: templates/admin/includes/dynamic_inline_tabular.html:6
 msgid "Add another"
-msgstr ""
+msgstr "Weiter hinuifügen"
 
 #: templates/admin/includes/recent_actions.html:4
 msgid "Recent Actions"
-msgstr ""
+msgstr "Neueste Aktionen"
 
 #: templates/admin/includes/recent_actions.html:5
 msgid "My Actions"
-msgstr ""
+msgstr "Meine Aktionen"
 
 #: templates/admin/includes/recent_actions.html:9
 msgid "None available"
-msgstr ""
+msgstr "Keine verfügbar"
 
 #: templates/includes/editable_form.html:16
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: templates/includes/editable_form.html:17
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: templates/includes/editable_form.html:25
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: templates/includes/editable_toolbar.html:11
 msgid "Log out"
-msgstr ""
+msgstr "Abmelden"
 
 #: templates/includes/pagination.html:8
 msgid "Page"
-msgstr ""
+msgstr "Seite"

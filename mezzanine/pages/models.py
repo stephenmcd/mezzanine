@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, RichText
+from mezzanine.pages.fields import MenusField
 from mezzanine.utils.urls import admin_url, get_page_slug_from_path, slugify
 
 
@@ -14,8 +15,7 @@ class Page(Orderable, Displayable):
 
     parent = models.ForeignKey("Page", blank=True, null=True,
         related_name="children")
-    in_navigation = models.BooleanField(_("Show in navigation"), default=True)
-    in_footer = models.BooleanField(_("Show in footer"))
+    in_menus = MenusField(_("Show in menus"), blank=True, null=True)
     titles = models.CharField(editable=False, max_length=1000, null=True)
     content_model = models.CharField(editable=False, max_length=50, null=True)
     login_required = models.BooleanField(_("Login required"),
@@ -114,7 +114,7 @@ class Page(Orderable, Displayable):
         """
         Dynamic ``add`` permission for content types to override.
         """
-        return True
+        return self.slug != "/"
 
     def can_change(self, request):
         """
@@ -128,7 +128,7 @@ class Page(Orderable, Displayable):
         """
         return True
 
-    def set_menu_helpers(self, context):
+    def set_helpers(self, context):
         """
         Called from the ``page_menu`` template tag and assigns a
         handful of properties based on the current page, that are used
@@ -138,7 +138,8 @@ class Page(Orderable, Displayable):
         current_page_id = getattr(current_page, "id", None)
         current_parent_id = getattr(current_page, "parent_id", None)
         # Am I a child of the current page?
-        self.is_child = self.parent_id == current_page_id
+        self.is_current_child = self.parent_id == current_page_id
+        self.is_child = self.is_current_child  # Backward compatibility
         # Is my parent the same as the current page's?
         self.is_current_sibling = self.parent_id == current_parent_id
         # Am I the current page?

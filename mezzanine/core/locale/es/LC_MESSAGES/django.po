@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011, 2012.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-05-22 09:10+0000\n"
-"Last-Translator: Sergi Almacellas <pokoli@gmail.com>\n"
-"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/"
-"mezzanine/language/es/)\n"
-"Language: es\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:55+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:30
@@ -26,86 +25,84 @@ msgstr "Meta datos"
 
 #: admin.py:50
 msgid "This field is required if status is set to published."
-msgstr ""
+msgstr "Este campo es obligatorio si el estado se establece como publicado."
 
 #: fields.py:36
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "No se pudo importar el valor de settings.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:75 models.py:244
+#: forms.py:75 models.py:262
 msgid "Order"
 msgstr "Orden"
 
-#: models.py:52
+#: models.py:53
 msgid "Title"
 msgstr "Título"
 
-#: models.py:53
+#: models.py:54
 msgid "URL"
 msgstr "Dirección Web"
 
-#: models.py:95
+#: models.py:96
 msgid "View on site"
 msgstr "Ver en el sitio"
 
-#: models.py:105
+#: models.py:106
 msgid "Description"
 msgstr "Descripción"
 
-#: models.py:106
+#: models.py:107
 msgid "Generate description"
 msgstr "Generar descripción"
 
-#: models.py:107
+#: models.py:108
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
-msgstr ""
-"Si está activo, la descripción será generada automáticamente a partir del "
-"contenido. Desactive esta opción si desea establecer una descripción propia."
+msgstr "Si está activo, la descripción será generada automáticamente a partir del contenido. Desactive esta opción si desea establecer una descripción propia."
 
-#: models.py:110
+#: models.py:111
 msgid "Keywords"
 msgstr "Palabras clave"
 
-#: models.py:157
+#: models.py:158
 msgid "Draft"
 msgstr "Borrador"
 
-#: models.py:158
+#: models.py:159
 msgid "Published"
 msgstr "Publicado"
 
-#: models.py:169
+#: models.py:170
 msgid "Status"
 msgstr "Estado"
 
-#: models.py:171
+#: models.py:172 models.py:201
 msgid "Published from"
 msgstr "Fecha de publicación"
 
-#: models.py:172
+#: models.py:173
 msgid "With published checked, won't be shown until this time"
 msgstr "Con 'publicado' activo, no se mostrará hasta este momento"
 
-#: models.py:174
+#: models.py:175
 msgid "Expires on"
 msgstr "Fecha de expiración"
 
-#: models.py:175
+#: models.py:176
 msgid "With published checked, won't be shown after this time"
 msgstr "Con 'publicado' activo, no se mostrará después de este momento"
 
-#: models.py:202
+#: models.py:220
 msgid "Content"
 msgstr "Contenido"
 
-#: models.py:298
+#: models.py:316
 msgid "Author"
 msgstr "Autor"
 
-#: views.py:80
+#: views.py:77
 msgid "Permission denied"
 msgstr "Permiso denegado"
 
@@ -129,15 +126,15 @@ msgstr "Lo sentimos, ha ocurrido un error."
 msgid "Search"
 msgstr "Búsqueda"
 
-#: templates/base.html:116
+#: templates/base.html:121
 msgid "Powered by"
 msgstr "Con el poder de"
 
-#: templates/base.html:119
+#: templates/base.html:124
 msgid "and"
 msgstr "y"
 
-#: templates/base.html:125
+#: templates/base.html:130
 msgid "View Mobile Site"
 msgstr "Ver sitio para móviles"
 

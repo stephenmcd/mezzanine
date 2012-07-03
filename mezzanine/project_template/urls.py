@@ -12,6 +12,9 @@ admin.autodiscover()
 # to the project's homepage.
 
 urlpatterns = patterns("",
+
+    # Change the admin prefix here to use an alternate URL for the
+    # admin interface, which would be marginally more secure.
     ("^admin/", include(admin.site.urls)),
 
     # We don't want to presume how your homepage works, so here are a

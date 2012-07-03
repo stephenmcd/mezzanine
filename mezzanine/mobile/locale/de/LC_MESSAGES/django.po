@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Christopher R. Parr <fosstux@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:26-0430\n"
-"PO-Revision-Date: 2012-03-11 23:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: German (http://www.transifex.net/projects/p/mezzanine/"
-"language/de/)\n"
+"POT-Creation-Date: 2012-06-17 10:36-0430\n"
+"PO-Revision-Date: 2012-06-15 10:53+0000\n"
+"Last-Translator: Christopher R. Parr <fosstux@gmail.com>\n"
+"Language-Team: German (http://www.transifex.net/projects/p/mezzanine/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,112 +20,110 @@ msgstr ""
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
-msgstr ""
+msgstr "Seite könnte nicht gefunden werden"
 
 #: templates/mobile/404.html:10
 msgid "The page you requested does not exist."
-msgstr ""
+msgstr "Die aufgerufene Seite existiert nicht."
 
 #: templates/mobile/500.html:6
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: templates/mobile/500.html:10
 msgid "Sorry, an error occurred."
-msgstr ""
+msgstr "Entschuldigen Sie, ein Fehler trat auf."
 
 #: templates/mobile/base.html:31 templates/mobile/index.html:6
 msgid "Home"
-msgstr ""
+msgstr "Startseite"
 
 #: templates/mobile/base.html:43
 msgid "Powered by"
-msgstr ""
+msgstr "Umgesetzt mit"
 
 #: templates/mobile/base.html:44
 msgid "View Full Site"
-msgstr ""
+msgstr "Vollständige Seite anzeigen"
 
 #: templates/mobile/index.html:10
 msgid "This is the mobile homepage."
-msgstr ""
+msgstr "Das ist die Homepage für mobile Geräte."
 
 #: templates/mobile/search_results.html:5
 #: templates/mobile/search_results.html:6
 msgid "Search Results"
-msgstr ""
+msgstr "Suchergebnisse "
 
 #: templates/mobile/search_results.html:12
 msgid "No results were found matching your query: "
-msgstr ""
+msgstr "Für diese Suchkriterien wurden keine Einträge gefunden"
 
 #: templates/mobile/search_results.html:14
 msgid "Showing"
-msgstr ""
+msgstr "Anzeige von"
 
 #: templates/mobile/search_results.html:14
 msgid "to"
-msgstr ""
+msgstr "bis"
 
 #: templates/mobile/search_results.html:14
 msgid "of"
-msgstr ""
+msgstr "von"
 
 #: templates/mobile/search_results.html:15
 msgid "results matching your query:"
-msgstr ""
+msgstr "Ergebnisse entsprechen Ihrer Abfrage:"
 
 #: templates/mobile/search_results.html:23
 msgid "read more"
-msgstr ""
+msgstr "Weiter lesen"
 
 #: templates/mobile/blog/blog_post_detail.html:23
 msgid "Posted by"
-msgstr ""
+msgstr "Veröffentlicht von"
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
 msgid "ago"
-msgstr ""
+msgstr "her"
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
-msgstr ""
+msgstr "Schlagworte"
 
 #: templates/mobile/blog/blog_post_detail.html:52
 msgid "Share this on:"
-msgstr ""
+msgstr "Teilen auf:"
 
 #: templates/mobile/blog/blog_post_detail.html:54
 msgid "or"
-msgstr ""
+msgstr "oder"
 
 #: templates/mobile/blog/blog_post_list.html:4
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"
-msgstr ""
+msgstr "Zurück"
 
 #: templates/mobile/includes/pagination.html:9
 msgid "Next"
-msgstr ""
+msgstr "Vor"
 
 #: templates/mobile/includes/search.html:4
 msgid "Search"
-msgstr ""
+msgstr "Suchen"
 
 #: templates/mobile/includes/search.html:5
 msgid "Use "
-msgstr ""
+msgstr "Verwenden Sie"
 
 #: templates/mobile/includes/search.html:5
 msgid "quotes"
-msgstr ""
+msgstr "Zitate"
 
 #: templates/mobile/includes/search.html:5
-msgid ""
-" for exact phrases, + to make a word or phrase required, and - to exclude a "
-"word or phrase."
-msgstr ""
+msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
+msgstr "für genaue Phrasen, +, um ein Wort oder eine Phrase nötig zu machen und -, um win Wort oder eine Phrase auszuschließen."

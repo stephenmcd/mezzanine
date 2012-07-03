@@ -1,0 +1,254 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <lueoad@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-13 11:14+0000\n"
+"Last-Translator: lueo <lueoad@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.net/projects/p/mezzanine/language/zh_TW/)\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: admin.py:30
+msgid "Meta data"
+msgstr "描述資料"
+
+#: admin.py:50
+msgid "This field is required if status is set to published."
+msgstr "若狀態設為「已發佈」，則此欄位必填。"
+
+#: fields.py:36
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "無法匯入設定值：.RICHTEXT_WIDGET_CLASS: %s"
+
+#: forms.py:75 models.py:262
+msgid "Order"
+msgstr "順序"
+
+#: models.py:53
+msgid "Title"
+msgstr "標題"
+
+#: models.py:54
+msgid "URL"
+msgstr "URL"
+
+#: models.py:96
+msgid "View on site"
+msgstr "前往網站觀看"
+
+#: models.py:106
+msgid "Description"
+msgstr "描述"
+
+#: models.py:107
+msgid "Generate description"
+msgstr "產生描述"
+
+#: models.py:108
+msgid "If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description."
+msgstr ""
+"選擇此項，描述會由內容自動產生。\n"
+"取消選擇此項，則可自定描述。"
+
+#: models.py:111
+msgid "Keywords"
+msgstr "關鍵字"
+
+#: models.py:158
+msgid "Draft"
+msgstr "草稿"
+
+#: models.py:159
+msgid "Published"
+msgstr "已發佈"
+
+#: models.py:170
+msgid "Status"
+msgstr "狀態"
+
+#: models.py:172 models.py:201
+msgid "Published from"
+msgstr "由誰發佈"
+
+#: models.py:173
+msgid "With published checked, won't be shown until this time"
+msgstr "當選擇「已發佈」時，直到指定時間才顯示"
+
+#: models.py:175
+msgid "Expires on"
+msgstr "過期日"
+
+#: models.py:176
+msgid "With published checked, won't be shown after this time"
+msgstr "當選擇「已發佈」時，直到指定時間才顯示"
+
+#: models.py:220
+msgid "Content"
+msgstr "內容"
+
+#: models.py:316
+msgid "Author"
+msgstr "作者"
+
+#: views.py:77
+msgid "Permission denied"
+msgstr "權限不足"
+
+#: templates/404.html:6
+msgid "Page not found"
+msgstr "無此頁面"
+
+#: templates/404.html:10
+msgid "The page you requested does not exist."
+msgstr "您要求的頁面不存在。"
+
+#: templates/500.html:6
+msgid "Error"
+msgstr "錯誤"
+
+#: templates/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "抱歉，出現錯誤。"
+
+#: templates/base.html:60
+msgid "Search"
+msgstr "搜尋"
+
+#: templates/base.html:121
+msgid "Powered by"
+msgstr "技術提供"
+
+#: templates/base.html:124
+msgid "and"
+msgstr "而且"
+
+#: templates/base.html:130
+msgid "View Mobile Site"
+msgstr "看手機版網站"
+
+#: templates/index.html:5 templates/index.html.py:8 templates/index.html:12
+#: templates/search_results.html:10 templates/admin/index.html:15
+msgid "Home"
+msgstr "首頁"
+
+#: templates/index.html:16
+msgid "This is the homepage."
+msgstr "本頁是首頁。"
+
+#: templates/search_results.html:5 templates/search_results.html.py:6
+#: templates/search_results.html:13
+msgid "Search Results"
+msgstr "搜尋結果"
+
+#: templates/search_results.html:20
+msgid "No results were found matching your query: "
+msgstr "您的搜尋無結果："
+
+#: templates/search_results.html:22
+msgid "Showing"
+msgstr "顯示"
+
+#: templates/search_results.html:22
+msgid "to"
+msgstr "到"
+
+#: templates/search_results.html:22 templates/includes/pagination.html:8
+msgid "of"
+msgstr "的"
+
+#: templates/search_results.html:23
+msgid "results matching your query:"
+msgstr "符合您搜尋的結果："
+
+#: templates/search_results.html:32
+msgid "read more"
+msgstr "顯示更多"
+
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
+msgid "Dashboard"
+msgstr "儀表板"
+
+#: templates/admin/login.html:25
+msgid "Username or email:"
+msgstr "使用者名稱或email："
+
+#: templates/admin/login.html:29
+msgid "Password:"
+msgstr "密碼"
+
+#: templates/admin/login.html:34
+msgid "Interface:"
+msgstr "介面："
+
+#: templates/admin/login.html:37 templates/includes/editable_toolbar.html:7
+#: templates/includes/editable_toolbar.html:9
+msgid "Admin"
+msgstr "管理"
+
+#: templates/admin/login.html:40
+msgid "Site"
+msgstr "站點"
+
+#: templates/admin/login.html:44
+msgid "Log in"
+msgstr "登入"
+
+#: templates/admin/login.html:47
+msgid "Forgot password?"
+msgstr "忘記密碼嗎？"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "增加"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "變更"
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr "增加另一個"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "最近動作"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "我的動作"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "不存在"
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "儲存"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "取消"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "編輯"
+
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr "登出"
+
+#: templates/includes/pagination.html:8
+msgid "Page"
+msgstr "頁面"

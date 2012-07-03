@@ -1,6 +1,8 @@
 
   .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
 
+Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_
+
 ========
 Overview
 ========
@@ -58,6 +60,7 @@ interface, Mezzanine provides the following:
   * Sharing via Facebook or Twitter
   * Built-in `test suite`_
   * User accounts and profiles with email verification
+  * Translated to over 20 languages
 
 The Mezzanine admin dashboard:
 
@@ -73,7 +76,7 @@ standard Django environment), with the following dependencies:
   * `Django`_ 1.3 ... 1.4
   * `Python Imaging Library`_ - for image resizing
   * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
-  * `filebrowser-safe`_ - for manaaging file uploads (`FileBrowser`_ fork)
+  * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
   * `bleach`_ - for sanitizing markup in content
   * `pytz`_ - for timezone support
   * `South`_ - for database migrations (optional)
@@ -101,8 +104,8 @@ source::
     $ python setup.py install
 
 Once installed, the command ``mezzanine-project`` can be used to
-create a new Mezzanine project in similar fashion to ``django-
-admin.py``::
+create a new Mezzanine project in similar fashion to
+``django-admin.py``::
 
     $ mezzanine-project project_name
     $ cd project_name
@@ -169,12 +172,17 @@ list it here, send an email to the `mezzanine-users`_ mailing list.
     `html5boilerplate project`_  into Mezzanine.
   * `mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich
     text editor.
-  * `mezzanine-openshift`_ Setup for running Mezzanine on
+  * `mezzanine-openshift`_ - Setup for running Mezzanine on
     `Redhat's OpenShift`_ cloud platform.
-  * `mezzanine-stackato`_ Setup for running Mezzanine on
+  * `mezzanine-stackato`_ - Setup for running Mezzanine on
     `ActiveState's Stackato`_ cloud platform.
-  * `mezzanine-blocks`_ Mezzanine + django-flatblocks.
-  * `mezzanine-widgets`_ Widget system for Mezzanine.
+  * `mezzanine-blocks`_ - A Mezzanine flavored fork of django-flatblocks.
+  * `mezzanine-widgets`_ - Widget system for Mezzanine.
+  * `mezzanine-themes`_ - A collection of Django/Mezzanine templates.
+  * `mezzanine-twittertopic`_ - Manage multiple Twitter topic feeds from
+    the Mezzanine admin interface.
+  * `mezzanine-captcha`_ - Adds CAPTCHA field types to Mezzanine's forms
+    builder app.
 
 Donating
 ========
@@ -241,6 +249,8 @@ Sites Using Mezzanine
   * `Etienne B. Roesch <http://etienneroes.ch>`_
   * `Recruiterbox <http://recruiterbox.com>`_
   * `Mod Productions <http://modprods.com>`_
+  * `Appsembler <http://appsembler.com>`_
+  * `Pink Twig <http://www.pinktwig.ca>`_
 
 Quotes
 ======
@@ -259,6 +269,8 @@ Quotes
     and `Django Packages`_
   * "Mezzanine convinced me to switch from the Ruby world over
     to Python" - `Michael Delaney`_, developer
+  * "Like Linux and Python, Mezzanine just feels right" - `Phil Hughes`_,
+    Linux For Dummies author, `The Linux Journal`_ columnist
   * "Impressed with Mezzanine so far" - `Brad Montgomery`_, founder
     of `Work For Pie`_
   * "From the moment I installed Mezzanine, I have been delighted, both
@@ -266,9 +278,6 @@ Quotes
     development" - `John Campbell`_, founder of `Head3 Interactive`_
   * "You need to check out the open source project Mezzanine. In one
     word: Elegant" - `Nick Hagianis`_, developer
-  * "Who came up with the name Mezzanine? I love it, like a platform
-    between the client's ideas and their published website. Very
-    classy!" - `Stephen White`_, developer
 
 .. GENERAL LINKS
 
@@ -323,6 +332,7 @@ Quotes
 .. _`Django Packages`: http://djangopackages.com/
 .. _`Hewlett Packard`: http://www.hp.com/
 .. _`Tabblo`: http://www.tabblo.com/
+.. _`The Linux Journal`: http://www.linuxjournal.com
 .. _`Work For Pie`: http://workforpie.com/
 
 
@@ -338,6 +348,9 @@ Quotes
 .. _`ActiveState's Stackato`: http://www.activestate.com/stackato
 .. _`mezzanine-blocks`: https://github.com/renyi/mezzanine-blocks
 .. _`mezzanine-widgets`: https://github.com/osiloke/mezzanine_widgets
+.. _`mezzanine-themes`: https://github.com/renyi/mezzanine-themes
+.. _`mezzanine-twittertopic`: https://github.com/lockhart/mezzanine-twittertopic
+.. _`mezzanine-captcha`: https://github.com/mjtorn/mezzanine-captcha
 
 
 .. PEOPLE WITH QUOTES
@@ -349,4 +362,4 @@ Quotes
 .. _`Audrey Roy`: http://cartwheelweb.com/
 .. _`Michael Delaney`: http://github.com/fusepilot/
 .. _`John Campbell`: http://head3.com/
-.. _`Stephen White`: http://bitbucket.org/swhite/
+.. _`Phil Hughes`: http://www.linuxjournal.com/blogs/phil-hughes

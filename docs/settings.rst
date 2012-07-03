@@ -410,6 +410,30 @@ URL for the JavaScript file (relative to ``STATIC_URL``) that handles configurin
 
 Default: ``'mezzanine/js/tinymce_setup.js'``
 
+``TWITTER_DEFAULT_NUM_TWEETS``
+------------------------------
+
+Number of tweets to display in the default Twitter feed.
+
+Default: ``3``
+
+``TWITTER_DEFAULT_QUERY``
+-------------------------
+
+Twitter query to use for the default query type.
+
+Default: ``'#django'``
+
+``TWITTER_DEFAULT_QUERY_TYPE``
+------------------------------
+
+Type of query that will be used to retrieve tweets for the default Twitter feed.
+
+Choices: User: ``user``, List: ``list``, Search: ``search``
+
+
+Default: ``'search'``
+
 ``USE_SOUTH``
 -------------
 

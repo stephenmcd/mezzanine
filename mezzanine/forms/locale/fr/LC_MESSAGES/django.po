@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/"
-"language/fr/)\n"
+"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -114,15 +113,15 @@ msgstr "Est compris entre"
 msgid "required"
 msgstr "requis"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Checked"
 msgstr "Coché"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Not checked"
 msgstr "Non coché"
 
-#: forms.py:224 forms.py:239
+#: forms.py:228 forms.py:243
 msgid "and"
 msgstr "et"
 
@@ -199,12 +198,8 @@ msgid "Choices"
 msgstr "Choix"
 
 #: models.py:55
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
-msgstr ""
-"Options séparées par des virgules lorsque c'est nécessaire. Si le libellé "
-"d'une option contient des virgules, encadrez cette options avec des `accents`"
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr "Options séparées par des virgules lorsque c'est nécessaire. Si le libellé d'une option contient des virgules, encadrez cette options avec des `accents`"
 
 #: models.py:57
 msgid "Default value"

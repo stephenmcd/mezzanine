@@ -35,48 +35,28 @@ class PageMiddleware(object):
 
         # Remove the page slug which is set when the blog is at
         # the root of the site (BLOG_SLUG is empty).
+        from mezzanine.urls import PAGES_SLUG
+        slug = request.path_info.replace(PAGES_SLUG, "", 1)
 
-        slug = request.path
-        if slug != "/":
+        if slug == "/":
+            slugs = [slug]
+        else:
             slug = get_page_slug_from_path(slug)
+            # Create a list containing this slug, plus each of the
+            # ascendant slugs: ['about', 'about/team', 'about/team/mike']
+            parts = slug.split("/")
+            slugs = ["/".join(parts[:i]) for i in range(1, len(parts) + 1)]
+
         pages_for_user = Page.objects.published(request.user)
         try:
-            page = pages_for_user.get(slug=slug)
-        except Page.DoesNotExist:
-            page = None
-            if view_func != page_view:
-                # A non-page urlpattern has been matched with no page.
-                # To find the page this is under, we work out way right
-                # from the left of the URL, and bail out as soon as we
-                # don't match a page, keeping the last one found.
-                slug = slug.split("/")
-                for i, part in enumerate(slug):
-                    try:
-                        page = pages_for_user.get(slug="/".join(slug[:i + 1]))
-                    except Page.DoesNotExist:
-                        break
-        else:
-            if view_func == page_view:
-                # Add the page to the ``extra_context`` arg for the
-                # page view, which is responsible for choosing which
-                # template to use, and raising 404 if there's no page
-                # instance loaded.
-                view_kwargs.setdefault("extra_context", {})
-                view_kwargs["extra_context"]["page"] = page
-
-        # Create the response, and add the page to its template
-        # context. Response could also be a redirect, which we catch
-        # rather than checking for each type of response.
-        response = view_func(request, *view_args, **view_kwargs)
-        try:
-            response.context_data["page"] = page
-        except AttributeError:
-            pass
-
-        # If we don't have a page, bail out, since no more handling
-        # is required.
-        if page is None:
-            return response
+            # Find the deepest page that matches one of our slugs.
+            # Sorting by "-slug" ensures that the page with the
+            # longest slug is selected if more than one page matches.
+            page = pages_for_user.filter(slug__in=slugs).order_by("-slug")[0]
+        except IndexError:
+            # If we can't find a page matching this slug or any
+            # of its sub-slugs, skip all further processing.
+            return view_func(request, *view_args, **view_kwargs)
 
         # Handle ``page.login_required``.
         if page.login_required and not request.user.is_authenticated():
@@ -84,15 +64,33 @@ class PageMiddleware(object):
             bits = (settings.LOGIN_URL, REDIRECT_FIELD_NAME, path)
             return redirect("%s?%s=%s" % bits)
 
-        # If we don't have a response that we can add context to,
-        # eg a redirect, just return it.
+        if page.slug == slug and view_func == page_view:
+            # Add the page to the ``extra_context`` arg for the
+            # page view, which is responsible for choosing which
+            # template to use, and raising 404 if there's no page
+            # instance loaded.
+            view_kwargs.setdefault("extra_context", {})
+            view_kwargs["extra_context"]["page"] = page
+
+        # Create the response, and check that we can add context
+        # to it. If not, it's something like a redirect, so we
+        # just return it.
+        response = view_func(request, *view_args, **view_kwargs)
         if not hasattr(response, "context_data"):
             return response
+
+        # Add the page to its template context, and set helper
+        # attributes like ``is_current``.
+        response.context_data["page"] = page
+        response.context_data["_current_page"] = page
+        page.set_helpers(response.context_data)
 
         # Run page processors.
         model_processors = page_processors.processors[page.content_model]
         slug_processors = page_processors.processors["slug:%s" % page.slug]
-        for processor in model_processors + slug_processors:
+        for (processor, exact_page) in model_processors + slug_processors:
+            if exact_page and not page.is_current:
+                continue
             processor_response = processor(request, page)
             if isinstance(processor_response, HttpResponse):
                 return processor_response

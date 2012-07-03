@@ -101,48 +101,6 @@ the navigation tree.
     and ``RichText``, the latter being imported from
     ``mezzanine.core.models``.
 
-Page Permissions
-================
-
-The navigation tree in the admin where pages are managed will take
-into account any permissions defined using `Django's permission system
-<http://docs.djangoproject.com/en/dev/topics/auth/#permissions>`_. For
-example if a logged in user doesn't have permission to add new
-instances of the ``Author`` model from our previous example, it won't
-be listed in the types of pages that user can add when viewing the
-navigation tree in the admin.
-
-In conjunction with Django's permission system, the ``Page`` model also
-implements the methods ``can_add``, ``can_change`` and ``can_delete``.
-These methods provide a way for custom page types to implement their
-own permissions by being overridden on subclasses of the ``Page``
-model.
-
-Each of these methods takes a single argument which is the current
-request object. This provides the ability to define custom permission
-methods with access to the current user as well.
-
-.. note::
-
-    The ``can_add`` permission in the context of an existing page has
-    a different meaning than in the context of an overall model as is
-    the case with Django's permission system. In the case of a page
-    instance, ``can_add`` refers to the ability to add child pages.
-
-For example, if our ``Author`` content type should only contain one
-child page at most, and only be deletable when added as a child page
-(unless you're a superuser), the following permission methodss could
-be implemented::
-
-    class Author(Page):
-        dob = models.DateField("Date of birth")
-
-        def can_add(self, request):
-            return self.children.count() == 0
-
-        def can_delete(self, request):
-            return request.user.is_superuser or self.parent is not None
-
 Displaying Custom Content Types
 ===============================
 
@@ -266,6 +224,179 @@ the author app would be as follows::
 The ``processor_for`` decorator can also be given a ``slug`` argument
 rather than a Page subclass. In this case the Page Processor will be
 run when the exact slug matches the page being viewed.
+
+Page Permissions
+================
+
+The navigation tree in the admin where pages are managed will take
+into account any permissions defined using `Django's permission system
+<http://docs.djangoproject.com/en/dev/topics/auth/#permissions>`_. For
+example if a logged in user doesn't have permission to add new
+instances of the ``Author`` model from our previous example, it won't
+be listed in the types of pages that user can add when viewing the
+navigation tree in the admin.
+
+In conjunction with Django's permission system, the ``Page`` model also
+implements the methods ``can_add``, ``can_change`` and ``can_delete``.
+These methods provide a way for custom page types to implement their
+own permissions by being overridden on subclasses of the ``Page``
+model.
+
+Each of these methods takes a single argument which is the current
+request object. This provides the ability to define custom permission
+methods with access to the current user as well.
+
+.. note::
+
+    The ``can_add`` permission in the context of an existing page has
+    a different meaning than in the context of an overall model as is
+    the case with Django's permission system. In the case of a page
+    instance, ``can_add`` refers to the ability to add child pages.
+
+For example, if our ``Author`` content type should only contain one
+child page at most, and only be deletable when added as a child page
+(unless you're a superuser), the following permission methodss could
+be implemented::
+
+    class Author(Page):
+        dob = models.DateField("Date of birth")
+
+        def can_add(self, request):
+            return self.children.count() == 0
+
+        def can_delete(self, request):
+            return request.user.is_superuser or self.parent is not None
+
+Page Menus
+==========
+
+We've looked closely at the aspects of individual pages, now let's look
+at displaying all of the pages as a heirarchical menu. A typical site
+may contain several different page menus, for example a menu that shows
+primary pages on the header of the site, with secondary pages as
+drop-down lists. Another type of menu would be a full or partial tree in
+a side-bar on the site. The footer may display a menu with primary and
+secondary pages grouped together as vertical lists.
+
+Mezzanine provides the ``page_menu`` template tag for rendering the
+above types of page menus, or any other type you can think of. The
+``page_menu`` template tag is responsible for rendering a single
+branch of the page tree at a time, and accepts two optional arguments
+(you'll usually need to supply at least one of them) in either order.
+The arguments are the name of a menu template to use for a single branch
+within the page tree, and the parent menu item for the branch that will
+be rendered.
+
+The page menu template will be provided with a variable ``page_branch``,
+which contains a list of pages for the current branch. We can then call
+the ``page_menu`` template tag for each page in the branch, using the
+page as the parent argument to render its children. When calling the
+``page_menu`` template tag from within a menu template, we don't need to
+supply the template name again, as it can be inferred. Note that by
+omitting the parent page argument for the ``page_menu`` template tag,
+the first branch rendered will be all of the primary pages, that is,
+all of the pages without a parent.
+
+Here's a simple menu example using two template files, that renders the
+entire page tree using unordered list HTML tags::
+
+    <!-- First template: perhaps base.html, or an include file -->
+    {% load pages_tags %}
+    {% page_menu "pages/menus/my_menu.html" %}
+
+    <!-- Second template: pages/menus/my_menu.html -->
+    {% load pages_tags %}
+    <ul>
+    {% for page in page_branch %}
+    <li>
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+        {% page_menu page %}
+    </li>
+    {% endfor %}
+    </ul>
+
+The first file starts off the menu without specifying a parent page so
+that primary pages are first rendered, and only passes in the menu
+template to use. The second file is the actual menu template that
+includes itself recursively for each branch in the menu. We could even
+specify a different menu template in the call to ``page_menu`` in our
+menu template, if we wanted to use a different layout for child pages.
+
+Menu Variables
+--------------
+
+The ``page_menu`` template tag provides a handful of variables, both in
+the template context, and assigned to each page in the branch, for
+helping you to build advanced menus.
+
+  * ``page_branch`` - a list of pages for the current branch
+  * ``on_home`` - a boolean for whether the homepage is being viewed
+  * ``branch_level`` - an integer for the current branch depth
+  * ``page_branch_in_menu`` - a boolean for whether this branch should
+    be in the menu (see "filtering menus" below)
+  * ``page.has_children`` - a boolean for whether the branch page has
+    any child pages
+  * ``page.num_children`` - an integer for the number of child pages the
+    branch page has
+  * ``page.in_menu`` - a boolean for whether the branch page should
+    be in the menu (see "filtering menus" below)
+  * ``page.is_current_child`` - a boolean for whether the branch page
+    is a child of the current page being viewed
+  * ``page.is_current_sibling`` - a boolean for whether the branch page
+    is a sibling (has the same parent) of the current page being viewed
+  * ``page.is_current_or_ascendant`` - a boolean for whether the branch
+    page is the current page being viewed, or an ascendant (parent,
+    grand-parent, etc) of the current page being viewed
+  * ``page.is_current_sibling`` - a boolean for whether the branch page
+    is a parimary page (has no parent)
+  * ``page.html_id`` - a unique string that can be used as the HTML ID
+    attribute
+  * ``page.branch_level`` - an integer for the branch page's depth
+
+Filtering Menus
+---------------
+
+Each ``Page`` instance has a field ``in_menus`` which specifies which
+menus the page should appear in. In the admin interface, the
+``in_menus`` field is a list of checkboxes for each of the menu
+templates. The menu choices for the ``in_menus`` field are defined by
+the ``PAGE_MENU_TEMPLATES`` setting, which is a sequence of menu
+templates. Each item in the sequence is a three item sequence,
+containing a unique ID for the template, a label for the template, and
+the template path. For example in your ``settings.py`` module::
+
+    PAGE_MENU_TEMPLATES = (
+        (1, "Top navigation bar", "pages/menus/dropdown.html"),
+        (2, "Left-hand tree", "pages/menus/tree.html"),
+        (3, "Footer", "pages/menus/footer.html"),
+    )
+
+The selections made for the ``in_menus`` field on each page don't
+actually filter a page from being included in the ``page_branch``
+variable that contains the list of pages for the current branch. Instead
+it's used to set the value of ``page.in_menu`` for each page in the
+menu template, so it's up to your menu template to check the page's
+``in_menu`` attribute explicitly, in order to exclude it::
+
+    <!-- Second template again, with in_menu support -->
+    {% load pages_tags %}
+    <ul>
+    {% for page in page_branch %}
+    {% if page.in_menu %}
+    <li>
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+        {% page_menu page %}
+    </li>
+    {% endif %}
+    {% endfor %}
+    </ul>
+
+Note that if a menu template is not defined in the
+``PAGE_MENU_TEMPLATES`` setting, the branch pages supplied to it will
+always have the ``in_menu`` attribute set to ``True``, so the only way
+this will be ``False`` is if the menu template has been added to
+``PAGE_MENU_TEMPLATES``, and then *not* selected for a page in the admin
+interface.
 
 Non-Page Content
 ================

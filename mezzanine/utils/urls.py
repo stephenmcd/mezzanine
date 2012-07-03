@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse, NoReverseMatch
 from django.shortcuts import redirect
 from django.utils.encoding import smart_unicode
 
+from mezzanine.accounts import urls
 from mezzanine.conf import settings
 from mezzanine.utils.importing import import_dotted_path
 
@@ -53,8 +54,9 @@ def login_redirect(request):
     - LOGIN_REDIRECT_URL setting
     - homepage
     """
-    next = request.GET.get("next")
-    if not next:
+    ignorable_nexts = ("", urls.SIGNUP_URL, urls.LOGIN_URL, urls.LOGOUT_URL)
+    next = request.REQUEST.get("next", "")
+    if next in ignorable_nexts:
         try:
             next = reverse(settings.LOGIN_REDIRECT_URL)
         except NoReverseMatch:

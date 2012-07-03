@@ -10,17 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-04 18:49+0400\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-03-11 23:55+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
-"language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/language/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: admin.py:32 fields.py:30
 msgid "Email"
@@ -30,9 +28,9 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] "1 запись удалена"
-msgstr[1] "%(count)s записи удалено"
-msgstr[2] "%(count)s записей удалено"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: admin.py:119
 msgid "View Entries"
@@ -164,9 +162,7 @@ msgstr "Отправить копии"
 
 #: models.py:25
 msgid "One or more email addresses, separated by commas"
-msgstr ""
-"Один или более адресов электронной почты, которым будет отправлена копия "
-"письма, разделяется запятыми"
+msgstr "Один или более адресов электронной почты, которым будет отправлена копия письма, разделяется запятыми"
 
 #: models.py:27
 msgid "Subject"
@@ -205,12 +201,8 @@ msgid "Choices"
 msgstr "Значения"
 
 #: models.py:55
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
-msgstr ""
-"Варианты, разделенные запятыми. Если значение содержит запятые, окружите его "
-"`обратными кавычками`."
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr "Варианты, разделенные запятыми. Если значение содержит запятые, окружите его `обратными кавычками`."
 
 #: models.py:57
 msgid "Default value"

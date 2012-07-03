@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Milorad Pop-Tosic <poptosic@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-05-31 10:06+0000\n"
+"Last-Translator: Milorad Pop-Tosic <poptosic@gmail.com>\n"
+"Language-Team: Serbian (Latin) (http://www.transifex.net/projects/p/mezzanine/language/sr@latin/)\n"
+"Language: sr@latin\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: models.py:18 templates/blog/includes/filter_panel.html:30
+msgid "Categories"
+msgstr "Kategorije"
+
+#: models.py:20
+msgid "Allow comments"
+msgstr "Dozvoli komentarisanje"
+
+#: models.py:22 templates/blog/blog_post_list.html:113
+msgid "Comments"
+msgstr "Komentari"
+
+#: models.py:23
+msgid "Rating"
+msgstr "Ocene"
+
+#: models.py:24
+msgid "Featured Image"
+msgstr "Pridružena slika"
+
+#: models.py:31
+msgid "Blog post"
+msgstr "Blog zapis"
+
+#: models.py:32
+msgid "Blog posts"
+msgstr "Blog zapisi"
+
+#: models.py:54
+msgid "Blog Category"
+msgstr "Blog kategorija"
+
+#: models.py:55
+msgid "Blog Categories"
+msgstr "Blog kategorije"
+
+#: templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr "Brzi blog"
+
+#: templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr "Sačuvaj nacrt"
+
+#: templates/blog/blog_post_detail.html:27
+#: templates/blog/blog_post_list.html:76
+msgid "Posted by"
+msgstr "Autor"
+
+#: templates/blog/blog_post_detail.html:31
+#: templates/blog/blog_post_list.html:86
+msgid "ago"
+msgstr "ranije"
+
+#: templates/blog/blog_post_detail.html:35
+#: templates/blog/blog_post_list.html:117
+#, python-format
+msgid "1 comment"
+msgid_plural "%(comments_count)s comments"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: templates/blog/blog_post_detail.html:51
+#: templates/blog/blog_post_list.html:100
+#: templates/blog/includes/filter_panel.html:41
+msgid "Tags"
+msgstr "Oznake"
+
+#: templates/blog/blog_post_detail.html:62
+msgid "Share on Twitter"
+msgstr "Podeli na Twitter-u"
+
+#: templates/blog/blog_post_detail.html:63
+msgid "Share on Facebook"
+msgstr "Podeli na Facebook-u"
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:24
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/blog/blog_post_list.html:33
+msgid "Tag:"
+msgstr "Oznaka:"
+
+#: templates/blog/blog_post_list.html:35
+msgid "Category:"
+msgstr "Kategorija:"
+
+#: templates/blog/blog_post_list.html:39
+msgid "Author:"
+msgstr "Autor:"
+
+#: templates/blog/blog_post_list.html:51
+msgid "Viewing posts tagged"
+msgstr "Prikaz svih zapisa koji su označeni"
+
+#: templates/blog/blog_post_list.html:53
+msgid "Viewing posts for the category"
+msgstr "Prikaz svih zapisa za kategoriju"
+
+#: templates/blog/blog_post_list.html:55
+msgid "Viewing posts from"
+msgstr "Prikaz svih zapisa iz"
+
+#: templates/blog/blog_post_list.html:58
+msgid "Viewing posts by"
+msgstr "Prikaz zapisa autora"
+
+#: templates/blog/blog_post_list.html:81
+msgid "in"
+msgstr "u"
+
+#: templates/blog/blog_post_list.html:108
+msgid "read more"
+msgstr "pročitaj više"
+
+#: templates/blog/includes/filter_panel.html:5
+msgid "Recent Posts"
+msgstr "Skoriji zapisi"
+
+#: templates/blog/includes/filter_panel.html:16
+msgid "Archive"
+msgstr "Arhiva"
+
+#: templates/blog/includes/filter_panel.html:55
+msgid "Authors"
+msgstr "Autori"
+
+#: templates/blog/includes/filter_panel.html:65
+msgid "Feeds"
+msgstr "Fidovi"
+
+#: templates/blog/includes/filter_panel.html:66
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:67
+msgid "Atom"
+msgstr "Atom"

@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:14+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Esperanto (http://www.transifex.net/projects/p/mezzanine/language/eo/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: eo\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:20 models.py:67
+msgid "User"
+msgstr "Uzanto"
+
+#: forms.py:79
+msgid "Name"
+msgstr "Nomo"
+
+#: forms.py:79
+msgid "required"
+msgstr "postulita"
+
+#: forms.py:81
+msgid "Email"
+msgstr "Retpoŝto"
+
+#: forms.py:82
+msgid "required (not published)"
+msgstr "postulita (ne eldonita)"
+
+#: forms.py:83
+msgid "Website"
+msgstr "Retejo"
+
+#: forms.py:83
+msgid "optional"
+msgstr "laŭvola"
+
+#: models.py:24
+msgid "By the blog author"
+msgstr "Per la blog aŭtoro"
+
+#: models.py:31 models.py:59
+msgid "Comment"
+msgstr "Komento"
+
+#: models.py:32 templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr "Komentoj"
+
+#: models.py:71
+msgid "View on site"
+msgstr "Montru sur retejo"
+
+#: models.py:91
+msgid "Keyword"
+msgstr "Ŝlosilvorto"
+
+#: models.py:92
+msgid "Keywords"
+msgstr "Ŝlosilvortoj"
+
+#: models.py:120
+msgid "Value"
+msgstr "Valoro"
+
+#: models.py:126
+msgid "Rating"
+msgstr "Takso"
+
+#: models.py:127
+msgid "Ratings"
+msgstr "Taksoj"
+
+#: views.py:52
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr ""
+
+#: templates/admin/includes/recent_comments.html:4
+msgid "Recent Comments"
+msgstr "Lastaj Komentoj"
+
+#: templates/admin/includes/recent_comments.html:22
+#: templates/generic/includes/comment.html:22
+#: templates/generic/includes/comment.html:53
+#: templates/generic/includes/comment.html:63
+msgid "ago"
+msgstr "antaŭ"
+
+#: templates/generic/includes/comment.html:25
+msgid "Link"
+msgstr "Ligo"
+
+#: templates/generic/includes/comment.html:26
+#: templates/generic/includes/comment.html:36
+msgid "Reply"
+msgstr "Respondu"
+
+#: templates/generic/includes/comment.html:59
+msgid "Comment deleted"
+msgstr "Komento forigita"
+
+#: templates/generic/includes/comment.html:61
+msgid "Comment awaiting approval"
+msgstr "Komento atendante aprobo"
+
+#: templates/generic/includes/comment.html:72
+msgid "There are currently no comments"
+msgstr "Nun estas nek komentoj"
+
+#: templates/generic/includes/comments.html:16
+msgid "New Comment"
+msgstr "Nova Komento"
+
+#: templates/generic/includes/comments.html:24
+msgid "Send"
+msgstr ""
+
+#: templates/generic/includes/rating.html:7
+msgid "Current rating"
+msgstr "Nuna takso"
+
+#: templates/generic/includes/rating.html:9
+msgid "Currently unrated"
+msgstr "nuntempe netaksitaj"
+
+#: templates/generic/includes/rating.html:18
+msgid "Rate"
+msgstr "Taksu"

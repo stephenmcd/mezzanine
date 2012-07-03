@@ -8,17 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2012-05-05 23:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.net/projects/p/mezzanine/"
-"language/pl/)\n"
+"Language-Team: Polish (http://www.transifex.net/projects/p/mezzanine/language/pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: admin.py:32 fields.py:30
 msgid "Email"
@@ -116,15 +114,15 @@ msgstr "Pomiędzy"
 msgid "required"
 msgstr "wymagane"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Checked"
 msgstr "Zaznaczone"
 
-#: forms.py:210
+#: forms.py:214
 msgid "Not checked"
 msgstr "Niezaznaczone"
 
-#: forms.py:224 forms.py:239
+#: forms.py:228 forms.py:243
 msgid "and"
 msgstr "i"
 
@@ -201,12 +199,8 @@ msgid "Choices"
 msgstr "Opcje"
 
 #: models.py:55
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
-msgstr ""
-"Opcje oddzielone przecinkami. Jeżeli opcja sama w sobie zawiera przecinek "
-"należy ją otoczyć `lewym apostrofem`"
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr "Opcje oddzielone przecinkami. Jeżeli opcja sama w sobie zawiera przecinek należy ją otoczyć `lewym apostrofem`"
 
 #: models.py:57
 msgid "Default value"

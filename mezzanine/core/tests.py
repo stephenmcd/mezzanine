@@ -238,7 +238,7 @@ class Tests(TestCase):
                     kwargs[parent_field] = level2
                     model.objects.create(**kwargs)
 
-    def test_comments(self):
+    def test_comment_queries(self):
         """
         Test that rendering comments executes the same number of
         queries, regardless of the number of nested replies.
@@ -258,7 +258,7 @@ class Tests(TestCase):
         after = self.queries_used_for_template(template, **context)
         self.assertEquals(before, after)
 
-    def test_page_menu(self):
+    def test_page_menu_queries(self):
         """
         Test that rendering a page menu executes the same number of
         queries regardless of the number of pages or levels of
@@ -271,6 +271,23 @@ class Tests(TestCase):
                                       status=CONTENT_STATUS_PUBLISHED)
         after = self.queries_used_for_template(template)
         self.assertEquals(before, after)
+
+    def test_page_menu_flags(self):
+        """
+        Test that pages only appear in the menu templates they've been
+        assigned to show in.
+        """
+        menus = []
+        pages = []
+        template = "{% load pages_tags %}"
+        for i, label, path in settings.PAGE_MENU_TEMPLATES:
+            menus.append(i)
+            pages.append(RichTextPage.objects.create(in_menus=list(menus),
+                title="Page for %s" % label, status=CONTENT_STATUS_PUBLISHED))
+            template += "{%% page_menu '%s' %%}" % path
+        rendered = Template(template).render(Context({}))
+        for page in pages:
+            self.assertEquals(rendered.count(page.title), len(page.in_menus))
 
     def test_keywords(self):
         """

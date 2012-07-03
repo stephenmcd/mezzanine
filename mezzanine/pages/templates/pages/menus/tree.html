@@ -1,7 +1,7 @@
 {% load i18n pages_tags %}
 
 {% spaceless %}
-{% if page_branch_in_navigation %}
+{% if page_branch_in_menu %}
 <ul class="nav nav-list navlist-menu-level-{{ branch_level }}">
   {% for page in page_branch %}
   {% if page.is_primary and forloop.first %}
@@ -9,7 +9,7 @@
     <a href="{% url home %}">{% trans "Home" %}</a>
   </li>
   {% endif %}
-  {% if page.in_navigation %}
+  {% if page.in_menu %}
   <li class="
              {% if page.is_current %} active{% endif %}
              {% if not page.is_primary and forloop.first %} first{% endif %}
@@ -18,7 +18,7 @@
     <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
     {# remove this if tag to always show all nav items #}
     {% if settings.PAGES_MENU_SHOW_ALL or page.is_current_or_ascendant %}
-    {% page_menu page %}
+    {% if page.has_children %}{% page_menu page %}{% endif %}
     {% endif %}
   </li>
   {% endif %}

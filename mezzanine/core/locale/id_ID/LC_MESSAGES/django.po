@@ -1,0 +1,251 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-05-26 18:09+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.net/projects/p/mezzanine/language/id_ID/)\n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: admin.py:30
+msgid "Meta data"
+msgstr ""
+
+#: admin.py:50
+msgid "This field is required if status is set to published."
+msgstr ""
+
+#: fields.py:36
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr ""
+
+#: forms.py:75 models.py:262
+msgid "Order"
+msgstr ""
+
+#: models.py:53
+msgid "Title"
+msgstr ""
+
+#: models.py:54
+msgid "URL"
+msgstr ""
+
+#: models.py:96
+msgid "View on site"
+msgstr ""
+
+#: models.py:106
+msgid "Description"
+msgstr ""
+
+#: models.py:107
+msgid "Generate description"
+msgstr ""
+
+#: models.py:108
+msgid "If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description."
+msgstr ""
+
+#: models.py:111
+msgid "Keywords"
+msgstr ""
+
+#: models.py:158
+msgid "Draft"
+msgstr ""
+
+#: models.py:159
+msgid "Published"
+msgstr ""
+
+#: models.py:170
+msgid "Status"
+msgstr ""
+
+#: models.py:172 models.py:201
+msgid "Published from"
+msgstr ""
+
+#: models.py:173
+msgid "With published checked, won't be shown until this time"
+msgstr ""
+
+#: models.py:175
+msgid "Expires on"
+msgstr ""
+
+#: models.py:176
+msgid "With published checked, won't be shown after this time"
+msgstr ""
+
+#: models.py:220
+msgid "Content"
+msgstr ""
+
+#: models.py:316
+msgid "Author"
+msgstr ""
+
+#: views.py:77
+msgid "Permission denied"
+msgstr ""
+
+#: templates/404.html:6
+msgid "Page not found"
+msgstr ""
+
+#: templates/404.html:10
+msgid "The page you requested does not exist."
+msgstr ""
+
+#: templates/500.html:6
+msgid "Error"
+msgstr ""
+
+#: templates/500.html:10
+msgid "Sorry, an error occurred."
+msgstr ""
+
+#: templates/base.html:60
+msgid "Search"
+msgstr ""
+
+#: templates/base.html:121
+msgid "Powered by"
+msgstr ""
+
+#: templates/base.html:124
+msgid "and"
+msgstr ""
+
+#: templates/base.html:130
+msgid "View Mobile Site"
+msgstr ""
+
+#: templates/index.html:5 templates/index.html.py:8 templates/index.html:12
+#: templates/search_results.html:10 templates/admin/index.html:15
+msgid "Home"
+msgstr ""
+
+#: templates/index.html:16
+msgid "This is the homepage."
+msgstr ""
+
+#: templates/search_results.html:5 templates/search_results.html.py:6
+#: templates/search_results.html:13
+msgid "Search Results"
+msgstr ""
+
+#: templates/search_results.html:20
+msgid "No results were found matching your query: "
+msgstr ""
+
+#: templates/search_results.html:22
+msgid "Showing"
+msgstr ""
+
+#: templates/search_results.html:22
+msgid "to"
+msgstr ""
+
+#: templates/search_results.html:22 templates/includes/pagination.html:8
+msgid "of"
+msgstr ""
+
+#: templates/search_results.html:23
+msgid "results matching your query:"
+msgstr ""
+
+#: templates/search_results.html:32
+msgid "read more"
+msgstr ""
+
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
+msgid "Dashboard"
+msgstr ""
+
+#: templates/admin/login.html:25
+msgid "Username or email:"
+msgstr ""
+
+#: templates/admin/login.html:29
+msgid "Password:"
+msgstr ""
+
+#: templates/admin/login.html:34
+msgid "Interface:"
+msgstr ""
+
+#: templates/admin/login.html:37 templates/includes/editable_toolbar.html:7
+#: templates/includes/editable_toolbar.html:9
+msgid "Admin"
+msgstr ""
+
+#: templates/admin/login.html:40
+msgid "Site"
+msgstr ""
+
+#: templates/admin/login.html:44
+msgid "Log in"
+msgstr ""
+
+#: templates/admin/login.html:47
+msgid "Forgot password?"
+msgstr ""
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr ""
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr ""
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr ""
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr ""
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr ""
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr ""
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr ""
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr ""
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr ""
+
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr ""
+
+#: templates/includes/pagination.html:8
+msgid "Page"
+msgstr ""

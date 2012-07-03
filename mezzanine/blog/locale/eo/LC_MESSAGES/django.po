@@ -1,0 +1,159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:13+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Esperanto (http://www.transifex.net/projects/p/mezzanine/language/eo/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: eo\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: models.py:18 templates/blog/includes/filter_panel.html:30
+msgid "Categories"
+msgstr "Kategorioj"
+
+#: models.py:20
+msgid "Allow comments"
+msgstr ""
+
+#: models.py:22 templates/blog/blog_post_list.html:113
+msgid "Comments"
+msgstr "Komentoj"
+
+#: models.py:23
+msgid "Rating"
+msgstr "Takso"
+
+#: models.py:24
+msgid "Featured Image"
+msgstr "Elstare Bildo"
+
+#: models.py:31
+msgid "Blog post"
+msgstr "Blogoskribaĵo"
+
+#: models.py:32
+msgid "Blog posts"
+msgstr "Blogoskribaĵoj"
+
+#: models.py:54
+msgid "Blog Category"
+msgstr "Blogo Kategorio"
+
+#: models.py:55
+msgid "Blog Categories"
+msgstr "Blogo Kategorioj"
+
+#: templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr "Rapida Blogo"
+
+#: templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr "Savu Malneton"
+
+#: templates/blog/blog_post_detail.html:27
+#: templates/blog/blog_post_list.html:76
+msgid "Posted by"
+msgstr "Enskribita per"
+
+#: templates/blog/blog_post_detail.html:31
+#: templates/blog/blog_post_list.html:86
+msgid "ago"
+msgstr "antaŭ"
+
+#: templates/blog/blog_post_detail.html:35
+#: templates/blog/blog_post_list.html:117
+#, python-format
+msgid "1 comment"
+msgid_plural "%(comments_count)s comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/blog/blog_post_detail.html:51
+#: templates/blog/blog_post_list.html:100
+#: templates/blog/includes/filter_panel.html:41
+msgid "Tags"
+msgstr "Markoj"
+
+#: templates/blog/blog_post_detail.html:62
+msgid "Share on Twitter"
+msgstr "Dividu ĉe Peplando"
+
+#: templates/blog/blog_post_detail.html:63
+msgid "Share on Facebook"
+msgstr "Dividu ĉe Fejsbuko"
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:24
+msgid "Blog"
+msgstr "Blogo"
+
+#: templates/blog/blog_post_list.html:33
+msgid "Tag:"
+msgstr "Marko:"
+
+#: templates/blog/blog_post_list.html:35
+msgid "Category:"
+msgstr "Kategorio:"
+
+#: templates/blog/blog_post_list.html:39
+msgid "Author:"
+msgstr "Verkisto:"
+
+#: templates/blog/blog_post_list.html:51
+msgid "Viewing posts tagged"
+msgstr "Rigardas afiŝojn markitajn"
+
+#: templates/blog/blog_post_list.html:53
+msgid "Viewing posts for the category"
+msgstr "Rigardas afiŝojn por la kategorio"
+
+#: templates/blog/blog_post_list.html:55
+msgid "Viewing posts from"
+msgstr "Rigardas afiŝojn el"
+
+#: templates/blog/blog_post_list.html:58
+msgid "Viewing posts by"
+msgstr "Rigardas afiŝojn de"
+
+#: templates/blog/blog_post_list.html:81
+msgid "in"
+msgstr "en"
+
+#: templates/blog/blog_post_list.html:108
+msgid "read more"
+msgstr "legu pli"
+
+#: templates/blog/includes/filter_panel.html:5
+msgid "Recent Posts"
+msgstr "Lastaj Afiŝoj"
+
+#: templates/blog/includes/filter_panel.html:16
+msgid "Archive"
+msgstr "Arkivo"
+
+#: templates/blog/includes/filter_panel.html:55
+msgid "Authors"
+msgstr "Verkistoj"
+
+#: templates/blog/includes/filter_panel.html:65
+msgid "Feeds"
+msgstr "Abonfluo"
+
+#: templates/blog/includes/filter_panel.html:66
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:67
+msgid "Atom"
+msgstr "Atomo"

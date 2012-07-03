@@ -1,0 +1,158 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Whoami Jeong <>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:13+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.net/projects/p/mezzanine/language/ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: models.py:18 templates/blog/includes/filter_panel.html:30
+msgid "Categories"
+msgstr "카테고리"
+
+#: models.py:20
+msgid "Allow comments"
+msgstr "댓글 허용하기"
+
+#: models.py:22 templates/blog/blog_post_list.html:113
+msgid "Comments"
+msgstr "댓글"
+
+#: models.py:23
+msgid "Rating"
+msgstr "평가"
+
+#: models.py:24
+msgid "Featured Image"
+msgstr "추천 그림"
+
+#: models.py:31
+msgid "Blog post"
+msgstr "블로그 게시글"
+
+#: models.py:32
+msgid "Blog posts"
+msgstr "블로그 게시글"
+
+#: models.py:54
+msgid "Blog Category"
+msgstr "블로그 카테고리"
+
+#: models.py:55
+msgid "Blog Categories"
+msgstr "블로그 카테고리"
+
+#: templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr "빠른 블로그 작성"
+
+#: templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr "초안 저장"
+
+#: templates/blog/blog_post_detail.html:27
+#: templates/blog/blog_post_list.html:76
+msgid "Posted by"
+msgstr "글쓴이"
+
+#: templates/blog/blog_post_detail.html:31
+#: templates/blog/blog_post_list.html:86
+msgid "ago"
+msgstr "전"
+
+#: templates/blog/blog_post_detail.html:35
+#: templates/blog/blog_post_list.html:117
+#, python-format
+msgid "1 comment"
+msgid_plural "%(comments_count)s comments"
+msgstr[0] "%(comments_count)s 개의 댓글"
+
+#: templates/blog/blog_post_detail.html:51
+#: templates/blog/blog_post_list.html:100
+#: templates/blog/includes/filter_panel.html:41
+msgid "Tags"
+msgstr "태그"
+
+#: templates/blog/blog_post_detail.html:62
+msgid "Share on Twitter"
+msgstr "트위터에 공유하기"
+
+#: templates/blog/blog_post_detail.html:63
+msgid "Share on Facebook"
+msgstr "페이스북에 공유하기"
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:24
+msgid "Blog"
+msgstr "블로그"
+
+#: templates/blog/blog_post_list.html:33
+msgid "Tag:"
+msgstr "태그:"
+
+#: templates/blog/blog_post_list.html:35
+msgid "Category:"
+msgstr "카테고리:"
+
+#: templates/blog/blog_post_list.html:39
+msgid "Author:"
+msgstr "글쓴이:"
+
+#: templates/blog/blog_post_list.html:51
+msgid "Viewing posts tagged"
+msgstr "태그된 게시글들 보기"
+
+#: templates/blog/blog_post_list.html:53
+msgid "Viewing posts for the category"
+msgstr "카테고리로 게시글들 보기"
+
+#: templates/blog/blog_post_list.html:55
+msgid "Viewing posts from"
+msgstr "글쓴때:"
+
+#: templates/blog/blog_post_list.html:58
+msgid "Viewing posts by"
+msgstr "저자별로 보기"
+
+#: templates/blog/blog_post_list.html:81
+msgid "in"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:108
+msgid "read more"
+msgstr "더 보기"
+
+#: templates/blog/includes/filter_panel.html:5
+msgid "Recent Posts"
+msgstr "요즘 글"
+
+#: templates/blog/includes/filter_panel.html:16
+msgid "Archive"
+msgstr "묵은 글"
+
+#: templates/blog/includes/filter_panel.html:55
+msgid "Authors"
+msgstr "글쓴이"
+
+#: templates/blog/includes/filter_panel.html:65
+msgid "Feeds"
+msgstr "구독"
+
+#: templates/blog/includes/filter_panel.html:66
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:67
+msgid "Atom"
+msgstr "Atom"
