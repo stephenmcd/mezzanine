@@ -98,7 +98,7 @@ if "mezzanine.pages" in settings.INSTALLED_APPS:
     # so give pages their own prefix and inject them before the
     # blog urlpatterns.
     if not BLOG_SLUG and blog_installed:
-        PAGES_SLUG = getattr(settings, "PAGES_SLUG", "passsges").strip("/") + "/"
+        PAGES_SLUG = getattr(settings, "PAGES_SLUG", "pages").strip("/") + "/"
         blog_patterns_start = urlpatterns.index(blog_patterns[0])
         urlpatterns[blog_patterns_start:len(blog_patterns)] = patterns("",
             ("^%s" % unicode(PAGES_SLUG), include("mezzanine.pages.urls")),
