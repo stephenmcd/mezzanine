@@ -20,7 +20,7 @@ from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageFile, ImageOps
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
@@ -264,6 +264,8 @@ def thumbnail(image_url, width, height, quality=95):
         height = image.size[1] * width / image.size[0]
     if image.mode not in ("L", "RGBA"):
         image = image.convert("RGBA")
+    # Required for progressive jpgs.
+    ImageFile.MAXBLOCK = image.size[0] * image.size[1]
     try:
         image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
         image = image.save(thumb_path, filetype, quality=quality, **image_info)
@@ -272,7 +274,14 @@ def thumbnail(image_url, width, height, quality=95):
         if "://" in settings.MEDIA_URL:
             with open(thumb_path, "r") as f:
                 default_storage.save(thumb_url, File(f))
-    except:
+    except Exception:
+        # If an error occurred, a corrupted image may have been saved,
+        # so remove it, otherwise the check for it existing will just
+        # return the corrupted image next time it's requested.
+        try:
+            os.remove(thumb_path)
+        except Exception:
+            pass
         return image_url
     return thumb_url
 
