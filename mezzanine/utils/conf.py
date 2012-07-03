@@ -99,7 +99,7 @@ def set_dynamic_settings(s):
     if "mezzanine.blog" in s["INSTALLED_APPS"]:
         append("INSTALLED_APPS", "mezzanine.generic")
     if "mezzanine.generic" in s["INSTALLED_APPS"]:
-        s["COMMENTS_APP"] = "mezzanine.generic"
+        s.setdefault("COMMENTS_APP", "mezzanine.generic")
         append("INSTALLED_APPS", "django.contrib.comments")
 
     # Ensure mezzanine.boot is first.
