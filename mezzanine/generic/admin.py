@@ -28,5 +28,6 @@ class ThreadedCommentAdmin(CommentsAdmin):
         return actions
 
 
-if not settings.COMMENTS_DISQUS_SHORTNAME:
+if (settings.COMMENTS_APP == "mezzanine.generic") and (
+                                  not settings.COMMENTS_DISQUS_SHORTNAME):
     admin.site.register(ThreadedComment, ThreadedCommentAdmin)
