@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
-from mezzanine.utils.urls import admin_url, get_page_slug_from_path, slugify
+from mezzanine.utils.urls import admin_url, path_to_slug, slugify
 
 
 class Page(Orderable, Displayable):
@@ -149,8 +149,7 @@ class Page(Orderable, Displayable):
             # No request context, most likely when tests are run.
             self.is_current = False
         else:
-            slug = get_page_slug_from_path(request.path)
-            self.is_current = self.slug == slug
+            self.is_current = self.slug == path_to_slug(request.path_info)
 
         # Is the current page me or any page up the parent chain?
         def is_c_or_a(page_id):

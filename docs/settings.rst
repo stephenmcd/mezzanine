@@ -255,9 +255,23 @@ Default: ``10``
 ``PAGES_MENU_SHOW_ALL``
 -----------------------
 
-If ``True``, the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page.
+If ``True``, the left-hand tree template for the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page.
 
 Default: ``True``
+
+``PAGE_MENU_TEMPLATES``
+-----------------------
+
+A sequence of templates used by the ``page_menu`` template tag. Each item in the sequence is a three item sequence, containing a unique ID for the template, a label for the template, and the template path. These templates are then available for selection when editing which menus a page should appear in. Note that if a menu template is used that doesn't appear in this setting, all pages will appear in it.
+
+Default: ``((1, u'Top navigation bar', 'pages/menus/dropdown.html'), (2, u'Left-hand tree', 'pages/menus/tree.html'), (3, u'Footer', 'pages/menus/footer.html'))``
+
+``PAGE_MENU_TEMPLATES_DEFAULT``
+-------------------------------
+
+A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the default menu templates selected when creating new pages. By default all menu templates are selected. Set this setting to an empty sequence to have no templates selected by default.
+
+Default: ``None``
 
 ``RATINGS_MAX``
 ---------------
@@ -325,13 +339,11 @@ Number of results shown in the search results page.
 Default: ``10``
 
 ``SITE_PREFIX``
-----------------
+---------------
 
-A prefix of the site. If you set this, you also need to configure your urls.py accordingly.
-The prefix is anything in the request path before Mezzanine's url configuration, e.g.
-on ``http://some.site/content/blog/post1`` the prefix had to be set to ``content``.
+A URL prefix for mounting all of Mezzanine's urlpatterns under. When using this, you'll also need to manually apply it to your project's root ``urls.py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-project`` command contains an example of this towards its end.
 
-Default: ``u''``
+Default: ``''``
 
 ``SITE_TAGLINE``
 ----------------

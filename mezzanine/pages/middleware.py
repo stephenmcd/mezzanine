@@ -7,7 +7,7 @@ from mezzanine.conf import settings
 from mezzanine.pages import page_processors
 from mezzanine.pages.models import Page
 from mezzanine.pages.views import page as page_view
-from mezzanine.utils.urls import get_page_slug_from_path
+from mezzanine.utils.urls import path_to_slug
 
 
 class PageMiddleware(object):
@@ -33,15 +33,10 @@ class PageMiddleware(object):
 
     def process_view(self, request, view_func, view_args, view_kwargs):
 
-        # Remove the page slug which is set when the blog is at
-        # the root of the site (BLOG_SLUG is empty).
-        from mezzanine.urls import PAGES_SLUG
-        slug = request.path_info.replace(PAGES_SLUG, "", 1)
-
+        slug = path_to_slug(request.path_info)
         if slug == "/":
             slugs = [slug]
         else:
-            slug = get_page_slug_from_path(slug)
             # Create a list containing this slug, plus each of the
             # ascendant slugs: ['about', 'about/team', 'about/team/mike']
             parts = slug.split("/")

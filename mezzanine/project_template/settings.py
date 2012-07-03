@@ -5,7 +5,9 @@
 
 # The following settings are already defined in mezzanine.conf.defaults
 # with default values, but are common enough to be put here, commented
-# out, for convenient overriding.
+# out, for convenient overriding. Please consult the settings
+# documentation for a full list of settings Mezzanine implements:
+# http://mezzanine.jupo.org/docs/configuration.html#default-settings
 
 # Controls the ordering and grouping of the admin menu.
 #
@@ -76,8 +78,7 @@
 # SSL_FORCE_URL_PREFIXES = ("/admin", "/account")
 
 # If True, the south application will be automatically added to the
-# INSTALLED_APPS setting. This setting is not defined in
-# mezzanine.conf.defaults as is the case with the above settings.
+# INSTALLED_APPS setting.
 USE_SOUTH = True
 
 

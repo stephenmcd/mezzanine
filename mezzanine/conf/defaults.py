@@ -498,8 +498,12 @@ register_setting(
 
 register_setting(
     name="SITE_PREFIX",
-    description=_("Prefix part of the site."),
-    editable=True,
+    description=_("A URL prefix for mounting all of Mezzanine's urlpatterns "
+        "under. When using this, you'll also need to manually apply it to "
+        "your project's root ``urls.py`` module. The root ``urls.py`` module "
+        "provided by Mezzanine's ``mezzanine-project`` command contains an "
+        "example of this towards its end."),
+    editable=False,
     default="",
 )
 
