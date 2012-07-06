@@ -90,7 +90,9 @@ $(function() {
 <div class="row">
 
 <div class="span2 left">
+    {% block left_panel %}
     <div class="panel tree">{% page_menu "pages/menus/tree.html" %}</div>
+    {% endblock %}
 </div>
 
 <div class="span7 middle">
