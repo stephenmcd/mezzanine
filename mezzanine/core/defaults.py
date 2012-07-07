@@ -111,6 +111,13 @@ register_setting(
 )
 
 register_setting(
+    name="FORMS_USE_HTML5",
+    description=_("If ``True``, website forms will use HTML5 features."),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="EXTRA_MODEL_FIELDS",
     description=_("A sequence of fields that will be injected into "
         "Mezzanine's (or any library's) models. Each item in the sequence is "

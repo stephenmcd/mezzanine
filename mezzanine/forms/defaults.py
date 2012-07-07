@@ -39,13 +39,6 @@ register_setting(
 )
 
 register_setting(
-    name="FORMS_USE_HTML5",
-    description=_("If ``True``, website forms will use HTML5 features."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
     name="FORMS_CSV_DELIMITER",
     description=_("Char to use as a field delimiter when exporting form "
         "responses as CSV."),
