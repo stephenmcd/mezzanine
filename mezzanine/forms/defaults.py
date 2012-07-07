@@ -1,5 +1,5 @@
 """
-Default settings for all mezzanine.forms app. Each of these can be
+Default settings for the ``mezzanine.forms`` app. Each of these can be
 overridden in your project's settings module, just like regular
 Django settings. The ``editable`` argument for each controls whether
 the setting is editable via Django's admin.
@@ -10,7 +10,6 @@ that are only read during startup shouldn't be editable, since changing
 them would require an application reload.
 """
 
-from django.conf import settings
 from django.utils.translation import ugettext as _
 
 from mezzanine.conf import register_setting

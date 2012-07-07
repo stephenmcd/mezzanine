@@ -1,5 +1,5 @@
 """
-Default settings for mezzanine.generic apps. Each of these can be
+Default settings for the ``mezzanine.generic`` app. Each of these can be
 overridden in your project's settings module, just like regular
 Django settings. The ``editable`` argument for each controls whether
 the setting is editable via Django's admin.
@@ -30,7 +30,8 @@ if generic_comments:
     register_setting(
         name="COMMENTS_DISQUS_SHORTNAME",
         label=_("Disqus shortname"),
-        description=_("Shortname for the http://disqus.com comments service."),
+        description=_("Shortname for the http://disqus.com comments "
+                      "service."),
         editable=True,
         default="",
     )
@@ -54,7 +55,8 @@ if generic_comments:
     register_setting(
         name="COMMENTS_DEFAULT_APPROVED",
         label=_("Auto-approve comments"),
-        description=_("If ``True``, built-in comments are approved by default."),
+        description=_("If ``True``, built-in comments are approved by "
+                      "default."),
         editable=True,
         default=True,
     )
@@ -62,7 +64,8 @@ if generic_comments:
     register_setting(
         name="COMMENTS_NUM_LATEST",
         label=_("Admin comments"),
-        description=_("Number of latest comments shown in the admin dashboard."),
+        description=_("Number of latest comments shown in the admin "
+                      "dashboard."),
         editable=True,
         default=5,
     )
@@ -70,9 +73,9 @@ if generic_comments:
     register_setting(
         name="COMMENTS_UNAPPROVED_VISIBLE",
         label=_("Show unapproved comments"),
-        description=_("If ``True``, comments that have ``is_public`` unchecked "
-            "will still be displayed, but replaced with a ``waiting to be "
-            "approved`` message."),
+        description=_("If ``True``, comments that have ``is_public`` "
+            "unchecked will still be displayed, but replaced with a "
+            "``waiting to be approved`` message."),
         editable=True,
         default=True,
     )
@@ -80,8 +83,9 @@ if generic_comments:
     register_setting(
         name="COMMENTS_REMOVED_VISIBLE",
         label=_("Show removed comments"),
-        description=_("If ``True``, comments that have ``removed`` checked "
-            "will still be displayed, but replaced with a ``removed`` message."),
+        description=_("If ``True``, comments that have ``removed`` "
+                      "checked will still be displayed, but replaced "
+                      "with a ``removed`` message."),
         editable=True,
         default=True,
     )
