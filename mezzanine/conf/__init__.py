@@ -99,8 +99,8 @@ class Settings(object):
             return setting["default"]
 
 
-other_apps = [app for app in django_settings.INSTALLED_APPS if app != __name__]
-for app in [__name__] + other_apps:
+mezz_first = lambda app: not app.startswith("mezzanine.")
+for app in sorted(django_settings.INSTALLED_APPS, key=mezz_first):
     try:
         __import__("%s.defaults" % app)
     except (ImportError, ValueError):  # ValueError raised by convert_to_south
