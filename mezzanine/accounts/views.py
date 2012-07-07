@@ -79,6 +79,15 @@ def signup_verify(request, uidb36=None, token=None):
         return redirect("/")
 
 
+@login_required
+def profile_redirect(request):
+    """
+    Just gives the URL prefix for profiles an action - redirect
+    to the logged in user's profile.
+    """
+    return redirect("profile", username=request.user.username)
+
+
 def profile(request, username, template="accounts/account_profile.html"):
     """
     Display a profile.
@@ -99,6 +108,15 @@ def profile(request, username, template="accounts/account_profile.html"):
         "profile_fields": profile_fields.items(),
     }
     return render(request, template, context)
+
+
+@login_required
+def account_redirect(request):
+    """
+    Just gives the URL prefix for accounts an action - redirect
+    to the profile update form.
+    """
+    return redirect("profile_update")
 
 
 @login_required
