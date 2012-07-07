@@ -16,15 +16,9 @@ class DisplayableSitemap(Sitemap):
         Return all published items for models that subclass
         ``Displayable``.
         """
-        items = []
-        item_urls = set()
+        items = {}
         for model in get_models():
             if issubclass(model, Displayable):
                 for item in model.objects.published():
-                    url = item.get_absolute_url()
-                    # check if the url of that item was already seen
-                    # (this might happen for Page items and subclasses of Page like RichTextPage)
-                    if not url in item_urls:
-                        items.append(item)
-                        item_urls.add(url)
-        return items
+                    items[item.get_absolute_url()] = item
+        return items.values()
