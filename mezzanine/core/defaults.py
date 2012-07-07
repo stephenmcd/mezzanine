@@ -17,37 +17,6 @@ from mezzanine.conf import register_setting
 
 
 register_setting(
-    name="ACCOUNTS_MIN_PASSWORD_LENGTH",
-    description=_("Minimum length for passwords"),
-    editable=False,
-    default=6,
-)
-
-register_setting(
-    name="ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS",
-    description=_("List of fields to exclude from the profile form."),
-    editable=False,
-    default=(),
-)
-
-register_setting(
-    name="ACCOUNTS_PROFILE_VIEWS_ENABLED",
-    description=_("If ``True``, users will have their own public profile "
-        "pages."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
-    name="ACCOUNTS_VERIFICATION_REQUIRED",
-    description=_("If ``True``, when users create an account, they will be "
-        "sent an email with a verification link, which they must click to "
-        "enable their account."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
     name="ADMIN_MENU_ORDER",
     description=_("Controls the ordering and grouping of the admin menu."),
     editable=False,
@@ -67,53 +36,6 @@ register_setting(
 )
 
 register_setting(
-    name="BLOG_BITLY_USER",
-    label=_("bit.ly username"),
-    description=_("Username for http://bit.ly URL shortening service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="BLOG_BITLY_KEY",
-    label=_("bit.ly key"),
-    description=_("Key for http://bit.ly URL shortening service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="BLOG_USE_FEATURED_IMAGE",
-    description=_("Enable featured images in blog posts"),
-    editable=False,
-    default=False,
-)
-
-register_setting(
-    name="BLOG_URLS_USE_DATE",
-    label=_("Use date URLs"),
-    description=_("If ``True``, URLs for blog post include the month and "
-        "year. Eg: /blog/yyyy/mm/slug/"),
-    editable=False,
-    default=False,
-)
-
-register_setting(
-    name="BLOG_POST_PER_PAGE",
-    label=_("Blog posts per page"),
-    description=_("Number of blog posts shown on a blog listing page."),
-    editable=True,
-    default=5,
-)
-
-register_setting(
-    name="BLOG_SLUG",
-    description=_("Slug of the page object for the blog."),
-    editable=False,
-    default="blog",
-)
-
-register_setting(
     name="CACHE_SET_DELAY_SECONDS",
     description=_("Mezzanine's caching uses a technique know as mint "
         "caching. This is where the requested expiry for a cache entry "
@@ -129,79 +51,12 @@ register_setting(
 )
 
 register_setting(
-    name="COMMENTS_ACCOUNT_REQUIRED",
-    label=_("Accounts required for commenting"),
-    description=_("If ``True``, users must log in to comment."),
-    editable=True,
-    default=False,
-)
-
-register_setting(
     name="AKISMET_API_KEY",
     label=_("Akismet API Key"),
     description=_("Key for http://akismet.com spam filtering service. Used "
         "for filtering comments and forms."),
     editable=True,
     default="",
-)
-
-register_setting(
-    name="COMMENTS_DISQUS_SHORTNAME",
-    label=_("Disqus shortname"),
-    description=_("Shortname for the http://disqus.com comments service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="COMMENTS_DISQUS_API_PUBLIC_KEY",
-    label=_("Disqus public key"),
-    description=_("Public key for http://disqus.com developer API"),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="COMMENTS_DISQUS_API_SECRET_KEY",
-    label=_("Disqus secret key"),
-    description=_("Secret key for http://disqus.com developer API"),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="COMMENTS_DEFAULT_APPROVED",
-    label=_("Auto-approve comments"),
-    description=_("If ``True``, built-in comments are approved by default."),
-    editable=True,
-    default=True,
-)
-
-register_setting(
-    name="COMMENTS_NUM_LATEST",
-    label=_("Admin comments"),
-    description=_("Number of latest comments shown in the admin dashboard."),
-    editable=True,
-    default=5,
-)
-
-register_setting(
-    name="COMMENTS_UNAPPROVED_VISIBLE",
-    label=_("Show unapproved comments"),
-    description=_("If ``True``, comments that have ``is_public`` unchecked "
-        "will still be displayed, but replaced with a ``waiting to be "
-        "approved`` message."),
-    editable=True,
-    default=True,
-)
-
-register_setting(
-    name="COMMENTS_REMOVED_VISIBLE",
-    label=_("Show removed comments"),
-    description=_("If ``True``, comments that have ``removed`` checked "
-        "will still be displayed, but replaced with a ``removed`` message."),
-    editable=True,
-    default=True,
 )
 
 if "mezzanine.blog" in settings.INSTALLED_APPS:
@@ -268,51 +123,6 @@ register_setting(
         "model fields."),
     editable=False,
     default=(),
-)
-
-register_setting(
-    name="FORMS_DISABLE_SEND_FROM_EMAIL_FIELD",
-    description=_("If ``True``, emails sent to extra recipients for form "
-        "submissions won't be sent from an address taken from one of the "
-        "form's email fields."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
-    name="FORMS_FIELD_MAX_LENGTH",
-    description=_("Max length allowed for field values in the forms app."),
-    editable=False,
-    default=2000,
-)
-
-register_setting(
-    name="FORMS_LABEL_MAX_LENGTH",
-    description=_("Max length allowed for field labels in the forms app."),
-    editable=False,
-    default=200,
-)
-
-register_setting(
-    name="FORMS_USE_HTML5",
-    description=_("If ``True``, website forms will use HTML5 features."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
-    name="FORMS_CSV_DELIMITER",
-    description=_("Char to use as a field delimiter when exporting form "
-        "responses as CSV."),
-    editable=False,
-    default=",",
-)
-
-register_setting(
-    name="FORMS_UPLOAD_ROOT",
-    description=_("Absolute path for storing file uploads for the forms app."),
-    editable=False,
-    default="",
 )
 
 register_setting(
@@ -389,20 +199,6 @@ register_setting(
         "are only shown when viewing the parent page."),
     editable=False,
     default=True,
-)
-
-register_setting(
-    name="RATINGS_MIN",
-    description=_("Min value for a rating."),
-    editable=False,
-    default=1,
-)
-
-register_setting(
-    name="RATINGS_MAX",
-    description=_("Max value for a rating."),
-    editable=False,
-    default=5,
 )
 
 register_setting(
@@ -659,34 +455,6 @@ register_setting(
         "``RICHTEXT_WIDGET_CLASS`` is used."),
     editable=False,
     default="mezzanine/js/tinymce_setup.js",
-)
-
-from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_SEARCH
-
-register_setting(
-    name="TWITTER_DEFAULT_QUERY_TYPE",
-    label=_("Default Twitter Query Type"),
-    description=_("Type of query that will be used to retrieve tweets for "
-        "the default Twitter feed."),
-    editable=True,
-    default=QUERY_TYPE_SEARCH,
-    choices=QUERY_TYPE_CHOICES,
-)
-
-register_setting(
-    name="TWITTER_DEFAULT_QUERY",
-    label=_("Default Twitter Query"),
-    description=_("Twitter query to use for the default query type."),
-    editable=True,
-    default="#django",
-)
-
-register_setting(
-    name="TWITTER_DEFAULT_NUM_TWEETS",
-    label=_("Default Number of Tweets"),
-    description=_("Number of tweets to display in the default Twitter feed."),
-    editable=True,
-    default=3,
 )
 
 # The following settings are defined here for documentation purposes
