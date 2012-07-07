@@ -28,7 +28,7 @@ def keywords_for(*args):
     if isinstance(args[0], Model):
         obj = args[0]
         if hasattr(obj, "get_content_model"):
-            obj = obj.get_content_model()
+            obj = obj.get_content_model() or obj
         # There can only be one ``KeywordsField``, find it.
         for field in obj._meta.many_to_many:
             if isinstance(field, KeywordsField):
