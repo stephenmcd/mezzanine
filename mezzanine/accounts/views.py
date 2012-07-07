@@ -79,11 +79,11 @@ def signup_verify(request, uidb36=None, token=None):
         return redirect("/")
 
 
-def profile(request, username, template="accounts/account_profile.html"):
+def profile(request, username=None, template="accounts/account_profile.html"):
     """
     Display a profile.
     """
-    profile_user = get_object_or_404(User, username=username, is_active=True)
+    profile_user = get_object_or_404(User, username=username or request.user.username, is_active=True)
     profile_fields = SortedDict()
     Profile = get_profile_model()
     if Profile is not None:
