@@ -251,6 +251,7 @@ Sites Using Mezzanine
   * `Mod Productions <http://modprods.com>`_
   * `Appsembler <http://appsembler.com>`_
   * `Pink Twig <http://www.pinktwig.ca>`_
+  * `Parfume Planet <http://parfumeplanet.com>`_
 
 Quotes
 ======
