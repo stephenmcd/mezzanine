@@ -377,7 +377,8 @@ def restart():
     if exists(pid_path):
         sudo("kill -HUP `cat %s`" % pid_path)
     else:
-        sudo("supervisorctl start %s:gunicorn" % env.proj_name)
+        start_args = (env.proj_name, env.proj_name)
+        sudo("supervisorctl start %s:gunicorn_%s" % start_args)
 
 
 @log_call
