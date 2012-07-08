@@ -69,6 +69,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         exclude = _exclude_fields
 
     def __init__(self, *args, **kwargs):
+        self._request_post = args[0]
         super(ProfileForm, self).__init__(*args, **kwargs)
         self._signup = self.instance.id is None
         user_fields = User._meta.get_all_field_names()
@@ -157,7 +158,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         # Save profile model.
         if self._has_profile:
             profile = user.get_profile()
-            ProfileFieldsForm(self.cleaned_data, instance=profile).save()
+            ProfileFieldsForm(self._request_post, instance=profile).save()
 
         if self._signup:
             settings.use_editable()
