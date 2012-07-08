@@ -30,6 +30,13 @@ register_setting(
 )
 
 register_setting(
+    name="ACCOUNTS_PROFILE_FORM_FIELDS_ORDER",
+    description=_("List defining order of profile form fields."),
+    editable=False,
+    default=(),
+)
+
+register_setting(
     name="ACCOUNTS_PROFILE_VIEWS_ENABLED",
     description=_("If ``True``, users will have their own public profile "
         "pages."),
