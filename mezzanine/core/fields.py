@@ -46,7 +46,7 @@ class RichTextField(models.TextField):
         Remove potentially dangerous HTML tags and attributes.
         """
         from mezzanine.conf import settings
-        from mezzanine.conf.defaults import (RICHTEXT_FILTER_LEVEL_NONE,
+        from mezzanine.core.defaults import (RICHTEXT_FILTER_LEVEL_NONE,
                                              RICHTEXT_FILTER_LEVEL_LOW)
         settings.use_editable()
         if settings.RICHTEXT_FILTER_LEVEL == RICHTEXT_FILTER_LEVEL_NONE:
