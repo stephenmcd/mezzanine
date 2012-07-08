@@ -101,6 +101,10 @@ class MultiChoiceField(models.CharField):
             error = self.error_messages["invalid_choice"] % value
             raise ValidationError(error)
 
+    def value_to_string(self, obj):
+        value = self._get_val_from_obj(obj)
+        return ",".join(value)
+
 
 # Define a ``FileField`` that maps to filebrowser's ``FileBrowseField``
 # if available, falling back to Django's ``FileField`` otherwise.
