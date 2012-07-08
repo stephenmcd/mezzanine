@@ -2,6 +2,7 @@
 from time import time
 
 from django.core.cache import cache
+from django.utils.cache import _i18n_cache_key_suffix
 
 from mezzanine.conf import settings
 from mezzanine.utils.device import device_from_request
@@ -60,11 +61,12 @@ def cache_key_prefix(request):
     Cache key for Mezzanine's cache middleware. Adds the current
     device and site ID.
     """
-    return "%s.%s.%s." % (
+    cache_key = "%s.%s.%s." % (
         settings.CACHE_MIDDLEWARE_KEY_PREFIX,
         current_site_id(),
         device_from_request(request) or "default",
     )
+    return _i18n_cache_key_suffix(request, cache_key)
 
 
 def nevercache_token():
