@@ -103,6 +103,10 @@ class MetaData(models.Model):
     Abstract model that provides meta data for content.
     """
 
+    meta_title = models.CharField(_("Html title"), max_length=100, blank=True)
+    add_title_suffix = models.BooleanField(_("Add suffix with site title"),
+        help_text=("If checked, site title will be added to the end of "
+                   "html title tag."), default=True)
     description = models.TextField(_("Description"), blank=True)
     gen_description = models.BooleanField(_("Generate description"),
         help_text=_("If checked, the description will be automatically "

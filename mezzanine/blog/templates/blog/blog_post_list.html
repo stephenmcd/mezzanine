@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
 
-{% block meta_title %}{% if page %}{{ page.richtextpage.title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
+{% block full_meta_title %}{% block meta_title %}{% if page.meta_title %}{{ page.meta_title }}{% else %}{% if page.title %}{{ page.title }}{% else %}{% trans "Blog" %}{% endif %}{% endif %}{% endblock %}{% if page.add_title_suffix %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}{% else %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}{% endif %}{% endblock %}
 
 {% block meta_keywords %}{% metablock %}
 {% if page %}
