@@ -252,6 +252,28 @@ Sites Using Mezzanine
   * `Appsembler <http://appsembler.com>`_
   * `Pink Twig <http://www.pinktwig.ca>`_
   * `Parfume Planet <http://parfumeplanet.com>`_
+  * `Trading 4 Us <http://www.trading4.us>`_
+  * `Chris Fleisch <http://chrisfleisch.com>`_
+  * `Theneum <http://theneum.com>`_
+  * `My Story Chest <http://www.mystorychest.com>`_
+  * `Philip Sahli <http://www.fatrix.ch>`_
+  * `Raymond Chandler <http://www.codearchaeologist.org>`_
+  * `Nashsb <http://nashpp.com>`_
+  * `AciBASE <http://acinetobacter.bham.ac.uk>`_
+  * `Enrico Tröger <http://www.uvena.de>`_
+  * `Matthe Wahn <http://www.matthewahn.com>`_
+  * `Bit of Pixels <http://bitofpixels.com>`_
+  * `Nimbis Services <http://schott.nimbis.net>`_
+  * `European Crystallographic Meeting <http://ecm29.ecanews.org>`_
+  * `Dreamperium <http://dreamperium.com>`_
+  * `UT Dallas <http://utdallasiia.com>`_
+  * `Go Yama <http://goyamamusic.com>`_
+  * `Yeti LLC <http://www.yetihq.com>`_
+  * `Li Xiong <http://idhoc.com>`_
+  * `Pageworthy <http://pageworthy.com>`_
+  * `Prince Jets <http://princejets.com>`_
+  * `30 sites in 30 days <http://1inday.com>`_
+  * `St Barnabas' Theological College <http://www.sbtc.org.au>`_
 
 Quotes
 ======
