@@ -274,6 +274,7 @@ Sites Using Mezzanine
   * `Prince Jets <http://princejets.com>`_
   * `30 sites in 30 days <http://1inday.com>`_
   * `St Barnabas' Theological College <http://www.sbtc.org.au>`_
+  * `Helios 3D <http://helios3d.nl/>`_
 
 Quotes
 ======
