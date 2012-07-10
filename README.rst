@@ -38,17 +38,20 @@ interface, Mezzanine provides the following:
   * WYSIWYG editing
   * `In-line page editing`_
   * Drag-and-drop HTML5 forms builder with CSV export
+  * SEO friendly URLs and meta data
+  * Shopping cart module (`Cartridge`_)
+  * Configurable `dashboard`_ widgets
+  * Blog engine
+  * Tagging
+  * User accounts and profiles with email verification
+  * Translated to over 20 languages
+  * Sharing via Facebook or Twitter
   * `Custom templates`_ per page or blog post
   * `Twitter Bootstrap`_ integration
   * API for `custom content types`_
-  * SEO friendly URLs and meta data
   * `Search engine and API`_
-  * Configurable `dashboard`_ widgets
   * Seamless integration with third-party Django apps
   * Multi-device detection and template handling
-  * Shopping cart module (`Cartridge`_)
-  * Blog engine
-  * Tagging
   * One step migration from other blogging engines
   * Automated production provisioning and deployments
   * `Disqus`_ integration, or built-in threaded comments
@@ -57,10 +60,7 @@ interface, Mezzanine provides the following:
   * `Twitter`_ feed integration
   * `bit.ly`_ integration
   * `Akismet`_ spam filtering
-  * Sharing via Facebook or Twitter
   * Built-in `test suite`_
-  * User accounts and profiles with email verification
-  * Translated to over 20 languages
 
 The Mezzanine admin dashboard:
 
@@ -206,55 +206,55 @@ IRC channel`_ on `Freenode`_, for a chat.
 Sites Using Mezzanine
 =====================
 
-  * `Citrus Agency <http://citrus.com.au>`_
+  * `Citrus Agency <http://citrus.com.au/>`_
   * `Mezzanine Project <http://mezzanine.jupo.org>`_
   * `Nick Hagianis <http://hagianis.com>`_
   * `Thomas Johnson <http://tomfmason.net>`_
   * `Central Mosque Wembley <http://wembley-mosque.co.uk>`_
-  * `Ovarian Cancer Research Foundation <http://ocrf.com.au>`_
-  * `The Source Procurement <http://thesource.com.au>`_
+  * `Ovarian Cancer Research Foundation <http://ocrf.com.au/>`_
+  * `The Source Procurement <http://thesource.com.au/>`_
   * `Imageinary <http://imageinary.com>`_
   * `Brad Montgomery <http://blog.bradmontgomery.net>`_
   * `Jashua Cloutier <http://www.senexcanis.com>`_
   * `Alpha & Omega Contractors <http://alphaomegacontractors.com>`_
-  * `Equity Advance <http://equityadvance.com.au>`_
+  * `Equity Advance <http://equityadvance.com.au/>`_
   * `Head3 Interactive <http://head3.com>`_
   * `PyLadies <http://www.pyladies.com>`_
-  * `Ripe Maternity <http://www.ripematernity.com>`_
-  * `Cotton On <http://shop.cottonon.com>`_
+  * `Ripe Maternity <http://www.ripematernity.com/>`_
+  * `Cotton On <http://shop.cottonon.com/>`_
   * `List G Barristers <http://www.listgbarristers.com.au>`_
   * `Tri-Cities Flower Farm <http://www.tricitiesflowerfarm.com>`_
-  * `daon.ru <http://daon.ru>`_
-  * `autoindeks.ru <http://autoindeks.ru>`_
-  * `immiau.ru <http://immiau.ru>`_
-  * `ARA Consultants <http://www.araconsultants.com.au>`_
-  * `Boîte à Z'images <http://boiteazimages.com>`_
-  * `The Melbourne Cup <http://www.melbournecup.com>`_
+  * `daon.ru <http://daon.ru/>`_
+  * `autoindeks.ru <http://autoindeks.ru/>`_
+  * `immiau.ru <http://immiau.ru/>`_
+  * `ARA Consultants <http://www.araconsultants.com.au/>`_
+  * `Boîte à Z'images <http://boiteazimages.com/>`_
+  * `The Melbourne Cup <http://www.melbournecup.com/>`_
   * `Diablo News <http://www.diablo-news.com>`_
-  * `Goldman Travel <http://www.goldmantravel.com.au>`_
-  * `IJC Digital <http://ijcdigital.com>`_
-  * `Coopers <http://store.coopers.com.au>`_
+  * `Goldman Travel <http://www.goldmantravel.com.au/>`_
+  * `IJC Digital <http://ijcdigital.com/>`_
+  * `Coopers <http://store.coopers.com.au/>`_
   * `Joe Julian <http://joejulian.name>`_
-  * `Sheer Ethic <http://sheerethic.com>`_
-  * `Salt Lake Magazine <http://saltlakemagazine.com>`_
-  * `Boca Raton Magazine <http://bocamag.com>`_
+  * `Sheer Ethic <http://sheerethic.com/>`_
+  * `Salt Lake Magazine <http://saltlakemagazine.com/>`_
+  * `Boca Raton Magazine <http://bocamag.com/>`_
   * `Photog.me <http://www.photog.me>`_
   * `Elephant Juice Soup <http://www.elephantjuicesoup.com>`_
-  * `National Positions <http://www.nationalpositions.co.uk>`_
+  * `National Positions <http://www.nationalpositions.co.uk/>`_
   * `Like Humans Do <http://www.likehumansdo.com>`_
   * `Connecting Countries <http://connectingcountries.net>`_
   * `tindie.com <http://tindie.com>`_
-  * `Environmental World Products <http://ewp-sa.com>`_
+  * `Environmental World Products <http://ewp-sa.com/>`_
   * `Ross A. Laird <http://rosslaird.com>`_
   * `Etienne B. Roesch <http://etienneroes.ch>`_
-  * `Recruiterbox <http://recruiterbox.com>`_
-  * `Mod Productions <http://modprods.com>`_
-  * `Appsembler <http://appsembler.com>`_
+  * `Recruiterbox <http://recruiterbox.com/>`_
+  * `Mod Productions <http://modprods.com/>`_
+  * `Appsembler <http://appsembler.com/>`_
   * `Pink Twig <http://www.pinktwig.ca>`_
   * `Parfume Planet <http://parfumeplanet.com>`_
   * `Trading 4 Us <http://www.trading4.us>`_
   * `Chris Fleisch <http://chrisfleisch.com>`_
-  * `Theneum <http://theneum.com>`_
+  * `Theneum <http://theneum.com/>`_
   * `My Story Chest <http://www.mystorychest.com>`_
   * `Philip Sahli <http://www.fatrix.ch>`_
   * `Raymond Chandler <http://www.codearchaeologist.org>`_
@@ -268,7 +268,7 @@ Sites Using Mezzanine
   * `Dreamperium <http://dreamperium.com>`_
   * `UT Dallas <http://utdallasiia.com>`_
   * `Go Yama <http://goyamamusic.com>`_
-  * `Yeti LLC <http://www.yetihq.com>`_
+  * `Yeti LLC <http://www.yetihq.com/>`_
   * `Li Xiong <http://idhoc.com>`_
   * `Pageworthy <http://pageworthy.com>`_
   * `Prince Jets <http://princejets.com>`_
