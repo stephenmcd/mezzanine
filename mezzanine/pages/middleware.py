@@ -35,6 +35,8 @@ class PageMiddleware(object):
 
         slug = path_to_slug(request.path_info)
         if slug == "/":
+            if resolve('/').kwargs.has_key('slug'):
+                slug = resolve('/').kwargs['slug']
             slugs = [slug]
         else:
             # Create a list containing this slug, plus each of the
