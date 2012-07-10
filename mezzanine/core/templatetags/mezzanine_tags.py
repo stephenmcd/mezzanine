@@ -321,7 +321,7 @@ def editable(parsed, context, token):
     """
     def parse_field(field):
         field = field.split(".")
-        obj = context[field.pop(0)]
+        obj = context.get(field.pop(0), None)
         attr = field.pop()
         while field:
             obj = getattr(obj, field.pop(0))

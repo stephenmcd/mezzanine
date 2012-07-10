@@ -21,7 +21,7 @@ def keywords_for(*args):
     attribute that can be used to create a tag cloud.
     """
 
-    if args[0] is None:
+    if args[0] is None or isinstance(args[0], unicode):
         return []
 
     # Handle a model instance.

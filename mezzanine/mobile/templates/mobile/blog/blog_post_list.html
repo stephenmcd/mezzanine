@@ -16,7 +16,7 @@
 {% endmetablock %}{% endblock %}
 
 {% block title %}
-{% editable page.title %}{{ page.title }}{% endeditable %}
+{% if page %}{{ page.title }}{% else %}{% trans "Blog" %}{% endif %}
 {% endblock %}
 
 {% block main %}
