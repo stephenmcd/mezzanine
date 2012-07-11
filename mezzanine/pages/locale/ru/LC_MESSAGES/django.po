@@ -1,32 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
-# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Dmitry Falk <tfalc@mail.ru>, 2012.
+# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Timur Bobrus, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-09 12:53+0400\n"
 "PO-Revision-Date: 2012-06-17 15:41+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-
-#: models.py:17
-msgid "Show in navigation"
-msgstr "Показать в навигации"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: models.py:18
-msgid "Show in footer"
-msgstr "Показать в нижнем колонтитуле"
+msgid "Show in menus"
+msgstr "Показать в меню"
 
 #: models.py:21
 msgid "Login required"
@@ -34,7 +32,8 @@ msgstr "Необходима аутентификация"
 
 #: models.py:22
 msgid "If checked, only logged in users can view this page"
-msgstr "Если отмечено, то только авторизованные пользователи увидят эту страницу"
+msgstr ""
+"Если отмечено, то только авторизованные пользователи увидят эту страницу"
 
 #: models.py:25
 msgid "Page"
@@ -44,19 +43,19 @@ msgstr "Страница"
 msgid "Pages"
 msgstr "Страницы"
 
-#: models.py:175
+#: models.py:174
 msgid "Rich text page"
 msgstr "Текстовая страница"
 
-#: models.py:176
+#: models.py:175
 msgid "Rich text pages"
 msgstr "Текстовые страницы"
 
-#: models.py:186
+#: models.py:185
 msgid "Link"
 msgstr "Ссылка"
 
-#: models.py:187
+#: models.py:186
 msgid "Links"
 msgstr "Ссылки"
 
@@ -74,7 +73,7 @@ msgstr "Добавить"
 msgid "Home"
 msgstr "Главная"
 
-#: templatetags/pages_tags.py:164
+#: templatetags/pages_tags.py:173
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""
