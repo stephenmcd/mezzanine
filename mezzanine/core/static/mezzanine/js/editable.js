@@ -1,4 +1,4 @@
-$(function($) {
+jQuery(function($) {
 
     // Add AJAX submit handler for each editable form.
     $('.editable-form').submit(function() {
