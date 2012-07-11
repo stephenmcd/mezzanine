@@ -275,6 +275,7 @@ Sites Using Mezzanine
   * `30 sites in 30 days <http://1inday.com>`_
   * `St Barnabas' Theological College <http://www.sbtc.org.au>`_
   * `Helios 3D <http://helios3d.nl/>`_
+  * `Life is Good <http://lifeisgoodforall.co.uk/>`_
 
 Quotes
 ======
