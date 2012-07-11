@@ -1,4 +1,6 @@
+
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.core.urlresolvers import resolve
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.utils.http import urlquote
@@ -35,8 +37,10 @@ class PageMiddleware(object):
 
         slug = path_to_slug(request.path_info)
         if slug == "/":
-            if resolve('/').kwargs.has_key('slug'):
+            try:
                 slug = resolve('/').kwargs['slug']
+            except KeyError:
+                pass
             slugs = [slug]
         else:
             # Create a list containing this slug, plus each of the
