@@ -165,8 +165,9 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                 user.is_active = False
                 user.save()
             else:
-                user = authenticate(username=user.username,
-                                    password=password, is_active=True)
+                user.is_active = True
+                user.save()
+                user = authenticate(username=user.username, password=password)
         return user
 
 
