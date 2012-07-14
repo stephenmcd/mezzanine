@@ -1,4 +1,6 @@
 
+import os
+
 from django.template import Template, TemplateSyntaxError, TemplateDoesNotExist
 from django.template.loader_tags import ExtendsNode
 from django.template.loader import find_template_loader
@@ -54,7 +56,9 @@ class OverExtendsNode(ExtendsNode):
         if context_name not in context:
             context[context_name] = {}
         if name not in context[context_name]:
-            all_dirs = list(settings.TEMPLATE_DIRS + app_template_dirs)
+            # os.path.abspath is needed under uWSGI
+            all_dirs = list(settings.TEMPLATE_DIRS) + \
+                       map(os.path.abspath, app_template_dirs)
             context[context_name][name] = all_dirs
 
         # Build a list of template loaders to use. For loaders that wrap
