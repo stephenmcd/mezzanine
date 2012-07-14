@@ -276,6 +276,7 @@ Sites Using Mezzanine
   * `St Barnabas' Theological College <http://www.sbtc.org.au>`_
   * `Helios 3D <http://helios3d.nl/>`_
   * `Life is Good <http://lifeisgoodforall.co.uk/>`_
+  * `Brooklyn Navy Yard <http://bldg92.org/>`_
 
 Quotes
 ======
