@@ -109,6 +109,20 @@ def project():
             yield
 
 
+@contextmanager
+def update_changed_requirements():
+    """
+    Checks for changes in the requirements file across an update,
+    and gets new requirements if changes have occurred.
+    """
+    reqs_path = os.path.join(env.proj_path, env.reqs_path)
+    get_reqs = lambda: run("cat %s" % reqs_path, show=False)
+    reqs = get_reqs() if env.reqs_path else ""
+    yield
+    if env.reqs_path and get_reqs() != reqs:
+        pip("-r %s/%s" % reqs_path)
+
+
 ###########################################
 # Utils and wrappers for various commands #
 ###########################################
@@ -433,9 +447,8 @@ def deploy():
         run("tar -cf last.tar %s" % static())
         git = env.repo_url.startswith("git")
         run("%s > last.commit" % "git rev-parse HEAD" if git else "hg id -i")
-        run("git pull origin master -f" if git else "hg pull && hg up -C")
-        if env.reqs_path:
-            pip("-r %s/%s" % (env.proj_path, env.reqs_path))
+        with update_changed_requirements():
+            run("git pull origin master -f" if git else "hg pull && hg up -C")
         manage("collectstatic -v 0 --noinput")
         manage("syncdb --noinput")
         manage("migrate --noinput")
@@ -452,10 +465,10 @@ def rollback():
     their state prior to the last deploy.
     """
     with project():
-        git = env.repo_url.startswith("git")
-        run("%s `cat last.commit`" % ("git checkout" if git else "hg up -C"))
-        if env.reqs_path:
-            pip("-r %s/%s" % (env.proj_path, env.reqs_path))
+        with update_changed_requirements():
+            git = env.repo_url.startswith("git")
+            update = "git checkout" if git else "hg up -C"
+            run("%s `cat last.commit`" % update)
         with cd(os.path.join(static(), "..")):
             run("tar -xf %s" % os.path.join(env.proj_path, "last.tar"))
         restore("last.db")
