@@ -2,8 +2,8 @@
 from django.contrib.auth.models import User
 
 from mezzanine import template
-from mezzanine.accounts.forms import LoginForm, ProfileForm
-
+from mezzanine.accounts.forms import LoginForm
+from mezzanine.accounts import get_profile_form
 
 register = template.Library()
 
@@ -29,7 +29,7 @@ def signup_form(*args):
     {{ form }}
 
     """
-    return ProfileForm()
+    return get_profile_form()()
 
 
 @register.as_tag
@@ -44,5 +44,5 @@ def profile_form(user):
 
     """
     if isinstance(user, User):
-        return ProfileForm(instance=user)
+        return get_profile_form()(instance=user)
     return ""
