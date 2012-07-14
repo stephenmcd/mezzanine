@@ -220,14 +220,36 @@ def pip(packages):
         return sudo("pip install %s" % packages)
 
 
+def postgres(command):
+    """
+    Run the given command as the postgres user.
+    """
+    show = not command.startswith("psql")
+    return run("sudo -u root sudo -u postgres %s" % command, show=show)
+
+
 def psql(sql, show=True):
     """
     Run SQL against the project's database.
     """
-    out = run('sudo -u root sudo -u postgres psql -c "%s"' % sql, show=False)
+    out = postgres('psql -c "%s"' % sql)
     if show:
         print_command(sql)
     return out
+
+
+def backup(filename):
+    """
+    Backup the database.
+    """
+    return postgres("pg_dump -Fc %s > %s" % (env.proj_name, filename))
+
+
+def restore(filename):
+    """
+    Restore the database.
+    """
+    return postgres("pg_restore -c -d %s %s" % (env.proj_name, filename))
 
 
 def python(code, show=True):
@@ -240,6 +262,14 @@ def python(code, show=True):
         return run('python -c "%s%s"' % (setup, code), show=False)
         if show:
             print_command(code)
+
+
+def static():
+    """
+    Returns the live STATIC_ROOT directory.
+    """
+    return python("from django.conf import settings;"
+                  "print settings.STATIC_ROOT")
 
 
 def manage(command):
@@ -399,15 +429,37 @@ def deploy():
     for name in get_templates():
         upload_template_and_reload(name)
     with project():
+        backup("last.db")
+        run("tar -cf last.tar %s" % static())
         git = env.repo_url.startswith("git")
-        run("git pull -f" if git else "hg pull && hg up -C")
+        run("%s > last.commit" % "git rev-parse HEAD" if git else "hg id -i")
+        run("git pull origin master -f" if git else "hg pull && hg up -C")
         if env.reqs_path:
             pip("-r %s/%s" % (env.proj_path, env.reqs_path))
+        manage("collectstatic -v 0 --noinput")
         manage("syncdb --noinput")
         manage("migrate --noinput")
-        manage("collectstatic -v 0 --noinput")
     restart()
     return True
+
+
+@log_call
+def rollback():
+    """
+    When a deploy is performed, the current state of the project is
+    backed up. This includes the last commit checked out, the database,
+    and all static files. Calling rollback will revert all of these to
+    their state prior to the last deploy.
+    """
+    with project():
+        git = env.repo_url.startswith("git")
+        run("%s `cat last.commit`" % ("git checkout" if git else "hg up -C"))
+        if env.reqs_path:
+            pip("-r %s/%s" % (env.proj_path, env.reqs_path))
+        with cd(os.path.join(static(), "..")):
+            run("tar -xf %s" % os.path.join(env.proj_path, "last.tar"))
+        restore("last.db")
+    restart()
 
 
 @log_call
