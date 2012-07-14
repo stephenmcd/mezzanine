@@ -21,8 +21,8 @@ modules or reusable applications, Mezzanine provides most of its
 functionality by default. This approach yields a more integrated and
 efficient platform.
 
-Visit the `Mezzanine project page`_ to see some of the great sites
-people have built using Mezzanine.
+Visit the `Mezzanine project page`_ to see some of the `great sites
+people have built using Mezzanine`_.
 
 Features
 ========
@@ -310,6 +310,7 @@ Quotes
 .. _`Django`: http://djangoproject.com/
 .. _`BSD licensed`: http://www.linfo.org/bsdlicense.html
 .. _`Wordpress`: http://wordpress.org/
+.. _`great sites people have built using Mezzanine`: http://mezzanine.jupo.org/sites/
 .. _`Pinax`: http://pinaxproject.com/
 .. _`Mingus`: http://github.com/montylounge/django-mingus
 .. _`Mezzanine project page`: http://mezzanine.jupo.org
