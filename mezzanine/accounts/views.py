@@ -9,8 +9,8 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.accounts import get_profile_model, get_profile_user_fieldname,\
-        get_profile_form
+from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
+from mezzanine.accounts import get_profile_form
 from mezzanine.accounts.forms import LoginForm, PasswordResetForm
 from mezzanine.conf import settings
 from mezzanine.utils.email import send_verification_mail

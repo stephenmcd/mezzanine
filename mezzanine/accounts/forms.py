@@ -98,10 +98,6 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                     value = getattr(self.instance.get_profile(), field)
                     self.initial[field] = value
 
-        # Sort fields with user-defined order.
-        if settings.ACCOUNTS_PROFILE_FORM_FIELDS_ORDER:
-            self.fields.keyOrder = settings.ACCOUNTS_PROFILE_FORM_FIELDS_ORDER
-
     def clean_username(self):
         """
         Ensure the username doesn't exist or contain invalid chars.

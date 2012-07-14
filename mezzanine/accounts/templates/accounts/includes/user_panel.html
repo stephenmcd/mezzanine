@@ -2,9 +2,7 @@
 
 {% if request.user.is_authenticated %}
     {% trans "Logged in as: " %}
-    {% if settings.ACCOUNTS_PROFILE_VIEWS_ENABLED %}
-        {% url profile request.user.username as profile_url %}
-    {% endif %}
+    {% url profile request.user.username as profile_url %}
     {% if profile_url %}
         <a href="{{ profile_url }}">{{ request.user.username }}</a><br>
         <a href="{% url profile_update %}"

@@ -40,7 +40,8 @@ def processor_for(content_model_or_slug, exact_page=False):
     def decorator(func):
         parts = (func, exact_page)
         if content_model:
-            processors[content_model._meta.object_name.lower()].insert(0, parts)
+            model_name = content_model._meta.object_name.lower()
+            processors[model_name].insert(0, parts)
         else:
             processors["slug:%s" % slug].insert(0, parts)
         return func

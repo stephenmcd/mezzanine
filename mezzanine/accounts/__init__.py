@@ -34,15 +34,15 @@ def get_profile_model():
 
 def get_profile_form():
     """
-    Returns the profile form defined by ``ACCOUNTS_PROFILE_FORM``
+    Returns the profile form defined by ``ACCOUNTS_PROFILE_FORM_CLASS``.
     """
     from mezzanine.conf import settings
-
     try:
-        return import_dotted_path(settings.ACCOUNTS_PROFILE_FORM)
+        return import_dotted_path(settings.ACCOUNTS_PROFILE_FORM_CLASS)
     except ImportError:
-        raise ImproperlyConfigured("Value for ACCOUNTS_PROFILE_FORM could "
-                                   "not be imported.")
+        raise ImproperlyConfigured("Value for ACCOUNTS_PROFILE_FORM_CLASS "
+                                   "could not be imported: %s" %
+                                   settings.ACCOUNTS_PROFILE_FORM_CLASS)
 
 
 def get_profile_user_fieldname():

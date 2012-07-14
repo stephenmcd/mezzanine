@@ -30,18 +30,12 @@ register_setting(
 )
 
 register_setting(
-    name="ACCOUNTS_PROFILE_FORM_FIELDS_ORDER",
-    description=_("List defining order of profile form fields."),
-    editable=False,
-    default=(),
-)
-
-register_setting(
-    name="ACCOUNTS_PROFILE_FORM",
+    name="ACCOUNTS_PROFILE_FORM_CLASS",
     description=_("Dotted package path and class name of profile form to use "
-        "for account app's views."),
+        "for users signing up and updating their profile, when "
+        "``mezzanine.accounts`` is installed."),
     editable=False,
-    default='mezzanine.accounts.forms.ProfileForm',
+    default="mezzanine.accounts.forms.ProfileForm",
 )
 
 register_setting(
