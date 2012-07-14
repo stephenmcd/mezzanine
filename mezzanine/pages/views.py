@@ -69,6 +69,17 @@ def page(request, slug, template="pages/page.html", extra_context=None):
     # used, since the slug "/" won't match a template name.
     template_name = unicode(slug) if slug != "/" else "index"
     templates = [u"pages/%s.html" % template_name]
+    if page.content_model is not None:
+        templates.append(u"pages/%s/%s.html" % (template_name,
+            page.content_model))
+    templates.append(u"pages/%s/page.html" % template_name)
+    for parent in page.get_parents():
+        parent_template_name = unicode(parent.slug)
+        # Check for a template matching the page's content model.
+        if parent.content_model is not None:
+            templates.append(u"pages/%s/%s.html" % (parent_template_name,
+                parent.content_model))
+            templates.append(u"pages/%s/page.html" % parent_template_name)
     # Check for a template matching the page's content model.
     if page.content_model is not None:
         templates.append(u"pages/%s.html" % page.content_model)

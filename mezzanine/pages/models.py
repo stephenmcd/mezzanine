@@ -65,6 +65,20 @@ class Page(Orderable, Displayable):
         self.titles = " / ".join(titles)
         super(Page, self).save(*args, **kwargs)
 
+    def get_parents(self, first=True):
+        """
+        Return a list of parents of this page.
+        """
+        global parents
+        if first:
+            parents = []
+        if self.parent is not None:
+            parent = self.parent
+            parents.append(parent)
+            return parent.get_parents(first=False)
+        else:
+            return parents
+
     @classmethod
     def get_content_models(cls):
         """
