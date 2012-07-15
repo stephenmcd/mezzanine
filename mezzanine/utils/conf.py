@@ -23,6 +23,8 @@ def set_dynamic_settings(s):
     append = lambda n, k: s[n].append(k) if k not in s[n] else None
     # Add a value to the start of a list setting if not in the list.
     prepend = lambda n, k: s[n].insert(0, k) if k not in s[n] else None
+    # Remove a value from a list setting if in the list.
+    remove = lambda n, k: s[n].remove(k) if k in s[n] else None
 
     s["TEMPLATE_DEBUG"] = s.get("TEMPLATE_DEBUG", s.get("DEBUG", False))
     add_to_builtins("mezzanine.template.loader_tags")
@@ -125,3 +127,10 @@ def set_dynamic_settings(s):
         elif shortname == "mysql":
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
+
+    # Remaining is for Django < 1.4
+    from django import VERSION
+    if VERSION >= (1, 4):
+        return
+    s["TEMPLATE_CONTEXT_PROCESSORS"] = list(s["TEMPLATE_CONTEXT_PROCESSORS"])
+    remove("TEMPLATE_CONTEXT_PROCESSORS", "django.core.context_processors.tz")
