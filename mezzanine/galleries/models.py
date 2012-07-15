@@ -2,6 +2,7 @@
 from cStringIO import StringIO
 import os
 from string import punctuation
+from urllib import unquote
 from zipfile import ZipFile
 
 from django.core.files.base import ContentFile
@@ -97,7 +98,7 @@ class GalleryImage(Orderable):
         file name.
         """
         if not self.id and not self.description:
-            name = self.file.path.split("/")[-1].rsplit(".", 1)[0]
+            name = unquote(self.file.url).split("/")[-1].rsplit(".", 1)[0]
             name = name.replace("'", "")
             name = "".join([c if c not in punctuation else " " for c in name])
             # str.title() doesn't deal with unicode very well.
