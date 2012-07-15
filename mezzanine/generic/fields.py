@@ -53,11 +53,9 @@ class BaseGenericRelation(GenericRelation):
                     name, field.name)
                 raise ImproperlyConfigured(e)
         self.related_field_name = name
-        if self.frozen_by_south:
-            return
         super(BaseGenericRelation, self).contribute_to_class(cls, name)
         # Not applicable to abstract classes, and in fact will break.
-        if not cls._meta.abstract:
+        if not cls._meta.abstract and not self.frozen_by_south:
             for (name_string, field) in self.fields.items():
                 if "%s" in name_string:
                     name_string = name_string % name
