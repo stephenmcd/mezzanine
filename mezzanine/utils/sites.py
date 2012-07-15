@@ -1,5 +1,6 @@
 
 import os
+import sys
 
 from django.contrib.sites.models import Site
 
@@ -61,7 +62,8 @@ def host_theme_path(request):
     for (host, theme) in settings.HOST_THEMES:
         if host.lower() == request.get_host().split(":")[0].lower():
             try:
-                module = __import__(theme)
+                __import__(theme)
+                module = sys.modules[theme]
             except ImportError:
                 pass
             else:
