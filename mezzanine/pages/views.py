@@ -82,5 +82,4 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     if page.content_model is not None:
         templates.append(u"pages/%s.html" % page.content_model)
     templates.append(template)
-    print templates
     return render(request, templates, extra_context)
