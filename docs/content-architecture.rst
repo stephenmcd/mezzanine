@@ -143,6 +143,17 @@ checked for. So given the above example the templates
 ``pages/dr-seuss.html`` and ``pages/author.html`` would be checked for
 respectively.
 
+The view function futher looks through the parent hierarchy of the
+``Page``. If a ``Page`` instance with slug ``authors/dr-suess`` is nested
+under ``Page`` with slug ``authors``, the templates
+``pages/authors/dr-seuss.html``, ``pages/authors/dr-seuss/author.html``,
+``pages/authors/dr-seuss/page.html``, ``pages/authors/author.html``,
+``pages/authors/page.html``, ``pages/author.html``, and ``pages/pages.html``
+would be checked for respectively. This allows the developer to specify a
+template for ``authors/dr-suess`` that would differ from the template of
+all children without explicitly writing slug-based templates for each
+child.
+
 Overriding vs Extending Templates
 =================================
 
