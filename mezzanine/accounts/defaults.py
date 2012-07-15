@@ -30,6 +30,15 @@ register_setting(
 )
 
 register_setting(
+    name="ACCOUNTS_PROFILE_FORM_CLASS",
+    description=_("Dotted package path and class name of profile form to use "
+        "for users signing up and updating their profile, when "
+        "``mezzanine.accounts`` is installed."),
+    editable=False,
+    default="mezzanine.accounts.forms.ProfileForm",
+)
+
+register_setting(
     name="ACCOUNTS_PROFILE_VIEWS_ENABLED",
     description=_("If ``True``, users will have their own public profile "
         "pages."),

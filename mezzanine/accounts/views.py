@@ -10,7 +10,8 @@ from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
-from mezzanine.accounts.forms import LoginForm, ProfileForm, PasswordResetForm
+from mezzanine.accounts import get_profile_form
+from mezzanine.accounts.forms import LoginForm, PasswordResetForm
 from mezzanine.conf import settings
 from mezzanine.utils.email import send_verification_mail
 from mezzanine.utils.urls import login_redirect
@@ -44,7 +45,8 @@ def signup(request, template="accounts/account_signup.html"):
     """
     Signup form.
     """
-    form = ProfileForm(request.POST or None)
+    profile_form = get_profile_form()
+    form = profile_form(request.POST or None)
     if request.method == "POST" and form.is_valid():
         new_user = form.save()
         if not new_user.is_active:
@@ -124,7 +126,8 @@ def profile_update(request, template="accounts/account_profile_update.html"):
     """
     Profile update form.
     """
-    form = ProfileForm(request.POST or None, instance=request.user)
+    profile_form = get_profile_form()
+    form = profile_form(request.POST or None, instance=request.user)
     if request.method == "POST" and form.is_valid():
         user = form.save()
         info(request, _("Profile updated"))

@@ -28,6 +28,19 @@
 #     ("mezzanine_tags.recent_actions",),
 # )
 
+# A sequence of templates used by the ``page_menu`` template tag. Each
+# item in the sequence is a three item sequence, containing a unique ID
+# for the template, a label for the template, and the template path.
+# These templates are then available for selection when editing which
+# menus a page should appear in. Note that if a menu template is used
+# that doesn't appear in this setting, all pages will appear in it.
+
+# PAGE_MENU_TEMPLATES = (
+#     (1, "Top navigation bar", "pages/menus/dropdown.html"),
+#     (2, "Left-hand tree", "pages/menus/tree.html"),
+#     (3, "Footer", "pages/menus/footer.html"),
+# )
+
 # A sequence of fields that will be injected into Mezzanine's (or any
 # library's) models. Each item in the sequence is a four item sequence.
 # The first two items are the dotted path to the model and its field
@@ -260,6 +273,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.media",
     "django.core.context_processors.request",
+    "django.core.context_processors.tz",
     "mezzanine.conf.context_processors.settings",
 )
 

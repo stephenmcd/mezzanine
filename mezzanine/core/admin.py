@@ -28,7 +28,9 @@ class DisplayableAdmin(admin.ModelAdmin):
             "fields": ["title", "status", ("publish_date", "expiry_date")],
         }),
         (_("Meta data"), {
-            "fields": ["slug", ("description", "gen_description"), "keywords"],
+            "fields": ["_meta_title", "slug",
+                       ("description", "gen_description"),
+                       "keywords"],
             "classes": ("collapse-closed",)
         }),
     )
