@@ -117,10 +117,25 @@ def update_changed_requirements():
     """
     reqs_path = os.path.join(env.proj_path, env.reqs_path)
     get_reqs = lambda: run("cat %s" % reqs_path, show=False)
-    reqs = get_reqs() if env.reqs_path else ""
+    old_reqs = get_reqs() if env.reqs_path else ""
     yield
-    if env.reqs_path and get_reqs() != reqs:
-        pip("-r %s/%s" % reqs_path)
+    if old_reqs:
+        new_reqs = get_reqs()
+        if old_reqs == new_reqs:
+            # Unpinned requirements should always be checked.
+            for req in new_reqs.split("\n"):
+                if req.startswith("-e"):
+                    if "@" not in req:
+                        # Editable requirement without pinned commit.
+                        break
+                elif req.strip() and not req.startswith("#"):
+                    if all([c for c in ">=<" if c not in req]):
+                        # PyPI requirement without version.
+                        break
+            else:
+                # All requirements are pinned.
+                return
+        pip("-r %s/%s" % (env.proj_path, env.reqs_path))
 
 
 ###########################################
