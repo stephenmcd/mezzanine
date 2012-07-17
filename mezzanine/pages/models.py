@@ -65,17 +65,16 @@ class Page(Orderable, Displayable):
         self.titles = " / ".join(titles)
         super(Page, self).save(*args, **kwargs)
 
-    def get_parents(self, first=True):
+    def get_parents(self, first=True, parents=None):
         """
         Return a list of parents of this page.
         """
-        global parents
         if first:
             parents = []
         if self.parent is not None:
             parent = self.parent
             parents.append(parent)
-            return parent.get_parents(first=False)
+            return parent.get_parents(first=False, parents=parents)
         else:
             return parents
 
