@@ -29,21 +29,21 @@ structured content than provided by the ``RichTextPage`` model, you can
 simply create your own models that inherit from ``Page``. For example
 if we wanted to have pages that were authors with books::
 
-from django.db import models
-from mezzanine.pages.models import Page
+    from django.db import models
+    from mezzanine.pages.models import Page
 
-# The members of Page will be inherited by the Author model, such
-# as title, slug, etc. For authors we can use the title field to
-# store the author's name. For our model definition, we just add
-# any extra fields that aren't part of the Page model, in this
-# case, date of birth.
+    # The members of Page will be inherited by the Author model, such
+    # as title, slug, etc. For authors we can use the title field to
+    # store the author's name. For our model definition, we just add
+    # any extra fields that aren't part of the Page model, in this
+    # case, date of birth.
 
-class Author(Page):
-dob = models.DateField("Date of birth")
+    class Author(Page):
+        dob = models.DateField("Date of birth")
 
-class Book(models.Model):
-author = models.ForeignKey("Author")
-cover = models.ImageField(upload_to="authors")
+    class Book(models.Model):
+        author = models.ForeignKey("Author")
+        cover = models.ImageField(upload_to="authors")
 
 Next you'll need to register your model with Django's admin to make it
 available as a content type. If your content type only exposes some new
@@ -51,11 +51,11 @@ fields that you'd like to make editable in the admin, you can simply
 register your model using the ``mezzanine.pages.admin.PageAdmin``
 class::
 
-from django.contrib import admin
-from mezzanine.pages.admin import PageAdmin
-from .models import Author
+    from django.contrib import admin
+    from mezzanine.pages.admin import PageAdmin
+    from .models import Author
 
-admin.site.register(Author, PageAdmin)
+    admin.site.register(Author, PageAdmin)
 
 Any regular model fields on your content type will be available when
 adding or changing an instance of it in the admin. This is similar to
@@ -69,21 +69,21 @@ is that you'll need to take a copy of ``PageAdmin.fieldsets`` and
 modify it if you want to implement your own fieldsets, otherwise you'll
 lose the fields that the ``Page`` model implements::
 
-from copy import deepcopy
-from django.contrib import admin
-from mezzanine.pages.admin import PageAdmin
-from .models import Author, Book
+    from copy import deepcopy
+    from django.contrib import admin
+    from mezzanine.pages.admin import PageAdmin
+    from .models import Author, Book
 
-author_extra_fieldsets = ((None, {"fields": ("dob",)}),)
+    author_extra_fieldsets = ((None, {"fields": ("dob",)}),)
 
-class BookInline(admin.TabularInline):
-model = Book
+    class BookInline(admin.TabularInline):
+        model = Book
 
-class AuthorAdmin(PageAdmin):
-inlines = (BookInline,)
-fieldsets = deepcopy(PageAdmin.fieldsets) + author_extra_fieldsets
+    class AuthorAdmin(PageAdmin):
+        inlines = (BookInline,)
+        fieldsets = deepcopy(PageAdmin.fieldsets) + author_extra_fieldsets
 
-admin.site.register(Author, AuthorAdmin)
+    admin.site.register(Author, AuthorAdmin)
 
 When registering content type models with ``PageAdmin`` or subclasses
 of it, the admin class won't be listed in the admin index page, instead
@@ -92,14 +92,14 @@ the navigation tree.
 
 .. note::
 
-When creating custom content types, you must inherit directly from
-the ``Page`` model. Further levels of subclassing are currently not
-supported. Therefore you cannot subclass the ``RichTextPage`` or
-any other custom content types you create yourself. Should you need
-to implement a WYSIWYG editable field in the way the
-``RichTextPage`` model does, you can simply subclass both ``Page``
-and ``RichText``, the latter being imported from
-``mezzanine.core.models``.
+    When creating custom content types, you must inherit directly from
+    the ``Page`` model. Further levels of subclassing are currently not
+    supported. Therefore you cannot subclass the ``RichTextPage`` or
+    any other custom content types you create yourself. Should you need
+    to implement a WYSIWYG editable field in the way the
+    ``RichTextPage`` model does, you can simply subclass both ``Page``
+    and ``RichText``, the latter being imported from
+    ``mezzanine.core.models``.
 
 Displaying Custom Content Types
 ===============================
@@ -110,25 +110,25 @@ the page object, an attribute is created from the subclass model's
 name. So given a ``Page`` instance using the previous example,
 accessing the ``Author`` instance would be as follows::
 
->>> Author.objects.create(title="Dr Seuss")
-<Author: Dr Seuss>
->>> page = Page.objects.get(title="Dr Seuss")
->>> page.author
-<Author: Dr Seuss>
+    >>> Author.objects.create(title="Dr Seuss")
+    <Author: Dr Seuss>
+    >>> page = Page.objects.get(title="Dr Seuss")
+    >>> page.author
+    <Author: Dr Seuss>
 
 And in a template::
 
-<h1>{{ page.author.title }}</h1>
-<p>{{ page.author.dob }}</p>
-{% for book in page.author.book_set.all %}
-<img src="{{ MEDIA_URL }}{{ book.cover }}">
-{% endfor %}
+    <h1>{{ page.author.title }}</h1>
+    <p>{{ page.author.dob }}</p>
+    {% for book in page.author.book_set.all %}
+    <img src="{{ MEDIA_URL }}{{ book.cover }}">
+    {% endfor %}
 
 The ``Page`` model also contains the method ``Page.get_content_model``
 for retrieving the custom instance without knowing its type::
 
->>> page.get_content_model()
-<Author: Dr Seuss>
+    >>> page.get_content_model()
+    <Author: Dr Seuss>
 
 Page Templates
 ==============
@@ -199,9 +199,9 @@ custom ``Page`` models and are then called inside the
 ``mezzanine.pages.views.page`` view when viewing the associated
 ``Page`` instance. A Page Processor will always be passed two arguments
 - the request and the ``Page`` instance, and can either return a
-  dictionary that will be added to the template context, or it can return
-  any of Django's ``HttpResponse`` classes which will override the
-  ``mezzanine.pages.views.page`` view entirely.
+dictionary that will be added to the template context, or it can return
+any of Django's ``HttpResponse`` classes which will override the
+``mezzanine.pages.views.page`` view entirely.
 
 To associate a Page Processor to a custom ``Page`` model you must
 create the function for it in a module called ``page_processors.py``
@@ -212,25 +212,25 @@ Continuing on from our author example, suppose we want to add an
 enquiry form to each author page. Our ``page_processors.py`` module in
 the author app would be as follows::
 
-from django import forms
-from django.http import HttpResponseRedirect
-from mezzanine.pages.page_processors import processor_for
-from .models import Author
+    from django import forms
+    from django.http import HttpResponseRedirect
+    from mezzanine.pages.page_processors import processor_for
+    from .models import Author
 
-class AuthorForm(forms.Form):
-name = forms.CharField()
-email = forms.EmailField()
+    class AuthorForm(forms.Form):
+        name = forms.CharField()
+        email = forms.EmailField()
 
-@processor_for(Author)
-def author_form(request, page):
-form = AuthorForm()
-if request.method == "POST":
-form = AuthorForm(request.POST)
-if form.is_valid():
-# Form processing goes here.
-redirect = request.path + "?submitted=true"
-return HttpResponseRedirect(redirect)
-return {"form": form}
+    @processor_for(Author)
+    def author_form(request, page):
+        form = AuthorForm()
+        if request.method == "POST":
+            form = AuthorForm(request.POST)
+            if form.is_valid():
+                # Form processing goes here.
+                redirect = request.path + "?submitted=true"
+                return HttpResponseRedirect(redirect)
+        return {"form": form}
 
 The ``processor_for`` decorator can also be given a ``slug`` argument
 rather than a Page subclass. In this case the Page Processor will be
@@ -259,24 +259,24 @@ methods with access to the current user as well.
 
 .. note::
 
-The ``can_add`` permission in the context of an existing page has
-a different meaning than in the context of an overall model as is
-the case with Django's permission system. In the case of a page
-instance, ``can_add`` refers to the ability to add child pages.
+    The ``can_add`` permission in the context of an existing page has
+    a different meaning than in the context of an overall model as is
+    the case with Django's permission system. In the case of a page
+    instance, ``can_add`` refers to the ability to add child pages.
 
 For example, if our ``Author`` content type should only contain one
 child page at most, and only be deletable when added as a child page
 (unless you're a superuser), the following permission methodss could
 be implemented::
 
-class Author(Page):
-dob = models.DateField("Date of birth")
+    class Author(Page):
+        dob = models.DateField("Date of birth")
 
-def can_add(self, request):
-return self.children.count() == 0
+        def can_add(self, request):
+            return self.children.count() == 0
 
-def can_delete(self, request):
-return request.user.is_superuser or self.parent is not None
+        def can_delete(self, request):
+            return request.user.is_superuser or self.parent is not None
 
 Page Menus
 ==========
@@ -311,20 +311,20 @@ all of the pages without a parent.
 Here's a simple menu example using two template files, that renders the
 entire page tree using unordered list HTML tags::
 
-<!-- First template: perhaps base.html, or an include file -->
-{% load pages_tags %}
-{% page_menu "pages/menus/my_menu.html" %}
+    <!-- First template: perhaps base.html, or an include file -->
+    {% load pages_tags %}
+    {% page_menu "pages/menus/my_menu.html" %}
 
-<!-- Second template: pages/menus/my_menu.html -->
-{% load pages_tags %}
-<ul>
-{% for page in page_branch %}
-<li>
-<a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
-{% page_menu page %}
-</li>
-{% endfor %}
-</ul>
+    <!-- Second template: pages/menus/my_menu.html -->
+    {% load pages_tags %}
+    <ul>
+    {% for page in page_branch %}
+    <li>
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+        {% page_menu page %}
+    </li>
+    {% endfor %}
+    </ul>
 
 The first file starts off the menu without specifying a parent page so
 that primary pages are first rendered, and only passes in the menu
@@ -340,116 +340,116 @@ The ``page_menu`` template tag provides a handful of variables, both in
 the template context, and assigned to each page in the branch, for
 helping you to build advanced menus.
 
-* ``page_branch`` - a list of pages for the current branch
+  * ``page_branch`` - a list of pages for the current branch
   * ``on_home`` - a boolean for whether the homepage is being viewed
-    * ``branch_level`` - an integer for the current branch depth
-      * ``page_branch_in_menu`` - a boolean for whether this branch should
-        be in the menu (see "filtering menus" below)
-        * ``page.has_children`` - a boolean for whether the branch page has
-          any child pages
-          * ``page.num_children`` - an integer for the number of child pages the
-            branch page has
-            * ``page.in_menu`` - a boolean for whether the branch page should
-              be in the menu (see "filtering menus" below)
-              * ``page.is_current_child`` - a boolean for whether the branch page
-                is a child of the current page being viewed
-                * ``page.is_current_sibling`` - a boolean for whether the branch page
-                  is a sibling (has the same parent) of the current page being viewed
-                  * ``page.is_current_or_ascendant`` - a boolean for whether the branch
-                    page is the current page being viewed, or an ascendant (parent,
-                    grand-parent, etc) of the current page being viewed
-                    * ``page.is_current_sibling`` - a boolean for whether the branch page
-                      is a parimary page (has no parent)
-                      * ``page.html_id`` - a unique string that can be used as the HTML ID
-                        attribute
-                        * ``page.branch_level`` - an integer for the branch page's depth
+  * ``branch_level`` - an integer for the current branch depth
+  * ``page_branch_in_menu`` - a boolean for whether this branch should
+    be in the menu (see "filtering menus" below)
+  * ``page.has_children`` - a boolean for whether the branch page has
+    any child pages
+  * ``page.num_children`` - an integer for the number of child pages the
+    branch page has
+  * ``page.in_menu`` - a boolean for whether the branch page should
+    be in the menu (see "filtering menus" below)
+  * ``page.is_current_child`` - a boolean for whether the branch page
+    is a child of the current page being viewed
+  * ``page.is_current_sibling`` - a boolean for whether the branch page
+    is a sibling (has the same parent) of the current page being viewed
+  * ``page.is_current_or_ascendant`` - a boolean for whether the branch
+    page is the current page being viewed, or an ascendant (parent,
+    grand-parent, etc) of the current page being viewed
+  * ``page.is_current_sibling`` - a boolean for whether the branch page
+    is a parimary page (has no parent)
+  * ``page.html_id`` - a unique string that can be used as the HTML ID
+    attribute
+  * ``page.branch_level`` - an integer for the branch page's depth
 
-                        Filtering Menus
-                        ---------------
+Filtering Menus
+---------------
 
-                        Each ``Page`` instance has a field ``in_menus`` which specifies which
-                        menus the page should appear in. In the admin interface, the
-                        ``in_menus`` field is a list of checkboxes for each of the menu
-                        templates. The menu choices for the ``in_menus`` field are defined by
-                        the ``PAGE_MENU_TEMPLATES`` setting, which is a sequence of menu
-                        templates. Each item in the sequence is a three item sequence,
-                        containing a unique ID for the template, a label for the template, and
-                        the template path. For example in your ``settings.py`` module::
+Each ``Page`` instance has a field ``in_menus`` which specifies which
+menus the page should appear in. In the admin interface, the
+``in_menus`` field is a list of checkboxes for each of the menu
+templates. The menu choices for the ``in_menus`` field are defined by
+the ``PAGE_MENU_TEMPLATES`` setting, which is a sequence of menu
+templates. Each item in the sequence is a three item sequence,
+containing a unique ID for the template, a label for the template, and
+the template path. For example in your ``settings.py`` module::
 
-                        PAGE_MENU_TEMPLATES = (
-                        (1, "Top navigation bar", "pages/menus/dropdown.html"),
-                        (2, "Left-hand tree", "pages/menus/tree.html"),
-                        (3, "Footer", "pages/menus/footer.html"),
-                        )
+    PAGE_MENU_TEMPLATES = (
+        (1, "Top navigation bar", "pages/menus/dropdown.html"),
+        (2, "Left-hand tree", "pages/menus/tree.html"),
+        (3, "Footer", "pages/menus/footer.html"),
+    )
 
-                        The selections made for the ``in_menus`` field on each page don't
-                        actually filter a page from being included in the ``page_branch``
-                        variable that contains the list of pages for the current branch. Instead
-                        it's used to set the value of ``page.in_menu`` for each page in the
-                        menu template, so it's up to your menu template to check the page's
-                        ``in_menu`` attribute explicitly, in order to exclude it::
+The selections made for the ``in_menus`` field on each page don't
+actually filter a page from being included in the ``page_branch``
+variable that contains the list of pages for the current branch. Instead
+it's used to set the value of ``page.in_menu`` for each page in the
+menu template, so it's up to your menu template to check the page's
+``in_menu`` attribute explicitly, in order to exclude it::
 
-                        <!-- Second template again, with in_menu support -->
-                        {% load pages_tags %}
-                        <ul>
-                        {% for page in page_branch %}
-                        {% if page.in_menu %}
-                        <li>
-                        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
-                        {% page_menu page %}
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                        </ul>
+    <!-- Second template again, with in_menu support -->
+    {% load pages_tags %}
+    <ul>
+    {% for page in page_branch %}
+    {% if page.in_menu %}
+    <li>
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+        {% page_menu page %}
+    </li>
+    {% endif %}
+    {% endfor %}
+    </ul>
 
-                        Note that if a menu template is not defined in the
-                        ``PAGE_MENU_TEMPLATES`` setting, the branch pages supplied to it will
-                        always have the ``in_menu`` attribute set to ``True``, so the only way
-                        this will be ``False`` is if the menu template has been added to
-                        ``PAGE_MENU_TEMPLATES``, and then *not* selected for a page in the admin
-                        interface.
+Note that if a menu template is not defined in the
+``PAGE_MENU_TEMPLATES`` setting, the branch pages supplied to it will
+always have the ``in_menu`` attribute set to ``True``, so the only way
+this will be ``False`` is if the menu template has been added to
+``PAGE_MENU_TEMPLATES``, and then *not* selected for a page in the admin
+interface.
 
-                        Non-Page Content
-                        ================
+Non-Page Content
+================
 
-                        Sometimes you might need to use regular Django applications within your
-                        site, that fall outside of Mezzanine's page structure. Mezzanine fully
-                        supports using regular Django applications. All you need to do is add
-                        the app's urlpatterns to your project's ``urls.py`` module. Mezzanine's
-                        blog application for example, does not use ``Page`` content types, and
-                        is just a regular Django app.
+Sometimes you might need to use regular Django applications within your
+site, that fall outside of Mezzanine's page structure. Mezzanine fully
+supports using regular Django applications. All you need to do is add
+the app's urlpatterns to your project's ``urls.py`` module. Mezzanine's
+blog application for example, does not use ``Page`` content types, and
+is just a regular Django app.
 
-                        Mezzanine provides some helpers for your Django apps to integrate more
-                        closely with Mezzanine.
+Mezzanine provides some helpers for your Django apps to integrate more
+closely with Mezzanine.
 
-                        The ``Displayable`` Model
-                        -------------------------
+The ``Displayable`` Model
+-------------------------
 
-                        The abstract model ``mezzanine.core.models.Displayable`` and associated
-                        manager ``mezzanine.core.managers.PublishedManager`` provide common
-                        features for items that can be displayed on the site with their own
-                        URLs (also known as slugs). Mezzanine's ``Page`` model subclasses it.
-                        Some of its features are:
+The abstract model ``mezzanine.core.models.Displayable`` and associated
+manager ``mezzanine.core.managers.PublishedManager`` provide common
+features for items that can be displayed on the site with their own
+URLs (also known as slugs). Mezzanine's ``Page`` model subclasses it.
+Some of its features are:
 
-                        * Meta data such as a title, description and keywords.
-                          * Auto-generated slug from the title.
-                            * Draft/published status with the ability to preview drafts.
-                              * Pre-dated publishing.
-                                * Searchable by Mezzanine's :doc:`search-engine`.
+  * Meta data such as a title, description and keywords.
+  * Auto-generated slug from the title.
+  * Draft/published status with the ability to preview drafts.
+  * Pre-dated publishing.
+  * Searchable by Mezzanine's :doc:`search-engine`.
 
-                                Models that do not inherit from the ``Page`` model described earlier
-                                should subclass the ``Displayable`` model if any of the above features
-                                are required. An example of this can be found in the ``mezzanine.blog``
-                                application, where ``BlogPost`` instances contain their own URLs and
-                                views that fall outside of the regular URL/view structure of the
-                                ``Page`` model.
+Models that do not inherit from the ``Page`` model described earlier
+should subclass the ``Displayable`` model if any of the above features
+are required. An example of this can be found in the ``mezzanine.blog``
+application, where ``BlogPost`` instances contain their own URLs and
+views that fall outside of the regular URL/view structure of the
+``Page`` model.
 
-                                Third-party App Integration
-                                ---------------------------
+Third-party App Integration
+---------------------------
 
-                                A common requirement when using regular Django apps with Mezzanine is
-                                for pages in the site's navigation to point to the urlpatterns for the
-                                app. Implementing this simply requires creating a page with a URL used
-                                by the application. The template rendered by the application's view
-                                will have a ``page`` variable in its context, that contains the current
-                                page object that was created with the same URL.
+A common requirement when using regular Django apps with Mezzanine is
+for pages in the site's navigation to point to the urlpatterns for the
+app. Implementing this simply requires creating a page with a URL used
+by the application. The template rendered by the application's view
+will have a ``page`` variable in its context, that contains the current
+page object that was created with the same URL.
