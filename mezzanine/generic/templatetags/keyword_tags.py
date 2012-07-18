@@ -21,9 +21,6 @@ def keywords_for(*args):
     attribute that can be used to create a tag cloud.
     """
 
-    if args[0] is None or isinstance(args[0], unicode):
-        return []
-
     # Handle a model instance.
     if isinstance(args[0], Model):
         obj = args[0]
@@ -42,10 +39,8 @@ def keywords_for(*args):
     try:
         app_label, model = args[0].split(".", 1)
     except ValueError:
-        error = ("The first argument `%s` given for the keywords_for tag "
-                 "must be either a model instance or a model class in the "
-                 "format: app_name.model_name" % args[0])
-        raise TemplateSyntaxError(error)
+        return []
+
     content_type = ContentType.objects.get(app_label=app_label, model=model)
     assigned = AssignedKeyword.objects.filter(content_type=content_type)
     keywords = Keyword.objects.filter(assignments__in=assigned)
