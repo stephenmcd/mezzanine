@@ -31,7 +31,7 @@ class SettingsForm(forms.Form):
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
                 kwargs = {
                     "label": setting["label"] + ":",
-                    "required": False,
+                    "required": setting["type"] == int,
                     "initial": getattr(settings, name),
                     "help_text": self.format_help(setting["description"]),
                 }
