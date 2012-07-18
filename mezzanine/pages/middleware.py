@@ -55,13 +55,18 @@ class PageMiddleware(object):
             # longest slug is selected if more than one page matches.
             pages = list(pages_for_user.filter(slug__in=slugs).order_by("-slug"))
             page = pages[0]
-            ascendants_valid = True
+
+            # Check to see if the other pages retrieved form a valid path
+            # in the page tree, i.e. pages[0].parent == pages[1],
+            # pages[1].parent == pages[2], and so on.
             for i in range(len(pages)):
                 child = pages[i]
                 try:
                     parent = pages[i+1]
                     if child.parent_id != parent.id:
                         break
+                # IndexError indicates that this is the last page in the
+                # list, so it should have no parent.
                 except IndexError:
                     if child.parent_id:
                         break
