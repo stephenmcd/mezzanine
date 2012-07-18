@@ -53,7 +53,21 @@ class PageMiddleware(object):
             # Find the deepest page that matches one of our slugs.
             # Sorting by "-slug" ensures that the page with the
             # longest slug is selected if more than one page matches.
-            page = pages_for_user.filter(slug__in=slugs).order_by("-slug")[0]
+            pages = list(pages_for_user.filter(slug__in=slugs).order_by("-slug"))
+            page = pages[0]
+            ascendants_valid = True
+            for i in range(len(pages)):
+                child = pages[i]
+                try:
+                    parent = pages[i+1]
+                    if child.parent_id != parent.id:
+                        break
+                except IndexError:
+                    if child.parent_id:
+                        break
+            else:
+                page._ascendants = reversed(pages[1:])
+
         except IndexError:
             # If we can't find a page matching this slug or any
             # of its sub-slugs, skip all further processing.

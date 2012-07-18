@@ -65,6 +65,18 @@ class Page(Orderable, Displayable):
         self.titles = " / ".join(titles)
         super(Page, self).save(*args, **kwargs)
 
+    def get_ascendants(self):
+        try:
+            return self._ascendants
+        except AttributeError:
+            ascendants = []
+            child = self
+            while child.parent is not None:
+                ascendants.append(child.parent)
+                child = child.parent
+            self._ascendants = reversed(ascendants)
+            return self._ascendants
+
     @classmethod
     def get_content_models(cls):
         """
