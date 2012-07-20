@@ -44,7 +44,7 @@ def admin_page_ordering(request):
 admin_page_ordering = staff_member_required(admin_page_ordering)
 
 
-def page(request, slug, template="pages/page.html", extra_context=None):
+def page(request, slug, template=u"pages/page.html", extra_context=None):
     """
     Select a template for a page and render it. The ``extra_context``
     arg will include a ``page`` object that's added via
@@ -69,6 +69,15 @@ def page(request, slug, template="pages/page.html", extra_context=None):
     # used, since the slug "/" won't match a template name.
     template_name = unicode(slug) if slug != "/" else "index"
     templates = [u"pages/%s.html" % template_name]
+    if page.content_model is not None:
+        templates.append(u"pages/%s/%s.html" % (template_name,
+            page.content_model))
+    for parent in page.get_parents():
+        parent_template_name = unicode(parent.slug)
+        # Check for a template matching the page's content model.
+        if page.content_model is not None:
+            templates.append(u"pages/%s/%s.html" % (parent_template_name,
+                page.content_model))
     # Check for a template matching the page's content model.
     if page.content_model is not None:
         templates.append(u"pages/%s.html" % page.content_model)
