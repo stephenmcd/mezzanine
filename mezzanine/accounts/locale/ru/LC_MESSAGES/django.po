@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-09 12:10+0400\n"
+"POT-Creation-Date: 2012-07-20 13:45+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,11 +29,17 @@ msgid "List of fields to exclude from the profile form."
 msgstr "Список полей исключаемых из формы профиля"
 
 #: defaults.py:34
+msgid ""
+"Dotted package path and class name of profile form to use for users signing "
+"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgstr ""
+
+#: defaults.py:43
 msgid "If ``True``, users will have their own public profile pages."
 msgstr ""
 "Если ``Да``, то пользователи будут иметь страницы со своим публичным профилем"
 
-#: defaults.py:42
+#: defaults.py:51
 msgid ""
 "If ``True``, when users create an account, they will be sent an email with a "
 "verification link, which they must click to enable their account."
@@ -94,50 +100,50 @@ msgstr "Этот email уже зарегистрирован"
 msgid "Invalid username/email"
 msgstr "Неправильный логин/email"
 
-#: views.py:27
+#: views.py:28
 msgid "Successfully logged in"
 msgstr "Вы успешно вошли"
 
-#: views.py:30
+#: views.py:31
 msgid "Login"
 msgstr "Вход"
 
-#: views.py:39
+#: views.py:40
 msgid "Successfully logged out"
 msgstr "Вы успешно вышли"
 
-#: views.py:52
+#: views.py:54
 msgid ""
 "A verification email has been sent with a link for activating your account."
 msgstr "Письмо с подтверждающей ссылкой было выслано на ваш email."
 
-#: views.py:56 views.py:75
+#: views.py:58 views.py:77
 msgid "Successfully signed up"
 msgstr "Вы успешно зарегистрированы"
 
-#: views.py:59
+#: views.py:61
 msgid "Signup"
 msgstr "Регистрация"
 
-#: views.py:78 views.py:155
+#: views.py:80 views.py:158
 msgid "The link you clicked is no longer valid."
 msgstr "Ссылка больше не действует."
 
-#: views.py:130
+#: views.py:133
 msgid "Profile updated"
 msgstr "Профиль обновлен"
 
-#: views.py:135
+#: views.py:138
 msgid "Update Profile"
 msgstr "Обновить профиль"
 
-#: views.py:144
+#: views.py:147
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr ""
 "Письмо с подтверждающей ссылкой для сброса пароля было выслано на ваш email."
 
-#: views.py:146
+#: views.py:149
 msgid "Password Reset"
 msgstr "Сброс пароля"
 
