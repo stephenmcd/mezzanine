@@ -1,7 +1,6 @@
 
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Model, Count
-from django.template import TemplateSyntaxError
 
 from mezzanine import template
 from mezzanine.conf import settings
