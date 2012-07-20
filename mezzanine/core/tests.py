@@ -452,9 +452,9 @@ class Tests(TestCase):
         """
         # uncomment this section to obtain tweets by directly populating
         # the query table with information for a feed.
-        # query = Query.objects.create(type=QUERY_TYPE_USER, value="stephenmcd",
+        # query = Query.objects.create(type=QUERY_TYPE_USER, value="stephen_mcd",
         #                              interested=True)
-        template = "{% load twitter_tags %}{% tweets_for_user stephenmcd %}"
+        template = "{% load twitter_tags %}{% tweets_for_user stephen_mcd %}"
         context = {
         }
         t = Template(template)
