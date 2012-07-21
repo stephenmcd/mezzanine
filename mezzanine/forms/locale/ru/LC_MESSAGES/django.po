@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-09 12:34+0400\n"
+"POT-Creation-Date: 2012-07-20 14:02+0400\n"
 "PO-Revision-Date: 2012-03-11 23:55+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
@@ -94,7 +94,7 @@ msgstr "Поле с выбором"
 
 #: fields.py:37
 msgid "Radio buttons"
-msgstr "Радио кнопки"
+msgstr "Переключатель"
 
 #: fields.py:38
 msgid "File upload"
