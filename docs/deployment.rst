@@ -39,7 +39,10 @@ The deployed stack consists of the following components:
   <http://httpd.apache.org/>`_ and `MySQL <http://www.mysql.com/>`_
   will work fine, but you'll need to take care of setting these up
   and deploying yourself. Consult the Django documentation for more
-  information on using different web servers and databases.
+  information on using different `web
+  <https://docs.djangoproject.com/en/dev/howto/deployment/>`_ and
+  `database <https://docs.djangoproject.com/en/dev/ref/databases/>`_
+  servers.
 
 Configuration
 -------------
