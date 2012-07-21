@@ -3,8 +3,6 @@ from datetime import timedelta
 from optparse import make_option
 from time import timezone
 
-from dateutil import parser
-from feedparser import parse
 from mezzanine.blog.management.base import BaseImporterCommand
 
 
@@ -20,6 +18,8 @@ class Command(BaseImporterCommand):
     help = "Import an RSS feed into the blog app."
 
     def handle_import(self, options):
+        from dateutil import parser
+        from feedparser import parse
 
         posts = parse(options.get("rss_url"))["entries"]
         for post in posts:
