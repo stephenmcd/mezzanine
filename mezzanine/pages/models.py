@@ -71,7 +71,7 @@ class Page(Orderable, Displayable):
         except AttributeError:
             ascendants = []
             child = self
-            while child.parent is not None:
+            while child.parent_id is not None:
                 ascendants.append(child.parent)
                 child = child.parent
             self._ascendants = reversed(ascendants)
