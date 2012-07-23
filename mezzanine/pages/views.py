@@ -64,6 +64,7 @@ def page(request, slug, template="pages/page.html", extra_context=None):
         page = extra_context["page"]
     except KeyError:
         raise Http404
+
     # Check for a template name matching the page's slug. If the homepage
     # is configured as a page instance, the template "pages/index.html" is
     # used, since the slug "/" won't match a template name.
