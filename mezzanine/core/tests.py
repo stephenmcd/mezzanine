@@ -47,6 +47,7 @@ class Tests(TestCase):
         """
         Create an admin user.
         """
+        connection.use_debug_cursor = True
         self._username = "test"
         self._password = "test"
         args = (self._username, "example@example.com", self._password)
@@ -216,11 +217,9 @@ class Tests(TestCase):
         Return the number of queries used when rendering a template
         string.
         """
-        settings.DEBUG = True
         connection.queries = []
         t = Template(template)
         t.render(Context(context))
-        settings.DEBUG = False
         return len(connection.queries)
 
     def create_recursive_objects(self, model, parent_field, **kwargs):
@@ -254,6 +253,7 @@ class Tests(TestCase):
             "unposted_comment_form": None,
         }
         before = self.queries_used_for_template(template, **context)
+        self.assertTrue(before > 0)
         self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
         after = self.queries_used_for_template(template, **context)
         self.assertEquals(before, after)
@@ -267,6 +267,7 @@ class Tests(TestCase):
         template = ('{% load pages_tags %}'
                     '{% page_menu "pages/menus/tree.html" %}')
         before = self.queries_used_for_template(template)
+        self.assertTrue(before > 0)
         self.create_recursive_objects(RichTextPage, "parent", title="Page",
                                       status=CONTENT_STATUS_PUBLISHED)
         after = self.queries_used_for_template(template)
