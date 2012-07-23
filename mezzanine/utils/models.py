@@ -59,7 +59,8 @@ class AdminThumbMixin(object):
         if thumb is None:
             return ""
         from mezzanine.core.templatetags.mezzanine_tags import thumbnail
-        thumb_url = thumbnail(thumb, 24, 24)
+        x, y = settings.ADMIN_THUMB_SIZE.split('x')
+        thumb_url = thumbnail(thumb, x, y)
         return "<img src='%s%s'>" % (settings.MEDIA_URL, thumb_url)
     admin_thumb.allow_tags = True
     admin_thumb.short_description = ""
