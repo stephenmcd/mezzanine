@@ -53,6 +53,15 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     the current page can include a page in their template context.
     The urlpattern that maps to this view is a catch-all pattern, in
     which case the page instance will be None, so raise a 404 then.
+
+    For template selection, a list of possible templates is built up
+    based on the current page. This list is order from most granular
+    match, starting with a custom template for the exact page, then
+    adding templates based on the page's parent page, that could be
+    used for sections of a site (eg all children of the parent).
+    Finally at the broadest level, a template for the page's content
+    type (it's model class) is checked for, and then if none of these
+    templates match, the default pages/page.html is used.
     """
     page_middleware = "mezzanine.pages.middleware.PageMiddleware"
     if page_middleware not in settings.MIDDLEWARE_CLASSES:
