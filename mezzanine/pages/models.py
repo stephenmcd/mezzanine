@@ -94,9 +94,12 @@ class Page(BasePage):
             # run it to see if we can retrieve all parents in a single
             # query, which will occur if the slugs for each of the pages
             # have not been customised.
-            args = (self.slug, for_user)
-            pages = Page.objects.with_ascendants_for_slug(**args)
-            self._ascendants = pages[0]._ascendants
+            if self.slug:
+                args = (self.slug, for_user)
+                pages = Page.objects.with_ascendants_for_slug(**args)
+                self._ascendants = pages[0]._ascendants
+            else:
+                self._ascendants = []
         if not self._ascendants:
             # Page has a parent but with_ascendants_for_slug failed to
             # find them due to custom slugs, so retrieve the parents
