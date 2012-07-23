@@ -36,6 +36,14 @@ register_setting(
 )
 
 register_setting(
+    name="ADMIN_THUMB_SIZE",
+    description=_("Size of thumbnail previews for image fields in the "
+                  "admin interface"),
+    editable=False,
+    default="24x24",
+)
+
+register_setting(
     name="CACHE_SET_DELAY_SECONDS",
     description=_("Mezzanine's caching uses a technique know as mint "
         "caching. This is where the requested expiry for a cache entry "
