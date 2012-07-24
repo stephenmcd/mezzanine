@@ -278,6 +278,7 @@ Sites Using Mezzanine
   * `Life is Good <http://lifeisgoodforall.co.uk/>`_
   * `Brooklyn Navy Yard <http://bldg92.org/>`_
   * `Pie Monster <http://piemonster.me>`_
+  * `Cotton On Asia <http://asia.cottonon.com/>`_
 
 Quotes
 ======
