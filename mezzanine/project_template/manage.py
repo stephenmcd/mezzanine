@@ -1,40 +1,28 @@
 #!/usr/bin/env python
 
-# When project_template is used as the actual project during Mezzanine
-# development, insert the development path into sys.path so that the
-# development version of Mezzanine is used rather than the installed
-# version.
 import os
 import sys
-project_path = os.path.dirname(os.path.abspath(__file__))
-project_dir = project_path.split(os.sep)[-1]
-if project_dir == "project_template":
-    dev_path = os.path.abspath(os.path.join(project_path, "..", ".."))
-    if dev_path not in sys.path:
-        sys.path.insert(0, dev_path)
-    from mezzanine.utils.importing import path_for_import
-    mezzanine_path = path_for_import("mezzanine")
-    assert os.path.abspath(os.path.join(mezzanine_path, "..")) == dev_path
 
-# Corrects some pathing issues in various contexts, such as cron jobs.
-os.chdir(project_path)
 
+# Corrects some pathing issues in various contexts, such as cron jobs,
+# and the project layout still being in Django 1.3 format.
+from settings import PROJECT_ROOT, PROJECT_DIRNAME
+os.chdir(PROJECT_ROOT)
+sys.path.insert(0, os.path.abspath(os.path.join(PROJECT_ROOT, "..")))
+
+
+# Add the site ID CLI arg to the environment, which allows for the site
+# used in any site related queries to be manually set for management
+# commands.
 for i, arg in enumerate(sys.argv):
     if arg.startswith("--site"):
         os.environ["MEZZANINE_SITE_ID"] = arg.split("=")[1]
         sys.argv.pop(i)
 
-from django.core.management import execute_manager
-try:
-    import settings  # Assumed to be in the same directory.
-except ImportError:
-    import sys
-    sys.stderr.write("Error: Can't find the file 'settings.py' in the "
-        "directory containing %r. It appears you've customized things.\n"
-        "You'll have to run django-admin.py, passing it your settings "
-        "module.\n(If the file settings.py does indeed exist, it's causing "
-        "an ImportError somehow.)\n" % __file__)
-    sys.exit(1)
 
+# Run Django.
 if __name__ == "__main__":
-    execute_manager(settings)
+    settings_module = "%s.settings" % PROJECT_DIRNAME
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(sys.argv)

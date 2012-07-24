@@ -4,10 +4,24 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
+from mezzanine.pages.managers import PageManager
 from mezzanine.utils.urls import admin_url, path_to_slug, slugify
 
 
-class Page(Orderable, Displayable):
+class BasePage(Orderable, Displayable):
+    """
+    Exists solely to store ``PageManager`` as the main manager.
+    If it's defined on ``Page``, a concrete model, then each
+    ``Page`` subclass loses the custom manager.
+    """
+
+    objects = PageManager()
+
+    class Meta:
+        abstract = True
+
+
+class Page(BasePage):
     """
     A page in the page tree. This is the base class that custom content types
     need to subclass.
@@ -52,8 +66,8 @@ class Page(Orderable, Displayable):
 
     def save(self, *args, **kwargs):
         """
-        Create the titles field using the titles up the parent chain and set
-        the initial value for ordering.
+        Create the titles field using the titles up the parent chain
+        and set the initial value for ordering.
         """
         if self.id is None:
             self.content_model = self._meta.object_name.lower()
@@ -64,6 +78,37 @@ class Page(Orderable, Displayable):
             parent = parent.parent
         self.titles = " / ".join(titles)
         super(Page, self).save(*args, **kwargs)
+
+    def get_ascendants(self, for_user=None):
+        """
+        Returns the ascendants for the page. Ascendants are cached in
+        the ``_ascendants`` attribute, which is populated when the page
+        is loaded via ``Page.objects.with_ascendants_for_slug``.
+        """
+        if not self.parent_id:
+            # No parents at all, bail out.
+            return []
+        if not hasattr(self, "_ascendants"):
+            # _ascendants has not been either page.get_ascendants or
+            # Page.objects.assigned by with_ascendants_for_slug, so
+            # run it to see if we can retrieve all parents in a single
+            # query, which will occur if the slugs for each of the pages
+            # have not been customised.
+            if self.slug:
+                args = (self.slug, for_user)
+                pages = Page.objects.with_ascendants_for_slug(**args)
+                self._ascendants = pages[0]._ascendants
+            else:
+                self._ascendants = []
+        if not self._ascendants:
+            # Page has a parent but with_ascendants_for_slug failed to
+            # find them due to custom slugs, so retrieve the parents
+            # recursively.
+            child = self
+            while child.parent_id is not None:
+                self._ascendants.append(child.parent)
+                child = child.parent
+        return self._ascendants
 
     @classmethod
     def get_content_models(cls):

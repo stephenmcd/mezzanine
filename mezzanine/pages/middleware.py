@@ -1,6 +1,5 @@
 
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.core.urlresolvers import resolve
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.utils.http import urlquote
@@ -36,25 +35,10 @@ class PageMiddleware(object):
     def process_view(self, request, view_func, view_args, view_kwargs):
 
         slug = path_to_slug(request.path_info)
-        if slug == "/":
-            try:
-                slug = resolve('/').kwargs['slug']
-            except KeyError:
-                pass
-            slugs = [slug]
+        pages = Page.objects.with_ascendants_for_slug(slug, request.user)
+        if pages:
+            page = pages[0]
         else:
-            # Create a list containing this slug, plus each of the
-            # ascendant slugs: ['about', 'about/team', 'about/team/mike']
-            parts = slug.split("/")
-            slugs = ["/".join(parts[:i]) for i in range(1, len(parts) + 1)]
-
-        pages_for_user = Page.objects.published(request.user)
-        try:
-            # Find the deepest page that matches one of our slugs.
-            # Sorting by "-slug" ensures that the page with the
-            # longest slug is selected if more than one page matches.
-            page = pages_for_user.filter(slug__in=slugs).order_by("-slug")[0]
-        except IndexError:
             # If we can't find a page matching this slug or any
             # of its sub-slugs, skip all further processing.
             return view_func(request, *view_args, **view_kwargs)

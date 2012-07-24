@@ -31,6 +31,19 @@ The deployed stack consists of the following components:
   * `memcached <http://memcached.org>`_ - in-memory caching server
   * `supervisord <http://supervisord.org>`_ - process control and monitor
 
+.. note::
+
+  None of the items listed above are required for deploying Mezzanine,
+  they're simply the components that have been chosen for use in the
+  bundled ``fabfile.py``. Alternatives such as `Apache
+  <http://httpd.apache.org/>`_ and `MySQL <http://www.mysql.com/>`_
+  will work fine, but you'll need to take care of setting these up
+  and deploying yourself. Consult the Django documentation for more
+  information on using different `web
+  <https://docs.djangoproject.com/en/dev/howto/deployment/>`_ and
+  `database <https://docs.djangoproject.com/en/dev/ref/databases/>`_
+  servers.
+
 Configuration
 -------------
 

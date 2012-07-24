@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-09 12:13+0400\n"
+"POT-Creation-Date: 2012-07-20 13:57+0400\n"
 "PO-Revision-Date: 2012-05-26 18:08+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
@@ -50,8 +50,8 @@ msgid ""
 "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
 "mm/slug/"
 msgstr ""
-"Если ``Да``, ссылки для заметок будут включать месяц и год. "
-"Пример: /blog/yyyy/mm/slug/"
+"Если ``Да``, ссылки для заметок будут включать месяц и год. Пример: /blog/"
+"yyyy/mm/slug/"
 
 #: defaults.py:52
 msgid "Blog posts per page"
@@ -73,7 +73,7 @@ msgstr "Категории"
 msgid "Allow comments"
 msgstr "Разрешить комментарии"
 
-#: models.py:22 templates/blog/blog_post_list.html:113
+#: models.py:22 templates/blog/blog_post_list.html:111
 msgid "Comments"
 msgstr "Комментарии"
 
@@ -110,17 +110,17 @@ msgid "Save Draft"
 msgstr "Сохранить черновик"
 
 #: templates/blog/blog_post_detail.html:27
-#: templates/blog/blog_post_list.html:76
+#: templates/blog/blog_post_list.html:74
 msgid "Posted by"
 msgstr "Написал(а)"
 
 #: templates/blog/blog_post_detail.html:31
-#: templates/blog/blog_post_list.html:86
+#: templates/blog/blog_post_list.html:84
 msgid "ago"
 msgstr "назад"
 
 #: templates/blog/blog_post_detail.html:35
-#: templates/blog/blog_post_list.html:117
+#: templates/blog/blog_post_list.html:115
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
@@ -129,7 +129,7 @@ msgstr[1] "%(comments_count)s комментария"
 msgstr[2] "%(comments_count)s комментариев"
 
 #: templates/blog/blog_post_detail.html:51
-#: templates/blog/blog_post_list.html:100
+#: templates/blog/blog_post_list.html:98
 #: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
 msgstr "Теги"
@@ -142,43 +142,43 @@ msgstr "Опубликовать в Twitter"
 msgid "Share on Facebook"
 msgstr "Опубликовать в Facebook"
 
-#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:24
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"
 msgstr "Блог"
 
-#: templates/blog/blog_post_list.html:33
+#: templates/blog/blog_post_list.html:31
 msgid "Tag:"
 msgstr "Тег:"
 
-#: templates/blog/blog_post_list.html:35
+#: templates/blog/blog_post_list.html:33
 msgid "Category:"
 msgstr "Категория:"
 
-#: templates/blog/blog_post_list.html:39
+#: templates/blog/blog_post_list.html:37
 msgid "Author:"
 msgstr "Автор:"
 
-#: templates/blog/blog_post_list.html:51
+#: templates/blog/blog_post_list.html:49
 msgid "Viewing posts tagged"
 msgstr "Просмотр заметок с тегом"
 
-#: templates/blog/blog_post_list.html:53
+#: templates/blog/blog_post_list.html:51
 msgid "Viewing posts for the category"
 msgstr "Просмотр заметок в категории"
 
-#: templates/blog/blog_post_list.html:55
+#: templates/blog/blog_post_list.html:53
 msgid "Viewing posts from"
 msgstr "Просмотр заметок за"
 
-#: templates/blog/blog_post_list.html:58
+#: templates/blog/blog_post_list.html:56
 msgid "Viewing posts by"
 msgstr "Просмотр заметок от"
 
-#: templates/blog/blog_post_list.html:81
+#: templates/blog/blog_post_list.html:79
 msgid "in"
 msgstr "в"
 
-#: templates/blog/blog_post_list.html:108
+#: templates/blog/blog_post_list.html:106
 msgid "read more"
 msgstr "читать далее"
 

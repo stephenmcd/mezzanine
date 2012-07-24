@@ -69,67 +69,8 @@ if (typeof tinyMCE != 'undefined') {
         paste_auto_cleanup_on_paste : true,
         paste_remove_styles: true,
         paste_remove_styles_if_webkit: true,
-        paste_strip_class_attributes: true,
+        paste_strip_class_attributes: true
 
-        // allow inline styles
-        inline_styles : true,
-
-        // elements
-        valid_elements : ""
-		+ "span[style],"
-		+ "-p,"
-		+ "a[href|target=_blank|class],"
-		+ "-strong/-b,"
-		+ "-em/-i,"
-		+ "-u,"
-		+ "-ol,"
-		+ "-ul,"
-		+ "-li,"
-		+ "-dl,"
-		+ "-dd,"
-		+ "-dt,"
-		+ "br,"
-		+ "img[class|src|alt=|width|height],"
-		+ "-h1,-h2,-h3,-h4,"
-		+ "-pre,"
-		+ "-blockquote,"
-		+ "-cite,"
-		+ "-code,"
-		+ "-iframe,"
-		+ "-table[border=0|cellspacing|cellpadding|width|frame|rules|height|"
-		+ "align|summary|bgcolor|background|bordercolor],"
-		+ "-tr[rowspan|width|height|align|valign|bgcolor|"
-		+ "background|bordercolor],"
-		+ "tbody,"
-		+ "thead,"
-		+ "tfoot,"
-		+ "#td[colspan|rowspan|width|height|align|valign|bgcolor|background|"
-		+ "bordercolor|scope],"
-		+ "#th[colspan|rowspan|width|height|align|valign|scope],"
-		+ "-div,"
-		+ "",
-        extended_valid_elements: "pre[style],"
-        + "a[name|class|href|target|title|onclick|rel],"
-        + "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style],"
-        + "iframe[src|title|byline|portrait|frameborder|width|height],"
-        + "br[clearfix],"
-        + "-p[class<clearfix?summary?code],"
-        + "h2[class<clearfix],h3[class<clearfix],h4[class<clearfix],"
-        + "ul[class<clearfix],ol[class<clearfix],"
-        + "div[class],"
-        + "object[align<bottom?left?middle?right?top|archive|border|class|classid"
-          + "|codebase|codetype|data|declare|dir<ltr?rtl|height|hspace|id|lang|name"
-          + "|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-          + "|onmouseout|onmouseover|onmouseup|standby|style|tabindex|title|type|usemap"
-          + "|vspace|width],"
-          + "embed[name|src|type|allowscriptaccess|allowfullscreen|width|height],"
-        +"param[id|name|type|value|valuetype<DATA?OBJECT?REF],",
-        valid_children : ""
-        + "h1/h2/h3/h4/h5/h6/a[%itrans_na],"
-        + "table[thead|tbody|tfoot|tr|td],"
-        + "strong/b/p/div/em/i/td[%itrans|#text],"
-		//+ "body[%btrans|#text]"
-        + "",
 	});
 
 }

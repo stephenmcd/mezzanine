@@ -61,7 +61,8 @@ class RichTextField(models.TextField):
         except ImportError:
             return value
         else:
-            return clean(value, tags=tags, attributes=attrs, strip=True)
+            return clean(value, tags=tags, attributes=attrs, strip=True,
+                         strip_comments=False)
 
 
 class MultiChoiceField(models.CharField):

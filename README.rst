@@ -372,7 +372,7 @@ Quotes
 .. _`Markdown`: http://en.wikipedia.org/wiki/Markdown
 .. _`mezzanine-openshift`: https://github.com/k4ml/mezzanine-openshift
 .. _`Redhat's OpenShift`: https://openshift.redhat.com/
-.. _`mezzanine-stackato`: https://github.com/ActiveState/mezzanine-stackato
+.. _`mezzanine-stackato`: https://github.com/Stackato-Apps/mezzanine
 .. _`ActiveState's Stackato`: http://www.activestate.com/stackato
 .. _`mezzanine-blocks`: https://github.com/renyi/mezzanine-blocks
 .. _`mezzanine-widgets`: https://github.com/osiloke/mezzanine_widgets
