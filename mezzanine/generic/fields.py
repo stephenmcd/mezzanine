@@ -4,7 +4,7 @@ from copy import copy
 from django.conf import settings
 from django.contrib.contenttypes.generic import GenericRelation
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import Model, IntegerField, CharField, FloatField
+from django.db.models import get_model, IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
 
 
@@ -78,8 +78,12 @@ class BaseGenericRelation(GenericRelation):
         """
         # Manually check that the instance matches the relation,
         # since we don't specify a sender for the signal.
-        if not (issubclass(self.rel.to, Model) and
-                isinstance(kwargs["instance"], self.rel.to)):
+        try:
+            to = self.rel.to
+            if isinstance(to, basestring):
+                to = get_model(*to.split(".", 1))
+            assert isinstance(kwargs["instance"], to)
+        except (TypeError, ValueError, AssertionError):
             return
         for_model = kwargs["instance"].content_type.model_class()
         if issubclass(for_model, self.model):
