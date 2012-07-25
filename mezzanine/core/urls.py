@@ -15,7 +15,7 @@ if "django.contrib.admin" in settings.INSTALLED_APPS:
         ("^reset/done/$", "password_reset_complete"),
     )
 
-_proxy_url = getattr(settings, "STATIC_PROXY_URL", "static_proxy").strip("/")
+_proxy_url = getattr(settings, "STATIC_PROXY_URL", "asset_proxy").strip("/")
 
 urlpatterns += patterns("mezzanine.core.views",
     url("^edit/$", "edit", name="edit"),
