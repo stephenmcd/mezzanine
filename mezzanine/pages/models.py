@@ -139,8 +139,9 @@ class Page(BasePage):
         start with this page's slug.
         """
         for page in Page.objects.filter(slug__startswith=self.slug):
-            page.slug = new_slug + page.slug[len(self.slug):]
-            page.save()
+            if not page.overridden():
+                page.slug = new_slug + page.slug[len(self.slug):]
+                page.save()
         self.slug = new_slug
 
     def set_parent(self, new_parent):
