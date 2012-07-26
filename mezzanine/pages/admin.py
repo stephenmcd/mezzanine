@@ -1,6 +1,7 @@
 
 from copy import deepcopy
 
+from django.forms import ModelForm
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import NoReverseMatch
@@ -16,6 +17,18 @@ page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 page_fieldsets[0][1]["fields"] += ("in_menus", "login_required",)
 
 
+class PageAdminForm(ModelForm):
+    def clean_slug(self):
+        """
+        If the slug has been changed, save the old one. We will use it later
+        in PageAdmin.model_save() to make the slug change propagate down the
+        page tree.
+        """
+        if self.instance and self.instance.slug != self.cleaned_data['slug']:
+            self.instance._old_slug = self.instance.slug
+        return self.cleaned_data['slug']
+
+
 class PageAdmin(DisplayableAdmin):
     """
     Admin class for the ``Page`` model and all subclasses of
@@ -23,6 +36,7 @@ class PageAdmin(DisplayableAdmin):
     ``Page`` model and its subclasses.
     """
 
+    form = PageAdminForm
     fieldsets = page_fieldsets
 
     def __init__(self, *args, **kwargs):
@@ -124,8 +138,15 @@ class PageAdmin(DisplayableAdmin):
 
     def save_model(self, request, obj, form, change):
         """
-        Set the ID of the parent page if passed in via querystring.
+        Set the ID of the parent page if passed in via querystring, and make
+        sure the new slug propagates to all descendant pages.
         """
+        if hasattr(obj, "_old_slug"):
+            # _old_slug was set in PageAdminForm.clean_slug().
+            new_slug = obj.slug
+            obj.slug = obj._old_slug
+            obj.set_slug(new_slug)
+
         # Force parent to be saved to trigger handling of ordering and slugs.
         parent = request.GET.get("parent")
         if parent is not None and not change:
