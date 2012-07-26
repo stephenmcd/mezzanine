@@ -109,27 +109,6 @@ class Page(BasePage):
                 child = child.parent
         return self._ascendants
 
-    def set_parent(self, new_parent):
-        """
-        Change the parent of this page, changing this page's slug to match
-        the new parent if necessary.
-        """
-        if self.slug.startswith(self.parent.slug):
-            new_slug = self.slug.replace(self.parent.slug, new_parent.slug, 1)
-            self.set_slug(new_slug)
-        self.parent = new_parent
-        self.save()
-
-    def set_slug(self, new_slug):
-        """
-        Changes this page's slug, and all other pages whose slugs
-        start with this page's slug.
-        """
-        for page in Page.objects.filter(slug__startswith=self.slug):
-            page.slug = new_slug + page.slug[len(self.slug):]
-            page.save()
-        self.slug = new_slug
-
     @classmethod
     def get_content_models(cls):
         """
@@ -154,16 +133,26 @@ class Page(BasePage):
             return "%s/%s" % (self.parent.slug, slug)
         return slug
 
-    def reset_slugs(self):
+    def set_slug(self, new_slug):
         """
-        Called when the parent page is changed in the admin and the slug
-        plus all child slugs need to be recreated given the new parent.
+        Changes this page's slug, and all other pages whose slugs
+        start with this page's slug.
         """
-        if not self.overridden():
-            self.slug = None
-            self.save()
-        for child in self.children.all():
-            child.reset_slugs()
+        for page in Page.objects.filter(slug__startswith=self.slug):
+            page.slug = new_slug + page.slug[len(self.slug):]
+            page.save()
+        self.slug = new_slug
+
+    def set_parent(self, new_parent):
+        """
+        Change the parent of this page, changing this page's slug to match
+        the new parent if necessary.
+        """
+        if self.slug.startswith(self.parent.slug):
+            new_slug = self.slug.replace(self.parent.slug, new_parent.slug, 1)
+            self.set_slug(new_slug)
+        self.parent = new_parent
+        self.save()
 
     def overridden(self):
         """
