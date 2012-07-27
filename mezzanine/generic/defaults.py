@@ -11,7 +11,7 @@ them would require an application reload.
 """
 
 from django.conf import settings
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import register_setting
 
