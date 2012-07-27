@@ -325,7 +325,8 @@ class Tests(TestCase):
         for i, label, path in settings.PAGE_MENU_TEMPLATES:
             menus.append(i)
             pages.append(RichTextPage.objects.create(in_menus=list(menus),
-                title="Page for %s" % label, status=CONTENT_STATUS_PUBLISHED))
+                title="Page for %s" % unicode(label),
+                status=CONTENT_STATUS_PUBLISHED))
             template += "{%% page_menu '%s' %%}" % path
         rendered = Template(template).render(Context({}))
         for page in pages:
