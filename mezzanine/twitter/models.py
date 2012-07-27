@@ -48,7 +48,7 @@ class Query(models.Model):
                               "?include_rts=true" %
                               self.value.lstrip("@").replace("/", "/lists/")),
             QUERY_TYPE_SEARCH: "http://search.twitter.com/search.json?q=%s" %
-                               quote(self.value),
+                               quote(self.value.encode("utf-8")),
         }
         try:
             url = urls[self.type]
