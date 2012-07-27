@@ -10,7 +10,7 @@ that are only read during startup shouldn't be editable, since changing
 them would require an application reload.
 """
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import register_setting
 
