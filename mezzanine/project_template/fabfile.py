@@ -6,7 +6,7 @@ from getpass import getpass, getuser
 from glob import glob
 from contextlib import contextmanager
 
-from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, hide
+from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, hide, task
 from fabric.contrib.files import exists, upload_template
 from fabric.colors import yellow, green, blue, red
 
@@ -490,8 +490,9 @@ def rollback():
     restart()
 
 
+@task(alias='all')
 @log_call
-def all():
+def do_all():
     """
     Install everything required on a new system, from the base
     software, up to the deployed project.
