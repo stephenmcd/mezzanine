@@ -1,4 +1,3 @@
-
   .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
 
 Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_
@@ -371,7 +370,7 @@ Quotes
 .. _`html5boilerplate project`: http://html5boilerplate.com/
 .. _`mezzanine-mdown`: https://bitbucket.org/onelson/mezzanine-mdown
 .. _`Markdown`: http://en.wikipedia.org/wiki/Markdown
-.. _`mezzanine-openshift`: https://github.com/k4ml/mezzanine-openshift
+.. _`mezzanine-openshift`: https://github.com/overshard/mezzanine-openshift
 .. _`Redhat's OpenShift`: https://openshift.redhat.com/
 .. _`mezzanine-stackato`: https://github.com/Stackato-Apps/mezzanine
 .. _`ActiveState's Stackato`: http://www.activestate.com/stackato
