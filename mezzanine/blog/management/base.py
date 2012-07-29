@@ -230,13 +230,16 @@ class BaseImporterCommand(BaseCommand):
             if created and verbosity >= 1:
                 print "Imported tag: %s" % keyword
         if old_url is not None:
-            redirect = self.trunc(Redirect, prompt,
-                                  old_path=urlparse(old_url).path,
-                                  new_path=obj.get_absolute_url())
+            old_path = urlparse(old_url).path
+            if not old_path.strip("/"):
+                return
+            redirect = self.trunc(Redirect, prompt, old_path=old_path)
             redirect['site'] = Site.objects.get_current()
             redirect, created = Redirect.objects.get_or_create(**redirect)
+            redirect.new_path = obj.get_absolute_url()
+            redirect.save()
             if created and verbosity >= 1:
-                print "Created redirect for: %s" % redirect.old_path
+                print "Created redirect for: %s" % old_url
 
     def handle_import(self, options):
         """
