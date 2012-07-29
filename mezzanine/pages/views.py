@@ -10,7 +10,6 @@ from mezzanine.pages.models import Page
 from mezzanine.utils.urls import home_slug
 from mezzanine.utils.views import render
 
-
 page_processors.autodiscover()
 
 
