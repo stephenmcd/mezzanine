@@ -152,7 +152,9 @@ class Page(BasePage):
         old_parent = self.parent
         self.parent = new_parent
         self.save()
-        if self.slug.startswith(old_parent.slug):
+        if old_parent is None:
+            self.set_slug(new_parent.slug + "/" + self.slug)
+        elif self.slug.startswith(old_parent.slug):
             new_slug = self.slug.replace(old_parent.slug, new_parent.slug, 1)
             self.set_slug(new_slug)
 
