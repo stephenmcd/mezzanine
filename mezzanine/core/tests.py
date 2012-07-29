@@ -191,6 +191,58 @@ class Tests(TestCase):
         self.assertEqual(ascendants[0].id, secondary.id)
         self.assertEqual(ascendants[1].id, primary.id)
 
+    def test_set_parent(self):
+        old_parent, _ = RichTextPage.objects.get_or_create(title="Old parent")
+        new_parent, _ = RichTextPage.objects.get_or_create(title="New parent")
+        child, _ = RichTextPage.objects.get_or_create(title="Child",
+                                                      slug="kid")
+        self.assertTrue(child.parent is None)
+        self.assertTrue(child.slug == "kid")
+
+        child.set_parent(old_parent)
+        child.save()
+        self.assertEqual(child.parent_id, old_parent.id)
+        self.assertTrue(child.slug == "old-parent/kid")
+
+        child = RichTextPage.objects.get(id=child.id)
+        self.assertEqual(child.parent_id, old_parent.id)
+        self.assertTrue(child.slug == "old-parent/kid")
+
+        child.set_parent(new_parent)
+        child.save()
+        self.assertEqual(child.parent_id, new_parent.id)
+        print("child.slug = " + child.slug)
+        self.assertTrue(child.slug == "new-parent/kid")
+
+        child = RichTextPage.objects.get(id=child.id)
+        self.assertEqual(child.parent_id, new_parent.id)
+        self.assertTrue(child.slug == "new-parent/kid")
+
+        child.set_parent(None)
+        child.save()
+        self.assertTrue(child.parent is None)
+        self.assertTrue(child.slug == "kid")
+
+        child = RichTextPage.objects.get(id=child.id)
+        self.assertTrue(child.parent is None)
+        self.assertTrue(child.slug == "kid")
+
+    def test_set_slug(self):
+        parent, _ = RichTextPage.objects.get_or_create(title="Parent",
+                                                       slug="parent")
+        child, _ = RichTextPage.objects.get_or_create(title="Child",
+                                                      slug="parent/child",
+                                                      parent_id=parent.id)
+        parent.set_slug("new-parent-slug")
+        parent.save()
+        self.assertTrue(parent.slug == "new-parent-slug")
+
+        parent = RichTextPage.objects.get(id=parent.id)
+        self.assertTrue(parent.slug == "new-parent-slug")
+
+        child = RichTextPage.objects.get(id=child.id)
+        self.assertTrue(child.slug == "new-parent-slug/child")
+
     def test_description(self):
         """
         Test generated description is text version of the first line
