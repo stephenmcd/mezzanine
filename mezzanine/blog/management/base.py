@@ -53,7 +53,8 @@ class BaseImporterCommand(BaseCommand):
           return value of ``add_comment``.
         """
         if not title:
-            title = decode_entities(strip_tags(content).split(". ")[0])
+            title = strip_tags(content).split(". ")[0]
+        title = decode_entities(title)
         if categories is None:
             categories = []
         if tags is None:
@@ -120,6 +121,7 @@ class BaseImporterCommand(BaseCommand):
                 continue
             elif not prompt:
                 fields[field_name] = value[:max_length]
+                continue
             while len(value) > max_length:
                 encoded_value = value.encode("utf-8")
                 new_value = raw_input("The value for the field %s.%s exceeds "
@@ -155,15 +157,20 @@ class BaseImporterCommand(BaseCommand):
         # Run the subclassed ``handle_import`` and save posts, tags,
         # categories, and comments to the DB.
         self.handle_import(options)
-        for post in self.posts:
-            categories = post.pop("categories")
-            tags = post.pop("tags")
-            comments = post.pop("comments")
-            old_url = post.pop("old_url")
-            post = self.trunc(BlogPost, prompt, **post)
-            post["user"] = mezzanine_user
-            post["status"] = CONTENT_STATUS_PUBLISHED
-            post, created = BlogPost.objects.get_or_create(**post)
+        for post_data in self.posts:
+            categories = post_data.pop("categories")
+            tags = post_data.pop("tags")
+            comments = post_data.pop("comments")
+            old_url = post_data.pop("old_url")
+            post_data = self.trunc(BlogPost, prompt, **post_data)
+            initial = {
+                "title": post_data.pop("title"),
+                "user": mezzanine_user,
+            }
+            post, created = BlogPost.objects.get_or_create(**initial)
+            for k, v in post_data.items():
+                setattr(post, k, v)
+            post.save()
             if created and verbosity >= 1:
                 print "Imported post: %s" % post
             for name in categories:
