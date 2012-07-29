@@ -41,7 +41,14 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
             month = str(self.publish_date.month)
             if len(month) == 1:
                 month = "0" + month
-            kwargs.update({"month": month, "year": self.publish_date.year})
+            day = str(self.publish_date.day)
+            if len(day) == 1:
+                day = "0" + day
+            kwargs.update({
+                "day": day,
+                "month": month,
+                "year": self.publish_date.year,
+            })
         return (url_name, (), kwargs)
 
 
