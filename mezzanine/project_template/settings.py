@@ -362,12 +362,13 @@ except ImportError:
 
 # set_dynamic_settings() will rewrite globals based on what has been
 # defined so far, in order to provide some better defaults where
-# applicable.
-
-# Swallow the exception if the import fails, which will occur when this
-# file is imported from the fabric script
+# applicable. We also allow this settings module to be imported
+# without Mezzanine installed, as the case may be when using the
+# fabfile, where setting the dynamic settings below isn't strictly
+# required.
 try:
     from mezzanine.utils.conf import set_dynamic_settings
-    set_dynamic_settings(globals())
 except ImportError:
     pass
+else:
+    set_dynamic_settings(globals())
