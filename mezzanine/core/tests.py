@@ -211,7 +211,6 @@ class Tests(TestCase):
         child.set_parent(new_parent)
         child.save()
         self.assertEqual(child.parent_id, new_parent.id)
-        print("child.slug = " + child.slug)
         self.assertTrue(child.slug == "new-parent/kid")
 
         child = RichTextPage.objects.get(id=child.id)
