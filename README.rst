@@ -182,6 +182,7 @@ list it here, send an email to the `mezzanine-users`_ mailing list.
     the Mezzanine admin interface.
   * `mezzanine-captcha`_ - Adds CAPTCHA field types to Mezzanine's forms
     builder app.
+  * `mezzanine-bookmarks`_ - A multi-user bookmark app for Mezzanine.
 
 Donating
 ========
@@ -379,6 +380,7 @@ Quotes
 .. _`mezzanine-themes`: https://github.com/renyi/mezzanine-themes
 .. _`mezzanine-twittertopic`: https://github.com/lockhart/mezzanine-twittertopic
 .. _`mezzanine-captcha`: https://github.com/mjtorn/mezzanine-captcha
+.. _`mezzanine-bookmarks`: https://github.com/adieu/mezzanine-bookmarks
 
 
 .. PEOPLE WITH QUOTES
