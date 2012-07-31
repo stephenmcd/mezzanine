@@ -24,7 +24,7 @@ class PageAdminForm(ModelForm):
         in PageAdmin.model_save() to make the slug change propagate down the
         page tree.
         """
-        if self.instance and self.instance.slug != self.cleaned_data['slug']:
+        if self.instance.slug != self.cleaned_data['slug']:
             self.instance._old_slug = self.instance.slug
         return self.cleaned_data['slug']
 
@@ -141,7 +141,7 @@ class PageAdmin(DisplayableAdmin):
         Set the ID of the parent page if passed in via querystring, and make
         sure the new slug propagates to all descendant pages.
         """
-        if hasattr(obj, "_old_slug"):
+        if change and hasattr(obj, "_old_slug"):
             # _old_slug was set in PageAdminForm.clean_slug().
             new_slug = obj.slug
             obj.slug = obj._old_slug
