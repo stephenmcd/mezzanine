@@ -90,6 +90,15 @@ if generic_comments:
         default=True,
     )
 
+    register_setting(
+        name="COMMENTS_SEND_MANAGER_NOTIFICATION",
+        label=_("Send notification to managers"),
+        description=_("If ``True``, a notification mail is sent to site "
+                      "managers (see ``MANAGERS`` setting)."),
+        editable=True,
+        default=False,
+    )
+
 register_setting(
     name="RATINGS_MIN",
     description=_("Min value for a rating."),
