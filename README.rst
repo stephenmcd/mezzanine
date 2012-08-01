@@ -175,14 +175,18 @@ list it here, send an email to the `mezzanine-users`_ mailing list.
     `Redhat's OpenShift`_ cloud platform.
   * `mezzanine-stackato`_ - Setup for running Mezzanine on
     `ActiveState's Stackato`_ cloud platform.
-  * `mezzanine-blocks`_ - A Mezzanine flavored fork of django-flatblocks.
+  * `mezzanine-blocks`_ - A Mezzanine flavored fork of
+    django-flatblocks.
   * `mezzanine-widgets`_ - Widget system for Mezzanine.
   * `mezzanine-themes`_ - A collection of Django/Mezzanine templates.
-  * `mezzanine-twittertopic`_ - Manage multiple Twitter topic feeds from
-    the Mezzanine admin interface.
-  * `mezzanine-captcha`_ - Adds CAPTCHA field types to Mezzanine's forms
-    builder app.
+  * `mezzanine-twittertopic`_ - Manage multiple Twitter topic feeds
+    from the Mezzanine admin interface.
+  * `mezzanine-captcha`_ - Adds CAPTCHA field types to Mezzanine's
+    forms builder app.
   * `mezzanine-bookmarks`_ - A multi-user bookmark app for Mezzanine.
+  * `mezzanine-events`_ - Events plugin for Mezzanine, with geocoding
+    via Google Maps, iCalendar files, webcal URLs and directions via
+    Google Calendar/Maps.
 
 Donating
 ========
@@ -382,6 +386,7 @@ Quotes
 .. _`mezzanine-twittertopic`: https://github.com/lockhart/mezzanine-twittertopic
 .. _`mezzanine-captcha`: https://github.com/mjtorn/mezzanine-captcha
 .. _`mezzanine-bookmarks`: https://github.com/adieu/mezzanine-bookmarks
+.. _`mezzanine-events`: https://github.com/stbarnabas/mezzanine-events
 
 
 .. PEOPLE WITH QUOTES
