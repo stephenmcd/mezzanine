@@ -43,7 +43,13 @@ class PageAdmin(DisplayableAdmin):
             # fields. Do so in reverse order to retain the order of
             # the model's fields.
             for field in reversed(self.model._meta.fields):
-                if field not in Page._meta.fields and field.name != "page_ptr":
+                if field not in Page._meta.fields and field.name != "page_ptr"\
+                    and (not self.exclude or not field.name in self.exclude)\
+                    and (not hasattr(self.form, 'Meta') or 
+                            not self.form.Meta.exclude or 
+                            field.name in self.form.Meta.exclude)\
+                    and field.editable:
+
                     self.fieldsets[0][1]["fields"].insert(3, field.name)
 
     def in_menu(self):
