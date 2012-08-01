@@ -8,6 +8,8 @@ The package ``mezzanine.conf`` contains the models for storing
 editable settings in the database as well as the functions for
 registering and loading these settings throughout your project.
 
+.. _registering-settings:
+
 Registering Settings
 ====================
 
@@ -75,7 +77,6 @@ reloading your entire project. In the snippet above by calling
 accessed is loaded each time the view is run. This ensures that if the value
 of the setting has been changed by an admin user it will be reflected on the
 website.
-
 
 Django Settings
 ===============

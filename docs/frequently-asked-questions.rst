@@ -7,6 +7,7 @@ These are some of the most frequently asked questions on the
 
   * :ref:`prerequisites`
   * :ref:`static-files`
+  * :ref:`wysiwyg-filtering`
   * :ref:`homepage`
   * :ref:`project-vs-app`
   * :ref:`templates`
@@ -80,6 +81,39 @@ production, leaving this up to the public facing web server, which is
 absolutely the best tool for this job. Consult `Django's staticfiles
 guide <https://docs.djangoproject.com/en/dev/howto/static-files/>`_
 for more information.
+
+`Back to top <#>`_
+
+.. _wysiwyg-filtering:
+
+Why does the WYSIWYG editor strip out my custom HTML?
+-----------------------------------------------------
+
+By default, Mezzanine strips out potentially dangerous HTML from
+fields controlled by the WYSIWYG editor, such as tags and attributes
+that could be used to inject JavaScript into a page. If this
+didn't occur, a clever staff member could potentially add JavaScript
+to a page, that when viewed by an administrator (a staff member with
+superuser status), would cause the administrator's browser to post an
+update via the admin, that updates the staff member's user account and
+assigns them superuser status.
+
+The above scenario is a fairly obscure one, so it's possible to
+customise the level of filtering that occurs. Three levels of
+filtering are implemented by default, than can be controlled in
+the settings section of the admin. These are High (the default), Low
+(which allows extra tags such as those required for embedding videos),
+and None (no filtering occurs). This is implemented via the
+``RICHTEXT_FILTER_LEVEL`` setting.
+
+If your situation is one where your staff members are completely
+trusted, and custom HTML within WYSIWYG fields is required, then you
+can modify the filter level accordingly. Further customisation is
+possible via the ``RICHTEXT_ALLOWED_TAGS`` and
+``RICHTEXT_ALLOWED_ATTRIBUTES`` settings, which can have extra allowed
+values appended to using the ``append`` argument in Mezzanine's
+settings API. See the :ref:`registering-settings` section for more
+information.
 
 `Back to top <#>`_
 
