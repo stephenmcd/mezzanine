@@ -83,7 +83,7 @@ def comment(request, template="generic/comments.html"):
                                 request=request)
         # send notification mail
         if settings.COMMENTS_SEND_MANAGER_NOTIFICATION:
-            subject = "New comment on %s" % obj.get_slug()
+            subject = _("New comment on \"%s\"") % obj.get_slug()
             context = {
                 "comment": comment,
                 "request": request,
