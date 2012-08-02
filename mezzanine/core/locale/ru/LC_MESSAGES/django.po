@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-20 13:58+0400\n"
+"POT-Creation-Date: 2012-08-02 13:54+0400\n"
 "PO-Revision-Date: 2012-06-17 15:39+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
@@ -55,6 +55,10 @@ msgid "Unregister these models from the admin."
 msgstr ""
 
 #: defaults.py:40
+msgid "Size of thumbnail previews for image fields in the admin interface"
+msgstr ""
+
+#: defaults.py:48
 msgid ""
 "Mezzanine's caching uses a technique know as mint caching. This is where the "
 "requested expiry for a cache entry is stored with the cache entry in cache, "
@@ -65,11 +69,11 @@ msgid ""
 "only one would actually need to re-generated the cache entry."
 msgstr ""
 
-#: defaults.py:55
+#: defaults.py:63
 msgid "Akismet API Key"
 msgstr "Ключ Akismet"
 
-#: defaults.py:56
+#: defaults.py:64
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
@@ -77,27 +81,27 @@ msgstr ""
 "Ключ для сервиса фильтрации спама http://akismet.com. Для комментариев и "
 "форм."
 
-#: defaults.py:77
+#: defaults.py:85
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
 msgstr ""
 
-#: defaults.py:85
+#: defaults.py:93
 msgid "Device specific template sub-directory to use as the default device."
 msgstr ""
 
-#: defaults.py:93
+#: defaults.py:101
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
 msgstr ""
 
-#: defaults.py:115
+#: defaults.py:123
 msgid "If ``True``, website forms will use HTML5 features."
 msgstr "Если ``Да``, формы на сайте будут использовать возможности HTML5."
 
-#: defaults.py:122
+#: defaults.py:130
 msgid ""
 "A sequence of fields that will be injected into Mezzanine's (or any "
 "library's) models. Each item in the sequence is a four item sequence. The "
@@ -109,15 +113,15 @@ msgid ""
 "Django model fields."
 msgstr ""
 
-#: defaults.py:137
+#: defaults.py:145
 msgid "Google Analytics ID"
 msgstr ""
 
-#: defaults.py:139
+#: defaults.py:147
 msgid "Google Analytics ID (http://www.google.com/analytics/)"
 msgstr ""
 
-#: defaults.py:145
+#: defaults.py:153
 msgid ""
 "A sequence mapping host names to themes, allowing different templates to be "
 "served per HTTP hosts Each item in the sequence is a two item sequence, "
@@ -127,63 +131,63 @@ msgid ""
 "searched when loading templates."
 msgstr ""
 
-#: defaults.py:159
+#: defaults.py:167
 msgid "Name of the jQuery file."
 msgstr ""
 
-#: defaults.py:160
+#: defaults.py:168
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
 msgstr ""
 
-#: defaults.py:168
+#: defaults.py:176
 msgid "Max paging links"
 msgstr "Максимальное количество ссылок в пагинаторе"
 
-#: defaults.py:169
+#: defaults.py:177
 msgid "Max number of paging links to display when paginating."
 msgstr ""
 "Максимальное количество ссылок на страницы, отображаемых в области пагинации."
 
-#: defaults.py:176
+#: defaults.py:184
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
 msgstr ""
 
-#: defaults.py:184
+#: defaults.py:192
 msgid ""
 "List of HTML tags that won't be stripped from ``RichTextField`` instances."
 msgstr ""
 
-#: defaults.py:200
+#: defaults.py:208
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
 msgstr ""
 
-#: defaults.py:218
+#: defaults.py:226
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
 msgstr ""
 
-#: defaults.py:228
+#: defaults.py:236
 msgid "High"
 msgstr "Высокий"
 
-#: defaults.py:229
+#: defaults.py:237
 msgid "Low (allows video, iframe, Flash, etc)"
 msgstr "Низкий (разрешать видео, флэш, iframe и др.)"
 
-#: defaults.py:230
+#: defaults.py:238
 msgid "No filtering"
 msgstr "Без фильтра"
 
-#: defaults.py:235
+#: defaults.py:243
 msgid "Rich Text filter level"
 msgstr "Уровень фильтрации текста"
 
-#: defaults.py:236
+#: defaults.py:244
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
@@ -219,15 +223,15 @@ msgstr ""
 "Установка параметра в состояние ``Без фильтра`` отключает фильтрацию, что "
 "позволяет редакторам сайт добавлять любой HTML код, включая скриптовые теги."
 
-#: defaults.py:259
+#: defaults.py:267
 msgid "Search results per page"
 msgstr "Результатов поиска на странице"
 
-#: defaults.py:260
+#: defaults.py:268
 msgid "Number of results shown in the search results page."
 msgstr "Количество результатов отображаемых на странице поиска."
 
-#: defaults.py:267
+#: defaults.py:275
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
 "this, you'll also need to manually apply it to your project's root ``urls."
@@ -235,11 +239,11 @@ msgid ""
 "project`` command contains an example of this towards its end."
 msgstr ""
 
-#: defaults.py:278
+#: defaults.py:286
 msgid "Site Title"
 msgstr "Заголовок сайта"
 
-#: defaults.py:279
+#: defaults.py:287
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
@@ -248,19 +252,19 @@ msgstr ""
 "браузера), состоит из заголовка отображаемой страницы с добавлением данной "
 "части."
 
-#: defaults.py:287
+#: defaults.py:295
 msgid "Tagline"
 msgstr "Подзаголовок"
 
-#: defaults.py:288
+#: defaults.py:296
 msgid "A tag line that will appear at the top of all pages."
 msgstr "Подзаголовок, отображаемый на всех страницах сайта."
 
-#: defaults.py:290
+#: defaults.py:298
 msgid "An open source content management platform."
 msgstr ""
 
-#: defaults.py:295
+#: defaults.py:303
 msgid ""
 "Dotted Python path to the callable for converting strings into URL slugs. "
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
@@ -268,11 +272,11 @@ msgid ""
 "Django's slugify function, or something of your own if required."
 msgstr ""
 
-#: defaults.py:306
+#: defaults.py:314
 msgid "Enable SSL"
 msgstr "Включить SSL"
 
-#: defaults.py:307
+#: defaults.py:315
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
@@ -280,46 +284,46 @@ msgstr ""
 "Если ``Да``, то пользователи будут автоматически перенаправлены на HTTPS для "
 "ссылок, которые указаны в настройке ``SSL_FORCE_URL_PREFIXES``."
 
-#: defaults.py:316
+#: defaults.py:324
 msgid "Force Host"
 msgstr "Установить хост"
 
-#: defaults.py:317
+#: defaults.py:325
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
 msgstr "Имя хоста, которое сайт будет использовать для SSL-сертификата."
 
-#: defaults.py:335
+#: defaults.py:343
 msgid "List of words which will be stripped from search queries."
 msgstr ""
 
-#: defaults.py:392
+#: defaults.py:400
 msgid "Tag Cloud Sizes"
 msgstr "Размеры облака тэгов"
 
-#: defaults.py:393
+#: defaults.py:401
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr ""
 "Количество разнообразных размеров надписей, отображаемых в облаке тэгов."
 
-#: defaults.py:400
+#: defaults.py:408
 msgid "Sequence of setting names available within templates."
 msgstr ""
 
-#: defaults.py:416
+#: defaults.py:424
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
 msgstr ""
 
-#: defaults.py:424
+#: defaults.py:432
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
 msgstr ""
 
-#: defaults.py:439
+#: defaults.py:447
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
@@ -444,6 +448,10 @@ msgstr "Сайт использует"
 #: templates/base.html:126
 msgid "and"
 msgstr "и"
+
+#: templates/base.html:129
+msgid "Theme by"
+msgstr "Тема"
 
 #: templates/base.html:132
 msgid "View Mobile Site"
