@@ -131,8 +131,9 @@ def static_proxy(request):
             # on the same domain.
             mimetype = "text/html"
             static_url = settings.STATIC_URL + os.path.split(url)[0] + "/"
-            if bool(urlparse(static_url).scheme) is False:
-                static_url = urljoin('http://' + request.META['HTTP_HOST'], static_url)
+            if not urlparse(static_url).scheme:
+                host = 'http://' + request.META['HTTP_HOST']
+                static_url = urljoin(host, static_url)
             base_tag = "<base href='%s'>" % static_url
             response = response.replace("<head>", "<head>" + base_tag)
     return HttpResponse(response, mimetype=mimetype)
