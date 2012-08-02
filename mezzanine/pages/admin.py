@@ -13,8 +13,7 @@ from mezzanine.utils.urls import admin_url
 
 
 page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
-page_fieldsets[0][1]["fields"] += (("in_navigation", "in_footer"),
-                                    "login_required",)
+page_fieldsets[0][1]["fields"] += ("in_menus", "login_required",)
 
 
 class PageAdmin(DisplayableAdmin):
@@ -121,8 +120,6 @@ class PageAdmin(DisplayableAdmin):
         parent = request.GET.get("parent")
         if parent is not None and not change:
             obj.parent_id = parent
-            obj._order = None
-            obj.slug = None
             obj.save()
         super(PageAdmin, self).save_model(request, obj, form, change)
 

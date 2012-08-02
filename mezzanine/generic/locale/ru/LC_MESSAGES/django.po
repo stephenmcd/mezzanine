@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-04 18:51+0400\n"
-"PO-Revision-Date: 2012-03-11 23:56+0000\n"
+"POT-Creation-Date: 2012-07-20 14:01+0400\n"
+"PO-Revision-Date: 2012-06-17 16:13+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
 "language/ru/)\n"
@@ -23,6 +23,88 @@ msgstr ""
 #: admin.py:20 models.py:67
 msgid "User"
 msgstr "Пользователь"
+
+#: defaults.py:24
+msgid "Accounts required for commenting"
+msgstr "Требовать учетную запись"
+
+#: defaults.py:25
+msgid "If ``True``, users must log in to comment."
+msgstr ""
+"Если ``Да``, то пользователи должны войти под своей учетной записью, чтобы "
+"иметь возможность оставлять комментарии."
+
+#: defaults.py:32
+msgid "Disqus shortname"
+msgstr "Логин Disqus"
+
+#: defaults.py:33
+msgid "Shortname for the http://disqus.com comments service."
+msgstr "Логин на сервисе комментариев http://disqus.com"
+
+#: defaults.py:41
+msgid "Disqus public key"
+msgstr "Публичный ключ Disqus"
+
+#: defaults.py:42
+msgid "Public key for http://disqus.com developer API"
+msgstr "Публичный ключ API для сервиса комментариев http://disqus.com"
+
+#: defaults.py:49
+msgid "Disqus secret key"
+msgstr "Секретный ключ Disqus"
+
+#: defaults.py:50
+msgid "Secret key for http://disqus.com developer API"
+msgstr "Секретный ключ API для сервиса комментариев http://disqus.com"
+
+#: defaults.py:57
+msgid "Auto-approve comments"
+msgstr "Автоутверждение комментариев"
+
+#: defaults.py:58
+msgid "If ``True``, built-in comments are approved by default."
+msgstr "Если ``Да``, то комментарии утверждаются автоматически."
+
+#: defaults.py:66
+msgid "Admin comments"
+msgstr "Комментарии в панели управления"
+
+#: defaults.py:67
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr "Количество последних комментариев, отображаемых в панели управления."
+
+#: defaults.py:75
+msgid "Show unapproved comments"
+msgstr "Показывать неподтверждённые комментарии"
+
+#: defaults.py:76
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+"Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом "
+"будут заменены на надпись ``ожидает подтверждения``"
+
+#: defaults.py:85
+msgid "Show removed comments"
+msgstr "Показывать удалённые комментарии"
+
+#: defaults.py:86
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Если ``Да``, то удалённые комментарии продолжат отображаться, но при этом "
+"будут заменены на надпись ``Удалено``"
+
+#: defaults.py:95
+msgid "Min value for a rating."
+msgstr ""
+
+#: defaults.py:102
+msgid "Max value for a rating."
+msgstr ""
 
 #: forms.py:79
 msgid "Name"
@@ -143,4 +225,3 @@ msgstr "Ещё не оценен"
 #: templates/generic/includes/rating.html:18
 msgid "Rate"
 msgstr "Оценить"
-

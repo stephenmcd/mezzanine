@@ -10,7 +10,8 @@ from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
-from mezzanine.accounts.forms import LoginForm, ProfileForm, PasswordResetForm
+from mezzanine.accounts import get_profile_form
+from mezzanine.accounts.forms import LoginForm, PasswordResetForm
 from mezzanine.conf import settings
 from mezzanine.utils.email import send_verification_mail
 from mezzanine.utils.urls import login_redirect
@@ -44,13 +45,15 @@ def signup(request, template="accounts/account_signup.html"):
     """
     Signup form.
     """
-    form = ProfileForm(request.POST or None)
+    profile_form = get_profile_form()
+    form = profile_form(request.POST or None)
     if request.method == "POST" and form.is_valid():
         new_user = form.save()
         if not new_user.is_active:
             send_verification_mail(request, new_user, "signup_verify")
             info(request, _("A verification email has been sent with "
                             "a link for activating your account."))
+            return redirect(request.GET.get("next", "/"))
         else:
             info(request, _("Successfully signed up"))
             auth_login(request, new_user)
@@ -78,6 +81,15 @@ def signup_verify(request, uidb36=None, token=None):
         return redirect("/")
 
 
+@login_required
+def profile_redirect(request):
+    """
+    Just gives the URL prefix for profiles an action - redirect
+    to the logged in user's profile.
+    """
+    return redirect("profile", username=request.user.username)
+
+
 def profile(request, username, template="accounts/account_profile.html"):
     """
     Display a profile.
@@ -101,11 +113,21 @@ def profile(request, username, template="accounts/account_profile.html"):
 
 
 @login_required
+def account_redirect(request):
+    """
+    Just gives the URL prefix for accounts an action - redirect
+    to the profile update form.
+    """
+    return redirect("profile_update")
+
+
+@login_required
 def profile_update(request, template="accounts/account_profile_update.html"):
     """
     Profile update form.
     """
-    form = ProfileForm(request.POST or None, instance=request.user)
+    profile_form = get_profile_form()
+    form = profile_form(request.POST or None, instance=request.user)
     if request.method == "POST" and form.is_valid():
         user = form.save()
         info(request, _("Profile updated"))

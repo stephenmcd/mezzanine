@@ -1,9 +1,10 @@
 
 from copy import copy
 
+from django.conf import settings
 from django.contrib.contenttypes.generic import GenericRelation
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import IntegerField, CharField, FloatField
+from django.db.models import get_model, IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
 
 
@@ -31,6 +32,7 @@ class BaseGenericRelation(GenericRelation):
         Set up some defaults and check for a ``related_model``
         attribute for the ``to`` argument.
         """
+        self.frozen_by_south = kwargs.pop("frozen_by_south", False)
         kwargs.setdefault("object_id_field", "object_pk")
         to = getattr(self, "related_model", None)
         if to:
@@ -50,10 +52,10 @@ class BaseGenericRelation(GenericRelation):
                     self.__class__.__name__, cls.__name__, cls.__name__,
                     name, field.name)
                 raise ImproperlyConfigured(e)
-        super(BaseGenericRelation, self).contribute_to_class(cls, name)
         self.related_field_name = name
+        super(BaseGenericRelation, self).contribute_to_class(cls, name)
         # Not applicable to abstract classes, and in fact will break.
-        if not cls._meta.abstract:
+        if not cls._meta.abstract and not self.frozen_by_south:
             for (name_string, field) in self.fields.items():
                 if "%s" in name_string:
                     name_string = name_string % name
@@ -76,7 +78,12 @@ class BaseGenericRelation(GenericRelation):
         """
         # Manually check that the instance matches the relation,
         # since we don't specify a sender for the signal.
-        if not isinstance(kwargs["instance"], self.rel.to):
+        try:
+            to = self.rel.to
+            if isinstance(to, basestring):
+                to = get_model(*to.split(".", 1))
+            assert isinstance(kwargs["instance"], to)
+        except (TypeError, ValueError, AssertionError):
             return
         for_model = kwargs["instance"].content_type.model_class()
         if issubclass(for_model, self.model):
@@ -233,3 +240,15 @@ class RatingField(BaseGenericRelation):
         setattr(instance, "%s_count" % self.related_field_name, count)
         setattr(instance, "%s_average" % self.related_field_name, average)
         instance.save()
+
+
+# South requires custom fields to be given "rules".
+# See http://south.aeracode.org/docs/customfields.html
+if "south" in settings.INSTALLED_APPS:
+    try:
+        from south.modelsinspector import add_introspection_rules
+        add_introspection_rules(rules=[((BaseGenericRelation,), [],
+                            {"frozen_by_south": [True, {"is_value": True}]})],
+            patterns=["mezzanine\.generic\.fields\."])
+    except ImportError:
+        pass

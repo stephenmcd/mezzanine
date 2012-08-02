@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:14+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.net/projects/p/mezzanine/language/ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: admin.py:20 models.py:67
+msgid "User"
+msgstr "링크"
+
+#: forms.py:79
+msgid "Name"
+msgstr "이름"
+
+#: forms.py:79
+msgid "required"
+msgstr "필수"
+
+#: forms.py:81
+msgid "Email"
+msgstr "이메일"
+
+#: forms.py:82
+msgid "required (not published)"
+msgstr "필수 (공개되지 않습니다)"
+
+#: forms.py:83
+msgid "Website"
+msgstr "웹사이트"
+
+#: forms.py:83
+msgid "optional"
+msgstr "선택"
+
+#: models.py:24
+msgid "By the blog author"
+msgstr "블로그 글쓴이로"
+
+#: models.py:31 models.py:59
+msgid "Comment"
+msgstr "댓글"
+
+#: models.py:32 templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr "댓글"
+
+#: models.py:71
+msgid "View on site"
+msgstr "사이트에서 보기"
+
+#: models.py:91
+msgid "Keyword"
+msgstr "키워드"
+
+#: models.py:92
+msgid "Keywords"
+msgstr "키워드"
+
+#: models.py:120
+msgid "Value"
+msgstr "값"
+
+#: models.py:126
+msgid "Rating"
+msgstr "평가"
+
+#: models.py:127
+msgid "Ratings"
+msgstr "평가"
+
+#: views.py:52
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr "댓글을 쓰려면 로그인하셔야 합니다. 로그인 또는 회원 가입 후에 댓글이 게시됩니다."
+
+#: templates/admin/includes/recent_comments.html:4
+msgid "Recent Comments"
+msgstr "최근 댓글"
+
+#: templates/admin/includes/recent_comments.html:22
+#: templates/generic/includes/comment.html:22
+#: templates/generic/includes/comment.html:53
+#: templates/generic/includes/comment.html:63
+msgid "ago"
+msgstr "전"
+
+#: templates/generic/includes/comment.html:25
+msgid "Link"
+msgstr "링크"
+
+#: templates/generic/includes/comment.html:26
+#: templates/generic/includes/comment.html:36
+msgid "Reply"
+msgstr "답장"
+
+#: templates/generic/includes/comment.html:59
+msgid "Comment deleted"
+msgstr "댓글이 삭제되었습니다"
+
+#: templates/generic/includes/comment.html:61
+msgid "Comment awaiting approval"
+msgstr "댓글이 승인을 기다리고 있습니다"
+
+#: templates/generic/includes/comment.html:72
+msgid "There are currently no comments"
+msgstr "댓글이 없습니다"
+
+#: templates/generic/includes/comments.html:16
+msgid "New Comment"
+msgstr "댓글 쓰기"
+
+#: templates/generic/includes/comments.html:24
+msgid "Send"
+msgstr ""
+
+#: templates/generic/includes/rating.html:7
+msgid "Current rating"
+msgstr "현재 평가"
+
+#: templates/generic/includes/rating.html:9
+msgid "Currently unrated"
+msgstr "평가가 없습니다"
+
+#: templates/generic/includes/rating.html:18
+msgid "Rate"
+msgstr "평가"

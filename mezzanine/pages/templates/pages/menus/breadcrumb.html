@@ -21,7 +21,7 @@
         <span class="divider">/</span>
     </li>
     {% endif %}
-    {% page_menu page %}
+    {% if page.has_children %}{% page_menu page %}{% endif %}
     {% endif %}
 
 {% endfor %}

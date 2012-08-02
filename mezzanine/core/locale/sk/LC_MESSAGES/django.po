@@ -1,0 +1,252 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Martin Jahn <don@mums.cz>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-05-26 18:09+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Slovak (http://www.transifex.net/projects/p/mezzanine/language/sk/)\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+
+#: admin.py:30
+msgid "Meta data"
+msgstr "Meta dáta"
+
+#: admin.py:50
+msgid "This field is required if status is set to published."
+msgstr ""
+
+#: fields.py:36
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr ""
+
+#: forms.py:75 models.py:262
+msgid "Order"
+msgstr "Objednať"
+
+#: models.py:53
+msgid "Title"
+msgstr "Titul"
+
+#: models.py:54
+msgid "URL"
+msgstr "URL"
+
+#: models.py:96
+msgid "View on site"
+msgstr "Zobraziť na stránke"
+
+#: models.py:106
+msgid "Description"
+msgstr "Vysvetlivka"
+
+#: models.py:107
+msgid "Generate description"
+msgstr "Generovať popis"
+
+#: models.py:108
+msgid "If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description."
+msgstr ""
+
+#: models.py:111
+msgid "Keywords"
+msgstr "Kľúčové slová"
+
+#: models.py:158
+msgid "Draft"
+msgstr "Nedokončené"
+
+#: models.py:159
+msgid "Published"
+msgstr "Publikované"
+
+#: models.py:170
+msgid "Status"
+msgstr "Status"
+
+#: models.py:172 models.py:201
+msgid "Published from"
+msgstr "Publikované z"
+
+#: models.py:173
+msgid "With published checked, won't be shown until this time"
+msgstr "Ak je publikované zaškrtnuté, tak to nebude zobrazené do tohto času"
+
+#: models.py:175
+msgid "Expires on"
+msgstr "Expiruje dňa"
+
+#: models.py:176
+msgid "With published checked, won't be shown after this time"
+msgstr "Ak je publikované zaškrtnuté, tak to nebude zobrazené po tomto čase"
+
+#: models.py:220
+msgid "Content"
+msgstr "Obsah"
+
+#: models.py:316
+msgid "Author"
+msgstr "Autor"
+
+#: views.py:77
+msgid "Permission denied"
+msgstr "Prístup zamietnutý"
+
+#: templates/404.html:6
+msgid "Page not found"
+msgstr "Stránka sa nenašla"
+
+#: templates/404.html:10
+msgid "The page you requested does not exist."
+msgstr "Stránka ktrorú hľadáte sa nenašla."
+
+#: templates/500.html:6
+msgid "Error"
+msgstr "Chyba"
+
+#: templates/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "Prepáčte, nastala chyba"
+
+#: templates/base.html:60
+msgid "Search"
+msgstr "Vyhľadávanie"
+
+#: templates/base.html:121
+msgid "Powered by"
+msgstr "Poháňa"
+
+#: templates/base.html:124
+msgid "and"
+msgstr "a"
+
+#: templates/base.html:130
+msgid "View Mobile Site"
+msgstr "Zobraziť mobilnú verziu"
+
+#: templates/index.html:5 templates/index.html.py:8 templates/index.html:12
+#: templates/search_results.html:10 templates/admin/index.html:15
+msgid "Home"
+msgstr "Domov"
+
+#: templates/index.html:16
+msgid "This is the homepage."
+msgstr "Toto je domovská stránka"
+
+#: templates/search_results.html:5 templates/search_results.html.py:6
+#: templates/search_results.html:13
+msgid "Search Results"
+msgstr "Výsledky vyhľadávania"
+
+#: templates/search_results.html:20
+msgid "No results were found matching your query: "
+msgstr "Žiadne výsledky sa nenašli pre tento výraz"
+
+#: templates/search_results.html:22
+msgid "Showing"
+msgstr ""
+
+#: templates/search_results.html:22
+msgid "to"
+msgstr ""
+
+#: templates/search_results.html:22 templates/includes/pagination.html:8
+msgid "of"
+msgstr ""
+
+#: templates/search_results.html:23
+msgid "results matching your query:"
+msgstr ""
+
+#: templates/search_results.html:32
+msgid "read more"
+msgstr "čítať viac"
+
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
+msgid "Dashboard"
+msgstr ""
+
+#: templates/admin/login.html:25
+msgid "Username or email:"
+msgstr ""
+
+#: templates/admin/login.html:29
+msgid "Password:"
+msgstr ""
+
+#: templates/admin/login.html:34
+msgid "Interface:"
+msgstr "Rozhranie:"
+
+#: templates/admin/login.html:37 templates/includes/editable_toolbar.html:7
+#: templates/includes/editable_toolbar.html:9
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/admin/login.html:40
+msgid "Site"
+msgstr "Stránka"
+
+#: templates/admin/login.html:44
+msgid "Log in"
+msgstr ""
+
+#: templates/admin/login.html:47
+msgid "Forgot password?"
+msgstr "Zabudli ste heslo?"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "Pridať"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "Zmeniť"
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr "Pridať ďalšie"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "Nedávne akcie"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "Moje akcie"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "Nedostupné"
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "Uložiť"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "Editovať"
+
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr "Odhlásit sa"
+
+#: templates/includes/pagination.html:8
+msgid "Page"
+msgstr "Stránka"

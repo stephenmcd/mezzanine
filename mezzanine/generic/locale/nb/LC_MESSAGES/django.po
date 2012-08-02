@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Olav  <>, 2012.
 # Olav Lindekleiv <>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-05-24 18:12+0000\n"
-"Last-Translator: Olav Lindekleiv <>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/"
-"mezzanine/language/nb/)\n"
-"Language: nb\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:14+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/mezzanine/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:20 models.py:67
@@ -52,7 +51,7 @@ msgstr "valgfri"
 msgid "By the blog author"
 msgstr "Etter bloggforfatter"
 
-#: models.py:31 models.py:59 templates/generic/includes/comments.html:24
+#: models.py:31 models.py:59
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -84,13 +83,11 @@ msgstr "Vurdering"
 msgid "Ratings"
 msgstr "Vurderinger"
 
-#: views.py:51
+#: views.py:52
 msgid ""
 "You must log in to comment. Please log in or sign up, and your comment will "
 "be posted."
-msgstr ""
-"Du må være logget inn for å kommentere. Logg inn eller registrer, så blir "
-"kommentaren lagt inn."
+msgstr "Du må være logget inn for å kommentere. Logg inn eller registrer, så blir kommentaren lagt inn."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -128,6 +125,10 @@ msgstr "Det finnes foreløpig ingen kommentarer"
 msgid "New Comment"
 msgstr "Ny kommentar"
 
+#: templates/generic/includes/comments.html:24
+msgid "Send"
+msgstr ""
+
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"
 msgstr "Nåværende vurdering"
@@ -136,6 +137,6 @@ msgstr "Nåværende vurdering"
 msgid "Currently unrated"
 msgstr "Foreløpig ikke vurdert"
 
-#: templates/generic/includes/rating.html:16
+#: templates/generic/includes/rating.html:18
 msgid "Rate"
 msgstr "Vurder"

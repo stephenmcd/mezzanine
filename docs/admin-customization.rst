@@ -87,12 +87,14 @@ your projects's ``settings`` module::
 
     DASHBOARD_TAGS = (
         ("blog_tags.quick_blog", "mezzanine_tags.app_list"),
-        ("blog_tags.recent_comments",),
+        ("comment_tags.recent_comments",),
         ("mezzanine_tags.recent_actions",),
     )
 
-Here we can see the ``quick_blog`` and ``recent_comments`` inclusion tags
-which are provided by the ``mezzanine.blog.templatetags.blog_tags`` module.
+Here we can see the ``quick_blog`` inclusion tag provided by the
+``mezzanine.blog.templatetags.blog_tags`` module and the
+``recent_comments`` inclusion tag provided by the
+``mezzanine.generic.templatetags.comment_tags`` module.
 
 WYSIWYG Editor
 ==============

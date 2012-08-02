@@ -4,6 +4,7 @@ from collections import defaultdict
 from django import forms
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from django.template.defaultfilters import urlize
 
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
@@ -31,9 +32,10 @@ class SettingsForm(forms.Form):
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
                 kwargs = {
                     "label": setting["label"] + ":",
-                    "required": False,
+                    "required": setting["type"] == int,
                     "initial": getattr(settings, name),
-                    "help_text": self.format_help(setting["description"]),
+                    "help_text": self.format_help(
+                                               urlize(setting["description"])),
                 }
                 if setting["choices"]:
                     field_class = forms.ChoiceField

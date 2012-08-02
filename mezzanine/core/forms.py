@@ -86,6 +86,15 @@ class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
         forms.MultiWidget.__init__(self, (date_widget, time_widget), attrs)
 
 
+class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    """
+    Wraps render with a CSS class for styling.
+    """
+    def render(self, *args, **kwargs):
+        rendered = super(CheckboxSelectMultiple, self).render(*args, **kwargs)
+        return mark_safe("<span class='multicheckbox'>%s</span>" % rendered)
+
+
 def get_edit_form(obj, field_names, data=None, files=None):
     """
     Returns the in-line editing form for editing a single model field.

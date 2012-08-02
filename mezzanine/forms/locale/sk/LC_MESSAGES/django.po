@@ -1,0 +1,289 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <don@mums.cz>, 2012.
+# Martin Jahn <don@mums.cz>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Slovak (http://www.transifex.net/projects/p/mezzanine/language/sk/)\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+
+#: admin.py:32 fields.py:30
+msgid "Email"
+msgstr "Email"
+
+#: admin.py:115
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: admin.py:119
+msgid "View Entries"
+msgstr ""
+
+#: fields.py:28
+msgid "Single line text"
+msgstr "Jednoriadkový text"
+
+#: fields.py:29
+msgid "Multi line text"
+msgstr "Viacriadkový text"
+
+#: fields.py:31
+msgid "Number"
+msgstr ""
+
+#: fields.py:32
+msgid "URL"
+msgstr "URL"
+
+#: fields.py:33
+msgid "Check box"
+msgstr "Zaškrtávacie poľíčko"
+
+#: fields.py:34
+msgid "Check boxes"
+msgstr "Zaškrtávacie poľíčka"
+
+#: fields.py:35
+msgid "Drop down"
+msgstr ""
+
+#: fields.py:36
+msgid "Multi select"
+msgstr ""
+
+#: fields.py:37
+msgid "Radio buttons"
+msgstr ""
+
+#: fields.py:38
+msgid "File upload"
+msgstr "Uploadovať súbor"
+
+#: fields.py:39
+msgid "Date"
+msgstr "Dátum"
+
+#: fields.py:40 models.py:110
+msgid "Date/time"
+msgstr "Datum a čas"
+
+#: fields.py:41
+msgid "Hidden"
+msgstr "Skryté"
+
+#: forms.py:28 forms.py:36 forms.py:42
+msgid "Nothing"
+msgstr "Nič"
+
+#: forms.py:29
+msgid "Contains"
+msgstr "Obsahuje"
+
+#: forms.py:30
+msgid "Doesn't contain"
+msgstr "Neobsahuje"
+
+#: forms.py:31 forms.py:37
+msgid "Equals"
+msgstr "Sa rovná"
+
+#: forms.py:32 forms.py:38
+msgid "Doesn't equal"
+msgstr "Sa nerovná"
+
+#: forms.py:43
+msgid "Is between"
+msgstr "Je medzi"
+
+#: forms.py:100
+msgid "required"
+msgstr ""
+
+#: forms.py:214
+msgid "Checked"
+msgstr "Zaškrtnuté"
+
+#: forms.py:214
+msgid "Not checked"
+msgstr "Nezaškrtnuté"
+
+#: forms.py:228 forms.py:243
+msgid "and"
+msgstr "a"
+
+#: models.py:17
+msgid "Button text"
+msgstr ""
+
+#: models.py:18
+msgid "Submit"
+msgstr ""
+
+#: models.py:19
+msgid "Response"
+msgstr "Odpoveď"
+
+#: models.py:20
+msgid "Send email"
+msgstr "Poslať email"
+
+#: models.py:21
+msgid "If checked, the form submitter will be sent an email."
+msgstr ""
+
+#: models.py:22
+msgid "From address"
+msgstr "Z adresy"
+
+#: models.py:23
+msgid "The address the email will be sent from"
+msgstr "Adresa z ktorej bude email poslaný"
+
+#: models.py:24
+msgid "Send copies to"
+msgstr "Odoslať kópiu na"
+
+#: models.py:25
+msgid "One or more email addresses, separated by commas"
+msgstr "Jedna alebo viac emailovych adries oddelene čiarkami"
+
+#: models.py:27
+msgid "Subject"
+msgstr "Predmet"
+
+#: models.py:28
+msgid "Message"
+msgstr "Sprava"
+
+#: models.py:31
+msgid "Form"
+msgstr "Od"
+
+#: models.py:32
+msgid "Forms"
+msgstr ""
+
+#: models.py:49
+msgid "Label"
+msgstr ""
+
+#: models.py:51
+msgid "Type"
+msgstr ""
+
+#: models.py:52
+msgid "Required"
+msgstr "Vyžadované"
+
+#: models.py:53
+msgid "Visible"
+msgstr "Viditeľné"
+
+#: models.py:54
+msgid "Choices"
+msgstr "Možnosti"
+
+#: models.py:55
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr ""
+
+#: models.py:57
+msgid "Default value"
+msgstr "Východzia hodnota"
+
+#: models.py:59
+msgid "Placeholder Text"
+msgstr ""
+
+#: models.py:61
+msgid "Help text"
+msgstr ""
+
+#: models.py:66 templates/admin/forms/entries.html:27
+msgid "Field"
+msgstr ""
+
+#: models.py:67
+msgid "Fields"
+msgstr ""
+
+#: models.py:113
+msgid "Form entry"
+msgstr ""
+
+#: models.py:114
+msgid "Form entries"
+msgstr ""
+
+#: models.py:128
+msgid "Form field entry"
+msgstr ""
+
+#: models.py:129
+msgid "Form field entries"
+msgstr ""
+
+#: templates/admin/forms/change_form.html:9
+#: templates/admin/forms/entries.html:56
+msgid "View entries"
+msgstr ""
+
+#: templates/admin/forms/change_form.html:10
+msgid "History"
+msgstr ""
+
+#: templates/admin/forms/change_form.html:11
+msgid "View on site"
+msgstr "Zobraziť na stránke"
+
+#: templates/admin/forms/entries.html:13
+msgid "Home"
+msgstr "Domov"
+
+#: templates/admin/forms/entries.html:28
+msgid "Include"
+msgstr ""
+
+#: templates/admin/forms/entries.html:29
+msgid "Filter by"
+msgstr ""
+
+#: templates/admin/forms/entries.html:47
+msgid "All"
+msgstr ""
+
+#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+msgid "Back to form"
+msgstr ""
+
+#: templates/admin/forms/entries.html:57
+msgid "Export CSV"
+msgstr ""
+
+#: templates/admin/forms/entries.html:59
+msgid "Entries"
+msgstr ""
+
+#: templates/admin/forms/entries.html:93
+msgid "Delete selected"
+msgstr ""
+
+#: templates/admin/forms/entries.html:97
+msgid "No entries to display"
+msgstr ""

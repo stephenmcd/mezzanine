@@ -3,16 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Rivo Zängov <eraser@eraser.ee>, 2011.
+# Rivo Zängov <eraser@eraser.ee>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-03-11 23:56+0000\n"
+"POT-Creation-Date: 2012-06-17 10:36-0430\n"
+"PO-Revision-Date: 2012-05-26 18:09+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Estonian (http://www.transifex.net/projects/p/mezzanine/"
-"language/et/)\n"
+"Language-Team: Estonian (http://www.transifex.net/projects/p/mezzanine/language/et/)\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +24,7 @@ msgstr "Lehekülge ei leitud"
 
 #: templates/mobile/404.html:10
 msgid "The page you requested does not exist."
-msgstr ""
+msgstr "Sinu poolt soovitud lehte pole olemas."
 
 #: templates/mobile/500.html:6
 msgid "Error"
@@ -33,7 +32,7 @@ msgstr "Viga"
 
 #: templates/mobile/500.html:10
 msgid "Sorry, an error occurred."
-msgstr ""
+msgstr "Vabandust, tekkis tõrge."
 
 #: templates/mobile/base.html:31 templates/mobile/index.html:6
 msgid "Home"
@@ -58,7 +57,7 @@ msgstr "Otsingutulemused"
 
 #: templates/mobile/search_results.html:12
 msgid "No results were found matching your query: "
-msgstr ""
+msgstr "Sinu päringule ei leitud ühtegi tulemust: "
 
 #: templates/mobile/search_results.html:14
 msgid "Showing"
@@ -66,7 +65,7 @@ msgstr "Näidatakse"
 
 #: templates/mobile/search_results.html:14
 msgid "to"
-msgstr ""
+msgstr "-"
 
 #: templates/mobile/search_results.html:14
 msgid "of"
@@ -74,7 +73,7 @@ msgstr ""
 
 #: templates/mobile/search_results.html:15
 msgid "results matching your query:"
-msgstr ""
+msgstr "tulemusest vastas sinu päringule:"
 
 #: templates/mobile/search_results.html:23
 msgid "read more"
@@ -103,7 +102,7 @@ msgstr "või"
 
 #: templates/mobile/blog/blog_post_list.html:4
 msgid "Blog"
-msgstr ""
+msgstr "Blogi"
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"
@@ -123,10 +122,8 @@ msgstr "Kasuta "
 
 #: templates/mobile/includes/search.html:5
 msgid "quotes"
-msgstr ""
+msgstr "jutumärgid"
 
 #: templates/mobile/includes/search.html:5
-msgid ""
-" for exact phrases, + to make a word or phrase required, and - to exclude a "
-"word or phrase."
-msgstr ""
+msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
+msgstr " täpsete fraaside otsimiseks, + et teha sõna kohustulikuksja - et jätta sõna või fraas otsingust välja."

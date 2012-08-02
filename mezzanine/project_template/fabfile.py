@@ -6,7 +6,7 @@ from getpass import getpass, getuser
 from glob import glob
 from contextlib import contextmanager
 
-from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, hide
+from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, hide, task
 from fabric.contrib.files import exists, upload_template
 from fabric.colors import yellow, green, blue, red
 
@@ -107,6 +107,35 @@ def project():
     with virtualenv():
         with cd(env.proj_dirname):
             yield
+
+
+@contextmanager
+def update_changed_requirements():
+    """
+    Checks for changes in the requirements file across an update,
+    and gets new requirements if changes have occurred.
+    """
+    reqs_path = os.path.join(env.proj_path, env.reqs_path)
+    get_reqs = lambda: run("cat %s" % reqs_path, show=False)
+    old_reqs = get_reqs() if env.reqs_path else ""
+    yield
+    if old_reqs:
+        new_reqs = get_reqs()
+        if old_reqs == new_reqs:
+            # Unpinned requirements should always be checked.
+            for req in new_reqs.split("\n"):
+                if req.startswith("-e"):
+                    if "@" not in req:
+                        # Editable requirement without pinned commit.
+                        break
+                elif req.strip() and not req.startswith("#"):
+                    if all([c for c in ">=<" if c not in req]):
+                        # PyPI requirement without version.
+                        break
+            else:
+                # All requirements are pinned.
+                return
+        pip("-r %s/%s" % (env.proj_path, env.reqs_path))
 
 
 ###########################################
@@ -220,14 +249,36 @@ def pip(packages):
         return sudo("pip install %s" % packages)
 
 
+def postgres(command):
+    """
+    Run the given command as the postgres user.
+    """
+    show = not command.startswith("psql")
+    return run("sudo -u root sudo -u postgres %s" % command, show=show)
+
+
 def psql(sql, show=True):
     """
     Run SQL against the project's database.
     """
-    out = run('sudo -u root sudo -u postgres psql -c "%s"' % sql, show=False)
+    out = postgres('psql -c "%s"' % sql)
     if show:
         print_command(sql)
     return out
+
+
+def backup(filename):
+    """
+    Backup the database.
+    """
+    return postgres("pg_dump -Fc %s > %s" % (env.proj_name, filename))
+
+
+def restore(filename):
+    """
+    Restore the database.
+    """
+    return postgres("pg_restore -c -d %s %s" % (env.proj_name, filename))
 
 
 def python(code, show=True):
@@ -240,6 +291,14 @@ def python(code, show=True):
         return run('python -c "%s%s"' % (setup, code), show=False)
         if show:
             print_command(code)
+
+
+def static():
+    """
+    Returns the live STATIC_ROOT directory.
+    """
+    return python("from django.conf import settings;"
+                  "print settings.STATIC_ROOT")
 
 
 def manage(command):
@@ -377,7 +436,8 @@ def restart():
     if exists(pid_path):
         sudo("kill -HUP `cat %s`" % pid_path)
     else:
-        sudo("supervisorctl start %s:gunicorn" % env.proj_name)
+        start_args = (env.proj_name, env.proj_name)
+        sudo("supervisorctl start %s:gunicorn_%s" % start_args)
 
 
 @log_call
@@ -398,19 +458,41 @@ def deploy():
     for name in get_templates():
         upload_template_and_reload(name)
     with project():
+        backup("last.db")
+        run("tar -cf last.tar %s" % static())
         git = env.repo_url.startswith("git")
-        run("git pull -f" if git else "hg pull && hg up -C")
-        if env.reqs_path:
-            pip("-r %s/%s" % (env.proj_path, env.reqs_path))
+        run("%s > last.commit" % "git rev-parse HEAD" if git else "hg id -i")
+        with update_changed_requirements():
+            run("git pull origin master -f" if git else "hg pull && hg up -C")
+        manage("collectstatic -v 0 --noinput")
         manage("syncdb --noinput")
         manage("migrate --noinput")
-        manage("collectstatic -v 0 --noinput")
     restart()
     return True
 
 
 @log_call
-def all():
+def rollback():
+    """
+    When a deploy is performed, the current state of the project is
+    backed up. This includes the last commit checked out, the database,
+    and all static files. Calling rollback will revert all of these to
+    their state prior to the last deploy.
+    """
+    with project():
+        with update_changed_requirements():
+            git = env.repo_url.startswith("git")
+            update = "git checkout" if git else "hg up -C"
+            run("%s `cat last.commit`" % update)
+        with cd(os.path.join(static(), "..")):
+            run("tar -xf %s" % os.path.join(env.proj_path, "last.tar"))
+        restore("last.db")
+    restart()
+
+
+@task(alias='all')
+@log_call
+def do_all():
     """
     Install everything required on a new system, from the base
     software, up to the deployed project.

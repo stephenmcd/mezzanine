@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the mezzanine package.
 #
 # Translators:
-# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Dmitry Falk <tfalc@mail.ru>, 2012.
+# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-05 01:14+0400\n"
+"POT-Creation-Date: 2012-08-02 13:54+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Dmitry Falk <tfalc@mail.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: models.py:37
+#: models.py:38
 msgid "Zip import"
 msgstr "Импорт zip-архива"
 
-#: models.py:38
+#: models.py:39
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
@@ -32,26 +32,26 @@ msgstr ""
 "Загрузите zip-архив с изображениями, которые хотите импортировать в эту "
 "галерею."
 
-#: models.py:42
+#: models.py:43
 msgid "Gallery"
 msgstr "Галерея"
 
-#: models.py:43
+#: models.py:44
 msgid "Galleries"
 msgstr "Галереи"
 
-#: models.py:85
+#: models.py:86
 msgid "File"
 msgstr "Файл"
 
-#: models.py:86
+#: models.py:88
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:89
+#: models.py:92
 msgid "Image"
 msgstr "Изображение"
 
-#: models.py:90
+#: models.py:93
 msgid "Images"
 msgstr "Изображения"

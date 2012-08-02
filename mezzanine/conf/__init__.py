@@ -5,7 +5,8 @@ or Django itself. Settings can also be made editable via the admin.
 """
 
 from django.conf import settings as django_settings
-from django.template.defaultfilters import urlize
+from django.utils.encoding import force_unicode
+from django.utils.functional import Promise
 
 from mezzanine import __version__
 
@@ -23,13 +24,15 @@ def register_setting(name="", label="", editable=False, description="",
         registry[name]["default"] += default
     else:
         default = getattr(django_settings, name, default)
+        if isinstance(default, Promise):
+            default = force_unicode(default)
         setting_type = type(default)
         if not label:
             label = name.replace("_", " ").title()
         if setting_type is str:
             setting_type = unicode
         registry[name] = {"name": name, "label": label,
-                          "description": urlize(description),
+                          "description": description,
                           "editable": editable, "default": default,
                           "choices": choices, "type": setting_type}
 
@@ -99,8 +102,8 @@ class Settings(object):
             return setting["default"]
 
 
-other_apps = [app for app in django_settings.INSTALLED_APPS if app != __name__]
-for app in [__name__] + other_apps:
+mezz_first = lambda app: not app.startswith("mezzanine.")
+for app in sorted(django_settings.INSTALLED_APPS, key=mezz_first):
     try:
         __import__("%s.defaults" % app)
     except (ImportError, ValueError):  # ValueError raised by convert_to_south

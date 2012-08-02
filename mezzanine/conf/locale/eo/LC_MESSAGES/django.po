@@ -1,0 +1,490 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:10+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Esperanto (http://www.transifex.net/projects/p/mezzanine/language/eo/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: eo\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:38
+msgid "Settings were successfully updated."
+msgstr ""
+
+#: admin.py:42
+msgid "Change"
+msgstr "Ŝanĝi"
+
+#: defaults.py:21
+msgid "Minimum length for passwords"
+msgstr ""
+
+#: defaults.py:28
+msgid "List of fields to exclude from the profile form."
+msgstr ""
+
+#: defaults.py:35
+msgid "If ``True``, users will have their own public profile pages."
+msgstr ""
+
+#: defaults.py:43
+msgid ""
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
+msgstr ""
+
+#: defaults.py:52
+msgid "Controls the ordering and grouping of the admin menu."
+msgstr "Kontrolas la ordigado kaj grupado de la administra menuo"
+
+#: defaults.py:55
+msgid "Content"
+msgstr "Enhavo"
+
+#: defaults.py:56
+msgid "Media Library"
+msgstr "Aŭdvidea Biblioteko"
+
+#: defaults.py:57
+msgid "Site"
+msgstr "Retejo"
+
+#: defaults.py:58
+msgid "Users"
+msgstr "Uzantoj"
+
+#: defaults.py:64
+msgid "Unregister these models from the admin."
+msgstr "Malregistru tiujn modelojn de la administranto."
+
+#: defaults.py:71
+msgid "bit.ly username"
+msgstr "bit.ly uzantnomo"
+
+#: defaults.py:72
+msgid "Username for http://bit.ly URL shortening service."
+msgstr "Uzantnomo por http://bit.ly URL mallongigante servo."
+
+#: defaults.py:79
+msgid "bit.ly key"
+msgstr "bit.ly ŝlosilo"
+
+#: defaults.py:80
+msgid "Key for http://bit.ly URL shortening service."
+msgstr "Ŝlosilo por http://bit.ly URL mallongigante servo."
+
+#: defaults.py:87
+msgid "Enable featured images in blog posts"
+msgstr "Ebligu elstaraj bildoj en aldonitaj blogaĵoj"
+
+#: defaults.py:94
+msgid "Use date URLs"
+msgstr "Uzu dato URLoj"
+
+#: defaults.py:95
+msgid ""
+"If ``True``, URLs for blog post include the month and year. Eg: "
+"/blog/yyyy/mm/slug/"
+msgstr "Se ``Vera``, URLoj por post de la blog inkludas la monato kaj jaro. Eg: /blogo/jjjj/mm/mallongo/"
+
+#: defaults.py:103
+msgid "Blog posts per page"
+msgstr "Blogo afiŝojn po paĝo"
+
+#: defaults.py:104
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Nombro de aldonitaj blogaĵoj montrita sur blogo listo paĝo."
+
+#: defaults.py:111
+msgid "Slug of the page object for the blog."
+msgstr "Mallongigo de la paĝo objekto por la blogo."
+
+#: defaults.py:118
+msgid ""
+"Mezzanine's caching uses a technique know as mint caching. This is where the"
+" requested expiry for a cache entry is stored with the cache entry in cache,"
+" and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a"
+" cache get, the store expiry is checked, and if it has past, the cache entry"
+" is set again, and no entry is returned. This tries to ensure that cache "
+"misses never occur, and if many clients were to get a cache miss at once, "
+"only one would actually need to re-generated the cache entry."
+msgstr ""
+
+#: defaults.py:133
+msgid "Accounts required for commenting"
+msgstr "Kontoj postulita por komenti"
+
+#: defaults.py:134
+msgid "If ``True``, users must log in to comment."
+msgstr ""
+
+#: defaults.py:141
+msgid "Akismet API Key"
+msgstr ""
+
+#: defaults.py:142
+msgid ""
+"Key for http://akismet.com spam filtering service. Used for filtering "
+"comments and forms."
+msgstr ""
+
+#: defaults.py:150
+msgid "Disqus shortname"
+msgstr "Disqus mallongnomo"
+
+#: defaults.py:151
+msgid "Shortname for the http://disqus.com comments service."
+msgstr "Mallongnomo por la http://disqus.com komentoj servo."
+
+#: defaults.py:158
+msgid "Disqus public key"
+msgstr "Disqus publika ŝlosilo"
+
+#: defaults.py:159
+msgid "Public key for http://disqus.com developer API"
+msgstr "Publika ŝlosilo por http://disqus.com programista API"
+
+#: defaults.py:166
+msgid "Disqus secret key"
+msgstr "Disqus sekreta ŝlosilo"
+
+#: defaults.py:167
+msgid "Secret key for http://disqus.com developer API"
+msgstr "Sekreta ŝlosilo por http://disqus.com programista API"
+
+#: defaults.py:174
+msgid "Auto-approve comments"
+msgstr "Aŭto-aprobu komentoj"
+
+#: defaults.py:175
+msgid "If ``True``, built-in comments are approved by default."
+msgstr "Se ``Vera``, korpigita komentoj estas aprobitaj implicite."
+
+#: defaults.py:182
+msgid "Admin comments"
+msgstr "Administrantaj komentoj"
+
+#: defaults.py:183
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr "Nombro de lasta komentoj montrita en la administranta panelo."
+
+#: defaults.py:190
+msgid "Show unapproved comments"
+msgstr "Montru malaprobitajn komentojn"
+
+#: defaults.py:191
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr "Se ``Vera``, komentoj kiuj havas ``is_public`` nehaltigite estos ankoraŭ esti montrata, sed remetis kun ``atendas esti aprobitaj`` mesaĝo."
+
+#: defaults.py:200
+msgid "Show removed comments"
+msgstr "Montru forigitajn komentojn"
+
+#: defaults.py:201
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Se ``Vera``, komentojn kiuj havas ``forigitaj`` kontrolitaj estos ankoraŭ esti montrata, sed remetis kun ``forigitaj`` mesaĝo."
+
+#: defaults.py:222
+msgid ""
+"A three item sequence, each containing a sequence of template tags used to "
+"render the admin dashboard."
+msgstr "Tri ero vico, ĉiu enhavanta sekvencon de ŝablonaj markoj uzata por bildigi la administranta panelo."
+
+#: defaults.py:230
+msgid "Device specific template sub-directory to use as the default device."
+msgstr "Aparato specifa ŝablona sub-dosierujo uzi kiel la defaŭlta aparato."
+
+#: defaults.py:238
+msgid ""
+"Mapping of device specific template sub-directory names to the sequence of "
+"strings that may be found in their user agents."
+msgstr "Mapeado de aparato specifa ŝablonaj sub-dosierujaj nomoj al la vico de ĉenoj kiuj povas trovi en sia uzantaj agentoj"
+
+#: defaults.py:260
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
+msgstr "Vico de kampoj kiuj estos injektitaj en la modeloj de Mezzanine (aŭ ajna biblioteko) . Ĉiu ero en la vico estas kvar item vico. La du unuaj eroj estas la punktita pado al la modelo kaj lia kampa nomo estu aldonitaj, kaj la punktita vojo al la kampa klaso uzi por la kampo. La tria kaj kvara eroj estas vico de poziciaj argumentoj kaj vortaro de ŝlosilvorto argumentoj, por uzi kiam kreante la kampa petskribo. Kiam preciziganta la kampa klaso, la vojo ``django.models.db.`` povas esti nefarita por regulaj Django modelaj kampoj."
+
+#: defaults.py:275
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr "Se ``Vera``, retleteroj senditaj al ekstra ricevintoj por formo submetiĝo ne estos senditaj el adreson prenita de unu el la formo de retpoŝto kampoj."
+
+#: defaults.py:284
+msgid "Max length allowed for field values in the forms app."
+msgstr "Maksimuma longo permesita por kampaj valoroj en la formoj aplikaĵo."
+
+#: defaults.py:291
+msgid "Max length allowed for field labels in the forms app."
+msgstr "Maksimuma longo permesita por kampaj etiketoj en la formoj aplikaĵo."
+
+#: defaults.py:298
+msgid "If ``True``, website forms will use HTML5 features."
+msgstr ""
+
+#: defaults.py:305
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr "Signo uzi kiel kampa disigilo kiam eksportante formo respondoj kiel CSV."
+
+#: defaults.py:313
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Absoluta vojon por stoki dosieraj alŝutoj por la formoj aplikaĵo."
+
+#: defaults.py:320
+msgid "Google Analytics ID"
+msgstr "Guglo Analitikaj Identigo"
+
+#: defaults.py:322
+msgid "Google Analytics ID (http://www.google.com/analytics/)"
+msgstr "Guglo Analitikaj Identigo (http://www.google.com/analytics/)"
+
+#: defaults.py:328
+msgid ""
+"A sequence mapping host names to themes, allowing different templates to be "
+"served per HTTP hosts Each item in the sequence is a two item sequence, "
+"containing a host such as ``othersite.example.com``, and the name of an "
+"importable Python package for the theme. If the host is matched for a "
+"request, the templates directory inside the theme package will be first "
+"searched when loading templates."
+msgstr "Vico kiu mapas gastigantajn nomojn al temoj, permesante malsamajn ŝablonojn por esti utilita por HTTP gastigoj. Ĉiu elemento en la vico estas du item vico, enhavante gastigon kiel ``aliareto.ekzamplo.com``, kaj la nomon de importeblan Pitonan pakaĵon por la temo. Se la gastigo estas parigitaj por peto, la ŝablonaj dosierujon ene de la temo pako estos unuaj serĉis kiam ŝarĝante ŝablonoj."
+
+#: defaults.py:342
+msgid "Name of the jQuery file."
+msgstr "Nomo de la jQuery dosiero."
+
+#: defaults.py:343
+msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
+msgstr "Nomo de la jQuery dosiero trovita en mezzanine/core/statikaj/mezzanine/js/"
+
+#: defaults.py:351
+msgid "Max paging links"
+msgstr "Maksimuma paĝadaj ligiloj"
+
+#: defaults.py:352
+msgid "Max number of paging links to display when paginating."
+msgstr "Maksimuma nombro de paĝadaj ligiloj por montri kiam paĝonumeri."
+
+#: defaults.py:359
+msgid ""
+"If ``True``, the pages menu will show all levels of navigation, otherwise "
+"child pages are only shown when viewing the parent page."
+msgstr "Se ``Vera``, la paĝoj menuo montras ĉiujn nivelojn de navigado, alie infanajn paĝojn nur montrata kiam vidante la gepatra paĝo."
+
+#: defaults.py:368
+msgid "Min value for a rating."
+msgstr "Minimuma valoro por takso."
+
+#: defaults.py:375
+msgid "Max value for a rating."
+msgstr "Maksimuma valoro por takso."
+
+#: defaults.py:382
+msgid ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
+msgstr "Punktita paka padon kaj klasa nomo de la fenestraĵa uzi por la ``RichTextField``."
+
+#: defaults.py:390
+msgid ""
+"List of HTML tags that won't be stripped from ``RichTextField`` instances."
+msgstr ""
+
+#: defaults.py:406
+msgid ""
+"List of HTML attributes that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr ""
+
+#: defaults.py:424
+msgid ""
+"Dotted path to the function to call on a ``RichTextField`` value before it "
+"is rendered to the template."
+msgstr "Punktita pado al la funkcio voki sur ``RichTextField`` valoro antaŭ ĝi estas bildigita al la ŝablono."
+
+#: defaults.py:434
+msgid "High"
+msgstr ""
+
+#: defaults.py:435
+msgid "Low (allows video, iframe, Flash, etc)"
+msgstr ""
+
+#: defaults.py:436
+msgid "No filtering"
+msgstr ""
+
+#: defaults.py:441
+msgid "Rich Text filter level"
+msgstr ""
+
+#: defaults.py:442
+msgid ""
+"*Do not change this setting unless you know what you're doing.*\n"
+"\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and attributes are stripped from the content to protect against staff members intentionally adding code that could be used to cause problems, such as changing their account to a super-user with full access to the system.\n"
+"\n"
+"This setting allows you to change the level of filtering that occurs. Setting it to low will allow certain extra tags to be permitted, such as those required for embedding video. While these tags are not the main candidates for users adding malicious code, they are still considered dangerous and could potentially be mis-used by a particularly technical user, and so are filtered out when the filtering level is set to high.\n"
+"\n"
+"Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
+msgstr ""
+
+#: defaults.py:465
+msgid "Search results per page"
+msgstr "Serĉrezultoj por paĝo"
+
+#: defaults.py:466
+msgid "Number of results shown in the search results page."
+msgstr "Nombro de rezultoj montritaj en la rezultojn de serĉo paĝo."
+
+#: defaults.py:473
+msgid "Site Title"
+msgstr "Reteja Titolo"
+
+#: defaults.py:474
+msgid ""
+"Title that will display at the top of the site, and be appended to the "
+"content of the HTML title tags on every page."
+msgstr "Titolo ke montros ĉe la supro de la retejo, kaj esti aldonita al la enhavo de la HTML titolo markoj sur ĉiu paĝo."
+
+#: defaults.py:482
+msgid "Tagline"
+msgstr "Markolinio"
+
+#: defaults.py:483
+msgid "A tag line that will appear at the top of all pages."
+msgstr "Markolinio kiu aperos sur la supro de ĉiuj paĝoj."
+
+#: defaults.py:485
+msgid "An open source content management platform."
+msgstr "Malfermitkoda enhav-mastruma sistemo."
+
+#: defaults.py:490
+msgid ""
+"Dotted Python path to the callable for converting strings into URL slugs. "
+"Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
+"ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+"Django's slugify function, or something of your own if required."
+msgstr ""
+
+#: defaults.py:501
+msgid "Enable SSL"
+msgstr "Ebligu SSL"
+
+#: defaults.py:502
+msgid ""
+"If ``True``, users will be automatically redirected to HTTPS for the URLs "
+"specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
+msgstr ""
+
+#: defaults.py:511
+msgid "Force Host"
+msgstr "Perfortu Gastigo"
+
+#: defaults.py:512
+msgid ""
+"Host name that the site should always be accessed via that matches the SSL "
+"certificate."
+msgstr ""
+
+#: defaults.py:530
+msgid "List of words which will be stripped from search queries."
+msgstr "Listo de vortoj kiuj estos senigita de serĉo konsultoj."
+
+#: defaults.py:587
+msgid "Tag Cloud Sizes"
+msgstr "Marka Nubo Grandecoj"
+
+#: defaults.py:588
+msgid "Number of different sizes for tags when shown as a cloud."
+msgstr "Nombro de malsamaj grandecoj por markoj kiam montrita kiel nubo."
+
+#: defaults.py:595
+msgid "Sequence of setting names available within templates."
+msgstr "Vico de agordaj nomoj disponebla en ŝablonoj."
+
+#: defaults.py:610
+msgid ""
+"Directory name to store thumbnails in, that will be created relative to the "
+"original image's directory."
+msgstr "Dosierujo nomo por enstoki bildetojn, kiu estos kreita relativa al la originala bildo de dosierujo."
+
+#: defaults.py:618
+msgid ""
+"URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
+"configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+msgstr "URL por ĝavaskripto dosieron (relativa al ``STATIC_URL``) kiu manipulas agordi TinyMCE kiam oni uzas la defaŭlta ``RICHTEXT_WIDGET_CLASS``."
+
+#: defaults.py:629
+msgid "Default Twitter Query Type"
+msgstr ""
+
+#: defaults.py:630
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
+msgstr ""
+
+#: defaults.py:639
+msgid "Default Twitter Query"
+msgstr ""
+
+#: defaults.py:640
+msgid "Twitter query to use for the default query type."
+msgstr ""
+
+#: defaults.py:647
+msgid "Default Number of Tweets"
+msgstr ""
+
+#: defaults.py:648
+msgid "Number of tweets to display in the default Twitter feed."
+msgstr ""
+
+#: defaults.py:661
+msgid ""
+"If ``True``, the south application will be automatically added to the "
+"``INSTALLED_APPS`` setting."
+msgstr "Se ``Vera``, la sudo aplikaĵo estos aŭtomate aldonita al la ``INSTALLED_APPS`` agordo."
+
+#: forms.py:52
+msgid "Miscellaneous"
+msgstr "Diversaĵa"
+
+#: models.py:17
+msgid "Setting"
+msgstr "Agordo"
+
+#: models.py:18
+msgid "Settings"
+msgstr "Agordoj"
+
+#: templates/admin/conf/setting/change_list.html:8
+msgid "Please correct the errors below."
+msgstr "Bonvolu korekti la erarojn sube."
+
+#: templates/admin/conf/setting/change_list.html:31
+msgid "Save"
+msgstr "Savu"

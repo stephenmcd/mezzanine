@@ -16,3 +16,5 @@ script:
   - ./mezzanine/project_template/manage.py test
 notifications:
   irc: "irc.freenode.org#mezzanine"
+  on_success: change
+  on_failure: change

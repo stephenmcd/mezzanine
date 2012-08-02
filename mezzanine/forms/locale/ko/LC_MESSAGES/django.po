@@ -1,0 +1,285 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-11 15:43+0000\n"
+"Last-Translator: Yong Choi <sk8er.choi@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.net/projects/p/mezzanine/language/ko/)\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: admin.py:32 fields.py:30
+msgid "Email"
+msgstr "이메일"
+
+#: admin.py:115
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] "%(count)s 개의 엔트리가 삭제되었습니다"
+
+#: admin.py:119
+msgid "View Entries"
+msgstr "엔트리 보기"
+
+#: fields.py:28
+msgid "Single line text"
+msgstr "한 줄 텍스트"
+
+#: fields.py:29
+msgid "Multi line text"
+msgstr "여러 줄 텍스트"
+
+#: fields.py:31
+msgid "Number"
+msgstr "숫자"
+
+#: fields.py:32
+msgid "URL"
+msgstr "URL"
+
+#: fields.py:33
+msgid "Check box"
+msgstr "체크 박스 한 개"
+
+#: fields.py:34
+msgid "Check boxes"
+msgstr "체크 박스 여러 개"
+
+#: fields.py:35
+msgid "Drop down"
+msgstr "드롭 다운"
+
+#: fields.py:36
+msgid "Multi select"
+msgstr "다중 선택"
+
+#: fields.py:37
+msgid "Radio buttons"
+msgstr "라디오 버튼"
+
+#: fields.py:38
+msgid "File upload"
+msgstr "파일 업로드"
+
+#: fields.py:39
+msgid "Date"
+msgstr "날짜"
+
+#: fields.py:40 models.py:110
+msgid "Date/time"
+msgstr "날짜/시간"
+
+#: fields.py:41
+msgid "Hidden"
+msgstr "숨김"
+
+#: forms.py:28 forms.py:36 forms.py:42
+msgid "Nothing"
+msgstr "아무 것도 없음"
+
+#: forms.py:29
+msgid "Contains"
+msgstr "포함:"
+
+#: forms.py:30
+msgid "Doesn't contain"
+msgstr "미포함:"
+
+#: forms.py:31 forms.py:37
+msgid "Equals"
+msgstr "같음"
+
+#: forms.py:32 forms.py:38
+msgid "Doesn't equal"
+msgstr "같지 않음"
+
+#: forms.py:43
+msgid "Is between"
+msgstr "범위:"
+
+#: forms.py:100
+msgid "required"
+msgstr "필수"
+
+#: forms.py:214
+msgid "Checked"
+msgstr "체크됨"
+
+#: forms.py:214
+msgid "Not checked"
+msgstr "체크되지 않음"
+
+#: forms.py:228 forms.py:243
+msgid "and"
+msgstr ""
+
+#: models.py:17
+msgid "Button text"
+msgstr "버튼 텍스트"
+
+#: models.py:18
+msgid "Submit"
+msgstr "제출"
+
+#: models.py:19
+msgid "Response"
+msgstr "응답"
+
+#: models.py:20
+msgid "Send email"
+msgstr "이메일 보내기"
+
+#: models.py:21
+msgid "If checked, the form submitter will be sent an email."
+msgstr "선택된 경우, 폼 제출자는 이메일을 보냅니다."
+
+#: models.py:22
+msgid "From address"
+msgstr "보내는이:"
+
+#: models.py:23
+msgid "The address the email will be sent from"
+msgstr "이메일 발신 주소"
+
+#: models.py:24
+msgid "Send copies to"
+msgstr "받는이:"
+
+#: models.py:25
+msgid "One or more email addresses, separated by commas"
+msgstr "한 개 이상의 이메일 주소, 쉼표로 구분"
+
+#: models.py:27
+msgid "Subject"
+msgstr "제목"
+
+#: models.py:28
+msgid "Message"
+msgstr "메시지"
+
+#: models.py:31
+msgid "Form"
+msgstr "양식"
+
+#: models.py:32
+msgid "Forms"
+msgstr "양식"
+
+#: models.py:49
+msgid "Label"
+msgstr "라벨"
+
+#: models.py:51
+msgid "Type"
+msgstr "타입"
+
+#: models.py:52
+msgid "Required"
+msgstr "필수"
+
+#: models.py:53
+msgid "Visible"
+msgstr "볼 수 있음"
+
+#: models.py:54
+msgid "Choices"
+msgstr "선택"
+
+#: models.py:55
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr "적용가능한 경우 쉼표로 구분된 옵션. 옵션 자체가 쉼표를 갖는 경우, 옵션을 `backticks`로 둘러쌉니다."
+
+#: models.py:57
+msgid "Default value"
+msgstr "기본값"
+
+#: models.py:59
+msgid "Placeholder Text"
+msgstr "자리 차지 텍스트"
+
+#: models.py:61
+msgid "Help text"
+msgstr "도움말"
+
+#: models.py:66 templates/admin/forms/entries.html:27
+msgid "Field"
+msgstr "필드"
+
+#: models.py:67
+msgid "Fields"
+msgstr "필드"
+
+#: models.py:113
+msgid "Form entry"
+msgstr "양식 엔트리"
+
+#: models.py:114
+msgid "Form entries"
+msgstr "양식 엔트리"
+
+#: models.py:128
+msgid "Form field entry"
+msgstr "양식 필드 엔트리"
+
+#: models.py:129
+msgid "Form field entries"
+msgstr "양식 필드 엔트리"
+
+#: templates/admin/forms/change_form.html:9
+#: templates/admin/forms/entries.html:56
+msgid "View entries"
+msgstr "엔트리 보기"
+
+#: templates/admin/forms/change_form.html:10
+msgid "History"
+msgstr "히스토리"
+
+#: templates/admin/forms/change_form.html:11
+msgid "View on site"
+msgstr "사이트에서 보기"
+
+#: templates/admin/forms/entries.html:13
+msgid "Home"
+msgstr "홈"
+
+#: templates/admin/forms/entries.html:28
+msgid "Include"
+msgstr "포함"
+
+#: templates/admin/forms/entries.html:29
+msgid "Filter by"
+msgstr "필터 조건:"
+
+#: templates/admin/forms/entries.html:47
+msgid "All"
+msgstr "모두"
+
+#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+msgid "Back to form"
+msgstr "양식으로 돌아가기"
+
+#: templates/admin/forms/entries.html:57
+msgid "Export CSV"
+msgstr "CSV 내보내기"
+
+#: templates/admin/forms/entries.html:59
+msgid "Entries"
+msgstr "엔트리"
+
+#: templates/admin/forms/entries.html:93
+msgid "Delete selected"
+msgstr "삭제가 선택되었습니다"
+
+#: templates/admin/forms/entries.html:97
+msgid "No entries to display"
+msgstr "표시할 엔트리가 없습니다"

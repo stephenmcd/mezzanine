@@ -1,11 +1,21 @@
 
+from hashlib import md5
 from time import time
 
 from django.core.cache import cache
+from django.utils.cache import _i18n_cache_key_suffix
 
 from mezzanine.conf import settings
 from mezzanine.utils.device import device_from_request
 from mezzanine.utils.sites import current_site_id
+
+
+def _hashed_key(key):
+    """
+    Hash keys when talking directly to the cache API, to avoid
+    keys longer than the backend supports (eg memcache limit is 255)
+    """
+    return md5(key).hexdigest()
 
 
 def cache_set(key, value, timeout=None, refreshed=False):
@@ -24,7 +34,7 @@ def cache_set(key, value, timeout=None, refreshed=False):
     refresh_time = timeout + time()
     real_timeout = timeout + settings.CACHE_SET_DELAY_SECONDS
     packed = (value, refresh_time, refreshed)
-    return cache.set(key, packed, real_timeout)
+    return cache.set(_hashed_key(key), packed, real_timeout)
 
 
 def cache_get(key):
@@ -34,7 +44,7 @@ def cache_get(key):
     stale entry back into cache, and don't return it to trigger a
     fake cache miss.
     """
-    packed = cache.get(key)
+    packed = cache.get(_hashed_key(key))
     if packed is None:
         return None
     value, refresh_time, refreshed = packed
@@ -60,11 +70,12 @@ def cache_key_prefix(request):
     Cache key for Mezzanine's cache middleware. Adds the current
     device and site ID.
     """
-    return "%s.%s.%s." % (
+    cache_key = "%s.%s.%s." % (
         settings.CACHE_MIDDLEWARE_KEY_PREFIX,
         current_site_id(),
         device_from_request(request) or "default",
     )
+    return _i18n_cache_key_suffix(request, cache_key)
 
 
 def nevercache_token():

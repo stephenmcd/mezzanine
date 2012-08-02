@@ -1,5 +1,6 @@
-
   .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
+
+Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_
 
 ========
 Overview
@@ -19,8 +20,8 @@ modules or reusable applications, Mezzanine provides most of its
 functionality by default. This approach yields a more integrated and
 efficient platform.
 
-Visit the `Mezzanine project page`_ to see some of the great sites
-people have built using Mezzanine.
+Visit the `Mezzanine project page`_ to see some of the `great sites
+people have built using Mezzanine`_.
 
 Features
 ========
@@ -36,17 +37,20 @@ interface, Mezzanine provides the following:
   * WYSIWYG editing
   * `In-line page editing`_
   * Drag-and-drop HTML5 forms builder with CSV export
+  * SEO friendly URLs and meta data
+  * Shopping cart module (`Cartridge`_)
+  * Configurable `dashboard`_ widgets
+  * Blog engine
+  * Tagging
+  * User accounts and profiles with email verification
+  * Translated to over 20 languages
+  * Sharing via Facebook or Twitter
   * `Custom templates`_ per page or blog post
   * `Twitter Bootstrap`_ integration
   * API for `custom content types`_
-  * SEO friendly URLs and meta data
   * `Search engine and API`_
-  * Configurable `dashboard`_ widgets
   * Seamless integration with third-party Django apps
   * Multi-device detection and template handling
-  * Shopping cart module (`Cartridge`_)
-  * Blog engine
-  * Tagging
   * One step migration from other blogging engines
   * Automated production provisioning and deployments
   * `Disqus`_ integration, or built-in threaded comments
@@ -55,9 +59,7 @@ interface, Mezzanine provides the following:
   * `Twitter`_ feed integration
   * `bit.ly`_ integration
   * `Akismet`_ spam filtering
-  * Sharing via Facebook or Twitter
   * Built-in `test suite`_
-  * User accounts and profiles with email verification
 
 The Mezzanine admin dashboard:
 
@@ -73,7 +75,7 @@ standard Django environment), with the following dependencies:
   * `Django`_ 1.3 ... 1.4
   * `Python Imaging Library`_ - for image resizing
   * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
-  * `filebrowser-safe`_ - for manaaging file uploads (`FileBrowser`_ fork)
+  * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
   * `bleach`_ - for sanitizing markup in content
   * `pytz`_ - for timezone support
   * `South`_ - for database migrations (optional)
@@ -101,8 +103,8 @@ source::
     $ python setup.py install
 
 Once installed, the command ``mezzanine-project`` can be used to
-create a new Mezzanine project in similar fashion to ``django-
-admin.py``::
+create a new Mezzanine project in similar fashion to
+``django-admin.py``::
 
     $ mezzanine-project project_name
     $ cd project_name
@@ -169,12 +171,22 @@ list it here, send an email to the `mezzanine-users`_ mailing list.
     `html5boilerplate project`_  into Mezzanine.
   * `mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich
     text editor.
-  * `mezzanine-openshift`_ Setup for running Mezzanine on
+  * `mezzanine-openshift`_ - Setup for running Mezzanine on
     `Redhat's OpenShift`_ cloud platform.
-  * `mezzanine-stackato`_ Setup for running Mezzanine on
+  * `mezzanine-stackato`_ - Setup for running Mezzanine on
     `ActiveState's Stackato`_ cloud platform.
-  * `mezzanine-blocks`_ Mezzanine + django-flatblocks.
-  * `mezzanine-widgets`_ Widget system for Mezzanine.
+  * `mezzanine-blocks`_ - A Mezzanine flavored fork of
+    django-flatblocks.
+  * `mezzanine-widgets`_ - Widget system for Mezzanine.
+  * `mezzanine-themes`_ - A collection of Django/Mezzanine templates.
+  * `mezzanine-twittertopic`_ - Manage multiple Twitter topic feeds
+    from the Mezzanine admin interface.
+  * `mezzanine-captcha`_ - Adds CAPTCHA field types to Mezzanine's
+    forms builder app.
+  * `mezzanine-bookmarks`_ - A multi-user bookmark app for Mezzanine.
+  * `mezzanine-events`_ - Events plugin for Mezzanine, with geocoding
+    via Google Maps, iCalendar files, webcal URLs and directions via
+    Google Calendar/Maps.
 
 Donating
 ========
@@ -198,48 +210,80 @@ IRC channel`_ on `Freenode`_, for a chat.
 Sites Using Mezzanine
 =====================
 
-  * `Citrus Agency <http://citrus.com.au>`_
+  * `Citrus Agency <http://citrus.com.au/>`_
   * `Mezzanine Project <http://mezzanine.jupo.org>`_
   * `Nick Hagianis <http://hagianis.com>`_
   * `Thomas Johnson <http://tomfmason.net>`_
   * `Central Mosque Wembley <http://wembley-mosque.co.uk>`_
-  * `Ovarian Cancer Research Foundation <http://ocrf.com.au>`_
-  * `The Source Procurement <http://thesource.com.au>`_
+  * `Ovarian Cancer Research Foundation <http://ocrf.com.au/>`_
+  * `The Source Procurement <http://thesource.com.au/>`_
   * `Imageinary <http://imageinary.com>`_
   * `Brad Montgomery <http://blog.bradmontgomery.net>`_
   * `Jashua Cloutier <http://www.senexcanis.com>`_
   * `Alpha & Omega Contractors <http://alphaomegacontractors.com>`_
-  * `Equity Advance <http://equityadvance.com.au>`_
+  * `Equity Advance <http://equityadvance.com.au/>`_
   * `Head3 Interactive <http://head3.com>`_
   * `PyLadies <http://www.pyladies.com>`_
-  * `Ripe Maternity <http://www.ripematernity.com>`_
-  * `Cotton On <http://shop.cottonon.com>`_
+  * `Ripe Maternity <http://www.ripematernity.com/>`_
+  * `Cotton On <http://shop.cottonon.com/>`_
   * `List G Barristers <http://www.listgbarristers.com.au>`_
   * `Tri-Cities Flower Farm <http://www.tricitiesflowerfarm.com>`_
-  * `daon.ru <http://daon.ru>`_
-  * `autoindeks.ru <http://autoindeks.ru>`_
-  * `immiau.ru <http://immiau.ru>`_
-  * `ARA Consultants <http://www.araconsultants.com.au>`_
-  * `Boîte à Z'images <http://boiteazimages.com>`_
-  * `The Melbourne Cup <http://www.melbournecup.com>`_
+  * `daon.ru <http://daon.ru/>`_
+  * `autoindeks.ru <http://autoindeks.ru/>`_
+  * `immiau.ru <http://immiau.ru/>`_
+  * `ARA Consultants <http://www.araconsultants.com.au/>`_
+  * `Boîte à Z'images <http://boiteazimages.com/>`_
+  * `The Melbourne Cup <http://www.melbournecup.com/>`_
   * `Diablo News <http://www.diablo-news.com>`_
-  * `Goldman Travel <http://www.goldmantravel.com.au>`_
-  * `IJC Digital <http://ijcdigital.com>`_
-  * `Coopers <http://store.coopers.com.au>`_
+  * `Goldman Travel <http://www.goldmantravel.com.au/>`_
+  * `IJC Digital <http://ijcdigital.com/>`_
+  * `Coopers <http://store.coopers.com.au/>`_
   * `Joe Julian <http://joejulian.name>`_
-  * `Sheer Ethic <http://sheerethic.com>`_
-  * `Salt Lake Magazine <http://saltlakemagazine.com>`_
-  * `Boca Raton Magazine <http://bocamag.com>`_
+  * `Sheer Ethic <http://sheerethic.com/>`_
+  * `Salt Lake Magazine <http://saltlakemagazine.com/>`_
+  * `Boca Raton Magazine <http://bocamag.com/>`_
   * `Photog.me <http://www.photog.me>`_
   * `Elephant Juice Soup <http://www.elephantjuicesoup.com>`_
-  * `National Positions <http://www.nationalpositions.co.uk>`_
+  * `National Positions <http://www.nationalpositions.co.uk/>`_
   * `Like Humans Do <http://www.likehumansdo.com>`_
   * `Connecting Countries <http://connectingcountries.net>`_
   * `tindie.com <http://tindie.com>`_
-  * `Environmental World Products <http://ewp-sa.com>`_
+  * `Environmental World Products <http://ewp-sa.com/>`_
   * `Ross A. Laird <http://rosslaird.com>`_
   * `Etienne B. Roesch <http://etienneroes.ch>`_
-  * `Recruiterbox <http://recruiterbox.com>`_
+  * `Recruiterbox <http://recruiterbox.com/>`_
+  * `Mod Productions <http://modprods.com/>`_
+  * `Appsembler <http://appsembler.com/>`_
+  * `Pink Twig <http://www.pinktwig.ca>`_
+  * `Parfume Planet <http://parfumeplanet.com>`_
+  * `Trading 4 Us <http://www.trading4.us>`_
+  * `Chris Fleisch <http://chrisfleisch.com>`_
+  * `Theneum <http://theneum.com/>`_
+  * `My Story Chest <http://www.mystorychest.com>`_
+  * `Philip Sahli <http://www.fatrix.ch>`_
+  * `Raymond Chandler <http://www.codearchaeologist.org>`_
+  * `Nashsb <http://nashpp.com>`_
+  * `AciBASE <http://acinetobacter.bham.ac.uk>`_
+  * `Enrico Tröger <http://www.uvena.de>`_
+  * `Matthe Wahn <http://www.matthewahn.com>`_
+  * `Bit of Pixels <http://bitofpixels.com>`_
+  * `Nimbis Services <http://schott.nimbis.net>`_
+  * `European Crystallographic Meeting <http://ecm29.ecanews.org>`_
+  * `Dreamperium <http://dreamperium.com>`_
+  * `UT Dallas <http://utdallasiia.com>`_
+  * `Go Yama <http://goyamamusic.com>`_
+  * `Yeti LLC <http://www.yetihq.com/>`_
+  * `Li Xiong <http://idhoc.com>`_
+  * `Pageworthy <http://pageworthy.com>`_
+  * `Prince Jets <http://princejets.com>`_
+  * `30 sites in 30 days <http://1inday.com>`_
+  * `St Barnabas' Theological College <http://www.sbtc.org.au>`_
+  * `Helios 3D <http://helios3d.nl/>`_
+  * `Life is Good <http://lifeisgoodforall.co.uk/>`_
+  * `Brooklyn Navy Yard <http://bldg92.org/>`_
+  * `Pie Monster <http://piemonster.me>`_
+  * `Cotton On Asia <http://asia.cottonon.com/>`_
+  * `Ivan Diao <http://www.adieu.me>`_
 
 Quotes
 ======
@@ -258,6 +302,8 @@ Quotes
     and `Django Packages`_
   * "Mezzanine convinced me to switch from the Ruby world over
     to Python" - `Michael Delaney`_, developer
+  * "Like Linux and Python, Mezzanine just feels right" - `Phil Hughes`_,
+    Linux For Dummies author, `The Linux Journal`_ columnist
   * "Impressed with Mezzanine so far" - `Brad Montgomery`_, founder
     of `Work For Pie`_
   * "From the moment I installed Mezzanine, I have been delighted, both
@@ -265,15 +311,13 @@ Quotes
     development" - `John Campbell`_, founder of `Head3 Interactive`_
   * "You need to check out the open source project Mezzanine. In one
     word: Elegant" - `Nick Hagianis`_, developer
-  * "Who came up with the name Mezzanine? I love it, like a platform
-    between the client's ideas and their published website. Very
-    classy!" - `Stephen White`_, developer
 
 .. GENERAL LINKS
 
 .. _`Django`: http://djangoproject.com/
 .. _`BSD licensed`: http://www.linfo.org/bsdlicense.html
 .. _`Wordpress`: http://wordpress.org/
+.. _`great sites people have built using Mezzanine`: http://mezzanine.jupo.org/sites/
 .. _`Pinax`: http://pinaxproject.com/
 .. _`Mingus`: http://github.com/montylounge/django-mingus
 .. _`Mezzanine project page`: http://mezzanine.jupo.org
@@ -322,6 +366,7 @@ Quotes
 .. _`Django Packages`: http://djangopackages.com/
 .. _`Hewlett Packard`: http://www.hp.com/
 .. _`Tabblo`: http://www.tabblo.com/
+.. _`The Linux Journal`: http://www.linuxjournal.com
 .. _`Work For Pie`: http://workforpie.com/
 
 
@@ -331,12 +376,17 @@ Quotes
 .. _`html5boilerplate project`: http://html5boilerplate.com/
 .. _`mezzanine-mdown`: https://bitbucket.org/onelson/mezzanine-mdown
 .. _`Markdown`: http://en.wikipedia.org/wiki/Markdown
-.. _`mezzanine-openshift`: https://github.com/k4ml/mezzanine-openshift
+.. _`mezzanine-openshift`: https://github.com/overshard/mezzanine-openshift
 .. _`Redhat's OpenShift`: https://openshift.redhat.com/
-.. _`mezzanine-stackato`: https://github.com/ActiveState/mezzanine-stackato
+.. _`mezzanine-stackato`: https://github.com/Stackato-Apps/mezzanine
 .. _`ActiveState's Stackato`: http://www.activestate.com/stackato
 .. _`mezzanine-blocks`: https://github.com/renyi/mezzanine-blocks
 .. _`mezzanine-widgets`: https://github.com/osiloke/mezzanine_widgets
+.. _`mezzanine-themes`: https://github.com/renyi/mezzanine-themes
+.. _`mezzanine-twittertopic`: https://github.com/lockhart/mezzanine-twittertopic
+.. _`mezzanine-captcha`: https://github.com/mjtorn/mezzanine-captcha
+.. _`mezzanine-bookmarks`: https://github.com/adieu/mezzanine-bookmarks
+.. _`mezzanine-events`: https://github.com/stbarnabas/mezzanine-events
 
 
 .. PEOPLE WITH QUOTES
@@ -348,4 +398,4 @@ Quotes
 .. _`Audrey Roy`: http://cartwheelweb.com/
 .. _`Michael Delaney`: http://github.com/fusepilot/
 .. _`John Campbell`: http://head3.com/
-.. _`Stephen White`: http://bitbucket.org/swhite/
+.. _`Phil Hughes`: http://www.linuxjournal.com/blogs/phil-hughes

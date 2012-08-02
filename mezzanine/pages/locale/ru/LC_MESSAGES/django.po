@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dmitry Falk <tfalc@mail.ru>, 2012.
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Timur Bobrus, 2010.
-# Dmitry Falk <tfalc@mail.ru>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-04 18:53+0400\n"
-"PO-Revision-Date: 2011-11-12 03:36+0000\n"
-"Last-Translator: sebasmagri <sebasmagri@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2012-07-20 14:03+0400\n"
+"PO-Revision-Date: 2012-06-17 15:41+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
+"language/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,13 +22,46 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: models.py:17
-msgid "Show in navigation"
-msgstr "Показать в навигации"
+#: defaults.py:20
+msgid ""
+"A sequence of templates used by the ``page_menu`` template tag. Each item in "
+"the sequence is a three item sequence, containing a unique ID for the "
+"template, a label for the template, and the template path. These templates "
+"are then available for selection when editing which menus a page should "
+"appear in. Note that if a menu template is used that doesn't appear in this "
+"setting, all pages will appear in it."
+msgstr ""
+
+#: defaults.py:29
+msgid "Top navigation bar"
+msgstr "Верхняя панель"
+
+#: defaults.py:30
+msgid "Left-hand tree"
+msgstr "Левая панель"
+
+#: defaults.py:31
+msgid "Footer"
+msgstr "Подвал"
+
+#: defaults.py:37
+msgid ""
+"A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the "
+"default menu templates selected when creating new pages. By default all menu "
+"templates are selected. Set this setting to an empty sequence to have no "
+"templates selected by default."
+msgstr ""
+
+#: defaults.py:48
+msgid ""
+"If ``True``, the left-hand tree template for the pages menu will show all "
+"levels of navigation, otherwise child pages are only shown when viewing the "
+"parent page."
+msgstr ""
 
 #: models.py:18
-msgid "Show in footer"
-msgstr "Показать в нижнем колонтитуле"
+msgid "Show in menus"
+msgstr "Показать в меню"
 
 #: models.py:21
 msgid "Login required"
@@ -36,7 +70,7 @@ msgstr "Необходима аутентификация"
 #: models.py:22
 msgid "If checked, only logged in users can view this page"
 msgstr ""
-"Если отмечено, то только авторизованные пользователи увидят эту страницу"
+"Если отмечено, то только вошедшие на сайт пользователи увидят эту страницу"
 
 #: models.py:25
 msgid "Page"
@@ -46,19 +80,19 @@ msgstr "Страница"
 msgid "Pages"
 msgstr "Страницы"
 
-#: models.py:175
+#: models.py:174
 msgid "Rich text page"
 msgstr "Текстовая страница"
 
-#: models.py:176
+#: models.py:175
 msgid "Rich text pages"
 msgstr "Текстовые страницы"
 
-#: models.py:186
+#: models.py:185
 msgid "Link"
 msgstr "Ссылка"
 
-#: models.py:187
+#: models.py:186
 msgid "Links"
 msgstr "Ссылки"
 
@@ -76,8 +110,7 @@ msgstr "Добавить"
 msgid "Home"
 msgstr "Главная"
 
-#: templatetags/pages_tags.py:163
+#: templatetags/pages_tags.py:173
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""
-

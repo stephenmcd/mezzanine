@@ -2,6 +2,7 @@
 from cStringIO import StringIO
 import os
 from string import punctuation
+from urllib import unquote
 from zipfile import ZipFile
 
 from django.core.files.base import ContentFile
@@ -82,8 +83,10 @@ class Gallery(Page, RichText):
 class GalleryImage(Orderable):
 
     gallery = models.ForeignKey("Gallery", related_name="images")
-    file = FileField(_("File"), max_length=200, upload_to="galleries")
-    description = models.CharField(_("Description"), max_length=1000, blank=True)
+    file = FileField(_("File"), max_length=200, upload_to="galleries",
+                                                           format="Image")
+    description = models.CharField(_("Description"), max_length=1000,
+                                                           blank=True)
 
     class Meta:
         verbose_name = _("Image")
@@ -98,7 +101,7 @@ class GalleryImage(Orderable):
         file name.
         """
         if not self.id and not self.description:
-            name = self.file.path.split("/")[-1].rsplit(".", 1)[0]
+            name = unquote(self.file.url).split("/")[-1].rsplit(".", 1)[0]
             name = name.replace("'", "")
             name = "".join([c if c not in punctuation else " " for c in name])
             # str.title() doesn't deal with unicode very well.

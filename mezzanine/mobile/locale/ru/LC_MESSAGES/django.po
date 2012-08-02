@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-04 18:52+0400\n"
-"PO-Revision-Date: 2012-03-11 23:56+0000\n"
+"POT-Creation-Date: 2012-07-09 12:49+0400\n"
+"PO-Revision-Date: 2012-06-17 15:42+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
 "language/ru/)\n"
@@ -39,11 +39,11 @@ msgstr "Извините, возникла ошибка."
 
 #: templates/mobile/base.html:31 templates/mobile/index.html:6
 msgid "Home"
-msgstr "Начало"
+msgstr "Главная"
 
 #: templates/mobile/base.html:43
 msgid "Powered by"
-msgstr "Основано на"
+msgstr "Сайт использует"
 
 #: templates/mobile/base.html:44
 msgid "View Full Site"

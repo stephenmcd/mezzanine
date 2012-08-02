@@ -53,10 +53,26 @@ def login_redirect(request):
     - LOGIN_REDIRECT_URL setting
     - homepage
     """
-    next = request.GET.get("next")
-    if not next:
+    ignorable_nexts = ("",)
+    if "mezzanine.accounts" in settings.INSTALLED_APPS:
+        from mezzanine.accounts import urls
+        ignorable_nexts += (urls.SIGNUP_URL, urls.LOGIN_URL, urls.LOGOUT_URL)
+    next = request.REQUEST.get("next", "")
+    if next in ignorable_nexts:
         try:
             next = reverse(settings.LOGIN_REDIRECT_URL)
         except NoReverseMatch:
             next = "/"
     return redirect(next)
+
+
+def path_to_slug(path):
+    """
+    Removes everything from the given URL path, including
+    ``PAGES_SLUG`` if it is set, returning a slug that would match a
+    ``Page`` instance's slug.
+    """
+    from mezzanine.urls import PAGES_SLUG
+    for prefix in (settings.SITE_PREFIX, PAGES_SLUG):
+        path = path.strip("/").replace(prefix, "", 1)
+    return path or "/"

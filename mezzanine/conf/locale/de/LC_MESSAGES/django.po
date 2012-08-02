@@ -1,52 +1,52 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Christopher R. Parr <fosstux@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:10+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: German (http://www.transifex.net/projects/p/mezzanine/"
-"language/de/)\n"
-"Language: de\n"
+"Language-Team: German (http://www.transifex.net/projects/p/mezzanine/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:38
 msgid "Settings were successfully updated."
-msgstr ""
+msgstr "Einstellungen wurden erfolgreich aktualisiert."
 
 #: admin.py:42
 msgid "Change"
-msgstr ""
+msgstr "Ändern"
 
 #: defaults.py:21
 msgid "Minimum length for passwords"
-msgstr ""
+msgstr "Minimallänge für Passwörter"
 
 #: defaults.py:28
 msgid "List of fields to exclude from the profile form."
-msgstr ""
+msgstr "Liste der Felder, die beim Profilformular ausgeblendet werden sollen."
 
 #: defaults.py:35
 msgid "If ``True``, users will have their own public profile pages."
-msgstr ""
+msgstr "Wenn ``Wahr``, werden User ihre eigene öffentliche Profilseiten haben."
 
 #: defaults.py:43
 msgid ""
-"If ``True``, when users create an account, they will be sent an email with a "
-"verification link, which they must click to enable their account."
-msgstr ""
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
+msgstr "Wenn ``Wahr``, wird den Usern, die ein Konto anlegen, ein E-Mail  mit einem Überprüfungs-Link gesendet, den sie zum Aktivierwn ihres Kontos anklicken müssen"
 
 #: defaults.py:52
 msgid "Controls the ordering and grouping of the admin menu."
-msgstr ""
+msgstr "Steuert die Sortierung und Gruppierung des Verwaltungsmenü."
 
 #: defaults.py:55
 msgid "Content"
@@ -54,7 +54,7 @@ msgstr "Inhalt"
 
 #: defaults.py:56
 msgid "Media Library"
-msgstr ""
+msgstr "Medienbibliothek"
 
 #: defaults.py:57
 msgid "Site"
@@ -62,195 +62,206 @@ msgstr "Seite"
 
 #: defaults.py:58
 msgid "Users"
-msgstr ""
+msgstr "Benutzer"
 
 #: defaults.py:64
 msgid "Unregister these models from the admin."
-msgstr ""
+msgstr "Modelle vom Verwaltungsbereich entfernen"
 
 #: defaults.py:71
 msgid "bit.ly username"
-msgstr ""
+msgstr "bit.ly Benutzername"
 
 #: defaults.py:72
 msgid "Username for http://bit.ly URL shortening service."
-msgstr ""
+msgstr "Benutzername für URL-Kürzer http://bit.ly"
 
 #: defaults.py:79
 msgid "bit.ly key"
-msgstr ""
+msgstr "bit.ly Schlüssel"
 
 #: defaults.py:80
 msgid "Key for http://bit.ly URL shortening service."
-msgstr ""
+msgstr "Schlüssel für URL-Kürzer http://bit.ly"
 
 #: defaults.py:87
 msgid "Enable featured images in blog posts"
-msgstr ""
+msgstr "Hervorgehobenes Bild aktivieren"
 
 #: defaults.py:94
 msgid "Use date URLs"
-msgstr ""
+msgstr "Verwende Datums-URL"
 
 #: defaults.py:95
 msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
+"If ``True``, URLs for blog post include the month and year. Eg: "
+"/blog/yyyy/mm/slug/"
+msgstr "Beitrags-URLs beinhalten Monat und Jahr, wenn ``Wahr`` - z.B. /blog/yyyy/mmmm/pfad"
 
 #: defaults.py:103
 msgid "Blog posts per page"
-msgstr ""
+msgstr "Blog-Beiträge pro Seite"
 
 #: defaults.py:104
 msgid "Number of blog posts shown on a blog listing page."
-msgstr ""
+msgstr "Anzahl der Beiträge auf einer Blog-Listing-Seite"
 
 #: defaults.py:111
 msgid "Slug of the page object for the blog."
-msgstr ""
+msgstr "Pfad des Seitenobjekts des Blogs"
 
 #: defaults.py:118
+msgid ""
+"Mezzanine's caching uses a technique know as mint caching. This is where the"
+" requested expiry for a cache entry is stored with the cache entry in cache,"
+" and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a"
+" cache get, the store expiry is checked, and if it has past, the cache entry"
+" is set again, and no entry is returned. This tries to ensure that cache "
+"misses never occur, and if many clients were to get a cache miss at once, "
+"only one would actually need to re-generated the cache entry."
+msgstr ""
+
+#: defaults.py:133
 msgid "Accounts required for commenting"
-msgstr ""
+msgstr "Benötigte Konten für das Kommentieren"
 
-#: defaults.py:119
+#: defaults.py:134
 msgid "If ``True``, users must log in to comment."
-msgstr ""
+msgstr "Benutzer müssen sich zum Kommentieren anmelen, wenn ``Wahr``."
 
-#: defaults.py:126
+#: defaults.py:141
 msgid "Akismet API Key"
-msgstr ""
+msgstr "Akismet API Schlüssel"
 
-#: defaults.py:127
+#: defaults.py:142
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
-msgstr ""
+msgstr "Schlüssel für das Spam-Filterungs-Dienst http://akismet.com. Dient dem Filtern von Kommentaren und Formularen."
 
-#: defaults.py:135
+#: defaults.py:150
 msgid "Disqus shortname"
-msgstr ""
-
-#: defaults.py:136
-msgid "Shortname for the http://disqus.com comments service."
-msgstr ""
-
-#: defaults.py:143
-msgid "Disqus public key"
-msgstr ""
-
-#: defaults.py:144
-msgid "Public key for http://disqus.com developer API"
-msgstr ""
+msgstr "Disqus Benutzername"
 
 #: defaults.py:151
-msgid "Disqus secret key"
-msgstr ""
+msgid "Shortname for the http://disqus.com comments service."
+msgstr "Kurzer Name für das Kommentarsystem von http://disqus.com"
 
-#: defaults.py:152
-msgid "Secret key for http://disqus.com developer API"
-msgstr ""
+#: defaults.py:158
+msgid "Disqus public key"
+msgstr "Öffentlicher Schlüssel für Disqus "
 
 #: defaults.py:159
-msgid "Auto-approve comments"
-msgstr ""
+msgid "Public key for http://disqus.com developer API"
+msgstr "Öffentlicher Schlüssel for die Entwickler-API von http://disqus.com"
 
-#: defaults.py:160
-msgid "If ``True``, built-in comments are approved by default."
-msgstr ""
+#: defaults.py:166
+msgid "Disqus secret key"
+msgstr "Geheimer Schlüssel für Disqus "
 
 #: defaults.py:167
-msgid "Admin comments"
-msgstr ""
+msgid "Secret key for http://disqus.com developer API"
+msgstr "Geheimer Schlüssel for die Entwickler-API von http://disqus.com"
 
-#: defaults.py:168
-msgid "Number of latest comments shown in the admin dashboard."
-msgstr ""
+#: defaults.py:174
+msgid "Auto-approve comments"
+msgstr "Kommentare automatisch freigeben"
 
 #: defaults.py:175
-msgid "Show unapproved comments"
-msgstr ""
+msgid "If ``True``, built-in comments are approved by default."
+msgstr "Wenn ``Wahr``, werden eingebaute Kommentare standardmäßig freigegeben."
 
-#: defaults.py:176
+#: defaults.py:182
+msgid "Admin comments"
+msgstr "Verwaltungskommentare"
+
+#: defaults.py:183
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr "Anzahl der neuesten Kommentare, die im Verwaltungsbereich angezeigt werden."
+
+#: defaults.py:190
+msgid "Show unapproved comments"
+msgstr "Nicht freigegebene Kommentare anzeigen"
+
+#: defaults.py:191
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
+msgstr "Kommentare, bei denen ``ist öffentlich`` deaktiviert ist, werden trotzdem angezeigt, aber werden ersetzt mit einer Meldung ``warte auf Freigabe``, wenn ``Wahr``."
 
-#: defaults.py:185
+#: defaults.py:200
 msgid "Show removed comments"
-msgstr ""
+msgstr "Entfernte Kommentare anzeigen"
 
-#: defaults.py:186
+#: defaults.py:201
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Kommentare, bei denen ``entfernt`` aktiviert ist, werden trotzdem angezeigt, aber werden ersetzt mit einer Meldung ``Entfernt``, wenn ``Wahr``."
 
-#: defaults.py:207
+#: defaults.py:222
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
-msgstr ""
+msgstr "Eine Sequenz aus drei Elementen, das jedes eine Sequenz von Template Tags, die für die Ausgabe des Admin Bereichs verwendet werden."
 
-#: defaults.py:215
+#: defaults.py:230
 msgid "Device specific template sub-directory to use as the default device."
-msgstr ""
+msgstr "Das zu verwendende Standard-Unterverzeichnis für geräteabhängige Templates für das Standard-Gerät"
 
-#: defaults.py:223
+#: defaults.py:238
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
-msgstr ""
+msgstr "Zuordnung von gerätespezifischen Template-Unterverzeichnissen mit der Sequenz von Zeichenketten, bie beim User Agent gefunden werden kann."
 
-#: defaults.py:245
+#: defaults.py:260
 msgid ""
 "A sequence of fields that will be injected into Mezzanine's (or any "
 "library's) models. Each item in the sequence is a four item sequence. The "
 "first two items are the dotted path to the model and its field name to be "
 "added, and the dotted path to the field class to use for the field. The "
-"third and fourth items are a sequence of positional args and a dictionary of "
-"keyword args, to use when creating the field instance. When specifying the "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
 "field class, the path ``django.models.db.`` can be omitted for regular "
 "Django model fields."
-msgstr ""
+msgstr "Eine Abfolge von Feldern, die als Modelle in Mezzanine (oder jede Bibliothek) injiziert werden. Jedes Element in der Sequenz ist eine Sequenz aus vier Elementen. Die ersten beiden Elemente sind der gepunkteten Pfad zu dem Modell und dessen Feldnamen, das hinzugefügt werden soll, und der gepunktete Pfad zu der Feld-Klasse, die für das Feld verwendet werden soll. Das dritte und vierte Element sind eine Folge von positionellen Argumenten und einem Wörterbuch der Keyword-Argumente, die beim Anlegen der Feld-Instanz verwendet werden soll. Bei der Angabe der Feld-Klasse kann der Pfad ``django.models.db.`` für regelmäßige Django Modell.Felder ausgelassen werden."
 
-#: defaults.py:260
+#: defaults.py:275
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
+msgstr "Wenn ``Wahr``, werden gesendete E-Mails an zusätzliche Empfänger für Formulareingaben nicht von einer Adresse aus dem Formular gesendet."
 
-#: defaults.py:269
+#: defaults.py:284
 msgid "Max length allowed for field values in the forms app."
-msgstr ""
+msgstr "Maximal erlaubte Länge für Feldwerte in der Forms App."
 
-#: defaults.py:276
+#: defaults.py:291
 msgid "Max length allowed for field labels in the forms app."
-msgstr ""
-
-#: defaults.py:283
-msgid "If ``True``, website forms will use HTML5 features."
-msgstr ""
-
-#: defaults.py:290
-msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
+msgstr "Maximal erlaubte Länge für Feldbeschriftungen in der Forms App."
 
 #: defaults.py:298
-msgid "Absolute path for storing file uploads for the forms app."
-msgstr ""
+msgid "If ``True``, website forms will use HTML5 features."
+msgstr "Bei den Formularen werden HTML5 Features verwenden, wenn ``Wahr``"
 
 #: defaults.py:305
-msgid "Google Analytics ID"
-msgstr ""
-
-#: defaults.py:307
-msgid "Google Analytics ID (http://www.google.com/analytics/)"
-msgstr ""
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr "Trennnzeichen für CSV Export"
 
 #: defaults.py:313
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Absoluter Pfad, um Dateiuploads für die Form App zu speichern."
+
+#: defaults.py:320
+msgid "Google Analytics ID"
+msgstr "Google Analytics ID"
+
+#: defaults.py:322
+msgid "Google Analytics ID (http://www.google.com/analytics/)"
+msgstr "Google Analytics ID (http://www.google.com/analytics/)"
+
+#: defaults.py:328
 msgid ""
 "A sequence mapping host names to themes, allowing different templates to be "
 "served per HTTP hosts Each item in the sequence is a two item sequence, "
@@ -258,169 +269,222 @@ msgid ""
 "importable Python package for the theme. If the host is matched for a "
 "request, the templates directory inside the theme package will be first "
 "searched when loading templates."
-msgstr ""
+msgstr "Eine Sequenz, die die Rechnernamen mit Themen verknüpft, sodass unterschiedliche Vorlagen, die pro HTTP hosts bereitgestellt werden, zu bedienen. Jedes Element in der Sequenz ist eine Sequenz mit zwei Elementen, die einen Host wie ``othersite.example.com``, und der Namen eines in Python importierbaren Pakets für das Layout. Wenn der Host bei einer Abfrage zugeordnet werden kann, wird die Template-Verzeichnis in das Layout-Paket zuerst durchsucht werden beim Laden von Templates."
 
-#: defaults.py:327
+#: defaults.py:342
 msgid "Name of the jQuery file."
-msgstr ""
+msgstr "Name der jQuery Datei"
 
-#: defaults.py:328
+#: defaults.py:343
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
-msgstr ""
+msgstr "Name der jQuery Datei, gefunden in mezzanine/core/static/mezzanine/js/"
 
-#: defaults.py:336
+#: defaults.py:351
 msgid "Max paging links"
-msgstr ""
+msgstr "Maximale Anzahl der Links"
 
-#: defaults.py:337
+#: defaults.py:352
 msgid "Max number of paging links to display when paginating."
-msgstr ""
+msgstr "Maximale Anzahl der Links pro Seite"
 
-#: defaults.py:344
+#: defaults.py:359
 msgid ""
 "If ``True``, the pages menu will show all levels of navigation, otherwise "
 "child pages are only shown when viewing the parent page."
-msgstr ""
+msgstr "Wenn ``Wahr``, zeigt das Seiten-Menü alle Navigationsebenen, ansonsten werden Unterseiten nur sichtbar werden, wenn man die Überseite ansieht."
 
-#: defaults.py:353
+#: defaults.py:368
 msgid "Min value for a rating."
-msgstr ""
+msgstr "Niedrigster Wert für Bewertungen"
 
-#: defaults.py:360
+#: defaults.py:375
 msgid "Max value for a rating."
-msgstr ""
+msgstr "Höchster Wert für Bewertungen"
 
-#: defaults.py:367
+#: defaults.py:382
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
-msgstr ""
+msgstr "Gepunkteter Paketpfad und Klassenname des Widgets,welchesim  ``RichTextField`` verwendet werden soll."
 
-#: defaults.py:375
+#: defaults.py:390
 msgid ""
 "List of HTML tags that won't be stripped from ``RichTextField`` instances."
-msgstr ""
+msgstr "Liste von HTML Tags, die nicht aus ``RichTextField`` Instanzen entfernt werden."
 
-#: defaults.py:391
+#: defaults.py:406
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr ""
+msgstr "Liste von HTML Attributen, die nicht aus ``RichTextField`` Instanzen entfernt werden."
 
-#: defaults.py:409
+#: defaults.py:424
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
-msgstr ""
+msgstr "Gepunkteter Pfad zu einer Funktion, der auf den Inhalt eines ``RichTextField`` aufgerufen werden soll, bevor er im Template gerendert wird."
 
-#: defaults.py:419
+#: defaults.py:434
 msgid "High"
-msgstr ""
+msgstr "Hoch"
 
-#: defaults.py:420
+#: defaults.py:435
 msgid "Low (allows video, iframe, Flash, etc)"
-msgstr ""
+msgstr "Niedrig (erlaubt Videos, IFrames, Flash usw.)"
 
-#: defaults.py:421
+#: defaults.py:436
 msgid "No filtering"
+msgstr "Keine Filterung"
+
+#: defaults.py:441
+msgid "Rich Text filter level"
 msgstr ""
 
-#: defaults.py:449
+#: defaults.py:442
+msgid ""
+"*Do not change this setting unless you know what you're doing.*\n"
+"\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and attributes are stripped from the content to protect against staff members intentionally adding code that could be used to cause problems, such as changing their account to a super-user with full access to the system.\n"
+"\n"
+"This setting allows you to change the level of filtering that occurs. Setting it to low will allow certain extra tags to be permitted, such as those required for embedding video. While these tags are not the main candidates for users adding malicious code, they are still considered dangerous and could potentially be mis-used by a particularly technical user, and so are filtered out when the filtering level is set to high.\n"
+"\n"
+"Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
+msgstr ""
+
+#: defaults.py:465
 msgid "Search results per page"
-msgstr ""
+msgstr "Suchergebnisse pro Seite"
 
-#: defaults.py:450
+#: defaults.py:466
 msgid "Number of results shown in the search results page."
-msgstr ""
+msgstr "Anzahl der Ergebnisse, die auf der Ergebnisseite angezeigt werden."
 
-#: defaults.py:457
+#: defaults.py:473
 msgid "Site Title"
-msgstr ""
+msgstr "Titel der Seite"
 
-#: defaults.py:458
+#: defaults.py:474
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
-msgstr ""
+msgstr "Titel, der oben in der Seite angezeigt wird und der beim Titel des Inhalts jeder Seite angehängt wird."
 
-#: defaults.py:466
+#: defaults.py:482
 msgid "Tagline"
-msgstr ""
+msgstr "Slogan"
 
-#: defaults.py:467
+#: defaults.py:483
 msgid "A tag line that will appear at the top of all pages."
-msgstr ""
+msgstr "Ein Slogan, der im Kopf aller Seiten zu sehen ist"
 
-#: defaults.py:469
+#: defaults.py:485
 msgid "An open source content management platform."
-msgstr ""
+msgstr "Eine freie Plattform für Content Management"
 
-#: defaults.py:474
+#: defaults.py:490
 msgid ""
 "Dotted Python path to the callable for converting strings into URL slugs. "
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
 "ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
 "Django's slugify function, or something of your own if required."
-msgstr ""
+msgstr "Gepunkteter Python Pfad zum Aufruf für die Umwandlung von Zeichenketten in URL Pfade. Der Standardwert ist `` `` ``mezzanine.utils.urls.slugify_unicode``, das Nicht-ASCII-URLs ermöglicht. Ändern Sie das in ``django.template.defaultfilters.slugify``, um Django's slugify Funktion, oder etwas Eigenes zu verwenden, wenn erforderlich."
 
-#: defaults.py:485
+#: defaults.py:501
 msgid "Enable SSL"
+msgstr "SSL aktivieren"
+
+#: defaults.py:502
+msgid ""
+"If ``True``, users will be automatically redirected to HTTPS for the URLs "
+"specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
 msgstr ""
 
-#: defaults.py:495
+#: defaults.py:511
 msgid "Force Host"
+msgstr "Servernamen erzwingen"
+
+#: defaults.py:512
+msgid ""
+"Host name that the site should always be accessed via that matches the SSL "
+"certificate."
 msgstr ""
 
-#: defaults.py:514
+#: defaults.py:530
 msgid "List of words which will be stripped from search queries."
-msgstr ""
+msgstr "Wortliste, die von Such-Abfragen entfernt werden."
 
-#: defaults.py:571
+#: defaults.py:587
 msgid "Tag Cloud Sizes"
-msgstr ""
+msgstr "Schlagwortwolken-Größen"
 
-#: defaults.py:572
+#: defaults.py:588
 msgid "Number of different sizes for tags when shown as a cloud."
-msgstr ""
+msgstr "Anzahl der verschiedenen Größen für Schlagwörter, bei der Anzeige als Wolke"
 
-#: defaults.py:579
+#: defaults.py:595
 msgid "Sequence of setting names available within templates."
-msgstr ""
+msgstr "Sequenz von Einstellungsnamen, die innerhalb des Templates zur Verfügung stehen."
 
-#: defaults.py:594
+#: defaults.py:610
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
-msgstr ""
+msgstr "Verzeichnisname, in dem Vorschaubilder gespeichert werden, der relativ zum Originalbilder-Pfad erzeugt wird."
 
-#: defaults.py:602
+#: defaults.py:618
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+msgstr "URL für die Javascript-Datei(relativ zu ``STARIC_URL``), die die Konfiguration von TinyMCE übernimmt, wenn die ``RICHTEXT_WIDGET_CLASS`` verwendet wird."
+
+#: defaults.py:629
+msgid "Default Twitter Query Type"
 msgstr ""
 
-#: defaults.py:617
+#: defaults.py:630
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
+msgstr ""
+
+#: defaults.py:639
+msgid "Default Twitter Query"
+msgstr ""
+
+#: defaults.py:640
+msgid "Twitter query to use for the default query type."
+msgstr ""
+
+#: defaults.py:647
+msgid "Default Number of Tweets"
+msgstr ""
+
+#: defaults.py:648
+msgid "Number of tweets to display in the default Twitter feed."
+msgstr ""
+
+#: defaults.py:661
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
-msgstr ""
+msgstr "Die South Anwendung wird automatisch zur Liste der ``INSTALLED_APPS`` hinzugefügt, wenn  ``Wahr``."
 
 #: forms.py:52
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Verschiedenes"
 
 #: models.py:17
 msgid "Setting"
-msgstr ""
+msgstr "Einstellung"
 
 #: models.py:18
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: templates/admin/conf/setting/change_list.html:8
 msgid "Please correct the errors below."
-msgstr ""
+msgstr "Bitte beheben Sie die Fehler darunter"
 
 #: templates/admin/conf/setting/change_list.html:31
 msgid "Save"
-msgstr ""
+msgstr "Speichern"

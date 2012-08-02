@@ -42,7 +42,7 @@
 
         </div>
         <br style="clear:both;">
-        {% page_menu page %}
+        {% if page.has_children %}{% page_menu page %}{% endif %}
     </li>
     {% endfor %}
 </ul>

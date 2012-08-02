@@ -23,6 +23,8 @@ def set_dynamic_settings(s):
     append = lambda n, k: s[n].append(k) if k not in s[n] else None
     # Add a value to the start of a list setting if not in the list.
     prepend = lambda n, k: s[n].insert(0, k) if k not in s[n] else None
+    # Remove a value from a list setting if in the list.
+    remove = lambda n, k: s[n].remove(k) if k in s[n] else None
 
     s["TEMPLATE_DEBUG"] = s.get("TEMPLATE_DEBUG", s.get("DEBUG", False))
     add_to_builtins("mezzanine.template.loader_tags")
@@ -71,6 +73,13 @@ def set_dynamic_settings(s):
     if "compressor" in s["INSTALLED_APPS"]:
         append("STATICFILES_FINDERS", "compressor.finders.CompressorFinder")
 
+    # Ensure the Mezzanine auth backend is enabled if
+    # mezzanine.accounts is being used.
+    if "mezzanine.accounts" in s["INSTALLED_APPS"]:
+        auth_backend = "mezzanine.core.auth_backends.MezzanineBackend"
+        s.setdefault("AUTHENTICATION_BACKENDS", [])
+        prepend("AUTHENTICATION_BACKENDS", auth_backend)
+
     # Ensure Grappelli is after Mezzanine in app order so that
     # admin templates are loaded in the correct order.
     grappelli_name = s.get("PACKAGE_NAME_GRAPPELLI")
@@ -92,7 +101,7 @@ def set_dynamic_settings(s):
     if "mezzanine.blog" in s["INSTALLED_APPS"]:
         append("INSTALLED_APPS", "mezzanine.generic")
     if "mezzanine.generic" in s["INSTALLED_APPS"]:
-        s["COMMENTS_APP"] = "mezzanine.generic"
+        s.setdefault("COMMENTS_APP", "mezzanine.generic")
         append("INSTALLED_APPS", "django.contrib.comments")
 
     # Ensure mezzanine.boot is first.
@@ -118,3 +127,10 @@ def set_dynamic_settings(s):
         elif shortname == "mysql":
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
+
+    # Remaining is for Django < 1.4
+    from django import VERSION
+    if VERSION >= (1, 4):
+        return
+    s["TEMPLATE_CONTEXT_PROCESSORS"] = list(s["TEMPLATE_CONTEXT_PROCESSORS"])
+    remove("TEMPLATE_CONTEXT_PROCESSORS", "django.core.context_processors.tz")

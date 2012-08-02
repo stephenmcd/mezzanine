@@ -24,6 +24,7 @@ from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
 from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
+from mezzanine.core.request import current_request
 from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
@@ -31,7 +32,7 @@ from mezzanine.galleries.models import Gallery, GALLERIES_UPLOAD_DIR
 from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
 from mezzanine.generic.models import RATING_RANGE
-from mezzanine.pages.models import RichTextPage
+from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import copy_test_to_media, run_pyflakes_for_package
@@ -47,6 +48,7 @@ class Tests(TestCase):
         """
         Create an admin user.
         """
+        connection.use_debug_cursor = True
         self._username = "test"
         self._password = "test"
         args = (self._username, "example@example.com", self._password)
@@ -140,6 +142,46 @@ class Tests(TestCase):
         page, created = RichTextPage.objects.get_or_create(slug="edit")
         self.assertTrue(page.overridden())
 
+    def test_page_ascendants(self):
+        """
+        Test the methods for looking up ascendants efficiently
+        behave as expected.
+        """
+        # Create related pages.
+        primary, created = RichTextPage.objects.get_or_create(title="Primary")
+        secondary, created = primary.children.get_or_create(title="Secondary")
+        tertiary, created = secondary.children.get_or_create(title="Tertiary")
+        # Force a site ID to avoid the site query when measuring queries.
+        setattr(current_request(), "site_id", settings.SITE_ID)
+        # Test ascendants are returned in order for slug, using
+        # a single DB query.
+        connection.queries = []
+        pages_for_slug = Page.objects.with_ascendants_for_slug(tertiary.slug)
+        self.assertEqual(len(connection.queries), 1)
+        self.assertEqual(pages_for_slug[0].id, tertiary.id)
+        self.assertEqual(pages_for_slug[1].id, secondary.id)
+        self.assertEqual(pages_for_slug[2].id, primary.id)
+        # Test page.get_ascendants uses the cached attribute,
+        # without any more queries.
+        connection.queries = []
+        ascendants = pages_for_slug[0].get_ascendants()
+        self.assertEqual(len(connection.queries), 0)
+        self.assertEqual(ascendants[0].id, secondary.id)
+        self.assertEqual(ascendants[1].id, primary.id)
+        # Use a custom slug in the page path, and test that
+        # Page.objects.with_ascendants_for_slug fails, but
+        # correctly falls back to recursive queries.
+        secondary.slug += "custom"
+        secondary.save()
+        pages_for_slug = Page.objects.with_ascendants_for_slug(tertiary.slug)
+        self.assertEquals(len(pages_for_slug[0]._ascendants), 0)
+        connection.queries = []
+        ascendants = pages_for_slug[0].get_ascendants()
+        self.assertEqual(len(connection.queries), 2)  # 2 parent queries
+        self.assertEqual(pages_for_slug[0].id, tertiary.id)
+        self.assertEqual(ascendants[0].id, secondary.id)
+        self.assertEqual(ascendants[1].id, primary.id)
+
     def test_description(self):
         """
         Test generated description is text version of the first line
@@ -216,11 +258,9 @@ class Tests(TestCase):
         Return the number of queries used when rendering a template
         string.
         """
-        settings.DEBUG = True
         connection.queries = []
         t = Template(template)
         t.render(Context(context))
-        settings.DEBUG = False
         return len(connection.queries)
 
     def create_recursive_objects(self, model, parent_field, **kwargs):
@@ -238,7 +278,7 @@ class Tests(TestCase):
                     kwargs[parent_field] = level2
                     model.objects.create(**kwargs)
 
-    def test_comments(self):
+    def test_comment_queries(self):
         """
         Test that rendering comments executes the same number of
         queries, regardless of the number of nested replies.
@@ -254,11 +294,12 @@ class Tests(TestCase):
             "unposted_comment_form": None,
         }
         before = self.queries_used_for_template(template, **context)
+        self.assertTrue(before > 0)
         self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
         after = self.queries_used_for_template(template, **context)
         self.assertEquals(before, after)
 
-    def test_page_menu(self):
+    def test_page_menu_queries(self):
         """
         Test that rendering a page menu executes the same number of
         queries regardless of the number of pages or levels of
@@ -267,10 +308,29 @@ class Tests(TestCase):
         template = ('{% load pages_tags %}'
                     '{% page_menu "pages/menus/tree.html" %}')
         before = self.queries_used_for_template(template)
+        self.assertTrue(before > 0)
         self.create_recursive_objects(RichTextPage, "parent", title="Page",
                                       status=CONTENT_STATUS_PUBLISHED)
         after = self.queries_used_for_template(template)
         self.assertEquals(before, after)
+
+    def test_page_menu_flags(self):
+        """
+        Test that pages only appear in the menu templates they've been
+        assigned to show in.
+        """
+        menus = []
+        pages = []
+        template = "{% load pages_tags %}"
+        for i, label, path in settings.PAGE_MENU_TEMPLATES:
+            menus.append(i)
+            pages.append(RichTextPage.objects.create(in_menus=list(menus),
+                title="Page for %s" % unicode(label),
+                status=CONTENT_STATUS_PUBLISHED))
+            template += "{%% page_menu '%s' %%}" % path
+        rendered = Template(template).render(Context({}))
+        for page in pages:
+            self.assertEquals(rendered.count(page.title), len(page.in_menus))
 
     def test_keywords(self):
         """

@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Nicola Larosa <transifex@teknico.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-05-06 19:40+0000\n"
-"Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
-"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/"
-"language/it/)\n"
-"Language: it\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:14+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: admin.py:20 models.py:67
@@ -51,7 +50,7 @@ msgstr "facoltativo"
 msgid "By the blog author"
 msgstr "Dell'autore del blog"
 
-#: models.py:31 models.py:59 templates/generic/includes/comments.html:24
+#: models.py:31 models.py:59
 msgid "Comment"
 msgstr "Commento"
 
@@ -83,13 +82,11 @@ msgstr "Valutazione"
 msgid "Ratings"
 msgstr "Valutazioni"
 
-#: views.py:51
+#: views.py:52
 msgid ""
 "You must log in to comment. Please log in or sign up, and your comment will "
 "be posted."
-msgstr ""
-"Occorre accedere per commentare. Accedi o iscriviti, e il tuo commento verrà "
-"inserito."
+msgstr "Occorre accedere per commentare. Accedi o iscriviti, e il tuo commento verrà inserito."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -127,6 +124,10 @@ msgstr "Al momento non ci sono commenti"
 msgid "New Comment"
 msgstr "Nuovo Commento"
 
+#: templates/generic/includes/comments.html:24
+msgid "Send"
+msgstr ""
+
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"
 msgstr "Valutazione attuale"
@@ -135,6 +136,6 @@ msgstr "Valutazione attuale"
 msgid "Currently unrated"
 msgstr "Non valutato al momento"
 
-#: templates/generic/includes/rating.html:16
+#: templates/generic/includes/rating.html:18
 msgid "Rate"
 msgstr "Valuta"

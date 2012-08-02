@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-04 18:59+0400\n"
+"POT-Creation-Date: 2012-07-20 13:45+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: defaults.py:20
+msgid "Minimum length for passwords"
+msgstr "Минимальная длина пароля"
+
+#: defaults.py:27
+msgid "List of fields to exclude from the profile form."
+msgstr "Список полей исключаемых из формы профиля"
+
+#: defaults.py:34
+msgid ""
+"Dotted package path and class name of profile form to use for users signing "
+"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgstr ""
+
+#: defaults.py:43
+msgid "If ``True``, users will have their own public profile pages."
+msgstr ""
+"Если ``Да``, то пользователи будут иметь страницы со своим публичным профилем"
+
+#: defaults.py:51
+msgid ""
+"If ``True``, when users create an account, they will be sent an email with a "
+"verification link, which they must click to enable their account."
+msgstr ""
+"Если ``Да``, то когда пользователи создают учетную запись, им будет послано "
+"письмо с проверяющей ссылкой, по которой нужно пройти для активации аккаунта."
 
 #: forms.py:18 forms.py:179
 msgid "Username or email address"
@@ -73,54 +100,58 @@ msgstr "Этот email уже зарегистрирован"
 msgid "Invalid username/email"
 msgstr "Неправильный логин/email"
 
-#: views.py:27
+#: views.py:28
 msgid "Successfully logged in"
 msgstr "Вы успешно вошли"
 
-#: views.py:30
+#: views.py:31
 msgid "Login"
 msgstr "Вход"
 
-#: views.py:39
+#: views.py:40
 msgid "Successfully logged out"
 msgstr "Вы успешно вышли"
 
-#: views.py:52
+#: views.py:54
 msgid ""
 "A verification email has been sent with a link for activating your account."
 msgstr "Письмо с подтверждающей ссылкой было выслано на ваш email."
 
-#: views.py:55 views.py:74
+#: views.py:58 views.py:77
 msgid "Successfully signed up"
 msgstr "Вы успешно зарегистрированы"
 
-#: views.py:58
+#: views.py:61
 msgid "Signup"
 msgstr "Регистрация"
 
-#: views.py:77 views.py:136
+#: views.py:80 views.py:158
 msgid "The link you clicked is no longer valid."
-msgstr "Ссылка больше не действует"
+msgstr "Ссылка больше не действует."
 
-#: views.py:111
+#: views.py:133
 msgid "Profile updated"
 msgstr "Профиль обновлен"
 
-#: views.py:116
+#: views.py:138
 msgid "Update Profile"
 msgstr "Обновить профиль"
 
-#: views.py:125
+#: views.py:147
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr ""
 "Письмо с подтверждающей ссылкой для сброса пароля было выслано на ваш email."
 
-#: views.py:127
+#: views.py:149
 msgid "Password Reset"
 msgstr "Сброс пароля"
 
-#: templates/accounts/account_login.html:9
+#: templates/accounts/account_login.html:7
+msgid "You're already logged in."
+msgstr "Вы уже вошли под своей учетной записью."
+
+#: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
 "If you don't have an acount you can <a href=\"%(signup_url)s?next=%(next)s"
@@ -129,7 +160,7 @@ msgstr ""
 "Если у вас нет учетной записи, вы можете <a href=\"%(signup_url)s?next="
 "%(next)s\">зарегистрироваться</a>."
 
-#: templates/accounts/account_login.html:12
+#: templates/accounts/account_login.html:14
 #, python-format
 msgid ""
 "<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
@@ -152,6 +183,14 @@ msgid "Update profile"
 msgstr "Обновить профиль"
 
 #: templates/accounts/account_signup.html:7
+msgid ""
+"You're already logged in. If you'd like to create a new account, you'll need "
+"to log out first."
+msgstr ""
+"Вы уже вошли под своей учетной записью. Если вы хотите создать новую учетную "
+"запись, вам необходимо сделать выход из старой."
+
+#: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-04 18:49+0400\n"
+"POT-Creation-Date: 2012-07-20 14:02+0400\n"
 "PO-Revision-Date: 2012-03-11 23:55+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
@@ -38,6 +38,28 @@ msgstr[2] "%(count)s записей удалено"
 msgid "View Entries"
 msgstr "Просмотреть"
 
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr ""
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr ""
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr ""
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr ""
+
 #: fields.py:28
 msgid "Single line text"
 msgstr "Строка"
@@ -52,7 +74,7 @@ msgstr "Число"
 
 #: fields.py:32
 msgid "URL"
-msgstr ""
+msgstr "Ссылка"
 
 #: fields.py:33
 msgid "Check box"
@@ -72,7 +94,7 @@ msgstr "Поле с выбором"
 
 #: fields.py:37
 msgid "Radio buttons"
-msgstr "Радио кнопки"
+msgstr "Переключатель"
 
 #: fields.py:38
 msgid "File upload"
@@ -263,7 +285,7 @@ msgstr "Посмотреть на сайте"
 
 #: templates/admin/forms/entries.html:13
 msgid "Home"
-msgstr "Начало"
+msgstr "Главная"
 
 #: templates/admin/forms/entries.html:28
 msgid "Include"

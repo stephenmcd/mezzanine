@@ -7,11 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine 0.8.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2010-11-24 19:28-0400\n"
 "Last-Translator: Carlos David Marrero <cdmarrero2040@gmail.com>\n"
-"Language-Team: Armadillo Integración Tecnológica C.A <info@armadillotec."
-"com>\n"
+"Language-Team: Armadillo Integración Tecnológica C.A <info@armadillotec.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,31 +20,31 @@ msgstr ""
 "X-Poedit-Country: VENEZUELA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: models.py:25
+#: __init__.py:16
 msgid "User"
 msgstr ""
 
-#: models.py:26
+#: __init__.py:17
 msgid "List"
 msgstr ""
 
-#: models.py:27
+#: __init__.py:18
 msgid "Search"
 msgstr ""
 
-#: models.py:30
+#: models.py:26
 msgid "Type"
 msgstr ""
 
-#: models.py:32
+#: models.py:28
 msgid "Value"
 msgstr ""
 
-#: models.py:36
+#: models.py:32
 msgid "Twitter query"
 msgstr ""
 
-#: models.py:37
+#: models.py:33
 msgid "Twitter queries"
 msgstr ""
 

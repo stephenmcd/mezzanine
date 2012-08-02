@@ -1,0 +1,287 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Esperanto (http://www.transifex.net/projects/p/mezzanine/language/eo/)\n"
+"Language: eo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:32 fields.py:30
+msgid "Email"
+msgstr "Retpoŝto"
+
+#: admin.py:115
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] "1 eniron forigita"
+msgstr[1] "%(count)s elementoj forigita"
+
+#: admin.py:119
+msgid "View Entries"
+msgstr "Rigardu Entries"
+
+#: fields.py:28
+msgid "Single line text"
+msgstr "Unuopa linio teksto"
+
+#: fields.py:29
+msgid "Multi line text"
+msgstr "Multi linioj teksto"
+
+#: fields.py:31
+msgid "Number"
+msgstr "Nombro"
+
+#: fields.py:32
+msgid "URL"
+msgstr "URL"
+
+#: fields.py:33
+msgid "Check box"
+msgstr "Markobutono"
+
+#: fields.py:34
+msgid "Check boxes"
+msgstr "Markobutonoj"
+
+#: fields.py:35
+msgid "Drop down"
+msgstr "Fali malsupren"
+
+#: fields.py:36
+msgid "Multi select"
+msgstr "Pluraj elekti"
+
+#: fields.py:37
+msgid "Radio buttons"
+msgstr "Radio butonoj"
+
+#: fields.py:38
+msgid "File upload"
+msgstr "Dosiera alŝuti"
+
+#: fields.py:39
+msgid "Date"
+msgstr "Dato"
+
+#: fields.py:40 models.py:110
+msgid "Date/time"
+msgstr "Dato / tempo"
+
+#: fields.py:41
+msgid "Hidden"
+msgstr "Kaŝita"
+
+#: forms.py:28 forms.py:36 forms.py:42
+msgid "Nothing"
+msgstr "Nenio"
+
+#: forms.py:29
+msgid "Contains"
+msgstr "Enhavas"
+
+#: forms.py:30
+msgid "Doesn't contain"
+msgstr "Ne enhavas"
+
+#: forms.py:31 forms.py:37
+msgid "Equals"
+msgstr "Egalas"
+
+#: forms.py:32 forms.py:38
+msgid "Doesn't equal"
+msgstr "Ne Egalas"
+
+#: forms.py:43
+msgid "Is between"
+msgstr "Estas inter"
+
+#: forms.py:100
+msgid "required"
+msgstr "postulita"
+
+#: forms.py:214
+msgid "Checked"
+msgstr "Kontrolita"
+
+#: forms.py:214
+msgid "Not checked"
+msgstr "Ne kontrolita"
+
+#: forms.py:228 forms.py:243
+msgid "and"
+msgstr "kaj"
+
+#: models.py:17
+msgid "Button text"
+msgstr "Butono teksto"
+
+#: models.py:18
+msgid "Submit"
+msgstr "Submeti"
+
+#: models.py:19
+msgid "Response"
+msgstr "Respondo"
+
+#: models.py:20
+msgid "Send email"
+msgstr "Sendu retpoŝton"
+
+#: models.py:21
+msgid "If checked, the form submitter will be sent an email."
+msgstr "Se kontrolita, oni sendiĝos retmesaĝon al la persono kiu prezentis la formon "
+
+#: models.py:22
+msgid "From address"
+msgstr "De adreso"
+
+#: models.py:23
+msgid "The address the email will be sent from"
+msgstr "La adreso de kie la poŝto estos elsendita"
+
+#: models.py:24
+msgid "Send copies to"
+msgstr "Sendu kopiojn al"
+
+#: models.py:25
+msgid "One or more email addresses, separated by commas"
+msgstr "Unu aŭ pli retadresoj, apartigitaj per komoj"
+
+#: models.py:27
+msgid "Subject"
+msgstr "Temo"
+
+#: models.py:28
+msgid "Message"
+msgstr "Mesaĝo"
+
+#: models.py:31
+msgid "Form"
+msgstr "Formo"
+
+#: models.py:32
+msgid "Forms"
+msgstr "Formoj"
+
+#: models.py:49
+msgid "Label"
+msgstr "Stampo"
+
+#: models.py:51
+msgid "Type"
+msgstr "Tipo"
+
+#: models.py:52
+msgid "Required"
+msgstr "Bezonata"
+
+#: models.py:53
+msgid "Visible"
+msgstr "Videbla"
+
+#: models.py:54
+msgid "Choices"
+msgstr "Elektoj"
+
+#: models.py:55
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr "Komo disigitaj elektoj, se aplikebla. Se elekto mem enhavas komojn, ĉirkaŭas la eblon kun `dorsa-apostrofoj`."
+
+#: models.py:57
+msgid "Default value"
+msgstr "Defaŭlta valoro"
+
+#: models.py:59
+msgid "Placeholder Text"
+msgstr "Lokokupilo Teksto"
+
+#: models.py:61
+msgid "Help text"
+msgstr "Helpo teksto"
+
+#: models.py:66 templates/admin/forms/entries.html:27
+msgid "Field"
+msgstr "Kampo"
+
+#: models.py:67
+msgid "Fields"
+msgstr "Kampoj"
+
+#: models.py:113
+msgid "Form entry"
+msgstr "Forma eniro"
+
+#: models.py:114
+msgid "Form entries"
+msgstr "Formaj eniroj"
+
+#: models.py:128
+msgid "Form field entry"
+msgstr "Forma kampa eniro"
+
+#: models.py:129
+msgid "Form field entries"
+msgstr "Forma kampaj eniroj"
+
+#: templates/admin/forms/change_form.html:9
+#: templates/admin/forms/entries.html:56
+msgid "View entries"
+msgstr "Rigardu eniroj"
+
+#: templates/admin/forms/change_form.html:10
+msgid "History"
+msgstr "Historio"
+
+#: templates/admin/forms/change_form.html:11
+msgid "View on site"
+msgstr "Rigardu sur retejo"
+
+#: templates/admin/forms/entries.html:13
+msgid "Home"
+msgstr "Hejmo"
+
+#: templates/admin/forms/entries.html:28
+msgid "Include"
+msgstr "Inkluzivi"
+
+#: templates/admin/forms/entries.html:29
+msgid "Filter by"
+msgstr "Filtri per"
+
+#: templates/admin/forms/entries.html:47
+msgid "All"
+msgstr "Ĉiuj"
+
+#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+msgid "Back to form"
+msgstr "Malantaŭen al formo"
+
+#: templates/admin/forms/entries.html:57
+msgid "Export CSV"
+msgstr "Eksportu diskoman dosieron  "
+
+#: templates/admin/forms/entries.html:59
+msgid "Entries"
+msgstr "Eniroj"
+
+#: templates/admin/forms/entries.html:93
+msgid "Delete selected"
+msgstr "Forigu elektatajn"
+
+#: templates/admin/forms/entries.html:97
+msgid "No entries to display"
+msgstr "Neniuj enskriboj por montri"

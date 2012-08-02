@@ -17,15 +17,21 @@ class Form(Page, RichText):
     button_text = models.CharField(_("Button text"), max_length=50,
         default=_("Submit"))
     response = RichTextField(_("Response"))
-    send_email = models.BooleanField(_("Send email"), default=True,
-        help_text=_("If checked, the form submitter will be sent an email."))
+    send_email = models.BooleanField(_("Send email to user"), default=True,
+        help_text=_("To send an email to the email address supplied in "
+                    "the form upon submission, check this box."))
     email_from = models.EmailField(_("From address"), blank=True,
         help_text=_("The address the email will be sent from"))
-    email_copies = models.CharField(_("Send copies to"), blank=True,
-        help_text=_("One or more email addresses, separated by commas"),
+    email_copies = models.CharField(_("Send email to others"), blank=True,
+        help_text=_("Provide a comma separated list of email addresses "
+                    "to be notified upon form submission. Leave blank to "
+                    "disable notifications."),
         max_length=200)
     email_subject = models.CharField(_("Subject"), max_length=200, blank=True)
-    email_message = models.TextField(_("Message"), blank=True)
+    email_message = models.TextField(_("Message"), blank=True,
+        help_text=_("Emails sent based on the above options will contain "
+                    "each of the form fields entered. You can also enter "
+                    "a message here that will be included in the email."))
 
     class Meta:
         verbose_name = _("Form")

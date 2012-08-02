@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
 "PO-Revision-Date: 2011-12-13 15:38+0100\n"
 "Last-Translator: Sergi Almacellas Abellana <pokoli@gmail.com>\n"
 "Language-Team: Catalan <LL@li.org>\n"
@@ -18,31 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:25
+#: __init__.py:16
 msgid "User"
 msgstr "Usuari"
 
-#: models.py:26
+#: __init__.py:17
 msgid "List"
 msgstr "Llista"
 
-#: models.py:27
+#: __init__.py:18
 msgid "Search"
 msgstr "Cercar"
 
-#: models.py:30
+#: models.py:26
 msgid "Type"
 msgstr "Tipus"
 
-#: models.py:32
+#: models.py:28
 msgid "Value"
 msgstr "Valor"
 
-#: models.py:36
+#: models.py:32
 msgid "Twitter query"
 msgstr "Consulta a twitter"
 
-#: models.py:37
+#: models.py:33
 msgid "Twitter queries"
 msgstr "Consultes a twitter"
 

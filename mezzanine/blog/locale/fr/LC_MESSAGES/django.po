@@ -1,59 +1,57 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 #   <vincent.rialland@gmail.com>, 2011.
 # Vincent Rialland <vincent.rialland@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-04-25 11:40+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:13+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/"
-"language/fr/)\n"
-"Language: fr\n"
+"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: models.py:17 templates/blog/includes/filter_panel.html:30
+#: models.py:18 templates/blog/includes/filter_panel.html:30
 msgid "Categories"
 msgstr "Catégories"
 
-#: models.py:19
-#, fuzzy
+#: models.py:20
 msgid "Allow comments"
-msgstr "Commentaires"
+msgstr ""
 
-#: models.py:21 templates/blog/blog_post_list.html:111
+#: models.py:22 templates/blog/blog_post_list.html:113
 msgid "Comments"
 msgstr "Commentaires"
 
-#: models.py:22
+#: models.py:23
 msgid "Rating"
 msgstr "Note"
 
-#: models.py:23
+#: models.py:24
 msgid "Featured Image"
 msgstr ""
 
-#: models.py:27
+#: models.py:31
 msgid "Blog post"
 msgstr "Article de blog"
 
-#: models.py:28
+#: models.py:32
 msgid "Blog posts"
 msgstr "Articles de blog"
 
-#: models.py:50
+#: models.py:54
 msgid "Blog Category"
 msgstr "Catégorie d'articles"
 
-#: models.py:51
+#: models.py:55
 msgid "Blog Categories"
 msgstr "Catégories d'articles"
 
@@ -65,79 +63,75 @@ msgstr "Article rapide"
 msgid "Save Draft"
 msgstr "Enregistrer en tant que brouillon"
 
-#: templates/blog/blog_post_detail.html:21
-msgid "Home"
-msgstr "Accueil"
-
-#: templates/blog/blog_post_detail.html:34
-#: templates/blog/blog_post_list.html:74
+#: templates/blog/blog_post_detail.html:27
+#: templates/blog/blog_post_list.html:76
 msgid "Posted by"
 msgstr "Posté par"
 
-#: templates/blog/blog_post_detail.html:38
-#: templates/blog/blog_post_list.html:84
+#: templates/blog/blog_post_detail.html:31
+#: templates/blog/blog_post_list.html:86
 msgid "ago"
 msgstr "il y a "
 
-#: templates/blog/blog_post_detail.html:42
-#: templates/blog/blog_post_list.html:115
+#: templates/blog/blog_post_detail.html:35
+#: templates/blog/blog_post_list.html:117
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/blog/blog_post_detail.html:58
-#: templates/blog/blog_post_list.html:98
+#: templates/blog/blog_post_detail.html:51
+#: templates/blog/blog_post_list.html:100
 #: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
 msgstr "Tags"
 
-#: templates/blog/blog_post_detail.html:69
+#: templates/blog/blog_post_detail.html:62
 msgid "Share on Twitter"
 msgstr ""
 
-#: templates/blog/blog_post_detail.html:70
+#: templates/blog/blog_post_detail.html:63
 msgid "Share on Facebook"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:24
 msgid "Blog"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:31
+#: templates/blog/blog_post_list.html:33
 msgid "Tag:"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:33
+#: templates/blog/blog_post_list.html:35
 msgid "Category:"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:37
+#: templates/blog/blog_post_list.html:39
 msgid "Author:"
 msgstr ""
 
-#: templates/blog/blog_post_list.html:49
+#: templates/blog/blog_post_list.html:51
 msgid "Viewing posts tagged"
 msgstr "Afficher les articles taggués"
 
-#: templates/blog/blog_post_list.html:51
+#: templates/blog/blog_post_list.html:53
 msgid "Viewing posts for the category"
 msgstr "Affichés les articles de la catégorie"
 
-#: templates/blog/blog_post_list.html:53
+#: templates/blog/blog_post_list.html:55
 msgid "Viewing posts from"
 msgstr "Afficher les articles de"
 
-#: templates/blog/blog_post_list.html:56
+#: templates/blog/blog_post_list.html:58
 msgid "Viewing posts by"
 msgstr "Afficher les articles écrits par"
 
-#: templates/blog/blog_post_list.html:79
+#: templates/blog/blog_post_list.html:81
 msgid "in"
 msgstr "dans"
 
-#: templates/blog/blog_post_list.html:106
+#: templates/blog/blog_post_list.html:108
 msgid "read more"
 msgstr "lire la suite"
 

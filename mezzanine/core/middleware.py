@@ -91,7 +91,7 @@ class UpdateCacheMiddleware(object):
         # and the response mustn't include an expiry age, incicating it
         # shouldn't be cached.
         marked_for_update = getattr(request, "_update_cache", False)
-        anon = not request.user.is_authenticated()
+        anon = hasattr(request, "user") and not request.user.is_authenticated()
         valid_status = response.status_code == 200
         timeout = get_max_age(response)
         if timeout is None:

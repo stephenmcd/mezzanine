@@ -1,6 +1,6 @@
 {% load i18n pages_tags %}
 {% spaceless %}
-{% if page_branch_in_navigation %}
+{% if page_branch_in_menu %}
 
 {% if branch_level == 0 %}
 <ul class="nav pull-right">
@@ -11,7 +11,7 @@
     </li>
     <li class="divider-vertical"></li>
     {% endif %}
-    {% if page.in_navigation %}
+    {% if page.in_menu %}
     <li class="dropdown{% if page.is_current_or_ascendant %} active{% endif %}"
         id="dropdown-menu-{{ page.html_id }}">
         <a href="{{ page.get_absolute_url }}">
@@ -29,10 +29,12 @@
 {% if branch_level == 1 %}
 <ul class="dropdown-menu">
     {% for page in page_branch %}
+    {% if page.in_menu %}
     <li{% if page.is_current_or_ascendant %} class="active"{% endif %}
         id="dropdown-menu-{{ page.html_id }}">
         <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
     </li>
+    {% endif %}
     {% endfor %}
 </ul>
 {% endif %}

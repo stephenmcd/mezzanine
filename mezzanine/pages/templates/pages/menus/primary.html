@@ -10,7 +10,7 @@
     </li>
     <li class="divider-vertical"></li>
     {% endif %}
-    {% if page.in_navigation %}
+    {% if page.in_menu %}
     <li id="primary-menu-{{ page.html_id }}"
         class="{% if page.is_current_or_ascendant %}active{% endif %}{% if forloop.last %} last{% endif %}">
         <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>

@@ -1,5 +1,5 @@
 """
-Default settings for all of Mezzanine's apps. Each of these can be
+Default settings for the ``mezzanine.core`` app. Each of these can be
 overridden in your project's settings module, just like regular
 Django settings. The ``editable`` argument for each controls whether
 the setting is editable via Django's admin.
@@ -11,41 +11,10 @@ them would require an application reload.
 """
 
 from django.conf import settings
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import register_setting
 
-
-register_setting(
-    name="ACCOUNTS_MIN_PASSWORD_LENGTH",
-    description=_("Minimum length for passwords"),
-    editable=False,
-    default=6,
-)
-
-register_setting(
-    name="ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS",
-    description=_("List of fields to exclude from the profile form."),
-    editable=False,
-    default=(),
-)
-
-register_setting(
-    name="ACCOUNTS_PROFILE_VIEWS_ENABLED",
-    description=_("If ``True``, users will have their own public profile "
-        "pages."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
-    name="ACCOUNTS_VERIFICATION_REQUIRED",
-    description=_("If ``True``, when users create an account, they will be "
-        "sent an email with a verification link, which they must click to "
-        "enable their account."),
-    editable=False,
-    default=False,
-)
 
 register_setting(
     name="ADMIN_MENU_ORDER",
@@ -67,50 +36,11 @@ register_setting(
 )
 
 register_setting(
-    name="BLOG_BITLY_USER",
-    label=_("bit.ly username"),
-    description=_("Username for http://bit.ly URL shortening service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="BLOG_BITLY_KEY",
-    label=_("bit.ly key"),
-    description=_("Key for http://bit.ly URL shortening service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="BLOG_USE_FEATURED_IMAGE",
-    description=_("Enable featured images in blog posts"),
+    name="ADMIN_THUMB_SIZE",
+    description=_("Size of thumbnail previews for image fields in the "
+                  "admin interface"),
     editable=False,
-    default=False,
-)
-
-register_setting(
-    name="BLOG_URLS_USE_DATE",
-    label=_("Use date URLs"),
-    description=_("If ``True``, URLs for blog post include the month and "
-        "year. Eg: /blog/yyyy/mm/slug/"),
-    editable=False,
-    default=False,
-)
-
-register_setting(
-    name="BLOG_POST_PER_PAGE",
-    label=_("Blog posts per page"),
-    description=_("Number of blog posts shown on a blog listing page."),
-    editable=True,
-    default=5,
-)
-
-register_setting(
-    name="BLOG_SLUG",
-    description=_("Slug of the page object for the blog."),
-    editable=False,
-    default="blog",
+    default="24x24",
 )
 
 register_setting(
@@ -129,79 +59,12 @@ register_setting(
 )
 
 register_setting(
-    name="COMMENTS_ACCOUNT_REQUIRED",
-    label=_("Accounts required for commenting"),
-    description=_("If ``True``, users must log in to comment."),
-    editable=True,
-    default=False,
-)
-
-register_setting(
     name="AKISMET_API_KEY",
     label=_("Akismet API Key"),
     description=_("Key for http://akismet.com spam filtering service. Used "
         "for filtering comments and forms."),
     editable=True,
     default="",
-)
-
-register_setting(
-    name="COMMENTS_DISQUS_SHORTNAME",
-    label=_("Disqus shortname"),
-    description=_("Shortname for the http://disqus.com comments service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="COMMENTS_DISQUS_API_PUBLIC_KEY",
-    label=_("Disqus public key"),
-    description=_("Public key for http://disqus.com developer API"),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="COMMENTS_DISQUS_API_SECRET_KEY",
-    label=_("Disqus secret key"),
-    description=_("Secret key for http://disqus.com developer API"),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="COMMENTS_DEFAULT_APPROVED",
-    label=_("Auto-approve comments"),
-    description=_("If ``True``, built-in comments are approved by default."),
-    editable=True,
-    default=True,
-)
-
-register_setting(
-    name="COMMENTS_NUM_LATEST",
-    label=_("Admin comments"),
-    description=_("Number of latest comments shown in the admin dashboard."),
-    editable=True,
-    default=5,
-)
-
-register_setting(
-    name="COMMENTS_UNAPPROVED_VISIBLE",
-    label=_("Show unapproved comments"),
-    description=_("If ``True``, comments that have ``is_public`` unchecked "
-        "will still be displayed, but replaced with a ``waiting to be "
-        "approved`` message."),
-    editable=True,
-    default=True,
-)
-
-register_setting(
-    name="COMMENTS_REMOVED_VISIBLE",
-    label=_("Show removed comments"),
-    description=_("If ``True``, comments that have ``removed`` checked "
-        "will still be displayed, but replaced with a ``removed`` message."),
-    editable=True,
-    default=True,
 )
 
 if "mezzanine.blog" in settings.INSTALLED_APPS:
@@ -256,6 +119,13 @@ register_setting(
 )
 
 register_setting(
+    name="FORMS_USE_HTML5",
+    description=_("If ``True``, website forms will use HTML5 features."),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="EXTRA_MODEL_FIELDS",
     description=_("A sequence of fields that will be injected into "
         "Mezzanine's (or any library's) models. Each item in the sequence is "
@@ -268,51 +138,6 @@ register_setting(
         "model fields."),
     editable=False,
     default=(),
-)
-
-register_setting(
-    name="FORMS_DISABLE_SEND_FROM_EMAIL_FIELD",
-    description=_("If ``True``, emails sent to extra recipients for form "
-        "submissions won't be sent from an address taken from one of the "
-        "form's email fields."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
-    name="FORMS_FIELD_MAX_LENGTH",
-    description=_("Max length allowed for field values in the forms app."),
-    editable=False,
-    default=2000,
-)
-
-register_setting(
-    name="FORMS_LABEL_MAX_LENGTH",
-    description=_("Max length allowed for field labels in the forms app."),
-    editable=False,
-    default=200,
-)
-
-register_setting(
-    name="FORMS_USE_HTML5",
-    description=_("If ``True``, website forms will use HTML5 features."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
-    name="FORMS_CSV_DELIMITER",
-    description=_("Char to use as a field delimiter when exporting form "
-        "responses as CSV."),
-    editable=False,
-    default=",",
-)
-
-register_setting(
-    name="FORMS_UPLOAD_ROOT",
-    description=_("Absolute path for storing file uploads for the forms app."),
-    editable=False,
-    default="",
 )
 
 register_setting(
@@ -352,29 +177,6 @@ register_setting(
     description=_("Max number of paging links to display when paginating."),
     editable=True,
     default=10,
-)
-
-register_setting(
-    name="PAGES_MENU_SHOW_ALL",
-    description=_("If ``True``, the pages menu will show all levels of "
-        "navigation, otherwise child pages are only shown when viewing the "
-        "parent page."),
-    editable=False,
-    default=True,
-)
-
-register_setting(
-    name="RATINGS_MIN",
-    description=_("Min value for a rating."),
-    editable=False,
-    default=1,
-)
-
-register_setting(
-    name="RATINGS_MAX",
-    description=_("Max value for a rating."),
-    editable=False,
-    default=5,
 )
 
 register_setting(
@@ -466,6 +268,17 @@ register_setting(
     description=_("Number of results shown in the search results page."),
     editable=True,
     default=10,
+)
+
+register_setting(
+    name="SITE_PREFIX",
+    description=_("A URL prefix for mounting all of Mezzanine's urlpatterns "
+        "under. When using this, you'll also need to manually apply it to "
+        "your project's root ``urls.py`` module. The root ``urls.py`` module "
+        "provided by Mezzanine's ``mezzanine-project`` command contains an "
+        "example of this towards its end."),
+    editable=False,
+    default="",
 )
 
 register_setting(
@@ -595,6 +408,7 @@ register_setting(
     description=_("Sequence of setting names available within templates."),
     editable=False,
     default=(
+        "ACCOUNTS_PROFILE_VIEWS_ENABLED",
         "ACCOUNTS_VERIFICATION_REQUIRED", "ADMIN_MEDIA_PREFIX",
         "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",

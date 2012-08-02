@@ -9,11 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 12:27-0430\n"
-"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-05-26 18:09+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/"
-"language/fr/)\n"
+"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,77 +32,75 @@ msgstr ""
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Ne peut importer la valeur de settings.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:75 models.py:244
+#: forms.py:75 models.py:262
 msgid "Order"
 msgstr "Commande"
 
-#: models.py:52
+#: models.py:53
 msgid "Title"
 msgstr "Titre"
 
-#: models.py:53
+#: models.py:54
 msgid "URL"
 msgstr "URL"
 
-#: models.py:95
+#: models.py:96
 msgid "View on site"
 msgstr "Voir sur le site"
 
-#: models.py:105
+#: models.py:106
 msgid "Description"
 msgstr "Description"
 
-#: models.py:106
+#: models.py:107
 msgid "Generate description"
 msgstr ""
 
-#: models.py:107
-msgid ""
-"If checked, the description will be automatically generated from content. "
-"Uncheck if you want to manually set a custom description."
+#: models.py:108
+msgid "If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description."
 msgstr ""
 
-#: models.py:110
+#: models.py:111
 msgid "Keywords"
 msgstr "Mots-clés"
 
-#: models.py:157
+#: models.py:158
 msgid "Draft"
 msgstr "Brouillon"
 
-#: models.py:158
+#: models.py:159
 msgid "Published"
 msgstr "Publié"
 
-#: models.py:169
+#: models.py:170
 msgid "Status"
 msgstr "Statut"
 
-#: models.py:171
+#: models.py:172 models.py:201
 msgid "Published from"
 msgstr "Publié à partir du"
 
-#: models.py:172
+#: models.py:173
 msgid "With published checked, won't be shown until this time"
 msgstr "Ne sera pas affiché avant cette date si coché"
 
-#: models.py:174
+#: models.py:175
 msgid "Expires on"
 msgstr "Expirera le"
 
-#: models.py:175
+#: models.py:176
 msgid "With published checked, won't be shown after this time"
 msgstr "Ne sera pas affiché après cette date si checké"
 
-#: models.py:202
+#: models.py:220
 msgid "Content"
 msgstr "Contenu"
 
-#: models.py:298
+#: models.py:316
 msgid "Author"
 msgstr "Auteur"
 
-#: views.py:80
+#: views.py:77
 msgid "Permission denied"
 msgstr "Permission refusée"
 
@@ -127,15 +124,15 @@ msgstr "Une erreur est survenue, nous en sommes désolé."
 msgid "Search"
 msgstr "Recherche"
 
-#: templates/base.html:116
+#: templates/base.html:121
 msgid "Powered by"
 msgstr "Propulsé par"
 
-#: templates/base.html:119
+#: templates/base.html:124
 msgid "and"
 msgstr "et"
 
-#: templates/base.html:125
+#: templates/base.html:130
 msgid "View Mobile Site"
 msgstr "Version mobile"
 

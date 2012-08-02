@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-06-17 16:13+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.net/projects/p/mezzanine/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: models.py:18 templates/blog/includes/filter_panel.html:30
+msgid "Categories"
+msgstr ""
+
+#: models.py:20
+msgid "Allow comments"
+msgstr ""
+
+#: models.py:22 templates/blog/blog_post_list.html:113
+msgid "Comments"
+msgstr ""
+
+#: models.py:23
+msgid "Rating"
+msgstr ""
+
+#: models.py:24
+msgid "Featured Image"
+msgstr ""
+
+#: models.py:31
+msgid "Blog post"
+msgstr ""
+
+#: models.py:32
+msgid "Blog posts"
+msgstr ""
+
+#: models.py:54
+msgid "Blog Category"
+msgstr ""
+
+#: models.py:55
+msgid "Blog Categories"
+msgstr ""
+
+#: templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr ""
+
+#: templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr ""
+
+#: templates/blog/blog_post_detail.html:27
+#: templates/blog/blog_post_list.html:76
+msgid "Posted by"
+msgstr ""
+
+#: templates/blog/blog_post_detail.html:31
+#: templates/blog/blog_post_list.html:86
+msgid "ago"
+msgstr ""
+
+#: templates/blog/blog_post_detail.html:35
+#: templates/blog/blog_post_list.html:117
+#, python-format
+msgid "1 comment"
+msgid_plural "%(comments_count)s comments"
+msgstr[0] ""
+
+#: templates/blog/blog_post_detail.html:51
+#: templates/blog/blog_post_list.html:100
+#: templates/blog/includes/filter_panel.html:41
+msgid "Tags"
+msgstr ""
+
+#: templates/blog/blog_post_detail.html:62
+msgid "Share on Twitter"
+msgstr ""
+
+#: templates/blog/blog_post_detail.html:63
+msgid "Share on Facebook"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:24
+msgid "Blog"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:33
+msgid "Tag:"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:35
+msgid "Category:"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:39
+msgid "Author:"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:51
+msgid "Viewing posts tagged"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:53
+msgid "Viewing posts for the category"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:55
+msgid "Viewing posts from"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:58
+msgid "Viewing posts by"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:81
+msgid "in"
+msgstr ""
+
+#: templates/blog/blog_post_list.html:108
+msgid "read more"
+msgstr ""
+
+#: templates/blog/includes/filter_panel.html:5
+msgid "Recent Posts"
+msgstr ""
+
+#: templates/blog/includes/filter_panel.html:16
+msgid "Archive"
+msgstr ""
+
+#: templates/blog/includes/filter_panel.html:55
+msgid "Authors"
+msgstr ""
+
+#: templates/blog/includes/filter_panel.html:65
+msgid "Feeds"
+msgstr ""
+
+#: templates/blog/includes/filter_panel.html:66
+msgid "RSS"
+msgstr ""
+
+#: templates/blog/includes/filter_panel.html:67
+msgid "Atom"
+msgstr ""
