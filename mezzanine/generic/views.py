@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from django.db.models import get_model, ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
-from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -125,17 +124,15 @@ def rating(request):
     if rating_string in ratings:
         # Already rated so abort.
         if request.is_ajax():
-            response_dict = settings.RATING_RESPONSE_ERR
-            response = HttpResponse(simplejson.dumps(response_dict),
-                                           mimetype='application/json')
+            response = HttpResponse("err")
         else:
             response = HttpResponseRedirect(url)
         return response
     rating_manager.add(Rating(value=rating_value))
     if request.is_ajax():
-        response_dict = settings.RATING_RESPONSE_OK
-        response = HttpResponse(simplejson.dumps(response_dict),
-                                           mimetype='application/json')
+        # Reload the object and return the new rating.
+        obj = model.objects.get(id=request.POST["object_pk"])
+        response = HttpResponse(str(obj.rating_average))
     else:
         response = HttpResponseRedirect(url)
     ratings.append(rating_string)
