@@ -1,6 +1,7 @@
 
 from __future__ import with_statement
 import os
+from urlparse import urljoin, urlparse
 
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
@@ -130,7 +131,10 @@ def static_proxy(request):
             # on the same domain.
             mimetype = "text/html"
             static_url = settings.STATIC_URL + os.path.split(url)[0] + "/"
+            if bool(urlparse(static_url).scheme) is False:
+                static_url = urljoin('http://' + request.META['HTTP_HOST'], static_url)
             base_tag = "<base href='%s'>" % static_url
+            print base_tag
             response = response.replace("<head>", "<head>" + base_tag)
     return HttpResponse(response, mimetype=mimetype)
 
