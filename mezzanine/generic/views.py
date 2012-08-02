@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import get_model, ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
+from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -123,9 +124,20 @@ def rating(request):
                                request.POST["object_pk"])
     if rating_string in ratings:
         # Already rated so abort.
-        return HttpResponseRedirect(url)
+        if request.is_ajax():
+            response_dict = settings.RATING_RESPONSE_ERR
+            response = HttpResponse(simplejson.dumps(response_dict),
+                                           mimetype='application/json')
+        else:
+            response = HttpResponseRedirect(url)
+        return response
     rating_manager.add(Rating(value=rating_value))
-    response = HttpResponseRedirect(url)
+    if request.is_ajax():
+        response_dict = settings.RATING_RESPONSE_OK
+        response = HttpResponse(simplejson.dumps(response_dict),
+                                           mimetype='application/json')
+    else:
+        response = HttpResponseRedirect(url)
     ratings.append(rating_string)
     expiry = 60 * 60 * 24 * 365
     set_cookie(response, "mezzanine-rating", ",".join(ratings), expiry)
