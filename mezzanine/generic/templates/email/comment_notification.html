@@ -1,0 +1,37 @@
+{% extends "email/base.html" %}
+
+{% block main %}
+<p>A new comment has been posted on http://{{ request.get_host }}{{ obj.get_absolute_url }}:</p>
+<table border="0">
+<tr>
+    <td><b>Author:</b></td>
+    <td>{{ comment.user_name }}</td>
+</tr>
+<tr>
+    <td><b>Email:</b></td>
+    <td>{{ comment.user_email }}</td>
+</tr>
+<tr>
+    <td><b>URL:</b></td>
+    <td>{{ comment.user_url }}</td>
+</tr>
+<tr>
+    <td><b>IP address:</b></td>
+    <td>{{ comment.ip_address }}</td>
+</tr>
+<tr>
+    <td colspan="2">&nbsp;</td>
+</tr>
+<tr>
+    <td><b>Submitted on:</b></td>
+    <td>{{ comment.submit_date }}</td>
+</tr>
+<tr>
+    <td colspan="2">&nbsp;</td>
+</tr>
+<tr>
+    <td><b>Comment text:</b></td>
+    <td>{{ comment.comment }}</td>
+</tr>
+</table>
+{% endblock %}

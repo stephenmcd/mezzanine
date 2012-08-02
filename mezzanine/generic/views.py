@@ -13,6 +13,7 @@ from mezzanine.generic.fields import RatingField
 from mezzanine.generic.forms import ThreadedCommentForm
 from mezzanine.generic.models import Keyword, Rating
 from mezzanine.utils.cache import add_cache_bypass
+from mezzanine.utils.email import send_mail_template
 from mezzanine.utils.views import render, set_cookie, is_spam
 
 
@@ -80,6 +81,19 @@ def comment(request, template="generic/comments.html"):
         comment.save()
         comment_was_posted.send(sender=comment.__class__, comment=comment,
                                 request=request)
+        # send notification mail
+        if settings.COMMENTS_SEND_MANAGER_NOTIFICATION:
+            subject = _("New comment on \"%s\"") % obj.get_slug()
+            context = {
+                "comment": comment,
+                "request": request,
+                "obj": obj,
+            }
+            addr_to = [manager[1] for manager in settings.MANAGERS]
+            send_mail_template(subject, "email/comment_notification",
+                            settings.DEFAULT_FROM_EMAIL, addr_to,
+                            context, fail_silently=False)
+
         url = add_cache_bypass(comment.get_absolute_url())
         response = HttpResponseRedirect(url)
         # Store commenter's details in a cookie for 90 days.

@@ -147,6 +147,13 @@ If ``True``, comments that have ``removed`` checked will still be displayed, but
 
 Default: ``True``
 
+``COMMENTS_SEND_MANAGER_NOTIFICATION``
+-------------------------------
+
+If ``True``, a notification mail is sent to site managers.
+
+Default: ``False``
+
 ``COMMENTS_UNAPPROVED_VISIBLE``
 -------------------------------
 
