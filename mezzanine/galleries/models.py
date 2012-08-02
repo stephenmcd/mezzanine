@@ -35,6 +35,7 @@ class Gallery(Page, RichText):
     """
 
     zip_import = models.FileField(upload_to="galleries", blank=True,
+                    verbose_name=_("Zip import"),
                     help_text=_("Upload a zip file containing images, and "
                                 "they'll be imported into this gallery."))
 
@@ -82,8 +83,10 @@ class Gallery(Page, RichText):
 class GalleryImage(Orderable):
 
     gallery = models.ForeignKey("Gallery", related_name="images")
-    file = FileField(max_length=200, upload_to="galleries", format="Image")
-    description = models.CharField(max_length=1000, blank=True)
+    file = FileField(_("File"), max_length=200, upload_to="galleries",
+                                                           format="Image")
+    description = models.CharField(_("Description"), max_length=1000,
+                                                           blank=True)
 
     class Meta:
         verbose_name = _("Image")
