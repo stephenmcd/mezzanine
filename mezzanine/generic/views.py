@@ -81,21 +81,23 @@ def comment(request, template="generic/comments.html"):
         comment.save()
         comment_was_posted.send(sender=comment.__class__, comment=comment,
                                 request=request)
-        # send notification mail
-        if settings.COMMENTS_SEND_MANAGER_NOTIFICATION:
-            subject = _("New comment on \"%s\"") % obj.get_slug()
+        # Send notification emails.
+        comment_url = add_cache_bypass(comment.get_absolute_url())
+        notify_emails = filter(None, [addr.strip() for addr in
+                            settings.COMMENTS_NOTIFICATION_EMAILS.split(",")])
+        if notify_emails:
+            subject = _("New comment for: ") + unicode(obj)
             context = {
                 "comment": comment,
+                "comment_url": comment_url,
                 "request": request,
                 "obj": obj,
             }
-            addr_to = [manager[1] for manager in settings.MANAGERS]
             send_mail_template(subject, "email/comment_notification",
-                            settings.DEFAULT_FROM_EMAIL, addr_to,
-                            context, fail_silently=False)
+                               settings.DEFAULT_FROM_EMAIL, notify_emails,
+                               context, fail_silently=settings.DEBUG)
 
-        url = add_cache_bypass(comment.get_absolute_url())
-        response = HttpResponseRedirect(url)
+        response = HttpResponseRedirect(comment_url)
         # Store commenter's details in a cookie for 90 days.
         cookie_expires = 60 * 60 * 24 * 90
         for field in ThreadedCommentForm.cookie_fields:

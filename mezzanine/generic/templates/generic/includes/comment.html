@@ -20,7 +20,7 @@
             {% endif %}
         </strong>
         <span class="timespan">{{ comment.submit_date|timesince }} {% trans "ago" %}</span>
-        <p>{{ comment.comment }}</p>
+        <p>{{ comment.comment|linebreaksbr|urlize }}</p>
 
         <a href="{{ request.path }}#comment-{{ comment.id }}">{% trans "Link" %}</a> /
         <a href="#reply-{{ comment.id }}" class="reply">{% trans "Reply" %}</a>
@@ -51,7 +51,7 @@
             {% endif %}
         </strong>
         <span class="timespan">{{ comment.submit_date|timesince }} {% trans "ago" %}</span>
-        <p>{{ comment.comment }}</p>
+        <p>{{ comment.comment|linebreaksbr|urlize }}</p>
         {% endif %}
 
         <p>

@@ -1,15 +1,12 @@
 {% extends "email/base.txt" %}
+{% load i18n %}
 
 {% block main %}
-A new comment has been posted on http://{{ request.get_host }}{{ obj.get_absolute_url }}:
+A new comment has been posted on {{ obj }} [http://{{ request.get_host }}{{ comment_url }}]
 
-Author: {{ comment.user_name }}
-Email: {{ comment.user_email }}
-URL: {{ comment.user_url }}
-IP address: {{ comment.ip_address }}
+{% blocktrans with submit_date=comment.submit_date user_name=comment.user_name %}
+At {{ submit_date }} {{ user_name }} wrote:
+{% endblocktrans %}
 
-Submitted on: {{ comment.submit_date }}
-
-Comment text:
 {{ comment.comment }}
 {% endblock %}
