@@ -7,20 +7,27 @@ from mezzanine.core.managers import DisplayableManager
 
 class PageManager(DisplayableManager):
 
-    def published(self, for_user=None):
+    def published(self, for_user=None, include_login_required=False):
         """
         Override ``DisplayableManager.published`` to exclude
         pages with ``login_required`` set to ``True``. if the
         user is unauthenticated and the setting
         ``PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED`` is ``False``.
+
+        The extra ``include_login_required`` arg allows callers to
+        override the ``PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED``
+        behaviour in special cases where they want to deal with the
+        ``login_required`` field manually, such as the case in
+        ``PageMiddleware``.
         """
         published = super(PageManager, self).published(for_user=for_user)
-        unauthed = for_user and not for_user.is_authenticated()
-        if unauthed and not settings.PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED:
+        unauthenticated = for_user and not for_user.is_authenticated()
+        if (unauthenticated and not include_login_required and not
+            settings.PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED):
             published = published.exclude(login_required=True)
         return published
 
-    def with_ascendants_for_slug(self, slug, for_user=None):
+    def with_ascendants_for_slug(self, slug, **kwargs):
         """
         Given a slug, returns a list of pages from ascendants to
         descendants, that form the parent/child page relationships
@@ -61,7 +68,7 @@ class PageManager(DisplayableManager):
         # Find the deepest page that matches one of our slugs.
         # Sorting by "-slug" should ensure that the pages are in
         # descendant -> ascendant order.
-        pages_for_user = self.published(for_user)
+        pages_for_user = self.published(**kwargs)
         pages = list(pages_for_user.filter(slug__in=slugs).order_by("-slug"))
         if not pages:
             return []

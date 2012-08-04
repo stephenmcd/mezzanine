@@ -35,7 +35,8 @@ class PageMiddleware(object):
     def process_view(self, request, view_func, view_args, view_kwargs):
 
         slug = path_to_slug(request.path_info)
-        pages = Page.objects.with_ascendants_for_slug(slug, request.user)
+        pages = Page.objects.with_ascendants_for_slug(slug,
+                        for_user=request.user, include_login_required=True)
         if pages:
             page = pages[0]
         else:
