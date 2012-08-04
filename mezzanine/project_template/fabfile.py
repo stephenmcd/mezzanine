@@ -92,7 +92,7 @@ templates = {
 @contextmanager
 def virtualenv():
     """
-    Run commands within the project's virtualenv.
+    Runs commands within the project's virtualenv.
     """
     with cd(env.venv_path):
         with prefix("source %s/bin/activate" % env.venv_path):
@@ -102,7 +102,7 @@ def virtualenv():
 @contextmanager
 def project():
     """
-    Run commands within the project's directory.
+    Runs commands within the project's directory.
     """
     with virtualenv():
         with cd(env.proj_dirname):
@@ -129,7 +129,7 @@ def update_changed_requirements():
                         # Editable requirement without pinned commit.
                         break
                 elif req.strip() and not req.startswith("#"):
-                    if all([c for c in ">=<" if c not in req]):
+                    if not set(">=<") & set(req):
                         # PyPI requirement without version.
                         break
             else:
@@ -154,9 +154,10 @@ def print_command(command):
            red(" ->", bold=True))
 
 
+@task
 def run(command, show=True):
     """
-    Run a shell comand on the remote server.
+    Runs a shell comand on the remote server.
     """
     if show:
         print_command(command)
@@ -164,9 +165,10 @@ def run(command, show=True):
         return _run(command)
 
 
+@task
 def sudo(command, show=True):
     """
-    Run a command as sudo.
+    Runs a command as sudo.
     """
     if show:
         print_command(command)
@@ -185,7 +187,7 @@ def log_call(func):
 
 def get_templates():
     """
-    Return each of the templates with env vars injected.
+    Returns each of the templates with env vars injected.
     """
     injected = {}
     for name, data in templates.items():
@@ -195,7 +197,7 @@ def get_templates():
 
 def upload_template_and_reload(name):
     """
-    Upload a template only if it has changed, and if so, reload a
+    Uploads a template only if it has changed, and if so, reload a
     related service.
     """
     template = get_templates()[name]
@@ -227,23 +229,25 @@ def upload_template_and_reload(name):
 
 def db_pass():
     """
-    Prompt for the database password if unknown.
+    Prompts for the database password if unknown.
     """
     if not env.db_pass:
         env.db_pass = getpass("Enter the database password: ")
     return env.db_pass
 
 
+@task
 def apt(packages):
     """
-    Install one or more system packages via apt.
+    Installs one or more system packages via apt.
     """
     return sudo("apt-get install -y -q " + packages)
 
 
+@task
 def pip(packages):
     """
-    Install one or more Python packages within the virtual environment.
+    Installs one or more Python packages within the virtual environment.
     """
     with virtualenv():
         return sudo("pip install %s" % packages)
@@ -251,15 +255,16 @@ def pip(packages):
 
 def postgres(command):
     """
-    Run the given command as the postgres user.
+    Runs the given command as the postgres user.
     """
     show = not command.startswith("psql")
     return run("sudo -u root sudo -u postgres %s" % command, show=show)
 
 
+@task
 def psql(sql, show=True):
     """
-    Run SQL against the project's database.
+    Runs SQL against the project's database.
     """
     out = postgres('psql -c "%s"' % sql)
     if show:
@@ -267,24 +272,26 @@ def psql(sql, show=True):
     return out
 
 
+@task
 def backup(filename):
     """
-    Backup the database.
+    Backs up the database.
     """
     return postgres("pg_dump -Fc %s > %s" % (env.proj_name, filename))
 
 
+@task
 def restore(filename):
     """
-    Restore the database.
+    Restores the database.
     """
     return postgres("pg_restore -c -d %s %s" % (env.proj_name, filename))
 
 
+@task
 def python(code, show=True):
     """
-    Run Python code in the virtual environment, with the Django
-    project loaded.
+    Runs Python code in the project's virtual environment, with Django loaded.
     """
     setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';"
     with project():
@@ -301,9 +308,10 @@ def static():
                   "print settings.STATIC_ROOT")
 
 
+@task
 def manage(command):
     """
-    Run a Django management command.
+    Runs a Django management command.
     """
     return run("%s %s" % (env.manage, command))
 
@@ -312,11 +320,11 @@ def manage(command):
 # Install and configure #
 #########################
 
+@task
 @log_call
 def install():
     """
-    Install the base system-level and Python requirements for the
-    entire server.
+    Installs the base system and Python requirements for the entire server.
     """
     locale = "LC_ALL=%s" % env.locale
     with hide("stdout"):
@@ -330,12 +338,14 @@ def install():
     sudo("pip install virtualenv mercurial")
 
 
+@task
 @log_call
 def create():
     """
-    Create a virtual environment, pull the project's repo from
-    version control, add system-level configs for the project,
-    and initialise the database with the live host.
+    Create a new virtual environment for a project.
+    Pulls the project's repo from version control, adds system-level
+    configs for the project, and initialises the database with the
+    live host.
     """
 
     # Create virtualenv
@@ -408,6 +418,7 @@ def create():
     return True
 
 
+@task
 @log_call
 def remove():
     """
@@ -427,6 +438,7 @@ def remove():
 # Deployment #
 ##############
 
+@task
 @log_call
 def restart():
     """
@@ -440,9 +452,11 @@ def restart():
         sudo("supervisorctl start %s:gunicorn_%s" % start_args)
 
 
+@task
 @log_call
 def deploy():
     """
+    Deploy latest version of the project.
     Check out the latest version of the project from version
     control, install new requirements, sync and migrate the database,
     collect any new static assets, and restart gunicorn's work
@@ -471,9 +485,11 @@ def deploy():
     return True
 
 
+@task
 @log_call
 def rollback():
     """
+    Reverts project state to the last deploy.
     When a deploy is performed, the current state of the project is
     backed up. This includes the last commit checked out, the database,
     and all static files. Calling rollback will revert all of these to
@@ -490,12 +506,12 @@ def rollback():
     restart()
 
 
-@task(alias='all')
+@task
 @log_call
-def do_all():
+def all():
     """
-    Install everything required on a new system, from the base
-    software, up to the deployed project.
+    Installs everything required on a new system and deploy.
+    From the base software, up to the deployed project.
     """
     install()
     if create():

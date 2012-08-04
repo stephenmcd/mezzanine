@@ -22,6 +22,7 @@ import mezzanine
 from mezzanine.utils import docs
 
 docs.build_settings_docs(docs_path)
+docs.build_deploy_docs(docs_path)
 docs.build_changelog(docs_path)
 docs.build_modelgraph(docs_path)
 docs.build_requirements(docs_path)
