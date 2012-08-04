@@ -1,10 +1,24 @@
 
 from django.core.urlresolvers import resolve
 
+from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
 
 
 class PageManager(DisplayableManager):
+
+    def published(self, for_user=None):
+        """
+        Override ``DisplayableManager.published`` to exclude
+        pages with ``login_required`` set to ``True``. if the
+        user is unauthenticated and the setting
+        ``PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED`` is ``False``.
+        """
+        published = super(PageManager, self).published(for_user=for_user)
+        unauthed = for_user and not for_user.is_authenticated()
+        if unauthed and not settings.PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED:
+            published = published.exclude(login_required=True)
+        return published
 
     def with_ascendants_for_slug(self, slug, for_user=None):
         """

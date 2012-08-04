@@ -215,10 +215,13 @@ class SearchableManager(Manager):
         else:
             models = [self.model]
         all_results = []
+        user = kwargs.pop("for_user", None)
         for model in models:
-            queryset = getattr(model.objects, "published",
-                               model.objects.get_query_set)
-            all_results.extend(queryset().search(*args, **kwargs))
+            try:
+                queryset = model.objects.published(for_user=user)
+            except AttributeError:
+                queryset = model.objects.get_query_set()
+            all_results.extend(queryset.search(*args, **kwargs))
         return sorted(all_results, key=lambda r: r.result_count, reverse=True)
 
 
