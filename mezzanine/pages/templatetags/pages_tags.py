@@ -178,6 +178,6 @@ def set_page_permissions(context, token):
     setattr(page, "perms", {})
     for perm_type in ("add", "change", "delete"):
         perm = request.user.has_perm(perm_name % perm_type)
-        perm = perm and getattr(page, "can_%s" % perm_type)(request)
+        perm = perm and getattr(model, "can_%s" % perm_type)(request)
         page.perms[perm_type] = perm
     return ""
