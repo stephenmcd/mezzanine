@@ -124,6 +124,15 @@ if we want the tweets to be updated every 10 minutes::
 
 This ensures that the data is always available in the site's database
 when accessed, and allows you to control how often the Twitter API is
-queried. Note that the fabric script described earlier includes
+queried.
+
+The Mezzanine Twitter app marks a particular feed for update when a page
+containing a reference to that feed is viewed. For lightly-visited
+sites this means that the first visitor will not see recent Twitter
+updates but will only mark that feed to be updated by the cron job.
+For that case you may wish to simulate a page view using a command-line
+tool such as curl so active pages will be current for most visitors.
+
+The fabric script described earlier includes
 features for deploying templates for cron jobs, which includes the
 job for polling twitter by default.

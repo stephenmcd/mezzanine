@@ -33,6 +33,9 @@ from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
 from mezzanine.generic.models import RATING_RANGE
 from mezzanine.pages.models import Page, RichTextPage
+from mezzanine.twitter.models import Query, Tweet
+from mezzanine.twitter import (QUERY_TYPE_CHOICES, QUERY_TYPE_USER,
+                               QUERY_TYPE_LIST, QUERY_TYPE_SEARCH)
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import copy_test_to_media, run_pyflakes_for_package
@@ -483,7 +486,33 @@ class Tests(TestCase):
         response = self.client.get(pages[0].get_absolute_url())
         self.assertEqual(response.status_code, code)
 
-    def test_mulisite(self):
+    def test_twitter(self):
+        """
+        Test that twitter queries can be configured from the expected
+        mechanism of referencing a twitter feed in a template.
+        Test for new results from a direct query of Stephen McDonald's
+        twitter feed.
+        """
+        # uncomment this section to obtain tweets by directly populating
+        # the query table with information for a feed.
+        # query = Query.objects.create(type=QUERY_TYPE_USER, value="stephen_mcd",
+        #                              interested=True)
+        template = "{% load twitter_tags %}{% tweets_for_user stephen_mcd %}"
+        context = {
+        }
+        t = Template(template)
+        t.render(Context(**context))
+        queries = Query.objects.all()
+        self.assertTrue(len(queries) == 1)
+        for query in Query.objects.all():
+            query.run()
+        query_tweets = Tweets.objects.all()
+        self.assertTrue(len(query_tweets) > 0)
+        # tear down
+        Tweets.delete()
+        Query.delete()
+
+    def test_multisite(self):
         from django.conf import settings
 
         # setup
