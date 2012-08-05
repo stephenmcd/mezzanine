@@ -68,6 +68,7 @@ def build_settings_docs(docs_path, prefix=None):
     with open(os.path.join(docs_path, "settings.rst"), "w") as f:
         f.write("\n".join(lines))
 
+
 def build_deploy_docs(docs_path):
     try:
         from fabric.main import load_fabfile
