@@ -7,6 +7,13 @@ Minimum length for passwords
 
 Default: ``6``
 
+``ACCOUNTS_PROFILE_FORM_CLASS``
+-------------------------------
+
+Dotted package path and class name of profile form to use for users signing up and updating their profile, when ``mezzanine.accounts`` is installed.
+
+Default: ``'mezzanine.accounts.forms.ProfileForm'``
+
 ``ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS``
 ----------------------------------------
 
@@ -41,6 +48,13 @@ Default: ``((u'Content', ('pages.Page', 'blog.BlogPost', 'generic.ThreadedCommen
 Unregister these models from the admin.
 
 Default: ``()``
+
+``ADMIN_THUMB_SIZE``
+--------------------
+
+Size of thumbnail previews for image fields in the admin interface.
+
+Default: ``'24x24'``
 
 ``AKISMET_API_KEY``
 -------------------
@@ -133,6 +147,13 @@ Shortname for the `http://disqus.com <http://disqus.com>`_ comments service.
 
 Default: ``''``
 
+``COMMENTS_NOTIFICATION_EMAILS``
+--------------------------------
+
+A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site.
+
+Default: ``''``
+
 ``COMMENTS_NUM_LATEST``
 -----------------------
 
@@ -146,13 +167,6 @@ Default: ``5``
 If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message.
 
 Default: ``True``
-
-``COMMENTS_SEND_MANAGER_NOTIFICATION``
--------------------------------
-
-If ``True``, a notification mail is sent to site managers.
-
-Default: ``False``
 
 ``COMMENTS_UNAPPROVED_VISIBLE``
 -------------------------------
@@ -265,6 +279,13 @@ Default: ``10``
 If ``True``, the left-hand tree template for the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page.
 
 Default: ``True``
+
+``PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED``
+------------------------------------------
+
+If ``True``, pages with ``login_required`` checked will still be listed in menus and search results, for unauthenticated users. Regardless of this setting, when an unauthenticated user accesses a page with ``login_required`` checked, they'll be redirected to the login page.
+
+Default: ``False``
 
 ``PAGE_MENU_TEMPLATES``
 -----------------------
