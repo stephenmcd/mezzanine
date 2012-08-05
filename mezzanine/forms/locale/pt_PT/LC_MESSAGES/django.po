@@ -1,0 +1,287 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Hilton Medeiros <medeiros.hilton@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.net/projects/p/mezzanine/language/pt_BR/)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: admin.py:32 fields.py:30
+msgid "Email"
+msgstr "Email"
+
+#: admin.py:115
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] "1 entrada removida"
+msgstr[1] "%(count)s entradas removidas"
+
+#: admin.py:119
+msgid "View Entries"
+msgstr "Ver Entradas"
+
+#: fields.py:28
+msgid "Single line text"
+msgstr "Única linha de texto"
+
+#: fields.py:29
+msgid "Multi line text"
+msgstr "Múltiplas linhas de texto"
+
+#: fields.py:31
+msgid "Number"
+msgstr "Número"
+
+#: fields.py:32
+msgid "URL"
+msgstr "URL"
+
+#: fields.py:33
+msgid "Check box"
+msgstr "Caixa de seleção"
+
+#: fields.py:34
+msgid "Check boxes"
+msgstr "Caixas de seleção"
+
+#: fields.py:35
+msgid "Drop down"
+msgstr "Caixa suspensa"
+
+#: fields.py:36
+msgid "Multi select"
+msgstr "Múltipla seleção"
+
+#: fields.py:37
+msgid "Radio buttons"
+msgstr "Botões de opção"
+
+#: fields.py:38
+msgid "File upload"
+msgstr "Upload de arquivo"
+
+#: fields.py:39
+msgid "Date"
+msgstr "Data"
+
+#: fields.py:40 models.py:110
+msgid "Date/time"
+msgstr "Data/horário"
+
+#: fields.py:41
+msgid "Hidden"
+msgstr "Escondido"
+
+#: forms.py:28 forms.py:36 forms.py:42
+msgid "Nothing"
+msgstr "Nada"
+
+#: forms.py:29
+msgid "Contains"
+msgstr "Contém"
+
+#: forms.py:30
+msgid "Doesn't contain"
+msgstr "Não contém"
+
+#: forms.py:31 forms.py:37
+msgid "Equals"
+msgstr "Igual"
+
+#: forms.py:32 forms.py:38
+msgid "Doesn't equal"
+msgstr "Não igual"
+
+#: forms.py:43
+msgid "Is between"
+msgstr "Está entre"
+
+#: forms.py:100
+msgid "required"
+msgstr "obrigatório"
+
+#: forms.py:214
+msgid "Checked"
+msgstr "Checado"
+
+#: forms.py:214
+msgid "Not checked"
+msgstr "Não checado"
+
+#: forms.py:228 forms.py:243
+msgid "and"
+msgstr "e"
+
+#: models.py:17
+msgid "Button text"
+msgstr "Texto do botão"
+
+#: models.py:18
+msgid "Submit"
+msgstr "Enviar"
+
+#: models.py:19
+msgid "Response"
+msgstr "Resposta"
+
+#: models.py:20
+msgid "Send email"
+msgstr "Enviar email"
+
+#: models.py:21
+msgid "If checked, the form submitter will be sent an email."
+msgstr "Se checado, o usuário que enviou o form receberá um email."
+
+#: models.py:22
+msgid "From address"
+msgstr "Do endereço"
+
+#: models.py:23
+msgid "The address the email will be sent from"
+msgstr "O endereço do qual será enviado o email"
+
+#: models.py:24
+msgid "Send copies to"
+msgstr "Enviar cópias para"
+
+#: models.py:25
+msgid "One or more email addresses, separated by commas"
+msgstr "Um ou mais endereços de email, separados por vírgulas"
+
+#: models.py:27
+msgid "Subject"
+msgstr "Assunto"
+
+#: models.py:28
+msgid "Message"
+msgstr "Mensagem"
+
+#: models.py:31
+msgid "Form"
+msgstr "Form"
+
+#: models.py:32
+msgid "Forms"
+msgstr "Forms"
+
+#: models.py:49
+msgid "Label"
+msgstr "Nome"
+
+#: models.py:51
+msgid "Type"
+msgstr "Tipo"
+
+#: models.py:52
+msgid "Required"
+msgstr "Obrigatório"
+
+#: models.py:53
+msgid "Visible"
+msgstr "Visível"
+
+#: models.py:54
+msgid "Choices"
+msgstr "Escolhas"
+
+#: models.py:55
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr "Opções separadas por vírgulas onde aplicável. Se uma opção conter vírgula, cerque a opção com `acentos graves`."
+
+#: models.py:57
+msgid "Default value"
+msgstr "Valor padrão"
+
+#: models.py:59
+msgid "Placeholder Text"
+msgstr "Texto de reserva"
+
+#: models.py:61
+msgid "Help text"
+msgstr "Texto de ajuda"
+
+#: models.py:66 templates/admin/forms/entries.html:27
+msgid "Field"
+msgstr "Campo"
+
+#: models.py:67
+msgid "Fields"
+msgstr "Campos"
+
+#: models.py:113
+msgid "Form entry"
+msgstr "Entrada de form"
+
+#: models.py:114
+msgid "Form entries"
+msgstr "Entradas de form"
+
+#: models.py:128
+msgid "Form field entry"
+msgstr "Entrada de campo de form"
+
+#: models.py:129
+msgid "Form field entries"
+msgstr "Entradas de campo de form"
+
+#: templates/admin/forms/change_form.html:9
+#: templates/admin/forms/entries.html:56
+msgid "View entries"
+msgstr "Ver entradas"
+
+#: templates/admin/forms/change_form.html:10
+msgid "History"
+msgstr "Histórico"
+
+#: templates/admin/forms/change_form.html:11
+msgid "View on site"
+msgstr "Ver no site"
+
+#: templates/admin/forms/entries.html:13
+msgid "Home"
+msgstr "Início"
+
+#: templates/admin/forms/entries.html:28
+msgid "Include"
+msgstr "Inclue"
+
+#: templates/admin/forms/entries.html:29
+msgid "Filter by"
+msgstr "Filtro por"
+
+#: templates/admin/forms/entries.html:47
+msgid "All"
+msgstr "Todos"
+
+#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+msgid "Back to form"
+msgstr "Voltar ao form"
+
+#: templates/admin/forms/entries.html:57
+msgid "Export CSV"
+msgstr "Exportar CSV"
+
+#: templates/admin/forms/entries.html:59
+msgid "Entries"
+msgstr "Entradas"
+
+#: templates/admin/forms/entries.html:93
+msgid "Delete selected"
+msgstr "Remover selecionados"
+
+#: templates/admin/forms/entries.html:97
+msgid "No entries to display"
+msgstr "Nenhuma entrada para exibir"
