@@ -26,12 +26,13 @@ def deep_force_unicode(value):
     """
     Recursively call force_unicode on value.
     """
-    if isinstance(value, Promise):
-        return force_unicode(value)
-    try:
-        return type(value)(map(deep_force_unicode, value.__iter__()))
-    except AttributeError:
-        return value
+    if isinstance(value (list, tuple, set)):
+        value = type(value)(map(deep_force_unicode, value))
+    elif isinstance(value, dict):
+        value = type(value)(map(deep_force_unicode, value.items()))
+    elif isinstance(value, Promise):
+        value = force_unicode(value)
+    return value
 
 
 def build_settings_docs(docs_path, prefix=None):
