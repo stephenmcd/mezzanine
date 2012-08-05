@@ -7,15 +7,31 @@ from __future__ import with_statement
 from datetime import datetime
 import os.path
 from shutil import copyfile, move
+from string import letters
 from socket import gethostname
 from warnings import warn
 
+from django.template.defaultfilters import urlize
 from django.utils.datastructures import SortedDict
+from django.utils.encoding import force_unicode
+from django.utils.functional import Promise
 from PIL import Image
 
 from mezzanine import __version__
 from mezzanine.conf import registry
 from mezzanine.utils.importing import import_dotted_path, path_for_import
+
+
+def deep_force_unicode(value):
+    """
+    Recursively call force_unicode on value.
+    """
+    if isinstance(value, Promise):
+        return force_unicode(value)
+    try:
+        return type(value)(map(deep_force_unicode, value.__iter__()))
+    except AttributeError:
+        return value
 
 
 def build_settings_docs(docs_path, prefix=None):
@@ -39,13 +55,13 @@ def build_settings_docs(docs_path, prefix=None):
                 os.path.exists(setting_default)):
                 setting_default = dynamic
         if setting_default != dynamic:
-            setting_default = repr(setting_default)
+            setting_default = repr(deep_force_unicode(setting_default))
         lines.extend(["", settings_name, "-" * len(settings_name)])
-        lines.extend(["", setting["description"].replace("<b>", "``"
-            ).replace("</b>", "``").replace("<a href=\"", "`"
+        lines.extend(["", urlize(setting["description"]
+            ).replace("<a href=\"", "`"
             ).replace("\" rel=\"nofollow\">", " <").replace("</a>", ">`_")])
         if setting["choices"]:
-            choices = ", ".join(["%s: ``%s``" % (unicode(v), unicode(k))
+            choices = ", ".join(["%s: ``%s``" % (unicode(v), force_unicode(k))
                                  for k, v in setting["choices"]])
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
@@ -112,7 +128,24 @@ def build_changelog(docs_path, package_name="mezzanine"):
         # and if it is, pull it out and assign it as a variable.
         files = cs.files()
         new_version = False
-        description = cs.description().rstrip(".").replace("\n", "")
+        # Commit message cleanup hacks.
+        description = cs.description().rstrip(".").replace("\n", ". ")
+        while "  " in description:
+            description = description.replace("  ", " ")
+        description = description.replace(". . ", ". ").replace("...", ",")
+        while ".." in description:
+            description = description.replace("..", ".")
+        description = description.replace(":.", ":").replace("n'. t", "n't")
+        words = description.split()
+        # Format var names in commit.
+        for i, word in enumerate(words):
+            if (set("._") & set(word[:-1]) and set(letters) & set(word)
+                and "`" not in word and not word[0].isdigit()):
+                last = ""
+                if word[-1] in ",.":
+                    last, word = word[-1], word[:-1]
+                words[i] = "``%s``%s" % (word, last)
+        description = " ".join(words)
         if version_file in files:
             for line in cs[version_file].data().split("\n"):
                 if line.startswith(version_var):
