@@ -1,0 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Pedro Araújo <pedromcaraujo@gmail.com>, 2012
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-05 17:56+0100\n"
+"PO-Revision-Date: 2012-08-05 00:00:+0000\n"
+"Last-Translator: Pedro Araújo <pedromcaraujo@gmail.com>>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt_PT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:38
+msgid "Zip import"
+msgstr "Importar Zip"
+
+#: models.py:39
+msgid ""
+"Upload a zip file containing images, and they'll be imported into this "
+"gallery."
+msgstr "Enviar um ficheiro zip com as imagens e será importado nesta galeria"
+
+#: models.py:43
+msgid "Gallery"
+msgstr "Galeria"
+
+#: models.py:44
+msgid "Galleries"
+msgstr "Galerias"
+
+#: models.py:86
+msgid "File"
+msgstr "Ficheiro"
+
+#: models.py:88
+msgid "Description"
+msgstr "Descrição"
+
+#: models.py:92
+msgid "Image"
+msgstr "Imagem"
+
+#: models.py:93
+msgid "Images"
+msgstr "Imagens"
