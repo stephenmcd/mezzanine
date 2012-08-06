@@ -71,11 +71,9 @@ Commands
 
 Here's the list of commands provided in a Mezzanine project's
 ``fabfile.py``. Consult the `Fabric documentation <http://fabfile.org>`_
-for more information on working with these.
+for more information on working with these:
 
-.. automodule:: mezzanine.project_template.fabfile
-   :members:
-
+.. include:: fabfile.rst
 
 Multiplie Sites and Multi-Tenancy
 =================================

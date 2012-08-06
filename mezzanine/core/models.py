@@ -322,6 +322,30 @@ class Orderable(models.Model):
         after.update(_order=models.F("_order") - 1)
         super(Orderable, self).delete(*args, **kwargs)
 
+    def adjacent_by_order(self, direction):
+        """
+        Retrieves next object by order in the given direction.
+        """
+        lookup = self.with_respect_to()
+        lookup["_order"] = self._order + direction
+        concrete_model = base_concrete_model(Orderable, self)
+        try:
+            return concrete_model.objects.get(**lookup)
+        except concrete_model.DoesNotExist:
+            pass
+
+    def next_by_order(self):
+        """
+        Retrieves next object by order.
+        """
+        return self.adjacent_by_order(1)
+
+    def previous_by_order(self):
+        """
+        Retrieves previous object by order.
+        """
+        return self.adjacent_by_order(-1)
+
 
 class Ownable(models.Model):
     """

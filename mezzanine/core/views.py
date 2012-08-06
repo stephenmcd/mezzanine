@@ -94,9 +94,11 @@ def search(request, template="search_results.html"):
     settings.use_editable()
     query = request.GET.get("q", "")
     page = request.GET.get("page", 1)
-    results = paginate(Displayable.objects.search(query), page,
-                       settings.SEARCH_PER_PAGE, settings.MAX_PAGING_LINKS)
-    context = {"query": query, "results": results}
+    per_page = settings.SEARCH_PER_PAGE
+    max_paging_links = settings.MAX_PAGING_LINKS
+    results = Displayable.objects.search(query, for_user=request.user)
+    paginated = paginate(results, page, per_page, max_paging_links)
+    context = {"query": query, "results": paginated}
     return render(request, template, context)
 
 

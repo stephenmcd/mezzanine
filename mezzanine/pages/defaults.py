@@ -51,3 +51,14 @@ register_setting(
     editable=False,
     default=True,
 )
+
+register_setting(
+    name="PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED",
+    description=_("If ``True``, pages with ``login_required`` checked will "
+        "still be listed in menus and search results, for unauthenticated "
+        "users. Regardless of this setting, when an unauthenticated user "
+        "accesses a page with ``login_required`` checked, they'll be "
+        "redirected to the login page."),
+    editable=False,
+    default=False,
+)
