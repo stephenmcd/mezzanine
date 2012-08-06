@@ -1,0 +1,200 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Daniel Araújo <jdc.araujo@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-03 15:00+0100\n"
+"PO-Revision-Date: 2012-08-03 15:48+0100\n"
+"Last-Translator: Daniel Araújo<jdc.araujo@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt_PT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: defaults.py:20
+msgid "bit.ly username"
+msgstr "nome no bit.ly"
+
+#: defaults.py:21
+msgid "Username for http://bit.ly URL shortening service."
+msgstr "Nome para http://bit.ly, um servico de diminuir o tamanho de URLs"
+
+#: defaults.py:28
+msgid "bit.ly key"
+msgstr "chave do bit-ly"
+
+#: defaults.py:29
+msgid "Key for http://bit.ly URL shortening service."
+msgstr "Chave para http://bit.ly, um servico de diminuir o tamanho de URLs"
+
+#: defaults.py:36
+msgid "Enable featured images in blog posts"
+msgstr "Activar as imagens em destaque nos posts do blog"
+
+#: defaults.py:43
+msgid "Use date URLs"
+msgstr "Usar URLs com data"
+
+#: defaults.py:44
+msgid "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/"
+msgstr "Se ``True``, os URLs dos posts no blog irão incluir mês e ano. Exemplo: /blog/yyy/mm/slug/"
+
+#: defaults.py:52
+msgid "Blog posts per page"
+msgstr "Número de blog posts por página"
+
+#: defaults.py:53
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Número de blog posts a mostrar na página de listagem do blog."
+
+#: defaults.py:60
+msgid "Slug of the page object for the blog."
+msgstr ""
+
+#: models.py:18
+#: templates/blog/includes/filter_panel.html:30
+msgid "Categories"
+msgstr "Categorias"
+
+#: models.py:20
+msgid "Allow comments"
+msgstr "Autorizar comentários"
+
+#: models.py:22
+#: templates/blog/blog_post_list.html:111
+msgid "Comments"
+msgstr "Comentários"
+
+#: models.py:23
+msgid "Rating"
+msgstr "Rating"
+
+#: models.py:24
+msgid "Featured Image"
+msgstr "Imagem em destaque"
+
+#: models.py:31
+msgid "Blog post"
+msgstr "Blog post"
+
+#: models.py:32
+msgid "Blog posts"
+msgstr "Blog posts"
+
+#: models.py:61
+msgid "Blog Category"
+msgstr "Categoria do Blog"
+
+#: models.py:62
+msgid "Blog Categories"
+msgstr "Categorias do Blog"
+
+#: templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr "Blog rápido"
+
+#: templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr "Guardar rascunho"
+
+#: templates/blog/blog_post_detail.html:27
+#: templates/blog/blog_post_list.html:74
+msgid "Posted by"
+msgstr "Postado por"
+
+#: templates/blog/blog_post_detail.html:31
+#: templates/blog/blog_post_list.html:84
+msgid "ago"
+msgstr "atrás"
+
+#: templates/blog/blog_post_detail.html:35
+#: templates/blog/blog_post_list.html:115
+#, python-format
+msgid "1 comment"
+msgid_plural "1 comentário"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/blog/blog_post_detail.html:51
+#: templates/blog/blog_post_list.html:98
+#: templates/blog/includes/filter_panel.html:41
+msgid "Tags"
+msgstr "Etiqueta"
+
+#: templates/blog/blog_post_detail.html:62
+msgid "Share on Twitter"
+msgstr "Partilhar no Twitter"
+
+#: templates/blog/blog_post_detail.html:63
+msgid "Share on Facebook"
+msgstr "Partilhar no Facebook"
+
+#: templates/blog/blog_post_list.html:4
+#: templates/blog/blog_post_list.html:22
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/blog/blog_post_list.html:31
+msgid "Tag:"
+msgstr "Etiqueta:"
+
+#: templates/blog/blog_post_list.html:33
+msgid "Category:"
+msgstr "Categoria:"
+
+#: templates/blog/blog_post_list.html:37
+msgid "Author:"
+msgstr "Autor:"
+
+#: templates/blog/blog_post_list.html:49
+msgid "Viewing posts tagged"
+msgstr "A ver os posts marcados"
+
+#: templates/blog/blog_post_list.html:51
+msgid "Viewing posts for the category"
+msgstr "A ver os posts da categoria"
+
+#: templates/blog/blog_post_list.html:53
+msgid "Viewing posts from"
+msgstr "A ver os posts de"
+
+#: templates/blog/blog_post_list.html:56
+msgid "Viewing posts by"
+msgstr " A ver os posts de"
+
+#: templates/blog/blog_post_list.html:79
+msgid "in"
+msgstr "em"
+
+#: templates/blog/blog_post_list.html:106
+msgid "read more"
+msgstr "Ler mais"
+
+#: templates/blog/includes/filter_panel.html:5
+msgid "Recent Posts"
+msgstr "Posts recentes"
+
+#: templates/blog/includes/filter_panel.html:16
+msgid "Archive"
+msgstr "Arquivo"
+
+#: templates/blog/includes/filter_panel.html:55
+msgid "Authors"
+msgstr "Autores"
+
+#: templates/blog/includes/filter_panel.html:65
+msgid "Feeds"
+msgstr "Feeds"
+
+#: templates/blog/includes/filter_panel.html:66
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:67
+msgid "Atom"
+msgstr "Atom"
+
