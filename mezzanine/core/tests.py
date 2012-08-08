@@ -153,6 +153,13 @@ class Tests(TestCase):
         tertiary, created = secondary.children.get_or_create(title="Tertiary")
         # Force a site ID to avoid the site query when measuring queries.
         setattr(current_request(), "site_id", settings.SITE_ID)
+
+        # Test that get_ascendants() returns the right thing.
+        page = Page.objects.get(id=tertiary.id)
+        ascendants = page.get_ascendants()
+        self.assertEqual(ascendants[0].id, secondary.id)
+        self.assertEqual(ascendants[1].id, primary.id)
+
         # Test ascendants are returned in order for slug, using
         # a single DB query.
         connection.queries = []
@@ -161,6 +168,7 @@ class Tests(TestCase):
         self.assertEqual(pages_for_slug[0].id, tertiary.id)
         self.assertEqual(pages_for_slug[1].id, secondary.id)
         self.assertEqual(pages_for_slug[2].id, primary.id)
+
         # Test page.get_ascendants uses the cached attribute,
         # without any more queries.
         connection.queries = []
@@ -168,6 +176,7 @@ class Tests(TestCase):
         self.assertEqual(len(connection.queries), 0)
         self.assertEqual(ascendants[0].id, secondary.id)
         self.assertEqual(ascendants[1].id, primary.id)
+
         # Use a custom slug in the page path, and test that
         # Page.objects.with_ascendants_for_slug fails, but
         # correctly falls back to recursive queries.
