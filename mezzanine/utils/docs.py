@@ -26,7 +26,7 @@ def deep_force_unicode(value):
     """
     Recursively call force_unicode on value.
     """
-    if isinstance(value (list, tuple, set)):
+    if isinstance(value, (list, tuple, set)):
         value = type(value)(map(deep_force_unicode, value))
     elif isinstance(value, dict):
         value = type(value)(map(deep_force_unicode, value.items()))
