@@ -166,6 +166,7 @@ Third-party Modules
 The following modules have been developed outside of Mezzanine. If you
 have developed a module to integrate with Mezzanine and would like to
 list it here, send an email to the `mezzanine-users`_ mailing list.
+You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
 
   * `mezzanine-html5boilerplate`_ - Integrates the
     `html5boilerplate project`_  into Mezzanine.
@@ -360,6 +361,7 @@ Quotes
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`Transiflex`: https://www.transifex.net/projects/p/mezzanine/
+.. _`Mezzanine Grid on djangopackages.com`: http://www.djangopackages.com/grids/g/mezzanine/
 .. _`Django's internationalization`: https://docs.djangoproject.com/en/dev/topics/i18n/translation/
 .. _`Python Software Foundation`: http://www.python.org/psf/
 .. _`Urban Airship`: http://urbanairship.com/
