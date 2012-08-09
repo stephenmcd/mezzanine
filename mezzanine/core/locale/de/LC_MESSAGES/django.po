@@ -30,7 +30,7 @@ msgstr "Dieses Feld wird benötigt, wenn der Status auf Veröffentlicht gesetzt 
 #: fields.py:36
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
-msgstr "Konnte den Wert der Einstellungen nicht laden. RICHTEXT_WIDGET_CLASS %s"
+msgstr "Konnte den in settings.RICHTEXT_WIDGET_CLASS definierten Modell nicht laden: %s"
 
 #: forms.py:75 models.py:262
 msgid "Order"
@@ -218,7 +218,7 @@ msgstr "Verändern"
 #: templates/admin/includes/dynamic_inline_stacked.html:6
 #: templates/admin/includes/dynamic_inline_tabular.html:6
 msgid "Add another"
-msgstr "Weiter hinuifügen"
+msgstr "Weiter hinzufügen"
 
 #: templates/admin/includes/recent_actions.html:4
 msgid "Recent Actions"
