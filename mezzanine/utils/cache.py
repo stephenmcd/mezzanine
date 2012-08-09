@@ -15,7 +15,7 @@ def _hashed_key(key):
     Hash keys when talking directly to the cache API, to avoid
     keys longer than the backend supports (eg memcache limit is 255)
     """
-    return md5(key).hexdigest()
+    return md5(key.encode("utf-8")).hexdigest()
 
 
 def cache_set(key, value, timeout=None, refreshed=False):
