@@ -38,7 +38,7 @@ class Page(BasePage):
     class Meta:
         verbose_name = _("Page")
         verbose_name_plural = _("Pages")
-        ordering = ("titles",)
+        ordering = ("_order", "titles",)
         order_with_respect_to = "parent"
 
     def __unicode__(self):
