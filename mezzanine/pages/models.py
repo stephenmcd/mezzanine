@@ -95,8 +95,9 @@ class Page(BasePage):
             # query, which will occur if the slugs for each of the pages
             # have not been customised.
             if self.slug:
-                args = (self.slug, for_user)
-                pages = Page.objects.with_ascendants_for_slug(**args)
+                kwargs = {"for_user": for_user}
+                pages = Page.objects.with_ascendants_for_slug(self.slug,
+                                                              **kwargs)
                 self._ascendants = pages[0]._ascendants
             else:
                 self._ascendants = []
