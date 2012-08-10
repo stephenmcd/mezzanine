@@ -1,9 +1,9 @@
 {% load mezzanine_tags %}
 
 {% editable_loader %}
-
 <script>
 {% if settings.GOOGLE_ANALYTICS_ID %}
+{% if not settings.HIDE_ANALYTICS_IF_STAFF or not request.user.is_staff %}
 var _gaq = _gaq || [['_trackPageview']];
 _gaq.unshift(['_setAccount', '{{ settings.GOOGLE_ANALYTICS_ID }}']);
 (function(d, t) {
@@ -13,5 +13,6 @@ _gaq.unshift(['_setAccount', '{{ settings.GOOGLE_ANALYTICS_ID }}']);
     g.src = '//www.google-analytics.com/ga.js';
     s.parentNode.insertBefore(g, s);
 })(document, 'script');
+{% endif %}
 {% endif %}
 </script>

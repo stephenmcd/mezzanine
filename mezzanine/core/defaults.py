@@ -149,6 +149,16 @@ register_setting(
 )
 
 register_setting(
+    name="HIDE_ANALYTICS_IF_STAFF",
+    label=_("Hide Google Analytics if user is staff"),
+    editable=True,
+    description=_("Do not show Google Analytics if user is part of the "
+                  "staff team"),
+    default=False,
+)
+
+
+register_setting(
     name="HOST_THEMES",
     description=_("A sequence mapping host names to themes, allowing "
                   "different templates to be served per HTTP hosts "
@@ -413,7 +423,7 @@ register_setting(
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
         "DEV_SERVER", "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED",
-        "GOOGLE_ANALYTICS_ID", "JQUERY_FILENAME", "LOGIN_URL", "LOGOUT_URL",
+        "GOOGLE_ANALYTICS_ID", "HIDE_ANALYTICS_IF_STAFF", "JQUERY_FILENAME", "LOGIN_URL", "LOGOUT_URL",
         "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE", "RATINGS_MAX",
     ),
 )
