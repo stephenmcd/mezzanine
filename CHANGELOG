@@ -1,3 +1,15 @@
+Version 1.2.1 (Aug 11, 2012)
+----------------------------
+
+  * Bump min Django version to 1.3.3 - Stephen McDonald
+  * Fix dict handling in changelog builder (not actually used) - Stephen McDonald
+  * Don't rebuild host var in ``static_proxy``. Closes #361 - Stephen McDonald
+  * Fix bug in ``Page.get_ascendants()`` - pass a map to. ``PageManager.with_ascendants_for_slug`` instead of a tuple - Alex Hill
+  * Added more tests for ``Page.get_ascendants()`` - Alex Hill
+  * Allow unicode cache keys - Stephen McDonald
+  * Bump ``grappelli_safe`` version to 0.2.8 - Stephen McDonald
+  * Added a check in ``footer_scripts`` to only include the analytics tracking code if user is not part of the staff team - Pedro Araújo
+
 Version 1.2.0 (Aug 05, 2012)
 ----------------------------
 
