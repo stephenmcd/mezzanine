@@ -190,6 +190,15 @@ class BaseImporterCommand(BaseCommand):
             self.add_meta(post, tags, prompt, verbosity, old_url)
 
         # Create any pages imported (Wordpress can include pages)
+        in_menus = []
+        footer = [menu[0] for menu in settings.PAGE_MENU_TEMPLATES
+                  if menu[-1] == "pages/menus/footer.html"]
+        if options["in_navigation"]:
+            in_menus = [menu[0] for menu in settings.PAGE_MENU_TEMPLATES]
+            if footer and not options["in_footer"]:
+                in_menus.remove(footer[0])
+        elif footer and options["in_footer"]:
+            in_menus = footer
         parents = []
         for page in self.pages:
             tags = page.pop("tags")
@@ -198,8 +207,7 @@ class BaseImporterCommand(BaseCommand):
             old_parent_id = page.pop("old_parent_id")
             page = self.trunc(RichTextPage, prompt, **page)
             page["status"] = CONTENT_STATUS_PUBLISHED
-            page["in_navigation"] = options["in_navigation"] or False
-            page["in_footer"] = options["in_footer"] or False
+            page["in_menus"] = in_menus
             page, created = RichTextPage.objects.get_or_create(**page)
             if created and verbosity >= 1:
                 print "Imported page: %s" % page
