@@ -9,6 +9,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils.html import strip_tags
 
 from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
 from mezzanine.pages.models import RichTextPage
