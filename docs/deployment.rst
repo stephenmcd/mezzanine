@@ -78,7 +78,7 @@ for more information on working with these:
 Multiple Sites and Multi-Tenancy
 =================================
 
-Mezzanine makes use of of Django's ``sites`` app to support multiple
+Mezzanine makes use of Django's ``sites`` app to support multiple
 sites in a single project. This functionality is always "turned on" in
 Mezzanine: a single ``Site`` record always exists, and is referenced
 when retrieving site related data, which most content in Mezzanine falls
