@@ -106,7 +106,7 @@ def blog_post_detail(request, slug, year=None, month=None, day=None,
     return render(request, templates, context)
 
 
-def blog_post_feed(request, format):
+def blog_post_feed(request, format, tag=None, category=None):
     """
     Blog posts feeds - handle difference between Django 1.3 and 1.4
     """
@@ -120,6 +120,10 @@ def blog_post_feed(request, format):
         from django.contrib.syndication.views import feed
     except ImportError:
         # Django >= 1.4
-        return blog_feed_dict[format]()(request)
+        return blog_feed_dict[format](tag=tag, category=category)(request)
     else:
+        if tag:
+            format += "/tag/%s" % tag
+        elif category:
+            format += "/category/%s" % category
         return feed(request, format, feed_dict=blog_feed_dict)

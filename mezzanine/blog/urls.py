@@ -4,6 +4,10 @@ from django.conf.urls.defaults import patterns, url
 
 # Blog patterns.
 urlpatterns = patterns("mezzanine.blog.views",
+    url("^feeds/(?P<format>.*)/category/(?P<tag>.*)/$", "blog_post_feed",
+            name="blog_post_feed_category"),
+    url("^feeds/(?P<format>.*)/tag/(?P<tag>.*)/$", "blog_post_feed",
+            name="blog_post_feed_tag"),
     url("^feeds/(?P<format>.*)/$", "blog_post_feed", name="blog_post_feed"),
     url("^tag/(?P<tag>.*)/$", "blog_post_list", name="blog_post_list_tag"),
     url("^category/(?P<category>.*)/$", "blog_post_list",
