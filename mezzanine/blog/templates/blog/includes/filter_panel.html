@@ -63,7 +63,19 @@
 {% endif %}
 
 <h3>{% trans "Feeds" %}</h3>
-<a href="{% url blog_post_feed "rss" %}">{% trans "RSS" %}</a> /
-<a href="{% url blog_post_feed "atom" %}">{% trans "Atom" %}</a>
-
-
+{% if tag %}
+    <a href="{% url blog_post_feed_tag tag "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url blog_post_feed_tag tag "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% if category %}
+    <a href="{% url blog_post_feed_category category.slug "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url blog_post_feed_category category.slug "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% if author %}
+    <a href="{% url blog_post_feed_author author.username "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url blog_post_feed_author author.username "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% if not tag and not category and not author %}
+    <a href="{% url blog_post_feed "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url blog_post_feed "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
