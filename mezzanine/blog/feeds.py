@@ -26,6 +26,8 @@ class PostsRSS(Feed):
         removed, fall back to the ``SITE_TITLE`` and ``SITE_TAGLINE``
         settings.
         """
+        self.tag = kwargs.pop("tag", None)
+        self.category = kwargs.pop("category", None)
         super(PostsRSS, self).__init__(*args, **kwargs)
         self._public = True
         try:
@@ -42,6 +44,11 @@ class PostsRSS(Feed):
                 settings.use_editable()
                 self.title = settings.SITE_TITLE
                 self.description = settings.SITE_TAGLINE
+
+    def get_feed(self, param):
+        attr, value = param.split("/", 1)
+        setattr(self, attr, value)
+        return super(PostsRSS, self).get_feed(None)
 
     def link(self):
         return reverse("blog_post_feed", kwargs={"format": "rss"})
