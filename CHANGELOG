@@ -1,3 +1,14 @@
+Version 1.2.2 (Aug 15, 2012)
+----------------------------
+
+  * Update page menu handling in blog importer - Stephen McDonald
+  * Fix missing import in blog importer - Stephen McDonald
+  * Ensure ``extra_context`` in SingletonAdmin is always a keyword arg. Closes #370 - Stephen McDonald
+  * Clean up deploy doc - kevinlondon
+  * Initial layout for filtering RSS feeds by tag/category - Stephen McDonald
+  * Final bits for author/tag/category rss feeds in the blog app - Stephen McDonald
+  * Fixed auth for password reset - Stephen McDonald
+
 Version 1.2.1 (Aug 11, 2012)
 ----------------------------
 
