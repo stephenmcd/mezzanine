@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.db.models import AutoField
 from django.forms import ValidationError
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 
@@ -139,6 +140,17 @@ class SingletonAdmin(admin.ModelAdmin):
     instance exists, and to the add view when it doesn't.
     """
 
+    def handle_save(self, request, response):
+        """
+        Handles redirect back to the dashboard when save is clicked
+        (eg not save and continue editing), by checking for a redirect
+        response, which only occurs if the form is valid.
+        """
+        form_valid = isinstance(response, HttpResponseRedirect)
+        if request.POST.get("_save") and form_valid:
+            return redirect("admin:index")
+        return response
+
     def add_view(self, *args, **kwargs):
         """
         Redirect to the change view if the singleton instance exists.
@@ -149,9 +161,7 @@ class SingletonAdmin(admin.ModelAdmin):
             kwargs.setdefault("extra_context", {})
             kwargs["extra_context"]["singleton"] = True
             response = super(SingletonAdmin, self).add_view(*args, **kwargs)
-            if args[0].POST.get("_save"):
-                response = redirect("admin:index")
-            return response
+            return self.handle_save(args[0], response)
         return redirect(admin_url(self.model, "change", singleton.id))
 
     def changelist_view(self, *args, **kwargs):
@@ -176,6 +186,4 @@ class SingletonAdmin(admin.ModelAdmin):
         kwargs.setdefault("extra_context", {})
         kwargs["extra_context"]["singleton"] = self.model.objects.count() == 1
         response = super(SingletonAdmin, self).change_view(*args, **kwargs)
-        if args[0].POST.get("_save"):
-            response = redirect("admin:index")
-        return response
+        return self.handle_save(args[0], response)
