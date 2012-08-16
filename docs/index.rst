@@ -14,7 +14,8 @@ powered by Mezzanine <http://mezzanine.jupo.org/sites/>`_.
     much. If you're new to Django, you'll need to work through the
     `Django tutorial <https://docs.djangoproject.com/en/dev/intro/tutorial01/>`_
     before being able to understand the concepts used throughout the
-    Mezzanine documentation.
+    Mezzanine documentation. *A mantra for working with Mezzanine:
+    mezz-is-django* - `Ken Bolton <http://bscientific.org/>`_, long-time Mezzanine contributor.
 
 **Front-end developers** can read about how to set up templates for
 specific :doc:`device-handling` such as phones and tablets. Mezzanine
