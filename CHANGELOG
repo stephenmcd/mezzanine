@@ -1,3 +1,12 @@
+Version 1.2.3 (Aug 22, 2012)
+----------------------------
+
+  * Only hide delete button in the submit row for SingletonAdmin. Closes #376 - Stephen McDonald
+  * Correctly handle invalid form fields when save is clicked in SingletonAdmin. Closes #375 - Stephen McDonald
+  * Added Ken Bolton's quote to docs homepage - mezz is django - Stephen McDonald
+  * Fix kwargs usage to work with other auth backends - David Novakovic
+  * Bump filebrowser version for security fix - Stephen McDonald
+
 Version 1.2.2 (Aug 15, 2012)
 ----------------------------
 
