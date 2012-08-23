@@ -52,7 +52,7 @@ $(function() {
         console.log('clicked');
         $.each($(parentSelector), function(i, parent) {
             var order = 0;
-            $.each($(parent).find('._order input'), function(i, field) {
+            $.each($(parent).find('.field-_order input'), function(i, field) {
                 var parent = $(field).parent().parent();
                 if (window.__grappelli_installed) {
                     parent = parent.parent();
