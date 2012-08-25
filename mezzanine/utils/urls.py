@@ -21,6 +21,7 @@ def admin_url(model, url, object_id=None):
         args = (object_id,)
     return reverse(url, args=args)
 
+
 def home_slug():
     """
     Returns the slug arg defined for the ``home`` urlpattern, which
@@ -32,6 +33,7 @@ def home_slug():
         return resolve(slug).kwargs["slug"]
     except KeyError:
         return slug
+
 
 def slugify(s):
     """

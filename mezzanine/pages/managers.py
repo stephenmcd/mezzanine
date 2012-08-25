@@ -1,6 +1,4 @@
 
-from django.core.urlresolvers import resolve
-
 from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.utils.urls import home_slug
