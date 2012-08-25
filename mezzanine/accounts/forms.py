@@ -170,7 +170,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         return user
 
 
-class PasswordResetForm(forms.Form):
+class PasswordResetForm(Html5Mixin, forms.Form):
     """
     Validates the user's username or email for sending a login
     token for authenticating to change their password.
