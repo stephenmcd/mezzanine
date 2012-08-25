@@ -3,6 +3,7 @@ from django.core.urlresolvers import resolve
 
 from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
+from mezzanine.utils.urls import home_slug
 
 
 class PageManager(DisplayableManager):
@@ -54,11 +55,7 @@ class PageManager(DisplayableManager):
         """
 
         if slug == "/":
-            try:
-                slug = resolve("/").kwargs["slug"]
-            except KeyError:
-                pass
-            slugs = [slug]
+            slugs = [home_slug()]
         else:
             # Create a list of slugs within this slug,
             # eg: ['about', 'about/team', 'about/team/mike']
