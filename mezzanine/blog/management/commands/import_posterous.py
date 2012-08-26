@@ -1,13 +1,10 @@
 from mezzanine.blog.management.base import BaseImporterCommand
 from optparse import make_option
 from urllib import urlopen, urlencode
-import requests
 import json
 import time
 from datetime import datetime
 import sys
-# import requests_cache
-# requests_cache.configure('demo_cache')
 
 class PosterousImportException(Exception):
     pass
@@ -31,6 +28,7 @@ class Command(BaseImporterCommand):
     help = "Import Posterous blog posts into the blog app."
 
     def request(self, path, data=None):
+        import requests
         my_config = {'verbose': sys.stderr}
         data = data or {}
         params = {
