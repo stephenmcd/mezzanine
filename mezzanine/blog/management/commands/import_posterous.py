@@ -25,7 +25,7 @@ class Command(BaseImporterCommand):
         make_option("-p", "--password", dest="password",
             help="Posterous Password"),
         make_option("-d", "--hostname", dest="hostname",
-            help="Posterous Blog Hostname")
+            help="Posterous Blog Hostname (no http.. eg. 'foo.com')"
     )
     help = "Import Posterous blog posts into the blog app."
 
