@@ -120,7 +120,7 @@ Dependencies
 ------------
  * Kenneth Reitz's `requests <http://docs.python-requests.org/en/latest/index.html>`_
 
- Simply run ``import_posterous`` command with the right params. You need to get your API key from the `Posterous API Reference <https://posterous.com/api>`_.
+Simply run ``import_posterous`` command with the right params. You need to get your API key from the `Posterous API Reference <https://posterous.com/api>`_.
 
     $ python manage.py import_posterous --mezzanine-user=.. --api-token=.. --username=your_posterous_login --password=your_posterous_password --hostname=the_hostname_for_your_blog
 
