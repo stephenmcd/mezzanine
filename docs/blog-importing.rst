@@ -112,6 +112,19 @@ contains the URL for your RSS feed::
 
     $ python manage.py import_rss --mezzanine-user=.. --rss-url=url
 
+Importing from Posterous
+========================
+
+Dependencies
+------------
+ * Kenneth Reitz's `requests <http://docs.python-requests.org/en/latest/index.html>`_
+
+Simply run ``import_posterous`` command with the right params. You need to get your API key from the `Posterous API Reference <https://posterous.com/api>`_::
+
+    $ python manage.py import_posterous --mezzanine-user=.. --api-token=.. --posterous-user=your_posterous_login --posterous-pass=your_posterous_password
+
+If you have more than one blog on your posterous account check out the ``-posterous-host`` option. Be aware that like the tumblr importer, this leaves your media assets on the posterous servers. If you're worried about posterous being shut down you may want want to have a closer look at the API to actually export your media.
+
 Importer API - Adding New Importers
 ===================================
 
