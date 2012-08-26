@@ -121,7 +121,7 @@ Dependencies
 
 Simply run ``import_posterous`` command with the right params. You need to get your API key from the `Posterous API Reference <https://posterous.com/api>`_::
 
-    $ python manage.py import_posterous --mezzanine-user=.. --api-token=.. --username=your_posterous_login --password=your_posterous_password --hostname=the_hostname_for_your_blog
+    $ python manage.py import_posterous --mezzanine-user=.. --api-token=.. --posterous-user=your_posterous_login --posterous-pass=your_posterous_password --posterous-host=the_hostname_for_your_blog
 
 Be aware that like the tumblr importer, this leaves your media assets on the posterous servers. If you're worried about posterous being shut down you may want want to have a closer look at the API to actually export your media.
 

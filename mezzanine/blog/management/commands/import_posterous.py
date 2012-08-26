@@ -20,12 +20,13 @@ class Command(BaseImporterCommand):
     option_list = BaseImporterCommand.option_list + (
         make_option("-a", "--api-token", dest="api_token",
             help="Posterous API Key"),
-        make_option("-u", "--username", dest="username",
+        make_option("-u", "--posterous-user", dest="username",
             help="Posterous Username"),
-        make_option("-p", "--password", dest="password",
+        make_option("-p", "--posterous-pass", dest="password",
             help="Posterous Password"),
-        make_option("-d", "--hostname", dest="hostname",
+        make_option("-d", "--posterous-host", dest="hostname",
             help="Posterous Blog Hostname (no http.. eg. 'foo.com')"
+        ),
     )
     help = "Import Posterous blog posts into the blog app."
 
@@ -53,10 +54,16 @@ class Command(BaseImporterCommand):
         hostname = options.get("hostname")
 
         sites = self.request('sites')
-        for site in sites:
-            if site['full_hostname'] == hostname:
+        site = None
+        for s in sites:
+            if s['full_hostname'] == hostname:
                 time.sleep(2)
                 break
+        if not hostname and not site:
+            if len(sites) == 1:
+                site = sites[0]
+            else:
+                raise PosterousImportException("Please pass your blog hostname if you have more than one blog on your posterous account.")
 
         path ='sites/%s/posts' % site['id']
         page = 1
