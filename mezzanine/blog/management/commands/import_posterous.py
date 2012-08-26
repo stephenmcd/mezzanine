@@ -67,7 +67,7 @@ class Command(BaseImporterCommand):
                 site = sites[0]
             else:
                 raise PosterousImportException(
-                    "Please pass your blog hostname if you have more than" \
+                    "Please pass your blog hostname if you have more than"
                     " one blog on your posterous account."
                 )
 
