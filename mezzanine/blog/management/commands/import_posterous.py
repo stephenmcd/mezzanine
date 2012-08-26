@@ -1,13 +1,14 @@
 from mezzanine.blog.management.base import BaseImporterCommand
 from optparse import make_option
-from urllib import urlopen, urlencode
 import json
 import time
 from datetime import datetime
 import sys
 
+
 class PosterousImportException(Exception):
     pass
+
 
 class Command(BaseImporterCommand):
     """
@@ -36,7 +37,11 @@ class Command(BaseImporterCommand):
         }
         params.update(data)
         url = "http://posterous.com/api/2/%s" % path
-        r = requests.get(url, data=params, auth=(self.username, self.password), config=my_config)
+        r = requests.get(url,
+            data=params,
+            auth=(self.username, self.password),
+            config=my_config
+        )
         if r.text.startswith("403"):
             raise PosterousImportException(r.text)
         try:
@@ -61,9 +66,12 @@ class Command(BaseImporterCommand):
             if len(sites) == 1:
                 site = sites[0]
             else:
-                raise PosterousImportException("Please pass your blog hostname if you have more than one blog on your posterous account.")
+                raise PosterousImportException(
+                    "Please pass your blog hostname if you have more than" \
+                    " one blog on your posterous account."
+                )
 
-        path ='sites/%s/posts' % site['id']
+        path = 'sites/%s/posts' % site['id']
         page = 1
         while True:
             posts = self.request(path, data={'page': page})
@@ -75,7 +83,10 @@ class Command(BaseImporterCommand):
                 title = post['title']
                 old_url = post['full_url']
                 tags = [t['name'] for t in post['tags']]
-                pub_date = datetime.strptime(post['display_date'][:-6], "%Y/%m/%d %H:%M:%S")
+                pub_date = datetime.strptime(
+                    post['display_date'][:-6],
+                    "%Y/%m/%d %H:%M:%S"
+                )
                 self.add_post(
                     title=title,
                     content=content,
@@ -91,7 +102,10 @@ class Command(BaseImporterCommand):
                 for comment in comments:
                     post = None
                     email = ""
-                    pub_date = datetime.strptime(comment['created_at'][:-6], "%Y/%m/%d %H:%M:%S")
+                    pub_date = datetime.strptime(
+                        comment['created_at'][:-6],
+                        "%Y/%m/%d %H:%M:%S"
+                    )
                     website = ""
                     if 'user' in comment:
                         website = comment['user']['profile_url']
@@ -110,5 +124,3 @@ class Command(BaseImporterCommand):
                     )
             page += 1
             time.sleep(2)
-
-
