@@ -66,8 +66,6 @@ class Command(BaseImporterCommand):
             if not posts:
                 break
             for post in posts:
-                # import pprint
-                # print pprint.pprint(post)
                 content = post['body_full']
                 title = post['title']
                 old_url = post['full_url']
@@ -80,6 +78,31 @@ class Command(BaseImporterCommand):
                     tags=tags,
                     old_url=old_url
                 )
+                if not post['comments_count']:
+                    continue
+                path = "sites/%s/posts/%s/comments" % (site['id'], post['id'])
+                time.sleep(2)
+                comments = self.request(path)
+                for comment in comments:
+                    post = None
+                    email = ""
+                    pub_date = datetime.strptime(comment['created_at'][:-6], "%Y/%m/%d %H:%M:%S")
+                    website = ""
+                    if 'user' in comment:
+                        website = comment['user']['profile_url']
+                        name = comment['user']['display_name']
+                    else:
+                        name = comment['name']
+                        website = "http://twitter.com/%s" % name
+                    body = comment['body']
+                    self.add_comment(
+                        post=post,
+                        name=name,
+                        email=email,
+                        pub_date=pub_date,
+                        website=website,
+                        body=body
+                    )
             page += 1
             time.sleep(2)
 
