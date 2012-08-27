@@ -92,14 +92,17 @@ def page_menu(context, token):
     context["page_branch"] = context["menu_pages"].get(parent_page_id, [])
     context["page_branch_in_menu"] = False
     for page in context["page_branch"]:
-        # footer/nav for backward compatibility.
+        # footer/nav for backward compatibility. Also check that in_menus
+        # has a value, as it may not have been populated correctly
+        # if migrations weren't run when it was added.
         page.in_footer = page.in_navigation = page.in_menu = True
-        for i, l, t in settings.PAGE_MENU_TEMPLATES:
-            if not unicode(i) in page.in_menus and t == template_name:
-                page.in_navigation = page.in_menu = False
-                if "footer" in template_name:
-                    page.in_footer = False
-                break
+        if page.in_menus is not None:
+            for i, l, t in settings.PAGE_MENU_TEMPLATES:
+                if not unicode(i) in page.in_menus and t == template_name:
+                    page.in_navigation = page.in_menu = False
+                    if "footer" in template_name:
+                        page.in_footer = False
+                    break
         if page.in_menu:
             context["page_branch_in_menu"] = True
     # Backwards compatibility
