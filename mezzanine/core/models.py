@@ -15,7 +15,7 @@ from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.timezone import now
-from mezzanine.utils.urls import slugify
+from mezzanine.utils.urls import admin_url, slugify
 
 
 class SiteRelated(models.Model):
@@ -207,6 +207,9 @@ class Displayable(Slugged, MetaData):
         if self.publish_date is None:
             self.publish_date = now()
         super(Displayable, self).save(*args, **kwargs)
+
+    def get_admin_url(self):
+        return admin_url(self, "change", self.id)
 
     def publish_date_since(self):
         """

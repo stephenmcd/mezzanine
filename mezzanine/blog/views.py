@@ -101,7 +101,7 @@ def blog_post_detail(request, slug, year=None, month=None, day=None,
     """
     blog_posts = BlogPost.objects.published(for_user=request.user)
     blog_post = get_object_or_404(blog_posts, slug=slug)
-    context = {"blog_post": blog_post}
+    context = {"blog_post": blog_post, "editable_obj": blog_post}
     templates = [u"blog/blog_post_detail_%s.html" % unicode(slug), template]
     return render(request, templates, context)
 

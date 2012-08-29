@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
-from mezzanine.utils.urls import admin_url, path_to_slug, slugify
+from mezzanine.utils.urls import path_to_slug, slugify
 
 
 class BasePage(Orderable, Displayable):
@@ -60,9 +60,6 @@ class Page(BasePage):
             return reverse("home")
         else:
             return reverse("page", kwargs={"slug": slug})
-
-    def get_admin_url(self):
-        return admin_url(self, "change", self.id)
 
     def save(self, *args, **kwargs):
         """
