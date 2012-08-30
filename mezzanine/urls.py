@@ -53,13 +53,6 @@ if getattr(settings, "PACKAGE_NAME_FILEBROWSER") in settings.INSTALLED_APPS:
                                         settings.PACKAGE_NAME_FILEBROWSER)),
     )
 
-# Grappelli admin skin.
-_pattern = urlsplit(settings.ADMIN_MEDIA_PREFIX).path.strip("/").split("/")[0]
-if getattr(settings, "PACKAGE_NAME_GRAPPELLI") in settings.INSTALLED_APPS:
-    urlpatterns += patterns("",
-        ("^grappelli/", include("%s.urls" % settings.PACKAGE_NAME_GRAPPELLI)),
-    )
-
 # Miscellanous Mezzanine patterns.
 urlpatterns += patterns("",
     ("^", include("mezzanine.core.urls")),
