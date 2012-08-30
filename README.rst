@@ -285,6 +285,8 @@ Sites Using Mezzanine
   * `Pie Monster <http://piemonster.me>`_
   * `Cotton On Asia <http://asia.cottonon.com/>`_
   * `Ivan Diao <http://www.adieu.me>`_
+  * `Super Top Secret <http://www.wearetopsecret.com/>`_
+  * `Jaybird Sport <http://www.jaybirdgear.com/>`_
 
 Quotes
 ======
