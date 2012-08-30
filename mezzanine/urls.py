@@ -4,8 +4,6 @@ all the various Mezzanine apps, third-party apps like Grappelli and
 filebrowser.
 """
 
-from urlparse import urlsplit
-
 from django.conf.urls.defaults import patterns, include
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
