@@ -51,6 +51,18 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
             })
         return (url_name, (), kwargs)
 
+    # These methods are wrappers for keyword and category access.
+    # For Django 1.3, we manually assign keywords and categories
+    # in the blog_post_list view, since we can't use Django 1.4's
+    # prefetch_related method. Once we drop support for Django 1.3,
+    # these can probably be removed.
+
+    def category_list(self):
+        return getattr(self, "_categories", self.categories.all())
+
+    def keyword_list(self):
+        return getattr(self, "_keywords", self.keywords.all())
+
 
 class BlogCategory(Slugged):
     """
