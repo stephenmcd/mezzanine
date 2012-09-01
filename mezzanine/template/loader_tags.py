@@ -56,10 +56,10 @@ class OverExtendsNode(ExtendsNode):
         if context_name not in context:
             context[context_name] = {}
         if name not in context[context_name]:
-            # os.path.abspath is needed under uWSGI
-            all_dirs = list(settings.TEMPLATE_DIRS) + \
-                       map(os.path.abspath, app_template_dirs)
-            context[context_name][name] = all_dirs
+            all_dirs = list(settings.TEMPLATE_DIRS) + list(app_template_dirs)
+            # os.path.abspath is needed under uWSGI, and also ensures we
+            # have consistent path separators across different OSes.
+            context[context_name][name] = map(os.path.abspath, all_dirs)
 
         # Build a list of template loaders to use. For loaders that wrap
         # other loaders like the ``cached`` template loader, unwind its
@@ -84,7 +84,8 @@ class OverExtendsNode(ExtendsNode):
                 # get_parent, and not when we're peeking during the
                 # second call.
                 if not peeking:
-                    context[context_name][name].remove(path[:-len(name) - 1])
+                    remove_path = os.path.abspath(path[:-len(name) - 1])
+                    context[context_name][name].remove(remove_path)
                 return Template(source)
         raise TemplateDoesNotExist(name)
 
