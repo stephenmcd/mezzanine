@@ -109,11 +109,11 @@ and None (no filtering occurs). This is implemented via the
 If your situation is one where your staff members are completely
 trusted, and custom HTML within WYSIWYG fields is required, then you
 can modify the filter level accordingly. Further customisation is
-possible via the ``RICHTEXT_ALLOWED_TAGS`` and
-``RICHTEXT_ALLOWED_ATTRIBUTES`` settings, which can have extra allowed
-values appended to using the ``append`` argument in Mezzanine's
-settings API. See the :ref:`registering-settings` section for more
-information.
+possible via the ``RICHTEXT_ALLOWED_TAGS``,
+``RICHTEXT_ALLOWED_ATTRIBUTES`` and ``RICHTEXT_ALLOWED_STYLES``
+settings, which can have extra allowed values appended to using
+the ``append`` argument in Mezzanine's settings API. See the
+:ref:`registering-settings` section for more information.
 
 `Back to top <#>`_
 
