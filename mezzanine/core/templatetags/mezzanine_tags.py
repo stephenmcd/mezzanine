@@ -249,42 +249,45 @@ def thumbnail(image_url, width, height, quality=95):
         # Requested image does not exist, just return its URL.
         return image_url
 
-    image = Image.open(default_storage.open(image_url))
-    image_info = image.info
-    width = int(width)
-    height = int(height)
-
-    # If already right size, don't do anything.
-    if width == image.size[0] and height == image.size[1]:
-        return image_url
-    # Set dimensions.
-    if width == 0:
-        width = image.size[0] * height / image.size[1]
-    elif height == 0:
-        height = image.size[1] * width / image.size[0]
-    if image.mode not in ("L", "RGBA"):
-        image = image.convert("RGBA")
-    # Required for progressive jpgs.
-    ImageFile.MAXBLOCK = image.size[0] * image.size[1]
     try:
-        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
-        image = image.save(thumb_path, filetype, quality=quality, **image_info)
-        # Push a remote copy of the thumbnail if MEDIA_URL is
-        # absolute.
-        if "://" in settings.MEDIA_URL:
-            with open(thumb_path, "r") as f:
-                default_storage.save(thumb_url, File(f))
-    except Exception:
-        # If an error occurred, a corrupted image may have been saved,
-        # so remove it, otherwise the check for it existing will just
-        # return the corrupted image next time it's requested.
-        try:
-            os.remove(thumb_path)
-        except Exception:
-            pass
-        return image_url
-    return thumb_url
+        image = Image.open(default_storage.open(image_url))
+        image_info = image.info
+        width = int(width)
+        height = int(height)
 
+        # If already right size, don't do anything.
+        if width == image.size[0] and height == image.size[1]:
+            return image_url
+        # Set dimensions.
+        if width == 0:
+            width = image.size[0] * height / image.size[1]
+        elif height == 0:
+            height = image.size[1] * width / image.size[0]
+        if image.mode not in ("L", "RGBA"):
+            image = image.convert("RGBA")
+        # Required for progressive jpgs.
+        ImageFile.MAXBLOCK = image.size[0] * image.size[1]
+        try:
+            image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
+            image = image.save(thumb_path, filetype, quality=quality, **image_info)
+            # Push a remote copy of the thumbnail if MEDIA_URL is
+            # absolute.
+            if "://" in settings.MEDIA_URL:
+                with open(thumb_path, "r") as f:
+                    default_storage.save(thumb_url, File(f))
+        except Exception:
+            # If an error occurred, a corrupted image may have been saved,
+            # so remove it, otherwise the check for it existing will just
+            # return the corrupted image next time it's requested.
+            try:
+                os.remove(thumb_path)
+            except Exception:
+                pass
+            return image_url
+        return thumb_url
+    except Exception, e:
+        # cannot identify image file
+        return ''
 
 @register.inclusion_tag("includes/editable_loader.html", takes_context=True)
 def editable_loader(context):
