@@ -46,10 +46,11 @@ def form_processor(request, page):
         if email_to and page.form.send_email:
             send_mail_template(subject, "email/form_response", email_from,
                                email_to, context, fail_silently=settings.DEBUG)
+
         if not settings.FORMS_DISABLE_SEND_FROM_EMAIL_FIELD:
             # Send from the email entered,
             # unless FORMS_DISABLE_SEND_FROM_EMAIL_FIELD is True.
-            email_from = email_to or email_from
+            email_from = email_from or email_to
         email_copies = page.form.email_copies.split(",")
         email_copies = [e.strip() for e in email_copies if e.strip()]
         if email_copies:
