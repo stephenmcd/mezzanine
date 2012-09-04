@@ -19,6 +19,15 @@ from django.db.models.signals import class_prepared
 from mezzanine.boot.lazy_admin import LazyAdminSite
 from mezzanine.utils.importing import import_dotted_path
 
+from django import get_version
+
+
+if get_version() < '1.5':
+    # Ensure forwards compatibilty with Django 1.5's url templatetag,
+    # without having to add {% load url from future %} to each template.
+    import django.template
+    django.template.add_to_builtins('django.templatetags.future')
+
 
 # Convert ``EXTRA_MODEL_FIELDS`` into a more usable structure, a
 # dictionary mapping module.model paths to dicts of field names mapped

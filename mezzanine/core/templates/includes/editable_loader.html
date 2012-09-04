@@ -4,8 +4,8 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/editable.css">
 {{ richtext_media|safe }}
 <script>
-{% url fb_browse as fb_browse_url %}
-{% url static_proxy as static_proxy_url %}
+{% url "fb_browse" as fb_browse_url %}
+{% url "static_proxy" as static_proxy_url %}
 window.__filebrowser_url = '{{ fb_browse_url }}';
 window.__toolbar_html = '{{ toolbar|escapejs }}';
 window.__static_proxy = '{{ static_proxy_url }}';

@@ -28,11 +28,11 @@ and mezzanine.core.admin.SingletonAdmin
 {% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
 </style>
 <script>
-{% url static_proxy as static_proxy_url %}
-{% url fb_browse as fb_browse_url %}
-{% url admin:index as admin_index_url %}
+{% url "static_proxy" as static_proxy_url %}
+{% url "fb_browse" as fb_browse_url %}
+{% url "admin:index" as admin_index_url %}
 window.__csrf_token = '{{ csrf_token }}';
-window.__admin_keywords_submit_url = '{% url admin_keywords_submit %}';
+window.__admin_keywords_submit_url = '{% url "admin_keywords_submit" %}';
 window.__filebrowser_url = '{{ fb_browse_url }}';
 window.__admin_url = '{{ admin_index_url }}';
 window.__static_proxy = '{{ static_proxy_url }}';

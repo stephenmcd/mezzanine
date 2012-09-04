@@ -10,7 +10,7 @@
     {% endif %}
 </p>
 
-<form method="post" action="{% url rating %}">
+<form method="post" action="{% url "rating" %}">
     {% nevercache %}
     {% csrf_token %}
     {% endnevercache %}

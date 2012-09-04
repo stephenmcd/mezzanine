@@ -12,12 +12,12 @@
             </a>
             {% set_page_permissions page %}
             {% if page.perms.delete %}
-            <a href="{% url admin:pages_page_delete page.id %}?fromtree" class="delete"></a>
+            <a href="{% url "admin:pages_page_delete" page.id %}?fromtree" class="delete"></a>
             {% else %}
             <span class="delete" style="background:none;"></span>
             {% endif %}
             {% if page.perms.change %}
-            <a href="{% url admin:pages_page_change page.id %}{% if not page.is_primary %}?parent={{ page.parent_id }}{% endif %}"
+            <a href="{% url "admin:pages_page_change" page.id %}{% if not page.is_primary %}?parent={{ page.parent_id }}{% endif %}"
                 class="changelink">{{ page.title }}</a>
             {% else %}
             <span class="uneditable">{{ page.title }}</span>

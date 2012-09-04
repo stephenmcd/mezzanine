@@ -7,7 +7,7 @@
     {% for page in page_branch %}
     {% if page.is_primary and forloop.first %}
     <li class="{% if on_home %} active{% endif %}" id="dropdown-menu-{{ page.html_id }}">
-        <a href="{% url home %}">{% trans "Home" %}</a>
+        <a href="{% url "home" %}">{% trans "Home" %}</a>
     </li>
     <li class="divider-vertical"></li>
     {% endif %}

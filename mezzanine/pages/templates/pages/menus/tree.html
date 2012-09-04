@@ -6,7 +6,7 @@
   {% for page in page_branch %}
   {% if page.is_primary and forloop.first %}
   <li class="first{% if on_home %} active{% endif %}">
-    <a href="{% url home %}">{% trans "Home" %}</a>
+    <a href="{% url "home" %}">{% trans "Home" %}</a>
   </li>
   {% endif %}
   {% if page.in_menu %}
