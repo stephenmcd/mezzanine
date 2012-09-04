@@ -31,6 +31,7 @@ and mezzanine.core.admin.SingletonAdmin
 {% url "static_proxy" as static_proxy_url %}
 {% url "fb_browse" as fb_browse_url %}
 {% url "admin:index" as admin_index_url %}
+window.__home_link = '<a href="{% url "home" %}">{% trans "View site" %}</a>';
 window.__csrf_token = '{{ csrf_token }}';
 window.__admin_keywords_submit_url = '{% url "admin_keywords_submit" %}';
 window.__filebrowser_url = '{{ fb_browse_url }}';
