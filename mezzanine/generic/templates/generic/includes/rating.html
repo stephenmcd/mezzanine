@@ -1,4 +1,4 @@
-{% load mezzanine_tags rating_tags i18n %}
+{% load mezzanine_tags rating_tags i18n future %}
 
 <div class="panel rating">
 
@@ -10,7 +10,7 @@
     {% endif %}
 </p>
 
-<form method="post" action="{% url rating %}">
+<form method="post" action="{% url "rating" %}">
     {% nevercache %}
     {% csrf_token %}
     {% endnevercache %}

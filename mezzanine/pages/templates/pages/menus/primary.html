@@ -1,4 +1,4 @@
-{% load pages_tags i18n %}
+{% load pages_tags i18n future %}
 
 {% spaceless %}
 <ul id="primary-menu" class="nav pull-right">
@@ -6,7 +6,7 @@
     {% if forloop.first %}
     <li class="divider-vertical"></li>
     <li id="primary-menu-home" class="first{% if on_home %} active{% endif %}">
-        <a href="{% url home %}">{% trans "Home" %}</a>
+        <a href="{% url "home" %}">{% trans "Home" %}</a>
     </li>
     <li class="divider-vertical"></li>
     {% endif %}
