@@ -32,9 +32,10 @@ def set_dynamic_settings(s):
     management_command = sys.argv[1] if len(sys.argv) > 1 else ""
     # Some kind of testing is running via test or testserver.
     s["TESTING"] = management_command.startswith("test")
-    # Some kind of development server is running via runserver or
-    # runserver_plus
-    s["DEV_SERVER"] = management_command.startswith("runserver")
+    # Some kind of development server is running via runserver,
+    # runserver_plus or harvest (lettuce)
+    s["DEV_SERVER"] = management_command.startswith("runserver") or \
+                      management_command == "harvest"
     # Change tuple settings to lists for easier manipulation.
     s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
     s["MIDDLEWARE_CLASSES"] = list(s["MIDDLEWARE_CLASSES"])
