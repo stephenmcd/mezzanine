@@ -39,7 +39,7 @@ NAMES = (
     (FILE, _("File upload")),
     (DATE, _("Date")),
     (DATE_TIME, _("Date/time")),
-    (DOB, _("DOB")),
+    (DOB, _("Date of birth")),
     (HIDDEN, _("Hidden")),
 )
 
@@ -85,7 +85,7 @@ if settings.FORMS_USE_HTML5:
     WIDGETS.update({
         DATE: html5_field("date", forms.DateInput),
         DATE_TIME: html5_field("datetime", forms.DateTimeInput),
-        DOB: html5_field("dob", forms.DateInput),
+        DOB: html5_field("date", forms.DateInput),
         EMAIL: html5_field("email", forms.TextInput),
         NUMBER: html5_field("number", forms.TextInput),
         URL: html5_field("url", forms.TextInput),

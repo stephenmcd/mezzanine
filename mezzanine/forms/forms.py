@@ -1,5 +1,5 @@
-import datetime
-from datetime import date
+
+from datetime import date, datetime
 from os.path import join, split
 from uuid import uuid4
 
@@ -131,7 +131,9 @@ class FormForForm(forms.ModelForm):
             self.fields[field_key] = field_class(**field_args)
 
             if field.field_type == fields.DOB:
-                self.fields[field_key].widget.years = range(datetime.datetime.now().year,datetime.datetime.now().year - 120, -1) 
+                now = datetime.now()
+                years = range(now.year, now.year - 120, -1)
+                self.fields[field_key].widget.years = years
 
             # Add identifying type attr to the field for styling.
             setattr(self.fields[field_key], "type",
