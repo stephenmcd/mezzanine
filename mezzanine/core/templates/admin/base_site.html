@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load mezzanine_tags i18n %}
+{% load mezzanine_tags i18n future %}
 {% comment %}
 
 This file contains a handful of unrelated admin customizations that
@@ -28,12 +28,12 @@ and mezzanine.core.admin.SingletonAdmin
 {% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
 </style>
 <script>
-{% url static_proxy as static_proxy_url %}
-{% url fb_browse as fb_browse_url %}
-{% url admin:index as admin_index_url %}
-window.__home_link = '<a href="{% url home %}">{% trans "View site" %}</a>';
+{% url "static_proxy" as static_proxy_url %}
+{% url "fb_browse" as fb_browse_url %}
+{% url "admin:index" as admin_index_url %}
+window.__home_link = '<a href="{% url "home" %}">{% trans "View site" %}</a>';
 window.__csrf_token = '{{ csrf_token }}';
-window.__admin_keywords_submit_url = '{% url admin_keywords_submit %}';
+window.__admin_keywords_submit_url = '{% url "admin_keywords_submit" %}';
 window.__filebrowser_url = '{{ fb_browse_url }}';
 window.__admin_url = '{{ admin_index_url }}';
 window.__static_proxy = '{{ static_proxy_url }}';
