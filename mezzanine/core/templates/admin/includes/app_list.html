@@ -9,21 +9,21 @@
            {% for model in app.models %}
            <tr>
            {% if model.perms.change or model.perms.custom %}
-               <th scope="row" width="100%"><a 
+               <th scope="row" width="100%"><a
                     href="{{ model.admin_url }}">{{ model.name }}</a></th>
            {% else %}
                <th scope="row" width="100%">{{ model.name }}</th>
            {% endif %}
-           
+
            {% if model.perms.add %}
-               <td><a href="{{ model.admin_url }}add/" 
+               <td><a href="{{ model.add_url }}"
                     class="addlink">{% trans 'Add' %}</a></td>
            {% else %}
                <td>&nbsp;</td>
            {% endif %}
-           
+
            {% if model.perms.change %}
-               <td><a href="{{ model.admin_url }}" 
+               <td><a href="{{ model.admin_url }}"
                     class="changelink">{% trans 'Change' %}</a></td>
            {% else %}
                <td>&nbsp;</td>
