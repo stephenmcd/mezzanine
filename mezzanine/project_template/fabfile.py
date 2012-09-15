@@ -307,7 +307,7 @@ def static():
     Returns the live STATIC_ROOT directory.
     """
     return python("from django.conf import settings;"
-                  "print settings.STATIC_ROOT")
+                  "print settings.STATIC_ROOT").split("\n")[-1]
 
 
 @task
