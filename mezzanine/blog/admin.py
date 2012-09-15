@@ -29,7 +29,7 @@ class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
 
     fieldsets = blogpost_fieldsets
     list_display = blogpost_list_display
-    filter_horizontal = ("categories","related_posts",)
+    filter_horizontal = ("categories", "related_posts",)
 
     def save_form(self, request, form, change):
         """
