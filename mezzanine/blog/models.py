@@ -24,6 +24,8 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
     featured_image = FileField(verbose_name=_("Featured Image"),
                                upload_to="blog", format="Image",
                                max_length=255, null=True, blank=True)
+    related_posts = models.ManyToManyField("self",
+                                 verbose_name=_("Related posts"), blank=True)
 
     admin_thumb_field = "featured_image"
 
