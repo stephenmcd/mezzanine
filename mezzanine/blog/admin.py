@@ -2,6 +2,7 @@
 from copy import deepcopy
 
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
@@ -15,6 +16,10 @@ blogpost_list_display = ["title", "user", "status", "admin_link"]
 if settings.BLOG_USE_FEATURED_IMAGE:
     blogpost_fieldsets[0][1]["fields"].insert(-2, "featured_image")
     blogpost_list_display.insert(0, "admin_thumb")
+blogpost_fieldsets = list(blogpost_fieldsets)
+blogpost_fieldsets.insert(1,(_("Other posts"), {
+    "classes": ("collapse-closed",),
+    "fields": ("related_posts",)}))
 
 
 class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
@@ -24,7 +29,7 @@ class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
 
     fieldsets = blogpost_fieldsets
     list_display = blogpost_list_display
-    filter_horizontal = ("categories",)
+    filter_horizontal = ("categories", "related_posts",)
 
     def save_form(self, request, form, change):
         """
