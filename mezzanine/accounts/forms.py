@@ -109,7 +109,9 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
             raise forms.ValidationError(_("Username can only contain letters, "
                                           "numbers, dashes or underscores."))
         try:
-            User.objects.exclude(id=self.instance.id).get(username__iexact=username)
+            User.objects.exclude(id=self.instance.id).get(
+                username__iexact=username
+            )
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(_("This username is already registered"))
