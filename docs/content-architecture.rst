@@ -266,7 +266,7 @@ methods with access to the current user as well.
 
 For example, if our ``Author`` content type should only contain one
 child page at most, and only be deletable when added as a child page
-(unless you're a superuser), the following permission methodss could
+(unless you're a superuser), the following permission methods could
 be implemented::
 
     class Author(Page):
