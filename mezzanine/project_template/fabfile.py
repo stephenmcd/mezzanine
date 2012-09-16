@@ -294,10 +294,12 @@ def python(code, show=True):
     Runs Python code in the project's virtual environment, with Django loaded.
     """
     setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';"
+    full_code = 'python -c "%s%s"' % (setup, code.replace("`", "\\\`"))
     with project():
-        return run('python -c "%s%s"' % (setup, code), show=False)
+        result = run(full_code, show=False)
         if show:
             print_command(code)
+    return result
 
 
 def static():
@@ -305,7 +307,7 @@ def static():
     Returns the live STATIC_ROOT directory.
     """
     return python("from django.conf import settings;"
-                  "print settings.STATIC_ROOT")
+                  "print settings.STATIC_ROOT").split("\n")[-1]
 
 
 @task

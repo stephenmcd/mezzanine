@@ -1,4 +1,5 @@
-  .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
+.. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
+   :target: http://travis-ci.org/#!/stephenmcd/mezzanine
 
 Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_
 
@@ -285,6 +286,16 @@ Sites Using Mezzanine
   * `Pie Monster <http://piemonster.me>`_
   * `Cotton On Asia <http://asia.cottonon.com/>`_
   * `Ivan Diao <http://www.adieu.me>`_
+  * `Super Top Secret <http://www.wearetopsecret.com/>`_
+  * `Jaybird Sport <http://www.jaybirdgear.com/>`_
+  * `Manai Glitter <https://manai.co.uk>`_
+  * `Sri Emas International School <http://www.sriemas.edu.my>`_
+  * `Boom Perun <http://perunspace.ru>`_
+  * `Tactical Bags <http://tacticalbags.ru>`_
+  * `apps.de <http://apps.de>`_
+  * `Sunfluence <http://sunfluence.com>`_
+  * `ggzpreventie.nl <http://ggzpreventie.nl>`_
+  * `dakuaiba.com <http://www.dakuaiba.com>`_
 
 Quotes
 ======

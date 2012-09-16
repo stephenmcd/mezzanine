@@ -1,5 +1,5 @@
 {% extends "admin/change_list.html" %}
-{% load pages_tags i18n adminmedia %}
+{% load pages_tags i18n future adminmedia %}
 
 {% block extrahead %}
 {{ block.super }}
@@ -9,7 +9,7 @@
 .grappelli-delete {width:11px; height:11px; margin:4px 4px 0 10px; background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink.png');}
 .grappelli-delete:hover {background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink-hover.png');}
 </style>
-<script>window.__page_ordering_url = '{% url admin_page_ordering %}';</script>
+<script>window.__page_ordering_url = '{% url "admin_page_ordering" %}';</script>
 <script src="{{ STATIC_URL }}mezzanine/js/jquery-ui-1.8.14.custom.min.js"></script>
 <script src="{{ STATIC_URL }}mezzanine/js/admin/page_tree.js"></script>
 {% endblock %}

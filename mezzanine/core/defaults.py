@@ -222,6 +222,14 @@ register_setting(
 )
 
 register_setting(
+    name="RICHTEXT_ALLOWED_STYLES",
+    description=_("List of inline CSS styles that won't be stripped from "
+        "``RichTextField`` instances."),
+    editable=False,
+    default=(),
+)
+
+register_setting(
     name="RICHTEXT_FILTER",
     description=_("Dotted path to the function to call on a ``RichTextField`` "
         "value before it is rendered to the template."),

@@ -1,4 +1,4 @@
-{% load i18n pages_tags %}
+{% load i18n future pages_tags %}
 
 {% spaceless %}
 {% if page_branch_in_menu %}
@@ -7,7 +7,7 @@
 
     {% if page.is_primary and forloop.first %}
 	<li class="first{% if on_home %} active{% endif %}">
-	    <a href="{% url home %}">{% trans "Home" %}</a>
+	    <a href="{% url "home" %}">{% trans "Home" %}</a>
 	</li>
 	{% endif %}
 

@@ -1,5 +1,5 @@
 {% extends "mobile/base.html" %}
-{% load i18n mezzanine_tags blog_tags keyword_tags %}
+{% load i18n future mezzanine_tags blog_tags keyword_tags %}
 
 {% block meta_title %}{% if page %}{{ page.richtextpage.title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
 
@@ -24,7 +24,7 @@
     {% for blog_post in blog_posts.object_list %}
 		<li>
         {% editable blog_post.title blog_post.publish_date %}
-        <h2 class="blog-post-title"><a href="{% url blog_post_detail blog_post.slug %}">{{ blog_post.title }}</a></h2>
+        <h2 class="blog-post-title"><a href="{% url "blog_post_detail" blog_post.slug %}">{{ blog_post.title }}</a></h2>
         <em class="since">{{ blog_post.publish_date|timesince }} {% trans "ago" %}</em>
         {% endeditable %}
         </li>

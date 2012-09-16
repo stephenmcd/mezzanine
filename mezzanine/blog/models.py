@@ -24,6 +24,8 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
     featured_image = FileField(verbose_name=_("Featured Image"),
                                upload_to="blog", format="Image",
                                max_length=255, null=True, blank=True)
+    related_posts = models.ManyToManyField("self",
+                                 verbose_name=_("Related posts"), blank=True)
 
     admin_thumb_field = "featured_image"
 
@@ -50,6 +52,18 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
                 "year": self.publish_date.year,
             })
         return (url_name, (), kwargs)
+
+    # These methods are wrappers for keyword and category access.
+    # For Django 1.3, we manually assign keywords and categories
+    # in the blog_post_list view, since we can't use Django 1.4's
+    # prefetch_related method. Once we drop support for Django 1.3,
+    # these can probably be removed.
+
+    def category_list(self):
+        return getattr(self, "_categories", self.categories.all())
+
+    def keyword_list(self):
+        return getattr(self, "_keywords", self.keywords.all())
 
 
 class BlogCategory(Slugged):
