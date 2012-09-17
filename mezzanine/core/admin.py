@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from django.db.models import AutoField
 from django.forms import ValidationError
@@ -111,6 +110,12 @@ class OwnableAdmin(admin.ModelAdmin):
     model. Handles limiting the change list to objects owned by the
     logged in user, as well as setting the owner of newly created \
     objects to the logged in user.
+    
+    Remember that this will include the ``user`` field in the required
+    fields for the admin change form which may not be desirable. The
+    best approach to solve this is to define a ``fieldsets`` attribute
+    that excludes the ``user`` field or simple add ``user`` to your
+    admin excludes: ``exclude = ('user',)``
     """
 
     def save_form(self, request, form, change):
