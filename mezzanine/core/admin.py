@@ -108,9 +108,9 @@ class OwnableAdmin(admin.ModelAdmin):
     """
     Admin class for models that subclass the abstract ``Ownable``
     model. Handles limiting the change list to objects owned by the
-    logged in user, as well as setting the owner of newly created \
+    logged in user, as well as setting the owner of newly created
     objects to the logged in user.
-    
+
     Remember that this will include the ``user`` field in the required
     fields for the admin change form which may not be desirable. The
     best approach to solve this is to define a ``fieldsets`` attribute
