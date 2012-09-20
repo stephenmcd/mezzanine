@@ -384,8 +384,14 @@ def admin_app_list(request):
             admin_url_name = ""
             if perms["change"]:
                 admin_url_name = "changelist"
-            elif perms["add"]:
+                change_url = admin_url(model, admin_url_name)
+            else:
+                change_url = None
+            if perms["add"]:
                 admin_url_name = "add"
+                add_url = admin_url(model, admin_url_name)
+            else:
+                add_url = None
             if admin_url_name:
                 model_label = "%s.%s" % (opts.app_label, opts.object_name)
                 for (name, items) in menu_order:
@@ -400,12 +406,15 @@ def admin_app_list(request):
                 else:
                     index = None
                     app_title = opts.app_label
+
                 model_dict = {
                     "index": index,
                     "perms": model_admin.get_model_perms(request),
                     "name": capfirst(model._meta.verbose_name_plural),
-                    "admin_url": admin_url(model, admin_url_name),
+                    "admin_url": change_url,
+                    "add_url": add_url
                 }
+
                 app_title = app_title.title()
                 if app_title in app_dict:
                     app_dict[app_title]["models"].append(model_dict)
