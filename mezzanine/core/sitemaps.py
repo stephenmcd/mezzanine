@@ -25,7 +25,8 @@ class DisplayableSitemap(Sitemap):
         for model in get_models():
             if issubclass(model, Displayable):
                 for item in (model.objects.published()
-                             .exclude(slug__startswith="http://")):
+                             .exclude(slug__startswith="http://")
+                             .exclude(slug__startswith="https://")):
                     items[item.get_absolute_url()] = item
         return items.values()
 
