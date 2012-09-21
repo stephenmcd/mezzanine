@@ -19,12 +19,13 @@ class DisplayableSitemap(Sitemap):
     def items(self):
         """
         Return all published items for models that subclass
-        ``Displayable``.
+        ``Displayable``, excluding those that point to external sites.
         """
         items = {}
         for model in get_models():
             if issubclass(model, Displayable):
-                for item in model.objects.published():
+                for item in (model.objects.published()
+                             .exclude(slug__startswith="http://")):
                     items[item.get_absolute_url()] = item
         return items.values()
 
