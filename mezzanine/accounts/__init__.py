@@ -21,12 +21,8 @@ def get_profile_model():
     """
     profile_model = getattr(settings, "AUTH_PROFILE_MODULE", None)
     if profile_model:
-        try:
+        if profile_model and profile_model.count(".") == 1:
             Profile = get_model(*profile_model.split("."))
-        except TypeError:
-            import traceback
-            traceback.print_exc()
-        else:
             if Profile is not None:
                 return Profile
         raise ImproperlyConfigured("Value for AUTH_PROFILE_MODULE could "
