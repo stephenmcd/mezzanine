@@ -24,7 +24,8 @@ def get_profile_model():
         try:
             Profile = get_model(*profile_model.split("."))
         except TypeError:
-            pass
+            import traceback
+            traceback.print_exc()
         else:
             if Profile is not None:
                 return Profile
