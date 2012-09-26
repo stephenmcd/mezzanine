@@ -249,6 +249,30 @@ def thumbnail(image_url, width, height, quality=95):
         # Requested image does not exist, just return its URL.
         return image_url
 
+    f = default_storage.open(image_url)
+    try:
+        image = Image.open(f)
+    except:
+        # Invalid image format
+        return image_url
+
+    image_info = image.info
+    width = int(width)
+    height = int(height)
+
+    # If already right size, don't do anything.
+    if width == image.size[0] and height == image.size[1]:
+        return image_url
+    # Set dimensions.
+    if width == 0:
+        width = image.size[0] * height / image.size[1]
+    elif height == 0:
+        height = image.size[1] * width / image.size[0]
+    if image.mode not in ("L", "RGBA"):
+        image = image.convert("RGBA")
+    # Required for progressive jpgs.
+    ImageFile.MAXBLOCK = image.size[0] * image.size[1]
+
     try:
         image = Image.open(default_storage.open(image_url))
         image_info = image.info
@@ -288,6 +312,7 @@ def thumbnail(image_url, width, height, quality=95):
     except Exception, e:
         # cannot identify image file
         return ''
+
 
 @register.inclusion_tag("includes/editable_loader.html", takes_context=True)
 def editable_loader(context):

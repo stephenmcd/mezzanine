@@ -10,7 +10,7 @@
     {% else %}
         <a href="{% url "profile_update" %}">{{ request.user.username }}</a>
     {% endif %}
-    <a href="{{ settings.LOGOUT_URL }}?next={{ request.path }}"
+    <a href="{% url "logout" %}?next={{ request.path }}"
         class="btn btn-small btn-danger btn-account">{% trans "Log out" %}</a>
 {% else %}
     {% trans "Not logged in" %}

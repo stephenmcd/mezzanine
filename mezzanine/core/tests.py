@@ -210,15 +210,14 @@ class Tests(TestCase):
             get_template("mobile/index.html")
         except TemplateDoesNotExist:
             return
-        template_name = lambda t: t.name if hasattr(t, "name") else t[0].name
         ua = settings.DEVICE_USER_AGENTS[0][1][0]
         kwargs = {"slug": "device-test"}
         url = reverse("page", kwargs=kwargs)
         kwargs["status"] = CONTENT_STATUS_PUBLISHED
         RichTextPage.objects.get_or_create(**kwargs)
-        default = self.client.get(url).template
-        mobile = self.client.get(url, HTTP_USER_AGENT=ua).template
-        self.assertNotEqual(template_name(default), template_name(mobile))
+        default = self.client.get(url)
+        mobile = self.client.get(url, HTTP_USER_AGENT=ua)
+        self.assertNotEqual(default.template_name[0], mobile.template_name[0])
 
     def test_blog_views(self):
         """

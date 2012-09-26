@@ -60,9 +60,7 @@ urlpatterns += patterns("",
 # Mezzanine's Blog app.
 blog_installed = "mezzanine.blog" in settings.INSTALLED_APPS
 if blog_installed:
-    BLOG_SLUG = settings.BLOG_SLUG
-    if BLOG_SLUG:
-        BLOG_SLUG += "/"
+    BLOG_SLUG = settings.BLOG_SLUG.rstrip("/")
     blog_patterns = patterns("",
         ("^%s" % BLOG_SLUG, include("mezzanine.blog.urls")),
     )
