@@ -87,7 +87,8 @@ class Query(models.Model):
             tweet.text = re_usernames.sub(replace_usernames, tweet.text)
             tweet.text = re_hashtags.sub(replace_hashtags, tweet.text)
             if getattr(settings, 'TWITTER_STRIP_HIGH_MULTIBYTE', False):
-                tweet.text = ''.join([ch for ch in tweet.text if ord(ch) < 0x800])
+                chars = [ch for ch in tweet.text if ord(ch) < 0x800]
+                tweet.text = ''.join(chars)
             d = datetime.strptime(tweet_json["created_at"], date_format)
             d -= timedelta(seconds=timezone)
             tweet.created_at = make_aware(d)
