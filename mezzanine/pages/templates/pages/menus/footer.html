@@ -21,7 +21,7 @@
             <a href="{{ page.get_absolute_url }}">{{ page.title }}</a></li>
     {% endif %}
 
-    {% if page.in_menu and page.has_children %}{% page_menu page %}{% endif %}
+    {% if page.in_menu and page.has_children_in_menu %}{% page_menu page %}{% endif %}
 
     {% if page.in_menu %}
         {% if forloop.first and not page.parent.in_menu and not page.is_primary %}
