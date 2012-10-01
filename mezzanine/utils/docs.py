@@ -102,9 +102,10 @@ def build_changelog(docs_path, package_name="mezzanine"):
     changelog_file = os.path.join(project_path, changelog_filename)
     versions = SortedDict()
     repo = None
-    ignore = ("AUTHORS", "formatting", "typo", "pep8", "whitespace",
-              "README", "trans", "print debug", "debugging", "tabs",
-              "style", "sites", "ignore", "tweak", "cleanup", "minor")
+    ignore = ("AUTHORS", "formatting", "typo", "pep8", "pep 8",
+              "whitespace", "README", "trans", "print debug",
+              "debugging", "tabs", "style", "sites", "ignore",
+              "tweak", "cleanup", "minor", "for changeset")
     hotfixes = {
         "40cbc47b8d8a": "1.0.9",
         "a25749986abc": "1.0.10",
