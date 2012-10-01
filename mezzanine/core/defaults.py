@@ -347,6 +347,16 @@ register_setting(
 )
 
 register_setting(
+    name="SSL_FORCED_PREFIXES_ONLY",
+    description=_("If ``True``, only URLs specified by the "
+        "``SSL_FORCE_URL_PREFIXES`` setting will be accessible over SSL, "
+        "and all other URLs will be redirected back to HTTP if accessed "
+        "over HTTPS."),
+    editable=False,
+    default=True,
+)
+
+register_setting(
     name="STOP_WORDS",
     description=_("List of words which will be stripped from search queries."),
     editable=False,
