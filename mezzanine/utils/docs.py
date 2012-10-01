@@ -113,11 +113,13 @@ def build_changelog(docs_path, package_name="mezzanine"):
     # Load the repo.
     try:
         from mercurial import ui, hg, error
+        from mercurial.commands import tag
     except ImportError:
         pass
     else:
         try:
-            repo = hg.repository(ui.ui(), project_path)
+            ui = ui.ui()
+            repo = hg.repository(ui, project_path)
         except error.RepoError:
             return
     if repo is None:
@@ -160,6 +162,21 @@ def build_changelog(docs_path, package_name="mezzanine"):
                         "date": _changeset_date(cs).strftime("%b %d, %Y")
                     }
                     new_version = len(files) == 1
+
+        # Tag new versions.
+        hotfix = hotfixes.get(cs.hex()[:12])
+        if hotfix or new_version:
+            if hotfix:
+                version_tag = hotfix
+            else:
+                try:
+                    version_tag = locals()[version_var]
+                except KeyError:
+                    version_tag = None
+            if version_tag and version_tag not in cs.tags():
+                print "Tagging version %s" % version_tag
+                tag(ui, repo, version_tag, rev=cs.hex())
+
         # Ignore changesets that are merges, bumped the version, closed
         # a branch, regenerated the changelog itself, contain an ignore
         # word, or are one word long.
@@ -173,7 +190,6 @@ def build_changelog(docs_path, package_name="mezzanine"):
             continue
         # Ensure we have a current version and if so, add this changeset's
         # description to it.
-        hotfix = hotfixes.get(cs.hex()[:12])
         version = None
         try:
             version = locals()[version_var]
