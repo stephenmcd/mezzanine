@@ -297,6 +297,7 @@ Sites Using Mezzanine
   * `Sunfluence <http://sunfluence.com>`_
   * `ggzpreventie.nl <http://ggzpreventie.nl>`_
   * `dakuaiba.com <http://www.dakuaiba.com>`_
+  * `Leprosys <http://www.leprosys.info>`
 
 Quotes
 ======
