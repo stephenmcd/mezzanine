@@ -86,6 +86,3 @@ def comment_filter(comment_text):
     if not filter_func:
         filter_func = lambda s: linebreaksbr(urlize(s))
     return filter_func(comment_text)
-
-
-
