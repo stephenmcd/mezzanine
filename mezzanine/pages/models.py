@@ -2,6 +2,7 @@ from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
@@ -205,6 +206,13 @@ class Page(BasePage):
         self.html_id = self.slug.replace("/", "-")
         # Default branch level - gets assigned in the page_menu tag.
         self.branch_level = 0
+
+    def in_menu_template(self, template_name):
+        if self.in_menus is not None:
+            for i, l, t in settings.PAGE_MENU_TEMPLATES:
+                if not unicode(i) in self.in_menus and t == template_name:
+                    return False
+        return True
 
 
 class RichTextPage(Page, RichText):
