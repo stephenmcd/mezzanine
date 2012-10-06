@@ -64,8 +64,8 @@
 
 <h3>{% trans "Feeds" %}</h3>
 {% if tag %}
-    <a href="{% url "blog_post_feed_tag" tag "rss" %}">{% trans "RSS" %}</a> /
-    <a href="{% url "blog_post_feed_tag" tag "atom" %}">{% trans "Atom" %}</a>
+    <a href="{% url "blog_post_feed_tag" tag.slug "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url "blog_post_feed_tag" tag.slug "atom" %}">{% trans "Atom" %}</a>
 {% endif %}
 {% if category %}
     <a href="{% url "blog_post_feed_category" category.slug "rss" %}">{% trans "RSS" %}</a> /

@@ -62,6 +62,14 @@ if generic_comments:
     )
 
     register_setting(
+        name="COMMENT_FILTER",
+        description=_("Dotted path to the function to call on a comment's "
+            "value before it is rendered to the template."),
+        editable=False,
+        default=None,
+    )
+
+    register_setting(
         name="COMMENTS_NOTIFICATION_EMAILS",
         label=_("Comment notification email addresses"),
         description=_("A comma separated list of email addresses that "

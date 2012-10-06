@@ -249,7 +249,13 @@ def thumbnail(image_url, width, height, quality=95):
         # Requested image does not exist, just return its URL.
         return image_url
 
-    image = Image.open(default_storage.open(image_url))
+    f = default_storage.open(image_url)
+    try:
+        image = Image.open(f)
+    except:
+        # Invalid image format
+        return image_url
+
     image_info = image.info
     width = int(width)
     height = int(height)

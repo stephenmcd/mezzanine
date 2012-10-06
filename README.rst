@@ -189,6 +189,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzanine-events`_ - Events plugin for Mezzanine, with geocoding
     via Google Maps, iCalendar files, webcal URLs and directions via
     Google Calendar/Maps.
+  * `mezzanine-polls`_ - Polls application for Mezzanine.
 
 Donating
 ========
@@ -296,6 +297,7 @@ Sites Using Mezzanine
   * `Sunfluence <http://sunfluence.com>`_
   * `ggzpreventie.nl <http://ggzpreventie.nl>`_
   * `dakuaiba.com <http://www.dakuaiba.com>`_
+  * `Leprosys <http://www.leprosys.info>`_
 
 Quotes
 ======
@@ -400,6 +402,7 @@ Quotes
 .. _`mezzanine-captcha`: https://github.com/mjtorn/mezzanine-captcha
 .. _`mezzanine-bookmarks`: https://github.com/adieu/mezzanine-bookmarks
 .. _`mezzanine-events`: https://github.com/stbarnabas/mezzanine-events
+.. _`mezzanine-polls`: https://github.com/sebasmagri/mezzanine_polls
 
 
 .. PEOPLE WITH QUOTES

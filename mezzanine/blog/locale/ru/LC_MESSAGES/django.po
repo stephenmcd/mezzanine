@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-20 13:57+0400\n"
+"POT-Creation-Date: 2012-09-17 15:07+0400\n"
 "PO-Revision-Date: 2012-05-26 18:08+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
@@ -20,6 +20,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: admin.py:20
+msgid "Other posts"
+msgstr "Другие заметки"
 
 #: defaults.py:20
 msgid "bit.ly username"
@@ -85,19 +89,23 @@ msgstr "Рейтинг"
 msgid "Featured Image"
 msgstr "Главное изображение"
 
-#: models.py:31
+#: models.py:28 templates/blog/blog_post_detail.html:67
+msgid "Related posts"
+msgstr "Похожие заметки"
+
+#: models.py:33
 msgid "Blog post"
 msgstr "Заметка в блоге"
 
-#: models.py:32
+#: models.py:34
 msgid "Blog posts"
 msgstr "Заметки в блоге"
 
-#: models.py:54
+#: models.py:75
 msgid "Blog Category"
 msgstr "Категория блога"
 
-#: models.py:55
+#: models.py:76
 msgid "Blog Categories"
 msgstr "Категории блога"
 
@@ -198,10 +206,16 @@ msgstr "Авторы"
 msgid "Feeds"
 msgstr "Ленты"
 
-#: templates/blog/includes/filter_panel.html:66
+#: templates/blog/includes/filter_panel.html:67
+#: templates/blog/includes/filter_panel.html:71
+#: templates/blog/includes/filter_panel.html:75
+#: templates/blog/includes/filter_panel.html:79
 msgid "RSS"
 msgstr "RSS"
 
-#: templates/blog/includes/filter_panel.html:67
+#: templates/blog/includes/filter_panel.html:68
+#: templates/blog/includes/filter_panel.html:72
+#: templates/blog/includes/filter_panel.html:76
+#: templates/blog/includes/filter_panel.html:80
 msgid "Atom"
 msgstr "Atom"
