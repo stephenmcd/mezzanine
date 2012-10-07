@@ -51,7 +51,7 @@ class Gallery(Page, RichText):
         super(Gallery, self).save(*args, **kwargs)
         if self.zip_import:
             zip_file = ZipFile(self.zip_import)
-            # Try to import PIL in either of the two ways it can end up installed.
+            # import PIL in either of the two ways it can end up installed.
             try:
                 from PIL import Image
             except ImportError:
