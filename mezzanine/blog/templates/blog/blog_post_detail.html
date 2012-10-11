@@ -1,5 +1,5 @@
 {% extends "blog/blog_post_list.html" %}
-{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n future %}
+{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n future disqus_tags %}
 
 {% block meta_title %}{{ blog_post.meta_title }}{% endblock %}
 
@@ -31,13 +31,25 @@
     {{ blog_post.publish_date|timesince }} {% trans "ago" %}
 </h6>
 <p>
-    {% if blog_post.allow_comments %}(<a href="#comments">{% spaceless %}
-        {% blocktrans count blog_post.comments_count as comments_count %}1 comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
-    {% endspaceless %}</a>){% endif %}
+    {% if blog_post.allow_comments %}
+        {% if settings.COMMENTS_DISQUS_SHORTNAME %}
+            (<a href="{{ blog_post.get_absolute_url }}#disqus_thread"
+                data-disqus-identifier="{% disqus_id_for blog_post %}">{% spaceless %}
+                {% trans "Comments" %}
+            {% endspaceless %}</a>)
+        {% else %}(<a href="#comments">{% spaceless %}
+            {% blocktrans count blog_post.comments_count as comments_count %}1 comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
+            {% endspaceless %}</a>)
+        {% endif %}
+    {% endif %}
 </p>
 
 {% if blog_post.featured_image %}
 <p><img src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 600 0 %}"></p>
+{% endif %}
+
+{% if settings.COMMENTS_DISQUS_SHORTNAME %}
+{% include "generic/includes/disqus_counts.html" %}
 {% endif %}
 
 {% editable blog_post.content %}
