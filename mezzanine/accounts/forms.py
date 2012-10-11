@@ -105,11 +105,13 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         for the user's profile view.
         """
         username = self.cleaned_data.get("username")
-        if username != slugify(username):
+        if username.lower() != slugify(username).lower():
             raise forms.ValidationError(_("Username can only contain letters, "
                                           "numbers, dashes or underscores."))
         try:
-            User.objects.exclude(id=self.instance.id).get(username=username)
+            User.objects.exclude(id=self.instance.id).get(
+                username__iexact=username
+            )
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(_("This username is already registered"))
@@ -170,7 +172,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         return user
 
 
-class PasswordResetForm(forms.Form):
+class PasswordResetForm(Html5Mixin, forms.Form):
     """
     Validates the user's username or email for sending a login
     token for authenticating to change their password.

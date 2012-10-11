@@ -25,8 +25,8 @@ from mezzanine import __version__ as version
 
 install_requires = [
     "django >= 1.3.3",
-    "filebrowser_safe >= 0.2.10",
-    "grappelli_safe >= 0.2.7",
+    "filebrowser_safe >= 0.2.12",
+    "grappelli_safe >= 0.2.10",
     "bleach",
     "pytz",
 ]

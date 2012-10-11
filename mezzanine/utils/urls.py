@@ -2,7 +2,7 @@
 import re
 import unicodedata
 
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.core.urlresolvers import resolve, reverse, NoReverseMatch
 from django.shortcuts import redirect
 from django.utils.encoding import smart_unicode
 
@@ -22,6 +22,19 @@ def admin_url(model, url, object_id=None):
     return reverse(url, args=args)
 
 
+def home_slug():
+    """
+    Returns the slug arg defined for the ``home`` urlpattern, which
+    is the definitive source of the ``url`` field defined for an
+    editable homepage object.
+    """
+    slug = reverse("home")
+    try:
+        return resolve(slug).kwargs["slug"]
+    except KeyError:
+        return slug
+
+
 def slugify(s):
     """
     Loads the callable defined by the ``SLUGIFY`` setting, which defaults
@@ -37,7 +50,7 @@ def slugify_unicode(s):
     Adopted from https://github.com/mozilla/unicode-slugify/
     """
     chars = []
-    for char in smart_unicode(s):
+    for char in unicode(smart_unicode(s)):
         cat = unicodedata.category(char)[0]
         if cat in "LN" or char in "-_~":
             chars.append(char)

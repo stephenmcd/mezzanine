@@ -1,4 +1,5 @@
-  .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
+.. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
+   :target: http://travis-ci.org/#!/stephenmcd/mezzanine
 
 Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_
 
@@ -188,6 +189,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzanine-events`_ - Events plugin for Mezzanine, with geocoding
     via Google Maps, iCalendar files, webcal URLs and directions via
     Google Calendar/Maps.
+  * `mezzanine-polls`_ - Polls application for Mezzanine.
 
 Donating
 ========
@@ -285,6 +287,17 @@ Sites Using Mezzanine
   * `Pie Monster <http://piemonster.me>`_
   * `Cotton On Asia <http://asia.cottonon.com/>`_
   * `Ivan Diao <http://www.adieu.me>`_
+  * `Super Top Secret <http://www.wearetopsecret.com/>`_
+  * `Jaybird Sport <http://www.jaybirdgear.com/>`_
+  * `Manai Glitter <https://manai.co.uk>`_
+  * `Sri Emas International School <http://www.sriemas.edu.my>`_
+  * `Boom Perun <http://perunspace.ru>`_
+  * `Tactical Bags <http://tacticalbags.ru>`_
+  * `apps.de <http://apps.de>`_
+  * `Sunfluence <http://sunfluence.com>`_
+  * `ggzpreventie.nl <http://ggzpreventie.nl>`_
+  * `dakuaiba.com <http://www.dakuaiba.com>`_
+  * `Leprosys <http://www.leprosys.info>`_
 
 Quotes
 ======
@@ -389,6 +402,7 @@ Quotes
 .. _`mezzanine-captcha`: https://github.com/mjtorn/mezzanine-captcha
 .. _`mezzanine-bookmarks`: https://github.com/adieu/mezzanine-bookmarks
 .. _`mezzanine-events`: https://github.com/stbarnabas/mezzanine-events
+.. _`mezzanine-polls`: https://github.com/sebasmagri/mezzanine_polls
 
 
 .. PEOPLE WITH QUOTES

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n mezzanine_tags %}
+{% load i18n future mezzanine_tags %}
 
 {% block meta_title %}{{ profile_user.username }}{% endblock %}
 {% block title %}{{ profile_user.username }}{% endblock %}
@@ -14,7 +14,7 @@
 <div style="float:right;">
 <img style="margin-right:20px;" src="{% gravatar_url profile_user.email 128 %}">
 {% if profile_user == request.user %}
-<br><br><a class="btn btn-large btn-primary" style="" href="{% url profile_update %}">{% trans "Update profile" %}</a>
+<br><br><a class="btn btn-large btn-primary" style="" href="{% url "profile_update" %}">{% trans "Update profile" %}</a>
 {% endif %}
 </div>
 <h2>{{ profile_user.get_full_name }}</h2>

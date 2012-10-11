@@ -6,6 +6,7 @@ from django.http import HttpResponse, Http404
 from mezzanine.conf import settings
 from mezzanine.pages import page_processors
 from mezzanine.pages.models import Page
+from mezzanine.utils.urls import home_slug
 from mezzanine.utils.views import render
 
 
@@ -63,6 +64,7 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     type (it's model class) is checked for, and then if none of these
     templates match, the default pages/page.html is used.
     """
+
     page_middleware = "mezzanine.pages.middleware.PageMiddleware"
     if page_middleware not in settings.MIDDLEWARE_CLASSES:
         raise ImproperlyConfigured(page_middleware + " is missing from " +
@@ -77,7 +79,7 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     # Check for a template name matching the page's slug. If the homepage
     # is configured as a page instance, the template "pages/index.html" is
     # used, since the slug "/" won't match a template name.
-    template_name = unicode(slug) if slug != "/" else "index"
+    template_name = unicode(slug) if slug != home_slug() else "index"
     templates = [u"pages/%s.html" % template_name]
     if page.content_model is not None:
         templates.append(u"pages/%s/%s.html" % (template_name,

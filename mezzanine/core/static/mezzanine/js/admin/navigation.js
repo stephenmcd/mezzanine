@@ -84,7 +84,7 @@ $(function() {
     });
 
     // Provides link to site.
-    $('#user-tools li:last').before('<li><a href="/">View Site</a></li>');
+    $('#user-tools li:last').before('<li>' + window.__home_link + '</li>');
 
 });
 

@@ -94,7 +94,11 @@ def profile(request, username, template="accounts/account_profile.html"):
     """
     Display a profile.
     """
-    profile_user = get_object_or_404(User, username=username, is_active=True)
+    profile_user = get_object_or_404(
+        User,
+        username__iexact=username,
+        is_active=True
+    )
     profile_fields = SortedDict()
     Profile = get_profile_model()
     if Profile is not None:
@@ -153,6 +157,7 @@ def password_reset(request, template="accounts/account_password_reset.html"):
 def password_reset_verify(request, uidb36=None, token=None):
     user = authenticate(uidb36=uidb36, token=token, is_active=True)
     if user is not None:
+        auth_login(request, user)
         return redirect("profile_update")
     else:
         error(request, _("The link you clicked is no longer valid."))
