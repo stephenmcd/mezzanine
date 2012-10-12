@@ -44,13 +44,7 @@ def create_pages(app, created_models, verbosity, interactive, **kwargs):
                 elif confirm == "no":
                     return
                 confirm = raw_input("Please enter either 'yes' or 'no': ")
-            install_optional_data(verbosity) 
-
-
-        if verbosity >= 1:
-            print
-            print ("Creating initial content "
-                   "(About page, Blog, Contact form, Gallery) ...")
+            install_optional_data(verbosity)
 
 
 def create_site(app, created_models, verbosity, interactive, **kwargs):
@@ -69,6 +63,8 @@ def create_site(app, created_models, verbosity, interactive, **kwargs):
             print "Creating default Site %s ... " % domain
             print
         Site.objects.create(name="Default", domain=domain)
+
+
 def install_optional_data(verbosity):
     call_command("loaddata", "mezzanine_optional.json")
     zip_name = "gallery.zip"
@@ -76,10 +72,10 @@ def install_optional_data(verbosity):
     gallery = Gallery.objects.get()
     gallery.zip_import = zip_name
     gallery.save()
-
     if verbosity >= 1:
         print
-        print  "Installing optional data"
+        print ("Creating demo content "
+               "(About page, Blog, Contact form, Gallery) ...")
         print
 
 if not settings.TESTING:
