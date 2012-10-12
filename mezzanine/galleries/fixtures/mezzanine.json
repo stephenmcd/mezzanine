@@ -1,9 +1,0 @@
-[
-    {
-        "pk": 8,
-        "model": "galleries.gallery",
-        "fields": {
-            "content": "<p>A demo gallery of cities from around the world.</p>"
-        }
-    }
-]
