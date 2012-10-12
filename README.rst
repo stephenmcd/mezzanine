@@ -302,6 +302,7 @@ Sites Using Mezzanine
   * `ggzpreventie.nl <http://ggzpreventie.nl>`_
   * `dakuaiba.com <http://www.dakuaiba.com>`_
   * `Leprosys <http://www.leprosys.info>`_
+  * `Hunted Hive <http://huntedhive.com>`_
 
 Quotes
 ======
