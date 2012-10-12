@@ -20,7 +20,13 @@ from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
 
-from PIL import Image, ImageFile, ImageOps
+# Try to import PIL in either of the two ways it can end up installed.
+try:
+    from PIL import Image, ImageFile, ImageOps
+except ImportError:
+    import Image
+    import ImageFile
+    import ImageOps
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
@@ -249,7 +255,13 @@ def thumbnail(image_url, width, height, quality=95):
         # Requested image does not exist, just return its URL.
         return image_url
 
-    image = Image.open(default_storage.open(image_url))
+    f = default_storage.open(image_url)
+    try:
+        image = Image.open(f)
+    except:
+        # Invalid image format
+        return image_url
+
     image_info = image.info
     width = int(width)
     height = int(height)
@@ -381,8 +393,14 @@ def admin_app_list(request):
             admin_url_name = ""
             if perms["change"]:
                 admin_url_name = "changelist"
-            elif perms["add"]:
+                change_url = admin_url(model, admin_url_name)
+            else:
+                change_url = None
+            if perms["add"]:
                 admin_url_name = "add"
+                add_url = admin_url(model, admin_url_name)
+            else:
+                add_url = None
             if admin_url_name:
                 model_label = "%s.%s" % (opts.app_label, opts.object_name)
                 for (name, items) in menu_order:
@@ -397,12 +415,15 @@ def admin_app_list(request):
                 else:
                     index = None
                     app_title = opts.app_label
+
                 model_dict = {
                     "index": index,
                     "perms": model_admin.get_model_perms(request),
                     "name": capfirst(model._meta.verbose_name_plural),
-                    "admin_url": admin_url(model, admin_url_name),
+                    "admin_url": change_url,
+                    "add_url": add_url
                 }
+
                 app_title = app_title.title()
                 if app_title in app_dict:
                     app_dict[app_title]["models"].append(model_dict)

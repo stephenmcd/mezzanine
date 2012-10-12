@@ -1,3 +1,25 @@
+Version 1.2.4 (Sep 03, 2012)
+----------------------------
+
+  * Added ``mezzanine.utils.urls.home_slug`` which will return the ``slug` arg of the ``home`` urlpattern, when a urlpattern is defined for an edtiable homepage. This ensures that we don't hard-code the URL for the homepage anywhere, and allows the editable homepage to work correctly when a ``SITE_PREFIX`` setting is defined - Stephen McDonald
+  * Added autofocus to first field of the form - Renyi Khor
+  * Added Html5Mixin to PasswordResetForm - Renyi Khor
+  * Add initial support for importing blog posts from posterous - David Novakovic
+  * Import comments for each post - David Novakovic
+  * Importer docs and small doco fix in code - David Novakovic
+  * Correct bad indentation - David Novakovic
+  * We only need the hostname if you have more than one posterous blog - David Novakovic
+  * Host is optional if you have one blog - David Novakovic
+  * Remove requests import from global scope - David Novakovic
+  * Make the ``page.in_menus`` check a bit more robust in the ``page_menu`` template tag, in case it doesn't actually have a value, which may have occured if migrations weren't run when the ``in_menus`` field was added - Stephen McDonald
+  * Allow non-page views to specify their own ``editable_obj`` context variable, which is then used to determine the url for the admin link in the editable toolbar, falling back to the current page object. Allows for things like blog posts and Cartridge products to contain a direct admin link from the ditable toolbar - Stephen McDonald
+  * Remove unused ``grappelli_safe`` urlpatterns - Stephen McDonald
+  * Remove unused import - Stephen McDonald
+  * Bump ``grappelli_safe`` version to 0.2.9 - Stephen McDonald
+  * Added accessor methods for blog post keywords and categories, so that when we use ``prefetch_related`` with Django >= 1.4 we don't need to iterate through every blog post to set up keywords and categories. Closes #383 - Stephen McDonald
+  * Use the named home url for the View site link in the admin header. Closes #389 - Stephen McDonald
+  * Ensure consistent path separators in overextends template tag on Windows. Closes #386 - Stephen McDonald
+
 Version 1.2.3 (Aug 22, 2012)
 ----------------------------
 

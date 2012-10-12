@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% load i18n mezzanine_tags %}
+{% load i18n future mezzanine_tags %}
 
 {% block meta_title %}{% trans "Search Results" %}{% endblock %}
 {% block title %}{% trans "Search Results" %}{% endblock %}
 
 {% block breadcrumb_menu %}
 <li>
-    <a href="{% url home %}">{% trans "Home" %}</a>
+    <a href="{% url "home" %}">{% trans "Home" %}</a>
     <span class="divider">/</span>
 </li>
 <li class="active">{% trans "Search Results" %}</li>

@@ -222,6 +222,14 @@ register_setting(
 )
 
 register_setting(
+    name="RICHTEXT_ALLOWED_STYLES",
+    description=_("List of inline CSS styles that won't be stripped from "
+        "``RichTextField`` instances."),
+    editable=False,
+    default=(),
+)
+
+register_setting(
     name="RICHTEXT_FILTER",
     description=_("Dotted path to the function to call on a ``RichTextField`` "
         "value before it is rendered to the template."),
@@ -336,6 +344,16 @@ register_setting(
                 "/admin or /example to run over SSL.",
     editable=False,
     default=("/admin", "/account"),
+)
+
+register_setting(
+    name="SSL_FORCED_PREFIXES_ONLY",
+    description=_("If ``True``, only URLs specified by the "
+        "``SSL_FORCE_URL_PREFIXES`` setting will be accessible over SSL, "
+        "and all other URLs will be redirected back to HTTP if accessed "
+        "over HTTPS."),
+    editable=False,
+    default=True,
 )
 
 register_setting(

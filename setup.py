@@ -1,6 +1,7 @@
 
 from __future__ import with_statement
 import os
+import sys
 
 
 exclude = ["mezzanine/project_template/dev.db",
@@ -25,8 +26,8 @@ from mezzanine import __version__ as version
 
 install_requires = [
     "django >= 1.3.3",
-    "filebrowser_safe >= 0.2.11",
-    "grappelli_safe >= 0.2.8",
+    "filebrowser_safe >= 0.2.12",
+    "grappelli_safe >= 0.2.10",
     "bleach",
     "pytz",
 ]
@@ -34,7 +35,12 @@ install_requires = [
 try:
     from PIL import Image, ImageOps
 except ImportError:
-    install_requires += ["pillow"]
+    try:
+        import Image, ImageFile, ImageOps
+    except ImportError:
+        # no way to install pillow/PIL with jython, so exclude this in any case
+        if not sys.platform.startswith('java'):
+            install_requires += ["pillow"]
 
 
 try:

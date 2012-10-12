@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
+{% load i18n future %}
 
 {% block stylesheets %}
 {{ block.super }}
@@ -44,7 +44,7 @@
         <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" />
     </div>
     <p id="forgot-password">
-        <a href="{% url password_reset %}">{% trans "Forgot password?" %}</a>
+        <a href="{% url "password_reset" %}">{% trans "Forgot password?" %}</a>
     </p>
 </form>
 

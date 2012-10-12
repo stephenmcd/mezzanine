@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n future %}
 
 {% if perms.blog.add_blogpost and perms.blog.change_blogpost %}
 <script>
@@ -16,7 +16,7 @@ $(function() {
 </script>
 <div class="module">
     <h2>{% trans "Quick Blog" %}</h2>
-    <form method="post" id="quick-blog-form" action="{% url admin:blog_blogpost_add %}">
+    <form method="post" id="quick-blog-form" action="{% url "admin:blog_blogpost_add" %}">
         {% csrf_token %}
         <table id="quick-blog">
             {{ form.as_table }}

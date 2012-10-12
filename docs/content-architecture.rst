@@ -266,7 +266,7 @@ methods with access to the current user as well.
 
 For example, if our ``Author`` content type should only contain one
 child page at most, and only be deletable when added as a child page
-(unless you're a superuser), the following permission methodss could
+(unless you're a superuser), the following permission methods could
 be implemented::
 
     class Author(Page):
@@ -345,12 +345,16 @@ helping you to build advanced menus.
   * ``branch_level`` - an integer for the current branch depth
   * ``page_branch_in_menu`` - a boolean for whether this branch should
     be in the menu (see "filtering menus" below)
-  * ``page.has_children`` - a boolean for whether the branch page has
-    any child pages
-  * ``page.num_children`` - an integer for the number of child pages the
-    branch page has
   * ``page.in_menu`` - a boolean for whether the branch page should
     be in the menu (see "filtering menus" below)
+  * ``page.has_children`` - a boolean for whether the branch page has
+    any child pages at all, disregarding the current menu
+  * ``page.has_children_in_menu`` - a boolean for whether the branch
+    page has any child pages that appear in the current menu
+  * ``page.num_children`` - an integer for the number of child pages the
+    branch page has in total, disregarding the current menu
+  * ``page.num_children_in_menu`` - an integer for the number of child
+    pages the branch page has, that also appear in the current menu
   * ``page.is_current_child`` - a boolean for whether the branch page
     is a child of the current page being viewed
   * ``page.is_current_sibling`` - a boolean for whether the branch page
@@ -358,8 +362,8 @@ helping you to build advanced menus.
   * ``page.is_current_or_ascendant`` - a boolean for whether the branch
     page is the current page being viewed, or an ascendant (parent,
     grand-parent, etc) of the current page being viewed
-  * ``page.is_current_sibling`` - a boolean for whether the branch page
-    is a parimary page (has no parent)
+  * ``page.is_primary`` - a boolean for whether the branch page
+    is a primary page (has no parent)
   * ``page.html_id`` - a unique string that can be used as the HTML ID
     attribute
   * ``page.branch_level`` - an integer for the branch page's depth

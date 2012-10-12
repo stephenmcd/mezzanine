@@ -1,4 +1,5 @@
-  .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
+.. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
+   :target: http://travis-ci.org/#!/stephenmcd/mezzanine
 
 Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_
 
@@ -60,6 +61,7 @@ interface, Mezzanine provides the following:
   * `bit.ly`_ integration
   * `Akismet`_ spam filtering
   * Built-in `test suite`_
+  * `JVM`_ compatible (via `Jython`_)
 
 The Mezzanine admin dashboard:
 
@@ -113,11 +115,15 @@ create a new Mezzanine project in similar fashion to
 
 .. note::
 
-    The ``createdb`` is a shortcut for using Django's ``syncdb``
+    The ``createdb`` command is a shortcut for using Django's ``syncdb``
     command and setting the initial migration state for `South`_. You
     can alternatively use ``syncdb`` and ``migrate`` if preferred.
     South is automatically added to INSTALLED_APPS if the
     ``USE_SOUTH`` setting is set to ``True``.
+
+    ``createdb`` will also install some demo content, such as a contact
+    form and image gallery. If you'd like to omit this step, use the
+    ``--nodata`` option with ``createdb``.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and
 log in using the default account (``username: admin, password:
@@ -188,6 +194,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzanine-events`_ - Events plugin for Mezzanine, with geocoding
     via Google Maps, iCalendar files, webcal URLs and directions via
     Google Calendar/Maps.
+  * `mezzanine-polls`_ - Polls application for Mezzanine.
 
 Donating
 ========
@@ -285,6 +292,18 @@ Sites Using Mezzanine
   * `Pie Monster <http://piemonster.me>`_
   * `Cotton On Asia <http://asia.cottonon.com/>`_
   * `Ivan Diao <http://www.adieu.me>`_
+  * `Super Top Secret <http://www.wearetopsecret.com/>`_
+  * `Jaybird Sport <http://www.jaybirdgear.com/>`_
+  * `Manai Glitter <https://manai.co.uk>`_
+  * `Sri Emas International School <http://www.sriemas.edu.my>`_
+  * `Boom Perun <http://perunspace.ru>`_
+  * `Tactical Bags <http://tacticalbags.ru>`_
+  * `apps.de <http://apps.de>`_
+  * `Sunfluence <http://sunfluence.com>`_
+  * `ggzpreventie.nl <http://ggzpreventie.nl>`_
+  * `dakuaiba.com <http://www.dakuaiba.com>`_
+  * `Leprosys <http://www.leprosys.info>`_
+  * `Hunted Hive <http://huntedhive.com>`_
 
 Quotes
 ======
@@ -343,6 +362,8 @@ Quotes
 .. _`Themes`: http://mezzanine.jupo.org/docs/themes.html
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.core.tests
+.. _`JVM`: http://en.wikipedia.org/wiki/Java_virtual_machine
+.. _`Jython`: http://www.jython.org/
 .. _`Twitter Bootstrap`: http://twitter.github.com/bootstrap/
 .. _`Disqus`: http://disqus.com/
 .. _`Gravatar`: http://gravatar.com/
@@ -389,6 +410,7 @@ Quotes
 .. _`mezzanine-captcha`: https://github.com/mjtorn/mezzanine-captcha
 .. _`mezzanine-bookmarks`: https://github.com/adieu/mezzanine-bookmarks
 .. _`mezzanine-events`: https://github.com/stbarnabas/mezzanine-events
+.. _`mezzanine-polls`: https://github.com/sebasmagri/mezzanine_polls
 
 
 .. PEOPLE WITH QUOTES

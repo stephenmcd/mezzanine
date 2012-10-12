@@ -52,7 +52,7 @@ class PostsRSS(Feed):
 
     def get_feed(self, *args, **kwargs):
         # Django 1.3 author/category/tag filtering.
-        if VERSION < (1, 4):
+        if VERSION < (1, 4) and args[0]:
             attr, value = args[0].split("/", 1)
             setattr(self, attr, value)
         return super(PostsRSS, self).get_feed(*args, **kwargs)

@@ -1,6 +1,6 @@
 [
     {
-        "pk": 1,
+        "pk": 2,
         "model": "pages.page",
         "fields": {
             "status": 2,
@@ -15,22 +15,7 @@
             "site": 1
         }
     },
-    {
-        "pk": 2,
-        "model": "pages.page",
-        "fields": {
-            "status": 2,
-            "_order": 1,
-            "parent": null,
-            "description": "Blog",
-            "title": "Blog",
-            "titles": "Blog",
-            "content_model": "richtextpage",
-            "in_menus": [1, 2, 3],
-            "slug": "blog",
-            "site": 1
-        }
-    },
+    
     {
         "pk": 3,
         "model": "pages.page",
@@ -112,17 +97,10 @@
         }
     },
     {
-        "pk": 1,
-        "model": "pages.richtextpage",
-        "fields": {
-            "content": "<p>About us</p>"
-        }
-    },
-    {
         "pk": 2,
         "model": "pages.richtextpage",
         "fields": {
-            "content": "<p>Blog</p>"
+            "content": "<p>About us</p>"
         }
     },
     {

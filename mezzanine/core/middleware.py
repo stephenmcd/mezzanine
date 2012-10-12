@@ -173,5 +173,5 @@ class SSLRedirectMiddleware(object):
             if request.path.startswith(settings.SSL_FORCE_URL_PREFIXES):
                 if not request.is_secure():
                     return HttpResponseRedirect("https://%s" % url)
-            elif request.is_secure():
+            elif request.is_secure() and settings.SSL_FORCED_PREFIXES_ONLY:
                 return HttpResponseRedirect("http://%s" % url)
