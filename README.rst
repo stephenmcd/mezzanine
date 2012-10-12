@@ -114,11 +114,15 @@ create a new Mezzanine project in similar fashion to
 
 .. note::
 
-    The ``createdb`` is a shortcut for using Django's ``syncdb``
+    The ``createdb`` command is a shortcut for using Django's ``syncdb``
     command and setting the initial migration state for `South`_. You
     can alternatively use ``syncdb`` and ``migrate`` if preferred.
     South is automatically added to INSTALLED_APPS if the
     ``USE_SOUTH`` setting is set to ``True``.
+
+    ``createdb`` will also install some demo content, such as a contact
+    form and image gallery. If you'd like to omit this step, use the
+    ``--nodata`` option with ``createdb``.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and
 log in using the default account (``username: admin, password:
