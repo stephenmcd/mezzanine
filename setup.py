@@ -1,6 +1,7 @@
 
 from __future__ import with_statement
 import os
+import sys
 
 
 exclude = ["mezzanine/project_template/dev.db",
@@ -34,7 +35,12 @@ install_requires = [
 try:
     from PIL import Image, ImageOps
 except ImportError:
-    install_requires += ["pillow"]
+    try:
+        import Image, ImageFile, ImageOps
+    except ImportError:
+        # no way to install pillow/PIL with jython, so exclude this in any case
+        if not sys.platform.startswith('java'):
+            install_requires += ["pillow"]
 
 
 try:
