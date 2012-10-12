@@ -3,21 +3,66 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Jérôme Place <djayp83@hotmail.com>, 2012.
+#   <mathias.ettinger@gmail.com>, 2012.
+#   <strider@strycore.com>, 2012.
 #   <vincent.rialland@gmail.com>, 2011.
 # Vincent Rialland <vincent.rialland@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-06-17 16:13+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/language/fr/)\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
+"PO-Revision-Date: 2012-09-16 16:16+0000\n"
+"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: defaults.py:20
+msgid "bit.ly username"
+msgstr "Nom d'utilisateur bit.ly"
+
+#: defaults.py:21
+msgid "Username for http://bit.ly URL shortening service."
+msgstr "Nom d'utilisateur pour le service de réduction d'URL http://bit.ly"
+
+#: defaults.py:28
+msgid "bit.ly key"
+msgstr "Clé bit.ly"
+
+#: defaults.py:29
+msgid "Key for http://bit.ly URL shortening service."
+msgstr "Clé pour le service de réduction d'URL http://bit.ly"
+
+#: defaults.py:36
+msgid "Enable featured images in blog posts"
+msgstr "Activer l'image du jour"
+
+#: defaults.py:43
+msgid "Use date URLs"
+msgstr "Utiliser des URLs contenant des dates"
+
+#: defaults.py:44
+msgid ""
+"If ``True``, URLs for blog post include the month and year. Eg: "
+"/blog/yyyy/mm/slug/"
+msgstr "Si ``vrai``, les URLs de billets de blog incluront le mois et l'année. Ex : /blog/aaaa/mm/slug/"
+
+#: defaults.py:52
+msgid "Blog posts per page"
+msgstr "Billets de blog par page"
+
+#: defaults.py:53
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Nombre de billets de blog affichés en mode liste."
+
+#: defaults.py:60
+msgid "Slug of the page object for the blog."
+msgstr "Label de la page associée au blog."
 
 #: models.py:18 templates/blog/includes/filter_panel.html:30
 msgid "Categories"
@@ -25,9 +70,9 @@ msgstr "Catégories"
 
 #: models.py:20
 msgid "Allow comments"
-msgstr ""
+msgstr "Autoriser les commentaires"
 
-#: models.py:22 templates/blog/blog_post_list.html:113
+#: models.py:22 templates/blog/blog_post_list.html:111
 msgid "Comments"
 msgstr "Commentaires"
 
@@ -37,7 +82,7 @@ msgstr "Note"
 
 #: models.py:24
 msgid "Featured Image"
-msgstr ""
+msgstr "Image mise en avant"
 
 #: models.py:31
 msgid "Blog post"
@@ -47,11 +92,11 @@ msgstr "Article de blog"
 msgid "Blog posts"
 msgstr "Articles de blog"
 
-#: models.py:54
+#: models.py:61
 msgid "Blog Category"
 msgstr "Catégorie d'articles"
 
-#: models.py:55
+#: models.py:62
 msgid "Blog Categories"
 msgstr "Catégories d'articles"
 
@@ -64,74 +109,74 @@ msgid "Save Draft"
 msgstr "Enregistrer en tant que brouillon"
 
 #: templates/blog/blog_post_detail.html:27
-#: templates/blog/blog_post_list.html:76
+#: templates/blog/blog_post_list.html:74
 msgid "Posted by"
 msgstr "Posté par"
 
 #: templates/blog/blog_post_detail.html:31
-#: templates/blog/blog_post_list.html:86
+#: templates/blog/blog_post_list.html:84
 msgid "ago"
 msgstr "il y a "
 
 #: templates/blog/blog_post_detail.html:35
-#: templates/blog/blog_post_list.html:117
+#: templates/blog/blog_post_list.html:115
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 commentaire"
+msgstr[1] "%(comments_count)s commentaires"
 
 #: templates/blog/blog_post_detail.html:51
-#: templates/blog/blog_post_list.html:100
+#: templates/blog/blog_post_list.html:98
 #: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
 msgstr "Tags"
 
 #: templates/blog/blog_post_detail.html:62
 msgid "Share on Twitter"
-msgstr ""
+msgstr "Partager sur Twitter"
 
 #: templates/blog/blog_post_detail.html:63
 msgid "Share on Facebook"
-msgstr ""
+msgstr "Partager sur Facebook"
 
-#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:24
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
+
+#: templates/blog/blog_post_list.html:31
+msgid "Tag:"
+msgstr "Tag :"
 
 #: templates/blog/blog_post_list.html:33
-msgid "Tag:"
-msgstr ""
-
-#: templates/blog/blog_post_list.html:35
 msgid "Category:"
-msgstr ""
+msgstr "Catégorie :"
 
-#: templates/blog/blog_post_list.html:39
+#: templates/blog/blog_post_list.html:37
 msgid "Author:"
-msgstr ""
+msgstr "Auteur :"
 
-#: templates/blog/blog_post_list.html:51
+#: templates/blog/blog_post_list.html:49
 msgid "Viewing posts tagged"
 msgstr "Afficher les articles taggués"
 
-#: templates/blog/blog_post_list.html:53
+#: templates/blog/blog_post_list.html:51
 msgid "Viewing posts for the category"
 msgstr "Affichés les articles de la catégorie"
 
-#: templates/blog/blog_post_list.html:55
+#: templates/blog/blog_post_list.html:53
 msgid "Viewing posts from"
 msgstr "Afficher les articles de"
 
-#: templates/blog/blog_post_list.html:58
+#: templates/blog/blog_post_list.html:56
 msgid "Viewing posts by"
 msgstr "Afficher les articles écrits par"
 
-#: templates/blog/blog_post_list.html:81
+#: templates/blog/blog_post_list.html:79
 msgid "in"
 msgstr "dans"
 
-#: templates/blog/blog_post_list.html:108
+#: templates/blog/blog_post_list.html:106
 msgid "read more"
 msgstr "lire la suite"
 
@@ -151,10 +196,16 @@ msgstr "Auteurs"
 msgid "Feeds"
 msgstr "Flux"
 
-#: templates/blog/includes/filter_panel.html:66
+#: templates/blog/includes/filter_panel.html:67
+#: templates/blog/includes/filter_panel.html:71
+#: templates/blog/includes/filter_panel.html:75
+#: templates/blog/includes/filter_panel.html:79
 msgid "RSS"
 msgstr "RSS"
 
-#: templates/blog/includes/filter_panel.html:67
+#: templates/blog/includes/filter_panel.html:68
+#: templates/blog/includes/filter_panel.html:72
+#: templates/blog/includes/filter_panel.html:76
+#: templates/blog/includes/filter_panel.html:80
 msgid "Atom"
 msgstr "Atom"

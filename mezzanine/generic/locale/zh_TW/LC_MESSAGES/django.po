@@ -3,59 +3,146 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+#   <lueoad@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-06-17 16:14+0000\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
+"PO-Revision-Date: 2012-08-26 13:24+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.net/projects/p/mezzanine/language/zh_TW/)\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/mezzanine/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_TW\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20 models.py:67
 msgid "User"
+msgstr "使用者"
+
+#: defaults.py:24
+msgid "Accounts required for commenting"
+msgstr ""
+
+#: defaults.py:25
+msgid "If ``True``, users must log in to comment."
+msgstr ""
+
+#: defaults.py:32
+msgid "Disqus shortname"
+msgstr ""
+
+#: defaults.py:33
+msgid "Shortname for the http://disqus.com comments service."
+msgstr ""
+
+#: defaults.py:41
+msgid "Disqus public key"
+msgstr ""
+
+#: defaults.py:42
+msgid "Public key for http://disqus.com developer API"
+msgstr ""
+
+#: defaults.py:49
+msgid "Disqus secret key"
+msgstr ""
+
+#: defaults.py:50
+msgid "Secret key for http://disqus.com developer API"
+msgstr ""
+
+#: defaults.py:57
+msgid "Auto-approve comments"
+msgstr ""
+
+#: defaults.py:58
+msgid "If ``True``, built-in comments are approved by default."
+msgstr ""
+
+#: defaults.py:66
+msgid "Comment notification email addresses"
+msgstr ""
+
+#: defaults.py:67
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
+msgstr ""
+
+#: defaults.py:76
+msgid "Admin comments"
+msgstr ""
+
+#: defaults.py:77
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr ""
+
+#: defaults.py:85
+msgid "Show unapproved comments"
+msgstr ""
+
+#: defaults.py:86
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+
+#: defaults.py:95
+msgid "Show removed comments"
+msgstr ""
+
+#: defaults.py:96
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr ""
+
+#: defaults.py:105
+msgid "Min value for a rating."
+msgstr ""
+
+#: defaults.py:112
+msgid "Max value for a rating."
 msgstr ""
 
 #: forms.py:79
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 #: forms.py:79
 msgid "required"
-msgstr ""
+msgstr "必填"
 
 #: forms.py:81
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: forms.py:82
 msgid "required (not published)"
-msgstr ""
+msgstr "必填 (不公開)"
 
 #: forms.py:83
 msgid "Website"
-msgstr ""
+msgstr "網址"
 
 #: forms.py:83
 msgid "optional"
-msgstr ""
+msgstr "選填"
 
 #: models.py:24
 msgid "By the blog author"
-msgstr ""
+msgstr "由部落格作者"
 
 #: models.py:31 models.py:59
 msgid "Comment"
-msgstr ""
+msgstr "留言"
 
 #: models.py:32 templates/generic/includes/comments.html:3
 msgid "Comments"
-msgstr ""
+msgstr "留言"
 
 #: models.py:71
 msgid "View on site"
@@ -63,7 +150,7 @@ msgstr "前往網站觀看"
 
 #: models.py:91
 msgid "Keyword"
-msgstr ""
+msgstr "關鍵字"
 
 #: models.py:92
 msgid "Keywords"
@@ -71,70 +158,93 @@ msgstr "關鍵字"
 
 #: models.py:120
 msgid "Value"
-msgstr ""
+msgstr "值"
 
 #: models.py:126
 msgid "Rating"
-msgstr ""
+msgstr "評等"
 
 #: models.py:127
 msgid "Ratings"
-msgstr ""
+msgstr "評等"
 
-#: views.py:52
+#: views.py:53
 msgid ""
 "You must log in to comment. Please log in or sign up, and your comment will "
 "be posted."
+msgstr "您必須登入才能留言。請登入或註冊，您的留言才會公佈。"
+
+#: views.py:89
+msgid "New comment for: "
 msgstr ""
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
-msgstr ""
+msgstr "最近的留言"
 
 #: templates/admin/includes/recent_comments.html:22
 #: templates/generic/includes/comment.html:22
 #: templates/generic/includes/comment.html:53
 #: templates/generic/includes/comment.html:63
 msgid "ago"
+msgstr "歷史"
+
+#: templates/email/comment_notification.html:6
+msgid "A new comment has been posted on"
+msgstr ""
+
+#: templates/email/comment_notification.html:10
+#, python-format
+msgid ""
+"\n"
+"    At %(submit_date)s %(user_name)s wrote:\n"
+"    "
+msgstr ""
+
+#: templates/email/comment_notification.txt:7
+#, python-format
+msgid ""
+"\n"
+"At %(submit_date)s %(user_name)s wrote:\n"
 msgstr ""
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"
-msgstr ""
+msgstr "連結"
 
 #: templates/generic/includes/comment.html:26
 #: templates/generic/includes/comment.html:36
 msgid "Reply"
-msgstr ""
+msgstr "回覆"
 
 #: templates/generic/includes/comment.html:59
 msgid "Comment deleted"
-msgstr ""
+msgstr "留言已刪除"
 
 #: templates/generic/includes/comment.html:61
 msgid "Comment awaiting approval"
-msgstr ""
+msgstr "留言待認可"
 
 #: templates/generic/includes/comment.html:72
 msgid "There are currently no comments"
-msgstr ""
+msgstr "目前沒有留言"
 
 #: templates/generic/includes/comments.html:16
 msgid "New Comment"
-msgstr ""
+msgstr "新留言"
 
 #: templates/generic/includes/comments.html:24
 msgid "Send"
-msgstr ""
+msgstr "送出"
 
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"
-msgstr ""
+msgstr "目前評等"
 
 #: templates/generic/includes/rating.html:9
 msgid "Currently unrated"
-msgstr ""
+msgstr "目前未評等"
 
 #: templates/generic/includes/rating.html:18
 msgid "Rate"
-msgstr ""
+msgstr "評等"

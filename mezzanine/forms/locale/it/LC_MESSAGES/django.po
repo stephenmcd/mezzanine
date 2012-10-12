@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Nicola Larosa <transifex@teknico.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-05-05 23:20+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.net/projects/p/mezzanine/language/it/)\n"
-"Language: it\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
+"PO-Revision-Date: 2012-09-06 08:26+0000\n"
+"Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:30
 msgid "Email"
@@ -32,6 +32,28 @@ msgstr[1] "%(count)s elementi cancellati"
 #: admin.py:119
 msgid "View Entries"
 msgstr "Vedi elementi"
+
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr "Se ``True``, le email inviate a destinatari aggiuntivi a partire da form inoltrate non saranno inviate da un indirizzo preso da uno dei campi email della form."
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr "Massima lunghezza permessa per i valori dei campi nell'applicazione forms."
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr "Massima lunghezza permessa per le etichette dei campi nell'applicazione forms."
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr "Carattare da usare come delimitatore di campo quando si esportano le response dei form in CSV."
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Path assoluto dove salvare l'upload dei file per l'applicazione forms."
 
 #: fields.py:28
 msgid "Single line text"
@@ -77,7 +99,7 @@ msgstr "Caricamento file"
 msgid "Date"
 msgstr "Data"
 
-#: fields.py:40 models.py:110
+#: fields.py:40 models.py:116
 msgid "Date/time"
 msgstr "Data/ora"
 
@@ -138,102 +160,115 @@ msgid "Response"
 msgstr "Risposta"
 
 #: models.py:20
-msgid "Send email"
-msgstr "Invia email"
+msgid "Send email to user"
+msgstr "Invia un'email all'utente"
 
 #: models.py:21
-msgid "If checked, the form submitter will be sent an email."
-msgstr "Se selezionato, una email verrà inviata a chi compila la form."
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr " Per inviare un'email all'indirizzo fornito nella form inoltrata, barra questa casella."
 
-#: models.py:22
+#: models.py:23
 msgid "From address"
 msgstr "Indirizzo mittente"
 
-#: models.py:23
+#: models.py:24
 msgid "The address the email will be sent from"
 msgstr "L'indirizzo da cui l'email verrà inviata"
 
-#: models.py:24
-msgid "Send copies to"
-msgstr "Invia copie a"
-
 #: models.py:25
-msgid "One or more email addresses, separated by commas"
-msgstr "Uno o più indirizzi email, separati da virgole"
+msgid "Send email to others"
+msgstr "Invia email ad altri"
 
-#: models.py:27
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr "Fornisci una lista, separata da virgole, di indirizzi email da notificare all'inoltro della form. Lascia vuoto per disabilitare le notifiche."
+
+#: models.py:30
 msgid "Subject"
 msgstr "Oggetto"
 
-#: models.py:28
+#: models.py:31
 msgid "Message"
 msgstr "Messaggio"
 
-#: models.py:31
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr "Le email inviate in base alle impostazioni qui sopra conterranno ciascuno dei campi della form inseriti. Puoi anche inserire qui un messaggio che sarà incluso nell'email."
+
+#: models.py:37
 msgid "Form"
 msgstr "Form"
 
-#: models.py:32
+#: models.py:38
 msgid "Forms"
 msgstr "Form"
 
-#: models.py:49
+#: models.py:55
 msgid "Label"
 msgstr "Etichetta"
 
-#: models.py:51
+#: models.py:57
 msgid "Type"
 msgstr "Tipo"
 
-#: models.py:52
+#: models.py:58
 msgid "Required"
 msgstr "Obbligatorio"
 
-#: models.py:53
+#: models.py:59
 msgid "Visible"
 msgstr "Visibile"
 
-#: models.py:54
+#: models.py:60
 msgid "Choices"
 msgstr "Scelte"
 
-#: models.py:55
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
 msgstr "Opzioni separate da virgole, se applicabile. Se una delle opzioni contiene a sua volta virgole, delimitarla con `apostrofi inversi`."
 
-#: models.py:57
+#: models.py:63
 msgid "Default value"
 msgstr "Valore di default"
 
-#: models.py:59
+#: models.py:65
 msgid "Placeholder Text"
 msgstr "Testo segnaposto"
 
-#: models.py:61
+#: models.py:67
 msgid "Help text"
 msgstr "Testo d'aiuto"
 
-#: models.py:66 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:27
 msgid "Field"
 msgstr "Campo"
 
-#: models.py:67
+#: models.py:73
 msgid "Fields"
 msgstr "Campi"
 
-#: models.py:113
+#: models.py:119
 msgid "Form entry"
 msgstr "Elemento form"
 
-#: models.py:114
+#: models.py:120
 msgid "Form entries"
 msgstr "Elementi form"
 
-#: models.py:128
+#: models.py:134
 msgid "Form field entry"
 msgstr "Elemento campo form"
 
-#: models.py:129
+#: models.py:135
 msgid "Form field entries"
 msgstr "Elementi campi form"
 

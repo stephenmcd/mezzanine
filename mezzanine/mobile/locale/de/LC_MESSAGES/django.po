@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:36-0430\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
 "PO-Revision-Date: 2012-06-15 10:53+0000\n"
 "Last-Translator: Christopher R. Parr <fosstux@gmail.com>\n"
 "Language-Team: German (http://www.transifex.net/projects/p/mezzanine/language/de/)\n"
@@ -101,6 +101,7 @@ msgid "or"
 msgstr "oder"
 
 #: templates/mobile/blog/blog_post_list.html:4
+#: templates/mobile/blog/blog_post_list.html:19
 msgid "Blog"
 msgstr "Blog"
 

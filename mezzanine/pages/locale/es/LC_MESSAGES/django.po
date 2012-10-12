@@ -4,57 +4,99 @@
 # 
 # Translators:
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011, 2012.
+# William Díaz <leprosys@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-06-17 16:57+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/language/es/)\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
+"PO-Revision-Date: 2012-09-03 03:10+0000\n"
+"Last-Translator: William Díaz <leprosys@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:17
-msgid "Show in navigation"
-msgstr "Mostrar en la navegación"
+#: defaults.py:20
+msgid ""
+"A sequence of templates used by the ``page_menu`` template tag. Each item in"
+" the sequence is a three item sequence, containing a unique ID for the "
+"template, a label for the template, and the template path. These templates "
+"are then available for selection when editing which menus a page should "
+"appear in. Note that if a menu template is used that doesn't appear in this "
+"setting, all pages will appear in it."
+msgstr "Una secuencia de plantillas utilizadas por la etiqueta de plantilla ``page_menu``. Cada elemento en la secuencia es una secuencia de tres elementos, que contiene un identificador único para la plantilla, una etiqueta para la plantilla, y la ruta de la plantilla. Estas plantillas estarán disponibles para su selección durante la edición de los menús una página debería aparecer. Tenga en cuenta que si una plantilla de menú se utiliza no aparecerá en sus ajustes, todas las páginas aparecerán en él."
 
-#: models.py:18
-msgid "Show in footer"
-msgstr "Mostrar en el pie de página"
+#: defaults.py:29
+msgid "Top navigation bar"
+msgstr "Barra superior de navegación"
 
-#: models.py:21
+#: defaults.py:30
+msgid "Left-hand tree"
+msgstr "Árbol de la izquierda"
+
+#: defaults.py:31
+msgid "Footer"
+msgstr "Pie de página"
+
+#: defaults.py:37
+msgid ""
+"A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the "
+"default menu templates selected when creating new pages. By default all menu"
+" templates are selected. Set this setting to an empty sequence to have no "
+"templates selected by default."
+msgstr "Una secuencia de IDs de la configuración ``PAGE_MENU_TEMPLATES``  que define a las plantillas de menú predeterminadas que son seleccionadas al crear nuevas páginas. Por defecto, todas las plantillas de menú se seleccionan. Coloque una secuencia vacía en está opción para no tener plantillas seleccionadas de forma predeterminada."
+
+#: defaults.py:48
+msgid ""
+"If ``True``, the left-hand tree template for the pages menu will show all "
+"levels of navigation, otherwise child pages are only shown when viewing the "
+"parent page."
+msgstr "Si es `` True``, la plantilla del árbol de la izquierda para el menú de las páginas mostrará todos los niveles de navegación, de lo contrario las páginas secundarias sólo se mostraran cuando se visualice la página padre."
+
+#: defaults.py:57
+msgid ""
+"If ``True``, pages with ``login_required`` checked will still be listed in "
+"menus and search results, for unauthenticated users. Regardless of this "
+"setting, when an unauthenticated user accesses a page with "
+"``login_required`` checked, they'll be redirected to the login page."
+msgstr "Si es ``True``, páginas marcadas con ``login_required`` todavía aparecerán en los menús y los resultados de la búsqueda, para los usuarios no autenticados. Independientemente de está configuración, cuando un usuario no autenticado accede a una página marcada con ``login_required``, se le redirigirá a la página de inicio de sesión."
+
+#: models.py:32
+msgid "Show in menus"
+msgstr "Mostrar en los menús"
+
+#: models.py:35
 msgid "Login required"
 msgstr "Requiere estar autenticado"
 
-#: models.py:22
+#: models.py:36
 msgid "If checked, only logged in users can view this page"
 msgstr "Si está marcada, sólo los usuarios registrados pueden ver esta página"
 
-#: models.py:25
+#: models.py:39
 msgid "Page"
 msgstr "Página"
 
-#: models.py:26
+#: models.py:40
 msgid "Pages"
 msgstr "Páginas"
 
-#: models.py:175
+#: models.py:220
 msgid "Rich text page"
 msgstr "Página de texto enriquecido"
 
-#: models.py:176
+#: models.py:221
 msgid "Rich text pages"
 msgstr "Páginas de texto enriquecido"
 
-#: models.py:186
+#: models.py:231
 msgid "Link"
 msgstr "Enlace"
 
-#: models.py:187
+#: models.py:232
 msgid "Links"
 msgstr "Enlaces"
 
@@ -72,7 +114,7 @@ msgstr "Añadir"
 msgid "Home"
 msgstr "Inicio"
 
-#: templatetags/pages_tags.py:164
+#: templatetags/pages_tags.py:173
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr "Ocurrió un error con la siguiente clase. ¿Es ésta una subclase directa de Page?"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,6 +100,7 @@ msgid "or"
 msgstr ""
 
 #: templates/mobile/blog/blog_post_list.html:4
+#: templates/mobile/blog/blog_post_list.html:19
 msgid "Blog"
 msgstr ""
 

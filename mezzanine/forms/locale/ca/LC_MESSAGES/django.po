@@ -1,23 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-05-22 09:53+0000\n"
-"Last-Translator: Sergi Almacellas <pokoli@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/language/ca/)\n"
-"Language: ca\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
+"PO-Revision-Date: 2012-08-26 13:05+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Catalan (http://www.transifex.com/projects/p/mezzanine/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:30
 msgid "Email"
@@ -33,6 +33,28 @@ msgstr[1] "%(count)s entrades eliminades"
 #: admin.py:119
 msgid "View Entries"
 msgstr "Veure entrades"
+
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr "Longitud màxima permesa pels valors dels camps de l'aplicació formulari."
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr "Longitud màxima permesa per les etiquetes dels camps de l'aplicació formulari."
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr "Caràcter utilitzar com a delimitador de camps al exportar les respostes a CSV."
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Ruta absoluta per guardar els fitxers pujats a l'aplicació de formulari."
 
 #: fields.py:28
 msgid "Single line text"
@@ -78,7 +100,7 @@ msgstr "Pujada de Fitxers"
 msgid "Date"
 msgstr "Dia"
 
-#: fields.py:40 models.py:110
+#: fields.py:40 models.py:116
 msgid "Date/time"
 msgstr "Dia/Hora"
 
@@ -139,102 +161,115 @@ msgid "Response"
 msgstr "Resposta"
 
 #: models.py:20
-msgid "Send email"
-msgstr "Enviar email"
+msgid "Send email to user"
+msgstr ""
 
 #: models.py:21
-msgid "If checked, the form submitter will be sent an email."
-msgstr "Si es marca, s'enviar un email al enviar el formulari."
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
 
-#: models.py:22
+#: models.py:23
 msgid "From address"
 msgstr "Adreça origen:"
 
-#: models.py:23
+#: models.py:24
 msgid "The address the email will be sent from"
 msgstr "L'adreça des d'on s'enviarà el correu."
 
-#: models.py:24
-msgid "Send copies to"
-msgstr "Enviar copies a"
-
 #: models.py:25
-msgid "One or more email addresses, separated by commas"
-msgstr "Una o més direccións de coreru electrònic, separades per comes."
+msgid "Send email to others"
+msgstr ""
 
-#: models.py:27
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+
+#: models.py:30
 msgid "Subject"
 msgstr "Assumpte"
 
-#: models.py:28
+#: models.py:31
 msgid "Message"
 msgstr "Missatge"
 
-#: models.py:31
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+
+#: models.py:37
 msgid "Form"
 msgstr "Formulari"
 
-#: models.py:32
+#: models.py:38
 msgid "Forms"
 msgstr "Formularis"
 
-#: models.py:49
+#: models.py:55
 msgid "Label"
 msgstr "Etiqueta"
 
-#: models.py:51
+#: models.py:57
 msgid "Type"
 msgstr "Tipus"
 
-#: models.py:52
+#: models.py:58
 msgid "Required"
 msgstr "Obligatori"
 
-#: models.py:53
+#: models.py:59
 msgid "Visible"
 msgstr "Visible"
 
-#: models.py:54
+#: models.py:60
 msgid "Choices"
 msgstr "Opcions"
 
-#: models.py:55
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
 msgstr "Opcions separades per comes. Si una opció conté comes, envoltar amb `accents oberts`."
 
-#: models.py:57
+#: models.py:63
 msgid "Default value"
 msgstr "Valor per defecte"
 
-#: models.py:59
+#: models.py:65
 msgid "Placeholder Text"
 msgstr "Marcador del Text"
 
-#: models.py:61
+#: models.py:67
 msgid "Help text"
 msgstr "Text d'ajuda"
 
-#: models.py:66 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:27
 msgid "Field"
 msgstr "Camp"
 
-#: models.py:67
+#: models.py:73
 msgid "Fields"
 msgstr "Camps"
 
-#: models.py:113
+#: models.py:119
 msgid "Form entry"
 msgstr "Entrada del formulari"
 
-#: models.py:114
+#: models.py:120
 msgid "Form entries"
 msgstr "Entrades del formulari"
 
-#: models.py:128
+#: models.py:134
 msgid "Form field entry"
 msgstr "Entrada del camp del formulari"
 
-#: models.py:129
+#: models.py:135
 msgid "Form field entries"
 msgstr "Entrada del camp del formulari"
 

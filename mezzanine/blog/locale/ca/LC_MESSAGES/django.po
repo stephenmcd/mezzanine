@@ -9,15 +9,57 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-06-17 16:13+0000\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
+"PO-Revision-Date: 2012-08-26 13:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.net/projects/p/mezzanine/language/ca/)\n"
+"Language-Team: Catalan (http://www.transifex.com/projects/p/mezzanine/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: defaults.py:20
+msgid "bit.ly username"
+msgstr "Nom d'usuari bit.ly"
+
+#: defaults.py:21
+msgid "Username for http://bit.ly URL shortening service."
+msgstr ""
+
+#: defaults.py:28
+msgid "bit.ly key"
+msgstr "Clau bit.ly"
+
+#: defaults.py:29
+msgid "Key for http://bit.ly URL shortening service."
+msgstr ""
+
+#: defaults.py:36
+msgid "Enable featured images in blog posts"
+msgstr ""
+
+#: defaults.py:43
+msgid "Use date URLs"
+msgstr ""
+
+#: defaults.py:44
+msgid ""
+"If ``True``, URLs for blog post include the month and year. Eg: "
+"/blog/yyyy/mm/slug/"
+msgstr ""
+
+#: defaults.py:52
+msgid "Blog posts per page"
+msgstr "Entrades per pàgina"
+
+#: defaults.py:53
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Nombre d'entrades del bloc que es mostrarar a la llista."
+
+#: defaults.py:60
+msgid "Slug of the page object for the blog."
+msgstr "Descripció reduida de l'objecte pàgina del bloc."
 
 #: models.py:18 templates/blog/includes/filter_panel.html:30
 msgid "Categories"
@@ -27,7 +69,7 @@ msgstr "Categories"
 msgid "Allow comments"
 msgstr ""
 
-#: models.py:22 templates/blog/blog_post_list.html:113
+#: models.py:22 templates/blog/blog_post_list.html:111
 msgid "Comments"
 msgstr "Comentaris"
 
@@ -47,11 +89,11 @@ msgstr "Entrada"
 msgid "Blog posts"
 msgstr "Entrades"
 
-#: models.py:54
+#: models.py:61
 msgid "Blog Category"
 msgstr "Categoria"
 
-#: models.py:55
+#: models.py:62
 msgid "Blog Categories"
 msgstr "Categories"
 
@@ -64,17 +106,17 @@ msgid "Save Draft"
 msgstr "Desar Esborrany"
 
 #: templates/blog/blog_post_detail.html:27
-#: templates/blog/blog_post_list.html:76
+#: templates/blog/blog_post_list.html:74
 msgid "Posted by"
 msgstr "Publicat per"
 
 #: templates/blog/blog_post_detail.html:31
-#: templates/blog/blog_post_list.html:86
+#: templates/blog/blog_post_list.html:84
 msgid "ago"
 msgstr "enrere"
 
 #: templates/blog/blog_post_detail.html:35
-#: templates/blog/blog_post_list.html:117
+#: templates/blog/blog_post_list.html:115
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
@@ -82,7 +124,7 @@ msgstr[0] "1 commentari"
 msgstr[1] "%(comments_count)s comentaris"
 
 #: templates/blog/blog_post_detail.html:51
-#: templates/blog/blog_post_list.html:100
+#: templates/blog/blog_post_list.html:98
 #: templates/blog/includes/filter_panel.html:41
 msgid "Tags"
 msgstr "Etiquetes"
@@ -95,43 +137,43 @@ msgstr "Compartir a Twitter"
 msgid "Share on Facebook"
 msgstr "Compatir a Facebook"
 
-#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:24
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"
 msgstr "Bloc"
 
-#: templates/blog/blog_post_list.html:33
+#: templates/blog/blog_post_list.html:31
 msgid "Tag:"
 msgstr "Etiqueta:"
 
-#: templates/blog/blog_post_list.html:35
+#: templates/blog/blog_post_list.html:33
 msgid "Category:"
 msgstr "Categoria:"
 
-#: templates/blog/blog_post_list.html:39
+#: templates/blog/blog_post_list.html:37
 msgid "Author:"
 msgstr "Autor:"
 
-#: templates/blog/blog_post_list.html:51
+#: templates/blog/blog_post_list.html:49
 msgid "Viewing posts tagged"
 msgstr "Veuient entrades etiquetades"
 
-#: templates/blog/blog_post_list.html:53
+#: templates/blog/blog_post_list.html:51
 msgid "Viewing posts for the category"
 msgstr "Veient entrades de la categoria"
 
-#: templates/blog/blog_post_list.html:55
+#: templates/blog/blog_post_list.html:53
 msgid "Viewing posts from"
 msgstr "Veient entrades de"
 
-#: templates/blog/blog_post_list.html:58
+#: templates/blog/blog_post_list.html:56
 msgid "Viewing posts by"
 msgstr "Veient post escrits per"
 
-#: templates/blog/blog_post_list.html:81
+#: templates/blog/blog_post_list.html:79
 msgid "in"
 msgstr "entre"
 
-#: templates/blog/blog_post_list.html:108
+#: templates/blog/blog_post_list.html:106
 msgid "read more"
 msgstr "llegir més"
 
@@ -151,10 +193,16 @@ msgstr "Autors"
 msgid "Feeds"
 msgstr "Feeds"
 
-#: templates/blog/includes/filter_panel.html:66
+#: templates/blog/includes/filter_panel.html:67
+#: templates/blog/includes/filter_panel.html:71
+#: templates/blog/includes/filter_panel.html:75
+#: templates/blog/includes/filter_panel.html:79
 msgid "RSS"
 msgstr "RSS"
 
-#: templates/blog/includes/filter_panel.html:67
+#: templates/blog/includes/filter_panel.html:68
+#: templates/blog/includes/filter_panel.html:72
+#: templates/blog/includes/filter_panel.html:76
+#: templates/blog/includes/filter_panel.html:80
 msgid "Atom"
 msgstr "Atom"

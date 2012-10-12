@@ -1,57 +1,53 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Dmitry Falk <tfalc@mail.ru>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-20 13:57+0400\n"
-"PO-Revision-Date: 2012-05-26 18:08+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
+"PO-Revision-Date: 2012-08-26 13:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
-"language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: defaults.py:20
 msgid "bit.ly username"
-msgstr "Имя пользователя bit'ly"
+msgstr "Логин на bit.ly"
 
 #: defaults.py:21
 msgid "Username for http://bit.ly URL shortening service."
-msgstr "Имя пользователя для сервиса сокращения ссылок http://bit.ly"
+msgstr "Имя пользователя на сервисе сокращения URL bit.ly"
 
 #: defaults.py:28
 msgid "bit.ly key"
-msgstr "Ключ bit'ly"
+msgstr "Ключ bit.ly"
 
 #: defaults.py:29
 msgid "Key for http://bit.ly URL shortening service."
-msgstr "Ключ для сервис сокращения ссылок http://bit.ly"
+msgstr "Ключ на сервисе сокращения URL bit.ly"
 
 #: defaults.py:36
 msgid "Enable featured images in blog posts"
-msgstr "Включить главные изображения для заметок в блоге"
+msgstr "Включает изображение для заметок"
 
 #: defaults.py:43
 msgid "Use date URLs"
-msgstr "Использовать даты в ссылках"
+msgstr "Использовать адреса с датой"
 
 #: defaults.py:44
 msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"Если ``Да``, ссылки для заметок будут включать месяц и год. Пример: /blog/"
-"yyyy/mm/slug/"
+"If ``True``, URLs for blog post include the month and year. Eg: "
+"/blog/yyyy/mm/slug/"
+msgstr "Если ``Да``, адреса страниц блога будут содержать год и месяц: /blog/yyyy/mm/slug/"
 
 #: defaults.py:52
 msgid "Blog posts per page"
@@ -59,11 +55,11 @@ msgstr "Количество заметок на странице"
 
 #: defaults.py:53
 msgid "Number of blog posts shown on a blog listing page."
-msgstr "Количество заметок отображаемых в списке заметок"
+msgstr "Количество заметок, отображаемых в списке на одной странице"
 
 #: defaults.py:60
 msgid "Slug of the page object for the blog."
-msgstr "Уникальное slug-имя для страницы блога."
+msgstr "Внутренний URL главной страницы блога"
 
 #: models.py:18 templates/blog/includes/filter_panel.html:30
 msgid "Categories"
@@ -71,7 +67,7 @@ msgstr "Категории"
 
 #: models.py:20
 msgid "Allow comments"
-msgstr "Разрешить комментарии"
+msgstr ""
 
 #: models.py:22 templates/blog/blog_post_list.html:111
 msgid "Comments"
@@ -83,27 +79,27 @@ msgstr "Рейтинг"
 
 #: models.py:24
 msgid "Featured Image"
-msgstr "Главное изображение"
+msgstr ""
 
 #: models.py:31
 msgid "Blog post"
-msgstr "Заметка в блоге"
+msgstr "Запись в блоге"
 
 #: models.py:32
 msgid "Blog posts"
-msgstr "Заметки в блоге"
+msgstr "Записи в блоге"
 
-#: models.py:54
+#: models.py:61
 msgid "Blog Category"
 msgstr "Категория блога"
 
-#: models.py:55
+#: models.py:62
 msgid "Blog Categories"
 msgstr "Категории блога"
 
 #: templates/admin/includes/quick_blog.html:18
 msgid "Quick Blog"
-msgstr "Быстрая заметка"
+msgstr ""
 
 #: templates/admin/includes/quick_blog.html:27
 msgid "Save Draft"
@@ -124,9 +120,9 @@ msgstr "назад"
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "1 комментарий"
-msgstr[1] "%(comments_count)s комментария"
-msgstr[2] "%(comments_count)s комментариев"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: templates/blog/blog_post_detail.html:51
 #: templates/blog/blog_post_list.html:98
@@ -160,19 +156,19 @@ msgstr "Автор:"
 
 #: templates/blog/blog_post_list.html:49
 msgid "Viewing posts tagged"
-msgstr "Просмотр заметок с тегом"
+msgstr "Просмотр записей с тегом"
 
 #: templates/blog/blog_post_list.html:51
 msgid "Viewing posts for the category"
-msgstr "Просмотр заметок в категории"
+msgstr "Просмотр записей в категории"
 
 #: templates/blog/blog_post_list.html:53
 msgid "Viewing posts from"
-msgstr "Просмотр заметок за"
+msgstr "Просмотр записей за"
 
 #: templates/blog/blog_post_list.html:56
 msgid "Viewing posts by"
-msgstr "Просмотр заметок от"
+msgstr "Просмотр записей от"
 
 #: templates/blog/blog_post_list.html:79
 msgid "in"
@@ -184,7 +180,7 @@ msgstr "читать далее"
 
 #: templates/blog/includes/filter_panel.html:5
 msgid "Recent Posts"
-msgstr "Последние заметки"
+msgstr "Последние записи"
 
 #: templates/blog/includes/filter_panel.html:16
 msgid "Archive"
@@ -198,10 +194,16 @@ msgstr "Авторы"
 msgid "Feeds"
 msgstr "Ленты"
 
-#: templates/blog/includes/filter_panel.html:66
+#: templates/blog/includes/filter_panel.html:67
+#: templates/blog/includes/filter_panel.html:71
+#: templates/blog/includes/filter_panel.html:75
+#: templates/blog/includes/filter_panel.html:79
 msgid "RSS"
 msgstr "RSS"
 
-#: templates/blog/includes/filter_panel.html:67
+#: templates/blog/includes/filter_panel.html:68
+#: templates/blog/includes/filter_panel.html:72
+#: templates/blog/includes/filter_panel.html:76
+#: templates/blog/includes/filter_panel.html:80
 msgid "Atom"
 msgstr "Atom"

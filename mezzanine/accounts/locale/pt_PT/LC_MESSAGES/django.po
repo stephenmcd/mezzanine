@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
 # Daniel Araújo <jdc.araujo@gmail.com>, 2012.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-03 12:42+0100\n"
-"PO-Revision-Date: 2012-08-04 00:00+0000\n"
-"Last-Translator: Daniel Araújo <jdc.araujo@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: pt_PT\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-08-26 07:54-0430\n"
+"PO-Revision-Date: 2012-08-26 13:06+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/mezzanine/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: defaults.py:20
 msgid "Minimum length for passwords"
@@ -37,11 +38,9 @@ msgstr "Se ``True``, os utilizadores terão as suas páginas de perfil públicas
 
 #: defaults.py:51
 msgid ""
-"If ``True``, when users create an account, they will be sent an email with a "
-"verification link, which they must click to enable their account."
-msgstr ""
-"Se ``True``, quanto os utilizadores criam a conta, será-lhes enviado um email com um"
-"Um link de verificação, que terão de clicar para abrir a conta."
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
+msgstr "Se ``True``, quanto os utilizadores criam a conta, será-lhes enviado um email com umUm link de verificação, que terão de clicar para abrir a conta."
 
 #: forms.py:18 forms.py:179
 msgid "Username or email address"
@@ -111,8 +110,7 @@ msgstr "Terminaste a sessão."
 #: views.py:54
 msgid ""
 "A verification email has been sent with a link for activating your account."
-msgstr ""
-"Um email de verificação foi enviado com um link para activares a tua conta."
+msgstr "Um email de verificação foi enviado com um link para activares a tua conta."
 
 #: views.py:58 views.py:77
 msgid "Successfully signed up"
@@ -122,7 +120,7 @@ msgstr "Ligado com sucesso"
 msgid "Signup"
 msgstr "Ligar"
 
-#: views.py:80 views.py:158
+#: views.py:80 views.py:159
 msgid "The link you clicked is no longer valid."
 msgstr "O link que clicaste já não está disponível"
 
@@ -137,8 +135,8 @@ msgstr "Actualizar o perfil"
 #: views.py:147
 msgid ""
 "A verification email has been sent with a link for resetting your password."
-msgstr ""
-"Um email de verificação foi enviado com um link para redefinir a tua password."
+msgstr "Um email de verificação foi enviado com um link para redefinir a tua password."
+
 #: views.py:149
 msgid "Password Reset"
 msgstr "Redefinir a password."
@@ -150,25 +148,23 @@ msgstr "Já estás ligado."
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an acount you can <a href=\"%(signup_url)s?next=%(next)s"
-"\">sign up</a> for one now."
-msgstr ""
-"Se não tens uma conta podes <a href=\"%(signup_url)s?next=%(next)s"
-"\">criar </a> uma agora."
+"If you don't have an acount you can <a "
+"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgstr "Se não tens uma conta podes <a href=\"%(signup_url)s?next=%(next)s\">criar </a> uma agora."
+
 #: templates/accounts/account_login.html:14
 #, python-format
 msgid ""
-"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
-"\">reset your password</a> if you've forgotten it.</p>"
-msgstr "<p>Também podes <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
-"\">redefinir a password</a> se te esqueceste dela.</p>"
+"<p>You can also <a "
+"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
+"password</a> if you've forgotten it.</p>"
+msgstr "<p>Também podes <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">redefinir a password</a> se te esqueceste dela.</p>"
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
-"Enter your username or email address and you'll receive an email with a link "
-"you need to click, in order to log in and change your password."
-msgstr "Escreve o teu nome de perfil ou email e receberás um email com um link"
-"terás de clicar para te conseguires ligar e mudar a password."
+"Enter your username or email address and you'll receive an email with a link"
+" you need to click, in order to log in and change your password."
+msgstr "Escreve o teu nome de perfil ou email e receberás um email com um linkterás de clicar para te conseguires ligar e mudar a password."
 
 #: templates/accounts/account_profile.html:17
 #: templates/accounts/includes/user_panel.html:9
@@ -177,17 +173,15 @@ msgstr "Actualiza o teu perfil"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need "
-"to log out first."
-msgstr "Já estás ligado. Se quiseres criar uma nova conta, terás"
-"que sair primeiro."
+"You're already logged in. If you'd like to create a new account, you'll need"
+" to log out first."
+msgstr "Já estás ligado. Se quiseres criar uma nova conta, terásque sair primeiro."
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
-msgstr "Depois de te registares, irás receber um email com um link que precisas de clicar"
-"de forma a activares a tua conta."
+msgstr "Depois de te registares, irás receber um email com um link que precisas de clicarde forma a activares a tua conta."
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "

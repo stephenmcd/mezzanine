@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Edita Menclová <edi.menclova@centrum.cz>, 2012.
+#   <matej.skrabanek@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-05-05 23:20+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.net/projects/p/mezzanine/language/cs/)\n"
-"Language: cs\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
+"PO-Revision-Date: 2012-09-03 06:41+0000\n"
+"Last-Translator: Mattysek <matej.skrabanek@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/mezzanine/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: admin.py:32 fields.py:30
 msgid "Email"
@@ -33,6 +34,28 @@ msgstr[2] "%(count)s záznamy odstraněny"
 #: admin.py:119
 msgid "View Entries"
 msgstr "Zobrazit příspěvky"
+
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr "Je-li tato hodnota nastavena na ``True``,  emaily poslané extra příjemcům pro podání formulářů nebudou odeslány z adresy, která se nachází ve některém poli formuláře."
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr "Maximální délka povolených hodnot polí ve formuláři z forms app."
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr "Maximální délka povolená pro pole formuláře z forms app."
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr "Znak, pro použití jako oddělovač v poli při exportu z odpovědí do CSV."
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Absolutní cesta ke skladování nahraných souborů z forms app."
 
 #: fields.py:28
 msgid "Single line text"
@@ -78,7 +101,7 @@ msgstr "File upload"
 msgid "Date"
 msgstr "Datum"
 
-#: fields.py:40 models.py:110
+#: fields.py:40 models.py:116
 msgid "Date/time"
 msgstr "Datum/čas"
 
@@ -139,104 +162,117 @@ msgid "Response"
 msgstr "Odpovědět"
 
 #: models.py:20
-msgid "Send email"
-msgstr "Poslat email"
+msgid "Send email to user"
+msgstr "Odeslat email uživateli"
 
 #: models.py:21
-msgid "If checked, the form submitter will be sent an email."
-msgstr "Je-li zatrženo, bude odesílateli formuláře zaslán email"
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr "Pro odeslání emailu na emailovou adresu získanou z formuláře, zaškrtněte toto políčko."
 
-#: models.py:22
+#: models.py:23
 msgid "From address"
 msgstr "Z adresy"
 
-#: models.py:23
+#: models.py:24
 msgid "The address the email will be sent from"
 msgstr "Adresa odesílatele"
 
-#: models.py:24
-msgid "Send copies to"
-msgstr "Poslat kopii"
-
 #: models.py:25
-msgid "One or more email addresses, separated by commas"
-msgstr ""
+msgid "Send email to others"
+msgstr "Odeslat email ostatním"
 
-#: models.py:27
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr "Zadejte čárkami oddělený seznam emailových adres, které mají být upozorněny při odeslání formuláře. Nechte pole prázdné pro zakázání notifikací."
+
+#: models.py:30
 msgid "Subject"
 msgstr "Předmět"
 
-#: models.py:28
+#: models.py:31
 msgid "Message"
 msgstr "Zpráva"
 
-#: models.py:31
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr "Emaily odeslané na základě výše uvedených možností budou obsahovat všechna vyplněná pole formuláře. Zde můžete přidat zprávu, která bude přidána do emailu."
+
+#: models.py:37
 msgid "Form"
 msgstr "Formulář"
 
-#: models.py:32
+#: models.py:38
 msgid "Forms"
 msgstr "Formuláře"
 
-#: models.py:49
+#: models.py:55
 msgid "Label"
 msgstr "Označení"
 
-#: models.py:51
+#: models.py:57
 msgid "Type"
 msgstr "Zadejte"
 
-#: models.py:52
+#: models.py:58
 msgid "Required"
 msgstr "Požadováno"
 
-#: models.py:53
+#: models.py:59
 msgid "Visible"
 msgstr "Viditelný"
 
-#: models.py:54
+#: models.py:60
 msgid "Choices"
 msgstr "Výběry"
 
-#: models.py:55
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
-msgstr ""
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr "Čárkami oddělené možnosti, tam kde jsou aplikovatelné. Pokud možnost sama obsahuje čárky, obalte možnost znaky: `možnost`."
 
-#: models.py:57
+#: models.py:63
 msgid "Default value"
 msgstr "Výchozí hodnota"
 
-#: models.py:59
+#: models.py:65
 msgid "Placeholder Text"
-msgstr ""
+msgstr "Zástupný text"
 
-#: models.py:61
+#: models.py:67
 msgid "Help text"
 msgstr "Nápověda"
 
-#: models.py:66 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:27
 msgid "Field"
-msgstr ""
+msgstr "Pole"
 
-#: models.py:67
+#: models.py:73
 msgid "Fields"
-msgstr ""
+msgstr "Pole"
 
-#: models.py:113
+#: models.py:119
 msgid "Form entry"
 msgstr "Vstupní formulář"
 
-#: models.py:114
+#: models.py:120
 msgid "Form entries"
-msgstr ""
+msgstr "Položky formuláře"
 
-#: models.py:128
+#: models.py:134
 msgid "Form field entry"
-msgstr ""
+msgstr "Vstupní pole formuláře"
 
-#: models.py:129
+#: models.py:135
 msgid "Form field entries"
-msgstr ""
+msgstr "Položky pole formuláře"
 
 #: templates/admin/forms/change_form.html:9
 #: templates/admin/forms/entries.html:56

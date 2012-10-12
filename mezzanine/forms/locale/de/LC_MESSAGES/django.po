@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Christopher R. Parr <fosstux@gmail.com>, 2012.
+# Daniel Seither <post@tiwoc.de>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-06-15 13:44+0000\n"
-"Last-Translator: Christopher R. Parr <fosstux@gmail.com>\n"
-"Language-Team: German (http://www.transifex.net/projects/p/mezzanine/language/de/)\n"
-"Language: de\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
+"PO-Revision-Date: 2012-08-27 09:52+0000\n"
+"Last-Translator: Daniel Seither <post@tiwoc.de>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/mezzanine/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:30
 msgid "Email"
@@ -32,6 +33,28 @@ msgstr[1] "%(count)s Einträge gelöscht"
 #: admin.py:119
 msgid "View Entries"
 msgstr "Einträge ansehen"
+
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr "Wenn ``Wahr``, werden gesendete E-Mails an zusätzliche Empfänger für Formulareingaben nicht von einer Adresse aus dem Formular gesendet."
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr "Maximal erlaubte Länge für Feldwerte in der Forms App."
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr "Maximal erlaubte Länge für Feldbeschriftungen in der Forms App."
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr "Trennnzeichen für CSV Export"
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Absoluter Pfad, um Dateiuploads für die Form App zu speichern."
 
 #: fields.py:28
 msgid "Single line text"
@@ -77,7 +100,7 @@ msgstr "Datei hochladen"
 msgid "Date"
 msgstr "Datum"
 
-#: fields.py:40 models.py:110
+#: fields.py:40 models.py:116
 msgid "Date/time"
 msgstr "Datum/Zeit"
 
@@ -138,102 +161,115 @@ msgid "Response"
 msgstr "Antwort"
 
 #: models.py:20
-msgid "Send email"
-msgstr "E-Mail absenden"
+msgid "Send email to user"
+msgstr "E-Mail an Benutzer senden"
 
 #: models.py:21
-msgid "If checked, the form submitter will be sent an email."
-msgstr "Wenn aktiviert, bekommt der Absender des Formulars ein E-Mail."
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr "Wenn dieses Feld ausgewählt wird, wird beim Absenden des Formulars eine Nachricht an die im Formular angegebene E-Mail-Adresse gesendet."
 
-#: models.py:22
+#: models.py:23
 msgid "From address"
 msgstr "Absender"
 
-#: models.py:23
+#: models.py:24
 msgid "The address the email will be sent from"
 msgstr "Absendeadresse, "
 
-#: models.py:24
-msgid "Send copies to"
-msgstr "Kopien senden an"
-
 #: models.py:25
-msgid "One or more email addresses, separated by commas"
-msgstr "Eine oder mehrere E-Mail-Adressen, durch Komma getrennt"
+msgid "Send email to others"
+msgstr "E-Mail an andere senden"
 
-#: models.py:27
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr "Geben Sie eine Liste von durch Kommas getrennte E-Mail-Adressen an, die beim Absenden des Formulars benachrichtigt werden sollen. Wenn Sie dieses Feld leer lassen, werden die Benachrichtigungen deaktiviert."
+
+#: models.py:30
 msgid "Subject"
 msgstr "Betreff"
 
-#: models.py:28
+#: models.py:31
 msgid "Message"
 msgstr "Nachricht"
 
-#: models.py:31
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr "Die E-Mails, die aufgrund der obigen Angaben versendet werden, enthalten die Einträge aller Formularfelder. Zusätzlich können Sie hier eine Nachricht eingeben, die an die E-Mails angefügt werden soll."
+
+#: models.py:37
 msgid "Form"
 msgstr "Formular"
 
-#: models.py:32
+#: models.py:38
 msgid "Forms"
 msgstr "Formulare"
 
-#: models.py:49
+#: models.py:55
 msgid "Label"
 msgstr "Beschriftung"
 
-#: models.py:51
+#: models.py:57
 msgid "Type"
 msgstr "Typ"
 
-#: models.py:52
+#: models.py:58
 msgid "Required"
 msgstr "benötigt"
 
-#: models.py:53
+#: models.py:59
 msgid "Visible"
 msgstr "Sichtbar"
 
-#: models.py:54
+#: models.py:60
 msgid "Choices"
 msgstr "Möglichkeiten"
 
-#: models.py:55
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
 msgstr "Durch Komma getrennte Optionen, wenn zutreffend. Wenn eine Option selbst ein Komma beinhaltet, diese Option durch `Backticks` umgeben."
 
-#: models.py:57
+#: models.py:63
 msgid "Default value"
 msgstr "Standardwert"
 
-#: models.py:59
+#: models.py:65
 msgid "Placeholder Text"
 msgstr "Platzhalter-Text"
 
-#: models.py:61
+#: models.py:67
 msgid "Help text"
 msgstr "Hilfstext"
 
-#: models.py:66 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:27
 msgid "Field"
 msgstr "Feld"
 
-#: models.py:67
+#: models.py:73
 msgid "Fields"
 msgstr "Felder"
 
-#: models.py:113
+#: models.py:119
 msgid "Form entry"
 msgstr "Formular-Eingabe"
 
-#: models.py:114
+#: models.py:120
 msgid "Form entries"
 msgstr "Fomular-Eingaben"
 
-#: models.py:128
+#: models.py:134
 msgid "Form field entry"
 msgstr "Fomularfeld-Eingabe"
 
-#: models.py:129
+#: models.py:135
 msgid "Form field entries"
 msgstr "Fomularfeld-Eingaben"
 

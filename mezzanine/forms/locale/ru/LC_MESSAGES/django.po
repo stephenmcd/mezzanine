@@ -1,26 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
-# Timur Bobrus, 2010.
 # Dmitry Falk <tfalc@mail.ru>, 2012.
+# Timur Bobrus, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:00+0400\n"
-"PO-Revision-Date: 2012-03-11 23:55+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-08-26 07:42-0430\n"
+"PO-Revision-Date: 2012-08-26 13:05+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
-"language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:32 fields.py:30
 msgid "Email"
@@ -30,9 +28,9 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] "1 запись удалена"
-msgstr[1] "%(count)s записи удалено"
-msgstr[2] "%(count)s записей удалено"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: admin.py:119
 msgid "View Entries"
@@ -46,19 +44,19 @@ msgstr ""
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
-msgstr ""
+msgstr "Максимальная длина, допустимая для полей пользовательских форм"
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr ""
+msgstr "Максимально допустимая длина названий полей пользовательских форм"
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
+msgstr "Символ, используемый как разделитель полей, при экспорте ответов на форму в формате CSV"
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr ""
+msgstr "Пусть для сохранения файлов, закачанных через пользовательские формы"
 
 #: fields.py:28
 msgid "Single line text"
@@ -74,7 +72,7 @@ msgstr "Число"
 
 #: fields.py:32
 msgid "URL"
-msgstr "Ссылка"
+msgstr "URL"
 
 #: fields.py:33
 msgid "Check box"
@@ -94,7 +92,7 @@ msgstr "Поле с выбором"
 
 #: fields.py:37
 msgid "Radio buttons"
-msgstr "Переключатель"
+msgstr "Радио кнопки"
 
 #: fields.py:38
 msgid "File upload"
@@ -166,14 +164,13 @@ msgstr "Ответ"
 
 #: models.py:20
 msgid "Send email to user"
-msgstr "Отправить письмо пользователю"
+msgstr ""
 
 #: models.py:21
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr "Отметьте, если хотите чтобы отправитель получил уведомление на email, "
-"который был указан в форме."
+msgstr ""
 
 #: models.py:23
 msgid "From address"
@@ -181,18 +178,17 @@ msgstr "От кого"
 
 #: models.py:24
 msgid "The address the email will be sent from"
-msgstr "Адрес электронной почты с которого будет отправлено письмо"
+msgstr "Адрес электронной почты, от кого будет отправлено письмо"
 
 #: models.py:25
 msgid "Send email to others"
-msgstr "Отправить письмо на другие адреса"
+msgstr ""
 
 #: models.py:26
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr "Укажите через запятую список email адресов на которые будет "
-"отправлено уведомление. Оставьте пустым, если уведомления не нужны."
+msgstr ""
 
 #: models.py:30
 msgid "Subject"
@@ -207,9 +203,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr "Письма отправленные указанным пользователям будут содержать все "
-"поля формы. Вы также можете ввести сообщение, которое будет включено в "
-"письмо."
+msgstr ""
 
 #: models.py:37
 msgid "Form"
@@ -243,9 +237,7 @@ msgstr "Значения"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Варианты, разделенные запятыми. Если значение содержит запятые, окружите его "
-"`обратными кавычками`."
+msgstr "Варианты, разделенные запятыми. Если значение содержит запятые, окружите его `обратными кавычками`."
 
 #: models.py:63
 msgid "Default value"
@@ -298,7 +290,7 @@ msgstr "Посмотреть на сайте"
 
 #: templates/admin/forms/entries.html:13
 msgid "Home"
-msgstr "Главная"
+msgstr "Начало"
 
 #: templates/admin/forms/entries.html:28
 msgid "Include"
