@@ -304,6 +304,8 @@ Sites Using Mezzanine
   * `dakuaiba.com <http://www.dakuaiba.com>`_
   * `Leprosys <http://www.leprosys.info>`_
   * `Hunted Hive <http://huntedhive.com>`_
+  * `mjollnir.org <http://mjollnir.org>`_
+
 
 Quotes
 ======
