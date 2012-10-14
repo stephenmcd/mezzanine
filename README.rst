@@ -61,6 +61,7 @@ interface, Mezzanine provides the following:
   * `bit.ly`_ integration
   * `Akismet`_ spam filtering
   * Built-in `test suite`_
+  * `JVM`_ compatible (via `Jython`_)
 
 The Mezzanine admin dashboard:
 
@@ -114,11 +115,15 @@ create a new Mezzanine project in similar fashion to
 
 .. note::
 
-    The ``createdb`` is a shortcut for using Django's ``syncdb``
+    The ``createdb`` command is a shortcut for using Django's ``syncdb``
     command and setting the initial migration state for `South`_. You
     can alternatively use ``syncdb`` and ``migrate`` if preferred.
     South is automatically added to INSTALLED_APPS if the
     ``USE_SOUTH`` setting is set to ``True``.
+
+    ``createdb`` will also install some demo content, such as a contact
+    form and image gallery. If you'd like to omit this step, use the
+    ``--nodata`` option with ``createdb``.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and
 log in using the default account (``username: admin, password:
@@ -298,6 +303,9 @@ Sites Using Mezzanine
   * `ggzpreventie.nl <http://ggzpreventie.nl>`_
   * `dakuaiba.com <http://www.dakuaiba.com>`_
   * `Leprosys <http://www.leprosys.info>`_
+  * `Hunted Hive <http://huntedhive.com>`_
+  * `mjollnir.org <http://mjollnir.org>`_
+
 
 Quotes
 ======
@@ -356,6 +364,8 @@ Quotes
 .. _`Themes`: http://mezzanine.jupo.org/docs/themes.html
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.core.tests
+.. _`JVM`: http://en.wikipedia.org/wiki/Java_virtual_machine
+.. _`Jython`: http://www.jython.org/
 .. _`Twitter Bootstrap`: http://twitter.github.com/bootstrap/
 .. _`Disqus`: http://disqus.com/
 .. _`Gravatar`: http://gravatar.com/

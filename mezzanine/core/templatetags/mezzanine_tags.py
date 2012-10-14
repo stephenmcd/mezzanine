@@ -20,7 +20,13 @@ from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
 
-from PIL import Image, ImageFile, ImageOps
+# Try to import PIL in either of the two ways it can end up installed.
+try:
+    from PIL import Image, ImageFile, ImageOps
+except ImportError:
+    import Image
+    import ImageFile
+    import ImageOps
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField

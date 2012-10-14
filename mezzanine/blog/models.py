@@ -63,7 +63,12 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
         return getattr(self, "_categories", self.categories.all())
 
     def keyword_list(self):
-        return getattr(self, "_keywords", self.keywords.all())
+        try:
+            return self._keywords
+        except AttributeError:
+            keywords = [k.keyword for k in self.keywords.all()]
+            setattr(self, "_keywords", keywords)
+            return self._keywords
 
 
 class BlogCategory(Slugged):

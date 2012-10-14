@@ -159,7 +159,8 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         # Save profile model.
         if self._has_profile:
             profile = user.get_profile()
-            ProfileFieldsForm(self.data, instance=profile).save()
+            profile_fields_form = self.get_profile_fields_form()
+            profile_fields_form(self.data, instance=profile).save()
 
         if self._signup:
             settings.use_editable()
@@ -170,6 +171,9 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                 user = authenticate(username=user.username,
                                     password=password, is_active=True)
         return user
+
+    def get_profile_fields_form(self):
+        return ProfileFieldsForm
 
 
 class PasswordResetForm(Html5Mixin, forms.Form):
