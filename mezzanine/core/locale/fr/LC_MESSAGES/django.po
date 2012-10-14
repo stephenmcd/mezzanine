@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:42-0430\n"
-"PO-Revision-Date: 2012-09-16 17:02+0000\n"
-"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:34+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: admin.py:31
+#: admin.py:30
 msgid "Meta data"
 msgstr "Balises Meta"
 
-#: admin.py:53
+#: admin.py:52
 msgid "This field is required if status is set to published."
 msgstr "Ce champ est requis si le statut est « publié »."
 
@@ -34,7 +34,7 @@ msgstr "Ce champ est requis si le statut est « publié »."
 msgid "Controls the ordering and grouping of the admin menu."
 msgstr "Contrôler l'ordre et le regroupement du menu d'administration."
 
-#: defaults.py:24 models.py:235
+#: defaults.py:24 models.py:238
 msgid "Content"
 msgstr "Contenu"
 
@@ -164,27 +164,33 @@ msgstr "Liste des attributs HTML autorisés pour les pages ``RichTextField``."
 
 #: defaults.py:226
 msgid ""
+"List of inline CSS styles that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr ""
+
+#: defaults.py:234
+msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
 msgstr "Chemin d'accès en notation pointée vers la fonction à appeler pour finaliser un ``RichTextField`` avant qu'il soit converti par un template."
 
-#: defaults.py:236
+#: defaults.py:244
 msgid "High"
 msgstr "Élevé"
 
-#: defaults.py:237
+#: defaults.py:245
 msgid "Low (allows video, iframe, Flash, etc)"
 msgstr "Bas (autorise les vidéos, iframe, Flash, etc.)"
 
-#: defaults.py:238
+#: defaults.py:246
 msgid "No filtering"
 msgstr "Aucune protection"
 
-#: defaults.py:243
+#: defaults.py:251
 msgid "Rich Text filter level"
 msgstr "Niveau de protection Rich Text"
 
-#: defaults.py:244
+#: defaults.py:252
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
@@ -195,15 +201,15 @@ msgid ""
 "Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
 msgstr "*Ne modifier cette option que si vous savez ce que vous faites.*\n\nLorsque le contenu d'un champ Rich Text (WYSIWYG) est enregistré, les balises et attributs HTML à risque sont supprimés du contenu. Ceci afin d'éviter qu'un utilisateur mal intentionné n'essaie d'injecter du code qui pourrait poser des problèmes et récupère, par exemple un rôle de super-utilisateur avec des droits d'accès complets au système.\n\n\nCette option vous permet de modifier le niveau de la protection qui est appliquée. Le niveau bas autorise l'ajout de certaines balises, comme celles utilisées pour intégrer des vidéos. Même si ces balises sont rarement sélectionnées pour injecter du code malicieux, elles sont considérées comme dangereuses et peuvent être utilisées de façon mal intentionnée par un utilisateur expert. Elles sont donc supprimées lorsque le niveau élevé est choisi.\n\n\nEn choisissant le niveau aucune protection, cela désactivera tous les filtres de protection et autorisera l'ajout de n'importe quel code par les utilisateurs, y compris les balises script."
 
-#: defaults.py:267
+#: defaults.py:275
 msgid "Search results per page"
 msgstr "Nombre de résultats de recherche par page"
 
-#: defaults.py:268
+#: defaults.py:276
 msgid "Number of results shown in the search results page."
 msgstr "Nombre de résultats affichés dans la page de résultats de recherche."
 
-#: defaults.py:275
+#: defaults.py:283
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
 "this, you'll also need to manually apply it to your project's root "
@@ -211,29 +217,29 @@ msgid ""
 "``mezzanine-project`` command contains an example of this towards its end."
 msgstr "Le préfixe d'URL après lequel Mezzanine s'occupe de rechercher ses motifs. Si vous utilisez ceci, vous devez éditer le module ``urls.py`` à la racine de votre projet. Le module ``urls.py`` créé à cet emplacement par la commande ``mezzanine-project`` contient un exemple vers la fin du fichier."
 
-#: defaults.py:286
+#: defaults.py:294
 msgid "Site Title"
 msgstr "Titre du site"
 
-#: defaults.py:287
+#: defaults.py:295
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
 msgstr "Titre qui s'affichera en haut du site, et qui sera ajouté au contenu de la balise HTML title de chaque page."
 
-#: defaults.py:295
+#: defaults.py:303
 msgid "Tagline"
 msgstr "Slogan"
 
-#: defaults.py:296
+#: defaults.py:304
 msgid "A tag line that will appear at the top of all pages."
 msgstr "Un slogan qui sera affiché en haut de chaque page."
 
-#: defaults.py:298
+#: defaults.py:306
 msgid "An open source content management platform."
 msgstr "Une plateforme de gestion de contenu open-source."
 
-#: defaults.py:303
+#: defaults.py:311
 msgid ""
 "Dotted Python path to the callable for converting strings into URL slugs. "
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
@@ -241,55 +247,62 @@ msgid ""
 "Django's slugify function, or something of your own if required."
 msgstr "Chemin d'accès, en notation pointée de Python, vers la fonction permettant de convertir les chaînes de caractères en des labels pour les URLs. ``mezzanine.utils.urls.slugify_unicode`` est utilisé par défaut et permet d'utiliser des URLs non-ASCII. À modifier en ``django.template.defaultfilters.slugify`` pour utiliser la fonction de labelisation de Django ou toute autre fonction de votre cru si vous en éprouvez le besoin."
 
-#: defaults.py:314
+#: defaults.py:322
 msgid "Enable SSL"
 msgstr "Activer SSL"
 
-#: defaults.py:315
+#: defaults.py:323
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
 msgstr "Si ``vrai``, les utilisateurs seront automatiquement redirigés vers le protocole HTTPS pour les URLs désignées dans le paramètre ``SSL_FORCE_URL_PREFIXES``."
 
-#: defaults.py:324
+#: defaults.py:332
 msgid "Force Host"
 msgstr "Forcer le nom d'hôte"
 
-#: defaults.py:325
+#: defaults.py:333
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
 msgstr "Nom d'hôte pour lequel le site devrait être toujours accessible et qui correspond au certificat SSL."
 
-#: defaults.py:343
+#: defaults.py:351
+msgid ""
+"If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
+"will be accessible over SSL, and all other URLs will be redirected back to "
+"HTTP if accessed over HTTPS."
+msgstr ""
+
+#: defaults.py:361
 msgid "List of words which will be stripped from search queries."
 msgstr "Liste de mots à supprimer des termes de recherche."
 
-#: defaults.py:400
+#: defaults.py:418
 msgid "Tag Cloud Sizes"
 msgstr "Taille du nuage de tags"
 
-#: defaults.py:401
+#: defaults.py:419
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr "Nombre de tailles de tag différentes à afficher dans un nuage."
 
-#: defaults.py:408
+#: defaults.py:426
 msgid "Sequence of setting names available within templates."
 msgstr "Séquence des noms des paramètres accessibles depuis les templates."
 
-#: defaults.py:423
+#: defaults.py:441
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
 msgstr "Nom du répertoire de stockage des vignettes, qui seront créés sous la même arborescence que dans le dossier original des images."
 
-#: defaults.py:431
+#: defaults.py:449
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
 msgstr "URL pour les fichiers JavaScript (relatif à ``STATIC_URL``) qui gère la configuration de TinyMCE lorsque le ``RICHTEXT_WIDGET_CLASS`` par défaut est utilisé."
 
-#: defaults.py:446
+#: defaults.py:464
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
@@ -300,7 +313,7 @@ msgstr "Si ``vrai``, l'application South sera automatiquement ajoutée au param�
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Ne peut importer la valeur de settings.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:75 models.py:277
+#: forms.py:79 models.py:280
 msgid "Order"
 msgstr "Commande"
 
@@ -360,7 +373,7 @@ msgstr "Statut"
 msgid "With Draft chosen, will only be shown for admin users on the site."
 msgstr "Si l'option « brouillon » est cochée, ne sera visible sur le site que pour les utilisateurs ayant les droits d'administration."
 
-#: models.py:187 models.py:216
+#: models.py:187 models.py:219
 msgid "Published from"
 msgstr "Publié à partir du"
 
@@ -376,7 +389,7 @@ msgstr "Expirera le"
 msgid "With Published chosen, won't be shown after this time"
 msgstr "Si l'option « publié » est cochée, ne sera pas visible après cette date"
 
-#: models.py:355
+#: models.py:358
 msgid "Author"
 msgstr "Auteur"
 
@@ -457,6 +470,10 @@ msgstr "résultats correspondant à votre requête :"
 #: templates/search_results.html:32
 msgid "read more"
 msgstr "lire la suite"
+
+#: templates/admin/base_site.html:34
+msgid "View site"
+msgstr ""
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"

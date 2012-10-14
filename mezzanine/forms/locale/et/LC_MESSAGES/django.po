@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Rivo Zängov <eraser@eraser.ee>, 2011, 2012.
+# Rivo Zängov <eraser@eraser.ee>, 2011-2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:42-0430\n"
-"PO-Revision-Date: 2012-08-26 13:05+0000\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:36+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/mezzanine/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:32 fields.py:30
+#: admin.py:32 fields.py:31
 msgid "Email"
 msgstr "E-post"
 
@@ -55,95 +55,99 @@ msgstr ""
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr ""
 
-#: fields.py:28
+#: fields.py:29
 msgid "Single line text"
 msgstr "Üherealine tekst"
 
-#: fields.py:29
+#: fields.py:30
 msgid "Multi line text"
 msgstr "Mitmerealine tekst"
 
-#: fields.py:31
+#: fields.py:32
 msgid "Number"
 msgstr "Arv"
 
-#: fields.py:32
+#: fields.py:33
 msgid "URL"
 msgstr "URL"
 
-#: fields.py:33
+#: fields.py:34
 msgid "Check box"
 msgstr "Märkekast"
 
-#: fields.py:34
+#: fields.py:35
 msgid "Check boxes"
 msgstr "Märkekastid"
 
-#: fields.py:35
+#: fields.py:36
 msgid "Drop down"
 msgstr "Rippvalik"
 
-#: fields.py:36
+#: fields.py:37
 msgid "Multi select"
 msgstr "Mitme valimine"
 
-#: fields.py:37
+#: fields.py:38
 msgid "Radio buttons"
 msgstr "Raadionupud"
 
-#: fields.py:38
+#: fields.py:39
 msgid "File upload"
 msgstr "Faili üleslaadimine"
 
-#: fields.py:39
+#: fields.py:40
 msgid "Date"
 msgstr "Kuupäev"
 
-#: fields.py:40 models.py:116
+#: fields.py:41 models.py:116
 msgid "Date/time"
 msgstr "Kuupäev/kellaaeg"
 
-#: fields.py:41
+#: fields.py:42
+msgid "Date of birth"
+msgstr ""
+
+#: fields.py:43
 msgid "Hidden"
 msgstr "Peidetud"
 
-#: forms.py:28 forms.py:36 forms.py:42
+#: forms.py:29 forms.py:37 forms.py:43
 msgid "Nothing"
 msgstr "Mitte midagi"
 
-#: forms.py:29
+#: forms.py:30
 msgid "Contains"
 msgstr "Sisaldab"
 
-#: forms.py:30
+#: forms.py:31
 msgid "Doesn't contain"
 msgstr "Ei sisalda"
 
-#: forms.py:31 forms.py:37
+#: forms.py:32 forms.py:38
 msgid "Equals"
 msgstr "Võrdub"
 
-#: forms.py:32 forms.py:38
+#: forms.py:33 forms.py:39
 msgid "Doesn't equal"
 msgstr "Ei võrdu"
 
-#: forms.py:43
+#: forms.py:44
 msgid "Is between"
 msgstr "On vahepeal"
 
-#: forms.py:100
+#: forms.py:101
 msgid "required"
 msgstr "kohustuslik"
 
-#: forms.py:214
+#: forms.py:221
 msgid "Checked"
 msgstr "Märgitud"
 
-#: forms.py:214
+#: forms.py:221
 msgid "Not checked"
 msgstr "POle märgitud"
 
-#: forms.py:228 forms.py:243
+#: forms.py:235 forms.py:250
 msgid "and"
 msgstr "ja"
 
@@ -272,16 +276,16 @@ msgstr "Vormi välja sissekanne"
 msgid "Form field entries"
 msgstr "Vormi välja sissekanded"
 
-#: templates/admin/forms/change_form.html:9
+#: templates/admin/forms/change_form.html:8
 #: templates/admin/forms/entries.html:56
 msgid "View entries"
 msgstr "Vaata sissekandeid"
 
-#: templates/admin/forms/change_form.html:10
+#: templates/admin/forms/change_form.html:9
 msgid "History"
 msgstr "Ajalugu"
 
-#: templates/admin/forms/change_form.html:11
+#: templates/admin/forms/change_form.html:10
 msgid "View on site"
 msgstr "Vaata saidil"
 

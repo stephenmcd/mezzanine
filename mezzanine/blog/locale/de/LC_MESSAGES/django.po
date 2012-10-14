@@ -9,15 +9,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:42-0430\n"
-"PO-Revision-Date: 2012-08-29 10:27+0000\n"
-"Last-Translator: Daniel Seither <post@tiwoc.de>\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:32+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/mezzanine/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:20
+msgid "Other posts"
+msgstr ""
 
 #: defaults.py:20
 msgid "bit.ly username"
@@ -61,7 +65,7 @@ msgstr "Anzahl der Beiträge auf einer Blog-Listing-Seite"
 msgid "Slug of the page object for the blog."
 msgstr "Pfad des Seitenobjekts des Blogs"
 
-#: models.py:18 templates/blog/includes/filter_panel.html:30
+#: models.py:18 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
 msgstr "Kategorien"
 
@@ -69,7 +73,8 @@ msgstr "Kategorien"
 msgid "Allow comments"
 msgstr "Kommentare erlauben"
 
-#: models.py:22 templates/blog/blog_post_list.html:111
+#: models.py:22 templates/blog/blog_post_detail.html:43
+#: templates/blog/blog_post_list.html:126
 msgid "Comments"
 msgstr "Kommentare"
 
@@ -81,19 +86,23 @@ msgstr "Bewertung"
 msgid "Featured Image"
 msgstr "Hervorgehobenes Bild"
 
-#: models.py:31
+#: models.py:28 templates/blog/blog_post_detail.html:94
+msgid "Related posts"
+msgstr ""
+
+#: models.py:33
 msgid "Blog post"
 msgstr "Blogbeitrag"
 
-#: models.py:32
+#: models.py:34
 msgid "Blog posts"
 msgstr "Blogbeiträge"
 
-#: models.py:61
+#: models.py:80
 msgid "Blog Category"
 msgstr "Blog-Kategorie"
 
-#: models.py:62
+#: models.py:81
 msgid "Blog Categories"
 msgstr "Blog-Kategorien"
 
@@ -105,35 +114,35 @@ msgstr "Schneller Blog-Beitrag"
 msgid "Save Draft"
 msgstr "Als Entwurf speichern"
 
-#: templates/blog/blog_post_detail.html:27
-#: templates/blog/blog_post_list.html:74
+#: templates/blog/blog_post_detail.html:29
+#: templates/blog/blog_post_list.html:83
 msgid "Posted by"
 msgstr "Geschrieben von"
 
-#: templates/blog/blog_post_detail.html:31
-#: templates/blog/blog_post_list.html:84
+#: templates/blog/blog_post_detail.html:33
+#: templates/blog/blog_post_list.html:93
 msgid "ago"
 msgstr "her"
 
-#: templates/blog/blog_post_detail.html:35
-#: templates/blog/blog_post_list.html:115
+#: templates/blog/blog_post_detail.html:46
+#: templates/blog/blog_post_list.html:130
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
 msgstr[0] "1 Kommentar"
 msgstr[1] "%(comments_count)s Kommentare"
 
-#: templates/blog/blog_post_detail.html:51
-#: templates/blog/blog_post_list.html:98
-#: templates/blog/includes/filter_panel.html:41
+#: templates/blog/blog_post_detail.html:74
+#: templates/blog/blog_post_list.html:113
+#: templates/blog/includes/filter_panel.html:48
 msgid "Tags"
 msgstr "Schlagwörter"
 
-#: templates/blog/blog_post_detail.html:62
+#: templates/blog/blog_post_detail.html:87
 msgid "Share on Twitter"
 msgstr "Teile auf Twitter"
 
-#: templates/blog/blog_post_detail.html:63
+#: templates/blog/blog_post_detail.html:88
 msgid "Share on Facebook"
 msgstr "Teile auf Facebook"
 
@@ -153,56 +162,56 @@ msgstr "Kategorie:"
 msgid "Author:"
 msgstr "Autor"
 
-#: templates/blog/blog_post_list.html:49
+#: templates/blog/blog_post_list.html:50
 msgid "Viewing posts tagged"
 msgstr "Zeige Beiträge an, die getaggt wurden mit"
 
-#: templates/blog/blog_post_list.html:51
+#: templates/blog/blog_post_list.html:52
 msgid "Viewing posts for the category"
 msgstr "Zeige Beiträge der Kategorie"
 
-#: templates/blog/blog_post_list.html:53
+#: templates/blog/blog_post_list.html:54
 msgid "Viewing posts from"
 msgstr "Zeige Beiträge von"
 
-#: templates/blog/blog_post_list.html:56
+#: templates/blog/blog_post_list.html:57
 msgid "Viewing posts by"
 msgstr "Zeige Beiträge nach"
 
-#: templates/blog/blog_post_list.html:79
+#: templates/blog/blog_post_list.html:88
 msgid "in"
 msgstr "in"
 
-#: templates/blog/blog_post_list.html:106
+#: templates/blog/blog_post_list.html:121
 msgid "read more"
 msgstr "mehr lesen"
 
-#: templates/blog/includes/filter_panel.html:5
+#: templates/blog/includes/filter_panel.html:6
 msgid "Recent Posts"
 msgstr "Letzte Beiträge"
 
-#: templates/blog/includes/filter_panel.html:16
+#: templates/blog/includes/filter_panel.html:19
 msgid "Archive"
 msgstr "Archiv"
 
-#: templates/blog/includes/filter_panel.html:55
+#: templates/blog/includes/filter_panel.html:64
 msgid "Authors"
 msgstr "Autoren"
 
-#: templates/blog/includes/filter_panel.html:65
+#: templates/blog/includes/filter_panel.html:76
 msgid "Feeds"
 msgstr "Feeds"
 
-#: templates/blog/includes/filter_panel.html:67
-#: templates/blog/includes/filter_panel.html:71
-#: templates/blog/includes/filter_panel.html:75
-#: templates/blog/includes/filter_panel.html:79
+#: templates/blog/includes/filter_panel.html:78
+#: templates/blog/includes/filter_panel.html:82
+#: templates/blog/includes/filter_panel.html:86
+#: templates/blog/includes/filter_panel.html:90
 msgid "RSS"
 msgstr "RSS"
 
-#: templates/blog/includes/filter_panel.html:68
-#: templates/blog/includes/filter_panel.html:72
-#: templates/blog/includes/filter_panel.html:76
-#: templates/blog/includes/filter_panel.html:80
+#: templates/blog/includes/filter_panel.html:79
+#: templates/blog/includes/filter_panel.html:83
+#: templates/blog/includes/filter_panel.html:87
+#: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"

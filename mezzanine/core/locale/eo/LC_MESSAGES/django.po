@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:42-0430\n"
-"PO-Revision-Date: 2012-08-26 13:33+0000\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:34+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/language/eo/)\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Language: eo\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:31
+#: admin.py:30
 msgid "Meta data"
 msgstr "Metadatumoj"
 
-#: admin.py:53
+#: admin.py:52
 msgid "This field is required if status is set to published."
 msgstr ""
 
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Controls the ordering and grouping of the admin menu."
 msgstr "Kontrolas la ordigado kaj grupado de la administra menuo"
 
-#: defaults.py:24 models.py:235
+#: defaults.py:24 models.py:238
 msgid "Content"
 msgstr "Enhavo"
 
@@ -161,27 +161,33 @@ msgstr ""
 
 #: defaults.py:226
 msgid ""
+"List of inline CSS styles that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr ""
+
+#: defaults.py:234
+msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
 msgstr "Punktita pado al la funkcio voki sur ``RichTextField`` valoro antaŭ ĝi estas bildigita al la ŝablono."
 
-#: defaults.py:236
+#: defaults.py:244
 msgid "High"
 msgstr ""
 
-#: defaults.py:237
+#: defaults.py:245
 msgid "Low (allows video, iframe, Flash, etc)"
 msgstr ""
 
-#: defaults.py:238
+#: defaults.py:246
 msgid "No filtering"
 msgstr ""
 
-#: defaults.py:243
+#: defaults.py:251
 msgid "Rich Text filter level"
 msgstr ""
 
-#: defaults.py:244
+#: defaults.py:252
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
@@ -192,15 +198,15 @@ msgid ""
 "Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
 msgstr ""
 
-#: defaults.py:267
+#: defaults.py:275
 msgid "Search results per page"
 msgstr "Serĉrezultoj por paĝo"
 
-#: defaults.py:268
+#: defaults.py:276
 msgid "Number of results shown in the search results page."
 msgstr "Nombro de rezultoj montritaj en la rezultojn de serĉo paĝo."
 
-#: defaults.py:275
+#: defaults.py:283
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
 "this, you'll also need to manually apply it to your project's root "
@@ -208,29 +214,29 @@ msgid ""
 "``mezzanine-project`` command contains an example of this towards its end."
 msgstr ""
 
-#: defaults.py:286
+#: defaults.py:294
 msgid "Site Title"
 msgstr "Reteja Titolo"
 
-#: defaults.py:287
+#: defaults.py:295
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
 msgstr "Titolo ke montros ĉe la supro de la retejo, kaj esti aldonita al la enhavo de la HTML titolo markoj sur ĉiu paĝo."
 
-#: defaults.py:295
+#: defaults.py:303
 msgid "Tagline"
 msgstr "Markolinio"
 
-#: defaults.py:296
+#: defaults.py:304
 msgid "A tag line that will appear at the top of all pages."
 msgstr "Markolinio kiu aperos sur la supro de ĉiuj paĝoj."
 
-#: defaults.py:298
+#: defaults.py:306
 msgid "An open source content management platform."
 msgstr "Malfermitkoda enhav-mastruma sistemo."
 
-#: defaults.py:303
+#: defaults.py:311
 msgid ""
 "Dotted Python path to the callable for converting strings into URL slugs. "
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
@@ -238,55 +244,62 @@ msgid ""
 "Django's slugify function, or something of your own if required."
 msgstr ""
 
-#: defaults.py:314
+#: defaults.py:322
 msgid "Enable SSL"
 msgstr "Ebligu SSL"
 
-#: defaults.py:315
+#: defaults.py:323
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
 msgstr ""
 
-#: defaults.py:324
+#: defaults.py:332
 msgid "Force Host"
 msgstr "Perfortu Gastigo"
 
-#: defaults.py:325
+#: defaults.py:333
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
 msgstr ""
 
-#: defaults.py:343
+#: defaults.py:351
+msgid ""
+"If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
+"will be accessible over SSL, and all other URLs will be redirected back to "
+"HTTP if accessed over HTTPS."
+msgstr ""
+
+#: defaults.py:361
 msgid "List of words which will be stripped from search queries."
 msgstr "Listo de vortoj kiuj estos senigita de serĉo konsultoj."
 
-#: defaults.py:400
+#: defaults.py:418
 msgid "Tag Cloud Sizes"
 msgstr "Marka Nubo Grandecoj"
 
-#: defaults.py:401
+#: defaults.py:419
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr "Nombro de malsamaj grandecoj por markoj kiam montrita kiel nubo."
 
-#: defaults.py:408
+#: defaults.py:426
 msgid "Sequence of setting names available within templates."
 msgstr "Vico de agordaj nomoj disponebla en ŝablonoj."
 
-#: defaults.py:423
+#: defaults.py:441
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
 msgstr "Dosierujo nomo por enstoki bildetojn, kiu estos kreita relativa al la originala bildo de dosierujo."
 
-#: defaults.py:431
+#: defaults.py:449
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
 msgstr "URL por ĝavaskripto dosieron (relativa al ``STATIC_URL``) kiu manipulas agordi TinyMCE kiam oni uzas la defaŭlta ``RICHTEXT_WIDGET_CLASS``."
 
-#: defaults.py:446
+#: defaults.py:464
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
@@ -297,7 +310,7 @@ msgstr "Se ``Vera``, la sudo aplikaĵo estos aŭtomate aldonita al la ``INSTALLE
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Neeblis importi la valoron de agordoj.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:75 models.py:277
+#: forms.py:79 models.py:280
 msgid "Order"
 msgstr "Mendo"
 
@@ -357,7 +370,7 @@ msgstr "Stato"
 msgid "With Draft chosen, will only be shown for admin users on the site."
 msgstr ""
 
-#: models.py:187 models.py:216
+#: models.py:187 models.py:219
 msgid "Published from"
 msgstr "Publikite de"
 
@@ -373,7 +386,7 @@ msgstr "Senvalidiĝos je"
 msgid "With Published chosen, won't be shown after this time"
 msgstr ""
 
-#: models.py:355
+#: models.py:358
 msgid "Author"
 msgstr "Aŭtoro"
 
@@ -454,6 +467,10 @@ msgstr "rezultoj kongruas vian demandon:"
 #: templates/search_results.html:32
 msgid "read more"
 msgstr "legu pli"
+
+#: templates/admin/base_site.html:34
+msgid "View site"
+msgstr ""
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:42-0430\n"
-"PO-Revision-Date: 2012-08-26 13:24+0000\n"
+"POT-Creation-Date: 2012-10-14 16:59-0430\n"
+"PO-Revision-Date: 2012-10-14 21:38+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/mezzanine/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -62,48 +62,54 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr ""
 
 #: defaults.py:66
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
+msgstr ""
+
+#: defaults.py:74
 msgid "Comment notification email addresses"
 msgstr ""
 
-#: defaults.py:67
+#: defaults.py:75
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
 msgstr ""
 
-#: defaults.py:76
+#: defaults.py:84
 msgid "Admin comments"
 msgstr ""
 
-#: defaults.py:77
+#: defaults.py:85
 msgid "Number of latest comments shown in the admin dashboard."
 msgstr ""
 
-#: defaults.py:85
+#: defaults.py:93
 msgid "Show unapproved comments"
 msgstr ""
 
-#: defaults.py:86
+#: defaults.py:94
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
 msgstr ""
 
-#: defaults.py:95
+#: defaults.py:103
 msgid "Show removed comments"
 msgstr ""
 
-#: defaults.py:96
+#: defaults.py:104
 msgid ""
 "If ``True``, comments that have ``removed`` checked will still be displayed,"
 " but replaced with a ``removed`` message."
 msgstr ""
 
-#: defaults.py:105
+#: defaults.py:113
 msgid "Min value for a rating."
 msgstr ""
 
-#: defaults.py:112
+#: defaults.py:120
 msgid "Max value for a rating."
 msgstr ""
 

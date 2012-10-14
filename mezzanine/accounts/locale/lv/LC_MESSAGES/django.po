@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:54-0430\n"
-"PO-Revision-Date: 2012-08-27 12:19+0000\n"
-"Last-Translator: edijs <edgars.sulcs@gmail.com>\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:42+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/projects/p/mezzanine/language/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgid ""
 " verification link, which they must click to enable their account."
 msgstr "Lietotājiem pēc reģistrācijas uz e-pastu tiks nosūtīta apstiprinājuma saite, kuru nospiežot profils tiks aktivizēts."
 
-#: forms.py:18 forms.py:179
+#: forms.py:18 forms.py:185
 msgid "Username or email address"
 msgstr "Lietotāja vārds vai e-pasta adrese"
 
@@ -74,24 +74,24 @@ msgstr "Atstājiet tukšu, ja vien nevēlaties mainīt savu paroli"
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr "Lietotāja vārds var saturēt tikai burtus, ciparus, domuzīmes un apakšsvītras."
 
-#: forms.py:115
+#: forms.py:117
 msgid "This username is already registered"
 msgstr "Šis lietotāja vārds ir jau reģistrēts"
 
-#: forms.py:128
+#: forms.py:130
 msgid "Passwords do not match"
 msgstr "Paroles nesakrīt"
 
-#: forms.py:130
+#: forms.py:132
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "Parolei jābūt vismaz %s simbolus garai"
 
-#: forms.py:145
+#: forms.py:147
 msgid "This email is already registered"
 msgstr "Šī e-pasta adrese jau ir reģistrēta"
 
-#: forms.py:188
+#: forms.py:194
 msgid "Invalid username/email"
 msgstr "Nepareizi ievadīts lietotāja vārds / e-pasta adrese"
 
@@ -120,24 +120,24 @@ msgstr "Veiksmīgi reģistrējies"
 msgid "Signup"
 msgstr "Reģistrēties"
 
-#: views.py:80 views.py:159
+#: views.py:80 views.py:163
 msgid "The link you clicked is no longer valid."
 msgstr "Šī saite vairs nav derīga."
 
-#: views.py:133
+#: views.py:137
 msgid "Profile updated"
 msgstr "Profila informācija atjaunota."
 
-#: views.py:138
+#: views.py:142
 msgid "Update Profile"
 msgstr "Atjaunināt profila informāciju"
 
-#: views.py:147
+#: views.py:151
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr "Uz jūsu e-pasta adresi tika nosūtīta apstiprinājuma vēstule ar saiti paroles maiņai."
 
-#: views.py:149
+#: views.py:153
 msgid "Password Reset"
 msgstr "Paroles maiņa"
 
@@ -148,9 +148,9 @@ msgstr "Jūs jau esat autorizējies."
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an acount you can <a "
+"If you don't have an account you can <a "
 "href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
-msgstr "Ja jums nav lietotāja konta, jūs varat <a href=\"%(signup_url)s?next=%(next)s\">reģistrēties šeit</a>."
+msgstr ""
 
 #: templates/accounts/account_login.html:14
 #, python-format

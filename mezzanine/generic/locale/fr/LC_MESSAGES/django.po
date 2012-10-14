@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:42-0430\n"
-"PO-Revision-Date: 2012-09-16 16:28+0000\n"
-"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
+"POT-Creation-Date: 2012-10-14 16:59-0430\n"
+"PO-Revision-Date: 2012-10-14 21:38+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,48 +65,54 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr "Si ``vrai``, les commentaires seront validés par défaut."
 
 #: defaults.py:66
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
+msgstr ""
+
+#: defaults.py:74
 msgid "Comment notification email addresses"
 msgstr "Adresses e-mail pour signaler un nouveau commentaire"
 
-#: defaults.py:67
+#: defaults.py:75
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
 msgstr "Une liste d'adresses e-mail, séparée par des virgules, qui recevront un e-mail d'avertissement à chaque nouveau commentaire publié sur le site."
 
-#: defaults.py:76
+#: defaults.py:84
 msgid "Admin comments"
 msgstr "Commentaires de l'administrateur"
 
-#: defaults.py:77
+#: defaults.py:85
 msgid "Number of latest comments shown in the admin dashboard."
 msgstr "Nombre de commentaires récents à afficher sur le tableau de bord."
 
-#: defaults.py:85
+#: defaults.py:93
 msgid "Show unapproved comments"
 msgstr "Afficher les commentaires non-modérés"
 
-#: defaults.py:86
+#: defaults.py:94
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
 msgstr "Si ``vrai``, les commentaires qui ont ``is_public`` décochés seront affichés, mais remplacés par le message ``en attente de modération``."
 
-#: defaults.py:95
+#: defaults.py:103
 msgid "Show removed comments"
 msgstr "Afficher les commentaires effacés"
 
-#: defaults.py:96
+#: defaults.py:104
 msgid ""
 "If ``True``, comments that have ``removed`` checked will still be displayed,"
 " but replaced with a ``removed`` message."
 msgstr "Si ``vrai``, les commenaires qui ont le champ ``removed`` coché seront toujours affichés mais remplacés par le message ``effacé``."
 
-#: defaults.py:105
+#: defaults.py:113
 msgid "Min value for a rating."
 msgstr "Valeur minimale d'une note."
 
-#: defaults.py:112
+#: defaults.py:120
 msgid "Max value for a rating."
 msgstr "Valeur maximale d'une note."
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:42-0430\n"
-"PO-Revision-Date: 2012-08-26 13:02+0000\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:32+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: admin.py:20
+msgid "Other posts"
+msgstr ""
 
 #: defaults.py:20
 msgid "bit.ly username"
@@ -60,7 +64,7 @@ msgstr "在日志列表中显示的条数"
 msgid "Slug of the page object for the blog."
 msgstr "Slug of the page object for the blog."
 
-#: models.py:18 templates/blog/includes/filter_panel.html:30
+#: models.py:18 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
 msgstr "目录"
 
@@ -68,7 +72,8 @@ msgstr "目录"
 msgid "Allow comments"
 msgstr "回复"
 
-#: models.py:22 templates/blog/blog_post_list.html:111
+#: models.py:22 templates/blog/blog_post_detail.html:43
+#: templates/blog/blog_post_list.html:126
 msgid "Comments"
 msgstr "留言"
 
@@ -80,19 +85,23 @@ msgstr "评级"
 msgid "Featured Image"
 msgstr "图片标志"
 
-#: models.py:31
+#: models.py:28 templates/blog/blog_post_detail.html:94
+msgid "Related posts"
+msgstr ""
+
+#: models.py:33
 msgid "Blog post"
 msgstr "发布的日志"
 
-#: models.py:32
+#: models.py:34
 msgid "Blog posts"
 msgstr "发布的日志"
 
-#: models.py:61
+#: models.py:80
 msgid "Blog Category"
 msgstr "日志目录"
 
-#: models.py:62
+#: models.py:81
 msgid "Blog Categories"
 msgstr "日志目录"
 
@@ -104,34 +113,34 @@ msgstr "快速发日志"
 msgid "Save Draft"
 msgstr "存草稿"
 
-#: templates/blog/blog_post_detail.html:27
-#: templates/blog/blog_post_list.html:74
+#: templates/blog/blog_post_detail.html:29
+#: templates/blog/blog_post_list.html:83
 msgid "Posted by"
 msgstr "发布者"
 
-#: templates/blog/blog_post_detail.html:31
-#: templates/blog/blog_post_list.html:84
+#: templates/blog/blog_post_detail.html:33
+#: templates/blog/blog_post_list.html:93
 msgid "ago"
 msgstr "前"
 
-#: templates/blog/blog_post_detail.html:35
-#: templates/blog/blog_post_list.html:115
+#: templates/blog/blog_post_detail.html:46
+#: templates/blog/blog_post_list.html:130
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
 msgstr[0] "多元化翻译Pluralized Translations \n一个：1个评论\n其它：%(comments_count)s 个可选"
 
-#: templates/blog/blog_post_detail.html:51
-#: templates/blog/blog_post_list.html:98
-#: templates/blog/includes/filter_panel.html:41
+#: templates/blog/blog_post_detail.html:74
+#: templates/blog/blog_post_list.html:113
+#: templates/blog/includes/filter_panel.html:48
 msgid "Tags"
 msgstr "标签"
 
-#: templates/blog/blog_post_detail.html:62
+#: templates/blog/blog_post_detail.html:87
 msgid "Share on Twitter"
 msgstr "分享到Twitter 这是不可能的在中国"
 
-#: templates/blog/blog_post_detail.html:63
+#: templates/blog/blog_post_detail.html:88
 msgid "Share on Facebook"
 msgstr "分享到Facebook,目前来看中国说不了"
 
@@ -151,56 +160,56 @@ msgstr "目录："
 msgid "Author:"
 msgstr "作者"
 
-#: templates/blog/blog_post_list.html:49
+#: templates/blog/blog_post_list.html:50
 msgid "Viewing posts tagged"
 msgstr "显示发布标签"
 
-#: templates/blog/blog_post_list.html:51
+#: templates/blog/blog_post_list.html:52
 msgid "Viewing posts for the category"
 msgstr "显示本目录列表"
 
-#: templates/blog/blog_post_list.html:53
+#: templates/blog/blog_post_list.html:54
 msgid "Viewing posts from"
 msgstr "显示来自某人的列表"
 
-#: templates/blog/blog_post_list.html:56
+#: templates/blog/blog_post_list.html:57
 msgid "Viewing posts by"
 msgstr "显示某人创作"
 
-#: templates/blog/blog_post_list.html:79
+#: templates/blog/blog_post_list.html:88
 msgid "in"
 msgstr "在"
 
-#: templates/blog/blog_post_list.html:106
+#: templates/blog/blog_post_list.html:121
 msgid "read more"
 msgstr "更多"
 
-#: templates/blog/includes/filter_panel.html:5
+#: templates/blog/includes/filter_panel.html:6
 msgid "Recent Posts"
 msgstr "近期发布"
 
-#: templates/blog/includes/filter_panel.html:16
+#: templates/blog/includes/filter_panel.html:19
 msgid "Archive"
 msgstr "按期整理"
 
-#: templates/blog/includes/filter_panel.html:55
+#: templates/blog/includes/filter_panel.html:64
 msgid "Authors"
 msgstr "作者"
 
-#: templates/blog/includes/filter_panel.html:65
+#: templates/blog/includes/filter_panel.html:76
 msgid "Feeds"
 msgstr "订阅"
 
-#: templates/blog/includes/filter_panel.html:67
-#: templates/blog/includes/filter_panel.html:71
-#: templates/blog/includes/filter_panel.html:75
-#: templates/blog/includes/filter_panel.html:79
+#: templates/blog/includes/filter_panel.html:78
+#: templates/blog/includes/filter_panel.html:82
+#: templates/blog/includes/filter_panel.html:86
+#: templates/blog/includes/filter_panel.html:90
 msgid "RSS"
 msgstr "RSS"
 
-#: templates/blog/includes/filter_panel.html:68
-#: templates/blog/includes/filter_panel.html:72
-#: templates/blog/includes/filter_panel.html:76
-#: templates/blog/includes/filter_panel.html:80
+#: templates/blog/includes/filter_panel.html:79
+#: templates/blog/includes/filter_panel.html:83
+#: templates/blog/includes/filter_panel.html:87
+#: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"

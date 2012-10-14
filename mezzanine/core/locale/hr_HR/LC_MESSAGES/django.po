@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:42-0430\n"
-"PO-Revision-Date: 2012-08-26 13:33+0000\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:34+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/mezzanine/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Language: hr_HR\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: admin.py:31
+#: admin.py:30
 msgid "Meta data"
 msgstr "Meta podaci"
 
-#: admin.py:53
+#: admin.py:52
 msgid "This field is required if status is set to published."
 msgstr "Ovo polje je potrebno ukoliko je status postavljen na \"Objavljeno\"."
 
@@ -30,7 +30,7 @@ msgstr "Ovo polje je potrebno ukoliko je status postavljen na \"Objavljeno\"."
 msgid "Controls the ordering and grouping of the admin menu."
 msgstr "Upravlja redoslijedom i grupiranjem stavki u admin meniju."
 
-#: defaults.py:24 models.py:235
+#: defaults.py:24 models.py:238
 msgid "Content"
 msgstr "Sadržaj"
 
@@ -160,27 +160,33 @@ msgstr "Lista HTML atributa koja se neće uklanjati iz ``RichTextField`` polja."
 
 #: defaults.py:226
 msgid ""
+"List of inline CSS styles that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr ""
+
+#: defaults.py:234
+msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
 msgstr "Putanja razdvojena tačkama do metode klase za ``RichTextField`` koja će se pozivati prilikom renderovanja vrednosti unutar šablona."
 
-#: defaults.py:236
+#: defaults.py:244
 msgid "High"
 msgstr "Jako"
 
-#: defaults.py:237
+#: defaults.py:245
 msgid "Low (allows video, iframe, Flash, etc)"
 msgstr "Slabo (dozvoli video, iframe, Flash, itd.)"
 
-#: defaults.py:238
+#: defaults.py:246
 msgid "No filtering"
 msgstr "Bez filtriranja"
 
-#: defaults.py:243
+#: defaults.py:251
 msgid "Rich Text filter level"
 msgstr "Nivo filtriranja za Rich Text polja"
 
-#: defaults.py:244
+#: defaults.py:252
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
@@ -191,15 +197,15 @@ msgid ""
 "Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
 msgstr "*Nemojte menjati ovo podešavanje ukoliko niste sigurni šta radite.*\n\nKada se sadržaj smešta u Rich Text (WYSIWYG) polje, nebezbedni HTML atributi i tagovi će biti uklonjeni iz sadržaja kako bi se sprečilo da članovi posade namerno dodaju kod koji može stvoriti probleme, na primer kod koji im može poslužiti da dobiju pune privilegije za pristup sistemu.\n\nOvo podešavanje vam omogućava da promenite nivo takvog filtriranja. Ukoliko se filtriranje postavi na nizak nivo, neki dodatni tagovi će biti dozvoljeni, kao na primer tagovi za ugrađivanje video snimaka. Iako oni nisu glavni kandidati za korisnike koji žele da dodaju opasan kod, ipak se smatraju opasnim jer se mogu zloupotrebiti od strane tehnički veštog korisnika, pa se zato i oni uklanjaju kada je nivo filtriranja podešen na visok.\n\nPodešavanjem nivoa filtriranja na nivo bez filtriranja će se isključiti filtriranje i time dozvoliti članovima posade da unesu bilo kakav kod, uključujući i script tagove.  "
 
-#: defaults.py:267
+#: defaults.py:275
 msgid "Search results per page"
 msgstr "Rezultata pretrage po strani"
 
-#: defaults.py:268
+#: defaults.py:276
 msgid "Number of results shown in the search results page."
 msgstr "Broj rezultata prikazanih na stranici s rezultatima pretrage."
 
-#: defaults.py:275
+#: defaults.py:283
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
 "this, you'll also need to manually apply it to your project's root "
@@ -207,29 +213,29 @@ msgid ""
 "``mezzanine-project`` command contains an example of this towards its end."
 msgstr ""
 
-#: defaults.py:286
+#: defaults.py:294
 msgid "Site Title"
 msgstr "Naslov sajta"
 
-#: defaults.py:287
+#: defaults.py:295
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
 msgstr "Naslov koji će se prikazivati u vrhu strane i koji će biti dodat na sadržaj HTML title oznaka na svakoj stranici."
 
-#: defaults.py:295
+#: defaults.py:303
 msgid "Tagline"
 msgstr "Slogan"
 
-#: defaults.py:296
+#: defaults.py:304
 msgid "A tag line that will appear at the top of all pages."
 msgstr "Slogan koji će se prikazivati u vrhu svih stranica."
 
-#: defaults.py:298
+#: defaults.py:306
 msgid "An open source content management platform."
 msgstr "Open source platforma za upravljanje sadržajem."
 
-#: defaults.py:303
+#: defaults.py:311
 msgid ""
 "Dotted Python path to the callable for converting strings into URL slugs. "
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
@@ -237,55 +243,62 @@ msgid ""
 "Django's slugify function, or something of your own if required."
 msgstr "Putanja razdvojena tačkama to Python callable objekta koji će se koristiti za konverziju stringova u slagove. Podrazumeva se ``mezzanine.utils.urls.slugify_unicode`` koji konvertuje ne-ASCII URL-ove. Promenite na ``django.template.defaultfilters.slugify`` ako želite da koristite Djangovu funkciju za tu namenu, ili unesite sopstvenu ukoliko je potrebno."
 
-#: defaults.py:314
+#: defaults.py:322
 msgid "Enable SSL"
 msgstr "Uključi SSL"
 
-#: defaults.py:315
+#: defaults.py:323
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
 msgstr "Ako je ``True``, korisnici će automatski biti redirektovani na HTTPS za one URL-ove koji su navedeni u podešavanju ``SSL_FORCE_URL_PREFIXES``."
 
-#: defaults.py:324
+#: defaults.py:332
 msgid "Force Host"
 msgstr "Force Host"
 
-#: defaults.py:325
+#: defaults.py:333
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
 msgstr "Ime hosta preko kojeg bi uvek trebalo pristupati, a koji se poklapa sa SSL sertifikatom."
 
-#: defaults.py:343
+#: defaults.py:351
+msgid ""
+"If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
+"will be accessible over SSL, and all other URLs will be redirected back to "
+"HTTP if accessed over HTTPS."
+msgstr ""
+
+#: defaults.py:361
 msgid "List of words which will be stripped from search queries."
 msgstr "Spisak riječi koje će se ukloniti iz upita za pretragu."
 
-#: defaults.py:400
+#: defaults.py:418
 msgid "Tag Cloud Sizes"
 msgstr "Veličina oblaka sa oznakama"
 
-#: defaults.py:401
+#: defaults.py:419
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr "Broj različitih veličina slova unutar oblaka sa oznakama."
 
-#: defaults.py:408
+#: defaults.py:426
 msgid "Sequence of setting names available within templates."
 msgstr "Niz konstanti podešavanja koji je dostupan unutar predloška."
 
-#: defaults.py:423
+#: defaults.py:441
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
 msgstr "Naziv direktorijuma u koji će se smeštati thumbnail slike i koji će biti kreiran relativno u odnosu na direktorijum originalne slike."
 
-#: defaults.py:431
+#: defaults.py:449
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
 msgstr "URL do JavaScript fajla (relativno u odnosu na ``STATIC_URL``) koji se koristi za konfigurisanje TinyMCE kada se koristi podrazumevana ``RICHTEXT_WIDGET_CLASS``."
 
-#: defaults.py:446
+#: defaults.py:464
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
@@ -296,7 +309,7 @@ msgstr "Ako je uključeno, south aplikacija će se automatski dodati u ``INSTALL
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Nije uspelo uvoženje vrednosti settings.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:75 models.py:277
+#: forms.py:79 models.py:280
 msgid "Order"
 msgstr "Redosled"
 
@@ -356,7 +369,7 @@ msgstr "Status"
 msgid "With Draft chosen, will only be shown for admin users on the site."
 msgstr ""
 
-#: models.py:187 models.py:216
+#: models.py:187 models.py:219
 msgid "Published from"
 msgstr "Objavljen od"
 
@@ -372,7 +385,7 @@ msgstr "Ističe"
 msgid "With Published chosen, won't be shown after this time"
 msgstr ""
 
-#: models.py:355
+#: models.py:358
 msgid "Author"
 msgstr "Autor"
 
@@ -453,6 +466,10 @@ msgstr "rezultata koji odgovaraju Vašem upitu:"
 #: templates/search_results.html:32
 msgid "read more"
 msgstr "pročitaj više"
+
+#: templates/admin/base_site.html:34
+msgid "View site"
+msgstr ""
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"

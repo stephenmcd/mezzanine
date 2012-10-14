@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:42-0430\n"
-"PO-Revision-Date: 2012-08-26 13:05+0000\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:36+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:32 fields.py:30
+#: admin.py:32 fields.py:31
 msgid "Email"
 msgstr "Email"
 
@@ -58,95 +58,99 @@ msgstr "Символ, используемый как разделитель п�
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Пусть для сохранения файлов, закачанных через пользовательские формы"
 
-#: fields.py:28
+#: fields.py:29
 msgid "Single line text"
 msgstr "Строка"
 
-#: fields.py:29
+#: fields.py:30
 msgid "Multi line text"
 msgstr "Текст"
 
-#: fields.py:31
+#: fields.py:32
 msgid "Number"
 msgstr "Число"
 
-#: fields.py:32
+#: fields.py:33
 msgid "URL"
 msgstr "URL"
 
-#: fields.py:33
+#: fields.py:34
 msgid "Check box"
 msgstr "Флажок"
 
-#: fields.py:34
+#: fields.py:35
 msgid "Check boxes"
 msgstr "Флажки"
 
-#: fields.py:35
+#: fields.py:36
 msgid "Drop down"
 msgstr "Список"
 
-#: fields.py:36
+#: fields.py:37
 msgid "Multi select"
 msgstr "Поле с выбором"
 
-#: fields.py:37
+#: fields.py:38
 msgid "Radio buttons"
 msgstr "Радио кнопки"
 
-#: fields.py:38
+#: fields.py:39
 msgid "File upload"
 msgstr "Загрузка файла"
 
-#: fields.py:39
+#: fields.py:40
 msgid "Date"
 msgstr "Дата"
 
-#: fields.py:40 models.py:116
+#: fields.py:41 models.py:116
 msgid "Date/time"
 msgstr "Дата/время"
 
-#: fields.py:41
+#: fields.py:42
+msgid "Date of birth"
+msgstr ""
+
+#: fields.py:43
 msgid "Hidden"
 msgstr "Скрытое"
 
-#: forms.py:28 forms.py:36 forms.py:42
+#: forms.py:29 forms.py:37 forms.py:43
 msgid "Nothing"
 msgstr "Ничего"
 
-#: forms.py:29
+#: forms.py:30
 msgid "Contains"
 msgstr "Содержит"
 
-#: forms.py:30
+#: forms.py:31
 msgid "Doesn't contain"
 msgstr "Не содержит"
 
-#: forms.py:31 forms.py:37
+#: forms.py:32 forms.py:38
 msgid "Equals"
 msgstr "Равно"
 
-#: forms.py:32 forms.py:38
+#: forms.py:33 forms.py:39
 msgid "Doesn't equal"
 msgstr "Не равно"
 
-#: forms.py:43
+#: forms.py:44
 msgid "Is between"
 msgstr "Между"
 
-#: forms.py:100
+#: forms.py:101
 msgid "required"
 msgstr "обязательное"
 
-#: forms.py:214
+#: forms.py:221
 msgid "Checked"
 msgstr "Отмечен"
 
-#: forms.py:214
+#: forms.py:221
 msgid "Not checked"
 msgstr "Не отмечен"
 
-#: forms.py:228 forms.py:243
+#: forms.py:235 forms.py:250
 msgid "and"
 msgstr "и"
 
@@ -275,16 +279,16 @@ msgstr "Поле формы"
 msgid "Form field entries"
 msgstr "Поля формы"
 
-#: templates/admin/forms/change_form.html:9
+#: templates/admin/forms/change_form.html:8
 #: templates/admin/forms/entries.html:56
 msgid "View entries"
 msgstr "Просмотр записей"
 
-#: templates/admin/forms/change_form.html:10
+#: templates/admin/forms/change_form.html:9
 msgid "History"
 msgstr "История"
 
-#: templates/admin/forms/change_form.html:11
+#: templates/admin/forms/change_form.html:10
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 

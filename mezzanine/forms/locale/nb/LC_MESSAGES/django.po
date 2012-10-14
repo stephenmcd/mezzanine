@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:42-0430\n"
-"PO-Revision-Date: 2012-08-26 13:05+0000\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:36+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/mezzanine/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:32 fields.py:30
+#: admin.py:32 fields.py:31
 msgid "Email"
 msgstr "E-post"
 
@@ -55,95 +55,99 @@ msgstr "Tegn som brukes mellom felter når du eksporterer som CSV."
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Absolutt sti for lagring av opplastede filer med skjema-appen."
 
-#: fields.py:28
+#: fields.py:29
 msgid "Single line text"
 msgstr "Enlinjetekst"
 
-#: fields.py:29
+#: fields.py:30
 msgid "Multi line text"
 msgstr "Flerlinjetekst"
 
-#: fields.py:31
+#: fields.py:32
 msgid "Number"
 msgstr "Tall"
 
-#: fields.py:32
+#: fields.py:33
 msgid "URL"
 msgstr "URL"
 
-#: fields.py:33
+#: fields.py:34
 msgid "Check box"
 msgstr "Valgboks"
 
-#: fields.py:34
+#: fields.py:35
 msgid "Check boxes"
 msgstr "Valgbokser"
 
-#: fields.py:35
+#: fields.py:36
 msgid "Drop down"
 msgstr "Nedtrekksmeny"
 
-#: fields.py:36
+#: fields.py:37
 msgid "Multi select"
 msgstr "Flervalg"
 
-#: fields.py:37
+#: fields.py:38
 msgid "Radio buttons"
 msgstr "Radioknapper"
 
-#: fields.py:38
+#: fields.py:39
 msgid "File upload"
 msgstr "Filopplasting"
 
-#: fields.py:39
+#: fields.py:40
 msgid "Date"
 msgstr "Dato"
 
-#: fields.py:40 models.py:116
+#: fields.py:41 models.py:116
 msgid "Date/time"
 msgstr "Dato/tid"
 
-#: fields.py:41
+#: fields.py:42
+msgid "Date of birth"
+msgstr ""
+
+#: fields.py:43
 msgid "Hidden"
 msgstr "Skjult"
 
-#: forms.py:28 forms.py:36 forms.py:42
+#: forms.py:29 forms.py:37 forms.py:43
 msgid "Nothing"
 msgstr "Ingenting"
 
-#: forms.py:29
+#: forms.py:30
 msgid "Contains"
 msgstr "Inneholder"
 
-#: forms.py:30
+#: forms.py:31
 msgid "Doesn't contain"
 msgstr "Inneholder ikke"
 
-#: forms.py:31 forms.py:37
+#: forms.py:32 forms.py:38
 msgid "Equals"
 msgstr "Er lik"
 
-#: forms.py:32 forms.py:38
+#: forms.py:33 forms.py:39
 msgid "Doesn't equal"
 msgstr "Er ulik"
 
-#: forms.py:43
+#: forms.py:44
 msgid "Is between"
 msgstr "Er mellom"
 
-#: forms.py:100
+#: forms.py:101
 msgid "required"
 msgstr "påkrevet"
 
-#: forms.py:214
+#: forms.py:221
 msgid "Checked"
 msgstr "Valgt"
 
-#: forms.py:214
+#: forms.py:221
 msgid "Not checked"
 msgstr "Ikke valgt"
 
-#: forms.py:228 forms.py:243
+#: forms.py:235 forms.py:250
 msgid "and"
 msgstr "og"
 
@@ -272,16 +276,16 @@ msgstr "Feltoppføring for skjema"
 msgid "Form field entries"
 msgstr "Feltoppføringer for skjema"
 
-#: templates/admin/forms/change_form.html:9
+#: templates/admin/forms/change_form.html:8
 #: templates/admin/forms/entries.html:56
 msgid "View entries"
 msgstr "Vis oppføringer"
 
-#: templates/admin/forms/change_form.html:10
+#: templates/admin/forms/change_form.html:9
 msgid "History"
 msgstr "Historie"
 
-#: templates/admin/forms/change_form.html:11
+#: templates/admin/forms/change_form.html:10
 msgid "View on site"
 msgstr "Vis på siden"
 

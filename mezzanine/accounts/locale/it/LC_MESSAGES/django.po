@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-08-26 07:54-0430\n"
-"PO-Revision-Date: 2012-09-06 10:42+0000\n"
-"Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:42+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgid ""
 " verification link, which they must click to enable their account."
 msgstr "Se ``True``, quando gli utenti creano un account, gli verrà inviata una email con un collegamento di verifica, che essi dovranno cliccare per abilitare il proprio account."
 
-#: forms.py:18 forms.py:179
+#: forms.py:18 forms.py:185
 msgid "Username or email address"
 msgstr "Nome utente o indirizzo email"
 
@@ -74,24 +74,24 @@ msgstr "Lascia vuoto, a meno che tu voglia cambiare la tua password."
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr "ll nome utente può contenere solo lettere, numeri, trattini e sottolineature."
 
-#: forms.py:115
+#: forms.py:117
 msgid "This username is already registered"
 msgstr "Questo nome utente è già registrato."
 
-#: forms.py:128
+#: forms.py:130
 msgid "Passwords do not match"
 msgstr "Le password non corrispondono l'una con l'altra."
 
-#: forms.py:130
+#: forms.py:132
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "La password deve avere almeno %s caratteri."
 
-#: forms.py:145
+#: forms.py:147
 msgid "This email is already registered"
 msgstr "Questa email è già registrata"
 
-#: forms.py:188
+#: forms.py:194
 msgid "Invalid username/email"
 msgstr "Nome utente/email non valido."
 
@@ -120,24 +120,24 @@ msgstr "Iscrizione effettuata correttamente"
 msgid "Signup"
 msgstr "Iscrizione"
 
-#: views.py:80 views.py:159
+#: views.py:80 views.py:163
 msgid "The link you clicked is no longer valid."
 msgstr "Il link che hai cliccato non è più valido."
 
-#: views.py:133
+#: views.py:137
 msgid "Profile updated"
 msgstr "Profilo aggiornato"
 
-#: views.py:138
+#: views.py:142
 msgid "Update Profile"
 msgstr "Aggiorna il profilo"
 
-#: views.py:147
+#: views.py:151
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr "Una email di verifica è stata inviata con un link per reimpostare la tua password."
 
-#: views.py:149
+#: views.py:153
 msgid "Password Reset"
 msgstr "Reimposta password"
 
@@ -148,9 +148,9 @@ msgstr "Sei già autenticato."
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an acount you can <a "
+"If you don't have an account you can <a "
 "href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
-msgstr "Se non hai un account puoi <a href=\"%(signup_url)s?next=%(next)s\">registrarti</a> ora per averne uno."
+msgstr ""
 
 #: templates/accounts/account_login.html:14
 #, python-format
