@@ -1,5 +1,6 @@
 {% load blog_tags keyword_tags i18n future %}
 
+{% block blog_recent_posts %}
 {% blog_recent_posts 5 as recent_posts %}
 {% if recent_posts %}
 <h3>{% trans "Recent Posts" %}</h3>
@@ -10,7 +11,9 @@
 {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
 
+{% block blog_months %}
 {% blog_months as months %}
 {% if months %}
 <h3>{% trans "Archive" %}</h3>
@@ -24,7 +27,9 @@
 {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
 
+{% block blog_categories %}
 {% blog_categories as categories %}
 {% if categories %}
 <h3>{% trans "Categories" %}</h3>
@@ -35,7 +40,9 @@
 {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
 
+{% block blog_keywords %}
 {% keywords_for blog.blogpost as tags %}
 {% if tags %}
 <h3>{% trans "Tags" %}</h3>
@@ -49,7 +56,9 @@
 {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
 
+{% block blog_authors %}
 {% blog_authors as authors %}
 {% if authors %}
 <h3>{% trans "Authors" %}</h3>
@@ -61,7 +70,9 @@
 {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
 
+{% block blog_feeds %}
 <h3>{% trans "Feeds" %}</h3>
 {% if tag %}
     <a href="{% url "blog_post_feed_tag" tag.slug "rss" %}">{% trans "RSS" %}</a> /
@@ -79,3 +90,4 @@
     <a href="{% url "blog_post_feed" "rss" %}">{% trans "RSS" %}</a> /
     <a href="{% url "blog_post_feed" "atom" %}">{% trans "Atom" %}</a>
 {% endif %}
+{% endblock %}

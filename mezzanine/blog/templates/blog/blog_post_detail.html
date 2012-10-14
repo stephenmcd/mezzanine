@@ -23,6 +23,7 @@
 
 {% block main %}
 
+{% block blog_post_detail_postedby %}
 <h6>
     {% trans "Posted by" %}:
     {% with blog_post.user as author %}
@@ -30,20 +31,28 @@
     {% endwith %}
     {{ blog_post.publish_date|timesince }} {% trans "ago" %}
 </h6>
+{% endblock %}
+{% block blog_post_detail_commentlink %}
 <p>
     {% if blog_post.allow_comments %}(<a href="#comments">{% spaceless %}
         {% blocktrans count blog_post.comments_count as comments_count %}1 comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
     {% endspaceless %}</a>){% endif %}
 </p>
+{% endblock %}
 
+{% block blog_post_detail_featured_image %}
 {% if blog_post.featured_image %}
 <p><img src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 600 0 %}"></p>
 {% endif %}
+{% endblock %}
 
+{% block blog_post_detail_content %}
 {% editable blog_post.content %}
 {{ blog_post.content|richtext_filter|safe }}
 {% endeditable %}
+{% endblock %}
 
+{% block blog_post_detail_keywords %}
 {% keywords_for blog_post as tags %}
 {% if tags %}
 {% spaceless %}
@@ -55,13 +64,17 @@
 </ul>
 {% endspaceless %}
 {% endif %}
+{% endblock %}
 
 {% rating_for blog_post %}
 
+{% block blog_post_detail_sharebuttons %}
 {% set_short_url_for blog_post %}
 <a class="btn small primary share-twitter" target="_blank" href="http://twitter.com/home?status={{ blog_post.short_url|urlencode }}%20{{ blog_post.title|urlencode }}">{% trans "Share on Twitter" %}</a>
 <a class="btn small primary share-facebook" target="_blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&amp;t={{ blog_post.title|urlencode }}">{% trans "Share on Facebook" %}</a>
+{% endblock %}
 
+{% block blog_post_detail_related_posts %}
 {% if blog_post.related_posts.all %}
 <div id="related-posts">
 <h3>{% trans 'Related posts' %}</h3>
@@ -72,7 +85,10 @@
 </ul>
 </div>
 {% endif %}
+{% endblock %}
 
+{% block blog_post_detail_comments %}
 {% if blog_post.allow_comments %}{% comments_for blog_post %}{% endif %}
+{% endblock %}
 
 {% endblock %}
