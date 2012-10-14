@@ -24,6 +24,7 @@
 {% block main %}
 
 {% block blog_post_detail_postedby %}
+{% editable blog_post.publish_date %}
 <h6>
     {% trans "Posted by" %}:
     {% with blog_post.user as author %}
@@ -31,6 +32,7 @@
     {% endwith %}
     {{ blog_post.publish_date|timesince }} {% trans "ago" %}
 </h6>
+{% endeditable %}
 {% endblock %}
 {% block blog_post_detail_commentlink %}
 <p>
