@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+#   <richard.kellner@ajty.info>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:36-0430\n"
-"PO-Revision-Date: 2012-05-26 18:09+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Slovak (http://www.transifex.net/projects/p/mezzanine/language/sk/)\n"
+"POT-Creation-Date: 2012-10-14 16:59-0430\n"
+"PO-Revision-Date: 2012-09-13 19:22+0000\n"
+"Last-Translator: ricco386 <richard.kellner@ajty.info>\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/language/sk/)\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
@@ -43,11 +44,11 @@ msgstr "Poháňa"
 
 #: templates/mobile/base.html:44
 msgid "View Full Site"
-msgstr ""
+msgstr "Zobraz plnú verziu stránky"
 
 #: templates/mobile/index.html:10
 msgid "This is the mobile homepage."
-msgstr ""
+msgstr "Toto je domovské stránka pre mobily"
 
 #: templates/mobile/search_results.html:5
 #: templates/mobile/search_results.html:6
@@ -60,19 +61,19 @@ msgstr "Žiadne výsledky sa nenašli pre tento výraz"
 
 #: templates/mobile/search_results.html:14
 msgid "Showing"
-msgstr ""
+msgstr "Zobrazujem"
 
 #: templates/mobile/search_results.html:14
 msgid "to"
-msgstr ""
+msgstr "od"
 
 #: templates/mobile/search_results.html:14
 msgid "of"
-msgstr ""
+msgstr "z"
 
 #: templates/mobile/search_results.html:15
 msgid "results matching your query:"
-msgstr ""
+msgstr "výsledky zodpovedajúce Vašemu dotazu"
 
 #: templates/mobile/search_results.html:23
 msgid "read more"
@@ -89,27 +90,28 @@ msgstr "pred"
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
-msgstr ""
+msgstr "Značky"
 
 #: templates/mobile/blog/blog_post_detail.html:52
 msgid "Share this on:"
-msgstr ""
+msgstr "Zdieľaj na:"
 
 #: templates/mobile/blog/blog_post_detail.html:54
 msgid "or"
-msgstr ""
+msgstr "alebo"
 
 #: templates/mobile/blog/blog_post_list.html:4
+#: templates/mobile/blog/blog_post_list.html:19
 msgid "Blog"
 msgstr "Blog"
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"
-msgstr ""
+msgstr "Predchádzajúci"
 
 #: templates/mobile/includes/pagination.html:9
 msgid "Next"
-msgstr ""
+msgstr "Nasledujúci"
 
 #: templates/mobile/includes/search.html:4
 msgid "Search"
@@ -117,12 +119,12 @@ msgstr "Vyhľadávanie"
 
 #: templates/mobile/includes/search.html:5
 msgid "Use "
-msgstr ""
+msgstr "Použi"
 
 #: templates/mobile/includes/search.html:5
 msgid "quotes"
-msgstr ""
+msgstr "úvodzovky"
 
 #: templates/mobile/includes/search.html:5
 msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
-msgstr ""
+msgstr "pre zobrazenie frázi, + spraviť slovo, alebo frázu povinnú, a - vynechať slovo, alebo frázu"

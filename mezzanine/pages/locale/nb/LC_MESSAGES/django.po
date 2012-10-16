@@ -4,62 +4,87 @@
 #
 # Translators:
 # Olav  <>, 2012.
+# Olav Lindekleiv <>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-05-26 18:10+0000\n"
+"POT-Creation-Date: 2012-10-14 16:59-0430\n"
+"PO-Revision-Date: 2012-08-26 13:23+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.net/projects/p/mezzanine/language/nb/)\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/mezzanine/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:17
-msgid "Show in navigation"
-msgstr "Vis i meny"
+#: defaults.py:20
+msgid "A sequence of templates used by the ``page_menu`` template tag. Each item in the sequence is a three item sequence, containing a unique ID for the template, a label for the template, and the template path. These templates are then available for selection when editing which menus a page should appear in. Note that if a menu template is used that doesn't appear in this setting, all pages will appear in it."
+msgstr ""
 
-#: models.py:18
-msgid "Show in footer"
-msgstr "Vis i bunn"
+#: defaults.py:29
+msgid "Top navigation bar"
+msgstr ""
 
-#: models.py:21
+#: defaults.py:30
+msgid "Left-hand tree"
+msgstr ""
+
+#: defaults.py:31
+msgid "Footer"
+msgstr ""
+
+#: defaults.py:37
+msgid "A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the default menu templates selected when creating new pages. By default all menu templates are selected. Set this setting to an empty sequence to have no templates selected by default."
+msgstr ""
+
+#: defaults.py:48
+msgid "If ``True``, the left-hand tree template for the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page."
+msgstr ""
+
+#: defaults.py:57
+msgid "If ``True``, pages with ``login_required`` checked will still be listed in menus and search results, for unauthenticated users. Regardless of this setting, when an unauthenticated user accesses a page with ``login_required`` checked, they'll be redirected to the login page."
+msgstr ""
+
+#: models.py:33
+msgid "Show in menus"
+msgstr ""
+
+#: models.py:36
 msgid "Login required"
 msgstr "Krever innlogging"
 
-#: models.py:22
+#: models.py:37
 msgid "If checked, only logged in users can view this page"
 msgstr "Hvis valgt vil kun innloggede brukere se denne siden"
 
-#: models.py:25
+#: models.py:40
 msgid "Page"
 msgstr "Side"
 
-#: models.py:26
+#: models.py:41
 msgid "Pages"
 msgstr "Sider"
 
-#: models.py:175
+#: models.py:225
 msgid "Rich text page"
 msgstr "Side med riktekst"
 
-#: models.py:176
+#: models.py:226
 msgid "Rich text pages"
 msgstr "Sider med riktekst"
 
-#: models.py:186
+#: models.py:236
 msgid "Link"
 msgstr "Lenke"
 
-#: models.py:187
+#: models.py:237
 msgid "Links"
-msgstr ""
+msgstr "Lenker"
 
 #: templates/admin/pages/page/change_list.html:24
-#: templates/pages/menus/admin.html:32
+#: templates/pages/menus/admin.html:31
 msgid "Add"
 msgstr "Legg til"
 
@@ -72,6 +97,6 @@ msgstr "Legg til"
 msgid "Home"
 msgstr "Hjem"
 
-#: templatetags/pages_tags.py:164
+#: templatetags/pages_tags.py:181
 msgid "An error occured with the following class. Does it subclass Page directly?"
 msgstr "En feil oppsto med denne klassen. Er det en direkte underklasse av Page?"
