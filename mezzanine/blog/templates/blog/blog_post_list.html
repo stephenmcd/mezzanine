@@ -63,7 +63,7 @@
     {% if page %}
     {% block blog_post_list_pagecontent %}
     {% editable page.richtextpage.content %}
-    {{ page.richtextpage.content|safe }}
+    {{ page.richtextpage.content|richtext_filter|safe }}
     {% endeditable %}
     {% endblock %}
     {% endif %}
