@@ -305,7 +305,7 @@ Sites Using Mezzanine
   * `Leprosys <http://www.leprosys.info>`_
   * `Hunted Hive <http://huntedhive.com>`_
   * `mjollnir.org <http://mjollnir.org>`_
-
+  * `The Beancat Network http://www.beancatnet.org>`_
 
 Quotes
 ======

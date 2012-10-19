@@ -3,64 +3,90 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+#   <chance.jiang@gmail.com>, 2012.
+# 王 充 <wjcroom@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2011-11-12 03:08+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Chinese (China) (http://www.transifex.net/projects/p/mezzanine/language/zh_CN/)\n"
+"POT-Creation-Date: 2012-10-14 16:59-0430\n"
+"PO-Revision-Date: 2012-09-23 02:35+0000\n"
+"Last-Translator: chancejiang <chance.jiang@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:17
-msgid "Show in navigation"
+#: defaults.py:20
+msgid "A sequence of templates used by the ``page_menu`` template tag. Each item in the sequence is a three item sequence, containing a unique ID for the template, a label for the template, and the template path. These templates are then available for selection when editing which menus a page should appear in. Note that if a menu template is used that doesn't appear in this setting, all pages will appear in it."
+msgstr "''page_menu\" 模板标签所使用的一系列模板。序列里的每项内容有一个三个项目的序列，包含模板唯一的ID，模板的label，以及模板的路径。当编辑选择一个页面应该出现在哪里时，这些模板将作为可选项。要注意的是，如果一个菜单模板已被使用但未出现在设置中，将显示所有页面。"
+
+#: defaults.py:29
+msgid "Top navigation bar"
+msgstr "首层导航条"
+
+#: defaults.py:30
+msgid "Left-hand tree"
+msgstr "左边树结构"
+
+#: defaults.py:31
+msgid "Footer"
+msgstr "页脚"
+
+#: defaults.py:37
+msgid "A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the default menu templates selected when creating new pages. By default all menu templates are selected. Set this setting to an empty sequence to have no templates selected by default."
 msgstr ""
 
-#: models.py:18
-msgid "Show in footer"
+#: defaults.py:48
+msgid "If ``True``, the left-hand tree template for the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page."
 msgstr ""
 
-#: models.py:21
+#: defaults.py:57
+msgid "If ``True``, pages with ``login_required`` checked will still be listed in menus and search results, for unauthenticated users. Regardless of this setting, when an unauthenticated user accesses a page with ``login_required`` checked, they'll be redirected to the login page."
+msgstr ""
+
+#: models.py:33
+msgid "Show in menus"
+msgstr ""
+
+#: models.py:36
 msgid "Login required"
-msgstr ""
+msgstr "需要登录"
 
-#: models.py:22
+#: models.py:37
 msgid "If checked, only logged in users can view this page"
-msgstr ""
+msgstr "如果选中，只有登录的用户可以看到"
 
-#: models.py:25
+#: models.py:40
 msgid "Page"
-msgstr ""
+msgstr "页面"
 
-#: models.py:26
+#: models.py:41
 msgid "Pages"
-msgstr ""
+msgstr "页面"
 
-#: models.py:175
+#: models.py:225
 msgid "Rich text page"
-msgstr ""
+msgstr "Rich text页面"
 
-#: models.py:176
+#: models.py:226
 msgid "Rich text pages"
-msgstr ""
+msgstr "Rich text页面"
 
-#: models.py:186
+#: models.py:236
 msgid "Link"
-msgstr ""
+msgstr "链接"
 
-#: models.py:187
+#: models.py:237
 msgid "Links"
-msgstr ""
+msgstr "链接"
 
 #: templates/admin/pages/page/change_list.html:24
-#: templates/pages/menus/admin.html:32
+#: templates/pages/menus/admin.html:31
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
@@ -69,8 +95,8 @@ msgstr ""
 #: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:9
 #: templates/pages/menus/tree.html:9
 msgid "Home"
-msgstr ""
+msgstr "首页"
 
-#: templatetags/pages_tags.py:164
+#: templatetags/pages_tags.py:181
 msgid "An error occured with the following class. Does it subclass Page directly?"
-msgstr ""
+msgstr "发生一个错误，是页面的了类吗？"

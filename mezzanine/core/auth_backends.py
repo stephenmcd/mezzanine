@@ -25,7 +25,7 @@ class MezzanineBackend(ModelBackend):
             username = kwargs.pop("username", None)
             if username:
                 username_or_email = Q(username=username) | Q(email=username)
-                password = kwargs.pop("password")
+                password = kwargs.pop("password", None)
                 try:
                     user = User.objects.get(username_or_email, **kwargs)
                 except User.DoesNotExist:
