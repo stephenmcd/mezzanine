@@ -2,10 +2,21 @@
 
 {% load mezzanine_tags %}
 
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}mezzanine/css/prettyPhoto.css" media="all">
+{% endblock extra_css %}
+
 {% block extra_js %}
 {{ block.super }}
-<script src="{{ STATIC_URL }}mezzanine/js/jquery.tools.js"></script>
-<script src="{{ STATIC_URL }}mezzanine/js/gallery.js"></script>
+<script src="{{ STATIC_URL }}mezzanine/js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $("a.thumbnail").prettyPhoto({
+    	social_tools:'',
+    });
+  });
+</script>
 {% endblock %}
 
 {% block main %}
@@ -19,15 +30,9 @@
 {% with page.gallery.images.all as images %}
 {% for image in images %}
 <li>
-    <a class="thumbnail" rel="#image-{{ image.id }}" title="{{ image.description }}" href="{{ MEDIA_URL }}{{ image.file }}">
-        <img class="image-overlay-thumb" src="{{ MEDIA_URL }}{% thumbnail image.file 75 75 %}">
+    <a class="thumbnail" rel="[gallery]" title="{{ image.description }}" href="{{ MEDIA_URL }}{{ image.file }}">
+        <img src="{{ MEDIA_URL }}{% thumbnail image.file 75 75 %}">
     </a>
-    <div id="image-{{ image.id }}" class="image-overlay" style="display:none;">
-        <a href="#" class="image-overlay-prev">&larr;</a>
-        <a href="#" class="image-overlay-next">&rarr;</a>
-        <img class="image-overlay-full" src="{{ MEDIA_URL }}{% thumbnail image.file 0 600 %}"><br>
-        <p>{{ image.description }}<br>{{ forloop.counter }} / {{ images|length }}</p>
-    </div>
 </li>
 {% endfor %}
 {% endwith %}
