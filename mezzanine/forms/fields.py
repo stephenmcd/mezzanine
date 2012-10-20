@@ -3,6 +3,8 @@ from django import forms
 from django.forms.extras import SelectDateWidget
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.utils.importing import import_dotted_path
+
 from mezzanine.conf import settings
 from mezzanine.core.forms import SplitSelectDateTimeWidget
 
@@ -90,3 +92,11 @@ if settings.FORMS_USE_HTML5:
         NUMBER: html5_field("number", forms.TextInput),
         URL: html5_field("url", forms.TextInput),
     })
+names = list(NAMES)
+for field_id,field_path,field_name in settings.FORMS_EXTRA_FIELDS:
+    field_class = import_dotted_path(field_path)
+    names.append((field_id, _(field_name)))
+    CLASSES[field_id] = field_class
+NAMES = tuple(names)
+
+

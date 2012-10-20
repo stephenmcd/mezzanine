@@ -52,3 +52,10 @@ register_setting(
     editable=False,
     default="",
 )
+
+register_setting(
+    name="FORMS_EXTRA_FIELDS",
+    description=_("Optionally add extra fields, as a 3 field tuple, id, class, name"),
+    editable=False,
+    default=(),
+)
