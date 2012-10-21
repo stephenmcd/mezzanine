@@ -24,7 +24,11 @@ class LoginForm(Html5Mixin, forms.Form):
         Authenticate the given username/email and password. If the fields
         are valid, store the authenticated user for returning via save().
         """
-        self._user = authenticate(**self.cleaned_data)
+        login_data = {
+            "username": self.cleaned_data["username"],
+            "password": self.cleaned_data["password"],
+        }
+        self._user = authenticate(**login_data)
         if self._user is None:
             raise forms.ValidationError(
                              _("Invalid username/email and password"))
