@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -82,4 +81,4 @@ class BlogCategory(Slugged):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("blog_post_list_category", (), {"slug": self.slug})
+        return ("blog_post_list_category", (), {"category": self.slug})
