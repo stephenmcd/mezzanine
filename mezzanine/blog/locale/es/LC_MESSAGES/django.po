@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-10-22 00:10-0600\n"
 "PO-Revision-Date: 2012-10-22 00:21-0600\n"
 "Last-Translator: Eduardo Rivas <e@jerivas.com>\n"
