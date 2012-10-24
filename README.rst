@@ -307,6 +307,7 @@ Sites Using Mezzanine
   * `mjollnir.org <http://mjollnir.org>`_
   * `The Beancat Network <http://www.beancatnet.org>`_
   * `Raquel Marón <http://raquelmaron.com>`_
+  * `Hospitality Quotient <http://hospitalityq.com>`_
 
 
 Quotes
