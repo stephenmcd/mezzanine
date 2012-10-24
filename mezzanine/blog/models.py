@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -63,7 +62,12 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
         return getattr(self, "_categories", self.categories.all())
 
     def keyword_list(self):
-        return getattr(self, "_keywords", self.keywords.all())
+        try:
+            return self._keywords
+        except AttributeError:
+            keywords = [k.keyword for k in self.keywords.all()]
+            setattr(self, "_keywords", keywords)
+            return self._keywords
 
 
 class BlogCategory(Slugged):
@@ -77,4 +81,4 @@ class BlogCategory(Slugged):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("blog_post_list_category", (), {"slug": self.slug})
+        return ("blog_post_list_category", (), {"category": self.slug})

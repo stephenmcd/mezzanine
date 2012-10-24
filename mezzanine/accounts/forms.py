@@ -24,7 +24,9 @@ class LoginForm(Html5Mixin, forms.Form):
         Authenticate the given username/email and password. If the fields
         are valid, store the authenticated user for returning via save().
         """
-        self._user = authenticate(**self.cleaned_data)
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
+        self._user = authenticate(username=username, password=password)
         if self._user is None:
             raise forms.ValidationError(
                              _("Invalid username/email and password"))
@@ -159,7 +161,8 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         # Save profile model.
         if self._has_profile:
             profile = user.get_profile()
-            ProfileFieldsForm(self.data, instance=profile).save()
+            profile_fields_form = self.get_profile_fields_form()
+            profile_fields_form(self.data, instance=profile).save()
 
         if self._signup:
             settings.use_editable()
@@ -170,6 +173,9 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                 user = authenticate(username=user.username,
                                     password=password, is_active=True)
         return user
+
+    def get_profile_fields_form(self):
+        return ProfileFieldsForm
 
 
 class PasswordResetForm(Html5Mixin, forms.Form):

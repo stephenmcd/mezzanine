@@ -1,24 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"PO-Revision-Date: 2012-10-14 21:36+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Esperanto (http://www.transifex.net/projects/p/mezzanine/language/eo/)\n"
-"Language: eo\n"
+"Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: eo\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:32 fields.py:30
+#: admin.py:32 fields.py:31
 msgid "Email"
 msgstr "Retpoŝto"
 
@@ -33,95 +33,121 @@ msgstr[1] "%(count)s elementoj forigita"
 msgid "View Entries"
 msgstr "Rigardu Entries"
 
-#: fields.py:28
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr "Se ``Vera``, retleteroj senditaj al ekstra ricevintoj por formo submetiĝo ne estos senditaj el adreson prenita de unu el la formo de retpoŝto kampoj."
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr "Maksimuma longo permesita por kampaj valoroj en la formoj aplikaĵo."
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr "Maksimuma longo permesita por kampaj etiketoj en la formoj aplikaĵo."
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr "Signo uzi kiel kampa disigilo kiam eksportante formo respondoj kiel CSV."
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Absoluta vojon por stoki dosieraj alŝutoj por la formoj aplikaĵo."
+
+#: fields.py:29
 msgid "Single line text"
 msgstr "Unuopa linio teksto"
 
-#: fields.py:29
+#: fields.py:30
 msgid "Multi line text"
 msgstr "Multi linioj teksto"
 
-#: fields.py:31
+#: fields.py:32
 msgid "Number"
 msgstr "Nombro"
 
-#: fields.py:32
+#: fields.py:33
 msgid "URL"
 msgstr "URL"
 
-#: fields.py:33
+#: fields.py:34
 msgid "Check box"
 msgstr "Markobutono"
 
-#: fields.py:34
+#: fields.py:35
 msgid "Check boxes"
 msgstr "Markobutonoj"
 
-#: fields.py:35
+#: fields.py:36
 msgid "Drop down"
 msgstr "Fali malsupren"
 
-#: fields.py:36
+#: fields.py:37
 msgid "Multi select"
 msgstr "Pluraj elekti"
 
-#: fields.py:37
+#: fields.py:38
 msgid "Radio buttons"
 msgstr "Radio butonoj"
 
-#: fields.py:38
+#: fields.py:39
 msgid "File upload"
 msgstr "Dosiera alŝuti"
 
-#: fields.py:39
+#: fields.py:40
 msgid "Date"
 msgstr "Dato"
 
-#: fields.py:40 models.py:110
+#: fields.py:41 models.py:116
 msgid "Date/time"
 msgstr "Dato / tempo"
 
-#: fields.py:41
+#: fields.py:42
+msgid "Date of birth"
+msgstr ""
+
+#: fields.py:43
 msgid "Hidden"
 msgstr "Kaŝita"
 
-#: forms.py:28 forms.py:36 forms.py:42
+#: forms.py:29 forms.py:37 forms.py:43
 msgid "Nothing"
 msgstr "Nenio"
 
-#: forms.py:29
+#: forms.py:30
 msgid "Contains"
 msgstr "Enhavas"
 
-#: forms.py:30
+#: forms.py:31
 msgid "Doesn't contain"
 msgstr "Ne enhavas"
 
-#: forms.py:31 forms.py:37
+#: forms.py:32 forms.py:38
 msgid "Equals"
 msgstr "Egalas"
 
-#: forms.py:32 forms.py:38
+#: forms.py:33 forms.py:39
 msgid "Doesn't equal"
 msgstr "Ne Egalas"
 
-#: forms.py:43
+#: forms.py:44
 msgid "Is between"
 msgstr "Estas inter"
 
-#: forms.py:100
+#: forms.py:101
 msgid "required"
 msgstr "postulita"
 
-#: forms.py:214
+#: forms.py:221
 msgid "Checked"
 msgstr "Kontrolita"
 
-#: forms.py:214
+#: forms.py:221
 msgid "Not checked"
 msgstr "Ne kontrolita"
 
-#: forms.py:228 forms.py:243
+#: forms.py:235 forms.py:250
 msgid "and"
 msgstr "kaj"
 
@@ -138,115 +164,128 @@ msgid "Response"
 msgstr "Respondo"
 
 #: models.py:20
-msgid "Send email"
-msgstr "Sendu retpoŝton"
+msgid "Send email to user"
+msgstr ""
 
 #: models.py:21
-msgid "If checked, the form submitter will be sent an email."
-msgstr "Se kontrolita, oni sendiĝos retmesaĝon al la persono kiu prezentis la formon "
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
 
-#: models.py:22
+#: models.py:23
 msgid "From address"
 msgstr "De adreso"
 
-#: models.py:23
+#: models.py:24
 msgid "The address the email will be sent from"
 msgstr "La adreso de kie la poŝto estos elsendita"
 
-#: models.py:24
-msgid "Send copies to"
-msgstr "Sendu kopiojn al"
-
 #: models.py:25
-msgid "One or more email addresses, separated by commas"
-msgstr "Unu aŭ pli retadresoj, apartigitaj per komoj"
+msgid "Send email to others"
+msgstr ""
 
-#: models.py:27
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+
+#: models.py:30
 msgid "Subject"
 msgstr "Temo"
 
-#: models.py:28
+#: models.py:31
 msgid "Message"
 msgstr "Mesaĝo"
 
-#: models.py:31
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+
+#: models.py:37
 msgid "Form"
 msgstr "Formo"
 
-#: models.py:32
+#: models.py:38
 msgid "Forms"
 msgstr "Formoj"
 
-#: models.py:49
+#: models.py:55
 msgid "Label"
 msgstr "Stampo"
 
-#: models.py:51
+#: models.py:57
 msgid "Type"
 msgstr "Tipo"
 
-#: models.py:52
+#: models.py:58
 msgid "Required"
 msgstr "Bezonata"
 
-#: models.py:53
+#: models.py:59
 msgid "Visible"
 msgstr "Videbla"
 
-#: models.py:54
+#: models.py:60
 msgid "Choices"
 msgstr "Elektoj"
 
-#: models.py:55
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
 msgstr "Komo disigitaj elektoj, se aplikebla. Se elekto mem enhavas komojn, ĉirkaŭas la eblon kun `dorsa-apostrofoj`."
 
-#: models.py:57
+#: models.py:63
 msgid "Default value"
 msgstr "Defaŭlta valoro"
 
-#: models.py:59
+#: models.py:65
 msgid "Placeholder Text"
 msgstr "Lokokupilo Teksto"
 
-#: models.py:61
+#: models.py:67
 msgid "Help text"
 msgstr "Helpo teksto"
 
-#: models.py:66 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:27
 msgid "Field"
 msgstr "Kampo"
 
-#: models.py:67
+#: models.py:73
 msgid "Fields"
 msgstr "Kampoj"
 
-#: models.py:113
+#: models.py:119
 msgid "Form entry"
 msgstr "Forma eniro"
 
-#: models.py:114
+#: models.py:120
 msgid "Form entries"
 msgstr "Formaj eniroj"
 
-#: models.py:128
+#: models.py:134
 msgid "Form field entry"
 msgstr "Forma kampa eniro"
 
-#: models.py:129
+#: models.py:135
 msgid "Form field entries"
 msgstr "Forma kampaj eniroj"
 
-#: templates/admin/forms/change_form.html:9
+#: templates/admin/forms/change_form.html:8
 #: templates/admin/forms/entries.html:56
 msgid "View entries"
 msgstr "Rigardu eniroj"
 
-#: templates/admin/forms/change_form.html:10
+#: templates/admin/forms/change_form.html:9
 msgid "History"
 msgstr "Historio"
 
-#: templates/admin/forms/change_form.html:11
+#: templates/admin/forms/change_form.html:10
 msgid "View on site"
 msgstr "Rigardu sur retejo"
 

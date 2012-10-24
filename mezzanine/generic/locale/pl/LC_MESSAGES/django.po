@@ -8,19 +8,111 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-06-17 16:13+0000\n"
+"POT-Creation-Date: 2012-10-14 16:59-0430\n"
+"PO-Revision-Date: 2012-10-14 21:38+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.net/projects/p/mezzanine/language/pl/)\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:20 models.py:67
 msgid "User"
 msgstr "Użytkownik"
+
+#: defaults.py:24
+msgid "Accounts required for commenting"
+msgstr ""
+
+#: defaults.py:25
+msgid "If ``True``, users must log in to comment."
+msgstr ""
+
+#: defaults.py:32
+msgid "Disqus shortname"
+msgstr "'shortname' z Disqus"
+
+#: defaults.py:33
+msgid "Shortname for the http://disqus.com comments service."
+msgstr "'shortname'  dla systemu komentarzy http://disqus.com"
+
+#: defaults.py:41
+msgid "Disqus public key"
+msgstr "Klucz publiczny Disqus"
+
+#: defaults.py:42
+msgid "Public key for http://disqus.com developer API"
+msgstr ""
+
+#: defaults.py:49
+msgid "Disqus secret key"
+msgstr "Sekretny klucz Disqus"
+
+#: defaults.py:50
+msgid "Secret key for http://disqus.com developer API"
+msgstr ""
+
+#: defaults.py:57
+msgid "Auto-approve comments"
+msgstr ""
+
+#: defaults.py:58
+msgid "If ``True``, built-in comments are approved by default."
+msgstr "Jeżeli ``True``, komentarze są akceptowane automatycznie."
+
+#: defaults.py:66
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
+msgstr ""
+
+#: defaults.py:74
+msgid "Comment notification email addresses"
+msgstr ""
+
+#: defaults.py:75
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
+msgstr ""
+
+#: defaults.py:84
+msgid "Admin comments"
+msgstr "Komentarze administratora"
+
+#: defaults.py:85
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr "Liczba ostatnich komentarzy wyświetlanych w kokpicie administratora"
+
+#: defaults.py:93
+msgid "Show unapproved comments"
+msgstr "Pokazuj niezaakceptowane komentarze"
+
+#: defaults.py:94
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr "Jeśli ``True`` komentarze nie oznaczone jako ``opublikowane`` będą wyświetlane, ale zastąpione informacją ``czeka na akceptacje``"
+
+#: defaults.py:103
+msgid "Show removed comments"
+msgstr "Pokaż usunięte komentarze"
+
+#: defaults.py:104
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Jeśli ``True``, komentarze, które zostały oznaczone jako ``usunięte`` będą nadal wyświetlane, ale zastąpione komunikatem ``usunięty``."
+
+#: defaults.py:113
+msgid "Min value for a rating."
+msgstr "Minimalna wartość dla ocen."
+
+#: defaults.py:120
+msgid "Max value for a rating."
+msgstr "Maksymalna wartość dla ocen."
 
 #: forms.py:79
 msgid "Name"
@@ -82,10 +174,14 @@ msgstr "Ocena"
 msgid "Ratings"
 msgstr "Oceny"
 
-#: views.py:52
+#: views.py:53
 msgid ""
 "You must log in to comment. Please log in or sign up, and your comment will "
 "be posted."
+msgstr ""
+
+#: views.py:89
+msgid "New comment for: "
 msgstr ""
 
 #: templates/admin/includes/recent_comments.html:4
@@ -98,6 +194,25 @@ msgstr "Ostatnie komentarze"
 #: templates/generic/includes/comment.html:63
 msgid "ago"
 msgstr "temu"
+
+#: templates/email/comment_notification.html:6
+msgid "A new comment has been posted on"
+msgstr ""
+
+#: templates/email/comment_notification.html:10
+#, python-format
+msgid ""
+"\n"
+"    At %(submit_date)s %(user_name)s wrote:\n"
+"    "
+msgstr ""
+
+#: templates/email/comment_notification.txt:7
+#, python-format
+msgid ""
+"\n"
+"At %(submit_date)s %(user_name)s wrote:\n"
+msgstr ""
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

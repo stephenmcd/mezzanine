@@ -37,6 +37,9 @@ IGNORE_ERRORS = (
     "continuation line",
     "closing bracket does not match",
 
+    # Jython compatiblity
+    "redefinition of unused 'Image"
+
 )
 
 

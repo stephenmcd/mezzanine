@@ -117,6 +117,5 @@ $(function() {
         forcePlaceholderSize: true, placeholder: 'placeholder',
         revert: 150, toleranceElement: ' div'
     }).sortable('option', 'connectWith', '#tree ul');
-    $('#tree ul').disableSelection();
 
 });

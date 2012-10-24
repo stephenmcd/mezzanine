@@ -8,58 +8,82 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-06-11 02:27+0000\n"
-"Last-Translator: Whoami Jeong <>\n"
-"Language-Team: Korean (http://www.transifex.net/projects/p/mezzanine/language/ko/)\n"
+"POT-Creation-Date: 2012-10-14 16:59-0430\n"
+"PO-Revision-Date: 2012-08-26 13:23+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.com/projects/p/mezzanine/language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:17
-msgid "Show in navigation"
-msgstr "메뉴에 보여주기"
+#: defaults.py:20
+msgid "A sequence of templates used by the ``page_menu`` template tag. Each item in the sequence is a three item sequence, containing a unique ID for the template, a label for the template, and the template path. These templates are then available for selection when editing which menus a page should appear in. Note that if a menu template is used that doesn't appear in this setting, all pages will appear in it."
+msgstr ""
 
-#: models.py:18
-msgid "Show in footer"
-msgstr "페이지 하단에 보여주기"
+#: defaults.py:29
+msgid "Top navigation bar"
+msgstr ""
 
-#: models.py:21
+#: defaults.py:30
+msgid "Left-hand tree"
+msgstr ""
+
+#: defaults.py:31
+msgid "Footer"
+msgstr ""
+
+#: defaults.py:37
+msgid "A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the default menu templates selected when creating new pages. By default all menu templates are selected. Set this setting to an empty sequence to have no templates selected by default."
+msgstr ""
+
+#: defaults.py:48
+msgid "If ``True``, the left-hand tree template for the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page."
+msgstr ""
+
+#: defaults.py:57
+msgid "If ``True``, pages with ``login_required`` checked will still be listed in menus and search results, for unauthenticated users. Regardless of this setting, when an unauthenticated user accesses a page with ``login_required`` checked, they'll be redirected to the login page."
+msgstr ""
+
+#: models.py:33
+msgid "Show in menus"
+msgstr ""
+
+#: models.py:36
 msgid "Login required"
 msgstr "로그인 필수"
 
-#: models.py:22
+#: models.py:37
 msgid "If checked, only logged in users can view this page"
 msgstr "체크가 되어 있다면, 로그인한 사용자만 이 페이지를 볼 수 있습니다."
 
-#: models.py:25
+#: models.py:40
 msgid "Page"
 msgstr "페이지"
 
-#: models.py:26
+#: models.py:41
 msgid "Pages"
 msgstr "페이지들"
 
-#: models.py:175
+#: models.py:225
 msgid "Rich text page"
 msgstr "리치 텍스트 페이지"
 
-#: models.py:176
+#: models.py:226
 msgid "Rich text pages"
 msgstr "리치 텍스트 페이지들"
 
-#: models.py:186
+#: models.py:236
 msgid "Link"
 msgstr "링크"
 
-#: models.py:187
+#: models.py:237
 msgid "Links"
 msgstr "링크들"
 
 #: templates/admin/pages/page/change_list.html:24
-#: templates/pages/menus/admin.html:32
+#: templates/pages/menus/admin.html:31
 msgid "Add"
 msgstr "추가"
 
@@ -72,6 +96,6 @@ msgstr "추가"
 msgid "Home"
 msgstr "홈"
 
-#: templatetags/pages_tags.py:164
+#: templatetags/pages_tags.py:181
 msgid "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""
