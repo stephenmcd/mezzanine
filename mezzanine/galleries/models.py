@@ -35,7 +35,7 @@ class Gallery(Page, RichText):
     """
 
     zip_import = models.FileField(upload_to="galleries", blank=True,
-                    verbose_name=_("Zip import"),
+                    verbose_name=_("Zip Import"),
                     help_text=_("Upload a zip file containing images, and "
                                 "they'll be imported into this gallery."))
 

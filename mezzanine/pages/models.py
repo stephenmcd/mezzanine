@@ -222,8 +222,8 @@ class RichTextPage(Page, RichText):
     """
 
     class Meta:
-        verbose_name = _("Rich text page")
-        verbose_name_plural = _("Rich text pages")
+        verbose_name = _("Rich Text Page")
+        verbose_name_plural = _("Rich Text Pages")
 
 
 class Link(Page):

@@ -30,8 +30,8 @@ class Query(models.Model):
     interested = models.BooleanField("Interested", default=True)
 
     class Meta:
-        verbose_name = _("Twitter query")
-        verbose_name_plural = _("Twitter queries")
+        verbose_name = _("Twitter Query")
+        verbose_name_plural = _("Twitter Queries")
         ordering = ("-id",)
 
     def __unicode__(self):
