@@ -17,7 +17,7 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
     categories = models.ManyToManyField("BlogCategory",
                                         verbose_name=_("Categories"),
                                         blank=True, related_name="blogposts")
-    allow_comments = models.BooleanField(verbose_name=_("Allow comments"),
+    allow_comments = models.BooleanField(verbose_name=_("Allow Comments"),
                                          default=True)
     comments = CommentsField(verbose_name=_("Comments"))
     rating = RatingField(verbose_name=_("Rating"))
@@ -25,13 +25,13 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
                                upload_to="blog", format="Image",
                                max_length=255, null=True, blank=True)
     related_posts = models.ManyToManyField("self",
-                                 verbose_name=_("Related posts"), blank=True)
+                                 verbose_name=_("Related Posts"), blank=True)
 
     admin_thumb_field = "featured_image"
 
     class Meta:
-        verbose_name = _("Blog post")
-        verbose_name_plural = _("Blog posts")
+        verbose_name = _("Blog Post")
+        verbose_name_plural = _("Blog Posts")
         ordering = ("-publish_date",)
 
     @models.permalink
