@@ -312,6 +312,8 @@ Sites Using Mezzanine
   * `The Andrew Story <http://theandrewstory.com>`_
   * `Charles Koll Jewelry <http://charleskoll.com>`_
   * `Mission Healthcare <http://homewithmission.com>`_
+  * `Cruena (com/dk/fi/no/se) <http://www.creuna.com/>`_
+
 
 Quotes
 ======
