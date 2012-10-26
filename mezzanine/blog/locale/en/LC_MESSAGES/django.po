@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-10-22 00:10-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,9 @@ msgid "Use date URLs"
 msgstr ""
 
 #: defaults.py:44
-msgid "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/"
+msgid ""
+"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
+"mm/slug/"
 msgstr ""
 
 #: defaults.py:52
@@ -117,7 +119,8 @@ msgstr ""
 
 #: templates/blog/blog_post_detail.html:33
 #: templates/blog/blog_post_list.html:93
-msgid "ago"
+#, python-format
+msgid "%(sometime)s ago"
 msgstr ""
 
 #: templates/blog/blog_post_detail.html:46
