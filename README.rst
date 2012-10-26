@@ -303,15 +303,15 @@ Sites Using Mezzanine
   * `ggzpreventie.nl <http://ggzpreventie.nl>`_
   * `dakuaiba.com <http://www.dakuaiba.com>`_
   * `Leprosys <http://www.leprosys.info>`_
-  * `Hunted Hive <http://huntedhive.com>`_
+  * `Hunted Hive <http://huntedhive.com/>`_
   * `mjollnir.org <http://mjollnir.org>`_
   * `The Beancat Network <http://www.beancatnet.org>`_
-  * `Raquel Marón <http://raquelmaron.com>`_
+  * `Raquel Marón <http://raquelmaron.com/>`_
   * `EatLove <http://eatlove.com.au/>`_
   * `Hospitality Quotient <http://hospitalityq.com/>`_
-  * `The Andrew Story <http://theandrewstory.com>`_
-  * `Charles Koll Jewelry <http://charleskoll.com>`_
-  * `Mission Healthcare <http://homewithmission.com>`_
+  * `The Andrew Story <http://theandrewstory.com/>`_
+  * `Charles Koll Jewelry <http://charleskoll.com/>`_
+  * `Mission Healthcare <http://homewithmission.com/>`_
   * `Cruena (com/dk/fi/no/se) <http://www.creuna.com/>`_
 
 
