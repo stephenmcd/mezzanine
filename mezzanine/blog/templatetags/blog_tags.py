@@ -1,4 +1,3 @@
-
 from datetime import datetime
 
 from django.contrib.auth.models import User
@@ -49,11 +48,20 @@ def blog_authors(*args):
 
 
 @register.as_tag
-def blog_recent_posts(limit=5):
+def blog_recent_posts(limit=5, slug=''):
     """
     Put a list of recently published blog posts into the template context.
+    The slug, if specified, restricts returned posts to being in the category matching
+    the slug, if it exists.
     """
-    return list(BlogPost.objects.published()[:limit])
+    blog_posts = BlogPost.objects.published()
+    if slug:
+        try:
+            category = BlogCategory.objects.get(slug=slug)
+            blog_posts = blog_posts.filter(categories=category)
+        except BlogCategory.DoesNotExist:
+            pass
+    return list(blog_posts[:limit])
 
 
 @register.inclusion_tag("admin/includes/quick_blog.html", takes_context=True)
