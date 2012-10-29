@@ -2,7 +2,8 @@
 import re
 import unicodedata
 
-from django.core.urlresolvers import resolve, reverse, NoReverseMatch
+from django.core.urlresolvers import resolve, reverse, NoReverseMatch, \
+    get_script_prefix
 from django.shortcuts import redirect
 from django.utils.encoding import smart_unicode
 
@@ -28,7 +29,10 @@ def home_slug():
     is the definitive source of the ``url`` field defined for an
     editable homepage object.
     """
+    prefix = get_script_prefix()
     slug = reverse("home")
+    if slug.startswith(prefix):
+        slug = '/' + slug[len(prefix):]
     try:
         return resolve(slug).kwargs["slug"]
     except KeyError:
