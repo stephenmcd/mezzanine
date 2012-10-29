@@ -32,7 +32,7 @@ def home_slug():
     prefix = get_script_prefix()
     slug = reverse("home")
     if slug.startswith(prefix):
-        slug = '/'+slug[len(prefix):]
+        slug = '/' + slug[len(prefix):]
     try:
         return resolve(slug).kwargs["slug"]
     except KeyError:
