@@ -5,6 +5,7 @@ from django.db.models import Count
 
 from mezzanine.blog.forms import BlogPostForm
 from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.generic.models import Keyword
 from mezzanine import template
 
 
@@ -48,19 +49,39 @@ def blog_authors(*args):
 
 
 @register.as_tag
-def blog_recent_posts(limit=5, slug=''):
+def blog_recent_posts(limit=5, tag=None, username=None, category=None):
     """
     Put a list of recently published blog posts into the template context.
-    The slug, if specified, restricts returned posts to being in the category matching
-    the slug, if it exists.
+    A tag slug, category slug or author's username can also be specified
+    to filter the recent posts returned.
+
+    Usage::
+
+        {% blog_recent_posts 5 as recent_posts %}
+        {% blog_recent_posts limit=5 tag=django as recent_posts %}
+        {% blog_recent_posts limit=5 category=python as recent_posts %}
+        {% blog_recent_posts 5 username=admin as recent_posts %}
+
     """
     blog_posts = BlogPost.objects.published()
-    if slug:
+    if tag is not None:
         try:
-            category = BlogCategory.objects.get(slug=slug)
+            tag = Keyword.objects.get(slug=tag)
+            blog_posts = blog_posts.filter(keywords__in=tag.assignments.all())
+        except Keyword.DoesNotExist:
+            return []
+    if category is not None:
+        try:
+            category = BlogCategory.objects.get(slug=category)
             blog_posts = blog_posts.filter(categories=category)
         except BlogCategory.DoesNotExist:
-            pass
+            return []
+    if username is not None:
+        try:
+            author = User.objects.get(username=username)
+            blog_posts = blog_posts.filter(user=author)
+        except User.DoesNotExist:
+            return []
     return list(blog_posts[:limit])
 
 
