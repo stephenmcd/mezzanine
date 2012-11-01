@@ -313,7 +313,8 @@ Sites Using Mezzanine
   * `Charles Koll Jewelry <http://charleskoll.com/>`_
   * `Mission Healthcare <http://homewithmission.com/>`_
   * `Creuna (com/dk/fi/no/se) <http://www.creuna.com/>`_
-
+  * `Coronado School of the Arts <http://www.cosasandiego.com/>`_
+  * `SiteComb <http://www.sitecomb.com/>`_
 
 Quotes
 ======
