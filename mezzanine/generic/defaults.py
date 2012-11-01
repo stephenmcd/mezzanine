@@ -112,7 +112,7 @@ if generic_comments:
         name="COMMENTS_URL_VISIBLE",
         label=_("Show url in comment form"),
         description=_("If ``True``, it will show the website url field "
-                      ". If ``False``, it will hide the webiste url field"),
+                      ". If ``False``, it will hide the website url field"),
         editable=True,
         default=True,
     )
