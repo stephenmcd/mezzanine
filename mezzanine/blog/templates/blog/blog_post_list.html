@@ -116,7 +116,7 @@
     <a href="{% url "blog_post_list_tag" tag.slug %}" class="tag">{{ tag }}</a>
     {% endfor %}
     {% endspaceless %}
-    <br>
+    <br />
     {% endif %}
     <a href="{{ blog_post.get_absolute_url }}">{% trans "read more" %}</a>
     /

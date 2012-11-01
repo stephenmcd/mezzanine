@@ -1,17 +1,17 @@
 {% load i18n future %}
 
 {% if request.user.is_staff %}
-<link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/editable.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/editable.css" />
 {{ richtext_media|safe }}
-<script>
+<script type="text/javascript">
 {% url "fb_browse" as fb_browse_url %}
 {% url "static_proxy" as static_proxy_url %}
 window.__filebrowser_url = '{{ fb_browse_url }}';
 window.__toolbar_html = '{{ toolbar|escapejs }}';
 window.__static_proxy = '{{ static_proxy_url }}';
 </script>
-<script src="{{ STATIC_URL }}mezzanine/js/jquery.tools.js"></script>
-<script src="{{ STATIC_URL }}mezzanine/js/jquery.form.js"></script>
-<script src="{{ STATIC_URL }}mezzanine/js/jquery.ba-resize.min.js"></script>
-<script src="{{ STATIC_URL }}mezzanine/js/editable.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/jquery.tools.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/jquery.form.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/jquery.ba-resize.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/editable.js"></script>
 {% endif %}

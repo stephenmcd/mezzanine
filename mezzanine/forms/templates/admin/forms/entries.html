@@ -5,7 +5,7 @@
 {% block extrahead %}
 {{ block.super }}
 <link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/form_entries.css">
-<script src="{{ STATIC_URL }}mezzanine/js/admin/form_entries.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/admin/form_entries.js"></script>
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -87,7 +87,7 @@
     count is injected into the title here with the :after selector
     to avoid calling the expensive "entries_form.rows" twice.
     -->
-    <style>#entries-title:after {content: ' ({{ forloop.counter }})';}</style>
+    <style type="text/css">#entries-title:after {content: ' ({{ forloop.counter }})';}</style>
     {% if can_delete_entries %}
     <input type="submit" name="back" class="button" value="{% trans "Back to form" %}" />
     <input type="submit" name="delete" class="button default" value="{% trans "Delete selected" %}" />

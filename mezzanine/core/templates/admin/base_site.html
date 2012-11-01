@@ -18,7 +18,7 @@ mostly get applied globally to different parts of the admin.
 
 {% block extrahead %}
 <link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/global.css">
-<style>
+<style type="text/css">
 /*
 These are set in PageAdmin's view methods,
 and mezzanine.core.admin.SingletonAdmin
@@ -27,7 +27,7 @@ and mezzanine.core.admin.SingletonAdmin
 {% if hide_slug_field %}.slug {display:none !important;}{% endif %}
 {% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
 </style>
-<script>
+<script type="text/javascript">
 {% url "static_proxy" as static_proxy_url %}
 {% url "fb_browse" as fb_browse_url %}
 {% url "admin:index" as admin_index_url %}
@@ -41,7 +41,7 @@ window.__admin_media_prefix__ = '{{ settings.ADMIN_MEDIA_PREFIX }}';
 window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 </script>
 {% if not settings.GRAPPELLI_INSTALLED %}
-<script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
 {% endif %}
 {% endblock %}
 
@@ -49,12 +49,12 @@ window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 {{ block.super }}
 {% if request.user.is_staff %}
     {% if not is_popup and not request.GET.pop %}
-    <script src="{{ STATIC_URL }}mezzanine/js/admin/navigation.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/admin/navigation.js"></script>
     {% endif %}
-    <script src="{{ STATIC_URL }}mezzanine/js/admin/ajax_csrf.js"></script>
-    <script src="{{ STATIC_URL }}mezzanine/js/admin/collapse_backport.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/admin/ajax_csrf.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/admin/collapse_backport.js"></script>
     {% admin_dropdown_menu %}
 {% else %}
-    <script src="{{ STATIC_URL }}mezzanine/js/admin/login.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/admin/login.js"></script>
 {% endif %}
 {% endblock %}

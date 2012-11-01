@@ -14,13 +14,13 @@
 <div style="float:right;">
 <img style="margin-right:20px;" src="{% gravatar_url profile_user.email 128 %}">
 {% if profile_user == request.user %}
-<br><br><a class="btn btn-large btn-primary" style="" href="{% url "profile_update" %}">{% trans "Update profile" %}</a>
+<br /><br /><a class="btn btn-large btn-primary" style="" href="{% url "profile_update" %}">{% trans "Update profile" %}</a>
 {% endif %}
 </div>
 <h2>{{ profile_user.get_full_name }}</h2>
 <div style="float:left;">
 {% for field, value in profile_fields %}
-{{ field }}: {{ value|linebreaks }}<br>
+{{ field }}: {{ value|linebreaks }}<br />
 {% endfor %}
 </div>
 {% endblock %}

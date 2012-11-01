@@ -4,14 +4,14 @@
 {% if settings.COMMENTS_DISQUS_SHORTNAME %}
 {% include "generic/includes/disqus_comments.html" %}
 {% else %}
-<script>
+<script type="text/javascript">
 $(function() {
     $('.reply').click(function() {
         $(this).next('.reply-form').toggle();
     });
 });
 </script>
-<style>.input_id_honeypot {display:none !important;}</style>
+<style type="text/css">.input_id_honeypot {display:none !important;}</style>
 {% comment_thread object_for_comments %}
 <h3>{% trans "New Comment" %}</h3>
 <form method="post" id="comment" action="{{ comment_url }}#comment">

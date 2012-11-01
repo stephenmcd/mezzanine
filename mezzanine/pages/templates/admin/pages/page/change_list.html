@@ -4,14 +4,14 @@
 {% block extrahead %}
 {{ block.super }}
 <link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/page_tree.css">
-<style>
+<style type="text/css">
 .delete {width:10px; height:10px; margin:2px 4px 0 10px; display:block; float:right; background:url('{% admin_media_prefix %}img/admin/icon_deletelink.gif');}
 .grappelli-delete {width:11px; height:11px; margin:4px 4px 0 10px; background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink.png');}
 .grappelli-delete:hover {background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink-hover.png');}
 </style>
-<script>window.__page_ordering_url = '{% url "admin_page_ordering" %}';</script>
-<script src="{{ STATIC_URL }}mezzanine/js/jquery-ui-1.8.14.custom.min.js"></script>
-<script src="{{ STATIC_URL }}mezzanine/js/admin/page_tree.js"></script>
+<script type="text/javascript">window.__page_ordering_url = '{% url "admin_page_ordering" %}';</script>
+<script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/jquery-ui-1.8.14.custom.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}mezzanine/js/admin/page_tree.js"></script>
 {% endblock %}
 
 {% block content %}

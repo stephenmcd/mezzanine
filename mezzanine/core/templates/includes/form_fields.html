@@ -9,7 +9,7 @@
 {% endif %}
 
 {% nevercache %}
-<input type="hidden" name="referrer" value="{{ request.META.HTTP_REFERER }}">
+<input type="hidden" name="referrer" value="{{ request.META.HTTP_REFERER }}" />
 {% csrf_token %}
 {% endnevercache %}
 
