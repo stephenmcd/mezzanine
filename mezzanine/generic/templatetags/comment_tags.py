@@ -8,6 +8,7 @@ from mezzanine import template
 from mezzanine.conf import settings
 from mezzanine.generic.forms import ThreadedCommentForm
 from mezzanine.generic.models import ThreadedComment
+from django.forms.fields import Field
 
 
 register = template.Library()
@@ -19,7 +20,10 @@ def comments_for(context, obj):
     Provides a generic context variable name for the object that
     comments are being rendered for.
     """
+    settings.use_editable()
     form = ThreadedCommentForm(context["request"], obj)
+    if not settings.COMMENTS_URL_VISIBLE:
+      del form.fields['url']
     try:
         context["posted_comment_form"]
     except KeyError:

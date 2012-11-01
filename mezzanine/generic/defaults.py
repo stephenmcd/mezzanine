@@ -108,6 +108,15 @@ if generic_comments:
         default=True,
     )
 
+    register_setting(
+        name="COMMENTS_URL_VISIBLE",
+        label=_("Show url in comment form"),
+        description=_("If ``True``, it will show the website url field "
+                      ". If ``False``, it will hide the webiste url field"),
+        editable=True,
+        default=True,
+    )
+
 register_setting(
     name="RATINGS_MIN",
     description=_("Min value for a rating."),
