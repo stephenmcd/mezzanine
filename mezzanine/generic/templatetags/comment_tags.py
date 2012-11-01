@@ -8,7 +8,6 @@ from mezzanine import template
 from mezzanine.conf import settings
 from mezzanine.generic.forms import ThreadedCommentForm
 from mezzanine.generic.models import ThreadedComment
-from django.forms.fields import Field
 
 
 register = template.Library()
