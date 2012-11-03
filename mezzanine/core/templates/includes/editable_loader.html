@@ -10,8 +10,9 @@ window.__filebrowser_url = '{{ fb_browse_url }}';
 window.__toolbar_html = '{{ toolbar|escapejs }}';
 window.__static_proxy = '{{ static_proxy_url }}';
 </script>
-<script src="{{ STATIC_URL }}mezzanine/js/jquery.tools.js"></script>
+<script src="{{ STATIC_URL }}mezzanine/js/jquery.tools.toolbox.expose.js"></script>
+<script src="{{ STATIC_URL }}mezzanine/js/jquery.tools.overlay.js"></script>
 <script src="{{ STATIC_URL }}mezzanine/js/jquery.form.js"></script>
-<script src="{{ STATIC_URL }}mezzanine/js/jquery.ba-resize.min.js"></script>
+<script src="{{ STATIC_URL }}mezzanine/js/jquery.ba-resize.js"></script>
 <script src="{{ STATIC_URL }}mezzanine/js/editable.js"></script>
 {% endif %}
