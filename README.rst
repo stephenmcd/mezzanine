@@ -315,6 +315,7 @@ Sites Using Mezzanine
   * `Creuna (com/dk/fi/no/se) <http://www.creuna.com/>`_
   * `Coronado School of the Arts <http://www.cosasandiego.com/>`_
   * `SiteComb <http://www.sitecomb.com>`_
+  * `Dashing Collective <http://dashing.tv/>`_
 
 Quotes
 ======
