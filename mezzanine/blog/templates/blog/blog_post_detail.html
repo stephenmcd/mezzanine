@@ -90,12 +90,12 @@
 
 {% block blog_post_detail_nav %}
 <ul class="pager">
-  {% if blog_post.get_previous_by_publish_date %}
+  {% if blog_post.get_previous_by_publish_date.status == 2 %}
   <li class="previous">
     <a href="{{ blog_post.get_previous_by_publish_date.get_absolute_url }}">&larr; {% trans "Previous Post" %}</a>
   </li>
   {% endif %}
-  {% if blog_post.get_next_by_publish_date %}
+  {% if blog_post.get_next_by_publish_date.status == 2 %}
   <li class="next">
     <a href="{{ blog_post.get_next_by_publish_date.get_absolute_url }}">{% trans "Next Post" %} &rarr;</a>
   </li>
