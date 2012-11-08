@@ -74,6 +74,10 @@
 #
 # BLOG_USE_FEATURED_IMAGE = True
 
+# Setting to grant access to each others blog posts. Defaults to False.
+#
+# BLOG_ACCESS_ALL = True
+
 # If ``True``, users will be automatically redirected to HTTPS
 # for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting.
 #
