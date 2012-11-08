@@ -186,7 +186,7 @@ class Displayable(Slugged, MetaData):
             "on the site."))
     publish_date = models.DateTimeField(_("Published from"),
         help_text=_("With Published chosen, won't be shown until this time"),
-        blank=True, null=True)
+        blank=True, null=False)
     expiry_date = models.DateTimeField(_("Expires on"),
         help_text=_("With Published chosen, won't be shown after this time"),
         blank=True, null=True)
