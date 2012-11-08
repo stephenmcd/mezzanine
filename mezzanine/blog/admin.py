@@ -37,6 +37,7 @@ class BlogPostOwnableAdmin(OwnableAdmin):
         else:
             return super(BlogPostOwnableAdmin, self).queryset(request)
 
+
 class BlogPostAdmin(DisplayableAdmin, BlogPostOwnableAdmin):
     """
     Admin class for blog posts.
