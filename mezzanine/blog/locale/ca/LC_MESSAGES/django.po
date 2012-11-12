@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-22 00:10-0600\n"
+"POT-Creation-Date: 2012-11-11 19:29-0600\n"
 "PO-Revision-Date: 2012-10-14 21:32+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/mezzanine/"
@@ -66,44 +66,44 @@ msgstr "Nombre d'entrades del bloc que es mostrarar a la llista."
 msgid "Slug of the page object for the blog."
 msgstr "Descripció reduida de l'objecte pàgina del bloc."
 
-#: models.py:18 templates/blog/includes/filter_panel.html:35
+#: models.py:17 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
 msgstr "Categories"
 
-#: models.py:20
+#: models.py:19
 msgid "Allow comments"
 msgstr ""
 
-#: models.py:22 templates/blog/blog_post_detail.html:43
+#: models.py:21 templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:126
 msgid "Comments"
 msgstr "Comentaris"
 
-#: models.py:23
+#: models.py:22
 msgid "Rating"
 msgstr "Rating"
 
-#: models.py:24
+#: models.py:23
 msgid "Featured Image"
 msgstr "Imatge destacada"
 
-#: models.py:28 templates/blog/blog_post_detail.html:94
+#: models.py:27 templates/blog/blog_post_detail.html:109
 msgid "Related posts"
 msgstr ""
 
-#: models.py:33
+#: models.py:32
 msgid "Blog post"
 msgstr "Entrada"
 
-#: models.py:34
+#: models.py:33
 msgid "Blog posts"
 msgstr "Entrades"
 
-#: models.py:80
+#: models.py:79
 msgid "Blog Category"
 msgstr "Categoria"
 
-#: models.py:81
+#: models.py:80
 msgid "Blog Categories"
 msgstr "Categories"
 
@@ -147,6 +147,15 @@ msgstr "Compartir a Twitter"
 #: templates/blog/blog_post_detail.html:88
 msgid "Share on Facebook"
 msgstr "Compatir a Facebook"
+
+#: templates/blog/blog_post_detail.html:95
+msgid "Previous Post"
+msgstr ""
+
+#: templates/blog/blog_post_detail.html:100
+#, fuzzy
+msgid "Next Post"
+msgstr "Ultimes entrades"
 
 #: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"

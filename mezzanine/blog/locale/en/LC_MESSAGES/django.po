@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-22 00:10-0600\n"
+"POT-Creation-Date: 2012-11-11 19:29-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,44 +63,44 @@ msgstr ""
 msgid "Slug of the page object for the blog."
 msgstr ""
 
-#: models.py:18 templates/blog/includes/filter_panel.html:35
+#: models.py:17 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
 msgstr ""
 
-#: models.py:20
+#: models.py:19
 msgid "Allow comments"
 msgstr ""
 
-#: models.py:22 templates/blog/blog_post_detail.html:43
+#: models.py:21 templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:126
 msgid "Comments"
 msgstr ""
 
-#: models.py:23
+#: models.py:22
 msgid "Rating"
 msgstr ""
 
-#: models.py:24
+#: models.py:23
 msgid "Featured Image"
 msgstr ""
 
-#: models.py:28 templates/blog/blog_post_detail.html:94
+#: models.py:27 templates/blog/blog_post_detail.html:109
 msgid "Related posts"
 msgstr ""
 
-#: models.py:33
+#: models.py:32
 msgid "Blog post"
 msgstr ""
 
-#: models.py:34
+#: models.py:33
 msgid "Blog posts"
 msgstr ""
 
-#: models.py:80
+#: models.py:79
 msgid "Blog Category"
 msgstr ""
 
-#: models.py:81
+#: models.py:80
 msgid "Blog Categories"
 msgstr ""
 
@@ -143,6 +143,14 @@ msgstr ""
 
 #: templates/blog/blog_post_detail.html:88
 msgid "Share on Facebook"
+msgstr ""
+
+#: templates/blog/blog_post_detail.html:95
+msgid "Previous Post"
+msgstr ""
+
+#: templates/blog/blog_post_detail.html:100
+msgid "Next Post"
 msgstr ""
 
 #: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
