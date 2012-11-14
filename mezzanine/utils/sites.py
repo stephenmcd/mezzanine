@@ -55,6 +55,17 @@ def current_site_id():
     return site_id
 
 
+def can_access_admin_site(user, site_id=None):
+    """
+    Returns true if the user has admin access to the site indicated by site_id
+    """
+    if not site_id:
+        site_id = current_site_id()
+    if user.is_active:
+        if user.is_superuser or user.adminprofile.sites.filter(id=site_id):
+            return True
+    return False
+
 def host_theme_path(request):
     """
     Returns the directory of the theme associated with the given host.

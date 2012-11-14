@@ -21,6 +21,7 @@ from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Displayable
 from mezzanine.utils.cache import add_cache_bypass
+from mezzanine.utils.sites import can_access_admin_site
 from mezzanine.utils.views import is_editable, paginate, render, set_cookie
 
 
@@ -42,16 +43,20 @@ def set_site(request):
     site ID is then used in favour of the current request's
     domain in ``mezzanine.core.managers.CurrentSiteManager``.
     """
-    request.session["site_id"] = int(request.GET["site_id"])
-    admin_url = reverse("admin:index")
-    next = request.GET.get("next", admin_url)
-    # Don't redirect to a change view for an object that won't exist
-    # on the selected site - go to its list view instead.
-    if next.startswith(admin_url):
-        parts = next.split("/")
-        if len(parts) > 4 and parts[4].isdigit():
-            next = "/".join(parts[:4])
-    return redirect(next)
+    site_id = int(request.GET["site_id"])
+    if can_access_admin_site(request.user, site_id=site_id):
+        request.session["site_id"] = int(request.GET["site_id"])
+        admin_url = reverse("admin:index")
+        next = request.GET.get("next", admin_url)
+        # Don't redirect to a change view for an object that won't exist
+        # on the selected site - go to its list view instead.
+        if next.startswith(admin_url):
+            parts = next.split("/")
+            if len(parts) > 4 and parts[4].isdigit():
+                next = "/".join(parts[:4])
+        return redirect(next)
+    else:
+        return redirect(request.GET.get("next", reverse("admin:index")))
 
 
 def direct_to_template(request, template, extra_context=None, **kwargs):

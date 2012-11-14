@@ -1,4 +1,7 @@
+
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
+from django.contrib.auth.models import User
 from django.db.models import AutoField
 from django.forms import ValidationError
 from django.http import HttpResponseRedirect
@@ -7,8 +10,20 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
-from mezzanine.core.models import CONTENT_STATUS_PUBLISHED, Orderable
+from mezzanine.core.models import CONTENT_STATUS_PUBLISHED, Orderable, AdminProfile
 from mezzanine.utils.urls import admin_url
+
+
+class AdminProfileInline(admin.TabularInline):
+    model = AdminProfile
+    max_num = 1
+    can_delete = False
+
+class UserAdmin(AuthUserAdmin):
+    inlines = [AdminProfileInline]
+    
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 
 
 class DisplayableAdmin(admin.ModelAdmin):

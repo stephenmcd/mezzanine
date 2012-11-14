@@ -1,8 +1,10 @@
 
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.base import ModelBase
+from django.db.models.signals import post_save
 from django.template.defaultfilters import truncatewords_html
 from django.utils.html import strip_tags
 from django.utils.timesince import timesince
@@ -17,6 +19,21 @@ from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.timezone import now
 from mezzanine.utils.urls import admin_url, slugify
 
+class AdminProfile(models.Model):
+    """
+    Makes it possible to assign specific sites to admin users so that they can
+    be restricted to only editing those sites.
+    """
+    user = models.OneToOneField(User)
+    sites = models.ManyToManyField("sites.Site")
+
+def create_admin_profile(sender, **kw):
+    user = kw["instance"]
+    if kw["created"]:
+        profile = AdminProfile(user=user)
+        profile.save()
+        profile.sites.add(current_site_id())
+post_save.connect(create_admin_profile, sender=User)
 
 class SiteRelated(models.Model):
     """
