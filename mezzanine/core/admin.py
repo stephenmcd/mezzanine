@@ -1,5 +1,8 @@
 
+from copy import deepcopy
+
 from django.contrib import admin
+from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.models import User
 from django.db.models import AutoField
@@ -7,6 +10,11 @@ from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
+# try to import PermissionDenied, since it is new in 1.4 fall back to 404
+try:
+    from django.core.exceptions import PermissionDenied
+except:
+    from django.http import Http404 as PermissionDenied
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
@@ -25,6 +33,23 @@ class UserAdmin(AuthUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
+original_has_permission = deepcopy(AdminSite.has_permission)
+def has_permission(self, request):
+    """
+    Patched has permission to check if the user has access to the current site's admin
+    """
+    if original_has_permission(self, request):
+        try:
+            if request.user.has_current_site_access:
+                return True
+            else:
+                raise PermissionDenied
+        except AttributeError:
+            raise PermissionDenied
+    else:
+        return False
+
+AdminSite.has_permission = has_permission
 
 class DisplayableAdmin(admin.ModelAdmin):
     """

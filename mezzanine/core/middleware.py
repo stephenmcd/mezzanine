@@ -6,12 +6,6 @@ from django.http import (HttpResponse, HttpResponseRedirect,
 from django.utils.cache import get_max_age
 from django.template import Template, RequestContext
 
-# try to import PermissionDenied, since it is new in 1.4 fall back to 404
-try:
-    from django.core.exceptions import PermissionDenied
-except:
-    from django.http import Http404 as PermissionDenied
-
 from mezzanine.conf import settings
 from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
                                    cache_get, cache_set, cache_installed)
@@ -59,16 +53,17 @@ class AdminLoginInterfaceSelectorMiddleware(object):
                 return response
         return None
 
-class AdminSiteMiddleware(object):
+class AdminSiteAccessMiddleware(object):
     """
     Checks if an admin user has access to the current site.  If not returns a forbidden.
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
         if request.user.is_staff and request.user.is_active and \
-            request.path.startswith(reverse('admin:index')):
-            if not can_access_admin_site(request.user):
-                    logout(request)
-                    raise PermissionDenied
+            can_access_admin_site(request.user):
+            request.user.has_current_site_access = True
+        else:
+            request.user.has_current_site_access = False
+        return None
 
 class TemplateForDeviceMiddleware(object):
     """

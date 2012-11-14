@@ -306,12 +306,15 @@ def editable_loader(context):
     context['load_editor'] = False
     user = context['request'].user
     if user.is_staff:
-        if can_access_admin_site(user, current_site_id()):
-            context['load_editor'] = True
-            t = get_template("includes/editable_toolbar.html")
-            context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
-            context["toolbar"] = t.render(Context(context))
-            context["richtext_media"] = RichTextField().formfield().widget.media
+        try:
+            if user.has_current_site_access:
+                context['load_editor'] = True
+                t = get_template("includes/editable_toolbar.html")
+                context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
+                context["toolbar"] = t.render(Context(context))
+                context["richtext_media"] = RichTextField().formfield().widget.media
+        except AttributeError:
+            pass
     return context
 
 

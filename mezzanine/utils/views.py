@@ -25,7 +25,10 @@ def is_editable(obj, request):
     else:
         perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
         if request.user.is_authenticated() and request.user.has_perm(perm):
-            return can_access_admin_site(request.user, current_site_id())
+            try:
+                return request.user.has_current_site_access
+            except AttributeError:
+                return False
 
 
 def is_spam(request, form, url):
