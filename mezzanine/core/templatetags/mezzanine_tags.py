@@ -476,7 +476,11 @@ def admin_dropdown_menu(context):
     Renders the app list for the admin dropdown menu navigation.
     """
     context["dropdown_menu_app_list"] = admin_app_list(context["request"])
-    context["dropdown_menu_sites"] = list(context["request"].user.adminprofile.sites.all())
+    user = context["request"].user
+    if user.is_superuser:
+        context["dropdown_menu_sites"] = list(Site.objects.all())
+    else:
+        context["dropdown_menu_sites"] = list(user.adminprofile.sites.all())
     context["dropdown_menu_selected_site_id"] = current_site_id()
     return context
 
