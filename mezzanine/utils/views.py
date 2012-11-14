@@ -12,7 +12,7 @@ from django.utils.translation import ugettext as _
 
 import mezzanine
 from mezzanine.conf import settings
-
+from mezzanine.utils.sites import can_access_admin_site, current_site_id
 
 def is_editable(obj, request):
     """
@@ -24,7 +24,8 @@ def is_editable(obj, request):
         return obj.is_editable(request)
     else:
         perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
-        return request.user.is_authenticated() and request.user.has_perm(perm)
+        if request.user.is_authenticated() and request.user.has_perm(perm):
+            return can_access_admin_site(request.user, current_site_id())
 
 
 def is_spam(request, form, url):
