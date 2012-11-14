@@ -1,6 +1,6 @@
 {% load i18n future %}
 
-{% if request.user.is_staff %}
+{% if load_editor %}
 <link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/editable.css">
 {{ richtext_media|safe }}
 <script>
