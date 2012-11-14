@@ -4,6 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
 from mezzanine.accounts.models import get_profile_model
+from mezzanine.core.admin import AdminProfileInline
 
 
 Profile = get_profile_model()
@@ -17,7 +18,7 @@ class ProfileInline(admin.StackedInline):
 
 
 class UserProfileAdmin(UserAdmin):
-    inlines = (ProfileInline,) if Profile else ()
+    inlines = (ProfileInline, AdminProfileInline) if Profile else (AdminProfileInline,)
 
 
 admin.site.unregister(User)
