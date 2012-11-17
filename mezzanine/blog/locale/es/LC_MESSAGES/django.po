@@ -10,19 +10,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
-"PO-Revision-Date: 2012-10-15 18:28+0000\n"
-"Last-Translator: William Díaz <leprosys@gmail.com>\n"
+"POT-Creation-Date: 2012-10-22 00:10-0600\n"
+"PO-Revision-Date: 2012-10-22 00:21-0600\n"
+"Last-Translator: Eduardo Rivas <e@jerivas.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/language/es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:20
 msgid "Other posts"
-msgstr "Otras entradas de blog"
+msgstr "Otras entradas"
 
 #: defaults.py:20
 msgid "bit.ly username"
@@ -42,31 +42,30 @@ msgstr "Clave para el servicio de reducción de URL bit.ly"
 
 #: defaults.py:36
 msgid "Enable featured images in blog posts"
-msgstr "Activar imágenes promocionadas en publicaciones del blog"
+msgstr "Activar imágenes destacadas en entradas del blog"
 
 #: defaults.py:43
 msgid "Use date URLs"
 msgstr "Usar URLs con fechas"
 
 #: defaults.py:44
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: "
-"/blog/yyyy/mm/slug/"
+msgid "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/"
 msgstr "Si es ``True``, las URLs para las publicaciones del blog incluyen el mes y el año. Por ejemplo: /blog/yyyy/mm/slug/"
 
 #: defaults.py:52
 msgid "Blog posts per page"
-msgstr "Publicaciones de la bitácora a mostrar por página"
+msgstr "Número de publicaciones a mostrar por página"
 
 #: defaults.py:53
 msgid "Number of blog posts shown on a blog listing page."
-msgstr "Número de publicaciones a mostrar en una página de la bitácora."
+msgstr "Número de publicaciones a mostrar en la página inicial del blog."
 
 #: defaults.py:60
 msgid "Slug of the page object for the blog."
-msgstr "Slug de la página para el blog"
+msgstr "Slug de la página del blog"
 
-#: models.py:18 templates/blog/includes/filter_panel.html:35
+#: models.py:18
+#: templates/blog/includes/filter_panel.html:35
 msgid "Categories"
 msgstr "Categorías"
 
@@ -74,7 +73,8 @@ msgstr "Categorías"
 msgid "Allow comments"
 msgstr "Permitir comentarios"
 
-#: models.py:22 templates/blog/blog_post_detail.html:43
+#: models.py:22
+#: templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:126
 msgid "Comments"
 msgstr "Comentarios"
@@ -87,21 +87,22 @@ msgstr "Puntuación"
 msgid "Featured Image"
 msgstr "Imagen destacada"
 
-#: models.py:28 templates/blog/blog_post_detail.html:94
+#: models.py:28
+#: templates/blog/blog_post_detail.html:94
 msgid "Related posts"
-msgstr "Entradas de blog relacionadas"
+msgstr "Entradas relacionadas"
 
 #: models.py:33
 msgid "Blog post"
-msgstr "Entrada de blog"
+msgstr "Entrada del blog"
 
 #: models.py:34
 msgid "Blog posts"
-msgstr "Entradas de blog"
+msgstr "Entradas del blog"
 
 #: models.py:80
 msgid "Blog Category"
-msgstr "Categoría del Blog"
+msgstr "Categoría del blog"
 
 #: models.py:81
 msgid "Blog Categories"
@@ -109,7 +110,7 @@ msgstr "Categorías del blog"
 
 #: templates/admin/includes/quick_blog.html:18
 msgid "Quick Blog"
-msgstr "Publicación blog"
+msgstr "Publicación rápida"
 
 #: templates/admin/includes/quick_blog.html:27
 msgid "Save Draft"
@@ -122,8 +123,9 @@ msgstr "Publicado por"
 
 #: templates/blog/blog_post_detail.html:33
 #: templates/blog/blog_post_list.html:93
-msgid "ago"
-msgstr "atrás"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "hace %(sometime)s"
 
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:130
@@ -147,7 +149,8 @@ msgstr "Compartir en Twitter"
 msgid "Share on Facebook"
 msgstr "Compartir en Facebook"
 
-#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
+#: templates/blog/blog_post_list.html:4
+#: templates/blog/blog_post_list.html:22
 msgid "Blog"
 msgstr "Blog"
 
@@ -165,19 +168,19 @@ msgstr "Autor:"
 
 #: templates/blog/blog_post_list.html:50
 msgid "Viewing posts tagged"
-msgstr "Ver los mensajes etiquetados"
+msgstr "Ver las publicaciones etiquetadas"
 
 #: templates/blog/blog_post_list.html:52
 msgid "Viewing posts for the category"
-msgstr "Ver los mensajes de la categoría"
+msgstr "Ver las publicaciones de la categoría"
 
 #: templates/blog/blog_post_list.html:54
 msgid "Viewing posts from"
-msgstr "Ver los mensajes de"
+msgstr "Ver las publicaciones de"
 
 #: templates/blog/blog_post_list.html:57
 msgid "Viewing posts by"
-msgstr "Ver los mensajes por"
+msgstr "Ver las publicaciones por"
 
 #: templates/blog/blog_post_list.html:88
 msgid "in"
@@ -189,7 +192,7 @@ msgstr "leer más"
 
 #: templates/blog/includes/filter_panel.html:6
 msgid "Recent Posts"
-msgstr "Mensajes recientes"
+msgstr "Publicaciones recientes"
 
 #: templates/blog/includes/filter_panel.html:19
 msgid "Archive"

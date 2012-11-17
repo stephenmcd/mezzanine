@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <mathias.ettinger@gmail.com>, 2012.
 # Michał Oleniec <moleniec@gmail.com>, 2011-2012.
@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"POT-Creation-Date: 2012-10-22 17:00-0430\n"
 "PO-Revision-Date: 2012-10-26 11:30+0000\n"
 "Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
@@ -121,8 +121,9 @@ msgstr "Dodane przez"
 
 #: templates/blog/blog_post_detail.html:33
 #: templates/blog/blog_post_list.html:93
-msgid "ago"
-msgstr "temu"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
 
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:130

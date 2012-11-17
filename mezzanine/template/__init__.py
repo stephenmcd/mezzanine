@@ -34,8 +34,15 @@ class Library(template.Library):
                             return template.Variable(arg).resolve(context)
                         except template.VariableDoesNotExist:
                             return arg
-                    args = [resolve(arg) for arg in parts[1:-2]]
-                    context[parts[-1]] = tag_func(*args)
+                    args, kwargs = [], {}
+                    for arg in parts[1:-2]:
+                        if "=" in arg:
+                            name, val = arg.split("=", 1)
+                            if name in tag_func.func_code.co_varnames:
+                                kwargs[name] = resolve(val)
+                                continue
+                        args.append(resolve(arg))
+                    context[parts[-1]] = tag_func(*args, **kwargs)
                     return ""
             return AsTagNode()
         return self.tag(tag_wrapper)

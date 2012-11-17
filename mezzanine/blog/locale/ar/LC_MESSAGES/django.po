@@ -121,8 +121,9 @@ msgstr "كتبها"
 
 #: templates/blog/blog_post_detail.html:33
 #: templates/blog/blog_post_list.html:93
-msgid "ago"
-msgstr "مرت"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "%(sometime)s مرت"
 
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:130

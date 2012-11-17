@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Nicola Larosa <transifex@teknico.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"POT-Creation-Date: 2012-10-22 17:00-0430\n"
 "PO-Revision-Date: 2012-10-17 15:50+0000\n"
 "Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/language/it/)\n"
@@ -120,8 +120,9 @@ msgstr "Inserito da"
 
 #: templates/blog/blog_post_detail.html:33
 #: templates/blog/blog_post_list.html:93
-msgid "ago"
-msgstr "fa"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
 
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:130

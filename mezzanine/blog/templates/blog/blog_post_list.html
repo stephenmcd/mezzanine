@@ -63,7 +63,7 @@
     {% if page %}
     {% block blog_post_list_pagecontent %}
     {% editable page.richtextpage.content %}
-    {{ page.richtextpage.content|safe }}
+    {{ page.richtextpage.content|richtext_filter|safe }}
     {% endeditable %}
     {% endblock %}
     {% endif %}
@@ -90,7 +90,7 @@
     <a href="{% url "blog_post_list_category" category.slug %}">{{ category }}</a>
     {% endfor %}
     {% endif %}
-    {{ blog_post.publish_date|timesince }} {% trans "ago" %}
+    {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
 </h6>
 {% endeditable %}
 {% endblock %}

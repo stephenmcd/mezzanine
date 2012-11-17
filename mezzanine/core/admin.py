@@ -130,10 +130,19 @@ class OwnableAdmin(admin.ModelAdmin):
     def queryset(self, request):
         """
         Filter the change list by currently logged in user if not a
-        superuser.
+        superuser. We also skip filtering if the model for this admin
+        class has been added to the sequence in the setting
+        ``OWNABLE_MODELS_ALL_EDITABLE``, which contains models in the
+        format ``app_label.object_name``, and allows models subclassing
+        ``Ownable`` to be excluded from filtering, eg: ownership should
+        not imply permission to edit.
         """
+        opts = self.model._meta
+        model_name = ("%s.%s" % (opts.app_label, opts.object_name)).lower()
+        models_all_editable = settings.OWNABLE_MODELS_ALL_EDITABLE
+        models_all_editable = [m.lower() for m in models_all_editable]
         qs = super(OwnableAdmin, self).queryset(request)
-        if request.user.is_superuser:
+        if request.user.is_superuser or model_name in models_all_editable:
             return qs
         return qs.filter(user__id=request.user.id)
 

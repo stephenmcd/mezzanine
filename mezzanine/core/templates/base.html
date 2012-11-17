@@ -37,7 +37,7 @@ $(function() {
 {% block extra_js %}{% endblock %}
 {% endcompress %}
 <!--[if lt IE 9]>
-<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<script src="{{ STATIC_URL }}js/html5shiv.js"></script>
 <![endif]-->
 
 {% block extra_head %}{% endblock %}
@@ -45,7 +45,7 @@ $(function() {
 </head>
 <body id="{% block body_id %}body{% endblock %}">
 
-<div class="navbar">
+<div class="navbar navbar-inverse">
 <div class="navbar-inner">
 <div class="container">
     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">

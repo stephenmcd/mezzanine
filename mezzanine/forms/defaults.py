@@ -52,3 +52,15 @@ register_setting(
     editable=False,
     default="",
 )
+
+register_setting(
+    name="FORMS_EXTRA_FIELDS",
+    description=_("Extra field types for the forms app. Should contain a "
+        "sequence of three-item sequences, each containing the ID, dotted "
+        "import path for the field class, and field name, for each custom "
+        "field type. The ID is simply a numeric constant for the field, "
+        "but cannot be a value already used, so choose a high number such "
+        "as 100 or greater to avoid conflicts."),
+    editable=False,
+    default=(),
+)
