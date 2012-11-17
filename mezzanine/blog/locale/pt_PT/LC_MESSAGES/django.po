@@ -7,12 +7,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-22 00:10-0600\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
 "PO-Revision-Date: 2012-10-14 21:32+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
-"mezzanine/language/pt_PT/)\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/mezzanine/language/pt_PT/)\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,12 +47,8 @@ msgid "Use date URLs"
 msgstr "Usar URLs com data"
 
 #: defaults.py:44
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"Se ``True``, os URLs dos posts no blog irão incluir mês e ano. Exemplo: /"
-"blog/yyy/mm/slug/"
+msgid "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/"
+msgstr "Se ``True``, os URLs dos posts no blog irão incluir mês e ano. Exemplo: /blog/yyy/mm/slug/"
 
 #: defaults.py:52
 msgid "Blog posts per page"
@@ -67,44 +62,44 @@ msgstr "Número de blog posts a mostrar na página de listagem do blog."
 msgid "Slug of the page object for the blog."
 msgstr ""
 
-#: models.py:18 templates/blog/includes/filter_panel.html:35
+#: models.py:17 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
 msgstr "Categorias"
 
-#: models.py:20
+#: models.py:19
 msgid "Allow comments"
 msgstr "Autorizar comentários"
 
-#: models.py:22 templates/blog/blog_post_detail.html:43
+#: models.py:21 templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:126
 msgid "Comments"
 msgstr "Comentários"
 
-#: models.py:23
+#: models.py:22
 msgid "Rating"
 msgstr "Rating"
 
-#: models.py:24
+#: models.py:23
 msgid "Featured Image"
 msgstr "Imagem em destaque"
 
-#: models.py:28 templates/blog/blog_post_detail.html:94
+#: models.py:27 templates/blog/blog_post_detail.html:94
 msgid "Related posts"
 msgstr ""
 
-#: models.py:33
+#: models.py:32
 msgid "Blog post"
 msgstr "Blog post"
 
-#: models.py:34
+#: models.py:33
 msgid "Blog posts"
 msgstr "Blog posts"
 
-#: models.py:80
+#: models.py:79
 msgid "Blog Category"
 msgstr "Categoria do Blog"
 
-#: models.py:81
+#: models.py:80
 msgid "Blog Categories"
 msgstr "Categorias do Blog"
 
@@ -218,6 +213,3 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
-
-#~ msgid "ago"
-#~ msgstr "atrás"

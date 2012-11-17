@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,56 +37,56 @@ msgstr ""
 msgid "If ``True``, when users create an account, they will be sent an email with a verification link, which they must click to enable their account."
 msgstr ""
 
-#: forms.py:18 forms.py:185
+#: forms.py:18 forms.py:187
 msgid "Username or email address"
 msgstr ""
 
-#: forms.py:19 forms.py:61
+#: forms.py:19 forms.py:63
 msgid "Password"
 msgstr ""
 
-#: forms.py:30
+#: forms.py:32
 msgid "Invalid username/email and password"
 msgstr ""
 
-#: forms.py:32
+#: forms.py:34
 msgid "Your account is inactive"
 msgstr ""
 
-#: forms.py:63
+#: forms.py:65
 msgid "Password (again)"
 msgstr ""
 
-#: forms.py:76
+#: forms.py:78
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr ""
 
-#: forms.py:90
+#: forms.py:92
 msgid "Leave blank unless you want to change your password"
 msgstr ""
 
-#: forms.py:109
+#: forms.py:111
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr ""
 
-#: forms.py:117
+#: forms.py:119
 msgid "This username is already registered"
 msgstr ""
 
-#: forms.py:130
+#: forms.py:132
 msgid "Passwords do not match"
 msgstr ""
 
-#: forms.py:132
+#: forms.py:134
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr ""
 
-#: forms.py:147
+#: forms.py:149
 msgid "This email is already registered"
 msgstr ""
 
-#: forms.py:194
+#: forms.py:196
 msgid "Invalid username/email"
 msgstr ""
 
@@ -173,19 +173,15 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: templates/accounts/includes/user_panel.html:16
-msgid "Not logged in"
-msgstr ""
-
-#: templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel.html:17
 msgid "Log in"
 msgstr ""
 
-#: templates/accounts/includes/user_panel.html:19
+#: templates/accounts/includes/user_panel.html:18
 msgid "or"
 msgstr ""
 
-#: templates/accounts/includes/user_panel.html:21
+#: templates/accounts/includes/user_panel.html:20
 msgid "Sign up"
 msgstr ""
 

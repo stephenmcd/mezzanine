@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Daniel Seither <post@tiwoc.de>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
 "PO-Revision-Date: 2012-10-14 21:42+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/mezzanine/language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: defaults.py:20
@@ -27,9 +27,7 @@ msgid "List of fields to exclude from the profile form."
 msgstr "Liste der Felder, die beim Profilformular ausgeblendet werden sollen."
 
 #: defaults.py:34
-msgid ""
-"Dotted package path and class name of profile form to use for users signing "
-"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgid "Dotted package path and class name of profile form to use for users signing up and updating their profile, when ``mezzanine.accounts`` is installed."
 msgstr ""
 
 #: defaults.py:43
@@ -37,61 +35,59 @@ msgid "If ``True``, users will have their own public profile pages."
 msgstr "Wenn ``Wahr``, werden User ihre eigene öffentliche Profilseiten haben."
 
 #: defaults.py:51
-msgid ""
-"If ``True``, when users create an account, they will be sent an email with a"
-" verification link, which they must click to enable their account."
+msgid "If ``True``, when users create an account, they will be sent an email with a verification link, which they must click to enable their account."
 msgstr "Wenn ``Wahr``, wird den Usern, die ein Konto anlegen, ein E-Mail  mit einem Überprüfungs-Link gesendet, den sie zum Aktivierwn ihres Kontos anklicken müssen"
 
-#: forms.py:18 forms.py:185
+#: forms.py:18 forms.py:187
 msgid "Username or email address"
 msgstr "Benutzername oder E-Mail-Adresse"
 
-#: forms.py:19 forms.py:61
+#: forms.py:19 forms.py:63
 msgid "Password"
 msgstr "Passwort"
 
-#: forms.py:30
+#: forms.py:32
 msgid "Invalid username/email and password"
 msgstr "Ungültiger Benutzername oder ungültiges Passwort"
 
-#: forms.py:32
+#: forms.py:34
 msgid "Your account is inactive"
 msgstr "Ihr Benutzerkonto ist inaktiv"
 
-#: forms.py:63
+#: forms.py:65
 msgid "Password (again)"
 msgstr "Passwort (Wiederholung)"
 
-#: forms.py:76
+#: forms.py:78
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr "Bitte nur Buchstaben, Zahlen, Bindestriche oder Unterstriche verwenden"
 
-#: forms.py:90
+#: forms.py:92
 msgid "Leave blank unless you want to change your password"
 msgstr "Füllen Sie dieses Feld nur aus, wenn Sie ihr Passwort ändern möchten"
 
-#: forms.py:109
+#: forms.py:111
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr "Benutzername darf ausschließlich Buchstaben, Zahlen, Bindestriche  und Unterstriche enthalten"
 
-#: forms.py:117
+#: forms.py:119
 msgid "This username is already registered"
 msgstr "Dieser Benutzername existiert bereits"
 
-#: forms.py:130
+#: forms.py:132
 msgid "Passwords do not match"
 msgstr "Die Passwörter stimmen nicht überein"
 
-#: forms.py:132
+#: forms.py:134
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "Passwörter müssen mindestens %s Zeichen lang sein"
 
-#: forms.py:147
+#: forms.py:149
 msgid "This email is already registered"
 msgstr "Es existiert bereits ein Konto mit dieser E-Mail-Adresse "
 
-#: forms.py:194
+#: forms.py:196
 msgid "Invalid username/email"
 msgstr "Ungültiger Benutzername oder ungültige E-Mail-Adresse"
 
@@ -108,8 +104,7 @@ msgid "Successfully logged out"
 msgstr "Erfolgreich abgemeldet"
 
 #: views.py:54
-msgid ""
-"A verification email has been sent with a link for activating your account."
+msgid "A verification email has been sent with a link for activating your account."
 msgstr "Ein Link zur Aktivierung Ihres Kontos wurde an Ihre E-Mail-Adresse gesendet."
 
 #: views.py:58 views.py:77
@@ -133,8 +128,7 @@ msgid "Update Profile"
 msgstr "Profil aktualisieren"
 
 #: views.py:151
-msgid ""
-"A verification email has been sent with a link for resetting your password."
+msgid "A verification email has been sent with a link for resetting your password."
 msgstr "Ein Link zum Zurücksetzen Ihres Passworts wurde an Ihre E-Mail-Adresse gesendet."
 
 #: views.py:153
@@ -147,23 +141,16 @@ msgstr "Sie sind bereits angemeldet."
 
 #: templates/accounts/account_login.html:11
 #, python-format
-msgid ""
-"If you don't have an account you can <a "
-"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgid "If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
 msgstr ""
 
 #: templates/accounts/account_login.html:14
 #, python-format
-msgid ""
-"<p>You can also <a "
-"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
-"password</a> if you've forgotten it.</p>"
+msgid "<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your password</a> if you've forgotten it.</p>"
 msgstr "<p>Sie können auch Ihr <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">Passwort Zurücksetzen</a>, wenn Sie es vergessen haben sollten.</p>"
 
 #: templates/accounts/account_password_reset.html:6
-msgid ""
-"Enter your username or email address and you'll receive an email with a link"
-" you need to click, in order to log in and change your password."
+msgid "Enter your username or email address and you'll receive an email with a link you need to click, in order to log in and change your password."
 msgstr "Wenn Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse eintragen, erhalten Sie eine E-Mail mit einem Link. Diesen können Sie anklicken, um dann ein neues Passwort zu wählen."
 
 #: templates/accounts/account_profile.html:17
@@ -172,15 +159,11 @@ msgid "Update profile"
 msgstr "Profil aktualisieren"
 
 #: templates/accounts/account_signup.html:7
-msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need"
-" to log out first."
+msgid "You're already logged in. If you'd like to create a new account, you'll need to log out first."
 msgstr "Sie sind bereits eingeloggt. Wenn Sie ein neues Benutzerkonto erstellen möchten, müssen Sie sich zunächst ausloggen."
 
 #: templates/accounts/account_signup.html:11
-msgid ""
-"After signing up, you'll receive an email with a link you need to click, in "
-"order to activate your account."
+msgid "After signing up, you'll receive an email with a link you need to click, in order to activate your account."
 msgstr "Nachdem Sie sich registriert haben, erhalten Sie eine E-Mail mit einem Link. Wenn Sie diesen anklicken, wird Ihr Konto aktiviert."
 
 #: templates/accounts/includes/user_panel.html:4
@@ -191,19 +174,15 @@ msgstr "Eingeloggt als:"
 msgid "Log out"
 msgstr "Abmelden"
 
-#: templates/accounts/includes/user_panel.html:16
-msgid "Not logged in"
-msgstr "Nicht eingeloggt"
-
-#: templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel.html:17
 msgid "Log in"
 msgstr "Anmelden"
 
-#: templates/accounts/includes/user_panel.html:19
+#: templates/accounts/includes/user_panel.html:18
 msgid "or"
 msgstr "oder"
 
-#: templates/accounts/includes/user_panel.html:21
+#: templates/accounts/includes/user_panel.html:20
 msgid "Sign up"
 msgstr "Registrieren"
 
@@ -223,9 +202,7 @@ msgstr "Bitte klicken Sie auf den folgenden Link, um sich einzuloggen und Ihr Pa
 
 #: templates/email/password_reset_verify.html:6
 #: templates/email/password_reset_verify.txt:6
-msgid ""
-"If you didn't request for your password to be reset, please ignore this "
-"email."
+msgid "If you didn't request for your password to be reset, please ignore this email."
 msgstr "Wenn Sie keine Passwortänderung angefordert haben, ignorieren Sie diese Mail bitte."
 
 #: templates/email/password_reset_verify_subject.txt:2

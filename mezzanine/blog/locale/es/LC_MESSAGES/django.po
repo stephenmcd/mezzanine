@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2012.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-22 00:10-0600\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
 "PO-Revision-Date: 2012-10-22 00:21-0600\n"
 "Last-Translator: Eduardo Rivas <e@jerivas.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/language/es/)\n"
@@ -64,47 +64,44 @@ msgstr "Número de publicaciones a mostrar en la página inicial del blog."
 msgid "Slug of the page object for the blog."
 msgstr "Slug de la página del blog"
 
-#: models.py:18
-#: templates/blog/includes/filter_panel.html:35
+#: models.py:17 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
 msgstr "Categorías"
 
-#: models.py:20
+#: models.py:19
 msgid "Allow comments"
 msgstr "Permitir comentarios"
 
-#: models.py:22
-#: templates/blog/blog_post_detail.html:43
+#: models.py:21 templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:126
 msgid "Comments"
 msgstr "Comentarios"
 
-#: models.py:23
+#: models.py:22
 msgid "Rating"
 msgstr "Puntuación"
 
-#: models.py:24
+#: models.py:23
 msgid "Featured Image"
 msgstr "Imagen destacada"
 
-#: models.py:28
-#: templates/blog/blog_post_detail.html:94
+#: models.py:27 templates/blog/blog_post_detail.html:94
 msgid "Related posts"
 msgstr "Entradas relacionadas"
 
-#: models.py:33
+#: models.py:32
 msgid "Blog post"
 msgstr "Entrada del blog"
 
-#: models.py:34
+#: models.py:33
 msgid "Blog posts"
 msgstr "Entradas del blog"
 
-#: models.py:80
+#: models.py:79
 msgid "Blog Category"
 msgstr "Categoría del blog"
 
-#: models.py:81
+#: models.py:80
 msgid "Blog Categories"
 msgstr "Categorías del blog"
 
@@ -149,8 +146,7 @@ msgstr "Compartir en Twitter"
 msgid "Share on Facebook"
 msgstr "Compartir en Facebook"
 
-#: templates/blog/blog_post_list.html:4
-#: templates/blog/blog_post_list.html:22
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"
 msgstr "Blog"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,42 +114,46 @@ msgid "Max number of paging links to display when paginating."
 msgstr ""
 
 #: defaults.py:184
+msgid "Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their admin change-list records filtered down to records owned by the current user. This setting contains a sequence of models in the format ``app_label.object_name``, that when subclassing ``Ownable``, will still show all records in the admin change-list interface, regardless of the current user."
+msgstr ""
+
+#: defaults.py:196
 msgid "Dotted package path and class name of the widget to use for the ``RichTextField``."
 msgstr ""
 
-#: defaults.py:192
+#: defaults.py:204
 msgid "List of HTML tags that won't be stripped from ``RichTextField`` instances."
 msgstr ""
 
-#: defaults.py:208
+#: defaults.py:220
 msgid "List of HTML attributes that won't be stripped from ``RichTextField`` instances."
 msgstr ""
 
-#: defaults.py:226
+#: defaults.py:238
 msgid "List of inline CSS styles that won't be stripped from ``RichTextField`` instances."
 msgstr ""
 
-#: defaults.py:234
+#: defaults.py:246
 msgid "Dotted path to the function to call on a ``RichTextField`` value before it is rendered to the template."
 msgstr ""
 
-#: defaults.py:244
+#: defaults.py:256
 msgid "High"
 msgstr ""
 
-#: defaults.py:245
+#: defaults.py:257
 msgid "Low (allows video, iframe, Flash, etc)"
 msgstr ""
 
-#: defaults.py:246
+#: defaults.py:258
 msgid "No filtering"
 msgstr ""
 
-#: defaults.py:251
+#: defaults.py:263
 msgid "Rich Text filter level"
 msgstr ""
 
-#: defaults.py:252
+#: defaults.py:264
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
@@ -160,87 +164,87 @@ msgid ""
 "Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
 msgstr ""
 
-#: defaults.py:275
+#: defaults.py:287
 msgid "Search results per page"
 msgstr ""
 
-#: defaults.py:276
+#: defaults.py:288
 msgid "Number of results shown in the search results page."
 msgstr ""
 
-#: defaults.py:283
+#: defaults.py:295
 msgid "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using this, you'll also need to manually apply it to your project's root ``urls.py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-project`` command contains an example of this towards its end."
 msgstr ""
 
-#: defaults.py:294
+#: defaults.py:306
 msgid "Site Title"
 msgstr ""
 
-#: defaults.py:295
+#: defaults.py:307
 msgid "Title that will display at the top of the site, and be appended to the content of the HTML title tags on every page."
 msgstr ""
 
-#: defaults.py:303
+#: defaults.py:315
 msgid "Tagline"
 msgstr ""
 
-#: defaults.py:304
+#: defaults.py:316
 msgid "A tag line that will appear at the top of all pages."
 msgstr ""
 
-#: defaults.py:306
+#: defaults.py:318
 msgid "An open source content management platform."
 msgstr ""
 
-#: defaults.py:311
+#: defaults.py:323
 msgid "Dotted Python path to the callable for converting strings into URL slugs. Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use Django's slugify function, or something of your own if required."
 msgstr ""
 
-#: defaults.py:322
+#: defaults.py:334
 msgid "Enable SSL"
 msgstr ""
 
-#: defaults.py:323
+#: defaults.py:335
 msgid "If ``True``, users will be automatically redirected to HTTPS for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
 msgstr ""
 
-#: defaults.py:332
+#: defaults.py:344
 msgid "Force Host"
 msgstr ""
 
-#: defaults.py:333
+#: defaults.py:345
 msgid "Host name that the site should always be accessed via that matches the SSL certificate."
 msgstr ""
 
-#: defaults.py:351
+#: defaults.py:363
 msgid "If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting will be accessible over SSL, and all other URLs will be redirected back to HTTP if accessed over HTTPS."
 msgstr ""
 
-#: defaults.py:361
+#: defaults.py:373
 msgid "List of words which will be stripped from search queries."
 msgstr ""
 
-#: defaults.py:418
+#: defaults.py:430
 msgid "Tag Cloud Sizes"
 msgstr ""
 
-#: defaults.py:419
+#: defaults.py:431
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr ""
 
-#: defaults.py:426
+#: defaults.py:438
 msgid "Sequence of setting names available within templates."
 msgstr ""
 
-#: defaults.py:441
+#: defaults.py:453
 msgid "Directory name to store thumbnails in, that will be created relative to the original image's directory."
 msgstr ""
 
-#: defaults.py:449
+#: defaults.py:461
 msgid "URL for the JavaScript file (relative to ``STATIC_URL``) that handles configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
 msgstr ""
 
-#: defaults.py:464
+#: defaults.py:476
 msgid "If ``True``, the south application will be automatically added to the ``INSTALLED_APPS`` setting."
 msgstr ""
 
@@ -325,24 +329,8 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: views.py:78
+#: views.py:80
 msgid "Permission denied"
-msgstr ""
-
-#: templates/404.html:6
-msgid "Page not found"
-msgstr ""
-
-#: templates/404.html:10
-msgid "The page you requested does not exist."
-msgstr ""
-
-#: templates/500.html:6
-msgid "Error"
-msgstr ""
-
-#: templates/500.html:10
-msgid "Sorry, an error occurred."
 msgstr ""
 
 #: templates/base.html:60
@@ -459,6 +447,22 @@ msgstr ""
 
 #: templates/admin/includes/recent_actions.html:9
 msgid "None available"
+msgstr ""
+
+#: templates/errors/404.html:6
+msgid "Page not found"
+msgstr ""
+
+#: templates/errors/404.html:10
+msgid "The page you requested does not exist."
+msgstr ""
+
+#: templates/errors/500.html:6
+msgid "Error"
+msgstr ""
+
+#: templates/errors/500.html:10
+msgid "Sorry, an error occurred."
 msgstr ""
 
 #: templates/includes/editable_form.html:16
