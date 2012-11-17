@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+#   <mathias.ettinger@gmail.com>, 2012.
 # Michał Oleniec <moleniec@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-10-14 17:00-0430\n"
-"PO-Revision-Date: 2012-10-14 21:34+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"PO-Revision-Date: 2012-10-26 12:33+0000\n"
+"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgstr "Meta dane"
 
 #: admin.py:52
 msgid "This field is required if status is set to published."
-msgstr ""
+msgstr "To pole jest wymagane, jeśli status jest „opublikowany”."
 
 #: defaults.py:21
 msgid "Controls the ordering and grouping of the admin menu."
@@ -48,11 +49,11 @@ msgstr "Użytkownicy"
 
 #: defaults.py:33
 msgid "Unregister these models from the admin."
-msgstr "Wyrejestruj te modele z panelu admina."
+msgstr "Wyrejestruj te modele z panelu administracyjnego."
 
 #: defaults.py:40
 msgid "Size of thumbnail previews for image fields in the admin interface."
-msgstr ""
+msgstr "Rozmiar miniatur podglądu dla pól obrazu w panelu administratora."
 
 #: defaults.py:48
 msgid ""
@@ -67,19 +68,19 @@ msgstr ""
 
 #: defaults.py:63
 msgid "Akismet API Key"
-msgstr ""
+msgstr "Klucz Akismet API"
 
 #: defaults.py:64
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
-msgstr ""
+msgstr "Klucz do usługi filtrowania spamu proponowany przez http://akismet.com. Używany do filtrowania komentarzy i formularzy."
 
 #: defaults.py:85
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
-msgstr "Sekwencja zawierająca, trzy osobne sekwencje template tagów użytych do wygenerowania kokpitu panelu administracyjnego."
+msgstr "Sekwencja zawierająca trzy osobne sekwencje template tagów użytych do wygenerowania kokpitu panelu administracyjnego."
 
 #: defaults.py:93
 msgid "Device specific template sub-directory to use as the default device."
@@ -89,11 +90,11 @@ msgstr " "
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
-msgstr ""
+msgstr "Mapowanie nazw urządzeń specyficznego szablonu podkatalogu do sekwencji, które mogą być znalezione w aplikacji klienta."
 
 #: defaults.py:123
 msgid "If ``True``, website forms will use HTML5 features."
-msgstr ""
+msgstr "Jeśli ``prawda``, formularze stron będą korzystać z funkcji HTML5."
 
 #: defaults.py:130
 msgid ""
@@ -105,7 +106,7 @@ msgid ""
 " keyword args, to use when creating the field instance. When specifying the "
 "field class, the path ``django.models.db.`` can be omitted for regular "
 "Django model fields."
-msgstr ""
+msgstr "Kolejność pól, które będą wstawiane do modeli mezzanine (lub innych bibliotek). Każda pozycja w sekwencji jest sekwencją czteroelementową. Pierwsze dwa elementy są scieżką dostępu do modelu i do nazwy pola do dodania (w zapisie punktowym), jak również ścieżka dostępu do klasy definiującej pole. Trzeci element jest sekwencją argumentów pozycyjnych, a czwarty słownikiem słów-kluczy, do użycia w momencie w trakcie tworzenia objektu odpowiadającemu polu. Jeśli zostanie sprecyzowane wyłącznie nazwę klasy jako drugi argument, ścieżka dostępu ``django.models.db.`` może zostać pominięta w wypadku regularnych pól modelu Django."
 
 #: defaults.py:145
 msgid "Google Analytics ID"
@@ -127,19 +128,19 @@ msgstr ""
 
 #: defaults.py:167
 msgid "Name of the jQuery file."
-msgstr ""
+msgstr "Nazwa pliku jQuery"
 
 #: defaults.py:168
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
-msgstr ""
+msgstr "Nazwa pliku jQuery znalezionego w mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:176
 msgid "Max paging links"
-msgstr ""
+msgstr "Maksymalna liczba linków paginacji"
 
 #: defaults.py:177
 msgid "Max number of paging links to display when paginating."
-msgstr ""
+msgstr "Maksymalna liczba linków paginacji do wyświetlenia podczas paginacji."
 
 #: defaults.py:184
 msgid ""
@@ -150,41 +151,41 @@ msgstr "Ścieżki pakietu i nazwa klasy widgetu do użycia dla pola ``RichTextFi
 #: defaults.py:192
 msgid ""
 "List of HTML tags that won't be stripped from ``RichTextField`` instances."
-msgstr ""
+msgstr "Ścieżki pakietu i nazwa klasy widgetu do użycia dla pola ``RichTextField``."
 
 #: defaults.py:208
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr ""
+msgstr "Lista znaczników HTML, które nie będą usuwane ze stron ``RichTextField``"
 
 #: defaults.py:226
 msgid ""
 "List of inline CSS styles that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr ""
+msgstr "Lista stylów CSS, które nie będą usuwane ze stron ``RichTextField``."
 
 #: defaults.py:234
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
-msgstr "Ścieżkę do funkcji wywoływanej na polu ``RichTextField`` zanim jego wartość zostanie przekazana do szablonu."
+msgstr "Punktowa ścieżka dostępu do funkcji wywoływanej na polu ``RichTextField`` zanim jego wartość zostanie przekazana do szablonu."
 
 #: defaults.py:244
 msgid "High"
-msgstr ""
+msgstr "Wysoki"
 
 #: defaults.py:245
 msgid "Low (allows video, iframe, Flash, etc)"
-msgstr ""
+msgstr "Niski (zezwala na wideo, inframe, Flash, itp.)"
 
 #: defaults.py:246
 msgid "No filtering"
-msgstr ""
+msgstr "Brak filtrowania"
 
 #: defaults.py:251
 msgid "Rich Text filter level"
-msgstr ""
+msgstr "Poziom filtracji Rich Text"
 
 #: defaults.py:252
 msgid ""
@@ -245,23 +246,23 @@ msgstr ""
 
 #: defaults.py:322
 msgid "Enable SSL"
-msgstr ""
+msgstr "Umożliwij SSL"
 
 #: defaults.py:323
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
-msgstr ""
+msgstr "Jeśli ``Prawda`` użytkownicy będą automatycznie przekierowywani do HTTPS z URL zdefiniowanych przez ustawienia ``SSL_FORCE_URL_PREFIXES``"
 
 #: defaults.py:332
 msgid "Force Host"
-msgstr ""
+msgstr "Wymuszanie nazwy hosta"
 
 #: defaults.py:333
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
-msgstr ""
+msgstr "Nazwa hosta, do którego strona powinna docierać poprzez połączenia SSL"
 
 #: defaults.py:351
 msgid ""
@@ -290,13 +291,13 @@ msgstr "Sekwencja ustawień dostępnych w szablonach."
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
-msgstr ""
+msgstr "Nazwa katalogu do przechowywania miniatur, które będą  tworzone w tym samym drzewie, jak w oryginalnym katalogu obrazów."
 
 #: defaults.py:449
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
-msgstr ""
+msgstr "URL dla pliku JavaScript (odnoszącego się do ``STATIC_URL``) odpowiedzialnego za konfigurację TinyMCE, kiedy domyślny ``RICHTEXT_WIDGET_CLASS`` jest używany."
 
 #: defaults.py:464
 msgid ""
@@ -323,7 +324,7 @@ msgstr "URL"
 
 #: models.py:55
 msgid "Leave blank to have the URL auto-generated from the title."
-msgstr ""
+msgstr "Pozostaw puste miejsce, aby URL został utworzony automatycznie na podstawie tytułu."
 
 #: models.py:98
 msgid "View on site"
@@ -333,7 +334,7 @@ msgstr "Zobacz na stronie"
 msgid ""
 "Optional title to be used in the HTML title tag. If left blank, the main "
 "title field will be used."
-msgstr ""
+msgstr "Opcjonalny tytuł do użycia w znaczniku tytułu HTML. Puste pole oznacza użycie pola głównego tytułu."
 
 #: models.py:112
 msgid "Description"
@@ -341,17 +342,17 @@ msgstr "Opis"
 
 #: models.py:113
 msgid "Generate description"
-msgstr ""
+msgstr "Generowanie opisu"
 
 #: models.py:114
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
-msgstr ""
+msgstr "Jeśli zaznaczone, opis będzie generowany automatycznie z zawartości. Odznacz, jeśli chcesz wpisać ręcznie opis spersonalizowany."
 
 #: models.py:117
 msgid "Keywords"
-msgstr "Słowa kluczowe"
+msgstr "Słowa-klucze"
 
 #: models.py:171
 msgid "Draft"
@@ -367,7 +368,7 @@ msgstr "Status"
 
 #: models.py:185
 msgid "With Draft chosen, will only be shown for admin users on the site."
-msgstr ""
+msgstr "Jeśli jest wybrana opcja Brudnopis, będzie widoczne wyłącznie dla administratorów na stronie."
 
 #: models.py:187 models.py:219
 msgid "Published from"
@@ -375,7 +376,7 @@ msgstr "Opublikowane od"
 
 #: models.py:188
 msgid "With Published chosen, won't be shown until this time"
-msgstr ""
+msgstr "Jeśli jest wybrana opcja Opublikowane, nie będzie pokazane aż do tego momentu"
 
 #: models.py:190
 msgid "Expires on"
@@ -383,7 +384,7 @@ msgstr "Wygasa"
 
 #: models.py:191
 msgid "With Published chosen, won't be shown after this time"
-msgstr ""
+msgstr "Jeśli jest wybrana opcja Opublikowane, nie będzie pokazane od tego momentu"
 
 #: models.py:358
 msgid "Author"
@@ -419,7 +420,7 @@ msgstr "Wspierane przez"
 
 #: templates/base.html:126
 msgid "and"
-msgstr ""
+msgstr "i"
 
 #: templates/base.html:129
 msgid "Theme by"
@@ -427,7 +428,7 @@ msgstr ""
 
 #: templates/base.html:132
 msgid "View Mobile Site"
-msgstr ""
+msgstr "Wersja na telefon komórkowy"
 
 #: templates/index.html:4 templates/index.html.py:5 templates/index.html:8
 #: templates/search_results.html:10 templates/admin/index.html:15
@@ -469,7 +470,7 @@ msgstr "czytaj więcej"
 
 #: templates/admin/base_site.html:34
 msgid "View site"
-msgstr ""
+msgstr "Przejdź do strony"
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"
@@ -477,11 +478,11 @@ msgstr "Kokpit"
 
 #: templates/admin/login.html:25
 msgid "Username or email:"
-msgstr ""
+msgstr "Nazwa użytkownika lub e-mail:"
 
 #: templates/admin/login.html:29
 msgid "Password:"
-msgstr ""
+msgstr "Hasło:"
 
 #: templates/admin/login.html:34
 msgid "Interface:"
@@ -494,7 +495,7 @@ msgstr "Administrator"
 
 #: templates/admin/login.html:44
 msgid "Log in"
-msgstr ""
+msgstr "Zaloguj się"
 
 #: templates/admin/login.html:47
 msgid "Forgot password?"

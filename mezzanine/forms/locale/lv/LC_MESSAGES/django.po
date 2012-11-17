@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-10-14 17:00-0430\n"
-"PO-Revision-Date: 2012-10-14 21:36+0000\n"
+"PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/projects/p/mezzanine/language/lv/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: admin.py:32 fields.py:31
 msgid "Email"
-msgstr ""
+msgstr "E-pasts"
 
 #: admin.py:115
 #, python-format
@@ -69,7 +69,7 @@ msgstr ""
 
 #: fields.py:33
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: fields.py:34
 msgid "Check box"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: fields.py:41 models.py:116
 msgid "Date/time"
-msgstr ""
+msgstr "Datums/laiks"
 
 #: fields.py:42
 msgid "Date of birth"
@@ -137,7 +137,7 @@ msgstr ""
 
 #: forms.py:101
 msgid "required"
-msgstr ""
+msgstr "nepieciešams"
 
 #: forms.py:221
 msgid "Checked"
@@ -197,7 +197,7 @@ msgstr ""
 
 #: models.py:31
 msgid "Message"
-msgstr ""
+msgstr "Ziņojums"
 
 #: models.py:32
 msgid ""
@@ -220,7 +220,7 @@ msgstr ""
 
 #: models.py:57
 msgid "Type"
-msgstr ""
+msgstr "Tips"
 
 #: models.py:58
 msgid "Required"
@@ -287,11 +287,11 @@ msgstr ""
 
 #: templates/admin/forms/change_form.html:10
 msgid "View on site"
-msgstr ""
+msgstr "Skatīt lapā"
 
 #: templates/admin/forms/entries.html:13
 msgid "Home"
-msgstr ""
+msgstr "Sākums"
 
 #: templates/admin/forms/entries.html:28
 msgid "Include"

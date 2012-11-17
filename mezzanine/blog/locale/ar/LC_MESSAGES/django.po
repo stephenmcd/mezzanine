@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Husam M. ALFarra <husamfarra@gmail.com>, 2012.
 # Mohammad Khatib <mkhatib727@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-10-14 17:00-0430\n"
-"PO-Revision-Date: 2012-10-14 21:32+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"PO-Revision-Date: 2012-11-05 05:23+0000\n"
+"Last-Translator: Husam M. ALFarra <husamfarra@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: admin.py:20
 msgid "Other posts"
-msgstr ""
+msgstr "موضوع أخر"
 
 #: defaults.py:20
 msgid "bit.ly username"
@@ -40,7 +41,7 @@ msgstr ""
 
 #: defaults.py:36
 msgid "Enable featured images in blog posts"
-msgstr ""
+msgstr "تفعيل خواص الصور في الموضوع"
 
 #: defaults.py:43
 msgid "Use date URLs"
@@ -87,7 +88,7 @@ msgstr "الصورة الرئيسية"
 
 #: models.py:28 templates/blog/blog_post_detail.html:94
 msgid "Related posts"
-msgstr ""
+msgstr "مواضيع ذات صلة"
 
 #: models.py:33
 msgid "Blog post"

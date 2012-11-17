@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+#   <mathias.ettinger@gmail.com>, 2012.
 # Michał Oleniec <moleniec@gmail.com>, 2011-2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-10-14 17:00-0430\n"
-"PO-Revision-Date: 2012-10-14 21:32+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"PO-Revision-Date: 2012-10-26 11:30+0000\n"
+"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,7 +84,7 @@ msgstr "Ocena"
 
 #: models.py:24
 msgid "Featured Image"
-msgstr ""
+msgstr "Wybrany obraz"
 
 #: models.py:28 templates/blog/blog_post_detail.html:94
 msgid "Related posts"
@@ -140,11 +141,11 @@ msgstr "Tagi"
 
 #: templates/blog/blog_post_detail.html:87
 msgid "Share on Twitter"
-msgstr ""
+msgstr "Podziel się na Tweeterze"
 
 #: templates/blog/blog_post_detail.html:88
 msgid "Share on Facebook"
-msgstr ""
+msgstr "Podziel się na Facebooku"
 
 #: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"

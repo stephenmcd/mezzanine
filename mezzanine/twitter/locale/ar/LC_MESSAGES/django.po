@@ -1,40 +1,43 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Husam M. ALFarra <husamfarra@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-10-14 16:59-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-11-08 21:38+0000\n"
+"Last-Translator: Husam M. ALFarra <husamfarra@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/language/ar/)\n"
-"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: __init__.py:16
 msgid "User"
-msgstr ""
+msgstr "مستخدم"
 
 #: __init__.py:17
 msgid "List"
-msgstr ""
+msgstr "القائمة"
 
 #: __init__.py:18
 msgid "Search"
-msgstr ""
+msgstr "بحث"
 
 #: defaults.py:21
 msgid "Default Twitter Query Type"
 msgstr ""
 
 #: defaults.py:22
-msgid "Type of query that will be used to retrieve tweets for the default Twitter feed."
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
 msgstr ""
 
 #: defaults.py:31
@@ -47,7 +50,7 @@ msgstr ""
 
 #: defaults.py:39
 msgid "Default Number of Tweets"
-msgstr ""
+msgstr "رقم تويتر الافتراضي "
 
 #: defaults.py:40
 msgid "Number of tweets to display in the default Twitter feed."
@@ -55,11 +58,11 @@ msgstr ""
 
 #: models.py:27
 msgid "Type"
-msgstr ""
+msgstr "نوع"
 
 #: models.py:29
 msgid "Value"
-msgstr ""
+msgstr "قيمة"
 
 #: models.py:33
 msgid "Twitter query"
@@ -75,11 +78,11 @@ msgstr ""
 
 #: models.py:103
 msgid "Date/time"
-msgstr ""
+msgstr "التاريخ\\الوقت"
 
 #: models.py:104
 msgid "Message"
-msgstr ""
+msgstr "رسالة "
 
 #: models.py:105
 msgid "Profile image URL"
@@ -87,11 +90,11 @@ msgstr ""
 
 #: models.py:106
 msgid "User name"
-msgstr ""
+msgstr "اسم الحساب"
 
 #: models.py:107
 msgid "Full name"
-msgstr ""
+msgstr "الاسم الشخصي كاملا"
 
 #: models.py:109
 msgid "Profile image URL (Retweeted by)"
@@ -107,15 +110,15 @@ msgstr ""
 
 #: models.py:119
 msgid "Tweet"
-msgstr ""
+msgstr "تغريدة"
 
 #: models.py:120
 msgid "Tweets"
-msgstr ""
+msgstr "تغريدات"
 
 #: templates/twitter/tweets.html:7
 msgid "Recent Tweets"
-msgstr ""
+msgstr "التغريدات الاخيرة"
 
 #: templates/twitter/tweets.html:20
 msgid "ago"
