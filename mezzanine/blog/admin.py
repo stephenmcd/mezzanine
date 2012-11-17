@@ -22,7 +22,23 @@ blogpost_fieldsets.insert(1, (_("Other posts"), {
     "fields": ("related_posts",)}))
 
 
-class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
+class BlogPostOwnableAdmin(OwnableAdmin):
+    """
+    Admin class that enables to turn on and off
+    the permission that a blog post can be listed,
+    edited, deleted by its owner, which is the default
+    behaviour. The setting 'BLOG_ACCESS_ALL' overrides
+    this behaviour for all blog posts.
+    """
+    def queryset(self, request):
+        if settings.BLOG_ACCESS_ALL:
+            qs = super(OwnableAdmin, self).queryset(request)
+            return qs
+        else:
+            return super(BlogPostOwnableAdmin, self).queryset(request)
+
+
+class BlogPostAdmin(DisplayableAdmin, BlogPostOwnableAdmin):
     """
     Admin class for blog posts.
     """
