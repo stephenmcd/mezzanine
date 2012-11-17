@@ -197,7 +197,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzanine-polls`_ - Polls application for Mezzanine.
   * `mezzanine-pagedown`_ - Adds the `Pagedown`_ WYSIWYG editor to
      Mezzanine.
-
+  * `mezzanine-careers`_ - Job posting application for Mezzanine.
 
 Donating
 ========
@@ -428,6 +428,7 @@ Quotes
 .. _`mezzanine-polls`: https://github.com/sebasmagri/mezzanine_polls
 .. _`mezzanine-pagedown`: https://bitbucket.org/akhayyat/mezzanine-pagedown
 .. _`PageDown`: https://code.google.com/p/pagedown/
+.. _`mezzanine-careers`: https://github.com/mogga/mezzanine-careers
 
 
 .. PEOPLE WITH QUOTES
