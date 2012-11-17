@@ -319,6 +319,7 @@ Sites Using Mezzanine
   * `Coronado School of the Arts <http://www.cosasandiego.com/>`_
   * `SiteComb <http://www.sitecomb.com>`_
   * `Dashing Collective <http://dashing.tv/>`_
+  * `Puraforce Remedies <http://puraforceremedies.com/>`_
 
 Quotes
 ======
