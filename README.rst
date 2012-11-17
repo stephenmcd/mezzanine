@@ -195,6 +195,9 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
     via Google Maps, iCalendar files, webcal URLs and directions via
     Google Calendar/Maps.
   * `mezzanine-polls`_ - Polls application for Mezzanine.
+  * `mezzanine-pagedown`_ - Adds the `Pagedown`_ WYSIWYG editor to
+     Mezzanine.
+
 
 Donating
 ========
@@ -423,6 +426,8 @@ Quotes
 .. _`mezzanine-bookmarks`: https://github.com/adieu/mezzanine-bookmarks
 .. _`mezzanine-events`: https://github.com/stbarnabas/mezzanine-events
 .. _`mezzanine-polls`: https://github.com/sebasmagri/mezzanine_polls
+.. _`mezzanine-pagedown`: https://bitbucket.org/akhayyat/mezzanine-pagedown
+.. _`PageDown`: https://code.google.com/p/pagedown/
 
 
 .. PEOPLE WITH QUOTES
