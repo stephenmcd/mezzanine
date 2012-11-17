@@ -180,6 +180,18 @@ register_setting(
 )
 
 register_setting(
+    name="OWNABLE_MODELS_ALL_EDITABLE",
+    description=_("Models that subclass ``Ownable`` and use the "
+        "``OwnableAdmin`` have their admin change-list records filtered "
+        "down to records owned by the current user. This setting contains a "
+        "sequence of models in the format ``app_label.object_name``, that "
+        "when subclassing ``Ownable``, will still show all records in the "
+        "admin change-list interface, regardless of the current user."),
+    editable=False,
+    default=(),
+)
+
+register_setting(
     name="RICHTEXT_WIDGET_CLASS",
     description=_("Dotted package path and class name of the widget to use "
         "for the ``RichTextField``."),
