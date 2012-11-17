@@ -11,6 +11,7 @@ h6 a {color:#666;}
 p, ul {line-height:22px; margin-top:5px; margin-bottom:15px;}
 li {line-height:20px;}
 img {box-shadow:0 0 10px #bbb;}
+.btn {cursor:pointer;}
 
 
 /* Navigation */
@@ -52,11 +53,8 @@ textarea.xlarge {width:480px; height:120px;}
 .datefield select, .datetimefield select,
 .datefield input, .datetimefield input {width:auto; margin-right:5px;}
 .form-actions {background:rgba(220,220,220, 0.1); margin-left:-10px !important; border-top:1px solid #eee;}
-.btn-small {width:auto; margin:5px 0; line-height:10px;}
 a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 .help-inline {color:#999;}
-.btn-account, .btn-account:active {margin:0 5px !important;
-                                   box-shadow:none; -webkit-box-shadow:none;}
 #account .middle form {padding-top:20px;}
 .non-field-errors .help-inline {padding:0; margin-bottom:5px; display:block;}
 
@@ -85,11 +83,11 @@ a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 
 
 /* Ratings */
-.rating {padding:10px 20px;}
 .rating * {display:inline; list-style-type:none;}
 .rating label {margin-right:15px;}
 .rating p {margin-right:20px;}
 .rating ul {margin-left:0 !important;}
+.rating li input {margin-top:-4px;}
 
 
 /* Comments */
