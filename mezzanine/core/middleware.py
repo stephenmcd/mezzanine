@@ -58,8 +58,7 @@ class AdminSiteAccessMiddleware(object):
     Checks if an admin user has access to the current site.  If not returns a forbidden.
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if request.user.is_staff and request.user.is_active and \
-            can_access_admin_site(request.user):
+        if can_access_admin_site(request.user):
             request.user.has_current_site_access = True
         else:
             request.user.has_current_site_access = False

@@ -29,10 +29,10 @@ class AdminProfile(models.Model):
 
 def create_admin_profile(sender, **kw):
     user = kw["instance"]
-    if kw["created"]:
-        profile = AdminProfile(user=user)
-        profile.save()
-        profile.sites.add(current_site_id())
+    if user.is_staff:
+        profile, created = AdminProfile.objects.get_or_create(user=user)
+        if created or profile.sites.count() < 1:
+            profile.sites.add(current_site_id())
 post_save.connect(create_admin_profile, sender=User)
 
 class SiteRelated(models.Model):
