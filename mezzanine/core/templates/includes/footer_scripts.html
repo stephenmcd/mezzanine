@@ -2,16 +2,4 @@
 
 {% editable_loader %}
 
-<script>
-{% if settings.GOOGLE_ANALYTICS_ID and not request.user.is_staff %}
-var _gaq = _gaq || [['_trackPageview']];
-_gaq.unshift(['_setAccount', '{{ settings.GOOGLE_ANALYTICS_ID }}']);
-(function(d, t) {
-    var g = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-    g.async = true;
-    g.src = '//www.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g, s);
-})(document, 'script');
-{% endif %}
-</script>
+{# Add your footer scripts here #}
