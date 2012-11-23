@@ -1,9 +1,11 @@
 
 from django.contrib.sitemaps import Sitemap
+from django.contrib.sites.models import Site
 from django.db.models import get_models
 
 from mezzanine.conf import settings
 from mezzanine.core.models import Displayable
+from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import home_slug
 
 
@@ -38,3 +40,10 @@ class DisplayableSitemap(Sitemap):
     def lastmod(self, obj):
         if blog_installed and isinstance(obj, BlogPost):
             return obj.publish_date
+
+    def get_urls(self, **kwargs):
+        """
+        Ensure the correct host by injecting the current site.
+        """
+        kwargs["site"] = Site.objects.get(id=current_site_id())
+        return super(DisplayableSitemap, self).get_urls(**kwargs)
