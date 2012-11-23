@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <richard.kellner@ajty.info>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 16:59-0430\n"
-"PO-Revision-Date: 2012-10-14 21:38+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"PO-Revision-Date: 2012-10-17 17:24+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/language/sk/)\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: admin.py:20 models.py:67
@@ -63,9 +63,7 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr "Ak ``True``, vstavané komentáre budú automaticky schválené."
 
 #: defaults.py:66
-msgid ""
-"Dotted path to the function to call on a comment's value before it is "
-"rendered to the template."
+msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
 msgstr ""
 
 #: defaults.py:74
@@ -73,9 +71,7 @@ msgid "Comment notification email addresses"
 msgstr "Notifikačný email pre komentáre"
 
 #: defaults.py:75
-msgid ""
-"A comma separated list of email addresses that will receive an email "
-"notification each time a new comment is posted on the site."
+msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
 msgstr "Čiarkou oddelený zoznam emailových adries, na ktoré bude zaslaný notifikačný email, vždy keď je na stránke pridaný nový komentár."
 
 #: defaults.py:84
@@ -91,9 +87,7 @@ msgid "Show unapproved comments"
 msgstr "Zobraz neodsúhlasené komentáre"
 
 #: defaults.py:94
-msgid ""
-"If ``True``, comments that have ``is_public`` unchecked will still be "
-"displayed, but replaced with a ``waiting to be approved`` message."
+msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
 msgstr "Pokiaľ ``True``, komentáre ktoré nemajú ``is_public`` zaškrtnuté, budú stále zobrazené, ale nahradené s ``waiting to be approved`` správou."
 
 #: defaults.py:103
@@ -101,9 +95,7 @@ msgid "Show removed comments"
 msgstr "Zobraz odstránené komentáre"
 
 #: defaults.py:104
-msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
+msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
 msgstr "Pokiaľ ``True``, komentáre ktoré majú ``removed`` zaškrtnuté, budú stále zobrazené, ale nahradené s ``removed`` správou."
 
 #: defaults.py:113
@@ -175,9 +167,7 @@ msgid "Ratings"
 msgstr "Hodnotenie"
 
 #: views.py:53
-msgid ""
-"You must log in to comment. Please log in or sign up, and your comment will "
-"be posted."
+msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
 msgstr "Aby ste mohli komentovať musite sa prihlásiť. Prosím prihláste sa, alebo sa zaregistrujte a Váš komentár by odoslaný"
 
 #: views.py:89
@@ -205,14 +195,18 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr "\nNa %(submit_date)s %(user_name)s nápísal:"
+msgstr ""
+"\n"
+"Na %(submit_date)s %(user_name)s nápísal:"
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr "\nNa %(submit_date)s %(user_name)s nápísal:\n"
+msgstr ""
+"\n"
+"Na %(submit_date)s %(user_name)s nápísal:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

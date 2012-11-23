@@ -1,20 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 16:59-0430\n"
-"PO-Revision-Date: 2012-10-14 21:38+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"PO-Revision-Date: 2012-10-17 17:24+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/mezzanine/language/ko/)\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20 models.py:67
@@ -62,9 +62,7 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr "``True``로 지정하면, 승인 과정 없이 자동으로 댓글이 등록됩니다."
 
 #: defaults.py:66
-msgid ""
-"Dotted path to the function to call on a comment's value before it is "
-"rendered to the template."
+msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
 msgstr ""
 
 #: defaults.py:74
@@ -72,9 +70,7 @@ msgid "Comment notification email addresses"
 msgstr ""
 
 #: defaults.py:75
-msgid ""
-"A comma separated list of email addresses that will receive an email "
-"notification each time a new comment is posted on the site."
+msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
 msgstr ""
 
 #: defaults.py:84
@@ -90,9 +86,7 @@ msgid "Show unapproved comments"
 msgstr "미승인 댓글들 보여주기"
 
 #: defaults.py:94
-msgid ""
-"If ``True``, comments that have ``is_public`` unchecked will still be "
-"displayed, but replaced with a ``waiting to be approved`` message."
+msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
 msgstr "``True``는 ``is_public``로 체크되지 않은 댓글들도 페이지에서 보이지만, ``waiting to be approved`` 란 글로 바꿔서 보여집니다."
 
 #: defaults.py:103
@@ -100,9 +94,7 @@ msgid "Show removed comments"
 msgstr "삭제된 댓글들 보여주기"
 
 #: defaults.py:104
-msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
+msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
 msgstr "``True``는, ``removed``로 체크된 댓글들도 페이지에서 보이지만, ``removed`` 란 글로 바꿔서 보여집니다."
 
 #: defaults.py:113
@@ -174,9 +166,7 @@ msgid "Ratings"
 msgstr "평가"
 
 #: views.py:53
-msgid ""
-"You must log in to comment. Please log in or sign up, and your comment will "
-"be posted."
+msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
 msgstr "댓글을 쓰려면 로그인하셔야 합니다. 로그인 또는 회원 가입 후에 댓글이 게시됩니다."
 
 #: views.py:89

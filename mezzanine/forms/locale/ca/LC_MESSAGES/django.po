@@ -1,25 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
-"PO-Revision-Date: 2012-10-14 21:36+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/mezzanine/language/ca/)\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:32 fields.py:31
+#: admin.py:32 fields.py:33
 msgid "Email"
 msgstr "Email"
 
@@ -35,9 +35,7 @@ msgid "View Entries"
 msgstr "Veure entrades"
 
 #: defaults.py:20
-msgid ""
-"If ``True``, emails sent to extra recipients for form submissions won't be "
-"sent from an address taken from one of the form's email fields."
+msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
 msgstr ""
 
 #: defaults.py:29
@@ -56,59 +54,63 @@ msgstr "Caràcter utilitzar com a delimitador de camps al exportar les respostes
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Ruta absoluta per guardar els fitxers pujats a l'aplicació de formulari."
 
-#: fields.py:29
+#: defaults.py:58
+msgid "Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts."
+msgstr ""
+
+#: fields.py:31
 msgid "Single line text"
 msgstr "Línea de text"
 
-#: fields.py:30
+#: fields.py:32
 msgid "Multi line text"
 msgstr "Multilínea de text"
 
-#: fields.py:32
+#: fields.py:34
 msgid "Number"
 msgstr "Número"
 
-#: fields.py:33
+#: fields.py:35
 msgid "URL"
 msgstr "URL"
 
-#: fields.py:34
+#: fields.py:36
 msgid "Check box"
 msgstr "Casella de verificació"
 
-#: fields.py:35
+#: fields.py:37
 msgid "Check boxes"
 msgstr "Caselles de verificació"
 
-#: fields.py:36
+#: fields.py:38
 msgid "Drop down"
 msgstr "Desplegable"
 
-#: fields.py:37
+#: fields.py:39
 msgid "Multi select"
 msgstr "Multiple selecció"
 
-#: fields.py:38
+#: fields.py:40
 msgid "Radio buttons"
 msgstr "Boto de radio"
 
-#: fields.py:39
+#: fields.py:41
 msgid "File upload"
 msgstr "Pujada de Fitxers"
 
-#: fields.py:40
+#: fields.py:42
 msgid "Date"
 msgstr "Dia"
 
-#: fields.py:41 models.py:116
+#: fields.py:43 models.py:116
 msgid "Date/time"
 msgstr "Dia/Hora"
 
-#: fields.py:42
+#: fields.py:44
 msgid "Date of birth"
 msgstr ""
 
-#: fields.py:43
+#: fields.py:45
 msgid "Hidden"
 msgstr "Amagat"
 
@@ -169,9 +171,7 @@ msgid "Send email to user"
 msgstr ""
 
 #: models.py:21
-msgid ""
-"To send an email to the email address supplied in the form upon submission, "
-"check this box."
+msgid "To send an email to the email address supplied in the form upon submission, check this box."
 msgstr ""
 
 #: models.py:23
@@ -187,9 +187,7 @@ msgid "Send email to others"
 msgstr ""
 
 #: models.py:26
-msgid ""
-"Provide a comma separated list of email addresses to be notified upon form "
-"submission. Leave blank to disable notifications."
+msgid "Provide a comma separated list of email addresses to be notified upon form submission. Leave blank to disable notifications."
 msgstr ""
 
 #: models.py:30
@@ -201,10 +199,7 @@ msgid "Message"
 msgstr "Missatge"
 
 #: models.py:32
-msgid ""
-"Emails sent based on the above options will contain each of the form fields "
-"entered. You can also enter a message here that will be included in the "
-"email."
+msgid "Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in the email."
 msgstr ""
 
 #: models.py:37
@@ -236,9 +231,7 @@ msgid "Choices"
 msgstr "Opcions"
 
 #: models.py:61
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
 msgstr "Opcions separades per comes. Si una opció conté comes, envoltar amb `accents oberts`."
 
 #: models.py:63

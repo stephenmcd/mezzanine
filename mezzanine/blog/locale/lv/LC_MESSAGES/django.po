@@ -7,18 +7,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-22 00:10-0600\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
 "PO-Revision-Date: 2012-10-14 21:32+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Latvian (http://www.transifex.com/projects/p/mezzanine/"
-"language/lv/)\n"
+"Language-Team: Latvian (http://www.transifex.com/projects/p/mezzanine/language/lv/)\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
 #: admin.py:20
 msgid "Other posts"
@@ -49,12 +47,8 @@ msgid "Use date URLs"
 msgstr "Lietot URL saitēs datumu"
 
 #: defaults.py:44
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"Ja atzīmēts, bloga ierakstu URL saitēs tiks izmantots mēnesis un gads, "
-"piemēram, /blog/yyyy/mm/slug/"
+msgid "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/"
+msgstr "Ja atzīmēts, bloga ierakstu URL saitēs tiks izmantots mēnesis un gads, piemēram, /blog/yyyy/mm/slug/"
 
 #: defaults.py:52
 msgid "Blog posts per page"
@@ -68,44 +62,44 @@ msgstr "Lapā attēlojamo bloga ierakstu skaits"
 msgid "Slug of the page object for the blog."
 msgstr "Bloga sadaļas \"slug\""
 
-#: models.py:18 templates/blog/includes/filter_panel.html:35
+#: models.py:17 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
 msgstr "Kategorijas"
 
-#: models.py:20
+#: models.py:19
 msgid "Allow comments"
 msgstr "Atļaut komentārus"
 
-#: models.py:22 templates/blog/blog_post_detail.html:43
+#: models.py:21 templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:126
 msgid "Comments"
 msgstr "Komentāri"
 
-#: models.py:23
+#: models.py:22
 msgid "Rating"
 msgstr "Vērtējums"
 
-#: models.py:24
+#: models.py:23
 msgid "Featured Image"
 msgstr "Attēls"
 
-#: models.py:28 templates/blog/blog_post_detail.html:94
+#: models.py:27 templates/blog/blog_post_detail.html:94
 msgid "Related posts"
 msgstr ""
 
-#: models.py:33
+#: models.py:32
 msgid "Blog post"
 msgstr "Bloga ieraksts"
 
-#: models.py:34
+#: models.py:33
 msgid "Blog posts"
 msgstr "Bloga ieraksti"
 
-#: models.py:80
+#: models.py:79
 msgid "Blog Category"
 msgstr "Bloga kategorija"
 
-#: models.py:81
+#: models.py:80
 msgid "Blog Categories"
 msgstr "Bloga kategorijas"
 
@@ -220,6 +214,3 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
-
-#~ msgid "ago"
-#~ msgstr "atpakaļ"

@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <richard.kellner@ajty.info>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
 "PO-Revision-Date: 2012-10-14 21:42+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/language/sk/)\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: defaults.py:20
@@ -27,9 +27,7 @@ msgid "List of fields to exclude from the profile form."
 msgstr ""
 
 #: defaults.py:34
-msgid ""
-"Dotted package path and class name of profile form to use for users signing "
-"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgid "Dotted package path and class name of profile form to use for users signing up and updating their profile, when ``mezzanine.accounts`` is installed."
 msgstr ""
 
 #: defaults.py:43
@@ -37,61 +35,59 @@ msgid "If ``True``, users will have their own public profile pages."
 msgstr "Pokiaľ ``True``, užívatelia budú mať svoje vlastné verejne profilové stránky"
 
 #: defaults.py:51
-msgid ""
-"If ``True``, when users create an account, they will be sent an email with a"
-" verification link, which they must click to enable their account."
+msgid "If ``True``, when users create an account, they will be sent an email with a verification link, which they must click to enable their account."
 msgstr ""
 
-#: forms.py:18 forms.py:185
+#: forms.py:18 forms.py:187
 msgid "Username or email address"
 msgstr "Uživateľské meno alebo adresa"
 
-#: forms.py:19 forms.py:61
+#: forms.py:19 forms.py:63
 msgid "Password"
 msgstr "Heslo"
 
-#: forms.py:30
+#: forms.py:32
 msgid "Invalid username/email and password"
 msgstr "Nesprávne užívateľské meno/email a heslo"
 
-#: forms.py:32
+#: forms.py:34
 msgid "Your account is inactive"
 msgstr "Váš účet je neaktívny"
 
-#: forms.py:63
+#: forms.py:65
 msgid "Password (again)"
 msgstr "Heslo (znuva)"
 
-#: forms.py:76
+#: forms.py:78
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr "Prosím iba písmená, čísla, pomlčky alebo podtržníky"
 
-#: forms.py:90
+#: forms.py:92
 msgid "Leave blank unless you want to change your password"
 msgstr ""
 
-#: forms.py:109
+#: forms.py:111
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr ""
 
-#: forms.py:117
+#: forms.py:119
 msgid "This username is already registered"
 msgstr "Užívateľské meno je už zaregistrované"
 
-#: forms.py:130
+#: forms.py:132
 msgid "Passwords do not match"
 msgstr "Heslá sa nezhodujú"
 
-#: forms.py:132
+#: forms.py:134
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr ""
 
-#: forms.py:147
+#: forms.py:149
 msgid "This email is already registered"
 msgstr "Tento email je uz registrovaný"
 
-#: forms.py:194
+#: forms.py:196
 msgid "Invalid username/email"
 msgstr ""
 
@@ -108,8 +104,7 @@ msgid "Successfully logged out"
 msgstr "Úspešne odhlásený"
 
 #: views.py:54
-msgid ""
-"A verification email has been sent with a link for activating your account."
+msgid "A verification email has been sent with a link for activating your account."
 msgstr ""
 
 #: views.py:58 views.py:77
@@ -133,8 +128,7 @@ msgid "Update Profile"
 msgstr "Aktualizuj Profil"
 
 #: views.py:151
-msgid ""
-"A verification email has been sent with a link for resetting your password."
+msgid "A verification email has been sent with a link for resetting your password."
 msgstr ""
 
 #: views.py:153
@@ -147,23 +141,16 @@ msgstr ""
 
 #: templates/accounts/account_login.html:11
 #, python-format
-msgid ""
-"If you don't have an account you can <a "
-"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgid "If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
 msgstr ""
 
 #: templates/accounts/account_login.html:14
 #, python-format
-msgid ""
-"<p>You can also <a "
-"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
-"password</a> if you've forgotten it.</p>"
+msgid "<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your password</a> if you've forgotten it.</p>"
 msgstr ""
 
 #: templates/accounts/account_password_reset.html:6
-msgid ""
-"Enter your username or email address and you'll receive an email with a link"
-" you need to click, in order to log in and change your password."
+msgid "Enter your username or email address and you'll receive an email with a link you need to click, in order to log in and change your password."
 msgstr ""
 
 #: templates/accounts/account_profile.html:17
@@ -172,15 +159,11 @@ msgid "Update profile"
 msgstr "Aktualizuj profil"
 
 #: templates/accounts/account_signup.html:7
-msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need"
-" to log out first."
+msgid "You're already logged in. If you'd like to create a new account, you'll need to log out first."
 msgstr ""
 
 #: templates/accounts/account_signup.html:11
-msgid ""
-"After signing up, you'll receive an email with a link you need to click, in "
-"order to activate your account."
+msgid "After signing up, you'll receive an email with a link you need to click, in order to activate your account."
 msgstr ""
 
 #: templates/accounts/includes/user_panel.html:4
@@ -191,19 +174,15 @@ msgstr "Prihlásiť ako:"
 msgid "Log out"
 msgstr "Odhlásit sa"
 
-#: templates/accounts/includes/user_panel.html:16
-msgid "Not logged in"
-msgstr "Nie ste prihlásený"
-
-#: templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel.html:17
 msgid "Log in"
 msgstr "Prihlásenie"
 
-#: templates/accounts/includes/user_panel.html:19
+#: templates/accounts/includes/user_panel.html:18
 msgid "or"
 msgstr "alebo"
 
-#: templates/accounts/includes/user_panel.html:21
+#: templates/accounts/includes/user_panel.html:20
 msgid "Sign up"
 msgstr "Registrácia"
 
@@ -223,9 +202,7 @@ msgstr ""
 
 #: templates/email/password_reset_verify.html:6
 #: templates/email/password_reset_verify.txt:6
-msgid ""
-"If you didn't request for your password to be reset, please ignore this "
-"email."
+msgid "If you didn't request for your password to be reset, please ignore this email."
 msgstr ""
 
 #: templates/email/password_reset_verify_subject.txt:2

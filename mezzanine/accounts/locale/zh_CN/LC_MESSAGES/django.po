@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <chance.jiang@gmail.com>, 2012.
+#   <wo@luochunhui.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
-"PO-Revision-Date: 2012-10-14 21:42+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"PO-Revision-Date: 2012-10-20 03:28+0000\n"
+"Last-Translator: giko <wo@luochunhui.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: defaults.py:20
@@ -27,9 +28,7 @@ msgid "List of fields to exclude from the profile form."
 msgstr "List of fields to exclude from the profile form."
 
 #: defaults.py:34
-msgid ""
-"Dotted package path and class name of profile form to use for users signing "
-"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgid "Dotted package path and class name of profile form to use for users signing up and updating their profile, when ``mezzanine.accounts`` is installed."
 msgstr "当 ''mezzanine.accounts'' 安装时，用于用户注册时和更新用户信息时用点分隔的package路径以及概览表单的类名称。"
 
 #: defaults.py:43
@@ -37,61 +36,59 @@ msgid "If ``True``, users will have their own public profile pages."
 msgstr "如果是，用户可以使用自定义选项页"
 
 #: defaults.py:51
-msgid ""
-"If ``True``, when users create an account, they will be sent an email with a"
-" verification link, which they must click to enable their account."
+msgid "If ``True``, when users create an account, they will be sent an email with a verification link, which they must click to enable their account."
 msgstr "保果是，新用户将收到激活邮件，用来激活帐户。"
 
-#: forms.py:18 forms.py:185
+#: forms.py:18 forms.py:187
 msgid "Username or email address"
 msgstr "用户名或电子邮件地址"
 
-#: forms.py:19 forms.py:61
+#: forms.py:19 forms.py:63
 msgid "Password"
 msgstr "密码"
 
-#: forms.py:30
+#: forms.py:32
 msgid "Invalid username/email and password"
 msgstr "无效用户名/邮箱和密码"
 
-#: forms.py:32
+#: forms.py:34
 msgid "Your account is inactive"
 msgstr "您的账号未激活"
 
-#: forms.py:63
+#: forms.py:65
 msgid "Password (again)"
 msgstr "密码（确认）"
 
-#: forms.py:76
+#: forms.py:78
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr "只允许英文字母、数字、破折号 '-' 或下横线 '_'"
 
-#: forms.py:90
+#: forms.py:92
 msgid "Leave blank unless you want to change your password"
 msgstr "如不想更新你的密码，则留空"
 
-#: forms.py:109
+#: forms.py:111
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr "用户名只能包含英文字母、数字、破折号 '-' 或下横线 '_'"
 
-#: forms.py:117
+#: forms.py:119
 msgid "This username is already registered"
 msgstr "用户名已被注册"
 
-#: forms.py:130
+#: forms.py:132
 msgid "Passwords do not match"
 msgstr "输入的密码不一致"
 
-#: forms.py:132
+#: forms.py:134
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "密码必须至少 %s 位"
 
-#: forms.py:147
+#: forms.py:149
 msgid "This email is already registered"
 msgstr "邮件地址已被注册"
 
-#: forms.py:194
+#: forms.py:196
 msgid "Invalid username/email"
 msgstr "无效用户名/邮箱"
 
@@ -108,8 +105,7 @@ msgid "Successfully logged out"
 msgstr "成功登出"
 
 #: views.py:54
-msgid ""
-"A verification email has been sent with a link for activating your account."
+msgid "A verification email has been sent with a link for activating your account."
 msgstr "包含帐号激活链接的确认邮件已发送。"
 
 #: views.py:58 views.py:77
@@ -133,8 +129,7 @@ msgid "Update Profile"
 msgstr "更新用户信息"
 
 #: views.py:151
-msgid ""
-"A verification email has been sent with a link for resetting your password."
+msgid "A verification email has been sent with a link for resetting your password."
 msgstr "包含重置密码的链接确认邮件已发送。"
 
 #: views.py:153
@@ -147,23 +142,16 @@ msgstr "您已登录。"
 
 #: templates/accounts/account_login.html:11
 #, python-format
-msgid ""
-"If you don't have an account you can <a "
-"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
-msgstr ""
+msgid "If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgstr "没有账户？立即<a href=\"%(signup_url)s?next=%(next)s\">注册</a>"
 
 #: templates/accounts/account_login.html:14
 #, python-format
-msgid ""
-"<p>You can also <a "
-"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
-"password</a> if you've forgotten it.</p>"
+msgid "<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your password</a> if you've forgotten it.</p>"
 msgstr "<p>如果忘记密码，您也可以 <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">重置您的密码</a>。</p>"
 
 #: templates/accounts/account_password_reset.html:6
-msgid ""
-"Enter your username or email address and you'll receive an email with a link"
-" you need to click, in order to log in and change your password."
+msgid "Enter your username or email address and you'll receive an email with a link you need to click, in order to log in and change your password."
 msgstr "输入您的用户名或邮件地址，您将收到一封包含可点击的链接的邮件，在您的邮箱里点击该链接后可登录并修改密码。"
 
 #: templates/accounts/account_profile.html:17
@@ -172,15 +160,11 @@ msgid "Update profile"
 msgstr "更新用户信息"
 
 #: templates/accounts/account_signup.html:7
-msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need"
-" to log out first."
+msgid "You're already logged in. If you'd like to create a new account, you'll need to log out first."
 msgstr "您已登录。如果您需要创建新帐号，您必须先登出。"
 
 #: templates/accounts/account_signup.html:11
-msgid ""
-"After signing up, you'll receive an email with a link you need to click, in "
-"order to activate your account."
+msgid "After signing up, you'll receive an email with a link you need to click, in order to activate your account."
 msgstr "注册用户帐号后，您将收到一封邮件，里面有个可点击的链接，点击后即可激活您的帐号。"
 
 #: templates/accounts/includes/user_panel.html:4
@@ -191,19 +175,15 @@ msgstr "您的登录用户名："
 msgid "Log out"
 msgstr "注销"
 
-#: templates/accounts/includes/user_panel.html:16
-msgid "Not logged in"
-msgstr "未登录"
-
-#: templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel.html:17
 msgid "Log in"
 msgstr "登录"
 
-#: templates/accounts/includes/user_panel.html:19
+#: templates/accounts/includes/user_panel.html:18
 msgid "or"
 msgstr "或"
 
-#: templates/accounts/includes/user_panel.html:21
+#: templates/accounts/includes/user_panel.html:20
 msgid "Sign up"
 msgstr "注册"
 
@@ -223,9 +203,7 @@ msgstr "请点击下面的链接登录并更新您的密码。"
 
 #: templates/email/password_reset_verify.html:6
 #: templates/email/password_reset_verify.txt:6
-msgid ""
-"If you didn't request for your password to be reset, please ignore this "
-"email."
+msgid "If you didn't request for your password to be reset, please ignore this email."
 msgstr "如果你没有发出密码重置请求，请忽略本邮件。"
 
 #: templates/email/password_reset_verify_subject.txt:2

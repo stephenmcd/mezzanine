@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+#   <mathias.ettinger@gmail.com>, 2012.
 # Michał Oleniec <moleniec@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-14 16:59-0430\n"
-"PO-Revision-Date: 2012-08-26 13:23+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"PO-Revision-Date: 2012-10-26 12:36+0000\n"
+"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -24,15 +25,15 @@ msgstr ""
 
 #: defaults.py:29
 msgid "Top navigation bar"
-msgstr ""
+msgstr "Górny pasek nawigacji"
 
 #: defaults.py:30
 msgid "Left-hand tree"
-msgstr ""
+msgstr "Menu lewostronne"
 
 #: defaults.py:31
 msgid "Footer"
-msgstr ""
+msgstr "Stopka"
 
 #: defaults.py:37
 msgid "A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the default menu templates selected when creating new pages. By default all menu templates are selected. Set this setting to an empty sequence to have no templates selected by default."
@@ -40,15 +41,15 @@ msgstr ""
 
 #: defaults.py:48
 msgid "If ``True``, the left-hand tree template for the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page."
-msgstr ""
+msgstr "Jeśli ``Prawda`` szablon lewostronnego menu dla menu stron będzie pokazywał wszytskie poziomy nawigacji, w przeciwnym wypadku strony pochodne są pokazywane wyłącznie podczas wizualizacji stron pierwotnych."
 
 #: defaults.py:57
 msgid "If ``True``, pages with ``login_required`` checked will still be listed in menus and search results, for unauthenticated users. Regardless of this setting, when an unauthenticated user accesses a page with ``login_required`` checked, they'll be redirected to the login page."
-msgstr ""
+msgstr "Jeśli ``Prawda``, strony z zatwierdzonym  ``login_required`` będą nadal wymienione w menu i wynikach wyszukiwania, dla niezidentyfikowanych użytkowników. Bez względu na to ustawienie, kiedy niezidentyfikowany użytkownik wejdzie na stronę z ``login_required``, zostanie przekierowany do strony logowania."
 
 #: models.py:33
 msgid "Show in menus"
-msgstr ""
+msgstr "Pokaż w menu"
 
 #: models.py:36
 msgid "Login required"
@@ -56,7 +57,7 @@ msgstr "Wymagane zalogowanie"
 
 #: models.py:37
 msgid "If checked, only logged in users can view this page"
-msgstr "Jeżeli zaznaczone, tylko zalogowani użytkownicy mogą oglądać tą stronę"
+msgstr "Jeżeli zaznaczone, tylko zalogowani użytkownicy mogą oglądać tę stronę"
 
 #: models.py:40
 msgid "Page"
@@ -76,11 +77,11 @@ msgstr "Strony z edycją tekstu"
 
 #: models.py:236
 msgid "Link"
-msgstr "Łącze"
+msgstr "Link"
 
 #: models.py:237
 msgid "Links"
-msgstr ""
+msgstr "Linki"
 
 #: templates/admin/pages/page/change_list.html:24
 #: templates/pages/menus/admin.html:31

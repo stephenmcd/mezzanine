@@ -1,24 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
+#   <mathias.ettinger@gmail.com>, 2012.
 # Michał Oleniec <moleniec@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
-"PO-Revision-Date: 2012-10-14 21:36+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"PO-Revision-Date: 2012-10-26 11:04+0000\n"
+"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:32 fields.py:31
+#: admin.py:32 fields.py:33
 msgid "Email"
 msgstr "E-mail"
 
@@ -35,10 +36,8 @@ msgid "View Entries"
 msgstr "Zobacz wpisy"
 
 #: defaults.py:20
-msgid ""
-"If ``True``, emails sent to extra recipients for form submissions won't be "
-"sent from an address taken from one of the form's email fields."
-msgstr ""
+msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
+msgstr "Jeśli ``Prawda``, e-maile wysłane do  dodatkowych odbiorców z formularza nie zostaną wysłane z adresu wziętego z jednego z pól formularza e-maili."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -56,59 +55,63 @@ msgstr "Znak separacji pól dla plików CSV przy eksporcie danych formularzy."
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Ścieżka absolutna do katalogu w którym będą przechowywane pliki wysłane za pomocą formularzy."
 
-#: fields.py:29
+#: defaults.py:58
+msgid "Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts."
+msgstr ""
+
+#: fields.py:31
 msgid "Single line text"
 msgstr "Pole jednowierszowe"
 
-#: fields.py:30
+#: fields.py:32
 msgid "Multi line text"
 msgstr "Pole wielowierszowe"
 
-#: fields.py:32
+#: fields.py:34
 msgid "Number"
-msgstr ""
+msgstr "Liczba"
 
-#: fields.py:33
+#: fields.py:35
 msgid "URL"
 msgstr "URL"
 
-#: fields.py:34
+#: fields.py:36
 msgid "Check box"
 msgstr "Pole wyboru"
 
-#: fields.py:35
+#: fields.py:37
 msgid "Check boxes"
 msgstr "Pola wyboru"
 
-#: fields.py:36
+#: fields.py:38
 msgid "Drop down"
 msgstr "Lista rozwijalna"
 
-#: fields.py:37
+#: fields.py:39
 msgid "Multi select"
 msgstr "Pole wielokrotnego wyboru"
 
-#: fields.py:38
+#: fields.py:40
 msgid "Radio buttons"
 msgstr "Pole opcji (radio)"
 
-#: fields.py:39
+#: fields.py:41
 msgid "File upload"
 msgstr "Wgranie pliku"
 
-#: fields.py:40
+#: fields.py:42
 msgid "Date"
 msgstr "Data"
 
-#: fields.py:41 models.py:116
+#: fields.py:43 models.py:116
 msgid "Date/time"
 msgstr "Data/czas"
 
-#: fields.py:42
+#: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Data urodzenia"
 
-#: fields.py:43
+#: fields.py:45
 msgid "Hidden"
 msgstr "Ukryte"
 
@@ -166,13 +169,11 @@ msgstr "Informacja po wysłaniu formularza"
 
 #: models.py:20
 msgid "Send email to user"
-msgstr ""
+msgstr "Wyslij e-mail do użytkownika"
 
 #: models.py:21
-msgid ""
-"To send an email to the email address supplied in the form upon submission, "
-"check this box."
-msgstr ""
+msgid "To send an email to the email address supplied in the form upon submission, check this box."
+msgstr "Aby wysłać e-mail na adres z formularza po zatwierdzeniu, zaznacz to pole."
 
 #: models.py:23
 msgid "From address"
@@ -184,13 +185,11 @@ msgstr "Adres z którego zostanie wysłany email"
 
 #: models.py:25
 msgid "Send email to others"
-msgstr ""
+msgstr "Wyślij e-mail do innych odbiorców"
 
 #: models.py:26
-msgid ""
-"Provide a comma separated list of email addresses to be notified upon form "
-"submission. Leave blank to disable notifications."
-msgstr ""
+msgid "Provide a comma separated list of email addresses to be notified upon form submission. Leave blank to disable notifications."
+msgstr "Wskaż liste e-maili oddzielonych przecinkami, na które zostanie wysłana lista po zatwierdzeniu formularza. Pozostaw puste pole, aby dezaktywować powiadomienia."
 
 #: models.py:30
 msgid "Subject"
@@ -201,11 +200,8 @@ msgid "Message"
 msgstr "Wiadomość"
 
 #: models.py:32
-msgid ""
-"Emails sent based on the above options will contain each of the form fields "
-"entered. You can also enter a message here that will be included in the "
-"email."
-msgstr ""
+msgid "Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in the email."
+msgstr "E-maile wysłane według powyższych opcji, będą zawierać każde wypełnione w formularzu pole. Możesz tu również dodać wiadomość, która zostanie zawarta w e-mailu."
 
 #: models.py:37
 msgid "Form"
@@ -236,9 +232,7 @@ msgid "Choices"
 msgstr "Opcje"
 
 #: models.py:61
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
 msgstr "Opcje oddzielone przecinkami. Jeżeli opcja sama w sobie zawiera przecinek należy ją otoczyć `lewym apostrofem`"
 
 #: models.py:63
@@ -300,7 +294,7 @@ msgstr "Dołącz"
 
 #: templates/admin/forms/entries.html:29
 msgid "Filter by"
-msgstr "Sortuj wg."
+msgstr "Sortuj według"
 
 #: templates/admin/forms/entries.html:47
 msgid "All"

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+#   <mathias.ettinger@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-14 16:59-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"PO-Revision-Date: 2012-10-25 19:53+0000\n"
+"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -19,23 +20,23 @@ msgstr ""
 
 #: models.py:38
 msgid "Zip import"
-msgstr ""
+msgstr "Zaimportuj plik zip"
 
 #: models.py:39
 msgid "Upload a zip file containing images, and they'll be imported into this gallery."
-msgstr ""
+msgstr "Zaimportuj plik zip zawierający obrazy, będą zaimportowane do tej galerii."
 
 #: models.py:43
 msgid "Gallery"
-msgstr ""
+msgstr "Galeria"
 
 #: models.py:44
 msgid "Galleries"
-msgstr ""
+msgstr "Galerie"
 
 #: models.py:90
 msgid "File"
-msgstr ""
+msgstr "Plik"
 
 #: models.py:92
 msgid "Description"
@@ -43,8 +44,8 @@ msgstr "Opis"
 
 #: models.py:96
 msgid "Image"
-msgstr ""
+msgstr "Obraz"
 
 #: models.py:97
 msgid "Images"
-msgstr ""
+msgstr "Obrazy"

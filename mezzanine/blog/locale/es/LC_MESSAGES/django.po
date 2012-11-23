@@ -6,12 +6,11 @@
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2012.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
 # William Díaz <leprosys@gmail.com>, 2012.
-# Eduardo Rivas <e@jerivas.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-22 00:10-0600\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
 "PO-Revision-Date: 2012-10-22 00:21-0600\n"
 "Last-Translator: Eduardo Rivas <e@jerivas.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/language/es/)\n"
@@ -35,7 +34,7 @@ msgstr "Nombre de usuario para el servicio de reducción de URL bit.ly"
 
 #: defaults.py:28
 msgid "bit.ly key"
-msgstr "Clave bit.ly"
+msgstr "Llave bit.ly"
 
 #: defaults.py:29
 msgid "Key for http://bit.ly URL shortening service."
@@ -51,61 +50,58 @@ msgstr "Usar URLs con fechas"
 
 #: defaults.py:44
 msgid "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/"
-msgstr "Si es ``True``, las URLs para las entradas del blog incluyen el mes y el año. Por ejemplo: /blog/yyyy/mm/slug/"
+msgstr "Si es ``True``, las URLs para las publicaciones del blog incluyen el mes y el año. Por ejemplo: /blog/yyyy/mm/slug/"
 
 #: defaults.py:52
 msgid "Blog posts per page"
-msgstr "Número de entradas por página"
+msgstr "Número de publicaciones a mostrar por página"
 
 #: defaults.py:53
 msgid "Number of blog posts shown on a blog listing page."
-msgstr "Número de entradas a mostrar en la página inicial del blog."
+msgstr "Número de publicaciones a mostrar en la página inicial del blog."
 
 #: defaults.py:60
 msgid "Slug of the page object for the blog."
 msgstr "Slug de la página del blog"
 
-#: models.py:18
-#: templates/blog/includes/filter_panel.html:35
+#: models.py:17 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
 msgstr "Categorías"
 
-#: models.py:20
+#: models.py:19
 msgid "Allow comments"
 msgstr "Permitir comentarios"
 
-#: models.py:22
-#: templates/blog/blog_post_detail.html:43
+#: models.py:21 templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:126
 msgid "Comments"
 msgstr "Comentarios"
 
-#: models.py:23
+#: models.py:22
 msgid "Rating"
 msgstr "Puntuación"
 
-#: models.py:24
+#: models.py:23
 msgid "Featured Image"
 msgstr "Imagen destacada"
 
-#: models.py:28
-#: templates/blog/blog_post_detail.html:94
+#: models.py:27 templates/blog/blog_post_detail.html:94
 msgid "Related posts"
 msgstr "Entradas relacionadas"
 
-#: models.py:33
+#: models.py:32
 msgid "Blog post"
 msgstr "Entrada del blog"
 
-#: models.py:34
+#: models.py:33
 msgid "Blog posts"
 msgstr "Entradas del blog"
 
-#: models.py:80
+#: models.py:79
 msgid "Blog Category"
 msgstr "Categoría del blog"
 
-#: models.py:81
+#: models.py:80
 msgid "Blog Categories"
 msgstr "Categorías del blog"
 
@@ -150,8 +146,7 @@ msgstr "Compartir en Twitter"
 msgid "Share on Facebook"
 msgstr "Compartir en Facebook"
 
-#: templates/blog/blog_post_list.html:4
-#: templates/blog/blog_post_list.html:22
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"
 msgstr "Blog"
 
@@ -169,19 +164,19 @@ msgstr "Autor:"
 
 #: templates/blog/blog_post_list.html:50
 msgid "Viewing posts tagged"
-msgstr "Ver las entradas etiquetadas"
+msgstr "Ver las publicaciones etiquetadas"
 
 #: templates/blog/blog_post_list.html:52
 msgid "Viewing posts for the category"
-msgstr "Ver las entradas de la categoría"
+msgstr "Ver las publicaciones de la categoría"
 
 #: templates/blog/blog_post_list.html:54
 msgid "Viewing posts from"
-msgstr "Ver las entradas de"
+msgstr "Ver las publicaciones de"
 
 #: templates/blog/blog_post_list.html:57
 msgid "Viewing posts by"
-msgstr "Ver las entradas por"
+msgstr "Ver las publicaciones por"
 
 #: templates/blog/blog_post_list.html:88
 msgid "in"
@@ -193,7 +188,7 @@ msgstr "leer más"
 
 #: templates/blog/includes/filter_panel.html:6
 msgid "Recent Posts"
-msgstr "Entradas recientes"
+msgstr "Publicaciones recientes"
 
 #: templates/blog/includes/filter_panel.html:19
 msgid "Archive"
@@ -220,6 +215,3 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
-
-#~ msgid "ago"
-#~ msgstr "atrás"

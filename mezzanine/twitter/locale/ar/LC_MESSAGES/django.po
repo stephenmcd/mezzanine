@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Husam M. ALFarra <husamfarra@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-14 16:59-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"PO-Revision-Date: 2012-11-08 21:38+0000\n"
+"Last-Translator: Husam M. ALFarra <husamfarra@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/language/ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -19,15 +20,15 @@ msgstr ""
 
 #: __init__.py:16
 msgid "User"
-msgstr ""
+msgstr "مستخدم"
 
 #: __init__.py:17
 msgid "List"
-msgstr ""
+msgstr "القائمة"
 
 #: __init__.py:18
 msgid "Search"
-msgstr ""
+msgstr "بحث"
 
 #: defaults.py:21
 msgid "Default Twitter Query Type"
@@ -47,7 +48,7 @@ msgstr ""
 
 #: defaults.py:39
 msgid "Default Number of Tweets"
-msgstr ""
+msgstr "رقم تويتر الافتراضي "
 
 #: defaults.py:40
 msgid "Number of tweets to display in the default Twitter feed."
@@ -55,11 +56,11 @@ msgstr ""
 
 #: models.py:27
 msgid "Type"
-msgstr ""
+msgstr "نوع"
 
 #: models.py:29
 msgid "Value"
-msgstr ""
+msgstr "قيمة"
 
 #: models.py:33
 msgid "Twitter query"
@@ -75,11 +76,11 @@ msgstr ""
 
 #: models.py:103
 msgid "Date/time"
-msgstr ""
+msgstr "التاريخ\\الوقت"
 
 #: models.py:104
 msgid "Message"
-msgstr ""
+msgstr "رسالة "
 
 #: models.py:105
 msgid "Profile image URL"
@@ -87,11 +88,11 @@ msgstr ""
 
 #: models.py:106
 msgid "User name"
-msgstr ""
+msgstr "اسم الحساب"
 
 #: models.py:107
 msgid "Full name"
-msgstr ""
+msgstr "الاسم الشخصي كاملا"
 
 #: models.py:109
 msgid "Profile image URL (Retweeted by)"
@@ -107,15 +108,15 @@ msgstr ""
 
 #: models.py:119
 msgid "Tweet"
-msgstr ""
+msgstr "تغريدة"
 
 #: models.py:120
 msgid "Tweets"
-msgstr ""
+msgstr "تغريدات"
 
 #: templates/twitter/tweets.html:7
 msgid "Recent Tweets"
-msgstr ""
+msgstr "التغريدات الاخيرة"
 
 #: templates/twitter/tweets.html:20
 msgid "ago"

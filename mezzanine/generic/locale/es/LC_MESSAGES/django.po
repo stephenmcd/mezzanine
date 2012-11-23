@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2012.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
@@ -9,15 +9,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 16:59-0430\n"
-"PO-Revision-Date: 2012-10-14 21:38+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"PO-Revision-Date: 2012-10-17 17:24+0000\n"
+"Last-Translator: William Díaz <leprosys@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/language/es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:20 models.py:67
@@ -65,19 +65,15 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr "Si es ``True``, los comentarios incluidos en el sistema son aprobados por defecto."
 
 #: defaults.py:66
-msgid ""
-"Dotted path to the function to call on a comment's value before it is "
-"rendered to the template."
-msgstr ""
+msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
+msgstr "Trayectoria punteada a la función a llamar en el valor de un comentario antes de mostrarlo en la plantilla."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
 msgstr "Direcciones de correo electrónico para notificación de comentario"
 
 #: defaults.py:75
-msgid ""
-"A comma separated list of email addresses that will receive an email "
-"notification each time a new comment is posted on the site."
+msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
 msgstr "Una lista separada por comas de las direcciones de correo electrónico que recibirán una notificación por correo electrónico cada vez que se publique un nuevo comentario en el sitio."
 
 #: defaults.py:84
@@ -93,9 +89,7 @@ msgid "Show unapproved comments"
 msgstr "Mostrar comentarios aún no aprobados"
 
 #: defaults.py:94
-msgid ""
-"If ``True``, comments that have ``is_public`` unchecked will still be "
-"displayed, but replaced with a ``waiting to be approved`` message."
+msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
 msgstr "Si es ``True``, los comentarios que tienen ``is_public`` desactivado serán mostrados, pero reemplazados por un mensaje de ``en espera de aprobación``."
 
 #: defaults.py:103
@@ -103,9 +97,7 @@ msgid "Show removed comments"
 msgstr "Mostrar comentarios borrados"
 
 #: defaults.py:104
-msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
+msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
 msgstr "Si es ``True``, los comentarios que tienen ``removed`` activado serán mostrados pero reemplazados por un mensaje de ``Borrado``."
 
 #: defaults.py:113
@@ -177,9 +169,7 @@ msgid "Ratings"
 msgstr "Puntuaciones"
 
 #: views.py:53
-msgid ""
-"You must log in to comment. Please log in or sign up, and your comment will "
-"be posted."
+msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
 msgstr "Tienes que estar identificado en el sistema para comentar. Por favor identificate o registrate para que tu comentario sea publicado."
 
 #: views.py:89
@@ -207,14 +197,18 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr "\nEn %(submit_date)s %(user_name)s escribió:"
+msgstr ""
+"\n"
+"En %(submit_date)s %(user_name)s escribió:"
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr "\nEn %(submit_date)s %(user_name)s escribió:\n"
+msgstr ""
+"\n"
+"En %(submit_date)s %(user_name)s escribió:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

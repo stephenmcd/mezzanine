@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+#   <mathias.ettinger@gmail.com>, 2012.
 # Michał Oleniec <moleniec@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
-"PO-Revision-Date: 2012-08-26 13:23+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"PO-Revision-Date: 2012-10-26 11:00+0000\n"
+"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: admin.py:38
 msgid "Settings were successfully updated."
-msgstr ""
+msgstr "Ustawienia zostały zaktualizowane pomyślnie"
 
 #: admin.py:42
 msgid "Change"
@@ -40,7 +41,7 @@ msgstr "Ustawienia"
 
 #: templates/admin/conf/setting/change_list.html:8
 msgid "Please correct the errors below."
-msgstr "Proszę poprawić błędy poniżej."
+msgstr "Proszę poprawić poniższe błędy."
 
 #: templates/admin/conf/setting/change_list.html:31
 msgid "Save"

@@ -7,12 +7,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-22 00:10-0600\n"
-"PO-Revision-Date: 2012-10-14 21:32+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/"
-"language/it/)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"PO-Revision-Date: 2012-10-17 15:50+0000\n"
+"Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +20,7 @@ msgstr ""
 
 #: admin.py:20
 msgid "Other posts"
-msgstr ""
+msgstr "Altri articoli"
 
 #: defaults.py:20
 msgid "bit.ly username"
@@ -48,12 +47,8 @@ msgid "Use date URLs"
 msgstr "Usa URL contenenti date."
 
 #: defaults.py:44
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"Se ``True``, le URL dell'articolo del blog includono il mese e l'anno. Es.: /"
-"blog/aaaa/mm/slug/"
+msgid "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/"
+msgstr "Se ``True``, le URL dell'articolo del blog includono il mese e l'anno. Es.: /blog/aaaa/mm/slug/"
 
 #: defaults.py:52
 msgid "Blog posts per page"
@@ -67,44 +62,44 @@ msgstr "Numero di articoli mostrati su una pagina elenco del blog."
 msgid "Slug of the page object for the blog."
 msgstr "Slug dell'oggetto pagina per il blog."
 
-#: models.py:18 templates/blog/includes/filter_panel.html:35
+#: models.py:17 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
 msgstr "Categorie"
 
-#: models.py:20
+#: models.py:19
 msgid "Allow comments"
 msgstr "Permetti i commenti"
 
-#: models.py:22 templates/blog/blog_post_detail.html:43
+#: models.py:21 templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:126
 msgid "Comments"
 msgstr "Commenti"
 
-#: models.py:23
+#: models.py:22
 msgid "Rating"
 msgstr "Valutazione"
 
-#: models.py:24
+#: models.py:23
 msgid "Featured Image"
 msgstr "Immagine in evidenza"
 
-#: models.py:28 templates/blog/blog_post_detail.html:94
+#: models.py:27 templates/blog/blog_post_detail.html:94
 msgid "Related posts"
-msgstr ""
+msgstr "Articoli collegati"
 
-#: models.py:33
+#: models.py:32
 msgid "Blog post"
 msgstr "Articolo del blog"
 
-#: models.py:34
+#: models.py:33
 msgid "Blog posts"
 msgstr "Articoli del blog"
 
-#: models.py:80
+#: models.py:79
 msgid "Blog Category"
 msgstr "Categoria del blog"
 
-#: models.py:81
+#: models.py:80
 msgid "Blog Categories"
 msgstr "Categorie del blog"
 
@@ -218,6 +213,3 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
-
-#~ msgid "ago"
-#~ msgstr "fa"

@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Hilton Medeiros <medeiros.hilton@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 16:59-0430\n"
-"PO-Revision-Date: 2012-10-14 21:38+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"PO-Revision-Date: 2012-10-17 17:24+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/mezzanine/language/pt_PT/)\n"
+"Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:20 models.py:67
@@ -63,9 +63,7 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr ""
 
 #: defaults.py:66
-msgid ""
-"Dotted path to the function to call on a comment's value before it is "
-"rendered to the template."
+msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
 msgstr ""
 
 #: defaults.py:74
@@ -73,9 +71,7 @@ msgid "Comment notification email addresses"
 msgstr ""
 
 #: defaults.py:75
-msgid ""
-"A comma separated list of email addresses that will receive an email "
-"notification each time a new comment is posted on the site."
+msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
 msgstr ""
 
 #: defaults.py:84
@@ -91,9 +87,7 @@ msgid "Show unapproved comments"
 msgstr ""
 
 #: defaults.py:94
-msgid ""
-"If ``True``, comments that have ``is_public`` unchecked will still be "
-"displayed, but replaced with a ``waiting to be approved`` message."
+msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
 msgstr ""
 
 #: defaults.py:103
@@ -101,9 +95,7 @@ msgid "Show removed comments"
 msgstr ""
 
 #: defaults.py:104
-msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
+msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
 msgstr ""
 
 #: defaults.py:113
@@ -175,9 +167,7 @@ msgid "Ratings"
 msgstr "Avaliações"
 
 #: views.py:53
-msgid ""
-"You must log in to comment. Please log in or sign up, and your comment will "
-"be posted."
+msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
 msgstr "Você deve logar para comentar. Por favor faça o login ou registre-se, e seu comentário será postado."
 
 #: views.py:89

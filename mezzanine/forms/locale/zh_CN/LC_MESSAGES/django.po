@@ -1,25 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <chance.jiang@gmail.com>, 2012.
 # 王 充 <wjcroom@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 17:00-0430\n"
-"PO-Revision-Date: 2012-10-14 21:36+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: admin.py:32 fields.py:31
+#: admin.py:32 fields.py:33
 msgid "Email"
 msgstr "Email"
 
@@ -27,16 +27,18 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] "Pluralized Translations\none:1个条目被删除\n\nother:%(count)s 个条目被删除"
+msgstr[0] ""
+"Pluralized Translations\n"
+"one:1个条目被删除\n"
+"\n"
+"other:%(count)s 个条目被删除"
 
 #: admin.py:119
 msgid "View Entries"
 msgstr "查看条目"
 
 #: defaults.py:20
-msgid ""
-"If ``True``, emails sent to extra recipients for form submissions won't be "
-"sent from an address taken from one of the form's email fields."
+msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
 msgstr "如果``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
 
 #: defaults.py:29
@@ -55,59 +57,63 @@ msgstr "在导出反应时做为CSV分隔符的字符"
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "存放上传forms app 文件的绝对路径"
 
-#: fields.py:29
+#: defaults.py:58
+msgid "Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts."
+msgstr ""
+
+#: fields.py:31
 msgid "Single line text"
 msgstr "单行文本"
 
-#: fields.py:30
+#: fields.py:32
 msgid "Multi line text"
 msgstr "多行文本"
 
-#: fields.py:32
+#: fields.py:34
 msgid "Number"
 msgstr "数字"
 
-#: fields.py:33
+#: fields.py:35
 msgid "URL"
 msgstr "URL"
 
-#: fields.py:34
+#: fields.py:36
 msgid "Check box"
 msgstr "选择框"
 
-#: fields.py:35
+#: fields.py:37
 msgid "Check boxes"
 msgstr "多个选择框"
 
-#: fields.py:36
+#: fields.py:38
 msgid "Drop down"
 msgstr "下拉"
 
-#: fields.py:37
+#: fields.py:39
 msgid "Multi select"
 msgstr "多选"
 
-#: fields.py:38
+#: fields.py:40
 msgid "Radio buttons"
 msgstr "多选按钮"
 
-#: fields.py:39
+#: fields.py:41
 msgid "File upload"
 msgstr "文件上传"
 
-#: fields.py:40
+#: fields.py:42
 msgid "Date"
 msgstr "日期"
 
-#: fields.py:41 models.py:116
+#: fields.py:43 models.py:116
 msgid "Date/time"
 msgstr "日期/时间"
 
-#: fields.py:42
+#: fields.py:44
 msgid "Date of birth"
 msgstr ""
 
-#: fields.py:43
+#: fields.py:45
 msgid "Hidden"
 msgstr "隐藏"
 
@@ -168,9 +174,7 @@ msgid "Send email to user"
 msgstr "发邮件给用户"
 
 #: models.py:21
-msgid ""
-"To send an email to the email address supplied in the form upon submission, "
-"check this box."
+msgid "To send an email to the email address supplied in the form upon submission, check this box."
 msgstr "提交时如果要给表单中的邮箱发送邮件，则勾选此项。"
 
 #: models.py:23
@@ -186,9 +190,7 @@ msgid "Send email to others"
 msgstr "发邮件给其他人"
 
 #: models.py:26
-msgid ""
-"Provide a comma separated list of email addresses to be notified upon form "
-"submission. Leave blank to disable notifications."
+msgid "Provide a comma separated list of email addresses to be notified upon form submission. Leave blank to disable notifications."
 msgstr "提供用分号 ';' 隔开的邮件地址，以便表单提交时向这些邮件发送提醒。如不需要提醒则留空。"
 
 #: models.py:30
@@ -200,10 +202,7 @@ msgid "Message"
 msgstr "信息"
 
 #: models.py:32
-msgid ""
-"Emails sent based on the above options will contain each of the form fields "
-"entered. You can also enter a message here that will be included in the "
-"email."
+msgid "Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in the email."
 msgstr "基于上述选项发送的邮件将包含表单里已输入的所有字段。你也可以在这里输入一段文字，它将出现在邮件中。"
 
 #: models.py:37
@@ -235,9 +234,7 @@ msgid "Choices"
 msgstr "选择"
 
 #: models.py:61
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
 msgstr "逗号分隔适用，如果一个选项包含分隔符，则用反引号引起。"
 
 #: models.py:63

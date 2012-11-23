@@ -1,25 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
+# Husam M. ALFarra <husamfarra@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-10-14 16:59-0430\n"
-"PO-Revision-Date: 2012-10-14 21:38+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"PO-Revision-Date: 2012-11-05 05:30+0000\n"
+"Last-Translator: Husam M. ALFarra <husamfarra@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/language/ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: admin.py:20 models.py:67
 msgid "User"
-msgstr ""
+msgstr "مستخدم"
 
 #: defaults.py:24
 msgid "Accounts required for commenting"
@@ -62,9 +63,7 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr ""
 
 #: defaults.py:66
-msgid ""
-"Dotted path to the function to call on a comment's value before it is "
-"rendered to the template."
+msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
 msgstr ""
 
 #: defaults.py:74
@@ -72,9 +71,7 @@ msgid "Comment notification email addresses"
 msgstr ""
 
 #: defaults.py:75
-msgid ""
-"A comma separated list of email addresses that will receive an email "
-"notification each time a new comment is posted on the site."
+msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
 msgstr ""
 
 #: defaults.py:84
@@ -90,9 +87,7 @@ msgid "Show unapproved comments"
 msgstr ""
 
 #: defaults.py:94
-msgid ""
-"If ``True``, comments that have ``is_public`` unchecked will still be "
-"displayed, but replaced with a ``waiting to be approved`` message."
+msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
 msgstr ""
 
 #: defaults.py:103
@@ -100,9 +95,7 @@ msgid "Show removed comments"
 msgstr ""
 
 #: defaults.py:104
-msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
+msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
 msgstr ""
 
 #: defaults.py:113
@@ -115,27 +108,27 @@ msgstr ""
 
 #: forms.py:79
 msgid "Name"
-msgstr ""
+msgstr "الأسم"
 
 #: forms.py:79
 msgid "required"
-msgstr ""
+msgstr "مطلوب"
 
 #: forms.py:81
 msgid "Email"
-msgstr ""
+msgstr "البريد الالكتروني"
 
 #: forms.py:82
 msgid "required (not published)"
-msgstr ""
+msgstr "مطلوب(غير منشر)"
 
 #: forms.py:83
 msgid "Website"
-msgstr ""
+msgstr "الموقع "
 
 #: forms.py:83
 msgid "optional"
-msgstr ""
+msgstr "خيار"
 
 #: models.py:24
 msgid "By the blog author"
@@ -143,7 +136,7 @@ msgstr ""
 
 #: models.py:31 models.py:59
 msgid "Comment"
-msgstr ""
+msgstr "تعليق"
 
 #: models.py:32 templates/generic/includes/comments.html:3
 msgid "Comments"
@@ -151,19 +144,19 @@ msgstr "تعليقات"
 
 #: models.py:71
 msgid "View on site"
-msgstr ""
+msgstr "مشاهدة الموقع"
 
 #: models.py:91
 msgid "Keyword"
-msgstr ""
+msgstr "الكلمة المفتاحية"
 
 #: models.py:92
 msgid "Keywords"
-msgstr ""
+msgstr "الكلمات المفتاحية "
 
 #: models.py:120
 msgid "Value"
-msgstr ""
+msgstr "قيمة"
 
 #: models.py:126
 msgid "Rating"
@@ -171,13 +164,11 @@ msgstr "تقييم"
 
 #: models.py:127
 msgid "Ratings"
-msgstr ""
+msgstr "تقييم"
 
 #: views.py:53
-msgid ""
-"You must log in to comment. Please log in or sign up, and your comment will "
-"be posted."
-msgstr ""
+msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
+msgstr "يجب عليك الولوج . فضل سجل أو ولج وسوف يتم نشر تعليقك "
 
 #: views.py:89
 msgid "New comment for: "
@@ -185,7 +176,7 @@ msgstr ""
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
-msgstr ""
+msgstr "آخر عليق"
 
 #: templates/admin/includes/recent_comments.html:22
 #: templates/generic/includes/comment.html:22
@@ -215,20 +206,20 @@ msgstr ""
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"
-msgstr ""
+msgstr "رابط"
 
 #: templates/generic/includes/comment.html:26
 #: templates/generic/includes/comment.html:36
 msgid "Reply"
-msgstr ""
+msgstr "اجابة"
 
 #: templates/generic/includes/comment.html:59
 msgid "Comment deleted"
-msgstr ""
+msgstr "ازالة التعليق"
 
 #: templates/generic/includes/comment.html:61
 msgid "Comment awaiting approval"
-msgstr ""
+msgstr "تعليق  في انتظار الموافقة"
 
 #: templates/generic/includes/comment.html:72
 msgid "There are currently no comments"
@@ -236,11 +227,11 @@ msgstr ""
 
 #: templates/generic/includes/comments.html:16
 msgid "New Comment"
-msgstr ""
+msgstr "تعليق جديد"
 
 #: templates/generic/includes/comments.html:24
 msgid "Send"
-msgstr ""
+msgstr "ارسل"
 
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"
