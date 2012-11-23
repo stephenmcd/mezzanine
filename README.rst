@@ -198,6 +198,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzanine-pagedown`_ - Adds the `Pagedown`_ WYSIWYG editor to
      Mezzanine.
   * `mezzanine-careers`_ - Job posting application for Mezzanine.
+  * `mezzanine-recipes`_ - Recipes plugin with built-in REST API.
 
 Donating
 ========
@@ -430,6 +431,7 @@ Quotes
 .. _`mezzanine-pagedown`: https://bitbucket.org/akhayyat/mezzanine-pagedown
 .. _`PageDown`: https://code.google.com/p/pagedown/
 .. _`mezzanine-careers`: https://github.com/mogga/mezzanine-careers
+.. _`mezzanine-recipes`: https://github.com/tjetzinger/mezzanine-recipes
 
 
 .. PEOPLE WITH QUOTES
