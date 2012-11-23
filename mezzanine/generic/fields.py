@@ -89,7 +89,7 @@ class BaseGenericRelation(GenericRelation):
         if issubclass(for_model, self.model):
             instance_id = kwargs["instance"].object_pk
             try:
-                instance = self.model.objects.get(id=instance_id)
+                instance = for_model.objects.get(id=instance_id)
             except self.model.DoesNotExist:
                 # Instance itself was deleted - signals are irrelevant.
                 return
