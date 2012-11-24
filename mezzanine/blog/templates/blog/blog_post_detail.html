@@ -88,6 +88,25 @@
 <a class="btn small primary share-facebook" target="_blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&amp;t={{ blog_post.title|urlencode }}">{% trans "Share on Facebook" %}</a>
 {% endblock %}
 
+{% block blog_post_detail_nav %}
+<ul class="pager">
+{% with blog_post.get_previous_by_publish_date as previous %}
+{% if previous %}
+<li class="previous">
+    <a href="{{ previous.get_absolute_url }}">&larr; {{ previous }}</a>
+</li>
+{% endif %}
+{% endwith %}
+{% with blog_post.get_next_by_publish_date as next %}
+{% if next %}
+<li class="next">
+    <a href="{{ next.get_absolute_url }}">{{ next }} &rarr;</a>
+</li>
+{% endif %}
+{% endwith %}
+</ul>
+{% endblock %}
+
 {% block blog_post_detail_related_posts %}
 {% if blog_post.related_posts.all %}
 <div id="related-posts">

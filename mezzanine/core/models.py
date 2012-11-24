@@ -228,6 +228,37 @@ class Displayable(Slugged, MetaData):
         raise NotImplementedError("The model %s does not have "
                                   "get_absolute_url defined" % name)
 
+    def _get_next_or_previous_by_publish_date(self, is_next, **kwargs):
+        """
+        Retrieves next or previous object by publish date. We implement
+        our own version instead of Django's so we can hook into the
+        published manager and concrete subclasses.
+        """
+        arg = "publish_date__gt" if is_next else "publish_date__lt"
+        order = "publish_date" if is_next else "-publish_date"
+        lookup = {arg: self.publish_date}
+        concrete_model = base_concrete_model(Displayable, self)
+        try:
+            queryset = concrete_model.objects.published
+        except AttributeError:
+            queryset = concrete_model.objects.all
+        try:
+            return queryset(**kwargs).filter(**lookup).order_by(order)[0]
+        except IndexError:
+            pass
+
+    def get_next_by_publish_date(self, **kwargs):
+        """
+        Retrieves next object by publish date.
+        """
+        return self._get_next_or_previous_by_publish_date(True, **kwargs)
+
+    def get_previous_by_publish_date(self, **kwargs):
+        """
+        Retrieves previous object by publish date.
+        """
+        return self._get_next_or_previous_by_publish_date(False, **kwargs)
+
 
 class RichText(models.Model):
     """
@@ -325,12 +356,15 @@ class Orderable(models.Model):
         after.update(_order=models.F("_order") - 1)
         super(Orderable, self).delete(*args, **kwargs)
 
-    def adjacent_by_order(self, direction, **kwargs):
+    def _get_next_or_previous_by_order(self, is_next, **kwargs):
         """
-        Retrieves next object by order in the given direction.
+        Retrieves next or previous object by order. We implement our
+        own version instead of Django's so we can hook into the
+        published manager, concrete subclasses and our custom
+        ``with_respect_to`` method.
         """
         lookup = self.with_respect_to()
-        lookup["_order"] = self._order + direction
+        lookup["_order"] = self._order + (1 if is_next else -1)
         concrete_model = base_concrete_model(Orderable, self)
         try:
             queryset = concrete_model.objects.published
@@ -341,17 +375,17 @@ class Orderable(models.Model):
         except concrete_model.DoesNotExist:
             pass
 
-    def next_by_order(self, **kwargs):
+    def get_next_by_order(self, **kwargs):
         """
         Retrieves next object by order.
         """
-        return self.adjacent_by_order(1, **kwargs)
+        return self._get_next_or_previous_by_order(True, **kwargs)
 
-    def previous_by_order(self, **kwargs):
+    def get_previous_by_order(self, **kwargs):
         """
         Retrieves previous object by order.
         """
-        return self.adjacent_by_order(-1, **kwargs)
+        return self._get_next_or_previous_by_order(False, **kwargs)
 
 
 class Ownable(models.Model):
