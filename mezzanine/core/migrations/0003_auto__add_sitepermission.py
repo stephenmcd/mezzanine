@@ -8,28 +8,28 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'AdminProfile'
-        db.create_table('core_adminprofile', (
+        # Adding model 'SitePermission'
+        db.create_table('core_sitepermission', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
         ))
-        db.send_create_signal('core', ['AdminProfile'])
+        db.send_create_signal('core', ['SitePermission'])
 
-        # Adding M2M table for field sites on 'AdminProfile'
-        db.create_table('core_adminprofile_sites', (
+        # Adding M2M table for field sites on 'SitePermission'
+        db.create_table('core_sitepermission_sites', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('adminprofile', models.ForeignKey(orm['core.adminprofile'], null=False)),
+            ('sitepermission', models.ForeignKey(orm['core.sitepermission'], null=False)),
             ('site', models.ForeignKey(orm['sites.site'], null=False))
         ))
-        db.create_unique('core_adminprofile_sites', ['adminprofile_id', 'site_id'])
+        db.create_unique('core_sitepermission_sites', ['sitepermission_id', 'site_id'])
 
 
     def backwards(self, orm):
-        # Deleting model 'AdminProfile'
-        db.delete_table('core_adminprofile')
+        # Deleting model 'SitePermission'
+        db.delete_table('core_sitepermission')
 
-        # Removing M2M table for field sites on 'AdminProfile'
-        db.delete_table('core_adminprofile_sites')
+        # Removing M2M table for field sites on 'SitePermission'
+        db.delete_table('core_sitepermission_sites')
 
 
     models = {
@@ -69,8 +69,8 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'core.adminprofile': {
-            'Meta': {'object_name': 'AdminProfile'},
+        'core.sitepermission': {
+            'Meta': {'object_name': 'SitePermission'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'sites': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['sites.Site']", 'symmetrical': 'False'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True'})

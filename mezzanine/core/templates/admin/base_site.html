@@ -47,7 +47,7 @@ window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 
 {% block footer %}
 {{ block.super }}
-{% if request.user.is_staff %}
+{% if request.user.has_site_permission %}
     {% if not is_popup and not request.GET.pop %}
     <script src="{{ STATIC_URL }}mezzanine/js/admin/navigation.js"></script>
     {% endif %}

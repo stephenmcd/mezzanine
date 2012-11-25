@@ -1,4 +1,5 @@
 
+from django.contrib import admin
 from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
 from django.http import (HttpResponse, HttpResponseRedirect,
@@ -7,10 +8,12 @@ from django.utils.cache import get_max_age
 from django.template import Template, RequestContext
 
 from mezzanine.conf import settings
+from mezzanine.core.models import SitePermission
 from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
                                    cache_get, cache_set, cache_installed)
 from mezzanine.utils.device import templates_for_device
-from mezzanine.utils.sites import can_access_admin_site, templates_for_host
+from mezzanine.utils.sites import current_site_id, templates_for_host
+
 
 _deprecated = {
     "AdminLoginInterfaceSelector": "AdminLoginInterfaceSelectorMiddleware",
@@ -36,8 +39,6 @@ class AdminLoginInterfaceSelectorMiddleware(object):
     """
     Checks for a POST from the admin login view and if authentication is
     successful and the "site" interface is selected, redirect to the site.
-
-    TODO: Just make this a view and post to it.
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
         login_type = request.POST.get("mezzanine_login_interface")
@@ -53,16 +54,32 @@ class AdminLoginInterfaceSelectorMiddleware(object):
                 return response
         return None
 
-class AdminSiteAccessMiddleware(object):
+
+class SitePermissionMiddleware(object):
     """
-    Checks if an admin user has access to the current site.  If not returns a forbidden.
+    Marks the current user with a ``has_site_permission`` which is
+    used in place of ``user.is_staff`` to achieve per-site staff
+    access.
     """
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if can_access_admin_site(request.user):
-            request.user.has_current_site_access = True
-        else:
-            request.user.has_current_site_access = False
-        return None
+        has_site_permission = False
+        if request.user.is_superuser:
+            has_site_permission = True
+        elif request.user.is_staff:
+            lookup = {"user": request.user, "sites": current_site_id()}
+            try:
+                SitePermission.objects.get(**lookup)
+            except SitePermission.DoesNotExist:
+                admin_index = reverse("admin:index")
+                if request.path.startswith(admin_index):
+                    logout(request)
+                    view_func = admin.site.login
+                    extra_context = {"no_site_permission": True}
+                    return view_func(request, extra_context=extra_context)
+            else:
+                has_site_permission = True
+        request.user.has_site_permission = has_site_permission
+
 
 class TemplateForDeviceMiddleware(object):
     """

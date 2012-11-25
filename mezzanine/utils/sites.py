@@ -55,19 +55,24 @@ def current_site_id():
     return site_id
 
 
-def can_access_admin_site(user, site_id=None):
+def has_site_permission(user):
     """
-    Returns true if the user has admin access to the site indicated by site_id
+    Checks if a staff user has staff-level access for the current site.
+    The actual permission lookup occurs in ``SitePermissionMiddleware``
+    which then marks the request with the ``has_site_permission`` flag,
+    so that we only query the db once per request, so this function
+    serves as the entry point for everything else to check access. We
+    also fall back to an ``is_staff`` check if the middleware is not
+    installed, to ease migration.
     """
-    if user.is_staff and user.is_active:
-        if not site_id:
-            site_id = current_site_id()
-        try:
-            if user.is_superuser or user.adminprofile.sites.filter(id=site_id):
-                return True
-        except AdminProfile.DoesNotExist:
-            pass
-    return False
+    mw = "mezzanine.core.middleware.SitePermissionMiddleware"
+    if mw not in settings.MIDDLEWARE_CLASSES:
+        from warnings import warn
+        warn(mw + " missing from settings.MIDDLEWARE_CLASSES - per site"
+             "permissions not applied")
+        return user.is_staff and user.is_active
+    return getattr(user, "has_site_permission", False)
+
 
 def host_theme_path(request):
     """

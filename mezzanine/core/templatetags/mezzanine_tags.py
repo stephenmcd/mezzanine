@@ -34,7 +34,7 @@ from mezzanine.core.forms import get_edit_form
 from mezzanine.utils.cache import nevercache_token, cache_installed
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.sites import can_access_admin_site, current_site_id
+from mezzanine.utils.sites import current_site_id, has_site_permission
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.views import is_editable
 from mezzanine import template
@@ -303,18 +303,13 @@ def editable_loader(context):
     """
     Set up the required JS/CSS for the in-line editing toolbar and controls.
     """
-    context['load_editor'] = False
-    user = context['request'].user
-    if user.is_staff:
-        try:
-            if user.has_current_site_access:
-                context['load_editor'] = True
-                t = get_template("includes/editable_toolbar.html")
-                context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
-                context["toolbar"] = t.render(Context(context))
-                context["richtext_media"] = RichTextField().formfield().widget.media
-        except AttributeError:
-            pass
+    user = context["request"].user
+    context["has_site_permission"] = has_site_permission(user)
+    if context["has_site_permission"]:
+        t = get_template("includes/editable_toolbar.html")
+        context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
+        context["toolbar"] = t.render(Context(context))
+        context["richtext_media"] = RichTextField().formfield().widget.media
     return context
 
 
@@ -488,7 +483,7 @@ def admin_dropdown_menu(context):
     if user.is_superuser:
         context["dropdown_menu_sites"] = list(Site.objects.all())
     else:
-        context["dropdown_menu_sites"] = list(user.adminprofile.sites.all())
+        context["dropdown_menu_sites"] = list(user.sitepermission.sites.all())
     context["dropdown_menu_selected_site_id"] = current_site_id()
     return context
 

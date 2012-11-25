@@ -19,21 +19,6 @@ from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.timezone import now
 from mezzanine.utils.urls import admin_url, slugify
 
-class AdminProfile(models.Model):
-    """
-    Makes it possible to assign specific sites to admin users so that they can
-    be restricted to only editing those sites.
-    """
-    user = models.OneToOneField(User)
-    sites = models.ManyToManyField("sites.Site")
-
-def create_admin_profile(sender, **kw):
-    user = kw["instance"]
-    if user.is_staff:
-        profile, created = AdminProfile.objects.get_or_create(user=user)
-        if created or profile.sites.count() < 1:
-            profile.sites.add(current_site_id())
-post_save.connect(create_admin_profile, sender=User)
 
 class SiteRelated(models.Model):
     """
@@ -383,3 +368,22 @@ class Ownable(models.Model):
         Restrict in-line editing to the objects's owner and superusers.
         """
         return request.user.is_superuser or request.user.id == self.user_id
+
+
+class SitePermission(models.Model):
+    """
+    Permission relationship between a user and a site that's
+    used instead of ``User.is_staff``, for admin and inline-editing
+    access.
+    """
+    user = models.OneToOneField("auth.User")
+    sites = models.ManyToManyField("sites.Site", blank=True)
+
+
+def create_site_permission(sender, **kw):
+    user = kw["instance"]
+    if user.is_staff and not user.is_superuser:
+        perm, created = SitePermission.objects.get_or_create(user=user)
+        if created or perm.sites.count() < 1:
+            perm.sites.add(current_site_id())
+post_save.connect(create_site_permission, sender=User)
