@@ -17,6 +17,9 @@
 <p class="errornote">{{ error }}</p>
 {% endfor %}
 {% endif %}
+{% if no_site_permission %}
+<p class="errornote">{% trans "You don't have permission to access the admin for this site." %}</p>
+{% endif %}
 
 <form action="{{ app_path }}" method="post" id="login-form">
     {% csrf_token %}

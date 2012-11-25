@@ -7,6 +7,7 @@ from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.staticfiles import finders
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.db.models import get_model
 from django.http import (HttpResponse, HttpResponseServerError,
@@ -19,9 +20,10 @@ from django.views.decorators.csrf import requires_csrf_token
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
-from mezzanine.core.models import Displayable
+from mezzanine.core.models import Displayable, SitePermission
 from mezzanine.utils.cache import add_cache_bypass
 from mezzanine.utils.views import is_editable, paginate, render, set_cookie
+from mezzanine.utils.sites import has_site_permission
 
 
 def set_device(request, device=""):
@@ -42,7 +44,13 @@ def set_site(request):
     site ID is then used in favour of the current request's
     domain in ``mezzanine.core.managers.CurrentSiteManager``.
     """
-    request.session["site_id"] = int(request.GET["site_id"])
+    site_id = int(request.GET["site_id"])
+    if not request.user.is_superuser:
+        try:
+            SitePermission.objects.get(user=request.user, sites=site_id)
+        except SitePermission.DoesNotExist:
+            raise PermissionDenied
+    request.session["site_id"] = site_id
     admin_url = reverse("admin:index")
     next = request.GET.get("next", admin_url)
     # Don't redirect to a change view for an object that won't exist
@@ -76,7 +84,7 @@ def edit(request):
     obj = model.objects.get(id=request.POST["id"])
     form = get_edit_form(obj, request.POST["fields"], data=request.POST,
                          files=request.FILES)
-    if not is_editable(obj, request):
+    if not (is_editable(obj, request) and has_site_permission(request.user)):
         response = _("Permission denied")
     elif form.is_valid():
         form.save()

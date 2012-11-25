@@ -34,7 +34,7 @@ from mezzanine.core.forms import get_edit_form
 from mezzanine.utils.cache import nevercache_token, cache_installed
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.sites import current_site_id
+from mezzanine.utils.sites import current_site_id, has_site_permission
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.views import is_editable
 from mezzanine import template
@@ -303,10 +303,13 @@ def editable_loader(context):
     """
     Set up the required JS/CSS for the in-line editing toolbar and controls.
     """
-    t = get_template("includes/editable_toolbar.html")
-    context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
-    context["toolbar"] = t.render(Context(context))
-    context["richtext_media"] = RichTextField().formfield().widget.media
+    user = context["request"].user
+    context["has_site_permission"] = has_site_permission(user)
+    if context["has_site_permission"]:
+        t = get_template("includes/editable_toolbar.html")
+        context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
+        context["toolbar"] = t.render(Context(context))
+        context["richtext_media"] = RichTextField().formfield().widget.media
     return context
 
 
@@ -476,7 +479,11 @@ def admin_dropdown_menu(context):
     Renders the app list for the admin dropdown menu navigation.
     """
     context["dropdown_menu_app_list"] = admin_app_list(context["request"])
-    context["dropdown_menu_sites"] = list(Site.objects.all())
+    user = context["request"].user
+    if user.is_superuser:
+        context["dropdown_menu_sites"] = list(Site.objects.all())
+    else:
+        context["dropdown_menu_sites"] = list(user.sitepermission.sites.all())
     context["dropdown_menu_selected_site_id"] = current_site_id()
     return context
 

@@ -12,19 +12,23 @@ from django.utils.translation import ugettext as _
 
 import mezzanine
 from mezzanine.conf import settings
+from mezzanine.utils.sites import has_site_permission
 
 
 def is_editable(obj, request):
     """
-    Returns ``True`` if the object is editable for the request. First check
-    for a custom ``editable`` handler on the object, otherwise use the logged
-    in user and check change permissions for the object's model.
+    Returns ``True`` if the object is editable for the request. First
+    check for a custom ``editable`` handler on the object, otherwise
+    use the logged in user and check change permissions for the
+    object's model.
     """
     if hasattr(obj, "is_editable"):
         return obj.is_editable(request)
     else:
         perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
-        return request.user.is_authenticated() and request.user.has_perm(perm)
+        return (request.user.is_authenticated() and
+                has_site_permission(request.user) and
+                request.user.has_perm(perm))
 
 
 def is_spam(request, form, url):

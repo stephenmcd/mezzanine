@@ -1,4 +1,7 @@
+
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 from django.db.models import AutoField
 from django.forms import ValidationError
 from django.http import HttpResponseRedirect
@@ -7,7 +10,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
-from mezzanine.core.models import CONTENT_STATUS_PUBLISHED, Orderable
+from mezzanine.core.models import (Orderable, SitePermission,
+                                   CONTENT_STATUS_PUBLISHED)
 from mezzanine.utils.urls import admin_url
 
 
@@ -201,3 +205,20 @@ class SingletonAdmin(admin.ModelAdmin):
         kwargs["extra_context"]["singleton"] = self.model.objects.count() == 1
         response = super(SingletonAdmin, self).change_view(*args, **kwargs)
         return self.handle_save(args[0], response)
+
+
+###########################################
+# Site Permissions Inlines for User Admin #
+###########################################
+
+class SitePermissionInline(admin.TabularInline):
+    model = SitePermission
+    max_num = 1
+    can_delete = False
+
+
+class SitePermissionUserAdmin(UserAdmin):
+    inlines = [SitePermissionInline]
+
+admin.site.unregister(User)
+admin.site.register(User, SitePermissionUserAdmin)

@@ -1,8 +1,10 @@
 
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.base import ModelBase
+from django.db.models.signals import post_save
 from django.template.defaultfilters import truncatewords_html
 from django.utils.html import strip_tags
 from django.utils.timesince import timesince
@@ -404,3 +406,22 @@ class Ownable(models.Model):
         Restrict in-line editing to the objects's owner and superusers.
         """
         return request.user.is_superuser or request.user.id == self.user_id
+
+
+class SitePermission(models.Model):
+    """
+    Permission relationship between a user and a site that's
+    used instead of ``User.is_staff``, for admin and inline-editing
+    access.
+    """
+    user = models.OneToOneField("auth.User")
+    sites = models.ManyToManyField("sites.Site", blank=True)
+
+
+def create_site_permission(sender, **kw):
+    user = kw["instance"]
+    if user.is_staff and not user.is_superuser:
+        perm, created = SitePermission.objects.get_or_create(user=user)
+        if created or perm.sites.count() < 1:
+            perm.sites.add(current_site_id())
+post_save.connect(create_site_permission, sender=User)
