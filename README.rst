@@ -196,7 +196,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
     Google Calendar/Maps.
   * `mezzanine-polls`_ - Polls application for Mezzanine.
   * `mezzanine-pagedown`_ - Adds the `Pagedown`_ WYSIWYG editor to
-     Mezzanine.
+    Mezzanine.
   * `mezzanine-careers`_ - Job posting application for Mezzanine.
   * `mezzanine-recipes`_ - Recipes plugin with built-in REST API.
 
