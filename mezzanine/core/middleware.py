@@ -1,6 +1,5 @@
 
 from django.contrib import admin
-from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponsePermanentRedirect)
@@ -72,7 +71,6 @@ class SitePermissionMiddleware(object):
             except SitePermission.DoesNotExist:
                 admin_index = reverse("admin:index")
                 if request.path.startswith(admin_index):
-                    logout(request)
                     view_func = admin.site.login
                     extra_context = {"no_site_permission": True}
                     return view_func(request, extra_context=extra_context)
