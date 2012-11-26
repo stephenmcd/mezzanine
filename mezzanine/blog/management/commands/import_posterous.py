@@ -70,12 +70,11 @@ class Command(BaseImporterCommand):
                     "Please pass your blog hostname if you have more than"
                     " one blog on your posterous account."
                 )
-
-        path = 'sites/%s/posts' % site['id']
         page = 1
         while True:
+            path = 'sites/%s/posts' % site['id']
+            time.sleep(2)
             posts = self.request(path, data={'page': page})
-            print len(posts)
             if not posts:
                 break
             for post in posts:
@@ -123,4 +122,3 @@ class Command(BaseImporterCommand):
                         body=body
                     )
             page += 1
-            time.sleep(2)
