@@ -42,7 +42,7 @@ class PageMiddleware(object):
         else:
             # If we can't find a page matching this slug or any
             # of its sub-slugs, skip all further processing.
-            return view_func(request, *view_args, **view_kwargs)
+            return None
 
         # Handle ``page.login_required``.
         if page.login_required and not request.user.is_authenticated():
