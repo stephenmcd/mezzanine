@@ -465,6 +465,16 @@ register_setting(
     default="mezzanine/js/tinymce_setup.js",
 )
 
+register_setting(
+    name="UPLOAD_TO_HANDLERS",
+    description=_("Dict mapping file field names in the format "
+        "``app_label.model_name.field_name`` to the Python dotted path "
+        "to function names that will be used for the file field's "
+        "``upload_to`` argument."),
+    editable=False,
+    default={},
+)
+
 # The following settings are defined here for documentation purposes
 # as this file is used to auto-generate the documentation for all
 # available settings. They are Mezzanine specific, but their values

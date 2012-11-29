@@ -3,6 +3,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model, Field
 
 from mezzanine.conf import settings
+from mezzanine.utils.importing import import_dotted_path
 
 
 def base_concrete_model(abstract, instance):
@@ -42,6 +43,18 @@ def base_concrete_model(abstract, instance):
         if issubclass(cls, abstract) and not cls._meta.abstract:
             return cls
     return instance.__class__
+
+
+def upload_to(field_path, default):
+    """
+    Used as the ``upload_to`` arg for file fields - allows for custom
+    handlers to be implemented on a per field basis defined by the
+    ``UPLOAD_TO_HANDLERS`` setting.
+    """
+    for k, v in settings.UPLOAD_TO_HANDLERS.items():
+        if k.lower() == field_path.lower():
+            return import_dotted_path(v)
+    return default
 
 
 class AdminThumbMixin(object):
