@@ -70,7 +70,7 @@ class DynamicInlineAdminForm(forms.ModelForm):
     """
 
     class Media:
-        js = ("mezzanine/js/jquery-ui-1.8.14.custom.min.js",
+        js = ("mezzanine/js/jquery-ui-1.9.1.custom.min.js",
               "mezzanine/js/admin/dynamic_inline.js",)
 
     def __init__(self, *args, **kwargs):
