@@ -335,6 +335,7 @@ Sites Using Mezzanine
   * `SiteComb <http://www.sitecomb.com>`_
   * `Dashing Collective <http://dashing.tv/>`_
   * `Puraforce Remedies <http://puraforceremedies.com/>`_
+  * `Google's VetNet <http://www.vetnethq.com/>`_
 
 Quotes
 ======
