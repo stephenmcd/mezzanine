@@ -48,7 +48,7 @@ Importing from Wordpress
 Dependencies
 ------------
 
-  * Mark Pilgrim's `feedparser <http://www.feedparser.org/>`_
+  * Mark Pilgrim's `feedparser <http://code.google.com/p/feedparser/>`_
 
 The first step is to export your Wordpress data. Login to Wordpress and
 go to ``Settings -> Export``. Here you can select your filters,
@@ -104,7 +104,7 @@ Importing RSS
 Dependencies
 ------------
 
-  * Mark Pilgrim's `feedparser <http://www.feedparser.org/>`_
+  * Mark Pilgrim's `feedparser <http://code.google.com/p/feedparser/>`_
 
 Simply run the ``import_rss`` command where the ``rss-url`` argument
 contains the URL for your RSS feed::
