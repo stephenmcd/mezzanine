@@ -70,7 +70,7 @@ Importing from Blogger
 
 The Blogger import currently has one known limitation which is a
 maximum of 500 blogs or 500 comments per blog that can be imported.
-If you have more than this the import will still but end up being
+If you have more than this the import will still work but end up being
 truncated.
 
 Dependencies
