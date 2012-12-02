@@ -155,8 +155,8 @@ class MetaData(models.Model):
         if not description:
             description = unicode(self)
         # Strip everything after the first block or sentence.
-        ends = ("</p>", "<br />", "<br/>", "<br>", "</ul>",
-                "\n", ". ", "! ", "? ")
+        ends = ("\n", "</p>", "<br />", "<br/>", "<br>",
+                "</ul>", ". ", "! ", "? ")
         for end in ends:
             pos = description.lower().find(end)
             if pos > -1:
