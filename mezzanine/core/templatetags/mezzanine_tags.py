@@ -15,6 +15,7 @@ from django.template import (Context, Node, TextNode, Template,
                              TemplateSyntaxError, TOKEN_TEXT, TOKEN_VAR,
                              TOKEN_COMMENT, TOKEN_BLOCK)
 
+from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
@@ -195,7 +196,7 @@ def metablock(parsed):
     Remove HTML tags, entities and superfluous characters from meta blocks.
     """
     parsed = " ".join(parsed.replace("\n", "").split()).replace(" ,", ",")
-    return strip_tags(decode_entities(parsed))
+    return escape(strip_tags(decode_entities(parsed)))
 
 
 @register.inclusion_tag("includes/pagination.html", takes_context=True)
