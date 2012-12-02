@@ -48,7 +48,7 @@ Importing from Wordpress
 Dependencies
 ------------
 
-  * Mark Pilgrim's `feedparser <http://www.feedparser.org/>`_
+  * Mark Pilgrim's `feedparser <http://code.google.com/p/feedparser/>`_
 
 The first step is to export your Wordpress data. Login to Wordpress and
 go to ``Settings -> Export``. Here you can select your filters,
@@ -70,7 +70,7 @@ Importing from Blogger
 
 The Blogger import currently has one known limitation which is a
 maximum of 500 blogs or 500 comments per blog that can be imported.
-If you have more than this the import will still but end up being
+If you have more than this the import will still work but end up being
 truncated.
 
 Dependencies
@@ -104,7 +104,7 @@ Importing RSS
 Dependencies
 ------------
 
-  * Mark Pilgrim's `feedparser <http://www.feedparser.org/>`_
+  * Mark Pilgrim's `feedparser <http://code.google.com/p/feedparser/>`_
 
 Simply run the ``import_rss`` command where the ``rss-url`` argument
 contains the URL for your RSS feed::
