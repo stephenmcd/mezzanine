@@ -10,7 +10,6 @@ from django.utils.html import strip_tags
 from django.utils.timesince import timesince
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.core.templatetags.mezzanine_tags import richtext_filter
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
@@ -151,6 +150,8 @@ class MetaData(models.Model):
                         field.name != "description":
                         description = getattr(self, field.name)
                         if description:
+                            from mezzanine.core.templatetags.mezzanine_tags \
+                            import richtext_filter
                             description = richtext_filter(description)
                             break
         # Fall back to the title if description couldn't be determined.
