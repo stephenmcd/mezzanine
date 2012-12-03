@@ -10,6 +10,7 @@ from django.utils.html import strip_tags
 from django.utils.timesince import timesince
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from mezzanine.core.templatetags.mezzanine_tags import richtext_filter
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
@@ -150,13 +151,14 @@ class MetaData(models.Model):
                         field.name != "description":
                         description = getattr(self, field.name)
                         if description:
+                            description = richtext_filter(description)
                             break
         # Fall back to the title if description couldn't be determined.
         if not description:
             description = unicode(self)
         # Strip everything after the first block or sentence.
-        ends = ("\n", "</p>", "<br />", "<br/>", "<br>",
-                "</ul>", ". ", "! ", "? ")
+        ends = ("</p>", "<br />", "<br/>", "<br>", "</ul>",
+                "\n", ". ", "! ", "? ")
         for end in ends:
             pos = description.lower().find(end)
             if pos > -1:
