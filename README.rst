@@ -337,6 +337,9 @@ Sites Using Mezzanine
   * `Puraforce Remedies <http://puraforceremedies.com/>`_
   * `Google's VetNet <http://www.vetnethq.com/>`_
   * `1800RESPECT <http://www.1800respect.org.au/>`_
+  * `Evenhouse Consulting <http://evenhouseconsulting.com/>`_
+  * `Humboldt Community Christian School <http://humboldtccs.org>`_
+  * `Atlanta's Living Legacy <http://gradyhistory.com>`_
 
 Quotes
 ======
