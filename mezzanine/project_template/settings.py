@@ -304,6 +304,9 @@ MIDDLEWARE_CLASSES = (
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 
+REQUEST_FILTERS = (
+    "mezzanine.utils.filters.AkismetFilter",
+)
 
 #########################
 # OPTIONAL APPLICATIONS #
