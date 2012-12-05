@@ -336,6 +336,9 @@ Sites Using Mezzanine
   * `Dashing Collective <http://dashing.tv/>`_
   * `Puraforce Remedies <http://puraforceremedies.com/>`_
   * `Google's VetNet <http://www.vetnethq.com/>`_
+  * `Evenhouse Consulting <http://evenhouseconsulting.com/>`_
+  * `Humboldt Community Christian School <http://humboldtccs.org/>`_
+  * `Atlanta's Living Legacy <http://gradyhistory.com/>`_
 
 Quotes
 ======
