@@ -213,6 +213,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
     Mezzanine.
   * `mezzanine-careers`_ - Job posting application for Mezzanine.
   * `mezzanine-recipes`_ - Recipes plugin with built-in REST API.
+  * `mezzanine-slides`_ - Add large image slide banners to pages.
 
 Donating
 ========
@@ -448,6 +449,7 @@ Quotes
 .. _`PageDown`: https://code.google.com/p/pagedown/
 .. _`mezzanine-careers`: https://github.com/mogga/mezzanine-careers
 .. _`mezzanine-recipes`: https://github.com/tjetzinger/mezzanine-recipes
+.. _`mezzanine-slides`: https://github.com/overshard/mezzanine-slides
 
 
 .. PEOPLE WITH QUOTES
