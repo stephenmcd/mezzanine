@@ -35,6 +35,7 @@ class SettingsForm(forms.Form):
                     "required": setting["type"] == int,
                     "initial": getattr(settings, name),
                     "help_text": self.format_help(setting["description"]),
+                    "widget": setting["widget"]
                 }
                 if setting["choices"]:
                     field_class = forms.ChoiceField

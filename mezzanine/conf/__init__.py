@@ -15,7 +15,7 @@ registry = {}
 
 
 def register_setting(name="", label="", editable=False, description="",
-                     default=None, choices=None, append=False):
+                     default=None, choices=None, append=False, widget=None):
     """
     Registers a setting that can be edited via the admin.
     """
@@ -34,7 +34,8 @@ def register_setting(name="", label="", editable=False, description="",
         registry[name] = {"name": name, "label": label,
                           "description": description,
                           "editable": editable, "default": default,
-                          "choices": choices, "type": setting_type}
+                          "choices": choices, "type": setting_type,
+                          "widget": widget}
 
 
 class Settings(object):
