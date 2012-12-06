@@ -17,7 +17,7 @@ Settings are defined by creating a module named ``defaults.py`` inside
 one or more of the applications defined in your project's
 ``settings.INSTALLED_APPS`` setting. Inside your ``defaults.py`` module
 you then call the function ``mezzanine.conf.register_setting`` for
-each setting you want to define which takes four keyword arguments:
+each setting you want to define which takes several keyword arguments:
 
   * ``name``: The name of the setting.
   * ``description``: The description of the setting.
