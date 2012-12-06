@@ -213,6 +213,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
     Mezzanine.
   * `mezzanine-careers`_ - Job posting application for Mezzanine.
   * `mezzanine-recipes`_ - Recipes plugin with built-in REST API.
+  * `mezzanine-slides`_ - Responsive banner slides app for Mezzanine.
 
 Donating
 ========
@@ -336,6 +337,10 @@ Sites Using Mezzanine
   * `Dashing Collective <http://dashing.tv/>`_
   * `Puraforce Remedies <http://puraforceremedies.com/>`_
   * `Google's VetNet <http://www.vetnethq.com/>`_
+  * `1800RESPECT <http://www.1800respect.org.au/>`_
+  * `Evenhouse Consulting <http://evenhouseconsulting.com/>`_
+  * `Humboldt Community Christian School <http://humboldtccs.org>`_
+  * `Atlanta's Living Legacy <http://gradyhistory.com>`_
 
 Quotes
 ======
@@ -448,6 +453,7 @@ Quotes
 .. _`PageDown`: https://code.google.com/p/pagedown/
 .. _`mezzanine-careers`: https://github.com/mogga/mezzanine-careers
 .. _`mezzanine-recipes`: https://github.com/tjetzinger/mezzanine-recipes
+.. _`mezzanine-slides`: https://github.com/overshard/mezzanine-slides
 
 
 .. PEOPLE WITH QUOTES
