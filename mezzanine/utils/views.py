@@ -1,18 +1,13 @@
 
 from datetime import datetime, timedelta
-from urllib import urlencode
-from urllib2 import Request, urlopen
 
-import django
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.template import RequestContext
 from django.template.response import TemplateResponse
-from django.utils.translation import ugettext as _
 
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.importlib import import_module
 
-import mezzanine
 from mezzanine.conf import settings
 from mezzanine.utils.sites import has_site_permission
 
@@ -32,31 +27,41 @@ def is_editable(obj, request):
                 has_site_permission(request.user) and
                 request.user.has_perm(perm))
 
+
 def load_request_filter(path):
     i = path.rfind('.')
     module, attr = path[:i], path[i + 1:]
     try:
         mod = import_module(module)
     except ImportError as e:
-        raise ImproperlyConfigured('Error importing content filter %s: "%s"' % (path, e))
+        raise ImproperlyConfigured(
+                'Error importing content filter %s: "%s"' % (path, e))
     except ValueError:
-        raise ImproperlyConfigured('Error importing content filters. Is REQUEST_FILTERS a correctly defined list or tuple?')
+        raise ImproperlyConfigured(
+                'Error importing content filters. ' +
+                'Is REQUEST_FILTERS a correctly defined list or tuple?')
     try:
         cls = getattr(mod, attr)
     except AttributeError:
-        raise ImproperlyConfigured('Module "%s" does not define a "%s" content filter' % (module, attr))
+        raise ImproperlyConfigured(
+                'Module "%s" does not define a "%s" content filter' % (
+                        module, attr))
     return cls()
+
 
 def get_request_filters():
     request_filters = []
     for request_filter_path in settings.REQUEST_FILTERS:
-        request_filters.append(load_request_filter(request_filter_path))
+        request_filters.append(load_request_filter(
+                request_filter_path))
     return request_filters
+
 
 def is_spam(request, form, url):
     for filter in get_request_filters():
         if filter.is_spam(request, form, url):
-            return true
+            return True
+
 
 def paginate(objects, page_num, per_page, max_paging_links):
     """

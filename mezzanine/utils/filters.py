@@ -3,10 +3,11 @@ from urllib2 import Request, urlopen
 
 import django
 from django.utils.translation import ugettext as _
-from django.forms import EmailField, URLField, Textarea 
+from django.forms import EmailField, URLField, Textarea
 
 import mezzanine
 from mezzanine.conf import settings
+
 
 class AkismetFilter(object):
     def is_spam(self, request, form, url):
@@ -34,7 +35,8 @@ class AkismetFilter(object):
             return False
         protocol = "http" if not request.is_secure() else "https"
         host = protocol + "://" + request.get_host()
-        ip = request.META.get("HTTP_X_FORWARDED_FOR", request.META["REMOTE_ADDR"])
+        ip = request.META.get("HTTP_X_FORWARDED_FOR",
+                request.META["REMOTE_ADDR"])
         data = {
             "blog": host,
             "user_ip": ip,
@@ -45,7 +47,8 @@ class AkismetFilter(object):
         }
         for name, field in form.fields.items():
             data_field = None
-            if field.label and field.label.lower() in ("name", _("Name").lower()):
+            if field.label and field.label.lower() in (
+                    "name", _("Name").lower()):
                 data_field = "comment_author"
             elif isinstance(field, EmailField):
                 data_field = "comment_author_email"
@@ -62,7 +65,8 @@ class AkismetFilter(object):
         versions = (django.get_version(), mezzanine.__version__)
         headers = {"User-Agent": "Django/%s | Mezzanine/%s" % versions}
         try:
-            response = urlopen(Request(api_url, urlencode(data), headers)).read()
+            response = urlopen(Request(api_url, urlencode(data),
+                    headers)).read()
         except Exception:
             return False
         return response == "true"
