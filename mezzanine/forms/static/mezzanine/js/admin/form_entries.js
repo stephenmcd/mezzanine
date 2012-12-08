@@ -29,10 +29,10 @@ $(function() {
     // Add a confirmation prompt for deleting entries.
     $('input[name="delete"]').click(function() {
         if ($('input[name="selected"]:checked').length == 0) {
-            alert('{% trans "No entries selected" %}');
+            alert(gettext('No entries selected'));
             return false;
         } else {
-            return confirm('{% trans "Delete selected entries?" %}');
+            return confirm(gettext('Delete selected entries?'));
         }
     });
 });

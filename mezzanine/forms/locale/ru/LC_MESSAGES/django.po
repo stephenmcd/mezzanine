@@ -320,3 +320,11 @@ msgstr "Удалить выделенное"
 #: templates/admin/forms/entries.html:97
 msgid "No entries to display"
 msgstr "Нет объектов для отображения"
+
+#: static/mezzanine/js/admin/form_entries.js:32
+msgid "No entries selected"
+msgstr "Ничего не выбрано"
+
+#: static/mezzanine/js/admin/form_entries.js:35
+msgid "Delete selected entries?"
+msgstr "Удалить выбранные записи?"
