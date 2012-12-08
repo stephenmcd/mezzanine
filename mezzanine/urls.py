@@ -30,6 +30,15 @@ for model in settings.ADMIN_REMOVAL:
 
 urlpatterns = []
 
+# JavaScript localization feature
+js_info_dict = {
+    'domain': 'django',
+}
+
+urlpatterns += patterns('django.views.i18n',
+    (r'^jsi18n/(?P<packages>\S+?)/$', 'javascript_catalog', js_info_dict),
+)
+
 # Django's sitemap app.
 if "django.contrib.sitemaps" in settings.INSTALLED_APPS:
     sitemaps = {"sitemaps": {"all": DisplayableSitemap}}
