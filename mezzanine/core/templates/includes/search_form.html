@@ -1,0 +1,31 @@
+{% load mezzanine_tags i18n %}
+
+<input class="search-query" placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.REQUEST.q }}">
+{% if contenttypes|length_is:"1" %}
+<input type="hidden" name="contenttype" value="{{ contenttypes|first }}">
+{% elif contenttypes %}
+{% for type in contenttypes %}
+{% ifequal options_as "radio" %}
+    {% if forloop.first %}
+    <input type="radio" name="contenttype" value="" id="search-all" 
+    {% if not request.REQUEST.contenttype %}checked{% endif %}>
+    <label for="search-all">{% trans "All" %}</label>
+    {% endif %}
+    <input type="radio" name="contenttype" value="{{ type }}" id="search-{{ type }}" 
+    {% ifequal type request.REQUEST.contenttype  %}checked{% endifequal %}>
+    <label for="search-{{ type }}">{{ type|verbose_name:"plural"|capfirst }}</label>
+{% else %} 
+    {% if forloop.first %}
+    <select name="contenttype">
+    <option value="">{% trans "All" %}</option>
+    {% endif %}
+    <option value="{{ type }}" 
+    {% ifequal type request.REQUEST.contenttype  %}selected{% endifequal %}>
+    {{ type|verbose_name:"plural"|capfirst }}</option>
+    {% if forloop.last %}
+    </select>
+    {% endif %}
+{% endifequal %}
+{% endfor %}
+<input type="submit" class="btn">
+{% endif %}
