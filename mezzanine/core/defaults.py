@@ -44,6 +44,15 @@ register_setting(
 )
 
 register_setting(
+    name="AKISMET_API_KEY",
+    label=_("Akismet API Key"),
+    description=_("Key for http://akismet.com spam filtering service. Used "
+        "for filtering comments and forms."),
+    editable=True,
+    default="",
+)
+
+register_setting(
     name="CACHE_SET_DELAY_SECONDS",
     description=_("Mezzanine's caching uses a technique know as mint "
         "caching. This is where the requested expiry for a cache entry "
@@ -56,24 +65,6 @@ register_setting(
         "cache entry."),
     editable=False,
     default=30,
-)
-
-register_setting(
-    name="SPAM_FILTERS",
-    description=_("Array of dotted Python paths to the callables for "
-        "checking whether a message is (likely) spam. Defaults to "
-        "(``mezzanine.utils.views.is_spam_akismet``)"),
-    editable=False,
-    default=("mezzanine.utils.views.is_spam_akismet",),
-)
-
-register_setting(
-    name="AKISMET_API_KEY",
-    label=_("Akismet API Key"),
-    description=_("Key for http://akismet.com spam filtering service. Used "
-        "for filtering comments and forms."),
-    editable=True,
-    default="",
 )
 
 if "mezzanine.blog" in settings.INSTALLED_APPS:
@@ -336,6 +327,19 @@ register_setting(
         "Django's slugify function, or something of your own if required."),
     editable=False,
     default="mezzanine.utils.urls.slugify_unicode",
+)
+
+register_setting(
+    name="SPAM_FILTERS",
+    description=_("Sequence of dotted Python paths to callable functions "
+        "used for checking posted content (such as forms or comments) is "
+        "spam. Each function should accept three arguments: the request "
+        "object, the form object, and the URL that was posted from. "
+        "Defaults to ``mezzanine.utils.views.is_spam_akismet`` which will "
+        "use the http://akismet.com spam filtering service when the "
+        "``AKISMET_API_KEY`` setting is configured."),
+    editable=False,
+    default=("mezzanine.utils.views.is_spam_akismet",),
 )
 
 register_setting(

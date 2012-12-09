@@ -6,10 +6,10 @@ from urllib2 import Request, urlopen
 
 import django
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.forms import EmailField, URLField, Textarea
 from django.template import RequestContext
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext as _
-from django.forms import EmailField, URLField, Textarea
 
 import mezzanine
 from mezzanine.conf import settings
@@ -37,7 +37,8 @@ def is_spam_akismet(request, form, url):
     """
     Identifies form data as being spam, using the http://akismet.com
     service. The Akismet API key should be specified in the
-    ``AKISMET_API_KEY`` setting.
+    ``AKISMET_API_KEY`` setting. This function is the default spam
+    handler defined in the ``SPAM_FILTERS`` setting.
 
     The name, email, url and comment fields are all guessed from the
     form fields:
@@ -58,8 +59,7 @@ def is_spam_akismet(request, form, url):
         return False
     protocol = "http" if not request.is_secure() else "https"
     host = protocol + "://" + request.get_host()
-    ip = request.META.get("HTTP_X_FORWARDED_FOR",
-            request.META["REMOTE_ADDR"])
+    ip = request.META.get("HTTP_X_FORWARDED_FOR", request.META["REMOTE_ADDR"])
     data = {
         "blog": host,
         "user_ip": ip,
@@ -70,8 +70,7 @@ def is_spam_akismet(request, form, url):
     }
     for name, field in form.fields.items():
         data_field = None
-        if field.label and field.label.lower() in (
-                "name", _("Name").lower()):
+        if field.label and field.label.lower() in ("name", _("Name").lower()):
             data_field = "comment_author"
         elif isinstance(field, EmailField):
             data_field = "comment_author_email"
@@ -88,16 +87,21 @@ def is_spam_akismet(request, form, url):
     versions = (django.get_version(), mezzanine.__version__)
     headers = {"User-Agent": "Django/%s | Mezzanine/%s" % versions}
     try:
-        response = urlopen(Request(api_url, urlencode(data),
-                headers)).read()
+        response = urlopen(Request(api_url, urlencode(data), headers)).read()
     except Exception:
         return False
     return response == "true"
 
 
 def is_spam(request, form, url):
+    """
+    Main entry point for spam handling - called from the comment view and
+    page processor for ``mezzanine.forms``, to check if posted content is
+    spam. Spam filters are configured via the ``SPAM_FILTERS`` setting.
+    """
     for spam_filter_path in settings.SPAM_FILTERS:
-        if import_dotted_path(spam_filter_path)(request, form, url):
+        spam_filter = import_dotted_path(spam_filter_path)
+        if spam_filter(request, form, url):
             return True
 
 
