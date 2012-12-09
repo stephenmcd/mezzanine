@@ -17,7 +17,11 @@ img {box-shadow:0 0 10px #bbb;}
 /* Navigation */
 @media (max-width:979px){.brand {padding-right:20px !important;}}
 .navbar {z-index:500;}
-.navbar-search {margin-left:10px;}
+.navbar-inner {border-radius:0;}
+.navbar-search {margin-left:10px; margin-top:4px;}
+.navbar-search * {border-radius:4px !important; margin:0 2px !important;}
+.navbar-search select {width:auto;}
+.navbar-search .btn {margin-top:1px !important; margin-left:4px !important;}
 .tagline {float:left; font-size:12px; font-style:italic; margin:9px 5px 0 -4px; color:#fff; opacity:.5;}
 .breadcrumb {margin:20px 0 25px 0;}
 .breadcrumb .divider {margin:0 5px;}
@@ -26,7 +30,7 @@ ul.nav li.dropdown:hover ul.dropdown-menu {display:block;}
 .pull-right .dropdown-menu a {text-align:right;}
 .tree {padding:8px;}
 .tree li {margin:3px 0;}
-footer {background:rgba(220,220,220, 0.1); padding:30px 0; text-align:center;}
+footer {background:rgba(220,220,220, 0.1); padding:30px 0; text-align:center; margin-top:40px;}
 footer .container {text-align:left; display:inline-block; width:auto;}
 footer li {float:left; list-style-type:none;}
 footer li li {float:none; clear:both; width:120px; padding:10px 0; margin-right:30px;}

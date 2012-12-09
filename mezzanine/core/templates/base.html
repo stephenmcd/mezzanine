@@ -56,9 +56,7 @@ $(function() {
     {% if settings.SITE_TITLE %}<a class="brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
     {% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}
     <div class="nav-collapse">
-        <form action="{% url "search" %}" class="navbar-search pull-right">
-        {% search_form %}
-        </form>
+        {% search_form "all" %}
         {% page_menu "pages/menus/dropdown.html" %}
     </div>
 </div>

@@ -31,13 +31,11 @@ except ImportError:
     import ImageOps
 
 from mezzanine.conf import settings
-from mezzanine.core.models import Displayable
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.forms import get_edit_form
 from mezzanine.utils.cache import nevercache_token, cache_installed
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.models import get_subclasses
 from mezzanine.utils.sites import current_site_id, has_site_permission
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.views import is_editable
@@ -216,53 +214,28 @@ def pagination_for(context, current_page):
 
 
 @register.inclusion_tag("includes/search_form.html", takes_context=True)
-def search_form(context, contenttypes=None, options_as="dropdown"):
+def search_form(context, search_model_names=None):
     """
-    Renders form fields to perform a search on the specified ``contenttypes``.
-    Displays options as radio buttons or a dropdown list.
-    This tag must be wrapped in a ``<form>`` tag.
+    Includes the search form with a list of models to use as choices for
+    filtering the search by. Models should be a string with models in the
+    format ``app_label.model_name`` separated by spaces. The string ``all``
+    can also be used, in which case the models defined by the
+    ``SEARCH_MODEL_CHOICES`` setting will be used.
     """
-    if contenttypes == "all":
-        contenttypes = []
-        for cls in get_subclasses(Displayable):
-            if not cls._meta.abstract:
-                app = cls._meta.app_label
-                model = cls.__name__
-                contenttypes.append("%s.%s" % (app, model))
+    if not search_model_names:
+        search_model_names = []
+    elif search_model_names == "all":
+        search_model_names = list(settings.SEARCH_MODEL_CHOICES)
     else:
-        try:
-            contenttypes = contenttypes.split(" ")
-        except AttributeError:
-            pass
-    return {"contenttypes": contenttypes, "options_as": options_as,
-            "request": context["request"]}
-
-
-@register.filter
-def verbose_name(value, plural=None):
-    """
-    Returns the single or plural verbose_name of a model.
-    The filter can be applied on a true model instance
-    or a string in the form "app-name.ModelName"
-    """
-    if isinstance(value, Model):
-        model = value
-    else:
-        try:
-            (app, model) = value.split(".", 1)
-        except (AttributeError, ValueError):
-            return value
-        model = get_model(app, model)
-    if plural == "plural":
-        try:
-            return model._meta.verbose_name_plural
-        except AttributeError:
-            return value
-    else:
-        try:
-            return model._meta.verbose_name
-        except AttributeError:
-            return value
+        search_model_names = search_model_names.split(" ")
+    search_model_choices = []
+    for model_name in search_model_names:
+        model = get_model(*model_name.split(".", 1))
+        if model:  # Might not be installed.
+            verbose_name = model._meta.verbose_name_plural.capitalize()
+            search_model_choices.append((verbose_name, model_name))
+    context["search_model_choices"] = search_model_choices
+    return context
 
 
 @register.simple_tag

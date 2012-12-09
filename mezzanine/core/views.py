@@ -108,21 +108,18 @@ def search(request, template="search_results.html"):
     per_page = settings.SEARCH_PER_PAGE
     max_paging_links = settings.MAX_PAGING_LINKS
     try:
-        # Have we passed a model in the GET data?
-        (app, model) = request.GET.get("contenttype").split(".", 1)
-        # Does this model even exist?
-        model = get_model(app, model)
-        # Does this model have a search manager?
-        results = model.objects.search(query, for_user=request.user)
-        # Let's get the name in the context
-        contenttype = model._meta.verbose_name_plural
-    except:
-        # Something failed, let's just get Displayable objects
-        results = Displayable.objects.search(query, for_user=request.user)
-        contenttype = ""
+        search_model = get_model(*request.GET.get("type", "").split(".", 1))
+        if not issubclass(search_model, Displayable):
+            raise TypeError
+    except TypeError:
+        search_model = Displayable
+        search_type = _("Everything")
+    else:
+        search_type = search_model._meta.verbose_name_plural.capitalize()
+    results = search_model.objects.search(query, for_user=request.user)
     paginated = paginate(results, page, per_page, max_paging_links)
     context = {"query": query, "results": paginated,
-               "contenttype": contenttype}
+               "search_type": search_type}
     return render(request, template, context)
 
 

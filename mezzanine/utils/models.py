@@ -45,30 +45,6 @@ def base_concrete_model(abstract, instance):
     return instance.__class__
 
 
-def get_subclasses(cls, _seen=None):
-    """
-    Recursively generates an iterator from all models that subclass ``cls``
-    Adapted from http://code.activestate.com/recipes/
-    576949-find-all-subclasses-of-a-given-class/
-    """
-
-    if not isinstance(cls, type):
-        raise TypeError("get_subclasses must be called with "
-                        "new-style classes, not %s" % cls)
-    if _seen is None:
-        _seen = set()
-    try:
-        subs = cls.__subclasses__()
-    except TypeError:
-        subs = cls.__subclasses__(cls)
-    for sub in subs:
-        if sub not in _seen:
-            _seen.add(sub)
-            yield sub
-            for sub in get_subclasses(sub, _seen):
-                yield sub
-
-
 def upload_to(field_path, default):
     """
     Used as the ``upload_to`` arg for file fields - allows for custom
