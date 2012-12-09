@@ -1,18 +1,20 @@
 
 from datetime import datetime, timedelta
+
 from urllib import urlencode
 from urllib2 import Request, urlopen
 
 import django
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.forms import EmailField, URLField, Textarea
 from django.template import RequestContext
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext as _
+from django.forms import EmailField, URLField, Textarea
 
 import mezzanine
 from mezzanine.conf import settings
 from mezzanine.utils.sites import has_site_permission
+from mezzanine.utils.importing import import_dotted_path
 
 
 def is_editable(obj, request):
@@ -31,7 +33,7 @@ def is_editable(obj, request):
                 request.user.has_perm(perm))
 
 
-def is_spam(request, form, url):
+def is_spam_akismet(request, form, url):
     """
     Identifies form data as being spam, using the http://akismet.com
     service. The Akismet API key should be specified in the
@@ -56,7 +58,8 @@ def is_spam(request, form, url):
         return False
     protocol = "http" if not request.is_secure() else "https"
     host = protocol + "://" + request.get_host()
-    ip = request.META.get("HTTP_X_FORWARDED_FOR", request.META["REMOTE_ADDR"])
+    ip = request.META.get("HTTP_X_FORWARDED_FOR",
+            request.META["REMOTE_ADDR"])
     data = {
         "blog": host,
         "user_ip": ip,
@@ -67,7 +70,8 @@ def is_spam(request, form, url):
     }
     for name, field in form.fields.items():
         data_field = None
-        if field.label and field.label.lower() in ("name", _("Name").lower()):
+        if field.label and field.label.lower() in (
+                "name", _("Name").lower()):
             data_field = "comment_author"
         elif isinstance(field, EmailField):
             data_field = "comment_author_email"
@@ -84,10 +88,17 @@ def is_spam(request, form, url):
     versions = (django.get_version(), mezzanine.__version__)
     headers = {"User-Agent": "Django/%s | Mezzanine/%s" % versions}
     try:
-        response = urlopen(Request(api_url, urlencode(data), headers)).read()
+        response = urlopen(Request(api_url, urlencode(data),
+                headers)).read()
     except Exception:
         return False
     return response == "true"
+
+
+def is_spam(request, form, url):
+    for spam_filter_path in settings.SPAM_FILTERS:
+        if import_dotted_path(spam_filter_path)(request, form, url):
+            return True
 
 
 def paginate(objects, page_num, per_page, max_paging_links):

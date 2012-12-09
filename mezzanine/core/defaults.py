@@ -59,6 +59,15 @@ register_setting(
 )
 
 register_setting(
+    name="SPAM_FILTERS",
+    description=_("Array of dotted Python paths to the callables for "
+        "checking whether a message is (likely) spam. Defaults to "
+        "(``mezzanine.utils.views.is_spam_akismet``)"),
+    editable=False,
+    default=("mezzanine.utils.views.is_spam_akismet",),
+)
+
+register_setting(
     name="AKISMET_API_KEY",
     label=_("Akismet API Key"),
     description=_("Key for http://akismet.com spam filtering service. Used "
