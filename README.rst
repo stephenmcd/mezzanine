@@ -341,6 +341,7 @@ Sites Using Mezzanine
   * `Evenhouse Consulting <http://evenhouseconsulting.com/>`_
   * `Humboldt Community Christian School <http://humboldtccs.org>`_
   * `Atlanta's Living Legacy <http://gradyhistory.com>`_
+  * `Shipgistix <http://shipgistix.com>`_
 
 Quotes
 ======
