@@ -10,7 +10,8 @@ from django.contrib.sites.models import Site
 from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, NoReverseMatch
-from django.db.models import Model
+from django.db.models import Model, get_model
+
 from django.template import (Context, Node, TextNode, Template,
                              TemplateSyntaxError, TOKEN_TEXT, TOKEN_VAR,
                              TOKEN_COMMENT, TOKEN_BLOCK)
@@ -30,11 +31,13 @@ except ImportError:
     import ImageOps
 
 from mezzanine.conf import settings
+from mezzanine.core.models import Displayable
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.forms import get_edit_form
 from mezzanine.utils.cache import nevercache_token, cache_installed
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
+from mezzanine.utils.models import get_subclasses
 from mezzanine.utils.sites import current_site_id, has_site_permission
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.views import is_editable
@@ -210,6 +213,56 @@ def pagination_for(context, current_page):
         del querystring["page"]
     querystring = querystring.urlencode()
     return {"current_page": current_page, "querystring": querystring}
+
+
+@register.inclusion_tag("includes/search_form.html", takes_context=True)
+def search_form(context, contenttypes=None, options_as="dropdown"):
+    """
+    Renders form fields to perform a search on the specified ``contenttypes``.
+    Displays options as radio buttons or a dropdown list.
+    This tag must be wrapped in a ``<form>`` tag.
+    """
+    if contenttypes == "all":
+        contenttypes = []
+        for cls in get_subclasses(Displayable):
+            if not cls._meta.abstract:
+                app = cls._meta.app_label
+                model = cls.__name__
+                contenttypes.append("%s.%s" % (app, model))
+    else:
+        try:
+            contenttypes = contenttypes.split(" ")
+        except AttributeError:
+            pass
+    return {"contenttypes": contenttypes, "options_as": options_as,
+            "request": context["request"]}
+
+
+@register.filter
+def verbose_name(value, plural=None):
+    """
+    Returns the single or plural verbose_name of a model.
+    The filter can be applied on a true model instance
+    or a string in the form "app-name.ModelName"
+    """
+    if isinstance(value, Model):
+        model = value
+    else:
+        try:
+            (app, model) = value.split(".", 1)
+        except (AttributeError, ValueError):
+            return value
+        model = get_model(app, model)
+    if plural == "plural":
+        try:
+            return model._meta.verbose_name_plural
+        except AttributeError:
+            return value
+    else:
+        try:
+            return model._meta.verbose_name
+        except AttributeError:
+            return value
 
 
 @register.simple_tag

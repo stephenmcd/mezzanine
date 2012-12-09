@@ -99,16 +99,30 @@ def edit(request):
 
 def search(request, template="search_results.html"):
     """
-    Display search results.
+    Display search results. Takes an optional "contenttype" GET parameter
+    in the form "app-name.ModelName" to limit search results to a single model.
     """
     settings.use_editable()
     query = request.GET.get("q", "")
     page = request.GET.get("page", 1)
     per_page = settings.SEARCH_PER_PAGE
     max_paging_links = settings.MAX_PAGING_LINKS
-    results = Displayable.objects.search(query, for_user=request.user)
+    try:
+        # Have we passed a model in the GET data?
+        (app, model) = request.GET.get("contenttype").split(".", 1)
+        # Does this model even exist?
+        model = get_model(app, model)
+        # Does this model have a search manager?
+        results = model.objects.search(query, for_user=request.user)
+        # Let's get the name in the context
+        contenttype = model._meta.verbose_name_plural
+    except:
+        # Something failed, let's just get Displayable objects
+        results = Displayable.objects.search(query, for_user=request.user)
+        contenttype = ""
     paginated = paginate(results, page, per_page, max_paging_links)
-    context = {"query": query, "results": paginated}
+    context = {"query": query, "results": paginated,
+               "contenttype": contenttype}
     return render(request, template, context)
 
 
