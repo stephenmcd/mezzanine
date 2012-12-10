@@ -50,11 +50,13 @@ window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 {% if form.this_is_the_login_form %}
     <script src="{{ STATIC_URL }}mezzanine/js/admin/login.js"></script>
 {% else %}
-    {% if not is_popup and not request.GET.pop %}
-    <script src="{{ STATIC_URL }}mezzanine/js/admin/navigation.js"></script>
+    {% if user.is_authenticated %}
+        {% if not is_popup and not request.GET.pop %}
+        <script src="{{ STATIC_URL }}mezzanine/js/admin/navigation.js"></script>
+        {% endif %}
+        <script src="{{ STATIC_URL }}mezzanine/js/admin/ajax_csrf.js"></script>
+        <script src="{{ STATIC_URL }}mezzanine/js/admin/collapse_backport.js"></script>
+        {% admin_dropdown_menu %}
     {% endif %}
-    <script src="{{ STATIC_URL }}mezzanine/js/admin/ajax_csrf.js"></script>
-    <script src="{{ STATIC_URL }}mezzanine/js/admin/collapse_backport.js"></script>
-    {% admin_dropdown_menu %}
 {% endif %}
 {% endblock %}
