@@ -5,7 +5,7 @@
 
 {% if search_model_choices %}
     {% if search_model_choices|length == 1 %}
-    <input type="hidden" name="type" value="{{ search_models.0.1 }}">
+    <input type="hidden" name="type" value="{{ search_model_choices.0.1 }}">
     {% else %}
     <select name="type">
         <option value="">{% trans "Everything" %}</option>
