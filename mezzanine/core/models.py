@@ -196,6 +196,7 @@ class Displayable(Slugged, MetaData):
         help_text=_("With Published chosen, won't be shown after this time"),
         blank=True, null=True)
     short_url = models.URLField(blank=True, null=True)
+    in_sitemap = models.BooleanField(_("Show in sitemap"), default=True)
 
     objects = DisplayableManager()
     search_fields = {"keywords": 10, "title": 5}

@@ -34,7 +34,7 @@ class DisplayableAdmin(admin.ModelAdmin):
         (_("Meta data"), {
             "fields": ["_meta_title", "slug",
                        ("description", "gen_description"),
-                       "keywords"],
+                        "keywords", "in_sitemap"],
             "classes": ("collapse-closed",)
         }),
     )

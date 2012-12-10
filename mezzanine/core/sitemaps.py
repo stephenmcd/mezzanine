@@ -31,7 +31,7 @@ class DisplayableSitemap(Sitemap):
         items = {home.get_absolute_url(): home}
         for model in get_models():
             if issubclass(model, Displayable):
-                for item in (model.objects.published()
+                for item in (model.objects.published().filter(in_sitemap=True)
                              .exclude(slug__startswith="http://")
                              .exclude(slug__startswith="https://")):
                     items[item.get_absolute_url()] = item

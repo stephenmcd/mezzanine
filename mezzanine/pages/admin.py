@@ -180,6 +180,16 @@ class LinkAdmin(PageAdmin):
             kwargs["required"] = True
         return super(LinkAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
+    def save_form(self, request, form, change):
+        """
+        Don't show links in the sitemap.
+        """
+        obj = form.save(commit=False)
+        if not obj.id and "in_sitemap" not in form.fields:
+            obj.in_sitemap = False
+        return super(LinkAdmin, self).save_form(request, form, change)
+
+
 
 admin.site.register(Page, PageAdmin)
 admin.site.register(RichTextPage, PageAdmin)

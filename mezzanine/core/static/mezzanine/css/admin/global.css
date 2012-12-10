@@ -63,6 +63,9 @@ fieldset .field-box {margin-right:150px !important;}
 .multicheckbox li label {width:auto; font-weight:normal;}
 .multicheckbox input {margin:-1px 6px 0 0;}
 
+/* description / generate */
+.gen_description textarea {margin-bottom:10px;}
+
 /* Fix for IE7 layout issue */
 #content { margin-left: 0; margin-right: 0; padding: 0 15px; }
 
