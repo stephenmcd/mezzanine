@@ -1,4 +1,3 @@
-
 from copy import deepcopy
 
 from django.contrib import admin
@@ -188,7 +187,6 @@ class LinkAdmin(PageAdmin):
         if not obj.id and "in_sitemap" not in form.fields:
             obj.in_sitemap = False
         return super(LinkAdmin, self).save_form(request, form, change)
-
 
 
 admin.site.register(Page, PageAdmin)
