@@ -344,6 +344,9 @@ Sites Using Mezzanine
   * `Humboldt Community Christian School <http://humboldtccs.org>`_
   * `Atlanta's Living Legacy <http://gradyhistory.com>`_
   * `Shipgistix <http://shipgistix.com>`_
+  * `Yuberactive <http://www.yuberactive.asia>`_
+  * `Medical Myth Busters <http://pogromcymitowmedycznych.pl>`_
+  * `4player Network <http://4playernetwork.com/>`_
 
 Quotes
 ======
