@@ -2,11 +2,62 @@
 Search Engine
 =============
 
-Mezzanine comes with a built-in search engine that allows site visitors to
-search across different types of content. The following section describes
-how to programmatically interact with the search engine, how to customize
-the way the search engine accesses different types of content, and how
-search queries are broken down and used to query models for results.
+Mezzanine provides a built-in search engine that allows site visitors to
+search across different types of content. It includes several tools that
+enable developers to adjust the scope of the site search. It also includes
+a Search API to programmatically interact with the search engine, customize
+the way the search engine accesses different types of content, and perform
+search queries that are broken down and used to query models for results.
+
+Performing searches with the built-in tools
+===========================================
+
+Developers can easily customize the scope of the searches via the
+``{% search_form %}`` template tag. A default list of searchable models can
+be specified in the ``SEARCH_MODEL_CHOICES`` setting. Only models that
+subclass ``mezzanine.core.models.Displayable`` should be used. In addition,
+the actual HTML form can be customized in the ``includes/search_form.html``
+template.
+
+.. note::
+
+    In ``SEARCH_MODEL_CHOICES`` and ``{% search_form %}``, all model names
+    must be strings in the format ``app_label.model_name``. These models
+    can be part of Mezzanine's core, or part of third party applications.
+    However, all these model must subclass Page or Displayable. Trying to
+    perform searches on other kinds of models will result in a global
+    search.
+
+Displaying options for all search types
+=======================================
+
+Using ``{% search_form "all" %}`` will render a search form with a
+dropdown menu, letting the user choose on what type of content the
+search will be performed. The dropdown will be dinamically populated
+by all models found in ``SEARCH_MODEL_CHOICES`` (default: pages and
+blog posts, with products added if Cartridge is installed).
+
+Displaying options for specific search types
+============================================
+
+By passing a sequence of space-separated models to the tag, only those
+models will be made available as choices to the user. For example,
+to offer searches only in Pages and Products (provided Cartridge is
+installed), you can use this configuration:
+``{% search_form "pages.Page shop.Product" %}``.
+
+Limiting searches to a single type
+==================================
+
+In case you don't want to provide users with a dropdown menu but
+rather limit the search scope to one model in particular, you can
+pass the model name as a parameter. For example, to create a
+blog-only search form, you can use ``{% search_form "blog.BlogPost" %}``.
+
+Performing global searches
+==========================
+If no parameter is passed to ``{% search_form %}``, the search will be
+performed on all models that subclass Displayable.
 
 Search API
 ==========
