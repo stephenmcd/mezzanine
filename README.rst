@@ -215,7 +215,8 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzanine-recipes`_ - Recipes plugin with built-in REST API.
   * `mezzanine-slides`_ - Responsive banner slides app for Mezzanine.
   * `mezzyblocks`_ - Another app for adding blocks/modules to Mezzanine.
-
+  * `mezzanine-flexipage`_ - Allows designers to manage content areas
+    in templates.
 
 Donating
 ========
@@ -465,6 +466,7 @@ Quotes
 .. _`mezzanine-recipes`: https://github.com/tjetzinger/mezzanine-recipes
 .. _`mezzanine-slides`: https://github.com/overshard/mezzanine-slides
 .. _`mezzyblocks`: https://github.com/jardaroh/mezzyblocks
+.. _`mezzanine-flexipage`: https://github.com/mrmagooey/mezzanine-flexipage
 
 
 .. PEOPLE WITH QUOTES
