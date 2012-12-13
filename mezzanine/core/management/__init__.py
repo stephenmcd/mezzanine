@@ -10,9 +10,8 @@ from django.contrib.sites import models as sites_app
 from django.core.management import call_command
 from django.db.models.signals import post_syncdb
 
-from mezzanine.forms.models import Form
-from mezzanine.galleries.models import Gallery
 from mezzanine.pages.models import Page
+
 from mezzanine.pages import models as pages_app
 from mezzanine.utils.tests import copy_test_to_media
 
@@ -31,6 +30,9 @@ def create_user(app, created_models, verbosity, interactive, **kwargs):
 
 
 def create_pages(app, created_models, verbosity, interactive, **kwargs):
+    from mezzanine.forms.models import Form
+    from mezzanine.galleries.models import Gallery
+
     required = set([Page, Form, Gallery])
     if required.issubset(set(created_models)):
         call_command("loaddata", "mezzanine_required.json")
@@ -66,6 +68,8 @@ def create_site(app, created_models, verbosity, interactive, **kwargs):
 
 
 def install_optional_data(verbosity):
+    from mezzanine.galleries.models import Gallery
+
     call_command("loaddata", "mezzanine_optional.json")
     zip_name = "gallery.zip"
     copy_test_to_media("mezzanine.core", zip_name)
