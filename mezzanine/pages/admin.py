@@ -190,7 +190,6 @@ class LinkAdmin(PageAdmin):
         return super(LinkAdmin, self).save_form(request, form, change)
 
 
-
 admin.site.register(Page, PageAdmin)
 admin.site.register(RichTextPage, PageAdmin)
 admin.site.register(Link, LinkAdmin)
