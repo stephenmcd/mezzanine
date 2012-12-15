@@ -2,6 +2,7 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
 
 from mezzanine.conf import settings
 from mezzanine.pages import page_processors
@@ -13,34 +14,35 @@ from mezzanine.utils.views import render
 page_processors.autodiscover()
 
 
+def get_id(s):
+    id = s.split("_")[-1]
+
+    if id == 'null':
+        return None
+
+    return id
+
+
 def admin_page_ordering(request):
     """
     Updates the ordering of pages via AJAX from within the admin.
     """
-    get_id = lambda s: s.split("_")[-1]
-    for ordering in ("ordering_from", "ordering_to"):
-        ordering = request.POST.get(ordering, "")
-        if ordering:
-            for i, page in enumerate(ordering.split(",")):
-                try:
-                    Page.objects.filter(id=get_id(page)).update(_order=i)
-                except Exception, e:
-                    return HttpResponse(str(e))
-    try:
-        moved_page = int(get_id(request.POST.get("moved_page", "")))
-    except ValueError, e:
-        pass
-    else:
-        moved_parent = get_id(request.POST.get("moved_parent", ""))
-        if not moved_parent:
-            moved_parent = None
-        try:
-            page = Page.objects.get(id=moved_page)
-            page.parent_id = moved_parent
-            page.save()
-            page.reset_slugs()
-        except Exception, e:
-            return HttpResponse(str(e))
+    page = get_object_or_404(Page, id=get_id(request.POST['id']))
+
+    old_parent_id = page.parent_id
+    new_parent_id = get_id(request.POST['parent_id'])
+
+    if page.parent_id != new_parent_id:
+        page.parent_id = new_parent_id
+        page.save()
+        page.reset_slugs()
+
+        for i, old_sibling in enumerate(Page.objects.filter(parent_id=old_parent_id).order_by('_order')):
+            Page.objects.filter(id=old_sibling.id).update(_order=i)
+
+    for i, new_sibling in enumerate(request.POST.getlist('siblings[]')):
+        Page.objects.filter(id=get_id(new_sibling)).update(_order=i)
+
     return HttpResponse("ok")
 admin_page_ordering = staff_member_required(admin_page_ordering)
 

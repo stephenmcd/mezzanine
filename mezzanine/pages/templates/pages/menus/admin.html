@@ -1,6 +1,6 @@
 {% load pages_tags i18n future adminmedia %}
 
-<ul>
+<ol>
     {% for page in page_branch %}
     <li id="ordering_{{ page.id }}">
         <div class="{% cycle 'row1' 'row2' %}">
@@ -44,4 +44,4 @@
         {% if page.has_children %}{% page_menu page %}{% endif %}
     </li>
     {% endfor %}
-</ul>
+</ol>

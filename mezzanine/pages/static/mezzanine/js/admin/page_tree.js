@@ -48,7 +48,7 @@ $(function() {
     $('#tree .tree-toggle').click(function() {
         // Show/hide the branch and toggle the icon.
         var pageLink = $(this);
-        pageLink.parent().parent().find('ul:first').toggle();
+        pageLink.parent().parent().find('ol:first').toggle();
         pageLink.find('.icon').toggle();
         // Add or remove the page ID from the cookie.
         var opened = pageLink.find('.close:visible').length == 1;
@@ -59,13 +59,13 @@ $(function() {
 
     // Show previously opened branches.
     if (ids) {
-    	$('#page-' + ids.split(',').join(', #page-')).each(function(){
-			var pageLink = $(this);
-			pageLink.parent().parent().find('ul:first').toggle();
-			pageLink.find('.close').css('display', 'inline');
-			pageLink.find('.open').css('display', 'none');
-		});
-	}
+        $('#page-' + ids.split(',').join(', #page-')).each(function(){
+            var pageLink = $(this);
+            pageLink.parent().parent().find('ol:first').toggle();
+            pageLink.find('.close').css('display', 'inline');
+            pageLink.find('.open').css('display', 'none');
+        });
+    }
 
     // The dropdown list for adding a new page contains URLs for each
     // model - redirect when selected.
@@ -87,35 +87,39 @@ $(function() {
     // AJAX callback that's triggered when dragging a page to re-order
     // it has ended.
     var updateOrdering = function(event, ui) {
+        var parent = ui.item.parents('li:first');
+
         var args = {
-            'ordering_from': $(this).sortable('toArray').toString(),
-            'ordering_to': $(ui.item).parent().sortable('toArray').toString(),
+            id: ui.item[0].id,
+            parent_id: parent.length ? parent[0].id : null,
+            siblings: ui.item.parent().children().map(function(index, elem) {
+                return elem.id;
+            }).get()
         };
-        if (args['ordering_from'] != args['ordering_to']) {
-            // Branch changed - set the new parent ID.
-            args['moved_page'] = $(ui.item).attr('id');
-            args['moved_parent'] = $(ui.item).parent().parent().attr('id');
-            if (args['moved_parent'] == 'tree') {
-                delete args['moved_parent'];
-            }
-        } else {
-            delete args['ordering_to'];
-        }
+
         $.post(window.__page_ordering_url, args, function(data) {
             if (data !== "ok") {
                 alert("Error occured: " + data + "\nOrdering wasn't updated.");
             }
         });
-		showButtonWithChildren();
+
+        showButtonWithChildren();
     };
 
     // Make the pages sortable via drag and drop.
     // The `connectWith` option needs to be set separately to get
     // around a performance bug with `sortable`.
-    $('#tree ul').sortable({
-        handle: '.ordering', opacity: '.7', stop: updateOrdering,
-        forcePlaceholderSize: true, placeholder: 'placeholder',
-        revert: 150, toleranceElement: ' div'
-    }).sortable('option', 'connectWith', '#tree ul');
+    var $tree = $('#tree ol').nestedSortable({
+        handle: '.ordering',
+        opacity: 0.5,
+        stop: updateOrdering,
+        forcePlaceholderSize: true,
+        placeholder: 'placeholder',
+        revert: 150,
+        toleranceElement: '> div',
+        isTree: true,
+        expandOnHover: 1000,
+        startCollapsed: true
+    });
 
 });
