@@ -58,6 +58,7 @@ $(function() {
     });
 
     // Show previously opened branches.
+    $('#tree ol').find('ol').hide();
     if (ids) {
         $('#page-' + ids.split(',').join(', #page-')).each(function(){
             var pageLink = $(this);
