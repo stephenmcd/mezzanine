@@ -349,9 +349,10 @@ Sites Using Mezzanine
   * `Medical Myth Busters <http://pogromcymitowmedycznych.pl>`_
   * `4player Network <http://4playernetwork.com/>`_
   * `Top500 Supercomputers <http://top500.org>`_
-  * `Die Betroffenen <http://http://www.zeichnemit.de>`_
+  * `Die Betroffenen <http://www.zeichnemit.de>`_
   * `uvena.de <http://uvena.de>`_
   * `ezless.com <http://ezless.com>`_
+  * `Dominican Python <http://python.do>`_
 
 Quotes
 ======
