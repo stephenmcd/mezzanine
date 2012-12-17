@@ -37,7 +37,10 @@ def admin_page_ordering(request):
         page.save()
         page.reset_slugs()
 
-        for i, old_sibling in enumerate(Page.objects.filter(parent_id=old_parent_id).order_by('_order')):
+        old_siblings = Page.objects.order_by('_order').filter(
+            parent_id=old_parent_id,
+        )
+        for i, old_sibling in enumerate(old_siblings):
             Page.objects.filter(id=old_sibling.id).update(_order=i)
 
     for i, new_sibling in enumerate(request.POST.getlist('siblings[]')):
