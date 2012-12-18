@@ -24,13 +24,13 @@ var toggleID = function(opened, id) {
 };
 
 function showButtonWithChildren() {
-	$('li:has(li) .tree-toggle').css({visibility: 'visible'});
-	$('li:not(:has(li)) .tree-toggle').css({visibility: 'hidden'});
+    $('li:has(li) .tree-toggle').css({visibility: 'visible'});
+    $('li:not(:has(li)) .tree-toggle').css({visibility: 'hidden'});
 }
 
 $(function() {
 
-	showButtonWithChildren();
+    showButtonWithChildren();
 
     if (window.__grappelli_installed) {
         $('.delete').addClass('grappelli-delete');
@@ -110,7 +110,7 @@ $(function() {
     // Make the pages sortable via drag and drop.
     // The `connectWith` option needs to be set separately to get
     // around a performance bug with `sortable`.
-    var $tree = $('#tree ol').nestedSortable({
+    var $tree = $('#tree > ol').nestedSortable({
         handle: '.ordering',
         opacity: 0.5,
         stop: updateOrdering,
