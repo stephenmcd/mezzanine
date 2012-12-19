@@ -36,15 +36,6 @@ $(function() {
         $('.delete').addClass('grappelli-delete');
     }
 
-    // There's a weird bug where the first click on a page name
-    // does nothing. If we remove the call to showButtonWithChildren
-    // it works fine, which doesn't make sense. So this click handler
-    // forces the anchors to go to their location.
-    $('#tree .changelink').click(function() {
-        location.href = $(this).attr('href');
-        return false;
-    });
-
     $('#tree .tree-toggle').click(function() {
         // Show/hide the branch and toggle the icon.
         var pageLink = $(this);
