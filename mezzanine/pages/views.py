@@ -19,11 +19,14 @@ def admin_page_ordering(request):
     """
     Updates the ordering of pages via AJAX from within the admin.
     """
-    get_id = lambda s: s.split("_")[-1]
+
+    def get_id(s):
+        s = s.split("_")[-1]
+        return s if s != "null" else None
     page = get_object_or_404(Page, id=get_id(request.POST['id']))
     old_parent_id = page.parent_id
     new_parent_id = get_id(request.POST['parent_id'])
-    if new_parent_id != "null" and new_parent_id != page.parent_id:
+    if new_parent_id != page.parent_id:
         # Parent changed - set the new parent and re-order the
         # previous siblings.
         page.parent_id = new_parent_id
