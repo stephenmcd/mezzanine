@@ -2,6 +2,7 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
 
 from mezzanine.conf import settings
 from mezzanine.pages import page_processors
@@ -13,36 +14,31 @@ from mezzanine.utils.views import render
 page_processors.autodiscover()
 
 
+@staff_member_required
 def admin_page_ordering(request):
     """
     Updates the ordering of pages via AJAX from within the admin.
     """
-    get_id = lambda s: s.split("_")[-1]
-    for ordering in ("ordering_from", "ordering_to"):
-        ordering = request.POST.get(ordering, "")
-        if ordering:
-            for i, page in enumerate(ordering.split(",")):
-                try:
-                    Page.objects.filter(id=get_id(page)).update(_order=i)
-                except Exception, e:
-                    return HttpResponse(str(e))
-    try:
-        moved_page = int(get_id(request.POST.get("moved_page", "")))
-    except ValueError, e:
-        pass
-    else:
-        moved_parent = get_id(request.POST.get("moved_parent", ""))
-        if not moved_parent:
-            moved_parent = None
-        try:
-            page = Page.objects.get(id=moved_page)
-            page.parent_id = moved_parent
-            page.save()
-            page.reset_slugs()
-        except Exception, e:
-            return HttpResponse(str(e))
+
+    def get_id(s):
+        s = s.split("_")[-1]
+        return s if s != "null" else None
+    page = get_object_or_404(Page, id=get_id(request.POST['id']))
+    old_parent_id = page.parent_id
+    new_parent_id = get_id(request.POST['parent_id'])
+    if new_parent_id != page.parent_id:
+        # Parent changed - set the new parent and re-order the
+        # previous siblings.
+        page.parent_id = new_parent_id
+        page.save()
+        page.reset_slugs()
+        pages = Page.objects.filter(parent_id=old_parent_id)
+        for i, page in enumerate(pages.order_by('_order')):
+            Page.objects.filter(id=page.id).update(_order=i)
+    # Set the new order for the moved page and its current siblings.
+    for i, page_id in enumerate(request.POST.getlist('siblings[]')):
+        Page.objects.filter(id=get_id(page_id)).update(_order=i)
     return HttpResponse("ok")
-admin_page_ordering = staff_member_required(admin_page_ordering)
 
 
 def page(request, slug, template=u"pages/page.html", extra_context=None):

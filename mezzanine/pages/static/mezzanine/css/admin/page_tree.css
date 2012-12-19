@@ -5,8 +5,8 @@ h1 {width:300px;}
            float:left; width:100%; margin:3px; height:18px;
            background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#e6e6e6));
            background: -moz-linear-gradient(top, #f9f9f9, #e6e6e6);}
-#tree ul {padding:0; margin:0px !important;}
-#tree ul ul {padding-left:40px; display:none;}
+#tree ol {padding:0; margin:0px !important; clear: both;}
+#tree ol ol {padding-left:40px;}
 #tree li {list-style-type:none;}
 #tree .tree-toggle, #tree .changelink {float:left; font-weight:bold; font-size:12px;}
 #tree a {float:right;}
