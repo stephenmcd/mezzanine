@@ -13,6 +13,7 @@ from mezzanine.utils.views import render
 page_processors.autodiscover()
 
 
+@staff_member_required
 def admin_page_ordering(request):
     """
     Updates the ordering of pages via AJAX from within the admin.
@@ -42,7 +43,6 @@ def admin_page_ordering(request):
         except Exception, e:
             return HttpResponse(str(e))
     return HttpResponse("ok")
-admin_page_ordering = staff_member_required(admin_page_ordering)
 
 
 def page(request, slug, template=u"pages/page.html", extra_context=None):
