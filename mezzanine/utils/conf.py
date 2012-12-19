@@ -72,6 +72,14 @@ def set_dynamic_settings(s):
         prepend("MIDDLEWARE_CLASSES", debug_mw)
     if "compressor" in s["INSTALLED_APPS"]:
         append("STATICFILES_FINDERS", "compressor.finders.CompressorFinder")
+        s.setdefault("COMPRESS_OFFLINE_CONTEXT", {
+            "MEDIA_URL": s.get("MEDIA_URL", ""),
+            "STATIC_URL": s.get("STATIC_URL", ""),
+        })
+        def mezzanine_settings():
+            from mezzanine.conf import settings
+            return settings
+        s["COMPRESS_OFFLINE_CONTEXT"]["settings"] = mezzanine_settings
 
     # Ensure the Mezzanine auth backend is enabled if
     # mezzanine.accounts is being used.
