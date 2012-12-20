@@ -159,7 +159,7 @@ class KeywordsField(BaseGenericRelation):
         isn't a form field mapped to ``GenericRelation`` model fields.
         """
         from mezzanine.generic.forms import KeywordsWidget
-        kwargs["widget"] = KeywordsWidget()
+        kwargs["widget"] = KeywordsWidget
         return super(KeywordsField, self).formfield(**kwargs)
 
     def save_form_data(self, instance, data):
