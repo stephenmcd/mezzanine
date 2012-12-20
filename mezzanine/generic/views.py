@@ -1,4 +1,3 @@
-
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.messages import error
 from django.contrib.comments.signals import comment_was_posted
@@ -83,7 +82,19 @@ def comment(request, template="generic/comments.html"):
                                 request=request)
         # Send notification emails.
         comment_url = add_cache_bypass(comment.get_absolute_url())
-        notify_emails = filter(None, [addr.strip() for addr in
+        #=======================================================================
+        # send email to reply or post people,instead of ADMINS
+        #=======================================================================
+        try:
+            from mezzanine.blog.models import BlogPost
+            notify_emails = [BlogPost.objects.get(id=comment.object_pk).user.email]
+            
+            if comment.threadedcomment.replied_to != None:
+                other_email = comment.threadedcomment.replied_to.user_email             
+                notify_emails += [other_email]
+#            print notify_emails
+        except:            
+            notify_emails = filter(None, [addr.strip() for addr in
                             settings.COMMENTS_NOTIFICATION_EMAILS.split(",")])
         if notify_emails:
             subject = _("New comment for: ") + unicode(obj)
