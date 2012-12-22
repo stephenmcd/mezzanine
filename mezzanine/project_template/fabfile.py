@@ -393,8 +393,8 @@ def create():
                 sudo("openssl req -new -x509 -nodes -out %s -keyout %s "
                      "-subj '/CN=%s' -days 3650" % parts)
             else:
-                upload_template(crt_file, crt_local, use_sudo=True)
-                upload_template(key_file, key_local, use_sudo=True)
+                upload_template(crt_local, crt_file, use_sudo=True)
+                upload_template(key_local, key_file, use_sudo=True)
 
     # Set up project.
     upload_template_and_reload("settings")
