@@ -52,6 +52,11 @@ def set_dynamic_settings(s):
     if s["TESTING"]:
         # Enable accounts when testing so the URLs exist.
         append("INSTALLED_APPS", "mezzanine.accounts")
+        # New Django 1.5 tests in redirects app don't work with a
+        # catch-all urlpattern such as Mezzanine's pages app.
+        remove("INSTALLED_APPS", "django.contrib.redirects")
+        remove("MIDDLEWARE_CLASSES",
+            "django.contrib.redirects.middleware.RedirectFallbackMiddleware")
     else:
         # Setup for optional apps.
         optional = list(s.get("OPTIONAL_APPS", []))
