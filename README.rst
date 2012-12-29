@@ -355,6 +355,7 @@ Sites Using Mezzanine
   * `Dominican Python <http://python.do>`_
   * `Stackful.io <http://stackful.io/>`_
   * `Adrenaline <http://www.adrln.com/>`_
+  * `ACE EdVenture Programme <http://aceedventure.com/>`_
 
 Quotes
 ======
