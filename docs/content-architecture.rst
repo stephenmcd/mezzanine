@@ -342,6 +342,9 @@ helping you to build advanced menus.
 
   * ``page_branch`` - a list of pages for the current branch
   * ``on_home`` - a boolean for whether the homepage is being viewed
+  * ``has_home`` - a boolean for whether a page object exists for the
+    homepage, which is used to check whether a hard-coded link to the
+    homepage should be used in the page menu
   * ``branch_level`` - an integer for the current branch depth
   * ``page_branch_in_menu`` - a boolean for whether this branch should
     be in the menu (see "filtering menus" below)

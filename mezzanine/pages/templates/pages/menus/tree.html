@@ -4,7 +4,7 @@
 {% if page_branch_in_menu %}
 <ul class="nav nav-list navlist-menu-level-{{ branch_level }}">
   {% for page in page_branch %}
-  {% if page.is_primary and forloop.first %}
+  {% if not has_home and page.is_primary and forloop.first %}
   <li class="first{% if on_home %} active{% endif %}">
     <a href="{% url "home" %}">{% trans "Home" %}</a>
   </li>

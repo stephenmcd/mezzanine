@@ -5,7 +5,7 @@
 {% else %}
 {% for page in page_branch %}
 
-    {% if page.is_primary and forloop.first %}
+    {% if not has_home and page.is_primary and forloop.first %}
     <li>
         <a href="{% url "home" %}">{% trans "Home" %}</a>
         <span class="divider">/</span>

@@ -3,7 +3,7 @@
 {% spaceless %}
 <ul id="primary-menu" class="nav pull-right">
     {% for page in page_branch %}
-    {% if forloop.first %}
+    {% if not has_home and page.is_primary and forloop.first %}
     <li class="divider-vertical"></li>
     <li id="primary-menu-home" class="first{% if on_home %} active{% endif %}">
         <a href="{% url "home" %}">{% trans "Home" %}</a>

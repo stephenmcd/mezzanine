@@ -2,13 +2,13 @@
 from collections import defaultdict
 
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.core.urlresolvers import NoReverseMatch
 from django.template import TemplateSyntaxError, Variable
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.pages.models import Page
-from mezzanine.utils.urls import admin_url
+from mezzanine.utils.urls import admin_url, home_slug
 from mezzanine import template
 
 
@@ -64,6 +64,14 @@ def page_menu(context, token):
                 context["_current_page"] = None
         elif slug:
             context["_current_page"] = context["page"]
+        # Some homepage related context flags. on_home is just a helper
+        # indicated we're on the homepage. has_home indicates an actual
+        # page object exists for the homepage, which can be used to
+        # determine whether or not to show a hard-coded homepage link
+        # in page menu.
+        home = home_slug()
+        context["on_home"] = slug == home
+        context["has_home"] = False
         # Maintain a dict of page IDs -> parent IDs for fast
         # lookup in setting page.is_current_or_ascendant in
         # page.set_menu_helpers.
@@ -75,8 +83,9 @@ def page_menu(context, token):
             setattr(page, "num_children", num_children(page.id))
             setattr(page, "has_children", has_children(page.id))
             pages[page.parent_id].append(page)
+            if page.slug == home:
+                context["has_home"] = True
         context["menu_pages"] = pages
-        context["on_home"] = slug == reverse("home")
     # ``branch_level`` must be stored against each page so that the
     # calculation of it is correctly applied. This looks weird but if we do
     # the ``branch_level`` as a separate arg to the template tag with the
