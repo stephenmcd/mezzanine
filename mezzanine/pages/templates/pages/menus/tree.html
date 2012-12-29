@@ -16,10 +16,9 @@
              {% if forloop.last %} last{% endif %}"
       id="tree-menu-{{ page.html_id }}">
     <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
-    {# remove this if tag to always show all nav items #}
-    {% if settings.PAGES_MENU_SHOW_ALL or page.is_current_or_ascendant %}
+    {# wrap the next line with 'if page.is_current_or_ascendant' #}
+    {# to only show child pages in the menu for the current page #}
     {% if page.has_children_in_menu %}{% page_menu page %}{% endif %}
-    {% endif %}
   </li>
   {% endif %}
   {% endfor %}

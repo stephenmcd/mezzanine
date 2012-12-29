@@ -44,15 +44,6 @@ register_setting(
 )
 
 register_setting(
-    name="PAGES_MENU_SHOW_ALL",
-    description=_("If ``True``, the left-hand tree template for the pages "
-        "menu will show all levels of navigation, otherwise child pages "
-        "are only shown when viewing the parent page."),
-    editable=False,
-    default=True,
-)
-
-register_setting(
     name="PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED",
     description=_("If ``True``, pages with ``login_required`` checked will "
         "still be listed in menus and search results, for unauthenticated "

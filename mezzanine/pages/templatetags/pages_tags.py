@@ -68,7 +68,7 @@ def page_menu(context, token):
         # indicated we're on the homepage. has_home indicates an actual
         # page object exists for the homepage, which can be used to
         # determine whether or not to show a hard-coded homepage link
-        # in page menu.
+        # in the page menu.
         home = home_slug()
         context["on_home"] = slug == home
         context["has_home"] = False
