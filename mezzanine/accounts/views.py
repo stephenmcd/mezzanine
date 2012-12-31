@@ -46,7 +46,7 @@ def signup(request, template="accounts/account_signup.html"):
     Signup form.
     """
     profile_form = get_profile_form()
-    form = profile_form(request.POST or None)
+    form = profile_form(request.POST or None, request.FILES or None)
     if request.method == "POST" and form.is_valid():
         new_user = form.save()
         if not new_user.is_active:
@@ -131,7 +131,8 @@ def profile_update(request, template="accounts/account_profile_update.html"):
     Profile update form.
     """
     profile_form = get_profile_form()
-    form = profile_form(request.POST or None, instance=request.user)
+    form = profile_form(request.POST or None, request.FILES or None,
+                        instance=request.user)
     if request.method == "POST" and form.is_valid():
         user = form.save()
         info(request, _("Profile updated"))

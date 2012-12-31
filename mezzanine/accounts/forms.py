@@ -162,7 +162,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         if self._has_profile:
             profile = user.get_profile()
             profile_fields_form = self.get_profile_fields_form()
-            profile_fields_form(self.data, instance=profile).save()
+            profile_fields_form(self.data, self.files, instance=profile).save()
 
         if self._signup:
             settings.use_editable()
