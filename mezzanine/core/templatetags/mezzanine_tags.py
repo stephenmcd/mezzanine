@@ -234,7 +234,7 @@ def search_form(context, search_model_names=None):
         if model:  # Might not be installed.
             verbose_name = model._meta.verbose_name_plural.capitalize()
             search_model_choices.append((verbose_name, model_name))
-    context["search_model_choices"] = search_model_choices
+    context["search_model_choices"] = sorted(search_model_choices)
     return context
 
 
