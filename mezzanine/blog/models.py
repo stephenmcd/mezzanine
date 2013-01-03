@@ -75,9 +75,10 @@ class BlogCategory(Slugged):
     A category for grouping blog posts into a series.
     """
 
-    class Meta:
+    class Meta(Slugged.Meta):
         verbose_name = _("Blog Category")
         verbose_name_plural = _("Blog Categories")
+        ordering = ("title",)
 
     @models.permalink
     def get_absolute_url(self):
