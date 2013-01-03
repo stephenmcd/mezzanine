@@ -78,6 +78,7 @@ class BlogCategory(Slugged):
     class Meta:
         verbose_name = _("Blog Category")
         verbose_name_plural = _("Blog Categories")
+        ordering = ("title",)
 
     @models.permalink
     def get_absolute_url(self):

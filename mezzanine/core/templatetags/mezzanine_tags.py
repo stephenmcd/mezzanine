@@ -109,6 +109,22 @@ def fields_for(context, form):
 
 
 @register.filter
+def sort_by(items, attr):
+    """
+    General sort filter - sorts by either attribute or key.
+    """
+    def key_func(item):
+        try:
+            return getattr(item, attr)
+        except AttributeError:
+            try:
+                return item[attr]
+            except TypeError:
+                getattr(item, attr)  # Reraise AttributeError
+    return sorted(items, key=key_func)
+
+
+@register.filter
 def is_installed(app_name):
     """
     Returns ``True`` if the given app name is in the

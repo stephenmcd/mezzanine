@@ -51,7 +51,7 @@
 {% endblock %}
 
 {% block blog_post_detail_featured_image %}
-{% if blog_post.featured_image %}
+{% if BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
 <p><img src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 600 0 %}"></p>
 {% endif %}
 {% endblock %}

@@ -59,7 +59,6 @@ class Slugged(SiteRelated):
 
     class Meta:
         abstract = True
-        ordering = ("title",)
 
     def __unicode__(self):
         return self.title
