@@ -38,7 +38,7 @@
         "fields": {
             "status": 2,
             "_order": 0,
-            "parent": 1,
+            "parent": 2,
             "description": "Team",
             "title": "Team",
             "titles": "About / Team",
@@ -54,7 +54,7 @@
         "fields": {
             "status": 2,
             "_order": 1,
-            "parent": 1,
+            "parent": 2,
             "description": "History",
             "title": "History",
             "titles": "About / History",
