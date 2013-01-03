@@ -133,16 +133,34 @@ class Page(BasePage):
             return "%s/%s" % (self.parent.slug, slug)
         return slug
 
-    def reset_slugs(self):
+    def set_slug(self, new_slug):
         """
-        Called when the parent page is changed in the admin and the slug
-        plus all child slugs need to be recreated given the new parent.
+        Changes this page's slug, and all other pages whose slugs
+        start with this page's slug.
         """
-        if not self.overridden():
-            self.slug = None
-            self.save()
-        for child in self.children.all():
-            child.reset_slugs()
+        for page in Page.objects.filter(slug__startswith=self.slug):
+            if not page.overridden():
+                page.slug = new_slug + page.slug[len(self.slug):]
+                page.save()
+        self.slug = new_slug
+
+    def set_parent(self, new_parent):
+        """
+        Change the parent of this page, changing this page's slug to match
+        the new parent if necessary.
+        """
+        old_parent_slug = self.parent.slug if self.parent else ""
+        new_parent_slug = new_parent.slug if new_parent else ""
+
+        self.parent = new_parent
+        self.save()
+
+        if not old_parent_slug:
+            self.set_slug("/".join((new_parent_slug, self.slug)))
+        elif self.slug.startswith(old_parent_slug):
+            new_slug = self.slug.replace(old_parent_slug,
+                                         new_parent_slug, 1)
+            self.set_slug(new_slug.strip("/"))
 
     def overridden(self):
         """
