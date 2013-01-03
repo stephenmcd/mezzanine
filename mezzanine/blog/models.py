@@ -75,7 +75,7 @@ class BlogCategory(Slugged):
     A category for grouping blog posts into a series.
     """
 
-    class Meta(Slugged.Meta):
+    class Meta:
         verbose_name = _("Blog Category")
         verbose_name_plural = _("Blog Categories")
         ordering = ("title",)
