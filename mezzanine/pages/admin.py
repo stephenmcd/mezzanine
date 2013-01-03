@@ -1,7 +1,6 @@
 
 from copy import deepcopy
 
-from django.forms import ModelForm
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import NoReverseMatch
@@ -9,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from mezzanine.pages.models import Page, RichTextPage, Link
-from mezzanine.core.admin import DisplayableAdmin
+from mezzanine.core.admin import DisplayableAdmin, DisplayableAdminForm
 from mezzanine.utils.urls import admin_url
 
 
@@ -17,7 +16,7 @@ page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 page_fieldsets[0][1]["fields"] += ("in_menus", "login_required",)
 
 
-class PageAdminForm(ModelForm):
+class PageAdminForm(DisplayableAdminForm):
     def clean_slug(self):
         """
         If the slug has been changed, save the old one. We will use it later

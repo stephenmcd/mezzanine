@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.db.models import AutoField
-from django.forms import ValidationError
+from django.forms import ValidationError, ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
@@ -13,6 +13,16 @@ from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
 from mezzanine.utils.urls import admin_url
+
+
+class DisplayableAdminForm(ModelForm):
+    def clean_content(form):
+        status = form.cleaned_data.get("status")
+        content = form.cleaned_data.get("content")
+        if status == CONTENT_STATUS_PUBLISHED and not content:
+            raise ValidationError(_("This field is required if status "
+                                    "is set to published."))
+        return content
 
 
 class DisplayableAdmin(admin.ModelAdmin):
@@ -39,26 +49,7 @@ class DisplayableAdmin(admin.ModelAdmin):
         }),
     )
 
-    def get_form(self, request, obj=None, **kwargs):
-        """
-        Add validation for the content field - it's required if status
-        is set to published. We patch this method onto the form to avoid
-        problems that come up with trying to use a form class. See:
-        https://bitbucket.org/stephenmcd/mezzanine/pull-request/23/
-        allow-content-field-on-richtextpage-to-be
-        """
-        form = super(DisplayableAdmin, self).get_form(request, obj, **kwargs)
-
-        def clean_content(form):
-            status = form.cleaned_data.get("status")
-            content = form.cleaned_data.get("content")
-            if status == CONTENT_STATUS_PUBLISHED and not content:
-                raise ValidationError(_("This field is required if status "
-                                        "is set to published."))
-            return content
-
-        form.clean_content = clean_content
-        return form
+    form = DisplayableAdminForm
 
 
 class BaseDynamicInlineAdmin(object):
