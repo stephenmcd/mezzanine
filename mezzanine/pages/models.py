@@ -77,6 +77,17 @@ class Page(BasePage):
         self.titles = " / ".join(titles)
         super(Page, self).save(*args, **kwargs)
 
+    def description_from_content(self):
+        """
+        Override ``Displayable.description_from_content`` to load the
+        content type subclass for when ``save`` is called directly on a
+        ``Page`` instance, so that all fields defined on the subclass
+        are available for generating the description.
+        """
+        if self.__class__ == Page:
+            self = self.get_content_model()
+        return super(Page, self).description_from_content()
+
     def get_ascendants(self, for_user=None):
         """
         Returns the ascendants for the page. Ascendants are cached in
