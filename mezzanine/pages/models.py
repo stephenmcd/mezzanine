@@ -85,7 +85,9 @@ class Page(BasePage):
         are available for generating the description.
         """
         if self.__class__ == Page:
-            self = self.get_content_model()
+            content_model = self.get_content_model()
+            if content_model:
+                return content_model.description_from_content()
         return super(Page, self).description_from_content()
 
     def get_ascendants(self, for_user=None):
