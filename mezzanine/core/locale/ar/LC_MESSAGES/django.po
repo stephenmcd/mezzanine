@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
-"PO-Revision-Date: 2013-01-12 00:55+0000\n"
+"POT-Creation-Date: 2013-01-13 06:33-0500\n"
+"PO-Revision-Date: 2013-01-13 06:31-0500\n"
 "Last-Translator: Ahmad Khayyat <akhayyat@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/"
 "language/ar/)\n"
@@ -435,7 +435,7 @@ msgstr "إذا كانت الصفحة منشورة، فلن يتم عرضها ب�
 
 #: models.py:198
 msgid "Show in sitemap"
-msgstr ""
+msgstr "إظهار في خريطة الموقع"
 
 #: models.py:401
 msgid "Author"
