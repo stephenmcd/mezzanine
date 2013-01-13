@@ -41,6 +41,25 @@
     margin-right: 230px;
 }
 
+.multicheckbox li {
+    float: right;
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+.multicheckbox input {
+    margin: -1px 0 0 6px;
+}
+
+fieldset .field-box {
+    margin-right: 0 !important;
+    margin-left: 150px !important;
+}
+
+.change-form div.submit-row {
+    text-align: left;
+}
+
 /* page tree */
 
 #tree div {
@@ -94,7 +113,13 @@
     float: right;
 }
 
-#content-main p input {
+#settings-form p input {
     float: right;
     margin: 2px 0 5px 10px;
+}
+
+/* in-line */
+
+.mezz-fb-thumbnail {
+    margin-right: 15px !important;
 }
