@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:57-0500\n"
 "PO-Revision-Date: 2012-10-05 14:14+0000\n"
 "Last-Translator: bartdegoede <bart@dispectu.com>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/"
+"nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,8 +36,13 @@ msgid "Default Twitter Query Type"
 msgstr "Standaard Twitter zoekterm type"
 
 #: defaults.py:22
-msgid "Type of query that will be used to retrieve tweets for the default Twitter feed."
-msgstr "Het type zoekterm dat gebruikt wordt om tweets voor de standaard Twitter feed op te halen. Standaard wordt de Twitter search interface, http://search.twitter.com, aangesproken."
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
+msgstr ""
+"Het type zoekterm dat gebruikt wordt om tweets voor de standaard Twitter "
+"feed op te halen. Standaard wordt de Twitter search interface, http://search."
+"twitter.com, aangesproken."
 
 #: defaults.py:31
 msgid "Default Twitter Query"
@@ -44,7 +50,8 @@ msgstr "Standaard Twitter zoekterm"
 
 #: defaults.py:32
 msgid "Twitter query to use for the default query type."
-msgstr "Zoekterm die standaard gebruikt wordt voor het standaard zoekterm type."
+msgstr ""
+"Zoekterm die standaard gebruikt wordt voor het standaard zoekterm type."
 
 #: defaults.py:39
 msgid "Default Number of Tweets"

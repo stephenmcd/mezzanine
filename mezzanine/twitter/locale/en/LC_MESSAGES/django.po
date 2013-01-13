@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:57-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,9 @@ msgid "Default Twitter Query Type"
 msgstr ""
 
 #: defaults.py:22
-msgid "Type of query that will be used to retrieve tweets for the default Twitter feed."
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
 msgstr ""
 
 #: defaults.py:31

@@ -9,15 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-26 14:26+0000\n"
 "Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/"
+"language/pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:20 models.py:67
 msgid "User"
@@ -29,7 +31,8 @@ msgstr "Aby pozostawić komentarz należy posiadać konto"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr "Jeśli ``Prawda`` użytkownik musi się zalogować, aby zostawić komentarz."
+msgstr ""
+"Jeśli ``Prawda`` użytkownik musi się zalogować, aby zostawić komentarz."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -45,7 +48,8 @@ msgstr "Klucz publiczny Disqus"
 
 #: defaults.py:42
 msgid "Public key for http://disqus.com developer API"
-msgstr "Klucz publiczny do użytkowania API proponowanego przez http://disqus.com"
+msgstr ""
+"Klucz publiczny do użytkowania API proponowanego przez http://disqus.com"
 
 #: defaults.py:49
 msgid "Disqus secret key"
@@ -64,16 +68,24 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr "Jeżeli ``True``, komentarze są akceptowane automatycznie."
 
 #: defaults.py:66
-msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
-msgstr "Punktowa scieżka dostępu do funcki przywołującej wartość komentarza zanim zostanie renderowana do szablonu."
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
+msgstr ""
+"Punktowa scieżka dostępu do funcki przywołującej wartość komentarza zanim "
+"zostanie renderowana do szablonu."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
 msgstr "Adres e-mail do zasygnalizowania nowego komentarza"
 
 #: defaults.py:75
-msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
-msgstr "Lista adresów e-mail oddzielonych przecinkami, które otrzymają e-mail z powiadomieniem przy każdym nowym komentarzu opublikowanym na stronie."
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
+msgstr ""
+"Lista adresów e-mail oddzielonych przecinkami, które otrzymają e-mail z "
+"powiadomieniem przy każdym nowym komentarzu opublikowanym na stronie."
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -88,16 +100,24 @@ msgid "Show unapproved comments"
 msgstr "Pokazuj niezaakceptowane komentarze"
 
 #: defaults.py:94
-msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "Jeśli ``True`` komentarze nie oznaczone jako ``opublikowane`` będą wyświetlane, ale zastąpione informacją ``czeka na akceptacje``"
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+"Jeśli ``True`` komentarze nie oznaczone jako ``opublikowane`` będą "
+"wyświetlane, ale zastąpione informacją ``czeka na akceptacje``"
 
 #: defaults.py:103
 msgid "Show removed comments"
 msgstr "Pokaż usunięte komentarze"
 
 #: defaults.py:104
-msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
-msgstr "Jeśli ``True``, komentarze, które zostały oznaczone jako ``usunięte`` będą nadal wyświetlane, ale zastąpione komunikatem ``usunięty``."
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Jeśli ``True``, komentarze, które zostały oznaczone jako ``usunięte`` będą "
+"nadal wyświetlane, ale zastąpione komunikatem ``usunięty``."
 
 #: defaults.py:113
 msgid "Min value for a rating."
@@ -168,8 +188,12 @@ msgid "Ratings"
 msgstr "Oceny"
 
 #: views.py:53
-msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
-msgstr "Musisz być zalogowany by dodawać komentarze. Prosze zaloguj się lub zarejestruj, a  komentarz zostanie dodany."
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr ""
+"Musisz być zalogowany by dodawać komentarze. Prosze zaloguj się lub "
+"zarejestruj, a  komentarz zostanie dodany."
 
 #: views.py:89
 msgid "New comment for: "

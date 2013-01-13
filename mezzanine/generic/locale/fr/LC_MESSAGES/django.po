@@ -10,10 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-17 17:24+0000\n"
 "Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
+"language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +31,9 @@ msgstr "Un compte est nécessaire pour poster des commentaires"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr "Si ``vrai``, les utilisateurs doivent se connecter pour poster des commentaires."
+msgstr ""
+"Si ``vrai``, les utilisateurs doivent se connecter pour poster des "
+"commentaires."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -65,16 +68,24 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr "Si ``vrai``, les commentaires seront validés par défaut."
 
 #: defaults.py:66
-msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
-msgstr "Chemin d'accès en notation pointée vers la fonction à appeler sur le contenu d'un commentaire avant qu'il soit fournit au template."
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
+msgstr ""
+"Chemin d'accès en notation pointée vers la fonction à appeler sur le contenu "
+"d'un commentaire avant qu'il soit fournit au template."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
 msgstr "Adresses e-mail pour signaler un nouveau commentaire"
 
 #: defaults.py:75
-msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
-msgstr "Une liste d'adresses e-mail, séparée par des virgules, qui recevront un e-mail d'avertissement à chaque nouveau commentaire publié sur le site."
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
+msgstr ""
+"Une liste d'adresses e-mail, séparée par des virgules, qui recevront un e-"
+"mail d'avertissement à chaque nouveau commentaire publié sur le site."
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -89,16 +100,24 @@ msgid "Show unapproved comments"
 msgstr "Afficher les commentaires non-modérés"
 
 #: defaults.py:94
-msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "Si ``vrai``, les commentaires qui ont ``is_public`` décochés seront affichés, mais remplacés par le message ``en attente de modération``."
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+"Si ``vrai``, les commentaires qui ont ``is_public`` décochés seront "
+"affichés, mais remplacés par le message ``en attente de modération``."
 
 #: defaults.py:103
 msgid "Show removed comments"
 msgstr "Afficher les commentaires effacés"
 
 #: defaults.py:104
-msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
-msgstr "Si ``vrai``, les commenaires qui ont le champ ``removed`` coché seront toujours affichés mais remplacés par le message ``effacé``."
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Si ``vrai``, les commenaires qui ont le champ ``removed`` coché seront "
+"toujours affichés mais remplacés par le message ``effacé``."
 
 #: defaults.py:113
 msgid "Min value for a rating."
@@ -169,8 +188,12 @@ msgid "Ratings"
 msgstr "Notes"
 
 #: views.py:53
-msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
-msgstr "Vous devez vous identifier pour poster un commentaire. Veuillez vous identifier ou créer un compte et votre commentaire sera posté."
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr ""
+"Vous devez vous identifier pour poster un commentaire. Veuillez vous "
+"identifier ou créer un compte et votre commentaire sera posté."
 
 #: views.py:89
 msgid "New comment for: "

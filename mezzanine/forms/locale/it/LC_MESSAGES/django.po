@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: miderose <miderose@yahoo.it>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/"
+"language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,27 +36,42 @@ msgid "View Entries"
 msgstr "Vedi elementi"
 
 #: defaults.py:20
-msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
-msgstr "Se ``True``, le email inviate a destinatari aggiuntivi a partire da form inoltrate non saranno inviate da un indirizzo preso da uno dei campi email della form."
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+"Se ``True``, le email inviate a destinatari aggiuntivi a partire da form "
+"inoltrate non saranno inviate da un indirizzo preso da uno dei campi email "
+"della form."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
-msgstr "Massima lunghezza permessa per i valori dei campi nell'applicazione forms."
+msgstr ""
+"Massima lunghezza permessa per i valori dei campi nell'applicazione forms."
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr "Massima lunghezza permessa per le etichette dei campi nell'applicazione forms."
+msgstr ""
+"Massima lunghezza permessa per le etichette dei campi nell'applicazione "
+"forms."
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr "Carattare da usare come delimitatore di campo quando si esportano le response dei form in CSV."
+msgstr ""
+"Carattare da usare come delimitatore di campo quando si esportano le "
+"response dei form in CSV."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Path assoluto dove salvare l'upload dei file per l'applicazione forms."
 
 #: defaults.py:58
-msgid "Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts."
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -171,8 +187,12 @@ msgid "Send email to user"
 msgstr "Invia un'email all'utente"
 
 #: models.py:21
-msgid "To send an email to the email address supplied in the form upon submission, check this box."
-msgstr " Per inviare un'email all'indirizzo fornito nella form inoltrata, barra questa casella."
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
+" Per inviare un'email all'indirizzo fornito nella form inoltrata, barra "
+"questa casella."
 
 #: models.py:23
 msgid "From address"
@@ -187,8 +207,12 @@ msgid "Send email to others"
 msgstr "Invia email ad altri"
 
 #: models.py:26
-msgid "Provide a comma separated list of email addresses to be notified upon form submission. Leave blank to disable notifications."
-msgstr "Fornisci una lista, separata da virgole, di indirizzi email da notificare all'inoltro della form. Lascia vuoto per disabilitare le notifiche."
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+"Fornisci una lista, separata da virgole, di indirizzi email da notificare "
+"all'inoltro della form. Lascia vuoto per disabilitare le notifiche."
 
 #: models.py:30
 msgid "Subject"
@@ -199,8 +223,14 @@ msgid "Message"
 msgstr "Messaggio"
 
 #: models.py:32
-msgid "Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in the email."
-msgstr "Le email inviate in base alle impostazioni qui sopra conterranno ciascuno dei campi della form inseriti. Puoi anche inserire qui un messaggio che sarà incluso nell'email."
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+"Le email inviate in base alle impostazioni qui sopra conterranno ciascuno "
+"dei campi della form inseriti. Puoi anche inserire qui un messaggio che sarà "
+"incluso nell'email."
 
 #: models.py:37
 msgid "Form"
@@ -231,8 +261,12 @@ msgid "Choices"
 msgstr "Scelte"
 
 #: models.py:61
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
-msgstr "Opzioni separate da virgole, se applicabile. Se una delle opzioni contiene a sua volta virgole, delimitarla con `apostrofi inversi`."
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr ""
+"Opzioni separate da virgole, se applicabile. Se una delle opzioni contiene a "
+"sua volta virgole, delimitarla con `apostrofi inversi`."
 
 #: models.py:63
 msgid "Default value"
@@ -246,7 +280,7 @@ msgstr "Testo segnaposto"
 msgid "Help text"
 msgstr "Testo d'aiuto"
 
-#: models.py:72 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
 msgstr "Campo"
 
@@ -271,7 +305,7 @@ msgid "Form field entries"
 msgstr "Elementi campi form"
 
 #: templates/admin/forms/change_form.html:8
-#: templates/admin/forms/entries.html:56
+#: templates/admin/forms/entries.html:57
 msgid "View entries"
 msgstr "Vedi elementi"
 
@@ -283,38 +317,38 @@ msgstr "Storico"
 msgid "View on site"
 msgstr "Vedi sul sito"
 
-#: templates/admin/forms/entries.html:13
+#: templates/admin/forms/entries.html:14
 msgid "Home"
 msgstr "Pagina principale"
 
-#: templates/admin/forms/entries.html:28
+#: templates/admin/forms/entries.html:29
 msgid "Include"
 msgstr "Includi"
 
-#: templates/admin/forms/entries.html:29
+#: templates/admin/forms/entries.html:30
 msgid "Filter by"
 msgstr "Filtra per"
 
-#: templates/admin/forms/entries.html:47
+#: templates/admin/forms/entries.html:48
 msgid "All"
 msgstr "Tutto"
 
-#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
 msgstr "Ritorna alla form"
 
-#: templates/admin/forms/entries.html:57
+#: templates/admin/forms/entries.html:58
 msgid "Export CSV"
 msgstr "Esporta CSV"
 
-#: templates/admin/forms/entries.html:59
+#: templates/admin/forms/entries.html:60
 msgid "Entries"
 msgstr "Elementi"
 
-#: templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:94
 msgid "Delete selected"
 msgstr "Cancella selezionati"
 
-#: templates/admin/forms/entries.html:97
+#: templates/admin/forms/entries.html:98
 msgid "No entries to display"
 msgstr "Nessun elemento da mostrare"

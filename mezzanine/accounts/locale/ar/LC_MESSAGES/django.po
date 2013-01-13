@@ -1,22 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Ahmad Khayyat <akhayyat@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-12-30 09:32+0000\n"
 "Last-Translator: Ahmad Khayyat <akhayyat@gmail.com>\n"
-"Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/language/ar/)\n"
+"Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/"
+"language/ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: defaults.py:20
 msgid "Minimum length for passwords"
@@ -38,8 +40,8 @@ msgstr "إنشاء صفحات ملف شخصي عامة للمستخدمين."
 
 #: defaults.py:51
 msgid ""
-"If ``True``, when users create an account, they will be sent an email with a"
-" verification link, which they must click to enable their account."
+"If ``True``, when users create an account, they will be sent an email with a "
+"verification link, which they must click to enable their account."
 msgstr ""
 
 #: forms.py:18 forms.py:187
@@ -110,7 +112,9 @@ msgstr "تم تسجيل الخروج بنجاح"
 #: views.py:54
 msgid ""
 "A verification email has been sent with a link for activating your account."
-msgstr "تم إرسال رسالة إلكترونية تحوي رابط تنشيط حسابك إلى بريدك الإلكتروني للتأكد من صحته."
+msgstr ""
+"تم إرسال رسالة إلكترونية تحوي رابط تنشيط حسابك إلى بريدك الإلكتروني للتأكد "
+"من صحته."
 
 #: views.py:58 views.py:77
 msgid "Successfully signed up"
@@ -120,24 +124,24 @@ msgstr "تم إنشاء حسابك بنجاح"
 msgid "Signup"
 msgstr "إنشاء حساب جديد"
 
-#: views.py:80 views.py:163
+#: views.py:80 views.py:164
 msgid "The link you clicked is no longer valid."
 msgstr "الرابط الذي استخدمته لم يعد صالحاً."
 
-#: views.py:137
+#: views.py:138
 msgid "Profile updated"
 msgstr "تم تحديث الملف الشخصي"
 
-#: views.py:142
+#: views.py:143
 msgid "Update Profile"
 msgstr "تحديث الملف الشخصي"
 
-#: views.py:151
+#: views.py:152
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr "تم إرسال رسالة إلكترونية تحوي رابط إعادة ضبط كلمة السر إليك."
 
-#: views.py:153
+#: views.py:154
 msgid "Password Reset"
 msgstr "تمت إعادة ضبط كلمة السر"
 
@@ -148,23 +152,24 @@ msgstr "لقد قمت بتسجيل دخولك بالفعل."
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an account you can <a "
-"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
+"\">sign up</a> for one now."
 msgstr ""
 
 #: templates/accounts/account_login.html:14
 #, python-format
 msgid ""
-"<p>You can also <a "
-"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
-"password</a> if you've forgotten it.</p>"
+"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">reset your password</a> if you've forgotten it.</p>"
 msgstr ""
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
-"Enter your username or email address and you'll receive an email with a link"
-" you need to click, in order to log in and change your password."
-msgstr "أدخل اسم المستخدم أو عنوان البريد الإلكتروني الخاصين بك، وستتلقى رسالة إلكترونية تحوي رابطاً يمكنك من إعادة ضبط كلمة السر الخاصة بك."
+"Enter your username or email address and you'll receive an email with a link "
+"you need to click, in order to log in and change your password."
+msgstr ""
+"أدخل اسم المستخدم أو عنوان البريد الإلكتروني الخاصين بك، وستتلقى رسالة "
+"إلكترونية تحوي رابطاً يمكنك من إعادة ضبط كلمة السر الخاصة بك."
 
 #: templates/accounts/account_profile.html:17
 #: templates/accounts/includes/user_panel.html:9
@@ -173,15 +178,18 @@ msgstr "تحديث الملف الشخصي"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need"
-" to log out first."
-msgstr "لقد قمت بتسجيل دخولك مسبقاً. إذا كنت تريد إنشاء حساب جديد، لا بد أن تقوم بتسجيل الخروج أولاً."
+"You're already logged in. If you'd like to create a new account, you'll need "
+"to log out first."
+msgstr ""
+"لقد قمت بتسجيل دخولك مسبقاً. إذا كنت تريد إنشاء حساب جديد، لا بد أن تقوم "
+"بتسجيل الخروج أولاً."
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
-msgstr "بعد إنشاء حساب جديد، ستتلقى رسالة إلكترونية تحوي رابطاً يمكنك من تنشيط حسابك."
+msgstr ""
+"بعد إنشاء حساب جديد، ستتلقى رسالة إلكترونية تحوي رابطاً يمكنك من تنشيط حسابك."
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
