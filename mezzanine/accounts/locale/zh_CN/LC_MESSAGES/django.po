@@ -37,7 +37,7 @@ msgstr "如果是，用户可以使用自定义选项页"
 
 #: defaults.py:51
 msgid "If ``True``, when users create an account, they will be sent an email with a verification link, which they must click to enable their account."
-msgstr "保果是，新用户将收到激活邮件，用来激活帐户。"
+msgstr "如果是，新用户将收到激活邮件，用来激活帐户。"
 
 #: forms.py:18 forms.py:187
 msgid "Username or email address"
