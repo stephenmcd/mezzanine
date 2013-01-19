@@ -30,7 +30,6 @@ class Command(BaseImporterCommand):
 
     def request(self, path, data=None):
         import requests
-        my_config = {'verbose': sys.stderr}
         data = data or {}
         params = {
             'api_token': self.api_token
@@ -39,8 +38,7 @@ class Command(BaseImporterCommand):
         url = "http://posterous.com/api/2/%s" % path
         r = requests.get(url,
             data=params,
-            auth=(self.username, self.password),
-            config=my_config
+            auth=(self.username, self.password)
         )
         if r.text.startswith("403"):
             raise PosterousImportException(r.text)
