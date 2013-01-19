@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/mezzanine/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/projects/p/mezzanine/"
+"language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,8 +36,12 @@ msgid "View Entries"
 msgstr "Einträge ansehen"
 
 #: defaults.py:20
-msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
-msgstr "Wenn ``Wahr``, werden gesendete E-Mails an zusätzliche Empfänger für Formulareingaben nicht von einer Adresse aus dem Formular gesendet."
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+"Wenn ``Wahr``, werden gesendete E-Mails an zusätzliche Empfänger für "
+"Formulareingaben nicht von einer Adresse aus dem Formular gesendet."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -55,7 +60,12 @@ msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Absoluter Pfad, um Dateiuploads für die Form App zu speichern."
 
 #: defaults.py:58
-msgid "Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts."
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -171,8 +181,12 @@ msgid "Send email to user"
 msgstr "E-Mail an Benutzer senden"
 
 #: models.py:21
-msgid "To send an email to the email address supplied in the form upon submission, check this box."
-msgstr "Wenn dieses Feld ausgewählt wird, wird beim Absenden des Formulars eine Nachricht an die im Formular angegebene E-Mail-Adresse gesendet."
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
+"Wenn dieses Feld ausgewählt wird, wird beim Absenden des Formulars eine "
+"Nachricht an die im Formular angegebene E-Mail-Adresse gesendet."
 
 #: models.py:23
 msgid "From address"
@@ -187,8 +201,13 @@ msgid "Send email to others"
 msgstr "E-Mail an andere senden"
 
 #: models.py:26
-msgid "Provide a comma separated list of email addresses to be notified upon form submission. Leave blank to disable notifications."
-msgstr "Geben Sie eine Liste von durch Kommas getrennte E-Mail-Adressen an, die beim Absenden des Formulars benachrichtigt werden sollen. Wenn Sie dieses Feld leer lassen, werden die Benachrichtigungen deaktiviert."
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+"Geben Sie eine Liste von durch Kommas getrennte E-Mail-Adressen an, die beim "
+"Absenden des Formulars benachrichtigt werden sollen. Wenn Sie dieses Feld "
+"leer lassen, werden die Benachrichtigungen deaktiviert."
 
 #: models.py:30
 msgid "Subject"
@@ -199,8 +218,14 @@ msgid "Message"
 msgstr "Nachricht"
 
 #: models.py:32
-msgid "Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in the email."
-msgstr "Die E-Mails, die aufgrund der obigen Angaben versendet werden, enthalten die Einträge aller Formularfelder. Zusätzlich können Sie hier eine Nachricht eingeben, die an die E-Mails angefügt werden soll."
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+"Die E-Mails, die aufgrund der obigen Angaben versendet werden, enthalten die "
+"Einträge aller Formularfelder. Zusätzlich können Sie hier eine Nachricht "
+"eingeben, die an die E-Mails angefügt werden soll."
 
 #: models.py:37
 msgid "Form"
@@ -231,8 +256,12 @@ msgid "Choices"
 msgstr "Möglichkeiten"
 
 #: models.py:61
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
-msgstr "Durch Komma getrennte Optionen, wenn zutreffend. Wenn eine Option selbst ein Komma beinhaltet, diese Option durch `Backticks` umgeben."
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr ""
+"Durch Komma getrennte Optionen, wenn zutreffend. Wenn eine Option selbst ein "
+"Komma beinhaltet, diese Option durch `Backticks` umgeben."
 
 #: models.py:63
 msgid "Default value"
@@ -246,7 +275,7 @@ msgstr "Platzhalter-Text"
 msgid "Help text"
 msgstr "Hilfstext"
 
-#: models.py:72 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
 msgstr "Feld"
 
@@ -271,7 +300,7 @@ msgid "Form field entries"
 msgstr "Fomularfeld-Eingaben"
 
 #: templates/admin/forms/change_form.html:8
-#: templates/admin/forms/entries.html:56
+#: templates/admin/forms/entries.html:57
 msgid "View entries"
 msgstr "Einträge ansehen"
 
@@ -283,38 +312,38 @@ msgstr "Geschichte"
 msgid "View on site"
 msgstr "Seite Sicht"
 
-#: templates/admin/forms/entries.html:13
+#: templates/admin/forms/entries.html:14
 msgid "Home"
 msgstr "Home"
 
-#: templates/admin/forms/entries.html:28
+#: templates/admin/forms/entries.html:29
 msgid "Include"
 msgstr "Beinhaltet"
 
-#: templates/admin/forms/entries.html:29
+#: templates/admin/forms/entries.html:30
 msgid "Filter by"
 msgstr "Filtern nach"
 
-#: templates/admin/forms/entries.html:47
+#: templates/admin/forms/entries.html:48
 msgid "All"
 msgstr "Alle"
 
-#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
 msgstr "Zurück zum Formular"
 
-#: templates/admin/forms/entries.html:57
+#: templates/admin/forms/entries.html:58
 msgid "Export CSV"
 msgstr "Exportieren als CSV"
 
-#: templates/admin/forms/entries.html:59
+#: templates/admin/forms/entries.html:60
 msgid "Entries"
 msgstr "Einträge"
 
-#: templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:94
 msgid "Delete selected"
 msgstr "Ausgewählte löschen"
 
-#: templates/admin/forms/entries.html:97
+#: templates/admin/forms/entries.html:98
 msgid "No entries to display"
 msgstr "Keine anzuzeigenden Einträge"

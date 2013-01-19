@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/mezzanine/language/cs/)\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/mezzanine/language/"
+"cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,8 +37,13 @@ msgid "View Entries"
 msgstr "Zobrazit příspěvky"
 
 #: defaults.py:20
-msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
-msgstr "Je-li tato hodnota nastavena na ``True``,  emaily poslané extra příjemcům pro podání formulářů nebudou odeslány z adresy, která se nachází ve některém poli formuláře."
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+"Je-li tato hodnota nastavena na ``True``,  emaily poslané extra příjemcům "
+"pro podání formulářů nebudou odeslány z adresy, která se nachází ve některém "
+"poli formuláře."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -56,7 +62,12 @@ msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Absolutní cesta ke skladování nahraných souborů z forms app."
 
 #: defaults.py:58
-msgid "Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts."
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -172,8 +183,12 @@ msgid "Send email to user"
 msgstr "Odeslat email uživateli"
 
 #: models.py:21
-msgid "To send an email to the email address supplied in the form upon submission, check this box."
-msgstr "Pro odeslání emailu na emailovou adresu získanou z formuláře, zaškrtněte toto políčko."
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
+"Pro odeslání emailu na emailovou adresu získanou z formuláře, zaškrtněte "
+"toto políčko."
 
 #: models.py:23
 msgid "From address"
@@ -188,8 +203,12 @@ msgid "Send email to others"
 msgstr "Odeslat email ostatním"
 
 #: models.py:26
-msgid "Provide a comma separated list of email addresses to be notified upon form submission. Leave blank to disable notifications."
-msgstr "Zadejte čárkami oddělený seznam emailových adres, které mají být upozorněny při odeslání formuláře. Nechte pole prázdné pro zakázání notifikací."
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+"Zadejte čárkami oddělený seznam emailových adres, které mají být upozorněny "
+"při odeslání formuláře. Nechte pole prázdné pro zakázání notifikací."
 
 #: models.py:30
 msgid "Subject"
@@ -200,8 +219,14 @@ msgid "Message"
 msgstr "Zpráva"
 
 #: models.py:32
-msgid "Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in the email."
-msgstr "Emaily odeslané na základě výše uvedených možností budou obsahovat všechna vyplněná pole formuláře. Zde můžete přidat zprávu, která bude přidána do emailu."
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+"Emaily odeslané na základě výše uvedených možností budou obsahovat všechna "
+"vyplněná pole formuláře. Zde můžete přidat zprávu, která bude přidána do "
+"emailu."
 
 #: models.py:37
 msgid "Form"
@@ -232,8 +257,12 @@ msgid "Choices"
 msgstr "Výběry"
 
 #: models.py:61
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
-msgstr "Čárkami oddělené možnosti, tam kde jsou aplikovatelné. Pokud možnost sama obsahuje čárky, obalte možnost znaky: `možnost`."
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr ""
+"Čárkami oddělené možnosti, tam kde jsou aplikovatelné. Pokud možnost sama "
+"obsahuje čárky, obalte možnost znaky: `možnost`."
 
 #: models.py:63
 msgid "Default value"
@@ -247,7 +276,7 @@ msgstr "Zástupný text"
 msgid "Help text"
 msgstr "Nápověda"
 
-#: models.py:72 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
 msgstr "Pole"
 
@@ -272,7 +301,7 @@ msgid "Form field entries"
 msgstr "Položky pole formuláře"
 
 #: templates/admin/forms/change_form.html:8
-#: templates/admin/forms/entries.html:56
+#: templates/admin/forms/entries.html:57
 msgid "View entries"
 msgstr "Zobrazit příspěvky"
 
@@ -284,38 +313,38 @@ msgstr "Historie"
 msgid "View on site"
 msgstr "Zobrazit na stránce"
 
-#: templates/admin/forms/entries.html:13
+#: templates/admin/forms/entries.html:14
 msgid "Home"
 msgstr "Domů"
 
-#: templates/admin/forms/entries.html:28
+#: templates/admin/forms/entries.html:29
 msgid "Include"
 msgstr "Obsahující"
 
-#: templates/admin/forms/entries.html:29
+#: templates/admin/forms/entries.html:30
 msgid "Filter by"
 msgstr "Filtrovat podle"
 
-#: templates/admin/forms/entries.html:47
+#: templates/admin/forms/entries.html:48
 msgid "All"
 msgstr "Vše"
 
-#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
 msgstr "Zpět k úpravám"
 
-#: templates/admin/forms/entries.html:57
+#: templates/admin/forms/entries.html:58
 msgid "Export CSV"
 msgstr "Exportovat do CSV"
 
-#: templates/admin/forms/entries.html:59
+#: templates/admin/forms/entries.html:60
 msgid "Entries"
 msgstr "Články"
 
-#: templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:94
 msgid "Delete selected"
 msgstr "Smazat vybrané"
 
-#: templates/admin/forms/entries.html:97
+#: templates/admin/forms/entries.html:98
 msgid "No entries to display"
 msgstr "Žádné články k zobrazení"

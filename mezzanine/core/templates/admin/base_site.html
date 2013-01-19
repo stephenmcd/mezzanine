@@ -44,6 +44,10 @@ window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
 {% endif %}
 {% endblock %}
+{% block rtl_styles %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}mezzanine/css/admin/rtl.css" />
+{% endblock %}
 
 {% block footer %}
 {{ block.super }}

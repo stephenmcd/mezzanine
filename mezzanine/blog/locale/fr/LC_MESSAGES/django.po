@@ -12,10 +12,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-15 21:06+0000\n"
 "Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
+"language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,8 +52,12 @@ msgid "Use date URLs"
 msgstr "Utiliser des URLs contenant des dates"
 
 #: defaults.py:44
-msgid "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/"
-msgstr "Si ``vrai``, les URLs de billets de blog incluront le mois et l'année. Ex : /blog/aaaa/mm/slug/"
+msgid ""
+"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
+"mm/slug/"
+msgstr ""
+"Si ``vrai``, les URLs de billets de blog incluront le mois et l'année. Ex : /"
+"blog/aaaa/mm/slug/"
 
 #: defaults.py:52
 msgid "Blog posts per page"
@@ -87,7 +92,7 @@ msgstr "Note"
 msgid "Featured Image"
 msgstr "Image mise en avant"
 
-#: models.py:27 templates/blog/blog_post_detail.html:94
+#: models.py:27 templates/blog/blog_post_detail.html:113
 msgid "Related posts"
 msgstr "Articles connexes"
 

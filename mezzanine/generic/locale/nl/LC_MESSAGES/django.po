@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-17 20:41+0000\n"
 "Last-Translator: bartdegoede <bart@dispectu.com>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/"
+"nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +30,9 @@ msgstr "Een account is nodig om comments te kunnen plaatsen."
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr "Wanneer deze instelling ``True`` is, moeten gebruikers ingelogd zijn om comments te kunnen plaatsen."
+msgstr ""
+"Wanneer deze instelling ``True`` is, moeten gebruikers ingelogd zijn om "
+"comments te kunnen plaatsen."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -61,19 +64,30 @@ msgstr "Sta comments automatisch toe"
 
 #: defaults.py:58
 msgid "If ``True``, built-in comments are approved by default."
-msgstr "Wanneer deze instelling ``True`` is, worden de ingebouwde comments standaard toegestaan."
+msgstr ""
+"Wanneer deze instelling ``True`` is, worden de ingebouwde comments standaard "
+"toegestaan."
 
 #: defaults.py:66
-msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
-msgstr "Pad in Python stippelnotatie naar de functie die aangeroepen moet worden op de inhoud van een comment voordat deze naar de template gerenderd wordt."
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
+msgstr ""
+"Pad in Python stippelnotatie naar de functie die aangeroepen moet worden op "
+"de inhoud van een comment voordat deze naar de template gerenderd wordt."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
 msgstr "Email adressen die van comments op de hoogte gesteld moeten worden."
 
 #: defaults.py:75
-msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
-msgstr "Een door komma's gescheiden lijst van emailadressen die een email notificatie moeten krijgen elke keer als een nieuwe comment op de site gepost wordt."
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
+msgstr ""
+"Een door komma's gescheiden lijst van emailadressen die een email "
+"notificatie moeten krijgen elke keer als een nieuwe comment op de site "
+"gepost wordt."
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -81,23 +95,32 @@ msgstr "Admin comments."
 
 #: defaults.py:85
 msgid "Number of latest comments shown in the admin dashboard."
-msgstr "Het aantal nieuwste comments dat in het admin dashboard getoond moet worden."
+msgstr ""
+"Het aantal nieuwste comments dat in het admin dashboard getoond moet worden."
 
 #: defaults.py:93
 msgid "Show unapproved comments"
 msgstr "Laat niet-goedgekeurde comments zien."
 
 #: defaults.py:94
-msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "Wanneer deze instelling ``True`` is, worden comments die ``is_public`` niet aangevinkt hebben getoond als ``wachten op goedkeuring``."
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+"Wanneer deze instelling ``True`` is, worden comments die ``is_public`` niet "
+"aangevinkt hebben getoond als ``wachten op goedkeuring``."
 
 #: defaults.py:103
 msgid "Show removed comments"
 msgstr "Toon verwijderde comments."
 
 #: defaults.py:104
-msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
-msgstr "Wanneer deze instelling ``True`` is, worden comments die als ``removed`` aangemerkt zijn getoond als ``verwijderd``."
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Wanneer deze instelling ``True`` is, worden comments die als ``removed`` "
+"aangemerkt zijn getoond als ``verwijderd``."
 
 #: defaults.py:113
 msgid "Min value for a rating."
@@ -168,8 +191,12 @@ msgid "Ratings"
 msgstr "Waarderingen"
 
 #: views.py:53
-msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
-msgstr "Je moet inloggen om commentaar te kunnen plaatsen. Log alsjeblieft in of registreer, dan wordt je commentaar gepost."
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr ""
+"Je moet inloggen om commentaar te kunnen plaatsen. Log alsjeblieft in of "
+"registreer, dan wordt je commentaar gepost."
 
 #: views.py:89
 msgid "New comment for: "

@@ -9,29 +9,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:52-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-18 11:58+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
+"mezzanine/language/zh_CN/)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: admin.py:30
-msgid "Meta data"
-msgstr "多媒体"
-
-#: admin.py:52
+#: admin.py:23
 msgid "This field is required if status is set to published."
 msgstr "发布前必须填写些项"
+
+#: admin.py:44
+msgid "Meta data"
+msgstr "多媒体"
 
 #: defaults.py:21
 msgid "Controls the ordering and grouping of the admin menu."
 msgstr "管理菜单排序和分组"
 
-#: defaults.py:24 models.py:238
+#: defaults.py:24 models.py:274
 msgid "Content"
 msgstr "内容"
 
@@ -39,7 +40,7 @@ msgstr "内容"
 msgid "Media Library"
 msgstr "媒体库"
 
-#: defaults.py:26 templates/admin/login.html:40
+#: defaults.py:26 templates/admin/login.html:43
 msgid "Site"
 msgstr "站点"
 
@@ -56,19 +57,39 @@ msgid "Size of thumbnail previews for image fields in the admin interface."
 msgstr "admin界面中图片字段缩略图大小"
 
 #: defaults.py:48
-msgid "Mezzanine's caching uses a technique know as mint caching. This is where the requested expiry for a cache entry is stored with the cache entry in cache, and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a cache get, the store expiry is checked, and if it has past, the cache entry is set again, and no entry is returned. This tries to ensure that cache misses never occur, and if many clients were to get a cache miss at once, only one would actually need to re-generated the cache entry."
-msgstr "Mezzanine's caching uses a technique know as mint caching. This is where the requested expiry for a cache entry is stored with the cache entry in cache, and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a cache get, the store expiry is checked, and if it has past, the cache entry is set again, and no entry is returned. This tries to ensure that cache misses never occur, and if many clients were to get a cache miss at once, only one would actually need to re-generated the cache entry."
-
-#: defaults.py:63
 msgid "Akismet API Key"
 msgstr "Akismet API Key"
 
-#: defaults.py:64
-msgid "Key for http://akismet.com spam filtering service. Used for filtering comments and forms."
-msgstr "Key for http://akismet.com spam filtering service. Used for filtering comments and forms."
+#: defaults.py:49
+msgid ""
+"Key for http://akismet.com spam filtering service. Used for filtering "
+"comments and forms."
+msgstr ""
+"Key for http://akismet.com spam filtering service. Used for filtering "
+"comments and forms."
+
+#: defaults.py:57
+msgid ""
+"Mezzanine's caching uses a technique know as mint caching. This is where the "
+"requested expiry for a cache entry is stored with the cache entry in cache, "
+"and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
+"cache get, the store expiry is checked, and if it has past, the cache entry "
+"is set again, and no entry is returned. This tries to ensure that cache "
+"misses never occur, and if many clients were to get a cache miss at once, "
+"only one would actually need to re-generated the cache entry."
+msgstr ""
+"Mezzanine's caching uses a technique know as mint caching. This is where the "
+"requested expiry for a cache entry is stored with the cache entry in cache, "
+"and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
+"cache get, the store expiry is checked, and if it has past, the cache entry "
+"is set again, and no entry is returned. This tries to ensure that cache "
+"misses never occur, and if many clients were to get a cache miss at once, "
+"only one would actually need to re-generated the cache entry."
 
 #: defaults.py:85
-msgid "A three item sequence, each containing a sequence of template tags used to render the admin dashboard."
+msgid ""
+"A three item sequence, each containing a sequence of template tags used to "
+"render the admin dashboard."
 msgstr "一个三项目序列，每个都包含一个用于渲染管理仪表板的模板标签序列。"
 
 #: defaults.py:93
@@ -76,16 +97,37 @@ msgid "Device specific template sub-directory to use as the default device."
 msgstr "提定默认设备使用特定模板的子目录。"
 
 #: defaults.py:101
-msgid "Mapping of device specific template sub-directory names to the sequence of strings that may be found in their user agents."
-msgstr "Mapping of device specific template sub-directory names to the sequence of strings that may be found in their user agents.映射设备的特定模板子目录的名称 ，用户代理字符串序列。"
+msgid ""
+"Mapping of device specific template sub-directory names to the sequence of "
+"strings that may be found in their user agents."
+msgstr ""
+"Mapping of device specific template sub-directory names to the sequence of "
+"strings that may be found in their user agents.映射设备的特定模板子目录的名"
+"称 ，用户代理字符串序列。"
 
 #: defaults.py:123
 msgid "If ``True``, website forms will use HTML5 features."
 msgstr "如果“True” ，站点FORMS使用 HTML5特性"
 
 #: defaults.py:130
-msgid "A sequence of fields that will be injected into Mezzanine's (or any library's) models. Each item in the sequence is a four item sequence. The first two items are the dotted path to the model and its field name to be added, and the dotted path to the field class to use for the field. The third and fourth items are a sequence of positional args and a dictionary of keyword args, to use when creating the field instance. When specifying the field class, the path ``django.models.db.`` can be omitted for regular Django model fields."
-msgstr "A sequence of fields that will be injected into Mezzanine's (or any library's) models. Each item in the sequence is a four item sequence. The first two items are the dotted path to the model and its field name to be added, and the dotted path to the field class to use for the field. The third and fourth items are a sequence of positional args and a dictionary of keyword args, to use when creating the field instance. When specifying the field class, the path ``django.models.db.`` can be omitted for regular Django model fields."
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of "
+"keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
+msgstr ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of "
+"keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
 
 #: defaults.py:145
 msgid "Google Analytics ID"
@@ -96,8 +138,20 @@ msgid "Google Analytics ID (http://www.google.com/analytics/)"
 msgstr "Google Analytics ID (http://www.google.com/analytics/)"
 
 #: defaults.py:153
-msgid "A sequence mapping host names to themes, allowing different templates to be served per HTTP hosts Each item in the sequence is a two item sequence, containing a host such as ``othersite.example.com``, and the name of an importable Python package for the theme. If the host is matched for a request, the templates directory inside the theme package will be first searched when loading templates."
-msgstr "A sequence mapping host names to themes, allowing different templates to be served per HTTP hosts Each item in the sequence is a two item sequence, containing a host such as ``othersite.example.com``, and the name of an importable Python package for the theme. If the host is matched for a request, the templates directory inside the theme package will be first searched when loading templates."
+msgid ""
+"A sequence mapping host names to themes, allowing different templates to be "
+"served per HTTP hosts Each item in the sequence is a two item sequence, "
+"containing a host such as ``othersite.example.com``, and the name of an "
+"importable Python package for the theme. If the host is matched for a "
+"request, the templates directory inside the theme package will be first "
+"searched when loading templates."
+msgstr ""
+"A sequence mapping host names to themes, allowing different templates to be "
+"served per HTTP hosts Each item in the sequence is a two item sequence, "
+"containing a host such as ``othersite.example.com``, and the name of an "
+"importable Python package for the theme. If the host is matched for a "
+"request, the templates directory inside the theme package will be first "
+"searched when loading templates."
 
 #: defaults.py:167
 msgid "Name of the jQuery file."
@@ -116,28 +170,46 @@ msgid "Max number of paging links to display when paginating."
 msgstr "在分页显示时每页最多的页面链接数"
 
 #: defaults.py:184
-msgid "Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their admin change-list records filtered down to records owned by the current user. This setting contains a sequence of models in the format ``app_label.object_name``, that when subclassing ``Ownable``, will still show all records in the admin change-list interface, regardless of the current user."
+msgid ""
+"Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
+"admin change-list records filtered down to records owned by the current "
+"user. This setting contains a sequence of models in the format ``app_label."
+"object_name``, that when subclassing ``Ownable``, will still show all "
+"records in the admin change-list interface, regardless of the current user."
 msgstr ""
 
 #: defaults.py:196
-msgid "Dotted package path and class name of the widget to use for the ``RichTextField``."
-msgstr "Dotted package path and class name of the widget to use for the ``RichTextField``."
+msgid ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
+msgstr ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
 
 #: defaults.py:204
-msgid "List of HTML tags that won't be stripped from ``RichTextField`` instances."
+msgid ""
+"List of HTML tags that won't be stripped from ``RichTextField`` instances."
 msgstr "``RichTextField`` 使用时不被过滤的HTML标签"
 
 #: defaults.py:220
-msgid "List of HTML attributes that won't be stripped from ``RichTextField`` instances."
+msgid ""
+"List of HTML attributes that won't be stripped from ``RichTextField`` "
+"instances."
 msgstr "``RichTextField`` 使用时不被过滤的HTML  属性 "
 
 #: defaults.py:238
-msgid "List of inline CSS styles that won't be stripped from ``RichTextField`` instances."
+msgid ""
+"List of inline CSS styles that won't be stripped from ``RichTextField`` "
+"instances."
 msgstr ""
 
 #: defaults.py:246
-msgid "Dotted path to the function to call on a ``RichTextField`` value before it is rendered to the template."
-msgstr "Dotted path to the function to call on a ``RichTextField`` value before it is rendered to the template."
+msgid ""
+"Dotted path to the function to call on a ``RichTextField`` value before it "
+"is rendered to the template."
+msgstr ""
+"Dotted path to the function to call on a ``RichTextField`` value before it "
+"is rendered to the template."
 
 #: defaults.py:256
 msgid "High"
@@ -159,106 +231,181 @@ msgstr "Rich Tex 过滤等级"
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
-"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and attributes are stripped from the content to protect against staff members intentionally adding code that could be used to cause problems, such as changing their account to a super-user with full access to the system.\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and "
+"attributes are stripped from the content to protect against staff members "
+"intentionally adding code that could be used to cause problems, such as "
+"changing their account to a super-user with full access to the system.\n"
 "\n"
-"This setting allows you to change the level of filtering that occurs. Setting it to low will allow certain extra tags to be permitted, such as those required for embedding video. While these tags are not the main candidates for users adding malicious code, they are still considered dangerous and could potentially be mis-used by a particularly technical user, and so are filtered out when the filtering level is set to high.\n"
+"This setting allows you to change the level of filtering that occurs. "
+"Setting it to low will allow certain extra tags to be permitted, such as "
+"those required for embedding video. While these tags are not the main "
+"candidates for users adding malicious code, they are still considered "
+"dangerous and could potentially be mis-used by a particularly technical "
+"user, and so are filtered out when the filtering level is set to high.\n"
 "\n"
-"Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
+"Setting the filtering level to no filtering, will disable all filtering, and "
+"allow any code to be entered by staff members, including script tags."
 msgstr ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
-"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and attributes are stripped from the content to protect against staff members intentionally adding code that could be used to cause problems, such as changing their account to a super-user with full access to the system.\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and "
+"attributes are stripped from the content to protect against staff members "
+"intentionally adding code that could be used to cause problems, such as "
+"changing their account to a super-user with full access to the system.\n"
 "\n"
-"This setting allows you to change the level of filtering that occurs. Setting it to low will allow certain extra tags to be permitted, such as those required for embedding video. While these tags are not the main candidates for users adding malicious code, they are still considered dangerous and could potentially be mis-used by a particularly technical user, and so are filtered out when the filtering level is set to high.\n"
+"This setting allows you to change the level of filtering that occurs. "
+"Setting it to low will allow certain extra tags to be permitted, such as "
+"those required for embedding video. While these tags are not the main "
+"candidates for users adding malicious code, they are still considered "
+"dangerous and could potentially be mis-used by a particularly technical "
+"user, and so are filtered out when the filtering level is set to high.\n"
 "\n"
-"Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
+"Setting the filtering level to no filtering, will disable all filtering, and "
+"allow any code to be entered by staff members, including script tags."
 
 #: defaults.py:287
+msgid ""
+"Sequence of models that will be provided by default as choices in the search "
+"form. Each model should be in the format ``app_label.model_name``. Only "
+"models that subclass ``mezzanine.core.models.Displayable`` should be used."
+msgstr ""
+
+#: defaults.py:297
 msgid "Search results per page"
 msgstr "每页显示搜索的个数"
 
-#: defaults.py:288
+#: defaults.py:298
 msgid "Number of results shown in the search results page."
 msgstr "每页显示搜索的个数"
 
-#: defaults.py:295
-msgid "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using this, you'll also need to manually apply it to your project's root ``urls.py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-project`` command contains an example of this towards its end."
-msgstr "所有Mezzanine的URL模式的前缀。启用后，您将同时需要手动将此前缀应用于你项目根目录下的 'urls.py' 模块中。Mezzanine的 'mezzanine-project' 命令提供的根目录的 'urls.py' 模块包含此URL前缀的例子。"
+#: defaults.py:305
+msgid ""
+"A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
+"this, you'll also need to manually apply it to your project's root ``urls."
+"py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-"
+"project`` command contains an example of this towards its end."
+msgstr ""
+"所有Mezzanine的URL模式的前缀。启用后，您将同时需要手动将此前缀应用于你项目根"
+"目录下的 'urls.py' 模块中。Mezzanine的 'mezzanine-project' 命令提供的根目录"
+"的 'urls.py' 模块包含此URL前缀的例子。"
 
-#: defaults.py:306
+#: defaults.py:316
 msgid "Site Title"
 msgstr "站点标题"
 
-#: defaults.py:307
-msgid "Title that will display at the top of the site, and be appended to the content of the HTML title tags on every page."
+#: defaults.py:317
+msgid ""
+"Title that will display at the top of the site, and be appended to the "
+"content of the HTML title tags on every page."
 msgstr "标题将显示在站点的顶部，并且显示在每个html的title标记中。"
 
-#: defaults.py:315
+#: defaults.py:325
 msgid "Tagline"
 msgstr "标语 副标题"
 
-#: defaults.py:316
+#: defaults.py:326
 msgid "A tag line that will appear at the top of all pages."
 msgstr "标语将显示在所有页面的顶部"
 
-#: defaults.py:318
+#: defaults.py:328
 msgid "An open source content management platform."
 msgstr "一个开源的CMS 平台 "
 
-#: defaults.py:323
-msgid "Dotted Python path to the callable for converting strings into URL slugs. Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use Django's slugify function, or something of your own if required."
-msgstr "Dotted Python path to the callable for converting strings into URL slugs. Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use Django's slugify function, or something of your own if required."
+#: defaults.py:333
+msgid ""
+"Dotted Python path to the callable for converting strings into URL slugs. "
+"Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
+"ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+"Django's slugify function, or something of your own if required."
+msgstr ""
+"Dotted Python path to the callable for converting strings into URL slugs. "
+"Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
+"ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+"Django's slugify function, or something of your own if required."
 
-#: defaults.py:334
+#: defaults.py:344
+msgid ""
+"Sequence of dotted Python paths to callable functions used for checking "
+"posted content (such as forms or comments) is spam. Each function should "
+"accept three arguments: the request object, the form object, and the URL "
+"that was posted from. Defaults to ``mezzanine.utils.views.is_spam_akismet`` "
+"which will use the http://akismet.com spam filtering service when the "
+"``AKISMET_API_KEY`` setting is configured."
+msgstr ""
+
+#: defaults.py:357
 msgid "Enable SSL"
 msgstr "使用SSL"
 
-#: defaults.py:335
-msgid "If ``True``, users will be automatically redirected to HTTPS for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
-msgstr "如果 ``True``, 用户自动转向到   HTTPS。  URLs被 ``SSL_FORCE_URL_PREFIXES`` 的设置项指定。"
+#: defaults.py:358
+msgid ""
+"If ``True``, users will be automatically redirected to HTTPS for the URLs "
+"specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
+msgstr ""
+"如果 ``True``, 用户自动转向到   HTTPS。  URLs被 ``SSL_FORCE_URL_PREFIXES`` 的"
+"设置项指定。"
 
-#: defaults.py:344
+#: defaults.py:367
 msgid "Force Host"
 msgstr "Force Host"
 
-#: defaults.py:345
-msgid "Host name that the site should always be accessed via that matches the SSL certificate."
+#: defaults.py:368
+msgid ""
+"Host name that the site should always be accessed via that matches the SSL "
+"certificate."
 msgstr "需要由SSL签证才能可使用的主机名。"
 
-#: defaults.py:363
-msgid "If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting will be accessible over SSL, and all other URLs will be redirected back to HTTP if accessed over HTTPS."
+#: defaults.py:386
+msgid ""
+"If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
+"will be accessible over SSL, and all other URLs will be redirected back to "
+"HTTP if accessed over HTTPS."
 msgstr ""
 
-#: defaults.py:373
+#: defaults.py:396
 msgid "List of words which will be stripped from search queries."
 msgstr "从搜索词中过滤的词"
 
-#: defaults.py:430
+#: defaults.py:453
 msgid "Tag Cloud Sizes"
 msgstr "标签云大小"
 
-#: defaults.py:431
+#: defaults.py:454
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr "标签云中不同大小 的标签个数"
 
-#: defaults.py:438
+#: defaults.py:461
 msgid "Sequence of setting names available within templates."
 msgstr "在模版中允许使用的设置名称列表"
 
-#: defaults.py:453
-msgid "Directory name to store thumbnails in, that will be created relative to the original image's directory."
+#: defaults.py:476
+msgid ""
+"Directory name to store thumbnails in, that will be created relative to the "
+"original image's directory."
 msgstr "存放缩略图的路径，将与原始图像路径一致"
 
-#: defaults.py:461
-msgid "URL for the JavaScript file (relative to ``STATIC_URL``) that handles configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+#: defaults.py:484
+msgid ""
+"URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
+"configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
 msgstr ""
-"JavaScript file 的URL (``STATIC_URL``有关)，用来设置TinyMCE，以使用``RICHTEXT_WIDGET_CLASS``  \n"
+"JavaScript file 的URL (``STATIC_URL``有关)，用来设置TinyMCE，以使用"
+"``RICHTEXT_WIDGET_CLASS``  \n"
 "细节提示\n"
 "\n"
 "co"
 
-#: defaults.py:476
-msgid "If ``True``, the south application will be automatically added to the ``INSTALLED_APPS`` setting."
+#: defaults.py:493
+msgid ""
+"Dict mapping file field names in the format ``app_label.model_name."
+"field_name`` to the Python dotted path to function names that will be used "
+"for the file field's ``upload_to`` argument."
+msgstr ""
+
+#: defaults.py:509
+msgid ""
+"If ``True``, the south application will be automatically added to the "
+"``INSTALLED_APPS`` setting."
 msgstr "如果``True``,  south 就用自动添加到 ``INSTALLED_APPS`` 设置项。"
 
 #: fields.py:37
@@ -266,103 +413,111 @@ msgstr "如果``True``,  south 就用自动添加到 ``INSTALLED_APPS`` 设置�
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "不能导入值 settings.RICHTEXT_WIDGET_CLASS:%s"
 
-#: forms.py:79 models.py:280
+#: forms.py:79 models.py:316
 msgid "Order"
 msgstr "订单"
 
-#: models.py:53 models.py:108
+#: models.py:55 models.py:109
 msgid "Title"
 msgstr "标题"
 
-#: models.py:54
+#: models.py:56
 msgid "URL"
 msgstr "URL"
 
-#: models.py:55
+#: models.py:57
 msgid "Leave blank to have the URL auto-generated from the title."
 msgstr "如需从标题自动生成URL则留空。"
 
-#: models.py:98
+#: models.py:99
 msgid "View on site"
 msgstr "在站点查看"
 
-#: models.py:110
-msgid "Optional title to be used in the HTML title tag. If left blank, the main title field will be used."
+#: models.py:111
+msgid ""
+"Optional title to be used in the HTML title tag. If left blank, the main "
+"title field will be used."
 msgstr "将用于HTML标题tag的可选标题。如果留空，将使用主标题字段。"
 
-#: models.py:112
+#: models.py:113
 msgid "Description"
 msgstr "描述"
 
-#: models.py:113
+#: models.py:114
 msgid "Generate description"
 msgstr "概述"
 
-#: models.py:114
-msgid "If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description."
+#: models.py:115
+msgid ""
+"If checked, the description will be automatically generated from content. "
+"Uncheck if you want to manually set a custom description."
 msgstr "选中此期项，描述根据内容自动产生，不选中，自定义描述。"
 
-#: models.py:117
+#: models.py:118
 msgid "Keywords"
 msgstr "关键字"
 
-#: models.py:171
+#: models.py:175
 msgid "Draft"
 msgstr "草稿"
 
-#: models.py:172
+#: models.py:176
 msgid "Published"
 msgstr "已发布"
 
-#: models.py:183
+#: models.py:187
 msgid "Status"
 msgstr "状态"
 
-#: models.py:185
+#: models.py:189
 msgid "With Draft chosen, will only be shown for admin users on the site."
 msgstr "如选择 ‘草稿’，只有站点的 admin 用户可见。"
 
-#: models.py:187 models.py:219
+#: models.py:191 models.py:224
 msgid "Published from"
 msgstr "发布自"
 
-#: models.py:188
+#: models.py:192
 msgid "With Published chosen, won't be shown until this time"
 msgstr "如选择 '已发布', 将在此时间后显示"
 
-#: models.py:190
+#: models.py:194
 msgid "Expires on"
 msgstr "过期"
 
-#: models.py:191
+#: models.py:195
 msgid "With Published chosen, won't be shown after this time"
 msgstr "如选择 ‘已发布’，此时间后将不显示"
 
-#: models.py:358
+#: models.py:198
+msgid "Show in sitemap"
+msgstr ""
+
+#: models.py:401
 msgid "Author"
 msgstr "作者"
 
-#: views.py:80
+#: views.py:88
 msgid "Permission denied"
 msgstr "权限不足"
 
-#: templates/base.html:60
-msgid "Search"
-msgstr "搜索"
+#: views.py:116 templates/includes/search_form.html:11
+msgid "Everything"
+msgstr ""
 
-#: templates/base.html:123
+#: templates/base.html:121
 msgid "Powered by"
 msgstr "技持"
 
-#: templates/base.html:126
+#: templates/base.html:124
 msgid "and"
 msgstr "and"
 
-#: templates/base.html:129
+#: templates/base.html:127
 msgid "Theme by"
 msgstr "主题作者"
 
-#: templates/base.html:132
+#: templates/base.html:130
 msgid "View Mobile Site"
 msgstr " 手机版"
 
@@ -381,26 +536,21 @@ msgid "Search Results"
 msgstr "查找结果"
 
 #: templates/search_results.html:20
-msgid "No results were found matching your query: "
+#, fuzzy, python-format
+msgid ""
+"\n"
+"No results were found in %(search_type)s matching your query: %(query)s\n"
 msgstr "没有你要找的结果："
 
-#: templates/search_results.html:22
-msgid "Showing"
-msgstr "显示"
+#: templates/search_results.html:24
+#, python-format
+msgid ""
+"\n"
+"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
+"matching your query: %(query)s\n"
+msgstr ""
 
-#: templates/search_results.html:22
-msgid "to"
-msgstr "到"
-
-#: templates/search_results.html:22 templates/includes/pagination.html:8
-msgid "of"
-msgstr "的"
-
-#: templates/search_results.html:23
-msgid "results matching your query:"
-msgstr "您符合条件的结果："
-
-#: templates/search_results.html:32
+#: templates/search_results.html:35
 msgid "read more"
 msgstr "显示更多"
 
@@ -412,28 +562,32 @@ msgstr ""
 msgid "Dashboard"
 msgstr "控制面板"
 
-#: templates/admin/login.html:25
+#: templates/admin/login.html:21
+msgid "You don't have permission to access the admin for this site."
+msgstr ""
+
+#: templates/admin/login.html:28
 msgid "Username or email:"
 msgstr "用户名或邮箱账户:"
 
-#: templates/admin/login.html:29
+#: templates/admin/login.html:32
 msgid "Password:"
 msgstr "密码"
 
-#: templates/admin/login.html:34
+#: templates/admin/login.html:37
 msgid "Interface:"
 msgstr "介面："
 
-#: templates/admin/login.html:37 templates/includes/editable_toolbar.html:7
+#: templates/admin/login.html:40 templates/includes/editable_toolbar.html:7
 #: templates/includes/editable_toolbar.html:9
 msgid "Admin"
 msgstr "管理"
 
-#: templates/admin/login.html:44
+#: templates/admin/login.html:47
 msgid "Log in"
 msgstr "登录"
 
-#: templates/admin/login.html:47
+#: templates/admin/login.html:50
 msgid "Forgot password?"
 msgstr "忘记密码了吗？"
 
@@ -497,3 +651,24 @@ msgstr "注销"
 #: templates/includes/pagination.html:8
 msgid "Page"
 msgstr "页面"
+
+#: templates/includes/pagination.html:8
+msgid "of"
+msgstr "的"
+
+#: templates/includes/search_form.html:4
+msgid "Search"
+msgstr "搜索"
+
+#: templates/includes/search_form.html:18
+msgid "Go"
+msgstr ""
+
+#~ msgid "Showing"
+#~ msgstr "显示"
+
+#~ msgid "to"
+#~ msgstr "到"
+
+#~ msgid "results matching your query:"
+#~ msgstr "您符合条件的结果："
