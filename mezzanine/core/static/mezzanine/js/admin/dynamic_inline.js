@@ -1,31 +1,33 @@
 
+var selectFieldDirty = function(select, unselectedIndex) {
+    return $.grep(select.options, function(option) {
+        return option.selected && !option.defaultSelected;
+    }).length > 0 && select.selectedIndex != unselectedIndex;
+};
+
 var anyFieldsDirty = function(fields) {
-    // Return true if any of the given fields have been given a value.
-    var dirty = $.grep(fields, function(field) {
+    // Return true if any of the fields have been given a value
+    // that isn't the default.
+    return $.grep(fields, function(field) {
         switch (field.type) {
             case 'select-one':
-                if (field.selectedIndex > 0) {return true;}
-                break;
+                return selectFieldDirty(field, 0);
             case 'select-multiple':
-                if (field.selectedIndex > -1) {return true;}
-                break;
+                return selectFieldDirty(field, -1);
             case 'text':
             case 'textarea':
             case 'file':
-                if (field.value) {return true;}
-                break;
+                return field.value && field.value != field.defaultValue;
             case 'checkbox':
-                if ($(field).attr('dirty')) {return true;}
-                break;
+                return field.checked != field.defaultChecked;
             case 'hidden':
                 return false;
             default:
-                alert('Unhandled field in orderable_inline.js:' +
+                alert('Unhandled field in dynamic_inline.js:' +
                       field.name + ':' + field.type);
+                return false;
         }
-        return false;
-    });
-    return dirty.length > 0;
+    }).length > 0;
 }
 
 $(function() {
@@ -39,17 +41,8 @@ $(function() {
     $(parentSelector + ' .order').disableSelection();
     $('.ordering').css({cursor: 'move'});
 
-
-    // Mark checkboxes with a 'dirty' attribute if they're changed from
-    // their original state, in order to check inside anyFieldsDirty().
-    $('input:checkbox').change(function() {
-        var checkbox = $(this);
-        checkbox.attr('dirty', !checkbox.attr('dirty'));
-    });
-
     // Set the value of the _order fields on submit.
     $('input[type=submit]').click(function() {
-        console.log('clicked');
         $.each($(parentSelector), function(i, parent) {
             var order = 0;
             $.each($(parent).find('._order input'), function(i, field) {
