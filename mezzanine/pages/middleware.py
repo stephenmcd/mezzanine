@@ -86,7 +86,9 @@ class PageMiddleware(object):
                 return processor_response
             elif processor_response:
                 try:
-                    response.context_data.update(processor_response)
+                    new_items = {k: v for k, v in processor_response.items()
+                                 if k not in response.context_data}
+                    response.context_data.update(new_items)
                 except (TypeError, ValueError):
                     name = "%s.%s" % (processor.__module__, processor.__name__)
                     error = ("The page processor %s returned %s but must "
