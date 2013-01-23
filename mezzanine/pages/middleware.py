@@ -1,4 +1,3 @@
-
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -86,9 +85,9 @@ class PageMiddleware(object):
                 return processor_response
             elif processor_response:
                 try:
-                    new_items = {k: v for k, v in processor_response.items()
-                                 if k not in response.context_data}
-                    response.context_data.update(new_items)
+                    for k in processor_response:
+                        if k not in response.context_data:
+                            response.context_data[k] = processor_response[k]
                 except (TypeError, ValueError):
                     name = "%s.%s" % (processor.__module__, processor.__name__)
                     error = ("The page processor %s returned %s but must "
