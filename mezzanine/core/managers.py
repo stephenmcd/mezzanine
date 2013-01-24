@@ -102,7 +102,7 @@ class SearchableQuerySet(QuerySet):
                                        .split('"')
         # Strip punctuation other than modifiers from terms and create
         # terms list, first from quoted terms and then remaining words.
-        terms = [("" if t[0] not in "+-" else t[0]) + t.strip(punctuation)
+        terms = [("" if t[0:1] not in "+-" else t[0:1]) + t.strip(punctuation)
             for t in terms[1::2] + "".join(terms[::2]).split()]
         # Remove stop words from terms that aren't quoted or use
         # modifiers, since words with these are an explicit part of
@@ -111,7 +111,7 @@ class SearchableQuerySet(QuerySet):
         terms_no_stopwords = [t for t in terms if t.lower() not in
             settings.STOP_WORDS]
         get_positive_terms = lambda terms: [t.lower().strip(punctuation)
-            for t in terms if t[0] != "-"]
+            for t in terms if t[0:1] != "-"]
         positive_terms = get_positive_terms(terms_no_stopwords)
         if positive_terms:
             terms = terms_no_stopwords
@@ -128,11 +128,11 @@ class SearchableQuerySet(QuerySet):
 
         # Create the queryset combining each set of terms.
         excluded = [reduce(iand, [~Q(**{"%s__icontains" % f: t[1:]}) for f in
-            search_fields.keys()]) for t in terms if t[0] == "-"]
+            search_fields.keys()]) for t in terms if t[0:1] == "-"]
         required = [reduce(ior, [Q(**{"%s__icontains" % f: t[1:]}) for f in
-            search_fields.keys()]) for t in terms if t[0] == "+"]
+            search_fields.keys()]) for t in terms if t[0:1] == "+"]
         optional = [reduce(ior, [Q(**{"%s__icontains" % f: t}) for f in
-            search_fields.keys()]) for t in terms if t[0] not in "+-"]
+            search_fields.keys()]) for t in terms if t[0:1] not in "+-"]
         queryset = self
         if excluded:
             queryset = queryset.filter(reduce(iand, excluded))
