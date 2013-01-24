@@ -17,6 +17,7 @@ page_fieldsets[0][1]["fields"] += ("in_menus", "login_required",)
 
 
 class PageAdminForm(DisplayableAdminForm):
+
     def clean_slug(self):
         """
         If the slug has been changed, save the old one. We will use it later
@@ -55,18 +56,18 @@ class PageAdmin(DisplayableAdmin):
             # Insert each field between the publishing fields and nav
             # fields. Do so in reverse order to retain the order of
             # the model's fields.
-            for field in reversed(self.model._meta.fields):
-                check_fields = [f.name for f in Page._meta.fields]
-                check_fields.append("page_ptr")
-                try:
-                    check_fields.extend(self.exclude)
-                except (AttributeError, TypeError):
-                    pass
-                try:
-                    check_fields.extend(self.form.Meta.exclude)
-                except (AttributeError, TypeError):
-                    pass
-                if field.name not in check_fields and field.editable:
+            exclude_fields = Page._meta.get_all_field_names() + ["page_ptr"]
+            try:
+                exclude_fields.extend(self.exclude)
+            except (AttributeError, TypeError):
+                pass
+            try:
+                exclude_fields.extend(self.form.Meta.exclude)
+            except (AttributeError, TypeError):
+                pass
+            fields = self.model._meta.fields + self.model._meta.many_to_many
+            for field in reversed(fields):
+                if field.name not in exclude_fields and field.editable:
                     self.fieldsets[0][1]["fields"].insert(3, field.name)
 
     def in_menu(self):
