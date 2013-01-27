@@ -38,8 +38,8 @@ def create_pages(app, created_models, verbosity, interactive, **kwargs):
         call_command("loaddata", "mezzanine_required.json")
         if interactive:
             confirm = raw_input("\nWould you like to install some initial "
-                                "content?\nEg: About page, Blog, Contact "
-                                "form, Gallery. (yes/no): ")
+                                "demo pages?\nEg: About us, Contact form, "
+                                "Gallery. (yes/no): ")
             while True:
                 if confirm == "yes":
                     break
@@ -53,34 +53,34 @@ def create_site(app, created_models, verbosity, interactive, **kwargs):
     if Site in created_models:
         domain = "127.0.0.1:8000" if settings.DEBUG else gethostname()
         if interactive:
-            entered = raw_input("\nA site record is required. Please enter "
-                                "the domain and optional port in the format "
-                                "'domain:port'. For example 'localhost:8000' "
-                                "or 'www.example.com'. Hit enter to use the "
-                                "default (%s): " % domain)
+            entered = raw_input("\nA site record is required.\nPlease "
+                                "enter the domain and optional port in "
+                                "the format 'domain:port'.\nFor example "
+                                "'localhost:8000' or 'www.example.com'. "
+                                "\nHit enter to use the default (%s): " %
+                                domain)
             if entered:
                 domain = entered.strip("': ")
         if verbosity >= 1:
             print
-            print "Creating default Site %s ... " % domain
+            print "Creating default site record: %s ... " % domain
             print
         Site.objects.create(name="Default", domain=domain)
 
 
 def install_optional_data(verbosity):
+    if verbosity >= 1:
+        print
+        print "Creating demo pages: About us, Contact form, Gallery ..."
+        print
     from mezzanine.galleries.models import Gallery
-
     call_command("loaddata", "mezzanine_optional.json")
     zip_name = "gallery.zip"
     copy_test_to_media("mezzanine.core", zip_name)
     gallery = Gallery.objects.get()
     gallery.zip_import = zip_name
     gallery.save()
-    if verbosity >= 1:
-        print
-        print ("Creating demo content "
-               "(About page, Blog, Contact form, Gallery) ...")
-        print
+
 
 if not settings.TESTING:
     post_syncdb.connect(create_user, sender=auth_app)
