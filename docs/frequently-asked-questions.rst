@@ -100,7 +100,7 @@ assigns them superuser status.
 
 The above scenario is a fairly obscure one, so it's possible to
 customise the level of filtering that occurs. Three levels of
-filtering are implemented by default, than can be controlled in
+filtering are implemented by default, that can be controlled in
 the settings section of the admin. These are High (the default), Low
 (which allows extra tags such as those required for embedding videos),
 and None (no filtering occurs). This is implemented via the

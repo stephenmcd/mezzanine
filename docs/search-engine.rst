@@ -107,9 +107,15 @@ to our ``GalleryImage`` model from the previous example in
         objects = SearchableManager()
         search_fields = ("title", "description")
 
-If ``search_fields`` are not specified using any of the approaches above,
-then all ``CharField`` and ``TextField`` fields defined on the model are
-used.
+
+.. note::
+
+    If ``search_fields`` are not specified using any of the approaches
+    above, then all ``CharField`` and ``TextField`` fields defined on
+    the model are used. This isn't the case for ``Page`` subclasses
+    though, since the ``Page`` model defines a ``search_fields``
+    attribute which your subclass will also contain, so you'll need to
+    explicitly define ``search_fields`` yourself.
 
 Ordering Results
 ================
