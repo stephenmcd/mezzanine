@@ -336,7 +336,7 @@ class Orderable(models.Model):
         field = getattr(self.__class__, name)
         if isinstance(field, GenericForeignKey):
             names = (field.ct_field, field.fk_field)
-            return dict([(name, getattr(self, name)) for name in names])
+            return dict([(n, getattr(self, n)) for n in names])
         return {name: value}
 
     def save(self, *args, **kwargs):
