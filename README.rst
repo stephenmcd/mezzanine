@@ -217,6 +217,20 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzyblocks`_ - Another app for adding blocks/modules to Mezzanine.
   * `mezzanine-flexipage`_ - Allows designers to manage content areas
     in templates.
+  * `mezzanine-instagram`_ - A simple Instagram app for Mezzanine.
+  * `mezzanine-wiki`_ - Wiki app for Mezzanine.
+  * `mezzanine-calendar`_ - Calendar pages in Mezzanine
+  * `mezzanine-facebook`_ - Simple Facebook integration for Mezzanine.
+  * `mezzanine-instagram-gallery`_ - Create Mezzabine galleries using
+    Instagram images.
+  * `mezzanine-cli`_ - Command-line interface for Mezzanine.
+  * `mezzanine-categorylink`_ - Integrates Mezzanine's Link pages with
+    its blog categories.
+  * `mezzanine-podcast`_ - A simple podcast streamer and manager for
+    Mezzanine.
+  * `mezzanine-linkcollection`_ - Collect links. Feature them. Share
+    them over RSS.
+  * `cash-generator`_ - Generate `GnuCash`_ invoices with Mezzanine.
 
 Donating
 ========
@@ -355,6 +369,14 @@ Sites Using Mezzanine
   * `Stackful.io <http://stackful.io/>`_
   * `Adrenaline <http://www.adrln.com/>`_
   * `ACE EdVenture Programme <http://aceedventure.com/>`_
+  * `Butchershop Creative <http://www.butchershopcreative.com/>`_
+  * `Sam Kingston <http://www.sjkingston.com>`_
+  * `Ludwig von Mises Institute <http://mises.fi>`_
+  * `Incendio <http://incendio.no/>`_
+  * `Alexander Lillevik <http://lillevikdesign.no/>`_
+  * `Walk In Tromsø <http://www.turitromso.no>`_
+  * `Mandrivia Linux <http://www.mandriva.com/>`_
+
 
 Quotes
 ======
@@ -470,6 +492,17 @@ Quotes
 .. _`mezzanine-slides`: https://github.com/overshard/mezzanine-slides
 .. _`mezzyblocks`: https://github.com/jardaroh/mezzyblocks
 .. _`mezzanine-flexipage`: https://github.com/mrmagooey/mezzanine-flexipage
+.. _`mezzanine-wiki`: https://github.com/dfalk/mezzanine-wiki
+.. _`mezzanine-instagram`: https://github.com/shurik/Mezzanine_Instagram
+.. _`mezzanine-calendar`: https://github.com/shurik/mezzanine.calendar
+.. _`mezzanine-facebook`: https://github.com/shurik/Mezzanine_Facebook
+.. _`mezzanine-instagram-gallery`: https://github.com/georgeyk/mezzanine-instagram-gallery
+.. _`mezzanine-cli`: https://github.com/adieu/mezzanine-cli
+.. _`mezzanine-categorylink`: https://github.com/mjtorn/mezzanine-categorylink
+.. _`mezzanine-podcast`: https://github.com/carpie/mezzanine-podcast
+.. _`mezzanine-linkcollection`: https://github.com/mjtorn/mezzanine-linkcollection
+.. _`cash-generator`: https://github.com/ambientsound/cash-generator
+.. _`GnuCash`: http://www.gnucash.org/
 
 
 .. PEOPLE WITH QUOTES
