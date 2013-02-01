@@ -221,7 +221,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzanine-wiki`_ - Wiki app for Mezzanine.
   * `mezzanine-calendar`_ - Calendar pages in Mezzanine
   * `mezzanine-facebook`_ - Simple Facebook integration for Mezzanine.
-  * `mezzanine-instagram-gallery`_ - Create Mezzabine galleries using
+  * `mezzanine-instagram-gallery`_ - Create Mezzanine galleries using
     Instagram images.
   * `mezzanine-cli`_ - Command-line interface for Mezzanine.
   * `mezzanine-categorylink`_ - Integrates Mezzanine's Link pages with
