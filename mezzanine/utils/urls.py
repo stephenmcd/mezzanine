@@ -6,6 +6,7 @@ from django.core.urlresolvers import resolve, reverse, NoReverseMatch, \
     get_script_prefix
 from django.shortcuts import redirect
 from django.utils.encoding import smart_unicode
+from django.utils import translation
 
 from mezzanine.conf import settings
 from mezzanine.utils.importing import import_dotted_path
@@ -86,10 +87,17 @@ def login_redirect(request):
 def path_to_slug(path):
     """
     Removes everything from the given URL path, including
-    ``PAGES_SLUG`` if it is set, returning a slug that would match a
-    ``Page`` instance's slug.
+    language code and ``PAGES_SLUG`` if any is set, returning
+    a slug that would match a ``Page`` instance's slug.
     """
     from mezzanine.urls import PAGES_SLUG
-    for prefix in (settings.SITE_PREFIX, PAGES_SLUG):
-        path = path.strip("/").replace(prefix, "", 1)
-    return path or "/"
+
+    # If i18n is disabled Django uses a fake translation object,
+    # returning None for every path.
+    lang_code = translation.get_language_from_path(path)
+
+    for prefix in (lang_code, settings.SITE_PREFIX, PAGES_SLUG):
+        if prefix:
+            path = path.replace(prefix, "", 1)
+
+    return path.strip("/") or "/"
