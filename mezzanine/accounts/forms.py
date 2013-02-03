@@ -131,8 +131,8 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
             if password1 != password2:
                 errors.append(_("Passwords do not match"))
             if len(password1) < settings.ACCOUNTS_MIN_PASSWORD_LENGTH:
-                errors.append(_("Password must be at least %s characters" %
-                              settings.ACCOUNTS_MIN_PASSWORD_LENGTH))
+                errors.append(_("Password must be at least %s characters") %
+                              settings.ACCOUNTS_MIN_PASSWORD_LENGTH)
             if errors:
                 self._errors["password1"] = self.error_class(errors)
         return password2
