@@ -10,6 +10,7 @@ from django.utils.html import strip_tags
 from django.utils.timesince import timesince
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
@@ -398,7 +399,8 @@ class Ownable(models.Model):
     Abstract model that provides ownership of an object for a user.
     """
 
-    user = models.ForeignKey("auth.User", verbose_name=_("Author"),
+    user_model = getattr(settings, "AUTH_USER_MODEL", "auth.User")
+    user = models.ForeignKey(user_model, verbose_name=_("Author"),
         related_name="%(class)ss")
 
     class Meta:
@@ -417,7 +419,10 @@ class SitePermission(models.Model):
     used instead of ``User.is_staff``, for admin and inline-editing
     access.
     """
-    user = models.OneToOneField("auth.User")
+
+    user_model = getattr(settings, "AUTH_USER_MODEL", "auth.User")
+    user = models.ForeignKey(user_model, verbose_name=_("Author"),
+        related_name="%(class)ss")
     sites = models.ManyToManyField("sites.Site", blank=True)
 
 
