@@ -234,6 +234,10 @@ class CurrentSiteManager(DjangoCSM):
     management commands with the ``--site`` arg, finally falling back
     to ``settings.SITE_ID`` if none of those match a site.
     """
+    def __init__(self, field_name=None, *args, **kwargs):
+        super(DjangoCSM, self).__init__(*args, **kwargs)
+        self.__field_name = field_name
+        self.__is_validated = False
 
     def get_query_set(self):
         if not self.__is_validated:
@@ -242,8 +246,8 @@ class CurrentSiteManager(DjangoCSM):
         return super(DjangoCSM, self).get_query_set().filter(**lookup)
 
 
-class DisplayableManager(CurrentSiteManager, SearchableManager,
-                         PublishedManager):
+class DisplayableManager(CurrentSiteManager, PublishedManager,
+                         SearchableManager):
     """
     Manually combines ``CurrentSiteManager``, ``PublishedManager``
     and ``SearchableManager`` for the ``Displayable`` model.
