@@ -242,7 +242,7 @@ class CurrentSiteManager(DjangoCSM):
         return super(DjangoCSM, self).get_query_set().filter(**lookup)
 
 
-class DisplayableManager(SearchableManager, CurrentSiteManager,
+class DisplayableManager(CurrentSiteManager, SearchableManager,
                          PublishedManager):
     """
     Manually combines ``CurrentSiteManager``, ``PublishedManager``
