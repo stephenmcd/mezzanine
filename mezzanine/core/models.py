@@ -394,12 +394,14 @@ class Orderable(models.Model):
         return self._get_next_or_previous_by_order(False, **kwargs)
 
 
+user_model = getattr(settings, "AUTH_USER_MODEL", "auth.User")
+
+
 class Ownable(models.Model):
     """
     Abstract model that provides ownership of an object for a user.
     """
 
-    user_model = getattr(settings, "AUTH_USER_MODEL", "auth.User")
     user = models.ForeignKey(user_model, verbose_name=_("Author"),
         related_name="%(class)ss")
 
@@ -420,7 +422,6 @@ class SitePermission(models.Model):
     access.
     """
 
-    user_model = getattr(settings, "AUTH_USER_MODEL", "auth.User")
     user = models.ForeignKey(user_model, verbose_name=_("Author"),
         related_name="%(class)ss")
     sites = models.ManyToManyField("sites.Site", blank=True)
