@@ -37,6 +37,7 @@ from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import copy_test_to_media, run_pyflakes_for_package
 from mezzanine.utils.tests import run_pep8_for_package
+from mezzanine.core.managers import DisplayableManager
 
 
 class Tests(TestCase):
@@ -633,3 +634,12 @@ class Tests(TestCase):
         os.remove(os.path.join(settings.MEDIA_ROOT, image_name))
         os.remove(os.path.join(thumb_path))
         rmtree(os.path.join(os.path.dirname(thumb_path)))
+
+    def test_searchable_manager_search_fields(self):
+        """
+        Test that SearchableManager can get appropriate params.
+        """
+        manager = DisplayableManager()
+        self.assertFalse(manager._search_fields)
+        manager = DisplayableManager(search_fields={'foo': 10})
+        self.assertTrue(manager._search_fields)
