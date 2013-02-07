@@ -20,9 +20,9 @@ footer li {
 .navbar .brand {
     float: right;
 }
-.navbar .nav > li {
-    float: right;
-}
 [class*="span"] {
     float: right;
+}
+.navbar .btn-navbar {
+    float: left;
 }
