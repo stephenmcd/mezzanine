@@ -405,19 +405,22 @@ class Tests(TestCase):
             # loading, so we can't just override settings.
             from mezzanine.pages.models import BasePage
             from mezzanine.pages.fields import MenusField
-            settings.PAGE_MENU_TEMPLATES=((8, 'a', 'a'), (9, 'b', 'b'))
+            settings.PAGE_MENU_TEMPLATES = ((8, 'a', 'a'), (9, 'b', 'b'))
 
             settings.PAGE_MENU_TEMPLATES_DEFAULT = None
+
             class P1(BasePage):
                 in_menus = MenusField(blank=True, null=True)
             self.assertEqual(P1().in_menus[0], 8)
 
             settings.PAGE_MENU_TEMPLATES_DEFAULT = tuple()
+
             class P2(BasePage):
                 in_menus = MenusField(blank=True, null=True)
             self.assertEqual(P2().in_menus, None)
 
             settings.PAGE_MENU_TEMPLATES_DEFAULT = [9]
+
             class P3(BasePage):
                 in_menus = MenusField(blank=True, null=True)
             self.assertEqual(P3().in_menus[0], 9)
