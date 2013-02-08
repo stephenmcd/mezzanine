@@ -363,7 +363,7 @@ def create():
                 return False
             remove()
         run("virtualenv %s --distribute" % env.proj_name)
-	git = env.repo_url.startswith("git") or env.repo_url.endswith(".git")
+        git = env.repo_url.startswith("git") or env.repo_url.endswith(".git")
         vcs = "git" if git else "hg"
         run("%s clone %s %s" % (vcs, env.repo_url, env.proj_path))
 
@@ -503,7 +503,8 @@ def rollback():
     """
     with project():
         with update_changed_requirements():
-            git = env.repo_url.startswith("git") or env.repo_url.endswith(".git")
+            git = (env.repo_url.startswith("git") or
+                env.repo_url.endswith(".git"))
             update = "git checkout" if git else "hg up -C"
             run("%s `cat last.commit`" % update)
         with cd(os.path.join(static(), "..")):
