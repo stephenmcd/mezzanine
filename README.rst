@@ -376,6 +376,9 @@ Sites Using Mezzanine
   * `Alexander Lillevik <http://lillevikdesign.no/>`_
   * `Walk In Tromsø <http://www.turitromso.no>`_
   * `Mandrivia Linux <http://www.mandriva.com/>`_
+  * `Crown Preschool <http://crownpreschool.com>`_
+  * `Coronado Pathways Charter School <http://coronadopathways.com>`_
+  * `Raindrop Marketing <http://www.raindropads.com>`_
 
 
 Quotes
