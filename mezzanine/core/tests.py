@@ -1,10 +1,8 @@
-
 import os
 from shutil import rmtree
 from urlparse import urlparse
 from uuid import uuid4
 
-from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.contenttypes.models import ContentType
 from django.core import mail
@@ -37,7 +35,10 @@ from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import copy_test_to_media, run_pyflakes_for_package
 from mezzanine.utils.tests import run_pep8_for_package
+from mezzanine.utils.models import get_user_model
 from mezzanine.core.managers import DisplayableManager
+
+User = get_user_model()
 
 
 class Tests(TestCase):

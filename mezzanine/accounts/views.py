@@ -1,8 +1,6 @@
-
 from django.contrib.auth import (authenticate, login as auth_login,
                                                logout as auth_logout)
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib.messages import info, error
 from django.core.urlresolvers import NoReverseMatch
 from django.shortcuts import get_object_or_404, redirect
@@ -10,12 +8,15 @@ from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
+from mezzanine.utils.models import get_user_model
 from mezzanine.accounts import get_profile_form
 from mezzanine.accounts.forms import LoginForm, PasswordResetForm
 from mezzanine.conf import settings
 from mezzanine.utils.email import send_verification_mail
 from mezzanine.utils.urls import login_redirect
 from mezzanine.utils.views import render
+
+User = get_user_model()
 
 
 def login(request, template="accounts/account_login.html"):

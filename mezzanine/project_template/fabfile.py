@@ -1,4 +1,3 @@
-
 import os
 import re
 import sys
@@ -411,7 +410,8 @@ def create():
                "site.save();")
         if env.admin_pass:
             pw = env.admin_pass
-            user_py = ("from django.contrib.auth.models import User;"
+            user_py = ("from mezzanine.utils.models import get_user_model;"
+                       "User = get_user_model();"
                        "u, _ = User.objects.get_or_create(username='admin');"
                        "u.is_staff = u.is_superuser = True;"
                        "u.set_password('%s');"

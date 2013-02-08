@@ -1,8 +1,6 @@
-
 from socket import gethostname
 
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.contrib.auth import models as auth_app
 from django.contrib.sites.models import Site
 from django.contrib.sites.management import create_default_site
@@ -11,9 +9,11 @@ from django.core.management import call_command
 from django.db.models.signals import post_syncdb
 
 from mezzanine.pages.models import Page
-
 from mezzanine.pages import models as pages_app
+from mezzanine.utils.models import get_user_model
 from mezzanine.utils.tests import copy_test_to_media
+
+User = get_user_model()
 
 
 def create_user(app, created_models, verbosity, interactive, **kwargs):

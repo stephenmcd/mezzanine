@@ -1,5 +1,3 @@
-
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -10,15 +8,16 @@ from django.utils.html import strip_tags
 from django.utils.timesince import timesince
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
-from mezzanine.utils.models import base_concrete_model
+from mezzanine.utils.models import base_concrete_model, get_user_model
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.timezone import now
 from mezzanine.utils.urls import admin_url, slugify
+
+User = get_user_model()
 
 
 class SiteRelated(models.Model):
@@ -394,15 +393,12 @@ class Orderable(models.Model):
         return self._get_next_or_previous_by_order(False, **kwargs)
 
 
-user_model = getattr(settings, "AUTH_USER_MODEL", "auth.User")
-
-
 class Ownable(models.Model):
     """
     Abstract model that provides ownership of an object for a user.
     """
 
-    user = models.ForeignKey(user_model, verbose_name=_("Author"),
+    user = models.ForeignKey(User, verbose_name=_("Author"),
         related_name="%(class)ss")
 
     class Meta:
@@ -422,7 +418,7 @@ class SitePermission(models.Model):
     access.
     """
 
-    user = models.ForeignKey(user_model, verbose_name=_("Author"),
+    user = models.ForeignKey(User, verbose_name=_("Author"),
         related_name="%(class)ss")
     sites = models.ManyToManyField("sites.Site", blank=True)
 

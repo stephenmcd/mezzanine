@@ -1,6 +1,5 @@
 
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 from django.db.models import Q
 from django import forms
 from django.utils.translation import ugettext_lazy as _
