@@ -363,7 +363,8 @@ def create():
                 return False
             remove()
         run("virtualenv %s --distribute" % env.proj_name)
-        vcs = "git" if env.repo_url.startswith("git") else "hg"
+        git = env.repo_url.startswith("git") or env.repo_url.endswith(".git")
+        vcs = "git" if git else "hg"
         run("%s clone %s %s" % (vcs, env.repo_url, env.proj_path))
 
     # Create DB and DB user.
@@ -479,7 +480,7 @@ def deploy():
     with project():
         backup("last.db")
         run("tar -cf last.tar %s" % static())
-        git = env.repo_url.startswith("git")
+        git = env.repo_url.startswith("git") or env.repo_url.endswith(".git")
         run("%s > last.commit" % "git rev-parse HEAD" if git else "hg id -i")
         with update_changed_requirements():
             run("git pull origin master -f" if git else "hg pull && hg up -C")
@@ -502,7 +503,8 @@ def rollback():
     """
     with project():
         with update_changed_requirements():
-            git = env.repo_url.startswith("git")
+            git = (env.repo_url.startswith("git") or
+                env.repo_url.endswith(".git"))
             update = "git checkout" if git else "hg up -C"
             run("%s `cat last.commit`" % update)
         with cd(os.path.join(static(), "..")):
