@@ -53,11 +53,13 @@ class BaseDisplayableAdmin(admin.ModelAdmin):
 
 if "reversion" in settings.INSTALLED_APPS:
     from reversion import VersionAdmin
+
     class DisplayableAdmin(BaseDisplayableAdmin, VersionAdmin):
         pass
 else:
     class DisplayableAdmin(BaseDisplayableAdmin):
         pass
+
 
 class BaseDynamicInlineAdmin(object):
     """
