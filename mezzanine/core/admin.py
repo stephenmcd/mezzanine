@@ -25,7 +25,7 @@ class DisplayableAdminForm(ModelForm):
         return content
 
 
-class DisplayableAdmin(admin.ModelAdmin):
+class BaseDisplayableAdmin(admin.ModelAdmin):
     """
     Admin class for subclasses of the abstract ``Displayable`` model.
     """
@@ -50,6 +50,15 @@ class DisplayableAdmin(admin.ModelAdmin):
     )
 
     form = DisplayableAdminForm
+
+if "reversion" in settings.INSTALLED_APPS:
+    from reversion import VersionAdmin
+
+    class DisplayableAdmin(BaseDisplayableAdmin, VersionAdmin):
+        pass
+else:
+    class DisplayableAdmin(BaseDisplayableAdmin):
+        pass
 
 
 class BaseDynamicInlineAdmin(object):
