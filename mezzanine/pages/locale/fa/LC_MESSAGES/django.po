@@ -1,0 +1,119 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <bornazadeh@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"PO-Revision-Date: 2012-10-29 05:55+0000\n"
+"Last-Translator: Bornazadeh <bornazadeh@gmail.com>\n"
+"Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/mezzanine/language/fa_IR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa_IR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: defaults.py:20
+msgid ""
+"A sequence of templates used by the ``page_menu`` template tag. Each item in"
+" the sequence is a three item sequence, containing a unique ID for the "
+"template, a label for the template, and the template path. These templates "
+"are then available for selection when editing which menus a page should "
+"appear in. Note that if a menu template is used that doesn't appear in this "
+"setting, all pages will appear in it."
+msgstr "یک سری از الگوها که توسط  برچسب ``page_menu`` استفاده می شوند.هرموضوع در این سری  یک موضوع سه قسمتی است که شامل یک شناسه ی یکتا برای الگو, یک عنوان برای الگو ومسیر الگو می باشد. سپس این الگو ها برای انتخاب در زمان ویرایش و  در منویی که باید در آن ظاهر شوند, موجود می باشند. توجه کنید که اگر یک الگوی منو که در این تنظیمات ظاهر نمی شود استفاده شود, در تمامی صفحات نشان داده می شود."
+
+#: defaults.py:29
+msgid "Top navigation bar"
+msgstr "نوار مسیر یابی بالا"
+
+#: defaults.py:30
+msgid "Left-hand tree"
+msgstr "درخت سمت چپ"
+
+#: defaults.py:31
+msgid "Footer"
+msgstr "زیر صفحه"
+
+#: defaults.py:37
+msgid ""
+"A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the "
+"default menu templates selected when creating new pages. By default all menu"
+" templates are selected. Set this setting to an empty sequence to have no "
+"templates selected by default."
+msgstr "یک سری ID از \"PAGE_MENU_TEMPLATES \"  که الگوی پیش فرض برای ایحاد صفحات جدید را تعریف می کند. به صورت پیش فرض همه ی الگوهای منو انتخاب شده اند.این گزینه را خالی قرار دهید تا هیچ الگویی پیش فرض انتخاب شده نباشد."
+
+#: defaults.py:48
+msgid ""
+"If ``True``, the left-hand tree template for the pages menu will show all "
+"levels of navigation, otherwise child pages are only shown when viewing the "
+"parent page."
+msgstr "اگر \" علامت دار \" باشد, درخت الگوی سمت چپ برای صفحات منو, همه ی سطوح مسیر یابی را نشان می دهد, در غیر این صورت صفحات زیری فقط وقتی نشان داده می شوند که صفحه بالایی را می بینید."
+
+#: defaults.py:57
+msgid ""
+"If ``True``, pages with ``login_required`` checked will still be listed in "
+"menus and search results, for unauthenticated users. Regardless of this "
+"setting, when an unauthenticated user accesses a page with "
+"``login_required`` checked, they'll be redirected to the login page."
+msgstr "اگر \"علامت دار\" باشد, صفحات با علامت \"login_required\" برای کاربران شناسایی نشده هم در منو ها وهم در نتایج جستجو لیست می شوند, با وجود این گزینه, وقتی یک کاربر شناسایی نشده به یک صفحه با علامت \"login_required\" دسترسی پیدا کند, به صفحه ی ورود راهنمایی می شود."
+
+#: models.py:33
+msgid "Show in menus"
+msgstr "نمایش در منوها"
+
+#: models.py:36
+msgid "Login required"
+msgstr "نیازمند ورود"
+
+#: models.py:37
+msgid "If checked, only logged in users can view this page"
+msgstr "اگر علامت دار شود, فقط کاربرانی که به سایت وارد شده اند می توانند این صفحه را ببینند"
+
+#: models.py:40
+msgid "Page"
+msgstr "صفحه"
+
+#: models.py:41
+msgid "Pages"
+msgstr "صفحات"
+
+#: models.py:225
+msgid "Rich text page"
+msgstr "صفحه با متن غنی"
+
+#: models.py:226
+msgid "Rich text pages"
+msgstr "صفحات با متن غنی"
+
+#: models.py:236
+msgid "Link"
+msgstr "پیوند"
+
+#: models.py:237
+msgid "Links"
+msgstr "پیوندها"
+
+#: templates/admin/pages/page/change_list.html:24
+#: templates/pages/menus/admin.html:31
+msgid "Add"
+msgstr "اضافه کردن"
+
+#: templates/pages/menus/breadcrumb.html:4
+#: templates/pages/menus/breadcrumb.html:10
+#: templates/pages/menus/dropdown.html:10
+#: templates/pages/menus/footer_tree.html:10
+#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:9
+#: templates/pages/menus/tree.html:9
+msgid "Home"
+msgstr "خانه"
+
+#: templatetags/pages_tags.py:181
+msgid ""
+"An error occured with the following class. Does it subclass Page directly?"
+msgstr "یک خطا توسط  کلاس زیر ایجاد شد. آیا این صفحه به درستی کلاس بندی شده است؟"

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 {% load pages_tags mezzanine_tags i18n future %}
-<html>
 <head>
 
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -19,6 +19,9 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
 <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
 <link rel="stylesheet" href="{{ STATIC_URL }}css/mezzanine.css">
+{% if LANGUAGE_BIDI %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/rtl.css">
+{% endif %}
 {% ifinstalled cartridge.shop %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
 {% endifinstalled %}
@@ -45,7 +48,7 @@ $(function() {
 </head>
 <body id="{% block body_id %}body{% endblock %}">
 
-<div class="navbar navbar-inverse">
+<div class="navbar">
 <div class="navbar-inner">
 <div class="container">
     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">

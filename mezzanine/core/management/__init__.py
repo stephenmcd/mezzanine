@@ -30,6 +30,12 @@ def create_user(app, created_models, verbosity, interactive, **kwargs):
 
 
 def create_pages(app, created_models, verbosity, interactive, **kwargs):
+    if not all([
+        'mezzanine.forms' in settings.INSTALLED_APPS,
+        'mezzanine.galleries' in settings.INSTALLED_APPS,
+        'mezzanine.blog' in settings.INSTALLED_APPS]):
+        return
+
     from mezzanine.forms.models import Form
     from mezzanine.galleries.models import Gallery
 
