@@ -480,7 +480,8 @@ def deploy():
     with project():
         backup("last.db")
         run("tar -cf last.tar %s" % static())
-        last_commit = "git rev-parse HEAD" if env.git else "hg id -i"
+        git = env.git
+        last_commit = "git rev-parse HEAD" if git else "hg id -i"
         run("%s > last.commit" % last_commit)
         with update_changed_requirements():
             run("git pull origin master -f" if git else "hg pull && hg up -C")
