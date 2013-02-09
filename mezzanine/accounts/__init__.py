@@ -7,10 +7,10 @@ included below.
 """
 
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import get_model
 
+from mezzanine.utils.models import get_user_model
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -48,6 +48,7 @@ def get_profile_user_fieldname():
     points to the ``auth.User`` model.
     """
     Profile = get_profile_model()
+    User = get_user_model()
     if Profile is not None:
         for field in Profile._meta.fields:
             if field.rel and field.rel.to == User:

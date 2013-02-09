@@ -1,9 +1,16 @@
-
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model, Field
 
 from mezzanine.conf import settings
 from mezzanine.utils.importing import import_dotted_path
+
+
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:
+    def get_user_model():
+        from django.contrib.auth.models import User
+        return User
 
 
 def base_concrete_model(abstract, instance):

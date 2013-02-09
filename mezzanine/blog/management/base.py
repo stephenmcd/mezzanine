@@ -1,8 +1,6 @@
-
 from optparse import make_option
 from urlparse import urlparse
 
-from django.contrib.auth.models import User
 from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand, CommandError
@@ -14,6 +12,9 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.html import decode_entities
+from mezzanine.utils.models import get_user_model
+
+User = get_user_model()
 
 
 class BaseImporterCommand(BaseCommand):
