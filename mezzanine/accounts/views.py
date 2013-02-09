@@ -1,3 +1,4 @@
+
 from django.contrib.auth import (authenticate, login as auth_login,
                                                logout as auth_logout)
 from django.contrib.auth.decorators import login_required
@@ -15,6 +16,7 @@ from mezzanine.conf import settings
 from mezzanine.utils.email import send_verification_mail
 from mezzanine.utils.urls import login_redirect
 from mezzanine.utils.views import render
+
 
 User = get_user_model()
 

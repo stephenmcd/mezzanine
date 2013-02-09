@@ -7,6 +7,7 @@ register = template.Library()
 
 User = get_user_model()
 
+
 @register.as_tag
 def login_form(*args):
     """

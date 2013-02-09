@@ -7,7 +7,11 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
 from mezzanine.conf import settings
 from mezzanine.core.forms import Html5Mixin
+from mezzanine.utils.models import get_user_model
 from mezzanine.utils.urls import slugify
+
+
+User = get_user_model()
 
 
 class LoginForm(Html5Mixin, forms.Form):
