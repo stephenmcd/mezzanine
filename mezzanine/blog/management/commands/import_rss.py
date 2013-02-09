@@ -43,10 +43,10 @@ class Command(BaseImporterCommand):
             raise CommandError("dateutil package is required")
         if not rss_url and page_url:
             try:
-                 from BeautifulSoup import BeautifulSoup
+                from BeautifulSoup import BeautifulSoup
             except ImportError:
                 raise CommandError("BeautifulSoup package is required")
-            for l in  BeautifulSoup(urlopen(page_url).read()).findAll("link"):
+            for l in BeautifulSoup(urlopen(page_url).read()).findAll("link"):
                 if ("application/rss" in l.get("type", "") or
                     "application/atom" in l.get("type", "")):
                     rss_url = urljoin(page_url, l["href"])
