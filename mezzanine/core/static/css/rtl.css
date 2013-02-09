@@ -1,0 +1,28 @@
+.right h6 {margin-top:10px; float: left;}
+.panel {background:rgba(220,220,220, 0.1); padding:20px 10px; margin-bottom:20px;
+        line-height:170%; border:1px solid #eee; border-radius:5px;}
+
+.navbar-search {margin-right:10px;}
+.tagline {float:right; font-size:12px; font-style:italic; margin:9px 15px 0 -4px; color:#fff; opacity:.5;}
+
+.navbar-search .search-query {
+    border-radius: 15px 15px 15px 15px !important;
+}
+
+footer li {
+    float: right;
+}
+.navbar-search {
+    float: left;
+    margin-right: 10px;
+}
+
+.navbar .brand {
+    float: right;
+}
+[class*="span"] {
+    float: right;
+}
+.navbar .btn-navbar {
+    float: left;
+}
