@@ -40,7 +40,7 @@ class Command(BaseImporterCommand):
         try:
             from feedparser import parse
         except ImportError:
-            raise CommandError("dateutil package is required")
+            raise CommandError("feedparser package is required")
         if not rss_url and page_url:
             try:
                 from BeautifulSoup import BeautifulSoup
