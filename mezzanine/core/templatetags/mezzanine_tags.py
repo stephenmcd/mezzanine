@@ -429,8 +429,21 @@ def admin_app_list(request):
     dashboard widget.
     """
     app_dict = {}
-    menu_order = [(x[0], list(x[1])) for x in settings.ADMIN_MENU_ORDER]
-    found_items = set()
+
+    # Model or view --> (group index, group title, item index, item title).
+    menu_order = {}
+    for (group_index, group) in enumerate(settings.ADMIN_MENU_ORDER):
+        group_title, items = group
+        group_title = group_title.title()
+        for (item_index, item) in enumerate(items):
+            if isinstance(item, (tuple, list)):
+                item_title, item = item
+            else:
+                item_title = None
+            menu_order[item] = (group_index, group_title,
+                                item_index, item_title)
+
+    # Add all registered models, using group and title from menu order.
     for (model, model_admin) in admin.site._registry.items():
         opts = model._meta
         in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
@@ -449,63 +462,53 @@ def admin_app_list(request):
                 add_url = None
             if admin_url_name:
                 model_label = "%s.%s" % (opts.app_label, opts.object_name)
-                for (name, items) in menu_order:
-                    try:
-                        index = list(items).index(model_label)
-                    except ValueError:
-                        pass
-                    else:
-                        found_items.add(model_label)
-                        app_title = name
-                        break
-                else:
-                    index = None
-                    app_title = opts.app_label
-
-                model_dict = {
-                    "index": index,
-                    "perms": model_admin.get_model_perms(request),
-                    "name": capfirst(model._meta.verbose_name_plural),
-                    "admin_url": change_url,
-                    "add_url": add_url
-                }
-
-                app_title = app_title.title()
-                if app_title in app_dict:
-                    app_dict[app_title]["models"].append(model_dict)
-                else:
-                    try:
-                        titles = [x[0] for x in settings.ADMIN_MENU_ORDER]
-                        index = titles.index(app_title)
-                    except ValueError:
-                        index = None
-                    app_dict[app_title] = {
-                        "index": index,
-                        "name": app_title,
-                        "models": [model_dict],
-                    }
-
-    for (i, (name, items)) in enumerate(menu_order):
-        name = unicode(name)
-        for unfound_item in set(items) - found_items:
-            if isinstance(unfound_item, (list, tuple)):
-                item_name, item_url = unfound_item[0], unfound_item[1]
                 try:
-                    item_url = reverse(item_url)
-                except NoReverseMatch:
-                    continue
-                if name not in app_dict:
-                    app_dict[name] = {
-                        "index": i,
-                        "name": name,
+                    app_index, app_title, model_index, model_title = \
+                        menu_order[model_label]
+                except KeyError:
+                    app_index = None
+                    app_title = opts.app_label.title()
+                    model_index = None
+                    model_title = None
+                else:
+                    del menu_order[model_label]
+
+                if not model_title:
+                    model_title = capfirst(model._meta.verbose_name_plural)
+
+                if app_title not in app_dict:
+                    app_dict[app_title] = {
+                        "index": app_index,
+                        "name": app_title,
                         "models": [],
                     }
-                app_dict[name]["models"].append({
-                    "index": items.index(unfound_item),
-                    "perms": {"custom": True},
-                    "name": item_name,
-                    "admin_url": item_url,
+                app_dict[app_title]["models"].append({
+                    "index": model_index,
+                    "perms": model_admin.get_model_perms(request),
+                    "name": model_title,
+                    "admin_url": change_url,
+                    "add_url": add_url
                 })
+
+    # Menu may also contain view or url pattern names given as (title, name).
+    for (item_url, item) in menu_order.iteritems():
+        app_index, app_title, item_index, item_title = item
+        try:
+            item_url = reverse(item_url)
+        except NoReverseMatch:
+            continue
+        if app_title not in app_dict:
+            app_dict[app_title] = {
+                "index": app_index,
+                "name": app_title,
+                "models": [],
+            }
+        app_dict[app_title]["models"].append({
+            "index": item_index,
+            "perms": {"custom": True},
+            "name": item_title,
+            "admin_url": item_url,
+        })
 
     app_list = app_dict.values()
     sort = lambda x: x["name"] if x["index"] is None else x["index"]
