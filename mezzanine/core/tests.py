@@ -1,3 +1,4 @@
+from __future__ import with_statement
 import os
 from shutil import rmtree
 from urlparse import urlparse
@@ -227,6 +228,18 @@ class Tests(TestCase):
         child = RichTextPage.objects.get(id=child.id)
         self.assertTrue(child.parent is None)
         self.assertTrue(child.slug == "kid")
+
+        # Assert that cycles are detected.
+        p1, _ = RichTextPage.objects.get_or_create(title="p1")
+        p2, _ = RichTextPage.objects.get_or_create(title="p2")
+        p2.set_parent(p1)
+        with self.assertRaises(AttributeError):
+            p1.set_parent(p1)
+        with self.assertRaises(AttributeError):
+            p1.set_parent(p2)
+        p2c = RichTextPage.objects.get(title="p2")
+        with self.assertRaises(AttributeError):
+            p1.set_parent(p2c)
 
     def test_set_slug(self):
         parent, _ = RichTextPage.objects.get_or_create(title="Parent",
