@@ -6,7 +6,7 @@ from mezzanine.conf import settings
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
-from mezzanine.utils.urls import path_to_slug, slugify
+from mezzanine.utils.urls import slugify
 
 
 class BasePage(Orderable, Displayable):
