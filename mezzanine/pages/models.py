@@ -162,18 +162,20 @@ class Page(BasePage):
         Change the parent of this page, changing this page's slug to match
         the new parent if necessary.
         """
+        self_slug = self.slug
         old_parent_slug = self.parent.slug if self.parent else ""
         new_parent_slug = new_parent.slug if new_parent else ""
 
         self.parent = new_parent
         self.save()
 
-        if not old_parent_slug:
-            self.set_slug("/".join((new_parent_slug, self.slug)))
-        elif self.slug.startswith(old_parent_slug):
-            new_slug = self.slug.replace(old_parent_slug,
-                                         new_parent_slug, 1)
-            self.set_slug(new_slug.strip("/"))
+        if self_slug:
+            if not old_parent_slug:
+                self.set_slug("/".join((new_parent_slug, self.slug)))
+            elif self.slug.startswith(old_parent_slug):
+                new_slug = self.slug.replace(old_parent_slug,
+                                             new_parent_slug, 1)
+                self.set_slug(new_slug.strip("/"))
 
     def overridden(self):
         """
