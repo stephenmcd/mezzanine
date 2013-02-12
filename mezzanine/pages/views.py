@@ -28,7 +28,10 @@ def admin_page_ordering(request):
     if new_parent_id != page.parent_id:
         # Parent changed - set the new parent and re-order the
         # previous siblings.
-        new_parent = Page.objects.get(id=new_parent_id)
+        if new_parent_id:
+            new_parent = Page.objects.get(id=new_parent_id)
+        else:
+            new_parent = None
         page.set_parent(new_parent)
         pages = Page.objects.filter(parent_id=old_parent_id)
         for i, page in enumerate(pages.order_by('_order')):
