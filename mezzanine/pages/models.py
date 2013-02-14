@@ -6,7 +6,7 @@ from mezzanine.conf import settings
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
-from mezzanine.utils.urls import path_to_slug, slugify
+from mezzanine.utils.urls import slugify
 
 
 class BasePage(Orderable, Displayable):
@@ -226,13 +226,7 @@ class Page(BasePage):
         # Is my parent the same as the current page's?
         self.is_current_sibling = self.parent_id == current_parent_id
         # Am I the current page?
-        try:
-            request = context["request"]
-        except KeyError:
-            # No request context, most likely when tests are run.
-            self.is_current = False
-        else:
-            self.is_current = self.slug == path_to_slug(request.path_info)
+        self.is_current = self == current_page
 
         # Is the current page me or any page up the parent chain?
         def is_c_or_a(page_id):
