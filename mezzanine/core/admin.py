@@ -51,7 +51,7 @@ class BaseDisplayableAdmin(admin.ModelAdmin):
 
     form = DisplayableAdminForm
 
-if "reversion" in settings.INSTALLED_APPS:
+if ("reversion" in settings.INSTALLED_APPS) and (not settings.DONT_USE_REVERSION):
     from reversion import VersionAdmin
 
     class DisplayableAdmin(BaseDisplayableAdmin, VersionAdmin):

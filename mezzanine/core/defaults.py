@@ -119,6 +119,16 @@ register_setting(
 )
 
 register_setting(
+    name="DONT_USE_REVERSION",
+    description=_("If ``False`` and ``reversion`` is in the setting "
+        "``INSTALLED_APP``, reversion will be used for all the "
+        "representations of a model in the admin interface that are based "
+        "upon DisplayableAdmin."),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="FORMS_USE_HTML5",
     description=_("If ``True``, website forms will use HTML5 features."),
     editable=False,
