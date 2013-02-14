@@ -112,7 +112,8 @@ class PageAdmin(DisplayableAdmin):
                                        content_model.id)
                 return HttpResponseRedirect(change_url)
         extra_context = extra_context or {}
-        extra_context["hide_delete_link"] = not content_model.can_delete(request)
+        can_delete = content_model.can_delete(request)
+        extra_context["hide_delete_link"] = not can_delete
         extra_context["hide_slug_field"] = content_model.overridden()
         return super(PageAdmin, self).change_view(request, object_id,
                                                   extra_context=extra_context)
