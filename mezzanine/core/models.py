@@ -420,7 +420,12 @@ class SitePermission(models.Model):
 
     user = models.ForeignKey(User, verbose_name=_("Author"),
         related_name="%(class)ss")
-    sites = models.ManyToManyField("sites.Site", blank=True)
+    sites = models.ManyToManyField("sites.Site", blank=True,
+                                   verbose_name=_("Sites"))
+
+    class Meta:
+        verbose_name = _("Site permission")
+        verbose_name_plural = _("Site permissions")
 
 
 def create_site_permission(sender, **kw):
