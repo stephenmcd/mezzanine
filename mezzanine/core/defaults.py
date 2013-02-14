@@ -119,11 +119,11 @@ register_setting(
 )
 
 register_setting(
-    name="DONT_USE_REVERSION",
-    description=_("If ``False`` and ``reversion`` is in the setting "
-        "``INSTALLED_APP``, reversion will be used for all the "
-        "representations of a model in the admin interface that are based "
-        "upon DisplayableAdmin."),
+    name="USE_REVERSION",
+    description=_("If ``True`` and ``django-reversion`` is installed in "
+        "``INSTALLED_APP``, reversion's admin class is injected into all of "
+        "the admin classes that are based upon ``DisplayableAdmin``, "
+        "such as blog admin and all of the page admins."),
     editable=False,
     default=False,
 )
