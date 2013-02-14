@@ -2,7 +2,6 @@ from calendar import month_name
 from collections import defaultdict
 
 from django.http import Http404
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
 from django import VERSION
@@ -12,6 +11,9 @@ from mezzanine.blog.feeds import PostsRSS, PostsAtom
 from mezzanine.conf import settings
 from mezzanine.generic.models import AssignedKeyword, Keyword
 from mezzanine.utils.views import render, paginate
+from mezzanine.utils.models import get_user_model
+
+User = get_user_model()
 
 
 def blog_post_list(request, tag=None, year=None, month=None, username=None,

@@ -1,11 +1,11 @@
-
-from django.contrib.auth.models import User
-
+from mezzanine.utils.models import get_user_model
 from mezzanine import template
 from mezzanine.accounts.forms import LoginForm
 from mezzanine.accounts import get_profile_form
 
 register = template.Library()
+
+User = get_user_model()
 
 
 @register.as_tag
