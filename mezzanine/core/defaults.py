@@ -190,6 +190,15 @@ register_setting(
 )
 
 register_setting(
+    name="MEDIA_LIBRARY_PER_SITE",
+    label=_("Media library per site"),
+    description=_("If ``True``, each site will use its own directory within "
+        "the filebrowser media library."),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="OWNABLE_MODELS_ALL_EDITABLE",
     description=_("Models that subclass ``Ownable`` and use the "
         "``OwnableAdmin`` have their admin change-list records filtered "
