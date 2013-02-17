@@ -1,1 +1,1 @@
-Mezzanine==1.3.0
+Mezzanine==1.4.0

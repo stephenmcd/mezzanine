@@ -287,19 +287,19 @@ Max number of paging links to display when paginating.
 
 Default: ``10``
 
+``MEDIA_LIBRARY_PER_SITE``
+--------------------------
+
+If ``True``, each site will use its own directory within the filebrowser media library.
+
+Default: ``False``
+
 ``OWNABLE_MODELS_ALL_EDITABLE``
 -------------------------------
 
 Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their admin change-list records filtered down to records owned by the current user. This setting contains a sequence of models in the format ``app_label.object_name``, that when subclassing ``Ownable``, will still show all records in the admin change-list interface, regardless of the current user.
 
 Default: ``()``
-
-``PAGES_MENU_SHOW_ALL``
------------------------
-
-If ``True``, the left-hand tree template for the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page.
-
-Default: ``True``
 
 ``PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED``
 ------------------------------------------
@@ -483,7 +483,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('ACCOUNTS_VERIFICATION_REQUIRED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'JQUERY_FILENAME', 'LOGIN_URL', 'LOGOUT_URL', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
+Default: ``('ACCOUNTS_VERIFICATION_REQUIRED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'BLOG_USE_FEATURED_IMAGE', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'JQUERY_FILENAME', 'LOGIN_URL', 'LOGOUT_URL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
 
 ``THUMBNAILS_DIR_NAME``
 -----------------------
@@ -511,7 +511,7 @@ Default: ``3``
 
 Twitter query to use for the default query type.
 
-Default: ``'#django'``
+Default: ``'django mezzanine'``
 
 ``TWITTER_DEFAULT_QUERY_TYPE``
 ------------------------------
@@ -529,6 +529,13 @@ Default: ``'search'``
 Dict mapping file field names in the format ``app_label.model_name.field_name`` to the Python dotted path to function names that will be used for the file field's ``upload_to`` argument.
 
 Default: ``{}``
+
+``USE_REVERSION``
+-----------------
+
+If ``True`` and ``django-reversion`` is installed in ``INSTALLED_APP``, reversion's admin class is injected into all of the admin classes that are based upon ``DisplayableAdmin``, such as blog admin and all of the page admins.
+
+Default: ``False``
 
 ``USE_SOUTH``
 -------------
