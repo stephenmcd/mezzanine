@@ -119,6 +119,16 @@ register_setting(
 )
 
 register_setting(
+    name="USE_REVERSION",
+    description=_("If ``True`` and ``django-reversion`` is installed in "
+        "``INSTALLED_APP``, reversion's admin class is injected into all of "
+        "the admin classes that are based upon ``DisplayableAdmin``, "
+        "such as blog admin and all of the page admins."),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="FORMS_USE_HTML5",
     description=_("If ``True``, website forms will use HTML5 features."),
     editable=False,
@@ -177,6 +187,15 @@ register_setting(
     description=_("Max number of paging links to display when paginating."),
     editable=True,
     default=10,
+)
+
+register_setting(
+    name="MEDIA_LIBRARY_PER_SITE",
+    label=_("Media library per site"),
+    description=_("If ``True``, each site will use its own directory within "
+        "the filebrowser media library."),
+    editable=False,
+    default=False,
 )
 
 register_setting(

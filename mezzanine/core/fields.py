@@ -88,7 +88,7 @@ class MultiChoiceField(models.CharField):
         return MultipleChoiceField(**defaults)
 
     def get_db_prep_value(self, value, **kwargs):
-        if isinstance(value, list):
+        if isinstance(value, (tuple, list)):
             value = ",".join([unicode(i) for i in value])
         return value
 

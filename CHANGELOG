@@ -1,3 +1,75 @@
+Version 1.4.0 (Feb 17, 2013)
+----------------------------
+
+  * Added a ``has_home`` variable to templates for the ``page_menu`` template tag, which indicates whether a homepage object exists, and can be used for checking whether a hard-coded homepage link should exist in the menu template - Stephen McDonald
+  * Update the default twitter query since it's been flooded by movie tweets - Stephen McDonald
+  * Add a deprecation layer for settings in templates, and deprecate the ``PAGES_MENU_SHOW_ALL`` setting since it's too specific for a setting and can be implemented in one line in a template - Stephen McDonald
+  * Added an example to the page menu docs of rendering a tree representing the current section of a site being viewed - Stephen McDonald
+  * Don't need to uncheck ``in_menus`` for an editable homepage anymore, so remove the comment describing that - Stephen McDonald
+  * Correctly handle file uploads in profile forms - Stephen McDonald
+  * Alpha-sort options for the search form - Stephen McDonald
+  * Remove Nimbis Services link for now. We haven't deployed our Mezzanine-based Nimbis Services site. into production yet (the old link was to a testing site that is only. used internally). We'll add this back in once we go live with our Mezzanine site - Lorin Hochstein
+  * Also check ``BLOG_USE_FEATURED_IMAGE`` in templates when displaying blog post's featured image - Stephen McDonald
+  * Added a ``sort_by`` template filter for general use - Stephen McDonald
+  * Removed ``Slugged.Meta.ordering`` since it'll generally always be nuked by Meta on a subclass - and added correct ordering to BlogCategory - Stephen McDonald
+  * Clean up ``BlogCategory.Meta`` - Stephen McDonald
+  * Move ``clean_content`` to new DisplayableAdminForm - Alex Hill
+  * Fix parent of Team and History pages in fixtures. Assign the Team and History pages to the About page (id 2) instead of the Blog page (id 1) in Page fixtures - Alex Hill
+  * Fix generating descriptions when saving page instances directly, as their content type subclass fields weren't available for the description - Stephen McDonald
+  * Allow for no content model in ``Page.description_from_content`` - Stephen McDonald
+  * Fixed duplicate home IDs in menu templates and add some missing IDs - Stephen McDonald
+  * Check ``has_home`` to avoid duplicates. Updated ``footer_tree.html`` to behave the same as the other menu templates, checking ``has_home`` so that a page that is also the home doesn't end up in the menus twice - joshcartme
+  * Strip language prefix from request path, before trying to match it against pages slugs - wrwrwr
+  * Update ``mezzanine/accounts/locale/zh_CN/LC_MESSAGES/django.po`` - lyhapple
+  * Drupal blog importer for mezzanine blog - #issue 527 - Bryden Frizzell
+  * Fixed ``import_posterous`` for module requests ``v1.0.1`` and above. - issue #528 - Skooch
+  * Restore permission check for editable JS/CSS - Stephen McDonald
+  * Added handling for model field defaults in dynamic inlines. Closes #526 - Stephen McDonald
+  * Precedence of conflicting page processor context. The order of execution of page processors was reversed in #315 so that custom page processors returning an HttpResponse would bypass the default processors. That had the side-effect of making context variables in default processors overwrite those in custom processors, which isn't very intuitive. This change restores the original behaviour of context variables, while retaining the reversed execution order - Alex Hill
+  * Added a welcome message and quick links for getting started, for new developers, to the default homepage template - Stephen McDonald
+  * Fixed conditional context updates in page processors for Python < 2.7 - Stephen McDonald
+  * Fix handling of non-alpha search terms in SearchableQuerySet - Stephen McDonald
+  * Fixed support for automatically adding custom ManyToMany fields in PageAdmin. Closes #534 - Stephen McDonald
+  * Improved some of the messages shown through installation (createdb/syncdb signals) - Stephen McDonald
+  * Clarify requirements for ``search_fields`` in the search api docs - Stephen McDonald
+  * Hide the help text for the slug field for Link pages in the admin - Stephen McDonald
+  * Fix JS/CSS file names in base mobile template. Closes #537 - Stephen McDonald
+  * use ``AUTH_USER_MODEL`` if available - Ben Wilson
+  * Fix Manager MRO issue where ``search_fields`` param threw errors - David Novakovic
+  * Test for SearchableManager in DisplayableManager - David Novakovic
+  * Hopefully fix MRO regression - David Novakovic
+  * Fix MRO issues and avoid regression at the same time - David Novakovic
+  * Protect sequences provided or generated for the default value of ``MenusField`` from being forced to unicode (as for example u'[1, 2, 3]'). Django forces fields defaults to unicode unless they're callable (see ``Field.get_default``). This is done to prevent problems that could arise from setting the same mutable object as a default for many fields (see Django ticket #18478) - wrwrwr
+  * add fa and ``fa_IR`` locales - Mahdi Bornazadeh
+  * Clean up use of ``AUTH_USER_MODEL`` - Stephen McDonald
+  * fix persian locale - Mahdi Bornazadeh
+  * Database-prepare tuples in the same way lists are handled in ``MultiChoiceField`` - wrwrwr
+  * Allow pages to be dragged out of a subtree to the root level in page admin - wrwrwr
+  * Check that setting a new page parent won't cause a cycle in the parent-child graph. Such cycles lead to an infinite loop in ``Page.save`` ``(e.g``. python process consuming all resources) - wrwrwr
+  * Preparation for django-reversion - uli
+  * Altered git ``repo_url`` checks to allow ssh hosted git repositories - Travis Nickles
+  * Fixed indentation issue and PEP-8 issue with fabfile mods - Travis Nickles
+  * Don't try to create any pages if the models it uses aren't installed - Gavin Wahl
+  * Support for Django 1.5 custom user models. Uses ``get_user_model`` for every reference to User, and provides a default. implementation of ``get_user_model`` for Django <= 1.4 - Gavin Wahl
+  * Clean up hg/git checks in fabfile - Stephen McDonald
+  * Fix fabfile - Stephen McDonald
+  * Move RSS url parsing code from the drupal importer into the main RSS blog importer, and remove the drupal importer since it isn't specific to drupal - Stephen McDonald
+  * Fix import error message in rss importer - Stephen McDonald
+  * Don't use Bootstrap's navbar-inverse class by default, for better theme compatibility. Closes #551 - Stephen McDonald
+  * Fix some missing imports and settings import errors for the new user model hooks - Stephen McDonald
+  * Added possibility to set custom menu titles for models in ``ADMIN_MENU_ORDER``, using the same notation as for views ``(e.g``. ``(_("News")``, ``"blog.BlogPost"))`` - wrwrwr
+  * Python 2.5 compatibility - wrwrwr
+  * Use ``current_page`` instead of request for ``is_current``. Since we already have the 'current page' object, we can compare it. against ourself to find if we are current - Gavin Wahl
+  * rm unused import - Gavin Wahl
+  * Use ``content_model`` not the base Page in PageAdmin. When calling methods on a page, they should be called on the subclass,. not the base Page. This allows page types to override them - Gavin Wahl
+  * The usage of reversion can now be disabled for DisplayableAdmin - uli
+  * Update admin menu docs to mention labels for regaulr models - Stephen McDonald
+  * Change new reversion setting to be opt-in instead of opt-out - Stephen McDonald
+  * backout aa850efe2315 - Stephen McDonald
+  * backout eff95dec6799 - Stephen McDonald
+  * Moved the ``MEDIA_LIBRARY_PER_SITE`` setting from ``filebrowser_safe`` into Mezzanine so it's documented. It allows per-site filebrowser root directories - Stephen McDonald
+  * Bump filebrowser/grappelli versions - Stephen McDonald
+
 Version 1.3.0 (Dec 26, 2012)
 ----------------------------
 
@@ -282,6 +354,11 @@ Version 1.2.0 (Aug 05, 2012)
   * Different attempt at making relation check in signals for generic fields more robust - Stephen McDonald
   * Allow static proxy URL to be configured - Stephen McDonald
   * Also rename ``static_proxy`` URL default in case anyone else's web server alias is slightly off - Stephen McDonald
+  * Preserve slugs & URLs when pages are moved - Alex Hill
+  * Remove obsolete ``reset_slugs()`` - Alex Hill
+  * Check overridden() when changing slug - Alex Hill
+  * In ``set_parent()``, call save() before ``get_slug()`` - Alex Hill
+  * Make slug changes propagate to all descendant pages - Alex Hill
   * use ``ugettext_lazy`` strings for settings form - Dmitry Falk
   * Allow unicode twitter search queries - Stephen McDonald
   * ``static_proxy`` only needed a rename, not to be congifurable - Stephen McDonald
@@ -291,10 +368,14 @@ Version 1.2.0 (Aug 05, 2012)
   * Fixed duplicate posts, --noinput handling and entity decoding in base blog importer - Stephen McDonald
   * Restore automatic redirects creation for the wordpress blog importer - Stephen McDonald
   * Add day parts to the date urlpattern for blog posts - Stephen McDonald
+  * Fix bug in ``Page.set_parent()`` when no parent set - Alexander Hill
+  * Allow passing None to ``Page.set_parent()`` - Alexander Hill
+  * Add tests for ``Page.get_slug()`` and ``Page.get_parent()`` - Alexander Hill
   * Swallow import exception when importing ``settings.py`` from fabric - Lorin Hochstein
   * Don't mask import errors in the actual call to ``set_dynamic_settings`` - Stephen McDonald
   * add ajax hook for generic rating - Dmitry Falk
   * Fix references to the ``recent_comments`` template tag - Enrico Tröger
+  * Fix bug in slug handling when adding a new page - Alex Hill
   * Fix #349 - regression in ``set_page_permissions`` - Alex Hill
   * Madee the labels and help text for the email fields more descriptive - Stephen McDonald
   * Added mezzanine-events to third-party apps list - Stephen McDonald

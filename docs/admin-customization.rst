@@ -60,6 +60,9 @@ the title ``Media Library`` to create a custom navigation item::
         ("Site", ("auth.User", "auth.Group", "sites.Site", "redirects.Redirect")),
     )
 
+You can also use this two-item sequence approach for regular app/model
+names if you'd like to give them a custom title.
+
 Dashboard
 =========
 

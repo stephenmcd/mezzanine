@@ -166,6 +166,14 @@ class Page(BasePage):
         old_parent_slug = self.parent.slug if self.parent else ""
         new_parent_slug = new_parent.slug if new_parent else ""
 
+        # Make sure setting the new parent won't cause a cycle.
+        parent = new_parent
+        while parent is not None:
+            if parent.pk == self.pk:
+                raise AttributeError("You can't set a page or its child as"
+                                     " a parent.")
+            parent = parent.parent
+
         self.parent = new_parent
         self.save()
 
