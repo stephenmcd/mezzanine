@@ -15,6 +15,9 @@ def rating_for(context, obj):
     """
     context["rating_obj"] = obj
     context["rating_form"] = RatingForm(obj)
+    ratings = context["request"].COOKIES.get("mezzanine-rating", "")
+    rating_string = "%s.%s" % (obj._meta, obj.pk)
+    context["rated"] = (rating_string in ratings)
     for field in obj._meta.many_to_many:
         if isinstance(field, RatingField):
             context["rating_average"] = getattr(obj, "%s_average" % field.name)
