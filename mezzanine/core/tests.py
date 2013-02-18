@@ -229,6 +229,10 @@ class Tests(TestCase):
         self.assertTrue(child.parent is None)
         self.assertTrue(child.slug == "kid")
 
+        child = RichTextPage(title="child2")
+        child.set_parent(new_parent)
+        self.assertEqual(child.slug, "new-parent/child2")
+
         # Assert that cycles are detected.
         p1, _ = RichTextPage.objects.get_or_create(title="p1")
         p2, _ = RichTextPage.objects.get_or_create(title="p2")
