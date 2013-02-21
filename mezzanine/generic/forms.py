@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import Html5Mixin
-from mezzanine.generic.models import Keyword, ThreadedComment, RATING_RANGE
+from mezzanine.generic.models import Keyword, ThreadedComment
 
 
 class KeywordsWidget(forms.MultiWidget):
@@ -121,4 +121,4 @@ class RatingForm(CommentSecurityForm):
     of its easy setup for generic relations.
     """
     value = forms.ChoiceField(label="", widget=forms.RadioSelect,
-                              choices=zip(RATING_RANGE, RATING_RANGE))
+                              choices=zip(*(settings.RATINGS_RANGE,) * 2))

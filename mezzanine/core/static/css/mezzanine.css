@@ -88,11 +88,14 @@ a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 
 
 /* Ratings */
-.rating * {display:inline; list-style-type:none;}
+.rating * {display:inline !important; list-style-type:none;}
 .rating label {margin-right:15px;}
 .rating p {margin-right:20px;}
-.rating ul {margin-left:0 !important;}
+.rating ul {margin-left:0 !important; padding:0 !important;}
+.rating li {border:none !important; background:none !important; padding:0 !important;}
 .rating li input {margin-top:-4px;}
+#comments .rating {padding:0 !important; margin:10px 0 0 0 !important;
+                   border:none !important; background:none !important;}
 
 
 /* Comments */

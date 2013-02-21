@@ -1,4 +1,4 @@
-{% load i18n mezzanine_tags comment_tags %}
+{% load i18n mezzanine_tags comment_tags rating_tags %}
 
 <ul class="unstyled">
     {% for comment in comments_for_thread %}
@@ -65,6 +65,9 @@
 
         {% endif %}
         {% endeditable %}
+        {% if settings.COMMENTS_USE_RATINGS %}
+        {% rating_for comment %}
+        {% endif %}
         {% comment_thread comment %}
     </li>
     {% endfor %}

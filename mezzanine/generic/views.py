@@ -119,7 +119,8 @@ def rating(request):
     try:
         model = get_model(*request.POST["content_type"].split(".", 1))
         obj = model.objects.get(id=request.POST["object_pk"])
-        url = add_cache_bypass(obj.get_absolute_url()) + "#rating-%s" % obj.id
+        url = obj.get_absolute_url()
+        url = add_cache_bypass(url.split("#")[0]) + "#rating-%s" % obj.id
     except (KeyError, TypeError, AttributeError, ObjectDoesNotExist):
         # Something was missing from the post so abort.
         return HttpResponseRedirect("/")

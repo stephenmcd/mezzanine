@@ -10,9 +10,7 @@
     {% endif %}
 </p>
 
-{% if rated %}
-{% trans "Thank you for your rating!" %}
-{% else %}
+{% if not rated %}
 <form method="post" action="{% url "rating" %}">
     {% nevercache %}
     {% csrf_token %}

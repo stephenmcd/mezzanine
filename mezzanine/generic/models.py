@@ -5,6 +5,7 @@ from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from mezzanine.generic.fields import RatingField
 from mezzanine.generic.managers import CommentManager, KeywordManager
 from mezzanine.core.models import Slugged, Orderable
 from mezzanine.conf import settings
@@ -24,6 +25,7 @@ class ThreadedComment(Comment):
     by_author = models.BooleanField(_("By the blog author"), default=False)
     replied_to = models.ForeignKey("self", null=True, editable=False,
                                    related_name="comments")
+    rating = RatingField(verbose_name=_("Rating"))
 
     objects = CommentManager()
 
@@ -45,7 +47,6 @@ class ThreadedComment(Comment):
         ``COMMENTS_DEFAULT_APPROVED``.
         """
         if not self.id:
-            from mezzanine.conf import settings
             self.is_public = settings.COMMENTS_DEFAULT_APPROVED
             self.site_id = current_site_id()
         super(ThreadedComment, self).save(*args, **kwargs)
@@ -109,15 +110,14 @@ class AssignedKeyword(Orderable):
         return unicode(self.keyword)
 
 
-RATING_RANGE = range(settings.RATINGS_MIN, settings.RATINGS_MAX + 1)
-
-
 class Rating(models.Model):
     """
     A rating that can be given to a piece of content.
     """
 
     value = models.IntegerField(_("Value"))
+    rating_date = models.DateTimeField(_("Rating date"),
+        auto_now_add=True, null=True)
     content_type = models.ForeignKey("contenttypes.ContentType")
     object_pk = models.IntegerField()
     content_object = GenericForeignKey("content_type", "object_pk")
@@ -130,7 +130,7 @@ class Rating(models.Model):
         """
         Validate that the rating falls between the min and max values.
         """
-        if self.value not in RATING_RANGE:
-            raise ValueError("Invalid rating. %s is not within %s and %s" %
-                             (self.value, RATING_RANGE[0], RATING_RANGE[-1]))
+        if self.value not in settings.RATINGS_RANGE:
+            raise ValueError("Invalid rating. %s is not in %s" %
+                             (self.value, ", ".join(settings.RATINGS_RANGE)))
         super(Rating, self).save(*args, **kwargs)

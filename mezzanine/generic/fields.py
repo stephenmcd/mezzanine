@@ -228,6 +228,7 @@ class RatingField(BaseGenericRelation):
 
     related_model = "generic.Rating"
     fields = {"%s_count": IntegerField(default=0, editable=False),
+              "%s_sum": IntegerField(default=0, editable=False),
               "%s_average": FloatField(default=0, editable=False)}
 
     def related_items_changed(self, instance, related_manager):
@@ -236,8 +237,10 @@ class RatingField(BaseGenericRelation):
         """
         ratings = [r.value for r in related_manager.all()]
         count = len(ratings)
-        average = sum(ratings) / float(count) if count > 0 else 0
+        _sum = sum(ratings)
+        average = _sum / float(count) if count > 0 else 0
         setattr(instance, "%s_count" % self.related_field_name, count)
+        setattr(instance, "%s_sum" % self.related_field_name, _sum)
         setattr(instance, "%s_average" % self.related_field_name, average)
         instance.save()
 

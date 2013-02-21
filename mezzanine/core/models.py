@@ -205,7 +205,7 @@ class Displayable(Slugged, MetaData):
 
     def save(self, *args, **kwargs):
         """
-        Set default for ``publish_date``. We can't use ``auto_add`` on
+        Set default for ``publish_date``. We can't use ``auto_now_add`` on
         the field as it will be blank when a blog post is created from
         the quick blog form in the admin dashboard.
         """

@@ -13,7 +13,7 @@ def rating_for(context, obj):
     Provides a generic context variable name for the object that
     ratings are being rendered for, and the rating form.
     """
-    context["rating_obj"] = obj
+    context["rating_object"] = context["rating_obj"] = obj
     context["rating_form"] = RatingForm(obj)
     ratings = context["request"].COOKIES.get("mezzanine-rating", "")
     rating_string = "%s.%s" % (obj._meta, obj.pk)
