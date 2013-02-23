@@ -380,6 +380,7 @@ Sites Using Mezzanine
   * `Coronado Pathways Charter School <http://coronadopathways.com>`_
   * `Raindrop Marketing <http://www.raindropads.com>`_
   * `Web4py <http://www.web4py.com>`_
+  * `The Peculiar Store <http://thepeculiarstore.com>`_
 
 Quotes
 ======
