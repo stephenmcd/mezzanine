@@ -1,3 +1,11 @@
+Version 1.4.2 (Feb 23, 2013)
+----------------------------
+
+  * Added ratings to comments, with new settings ``COMMENTS_USE_RATINGS`` for toggle ratings form in comments, and ``RATINGS_RANGE`` for defining valid ratings, replacing the old min/max settings. Also added ``_sum`` field injections for models with rating fields, and ``rating_date`` field on ratings, for use with time scaled scores - Stephen McDonald
+  * Ensure emails are lowercased for gravatar hashes - Stephen McDonald
+  * Fix page tree admin template when reversion is used - Stephen McDonald
+  * Enhanced args to gravatar URLs - Stephen McDonald
+
 Version 1.4.1 (Feb 19, 2013)
 ----------------------------
 
