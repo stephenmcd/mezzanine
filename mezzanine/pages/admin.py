@@ -38,6 +38,7 @@ class PageAdmin(DisplayableAdmin):
 
     form = PageAdminForm
     fieldsets = page_fieldsets
+    change_list_template = "admin/pages/page/change_list.html"
 
     def __init__(self, *args, **kwargs):
         """
