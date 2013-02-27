@@ -1,3 +1,15 @@
+Version 1.4.3 (Feb 27, 2013)
+----------------------------
+
+  * domain change to wdiaz - William Díaz
+  * Mezzanine's auth backend incompatible with custom user model tests in Django 1.5 - Stephen McDonald
+  * Added Django 1.5 to travis config - Stephen McDonald
+  * Add a fallback for the newly required ``ALLOWED_HOSTS`` setting in Django 1.5, that will use the domains defined in the Site model - Stephen McDonald
+  * Use the string name for user relationships in models since trying to import a custom user model falls apart - Stephen McDonald
+  * Remove invalid migration - Stephen McDonald
+  * Remove upgrade flag from installation instructions in case people don't know how pip works - Stephen McDonald
+  * Drop Python 2.5 tests in travis since Django 1.5 doesn't support it and we'll be dropping it soon - Stephen McDonald
+
 Version 1.4.2 (Feb 23, 2013)
 ----------------------------
 
