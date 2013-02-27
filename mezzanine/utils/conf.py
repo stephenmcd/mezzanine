@@ -52,11 +52,22 @@ def set_dynamic_settings(s):
     if s["TESTING"]:
         # Enable accounts when testing so the URLs exist.
         append("INSTALLED_APPS", "mezzanine.accounts")
-        # New Django 1.5 tests in redirects app don't work with a
+
+        # Following bits are work-arounds for some assumptions that
+        # Django 1.5's tests make.
+
+        # contrib.auth tests fail without its own auth backend installed.
+        s["AUTHENTICATION_BACKENDS"] = list(s["AUTHENTICATION_BACKENDS"])
+        append("AUTHENTICATION_BACKENDS",
+               "django.contrib.auth.backends.ModelBackend")
+        s["AUTHENTICATION_BACKENDS"] = tuple(s["AUTHENTICATION_BACKENDS"])
+
+        # Tests in contrib.redirects simply don't work with a
         # catch-all urlpattern such as Mezzanine's pages app.
         remove("INSTALLED_APPS", "django.contrib.redirects")
         remove("MIDDLEWARE_CLASSES",
             "django.contrib.redirects.middleware.RedirectFallbackMiddleware")
+
     else:
         # Setup for optional apps.
         optional = list(s.get("OPTIONAL_APPS", []))
