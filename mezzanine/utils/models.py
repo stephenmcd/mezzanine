@@ -14,6 +14,7 @@ except ImportError:
         from django.contrib.auth.models import User
         return User
 
+
 def get_user_model_name():
     """
     Returns the app_label.object_name string for the user model.
