@@ -97,7 +97,7 @@ The easiest method is to install directly from pypi using `pip`_ by
 running the command below, which will also install the required
 dependencies mentioned above::
 
-    $ pip install -U mezzanine
+    $ pip install mezzanine
 
 If you prefer, you can download Mezzanine and install it directly from
 source::
