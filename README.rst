@@ -381,6 +381,7 @@ Sites Using Mezzanine
   * `Raindrop Marketing <http://www.raindropads.com>`_
   * `Web4py <http://www.web4py.com>`_
   * `The Peculiar Store <http://thepeculiarstore.com>`_
+  * `GrinDin <http://www.grindin.ru>`_
 
 Quotes
 ======
