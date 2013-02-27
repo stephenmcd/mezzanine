@@ -3,6 +3,7 @@ from operator import ior, iand
 from string import punctuation
 
 from django.db.models import Manager, Q, CharField, TextField, get_models
+from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
 from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
 
@@ -196,6 +197,15 @@ class SearchableManager(Manager):
     def get_query_set(self):
         search_fields = self._search_fields
         return SearchableQuerySet(self.model, search_fields=search_fields)
+
+    def contribute_to_class(self, model, name):
+        """
+        Django 1.5 explicitly prevents managers being accessed from
+        abstract classes, which is behaviour the search API has relied
+        on for years. Here we reinstate it.
+        """
+        super(SearchableManager, self).contribute_to_class(model, name)
+        setattr(model, name, ManagerDescriptor(self))
 
     def search(self, *args, **kwargs):
         """
