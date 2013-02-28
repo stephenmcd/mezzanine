@@ -18,11 +18,9 @@ img {box-shadow:0 0 10px #bbb;}
 @media (max-width:979px){.brand {padding-right:20px !important;}}
 .navbar {z-index:500;}
 .navbar-inner {border-radius:0;}
-.navbar-search {margin-left:10px; margin-top:4px;}
-.navbar-search * {border-radius:4px !important; margin:0 2px !important;}
+.navbar-search * {border-radius:3px !important; margin:0 4px !important;}
 .navbar-search select {width:auto;}
-.navbar-search .btn {margin-top:1px !important; margin-left:4px !important;}
-.tagline {float:left; font-size:12px; font-style:italic; margin:9px 5px 0 -4px; color:#fff; opacity:.5;}
+.navbar-text {float:left; font-size:12px; font-style:italic; margin:0; opacity:.6;}
 .breadcrumb {margin:20px 0 25px 0;}
 .breadcrumb .divider {margin:0 5px;}
 .breadcrumb strong {color:#333;}
@@ -44,7 +42,7 @@ footer .separator {opacity:0.3; margin:0 10px;}
 /* Forms */
 .control-group label {font-weight:bold; margin-bottom:3px;}
 .control-group ul, .control-group li {list-style-type:none; display:inline; margin:0;}
-                         /* radio/checkbox groups */
+/* radio/checkbox groups */
 .control-group li label {width:auto !important; float:none !important; display:inline;
                          font-weight:normal; vertical-align:middle;
                          padding:0 !important; line-height:27px; margin-right:10px;}
@@ -53,7 +51,7 @@ footer .separator {opacity:0.3; margin:0 10px;}
 .input li {list-style-type:none;}
 .input li input {width:auto;}
 .input label {font-weight:normal;}
-textarea.xlarge {width:480px; height:120px;}
+textarea.input-xlarge {width:480px; height:150px;}
 .datefield select, .datetimefield select,
 .datefield input, .datetimefield input {width:auto; margin-right:5px;}
 .form-actions {background:rgba(220,220,220, 0.1); margin-left:-10px !important; border-top:1px solid #eee;}

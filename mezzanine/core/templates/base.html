@@ -33,7 +33,7 @@
 <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 <script>
 $(function() {
-    $('.middleinput:text, textarea').addClass('xlarge');
+    $('.middle input:text, textarea').addClass('input-xlarge');
     $('.control-group label').addClass('control-label');
 });
 </script>
@@ -57,7 +57,7 @@ $(function() {
         <span class="icon-bar"></span>
     </a>
     {% if settings.SITE_TITLE %}<a class="brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
-    {% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}
+    {% if settings.SITE_TAGLINE %}<p class="navbar-text">{{ settings.SITE_TAGLINE }}</p>{% endif %}
     <div class="nav-collapse">
         {% search_form "all" %}
         {% page_menu "pages/menus/dropdown.html" %}
