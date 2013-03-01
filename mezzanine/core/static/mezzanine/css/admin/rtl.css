@@ -60,6 +60,10 @@ fieldset .field-box {
     text-align: left;
 }
 
+input.interface {
+    margin: 0 0 0 5px;
+}
+
 /* page tree */
 
 #tree div {
