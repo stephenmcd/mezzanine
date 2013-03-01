@@ -116,6 +116,15 @@ if generic_comments:
     )
 
 register_setting(
+    name="RATINGS_ACCOUNT_REQUIRED",
+    label=_("Accounts required for rating"),
+    description=_("If ``True``, users must log in to rate content "
+        "such as blog posts and comments."),
+    editable=True,
+    default=False,
+)
+
+register_setting(
     name="RATINGS_RANGE",
     description=_("A sequence of integers that are valid ratings."),
     editable=False,

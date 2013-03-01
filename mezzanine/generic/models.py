@@ -9,6 +9,7 @@ from mezzanine.generic.fields import RatingField
 from mezzanine.generic.managers import CommentManager, KeywordManager
 from mezzanine.core.models import Slugged, Orderable
 from mezzanine.conf import settings
+from mezzanine.utils.models import get_user_model_name
 from mezzanine.utils.sites import current_site_id
 
 
@@ -121,6 +122,8 @@ class Rating(models.Model):
     content_type = models.ForeignKey("contenttypes.ContentType")
     object_pk = models.IntegerField()
     content_object = GenericForeignKey("content_type", "object_pk")
+    user = models.ForeignKey(get_user_model_name(), verbose_name=_("Rater"),
+        null=True, related_name="%(class)ss")
 
     class Meta:
         verbose_name = _("Rating")
@@ -130,7 +133,8 @@ class Rating(models.Model):
         """
         Validate that the rating falls between the min and max values.
         """
-        if self.value not in settings.RATINGS_RANGE:
-            raise ValueError("Invalid rating. %s is not in %s" %
-                             (self.value, ", ".join(settings.RATINGS_RANGE)))
+        valid = map(str, settings.RATINGS_RANGE)
+        if str(self.value) not in valid:
+            raise ValueError("Invalid rating. %s is not in %s" % (self.value,
+                ", ".join(valid)))
         super(Rating, self).save(*args, **kwargs)

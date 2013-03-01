@@ -10,7 +10,7 @@
     {% endif %}
 </p>
 
-{% if not rated %}
+{% if not rated or request.user.is_authenticated %}
 <form method="post" action="{% url "rating" %}">
     {% nevercache %}
     {% csrf_token %}
