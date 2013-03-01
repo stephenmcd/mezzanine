@@ -95,7 +95,7 @@ class PageAdmin(DisplayableAdmin):
                 add_url = admin_url(RichTextPage, "add")
                 return HttpResponseRedirect(add_url)
             except NoReverseMatch:
-                pass
+                return self.changelist_view(request)
         return super(PageAdmin, self).add_view(request, **kwargs)
 
     def change_view(self, request, object_id, extra_context=None):
