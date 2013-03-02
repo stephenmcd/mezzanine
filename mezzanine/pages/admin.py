@@ -7,8 +7,9 @@ from django.core.urlresolvers import NoReverseMatch
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
-from mezzanine.pages.models import Page, RichTextPage, Link
+from mezzanine.conf import settings
 from mezzanine.core.admin import DisplayableAdmin, DisplayableAdminForm
+from mezzanine.pages.models import Page, RichTextPage, Link
 from mezzanine.utils.urls import admin_url
 
 
@@ -85,20 +86,16 @@ class PageAdmin(DisplayableAdmin):
         if not getattr(page, "can_" + permission)(request):
             raise PermissionDenied
 
-    def add_view(self, request, extra_context=None, **kwargs):
+    def add_view(self, request, **kwargs):
         """
         For the ``Page`` model, redirect to the add view for the
-        ``RichText`` model.
+        first page model, based on the ``ADD_PAGE_ORDER`` setting.
         """
         if self.model is Page:
-            try:
-                add_url = admin_url(RichTextPage, "add")
-                return HttpResponseRedirect(add_url)
-            except NoReverseMatch:
-                return self.changelist_view(request)
+            return HttpResponseRedirect(self.get_content_models()[0].add_url)
         return super(PageAdmin, self).add_view(request, **kwargs)
 
-    def change_view(self, request, object_id, extra_context=None):
+    def change_view(self, request, object_id, **kwargs):
         """
         For the ``Page`` model, check ``page.get_content_model()``
         for a subclass and redirect to its admin change view.
@@ -112,31 +109,32 @@ class PageAdmin(DisplayableAdmin):
                 change_url = admin_url(content_model.__class__, "change",
                                        content_model.id)
                 return HttpResponseRedirect(change_url)
-        extra_context = extra_context or {}
-        can_delete = content_model.can_delete(request)
-        extra_context["hide_delete_link"] = not can_delete
-        extra_context["hide_slug_field"] = content_model.overridden()
-        return super(PageAdmin, self).change_view(request, object_id,
-                                                  extra_context=extra_context)
+        kwargs.setdefault("extra_context", {})
+        kwargs["extra_context"].update({
+            "hide_delete_link": not content_model.can_delete(request),
+            "hide_slug_field": content_model.overridden(),
+        })
+        return super(PageAdmin, self).change_view(request, object_id, **kwargs)
 
-    def delete_view(self, request, object_id, extra_context=None):
+    def delete_view(self, request, object_id, **kwargs):
         """
         Enforce custom delete permissions for the page instance.
         """
         page = get_object_or_404(Page, pk=object_id)
         content_model = page.get_content_model()
         self._check_permission(request, content_model, "delete")
-        return super(PageAdmin, self).delete_view(request, object_id,
-                                                  extra_context)
+        return super(PageAdmin, self).delete_view(request, object_id, **kwargs)
 
-    def changelist_view(self, request, extra_context=None):
+    def changelist_view(self, request, **kwargs):
         """
         Redirect to the ``Page`` changelist view for ``Page``
         subclasses.
         """
         if self.model is not Page:
             return HttpResponseRedirect(admin_url(Page, "changelist"))
-        return super(PageAdmin, self).changelist_view(request, extra_context)
+        kwargs.setdefault("extra_context", {})
+        kwargs["extra_context"]["page_models"] = self.get_content_models()
+        return super(PageAdmin, self).changelist_view(request, **kwargs)
 
     def save_model(self, request, obj, form, change):
         """
@@ -184,6 +182,31 @@ class PageAdmin(DisplayableAdmin):
         response = super(PageAdmin, self).response_change(request, obj)
         return self._maintain_parent(request, response)
 
+    @classmethod
+    def get_content_models(cls):
+        """
+        Return all Page subclasses that are admin registered, ordered
+        based on the ``ADD_PAGE_ORDER`` setting.
+        """
+        models = []
+        for model in Page.get_content_models():
+            try:
+                admin_url(model, "add")
+            except NoReverseMatch:
+                continue
+            else:
+                setattr(model, "name", model._meta.verbose_name)
+                setattr(model, "add_url", admin_url(model, "add"))
+                models.append(model)
+        order = [name.lower() for name in settings.ADD_PAGE_ORDER]
+
+        def sort_key(page):
+            name = "%s.%s" % (page._meta.app_label, page._meta.object_name)
+            try:
+                order.index(name.lower())
+            except ValueError:
+                return page.name
+        return sorted(models, key=sort_key)
 
 # Drop the meta data fields, and move slug towards the stop.
 link_fieldsets = deepcopy(page_fieldsets[:1])
