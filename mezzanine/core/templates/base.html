@@ -17,8 +17,8 @@
 
 {% compress css %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
 <link rel="stylesheet" href="{{ STATIC_URL }}css/mezzanine.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.css">
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/rtl.css">
 {% endif %}
@@ -30,7 +30,7 @@
 
 {% compress js %}
 <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
-<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
 <script>
 $(function() {
     $('.middle input:text, textarea').addClass('input-xlarge');
