@@ -149,3 +149,40 @@ Then by setting ``RICHTEXT_FILTER`` to ``'myproj.filter.markdown_filter'``
 you'd see the converted html content rendered to the template, rather than
 the raw markdown formatting.
 
+Media Library Integration
+=========================
+
+The Mezzanine Media Library provides a `jQuery UI
+<http://jqueryui.com/>`_ `dialog <http://jqueryui.com/dialog/>`_ that
+can be used by custom widgets to allow users to select previously
+uploaded files.
+
+To show the Media Library dialog from your custom widget, do the
+following:
+
+1. Load the following media resources in your widget, perhaps using a
+   `Django Media inner class
+   <https://docs.djangoproject.com/en/dev/topics/forms/media/>`_:
+
+   :css:
+      ``filebrowser/css/smoothness/jquery-ui-1.9.1.custom.min.css``
+   :js:
+      | ``mezzanine/js/%s' % settings.JQUERY_FILENAME``
+      | ``filebrowser/js/jquery-ui-1.9.1.custom.min.js``
+      | ``filebrowser/js/filebrowser-popup.js``
+
+2. Call the JavaScript function ``browseMediaLibrary`` to show the
+   dialog. The function is defined in
+   ``filebrowser/js/filebrowser-popup.js``, and takes the following
+   two arguments:
+
+   :Callback function:
+      The function that will be called after the dialog is closed. The
+      function will be called with a single argument, which will be:
+
+      - null: if no selection was made (e.g. dialog is closed by
+        hitting `ESC`), or
+      - the path of the selected file.
+
+   :Type (optional): Type of files that are selectable in the
+      dialog. Defaults to image.
