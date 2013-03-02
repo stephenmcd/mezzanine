@@ -5,12 +5,9 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
 
 from mezzanine.conf import settings
-from mezzanine.pages import page_processors
 from mezzanine.pages.models import Page
 from mezzanine.utils.urls import home_slug
 from mezzanine.utils.views import render
-
-page_processors.autodiscover()
 
 
 @staff_member_required
