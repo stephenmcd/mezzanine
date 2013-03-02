@@ -152,13 +152,13 @@ the raw markdown formatting.
 Media Library Integration
 =========================
 
-The Mezzanine Media Library provides a `jQuery UI
-<http://jqueryui.com/>`_ `dialog <http://jqueryui.com/dialog/>`_ that
-can be used by custom widgets to allow users to select previously
+Mezzanine's Media Library (based on django-filebrowser) provides a
+`jQuery UI <http://jqueryui.com/>`_ `dialog <http://jqueryui.com/dialog/>`_ that can be used by custom widgets to allow users to select previously
 uploaded files.
 
-To show the Media Library dialog from your custom widget, do the
-following:
+When using a custom widget for the WYSIWYG editor via the
+``RICHTEXT_WIDGET_CLASS`` setting, you can show the Media Library dialog
+from your custom widget, by doing the following:
 
 1. Load the following media resources in your widget, perhaps using a
    `Django Media inner class
