@@ -12,8 +12,8 @@ Firstly covered are the utilities found in the ``mezzanine.generic``
 app, such as :ref:`keywords`, :ref:`comments`, and :ref:`ratings`.
 Each of these form a common pattern:
 
-  * A model is provided containing generic relationships using Django's
-   `django.contrib.contenttypes <https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/>`_ app
+  * A model is provided containing generic relationships using
+    Django's `django.contrib.contenttypes <https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/>`_ app
   * A custom model field is provided for defining relationships to the
     ``mezzanine.generic`` model, which can then be applied to any of
     your own models
