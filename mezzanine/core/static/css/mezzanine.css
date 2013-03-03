@@ -20,8 +20,8 @@ body {padding-top:45px;}
     body {padding-top:0;} .brand {padding-right:20px !important;}}
 .navbar {z-index:500;}
 .navbar-inner {border-radius:0;}
-.navbar-search * {border-radius:3px !important; margin:0 4px !important;}
-.navbar-search .search-query {width:120px;}
+.navbar-search * {margin:0 2px !important;}
+.navbar-search .search-query {width:120px; border-radius:3px}
 .navbar-search select {width:auto;}
 .navbar-text {float:left; font-size:12px; font-style:italic; margin:0; opacity:.6;}
 .breadcrumb {margin:20px 0 25px 0;}
