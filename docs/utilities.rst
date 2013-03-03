@@ -17,13 +17,17 @@ Each of these form a common pattern:
   * A custom model field is provided for defining relationships to the
     ``mezzanine.generic`` model, which can then be applied to any of
     your own models
-  * The custom field injects extra fields onto your model, with de-normalized data populated on save
-  * Template tags are provided for displaying the related data, forms for
-    posting them, and views for handling form posts where applicable
+  * The custom field injects extra fields onto your model, with
+    de-normalized data populated on save
+  * Template tags are provided for displaying the related data, forms
+    for posting them, and views for handling form posts where
+    applicable
 
-For a complete implementation reference, take a look at the built-in blog app ``mezzanine.blog`` which makes use of all these.
+For a complete implementation reference, take a look at the built-in
+blog app ``mezzanine.blog`` which makes use of all these.
 
-Lastly, some of the :ref:`templatetags` found within ``mezzanine.core.templatetags.mezzanine_tags`` are covered.
+Lastly, some of the :ref:`templatetags` found within
+``mezzanine.core.templatetags.mezzanine_tags`` are covered.
 
 .. _keywords:
 
@@ -36,8 +40,8 @@ the ``Displayable`` model from which it's derived. Given that these
 models form the foundation of most content within Mezzanine, more often
 than not you're dealing with models that are already using keywords.
 
-Suppose we have a regular Django model though, such as our ``Book`` example
-from the previous example in :doc:`content-architecture`::
+Suppose we have a regular Django model though, such as our ``Book``
+example from the previous example in :doc:`content-architecture`::
 
     from django.db import models
     from mezzanine.generic.fields import KeywordsField
@@ -47,9 +51,10 @@ from the previous example in :doc:`content-architecture`::
         cover = models.ImageField(upload_to="authors")
         keywords = KeywordsField()
 
-When editing ``Book`` instances in the admin, we'll now be able to choose keywords from the pool of keywords used throughout the site, and also
-assign new keywords if needed. We can then easily query for books given
-any keywords::
+When editing ``Book`` instances in the admin, we'll now be able to
+choose keywords from the pool of keywords used throughout the site,
+and also assign new keywords if needed. We can then easily query for
+books given any keywords::
 
     Book.objects.filter(keywords__keyword__title__in=["eggs", "ham"])
 
@@ -68,20 +73,20 @@ keywords using the ``keywords_for`` template tag::
     </ul>
     {% endif %}
 
-You'll see here each ``Keyword`` instance has a slug field - we use it in
-a fictitious urlpattern called ``books_for_keyword``, which could then
-retrieve books for a given keyword by slug::
+You'll see here each ``Keyword`` instance has a slug field - we use it
+in a fictitious urlpattern called ``books_for_keyword``, which could
+then retrieve books for a given keyword by slug::
 
     Book.objects.filter(keywords__keyword__slug=slug)
 
 Any model with a ``KeywordsField`` field assigned to it will have a
 ``FIELD_NAME_string`` field assigned to it, where ``FIELD_NAME`` is the
-name given to the ``KeywordsField`` attribute on your model, which would
-be ``Book.keywords_string`` in the above example. Each time keywords
-change, the ``keywords_string`` field is populated with a comma separated
-string list of each of the keywords. This can be used in conjunction with
-Mezzanine's :doc:`search-engine` - behavior that is provided by default
-for the ``Page`` and ``Displayable`` models.
+name given to the ``KeywordsField`` attribute on your model, which
+would be ``Book.keywords_string`` in the above example. Each time
+keywords change, the ``keywords_string`` field is populated with a
+comma separated string list of each of the keywords. This can be used
+in conjunction with Mezzanine's :doc:`search-engine` - behavior that is
+provided by default for the ``Page`` and ``Displayable`` models.
 
 .. _comments:
 
