@@ -1,6 +1,5 @@
 
 from mezzanine import template
-from mezzanine.generic.fields import RatingField
 from mezzanine.generic.forms import RatingForm
 
 
