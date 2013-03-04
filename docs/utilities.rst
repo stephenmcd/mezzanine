@@ -184,7 +184,7 @@ onto the model which it's assigned to, which are updated when a new
 rating is made. Given our ``Book`` example, the ``RatingField`` would
 inject:
 
-  * ``Book.rating_avg`` - average rating
+  * ``Book.rating_average`` - average rating
   * ``Book.rating_sum`` - total sum of all ratings
   * ``Book.rating_count`` - total count of all ratings
 

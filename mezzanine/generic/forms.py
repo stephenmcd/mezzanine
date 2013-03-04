@@ -181,7 +181,8 @@ class RatingForm(CommentSecurityForm):
         """
         user = self.request.user
         rating_value = self.cleaned_data["value"]
-        rating_manager = self.target_object.get_ratingfield_manager()
+        rating_name = self.target_object.get_ratingfield_name()
+        rating_manager = getattr(self.target_object, rating_name)
         if user.is_authenticated():
             try:
                 rating_instance = rating_manager.get(user=user)
