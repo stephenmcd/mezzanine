@@ -58,7 +58,8 @@ register_setting(
 register_setting(
     name="BLOG_RSS_LIMIT",
     label=_("Blog posts RSS limit"),
-    description=_("Number of most recent blog posts shown in the RSS feed."),
+    description=_("Number of most recent blog posts shown in the RSS feed. "
+        "Set to ``None`` to display all blog posts in the RSS feed."),
     editable=True,
     default=20,
 )
