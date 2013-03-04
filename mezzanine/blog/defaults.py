@@ -56,6 +56,14 @@ register_setting(
 )
 
 register_setting(
+    name="BLOG_RSS_LIMIT",
+    label=_("Blog posts RSS limit"),
+    description=_("Number of most recent blog posts shown in the RSS feed."),
+    editable=True,
+    default=20,
+)
+
+register_setting(
     name="BLOG_SLUG",
     description=_("Slug of the page object for the blog."),
     editable=False,
