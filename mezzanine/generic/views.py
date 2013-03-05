@@ -110,18 +110,19 @@ def rating(request):
     if isinstance(response, HttpResponse):
         return response
     obj, post_data = response
-    url = obj.get_absolute_url()
-    url = add_cache_bypass(url.split("#")[0]) + "#rating-%s" % obj.id
-    response = redirect(url)
+    url = add_cache_bypass(obj.get_absolute_url().split("#")[0])
+    response = redirect(url + "#rating-%s" % obj.id)
     rating_form = RatingForm(request, obj, post_data)
     if rating_form.is_valid():
         rating_form.save()
         if request.is_ajax():
-            # Reload the object and return the new rating.
+            # Reload the object and return the rating fields as json.
             obj = obj.__class__.objects.get(id=obj.id)
-            fields = ("rating_avg", "rating_count", "rating_sum")
-            json = dumps(dict([(f, getattr(obj, f)) for f in fields]))
-            response = HttpResponse(json)
+            rating_name = obj.get_ratingfield_name()
+            json = {}
+            for f in ("average", "count", "sum"):
+                json["rating_" + f] = getattr(obj, "%s_%s" % (rating_name, f))
+            response = HttpResponse(dumps(json))
         ratings = ",".join(rating_form.previous + [rating_form.current])
         set_cookie(response, "mezzanine-rating", ratings)
     return response

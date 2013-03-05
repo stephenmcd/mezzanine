@@ -182,6 +182,15 @@ register_setting(
 )
 
 register_setting(
+    name="JQUERY_UI_FILENAME",
+    label=_("Name of the jQuery UI file."),
+    description=_("Name of the jQuery UI file found in "
+                  "mezzanine/core/static/mezzanine/js/"),
+    editable=False,
+    default="jquery-ui-1.9.1.custom.min.js",
+)
+
+register_setting(
     name="MAX_PAGING_LINKS",
     label=_("Max paging links"),
     description=_("Max number of paging links to display when paginating."),

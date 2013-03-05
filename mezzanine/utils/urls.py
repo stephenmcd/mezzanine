@@ -94,7 +94,10 @@ def path_to_slug(path):
 
     # If i18n is disabled Django uses a fake translation object,
     # returning None for every path.
-    lang_code = translation.get_language_from_path(path)
+    try:
+        lang_code = translation.get_language_from_path(path)
+    except AttributeError:
+        lang_code = None
 
     for prefix in (lang_code, settings.SITE_PREFIX, PAGES_SLUG):
         if prefix:

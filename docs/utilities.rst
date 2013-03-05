@@ -59,7 +59,9 @@ books given any keywords::
     Book.objects.filter(keywords__keyword__title__in=["eggs", "ham"])
 
 Given a ``Book`` instance in a template, we can also display the book's
-keywords using the ``keywords_for`` template tag::
+keywords using the ``keywords_for`` template tag, which will inject
+a list of keywords into the template, using the ``as var_name`` variable
+name argument supplied to it::
 
     {% load keyword_tags %}
 
@@ -182,7 +184,7 @@ onto the model which it's assigned to, which are updated when a new
 rating is made. Given our ``Book`` example, the ``RatingField`` would
 inject:
 
-  * ``Book.rating_avg`` - average rating
+  * ``Book.rating_average`` - average rating
   * ``Book.rating_sum`` - total sum of all ratings
   * ``Book.rating_count`` - total count of all ratings
 
@@ -250,7 +252,7 @@ path is returned. Subsequent calls with the same arguments will return
 the same thumbnail path, without resizing it again, so resizes only
 occur when first requested.
 
-Given the our book example's ``Book.cover`` field, suppose we wanted
+Given our book example's ``Book.cover`` field, suppose we wanted
 to render cover thumbnails with a 100 pixel width, and proportional
 height::
 
