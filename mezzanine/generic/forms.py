@@ -133,7 +133,8 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
         comment_was_posted.send(sender=comment.__class__, comment=comment,
                                 request=request)
         notify_emails = settings.COMMENTS_NOTIFICATION_EMAILS.split(",")
-        notify_emails = filter(None, map(str.strip, notify_emails))
+        strip = lambda x: x.encode('ascii', 'ignore').strip()
+        notify_emails = filter(None, map(strip, notify_emails))
         if notify_emails:
             subject = _("New comment for: ") + unicode(obj)
             context = {
