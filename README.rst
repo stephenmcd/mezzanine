@@ -382,6 +382,7 @@ Sites Using Mezzanine
   * `Web4py <http://www.web4py.com>`_
   * `The Peculiar Store <http://thepeculiarstore.com>`_
   * `GrinDin <http://www.grindin.ru>`_
+  * `4Gume <http://www.4gume.com>`_
 
 Quotes
 ======
