@@ -383,6 +383,7 @@ Sites Using Mezzanine
   * `The Peculiar Store <http://thepeculiarstore.com>`_
   * `GrinDin <http://www.grindin.ru>`_
   * `4Gume <http://www.4gume.com>`_
+  * `Skydivo <http://skydivo.com>`_
 
 Quotes
 ======
