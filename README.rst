@@ -384,6 +384,7 @@ Sites Using Mezzanine
   * `GrinDin <http://www.grindin.ru>`_
   * `4Gume <http://www.4gume.com>`_
   * `Skydivo <http://skydivo.com>`_
+  * `Noshly <http://noshly.com>`_
 
 Quotes
 ======
