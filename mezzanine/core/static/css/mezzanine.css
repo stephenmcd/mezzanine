@@ -86,7 +86,7 @@ a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 /* Tweets */
 .tweets img {float:left; margin-right:8px; width:32px; height:32px;}
 .tweets li {margin-bottom:15px;}
-.timespan {color:#bbb; margin-left:0; float:none;}
+.timespan {color:#bbb; margin-left:0 !important; float:none !important;}
 
 
 /* Ratings */
