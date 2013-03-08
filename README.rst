@@ -231,6 +231,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzanine-linkcollection`_ - Collect links. Feature them. Share
     them over RSS.
   * `cash-generator`_ - Generate `GnuCash`_ invoices with Mezzanine.
+  * `mezzanine-foundation`_ - `Zurb Foundation`_ theme for Mezzanine.
 
 Donating
 ========
@@ -511,6 +512,8 @@ Quotes
 .. _`mezzanine-linkcollection`: https://github.com/mjtorn/mezzanine-linkcollection
 .. _`cash-generator`: https://github.com/ambientsound/cash-generator
 .. _`GnuCash`: http://www.gnucash.org/
+.. _`mezzanine-foundation`: https://github.com/zgohr/mezzanine-foundation
+.. _`Zurb Foundation`: http://foundation.zurb.com/
 
 
 .. PEOPLE WITH QUOTES
