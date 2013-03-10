@@ -1,5 +1,11 @@
 $(function()
 {
+
+    // Form css tweaks.
+    $('.middle input:text, textarea').addClass('input-xlarge');
+    $('.control-group label').addClass('control-label');
+
+
     var $dropdowns = $('li.dropdown'); // Specifying the element is faster for older browsers
     /**
      * Mouse events
