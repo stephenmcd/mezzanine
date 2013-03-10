@@ -386,6 +386,7 @@ Sites Using Mezzanine
   * `4Gume <http://www.4gume.com>`_
   * `Skydivo <http://skydivo.com>`_
   * `Noshly <http://noshly.com>`_
+  * `Kabu Creative <http://kabucreative.com.au/>`_
 
 Quotes
 ======
