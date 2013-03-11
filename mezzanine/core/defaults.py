@@ -182,6 +182,15 @@ register_setting(
 )
 
 register_setting(
+    name="JQUERY_UI_FILENAME",
+    label=_("Name of the jQuery UI file."),
+    description=_("Name of the jQuery UI file found in "
+                  "mezzanine/core/static/mezzanine/js/"),
+    editable=False,
+    default="jquery-ui-1.9.1.custom.min.js",
+)
+
+register_setting(
     name="MAX_PAGING_LINKS",
     label=_("Max paging links"),
     description=_("Max number of paging links to display when paginating."),
@@ -484,9 +493,9 @@ register_setting(
         "BLOG_BITLY_USER", "BLOG_BITLY_KEY", "BLOG_USE_FEATURED_IMAGE",
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
-        "DEV_SERVER", "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED",
-        "GOOGLE_ANALYTICS_ID", "JQUERY_FILENAME", "LOGIN_URL", "LOGOUT_URL",
-        "SITE_TITLE", "SITE_TAGLINE", "RATINGS_MAX",
+        "COMMENTS_USE_RATINGS", "DEV_SERVER", "FORMS_USE_HTML5",
+        "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID", "JQUERY_FILENAME",
+        "LOGIN_URL", "LOGOUT_URL", "SITE_TITLE", "SITE_TAGLINE",
     ),
 )
 

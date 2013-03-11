@@ -12,7 +12,7 @@
 
 .dropdown-menu li {
     float: right;
-    padding: 7px 0 7px 23px;
+    padding: 7px 0 0 23px;
 }
 
 .dropdown-menu form {
@@ -58,6 +58,10 @@ fieldset .field-box {
 
 .change-form div.submit-row {
     text-align: left;
+}
+
+input.interface {
+    margin: 0 0 0 5px;
 }
 
 /* page tree */

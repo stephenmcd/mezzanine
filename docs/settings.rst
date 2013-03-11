@@ -175,6 +175,13 @@ If ``True``, comments that have ``is_public`` unchecked will still be displayed,
 
 Default: ``True``
 
+``COMMENTS_USE_RATINGS``
+------------------------
+
+If ``True``, comments can be rated.
+
+Default: ``True``
+
 ``COMMENT_FILTER``
 ------------------
 
@@ -280,6 +287,13 @@ Name of the jQuery file found in mezzanine/core/static/mezzanine/js/
 
 Default: ``'jquery-1.7.1.min.js'``
 
+``JQUERY_UI_FILENAME``
+-------------------
+
+Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/
+
+Default: ``'jquery-ui-1.9.1.custom.min.js'``
+
 ``MAX_PAGING_LINKS``
 --------------------
 
@@ -322,19 +336,12 @@ A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the defa
 
 Default: ``None``
 
-``RATINGS_MAX``
----------------
+``RATINGS_RANGE``
+-----------------
 
-Max value for a rating.
+A sequence of integers that are valid ratings.
 
-Default: ``5``
-
-``RATINGS_MIN``
----------------
-
-Min value for a rating.
-
-Default: ``1``
+Default: ``[1, 2, 3, 4, 5]``
 
 ``RICHTEXT_ALLOWED_ATTRIBUTES``
 -------------------------------
@@ -483,7 +490,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('ACCOUNTS_VERIFICATION_REQUIRED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'BLOG_USE_FEATURED_IMAGE', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'JQUERY_FILENAME', 'LOGIN_URL', 'LOGOUT_URL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
+Default: ``('ACCOUNTS_VERIFICATION_REQUIRED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'BLOG_USE_FEATURED_IMAGE', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'COMMENTS_USE_RATINGS', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'JQUERY_FILENAME', 'LOGIN_URL', 'LOGOUT_URL', 'SITE_TITLE', 'SITE_TAGLINE')``
 
 ``THUMBNAILS_DIR_NAME``
 -----------------------

@@ -62,6 +62,10 @@ class BaseGenericRelation(GenericRelation):
                 if not field.verbose_name:
                     field.verbose_name = self.verbose_name
                 cls.add_to_class(name_string, copy(field))
+            # Add a getter function to the model we can use to retrieve
+            # the field/manager by name.
+            getter_name = "get_%s_name" % self.__class__.__name__.lower()
+            cls.add_to_class(getter_name, lambda self: name)
             # For some unknown reason the signal won't be triggered
             # if given a sender arg, particularly when running
             # Cartridge with the field RichTextPage.keywords - so
@@ -228,6 +232,7 @@ class RatingField(BaseGenericRelation):
 
     related_model = "generic.Rating"
     fields = {"%s_count": IntegerField(default=0, editable=False),
+              "%s_sum": IntegerField(default=0, editable=False),
               "%s_average": FloatField(default=0, editable=False)}
 
     def related_items_changed(self, instance, related_manager):
@@ -236,8 +241,10 @@ class RatingField(BaseGenericRelation):
         """
         ratings = [r.value for r in related_manager.all()]
         count = len(ratings)
-        average = sum(ratings) / float(count) if count > 0 else 0
+        _sum = sum(ratings)
+        average = _sum / float(count) if count > 0 else 0
         setattr(instance, "%s_count" % self.related_field_name, count)
+        setattr(instance, "%s_sum" % self.related_field_name, _sum)
         setattr(instance, "%s_average" % self.related_field_name, average)
         instance.save()
 

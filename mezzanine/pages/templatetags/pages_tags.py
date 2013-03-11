@@ -2,7 +2,6 @@
 from collections import defaultdict
 
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import NoReverseMatch
 from django.template import TemplateSyntaxError, Variable
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
@@ -137,17 +136,11 @@ def models_for_pages(*args):
     Create a select list containing each of the models that subclass the
     ``Page`` model.
     """
-    page_models = []
-    for model in Page.get_content_models():
-        try:
-            admin_url(model, "add")
-        except NoReverseMatch:
-            continue
-        else:
-            setattr(model, "name", model._meta.verbose_name)
-            setattr(model, "add_url", admin_url(model, "add"))
-            page_models.append(model)
-    return page_models
+    from warnings import warn
+    warn("template tag models_for_pages is deprectaed, use "
+        "PageAdmin.get_content_models instead")
+    from mezzanine.pages.admin import PageAdmin
+    return PageAdmin.get_content_models()
 
 
 @register.render_tag

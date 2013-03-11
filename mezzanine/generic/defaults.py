@@ -108,16 +108,26 @@ if generic_comments:
         default=True,
     )
 
+    register_setting(
+        name="COMMENTS_USE_RATINGS",
+        description=_("If ``True``, comments can be rated."),
+        editable=False,
+        default=True,
+    )
+
 register_setting(
-    name="RATINGS_MIN",
-    description=_("Min value for a rating."),
-    editable=False,
-    default=1,
+    name="RATINGS_ACCOUNT_REQUIRED",
+    label=_("Accounts required for rating"),
+    description=_("If ``True``, users must log in to rate content "
+        "such as blog posts and comments."),
+    editable=True,
+    default=False,
 )
 
 register_setting(
-    name="RATINGS_MAX",
-    description=_("Max value for a rating."),
+    name="RATINGS_RANGE",
+    description=_("A sequence of integers that are valid ratings."),
     editable=False,
-    default=5,
+    default=range(getattr(settings, "RATINGS_MIN", 1),
+                  getattr(settings, "RATINGS_MAX", 5) + 1),
 )

@@ -97,7 +97,7 @@ The easiest method is to install directly from pypi using `pip`_ by
 running the command below, which will also install the required
 dependencies mentioned above::
 
-    $ pip install -U mezzanine
+    $ pip install mezzanine
 
 If you prefer, you can download Mezzanine and install it directly from
 source::
@@ -231,6 +231,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzanine-linkcollection`_ - Collect links. Feature them. Share
     them over RSS.
   * `cash-generator`_ - Generate `GnuCash`_ invoices with Mezzanine.
+  * `mezzanine-foundation`_ - `Zurb Foundation`_ theme for Mezzanine.
 
 Donating
 ========
@@ -337,7 +338,7 @@ Sites Using Mezzanine
   * `Sunfluence <http://sunfluence.com>`_
   * `ggzpreventie.nl <http://ggzpreventie.nl>`_
   * `dakuaiba.com <http://www.dakuaiba.com>`_
-  * `Leprosys <http://www.leprosys.info>`_
+  * `Wdiaz <http://www.wdiaz.org>`_
   * `Hunted Hive <http://huntedhive.com/>`_
   * `mjollnir.org <http://mjollnir.org>`_
   * `The Beancat Network <http://www.beancatnet.org>`_
@@ -380,6 +381,12 @@ Sites Using Mezzanine
   * `Coronado Pathways Charter School <http://coronadopathways.com>`_
   * `Raindrop Marketing <http://www.raindropads.com>`_
   * `Web4py <http://www.web4py.com>`_
+  * `The Peculiar Store <http://thepeculiarstore.com>`_
+  * `GrinDin <http://www.grindin.ru>`_
+  * `4Gume <http://www.4gume.com>`_
+  * `Skydivo <http://skydivo.com>`_
+  * `Noshly <http://noshly.com>`_
+  * `Kabu Creative <http://kabucreative.com.au/>`_
 
 Quotes
 ======
@@ -506,6 +513,8 @@ Quotes
 .. _`mezzanine-linkcollection`: https://github.com/mjtorn/mezzanine-linkcollection
 .. _`cash-generator`: https://github.com/ambientsound/cash-generator
 .. _`GnuCash`: http://www.gnucash.org/
+.. _`mezzanine-foundation`: https://github.com/zgohr/mezzanine-foundation
+.. _`Zurb Foundation`: http://foundation.zurb.com/
 
 
 .. PEOPLE WITH QUOTES

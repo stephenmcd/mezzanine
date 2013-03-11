@@ -30,7 +30,6 @@ from mezzanine.forms.models import Form
 from mezzanine.galleries.models import Gallery, GALLERIES_UPLOAD_DIR
 from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
-from mezzanine.generic.models import RATING_RANGE
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.importing import import_dotted_path
@@ -320,15 +319,17 @@ class Tests(TestCase):
         """
         blog_post = BlogPost.objects.create(title="Ratings", user=self._user,
                                             status=CONTENT_STATUS_PUBLISHED)
-        data = RatingForm(blog_post).initial
-        for value in RATING_RANGE:
+        data = RatingForm(None, blog_post).initial
+        for value in settings.RATINGS_RANGE:
             data["value"] = value
             response = self.client.post(reverse("rating"), data=data)
             response.delete_cookie("mezzanine-rating")
         blog_post = BlogPost.objects.get(id=blog_post.id)
-        count = len(RATING_RANGE)
-        average = sum(RATING_RANGE) / float(count)
+        count = len(settings.RATINGS_RANGE)
+        _sum = sum(settings.RATINGS_RANGE)
+        average = _sum / float(count)
         self.assertEqual(blog_post.rating_count, count)
+        self.assertEqual(blog_post.rating_sum, _sum)
         self.assertEqual(blog_post.rating_average, average)
 
     def queries_used_for_template(self, template, **context):

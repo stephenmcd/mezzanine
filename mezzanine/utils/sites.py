@@ -37,7 +37,8 @@ def current_site_id():
                 # Don't use Mezzanine's cache_key_prefix here, since it
                 # uses this very function we're in right now to create a
                 # per-site cache key.
-                cache_key = settings.CACHE_MIDDLEWARE_KEY_PREFIX + ".site_id"
+                bits = (settings.CACHE_MIDDLEWARE_KEY_PREFIX, domain)
+                cache_key = "%s.site_id.%s" % bits
                 site_id = cache_get(cache_key)
             if not site_id:
                 try:

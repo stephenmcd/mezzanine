@@ -33,6 +33,15 @@ def is_editable(obj, request):
                 request.user.has_perm(perm))
 
 
+def ip_for_request(request):
+    """
+    Returns ip address for request - first checks ``HTTP_X_FORWARDED_FOR``
+    header, since app will generally be behind a public web server.
+    """
+    meta = request.META
+    return meta.get("HTTP_X_FORWARDED_FOR", meta["REMOTE_ADDR"])
+
+
 def is_spam_akismet(request, form, url):
     """
     Identifies form data as being spam, using the http://akismet.com
@@ -59,10 +68,9 @@ def is_spam_akismet(request, form, url):
         return False
     protocol = "http" if not request.is_secure() else "https"
     host = protocol + "://" + request.get_host()
-    ip = request.META.get("HTTP_X_FORWARDED_FOR", request.META["REMOTE_ADDR"])
     data = {
         "blog": host,
-        "user_ip": ip,
+        "user_ip": ip_for_request(request),
         "user_agent": request.META.get("HTTP_USER_AGENT", ""),
         "referrer": request.POST.get("referrer", ""),
         "permalink": host + url,
@@ -152,7 +160,7 @@ def set_cookie(response, name, value, expiry_seconds=None, secure=False):
     expiry time, and ensures values are correctly encoded.
     """
     if expiry_seconds is None:
-        expiry_seconds = 365 * 24 * 60 * 60
+        expiry_seconds = 90 * 24 * 60 * 60  # Default to 90 days.
     expires = datetime.strftime(datetime.utcnow() +
                                 timedelta(seconds=expiry_seconds),
                                 "%a, %d-%b-%Y %H:%M:%S GMT")
