@@ -63,9 +63,9 @@ class BaseGenericRelation(GenericRelation):
                     field.verbose_name = self.verbose_name
                 cls.add_to_class(name_string, copy(field))
             # Add a getter function to the model we can use to retrieve
-            # the field/manager by type without knowing its name.
-            getter_name = "get_%s_manager" % self.__class__.__name__.lower()
-            cls.add_to_class(getter_name, lambda s: getattr(s, name))
+            # the field/manager by name.
+            getter_name = "get_%s_name" % self.__class__.__name__.lower()
+            cls.add_to_class(getter_name, lambda self: name)
             # For some unknown reason the signal won't be triggered
             # if given a sender arg, particularly when running
             # Cartridge with the field RichTextPage.keywords - so

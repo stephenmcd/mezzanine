@@ -123,6 +123,7 @@ else:
     class FileField(FileBrowseField):
         def __init__(self, *args, **kwargs):
             kwargs.setdefault("directory", kwargs.pop("upload_to", None))
+            kwargs.setdefault("max_length", 255)
             super(FileField, self).__init__(*args, **kwargs)
 
 

@@ -217,16 +217,20 @@ def metablock(parsed):
 
 
 @register.inclusion_tag("includes/pagination.html", takes_context=True)
-def pagination_for(context, current_page):
+def pagination_for(context, current_page, page_var="page"):
     """
     Include the pagination template and data for persisting querystring in
     pagination links.
     """
     querystring = context["request"].GET.copy()
-    if "page" in querystring:
-        del querystring["page"]
+    if page_var in querystring:
+        del querystring[page_var]
     querystring = querystring.urlencode()
-    return {"current_page": current_page, "querystring": querystring}
+    return {
+        "current_page": current_page,
+        "querystring": querystring,
+        "page_var": page_var,
+    }
 
 
 @register.inclusion_tag("includes/search_form.html", takes_context=True)

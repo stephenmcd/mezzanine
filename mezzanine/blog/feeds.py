@@ -74,6 +74,9 @@ class PostsRSS(Feed):
         if self.username:
             author = get_object_or_404(User, username=self.username)
             blog_posts = blog_posts.filter(user=author)
+        limit = settings.BLOG_RSS_LIMIT
+        if limit is not None:
+            blog_posts = blog_posts[:settings.BLOG_RSS_LIMIT]
         return blog_posts
 
     def item_description(self, item):

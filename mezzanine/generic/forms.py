@@ -133,7 +133,7 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
         comment_was_posted.send(sender=comment.__class__, comment=comment,
                                 request=request)
         notify_emails = settings.COMMENTS_NOTIFICATION_EMAILS.split(",")
-        notify_emails = filter(None, map(str.strip, notify_emails))
+        notify_emails = filter(None, [addr.strip() for addr in notify_emails])
         if notify_emails:
             subject = _("New comment for: ") + unicode(obj)
             context = {
@@ -181,7 +181,8 @@ class RatingForm(CommentSecurityForm):
         """
         user = self.request.user
         rating_value = self.cleaned_data["value"]
-        rating_manager = self.target_object.get_ratingfield_manager()
+        rating_name = self.target_object.get_ratingfield_name()
+        rating_manager = getattr(self.target_object, rating_name)
         if user.is_authenticated():
             try:
                 rating_instance = rating_manager.get(user=user)
