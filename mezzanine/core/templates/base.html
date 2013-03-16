@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
 {% load pages_tags mezzanine_tags i18n future %}
 <head>
 
@@ -24,6 +24,9 @@
 {% endif %}
 {% ifinstalled cartridge.shop %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
+{% if LANGUAGE_BIDI %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.rtl.css">
+{% endif %}
 {% endifinstalled %}
 {% block extra_css %}{% endblock %}
 {% endcompress %}
@@ -31,13 +34,7 @@
 {% compress js %}
 <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
 <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-<script src="{{ STATIC_URL }}js/delayed-dropdowns.js"></script>
-<script>
-$(function() {
-    $('.middle input:text, textarea').addClass('input-xlarge');
-    $('.control-group label').addClass('control-label');
-});
-</script>
+<script src="{{ STATIC_URL }}js/bootstrap-extras.js"></script>
 {% block extra_js %}{% endblock %}
 {% endcompress %}
 <!--[if lt IE 9]>
@@ -72,7 +69,7 @@ $(function() {
 {% nevercache %}
 {% for message in messages %}
 <div class="alert alert-{{ message.tags }}" data-alert="alert">
-<a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
+    <a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
 </div>
 {% endfor %}
 {% endnevercache %}
@@ -120,7 +117,6 @@ $(function() {
 <footer>
 <div class="container">
 {% page_menu "pages/menus/footer.html" %}
-<br style="clear:both">
 <p>
     {% trans "Powered by" %}
     <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},

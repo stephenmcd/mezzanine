@@ -6,7 +6,7 @@
 {% for page in page_branch %}
     {% if page.is_primary %}
         {% if forloop.first %}
-            <ul>
+            <ul class="clearfix">
         {% endif %}
         {% if page.in_menu %}
             <li><ul>

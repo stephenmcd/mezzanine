@@ -19,6 +19,7 @@ body {padding-top:45px;}
 @media (max-width:979px){
     body {padding-top:0;} .brand {padding-right:20px !important;}}
 .navbar {z-index:500;}
+.navbar .btn {margin:7px 0;}
 .navbar-inner {border-radius:0;}
 .navbar-search * {margin:0 2px !important;}
 .navbar-search .search-query {width:120px; border-radius:3px}
@@ -86,7 +87,7 @@ a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 /* Tweets */
 .tweets img {float:left; margin-right:8px; width:32px; height:32px;}
 .tweets li {margin-bottom:15px;}
-.timespan {color:#bbb; margin-left:0; float:none;}
+.timespan {color:#bbb; margin-left:0 !important; float:none !important;}
 
 
 /* Ratings */
