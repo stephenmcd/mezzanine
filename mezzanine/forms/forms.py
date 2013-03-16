@@ -13,7 +13,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.forms import fields
-from mezzanine.forms.models import FormEntry, FieldEntry
+from mezzanine.forms.fields import HIDDEN
+from mezzanine.forms.models import FormEntry, FieldEntry, Field
 from mezzanine.utils.timezone import now
 
 
@@ -73,7 +74,7 @@ class FormForForm(forms.ModelForm):
 
     class Meta:
         model = FormEntry
-        exclude = ("form", "entry_time")
+        exclude = ("form", "entry_time", "user")
 
     def __init__(self, form, *args, **kwargs):
         """
@@ -145,7 +146,7 @@ class FormForForm(forms.ModelForm):
                 text = field.placeholder_text
                 self.fields[field_key].widget.attrs["placeholder"] = text
 
-    def save(self, **kwargs):
+    def save(self, user=None, **kwargs):
         """
         Create a ``FormEntry`` instance and related ``FieldEntry``
         instances for each form field.
@@ -153,6 +154,7 @@ class FormForForm(forms.ModelForm):
         entry = super(FormForForm, self).save(commit=False)
         entry.form = self.form
         entry.entry_time = now()
+        entry.user = user
         entry.save()
         entry_fields = entry.fields.values_list("field_id", flat=True)
         new_entry_fields = []
@@ -206,7 +208,19 @@ class EntriesForm(forms.Form):
         """
         self.form = form
         self.request = request
-        self.form_fields = form.fields.all()
+        self.form_fields = list(form.fields.all())
+
+        # Add ``FormEntry.user`` as a field.
+        if settings.FORMS_VISIBLE_USER_COLOMN:
+            self.user_field = user_field = Field()
+            user_field.id = -1
+            user_field.choices = ""
+            user_field.field_type = HIDDEN
+            user_field.label = FormEntry._meta.get_field("user").verbose_name
+            self.form_fields.append(user_field)
+        else:
+            self.user_field = None
+
         self.entry_time_name = unicode(FormEntry._meta.get_field(
             "entry_time").verbose_name).encode("utf-8")
         super(EntriesForm, self).__init__(*args, **kwargs)
@@ -241,7 +255,7 @@ class EntriesForm(forms.Form):
         # Add ``FormEntry.entry_time`` as a field.
         field_key = "field_0"
         self.fields["%s_export" % field_key] = forms.BooleanField(initial=True,
-            label=FormEntry._meta.get_field("entry_time").verbose_name,
+            label=self.entry_time_name,
             required=False)
         self.fields["%s_filter" % field_key] = date_filter_field
         self.fields["%s_from" % field_key] = forms.DateField(
@@ -296,7 +310,7 @@ class EntriesForm(forms.Form):
         # Get the field entries for the given form and filter by entry_time
         # if specified.
         field_entries = FieldEntry.objects.filter(entry__form=self.form
-            ).order_by("-entry__id").select_related(depth=1)
+            ).order_by("-entry__id").select_related(depth=2)
         if self.cleaned_data["field_0_filter"] == FILTER_CHOICE_BETWEEN:
             time_from = self.cleaned_data["field_0_from"]
             time_to = self.cleaned_data["field_0_to"]
@@ -322,6 +336,14 @@ class EntriesForm(forms.Form):
                 valid_row = True
                 if include_entry_time:
                     current_row[-1] = field_entry.entry.entry_time
+                if self.user_field is not None:
+                    current_row[field_indexes[self.user_field.id]] = field_entry.entry.user or ""
+                    filter_type = self.cleaned_data.get("field_%s_filter" % self.user_field.id) or ""
+                    filter_arg = self.cleaned_data["field_%s_contains" % self.user_field.id] or ""
+                    filter_func = FILTER_FUNCS[filter_type]
+                    if not filter_func(filter_arg, unicode(field_entry.entry.user)):
+                        valid_row = False
+
             field_value = field_entry.value or ""
             # Check for filter.
             field_id = field_entry.field_id

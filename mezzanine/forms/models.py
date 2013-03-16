@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from mezzanine.utils.models import get_user_model_name
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
@@ -114,6 +115,9 @@ class FormEntry(models.Model):
 
     form = models.ForeignKey("Form", related_name="entries")
     entry_time = models.DateTimeField(_("Date/time"))
+    user = models.ForeignKey(get_user_model_name(),
+                             verbose_name=_("Entry poster"),
+                             null=True, blank=True)
 
     class Meta:
         verbose_name = _("Form entry")

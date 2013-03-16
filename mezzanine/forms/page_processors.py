@@ -30,7 +30,7 @@ def form_processor(request, page):
         url = page.get_absolute_url() + "?sent=1"
         if is_spam(request, form, url):
             return redirect(url)
-        entry = form.save()
+        entry = form.save(user=request.user)
         subject = page.form.email_subject
         if not subject:
             subject = "%s - %s" % (page.form.title, entry.entry_time)
