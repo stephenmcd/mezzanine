@@ -1,4 +1,4 @@
-{% load i18n future %}
+{% load i18n future staticfiles %}
 
 <form id="editable-toolbar" method="POST" action="{% url "admin:logout" %}?{{ REDIRECT_FIELD_NAME }}={{ request.path }}">
     {% csrf_token %}
@@ -11,5 +11,5 @@
     <a id="editable-toolbar-logout" href="#">{% trans "Log out" %}</a>
 </form>
 
-<img id="editable-loading" src="{{ STATIC_URL }}mezzanine/img/loadingAnimation.gif" />
+<img id="editable-loading" src="{% static "mezzanine/img/loadingAnimation.gif" %}" />
 

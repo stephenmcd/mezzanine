@@ -1,4 +1,4 @@
-{% load pages_tags mezzanine_tags i18n future %}
+{% load pages_tags mezzanine_tags i18n future staticfiles %}
 <!doctype html>
 <html>
 <head>
@@ -16,13 +16,13 @@
     <link rel="alternate" type="application/atom+xml" title="Atom" href="{% url "blog_post_feed" "atom" %}" />
     {% endifinstalled %}
     <link rel="apple-touch-icon" href="" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/global-mobile.css" type="text/css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.mobile-1.0a2.css" />
+    <link rel="stylesheet" href="{% static "css/global-mobile.css" %}" type="text/css" />
+    <link rel="stylesheet" href="{% static "css/jquery.mobile-1.0a2.css" %}" />
     {% if LANGUAGE_BIDI %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/mobile.rtl.css">
+        <link rel="stylesheet" href="{% static "css/mobile.rtl.css" %}">
     {% endif %}
-    <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
-    <script src="{{ STATIC_URL }}js/jquery.mobile-1.0a2.js"></script>
+    <script src="{% static "mezzanine/js/{{ settings.JQUERY_FILENAME }}" %}"></script>
+    <script src="{% static "js/jquery.mobile-1.0a2.js" %}"></script>
 
     {% block extra_head %}{% endblock %}
 
