@@ -21,7 +21,7 @@
     {% if LANGUAGE_BIDI %}
         <link rel="stylesheet" href="{% static "css/mobile.rtl.css" %}">
     {% endif %}
-    <script src="{% static "mezzanine/js/{{ settings.JQUERY_FILENAME }}" %}"></script>
+    <script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
     <script src="{% static "js/jquery.mobile-1.0a2.js" %}"></script>
 
     {% block extra_head %}{% endblock %}

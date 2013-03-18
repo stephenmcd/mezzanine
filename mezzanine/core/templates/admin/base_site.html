@@ -41,7 +41,7 @@ window.__admin_media_prefix__ = '{{ settings.ADMIN_MEDIA_PREFIX }}';
 window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 </script>
 {% if not settings.GRAPPELLI_INSTALLED %}
-<script src="{% static "mezzanine/js/{{ settings.JQUERY_FILENAME }}" %}"></script>
+<script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
 {% endif %}
 {% endblock %}
 {% block rtl_styles %}
