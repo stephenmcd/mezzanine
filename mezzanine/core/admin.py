@@ -36,7 +36,7 @@ class BaseDisplayableAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
     list_editable = ("status",)
     list_filter = ("status",)
-    search_fields = ("title", "content",)
+    search_fields = ("title",)
     date_hierarchy = "publish_date"
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = (
