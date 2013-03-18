@@ -337,10 +337,13 @@ class EntriesForm(forms.Form):
                 if include_entry_time:
                     current_row[-1] = field_entry.entry.entry_time
                 if self.user_field is not None:
-                    current_row[field_indexes[self.user_field.id]] = field_entry.entry.user or u""
-                    filter_type = self.cleaned_data.get("field_%s_filter" % self.user_field.id) or u""
+                    current_row[field_indexes[self.user_field.id]] = \
+                        field_entry.entry.user
+                    filter_type = self.cleaned_data.get(
+                        "field_%s_filter" % self.user_field.id)
                     if filter_type:
-                        filter_arg = self.cleaned_data["field_%s_contains" % self.user_field.id] or u""
+                        filter_arg = self.cleaned_data[
+                            "field_%s_contains" % self.user_field.id]
                         filter_func = FILTER_FUNCS[filter_type]
                         if not filter_func(filter_arg, unicode(field_entry.entry.user)):
                             valid_row = False
