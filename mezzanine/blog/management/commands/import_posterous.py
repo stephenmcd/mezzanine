@@ -61,6 +61,7 @@ class Command(BaseImporterCommand):
         site = None
         for s in sites:
             if s['full_hostname'] == hostname:
+                site = s
                 time.sleep(2)
                 break
         if not hostname and not site:
