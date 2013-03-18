@@ -1,12 +1,12 @@
 {% extends "pages/page.html" %}
 
-{% load mezzanine_tags %}
+{% load mezzanine_tags staticfiles %}
 
 {% block extra_js %}
 {{ block.super }}
-<script src="{{ STATIC_URL }}mezzanine/js/jquery.tools.toolbox.expose.js"></script>
-<script src="{{ STATIC_URL }}mezzanine/js/jquery.tools.overlay.js"></script>
-<script src="{{ STATIC_URL }}mezzanine/js/gallery.js"></script>
+<script src="{% static "mezzanine/js/jquery.tools.toolbox.expose.js" %}"></script>
+<script src="{% static "mezzanine/js/jquery.tools.overlay.js" %}"></script>
+<script src="{% static "mezzanine/js/gallery.js" %}"></script>
 {% endblock %}
 
 {% block main %}
