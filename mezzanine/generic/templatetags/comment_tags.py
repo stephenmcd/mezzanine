@@ -47,16 +47,14 @@ def comment_thread(context, parent):
         for comment in comments_queryset.select_related("user"):
             comments[comment.replied_to_id].append(comment)
         context["all_comments"] = comments
-        parent = None
-    else:
-        parent = parent.id
+    parent_id = parent.id if isinstance(parent, ThreadedComment) else None
     try:
         replied_to = int(context["request"].POST["replied_to"])
     except KeyError:
         replied_to = 0
     context.update({
-        "comments_for_thread": context["all_comments"].get(parent, []),
-        "no_comments": parent is None and not comments,
+        "comments_for_thread": context["all_comments"].get(parent_id, []),
+        "no_comments": parent_id is None and not context["all_comments"],
         "replied_to": replied_to,
     })
     return context
