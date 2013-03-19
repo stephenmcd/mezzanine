@@ -55,21 +55,27 @@ def initial_validation(request, prefix):
     settings.use_editable()
     login_required_setting_name = prefix.upper() + "S_ACCOUNT_REQUIRED"
     posted_session_key = "unauthenticated_" + prefix
+    redirect_url = ""
     if getattr(settings, login_required_setting_name, False):
         if not request.user.is_authenticated():
             request.session[posted_session_key] = request.POST
             error(request, _("You must logged in. Please log in or "
                              "sign up to complete this action."))
-            url = "%s?next=%s" % (settings.LOGIN_URL, reverse(prefix))
-            return redirect(url)
+            redirect_url = "%s?next=%s" % (settings.LOGIN_URL, reverse(prefix))
         elif posted_session_key in request.session:
             post_data = request.session.pop(posted_session_key)
-    try:
-        model = get_model(*post_data.get("content_type", "").split(".", 1))
-        if model:
-            obj = model.objects.get(id=post_data.get("object_pk", None))
-    except (TypeError, ObjectDoesNotExist):
-        return redirect("/")
+    if not redirect_url:
+        try:
+            model = get_model(*post_data.get("content_type", "").split(".", 1))
+            if model:
+                obj = model.objects.get(id=post_data.get("object_pk", None))
+        except (TypeError, ObjectDoesNotExist):
+            redirect_url = "/"
+    if redirect_url:
+        if request.is_ajax():
+            return HttpResponse(dumps({"location": redirect_url}))
+        else:
+            return redirect(redirect_url)
     return obj, post_data
 
 
@@ -95,6 +101,8 @@ def comment(request, template="generic/comments.html"):
             cookie_value = post_data.get(field, "")
             set_cookie(response, cookie_name, cookie_value)
         return response
+    elif request.is_ajax() and form.errors:
+        return HttpResponse(dumps({"errors": form.errors}))
     # Show errors with stand-alone comment form.
     context = {"obj": obj, "posted_comment_form": form}
     response = render(request, template, context)
