@@ -83,10 +83,10 @@ class AdminThumbMixin(object):
     admin_thumb_field = None
 
     def admin_thumb(self):
-        thumb = None
+        thumb = ""
         if self.admin_thumb_field:
-            thumb = getattr(self, self.admin_thumb_field, None)
-        if thumb is None:
+            thumb = getattr(self, self.admin_thumb_field, "")
+        if not thumb:
             return ""
         from mezzanine.conf import settings
         from mezzanine.core.templatetags.mezzanine_tags import thumbnail
