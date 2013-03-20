@@ -1,4 +1,3 @@
-
 from datetime import date, datetime
 from os.path import join, split
 from uuid import uuid4
@@ -58,12 +57,12 @@ FILTER_FUNCS = {
         lambda val_from, val_to, field: val_from <= field <= val_to
 }
 
-text_filter_field = forms.ChoiceField(label=" ", required=False,
-    choices=TEXT_FILTER_CHOICES)
-choice_filter_field = forms.ChoiceField(label=" ", required=False,
-    choices=CHOICE_FILTER_CHOICES)
-date_filter_field = forms.ChoiceField(label=" ", required=False,
-    choices=DATE_FILTER_CHOICES)
+text_filter_field = forms.ChoiceField(
+    label=" ", required=False, choices=TEXT_FILTER_CHOICES)
+choice_filter_field = forms.ChoiceField(
+    label=" ", required=False, choices=CHOICE_FILTER_CHOICES)
+date_filter_field = forms.ChoiceField(
+    label=" ", required=False, choices=DATE_FILTER_CHOICES)
 
 
 class FormForForm(forms.ModelForm):
@@ -140,7 +139,7 @@ class FormForForm(forms.ModelForm):
             setattr(self.fields[field_key], "type",
                     field_class.__name__.lower())
             if (field.required and settings.FORMS_USE_HTML5 and
-                field.field_type != fields.CHECKBOX_MULTIPLE):
+                    field.field_type != fields.CHECKBOX_MULTIPLE):
                 self.fields[field_key].widget.attrs["required"] = ""
             if field.placeholder_text and not field.default:
                 text = field.placeholder_text
@@ -235,9 +234,9 @@ class EntriesForm(forms.Form):
                     choices = ((True, _("Checked")), (False, _("Not checked")))
                 else:
                     choices = field.get_choices()
-                contains_field = forms.MultipleChoiceField(label=" ",
-                    choices=choices, widget=forms.CheckboxSelectMultiple(),
-                    required=False)
+                contains_field = forms.MultipleChoiceField(
+                    label=" ", choices=choices,
+                    widget=forms.CheckboxSelectMultiple(), required=False)
                 self.fields["%s_filter" % field_key] = choice_filter_field
                 self.fields["%s_contains" % field_key] = contains_field
             elif field.is_a(*fields.DATES):
@@ -254,9 +253,8 @@ class EntriesForm(forms.Form):
                 self.fields["%s_contains" % field_key] = contains_field
         # Add ``FormEntry.entry_time`` as a field.
         field_key = "field_0"
-        self.fields["%s_export" % field_key] = forms.BooleanField(initial=True,
-            label=self.entry_time_name,
-            required=False)
+        self.fields["%s_export" % field_key] = forms.BooleanField(
+            initial=True, label=self.entry_time_name, required=False)
         self.fields["%s_filter" % field_key] = date_filter_field
         self.fields["%s_from" % field_key] = forms.DateField(
             label=" ", widget=SelectDateWidget(), required=False)
@@ -309,8 +307,8 @@ class EntriesForm(forms.Form):
 
         # Get the field entries for the given form and filter by entry_time
         # if specified.
-        field_entries = FieldEntry.objects.filter(entry__form=self.form
-            ).order_by("-entry__id").select_related('entry', 'entry__user')
+        field_entries = FieldEntry.objects.filter(entry__form=self.form)\
+            .order_by("-entry__id").select_related('entry', 'entry__user')
         if self.cleaned_data["field_0_filter"] == FILTER_CHOICE_BETWEEN:
             time_from = self.cleaned_data["field_0_from"]
             time_to = self.cleaned_data["field_0_to"]
@@ -337,16 +335,21 @@ class EntriesForm(forms.Form):
                 if include_entry_time:
                     current_row[-1] = field_entry.entry.entry_time
                 if self.user_field is not None:
-                    current_row[field_indexes[self.user_field.id]] = \
-                        field_entry.entry.user
+                    field_id = self.user_field.id
                     filter_type = self.cleaned_data.get(
-                        "field_%s_filter" % self.user_field.id)
+                        "field_%s_filter" % field_id)
                     if filter_type:
                         filter_arg = self.cleaned_data[
-                            "field_%s_contains" % self.user_field.id]
+                            "field_%s_contains" % field_id]
                         filter_func = FILTER_FUNCS[filter_type]
-                        if not filter_func(filter_arg, unicode(field_entry.entry.user)):
+                        if not filter_func(
+                                filter_arg, unicode(field_entry.entry.user)):
                             valid_row = False
+                    try:
+                        current_row[field_indexes[field_id]] = \
+                                field_entry.entry.user
+                    except KeyError:
+                        pass
 
             field_value = field_entry.value or ""
             # Check for filter.
