@@ -190,8 +190,9 @@ class RatingForm(CommentSecurityForm):
                 rating_instance = Rating(user=user, value=rating_value)
                 rating_manager.add(rating_instance)
             else:
-                rating_instance.value = rating_value
-                rating_instance.save()
+                if rating_instance.value != int(rating_value):
+                    rating_instance.value = rating_value
+                    rating_instance.save()
         else:
             rating_instance = Rating(value=rating_value)
             rating_manager.add(rating_instance)
