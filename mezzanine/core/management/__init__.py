@@ -8,8 +8,6 @@ from django.contrib.sites import models as sites_app
 from django.core.management import call_command
 from django.db.models.signals import post_syncdb
 
-from mezzanine.pages.models import Page
-from mezzanine.pages import models as pages_app
 from mezzanine.utils.models import get_user_model
 from mezzanine.utils.tests import copy_test_to_media
 
@@ -29,13 +27,19 @@ def create_user(app, created_models, verbosity, interactive, **kwargs):
         User.objects.create_superuser(*args)
 
 
+def is_full_install():
+    for app in ["forms", "galleries", "blog", "pages"]:
+        if "mezzanine.%s" % app not in settings.INSTALLED_APPS:
+            return False
+    return True
+
+
 def create_pages(app, created_models, verbosity, interactive, **kwargs):
-    if not all([
-        'mezzanine.forms' in settings.INSTALLED_APPS,
-        'mezzanine.galleries' in settings.INSTALLED_APPS,
-        'mezzanine.blog' in settings.INSTALLED_APPS]):
+
+    if not is_full_install():
         return
 
+    from mezzanine.pages.models import Page
     from mezzanine.forms.models import Form
     from mezzanine.galleries.models import Gallery
 
@@ -75,6 +79,8 @@ def create_site(app, created_models, verbosity, interactive, **kwargs):
 
 
 def install_optional_data(verbosity):
+    if not is_full_install():
+        return
     if verbosity >= 1:
         print
         print "Creating demo pages: About us, Contact form, Gallery ..."
@@ -90,6 +96,8 @@ def install_optional_data(verbosity):
 
 if not settings.TESTING:
     post_syncdb.connect(create_user, sender=auth_app)
-    post_syncdb.connect(create_pages, sender=pages_app)
+    if "mezzanine.pages" in settings.INSTALLED_APPS:
+        from mezzanine.pages import models as pages_app
+        post_syncdb.connect(create_pages, sender=pages_app)
     post_syncdb.connect(create_site, sender=sites_app)
     post_syncdb.disconnect(create_default_site, sender=sites_app)
