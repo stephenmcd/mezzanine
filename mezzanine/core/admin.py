@@ -55,10 +55,35 @@ class BaseDisplayableAdmin(admin.ModelAdmin):
 
 
 if "reversion" in settings.INSTALLED_APPS and settings.USE_REVERSION:
-    from reversion import VersionAdmin
+    if "reversion_compare" in settings.INSTALLED_APPS:
+        from reversion_compare.admin import CompareVersionAdmin as VersionAdmin
+    else:
+        from reversion import VersionAdmin
 
-    class DisplayableAdmin(BaseDisplayableAdmin, VersionAdmin):
+    class VersionMixedAdmin(VersionAdmin):
+        compare_exclude = ('keywords', 'site', 'parent', 'comments', 'rating')
+
+        def compare_site(self, obj_compare):
+            """ compare the foo_bar model field """
+            if obj_compare.value1 != obj_compare.value2:
+                from django.contrib.sites.models import Site
+                from_site = Site.objects.get(id=obj_compare.value1)
+                to_site = Site.objects.get(id=obj_compare.value2)
+                return "Change site id: {0} -> {1}".format(from_site, to_site)
+            return None
+
+        def compare_status(self, obj_compare):
+            """ compare the foo_bar model field """
+            if obj_compare.value1 != obj_compare.value2:
+                choice = dict(CONTENT_STATUS_CHOICES)
+                _from = unicode(choice.get(obj_compare.value1))
+                _to = unicode(choice.get(obj_compare.value2))
+                return u"{0} -> {1}".format(_from, _to)
+            return None
+
+    class DisplayableAdmin(BaseDisplayableAdmin, VersionMixedAdmin):
         pass
+
 else:
     class DisplayableAdmin(BaseDisplayableAdmin):
         pass
