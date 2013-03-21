@@ -10,7 +10,8 @@ from django.contrib.auth.models import User as AuthUser
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
-                                   CONTENT_STATUS_PUBLISHED)
+                                   CONTENT_STATUS_PUBLISHED, 
+                                   CONTENT_STATUS_CHOICES)
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.models import get_user_model
 
