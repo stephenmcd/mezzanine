@@ -16,22 +16,6 @@ from mezzanine.conf import register_setting
 
 
 register_setting(
-    name="BLOG_BITLY_USER",
-    label=_("bit.ly username"),
-    description=_("Username for http://bit.ly URL shortening service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="BLOG_BITLY_KEY",
-    label=_("bit.ly key"),
-    description=_("Key for http://bit.ly URL shortening service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
     name="BLOG_USE_FEATURED_IMAGE",
     description=_("Enable featured images in blog posts"),
     editable=False,

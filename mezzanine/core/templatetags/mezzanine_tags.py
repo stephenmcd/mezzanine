@@ -184,13 +184,11 @@ def set_short_url_for(context, token):
     request = context["request"]
     if getattr(obj, "short_url") is None:
         obj.short_url = request.build_absolute_uri(request.path)
-        args = {
-            "login": context["settings"].BLOG_BITLY_USER,
-            "apiKey": context["settings"].BLOG_BITLY_KEY,
-            "longUrl": obj.short_url,
-        }
-        if args["login"] and args["apiKey"]:
-            url = "http://api.bit.ly/v3/shorten?%s" % urlencode(args)
+        if context["settings"].BITLY_ACCESS_TOKEN:
+            url = "https://api-ssl.bit.ly/v3/shorten?%s" % urlencode({
+                "access_token": context["settings"].BITLY_ACCESS_TOKEN,
+                "uri": obj.short_url,
+            })
             response = loads(urlopen(url).read())
             if response["status_code"] == 200:
                 obj.short_url = response["data"]["url"]
