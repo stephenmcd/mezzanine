@@ -64,3 +64,10 @@ register_setting(
     editable=False,
     default=(),
 )
+
+register_setting(
+    name="FORMS_VISIBLE_USER_COLOMN",
+    description=_("Display users column in admin view entries list"),
+    editable=False,
+    default=False
+)
