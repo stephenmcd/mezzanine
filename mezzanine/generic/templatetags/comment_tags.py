@@ -67,7 +67,7 @@ def recent_comments(context):
     Dashboard widget for displaying recent comments.
     """
     latest = context["settings"].COMMENTS_NUM_LATEST
-    comments = ThreadedComment.objects.all().select_related(depth=1)
+    comments = ThreadedComment.objects.all().select_related("user")
     context["comments"] = comments.order_by("-id")[:latest]
     return context
 
