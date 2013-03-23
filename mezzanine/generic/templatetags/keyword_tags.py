@@ -4,7 +4,6 @@ from django.db.models import Model, Count
 
 from mezzanine import template
 from mezzanine.conf import settings
-from mezzanine.generic.fields import KeywordsField
 from mezzanine.generic.models import AssignedKeyword, Keyword
 
 
@@ -25,14 +24,14 @@ def keywords_for(*args):
         obj = args[0]
         if hasattr(obj, "get_content_model"):
             obj = obj.get_content_model() or obj
-        # There can only be one ``KeywordsField``, find it.
-        for field in obj._meta.many_to_many:
-            if isinstance(field, KeywordsField):
-                break
-        else:
-            return []
-        keywords_manager = getattr(obj, field.name)
-        return [a.keyword for a in keywords_manager.select_related("keyword")]
+        keywords_name = obj.get_keywordsfield_name()
+        keywords_queryset = getattr(obj, keywords_name).all()
+        # Keywords may have been prefetched already. If not, we
+        # need select_related for the actual keywords.
+        prefetched = getattr(obj, "_prefetched_objects_cache", {})
+        if keywords_name not in prefetched:
+            keywords_queryset = keywords_queryset.select_related("keyword")
+        return [assigned.keyword for assigned in keywords_queryset]
 
     # Handle a model class.
     try:

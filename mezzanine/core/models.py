@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.template.defaultfilters import truncatewords_html
 from django.utils.html import strip_tags
 from django.utils.timesince import timesince
+from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import RichTextField
@@ -14,7 +15,6 @@ from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model, get_user_model_name
 from mezzanine.utils.sites import current_site_id
-from mezzanine.utils.timezone import now
 from mezzanine.utils.urls import admin_url, slugify
 
 

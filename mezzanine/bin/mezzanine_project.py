@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from __future__ import with_statement
 from distutils.dir_util import copy_tree
 from optparse import OptionParser
 import os

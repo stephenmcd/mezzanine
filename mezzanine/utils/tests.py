@@ -1,5 +1,4 @@
 
-from __future__ import with_statement
 from _ast import PyCF_ONLY_AST
 import os
 from shutil import copyfile, copytree
@@ -16,13 +15,6 @@ IGNORE_ERRORS = (
 
     # Used to version subpackages.
     "'__version__' imported but unused",
-
-    # Backward compatibility for feeds changed in Django 1.4
-    "redefinition of unused 'Feed'",
-    "redefinition of unused 'feed'",
-
-    # Backward compatibility for timezone support
-    "redefinition of unused 'now'",
 
     # No caching fallback
     "redefinition of function 'nevercache'",
@@ -42,6 +34,9 @@ IGNORE_ERRORS = (
 
     # Django 1.5 custom user compatibility
     "redefinition of unused 'get_user_model",
+
+    # Deprecated compat timezones for Django 1.3
+    "mezzanine/utils/timezone",
 
 )
 

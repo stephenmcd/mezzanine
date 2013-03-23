@@ -177,10 +177,3 @@ def set_dynamic_settings(s):
         elif shortname == "mysql":
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
-
-    # Remaining is for Django < 1.4
-    from django import VERSION
-    if VERSION >= (1, 4):
-        return
-    s["TEMPLATE_CONTEXT_PROCESSORS"] = list(s["TEMPLATE_CONTEXT_PROCESSORS"])
-    remove("TEMPLATE_CONTEXT_PROCESSORS", "django.core.context_processors.tz")

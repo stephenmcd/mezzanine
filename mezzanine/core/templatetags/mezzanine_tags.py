@@ -1,5 +1,4 @@
 
-from __future__ import with_statement
 from hashlib import md5
 import os
 from urllib import urlopen, urlencode, quote, unquote

@@ -6,10 +6,10 @@ from django.db.models import Manager, Q, CharField, TextField, get_models
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
 from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
+from django.utils.timezone import now
 
 from mezzanine.conf import settings
 from mezzanine.utils.sites import current_site_id
-from mezzanine.utils.timezone import now
 
 
 class PublishedManager(Manager):

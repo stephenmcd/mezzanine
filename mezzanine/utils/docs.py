@@ -3,7 +3,6 @@ Utils called from project_root/docs/conf.py when Sphinx
 documentation is generated.
 """
 
-from __future__ import with_statement
 from datetime import datetime
 import os.path
 from shutil import copyfile, move

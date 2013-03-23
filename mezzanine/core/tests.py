@@ -1,4 +1,4 @@
-from __future__ import with_statement
+
 import os
 from shutil import rmtree
 from urlparse import urlparse

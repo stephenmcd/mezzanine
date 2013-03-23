@@ -2,8 +2,8 @@
 import re
 import unicodedata
 
-from django.core.urlresolvers import resolve, reverse, NoReverseMatch, \
-    get_script_prefix
+from django.core.urlresolvers import (resolve, reverse, NoReverseMatch,
+                                      get_script_prefix)
 from django.shortcuts import redirect
 from django.utils.encoding import smart_unicode
 from django.utils import translation
@@ -91,16 +91,8 @@ def path_to_slug(path):
     a slug that would match a ``Page`` instance's slug.
     """
     from mezzanine.urls import PAGES_SLUG
-
-    # If i18n is disabled Django uses a fake translation object,
-    # returning None for every path.
-    try:
-        lang_code = translation.get_language_from_path(path)
-    except AttributeError:
-        lang_code = None
-
+    lang_code = translation.get_language_from_path(path)
     for prefix in (lang_code, settings.SITE_PREFIX, PAGES_SLUG):
         if prefix:
             path = path.replace(prefix, "", 1)
-
     return path.strip("/") or "/"
