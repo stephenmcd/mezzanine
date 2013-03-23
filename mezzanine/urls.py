@@ -4,7 +4,7 @@ all the various Mezzanine apps, third-party apps like Grappelli and
 filebrowser.
 """
 
-from django.conf.urls.defaults import patterns, include
+from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.http import HttpResponse
