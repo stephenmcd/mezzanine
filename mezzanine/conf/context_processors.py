@@ -46,4 +46,13 @@ def settings(request):
             settings_dict[k] = getattr(settings, k, DEPRECATED)
         if cache_installed():
             cache_set(cache_key, settings_dict)
+    # This is basically the same as the old ADMIN_MEDIA_PREFIX setting,
+    # we just use it in a few spots in the admin to optionally load a
+    # file from either grappelli or Django admin if grappelli isn't
+    # installed. We don't call it ADMIN_MEDIA_PREFIX in order to avoid
+    # any confusion.
+    if settings.GRAPPELLI_INSTALLED:
+        settings_dict["MEZZANINE_ADMIN_PREFIX"] = "grappelli/"
+    else:
+        settings_dict["MEZZANINE_ADMIN_PREFIX"] = "admin/"
     return {"settings": settings_dict}

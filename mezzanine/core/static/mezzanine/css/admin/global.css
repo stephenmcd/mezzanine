@@ -49,6 +49,7 @@ label.interface {display:inline !important; float:none !important;
 .dropdown-menu li:hover ul {
     display: block;
     position: absolute;
+    z-index:2;
 }
 
 .dropdown-menu form {float:right; margin:3px 22px 0 0;}

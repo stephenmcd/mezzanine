@@ -137,7 +137,6 @@ def set_dynamic_settings(s):
         move("INSTALLED_APPS", grappelli_name, len(s["INSTALLED_APPS"]))
     except ValueError:
         s["GRAPPELLI_INSTALLED"] = False
-        s["ADMIN_MEDIA_PREFIX"] = s["STATIC_URL"] + "admin/"
     else:
         s["GRAPPELLI_INSTALLED"] = True
         s.setdefault("GRAPPELLI_ADMIN_HEADLINE", "Mezzanine")

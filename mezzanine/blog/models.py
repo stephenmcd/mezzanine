@@ -52,7 +52,7 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
             })
         return (url_name, (), kwargs)
 
-    # These methods are deprectaed wrappers for keyword and category
+    # These methods are deprecated wrappers for keyword and category
     # access. They existed to support Django 1.3 with prefetch_related
     # not existing, which was therefore manually implemented in the
     # blog list views. All this is gone now, but the access methods

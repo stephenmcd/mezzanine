@@ -4,7 +4,7 @@
 
 {% block extrahead %}
 {{ block.super }}
-<link rel="stylesheet" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />
+<link rel="stylesheet" href="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"css/dashboard.css" %}">
 <link rel="stylesheet" href="{% static "mezzanine/css/admin/dashboard.css" %}">
 <!--[if IE 7]><style>.dashboard #content {padding-top: 80px;}</style><![endif]-->
 {% endblock %}
