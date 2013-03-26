@@ -99,7 +99,8 @@ class AssignedKeyword(Orderable):
     A ``Keyword`` assigned to a model instance.
     """
 
-    keyword = models.ForeignKey("Keyword", related_name="assignments")
+    keyword = models.ForeignKey("Keyword", verbose_name=_("Keyword"),
+                                related_name="assignments")
     content_type = models.ForeignKey("contenttypes.ContentType")
     object_pk = models.IntegerField()
     content_object = GenericForeignKey("content_type", "object_pk")

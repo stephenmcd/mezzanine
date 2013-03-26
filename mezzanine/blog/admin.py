@@ -20,6 +20,7 @@ blogpost_fieldsets = list(blogpost_fieldsets)
 blogpost_fieldsets.insert(1, (_("Other posts"), {
     "classes": ("collapse-closed",),
     "fields": ("related_posts",)}))
+blogpost_list_filter = deepcopy(DisplayableAdmin.list_filter) + ("categories",)
 
 
 class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
@@ -29,6 +30,7 @@ class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
 
     fieldsets = blogpost_fieldsets
     list_display = blogpost_list_display
+    list_filter = blogpost_list_filter
     filter_horizontal = ("categories", "related_posts",)
 
     def save_form(self, request, form, change):
