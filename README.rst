@@ -388,6 +388,7 @@ Sites Using Mezzanine
   * `Noshly <http://noshly.com>`_
   * `Kabu Creative <http://kabucreative.com.au/>`_
   * `Amblitec <http://www.amblitec.com>`_
+  * `KisanHub <http://www.kisanhub.com/>`_
 
 
 Quotes
