@@ -14,7 +14,6 @@ These are some of the most frequently asked questions on the
   * :ref:`themes`
   * :ref:`not-invented-here`
   * :ref:`existing-projects`
-  * :ref:`model-graph`
   * :ref:`grappelli-filebrowser-forks`
   * :ref:`what-is-pillow`
   * :ref:`missing-features`
@@ -100,7 +99,7 @@ assigns them superuser status.
 
 The above scenario is a fairly obscure one, so it's possible to
 customise the level of filtering that occurs. Three levels of
-filtering are implemented by default, than can be controlled in
+filtering are implemented by default, that can be controlled in
 the settings section of the admin. These are High (the default), Low
 (which allows extra tags such as those required for embedding videos),
 and None (no filtering occurs). This is implemented via the
@@ -268,20 +267,6 @@ settings:
     integration)
   * The call to ``mezzanine.utils.conf.set_dynamic_settings`` at the
     very end of the ``settings.py`` module.
-
-`Back to top <#>`_
-
-.. _model-graph:
-
-How can I get an overview of all the models in Mezzanine and their relationships?
----------------------------------------------------------------------------------
-
-Mezzanine makes heavy use of `abstract models
-<https://docs.djangoproject.com/en/dev/topics/db/models/#abstract-base-classes>`_
-and `multiple inheritance <http://docs.python.org/tutorial/classes.html#multiple-inheritance>`_,
-combining small building blocks together in different ways to implement
-its core set of models. Check out the :doc:`model-graph` for an overall
-picture.
 
 `Back to top <#>`_
 

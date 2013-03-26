@@ -15,23 +15,42 @@ label.interface {display:inline !important; float:none !important;
     width:100%;
 }
 .dropdown-menu {left:0; padding:0; display:block;}
-.dropdown-menu ul {display:inline; padding:0; margin:0;}
+.dropdown-menu ul {display:inline-block; padding:0; margin:0;}
 .dropdown-menu li {
-    float:left; width:auto; padding:7px 23px 7px 0; cursor:pointer;
+    float:left; width:auto; padding:7px 23px 2px 0; cursor:pointer;
     font-size:15px; font-weight:bold; list-style-type:none;
 }
-.cloned {margin:5px 0 0 -20px;}
-.cloned li {display:block; font-size:13px; font-weight:normal;
-            padding:15px 25px 15px 20px !important;
-            border-top:1px solid #eee;}
-.cloned .first {border-top:0px !important;}
-.dropdown-menu li ul {display:none; float:left;}
-.cloned {
-    background:#e6e6e6; border-radius:0 0 5px 5px; padding:0;
-    border-bottom:1px solid #ccc;
+.dropdown-menu li ul {
+    background: #e6e6e6;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    display: none;
+    margin: 0 0 0 -20px;
+    padding: 0;
 }
-.dropdown-menu-hover {cursor:pointer;}
-.dropdown-menu-hover a {color:#444;}
+.dropdown-menu li ul li {
+    border-top: 1px solid #eee;
+    display: block;
+    float: none;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 0;
+}
+.dropdown-menu li ul li a {
+    display: block;
+    padding: 15px 25px 15px 20px;
+}
+.dropdown-menu li ul li.first {
+    border-top: 0px;
+}
+.dropdown-menu li ul li.first a {
+    padding-top: 20px;
+}
+.dropdown-menu li:hover ul {
+    display: block;
+    position: absolute;
+    z-index:2;
+}
 
 .dropdown-menu form {float:right; margin:3px 22px 0 0;}
 #djDebugToolbarHandle {margin-top:50px !important;}

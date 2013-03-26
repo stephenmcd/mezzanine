@@ -8,15 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-17 17:24+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/mezzanine/language/sr@latin/)\n"
+"Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/"
+"mezzanine/language/sr@latin/)\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:20 models.py:67
 msgid "User"
@@ -28,7 +30,8 @@ msgstr "Nalozi potrebni za komentarisanje"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr "Ukoliko je uključeno, korisnici se moraju prijaviti da bi ostavili komentar."
+msgstr ""
+"Ukoliko je uključeno, korisnici se moraju prijaviti da bi ostavili komentar."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -63,7 +66,9 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr "Ukoliko je uključeno, ugrađeni komentari se automatski odobravaju."
 
 #: defaults.py:66
-msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
 msgstr ""
 
 #: defaults.py:74
@@ -71,7 +76,9 @@ msgid "Comment notification email addresses"
 msgstr ""
 
 #: defaults.py:75
-msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
 msgstr ""
 
 #: defaults.py:84
@@ -87,16 +94,24 @@ msgid "Show unapproved comments"
 msgstr "Prikaži neodobrene komentare"
 
 #: defaults.py:94
-msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "Ako je uključeno, komentari kojima je polje ``Javno`` potvrđeno će ipak biti prikazani, ali će sadržati poruku ``čekanje na odobrenje``."
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+"Ako je uključeno, komentari kojima je polje ``Javno`` potvrđeno će ipak biti "
+"prikazani, ali će sadržati poruku ``čekanje na odobrenje``."
 
 #: defaults.py:103
 msgid "Show removed comments"
 msgstr "Prikaži obrisane komentare"
 
 #: defaults.py:104
-msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
-msgstr "Ako je uključeno, komentari kojima je ``uklonjen`` potvrđeno će se ipak prikazivati, ali zamenjeni sa porukom ``uklonjen``."
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Ako je uključeno, komentari kojima je ``uklonjen`` potvrđeno će se ipak "
+"prikazivati, ali zamenjeni sa porukom ``uklonjen``."
 
 #: defaults.py:113
 msgid "Min value for a rating."
@@ -167,8 +182,12 @@ msgid "Ratings"
 msgstr "Ocene"
 
 #: views.py:53
-msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
-msgstr "Morate se prijaviti da biste ostavili komentar. Molimo prijavite se ili napravite nalog i Vaš komentar će biti postavljen."
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr ""
+"Morate se prijaviti da biste ostavili komentar. Molimo prijavite se ili "
+"napravite nalog i Vaš komentar će biti postavljen."
 
 #: views.py:89
 msgid "New comment for: "

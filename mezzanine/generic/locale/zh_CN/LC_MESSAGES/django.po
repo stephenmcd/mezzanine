@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-17 17:24+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
+"mezzanine/language/zh_CN/)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,7 +65,9 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr "如果If ``True``,内部评论自动审核"
 
 #: defaults.py:66
-msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
 msgstr ""
 
 #: defaults.py:74
@@ -72,8 +75,11 @@ msgid "Comment notification email addresses"
 msgstr "接收评论提醒的邮件地址"
 
 #: defaults.py:75
-msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
-msgstr "站点有新评论时，接收新增评论提醒的邮件地址（如多个邮箱则用分号 ';' 分隔）。"
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
+msgstr ""
+"站点有新评论时，接收新增评论提醒的邮件地址（如多个邮箱则用分号 ';' 分隔）。"
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -88,16 +94,23 @@ msgid "Show unapproved comments"
 msgstr "显示未审核评论"
 
 #: defaults.py:94
-msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "如果 ``True``,  ``is_public``未选中的评论依然显示，但“等待审核”的信息被替换。 "
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+"如果 ``True``,  ``is_public``未选中的评论依然显示，但“等待审核”的信息被替"
+"换。 "
 
 #: defaults.py:103
 msgid "Show removed comments"
 msgstr "显示移除的评论"
 
 #: defaults.py:104
-msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
-msgstr "如果 ``True``,  ``remmoved``未选中的评论依然显示，但“移除”的信息被替换。 "
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"如果 ``True``,  ``remmoved``未选中的评论依然显示，但“移除”的信息被替换。 "
 
 #: defaults.py:113
 msgid "Min value for a rating."
@@ -168,7 +181,9 @@ msgid "Ratings"
 msgstr "评价"
 
 #: views.py:53
-msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
 msgstr "请必登录才能留言。"
 
 #: views.py:89

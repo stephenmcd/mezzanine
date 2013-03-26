@@ -16,22 +16,6 @@ from mezzanine.conf import register_setting
 
 
 register_setting(
-    name="BLOG_BITLY_USER",
-    label=_("bit.ly username"),
-    description=_("Username for http://bit.ly URL shortening service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
-    name="BLOG_BITLY_KEY",
-    label=_("bit.ly key"),
-    description=_("Key for http://bit.ly URL shortening service."),
-    editable=True,
-    default="",
-)
-
-register_setting(
     name="BLOG_USE_FEATURED_IMAGE",
     description=_("Enable featured images in blog posts"),
     editable=False,
@@ -53,6 +37,15 @@ register_setting(
     description=_("Number of blog posts shown on a blog listing page."),
     editable=True,
     default=5,
+)
+
+register_setting(
+    name="BLOG_RSS_LIMIT",
+    label=_("Blog posts RSS limit"),
+    description=_("Number of most recent blog posts shown in the RSS feed. "
+        "Set to ``None`` to display all blog posts in the RSS feed."),
+    editable=False,
+    default=20,
 )
 
 register_setting(

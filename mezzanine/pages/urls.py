@@ -1,6 +1,10 @@
 
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 from django.conf import settings
+
+from mezzanine.pages import page_processors
+
+page_processors.autodiscover()
 
 
 # Page patterns.

@@ -3,18 +3,17 @@ from datetime import date, datetime
 from os.path import join, split
 from uuid import uuid4
 
-import django
 from django import forms
 from django.forms.extras import SelectDateWidget
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
 
 from mezzanine.conf import settings
 from mezzanine.forms import fields
 from mezzanine.forms.models import FormEntry, FieldEntry
-from mezzanine.utils.timezone import now
 
 
 fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)
@@ -131,8 +130,8 @@ class FormForForm(forms.ModelForm):
             self.fields[field_key] = field_class(**field_args)
 
             if field.field_type == fields.DOB:
-                now = datetime.now()
-                years = range(now.year, now.year - 120, -1)
+                _now = datetime.now()
+                years = range(_now.year, _now.year - 120, -1)
                 self.fields[field_key].widget.years = years
 
             # Add identifying type attr to the field for styling.
@@ -171,11 +170,7 @@ class FormForForm(forms.ModelForm):
                 new = {"entry": entry, "field_id": field.id, "value": value}
                 new_entry_fields.append(FieldEntry(**new))
         if new_entry_fields:
-            if django.VERSION >= (1, 4, 0):
-                FieldEntry.objects.bulk_create(new_entry_fields)
-            else:
-                for field_entry in new_entry_fields:
-                    field_entry.save()
+            FieldEntry.objects.bulk_create(new_entry_fields)
         return entry
 
     def email_to(self):

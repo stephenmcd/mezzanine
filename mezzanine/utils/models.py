@@ -1,9 +1,25 @@
 
+from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model, Field
 
-from mezzanine.conf import settings
 from mezzanine.utils.importing import import_dotted_path
+
+
+# Backward compatibility with Django 1.5's "get_user_model".
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:
+    def get_user_model():
+        from django.contrib.auth.models import User
+        return User
+
+
+def get_user_model_name():
+    """
+    Returns the app_label.object_name string for the user model.
+    """
+    return getattr(settings, "AUTH_USER_MODEL", "auth.User")
 
 
 def base_concrete_model(abstract, instance):
@@ -51,6 +67,7 @@ def upload_to(field_path, default):
     handlers to be implemented on a per field basis defined by the
     ``UPLOAD_TO_HANDLERS`` setting.
     """
+    from mezzanine.conf import settings
     for k, v in settings.UPLOAD_TO_HANDLERS.items():
         if k.lower() == field_path.lower():
             return import_dotted_path(v)
@@ -66,11 +83,12 @@ class AdminThumbMixin(object):
     admin_thumb_field = None
 
     def admin_thumb(self):
-        thumb = None
+        thumb = ""
         if self.admin_thumb_field:
-            thumb = getattr(self, self.admin_thumb_field, None)
-        if thumb is None:
+            thumb = getattr(self, self.admin_thumb_field, "")
+        if not thumb:
             return ""
+        from mezzanine.conf import settings
         from mezzanine.core.templatetags.mezzanine_tags import thumbnail
         x, y = settings.ADMIN_THUMB_SIZE.split('x')
         thumb_url = thumbnail(thumb, x, y)

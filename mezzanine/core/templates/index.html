@@ -9,5 +9,20 @@
 {% endblock %}
 
 {% block main %}
-{% trans "This is the homepage." %}
+{% blocktrans %}
+<h2>Congratulations!</h2>
+<p>
+    Welcome to your new Mezzanine powered website.
+    Here are some quick links to get you started:
+</p>
+<ul>
+    <li><a href="/admin/">Log in to the admin interface</a></li>
+    <li><a href="http://mezzanine.jupo.org/docs/content-architecture.html">Creating custom page types</a></li>
+    <li><a href="http://mezzanine.jupo.org/docs/frequently-asked-questions.html#templates">Modifying HTML templates</a></li>
+    <li><a href="http://mezzanine.jupo.org/docs/frequently-asked-questions.html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin">Changing this homepage</a></li>
+    <li><a href="http://mezzanine.jupo.org/docs/frequently-asked-questions.html">Other frequently asked questions</a></li>
+    <li><a href="http://mezzanine.jupo.org/docs/configuration.html#default-settings">Full list of settings</a></li>
+    <li><a href="http://mezzanine.jupo.org/docs/deployment.html">Deploying to a production server</a></li>
+</ul>
+{% endblocktrans %}
 {% endblock %}

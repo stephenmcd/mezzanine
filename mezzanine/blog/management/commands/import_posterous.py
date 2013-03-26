@@ -1,13 +1,12 @@
-from mezzanine.blog.management.base import BaseImporterCommand
-from optparse import make_option
+
+from datetime import datetime
 import json
 import time
-from datetime import datetime
-import sys
+from optparse import make_option
 
+from django.core.management.base import CommandError
 
-class PosterousImportException(Exception):
-    pass
+from mezzanine.blog.management.base import BaseImporterCommand
 
 
 class Command(BaseImporterCommand):
@@ -29,8 +28,11 @@ class Command(BaseImporterCommand):
     help = "Import Posterous blog posts into the blog app."
 
     def request(self, path, data=None):
-        import requests
-        my_config = {'verbose': sys.stderr}
+        try:
+            import requests
+        except ImportError:
+            raise CommandError("Posterous importer requires the requests"
+                               "library installed")
         data = data or {}
         params = {
             'api_token': self.api_token
@@ -39,16 +41,15 @@ class Command(BaseImporterCommand):
         url = "http://posterous.com/api/2/%s" % path
         r = requests.get(url,
             data=params,
-            auth=(self.username, self.password),
-            config=my_config
+            auth=(self.username, self.password)
         )
         if r.text.startswith("403"):
-            raise PosterousImportException(r.text)
+            raise CommandError(r.text)
         try:
             response = json.loads(r.text)
             return response
         except:
-            raise PosterousImportException(r.text)
+            raise CommandError(r.text)
 
     def handle_import(self, options):
         self.api_token = options.get("api_token")
@@ -60,13 +61,14 @@ class Command(BaseImporterCommand):
         site = None
         for s in sites:
             if s['full_hostname'] == hostname:
+                site = s
                 time.sleep(2)
                 break
         if not hostname and not site:
             if len(sites) == 1:
                 site = sites[0]
             else:
-                raise PosterousImportException(
+                raise CommandError(
                     "Please pass your blog hostname if you have more than"
                     " one blog on your posterous account."
                 )

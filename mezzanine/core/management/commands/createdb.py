@@ -30,7 +30,8 @@ class Command(NoArgsCommand):
             except ImportError:
                 return
             if interactive:
-                confirm = raw_input("\nWould you like to fake initial "
+                confirm = raw_input("\nSouth is installed for this project."
+                                    "\nWould you like to fake initial "
                                     "migrations? (yes/no): ")
                 while True:
                     if confirm == "yes":

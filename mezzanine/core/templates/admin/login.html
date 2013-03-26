@@ -1,9 +1,9 @@
 {% extends "admin/base_site.html" %}
-{% load i18n future %}
+{% load i18n future staticfiles %}
 
 {% block stylesheets %}
 {{ block.super }}
-<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/login.css">
+<link rel="stylesheet" type="text/css" href="{% static settings.MEZZANINE_ADMIN_PREFIX %}css/login.css">
 {% endblock %}
 
 {% block bodyclass %}login{% endblock %}

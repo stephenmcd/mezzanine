@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-{% load pages_tags mezzanine_tags i18n future %}
-<html>
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
+{% load pages_tags mezzanine_tags i18n future staticfiles %}
 <head>
 
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -8,7 +8,7 @@
 <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
 <meta name="description" content="{% block meta_description %}{% endblock %}">
 <title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
-<link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
+<link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
 
 {% ifinstalled mezzanine.blog %}
 <link rel="alternate" type="application/rss+xml" title="RSS" href="{% url "blog_post_feed" "rss" %}">
@@ -16,28 +16,29 @@
 {% endifinstalled %}
 
 {% compress css %}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/mezzanine.css">
+<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+<link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap-responsive.css" %}">
+{% if LANGUAGE_BIDI %}
+<link rel="stylesheet" href="{% static "css/rtl.css" %}">
+{% endif %}
 {% ifinstalled cartridge.shop %}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
+<link rel="stylesheet" href="{% static "css/cartridge.css" %}">
+{% if LANGUAGE_BIDI %}
+<link rel="stylesheet" href="{% static "css/cartridge.rtl.css" %}">
+{% endif %}
 {% endifinstalled %}
 {% block extra_css %}{% endblock %}
 {% endcompress %}
 
 {% compress js %}
-<script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
-<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-<script>
-$(function() {
-    $('.middleinput:text, textarea').addClass('xlarge');
-    $('.control-group label').addClass('control-label');
-});
-</script>
+<script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/bootstrap-extras.js" %}"></script>
 {% block extra_js %}{% endblock %}
 {% endcompress %}
 <!--[if lt IE 9]>
-<script src="{{ STATIC_URL }}js/html5shiv.js"></script>
+<script src="{% static "js/html5shiv.js" %}"></script>
 <![endif]-->
 
 {% block extra_head %}{% endblock %}
@@ -45,7 +46,7 @@ $(function() {
 </head>
 <body id="{% block body_id %}body{% endblock %}">
 
-<div class="navbar navbar-inverse">
+<div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -54,7 +55,7 @@ $(function() {
         <span class="icon-bar"></span>
     </a>
     {% if settings.SITE_TITLE %}<a class="brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
-    {% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}
+    {% if settings.SITE_TAGLINE %}<p class="navbar-text">{{ settings.SITE_TAGLINE }}</p>{% endif %}
     <div class="nav-collapse">
         {% search_form "all" %}
         {% page_menu "pages/menus/dropdown.html" %}
@@ -68,7 +69,7 @@ $(function() {
 {% nevercache %}
 {% for message in messages %}
 <div class="alert alert-{{ message.tags }}" data-alert="alert">
-<a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
+    <a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
 </div>
 {% endfor %}
 {% endnevercache %}
@@ -116,7 +117,6 @@ $(function() {
 <footer>
 <div class="container">
 {% page_menu "pages/menus/footer.html" %}
-<br style="clear:both">
 <p>
     {% trans "Powered by" %}
     <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},

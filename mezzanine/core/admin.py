@@ -1,18 +1,20 @@
-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
 from django.db.models import AutoField
 from django.forms import ValidationError, ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User as AuthUser
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
 from mezzanine.utils.urls import admin_url
+from mezzanine.utils.models import get_user_model
+
+User = get_user_model()
 
 
 class DisplayableAdminForm(ModelForm):
@@ -25,7 +27,7 @@ class DisplayableAdminForm(ModelForm):
         return content
 
 
-class DisplayableAdmin(admin.ModelAdmin):
+class BaseDisplayableAdmin(admin.ModelAdmin):
     """
     Admin class for subclasses of the abstract ``Displayable`` model.
     """
@@ -34,7 +36,6 @@ class DisplayableAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
     list_editable = ("status",)
     list_filter = ("status",)
-    search_fields = ("title", "content",)
     date_hierarchy = "publish_date"
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = (
@@ -50,6 +51,23 @@ class DisplayableAdmin(admin.ModelAdmin):
     )
 
     form = DisplayableAdminForm
+
+    def __init__(self, *args, **kwargs):
+        super(BaseDisplayableAdmin, self).__init__(*args, **kwargs)
+        try:
+            self.search_fields = self.model.objects.get_search_fields().keys()
+        except AttributeError:
+            pass
+
+
+if "reversion" in settings.INSTALLED_APPS and settings.USE_REVERSION:
+    from reversion import VersionAdmin
+
+    class DisplayableAdmin(BaseDisplayableAdmin, VersionAdmin):
+        pass
+else:
+    class DisplayableAdmin(BaseDisplayableAdmin):
+        pass
 
 
 class BaseDynamicInlineAdmin(object):
@@ -211,5 +229,7 @@ class SitePermissionInline(admin.TabularInline):
 class SitePermissionUserAdmin(UserAdmin):
     inlines = [SitePermissionInline]
 
-admin.site.unregister(User)
-admin.site.register(User, SitePermissionUserAdmin)
+# only register if User hasn't been overridden
+if User == AuthUser:
+    admin.site.unregister(User)
+    admin.site.register(User, SitePermissionUserAdmin)

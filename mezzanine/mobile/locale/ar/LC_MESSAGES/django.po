@@ -7,35 +7,37 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:57-0500\n"
 "PO-Revision-Date: 2011-11-12 03:09+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/language/ar/)\n"
+"Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/"
+"language/ar/)\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
-msgstr ""
+msgstr "صفحة غير موجودة"
 
 #: templates/mobile/404.html:10
 msgid "The page you requested does not exist."
-msgstr ""
+msgstr "الصفحة التي طلبتها غير موجودة."
 
 #: templates/mobile/500.html:6
 msgid "Error"
-msgstr ""
+msgstr "خطأ"
 
 #: templates/mobile/500.html:10
 msgid "Sorry, an error occurred."
-msgstr ""
+msgstr "عذراً، حصل خطأ."
 
 #: templates/mobile/base.html:31 templates/mobile/index.html:6
 msgid "Home"
-msgstr ""
+msgstr "الرئيسية"
 
 #: templates/mobile/base.html:43
 msgid "Powered by"
@@ -52,27 +54,27 @@ msgstr ""
 #: templates/mobile/search_results.html:5
 #: templates/mobile/search_results.html:6
 msgid "Search Results"
-msgstr ""
+msgstr "نتائج البحث"
 
 #: templates/mobile/search_results.html:12
 msgid "No results were found matching your query: "
-msgstr ""
+msgstr "لم يتم العثور على أي نتائج توافق طلبك:"
 
 #: templates/mobile/search_results.html:14
 msgid "Showing"
-msgstr ""
+msgstr "عرض"
 
 #: templates/mobile/search_results.html:14
 msgid "to"
-msgstr ""
+msgstr "إلى"
 
 #: templates/mobile/search_results.html:14
 msgid "of"
-msgstr ""
+msgstr "من"
 
 #: templates/mobile/search_results.html:15
 msgid "results matching your query:"
-msgstr ""
+msgstr "نتائج لبحثك"
 
 #: templates/mobile/search_results.html:23
 msgid "read more"
@@ -97,7 +99,7 @@ msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:54
 msgid "or"
-msgstr ""
+msgstr "من"
 
 #: templates/mobile/blog/blog_post_list.html:4
 #: templates/mobile/blog/blog_post_list.html:19
@@ -125,5 +127,7 @@ msgid "quotes"
 msgstr ""
 
 #: templates/mobile/includes/search.html:5
-msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
 msgstr ""

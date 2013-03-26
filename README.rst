@@ -73,8 +73,8 @@ Dependencies
 Mezzanine makes use of as few libraries as possible (apart from a
 standard Django environment), with the following dependencies:
 
-  * `Python`_ 2.5 ... 2.7
-  * `Django`_ 1.3 ... 1.4
+  * `Python`_ 2.6 / 2.7
+  * `Django`_ 1.4 / 1.5
   * `Python Imaging Library`_ - for image resizing
   * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
   * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
@@ -97,7 +97,7 @@ The easiest method is to install directly from pypi using `pip`_ by
 running the command below, which will also install the required
 dependencies mentioned above::
 
-    $ pip install -U mezzanine
+    $ pip install mezzanine
 
 If you prefer, you can download Mezzanine and install it directly from
 source::
@@ -217,6 +217,21 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzyblocks`_ - Another app for adding blocks/modules to Mezzanine.
   * `mezzanine-flexipage`_ - Allows designers to manage content areas
     in templates.
+  * `mezzanine-instagram`_ - A simple Instagram app for Mezzanine.
+  * `mezzanine-wiki`_ - Wiki app for Mezzanine.
+  * `mezzanine-calendar`_ - Calendar pages in Mezzanine
+  * `mezzanine-facebook`_ - Simple Facebook integration for Mezzanine.
+  * `mezzanine-instagram-gallery`_ - Create Mezzanine galleries using
+    Instagram images.
+  * `mezzanine-cli`_ - Command-line interface for Mezzanine.
+  * `mezzanine-categorylink`_ - Integrates Mezzanine's Link pages with
+    its blog categories.
+  * `mezzanine-podcast`_ - A simple podcast streamer and manager for
+    Mezzanine.
+  * `mezzanine-linkcollection`_ - Collect links. Feature them. Share
+    them over RSS.
+  * `cash-generator`_ - Generate `GnuCash`_ invoices with Mezzanine.
+  * `mezzanine-foundation`_ - `Zurb Foundation`_ theme for Mezzanine.
 
 Donating
 ========
@@ -323,7 +338,7 @@ Sites Using Mezzanine
   * `Sunfluence <http://sunfluence.com>`_
   * `ggzpreventie.nl <http://ggzpreventie.nl>`_
   * `dakuaiba.com <http://www.dakuaiba.com>`_
-  * `Leprosys <http://www.leprosys.info>`_
+  * `Wdiaz <http://www.wdiaz.org>`_
   * `Hunted Hive <http://huntedhive.com/>`_
   * `mjollnir.org <http://mjollnir.org>`_
   * `The Beancat Network <http://www.beancatnet.org>`_
@@ -355,6 +370,25 @@ Sites Using Mezzanine
   * `Stackful.io <http://stackful.io/>`_
   * `Adrenaline <http://www.adrln.com/>`_
   * `ACE EdVenture Programme <http://aceedventure.com/>`_
+  * `Butchershop Creative <http://www.butchershopcreative.com/>`_
+  * `Sam Kingston <http://www.sjkingston.com>`_
+  * `Ludwig von Mises Institute <http://mises.fi>`_
+  * `Incendio <http://incendio.no/>`_
+  * `Alexander Lillevik <http://lillevikdesign.no/>`_
+  * `Walk In Tromsø <http://www.turitromso.no>`_
+  * `Mandrivia Linux <http://www.mandriva.com/>`_
+  * `Crown Preschool <http://crownpreschool.com>`_
+  * `Coronado Pathways Charter School <http://coronadopathways.com>`_
+  * `Raindrop Marketing <http://www.raindropads.com>`_
+  * `Web4py <http://www.web4py.com>`_
+  * `The Peculiar Store <http://thepeculiarstore.com>`_
+  * `GrinDin <http://www.grindin.ru>`_
+  * `4Gume <http://www.4gume.com>`_
+  * `Skydivo <http://skydivo.com>`_
+  * `Noshly <http://noshly.com>`_
+  * `Kabu Creative <http://kabucreative.com.au/>`_
+  * `Amblitec <http://www.amblitec.com>`_
+
 
 Quotes
 ======
@@ -470,6 +504,19 @@ Quotes
 .. _`mezzanine-slides`: https://github.com/overshard/mezzanine-slides
 .. _`mezzyblocks`: https://github.com/jardaroh/mezzyblocks
 .. _`mezzanine-flexipage`: https://github.com/mrmagooey/mezzanine-flexipage
+.. _`mezzanine-wiki`: https://github.com/dfalk/mezzanine-wiki
+.. _`mezzanine-instagram`: https://github.com/shurik/Mezzanine_Instagram
+.. _`mezzanine-calendar`: https://github.com/shurik/mezzanine.calendar
+.. _`mezzanine-facebook`: https://github.com/shurik/Mezzanine_Facebook
+.. _`mezzanine-instagram-gallery`: https://github.com/georgeyk/mezzanine-instagram-gallery
+.. _`mezzanine-cli`: https://github.com/adieu/mezzanine-cli
+.. _`mezzanine-categorylink`: https://github.com/mjtorn/mezzanine-categorylink
+.. _`mezzanine-podcast`: https://github.com/carpie/mezzanine-podcast
+.. _`mezzanine-linkcollection`: https://github.com/mjtorn/mezzanine-linkcollection
+.. _`cash-generator`: https://github.com/ambientsound/cash-generator
+.. _`GnuCash`: http://www.gnucash.org/
+.. _`mezzanine-foundation`: https://github.com/zgohr/mezzanine-foundation
+.. _`Zurb Foundation`: http://foundation.zurb.com/
 
 
 .. PEOPLE WITH QUOTES

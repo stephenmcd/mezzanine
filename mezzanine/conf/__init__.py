@@ -7,6 +7,8 @@ or Django itself. Settings can also be made editable via the admin.
 from django.conf import settings as django_settings
 from django.utils.encoding import force_unicode
 from django.utils.functional import Promise
+from django.utils.importlib import import_module
+from django.utils.module_loading import module_has_submodule
 
 from mezzanine import __version__
 
@@ -104,9 +106,11 @@ class Settings(object):
 
 mezz_first = lambda app: not app.startswith("mezzanine.")
 for app in sorted(django_settings.INSTALLED_APPS, key=mezz_first):
+    module = import_module(app)
     try:
-        __import__("%s.defaults" % app)
-    except (ImportError, ValueError):  # ValueError raised by convert_to_south
-        pass
+        import_module("%s.defaults" % app)
+    except:
+        if module_has_submodule(module, "defaults"):
+            raise
 
 settings = Settings()

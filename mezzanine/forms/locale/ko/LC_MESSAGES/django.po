@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Korean (http://www.transifex.com/projects/p/mezzanine/language/ko/)\n"
+"Language-Team: Korean (http://www.transifex.com/projects/p/mezzanine/"
+"language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +33,9 @@ msgid "View Entries"
 msgstr "엔트리 보기"
 
 #: defaults.py:20
-msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
 msgstr ""
 
 #: defaults.py:29
@@ -52,7 +55,12 @@ msgid "Absolute path for storing file uploads for the forms app."
 msgstr ""
 
 #: defaults.py:58
-msgid "Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts."
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -168,7 +176,9 @@ msgid "Send email to user"
 msgstr ""
 
 #: models.py:21
-msgid "To send an email to the email address supplied in the form upon submission, check this box."
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
 msgstr ""
 
 #: models.py:23
@@ -184,7 +194,9 @@ msgid "Send email to others"
 msgstr ""
 
 #: models.py:26
-msgid "Provide a comma separated list of email addresses to be notified upon form submission. Leave blank to disable notifications."
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
 msgstr ""
 
 #: models.py:30
@@ -196,7 +208,10 @@ msgid "Message"
 msgstr "메시지"
 
 #: models.py:32
-msgid "Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in the email."
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
 msgstr ""
 
 #: models.py:37
@@ -228,8 +243,12 @@ msgid "Choices"
 msgstr "선택"
 
 #: models.py:61
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
-msgstr "적용가능한 경우 쉼표로 구분된 옵션. 옵션 자체가 쉼표를 갖는 경우, 옵션을 `backticks`로 둘러쌉니다."
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr ""
+"적용가능한 경우 쉼표로 구분된 옵션. 옵션 자체가 쉼표를 갖는 경우, 옵션을 "
+"`backticks`로 둘러쌉니다."
 
 #: models.py:63
 msgid "Default value"
@@ -243,7 +262,7 @@ msgstr "자리 차지 텍스트"
 msgid "Help text"
 msgstr "도움말"
 
-#: models.py:72 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
 msgstr "필드"
 
@@ -268,7 +287,7 @@ msgid "Form field entries"
 msgstr "양식 필드 엔트리"
 
 #: templates/admin/forms/change_form.html:8
-#: templates/admin/forms/entries.html:56
+#: templates/admin/forms/entries.html:57
 msgid "View entries"
 msgstr "엔트리 보기"
 
@@ -280,38 +299,38 @@ msgstr "히스토리"
 msgid "View on site"
 msgstr "사이트에서 보기"
 
-#: templates/admin/forms/entries.html:13
+#: templates/admin/forms/entries.html:14
 msgid "Home"
 msgstr "홈"
 
-#: templates/admin/forms/entries.html:28
+#: templates/admin/forms/entries.html:29
 msgid "Include"
 msgstr "포함"
 
-#: templates/admin/forms/entries.html:29
+#: templates/admin/forms/entries.html:30
 msgid "Filter by"
 msgstr "필터 조건:"
 
-#: templates/admin/forms/entries.html:47
+#: templates/admin/forms/entries.html:48
 msgid "All"
 msgstr "모두"
 
-#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
 msgstr "양식으로 돌아가기"
 
-#: templates/admin/forms/entries.html:57
+#: templates/admin/forms/entries.html:58
 msgid "Export CSV"
 msgstr "CSV 내보내기"
 
-#: templates/admin/forms/entries.html:59
+#: templates/admin/forms/entries.html:60
 msgid "Entries"
 msgstr "엔트리"
 
-#: templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:94
 msgid "Delete selected"
 msgstr "삭제가 선택되었습니다"
 
-#: templates/admin/forms/entries.html:97
+#: templates/admin/forms/entries.html:98
 msgid "No entries to display"
 msgstr "표시할 엔트리가 없습니다"

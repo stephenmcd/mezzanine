@@ -52,16 +52,22 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
             })
         return (url_name, (), kwargs)
 
-    # These methods are wrappers for keyword and category access.
-    # For Django 1.3, we manually assign keywords and categories
-    # in the blog_post_list view, since we can't use Django 1.4's
-    # prefetch_related method. Once we drop support for Django 1.3,
-    # these can probably be removed.
+    # These methods are deprecated wrappers for keyword and category
+    # access. They existed to support Django 1.3 with prefetch_related
+    # not existing, which was therefore manually implemented in the
+    # blog list views. All this is gone now, but the access methods
+    # still exist for older templates.
 
     def category_list(self):
+        from warnings import warn
+        warn("blog_post.category_list in templates is deprecated"
+             "use blog_post.categories.all which are prefetched")
         return getattr(self, "_categories", self.categories.all())
 
     def keyword_list(self):
+        from warnings import warn
+        warn("blog_post.keyword_list in templates is deprecated"
+             "use the keywords_for template tag, as keywords are prefetched")
         try:
             return self._keywords
         except AttributeError:

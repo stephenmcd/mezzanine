@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load mezzanine_tags i18n future %}
+{% load mezzanine_tags i18n future staticfiles %}
 {% comment %}
 
 This file contains a handful of unrelated admin customizations that
@@ -17,7 +17,7 @@ mostly get applied globally to different parts of the admin.
 {% block nav-global %}{% endblock %}
 
 {% block extrahead %}
-<link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/global.css">
+<link rel="stylesheet" href="{% static "mezzanine/css/admin/global.css" %}">
 <style>
 /*
 These are set in PageAdmin's view methods,
@@ -37,25 +37,29 @@ window.__admin_keywords_submit_url = '{% url "admin_keywords_submit" %}';
 window.__filebrowser_url = '{{ fb_browse_url }}';
 window.__admin_url = '{{ admin_index_url }}';
 window.__static_proxy = '{{ static_proxy_url }}';
-window.__admin_media_prefix__ = '{{ settings.ADMIN_MEDIA_PREFIX }}';
+window.__admin_media_prefix__ = '{% static "admin/" %}';
 window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 </script>
 {% if not settings.GRAPPELLI_INSTALLED %}
-<script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
+<script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
 {% endif %}
+{% endblock %}
+{% block rtl_styles %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "mezzanine/css/admin/rtl.css" %}" />
 {% endblock %}
 
 {% block footer %}
 {{ block.super }}
 {% if form.this_is_the_login_form %}
-    <script src="{{ STATIC_URL }}mezzanine/js/admin/login.js"></script>
+    <script src="{% static "mezzanine/js/admin/login.js" %}"></script>
 {% else %}
     {% if user.is_authenticated %}
         {% if not is_popup and not request.GET.pop %}
-        <script src="{{ STATIC_URL }}mezzanine/js/admin/navigation.js"></script>
+        <script src="{% static "mezzanine/js/admin/navigation.js" %}"></script>
         {% endif %}
-        <script src="{{ STATIC_URL }}mezzanine/js/admin/ajax_csrf.js"></script>
-        <script src="{{ STATIC_URL }}mezzanine/js/admin/collapse_backport.js"></script>
+        <script src="{% static "mezzanine/js/admin/ajax_csrf.js" %}"></script>
+        <script src="{% static "mezzanine/js/admin/collapse_backport.js" %}"></script>
         {% admin_dropdown_menu %}
     {% endif %}
 {% endif %}

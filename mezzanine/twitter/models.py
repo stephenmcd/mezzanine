@@ -8,10 +8,10 @@ from django.db import models
 from django.utils.html import urlize
 from django.utils.simplejson import loads
 from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import get_default_timezone, make_aware
 from django.conf import settings
 
 from mezzanine.twitter.managers import TweetManager
-from mezzanine.utils.timezone import make_aware
 from mezzanine.twitter import (QUERY_TYPE_CHOICES, QUERY_TYPE_USER,
                                QUERY_TYPE_LIST, QUERY_TYPE_SEARCH)
 
@@ -91,7 +91,7 @@ class Query(models.Model):
                 tweet.text = ''.join(chars)
             d = datetime.strptime(tweet_json["created_at"], date_format)
             d -= timedelta(seconds=timezone)
-            tweet.created_at = make_aware(d)
+            tweet.created_at = make_aware(d, get_default_timezone())
             tweet.save()
         self.interested = False
         self.save()

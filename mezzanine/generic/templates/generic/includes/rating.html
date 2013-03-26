@@ -10,6 +10,7 @@
     {% endif %}
 </p>
 
+{% if not rated or request.user.is_authenticated %}
 <form method="post" action="{% url "rating" %}">
     {% nevercache %}
     {% csrf_token %}
@@ -18,6 +19,7 @@
     <input type="submit" class="btn" value="{% trans "Rate" %}"
         onclick="return $(this.form).find('input:checked').length == 1;">
 </form>
+{% endif %}
 
 <br style="clear:both">
 
