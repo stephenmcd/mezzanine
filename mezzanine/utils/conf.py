@@ -58,6 +58,7 @@ def set_dynamic_settings(s):
     # runserver_plus or harvest (lettuce)
     s["DEV_SERVER"] = management_command.startswith(("runserver", "harvest"))
     # Change tuple settings to lists for easier manipulation.
+    s["AUTHENTICATION_BACKENDS"] = list(s["AUTHENTICATION_BACKENDS"])
     s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
     s["MIDDLEWARE_CLASSES"] = list(s["MIDDLEWARE_CLASSES"])
     s["STATICFILES_FINDERS"] = list(s.get("STATICFILES_FINDERS",
@@ -79,10 +80,8 @@ def set_dynamic_settings(s):
         # Django 1.5's tests make.
 
         # contrib.auth tests fail without its own auth backend installed.
-        s["AUTHENTICATION_BACKENDS"] = list(s["AUTHENTICATION_BACKENDS"])
         append("AUTHENTICATION_BACKENDS",
                "django.contrib.auth.backends.ModelBackend")
-        s["AUTHENTICATION_BACKENDS"] = tuple(s["AUTHENTICATION_BACKENDS"])
 
         # Tests in contrib.redirects simply don't work with a
         # catch-all urlpattern such as Mezzanine's pages app.
