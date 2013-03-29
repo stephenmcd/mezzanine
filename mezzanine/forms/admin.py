@@ -6,7 +6,7 @@ from datetime import datetime
 from mimetypes import guess_type
 from os.path import join
 
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 from django.contrib import admin
 from django.contrib.messages import info
 from django.core.files.storage import FileSystemStorage
