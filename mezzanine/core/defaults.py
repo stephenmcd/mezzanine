@@ -127,16 +127,6 @@ register_setting(
 )
 
 register_setting(
-    name="USE_REVERSION",
-    description=_("If ``True`` and ``django-reversion`` is installed in "
-        "``INSTALLED_APP``, reversion's admin class is injected into all of "
-        "the admin classes that are based upon ``DisplayableAdmin``, "
-        "such as blog admin and all of the page admins."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
     name="FORMS_USE_HTML5",
     description=_("If ``True``, website forms will use HTML5 features."),
     editable=False,
