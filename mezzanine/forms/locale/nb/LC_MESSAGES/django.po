@@ -1,18 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-#
+# Copyright (C) YEAR Free Software Foundation, Inc.
 # Translators:
 # Audun Runde <audun.runde@frisknett.no>, 2013.
 # Olav  <>, 2012.
+#
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
-2013-03-30 06:50+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-30 07:15-0430\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: asr <audun.runde@frisknett.no>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/mezzanine/language/nb/)\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/"
+"mezzanine/language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +39,9 @@ msgstr "Vis oppføringer"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr "Hvis sant vil ikke ekstra mottakere etter en skjemainnsending bli hentet fra et av skjemaets felter."
+msgstr ""
+"Hvis sant vil ikke ekstra mottakere etter en skjemainnsending bli hentet fra "
+"et av skjemaets felter."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -57,7 +60,12 @@ msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Absolutt sti for lagring av opplastede filer med skjema-appen."
 
 #: defaults.py:58
-msgid "Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts."
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -116,43 +124,43 @@ msgstr "Fødselsdato"
 msgid "Hidden"
 msgstr "Skjult"
 
-#: forms.py:29 forms.py:37 forms.py:43
+#: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
 msgstr "Ingenting"
 
-#: forms.py:30
+#: forms.py:29
 msgid "Contains"
 msgstr "Inneholder"
 
-#: forms.py:31
+#: forms.py:30
 msgid "Doesn't contain"
 msgstr "Inneholder ikke"
 
-#: forms.py:32 forms.py:38
+#: forms.py:31 forms.py:37
 msgid "Equals"
 msgstr "Er lik"
 
-#: forms.py:33 forms.py:39
+#: forms.py:32 forms.py:38
 msgid "Doesn't equal"
 msgstr "Er ulik"
 
-#: forms.py:44
+#: forms.py:43
 msgid "Is between"
 msgstr "Er mellom"
 
-#: forms.py:101
+#: forms.py:100
 msgid "required"
 msgstr "påkrevet"
 
-#: forms.py:221
+#: forms.py:216
 msgid "Checked"
 msgstr "Valgt"
 
-#: forms.py:221
+#: forms.py:216
 msgid "Not checked"
 msgstr "Ikke valgt"
 
-#: forms.py:235 forms.py:250
+#: forms.py:230 forms.py:245
 msgid "and"
 msgstr "og"
 
@@ -176,7 +184,9 @@ msgstr "Send epost til bruker"
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr "For å sende en epost til epost adressen lagt inn i skjemaet, sjekk av dette feltet."
+msgstr ""
+"For å sende en epost til epost adressen lagt inn i skjemaet, sjekk av dette "
+"feltet."
 
 #: models.py:23
 msgid "From address"
@@ -194,7 +204,9 @@ msgstr "Send epost til andre"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr "Oppgi en kommaseparert liste med epost adresser som skal bli varslet nå skjemaet blir innsendt. La være tomt for å deaktivere varslinger."
+msgstr ""
+"Oppgi en kommaseparert liste med epost adresser som skal bli varslet nå "
+"skjemaet blir innsendt. La være tomt for å deaktivere varslinger."
 
 #: models.py:30
 msgid "Subject"
@@ -209,7 +221,9 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr "Eposter sendt basert på opsjonene ovenfor vil inneholde alle feltene angitt. Du kan ogå skrive en melding her som vil bli innkludert i eposten."
+msgstr ""
+"Eposter sendt basert på opsjonene ovenfor vil inneholde alle feltene angitt. "
+"Du kan ogå skrive en melding her som vil bli innkludert i eposten."
 
 #: models.py:37
 msgid "Form"
@@ -243,7 +257,9 @@ msgstr "Valg"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr "Flere valg inndelt med komma. Hvis et valg selv inneholder komma, legg det mellom to `backticks`."
+msgstr ""
+"Flere valg inndelt med komma. Hvis et valg selv inneholder komma, legg det "
+"mellom to `backticks`."
 
 #: models.py:63
 msgid "Default value"
@@ -257,7 +273,7 @@ msgstr "Plassholdertekst"
 msgid "Help text"
 msgstr "Hjelpetekst"
 
-#: models.py:72 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
 msgstr "Felt"
 
@@ -282,7 +298,7 @@ msgid "Form field entries"
 msgstr "Feltoppføringer for skjema"
 
 #: templates/admin/forms/change_form.html:8
-#: templates/admin/forms/entries.html:56
+#: templates/admin/forms/entries.html:57
 msgid "View entries"
 msgstr "Vis oppføringer"
 
@@ -294,38 +310,38 @@ msgstr "Historie"
 msgid "View on site"
 msgstr "Vis på siden"
 
-#: templates/admin/forms/entries.html:13
+#: templates/admin/forms/entries.html:14
 msgid "Home"
 msgstr "Hjem"
 
-#: templates/admin/forms/entries.html:28
+#: templates/admin/forms/entries.html:29
 msgid "Include"
 msgstr "Inkluder"
 
-#: templates/admin/forms/entries.html:29
+#: templates/admin/forms/entries.html:30
 msgid "Filter by"
 msgstr "Filtrér etter"
 
-#: templates/admin/forms/entries.html:47
+#: templates/admin/forms/entries.html:48
 msgid "All"
 msgstr "Alle"
 
-#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
 msgstr "Tilbake til skjema"
 
-#: templates/admin/forms/entries.html:57
+#: templates/admin/forms/entries.html:58
 msgid "Export CSV"
 msgstr "Eksporter CSV"
 
-#: templates/admin/forms/entries.html:59
+#: templates/admin/forms/entries.html:60
 msgid "Entries"
 msgstr "Oppføringer"
 
-#: templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:94
 msgid "Delete selected"
 msgstr "Slett valgte"
 
-#: templates/admin/forms/entries.html:97
+#: templates/admin/forms/entries.html:98
 msgid "No entries to display"
 msgstr "Ingen oppføringer å vise"

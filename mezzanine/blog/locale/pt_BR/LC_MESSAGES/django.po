@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 07:17-0430\n"
 "PO-Revision-Date: 2012-10-14 21:32+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
@@ -24,30 +24,14 @@ msgid "Other posts"
 msgstr ""
 
 #: defaults.py:20
-msgid "bit.ly username"
-msgstr "Nome de usuário bit.ly"
-
-#: defaults.py:21
-msgid "Username for http://bit.ly URL shortening service."
-msgstr "Nome de usuário no serviço de encurtamento de URL bit.ly."
-
-#: defaults.py:28
-msgid "bit.ly key"
-msgstr "Chave bit.ly"
-
-#: defaults.py:29
-msgid "Key for http://bit.ly URL shortening service."
-msgstr "Chave para o serviço de encurtamento de URL bit.ly."
-
-#: defaults.py:36
 msgid "Enable featured images in blog posts"
 msgstr "Habilitar imagens de destaque nos posts do blog"
 
-#: defaults.py:43
+#: defaults.py:27
 msgid "Use date URLs"
 msgstr "Usar URLs de data"
 
-#: defaults.py:44
+#: defaults.py:28
 msgid ""
 "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
 "mm/slug/"
@@ -55,16 +39,27 @@ msgstr ""
 "Se checado, URLs para post de blog incluirão o mês e ano. Por exemplo: /blog/"
 "aaaa/mm/slug/"
 
-#: defaults.py:52
+#: defaults.py:36
 msgid "Blog posts per page"
 msgstr "Posts por página no blog"
 
-#: defaults.py:53
+#: defaults.py:37
 msgid "Number of blog posts shown on a blog listing page."
 msgstr ""
 "Número de posts do blog exibidos de uma vez numa página de listagem do blog."
 
-#: defaults.py:60
+#: defaults.py:44
+#, fuzzy
+msgid "Blog posts RSS limit"
+msgstr "Posts do blog"
+
+#: defaults.py:45
+msgid ""
+"Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
+"display all blog posts in the RSS feed."
+msgstr ""
+
+#: defaults.py:53
 msgid "Slug of the page object for the blog."
 msgstr "Slug do objeto da página para o blog."
 
@@ -77,7 +72,7 @@ msgid "Allow comments"
 msgstr "Permitir comentários"
 
 #: models.py:21 templates/blog/blog_post_detail.html:43
-#: templates/blog/blog_post_list.html:126
+#: templates/blog/blog_post_list.html:129
 msgid "Comments"
 msgstr "Comentários"
 
@@ -101,11 +96,11 @@ msgstr "Post do blog"
 msgid "Blog posts"
 msgstr "Posts do blog"
 
-#: models.py:79
+#: models.py:85
 msgid "Blog Category"
 msgstr "Categoria do Blog"
 
-#: models.py:80
+#: models.py:86
 msgid "Blog Categories"
 msgstr "Categorias do Blog"
 
@@ -123,13 +118,13 @@ msgid "Posted by"
 msgstr "Publicado por"
 
 #: templates/blog/blog_post_detail.html:33
-#: templates/blog/blog_post_list.html:93
+#: templates/blog/blog_post_list.html:95
 #, python-format
 msgid "%(sometime)s ago"
 msgstr ""
 
 #: templates/blog/blog_post_detail.html:46
-#: templates/blog/blog_post_list.html:130
+#: templates/blog/blog_post_list.html:133
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
@@ -137,7 +132,7 @@ msgstr[0] "1 comentário"
 msgstr[1] "%(comments_count)s comentários"
 
 #: templates/blog/blog_post_detail.html:74
-#: templates/blog/blog_post_list.html:113
+#: templates/blog/blog_post_list.html:116
 #: templates/blog/includes/filter_panel.html:48
 msgid "Tags"
 msgstr "Tags"
@@ -182,11 +177,11 @@ msgstr "Vendo posts de"
 msgid "Viewing posts by"
 msgstr "Vendo posts por"
 
-#: templates/blog/blog_post_list.html:88
+#: templates/blog/blog_post_list.html:89
 msgid "in"
 msgstr "em"
 
-#: templates/blog/blog_post_list.html:121
+#: templates/blog/blog_post_list.html:124
 msgid "read more"
 msgstr "leia mais"
 
@@ -219,3 +214,15 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
+
+#~ msgid "bit.ly username"
+#~ msgstr "Nome de usuário bit.ly"
+
+#~ msgid "Username for http://bit.ly URL shortening service."
+#~ msgstr "Nome de usuário no serviço de encurtamento de URL bit.ly."
+
+#~ msgid "bit.ly key"
+#~ msgstr "Chave bit.ly"
+
+#~ msgid "Key for http://bit.ly URL shortening service."
+#~ msgstr "Chave para o serviço de encurtamento de URL bit.ly."

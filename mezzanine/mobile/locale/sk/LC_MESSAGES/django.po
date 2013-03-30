@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:57-0500\n"
+"POT-Creation-Date: 2013-03-30 07:16-0430\n"
 "PO-Revision-Date: 2012-09-13 19:22+0000\n"
 "Last-Translator: ricco386 <richard.kellner@ajty.info>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/"
@@ -35,15 +35,15 @@ msgstr "Chyba"
 msgid "Sorry, an error occurred."
 msgstr "Prepáčte, nastala chyba"
 
-#: templates/mobile/base.html:31 templates/mobile/index.html:6
+#: templates/mobile/base.html:41 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Domov"
 
-#: templates/mobile/base.html:43
+#: templates/mobile/base.html:53
 msgid "Powered by"
 msgstr "Poháňa"
 
-#: templates/mobile/base.html:44
+#: templates/mobile/base.html:54
 msgid "View Full Site"
 msgstr "Zobraz plnú verziu stránky"
 

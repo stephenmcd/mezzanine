@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <bornazadeh@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-30 07:16-0430\n"
 "PO-Revision-Date: 2012-10-31 05:45+0000\n"
 "Last-Translator: Bornazadeh <bornazadeh@gmail.com>\n"
-"Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/mezzanine/language/fa_IR/)\n"
+"Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/mezzanine/"
+"language/fa_IR/)\n"
+"Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fa_IR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: templates/mobile/404.html:6
@@ -34,15 +35,15 @@ msgstr "خطا"
 msgid "Sorry, an error occurred."
 msgstr "با عرض پوزش، خطایی رخ داده است."
 
-#: templates/mobile/base.html:31 templates/mobile/index.html:6
+#: templates/mobile/base.html:41 templates/mobile/index.html:6
 msgid "Home"
 msgstr "صفحه خانگی"
 
-#: templates/mobile/base.html:43
+#: templates/mobile/base.html:53
 msgid "Powered by"
 msgstr "نیرو گرفته از"
 
-#: templates/mobile/base.html:44
+#: templates/mobile/base.html:54
 msgid "View Full Site"
 msgstr "مشاهده ی نسخه کامل سایت"
 
@@ -129,4 +130,6 @@ msgstr "نقل قول ها"
 msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
-msgstr "برای عبارات دقیق، + برای یک کلمه یا عبارت مورد نیازاست، و - برای حذف یک کلمه یا عبارت."
+msgstr ""
+"برای عبارات دقیق، + برای یک کلمه یا عبارت مورد نیازاست، و - برای حذف یک کلمه "
+"یا عبارت."

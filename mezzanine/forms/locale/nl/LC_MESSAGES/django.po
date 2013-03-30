@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 07:15-0430\n"
 "PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: bartdegoede <bart@dispectu.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/"
@@ -131,43 +131,43 @@ msgstr "Geboortedatum"
 msgid "Hidden"
 msgstr "Verborgen"
 
-#: forms.py:29 forms.py:37 forms.py:43
+#: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
 msgstr "Geen"
 
-#: forms.py:30
+#: forms.py:29
 msgid "Contains"
 msgstr "Bevat"
 
-#: forms.py:31
+#: forms.py:30
 msgid "Doesn't contain"
 msgstr "Bevat niet"
 
-#: forms.py:32 forms.py:38
+#: forms.py:31 forms.py:37
 msgid "Equals"
 msgstr "Is gelijk aan"
 
-#: forms.py:33 forms.py:39
+#: forms.py:32 forms.py:38
 msgid "Doesn't equal"
 msgstr "Is niet gelijk aan"
 
-#: forms.py:44
+#: forms.py:43
 msgid "Is between"
 msgstr "Is tussen"
 
-#: forms.py:101
+#: forms.py:100
 msgid "required"
 msgstr "verplicht"
 
-#: forms.py:221
+#: forms.py:216
 msgid "Checked"
 msgstr "Aangevinkt"
 
-#: forms.py:221
+#: forms.py:216
 msgid "Not checked"
 msgstr "Niet aangevinkt"
 
-#: forms.py:235 forms.py:250
+#: forms.py:230 forms.py:245
 msgid "and"
 msgstr "en"
 

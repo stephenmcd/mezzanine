@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 07:17-0430\n"
 "PO-Revision-Date: 2012-10-14 21:42+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
@@ -47,103 +47,103 @@ msgstr ""
 "Если ``Да``, то когда пользователи создают учетную запись, им будет послано "
 "письмо с проверяющей ссылкой, по которой нужно пройти для активации аккаунта."
 
-#: forms.py:18 forms.py:187
+#: forms.py:21 forms.py:190
 msgid "Username or email address"
 msgstr "Логин или email"
 
-#: forms.py:19 forms.py:63
+#: forms.py:22 forms.py:66
 msgid "Password"
 msgstr "Пароль"
 
-#: forms.py:32
+#: forms.py:35
 msgid "Invalid username/email and password"
 msgstr "Неверный логин или пароль"
 
-#: forms.py:34
+#: forms.py:37
 msgid "Your account is inactive"
 msgstr "Ваша учетная запись не активна"
 
-#: forms.py:65
+#: forms.py:68
 msgid "Password (again)"
 msgstr "Пароль (еще раз)"
 
-#: forms.py:78
+#: forms.py:81
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr "Только буквы, цифры, тире или нижняя черта"
 
-#: forms.py:92
+#: forms.py:95
 msgid "Leave blank unless you want to change your password"
 msgstr "Оставьте пустым, если не хотите менять пароль"
 
-#: forms.py:111
+#: forms.py:114
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr "Логин может содержать только буквы, цифры, тире или нижнюю черту"
 
-#: forms.py:119
+#: forms.py:122
 msgid "This username is already registered"
 msgstr "Пользователь с таким логином уже зарегистрирован"
 
-#: forms.py:132
+#: forms.py:135
 msgid "Passwords do not match"
 msgstr "Пароли не совпадают"
 
-#: forms.py:134
+#: forms.py:137
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "Длина пароля должна быть не меньше %s символов"
 
-#: forms.py:149
+#: forms.py:152
 msgid "This email is already registered"
 msgstr "Этот email уже зарегистрирован"
 
-#: forms.py:196
+#: forms.py:199
 msgid "Invalid username/email"
 msgstr "Неправильный логин/email"
 
-#: views.py:28
+#: views.py:31
 msgid "Successfully logged in"
 msgstr "Вы успешно вошли"
 
-#: views.py:31
+#: views.py:34
 msgid "Login"
 msgstr "Вход"
 
-#: views.py:40
+#: views.py:43
 msgid "Successfully logged out"
 msgstr "Вы успешно вышли"
 
-#: views.py:54
+#: views.py:57
 msgid ""
 "A verification email has been sent with a link for activating your account."
 msgstr "Письмо с подтверждающей ссылкой было выслано на ваш email."
 
-#: views.py:58 views.py:77
+#: views.py:61 views.py:80
 msgid "Successfully signed up"
 msgstr "Вы успешно зарегистрированы"
 
-#: views.py:61
+#: views.py:64
 msgid "Signup"
 msgstr "Регистрация"
 
-#: views.py:80 views.py:164
+#: views.py:83 views.py:167
 msgid "The link you clicked is no longer valid."
 msgstr "Ссылка больше не действует."
 
-#: views.py:138
+#: views.py:141
 msgid "Profile updated"
 msgstr "Профиль обновлен"
 
-#: views.py:143
+#: views.py:146
 msgid "Update Profile"
 msgstr "Обновить профиль"
 
-#: views.py:152
+#: views.py:155
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr ""
 "Письмо с подтверждающей ссылкой для сброса пароля было выслано на ваш email."
 
-#: views.py:154
+#: views.py:157
 msgid "Password Reset"
 msgstr "Сброс пароля"
 
@@ -201,10 +201,12 @@ msgid "Logged in as: "
 msgstr "Вы вошли как: "
 
 #: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
 msgstr "Выход"
 
 #: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
 msgid "Log in"
 msgstr "Вход"
 
@@ -213,6 +215,7 @@ msgid "or"
 msgstr "или"
 
 #: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
 msgid "Sign up"
 msgstr "Регистрация"
 

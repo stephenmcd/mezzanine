@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 07:17-0430\n"
 "PO-Revision-Date: 2012-10-14 21:42+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/projects/p/mezzanine/"
@@ -42,102 +42,102 @@ msgid ""
 "verification link, which they must click to enable their account."
 msgstr ""
 
-#: forms.py:18 forms.py:187
+#: forms.py:21 forms.py:190
 msgid "Username or email address"
 msgstr ""
 
-#: forms.py:19 forms.py:63
+#: forms.py:22 forms.py:66
 msgid "Password"
 msgstr ""
 
-#: forms.py:32
+#: forms.py:35
 msgid "Invalid username/email and password"
 msgstr ""
 
-#: forms.py:34
+#: forms.py:37
 msgid "Your account is inactive"
 msgstr ""
 
-#: forms.py:65
+#: forms.py:68
 msgid "Password (again)"
 msgstr ""
 
-#: forms.py:78
+#: forms.py:81
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr ""
 
-#: forms.py:92
+#: forms.py:95
 msgid "Leave blank unless you want to change your password"
 msgstr ""
 
-#: forms.py:111
+#: forms.py:114
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr ""
 
-#: forms.py:119
+#: forms.py:122
 msgid "This username is already registered"
 msgstr ""
 
-#: forms.py:132
+#: forms.py:135
 msgid "Passwords do not match"
 msgstr ""
 
-#: forms.py:134
+#: forms.py:137
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr ""
 
-#: forms.py:149
+#: forms.py:152
 msgid "This email is already registered"
 msgstr ""
 
-#: forms.py:196
+#: forms.py:199
 msgid "Invalid username/email"
 msgstr ""
 
-#: views.py:28
+#: views.py:31
 msgid "Successfully logged in"
 msgstr ""
 
-#: views.py:31
+#: views.py:34
 msgid "Login"
 msgstr ""
 
-#: views.py:40
+#: views.py:43
 msgid "Successfully logged out"
 msgstr ""
 
-#: views.py:54
+#: views.py:57
 msgid ""
 "A verification email has been sent with a link for activating your account."
 msgstr ""
 
-#: views.py:58 views.py:77
+#: views.py:61 views.py:80
 msgid "Successfully signed up"
 msgstr ""
 
-#: views.py:61
+#: views.py:64
 msgid "Signup"
 msgstr ""
 
-#: views.py:80 views.py:164
+#: views.py:83 views.py:167
 msgid "The link you clicked is no longer valid."
 msgstr ""
 
-#: views.py:138
+#: views.py:141
 msgid "Profile updated"
 msgstr ""
 
-#: views.py:143
+#: views.py:146
 msgid "Update Profile"
 msgstr ""
 
-#: views.py:152
+#: views.py:155
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr ""
 
-#: views.py:154
+#: views.py:157
 msgid "Password Reset"
 msgstr ""
 
@@ -187,10 +187,12 @@ msgid "Logged in as: "
 msgstr ""
 
 #: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
 msgstr ""
 
 #: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
 msgid "Log in"
 msgstr ""
 
@@ -199,6 +201,7 @@ msgid "or"
 msgstr ""
 
 #: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
 msgid "Sign up"
 msgstr ""
 

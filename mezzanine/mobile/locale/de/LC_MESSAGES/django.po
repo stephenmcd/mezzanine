@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:57-0500\n"
+"POT-Creation-Date: 2013-03-30 07:16-0430\n"
 "PO-Revision-Date: 2012-06-15 10:53+0000\n"
 "Last-Translator: Christopher R. Parr <fosstux@gmail.com>\n"
 "Language-Team: German (http://www.transifex.net/projects/p/mezzanine/"
@@ -35,15 +35,15 @@ msgstr "Fehler"
 msgid "Sorry, an error occurred."
 msgstr "Entschuldigen Sie, ein Fehler trat auf."
 
-#: templates/mobile/base.html:31 templates/mobile/index.html:6
+#: templates/mobile/base.html:41 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Startseite"
 
-#: templates/mobile/base.html:43
+#: templates/mobile/base.html:53
 msgid "Powered by"
 msgstr "Umgesetzt mit"
 
-#: templates/mobile/base.html:44
+#: templates/mobile/base.html:54
 msgid "View Full Site"
 msgstr "Vollständige Seite anzeigen"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 07:16-0430\n"
 "PO-Revision-Date: 2012-10-14 21:32+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/"
@@ -25,30 +25,14 @@ msgid "Other posts"
 msgstr ""
 
 #: defaults.py:20
-msgid "bit.ly username"
-msgstr "Uživateľské meno bit.ly"
-
-#: defaults.py:21
-msgid "Username for http://bit.ly URL shortening service."
-msgstr "Uživateľské meno pre bit.ly URL skracovaciu službu"
-
-#: defaults.py:28
-msgid "bit.ly key"
-msgstr "bit.ly kľúč"
-
-#: defaults.py:29
-msgid "Key for http://bit.ly URL shortening service."
-msgstr "Kľúč pre http://bit.ly URL skracovaciu službu"
-
-#: defaults.py:36
 msgid "Enable featured images in blog posts"
 msgstr "Povoliť obrázky v príspevkoch blogu"
 
-#: defaults.py:43
+#: defaults.py:27
 msgid "Use date URLs"
 msgstr "Použi URL s dátumom"
 
-#: defaults.py:44
+#: defaults.py:28
 msgid ""
 "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
 "mm/slug/"
@@ -56,15 +40,26 @@ msgstr ""
 "Pokiaľ ``True``, URL pre príspevky v blogu, bude obsahovať aj mesiac a rok. "
 "Napr.: /blog/yyyy/mm/slug/"
 
-#: defaults.py:52
+#: defaults.py:36
 msgid "Blog posts per page"
 msgstr "Príspevky na stránku"
 
-#: defaults.py:53
+#: defaults.py:37
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "Počet príspevkov zobrazených na stránke"
 
-#: defaults.py:60
+#: defaults.py:44
+#, fuzzy
+msgid "Blog posts RSS limit"
+msgstr "Príspevky blogu"
+
+#: defaults.py:45
+msgid ""
+"Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
+"display all blog posts in the RSS feed."
+msgstr ""
+
+#: defaults.py:53
 msgid "Slug of the page object for the blog."
 msgstr "Slug článkov na blogu"
 
@@ -77,7 +72,7 @@ msgid "Allow comments"
 msgstr "Povoľ komentáre"
 
 #: models.py:21 templates/blog/blog_post_detail.html:43
-#: templates/blog/blog_post_list.html:126
+#: templates/blog/blog_post_list.html:129
 msgid "Comments"
 msgstr "Komentáre"
 
@@ -101,11 +96,11 @@ msgstr "Príspevok blogu"
 msgid "Blog posts"
 msgstr "Príspevky blogu"
 
-#: models.py:79
+#: models.py:85
 msgid "Blog Category"
 msgstr "Kategória"
 
-#: models.py:80
+#: models.py:86
 msgid "Blog Categories"
 msgstr "Kategórie"
 
@@ -123,13 +118,13 @@ msgid "Posted by"
 msgstr "Napísal"
 
 #: templates/blog/blog_post_detail.html:33
-#: templates/blog/blog_post_list.html:93
+#: templates/blog/blog_post_list.html:95
 #, python-format
 msgid "%(sometime)s ago"
 msgstr ""
 
 #: templates/blog/blog_post_detail.html:46
-#: templates/blog/blog_post_list.html:130
+#: templates/blog/blog_post_list.html:133
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
@@ -138,7 +133,7 @@ msgstr[1] "%(comments_count)s komentárov"
 msgstr[2] "%(comments_count)s komentáre"
 
 #: templates/blog/blog_post_detail.html:74
-#: templates/blog/blog_post_list.html:113
+#: templates/blog/blog_post_list.html:116
 #: templates/blog/includes/filter_panel.html:48
 msgid "Tags"
 msgstr "Značky"
@@ -183,11 +178,11 @@ msgstr "Zobrazenie príspevkov od"
 msgid "Viewing posts by"
 msgstr "Zobrazenie príspevkov od"
 
-#: templates/blog/blog_post_list.html:88
+#: templates/blog/blog_post_list.html:89
 msgid "in"
 msgstr "v"
 
-#: templates/blog/blog_post_list.html:121
+#: templates/blog/blog_post_list.html:124
 msgid "read more"
 msgstr "čitať viac"
 
@@ -220,3 +215,15 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
+
+#~ msgid "bit.ly username"
+#~ msgstr "Uživateľské meno bit.ly"
+
+#~ msgid "Username for http://bit.ly URL shortening service."
+#~ msgstr "Uživateľské meno pre bit.ly URL skracovaciu službu"
+
+#~ msgid "bit.ly key"
+#~ msgstr "bit.ly kľúč"
+
+#~ msgid "Key for http://bit.ly URL shortening service."
+#~ msgstr "Kľúč pre http://bit.ly URL skracovaciu službu"

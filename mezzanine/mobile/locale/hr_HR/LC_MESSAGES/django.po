@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 07:16-0430\n"
 "PO-Revision-Date: 2012-08-16 21:08+0000\n"
 "Last-Translator: Gour <gour@atmarama.net>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/"
@@ -36,15 +36,15 @@ msgstr "Greška"
 msgid "Sorry, an error occurred."
 msgstr "Nažalost, došlo je do greške."
 
-#: templates/mobile/base.html:31 templates/mobile/index.html:6
+#: templates/mobile/base.html:41 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Početna"
 
-#: templates/mobile/base.html:43
+#: templates/mobile/base.html:53
 msgid "Powered by"
 msgstr "Napravljeno sa"
 
-#: templates/mobile/base.html:44
+#: templates/mobile/base.html:54
 msgid "View Full Site"
 msgstr "Prikaži kompletan sajt"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 07:17-0430\n"
 "PO-Revision-Date: 2012-10-14 21:42+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
@@ -49,105 +49,105 @@ msgstr ""
 "um link de verificação, o qual eles deverão clicar para habilitar suas "
 "contas."
 
-#: forms.py:18 forms.py:187
+#: forms.py:21 forms.py:190
 msgid "Username or email address"
 msgstr "Username ou email"
 
-#: forms.py:19 forms.py:63
+#: forms.py:22 forms.py:66
 msgid "Password"
 msgstr "Senha"
 
-#: forms.py:32
+#: forms.py:35
 msgid "Invalid username/email and password"
 msgstr "Invalido username/email ou password"
 
-#: forms.py:34
+#: forms.py:37
 msgid "Your account is inactive"
 msgstr "Sua conta está desativada"
 
-#: forms.py:65
+#: forms.py:68
 msgid "Password (again)"
 msgstr "Password (novamente)"
 
-#: forms.py:78
+#: forms.py:81
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr "Somente letras, números, traços ou underscores por favor"
 
-#: forms.py:92
+#: forms.py:95
 msgid "Leave blank unless you want to change your password"
 msgstr "Deixar em branco a não ser que queira mudar a senha"
 
-#: forms.py:111
+#: forms.py:114
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr "Username pode conter somente letras, números, traços ou underscores"
 
-#: forms.py:119
+#: forms.py:122
 msgid "This username is already registered"
 msgstr "Este usuario já está registrado"
 
-#: forms.py:132
+#: forms.py:135
 msgid "Passwords do not match"
 msgstr "Senha fornecida não válida"
 
-#: forms.py:134
+#: forms.py:137
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "Password precisa ter pelo menos %s characteres"
 
-#: forms.py:149
+#: forms.py:152
 msgid "This email is already registered"
 msgstr "Este email já foi registrado"
 
-#: forms.py:196
+#: forms.py:199
 msgid "Invalid username/email"
 msgstr "Username/email invalido"
 
-#: views.py:28
+#: views.py:31
 msgid "Successfully logged in"
 msgstr "Autenticado com sucesso"
 
-#: views.py:31
+#: views.py:34
 msgid "Login"
 msgstr "Entrar"
 
-#: views.py:40
+#: views.py:43
 msgid "Successfully logged out"
 msgstr "Saiu com sucesso"
 
-#: views.py:54
+#: views.py:57
 msgid ""
 "A verification email has been sent with a link for activating your account."
 msgstr ""
 "Um email de verificação foi enviado com um link para ativar a sua conta."
 
-#: views.py:58 views.py:77
+#: views.py:61 views.py:80
 msgid "Successfully signed up"
 msgstr "Registrado com sucesso"
 
-#: views.py:61
+#: views.py:64
 msgid "Signup"
 msgstr "Registrar"
 
-#: views.py:80 views.py:164
+#: views.py:83 views.py:167
 msgid "The link you clicked is no longer valid."
 msgstr "O link que você inseriu não é mais válido."
 
-#: views.py:138
+#: views.py:141
 msgid "Profile updated"
 msgstr "Perfil atualizado"
 
-#: views.py:143
+#: views.py:146
 msgid "Update Profile"
 msgstr "Atualizar perfil"
 
-#: views.py:152
+#: views.py:155
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr ""
 "Um email de verificação foi enviado com um link para modificar a sua "
 "password."
 
-#: views.py:154
+#: views.py:157
 msgid "Password Reset"
 msgstr "Password modificada"
 
@@ -205,10 +205,12 @@ msgid "Logged in as: "
 msgstr "Logado como: "
 
 #: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
 msgstr "Sair"
 
 #: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
 msgid "Log in"
 msgstr "Entrar"
 
@@ -217,6 +219,7 @@ msgid "or"
 msgstr "ou"
 
 #: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
 msgid "Sign up"
 msgstr "Registrar"
 
