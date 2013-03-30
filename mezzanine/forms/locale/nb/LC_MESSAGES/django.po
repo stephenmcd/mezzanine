@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Audun Runde <audun.runde@frisknett.no>, 2013.
 # Olav  <>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2012-11-17 16:54-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"PO-Revision-Date: 2013-03-30 06:50+0000\n"
+"Last-Translator: asr <audun.runde@frisknett.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/mezzanine/language/nb/)\n"
-"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:33
@@ -34,7 +35,9 @@ msgid "View Entries"
 msgstr "Vis oppføringer"
 
 #: defaults.py:20
-msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
 msgstr "Hvis sant vil ikke ekstra mottakere etter en skjemainnsending bli hentet fra et av skjemaets felter."
 
 #: defaults.py:29
@@ -54,7 +57,12 @@ msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Absolutt sti for lagring av opplastede filer med skjema-appen."
 
 #: defaults.py:58
-msgid "Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts."
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -107,7 +115,7 @@ msgstr "Dato/tid"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Fødselsdato"
 
 #: fields.py:45
 msgid "Hidden"
@@ -167,11 +175,13 @@ msgstr "Tilbakemelding"
 
 #: models.py:20
 msgid "Send email to user"
-msgstr ""
+msgstr "Send epost til bruker"
 
 #: models.py:21
-msgid "To send an email to the email address supplied in the form upon submission, check this box."
-msgstr ""
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr "For å sende en epost til epost adressen lagt inn i skjemaet, sjekk av dette feltet."
 
 #: models.py:23
 msgid "From address"
@@ -183,11 +193,13 @@ msgstr "Adressen e-posten vil bli sendt fra"
 
 #: models.py:25
 msgid "Send email to others"
-msgstr ""
+msgstr "Send epost til andre"
 
 #: models.py:26
-msgid "Provide a comma separated list of email addresses to be notified upon form submission. Leave blank to disable notifications."
-msgstr ""
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr "Oppgi en kommaseparert liste med epost adresser som skal bli varslet nå skjemaet blir innsendt. La være tomt for å deaktivere varslinger."
 
 #: models.py:30
 msgid "Subject"
@@ -198,8 +210,11 @@ msgid "Message"
 msgstr "Melding"
 
 #: models.py:32
-msgid "Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in the email."
-msgstr ""
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr "Eposter sendt basert på opsjonene ovenfor vil inneholde alle feltene angitt. Du kan ogå skrive en melding her som vil bli innkludert i eposten."
 
 #: models.py:37
 msgid "Form"
@@ -230,7 +245,9 @@ msgid "Choices"
 msgstr "Valg"
 
 #: models.py:61
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
 msgstr "Flere valg inndelt med komma. Hvis et valg selv inneholder komma, legg det mellom to `backticks`."
 
 #: models.py:63
