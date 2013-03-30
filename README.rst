@@ -389,6 +389,8 @@ Sites Using Mezzanine
   * `Kabu Creative <http://kabucreative.com.au/>`_
   * `KisanHub <http://www.kisanhub.com/>`_
   * `Your Song Your Story <http://yoursongyourstory.org/>`_
+  * `Kegbot <http://kegbot.org>`_
+  * `Fiz <http://fiz.com/>`_
 
 
 Quotes
