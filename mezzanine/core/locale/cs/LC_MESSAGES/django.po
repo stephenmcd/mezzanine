@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Edita Menclová <edi.menclova@centrum.cz>, 2013.
 #   <matej.skrabanek@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2013-03-30 07:16-0430\n"
-"PO-Revision-Date: 2012-10-18 11:58+0000\n"
+"PO-Revision-Date: 2013-03-30 11:59+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/mezzanine/language/"
-"cs/)\n"
-"Language: cs\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/mezzanine/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: admin.py:27
@@ -63,9 +63,7 @@ msgstr "Akismet API - klíč."
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
-msgstr ""
-"Klíč pro http://akismet.com spam filtr. Použitý pro filtrování komentářů a "
-"fromulářů."
+msgstr "Klíč pro http://akismet.com spam filtr. Použitý pro filtrování komentářů a fromulářů."
 
 #: defaults.py:57
 msgid "bit.ly access token"
@@ -77,49 +75,34 @@ msgstr ""
 
 #: defaults.py:65
 msgid ""
-"Mezzanine's caching uses a technique know as mint caching. This is where the "
-"requested expiry for a cache entry is stored with the cache entry in cache, "
-"and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
-"cache get, the store expiry is checked, and if it has past, the cache entry "
-"is set again, and no entry is returned. This tries to ensure that cache "
+"Mezzanine's caching uses a technique know as mint caching. This is where the"
+" requested expiry for a cache entry is stored with the cache entry in cache,"
+" and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a"
+" cache get, the store expiry is checked, and if it has past, the cache entry"
+" is set again, and no entry is returned. This tries to ensure that cache "
 "misses never occur, and if many clients were to get a cache miss at once, "
 "only one would actually need to re-generated the cache entry."
-msgstr ""
-"Mezzanine používá techniku mint caching. To jest technika, kdy požadovaná "
-"expirační doba pro cach záznam je uložena spolu se záznamem v cach, a reálně "
-"použitá expirační doba má navíc přidánu hodnotu ``CACHE_SET_DELAY``. Při "
-"zisku dat z cach, je zkontrolována skladová expirační doba, a pokud je "
-"překročena cach záznam je znovu přiřazen a není vrácena žádná hodnota. Tento "
-"mechanismus se snaží o to, aby v cahe nikdy nenastalo vynechání, a pokud by "
-"monoho klientů dostalo vynechání v cach, pouze jeden by bude nucen re-"
-"generovat záznam."
+msgstr "Mezzanine používá techniku mint caching. To jest technika, kdy požadovaná expirační doba pro cach záznam je uložena spolu se záznamem v cach, a reálně použitá expirační doba má navíc přidánu hodnotu ``CACHE_SET_DELAY``. Při zisku dat z cach, je zkontrolována skladová expirační doba, a pokud je překročena cach záznam je znovu přiřazen a není vrácena žádná hodnota. Tento mechanismus se snaží o to, aby v cahe nikdy nenastalo vynechání, a pokud by monoho klientů dostalo vynechání v cach, pouze jeden by bude nucen re-generovat záznam."
 
 #: defaults.py:93
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
-msgstr ""
-"Sekvence obsahující tři položky, každá obsahující sekvenci tagů šablony "
-"použité k vypsání admin nástěnky."
+msgstr "Sekvence obsahující tři položky, každá obsahující sekvenci tagů šablony použité k vypsání admin nástěnky."
 
 #: defaults.py:101
 msgid "Device specific template sub-directory to use as the default device."
-msgstr ""
-"Podadresáře šablon, dle specifického stroje, použitého jako výchozího stroje."
+msgstr "Podadresáře šablon, dle specifického stroje, použitého jako výchozího stroje."
 
 #: defaults.py:109
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
-msgstr ""
-"Mapování jmen podadresáře šablon, dle specifického stroje na sekvenci "
-"řetězců, které mohou být nalezeny ve svých uživatelských agentech."
+msgstr "Mapování jmen podadresáře šablon, dle specifického stroje na sekvenci řetězců, které mohou být nalezeny ve svých uživatelských agentech."
 
 #: defaults.py:131
 msgid "If ``True``, website forms will use HTML5 features."
-msgstr ""
-"Je-li tato hodnota nastavena na ``True``,  webová stránka bude používat "
-"HTML5 funkce."
+msgstr "Je-li tato hodnota nastavena na ``True``,  webová stránka bude používat HTML5 funkce."
 
 #: defaults.py:138
 msgid ""
@@ -127,18 +110,11 @@ msgid ""
 "library's) models. Each item in the sequence is a four item sequence. The "
 "first two items are the dotted path to the model and its field name to be "
 "added, and the dotted path to the field class to use for the field. The "
-"third and fourth items are a sequence of positional args and a dictionary of "
-"keyword args, to use when creating the field instance. When specifying the "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
 "field class, the path ``django.models.db.`` can be omitted for regular "
 "Django model fields."
-msgstr ""
-"Sekvence polí, které budou vloženy mezi modely Mezzanine (nebo jiné "
-"knihovny).  Každá položka v sekvenci je čtyřsložková sekvence. První dvě "
-"složky jsou cesty k modelu a jeho názvu pole, které má být přidáno, a cesta "
-"ke třídě pole, použitá pro pole Třetí a čtvrtá složka jsou sekvence "
-"pozičních argumentů a slovník klíčových argumentů, které jsou použity pro "
-"vytvoření instance pole. Při specifikaci třídy pole, cesta ``django.models."
-"db.`` může být vynechána pro regulární Django modely polí."
+msgstr "Sekvence polí, které budou vloženy mezi modely Mezzanine (nebo jiné knihovny).  Každá položka v sekvenci je čtyřsložková sekvence. První dvě složky jsou cesty k modelu a jeho názvu pole, které má být přidáno, a cesta ke třídě pole, použitá pro pole Třetí a čtvrtá složka jsou sekvence pozičních argumentů a slovník klíčových argumentů, které jsou použity pro vytvoření instance pole. Při specifikaci třídy pole, cesta ``django.models.db.`` může být vynechána pro regulární Django modely polí."
 
 #: defaults.py:153
 msgid "Google Analytics ID"
@@ -156,13 +132,7 @@ msgid ""
 "importable Python package for the theme. If the host is matched for a "
 "request, the templates directory inside the theme package will be first "
 "searched when loading templates."
-msgstr ""
-"Sekvence mapující jména hostitelů a témata, dovolující podávat různé šablony "
-"pro každého HTTP hostitele. Každá položka sekvence je dvousložková sekvence, "
-"obsahující hositele např: ``othersite.example.com``, a jméno "
-"importovatelného Python balíčku pro téma. Pokud je hostitel spojen s "
-"dotazem, adresář se šablonami uvnitř balíčku s tématy bude poprvé vyhledáván "
-"při načítání šablon."
+msgstr "Sekvence mapující jména hostitelů a témata, dovolující podávat různé šablony pro každého HTTP hostitele. Každá položka sekvence je dvousložková sekvence, obsahující hositele např: ``othersite.example.com``, a jméno importovatelného Python balíčku pro téma. Pokud je hostitel spojen s dotazem, adresář se šablonami uvnitř balíčku s tématy bude poprvé vyhledáván při načítání šablon."
 
 #: defaults.py:175
 msgid "Name of the jQuery file."
@@ -173,14 +143,13 @@ msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
 msgstr "jméno .js souboru s jQuery v mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:184
-#, fuzzy
 msgid "Name of the jQuery UI file."
-msgstr "Jméno souboru jQuery"
+msgstr ""
 
 #: defaults.py:185
-#, fuzzy
-msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
-msgstr "jméno .js souboru s jQuery v mezzanine/core/static/mezzanine/js/"
+msgid ""
+"Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
+msgstr ""
 
 #: defaults.py:193
 msgid "Max paging links"
@@ -188,13 +157,11 @@ msgstr "Max. počet odkazů na další strany"
 
 #: defaults.py:194
 msgid "Max number of paging links to display when paginating."
-msgstr ""
-"Max. počet zobrazovaných odkazů dalších stránek, je-li zapnuté stránkování"
+msgstr "Max. počet zobrazovaných odkazů dalších stránek, je-li zapnuté stránkování"
 
 #: defaults.py:201
-#, fuzzy
 msgid "Media library per site"
-msgstr "Knihovna médií"
+msgstr ""
 
 #: defaults.py:202
 msgid ""
@@ -206,18 +173,17 @@ msgstr ""
 msgid ""
 "Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
 "admin change-list records filtered down to records owned by the current "
-"user. This setting contains a sequence of models in the format ``app_label."
-"object_name``, that when subclassing ``Ownable``, will still show all "
-"records in the admin change-list interface, regardless of the current user."
-msgstr ""
+"user. This setting contains a sequence of models in the format "
+"``app_label.object_name``, that when subclassing ``Ownable``, will still "
+"show all records in the admin change-list interface, regardless of the "
+"current user."
+msgstr "Modely podtřídy ``Ownable`` a ``OwnableAdmin``  mají svůj seznam změn admnistračních záznamů filtrovaný na záznamy ve vlastnictví aktuálního uživatele. Toto nastavení obsahuje sekvenci modelů ve formátu ``app_label.object_name``, že když podtřída ``Ownable``, bude stále zobrazovat všechny záznamy v  rozhraní administračního seznamu změn, bez ohledu na aktuálního uživatele."
 
 #: defaults.py:222
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
-msgstr ""
-"Cesta k balíčku a jméno třídy udělátka (widget), pro použití "
-"``RichTextField``."
+msgstr "Cesta k balíčku a jméno třídy udělátka (widget), pro použití ``RichTextField``."
 
 #: defaults.py:230
 msgid ""
@@ -228,22 +194,19 @@ msgstr "Seznam HTML tagů, které nebudou odebrány z ``RichTextField`` instanc�
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr ""
-"Seznam HTML attrinutům které bebudou odebrány z ``RichTextField`` instancí."
+msgstr "Seznam HTML attrinutům které bebudou odebrány z ``RichTextField`` instancí."
 
 #: defaults.py:264
 msgid ""
 "List of inline CSS styles that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr ""
+msgstr "Seznam HTML tagů, které nebudou odebrány z ``RichTextField`` instancí."
 
 #: defaults.py:272
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
-msgstr ""
-"Cesta k funkci, kterou je třeba zavolat na ``RichTextField`` hodnotě, než je "
-"vykreslena na šablonu."
+msgstr "Cesta k funkci, kterou je třeba zavolat na ``RichTextField`` hodnotě, než je vykreslena na šablonu."
 
 #: defaults.py:282
 msgid "High"
@@ -265,33 +228,17 @@ msgstr "Úroveň filtrování Rich Textu"
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
-"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and "
-"attributes are stripped from the content to protect against staff members "
-"intentionally adding code that could be used to cause problems, such as "
-"changing their account to a super-user with full access to the system.\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and attributes are stripped from the content to protect against staff members intentionally adding code that could be used to cause problems, such as changing their account to a super-user with full access to the system.\n"
 "\n"
-"This setting allows you to change the level of filtering that occurs. "
-"Setting it to low will allow certain extra tags to be permitted, such as "
-"those required for embedding video. While these tags are not the main "
-"candidates for users adding malicious code, they are still considered "
-"dangerous and could potentially be mis-used by a particularly technical "
-"user, and so are filtered out when the filtering level is set to high.\n"
+"This setting allows you to change the level of filtering that occurs. Setting it to low will allow certain extra tags to be permitted, such as those required for embedding video. While these tags are not the main candidates for users adding malicious code, they are still considered dangerous and could potentially be mis-used by a particularly technical user, and so are filtered out when the filtering level is set to high.\n"
 "\n"
-"Setting the filtering level to no filtering, will disable all filtering, and "
-"allow any code to be entered by staff members, including script tags."
-msgstr ""
-"*Neměňte tato nastavení, pakliže nevíte co děláte.*\\n\\n Když je obsah "
-"uložen v Rich Text (WYSIWYG) poli, nebezpečné HTML tagy a atribuy jsou "
-"odebrány z obsahu kvůli bezpečnosti...\\n\\n Tato nastavení dovolují měnit "
-"úroveň filtrování. Nastavením na nízkou úroveň je možno povilit některé HTML "
-"tagy v obsahu, např. tagy potřebné ke vkládání videí.\\n \\n Nastavení "
-"filtrování na nulu způsobí vypnutí veškerého filtrování a povolí vkládat "
-"uživatelům libovolný kód."
+"Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
+msgstr "*Neměňte tato nastavení, pakliže nevíte co děláte.*\\n\\n Když je obsah uložen v Rich Text (WYSIWYG) poli, nebezpečné HTML tagy a atribuy jsou odebrány z obsahu kvůli bezpečnosti...\\n\\n Tato nastavení dovolují měnit úroveň filtrování. Nastavením na nízkou úroveň je možno povilit některé HTML tagy v obsahu, např. tagy potřebné ke vkládání videí.\\n \\n Nastavení filtrování na nulu způsobí vypnutí veškerého filtrování a povolí vkládat uživatelům libovolný kód."
 
 #: defaults.py:313
 msgid ""
-"Sequence of models that will be provided by default as choices in the search "
-"form. Each model should be in the format ``app_label.model_name``. Only "
+"Sequence of models that will be provided by default as choices in the search"
+" form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
 
@@ -306,14 +253,10 @@ msgstr "Počet výsledků vyhledávání na stránce"
 #: defaults.py:331
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
-"this, you'll also need to manually apply it to your project's root ``urls."
-"py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-"
-"project`` command contains an example of this towards its end."
-msgstr ""
-"URL prefic pro přidávání všech Mezzanin url-vzorů (urlpatterns). Při použití "
-"budete muset manuálně aplikovat tento prefix v projektovém kořenovém ``urls."
-"py`` modulu. Kořenový modul `urls.py`` dodaný v Mezzanine projektu obsahuje "
-"ukázku."
+"this, you'll also need to manually apply it to your project's root "
+"``urls.py`` module. The root ``urls.py`` module provided by Mezzanine's "
+"``mezzanine-project`` command contains an example of this towards its end."
+msgstr "URL prefic pro přidávání všech Mezzanin url-vzorů (urlpatterns). Při použití budete muset manuálně aplikovat tento prefix v projektovém kořenovém ``urls.py`` modulu. Kořenový modul `urls.py`` dodaný v Mezzanine projektu obsahuje ukázku."
 
 #: defaults.py:342
 msgid "Site Title"
@@ -323,9 +266,7 @@ msgstr "Titulek webu"
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
-msgstr ""
-"Nadpis zobrazovaný v záhlaví webu, přidávaný také ke štítkům na každé "
-"stránce."
+msgstr "Nadpis zobrazovaný v záhlaví webu, přidávaný také ke štítkům na každé stránce."
 
 #: defaults.py:351
 msgid "Tagline"
@@ -345,10 +286,7 @@ msgid ""
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
 "ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
 "Django's slugify function, or something of your own if required."
-msgstr ""
-"Cesta ke callable pro konverzi řetězců do URL slugs. Standard ``mezzanine."
-"utils.urls.slugify_unicode`` dovoluje konverzi ne-ascii URL. Pro použití "
-"Django slugify funkce změňte na: ``django.template.defaultfilters.slugify``."
+msgstr "Cesta ke callable pro konverzi řetězců do URL slugs. Standard ``mezzanine.utils.urls.slugify_unicode`` dovoluje konverzi ne-ascii URL. Pro použití Django slugify funkce změňte na: ``django.template.defaultfilters.slugify``."
 
 #: defaults.py:370
 msgid ""
@@ -368,10 +306,7 @@ msgstr "Povolit SSL"
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
-msgstr ""
-"Je-li tato hodnota nastavena na ``True``, uživatelé budou automaticky "
-"přesměrováni na HTTPS pro URL specifikovaná pomocí nastavení "
-"`SSL_FORCE_URL_PREFIXES``."
+msgstr "Je-li tato hodnota nastavena na ``True``, uživatelé budou automaticky přesměrováni na HTTPS pro URL specifikovaná pomocí nastavení `SSL_FORCE_URL_PREFIXES``."
 
 #: defaults.py:393
 msgid "Force Host"
@@ -381,16 +316,14 @@ msgstr "Vynucovat direktivu `Host`"
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
-msgstr ""
-"Hostitelské jméno, přes které by měl být web vždy přistupován a které "
-"souhlasí s SSL certifikátem."
+msgstr "Hostitelské jméno, přes které by měl být web vždy přistupován a které souhlasí s SSL certifikátem."
 
 #: defaults.py:412
 msgid ""
 "If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
 "will be accessible over SSL, and all other URLs will be redirected back to "
 "HTTP if accessed over HTTPS."
-msgstr ""
+msgstr "Pokud  ``True``, pouze URL specifikované v ``SSL_FORCE_URL_PREFIXES`` nastavení budou přístupné přes SSL, a všechny ostatní adresy URL budou přesměrovány zpět na HTTP, pokud k nim je přístup přes HTTPS."
 
 #: defaults.py:422
 msgid "List of words which will be stripped from search queries."
@@ -412,32 +345,26 @@ msgstr "Seznam konfiguračních direktiv dostupných v šabloně."
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
-msgstr ""
-"Adresář pro ukládání náhledů. Cesta je relativní vůči cestě, kam se ukladají "
-"samotné obrázky."
+msgstr "Adresář pro ukládání náhledů. Cesta je relativní vůči cestě, kam se ukladají samotné obrázky."
 
 #: defaults.py:510
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
-msgstr ""
-"URL javascript. souboru (relativní k ``STATIC_URL``), který spravuje "
-"konfiguraci TinyMCE při zapnuté direktivě ``RICHTEXT_WIDGET_CLASS``"
+msgstr "URL javascript. souboru (relativní k ``STATIC_URL``), který spravuje konfiguraci TinyMCE při zapnuté direktivě ``RICHTEXT_WIDGET_CLASS``"
 
 #: defaults.py:519
 msgid ""
-"Dict mapping file field names in the format ``app_label.model_name."
-"field_name`` to the Python dotted path to function names that will be used "
-"for the file field's ``upload_to`` argument."
+"Dict mapping file field names in the format "
+"``app_label.model_name.field_name`` to the Python dotted path to function "
+"names that will be used for the file field's ``upload_to`` argument."
 msgstr ""
 
 #: defaults.py:535
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
-msgstr ""
-"Je-li tato hodnota nastavena na ``True``,  south aplikace budou automaticky "
-"přidány v nastavení ``INSTALLED_APPS``"
+msgstr "Je-li tato hodnota nastavena na ``True``,  south aplikace budou automaticky přidány v nastavení ``INSTALLED_APPS``"
 
 #: fields.py:37
 #, python-format
@@ -468,9 +395,7 @@ msgstr "Zobrazit náhled"
 msgid ""
 "Optional title to be used in the HTML title tag. If left blank, the main "
 "title field will be used."
-msgstr ""
-"Volitelný nadpis, pro použití v HTML title tagu. Pokud necháte pole prázdné, "
-"bude použit nadpis z pole hlavního nadpisu."
+msgstr "Volitelný nadpis, pro použití v HTML title tagu. Pokud necháte pole prázdné, bude použit nadpis z pole hlavního nadpisu."
 
 #: models.py:114
 msgid "Description"
@@ -484,9 +409,7 @@ msgstr "Vygenerovat popis"
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
-msgstr ""
-"Je-li tato volba zaškrtnuta, popis se automaticky vygeneruje dle obsahu. "
-"Odškrtnutěte, chcete-li popis vyplnit ručně."
+msgstr "Je-li tato volba zaškrtnuta, popis se automaticky vygeneruje dle obsahu. Odškrtnutěte, chcete-li popis vyplnit ručně."
 
 #: models.py:119
 msgid "Keywords"
@@ -533,9 +456,8 @@ msgid "Author"
 msgstr "Autor"
 
 #: models.py:425
-#, fuzzy
 msgid "Sites"
-msgstr "Web"
+msgstr ""
 
 #: models.py:428
 msgid "Site permission"
@@ -584,19 +506,12 @@ msgid ""
 "</p>\n"
 "<ul>\n"
 "    <li><a href=\"/admin/\">Log in to the admin interface</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
-"\">Creating custom page types</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html#templates\">Modifying HTML templates</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
-"\">Changing this homepage</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html\">Other frequently asked questions</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
-"settings\">Full list of settings</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying "
-"to a production server</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html\">Creating custom page types</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html#templates\">Modifying HTML templates</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin\">Changing this homepage</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html\">Other frequently asked questions</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-settings\">Full list of settings</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying to a production server</a></li>\n"
 "</ul>\n"
 msgstr ""
 
@@ -606,18 +521,17 @@ msgid "Search Results"
 msgstr "Výsledky vyhledávání"
 
 #: templates/search_results.html:20
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
-msgstr "Požadovanému výrazu neodpovídají žádné stránky"
+msgstr ""
 
 #: templates/search_results.html:24
 #, python-format
 msgid ""
 "\n"
-"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
-"matching your query: %(query)s\n"
+"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
 
 #: templates/search_results.html:35
@@ -626,7 +540,7 @@ msgstr "více"
 
 #: templates/admin/base_site.html:34
 msgid "View site"
-msgstr ""
+msgstr "Zobrazit náhled"
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"
@@ -733,15 +647,3 @@ msgstr "Vyhledávání"
 #: templates/includes/search_form.html:22
 msgid "Go"
 msgstr ""
-
-#~ msgid "This is the homepage."
-#~ msgstr "Toto je výchozí stránka"
-
-#~ msgid "Showing"
-#~ msgstr "Zobrazuji"
-
-#~ msgid "to"
-#~ msgstr "k"
-
-#~ msgid "results matching your query:"
-#~ msgstr "výsledky pro daný dotaz"

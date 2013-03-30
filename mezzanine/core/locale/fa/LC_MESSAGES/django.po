@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 #   <bornazadeh@gmail.com>, 2012.
+#   <kamyar.n@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
 "POT-Creation-Date: 2013-03-30 07:16-0430\n"
-"PO-Revision-Date: 2012-12-14 11:01+0000\n"
-"Last-Translator: Bornazadeh <bornazadeh@gmail.com>\n"
-"Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/mezzanine/"
-"language/fa_IR/)\n"
-"Language: fa_IR\n"
+"PO-Revision-Date: 2013-03-30 12:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Persian (http://www.transifex.com/projects/p/mezzanine/language/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:27
@@ -63,9 +63,7 @@ msgstr " کلید API در Akismet"
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
-msgstr ""
-"کلید برای http://akismet.com سرویس فیلتر کردن هرزنامه که برای فیلتر کردن "
-"نظرات و فرم ها استفاده می شود."
+msgstr "کلید برای http://akismet.com سرویس فیلتر کردن هرزنامه که برای فیلتر کردن نظرات و فرم ها استفاده می شود."
 
 #: defaults.py:57
 msgid "bit.ly access token"
@@ -77,48 +75,34 @@ msgstr ""
 
 #: defaults.py:65
 msgid ""
-"Mezzanine's caching uses a technique know as mint caching. This is where the "
-"requested expiry for a cache entry is stored with the cache entry in cache, "
-"and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
-"cache get, the store expiry is checked, and if it has past, the cache entry "
-"is set again, and no entry is returned. This tries to ensure that cache "
+"Mezzanine's caching uses a technique know as mint caching. This is where the"
+" requested expiry for a cache entry is stored with the cache entry in cache,"
+" and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a"
+" cache get, the store expiry is checked, and if it has past, the cache entry"
+" is set again, and no entry is returned. This tries to ensure that cache "
 "misses never occur, and if many clients were to get a cache miss at once, "
 "only one would actually need to re-generated the cache entry."
-msgstr ""
-"مزانین از یک روش کش کردن به نام mint استفاده می کند. که در آن از انقضای "
-"درخواست برای ورود به کش و ذخیره استفاده می شود، و زمان انقضای واقعی مورد "
-"استفاده توسط `` CACHE_SET_DELAY``  به آن افزوده شده است. سپس بر روی فضای "
-"ذخیره سازی , زمان انقضای کش بررسی شده،  و اگر گذشته بود، ورودی کش دوباره "
-"تنظیم، و هیچ ورودی بازگردانده نمی شود. این تلاش می کند تا اطمینان حاصل شود "
-"که خطا در کش هرگز رخ نمی دهد ، و در صورتی که تعدادی از مشتریان به یک انبار و "
-"در یک لحظه نیاز داشته باشند، تنها یک نمونه کافی است تا کش به درستی ایجاد شود."
+msgstr "مزانین از یک روش کش کردن به نام mint استفاده می کند. که در آن از انقضای درخواست برای ورود به کش و ذخیره استفاده می شود، و زمان انقضای واقعی مورد استفاده توسط `` CACHE_SET_DELAY``  به آن افزوده شده است. سپس بر روی فضای ذخیره سازی , زمان انقضای کش بررسی شده،  و اگر گذشته بود، ورودی کش دوباره تنظیم، و هیچ ورودی بازگردانده نمی شود. این تلاش می کند تا اطمینان حاصل شود که خطا در کش هرگز رخ نمی دهد ، و در صورتی که تعدادی از مشتریان به یک انبار و در یک لحظه نیاز داشته باشند، تنها یک نمونه کافی است تا کش به درستی ایجاد شود."
 
 #: defaults.py:93
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
-msgstr ""
-"یک موضوع سه قسمتی, هر قسمت شامل یک سری سه قسمتی از برچسب های الگویی است که "
-"برای داشبورد مدیر استفاده می شود."
+msgstr "یک موضوع سه قسمتی, هر قسمت شامل یک سری سه قسمتی از برچسب های الگویی است که برای داشبورد مدیر استفاده می شود."
 
 #: defaults.py:101
 msgid "Device specific template sub-directory to use as the default device."
-msgstr ""
-"زیر پوشه ی الگوی مربوط به وسایل خاص که به عنوان وسایل پیش فرض استفاده می "
-"شوند."
+msgstr "زیر پوشه ی الگوی مربوط به وسایل خاص که به عنوان وسایل پیش فرض استفاده می شوند."
 
 #: defaults.py:109
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
-msgstr ""
-"نقشه برداری از الگوی مربوط به نام وسایل خاص برای تبدیل به  دنباله ای از رشته "
-"ها که ممکن است در عامل های کاربر استفاده شود."
+msgstr "نقشه برداری از الگوی مربوط به نام وسایل خاص برای تبدیل به  دنباله ای از رشته ها که ممکن است در عامل های کاربر استفاده شود."
 
 #: defaults.py:131
 msgid "If ``True``, website forms will use HTML5 features."
-msgstr ""
-"اگر \"علامت دار\" باشد, فرم های وب سایت از امکانات HTML5 استفاده می کنند."
+msgstr "اگر \"علامت دار\" باشد, فرم های وب سایت از امکانات HTML5 استفاده می کنند."
 
 #: defaults.py:138
 msgid ""
@@ -126,18 +110,11 @@ msgid ""
 "library's) models. Each item in the sequence is a four item sequence. The "
 "first two items are the dotted path to the model and its field name to be "
 "added, and the dotted path to the field class to use for the field. The "
-"third and fourth items are a sequence of positional args and a dictionary of "
-"keyword args, to use when creating the field instance. When specifying the "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
 "field class, the path ``django.models.db.`` can be omitted for regular "
 "Django model fields."
-msgstr ""
-"دنباله ای است که می تواند به مدل های مزانین  (و یا هر کتابخانه ای) تزریق "
-"شود. هر کدام از اقلام در دنباله,  دارای چهار آیتم می باشد. دو مورد اول مسیر "
-"نقطه دار به مدل و نام رشته , و مسیر نقطه دار به کلاس  را برای استفاده آماده "
-"می کند.مورد سوم و چهارم یک دنباله ای از آرگومان های محل دار وکلید واژه های "
-"یک  دیکشنری را می گیرد ، تا در زمان ایجاد نمونه از آن استفاده کند. هنگام "
-"مشخص کردن کلاس،  مسیر \"django.models.db.\" را می توان از مدل های جنگو  به "
-"طور منظم حذف کرد."
+msgstr "دنباله ای است که می تواند به مدل های مزانین  (و یا هر کتابخانه ای) تزریق شود. هر کدام از اقلام در دنباله,  دارای چهار آیتم می باشد. دو مورد اول مسیر نقطه دار به مدل و نام رشته , و مسیر نقطه دار به کلاس  را برای استفاده آماده می کند.مورد سوم و چهارم یک دنباله ای از آرگومان های محل دار وکلید واژه های یک  دیکشنری را می گیرد ، تا در زمان ایجاد نمونه از آن استفاده کند. هنگام مشخص کردن کلاس،  مسیر \"django.models.db.\" را می توان از مدل های جنگو  به طور منظم حذف کرد."
 
 #: defaults.py:153
 msgid "Google Analytics ID"
@@ -155,12 +132,7 @@ msgid ""
 "importable Python package for the theme. If the host is matched for a "
 "request, the templates directory inside the theme package will be first "
 "searched when loading templates."
-msgstr ""
-"دنباله نقشه برداری نام میزبان به تم ها، اجازه می دهد تا قالب های مختلفی را "
-"برای HTTP آماده کنند، هرمیزبان HTTP  یک دنباله دو قسمتی است، حاوی یک میزبان "
-"مانند `` othersite.example.com \"، و نام پایتون بسته ی ورود تم. اگر میزبان "
-"به درخواست مورد نظرتعلق داشت ، پوشه الگو در داخل بسته تم در اولین بارگذاری "
-"جستجو می شود."
+msgstr "دنباله نقشه برداری نام میزبان به تم ها، اجازه می دهد تا قالب های مختلفی را برای HTTP آماده کنند، هرمیزبان HTTP  یک دنباله دو قسمتی است، حاوی یک میزبان مانند `` othersite.example.com \"، و نام پایتون بسته ی ورود تم. اگر میزبان به درخواست مورد نظرتعلق داشت ، پوشه الگو در داخل بسته تم در اولین بارگذاری جستجو می شود."
 
 #: defaults.py:175
 msgid "Name of the jQuery file."
@@ -171,14 +143,13 @@ msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
 msgstr "نام فایل شناسه jQuery موجود در /mezzanine/core/static/mezzanine/js"
 
 #: defaults.py:184
-#, fuzzy
 msgid "Name of the jQuery UI file."
-msgstr "نام فایل jQuery"
+msgstr ""
 
 #: defaults.py:185
-#, fuzzy
-msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
-msgstr "نام فایل شناسه jQuery موجود در /mezzanine/core/static/mezzanine/js"
+msgid ""
+"Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
+msgstr ""
 
 #: defaults.py:193
 msgid "Max paging links"
@@ -189,9 +160,8 @@ msgid "Max number of paging links to display when paginating."
 msgstr "حداکثر لینک های صفحه برای نمایش هنگام صفحه بندی."
 
 #: defaults.py:201
-#, fuzzy
 msgid "Media library per site"
-msgstr "کتابخانه ی رسانه ها"
+msgstr ""
 
 #: defaults.py:202
 msgid ""
@@ -203,16 +173,11 @@ msgstr ""
 msgid ""
 "Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
 "admin change-list records filtered down to records owned by the current "
-"user. This setting contains a sequence of models in the format ``app_label."
-"object_name``, that when subclassing ``Ownable``, will still show all "
-"records in the admin change-list interface, regardless of the current user."
-msgstr ""
-"مدل هایی که زیرطبقه ``Ownable`` هستند و از ``OwnableAdmin `` استفاده می "
-"کنند, دارای لیست تغییرات مدیریتی ای هستند که فیلتر شده تا فقط تغییرات مربوط "
-"به کاربر فعلی را نشان دهد. این تنظیمات شامل دنباله ای از مدل ها در قالب  "
-"``app_label.object_name ``است،  زمانی که دارای زیر کلاس `` Ownable`` باشند، "
-"در لیست تغییرات مدیریتی همه تغییرات را  نشان خواهند داد، بدون در نظر گرفتن "
-"کاربرفعلی."
+"user. This setting contains a sequence of models in the format "
+"``app_label.object_name``, that when subclassing ``Ownable``, will still "
+"show all records in the admin change-list interface, regardless of the "
+"current user."
+msgstr "مدل هایی که زیرطبقه ``Ownable`` هستند و از ``OwnableAdmin `` استفاده می کنند, دارای لیست تغییرات مدیریتی ای هستند که فیلتر شده تا فقط تغییرات مربوط به کاربر فعلی را نشان دهد. این تنظیمات شامل دنباله ای از مدل ها در قالب  ``app_label.object_name ``است،  زمانی که دارای زیر کلاس `` Ownable`` باشند، در لیست تغییرات مدیریتی همه تغییرات را  نشان خواهند داد، بدون در نظر گرفتن کاربرفعلی."
 
 #: defaults.py:222
 msgid ""
@@ -241,9 +206,7 @@ msgstr "فهرست از سبک درونی CSS که از \"RichTextField `` مو�
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
-msgstr ""
-"مسیر نقطه دار تابع برای فراخوانی در  ``RichTextField`` قبل از این که در "
-"الگوها رندر شوند."
+msgstr "مسیر نقطه دار تابع برای فراخوانی در  ``RichTextField`` قبل از این که در الگوها رندر شوند."
 
 #: defaults.py:282
 msgid "High"
@@ -265,46 +228,17 @@ msgstr "سطح فیلتر متن غنی"
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
-"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and "
-"attributes are stripped from the content to protect against staff members "
-"intentionally adding code that could be used to cause problems, such as "
-"changing their account to a super-user with full access to the system.\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and attributes are stripped from the content to protect against staff members intentionally adding code that could be used to cause problems, such as changing their account to a super-user with full access to the system.\n"
 "\n"
-"This setting allows you to change the level of filtering that occurs. "
-"Setting it to low will allow certain extra tags to be permitted, such as "
-"those required for embedding video. While these tags are not the main "
-"candidates for users adding malicious code, they are still considered "
-"dangerous and could potentially be mis-used by a particularly technical "
-"user, and so are filtered out when the filtering level is set to high.\n"
+"This setting allows you to change the level of filtering that occurs. Setting it to low will allow certain extra tags to be permitted, such as those required for embedding video. While these tags are not the main candidates for users adding malicious code, they are still considered dangerous and could potentially be mis-used by a particularly technical user, and so are filtered out when the filtering level is set to high.\n"
 "\n"
-"Setting the filtering level to no filtering, will disable all filtering, and "
-"allow any code to be entered by staff members, including script tags."
-msgstr ""
-"* این تنظیمات را تغییر ندهید مگر اینکه بدانید چه کاری انجام میدهید. \n"
-"\n"
-" \n"
-"هنگامی که محتوا در یک زمینه متن غنی (WYSIWYG) ذخیره شود، تگ های HTML ناامن و "
-"صفات برای محافظت در برابر اضافه کردن کد های ناخواسته که می توانند باعث ایجاد "
-"مشکلی شوند ، مانند تغییر حساب کاربری خود با دسترسی سوپر یوزر به سیستم, می "
-"توانند مورد استفاده قرار گیرند . \n"
-"\n"
-"\n"
-" این گزینه به شما اجازه می دهد سطح فیلترمورد نظر را تغییر دهید. تنظیم آن به "
-"پایین ترین مقدار به شما این امکان را می دهد که برخی از تگ های اضافی مجازبه "
-"استفاده شوند،  مانند آنهایی که مورد نیاز برای تعبیه ویدیوهستند. در حالی که "
-"این برچسب ها نامزد اصلی برای اضافه کردن کد های مخرب نیست، آنها هنوز هم "
-"خطرناک در نظر گرفته می شوند و می توانند توسط یک کاربر متخصص برای خرابکاری "
-"استفاده شوند، و بنابراین فیلتر می شوند زمانی که سطح فیلتر روی بالاترین تنظیم "
-"شده باشد. \n"
-"\n"
-"\n"
-" تنظیم سطح فیلتر به بدون فیلتر، تمام فیلتها را غیر فعال می کند، و اجازه می "
-"دهد هر کدی توسط کاربران وارد شود، از جمله تگهای اسکریپت."
+"Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
+msgstr "* این تنظیمات را تغییر ندهید مگر اینکه بدانید چه کاری انجام میدهید. \n\n \nهنگامی که محتوا در یک زمینه متن غنی (WYSIWYG) ذخیره شود، تگ های HTML ناامن و صفات برای محافظت در برابر اضافه کردن کد های ناخواسته که می توانند باعث ایجاد مشکلی شوند ، مانند تغییر حساب کاربری خود با دسترسی سوپر یوزر به سیستم, می توانند مورد استفاده قرار گیرند . \n\n\n این گزینه به شما اجازه می دهد سطح فیلترمورد نظر را تغییر دهید. تنظیم آن به پایین ترین مقدار به شما این امکان را می دهد که برخی از تگ های اضافی مجازبه استفاده شوند،  مانند آنهایی که مورد نیاز برای تعبیه ویدیوهستند. در حالی که این برچسب ها نامزد اصلی برای اضافه کردن کد های مخرب نیست، آنها هنوز هم خطرناک در نظر گرفته می شوند و می توانند توسط یک کاربر متخصص برای خرابکاری استفاده شوند، و بنابراین فیلتر می شوند زمانی که سطح فیلتر روی بالاترین تنظیم شده باشد. \n\n\n تنظیم سطح فیلتر به بدون فیلتر، تمام فیلتها را غیر فعال می کند، و اجازه می دهد هر کدی توسط کاربران وارد شود، از جمله تگهای اسکریپت."
 
 #: defaults.py:313
 msgid ""
-"Sequence of models that will be provided by default as choices in the search "
-"form. Each model should be in the format ``app_label.model_name``. Only "
+"Sequence of models that will be provided by default as choices in the search"
+" form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
 
@@ -319,14 +253,10 @@ msgstr "تعداد نتایجی که در صفحه نتایج جستجو نشا�
 #: defaults.py:331
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
-"this, you'll also need to manually apply it to your project's root ``urls."
-"py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-"
-"project`` command contains an example of this towards its end."
-msgstr ""
-"پیشوند URL برای سوار کردن تمام urlpatterns مزانین . هنگام استفاده از این "
-"گزینه، شما همچنین نیاز دارید آن را در \"urls.py\" اصلی پروژه ی خود اعمال "
-"کنید. ``urls.py`` اصلی که توسط دستور``mezzanine-project`` تولید می شود شامل "
-"مثال هایی از این مورد در انتهای فایل می باشد ."
+"this, you'll also need to manually apply it to your project's root "
+"``urls.py`` module. The root ``urls.py`` module provided by Mezzanine's "
+"``mezzanine-project`` command contains an example of this towards its end."
+msgstr "پیشوند URL برای سوار کردن تمام urlpatterns مزانین . هنگام استفاده از این گزینه، شما همچنین نیاز دارید آن را در \"urls.py\" اصلی پروژه ی خود اعمال کنید. ``urls.py`` اصلی که توسط دستور``mezzanine-project`` تولید می شود شامل مثال هایی از این مورد در انتهای فایل می باشد ."
 
 #: defaults.py:342
 msgid "Site Title"
@@ -336,9 +266,7 @@ msgstr "عنوان سایت"
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
-msgstr ""
-"عنوان که در بالای سایت نمایش داده می شود، و به عنوان تگ های  HTML در هر صفحه "
-"اضافه خواهد شد."
+msgstr "عنوان که در بالای سایت نمایش داده می شود، و به عنوان تگ های  HTML در هر صفحه اضافه خواهد شد."
 
 #: defaults.py:351
 msgid "Tagline"
@@ -358,11 +286,7 @@ msgid ""
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
 "ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
 "Django's slugify function, or something of your own if required."
-msgstr ""
-"مسیر نقطه دار پایتون به سمت مبدل رشته به URL .مقدار پیش فرض ``mezzanine."
-"utils.urls.slugify_unicode`` است که اجازه به کارکتر های غیر اسکی در URL هم "
-"می دهد.آن را به ``django.template.defaultfilters.slugify`` تغییر دهید تا از "
-"امکان slug در جانگو استفاده کنید, یا آن را به مورد دلخواه خود تنظیم کنید."
+msgstr "مسیر نقطه دار پایتون به سمت مبدل رشته به URL .مقدار پیش فرض ``mezzanine.utils.urls.slugify_unicode`` است که اجازه به کارکتر های غیر اسکی در URL هم می دهد.آن را به ``django.template.defaultfilters.slugify`` تغییر دهید تا از امکان slug در جانگو استفاده کنید, یا آن را به مورد دلخواه خود تنظیم کنید."
 
 #: defaults.py:370
 msgid ""
@@ -382,9 +306,7 @@ msgstr "فعال کردن SSL"
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
-msgstr ""
-"اگر \"علامت دار\" باشد، کاربران به طور خودکار به HTTPS برای آدرس مشخص شده "
-"توسط  ``SSL_FORCE_URL_PREFIXES``   هدایت می شوند."
+msgstr "اگر \"علامت دار\" باشد، کاربران به طور خودکار به HTTPS برای آدرس مشخص شده توسط  ``SSL_FORCE_URL_PREFIXES``   هدایت می شوند."
 
 #: defaults.py:393
 msgid "Force Host"
@@ -394,19 +316,14 @@ msgstr "میزبان اجباری"
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
-msgstr ""
-"نام میزبان که سایت همیشه باید از طریق آن نام که منطبق بر گواهی SSL است, قابل "
-"دسترسی باشد."
+msgstr "نام میزبان که سایت همیشه باید از طریق آن نام که منطبق بر گواهی SSL است, قابل دسترسی باشد."
 
 #: defaults.py:412
 msgid ""
 "If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
 "will be accessible over SSL, and all other URLs will be redirected back to "
 "HTTP if accessed over HTTPS."
-msgstr ""
-"اگر \"علامت دار\" باشد، تنها URL های مشخص شده توسط  ``SSL_FORCE_URL_PREFIXES "
-"``  از طریق SSL در دسترس خواهند بود، و تمام آدرس های دیگر  به HTTP هدایت می "
-"شوند در صورتی که بیش از این از HTTPS در دسترس باشند."
+msgstr "اگر \"علامت دار\" باشد، تنها URL های مشخص شده توسط  ``SSL_FORCE_URL_PREFIXES ``  از طریق SSL در دسترس خواهند بود، و تمام آدرس های دیگر  به HTTP هدایت می شوند در صورتی که بیش از این از HTTPS در دسترس باشند."
 
 #: defaults.py:422
 msgid "List of words which will be stripped from search queries."
@@ -418,9 +335,7 @@ msgstr "برچسب اندازه ی ابر"
 
 #: defaults.py:480
 msgid "Number of different sizes for tags when shown as a cloud."
-msgstr ""
-"شماره ای از اندازه های مختلف برای برچسب ها در  زمانی که به عنوان یک ابر نشان "
-"داده شده اند."
+msgstr "شماره ای از اندازه های مختلف برای برچسب ها در  زمانی که به عنوان یک ابر نشان داده شده اند."
 
 #: defaults.py:487
 msgid "Sequence of setting names available within templates."
@@ -430,33 +345,26 @@ msgstr "توالی تعیین اسامی موجود در داخل قالب."
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
-msgstr ""
-"نام پوشه برای ذخیره تصاویر بند انگشتی، که نسبت به دایرکتوری تصویر اصلی ایجاد "
-"خواهد شد."
+msgstr "نام پوشه برای ذخیره تصاویر بند انگشتی، که نسبت به دایرکتوری تصویر اصلی ایجاد خواهد شد."
 
 #: defaults.py:510
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
-msgstr ""
-"URL فایل جاوا اسکریپت (نسبت به \"STATIC_URL\") که پیکربندی TinyMCE را هدایت "
-"می کند در زمانی که به طور پیش فرض از \"RICHTEXT_WIDGET_CLASS\" استفاده شده "
-"است."
+msgstr "URL فایل جاوا اسکریپت (نسبت به \"STATIC_URL\") که پیکربندی TinyMCE را هدایت می کند در زمانی که به طور پیش فرض از \"RICHTEXT_WIDGET_CLASS\" استفاده شده است."
 
 #: defaults.py:519
 msgid ""
-"Dict mapping file field names in the format ``app_label.model_name."
-"field_name`` to the Python dotted path to function names that will be used "
-"for the file field's ``upload_to`` argument."
+"Dict mapping file field names in the format "
+"``app_label.model_name.field_name`` to the Python dotted path to function "
+"names that will be used for the file field's ``upload_to`` argument."
 msgstr ""
 
 #: defaults.py:535
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
-msgstr ""
-"اگر `` علامت دار `` باشد، برنامه SOUTH  به صورت خودکار به تنظیمات  "
-"``INSTALLED_APPS ``  اضافه خواهد شد."
+msgstr "اگر `` علامت دار `` باشد، برنامه SOUTH  به صورت خودکار به تنظیمات  ``INSTALLED_APPS ``  اضافه خواهد شد."
 
 #: fields.py:37
 #, python-format
@@ -487,9 +395,7 @@ msgstr "مشاهده در سایت"
 msgid ""
 "Optional title to be used in the HTML title tag. If left blank, the main "
 "title field will be used."
-msgstr ""
-"عنوان اختیاری که  در تگ عنوان HTML استفاده می شود. اگر خالی باشد، عنوان اصلی "
-"استفاده خواهد شد."
+msgstr "عنوان اختیاری که  در تگ عنوان HTML استفاده می شود. اگر خالی باشد، عنوان اصلی استفاده خواهد شد."
 
 #: models.py:114
 msgid "Description"
@@ -503,9 +409,7 @@ msgstr "ایجاد توضیحات"
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
-msgstr ""
-"اگر علامت دار باشد, توضیحات بصورت خودکار, از محتوای وارد شده, ایجاد می شود."
-"اگر می خواهید خودتان توصیفی وارد کنید, علامتش را بردارید."
+msgstr "اگر علامت دار باشد, توضیحات بصورت خودکار, از محتوای وارد شده, ایجاد می شود.اگر می خواهید خودتان توصیفی وارد کنید, علامتش را بردارید."
 
 #: models.py:119
 msgid "Keywords"
@@ -552,9 +456,8 @@ msgid "Author"
 msgstr "نویسنده"
 
 #: models.py:425
-#, fuzzy
 msgid "Sites"
-msgstr "سایت"
+msgstr ""
 
 #: models.py:428
 msgid "Site permission"
@@ -603,19 +506,12 @@ msgid ""
 "</p>\n"
 "<ul>\n"
 "    <li><a href=\"/admin/\">Log in to the admin interface</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
-"\">Creating custom page types</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html#templates\">Modifying HTML templates</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
-"\">Changing this homepage</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html\">Other frequently asked questions</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
-"settings\">Full list of settings</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying "
-"to a production server</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html\">Creating custom page types</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html#templates\">Modifying HTML templates</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin\">Changing this homepage</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html\">Other frequently asked questions</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-settings\">Full list of settings</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying to a production server</a></li>\n"
 "</ul>\n"
 msgstr ""
 
@@ -625,18 +521,17 @@ msgid "Search Results"
 msgstr "نتایج جستجو"
 
 #: templates/search_results.html:20
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
-msgstr "هیچ نتیجه ای مطابق با درخواست شما یافت نشد:"
+msgstr ""
 
 #: templates/search_results.html:24
 #, python-format
 msgid ""
 "\n"
-"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
-"matching your query: %(query)s\n"
+"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
 
 #: templates/search_results.html:35
@@ -752,15 +647,3 @@ msgstr "جستجو"
 #: templates/includes/search_form.html:22
 msgid "Go"
 msgstr ""
-
-#~ msgid "This is the homepage."
-#~ msgstr "این صفحه خانگی است."
-
-#~ msgid "Showing"
-#~ msgstr "نمایش"
-
-#~ msgid "to"
-#~ msgstr "به"
-
-#~ msgid "results matching your query:"
-#~ msgstr "نتیجه های مطابق با درخواست شما:"
