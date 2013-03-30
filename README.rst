@@ -387,7 +387,6 @@ Sites Using Mezzanine
   * `Skydivo <http://skydivo.com>`_
   * `Noshly <http://noshly.com>`_
   * `Kabu Creative <http://kabucreative.com.au/>`_
-  * `Amblitec <http://www.amblitec.com>`_
   * `KisanHub <http://www.kisanhub.com/>`_
   * `Your Song Your Story <http://yoursongyourstory.org/>`_
 
