@@ -1,5 +1,5 @@
-
 import os
+import re
 import sys
 from functools import wraps
 from getpass import getpass, getuser
@@ -43,7 +43,8 @@ env.proj_path = "%s/%s" % (env.venv_path, env.proj_dirname)
 env.manage = "%s/bin/python %s/project/manage.py" % (env.venv_path,
                                                      env.venv_path)
 env.live_host = conf.get("LIVE_HOSTNAME", env.hosts[0] if env.hosts else None)
-env.repo_url = conf.get("REPO_URL", None)
+env.repo_url = conf.get("REPO_URL", "")
+env.git = env.repo_url.startswith("git") or env.repo_url.endswith(".git")
 env.reqs_path = conf.get("REQUIREMENTS_PATH", None)
 env.gunicorn_port = conf.get("GUNICORN_PORT", 8000)
 env.locale = conf.get("LOCALE", "en_US.UTF-8")
@@ -212,6 +213,8 @@ def upload_template_and_reload(name):
             remote_data = sudo("cat %s" % remote_path, show=False)
     with open(local_path, "r") as f:
         local_data = f.read()
+        # Escape all non-string-formatting-placeholder occurrences of '%':
+        local_data = re.sub(r"%(?!\(\w+\)s)", "%%", local_data)
         if "%(db_pass)s" in local_data:
             env.db_pass = db_pass()
         local_data %= env
@@ -360,7 +363,7 @@ def create():
                 return False
             remove()
         run("virtualenv %s --distribute" % env.proj_name)
-        vcs = "git" if env.repo_url.startswith("git") else "hg"
+        vcs = "git" if env.git else "hg"
         run("%s clone %s %s" % (vcs, env.repo_url, env.proj_path))
 
     # Create DB and DB user.
@@ -390,8 +393,8 @@ def create():
                 sudo("openssl req -new -x509 -nodes -out %s -keyout %s "
                      "-subj '/CN=%s' -days 3650" % parts)
             else:
-                upload_template(crt_file, crt_local, use_sudo=True)
-                upload_template(key_file, key_local, use_sudo=True)
+                upload_template(crt_local, crt_file, use_sudo=True)
+                upload_template(key_local, key_file, use_sudo=True)
 
     # Set up project.
     upload_template_and_reload("settings")
@@ -408,7 +411,8 @@ def create():
                "site.save();")
         if env.admin_pass:
             pw = env.admin_pass
-            user_py = ("from django.contrib.auth.models import User;"
+            user_py = ("from mezzanine.utils.models import get_user_model;"
+                       "User = get_user_model();"
                        "u, _ = User.objects.get_or_create(username='admin');"
                        "u.is_staff = u.is_superuser = True;"
                        "u.set_password('%s');"
@@ -476,8 +480,9 @@ def deploy():
     with project():
         backup("last.db")
         run("tar -cf last.tar %s" % static())
-        git = env.repo_url.startswith("git")
-        run("%s > last.commit" % "git rev-parse HEAD" if git else "hg id -i")
+        git = env.git
+        last_commit = "git rev-parse HEAD" if git else "hg id -i"
+        run("%s > last.commit" % last_commit)
         with update_changed_requirements():
             run("git pull origin master -f" if git else "hg pull && hg up -C")
         manage("collectstatic -v 0 --noinput")
@@ -499,8 +504,7 @@ def rollback():
     """
     with project():
         with update_changed_requirements():
-            git = env.repo_url.startswith("git")
-            update = "git checkout" if git else "hg up -C"
+            update = "git checkout" if env.git else "hg up -C"
             run("%s `cat last.commit`" % update)
         with cd(os.path.join(static(), "..")):
             run("tar -xf %s" % os.path.join(env.proj_path, "last.tar"))

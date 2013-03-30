@@ -8,15 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:54-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/mezzanine/language/hr_HR/)\n"
+"Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/"
+"mezzanine/language/hr_HR/)\n"
 "Language: hr_HR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: admin.py:32 fields.py:33
 msgid "Email"
@@ -35,8 +37,12 @@ msgid "View Entries"
 msgstr ""
 
 #: defaults.py:20
-msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
-msgstr "Ako je uključeno, imejlovi koji se šalju dodatnim primaocima, neće se slati sa adrese koja se nalazi u nekoj od imejl polja unutar forme."
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+"Ako je uključeno, imejlovi koji se šalju dodatnim primaocima, neće se slati "
+"sa adrese koja se nalazi u nekoj od imejl polja unutar forme."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -48,14 +54,20 @@ msgstr "Maksimalna veličina za labele u forms aplikaciji."
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr "Karakter koji se koristi kao razdvojnik prilikom izvoza odgovora u CSV."
+msgstr ""
+"Karakter koji se koristi kao razdvojnik prilikom izvoza odgovora u CSV."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Apsolutna putanja za smeštanje fajlova za forms aplikaciju."
 
 #: defaults.py:58
-msgid "Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts."
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -171,7 +183,9 @@ msgid "Send email to user"
 msgstr ""
 
 #: models.py:21
-msgid "To send an email to the email address supplied in the form upon submission, check this box."
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
 msgstr ""
 
 #: models.py:23
@@ -187,7 +201,9 @@ msgid "Send email to others"
 msgstr ""
 
 #: models.py:26
-msgid "Provide a comma separated list of email addresses to be notified upon form submission. Leave blank to disable notifications."
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
 msgstr ""
 
 #: models.py:30
@@ -199,7 +215,10 @@ msgid "Message"
 msgstr "Poruka"
 
 #: models.py:32
-msgid "Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in the email."
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
 msgstr ""
 
 #: models.py:37
@@ -231,7 +250,9 @@ msgid "Choices"
 msgstr "Izbori"
 
 #: models.py:61
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
 msgstr ""
 
 #: models.py:63
@@ -246,7 +267,7 @@ msgstr ""
 msgid "Help text"
 msgstr ""
 
-#: models.py:72 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
 msgstr "Polje"
 
@@ -271,7 +292,7 @@ msgid "Form field entries"
 msgstr ""
 
 #: templates/admin/forms/change_form.html:8
-#: templates/admin/forms/entries.html:56
+#: templates/admin/forms/entries.html:57
 msgid "View entries"
 msgstr ""
 
@@ -283,38 +304,38 @@ msgstr "Povijest"
 msgid "View on site"
 msgstr "Prikaži na sajtu"
 
-#: templates/admin/forms/entries.html:13
+#: templates/admin/forms/entries.html:14
 msgid "Home"
 msgstr "Početna"
 
-#: templates/admin/forms/entries.html:28
+#: templates/admin/forms/entries.html:29
 msgid "Include"
 msgstr "Uključi"
 
-#: templates/admin/forms/entries.html:29
+#: templates/admin/forms/entries.html:30
 msgid "Filter by"
 msgstr ""
 
-#: templates/admin/forms/entries.html:47
+#: templates/admin/forms/entries.html:48
 msgid "All"
 msgstr ""
 
-#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
 msgstr ""
 
-#: templates/admin/forms/entries.html:57
+#: templates/admin/forms/entries.html:58
 msgid "Export CSV"
 msgstr ""
 
-#: templates/admin/forms/entries.html:59
+#: templates/admin/forms/entries.html:60
 msgid "Entries"
 msgstr ""
 
-#: templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:94
 msgid "Delete selected"
 msgstr ""
 
-#: templates/admin/forms/entries.html:97
+#: templates/admin/forms/entries.html:98
 msgid "No entries to display"
 msgstr ""

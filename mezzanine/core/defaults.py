@@ -44,6 +44,23 @@ register_setting(
 )
 
 register_setting(
+    name="AKISMET_API_KEY",
+    label=_("Akismet API Key"),
+    description=_("Key for http://akismet.com spam filtering service. Used "
+        "for filtering comments and forms."),
+    editable=True,
+    default="",
+)
+
+register_setting(
+    name="BITLY_ACCESS_TOKEN",
+    label=_("bit.ly access token"),
+    description=_("Access token for http://bit.ly URL shortening service."),
+    editable=True,
+    default="",
+)
+
+register_setting(
     name="CACHE_SET_DELAY_SECONDS",
     description=_("Mezzanine's caching uses a technique know as mint "
         "caching. This is where the requested expiry for a cache entry "
@@ -56,15 +73,6 @@ register_setting(
         "cache entry."),
     editable=False,
     default=30,
-)
-
-register_setting(
-    name="AKISMET_API_KEY",
-    label=_("Akismet API Key"),
-    description=_("Key for http://akismet.com spam filtering service. Used "
-        "for filtering comments and forms."),
-    editable=True,
-    default="",
 )
 
 if "mezzanine.blog" in settings.INSTALLED_APPS:
@@ -172,11 +180,29 @@ register_setting(
 )
 
 register_setting(
+    name="JQUERY_UI_FILENAME",
+    label=_("Name of the jQuery UI file."),
+    description=_("Name of the jQuery UI file found in "
+                  "mezzanine/core/static/mezzanine/js/"),
+    editable=False,
+    default="jquery-ui-1.9.1.custom.min.js",
+)
+
+register_setting(
     name="MAX_PAGING_LINKS",
     label=_("Max paging links"),
     description=_("Max number of paging links to display when paginating."),
     editable=True,
     default=10,
+)
+
+register_setting(
+    name="MEDIA_LIBRARY_PER_SITE",
+    label=_("Media library per site"),
+    description=_("If ``True``, each site will use its own directory within "
+        "the filebrowser media library."),
+    editable=False,
+    default=False,
 )
 
 register_setting(
@@ -283,6 +309,16 @@ register_setting(
 )
 
 register_setting(
+    name="SEARCH_MODEL_CHOICES",
+    description=_("Sequence of models that will be provided by default as "
+        "choices in the search form. Each model should be in the format "
+        "``app_label.model_name``. Only models that subclass "
+        "``mezzanine.core.models.Displayable`` should be used."),
+    editable=False,
+    default=("pages.Page", "blog.BlogPost"),
+)
+
+register_setting(
     name="SEARCH_PER_PAGE",
     label=_("Search results per page"),
     description=_("Number of results shown in the search results page."),
@@ -327,6 +363,19 @@ register_setting(
         "Django's slugify function, or something of your own if required."),
     editable=False,
     default="mezzanine.utils.urls.slugify_unicode",
+)
+
+register_setting(
+    name="SPAM_FILTERS",
+    description=_("Sequence of dotted Python paths to callable functions "
+        "used for checking posted content (such as forms or comments) is "
+        "spam. Each function should accept three arguments: the request "
+        "object, the form object, and the URL that was posted from. "
+        "Defaults to ``mezzanine.utils.views.is_spam_akismet`` which will "
+        "use the http://akismet.com spam filtering service when the "
+        "``AKISMET_API_KEY`` setting is configured."),
+    editable=False,
+    default=("mezzanine.utils.views.is_spam_akismet",),
 )
 
 register_setting(
@@ -438,13 +487,13 @@ register_setting(
     description=_("Sequence of setting names available within templates."),
     editable=False,
     default=(
-        "ACCOUNTS_VERIFICATION_REQUIRED", "ADMIN_MEDIA_PREFIX",
-        "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
-        "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
-        "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
+        "ACCOUNTS_VERIFICATION_REQUIRED", "BITLY_ACCESS_TOKEN",
+        "BLOG_USE_FEATURED_IMAGE", "COMMENTS_DISQUS_SHORTNAME",
+        "COMMENTS_NUM_LATEST", "COMMENTS_DISQUS_API_PUBLIC_KEY",
+        "COMMENTS_DISQUS_API_SECRET_KEY", "COMMENTS_USE_RATINGS",
         "DEV_SERVER", "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED",
         "GOOGLE_ANALYTICS_ID", "JQUERY_FILENAME", "LOGIN_URL", "LOGOUT_URL",
-        "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE", "RATINGS_MAX",
+        "SITE_TITLE", "SITE_TAGLINE",
     ),
 )
 
@@ -463,6 +512,16 @@ register_setting(
         "``RICHTEXT_WIDGET_CLASS`` is used."),
     editable=False,
     default="mezzanine/js/tinymce_setup.js",
+)
+
+register_setting(
+    name="UPLOAD_TO_HANDLERS",
+    description=_("Dict mapping file field names in the format "
+        "``app_label.model_name.field_name`` to the Python dotted path "
+        "to function names that will be used for the file field's "
+        "``upload_to`` argument."),
+    editable=False,
+    default={},
 )
 
 # The following settings are defined here for documentation purposes

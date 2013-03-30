@@ -6,7 +6,7 @@
 {% for page in page_branch %}
     {% if page.is_primary %}
         {% if forloop.first %}
-            <ul>
+            <ul class="clearfix">
         {% endif %}
         {% if page.in_menu %}
             <li><ul>
@@ -17,7 +17,8 @@
         {% if forloop.first and not page.parent.in_menu and not page.is_primary %}
             <li><ul>
         {% endif %}
-        <li {% if page.is_current_or_ascendant %}class="active"{% endif %}>
+        <li {% if page.is_current_or_ascendant %}class="active"{% endif %}
+            id="footer-menu-{{ page.html_id }}">
             <a href="{{ page.get_absolute_url }}">{{ page.title }}</a></li>
     {% endif %}
 

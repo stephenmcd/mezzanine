@@ -3,20 +3,18 @@
 {% spaceless %}
 <ul id="primary-menu" class="nav pull-right">
     {% for page in page_branch %}
-    {% if forloop.first %}
-    <li class="divider-vertical"></li>
+    {% if not has_home and page.is_primary and forloop.first %}
     <li id="primary-menu-home" class="first{% if on_home %} active{% endif %}">
         <a href="{% url "home" %}">{% trans "Home" %}</a>
     </li>
-    <li class="divider-vertical"></li>
     {% endif %}
     {% if page.in_menu %}
     <li id="primary-menu-{{ page.html_id }}"
         class="{% if page.is_current_or_ascendant %}active{% endif %}{% if forloop.last %} last{% endif %}">
         <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
     </li>
-    <li class="divider-vertical"></li>
     {% endif %}
     {% endfor %}
+    <li class="divider-vertical"></li>
 </ul>
 {% endspaceless %}

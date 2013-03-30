@@ -3,7 +3,6 @@ Utils called from project_root/docs/conf.py when Sphinx
 documentation is generated.
 """
 
-from __future__ import with_statement
 from datetime import datetime
 import os.path
 from shutil import copyfile, move
@@ -105,7 +104,8 @@ def build_changelog(docs_path, package_name="mezzanine"):
     ignore = ("AUTHORS", "formatting", "typo", "pep8", "pep 8",
               "whitespace", "README", "trans", "print debug",
               "debugging", "tabs", "style", "sites", "ignore",
-              "tweak", "cleanup", "minor", "for changeset")
+              "tweak", "cleanup", "minor", "for changeset",
+              ".com``", "oops", "syntax")
     hotfixes = {
         "40cbc47b8d8a": "1.0.9",
         "a25749986abc": "1.0.10",

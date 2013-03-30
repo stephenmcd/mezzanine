@@ -4,9 +4,10 @@
 {% if page_branch %}
 {% for page in page_branch %}
 
-	{% if page.is_primary and forloop.first %}
+	{% if not has_home and page.is_primary and forloop.first %}
 	<ul class="mobile-menu">
-		<li><a class="home" href="{% url "home" %}">{% trans "Home" %}</a></li>
+		<li><a class="home" href="{% url "home" %}"
+			   id="tree-menu-home">{% trans "Home" %}</a></li>
     {% endif %}
 
 		{% if page.is_current_or_ascendant and not page.is_current_child %}

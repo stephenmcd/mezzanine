@@ -88,7 +88,7 @@ class MultiChoiceField(models.CharField):
         return MultipleChoiceField(**defaults)
 
     def get_db_prep_value(self, value, **kwargs):
-        if isinstance(value, list):
+        if isinstance(value, (tuple, list)):
             value = ",".join([unicode(i) for i in value])
         return value
 
@@ -123,6 +123,7 @@ else:
     class FileField(FileBrowseField):
         def __init__(self, *args, **kwargs):
             kwargs.setdefault("directory", kwargs.pop("upload_to", None))
+            kwargs.setdefault("max_length", 255)
             super(FileField, self).__init__(*args, **kwargs)
 
 

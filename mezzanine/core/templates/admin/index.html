@@ -1,11 +1,11 @@
 {% extends "admin/base_site.html" %}
 
-{% load i18n mezzanine_tags %}
+{% load i18n mezzanine_tags staticfiles %}
 
 {% block extrahead %}
 {{ block.super }}
-<link rel="stylesheet" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />
-<link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/dashboard.css">
+<link rel="stylesheet" href="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"css/dashboard.css" %}">
+<link rel="stylesheet" href="{% static "mezzanine/css/admin/dashboard.css" %}">
 <!--[if IE 7]><style>.dashboard #content {padding-top: 80px;}</style><![endif]-->
 {% endblock %}
 

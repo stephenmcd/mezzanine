@@ -1,6 +1,6 @@
-{% load pages_tags i18n future adminmedia %}
+{% load pages_tags i18n future staticfiles %}
 
-<ul>
+<ol>
     {% for page in page_branch %}
     <li id="ordering_{{ page.id }}">
         <div class="{% cycle 'row1' 'row2' %}">
@@ -23,8 +23,8 @@
             {% endif %}
             <span class="ordering"{% if not page.perms.change %}
                 style="visibility:hidden;"{% endif %}>
-                <img src="{% admin_media_prefix %}img/admin/arrow-up.gif" />
-                <img src="{% admin_media_prefix %}img/admin/arrow-down.gif" />
+                <img src="{% static settings.MEZZANINE_ADMIN_PREFIX %}img/admin/arrow-up.gif" />
+                <img src="{% static settings.MEZZANINE_ADMIN_PREFIX %}img/admin/arrow-down.gif" />
             </span>
             {% if page.perms.add %}
             <select class="addlist" id="addlink-{{ page.id }}">
@@ -44,4 +44,4 @@
         {% if page.has_children %}{% page_menu page %}{% endif %}
     </li>
     {% endfor %}
-</ul>
+</ol>

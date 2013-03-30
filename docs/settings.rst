@@ -175,6 +175,20 @@ If ``True``, comments that have ``is_public`` unchecked will still be displayed,
 
 Default: ``True``
 
+``COMMENTS_USE_RATINGS``
+------------------------
+
+If ``True``, comments can be rated.
+
+Default: ``True``
+
+``COMMENT_FILTER``
+------------------
+
+Dotted path to the function to call on a comment's value before it is rendered to the template.
+
+Default: ``None``
+
 ``DASHBOARD_TAGS``
 ------------------
 
@@ -216,6 +230,13 @@ Default: ``','``
 If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields.
 
 Default: ``False``
+
+``FORMS_EXTRA_FIELDS``
+----------------------
+
+Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts.
+
+Default: ``()``
 
 ``FORMS_FIELD_MAX_LENGTH``
 --------------------------
@@ -266,6 +287,13 @@ Name of the jQuery file found in mezzanine/core/static/mezzanine/js/
 
 Default: ``'jquery-1.7.1.min.js'``
 
+``JQUERY_UI_FILENAME``
+-------------------
+
+Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/
+
+Default: ``'jquery-ui-1.9.1.custom.min.js'``
+
 ``MAX_PAGING_LINKS``
 --------------------
 
@@ -273,12 +301,19 @@ Max number of paging links to display when paginating.
 
 Default: ``10``
 
-``PAGES_MENU_SHOW_ALL``
------------------------
+``MEDIA_LIBRARY_PER_SITE``
+--------------------------
 
-If ``True``, the left-hand tree template for the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page.
+If ``True``, each site will use its own directory within the filebrowser media library.
 
-Default: ``True``
+Default: ``False``
+
+``OWNABLE_MODELS_ALL_EDITABLE``
+-------------------------------
+
+Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their admin change-list records filtered down to records owned by the current user. This setting contains a sequence of models in the format ``app_label.object_name``, that when subclassing ``Ownable``, will still show all records in the admin change-list interface, regardless of the current user.
+
+Default: ``()``
 
 ``PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED``
 ------------------------------------------
@@ -301,19 +336,12 @@ A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the defa
 
 Default: ``None``
 
-``RATINGS_MAX``
----------------
+``RATINGS_RANGE``
+-----------------
 
-Max value for a rating.
+A sequence of integers that are valid ratings.
 
-Default: ``5``
-
-``RATINGS_MIN``
----------------
-
-Min value for a rating.
-
-Default: ``1``
+Default: ``[1, 2, 3, 4, 5]``
 
 ``RICHTEXT_ALLOWED_ATTRIBUTES``
 -------------------------------
@@ -366,6 +394,13 @@ Dotted package path and class name of the widget to use for the ``RichTextField`
 
 Default: ``'mezzanine.core.forms.TinyMceWidget'``
 
+``SEARCH_MODEL_CHOICES``
+------------------------
+
+Sequence of models that will be provided by default as choices in the search form. Each model should be in the format ``app_label.model_name``. Only models that subclass ``mezzanine.core.models.Displayable`` should be used.
+
+Default: ``('pages.Page', 'blog.BlogPost')``
+
 ``SEARCH_PER_PAGE``
 -------------------
 
@@ -401,12 +436,26 @@ Dotted Python path to the callable for converting strings into URL slugs. Defaul
 
 Default: ``'mezzanine.utils.urls.slugify_unicode'``
 
+``SPAM_FILTERS``
+----------------
+
+Sequence of dotted Python paths to callable functions used for checking posted content (such as forms or comments) is spam. Each function should accept three arguments: the request object, the form object, and the URL that was posted from. Defaults to ``mezzanine.utils.views.is_spam_akismet`` which will use the `http://akismet.com <http://akismet.com>`_ spam filtering service when the ``AKISMET_API_KEY`` setting is configured.
+
+Default: ``('mezzanine.utils.views.is_spam_akismet',)``
+
 ``SSL_ENABLED``
 ---------------
 
 If ``True``, users will be automatically redirected to HTTPS for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting.
 
 Default: ``False``
+
+``SSL_FORCED_PREFIXES_ONLY``
+----------------------------
+
+If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting will be accessible over SSL, and all other URLs will be redirected back to HTTP if accessed over HTTPS.
+
+Default: ``True``
 
 ``SSL_FORCE_HOST``
 ------------------
@@ -441,7 +490,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('ACCOUNTS_VERIFICATION_REQUIRED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'JQUERY_FILENAME', 'LOGIN_URL', 'LOGOUT_URL', 'PAGES_MENU_SHOW_ALL', 'SITE_TITLE', 'SITE_TAGLINE', 'RATINGS_MAX')``
+Default: ``('ACCOUNTS_VERIFICATION_REQUIRED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'BLOG_USE_FEATURED_IMAGE', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'COMMENTS_USE_RATINGS', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'JQUERY_FILENAME', 'LOGIN_URL', 'LOGOUT_URL', 'SITE_TITLE', 'SITE_TAGLINE')``
 
 ``THUMBNAILS_DIR_NAME``
 -----------------------
@@ -469,7 +518,7 @@ Default: ``3``
 
 Twitter query to use for the default query type.
 
-Default: ``'#django'``
+Default: ``'django mezzanine'``
 
 ``TWITTER_DEFAULT_QUERY_TYPE``
 ------------------------------
@@ -480,6 +529,20 @@ Choices: User: ``user``, List: ``list``, Search: ``search``
 
 
 Default: ``'search'``
+
+``UPLOAD_TO_HANDLERS``
+----------------------
+
+Dict mapping file field names in the format ``app_label.model_name.field_name`` to the Python dotted path to function names that will be used for the file field's ``upload_to`` argument.
+
+Default: ``{}``
+
+``USE_REVERSION``
+-----------------
+
+If ``True`` and ``django-reversion`` is installed in ``INSTALLED_APP``, reversion's admin class is injected into all of the admin classes that are based upon ``DisplayableAdmin``, such as blog admin and all of the page admins.
+
+Default: ``False``
 
 ``USE_SOUTH``
 -------------

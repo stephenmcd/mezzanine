@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:58-0500\n"
 "PO-Revision-Date: 2012-10-17 17:24+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/language/sk/)\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/"
+"language/sk/)\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +64,9 @@ msgid "If ``True``, built-in comments are approved by default."
 msgstr "Ak ``True``, vstavané komentáre budú automaticky schválené."
 
 #: defaults.py:66
-msgid "Dotted path to the function to call on a comment's value before it is rendered to the template."
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
 msgstr ""
 
 #: defaults.py:74
@@ -71,8 +74,12 @@ msgid "Comment notification email addresses"
 msgstr "Notifikačný email pre komentáre"
 
 #: defaults.py:75
-msgid "A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site."
-msgstr "Čiarkou oddelený zoznam emailových adries, na ktoré bude zaslaný notifikačný email, vždy keď je na stránke pridaný nový komentár."
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
+msgstr ""
+"Čiarkou oddelený zoznam emailových adries, na ktoré bude zaslaný notifikačný "
+"email, vždy keď je na stránke pridaný nový komentár."
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -87,16 +94,24 @@ msgid "Show unapproved comments"
 msgstr "Zobraz neodsúhlasené komentáre"
 
 #: defaults.py:94
-msgid "If ``True``, comments that have ``is_public`` unchecked will still be displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "Pokiaľ ``True``, komentáre ktoré nemajú ``is_public`` zaškrtnuté, budú stále zobrazené, ale nahradené s ``waiting to be approved`` správou."
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+"Pokiaľ ``True``, komentáre ktoré nemajú ``is_public`` zaškrtnuté, budú stále "
+"zobrazené, ale nahradené s ``waiting to be approved`` správou."
 
 #: defaults.py:103
 msgid "Show removed comments"
 msgstr "Zobraz odstránené komentáre"
 
 #: defaults.py:104
-msgid "If ``True``, comments that have ``removed`` checked will still be displayed, but replaced with a ``removed`` message."
-msgstr "Pokiaľ ``True``, komentáre ktoré majú ``removed`` zaškrtnuté, budú stále zobrazené, ale nahradené s ``removed`` správou."
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Pokiaľ ``True``, komentáre ktoré majú ``removed`` zaškrtnuté, budú stále "
+"zobrazené, ale nahradené s ``removed`` správou."
 
 #: defaults.py:113
 msgid "Min value for a rating."
@@ -167,8 +182,12 @@ msgid "Ratings"
 msgstr "Hodnotenie"
 
 #: views.py:53
-msgid "You must log in to comment. Please log in or sign up, and your comment will be posted."
-msgstr "Aby ste mohli komentovať musite sa prihlásiť. Prosím prihláste sa, alebo sa zaregistrujte a Váš komentár by odoslaný"
+msgid ""
+"You must log in to comment. Please log in or sign up, and your comment will "
+"be posted."
+msgstr ""
+"Aby ste mohli komentovať musite sa prihlásiť. Prosím prihláste sa, alebo sa "
+"zaregistrujte a Váš komentár by odoslaný"
 
 #: views.py:89
 msgid "New comment for: "

@@ -147,7 +147,7 @@ The view function futher looks through the parent hierarchy of the ``Page``.
 If a ``Page`` instance with slug ``authors/dr-suess`` is a child of the
 ``Page`` with slug ``authors``, the templates ``pages/authors/dr-seuss.html``,
 ``pages/authors/dr-seuss/author.html``, ``pages/authors/author.html``,
-``pages/author.html``, and ``pages/pages.html`` would be checked for
+``pages/author.html``, and ``pages/page.html`` would be checked for
 respectively. This lets you specify a template for all children of a ``Page``
 and a different template for the ``Page`` itself. For example, if an
 additional author were added as a child page of ``authors/dr-suess`` with the
@@ -333,41 +333,6 @@ includes itself recursively for each branch in the menu. We could even
 specify a different menu template in the call to ``page_menu`` in our
 menu template, if we wanted to use a different layout for child pages.
 
-Menu Variables
---------------
-
-The ``page_menu`` template tag provides a handful of variables, both in
-the template context, and assigned to each page in the branch, for
-helping you to build advanced menus.
-
-  * ``page_branch`` - a list of pages for the current branch
-  * ``on_home`` - a boolean for whether the homepage is being viewed
-  * ``branch_level`` - an integer for the current branch depth
-  * ``page_branch_in_menu`` - a boolean for whether this branch should
-    be in the menu (see "filtering menus" below)
-  * ``page.in_menu`` - a boolean for whether the branch page should
-    be in the menu (see "filtering menus" below)
-  * ``page.has_children`` - a boolean for whether the branch page has
-    any child pages at all, disregarding the current menu
-  * ``page.has_children_in_menu`` - a boolean for whether the branch
-    page has any child pages that appear in the current menu
-  * ``page.num_children`` - an integer for the number of child pages the
-    branch page has in total, disregarding the current menu
-  * ``page.num_children_in_menu`` - an integer for the number of child
-    pages the branch page has, that also appear in the current menu
-  * ``page.is_current_child`` - a boolean for whether the branch page
-    is a child of the current page being viewed
-  * ``page.is_current_sibling`` - a boolean for whether the branch page
-    is a sibling (has the same parent) of the current page being viewed
-  * ``page.is_current_or_ascendant`` - a boolean for whether the branch
-    page is the current page being viewed, or an ascendant (parent,
-    grand-parent, etc) of the current page being viewed
-  * ``page.is_primary`` - a boolean for whether the branch page
-    is a primary page (has no parent)
-  * ``page.html_id`` - a unique string that can be used as the HTML ID
-    attribute
-  * ``page.branch_level`` - an integer for the branch page's depth
-
 Filtering Menus
 ---------------
 
@@ -412,6 +377,72 @@ always have the ``in_menu`` attribute set to ``True``, so the only way
 this will be ``False`` is if the menu template has been added to
 ``PAGE_MENU_TEMPLATES``, and then *not* selected for a page in the admin
 interface.
+
+Menu Variables
+--------------
+
+The ``page_menu`` template tag provides a handful of variables, both in
+the template context, and assigned to each page in the branch, for
+helping you to build advanced menus.
+
+  * ``page_branch`` - a list of pages for the current branch
+  * ``on_home`` - a boolean for whether the homepage is being viewed
+  * ``has_home`` - a boolean for whether a page object exists for the
+    homepage, which is used to check whether a hard-coded link to the
+    homepage should be used in the page menu
+  * ``branch_level`` - an integer for the current branch depth
+  * ``page_branch_in_menu`` - a boolean for whether this branch should
+    be in the menu (see "filtering menus" below)
+  * ``page.in_menu`` - a boolean for whether the branch page should
+    be in the menu (see "filtering menus" below)
+  * ``page.has_children`` - a boolean for whether the branch page has
+    any child pages at all, disregarding the current menu
+  * ``page.has_children_in_menu`` - a boolean for whether the branch
+    page has any child pages that appear in the current menu
+  * ``page.num_children`` - an integer for the number of child pages the
+    branch page has in total, disregarding the current menu
+  * ``page.num_children_in_menu`` - an integer for the number of child
+    pages the branch page has, that also appear in the current menu
+  * ``page.is_current_child`` - a boolean for whether the branch page
+    is a child of the current page being viewed
+  * ``page.is_current_sibling`` - a boolean for whether the branch page
+    is a sibling (has the same parent) of the current page being viewed
+  * ``page.is_current_or_ascendant`` - a boolean for whether the branch
+    page is the current page being viewed, or an ascendant (parent,
+    grand-parent, etc) of the current page being viewed
+  * ``page.is_primary`` - a boolean for whether the branch page
+    is a primary page (has no parent)
+  * ``page.html_id`` - a unique string that can be used as the HTML ID
+    attribute
+  * ``page.branch_level`` - an integer for the branch page's depth
+
+Here's a commonly requested example of custom menu logic. Suppose you
+have primary navigation across the top of the site showing only primary
+pages, representing sections of the site. You then want to have a tree
+menu in a sidebar, that displays all pages within the section of the
+site currently being viewed. To achieve this we recursively move through
+the page tree, only drilling down through child pages if
+``page.is_current_or_ascendant`` is ``True``, or if the page isn't a
+primary page. The key here is the ``page.is_current_or_ascendant``
+check is only applied to the primary page, so all of its descendants
+end up being rendered. Finally, we also only display the link to each
+page if it isn't the primary page for the section::
+
+    {% load pages_tags %}
+    <ul>
+    {% for page in page_branch %}
+    {% if page.in_menu %}
+    {% if page.is_current_or_ascendant or not page.is_primary %}
+    <li>
+        {% if not page.is_primary %}
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+        {% endif %}
+        {% page_menu page %}
+    </li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    </ul>
 
 Non-Page Content
 ================

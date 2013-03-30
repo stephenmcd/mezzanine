@@ -2,6 +2,8 @@
 from collections import defaultdict
 
 from django.db.models import get_model
+from django.utils.importlib import import_module
+from django.utils.module_loading import module_has_submodule
 
 from mezzanine.conf import settings
 from mezzanine.pages.models import Page
@@ -61,7 +63,9 @@ def autodiscover():
         return
     LOADED = True
     for app in settings.INSTALLED_APPS:
+        module = import_module(app)
         try:
-            __import__("%s.page_processors" % app)
-        except ImportError:
-            pass
+            import_module("%s.page_processors" % app)
+        except:
+            if module_has_submodule(module, "page_processors"):
+                raise

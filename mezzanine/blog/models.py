@@ -5,7 +5,7 @@ from mezzanine.conf import settings
 from mezzanine.core.fields import FileField
 from mezzanine.core.models import Displayable, Ownable, RichText, Slugged
 from mezzanine.generic.fields import CommentsField, RatingField
-from mezzanine.utils.models import AdminThumbMixin
+from mezzanine.utils.models import AdminThumbMixin, upload_to
 
 
 class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
@@ -21,8 +21,8 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
     comments = CommentsField(verbose_name=_("Comments"))
     rating = RatingField(verbose_name=_("Rating"))
     featured_image = FileField(verbose_name=_("Featured Image"),
-                               upload_to="blog", format="Image",
-                               max_length=255, null=True, blank=True)
+        upload_to=upload_to("blog.BlogPost.featured_image", "blog"),
+        format="Image", max_length=255, null=True, blank=True)
     related_posts = models.ManyToManyField("self",
                                  verbose_name=_("Related posts"), blank=True)
 
@@ -52,16 +52,22 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
             })
         return (url_name, (), kwargs)
 
-    # These methods are wrappers for keyword and category access.
-    # For Django 1.3, we manually assign keywords and categories
-    # in the blog_post_list view, since we can't use Django 1.4's
-    # prefetch_related method. Once we drop support for Django 1.3,
-    # these can probably be removed.
+    # These methods are deprecated wrappers for keyword and category
+    # access. They existed to support Django 1.3 with prefetch_related
+    # not existing, which was therefore manually implemented in the
+    # blog list views. All this is gone now, but the access methods
+    # still exist for older templates.
 
     def category_list(self):
+        from warnings import warn
+        warn("blog_post.category_list in templates is deprecated"
+             "use blog_post.categories.all which are prefetched")
         return getattr(self, "_categories", self.categories.all())
 
     def keyword_list(self):
+        from warnings import warn
+        warn("blog_post.keyword_list in templates is deprecated"
+             "use the keywords_for template tag, as keywords are prefetched")
         try:
             return self._keywords
         except AttributeError:
@@ -78,6 +84,7 @@ class BlogCategory(Slugged):
     class Meta:
         verbose_name = _("Blog Category")
         verbose_name_plural = _("Blog Categories")
+        ordering = ("title",)
 
     @models.permalink
     def get_absolute_url(self):

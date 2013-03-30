@@ -16,6 +16,16 @@ from mezzanine.conf import register_setting
 
 
 register_setting(
+    name="ADD_PAGE_ORDER",
+    description=_("A sequence of ``Page`` subclasses in the format "
+        "``app_label.model_name``, that controls the ordering of items "
+        "in the select drop-down for adding new pages within the admin "
+        "page tree interface."),
+    editable=False,
+    default=("pages.RichTextPage",),
+)
+
+register_setting(
     name="PAGE_MENU_TEMPLATES",
     description=_("A sequence of templates used by the ``page_menu`` "
         "template tag. Each item in the sequence is a three item sequence, "
@@ -41,15 +51,6 @@ register_setting(
         "selected by default."),
     editable=False,
     default=None,
-)
-
-register_setting(
-    name="PAGES_MENU_SHOW_ALL",
-    description=_("If ``True``, the left-hand tree template for the pages "
-        "menu will show all levels of navigation, otherwise child pages "
-        "are only shown when viewing the parent page."),
-    editable=False,
-    default=True,
 )
 
 register_setting(

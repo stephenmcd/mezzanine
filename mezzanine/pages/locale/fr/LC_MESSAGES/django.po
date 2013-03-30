@@ -11,10 +11,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:57-0500\n"
 "PO-Revision-Date: 2012-09-16 16:22+0000\n"
 "Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
+"language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,8 +23,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: defaults.py:20
-msgid "A sequence of templates used by the ``page_menu`` template tag. Each item in the sequence is a three item sequence, containing a unique ID for the template, a label for the template, and the template path. These templates are then available for selection when editing which menus a page should appear in. Note that if a menu template is used that doesn't appear in this setting, all pages will appear in it."
-msgstr "Une séquence de templates utilisé pour la balise de templates ``page_menu``. Chaque élément de cette séquence est une séquence de trois éléments contenant : un identifiant unique pour le template, un nom lui correspondant et le chemin d'accès au template. Ces templates seront alors accessibles comme choix pour définir dans quels menus une page peut apparaître. Notez que si un template pour menu est utilisé mais n'apparaît pas dans ce paramètre, toutes les pages y apparaîtront."
+msgid ""
+"A sequence of templates used by the ``page_menu`` template tag. Each item in "
+"the sequence is a three item sequence, containing a unique ID for the "
+"template, a label for the template, and the template path. These templates "
+"are then available for selection when editing which menus a page should "
+"appear in. Note that if a menu template is used that doesn't appear in this "
+"setting, all pages will appear in it."
+msgstr ""
+"Une séquence de templates utilisé pour la balise de templates ``page_menu``. "
+"Chaque élément de cette séquence est une séquence de trois éléments "
+"contenant : un identifiant unique pour le template, un nom lui correspondant "
+"et le chemin d'accès au template. Ces templates seront alors accessibles "
+"comme choix pour définir dans quels menus une page peut apparaître. Notez "
+"que si un template pour menu est utilisé mais n'apparaît pas dans ce "
+"paramètre, toutes les pages y apparaîtront."
 
 #: defaults.py:29
 msgid "Top navigation bar"
@@ -38,16 +52,30 @@ msgid "Footer"
 msgstr "Pied de page"
 
 #: defaults.py:37
-msgid "A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the default menu templates selected when creating new pages. By default all menu templates are selected. Set this setting to an empty sequence to have no templates selected by default."
-msgstr "Une séquence d'IDs correspondant au paramètre ``PAGE_MENU_TEMPLATES`` qui définissent le menu des templates par défaut à utiliser pour créer de nouvelles pages. Par défaut, tous les templates sont sélectionnés pour le menu. Affectez une séquence vide à ce paramètre pour n'avoir aucun template sélectionné par défaut."
+msgid ""
+"A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the "
+"default menu templates selected when creating new pages. By default all menu "
+"templates are selected. Set this setting to an empty sequence to have no "
+"templates selected by default."
+msgstr ""
+"Une séquence d'IDs correspondant au paramètre ``PAGE_MENU_TEMPLATES`` qui "
+"définissent le menu des templates par défaut à utiliser pour créer de "
+"nouvelles pages. Par défaut, tous les templates sont sélectionnés pour le "
+"menu. Affectez une séquence vide à ce paramètre pour n'avoir aucun template "
+"sélectionné par défaut."
 
 #: defaults.py:48
-msgid "If ``True``, the left-hand tree template for the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page."
-msgstr "Si ``vrai``, le template générant le menu arborescent sur la gauche de la page développera tous les niveaux de navigation. Dans le cas contraire, les pages enfant ne sont développées que lors de la visualisation des pages parent."
-
-#: defaults.py:57
-msgid "If ``True``, pages with ``login_required`` checked will still be listed in menus and search results, for unauthenticated users. Regardless of this setting, when an unauthenticated user accesses a page with ``login_required`` checked, they'll be redirected to the login page."
-msgstr "Si ``vrai``, les pages avec l'option ``login_required`` activée seront toujours visibles dans les menus et les résultats de recherche pour les utilisateurs non identifiés. Indépendamment de ce paramètre, un utilisateur non identifiés souhaitant visualiser une page avec l'option ``login_required`` activée sera redirigé vers la page d'authentification."
+msgid ""
+"If ``True``, pages with ``login_required`` checked will still be listed in "
+"menus and search results, for unauthenticated users. Regardless of this "
+"setting, when an unauthenticated user accesses a page with "
+"``login_required`` checked, they'll be redirected to the login page."
+msgstr ""
+"Si ``vrai``, les pages avec l'option ``login_required`` activée seront "
+"toujours visibles dans les menus et les résultats de recherche pour les "
+"utilisateurs non identifiés. Indépendamment de ce paramètre, un utilisateur "
+"non identifiés souhaitant visualiser une page avec l'option "
+"``login_required`` activée sera redirigé vers la page d'authentification."
 
 #: models.py:33
 msgid "Show in menus"
@@ -69,23 +97,23 @@ msgstr "Page"
 msgid "Pages"
 msgstr "Pages"
 
-#: models.py:225
+#: models.py:256
 msgid "Rich text page"
 msgstr "Page de texte riche"
 
-#: models.py:226
+#: models.py:257
 msgid "Rich text pages"
 msgstr "Pages de texte riche"
 
-#: models.py:236
+#: models.py:267
 msgid "Link"
 msgstr "Lien"
 
-#: models.py:237
+#: models.py:268
 msgid "Links"
 msgstr "Liens"
 
-#: templates/admin/pages/page/change_list.html:24
+#: templates/admin/pages/page/change_list.html:25
 #: templates/pages/menus/admin.html:31
 msgid "Add"
 msgstr "Ajouter"
@@ -93,12 +121,25 @@ msgstr "Ajouter"
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
 #: templates/pages/menus/dropdown.html:10
-#: templates/pages/menus/footer_tree.html:10
-#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:9
-#: templates/pages/menus/tree.html:9
+#: templates/pages/menus/footer_tree.html:11
+#: templates/pages/menus/mobile.html:10 templates/pages/menus/primary.html:9
+#: templates/pages/menus/tree.html:10
 msgid "Home"
 msgstr "Accueil"
 
-#: templatetags/pages_tags.py:181
-msgid "An error occured with the following class. Does it subclass Page directly?"
-msgstr "Une erreur est survenue sur la classe suivante. Est elle une sous classe directe de Page ? "
+#: templatetags/pages_tags.py:190
+msgid ""
+"An error occured with the following class. Does it subclass Page directly?"
+msgstr ""
+"Une erreur est survenue sur la classe suivante. Est elle une sous classe "
+"directe de Page ? "
+
+#~ msgid ""
+#~ "If ``True``, the left-hand tree template for the pages menu will show all "
+#~ "levels of navigation, otherwise child pages are only shown when viewing "
+#~ "the parent page."
+#~ msgstr ""
+#~ "Si ``vrai``, le template générant le menu arborescent sur la gauche de la "
+#~ "page développera tous les niveaux de navigation. Dans le cas contraire, "
+#~ "les pages enfant ne sont développées que lors de la visualisation des "
+#~ "pages parent."

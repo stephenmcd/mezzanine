@@ -1,21 +1,24 @@
-
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.base import ModelBase
+from django.db.models.signals import post_save
 from django.template.defaultfilters import truncatewords_html
 from django.utils.html import strip_tags
 from django.utils.timesince import timesince
+from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
-from mezzanine.utils.models import base_concrete_model
+from mezzanine.utils.models import base_concrete_model, get_user_model_name
 from mezzanine.utils.sites import current_site_id
-from mezzanine.utils.timezone import now
 from mezzanine.utils.urls import admin_url, slugify
+
+
+user_model_name = get_user_model_name()
 
 
 class SiteRelated(models.Model):
@@ -57,7 +60,6 @@ class Slugged(SiteRelated):
 
     class Meta:
         abstract = True
-        ordering = ("title",)
 
     def __unicode__(self):
         return self.title
@@ -148,6 +150,9 @@ class MetaData(models.Model):
                         field.name != "description":
                         description = getattr(self, field.name)
                         if description:
+                            from mezzanine.core.templatetags.mezzanine_tags \
+                            import richtext_filter
+                            description = richtext_filter(description)
                             break
         # Fall back to the title if description couldn't be determined.
         if not description:
@@ -191,6 +196,7 @@ class Displayable(Slugged, MetaData):
         help_text=_("With Published chosen, won't be shown after this time"),
         blank=True, null=True)
     short_url = models.URLField(blank=True, null=True)
+    in_sitemap = models.BooleanField(_("Show in sitemap"), default=True)
 
     objects = DisplayableManager()
     search_fields = {"keywords": 10, "title": 5}
@@ -200,7 +206,7 @@ class Displayable(Slugged, MetaData):
 
     def save(self, *args, **kwargs):
         """
-        Set default for ``publish_date``. We can't use ``auto_add`` on
+        Set default for ``publish_date``. We can't use ``auto_now_add`` on
         the field as it will be blank when a blog post is created from
         the quick blog form in the admin dashboard.
         """
@@ -227,6 +233,37 @@ class Displayable(Slugged, MetaData):
         name = self.__class__.__name__
         raise NotImplementedError("The model %s does not have "
                                   "get_absolute_url defined" % name)
+
+    def _get_next_or_previous_by_publish_date(self, is_next, **kwargs):
+        """
+        Retrieves next or previous object by publish date. We implement
+        our own version instead of Django's so we can hook into the
+        published manager and concrete subclasses.
+        """
+        arg = "publish_date__gt" if is_next else "publish_date__lt"
+        order = "publish_date" if is_next else "-publish_date"
+        lookup = {arg: self.publish_date}
+        concrete_model = base_concrete_model(Displayable, self)
+        try:
+            queryset = concrete_model.objects.published
+        except AttributeError:
+            queryset = concrete_model.objects.all
+        try:
+            return queryset(**kwargs).filter(**lookup).order_by(order)[0]
+        except IndexError:
+            pass
+
+    def get_next_by_publish_date(self, **kwargs):
+        """
+        Retrieves next object by publish date.
+        """
+        return self._get_next_or_previous_by_publish_date(True, **kwargs)
+
+    def get_previous_by_publish_date(self, **kwargs):
+        """
+        Retrieves previous object by publish date.
+        """
+        return self._get_next_or_previous_by_publish_date(False, **kwargs)
 
 
 class RichText(models.Model):
@@ -300,7 +337,7 @@ class Orderable(models.Model):
         field = getattr(self.__class__, name)
         if isinstance(field, GenericForeignKey):
             names = (field.ct_field, field.fk_field)
-            return dict([(name, getattr(self, name)) for name in names])
+            return dict([(n, getattr(self, n)) for n in names])
         return {name: value}
 
     def save(self, *args, **kwargs):
@@ -325,29 +362,36 @@ class Orderable(models.Model):
         after.update(_order=models.F("_order") - 1)
         super(Orderable, self).delete(*args, **kwargs)
 
-    def adjacent_by_order(self, direction):
+    def _get_next_or_previous_by_order(self, is_next, **kwargs):
         """
-        Retrieves next object by order in the given direction.
+        Retrieves next or previous object by order. We implement our
+        own version instead of Django's so we can hook into the
+        published manager, concrete subclasses and our custom
+        ``with_respect_to`` method.
         """
         lookup = self.with_respect_to()
-        lookup["_order"] = self._order + direction
+        lookup["_order"] = self._order + (1 if is_next else -1)
         concrete_model = base_concrete_model(Orderable, self)
         try:
-            return concrete_model.objects.get(**lookup)
+            queryset = concrete_model.objects.published
+        except AttributeError:
+            queryset = concrete_model.objects.filter
+        try:
+            return queryset(**kwargs).get(**lookup)
         except concrete_model.DoesNotExist:
             pass
 
-    def next_by_order(self):
+    def get_next_by_order(self, **kwargs):
         """
         Retrieves next object by order.
         """
-        return self.adjacent_by_order(1)
+        return self._get_next_or_previous_by_order(True, **kwargs)
 
-    def previous_by_order(self):
+    def get_previous_by_order(self, **kwargs):
         """
         Retrieves previous object by order.
         """
-        return self.adjacent_by_order(-1)
+        return self._get_next_or_previous_by_order(False, **kwargs)
 
 
 class Ownable(models.Model):
@@ -355,7 +399,7 @@ class Ownable(models.Model):
     Abstract model that provides ownership of an object for a user.
     """
 
-    user = models.ForeignKey("auth.User", verbose_name=_("Author"),
+    user = models.ForeignKey(user_model_name, verbose_name=_("Author"),
         related_name="%(class)ss")
 
     class Meta:
@@ -366,3 +410,36 @@ class Ownable(models.Model):
         Restrict in-line editing to the objects's owner and superusers.
         """
         return request.user.is_superuser or request.user.id == self.user_id
+
+
+class SitePermission(models.Model):
+    """
+    Permission relationship between a user and a site that's
+    used instead of ``User.is_staff``, for admin and inline-editing
+    access.
+    """
+
+    user = models.ForeignKey(user_model_name, verbose_name=_("Author"),
+        related_name="%(class)ss")
+    sites = models.ManyToManyField("sites.Site", blank=True,
+                                   verbose_name=_("Sites"))
+
+    class Meta:
+        verbose_name = _("Site permission")
+        verbose_name_plural = _("Site permissions")
+
+
+def create_site_permission(sender, **kw):
+    sender_name = "%s.%s" % (sender._meta.app_label, sender._meta.object_name)
+    if sender_name.lower() != user_model_name.lower():
+        return
+    user = kw["instance"]
+    if user.is_staff and not user.is_superuser:
+        perm, created = SitePermission.objects.get_or_create(user=user)
+        if created or perm.sites.count() < 1:
+            perm.sites.add(current_site_id())
+
+# We don't specify the user model here, because with 1.5's custom
+# user models, everything explodes. So we check the name of it in
+# the signal.
+post_save.connect(create_site_permission)

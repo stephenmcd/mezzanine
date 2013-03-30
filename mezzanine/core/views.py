@@ -1,5 +1,4 @@
 
-from __future__ import with_statement
 import os
 from urlparse import urljoin, urlparse
 
@@ -7,6 +6,7 @@ from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.staticfiles import finders
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.db.models import get_model
 from django.http import (HttpResponse, HttpResponseServerError,
@@ -19,9 +19,10 @@ from django.views.decorators.csrf import requires_csrf_token
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
-from mezzanine.core.models import Displayable
+from mezzanine.core.models import Displayable, SitePermission
 from mezzanine.utils.cache import add_cache_bypass
 from mezzanine.utils.views import is_editable, paginate, render, set_cookie
+from mezzanine.utils.sites import has_site_permission
 
 
 def set_device(request, device=""):
@@ -42,7 +43,13 @@ def set_site(request):
     site ID is then used in favour of the current request's
     domain in ``mezzanine.core.managers.CurrentSiteManager``.
     """
-    request.session["site_id"] = int(request.GET["site_id"])
+    site_id = int(request.GET["site_id"])
+    if not request.user.is_superuser:
+        try:
+            SitePermission.objects.get(user=request.user, sites=site_id)
+        except SitePermission.DoesNotExist:
+            raise PermissionDenied
+    request.session["site_id"] = site_id
     admin_url = reverse("admin:index")
     next = request.GET.get("next", admin_url)
     # Don't redirect to a change view for an object that won't exist
@@ -76,7 +83,7 @@ def edit(request):
     obj = model.objects.get(id=request.POST["id"])
     form = get_edit_form(obj, request.POST["fields"], data=request.POST,
                          files=request.FILES)
-    if not is_editable(obj, request):
+    if not (is_editable(obj, request) and has_site_permission(request.user)):
         response = _("Permission denied")
     elif form.is_valid():
         form.save()
@@ -91,16 +98,27 @@ def edit(request):
 
 def search(request, template="search_results.html"):
     """
-    Display search results.
+    Display search results. Takes an optional "contenttype" GET parameter
+    in the form "app-name.ModelName" to limit search results to a single model.
     """
     settings.use_editable()
     query = request.GET.get("q", "")
     page = request.GET.get("page", 1)
     per_page = settings.SEARCH_PER_PAGE
     max_paging_links = settings.MAX_PAGING_LINKS
-    results = Displayable.objects.search(query, for_user=request.user)
+    try:
+        search_model = get_model(*request.GET.get("type", "").split(".", 1))
+        if not issubclass(search_model, Displayable):
+            raise TypeError
+    except TypeError:
+        search_model = Displayable
+        search_type = _("Everything")
+    else:
+        search_type = search_model._meta.verbose_name_plural.capitalize()
+    results = search_model.objects.search(query, for_user=request.user)
     paginated = paginate(results, page, per_page, max_paging_links)
-    context = {"query": query, "results": paginated}
+    context = {"query": query, "results": paginated,
+               "search_type": search_type}
     return render(request, template, context)
 
 

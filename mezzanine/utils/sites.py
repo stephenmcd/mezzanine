@@ -37,7 +37,8 @@ def current_site_id():
                 # Don't use Mezzanine's cache_key_prefix here, since it
                 # uses this very function we're in right now to create a
                 # per-site cache key.
-                cache_key = settings.CACHE_MIDDLEWARE_KEY_PREFIX + ".site_id"
+                bits = (settings.CACHE_MIDDLEWARE_KEY_PREFIX, domain)
+                cache_key = "%s.site_id.%s" % bits
                 site_id = cache_get(cache_key)
             if not site_id:
                 try:
@@ -53,6 +54,25 @@ def current_site_id():
     if not site_id:
         site_id = os.environ.get("MEZZANINE_SITE_ID", settings.SITE_ID)
     return site_id
+
+
+def has_site_permission(user):
+    """
+    Checks if a staff user has staff-level access for the current site.
+    The actual permission lookup occurs in ``SitePermissionMiddleware``
+    which then marks the request with the ``has_site_permission`` flag,
+    so that we only query the db once per request, so this function
+    serves as the entry point for everything else to check access. We
+    also fall back to an ``is_staff`` check if the middleware is not
+    installed, to ease migration.
+    """
+    mw = "mezzanine.core.middleware.SitePermissionMiddleware"
+    if mw not in settings.MIDDLEWARE_CLASSES:
+        from warnings import warn
+        warn(mw + " missing from settings.MIDDLEWARE_CLASSES - per site"
+             "permissions not applied")
+        return user.is_staff and user.is_active
+    return getattr(user, "has_site_permission", False)
 
 
 def host_theme_path(request):

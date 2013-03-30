@@ -74,23 +74,6 @@
 #
 # BLOG_USE_FEATURED_IMAGE = True
 
-# If ``True``, users will be automatically redirected to HTTPS
-# for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting.
-#
-# SSL_ENABLED = True
-
-# Host name that the site should always be accessed via that matches
-# the SSL certificate.
-#
-# SSL_FORCE_HOST = "www.example.com"
-
-# Sequence of URL prefixes that will be forced to run over
-# SSL when ``SSL_ENABLED`` is ``True``. i.e.
-# ('/admin', '/example') would force all URLs beginning with
-# /admin or /example to run over SSL. Defaults to:
-#
-# SSL_FORCE_URL_PREFIXES = ("/admin", "/account")
-
 # If True, the south application will be automatically added to the
 # INSTALLED_APPS setting.
 USE_SOUTH = True
@@ -221,11 +204,6 @@ MEDIA_URL = STATIC_URL + "media/"
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip("/").split("/"))
 
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
-
 # Package/module name to import the root urlpatterns from for the project.
 ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 
@@ -292,6 +270,7 @@ MIDDLEWARE_CLASSES = (
     "mezzanine.core.middleware.TemplateForDeviceMiddleware",
     "mezzanine.core.middleware.TemplateForHostMiddleware",
     "mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware",
+    "mezzanine.core.middleware.SitePermissionMiddleware",
     # Uncomment the following if using any of the SSL settings:
     # "mezzanine.core.middleware.SSLRedirectMiddleware",
     "mezzanine.pages.middleware.PageMiddleware",
@@ -302,7 +281,6 @@ MIDDLEWARE_CLASSES = (
 # at the moment we are using custom forks of them.
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
-
 
 #########################
 # OPTIONAL APPLICATIONS #

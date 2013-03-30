@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-17 16:51-0430\n"
+"POT-Creation-Date: 2013-01-11 19:57-0500\n"
 "PO-Revision-Date: 2012-09-13 19:23+0000\n"
 "Last-Translator: ricco386 <richard.kellner@ajty.info>\n"
-"Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/language/sk/)\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/"
+"language/sk/)\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +20,13 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: defaults.py:20
-msgid "A sequence of templates used by the ``page_menu`` template tag. Each item in the sequence is a three item sequence, containing a unique ID for the template, a label for the template, and the template path. These templates are then available for selection when editing which menus a page should appear in. Note that if a menu template is used that doesn't appear in this setting, all pages will appear in it."
+msgid ""
+"A sequence of templates used by the ``page_menu`` template tag. Each item in "
+"the sequence is a three item sequence, containing a unique ID for the "
+"template, a label for the template, and the template path. These templates "
+"are then available for selection when editing which menus a page should "
+"appear in. Note that if a menu template is used that doesn't appear in this "
+"setting, all pages will appear in it."
 msgstr ""
 
 #: defaults.py:29
@@ -35,15 +42,19 @@ msgid "Footer"
 msgstr "Päťička"
 
 #: defaults.py:37
-msgid "A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the default menu templates selected when creating new pages. By default all menu templates are selected. Set this setting to an empty sequence to have no templates selected by default."
+msgid ""
+"A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the "
+"default menu templates selected when creating new pages. By default all menu "
+"templates are selected. Set this setting to an empty sequence to have no "
+"templates selected by default."
 msgstr ""
 
 #: defaults.py:48
-msgid "If ``True``, the left-hand tree template for the pages menu will show all levels of navigation, otherwise child pages are only shown when viewing the parent page."
-msgstr ""
-
-#: defaults.py:57
-msgid "If ``True``, pages with ``login_required`` checked will still be listed in menus and search results, for unauthenticated users. Regardless of this setting, when an unauthenticated user accesses a page with ``login_required`` checked, they'll be redirected to the login page."
+msgid ""
+"If ``True``, pages with ``login_required`` checked will still be listed in "
+"menus and search results, for unauthenticated users. Regardless of this "
+"setting, when an unauthenticated user accesses a page with "
+"``login_required`` checked, they'll be redirected to the login page."
 msgstr ""
 
 #: models.py:33
@@ -66,23 +77,23 @@ msgstr "Stránka"
 msgid "Pages"
 msgstr "Stránky"
 
-#: models.py:225
+#: models.py:256
 msgid "Rich text page"
 msgstr ""
 
-#: models.py:226
+#: models.py:257
 msgid "Rich text pages"
 msgstr ""
 
-#: models.py:236
+#: models.py:267
 msgid "Link"
 msgstr "Linka"
 
-#: models.py:237
+#: models.py:268
 msgid "Links"
 msgstr "inky"
 
-#: templates/admin/pages/page/change_list.html:24
+#: templates/admin/pages/page/change_list.html:25
 #: templates/pages/menus/admin.html:31
 msgid "Add"
 msgstr "Pridať"
@@ -90,12 +101,13 @@ msgstr "Pridať"
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
 #: templates/pages/menus/dropdown.html:10
-#: templates/pages/menus/footer_tree.html:10
-#: templates/pages/menus/mobile.html:9 templates/pages/menus/primary.html:9
-#: templates/pages/menus/tree.html:9
+#: templates/pages/menus/footer_tree.html:11
+#: templates/pages/menus/mobile.html:10 templates/pages/menus/primary.html:9
+#: templates/pages/menus/tree.html:10
 msgid "Home"
 msgstr "Domov"
 
-#: templatetags/pages_tags.py:181
-msgid "An error occured with the following class. Does it subclass Page directly?"
+#: templatetags/pages_tags.py:190
+msgid ""
+"An error occured with the following class. Does it subclass Page directly?"
 msgstr ""

@@ -4,7 +4,7 @@ all the various Mezzanine apps, third-party apps like Grappelli and
 filebrowser.
 """
 
-from django.conf.urls.defaults import patterns, include
+from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.http import HttpResponse
@@ -29,6 +29,15 @@ for model in settings.ADMIN_REMOVAL:
 
 
 urlpatterns = []
+
+# JavaScript localization feature
+js_info_dict = {
+    'domain': 'django',
+}
+
+urlpatterns += patterns('django.views.i18n',
+    (r'^jsi18n/(?P<packages>\S+?)/$', 'javascript_catalog', js_info_dict),
+)
 
 # Django's sitemap app.
 if "django.contrib.sitemaps" in settings.INSTALLED_APPS:

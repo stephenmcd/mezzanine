@@ -84,18 +84,20 @@
     {% with blog_post.user as author %}
     <a href="{% url "blog_post_list_author" author %}">{{ author.get_full_name|default:author.username }}</a>
     {% endwith %}
-    {% if blog_post.category_list %}
+    {% with blog_post.category.all as categories %}
+    {% if categories %}
     {% trans "in" %}
-    {% for category in blog_post.category_list %}
+    {% for category in categories %}
     <a href="{% url "blog_post_list_category" category.slug %}">{{ category }}</a>
     {% endfor %}
     {% endif %}
+    {% endwith %}
     {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
 </h6>
 {% endeditable %}
 {% endblock %}
 
-{% if blog_post.featured_image %}
+{% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
 {% block blog_post_list_post_featured_image %}
 <img class="featured-thumb" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 90 90 %}">
 {% endblock %}
@@ -109,10 +111,11 @@
 
 {% block blog_post_list_post_links %}
 <p class="blog-list-detail">
-    {% if blog_post.keyword_list %}
+    {% keywords_for blog_post as tags %}
+    {% if tags %}
     {% trans "Tags" %}:
     {% spaceless %}
-    {% for tag in blog_post.keyword_list %}
+    {% for tag in tags %}
     <a href="{% url "blog_post_list_tag" tag.slug %}" class="tag">{{ tag }}</a>
     {% endfor %}
     {% endspaceless %}

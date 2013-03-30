@@ -1,14 +1,32 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from django.db.models import AutoField
-from django.forms import ValidationError
+from django.forms import ValidationError, ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User as AuthUser
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
-from mezzanine.core.models import CONTENT_STATUS_PUBLISHED, Orderable
+from mezzanine.core.models import (Orderable, SitePermission,
+                                   CONTENT_STATUS_PUBLISHED)
 from mezzanine.utils.urls import admin_url
+from mezzanine.utils.models import get_user_model
+
+
+User = get_user_model()
+
+
+class DisplayableAdminForm(ModelForm):
+
+    def clean_content(form):
+        status = form.cleaned_data.get("status")
+        content = form.cleaned_data.get("content")
+        if status == CONTENT_STATUS_PUBLISHED and not content:
+            raise ValidationError(_("This field is required if status "
+                                    "is set to published."))
+        return content
 
 
 class DisplayableAdmin(admin.ModelAdmin):
@@ -19,8 +37,7 @@ class DisplayableAdmin(admin.ModelAdmin):
     list_display = ("title", "status", "admin_link")
     list_display_links = ("title",)
     list_editable = ("status",)
-    list_filter = ("status",)
-    search_fields = ("title", "content",)
+    list_filter = ("status", "keywords__keyword")
     date_hierarchy = "publish_date"
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = (
@@ -30,31 +47,19 @@ class DisplayableAdmin(admin.ModelAdmin):
         (_("Meta data"), {
             "fields": ["_meta_title", "slug",
                        ("description", "gen_description"),
-                       "keywords"],
+                        "keywords", "in_sitemap"],
             "classes": ("collapse-closed",)
         }),
     )
 
-    def get_form(self, request, obj=None, **kwargs):
-        """
-        Add validation for the content field - it's required if status
-        is set to published. We patch this method onto the form to avoid
-        problems that come up with trying to use a form class. See:
-        https://bitbucket.org/stephenmcd/mezzanine/pull-request/23/
-        allow-content-field-on-richtextpage-to-be
-        """
-        form = super(DisplayableAdmin, self).get_form(request, obj, **kwargs)
+    form = DisplayableAdminForm
 
-        def clean_content(form):
-            status = form.cleaned_data.get("status")
-            content = form.cleaned_data.get("content")
-            if status == CONTENT_STATUS_PUBLISHED and not content:
-                raise ValidationError(_("This field is required if status "
-                                        "is set to published."))
-            return content
-
-        form.clean_content = clean_content
-        return form
+    def __init__(self, *args, **kwargs):
+        super(DisplayableAdmin, self).__init__(*args, **kwargs)
+        try:
+            self.search_fields = self.model.objects.get_search_fields().keys()
+        except AttributeError:
+            pass
 
 
 class BaseDynamicInlineAdmin(object):
@@ -201,3 +206,22 @@ class SingletonAdmin(admin.ModelAdmin):
         kwargs["extra_context"]["singleton"] = self.model.objects.count() == 1
         response = super(SingletonAdmin, self).change_view(*args, **kwargs)
         return self.handle_save(args[0], response)
+
+
+###########################################
+# Site Permissions Inlines for User Admin #
+###########################################
+
+class SitePermissionInline(admin.TabularInline):
+    model = SitePermission
+    max_num = 1
+    can_delete = False
+
+
+class SitePermissionUserAdmin(UserAdmin):
+    inlines = [SitePermissionInline]
+
+# only register if User hasn't been overridden
+if User == AuthUser:
+    admin.site.unregister(User)
+    admin.site.register(User, SitePermissionUserAdmin)

@@ -1,4 +1,3 @@
-
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -42,7 +41,7 @@ class PageMiddleware(object):
         else:
             # If we can't find a page matching this slug or any
             # of its sub-slugs, skip all further processing.
-            return view_func(request, *view_args, **view_kwargs)
+            return None
 
         # Handle ``page.login_required``.
         if page.login_required and not request.user.is_authenticated():
@@ -86,7 +85,9 @@ class PageMiddleware(object):
                 return processor_response
             elif processor_response:
                 try:
-                    response.context_data.update(processor_response)
+                    for k in processor_response:
+                        if k not in response.context_data:
+                            response.context_data[k] = processor_response[k]
                 except (TypeError, ValueError):
                     name = "%s.%s" % (processor.__module__, processor.__name__)
                     error = ("The page processor %s returned %s but must "

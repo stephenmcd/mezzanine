@@ -1,5 +1,6 @@
 
 from datetime import datetime, timedelta
+
 from urllib import urlencode
 from urllib2 import Request, urlopen
 
@@ -12,26 +13,41 @@ from django.utils.translation import ugettext as _
 
 import mezzanine
 from mezzanine.conf import settings
+from mezzanine.utils.sites import has_site_permission
+from mezzanine.utils.importing import import_dotted_path
 
 
 def is_editable(obj, request):
     """
-    Returns ``True`` if the object is editable for the request. First check
-    for a custom ``editable`` handler on the object, otherwise use the logged
-    in user and check change permissions for the object's model.
+    Returns ``True`` if the object is editable for the request. First
+    check for a custom ``editable`` handler on the object, otherwise
+    use the logged in user and check change permissions for the
+    object's model.
     """
     if hasattr(obj, "is_editable"):
         return obj.is_editable(request)
     else:
         perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
-        return request.user.is_authenticated() and request.user.has_perm(perm)
+        return (request.user.is_authenticated() and
+                has_site_permission(request.user) and
+                request.user.has_perm(perm))
 
 
-def is_spam(request, form, url):
+def ip_for_request(request):
+    """
+    Returns ip address for request - first checks ``HTTP_X_FORWARDED_FOR``
+    header, since app will generally be behind a public web server.
+    """
+    meta = request.META
+    return meta.get("HTTP_X_FORWARDED_FOR", meta["REMOTE_ADDR"])
+
+
+def is_spam_akismet(request, form, url):
     """
     Identifies form data as being spam, using the http://akismet.com
     service. The Akismet API key should be specified in the
-    ``AKISMET_API_KEY`` setting.
+    ``AKISMET_API_KEY`` setting. This function is the default spam
+    handler defined in the ``SPAM_FILTERS`` setting.
 
     The name, email, url and comment fields are all guessed from the
     form fields:
@@ -52,10 +68,9 @@ def is_spam(request, form, url):
         return False
     protocol = "http" if not request.is_secure() else "https"
     host = protocol + "://" + request.get_host()
-    ip = request.META.get("HTTP_X_FORWARDED_FOR", request.META["REMOTE_ADDR"])
     data = {
         "blog": host,
-        "user_ip": ip,
+        "user_ip": ip_for_request(request),
         "user_agent": request.META.get("HTTP_USER_AGENT", ""),
         "referrer": request.POST.get("referrer", ""),
         "permalink": host + url,
@@ -72,7 +87,11 @@ def is_spam(request, form, url):
         elif isinstance(field.widget, Textarea):
             data_field = "comment"
         if data_field and not data.get(data_field):
-            data[data_field] = form.cleaned_data.get(name)
+            cleaned_data = form.cleaned_data.get(name)
+            try:
+                data[data_field] = cleaned_data.encode('utf-8')
+            except UnicodeEncodeError:
+                data[data_field] = cleaned_data
     if not data.get("comment"):
         return False
     api_url = ("http://%s.rest.akismet.com/1.1/comment-check" %
@@ -84,6 +103,18 @@ def is_spam(request, form, url):
     except Exception:
         return False
     return response == "true"
+
+
+def is_spam(request, form, url):
+    """
+    Main entry point for spam handling - called from the comment view and
+    page processor for ``mezzanine.forms``, to check if posted content is
+    spam. Spam filters are configured via the ``SPAM_FILTERS`` setting.
+    """
+    for spam_filter_path in settings.SPAM_FILTERS:
+        spam_filter = import_dotted_path(spam_filter_path)
+        if spam_filter(request, form, url):
+            return True
 
 
 def paginate(objects, page_num, per_page, max_paging_links):
@@ -129,7 +160,7 @@ def set_cookie(response, name, value, expiry_seconds=None, secure=False):
     expiry time, and ensures values are correctly encoded.
     """
     if expiry_seconds is None:
-        expiry_seconds = 365 * 24 * 60 * 60
+        expiry_seconds = 90 * 24 * 60 * 60  # Default to 90 days.
     expires = datetime.strftime(datetime.utcnow() +
                                 timedelta(seconds=expiry_seconds),
                                 "%a, %d-%b-%Y %H:%M:%S GMT")

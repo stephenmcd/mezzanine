@@ -1,5 +1,5 @@
 
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from mezzanine.core.views import direct_to_template
@@ -35,14 +35,12 @@ urlpatterns = patterns("",
     # homepage can be managed via the page tree in the admin. If you
     # use this pattern, you'll need to create a page in the page tree,
     # and specify its URL (in the Meta Data section) as "/", which
-    # is the value used below in the ``{"slug": "/"}`` part. Make
-    # sure to uncheck "show in navigation" when you create the page,
-    # since the link to the homepage is always hard-coded into all the
-    # page menus that display navigation on the site. Also note that
-    # the normal rule of adding a custom template per page with the
-    # template name using the page's slug doesn't apply here, since
-    # we can't have a template called "/.html" - so for this case, the
-    # template "pages/index.html" can be used.
+    # is the value used below in the ``{"slug": "/"}`` part.
+    # Also note that the normal rule of adding a custom
+    # template per page with the template name using the page's slug
+    # doesn't apply here, since we can't have a template called
+    # "/.html" - so for this case, the template "pages/index.html"
+    # should be used if you want to customize the homepage's template.
 
     # url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
 

@@ -73,8 +73,8 @@ Dependencies
 Mezzanine makes use of as few libraries as possible (apart from a
 standard Django environment), with the following dependencies:
 
-  * `Python`_ 2.5 ... 2.7
-  * `Django`_ 1.3 ... 1.4
+  * `Python`_ 2.6 / 2.7
+  * `Django`_ 1.4 / 1.5
   * `Python Imaging Library`_ - for image resizing
   * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
   * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
@@ -97,7 +97,7 @@ The easiest method is to install directly from pypi using `pip`_ by
 running the command below, which will also install the required
 dependencies mentioned above::
 
-    $ pip install -U mezzanine
+    $ pip install mezzanine
 
 If you prefer, you can download Mezzanine and install it directly from
 source::
@@ -155,6 +155,20 @@ Please note the following guidelines for contributing:
   * If you are adding new functionality, you must include basic tests
     and documentation.
 
+If you want to do development with mezzanine, here's a quick way to set
+up a development environment and run the unit tests, using
+`virtualenvwrapper`_ to set up a virtualenv::
+
+    $ mkvirtualenv mezzanine
+    $ workon mezzanine
+    $ pip install Django pep8 pyflakes
+    $ git clone https://github.com/stephenmcd/mezzanine/
+    $ cd mezzanine
+    $ python setup.py develop
+    $ cp mezzanine/project_template/local_settings.py.template mezzanine/project_template/local_settings.py
+    $ ./mezzanine/project_template/manage.py test
+
+
 Language Translations
 =====================
 
@@ -196,8 +210,28 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
     Google Calendar/Maps.
   * `mezzanine-polls`_ - Polls application for Mezzanine.
   * `mezzanine-pagedown`_ - Adds the `Pagedown`_ WYSIWYG editor to
-     Mezzanine.
+    Mezzanine.
   * `mezzanine-careers`_ - Job posting application for Mezzanine.
+  * `mezzanine-recipes`_ - Recipes plugin with built-in REST API.
+  * `mezzanine-slides`_ - Responsive banner slides app for Mezzanine.
+  * `mezzyblocks`_ - Another app for adding blocks/modules to Mezzanine.
+  * `mezzanine-flexipage`_ - Allows designers to manage content areas
+    in templates.
+  * `mezzanine-instagram`_ - A simple Instagram app for Mezzanine.
+  * `mezzanine-wiki`_ - Wiki app for Mezzanine.
+  * `mezzanine-calendar`_ - Calendar pages in Mezzanine
+  * `mezzanine-facebook`_ - Simple Facebook integration for Mezzanine.
+  * `mezzanine-instagram-gallery`_ - Create Mezzanine galleries using
+    Instagram images.
+  * `mezzanine-cli`_ - Command-line interface for Mezzanine.
+  * `mezzanine-categorylink`_ - Integrates Mezzanine's Link pages with
+    its blog categories.
+  * `mezzanine-podcast`_ - A simple podcast streamer and manager for
+    Mezzanine.
+  * `mezzanine-linkcollection`_ - Collect links. Feature them. Share
+    them over RSS.
+  * `cash-generator`_ - Generate `GnuCash`_ invoices with Mezzanine.
+  * `mezzanine-foundation`_ - `Zurb Foundation`_ theme for Mezzanine.
 
 Donating
 ========
@@ -278,7 +312,6 @@ Sites Using Mezzanine
   * `Enrico Tröger <http://www.uvena.de>`_
   * `Matthe Wahn <http://www.matthewahn.com>`_
   * `Bit of Pixels <http://bitofpixels.com>`_
-  * `Nimbis Services <http://schott.nimbis.net>`_
   * `European Crystallographic Meeting <http://ecm29.ecanews.org>`_
   * `Dreamperium <http://dreamperium.com>`_
   * `UT Dallas <http://utdallasiia.com>`_
@@ -305,7 +338,7 @@ Sites Using Mezzanine
   * `Sunfluence <http://sunfluence.com>`_
   * `ggzpreventie.nl <http://ggzpreventie.nl>`_
   * `dakuaiba.com <http://www.dakuaiba.com>`_
-  * `Leprosys <http://www.leprosys.info>`_
+  * `Wdiaz <http://www.wdiaz.org>`_
   * `Hunted Hive <http://huntedhive.com/>`_
   * `mjollnir.org <http://mjollnir.org>`_
   * `The Beancat Network <http://www.beancatnet.org>`_
@@ -320,6 +353,45 @@ Sites Using Mezzanine
   * `SiteComb <http://www.sitecomb.com>`_
   * `Dashing Collective <http://dashing.tv/>`_
   * `Puraforce Remedies <http://puraforceremedies.com/>`_
+  * `Google's VetNet <http://www.vetnethq.com/>`_
+  * `1800RESPECT <http://www.1800respect.org.au/>`_
+  * `Evenhouse Consulting <http://evenhouseconsulting.com/>`_
+  * `Humboldt Community Christian School <http://humboldtccs.org>`_
+  * `Atlanta's Living Legacy <http://gradyhistory.com>`_
+  * `Shipgistix <http://shipgistix.com>`_
+  * `Yuberactive <http://www.yuberactive.asia>`_
+  * `Medical Myth Busters <http://pogromcymitowmedycznych.pl>`_
+  * `4player Network <http://4playernetwork.com/>`_
+  * `Top500 Supercomputers <http://top500.org>`_
+  * `Die Betroffenen <http://www.zeichnemit.de>`_
+  * `uvena.de <http://uvena.de>`_
+  * `ezless.com <http://ezless.com>`_
+  * `Dominican Python <http://python.do>`_
+  * `Stackful.io <http://stackful.io/>`_
+  * `Adrenaline <http://www.adrln.com/>`_
+  * `ACE EdVenture Programme <http://aceedventure.com/>`_
+  * `Butchershop Creative <http://www.butchershopcreative.com/>`_
+  * `Sam Kingston <http://www.sjkingston.com>`_
+  * `Ludwig von Mises Institute <http://mises.fi>`_
+  * `Incendio <http://incendio.no/>`_
+  * `Alexander Lillevik <http://lillevikdesign.no/>`_
+  * `Walk In Tromsø <http://www.turitromso.no>`_
+  * `Mandrivia Linux <http://www.mandriva.com/>`_
+  * `Crown Preschool <http://crownpreschool.com>`_
+  * `Coronado Pathways Charter School <http://coronadopathways.com>`_
+  * `Raindrop Marketing <http://www.raindropads.com>`_
+  * `Web4py <http://www.web4py.com>`_
+  * `The Peculiar Store <http://thepeculiarstore.com>`_
+  * `GrinDin <http://www.grindin.ru>`_
+  * `4Gume <http://www.4gume.com>`_
+  * `Skydivo <http://skydivo.com>`_
+  * `Noshly <http://noshly.com>`_
+  * `Kabu Creative <http://kabucreative.com.au/>`_
+  * `KisanHub <http://www.kisanhub.com/>`_
+  * `Your Song Your Story <http://yoursongyourstory.org/>`_
+  * `Kegbot <http://kegbot.org>`_
+  * `Fiz <http://fiz.com/>`_
+
 
 Quotes
 ======
@@ -407,6 +479,7 @@ Quotes
 .. _`Tabblo`: http://www.tabblo.com/
 .. _`The Linux Journal`: http://www.linuxjournal.com
 .. _`Work For Pie`: http://workforpie.com/
+.. _`virtualenvwrapper`: http://www.doughellmann.com/projects/virtualenvwrapper
 
 
 .. THIRD PARTY LIBS
@@ -430,6 +503,23 @@ Quotes
 .. _`mezzanine-pagedown`: https://bitbucket.org/akhayyat/mezzanine-pagedown
 .. _`PageDown`: https://code.google.com/p/pagedown/
 .. _`mezzanine-careers`: https://github.com/mogga/mezzanine-careers
+.. _`mezzanine-recipes`: https://github.com/tjetzinger/mezzanine-recipes
+.. _`mezzanine-slides`: https://github.com/overshard/mezzanine-slides
+.. _`mezzyblocks`: https://github.com/jardaroh/mezzyblocks
+.. _`mezzanine-flexipage`: https://github.com/mrmagooey/mezzanine-flexipage
+.. _`mezzanine-wiki`: https://github.com/dfalk/mezzanine-wiki
+.. _`mezzanine-instagram`: https://github.com/shurik/Mezzanine_Instagram
+.. _`mezzanine-calendar`: https://github.com/shurik/mezzanine.calendar
+.. _`mezzanine-facebook`: https://github.com/shurik/Mezzanine_Facebook
+.. _`mezzanine-instagram-gallery`: https://github.com/georgeyk/mezzanine-instagram-gallery
+.. _`mezzanine-cli`: https://github.com/adieu/mezzanine-cli
+.. _`mezzanine-categorylink`: https://github.com/mjtorn/mezzanine-categorylink
+.. _`mezzanine-podcast`: https://github.com/carpie/mezzanine-podcast
+.. _`mezzanine-linkcollection`: https://github.com/mjtorn/mezzanine-linkcollection
+.. _`cash-generator`: https://github.com/ambientsound/cash-generator
+.. _`GnuCash`: http://www.gnucash.org/
+.. _`mezzanine-foundation`: https://github.com/zgohr/mezzanine-foundation
+.. _`Zurb Foundation`: http://foundation.zurb.com/
 
 
 .. PEOPLE WITH QUOTES

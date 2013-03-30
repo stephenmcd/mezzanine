@@ -2,13 +2,12 @@
 from collections import defaultdict
 
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse, NoReverseMatch
 from django.template import TemplateSyntaxError, Variable
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.pages.models import Page
-from mezzanine.utils.urls import admin_url
+from mezzanine.utils.urls import admin_url, home_slug
 from mezzanine import template
 
 
@@ -64,6 +63,14 @@ def page_menu(context, token):
                 context["_current_page"] = None
         elif slug:
             context["_current_page"] = context["page"]
+        # Some homepage related context flags. on_home is just a helper
+        # indicated we're on the homepage. has_home indicates an actual
+        # page object exists for the homepage, which can be used to
+        # determine whether or not to show a hard-coded homepage link
+        # in the page menu.
+        home = home_slug()
+        context["on_home"] = slug == home
+        context["has_home"] = False
         # Maintain a dict of page IDs -> parent IDs for fast
         # lookup in setting page.is_current_or_ascendant in
         # page.set_menu_helpers.
@@ -75,8 +82,9 @@ def page_menu(context, token):
             setattr(page, "num_children", num_children(page.id))
             setattr(page, "has_children", has_children(page.id))
             pages[page.parent_id].append(page)
+            if page.slug == home:
+                context["has_home"] = True
         context["menu_pages"] = pages
-        context["on_home"] = slug == reverse("home")
     # ``branch_level`` must be stored against each page so that the
     # calculation of it is correctly applied. This looks weird but if we do
     # the ``branch_level`` as a separate arg to the template tag with the
@@ -128,17 +136,11 @@ def models_for_pages(*args):
     Create a select list containing each of the models that subclass the
     ``Page`` model.
     """
-    page_models = []
-    for model in Page.get_content_models():
-        try:
-            admin_url(model, "add")
-        except NoReverseMatch:
-            continue
-        else:
-            setattr(model, "name", model._meta.verbose_name)
-            setattr(model, "add_url", admin_url(model, "add"))
-            page_models.append(model)
-    return page_models
+    from warnings import warn
+    warn("template tag models_for_pages is deprectaed, use "
+        "PageAdmin.get_content_models instead")
+    from mezzanine.pages.admin import PageAdmin
+    return PageAdmin.get_content_models()
 
 
 @register.render_tag
