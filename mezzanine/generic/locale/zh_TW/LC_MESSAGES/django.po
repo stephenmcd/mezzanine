@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <lueoad@gmail.com>, 2012.
 # Tzu-ping Chung <uranusjr@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-03-30 07:16-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-30 10:51-0430\n"
 "PO-Revision-Date: 2013-03-30 12:04+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/mezzanine/language/zh_TW/)\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
+"mezzanine/language/zh_TW/)\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20 models.py:69
@@ -77,7 +78,9 @@ msgstr "留言通知電子郵件信箱"
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr "以逗號分隔的電子郵件信箱列表。每當有人於這個網站發表新留言，這些信箱會收到一封通知信件。"
+msgstr ""
+"以逗號分隔的電子郵件信箱列表。每當有人於這個網站發表新留言，這些信箱會收到一"
+"封通知信件。"
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -95,7 +98,9 @@ msgstr "顯示未認可的留言"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "若為 ``True``，未選取 ``is_public` 的留言仍然會被顯示，但內容將被取代為 ``等待認可`` 的訊息。"
+msgstr ""
+"若為 ``True``，未選取 ``is_public` 的留言仍然會被顯示，但內容將被取代為 ``等"
+"待認可`` 的訊息。"
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -103,8 +108,8 @@ msgstr "顯示已移除的留言"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
 msgstr ""
 
 #: defaults.py:113

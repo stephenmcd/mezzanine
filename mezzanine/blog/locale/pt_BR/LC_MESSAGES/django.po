@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Hilton Medeiros <medeiros.hilton@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-03-30 07:17-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-30 10:52-0430\n"
 "PO-Revision-Date: 2013-03-30 11:56+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/mezzanine/language/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
+"mezzanine/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: admin.py:20
@@ -32,9 +33,11 @@ msgstr "Usar URLs de data"
 
 #: defaults.py:28
 msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: "
-"/blog/yyyy/mm/slug/"
-msgstr "Se checado, URLs para post de blog incluirão o mês e ano. Por exemplo: /blog/aaaa/mm/slug/"
+"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
+"mm/slug/"
+msgstr ""
+"Se checado, URLs para post de blog incluirão o mês e ano. Por exemplo: /blog/"
+"aaaa/mm/slug/"
 
 #: defaults.py:36
 msgid "Blog posts per page"
@@ -42,7 +45,8 @@ msgstr "Posts por página no blog"
 
 #: defaults.py:37
 msgid "Number of blog posts shown on a blog listing page."
-msgstr "Número de posts do blog exibidos de uma vez numa página de listagem do blog."
+msgstr ""
+"Número de posts do blog exibidos de uma vez numa página de listagem do blog."
 
 #: defaults.py:44
 msgid "Blog posts RSS limit"

@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <andreas.lindroos@gmail.com>, 2012.
 # Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-03-30 07:16-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-30 10:51-0430\n"
 "PO-Revision-Date: 2013-03-30 12:04+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/language/ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
+"language/ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20 models.py:69
@@ -29,7 +30,9 @@ msgstr "コメントするにはアカウントが必要"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr "チェックを入れると、ユーザーがコメントするにはログインしなければいけなくなります。"
+msgstr ""
+"チェックを入れると、ユーザーがコメントするにはログインしなければいけなくなり"
+"ます。"
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -67,7 +70,9 @@ msgstr "チェックを入れると、ビルトインコメントは既定で承
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr "テンプレートに読み込まれる前にコメントの値を求める機能へのドット区切りのパス。"
+msgstr ""
+"テンプレートに読み込まれる前にコメントの値を求める機能へのドット区切りのパ"
+"ス。"
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
@@ -77,7 +82,9 @@ msgstr "コメントが付いたことを知らせるEメールアドレス"
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr "サイトに何か新しいコメントが書き込まれる度にお知らせが届くEメール アドレスのCSV形式リスト。"
+msgstr ""
+"サイトに何か新しいコメントが書き込まれる度にお知らせが届くEメール アドレスの"
+"CSV形式リスト。"
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -95,7 +102,9 @@ msgstr "未承認のコメントを表示"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "チェックを入れると、``is_public``としてチェックされていないコメントも表示されたままに なりますが、``承認待ち``メッセージに置き換えられます。"
+msgstr ""
+"チェックを入れると、``is_public``としてチェックされていないコメントも表示され"
+"たままに なりますが、``承認待ち``メッセージに置き換えられます。"
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -103,9 +112,11 @@ msgstr "削除されたコメントを表示"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
-msgstr "チェックを入れると、``removed``としてチェックされたコメントも表示されたままになりますが、 ``削除済み``メッセージに置き換えられます。"
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"チェックを入れると、``removed``としてチェックされたコメントも表示されたままに"
+"なりますが、 ``削除済み``メッセージに置き換えられます。"
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
@@ -226,14 +237,19 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr "\n   %(submit_date)s に %(user_name)s は書きました:\n   "
+msgstr ""
+"\n"
+"   %(submit_date)s に %(user_name)s は書きました:\n"
+"   "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr "\n%(submit_date)s に %(user_name)s は書きました:\n"
+msgstr ""
+"\n"
+"%(submit_date)s に %(user_name)s は書きました:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

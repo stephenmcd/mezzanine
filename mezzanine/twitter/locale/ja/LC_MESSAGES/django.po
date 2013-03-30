@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <andreas.lindroos@gmail.com>, 2012.
 # Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-03-30 07:16-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-30 10:51-0430\n"
 "PO-Revision-Date: 2012-11-15 14:07+0000\n"
 "Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/language/ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
+"language/ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: __init__.py:16
@@ -39,7 +40,8 @@ msgstr "既定のTwitterクエリータイプ"
 msgid ""
 "Type of query that will be used to retrieve tweets for the default Twitter "
 "feed."
-msgstr "既定のTwitterフィード用につぶやきを抽出するのに用いられるクエリーの タイプ。"
+msgstr ""
+"既定のTwitterフィード用につぶやきを抽出するのに用いられるクエリーの タイプ。"
 
 #: defaults.py:31
 msgid "Default Twitter Query"

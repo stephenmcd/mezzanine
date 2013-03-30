@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <bart@dispectu.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-03-30 07:17-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-30 10:51-0430\n"
 "PO-Revision-Date: 2013-03-30 11:56+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/"
+"nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:20
@@ -32,9 +33,11 @@ msgstr "Gebruik datum URLs"
 
 #: defaults.py:28
 msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: "
-"/blog/yyyy/mm/slug/"
-msgstr "Als deze instelling ``True`` is, worden maand en jaar in de URLs voor blog posts gebruikt. Bijvoorbeeld: /blog/jjjj/mm/slug"
+"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
+"mm/slug/"
+msgstr ""
+"Als deze instelling ``True`` is, worden maand en jaar in de URLs voor blog "
+"posts gebruikt. Bijvoorbeeld: /blog/jjjj/mm/slug"
 
 #: defaults.py:36
 msgid "Blog posts per page"
@@ -42,7 +45,8 @@ msgstr "Blogposts per pagina"
 
 #: defaults.py:37
 msgid "Number of blog posts shown on a blog listing page."
-msgstr "Het aantal blogposts dat getoond moet worden op een blogpost indexpagina."
+msgstr ""
+"Het aantal blogposts dat getoond moet worden op een blogpost indexpagina."
 
 #: defaults.py:44
 msgid "Blog posts RSS limit"
