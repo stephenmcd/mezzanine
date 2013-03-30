@@ -1,16 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-#
+# Copyright (C) YEAR Free Software Foundation, Inc.
 # Translators:
+# Audun Runde <audun.runde@frisknett.no>, 2013.
 # Olav  <>, 2012.
+#
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-03-30 10:52-0430\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: asr <audun.runde@frisknett.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/"
 "mezzanine/language/nb/)\n"
 "Language: nb\n"
@@ -117,49 +118,49 @@ msgstr "Dato/tid"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Fødselsdato"
 
 #: fields.py:45
 msgid "Hidden"
 msgstr "Skjult"
 
-#: forms.py:29 forms.py:37 forms.py:43
+#: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
 msgstr "Ingenting"
 
-#: forms.py:30
+#: forms.py:29
 msgid "Contains"
 msgstr "Inneholder"
 
-#: forms.py:31
+#: forms.py:30
 msgid "Doesn't contain"
 msgstr "Inneholder ikke"
 
-#: forms.py:32 forms.py:38
+#: forms.py:31 forms.py:37
 msgid "Equals"
 msgstr "Er lik"
 
-#: forms.py:33 forms.py:39
+#: forms.py:32 forms.py:38
 msgid "Doesn't equal"
 msgstr "Er ulik"
 
-#: forms.py:44
+#: forms.py:43
 msgid "Is between"
 msgstr "Er mellom"
 
-#: forms.py:101
+#: forms.py:100
 msgid "required"
 msgstr "påkrevet"
 
-#: forms.py:221
+#: forms.py:216
 msgid "Checked"
 msgstr "Valgt"
 
-#: forms.py:221
+#: forms.py:216
 msgid "Not checked"
 msgstr "Ikke valgt"
 
-#: forms.py:235 forms.py:250
+#: forms.py:230 forms.py:245
 msgid "and"
 msgstr "og"
 
@@ -177,13 +178,15 @@ msgstr "Tilbakemelding"
 
 #: models.py:20
 msgid "Send email to user"
-msgstr ""
+msgstr "Send epost til bruker"
 
 #: models.py:21
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
 msgstr ""
+"For å sende en epost til epost adressen lagt inn i skjemaet, sjekk av dette "
+"feltet."
 
 #: models.py:23
 msgid "From address"
@@ -195,13 +198,15 @@ msgstr "Adressen e-posten vil bli sendt fra"
 
 #: models.py:25
 msgid "Send email to others"
-msgstr ""
+msgstr "Send epost til andre"
 
 #: models.py:26
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
 msgstr ""
+"Oppgi en kommaseparert liste med epost adresser som skal bli varslet nå "
+"skjemaet blir innsendt. La være tomt for å deaktivere varslinger."
 
 #: models.py:30
 msgid "Subject"
@@ -217,6 +222,8 @@ msgid ""
 "entered. You can also enter a message here that will be included in the "
 "email."
 msgstr ""
+"Eposter sendt basert på opsjonene ovenfor vil inneholde alle feltene angitt. "
+"Du kan ogå skrive en melding her som vil bli innkludert i eposten."
 
 #: models.py:37
 msgid "Form"

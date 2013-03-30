@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2012.
+# Eduardo Rivas <jerivasmelgar@gmail.com>, 2012.
+# Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2013.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
 # William Díaz <leprosys@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
-"PO-Revision-Date: 2012-10-22 00:21-0600\n"
-"Last-Translator: Eduardo Rivas <e@jerivas.com>\n"
+"POT-Creation-Date: 2013-03-30 10:51-0430\n"
+"PO-Revision-Date: 2013-03-30 13:10+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/"
 "language/es/)\n"
 "Language: es\n"
@@ -26,30 +27,14 @@ msgid "Other posts"
 msgstr "Otras entradas"
 
 #: defaults.py:20
-msgid "bit.ly username"
-msgstr "Nombre de usuario en bit.ly"
-
-#: defaults.py:21
-msgid "Username for http://bit.ly URL shortening service."
-msgstr "Nombre de usuario para el servicio de reducción de URL bit.ly"
-
-#: defaults.py:28
-msgid "bit.ly key"
-msgstr "Llave bit.ly"
-
-#: defaults.py:29
-msgid "Key for http://bit.ly URL shortening service."
-msgstr "Clave para el servicio de reducción de URL bit.ly"
-
-#: defaults.py:36
 msgid "Enable featured images in blog posts"
 msgstr "Activar imágenes destacadas en entradas del blog"
 
-#: defaults.py:43
+#: defaults.py:27
 msgid "Use date URLs"
 msgstr "Usar URLs con fechas"
 
-#: defaults.py:44
+#: defaults.py:28
 msgid ""
 "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
 "mm/slug/"
@@ -57,15 +42,27 @@ msgstr ""
 "Si es ``True``, las URLs para las publicaciones del blog incluyen el mes y "
 "el año. Por ejemplo: /blog/yyyy/mm/slug/"
 
-#: defaults.py:52
+#: defaults.py:36
 msgid "Blog posts per page"
 msgstr "Número de publicaciones a mostrar por página"
 
-#: defaults.py:53
+#: defaults.py:37
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "Número de publicaciones a mostrar en la página inicial del blog."
 
-#: defaults.py:60
+#: defaults.py:44
+msgid "Blog posts RSS limit"
+msgstr "Límite de entradas en RSS"
+
+#: defaults.py:45
+msgid ""
+"Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
+"display all blog posts in the RSS feed."
+msgstr ""
+"Número de entradas recientes del blog que se muestran en el feed RSS. "
+"Establezca esta opción a ``None`` para mostrar todas las entradas."
+
+#: defaults.py:53
 msgid "Slug of the page object for the blog."
 msgstr "Slug de la página del blog"
 
@@ -78,7 +75,7 @@ msgid "Allow comments"
 msgstr "Permitir comentarios"
 
 #: models.py:21 templates/blog/blog_post_detail.html:43
-#: templates/blog/blog_post_list.html:126
+#: templates/blog/blog_post_list.html:129
 msgid "Comments"
 msgstr "Comentarios"
 
@@ -102,11 +99,11 @@ msgstr "Entrada del blog"
 msgid "Blog posts"
 msgstr "Entradas del blog"
 
-#: models.py:79
+#: models.py:85
 msgid "Blog Category"
 msgstr "Categoría del blog"
 
-#: models.py:80
+#: models.py:86
 msgid "Blog Categories"
 msgstr "Categorías del blog"
 
@@ -124,13 +121,13 @@ msgid "Posted by"
 msgstr "Publicado por"
 
 #: templates/blog/blog_post_detail.html:33
-#: templates/blog/blog_post_list.html:93
+#: templates/blog/blog_post_list.html:95
 #, python-format
 msgid "%(sometime)s ago"
 msgstr "hace %(sometime)s"
 
 #: templates/blog/blog_post_detail.html:46
-#: templates/blog/blog_post_list.html:130
+#: templates/blog/blog_post_list.html:133
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
@@ -138,7 +135,7 @@ msgstr[0] "1 comentario"
 msgstr[1] "%(comments_count)s comentarios"
 
 #: templates/blog/blog_post_detail.html:74
-#: templates/blog/blog_post_list.html:113
+#: templates/blog/blog_post_list.html:116
 #: templates/blog/includes/filter_panel.html:48
 msgid "Tags"
 msgstr "Etiquetas"
@@ -183,11 +180,11 @@ msgstr "Ver las publicaciones de"
 msgid "Viewing posts by"
 msgstr "Ver las publicaciones por"
 
-#: templates/blog/blog_post_list.html:88
+#: templates/blog/blog_post_list.html:89
 msgid "in"
 msgstr "en"
 
-#: templates/blog/blog_post_list.html:121
+#: templates/blog/blog_post_list.html:124
 msgid "read more"
 msgstr "leer más"
 

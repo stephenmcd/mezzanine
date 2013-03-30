@@ -3,12 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Audun Runde <audun.runde@frisknett.no>, 2013.
+#   <kimtjen@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
-"PO-Revision-Date: 2012-10-14 21:42+0000\n"
+"POT-Creation-Date: 2013-03-30 10:52-0430\n"
+"PO-Revision-Date: 2013-03-30 12:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/"
 "mezzanine/language/nb/)\n"
@@ -31,6 +33,8 @@ msgid ""
 "Dotted package path and class name of profile form to use for users signing "
 "up and updating their profile, when ``mezzanine.accounts`` is installed."
 msgstr ""
+"Navn på klassen som skal brukes som profil-skjema når brukere oppretter "
+"konto og oppdaterer sin profil, når ``mezzanine.accounts`` er aktivert."
 
 #: defaults.py:43
 msgid "If ``True``, users will have their own public profile pages."
@@ -44,108 +48,112 @@ msgstr ""
 "Hvis ``True`` vil det bli sendt ut en epost med bekreftelseslenke til nye "
 "brukere, som må klikkes på for å aktivere kontoen."
 
-#: forms.py:18 forms.py:187
+#: forms.py:21 forms.py:190
 msgid "Username or email address"
-msgstr ""
+msgstr "Brukernavn eller e-postadresse"
 
-#: forms.py:19 forms.py:63
+#: forms.py:22 forms.py:66
 msgid "Password"
 msgstr "Passord"
 
-#: forms.py:32
+#: forms.py:35
 msgid "Invalid username/email and password"
-msgstr ""
+msgstr "Feil brukernavn og passordkombinasjon"
 
-#: forms.py:34
+#: forms.py:37
 msgid "Your account is inactive"
 msgstr "Kontoen din er inaktiv"
 
-#: forms.py:65
+#: forms.py:68
 msgid "Password (again)"
-msgstr ""
+msgstr "Passord (gjenta)"
 
-#: forms.py:78
+#: forms.py:81
 msgid "Only letters, numbers, dashes or underscores please"
-msgstr ""
+msgstr "Kun bokstaver, tall, bindestreker og understreker"
 
-#: forms.py:92
+#: forms.py:95
 msgid "Leave blank unless you want to change your password"
-msgstr ""
+msgstr "Fyll bare ut feltet dersom du ønsker å bytte passord"
 
-#: forms.py:111
+#: forms.py:114
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr ""
+"Brukernavn kan kun inneholde bokstaver, tall, bindestreker og understreker."
 
-#: forms.py:119
+#: forms.py:122
 msgid "This username is already registered"
-msgstr ""
+msgstr "Dette brukernavnet er allerede registrert"
 
-#: forms.py:132
+#: forms.py:135
 msgid "Passwords do not match"
-msgstr ""
+msgstr "Passordene er ikke like"
 
-#: forms.py:134
+#: forms.py:137
 #, python-format
 msgid "Password must be at least %s characters"
-msgstr ""
+msgstr "Passordet må være på minst %s tegn"
 
-#: forms.py:149
+#: forms.py:152
 msgid "This email is already registered"
 msgstr "Denne e-posten er allerede registrert"
 
-#: forms.py:196
+#: forms.py:199
 msgid "Invalid username/email"
-msgstr ""
+msgstr "Feil brukernavn/e-post"
 
-#: views.py:28
+#: views.py:31
 msgid "Successfully logged in"
 msgstr "Innloggingen var vellykket"
 
-#: views.py:31
+#: views.py:34
 msgid "Login"
 msgstr "Logg inn"
 
-#: views.py:40
+#: views.py:43
 msgid "Successfully logged out"
 msgstr "Utloggingen var vellykket"
 
-#: views.py:54
+#: views.py:57
 msgid ""
 "A verification email has been sent with a link for activating your account."
 msgstr ""
+"En bekreftelses-epost er sendt til deg med en lenke du må benytte for å "
+"aktivere kontoen."
 
-#: views.py:58 views.py:77
+#: views.py:61 views.py:80
 msgid "Successfully signed up"
 msgstr "Registreringen var vellykket"
 
-#: views.py:61
+#: views.py:64
 msgid "Signup"
 msgstr "Registrer"
 
-#: views.py:80 views.py:164
+#: views.py:83 views.py:167
 msgid "The link you clicked is no longer valid."
-msgstr ""
+msgstr "Lenken du har brukt, er ikke gyldig lengre."
 
-#: views.py:138
+#: views.py:141
 msgid "Profile updated"
-msgstr ""
+msgstr "Profilen er oppdatert"
 
-#: views.py:143
+#: views.py:146
 msgid "Update Profile"
-msgstr ""
+msgstr "Oppdater profil"
 
-#: views.py:152
+#: views.py:155
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr ""
+"En epost er sendt til deg med en lenke du må benytte for å bytte passord."
 
-#: views.py:154
+#: views.py:157
 msgid "Password Reset"
-msgstr ""
+msgstr "Nullstill passord"
 
 #: templates/accounts/account_login.html:7
 msgid "You're already logged in."
-msgstr ""
+msgstr "Du er allerede innlogget."
 
 #: templates/accounts/account_login.html:11
 #, python-format
@@ -153,6 +161,8 @@ msgid ""
 "If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
 "\">sign up</a> for one now."
 msgstr ""
+"Dersom du ikke har en konto, kan du <a href=\"%(signup_url)s?next=%(next)s"
+"\">opprette en konto</a> nå."
 
 #: templates/accounts/account_login.html:14
 #, python-format
@@ -160,63 +170,75 @@ msgid ""
 "<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
 "\">reset your password</a> if you've forgotten it.</p>"
 msgstr ""
+"<p>Du kan også <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">nullstille passordet ditt</a> dersom du har glemt det.</p>"
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
 "Enter your username or email address and you'll receive an email with a link "
 "you need to click, in order to log in and change your password."
 msgstr ""
+"Skriv inn brukernavn eller e-postadresse, og vi sender deg en e-post med en "
+"lenke du benytter for å nullstille passordet ditt."
 
 #: templates/accounts/account_profile.html:17
 #: templates/accounts/includes/user_panel.html:9
 msgid "Update profile"
-msgstr ""
+msgstr "Oppdater profil"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
 "You're already logged in. If you'd like to create a new account, you'll need "
 "to log out first."
 msgstr ""
+"Du er allerede innlogget. Ønsker du å lage en ny brukerkonto, må du først "
+"logge ut."
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
 msgstr ""
+"Etter at du har registrert deg, sender vi deg en e-post med en lenke du må "
+"benytte for å fullføre registreringen."
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
 msgstr "Logget inn som:  "
 
 #: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
 msgstr "Logg ut"
 
 #: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
 msgid "Log in"
 msgstr "Logg inn"
 
 #: templates/accounts/includes/user_panel.html:18
 msgid "or"
-msgstr ""
+msgstr "eller"
 
 #: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
 msgid "Sign up"
-msgstr ""
+msgstr "Opprett bruker"
 
 #: templates/admin/profile_inline.html:10
 msgid "Profile information"
-msgstr ""
+msgstr "Brukerprofil"
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
 msgid "Hey there, the password reset form was used for your account."
-msgstr ""
+msgstr "Hei, noen (deg?) ønsker å nullstille passordet ditt."
 
 #: templates/email/password_reset_verify.html:4
 #: templates/email/password_reset_verify.txt:4
 msgid "Please use the link below to log in and update your password."
 msgstr ""
+"Vennligst trykk på lenken under for å logge inn og nullstille passordet."
 
 #: templates/email/password_reset_verify.html:6
 #: templates/email/password_reset_verify.txt:6
@@ -224,19 +246,23 @@ msgid ""
 "If you didn't request for your password to be reset, please ignore this "
 "email."
 msgstr ""
+"Dersom du ikke ønsker å nullstille passordet, vennligst se bort fra denne e-"
+"posten."
 
 #: templates/email/password_reset_verify_subject.txt:2
 msgid "Reset your password"
-msgstr ""
+msgstr "Nullstill passord"
 
 #: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
-msgstr ""
+msgstr "Hei, takk for at du laget en brukerkonto."
 
 #: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
 msgid "Please use the link below to activate it."
 msgstr ""
+"Vennligst bruk lenken under for å aktivere brukerkontoen, slik at du kan "
+"logge inn."
 
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"
-msgstr ""
+msgstr "Aktiver din brukerkonto"

@@ -5,13 +5,14 @@
 # Translators:
 #   <centwave@gmail.com>, 2012.
 #   <lueoad@gmail.com>, 2012.
+# Tzu-ping Chung <uranusjr@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
-"PO-Revision-Date: 2012-11-15 18:15+0000\n"
-"Last-Translator: centwave <centwave@gmail.com>\n"
+"POT-Creation-Date: 2013-03-30 10:51-0430\n"
+"PO-Revision-Date: 2013-03-30 11:59+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
 "mezzanine/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -20,19 +21,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: admin.py:23
+#: admin.py:27
 msgid "This field is required if status is set to published."
 msgstr "若狀態設為「已發佈」，則此欄位必填。"
 
-#: admin.py:44
+#: admin.py:47
 msgid "Meta data"
 msgstr "描述資料"
 
 #: defaults.py:21
 msgid "Controls the ordering and grouping of the admin menu."
-msgstr ""
+msgstr "控制管理選單的排序和分類"
 
-#: defaults.py:24 models.py:274
+#: defaults.py:24 models.py:275
 msgid "Content"
 msgstr "內容"
 
@@ -54,7 +55,7 @@ msgstr ""
 
 #: defaults.py:40
 msgid "Size of thumbnail previews for image fields in the admin interface."
-msgstr ""
+msgstr "管理介面中影像欄的縮圖預覽尺寸。"
 
 #: defaults.py:48
 msgid "Akismet API Key"
@@ -67,6 +68,14 @@ msgid ""
 msgstr ""
 
 #: defaults.py:57
+msgid "bit.ly access token"
+msgstr ""
+
+#: defaults.py:58
+msgid "Access token for http://bit.ly URL shortening service."
+msgstr ""
+
+#: defaults.py:65
 msgid ""
 "Mezzanine's caching uses a technique know as mint caching. This is where the "
 "requested expiry for a cache entry is stored with the cache entry in cache, "
@@ -77,27 +86,27 @@ msgid ""
 "only one would actually need to re-generated the cache entry."
 msgstr ""
 
-#: defaults.py:85
+#: defaults.py:93
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
 msgstr ""
 
-#: defaults.py:93
+#: defaults.py:101
 msgid "Device specific template sub-directory to use as the default device."
 msgstr ""
 
-#: defaults.py:101
+#: defaults.py:109
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
 msgstr ""
 
-#: defaults.py:123
+#: defaults.py:131
 msgid "If ``True``, website forms will use HTML5 features."
 msgstr "如果設置為``True``， 網頁中的表格將會使用 HTML5 的功能。"
 
-#: defaults.py:130
+#: defaults.py:138
 msgid ""
 "A sequence of fields that will be injected into Mezzanine's (or any "
 "library's) models. Each item in the sequence is a four item sequence. The "
@@ -109,15 +118,15 @@ msgid ""
 "Django model fields."
 msgstr ""
 
-#: defaults.py:145
+#: defaults.py:153
 msgid "Google Analytics ID"
 msgstr ""
 
-#: defaults.py:147
+#: defaults.py:155
 msgid "Google Analytics ID (http://www.google.com/analytics/)"
 msgstr ""
 
-#: defaults.py:153
+#: defaults.py:161
 msgid ""
 "A sequence mapping host names to themes, allowing different templates to be "
 "served per HTTP hosts Each item in the sequence is a two item sequence, "
@@ -127,23 +136,41 @@ msgid ""
 "searched when loading templates."
 msgstr ""
 
-#: defaults.py:167
+#: defaults.py:175
 msgid "Name of the jQuery file."
 msgstr "jQuery 檔案名稱"
 
-#: defaults.py:168
+#: defaults.py:176
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
+msgstr "位於 mezzanine/core/static/mezzanine/js/ 中的 jQuery 檔名"
+
+#: defaults.py:184
+msgid "Name of the jQuery UI file."
 msgstr ""
 
-#: defaults.py:176
+#: defaults.py:185
+msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
+msgstr ""
+
+#: defaults.py:193
 msgid "Max paging links"
 msgstr "最大分頁鏈結數量"
 
-#: defaults.py:177
+#: defaults.py:194
 msgid "Max number of paging links to display when paginating."
 msgstr "顯示分頁時，分頁鏈結的最大數量。"
 
-#: defaults.py:184
+#: defaults.py:201
+msgid "Media library per site"
+msgstr ""
+
+#: defaults.py:202
+msgid ""
+"If ``True``, each site will use its own directory within the filebrowser "
+"media library."
+msgstr ""
+
+#: defaults.py:210
 msgid ""
 "Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
 "admin change-list records filtered down to records owned by the current "
@@ -152,52 +179,52 @@ msgid ""
 "records in the admin change-list interface, regardless of the current user."
 msgstr ""
 
-#: defaults.py:196
+#: defaults.py:222
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
 msgstr ""
 
-#: defaults.py:204
+#: defaults.py:230
 msgid ""
 "List of HTML tags that won't be stripped from ``RichTextField`` instances."
 msgstr ""
 
-#: defaults.py:220
+#: defaults.py:246
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
 msgstr ""
 
-#: defaults.py:238
+#: defaults.py:264
 msgid ""
 "List of inline CSS styles that won't be stripped from ``RichTextField`` "
 "instances."
 msgstr ""
 
-#: defaults.py:246
+#: defaults.py:272
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
 msgstr ""
 
-#: defaults.py:256
+#: defaults.py:282
 msgid "High"
 msgstr "高"
 
-#: defaults.py:257
+#: defaults.py:283
 msgid "Low (allows video, iframe, Flash, etc)"
 msgstr "低 (準許 video, iframe, Flash 等等) "
 
-#: defaults.py:258
+#: defaults.py:284
 msgid "No filtering"
 msgstr ""
 
-#: defaults.py:263
+#: defaults.py:289
 msgid "Rich Text filter level"
 msgstr ""
 
-#: defaults.py:264
+#: defaults.py:290
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
@@ -217,22 +244,22 @@ msgid ""
 "allow any code to be entered by staff members, including script tags."
 msgstr ""
 
-#: defaults.py:287
+#: defaults.py:313
 msgid ""
 "Sequence of models that will be provided by default as choices in the search "
 "form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
 
-#: defaults.py:297
+#: defaults.py:323
 msgid "Search results per page"
 msgstr "每頁的搜索結果"
 
-#: defaults.py:298
+#: defaults.py:324
 msgid "Number of results shown in the search results page."
 msgstr "在搜索結果頁面中顯示的結果數。"
 
-#: defaults.py:305
+#: defaults.py:331
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
 "this, you'll also need to manually apply it to your project's root ``urls."
@@ -240,29 +267,29 @@ msgid ""
 "project`` command contains an example of this towards its end."
 msgstr ""
 
-#: defaults.py:316
+#: defaults.py:342
 msgid "Site Title"
 msgstr "網頁的主題"
 
-#: defaults.py:317
+#: defaults.py:343
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
-msgstr ""
+msgstr "顯示於網站頂部的標題。會被附加至所有頁面的 HTML title 標籤值。"
 
-#: defaults.py:325
+#: defaults.py:351
 msgid "Tagline"
 msgstr ""
 
-#: defaults.py:326
+#: defaults.py:352
 msgid "A tag line that will appear at the top of all pages."
 msgstr ""
 
-#: defaults.py:328
+#: defaults.py:354
 msgid "An open source content management platform."
 msgstr "一個開源的資訊管理平台"
 
-#: defaults.py:333
+#: defaults.py:359
 msgid ""
 "Dotted Python path to the callable for converting strings into URL slugs. "
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
@@ -270,7 +297,7 @@ msgid ""
 "Django's slugify function, or something of your own if required."
 msgstr ""
 
-#: defaults.py:344
+#: defaults.py:370
 msgid ""
 "Sequence of dotted Python paths to callable functions used for checking "
 "posted content (such as forms or comments) is spam. Each function should "
@@ -280,69 +307,73 @@ msgid ""
 "``AKISMET_API_KEY`` setting is configured."
 msgstr ""
 
-#: defaults.py:357
+#: defaults.py:383
 msgid "Enable SSL"
 msgstr "啟用 SSL"
 
-#: defaults.py:358
+#: defaults.py:384
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
 msgstr ""
+"若為 ``True``，則使用者會在訪問 ``SSL_FORCE_URL_PREFIXES`` 設定中的 URL 時，"
+"被自動導向至 HTTPS。"
 
-#: defaults.py:367
+#: defaults.py:393
 msgid "Force Host"
 msgstr ""
 
-#: defaults.py:368
+#: defaults.py:394
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
 msgstr ""
 
-#: defaults.py:386
+#: defaults.py:412
 msgid ""
 "If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
 "will be accessible over SSL, and all other URLs will be redirected back to "
 "HTTP if accessed over HTTPS."
 msgstr ""
 
-#: defaults.py:396
+#: defaults.py:422
 msgid "List of words which will be stripped from search queries."
 msgstr ""
 
-#: defaults.py:453
+#: defaults.py:479
 msgid "Tag Cloud Sizes"
-msgstr ""
+msgstr "標籤雲大小"
 
-#: defaults.py:454
+#: defaults.py:480
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr ""
 
-#: defaults.py:461
+#: defaults.py:487
 msgid "Sequence of setting names available within templates."
 msgstr ""
 
-#: defaults.py:476
+#: defaults.py:502
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
-msgstr ""
+msgstr "存放縮圖的目錄，相對於原圖所在的目錄。"
 
-#: defaults.py:484
+#: defaults.py:510
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
 msgstr ""
+"當使用預設的 ``RICHTEXT_WIDGET_CLASS` 時，處理 TinyMCE 配置的 JavaScript 檔 "
+"URL (相對於 ``STATIC_URL``)。"
 
-#: defaults.py:493
+#: defaults.py:519
 msgid ""
 "Dict mapping file field names in the format ``app_label.model_name."
 "field_name`` to the Python dotted path to function names that will be used "
 "for the file field's ``upload_to`` argument."
 msgstr ""
 
-#: defaults.py:509
+#: defaults.py:535
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
@@ -355,41 +386,41 @@ msgstr ""
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "無法匯入設定值：.RICHTEXT_WIDGET_CLASS: %s"
 
-#: forms.py:79 models.py:316
+#: forms.py:84 models.py:317
 msgid "Order"
 msgstr "順序"
 
-#: models.py:55 models.py:109
+#: models.py:56 models.py:110
 msgid "Title"
 msgstr "標題"
 
-#: models.py:56
+#: models.py:57
 msgid "URL"
 msgstr "URL"
 
-#: models.py:57
+#: models.py:58
 msgid "Leave blank to have the URL auto-generated from the title."
-msgstr ""
+msgstr "若留空，則 URL 會根據標題自動建立。"
 
-#: models.py:99
+#: models.py:100
 msgid "View on site"
 msgstr "前往網站觀看"
 
-#: models.py:111
+#: models.py:112
 msgid ""
 "Optional title to be used in the HTML title tag. If left blank, the main "
 "title field will be used."
-msgstr ""
+msgstr "用於 HTML title 標籤的標題。如果留空，則會使用主標題欄的值。"
 
-#: models.py:113
+#: models.py:114
 msgid "Description"
 msgstr "描述"
 
-#: models.py:114
+#: models.py:115
 msgid "Generate description"
 msgstr "產生描述"
 
-#: models.py:115
+#: models.py:116
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
@@ -397,55 +428,67 @@ msgstr ""
 "選擇此項，描述會由內容自動產生。\n"
 "取消選擇此項，則可自定描述。"
 
-#: models.py:118
+#: models.py:119
 msgid "Keywords"
 msgstr "關鍵字"
 
-#: models.py:175
+#: models.py:176
 msgid "Draft"
 msgstr "草稿"
 
-#: models.py:176
+#: models.py:177
 msgid "Published"
 msgstr "已發佈"
 
-#: models.py:187
+#: models.py:188
 msgid "Status"
 msgstr "狀態"
 
-#: models.py:189
+#: models.py:190
 msgid "With Draft chosen, will only be shown for admin users on the site."
 msgstr ""
 
-#: models.py:191 models.py:224
+#: models.py:192 models.py:225
 msgid "Published from"
 msgstr "由誰發佈"
 
-#: models.py:192
+#: models.py:193
 msgid "With Published chosen, won't be shown until this time"
-msgstr ""
+msgstr "當選取「已發佈」時，在此時間前不會顯示。"
 
-#: models.py:194
+#: models.py:195
 msgid "Expires on"
 msgstr "過期日"
 
-#: models.py:195
+#: models.py:196
 msgid "With Published chosen, won't be shown after this time"
-msgstr ""
+msgstr "當選取「已發佈」時，在此時間後不會顯示。"
 
-#: models.py:198
+#: models.py:199
 msgid "Show in sitemap"
 msgstr ""
 
-#: models.py:401
+#: models.py:402 models.py:422
 msgid "Author"
 msgstr "作者"
 
-#: views.py:88
+#: models.py:425
+msgid "Sites"
+msgstr ""
+
+#: models.py:428
+msgid "Site permission"
+msgstr ""
+
+#: models.py:429
+msgid "Site permissions"
+msgstr ""
+
+#: views.py:87
 msgid "Permission denied"
 msgstr "權限不足"
 
-#: views.py:116 templates/includes/search_form.html:11
+#: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
 msgstr ""
 
@@ -471,8 +514,30 @@ msgid "Home"
 msgstr "首頁"
 
 #: templates/index.html:12
-msgid "This is the homepage."
-msgstr "本頁是首頁。"
+msgid ""
+"\n"
+"<h2>Congratulations!</h2>\n"
+"<p>\n"
+"    Welcome to your new Mezzanine powered website.\n"
+"    Here are some quick links to get you started:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">Log in to the admin interface</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Creating custom page types</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">Modifying HTML templates</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
+"\">Changing this homepage</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">Other frequently asked questions</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Full list of settings</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying "
+"to a production server</a></li>\n"
+"</ul>\n"
+msgstr ""
 
 #: templates/search_results.html:5 templates/search_results.html.py:6
 #: templates/search_results.html:13
@@ -480,11 +545,11 @@ msgid "Search Results"
 msgstr "搜尋結果"
 
 #: templates/search_results.html:20
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
-msgstr "您的搜尋無結果："
+msgstr ""
 
 #: templates/search_results.html:24
 #, python-format
@@ -604,15 +669,6 @@ msgstr "的"
 msgid "Search"
 msgstr "搜尋"
 
-#: templates/includes/search_form.html:18
+#: templates/includes/search_form.html:22
 msgid "Go"
 msgstr ""
-
-#~ msgid "Showing"
-#~ msgstr "顯示"
-
-#~ msgid "to"
-#~ msgstr "到"
-
-#~ msgid "results matching your query:"
-#~ msgstr "符合您搜尋的結果："

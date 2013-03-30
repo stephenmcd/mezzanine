@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 10:52-0430\n"
 "PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/mezzanine/"
@@ -119,43 +119,43 @@ msgstr ""
 msgid "Hidden"
 msgstr "숨김"
 
-#: forms.py:29 forms.py:37 forms.py:43
+#: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
 msgstr "아무 것도 없음"
 
-#: forms.py:30
+#: forms.py:29
 msgid "Contains"
 msgstr "포함:"
 
-#: forms.py:31
+#: forms.py:30
 msgid "Doesn't contain"
 msgstr "미포함:"
 
-#: forms.py:32 forms.py:38
+#: forms.py:31 forms.py:37
 msgid "Equals"
 msgstr "같음"
 
-#: forms.py:33 forms.py:39
+#: forms.py:32 forms.py:38
 msgid "Doesn't equal"
 msgstr "같지 않음"
 
-#: forms.py:44
+#: forms.py:43
 msgid "Is between"
 msgstr "범위:"
 
-#: forms.py:101
+#: forms.py:100
 msgid "required"
 msgstr "필수"
 
-#: forms.py:221
+#: forms.py:216
 msgid "Checked"
 msgstr "체크됨"
 
-#: forms.py:221
+#: forms.py:216
 msgid "Not checked"
 msgstr "체크되지 않음"
 
-#: forms.py:235 forms.py:250
+#: forms.py:230 forms.py:245
 msgid "and"
 msgstr ""
 

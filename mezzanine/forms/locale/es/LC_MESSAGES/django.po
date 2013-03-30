@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Eduardo Rivas <jerivasmelgar@gmail.com>, 2012.
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2012.
 # William Díaz <leprosys@gmail.com>, 2012.
 # William Díaz Valdez <leprosys@gmail.com>, 2012.
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: William Díaz <leprosys@gmail.com>\n"
+"POT-Creation-Date: 2013-03-30 10:52-0430\n"
+"PO-Revision-Date: 2013-03-30 12:10+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/"
 "language/es/)\n"
 "Language: es\n"
@@ -77,6 +78,12 @@ msgid ""
 "constant for the field, but cannot be a value already used, so choose a high "
 "number such as 100 or greater to avoid conflicts."
 msgstr ""
+"Tipos de campo adicionales para la aplicación de formularios. Debería "
+"contener una secuencia de secuencias de tres elementos, cada una con el ID, "
+"ruta de importación de la clase del campo y el nombre del mismo para cada "
+"uno de los campos adicionales. El ID es simplemente una constante numérica "
+"para el campo, pero debe ser único, así que debe elegir un número alto, como "
+"100 o mayor para evitar conflictos."
 
 #: fields.py:31
 msgid "Single line text"
@@ -134,43 +141,43 @@ msgstr "Fecha de nacimiento"
 msgid "Hidden"
 msgstr "Oculto"
 
-#: forms.py:29 forms.py:37 forms.py:43
+#: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
 msgstr "Nada"
 
-#: forms.py:30
+#: forms.py:29
 msgid "Contains"
 msgstr "Contiene"
 
-#: forms.py:31
+#: forms.py:30
 msgid "Doesn't contain"
 msgstr "No contiene"
 
-#: forms.py:32 forms.py:38
+#: forms.py:31 forms.py:37
 msgid "Equals"
 msgstr "Es igual"
 
-#: forms.py:33 forms.py:39
+#: forms.py:32 forms.py:38
 msgid "Doesn't equal"
 msgstr "No es igual"
 
-#: forms.py:44
+#: forms.py:43
 msgid "Is between"
 msgstr "Está entre"
 
-#: forms.py:101
+#: forms.py:100
 msgid "required"
 msgstr "obligatorio"
 
-#: forms.py:221
+#: forms.py:216
 msgid "Checked"
 msgstr "Sleccionado"
 
-#: forms.py:221
+#: forms.py:216
 msgid "Not checked"
 msgstr "No seleccionado"
 
-#: forms.py:235 forms.py:250
+#: forms.py:230 forms.py:245
 msgid "and"
 msgstr "y"
 

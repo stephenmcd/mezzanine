@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 10:52-0430\n"
 "PO-Revision-Date: 2012-10-15 21:13+0000\n"
 "Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
@@ -50,109 +50,109 @@ msgstr ""
 "compte. Cet e-mail contient un lien de vérification que les utilisateurs "
 "doivent suivre pour activer leur compte."
 
-#: forms.py:18 forms.py:187
+#: forms.py:21 forms.py:190
 msgid "Username or email address"
 msgstr "Nom d'utilisateur ou adresse e-mail"
 
-#: forms.py:19 forms.py:63
+#: forms.py:22 forms.py:66
 msgid "Password"
 msgstr "Mot de passe"
 
-#: forms.py:32
+#: forms.py:35
 msgid "Invalid username/email and password"
 msgstr "Nom d'utilisateur/adresse e-mail et mot de passe invalide"
 
-#: forms.py:34
+#: forms.py:37
 msgid "Your account is inactive"
 msgstr "Votre compte est inactif"
 
-#: forms.py:65
+#: forms.py:68
 msgid "Password (again)"
 msgstr "Mot de passe (confirmation)"
 
-#: forms.py:78
+#: forms.py:81
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr ""
 "N'utilisez que des lettres, nombres, tirets (-) ou blancs soulignés (_)"
 
-#: forms.py:92
+#: forms.py:95
 msgid "Leave blank unless you want to change your password"
 msgstr "Laissez vide si vous ne voulez pas changer votre mot de passe"
 
-#: forms.py:111
+#: forms.py:114
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr ""
 "Le nom d'utilisateur ne peut contenir que des lettres, nombres, tirets (-) "
 "ou blancs soulignés (_)."
 
-#: forms.py:119
+#: forms.py:122
 msgid "This username is already registered"
 msgstr "Ce nom d'utilisateur est déjà présent"
 
-#: forms.py:132
+#: forms.py:135
 msgid "Passwords do not match"
 msgstr "Les mots de passe ne sont pas identiques"
 
-#: forms.py:134
+#: forms.py:137
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "Le mot de passe doit avoir au moins %s caractères"
 
-#: forms.py:149
+#: forms.py:152
 msgid "This email is already registered"
 msgstr "Cet e-mail est déjà enregistré"
 
-#: forms.py:196
+#: forms.py:199
 msgid "Invalid username/email"
 msgstr "Nom d'utilisateur/adresse e-mail invalide"
 
-#: views.py:28
+#: views.py:31
 msgid "Successfully logged in"
 msgstr "Identification réussie"
 
-#: views.py:31
+#: views.py:34
 msgid "Login"
 msgstr "Identification"
 
-#: views.py:40
+#: views.py:43
 msgid "Successfully logged out"
 msgstr "Déconnexion réussie"
 
-#: views.py:54
+#: views.py:57
 msgid ""
 "A verification email has been sent with a link for activating your account."
 msgstr ""
 "Un e-mail de vérification vous a été envoyé. Il contient un lien pour "
 "activer votre compte."
 
-#: views.py:58 views.py:77
+#: views.py:61 views.py:80
 msgid "Successfully signed up"
 msgstr "Inscription réussie"
 
-#: views.py:61
+#: views.py:64
 msgid "Signup"
 msgstr "Inscription"
 
-#: views.py:80 views.py:164
+#: views.py:83 views.py:167
 msgid "The link you clicked is no longer valid."
 msgstr "Le lien sur lequel vous avez cliqué a expiré."
 
-#: views.py:138
+#: views.py:141
 msgid "Profile updated"
 msgstr "Profil mis à jour"
 
-#: views.py:143
+#: views.py:146
 msgid "Update Profile"
 msgstr "Mettre à jour le profil"
 
-#: views.py:152
+#: views.py:155
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr ""
 "Un e-mail de vérification vous a été envoyé. Il contient un lien pour "
 "réinitialiser votre mot de passe."
 
-#: views.py:154
+#: views.py:157
 msgid "Password Reset"
 msgstr "Réinitialisation du mot de passe"
 
@@ -213,10 +213,12 @@ msgid "Logged in as: "
 msgstr "Identifié en tant que :"
 
 #: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
 msgstr "Déconnexion"
 
 #: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
 msgid "Log in"
 msgstr "S'identifier"
 
@@ -225,6 +227,7 @@ msgid "or"
 msgstr "ou"
 
 #: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
 msgid "Sign up"
 msgstr "Créer un compte"
 

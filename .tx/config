@@ -1,5 +1,6 @@
 [main]
 host = https://www.transifex.com
+lang_map = sr@latin:sr_Latn
 
 [mezzanine.blog]
 file_filter = mezzanine/blog/locale/<lang>/LC_MESSAGES/django.po

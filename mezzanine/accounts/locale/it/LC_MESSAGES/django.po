@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 10:52-0430\n"
 "PO-Revision-Date: 2012-10-17 15:54+0000\n"
 "Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/"
@@ -49,107 +49,107 @@ msgstr ""
 "email con un collegamento di verifica, che essi dovranno cliccare per "
 "abilitare il proprio account."
 
-#: forms.py:18 forms.py:187
+#: forms.py:21 forms.py:190
 msgid "Username or email address"
 msgstr "Nome utente o indirizzo email"
 
-#: forms.py:19 forms.py:63
+#: forms.py:22 forms.py:66
 msgid "Password"
 msgstr "Password"
 
-#: forms.py:32
+#: forms.py:35
 msgid "Invalid username/email and password"
 msgstr "Nome utente/email/password non validi"
 
-#: forms.py:34
+#: forms.py:37
 msgid "Your account is inactive"
 msgstr "Il tuo account non è attivo"
 
-#: forms.py:65
+#: forms.py:68
 msgid "Password (again)"
 msgstr "Password (di nuovo)"
 
-#: forms.py:78
+#: forms.py:81
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr "Solo lettere, numeri, trattini e sottolineature, per favore."
 
-#: forms.py:92
+#: forms.py:95
 msgid "Leave blank unless you want to change your password"
 msgstr "Lascia vuoto, a meno che tu voglia cambiare la tua password."
 
-#: forms.py:111
+#: forms.py:114
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr ""
 "ll nome utente può contenere solo lettere, numeri, trattini e sottolineature."
 
-#: forms.py:119
+#: forms.py:122
 msgid "This username is already registered"
 msgstr "Questo nome utente è già registrato."
 
-#: forms.py:132
+#: forms.py:135
 msgid "Passwords do not match"
 msgstr "Le password non corrispondono l'una con l'altra."
 
-#: forms.py:134
+#: forms.py:137
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "La password deve avere almeno %s caratteri."
 
-#: forms.py:149
+#: forms.py:152
 msgid "This email is already registered"
 msgstr "Questa email è già registrata"
 
-#: forms.py:196
+#: forms.py:199
 msgid "Invalid username/email"
 msgstr "Nome utente/email non valido."
 
-#: views.py:28
+#: views.py:31
 msgid "Successfully logged in"
 msgstr "Accesso effettuato correttamente"
 
-#: views.py:31
+#: views.py:34
 msgid "Login"
 msgstr "Accesso"
 
-#: views.py:40
+#: views.py:43
 msgid "Successfully logged out"
 msgstr "Uscita effettuata correttamente"
 
-#: views.py:54
+#: views.py:57
 msgid ""
 "A verification email has been sent with a link for activating your account."
 msgstr ""
 "Una email di verifica è stata inviata con un link per attivare il tuo "
 "account."
 
-#: views.py:58 views.py:77
+#: views.py:61 views.py:80
 msgid "Successfully signed up"
 msgstr "Iscrizione effettuata correttamente"
 
-#: views.py:61
+#: views.py:64
 msgid "Signup"
 msgstr "Iscrizione"
 
-#: views.py:80 views.py:164
+#: views.py:83 views.py:167
 msgid "The link you clicked is no longer valid."
 msgstr "Il link che hai cliccato non è più valido."
 
-#: views.py:138
+#: views.py:141
 msgid "Profile updated"
 msgstr "Profilo aggiornato"
 
-#: views.py:143
+#: views.py:146
 msgid "Update Profile"
 msgstr "Aggiorna il profilo"
 
-#: views.py:152
+#: views.py:155
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr ""
 "Una email di verifica è stata inviata con un link per reimpostare la tua "
 "password."
 
-#: views.py:154
+#: views.py:157
 msgid "Password Reset"
 msgstr "Reimposta password"
 
@@ -209,10 +209,12 @@ msgid "Logged in as: "
 msgstr "Accesso effettuato come:"
 
 #: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
 msgstr "Esci"
 
 #: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
 msgid "Log in"
 msgstr "Accedi"
 
@@ -221,6 +223,7 @@ msgid "or"
 msgstr "o"
 
 #: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
 msgid "Sign up"
 msgstr "Registrati"
 

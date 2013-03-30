@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
+"POT-Creation-Date: 2013-03-30 10:50-0430\n"
 "PO-Revision-Date: 2012-09-06 08:21+0000\n"
 "Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/"
@@ -35,15 +35,15 @@ msgstr "Errore"
 msgid "Sorry, an error occurred."
 msgstr "Spiacenti, si è verificato un errore."
 
-#: templates/mobile/base.html:31 templates/mobile/index.html:6
+#: templates/mobile/base.html:41 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Pagina principale"
 
-#: templates/mobile/base.html:43
+#: templates/mobile/base.html:53
 msgid "Powered by"
 msgstr "Realizzato con"
 
-#: templates/mobile/base.html:44
+#: templates/mobile/base.html:54
 msgid "View Full Site"
 msgstr "Vedi il sito completo"
 

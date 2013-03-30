@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-11 19:58-0500\n"
-"PO-Revision-Date: 2012-10-14 21:32+0000\n"
+"POT-Creation-Date: 2013-03-30 10:51-0430\n"
+"PO-Revision-Date: 2013-03-30 11:56+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/"
 "language/eo/)\n"
@@ -24,30 +24,14 @@ msgid "Other posts"
 msgstr ""
 
 #: defaults.py:20
-msgid "bit.ly username"
-msgstr "bit.ly uzantnomo"
-
-#: defaults.py:21
-msgid "Username for http://bit.ly URL shortening service."
-msgstr "Uzantnomo por http://bit.ly URL mallongigante servo."
-
-#: defaults.py:28
-msgid "bit.ly key"
-msgstr "bit.ly ŝlosilo"
-
-#: defaults.py:29
-msgid "Key for http://bit.ly URL shortening service."
-msgstr "Ŝlosilo por http://bit.ly URL mallongigante servo."
-
-#: defaults.py:36
 msgid "Enable featured images in blog posts"
 msgstr "Ebligu elstaraj bildoj en aldonitaj blogaĵoj"
 
-#: defaults.py:43
+#: defaults.py:27
 msgid "Use date URLs"
 msgstr "Uzu dato URLoj"
 
-#: defaults.py:44
+#: defaults.py:28
 msgid ""
 "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
 "mm/slug/"
@@ -55,15 +39,25 @@ msgstr ""
 "Se ``Vera``, URLoj por post de la blog inkludas la monato kaj jaro. Eg: /"
 "blogo/jjjj/mm/mallongo/"
 
-#: defaults.py:52
+#: defaults.py:36
 msgid "Blog posts per page"
 msgstr "Blogo afiŝojn po paĝo"
 
-#: defaults.py:53
+#: defaults.py:37
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "Nombro de aldonitaj blogaĵoj montrita sur blogo listo paĝo."
 
-#: defaults.py:60
+#: defaults.py:44
+msgid "Blog posts RSS limit"
+msgstr ""
+
+#: defaults.py:45
+msgid ""
+"Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
+"display all blog posts in the RSS feed."
+msgstr ""
+
+#: defaults.py:53
 msgid "Slug of the page object for the blog."
 msgstr "Mallongigo de la paĝo objekto por la blogo."
 
@@ -76,7 +70,7 @@ msgid "Allow comments"
 msgstr ""
 
 #: models.py:21 templates/blog/blog_post_detail.html:43
-#: templates/blog/blog_post_list.html:126
+#: templates/blog/blog_post_list.html:129
 msgid "Comments"
 msgstr "Komentoj"
 
@@ -100,11 +94,11 @@ msgstr "Blogoskribaĵo"
 msgid "Blog posts"
 msgstr "Blogoskribaĵoj"
 
-#: models.py:79
+#: models.py:85
 msgid "Blog Category"
 msgstr "Blogo Kategorio"
 
-#: models.py:80
+#: models.py:86
 msgid "Blog Categories"
 msgstr "Blogo Kategorioj"
 
@@ -122,13 +116,13 @@ msgid "Posted by"
 msgstr "Enskribita per"
 
 #: templates/blog/blog_post_detail.html:33
-#: templates/blog/blog_post_list.html:93
+#: templates/blog/blog_post_list.html:95
 #, python-format
 msgid "%(sometime)s ago"
 msgstr ""
 
 #: templates/blog/blog_post_detail.html:46
-#: templates/blog/blog_post_list.html:130
+#: templates/blog/blog_post_list.html:133
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
@@ -136,7 +130,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/blog/blog_post_detail.html:74
-#: templates/blog/blog_post_list.html:113
+#: templates/blog/blog_post_list.html:116
 #: templates/blog/includes/filter_panel.html:48
 msgid "Tags"
 msgstr "Markoj"
@@ -181,11 +175,11 @@ msgstr "Rigardas afiŝojn el"
 msgid "Viewing posts by"
 msgstr "Rigardas afiŝojn de"
 
-#: templates/blog/blog_post_list.html:88
+#: templates/blog/blog_post_list.html:89
 msgid "in"
 msgstr "en"
 
-#: templates/blog/blog_post_list.html:121
+#: templates/blog/blog_post_list.html:124
 msgid "read more"
 msgstr "legu pli"
 
