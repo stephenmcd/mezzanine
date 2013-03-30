@@ -35,6 +35,13 @@ If ``True``, when users create an account, they will be sent an email with a ver
 
 Default: ``False``
 
+``ADD_PAGE_ORDER``
+------------------
+
+A sequence of ``Page`` subclasses in the format ``app_label.model_name``, that controls the ordering of items in the select drop-down for adding new pages within the admin page tree interface.
+
+Default: ``('pages.RichTextPage',)``
+
 ``ADMIN_MENU_ORDER``
 --------------------
 
@@ -63,17 +70,10 @@ Key for `http://akismet.com <http://akismet.com>`_ spam filtering service. Used 
 
 Default: ``''``
 
-``BLOG_BITLY_KEY``
-------------------
+``BITLY_ACCESS_TOKEN``
+----------------------
 
-Key for `http://bit.ly <http://bit.ly>`_ URL shortening service.
-
-Default: ``''``
-
-``BLOG_BITLY_USER``
--------------------
-
-Username for `http://bit.ly <http://bit.ly>`_ URL shortening service.
+Access token for `http://bit.ly <http://bit.ly>`_ URL shortening service.
 
 Default: ``''``
 
@@ -83,6 +83,13 @@ Default: ``''``
 Number of blog posts shown on a blog listing page.
 
 Default: ``5``
+
+``BLOG_RSS_LIMIT``
+------------------
+
+Number of most recent blog posts shown in the RSS feed. Set to ``None`` to display all blog posts in the RSS feed.
+
+Default: ``20``
 
 ``BLOG_SLUG``
 -------------
@@ -288,7 +295,7 @@ Name of the jQuery file found in mezzanine/core/static/mezzanine/js/
 Default: ``'jquery-1.7.1.min.js'``
 
 ``JQUERY_UI_FILENAME``
--------------------
+----------------------
 
 Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/
 
@@ -335,6 +342,13 @@ Default: ``((1, u'Top navigation bar', 'pages/menus/dropdown.html'), (2, u'Left-
 A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the default menu templates selected when creating new pages. By default all menu templates are selected. Set this setting to an empty sequence to have no templates selected by default.
 
 Default: ``None``
+
+``RATINGS_ACCOUNT_REQUIRED``
+----------------------------
+
+If ``True``, users must log in to rate content such as blog posts and comments.
+
+Default: ``False``
 
 ``RATINGS_RANGE``
 -----------------
@@ -490,7 +504,7 @@ Default: ``4``
 
 Sequence of setting names available within templates.
 
-Default: ``('ACCOUNTS_VERIFICATION_REQUIRED', 'ADMIN_MEDIA_PREFIX', 'BLOG_BITLY_USER', 'BLOG_BITLY_KEY', 'BLOG_USE_FEATURED_IMAGE', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'COMMENTS_USE_RATINGS', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'JQUERY_FILENAME', 'LOGIN_URL', 'LOGOUT_URL', 'SITE_TITLE', 'SITE_TAGLINE')``
+Default: ``('ACCOUNTS_VERIFICATION_REQUIRED', 'BITLY_ACCESS_TOKEN', 'BLOG_USE_FEATURED_IMAGE', 'COMMENTS_DISQUS_SHORTNAME', 'COMMENTS_NUM_LATEST', 'COMMENTS_DISQUS_API_PUBLIC_KEY', 'COMMENTS_DISQUS_API_SECRET_KEY', 'COMMENTS_USE_RATINGS', 'DEV_SERVER', 'FORMS_USE_HTML5', 'GRAPPELLI_INSTALLED', 'GOOGLE_ANALYTICS_ID', 'JQUERY_FILENAME', 'LOGIN_URL', 'LOGOUT_URL', 'SITE_TITLE', 'SITE_TAGLINE')``
 
 ``THUMBNAILS_DIR_NAME``
 -----------------------
@@ -536,13 +550,6 @@ Default: ``'search'``
 Dict mapping file field names in the format ``app_label.model_name.field_name`` to the Python dotted path to function names that will be used for the file field's ``upload_to`` argument.
 
 Default: ``{}``
-
-``USE_REVERSION``
------------------
-
-If ``True`` and ``django-reversion`` is installed in ``INSTALLED_APP``, reversion's admin class is injected into all of the admin classes that are based upon ``DisplayableAdmin``, such as blog admin and all of the page admins.
-
-Default: ``False``
 
 ``USE_SOUTH``
 -------------

@@ -1,3 +1,73 @@
+Version 1.4.4 (Mar 31, 2013)
+----------------------------
+
+  * Added user FK to rating model, and allow authenticated users to edit their ratings. Added new setting ``RATINGS_ACCOUNT_REQUIRED`` to allow ratings to behave like comments, where requiring authentication can store post data in session until user logs in to complete the rating - Stephen McDonald
+  * If RichTextPage is unregistered in the admin, have the page add link in the dashboard go to the page tree - Stephen McDonald
+  * Let's go back to a fixed-width navbar - Stephen McDonald
+  * Give the navbar some more space - Stephen McDonald
+  * Docs for using the Media Library browse dialog in custom widgets - Ahmad Khayyat
+  * Added the ``ADD_PAGE_ORDER`` setting, which is a sequence of ``app_label.object_name`` values of Page subclasses, for defining the ordering used in the add drop-down on the admin page tree - Stephen McDonald
+  * Use CSS instead of JavaScript for the admin app dropdowns. There were some bugs with the dropdowns when they were in JavaScript: 1. When you open a dropdown and then scroll, the dropdown would stay. put, instead of following the scroll. 2. The JavaScript used `.live('mouseover')` which binds to body and. wastes memory because it's fired for mouseover on every single DOM. element. 3. Occasionally, the dropdowns never disappeared even after mouseout. This commit fixes those bugs by using CSS and `:hover` instead of. JavaScript. Additionally, it simplifies the JavaScript related to. setting the href of the primary menu item links to their first child. It is a pixel for pixel match of the previous functionality and. appearance - Rocky Meza
+  * Update to bootstrap 2.3.1 - Stephen McDonald
+  * Use Django's ``module_has_submodule`` util in any module autodiscover scenarios (page processors, conf defaults) so we can correctly propagate real errors - Stephen McDonald
+  * Tighten up the search form css a bit - Stephen McDonald
+  * Remove the model graph FAQ since no one's actually ever asked it - Stephen McDonald
+  * New docs sesction, Utilities, covering the models/fields in ``mezzanine.generic``, as well as some of the more useful template tags in ``mezzanine_tags`` - Stephen McDonald
+  * Django 1.5 url compatability - pahaz
+  * Use future lib in form entries template for backward compat - Stephen McDonald
+  * Fix search form HTML - Stephen McDonald
+  * Fix rating css - Stephen McDonald
+  * Add ``JQUERY_UI_FILENAME`` setting and corresponding docs - Ahmad Khayyat
+  * Fix rating field lookups - Stephen McDonald
+  * Added domain to cache key for site ID caching - Stephen McDonald
+  * Added some JS to the default front-end templates that delays closing of dropdown menus in the primary nav to make them more user friendly. Closes #587 - Stephen McDonald
+  * Added the setting ``BLOG_RSS_LIMIT`` defaulting to 20, which limits the number of blog posts shown in the RSS feed - Stephen McDonald
+  * Update ``BLOG_RSS_LIMIT`` setting description to describe setting it to None for no limit - Stephen McDonald
+  * Make ``BLOG_RSS_LIMIT`` setting not editable - Stephen McDonald
+  * A little late here, but fix Django 1.3 support - Stephen McDonald
+  * Provide a default ``max_length`` for FileBrowseField - Stephen McDonald
+  * Added a website powered by Mezzanine - poptosic
+  * Better comment button text - Stephen McDonald
+  * Unicode fix for comment emails - Stephen McDonald
+  * Don't show site selection form when there's only one site. If there's only a single site, there's no need to show this form,. because it can't do anything - Gavin Wahl
+  * Only show one reply form at a time in a comment thread - Stephen McDonald
+  * Configurable page var names in pagination querystrings - Stephen McDonald
+  * Pin max Django version to 1.5.x - Stephen McDonald
+  * Fix tweets/comments css - Stephen McDonald
+  * RTL: adjust admin navbar thickness after the js->css change - Ahmad Khayyat
+  * Provide optional template for user panel in nav - Stephen McDonald
+  * Remove content from DisplayableAdmin's ``search_fields`` since content is not defined on Displayable and may or may not be present on a model that subclasses it and uses the DisplayableAdmin - Josh Cartmell
+  * Clean up nav version of user panel - Stephen McDonald
+  * Don't strip any HTML in TinyMCE since filtering is handled by bleach - Stephen McDonald
+  * 569 - replace uses of ``STATIC_URL`` in templates with 'static' template tag - endophage
+  * site is never assigned when hostname is set, single line addition fixes the problem - endophage
+  * Don't depend on unloaded comment state for determining parent-most level of replies in ``comment_thread`` template tag - Stephen McDonald
+  * Fix KeywordsField swapping of name in model's ``search_fields`` when a sequence is used - Stephen McDonald
+  * Moved the logic for building up search fields in SearchableQueryset into a new method ``SearchableManager.get_search_fields``, which allows externally retrieving the search fields dict that will be used - Stephen McDonald
+  * Use model's ``search_fields`` to populate ``DisplayableAdmin.search_fields`` - Stephen McDonald
+  * Fix use of ``JQUERY_FILENAME`` with static template tag - Stephen McDonald
+  * Add compress tags to js/css in base mobile template - Stephen McDonald
+  * Fix empty thumbnails for fielbrowser fields in AdminThumbMixin - Stephen McDonald
+  * Added AJAX/JSON handling for comment/rating login redirects, and comment form errors - Stephen McDonald
+  * Allow migrations and fixtures to run from scratch without ``mezzanine.pages`` installed - Stephen McDonald
+  * Don't update existing ratings if their values haven't changed - Stephen McDonald
+  * Fix dot lookup in template settings - Stephen McDonald
+  * Upgrade bitly integration - added new ``BITLY_ACCESS_CODE`` setting to replace the old api settings - Stephen McDonald
+  * Upgrade ``select_related`` call in ``recent_comments`` template tag - Stephen McDonald
+  * Remove all use of ``django.conf.urls.defaults`` since we don't support Django 1.3 anymore. Closes #539 - Stephen McDonald
+  * Remove all special handling for Django 1.3 since it's no longer supported - Stephen McDonald
+  * Removed all use of Django's deprecated ``ADMIN_MEDIA_PREFIX`` since we no longer support Django 1.3 - Stephen McDonald
+  * Fix missing import - dizpers
+  * Added keyword/category filtering to blog post admin - Stephen McDonald
+  * Remove the ``USE_REVERSION`` setting since it's incomplete - Stephen McDonald
+  * Remove stray deprecated ``django.conf.urls.defaults`` - Stephen McDonald
+  * Update to latest grappelli/filebrowser-safe - Stephen McDonald
+  * Bump ``grappelli_safe`` to 0.2.16 - Stephen McDonald
+  * Fix list/tuple handling for ``AUTHENTICATION_BACKENDS`` checks in ``set_dynamic_settings`` - Stephen McDonald
+  * Revert sequence settings back to tuples in ``set_dynamic_settings`` since some Django tests expect them to be tuples - Stephen McDonald
+  * Update grappelli version - Stephen McDonald
+  * Rename sr@latin locale folders to ``sr_Latn`` - Sebastián Ramírez Magrí
+
 Version 1.4.3 (Feb 27, 2013)
 ----------------------------
 
