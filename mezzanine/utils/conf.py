@@ -57,12 +57,13 @@ def set_dynamic_settings(s):
     # Some kind of development server is running via runserver,
     # runserver_plus or harvest (lettuce)
     s["DEV_SERVER"] = management_command.startswith(("runserver", "harvest"))
+
     # Change tuple settings to lists for easier manipulation.
-    s["AUTHENTICATION_BACKENDS"] = list(s["AUTHENTICATION_BACKENDS"])
-    s["INSTALLED_APPS"] = list(s["INSTALLED_APPS"])
-    s["MIDDLEWARE_CLASSES"] = list(s["MIDDLEWARE_CLASSES"])
-    s["STATICFILES_FINDERS"] = list(s.get("STATICFILES_FINDERS",
-                                    STATICFILES_FINDERS))
+    s.setdefault("STATICFILES_FINDERS", STATICFILES_FINDERS)
+    tuple_list_settings = ("AUTHENTICATION_BACKENDS", "INSTALLED_APPS",
+                           "MIDDLEWARE_CLASSES", "STATICFILES_FINDERS")
+    for setting in tuple_list_settings:
+        s[setting] = list(s[setting])
 
     if s["DEV_SERVER"]:
         s["STATICFILES_DIRS"] = list(s.get("STATICFILES_DIRS", []))
@@ -163,6 +164,10 @@ def set_dynamic_settings(s):
         s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if not
                                    (mw.endswith("UpdateCacheMiddleware") or
                                     mw.endswith("FetchFromCacheMiddleware"))]
+
+    # Revert tuple settings back to tuples.
+    for setting in tuple_list_settings:
+        s[setting] = tuple(s[setting])
 
     # Some settings tweaks for different DB engines.
     for (key, db) in s["DATABASES"].items():
