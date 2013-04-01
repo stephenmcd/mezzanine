@@ -390,7 +390,9 @@ Sites Using Mezzanine
   * `KisanHub <http://www.kisanhub.com/>`_
   * `Your Song Your Story <http://yoursongyourstory.org/>`_
   * `Kegbot <http://kegbot.org>`_
-  * `Fiz <http://fiz.com/>`_
+  * `Fiz <http://fiz.com/>`
+  * `Willborn <http://willbornco.com>`
+  * `Copilot Co <http://copilotco.com>`_
 
 
 Quotes
