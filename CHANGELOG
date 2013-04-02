@@ -1,3 +1,9 @@
+Version 1.4.5 (Apr 03, 2013)
+----------------------------
+
+  * Fix some static urls in admin to support external storage backends - Stephen McDonald
+  * Bump grappelli/filebrowser versions - Stephen McDonald
+
 Version 1.4.4 (Mar 31, 2013)
 ----------------------------
 
