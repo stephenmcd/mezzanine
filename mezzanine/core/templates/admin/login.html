@@ -3,7 +3,7 @@
 
 {% block stylesheets %}
 {{ block.super }}
-<link rel="stylesheet" type="text/css" href="{% static settings.MEZZANINE_ADMIN_PREFIX %}css/login.css">
+<link rel="stylesheet" type="text/css" href="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"css/login.css" %}">
 {% endblock %}
 
 {% block bodyclass %}login{% endblock %}

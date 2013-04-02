@@ -23,8 +23,8 @@
             {% endif %}
             <span class="ordering"{% if not page.perms.change %}
                 style="visibility:hidden;"{% endif %}>
-                <img src="{% static settings.MEZZANINE_ADMIN_PREFIX %}img/admin/arrow-up.gif" />
-                <img src="{% static settings.MEZZANINE_ADMIN_PREFIX %}img/admin/arrow-down.gif" />
+                <img src="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/admin/arrow-up.gif" %}">
+                <img src="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/admin/arrow-down.gif" %}">
             </span>
             {% if page.perms.add %}
             <select class="addlist" id="addlink-{{ page.id }}">
