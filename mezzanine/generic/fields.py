@@ -39,6 +39,18 @@ class BaseGenericRelation(GenericRelation):
             kwargs.setdefault("to", to)
         super(BaseGenericRelation, self).__init__(*args, **kwargs)
 
+    def db_type(self):
+        """
+        South expects this to return a string for initial migrations
+        against MySQL, to check for text or geometery columns. These
+        generic fields are neither of those, but returning an empty
+        string here at least allows migrations to run successfully.
+        See http://south.aeracode.org/ticket/1204
+        """
+        if self.frozen_by_south:
+            return ""
+        return None
+
     def contribute_to_class(self, cls, name):
         """
         Add each of the names and fields in the ``fields`` attribute
