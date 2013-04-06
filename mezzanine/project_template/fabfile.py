@@ -479,7 +479,9 @@ def deploy():
         upload_template_and_reload(name)
     with project():
         backup("last.db")
-        run("tar -cf last.tar %s" % static())
+        static_dir = static()
+        if exists(static_dir):
+            run("tar -cf last.tar %s" % static_dir)
         git = env.git
         last_commit = "git rev-parse HEAD" if git else "hg id -i"
         run("%s > last.commit" % last_commit)
