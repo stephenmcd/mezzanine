@@ -390,11 +390,11 @@ Sites Using Mezzanine
   * `KisanHub <http://www.kisanhub.com/>`_
   * `Your Song Your Story <http://yoursongyourstory.org/>`_
   * `Kegbot <http://kegbot.org>`_
-  * `Fiz <http://fiz.com/>`
-  * `Willborn <http://willbornco.com>`
+  * `Fiz <http://fiz.com/>`_
+  * `Willborn <http://willbornco.com>`_
   * `Copilot Co <http://copilotco.com>`_
   * `Amblitec <http://www.amblitec.com>`_
-
+  * `Gold's Gym Utah <http://www.bestgymever.com/>`_
 
 Quotes
 ======
