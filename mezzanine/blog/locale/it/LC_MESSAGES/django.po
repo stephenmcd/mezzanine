@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Nicola Larosa <transifex@teknico.net>, 2012.
+# Nicola Larosa <transifex@teknico.net>, 2012-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-30 10:51-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2013-04-02 10:10+0000\n"
+"Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/"
 "language/it/)\n"
 "Language: it\n"
@@ -49,13 +49,15 @@ msgstr "Numero di articoli mostrati su una pagina elenco del blog."
 
 #: defaults.py:44
 msgid "Blog posts RSS limit"
-msgstr ""
+msgstr "Limite agli articoli del blog nel feed RSS"
 
 #: defaults.py:45
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
+"Numero degli articoli più recenti del blog mostrati nel feed RSS. Impostare "
+"a ``None`` per mostrare nel feed RSS tutti gli articoli del blog."
 
 #: defaults.py:53
 msgid "Slug of the page object for the blog."

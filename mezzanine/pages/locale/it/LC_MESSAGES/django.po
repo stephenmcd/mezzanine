@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Nicola Larosa <transifex@teknico.net>, 2012.
+# Nicola Larosa <transifex@teknico.net>, 2012-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-30 10:51-0430\n"
-"PO-Revision-Date: 2013-03-30 12:03+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2013-04-02 10:10+0000\n"
+"Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/"
 "language/it/)\n"
 "Language: it\n"
@@ -25,6 +25,10 @@ msgid ""
 "that controls the ordering of items in the select drop-down for adding new "
 "pages within the admin page tree interface."
 msgstr ""
+"Una sequenza di sottoclassi di ``Page`` nel formato ``app_label."
+"model_name``, che controlla l'ordinamento degli elementi nel menu a discesa "
+"di scelta per aggiungere nuove pagine all'interno dell'albero di pagine "
+"dell'interfaccia di amministrazione."
 
 #: defaults.py:30
 msgid ""
