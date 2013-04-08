@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Nicola Larosa <transifex@teknico.net>, 2012.
+# Nicola Larosa <transifex@teknico.net>, 2012-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-30 10:51-0430\n"
-"PO-Revision-Date: 2013-03-30 11:59+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/"
-"language/it/)\n"
-"Language: it\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2013-03-30 07:16-0430\n"
+"PO-Revision-Date: 2013-04-02 12:50+0000\n"
+"Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:27
@@ -53,9 +52,7 @@ msgstr "Deregistra questi modelli dall'amministrazione"
 
 #: defaults.py:40
 msgid "Size of thumbnail previews for image fields in the admin interface."
-msgstr ""
-"Dimensione delle miniature d'anteprima per i campi immagine dell'interfaccia "
-"d'amministrazione."
+msgstr "Dimensione delle miniature d'anteprima per i campi immagine dell'interfaccia d'amministrazione."
 
 #: defaults.py:48
 msgid "Akismet API Key"
@@ -65,17 +62,15 @@ msgstr "Chiave API Akismet"
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
-msgstr ""
-"Chiave del servizio di filtraggio spam http://akismet.com . Usato per "
-"filtrare i commenti e le form."
+msgstr "Chiave del servizio di filtraggio spam http://akismet.com . Usato per filtrare i commenti e le form."
 
 #: defaults.py:57
 msgid "bit.ly access token"
-msgstr ""
+msgstr "token di accesso a bit.ly"
 
 #: defaults.py:58
 msgid "Access token for http://bit.ly URL shortening service."
-msgstr ""
+msgstr "Token di accesso al servizio di URL abbreviate http://bit.ly ."
 
 #: defaults.py:65
 msgid ""
@@ -179,11 +174,11 @@ msgstr "Nome del file jQuery trovato in mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
-msgstr ""
+msgstr "Nome del file jQuery UI."
 
 #: defaults.py:185
 msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
-msgstr ""
+msgstr "Nome del file jQuery UI trovato in mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:193
 msgid "Max paging links"
@@ -191,18 +186,19 @@ msgstr "Massimi link di paginazione"
 
 #: defaults.py:194
 msgid "Max number of paging links to display when paginating."
-msgstr ""
-"Massima quantità di link di paginazione da mostrare durante la paginazione."
+msgstr "Massima quantità di link di paginazione da mostrare durante la paginazione."
 
 #: defaults.py:201
 msgid "Media library per site"
-msgstr ""
+msgstr "Catalogo media per sito"
 
 #: defaults.py:202
 msgid ""
 "If ``True``, each site will use its own directory within the filebrowser "
 "media library."
 msgstr ""
+"Se ``True``, ciascun sito userà una propria directory per il catalogo media "
+"del filebrowser."
 
 #: defaults.py:210
 msgid ""
@@ -316,6 +312,10 @@ msgid ""
 "form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
+"Sequenza di modelli che verrano forniti come scelte predefinite nel form di "
+"ricerca. Ogni modello deve essere nel formato ``app_label.model_name``. "
+"Vanno usati solo modelli che ereditano da ``mezzanine.core.models."
+"Displayable``."
 
 #: defaults.py:323
 msgid "Search results per page"
@@ -383,6 +383,13 @@ msgid ""
 "which will use the http://akismet.com spam filtering service when the "
 "``AKISMET_API_KEY`` setting is configured."
 msgstr ""
+"Sequenza di percorsi puntati Python verso funzioni invocabili usate per "
+"controllare se i contenuti inseriti (come form o commenti) siano spam. "
+"Ciascuna funzione deve accettare tre argomenti: l'oggetto request, l'oggetto "
+"form, e la URL da cui è stato effettuato l'inserimento. Il valore "
+"predefinito è ``mezzanine.utils.views.is_spam_akismet`` che userà il "
+"servizio di filtraggio spam http://akismet.com quando l'impostazione "
+"``AKISMET_API_KEY`` è configurata."
 
 #: defaults.py:383
 msgid "Enable SSL"
@@ -458,6 +465,9 @@ msgid ""
 "field_name`` to the Python dotted path to function names that will be used "
 "for the file field's ``upload_to`` argument."
 msgstr ""
+"Dizionario che fa corrispondere i nomi di campo file nel formato ``app_label."
+"model_name.field_name`` con il percorso puntato Python verso nomi di "
+"funzioni che verranno usati per l'argomento ``upload_to`` del campo file."
 
 #: defaults.py:535
 msgid ""
@@ -558,7 +568,7 @@ msgstr "Avendo scelto Pubblicato, non verrà mostrato dopo questa data/ora."
 
 #: models.py:199
 msgid "Show in sitemap"
-msgstr ""
+msgstr "Mostra nella sitemap"
 
 #: models.py:402 models.py:422
 msgid "Author"
@@ -566,15 +576,15 @@ msgstr "Autore"
 
 #: models.py:425
 msgid "Sites"
-msgstr ""
+msgstr "Siti"
 
 #: models.py:428
 msgid "Site permission"
-msgstr ""
+msgstr "Permesso di sito"
 
 #: models.py:429
 msgid "Site permissions"
-msgstr ""
+msgstr "Permessi di sito"
 
 #: views.py:87
 msgid "Permission denied"
@@ -582,7 +592,7 @@ msgstr "Permesso negato"
 
 #: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
-msgstr ""
+msgstr "Tutto"
 
 #: templates/base.html:121
 msgid "Powered by"
@@ -630,6 +640,29 @@ msgid ""
 "to a production server</a></li>\n"
 "</ul>\n"
 msgstr ""
+"\n"
+"<h2>Congratulazioni!</h2>\n"
+"<p>\n"
+"    Benvenuto al tuo nuovo sito web alimentato da Mezzanine.\n"
+"    Ecco alcuni link rapidi per aiutarti a partire:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">Accedi all'interfaccia di amministrazione</a></"
+"li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Creare tipi di pagina personalizzati</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">Modificare i template HTML</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
+"\">Cambiare questa homepage</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">Altre domande frequenti</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Lista completa delle impostazioni</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Attivare "
+"su un server di produzione</a></li>\n"
+"</ul>\n"
 
 #: templates/search_results.html:5 templates/search_results.html.py:6
 #: templates/search_results.html:13
@@ -642,6 +675,8 @@ msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"La ricerca \"%(query)s\" non ha prodotto risultati di tipo %(search_type)s\n"
 
 #: templates/search_results.html:24
 #, python-format
@@ -650,6 +685,9 @@ msgid ""
 "Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
 "matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"Visualizzati da %(start)s a %(end)s su %(total)s risultati complessivi tra "
+"%(search_type)s come risultato della ricerca: %(query)s\n"
 
 #: templates/search_results.html:35
 msgid "read more"
@@ -665,7 +703,7 @@ msgstr "Pannello di controllo"
 
 #: templates/admin/login.html:21
 msgid "You don't have permission to access the admin for this site."
-msgstr ""
+msgstr "Non sei autorizzato ad accedere l'amministrazione di questo sito."
 
 #: templates/admin/login.html:28
 msgid "Username or email:"
@@ -763,4 +801,4 @@ msgstr "Cerca"
 
 #: templates/includes/search_form.html:22
 msgid "Go"
-msgstr ""
+msgstr "Vai"
