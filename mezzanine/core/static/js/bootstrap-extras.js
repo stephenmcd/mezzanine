@@ -2,7 +2,7 @@ $(function()
 {
 
     // Form css tweaks.
-    $('.middle input:text, textarea').addClass('input-xlarge');
+    $('.middle input:text, .middle input:password, textarea').addClass('input-xlarge');
     $('.control-group label').addClass('control-label');
 
 
