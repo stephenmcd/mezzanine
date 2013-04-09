@@ -31,7 +31,7 @@ def login(request, template="accounts/account_login.html"):
         info(request, _("Successfully logged in"))
         auth_login(request, authenticated_user)
         return login_redirect(request)
-    context = {"form": form, "title": _("Login")}
+    context = {"form": form, "title": _("Log in")}
     return render(request, template, context)
 
 
@@ -61,7 +61,7 @@ def signup(request, template="accounts/account_signup.html"):
             info(request, _("Successfully signed up"))
             auth_login(request, new_user)
             return login_redirect(request)
-    context = {"form": form, "title": _("Signup")}
+    context = {"form": form, "title": _("Sign up")}
     return render(request, template, context)
 
 
