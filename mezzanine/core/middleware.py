@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth import logout
 from django.contrib.redirects.models import Redirect
+from django.core.exceptions import MiddlewareNotUsed
 from django.core.urlresolvers import reverse
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponsePermanentRedirect, HttpResponseGone)
@@ -211,6 +212,11 @@ class RedirectFallbackMiddleware(object):
     Port of Django's ``RedirectFallbackMiddleware`` that uses
     Mezzanine's approach for determining the current site.
     """
+
+    def __init__(self):
+        if "django.contrib.redirects" not in settings.INSTALLED_APPS:
+            raise MiddlewareNotUsed
+
     def process_response(self, request, response):
         if response.status_code == 404:
             lookup = {
