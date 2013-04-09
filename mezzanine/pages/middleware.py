@@ -1,5 +1,5 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from django.utils.http import urlquote
 
@@ -57,10 +57,32 @@ class PageMiddleware(object):
             view_kwargs.setdefault("extra_context", {})
             view_kwargs["extra_context"]["page"] = page
 
-        # Create the response, and check that we can add context
-        # to it. If not, it's something like a redirect, so we
-        # just return it.
-        response = view_func(request, *view_args, **view_kwargs)
+        # We also first do wacky check with non-page views and 404s.
+        # Basically if the view function isn't the page view and
+        # raises a 404, but also matches an exact page slug, we then
+        # forget about the non-page view, and run the page view
+        # with the correct args.
+        # This check allows us to set up pages with URLs that also
+        # match non-page urlpatterns, for example a page could be
+        # created with the URL /blog/about/, which would match the
+        # blog urlpattern, and asusming there wasn't a blog post
+        # with the slug "about", would raise a 404.
+        try:
+            response = view_func(request, *view_args, **view_kwargs)
+        except Http404:
+            if page.slug == slug and view_func != page_view:
+                # Matched a non-page urlpattern, but got a 404
+                # for a URL that matches a valid page slug, so
+                # use the page view.
+                view_kwargs.setdefault("extra_context", {})
+                view_kwargs["extra_context"]["page"] = page
+                view_func = page_view
+                response = view_func(request, *view_args, **view_kwargs)
+            else:
+                raise
+
+        # If we can't add context to the response we just return it.
+        # (redirects, etc)
         if not hasattr(response, "context_data"):
             return response
 
