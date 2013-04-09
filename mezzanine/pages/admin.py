@@ -125,16 +125,17 @@ class PageAdmin(DisplayableAdmin):
         self._check_permission(request, content_model, "delete")
         return super(PageAdmin, self).delete_view(request, object_id, **kwargs)
 
-    def changelist_view(self, request, **kwargs):
+    def changelist_view(self, request, extra_context=None):
         """
         Redirect to the ``Page`` changelist view for ``Page``
         subclasses.
         """
         if self.model is not Page:
             return HttpResponseRedirect(admin_url(Page, "changelist"))
-        kwargs.setdefault("extra_context", {})
-        kwargs["extra_context"]["page_models"] = self.get_content_models()
-        return super(PageAdmin, self).changelist_view(request, **kwargs)
+        if not extra_context:
+            extra_context = {}
+        extra_context["page_models"] = self.get_content_models()
+        return super(PageAdmin, self).changelist_view(request, extra_context)
 
     def save_model(self, request, obj, form, change):
         """
