@@ -1,9 +1,10 @@
 
 from django.contrib import admin
 from django.contrib.auth import logout
+from django.contrib.redirects.models import Redirect
 from django.core.urlresolvers import reverse
 from django.http import (HttpResponse, HttpResponseRedirect,
-                         HttpResponsePermanentRedirect)
+                         HttpResponsePermanentRedirect, HttpResponseGone)
 from django.utils.cache import get_max_age
 from django.template import Template, RequestContext
 
@@ -203,3 +204,26 @@ class SSLRedirectMiddleware(object):
                     return HttpResponseRedirect("https://%s" % url)
             elif request.is_secure() and settings.SSL_FORCED_PREFIXES_ONLY:
                 return HttpResponseRedirect("http://%s" % url)
+
+
+class RedirectFallbackMiddleware(object):
+    """
+    Port of Django's ``RedirectFallbackMiddleware`` that uses
+    Mezzanine's approach for determining the current site.
+    """
+    def process_response(self, request, response):
+        if response.status_code == 404:
+            lookup = {
+                "site_id": current_site_id(),
+                "old_path": request.get_full_path(),
+            }
+            try:
+                redirect = Redirect.objects.get(**lookup)
+            except Redirect.DoesNotExist:
+                pass
+            else:
+                if not redirect.new_path:
+                    response = HttpResponseGone()
+                else:
+                    response = HttpResponseRedirect(redirect.new_path)
+        return response
