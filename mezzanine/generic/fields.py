@@ -39,7 +39,7 @@ class BaseGenericRelation(GenericRelation):
             kwargs.setdefault("to", to)
         super(BaseGenericRelation, self).__init__(*args, **kwargs)
 
-    def db_type(self):
+    def db_type(self, connection):
         """
         South expects this to return a string for initial migrations
         against MySQL, to check for text or geometery columns. These
