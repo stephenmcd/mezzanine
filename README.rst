@@ -524,6 +524,7 @@ Quotes
 .. _`GnuCash`: http://www.gnucash.org/
 .. _`mezzanine-foundation`: https://github.com/zgohr/mezzanine-foundation
 .. _`Zurb Foundation`: http://foundation.zurb.com/
+.. _`mezzanine-media-library`: https://github.com/thibault/mezzanine-media-library
 
 
 .. PEOPLE WITH QUOTES
