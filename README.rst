@@ -252,6 +252,9 @@ mailing list. To report a bug or other type of issue, please use the
 `GitHub issue tracker`_. And feel free to drop by the `#mezzanine
 IRC channel`_ on `Freenode`_, for a chat.
 
+Communications in all Mezzanine spaces are expected to conform
+to the `Django Code of Conduct`_.
+
 Sites Using Mezzanine
 =====================
 
@@ -426,6 +429,7 @@ Quotes
 .. GENERAL LINKS
 
 .. _`Django`: http://djangoproject.com/
+.. _`Django Code of Conduct`: https://www.djangoproject.com/conduct/
 .. _`BSD licensed`: http://www.linfo.org/bsdlicense.html
 .. _`Wordpress`: http://wordpress.org/
 .. _`great sites people have built using Mezzanine`: http://mezzanine.jupo.org/sites/
