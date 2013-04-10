@@ -205,7 +205,7 @@ class SearchableManager(Manager):
         fall back to any fields that are ``CharField`` or ``TextField``
         instances.
         """
-        search_fields = self._search_fields
+        search_fields = self._search_fields.copy()
         if not search_fields:
             for cls in reversed(self.model.__mro__):
                 super_fields = getattr(cls, "search_fields", {})
