@@ -8,6 +8,7 @@ from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponsePermanentRedirect, HttpResponseGone)
 from django.utils.cache import get_max_age
 from django.template import Template, RequestContext
+from django.middleware.csrf import CsrfViewMiddleware, get_token
 
 from mezzanine.conf import settings
 from mezzanine.core.models import SitePermission
@@ -169,6 +170,11 @@ class FetchFromCacheMiddleware(object):
     Request phase for Mezzanine cache middleware. Return a response
     from cache if found, othwerwise mark the request for updating
     the cache in ``UpdateCacheMiddleware``.
+
+    If the response is served from cache and process_request returns a valid
+    response, Django will not execute the next middlewares, but we really
+    need ``CsrfViewMiddleware`` to run before ``UpdateCacheMiddleware`` to
+    make sure a valid csrf token exist.
     """
 
     def process_request(self, request):
@@ -179,6 +185,11 @@ class FetchFromCacheMiddleware(object):
             if response is None:
                 request._update_cache = True
             else:
+                if ('django.middleware.csrf.CsrfViewMiddleware'
+                                in settings.MIDDLEWARE_CLASSES):
+                    CsrfViewMiddleware().process_view(request, lambda x: None, None, None)
+                    # get_token mark the csrf token as used to make sure a cookie is sent
+                    get_token(request)
                 return HttpResponse(response)
 
 
