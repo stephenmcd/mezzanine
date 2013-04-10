@@ -53,7 +53,7 @@ def set_dynamic_settings(s):
     # Define some settings based on management command being run.
     management_command = sys.argv[1] if len(sys.argv) > 1 else ""
     # Some kind of testing is running via test or testserver.
-    s["TESTING"] = management_command.startswith("test")
+    s["TESTING"] = management_command in ("test", "testserver")
     # Some kind of development server is running via runserver,
     # runserver_plus or harvest (lettuce)
     s["DEV_SERVER"] = management_command.startswith(("runserver", "harvest"))
