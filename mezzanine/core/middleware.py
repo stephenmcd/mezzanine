@@ -185,10 +185,10 @@ class FetchFromCacheMiddleware(object):
             if response is None:
                 request._update_cache = True
             else:
-                if ('django.middleware.csrf.CsrfViewMiddleware'
-                                in settings.MIDDLEWARE_CLASSES):
-                    CsrfViewMiddleware().process_view(request, lambda x: None, None, None)
-                    # get_token mark the csrf token as used to make sure a cookie is sent
+                csrf_mw_name = "django.middleware.csrf.CsrfViewMiddleware"
+                if csrf_mw_name in settings.MIDDLEWARE_CLASSES:
+                    csrf_mw = CsrfViewMiddleware()
+                    csrf_mw.process_view(request, lambda x: None, None, None)
                     get_token(request)
                 return HttpResponse(response)
 
