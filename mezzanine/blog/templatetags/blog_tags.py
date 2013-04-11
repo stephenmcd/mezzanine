@@ -64,7 +64,7 @@ def blog_recent_posts(limit=5, tag=None, username=None, category=None):
         {% blog_recent_posts 5 username=admin as recent_posts %}
 
     """
-    blog_posts = BlogPost.objects.published()
+    blog_posts = BlogPost.objects.published().select_related("user")
     title_or_slug = lambda s: Q(title=s) | Q(slug=s)
     if tag is not None:
         try:
