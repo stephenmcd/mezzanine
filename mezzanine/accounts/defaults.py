@@ -54,3 +54,22 @@ register_setting(
     editable=False,
     default=False,
 )
+
+register_setting(
+    name="ACCOUNTS_APPROVAL_REQUIRED",
+    description=_("If ``True``, when users create an account, they will "
+        "not be enabled by default and a staff member will need to activate "
+        "their account in the admin interface."),
+    editable=False,
+    default=False,
+)
+
+register_setting(
+    name="ACCOUNTS_APPROVAL_EMAILS",
+    label=_("Account approval email addresses"),
+    description=_("A comma separated list of email addresses that "
+                  "will receive an email notification each time a "
+                  "new account is created that requires approval."),
+    editable=True,
+    default="",
+)
