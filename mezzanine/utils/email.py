@@ -9,7 +9,7 @@ from mezzanine.conf import settings
 from mezzanine.utils.urls import admin_url
 
 
-def emails_list(email_string_list):
+def split_addresses(email_string_list):
     """
     Converts a string containing comma separated email addresses
     into a list of email addresses.
@@ -82,7 +82,7 @@ def send_approve_mail(request, user):
     ``ACCOUNTS_APPROVAL_REQUIRED`` setting is ``True``.
     """
     settings.use_editable()
-    approval_emails = emails_list(settings.ACCOUNTS_APPROVAL_EMAILS)
+    approval_emails = split_addresses(settings.ACCOUNTS_APPROVAL_EMAILS)
     if not approval_emails:
         return
     context = {

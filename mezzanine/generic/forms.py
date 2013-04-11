@@ -9,7 +9,7 @@ from mezzanine.conf import settings
 from mezzanine.core.forms import Html5Mixin
 from mezzanine.generic.models import Keyword, ThreadedComment, Rating
 from mezzanine.utils.cache import add_cache_bypass
-from mezzanine.utils.email import emails_list, send_mail_template
+from mezzanine.utils.email import split_addresses, send_mail_template
 from mezzanine.utils.views import ip_for_request
 
 
@@ -132,7 +132,7 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
         comment.save()
         comment_was_posted.send(sender=comment.__class__, comment=comment,
                                 request=request)
-        notify_emails = emails_list(settings.COMMENTS_NOTIFICATION_EMAILS)
+        notify_emails = split_addresses(settings.COMMENTS_NOTIFICATION_EMAILS)
         if notify_emails:
             subject = _("New comment for: ") + unicode(obj)
             context = {
