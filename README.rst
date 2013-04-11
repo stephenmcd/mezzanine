@@ -232,7 +232,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
     them over RSS.
   * `cash-generator`_ - Generate `GnuCash`_ invoices with Mezzanine.
   * `mezzanine-foundation`_ - `Zurb Foundation`_ theme for Mezzanine.
-  * `mezzanine-media-library`_ - Simple file (not just images) gallery for Mezzanine
+  * `mezzanine-file-collections`_ - Simple file collection page type for Mezzanine.
 
 Donating
 ========
@@ -524,7 +524,7 @@ Quotes
 .. _`GnuCash`: http://www.gnucash.org/
 .. _`mezzanine-foundation`: https://github.com/zgohr/mezzanine-foundation
 .. _`Zurb Foundation`: http://foundation.zurb.com/
-.. _`mezzanine-media-library`: https://github.com/thibault/mezzanine-media-library
+.. _`mezzanine-file-collections`: https://github.com/thibault/mezzanine-file-collections
 
 
 .. PEOPLE WITH QUOTES
