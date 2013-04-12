@@ -399,6 +399,7 @@ Sites Using Mezzanine
   * `Copilot Co <http://copilotco.com>`_
   * `Amblitec <http://www.amblitec.com>`_
   * `Gold's Gym Utah <http://www.bestgymever.com/>`_
+  * `Appsin - Blog to Native app <http://apps.in/>`_
 
 Quotes
 ======
