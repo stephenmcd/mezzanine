@@ -1,5 +1,6 @@
 
 from django.shortcuts import redirect
+from django.template import RequestContext
 
 from mezzanine.conf import settings
 from mezzanine.forms.forms import FormForForm
@@ -25,7 +26,8 @@ def form_processor(request, page):
     """
     Display a built form and handle submission.
     """
-    form = FormForForm(page.form, request.POST or None, request.FILES or None)
+    form = FormForForm(page.form, RequestContext(request),
+                       request.POST or None, request.FILES or None)
     if form.is_valid():
         url = page.get_absolute_url() + "?sent=1"
         if is_spam(request, form, url):

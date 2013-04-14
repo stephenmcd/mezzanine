@@ -7,6 +7,7 @@ from django import forms
 from django.forms.extras import SelectDateWidget
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
+from django.template import Template
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
@@ -74,7 +75,7 @@ class FormForForm(forms.ModelForm):
         model = FormEntry
         exclude = ("form", "entry_time")
 
-    def __init__(self, form, *args, **kwargs):
+    def __init__(self, form, context, *args, **kwargs):
         """
         Dynamically add each of the form fields for the given form model
         instance and its related field model instances.
@@ -123,7 +124,7 @@ class FormForForm(forms.ModelForm):
                 try:
                     initial_val = initial[field_key]
                 except KeyError:
-                    initial_val = field.default
+                    initial_val = Template(field.default).render(context)
             if initial_val:
                 if field.is_a(*fields.MULTIPLE):
                     initial_val = [x.strip() for x in initial_val.split(",")]
