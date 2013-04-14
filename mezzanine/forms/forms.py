@@ -85,7 +85,7 @@ class FormForForm(forms.ModelForm):
         # If a FormEntry instance is given to edit, populate initial
         # with its field values.
         field_entries = {}
-        if "instance" in kwargs:
+        if kwargs.get("instance"):
             for field_entry in kwargs["instance"].fields.all():
                 field_entries[field_entry.field_id] = field_entry.value
         super(FormForForm, self).__init__(*args, **kwargs)
@@ -116,16 +116,19 @@ class FormForForm(forms.ModelForm):
             # - The default value for the field instance as given in
             #   the admin.
             #
+            initial_val = None
             try:
                 initial_val = field_entries[field.id]
             except KeyError:
                 try:
-                    self.initial[field_key] = initial[field_key]
+                    initial_val = initial[field_key]
                 except KeyError:
-                    self.initial[field_key] = field.default
-            else:
+                    initial_val = field.default
+            if initial_val:
                 if field.is_a(*fields.MULTIPLE):
                     initial_val = [x.strip() for x in initial_val.split(",")]
+                elif field.field_type == fields.CHECKBOX:
+                    initial_val = initial_val != "False"
                 self.initial[field_key] = initial_val
             self.fields[field_key] = field_class(**field_args)
 
