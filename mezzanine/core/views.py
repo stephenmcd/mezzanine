@@ -1,4 +1,3 @@
-
 import os
 from urlparse import urljoin, urlparse
 
@@ -135,7 +134,8 @@ def static_proxy(request):
     url = request.GET["u"]
     protocol = "http" if not request.is_secure() else "https"
     host = protocol + "://" + request.get_host()
-    for prefix in (host, settings.STATIC_URL):
+    generic_host = "//" + request.get_host()
+    for prefix in (host, generic_host, settings.STATIC_URL):
         if url.startswith(prefix):
             url = url.replace(prefix, "", 1)
     response = ""
