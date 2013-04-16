@@ -66,6 +66,7 @@ class Gallery(Page, RichText):
                     image.verify()
                 except:
                     continue
+                name = os.path.split(name)[1]
                 path = os.path.join(GALLERIES_UPLOAD_DIR, self.slug,
                                     name.decode("utf-8"))
                 try:
