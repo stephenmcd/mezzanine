@@ -145,9 +145,8 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         Ensure the email address is not already registered.
         """
         email = self.cleaned_data.get("email")
-        try:
-            User.objects.exclude(id=self.instance.id).get(email=email)
-        except User.DoesNotExist:
+        qs = User.objects.exclude(id=self.instance.id).filter(email=email)
+        if len(qs) == 0:
             return email
         raise forms.ValidationError(_("This email is already registered"))
 
