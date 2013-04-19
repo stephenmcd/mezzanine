@@ -29,19 +29,10 @@ def register_setting(name="", label="", editable=False, description="",
     else:
         # If an editable setting has a value defined in the
         # project's settings.py module, it can't be editable, since
-        # these leads to a lot of confusion once its value gets
+        # these lead to a lot of confusion once its value gets
         # defined in the db.
-        #
-        # Sites built prior to this change, may still contain these
-        # editable settings values in the db, so we also maintain an
-        # ``editable_disabled`` value, which we can then check for
-        # when checking for db values, and still use those in order
-        # to remain backward compatible but provide a warning.
-        # Eventually this will go away.
-        editable_disabled = False
-        if editable and hasattr(django_settings, name):
+        if hasattr(django_settings, name):
             editable = False
-            editable_disabled = True
         if isinstance(default, Promise):
             default = force_unicode(default)
         setting_type = type(default)
@@ -52,8 +43,7 @@ def register_setting(name="", label="", editable=False, description="",
         registry[name] = {"name": name, "label": label,
                           "description": description,
                           "editable": editable, "default": default,
-                          "choices": choices, "type": setting_type,
-                          "editable_disabled": editable_disabled}
+                          "choices": choices, "type": setting_type,}
 
 
 class Settings(object):
@@ -109,8 +99,7 @@ class Settings(object):
 
         # First access for an editable setting - load from DB into cache.
         # Also remove settings from the DB that are no longer registered.
-        setting_in_db = setting["editable"] or setting["editable_disabled"]
-        if setting_in_db and not self._loaded:
+        if setting["editable"] and not self._loaded:
             from mezzanine.conf.models import Setting
             settings = Setting.objects.all()
             removed = []
@@ -125,16 +114,6 @@ class Settings(object):
                     else:
                         setting_value = setting_type(setting_obj.value)
                     self._editable_cache[setting_obj.name] = setting_value
-                    if registry[setting_obj.name]["editable_disabled"]:
-                        from warnings import warn
-                        warn("You've defined a value for the admin editable "
-                             "setting %s in your settings.py module, but it "
-                             "still contains a value in the db - the db "
-                             "value will still be used, but you should "
-                             "remove it from the db so that the value in "
-                             "your settings.py module is used, or remove it "
-                             "from settings.py if you want it to be "
-                             "editable in the admin." % setting_obj.name)
             if removed:
                 Setting.objects.filter(id__in=removed).delete()
             self._loaded = True
