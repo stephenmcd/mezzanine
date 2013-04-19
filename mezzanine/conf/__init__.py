@@ -43,7 +43,7 @@ def register_setting(name="", label="", editable=False, description="",
         registry[name] = {"name": name, "label": label,
                           "description": description,
                           "editable": editable, "default": default,
-                          "choices": choices, "type": setting_type,}
+                          "choices": choices, "type": setting_type}
 
 
 class Settings(object):
