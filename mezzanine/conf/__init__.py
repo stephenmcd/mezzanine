@@ -21,11 +21,27 @@ def register_setting(name="", label="", editable=False, description="",
     """
     Registers a setting that can be edited via the admin.
     """
-    # Check project's settings module for overridden default.
+    # append is True when called from an app (typically external)
+    # after the setting has already been registered, with the
+    # intention of appending to its default value.
     if append and name in registry:
         registry[name]["default"] += default
     else:
-        default = getattr(django_settings, name, default)
+        # If an editable setting has a value defined in the
+        # project's settings.py module, it can't be editable, since
+        # these leads to a lot of confusion once its value gets
+        # defined in the db.
+        #
+        # Sites built prior to this change, may still contain these
+        # editable settings values in the db, so we also maintain an
+        # ``editable_disabled`` value, which we can then check for
+        # when checking for db values, and still use those in order
+        # to remain backward compatible but provide a warning.
+        # Eventually this will go away.
+        editable_disabled = False
+        if editable and hasattr(django_settings, name):
+            editable = False
+            editable_disabled = True
         if isinstance(default, Promise):
             default = force_unicode(default)
         setting_type = type(default)
@@ -36,24 +52,39 @@ def register_setting(name="", label="", editable=False, description="",
         registry[name] = {"name": name, "label": label,
                           "description": description,
                           "editable": editable, "default": default,
-                          "choices": choices, "type": setting_type}
+                          "choices": choices, "type": setting_type,
+                          "editable_disabled": editable_disabled}
 
 
 class Settings(object):
     """
     An object that provides settings via dynamic attribute access.
-    Settings that are registered as editable and can therefore be
-    stored in the database are *all* loaded once only, the first
-    time *any* editable setting is accessed. When accessing uneditable
-    settings their default values are used. The Settings object also
-    provides access to Django settings via ``django.conf.settings`` in
-    order to provide a consistent method of access for all settings.
+
+    Settings that are registered as editable will be stored in the
+    database once the site settings form in the admin is first saved.
+    When these values are accessed via this settings object, *all*
+    database stored settings get retrieved from the database.
+
+    When accessing uneditable settings their default values are used,
+    unless they've been given a value in the project's settings.py
+    module.
+
+    The settings object also provides access to Django settings via
+    ``django.conf.settings``, in order to provide a consistent method
+    of access for all settings.
     """
 
     def __init__(self):
         """
-        Marking loaded as ``True`` to begin with prevents some nasty
-        errors when the DB table is first created.
+        The ``_loaded`` attribute is a flag for defining whether
+        editable settings have been loaded from the database. It
+        defaults to ``True`` here to avoid errors when the DB table
+        is first created. It's then set to ``False`` whenever the
+        ``use_editable`` method is called, which should be called
+        before using editable settings in the database.
+        ``_editable_cache`` is the dict that stores the editable
+        settings once they're loaded from the database, the first
+        time an editable setting is accessed.
         """
         self._loaded = True
         self._editable_cache = {}
@@ -78,7 +109,8 @@ class Settings(object):
 
         # First access for an editable setting - load from DB into cache.
         # Also remove settings from the DB that are no longer registered.
-        if setting["editable"] and not self._loaded:
+        setting_in_db = setting["editable"] or setting["editable_disabled"]
+        if setting_in_db and not self._loaded:
             from mezzanine.conf.models import Setting
             settings = Setting.objects.all()
             removed = []
@@ -93,15 +125,28 @@ class Settings(object):
                     else:
                         setting_value = setting_type(setting_obj.value)
                     self._editable_cache[setting_obj.name] = setting_value
+                    if registry[setting_obj.name]["editable_disabled"]:
+                        from warnings import warn
+                        warn("You've defined a value for the admin editable "
+                             "setting %s in your settings.py module, but it "
+                             "still contains a value in the db - the db "
+                             "value will still be used, but you should "
+                             "remove it from the db so that the value in "
+                             "your settings.py module is used, or remove it "
+                             "from settings.py if you want it to be "
+                             "editable in the admin." % setting_obj.name)
             if removed:
                 Setting.objects.filter(id__in=removed).delete()
             self._loaded = True
 
-        # Use cached editable setting if found, otherwise use default.
+        # Use cached editable setting if found, otherwise use the
+        # value defined in the project's settings.py module if it
+        # exists, finally falling back to the default defined when
+        # registered.
         try:
             return self._editable_cache[name]
         except KeyError:
-            return setting["default"]
+            return getattr(django_settings, name, setting["default"])
 
 
 mezz_first = lambda app: not app.startswith("mezzanine.")
