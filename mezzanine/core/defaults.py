@@ -157,6 +157,13 @@ register_setting(
 )
 
 register_setting(
+    name="INLINE_EDITING_ENABLED",
+    editable=True,
+    description=_("If ``True``, frontend inline editing will be enabled."),
+    default=True,
+)
+
+register_setting(
     name="HOST_THEMES",
     description=_("A sequence mapping host names to themes, allowing "
                   "different templates to be served per HTTP hosts "
