@@ -11,6 +11,9 @@ found next to each piece of editable content, such as a page's title or a
 blog post's body. Clicking on the Edit icon will allow the author to update
 the individual piece of content without leaving the page.
 
+In-line editing can be disabled by setting ``INLINE_EDITING_ENABLED`` to
+``False``.
+
 Template Configuration
 ======================
 
