@@ -151,16 +151,9 @@ register_setting(
 register_setting(
     name="GOOGLE_ANALYTICS_ID",
     label=_("Google Analytics ID"),
-    editable=True,
     description=_("Google Analytics ID (http://www.google.com/analytics/)"),
-    default="",
-)
-
-register_setting(
-    name="INLINE_EDITING_ENABLED",
     editable=True,
-    description=_("If ``True``, frontend inline editing will be enabled."),
-    default=True,
+    default="",
 )
 
 register_setting(
@@ -175,6 +168,13 @@ register_setting(
                   "when loading templates."),
     editable=False,
     default=(),
+)
+
+register_setting(
+    name="INLINE_EDITING_ENABLED",
+    description=_("If ``True``, front-end inline editing will be enabled."),
+    editable=False,
+    default=True,
 )
 
 register_setting(
