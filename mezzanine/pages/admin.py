@@ -187,14 +187,27 @@ class PageAdmin(DisplayableAdmin):
         return self._maintain_parent(request, response)
 
     @classmethod
+    def get_content_model_exclusions(cls):
+        """
+        Read the ``PAGE_MENU_EXCLUSIONS`` setting to provide a list of Page
+        subclasses to be excluded in get_content_models.
+        """
+        return [get_model(*(model_name.split('.')))
+                for model_name in settings.PAGE_MENU_EXCLUSIONS]
+
+    @classmethod
     def get_content_models(cls):
         """
-        Return all Page subclasses that are admin registered, ordered
-        based on the ``ADD_PAGE_ORDER`` setting.
+        Return all admin-registered Page subclasses that are not excluded by
+        the ``PAGE_MENU_EXCLUSIONS`` setting, ordered based on the
+        ``ADD_PAGE_ORDER`` setting.
         """
         models = []
         BaseModel = get_model(*(cls.base_model_name.split('.')))
+        exclusions = cls.get_content_model_exclusions()
         for model in BaseModel.get_content_models():
+            if model in exclusions:
+                continue
             try:
                 admin_url(model, "add")
             except NoReverseMatch:
