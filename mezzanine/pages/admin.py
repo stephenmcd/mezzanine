@@ -4,6 +4,7 @@ from copy import deepcopy
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import NoReverseMatch
+from django.db.models.loading import get_model
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
@@ -40,6 +41,7 @@ class PageAdmin(DisplayableAdmin):
     form = PageAdminForm
     fieldsets = page_fieldsets
     change_list_template = "admin/pages/page/change_list.html"
+    base_model_name = "pages.Page"
 
     def __init__(self, *args, **kwargs):
         """
@@ -135,6 +137,7 @@ class PageAdmin(DisplayableAdmin):
         if not extra_context:
             extra_context = {}
         extra_context["page_models"] = self.get_content_models()
+        extra_context["base_model_name"] = self.base_model_name
         return super(PageAdmin, self).changelist_view(request, extra_context)
 
     def save_model(self, request, obj, form, change):
@@ -190,7 +193,8 @@ class PageAdmin(DisplayableAdmin):
         based on the ``ADD_PAGE_ORDER`` setting.
         """
         models = []
-        for model in Page.get_content_models():
+        BaseModel = get_model(*(cls.base_model_name.split('.')))
+        for model in BaseModel.get_content_models():
             try:
                 admin_url(model, "add")
             except NoReverseMatch:

@@ -2,6 +2,7 @@
 from collections import defaultdict
 
 from django.core.exceptions import ImproperlyConfigured
+from django.db.models.loading import get_model
 from django.template import TemplateSyntaxError, Variable
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
@@ -21,17 +22,25 @@ def page_menu(context, token):
     pages in a dict in the context when first called using parents as keys
     for retrieval on subsequent recursive calls from the menu template.
     """
-    # First arg could be the menu template file name, or the parent page.
-    # Also allow for both to be used.
+    # Can contain up to three args. One of them is the parent page, the other
+    # two are each a str or unicode instance indicatin template name and model
+    # name. If one of the string args can be used both as a model name and
+    # template name, it will be considered as model name.
     template_name = None
     parent_page = None
+    BaseModel = None
     parts = token.split_contents()[1:]
     for part in parts:
         part = Variable(part).resolve(context)
-        if isinstance(part, unicode):
-            template_name = part
+        if isinstance(part, unicode) or isinstance(part, str):
+            splitted = part.split('.')
+            if len(splitted) == 2:
+                BaseModel = get_model(*splitted)
+            if BaseModel is None:
+                template_name = part
         elif isinstance(part, Page):
             parent_page = part
+    BaseModel = BaseModel or Page
     if template_name is None:
         try:
             template_name = context["menu_template_name"]
@@ -48,9 +57,9 @@ def page_menu(context, token):
             slug = ""
         num_children = lambda id: lambda: len(context["menu_pages"][id])
         has_children = lambda id: lambda: num_children(id)() > 0
-        published = Page.objects.published(for_user=user)
-        if slug == admin_url(Page, "changelist"):
-            related = [m.__name__.lower() for m in Page.get_content_models()]
+        published = BaseModel.objects.published(for_user=user)
+        if slug == admin_url(BaseModel, "changelist"):
+            related = [m.__name__.lower() for m in BaseModel.get_content_models()]
             published = published.select_related(*related)
         else:
             published = published.select_related(depth=2)
@@ -59,7 +68,7 @@ def page_menu(context, token):
         if "page" not in context:
             try:
                 context["_current_page"] = published.get(slug=slug)
-            except Page.DoesNotExist:
+            except BaseModel.DoesNotExist:
                 context["_current_page"] = None
         elif slug:
             context["_current_page"] = context["page"]
