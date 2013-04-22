@@ -59,7 +59,8 @@ def page_menu(context, token):
         has_children = lambda id: lambda: num_children(id)() > 0
         published = BaseModel.objects.published(for_user=user)
         if slug == admin_url(BaseModel, "changelist"):
-            related = [m.__name__.lower() for m in BaseModel.get_content_models()]
+            related = [m.__name__.lower()
+                       for m in BaseModel.get_content_models()]
             published = published.select_related(*related)
         else:
             published = published.select_related(depth=2)
