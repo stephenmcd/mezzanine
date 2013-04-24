@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-14 21:42+0000\n"
+"PO-Revision-Date: 2013-04-24 06:15-0430\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
 "language/ru/)\n"
@@ -156,7 +156,7 @@ msgstr "Вы уже вошли под своей учетной записью."
 msgid ""
 "If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
 "\">sign up</a> for one now."
-msgstr ""
+msgstr "Если у вас нет учетной записи, вы можете <a href=\"%(signup_url)s?next=%(next)s\">зарегистрироваться</a>."
 
 #: templates/accounts/account_login.html:14
 #, python-format
