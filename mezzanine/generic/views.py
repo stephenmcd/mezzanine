@@ -22,17 +22,19 @@ def admin_keywords_submit(request):
     admin, and returns their IDs for use when saving a model with a
     keywords field.
     """
-    ids, titles = [], []
+    keyword_ids, titles = [], []
     for title in request.POST.get("text_keywords", "").split(","):
-        title = "".join([c for c in title if c.isalnum() or c in "- "])
-        title = title.strip().lower()
+        title = "".join([c for c in title if c.isalnum() or c in "- "]).strip()
         if title:
-            keyword, created = Keyword.objects.get_or_create(title=title)
-            id = str(keyword.id)
-            if id not in ids:
-                ids.append(id)
+            try:
+                keyword = Keyword.objects.get(title__iexact=title)
+            except Keyword.DoesNotExist:
+                keyword = Keyword.objects.create(title=title)
+            keyword_id = str(keyword.id)
+            if keyword_id not in keyword_ids:
+                keyword_ids.append(keyword_id)
                 titles.append(title)
-    return HttpResponse("%s|%s" % (",".join(ids), ", ".join(titles)))
+    return HttpResponse("%s|%s" % (",".join(keyword_ids), ", ".join(titles)))
 
 
 def initial_validation(request, prefix):
