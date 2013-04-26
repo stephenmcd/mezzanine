@@ -17,7 +17,7 @@
         <a href="http://twitter.com/{{ tweet.retweeter_user_name }}">@{{ tweet.retweeter_full_name }}</a></p>
         {% endif %}
         <div>{{ tweet.text|safe }}</div>
-        <span class="timespan">{{ tweet.created_at|timesince }} {% trans "ago" %}</span>
+        <span class="timespan">{% blocktrans with sometime=tweet.created_at|timesince %}{{ sometime }} ago{% endblocktrans %}</span>
     </li>
     {% endfor %}
 </ul>

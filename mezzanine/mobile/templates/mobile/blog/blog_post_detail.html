@@ -27,7 +27,7 @@
                 >{{ author.get_full_name|default:author.username }}</a>
             {% endwith %}
         </strong>
-        {{ blog_post.publish_date|timesince }} {% trans "ago" %}
+        {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
     </em>
 </p>
 
