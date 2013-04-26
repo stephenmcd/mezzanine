@@ -19,7 +19,7 @@
             {{ comment.user_name }}
             {% endif %}
         </strong>
-        <span class="timespan">{{ comment.submit_date|timesince }} {% trans "ago" %}</span>
+        <span class="timespan">{% blocktrans with sometime=comment.submit_date|timesince %}{{ sometime }} ago{% endblocktrans %}</span>
         <p>{{ comment.comment|comment_filter }}</p>
 
         <a href="{{ request.path }}#comment-{{ comment.id }}">{% trans "Link" %}</a> /
@@ -50,7 +50,7 @@
             {{ comment.user_name }}
             {% endif %}
         </strong>
-        <span class="timespan">{{ comment.submit_date|timesince }} {% trans "ago" %}</span>
+        <span class="timespan">{% blocktrans with sometime=comment.submit_date|timesince %}{{ sometime }} ago{% endblocktrans %}</span>
         <p>{{ comment.comment|comment_filter }}</p>
         {% endif %}
 
@@ -60,7 +60,7 @@
             {% else %}
             {% trans "Comment awaiting approval" %}
             {% endif %}
-            <span class="timespan">{{ comment.submit_date|timesince }} {% trans "ago" %}</span>
+            <span class="timespan">{% blocktrans with sometime=comment.submit_date|timesince %}{{ sometime }} ago{% endblocktrans %}</span>
         </p>
 
         {% endif %}

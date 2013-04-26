@@ -19,7 +19,7 @@
                 </a>
                 &middot;
                 <a href="{{ comment.get_absolute_url }}">
-                    {{ comment.submit_date|timesince }} {% trans "ago" %}
+                    {% blocktrans with sometime=comment.submit_date|timesince %}{{ sometime }} ago{% endblocktrans %}
                 </a>
             </p>
         </li>
