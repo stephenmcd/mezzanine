@@ -103,7 +103,7 @@ class PostsAtom(PostsRSS):
     feed_type = Atom1Feed
 
     def subtitle(self):
-        return self.description
+        return self.description()
 
     def link(self):
         return reverse("blog_post_feed", kwargs={"format": "atom"})
