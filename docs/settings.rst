@@ -1,5 +1,19 @@
 .. THIS DOCUMENT IS AUTO GENERATED VIA conf.py
 
+``ACCOUNTS_APPROVAL_EMAILS``
+----------------------------
+
+A comma separated list of email addresses that will receive an email notification each time a new account is created that requires approval.
+
+Default: ``''``
+
+``ACCOUNTS_APPROVAL_REQUIRED``
+------------------------------
+
+If ``True``, when users create an account, they will not be enabled by default and a staff member will need to activate their account in the admin interface.
+
+Default: ``False``
+
 ``ACCOUNTS_MIN_PASSWORD_LENGTH``
 --------------------------------
 
@@ -98,12 +112,12 @@ Slug of the page object for the blog.
 
 Default: ``'blog'``
 
-``BLOG_URLS_USE_DATE``
-----------------------
+``BLOG_URLS_DATE_FORMAT``
+-------------------------
 
-If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/
+A string containing the value ``year``, ``month``, or ``day``, which controls the granularity of the date portion in the URL for each blog post. Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string means the URLs will only use the slug, and not contain any portion of the date at all.
 
-Default: ``False``
+Default: ``''``
 
 ``BLOG_USE_FEATURED_IMAGE``
 ---------------------------
@@ -286,6 +300,13 @@ Default: ``''``
 A sequence mapping host names to themes, allowing different templates to be served per HTTP hosts Each item in the sequence is a two item sequence, containing a host such as ``othersite.example.com``, and the name of an importable Python package for the theme. If the host is matched for a request, the templates directory inside the theme package will be first searched when loading templates.
 
 Default: ``()``
+
+``INLINE_EDITING_ENABLED``
+--------------------------
+
+If ``True``, front-end inline editing will be enabled.
+
+Default: ``True``
 
 ``JQUERY_FILENAME``
 -------------------

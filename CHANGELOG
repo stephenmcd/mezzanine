@@ -1,3 +1,51 @@
+Version 1.4.6 (Apr 28, 2013)
+----------------------------
+
+  * Fix ``set_dynamic_settings`` for projects without ``AUTHENTICATION_BACKENDS`` defined - Stephen McDonald
+  * Provide meaningful exception when dotted import fails - Sam Kingston
+  * SS: Line 12 ``dsq.src`` changed to include https if the site is runnning on SSL. Comments do not appear if the site is running on SSL and js link is http - Sachin Shende
+  * Adding Golds Gym Utah - Josh Batchelor
+  * If ``static_directory`` does not exist, create it. Instead of trying to tar the static directory (which. fails when the dir does not exist), we create it when. is missing - José Aliste
+  * Hack for generic fields that allows MySQL migrations to run correctly - Stephen McDonald
+  * Don't assume a site exists in some older migrations - Stephen McDonald
+  * Use consistent language for 'log in / sign up' - Stephen McDonald
+  * The ``db_type`` field must take a second 'connection' argument, even though unused, otherwise one gets an 'unexpected keyword argument connection' TypeError - Marcos Scriven
+  * Added a port of Django's RedirectFallbackMiddleware with support for Mezzanine's multi-site handling. Closes #535 - Stephen McDonald
+  * Changelist view signature change to work with reversion - Thejaswi Puthraya
+  * Mark redirects middleware as unused if redirects not installed - Stephen McDonald
+  * Add special handling in PageMiddleware for non-page views that raise 404s, but do so with a valid page slug - in this case, we use the page view instead, which allows pages to be created that may match non-page urlpatterns. Closes #561 - Stephen McDonald
+  * Fix CSRF token generation when cache is enabled, should solve #632 - Gu1
+  * Be more explicit in checking for a test run management command - Stephen McDonald
+  * Add missing reference for link - Thibault J.
+  * Fix ``SearchableManager._search_fields`` incorrectly persisting across managers for model subclasses. Closes #633 - Stephen McDonald
+  * Add code of conduct - Ken Bolton
+  * New mezzanine-file-collections reference. mezzanine-media-library got renamed to mezzanine-file-collections. The reference was updated in this commit - Thibault J.
+  * Added the bool setting ``ACCOUNTS_APPROVAL_REQUIRED``, which defaults to False and when set to True, sets newly created public user accounts to inactivate, requiring activation by a staff member. Also added the setting ``ACCOUNTS_APPROVAL_EMAILS`` which can contain a comma separated string of email addresses to send notification emails to each time a new account is created and requires activation. Closes #417 - Stephen McDonald
+  * Document the new account approval feature - Stephen McDonald
+  * Better name for ``emails_list`` -> ``split_addresses`` - Stephen McDonald
+  * Bump grappelli-safe version - Stephen McDonald
+  * Fix thumbnail template tag for palette-mode images. Closes #636 - Stephen McDonald
+  * Added ``select_related`` for user in ``blog_recent_posts`` template tag - Stephen McDonald
+  * Fix lookup of initial data in from-builder forms, and correctly handle initial values for checkbox fields - Stephen McDonald
+  * Allow forms-builder forms to contain template code for default values - Stephen McDonald
+  * Provide more granular export filtering for multiple-choice fields in forms-builder export, eg matches/doesn't match any/all selected choices, and also allow range filters to use only one boundary - Stephen McDonald
+  * Fix ``static_proxy`` to work with //host ``STATIC_URLs``. ``STATIC_URL`` = ``'//mybucket.s3.amazonaws.com'`` would break the ``static_proxy`` prefix stripper, and therefore break tinyMCE plugins. This fix adds proper handling of generic-protocol hostnames to the ``static_proxy`` view - Gabe Smedresman
+  * Reorder blog and accounts patterns in ``mezzanine.urls`` to allow for projects with a blog homepage that also have accounts enabled - Stephen McDonald
+  * Fix handling of paths in zip imports in galleries app - Stephen McDonald
+  * accounts: properly reject multiple matching e-mail addresses. Django allows multiple Users with the same e-mail address; the existing. form can throw MultipleObjectsReturned when get(email=email) is called. against such a dataset - mike wakerly
+  * Added default wsgi script to project template - Stephen McDonald
+  * Only add input-xlarge on inputs without a class attribute, fixes #643 - Gu1
+  * Replaced the ``BLOG_URLS_USE_DATE`` setting with a new ``BLOG_URLS_DATE_FORMAT`` setting - it can contain the string year, month, or day, which controls the date granularity in blog post URLs - Stephen McDonald
+  * Editable settings refactor - this change is to clear up confusion around editable settings being defined in a project's settings module. Previously when this happened, the ``settings.py`` module value would only serve as a default, which would be superceded by the db editable value as soon as the settings admin form is first saved. To address this, this change means that editable settings defined in the project's ``settings.py`` module now mark the setting as not editable, so it will always be the value used. We also include some handling for the migration case so that even with this change, editable settings already in the db that have a ``settings.py`` value defined will still use the db value and provide a warning - Stephen McDonald
+  * Revert the handling for still using db values for editable settings with ``settings.py`` values defined, since it basically defeats the purpose if a ``settings.py`` value is added once a project is live - Stephen McDonald
+  * Added ``INLINE_EDITING_ENABLED`` setting - Jeff Fein-Worton
+  * New ``INLINE_EDITING_ENABLED`` setting doesn't need to be editable - Stephen McDonald
+  * Don't force lowercase keywords. Closes #647 - Stephen McDonald
+  * Allow blog feed title and description to be overridden - Stephen McDonald
+  * Use callable description in atom rss feed - Stephen McDonald
+  * Properly escape comments in ``comment_filter`` template tag - Stephen McDonald
+  * Bump grappelli/filebrowser versions - Stephen McDonald
+
 Version 1.4.5 (Apr 03, 2013)
 ----------------------------
 
