@@ -138,6 +138,7 @@ class PageAdmin(DisplayableAdmin):
             extra_context = {}
         extra_context["page_models"] = self.get_content_models()
         extra_context["base_model_name"] = self.base_model_name
+        extra_context["parent_page"] = self.get_parent_page()
         return super(PageAdmin, self).changelist_view(request, extra_context)
 
     def save_model(self, request, obj, form, change):
@@ -185,6 +186,9 @@ class PageAdmin(DisplayableAdmin):
         """
         response = super(PageAdmin, self).response_change(request, obj)
         return self._maintain_parent(request, response)
+
+    def get_parent_page(self):
+        return None
 
     @classmethod
     def get_content_model_exclusions(cls):
