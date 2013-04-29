@@ -35,7 +35,7 @@
     {% if cl.result_count == 0 %}
     <p class="paginator">0 {{ cl.opts.verbose_name_plural }}</p>
     {% else %}
-    <div id="tree">{% page_menu "pages/menus/admin.html" %}</div>
+    <div id="tree">{% page_menu parent_page "pages/menus/admin.html" base_model_name %}</div>
     {% endif %}
 
 </div>

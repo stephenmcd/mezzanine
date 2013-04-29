@@ -63,3 +63,13 @@ register_setting(
     editable=False,
     default=False,
 )
+
+register_setting(
+    name="PAGE_MENU_EXCLUSIONS",
+    description=_("A sequence of ``Page`` subclasses in the format "
+        "``app_label.model_name``. Models contained in this list will "
+        "be excluded from the select drop-down for adding new pages "
+        "within the admin page tree interface."),
+    editable=False,
+    default=tuple(),
+)

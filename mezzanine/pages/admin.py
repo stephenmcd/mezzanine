@@ -4,6 +4,7 @@ from copy import deepcopy
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import NoReverseMatch
+from django.db.models.loading import get_model
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
@@ -40,6 +41,7 @@ class PageAdmin(DisplayableAdmin):
     form = PageAdminForm
     fieldsets = page_fieldsets
     change_list_template = "admin/pages/page/change_list.html"
+    base_model_name = "pages.Page"
 
     def __init__(self, *args, **kwargs):
         """
@@ -135,6 +137,8 @@ class PageAdmin(DisplayableAdmin):
         if not extra_context:
             extra_context = {}
         extra_context["page_models"] = self.get_content_models()
+        extra_context["base_model_name"] = self.base_model_name
+        extra_context["parent_page"] = self.get_parent_page()
         return super(PageAdmin, self).changelist_view(request, extra_context)
 
     def save_model(self, request, obj, form, change):
@@ -183,14 +187,31 @@ class PageAdmin(DisplayableAdmin):
         response = super(PageAdmin, self).response_change(request, obj)
         return self._maintain_parent(request, response)
 
+    def get_parent_page(self):
+        return None
+
+    @classmethod
+    def get_content_model_exclusions(cls):
+        """
+        Read the ``PAGE_MENU_EXCLUSIONS`` setting to provide a list of Page
+        subclasses to be excluded in get_content_models.
+        """
+        return [get_model(*(model_name.split('.')))
+                for model_name in settings.PAGE_MENU_EXCLUSIONS]
+
     @classmethod
     def get_content_models(cls):
         """
-        Return all Page subclasses that are admin registered, ordered
-        based on the ``ADD_PAGE_ORDER`` setting.
+        Return all admin-registered Page subclasses that are not excluded by
+        the ``PAGE_MENU_EXCLUSIONS`` setting, ordered based on the
+        ``ADD_PAGE_ORDER`` setting.
         """
         models = []
-        for model in Page.get_content_models():
+        BaseModel = get_model(*(cls.base_model_name.split('.')))
+        exclusions = cls.get_content_model_exclusions()
+        for model in BaseModel.get_content_models():
+            if model in exclusions:
+                continue
             try:
                 admin_url(model, "add")
             except NoReverseMatch:

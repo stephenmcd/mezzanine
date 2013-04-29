@@ -9,7 +9,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.db import connection
-from django.template import Context, Template, TemplateDoesNotExist
+from django.template import Context, Template
+from django.template import TemplateDoesNotExist, TemplateSyntaxError
 from django.template.loader import get_template
 from django.test import TestCase
 from django.utils.html import strip_tags
@@ -392,6 +393,51 @@ class Tests(TestCase):
                                       status=CONTENT_STATUS_PUBLISHED)
         after = self.queries_used_for_template(template)
         self.assertEquals(before, after)
+
+    def test_page_menu_arguments(self):
+        """
+        Test that a page menu executes the same number of queries regardless of
+        the number of pages or levels of children and the combination of
+        argument(s).
+        """
+        args = ("pages/menus/tree.html", "pages.Page")
+        format_1 = '{%% load pages_tags %%}{%% page_menu parent "%s" %%}'
+        format_2 = '{%% load pages_tags %%}{%% page_menu parent "%s" "%s" %%}'
+        templates = [
+            format_1 % args[0],
+            format_1 % args[1],
+            format_2 % args,
+            format_2 % tuple(reversed(args)),
+        ]
+        context = {"parent": None}
+        initial = None
+
+        def equals(self, template, initial):
+            before = self.queries_used_for_template(template, **context)
+            if initial is not None:
+                self.assertEquals(initial, before)
+            else:
+                self.assertTrue(before > 0)
+            self.create_recursive_objects(
+                RichTextPage, "parent",
+                title="Page", status=CONTENT_STATUS_PUBLISHED
+            )
+            after = self.queries_used_for_template(template, **context)
+            self.assertEquals(before, after)
+            return after
+
+        def raises(self, template, initial):
+            # args[1] should be (correctly) treated as a model name, not a
+            # template name. This means page_menu won't get a template, and
+            # should fail.
+            self.assertRaises(TemplateSyntaxError,
+                              self.queries_used_for_template,
+                              template, **context)
+            return initial
+
+        assertions = [equals, raises, equals, equals]
+        for template, assertion in zip(templates, assertions):
+            initial = assertion(self, template, initial)
 
     def test_page_menu_flags(self):
         """
