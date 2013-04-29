@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-14 21:42+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-04-29 09:05+0200\n"
+"PO-Revision-Date: 2013-04-29 09:05+0100\n"
+"Last-Translator: Petr Papoušek <ppapousek@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/mezzanine/language/"
 "cs/)\n"
 "Language: cs\n"
@@ -31,11 +31,14 @@ msgid ""
 "Dotted package path and class name of profile form to use for users signing "
 "up and updating their profile, when ``mezzanine.accounts`` is installed."
 msgstr ""
+"Tečkami oddělená cesta k balíčku a názvu třídy formuláře pro profil, který "
+"se má použít, když se uživatelé registrují, nebo aktualizují svůj profil, "
+"když je nainstalovaný balíček ``mezzanine.accounts``."
 
 #: defaults.py:43
 msgid "If ``True``, users will have their own public profile pages."
 msgstr ""
-"Je-li tato hodnota nastavena na ``True``, uživatelé budou mít vlastí "
+"Je-li tato hodnota nastavena na ``True``, uživatelé budou mít vlastní "
 "profilové stránky. "
 
 #: defaults.py:51
@@ -47,9 +50,31 @@ msgstr ""
 "bude jim odeslán email s ověřovacím odkazem, na který musejí kliknout pro "
 "odemčení účtu."
 
+#: defaults.py:60
+msgid ""
+"If ``True``, when users create an account, they will not be enabled by "
+"default and a staff member will need to activate their account in the admin "
+"interface."
+msgstr ""
+"Je-li tato hodnota nastavena na ``True``,  když si uživatelé vytvoří účet, "
+"nebude aktivní a bude vyžadovat schválení personálem v administračním "
+"rozhraní."
+
+#: defaults.py:69
+msgid "Account approval email addresses"
+msgstr "Emailová adresa schvalování účtů"
+
+#: defaults.py:70
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new account is created that requires approval."
+msgstr ""
+"Čárkami oddělený seznam emailových adres, na které bude odeslán email při "
+"vzniku uživatelského účtu vyžadujícího schválení."
+
 #: forms.py:21 forms.py:190
 msgid "Username or email address"
-msgstr ""
+msgstr "Uživatelské jméno nebo emailová adresa"
 
 #: forms.py:22 forms.py:66
 msgid "Password"
@@ -57,7 +82,7 @@ msgstr "Heslo"
 
 #: forms.py:35
 msgid "Invalid username/email and password"
-msgstr ""
+msgstr "Neplatná kombinace uživatelského hesla nebo emailu a hesla"
 
 #: forms.py:37
 msgid "Your account is inactive"
@@ -65,90 +90,100 @@ msgstr "Účet není aktivní"
 
 #: forms.py:68
 msgid "Password (again)"
-msgstr ""
+msgstr "Heslo (znovu)"
 
 #: forms.py:81
 msgid "Only letters, numbers, dashes or underscores please"
-msgstr ""
+msgstr "Prosíme pouze písmena, čísla, pomlčky a podtržítka"
 
 #: forms.py:95
 msgid "Leave blank unless you want to change your password"
-msgstr ""
+msgstr "Ponechte prázdné, pokud nemáte v úmyslu změnit Vaše heslo"
 
 #: forms.py:114
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr ""
+"Uživatelské jméno může obsahovat pouze písmena, čísla, pomlčky a podtržítka."
 
 #: forms.py:122
 msgid "This username is already registered"
-msgstr ""
+msgstr "Toto uživatelské jméno je již registrované"
 
 #: forms.py:135
 msgid "Passwords do not match"
-msgstr ""
+msgstr "Hesla nejsou stejná"
 
 #: forms.py:137
 #, python-format
 msgid "Password must be at least %s characters"
-msgstr ""
+msgstr "Heslo musí být dlouhé alespoň %s znaků"
 
-#: forms.py:152
+#: forms.py:151
 msgid "This email is already registered"
 msgstr "Email je již registrován s jiným účtem"
 
 #: forms.py:199
 msgid "Invalid username/email"
-msgstr ""
+msgstr "Neplatné uživatelské jméno, nebo email"
 
-#: views.py:31
+#: views.py:30
 msgid "Successfully logged in"
 msgstr "Úspěšné přihlášení"
 
-#: views.py:34
-msgid "Login"
-msgstr "Přihlášení"
+#: views.py:33 templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log in"
+msgstr "Přihlásit se"
 
-#: views.py:43
+#: views.py:42
 msgid "Successfully logged out"
 msgstr "Úspěšné odhlášení"
 
 #: views.py:57
 msgid ""
+"Thanks for signing up! You'll receive an email when your account is "
+"activated."
+msgstr ""
+"Děkujeme za registraci. O schválení Vašeho účtu budete informováni emailem."
+
+#: views.py:61
+msgid ""
 "A verification email has been sent with a link for activating your account."
-msgstr ""
+msgstr "Byl Vám odeslán ověřovací email s odkazem pro aktivaci Vašeho účtu."
 
-#: views.py:61 views.py:80
+#: views.py:65 views.py:86
 msgid "Successfully signed up"
-msgstr "Úspěšná registrace"
+msgstr "Registrace byla dokončena"
 
-#: views.py:64
-msgid "Signup"
-msgstr "Registrace"
+#: views.py:68 templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
+msgid "Sign up"
+msgstr "Registrovat"
 
-#: views.py:83 views.py:167
+#: views.py:89 views.py:156
 msgid "The link you clicked is no longer valid."
-msgstr ""
+msgstr "Odkaz, na který jste klikli, již není platný."
 
-#: views.py:141
+#: views.py:130
 msgid "Profile updated"
-msgstr ""
+msgstr "Profil aktualizován"
 
-#: views.py:146
+#: views.py:135
 msgid "Update Profile"
-msgstr ""
+msgstr "Aktualizovat profil"
 
-#: views.py:155
+#: views.py:144
 msgid ""
 "A verification email has been sent with a link for resetting your password."
-msgstr ""
+msgstr "Byl Vám odeslán email s odkazem pro obnovu Vašeho hesla."
 
-#: views.py:157
+#: views.py:146
 msgid "Password Reset"
-msgstr ""
+msgstr "Obnova hesla"
 
 #: templates/accounts/account_login.html:7
 msgid "You're already logged in."
-msgstr ""
+msgstr "Jste již přihlášeni."
 
 #: templates/accounts/account_login.html:11
 #, python-format
@@ -156,6 +191,8 @@ msgid ""
 "If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
 "\">sign up</a> for one now."
 msgstr ""
+"Pokud ještě nemáte uživatelský ůčet, můžete se <a href=\"%(signup_url)s?next="
+"%(next)s\">registrovat zde</a>."
 
 #: templates/accounts/account_login.html:14
 #, python-format
@@ -163,29 +200,37 @@ msgid ""
 "<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
 "\">reset your password</a> if you've forgotten it.</p>"
 msgstr ""
+"<p>Můžete také <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">obnovit své heslo</a>, pokud jste ho zapomněli.</p>"
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
 "Enter your username or email address and you'll receive an email with a link "
 "you need to click, in order to log in and change your password."
 msgstr ""
+"Vložte své uživatelské jméno nebo emailovou adresu. Bude Vám odeslán email s "
+"odkazem, který Vám po kliknutí na něj umožní se přihlásit a změnit své heslo."
 
 #: templates/accounts/account_profile.html:17
 #: templates/accounts/includes/user_panel.html:9
 msgid "Update profile"
-msgstr ""
+msgstr "Aktualizovat profil"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
 "You're already logged in. If you'd like to create a new account, you'll need "
 "to log out first."
 msgstr ""
+"Jste již přihlášeni. Pokud chcete vytvořit nový účet, musíte se nejdříve "
+"odhlásit."
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
 msgstr ""
+"Po registraci obdržíte email s aktivačním odkazem. Po kliknutí na něj bude "
+"Váš účet aktivován."
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
@@ -196,53 +241,84 @@ msgstr "Přihlášen jako:"
 msgid "Log out"
 msgstr "Odhlášení"
 
-#: templates/accounts/includes/user_panel.html:17
-#: templates/accounts/includes/user_panel_nav.html:11
-msgid "Log in"
-msgstr "Přihlásit se"
-
 #: templates/accounts/includes/user_panel.html:18
 msgid "or"
-msgstr ""
-
-#: templates/accounts/includes/user_panel.html:20
-#: templates/accounts/includes/user_panel_nav.html:13
-msgid "Sign up"
-msgstr ""
+msgstr "nebo"
 
 #: templates/admin/profile_inline.html:10
 msgid "Profile information"
-msgstr ""
+msgstr "Profilové informace"
+
+#: templates/email/account_approve.html:3
+#: templates/email/account_approve.txt:3
+msgid "Hey there, a new account has been created and requires activation."
+msgstr "Dobrý den, byl vytvořen nový účet, který vyžaduje schválení."
+
+#: templates/email/account_approve.html:5
+#: templates/email/account_approve.txt:5
+msgid "Name"
+msgstr "Jméno"
+
+#: templates/email/account_approve.html:6
+#: templates/email/account_approve.txt:6
+msgid "Email"
+msgstr "Email"
+
+#: templates/email/account_approve.html:11
+#: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
+#: templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "Použijte prosím následující odkaz pro jeho aktivaci."
+
+#: templates/email/account_approve_subject.txt:2
+msgid "An account requires activation"
+msgstr "Účet vyžaduje schválení"
+
+#: templates/email/account_approved.html:3
+#: templates/email/account_approved.txt:3
+msgid "Hey there, your account has been activated."
+msgstr "Dobrý den, Váš účet byl schválen a aktivován."
+
+#: templates/email/account_approved.html:4
+#: templates/email/account_approved.txt:4
+msgid "Please use the link below to log in."
+msgstr "Použijte prosím následující odkaz pro přihlášení."
+
+#: templates/email/account_approved_subject.txt:2
+msgid "Your account has been activated"
+msgstr "Váš účet byl aktivován"
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
 msgid "Hey there, the password reset form was used for your account."
-msgstr ""
+msgstr "Proběhla obnova hesla pro Váš uživatelský účet."
 
 #: templates/email/password_reset_verify.html:4
 #: templates/email/password_reset_verify.txt:4
 msgid "Please use the link below to log in and update your password."
-msgstr ""
+msgstr "Klikněte prosím na následující odkaz pro přihlášení a změnu hesla."
 
 #: templates/email/password_reset_verify.html:6
 #: templates/email/password_reset_verify.txt:6
 msgid ""
 "If you didn't request for your password to be reset, please ignore this "
 "email."
-msgstr ""
+msgstr "Pokud jste nepožádali o obnovu hesla, ignorujte prosím tento email."
 
 #: templates/email/password_reset_verify_subject.txt:2
 msgid "Reset your password"
-msgstr ""
+msgstr "Obnova Vašeho hesla"
 
 #: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
-msgstr ""
-
-#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
-msgid "Please use the link below to activate it."
-msgstr ""
+msgstr "Dobrý den, děkujeme za vytvoření Vašeho účtu."
 
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"
-msgstr ""
+msgstr "Aktivace Vašeho účtu"
+
+#~ msgid "Login"
+#~ msgstr "Přihlášení"
+
+#~ msgid "Signup"
+#~ msgstr "Registrace"
