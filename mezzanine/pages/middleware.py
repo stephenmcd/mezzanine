@@ -1,10 +1,8 @@
 from __future__ import unicode_literals
 
-from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import ImproperlyConfigured, MiddlewareNotUsed
 from django.http import HttpResponse, Http404
-from django.shortcuts import redirect
-from django.utils.http import urlquote
 
 from mezzanine.conf import settings
 from mezzanine.pages import page_processors
@@ -85,9 +83,7 @@ class PageMiddleware(object):
 
         # Handle ``page.login_required``.
         if page.login_required and not request.user.is_authenticated():
-            path = urlquote(request.get_full_path())
-            bits = (settings.LOGIN_URL, REDIRECT_FIELD_NAME, path)
-            return redirect("%s?%s=%s" % bits)
+            return redirect_to_login(request.get_full_path())
 
         # If the view isn't Mezzanine's page view, try to return the result
         # immediately. In the case of a 404 with an URL slug that matches a
