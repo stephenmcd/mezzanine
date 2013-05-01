@@ -400,6 +400,8 @@ Sites Using Mezzanine
   * `Amblitec <http://www.amblitec.com>`_
   * `Gold's Gym Utah <http://www.bestgymever.com/>`_
   * `Appsin - Blog to Native app <http://apps.in/>`_
+  * `Take Me East <http://takemeeast.net>`_
+
 
 Quotes
 ======
