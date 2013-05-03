@@ -1,5 +1,4 @@
 from django.contrib.contenttypes.generic import GenericForeignKey
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.base import ModelBase
 from django.db.models.signals import post_save
@@ -15,7 +14,7 @@ from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model, get_user_model_name
 from mezzanine.utils.sites import current_site_id
-from mezzanine.utils.urls import admin_url, slugify
+from mezzanine.utils.urls import admin_url, slugify, unique_slug
 
 
 user_model_name = get_user_model_name()
@@ -73,20 +72,8 @@ class Slugged(SiteRelated):
         # For custom content types, use the ``Page`` instance for
         # slug lookup.
         concrete_model = base_concrete_model(Slugged, self)
-        i = 0
-        while True:
-            if i > 0:
-                if i > 1:
-                    self.slug = self.slug.rsplit("-", 1)[0]
-                self.slug = "%s-%s" % (self.slug, i)
-            qs = concrete_model.objects.all()
-            if self.id is not None:
-                qs = qs.exclude(id=self.id)
-            try:
-                qs.get(slug=self.slug)
-            except ObjectDoesNotExist:
-                break
-            i += 1
+        slug_qs = concrete_model.objects.exclude(id=self.id)
+        self.slug = unique_slug(slug_qs, "slug", self.slug)
         super(Slugged, self).save(*args, **kwargs)
 
     def get_slug(self):

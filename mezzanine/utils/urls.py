@@ -2,6 +2,7 @@
 import re
 import unicodedata
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import (resolve, reverse, NoReverseMatch,
                                       get_script_prefix)
 from django.shortcuts import redirect
@@ -62,6 +63,25 @@ def slugify_unicode(s):
         elif cat == "Z":
             chars.append(" ")
     return re.sub("[-\s]+", "-", "".join(chars).strip()).lower()
+
+
+def unique_slug(queryset, slug_field, slug):
+    """
+    Ensures a slug is unique for the given queryset, appending
+    an integer to its end until the slug is unique.
+    """
+    i = 0
+    while True:
+        if i > 0:
+            if i > 1:
+                slug = slug.rsplit("-", 1)[0]
+            slug = "%s-%s" % (slug, i)
+        try:
+            queryset.get(**{slug_field: slug})
+        except ObjectDoesNotExist:
+            break
+        i += 1
+    return slug
 
 
 def login_redirect(request):

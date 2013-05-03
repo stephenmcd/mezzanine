@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load i18n future mezzanine_tags accounts_tags %}
 
-{% block meta_title %}{{ profile_user.username }}{% endblock %}
-{% block title %}{{ profile_user.username }}{% endblock %}
+{% block meta_title %}{{ profile_user|username_or:"get_full_name" }}{% endblock %}
+{% block title %}{{ profile_user|username_or:"get_full_name" }}{% endblock %}
 {% block body_id %}account{% endblock %}
 
 {% block breadcrumb_menu %}
 {{ block.super }}
-<li>{{ profile_user.username }}</li>
+<li>{{ profile_user|username_or:"get_full_name" }}</li>
 {% endblock %}
 
 {% block main %}

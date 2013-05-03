@@ -23,6 +23,14 @@ register_setting(
 )
 
 register_setting(
+    name="ACCOUNTS_NO_USERNAME",
+    description=_("If ``True``, the username field will be excluded "
+        "from sign up and account update forms."),
+    editable=False,
+    default=False,
+)
+
+register_setting(
     name="ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS",
     description=_("List of fields to exclude from the profile form."),
     editable=False,

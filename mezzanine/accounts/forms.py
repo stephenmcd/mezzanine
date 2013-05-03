@@ -8,17 +8,34 @@ from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
 from mezzanine.conf import settings
 from mezzanine.core.forms import Html5Mixin
 from mezzanine.utils.models import get_user_model
-from mezzanine.utils.urls import slugify
+from mezzanine.utils.urls import slugify, unique_slug
 
 
 User = get_user_model()
+
+# If a profile model has been configured with the ``AUTH_PROFILE_MODULE``
+# setting, create a model form for it that will have its fields added to
+# ``ProfileForm``.
+Profile = get_profile_model()
+_exclude_fields = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
+if Profile is not None:
+    class ProfileFieldsForm(forms.ModelForm):
+        class Meta:
+            model = Profile
+            exclude = (get_profile_user_fieldname(),) + _exclude_fields
+
+if settings.ACCOUNTS_NO_USERNAME:
+    _exclude_fields += ("username",)
+    username_label = _("Email address")
+else:
+    username_label = _("Username or email address")
 
 
 class LoginForm(Html5Mixin, forms.Form):
     """
     Fields for login.
     """
-    username = forms.CharField(label=_("Username or email address"))
+    username = forms.CharField(label=username_label)
     password = forms.CharField(label=_("Password"),
                                widget=forms.PasswordInput(render_value=False))
 
@@ -44,18 +61,6 @@ class LoginForm(Html5Mixin, forms.Form):
         return getattr(self, "_user", None)
 
 
-# If a profile model has been configured with the ``AUTH_PROFILE_MODULE``
-# setting, create a model form for it that will have its fields added to
-# ``ProfileForm``.
-Profile = get_profile_model()
-_exclude_fields = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
-if Profile is not None:
-    class ProfileFieldsForm(forms.ModelForm):
-        class Meta:
-            model = Profile
-            exclude = (get_profile_user_fieldname(),) + _exclude_fields
-
-
 class ProfileForm(Html5Mixin, forms.ModelForm):
     """
     ModelForm for auth.User - used for signup and profile update.
@@ -77,8 +82,11 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self._signup = self.instance.id is None
         user_fields = User._meta.get_all_field_names()
-        self.fields["username"].help_text = _(
+        try:
+            self.fields["username"].help_text = _(
                         "Only letters, numbers, dashes or underscores please")
+        except KeyError:
+            pass
         for field in self.fields:
             # Make user fields required.
             if field in user_fields:
@@ -113,10 +121,9 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         if username.lower() != slugify(username).lower():
             raise forms.ValidationError(_("Username can only contain letters, "
                                           "numbers, dashes or underscores."))
+        lookup = {"username__iexact": username}
         try:
-            User.objects.exclude(id=self.instance.id).get(
-                username__iexact=username
-            )
+            User.objects.exclude(id=self.instance.id).get(**lookup)
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(_("This username is already registered"))
@@ -152,13 +159,30 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
 
     def save(self, *args, **kwargs):
         """
-        Create the new user using their email address as their username.
+        Create the new user. If no username is supplied (may be hidden
+        via ``ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS`` or
+        ``ACCOUNTS_NO_USERNAME``), we generate a unique username, so
+        that if profile pages are enabled, we still have something to
+        use as the profile's slug.
         """
+
+        kwargs["commit"] = False
         user = super(ProfileForm, self).save(*args, **kwargs)
+        try:
+            self.cleaned_data["username"]
+        except KeyError:
+            try:
+                self.instance.username
+            except AttributeError:
+                username = "%(first_name)s %(last_name)s" % self.cleaned_data
+                if not username.strip():
+                    username = self.cleaned_data["email"].split("@")[0]
+                qs = User.objects.exclude(id=self.instance.id)
+                user.username = unique_slug(qs, "username", slugify(username))
         password = self.cleaned_data.get("password1")
         if password:
             user.set_password(password)
-            user.save()
+        user.save()
 
         # Save profile model.
         if self._has_profile:

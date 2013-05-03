@@ -74,3 +74,17 @@ def profile_fields(user):
                 value = getattr(profile, field.name)
                 fields[field.verbose_name.title()] = value
     return fields.items()
+
+
+@register.filter
+def username_or(user, attr):
+    """
+    Returns the user's username for display, or an alternate attribute
+    if ``ACCOUNTS_NO_USERNAME`` is set to ``True``.
+    """
+    if not settings.ACCOUNTS_NO_USERNAME:
+        attr = "username"
+    value = getattr(user, attr)
+    if callable(value):
+        value = value()
+    return value
