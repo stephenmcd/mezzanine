@@ -214,14 +214,18 @@ def metablock(parsed):
 
 
 @register.inclusion_tag("includes/pagination.html", takes_context=True)
-def pagination_for(context, current_page, page_var="page"):
+def pagination_for(context, current_page, page_var="page", exclude_vars=""):
     """
-    Include the pagination template and data for persisting querystring in
-    pagination links.
+    Include the pagination template and data for persisting querystring
+    in pagination links. Can also contain a comma separated string of
+    var names in the current querystring to exclude from the pagination
+    links, via the ``exclude_vars`` arg.
     """
     querystring = context["request"].GET.copy()
-    if page_var in querystring:
-        del querystring[page_var]
+    exclude_vars = [v for v in exclude_vars.split(",") if v] + [page_var]
+    for exclude_var in exclude_vars:
+        if exclude_var in querystring:
+            del querystring[exclude_var]
     querystring = querystring.urlencode()
     return {
         "current_page": current_page,
