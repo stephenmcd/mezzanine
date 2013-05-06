@@ -402,6 +402,7 @@ Sites Using Mezzanine
   * `Appsin - Blog to Native app <http://apps.in/>`_
   * `Take Me East <http://takemeeast.net>`_
   * `Code Raising <http://www.coderaising.org>`_
+  * `ZigZag Bags <http://www.zigzagbags.com.au>`_
 
 
 Quotes
