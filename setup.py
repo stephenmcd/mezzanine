@@ -6,6 +6,8 @@ import sys
 
 exclude = ["mezzanine/project_template/dev.db",
            "mezzanine/project_template/local_settings.py"]
+if sys.argv == ["setup.py", "test"]:
+    exclude = []
 exclude = dict([(e, None) for e in exclude])
 for e in exclude:
     if e.endswith(".py"):
@@ -63,6 +65,8 @@ try:
             [console_scripts]
             mezzanine-project=mezzanine.bin.mezzanine_project:create_project
         """,
+        test_suite="runtests.runtests",
+        tests_require=["pyflakes==0.6.1", "pep8==1.4.1"],
         classifiers=[
             "Development Status :: 4 - Beta",
             "Environment :: Web Environment",
