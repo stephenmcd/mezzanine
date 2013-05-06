@@ -401,6 +401,7 @@ Sites Using Mezzanine
   * `Gold's Gym Utah <http://www.bestgymever.com/>`_
   * `Appsin - Blog to Native app <http://apps.in/>`_
   * `Take Me East <http://takemeeast.net>`_
+  * `Code Raising <http://www.coderaising.org>`_
 
 
 Quotes
