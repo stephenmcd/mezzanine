@@ -11,7 +11,7 @@ from django.utils.simplejson import loads
 from mezzanine.blog.management.base import BaseImporterCommand
 
 
-MAX_POSTS_PER_CALL = 50  # Max number of posts Tumblr API will return per call.
+MAX_POSTS_PER_CALL = 20  # Max number of posts Tumblr API will return per call.
 MAX_RETRIES_PER_CALL = 3  # Max times to retry API call after failing.
 SLEEP_PER_RETRY = 3  # Seconds to pause for between retries.
 
@@ -128,3 +128,6 @@ class Command(BaseImporterCommand):
             title = title_from_content(post["audio-caption"])
             content = "<p>%(audio-player)s</p>" % post
         return title, content
+
+    def handle_answer_post(self, post):
+        return post["question"], post["answer"]
