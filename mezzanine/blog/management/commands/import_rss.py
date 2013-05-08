@@ -56,7 +56,10 @@ class Command(BaseImporterCommand):
 
         posts = parse(rss_url)["entries"]
         for post in posts:
-            content = post.content[0]["value"] if hasattr(post, 'content') else post.summary
+            if hasattr(post, 'content'):
+                content = post.content[0]["value"]
+            else:
+                content = post.summary
             tags = [tag["term"] for tag in getattr(post, 'tags', [])]
             pub_date = parser.parse(post.updated)
             pub_date -= timedelta(seconds=timezone)
