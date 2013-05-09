@@ -171,9 +171,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         try:
             self.cleaned_data["username"]
         except KeyError:
-            try:
-                self.instance.username
-            except AttributeError:
+            if not self.instance.username:
                 username = "%(first_name)s %(last_name)s" % self.cleaned_data
                 if not username.strip():
                     username = self.cleaned_data["email"].split("@")[0]
