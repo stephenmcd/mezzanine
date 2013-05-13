@@ -2,5 +2,5 @@
 {% block main %}
 <p>{% trans "Hey there, your account has been activated." %}</p>
 <p>{% trans "Please use the link below to log in." %}</p>
-<p><a href="http://{{ request.get_host }}{% url "login" %}">http://http://{{ request.get_host }}{% url "login" %}</a></p>
+<p><a href="http://{{ request.get_host }}{% url "login" %}">http://{{ request.get_host }}{% url "login" %}</a></p>
 {% endblock %}
