@@ -98,8 +98,9 @@ class BaseGenericRelation(GenericRelation):
             to = self.rel.to
             if isinstance(to, basestring):
                 to = get_model(*to.split(".", 1))
-            assert isinstance(kwargs["instance"], to)
-        except (TypeError, ValueError, AssertionError):
+            if not isinstance(kwargs["instance"], to):
+                raise TypeError
+        except (TypeError, ValueError):
             return
         for_model = kwargs["instance"].content_type.model_class()
         if issubclass(for_model, self.model):
