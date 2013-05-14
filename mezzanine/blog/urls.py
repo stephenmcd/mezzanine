@@ -28,7 +28,7 @@ urlpatterns = patterns("mezzanine.blog.views",
         "blog_post_list", name="blog_post_list_author"),
     url("^%sarchive/(?P<year>\d{4})/(?P<month>\d{1,2})%s$" % _slashes,
         "blog_post_list", name="blog_post_list_month"),
-    url("^%sarchive/(?P<year>.*)%s$" % _slashes,
+    url("^%sarchive/(?P<year>\d{4})%s$" % _slashes,
         "blog_post_list", name="blog_post_list_year"),
     url("^%s(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/"
         "(?P<slug>.*)%s$" % _slashes,
