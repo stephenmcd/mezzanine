@@ -5,6 +5,7 @@ from functools import wraps
 from getpass import getpass, getuser
 from glob import glob
 from contextlib import contextmanager
+from posixpath import join
 
 from fabric.api import env, cd, prefix, sudo as _sudo, run as _run, hide, task
 from fabric.contrib.files import exists, upload_template
@@ -16,7 +17,8 @@ from fabric.colors import yellow, green, blue, red
 ################
 
 conf = {}
-if sys.argv[0].split(os.sep)[-1] == "fab":
+if sys.argv[0].split(os.sep)[-1] in ("fab",             # POSIX
+                                     "fab-script.py"):  # Windows
     # Ensure we import settings from the current dir
     try:
         conf = __import__("settings", globals(), locals(), [], 0).FABRIC
@@ -116,7 +118,7 @@ def update_changed_requirements():
     Checks for changes in the requirements file across an update,
     and gets new requirements if changes have occurred.
     """
-    reqs_path = os.path.join(env.proj_path, env.reqs_path)
+    reqs_path = join(env.proj_path, env.reqs_path)
     get_reqs = lambda: run("cat %s" % reqs_path, show=False)
     old_reqs = get_reqs() if env.reqs_path else ""
     yield
@@ -386,8 +388,8 @@ def create():
         key_file = env.proj_name + ".key"
         if not exists(crt_file) and not exists(key_file):
             try:
-                crt_local, = glob(os.path.join("deploy", "*.crt"))
-                key_local, = glob(os.path.join("deploy", "*.key"))
+                crt_local, = glob(join("deploy", "*.crt"))
+                key_local, = glob(join("deploy", "*.key"))
             except ValueError:
                 parts = (crt_file, key_file, env.live_host)
                 sudo("openssl req -new -x509 -nodes -out %s -keyout %s "
@@ -508,8 +510,8 @@ def rollback():
         with update_changed_requirements():
             update = "git checkout" if env.git else "hg up -C"
             run("%s `cat last.commit`" % update)
-        with cd(os.path.join(static(), "..")):
-            run("tar -xf %s" % os.path.join(env.proj_path, "last.tar"))
+        with cd(join(static(), "..")):
+            run("tar -xf %s" % join(env.proj_path, "last.tar"))
         restore("last.db")
     restart()
 
