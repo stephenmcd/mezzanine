@@ -1,149 +1,137 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <mathias.ettinger@gmail.com>, 2012.
-# Michał Oleniec <moleniec@gmail.com>, 2011.
+# Breno Uchoa <brenouchoa@gmail.com>, 2012
+# Hilton Medeiros <medeiros.hilton@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:40-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/"
-"language/pl/)\n"
-"Language: pl\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2013-04-07 09:33-0430\n"
+"PO-Revision-Date: 2013-04-30 15:20+0000\n"
+"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/mezzanine/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: admin.py:20 models.py:69
 msgid "User"
-msgstr "Użytkownik"
+msgstr "Usuário"
 
 #: defaults.py:24
 msgid "Accounts required for commenting"
-msgstr "Aby pozostawić komentarz należy posiadać konto"
+msgstr "Contas obrigatórias para comentar"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr ""
-"Jeśli ``Prawda`` użytkownik musi się zalogować, aby zostawić komentarz."
+msgstr "Se checado, usuários devem logar para comentar."
 
 #: defaults.py:32
 msgid "Disqus shortname"
-msgstr "'Shortname' z Disqus"
+msgstr "Shortname no Disqus"
 
 #: defaults.py:33
 msgid "Shortname for the http://disqus.com comments service."
-msgstr "'Shortname'  dla systemu komentarzy http://disqus.com."
+msgstr "Shortname para o serviço de comentários http://disqus.com"
 
 #: defaults.py:41
 msgid "Disqus public key"
-msgstr "Klucz publiczny Disqus"
+msgstr "Chave pública no Disqus"
 
 #: defaults.py:42
 msgid "Public key for http://disqus.com developer API"
-msgstr ""
-"Klucz publiczny do użytkowania API proponowanego przez http://disqus.com"
+msgstr "Chave pública para a API de desenvolvedor no Disqus"
 
 #: defaults.py:49
 msgid "Disqus secret key"
-msgstr "Tajny klucz Disqus"
+msgstr "Chave secreta no Disqus"
 
 #: defaults.py:50
 msgid "Secret key for http://disqus.com developer API"
-msgstr "Tajny klucz do http://disqus.com API"
+msgstr "Chave secreta para a API de desenvolvedor no Disqus"
 
 #: defaults.py:57
 msgid "Auto-approve comments"
-msgstr "Automatyczne zatwierdzanie komentarzy"
+msgstr "Aprovar comentários automaticamente"
 
 #: defaults.py:58
 msgid "If ``True``, built-in comments are approved by default."
-msgstr "Jeżeli ``True``, komentarze są akceptowane automatycznie."
+msgstr "Se checado, os comentários serão aprovados automaticamente."
 
 #: defaults.py:66
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr ""
-"Punktowa scieżka dostępu do funcki przywołującej wartość komentarza zanim "
-"zostanie renderowana do szablonu."
+msgstr "Caminho pontilhado para a função a ser chamada com o conteúdo do comentário antes de ser passado para o template."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
-msgstr "Adres e-mail do zasygnalizowania nowego komentarza"
+msgstr "E-mails para notificação de novos comentários"
 
 #: defaults.py:75
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"Lista adresów e-mail oddzielonych przecinkami, które otrzymają e-mail z "
-"powiadomieniem przy każdym nowym komentarzu opublikowanym na stronie."
+msgstr "Forneça uma lista separada por virgolas dos endereços emails que serão contactados quando novos comentários forem enviados. "
 
 #: defaults.py:84
 msgid "Admin comments"
-msgstr "Komentarze administratora"
+msgstr "Comentários no admin"
 
 #: defaults.py:85
 msgid "Number of latest comments shown in the admin dashboard."
-msgstr "Liczba ostatnich komentarzy wyświetlanych w kokpicie administratora"
+msgstr "Número de comentários recentes exibidos no painel do admin."
 
 #: defaults.py:93
 msgid "Show unapproved comments"
-msgstr "Pokazuj niezaakceptowane komentarze"
+msgstr "Exibir comentários não aprovados"
 
 #: defaults.py:94
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"Jeśli ``True`` komentarze nie oznaczone jako ``opublikowane`` będą "
-"wyświetlane, ale zastąpione informacją ``czeka na akceptacje``"
+msgstr "Se checado, comentários que não tem ``is_public`` checado ainda assim serão exibidos, porém trocados por uma mensagem ``aguardando aprovação``."
 
 #: defaults.py:103
 msgid "Show removed comments"
-msgstr "Pokaż usunięte komentarze"
+msgstr "Exibir comentários removidos"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"Jeśli ``True``, komentarze, które zostały oznaczone jako ``usunięte`` będą "
-"nadal wyświetlane, ale zastąpione komunikatem ``usunięty``."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Se checado, comentários que tem ``removed`` checado ainda assim serão exibidos, porém trocados por uma mensagem ``removido``."
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
-msgstr ""
+msgstr "Se checado, comentários podem ser avaliados."
 
 #: defaults.py:120
 msgid "Accounts required for rating"
-msgstr ""
+msgstr "Contas são obrigatórias para avaliar"
 
 #: defaults.py:121
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
-msgstr ""
+msgstr "Se checado, usuários devem se autenticar para avaliar conteúdos como posts de blog e comentários."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
-msgstr ""
+msgstr "Uma sequência de números inteiros que são avaliações válidas."
 
 #: forms.py:83
 msgid "Name"
-msgstr "Imię"
+msgstr "Nome"
 
 #: forms.py:83
 msgid "required"
-msgstr "wymagane"
+msgstr "obrigatório"
 
 #: forms.py:85
 msgid "Email"
@@ -151,86 +139,86 @@ msgstr "E-mail"
 
 #: forms.py:86
 msgid "required (not published)"
-msgstr "wymagane (niepublikowane)"
+msgstr "obrigatório (não publicado)"
 
 #: forms.py:87
 msgid "Website"
-msgstr "Strona WWW"
+msgstr "Website"
 
 #: forms.py:87
 msgid "optional"
-msgstr "opcjonalnie"
+msgstr "opcional"
 
 #: forms.py:138
 msgid "New comment for: "
-msgstr "Nowy komentarz do: "
+msgstr "Novo comentário para:"
 
 #: forms.py:174
 msgid "Already rated."
-msgstr ""
+msgstr "Já avaliado."
 
 #: models.py:26
 msgid "By the blog author"
-msgstr "Przez autora bloga"
+msgstr "Pelo autor do blog"
 
 #: models.py:29 models.py:130
 msgid "Rating"
-msgstr "Ocena"
+msgstr "Avaliação"
 
 #: models.py:34 models.py:61 templates/generic/includes/comments.html:25
 msgid "Comment"
-msgstr "Komentarz"
+msgstr "Comentário"
 
 #: models.py:35 templates/generic/includes/comments.html:3
 msgid "Comments"
-msgstr "Komentarze"
+msgstr "Comentários"
 
 #: models.py:73
 msgid "View on site"
-msgstr "Przejdź do strony"
+msgstr "Ver no site"
 
 #: models.py:93 models.py:102
 msgid "Keyword"
-msgstr "Słowo-klucz"
+msgstr "Palavra-chave"
 
 #: models.py:94
 msgid "Keywords"
-msgstr "Słowa-klucze"
+msgstr "Palavras-chave"
 
 #: models.py:120
 msgid "Value"
-msgstr "Wartość"
+msgstr "Valor"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "Data da avaliação"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "Avaliador"
 
 #: models.py:131
 msgid "Ratings"
-msgstr "Oceny"
+msgstr "Avaliações"
 
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
+msgstr "Você deve estar autenticado. Por favor, autentique-se ou registre-se para completar esta ação."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
-msgstr "Ostatnie komentarze"
+msgstr "Comentários Recentes"
 
 #: templates/admin/includes/recent_comments.html:22
 #: templates/generic/includes/comment.html:22
 #: templates/generic/includes/comment.html:53
 #: templates/generic/includes/comment.html:63
 msgid "ago"
-msgstr "temu"
+msgstr "atrás"
 
 #: templates/email/comment_notification.html:6
 msgid "A new comment has been posted on"
-msgstr "Został dodany nowy komentarz"
+msgstr "Um novo comentário foi postado."
 
 #: templates/email/comment_notification.html:10
 #, python-format
@@ -238,19 +226,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"Dnia %(submit_date)s %(user_name)s napisał:\n"
-"    "
+msgstr "\nEm %(submit_date)s %(user_name)s escreveu:\n    "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"Dnia %(submit_date)s %(user_name)s napisał:\n"
+msgstr "\nEm %(submit_date)s %(user_name)s escreveu:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"
@@ -259,32 +242,32 @@ msgstr "Link"
 #: templates/generic/includes/comment.html:26
 #: templates/generic/includes/comment.html:36
 msgid "Reply"
-msgstr "Odpowiedz"
+msgstr "Responder"
 
 #: templates/generic/includes/comment.html:59
 msgid "Comment deleted"
-msgstr "Komentarz usunięty"
+msgstr "Comentário removido"
 
 #: templates/generic/includes/comment.html:61
 msgid "Comment awaiting approval"
-msgstr "Komentarz oczekujący na moderację"
+msgstr "Comentário aguardando aprovação"
 
 #: templates/generic/includes/comment.html:75
 msgid "There are currently no comments"
-msgstr "Brak komentarzy"
+msgstr "Não há comentários no momento."
 
 #: templates/generic/includes/comments.html:17
 msgid "New Comment"
-msgstr "Nowy komentarz"
+msgstr "Novo Comentário"
 
 #: templates/generic/includes/rating.html:7
 msgid "Current rating"
-msgstr "Aktualna ocena"
+msgstr "Avaliação atual"
 
 #: templates/generic/includes/rating.html:9
 msgid "Currently unrated"
-msgstr "Brak ocen"
+msgstr "Atualmente não avaliado"
 
 #: templates/generic/includes/rating.html:19
 msgid "Rate"
-msgstr "Oceń"
+msgstr "Avalie"
