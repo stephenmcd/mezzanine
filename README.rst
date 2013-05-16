@@ -446,7 +446,7 @@ Quotes
 .. _`pip`: http://www.pip-installer.org/
 .. _`bleach`: http://pypi.python.org/pypi/bleach
 .. _`pytz`: http://pypi.python.org/pypi/pytz/
-.. _`django-compressor`: http://pypi.python.org/pypi/django-compressor/
+.. _`django-compressor`: https://pypi.python.org/pypi/django_compressor
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`grappelli-safe`: http://github.com/stephenmcd/grappelli-safe
 .. _`filebrowser-safe`: http://github.com/stephenmcd/filebrowser-safe/
