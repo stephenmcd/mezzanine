@@ -80,6 +80,9 @@ Django's user model. In our ``settings.py`` module we would define::
         "signup_date",
     )
 
+If you don't want to expose the ``username`` field to the user, Mezzanine
+provides the setting ``ACCOUNTS_NO_USERNAME``, which when set to ``True``, will expose the ``email`` field as the sole login for the user.
+
 Account Verification
 ====================
 
