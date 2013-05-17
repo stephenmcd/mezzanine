@@ -209,7 +209,7 @@ class PasswordResetForm(Html5Mixin, forms.Form):
     token for authenticating to change their password.
     """
 
-    username = forms.CharField(label=_("Username or email address"))
+    username = forms.CharField(label=username_label)
 
     def clean(self):
         username = self.cleaned_data.get("username")
