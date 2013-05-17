@@ -5,20 +5,22 @@
 # Translators:
 #   <bart@dispectu.com>, 2012.
 # Tino de Bruijn <tinodb@gmail.com>, 2012.
+# Tim Slot <tim.slot@gmail.com>, 2013.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/"
-"nl/)\n"
+"PO-Revision-Date: 2013-05-17 18:43+0200\n"
+"Last-Translator: Tim Slot <tim.slot@gmail.com>\n"
+"Language-Team: Dutch; Flemish <>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: admin.py:20 models.py:69
 msgid "User"
@@ -125,6 +127,7 @@ msgstr ""
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
 msgstr ""
+"Wanneer deze instelling ``True`` is, kunnen comments gewaardeerd worden."
 
 #: defaults.py:120
 msgid "Accounts required for rating"
@@ -170,7 +173,7 @@ msgstr "Nieuw comment op: "
 
 #: forms.py:174
 msgid "Already rated."
-msgstr ""
+msgstr "Al gewaardeerd"
 
 #: models.py:26
 msgid "By the blog author"
@@ -206,11 +209,11 @@ msgstr "Waarde"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "Waarderingsdatum"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "Criticus"
 
 #: models.py:131
 msgid "Ratings"
