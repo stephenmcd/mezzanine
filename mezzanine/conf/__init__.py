@@ -112,7 +112,14 @@ class Settings(object):
                     if setting_type is bool:
                         setting_value = setting_obj.value != "False"
                     else:
-                        setting_value = setting_type(setting_obj.value)
+                        try:
+                            setting_value = setting_type(setting_obj.value)
+                        except ValueError:
+                            # Shouldn't occur, but just a safeguard
+                            # for if the db value somehow ended up as
+                            # an invalid type.
+                            default = registry[setting_obj.name]["default"]
+                            setting_value = default
                     self._editable_cache[setting_obj.name] = setting_value
             if removed:
                 Setting.objects.filter(id__in=removed).delete()
