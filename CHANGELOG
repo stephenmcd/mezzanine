@@ -1,3 +1,29 @@
+Version 1.4.7 (May 18, 2013)
+----------------------------
+
+  * Added the ``ACCOUNTS_NO_USERNAME`` setting, which will hide the username field from signup/update forms, but still generate a unique username for use in profile view slugs - Stephen McDonald
+  * Allow querystring vars to be excluded from pagination links - Stephen McDonald
+  * Missing migration on site perms. Closes #655 - Stephen McDonald
+  * Added support for ``setup.py`` test - Stephen McDonald
+  * Pass in the user to ``page.get_ascendants`` in the page view. This will allow previewing of the unpublished children pages of. unpublished parent pages. fixes #653 - Rocky Meza
+  * Lowered ``MAX_POSTS_PER_CALL`` to 20; Added support for question/answer posts - Jeff Fein-Worton
+  * Use a context instance when rendering page menus, huge performance boost - Stephen McDonald
+  * Fixed rss import errors - Andrey Zhukov
+  * Fixed the igrations to be able to run with a custom user model. This uses a pattern copied from django-reversion: ``https://github.com/etianen/django-reversion/blob/master/src/reversion/migrations/0001_initial.py`` - Rocky Meza
+  * Add ``addr_bcc`` arg to ``send_mail_template``. This accommodates the new setting ``SHOP_ORDER_EMAIL_BCC`` in Cartridge - Alex Hill
+  * Fix lookup for username generation when ``ACCOUNTS_NO_USERNAME`` is True, closes #664 - Stephen McDonald
+  * Fixed 0005 migration wrt custom user models - Rocky Meza
+  * Correctly validate float settings in ``mezzanine.conf`` - Stephen McDonald
+  * Added some validation in the createdb command that fails if a Mezzanine table exists, to prevent people from running it and accidentally faking new migrations that need to be run - Stephen McDonald
+  * ``mezzanine/accounts/templates/email/account_approved.html:`` removed the extra. "http://" - Alexandre Hajjar
+  * Make fabfile work in Windows. Two small changes allow deployment via Fabric from Windows: * Use ``posixpath.join`` instead of ``os.path.join`` to construct all paths destined for the remote machine. * Check for ``"fab-file.py"`` as well as "fab" in ``sys.argv``, to handle the way setuptools-generated command-line scripts work in Windows - Alex Hill
+  * Fix urlpattern for archive year - Stephen McDonald
+  * Hide printing ``STATIC_ROOT`` in deploys - Stephen McDonald
+  * Added paragraph to ``mezzanine/docs/user-accounts.rst`` about ``ACCOUNTS_NO_USERNAME``. setting - Alexandre Hajjar
+  * Used ``username_label`` variable in the PasswordResetForm label. ``(accounts/forms.py)`` - Alexandre Hajjar
+  * Pin html5lib, see ``https://github.com/jsocol/bleach/issues/94`` - Stephen McDonald
+  * Added an extra safeguard for type errors in editable settings - Stephen McDonald
+
 Version 1.4.6 (Apr 28, 2013)
 ----------------------------
 

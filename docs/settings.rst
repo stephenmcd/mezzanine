@@ -21,6 +21,13 @@ Minimum length for passwords
 
 Default: ``6``
 
+``ACCOUNTS_NO_USERNAME``
+------------------------
+
+If ``True``, the username field will be excluded from sign up and account update forms.
+
+Default: ``False``
+
 ``ACCOUNTS_PROFILE_FORM_CLASS``
 -------------------------------
 
