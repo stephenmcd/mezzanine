@@ -403,6 +403,9 @@ Sites Using Mezzanine
   * `Take Me East <http://takemeeast.net>`_
   * `Code Raising <http://www.coderaising.org>`_
   * `ZigZag Bags <http://www.zigzagbags.com.au>`_
+  * `VerifIP <http://verifip.com/>`_
+  * `Clic TV <http://www.clictv.tv/>`_
+  * `JE Rivas <http://www.jerivas.com/>`_
 
 
 Quotes
