@@ -1,13 +1,3 @@
-function contentMargin() {
-    // Set margin on main content area so it clears all the fixed-position elements above it
-    var clearedHeight = 21;
-    $('#content').prevAll().each(function() {
-        clearedHeight += $(this).height();
-    });
-
-    $('#content').css('margin-top', clearedHeight); 
-}
-
 $(function() {
     // Empty out the breadcrumbs div and add the menu into it.
     $('.breadcrumbs').html('')
@@ -25,6 +15,17 @@ $(function() {
     // Provides link to site.
     $('#user-tools li:last').before('<li>' + window.__home_link + '</li>');
     
+    function contentMargin() {
+        // Set margin on main content area so it clears all the fixed-position elements above it
+        var clearedHeight = 21;
+        $('#content').prevAll().each(function() {
+            clearedHeight += $(this).height();
+        });
+    
+        $('#content').css('margin-top', clearedHeight); 
+    }
+    
+    // Check that content clears menus on both load and resize
     contentMargin();
     $(window).resize(contentMargin);
 });
