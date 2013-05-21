@@ -27,7 +27,7 @@ def admin_keywords_submit(request):
         title = "".join([c for c in title if c.isalnum() or c in "- "]).strip()
         if title:
             try:
-                keyword = Keyword.objects.get(title__iexact=title)
+                keyword = Keyword.objects.get(title__exact=title)
             except Keyword.DoesNotExist:
                 keyword = Keyword.objects.create(title=title)
             keyword_id = str(keyword.id)
