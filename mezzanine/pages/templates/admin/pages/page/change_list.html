@@ -25,7 +25,7 @@
             {% for model in page_models %}
 			    {% set_model_permissions model %}
 			    {% if model.perms.add %}
-                <option value="{{ model.add_url }}">{{ model.name }}</option>
+                <option value="{{ model.add_url }}">{{ model.meta_verbose_name }}</option>
                 {% endif %}
             {% endfor %}
         </select>
