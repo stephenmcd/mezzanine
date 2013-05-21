@@ -170,11 +170,6 @@ class FetchFromCacheMiddleware(object):
     Request phase for Mezzanine cache middleware. Return a response
     from cache if found, othwerwise mark the request for updating
     the cache in ``UpdateCacheMiddleware``.
-
-    If the response is served from cache and process_request returns a valid
-    response, Django will not execute the next middlewares, but we really
-    need ``CsrfViewMiddleware`` to run before ``UpdateCacheMiddleware`` to
-    make sure a valid csrf token exist.
     """
 
     def process_request(self, request):
@@ -182,14 +177,17 @@ class FetchFromCacheMiddleware(object):
             not request.user.is_authenticated()):
             cache_key = cache_key_prefix(request) + request.get_full_path()
             response = cache_get(cache_key)
+            # We need to force a csrf token here, as new sessions
+            # won't receieve one on their first request, with cache
+            # middleware running.
+            csrf_mw_name = "django.middleware.csrf.CsrfViewMiddleware"
+            if csrf_mw_name in settings.MIDDLEWARE_CLASSES:
+                csrf_mw = CsrfViewMiddleware()
+                csrf_mw.process_view(request, lambda x: None, None, None)
+                get_token(request)
             if response is None:
                 request._update_cache = True
             else:
-                csrf_mw_name = "django.middleware.csrf.CsrfViewMiddleware"
-                if csrf_mw_name in settings.MIDDLEWARE_CLASSES:
-                    csrf_mw = CsrfViewMiddleware()
-                    csrf_mw.process_view(request, lambda x: None, None, None)
-                    get_token(request)
                 return HttpResponse(response)
 
 
