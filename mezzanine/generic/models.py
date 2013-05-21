@@ -89,6 +89,15 @@ class Keyword(Slugged):
 
     objects = KeywordManager()
 
+    def save(self, *args, **kwargs):
+        """
+        Make sure that duplicate keywords are not created
+        """
+        try:
+            Keyword.objects.get(title__exact=self.title)
+        except Keyword.DoesNotExist:
+            super(Keyword, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = _("Keyword")
         verbose_name_plural = _("Keywords")

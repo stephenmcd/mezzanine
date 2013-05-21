@@ -466,6 +466,15 @@ class Tests(TestCase):
         self.assertEquals(keywords, set(page.keywords_string.split()))
         page.delete()
 
+    def test_duplicate_keywords(self):
+        """
+        Test that duplicate keywords are not created.
+        """
+        Keyword.objects.create(title="Now")
+        self.assertEqual(Keyword.objects.count(), 1)
+        Keyword.objects.create(title="Now")
+        self.assertEqual(Keyword.objects.count(), 1)
+
     def test_search(self):
         """
         Test search.
