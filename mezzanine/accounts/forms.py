@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from django.db.models import Q
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
 from mezzanine.conf import settings
@@ -26,9 +27,9 @@ if Profile is not None:
 
 if settings.ACCOUNTS_NO_USERNAME:
     _exclude_fields += ("username",)
-    username_label = _("Email address")
+    username_label = mark_safe(_("Email address"))
 else:
-    username_label = _("Username or email address")
+    username_label = mark_safe(_("Username or email address"))
 
 
 class LoginForm(Html5Mixin, forms.Form):
@@ -36,7 +37,7 @@ class LoginForm(Html5Mixin, forms.Form):
     Fields for login.
     """
     username = forms.CharField(label=username_label)
-    password = forms.CharField(label=_("Password"),
+    password = forms.CharField(label=mark_safe(_("Password")),
                                widget=forms.PasswordInput(render_value=False))
 
     def clean(self):
@@ -68,9 +69,9 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
     fields are injected into the form.
     """
 
-    password1 = forms.CharField(label=_("Password"),
+    password1 = forms.CharField(label=mark_safe(_("Password")),
                                 widget=forms.PasswordInput(render_value=False))
-    password2 = forms.CharField(label=_("Password (again)"),
+    password2 = forms.CharField(label=mark_safe(_("Password (again)")),
                                 widget=forms.PasswordInput(render_value=False))
 
     class Meta:

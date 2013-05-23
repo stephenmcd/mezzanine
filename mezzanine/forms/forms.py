@@ -287,7 +287,8 @@ class EntriesForm(forms.Form):
                 self.fields["%s_from" % field_key] = forms.DateField(
                     label=" ", widget=SelectDateWidget(), required=False)
                 self.fields["%s_to" % field_key] = forms.DateField(
-                    label=_("and"), widget=SelectDateWidget(), required=False)
+                    label=mark_safe(_("and")), widget=SelectDateWidget(),
+                    required=False)
             else:
                 # Text box for search term to filter by.
                 contains_field = forms.CharField(label=" ", required=False)
@@ -302,7 +303,8 @@ class EntriesForm(forms.Form):
         self.fields["%s_from" % field_key] = forms.DateField(
             label=" ", widget=SelectDateWidget(), required=False)
         self.fields["%s_to" % field_key] = forms.DateField(
-            label=_("and"), widget=SelectDateWidget(), required=False)
+            label=mark_safe(_("and")), widget=SelectDateWidget(),
+            required=False)
 
     def __iter__(self):
         """
