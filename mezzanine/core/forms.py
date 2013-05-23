@@ -81,7 +81,8 @@ class DynamicInlineAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DynamicInlineAdminForm, self).__init__(*args, **kwargs)
         if issubclass(self._meta.model, Orderable):
-            self.fields["_order"] = forms.CharField(label=_("Order"),
+            self.fields["_order"] = forms.CharField(
+                label=mark_safe(_("Order")),
                 widget=OrderWidget, required=False)
 
 

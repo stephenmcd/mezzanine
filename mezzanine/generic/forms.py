@@ -80,12 +80,12 @@ class KeywordsWidget(forms.MultiWidget):
 
 class ThreadedCommentForm(CommentForm, Html5Mixin):
 
-    name = forms.CharField(label=_("Name"), help_text=_("required"),
+    name = forms.CharField(label=mark_safe(_("Name")), help_text=_("required"),
                            max_length=50)
-    email = forms.EmailField(label=_("Email"),
+    email = forms.EmailField(label=mark_safe(_("Email")),
                              help_text=_("required (not published)"))
-    url = forms.URLField(label=_("Website"), help_text=_("optional"),
-                         required=False)
+    url = forms.URLField(label=mark_safe(_("Website")),
+                         help_text=_("optional"), required=False)
 
     # These are used to get/set prepopulated fields via cookies.
     cookie_fields = ("name", "email", "url")
