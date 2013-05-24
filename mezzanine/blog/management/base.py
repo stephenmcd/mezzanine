@@ -235,7 +235,7 @@ class BaseImporterCommand(BaseCommand):
         """
         for tag in tags:
             keyword = self.trunc(Keyword, prompt, title=tag)
-            keyword, created = Keyword.objects.get_or_create(**keyword)
+            keyword, created = Keyword.objects.get_or_create_iexact(**keyword)
             obj.keywords.add(AssignedKeyword(keyword=keyword))
             if created and verbosity >= 1:
                 print "Imported tag: %s" % keyword

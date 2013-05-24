@@ -26,11 +26,8 @@ def admin_keywords_submit(request):
     for title in request.POST.get("text_keywords", "").split(","):
         title = "".join([c for c in title if c.isalnum() or c in "- "]).strip()
         if title:
-            try:
-                keyword = Keyword.objects.get(title__iexact=title)
-            except Keyword.DoesNotExist:
-                keyword = Keyword.objects.create(title=title)
-            keyword_id = str(keyword.id)
+            kw, created = Keyword.objects.get_or_create_iexact(title=title)
+            keyword_id = str(kw.id)
             if keyword_id not in keyword_ids:
                 keyword_ids.append(keyword_id)
                 titles.append(title)
