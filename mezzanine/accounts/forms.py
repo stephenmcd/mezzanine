@@ -2,7 +2,7 @@
 from django.contrib.auth import authenticate
 from django.db.models import Q
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
 from mezzanine.conf import settings

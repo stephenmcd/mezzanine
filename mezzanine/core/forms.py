@@ -4,7 +4,7 @@ from uuid import uuid4
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 
 from mezzanine.conf import settings
 from mezzanine.core.models import Orderable
