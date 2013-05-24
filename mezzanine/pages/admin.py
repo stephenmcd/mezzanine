@@ -204,7 +204,7 @@ class PageAdmin(DisplayableAdmin):
         def sort_key(page):
             name = "%s.%s" % (page._meta.app_label, page._meta.object_name)
             try:
-                order.index(name.lower())
+                return order.index(name.lower())
             except ValueError:
                 return page.meta_verbose_name
         return sorted(models, key=sort_key)
