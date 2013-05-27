@@ -51,7 +51,7 @@ class AdminLoginInterfaceSelectorMiddleware(object):
                 if login_type == "admin":
                     next = request.get_full_path()
                 else:
-                    next = request.GET.get("next", "/")
+                    next = request.GET.get("next") or "/"
                 return HttpResponseRedirect(next)
             else:
                 return response

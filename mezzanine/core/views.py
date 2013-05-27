@@ -29,7 +29,7 @@ def set_device(request, device=""):
     Sets a device name in a cookie when a user explicitly wants to go
     to the site for a particular device (eg mobile).
     """
-    response = redirect(add_cache_bypass(request.GET.get("next", "/")))
+    response = redirect(add_cache_bypass(request.GET.get("next") or "/"))
     set_cookie(response, "mezzanine-device", device, 60 * 60 * 24 * 365)
     return response
 
@@ -50,7 +50,7 @@ def set_site(request):
             raise PermissionDenied
     request.session["site_id"] = site_id
     admin_url = reverse("admin:index")
-    next = request.GET.get("next", admin_url)
+    next = request.GET.get("next") or admin_url
     # Don't redirect to a change view for an object that won't exist
     # on the selected site - go to its list view instead.
     if next.startswith(admin_url):

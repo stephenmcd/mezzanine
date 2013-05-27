@@ -63,7 +63,7 @@ def send_verification_mail(request, user, verification_type):
     verify_url = reverse(verification_type, kwargs={
         "uidb36": int_to_base36(user.id),
         "token": default_token_generator.make_token(user),
-    }) + "?next=" + request.GET.get("next", "/")
+    }) + "?next=" + (request.GET.get("next") or "/")
     context = {
         "request": request,
         "user": user,
