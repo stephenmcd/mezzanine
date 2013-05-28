@@ -19,7 +19,7 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Removing unique constraint on 'SitePermission', fields ['user']
-        db.delete_unique('core_sitepermission', ['user_id'])
+        #db.delete_unique('core_sitepermission', ['user_id'])
 
 
         # Changing field 'SitePermission.user'
@@ -30,7 +30,7 @@ class Migration(SchemaMigration):
         # Changing field 'SitePermission.user'
         db.alter_column('core_sitepermission', 'user_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm[user_orm_label], unique=True))
         # Adding unique constraint on 'SitePermission', fields ['user']
-        db.create_unique('core_sitepermission', ['user_id'])
+        #db.create_unique('core_sitepermission', ['user_id'])
 
 
     models = {
