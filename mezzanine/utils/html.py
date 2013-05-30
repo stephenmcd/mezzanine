@@ -3,6 +3,7 @@ from HTMLParser import HTMLParser, HTMLParseError
 from htmlentitydefs import name2codepoint
 import re
 
+SELF_CLOSING_TAGS = ['br', 'img']
 
 def decode_entities(html):
     """
@@ -47,7 +48,8 @@ class TagCloser(HTMLParser):
             self.html += "".join(["</%s>" % tag for tag in self.tags])
 
     def handle_starttag(self, tag, attrs):
-        self.tags.insert(0, tag)
+        if(tag not in SELF_CLOSING_TAGS):
+            self.tags.insert(0, tag)
 
     def handle_endtag(self, tag):
         try:
