@@ -35,6 +35,7 @@ from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import copy_test_to_media, run_pyflakes_for_package
 from mezzanine.utils.tests import run_pep8_for_package
+from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import get_user_model
 from mezzanine.core.managers import DisplayableManager
 
@@ -269,6 +270,16 @@ class Tests(TestCase):
         page = RichTextPage.objects.create(title="Draft",
                                            content=description * 3)
         self.assertEqual(page.description, strip_tags(description))
+
+    def test_tagcloser(self):
+        """
+        Test tags are closed, and tags that shouldn't be closed aren't.
+        """
+        self.assertEqual(TagCloser("<p>Unclosed paragraph").html,
+                         "<p>Unclosed paragraph</p>")
+
+        self.assertEqual(TagCloser("Line break<br>").html,
+                         "Line break<br>")
 
     def test_device_specific_template(self):
         """
