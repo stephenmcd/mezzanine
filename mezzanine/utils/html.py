@@ -5,6 +5,7 @@ import re
 
 SELF_CLOSING_TAGS = ['br', 'img']
 
+
 def decode_entities(html):
     """
     Remove HTML entities from a string.
