@@ -2,7 +2,8 @@
 from operator import ior, iand
 from string import punctuation
 
-from django.db.models import Manager, Q, CharField, TextField, get_models
+from django.db.models import (Manager, Q, CharField, TextField,
+                              get_models, get_model)
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
 from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
@@ -238,14 +239,40 @@ class SearchableManager(Manager):
         model is abstract.
         """
         if getattr(self.model._meta, "abstract", False):
-            models = [m for m in get_models() if issubclass(m, self.model)]
+            # When we're combining model subclasses for an abstract
+            # model (eg Displayable), we only want to use models that
+            # are represented by the ``SEARCH_MODEL_CHOICES`` setting.
+            # Now this setting won't contain an exact list of models
+            # we should use, since it can define superclass models such
+            # as ``Page``, so we check the parent class list of each
+            # model when determining whether a model falls within the
+            # ``SEARCH_MODEL_CHOICES`` setting.
+            search_choices = set([get_model(*name.split(".", 1)) for name in
+                                  settings.SEARCH_MODEL_CHOICES])
+            models = set()
+            parents = set()
+            for model in get_models():
+                # Model is actually a subclasses of what we're
+                # searching (eg Displayabale)
+                is_subclass = issubclass(model, self.model)
+                # Model satisfies the search choices list - either
+                # there are no search choices, model is directly in
+                # search choices, or its parent is.
+                this_parents = set(model._meta.get_parent_list())
+                in_choices = not search_choices or model in search_choices
+                in_choices = in_choices or this_parents & search_choices
+                if is_subclass and (in_choices or not search_choices):
+                    # Add to models we'll seach. Also maintain a parent
+                    # set, used below for further refinement of models
+                    # list to search.
+                    models.add(model)
+                    parents.update(this_parents)
             # Strip out any models that are superclasses of models,
             # specifically the Page model which will generally be the
             # superclass for all custom content types, since if we
             # query the Page model as well, we will get duplicate
             # results.
-            parents = reduce(ior, [m._meta.get_parent_list() for m in models])
-            models = [m for m in models if m not in parents]
+            models -= parents
         else:
             models = [self.model]
         all_results = []
