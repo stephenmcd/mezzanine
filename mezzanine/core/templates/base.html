@@ -56,7 +56,7 @@
     </a>
     {% if settings.SITE_TITLE %}<a class="brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
     {% if settings.SITE_TAGLINE %}<p class="navbar-text">{{ settings.SITE_TAGLINE }}</p>{% endif %}
-    <div class="nav-collapse">
+    <div class="nav-collapse collapse">
         {% search_form "all" %}
         {% page_menu "pages/menus/dropdown.html" %}
     </div>
