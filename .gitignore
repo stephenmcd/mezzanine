@@ -10,3 +10,5 @@ build/
 docs/build/
 dist/
 mezzanine/project_template/static/
+/mezzanine/.project
+/mezzanine/.pydevproject
