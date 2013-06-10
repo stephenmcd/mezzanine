@@ -37,7 +37,7 @@ class PageMiddleware(object):
         pages = Page.objects.with_ascendants_for_slug(slug,
                         for_user=request.user, include_login_required=True)
         if pages:
-            page = pages[0]
+            page = pages[0].get_content_model()
         else:
             # If we can't find a page matching this slug or any
             # of its sub-slugs, skip all further processing.
