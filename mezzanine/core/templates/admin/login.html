@@ -25,12 +25,12 @@
     {% csrf_token %}
     <div id="content-main">
         <div class="form-row">
-            <label for="id_username" class="required">{% trans 'Username or email:' %}</label>
-            <input type="text" required name="username" id="id_username" value="{{ request.POST.username }}">
+            <label for="id_username" class="required">{{ form.username.label }}:</label>
+            {{ form.username }}
         </div>
         <div class="form-row">
             <label for="id_password" class="required">{% trans 'Password:' %}</label>
-            <input type="password" required  name="password" id="id_password">
+            {{ form.password }}
             <input type="hidden" name="this_is_the_login_form" value="1" />
         </div>
         <div class="form-row" id="extra-login-fields">
