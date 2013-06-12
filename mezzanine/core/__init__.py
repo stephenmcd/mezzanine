@@ -4,3 +4,7 @@ Mezzanine apps.
 """
 
 from mezzanine import __version__
+
+# This run admin.site monkey patching
+import auth_backends
+auth_backends
