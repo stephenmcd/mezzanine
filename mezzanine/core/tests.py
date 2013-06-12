@@ -571,6 +571,8 @@ class Tests(TestCase):
         """
         warnings = []
         warnings.extend(run_pyflakes_for_package("mezzanine"))
+        if warnings:
+            self.fail("flake Syntax warnings!\n\n%s" % "\n".join(warnings))
         warnings.extend(run_pep8_for_package("mezzanine"))
         if warnings:
             self.fail("Syntax warnings!\n\n%s" % "\n".join(warnings))
