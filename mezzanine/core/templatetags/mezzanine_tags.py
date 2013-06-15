@@ -326,7 +326,7 @@ def thumbnail(image_url, width, height, quality=95):
     if image.mode not in ("P", "L", "RGBA"):
         image = image.convert("RGBA")
     # Required for progressive jpgs.
-    ImageFile.MAXBLOCK = image.size[0] * image.size[1]
+    ImageFile.MAXBLOCK = 2 * max(image.size)**2
     try:
         image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
         image = image.save(thumb_path, filetype, quality=quality, **image_info)
