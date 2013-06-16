@@ -37,9 +37,8 @@ class Html5Mixin(object):
 
 _tinymce_js = ()
 if settings.GRAPPELLI_INSTALLED:
-    _tinymce_js = (staticfiles_storage.url(\
-                   "grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js"),
-                   settings.TINYMCE_SETUP_JS,)
+    _path = "grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js"
+    _tinymce_js = (staticfiles_storage.url(_path), settings.TINYMCE_SETUP_JS)
 
 
 class TinyMceWidget(forms.Textarea):
