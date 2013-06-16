@@ -33,6 +33,8 @@ install_requires = [
     "html5lib == 0.95",
     "bleach",
     "pytz",
+    "requests==1.2.3",
+    "requests-oauthlib==0.3.2",
 ]
 
 try:
