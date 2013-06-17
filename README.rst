@@ -411,6 +411,7 @@ Sites Using Mezzanine
   * `Loans to Homes <http://loanstohomes.com>`_
   * `Gensler Group <http://genslergroup.com>`_
   * `SaniCo <https://sanimedicaltourism.com>`_
+  * `Grupo Invista <http://grupoinvista.com>`_
 
 Quotes
 ======
