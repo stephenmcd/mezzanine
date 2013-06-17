@@ -1,20 +1,18 @@
 
-import re
 from datetime import datetime, timedelta
-from time import timezone
-from urllib2 import urlopen, quote
-
 from django.db import models
 from django.utils.html import urlize
-from django.utils.simplejson import loads
-from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import get_default_timezone, make_aware
-from django.conf import settings
-
+from django.utils.translation import ugettext_lazy as _
+from mezzanine.conf import settings
+from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_USER, \
+    QUERY_TYPE_LIST, QUERY_TYPE_SEARCH
 from mezzanine.twitter.managers import TweetManager
-from mezzanine.twitter import (QUERY_TYPE_CHOICES, QUERY_TYPE_USER,
-                               QUERY_TYPE_LIST, QUERY_TYPE_SEARCH)
-
+from requests_oauthlib import OAuth1
+from time import timezone
+from urllib2 import quote
+import re
+import requests
 
 re_usernames = re.compile("@([0-9a-zA-Z+_]+)", re.IGNORECASE)
 re_hashtags = re.compile("#([0-9a-zA-Z+_]+)", re.IGNORECASE)
@@ -42,13 +40,15 @@ class Query(models.Model):
         Request new tweets from the Twitter API.
         """
         urls = {
-            QUERY_TYPE_USER: ("http://api.twitter.com/1/statuses/"
-                              "user_timeline/%s.json?include_rts=true" %
+            QUERY_TYPE_USER: ("https://api.twitter.com/1.1/statuses/"
+                              "user_timeline.json?screen_name=%s"
+                              "&include_rts=true" %
                               self.value.lstrip("@")),
-            QUERY_TYPE_LIST: ("http://api.twitter.com/1/%s/statuses.json"
-                              "?include_rts=true" %
-                              self.value.lstrip("@").replace("/", "/lists/")),
-            QUERY_TYPE_SEARCH: "http://search.twitter.com/search.json?q=%s" %
+            QUERY_TYPE_LIST: ("https://api.twitter.com/1.1/lists/statuses.json"
+                              "?list_id=%s&include_rts=true" %
+                              self.value.encode("utf-8")),
+            QUERY_TYPE_SEARCH: "https://api.twitter.com/1.1/search/tweets.json"
+                                "?q=%s" %
                                quote(self.value.encode("utf-8")),
         }
         try:
@@ -56,27 +56,34 @@ class Query(models.Model):
         except KeyError:
             return
         try:
-            tweets = loads(urlopen(url).read())
+            settings.use_editable()
+            auth = OAuth1(settings.TWITTER_APP_KEY,
+                          settings.TWITTER_APP_SECRET,
+                          settings.TWITTER_OAUTH_TOKEN,
+                          settings.TWITTER_OAUTH_SECRET
+                          )
+            tweets = requests.get(url, auth=auth).json()
         except:
             return
         if self.type == "search":
-            tweets = tweets["results"]
+            tweets = tweets["statuses"]
         for tweet_json in tweets:
             remote_id = str(tweet_json["id"])
             tweet, created = self.tweets.get_or_create(remote_id=remote_id)
             if not created:
                 continue
             if "retweeted_status" in tweet_json:
-                user = tweet_json["user"]
+                user = tweet_json['user']
                 tweet.retweeter_user_name = user["screen_name"]
                 tweet.retweeter_full_name = user["name"]
                 tweet.retweeter_profile_image_url = user["profile_image_url"]
                 tweet_json = tweet_json["retweeted_status"]
             if self.type == QUERY_TYPE_SEARCH:
-                tweet.user_name = tweet_json["from_user"]
-                tweet.full_name = tweet_json["from_user"]
-                tweet.profile_image_url = tweet_json["profile_image_url"]
-                date_format = "%a, %d %b %Y %H:%M:%S +0000"
+                tweet.user_name = tweet_json['user']['screen_name']
+                tweet.full_name = tweet_json['user']['name']
+                tweet.profile_image_url = \
+                        tweet_json['user']["profile_image_url"]
+                date_format = "%a %b %d %H:%M:%S +0000 %Y"
             else:
                 user = tweet_json["user"]
                 tweet.user_name = user["screen_name"]
