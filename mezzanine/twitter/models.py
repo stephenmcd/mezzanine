@@ -55,14 +55,15 @@ class Query(models.Model):
             url = urls[self.type]
         except KeyError:
             return
+        settings.use_editable()
+        auth_settings = (settings.TWITTER_CONSUMER_KEY,
+                         settings.TWITTER_CONSUMER_SECRET,
+                         settings.TWITTER_ACCESS_TOKEN_KEY,
+                         settings.TWITTER_ACCESS_TOKEN_SECRET)
+        if not all(auth_settings):
+            return
         try:
-            settings.use_editable()
-            auth = OAuth1(settings.TWITTER_APP_KEY,
-                          settings.TWITTER_APP_SECRET,
-                          settings.TWITTER_OAUTH_TOKEN,
-                          settings.TWITTER_OAUTH_SECRET
-                          )
-            tweets = requests.get(url, auth=auth).json()
+            tweets = requests.get(url, auth=OAuth1(*auth_settings)).json()
         except:
             return
         if self.type == "search":
