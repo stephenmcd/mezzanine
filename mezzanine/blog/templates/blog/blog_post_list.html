@@ -130,7 +130,7 @@
     </a>
     {% else %}
     <a href="{{ blog_post.get_absolute_url }}#comments">
-        {% blocktrans count blog_post.comments_count as comments_count %}1 comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
+        {% blocktrans count comments_count=blog_post.comments_count %}{{ comments_count }} comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
     </a>
     {% endif %}
 </p>
