@@ -4,7 +4,6 @@ from django.contrib.auth import (authenticate, login as auth_login,
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import info, error
 from django.core.urlresolvers import NoReverseMatch
-from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
 
@@ -67,6 +66,7 @@ def signup(request, template="accounts/account_signup.html"):
             return login_redirect(request)
     context = {"form": form, "title": _("Sign up")}
     return render(request, template, context)
+
 
 def signup_verify(request, uidb36=None, token=None):
     """
