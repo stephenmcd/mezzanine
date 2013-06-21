@@ -68,7 +68,6 @@ def signup(request, template="accounts/account_signup.html"):
     context = {"form": form, "title": _("Sign up")}
     return render(request, template, context)
 
-
 def signup_verify(request, uidb36=None, token=None):
     """
     View for the link in the verification email sent to a new user
@@ -76,8 +75,6 @@ def signup_verify(request, uidb36=None, token=None):
     is set to ``True``. Activates the user and logs them in,
     redirecting to the URL they tried to access when signing up.
     """
-    if settings.ACCOUNTS_APPROVAL_REQUIRED:
-        raise Http404
     user = authenticate(uidb36=uidb36, token=token, is_active=False)
     if user is not None:
         user.is_active = True
