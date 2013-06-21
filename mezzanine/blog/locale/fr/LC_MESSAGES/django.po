@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"PO-Revision-Date: 2013-06-20 14:34+0100\n"
+"Last-Translator: Romain Hardouin <romain_hardouin@yahoo.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -128,9 +128,9 @@ msgstr "Il y a %(sometime)s"
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "1 commentaire"
+msgstr[0] "%(comments_count)s commentaire"
 msgstr[1] "%(comments_count)s commentaires"
 
 #: templates/blog/blog_post_detail.html:74

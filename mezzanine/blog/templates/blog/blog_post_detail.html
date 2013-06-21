@@ -43,7 +43,7 @@
                 {% trans "Comments" %}
             {% endspaceless %}</a>)
         {% else %}(<a href="#comments">{% spaceless %}
-            {% blocktrans count blog_post.comments_count as comments_count %}1 comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
+            {% blocktrans count comments_count=blog_post.comments_count %}{{ comments_count }} comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
             {% endspaceless %}</a>)
         {% endif %}
     {% endif %}
