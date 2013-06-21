@@ -33,8 +33,11 @@ h1 {width:300px;}
 #tree a .close {display:none;}
 #tree a:hover .icon {color:#fff; background:#5B80B2;}
 .ordering {float:right; cursor:move; margin-left:10px;}
-
-.addlist {float:right; margin-top:-3px;}
+.addlist {
+	float:right;
+	margin-top:-3px;
+	max-width: 140px;
+}
 #addlist-primary {float:left; width:620px; text-align:right; margin-top:-25px;}
 
 .placeholder {border:1px dashed #ddd;}
