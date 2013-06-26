@@ -1,0 +1,19 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_field_sets %}
+<fieldset class="module aligned collapse-closed collapsed">
+  <h2 class="collapse-toggle">Zip Import</h2>
+  <div class="form-row zip-import">
+    <div class="form-row">
+      <label for="zip-import-file">Zip File</label>
+
+      <input type="file" id="zip-import-file" />
+      <button id="zip-import-button" class="default">Browse</button>
+
+      <div class="progress" id="zip-import-progress" style="display:none;">
+	<div class="bar" style="width: 0;"></div>
+      </div>
+    </div>
+  </div>
+</fieldset>
+{% endblock %}
