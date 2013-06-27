@@ -413,6 +413,7 @@ Sites Using Mezzanine
   * `Gensler Group <http://genslergroup.com>`_
   * `SaniCo <https://sanimedicaltourism.com>`_
   * `Grupo Invista <http://grupoinvista.com>`_
+  * `Brooklyn Navy Yard <http://brooklynnavyyard.org>`_
 
 Quotes
 ======
