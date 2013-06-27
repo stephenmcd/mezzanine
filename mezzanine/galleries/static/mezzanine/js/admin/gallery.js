@@ -32,9 +32,9 @@ $(function() {
 	    xhr.onreadystatechange = function(e) {
 		if(xhr.readyState == 4)
 		{
-		    if(xhr.statusCode == 200)
+		    if(xhr.status == 200)
 		    {
-			window.location.refresh();
+			document.location.reload();
 		    }
 		    else
 		    {
