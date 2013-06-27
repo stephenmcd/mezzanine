@@ -329,7 +329,7 @@ Sites Using Mezzanine
   * `St Barnabas' Theological College <http://www.sbtc.org.au>`_
   * `Helios 3D <http://helios3d.nl/>`_
   * `Life is Good <http://lifeisgoodforall.co.uk/>`_
-  * `Brooklyn Navy Yard <http://bldg92.org/>`_
+  * `Building 92 <http://bldg92.org/>`_
   * `Pie Monster <http://piemonster.me>`_
   * `Cotton On Asia <http://asia.cottonon.com/>`_
   * `Ivan Diao <http://www.adieu.me>`_
@@ -413,7 +413,7 @@ Sites Using Mezzanine
   * `Gensler Group <http://genslergroup.com>`_
   * `SaniCo <https://sanimedicaltourism.com>`_
   * `Grupo Invista <http://grupoinvista.com>`_
-  * `Brooklyn Navy Yard <http://brooklynnavyyard.org>`_
+  * `Brooklyn Navy Yard <http://brooklynnavyyard.org/>`_
 
 Quotes
 ======
