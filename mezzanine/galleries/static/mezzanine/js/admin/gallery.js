@@ -1,4 +1,6 @@
 $(function() {
+    $('div.form-row.zip_import').remove();
+
     $('#zip-import-button').click(function (e) {
 	$('#zip-import-file').click();
 	return false;

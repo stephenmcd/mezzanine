@@ -9,8 +9,6 @@ class GalleryImageInline(TabularDynamicInlineAdmin):
 
 class GalleryAdmin(PageAdmin):
 
-    exclude = ['zip_import',]
-
     class Media:
         css = {"all": ("mezzanine/css/admin/gallery.css",)}
         js = {"mezzanine/js/admin/gallery.js",}
