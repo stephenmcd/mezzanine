@@ -365,14 +365,29 @@ def editable_loader(context):
 @register.filter
 def richtext_filter(content):
     """
-    This template filter takes a string value and passes it through the
-    function specified by the RICHTEXT_FILTER setting.
+    This template filter takes a string value and passes it through each of the
+    functions specified by the RICHTEXT_FILTERS setting.  If RICHTEXT_FILTERS
+    is empty, RICHTEXT_FILTER is consulted as a single fallback function.
     """
-    if settings.RICHTEXT_FILTER:
-        func = import_dotted_path(settings.RICHTEXT_FILTER)
-    else:
-        func = lambda s: s
-    return func(content)
+    filters = settings.RICHTEXT_FILTERS
+    if not filters:
+        if settings.RICHTEXT_FILTER:
+            filters = [settings.RICHTEXT_FILTER]
+        else:
+            filters = []
+
+    for func in map(import_dotted_path, filters):
+        content = func(content)
+    return content
+
+
+@register.filter
+def richtext_filters(content):
+    """
+    Plural alias for ``richtext_filter``, acknowledging the support of more
+    than one filter being applied.
+    """
+    return richtext_filter(content)
 
 
 @register.to_end_tag
