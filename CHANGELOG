@@ -1,3 +1,36 @@
+Version 1.4.8 (Jun 27, 2013)
+----------------------------
+
+  * Fix nginx config to work on more recent ubuntu versions. Not sure how backwards compatible this is. Please see: ``http://stackoverflow.com/questions/8768946/dealing-with-nginx-400-the-plain-http-request-was-sent-to-https-port-error`` - David Novakovic
+  * dynamically generate top margin of admin content area - Andromeda Yelton
+  * contentMargin out of global namespace - Andromeda Yelton
+  * Force csrf token generation on every request with cache middleware. Closes #676 - Stephen McDonald
+  * Use a more explicit name in ``PageAdmin.get_content_models`` which won't collide with a commonly used field name such as name - Stephen McDonald
+  * Don't use ``ugettext_lazy`` for form field labels since Django will double-escape them. Closes #682 - Stephen McDonald
+  * Move case-insensitive keyword creation into KeywordManager, and allow for duplicate results. Closes #679 - Stephen McDonald
+  * Fix ``ADD_PAGE_ORDER``. Closes #681 - Stephen McDonald
+  * Fix uses of next param for redirects where param exists but value is empty - Stephen McDonald
+  * Fix invalid migration - Stephen McDonald
+  * Revert fix to #594 #677 - causes issues with status messages - Stephen McDonald
+  * TagCloser - don't close br and image tags - John Groszko
+  * Test changes to TagCloser - John Groszko
+  * Clean up some docstrings - Stephen McDonald
+  * When using search against an abstract model (eg Displayable), filter the combined models searched against by the models represented in the ``SEARCH_MODEL_CHOICES`` setting. Closes #684 - Stephen McDonald
+  * Add a note to search docs about ``SEARCH_MODEL_CHOICES`` affecting abstract search behaviour - Stephen McDonald
+  * Added missing class to collapsible navbar that affected nested menus - Jason Wong
+  * SS: Moved to the original - Sachin Shende
+  * long title : break words on pages tree - jferry
+  * SS: Changes done to Twitter app to upgrade to API 1.1. 1. Added ``requests==1.2.3`` and ``requests-oauthlib==0.3.2`` to the dependency list. 2. Added 4 new keys to the settings. 3. Changed models to use new authentication for Twitter API, changed urls and other changes to parse the response - Sachin Shende
+  * use of staticfiles to get url to tinymce - Eduardo S. Klein
+  * Just added my Website to the gallery ;) - Rafael Beckel
+  * More consistent names and validation of new twitter settings - Stephen McDonald
+  * Document new requirements for Twitter API - Stephen McDonald
+  * Fix for Issue #691 - ``ACCOUNTS_APPROVAL_REQUIRED`` bypasses ``ACCOUNTS_VERIFICATION_REQUIRED`` - Ling Thio
+  * Provide better default for ``FILE_UPLOAD_PERMISSIONS`` - Stephen McDonald
+  * fixed little firefox bug - jferry
+  * Bump grappelli-safe version - Stephen McDonald
+  * Improved ssl cipher settings in default nginx conf - Stephen McDonald
+
 Version 1.4.7 (May 18, 2013)
 ----------------------------
 
@@ -116,6 +149,7 @@ Version 1.4.4 (Mar 31, 2013)
   * Fix tweets/comments css - Stephen McDonald
   * RTL: adjust admin navbar thickness after the js->css change - Ahmad Khayyat
   * Provide optional template for user panel in nav - Stephen McDonald
+  * RTL: fix position of help icon in ``filter_horizontal`` m2m widget - Ahmad Khayyat
   * Remove content from DisplayableAdmin's ``search_fields`` since content is not defined on Displayable and may or may not be present on a model that subclasses it and uses the DisplayableAdmin - Josh Cartmell
   * Clean up nav version of user panel - Stephen McDonald
   * Don't strip any HTML in TinyMCE since filtering is handled by bleach - Stephen McDonald

@@ -397,7 +397,7 @@ Default: ``('abbr', 'accept', 'accept-charset', 'accesskey', 'action', 'align', 
 
 List of inline CSS styles that won't be stripped from ``RichTextField`` instances.
 
-Default: ``()``
+Default: ``('margin-top', 'margin-bottom', 'margin-left', 'margin-right', 'float', 'vertical-align', 'border', 'margin')``
 
 ``RICHTEXT_ALLOWED_TAGS``
 -------------------------
@@ -547,6 +547,34 @@ Default: ``'.thumbnails'``
 URL for the JavaScript file (relative to ``STATIC_URL``) that handles configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used.
 
 Default: ``'mezzanine/js/tinymce_setup.js'``
+
+``TWITTER_ACCESS_TOKEN_KEY``
+----------------------------
+
+
+
+Default: ``''``
+
+``TWITTER_ACCESS_TOKEN_SECRET``
+-------------------------------
+
+
+
+Default: ``''``
+
+``TWITTER_CONSUMER_KEY``
+------------------------
+
+
+
+Default: ``''``
+
+``TWITTER_CONSUMER_SECRET``
+---------------------------
+
+
+
+Default: ``''``
 
 ``TWITTER_DEFAULT_NUM_TWEETS``
 ------------------------------
