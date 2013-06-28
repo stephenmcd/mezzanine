@@ -282,6 +282,13 @@ register_setting(
     editable=False,
     default=None,
 )
+register_setting(
+    name="RICHTEXT_FILTERS",
+    description=_("List of dotted paths to functions, called in order, on a "
+        "``RichTextField`` value before it is rendered to the template."),
+    editable=False,
+    default=(),
+)
 
 RICHTEXT_FILTER_LEVEL_HIGH = 1
 RICHTEXT_FILTER_LEVEL_LOW = 2
