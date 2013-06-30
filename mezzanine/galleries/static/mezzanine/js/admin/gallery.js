@@ -1,5 +1,9 @@
 var ZipImporter = function(selector) {
     this.element = $(selector);
+
+    if(!this.supported())
+	return;
+
     this.browseButton = $('button', selector);
     this.fileInput = $('input[type="file"]', selector);
     this.progress = $('.progress');
@@ -43,6 +47,18 @@ ZipImporter.prototype._handleFileChange = function(e)
 	/* Prevent these files from being submitted again */
 	this.fileInput.val("");
     }
+}
+
+ZipImporter.prototype.supported = function() {
+    var xhr = new XMLHttpRequest();
+    var result = !! (xhr && ('upload' in xhr) && ('onprogress' in xhr.upload));
+
+    if(result)
+    {
+	$(".form-row.zip_import").remove();
+	$(this.element).show();
+    }
+    return true;
 }
 
 ZipImporter.prototype.uploadFile = function(file)
@@ -93,6 +109,6 @@ ZipImporter.prototype.uploadFile = function(file)
 }
 
 $(function() {
-    var zipImporter = new ZipImporter(".form-row.zip-import");
+    var zipImporter = new ZipImporter("#zipimporter-fieldset");
 });
 
