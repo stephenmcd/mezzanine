@@ -10,11 +10,14 @@
       <input type="file" id="zip-import-file" multiple="multiple" />
       <button id="zip-import-button" class="default">Browse</button>
 
-      <div class="progress" id="zip-import-progress" style="display:none;">
-	<div class="bar" style="width: 0;"></div>
-      </div>
+      <div id="zip-import-progress-container">
+	<div class="progress" id="zip-import-progress" style="display:none;">
+	  <div class="bar" style="width: 0;"></div>
+	  <div class="status"></div>
+	</div>
 
-      <div class="file-queue">
+	<div class="file-queue">
+	</div>
       </div>
     </div>
   </div>

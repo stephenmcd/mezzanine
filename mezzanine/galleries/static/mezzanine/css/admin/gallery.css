@@ -5,16 +5,20 @@
     display: none;
 }
 
-#zip-import-progress
+#zip-import-progress-container
 {
     display: inline-block;
-    vertical-align: middle;
+}
+
+#zip-import-progress
+{
+    vertical-align: top;
 }
 
 #zip-import-button
 {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 #zip-import-button[disabled],
@@ -27,8 +31,8 @@
 .progress
 {
     margin-left: 10px;
-    background: #f7f7f7;
-    background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9);
+    background: #cfcfcf;
+    background-image: linear-gradient(to bottom, #d9d9d9, #cfcfcf);
     width: 20em;
     height: 25px;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -42,11 +46,17 @@
     background-image: linear-gradient(to bottom, #149bdf, #0480be);
     box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
     border-radius: 4px;
-    padding-top: 4px;
-    height: 21px;
-    color: white;
     font-weight: bold;
     transition: width 0.2s;
+}
+
+.progress .status {
+    width: 100%;
+    position: relative;
+    top: -25px;
+    padding-top: 4px;
+    color: white;
+    text-shadow: 1px 1px 1px #222;
 }
 
 @-webkit-keyframes progress-bar-stripes {
@@ -108,4 +118,10 @@
 .progress .bar.error {
     background-color: #dd514c;
     background-image: linear-gradient(to bottom, #ee5f5b, #c43c35);
+}
+
+.file-queue li {
+    list-style: none;
+    margin-top: 5px;
+    margin-left: 15px;
 }

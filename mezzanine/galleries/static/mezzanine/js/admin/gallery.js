@@ -8,6 +8,7 @@ var ZipImporter = function(selector) {
     this.fileInput = $('input[type="file"]', selector);
     this.progress = $('.progress');
     this.progressBar = $('.progress .bar', selector);
+    this.progressStatus = $('.progress .status', selector);
     this.fileQueue = $('.file-queue', selector);
 
     this.deferredQueue = $.Deferred();
@@ -28,7 +29,7 @@ ZipImporter.prototype._handleFileChange = function(e)
 {
     if(e.currentTarget.files.length > 0)
     {
-	this.progressBar.text("");
+	this.progressStatus.text("");
 	this.progressBar.removeClass("error");
 	this.progressBar.removeClass("processing");
 	
@@ -37,7 +38,7 @@ ZipImporter.prototype._handleFileChange = function(e)
 	var dNext = this.deferredQueue;
 	$.each(e.currentTarget.files, $.proxy(function(i, file) {
 	    console.log(file);
-	    this.fileQueue.append("<li>" + file.name + "</li>");
+	    this.fileQueue.append('<li>' + file.name + '</li>');
 
 	    dNext = dNext.pipe($.proxy(function() {
 		return this.uploadFile(file);
@@ -65,9 +66,11 @@ ZipImporter.prototype.uploadFile = function(file)
 {
     var d = $.Deferred();
 
-    this.progressBar.text(file.name);
+    this.progressStatus.text(file.name);
     var queueItem = this.fileQueue.children()[0];
-    $(queueItem).detach();
+    $(queueItem).slideUp('fast', function() {
+	$(queueItem).detach();
+    });
 
     var xhr = new XMLHttpRequest();
     xhr.upload.onprogress = $.proxy(function(e) {
@@ -75,7 +78,7 @@ ZipImporter.prototype.uploadFile = function(file)
 	this.progressBar.width((Math.floor(done/total*1000)/10) + "%");
 	if(done == total)
 	{
-	    this.progressBar.text("Processing " + file.name);
+	    this.progressStatus.text("Processing " + file.name);
 	    this.progressBar.addClass("processing");
 	}
     }, this);
@@ -86,12 +89,12 @@ ZipImporter.prototype.uploadFile = function(file)
 	    this.progressBar.removeClass("processing");
 	    if(xhr.status == 200)
 	    {
-		this.progressBar.text("Done");
+		this.progressStatus.text("Done");
 		d.resolve();
 	    }
 	    else
 	    {
-		this.progressBar.text("Error on " + file.name);
+		this.progressStatus.text("Error on " + file.name);
 		this.progressBar.addClass("error");
 		d.reject();
 	    }
