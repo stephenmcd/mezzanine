@@ -7,11 +7,14 @@
     <div class="form-row">
       <label for="zip-import-file">Zip File</label>
 
-      <input type="file" id="zip-import-file" />
+      <input type="file" id="zip-import-file" multiple="multiple" />
       <button id="zip-import-button" class="default">Browse</button>
 
       <div class="progress" id="zip-import-progress" style="display:none;">
 	<div class="bar" style="width: 0;"></div>
+      </div>
+
+      <div class="file-queue">
       </div>
     </div>
   </div>
