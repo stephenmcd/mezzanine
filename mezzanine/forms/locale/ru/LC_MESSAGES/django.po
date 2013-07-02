@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
+"POT-Creation-Date: 2013-07-02 22:42+0400\n"
 "PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
@@ -30,9 +30,9 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "1 запись удалена"
+msgstr[1] "%(count)s записи удалено"
+msgstr[2] "%(count)s записей удалено"
 
 #: admin.py:119
 msgid "View Entries"
@@ -121,49 +121,73 @@ msgstr "Дата/время"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Дата рождения"
 
 #: fields.py:45
 msgid "Hidden"
 msgstr "Скрытое"
 
-#: forms.py:28 forms.py:36 forms.py:42
+#: forms.py:50 forms.py:59 forms.py:66 forms.py:75
 msgid "Nothing"
 msgstr "Ничего"
 
-#: forms.py:29
+#: forms.py:51
 msgid "Contains"
 msgstr "Содержит"
 
-#: forms.py:30
+#: forms.py:52
 msgid "Doesn't contain"
 msgstr "Не содержит"
 
-#: forms.py:31 forms.py:37
+#: forms.py:53
 msgid "Equals"
 msgstr "Равно"
 
-#: forms.py:32 forms.py:38
+#: forms.py:54
 msgid "Doesn't equal"
 msgstr "Не равно"
 
-#: forms.py:43
+#: forms.py:60
+msgid "Equals any"
+msgstr "Равно любому"
+
+#: forms.py:61
+msgid "Doesn't equal any"
+msgstr "Не равно любому"
+
+#: forms.py:67
+msgid "Contains any"
+msgstr "Содержит любое"
+
+#: forms.py:68
+msgid "Contains all"
+msgstr "Содержит все"
+
+#: forms.py:69
+msgid "Doesn't contain any"
+msgstr "Не содержит любое"
+
+#: forms.py:70
+msgid "Doesn't contain all"
+msgstr "Не содержит все"
+
+#: forms.py:76
 msgid "Is between"
 msgstr "Между"
 
-#: forms.py:100
+#: forms.py:148
 msgid "required"
 msgstr "обязательное"
 
-#: forms.py:216
+#: forms.py:267
 msgid "Checked"
 msgstr "Отмечен"
 
-#: forms.py:216
+#: forms.py:267
 msgid "Not checked"
 msgstr "Не отмечен"
 
-#: forms.py:230 forms.py:245
+#: forms.py:290 forms.py:305
 msgid "and"
 msgstr "и"
 
@@ -181,13 +205,13 @@ msgstr "Ответ"
 
 #: models.py:20
 msgid "Send email to user"
-msgstr ""
+msgstr "Отправить письмо пользователю"
 
 #: models.py:21
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
+msgstr "Отметьте, чтобы отправить письмо на email адрес, который указан в форме"
 
 #: models.py:23
 msgid "From address"
@@ -199,13 +223,14 @@ msgstr "Адрес электронной почты, от кого будет �
 
 #: models.py:25
 msgid "Send email to others"
-msgstr ""
+msgstr "Отправить письмо другим"
 
 #: models.py:26
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
+msgstr "Укажите список адресов через запятые, чтобы уведомить о заполнении формы. "
+"Оставьте пустым, чтобы отключить уведомления."
 
 #: models.py:30
 msgid "Subject"
@@ -220,7 +245,8 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
+msgstr "Письма отправляемые на базе вышеуказанных опций будут содержать все поля формы, "
+"вы также можете ввести здесь сообщение, которое будет включено в письмо."
 
 #: models.py:37
 msgid "Form"
@@ -342,9 +368,3 @@ msgstr "Удалить выделенное"
 #: templates/admin/forms/entries.html:98
 msgid "No entries to display"
 msgstr "Нет объектов для отображения"
-
-#~ msgid "No entries selected"
-#~ msgstr "Ничего не выбрано"
-
-#~ msgid "Delete selected entries?"
-#~ msgstr "Удалить выбранные записи?"

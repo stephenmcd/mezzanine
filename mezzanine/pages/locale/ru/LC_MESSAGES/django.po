@@ -5,14 +5,14 @@
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Andrey Ivankov <andrey.ivankov@gmail.com>, 2013.
-# Dmitry Falk <tfalc@mail.ru>, 2012.
+# Dmitry Falk <tfalc@mail.ru>, 2012-2013.
 # Taras Lyapun <taraslyapun@gmail.com>, 2013.
 # Timur Bobrus, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"POT-Creation-Date: 2013-07-02 23:05+0400\n"
 "PO-Revision-Date: 2013-03-30 12:03+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"

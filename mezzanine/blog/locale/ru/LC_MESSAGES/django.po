@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"POT-Creation-Date: 2013-07-02 22:01+0400\n"
 "PO-Revision-Date: 2013-03-30 11:56+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
@@ -24,43 +24,45 @@ msgstr ""
 
 #: admin.py:20
 msgid "Other posts"
-msgstr "Другие сообщения"
+msgstr "Другие записи"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
-msgstr "Включает изображение для заметок"
-
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "Использовать адреса с датой"
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"Если ``Да``, адреса страниц блога будут содержать год и месяц: /blog/yyyy/mm/"
-"slug/"
+msgstr "Включает изображение для записей"
 
 #: defaults.py:36
-msgid "Blog posts per page"
-msgstr "Количество заметок на странице"
+msgid "Blog post URL date format"
+msgstr ""
 
 #: defaults.py:37
-msgid "Number of blog posts shown on a blog listing page."
-msgstr "Количество заметок, отображаемых в списке на одной странице"
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
 
-#: defaults.py:44
+#: defaults.py:49
+msgid "Blog posts per page"
+msgstr "Количество записей на странице"
+
+#: defaults.py:50
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Количество записей, отображаемых в списке на одной странице."
+
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr ""
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr "Внутренний URL главной страницы блога"
 
@@ -83,11 +85,11 @@ msgstr "Рейтинг"
 
 #: models.py:23
 msgid "Featured Image"
-msgstr ""
+msgstr "Главное изображение"
 
 #: models.py:27 templates/blog/blog_post_detail.html:113
 msgid "Related posts"
-msgstr "Похожие сообщения"
+msgstr "Похожие записи"
 
 #: models.py:32
 msgid "Blog post"
@@ -97,17 +99,17 @@ msgstr "Запись в блоге"
 msgid "Blog posts"
 msgstr "Записи в блоге"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "Категория блога"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "Категории блога"
 
 #: templates/admin/includes/quick_blog.html:18
 msgid "Quick Blog"
-msgstr "Быстрый блог"
+msgstr "Быстрая запись"
 
 #: templates/admin/includes/quick_blog.html:27
 msgid "Save Draft"
@@ -122,16 +124,16 @@ msgstr "Написал(а)"
 #: templates/blog/blog_post_list.html:95
 #, python-format
 msgid "%(sometime)s ago"
-msgstr ""
+msgstr "%(sometime)s назад"
 
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%(comments_count)s комментарий"
+msgstr[1] "%(comments_count)s комментария"
+msgstr[2] "%(comments_count)s комментариев"
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116

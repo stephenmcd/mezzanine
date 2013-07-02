@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"POT-Creation-Date: 2013-07-02 22:56+0400\n"
 "PO-Revision-Date: 2013-03-30 12:04+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
@@ -82,7 +82,7 @@ msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
 msgstr ""
-"Список адресов электронной почты, разделенных запятыми, которые будет "
+"Список адресов электронной почты, разделенных запятыми, которые будут "
 "получать уведомление по электронной почте каждый раз при появлении новых "
 "комментариев на сайте."
 
@@ -124,13 +124,15 @@ msgstr ""
 
 #: defaults.py:120
 msgid "Accounts required for rating"
-msgstr ""
+msgstr "Учетные записи необходимы для оценки рейтинга"
 
 #: defaults.py:121
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
 msgstr ""
+"Если ``Да``, то пользователи должны войти под своей учетной записью, "
+"чтобы иметь возможность оценивать содержимое сайта."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
@@ -146,7 +148,7 @@ msgstr "обязательно"
 
 #: forms.py:85
 msgid "Email"
-msgstr "E-mail"
+msgstr "Email"
 
 #: forms.py:86
 msgid "required (not published)"
@@ -160,13 +162,13 @@ msgstr "Веб-сайт"
 msgid "optional"
 msgstr "необязательно"
 
-#: forms.py:138
+#: forms.py:137
 msgid "New comment for: "
 msgstr "Новый комментарий:"
 
-#: forms.py:174
+#: forms.py:173
 msgid "Already rated."
-msgstr ""
+msgstr "Уже оценено."
 
 #: models.py:26
 msgid "By the blog author"
@@ -202,19 +204,20 @@ msgstr "Значение"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "Дата оценки"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "Оценщик"
 
 #: models.py:131
 msgid "Ratings"
 msgstr "Рейтинг"
 
-#: views.py:62
+#: views.py:61
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
+msgstr "Вы должны войти под своей учетной записью. "
+"Пожалуйста войдите или зарегистрируйтесь, чтобы завершить это действие."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -224,8 +227,9 @@ msgstr "Последние комментарии"
 #: templates/generic/includes/comment.html:22
 #: templates/generic/includes/comment.html:53
 #: templates/generic/includes/comment.html:63
-msgid "ago"
-msgstr "назад"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "%(sometime)s назад"
 
 #: templates/email/comment_notification.html:6
 msgid "A new comment has been posted on"
@@ -238,6 +242,9 @@ msgid ""
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
 msgstr ""
+"\n"
+"    %(submit_date)s %(user_name)s написал:\n"
+"    "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
@@ -245,6 +252,8 @@ msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
 msgstr ""
+"\n"
+"%(submit_date)s %(user_name)s написал:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

@@ -5,14 +5,14 @@
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
 # Andrey Ivankov <andrey.ivankov@gmail.com>, 2013.
-# Dmitry Falk <tfalc@mail.ru>, 2012.
+# Dmitry Falk <tfalc@mail.ru>, 2012-2013.
 # Timur Bobrus, 2010.
 #   <ulikus@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"POT-Creation-Date: 2013-07-02 22:26+0400\n"
 "PO-Revision-Date: 2013-03-30 11:59+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
@@ -36,7 +36,7 @@ msgstr "Метаданные"
 msgid "Controls the ordering and grouping of the admin menu."
 msgstr "Порядок и группировка отображения элементов административного меню"
 
-#: defaults.py:24 models.py:275
+#: defaults.py:24 models.py:262
 msgid "Content"
 msgstr "Содержимое"
 
@@ -127,7 +127,7 @@ msgstr ""
 msgid "Google Analytics ID"
 msgstr "Google Analytics ID"
 
-#: defaults.py:155
+#: defaults.py:154
 msgid "Google Analytics ID (http://www.google.com/analytics/)"
 msgstr "Google Analytics ID (http://www.google.com/analytics/)"
 
@@ -142,41 +142,45 @@ msgid ""
 msgstr ""
 
 #: defaults.py:175
+msgid "If ``True``, front-end inline editing will be enabled."
+msgstr ""
+
+#: defaults.py:182
 msgid "Name of the jQuery file."
 msgstr "Имя jQuery файла."
 
-#: defaults.py:176
+#: defaults.py:183
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
 msgstr "Имя jQuery файла находится в mezzanine/core/static/mezzanine/js/"
 
-#: defaults.py:184
+#: defaults.py:191
 msgid "Name of the jQuery UI file."
 msgstr ""
 
-#: defaults.py:185
+#: defaults.py:192
 msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
 msgstr ""
 
-#: defaults.py:193
+#: defaults.py:200
 msgid "Max paging links"
 msgstr "Максимальное количество ссылок в пагинаторе"
 
-#: defaults.py:194
+#: defaults.py:201
 msgid "Max number of paging links to display when paginating."
 msgstr ""
 "Максимальное количество ссылок на страницы, отображаемых в области пагинации."
 
-#: defaults.py:201
+#: defaults.py:208
 msgid "Media library per site"
 msgstr ""
 
-#: defaults.py:202
+#: defaults.py:209
 msgid ""
 "If ``True``, each site will use its own directory within the filebrowser "
 "media library."
 msgstr ""
 
-#: defaults.py:210
+#: defaults.py:217
 msgid ""
 "Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
 "admin change-list records filtered down to records owned by the current "
@@ -185,7 +189,7 @@ msgid ""
 "records in the admin change-list interface, regardless of the current user."
 msgstr ""
 
-#: defaults.py:222
+#: defaults.py:229
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
@@ -193,14 +197,14 @@ msgstr ""
 "Разделённый точками путь к пакету и имя класса виджета, используемый для "
 "отображения виджета ``RichTextField``."
 
-#: defaults.py:230
+#: defaults.py:237
 msgid ""
 "List of HTML tags that won't be stripped from ``RichTextField`` instances."
 msgstr ""
 "Список HTML тэгов которые не будут удалены при редактировании в текстовом "
 "редакторе."
 
-#: defaults.py:246
+#: defaults.py:253
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
@@ -208,13 +212,13 @@ msgstr ""
 "Список HTML атрибутов которые не будут удалены при редактиовании в текстовом "
 "редакторе."
 
-#: defaults.py:264
+#: defaults.py:271
 msgid ""
 "List of inline CSS styles that won't be stripped from ``RichTextField`` "
 "instances."
 msgstr ""
 
-#: defaults.py:272
+#: defaults.py:280
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
@@ -222,23 +226,23 @@ msgstr ""
 "Разделённый точками путь до функции, преобразующей значение "
 "``RichTextField``, при отображении в шаблоне"
 
-#: defaults.py:282
+#: defaults.py:290
 msgid "High"
 msgstr "Высокий"
 
-#: defaults.py:283
+#: defaults.py:291
 msgid "Low (allows video, iframe, Flash, etc)"
 msgstr "Низкий (разрешать видео, флэш, iframe и др.)"
 
-#: defaults.py:284
+#: defaults.py:292
 msgid "No filtering"
 msgstr "Без фильтра"
 
-#: defaults.py:289
+#: defaults.py:297
 msgid "Rich Text filter level"
 msgstr "Уровень фильтрации текста"
 
-#: defaults.py:290
+#: defaults.py:298
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
@@ -274,22 +278,22 @@ msgstr ""
 "Установка параметра в состояние ``Без фильтра`` отключает фильтрацию, что "
 "позволяет редакторам сайт добавлять любой HTML код, включая скриптовые теги."
 
-#: defaults.py:313
+#: defaults.py:321
 msgid ""
 "Sequence of models that will be provided by default as choices in the search "
 "form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
 
-#: defaults.py:323
+#: defaults.py:331
 msgid "Search results per page"
 msgstr "Результатов поиска на странице"
 
-#: defaults.py:324
+#: defaults.py:332
 msgid "Number of results shown in the search results page."
 msgstr "Количество результатов отображаемых на странице поиска."
 
-#: defaults.py:331
+#: defaults.py:339
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
 "this, you'll also need to manually apply it to your project's root ``urls."
@@ -297,11 +301,11 @@ msgid ""
 "project`` command contains an example of this towards its end."
 msgstr ""
 
-#: defaults.py:342
+#: defaults.py:350
 msgid "Site Title"
 msgstr "Заголовок сайта"
 
-#: defaults.py:343
+#: defaults.py:351
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
@@ -310,19 +314,19 @@ msgstr ""
 "браузера), состоит из заголовка отображаемой страницы с добавлением данной "
 "части."
 
-#: defaults.py:351
+#: defaults.py:359
 msgid "Tagline"
 msgstr "Подзаголовок"
 
-#: defaults.py:352
+#: defaults.py:360
 msgid "A tag line that will appear at the top of all pages."
 msgstr "Подзаголовок, отображаемый на всех страницах сайта."
 
-#: defaults.py:354
+#: defaults.py:362
 msgid "An open source content management platform."
 msgstr "Платформа по управлению контентом с открытым исходным кодом."
 
-#: defaults.py:359
+#: defaults.py:367
 msgid ""
 "Dotted Python path to the callable for converting strings into URL slugs. "
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
@@ -330,7 +334,7 @@ msgid ""
 "Django's slugify function, or something of your own if required."
 msgstr ""
 
-#: defaults.py:370
+#: defaults.py:378
 msgid ""
 "Sequence of dotted Python paths to callable functions used for checking "
 "posted content (such as forms or comments) is spam. Each function should "
@@ -340,11 +344,11 @@ msgid ""
 "``AKISMET_API_KEY`` setting is configured."
 msgstr ""
 
-#: defaults.py:383
+#: defaults.py:391
 msgid "Enable SSL"
 msgstr "Включить SSL"
 
-#: defaults.py:384
+#: defaults.py:392
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
@@ -352,17 +356,17 @@ msgstr ""
 "Если ``Да``, то пользователи будут автоматически перенаправлены на HTTPS для "
 "ссылок, которые указаны в настройке ``SSL_FORCE_URL_PREFIXES``."
 
-#: defaults.py:393
+#: defaults.py:401
 msgid "Force Host"
 msgstr "Установить хост"
 
-#: defaults.py:394
+#: defaults.py:402
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
 msgstr "Имя хоста, которое сайт будет использовать для SSL-сертификата."
 
-#: defaults.py:412
+#: defaults.py:420
 msgid ""
 "If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
 "will be accessible over SSL, and all other URLs will be redirected back to "
@@ -372,24 +376,24 @@ msgstr ""
 "будут доступны через SSL, все другие URL'ы будут перенаправлены к HTTP,  "
 "если доступ к ним был через HTTPS."
 
-#: defaults.py:422
+#: defaults.py:430
 msgid "List of words which will be stripped from search queries."
 msgstr "Список слов, исключаемых из поисковых запросов"
 
-#: defaults.py:479
+#: defaults.py:487
 msgid "Tag Cloud Sizes"
 msgstr "Размеры облака тэгов"
 
-#: defaults.py:480
+#: defaults.py:488
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr ""
 "Количество разнообразных размеров надписей, отображаемых в облаке тэгов."
 
-#: defaults.py:487
+#: defaults.py:495
 msgid "Sequence of setting names available within templates."
 msgstr "Список настроек, доступных внутри шаблонов"
 
-#: defaults.py:502
+#: defaults.py:510
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
@@ -397,20 +401,20 @@ msgstr ""
 "Название папки в которой хранить искизы, которая будет создана относительно "
 "основной папки с изображениями"
 
-#: defaults.py:510
+#: defaults.py:518
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
 msgstr ""
 
-#: defaults.py:519
+#: defaults.py:527
 msgid ""
 "Dict mapping file field names in the format ``app_label.model_name."
 "field_name`` to the Python dotted path to function names that will be used "
 "for the file field's ``upload_to`` argument."
 msgstr ""
 
-#: defaults.py:535
+#: defaults.py:543
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
@@ -423,28 +427,28 @@ msgstr ""
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr "Не удалось импортировать значение настроек.HTML_WIDGET_CLASS: %s"
 
-#: forms.py:84 models.py:317
+#: forms.py:84 models.py:304
 msgid "Order"
 msgstr "Порядок"
 
-#: models.py:56 models.py:110
+#: models.py:55 models.py:97
 msgid "Title"
 msgstr "Заголовок"
 
-#: models.py:57
+#: models.py:56
 msgid "URL"
 msgstr "URL"
 
-#: models.py:58
+#: models.py:57
 msgid "Leave blank to have the URL auto-generated from the title."
 msgstr ""
 "Если оставите пустым, то это поле автоматически заполнится из заголовка"
 
-#: models.py:100
+#: models.py:87
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: models.py:112
+#: models.py:99
 msgid ""
 "Optional title to be used in the HTML title tag. If left blank, the main "
 "title field will be used."
@@ -452,83 +456,83 @@ msgstr ""
 "Необязательный заголовок для использования в title-тэге страницы. Если "
 "оставите пустым, то будет использован главный заголовок."
 
-#: models.py:114
+#: models.py:101
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:115
+#: models.py:102
 msgid "Generate description"
 msgstr "Генерировать описание"
 
-#: models.py:116
+#: models.py:103
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
 msgstr "Если отметить, то описание будет генерироваться автоматически."
 
-#: models.py:119
+#: models.py:106
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: models.py:176
+#: models.py:163
 msgid "Draft"
 msgstr "Черновик"
 
-#: models.py:177
+#: models.py:164
 msgid "Published"
 msgstr "Опубликовано"
 
-#: models.py:188
+#: models.py:175
 msgid "Status"
 msgstr "Статус"
 
-#: models.py:190
+#: models.py:177
 msgid "With Draft chosen, will only be shown for admin users on the site."
 msgstr "Если выбран Черновик, то будет показано только администраторам."
 
-#: models.py:192 models.py:225
+#: models.py:179 models.py:212
 msgid "Published from"
 msgstr "Опубликовано с"
 
-#: models.py:193
+#: models.py:180
 msgid "With Published chosen, won't be shown until this time"
 msgstr "Если Опубликовано, то не будет показано до этого времени"
 
-#: models.py:195
+#: models.py:182
 msgid "Expires on"
 msgstr "Истекает"
 
-#: models.py:196
+#: models.py:183
 msgid "With Published chosen, won't be shown after this time"
 msgstr "Если Опубликовано, то не будет показано после этого времени"
 
-#: models.py:199
+#: models.py:186
 msgid "Show in sitemap"
-msgstr ""
+msgstr "Показывать в карте сайта для поисковых систем"
 
-#: models.py:402 models.py:422
+#: models.py:389 models.py:409
 msgid "Author"
 msgstr "Автор"
 
-#: models.py:425
+#: models.py:412
 msgid "Sites"
-msgstr ""
+msgstr "Сайты"
 
-#: models.py:428
+#: models.py:415
 msgid "Site permission"
-msgstr ""
+msgstr "Разрешение на сайт"
 
-#: models.py:429
+#: models.py:416
 msgid "Site permissions"
-msgstr ""
+msgstr "Разрешения на сайт"
 
-#: views.py:87
+#: views.py:86
 msgid "Permission denied"
 msgstr "В доступе отказано"
 
-#: views.py:115 templates/includes/search_form.html:11
+#: views.py:114 templates/includes/search_form.html:11
 msgid "Everything"
-msgstr ""
+msgstr "Везде"
 
 #: templates/base.html:121
 msgid "Powered by"
@@ -576,6 +580,28 @@ msgid ""
 "to a production server</a></li>\n"
 "</ul>\n"
 msgstr ""
+"\n"
+"<h2>Поздравляем!</h2>\n"
+"<p>\n"
+"    Добро пожаловать на ваш новый сайт на базе Mezzanine.\n"
+"    Вот несколько ссылок с которых вы можете начать:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">Войти в интерфейс администратора</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Создать свой тип страниц</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">Изменить HTML шаблоны</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
+"\">Поменять эту страницу</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">Другие часто задаваемые вопросы</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Полный список настроек</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Установка "
+"на рабочий сервер</a></li>\n"
+"</ul>\n"
 
 #: templates/search_results.html:5 templates/search_results.html.py:6
 #: templates/search_results.html:13
@@ -588,6 +614,8 @@ msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"Нет результатов в %(search_type)s удовлетворяющих вашему запросу: %(query)s\n"
 
 #: templates/search_results.html:24
 #, python-format
@@ -596,6 +624,9 @@ msgid ""
 "Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
 "matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"Показано с %(start)s по %(end)s из %(total)s результатов в %(search_type)s "
+"удовлетворяющих вашему запросу: %(query)s\n"
 
 #: templates/search_results.html:35
 msgid "read more"
@@ -611,7 +642,7 @@ msgstr "Панель управления"
 
 #: templates/admin/login.html:21
 msgid "You don't have permission to access the admin for this site."
-msgstr ""
+msgstr "У вас нет прав доступа к администрированию этого сайта."
 
 #: templates/admin/login.html:28
 msgid "Username or email:"
@@ -709,4 +740,4 @@ msgstr "Поиск"
 
 #: templates/includes/search_form.html:22
 msgid "Go"
-msgstr ""
+msgstr "Поиск"
