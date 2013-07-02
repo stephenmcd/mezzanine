@@ -45,6 +45,8 @@ ZipImporter.prototype._handleFileChange = function(e)
 	    }, this));
 	}, this));
 
+	this.deferredQueue = dNext.promise();
+
 	/* Prevent these files from being submitted again */
 	this.fileInput.val("");
     }
