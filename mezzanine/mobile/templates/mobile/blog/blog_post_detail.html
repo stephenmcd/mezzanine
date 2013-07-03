@@ -32,7 +32,7 @@
 </p>
 
 {% editable blog_post.content %}
-{{ blog_post.content|richtext_filter|safe }}
+{{ blog_post.content|richtext_filters|safe }}
 {% endeditable %}
 
 {% keywords_for blog_post as tags %}

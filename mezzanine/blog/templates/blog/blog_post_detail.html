@@ -62,7 +62,7 @@
 
 {% block blog_post_detail_content %}
 {% editable blog_post.content %}
-{{ blog_post.content|richtext_filter|safe }}
+{{ blog_post.content|richtext_filters|safe }}
 {% endeditable %}
 {% endblock %}
 
