@@ -129,7 +129,7 @@ In addition to ``RICHTEXT_WIDGET_CLASS`` you may need to customize the
 way your content is rendered at the template level. Post processing of
 the content can be achieved through the ``RICHTEXT_FILTERS`` setting,
 which is a sequence of string, each one containing the dotted path to
-a Python function, that will be used as a processing pipe;ine for the
+a Python function, that will be used as a processing pipeline for the
 content. Think of them like Django's middleware or context processors.
 
 Say, for example, you had a ``RICHTEXT_WIDGET_CLASS`` that allowed you
