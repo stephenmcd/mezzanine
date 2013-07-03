@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"POT-Creation-Date: 2013-07-02 23:06+0400\n"
 "PO-Revision-Date: 2012-08-26 13:36+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
@@ -32,11 +32,11 @@ msgstr "Список"
 msgid "Search"
 msgstr "Поиск"
 
-#: defaults.py:21
+#: defaults.py:20
 msgid "Default Twitter Query Type"
 msgstr "Тип запроса Twitter по умолчанию"
 
-#: defaults.py:22
+#: defaults.py:21
 msgid ""
 "Type of query that will be used to retrieve tweets for the default Twitter "
 "feed."
@@ -44,79 +44,96 @@ msgstr ""
 "Тип запроса, который будет использован для получения твитов из фида по "
 "умолчанию"
 
-#: defaults.py:31
+#: defaults.py:30
 msgid "Default Twitter Query"
 msgstr "Запрос Twitter"
 
-#: defaults.py:32
+#: defaults.py:31
 msgid "Twitter query to use for the default query type."
 msgstr "Twitter запрос по умолчанию"
 
-#: defaults.py:39
+#: defaults.py:38
 msgid "Default Number of Tweets"
 msgstr "Количество твитов"
 
-#: defaults.py:40
+#: defaults.py:39
 msgid "Number of tweets to display in the default Twitter feed."
 msgstr "Количество твитов отобажаемых в фиде по умолчанию"
 
-#: models.py:27
+#: defaults.py:46
+#, fuzzy
+msgid "Twitter OAuth consumer key"
+msgstr "Запрос Twitter"
+
+#: defaults.py:53
+msgid "Twitter OAuth consumer secret"
+msgstr ""
+
+#: defaults.py:60
+msgid "Twitter OAuth access token"
+msgstr ""
+
+#: defaults.py:67
+msgid "Twitter OAuth access token secret"
+msgstr ""
+
+#: models.py:25
 msgid "Type"
 msgstr "Тип"
 
-#: models.py:29
+#: models.py:27
 msgid "Value"
 msgstr "Значение"
 
-#: models.py:33
+#: models.py:31
 msgid "Twitter query"
 msgstr "Запрос Twitter"
 
-#: models.py:34
+#: models.py:32
 msgid "Twitter queries"
 msgstr "Запросы Twitter"
 
-#: models.py:102
+#: models.py:110
 msgid "Twitter ID"
 msgstr "Twitter ID"
 
-#: models.py:103
+#: models.py:111
 msgid "Date/time"
 msgstr "Дата и время"
 
-#: models.py:104
+#: models.py:112
 msgid "Message"
 msgstr "Сообщение"
 
-#: models.py:105
+#: models.py:113
 msgid "Profile image URL"
 msgstr "URL изображения профиля"
 
-#: models.py:106
+#: models.py:114
 msgid "User name"
 msgstr "Имя пользователя"
 
-#: models.py:107
+#: models.py:115
 msgid "Full name"
 msgstr "Полное имя"
 
-#: models.py:109
+#: models.py:117
 msgid "Profile image URL (Retweeted by)"
 msgstr "URL изображения профиля (Retweeted by)"
 
-#: models.py:111
+#: models.py:119
 msgid "User name (Retweeted by)"
 msgstr "Имя пользователя (Retweeted by)"
 
-#: models.py:113
+#: models.py:121
 msgid "Full name (Retweeted by)"
 msgstr "Полное имя (Retweeted by)"
 
-#: models.py:119
+#: models.py:127
 msgid "Tweet"
 msgstr "Твит"
 
-#: models.py:120
+#: models.py:128
 msgid "Tweets"
 msgstr "Твиты"
 
@@ -125,5 +142,6 @@ msgid "Recent Tweets"
 msgstr "Последние твиты"
 
 #: templates/twitter/tweets.html:20
-msgid "ago"
-msgstr "назад"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "%(sometime)s назад"
