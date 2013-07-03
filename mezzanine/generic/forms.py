@@ -31,8 +31,7 @@ class KeywordsWidget(forms.MultiWidget):
     """
 
     class Media:
-        js = ("mezzanine/js/%s" % settings.JQUERY_FILENAME,
-              "mezzanine/js/admin/keywords_field.js",)
+        js = ("mezzanine/js/admin/keywords_field.js",)
 
     def __init__(self, attrs=None):
         """
