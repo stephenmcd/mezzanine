@@ -363,31 +363,36 @@ def editable_loader(context):
 
 
 @register.filter
-def richtext_filter(content):
+def richtext_filters(content):
     """
-    This template filter takes a string value and passes it through each of the
-    functions specified by the RICHTEXT_FILTERS setting.  If RICHTEXT_FILTERS
-    is empty, RICHTEXT_FILTER is consulted as a single fallback function.
+    Takes a value edited via the WYSIWYG editor, and passes it through
+    each of the functions specified by the RICHTEXT_FILTERS setting.
     """
-    filters = settings.RICHTEXT_FILTERS
-    if not filters:
-        if settings.RICHTEXT_FILTER:
-            filters = [settings.RICHTEXT_FILTER]
+    filter_names = settings.RICHTEXT_FILTERS
+    if not filter_names:
+        try:
+            filter_names = [settings.RICHTEXT_FILTER]
+        except AttributeError:
+            pass
         else:
-            filters = []
-
-    for func in map(import_dotted_path, filters):
-        content = func(content)
+            from warnings import warn
+            warn("The `RICHTEXT_FILTER` setting is deprecated in favor of "
+                 "the new plural setting `RICHTEXT_FILTERS`.")
+    for filter_name in filter_names:
+        filter_func = import_dotted_path(filter_name)
+        content = filter_func(content)
     return content
 
 
 @register.filter
-def richtext_filters(content):
+def richtext_filter(content):
     """
-    Plural alias for ``richtext_filter``, acknowledging the support of more
-    than one filter being applied.
+    Deprecated version of richtext_filters above.
     """
-    return richtext_filter(content)
+    from warnings import warn
+    warn("The `richtext_filter` template tag is deprecated in favor of "
+         "the new plural tag `richtext_filters`.")
+    return richtext_filters(content)
 
 
 @register.to_end_tag
