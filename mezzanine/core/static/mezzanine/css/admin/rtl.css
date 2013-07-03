@@ -72,6 +72,10 @@ input.interface {
     float: right;
 }
 
+#tree .changelink {
+    background-position: 100% 5px;
+}
+
 #tree a .icon {
     float: right;
     margin: 0 4px 0 8px;
