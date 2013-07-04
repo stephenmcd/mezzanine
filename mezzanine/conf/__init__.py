@@ -10,14 +10,13 @@ from django.utils.functional import Promise
 from django.utils.importlib import import_module
 from django.utils.module_loading import module_has_submodule
 
-from mezzanine import __version__
-
-
 registry = {}
 
 
-def register_setting(name="", label="", editable=False, description="",
-                     default=None, choices=None, append=False):
+def register_setting(
+        name="", label="", editable=False, description="",
+        default=None, choices=None, append=False,
+        order=0):
     """
     Registers a setting that can be edited via the admin.
     """
@@ -40,10 +39,13 @@ def register_setting(name="", label="", editable=False, description="",
             label = name.replace("_", " ").title()
         if setting_type is str:
             setting_type = unicode
-        registry[name] = {"name": name, "label": label,
-                          "description": description,
-                          "editable": editable, "default": default,
-                          "choices": choices, "type": setting_type}
+        registry[name] = {
+            "name": name, "label": label,
+            "description": description,
+            "editable": editable, "default": default,
+            "choices": choices, "type": setting_type,
+            "order": order
+        }
 
 
 class Settings(object):
