@@ -160,8 +160,9 @@ class UpdateCacheMiddleware(object):
                 parts[i] = part
             response.content = "".join(parts)
             response["Content-Length"] = len(response.content)
-            # Required to clear out user messages.
-            request._messages.update(response)
+            if hasattr(request, '_messages'):
+                # Required to clear out user messages.
+                request._messages.update(response)
         return response
 
 
