@@ -39,6 +39,8 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
     # Allow for a single address to be passed in.
     if not hasattr(addr_to, "__iter__"):
         addr_to = [addr_to]
+    if addr_bcc is not None and not hasattr(addr_bcc, "__iter__"):
+        addr_bcc = [addr_bcc]
     # Loads a template passing in vars as context.
     render = lambda type: loader.get_template("%s.%s" %
                           (template, type)).render(Context(context))
