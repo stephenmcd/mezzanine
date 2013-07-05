@@ -17,6 +17,8 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.forms import EmailField, URLField, Textarea
 from django.template import RequestContext
 from django.template.response import TemplateResponse
+from django.utils.encoding import force_str
+from django.utils.six.moves import http_cookies
 from django.utils.translation import ugettext as _
 
 import mezzanine
@@ -173,14 +175,19 @@ def set_cookie(response, name, value, expiry_seconds=None, secure=False):
     """
     if expiry_seconds is None:
         expiry_seconds = 90 * 24 * 60 * 60  # Default to 90 days.
-    expires = datetime.strftime(datetime.utcnow() +
-                                timedelta(seconds=expiry_seconds),
-                                "%a, %d-%b-%Y %H:%M:%S GMT")
-    # Django doesn't seem to support unicode cookie keys correctly on
-    # Python 2. Work around by encoding it. See
+    expires = datetime.utcnow() + timedelta(seconds=expiry_seconds)
+
+    # Python 2 / 3 cookies module only supports a subset of ASCII in keys
+    # (not including the "/" and "=" characters from the Base 64 alphabet).
+    # If a name containing non-supported characters is used, SimpleCookie
+    # raises a CookieError, which, however, is silenced by Django. This in
+    # turn results in sending "Set-Cookie: None=None".
+    # There is no way to fix keys without breaking user-code on this level,
+    # but we should let the cookie complain loudly.
+    http_cookies.SimpleCookie()[force_str(name)] = ""
+
+    # Django (1.8+) workaround for Unicode cookie values with Python 2.
     # https://code.djangoproject.com/ticket/19802
-    try:
-        response.set_cookie(name, value, expires=expires, secure=secure)
-    except (KeyError, TypeError):
-        response.set_cookie(name.encode('utf-8'), value, expires=expires,
-                            secure=secure)
+    value = force_str(value)
+
+    response.set_cookie(name, value, expires=expires, secure=secure)
