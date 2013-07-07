@@ -84,7 +84,6 @@ def nevercache_token():
     Returns the secret token that delimits content wrapped in
     the ``nevercache`` template tag.
     """
-    print "dpin a cach"
     return "nevercache." + settings.NEVERCACHE_KEY
 
 
