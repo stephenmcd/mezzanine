@@ -64,8 +64,10 @@ def create_project():
     with open(settings_path, "r") as f:
         data = f.read()
     with open(settings_path, "w") as f:
-        secret_key = "%s%s%s" % (uuid4(), uuid4(), uuid4())
-        f.write(data.replace("%(SECRET_KEY)s", secret_key))
+        make_key = lambda: "%s%s%s" % (uuid4(), uuid4(), uuid4())
+        data = data.replace("%(SECRET_KEY)s", make_key())
+        data = data.replace("%(NEVERCACHE_KEY)s", make_key())
+        f.write(data)
 
     # Clean up pyc files.
     for (root, dirs, files) in os.walk(project_path, False):
