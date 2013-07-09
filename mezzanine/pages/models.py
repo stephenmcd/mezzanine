@@ -245,6 +245,7 @@ class Page(BasePage):
             parent_id = context["_parent_page_ids"].get(page_id)
             return self.id == page_id or (parent_id and is_c_or_a(parent_id))
         self.is_current_or_ascendant = lambda: bool(is_c_or_a(current_page_id))
+        self.is_current_parent = self.id == current_parent_id
         # Am I a primary page?
         self.is_primary = self.parent_id is None
         # What's an ID I can use in HTML?
