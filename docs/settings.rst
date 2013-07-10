@@ -406,12 +406,12 @@ List of HTML tags that won't be stripped from ``RichTextField`` instances.
 
 Default: ``('a', 'abbr', 'acronym', 'address', 'area', 'b', 'bdo', 'big', 'blockquote', 'br', 'button', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'dd', 'del', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'fieldset', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'map', 'menu', 'ol', 'optgroup', 'option', 'p', 'pre', 'q', 's', 'samp', 'select', 'small', 'span', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'tr', 'tt', 'u', 'ul', 'var', 'wbr')``
 
-``RICHTEXT_FILTER``
--------------------
+``RICHTEXT_FILTERS``
+--------------------
 
-Dotted path to the function to call on a ``RichTextField`` value before it is rendered to the template.
+List of dotted paths to functions, called in order, on a ``RichTextField`` value before it is rendered to the template.
 
-Default: ``None``
+Default: ``()``
 
 ``RICHTEXT_FILTER_LEVEL``
 -------------------------

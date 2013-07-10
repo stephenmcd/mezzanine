@@ -1,3 +1,21 @@
+Version 1.4.9 (Jul 11, 2013)
+----------------------------
+
+  * Allow deployments to be run from project subdirectories - Stephen McDonald
+  * Add support for ``settings.RICHTEXT_FILTERS``. ``RICHTEXT_FILTERS`` is a list of items that are valid for the. ``RICHTEXT_FILTER`` setting. The plural version takes precedence if it is. available and non-empty. Each item in ``RICHTEXT_FILTERS`` is applied in. order. An alias for the ``richtext_filter`` template filter has been added to. match the plural nature of the new setting: ``richtext_filters`` simply. calls on ``richtext_filter`` for its output - Tim Valenta
+  * Fixed blog post categories list in ``blog_post_list.html`` template - Artem Gluvchynsky
+  * Removed redundant jQuery media from KeywordsWidget - Artem Gluvchynsky
+  * Use urljoin in ``Page.get_absolute_url`` for link pages - Dheeraj Sayala
+  * RTL: fix position of changelink icon in page tree after recent changes. Problem introduced in aec1a0462b60, which solves an issue due to long. page names - Ahmad Khayyat
+  * Comma separate categories in blog post listing - Stephen McDonald
+  * Update docs for new ``RICHTEXT_FILTERS`` setting - Stephen McDonald
+  * Properly deprecate ``RICHTEXT_FILTER`` setting in favour of ``RICHTEXT_FILTERS`` (plural) setting - Stephen McDonald
+  * Update templates to use new ``richtext_filters`` (plural) tag - Stephen McDonald
+  * Allow a single BCC address in addition to list/tuple. BCC fails if the ``addr_bcc`` argument is a single address rather than a list/tuple. This commit wraps a single address in a list to fix this problem - Alex Hill
+  * Make sure ``request._messages`` has been set before trying to access it. This is for cases where the MessageMiddleware hasn't had a chance to. run, ``e.g`` when a previous middleware returned an exception - Gu1
+  * Use a separate key setting for nevercache tokens - Stephen McDonald
+  * Remove print - Stephen McDonald
+
 Version 1.4.8 (Jun 27, 2013)
 ----------------------------
 
