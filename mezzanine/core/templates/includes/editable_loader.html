@@ -6,9 +6,11 @@
 <script>
 {% url "fb_browse" as fb_browse_url %}
 {% url "static_proxy" as static_proxy_url %}
+{% get_current_language as LANGUAGE_CODE %}
 window.__filebrowser_url = '{{ fb_browse_url }}';
 window.__toolbar_html = '{{ toolbar|escapejs }}';
 window.__static_proxy = '{{ static_proxy_url }}';
+window.__language_code = '{{ LANGUAGE_CODE }}';
 </script>
 <script src="{% static "mezzanine/js/jquery.tools.toolbox.expose.js" %}"></script>
 <script src="{% static "mezzanine/js/jquery.tools.overlay.js" %}"></script>
