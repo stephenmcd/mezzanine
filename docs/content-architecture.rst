@@ -407,6 +407,8 @@ helping you to build advanced menus.
     is a child of the current page being viewed
   * ``page.is_current_sibling`` - a boolean for whether the branch page
     is a sibling (has the same parent) of the current page being viewed
+  * ``page.is_current_parent`` - a boolean for whether the branch page
+    is the direct parent of the current page being viewed.
   * ``page.is_current_or_ascendant`` - a boolean for whether the branch
     page is the current page being viewed, or an ascendant (parent,
     grand-parent, etc) of the current page being viewed
