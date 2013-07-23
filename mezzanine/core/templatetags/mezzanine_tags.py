@@ -201,7 +201,7 @@ def gravatar_url(email, size=32):
     Return the full URL for a Gravatar given an email hash.
     """
     bits = (md5(email.lower()).hexdigest(), size)
-    return "http://www.gravatar.com/avatar/%s?s=%s&d=identicon&r=PG" % bits
+    return "//www.gravatar.com/avatar/%s?s=%s&d=identicon&r=PG" % bits
 
 
 @register.to_end_tag
