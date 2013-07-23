@@ -207,8 +207,10 @@ def upload_template_and_reload(name):
     related service.
     """
     template = get_templates()[name]
-    project_root = os.path.dirname(os.path.abspath(__file__))
-    local_path = os.path.join(project_root, template["local_path"])
+    local_path = template["local_path"]
+    if not os.path.exists(local_path):
+        project_root = os.path.dirname(os.path.abspath(__file__))
+        local_path = os.path.join(project_root, local_path)
     remote_path = template["remote_path"]
     reload_command = template.get("reload_command")
     owner = template.get("owner")
