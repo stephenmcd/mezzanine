@@ -32,7 +32,7 @@ install_requires = [
     "grappelli_safe >= 0.2.22",
     "html5lib == 0.95",
     "bleach",
-    "pytz",
+    "pytz >= 2013b",
     "requests==1.2.3",
     "requests-oauthlib==0.3.2",
 ]
