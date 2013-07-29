@@ -189,6 +189,10 @@ have developed a module to integrate with Mezzanine and would like to
 list it here, send an email to the `mezzanine-users`_ mailing list.
 You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
 
+  * `Cartridge`_ - ecommerce for Mezzanine.
+  * `Drum`_ - A `Hacker News`_ / `Reddit`_ clone powered by Mezzanine.
+  * `mezzanine-html5boilerplate`_ - Integrates the
+    `html5boilerplate project`_  into Mezzanine.
   * `mezzanine-html5boilerplate`_ - Integrates the
     `html5boilerplate project`_  into Mezzanine.
   * `mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich
@@ -513,6 +517,10 @@ Quotes
 
 .. THIRD PARTY LIBS
 
+.. _`Drum`: https://github.com/stephenmcd/drum
+.. _`Hacker News`: https://news.ycombinator.com
+.. _`Reddit`: http://www.reddit.com
+.. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
 .. _`html5boilerplate project`: http://html5boilerplate.com/
 .. _`mezzanine-mdown`: https://bitbucket.org/onelson/mezzanine-mdown
