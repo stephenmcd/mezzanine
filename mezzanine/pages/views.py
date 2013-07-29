@@ -18,7 +18,7 @@ def admin_page_ordering(request):
 
     def get_id(s):
         s = s.split("_")[-1]
-        return s if (s != "null" and s !="") else None
+        return s if s and s != "null" else None
     page = get_object_or_404(Page, id=get_id(request.POST['id']))
     old_parent_id = page.parent_id
     new_parent_id = get_id(request.POST['parent_id'])
