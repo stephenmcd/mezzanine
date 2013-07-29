@@ -1,3 +1,19 @@
+Version 1.4.10 (Jul 29, 2013)
+-----------------------------
+
+  * Added ``window.__language_code`` variable to admin and inline loader - Artem Gluvchynsky
+  * Better error message for page models that get removed from ``INSTALLED_APPS``. Closes #722 - Stephen McDonald
+  * Allow initial user creation in syncdb when a profile model is managed by migrations and doesn't yet exist - Stephen McDonald
+  * Looser AJAX response check for page reordering. Closes #727 - Stephen McDonald
+  * Allow key settings to be defined in fab conf and injected into live ``local_settings`` module - Stephen McDonald
+  * Added valid Polish messages for mezzanine/core. Closes #729 - Marek Wywiał
+  * add a ``tox.ini`` config file - jferry
+  * Use protocol-relative URL to avoid SSL warnings - Vinod Kurup
+  * Make running fabfile outside project root optional, since it conflicts with importing the fabfile into other fabfiles - Stephen McDonald
+  * Specify minimum version of pytz requirement - Vinod Kurup
+  * Fixed view and JS to be compatible with jQuery 1.8 - Ethan Goldstine
+  * Fix ``gravatar_url`` tag for non-ascii email addresses. Closses #721 - Stephen McDonald
+
 Version 1.4.9 (Jul 11, 2013)
 ----------------------------
 
@@ -15,6 +31,8 @@ Version 1.4.9 (Jul 11, 2013)
   * Make sure ``request._messages`` has been set before trying to access it. This is for cases where the MessageMiddleware hasn't had a chance to. run, ``e.g`` when a previous middleware returned an exception - Gu1
   * Use a separate key setting for nevercache tokens - Stephen McDonald
   * Remove print - Stephen McDonald
+  * Add ``is_current_parent`` on pages filtering - Antoine Catton
+  * Remove field related to Django built-in user model. South is expecting those fields to be in the database. So it is. selecting them, since some custom user models don't have them, this can. break this migration - Antoine Catton
 
 Version 1.4.8 (Jun 27, 2013)
 ----------------------------
