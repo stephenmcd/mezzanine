@@ -83,7 +83,7 @@ $(function() {
 
         var args = {
             id: ui.item[0].id,
-            parent_id: parent.length ? parent[0].id : null,
+            parent_id: parent.length ? parent[0].id : "null",
             siblings: ui.item.parent().children().map(function(index, elem) {
                 return elem.id;
             }).get()
