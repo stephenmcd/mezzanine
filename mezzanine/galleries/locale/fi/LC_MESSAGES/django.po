@@ -3,51 +3,54 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# hkoivuneva <henri.koivuneva@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2013-04-07 09:33-0430\n"
+"PO-Revision-Date: 2013-07-30 03:06+0200\n"
+"Last-Translator: Henri Koivuneva <henri.koivuneva@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/mezzanine/"
 "language/fi/)\n"
-"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: models.py:38
 msgid "Zip import"
-msgstr ""
+msgstr "Zip-tuonti"
 
 #: models.py:40
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
 msgstr ""
+"Lähetä zip-tiedosto joka sisältää kuvia, ja ne tuodaan tähän galleriaan."
 
 #: models.py:44
 msgid "Gallery"
-msgstr ""
+msgstr "Galleria"
 
 #: models.py:45
 msgid "Galleries"
-msgstr ""
+msgstr "Galleriat"
 
 #: models.py:91
 msgid "File"
-msgstr ""
+msgstr "Tiedosto"
 
 #: models.py:93
 msgid "Description"
-msgstr ""
+msgstr "Kuvaus"
 
 #: models.py:97
 msgid "Image"
-msgstr ""
+msgstr "Kuva"
 
 #: models.py:98
 msgid "Images"
-msgstr ""
+msgstr "Kuvat"

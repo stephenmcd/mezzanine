@@ -3,20 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# hkoivuneva <henri.koivuneva@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:03+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2013-04-07 09:34-0430\n"
+"PO-Revision-Date: 2013-07-30 03:06+0200\n"
+"Last-Translator: Henri Koivuneva <henri.koivuneva@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/mezzanine/"
 "language/fi/)\n"
-"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: defaults.py:20
 msgid ""
@@ -24,6 +26,9 @@ msgid ""
 "that controls the ordering of items in the select drop-down for adding new "
 "pages within the admin page tree interface."
 msgstr ""
+"Sarja ``Page`` aliluokkia muodossa ``app_label.model_name``, joka hallitsee "
+"kohteiden järjestystä valinta-pudotusvalikossa jolla lisätään uusia sivuja "
+"hallintapaneelin kautta."
 
 #: defaults.py:30
 msgid ""
@@ -34,18 +39,23 @@ msgid ""
 "appear in. Note that if a menu template is used that doesn't appear in this "
 "setting, all pages will appear in it."
 msgstr ""
+"Sarja sivupohjia joita ``page_menu`` template tag käyttää. Jokainen kohta "
+"sarjassa on kolmen kohdan sarja, sisältäen uniikin ID:n sivupohjalle, sen "
+"tunnisteen ja polun. Nämä sivupohjat ovat sitten saatavilla valittavaksi kun "
+"muokataan missä valikoissa sivun tulisi näkyä. Huomaa että jos valikkopohja "
+"on käytössä eikä sitä näy tässä asetuksessa, kaikki sivut näkyvät siinä."
 
 #: defaults.py:39
 msgid "Top navigation bar"
-msgstr ""
+msgstr "Yläpalkki"
 
 #: defaults.py:40
 msgid "Left-hand tree"
-msgstr ""
+msgstr "Vasen valikko"
 
 #: defaults.py:41
 msgid "Footer"
-msgstr ""
+msgstr "Alaosa"
 
 #: defaults.py:47
 msgid ""
@@ -54,6 +64,10 @@ msgid ""
 "templates are selected. Set this setting to an empty sequence to have no "
 "templates selected by default."
 msgstr ""
+"ID-sarja asetuksesta ``PAGE_MENU_TEMPLATES`` joka määrittää oletuspohjat "
+"valikoilla jotka valitaan kun uusia sivuja luodaan. Oletuksena kaikki "
+"valikkopohjat ovat valittuina. Aseta tämä tyhjäksi jos haluat että mitään "
+"pohjia ei valita oletuksena."
 
 #: defaults.py:58
 msgid ""
@@ -62,47 +76,52 @@ msgid ""
 "setting, when an unauthenticated user accesses a page with "
 "``login_required`` checked, they'll be redirected to the login page."
 msgstr ""
+"Jos ``Tosi``, sivut joilla on ``login_required`` valittuna näytetään "
+"valikoissa ja hakutuloksissa käyttäjille joilla ei ole vaadittuja oikeuksia. "
+"Kuitenkin jos hän avaa sivun jolla on ``login_required`` valittuna, hänet "
+"ohjataan sisäänkirjautumissivulle."
 
 #: models.py:33
 msgid "Show in menus"
-msgstr ""
+msgstr "Näytä valikoissa"
 
 #: models.py:36
 msgid "Login required"
-msgstr ""
+msgstr "Sisäänkirjautuminen vaaditaan"
 
 #: models.py:37
 msgid "If checked, only logged in users can view this page"
 msgstr ""
+"Jos valittu, vain sisäänkirjautuneet käyttäjät voivat nähdä tämän sivun"
 
 #: models.py:40
 msgid "Page"
-msgstr ""
+msgstr "Sivu"
 
 #: models.py:41
 msgid "Pages"
-msgstr ""
+msgstr "Sivut"
 
 #: models.py:266
 msgid "Rich text page"
-msgstr ""
+msgstr "Sisällöllinen sivu"
 
 #: models.py:267
 msgid "Rich text pages"
-msgstr ""
+msgstr "Sisällölliset sivut"
 
 #: models.py:277
 msgid "Link"
-msgstr ""
+msgstr "linkki"
 
 #: models.py:278
 msgid "Links"
-msgstr ""
+msgstr "Linkit"
 
 #: templates/admin/pages/page/change_list.html:24
 #: templates/pages/menus/admin.html:31
 msgid "Add"
-msgstr ""
+msgstr "Lisää"
 
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
@@ -111,9 +130,9 @@ msgstr ""
 #: templates/pages/menus/mobile.html:10 templates/pages/menus/primary.html:8
 #: templates/pages/menus/tree.html:10
 msgid "Home"
-msgstr ""
+msgstr "Etusivu"
 
 #: templatetags/pages_tags.py:183
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
-msgstr ""
+msgstr "Virhe kohdattiin seuraavalla luokalla. Aliluokittaako se Sivun oikein?"
