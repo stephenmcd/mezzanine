@@ -28,9 +28,15 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         tag = get_object_or_404(Keyword, slug=tag)
         blog_posts = blog_posts.filter(keywords__in=tag.assignments.all())
     if year is not None:
-        blog_posts = blog_posts.filter(publish_date__year=year)
+        try:
+            blog_posts = blog_posts.filter(publish_date__year=year)
+        except ValueError:
+            raise Http404
         if month is not None:
-            blog_posts = blog_posts.filter(publish_date__month=month)
+            try:
+                blog_posts = blog_posts.filter(publish_date__month=month)
+            except ValueError:
+                raise Http404
             month = month_name[int(month)]
     if category is not None:
         category = get_object_or_404(BlogCategory, slug=category)
