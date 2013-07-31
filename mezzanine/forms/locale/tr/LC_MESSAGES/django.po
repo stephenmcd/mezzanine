@@ -1,0 +1,335 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# mozgur <mozgurbayhan@gmail.com>, 2013
+# mozgur <mozgurbayhan@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2013-04-07 09:34-0430\n"
+"PO-Revision-Date: 2013-06-07 09:16+0000\n"
+"Last-Translator: mozgur <mozgurbayhan@gmail.com>\n"
+"Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/mezzanine/language/tr_TR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: admin.py:32 fields.py:33
+msgid "Email"
+msgstr "E-posta"
+
+#: admin.py:115
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] "%(count)s girdi silindi"
+
+#: admin.py:119
+msgid "View Entries"
+msgstr "Girdilere Bak"
+
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr "Form uygulamalarında kullanılan alanlar için izin verilen en yüksek uzunluk"
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr "Form uygulamalarında kullanılan alanların başlıkları için izin verilen en yüksek uzunluk"
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr "Form yanıtlarını csv dosyasına aktarılırken kullanılacak olan alanları ayıran karakter."
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Form uygulaması üzerinden yüklenecek olan dosyaların saklanacağı yerin tam yolu."
+
+#: defaults.py:58
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "Form uygulaması için fazladan alan tipleri.Üç elemanlı bir diziden ibarettir, her biri ID'yi, alan sınıfının  nokta ile gösterilmiş import yolunu, ve alan adını her bir özel alan tipi için kapsar. ID alan için daha önce kullanılmamış sabit bir sayı olmalıdır, dolayısıyla karışıklıkları önlemek için 100 gibi yüksek bir rakamı seçin."
+
+#: fields.py:31
+msgid "Single line text"
+msgstr "Tek satır metin"
+
+#: fields.py:32
+msgid "Multi line text"
+msgstr "Çok satırlı metin"
+
+#: fields.py:34
+msgid "Number"
+msgstr "Sayı"
+
+#: fields.py:35
+msgid "URL"
+msgstr "URL"
+
+#: fields.py:36
+msgid "Check box"
+msgstr "İşaret kutusu"
+
+#: fields.py:37
+msgid "Check boxes"
+msgstr "İşaret kutuları"
+
+#: fields.py:38
+msgid "Drop down"
+msgstr "Drop down"
+
+#: fields.py:39
+msgid "Multi select"
+msgstr "Çoklu seçim"
+
+#: fields.py:40
+msgid "Radio buttons"
+msgstr "Radyo butonları"
+
+#: fields.py:41
+msgid "File upload"
+msgstr "Dosya yükleme"
+
+#: fields.py:42
+msgid "Date"
+msgstr "Tarih"
+
+#: fields.py:43 models.py:116
+msgid "Date/time"
+msgstr "Tarih/zaman"
+
+#: fields.py:44
+msgid "Date of birth"
+msgstr "Doğum tarihi"
+
+#: fields.py:45
+msgid "Hidden"
+msgstr "Gizli"
+
+#: forms.py:28 forms.py:36 forms.py:42
+msgid "Nothing"
+msgstr "Hiçbirşey"
+
+#: forms.py:29
+msgid "Contains"
+msgstr "Kapsar"
+
+#: forms.py:30
+msgid "Doesn't contain"
+msgstr "Kapsamaz"
+
+#: forms.py:31 forms.py:37
+msgid "Equals"
+msgstr "Eşittir"
+
+#: forms.py:32 forms.py:38
+msgid "Doesn't equal"
+msgstr "Eşit değildir"
+
+#: forms.py:43
+msgid "Is between"
+msgstr "Arasında"
+
+#: forms.py:100
+msgid "required"
+msgstr "gerekli"
+
+#: forms.py:216
+msgid "Checked"
+msgstr "İşaretli"
+
+#: forms.py:216
+msgid "Not checked"
+msgstr "İşaretli değil"
+
+#: forms.py:230 forms.py:245
+msgid "and"
+msgstr "ve"
+
+#: models.py:17
+msgid "Button text"
+msgstr "Buton metni"
+
+#: models.py:18
+msgid "Submit"
+msgstr "Onay"
+
+#: models.py:19
+msgid "Response"
+msgstr "Cevap"
+
+#: models.py:20
+msgid "Send email to user"
+msgstr "Kullanıcıya e-posta gönder"
+
+#: models.py:21
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr "Formun tesliminden sonra, formdaki e-posta adresine bir e-posta göndermek için bu alanı işaretleyin."
+
+#: models.py:23
+msgid "From address"
+msgstr "Geldiği adres"
+
+#: models.py:24
+msgid "The address the email will be sent from"
+msgstr "E-Postanın gönderici adresleri"
+
+#: models.py:25
+msgid "Send email to others"
+msgstr "Diğerlerine e-posta gönder"
+
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr "Form gönderiminden haberdar edilecek e-posta listesi.Haberdar etmeyi etkisizleştirmek için boş bırakın"
+
+#: models.py:30
+msgid "Subject"
+msgstr "Konu"
+
+#: models.py:31
+msgid "Message"
+msgstr "Mesaj"
+
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr "Yukarıdaki seçeneklere göre gönderilmiş e-postalar  bütün form alanlarını içerir. Ayrıca bu e-postalara dahil etmek istediğiniz bir mesaj varsa buraya girebilirsiniz."
+
+#: models.py:37
+msgid "Form"
+msgstr "Form"
+
+#: models.py:38
+msgid "Forms"
+msgstr "Formlar"
+
+#: models.py:55
+msgid "Label"
+msgstr "Etiket"
+
+#: models.py:57
+msgid "Type"
+msgstr "Tip"
+
+#: models.py:58
+msgid "Required"
+msgstr "Gerekli"
+
+#: models.py:59
+msgid "Visible"
+msgstr "Görünür"
+
+#: models.py:60
+msgid "Choices"
+msgstr "Seçenekler"
+
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr "Virgülle ayrılmış uygulanabilir seçenekler. Eğer bir seçeneğin kendisi virgül içeriyorsa, seçenek tek tırnak içine alınır."
+
+#: models.py:63
+msgid "Default value"
+msgstr "Varsayılan değer"
+
+#: models.py:65
+msgid "Placeholder Text"
+msgstr "Placeholder metni"
+
+#: models.py:67
+msgid "Help text"
+msgstr "Yardım metni"
+
+#: models.py:72 templates/admin/forms/entries.html:28
+msgid "Field"
+msgstr "Alan"
+
+#: models.py:73
+msgid "Fields"
+msgstr "Alanlar"
+
+#: models.py:119
+msgid "Form entry"
+msgstr "Form girdisi"
+
+#: models.py:120
+msgid "Form entries"
+msgstr "Form girdileri"
+
+#: models.py:134
+msgid "Form field entry"
+msgstr "Form alanı girdisi"
+
+#: models.py:135
+msgid "Form field entries"
+msgstr "Form alanı girdileri"
+
+#: templates/admin/forms/change_form.html:8
+#: templates/admin/forms/entries.html:57
+msgid "View entries"
+msgstr "Girdilere bak"
+
+#: templates/admin/forms/change_form.html:9
+msgid "History"
+msgstr "Geçmiş"
+
+#: templates/admin/forms/change_form.html:10
+msgid "View on site"
+msgstr "Site üzerinde görüntüle"
+
+#: templates/admin/forms/entries.html:14
+msgid "Home"
+msgstr "Anasayfa"
+
+#: templates/admin/forms/entries.html:29
+msgid "Include"
+msgstr "Kapsa"
+
+#: templates/admin/forms/entries.html:30
+msgid "Filter by"
+msgstr "Filtrele"
+
+#: templates/admin/forms/entries.html:48
+msgid "All"
+msgstr "Hepsi"
+
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
+msgid "Back to form"
+msgstr "Forma geri dön"
+
+#: templates/admin/forms/entries.html:58
+msgid "Export CSV"
+msgstr "CSV olarak dışa aktar"
+
+#: templates/admin/forms/entries.html:60
+msgid "Entries"
+msgstr "Girdiler"
+
+#: templates/admin/forms/entries.html:94
+msgid "Delete selected"
+msgstr "Seçili olanı sil"
+
+#: templates/admin/forms/entries.html:98
+msgid "No entries to display"
+msgstr "Gösterilecek hiç girdi yok"
