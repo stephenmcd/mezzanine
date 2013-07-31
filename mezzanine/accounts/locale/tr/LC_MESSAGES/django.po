@@ -1,0 +1,245 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# mozgur <mozgurbayhan@gmail.com>, 2013
+# mozgur <mozgurbayhan@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2013-04-07 09:34-0430\n"
+"PO-Revision-Date: 2013-06-17 12:50+0000\n"
+"Last-Translator: mozgur <mozgurbayhan@gmail.com>\n"
+"Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/mezzanine/language/tr_TR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: defaults.py:20
+msgid "Minimum length for passwords"
+msgstr "En kısa parola uzunluğu"
+
+#: defaults.py:27
+msgid "List of fields to exclude from the profile form."
+msgstr "Profil formunda gösterilmeyecek alanlar listesi"
+
+#: defaults.py:34
+msgid ""
+"Dotted package path and class name of profile form to use for users signing "
+"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgstr "Kullanıcıların, ``mezzanine.accounts`` uygulama listesine eklendiğinde, sisteme kayıt olurken ve profillerini güncellerken kullanacakları formun nokta kullanılarak belirtilmiş paket ve sınıf adı."
+
+#: defaults.py:43
+msgid "If ``True``, users will have their own public profile pages."
+msgstr "Eğer işaretli ise, kullanıcılar  genele açık kendi profil sayfalarına sahip olurlar."
+
+#: defaults.py:51
+msgid ""
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
+msgstr "Eğer işaretli ise, kullanıcılar yeni bir hesap açtıklarında, hesaplarını etkinleştirmek için onaylama bağlantısı içeren bir e-posta gönderilir."
+
+#: forms.py:21 forms.py:190
+msgid "Username or email address"
+msgstr "Kullanıcı adı veya e-posta adresi"
+
+#: forms.py:22 forms.py:66
+msgid "Password"
+msgstr "Parola"
+
+#: forms.py:35
+msgid "Invalid username/email and password"
+msgstr "Geçersiz kullanıcı/e-posta ve parola"
+
+#: forms.py:37
+msgid "Your account is inactive"
+msgstr "Hesabınız etkin değil"
+
+#: forms.py:68
+msgid "Password (again)"
+msgstr "Parola (tekrar) "
+
+#: forms.py:81
+msgid "Only letters, numbers, dashes or underscores please"
+msgstr "Sadece harfler, rakamlar, tireler veya alt çizgiler lütfen"
+
+#: forms.py:95
+msgid "Leave blank unless you want to change your password"
+msgstr "Parolanızı değiltirmek istemediğiniz sürece boş bırakınız"
+
+#: forms.py:114
+msgid "Username can only contain letters, numbers, dashes or underscores."
+msgstr "Kullanıcı adı sadece harfler, rakamlar, tireler veya alt çizgiler içerebilir."
+
+#: forms.py:122
+msgid "This username is already registered"
+msgstr "Bu kullanıcı adı zaten kayıtlı"
+
+#: forms.py:135
+msgid "Passwords do not match"
+msgstr "Parolalar uyuşmuyor"
+
+#: forms.py:137
+#, python-format
+msgid "Password must be at least %s characters"
+msgstr "Parolalar en az %s karakter olmalı"
+
+#: forms.py:152
+msgid "This email is already registered"
+msgstr "Bu e-posta adresi zaten kayıtlı"
+
+#: forms.py:199
+msgid "Invalid username/email"
+msgstr "Geçersiz kullanıcı adı/e-posta"
+
+#: views.py:31
+msgid "Successfully logged in"
+msgstr "Başarıyla giriş yapıldı"
+
+#: views.py:34
+msgid "Login"
+msgstr "Giriş Yap"
+
+#: views.py:43
+msgid "Successfully logged out"
+msgstr "Başarıyla çıkış yapıldı"
+
+#: views.py:57
+msgid ""
+"A verification email has been sent with a link for activating your account."
+msgstr "Hesabınızı etkin hale getirmek için gerekli etkinleştirme bağlantısını içeren bir e-posta gönderildi"
+
+#: views.py:61 views.py:80
+msgid "Successfully signed up"
+msgstr "Başarıyla kayıt olundu"
+
+#: views.py:64
+msgid "Signup"
+msgstr "Kayıt ol"
+
+#: views.py:83 views.py:167
+msgid "The link you clicked is no longer valid."
+msgstr "Tıkladığınız bağlantı kullanılmamaktadır."
+
+#: views.py:141
+msgid "Profile updated"
+msgstr "Profil güncellendi"
+
+#: views.py:146
+msgid "Update Profile"
+msgstr "Profili güncelle"
+
+#: views.py:155
+msgid ""
+"A verification email has been sent with a link for resetting your password."
+msgstr "Parolanızı sıfırlamak için gerekli bağlantıyı içeren bir e-posta gönderildi"
+
+#: views.py:157
+msgid "Password Reset"
+msgstr "Parola Sıfırlama"
+
+#: templates/accounts/account_login.html:7
+msgid "You're already logged in."
+msgstr "Zaten giriş yapmışsınız."
+
+#: templates/accounts/account_login.html:11
+#, python-format
+msgid ""
+"If you don't have an account you can <a "
+"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgstr "Eğer hesabınız yoksa <a href=\"%(signup_url)s?next=%(next)s\">yeni bir hesap</a> yaratabilirsiniz."
+
+#: templates/accounts/account_login.html:14
+#, python-format
+msgid ""
+"<p>You can also <a "
+"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
+"password</a> if you've forgotten it.</p>"
+msgstr "<p>Ayrıca eğer unuttuysanız <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">parolanızı sıfırlayabilirsiniz.</a></p>"
+
+#: templates/accounts/account_password_reset.html:6
+msgid ""
+"Enter your username or email address and you'll receive an email with a link"
+" you need to click, in order to log in and change your password."
+msgstr "Giriş yapıp şifrenizi değiştirebileceğiniz bir e-posta almak için kullanıcı adınızı veya e-posta adresinizi giriniz."
+
+#: templates/accounts/account_profile.html:17
+#: templates/accounts/includes/user_panel.html:9
+msgid "Update profile"
+msgstr "Profili güncelle"
+
+#: templates/accounts/account_signup.html:7
+msgid ""
+"You're already logged in. If you'd like to create a new account, you'll need"
+" to log out first."
+msgstr "Zaten giriş yaptınız.Eğer yeni bir hesap oluşturmak istiyorsanız önce çıkış yapmanız gerekmektedir."
+
+#: templates/accounts/account_signup.html:11
+msgid ""
+"After signing up, you'll receive an email with a link you need to click, in "
+"order to activate your account."
+msgstr "Kayıt olduktan sonra hesabınızı etkinleştirebilmek için tıklamanız gereken bağlantı yı içeren bir e-posta alacaksınız."
+
+#: templates/accounts/includes/user_panel.html:4
+msgid "Logged in as: "
+msgstr "Giriş yapmış kullanıcı:"
+
+#: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
+msgid "Log out"
+msgstr "Çıkış"
+
+#: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log in"
+msgstr "Giriş"
+
+#: templates/accounts/includes/user_panel.html:18
+msgid "or"
+msgstr "veya"
+
+#: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
+msgid "Sign up"
+msgstr "Kayıt ol"
+
+#: templates/admin/profile_inline.html:10
+msgid "Profile information"
+msgstr "Profil bilgisi"
+
+#: templates/email/password_reset_verify.html:3
+#: templates/email/password_reset_verify.txt:3
+msgid "Hey there, the password reset form was used for your account."
+msgstr "Hey oradaki, hesabın için parola sıfırlama formu kullanıldı."
+
+#: templates/email/password_reset_verify.html:4
+#: templates/email/password_reset_verify.txt:4
+msgid "Please use the link below to log in and update your password."
+msgstr "Lütfen giriş yapıp şifrenizi değiştirmek için aşağıdaki bağlantıyı kullanın."
+
+#: templates/email/password_reset_verify.html:6
+#: templates/email/password_reset_verify.txt:6
+msgid ""
+"If you didn't request for your password to be reset, please ignore this "
+"email."
+msgstr "Eğer parolanızın sıfırlanmasını istemediyseniz, lütfen bu e-posta'yı görmezden gelin."
+
+#: templates/email/password_reset_verify_subject.txt:2
+msgid "Reset your password"
+msgstr "Parolanızı sıfırlayın"
+
+#: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
+msgid "Hey there, thanks for creating your account."
+msgstr "Hesabınızı oluşturduğunuz için teşekkür ederiz."
+
+#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "Etkinleştirmek için aşağıdaki bağlantıyı kullanın."
+
+#: templates/email/signup_verify_subject.txt:2
+msgid "Activate your account"
+msgstr "Hesabınızı aktifleştirin"
