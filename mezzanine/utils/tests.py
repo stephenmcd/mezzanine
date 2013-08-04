@@ -1,6 +1,7 @@
 
 from _ast import PyCF_ONLY_AST
 import os
+import pkgutil
 from shutil import copyfile, copytree
 
 from mezzanine.conf import settings
@@ -145,3 +146,15 @@ def run_pep8_for_package(package_name, extra_ignore=None):
 
     args = (pep8_checker, package_name, extra_ignore)
     return _run_checker_for_package(*args)
+
+
+def import_all_from_submodules(globals_, locals_, path):
+    """
+    Import dynamically all files from the given submodule.
+    """
+    for _module_loader, module_name, _ispkg in pkgutil.walk_packages(path):
+        module = __import__(module_name, globals_, locals_, ['*'])
+        for name in dir(module):
+            if name.startswith('_'):
+                continue
+            locals_[name] = getattr(module, name)

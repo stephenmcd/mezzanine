@@ -138,8 +138,8 @@ class MetaData(models.Model):
                         description = getattr(self, field.name)
                         if description:
                             from mezzanine.core.templatetags.mezzanine_tags \
-                            import richtext_filter
-                            description = richtext_filter(description)
+                            import richtext_filters
+                            description = richtext_filters(description)
                             break
         # Fall back to the title if description couldn't be determined.
         if not description:

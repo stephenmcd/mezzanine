@@ -1,52 +1,22 @@
-
-import os
-from shutil import rmtree
-from urlparse import urlparse
-from uuid import uuid4
-
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.contenttypes.models import ContentType
-from django.core import mail
-from django.core.urlresolvers import reverse
+from django.contrib.sites.models import Site
 from django.db import connection
-from django.template import Context, Template, TemplateDoesNotExist
-from django.template.loader import get_template
+from django.template import Context, Template
 from django.test import TestCase
 from django.utils.html import strip_tags
-from django.utils.http import int_to_base36
-from django.contrib.sites.models import Site
-from PIL import Image
 
-from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
-from mezzanine.blog.models import BlogPost
-from mezzanine.conf import settings, registry
-from mezzanine.conf.models import Setting
-from mezzanine.core.models import CONTENT_STATUS_DRAFT
-from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
+from mezzanine.conf import settings
+from mezzanine.core.models import CONTENT_STATUS_DRAFT, \
+                                  CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
-from mezzanine.core.templatetags.mezzanine_tags import thumbnail
-from mezzanine.forms import fields
-from mezzanine.forms.models import Form
-from mezzanine.galleries.models import Gallery, GALLERIES_UPLOAD_DIR
-from mezzanine.generic.forms import RatingForm
-from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
+from mezzanine.generic.models import AssignedKeyword, Keyword
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
-from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.tests import copy_test_to_media, run_pyflakes_for_package
-from mezzanine.utils.tests import run_pep8_for_package
-from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import get_user_model
-from mezzanine.core.managers import DisplayableManager
 
 User = get_user_model()
 
 
-class Tests(TestCase):
-    """
-    Mezzanine tests.
-    """
-
+class TestsRichTextPage(TestCase):
     def setUp(self):
         """
         Create an admin user.
@@ -56,94 +26,6 @@ class Tests(TestCase):
         self._password = "test"
         args = (self._username, "example@example.com", self._password)
         self._user = User.objects.create_superuser(*args)
-
-    def account_data(self, test_value):
-        """
-        Returns a dict with test data for all the user/profile fields.
-        """
-        # User fields
-        data = {"email": test_value + "@example.com"}
-        for field in ("first_name", "last_name", "username",
-                      "password1", "password2"):
-            if field.startswith("password"):
-                value = "x" * settings.ACCOUNTS_MIN_PASSWORD_LENGTH
-            else:
-                value = test_value
-            data[field] = value
-        # Profile fields
-        Profile = get_profile_model()
-        if Profile is not None:
-            user_fieldname = get_profile_user_fieldname()
-            for field in Profile._meta.fields:
-                if field.name not in (user_fieldname, "id"):
-                    if field.choices:
-                        value = field.choices[0][0]
-                    else:
-                        value = test_value
-                    data[field.name] = value
-        return data
-
-    def test_account(self):
-        """
-        Test account creation.
-        """
-        # Verification not required - test an active user is created.
-
-        data = self.account_data("test1")
-        settings.ACCOUNTS_VERIFICATION_REQUIRED = False
-        response = self.client.post(reverse("signup"), data, follow=True)
-        self.assertEqual(response.status_code, 200)
-        users = User.objects.filter(email=data["email"], is_active=True)
-        self.assertEqual(len(users), 1)
-        # Verification required - test an inactive user is created,
-        settings.ACCOUNTS_VERIFICATION_REQUIRED = True
-        data = self.account_data("test2")
-        emails = len(mail.outbox)
-        response = self.client.post(reverse("signup"), data, follow=True)
-        self.assertEqual(response.status_code, 200)
-        users = User.objects.filter(email=data["email"], is_active=False)
-        self.assertEqual(len(users), 1)
-        # Test the verification email.
-        self.assertEqual(len(mail.outbox), emails + 1)
-        self.assertEqual(len(mail.outbox[0].to), 1)
-        self.assertEqual(mail.outbox[0].to[0], data["email"])
-        # Test the verification link.
-        new_user = users[0]
-        verification_url = reverse("signup_verify", kwargs={
-            "uidb36": int_to_base36(new_user.id),
-            "token": default_token_generator.make_token(new_user),
-        })
-        response = self.client.get(verification_url, follow=True)
-        self.assertEqual(response.status_code, 200)
-        users = User.objects.filter(email=data["email"], is_active=True)
-        self.assertEqual(len(users), 1)
-
-    def test_draft_page(self):
-        """
-        Test a draft page as only being viewable by a staff member.
-        """
-        self.client.logout()
-        draft = RichTextPage.objects.create(title="Draft",
-                                            status=CONTENT_STATUS_DRAFT)
-        response = self.client.get(draft.get_absolute_url())
-        self.assertEqual(response.status_code, 404)
-        self.client.login(username=self._username, password=self._password)
-        response = self.client.get(draft.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-
-    def test_overridden_page(self):
-        """
-        Test that a page with a slug matching a non-page urlpattern
-        return ``True`` for its overridden property.
-        """
-        # BLOG_SLUG is empty then urlpatterns for pages are prefixed
-        # with PAGE_SLUG, and generally won't be overridden. In this
-        # case, there aren't any overridding URLs by default, so bail
-        # on the test.
-        if PAGES_SLUG:
-            return
-        page, created = RichTextPage.objects.get_or_create(slug="edit")
-        self.assertTrue(page.overridden())
 
     def test_page_ascendants(self):
         """
@@ -271,77 +153,18 @@ class Tests(TestCase):
                                            content=description * 3)
         self.assertEqual(page.description, strip_tags(description))
 
-    def test_tagcloser(self):
+    def test_draft_page(self):
         """
-        Test tags are closed, and tags that shouldn't be closed aren't.
+        Test a draft page as only being viewable by a staff member.
         """
-        self.assertEqual(TagCloser("<p>Unclosed paragraph").html,
-                         "<p>Unclosed paragraph</p>")
-
-        self.assertEqual(TagCloser("Line break<br>").html,
-                         "Line break<br>")
-
-    def test_device_specific_template(self):
-        """
-        Test that an alternate template is rendered when a mobile
-        device is used.
-        """
-        try:
-            get_template("mobile/index.html")
-        except TemplateDoesNotExist:
-            return
-        ua = settings.DEVICE_USER_AGENTS[0][1][0]
-        kwargs = {"slug": "device-test"}
-        url = reverse("page", kwargs=kwargs)
-        kwargs["status"] = CONTENT_STATUS_PUBLISHED
-        RichTextPage.objects.get_or_create(**kwargs)
-        default = self.client.get(url)
-        mobile = self.client.get(url, HTTP_USER_AGENT=ua)
-        self.assertNotEqual(default.template_name[0], mobile.template_name[0])
-
-    def test_blog_views(self):
-        """
-        Basic status code test for blog views.
-        """
-        response = self.client.get(reverse("blog_post_list"))
+        self.client.logout()
+        draft = RichTextPage.objects.create(title="Draft",
+                                            status=CONTENT_STATUS_DRAFT)
+        response = self.client.get(draft.get_absolute_url())
+        self.assertEqual(response.status_code, 404)
+        self.client.login(username=self._username, password=self._password)
+        response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse("blog_post_feed", args=("rss",)))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse("blog_post_feed", args=("atom",)))
-        self.assertEqual(response.status_code, 200)
-        blog_post = BlogPost.objects.create(title="Post", user=self._user,
-                                            status=CONTENT_STATUS_PUBLISHED)
-        response = self.client.get(blog_post.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-        # Test the blog is login protected if its page has login_required
-        # set to True.
-        slug = settings.BLOG_SLUG or "/"
-        RichTextPage.objects.create(title="blog", slug=slug,
-                                    login_required=True)
-        response = self.client.get(reverse("blog_post_list"), follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(len(response.redirect_chain) > 0)
-        redirect_path = urlparse(response.redirect_chain[0][0]).path
-        self.assertEqual(redirect_path, settings.LOGIN_URL)
-
-    def test_rating(self):
-        """
-        Test that ratings can be posted and avarage/count are calculated.
-        """
-        blog_post = BlogPost.objects.create(title="Ratings", user=self._user,
-                                            status=CONTENT_STATUS_PUBLISHED)
-        data = RatingForm(None, blog_post).initial
-        for value in settings.RATINGS_RANGE:
-            data["value"] = value
-            response = self.client.post(reverse("rating"), data=data)
-            response.delete_cookie("mezzanine-rating")
-        blog_post = BlogPost.objects.get(id=blog_post.id)
-        count = len(settings.RATINGS_RANGE)
-        _sum = sum(settings.RATINGS_RANGE)
-        average = _sum / float(count)
-        self.assertEqual(blog_post.rating_count, count)
-        self.assertEqual(blog_post.rating_sum, _sum)
-        self.assertEqual(blog_post.rating_average, average)
 
     def queries_used_for_template(self, template, **context):
         """
@@ -367,27 +190,6 @@ class Tests(TestCase):
                 for _ in per_level:
                     kwargs[parent_field] = level2
                     model.objects.create(**kwargs)
-
-    def test_comment_queries(self):
-        """
-        Test that rendering comments executes the same number of
-        queries, regardless of the number of nested replies.
-        """
-        blog_post = BlogPost.objects.create(title="Post", user=self._user)
-        content_type = ContentType.objects.get_for_model(blog_post)
-        kwargs = {"content_type": content_type, "object_pk": blog_post.id,
-                  "site_id": settings.SITE_ID}
-        template = "{% load comment_tags %}{% comment_thread blog_post %}"
-        context = {
-            "blog_post": blog_post,
-            "posted_comment_form": None,
-            "unposted_comment_form": None,
-        }
-        before = self.queries_used_for_template(template, **context)
-        self.assertTrue(before > 0)
-        self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
-        after = self.queries_used_for_template(template, **context)
-        self.assertEquals(before, after)
 
     def test_page_menu_queries(self):
         """
@@ -479,7 +281,7 @@ class Tests(TestCase):
 
     def test_search(self):
         """
-        Test search.
+        Pages with status "Draft" should not be listed in the search result.
         """
         RichTextPage.objects.all().delete()
         published = {"status": CONTENT_STATUS_PUBLISHED}
@@ -514,79 +316,6 @@ class Tests(TestCase):
         self.assertEqual(len(results), 2)
         if results:
             self.assertEqual(results[0].id, second)
-
-    def test_forms(self):
-        """
-        Simple 200 status check against rendering and posting to forms
-        with both optional and required fields.
-        """
-        for required in (True, False):
-            form = Form.objects.create(title="Form",
-                                       status=CONTENT_STATUS_PUBLISHED)
-            for (i, (field, _)) in enumerate(fields.NAMES):
-                form.fields.create(label="Field %s" % i, field_type=field,
-                                   required=required, visible=True)
-            response = self.client.get(form.get_absolute_url())
-            self.assertEqual(response.status_code, 200)
-            visible_fields = form.fields.visible()
-            data = dict([("field_%s" % f.id, "test") for f in visible_fields])
-            response = self.client.post(form.get_absolute_url(), data=data)
-            self.assertEqual(response.status_code, 200)
-
-    def test_settings(self):
-        """
-        Test that an editable setting can be overridden with a DB
-        value and that the data type is preserved when the value is
-        returned back out of the DB. Also checks to ensure no
-        unsupported types are defined for editable settings.
-        """
-        # Find an editable setting for each supported type.
-        names_by_type = {}
-        for setting in registry.values():
-            if setting["editable"] and setting["type"] not in names_by_type:
-                names_by_type[setting["type"]] = setting["name"]
-        # Create a modified value for each setting and save it.
-        values_by_name = {}
-        for (setting_type, setting_name) in names_by_type.items():
-            setting_value = registry[setting_name]["default"]
-            if setting_type in (int, float):
-                setting_value += 1
-            elif setting_type is bool:
-                setting_value = not setting_value
-            elif setting_type in (str, unicode):
-                setting_value += "test"
-            else:
-                setting = "%s: %s" % (setting_name, setting_type)
-                self.fail("Unsupported setting type for %s" % setting)
-            values_by_name[setting_name] = setting_value
-            Setting.objects.create(name=setting_name, value=str(setting_value))
-        # Load the settings and make sure the DB values have persisted.
-        settings.use_editable()
-        for (name, value) in values_by_name.items():
-            self.assertEqual(getattr(settings, name), value)
-
-    def test_syntax(self):
-        """
-        Run pyflakes/pep8 across the code base to check for potential errors.
-        """
-        warnings = []
-        warnings.extend(run_pyflakes_for_package("mezzanine"))
-        warnings.extend(run_pep8_for_package("mezzanine"))
-        if warnings:
-            self.fail("Syntax warnings!\n\n%s" % "\n".join(warnings))
-
-    def test_utils(self):
-        """
-        Miscellanous tests for the ``mezzanine.utils`` package.
-        """
-        self.assertRaises(ImportError, import_dotted_path, "mezzanine")
-        self.assertRaises(ImportError, import_dotted_path, "mezzanine.NO")
-        self.assertRaises(ImportError, import_dotted_path, "mezzanine.core.NO")
-        try:
-            import_dotted_path("mezzanine.core")
-        except ImportError:
-            self.fail("mezzanine.utils.imports.import_dotted_path"
-                      "could not import \"mezzanine.core\"")
 
     def _create_page(self, title, status):
         return RichTextPage.objects.create(title=title, status=status)
@@ -663,48 +392,16 @@ class Tests(TestCase):
         site1.delete()
         site2.delete()
 
-    def test_gallery_import(self):
+    def test_overridden_page(self):
         """
-        Test that a gallery creates images when given a zip file to
-        import, and that descriptions are created.
+        Test that a page with a slug matching a non-page urlpattern
+        return ``True`` for its overridden property.
         """
-        zip_name = "gallery.zip"
-        copy_test_to_media("mezzanine.core", zip_name)
-        title = str(uuid4())
-        gallery = Gallery.objects.create(title=title, zip_import=zip_name)
-        images = list(gallery.images.all())
-        self.assertTrue(images)
-        self.assertTrue(all([image.description for image in images]))
-        # Clean up.
-        rmtree(unicode(os.path.join(settings.MEDIA_ROOT,
-                                    GALLERIES_UPLOAD_DIR, title)))
-
-    def test_thumbnail_generation(self):
-        """
-        Test that a thumbnail is created and resized.
-        """
-        image_name = "image.jpg"
-        size = (24, 24)
-        copy_test_to_media("mezzanine.core", image_name)
-        thumb_name = os.path.join(settings.THUMBNAILS_DIR_NAME,
-                                  image_name.replace(".", "-%sx%s." % size))
-        thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
-        thumb_image = thumbnail(image_name, *size)
-        self.assertEqual(os.path.normpath(thumb_image.lstrip("/")), thumb_name)
-        self.assertNotEqual(os.path.getsize(thumb_path), 0)
-        thumb = Image.open(thumb_path)
-        self.assertEqual(thumb.size, size)
-        # Clean up.
-        del thumb
-        os.remove(os.path.join(settings.MEDIA_ROOT, image_name))
-        os.remove(os.path.join(thumb_path))
-        rmtree(os.path.join(os.path.dirname(thumb_path)))
-
-    def test_searchable_manager_search_fields(self):
-        """
-        Test that SearchableManager can get appropriate params.
-        """
-        manager = DisplayableManager()
-        self.assertFalse(manager._search_fields)
-        manager = DisplayableManager(search_fields={'foo': 10})
-        self.assertTrue(manager._search_fields)
+        # BLOG_SLUG is empty then urlpatterns for pages are prefixed
+        # with PAGE_SLUG, and generally won't be overridden. In this
+        # case, there aren't any overridding URLs by default, so bail
+        # on the test.
+        if PAGES_SLUG:
+            return
+        page, created = RichTextPage.objects.get_or_create(slug="edit")
+        self.assertTrue(page.overridden())
