@@ -1,7 +1,4 @@
-from urlparse import urlparse
-
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.contenttypes.models import ContentType
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.db import connection
@@ -13,7 +10,6 @@ from django.utils.http import int_to_base36
 from django.contrib.sites.models import Site
 
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
-from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
 from mezzanine.core.models import CONTENT_STATUS_DRAFT
@@ -21,8 +17,7 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
-from mezzanine.generic.forms import RatingForm
-from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
+from mezzanine.generic.models import AssignedKeyword, Keyword
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.importing import import_dotted_path
@@ -292,50 +287,6 @@ class Tests(TestCase):
         mobile = self.client.get(url, HTTP_USER_AGENT=ua)
         self.assertNotEqual(default.template_name[0], mobile.template_name[0])
 
-    def test_blog_views(self):
-        """
-        Basic status code test for blog views.
-        """
-        response = self.client.get(reverse("blog_post_list"))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse("blog_post_feed", args=("rss",)))
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(reverse("blog_post_feed", args=("atom",)))
-        self.assertEqual(response.status_code, 200)
-        blog_post = BlogPost.objects.create(title="Post", user=self._user,
-                                            status=CONTENT_STATUS_PUBLISHED)
-        response = self.client.get(blog_post.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-        # Test the blog is login protected if its page has login_required
-        # set to True.
-        slug = settings.BLOG_SLUG or "/"
-        RichTextPage.objects.create(title="blog", slug=slug,
-                                    login_required=True)
-        response = self.client.get(reverse("blog_post_list"), follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(len(response.redirect_chain) > 0)
-        redirect_path = urlparse(response.redirect_chain[0][0]).path
-        self.assertEqual(redirect_path, settings.LOGIN_URL)
-
-    def test_rating(self):
-        """
-        Test that ratings can be posted and avarage/count are calculated.
-        """
-        blog_post = BlogPost.objects.create(title="Ratings", user=self._user,
-                                            status=CONTENT_STATUS_PUBLISHED)
-        data = RatingForm(None, blog_post).initial
-        for value in settings.RATINGS_RANGE:
-            data["value"] = value
-            response = self.client.post(reverse("rating"), data=data)
-            response.delete_cookie("mezzanine-rating")
-        blog_post = BlogPost.objects.get(id=blog_post.id)
-        count = len(settings.RATINGS_RANGE)
-        _sum = sum(settings.RATINGS_RANGE)
-        average = _sum / float(count)
-        self.assertEqual(blog_post.rating_count, count)
-        self.assertEqual(blog_post.rating_sum, _sum)
-        self.assertEqual(blog_post.rating_average, average)
-
     def queries_used_for_template(self, template, **context):
         """
         Return the number of queries used when rendering a template
@@ -360,27 +311,6 @@ class Tests(TestCase):
                 for _ in per_level:
                     kwargs[parent_field] = level2
                     model.objects.create(**kwargs)
-
-    def test_comment_queries(self):
-        """
-        Test that rendering comments executes the same number of
-        queries, regardless of the number of nested replies.
-        """
-        blog_post = BlogPost.objects.create(title="Post", user=self._user)
-        content_type = ContentType.objects.get_for_model(blog_post)
-        kwargs = {"content_type": content_type, "object_pk": blog_post.id,
-                  "site_id": settings.SITE_ID}
-        template = "{% load comment_tags %}{% comment_thread blog_post %}"
-        context = {
-            "blog_post": blog_post,
-            "posted_comment_form": None,
-            "unposted_comment_form": None,
-        }
-        before = self.queries_used_for_template(template, **context)
-        self.assertTrue(before > 0)
-        self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
-        after = self.queries_used_for_template(template, **context)
-        self.assertEquals(before, after)
 
     def test_page_menu_queries(self):
         """
