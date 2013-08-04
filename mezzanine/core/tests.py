@@ -1,8 +1,4 @@
-
-import os
-from shutil import rmtree
 from urlparse import urlparse
-from uuid import uuid4
 
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.contenttypes.models import ContentType
@@ -15,7 +11,6 @@ from django.test import TestCase
 from django.utils.html import strip_tags
 from django.utils.http import int_to_base36
 from django.contrib.sites.models import Site
-from PIL import Image
 
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
 from mezzanine.blog.models import BlogPost
@@ -24,16 +19,14 @@ from mezzanine.conf.models import Setting
 from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
-from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
-from mezzanine.galleries.models import Gallery, GALLERIES_UPLOAD_DIR
 from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import ThreadedComment, AssignedKeyword, Keyword
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.tests import copy_test_to_media, run_pyflakes_for_package
+from mezzanine.utils.tests import run_pyflakes_for_package
 from mezzanine.utils.tests import run_pep8_for_package
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import get_user_model
@@ -662,43 +655,6 @@ class Tests(TestCase):
 
         site1.delete()
         site2.delete()
-
-    def test_gallery_import(self):
-        """
-        Test that a gallery creates images when given a zip file to
-        import, and that descriptions are created.
-        """
-        zip_name = "gallery.zip"
-        copy_test_to_media("mezzanine.core", zip_name)
-        title = str(uuid4())
-        gallery = Gallery.objects.create(title=title, zip_import=zip_name)
-        images = list(gallery.images.all())
-        self.assertTrue(images)
-        self.assertTrue(all([image.description for image in images]))
-        # Clean up.
-        rmtree(unicode(os.path.join(settings.MEDIA_ROOT,
-                                    GALLERIES_UPLOAD_DIR, title)))
-
-    def test_thumbnail_generation(self):
-        """
-        Test that a thumbnail is created and resized.
-        """
-        image_name = "image.jpg"
-        size = (24, 24)
-        copy_test_to_media("mezzanine.core", image_name)
-        thumb_name = os.path.join(settings.THUMBNAILS_DIR_NAME,
-                                  image_name.replace(".", "-%sx%s." % size))
-        thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
-        thumb_image = thumbnail(image_name, *size)
-        self.assertEqual(os.path.normpath(thumb_image.lstrip("/")), thumb_name)
-        self.assertNotEqual(os.path.getsize(thumb_path), 0)
-        thumb = Image.open(thumb_path)
-        self.assertEqual(thumb.size, size)
-        # Clean up.
-        del thumb
-        os.remove(os.path.join(settings.MEDIA_ROOT, image_name))
-        os.remove(os.path.join(thumb_path))
-        rmtree(os.path.join(os.path.dirname(thumb_path)))
 
     def test_searchable_manager_search_fields(self):
         """
