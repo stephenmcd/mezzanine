@@ -71,7 +71,7 @@ try:
         test_suite="runtests.runtests",
         tests_require=["pyflakes==0.6.1", "pep8==1.4.1"],
         classifiers=[
-            "Development Status :: 4 - Beta",
+            "Development Status :: 5 - Production/Stable",
             "Environment :: Web Environment",
             "Framework :: Django",
             "Intended Audience :: Developers",
