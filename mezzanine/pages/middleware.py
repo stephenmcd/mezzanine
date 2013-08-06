@@ -1,4 +1,5 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.core.exceptions import MiddlewareNotUsed
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from django.utils.http import urlquote
@@ -30,6 +31,10 @@ class PageMiddleware(object):
     In either case, we add the page to the response's template
     context, so that the current page is always available.
     """
+
+    def __init__(self):
+        if "mezzanine.pages" not in settings.INSTALLED_APPS:
+            raise MiddlewareNotUsed
 
     def process_view(self, request, view_func, view_args, view_kwargs):
 
