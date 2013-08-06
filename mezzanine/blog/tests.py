@@ -1,3 +1,4 @@
+
 from urlparse import urlparse
 
 from django.contrib.contenttypes.models import ContentType
@@ -15,10 +16,12 @@ from mezzanine.generic.models import ThreadedComment
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.models import get_user_model
 
+
 User = get_user_model()
 
 
 class TestsBlogPost(TestCase):
+
     def setUp(self):
         self._username = "test"
         self._password = "test"

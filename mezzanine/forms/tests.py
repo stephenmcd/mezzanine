@@ -1,3 +1,4 @@
+
 from django.test import TestCase
 
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
@@ -6,6 +7,7 @@ from mezzanine.forms.models import Form
 
 
 class TestsForm(TestCase):
+
     def test_forms(self):
         """
         Simple 200 status check against rendering and posting to forms

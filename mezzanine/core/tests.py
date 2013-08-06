@@ -1,3 +1,4 @@
+
 from django.core.urlresolvers import reverse
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
@@ -16,6 +17,7 @@ from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import get_user_model
 from mezzanine.core.managers import DisplayableManager
 
+
 User = get_user_model()
 
 
@@ -23,6 +25,7 @@ class Tests(TestCase):
     """
     Mezzanine tests.
     """
+
     def test_tagcloser(self):
         """
         Test tags are closed, and tags that shouldn't be closed aren't.

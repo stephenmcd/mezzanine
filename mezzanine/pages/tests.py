@@ -1,3 +1,4 @@
+
 from django.contrib.sites.models import Site
 from django.db import connection
 from django.template import Context, Template
@@ -13,10 +14,12 @@ from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.models import get_user_model
 
+
 User = get_user_model()
 
 
 class TestsRichTextPage(TestCase):
+
     def setUp(self):
         """
         Create an admin user.
