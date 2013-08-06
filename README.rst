@@ -193,8 +193,6 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `Drum`_ - A `Hacker News`_ / `Reddit`_ clone powered by Mezzanine.
   * `mezzanine-html5boilerplate`_ - Integrates the
     `html5boilerplate project`_  into Mezzanine.
-  * `mezzanine-html5boilerplate`_ - Integrates the
-    `html5boilerplate project`_  into Mezzanine.
   * `mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich
     text editor.
   * `mezzanine-openshift`_ - Setup for running Mezzanine on
