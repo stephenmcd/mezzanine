@@ -1,6 +1,7 @@
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+from django.utils.unittest import skipUnless
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings
@@ -14,6 +15,8 @@ from mezzanine.utils.tests import TestCase
 
 class GenericTests(TestCase):
 
+    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
+                "blog app required")
     def test_rating(self):
         """
         Test that ratings can be posted and avarage/count are calculated.
@@ -33,6 +36,8 @@ class GenericTests(TestCase):
         self.assertEqual(blog_post.rating_sum, _sum)
         self.assertEqual(blog_post.rating_average, average)
 
+    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
+                "blog app required")
     def test_comment_queries(self):
         """
         Test that rendering comments executes the same number of
@@ -54,6 +59,8 @@ class GenericTests(TestCase):
         after = self.queries_used_for_template(template, **context)
         self.assertEquals(before, after)
 
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
+                "pages app required")
     def test_keywords(self):
         """
         Test that the keywords_string field is correctly populated.

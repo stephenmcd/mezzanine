@@ -2,6 +2,7 @@
 from urlparse import urlparse
 
 from django.core.urlresolvers import reverse
+from django.utils.unittest import skipUnless
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings
@@ -27,8 +28,15 @@ class BlogTests(TestCase):
                                             status=CONTENT_STATUS_PUBLISHED)
         response = self.client.get(blog_post.get_absolute_url())
         self.assertEqual(response.status_code, 200)
-        # Test the blog is login protected if its page has login_required
-        # set to True.
+
+    @skipUnless("mezzanine.accounts" in settings.INSTALLED_APPS and
+                "mezzanine.pages" in settings.INSTALLED_APPS,
+                "accounts and pages apps required")
+    def test_login_protected_blog(self):
+        """
+        Test the blog is login protected if its page has login_required
+        set to True.
+        """
         slug = settings.BLOG_SLUG or "/"
         RichTextPage.objects.create(title="blog", slug=slug,
                                     login_required=True)

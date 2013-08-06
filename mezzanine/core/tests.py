@@ -1,16 +1,13 @@
 
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
-from django.template import TemplateDoesNotExist
-from django.template.loader import get_template
 from django.utils.html import strip_tags
+from django.utils.unittest import skipUnless
 
 from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
                                    CONTENT_STATUS_PUBLISHED)
-from mezzanine.forms import fields
-from mezzanine.forms.models import Form
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
@@ -30,15 +27,14 @@ class CoreTests(TestCase):
         self.assertEqual(TagCloser("Line break<br>").html,
                          "Line break<br>")
 
+    @skipUnless("mezzanine.mobile" in settings.INSTALLED_APPS and
+                "mezzanine.pages" in settings.INSTALLED_APPS,
+                "mobile and pages apps required")
     def test_device_specific_template(self):
         """
         Test that an alternate template is rendered when a mobile
         device is used.
         """
-        try:
-            get_template("mobile/index.html")
-        except TemplateDoesNotExist:
-            return
         ua = settings.DEVICE_USER_AGENTS[0][1][0]
         kwargs = {"slug": "device-test"}
         url = reverse("page", kwargs=kwargs)
@@ -47,24 +43,6 @@ class CoreTests(TestCase):
         default = self.client.get(url)
         mobile = self.client.get(url, HTTP_USER_AGENT=ua)
         self.assertNotEqual(default.template_name[0], mobile.template_name[0])
-
-    def test_forms(self):
-        """
-        Simple 200 status check against rendering and posting to forms
-        with both optional and required fields.
-        """
-        for required in (True, False):
-            form = Form.objects.create(title="Form",
-                                       status=CONTENT_STATUS_PUBLISHED)
-            for (i, (field, _)) in enumerate(fields.NAMES):
-                form.fields.create(label="Field %s" % i, field_type=field,
-                                   required=required, visible=True)
-            response = self.client.get(form.get_absolute_url())
-            self.assertEqual(response.status_code, 200)
-            visible_fields = form.fields.visible()
-            data = dict([("field_%s" % f.id, "test") for f in visible_fields])
-            response = self.client.post(form.get_absolute_url(), data=data)
-            self.assertEqual(response.status_code, 200)
 
     def test_syntax(self):
         """
@@ -89,6 +67,8 @@ class CoreTests(TestCase):
             self.fail("mezzanine.utils.imports.import_dotted_path"
                       "could not import \"mezzanine.core\"")
 
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
+                "pages app required")
     def test_description(self):
         """
         Test generated description is text version of the first line
@@ -99,6 +79,8 @@ class CoreTests(TestCase):
                                            content=description * 3)
         self.assertEqual(page.description, strip_tags(description))
 
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
+                "pages app required")
     def test_draft(self):
         """
         Test a draft object as only being viewable by a staff member.
@@ -121,6 +103,8 @@ class CoreTests(TestCase):
         manager = DisplayableManager(search_fields={'foo': 10})
         self.assertTrue(manager._search_fields)
 
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
+                "pages app required")
     def test_search(self):
         """
         Objects with status "Draft" should not be within search results.
@@ -179,6 +163,8 @@ class CoreTests(TestCase):
         response = self.client.get(pages[0].get_absolute_url())
         self.assertEqual(response.status_code, code)
 
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
+                "pages app required")
     def test_mulisite(self):
         from django.conf import settings
 
