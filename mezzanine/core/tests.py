@@ -2,26 +2,21 @@
 from django.core.urlresolvers import reverse
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
-from django.test import TestCase
 
 from mezzanine.conf import settings, registry
+from mezzanine.core.managers import DisplayableManager
 from mezzanine.conf.models import Setting
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.tests import run_pyflakes_for_package
-from mezzanine.utils.tests import run_pep8_for_package
+from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
+                                             run_pep8_for_package)
 from mezzanine.utils.html import TagCloser
-from mezzanine.utils.models import get_user_model
-from mezzanine.core.managers import DisplayableManager
 
 
-User = get_user_model()
-
-
-class Tests(TestCase):
+class CoreTests(TestCase):
     """
     Mezzanine tests.
     """

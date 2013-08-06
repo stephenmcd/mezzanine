@@ -2,18 +2,18 @@
 from django.contrib.auth.tokens import default_token_generator
 from django.core import mail
 from django.core.urlresolvers import reverse
-from django.test import TestCase
 from django.utils.http import int_to_base36
 
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
 from mezzanine.conf import settings
 from mezzanine.utils.models import get_user_model
+from mezzanine.utils.tests import TestCase
 
 
 User = get_user_model()
 
 
-class Test(TestCase):
+class AccountsTests(TestCase):
 
     def account_data(self, test_value):
         """

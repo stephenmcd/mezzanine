@@ -1,20 +1,18 @@
+
 import os
 from shutil import rmtree
 from uuid import uuid4
 
-from django.test import TestCase
 from PIL import Image
 
 from mezzanine.conf import settings
 from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 from mezzanine.galleries.models import Gallery, GALLERIES_UPLOAD_DIR
-from mezzanine.utils.tests import copy_test_to_media
-from mezzanine.utils.models import get_user_model
-
-User = get_user_model()
+from mezzanine.utils.tests import TestCase, copy_test_to_media
 
 
-class Tests(TestCase):
+class GalleriesTests(TestCase):
+
     def test_gallery_import(self):
         """
         Test that a gallery creates images when given a zip file to

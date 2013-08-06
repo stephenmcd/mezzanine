@@ -3,9 +3,6 @@ from urlparse import urlparse
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
-from django.db import connection
-from django.template import Context, Template
-from django.test import TestCase
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings
@@ -14,43 +11,10 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import ThreadedComment
 from mezzanine.pages.models import RichTextPage
-from mezzanine.utils.models import get_user_model
+from mezzanine.utils.tests import TestCase
 
 
-User = get_user_model()
-
-
-class TestsBlogPost(TestCase):
-
-    def setUp(self):
-        self._username = "test"
-        self._password = "test"
-        args = (self._username, "example@example.com", self._password)
-        self._user = User.objects.create_superuser(*args)
-
-    def queries_used_for_template(self, template, **context):
-        """
-        Return the number of queries used when rendering a template string.
-        """
-        connection.queries = []
-        t = Template(template)
-        t.render(Context(context))
-        return len(connection.queries)
-
-    def create_recursive_objects(self, model, parent_field, **kwargs):
-        """
-        Create multiple levels of recursive objects.
-        """
-        per_level = range(3)
-        for _ in per_level:
-            kwargs[parent_field] = None
-            level1 = model.objects.create(**kwargs)
-            for _ in per_level:
-                kwargs[parent_field] = level1
-                level2 = model.objects.create(**kwargs)
-                for _ in per_level:
-                    kwargs[parent_field] = level2
-                    model.objects.create(**kwargs)
+class BlogTests(TestCase):
 
     def test_blog_views(self):
         """

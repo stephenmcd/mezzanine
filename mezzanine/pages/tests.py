@@ -2,33 +2,19 @@
 from django.contrib.sites.models import Site
 from django.db import connection
 from django.template import Context, Template
-from django.test import TestCase
 from django.utils.html import strip_tags
 
 from mezzanine.conf import settings
-from mezzanine.core.models import CONTENT_STATUS_DRAFT, \
-                                  CONTENT_STATUS_PUBLISHED
+from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
+                                   CONTENT_STATUS_PUBLISHED)
 from mezzanine.core.request import current_request
 from mezzanine.generic.models import AssignedKeyword, Keyword
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
-from mezzanine.utils.models import get_user_model
+from mezzanine.utils.tests import TestCase
 
 
-User = get_user_model()
-
-
-class TestsRichTextPage(TestCase):
-
-    def setUp(self):
-        """
-        Create an admin user.
-        """
-        connection.use_debug_cursor = True
-        self._username = "test"
-        self._password = "test"
-        args = (self._username, "example@example.com", self._password)
-        self._user = User.objects.create_superuser(*args)
+class PagesTests(TestCase):
 
     def test_page_ascendants(self):
         """
@@ -168,31 +154,6 @@ class TestsRichTextPage(TestCase):
         self.client.login(username=self._username, password=self._password)
         response = self.client.get(draft.get_absolute_url())
         self.assertEqual(response.status_code, 200)
-
-    def queries_used_for_template(self, template, **context):
-        """
-        Return the number of queries used when rendering a template
-        string.
-        """
-        connection.queries = []
-        t = Template(template)
-        t.render(Context(context))
-        return len(connection.queries)
-
-    def create_recursive_objects(self, model, parent_field, **kwargs):
-        """
-        Create multiple levels of recursive objects.
-        """
-        per_level = range(3)
-        for _ in per_level:
-            kwargs[parent_field] = None
-            level1 = model.objects.create(**kwargs)
-            for _ in per_level:
-                kwargs[parent_field] = level1
-                level2 = model.objects.create(**kwargs)
-                for _ in per_level:
-                    kwargs[parent_field] = level2
-                    model.objects.create(**kwargs)
 
     def test_page_menu_queries(self):
         """
