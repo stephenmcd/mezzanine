@@ -1,3 +1,14 @@
+// http://n33.co/2013/03/23/browser-on-jquery-19x-for-legacy-ie-detection
+jQuery.browser={};
+(function() {
+    jQuery.browser.msie = false;
+    jQuery.browser.version = 0;
+    if(navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+        jQuery.browser.msie = true;
+        jQuery.browser.version = RegExp.$1;
+    }
+})();
+
 /**
  * @license
  * jQuery Tools @VERSION Overlay - Overlay base. Extend it.
