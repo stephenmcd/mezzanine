@@ -12,6 +12,7 @@ class Setting(SiteRelated):
 
     name = models.CharField(max_length=50)
     value = models.CharField(max_length=2000)
+    _order = models.IntegerField(_("Order"), default=0)
 
     class Meta:
         verbose_name = _("Setting")
