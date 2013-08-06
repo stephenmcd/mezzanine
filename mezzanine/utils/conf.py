@@ -75,9 +75,6 @@ def set_dynamic_settings(s):
     s.setdefault("MESSAGE_STORAGE", storage)
 
     if s["TESTING"]:
-        # Enable accounts when testing so the URLs exist.
-        append("INSTALLED_APPS", "mezzanine.accounts")
-
         # Following bits are work-arounds for some assumptions that
         # Django 1.5's tests make.
 
