@@ -1,12 +1,14 @@
 
+from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
+from django.utils.html import strip_tags
 
-from mezzanine.conf import settings, registry
+from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
-from mezzanine.conf.models import Setting
-from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
+from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
+                                   CONTENT_STATUS_PUBLISHED)
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import RichTextPage
@@ -17,9 +19,6 @@ from mezzanine.utils.html import TagCloser
 
 
 class CoreTests(TestCase):
-    """
-    Mezzanine tests.
-    """
 
     def test_tagcloser(self):
         """
@@ -67,38 +66,6 @@ class CoreTests(TestCase):
             response = self.client.post(form.get_absolute_url(), data=data)
             self.assertEqual(response.status_code, 200)
 
-    def test_settings(self):
-        """
-        Test that an editable setting can be overridden with a DB
-        value and that the data type is preserved when the value is
-        returned back out of the DB. Also checks to ensure no
-        unsupported types are defined for editable settings.
-        """
-        # Find an editable setting for each supported type.
-        names_by_type = {}
-        for setting in registry.values():
-            if setting["editable"] and setting["type"] not in names_by_type:
-                names_by_type[setting["type"]] = setting["name"]
-        # Create a modified value for each setting and save it.
-        values_by_name = {}
-        for (setting_type, setting_name) in names_by_type.items():
-            setting_value = registry[setting_name]["default"]
-            if setting_type in (int, float):
-                setting_value += 1
-            elif setting_type is bool:
-                setting_value = not setting_value
-            elif setting_type in (str, unicode):
-                setting_value += "test"
-            else:
-                setting = "%s: %s" % (setting_name, setting_type)
-                self.fail("Unsupported setting type for %s" % setting)
-            values_by_name[setting_name] = setting_value
-            Setting.objects.create(name=setting_name, value=str(setting_value))
-        # Load the settings and make sure the DB values have persisted.
-        settings.use_editable()
-        for (name, value) in values_by_name.items():
-            self.assertEqual(getattr(settings, name), value)
-
     def test_syntax(self):
         """
         Run pyflakes/pep8 across the code base to check for potential errors.
@@ -122,6 +89,29 @@ class CoreTests(TestCase):
             self.fail("mezzanine.utils.imports.import_dotted_path"
                       "could not import \"mezzanine.core\"")
 
+    def test_description(self):
+        """
+        Test generated description is text version of the first line
+        of content.
+        """
+        description = "<p>How now brown cow</p>"
+        page = RichTextPage.objects.create(title="Draft",
+                                           content=description * 3)
+        self.assertEqual(page.description, strip_tags(description))
+
+    def test_draft(self):
+        """
+        Test a draft object as only being viewable by a staff member.
+        """
+        self.client.logout()
+        draft = RichTextPage.objects.create(title="Draft",
+                                            status=CONTENT_STATUS_DRAFT)
+        response = self.client.get(draft.get_absolute_url())
+        self.assertEqual(response.status_code, 404)
+        self.client.login(username=self._username, password=self._password)
+        response = self.client.get(draft.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
     def test_searchable_manager_search_fields(self):
         """
         Test that SearchableManager can get appropriate params.
@@ -130,3 +120,116 @@ class CoreTests(TestCase):
         self.assertFalse(manager._search_fields)
         manager = DisplayableManager(search_fields={'foo': 10})
         self.assertTrue(manager._search_fields)
+
+    def test_search(self):
+        """
+        Objects with status "Draft" should not be within search results.
+        """
+        RichTextPage.objects.all().delete()
+        published = {"status": CONTENT_STATUS_PUBLISHED}
+        first = RichTextPage.objects.create(title="test page",
+                                           status=CONTENT_STATUS_DRAFT).id
+        second = RichTextPage.objects.create(title="test another test page",
+                                            **published).id
+        # Draft shouldn't be a result.
+        results = RichTextPage.objects.search("test")
+        self.assertEqual(len(results), 1)
+        RichTextPage.objects.filter(id=first).update(**published)
+        results = RichTextPage.objects.search("test")
+        self.assertEqual(len(results), 2)
+        # Either word.
+        results = RichTextPage.objects.search("another test")
+        self.assertEqual(len(results), 2)
+        # Must include first word.
+        results = RichTextPage.objects.search("+another test")
+        self.assertEqual(len(results), 1)
+        # Mustn't include first word.
+        results = RichTextPage.objects.search("-another test")
+        self.assertEqual(len(results), 1)
+        if results:
+            self.assertEqual(results[0].id, first)
+        # Exact phrase.
+        results = RichTextPage.objects.search('"another test"')
+        self.assertEqual(len(results), 1)
+        if results:
+            self.assertEqual(results[0].id, second)
+        # Test ordering.
+        results = RichTextPage.objects.search("test")
+        self.assertEqual(len(results), 2)
+        if results:
+            self.assertEqual(results[0].id, second)
+
+    def _create_page(self, title, status):
+        return RichTextPage.objects.create(title=title, status=status)
+
+    def _test_site_pages(self, title, status, count):
+        # test _default_manager
+        pages = RichTextPage._default_manager.all()
+        self.assertEqual(pages.count(), count)
+        self.assertTrue(title in [page.title for page in pages])
+
+        # test objects manager
+        pages = RichTextPage.objects.all()
+        self.assertEqual(pages.count(), count)
+        self.assertTrue(title in [page.title for page in pages])
+
+        # test response status code
+        code = 200 if status == CONTENT_STATUS_PUBLISHED else 404
+        pages = RichTextPage.objects.filter(status=status)
+        response = self.client.get(pages[0].get_absolute_url())
+        self.assertEqual(response.status_code, code)
+
+    def test_mulisite(self):
+        from django.conf import settings
+
+        # setup
+        try:
+            old_site_id = settings.SITE_ID
+        except:
+            old_site_id = None
+
+        site1 = Site.objects.create(domain="site1.com")
+        site2 = Site.objects.create(domain="site2.com")
+
+        # create pages under site1, which should be only accessible
+        # when SITE_ID is site1
+        settings.SITE_ID = site1.pk
+        site1_page = self._create_page("Site1", CONTENT_STATUS_PUBLISHED)
+        self._test_site_pages("Site1", CONTENT_STATUS_PUBLISHED, count=1)
+
+        # create pages under site2, which should only be accessible
+        # when SITE_ID is site2
+        settings.SITE_ID = site2.pk
+        self._create_page("Site2", CONTENT_STATUS_PUBLISHED)
+        self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
+
+        # original page should 404
+        response = self.client.get(site1_page.get_absolute_url())
+        self.assertEqual(response.status_code, 404)
+
+        # change back to site1, and only the site1 pages should be retrieved
+        settings.SITE_ID = site1.pk
+        self._test_site_pages("Site1", CONTENT_STATUS_PUBLISHED, count=1)
+
+        # insert a new record, see the count change
+        self._create_page("Site1 Draft", CONTENT_STATUS_DRAFT)
+        self._test_site_pages("Site1 Draft", CONTENT_STATUS_DRAFT, count=2)
+        self._test_site_pages("Site1 Draft", CONTENT_STATUS_PUBLISHED, count=2)
+
+        # change back to site2, and only the site2 pages should be retrieved
+        settings.SITE_ID = site2.pk
+        self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
+
+        # insert a new record, see the count change
+        self._create_page("Site2 Draft", CONTENT_STATUS_DRAFT)
+        self._test_site_pages("Site2 Draft", CONTENT_STATUS_DRAFT, count=2)
+        self._test_site_pages("Site2 Draft", CONTENT_STATUS_PUBLISHED, count=2)
+
+        # tear down
+        if old_site_id:
+            settings.SITE_ID = old_site_id
+        else:
+            del settings.SITE_ID
+
+        site1.delete()
+        site2.delete()

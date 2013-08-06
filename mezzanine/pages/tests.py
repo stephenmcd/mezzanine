@@ -1,14 +1,10 @@
 
-from django.contrib.sites.models import Site
 from django.db import connection
 from django.template import Context, Template
-from django.utils.html import strip_tags
 
 from mezzanine.conf import settings
-from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
-                                   CONTENT_STATUS_PUBLISHED)
+from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
-from mezzanine.generic.models import AssignedKeyword, Keyword
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.tests import TestCase
@@ -132,29 +128,6 @@ class PagesTests(TestCase):
         child = RichTextPage.objects.get(id=child.id)
         self.assertTrue(child.slug == "new-parent-slug/child")
 
-    def test_description(self):
-        """
-        Test generated description is text version of the first line
-        of content.
-        """
-        description = "<p>How now brown cow</p>"
-        page = RichTextPage.objects.create(title="Draft",
-                                           content=description * 3)
-        self.assertEqual(page.description, strip_tags(description))
-
-    def test_draft_page(self):
-        """
-        Test a draft page as only being viewable by a staff member.
-        """
-        self.client.logout()
-        draft = RichTextPage.objects.create(title="Draft",
-                                            status=CONTENT_STATUS_DRAFT)
-        response = self.client.get(draft.get_absolute_url())
-        self.assertEqual(response.status_code, 404)
-        self.client.login(username=self._username, password=self._password)
-        response = self.client.get(draft.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-
     def test_page_menu_queries(self):
         """
         Test that rendering a page menu executes the same number of
@@ -222,139 +195,6 @@ class PagesTests(TestCase):
         finally:
             settings.PAGE_MENU_TEMPLATES = old_menu_temp
             settings.PAGE_MENU_TEMPLATES_DEFAULT = old_menu_temp_def
-
-    def test_keywords(self):
-        """
-        Test that the keywords_string field is correctly populated.
-        """
-        page = RichTextPage.objects.create(title="test keywords")
-        keywords = set(["how", "now", "brown", "cow"])
-        Keyword.objects.all().delete()
-        for keyword in keywords:
-            keyword_id = Keyword.objects.get_or_create(title=keyword)[0].id
-            page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
-        page = RichTextPage.objects.get(id=page.id)
-        self.assertEquals(keywords, set(page.keywords_string.split()))
-        # Test removal.
-        first = Keyword.objects.all()[0]
-        keywords.remove(first.title)
-        first.delete()
-        page = RichTextPage.objects.get(id=page.id)
-        self.assertEquals(keywords, set(page.keywords_string.split()))
-        page.delete()
-
-    def test_search(self):
-        """
-        Pages with status "Draft" should not be listed in the search result.
-        """
-        RichTextPage.objects.all().delete()
-        published = {"status": CONTENT_STATUS_PUBLISHED}
-        first = RichTextPage.objects.create(title="test page",
-                                           status=CONTENT_STATUS_DRAFT).id
-        second = RichTextPage.objects.create(title="test another test page",
-                                            **published).id
-        # Draft shouldn't be a result.
-        results = RichTextPage.objects.search("test")
-        self.assertEqual(len(results), 1)
-        RichTextPage.objects.filter(id=first).update(**published)
-        results = RichTextPage.objects.search("test")
-        self.assertEqual(len(results), 2)
-        # Either word.
-        results = RichTextPage.objects.search("another test")
-        self.assertEqual(len(results), 2)
-        # Must include first word.
-        results = RichTextPage.objects.search("+another test")
-        self.assertEqual(len(results), 1)
-        # Mustn't include first word.
-        results = RichTextPage.objects.search("-another test")
-        self.assertEqual(len(results), 1)
-        if results:
-            self.assertEqual(results[0].id, first)
-        # Exact phrase.
-        results = RichTextPage.objects.search('"another test"')
-        self.assertEqual(len(results), 1)
-        if results:
-            self.assertEqual(results[0].id, second)
-        # Test ordering.
-        results = RichTextPage.objects.search("test")
-        self.assertEqual(len(results), 2)
-        if results:
-            self.assertEqual(results[0].id, second)
-
-    def _create_page(self, title, status):
-        return RichTextPage.objects.create(title=title, status=status)
-
-    def _test_site_pages(self, title, status, count):
-        # test _default_manager
-        pages = RichTextPage._default_manager.all()
-        self.assertEqual(pages.count(), count)
-        self.assertTrue(title in [page.title for page in pages])
-
-        # test objects manager
-        pages = RichTextPage.objects.all()
-        self.assertEqual(pages.count(), count)
-        self.assertTrue(title in [page.title for page in pages])
-
-        # test response status code
-        code = 200 if status == CONTENT_STATUS_PUBLISHED else 404
-        pages = RichTextPage.objects.filter(status=status)
-        response = self.client.get(pages[0].get_absolute_url())
-        self.assertEqual(response.status_code, code)
-
-    def test_mulisite(self):
-        from django.conf import settings
-
-        # setup
-        try:
-            old_site_id = settings.SITE_ID
-        except:
-            old_site_id = None
-
-        site1 = Site.objects.create(domain="site1.com")
-        site2 = Site.objects.create(domain="site2.com")
-
-        # create pages under site1, which should be only accessible
-        # when SITE_ID is site1
-        settings.SITE_ID = site1.pk
-        site1_page = self._create_page("Site1", CONTENT_STATUS_PUBLISHED)
-        self._test_site_pages("Site1", CONTENT_STATUS_PUBLISHED, count=1)
-
-        # create pages under site2, which should only be accessible
-        # when SITE_ID is site2
-        settings.SITE_ID = site2.pk
-        self._create_page("Site2", CONTENT_STATUS_PUBLISHED)
-        self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
-
-        # original page should 404
-        response = self.client.get(site1_page.get_absolute_url())
-        self.assertEqual(response.status_code, 404)
-
-        # change back to site1, and only the site1 pages should be retrieved
-        settings.SITE_ID = site1.pk
-        self._test_site_pages("Site1", CONTENT_STATUS_PUBLISHED, count=1)
-
-        # insert a new record, see the count change
-        self._create_page("Site1 Draft", CONTENT_STATUS_DRAFT)
-        self._test_site_pages("Site1 Draft", CONTENT_STATUS_DRAFT, count=2)
-        self._test_site_pages("Site1 Draft", CONTENT_STATUS_PUBLISHED, count=2)
-
-        # change back to site2, and only the site2 pages should be retrieved
-        settings.SITE_ID = site2.pk
-        self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
-
-        # insert a new record, see the count change
-        self._create_page("Site2 Draft", CONTENT_STATUS_DRAFT)
-        self._test_site_pages("Site2 Draft", CONTENT_STATUS_DRAFT, count=2)
-        self._test_site_pages("Site2 Draft", CONTENT_STATUS_PUBLISHED, count=2)
-
-        # tear down
-        if old_site_id:
-            settings.SITE_ID = old_site_id
-        else:
-            del settings.SITE_ID
-
-        site1.delete()
-        site2.delete()
 
     def test_overridden_page(self):
         """
