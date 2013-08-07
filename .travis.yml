@@ -8,7 +8,6 @@ python:
 install:
   - pip install django==$DJANGO_VERSION --use-mirrors
   - pip install . --use-mirrors
-  - pip install pep8 pyflakes --use-mirrors
 script:
   - python setup.py test
 notifications:
