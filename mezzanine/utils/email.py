@@ -27,7 +27,8 @@ def subject_template(template, context):
 
 
 def send_mail_template(subject, template, addr_from, addr_to, context=None,
-                       attachments=None, fail_silently=False, addr_bcc=None):
+                       attachments=None, fail_silently=False, addr_bcc=None,
+                       headers=None):
     """
     Send email rendering text and html versions for the specified
     template name using the context dictionary passed in.
@@ -46,7 +47,8 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
                           (template, type)).render(Context(context))
     # Create and send email.
     msg = EmailMultiAlternatives(subject, render("txt"),
-                                 addr_from, addr_to, addr_bcc)
+                                 addr_from, addr_to, addr_bcc,
+                                 headers=headers)
     msg.attach_alternative(render("html"), "text/html")
     for attachment in attachments:
         msg.attach(*attachment)
