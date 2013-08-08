@@ -49,9 +49,8 @@ def form_processor(request, page):
             send_mail_template(subject, "email/form_response", email_from,
                                email_to, context, fail_silently=settings.DEBUG)
         headers = None
-        if not settings.FORMS_DISABLE_SEND_FROM_EMAIL_FIELD and email_to:
-            # Send from the email entered,
-            # unless FORMS_DISABLE_SEND_FROM_EMAIL_FIELD is True.
+        if email_to:
+            # Add the email entered as a Reply-To header
             headers = {'Reply-To': email_to}
         email_copies = split_addresses(page.form.email_copies)
         if email_copies:
