@@ -18,8 +18,12 @@ from django.template import (Context, Node, TextNode, Template,
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils.html import strip_tags
-from django.utils.simplejson import loads
 from django.utils.text import capfirst
+
+try:
+    from json import loads
+except ImportError:  # Python < 2.6
+    from django.utils.simplejson import loads
 
 # Try to import PIL in either of the two ways it can end up installed.
 try:
