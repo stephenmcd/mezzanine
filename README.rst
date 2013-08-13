@@ -238,6 +238,8 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   * `mezzanine-file-collections`_ - Simple file collection page type for Mezzanine.
   * `mezzanine-wymeditor`_ - `WYMeditor`_ adapted as the rich text
     editor for Mezzanine.
+  * `mezzanine-meze`_ - Adds support for `reStructuredText`_,
+    `Pygments`_ and more, to Mezzanine's rich text editing.
 
 Donating
 ========
@@ -558,6 +560,9 @@ Quotes
 .. _`mezzanine-file-collections`: https://github.com/thibault/mezzanine-file-collections
 .. _`mezzanine-wymeditor`: https://github.com/excieve/mezzanine-wymeditor
 .. _`WYMeditor`: http://wymeditor.github.io/wymeditor/
+.. _`mezzanine-meze`: https://github.com/abakan/mezzanine-meze
+.. _`reStructuredText`: http://docutils.sourceforge.net/rst.html
+.. _`Pygments`: http://pygments.org/
 
 
 .. PEOPLE WITH QUOTES
