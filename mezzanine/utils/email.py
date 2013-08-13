@@ -40,7 +40,7 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
         attachments = []
     # Add template accessible settings from Mezzanine to the context
     # (normally added by a context processor for HTTP requests)
-    context.update(context_settings(request=None))
+    context.update(context_settings())
     # Allow for a single address to be passed in.
     if not hasattr(addr_to, "__iter__"):
         addr_to = [addr_to]
