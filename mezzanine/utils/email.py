@@ -7,6 +7,7 @@ from django.utils.http import int_to_base36
 
 from mezzanine.conf import settings
 from mezzanine.utils.urls import admin_url
+from mezzanine.conf.context_processors import settings as context_settings
 
 
 def split_addresses(email_string_list):
@@ -37,6 +38,9 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
         context = {}
     if attachments is None:
         attachments = []
+    # Add template accessible settings from Mezzanine to the context
+    # (normally added by a context processor for HTTP requests)
+    context.update(context_settings(request=None))
     # Allow for a single address to be passed in.
     if not hasattr(addr_to, "__iter__"):
         addr_to = [addr_to]
