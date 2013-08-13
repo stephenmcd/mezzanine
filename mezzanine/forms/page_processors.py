@@ -48,10 +48,10 @@ def form_processor(request, page):
         if email_to and page.form.send_email:
             send_mail_template(subject, "email/form_response", email_from,
                                email_to, context, fail_silently=settings.DEBUG)
-        if not settings.FORMS_DISABLE_SEND_FROM_EMAIL_FIELD:
-            # Send from the email entered,
-            # unless FORMS_DISABLE_SEND_FROM_EMAIL_FIELD is True.
-            email_from = email_to or email_from
+        headers = None
+        if email_to:
+            # Add the email entered as a Reply-To header
+            headers = {'Reply-To': email_to}
         email_copies = split_addresses(page.form.email_copies)
         if email_copies:
             attachments = []
@@ -60,7 +60,7 @@ def form_processor(request, page):
                 attachments.append((f.name, f.read()))
             send_mail_template(subject, "email/form_response", email_from,
                                email_copies, context, attachments=attachments,
-                               fail_silently=settings.DEBUG)
+                               fail_silently=settings.DEBUG, headers=headers)
         form_valid.send(sender=request, form=form, entry=entry)
         return redirect(url)
     form_invalid.send(sender=request, form=form)

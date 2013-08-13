@@ -16,15 +16,6 @@ from mezzanine.conf import register_setting
 
 
 register_setting(
-    name="FORMS_DISABLE_SEND_FROM_EMAIL_FIELD",
-    description=_("If ``True``, emails sent to extra recipients for form "
-        "submissions won't be sent from an address taken from one of the "
-        "form's email fields."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
     name="FORMS_FIELD_MAX_LENGTH",
     description=_("Max length allowed for field values in the forms app."),
     editable=False,
