@@ -1,4 +1,3 @@
-
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Model, Count
 
@@ -48,14 +47,7 @@ def keywords_for(*args):
     settings.use_editable()
     counts = [keyword.item_count for keyword in keywords]
     min_count, max_count = min(counts), max(counts)
-    sizes = settings.TAG_CLOUD_SIZES
-    step = (max_count - min_count) / (sizes - 1)
-    if step == 0:
-        steps = [sizes / 2]
-    else:
-        steps = range(min_count, max_count, step)[:sizes]
-    for keyword in keywords:
-        c = keyword.item_count
-        diff = min([(abs(s - c), (s - c)) for s in steps])[1]
-        keyword.weight = steps.index(c + diff) + 1
+    factor = (settings.TAG_CLOUD_SIZES - 1.) / (max_count - min_count)
+    for kywd in keywords:
+        kywd.weight = int(round((kywd.item_count - min_count) * factor)) + 1
     return keywords
