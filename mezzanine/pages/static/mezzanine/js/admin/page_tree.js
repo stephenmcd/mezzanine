@@ -1,4 +1,3 @@
-
 var cookie = 'mezzanine-admin-tree';
 var at = ('; ' + document.cookie).indexOf('; ' + cookie + '=');
 var ids = '';
@@ -88,6 +87,14 @@ $(function() {
                 return elem.id;
             }).get()
         };
+        
+        if (window.__csrf_token) {
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", window.__csrf_token);
+                }
+            });
+        }
 
         $.post(window.__page_ordering_url, args, function(data) {
             if (String(data).substr(0, 2) !== "ok") {
