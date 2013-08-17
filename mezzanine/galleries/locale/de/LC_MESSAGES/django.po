@@ -1,0 +1,56 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Daniel Seither <post@tiwoc.de>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2012-08-27 10:42+0000\n"
+"Last-Translator: Daniel Seither <post@tiwoc.de>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/mezzanine/"
+"language/de/)\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:38
+msgid "Zip import"
+msgstr "ZIP-Import"
+
+#: models.py:40
+msgid ""
+"Upload a zip file containing images, and they'll be imported into this "
+"gallery."
+msgstr ""
+"Laden Sie eine ZIP-Datei mit Bildern hoch, die in diese Galerie importiert "
+"werden sollen."
+
+#: models.py:44
+msgid "Gallery"
+msgstr "Galerie"
+
+#: models.py:45
+msgid "Galleries"
+msgstr "Galerien"
+
+#: models.py:91
+msgid "File"
+msgstr "Datei"
+
+#: models.py:93
+msgid "Description"
+msgstr "Beschreibung"
+
+#: models.py:97
+msgid "Image"
+msgstr "Bild"
+
+#: models.py:98
+msgid "Images"
+msgstr "Bilder"

@@ -4,25 +4,25 @@
 #
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
-# Timur Bobrus, 2010.
 # Dmitry Falk <tfalc@mail.ru>, 2012.
+# Timur Bobrus, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:00+0400\n"
-"PO-Revision-Date: 2012-03-11 23:55+0000\n"
+"POT-Creation-Date: 2013-07-02 22:42+0400\n"
+"PO-Revision-Date: 2012-10-18 18:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.net/projects/p/mezzanine/"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
 "language/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:32 fields.py:30
+#: admin.py:32 fields.py:33
 msgid "Email"
 msgstr "Email"
 
@@ -46,109 +46,148 @@ msgstr ""
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
-msgstr ""
+msgstr "Максимальная длина, допустимая для полей пользовательских форм"
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr ""
+msgstr "Максимально допустимая длина названий полей пользовательских форм"
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
 msgstr ""
+"Символ, используемый как разделитель полей, при экспорте ответов на форму в "
+"формате CSV"
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Пусть для сохранения файлов, закачанных через пользовательские формы"
+
+#: defaults.py:58
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
 msgstr ""
 
-#: fields.py:28
+#: fields.py:31
 msgid "Single line text"
 msgstr "Строка"
 
-#: fields.py:29
+#: fields.py:32
 msgid "Multi line text"
 msgstr "Текст"
 
-#: fields.py:31
+#: fields.py:34
 msgid "Number"
 msgstr "Число"
 
-#: fields.py:32
+#: fields.py:35
 msgid "URL"
-msgstr "Ссылка"
+msgstr "URL"
 
-#: fields.py:33
+#: fields.py:36
 msgid "Check box"
 msgstr "Флажок"
 
-#: fields.py:34
+#: fields.py:37
 msgid "Check boxes"
 msgstr "Флажки"
 
-#: fields.py:35
+#: fields.py:38
 msgid "Drop down"
 msgstr "Список"
 
-#: fields.py:36
+#: fields.py:39
 msgid "Multi select"
 msgstr "Поле с выбором"
 
-#: fields.py:37
+#: fields.py:40
 msgid "Radio buttons"
-msgstr "Переключатель"
+msgstr "Радио кнопки"
 
-#: fields.py:38
+#: fields.py:41
 msgid "File upload"
 msgstr "Загрузка файла"
 
-#: fields.py:39
+#: fields.py:42
 msgid "Date"
 msgstr "Дата"
 
-#: fields.py:40 models.py:116
+#: fields.py:43 models.py:116
 msgid "Date/time"
 msgstr "Дата/время"
 
-#: fields.py:41
+#: fields.py:44
+msgid "Date of birth"
+msgstr "Дата рождения"
+
+#: fields.py:45
 msgid "Hidden"
 msgstr "Скрытое"
 
-#: forms.py:28 forms.py:36 forms.py:42
+#: forms.py:50 forms.py:59 forms.py:66 forms.py:75
 msgid "Nothing"
 msgstr "Ничего"
 
-#: forms.py:29
+#: forms.py:51
 msgid "Contains"
 msgstr "Содержит"
 
-#: forms.py:30
+#: forms.py:52
 msgid "Doesn't contain"
 msgstr "Не содержит"
 
-#: forms.py:31 forms.py:37
+#: forms.py:53
 msgid "Equals"
 msgstr "Равно"
 
-#: forms.py:32 forms.py:38
+#: forms.py:54
 msgid "Doesn't equal"
 msgstr "Не равно"
 
-#: forms.py:43
+#: forms.py:60
+msgid "Equals any"
+msgstr "Равно любому"
+
+#: forms.py:61
+msgid "Doesn't equal any"
+msgstr "Не равно любому"
+
+#: forms.py:67
+msgid "Contains any"
+msgstr "Содержит любое"
+
+#: forms.py:68
+msgid "Contains all"
+msgstr "Содержит все"
+
+#: forms.py:69
+msgid "Doesn't contain any"
+msgstr "Не содержит любое"
+
+#: forms.py:70
+msgid "Doesn't contain all"
+msgstr "Не содержит все"
+
+#: forms.py:76
 msgid "Is between"
 msgstr "Между"
 
-#: forms.py:100
+#: forms.py:148
 msgid "required"
 msgstr "обязательное"
 
-#: forms.py:214
+#: forms.py:267
 msgid "Checked"
 msgstr "Отмечен"
 
-#: forms.py:214
+#: forms.py:267
 msgid "Not checked"
 msgstr "Не отмечен"
 
-#: forms.py:228 forms.py:243
+#: forms.py:290 forms.py:305
 msgid "and"
 msgstr "и"
 
@@ -172,8 +211,7 @@ msgstr "Отправить письмо пользователю"
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr "Отметьте, если хотите чтобы отправитель получил уведомление на email, "
-"который был указан в форме."
+msgstr "Отметьте, чтобы отправить письмо на email адрес, который указан в форме"
 
 #: models.py:23
 msgid "From address"
@@ -181,18 +219,18 @@ msgstr "От кого"
 
 #: models.py:24
 msgid "The address the email will be sent from"
-msgstr "Адрес электронной почты с которого будет отправлено письмо"
+msgstr "Адрес электронной почты, от кого будет отправлено письмо"
 
 #: models.py:25
 msgid "Send email to others"
-msgstr "Отправить письмо на другие адреса"
+msgstr "Отправить письмо другим"
 
 #: models.py:26
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr "Укажите через запятую список email адресов на которые будет "
-"отправлено уведомление. Оставьте пустым, если уведомления не нужны."
+msgstr "Укажите список адресов через запятые, чтобы уведомить о заполнении формы. "
+"Оставьте пустым, чтобы отключить уведомления."
 
 #: models.py:30
 msgid "Subject"
@@ -207,9 +245,8 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr "Письма отправленные указанным пользователям будут содержать все "
-"поля формы. Вы также можете ввести сообщение, которое будет включено в "
-"письмо."
+msgstr "Письма отправляемые на базе вышеуказанных опций будут содержать все поля формы, "
+"вы также можете ввести здесь сообщение, которое будет включено в письмо."
 
 #: models.py:37
 msgid "Form"
@@ -259,7 +296,7 @@ msgstr "Замещающий текст"
 msgid "Help text"
 msgstr "Подсказка"
 
-#: models.py:72 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
 msgstr "Поле"
 
@@ -283,51 +320,51 @@ msgstr "Поле формы"
 msgid "Form field entries"
 msgstr "Поля формы"
 
-#: templates/admin/forms/change_form.html:9
-#: templates/admin/forms/entries.html:56
+#: templates/admin/forms/change_form.html:8
+#: templates/admin/forms/entries.html:57
 msgid "View entries"
 msgstr "Просмотр записей"
 
-#: templates/admin/forms/change_form.html:10
+#: templates/admin/forms/change_form.html:9
 msgid "History"
 msgstr "История"
 
-#: templates/admin/forms/change_form.html:11
+#: templates/admin/forms/change_form.html:10
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: templates/admin/forms/entries.html:13
+#: templates/admin/forms/entries.html:14
 msgid "Home"
-msgstr "Главная"
+msgstr "Начало"
 
-#: templates/admin/forms/entries.html:28
+#: templates/admin/forms/entries.html:29
 msgid "Include"
 msgstr "Включать"
 
-#: templates/admin/forms/entries.html:29
+#: templates/admin/forms/entries.html:30
 msgid "Filter by"
 msgstr "Фильтровать по"
 
-#: templates/admin/forms/entries.html:47
+#: templates/admin/forms/entries.html:48
 msgid "All"
 msgstr "Все"
 
-#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
 msgstr "Назад к форме"
 
-#: templates/admin/forms/entries.html:57
+#: templates/admin/forms/entries.html:58
 msgid "Export CSV"
 msgstr "Экспортировать в CSV"
 
-#: templates/admin/forms/entries.html:59
+#: templates/admin/forms/entries.html:60
 msgid "Entries"
 msgstr "Записи"
 
-#: templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:94
 msgid "Delete selected"
 msgstr "Удалить выделенное"
 
-#: templates/admin/forms/entries.html:97
+#: templates/admin/forms/entries.html:98
 msgid "No entries to display"
 msgstr "Нет объектов для отображения"

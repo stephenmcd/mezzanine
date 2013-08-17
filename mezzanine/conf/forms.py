@@ -13,6 +13,7 @@ from mezzanine.conf.models import Setting
 FIELD_TYPES = {
     bool: forms.BooleanField,
     int: forms.IntegerField,
+    float: forms.FloatField,
 }
 
 
@@ -32,7 +33,7 @@ class SettingsForm(forms.Form):
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
                 kwargs = {
                     "label": setting["label"] + ":",
-                    "required": setting["type"] == int,
+                    "required": setting["type"] in (int, float),
                     "initial": getattr(settings, name),
                     "help_text": self.format_help(setting["description"]),
                 }

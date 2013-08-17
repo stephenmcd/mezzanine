@@ -1,0 +1,127 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Husam M. ALFarra <husamfarra@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2012-11-08 21:38+0000\n"
+"Last-Translator: Husam M. ALFarra <husamfarra@gmail.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/"
+"language/ar/)\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: __init__.py:16
+msgid "User"
+msgstr "مستخدم"
+
+#: __init__.py:17
+msgid "List"
+msgstr "القائمة"
+
+#: __init__.py:18
+msgid "Search"
+msgstr "بحث"
+
+#: defaults.py:21
+msgid "Default Twitter Query Type"
+msgstr ""
+
+#: defaults.py:22
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
+msgstr ""
+
+#: defaults.py:31
+msgid "Default Twitter Query"
+msgstr ""
+
+#: defaults.py:32
+msgid "Twitter query to use for the default query type."
+msgstr ""
+
+#: defaults.py:39
+msgid "Default Number of Tweets"
+msgstr "رقم تويتر الافتراضي "
+
+#: defaults.py:40
+msgid "Number of tweets to display in the default Twitter feed."
+msgstr ""
+
+#: models.py:27
+msgid "Type"
+msgstr "نوع"
+
+#: models.py:29
+msgid "Value"
+msgstr "قيمة"
+
+#: models.py:33
+msgid "Twitter query"
+msgstr ""
+
+#: models.py:34
+msgid "Twitter queries"
+msgstr ""
+
+#: models.py:102
+msgid "Twitter ID"
+msgstr ""
+
+#: models.py:103
+msgid "Date/time"
+msgstr "التاريخ\\الوقت"
+
+#: models.py:104
+msgid "Message"
+msgstr "رسالة "
+
+#: models.py:105
+msgid "Profile image URL"
+msgstr ""
+
+#: models.py:106
+msgid "User name"
+msgstr "اسم الحساب"
+
+#: models.py:107
+msgid "Full name"
+msgstr "الاسم الشخصي كاملا"
+
+#: models.py:109
+msgid "Profile image URL (Retweeted by)"
+msgstr ""
+
+#: models.py:111
+msgid "User name (Retweeted by)"
+msgstr ""
+
+#: models.py:113
+msgid "Full name (Retweeted by)"
+msgstr ""
+
+#: models.py:119
+msgid "Tweet"
+msgstr "تغريدة"
+
+#: models.py:120
+msgid "Tweets"
+msgstr "تغريدات"
+
+#: templates/twitter/tweets.html:7
+msgid "Recent Tweets"
+msgstr "التغريدات الاخيرة"
+
+#: templates/twitter/tweets.html:20
+msgid "ago"
+msgstr "مرت"

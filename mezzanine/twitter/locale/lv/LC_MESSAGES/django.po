@@ -1,0 +1,128 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <edgars.sulcs@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2012-08-27 11:57+0000\n"
+"Last-Translator: edijs <edgars.sulcs@gmail.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/projects/p/mezzanine/"
+"language/lv/)\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+#: __init__.py:16
+msgid "User"
+msgstr "Lietotājs"
+
+#: __init__.py:17
+msgid "List"
+msgstr "Saraksts"
+
+#: __init__.py:18
+msgid "Search"
+msgstr "Meklēt"
+
+#: defaults.py:21
+msgid "Default Twitter Query Type"
+msgstr "Noklusētais Twitter pieprasījuma tips"
+
+#: defaults.py:22
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
+msgstr ""
+"Noklusētās Twitter plūsmas ierakstu saņemšanai izmantotais pieprasījuma tips."
+
+#: defaults.py:31
+msgid "Default Twitter Query"
+msgstr "Noklusētais Twitter pieprasījums"
+
+#: defaults.py:32
+msgid "Twitter query to use for the default query type."
+msgstr "Twitter pieprasījums noklusētajam pieprasījuma tipam"
+
+#: defaults.py:39
+msgid "Default Number of Tweets"
+msgstr "Noklusētais tvītu skaits"
+
+#: defaults.py:40
+msgid "Number of tweets to display in the default Twitter feed."
+msgstr "Noklusētājā Twitter plūsmā attēlojamo tvītu skaits"
+
+#: models.py:27
+msgid "Type"
+msgstr "Tips"
+
+#: models.py:29
+msgid "Value"
+msgstr "Vērtība"
+
+#: models.py:33
+msgid "Twitter query"
+msgstr "Twitter pieprasījums"
+
+#: models.py:34
+msgid "Twitter queries"
+msgstr "Twitter pieprasījumi"
+
+#: models.py:102
+msgid "Twitter ID"
+msgstr "Twitter ID"
+
+#: models.py:103
+msgid "Date/time"
+msgstr "Datums/laiks"
+
+#: models.py:104
+msgid "Message"
+msgstr "Ziņojums"
+
+#: models.py:105
+msgid "Profile image URL"
+msgstr "Profila attēla URL"
+
+#: models.py:106
+msgid "User name"
+msgstr "Lietotāja vārds"
+
+#: models.py:107
+msgid "Full name"
+msgstr "Pilnais vārds"
+
+#: models.py:109
+msgid "Profile image URL (Retweeted by)"
+msgstr "Profila attēla URL (retvītojis)"
+
+#: models.py:111
+msgid "User name (Retweeted by)"
+msgstr "Lietotāja vārds (retvītojis)"
+
+#: models.py:113
+msgid "Full name (Retweeted by)"
+msgstr "Pilnais vārds (retvītojis)"
+
+#: models.py:119
+msgid "Tweet"
+msgstr "Tvīts"
+
+#: models.py:120
+msgid "Tweets"
+msgstr "Tvīti"
+
+#: templates/twitter/tweets.html:7
+msgid "Recent Tweets"
+msgstr "Pēdējie tvīti"
+
+#: templates/twitter/tweets.html:20
+msgid "ago"
+msgstr "atpakaļ"

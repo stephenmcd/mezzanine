@@ -59,7 +59,8 @@ def cache_installed():
     Returns ``True`` if a cache backend is configured, and the
     cache middlware classes are present.
     """
-    return settings.CACHES and not settings.TESTING and set((
+    has_key = hasattr(settings, "NEVERCACHE_KEY")
+    return has_key and settings.CACHES and not settings.TESTING and set((
         "mezzanine.core.middleware.UpdateCacheMiddleware",
         "mezzanine.core.middleware.FetchFromCacheMiddleware",
     )).issubset(set(settings.MIDDLEWARE_CLASSES))
@@ -83,7 +84,7 @@ def nevercache_token():
     Returns the secret token that delimits content wrapped in
     the ``nevercache`` template tag.
     """
-    return "nevercache." + settings.SECRET_KEY
+    return "nevercache." + settings.NEVERCACHE_KEY
 
 
 def add_cache_bypass(url):

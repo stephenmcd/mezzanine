@@ -1,30 +1,31 @@
-# RUSSIAN TRANSLATION.
-# Copyright (C) 2012
-# This file is distributed under the same license as the mezzanine package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dmitry Falk <tfalc@mail.ru>, 2012.
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
+# Dmitry Falk <tfalc@mail.ru>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 13:54+0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Dmitry Falk <tfalc@mail.ru>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: Russian\n"
+"POT-Creation-Date: 2013-07-02 22:55+0400\n"
+"PO-Revision-Date: 2012-08-26 13:02+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: models.py:38
 msgid "Zip import"
 msgstr "Импорт zip-архива"
 
-#: models.py:39
+#: models.py:40
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
@@ -32,26 +33,26 @@ msgstr ""
 "Загрузите zip-архив с изображениями, которые хотите импортировать в эту "
 "галерею."
 
-#: models.py:43
+#: models.py:44
 msgid "Gallery"
 msgstr "Галерея"
 
-#: models.py:44
+#: models.py:45
 msgid "Galleries"
 msgstr "Галереи"
 
-#: models.py:86
+#: models.py:92
 msgid "File"
 msgstr "Файл"
 
-#: models.py:88
+#: models.py:94
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:92
+#: models.py:98
 msgid "Image"
 msgstr "Изображение"
 
-#: models.py:93
+#: models.py:99
 msgid "Images"
 msgstr "Изображения"

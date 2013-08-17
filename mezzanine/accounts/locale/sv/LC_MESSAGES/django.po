@@ -1,0 +1,266 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <avtobiff@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:42-0430\n"
+"PO-Revision-Date: 2012-11-17 22:00+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/mezzanine/"
+"language/sv/)\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: defaults.py:20
+msgid "Minimum length for passwords"
+msgstr "Minimumlängd för lösenord"
+
+#: defaults.py:27
+msgid "List of fields to exclude from the profile form."
+msgstr "Lista av fält att exkludera från profilformuläret."
+
+#: defaults.py:34
+msgid ""
+"Dotted package path and class name of profile form to use for users signing "
+"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgstr ""
+"Punktad paketsökväg och klassnamn för profilformulär att använda för "
+"användarregistrering och profiluppdatering när ``mezzanine.accounts`` är "
+"installerat."
+
+#: defaults.py:43
+msgid "If ``True``, users will have their own public profile pages."
+msgstr ""
+"Om ``True`` kommer användare att ha tillgång till sina egna publika "
+"profilsidor."
+
+#: defaults.py:51
+msgid ""
+"If ``True``, when users create an account, they will be sent an email with a "
+"verification link, which they must click to enable their account."
+msgstr ""
+"Om ``True`` kommer användare när de skapar ett konto bli skickade ett e-brev "
+"med en bekräftelselänk som de måste klicka på för att aktivera sitt konto."
+
+#: forms.py:21 forms.py:190
+msgid "Username or email address"
+msgstr "Användarnamn eller e-postadress"
+
+#: forms.py:22 forms.py:66
+msgid "Password"
+msgstr "Lösenord"
+
+#: forms.py:35
+msgid "Invalid username/email and password"
+msgstr "Ogiltigt användarnamn/e-postadress och lösenord"
+
+#: forms.py:37
+msgid "Your account is inactive"
+msgstr "Ditt konto är inaktivt"
+
+#: forms.py:68
+msgid "Password (again)"
+msgstr "Lösenord (igen)"
+
+#: forms.py:81
+msgid "Only letters, numbers, dashes or underscores please"
+msgstr "Bara bokstäver, siffror, bindestreck eller understreck tack"
+
+#: forms.py:95
+msgid "Leave blank unless you want to change your password"
+msgstr "Lämna blank om du vill ändra ditt lösenord"
+
+#: forms.py:114
+msgid "Username can only contain letters, numbers, dashes or underscores."
+msgstr ""
+"Användarnamn kan bara innehålla bokstäver, siffror, bindestreck eller "
+"understreck."
+
+#: forms.py:122
+msgid "This username is already registered"
+msgstr "Detta användarnamn är redan registrerat"
+
+#: forms.py:135
+msgid "Passwords do not match"
+msgstr "Lösenorden matchar inte"
+
+#: forms.py:137
+#, python-format
+msgid "Password must be at least %s characters"
+msgstr "Lösenordet måste åtminstone vara %s tecken"
+
+#: forms.py:152
+msgid "This email is already registered"
+msgstr "Denna e-postadress är redan registrerad"
+
+#: forms.py:199
+msgid "Invalid username/email"
+msgstr "Ogiltigt användarnamn/e-postadress"
+
+#: views.py:31
+msgid "Successfully logged in"
+msgstr "Loggade in"
+
+#: views.py:34
+msgid "Login"
+msgstr "Logga in"
+
+#: views.py:43
+msgid "Successfully logged out"
+msgstr "Loggade ut"
+
+#: views.py:57
+msgid ""
+"A verification email has been sent with a link for activating your account."
+msgstr "Ett e-brev har skickats med en länk för att aktivera ditt konto."
+
+#: views.py:61 views.py:80
+msgid "Successfully signed up"
+msgstr "Registrerade"
+
+#: views.py:64
+msgid "Signup"
+msgstr "Registrera"
+
+#: views.py:83 views.py:167
+msgid "The link you clicked is no longer valid."
+msgstr "Länken du klickade på är inte giltig längre."
+
+#: views.py:141
+msgid "Profile updated"
+msgstr "Profilen uppdaterad"
+
+#: views.py:146
+msgid "Update Profile"
+msgstr "Uppdatera profil"
+
+#: views.py:155
+msgid ""
+"A verification email has been sent with a link for resetting your password."
+msgstr "Ett e-brev har skickats med en länk för att återställa ditt lösenord."
+
+#: views.py:157
+msgid "Password Reset"
+msgstr "Lösenord återställt"
+
+#: templates/accounts/account_login.html:7
+msgid "You're already logged in."
+msgstr "Du är redan inloggad."
+
+#: templates/accounts/account_login.html:11
+#, python-format
+msgid ""
+"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
+"\">sign up</a> for one now."
+msgstr ""
+"Om du inte har ett konto kan du <a href=\"%(signup_url)s?next=%(next)s"
+"\">registrera</a> ett nu."
+
+#: templates/accounts/account_login.html:14
+#, python-format
+msgid ""
+"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">reset your password</a> if you've forgotten it.</p>"
+msgstr ""
+"<p>Du kan också <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">återställa ditt lösenord</a> om du har glömt det.</p>"
+
+#: templates/accounts/account_password_reset.html:6
+msgid ""
+"Enter your username or email address and you'll receive an email with a link "
+"you need to click, in order to log in and change your password."
+msgstr ""
+"Skriv in ditt användarnamn eller din e-postadress och du skickas ett e-brev "
+"med en länk som du behöver klicka på för att kunna logga in och ändra ditt "
+"lösenord."
+
+#: templates/accounts/account_profile.html:17
+#: templates/accounts/includes/user_panel.html:9
+msgid "Update profile"
+msgstr "Uppdatera profil"
+
+#: templates/accounts/account_signup.html:7
+msgid ""
+"You're already logged in. If you'd like to create a new account, you'll need "
+"to log out first."
+msgstr ""
+"Du är redan inloggad. Om du vill skapa ett nytt konto måste du först logga "
+"ut."
+
+#: templates/accounts/account_signup.html:11
+msgid ""
+"After signing up, you'll receive an email with a link you need to click, in "
+"order to activate your account."
+msgstr ""
+"Efter registrering kommer du att skickas ett e-brev med en länk som du "
+"behöver klicka på för att aktivera ditt konto."
+
+#: templates/accounts/includes/user_panel.html:4
+msgid "Logged in as: "
+msgstr "Inloggad som:"
+
+#: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
+msgid "Log out"
+msgstr "Logga ut"
+
+#: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log in"
+msgstr "Loga in"
+
+#: templates/accounts/includes/user_panel.html:18
+msgid "or"
+msgstr "eller"
+
+#: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
+msgid "Sign up"
+msgstr "Registrera"
+
+#: templates/admin/profile_inline.html:10
+msgid "Profile information"
+msgstr "Profilinformation"
+
+#: templates/email/password_reset_verify.html:3
+#: templates/email/password_reset_verify.txt:3
+msgid "Hey there, the password reset form was used for your account."
+msgstr "Hej, formuläret för lösenordsåterställning användes för ditt konto."
+
+#: templates/email/password_reset_verify.html:4
+#: templates/email/password_reset_verify.txt:4
+msgid "Please use the link below to log in and update your password."
+msgstr ""
+"Vänligen använd länken nedan för att logga in och uppdatera ditt lösenord."
+
+#: templates/email/password_reset_verify.html:6
+#: templates/email/password_reset_verify.txt:6
+msgid ""
+"If you didn't request for your password to be reset, please ignore this "
+"email."
+msgstr ""
+"Om du inte bad om lösenordsåterställning vänligen ignorera detta e-brev."
+
+#: templates/email/password_reset_verify_subject.txt:2
+msgid "Reset your password"
+msgstr "Återställ ditt lösenord"
+
+#: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
+msgid "Hey there, thanks for creating your account."
+msgstr "Hej, tack för att du skapade ditt konto."
+
+#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "Vänligen använd länken nedan för att aktivera det."
+
+#: templates/email/signup_verify_subject.txt:2
+msgid "Activate your account"
+msgstr "Aktivera ditt konto"

@@ -3,22 +3,26 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011, 2012.
+# Eduardo Rivas <jerivasmelgar@gmail.com>, 2012.
+# Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2012.
+# William Díaz <leprosys@gmail.com>, 2012.
+# William Díaz Valdez <leprosys@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-05-05 23:20+0000\n"
+"POT-Creation-Date: 2013-04-07 10:42-0430\n"
+"PO-Revision-Date: 2013-03-30 12:10+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/mezzanine/language/es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/"
+"language/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:32 fields.py:30
+#: admin.py:32 fields.py:33
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -33,55 +37,107 @@ msgstr[1] "%(count)s entradas eliminadas"
 msgid "View Entries"
 msgstr "Ver entradas"
 
-#: fields.py:28
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+"Si es ``True``, los correos electrónicos enviados a destinatarios "
+"adicionales durante el envío de formularios no se enviarán desde una "
+"dirección tomada desde uno de los campos de correo electrónico."
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr ""
+"Máxima longitud permitida para los valores de campos en la aplicación de "
+"formularios."
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr ""
+"Máxima longitud permitida para las etiquetas de los campos en la aplicación "
+"de formularios."
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr ""
+"Carácter a usar como delimitador de campos cuando se exporten las respuestas "
+"a un formulario como CSV."
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr ""
+"Ruta absoluta donde se almacenarán los archivos para la aplicación de "
+"formularios."
+
+#: defaults.py:58
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
+msgstr ""
+"Tipos de campo adicionales para la aplicación de formularios. Debería "
+"contener una secuencia de secuencias de tres elementos, cada una con el ID, "
+"ruta de importación de la clase del campo y el nombre del mismo para cada "
+"uno de los campos adicionales. El ID es simplemente una constante numérica "
+"para el campo, pero debe ser único, así que debe elegir un número alto, como "
+"100 o mayor para evitar conflictos."
+
+#: fields.py:31
 msgid "Single line text"
 msgstr "Una sola línea de texto"
 
-#: fields.py:29
+#: fields.py:32
 msgid "Multi line text"
 msgstr "Múltiples líneas de texto"
 
-#: fields.py:31
+#: fields.py:34
 msgid "Number"
 msgstr "Número"
 
-#: fields.py:32
+#: fields.py:35
 msgid "URL"
 msgstr "URL"
 
-#: fields.py:33
+#: fields.py:36
 msgid "Check box"
 msgstr "Casilla de selección"
 
-#: fields.py:34
+#: fields.py:37
 msgid "Check boxes"
 msgstr "Casillas de seleccióm"
 
-#: fields.py:35
+#: fields.py:38
 msgid "Drop down"
 msgstr "Lista Desplegable"
 
-#: fields.py:36
+#: fields.py:39
 msgid "Multi select"
 msgstr "Selección múltiple"
 
-#: fields.py:37
+#: fields.py:40
 msgid "Radio buttons"
 msgstr "Botones de radio"
 
-#: fields.py:38
+#: fields.py:41
 msgid "File upload"
 msgstr "Subir Archivo"
 
-#: fields.py:39
+#: fields.py:42
 msgid "Date"
 msgstr "Fecha"
 
-#: fields.py:40 models.py:110
+#: fields.py:43 models.py:116
 msgid "Date/time"
 msgstr "Fecha/Hora"
 
-#: fields.py:41
+#: fields.py:44
+msgid "Date of birth"
+msgstr "Fecha de nacimiento"
+
+#: fields.py:45
 msgid "Hidden"
 msgstr "Oculto"
 
@@ -113,15 +169,15 @@ msgstr "Está entre"
 msgid "required"
 msgstr "obligatorio"
 
-#: forms.py:214
+#: forms.py:216
 msgid "Checked"
 msgstr "Sleccionado"
 
-#: forms.py:214
+#: forms.py:216
 msgid "Not checked"
-msgstr "No Seleccionado"
+msgstr "No seleccionado"
 
-#: forms.py:228 forms.py:243
+#: forms.py:230 forms.py:245
 msgid "and"
 msgstr "y"
 
@@ -138,150 +194,171 @@ msgid "Response"
 msgstr "Respuesta"
 
 #: models.py:20
-msgid "Send email"
-msgstr "Enviar correo electrónico"
+msgid "Send email to user"
+msgstr "Enviar correo electrónico a usuario"
 
 #: models.py:21
-msgid "If checked, the form submitter will be sent an email."
-msgstr "Si está activado, se enviará un correo a quien envíe el formulario"
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
+"Para enviar un correo electrónico a la dirección de correo electrónico "
+"proporciona con la presentación del formulario, marque esta casilla."
 
-#: models.py:22
+#: models.py:23
 msgid "From address"
 msgstr "Desde la dirección"
 
-#: models.py:23
+#: models.py:24
 msgid "The address the email will be sent from"
 msgstr "Dirección desde donde será el correo electrónico enviado"
 
-#: models.py:24
-msgid "Send copies to"
-msgstr "Enviar copia a"
-
 #: models.py:25
-msgid "One or more email addresses, separated by commas"
-msgstr "Una o más direcciones de correo electrónico, separadas por comas"
+msgid "Send email to others"
+msgstr "Enviar correo electrónico a otros"
 
-#: models.py:27
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+"Proporcionar una lista separada por comas de las direcciones de correo "
+"electrónico que serán notificadas del envío de formularios. Dejar en blanco "
+"para desactivar las notificaciones."
+
+#: models.py:30
 msgid "Subject"
 msgstr "Asunto"
 
-#: models.py:28
+#: models.py:31
 msgid "Message"
 msgstr "Mensaje"
 
-#: models.py:31
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+"Los correos electrónicos serán enviados en base a las opciones anteriores "
+"contendrán cada uno de los campos introducidos en el formulario. También "
+"puede introducir un mensaje aquí que se incluirá en el correo electrónico."
+
+#: models.py:37
 msgid "Form"
 msgstr "Formulario"
 
-#: models.py:32
+#: models.py:38
 msgid "Forms"
 msgstr "Formularios"
 
-#: models.py:49
+#: models.py:55
 msgid "Label"
 msgstr "Etiqueta"
 
-#: models.py:51
+#: models.py:57
 msgid "Type"
 msgstr "Tipo"
 
-#: models.py:52
+#: models.py:58
 msgid "Required"
 msgstr "Requerido"
 
-#: models.py:53
+#: models.py:59
 msgid "Visible"
 msgstr "Visible"
 
-#: models.py:54
+#: models.py:60
 msgid "Choices"
 msgstr "Opciones"
 
-#: models.py:55
-msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
 msgstr "Separe por comas las opciones. "
 
-#: models.py:57
+#: models.py:63
 msgid "Default value"
 msgstr "Valor por defecto"
 
-#: models.py:59
+#: models.py:65
 msgid "Placeholder Text"
 msgstr "Texto que ocupa el espacio por defecto"
 
-#: models.py:61
+#: models.py:67
 msgid "Help text"
 msgstr "Texto de ayuda"
 
-#: models.py:66 templates/admin/forms/entries.html:27
+#: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
 msgstr "Campo"
 
-#: models.py:67
+#: models.py:73
 msgid "Fields"
 msgstr "Campos"
 
-#: models.py:113
+#: models.py:119
 msgid "Form entry"
 msgstr "Formulario"
 
-#: models.py:114
+#: models.py:120
 msgid "Form entries"
 msgstr "Formulario"
 
-#: models.py:128
+#: models.py:134
 msgid "Form field entry"
 msgstr "Formulario de entrada de campo"
 
-#: models.py:129
+#: models.py:135
 msgid "Form field entries"
 msgstr "Formulario de entrada de campos"
 
-#: templates/admin/forms/change_form.html:9
-#: templates/admin/forms/entries.html:56
+#: templates/admin/forms/change_form.html:8
+#: templates/admin/forms/entries.html:57
 msgid "View entries"
 msgstr "Ver entradas"
 
-#: templates/admin/forms/change_form.html:10
+#: templates/admin/forms/change_form.html:9
 msgid "History"
 msgstr "Histórico"
 
-#: templates/admin/forms/change_form.html:11
+#: templates/admin/forms/change_form.html:10
 msgid "View on site"
 msgstr "Ver en el sitio"
 
-#: templates/admin/forms/entries.html:13
+#: templates/admin/forms/entries.html:14
 msgid "Home"
 msgstr "Inicio"
 
-#: templates/admin/forms/entries.html:28
+#: templates/admin/forms/entries.html:29
 msgid "Include"
 msgstr "Incluir"
 
-#: templates/admin/forms/entries.html:29
+#: templates/admin/forms/entries.html:30
 msgid "Filter by"
 msgstr "Filtrar por"
 
-#: templates/admin/forms/entries.html:47
+#: templates/admin/forms/entries.html:48
 msgid "All"
 msgstr "Todos"
 
-#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
 msgstr "Regresar a formulario"
 
-#: templates/admin/forms/entries.html:57
+#: templates/admin/forms/entries.html:58
 msgid "Export CSV"
 msgstr "Exportar CSV"
 
-#: templates/admin/forms/entries.html:59
+#: templates/admin/forms/entries.html:60
 msgid "Entries"
 msgstr "Entradas"
 
-#: templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:94
 msgid "Delete selected"
 msgstr "Eliminar seleccionados"
 
-#: templates/admin/forms/entries.html:97
+#: templates/admin/forms/entries.html:98
 msgid "No entries to display"
 msgstr "No hay entradas que mostrar"

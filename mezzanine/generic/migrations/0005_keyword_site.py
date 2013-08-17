@@ -8,14 +8,12 @@ from django.contrib.sites.models import Site
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        site = Site.objects.get_current()
-        
         # Adding field 'Keyword.site'
-        db.add_column('generic_keyword', 'site', self.gf('django.db.models.fields.related.ForeignKey')(default=site.pk, to=orm['sites.Site']), keep_default=False)
+        db.add_column('generic_keyword', 'site', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['sites.Site']), keep_default=False)
 
 
     def backwards(self, orm):
-        
+
         # Deleting field 'Keyword.site'
         db.delete_column('generic_keyword', 'site_id')
 

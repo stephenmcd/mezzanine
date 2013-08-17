@@ -1,4 +1,7 @@
 
+SECRET_KEY = "%(secret_key)s"
+NEVERCACHE_KEY = "%(nevercache_key)s"
+
 DATABASES = {
     "default": {
         # Ends with "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
@@ -19,6 +22,8 @@ DATABASES = {
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
 
 CACHE_MIDDLEWARE_SECONDS = 60
+
+CACHE_MIDDLEWARE_KEY_PREFIX = "%(proj_name)s"
 
 CACHES = {
     "default": {

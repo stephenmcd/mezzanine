@@ -1,0 +1,48 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <bart@dispectu.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:42-0430\n"
+"PO-Revision-Date: 2012-09-27 12:41+0000\n"
+"Last-Translator: bartdegoede <bart@dispectu.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/"
+"nl/)\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:38
+msgid "Settings were successfully updated."
+msgstr "De instellingen zijn succesvol geüpdatet."
+
+#: admin.py:42
+msgid "Change"
+msgstr "Wijzig"
+
+#: forms.py:53
+msgid "Miscellaneous"
+msgstr "Diversen."
+
+#: models.py:17
+msgid "Setting"
+msgstr "Instelling"
+
+#: models.py:18
+msgid "Settings"
+msgstr "Instellingen"
+
+#: templates/admin/conf/setting/change_list.html:8
+msgid "Please correct the errors below."
+msgstr "Corrigeer de volgende foutmeldingen."
+
+#: templates/admin/conf/setting/change_list.html:31
+msgid "Save"
+msgstr "Opslaan"

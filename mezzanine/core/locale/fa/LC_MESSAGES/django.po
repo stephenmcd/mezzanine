@@ -1,0 +1,751 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <bornazadeh@gmail.com>, 2012.
+#   <kamyar.n@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2013-03-30 12:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Persian (http://www.transifex.com/projects/p/mezzanine/"
+"language/fa/)\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: admin.py:27
+msgid "This field is required if status is set to published."
+msgstr "این فیلد لازم است اگر وضعیت منتشر شده باشد."
+
+#: admin.py:47
+msgid "Meta data"
+msgstr "داده های متا"
+
+#: defaults.py:21
+msgid "Controls the ordering and grouping of the admin menu."
+msgstr "کنترل کردن ترتیب و گروه بندی منوی مدیریت"
+
+#: defaults.py:24 models.py:275
+msgid "Content"
+msgstr "محتوا"
+
+#: defaults.py:25
+msgid "Media Library"
+msgstr "کتابخانه ی رسانه ها"
+
+#: defaults.py:26 templates/admin/login.html:43
+msgid "Site"
+msgstr "سایت"
+
+#: defaults.py:27
+msgid "Users"
+msgstr "کاربران"
+
+#: defaults.py:33
+msgid "Unregister these models from the admin."
+msgstr "این مدل ها را از قسمت مدیریت حذف کن."
+
+#: defaults.py:40
+msgid "Size of thumbnail previews for image fields in the admin interface."
+msgstr "اندازه ی تصاویر بند انگشتی برای مشاهده ی تصاویر در رابط مدیریت."
+
+#: defaults.py:48
+msgid "Akismet API Key"
+msgstr " کلید API در Akismet"
+
+#: defaults.py:49
+msgid ""
+"Key for http://akismet.com spam filtering service. Used for filtering "
+"comments and forms."
+msgstr ""
+"کلید برای http://akismet.com سرویس فیلتر کردن هرزنامه که برای فیلتر کردن "
+"نظرات و فرم ها استفاده می شود."
+
+#: defaults.py:57
+msgid "bit.ly access token"
+msgstr ""
+
+#: defaults.py:58
+msgid "Access token for http://bit.ly URL shortening service."
+msgstr ""
+
+#: defaults.py:65
+msgid ""
+"Mezzanine's caching uses a technique know as mint caching. This is where the "
+"requested expiry for a cache entry is stored with the cache entry in cache, "
+"and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
+"cache get, the store expiry is checked, and if it has past, the cache entry "
+"is set again, and no entry is returned. This tries to ensure that cache "
+"misses never occur, and if many clients were to get a cache miss at once, "
+"only one would actually need to re-generated the cache entry."
+msgstr ""
+"مزانین از یک روش کش کردن به نام mint استفاده می کند. که در آن از انقضای "
+"درخواست برای ورود به کش و ذخیره استفاده می شود، و زمان انقضای واقعی مورد "
+"استفاده توسط `` CACHE_SET_DELAY``  به آن افزوده شده است. سپس بر روی فضای "
+"ذخیره سازی , زمان انقضای کش بررسی شده،  و اگر گذشته بود، ورودی کش دوباره "
+"تنظیم، و هیچ ورودی بازگردانده نمی شود. این تلاش می کند تا اطمینان حاصل شود "
+"که خطا در کش هرگز رخ نمی دهد ، و در صورتی که تعدادی از مشتریان به یک انبار و "
+"در یک لحظه نیاز داشته باشند، تنها یک نمونه کافی است تا کش به درستی ایجاد شود."
+
+#: defaults.py:93
+msgid ""
+"A three item sequence, each containing a sequence of template tags used to "
+"render the admin dashboard."
+msgstr ""
+"یک موضوع سه قسمتی, هر قسمت شامل یک سری سه قسمتی از برچسب های الگویی است که "
+"برای داشبورد مدیر استفاده می شود."
+
+#: defaults.py:101
+msgid "Device specific template sub-directory to use as the default device."
+msgstr ""
+"زیر پوشه ی الگوی مربوط به وسایل خاص که به عنوان وسایل پیش فرض استفاده می "
+"شوند."
+
+#: defaults.py:109
+msgid ""
+"Mapping of device specific template sub-directory names to the sequence of "
+"strings that may be found in their user agents."
+msgstr ""
+"نقشه برداری از الگوی مربوط به نام وسایل خاص برای تبدیل به  دنباله ای از رشته "
+"ها که ممکن است در عامل های کاربر استفاده شود."
+
+#: defaults.py:131
+msgid "If ``True``, website forms will use HTML5 features."
+msgstr ""
+"اگر \"علامت دار\" باشد, فرم های وب سایت از امکانات HTML5 استفاده می کنند."
+
+#: defaults.py:138
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of "
+"keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
+msgstr ""
+"دنباله ای است که می تواند به مدل های مزانین  (و یا هر کتابخانه ای) تزریق "
+"شود. هر کدام از اقلام در دنباله,  دارای چهار آیتم می باشد. دو مورد اول مسیر "
+"نقطه دار به مدل و نام رشته , و مسیر نقطه دار به کلاس  را برای استفاده آماده "
+"می کند.مورد سوم و چهارم یک دنباله ای از آرگومان های محل دار وکلید واژه های "
+"یک  دیکشنری را می گیرد ، تا در زمان ایجاد نمونه از آن استفاده کند. هنگام "
+"مشخص کردن کلاس،  مسیر \"django.models.db.\" را می توان از مدل های جنگو  به "
+"طور منظم حذف کرد."
+
+#: defaults.py:153
+msgid "Google Analytics ID"
+msgstr "شناسه Google Analytics"
+
+#: defaults.py:155
+msgid "Google Analytics ID (http://www.google.com/analytics/)"
+msgstr "شناسه Google Analytics در  (http://www.google.com/analytics/)"
+
+#: defaults.py:161
+msgid ""
+"A sequence mapping host names to themes, allowing different templates to be "
+"served per HTTP hosts Each item in the sequence is a two item sequence, "
+"containing a host such as ``othersite.example.com``, and the name of an "
+"importable Python package for the theme. If the host is matched for a "
+"request, the templates directory inside the theme package will be first "
+"searched when loading templates."
+msgstr ""
+"دنباله نقشه برداری نام میزبان به تم ها، اجازه می دهد تا قالب های مختلفی را "
+"برای HTTP آماده کنند، هرمیزبان HTTP  یک دنباله دو قسمتی است، حاوی یک میزبان "
+"مانند `` othersite.example.com \"، و نام پایتون بسته ی ورود تم. اگر میزبان "
+"به درخواست مورد نظرتعلق داشت ، پوشه الگو در داخل بسته تم در اولین بارگذاری "
+"جستجو می شود."
+
+#: defaults.py:175
+msgid "Name of the jQuery file."
+msgstr "نام فایل jQuery"
+
+#: defaults.py:176
+msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
+msgstr "نام فایل شناسه jQuery موجود در /mezzanine/core/static/mezzanine/js"
+
+#: defaults.py:184
+msgid "Name of the jQuery UI file."
+msgstr ""
+
+#: defaults.py:185
+msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
+msgstr ""
+
+#: defaults.py:193
+msgid "Max paging links"
+msgstr "حداکثر لینک های صفحه"
+
+#: defaults.py:194
+msgid "Max number of paging links to display when paginating."
+msgstr "حداکثر لینک های صفحه برای نمایش هنگام صفحه بندی."
+
+#: defaults.py:201
+msgid "Media library per site"
+msgstr ""
+
+#: defaults.py:202
+msgid ""
+"If ``True``, each site will use its own directory within the filebrowser "
+"media library."
+msgstr ""
+
+#: defaults.py:210
+msgid ""
+"Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
+"admin change-list records filtered down to records owned by the current "
+"user. This setting contains a sequence of models in the format ``app_label."
+"object_name``, that when subclassing ``Ownable``, will still show all "
+"records in the admin change-list interface, regardless of the current user."
+msgstr ""
+"مدل هایی که زیرطبقه ``Ownable`` هستند و از ``OwnableAdmin `` استفاده می "
+"کنند, دارای لیست تغییرات مدیریتی ای هستند که فیلتر شده تا فقط تغییرات مربوط "
+"به کاربر فعلی را نشان دهد. این تنظیمات شامل دنباله ای از مدل ها در قالب  "
+"``app_label.object_name ``است،  زمانی که دارای زیر کلاس `` Ownable`` باشند، "
+"در لیست تغییرات مدیریتی همه تغییرات را  نشان خواهند داد، بدون در نظر گرفتن "
+"کاربرفعلی."
+
+#: defaults.py:222
+msgid ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
+msgstr "مسیر نقطه دار و نام کلاس ویجت برای استفاده در``RichTextField``."
+
+#: defaults.py:230
+msgid ""
+"List of HTML tags that won't be stripped from ``RichTextField`` instances."
+msgstr "لیست تگ های HTML که در ``RichTextField`` موارد نبرند."
+
+#: defaults.py:246
+msgid ""
+"List of HTML attributes that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr "لیست صفات HTML که در ``RichTextField`` موارد نبرند."
+
+#: defaults.py:264
+msgid ""
+"List of inline CSS styles that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr "فهرست از سبک درونی CSS که از \"RichTextField `` موارد نبرند."
+
+#: defaults.py:272
+msgid ""
+"Dotted path to the function to call on a ``RichTextField`` value before it "
+"is rendered to the template."
+msgstr ""
+"مسیر نقطه دار تابع برای فراخوانی در  ``RichTextField`` قبل از این که در "
+"الگوها رندر شوند."
+
+#: defaults.py:282
+msgid "High"
+msgstr "بالا"
+
+#: defaults.py:283
+msgid "Low (allows video, iframe, Flash, etc)"
+msgstr "پایین (اجازه ی استفاده از ویدیو و iFrame و فایل فلش و غیره)"
+
+#: defaults.py:284
+msgid "No filtering"
+msgstr "بدون فیلتر"
+
+#: defaults.py:289
+msgid "Rich Text filter level"
+msgstr "سطح فیلتر متن غنی"
+
+#: defaults.py:290
+msgid ""
+"*Do not change this setting unless you know what you're doing.*\n"
+"\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and "
+"attributes are stripped from the content to protect against staff members "
+"intentionally adding code that could be used to cause problems, such as "
+"changing their account to a super-user with full access to the system.\n"
+"\n"
+"This setting allows you to change the level of filtering that occurs. "
+"Setting it to low will allow certain extra tags to be permitted, such as "
+"those required for embedding video. While these tags are not the main "
+"candidates for users adding malicious code, they are still considered "
+"dangerous and could potentially be mis-used by a particularly technical "
+"user, and so are filtered out when the filtering level is set to high.\n"
+"\n"
+"Setting the filtering level to no filtering, will disable all filtering, and "
+"allow any code to be entered by staff members, including script tags."
+msgstr ""
+"* این تنظیمات را تغییر ندهید مگر اینکه بدانید چه کاری انجام میدهید. \n"
+"\n"
+" \n"
+"هنگامی که محتوا در یک زمینه متن غنی (WYSIWYG) ذخیره شود، تگ های HTML ناامن و "
+"صفات برای محافظت در برابر اضافه کردن کد های ناخواسته که می توانند باعث ایجاد "
+"مشکلی شوند ، مانند تغییر حساب کاربری خود با دسترسی سوپر یوزر به سیستم, می "
+"توانند مورد استفاده قرار گیرند . \n"
+"\n"
+"\n"
+" این گزینه به شما اجازه می دهد سطح فیلترمورد نظر را تغییر دهید. تنظیم آن به "
+"پایین ترین مقدار به شما این امکان را می دهد که برخی از تگ های اضافی مجازبه "
+"استفاده شوند،  مانند آنهایی که مورد نیاز برای تعبیه ویدیوهستند. در حالی که "
+"این برچسب ها نامزد اصلی برای اضافه کردن کد های مخرب نیست، آنها هنوز هم "
+"خطرناک در نظر گرفته می شوند و می توانند توسط یک کاربر متخصص برای خرابکاری "
+"استفاده شوند، و بنابراین فیلتر می شوند زمانی که سطح فیلتر روی بالاترین تنظیم "
+"شده باشد. \n"
+"\n"
+"\n"
+" تنظیم سطح فیلتر به بدون فیلتر، تمام فیلتها را غیر فعال می کند، و اجازه می "
+"دهد هر کدی توسط کاربران وارد شود، از جمله تگهای اسکریپت."
+
+#: defaults.py:313
+msgid ""
+"Sequence of models that will be provided by default as choices in the search "
+"form. Each model should be in the format ``app_label.model_name``. Only "
+"models that subclass ``mezzanine.core.models.Displayable`` should be used."
+msgstr ""
+
+#: defaults.py:323
+msgid "Search results per page"
+msgstr "نتایج جستجو در هر صفحه"
+
+#: defaults.py:324
+msgid "Number of results shown in the search results page."
+msgstr "تعداد نتایجی که در صفحه نتایج جستجو نشان داده شده است."
+
+#: defaults.py:331
+msgid ""
+"A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
+"this, you'll also need to manually apply it to your project's root ``urls."
+"py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-"
+"project`` command contains an example of this towards its end."
+msgstr ""
+"پیشوند URL برای سوار کردن تمام urlpatterns مزانین . هنگام استفاده از این "
+"گزینه، شما همچنین نیاز دارید آن را در \"urls.py\" اصلی پروژه ی خود اعمال "
+"کنید. ``urls.py`` اصلی که توسط دستور``mezzanine-project`` تولید می شود شامل "
+"مثال هایی از این مورد در انتهای فایل می باشد ."
+
+#: defaults.py:342
+msgid "Site Title"
+msgstr "عنوان سایت"
+
+#: defaults.py:343
+msgid ""
+"Title that will display at the top of the site, and be appended to the "
+"content of the HTML title tags on every page."
+msgstr ""
+"عنوان که در بالای سایت نمایش داده می شود، و به عنوان تگ های  HTML در هر صفحه "
+"اضافه خواهد شد."
+
+#: defaults.py:351
+msgid "Tagline"
+msgstr "خط برچسب"
+
+#: defaults.py:352
+msgid "A tag line that will appear at the top of all pages."
+msgstr "یک خط برچسب که در بالای همه ی صفحات ظاهر می شود."
+
+#: defaults.py:354
+msgid "An open source content management platform."
+msgstr "یک پلت فرم مدیریت محتوای منبع باز"
+
+#: defaults.py:359
+msgid ""
+"Dotted Python path to the callable for converting strings into URL slugs. "
+"Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
+"ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+"Django's slugify function, or something of your own if required."
+msgstr ""
+"مسیر نقطه دار پایتون به سمت مبدل رشته به URL .مقدار پیش فرض ``mezzanine."
+"utils.urls.slugify_unicode`` است که اجازه به کارکتر های غیر اسکی در URL هم "
+"می دهد.آن را به ``django.template.defaultfilters.slugify`` تغییر دهید تا از "
+"امکان slug در جانگو استفاده کنید, یا آن را به مورد دلخواه خود تنظیم کنید."
+
+#: defaults.py:370
+msgid ""
+"Sequence of dotted Python paths to callable functions used for checking "
+"posted content (such as forms or comments) is spam. Each function should "
+"accept three arguments: the request object, the form object, and the URL "
+"that was posted from. Defaults to ``mezzanine.utils.views.is_spam_akismet`` "
+"which will use the http://akismet.com spam filtering service when the "
+"``AKISMET_API_KEY`` setting is configured."
+msgstr ""
+
+#: defaults.py:383
+msgid "Enable SSL"
+msgstr "فعال کردن SSL"
+
+#: defaults.py:384
+msgid ""
+"If ``True``, users will be automatically redirected to HTTPS for the URLs "
+"specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
+msgstr ""
+"اگر \"علامت دار\" باشد، کاربران به طور خودکار به HTTPS برای آدرس مشخص شده "
+"توسط  ``SSL_FORCE_URL_PREFIXES``   هدایت می شوند."
+
+#: defaults.py:393
+msgid "Force Host"
+msgstr "میزبان اجباری"
+
+#: defaults.py:394
+msgid ""
+"Host name that the site should always be accessed via that matches the SSL "
+"certificate."
+msgstr ""
+"نام میزبان که سایت همیشه باید از طریق آن نام که منطبق بر گواهی SSL است, قابل "
+"دسترسی باشد."
+
+#: defaults.py:412
+msgid ""
+"If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
+"will be accessible over SSL, and all other URLs will be redirected back to "
+"HTTP if accessed over HTTPS."
+msgstr ""
+"اگر \"علامت دار\" باشد، تنها URL های مشخص شده توسط  ``SSL_FORCE_URL_PREFIXES "
+"``  از طریق SSL در دسترس خواهند بود، و تمام آدرس های دیگر  به HTTP هدایت می "
+"شوند در صورتی که بیش از این از HTTPS در دسترس باشند."
+
+#: defaults.py:422
+msgid "List of words which will be stripped from search queries."
+msgstr "فهرست کلماتی که از پرس و جوهای جستجو محروم خواهد شد."
+
+#: defaults.py:479
+msgid "Tag Cloud Sizes"
+msgstr "برچسب اندازه ی ابر"
+
+#: defaults.py:480
+msgid "Number of different sizes for tags when shown as a cloud."
+msgstr ""
+"شماره ای از اندازه های مختلف برای برچسب ها در  زمانی که به عنوان یک ابر نشان "
+"داده شده اند."
+
+#: defaults.py:487
+msgid "Sequence of setting names available within templates."
+msgstr "توالی تعیین اسامی موجود در داخل قالب."
+
+#: defaults.py:502
+msgid ""
+"Directory name to store thumbnails in, that will be created relative to the "
+"original image's directory."
+msgstr ""
+"نام پوشه برای ذخیره تصاویر بند انگشتی، که نسبت به دایرکتوری تصویر اصلی ایجاد "
+"خواهد شد."
+
+#: defaults.py:510
+msgid ""
+"URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
+"configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+msgstr ""
+"URL فایل جاوا اسکریپت (نسبت به \"STATIC_URL\") که پیکربندی TinyMCE را هدایت "
+"می کند در زمانی که به طور پیش فرض از \"RICHTEXT_WIDGET_CLASS\" استفاده شده "
+"است."
+
+#: defaults.py:519
+msgid ""
+"Dict mapping file field names in the format ``app_label.model_name."
+"field_name`` to the Python dotted path to function names that will be used "
+"for the file field's ``upload_to`` argument."
+msgstr ""
+
+#: defaults.py:535
+msgid ""
+"If ``True``, the south application will be automatically added to the "
+"``INSTALLED_APPS`` setting."
+msgstr ""
+"اگر `` علامت دار `` باشد، برنامه SOUTH  به صورت خودکار به تنظیمات  "
+"``INSTALLED_APPS ``  اضافه خواهد شد."
+
+#: fields.py:37
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "نمی توان مقدار این رشته را وارد کرد.RICHTEXT_WIDGET_CLASS: %s"
+
+#: forms.py:84 models.py:317
+msgid "Order"
+msgstr "مرتب کردن"
+
+#: models.py:56 models.py:110
+msgid "Title"
+msgstr "عنوان"
+
+#: models.py:57
+msgid "URL"
+msgstr "آدرس URL"
+
+#: models.py:58
+msgid "Leave blank to have the URL auto-generated from the title."
+msgstr " فیلد را خالی بگذارید تا URL به صورت خودکاراز عنوان تولید شود."
+
+#: models.py:100
+msgid "View on site"
+msgstr "مشاهده در سایت"
+
+#: models.py:112
+msgid ""
+"Optional title to be used in the HTML title tag. If left blank, the main "
+"title field will be used."
+msgstr ""
+"عنوان اختیاری که  در تگ عنوان HTML استفاده می شود. اگر خالی باشد، عنوان اصلی "
+"استفاده خواهد شد."
+
+#: models.py:114
+msgid "Description"
+msgstr "توضیح"
+
+#: models.py:115
+msgid "Generate description"
+msgstr "ایجاد توضیحات"
+
+#: models.py:116
+msgid ""
+"If checked, the description will be automatically generated from content. "
+"Uncheck if you want to manually set a custom description."
+msgstr ""
+"اگر علامت دار باشد, توضیحات بصورت خودکار, از محتوای وارد شده, ایجاد می شود."
+"اگر می خواهید خودتان توصیفی وارد کنید, علامتش را بردارید."
+
+#: models.py:119
+msgid "Keywords"
+msgstr "کلمات کلیدی"
+
+#: models.py:176
+msgid "Draft"
+msgstr "پیش نویس"
+
+#: models.py:177
+msgid "Published"
+msgstr "انتشار یافته"
+
+#: models.py:188
+msgid "Status"
+msgstr "وضعیت"
+
+#: models.py:190
+msgid "With Draft chosen, will only be shown for admin users on the site."
+msgstr "با انتخاب پیش نویس, فقط برای کاربران گروه مدیریت نمایش داده می شود."
+
+#: models.py:192 models.py:225
+msgid "Published from"
+msgstr "منتشر شده از"
+
+#: models.py:193
+msgid "With Published chosen, won't be shown until this time"
+msgstr "با انتخاب منتشر شده, تا این لحظه نمایش داده نشده است."
+
+#: models.py:195
+msgid "Expires on"
+msgstr "انقضا در"
+
+#: models.py:196
+msgid "With Published chosen, won't be shown after this time"
+msgstr "با انتخاب منتشر شده, بعد از این لحظه نمایش داده نمی شود."
+
+#: models.py:199
+msgid "Show in sitemap"
+msgstr ""
+
+#: models.py:402 models.py:422
+msgid "Author"
+msgstr "نویسنده"
+
+#: models.py:425
+msgid "Sites"
+msgstr ""
+
+#: models.py:428
+msgid "Site permission"
+msgstr ""
+
+#: models.py:429
+msgid "Site permissions"
+msgstr ""
+
+#: views.py:87
+msgid "Permission denied"
+msgstr "اجازه دسترسی ندارید"
+
+#: views.py:115 templates/includes/search_form.html:11
+msgid "Everything"
+msgstr ""
+
+#: templates/base.html:121
+msgid "Powered by"
+msgstr " نیرو گرفته از"
+
+#: templates/base.html:124
+msgid "and"
+msgstr "و"
+
+#: templates/base.html:127
+msgid "Theme by"
+msgstr "قالب توسط"
+
+#: templates/base.html:130
+msgid "View Mobile Site"
+msgstr "مشاهده سایت تلفن همراه"
+
+#: templates/index.html:4 templates/index.html.py:5 templates/index.html:8
+#: templates/search_results.html:10 templates/admin/index.html:15
+msgid "Home"
+msgstr "خانه"
+
+#: templates/index.html:12
+msgid ""
+"\n"
+"<h2>Congratulations!</h2>\n"
+"<p>\n"
+"    Welcome to your new Mezzanine powered website.\n"
+"    Here are some quick links to get you started:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">Log in to the admin interface</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Creating custom page types</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">Modifying HTML templates</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
+"\">Changing this homepage</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">Other frequently asked questions</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Full list of settings</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying "
+"to a production server</a></li>\n"
+"</ul>\n"
+msgstr ""
+
+#: templates/search_results.html:5 templates/search_results.html.py:6
+#: templates/search_results.html:13
+msgid "Search Results"
+msgstr "نتایج جستجو"
+
+#: templates/search_results.html:20
+#, python-format
+msgid ""
+"\n"
+"No results were found in %(search_type)s matching your query: %(query)s\n"
+msgstr ""
+
+#: templates/search_results.html:24
+#, python-format
+msgid ""
+"\n"
+"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
+"matching your query: %(query)s\n"
+msgstr ""
+
+#: templates/search_results.html:35
+msgid "read more"
+msgstr "خواندن بیشتر"
+
+#: templates/admin/base_site.html:34
+msgid "View site"
+msgstr "مشاهده سایت"
+
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
+msgid "Dashboard"
+msgstr "داشبورد"
+
+#: templates/admin/login.html:21
+msgid "You don't have permission to access the admin for this site."
+msgstr ""
+
+#: templates/admin/login.html:28
+msgid "Username or email:"
+msgstr "نام کاربری یا آدرس ایمیل:"
+
+#: templates/admin/login.html:32
+msgid "Password:"
+msgstr "رمز عبور:"
+
+#: templates/admin/login.html:37
+msgid "Interface:"
+msgstr "رابط:"
+
+#: templates/admin/login.html:40 templates/includes/editable_toolbar.html:7
+#: templates/includes/editable_toolbar.html:9
+msgid "Admin"
+msgstr "مدیر"
+
+#: templates/admin/login.html:47
+msgid "Log in"
+msgstr "وارد شدن"
+
+#: templates/admin/login.html:50
+msgid "Forgot password?"
+msgstr "آیا کلمه عبور فراموش شده؟"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "اضافه کردن"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "تغییر"
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr "اضافه کردن مورد دیگر"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "اقدامات اخیر"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "اقدامات من"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "هیچ یک قابل استفاده نیست"
+
+#: templates/errors/404.html:6
+msgid "Page not found"
+msgstr "صفحه پیدا نشد"
+
+#: templates/errors/404.html:10
+msgid "The page you requested does not exist."
+msgstr "صفحه ی درخواستی شما موجود نیست."
+
+#: templates/errors/500.html:6
+msgid "Error"
+msgstr "خطا"
+
+#: templates/errors/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "با عرض پوزش ، یک خطا رخ داده است."
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "ذخیره"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "لغو کردن"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "ویرایش کردن"
+
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr "خارج شدن"
+
+#: templates/includes/pagination.html:8
+msgid "Page"
+msgstr "صفحه"
+
+#: templates/includes/pagination.html:8
+msgid "of"
+msgstr "از"
+
+#: templates/includes/search_form.html:4
+msgid "Search"
+msgstr "جستجو"
+
+#: templates/includes/search_form.html:22
+msgid "Go"
+msgstr ""

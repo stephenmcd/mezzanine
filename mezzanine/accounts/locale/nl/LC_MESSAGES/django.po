@@ -1,0 +1,268 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <bart@dispectu.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:42-0430\n"
+"PO-Revision-Date: 2012-10-17 20:35+0000\n"
+"Last-Translator: bartdegoede <bart@dispectu.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/"
+"nl/)\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: defaults.py:20
+msgid "Minimum length for passwords"
+msgstr "Minimale lengte voor wachtwoorden."
+
+#: defaults.py:27
+msgid "List of fields to exclude from the profile form."
+msgstr ""
+"Lijst van velden die uit het profiel formulier weggelaten moeten worden."
+
+#: defaults.py:34
+msgid ""
+"Dotted package path and class name of profile form to use for users signing "
+"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgstr ""
+"Pad in Python stippelnotatie en class naam van het profiel formulier dat "
+"gebruikt moet worden als gebruikers zich registreren of hun profiel updaten, "
+"wanneer ``mezzanine.accounts`` geïnstalleerd is."
+
+#: defaults.py:43
+msgid "If ``True``, users will have their own public profile pages."
+msgstr ""
+"Wanneer deze instelling ``True`` is, hebben gebruikers eigen publieke "
+"profiel pagina's."
+
+#: defaults.py:51
+msgid ""
+"If ``True``, when users create an account, they will be sent an email with a "
+"verification link, which they must click to enable their account."
+msgstr ""
+"Wanneer deze instelling ``True`` is, zullen gebruikers hun account moeten "
+"verifiëren via een link die per mail verstuurd wordt."
+
+#: forms.py:21 forms.py:190
+msgid "Username or email address"
+msgstr "Gebruikersnaam of emailadres"
+
+#: forms.py:22 forms.py:66
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: forms.py:35
+msgid "Invalid username/email and password"
+msgstr "Ongeldige gebruikersnaam/emailadres en/of wachtwoord"
+
+#: forms.py:37
+msgid "Your account is inactive"
+msgstr "Uw account is niet actief"
+
+#: forms.py:68
+msgid "Password (again)"
+msgstr "Wachtwoord (opnieuw)"
+
+#: forms.py:81
+msgid "Only letters, numbers, dashes or underscores please"
+msgstr "Alleen letters, cijfers, streepjes of underscores alstublieft"
+
+#: forms.py:95
+msgid "Leave blank unless you want to change your password"
+msgstr "Laat leeg, tenzij u uw wachtwoord wil veranderen."
+
+#: forms.py:114
+msgid "Username can only contain letters, numbers, dashes or underscores."
+msgstr ""
+"Een gebruikers naam mag alleen letters, cijfers, streepjes of underscores "
+"bevatten"
+
+#: forms.py:122
+msgid "This username is already registered"
+msgstr "Deze gebruikersnaam is al in gebruik"
+
+#: forms.py:135
+msgid "Passwords do not match"
+msgstr "De wachtwoorden komen niet overeen"
+
+#: forms.py:137
+#, python-format
+msgid "Password must be at least %s characters"
+msgstr "Het wachtwoord moet uit minstens %s karakters bestaan"
+
+#: forms.py:152
+msgid "This email is already registered"
+msgstr "Dit emailadres is al in gebruik"
+
+#: forms.py:199
+msgid "Invalid username/email"
+msgstr "Ongeldige gebruikersnaam/emailadres"
+
+#: views.py:31
+msgid "Successfully logged in"
+msgstr "Inloggen succesvol"
+
+#: views.py:34
+msgid "Login"
+msgstr "Login"
+
+#: views.py:43
+msgid "Successfully logged out"
+msgstr "Uitloggen succesvol"
+
+#: views.py:57
+msgid ""
+"A verification email has been sent with a link for activating your account."
+msgstr "Een email met een link om uw account te verifiëren is verstuurd."
+
+#: views.py:61 views.py:80
+msgid "Successfully signed up"
+msgstr "Registratie gelukt"
+
+#: views.py:64
+msgid "Signup"
+msgstr "Registreer"
+
+#: views.py:83 views.py:167
+msgid "The link you clicked is no longer valid."
+msgstr "De link die u heeft aangeklikt is niet langer geldig"
+
+#: views.py:141
+msgid "Profile updated"
+msgstr "Profiel geüpdatet"
+
+#: views.py:146
+msgid "Update Profile"
+msgstr "Update profiel"
+
+#: views.py:155
+msgid ""
+"A verification email has been sent with a link for resetting your password."
+msgstr ""
+"Een verificatie email met een link om uw wachtwoord te resetten is verstuurd."
+
+#: views.py:157
+msgid "Password Reset"
+msgstr "Reset wachtwoord"
+
+#: templates/accounts/account_login.html:7
+msgid "You're already logged in."
+msgstr "U bent al ingelogd"
+
+#: templates/accounts/account_login.html:11
+#, python-format
+msgid ""
+"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
+"\">sign up</a> for one now."
+msgstr ""
+"Als je geen account heb kan je je nu <a href=\"%(signup_url)s?next=%(next)s"
+"\">registreren</a>."
+
+#: templates/accounts/account_login.html:14
+#, python-format
+msgid ""
+"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">reset your password</a> if you've forgotten it.</p>"
+msgstr ""
+"<p>U kun ook uw <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">wachtwoord resetten</a> als u dat vergeten bent.</p>"
+
+#: templates/accounts/account_password_reset.html:6
+msgid ""
+"Enter your username or email address and you'll receive an email with a link "
+"you need to click, in order to log in and change your password."
+msgstr ""
+"Vul uw gebruikersnaam of emailadres in en u ontvangt een email met een link "
+"waarmee u uw wachtwoord kunt wijzigen."
+
+#: templates/accounts/account_profile.html:17
+#: templates/accounts/includes/user_panel.html:9
+msgid "Update profile"
+msgstr "Update profiel"
+
+#: templates/accounts/account_signup.html:7
+msgid ""
+"You're already logged in. If you'd like to create a new account, you'll need "
+"to log out first."
+msgstr ""
+"U bent al ingelogd. Als u een nieuw account wil maken, moet u eerst "
+"uitloggen."
+
+#: templates/accounts/account_signup.html:11
+msgid ""
+"After signing up, you'll receive an email with a link you need to click, in "
+"order to activate your account."
+msgstr ""
+"Nadat de registratie voltooid is, ontvangt u een email met een link waar u "
+"op moet klikken om uw account te activeren."
+
+#: templates/accounts/includes/user_panel.html:4
+msgid "Logged in as: "
+msgstr "Ingelogd als:"
+
+#: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
+msgid "Log out"
+msgstr "Log uit"
+
+#: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log in"
+msgstr "Log in"
+
+#: templates/accounts/includes/user_panel.html:18
+msgid "or"
+msgstr "of"
+
+#: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
+msgid "Sign up"
+msgstr "Registreer"
+
+#: templates/admin/profile_inline.html:10
+msgid "Profile information"
+msgstr "Profielinformatie"
+
+#: templates/email/password_reset_verify.html:3
+#: templates/email/password_reset_verify.txt:3
+msgid "Hey there, the password reset form was used for your account."
+msgstr ""
+"Het formulier om het wachtwoord te resetten is voor uw account gebruikt."
+
+#: templates/email/password_reset_verify.html:4
+#: templates/email/password_reset_verify.txt:4
+msgid "Please use the link below to log in and update your password."
+msgstr "Gebruik de link hieronder om uw wachtwoord aan te passen."
+
+#: templates/email/password_reset_verify.html:6
+#: templates/email/password_reset_verify.txt:6
+msgid ""
+"If you didn't request for your password to be reset, please ignore this "
+"email."
+msgstr ""
+"Als u niet om het resetten van uw wachtwoord gevraagd hebt, negeer dan "
+"alstublieft deze email."
+
+#: templates/email/password_reset_verify_subject.txt:2
+msgid "Reset your password"
+msgstr "Wijzig uw wachtwoord"
+
+#: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
+msgid "Hey there, thanks for creating your account."
+msgstr "Bedankt voor het maken van een account!"
+
+#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "Gebruik de link hieronder om uw account te activeren."
+
+#: templates/email/signup_verify_subject.txt:2
+msgid "Activate your account"
+msgstr "Activeer uw account"

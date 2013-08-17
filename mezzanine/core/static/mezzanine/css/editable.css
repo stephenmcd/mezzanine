@@ -10,11 +10,12 @@ right ahead and fix it.
 /* TOOLBAR */
 
 #editable-toolbar, .editable-highlight, .editable-link {top:0; left:0;
-    z-index:300; display:none; position:absolute;}
-#editable-toolbar {z-index:700;}
+    z-index:300; position:absolute;}
+#editable-toolbar {z-index:700; display:none;}
 #editable-loading {z-index:10000; display:none; position:absolute;}
 #editable-toolbar {position:fixed;}
 .editable-highlight {border:1px solid #ccc;}
+.editable-link {display: block;}
 
 #editable-toolbar, .editable-link {
     background:#fffcc3; float:left; cursor:pointer; padding:4px;

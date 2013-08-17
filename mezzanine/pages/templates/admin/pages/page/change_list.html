@@ -1,21 +1,21 @@
 {% extends "admin/change_list.html" %}
-{% load pages_tags i18n adminmedia %}
+{% load pages_tags i18n future staticfiles %}
 
 {% block extrahead %}
 {{ block.super }}
-<link rel="stylesheet" href="{{ STATIC_URL }}mezzanine/css/admin/page_tree.css">
+<link rel="stylesheet" href="{% static "mezzanine/css/admin/page_tree.css" %}">
 <style>
-.delete {width:10px; height:10px; margin:2px 4px 0 10px; display:block; float:right; background:url('{% admin_media_prefix %}img/admin/icon_deletelink.gif');}
-.grappelli-delete {width:11px; height:11px; margin:4px 4px 0 10px; background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink.png');}
-.grappelli-delete:hover {background:url('{% admin_media_prefix %}img/icons/icon-inline_item_tools-deletelink-hover.png');}
+.delete {width:10px; height:10px; margin:2px 4px 0 10px; display:block; float:right; background:url('{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/admin/icon_deletelink.gif" %}');}
+.grappelli-delete {width:11px; height:11px; margin:4px 4px 0 10px; background:url('{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/icons/icon-inline_item_tools-deletelink.png" %}');}
+.grappelli-delete:hover {background:url('{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/icons/icon-inline_item_tools-deletelink-hover.png" %}');}
 </style>
-<script>window.__page_ordering_url = '{% url admin_page_ordering %}';</script>
-<script src="{{ STATIC_URL }}mezzanine/js/jquery-ui-1.8.14.custom.min.js"></script>
-<script src="{{ STATIC_URL }}mezzanine/js/admin/page_tree.js"></script>
+<script>window.__page_ordering_url = '{% url "admin_page_ordering" %}';</script>
+<script src="{% static "mezzanine/js/jquery-ui-1.9.1.custom.min.js" %}"></script>
+<script src="{% static "mezzanine/js/admin/jquery.mjs.nestedSortable.js" %}"></script>
+<script src="{% static "mezzanine/js/admin/page_tree.js" %}"></script>
 {% endblock %}
 
 {% block content %}
-{% models_for_pages as page_models %}
 <div id="content-main">
 
     {% if has_add_permission %}
@@ -25,7 +25,7 @@
             {% for model in page_models %}
 			    {% set_model_permissions model %}
 			    {% if model.perms.add %}
-                <option value="{{ model.add_url }}">{{ model.name }}</option>
+                <option value="{{ model.add_url }}">{{ model.meta_verbose_name }}</option>
                 {% endif %}
             {% endfor %}
         </select>

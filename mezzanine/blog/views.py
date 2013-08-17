@@ -1,17 +1,16 @@
 from calendar import month_name
-from collections import defaultdict
 
 from django.http import Http404
-from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
-from django import VERSION
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.blog.feeds import PostsRSS, PostsAtom
 from mezzanine.conf import settings
-from mezzanine.generic.models import AssignedKeyword, Keyword
+from mezzanine.generic.models import Keyword
 from mezzanine.utils.views import render, paginate
+from mezzanine.utils.models import get_user_model
+
+User = get_user_model()
 
 
 def blog_post_list(request, tag=None, year=None, month=None, username=None,
@@ -44,47 +43,9 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         blog_posts = blog_posts.filter(user=author)
         templates.append(u"blog/blog_post_list_%s.html" % username)
 
-    # We want to iterate keywords and categories for each blog post
-    # without triggering "num posts x 2" queries.
-    #
-    # For Django 1.3 we create dicts mapping blog post IDs to lists of
-    # categories and keywords, and assign these to each blog post
-    #
-    # For Django 1.4 we just use prefetch related.
-
-    if VERSION >= (1, 4):
-        rel = ("categories", "keywords__keyword")
-        blog_posts = blog_posts.select_related("user").prefetch_related(*rel)
-    else:
-        blog_posts = list(blog_posts.select_related("user"))
-        categories = defaultdict(list)
-        if blog_posts:
-            ids = ",".join([str(p.id) for p in blog_posts])
-            for cat in BlogCategory.objects.raw(
-                "SELECT * FROM blog_blogcategory "
-                "JOIN blog_blogpost_categories "
-                "ON blog_blogcategory.id = blogcategory_id "
-                "WHERE blogpost_id IN (%s)" % ids):
-                categories[cat.blogpost_id].append(cat)
-        keywords = defaultdict(list)
-        blogpost_type = ContentType.objects.get(app_label="blog",
-                                                model="blogpost")
-        assigned = AssignedKeyword.objects.filter(blogpost__in=blog_posts,
-                        content_type=blogpost_type).select_related("keyword")
-        for a in assigned:
-            keywords[a.object_pk].append(a.keyword)
-    for i, post in enumerate(blog_posts):
-        if VERSION < (1, 4):
-            setattr(blog_posts[i], "category_list", categories[post.id])
-            setattr(blog_posts[i], "keyword_list", keywords[post.id])
-        else:
-            setattr(blog_posts[i], "category_list",
-                    post.categories.all())
-            setattr(blog_posts[i], "keyword_list",
-                    [k.keyword for k in post.keywords.all()])
-
-    blog_posts = paginate(blog_posts,
-                          request.GET.get("page", 1),
+    prefetch = ("categories", "keywords__keyword")
+    blog_posts = blog_posts.select_related("user").prefetch_related(*prefetch)
+    blog_posts = paginate(blog_posts, request.GET.get("page", 1),
                           settings.BLOG_POST_PER_PAGE,
                           settings.MAX_PAGING_LINKS)
     context = {"blog_posts": blog_posts, "year": year, "month": month,
@@ -99,27 +60,19 @@ def blog_post_detail(request, slug, year=None, month=None, day=None,
     ``blog/blog_post_detail_XXX.html`` where ``XXX`` is the blog
     posts's slug.
     """
-    blog_posts = BlogPost.objects.published(for_user=request.user)
+    blog_posts = BlogPost.objects.published(
+                                     for_user=request.user).select_related()
     blog_post = get_object_or_404(blog_posts, slug=slug)
-    context = {"blog_post": blog_post}
+    context = {"blog_post": blog_post, "editable_obj": blog_post}
     templates = [u"blog/blog_post_detail_%s.html" % unicode(slug), template]
     return render(request, templates, context)
 
 
-def blog_post_feed(request, format):
+def blog_post_feed(request, format, **kwargs):
     """
-    Blog posts feeds - handle difference between Django 1.3 and 1.4
+    Blog posts feeds - maps format to the correct feed view.
     """
-    blog_feed_dict = {"rss": PostsRSS, "atom": PostsAtom}
     try:
-        blog_feed_dict[format]
+        return {"rss": PostsRSS, "atom": PostsAtom}[format](**kwargs)(request)
     except KeyError:
         raise Http404()
-    try:
-        # Django <= 1.3
-        from django.contrib.syndication.views import feed
-    except ImportError:
-        # Django >= 1.4
-        return blog_feed_dict[format]()(request)
-    else:
-        return feed(request, format, feed_dict=blog_feed_dict)

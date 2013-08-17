@@ -1,0 +1,217 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hkoivuneva <henri.koivuneva@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2013-04-07 09:34-0430\n"
+"PO-Revision-Date: 2013-07-30 03:05+0200\n"
+"Last-Translator: Henri Koivuneva <henri.koivuneva@gmail.com>\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/mezzanine/"
+"language/fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: admin.py:20
+msgid "Other posts"
+msgstr "Muut kirjoitukset"
+
+#: defaults.py:20
+msgid "Enable featured images in blog posts"
+msgstr "Ota käyttöön ajankohtainen kuva blogissa"
+
+#: defaults.py:27
+msgid "Use date URLs"
+msgstr "Käytä linkeissä päivämäärämuotoa"
+
+#: defaults.py:28
+msgid ""
+"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
+"mm/slug/"
+msgstr ""
+"Jos ``Tosi``, blogin linkit sisältävät kirjoitusten vuoden ja kuukauden. "
+"Esim: /blog/yyyy/mm/slug/"
+
+#: defaults.py:36
+msgid "Blog posts per page"
+msgstr "Kirjoituksia sivua kohti"
+
+#: defaults.py:37
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Blogikirjoitusten määrä yhtä sivua kohti"
+
+#: defaults.py:44
+msgid "Blog posts RSS limit"
+msgstr "RSS-syötteen kirjoitusten määrä"
+
+#: defaults.py:45
+msgid ""
+"Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
+"display all blog posts in the RSS feed."
+msgstr ""
+"Uusinten kirjoitusten määrä RSS-syötteessä. Aseta ``Ei mitään`` näyttääksesi "
+"kaikki kirjoitukset syötteessä."
+
+#: defaults.py:53
+msgid "Slug of the page object for the blog."
+msgstr "Lyhenne blogin tunnukselle"
+
+#: models.py:17 templates/blog/includes/filter_panel.html:35
+msgid "Categories"
+msgstr "Aiheet"
+
+#: models.py:19
+msgid "Allow comments"
+msgstr "Salli kommentointi"
+
+#: models.py:21 templates/blog/blog_post_detail.html:43
+#: templates/blog/blog_post_list.html:129
+msgid "Comments"
+msgstr "Kommentit"
+
+#: models.py:22
+msgid "Rating"
+msgstr "Arvostelu"
+
+#: models.py:23
+msgid "Featured Image"
+msgstr "Ajankohtainen kuva"
+
+#: models.py:27 templates/blog/blog_post_detail.html:113
+msgid "Related posts"
+msgstr "Aiheeseen liittyvät kirjoitukset"
+
+#: models.py:32
+msgid "Blog post"
+msgstr "Kirjoitus"
+
+#: models.py:33
+msgid "Blog posts"
+msgstr "Kirjoitukset"
+
+#: models.py:85
+msgid "Blog Category"
+msgstr "AiheN"
+
+#: models.py:86
+msgid "Blog Categories"
+msgstr "Aiheet"
+
+#: templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr "Pikakirjoitus"
+
+#: templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr "Tallenna luonnos"
+
+#: templates/blog/blog_post_detail.html:29
+#: templates/blog/blog_post_list.html:83
+msgid "Posted by"
+msgstr "Lähettänyt"
+
+#: templates/blog/blog_post_detail.html:33
+#: templates/blog/blog_post_list.html:95
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "%(sometime)  sitten"
+
+#: templates/blog/blog_post_detail.html:46
+#: templates/blog/blog_post_list.html:133
+#, python-format
+msgid "1 comment"
+msgid_plural "%(comments_count)s comments"
+msgstr[0] "kommentti"
+msgstr[1] "%(comments_count)s kommenttia"
+
+#: templates/blog/blog_post_detail.html:74
+#: templates/blog/blog_post_list.html:116
+#: templates/blog/includes/filter_panel.html:48
+msgid "Tags"
+msgstr "Tunnisteet"
+
+#: templates/blog/blog_post_detail.html:87
+msgid "Share on Twitter"
+msgstr "Jaa Twitterissä"
+
+#: templates/blog/blog_post_detail.html:88
+msgid "Share on Facebook"
+msgstr "Jaa Facebookissa"
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
+msgid "Blog"
+msgstr "Blogi"
+
+#: templates/blog/blog_post_list.html:31
+msgid "Tag:"
+msgstr "Tunniste:"
+
+#: templates/blog/blog_post_list.html:33
+msgid "Category:"
+msgstr "Aihe:"
+
+#: templates/blog/blog_post_list.html:37
+msgid "Author:"
+msgstr "Kirjoittaja:"
+
+#: templates/blog/blog_post_list.html:50
+msgid "Viewing posts tagged"
+msgstr "Näytetään kirjoitukset tunnisteilla"
+
+#: templates/blog/blog_post_list.html:52
+msgid "Viewing posts for the category"
+msgstr "Näytetään kirjoitukset aiheelle"
+
+#: templates/blog/blog_post_list.html:54
+msgid "Viewing posts from"
+msgstr "Näytetään kirjoitukset ajalta"
+
+#: templates/blog/blog_post_list.html:57
+msgid "Viewing posts by"
+msgstr "Näytetään kirjoitukset henkilöltä"
+
+#: templates/blog/blog_post_list.html:89
+msgid "in"
+msgstr "sisällä"
+
+#: templates/blog/blog_post_list.html:124
+msgid "read more"
+msgstr "Jatka lukemista"
+
+#: templates/blog/includes/filter_panel.html:6
+msgid "Recent Posts"
+msgstr "Uusimmat kirjoitukset"
+
+#: templates/blog/includes/filter_panel.html:19
+msgid "Archive"
+msgstr "Arkisto"
+
+#: templates/blog/includes/filter_panel.html:64
+msgid "Authors"
+msgstr "Kirjoittajat"
+
+#: templates/blog/includes/filter_panel.html:76
+msgid "Feeds"
+msgstr "Syötteet"
+
+#: templates/blog/includes/filter_panel.html:78
+#: templates/blog/includes/filter_panel.html:82
+#: templates/blog/includes/filter_panel.html:86
+#: templates/blog/includes/filter_panel.html:90
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:79
+#: templates/blog/includes/filter_panel.html:83
+#: templates/blog/includes/filter_panel.html:87
+#: templates/blog/includes/filter_panel.html:91
+msgid "Atom"
+msgstr "Atom"

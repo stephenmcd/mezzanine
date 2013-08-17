@@ -1,8 +1,8 @@
-{% load i18n %}
+{% load i18n future %}
 
 {# Edit form #}
 <form style="display:none;" class="editable-form" method="post"
-    action="{% url edit %}" id="{{ form.uuid }}"
+    action="{% url "edit" %}" id="{{ form.uuid }}"
     {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
     {% csrf_token %}
     {% for field in form %}
@@ -21,9 +21,9 @@
 <div class="editable-original">{{ original }}</div>
 
 {# Edit link #}
-<a style="display:none;" class="editable-link" href="#"
+<a style="visibility:hidden;" class="editable-link" href="#"
     rel="#{{ form.uuid }}">{% trans "Edit" %}</a>
 
 {# Edit highlight #}
-<div style="display:none;" class="editable-highlight"></div>
+<div style="visibility:hidden;" class="editable-highlight"></div>
 

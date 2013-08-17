@@ -5,8 +5,8 @@
 .module {margin-bottom:10px !important;}
 .module ul {list-style-type:none !important; margin-left:0px;}
 .mini {font-size:.9em;}
-.dashboard1 {float:right !important; margin:0 -38em 0 10px !important;}
-.dashboard2 {float:right !important; margin-right:-19em !important;}
+#content-related.dashboard1 {margin:0 -38em 0 10px;}
+#content-related.dashboard2 {margin-right:-19em;}
 
 #comments-module ul {margin:0;}
 #comments-module li {padding:10px; list-style-type:none; margin:0;}

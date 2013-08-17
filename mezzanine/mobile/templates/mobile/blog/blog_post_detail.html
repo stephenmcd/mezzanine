@@ -1,5 +1,5 @@
 {% extends "mobile/blog/blog_post_list.html" %}
-{% load mezzanine_tags comment_tags keyword_tags i18n %}
+{% load mezzanine_tags comment_tags keyword_tags i18n future %}
 
 {% block meta_title %}{{ blog_post.title }}{% endblock %}
 
@@ -23,16 +23,16 @@
         {% trans "Posted by" %}
         <strong>
             {% with blog_post.user as author %}
-            <a href="{% url blog_post_list_author author %}"
+            <a href="{% url "blog_post_list_author" author %}"
                 >{{ author.get_full_name|default:author.username }}</a>
             {% endwith %}
         </strong>
-        {{ blog_post.publish_date|timesince }} {% trans "ago" %}
+        {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
     </em>
 </p>
 
 {% editable blog_post.content %}
-{{ blog_post.content|safe }}
+{{ blog_post.content|richtext_filters|safe }}
 {% endeditable %}
 
 {% keywords_for blog_post as tags %}
@@ -41,7 +41,7 @@
     {% trans "Tags" %}:
     <ul>
         {% for tag in tags %}
-        <li><a href="{% url blog_post_list_tag tag.slug %}">{{ tag }}</a></li>
+        <li><a href="{% url "blog_post_list_tag" tag.slug %}">{{ tag }}</a></li>
         {% endfor %}
     </ul>
 </div>

@@ -1,0 +1,356 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <bart@dispectu.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2012-10-18 18:02+0000\n"
+"Last-Translator: bartdegoede <bart@dispectu.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/"
+"nl/)\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:32 fields.py:33
+msgid "Email"
+msgstr "Email"
+
+#: admin.py:115
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] "1 entry verwijderd"
+msgstr[1] "%(count)s entries verwijderd"
+
+#: admin.py:119
+msgid "View Entries"
+msgstr "Toon entries"
+
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+"Wanneer deze instelling ``True`` is, worden emails die naar extra ontvangers "
+"van formulierinzendingen niet vanaf een adres dat in een van de velden van "
+"het formulier staat gestuurd."
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr ""
+"Maximum toegestane lengte voor de waarde van velden in de formulier "
+"applicatie."
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr ""
+"Maximum toegestane lengte voor de waarde van velden in de formulier "
+"applicatie."
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr ""
+"Karakter dat als scheidingsteken gebruikt moet worden wanneer ingevulde "
+"formulieren als CSV geëxporteerd worden."
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr ""
+"Absoluut pad voor het opslaan van bestanden uit de formulier applicatie."
+
+#: defaults.py:58
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
+msgstr ""
+
+#: fields.py:31
+msgid "Single line text"
+msgstr "Enkele regel tekst"
+
+#: fields.py:32
+msgid "Multi line text"
+msgstr "Meerdere regels text"
+
+#: fields.py:34
+msgid "Number"
+msgstr "Getal"
+
+#: fields.py:35
+msgid "URL"
+msgstr "URL"
+
+#: fields.py:36
+msgid "Check box"
+msgstr "Selectievakje"
+
+#: fields.py:37
+msgid "Check boxes"
+msgstr "Selectievakjes"
+
+#: fields.py:38
+msgid "Drop down"
+msgstr "Keuzelijst"
+
+#: fields.py:39
+msgid "Multi select"
+msgstr "Multi select"
+
+#: fields.py:40
+msgid "Radio buttons"
+msgstr "Radiobuttons"
+
+#: fields.py:41
+msgid "File upload"
+msgstr "Upload bestand"
+
+#: fields.py:42
+msgid "Date"
+msgstr "Datum"
+
+#: fields.py:43 models.py:116
+msgid "Date/time"
+msgstr "Datum/tijd"
+
+#: fields.py:44
+msgid "Date of birth"
+msgstr "Geboortedatum"
+
+#: fields.py:45
+msgid "Hidden"
+msgstr "Verborgen"
+
+#: forms.py:28 forms.py:36 forms.py:42
+msgid "Nothing"
+msgstr "Geen"
+
+#: forms.py:29
+msgid "Contains"
+msgstr "Bevat"
+
+#: forms.py:30
+msgid "Doesn't contain"
+msgstr "Bevat niet"
+
+#: forms.py:31 forms.py:37
+msgid "Equals"
+msgstr "Is gelijk aan"
+
+#: forms.py:32 forms.py:38
+msgid "Doesn't equal"
+msgstr "Is niet gelijk aan"
+
+#: forms.py:43
+msgid "Is between"
+msgstr "Is tussen"
+
+#: forms.py:100
+msgid "required"
+msgstr "verplicht"
+
+#: forms.py:216
+msgid "Checked"
+msgstr "Aangevinkt"
+
+#: forms.py:216
+msgid "Not checked"
+msgstr "Niet aangevinkt"
+
+#: forms.py:230 forms.py:245
+msgid "and"
+msgstr "en"
+
+#: models.py:17
+msgid "Button text"
+msgstr "Tekst voor knop"
+
+#: models.py:18
+msgid "Submit"
+msgstr "Submit"
+
+#: models.py:19
+msgid "Response"
+msgstr "Antwoord"
+
+#: models.py:20
+msgid "Send email to user"
+msgstr "Stuur email naar gebruiker"
+
+#: models.py:21
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
+"Om een email naar het opgegeven emailadres te sturen wanneer het formulier "
+"ingezonden wordt, vink dit vakje aan."
+
+#: models.py:23
+msgid "From address"
+msgstr "Emailadres"
+
+#: models.py:24
+msgid "The address the email will be sent from"
+msgstr "Het adres vanwaar de email gestuurd wordt."
+
+#: models.py:25
+msgid "Send email to others"
+msgstr "Stuur email naar anderen"
+
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+"Geef een komma gescheiden lijst van emailadressen op die een notificatie "
+"moeten krijgen wanneer een formulier ingezonden wordt. Laat leeg om "
+"notificaties uit te schakelen."
+
+#: models.py:30
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: models.py:31
+msgid "Message"
+msgstr "Bericht"
+
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+"Emails die gebaseerd op bovenstaande opties verstuurd worden bevatten alle "
+"ingevulde formuliervelden. Je kan hier een bericht invullen dat bij de email "
+"gevoegd zal worden."
+
+#: models.py:37
+msgid "Form"
+msgstr "Formulier"
+
+#: models.py:38
+msgid "Forms"
+msgstr "Formulieren"
+
+#: models.py:55
+msgid "Label"
+msgstr "Label"
+
+#: models.py:57
+msgid "Type"
+msgstr "Type"
+
+#: models.py:58
+msgid "Required"
+msgstr "Vereist"
+
+#: models.py:59
+msgid "Visible"
+msgstr "Zichtbaar"
+
+#: models.py:60
+msgid "Choices"
+msgstr "Keuzes"
+
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr ""
+"Door komma gescheiden opties wanneer van toepassing. Als een optie zelf "
+"komma's bevat, zet de optie dan tussen accent graves: `mijn, optie`."
+
+#: models.py:63
+msgid "Default value"
+msgstr "Standaardwaarde"
+
+#: models.py:65
+msgid "Placeholder Text"
+msgstr "Tijdelijke `vultekst`"
+
+#: models.py:67
+msgid "Help text"
+msgstr "Hulp tekst"
+
+#: models.py:72 templates/admin/forms/entries.html:28
+msgid "Field"
+msgstr "Veld"
+
+#: models.py:73
+msgid "Fields"
+msgstr "Velden"
+
+#: models.py:119
+msgid "Form entry"
+msgstr "Invoerveld"
+
+#: models.py:120
+msgid "Form entries"
+msgstr "Invoervelden"
+
+#: models.py:134
+msgid "Form field entry"
+msgstr "Invoervelden"
+
+#: models.py:135
+msgid "Form field entries"
+msgstr "Invoervelden"
+
+#: templates/admin/forms/change_form.html:8
+#: templates/admin/forms/entries.html:57
+msgid "View entries"
+msgstr "Laat entries zien"
+
+#: templates/admin/forms/change_form.html:9
+msgid "History"
+msgstr "Geschiedenis"
+
+#: templates/admin/forms/change_form.html:10
+msgid "View on site"
+msgstr "Bekijk op de site"
+
+#: templates/admin/forms/entries.html:14
+msgid "Home"
+msgstr "Home"
+
+#: templates/admin/forms/entries.html:29
+msgid "Include"
+msgstr "Voeg toe"
+
+#: templates/admin/forms/entries.html:30
+msgid "Filter by"
+msgstr "Filter op"
+
+#: templates/admin/forms/entries.html:48
+msgid "All"
+msgstr "Alles"
+
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
+msgid "Back to form"
+msgstr "Terug naar formulier"
+
+#: templates/admin/forms/entries.html:58
+msgid "Export CSV"
+msgstr "Exporteer naar CSV"
+
+#: templates/admin/forms/entries.html:60
+msgid "Entries"
+msgstr "Entries"
+
+#: templates/admin/forms/entries.html:94
+msgid "Delete selected"
+msgstr "Verwijder selectie"
+
+#: templates/admin/forms/entries.html:98
+msgid "No entries to display"
+msgstr "Geen entries om te tonen"

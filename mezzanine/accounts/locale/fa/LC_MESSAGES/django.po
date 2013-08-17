@@ -1,0 +1,269 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <bornazadeh@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:42-0430\n"
+"PO-Revision-Date: 2013-03-30 12:30+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Persian (http://www.transifex.com/projects/p/mezzanine/"
+"language/fa/)\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: defaults.py:20
+msgid "Minimum length for passwords"
+msgstr "حداقل طول رمز عبور"
+
+#: defaults.py:27
+msgid "List of fields to exclude from the profile form."
+msgstr "لیست موضوعاتی که در فرم پروفایل نادیده گرفته شوند."
+
+#: defaults.py:34
+msgid ""
+"Dotted package path and class name of profile form to use for users signing "
+"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgstr ""
+"مسیر نقطه دار بسته و نام کلاس فرم پروفایل برای استفاده بعنوان ثبت نام کاربر "
+"و به روز کردن پروفایل وی, وقتی \"mezzanine.accounts\" نصب شده باشد."
+
+#: defaults.py:43
+msgid "If ``True``, users will have their own public profile pages."
+msgstr ""
+"اگر \"علامت دار \" باشد, کاربران می توانند صفحات پروفایل عمومی مخصوص به خود "
+"داشته باشند."
+
+#: defaults.py:51
+msgid ""
+"If ``True``, when users create an account, they will be sent an email with a "
+"verification link, which they must click to enable their account."
+msgstr ""
+"اگر \"علامت دار \" باشد, وقتی کاربران یک حساب کاربری ایجاد می کنند,  یک "
+"ایمیل حاوی کد فعال سازی برایشان ارسال می شود, که برای فعال شدن حساب "
+"کاربریشان باید روی لینک مربوطه در ایمیل کلیک کنند."
+
+#: forms.py:21 forms.py:190
+msgid "Username or email address"
+msgstr "نام کاربری و آدرس پست الکترونیکی"
+
+#: forms.py:22 forms.py:66
+msgid "Password"
+msgstr "رمز عبور"
+
+#: forms.py:35
+msgid "Invalid username/email and password"
+msgstr "نام کاربری/ ایمیل و یا رمز عبور نا معتبر"
+
+#: forms.py:37
+msgid "Your account is inactive"
+msgstr "حساب کاربری شما غیر فعال است"
+
+#: forms.py:68
+msgid "Password (again)"
+msgstr "رمز عبور(تکرار)"
+
+#: forms.py:81
+msgid "Only letters, numbers, dashes or underscores please"
+msgstr "لطفا فقط حروف, اعدا د,  خط تیره  یا زیر خط"
+
+#: forms.py:95
+msgid "Leave blank unless you want to change your password"
+msgstr "خالی رهایش کنید مگر اینکه قصد تعویض رمز عبور داشته باشید"
+
+#: forms.py:114
+msgid "Username can only contain letters, numbers, dashes or underscores."
+msgstr "نام کاربری فقط می تواند شامل حروف, اعداد, خط تیره یا زیر خط باشد."
+
+#: forms.py:122
+msgid "This username is already registered"
+msgstr "این نام کاربری قبلا ثبت شده است."
+
+#: forms.py:135
+msgid "Passwords do not match"
+msgstr "گذر واژه ها یکسان نیستند"
+
+#: forms.py:137
+#, python-format
+msgid "Password must be at least %s characters"
+msgstr "گذر واژه باید حداقل %s کارکتر داشته باشد"
+
+#: forms.py:152
+msgid "This email is already registered"
+msgstr "این آدرس ایمیل قبلا ثبت نام کرده است"
+
+#: forms.py:199
+msgid "Invalid username/email"
+msgstr "نام کاربری/ ایمیل نامعتبر"
+
+#: views.py:31
+msgid "Successfully logged in"
+msgstr "با موفقیت وارد شدید"
+
+#: views.py:34
+msgid "Login"
+msgstr "ورود"
+
+#: views.py:43
+msgid "Successfully logged out"
+msgstr "با موفقیت خارج شدید"
+
+#: views.py:57
+msgid ""
+"A verification email has been sent with a link for activating your account."
+msgstr ""
+"یک ایمیل فعال سازی حاوی یک لینک برای فعال کردن حساب کاربری,  برای شما ارسال "
+"شد."
+
+#: views.py:61 views.py:80
+msgid "Successfully signed up"
+msgstr "ثبت نام با موفقیت انجام شد"
+
+#: views.py:64
+msgid "Signup"
+msgstr "ثبت نام"
+
+#: views.py:83 views.py:167
+msgid "The link you clicked is no longer valid."
+msgstr "لینکی که کلیک کردید معتبر نمی باشد."
+
+#: views.py:141
+msgid "Profile updated"
+msgstr "پروفایل به روز شد"
+
+#: views.py:146
+msgid "Update Profile"
+msgstr "به روز کردن پروفایل"
+
+#: views.py:155
+msgid ""
+"A verification email has been sent with a link for resetting your password."
+msgstr ""
+"یک ایمیل تنظیم مجدد رمز عبور حاوی یک لینک برای تنظیم مجدد رمز عبور,  برای "
+"شما ارسال شد."
+
+#: views.py:157
+msgid "Password Reset"
+msgstr "تنظیم مجدد رمز عبور"
+
+#: templates/accounts/account_login.html:7
+msgid "You're already logged in."
+msgstr "شما قبلا وارد شده اید."
+
+#: templates/accounts/account_login.html:11
+#, python-format
+msgid ""
+"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
+"\">sign up</a> for one now."
+msgstr ""
+"اگر حساب کاربری ندارید میتوانید<a href=\"%(signup_url)s?next=%(next)s\">حالا "
+"یکی ایجاد کنید.</a>"
+
+#: templates/accounts/account_login.html:14
+#, python-format
+msgid ""
+"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">reset your password</a> if you've forgotten it.</p>"
+msgstr ""
+"<p>شما همچنین میتوانید <a href=\"%(password_reset_url)s?next="
+"%(profile_update_url)s\">تنظیم مجدد رمز عبور</a>اگر آن را فراموش کرده اید.</"
+"p>"
+
+#: templates/accounts/account_password_reset.html:6
+msgid ""
+"Enter your username or email address and you'll receive an email with a link "
+"you need to click, in order to log in and change your password."
+msgstr ""
+"نام کاربری و آدرس ایمیل خود را وارد کنید تا یک ایمیل حاوی یک لینک برای ورود "
+"و تغییر رمز عبور برای شما ارسال شود."
+
+#: templates/accounts/account_profile.html:17
+#: templates/accounts/includes/user_panel.html:9
+msgid "Update profile"
+msgstr "به روز کردن پروفایل"
+
+#: templates/accounts/account_signup.html:7
+msgid ""
+"You're already logged in. If you'd like to create a new account, you'll need "
+"to log out first."
+msgstr ""
+"شما قبلا وارد شده اید. اگر می خواهید حساب کاربری جدیدی ایجاد کنید, باید "
+"ابتدا خارج شوید."
+
+#: templates/accounts/account_signup.html:11
+msgid ""
+"After signing up, you'll receive an email with a link you need to click, in "
+"order to activate your account."
+msgstr ""
+"بعد از ثبت نام, یک ایمیل حاوی لینک فعال سازی حساب کاربری تان دریافت خواهید "
+"کرد که باید روی لینک در ایمیلتان کلیک کنید."
+
+#: templates/accounts/includes/user_panel.html:4
+msgid "Logged in as: "
+msgstr "ورود به عنوان:"
+
+#: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
+msgid "Log out"
+msgstr "خروج"
+
+#: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log in"
+msgstr "ورود"
+
+#: templates/accounts/includes/user_panel.html:18
+msgid "or"
+msgstr "یا"
+
+#: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
+msgid "Sign up"
+msgstr "ثبت نام"
+
+#: templates/admin/profile_inline.html:10
+msgid "Profile information"
+msgstr "اطلاعات پروفایل"
+
+#: templates/email/password_reset_verify.html:3
+#: templates/email/password_reset_verify.txt:3
+msgid "Hey there, the password reset form was used for your account."
+msgstr ""
+"سلام ، فرم تنظیم مجدد رمز عبور برای حساب کاربری شما مورد استفاده قرار گرفت."
+
+#: templates/email/password_reset_verify.html:4
+#: templates/email/password_reset_verify.txt:4
+msgid "Please use the link below to log in and update your password."
+msgstr "لطفا از لینک زیر برای ورود و به روز رسانی رمز عبور خود استفاده کنید."
+
+#: templates/email/password_reset_verify.html:6
+#: templates/email/password_reset_verify.txt:6
+msgid ""
+"If you didn't request for your password to be reset, please ignore this "
+"email."
+msgstr ""
+"اگر برای تنظیم مجدد رمز عبور خود درخواستی ارسال نکرده اید, لطفا این ایمیل را "
+"نادیده بگیرید."
+
+#: templates/email/password_reset_verify_subject.txt:2
+msgid "Reset your password"
+msgstr "باز تنظیم رمز عبور"
+
+#: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
+msgid "Hey there, thanks for creating your account."
+msgstr "سلام, به خاطر ایجاد حساب کاربریتان تشکر می کنیم."
+
+#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "لطفا برای فعال کردنش از لینک زیر استفاده کنید."
+
+#: templates/email/signup_verify_subject.txt:2
+msgid "Activate your account"
+msgstr "فعال کردن حساب کاربریتان"

@@ -11,13 +11,20 @@ h6 a {color:#666;}
 p, ul {line-height:22px; margin-top:5px; margin-bottom:15px;}
 li {line-height:20px;}
 img {box-shadow:0 0 10px #bbb;}
+.btn {cursor:pointer;}
 
 
 /* Navigation */
-@media (max-width:979px){.brand {padding-right:20px !important;}}
+body {padding-top:45px;}
+@media (max-width:979px){
+    body {padding-top:0;} .brand {padding-right:20px !important;}}
 .navbar {z-index:500;}
-.navbar-search {margin-left:10px;}
-.tagline {float:left; font-size:12px; font-style:italic; margin:9px 5px 0 -4px; color:#fff; opacity:.5;}
+.navbar .btn {margin:7px 0;}
+.navbar-inner {border-radius:0;}
+.navbar-search * {margin:0 2px !important;}
+.navbar-search .search-query {width:120px; border-radius:3px}
+.navbar-search select {width:auto;}
+.navbar-text {float:left; font-size:12px; font-style:italic; margin:0; opacity:.6;}
 .breadcrumb {margin:20px 0 25px 0;}
 .breadcrumb .divider {margin:0 5px;}
 .breadcrumb strong {color:#333;}
@@ -25,7 +32,7 @@ ul.nav li.dropdown:hover ul.dropdown-menu {display:block;}
 .pull-right .dropdown-menu a {text-align:right;}
 .tree {padding:8px;}
 .tree li {margin:3px 0;}
-footer {background:rgba(220,220,220, 0.1); padding:30px 0; text-align:center;}
+footer {background:rgba(220,220,220, 0.1); padding:30px 0; text-align:center; margin-top:40px;}
 footer .container {text-align:left; display:inline-block; width:auto;}
 footer li {float:left; list-style-type:none;}
 footer li li {float:none; clear:both; width:120px; padding:10px 0; margin-right:30px;}
@@ -34,12 +41,13 @@ footer .separator {opacity:0.3; margin:0 10px;}
 @media (max-width: 979px) {footer .separator {display:block; visibility:hidden; width:1px; height:1px;}}
 .pagination {margin:40px 0;}
 .pagination p {float:left;}
+.alert {margin-top:15px;}
 
 
 /* Forms */
 .control-group label {font-weight:bold; margin-bottom:3px;}
 .control-group ul, .control-group li {list-style-type:none; display:inline; margin:0;}
-                         /* radio/checkbox groups */
+/* radio/checkbox groups */
 .control-group li label {width:auto !important; float:none !important; display:inline;
                          font-weight:normal; vertical-align:middle;
                          padding:0 !important; line-height:27px; margin-right:10px;}
@@ -48,16 +56,14 @@ footer .separator {opacity:0.3; margin:0 10px;}
 .input li {list-style-type:none;}
 .input li input {width:auto;}
 .input label {font-weight:normal;}
-textarea.xlarge {width:480px; height:120px;}
+textarea.input-xlarge {width:480px; height:150px;}
 .datefield select, .datetimefield select,
 .datefield input, .datetimefield input {width:auto; margin-right:5px;}
 .form-actions {background:rgba(220,220,220, 0.1); margin-left:-10px !important; border-top:1px solid #eee;}
-.btn-small {width:auto; margin:5px 0; line-height:10px;}
 a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 .help-inline {color:#999;}
-.btn-account, .btn-account:active {margin:0 5px !important;
-                                   box-shadow:none; -webkit-box-shadow:none;}
 #account .middle form {padding-top:20px;}
+.btn-account {margin:auto 5px;}
 .non-field-errors .help-inline {padding:0; margin-bottom:5px; display:block;}
 
 
@@ -81,15 +87,19 @@ a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 /* Tweets */
 .tweets img {float:left; margin-right:8px; width:32px; height:32px;}
 .tweets li {margin-bottom:15px;}
-.timespan {color:#bbb; margin-left:0; float:none;}
+.timespan {color:#bbb; margin-left:0 !important; float:none !important;}
 
 
 /* Ratings */
-.rating {padding:10px 20px;}
-.rating * {display:inline; list-style-type:none;}
+.rating {margin-top:15px;}
+.rating * {display:inline !important; list-style-type:none;}
 .rating label {margin-right:15px;}
 .rating p {margin-right:20px;}
-.rating ul {margin-left:0 !important;}
+.rating ul {margin-left:0 !important; padding:0 !important;}
+.rating li {border:none !important; background:none !important; padding:0 !important;}
+.rating li input {margin-top:-4px;}
+#comments .rating {padding:0 !important; margin:10px 0 0 0 !important;
+                   border:none !important; background:none !important;}
 
 
 /* Comments */

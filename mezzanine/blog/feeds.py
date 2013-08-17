@@ -1,17 +1,17 @@
 
-try:
-    # Django <= 1.3
-    from django.contrib.syndication.feeds import Feed
-except ImportError:
-    # Django >= 1.4
-    from django.contrib.syndication.views import Feed
+from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 from django.utils.feedgenerator import Atom1Feed
 from django.utils.html import strip_tags
 
 from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.generic.models import Keyword
 from mezzanine.pages.models import Page
 from mezzanine.conf import settings
+from mezzanine.utils.models import get_user_model
+
+User = get_user_model()
 
 
 class PostsRSS(Feed):
@@ -26,6 +26,9 @@ class PostsRSS(Feed):
         removed, fall back to the ``SITE_TITLE`` and ``SITE_TAGLINE``
         settings.
         """
+        self.tag = kwargs.pop("tag", None)
+        self.category = kwargs.pop("category", None)
+        self.username = kwargs.pop("username", None)
         super(PostsRSS, self).__init__(*args, **kwargs)
         self._public = True
         try:
@@ -35,13 +38,19 @@ class PostsRSS(Feed):
         else:
             self._public = not page.login_required
         if self._public:
+            settings.use_editable()
             if page is not None:
-                self.title = page.title
-                self.description = strip_tags(page.description)
+                self._title = "%s | %s" % (page.title, settings.SITE_TITLE)
+                self._description = strip_tags(page.description)
             else:
-                settings.use_editable()
-                self.title = settings.SITE_TITLE
-                self.description = settings.SITE_TAGLINE
+                self._title = settings.SITE_TITLE
+                self._description = settings.SITE_TAGLINE
+
+    def title(self):
+        return self._title
+
+    def description(self):
+        return self._description
 
     def link(self):
         return reverse("blog_post_feed", kwargs={"format": "rss"})
@@ -49,7 +58,20 @@ class PostsRSS(Feed):
     def items(self):
         if not self._public:
             return []
-        return BlogPost.objects.published().select_related("user")
+        blog_posts = BlogPost.objects.published().select_related("user")
+        if self.tag:
+            tag = get_object_or_404(Keyword, slug=self.tag)
+            blog_posts = blog_posts.filter(keywords__in=tag.assignments.all())
+        if self.category:
+            category = get_object_or_404(BlogCategory, slug=self.category)
+            blog_posts = blog_posts.filter(categories=category)
+        if self.username:
+            author = get_object_or_404(User, username=self.username)
+            blog_posts = blog_posts.filter(user=author)
+        limit = settings.BLOG_RSS_LIMIT
+        if limit is not None:
+            blog_posts = blog_posts[:settings.BLOG_RSS_LIMIT]
+        return blog_posts
 
     def item_description(self, item):
         return item.content
@@ -81,7 +103,7 @@ class PostsAtom(PostsRSS):
     feed_type = Atom1Feed
 
     def subtitle(self):
-        return self.description
+        return self.description()
 
     def link(self):
         return reverse("blog_post_feed", kwargs={"format": "atom"})

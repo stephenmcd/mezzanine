@@ -8,7 +8,12 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         from django.contrib.sites.models import Site
-        orm.Setting.objects.all().update(site=Site.objects.get_current())
+        try:
+            site = Site.objects.get_current()
+        except Site.DoesNotExist:
+            pass
+        else:
+            orm.Setting.objects.all().update(site=site)
 
 
     def backwards(self, orm):

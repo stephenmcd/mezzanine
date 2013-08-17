@@ -1,0 +1,25 @@
+{% load i18n future mezzanine_tags accounts_tags %}
+
+<ul class="nav pull-right"><li class="divider-vertical"></li></ul>
+
+<div class="pull-right">
+    {% if request.user.is_authenticated %}
+    <a href="{% url "logout" %}?next={{ request.path }}"
+        class="btn btn-small">{% trans "Log out" %}</a>
+    {% else %}
+    <a href="{% url "login" %}?next={{ request.path }}"
+        class="btn btn-small">{% trans "Log in" %}</a>
+    <a href="{% url "signup" %}?next={{ request.path }}"
+        class="btn btn-small">{% trans "Sign up" %}</a>
+    {% endif %}
+</div>
+
+{% if request.user.is_authenticated %}
+<ul class="nav pull-right">
+    {% url "profile" request.user.username as profile_url %}
+    {% if not profile_url %}{% url "profile_update" as profile_url %}{% endif %}
+    <li><a href="{{ profile_url }}">{{ request.user|username_or:"email" }}</a></li>
+</ul>
+{% endif %}
+
+

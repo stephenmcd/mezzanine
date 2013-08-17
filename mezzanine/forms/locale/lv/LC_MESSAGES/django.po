@@ -1,0 +1,337 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:42-0430\n"
+"PO-Revision-Date: 2012-10-18 18:02+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/projects/p/mezzanine/"
+"language/lv/)\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+#: admin.py:32 fields.py:33
+msgid "Email"
+msgstr "E-pasts"
+
+#: admin.py:115
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: admin.py:119
+msgid "View Entries"
+msgstr ""
+
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr ""
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr ""
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr ""
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr ""
+
+#: defaults.py:58
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
+msgstr ""
+
+#: fields.py:31
+msgid "Single line text"
+msgstr ""
+
+#: fields.py:32
+msgid "Multi line text"
+msgstr ""
+
+#: fields.py:34
+msgid "Number"
+msgstr ""
+
+#: fields.py:35
+msgid "URL"
+msgstr "URL"
+
+#: fields.py:36
+msgid "Check box"
+msgstr ""
+
+#: fields.py:37
+msgid "Check boxes"
+msgstr ""
+
+#: fields.py:38
+msgid "Drop down"
+msgstr ""
+
+#: fields.py:39
+msgid "Multi select"
+msgstr ""
+
+#: fields.py:40
+msgid "Radio buttons"
+msgstr ""
+
+#: fields.py:41
+msgid "File upload"
+msgstr ""
+
+#: fields.py:42
+msgid "Date"
+msgstr ""
+
+#: fields.py:43 models.py:116
+msgid "Date/time"
+msgstr "Datums/laiks"
+
+#: fields.py:44
+msgid "Date of birth"
+msgstr ""
+
+#: fields.py:45
+msgid "Hidden"
+msgstr ""
+
+#: forms.py:28 forms.py:36 forms.py:42
+msgid "Nothing"
+msgstr ""
+
+#: forms.py:29
+msgid "Contains"
+msgstr ""
+
+#: forms.py:30
+msgid "Doesn't contain"
+msgstr ""
+
+#: forms.py:31 forms.py:37
+msgid "Equals"
+msgstr ""
+
+#: forms.py:32 forms.py:38
+msgid "Doesn't equal"
+msgstr ""
+
+#: forms.py:43
+msgid "Is between"
+msgstr ""
+
+#: forms.py:100
+msgid "required"
+msgstr "nepieciešams"
+
+#: forms.py:216
+msgid "Checked"
+msgstr ""
+
+#: forms.py:216
+msgid "Not checked"
+msgstr ""
+
+#: forms.py:230 forms.py:245
+msgid "and"
+msgstr ""
+
+#: models.py:17
+msgid "Button text"
+msgstr ""
+
+#: models.py:18
+msgid "Submit"
+msgstr ""
+
+#: models.py:19
+msgid "Response"
+msgstr ""
+
+#: models.py:20
+msgid "Send email to user"
+msgstr ""
+
+#: models.py:21
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
+
+#: models.py:23
+msgid "From address"
+msgstr ""
+
+#: models.py:24
+msgid "The address the email will be sent from"
+msgstr ""
+
+#: models.py:25
+msgid "Send email to others"
+msgstr ""
+
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+
+#: models.py:30
+msgid "Subject"
+msgstr ""
+
+#: models.py:31
+msgid "Message"
+msgstr "Ziņojums"
+
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+
+#: models.py:37
+msgid "Form"
+msgstr ""
+
+#: models.py:38
+msgid "Forms"
+msgstr ""
+
+#: models.py:55
+msgid "Label"
+msgstr ""
+
+#: models.py:57
+msgid "Type"
+msgstr "Tips"
+
+#: models.py:58
+msgid "Required"
+msgstr ""
+
+#: models.py:59
+msgid "Visible"
+msgstr ""
+
+#: models.py:60
+msgid "Choices"
+msgstr ""
+
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr ""
+
+#: models.py:63
+msgid "Default value"
+msgstr ""
+
+#: models.py:65
+msgid "Placeholder Text"
+msgstr ""
+
+#: models.py:67
+msgid "Help text"
+msgstr ""
+
+#: models.py:72 templates/admin/forms/entries.html:28
+msgid "Field"
+msgstr ""
+
+#: models.py:73
+msgid "Fields"
+msgstr ""
+
+#: models.py:119
+msgid "Form entry"
+msgstr ""
+
+#: models.py:120
+msgid "Form entries"
+msgstr ""
+
+#: models.py:134
+msgid "Form field entry"
+msgstr ""
+
+#: models.py:135
+msgid "Form field entries"
+msgstr ""
+
+#: templates/admin/forms/change_form.html:8
+#: templates/admin/forms/entries.html:57
+msgid "View entries"
+msgstr ""
+
+#: templates/admin/forms/change_form.html:9
+msgid "History"
+msgstr ""
+
+#: templates/admin/forms/change_form.html:10
+msgid "View on site"
+msgstr "Skatīt lapā"
+
+#: templates/admin/forms/entries.html:14
+msgid "Home"
+msgstr "Sākums"
+
+#: templates/admin/forms/entries.html:29
+msgid "Include"
+msgstr ""
+
+#: templates/admin/forms/entries.html:30
+msgid "Filter by"
+msgstr ""
+
+#: templates/admin/forms/entries.html:48
+msgid "All"
+msgstr ""
+
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
+msgid "Back to form"
+msgstr ""
+
+#: templates/admin/forms/entries.html:58
+msgid "Export CSV"
+msgstr ""
+
+#: templates/admin/forms/entries.html:60
+msgid "Entries"
+msgstr ""
+
+#: templates/admin/forms/entries.html:94
+msgid "Delete selected"
+msgstr ""
+
+#: templates/admin/forms/entries.html:98
+msgid "No entries to display"
+msgstr ""

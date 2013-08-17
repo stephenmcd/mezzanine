@@ -2,46 +2,41 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
 
 from mezzanine.conf import settings
-from mezzanine.pages import page_processors
 from mezzanine.pages.models import Page
+from mezzanine.utils.urls import home_slug
 from mezzanine.utils.views import render
 
 
-page_processors.autodiscover()
-
-
+@staff_member_required
 def admin_page_ordering(request):
     """
     Updates the ordering of pages via AJAX from within the admin.
     """
-    get_id = lambda s: s.split("_")[-1]
-    for ordering in ("ordering_from", "ordering_to"):
-        ordering = request.POST.get(ordering, "")
-        if ordering:
-            for i, page in enumerate(ordering.split(",")):
-                try:
-                    Page.objects.filter(id=get_id(page)).update(_order=i)
-                except Exception, e:
-                    return HttpResponse(str(e))
-    try:
-        moved_page = int(get_id(request.POST.get("moved_page", "")))
-    except ValueError, e:
-        pass
-    else:
-        moved_parent = get_id(request.POST.get("moved_parent", ""))
-        if not moved_parent:
-            moved_parent = None
-        try:
-            page = Page.objects.get(id=moved_page)
-            page.parent_id = moved_parent
-            page.save()
-            page.reset_slugs()
-        except Exception, e:
-            return HttpResponse(str(e))
+
+    def get_id(s):
+        s = s.split("_")[-1]
+        return s if s and s != "null" else None
+    page = get_object_or_404(Page, id=get_id(request.POST['id']))
+    old_parent_id = page.parent_id
+    new_parent_id = get_id(request.POST['parent_id'])
+    if new_parent_id != page.parent_id:
+        # Parent changed - set the new parent and re-order the
+        # previous siblings.
+        if new_parent_id is not None:
+            new_parent = Page.objects.get(id=new_parent_id)
+        else:
+            new_parent = None
+        page.set_parent(new_parent)
+        pages = Page.objects.filter(parent_id=old_parent_id)
+        for i, page in enumerate(pages.order_by('_order')):
+            Page.objects.filter(id=page.id).update(_order=i)
+    # Set the new order for the moved page and its current siblings.
+    for i, page_id in enumerate(request.POST.getlist('siblings[]')):
+        Page.objects.filter(id=get_id(page_id)).update(_order=i)
     return HttpResponse("ok")
-admin_page_ordering = staff_member_required(admin_page_ordering)
 
 
 def page(request, slug, template=u"pages/page.html", extra_context=None):
@@ -63,6 +58,7 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     type (it's model class) is checked for, and then if none of these
     templates match, the default pages/page.html is used.
     """
+
     page_middleware = "mezzanine.pages.middleware.PageMiddleware"
     if page_middleware not in settings.MIDDLEWARE_CLASSES:
         raise ImproperlyConfigured(page_middleware + " is missing from " +
@@ -77,12 +73,12 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     # Check for a template name matching the page's slug. If the homepage
     # is configured as a page instance, the template "pages/index.html" is
     # used, since the slug "/" won't match a template name.
-    template_name = unicode(slug) if slug != "/" else "index"
+    template_name = unicode(slug) if slug != home_slug() else "index"
     templates = [u"pages/%s.html" % template_name]
     if page.content_model is not None:
         templates.append(u"pages/%s/%s.html" % (template_name,
             page.content_model))
-    for parent in page.get_ascendants():
+    for parent in page.get_ascendants(for_user=request.user):
         parent_template_name = unicode(parent.slug)
         # Check for a template matching the page's content model.
         if page.content_model is not None:

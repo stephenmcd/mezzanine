@@ -1,0 +1,125 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2012-08-26 12:31+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/projects/p/"
+"mezzanine/language/id_ID/)\n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: __init__.py:16
+msgid "User"
+msgstr ""
+
+#: __init__.py:17
+msgid "List"
+msgstr ""
+
+#: __init__.py:18
+msgid "Search"
+msgstr ""
+
+#: defaults.py:21
+msgid "Default Twitter Query Type"
+msgstr ""
+
+#: defaults.py:22
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
+msgstr ""
+
+#: defaults.py:31
+msgid "Default Twitter Query"
+msgstr ""
+
+#: defaults.py:32
+msgid "Twitter query to use for the default query type."
+msgstr ""
+
+#: defaults.py:39
+msgid "Default Number of Tweets"
+msgstr ""
+
+#: defaults.py:40
+msgid "Number of tweets to display in the default Twitter feed."
+msgstr ""
+
+#: models.py:27
+msgid "Type"
+msgstr ""
+
+#: models.py:29
+msgid "Value"
+msgstr ""
+
+#: models.py:33
+msgid "Twitter query"
+msgstr ""
+
+#: models.py:34
+msgid "Twitter queries"
+msgstr ""
+
+#: models.py:102
+msgid "Twitter ID"
+msgstr ""
+
+#: models.py:103
+msgid "Date/time"
+msgstr ""
+
+#: models.py:104
+msgid "Message"
+msgstr ""
+
+#: models.py:105
+msgid "Profile image URL"
+msgstr ""
+
+#: models.py:106
+msgid "User name"
+msgstr ""
+
+#: models.py:107
+msgid "Full name"
+msgstr ""
+
+#: models.py:109
+msgid "Profile image URL (Retweeted by)"
+msgstr ""
+
+#: models.py:111
+msgid "User name (Retweeted by)"
+msgstr ""
+
+#: models.py:113
+msgid "Full name (Retweeted by)"
+msgstr ""
+
+#: models.py:119
+msgid "Tweet"
+msgstr ""
+
+#: models.py:120
+msgid "Tweets"
+msgstr ""
+
+#: templates/twitter/tweets.html:7
+msgid "Recent Tweets"
+msgstr ""
+
+#: templates/twitter/tweets.html:20
+msgid "ago"
+msgstr ""

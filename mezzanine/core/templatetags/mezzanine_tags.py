@@ -1,5 +1,4 @@
 
-from __future__ import with_statement
 from hashlib import md5
 import os
 from urllib import urlopen, urlencode, quote, unquote
@@ -10,17 +9,25 @@ from django.contrib.sites.models import Site
 from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, NoReverseMatch
-from django.db.models import Model
+from django.db.models import Model, get_model
+
 from django.template import (Context, Node, TextNode, Template,
                              TemplateSyntaxError, TOKEN_TEXT, TOKEN_VAR,
                              TOKEN_COMMENT, TOKEN_BLOCK)
 
+from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.simplejson import loads
 from django.utils.text import capfirst
 
-from PIL import Image, ImageFile, ImageOps
+# Try to import PIL in either of the two ways it can end up installed.
+try:
+    from PIL import Image, ImageFile, ImageOps
+except ImportError:
+    import Image
+    import ImageFile
+    import ImageOps
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
@@ -28,7 +35,7 @@ from mezzanine.core.forms import get_edit_form
 from mezzanine.utils.cache import nevercache_token, cache_installed
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.sites import current_site_id
+from mezzanine.utils.sites import current_site_id, has_site_permission
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.views import is_editable
 from mezzanine import template
@@ -101,6 +108,22 @@ def fields_for(context, form):
 
 
 @register.filter
+def sort_by(items, attr):
+    """
+    General sort filter - sorts by either attribute or key.
+    """
+    def key_func(item):
+        try:
+            return getattr(item, attr)
+        except AttributeError:
+            try:
+                return item[attr]
+            except TypeError:
+                getattr(item, attr)  # Reraise AttributeError
+    return sorted(items, key=key_func)
+
+
+@register.filter
 def is_installed(app_name):
     """
     Returns ``True`` if the given app name is in the
@@ -153,20 +176,18 @@ def ifinstalled(parser, token):
 @register.render_tag
 def set_short_url_for(context, token):
     """
-    Sets the ``short_url`` attribute of the given model using the bit.ly
-    credentials if they have been specified and saves it.
+    Sets the ``short_url`` attribute of the given model using the
+    bit.ly credentials if they have been specified and saves it.
     """
     obj = context[token.split_contents()[1]]
     request = context["request"]
     if getattr(obj, "short_url") is None:
         obj.short_url = request.build_absolute_uri(request.path)
-        args = {
-            "login": context["settings"].BLOG_BITLY_USER,
-            "apiKey": context["settings"].BLOG_BITLY_KEY,
-            "longUrl": obj.short_url,
-        }
-        if args["login"] and args["apiKey"]:
-            url = "http://api.bit.ly/v3/shorten?%s" % urlencode(args)
+        if context["settings"].BITLY_ACCESS_TOKEN:
+            url = "https://api-ssl.bit.ly/v3/shorten?%s" % urlencode({
+                "access_token": context["settings"].BITLY_ACCESS_TOKEN,
+                "uri": obj.short_url,
+            })
             response = loads(urlopen(url).read())
             if response["status_code"] == 200:
                 obj.short_url = response["data"]["url"]
@@ -179,30 +200,64 @@ def gravatar_url(email, size=32):
     """
     Return the full URL for a Gravatar given an email hash.
     """
-    email_hash = md5(email).hexdigest()
-    return "http://www.gravatar.com/avatar/%s?s=%s" % (email_hash, size)
+    bits = (md5(email.lower().encode("utf-8")).hexdigest(), size)
+    return "//www.gravatar.com/avatar/%s?s=%s&d=identicon&r=PG" % bits
 
 
 @register.to_end_tag
 def metablock(parsed):
     """
-    Remove HTML tags, entities and superfluous characters from meta blocks.
+    Remove HTML tags, entities and superfluous characters from
+    meta blocks.
     """
     parsed = " ".join(parsed.replace("\n", "").split()).replace(" ,", ",")
-    return strip_tags(decode_entities(parsed))
+    return escape(strip_tags(decode_entities(parsed)))
 
 
 @register.inclusion_tag("includes/pagination.html", takes_context=True)
-def pagination_for(context, current_page):
+def pagination_for(context, current_page, page_var="page", exclude_vars=""):
     """
-    Include the pagination template and data for persisting querystring in
-    pagination links.
+    Include the pagination template and data for persisting querystring
+    in pagination links. Can also contain a comma separated string of
+    var names in the current querystring to exclude from the pagination
+    links, via the ``exclude_vars`` arg.
     """
     querystring = context["request"].GET.copy()
-    if "page" in querystring:
-        del querystring["page"]
+    exclude_vars = [v for v in exclude_vars.split(",") if v] + [page_var]
+    for exclude_var in exclude_vars:
+        if exclude_var in querystring:
+            del querystring[exclude_var]
     querystring = querystring.urlencode()
-    return {"current_page": current_page, "querystring": querystring}
+    return {
+        "current_page": current_page,
+        "querystring": querystring,
+        "page_var": page_var,
+    }
+
+
+@register.inclusion_tag("includes/search_form.html", takes_context=True)
+def search_form(context, search_model_names=None):
+    """
+    Includes the search form with a list of models to use as choices
+    for filtering the search by. Models should be a string with models
+    in the format ``app_label.model_name`` separated by spaces. The
+    string ``all`` can also be used, in which case the models defined
+    by the ``SEARCH_MODEL_CHOICES`` setting will be used.
+    """
+    if not search_model_names:
+        search_model_names = []
+    elif search_model_names == "all":
+        search_model_names = list(settings.SEARCH_MODEL_CHOICES)
+    else:
+        search_model_names = search_model_names.split(" ")
+    search_model_choices = []
+    for model_name in search_model_names:
+        model = get_model(*model_name.split(".", 1))
+        if model:  # Might not be installed.
+            verbose_name = model._meta.verbose_name_plural.capitalize()
+            search_model_choices.append((verbose_name, model_name))
+    context["search_model_choices"] = sorted(search_model_choices)
+    return context
 
 
 @register.simple_tag
@@ -249,7 +304,13 @@ def thumbnail(image_url, width, height, quality=95):
         # Requested image does not exist, just return its URL.
         return image_url
 
-    image = Image.open(default_storage.open(image_url))
+    f = default_storage.open(image_url)
+    try:
+        image = Image.open(f)
+    except:
+        # Invalid image format
+        return image_url
+
     image_info = image.info
     width = int(width)
     height = int(height)
@@ -262,10 +323,10 @@ def thumbnail(image_url, width, height, quality=95):
         width = image.size[0] * height / image.size[1]
     elif height == 0:
         height = image.size[1] * width / image.size[0]
-    if image.mode not in ("L", "RGBA"):
+    if image.mode not in ("P", "L", "RGBA"):
         image = image.convert("RGBA")
     # Required for progressive jpgs.
-    ImageFile.MAXBLOCK = image.size[0] * image.size[1]
+    ImageFile.MAXBLOCK = 2 * (max(image.size) ** 2)
     try:
         image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
         image = image.save(thumb_path, filetype, quality=quality, **image_info)
@@ -291,33 +352,57 @@ def editable_loader(context):
     """
     Set up the required JS/CSS for the in-line editing toolbar and controls.
     """
-    t = get_template("includes/editable_toolbar.html")
-    context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
-    context["toolbar"] = t.render(Context(context))
-    context["richtext_media"] = RichTextField().formfield().widget.media
+    user = context["request"].user
+    context["has_site_permission"] = has_site_permission(user)
+    if settings.INLINE_EDITING_ENABLED and context["has_site_permission"]:
+        t = get_template("includes/editable_toolbar.html")
+        context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
+        context["toolbar"] = t.render(Context(context))
+        context["richtext_media"] = RichTextField().formfield().widget.media
     return context
+
+
+@register.filter
+def richtext_filters(content):
+    """
+    Takes a value edited via the WYSIWYG editor, and passes it through
+    each of the functions specified by the RICHTEXT_FILTERS setting.
+    """
+    filter_names = settings.RICHTEXT_FILTERS
+    if not filter_names:
+        try:
+            filter_names = [settings.RICHTEXT_FILTER]
+        except AttributeError:
+            pass
+        else:
+            from warnings import warn
+            warn("The `RICHTEXT_FILTER` setting is deprecated in favor of "
+                 "the new plural setting `RICHTEXT_FILTERS`.")
+    for filter_name in filter_names:
+        filter_func = import_dotted_path(filter_name)
+        content = filter_func(content)
+    return content
 
 
 @register.filter
 def richtext_filter(content):
     """
-    This template filter takes a string value and passes it through the
-    function specified by the RICHTEXT_FILTER setting.
+    Deprecated version of richtext_filters above.
     """
-    if settings.RICHTEXT_FILTER:
-        func = import_dotted_path(settings.RICHTEXT_FILTER)
-    else:
-        func = lambda s: s
-    return func(content)
+    from warnings import warn
+    warn("The `richtext_filter` template tag is deprecated in favor of "
+         "the new plural tag `richtext_filters`.")
+    return richtext_filters(content)
 
 
 @register.to_end_tag
 def editable(parsed, context, token):
     """
-    Add the required HTML to the parsed content for in-line editing, such as
-    the icon and edit form if the object is deemed to be editable - either it
-    has an ``editable`` method which returns ``True``, or the logged in user
-    has change permissions for the model.
+    Add the required HTML to the parsed content for in-line editing,
+    such as the icon and edit form if the object is deemed to be
+    editable - either it has an ``editable`` method which returns
+    ``True``, or the logged in user has change permissions for the
+    model.
     """
     def parse_field(field):
         field = field.split(".")
@@ -335,7 +420,8 @@ def editable(parsed, context, token):
             parsed = "".join([unicode(getattr(*field)) for field in fields])
         except AttributeError:
             pass
-    if fields and "request" in context:
+
+    if settings.INLINE_EDITING_ENABLED and fields and "request" in context:
         obj = fields[0][0]
         if isinstance(obj, Model) and is_editable(obj, context["request"]):
             field_names = ",".join([f[1] for f in fields])
@@ -349,9 +435,9 @@ def editable(parsed, context, token):
 @register.simple_tag
 def try_url(url_name):
     """
-    Mimics Django's ``url`` template tag but fails silently. Used for url
-    names in admin templates as these won't resolve when admin tests are
-    running.
+    Mimics Django's ``url`` template tag but fails silently. Used for
+    url names in admin templates as these won't resolve when admin
+    tests are running.
     """
     from warnings import warn
     warn("try_url is deprecated, use the url tag with the 'as' arg instead.")
@@ -364,15 +450,28 @@ def try_url(url_name):
 
 def admin_app_list(request):
     """
-    Adopted from ``django.contrib.admin.sites.AdminSite.index``. Returns a
-    list of lists of models grouped and ordered according to
+    Adopted from ``django.contrib.admin.sites.AdminSite.index``.
+    Returns a list of lists of models grouped and ordered according to
     ``mezzanine.conf.ADMIN_MENU_ORDER``. Called from the
     ``admin_dropdown_menu`` template tag as well as the ``app_list``
     dashboard widget.
     """
     app_dict = {}
-    menu_order = [(x[0], list(x[1])) for x in settings.ADMIN_MENU_ORDER]
-    found_items = set()
+
+    # Model or view --> (group index, group title, item index, item title).
+    menu_order = {}
+    for (group_index, group) in enumerate(settings.ADMIN_MENU_ORDER):
+        group_title, items = group
+        group_title = group_title.title()
+        for (item_index, item) in enumerate(items):
+            if isinstance(item, (tuple, list)):
+                item_title, item = item
+            else:
+                item_title = None
+            menu_order[item] = (group_index, group_title,
+                                item_index, item_title)
+
+    # Add all registered models, using group and title from menu order.
     for (model, model_admin) in admin.site._registry.items():
         opts = model._meta
         in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
@@ -381,64 +480,63 @@ def admin_app_list(request):
             admin_url_name = ""
             if perms["change"]:
                 admin_url_name = "changelist"
-            elif perms["add"]:
+                change_url = admin_url(model, admin_url_name)
+            else:
+                change_url = None
+            if perms["add"]:
                 admin_url_name = "add"
+                add_url = admin_url(model, admin_url_name)
+            else:
+                add_url = None
             if admin_url_name:
                 model_label = "%s.%s" % (opts.app_label, opts.object_name)
-                for (name, items) in menu_order:
-                    try:
-                        index = list(items).index(model_label)
-                    except ValueError:
-                        pass
-                    else:
-                        found_items.add(model_label)
-                        app_title = name
-                        break
-                else:
-                    index = None
-                    app_title = opts.app_label
-                model_dict = {
-                    "index": index,
-                    "perms": model_admin.get_model_perms(request),
-                    "name": capfirst(model._meta.verbose_name_plural),
-                    "admin_url": admin_url(model, admin_url_name),
-                }
-                app_title = app_title.title()
-                if app_title in app_dict:
-                    app_dict[app_title]["models"].append(model_dict)
-                else:
-                    try:
-                        titles = [x[0] for x in settings.ADMIN_MENU_ORDER]
-                        index = titles.index(app_title)
-                    except ValueError:
-                        index = None
-                    app_dict[app_title] = {
-                        "index": index,
-                        "name": app_title,
-                        "models": [model_dict],
-                    }
-
-    for (i, (name, items)) in enumerate(menu_order):
-        name = unicode(name)
-        for unfound_item in set(items) - found_items:
-            if isinstance(unfound_item, (list, tuple)):
-                item_name, item_url = unfound_item[0], unfound_item[1]
                 try:
-                    item_url = reverse(item_url)
-                except NoReverseMatch:
-                    continue
-                if name not in app_dict:
-                    app_dict[name] = {
-                        "index": i,
-                        "name": name,
+                    app_index, app_title, model_index, model_title = \
+                        menu_order[model_label]
+                except KeyError:
+                    app_index = None
+                    app_title = opts.app_label.title()
+                    model_index = None
+                    model_title = None
+                else:
+                    del menu_order[model_label]
+
+                if not model_title:
+                    model_title = capfirst(model._meta.verbose_name_plural)
+
+                if app_title not in app_dict:
+                    app_dict[app_title] = {
+                        "index": app_index,
+                        "name": app_title,
                         "models": [],
                     }
-                app_dict[name]["models"].append({
-                    "index": items.index(unfound_item),
-                    "perms": {"custom": True},
-                    "name": item_name,
-                    "admin_url": item_url,
+                app_dict[app_title]["models"].append({
+                    "index": model_index,
+                    "perms": model_admin.get_model_perms(request),
+                    "name": model_title,
+                    "admin_url": change_url,
+                    "add_url": add_url
                 })
+
+    # Menu may also contain view or url pattern names given as (title, name).
+    for (item_url, item) in menu_order.iteritems():
+        app_index, app_title, item_index, item_title = item
+        try:
+            item_url = reverse(item_url)
+        except NoReverseMatch:
+            continue
+        if app_title not in app_dict:
+            app_dict[app_title] = {
+                "index": app_index,
+                "name": app_title,
+                "models": [],
+            }
+        app_dict[app_title]["models"].append({
+            "index": item_index,
+            "perms": {"custom": True},
+            "name": item_title,
+            "admin_url": item_url,
+        })
 
     app_list = app_dict.values()
     sort = lambda x: x["name"] if x["index"] is None else x["index"]
@@ -455,7 +553,12 @@ def admin_dropdown_menu(context):
     Renders the app list for the admin dropdown menu navigation.
     """
     context["dropdown_menu_app_list"] = admin_app_list(context["request"])
-    context["dropdown_menu_sites"] = list(Site.objects.all())
+    user = context["request"].user
+    if user.is_superuser:
+        sites = Site.objects.all()
+    else:
+        sites = user.sitepermissions.get().sites.all()
+    context["dropdown_menu_sites"] = list(sites)
     context["dropdown_menu_selected_site_id"] = current_site_id()
     return context
 
@@ -482,7 +585,8 @@ def recent_actions(context):
 def dashboard_column(context, token):
     """
     Takes an index for retrieving the sequence of template tags from
-    ``mezzanine.conf.DASHBOARD_TAGS`` to render into the admin dashboard.
+    ``mezzanine.conf.DASHBOARD_TAGS`` to render into the admin
+    dashboard.
     """
     column_index = int(token.split_contents()[1])
     output = []

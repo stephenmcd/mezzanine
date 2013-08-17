@@ -1,11 +1,17 @@
+try:
+    from urllib.parse import urljoin
+except ImportError:     # Python 2
+    from urlparse import urljoin
+
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.conf import settings
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
-from mezzanine.utils.urls import admin_url, path_to_slug, slugify
+from mezzanine.utils.urls import path_to_slug, slugify
 
 
 class BasePage(Orderable, Displayable):
@@ -53,16 +59,12 @@ class Page(BasePage):
         slug = self.slug
         if self.content_model == "link":
             # Ensure the URL is absolute.
-            if not slug.lower().startswith("http"):
-                slug = "/" + self.slug.lstrip("/")
+            slug = urljoin('/', slug)
             return slug
         if slug == "/":
             return reverse("home")
         else:
             return reverse("page", kwargs={"slug": slug})
-
-    def get_admin_url(self):
-        return admin_url(self, "change", self.id)
 
     def save(self, *args, **kwargs):
         """
@@ -78,6 +80,19 @@ class Page(BasePage):
             parent = parent.parent
         self.titles = " / ".join(titles)
         super(Page, self).save(*args, **kwargs)
+
+    def description_from_content(self):
+        """
+        Override ``Displayable.description_from_content`` to load the
+        content type subclass for when ``save`` is called directly on a
+        ``Page`` instance, so that all fields defined on the subclass
+        are available for generating the description.
+        """
+        if self.__class__ == Page:
+            content_model = self.get_content_model()
+            if content_model:
+                return content_model.description_from_content()
+        return super(Page, self).description_from_content()
 
     def get_ascendants(self, for_user=None):
         """
@@ -135,16 +150,44 @@ class Page(BasePage):
             return "%s/%s" % (self.parent.slug, slug)
         return slug
 
-    def reset_slugs(self):
+    def set_slug(self, new_slug):
         """
-        Called when the parent page is changed in the admin and the slug
-        plus all child slugs need to be recreated given the new parent.
+        Changes this page's slug, and all other pages whose slugs
+        start with this page's slug.
         """
-        if not self.overridden():
-            self.slug = None
-            self.save()
-        for child in self.children.all():
-            child.reset_slugs()
+        for page in Page.objects.filter(slug__startswith=self.slug):
+            if not page.overridden():
+                page.slug = new_slug + page.slug[len(self.slug):]
+                page.save()
+        self.slug = new_slug
+
+    def set_parent(self, new_parent):
+        """
+        Change the parent of this page, changing this page's slug to match
+        the new parent if necessary.
+        """
+        self_slug = self.slug
+        old_parent_slug = self.parent.slug if self.parent else ""
+        new_parent_slug = new_parent.slug if new_parent else ""
+
+        # Make sure setting the new parent won't cause a cycle.
+        parent = new_parent
+        while parent is not None:
+            if parent.pk == self.pk:
+                raise AttributeError("You can't set a page or its child as"
+                                     " a parent.")
+            parent = parent.parent
+
+        self.parent = new_parent
+        self.save()
+
+        if self_slug:
+            if not old_parent_slug:
+                self.set_slug("/".join((new_parent_slug, self.slug)))
+            elif self.slug.startswith(old_parent_slug):
+                new_slug = self.slug.replace(old_parent_slug,
+                                             new_parent_slug, 1)
+                self.set_slug(new_slug.strip("/"))
 
     def overridden(self):
         """
@@ -202,12 +245,20 @@ class Page(BasePage):
             parent_id = context["_parent_page_ids"].get(page_id)
             return self.id == page_id or (parent_id and is_c_or_a(parent_id))
         self.is_current_or_ascendant = lambda: bool(is_c_or_a(current_page_id))
+        self.is_current_parent = self.id == current_parent_id
         # Am I a primary page?
         self.is_primary = self.parent_id is None
         # What's an ID I can use in HTML?
         self.html_id = self.slug.replace("/", "-")
         # Default branch level - gets assigned in the page_menu tag.
         self.branch_level = 0
+
+    def in_menu_template(self, template_name):
+        if self.in_menus is not None:
+            for i, l, t in settings.PAGE_MENU_TEMPLATES:
+                if not unicode(i) in self.in_menus and t == template_name:
+                    return False
+        return True
 
 
 class RichTextPage(Page, RichText):

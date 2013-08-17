@@ -1,0 +1,49 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <andreas.lindroos@gmail.com>, 2012.
+# Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:42-0430\n"
+"PO-Revision-Date: 2012-11-16 03:39+0000\n"
+"Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
+"language/ja/)\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: admin.py:38
+msgid "Settings were successfully updated."
+msgstr "設定が更新されました。"
+
+#: admin.py:42
+msgid "Change"
+msgstr "変更"
+
+#: forms.py:53
+msgid "Miscellaneous"
+msgstr "その他"
+
+#: models.py:17
+msgid "Setting"
+msgstr "設定"
+
+#: models.py:18
+msgid "Settings"
+msgstr "設定"
+
+#: templates/admin/conf/setting/change_list.html:8
+msgid "Please correct the errors below."
+msgstr "以下のエラーを修正してください。"
+
+#: templates/admin/conf/setting/change_list.html:31
+msgid "Save"
+msgstr "保存"

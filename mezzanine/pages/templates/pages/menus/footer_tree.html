@@ -1,13 +1,14 @@
-{% load i18n pages_tags %}
+{% load i18n future pages_tags %}
 
 {% spaceless %}
 {% if page_branch_in_menu %}
 <ul class="footer-tree-menu-level-{{ branch_level }}">
 	{% for page in page_branch %}
 
-    {% if page.is_primary and forloop.first %}
-	<li class="first{% if on_home %} active{% endif %}">
-	    <a href="{% url home %}">{% trans "Home" %}</a>
+    {% if not has_home and page.is_primary and forloop.first %}
+	<li class="first{% if on_home %} active{% endif %}"
+        id="footer-tree-menu-home">
+	    <a href="{% url "home" %}">{% trans "Home" %}</a>
 	</li>
 	{% endif %}
 
@@ -19,7 +20,7 @@
 		<a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
 		{# remove this if tag to always show all nav items #}
 		{% if settings.PAGES_MENU_SHOW_ALL or page.is_current_or_ascendant %}
-		{% if page.has_children %}{% page_menu page %}{% endif %}
+		{% if page.has_children_in_menu %}{% page_menu page %}{% endif %}
 		{% endif %}
 	</li>
     {% endif %}

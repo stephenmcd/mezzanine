@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
+"POT-Creation-Date: 2013-04-07 10:40-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,15 +33,15 @@ msgstr ""
 msgid "Sorry, an error occurred."
 msgstr ""
 
-#: templates/mobile/base.html:31 templates/mobile/index.html:6
+#: templates/mobile/base.html:41 templates/mobile/index.html:6
 msgid "Home"
 msgstr ""
 
-#: templates/mobile/base.html:43
+#: templates/mobile/base.html:53
 msgid "Powered by"
 msgstr ""
 
-#: templates/mobile/base.html:44
+#: templates/mobile/base.html:54
 msgid "View Full Site"
 msgstr ""
 
@@ -100,6 +100,7 @@ msgid "or"
 msgstr ""
 
 #: templates/mobile/blog/blog_post_list.html:4
+#: templates/mobile/blog/blog_post_list.html:19
 msgid "Blog"
 msgstr ""
 
@@ -124,5 +125,7 @@ msgid "quotes"
 msgstr ""
 
 #: templates/mobile/includes/search.html:5
-msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
 msgstr ""
