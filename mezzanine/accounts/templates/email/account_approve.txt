@@ -1,0 +1,11 @@
+{% load i18n accounts_tags %}
+{% block main %}
+{% trans "Hey there, a new account has been created and requires activation." %}
+
+{% trans "Name" %}: {{ user.get_full_name }}
+{% trans "Email" %}: {{ user.email }}
+{% for field, value in user|profile_fields %}{{ field }}: {{ value|linebreaksbr }}
+{% endfor %}
+{% trans "Please use the link below to activate it." %}
+http://{{ request.get_host }}{{ change_url }}
+{% endblock %}

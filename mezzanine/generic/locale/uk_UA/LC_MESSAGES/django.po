@@ -1,0 +1,274 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Taras Kozlovskyi <ktarasz@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2013-03-30 12:04+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/"
+"mezzanine/language/uk_UA/)\n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: admin.py:20 models.py:69
+msgid "User"
+msgstr "Користувач"
+
+#: defaults.py:24
+msgid "Accounts required for commenting"
+msgstr ""
+
+#: defaults.py:25
+msgid "If ``True``, users must log in to comment."
+msgstr ""
+
+#: defaults.py:32
+msgid "Disqus shortname"
+msgstr ""
+
+#: defaults.py:33
+msgid "Shortname for the http://disqus.com comments service."
+msgstr ""
+
+#: defaults.py:41
+msgid "Disqus public key"
+msgstr ""
+
+#: defaults.py:42
+msgid "Public key for http://disqus.com developer API"
+msgstr ""
+
+#: defaults.py:49
+msgid "Disqus secret key"
+msgstr ""
+
+#: defaults.py:50
+msgid "Secret key for http://disqus.com developer API"
+msgstr ""
+
+#: defaults.py:57
+msgid "Auto-approve comments"
+msgstr ""
+
+#: defaults.py:58
+msgid "If ``True``, built-in comments are approved by default."
+msgstr ""
+
+#: defaults.py:66
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
+msgstr ""
+
+#: defaults.py:74
+msgid "Comment notification email addresses"
+msgstr ""
+
+#: defaults.py:75
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
+msgstr ""
+
+#: defaults.py:84
+msgid "Admin comments"
+msgstr ""
+
+#: defaults.py:85
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr ""
+
+#: defaults.py:93
+msgid "Show unapproved comments"
+msgstr ""
+
+#: defaults.py:94
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+
+#: defaults.py:103
+msgid "Show removed comments"
+msgstr ""
+
+#: defaults.py:104
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+
+#: defaults.py:113
+msgid "If ``True``, comments can be rated."
+msgstr ""
+
+#: defaults.py:120
+msgid "Accounts required for rating"
+msgstr ""
+
+#: defaults.py:121
+msgid ""
+"If ``True``, users must log in to rate content such as blog posts and "
+"comments."
+msgstr ""
+
+#: defaults.py:129
+msgid "A sequence of integers that are valid ratings."
+msgstr ""
+
+#: forms.py:83
+msgid "Name"
+msgstr "Ім'я"
+
+#: forms.py:83
+msgid "required"
+msgstr "обов'язково"
+
+#: forms.py:85
+msgid "Email"
+msgstr "E-mail"
+
+#: forms.py:86
+msgid "required (not published)"
+msgstr "обов'язково (не публікується)"
+
+#: forms.py:87
+msgid "Website"
+msgstr "Веб-сайт"
+
+#: forms.py:87
+msgid "optional"
+msgstr "не обов'язково"
+
+#: forms.py:138
+msgid "New comment for: "
+msgstr ""
+
+#: forms.py:174
+msgid "Already rated."
+msgstr ""
+
+#: models.py:26
+msgid "By the blog author"
+msgstr "По автору блогу"
+
+#: models.py:29 models.py:130
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: models.py:34 models.py:61 templates/generic/includes/comments.html:25
+msgid "Comment"
+msgstr "Коментар"
+
+#: models.py:35 templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr "Коментарі"
+
+#: models.py:73
+msgid "View on site"
+msgstr "Переглянути на сайті"
+
+#: models.py:93 models.py:102
+msgid "Keyword"
+msgstr "Ключове слово"
+
+#: models.py:94
+msgid "Keywords"
+msgstr "Ключові слова"
+
+#: models.py:120
+msgid "Value"
+msgstr "Значення"
+
+#: models.py:121
+msgid "Rating date"
+msgstr ""
+
+#: models.py:126
+msgid "Rater"
+msgstr ""
+
+#: models.py:131
+msgid "Ratings"
+msgstr "Рейтинги"
+
+#: views.py:62
+msgid "You must logged in. Please log in or sign up to complete this action."
+msgstr ""
+
+#: templates/admin/includes/recent_comments.html:4
+msgid "Recent Comments"
+msgstr "Останні коментарі"
+
+#: templates/admin/includes/recent_comments.html:22
+#: templates/generic/includes/comment.html:22
+#: templates/generic/includes/comment.html:53
+#: templates/generic/includes/comment.html:63
+msgid "ago"
+msgstr "тому"
+
+#: templates/email/comment_notification.html:6
+msgid "A new comment has been posted on"
+msgstr ""
+
+#: templates/email/comment_notification.html:10
+#, python-format
+msgid ""
+"\n"
+"    At %(submit_date)s %(user_name)s wrote:\n"
+"    "
+msgstr ""
+
+#: templates/email/comment_notification.txt:7
+#, python-format
+msgid ""
+"\n"
+"At %(submit_date)s %(user_name)s wrote:\n"
+msgstr ""
+
+#: templates/generic/includes/comment.html:25
+msgid "Link"
+msgstr "Посилання"
+
+#: templates/generic/includes/comment.html:26
+#: templates/generic/includes/comment.html:36
+msgid "Reply"
+msgstr "Відповісти"
+
+#: templates/generic/includes/comment.html:59
+msgid "Comment deleted"
+msgstr "Коментар видалено"
+
+#: templates/generic/includes/comment.html:61
+msgid "Comment awaiting approval"
+msgstr "Коментар очікує затвердження"
+
+#: templates/generic/includes/comment.html:75
+msgid "There are currently no comments"
+msgstr "В даний час немає коментарів"
+
+#: templates/generic/includes/comments.html:17
+msgid "New Comment"
+msgstr "Новий коментар"
+
+#: templates/generic/includes/rating.html:7
+msgid "Current rating"
+msgstr "Поточний рейтинг"
+
+#: templates/generic/includes/rating.html:9
+msgid "Currently unrated"
+msgstr "В даний час без рейтингу"
+
+#: templates/generic/includes/rating.html:19
+msgid "Rate"
+msgstr "Рейтинг"

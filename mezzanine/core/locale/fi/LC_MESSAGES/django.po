@@ -1,0 +1,784 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hkoivuneva <henri.koivuneva@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2013-04-07 09:34-0430\n"
+"PO-Revision-Date: 2013-07-29 15:59+0200\n"
+"Last-Translator: hkoivuneva <henri.koivuneva@gmail.com>\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/mezzanine/"
+"language/fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: admin.py:27
+msgid "This field is required if status is set to published."
+msgstr "Tämä kenttä vaaditaan jos tila muutetaan julkaistuksi."
+
+#: admin.py:47
+msgid "Meta data"
+msgstr "Metatiedot"
+
+#: defaults.py:21
+msgid "Controls the ordering and grouping of the admin menu."
+msgstr "Määrää hallintavalikon järjestyksen ja ryhmittelyn."
+
+#: defaults.py:24 models.py:275
+msgid "Content"
+msgstr "Sisältö"
+
+#: defaults.py:25
+msgid "Media Library"
+msgstr "Mediakirjasto"
+
+#: defaults.py:26 templates/admin/login.html:43
+msgid "Site"
+msgstr "Sivusto"
+
+#: defaults.py:27
+msgid "Users"
+msgstr "Käyttäjät"
+
+#: defaults.py:33
+msgid "Unregister these models from the admin."
+msgstr "Poista nämä mallit hallintapaneelista."
+
+#: defaults.py:40
+msgid "Size of thumbnail previews for image fields in the admin interface."
+msgstr "Esikatselukuvien koko hallintapaneelissa."
+
+#: defaults.py:48
+msgid "Akismet API Key"
+msgstr "Akismet API-avain"
+
+#: defaults.py:49
+msgid ""
+"Key for http://akismet.com spam filtering service. Used for filtering "
+"comments and forms."
+msgstr ""
+"Avain http://akismet.com roskapostisuodatukselle. Käytetään kommenttien ja "
+"lomakkeiden kenttien suodatukseen."
+
+#: defaults.py:57
+msgid "bit.ly access token"
+msgstr "bit.ly avain"
+
+#: defaults.py:58
+msgid "Access token for http://bit.ly URL shortening service."
+msgstr "Avain URL-lyhennyspalvelulle http://bit.ly"
+
+#: defaults.py:65
+msgid ""
+"Mezzanine's caching uses a technique know as mint caching. This is where the "
+"requested expiry for a cache entry is stored with the cache entry in cache, "
+"and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
+"cache get, the store expiry is checked, and if it has past, the cache entry "
+"is set again, and no entry is returned. This tries to ensure that cache "
+"misses never occur, and if many clients were to get a cache miss at once, "
+"only one would actually need to re-generated the cache entry."
+msgstr ""
+"Mezzaninen välimuisti käyttää \"mint caching\"-tekniikkaa. Siinä pyydetty "
+"erääntyminen välimuistin merkinnälle on tallennettu välimuistiin kyseiseen "
+"merkintään ja sen oikeaan erääntymisaikaan on lisätty `CACHE_SET_DELAY``. "
+"Silloin välimuistia noutaessa merkinnän erääntyminen tarkistetaan ja jos se "
+"on mennyt, merkintä luodaan uudelleen eikä mitään palauteta. Tämä yrittää "
+"varmistaa sen, että välimuistivirheitä ei tulisi, ja jos monet käyttäjät "
+"saavat välimuistivirheen samalla kertaa, vain yhden tarvitsee luoda merkintä "
+"välimuistiin uudelleen."
+
+#: defaults.py:93
+msgid ""
+"A three item sequence, each containing a sequence of template tags used to "
+"render the admin dashboard."
+msgstr ""
+"Kolmen kohteen sarja, jossa jokainen sisältää sarjan template tageja joita "
+"käytetään hallintapaneelin renderöimiseen."
+
+#: defaults.py:101
+msgid "Device specific template sub-directory to use as the default device."
+msgstr "Laitekohtainen sivupohjien alikansio jota käytetään oletuksena."
+
+#: defaults.py:109
+msgid ""
+"Mapping of device specific template sub-directory names to the sequence of "
+"strings that may be found in their user agents."
+msgstr ""
+"Laitekohtaisten sivupohjien alikansioiden nimien kartoittaminen "
+"merkkisarjaan jotka ovat niiden selaintunnisteissa."
+
+#: defaults.py:131
+msgid "If ``True``, website forms will use HTML5 features."
+msgstr "Jos ``True``, lomakkeet käyttävät HTML5-ominaisuuksia."
+
+#: defaults.py:138
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of "
+"keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
+msgstr ""
+"Sarja kenttiä jotka injektoidaan Mezzaninen (tai minkä tahansa kirjaston) "
+"modeliin. Jokainen osio sarjassa on oma neljän osan sarjansa. Ensimmäiset "
+"kaksi ovat merkitty polku modeliin ja sen kentän nimi joka lisätään, ja myös "
+"polku kentän luokkaan. Kolmas ja neljäs osa ovat sarja paikka-argumenttejä "
+"ja sanairja avainsana-arhumenttejä, joita käytetään kentän luomisessa. Kun "
+"määritetään kentän luokka, polku `django.models.db.`` voi olla käytössä "
+"Djangon tavallisille model-kentille."
+
+#: defaults.py:153
+msgid "Google Analytics ID"
+msgstr "Google Analytics ID"
+
+#: defaults.py:155
+msgid "Google Analytics ID (http://www.google.com/analytics/)"
+msgstr "Google Analytics ID (http://www.google.com/analytics/)"
+
+#: defaults.py:161
+msgid ""
+"A sequence mapping host names to themes, allowing different templates to be "
+"served per HTTP hosts Each item in the sequence is a two item sequence, "
+"containing a host such as ``othersite.example.com``, and the name of an "
+"importable Python package for the theme. If the host is matched for a "
+"request, the templates directory inside the theme package will be first "
+"searched when loading templates."
+msgstr ""
+"Sarja isäntänimiä teemojen kartoitukseen, joka sallii eri mallien "
+"käyttämisen jokaista HTTP hostia kohden. Jokainen kohde sarjassa on kahden "
+"osan sarja, jossa on esimerkiksi host `othersite.example.com``, ja tuotavan "
+"Python-paketin nimi teemalle. Jos isäntä vastaa pyyntöä, mallien kansio "
+"teeman sisällä etsitään ensiksi niitä lisätessä."
+
+#: defaults.py:175
+msgid "Name of the jQuery file."
+msgstr "jQuery-tiedoston nimi."
+
+#: defaults.py:176
+msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
+msgstr "jQeury-tiedoston nimi kansiossa mezzanine/core/static/mezzanine/js/"
+
+#: defaults.py:184
+msgid "Name of the jQuery UI file."
+msgstr "jQuery UI-tiedoston nimi."
+
+#: defaults.py:185
+msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
+msgstr "jQuery UI-tiedoston nimi kansiossa mezzanine/core/static/mezzanine/js"
+
+#: defaults.py:193
+msgid "Max paging links"
+msgstr "Maksimimäärä sivulinkkejä"
+
+#: defaults.py:194
+msgid "Max number of paging links to display when paginating."
+msgstr "Suurn määrä näytettäviä sivunumerolinkkejä."
+
+#: defaults.py:201
+msgid "Media library per site"
+msgstr "Mediakirjasto sivustokohtaisesti"
+
+#: defaults.py:202
+msgid ""
+"If ``True``, each site will use its own directory within the filebrowser "
+"media library."
+msgstr ""
+"Jos ``Tosi``, jokainen sivu käyttää omaa kansiotaan tiedostoselaimen "
+"mediakirjastossa."
+
+#: defaults.py:210
+msgid ""
+"Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
+"admin change-list records filtered down to records owned by the current "
+"user. This setting contains a sequence of models in the format ``app_label."
+"object_name``, that when subclassing ``Ownable``, will still show all "
+"records in the admin change-list interface, regardless of the current user."
+msgstr ""
+"Modelien jotka ovat``Ownable``:n aliluokkia ja käyttävät ``OwnableAdmin`` "
+"hallintapaneelin muutoshistoria suodatetaan jotta vain nykyisen käyttäjän "
+"teot näytetään. Tämä asetus sisältää sarjan modeleita mallilla ``app_label."
+"object_name``, jotta kun on ``Ownable``:n aliluokka, näytetään silti kaikki "
+"teot hallintapaneelin muutoshistoriassa käyttäjästä riippumatta."
+
+#: defaults.py:222
+msgid ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
+msgstr "Merkitty polku ja luokan nimi ``RichTextField`` widgetille."
+
+#: defaults.py:230
+msgid ""
+"List of HTML tags that won't be stripped from ``RichTextField`` instances."
+msgstr "Lista HTML-tageista joita ei poisteta ``RichTextField``-instansseista."
+
+#: defaults.py:246
+msgid ""
+"List of HTML attributes that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr ""
+"Lista HTML-attribuuteista joita ei poisteta ``RichTextField`` instansseista."
+
+#: defaults.py:264
+msgid ""
+"List of inline CSS styles that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr "CSS-tyylit joita ei poisteta ``RichTextField``-instansseista."
+
+#: defaults.py:272
+msgid ""
+"Dotted path to the function to call on a ``RichTextField`` value before it "
+"is rendered to the template."
+msgstr ""
+"Merkitty polku funktioon jolla kutsutaan ``RichTextField`` arvo ennen kuin "
+"se renderöidään sivulle."
+
+#: defaults.py:282
+msgid "High"
+msgstr "Korkea"
+
+#: defaults.py:283
+msgid "Low (allows video, iframe, Flash, etc)"
+msgstr "Matala (sallii elementit video, iframe, Flash, jne)"
+
+#: defaults.py:284
+msgid "No filtering"
+msgstr "Ei suodatusta"
+
+#: defaults.py:289
+msgid "Rich Text filter level"
+msgstr "Sisältökentän suodatus"
+
+#: defaults.py:290
+msgid ""
+"*Do not change this setting unless you know what you're doing.*\n"
+"\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and "
+"attributes are stripped from the content to protect against staff members "
+"intentionally adding code that could be used to cause problems, such as "
+"changing their account to a super-user with full access to the system.\n"
+"\n"
+"This setting allows you to change the level of filtering that occurs. "
+"Setting it to low will allow certain extra tags to be permitted, such as "
+"those required for embedding video. While these tags are not the main "
+"candidates for users adding malicious code, they are still considered "
+"dangerous and could potentially be mis-used by a particularly technical "
+"user, and so are filtered out when the filtering level is set to high.\n"
+"\n"
+"Setting the filtering level to no filtering, will disable all filtering, and "
+"allow any code to be entered by staff members, including script tags."
+msgstr ""
+"*Älä muuta tätä asetusta ellet ole aivan varma mitä teet.*\n"
+"\n"
+"Kun sisältö tallennetaan sisältökentässä (WYSIWYG), ei-turvalliset HTML-"
+"tagit ja attribuutit poistetaan sisällöstä jotta kukaan ei vahingossa lisää "
+"kenttään koodia joka voisi aiheuttaa ongelmia, esimerkiksi käyttäjän "
+"tunnuksen muuttaminen pääkäyttäjäksi jolla on täysi pääsy koko "
+"järjestelmään.\n"
+"\n"
+"Tämä asetus sallii sinun muuttaa sisällönsuodatuksen tasoa. Sen asettaminen "
+"matalalle sallii tiettyjen tagien käytön, esimerkiksi videoelementin. Vaikka "
+"nämä tagit eivät ole suurimpia mahdollisia haittakoodin lähteelle, ne voivat "
+"silti olla vaarallisia ja niitä voi mahdollisesti käyttää väärin joku "
+"erityisen osaava henkilö, joten ne poistetaan sisällöstä asetuksen ollessa "
+"korkea.\n"
+"\n"
+"Jos asetat suodatuksen kokonaan pois, kaikki suodatus tosiaan jää tekemättä "
+"ja sallii minkä tahansa koodin ajamisen kirjoittajan toimesta, mukaanlukien "
+"skriptien."
+
+#: defaults.py:313
+msgid ""
+"Sequence of models that will be provided by default as choices in the search "
+"form. Each model should be in the format ``app_label.model_name``. Only "
+"models that subclass ``mezzanine.core.models.Displayable`` should be used."
+msgstr ""
+"Sarja modeleita jotka ovat oletusvaihtoehtoina hakukentässä. Jokaisen "
+"pitäisi olla muodossa ``app_label.model_name``. Vain modeleita jotka ovat "
+"tämän ``mezzanine.core.models.Displayable`` aliluokkia tulisi käyttää."
+
+#: defaults.py:323
+msgid "Search results per page"
+msgstr "Hakutuloksia sivua kohden"
+
+#: defaults.py:324
+msgid "Number of results shown in the search results page."
+msgstr "Näytettävien hakutulosten määrä hakusivua kohden."
+
+#: defaults.py:331
+msgid ""
+"A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
+"this, you'll also need to manually apply it to your project's root ``urls."
+"py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-"
+"project`` command contains an example of this towards its end."
+msgstr ""
+"URL prefix jonka alle kaikki Mezzaninen urlpatternit laitetaan. Kun käytät "
+"tätä, sinun tarvitsee myös manuaalisesti tehdä se projektisi tiedostoon "
+"``urls.py``. Mallitiedosto jonka Mezzaninen komento ``mezzanine-project`` "
+"luo pitää sisällään esimerkin tästä sen loppuosassa."
+
+#: defaults.py:342
+msgid "Site Title"
+msgstr "Sivun nimi"
+
+#: defaults.py:343
+msgid ""
+"Title that will display at the top of the site, and be appended to the "
+"content of the HTML title tags on every page."
+msgstr ""
+"Sivuston nimi joka näytetään sivun yläosassa ja asetetaan jokaisen sivun "
+"HTML title-tagiin."
+
+#: defaults.py:351
+msgid "Tagline"
+msgstr "Tunnuslause"
+
+#: defaults.py:352
+msgid "A tag line that will appear at the top of all pages."
+msgstr "Tunnuslause joka näytetään kaikkien sivujen yläosassa."
+
+#: defaults.py:354
+msgid "An open source content management platform."
+msgstr "Avoimen lähdekoodin sisällönhallintajärjestelmä."
+
+#: defaults.py:359
+msgid ""
+"Dotted Python path to the callable for converting strings into URL slugs. "
+"Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
+"ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+"Django's slugify function, or something of your own if required."
+msgstr ""
+"Merkitty Python-polku kutsuun merkkijonojen muuttamiseksi URL slugeiksi. "
+"Oletus on ``mezzanine.utils.urls.slugify_unicode`` joka sallii ei-ASCII-"
+"merkkiset URL:t. Muuta tähän ``django.template.defaultfilters.slugify`` jos "
+"haluat käyttää Djangon slugify-funktiota tai jotain omaasi tarvittaessa."
+
+#: defaults.py:370
+msgid ""
+"Sequence of dotted Python paths to callable functions used for checking "
+"posted content (such as forms or comments) is spam. Each function should "
+"accept three arguments: the request object, the form object, and the URL "
+"that was posted from. Defaults to ``mezzanine.utils.views.is_spam_akismet`` "
+"which will use the http://akismet.com spam filtering service when the "
+"``AKISMET_API_KEY`` setting is configured."
+msgstr ""
+"Sarja merkittyjä Python-polkuja kutsuttaviin funktioihin joita käytetään "
+"lähetetyn sisällön tarkistamiseen (esimerkiksi lomakkeet ja kommentit) ja "
+"merkitsemiseen roskapostiksi. Jokaisen funktion tulisi hyväksyä kolme "
+"argumenttia: pyyntö, lomake ja URL josta se lähetettiin. Oletuksena "
+"``mezzanine.utils.views.is_spam_akismet`` jota käytetään http://akismet.com "
+"roskapostinsuodatukseen kun ``AKISMET_API_KEY`` on asetettu."
+
+#: defaults.py:383
+msgid "Enable SSL"
+msgstr "Salli SSL"
+
+#: defaults.py:384
+msgid ""
+"If ``True``, users will be automatically redirected to HTTPS for the URLs "
+"specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
+msgstr ""
+"Jos ``Tosi``, käyttäjät ohjataan automaattisesti HTTPS-alkuisiin "
+"osoitteisiin asetuksella ``SSL_FORCE_URL_PREFIXES``."
+
+#: defaults.py:393
+msgid "Force Host"
+msgstr "Pakota isäntä"
+
+#: defaults.py:394
+msgid ""
+"Host name that the site should always be accessed via that matches the SSL "
+"certificate."
+msgstr ""
+"Isäntänimi jota sivuston tulisi aina käyttää SSL-sertifikaatin sopiessa."
+
+#: defaults.py:412
+msgid ""
+"If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
+"will be accessible over SSL, and all other URLs will be redirected back to "
+"HTTP if accessed over HTTPS."
+msgstr ""
+"Jos ``Tosi``, vain URL:t lähteestä ``SSL_FORCE_URL_PREFIXES`` ovat "
+"avattavista SSL:n yli, ja kaikki muut osoitteet ohjataan takaisin HTTP-"
+"alkuisiksi."
+
+#: defaults.py:422
+msgid "List of words which will be stripped from search queries."
+msgstr "Sanat jotka poistetaan hauista."
+
+#: defaults.py:479
+msgid "Tag Cloud Sizes"
+msgstr "Avainsanapilvien koot"
+
+#: defaults.py:480
+msgid "Number of different sizes for tags when shown as a cloud."
+msgstr "Eri koot avainsanoille kun ne näytetään pilven muodossa."
+
+#: defaults.py:487
+msgid "Sequence of setting names available within templates."
+msgstr "Sarja asetusten nimiä sivupohjien sisällä."
+
+#: defaults.py:502
+msgid ""
+"Directory name to store thumbnails in, that will be created relative to the "
+"original image's directory."
+msgstr ""
+"Kansion nimi johon esikatselukuvat tallennetaan, ja joka luodaan kuvan "
+"alkuperäiskansion yhteyteen."
+
+#: defaults.py:510
+msgid ""
+"URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
+"configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+msgstr ""
+"URL JavaScript-tiedostolle (yhtenevä ``STATIC_URL`` kanssa) joka käsittelee "
+"TinyMCE:n konfiguraatiota kun oletus ``RICHTEXT_WIDGET_CLASS`` on käytössä."
+
+#: defaults.py:519
+msgid ""
+"Dict mapping file field names in the format ``app_label.model_name."
+"field_name`` to the Python dotted path to function names that will be used "
+"for the file field's ``upload_to`` argument."
+msgstr ""
+"Kenttien nimien kartoitus muodossa ``app_label.model_name.field_name`` "
+"Python-merkittyyn polkuun nimille joita käytetään tiedosto-kentän "
+"``upload_to`` argumentissa."
+
+#: defaults.py:535
+msgid ""
+"If ``True``, the south application will be automatically added to the "
+"``INSTALLED_APPS`` setting."
+msgstr ""
+"Jos ``Tosi``, south-applikaatio lisätään automaattisesti kohtaan "
+"``INSTALLED_APPS`` asetuksissa."
+
+#: fields.py:37
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "Ei voitu tuoda arvoa settings.RICHTEXT_WIDGET_CLASS: %s"
+
+#: forms.py:84 models.py:317
+msgid "Order"
+msgstr "Järjestys"
+
+#: models.py:56 models.py:110
+msgid "Title"
+msgstr "Otsikko"
+
+#: models.py:57
+msgid "URL"
+msgstr "URL"
+
+#: models.py:58
+msgid "Leave blank to have the URL auto-generated from the title."
+msgstr "Jätä tyhjäksi jos haluat että osoite luodaan otsikon mukaisesti."
+
+#: models.py:100
+msgid "View on site"
+msgstr "Näytä sivulla"
+
+#: models.py:112
+msgid ""
+"Optional title to be used in the HTML title tag. If left blank, the main "
+"title field will be used."
+msgstr ""
+"Valinnainen otsikko käytettäväksi HTML-tagissa title. Jos jätetänä tyhjäksi, "
+"varsinaista otsikkoa käytetään."
+
+#: models.py:114
+msgid "Description"
+msgstr "Kuvaus"
+
+#: models.py:115
+msgid "Generate description"
+msgstr "Luo kuvaus"
+
+#: models.py:116
+msgid ""
+"If checked, the description will be automatically generated from content. "
+"Uncheck if you want to manually set a custom description."
+msgstr ""
+"Jos valitset tämän, kuvaus luodaan automaattisesti sivuston sisällöstä. Älä "
+"valitse tätä jos haluat itse luoda kuvauksen."
+
+#: models.py:119
+msgid "Keywords"
+msgstr "Avainsanat"
+
+#: models.py:176
+msgid "Draft"
+msgstr "Luonnos"
+
+#: models.py:177
+msgid "Published"
+msgstr "Julkaistu"
+
+#: models.py:188
+msgid "Status"
+msgstr "Tila"
+
+#: models.py:190
+msgid "With Draft chosen, will only be shown for admin users on the site."
+msgstr "Luonnos valittuna tämä näkyy vain sivuston hallitsijoille."
+
+#: models.py:192 models.py:225
+msgid "Published from"
+msgstr "Julkaistu"
+
+#: models.py:193
+msgid "With Published chosen, won't be shown until this time"
+msgstr "Julkaistu valittuna, ei näytetä ennen tätä hetkeä."
+
+#: models.py:195
+msgid "Expires on"
+msgstr "Vanhenee"
+
+#: models.py:196
+msgid "With Published chosen, won't be shown after this time"
+msgstr "Julkaistu valittuna, ei näytetä tämän hetken jälkeen."
+
+#: models.py:199
+msgid "Show in sitemap"
+msgstr "Näytä sivukartassa"
+
+#: models.py:402 models.py:422
+msgid "Author"
+msgstr "Kirjoittaja"
+
+#: models.py:425
+msgid "Sites"
+msgstr "Sivustot"
+
+#: models.py:428
+msgid "Site permission"
+msgstr "Sivuston oikeudet"
+
+#: models.py:429
+msgid "Site permissions"
+msgstr "Sivuston oikeudet"
+
+#: views.py:87
+msgid "Permission denied"
+msgstr "Lupa evätty"
+
+#: views.py:115 templates/includes/search_form.html:11
+msgid "Everything"
+msgstr "Kaikki"
+
+#: templates/base.html:121
+msgid "Powered by"
+msgstr "Moottorina"
+
+#: templates/base.html:124
+msgid "and"
+msgstr "ja"
+
+#: templates/base.html:127
+msgid "Theme by"
+msgstr "Teeman loi"
+
+#: templates/base.html:130
+msgid "View Mobile Site"
+msgstr "Näytä mobiilisivu"
+
+#: templates/index.html:4 templates/index.html.py:5 templates/index.html:8
+#: templates/search_results.html:10 templates/admin/index.html:15
+msgid "Home"
+msgstr "Etusivu"
+
+#: templates/index.html:12
+msgid ""
+"\n"
+"<h2>Congratulations!</h2>\n"
+"<p>\n"
+"    Welcome to your new Mezzanine powered website.\n"
+"    Here are some quick links to get you started:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">Log in to the admin interface</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Creating custom page types</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">Modifying HTML templates</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
+"\">Changing this homepage</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">Other frequently asked questions</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Full list of settings</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying "
+"to a production server</a></li>\n"
+"</ul>\n"
+msgstr ""
+"\n"
+"<h2>Onnittelut!</h2>\n"
+"<p>\n"
+"    Tervetuloa uudelle Mezzanine-sivustollesi.\n"
+"    Tässä muutamia linkkejä joiden avulla pääset alkuun:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">Kirjaudu sisään hallintapaneeliin</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Omien sivutyyppien luonti/a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">HTML-sivupohjien muokkaaminen</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin\">Tämän "
+"etusivun muuttaminen</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">Muita usein kysyttyjä kysymyksiä</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Lista asetuksista</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Vienti "
+"tuotantopalvelimelle</a></li>\n"
+"</ul>\n"
+
+#: templates/search_results.html:5 templates/search_results.html.py:6
+#: templates/search_results.html:13
+msgid "Search Results"
+msgstr "Hakutulokset"
+
+#: templates/search_results.html:20
+#, python-format
+msgid ""
+"\n"
+"No results were found in %(search_type)s matching your query: %(query)s\n"
+msgstr ""
+"\n"
+"Ei tuloksia %(search_type)s jotka sopivat hakuusi: %(query)s\n"
+
+#: templates/search_results.html:24
+#, python-format
+msgid ""
+"\n"
+"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
+"matching your query: %(query)s\n"
+msgstr ""
+"\n"
+"Näytetään %(start)s %(end)s asti %(total)s tuloksista %(search_type)s jotka "
+"sopivat hakuusi: %(query)s\n"
+
+#: templates/search_results.html:35
+msgid "read more"
+msgstr "Jatka lukemista"
+
+#: templates/admin/base_site.html:34
+msgid "View site"
+msgstr "Näytä sivusto"
+
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
+msgid "Dashboard"
+msgstr "Hallintapaneeli"
+
+#: templates/admin/login.html:21
+msgid "You don't have permission to access the admin for this site."
+msgstr "Sinulla ei ole tarvittavia oikeuksia hallintapaneeliin pääsemiseksi."
+
+#: templates/admin/login.html:28
+msgid "Username or email:"
+msgstr "Käyttäjätunnus tai sähköpostiosoite:"
+
+#: templates/admin/login.html:32
+msgid "Password:"
+msgstr "Salasana:"
+
+#: templates/admin/login.html:37
+msgid "Interface:"
+msgstr "Käyttöliittymä:"
+
+#: templates/admin/login.html:40 templates/includes/editable_toolbar.html:7
+#: templates/includes/editable_toolbar.html:9
+msgid "Admin"
+msgstr "Hallintapaneeli"
+
+#: templates/admin/login.html:47
+msgid "Log in"
+msgstr "Kirjaudu sisään"
+
+#: templates/admin/login.html:50
+msgid "Forgot password?"
+msgstr "Unohtuiko salasana?"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "Lisää"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "Muokkaa"
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr "Lisää toinen"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "Uusin toiminta"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "Oma toiminta"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "Mitään ei saatavilla"
+
+#: templates/errors/404.html:6
+msgid "Page not found"
+msgstr "Sivua ei löydy"
+
+#: templates/errors/404.html:10
+msgid "The page you requested does not exist."
+msgstr "Hakemaasi sivua ei löydy."
+
+#: templates/errors/500.html:6
+msgid "Error"
+msgstr "Virhe"
+
+#: templates/errors/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "Tapahtui virhe."
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "Tallenna"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "Peruuta"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr "Kirjaudu ulos"
+
+#: templates/includes/pagination.html:8
+msgid "Page"
+msgstr "Sivu"
+
+#: templates/includes/pagination.html:8
+msgid "of"
+msgstr "n"
+
+#: templates/includes/search_form.html:4
+msgid "Search"
+msgstr "Hae"
+
+#: templates/includes/search_form.html:22
+msgid "Go"
+msgstr "Mene"

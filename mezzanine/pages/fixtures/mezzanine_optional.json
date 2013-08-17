@@ -1,0 +1,127 @@
+[
+    {
+        "pk": 2,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 0,
+            "parent": null,
+            "description": "About us",
+            "title": "About",
+            "titles": "About",
+            "content_model": "richtextpage",
+            "in_menus": [1, 2, 3],
+            "slug": "about",
+            "site": 1
+        }
+    },
+    
+    {
+        "pk": 3,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 3,
+            "parent": null,
+            "description": "Fill in the form below to get in touch with us.",
+            "title": "Contact",
+            "titles": "Contact",
+            "content_model": "form",
+            "in_menus": [1, 2, 3],
+            "slug": "contact",
+            "site": 1
+        }
+    },
+    {
+        "pk": 4,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 0,
+            "parent": 2,
+            "description": "Team",
+            "title": "Team",
+            "titles": "About / Team",
+            "content_model": "richtextpage",
+            "in_menus": [1, 2, 3],
+            "slug": "about/team",
+            "site": 1
+        }
+    },
+    {
+        "pk": 5,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 1,
+            "parent": 2,
+            "description": "History",
+            "title": "History",
+            "titles": "About / History",
+            "content_model": "richtextpage",
+            "in_menus": [1, 2, 3],
+            "slug": "about/history",
+            "site": 1
+        }
+    },
+    {
+        "pk": 6,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 0,
+            "parent": 3,
+            "description": "Legals",
+            "title": "Legals",
+            "titles": "Contact / Legals",
+            "content_model": "richtextpage",
+            "in_menus": [1, 2, 3],
+            "slug": "contact/legals",
+            "site": 1
+        }
+    },
+    {
+        "pk": 8,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 2,
+            "parent": null,
+            "description": "Gallery",
+            "title": "Gallery",
+            "titles": "Gallery",
+            "content_model": "gallery",
+            "in_menus": [1, 2, 3],
+            "slug": "gallery",
+            "site": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "pages.richtextpage",
+        "fields": {
+            "content": "<p>About us</p>"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "pages.richtextpage",
+        "fields": {
+            "content": "<p>Team</p>"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "pages.richtextpage",
+        "fields": {
+            "content": "<p>History</p>"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "pages.richtextpage",
+        "fields": {
+            "content": "<p>Legals</p>"
+       }
+    }
+]

@@ -1,0 +1,128 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <andreas.lindroos@gmail.com>, 2012.
+# Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2012-11-15 14:07+0000\n"
+"Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
+"language/ja/)\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: __init__.py:16
+msgid "User"
+msgstr "ユーザー"
+
+#: __init__.py:17
+msgid "List"
+msgstr "リスト"
+
+#: __init__.py:18
+msgid "Search"
+msgstr "検索"
+
+#: defaults.py:21
+msgid "Default Twitter Query Type"
+msgstr "既定のTwitterクエリータイプ"
+
+#: defaults.py:22
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
+msgstr ""
+"既定のTwitterフィード用につぶやきを抽出するのに用いられるクエリーの タイプ。"
+
+#: defaults.py:31
+msgid "Default Twitter Query"
+msgstr "既定のTwitterクエリー"
+
+#: defaults.py:32
+msgid "Twitter query to use for the default query type."
+msgstr "既定のクエリータイプ用に用いるTwitterクエリー。"
+
+#: defaults.py:39
+msgid "Default Number of Tweets"
+msgstr "既定のつぶやき数"
+
+#: defaults.py:40
+msgid "Number of tweets to display in the default Twitter feed."
+msgstr "既定のTwitterフィードで表示するつぶやきの数。"
+
+#: models.py:27
+msgid "Type"
+msgstr "タイプ"
+
+#: models.py:29
+msgid "Value"
+msgstr "値"
+
+#: models.py:33
+msgid "Twitter query"
+msgstr "Twitterクエリー"
+
+#: models.py:34
+msgid "Twitter queries"
+msgstr "Twitterクエリー"
+
+#: models.py:102
+msgid "Twitter ID"
+msgstr "Twitter ID"
+
+#: models.py:103
+msgid "Date/time"
+msgstr "日付/時刻"
+
+#: models.py:104
+msgid "Message"
+msgstr "メッセージ"
+
+#: models.py:105
+msgid "Profile image URL"
+msgstr "プロファイル写真のURL"
+
+#: models.py:106
+msgid "User name"
+msgstr "ユーザー名"
+
+#: models.py:107
+msgid "Full name"
+msgstr "フルネーム"
+
+#: models.py:109
+msgid "Profile image URL (Retweeted by)"
+msgstr "プロファイル写真のURL (リツイートされたもの)"
+
+#: models.py:111
+msgid "User name (Retweeted by)"
+msgstr "ユーザー名 (リツイートされたもの)"
+
+#: models.py:113
+msgid "Full name (Retweeted by)"
+msgstr "フルネーム (リツイートされたもの)"
+
+#: models.py:119
+msgid "Tweet"
+msgstr "ツイート"
+
+#: models.py:120
+msgid "Tweets"
+msgstr "ツイート"
+
+#: templates/twitter/tweets.html:7
+msgid "Recent Tweets"
+msgstr "最近のツイート"
+
+#: templates/twitter/tweets.html:20
+msgid "ago"
+msgstr "前"

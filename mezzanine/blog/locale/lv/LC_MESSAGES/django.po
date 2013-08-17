@@ -1,0 +1,216 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <edgars.sulcs@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2013-03-30 11:56+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/projects/p/mezzanine/"
+"language/lv/)\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+#: admin.py:20
+msgid "Other posts"
+msgstr ""
+
+#: defaults.py:20
+msgid "Enable featured images in blog posts"
+msgstr ""
+
+#: defaults.py:27
+msgid "Use date URLs"
+msgstr "Lietot URL saitēs datumu"
+
+#: defaults.py:28
+msgid ""
+"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
+"mm/slug/"
+msgstr ""
+"Ja atzīmēts, bloga ierakstu URL saitēs tiks izmantots mēnesis un gads, "
+"piemēram, /blog/yyyy/mm/slug/"
+
+#: defaults.py:36
+msgid "Blog posts per page"
+msgstr "Bloga ieraksti lapā"
+
+#: defaults.py:37
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Lapā attēlojamo bloga ierakstu skaits"
+
+#: defaults.py:44
+msgid "Blog posts RSS limit"
+msgstr ""
+
+#: defaults.py:45
+msgid ""
+"Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
+"display all blog posts in the RSS feed."
+msgstr ""
+
+#: defaults.py:53
+msgid "Slug of the page object for the blog."
+msgstr "Bloga sadaļas \"slug\""
+
+#: models.py:17 templates/blog/includes/filter_panel.html:35
+msgid "Categories"
+msgstr "Kategorijas"
+
+#: models.py:19
+msgid "Allow comments"
+msgstr "Atļaut komentārus"
+
+#: models.py:21 templates/blog/blog_post_detail.html:43
+#: templates/blog/blog_post_list.html:129
+msgid "Comments"
+msgstr "Komentāri"
+
+#: models.py:22
+msgid "Rating"
+msgstr "Vērtējums"
+
+#: models.py:23
+msgid "Featured Image"
+msgstr "Attēls"
+
+#: models.py:27 templates/blog/blog_post_detail.html:113
+msgid "Related posts"
+msgstr ""
+
+#: models.py:32
+msgid "Blog post"
+msgstr "Bloga ieraksts"
+
+#: models.py:33
+msgid "Blog posts"
+msgstr "Bloga ieraksti"
+
+#: models.py:85
+msgid "Blog Category"
+msgstr "Bloga kategorija"
+
+#: models.py:86
+msgid "Blog Categories"
+msgstr "Bloga kategorijas"
+
+#: templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr "Ātrais bloga ieraksts"
+
+#: templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr "Saglabāt kā melnrakstu"
+
+#: templates/blog/blog_post_detail.html:29
+#: templates/blog/blog_post_list.html:83
+msgid "Posted by"
+msgstr "Publicējis"
+
+#: templates/blog/blog_post_detail.html:33
+#: templates/blog/blog_post_list.html:95
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
+
+#: templates/blog/blog_post_detail.html:46
+#: templates/blog/blog_post_list.html:133
+#, python-format
+msgid "1 comment"
+msgid_plural "%(comments_count)s comments"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: templates/blog/blog_post_detail.html:74
+#: templates/blog/blog_post_list.html:116
+#: templates/blog/includes/filter_panel.html:48
+msgid "Tags"
+msgstr "Birkas"
+
+#: templates/blog/blog_post_detail.html:87
+msgid "Share on Twitter"
+msgstr "Dalīties ar Twitter draugiem"
+
+#: templates/blog/blog_post_detail.html:88
+msgid "Share on Facebook"
+msgstr "Dalīties ar Facebook draugiem"
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
+msgid "Blog"
+msgstr "Blogs"
+
+#: templates/blog/blog_post_list.html:31
+msgid "Tag:"
+msgstr "Birka:"
+
+#: templates/blog/blog_post_list.html:33
+msgid "Category:"
+msgstr "Kategorija:"
+
+#: templates/blog/blog_post_list.html:37
+msgid "Author:"
+msgstr "Autors:"
+
+#: templates/blog/blog_post_list.html:50
+msgid "Viewing posts tagged"
+msgstr "Tiek radīti ieraksti atbilstoši birkai"
+
+#: templates/blog/blog_post_list.html:52
+msgid "Viewing posts for the category"
+msgstr "Tiek radīti ieraksti atbilstoši kategorijai"
+
+#: templates/blog/blog_post_list.html:54
+msgid "Viewing posts from"
+msgstr "Tiek rādīti ieraksti no"
+
+#: templates/blog/blog_post_list.html:57
+msgid "Viewing posts by"
+msgstr "Tiek rādīti ieraksti pēc"
+
+#: templates/blog/blog_post_list.html:89
+msgid "in"
+msgstr "iekš"
+
+#: templates/blog/blog_post_list.html:124
+msgid "read more"
+msgstr "lasīt vairāk"
+
+#: templates/blog/includes/filter_panel.html:6
+msgid "Recent Posts"
+msgstr "Pēdējie ieraksti"
+
+#: templates/blog/includes/filter_panel.html:19
+msgid "Archive"
+msgstr "Arhīvs"
+
+#: templates/blog/includes/filter_panel.html:64
+msgid "Authors"
+msgstr "Autori"
+
+#: templates/blog/includes/filter_panel.html:76
+msgid "Feeds"
+msgstr "Plūsmas"
+
+#: templates/blog/includes/filter_panel.html:78
+#: templates/blog/includes/filter_panel.html:82
+#: templates/blog/includes/filter_panel.html:86
+#: templates/blog/includes/filter_panel.html:90
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:79
+#: templates/blog/includes/filter_panel.html:83
+#: templates/blog/includes/filter_panel.html:87
+#: templates/blog/includes/filter_panel.html:91
+msgid "Atom"
+msgstr "Atom"

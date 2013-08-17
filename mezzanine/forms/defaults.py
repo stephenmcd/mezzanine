@@ -16,15 +16,6 @@ from mezzanine.conf import register_setting
 
 
 register_setting(
-    name="FORMS_DISABLE_SEND_FROM_EMAIL_FIELD",
-    description=_("If ``True``, emails sent to extra recipients for form "
-        "submissions won't be sent from an address taken from one of the "
-        "form's email fields."),
-    editable=False,
-    default=False,
-)
-
-register_setting(
     name="FORMS_FIELD_MAX_LENGTH",
     description=_("Max length allowed for field values in the forms app."),
     editable=False,
@@ -51,4 +42,16 @@ register_setting(
     description=_("Absolute path for storing file uploads for the forms app."),
     editable=False,
     default="",
+)
+
+register_setting(
+    name="FORMS_EXTRA_FIELDS",
+    description=_("Extra field types for the forms app. Should contain a "
+        "sequence of three-item sequences, each containing the ID, dotted "
+        "import path for the field class, and field name, for each custom "
+        "field type. The ID is simply a numeric constant for the field, "
+        "but cannot be a value already used, so choose a high number such "
+        "as 100 or greater to avoid conflicts."),
+    editable=False,
+    default=(),
 )

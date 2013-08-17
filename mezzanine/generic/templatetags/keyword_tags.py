@@ -1,10 +1,8 @@
-
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Model, Count
 
 from mezzanine import template
 from mezzanine.conf import settings
-from mezzanine.generic.fields import KeywordsField
 from mezzanine.generic.models import AssignedKeyword, Keyword
 
 
@@ -25,14 +23,14 @@ def keywords_for(*args):
         obj = args[0]
         if hasattr(obj, "get_content_model"):
             obj = obj.get_content_model() or obj
-        # There can only be one ``KeywordsField``, find it.
-        for field in obj._meta.many_to_many:
-            if isinstance(field, KeywordsField):
-                break
-        else:
-            return []
-        keywords_manager = getattr(obj, field.name)
-        return [a.keyword for a in keywords_manager.select_related("keyword")]
+        keywords_name = obj.get_keywordsfield_name()
+        keywords_queryset = getattr(obj, keywords_name).all()
+        # Keywords may have been prefetched already. If not, we
+        # need select_related for the actual keywords.
+        prefetched = getattr(obj, "_prefetched_objects_cache", {})
+        if keywords_name not in prefetched:
+            keywords_queryset = keywords_queryset.select_related("keyword")
+        return [assigned.keyword for assigned in keywords_queryset]
 
     # Handle a model class.
     try:
@@ -49,14 +47,7 @@ def keywords_for(*args):
     settings.use_editable()
     counts = [keyword.item_count for keyword in keywords]
     min_count, max_count = min(counts), max(counts)
-    sizes = settings.TAG_CLOUD_SIZES
-    step = (max_count - min_count) / (sizes - 1)
-    if step == 0:
-        steps = [sizes / 2]
-    else:
-        steps = range(min_count, max_count, step)[:sizes]
-    for keyword in keywords:
-        c = keyword.item_count
-        diff = min([(abs(s - c), (s - c)) for s in steps])[1]
-        keyword.weight = steps.index(c + diff) + 1
+    factor = (settings.TAG_CLOUD_SIZES - 1.) / (max_count - min_count)
+    for kywd in keywords:
+        kywd.weight = int(round((kywd.item_count - min_count) * factor)) + 1
     return keywords

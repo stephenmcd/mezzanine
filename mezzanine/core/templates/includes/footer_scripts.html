@@ -3,7 +3,7 @@
 {% editable_loader %}
 
 <script>
-{% if settings.GOOGLE_ANALYTICS_ID %}
+{% if settings.GOOGLE_ANALYTICS_ID and not request.user.is_staff %}
 var _gaq = _gaq || [['_trackPageview']];
 _gaq.unshift(['_setAccount', '{{ settings.GOOGLE_ANALYTICS_ID }}']);
 (function(d, t) {

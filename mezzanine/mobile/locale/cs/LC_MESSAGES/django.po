@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:36-0430\n"
+"POT-Creation-Date: 2013-04-07 10:40-0430\n"
 "PO-Revision-Date: 2012-05-26 18:09+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.net/projects/p/mezzanine/language/cs/)\n"
+"Language-Team: Czech (http://www.transifex.net/projects/p/mezzanine/language/"
+"cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,15 +35,15 @@ msgstr "Chyba"
 msgid "Sorry, an error occurred."
 msgstr "Litujeme, stala se chyba."
 
-#: templates/mobile/base.html:31 templates/mobile/index.html:6
+#: templates/mobile/base.html:41 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Domů"
 
-#: templates/mobile/base.html:43
+#: templates/mobile/base.html:53
 msgid "Powered by"
 msgstr "Napájen"
 
-#: templates/mobile/base.html:44
+#: templates/mobile/base.html:54
 msgid "View Full Site"
 msgstr "Zobrazit celou stránku"
 
@@ -101,6 +102,7 @@ msgid "or"
 msgstr "nebo"
 
 #: templates/mobile/blog/blog_post_list.html:4
+#: templates/mobile/blog/blog_post_list.html:19
 msgid "Blog"
 msgstr "Blog"
 
@@ -125,5 +127,9 @@ msgid "quotes"
 msgstr "citace"
 
 #: templates/mobile/includes/search.html:5
-msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
-msgstr "pro přesné fráze, +, aby se požadované slovo nebo slovní spojení, a - pro vyloučení slova nebo fráze."
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr ""
+"pro přesné fráze, +, aby se požadované slovo nebo slovní spojení, a - pro "
+"vyloučení slova nebo fráze."

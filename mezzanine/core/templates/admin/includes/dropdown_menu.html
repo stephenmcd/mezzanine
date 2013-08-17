@@ -1,7 +1,7 @@
-{% load i18n %}
+{% load i18n future %}
 <div class="dropdown-menu" style="display:none;">
 <ul>
-    <li><a href="{% url admin:index %}">{% trans "Dashboard" %}</a></li>
+    <li><a href="{% url "admin:index" %}">{% trans "Dashboard" %}</a></li>
     {% for app in dropdown_menu_app_list %}
     <li>
         <a href="#">{% trans app.name %}</a>
@@ -16,8 +16,8 @@
     </li>
     {% endfor %}
 </ul>
-{% if dropdown_menu_sites %}
-<form action="{% url set_site %}">
+{% if dropdown_menu_sites and dropdown_menu_sites|length > 1 %}
+<form action="{% url "set_site" %}">
 <input type="hidden" name="next" value="{{ request.path }}">
 <select name="site_id" onchange="this.form.submit();">
 {% for site in dropdown_menu_sites %}

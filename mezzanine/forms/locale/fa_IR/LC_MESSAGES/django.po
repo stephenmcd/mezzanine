@@ -1,0 +1,352 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <bornazadeh@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:42-0430\n"
+"PO-Revision-Date: 2013-02-25 07:40+0000\n"
+"Last-Translator: Bornazadeh <bornazadeh@gmail.com>\n"
+"Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/mezzanine/"
+"language/fa_IR/)\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: admin.py:32 fields.py:33
+msgid "Email"
+msgstr "پست الکترونیکی"
+
+#: admin.py:115
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] "%(count)s موارد پاک شدند"
+
+#: admin.py:119
+msgid "View Entries"
+msgstr "نمایش ورودی ها"
+
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+"اگر `` علامت دار`` باشد, ایمیل های تایید ارسال فرم که به گیرندگان اضافی "
+"فرستاده خواهد شد, از یک آدرس گرفته شده از ایمیل های  موجود درفرم استفاده نمی "
+"کند."
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr "حداکثر طول مجاز برای مقادیر در برنامه ی فرم."
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr "حداکثر طول مجاز برای عنوان در برنامه ی فرم."
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr "کارکتر جدا کننده ی موضوعات وقتی که فرم به صورت CSV صادر می شود."
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "مسیر مطلق برای ذخیره ی فایل های آپلود شده در فرم."
+
+#: defaults.py:58
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
+msgstr ""
+"فیلدهای سفارشی نوع  داده  برای فرمها. باید شامل یک توالی از گزینه های سه "
+"قسمتی باشند، هر یک حاوی یک شناسه ID، مسیر نقطه دار ورود کلاس فیلد و نام "
+"فیلد، برای هر نوع فیلد سفارشی باشد.ID  به سادگی یک ثابت عددی برای فیلد است، "
+"اما نمی تواند مقداری باشد که در حال حاضر استفاده شده است، پس برای جلوگیری از "
+"تداخل,  یک عدد بزرگ مثل 100 یا بیشتر را انتخاب کنید."
+
+#: fields.py:31
+msgid "Single line text"
+msgstr "متن یک خطی"
+
+#: fields.py:32
+msgid "Multi line text"
+msgstr "متن چند خطی"
+
+#: fields.py:34
+msgid "Number"
+msgstr "شماره"
+
+#: fields.py:35
+msgid "URL"
+msgstr "آدرس URL"
+
+#: fields.py:36
+msgid "Check box"
+msgstr "جعبه انتخاب"
+
+#: fields.py:37
+msgid "Check boxes"
+msgstr "جعبه های انتخاب"
+
+#: fields.py:38
+msgid "Drop down"
+msgstr "کشویی"
+
+#: fields.py:39
+msgid "Multi select"
+msgstr "چند انتخابه"
+
+#: fields.py:40
+msgid "Radio buttons"
+msgstr "دکمه های رادیویی"
+
+#: fields.py:41
+msgid "File upload"
+msgstr "آپلود فایل"
+
+#: fields.py:42
+msgid "Date"
+msgstr "تاریخ"
+
+#: fields.py:43 models.py:116
+msgid "Date/time"
+msgstr "تاریخ/زمان"
+
+#: fields.py:44
+msgid "Date of birth"
+msgstr "تاریخ تولد"
+
+#: fields.py:45
+msgid "Hidden"
+msgstr "مخفی"
+
+#: forms.py:28 forms.py:36 forms.py:42
+msgid "Nothing"
+msgstr "هیچ چیز"
+
+#: forms.py:29
+msgid "Contains"
+msgstr "شامل"
+
+#: forms.py:30
+msgid "Doesn't contain"
+msgstr "شامل نمی شود"
+
+#: forms.py:31 forms.py:37
+msgid "Equals"
+msgstr "مساوی با"
+
+#: forms.py:32 forms.py:38
+msgid "Doesn't equal"
+msgstr "مساوی نیست"
+
+#: forms.py:43
+msgid "Is between"
+msgstr "بین"
+
+#: forms.py:100
+msgid "required"
+msgstr "ضروری"
+
+#: forms.py:216
+msgid "Checked"
+msgstr "انتخاب شده"
+
+#: forms.py:216
+msgid "Not checked"
+msgstr "انتخاب نشده"
+
+#: forms.py:230 forms.py:245
+msgid "and"
+msgstr "و"
+
+#: models.py:17
+msgid "Button text"
+msgstr "دکمه متنی"
+
+#: models.py:18
+msgid "Submit"
+msgstr "ارسال"
+
+#: models.py:19
+msgid "Response"
+msgstr "پاسخ"
+
+#: models.py:20
+msgid "Send email to user"
+msgstr "ارسال ایمیل به کاربر"
+
+#: models.py:21
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
+"برای ارسال یک ایمیل پس از ارسال فرم به آدرس پست الکترونیکی وارد شده در فرم، "
+"از این جعبه انتخاب استفاده کنید."
+
+#: models.py:23
+msgid "From address"
+msgstr "از آدرس های"
+
+#: models.py:24
+msgid "The address the email will be sent from"
+msgstr "آدرس ایمیلی که ایمیل ها از آن ارسال می شوند"
+
+#: models.py:25
+msgid "Send email to others"
+msgstr "ارسال ایمیل به دیگران"
+
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+"ارائه یک لیست که با کاما از هم جداشده از آدرس ایمیل هایی که از ارسال یک فرم "
+"مطلع شوند. اگر فیلد را خالی بگذارید این مطلع کردن غیر فعال می شود."
+
+#: models.py:30
+msgid "Subject"
+msgstr "موضوع"
+
+#: models.py:31
+msgid "Message"
+msgstr "پیام"
+
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+"ایمیل های فرستاده شده بر اساس گزینه های فوق شامل هر یک از موارد پر شده در "
+"فرم می باشد. شما همچنین می توانید یک پیام  دلخواه در اینجا وارد کنید تا در "
+"ایمیل ارسال شود."
+
+#: models.py:37
+msgid "Form"
+msgstr "فرم"
+
+#: models.py:38
+msgid "Forms"
+msgstr "فرم ها"
+
+#: models.py:55
+msgid "Label"
+msgstr "برچسب"
+
+#: models.py:57
+msgid "Type"
+msgstr "نوع"
+
+#: models.py:58
+msgid "Required"
+msgstr "ضروری"
+
+#: models.py:59
+msgid "Visible"
+msgstr "قابل رویت"
+
+#: models.py:60
+msgid "Choices"
+msgstr "انتخاب ها"
+
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr ""
+"گزینه های از هم جدا با کاما قابل قبول است. اگرگزینه ای خود شامل کاما باشد، "
+"می توان این گزینه را  با ` backticks `احاطه کرد."
+
+#: models.py:63
+msgid "Default value"
+msgstr "مقدار پیش فرض"
+
+#: models.py:65
+msgid "Placeholder Text"
+msgstr "متن جانشین"
+
+#: models.py:67
+msgid "Help text"
+msgstr "متن کمک"
+
+#: models.py:72 templates/admin/forms/entries.html:28
+msgid "Field"
+msgstr "رشته"
+
+#: models.py:73
+msgid "Fields"
+msgstr "رشته ها"
+
+#: models.py:119
+msgid "Form entry"
+msgstr "ورودی فرم"
+
+#: models.py:120
+msgid "Form entries"
+msgstr "ورودی های فرم"
+
+#: models.py:134
+msgid "Form field entry"
+msgstr "ورودی فیلد فرم"
+
+#: models.py:135
+msgid "Form field entries"
+msgstr "ورودی های فیلد فرم"
+
+#: templates/admin/forms/change_form.html:8
+#: templates/admin/forms/entries.html:57
+msgid "View entries"
+msgstr "مشاهده ورودی ها"
+
+#: templates/admin/forms/change_form.html:9
+msgid "History"
+msgstr "تاریخچه"
+
+#: templates/admin/forms/change_form.html:10
+msgid "View on site"
+msgstr "مشاهده در سایت"
+
+#: templates/admin/forms/entries.html:14
+msgid "Home"
+msgstr "خانه"
+
+#: templates/admin/forms/entries.html:29
+msgid "Include"
+msgstr "شامل"
+
+#: templates/admin/forms/entries.html:30
+msgid "Filter by"
+msgstr "فیلتر با"
+
+#: templates/admin/forms/entries.html:48
+msgid "All"
+msgstr "همه"
+
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
+msgid "Back to form"
+msgstr "بازگشت به فرم"
+
+#: templates/admin/forms/entries.html:58
+msgid "Export CSV"
+msgstr "صوور CSV"
+
+#: templates/admin/forms/entries.html:60
+msgid "Entries"
+msgstr "ورودی ها"
+
+#: templates/admin/forms/entries.html:94
+msgid "Delete selected"
+msgstr "پاک کردن مورد انتخاب شده"
+
+#: templates/admin/forms/entries.html:98
+msgid "No entries to display"
+msgstr "موردی برای نمایش  نیست"

@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <andreas.lindroos@gmail.com>, 2012.
+# Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2012-11-16 03:42+0000\n"
+"Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
+"language/ja/)\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: models.py:38
+msgid "Zip import"
+msgstr "zipインポート"
+
+#: models.py:40
+msgid ""
+"Upload a zip file containing images, and they'll be imported into this "
+"gallery."
+msgstr ""
+"写真が入ったzipファイルをアップロードすると、このギャラリーにインポートされま"
+"す。"
+
+#: models.py:44
+msgid "Gallery"
+msgstr "ギャラリー"
+
+#: models.py:45
+msgid "Galleries"
+msgstr "ギャラリー"
+
+#: models.py:91
+msgid "File"
+msgstr "ファイル"
+
+#: models.py:93
+msgid "Description"
+msgstr "説明"
+
+#: models.py:97
+msgid "Image"
+msgstr "写真"
+
+#: models.py:98
+msgid "Images"
+msgstr "写真"

@@ -1,18 +1,20 @@
-
 from optparse import make_option
 from urlparse import urlparse
 
-from django.contrib.auth.models import User
 from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.html import strip_tags
 
 from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.html import decode_entities
+from mezzanine.utils.models import get_user_model
+
+User = get_user_model()
 
 
 class BaseImporterCommand(BaseCommand):
@@ -190,6 +192,15 @@ class BaseImporterCommand(BaseCommand):
             self.add_meta(post, tags, prompt, verbosity, old_url)
 
         # Create any pages imported (Wordpress can include pages)
+        in_menus = []
+        footer = [menu[0] for menu in settings.PAGE_MENU_TEMPLATES
+                  if menu[-1] == "pages/menus/footer.html"]
+        if options["in_navigation"]:
+            in_menus = [menu[0] for menu in settings.PAGE_MENU_TEMPLATES]
+            if footer and not options["in_footer"]:
+                in_menus.remove(footer[0])
+        elif footer and options["in_footer"]:
+            in_menus = footer
         parents = []
         for page in self.pages:
             tags = page.pop("tags")
@@ -198,8 +209,7 @@ class BaseImporterCommand(BaseCommand):
             old_parent_id = page.pop("old_parent_id")
             page = self.trunc(RichTextPage, prompt, **page)
             page["status"] = CONTENT_STATUS_PUBLISHED
-            page["in_navigation"] = options["in_navigation"] or False
-            page["in_footer"] = options["in_footer"] or False
+            page["in_menus"] = in_menus
             page, created = RichTextPage.objects.get_or_create(**page)
             if created and verbosity >= 1:
                 print "Imported page: %s" % page
@@ -225,7 +235,7 @@ class BaseImporterCommand(BaseCommand):
         """
         for tag in tags:
             keyword = self.trunc(Keyword, prompt, title=tag)
-            keyword, created = Keyword.objects.get_or_create(**keyword)
+            keyword, created = Keyword.objects.get_or_create_iexact(**keyword)
             obj.keywords.add(AssignedKeyword(keyword=keyword))
             if created and verbosity >= 1:
                 print "Imported tag: %s" % keyword

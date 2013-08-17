@@ -1,38 +1,64 @@
 [main]
-host = https://www.transifex.net
+host = https://www.transifex.com
+lang_map = sr@latin:sr_Latn
 
 [mezzanine.blog]
 file_filter = mezzanine/blog/locale/<lang>/LC_MESSAGES/django.po
 source_file = mezzanine/blog/locale/en/LC_MESSAGES/django.po
 source_lang = en
+type = PO
 
 [mezzanine.conf]
 file_filter = mezzanine/conf/locale/<lang>/LC_MESSAGES/django.po
 source_file = mezzanine/conf/locale/en/LC_MESSAGES/django.po
 source_lang = en
+type = PO
 
 [mezzanine.core]
 file_filter = mezzanine/core/locale/<lang>/LC_MESSAGES/django.po
 source_file = mezzanine/core/locale/en/LC_MESSAGES/django.po
 source_lang = en
+type = PO
 
 [mezzanine.forms]
 file_filter = mezzanine/forms/locale/<lang>/LC_MESSAGES/django.po
 source_file = mezzanine/forms/locale/en/LC_MESSAGES/django.po
 source_lang = en
+type = PO
 
 [mezzanine.pages]
 file_filter = mezzanine/pages/locale/<lang>/LC_MESSAGES/django.po
 source_file = mezzanine/pages/locale/en/LC_MESSAGES/django.po
 source_lang = en
+type = PO
 
 [mezzanine.generic]
 file_filter = mezzanine/generic/locale/<lang>/LC_MESSAGES/django.po
 source_file = mezzanine/generic/locale/en/LC_MESSAGES/django.po
 source_lang = en
+type = PO
 
 [mezzanine.mobile]
 file_filter = mezzanine/mobile/locale/<lang>/LC_MESSAGES/django.po
 source_file = mezzanine/mobile/locale/en/LC_MESSAGES/django.po
 source_lang = en
+type = PO
+
+[mezzanine.galleries]
+file_filter = mezzanine/galleries/locale/<lang>/LC_MESSAGES/django.po
+source_file = mezzanine/galleries/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[mezzanine.twitter]
+file_filter = mezzanine/twitter/locale/<lang>/LC_MESSAGES/django.po
+source_file = mezzanine/twitter/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[mezzanine.accounts]
+file_filter = mezzanine/accounts/locale/<lang>/LC_MESSAGES/django.po
+source_file = mezzanine/accounts/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
 

@@ -1,0 +1,217 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <bart@dispectu.com>, 2012.
+# Tim Slot <tim.slot@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2013-05-17 18:39+0200\n"
+"Last-Translator: Tim Slot <tim.slot@gmail.com>\n"
+"Language-Team: Dutch; Flemish <>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#: admin.py:20
+msgid "Other posts"
+msgstr "Andere posts"
+
+#: defaults.py:20
+msgid "Enable featured images in blog posts"
+msgstr "Schakel uitgelichte afbeeldingen in voor blogposts"
+
+#: defaults.py:27
+msgid "Use date URLs"
+msgstr "Gebruik datum URLs"
+
+#: defaults.py:28
+msgid ""
+"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
+"mm/slug/"
+msgstr ""
+"Als deze instelling ``True`` is, worden maand en jaar in de URLs voor blog "
+"posts gebruikt. Bijvoorbeeld: /blog/jjjj/mm/slug"
+
+#: defaults.py:36
+msgid "Blog posts per page"
+msgstr "Blogposts per pagina"
+
+#: defaults.py:37
+msgid "Number of blog posts shown on a blog listing page."
+msgstr ""
+"Het aantal blogposts dat getoond moet worden op een blogpost indexpagina."
+
+#: defaults.py:44
+msgid "Blog posts RSS limit"
+msgstr "Blogposts RSS limiet"
+
+#: defaults.py:45
+msgid ""
+"Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
+"display all blog posts in the RSS feed."
+msgstr ""
+
+#: defaults.py:53
+msgid "Slug of the page object for the blog."
+msgstr "URL-vriendelijke naam van het pagina-object voor het blog."
+
+#: models.py:17 templates/blog/includes/filter_panel.html:35
+msgid "Categories"
+msgstr "Categorieën"
+
+#: models.py:19
+msgid "Allow comments"
+msgstr "Sta comments toe"
+
+#: models.py:21 templates/blog/blog_post_detail.html:43
+#: templates/blog/blog_post_list.html:129
+msgid "Comments"
+msgstr "Commentaren"
+
+#: models.py:22
+msgid "Rating"
+msgstr "Waardering"
+
+#: models.py:23
+msgid "Featured Image"
+msgstr "Uitgelichte afbeelding"
+
+#: models.py:27 templates/blog/blog_post_detail.html:113
+msgid "Related posts"
+msgstr "Gerelateerde posts"
+
+#: models.py:32
+msgid "Blog post"
+msgstr "Blog post"
+
+#: models.py:33
+msgid "Blog posts"
+msgstr "Blog posts"
+
+#: models.py:85
+msgid "Blog Category"
+msgstr "Blog categorie"
+
+#: models.py:86
+msgid "Blog Categories"
+msgstr "Blog categorieën"
+
+#: templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr "Blog snel"
+
+#: templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr "Sla concept op"
+
+#: templates/blog/blog_post_detail.html:29
+#: templates/blog/blog_post_list.html:83
+msgid "Posted by"
+msgstr "Geplaatst door"
+
+#: templates/blog/blog_post_detail.html:33
+#: templates/blog/blog_post_list.html:95
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "%(sometime)s geleden"
+
+#: templates/blog/blog_post_detail.html:46
+#: templates/blog/blog_post_list.html:133
+#, python-format
+msgid "1 comment"
+msgid_plural "%(comments_count)s comments"
+msgstr[0] "1 comment"
+msgstr[1] "%(comments_count)s comments"
+
+#: templates/blog/blog_post_detail.html:74
+#: templates/blog/blog_post_list.html:116
+#: templates/blog/includes/filter_panel.html:48
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/blog/blog_post_detail.html:87
+msgid "Share on Twitter"
+msgstr "Deel op Twitter"
+
+#: templates/blog/blog_post_detail.html:88
+msgid "Share on Facebook"
+msgstr "Deel op Facebook"
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/blog/blog_post_list.html:31
+msgid "Tag:"
+msgstr "Tag:"
+
+#: templates/blog/blog_post_list.html:33
+msgid "Category:"
+msgstr "Categorie:"
+
+#: templates/blog/blog_post_list.html:37
+msgid "Author:"
+msgstr "Auteur:"
+
+#: templates/blog/blog_post_list.html:50
+msgid "Viewing posts tagged"
+msgstr "Bekijk posts die getagged zijn met"
+
+#: templates/blog/blog_post_list.html:52
+msgid "Viewing posts for the category"
+msgstr "Bekijk posts in de categorie"
+
+#: templates/blog/blog_post_list.html:54
+msgid "Viewing posts from"
+msgstr "Bekijk posts van"
+
+#: templates/blog/blog_post_list.html:57
+msgid "Viewing posts by"
+msgstr "Bekijk posts door"
+
+#: templates/blog/blog_post_list.html:89
+msgid "in"
+msgstr "in"
+
+#: templates/blog/blog_post_list.html:124
+msgid "read more"
+msgstr "lees meer"
+
+#: templates/blog/includes/filter_panel.html:6
+msgid "Recent Posts"
+msgstr "Recente posts"
+
+#: templates/blog/includes/filter_panel.html:19
+msgid "Archive"
+msgstr "Archief"
+
+#: templates/blog/includes/filter_panel.html:64
+msgid "Authors"
+msgstr "Auteurs"
+
+#: templates/blog/includes/filter_panel.html:76
+msgid "Feeds"
+msgstr "Feeds"
+
+#: templates/blog/includes/filter_panel.html:78
+#: templates/blog/includes/filter_panel.html:82
+#: templates/blog/includes/filter_panel.html:86
+#: templates/blog/includes/filter_panel.html:90
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:79
+#: templates/blog/includes/filter_panel.html:83
+#: templates/blog/includes/filter_panel.html:87
+#: templates/blog/includes/filter_panel.html:91
+msgid "Atom"
+msgstr "Atom"

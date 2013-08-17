@@ -1,5 +1,6 @@
-{% load blog_tags keyword_tags i18n %}
+{% load blog_tags keyword_tags i18n future %}
 
+{% block blog_recent_posts %}
 {% blog_recent_posts 5 as recent_posts %}
 {% if recent_posts %}
 <h3>{% trans "Recent Posts" %}</h3>
@@ -10,7 +11,9 @@
 {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
 
+{% block blog_months %}
 {% blog_months as months %}
 {% if months %}
 <h3>{% trans "Archive" %}</h3>
@@ -19,51 +22,72 @@
         {% if not forloop.first %}</ul>{% endif %}
         <h6>{{ month.date.year }}</h6><ul class="unstyled">
     {% endifchanged %}
-    <li><a href="{% url blog_post_list_month year=month.date.year month=month.date.month %}"
+    <li><a href="{% url "blog_post_list_month" year=month.date.year month=month.date.month %}"
         >{{ month.date|date:"F" }}</a> ({{ month.post_count }})</li>
 {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
 
+{% block blog_categories %}
 {% blog_categories as categories %}
 {% if categories %}
 <h3>{% trans "Categories" %}</h3>
 <ul class="unstyled">
 {% for category in categories %}
-<li><a href="{% url blog_post_list_category category.slug %}"
+<li><a href="{% url "blog_post_list_category" category.slug %}"
     >{{ category }}</a> ({{ category.post_count }})</li>
 {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
 
+{% block blog_keywords %}
 {% keywords_for blog.blogpost as tags %}
 {% if tags %}
 <h3>{% trans "Tags" %}</h3>
 <ul class="unstyled tags">
 {% for tag in tags %}
 <li>
-    <a href="{% url blog_post_list_tag tag.slug %}"
+    <a href="{% url "blog_post_list_tag" tag.slug %}"
         class="tag-weight-{{ tag.weight }}">{{ tag }}</a>
     ({{ tag.item_count }})
 </li>
 {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
 
+{% block blog_authors %}
 {% blog_authors as authors %}
 {% if authors %}
 <h3>{% trans "Authors" %}</h3>
 <ul class="unstyled">
 {% for author in authors %}
-    <li><a href="{% url blog_post_list_author author.username %}"
+    <li><a href="{% url "blog_post_list_author" author.username %}"
         >{{ author.get_full_name|default:author.username }}</a>
         ({{ author.post_count }})</li>
 {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
 
+{% block blog_feeds %}
 <h3>{% trans "Feeds" %}</h3>
-<a href="{% url blog_post_feed "rss" %}">{% trans "RSS" %}</a> /
-<a href="{% url blog_post_feed "atom" %}">{% trans "Atom" %}</a>
-
-
+{% if tag %}
+    <a href="{% url "blog_post_feed_tag" tag.slug "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url "blog_post_feed_tag" tag.slug "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% if category %}
+    <a href="{% url "blog_post_feed_category" category.slug "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url "blog_post_feed_category" category.slug "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% if author %}
+    <a href="{% url "blog_post_feed_author" author.username "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url "blog_post_feed_author" author.username "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% if not tag and not category and not author %}
+    <a href="{% url "blog_post_feed" "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url "blog_post_feed" "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% endblock %}

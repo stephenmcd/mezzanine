@@ -1,0 +1,354 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <avtobiff@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2012-11-30 17:13+0000\n"
+"Last-Translator: avtobiff <avtobiff@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/mezzanine/"
+"language/sv/)\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:32 fields.py:33
+msgid "Email"
+msgstr "E-post"
+
+#: admin.py:115
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] "1 inlägg raderat"
+msgstr[1] "%(count)s inlägg raderade"
+
+#: admin.py:119
+msgid "View Entries"
+msgstr "Visa inlägg"
+
+#: defaults.py:20
+msgid ""
+"If ``True``, emails sent to extra recipients for form submissions won't be "
+"sent from an address taken from one of the form's email fields."
+msgstr ""
+"Om ``True`` kommer e-brev inte att skickas från en adress tagen från en av "
+"formulärets e-brevsfält till extra mottagare för formulärinskickning ."
+
+#: defaults.py:29
+msgid "Max length allowed for field values in the forms app."
+msgstr "Max tillåten längd för fältvärden i formulärapplikationen."
+
+#: defaults.py:36
+msgid "Max length allowed for field labels in the forms app."
+msgstr "Max tillåten längd för fältetiketter i formulärapplikationen."
+
+#: defaults.py:43
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr ""
+"Tecken att använda för fältavskiljare vid export av formulärsvar som CSV."
+
+#: defaults.py:51
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr ""
+"Absolut sökväg för att lagra filuppladdningar för formulärapplikationen."
+
+#: defaults.py:58
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
+msgstr ""
+"Extra fälttyper för formulärapplikation. Ska innehålla en sekvens av tre-"
+"elements-sekvenser, innehållandes ID, punktad importsökväg för fältklassen "
+"och fältnamn, för varje anpassad fälttyp. ID:t är en numerisk konstant för "
+"fälter men kan inte vara ett värde som redan används, så välj ett högt "
+"nummer typiskt 100 eller större för att undvika konflikter."
+
+#: fields.py:31
+msgid "Single line text"
+msgstr "Enkelradstext"
+
+#: fields.py:32
+msgid "Multi line text"
+msgstr "Multiradstext"
+
+#: fields.py:34
+msgid "Number"
+msgstr "Antal"
+
+#: fields.py:35
+msgid "URL"
+msgstr "URL"
+
+#: fields.py:36
+msgid "Check box"
+msgstr "Checkbox"
+
+#: fields.py:37
+msgid "Check boxes"
+msgstr "Checkboxar"
+
+#: fields.py:38
+msgid "Drop down"
+msgstr "Rullgardinsmeny"
+
+#: fields.py:39
+msgid "Multi select"
+msgstr "Multival"
+
+#: fields.py:40
+msgid "Radio buttons"
+msgstr "Radioknappar"
+
+#: fields.py:41
+msgid "File upload"
+msgstr "Filuppladdning"
+
+#: fields.py:42
+msgid "Date"
+msgstr "Datum"
+
+#: fields.py:43 models.py:116
+msgid "Date/time"
+msgstr "Datum/tid"
+
+#: fields.py:44
+msgid "Date of birth"
+msgstr "Födelsedatum"
+
+#: fields.py:45
+msgid "Hidden"
+msgstr "Gömd"
+
+#: forms.py:28 forms.py:36 forms.py:42
+msgid "Nothing"
+msgstr "Ingenting"
+
+#: forms.py:29
+msgid "Contains"
+msgstr "Innehåller"
+
+#: forms.py:30
+msgid "Doesn't contain"
+msgstr "Innehåller inte"
+
+#: forms.py:31 forms.py:37
+msgid "Equals"
+msgstr "Är lika med"
+
+#: forms.py:32 forms.py:38
+msgid "Doesn't equal"
+msgstr "Är inte lika med"
+
+#: forms.py:43
+msgid "Is between"
+msgstr "Är mellan"
+
+#: forms.py:100
+msgid "required"
+msgstr "nödvändig"
+
+#: forms.py:216
+msgid "Checked"
+msgstr "Ikryssad"
+
+#: forms.py:216
+msgid "Not checked"
+msgstr "Ej ikryssad"
+
+#: forms.py:230 forms.py:245
+msgid "and"
+msgstr "och"
+
+#: models.py:17
+msgid "Button text"
+msgstr "Knapptext"
+
+#: models.py:18
+msgid "Submit"
+msgstr "Skicka"
+
+#: models.py:19
+msgid "Response"
+msgstr "Svar"
+
+#: models.py:20
+msgid "Send email to user"
+msgstr "Skicka e-post till användare"
+
+#: models.py:21
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
+"För att skicka e-brev till e-postadressen angiven i formuläret vid "
+"inskickning, kryssa i denna ruta."
+
+#: models.py:23
+msgid "From address"
+msgstr "Från adress"
+
+#: models.py:24
+msgid "The address the email will be sent from"
+msgstr "Adressen som e-brevet kommer att skickas från"
+
+#: models.py:25
+msgid "Send email to others"
+msgstr "Skicka e-brev till andra"
+
+#: models.py:26
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+"Ge en kommaseparerad lista av e-postadresser som ska notifieras vid "
+"formulärinskickning. Lämna tom för att inaktivera notifieringar."
+
+#: models.py:30
+msgid "Subject"
+msgstr "Ämne"
+
+#: models.py:31
+msgid "Message"
+msgstr "Meddelande"
+
+#: models.py:32
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+"E-brev skickade baserade på ovanstående alternativ kommer att innehålla "
+"ifyllda formulärfält. Du kan också fylla i ett meddelande här som inkluderas "
+"i e-brevet."
+
+#: models.py:37
+msgid "Form"
+msgstr "Formulär"
+
+#: models.py:38
+msgid "Forms"
+msgstr "Formulär"
+
+#: models.py:55
+msgid "Label"
+msgstr "Etikett"
+
+#: models.py:57
+msgid "Type"
+msgstr "Typ"
+
+#: models.py:58
+msgid "Required"
+msgstr "Nödvändig"
+
+#: models.py:59
+msgid "Visible"
+msgstr "Synlig"
+
+#: models.py:60
+msgid "Choices"
+msgstr "Val"
+
+#: models.py:61
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr ""
+"Kommaseparerad lista med alternativ där det är applicerbart. Om ett "
+"alternativ innehåller kommatecken omslut alternativet med `grava accenter`."
+
+#: models.py:63
+msgid "Default value"
+msgstr "Standardvärde"
+
+#: models.py:65
+msgid "Placeholder Text"
+msgstr "Exempeltext"
+
+#: models.py:67
+msgid "Help text"
+msgstr "Hjälptext"
+
+#: models.py:72 templates/admin/forms/entries.html:28
+msgid "Field"
+msgstr "Fält"
+
+#: models.py:73
+msgid "Fields"
+msgstr "Fält"
+
+#: models.py:119
+msgid "Form entry"
+msgstr "Formuläruppgift"
+
+#: models.py:120
+msgid "Form entries"
+msgstr "Formuläruppgifter"
+
+#: models.py:134
+msgid "Form field entry"
+msgstr "Formulärfältsuppgift"
+
+#: models.py:135
+msgid "Form field entries"
+msgstr "Formulärfältsuppgifter"
+
+#: templates/admin/forms/change_form.html:8
+#: templates/admin/forms/entries.html:57
+msgid "View entries"
+msgstr "Se uppgifter"
+
+#: templates/admin/forms/change_form.html:9
+msgid "History"
+msgstr "Historik"
+
+#: templates/admin/forms/change_form.html:10
+msgid "View on site"
+msgstr "Se på webbplats"
+
+#: templates/admin/forms/entries.html:14
+msgid "Home"
+msgstr "Hem"
+
+#: templates/admin/forms/entries.html:29
+msgid "Include"
+msgstr "Inkludera"
+
+#: templates/admin/forms/entries.html:30
+msgid "Filter by"
+msgstr "Filtrera med"
+
+#: templates/admin/forms/entries.html:48
+msgid "All"
+msgstr "Alla"
+
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
+msgid "Back to form"
+msgstr "Tillbaka till formulär"
+
+#: templates/admin/forms/entries.html:58
+msgid "Export CSV"
+msgstr "Exportera CSV"
+
+#: templates/admin/forms/entries.html:60
+msgid "Entries"
+msgstr "Inlägg"
+
+#: templates/admin/forms/entries.html:94
+msgid "Delete selected"
+msgstr "Radera vald"
+
+#: templates/admin/forms/entries.html:98
+msgid "No entries to display"
+msgstr "Inga inlägg att visa"

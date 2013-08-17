@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% load i18n mezzanine_tags %}
+{% load i18n future mezzanine_tags %}
 
 {% block meta_title %}{% trans "Search Results" %}{% endblock %}
 {% block title %}{% trans "Search Results" %}{% endblock %}
 
 {% block breadcrumb_menu %}
 <li>
-    <a href="{% url home %}">{% trans "Home" %}</a>
+    <a href="{% url "home" %}">{% trans "Home" %}</a>
     <span class="divider">/</span>
 </li>
 <li class="active">{% trans "Search Results" %}</li>
@@ -17,10 +17,13 @@
 
 <p>
 {% if results.paginator.count == 0 %}
-{% trans "No results were found matching your query: " %}<em>{{ query }}</em>
+{% blocktrans %}
+No results were found in {{ search_type }} matching your query: {{ query }}
+{% endblocktrans %}
 {% else %}
-{% trans "Showing" %} {{ results.start_index }} {% trans "to" %} {{ results.end_index }} {% trans "of" %}
-{{ results.paginator.count }} {% trans "results matching your query:" %} <em>{{ query }}</em>
+{% blocktrans with start=results.start_index end=results.end_index total=results.paginator.count %}
+Showing {{ start }} to {{ end }} of {{ total }} results in {{ search_type }} matching your query: {{ query }}
+{% endblocktrans %}
 {% endif %}
 </p>
 

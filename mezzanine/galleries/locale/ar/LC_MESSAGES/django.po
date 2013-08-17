@@ -1,0 +1,55 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ahmad Khayyat <akhayyat@gmail.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"PO-Revision-Date: 2013-01-13 02:41+0000\n"
+"Last-Translator: Ahmad Khayyat <akhayyat@gmail.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/"
+"language/ar/)\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: models.py:38
+msgid "Zip import"
+msgstr "استيراد ملف Zip"
+
+#: models.py:40
+msgid ""
+"Upload a zip file containing images, and they'll be imported into this "
+"gallery."
+msgstr "ارفع ملف zip يحوي صوراً، وسيتم إدراج الصور في هذا المعرض."
+
+#: models.py:44
+msgid "Gallery"
+msgstr "معرض صور"
+
+#: models.py:45
+msgid "Galleries"
+msgstr "معارض الصور"
+
+#: models.py:91
+msgid "File"
+msgstr "ملف"
+
+#: models.py:93
+msgid "Description"
+msgstr "الوصف"
+
+#: models.py:97
+msgid "Image"
+msgstr "صورة"
+
+#: models.py:98
+msgid "Images"
+msgstr "الصور"

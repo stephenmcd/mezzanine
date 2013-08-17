@@ -53,6 +53,7 @@ class RichTextField(models.TextField):
             return value
         tags = settings.RICHTEXT_ALLOWED_TAGS
         attrs = settings.RICHTEXT_ALLOWED_ATTRIBUTES
+        styles = settings.RICHTEXT_ALLOWED_STYLES
         if settings.RICHTEXT_FILTER_LEVEL == RICHTEXT_FILTER_LEVEL_LOW:
             tags += LOW_FILTER_TAGS
             attrs += LOW_FILTER_ATTRS
@@ -62,7 +63,7 @@ class RichTextField(models.TextField):
             return value
         else:
             return clean(value, tags=tags, attributes=attrs, strip=True,
-                         strip_comments=False)
+                         strip_comments=False, styles=styles)
 
 
 class MultiChoiceField(models.CharField):
@@ -87,7 +88,7 @@ class MultiChoiceField(models.CharField):
         return MultipleChoiceField(**defaults)
 
     def get_db_prep_value(self, value, **kwargs):
-        if isinstance(value, list):
+        if isinstance(value, (tuple, list)):
             value = ",".join([unicode(i) for i in value])
         return value
 
@@ -122,6 +123,7 @@ else:
     class FileField(FileBrowseField):
         def __init__(self, *args, **kwargs):
             kwargs.setdefault("directory", kwargs.pop("upload_to", None))
+            kwargs.setdefault("max_length", 255)
             super(FileField, self).__init__(*args, **kwargs)
 
 

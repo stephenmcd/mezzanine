@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Pedro Araújo <pedromcaraujo@gmail.com>, 2012
+# Pedro Araújo <pedromcaraujo@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:37-0430\n"
-"PO-Revision-Date: 2012-05-26 18:09+0000\n"
-"Last-Translator: Pedro Araújo <pedromcaraujo@gmail.com>\n"
-"Language-Team: Portuguese (Portugal))\n"
+"POT-Creation-Date: 2013-04-07 10:40-0430\n"
+"PO-Revision-Date: 2012-08-26 12:31+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
+"mezzanine/language/pt_PT/)\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
@@ -34,15 +35,15 @@ msgstr "Erro"
 msgid "Sorry, an error occurred."
 msgstr "Desculpe-nos, ocorreu um erro."
 
-#: templates/mobile/base.html:31 templates/mobile/index.html:6
+#: templates/mobile/base.html:41 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Início"
 
-#: templates/mobile/base.html:43
+#: templates/mobile/base.html:53
 msgid "Powered by"
 msgstr "Powered by"
 
-#: templates/mobile/base.html:44
+#: templates/mobile/base.html:54
 msgid "View Full Site"
 msgstr "Ver Site Normal"
 
@@ -101,6 +102,7 @@ msgid "or"
 msgstr "ou"
 
 #: templates/mobile/blog/blog_post_list.html:4
+#: templates/mobile/blog/blog_post_list.html:19
 msgid "Blog"
 msgstr "Blog"
 
@@ -125,5 +127,9 @@ msgid "quotes"
 msgstr "aspas"
 
 #: templates/mobile/includes/search.html:5
-msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
-msgstr " para frases exatas, + para marcar uma palavra ou frase como obrigatória, e - para excluir uma palavra ou frase."
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr ""
+" para frases exatas, + para marcar uma palavra ou frase como obrigatória, e "
+"- para excluir uma palavra ou frase."

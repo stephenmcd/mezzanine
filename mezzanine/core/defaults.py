@@ -44,6 +44,23 @@ register_setting(
 )
 
 register_setting(
+    name="AKISMET_API_KEY",
+    label=_("Akismet API Key"),
+    description=_("Key for http://akismet.com spam filtering service. Used "
+        "for filtering comments and forms."),
+    editable=True,
+    default="",
+)
+
+register_setting(
+    name="BITLY_ACCESS_TOKEN",
+    label=_("bit.ly access token"),
+    description=_("Access token for http://bit.ly URL shortening service."),
+    editable=True,
+    default="",
+)
+
+register_setting(
     name="CACHE_SET_DELAY_SECONDS",
     description=_("Mezzanine's caching uses a technique know as mint "
         "caching. This is where the requested expiry for a cache entry "
@@ -56,15 +73,6 @@ register_setting(
         "cache entry."),
     editable=False,
     default=30,
-)
-
-register_setting(
-    name="AKISMET_API_KEY",
-    label=_("Akismet API Key"),
-    description=_("Key for http://akismet.com spam filtering service. Used "
-        "for filtering comments and forms."),
-    editable=True,
-    default="",
 )
 
 if "mezzanine.blog" in settings.INSTALLED_APPS:
@@ -143,8 +151,8 @@ register_setting(
 register_setting(
     name="GOOGLE_ANALYTICS_ID",
     label=_("Google Analytics ID"),
-    editable=True,
     description=_("Google Analytics ID (http://www.google.com/analytics/)"),
+    editable=True,
     default="",
 )
 
@@ -163,6 +171,13 @@ register_setting(
 )
 
 register_setting(
+    name="INLINE_EDITING_ENABLED",
+    description=_("If ``True``, front-end inline editing will be enabled."),
+    editable=False,
+    default=True,
+)
+
+register_setting(
     name="JQUERY_FILENAME",
     label=_("Name of the jQuery file."),
     description=_("Name of the jQuery file found in "
@@ -172,11 +187,41 @@ register_setting(
 )
 
 register_setting(
+    name="JQUERY_UI_FILENAME",
+    label=_("Name of the jQuery UI file."),
+    description=_("Name of the jQuery UI file found in "
+                  "mezzanine/core/static/mezzanine/js/"),
+    editable=False,
+    default="jquery-ui-1.9.1.custom.min.js",
+)
+
+register_setting(
     name="MAX_PAGING_LINKS",
     label=_("Max paging links"),
     description=_("Max number of paging links to display when paginating."),
     editable=True,
     default=10,
+)
+
+register_setting(
+    name="MEDIA_LIBRARY_PER_SITE",
+    label=_("Media library per site"),
+    description=_("If ``True``, each site will use its own directory within "
+        "the filebrowser media library."),
+    editable=False,
+    default=False,
+)
+
+register_setting(
+    name="OWNABLE_MODELS_ALL_EDITABLE",
+    description=_("Models that subclass ``Ownable`` and use the "
+        "``OwnableAdmin`` have their admin change-list records filtered "
+        "down to records owned by the current user. This setting contains a "
+        "sequence of models in the format ``app_label.object_name``, that "
+        "when subclassing ``Ownable``, will still show all records in the "
+        "admin change-list interface, regardless of the current user."),
+    editable=False,
+    default=(),
 )
 
 register_setting(
@@ -222,11 +267,20 @@ register_setting(
 )
 
 register_setting(
-    name="RICHTEXT_FILTER",
-    description=_("Dotted path to the function to call on a ``RichTextField`` "
-        "value before it is rendered to the template."),
+    name="RICHTEXT_ALLOWED_STYLES",
+    description=_("List of inline CSS styles that won't be stripped from "
+        "``RichTextField`` instances."),
     editable=False,
-    default=None,
+    default=("margin-top", "margin-bottom", "margin-left", "margin-right",
+        "float", "vertical-align", "border", "margin"),
+)
+
+register_setting(
+    name="RICHTEXT_FILTERS",
+    description=_("List of dotted paths to functions, called in order, on a "
+        "``RichTextField`` value before it is rendered to the template."),
+    editable=False,
+    default=(),
 )
 
 RICHTEXT_FILTER_LEVEL_HIGH = 1
@@ -260,6 +314,16 @@ register_setting(
     editable=True,
     choices=RICHTEXT_FILTER_LEVELS,
     default=RICHTEXT_FILTER_LEVEL_HIGH,
+)
+
+register_setting(
+    name="SEARCH_MODEL_CHOICES",
+    description=_("Sequence of models that will be provided by default as "
+        "choices in the search form. Each model should be in the format "
+        "``app_label.model_name``. Only models that subclass "
+        "``mezzanine.core.models.Displayable`` should be used."),
+    editable=False,
+    default=("pages.Page", "blog.BlogPost"),
 )
 
 register_setting(
@@ -310,6 +374,19 @@ register_setting(
 )
 
 register_setting(
+    name="SPAM_FILTERS",
+    description=_("Sequence of dotted Python paths to callable functions "
+        "used for checking posted content (such as forms or comments) is "
+        "spam. Each function should accept three arguments: the request "
+        "object, the form object, and the URL that was posted from. "
+        "Defaults to ``mezzanine.utils.views.is_spam_akismet`` which will "
+        "use the http://akismet.com spam filtering service when the "
+        "``AKISMET_API_KEY`` setting is configured."),
+    editable=False,
+    default=("mezzanine.utils.views.is_spam_akismet",),
+)
+
+register_setting(
     name="SSL_ENABLED",
     label=_("Enable SSL"),
     description=_("If ``True``, users will be automatically redirected to "
@@ -336,6 +413,16 @@ register_setting(
                 "/admin or /example to run over SSL.",
     editable=False,
     default=("/admin", "/account"),
+)
+
+register_setting(
+    name="SSL_FORCED_PREFIXES_ONLY",
+    description=_("If ``True``, only URLs specified by the "
+        "``SSL_FORCE_URL_PREFIXES`` setting will be accessible over SSL, "
+        "and all other URLs will be redirected back to HTTP if accessed "
+        "over HTTPS."),
+    editable=False,
+    default=True,
 )
 
 register_setting(
@@ -408,13 +495,13 @@ register_setting(
     description=_("Sequence of setting names available within templates."),
     editable=False,
     default=(
-        "ACCOUNTS_VERIFICATION_REQUIRED", "ADMIN_MEDIA_PREFIX",
-        "BLOG_BITLY_USER", "BLOG_BITLY_KEY",
-        "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
-        "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
+        "ACCOUNTS_VERIFICATION_REQUIRED", "BITLY_ACCESS_TOKEN",
+        "BLOG_USE_FEATURED_IMAGE", "COMMENTS_DISQUS_SHORTNAME",
+        "COMMENTS_NUM_LATEST", "COMMENTS_DISQUS_API_PUBLIC_KEY",
+        "COMMENTS_DISQUS_API_SECRET_KEY", "COMMENTS_USE_RATINGS",
         "DEV_SERVER", "FORMS_USE_HTML5", "GRAPPELLI_INSTALLED",
         "GOOGLE_ANALYTICS_ID", "JQUERY_FILENAME", "LOGIN_URL", "LOGOUT_URL",
-        "PAGES_MENU_SHOW_ALL", "SITE_TITLE", "SITE_TAGLINE", "RATINGS_MAX",
+        "SITE_TITLE", "SITE_TAGLINE",
     ),
 )
 
@@ -433,6 +520,16 @@ register_setting(
         "``RICHTEXT_WIDGET_CLASS`` is used."),
     editable=False,
     default="mezzanine/js/tinymce_setup.js",
+)
+
+register_setting(
+    name="UPLOAD_TO_HANDLERS",
+    description=_("Dict mapping file field names in the format "
+        "``app_label.model_name.field_name`` to the Python dotted path "
+        "to function names that will be used for the file field's "
+        "``upload_to`` argument."),
+    editable=False,
+    default={},
 )
 
 # The following settings are defined here for documentation purposes

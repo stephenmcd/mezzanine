@@ -3,7 +3,6 @@ Utils called from project_root/docs/conf.py when Sphinx
 documentation is generated.
 """
 
-from __future__ import with_statement
 from datetime import datetime
 import os.path
 from shutil import copyfile, move
@@ -102,9 +101,11 @@ def build_changelog(docs_path, package_name="mezzanine"):
     changelog_file = os.path.join(project_path, changelog_filename)
     versions = SortedDict()
     repo = None
-    ignore = ("AUTHORS", "formatting", "typo", "pep8", "whitespace",
-              "README", "trans", "print debug", "debugging", "tabs",
-              "style", "sites", "ignore", "tweak", "cleanup", "minor")
+    ignore = ("AUTHORS", "formatting", "typo", "pep8", "pep 8",
+              "whitespace", "README", "trans", "print debug",
+              "debugging", "tabs", "style", "sites", "ignore",
+              "tweak", "cleanup", "minor", "for changeset",
+              ".com``", "oops", "syntax")
     hotfixes = {
         "40cbc47b8d8a": "1.0.9",
         "a25749986abc": "1.0.10",
@@ -113,11 +114,13 @@ def build_changelog(docs_path, package_name="mezzanine"):
     # Load the repo.
     try:
         from mercurial import ui, hg, error
+        from mercurial.commands import tag
     except ImportError:
         pass
     else:
         try:
-            repo = hg.repository(ui.ui(), project_path)
+            ui = ui.ui()
+            repo = hg.repository(ui, project_path)
         except error.RepoError:
             return
     if repo is None:
@@ -160,6 +163,21 @@ def build_changelog(docs_path, package_name="mezzanine"):
                         "date": _changeset_date(cs).strftime("%b %d, %Y")
                     }
                     new_version = len(files) == 1
+
+        # Tag new versions.
+        hotfix = hotfixes.get(cs.hex()[:12])
+        if hotfix or new_version:
+            if hotfix:
+                version_tag = hotfix
+            else:
+                try:
+                    version_tag = locals()[version_var]
+                except KeyError:
+                    version_tag = None
+            if version_tag and version_tag not in cs.tags():
+                print "Tagging version %s" % version_tag
+                tag(ui, repo, version_tag, rev=cs.hex())
+
         # Ignore changesets that are merges, bumped the version, closed
         # a branch, regenerated the changelog itself, contain an ignore
         # word, or are one word long.
@@ -173,7 +191,6 @@ def build_changelog(docs_path, package_name="mezzanine"):
             continue
         # Ensure we have a current version and if so, add this changeset's
         # description to it.
-        hotfix = hotfixes.get(cs.hex()[:12])
         version = None
         try:
             version = locals()[version_var]

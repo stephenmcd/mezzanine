@@ -7,7 +7,7 @@
 <h3>{% trans "Recent Tweets" %}</h3>
 <ul class="unstyled tweets">
     {% for tweet in tweets %}
-    <li>
+    <li class="clearfix">
         <img src="{{ tweet.profile_image_url }}" alt="">
         <a href="http://twitter.com/{{ tweet.user_name }}">@{{ tweet.user_name }}</a>
         {% if tweet.user_name != tweet.full_name %}<span class="name">@{{ tweet.full_name }}</span>{% endif %}
@@ -17,7 +17,7 @@
         <a href="http://twitter.com/{{ tweet.retweeter_user_name }}">@{{ tweet.retweeter_full_name }}</a></p>
         {% endif %}
         <div>{{ tweet.text|safe }}</div>
-        <span class="timespan">{{ tweet.created_at|timesince }} {% trans "ago" %}</span>
+        <span class="timespan">{% blocktrans with sometime=tweet.created_at|timesince %}{{ sometime }} ago{% endblocktrans %}</span>
     </li>
     {% endfor %}
 </ul>

@@ -1,0 +1,273 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jérôme Place <djayp83@hotmail.com>, 2012.
+#   <mathias.ettinger@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 10:42-0430\n"
+"PO-Revision-Date: 2012-10-15 21:13+0000\n"
+"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
+"language/fr/)\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: defaults.py:20
+msgid "Minimum length for passwords"
+msgstr "Longueur minimum des mots de passe"
+
+#: defaults.py:27
+msgid "List of fields to exclude from the profile form."
+msgstr "Liste des champs à exclure du formulaire de profil."
+
+#: defaults.py:34
+msgid ""
+"Dotted package path and class name of profile form to use for users signing "
+"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgstr ""
+"Chemin d'accès au package et au nom de la classe (notation pointée) "
+"contenant le formulaire à utiliser, si ``mezzanine.accounts`` est installé, "
+"lorsque les utilisateurs créent et mettent à jour leur profil."
+
+#: defaults.py:43
+msgid "If ``True``, users will have their own public profile pages."
+msgstr "Si ``vrai``, les utilisateurs auront une page de profil publique."
+
+#: defaults.py:51
+msgid ""
+"If ``True``, when users create an account, they will be sent an email with a "
+"verification link, which they must click to enable their account."
+msgstr ""
+"Si ``vrai``, un e-mail sera envoyé aux utilisateurs lors de la création d'un "
+"compte. Cet e-mail contient un lien de vérification que les utilisateurs "
+"doivent suivre pour activer leur compte."
+
+#: forms.py:21 forms.py:190
+msgid "Username or email address"
+msgstr "Nom d'utilisateur ou adresse e-mail"
+
+#: forms.py:22 forms.py:66
+msgid "Password"
+msgstr "Mot de passe"
+
+#: forms.py:35
+msgid "Invalid username/email and password"
+msgstr "Nom d'utilisateur/adresse e-mail et mot de passe invalide"
+
+#: forms.py:37
+msgid "Your account is inactive"
+msgstr "Votre compte est inactif"
+
+#: forms.py:68
+msgid "Password (again)"
+msgstr "Mot de passe (confirmation)"
+
+#: forms.py:81
+msgid "Only letters, numbers, dashes or underscores please"
+msgstr ""
+"N'utilisez que des lettres, nombres, tirets (-) ou blancs soulignés (_)"
+
+#: forms.py:95
+msgid "Leave blank unless you want to change your password"
+msgstr "Laissez vide si vous ne voulez pas changer votre mot de passe"
+
+#: forms.py:114
+msgid "Username can only contain letters, numbers, dashes or underscores."
+msgstr ""
+"Le nom d'utilisateur ne peut contenir que des lettres, nombres, tirets (-) "
+"ou blancs soulignés (_)."
+
+#: forms.py:122
+msgid "This username is already registered"
+msgstr "Ce nom d'utilisateur est déjà présent"
+
+#: forms.py:135
+msgid "Passwords do not match"
+msgstr "Les mots de passe ne sont pas identiques"
+
+#: forms.py:137
+#, python-format
+msgid "Password must be at least %s characters"
+msgstr "Le mot de passe doit avoir au moins %s caractères"
+
+#: forms.py:152
+msgid "This email is already registered"
+msgstr "Cet e-mail est déjà enregistré"
+
+#: forms.py:199
+msgid "Invalid username/email"
+msgstr "Nom d'utilisateur/adresse e-mail invalide"
+
+#: views.py:31
+msgid "Successfully logged in"
+msgstr "Identification réussie"
+
+#: views.py:34
+msgid "Login"
+msgstr "Identification"
+
+#: views.py:43
+msgid "Successfully logged out"
+msgstr "Déconnexion réussie"
+
+#: views.py:57
+msgid ""
+"A verification email has been sent with a link for activating your account."
+msgstr ""
+"Un e-mail de vérification vous a été envoyé. Il contient un lien pour "
+"activer votre compte."
+
+#: views.py:61 views.py:80
+msgid "Successfully signed up"
+msgstr "Inscription réussie"
+
+#: views.py:64
+msgid "Signup"
+msgstr "Inscription"
+
+#: views.py:83 views.py:167
+msgid "The link you clicked is no longer valid."
+msgstr "Le lien sur lequel vous avez cliqué a expiré."
+
+#: views.py:141
+msgid "Profile updated"
+msgstr "Profil mis à jour"
+
+#: views.py:146
+msgid "Update Profile"
+msgstr "Mettre à jour le profil"
+
+#: views.py:155
+msgid ""
+"A verification email has been sent with a link for resetting your password."
+msgstr ""
+"Un e-mail de vérification vous a été envoyé. Il contient un lien pour "
+"réinitialiser votre mot de passe."
+
+#: views.py:157
+msgid "Password Reset"
+msgstr "Réinitialisation du mot de passe"
+
+#: templates/accounts/account_login.html:7
+msgid "You're already logged in."
+msgstr "Vous êtes déjà connecté."
+
+#: templates/accounts/account_login.html:11
+#, python-format
+msgid ""
+"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
+"\">sign up</a> for one now."
+msgstr ""
+"Si vous n'avez pas de compte, vous pouvez <a href=\"%(signup_url)s?next="
+"%(next)s\">en créer un</a> dès maintenant."
+
+#: templates/accounts/account_login.html:14
+#, python-format
+msgid ""
+"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">reset your password</a> if you've forgotten it.</p>"
+msgstr ""
+"<p>Vous pouvez <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">réinitialiser votre mot de passe</a> si vous l'avez oublié.</p>"
+
+#: templates/accounts/account_password_reset.html:6
+msgid ""
+"Enter your username or email address and you'll receive an email with a link "
+"you need to click, in order to log in and change your password."
+msgstr ""
+"Indiquez votre nom d'utilisateur ou votre adresse e-mail pour recevoir un e-"
+"mail contenant un lien que vous devrez utiliser pour vous connecter et "
+"changer votre mot de passe."
+
+#: templates/accounts/account_profile.html:17
+#: templates/accounts/includes/user_panel.html:9
+msgid "Update profile"
+msgstr "Mettre à jour le profil"
+
+#: templates/accounts/account_signup.html:7
+msgid ""
+"You're already logged in. If you'd like to create a new account, you'll need "
+"to log out first."
+msgstr ""
+"Vous êtes déjà connecté. Si vous souhaitez créer un nouvel utilisateur, vous "
+"devez d'abord vous déconnecter."
+
+#: templates/accounts/account_signup.html:11
+msgid ""
+"After signing up, you'll receive an email with a link you need to click, in "
+"order to activate your account."
+msgstr ""
+"Après avoir créé un compte, vous recevrez un e-mail contenant un lien que "
+"vous devrez utiliser pour activer votre compte."
+
+#: templates/accounts/includes/user_panel.html:4
+msgid "Logged in as: "
+msgstr "Identifié en tant que :"
+
+#: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel_nav.html:8
+msgid "Log out"
+msgstr "Déconnexion"
+
+#: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log in"
+msgstr "S'identifier"
+
+#: templates/accounts/includes/user_panel.html:18
+msgid "or"
+msgstr "ou"
+
+#: templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:13
+msgid "Sign up"
+msgstr "Créer un compte"
+
+#: templates/admin/profile_inline.html:10
+msgid "Profile information"
+msgstr "Informations du profil"
+
+#: templates/email/password_reset_verify.html:3
+#: templates/email/password_reset_verify.txt:3
+msgid "Hey there, the password reset form was used for your account."
+msgstr ""
+"Bonjour, une demande de réinitialisation de mot de passe a été effectuée "
+"pour votre compte."
+
+#: templates/email/password_reset_verify.html:4
+#: templates/email/password_reset_verify.txt:4
+msgid "Please use the link below to log in and update your password."
+msgstr ""
+"Veuillez utiliser le lien ci-dessous pour vous connecter et changer votre "
+"mot de passe."
+
+#: templates/email/password_reset_verify.html:6
+#: templates/email/password_reset_verify.txt:6
+msgid ""
+"If you didn't request for your password to be reset, please ignore this "
+"email."
+msgstr "Ignorez cet e-mail si vous n'êtes pas à l'origine de cette action."
+
+#: templates/email/password_reset_verify_subject.txt:2
+msgid "Reset your password"
+msgstr "Réinitialiser votre mot de passe"
+
+#: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
+msgid "Hey there, thanks for creating your account."
+msgstr "Bonjour, vous venez de créer un compte."
+
+#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "Merci d'utiliser le lien ci-dessous pour l'activer."
+
+#: templates/email/signup_verify_subject.txt:2
+msgid "Activate your account"
+msgstr "Activer votre compte"

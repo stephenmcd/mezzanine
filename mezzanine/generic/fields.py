@@ -39,6 +39,18 @@ class BaseGenericRelation(GenericRelation):
             kwargs.setdefault("to", to)
         super(BaseGenericRelation, self).__init__(*args, **kwargs)
 
+    def db_type(self, connection):
+        """
+        South expects this to return a string for initial migrations
+        against MySQL, to check for text or geometery columns. These
+        generic fields are neither of those, but returning an empty
+        string here at least allows migrations to run successfully.
+        See http://south.aeracode.org/ticket/1204
+        """
+        if self.frozen_by_south:
+            return ""
+        return None
+
     def contribute_to_class(self, cls, name):
         """
         Add each of the names and fields in the ``fields`` attribute
@@ -62,6 +74,10 @@ class BaseGenericRelation(GenericRelation):
                 if not field.verbose_name:
                     field.verbose_name = self.verbose_name
                 cls.add_to_class(name_string, copy(field))
+            # Add a getter function to the model we can use to retrieve
+            # the field/manager by name.
+            getter_name = "get_%s_name" % self.__class__.__name__.lower()
+            cls.add_to_class(getter_name, lambda self: name)
             # For some unknown reason the signal won't be triggered
             # if given a sender arg, particularly when running
             # Cartridge with the field RichTextPage.keywords - so
@@ -82,14 +98,15 @@ class BaseGenericRelation(GenericRelation):
             to = self.rel.to
             if isinstance(to, basestring):
                 to = get_model(*to.split(".", 1))
-            assert isinstance(kwargs["instance"], to)
-        except (TypeError, ValueError, AssertionError):
+            if not isinstance(kwargs["instance"], to):
+                raise TypeError
+        except (TypeError, ValueError):
             return
         for_model = kwargs["instance"].content_type.model_class()
         if issubclass(for_model, self.model):
             instance_id = kwargs["instance"].object_pk
             try:
-                instance = self.model.objects.get(id=instance_id)
+                instance = for_model.objects.get(id=instance_id)
             except self.model.DoesNotExist:
                 # Instance itself was deleted - signals are irrelevant.
                 return
@@ -159,7 +176,7 @@ class KeywordsField(BaseGenericRelation):
         isn't a form field mapped to ``GenericRelation`` model fields.
         """
         from mezzanine.generic.forms import KeywordsWidget
-        kwargs["widget"] = KeywordsWidget()
+        kwargs["widget"] = KeywordsWidget
         return super(KeywordsField, self).formfield(**kwargs)
 
     def save_form_data(self, instance, data):
@@ -199,10 +216,13 @@ class KeywordsField(BaseGenericRelation):
         if hasattr(cls, "search_fields") and name in cls.search_fields:
             try:
                 weight = cls.search_fields[name]
-            except AttributeError:
+            except TypeError:
                 # search_fields is a sequence.
                 index = cls.search_fields.index(name)
+                search_fields_type = type(cls.search_fields)
+                cls.search_fields = list(cls.search_fields)
                 cls.search_fields[index] = string_field_name
+                cls.search_fields = search_fields_type(cls.search_fields)
             else:
                 del cls.search_fields[name]
                 cls.search_fields[string_field_name] = weight
@@ -228,6 +248,7 @@ class RatingField(BaseGenericRelation):
 
     related_model = "generic.Rating"
     fields = {"%s_count": IntegerField(default=0, editable=False),
+              "%s_sum": IntegerField(default=0, editable=False),
               "%s_average": FloatField(default=0, editable=False)}
 
     def related_items_changed(self, instance, related_manager):
@@ -236,8 +257,10 @@ class RatingField(BaseGenericRelation):
         """
         ratings = [r.value for r in related_manager.all()]
         count = len(ratings)
-        average = sum(ratings) / float(count) if count > 0 else 0
+        _sum = sum(ratings)
+        average = _sum / float(count) if count > 0 else 0
         setattr(instance, "%s_count" % self.related_field_name, count)
+        setattr(instance, "%s_sum" % self.related_field_name, _sum)
         setattr(instance, "%s_average" % self.related_field_name, average)
         instance.save()
 

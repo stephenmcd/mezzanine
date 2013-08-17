@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Breno Uchoa <brenouchoa@gmail.com>, 2012
+# Hilton Medeiros <medeiros.hilton@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
+"POT-Creation-Date: 2013-04-07 09:33-0430\n"
+"PO-Revision-Date: 2013-04-30 16:30+0000\n"
+"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/mezzanine/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: __init__.py:16
+msgid "User"
+msgstr "Usuário"
+
+#: __init__.py:17
+msgid "List"
+msgstr "Lista"
+
+#: __init__.py:18
+msgid "Search"
+msgstr "Pesquisa"
+
+#: defaults.py:21
+msgid "Default Twitter Query Type"
+msgstr "Tipo de Pesquisa do Twitter Padrão"
+
+#: defaults.py:22
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
+msgstr "Tipo de pesquisa que será usada para coletar tweets para o feed padrão do Twitter."
+
+#: defaults.py:31
+msgid "Default Twitter Query"
+msgstr "Pesquisa do Twitter Padrão"
+
+#: defaults.py:32
+msgid "Twitter query to use for the default query type."
+msgstr "Pesquisa do Twitter para usar para o tipo de pesquisa padrão."
+
+#: defaults.py:39
+msgid "Default Number of Tweets"
+msgstr "Número Padrão de Tweets"
+
+#: defaults.py:40
+msgid "Number of tweets to display in the default Twitter feed."
+msgstr "Número de tweets para exibir no feed do Twitter padrão."
+
+#: models.py:27
+msgid "Type"
+msgstr "Tipo"
+
+#: models.py:29
+msgid "Value"
+msgstr "Valor"
+
+#: models.py:33
+msgid "Twitter query"
+msgstr "Consulta do Twitter"
+
+#: models.py:34
+msgid "Twitter queries"
+msgstr "Consultas do Twitter"
+
+#: models.py:102
+msgid "Twitter ID"
+msgstr "Twitter ID"
+
+#: models.py:103
+msgid "Date/time"
+msgstr "Data/horário"
+
+#: models.py:104
+msgid "Message"
+msgstr "Mensagem"
+
+#: models.py:105
+msgid "Profile image URL"
+msgstr "URL imagem de perfil"
+
+#: models.py:106
+msgid "User name"
+msgstr "Nome de usuário"
+
+#: models.py:107
+msgid "Full name"
+msgstr "Nome completo"
+
+#: models.py:109
+msgid "Profile image URL (Retweeted by)"
+msgstr "URL imagem de perfil (Retuitado por)"
+
+#: models.py:111
+msgid "User name (Retweeted by)"
+msgstr "User name (Retuitado por)"
+
+#: models.py:113
+msgid "Full name (Retweeted by)"
+msgstr "Nome Completo (Retuitado por)"
+
+#: models.py:119
+msgid "Tweet"
+msgstr "Tweet"
+
+#: models.py:120
+msgid "Tweets"
+msgstr "Tweets"
+
+#: templates/twitter/tweets.html:7
+msgid "Recent Tweets"
+msgstr "Tweets Recentes"
+
+#: templates/twitter/tweets.html:20
+msgid "ago"
+msgstr "atrás"

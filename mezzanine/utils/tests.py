@@ -1,11 +1,18 @@
 
-from __future__ import with_statement
 from _ast import PyCF_ONLY_AST
 import os
 from shutil import copyfile, copytree
 
+from django.db import connection
+from django.template import Context, Template
+from django.test import TestCase as BaseTestCase
+
 from mezzanine.conf import settings
 from mezzanine.utils.importing import path_for_import
+from mezzanine.utils.models import get_user_model
+
+
+User = get_user_model()
 
 
 # Ignore these warnings in pyflakes - if added to, please comment why.
@@ -16,13 +23,6 @@ IGNORE_ERRORS = (
 
     # Used to version subpackages.
     "'__version__' imported but unused",
-
-    # Backward compatibility for feeds changed in Django 1.4
-    "redefinition of unused 'Feed'",
-    "redefinition of unused 'feed'",
-
-    # Backward compatibility for timezone support
-    "redefinition of unused 'now'",
 
     # No caching fallback
     "redefinition of function 'nevercache'",
@@ -37,7 +37,67 @@ IGNORE_ERRORS = (
     "continuation line",
     "closing bracket does not match",
 
+    # Jython compatiblity
+    "redefinition of unused 'Image",
+
+    # Django 1.5 custom user compatibility
+    "redefinition of unused 'get_user_model",
+
+    # Deprecated compat timezones for Django 1.3
+    "mezzanine/utils/timezone",
+
 )
+
+
+class TestCase(BaseTestCase):
+    """
+    This is the base test case providing common features for all tests
+    across the different apps in Mezzanine.
+    """
+
+    def setUp(self):
+        """
+        Creates an admin user and sets up the debug cursor, so that
+        we can track the number of queries used in various places.
+        """
+        self._username = "test"
+        self._password = "test"
+        args = (self._username, "example@example.com", self._password)
+        self._user = User.objects.create_superuser(*args)
+        self._debug_cursor = connection.use_debug_cursor
+        connection.use_debug_cursor = True
+
+    def tearDown(self):
+        """
+        Clean up the admin user created and debug cursor.
+        """
+        self._user.delete()
+        connection.use_debug_cursor = self._debug_cursor
+
+    def queries_used_for_template(self, template, **context):
+        """
+        Return the number of queries used when rendering a template
+        string.
+        """
+        connection.queries = []
+        t = Template(template)
+        t.render(Context(context))
+        return len(connection.queries)
+
+    def create_recursive_objects(self, model, parent_field, **kwargs):
+        """
+        Create multiple levels of recursive objects.
+        """
+        per_level = range(3)
+        for _ in per_level:
+            kwargs[parent_field] = None
+            level1 = model.objects.create(**kwargs)
+            for _ in per_level:
+                kwargs[parent_field] = level1
+                level2 = model.objects.create(**kwargs)
+                for _ in per_level:
+                    kwargs[parent_field] = level2
+                    model.objects.create(**kwargs)
 
 
 def copy_test_to_media(module, name):

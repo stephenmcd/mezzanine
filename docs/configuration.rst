@@ -17,7 +17,7 @@ Settings are defined by creating a module named ``defaults.py`` inside
 one or more of the applications defined in your project's
 ``settings.INSTALLED_APPS`` setting. Inside your ``defaults.py`` module
 you then call the function ``mezzanine.conf.register_setting`` for
-each setting you want to define which takes four keyword arguments:
+each setting you want to define which takes several keyword arguments:
 
   * ``name``: The name of the setting.
   * ``description``: The description of the setting.
@@ -77,6 +77,14 @@ reloading your entire project. In the snippet above by calling
 accessed is loaded each time the view is run. This ensures that if the value
 of the setting has been changed by an admin user it will be reflected on the
 website.
+
+.. note::
+
+    It's also important to realize that with any settings flagged as
+    editable, defining a value for these in your project's
+    ``settings.py`` will only serve to provide their default values.
+    Once editable settings are modified via the admin, their values
+    stored in the database will always be used.
 
 Django Settings
 ===============

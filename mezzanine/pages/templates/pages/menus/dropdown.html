@@ -1,28 +1,27 @@
-{% load i18n pages_tags %}
+{% load i18n future pages_tags %}
 {% spaceless %}
 {% if page_branch_in_menu %}
 
 {% if branch_level == 0 %}
 <ul class="nav pull-right">
     {% for page in page_branch %}
-    {% if page.is_primary and forloop.first %}
-    <li class="{% if on_home %} active{% endif %}" id="dropdown-menu-{{ page.html_id }}">
-        <a href="{% url home %}">{% trans "Home" %}</a>
+    {% if not has_home and page.is_primary and forloop.first %}
+    <li class="{% if on_home %} active{% endif %}" id="dropdown-menu-home">
+        <a href="{% url "home" %}">{% trans "Home" %}</a>
     </li>
-    <li class="divider-vertical"></li>
     {% endif %}
     {% if page.in_menu %}
     <li class="dropdown{% if page.is_current_or_ascendant %} active{% endif %}"
         id="dropdown-menu-{{ page.html_id }}">
         <a href="{{ page.get_absolute_url }}">
             {{ page.title }}
-            {% if page.has_children %}<span class="caret"></span>{% endif %}
+            {% if page.has_children_in_menu %}<span class="caret"></span>{% endif %}
         </a>
-        {% if page.has_children %}{% page_menu page %}{% endif %}
+        {% if page.has_children_in_menu %}{% page_menu page %}{% endif %}
     </li>
-    <li class="divider-vertical"></li>
     {% endif %}
     {% endfor %}
+    <li class="divider-vertical"></li>
 </ul>
 {% endif %}
 

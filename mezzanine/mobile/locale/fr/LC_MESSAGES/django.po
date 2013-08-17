@@ -3,19 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jérôme Place <djayp83@hotmail.com>, 2012.
+#   <mathias.ettinger@gmail.com>, 2012.
+#   <strider@strycore.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-17 10:36-0430\n"
-"PO-Revision-Date: 2012-05-26 18:09+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: French (http://www.transifex.net/projects/p/mezzanine/language/fr/)\n"
+"POT-Creation-Date: 2013-04-07 10:40-0430\n"
+"PO-Revision-Date: 2012-09-16 16:24+0000\n"
+"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
+"language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
@@ -23,7 +27,7 @@ msgstr "Page non trouvée"
 
 #: templates/mobile/404.html:10
 msgid "The page you requested does not exist."
-msgstr "La page demandée n'existe pas"
+msgstr "La page demandée n'existe pas."
 
 #: templates/mobile/500.html:6
 msgid "Error"
@@ -33,15 +37,15 @@ msgstr "Erreur"
 msgid "Sorry, an error occurred."
 msgstr "Désolé, une erreur est survenue."
 
-#: templates/mobile/base.html:31 templates/mobile/index.html:6
+#: templates/mobile/base.html:41 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Accueil"
 
-#: templates/mobile/base.html:43
+#: templates/mobile/base.html:53
 msgid "Powered by"
 msgstr "Propulsé par"
 
-#: templates/mobile/base.html:44
+#: templates/mobile/base.html:54
 msgid "View Full Site"
 msgstr "Version normale"
 
@@ -52,11 +56,11 @@ msgstr "Ceci est la page d'accueil pour la version mobile."
 #: templates/mobile/search_results.html:5
 #: templates/mobile/search_results.html:6
 msgid "Search Results"
-msgstr "Résultats de recherche"
+msgstr "Résultats de la recherche"
 
 #: templates/mobile/search_results.html:12
 msgid "No results were found matching your query: "
-msgstr "Aucun résultats ne correspond à votre requête:"
+msgstr "Aucun résultat ne correspond à votre requête :"
 
 #: templates/mobile/search_results.html:14
 msgid "Showing"
@@ -72,7 +76,7 @@ msgstr "sur"
 
 #: templates/mobile/search_results.html:15
 msgid "results matching your query:"
-msgstr "résultats correspondant à votre requête:"
+msgstr "résultats correspondant à votre requête :"
 
 #: templates/mobile/search_results.html:23
 msgid "read more"
@@ -93,15 +97,16 @@ msgstr "Tags"
 
 #: templates/mobile/blog/blog_post_detail.html:52
 msgid "Share this on:"
-msgstr "Partager sur:"
+msgstr "Partager sur :"
 
 #: templates/mobile/blog/blog_post_detail.html:54
 msgid "or"
 msgstr "ou"
 
 #: templates/mobile/blog/blog_post_list.html:4
+#: templates/mobile/blog/blog_post_list.html:19
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"
@@ -124,5 +129,9 @@ msgid "quotes"
 msgstr "guillemets"
 
 #: templates/mobile/includes/search.html:5
-msgid " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase."
-msgstr "pour une phrase exacte, + pour rendre un mot ou une phrase obligatoire, et - pour exclure un mot ou une phrase."
+msgid ""
+" for exact phrases, + to make a word or phrase required, and - to exclude a "
+"word or phrase."
+msgstr ""
+" pour une phrase exacte, + pour rendre un mot ou une phrase obligatoire et - "
+"pour exclure un mot ou une phrase."

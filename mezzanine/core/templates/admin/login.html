@@ -1,9 +1,9 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
+{% load i18n future staticfiles %}
 
 {% block stylesheets %}
 {{ block.super }}
-<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/login.css">
+<link rel="stylesheet" type="text/css" href="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"css/login.css" %}">
 {% endblock %}
 
 {% block bodyclass %}login{% endblock %}
@@ -16,6 +16,9 @@
 {% for error in form.non_field_errors %}
 <p class="errornote">{{ error }}</p>
 {% endfor %}
+{% endif %}
+{% if no_site_permission %}
+<p class="errornote">{% trans "You don't have permission to access the admin for this site." %}</p>
 {% endif %}
 
 <form action="{{ app_path }}" method="post" id="login-form">
@@ -44,7 +47,7 @@
         <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" />
     </div>
     <p id="forgot-password">
-        <a href="{% url password_reset %}">{% trans "Forgot password?" %}</a>
+        <a href="{% url "password_reset" %}">{% trans "Forgot password?" %}</a>
     </p>
 </form>
 
