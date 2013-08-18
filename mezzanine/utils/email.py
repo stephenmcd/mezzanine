@@ -7,6 +7,7 @@ from django.utils.http import int_to_base36
 
 from mezzanine.conf import settings
 from mezzanine.utils.urls import admin_url
+from mezzanine.conf.context_processors import settings as context_settings
 
 
 def split_addresses(email_string_list):
@@ -27,7 +28,8 @@ def subject_template(template, context):
 
 
 def send_mail_template(subject, template, addr_from, addr_to, context=None,
-                       attachments=None, fail_silently=False, addr_bcc=None):
+                       attachments=None, fail_silently=False, addr_bcc=None,
+                       headers=None):
     """
     Send email rendering text and html versions for the specified
     template name using the context dictionary passed in.
@@ -36,6 +38,9 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
         context = {}
     if attachments is None:
         attachments = []
+    # Add template accessible settings from Mezzanine to the context
+    # (normally added by a context processor for HTTP requests)
+    context.update(context_settings())
     # Allow for a single address to be passed in.
     if not hasattr(addr_to, "__iter__"):
         addr_to = [addr_to]
@@ -46,7 +51,8 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
                           (template, type)).render(Context(context))
     # Create and send email.
     msg = EmailMultiAlternatives(subject, render("txt"),
-                                 addr_from, addr_to, addr_bcc)
+                                 addr_from, addr_to, addr_bcc,
+                                 headers=headers)
     msg.attach_alternative(render("html"), "text/html")
     for attachment in attachments:
         msg.attach(*attachment)

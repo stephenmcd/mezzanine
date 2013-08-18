@@ -27,13 +27,13 @@ class TemplateSettings(dict):
             raise AttributeError
 
 
-def settings(request):
+def settings(request=None):
     """
     Add the settings object to the template context.
     """
     from mezzanine.conf import settings
     settings_dict = None
-    if cache_installed():
+    if request and cache_installed():
         cache_key = cache_key_prefix(request) + "context-settings"
         settings_dict = cache_get(cache_key)
     if not settings_dict:
