@@ -6,7 +6,11 @@ from urllib import urlopen
 
 from django.core.management.base import CommandError
 from django.utils.html import strip_tags
-from django.utils.simplejson import loads
+
+try:
+    from json import loads
+except ImportError:  # Python < 2.6
+    from django.utils.simplejson import loads
 
 from mezzanine.blog.management.base import BaseImporterCommand
 

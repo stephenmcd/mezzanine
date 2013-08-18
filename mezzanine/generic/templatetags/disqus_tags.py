@@ -3,7 +3,10 @@ import hashlib
 import hmac
 import time
 
-from django.utils import simplejson
+try:
+    import json
+except ImportError:  # Python 2.6
+    from django.utils import simplejson as json
 
 from mezzanine import template
 
@@ -41,7 +44,7 @@ def _get_disqus_sso(user, public_key, secret_key):
     # Based on snippet provided on http://docs.disqus.com/developers/sso/
 
     # create a JSON packet of our data attributes
-    data = simplejson.dumps({
+    data = json.dumps({
         'id': '%s' % user.id,
         'username': user.username,
         'email': user.email,
