@@ -3,7 +3,7 @@ from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
 
-from mezzanine.twitter.models import Query
+from mezzanine.twitter.models import Query, TwitterQueryException
 
 
 class Command(NoArgsCommand):
@@ -20,4 +20,9 @@ class Command(NoArgsCommand):
         if not options["force"]:
             queries = queries.filter(interested=True)
         for query in queries:
-            query.run()
+            try:
+                query.run()
+            except TwitterQueryException, e:
+                print "Twitter query error [%s]: %s" % (query, e)
+
+
