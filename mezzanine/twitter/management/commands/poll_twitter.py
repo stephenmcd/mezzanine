@@ -1,4 +1,6 @@
 
+from optparse import make_option
+
 from django.core.management.base import NoArgsCommand
 
 from mezzanine.twitter.models import Query
@@ -8,6 +10,14 @@ class Command(NoArgsCommand):
     """
     Polls the Twitter API for tweets associated to the queries in templates.
     """
+
+    option_list = NoArgsCommand.option_list + (
+        make_option("--force", default=False, action="store_true"),
+    )
+
     def handle_noargs(self, **options):
-        for query in Query.objects.filter(interested=True):
+        queries = Query.objects.all()
+        if not options["force"]:
+            queries = queries.filter(interested=True)
+        for query in queries:
             query.run()
