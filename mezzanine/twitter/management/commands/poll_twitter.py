@@ -24,5 +24,3 @@ class Command(NoArgsCommand):
                 query.run()
             except TwitterQueryException, e:
                 print "Twitter query error [%s]: %s" % (query, e)
-
-
