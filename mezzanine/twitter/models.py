@@ -20,6 +20,10 @@ replace_hashtags = "<a href=\"http://twitter.com/search?q=%23\\1\">#\\1</a>"
 replace_usernames = "<a href=\"http://twitter.com/\\1\">@\\1</a>"
 
 
+class TwitterQueryException(Exception):
+    pass
+
+
 class Query(models.Model):
 
     type = models.CharField(_("Type"), choices=QUERY_TYPE_CHOICES,
@@ -54,18 +58,22 @@ class Query(models.Model):
         try:
             url = urls[self.type]
         except KeyError:
-            return
+            raise TwitterQueryException("Invalid query type: %s" % self.type)
         settings.use_editable()
         auth_settings = (settings.TWITTER_CONSUMER_KEY,
                          settings.TWITTER_CONSUMER_SECRET,
                          settings.TWITTER_ACCESS_TOKEN_KEY,
                          settings.TWITTER_ACCESS_TOKEN_SECRET)
         if not all(auth_settings):
-            return
+            raise TwitterQueryException("Twitter OAuth settings missing")
         try:
             tweets = requests.get(url, auth=OAuth1(*auth_settings)).json()
-        except:
-            return
+        except Exception, e:
+            raise TwitterQueryException("Error retrieving: %s" % e)
+        try:
+            raise TwitterQueryException(tweets["errors"][0]["message"])
+        except (IndexError, KeyError):
+            pass
         if self.type == "search":
             tweets = tweets["statuses"]
         for tweet_json in tweets:
