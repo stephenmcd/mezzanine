@@ -34,7 +34,7 @@ install_requires = [
     "bleach",
     "pytz >= 2013b",
     "requests==1.2.3",
-    "requests-oauthlib==0.3.2",
+    "requests-oauthlib > 0.3.2, < 0.4",
 ]
 
 try:
