@@ -75,7 +75,8 @@ class PageMiddleware(object):
         try:
             response = view_func(request, *view_args, **view_kwargs)
         except Http404:
-            if page.slug == slug and view_func != page_view:
+            if (page.slug == slug and view_func != page_view and
+                    page.content_model != 'link'):
                 # Matched a non-page urlpattern, but got a 404
                 # for a URL that matches a valid page slug, so
                 # use the page view.
