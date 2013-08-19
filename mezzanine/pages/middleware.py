@@ -79,10 +79,11 @@ class PageMiddleware(object):
                 # Matched a non-page urlpattern, but got a 404
                 # for a URL that matches a valid page slug, so
                 # use the page view.
-                view_kwargs.setdefault("extra_context", {})
-                view_kwargs["extra_context"]["page"] = page
+                view_kwargs = {
+                    "extra_context": {"page": page}
+                }
                 view_func = page_view
-                response = view_func(request, *view_args, **view_kwargs)
+                response = view_func(request, slug, **view_kwargs)
             else:
                 raise
 
