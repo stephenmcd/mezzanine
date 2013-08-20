@@ -429,7 +429,7 @@ def editable(parsed, context, token):
         obj = fields[0][0]
         if isinstance(obj, Model) and is_editable(obj, context["request"]):
             field_names = ",".join([f[1] for f in fields])
-            context["form"] = get_edit_form(obj, field_names)
+            context["editable_form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
             t = get_template("includes/editable_form.html")
             return t.render(Context(context))
