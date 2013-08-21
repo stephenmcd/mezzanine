@@ -425,30 +425,50 @@ Sites Using Mezzanine
 Quotes
 ======
 
-* "I'm enjoying working with Mezzanine, it's good work"
-  - `Van Lindberg`_, `Python Software Foundation`_ chairman
-* "Mezzanine looks like it may be Django's killer app"
-  - `Antonio Rodriguez`_, ex CTO of `Hewlett Packard`_, founder
-  of `Tabblo`_
-* "Mezzanine looks pretty interesting, tempting to get me off
-  Wordpress" - `Jesse Noller`_, Python core contributor,
-  `Python Software Foundation`_ board member
-* "I think I'm your newest fan. Love these frameworks"
-  - `Emile Petrone`_, integrations engineer at `Urban Airship`_
-* "Mezzanine is amazing" - `Audrey Roy`_, founder of `PyLadies`_
-  and `Django Packages`_
-* "Mezzanine convinced me to switch from the Ruby world over
-  to Python" - `Michael Delaney`_, developer
-* "Like Linux and Python, Mezzanine just feels right" - `Phil Hughes`_,
-  Linux For Dummies author, `The Linux Journal`_ columnist
-* "Impressed with Mezzanine so far" - `Brad Montgomery`_, founder
-  of `Work For Pie`_
-* "From the moment I installed Mezzanine, I have been delighted, both
-  with the initial experience and the community involved in its
-  development" - `John Campbell`_, founder of `Head3 Interactive`_
-* "You need to check out the open source project Mezzanine. In one
-  word: Elegant" - `Nick Hagianis`_, developer
+    I'm enjoying working with Mezzanine, it's good work
 
+`Van Lindberg`_, `Python Software Foundation`_ chairman
+
+    Mezzanine looks like it may be Django's killer app
+
+`Antonio Rodriguez`_, ex CTO of `Hewlett Packard`_, founder
+of `Tabblo`_
+
+    Mezzanine looks pretty interesting, tempting to get me off
+    Wordpress
+    
+`Jesse Noller`_, Python core contributor,
+`Python Software Foundation`_ board member
+
+    I think I'm your newest fan. Love these frameworks
+
+`Emile Petrone`_, integrations engineer at `Urban Airship`_
+
+    Mezzanine is amazing
+    
+`Audrey Roy`_, founder of `PyLadies`_ and `Django Packages`_
+
+    Mezzanine convinced me to switch from the Ruby world over to Python
+    
+`Michael Delaney`_, developer
+
+    Like Linux and Python, Mezzanine just feels right
+    
+`Phil Hughes`_, Linux For Dummies author, `The Linux Journal`_ columnist
+
+    Impressed with Mezzanine so far
+    
+`Brad Montgomery`_, founder of `Work For Pie`_
+
+    From the moment I installed Mezzanine, I have been delighted, both
+    with the initial experience and the community involved in its
+    development
+    
+`John Campbell`_, founder of `Head3 Interactive`_
+
+    You need to check out the open source project Mezzanine. In one word: Elegant
+    
+`Nick Hagianis`_, developer
 
 .. GENERAL LINKS
 
