@@ -2,10 +2,10 @@
 
 {# Edit form #}
 <form style="display:none;" class="editable-form" method="post"
-    action="{% url "edit" %}" id="{{ form.uuid }}"
-    {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    action="{% url "edit" %}" id="{{ editable_form.uuid }}"
+    {% if editable_form.is_multipart %} enctype="multipart/form-data"{% endif %}>
     {% csrf_token %}
-    {% for field in form %}
+    {% for field in editable_form %}
     <p{% if field.is_hidden %} style="display:none;"{% endif %}>
         {{ field.label_tag }}<br />{{ field }}{{ field.errors }}
         {% if field.help_text %}
@@ -22,7 +22,7 @@
 
 {# Edit link #}
 <a style="visibility:hidden;" class="editable-link" href="#"
-    rel="#{{ form.uuid }}">{% trans "Edit" %}</a>
+    rel="#{{ editable_form.uuid }}">{% trans "Edit" %}</a>
 
 {# Edit highlight #}
 <div style="visibility:hidden;" class="editable-highlight"></div>
