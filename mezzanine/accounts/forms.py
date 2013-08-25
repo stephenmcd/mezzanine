@@ -184,7 +184,10 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
 
         # Save profile model.
         if self._has_profile:
-            profile = user.get_profile()
+            try:
+                profile = user.get_profile()
+            except Profile.DoesNotExist:
+                profile = Profile(user=user)
             profile_fields_form = self.get_profile_fields_form()
             profile_fields_form(self.data, self.files, instance=profile).save()
 
