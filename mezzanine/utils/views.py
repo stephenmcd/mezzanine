@@ -85,14 +85,14 @@ def is_spam_akismet(request, form, url):
         elif isinstance(field, URLField):
             data_field = "comment_author_url"
         elif isinstance(field.widget, Textarea):
-            data_field = "comment"
+            data_field = "comment_content"
         if data_field and not data.get(data_field):
             cleaned_data = form.cleaned_data.get(name)
             try:
                 data[data_field] = cleaned_data.encode('utf-8')
             except UnicodeEncodeError:
                 data[data_field] = cleaned_data
-    if not data.get("comment"):
+    if not data.get("comment_content"):
         return False
     api_url = ("http://%s.rest.akismet.com/1.1/comment-check" %
                settings.AKISMET_API_KEY)
