@@ -1,3 +1,50 @@
+Version 1.4.11 (Aug 27, 2013)
+-----------------------------
+
+  * Added mezzatheme themes marketplace to features list - Stephen McDonald
+  * Method to load all symbols of all files in a submodule - Thomas Rega
+  * Use new decorator ``"richhtext_filters"``. The decorator ``"richtext_filter"`` is marked as deprecated - Thomas Rega
+  * Move gallery related tests into the app directory. If the app is not installed, the tests are not executed - Thomas Rega
+  * Move blog related tests into the app directory. If the app is not installed, the tests are not executed - Thomas Rega
+  * Move page related tests into the app directory. If the app is not installed, the tests are not executed - Thomas Rega
+  * Move account related tests into the app directory. If the app is not installed, the tests are not executed - Thomas Rega
+  * Move form related tests into the app directory. If the app is not installed, the tests are not executed - Thomas Rega
+  * Move core related tests into the app tests directory. These tests do not belong direct to an specific app, so they stay. in the core app directory for now - Thomas Rega
+  * Simplify new test module structure - Stephen McDonald
+  * Provide a common TestCase class for all app specific tests, for features such as admin user plus debug cursor for query tracking. Also consistent naming for tests - Stephen McDonald
+  * Move tons of tests into their correct apps - Stephen McDonald
+  * Patch ``jquery.overlay`` with ``jquery.browser`` support to work with new jQuery versions. Closes #701 - Stephen McDonald
+  * Force tinyMCE save in ``dynamic_inline.js`` to avoid issues with richtext fields in dynamic inlines and ordering values not correctly handled. Closes #731 - Stephen McDonald
+  * Update dev status classifier in ``setup.py`` - Stephen McDonald
+  * Remove inclusion of ``mezzanine.accounts`` when testing - Zach Gohr
+  * Inject all Mezzanine apps into the temp settings module when Mezzanine itself is being tested - Stephen McDonald
+  * Use setuptools to test on travis - Stephen McDonald
+  * Apply skipTests throughout different tests where apps are coupled - Stephen McDonald
+  * ``setup.py`` specifies the test deps so we don't need to grab them for travis now - Stephen McDonald
+  * Update ``send_mail_template`` to pass optional email headers to the EmailMultiAlternatives constructor. Rather than having the form ``page_processor`` send mail from user submitted email addresses (if present) have it specify the Reply-To header - Josh Cartmell
+  * Get rid of ``FORMS_DISABLE_SEND_FROM_EMAIL_FIELD``, always add the Reply-To header if there is an ``email_to`` - Josh Cartmell
+  * Adding template accessible settings into context for rendering templates for emails - Danny Sag
+  * Handling case when diff between min and max count is smaller than size. Weights were not calculated correctly when difference between `max_count` and `min_count` was smaller than `settings.TAG_CLOUD_SIZES`. Changed calculation of weights to use floating point arithmetic. The results of weight calculations using old and new code are shown below: ``http://ideone.com/fXs5aG`` - Ahmet Bakan
+  * Adding ``.control-label`` to ``form_fields.html`` - Troy Harvey
+  * Indent ``.control-label`` - Troy Harvey
+  * Be a bit more explicit with request arg in settings context processor - Stephen McDonald
+  * Added mezzanine-meze to third-party apps list - Stephen McDonald
+  * Added support for Django 1.6. - The situations in which ``contribute_to_class`` is called have changed. - Fixed DeprecationWarning about simplejson. - Explicitly set the ``TEST_RUNNER`` to the pre 1.6 one. - Set default=False on BooleanField - Rocky Meza
+  * Keep django version pinned - Stephen McDonald
+  * Ensure correct arguments are used when returning a Page in place of a 404 from a non-page urlpattern - Ben Ledbury
+  * Better error propagation when querying for tweets - Stephen McDonald
+  * Added --force option to ``poll_twitter`` command which will query for tweets on all queries - Stephen McDonald
+  * Catch and show twitter query errors in management command, and allow continuing - Stephen McDonald
+  * Allow twitter queries to gracefully fail in templates - Stephen McDonald
+  * Bump requeusts-oauthlib version. Closes #764 - Stephen McDonald
+  * Exempt Link pages from 404 Page replacement - Ben Ledbury
+  * Changed 'form' to ``'editable_form'`` to fix naming conflict. Editable JS no longer being pulled in - Nicole Harris
+  * Don't quote bullets,. The indentation causes the bullets to be treated as blockquotes - David Winterbottom
+  * ,but do quote quotes :grinning: - David Winterbottom
+  * Use correct comment field name in akismet API. Closes #768 - Stephen McDonald
+  * Added TimeStamped model mixin to Displayable, for created/updated timestamps on all models. Closes #661 - Stephen McDonald
+  * Allow account signups with profiles containing non-nullable fields. Closes #749 - Stephen McDonald
+
 Version 1.4.10 (Jul 29, 2013)
 -----------------------------
 
