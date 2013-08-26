@@ -71,11 +71,6 @@ class BaseGenericRelation(GenericRelation):
             for (name_string, field) in self.fields.items():
                 if "%s" in name_string:
                     name_string = name_string % name
-                # In Django 1.6, add_to_class will be called on a parent
-                # model's field more than once, so contribute_to_class needs to
-                # be idempotent.
-                if name_string in cls._meta.get_all_field_names():
-                    continue
                 if not field.verbose_name:
                     field.verbose_name = self.verbose_name
                 cls.add_to_class(name_string, copy(field))
