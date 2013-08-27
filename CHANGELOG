@@ -1,3 +1,9 @@
+Version 1.4.12 (Aug 27, 2013)
+-----------------------------
+
+  * Remove bad 1.6 handling - Stephen McDonald
+  * Fix settings context processor for email template contexts when cache installed - Stephen McDonald
+
 Version 1.4.11 (Aug 27, 2013)
 -----------------------------
 
