@@ -72,7 +72,7 @@ class Query(models.Model):
             raise TwitterQueryException("Error retrieving: %s" % e)
         try:
             raise TwitterQueryException(tweets["errors"][0]["message"])
-        except (IndexError, KeyError):
+        except (IndexError, KeyError, TypeError):
             pass
         if self.type == "search":
             tweets = tweets["statuses"]
