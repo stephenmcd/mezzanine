@@ -1,3 +1,10 @@
+Version 1.4.13 (Sep 11, 2013)
+-----------------------------
+
+  * 1.fix comments errors - hanchen
+  * Allow for there being no "errors" in the twitter api response. When a successful "user" query to the twitter api is completed the json that is returned is a list. In order to validate the response the code tests to see if it was a dictionary with an "error" key. However passing a string as a index to a list will raise a TypeError, which was not being caught by the "except" clause. I have added TypeError to the list of items being caught. There are of course other ways of verifying the response but I think just adding the TypeError is in keeping with what you have already done. For reference, here is what I was seeing: > python ``manage.py`` ``poll_twitter`` --traceback --force. Traceback (most recent call last): ,. File ``"/,/lib/python2.7/site-packages/mezzanine/twitter/models.py"``, line 74, in run. raise TwitterQueryException(tweets["errors"][0]["message"]). TypeError: list indices must be integers, not str - David Higgins
+  * Fix tag cloud factor in generic app - Stephen McDonald
+
 Version 1.4.12 (Aug 27, 2013)
 -----------------------------
 
