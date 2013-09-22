@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.feedgenerator import Atom1Feed
 from django.utils.html import strip_tags
 
+from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.generic.models import Keyword
 from mezzanine.pages.models import Page
@@ -74,7 +75,7 @@ class PostsRSS(Feed):
         return blog_posts
 
     def item_description(self, item):
-        return item.content
+        return richtext_filters(item.content)
 
     def categories(self):
         if not self._public:
