@@ -1,3 +1,8 @@
+Version 1.4.14 (Sep 14, 2013)
+-----------------------------
+
+  * Blog: Catch exception if a non-existent month is requested from the archives - Eduardo Rivas
+
 Version 1.4.13 (Sep 11, 2013)
 -----------------------------
 
