@@ -332,7 +332,7 @@ Sites Using Mezzanine
 * `Pageworthy <http://pageworthy.com>`_
 * `Prince Jets <http://princejets.com>`_
 * `30 sites in 30 days <http://1inday.com>`_
-* `St Barnabas' Theological College <http://www.sbtc.org.au>`_
+* `St Barnabas' Theological College <http://www.sbtc.org.au/>`_
 * `Helios 3D <http://helios3d.nl/>`_
 * `Life is Good <http://lifeisgoodforall.co.uk/>`_
 * `Building 92 <http://bldg92.org/>`_
@@ -420,7 +420,11 @@ Sites Using Mezzanine
 * `SaniCo <https://sanimedicaltourism.com>`_
 * `Grupo Invista <http://grupoinvista.com>`_
 * `Brooklyn Navy Yard <http://brooklynnavyyard.org/>`_
-* `MEZZaTHEME <http://mezzathe.me>`_
+* `MEZZaTHEME <http://mezzathe.me/>`_
+* `Nektra Advanced Computing <http://www.nektra.com/>`_
+* `Bootstrap ASAP <https://bootstrapasap.com/>`_
+* `California Center for Jobs <http://www.centerforjobs.org/>`_
+
 
 Quotes
 ======
