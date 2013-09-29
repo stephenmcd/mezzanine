@@ -1,3 +1,13 @@
+Version 1.4.15 (Sep 29, 2013)
+-----------------------------
+
+  * Blog: Generate RSS and Atom feeds through ``richtext_filters`` - Eduardo Rivas
+  * Strip ``STATIC_URL``, leading / from proxied URLs. ``STATIC_URL`` often contains host or ``generic_host`` (esp. if ``STATIC_URL`` is a. path on the same domain), so it needs to be removed first to ensure it. is removed completely. Also removed leading '/' from URL, since it. appears staticfiles doesn't like absolute paths - Adam Brenecki
+  * Added a function ``mezzanine.utils.urls.next_url`` which is used to retrieve redirect URLs from a request's next param, while verifying that the redirect URL is valid - Stephen McDonald
+  * Fix min Dajngo version - Stephen McDonald
+  * Use ``request.get_host`` rather than ``request.META['HTTP_HOST']`` - Stephen McDonald
+  * Fix Django version for travis - Stephen McDonald
+
 Version 1.4.14 (Sep 14, 2013)
 -----------------------------
 
