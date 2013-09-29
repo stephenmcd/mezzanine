@@ -16,6 +16,7 @@ from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
                                    cache_get, cache_set, cache_installed)
 from mezzanine.utils.device import templates_for_device
 from mezzanine.utils.sites import current_site_id, templates_for_host
+from mezzanine.utils.urls import next_url
 
 
 _deprecated = {
@@ -51,7 +52,7 @@ class AdminLoginInterfaceSelectorMiddleware(object):
                 if login_type == "admin":
                     next = request.get_full_path()
                 else:
-                    next = request.GET.get("next") or "/"
+                    next = next_url(request) or "/"
                 return HttpResponseRedirect(next)
             else:
                 return response

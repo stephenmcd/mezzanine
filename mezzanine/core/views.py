@@ -22,6 +22,7 @@ from mezzanine.core.models import Displayable, SitePermission
 from mezzanine.utils.cache import add_cache_bypass
 from mezzanine.utils.views import is_editable, paginate, render, set_cookie
 from mezzanine.utils.sites import has_site_permission
+from mezzanine.utils.urls import next_url
 
 
 def set_device(request, device=""):
@@ -29,7 +30,7 @@ def set_device(request, device=""):
     Sets a device name in a cookie when a user explicitly wants to go
     to the site for a particular device (eg mobile).
     """
-    response = redirect(add_cache_bypass(request.GET.get("next") or "/"))
+    response = redirect(add_cache_bypass(next_url(request) or "/"))
     set_cookie(response, "mezzanine-device", device, 60 * 60 * 24 * 365)
     return response
 
@@ -50,7 +51,7 @@ def set_site(request):
             raise PermissionDenied
     request.session["site_id"] = site_id
     admin_url = reverse("admin:index")
-    next = request.GET.get("next") or admin_url
+    next = next_url(request) or admin_url
     # Don't redirect to a change view for an object that won't exist
     # on the selected site - go to its list view instead.
     if next.startswith(admin_url):

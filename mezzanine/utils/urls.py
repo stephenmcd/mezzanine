@@ -7,6 +7,7 @@ from django.core.urlresolvers import (resolve, reverse, NoReverseMatch,
                                       get_script_prefix)
 from django.shortcuts import redirect
 from django.utils.encoding import smart_unicode
+from django.utils.http import is_safe_url
 from django.utils import translation
 
 from mezzanine.conf import settings
@@ -84,6 +85,15 @@ def unique_slug(queryset, slug_field, slug):
     return slug
 
 
+def next_url(request):
+    """
+    Returns URL to redirect to from the ``next`` param in the request.
+    """
+    next = request.REQUEST.get("next", "")
+    host = request.META.get("HTTP_HOST", "")
+    return next if next and is_safe_url(next, host=host) else None
+
+
 def login_redirect(request):
     """
     Returns the redirect response for login/signup. Favors:
@@ -95,7 +105,7 @@ def login_redirect(request):
     if "mezzanine.accounts" in settings.INSTALLED_APPS:
         from mezzanine.accounts import urls
         ignorable_nexts += (urls.SIGNUP_URL, urls.LOGIN_URL, urls.LOGOUT_URL)
-    next = request.REQUEST.get("next", "")
+    next = next_url(request) or ""
     if next in ignorable_nexts:
         try:
             next = reverse(settings.LOGIN_REDIRECT_URL)

@@ -6,7 +6,7 @@ from django.template import loader, Context
 from django.utils.http import int_to_base36
 
 from mezzanine.conf import settings
-from mezzanine.utils.urls import admin_url
+from mezzanine.utils.urls import admin_url, next_url
 from mezzanine.conf.context_processors import settings as context_settings
 
 
@@ -71,7 +71,7 @@ def send_verification_mail(request, user, verification_type):
     verify_url = reverse(verification_type, kwargs={
         "uidb36": int_to_base36(user.id),
         "token": default_token_generator.make_token(user),
-    }) + "?next=" + (request.GET.get("next") or "/")
+    }) + "?next=" + (next_url(request) or "/")
     context = {
         "request": request,
         "user": user,

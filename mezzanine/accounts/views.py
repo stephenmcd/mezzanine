@@ -12,7 +12,7 @@ from mezzanine.accounts import get_profile_form
 from mezzanine.accounts.forms import LoginForm, PasswordResetForm
 from mezzanine.conf import settings
 from mezzanine.utils.email import send_verification_mail, send_approve_mail
-from mezzanine.utils.urls import login_redirect
+from mezzanine.utils.urls import login_redirect, next_url
 from mezzanine.utils.views import render
 
 
@@ -39,7 +39,7 @@ def logout(request):
     """
     auth_logout(request)
     info(request, _("Successfully logged out"))
-    return redirect(request.GET.get("next") or "/")
+    return redirect(next_url(request) or "/")
 
 
 def signup(request, template="accounts/account_signup.html"):
@@ -59,7 +59,7 @@ def signup(request, template="accounts/account_signup.html"):
                 send_verification_mail(request, new_user, "signup_verify")
                 info(request, _("A verification email has been sent with "
                                 "a link for activating your account."))
-            return redirect(request.GET.get("next") or "/")
+            return redirect(next_url(request) or "/")
         else:
             info(request, _("Successfully signed up"))
             auth_login(request, new_user)
