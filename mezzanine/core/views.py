@@ -136,7 +136,11 @@ def static_proxy(request):
     protocol = "http" if not request.is_secure() else "https"
     host = protocol + "://" + request.get_host()
     generic_host = "//" + request.get_host()
-    for prefix in (host, generic_host, settings.STATIC_URL):
+    # STATIC_URL often contains host or generic_host, so remove it
+    # first otherwise the replacement loop below won't work.
+    static_url = settings.STATIC_URL.replace(host, "", 1)
+    static_url = static_url.replace(generic_host, "", 1)
+    for prefix in (host, generic_host, static_url, "/"):
         if url.startswith(prefix):
             url = url.replace(prefix, "", 1)
     response = ""
