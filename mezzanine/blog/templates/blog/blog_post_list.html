@@ -45,7 +45,7 @@
 
 {% if tag or category or year or month or author %}
     {% block blog_post_list_filterinfo %}
-    <p>
+    <div class="alert alert-info">
     {% if tag %}
         {% trans "Viewing posts tagged" %} {{ tag }}
     {% else %}{% if category %}
@@ -58,7 +58,7 @@
         {{ author.get_full_name|default:author.username }}
     {% endif %}{% endif %}{% endif %}{% endif %}
     {% endblock %}
-    </p>
+    </div>
 {% else %}
     {% if page %}
     {% block blog_post_list_pagecontent %}
