@@ -27,6 +27,12 @@ footer {
   margin-bottom: 30px;
 }
 
+.panel-body > h1:first-child,
+.panel-body > h2:first-child,
+.panel-body > h3:first-child {
+  margin-top: 0;
+}
+
 /*========================================
             MEZZANINE FORMS
 ==========================================
