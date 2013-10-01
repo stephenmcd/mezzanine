@@ -151,3 +151,17 @@ img.pull-left {
   padding: 20px;
   border-radius: 5px;
 }
+/*========================================
+          MEZZANINE GENERIC
+==========================================*/
+.rating span, .rating form {
+  display: inline-block;
+}
+.rating ul {
+  padding-left: 0;
+  list-style: none;
+}
+.rating li {
+  display: inline-block;
+  margin: 0 5px;
+}
