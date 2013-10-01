@@ -33,6 +33,58 @@ footer {
   margin-top: 0;
 }
 
+img.pull-left {
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+/*========================================
+            MEZZANINE BLOG
+==========================================*/
+.blog-list-detail {
+  border-bottom: 1px dashed #CCCCCC;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+}
+
+.post-meta {
+  font-weight: 700;
+}
+
+.post-meta > a {
+  color: #666;
+}
+
+.share-facebook, .share-twitter,
+.share-facebook:hover, .share-twitter:hover {
+  color: #fff;
+  font-weight: 700;
+}
+
+.share-facebook {
+  background-color: #4667A6;
+}
+
+.share-twitter {
+    background-color: #00A3D4;
+}
+
+.tag-weight-1 {
+  font-size: 90%;
+}
+
+.tag-weight-2 {
+  font-size: 120%;
+}
+
+.tag-weight-3 {
+  font-size: 150%;
+}
+
+.tag-weight-4 {
+  font-size: 180%;
+}
+
 /*========================================
             MEZZANINE FORMS
 ==========================================
@@ -99,12 +151,6 @@ footer {
   font-weight: normal;
   vertical-align: middle;
   cursor: pointer;
-}
-
-.radio-inline + .radio-inline,
-.checkbox-inline + .checkbox-inline {
-  margin-top: 0;
-  margin-left: 10px;
 }
 
 .datefield > select {

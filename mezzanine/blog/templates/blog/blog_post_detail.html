@@ -25,7 +25,7 @@
 
 {% block blog_post_detail_postedby %}
 {% editable blog_post.publish_date %}
-<h6>
+<h6 class="post-meta">
     {% trans "Posted by" %}:
     {% with blog_post.user as author %}
     <a href="{% url "blog_post_list_author" author %}">{{ author.get_full_name|default:author.username }}</a>
@@ -52,7 +52,7 @@
 
 {% block blog_post_detail_featured_image %}
 {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
-<p><img src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 600 0 %}"></p>
+<p><img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 600 0 %}"></p>
 {% endif %}
 {% endblock %}
 
@@ -70,7 +70,7 @@
 {% keywords_for blog_post as tags %}
 {% if tags %}
 {% spaceless %}
-<ul class="unstyled tags">
+<ul class="list-inline tags">
     <li>{% trans "Tags" %}:</li>
     {% for tag in tags %}
     <li><a href="{% url "blog_post_list_tag" tag.slug %}">{{ tag }}</a></li>
@@ -84,8 +84,8 @@
 
 {% block blog_post_detail_sharebuttons %}
 {% set_short_url_for blog_post %}
-<a class="btn small primary share-twitter" target="_blank" href="http://twitter.com/home?status={{ blog_post.short_url|urlencode }}%20{{ blog_post.title|urlencode }}">{% trans "Share on Twitter" %}</a>
-<a class="btn small primary share-facebook" target="_blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&amp;t={{ blog_post.title|urlencode }}">{% trans "Share on Facebook" %}</a>
+<a class="btn btn-sm share-twitter" target="_blank" href="http://twitter.com/home?status={{ blog_post.short_url|urlencode }}%20{{ blog_post.title|urlencode }}">{% trans "Share on Twitter" %}</a>
+<a class="btn btn-sm share-facebook" target="_blank" href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&amp;t={{ blog_post.title|urlencode }}">{% trans "Share on Facebook" %}</a>
 {% endblock %}
 
 {% block blog_post_previous_next %}
@@ -111,7 +111,7 @@
 {% if blog_post.related_posts.all %}
 <div id="related-posts">
 <h3>{% trans 'Related posts' %}</h3>
-<ul class="unstyled">
+<ul class="list-unstyled">
 {% for post in blog_post.related_posts.all %}
      <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
 {% endfor %}
