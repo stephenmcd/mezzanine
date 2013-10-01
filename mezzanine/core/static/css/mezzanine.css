@@ -1,43 +1,35 @@
 /*========================================
         MEZZANINE GENERAL STYLES
 ==========================================*/
-
 body {
   padding-top: 50px;
 }
-
 .tree > .nav .nav > li {
   padding-left: 15px;
 }
-
 .nav-footer > ul {
   line-height: 40px;
 }
-
 footer {
   background-color: #F8F8F8;
   border-top: 1px solid #E7E7E7;
   padding-top: 15px;
   margin-top: 15px;
 }
-
 .site-info {
   font-size: 90%;
   margin-top: 20px;
   margin-bottom: 30px;
 }
-
 .panel-body > h1:first-child,
 .panel-body > h2:first-child,
 .panel-body > h3:first-child {
   margin-top: 0;
 }
-
 img.pull-left {
   margin-right: 15px;
   margin-bottom: 10px;
 }
-
 /*========================================
             MEZZANINE BLOG
 ==========================================*/
@@ -46,45 +38,35 @@ img.pull-left {
   margin-bottom: 30px;
   padding-bottom: 15px;
 }
-
 .post-meta {
   font-weight: 700;
 }
-
 .post-meta > a {
   color: #666;
 }
-
 .share-facebook, .share-twitter,
 .share-facebook:hover, .share-twitter:hover {
   color: #fff;
   font-weight: 700;
 }
-
 .share-facebook {
   background-color: #4667A6;
 }
-
 .share-twitter {
     background-color: #00A3D4;
 }
-
 .tag-weight-1 {
   font-size: 90%;
 }
-
 .tag-weight-2 {
   font-size: 120%;
 }
-
 .tag-weight-3 {
   font-size: 150%;
 }
-
 .tag-weight-4 {
   font-size: 180%;
 }
-
 /*========================================
             MEZZANINE FORMS
 ==========================================
@@ -110,40 +92,33 @@ img.pull-left {
   -webkit-transition: border-color ease-in-out.15s, box-shadow ease-in-out 0.15s;
           transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
-
 .form-group > input[type="text"]:focus, .form-group > input[type="email"]:focus, .form-group > select:focus, .form-group > textarea:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
-
 .form-group > textarea {
   height: auto;
 }
-
 .has-error > input[type="text"], .has-error > input[type="email"], .has-error > textarea, .has-error > select {
   border-color: #b94a48;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
-
 .has-error > input[type="text"]:focus, .has-error > input[type="email"]:focus, .has-error > textarea:focus, .has-error > select:focus {
   border-color: #953b39;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
 }
-
 .multiplechoicefield > ul, .choicefield > ul{
   margin: 0;
   padding: 0;
 }
-
 .multiplechoicefield > ul > li, .choicefield > ul > li{
   list-style: none;
   display: inline-block;
 }
-
 .multiplechoicefield > ul label, .choicefield > ul label {
   display: inline-block;
   padding-right: 20px;
@@ -152,29 +127,24 @@ img.pull-left {
   vertical-align: middle;
   cursor: pointer;
 }
-
 .datefield > select {
   display: inline-block;
   width: 30%;
   margin-right: 2%;
 }
-
 .datefield > label, .datefield > .help-block,
 .datetimefield > label, .datetimefield > .help-block {
   display: block;
 }
-
 .datetimefield > select {
   display: inline-block;
   margin-right: 2%;
   width: 22%;
 }
-
 .datetimefield > input[type="text"] {
   display: inline-block;
   width: 25%;
 }
-
 .form-actions {
   background-color: #F8F8F8;
   border-top: 1px solid #E7E7E7;
