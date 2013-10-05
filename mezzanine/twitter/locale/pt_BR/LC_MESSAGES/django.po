@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Breno Uchoa <brenouchoa@gmail.com>, 2012.
+# Breno Uchoa <brenouchoa@gmail.com>, 2012
+# Hilton Medeiros <medeiros.hilton@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-09-15 21:39+0000\n"
-"Last-Translator: Breno Uchoa <brenouchoa@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-04-30 16:30+0000\n"
+"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "mezzanine/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -69,11 +70,11 @@ msgstr "Valor"
 
 #: models.py:33
 msgid "Twitter query"
-msgstr "Twitter query"
+msgstr "Consulta do Twitter"
 
 #: models.py:34
 msgid "Twitter queries"
-msgstr "Twitter queries"
+msgstr "Consultas do Twitter"
 
 #: models.py:102
 msgid "Twitter ID"
@@ -93,23 +94,23 @@ msgstr "URL imagem de perfil"
 
 #: models.py:106
 msgid "User name"
-msgstr "User name"
+msgstr "Nome de usuário"
 
 #: models.py:107
 msgid "Full name"
-msgstr "Nome Completo"
+msgstr "Nome completo"
 
 #: models.py:109
 msgid "Profile image URL (Retweeted by)"
-msgstr "URL imagem de perfil (Retweeted por)"
+msgstr "URL imagem de perfil (Retuitado por)"
 
 #: models.py:111
 msgid "User name (Retweeted by)"
-msgstr "User name (Retweeted por)"
+msgstr "User name (Retuitado por)"
 
 #: models.py:113
 msgid "Full name (Retweeted by)"
-msgstr "Nome Completo (Retweeted by)"
+msgstr "Nome Completo (Retuitado por)"
 
 #: models.py:119
 msgid "Tweet"

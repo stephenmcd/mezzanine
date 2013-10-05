@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <andreas.lindroos@gmail.com>, 2012.
-# Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# HeliosReds <helios_reds@gmx.net>, 2012-2013
+# HeliosReds <helios_reds@gmx.net>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-06-17 09:20+0000\n"
+"Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
 "language/ja/)\n"
 "Language: ja\n"
@@ -50,13 +52,15 @@ msgstr "ブログリストページに表示されるブログ投稿の数"
 
 #: defaults.py:44
 msgid "Blog posts RSS limit"
-msgstr ""
+msgstr "ブログ投稿の RSS 上限"
 
 #: defaults.py:45
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
+"RSS フィード内に表示させる最新ブログ投稿の数。RSS フィード内に全ブログ投稿を "
+"表示させたいときは ``None`` とします。"
 
 #: defaults.py:53
 msgid "Slug of the page object for the blog."

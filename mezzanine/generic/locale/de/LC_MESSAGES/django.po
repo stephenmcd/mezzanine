@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Christopher R. Parr <fosstux@gmail.com>, 2012.
-# Daniel Seither <post@tiwoc.de>, 2012.
-#   <thomas@jetzinger.com>, 2012.
+# Christopher R. Parr <fosstux@gmail.com>, 2012
+# Daniel Seither <post@tiwoc.de>, 2012
+# jammon <j.ammon@dr-ammon.de>, 2013
+# tjetzinger <thomas@jetzinger.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:40-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-06-09 05:20+0000\n"
+"Last-Translator: jammon <j.ammon@dr-ammon.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/mezzanine/"
 "language/de/)\n"
 "Language: de\n"
@@ -31,7 +32,7 @@ msgstr "Benötigte Konten für das Kommentieren"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr "Benutzer müssen sich zum Kommentieren anmelen, wenn ``Wahr``."
+msgstr "Benutzer müssen sich zum Kommentieren anmelden, wenn ``Wahr``."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -130,10 +131,12 @@ msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
 msgstr ""
+"Wenn ``Wahr``,  müssen sich Benutzer anmelden,  um Inhalte wie Blogeinträge "
+"oder Kommentare zu bewerten."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
-msgstr ""
+msgstr "Eine Reihe von Ganzzahlen, die gültige Bewertungen darstellen."
 
 #: forms.py:83
 msgid "Name"
@@ -165,7 +168,7 @@ msgstr "Neuer Kommentar für:"
 
 #: forms.py:174
 msgid "Already rated."
-msgstr ""
+msgstr "Schon bewertet."
 
 #: models.py:26
 msgid "By the blog author"
@@ -201,11 +204,11 @@ msgstr "Wert"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "Datum der Bewertung"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "Bewerter"
 
 #: models.py:131
 msgid "Ratings"
@@ -214,6 +217,8 @@ msgstr "Bewertungen"
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
 msgstr ""
+"Sie müssen angemeldet sein. Bitte melden Sie sich an oder registrieren Sie "
+"sich, um diese Aktion zu beenden."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"

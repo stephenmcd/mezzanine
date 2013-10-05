@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Taras Kozlovskyi <ktarasz@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:03+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-06-10 12:10+0000\n"
+"Last-Translator: Taras Kozlovskyi <ktarasz@gmail.com>\n"
 "Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/"
 "mezzanine/language/uk_UA/)\n"
 "Language: uk_UA\n"
@@ -25,6 +26,9 @@ msgid ""
 "that controls the ordering of items in the select drop-down for adding new "
 "pages within the admin page tree interface."
 msgstr ""
+"Список із підкласів `` Page `` у форматі ``  app_label.model_name ``, які "
+"контролюють порядок розташування елементів у випадайці для додавання нових "
+"сторінок в інтерфейсі адміністратора у вигляді дерева."
 
 #: defaults.py:30
 msgid ""
@@ -35,18 +39,26 @@ msgid ""
 "appear in. Note that if a menu template is used that doesn't appear in this "
 "setting, all pages will appear in it."
 msgstr ""
+"Список шаблонів, що використовуються для при використанні тега `` page_menu "
+"``. Кожен елемент в списку повинен вміщати список із трьох пунктів, що "
+"містять унікальний ідентифікатор шаблону, мітку для шаблону і шляху до "
+"шаблону. Ці шаблони потім доступні для вибору при редагуванні та дають "
+"можливість вибрати які із шаблонів меню використовувати на сторінці. "
+"Зауважимо, що якщо використовується шаблонменю, який не зазначений в "
+"налаштуваннях, тоді всі на усіх сторінках будуть з'являтися зазначений "
+"шаблон меню."
 
 #: defaults.py:39
 msgid "Top navigation bar"
-msgstr ""
+msgstr "Верхня панель навігації"
 
 #: defaults.py:40
 msgid "Left-hand tree"
-msgstr ""
+msgstr "Ліва панель навігації"
 
 #: defaults.py:41
 msgid "Footer"
-msgstr ""
+msgstr "Футер"
 
 #: defaults.py:47
 msgid ""
@@ -55,6 +67,10 @@ msgid ""
 "templates are selected. Set this setting to an empty sequence to have no "
 "templates selected by default."
 msgstr ""
+"Послідовність ID з налаштування `` PAGE_MENU_TEMPLATES ``, яка визначає які "
+"шаблони меню вибрано за замовчуванням при створенні нових сторінок. За "
+"умовчанням вибрані всі шаблони. Зробіть цю настройку порожній, щоб жоден "
+"шаблон не був вибраний за замовчуванням."
 
 #: defaults.py:58
 msgid ""
@@ -63,34 +79,41 @@ msgid ""
 "setting, when an unauthenticated user accesses a page with "
 "``login_required`` checked, they'll be redirected to the login page."
 msgstr ""
+"Якщо `` True ``, сторінки з зазначеної галочкою `` login_required `` як і "
+"раніше будуть відображатися в меню та результатах пошуку для неавторизованих "
+"користувачів. Незалежно від цього параметра, коли неавторизований користувач "
+"намагається переглянути сторінку із зазначеною галочкою `` login_required "
+"``, він буде перенаправлено на сторінку авторизації."
 
 #: models.py:33
 msgid "Show in menus"
-msgstr ""
+msgstr "Показати в меню"
 
 #: models.py:36
 msgid "Login required"
-msgstr ""
+msgstr "Необхідна аутентифікація"
 
 #: models.py:37
 msgid "If checked, only logged in users can view this page"
 msgstr ""
+"Якщо відзначене, то тільки користувачі, що увійшли на сайт побачать цю "
+"сторінку"
 
 #: models.py:40
 msgid "Page"
-msgstr ""
+msgstr "Сторінка"
 
 #: models.py:41
 msgid "Pages"
-msgstr ""
+msgstr "Сторінки"
 
 #: models.py:266
 msgid "Rich text page"
-msgstr ""
+msgstr "Текстова сторінка"
 
 #: models.py:267
 msgid "Rich text pages"
-msgstr ""
+msgstr "Текстові сторінки"
 
 #: models.py:277
 msgid "Link"
@@ -98,12 +121,12 @@ msgstr "Посилання"
 
 #: models.py:278
 msgid "Links"
-msgstr ""
+msgstr "Посилання"
 
 #: templates/admin/pages/page/change_list.html:24
 #: templates/pages/menus/admin.html:31
 msgid "Add"
-msgstr ""
+msgstr "Додати"
 
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
@@ -112,9 +135,10 @@ msgstr ""
 #: templates/pages/menus/mobile.html:10 templates/pages/menus/primary.html:8
 #: templates/pages/menus/tree.html:10
 msgid "Home"
-msgstr ""
+msgstr "Головна"
 
 #: templatetags/pages_tags.py:183
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""
+"Сталася помилка з наслідуваннм класу. Чи є він прямим підкласом класу Page?"

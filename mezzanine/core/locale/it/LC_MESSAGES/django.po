@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Nicola Larosa <transifex@teknico.net>, 2012-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-03-30 07:16-0430\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
 "PO-Revision-Date: 2013-04-02 12:50+0000\n"
 "Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/"
+"language/it/)\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:27
@@ -52,7 +53,9 @@ msgstr "Deregistra questi modelli dall'amministrazione"
 
 #: defaults.py:40
 msgid "Size of thumbnail previews for image fields in the admin interface."
-msgstr "Dimensione delle miniature d'anteprima per i campi immagine dell'interfaccia d'amministrazione."
+msgstr ""
+"Dimensione delle miniature d'anteprima per i campi immagine dell'interfaccia "
+"d'amministrazione."
 
 #: defaults.py:48
 msgid "Akismet API Key"
@@ -62,7 +65,9 @@ msgstr "Chiave API Akismet"
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
-msgstr "Chiave del servizio di filtraggio spam http://akismet.com . Usato per filtrare i commenti e le form."
+msgstr ""
+"Chiave del servizio di filtraggio spam http://akismet.com . Usato per "
+"filtrare i commenti e le form."
 
 #: defaults.py:57
 msgid "bit.ly access token"
@@ -186,7 +191,8 @@ msgstr "Massimi link di paginazione"
 
 #: defaults.py:194
 msgid "Max number of paging links to display when paginating."
-msgstr "Massima quantità di link di paginazione da mostrare durante la paginazione."
+msgstr ""
+"Massima quantità di link di paginazione da mostrare durante la paginazione."
 
 #: defaults.py:201
 msgid "Media library per site"

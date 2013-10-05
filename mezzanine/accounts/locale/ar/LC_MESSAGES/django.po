@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ahmad Khayyat <akhayyat@gmail.com>, 2012.
+# Ahmad Khayyat <akhayyat@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-12-30 09:32+0000\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-07-02 07:10+0000\n"
 "Last-Translator: Ahmad Khayyat <akhayyat@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/"
 "language/ar/)\n"
@@ -143,7 +143,7 @@ msgstr "تم إرسال رسالة إلكترونية تحوي رابط إعاد
 
 #: views.py:157
 msgid "Password Reset"
-msgstr "تمت إعادة ضبط كلمة السر"
+msgstr "إعادة ضبط كلمة السر"
 
 #: templates/accounts/account_login.html:7
 msgid "You're already logged in."
@@ -155,6 +155,8 @@ msgid ""
 "If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
 "\">sign up</a> for one now."
 msgstr ""
+"إذا لم يكن لديك حساب، يمكنك <a href=\"%(signup_url)s?next=%(next)s\">إنشاء "
+"حساب جديد</a> الآن."
 
 #: templates/accounts/account_login.html:14
 #, python-format
@@ -162,6 +164,8 @@ msgid ""
 "<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
 "\">reset your password</a> if you've forgotten it.</p>"
 msgstr ""
+"<p>يمكنك كذلك <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">إعادة ضبط كلمة السر الخاصة بك</a> إذا كنت قد نسيتها.</p>"
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
@@ -241,7 +245,7 @@ msgstr "إعادة ضبط كلمة السر"
 
 #: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
-msgstr "شكراً لك غلى إنشاء حساب جديد."
+msgstr "شكراً لك على إنشاء حساب جديد."
 
 #: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
 msgid "Please use the link below to activate it."

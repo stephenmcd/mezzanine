@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daniel Seither <post@tiwoc.de>, 2012.
+# Daniel Seither <post@tiwoc.de>, 2012
+# clemensbasti <mail@sebastian-clemens.de>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-14 21:42+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-04-27 14:00+0000\n"
+"Last-Translator: clemensbasti <mail@sebastian-clemens.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/mezzanine/"
 "language/de/)\n"
 "Language: de\n"
@@ -160,6 +161,8 @@ msgid ""
 "If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
 "\">sign up</a> for one now."
 msgstr ""
+"Wenn Sie noch kein Benutzerkonto besitzen, können Sie sich <a href="
+"\"%(signup_url)s?next=%(next)s\">hier registrieren</a>"
 
 #: templates/accounts/account_login.html:14
 #, python-format

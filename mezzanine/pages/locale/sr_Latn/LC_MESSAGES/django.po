@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Milorad Pop-Tosic <poptosic@gmail.com>, 2012.
+# Milorad Pop-Tosic <poptosic@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-08-26 13:23+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-04-19 23:30+0000\n"
+"Last-Translator: Milorad Pop-Tosic <poptosic@gmail.com>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/"
 "mezzanine/language/sr@latin/)\n"
 "Language: sr@latin\n"
@@ -26,6 +26,9 @@ msgid ""
 "that controls the ordering of items in the select drop-down for adding new "
 "pages within the admin page tree interface."
 msgstr ""
+"Niz potklasa klase ``Page`` u formatu ``app_label.model_name`` koji definiše "
+"redosled elemenata u padajućoj listi za dodavanje novih stranica unutar "
+"administrativnog interfejsa za stranice."
 
 #: defaults.py:30
 msgid ""
@@ -39,15 +42,15 @@ msgstr ""
 
 #: defaults.py:39
 msgid "Top navigation bar"
-msgstr ""
+msgstr "Navigacija u vrhu"
 
 #: defaults.py:40
 msgid "Left-hand tree"
-msgstr ""
+msgstr "Stablo na levoj strani"
 
 #: defaults.py:41
 msgid "Footer"
-msgstr ""
+msgstr "Zaglavlje"
 
 #: defaults.py:47
 msgid ""
@@ -67,7 +70,7 @@ msgstr ""
 
 #: models.py:33
 msgid "Show in menus"
-msgstr ""
+msgstr "Prikaži u menijima"
 
 #: models.py:36
 msgid "Login required"

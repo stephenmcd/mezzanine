@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <andreas.lindroos@gmail.com>, 2012.
-# Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# HeliosReds <helios_reds@gmx.net>, 2012-2013
+# HeliosReds <helios_reds@gmx.net>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-06-17 08:50+0000\n"
+"Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
 "language/ja/)\n"
 "Language: ja\n"
@@ -120,21 +122,23 @@ msgstr ""
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
-msgstr ""
+msgstr "チェックを入れると、コメントに投票できます。"
 
 #: defaults.py:120
 msgid "Accounts required for rating"
-msgstr ""
+msgstr "投票できるアカウント"
 
 #: defaults.py:121
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
 msgstr ""
+"チェックを入れると、ブログやコメントといったコンテンツに投票するにはログイン"
+"が 求められるようになります。"
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
-msgstr ""
+msgstr "有効投票となる整数のシークエンス。"
 
 #: forms.py:83
 msgid "Name"
@@ -166,7 +170,7 @@ msgstr "以下に寄せられた新しいコメント: "
 
 #: forms.py:174
 msgid "Already rated."
-msgstr ""
+msgstr "投票済み。"
 
 #: models.py:26
 msgid "By the blog author"
@@ -202,11 +206,11 @@ msgstr "評価値"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "投票日"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "投票者"
 
 #: models.py:131
 msgid "Ratings"
@@ -215,6 +219,8 @@ msgstr "評価"
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
 msgstr ""
+"ログイン必須。この操作を完了するにはログインもしくはサインアップしてくださ"
+"い。"
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"

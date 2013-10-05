@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# ufoym <user@ufoym.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-07-12 11:50+0000\n"
+"Last-Translator: ufoym <user@ufoym.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/projects/p/mezzanine/"
 "language/zh/)\n"
 "Language: zh\n"
@@ -69,11 +70,11 @@ msgstr ""
 #: models.py:21 templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:129
 msgid "Comments"
-msgstr ""
+msgstr "评论"
 
 #: models.py:22
 msgid "Rating"
-msgstr ""
+msgstr "评分"
 
 #: models.py:23
 msgid "Featured Image"
@@ -85,32 +86,32 @@ msgstr ""
 
 #: models.py:32
 msgid "Blog post"
-msgstr ""
+msgstr "博文"
 
 #: models.py:33
 msgid "Blog posts"
-msgstr ""
+msgstr "博文"
 
 #: models.py:85
 msgid "Blog Category"
-msgstr ""
+msgstr "博客分类"
 
 #: models.py:86
 msgid "Blog Categories"
-msgstr ""
+msgstr "博客分类"
 
 #: templates/admin/includes/quick_blog.html:18
 msgid "Quick Blog"
-msgstr ""
+msgstr "快速博文"
 
 #: templates/admin/includes/quick_blog.html:27
 msgid "Save Draft"
-msgstr ""
+msgstr "保存草稿"
 
 #: templates/blog/blog_post_detail.html:29
 #: templates/blog/blog_post_list.html:83
 msgid "Posted by"
-msgstr ""
+msgstr "作者"
 
 #: templates/blog/blog_post_detail.html:33
 #: templates/blog/blog_post_list.html:95
@@ -129,7 +130,7 @@ msgstr[0] ""
 #: templates/blog/blog_post_list.html:116
 #: templates/blog/includes/filter_panel.html:48
 msgid "Tags"
-msgstr ""
+msgstr "标签"
 
 #: templates/blog/blog_post_detail.html:87
 msgid "Share on Twitter"

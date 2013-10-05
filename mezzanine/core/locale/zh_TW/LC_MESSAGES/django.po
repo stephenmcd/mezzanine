@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <centwave@gmail.com>, 2012.
-#   <lueoad@gmail.com>, 2012.
-# Tzu-ping Chung <uranusjr@gmail.com>, 2013.
+# centwave <centwave@gmail.com>, 2012
+# lueo <lueoad@gmail.com>, 2012
+# Tzu-ping Chung <uranusjr@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:59+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-04-18 08:40+0000\n"
+"Last-Translator: Tzu-ping Chung <uranusjr@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
 "mezzanine/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -51,7 +51,7 @@ msgstr "用戶"
 
 #: defaults.py:33
 msgid "Unregister these models from the admin."
-msgstr ""
+msgstr "從管理介面中移除這些 models。"
 
 #: defaults.py:40
 msgid "Size of thumbnail previews for image fields in the admin interface."
@@ -59,21 +59,21 @@ msgstr "管理介面中影像欄的縮圖預覽尺寸。"
 
 #: defaults.py:48
 msgid "Akismet API Key"
-msgstr ""
+msgstr "Akismet API 金鑰"
 
 #: defaults.py:49
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
-msgstr ""
+msgstr "http://akismet.com spam 過濾服務的金鑰。用來過濾留言與表單。"
 
 #: defaults.py:57
 msgid "bit.ly access token"
-msgstr ""
+msgstr "bit.ly access token"
 
 #: defaults.py:58
 msgid "Access token for http://bit.ly URL shortening service."
-msgstr ""
+msgstr "http://bit.ly 短網址服務的 access token。"
 
 #: defaults.py:65
 msgid ""
@@ -90,7 +90,7 @@ msgstr ""
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
-msgstr ""
+msgstr "一個三元序列，包含用來 reder 管理介面儀表板的模板標籤。"
 
 #: defaults.py:101
 msgid "Device specific template sub-directory to use as the default device."
@@ -120,11 +120,11 @@ msgstr ""
 
 #: defaults.py:153
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Analytics (分析) ID"
 
 #: defaults.py:155
 msgid "Google Analytics ID (http://www.google.com/analytics/)"
-msgstr ""
+msgstr "Google Analytics (分析) ID (http://www.google.com/analytics/)"
 
 #: defaults.py:161
 msgid ""
@@ -146,11 +146,11 @@ msgstr "位於 mezzanine/core/static/mezzanine/js/ 中的 jQuery 檔名"
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
-msgstr ""
+msgstr "jQuery UI 檔案名稱。"
 
 #: defaults.py:185
 msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
-msgstr ""
+msgstr "位於 mezzanine/core/static/mezzanine/js/ 中的 jQuery UI 檔名"
 
 #: defaults.py:193
 msgid "Max paging links"
@@ -162,13 +162,13 @@ msgstr "顯示分頁時，分頁鏈結的最大數量。"
 
 #: defaults.py:201
 msgid "Media library per site"
-msgstr ""
+msgstr "各站台的媒體庫"
 
 #: defaults.py:202
 msgid ""
 "If ``True``, each site will use its own directory within the filebrowser "
 "media library."
-msgstr ""
+msgstr "若為 ``True``，每個站台都會在 filebrowser 媒體庫中使用各自的目錄。"
 
 #: defaults.py:210
 msgid ""
@@ -188,19 +188,19 @@ msgstr ""
 #: defaults.py:230
 msgid ""
 "List of HTML tags that won't be stripped from ``RichTextField`` instances."
-msgstr ""
+msgstr "不會被 ``RichTextField`` 清除的 HTML 標籤列表。"
 
 #: defaults.py:246
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr ""
+msgstr "這個列表中列出的 HTML 標籤不會被 ``RichTextField`` 刪除。"
 
 #: defaults.py:264
 msgid ""
 "List of inline CSS styles that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr ""
+msgstr "不會被 ``RichTextField`` 清除的 inline CSS styles 列表。"
 
 #: defaults.py:272
 msgid ""
@@ -218,11 +218,11 @@ msgstr "低 (準許 video, iframe, Flash 等等) "
 
 #: defaults.py:284
 msgid "No filtering"
-msgstr ""
+msgstr "不過濾"
 
 #: defaults.py:289
 msgid "Rich Text filter level"
-msgstr ""
+msgstr "Rich Text 過濾等級"
 
 #: defaults.py:290
 msgid ""
@@ -243,6 +243,19 @@ msgid ""
 "Setting the filtering level to no filtering, will disable all filtering, and "
 "allow any code to be entered by staff members, including script tags."
 msgstr ""
+"*請勿任意修改這個設定，除非你知道你在做什麼。*\n"
+"\n"
+"當 Rich Text（所見即所得）欄位儲存內容時，會刪除不安全的 HTML 標籤與屬性，以"
+"防止工作人員蓄意加入有問題的程式碼，例如將他們的帳號升級為超級使用者，以獲得"
+"系統的終極權限。\n"
+"\n"
+"這個設定允許你修改上述功能的過濾等級。「低」設置將允許一些額外的特定標籤，以"
+"達成嵌入影片等功能。雖然這類標籤通常不會被用來加入惡意程式碼，它們還是被認為"
+"不安全，且可能被技術能力足夠的使用者誤用，因此如果過濾等級設置為「高」時，將"
+"不會允許這些標籤。\n"
+"\n"
+"如果設定「不過濾」，則會將過濾功能完全關閉，並允許工作人員輸入任何的程式碼，"
+"包含 script 標籤。"
 
 #: defaults.py:313
 msgid ""
@@ -279,15 +292,15 @@ msgstr "顯示於網站頂部的標題。會被附加至所有頁面的 HTML tit
 
 #: defaults.py:351
 msgid "Tagline"
-msgstr ""
+msgstr "Tagline"
 
 #: defaults.py:352
 msgid "A tag line that will appear at the top of all pages."
-msgstr ""
+msgstr "一句出現在所有頁面頂部的標語。"
 
 #: defaults.py:354
 msgid "An open source content management platform."
-msgstr "一個開源的資訊管理平台"
+msgstr "一個開源的資訊管理平台。"
 
 #: defaults.py:359
 msgid ""
@@ -321,13 +334,13 @@ msgstr ""
 
 #: defaults.py:393
 msgid "Force Host"
-msgstr ""
+msgstr "強制使用主機名"
 
 #: defaults.py:394
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
-msgstr ""
+msgstr "訪問網站時必須使用的主機名稱，與 SSL 憑證相符。"
 
 #: defaults.py:412
 msgid ""
@@ -335,6 +348,8 @@ msgid ""
 "will be accessible over SSL, and all other URLs will be redirected back to "
 "HTTP if accessed over HTTPS."
 msgstr ""
+"若設置為 ``True``，只有 ``SSL_FORCE_URL_PREFIXES`` 設定中指定的 URLs 才能以 "
+"SSL 訪問，且其他的 URLs 在接受 HTTPS 訪問時都會將其導回 HTTP。"
 
 #: defaults.py:422
 msgid "List of words which will be stripped from search queries."
@@ -350,7 +365,7 @@ msgstr ""
 
 #: defaults.py:487
 msgid "Sequence of setting names available within templates."
-msgstr ""
+msgstr "模板中可使用的設定名稱序列。"
 
 #: defaults.py:502
 msgid ""
@@ -378,13 +393,12 @@ msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
 msgstr ""
-"如果設置為``True``, South 應用程式則會被自動加入 setting 的``INSTALLED_APPS``"
-"中"
+"如果設置為 ``True``，south 應用程式會自動被加入 ``INSTALLED_APPS`` 設定中。"
 
 #: fields.py:37
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
-msgstr "無法匯入設定值：.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "無法匯入 settings.RICHTEXT_WIDGET_CLASS: %s"
 
 #: forms.py:84 models.py:317
 msgid "Order"
@@ -446,11 +460,11 @@ msgstr "狀態"
 
 #: models.py:190
 msgid "With Draft chosen, will only be shown for admin users on the site."
-msgstr ""
+msgstr "當選取「草稿」時，只會顯示給站台管理員。"
 
 #: models.py:192 models.py:225
 msgid "Published from"
-msgstr "由誰發佈"
+msgstr "發佈日"
 
 #: models.py:193
 msgid "With Published chosen, won't be shown until this time"
@@ -466,7 +480,7 @@ msgstr "當選取「已發佈」時，在此時間後不會顯示。"
 
 #: models.py:199
 msgid "Show in sitemap"
-msgstr ""
+msgstr "顯示於 sitemap"
 
 #: models.py:402 models.py:422
 msgid "Author"
@@ -474,15 +488,15 @@ msgstr "作者"
 
 #: models.py:425
 msgid "Sites"
-msgstr ""
+msgstr "站台"
 
 #: models.py:428
 msgid "Site permission"
-msgstr ""
+msgstr "站台權限"
 
 #: models.py:429
 msgid "Site permissions"
-msgstr ""
+msgstr "站台權限"
 
 #: views.py:87
 msgid "Permission denied"
@@ -490,7 +504,7 @@ msgstr "權限不足"
 
 #: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
-msgstr ""
+msgstr "全部"
 
 #: templates/base.html:121
 msgid "Powered by"
@@ -550,6 +564,8 @@ msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"您的查詢：%(query)s 在 %(search_type)s 中沒有任何結果\n"
 
 #: templates/search_results.html:24
 #, python-format
@@ -573,11 +589,11 @@ msgstr "儀表板"
 
 #: templates/admin/login.html:21
 msgid "You don't have permission to access the admin for this site."
-msgstr ""
+msgstr "您沒有訪問管理介面的權限。"
 
 #: templates/admin/login.html:28
 msgid "Username or email:"
-msgstr "使用者名稱或email："
+msgstr "使用者名稱或 email："
 
 #: templates/admin/login.html:32
 msgid "Password:"
@@ -671,4 +687,4 @@ msgstr "搜尋"
 
 #: templates/includes/search_form.html:22
 msgid "Go"
-msgstr ""
+msgstr "前往"

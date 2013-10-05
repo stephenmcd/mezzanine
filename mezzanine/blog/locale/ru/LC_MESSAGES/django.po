@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
-# Andrey Ivankov <andrey.ivankov@gmail.com>, 2013.
-# Dmitry Falk <tfalc@mail.ru>, 2012.
+# eigrad <andrew@ei-grad.ru>, 2011
+# andreyivankov <andrey.ivankov@gmail.com>, 2013
+# Dmitry Falk <tfalc@mail.ru>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-09-14 06:50+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
 "language/ru/)\n"
@@ -83,7 +83,7 @@ msgstr "Рейтинг"
 
 #: models.py:23
 msgid "Featured Image"
-msgstr ""
+msgstr "Выбранные изображения"
 
 #: models.py:27 templates/blog/blog_post_detail.html:113
 msgid "Related posts"

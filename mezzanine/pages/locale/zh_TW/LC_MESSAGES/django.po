@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Tzu-ping Chung <uranusjr@gmail.com>, 2013.
+# Tzu-ping Chung <uranusjr@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:03+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-04-18 07:40+0000\n"
+"Last-Translator: Tzu-ping Chung <uranusjr@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
 "mezzanine/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -25,6 +25,8 @@ msgid ""
 "that controls the ordering of items in the select drop-down for adding new "
 "pages within the admin page tree interface."
 msgstr ""
+"一個 ``Page`` 子類別的序列，格式為 ``app_label.model_name``。此設定控制管理頁"
+"面中樹狀介面下拉式選單的項目順序。"
 
 #: defaults.py:30
 msgid ""

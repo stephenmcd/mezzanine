@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012.
+# Baptiste <baptiste+transifex@darthenay.fr>, 2013
+# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-06-07 09:16+0000\n"
+"Last-Translator: Baptiste <baptiste+transifex@darthenay.fr>\n"
 "Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/"
 "language/eo/)\n"
 "Language: eo\n"
@@ -118,7 +119,7 @@ msgstr "Dato / tempo"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Naskiĝdato"
 
 #: fields.py:45
 msgid "Hidden"
@@ -178,13 +179,15 @@ msgstr "Respondo"
 
 #: models.py:20
 msgid "Send email to user"
-msgstr ""
+msgstr "Sendi retpoŝton al uzanto"
 
 #: models.py:21
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
 msgstr ""
+"Por sendi retpoŝton al la retpoŝta adreso provizita en la formularo al "
+"sendo, kontrolu ĉi-tiun skatolon."
 
 #: models.py:23
 msgid "From address"
@@ -196,13 +199,15 @@ msgstr "La adreso de kie la poŝto estos elsendita"
 
 #: models.py:25
 msgid "Send email to others"
-msgstr ""
+msgstr "Sendi retpoŝton al aliaj"
 
 #: models.py:26
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
 msgstr ""
+"Provizu koman apartigitan liston de retpoŝtaj adresoj por esti sciigita al "
+"formulara sendo. Lasu malplena por malfunkciigi sciigojn."
 
 #: models.py:30
 msgid "Subject"

@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <mathias.ettinger@gmail.com>, 2012.
-# Michał Oleniec <moleniec@gmail.com>, 2011.
+# manveru <manveru@manveru.pl>, 2013
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# Michał Oleniec <moleniec@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:59+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-09-03 15:10+0000\n"
+"Last-Translator: manveru <manveru@manveru.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/"
 "language/pl/)\n"
 "Language: pl\n"
@@ -71,11 +72,11 @@ msgstr ""
 
 #: defaults.py:57
 msgid "bit.ly access token"
-msgstr ""
+msgstr "Żeton dostępu do bit.ly"
 
 #: defaults.py:58
 msgid "Access token for http://bit.ly URL shortening service."
-msgstr ""
+msgstr "Żeton dostępu do serwisu skracania URL http://bit.ly."
 
 #: defaults.py:65
 msgid ""
@@ -87,26 +88,37 @@ msgid ""
 "misses never occur, and if many clients were to get a cache miss at once, "
 "only one would actually need to re-generated the cache entry."
 msgstr ""
+"Pamięć podręczna w Mezzanine opiera się o technikę zwaną \"mint caching\". "
+"Polega ona na przechowywaniu pozycji podręcznej wraz z terminem ważności, "
+"podczas gdy rzeczywisty termin jest opóźniony o ``CACHE_SET_DELAY``. Przy "
+"pobieraniu z pamięci podręcznej, sprawdzana jest ważność; gdy minęła, wpis "
+"jest ustawiany ponownie i nie następuje zwrócenie żadnego wpisu. Jest to "
+"próba zapewnienia, że chybienie nigdy nie nastąpi lub gdy wielu klientów "
+"miałoby paść ofiarą chybienia, tylko jeden wymagał będzie zregenerowania "
+"wpisu."
 
 #: defaults.py:93
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
 msgstr ""
-"Sekwencja zawierająca trzy osobne sekwencje template tagów użytych do "
-"wygenerowania kokpitu panelu administracyjnego."
+"Sekwencja zawierająca trzy osobne sekwencje tagów szablonu użytych do "
+"wygenerowania kokpitu administracyjnego."
 
 #: defaults.py:101
 msgid "Device specific template sub-directory to use as the default device."
-msgstr " "
+msgstr ""
+" Podkatalog szablonów specyficznych dla urządzenia stosowany dla urządzenia "
+"domyślnego."
 
 #: defaults.py:109
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
 msgstr ""
-"Mapowanie nazw urządzeń specyficznego szablonu podkatalogu do sekwencji, "
-"które mogą być znalezione w aplikacji klienta."
+"Mapowanie nazw podkatalogu szablonów specyficznych dla urządzeń do sekwencji "
+"napisów, które mogą być znalezione w identyfikatorach przeglądarek (ang. "
+"_user agents_)."
 
 #: defaults.py:131
 msgid "If ``True``, website forms will use HTML5 features."
@@ -150,6 +162,12 @@ msgid ""
 "request, the templates directory inside the theme package will be first "
 "searched when loading templates."
 msgstr ""
+"To sekwencja mapujące nazwę hosta do motywu, pozwalająca stosować różne "
+"motywy dla każdego z hostów HTTP. Każdy element tej sekwencji, jest "
+"sekwencją dwuelementową składającą się z adresu, jak ``othersite.example."
+"com`` oraz nazwy importowalnej paczki Python dla motywu. Gdy host w "
+"zapytaniu pasuje, katalog szablonów z pakietu motywu będzie przeszukiwany w "
+"pierwszej kolejności podczas ładowania szablonów."
 
 #: defaults.py:175
 msgid "Name of the jQuery file."
@@ -161,11 +179,12 @@ msgstr "Nazwa pliku jQuery znalezionego w mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
-msgstr ""
+msgstr "Nazwa pliku JQuery UI."
 
 #: defaults.py:185
 msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
 msgstr ""
+"Nazwa pliku jQuery UI znalezionego w mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:193
 msgid "Max paging links"
@@ -177,7 +196,7 @@ msgstr "Maksymalna liczba linków paginacji do wyświetlenia podczas paginacji."
 
 #: defaults.py:201
 msgid "Media library per site"
-msgstr ""
+msgstr "Biblioteka mediów dla witryny"
 
 #: defaults.py:202
 msgid ""
@@ -193,6 +212,12 @@ msgid ""
 "object_name``, that when subclassing ``Ownable``, will still show all "
 "records in the admin change-list interface, regardless of the current user."
 msgstr ""
+"Modele dziedziczące z ``Ownable`` i używające ``OwnableAdmin`` muszą mieć "
+"swoje rekordy administracyjne list zmian odfiltrowane do rekordów, których "
+"właścicielem jest bieżący użytkownik. To ustawienie zawiera sekwencję modeli "
+"w formacie ``app_label.object_name``, które dziedzicząc z ``Ownable`` nadal "
+"pokażą wszystkie rekordy w interfejsie administracyjnym list zmian, "
+"niezależnie od bieżącego użytkownika."
 
 #: defaults.py:222
 msgid ""
@@ -263,6 +288,25 @@ msgid ""
 "Setting the filtering level to no filtering, will disable all filtering, and "
 "allow any code to be entered by staff members, including script tags."
 msgstr ""
+"*Nie zmieniaj tego ustawienia, jeżeli nie masz absolutnej pewności do robisz."
+"*\n"
+"\n"
+"Kiedy zawartość pola typu Rich Text (WYSIWYG) jest zapisywana, wszelkie "
+"niebezpieczne znaczniki HTML i atrybuty są usuwane z treści w celu ochrony "
+"przed możliwością celowego dodania przez członków personelu kodu, który "
+"następnie może być użyty do zmiany ich kont w super-użytkowników z pełnym "
+"dostępem do systemu.\n"
+"\n"
+"To ustawienie pozwala dokonać zmiany poziomu filtracji. Ustawienie niskie "
+"dopuści pewne dodatkowe znaczniki, takie jak te wymagane do wstawiania "
+"video. Podczas, gdy znaczniki te nie są głównymi kandydatami użytkowników "
+"dodających złośliwy kod, nadal są uważane jako niebezpiecznie i potencjalnie "
+"niewłaściwie używane przez niektórych technicznie uzdolnionych użytkowników, "
+"przez co są odfiltrowywane przy ustawieniu poziomu na wysoki.\n"
+"\n"
+"Ustawienie poziomu filtrowania na brak filtrowania całkowicie wyłączy "
+"filtrację i pozwoli na wprowadzanie dowolnego kodu przez członków personelu, "
+"włącznie ze znacznikami skryptów."
 
 #: defaults.py:313
 msgid ""
@@ -270,6 +314,10 @@ msgid ""
 "form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
+"Sekwencja modeli, które będą oferowane domyślnie jako wybory w formularzu "
+"wyszukiwania. Każdy model powinien być w formacie ``app_label.model_name``. "
+"Powinny być używane tylko modele dziedziczące z ``mezzanine.core.models."
+"Displayable``."
 
 #: defaults.py:323
 msgid "Search results per page"
@@ -286,6 +334,11 @@ msgid ""
 "py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-"
 "project`` command contains an example of this towards its end."
 msgstr ""
+"Prefiks URL dla zaczepienia wszystkich wzorców URL w Mezzanine. Użycie tego "
+"wymaga również ręcznego dodania tego do modułu ``urls.py`` w głównym "
+"katalogu projektu. Moduł ``urls.py`` jest dostarczany przez komendę "
+"Mezzanine ``mezzanine-project`` i zawiera przykład użycia pod koniec "
+"zawartości."
 
 #: defaults.py:342
 msgid "Site Title"
@@ -318,6 +371,11 @@ msgid ""
 "ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
 "Django's slugify function, or something of your own if required."
 msgstr ""
+"Kropkowana ścieżka Python do wykonywalnego obiektu zamieniającego napisy na "
+"ścieżki URL. Domyślnie jest to ``mezzanine.utils.urls.slugify_unicode``, "
+"które dopuszcza znaki z poza ASCII w URL. Zmień na ``django.template."
+"defaultfilters.slugify``, aby stosować funkcję slugify z Django; ewentualnie "
+"podaj coś własnego, gdy taka jest potrzeba."
 
 #: defaults.py:370
 msgid ""
@@ -536,7 +594,7 @@ msgstr "i"
 
 #: templates/base.html:127
 msgid "Theme by"
-msgstr ""
+msgstr "Motyw od"
 
 #: templates/base.html:130
 msgid "View Mobile Site"
@@ -572,6 +630,28 @@ msgid ""
 "to a production server</a></li>\n"
 "</ul>\n"
 msgstr ""
+"\n"
+"<h2>Gratulacje!</h2>\n"
+"<p>\n"
+"Witamy Cię na Twojej nowej witrynie napędzanej przez Mazzanine.\n"
+"Oto kilka szybkich łączy, które mogą przydać się przy rozpoczęciu przygody:\n"
+"</p>\n"
+"<ul>\n"
+"<li><a href=\"/admin/\">Logowanie do interfejsu administracyjnego</a></li>\n"
+"<li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Tworzenie własnych typów stron</a></li>\n"
+"<li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">Modyfikacja szablonów HTML</a></li>\n"
+"<li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin\">Zmiany "
+"tej strony głównej</a></li>\n"
+"<li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html"
+"\">Inne często zadawane pytania</a></li>\n"
+"<li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Pełna lista ustwień</a></li>\n"
+"<li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Umieszczanie "
+"na serwerze produkcyjnym</a></li>\n"
+"</ul>\n"
 
 #: templates/search_results.html:5 templates/search_results.html.py:6
 #: templates/search_results.html:13

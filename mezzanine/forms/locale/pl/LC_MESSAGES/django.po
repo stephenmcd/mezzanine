@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <mathias.ettinger@gmail.com>, 2012.
-# Michał Oleniec <moleniec@gmail.com>, 2011.
+# manveru <manveru@manveru.pl>, 2013
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# Michał Oleniec <moleniec@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-10-26 11:04+0000\n"
-"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-09-03 15:00+0000\n"
+"Last-Translator: manveru <manveru@manveru.pl>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/"
 "language/pl/)\n"
 "Language: pl\n"
@@ -71,6 +72,11 @@ msgid ""
 "constant for the field, but cannot be a value already used, so choose a high "
 "number such as 100 or greater to avoid conflicts."
 msgstr ""
+"Dodatkowe typy pół dla aplikacji formularzy. Powinno zawierać sekwencję "
+"trójelementowych sekwencji dla każdego własnego typu, składających się z ID, "
+"kropkowanej ścieżki importu klasy pola oraz jego nazwy. Numer ID jest stałą "
+"dla tego pola, nie może być wartością wcześniej użytą, dlatego należy wybrać "
+"numer równy bądź większy od 100, aby uniknąć konfliktów."
 
 #: fields.py:31
 msgid "Single line text"

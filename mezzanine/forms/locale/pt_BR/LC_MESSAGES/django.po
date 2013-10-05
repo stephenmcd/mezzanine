@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Hilton Medeiros <medeiros.hilton@gmail.com>, 2012.
+# Hilton Medeiros <medeiros.hilton@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-04-30 15:20+0000\n"
+"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "mezzanine/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: admin.py:32 fields.py:33
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #: admin.py:115
 #, python-format
@@ -69,6 +69,12 @@ msgid ""
 "constant for the field, but cannot be a value already used, so choose a high "
 "number such as 100 or greater to avoid conflicts."
 msgstr ""
+"Tipos de campo extra para o app de forms. Deveria conter uma sequência de "
+"sequência de 3 itens, cada contendo o ID, caminho pontilhado de importação "
+"para a classe do campo, e nome do campo, para cada tipo de campo "
+"customizado. O ID é simplesmente uma constante numérica para o campo, mas "
+"não pode ser um valor já usado, então escolha um número alto como 100 ou "
+"maior para evitar conflitos."
 
 #: fields.py:31
 msgid "Single line text"
@@ -120,7 +126,7 @@ msgstr "Data/horário"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Data de nascimento"
 
 #: fields.py:45
 msgid "Hidden"

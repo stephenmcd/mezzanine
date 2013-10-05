@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <bornazadeh@gmail.com>, 2012.
+# Bornazadeh <bornazadeh@gmail.com>, 2012
+# Bornazadeh <bornazadeh@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:59+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-08-15 08:00+0000\n"
+"Last-Translator: Bornazadeh <bornazadeh@gmail.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/mezzanine/"
 "language/fa_IR/)\n"
 "Language: fa_IR\n"
@@ -69,11 +70,11 @@ msgstr ""
 
 #: defaults.py:57
 msgid "bit.ly access token"
-msgstr ""
+msgstr "توکن دسترسی bit.ly"
 
 #: defaults.py:58
 msgid "Access token for http://bit.ly URL shortening service."
-msgstr ""
+msgstr "یوکن دسترسی برای http://bit.ly سرویس کوتاه کردن URL."
 
 #: defaults.py:65
 msgid ""
@@ -172,11 +173,11 @@ msgstr "نام فایل شناسه jQuery موجود در /mezzanine/core/static
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
-msgstr ""
+msgstr "نام فایل jQuery UI."
 
 #: defaults.py:185
 msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
-msgstr ""
+msgstr "نام فایل jQuery UI در mezzanine/core/static/mezzanine/js/ یافت شد"
 
 #: defaults.py:193
 msgid "Max paging links"
@@ -188,13 +189,15 @@ msgstr "حداکثر لینک های صفحه برای نمایش هنگام ص�
 
 #: defaults.py:201
 msgid "Media library per site"
-msgstr ""
+msgstr "کتابخانه رسانه برای هر سایت"
 
 #: defaults.py:202
 msgid ""
 "If ``True``, each site will use its own directory within the filebrowser "
 "media library."
 msgstr ""
+"اگر ``درست`` باشد, هر سایت از فولدر مخصوص به خودش درقسمت مدیر فایل از "
+"کتابخانه رسانه استفاده می کند."
 
 #: defaults.py:210
 msgid ""
@@ -304,6 +307,9 @@ msgid ""
 "form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
+"دنباله مدل ها کهبصورت پیش فرض برای انتخاب در فرم جستجو فراهم شده است. هر مدل "
+"باید به فرمت ``app_label.model_name`` باشد. فقط مدل هایی که زیر کلاس "
+"``mezzanine.core.models.Displayable`` هستند باید استفاده شوند."
 
 #: defaults.py:323
 msgid "Search results per page"
@@ -370,6 +376,12 @@ msgid ""
 "which will use the http://akismet.com spam filtering service when the "
 "``AKISMET_API_KEY`` setting is configured."
 msgstr ""
+"دنباله ای از مسیر های نقطه دار پایتون برای فراخوانی توابعی که به منظور کنترل "
+"کردن محتوای پست (مانند فرم ها یا کامنت ها) به عنوان اسپم استفاده می شوند. هر "
+"تابع باید دارای سه آرکومان باشد: درخواست , فرم و URLی که از انجا محتوا پست "
+"شده است.تنظیم پیش فرض ``mezzanine.utils.views.is_spam_akismet`` است که برای "
+"http://akismet.com سرویس فیلتر سازی اسپم استفاده می شود,  وقتی که "
+"``AKISMET_API_KEY`` در تنظیمات سایت وارد شده باشد."
 
 #: defaults.py:383
 msgid "Enable SSL"
@@ -446,6 +458,8 @@ msgid ""
 "field_name`` to the Python dotted path to function names that will be used "
 "for the file field's ``upload_to`` argument."
 msgstr ""
+"دیکشنری به فرمت ``app_label.model_name.field_name`` برای مپینگ فیلد های نام "
+"فایل به مسیر نقطه دار نام تابع که در فیلد های ``upload_to``  استفاده می شود."
 
 #: defaults.py:535
 msgid ""
@@ -542,7 +556,7 @@ msgstr "با انتخاب منتشر شده, بعد از این لحظه نما�
 
 #: models.py:199
 msgid "Show in sitemap"
-msgstr ""
+msgstr "نمایش در نقشه سایت"
 
 #: models.py:402 models.py:422
 msgid "Author"
@@ -550,15 +564,15 @@ msgstr "نویسنده"
 
 #: models.py:425
 msgid "Sites"
-msgstr ""
+msgstr "سایت ها"
 
 #: models.py:428
 msgid "Site permission"
-msgstr ""
+msgstr "مجوز سایت"
 
 #: models.py:429
 msgid "Site permissions"
-msgstr ""
+msgstr "مجوزهای سایت"
 
 #: views.py:87
 msgid "Permission denied"
@@ -566,7 +580,7 @@ msgstr "اجازه دسترسی ندارید"
 
 #: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
-msgstr ""
+msgstr "همه قسمت ها"
 
 #: templates/base.html:121
 msgid "Powered by"
@@ -614,6 +628,28 @@ msgid ""
 "to a production server</a></li>\n"
 "</ul>\n"
 msgstr ""
+"\n"
+"<h2>تبریک!</h2>\n"
+"<p>\n"
+"    به سایت جدید خود که با مزانین ایجاد شده,  خوش آمدید.\n"
+"    چند لینک برای دسترسی سریع تر به قسمت های سایت ایجاد کرده ایم:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">ورود به بخش مدیریت سایت</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">ایجاد صفحات از نوع جدید</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">تغییر الگو های HTML</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin\">تغییر "
+"صفه خانگی</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">دیگر سوالات متداول FAQ</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">لیست کامل تنطیمات </a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">آپلود به "
+"یک سرور</a></li>\n"
+"</ul>\n"
 
 #: templates/search_results.html:5 templates/search_results.html.py:6
 #: templates/search_results.html:13
@@ -626,6 +662,8 @@ msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"نتیجه ای یافت نشد در %(search_type)s منطبق بر عبارت جستجوی شما: %(query)s\n"
 
 #: templates/search_results.html:24
 #, python-format
@@ -634,6 +672,9 @@ msgid ""
 "Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
 "matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"نمایش %(start)s تا %(end)s از %(total)s نتایج در %(search_type)s منطبق بر "
+"عبارت جستجوی شما: %(query)s\n"
 
 #: templates/search_results.html:35
 msgid "read more"
@@ -649,7 +690,7 @@ msgstr "داشبورد"
 
 #: templates/admin/login.html:21
 msgid "You don't have permission to access the admin for this site."
-msgstr ""
+msgstr "شما مجوز لازم برای دسترسی به قسمت مدیریتی این سایت را ندارید."
 
 #: templates/admin/login.html:28
 msgid "Username or email:"
@@ -747,4 +788,4 @@ msgstr "جستجو"
 
 #: templates/includes/search_form.html:22
 msgid "Go"
-msgstr ""
+msgstr "برو"

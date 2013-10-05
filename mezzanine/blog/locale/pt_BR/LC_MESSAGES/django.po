@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Hilton Medeiros <medeiros.hilton@gmail.com>, 2012.
+# Hilton Medeiros <medeiros.hilton@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-04-30 15:20+0000\n"
+"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "mezzanine/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: admin.py:20
 msgid "Other posts"
-msgstr ""
+msgstr "Outros posts"
 
 #: defaults.py:20
 msgid "Enable featured images in blog posts"
@@ -50,13 +50,15 @@ msgstr ""
 
 #: defaults.py:44
 msgid "Blog posts RSS limit"
-msgstr ""
+msgstr "Limite de posts do blog no RSS"
 
 #: defaults.py:45
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
+"Número dos mais recentes posts do blog exibidos no RSS. Configure como "
+"``None`` para exibir todos posts do blog no RSS."
 
 #: defaults.py:53
 msgid "Slug of the page object for the blog."
@@ -85,7 +87,7 @@ msgstr "Imagem de Destaque"
 
 #: models.py:27 templates/blog/blog_post_detail.html:113
 msgid "Related posts"
-msgstr ""
+msgstr "Posts relacionados"
 
 #: models.py:32
 msgid "Blog post"
@@ -120,7 +122,7 @@ msgstr "Publicado por"
 #: templates/blog/blog_post_list.html:95
 #, python-format
 msgid "%(sometime)s ago"
-msgstr ""
+msgstr "%(sometime)s atrás"
 
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133

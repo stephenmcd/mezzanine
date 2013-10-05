@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <bornazadeh@gmail.com>, 2012.
+# Bornazadeh <bornazadeh@gmail.com>, 2012
+# Bornazadeh <bornazadeh@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:03+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-08-15 08:20+0000\n"
+"Last-Translator: Bornazadeh <bornazadeh@gmail.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/mezzanine/"
 "language/fa_IR/)\n"
 "Language: fa_IR\n"
@@ -25,6 +26,9 @@ msgid ""
 "that controls the ordering of items in the select drop-down for adding new "
 "pages within the admin page tree interface."
 msgstr ""
+"دنباله ای اززیر کلاس های  ``Page`` به فرمت ``app_label.model_name``, که "
+"ترتیب موارد موجود در لیست های پایین-بازشونده را برای افزودن صفحهات در قسمت "
+"صفحه از بخش مدیریت سایت,  کنترل می کند."
 
 #: defaults.py:30
 msgid ""

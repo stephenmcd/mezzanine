@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Taras Kozlovskyi <ktarasz@gmail.com>, 2012.
+# Taras Kozlovskyi <ktarasz@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-06-10 11:10+0000\n"
+"Last-Translator: Taras Kozlovskyi <ktarasz@gmail.com>\n"
 "Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/"
 "mezzanine/language/uk_UA/)\n"
 "Language: uk_UA\n"
@@ -22,43 +22,47 @@ msgstr ""
 
 #: admin.py:20
 msgid "Other posts"
-msgstr ""
+msgstr "Інші записи"
 
 #: defaults.py:20
 msgid "Enable featured images in blog posts"
-msgstr ""
+msgstr "Включити зображення для записів блогу"
 
 #: defaults.py:27
 msgid "Use date URLs"
-msgstr ""
+msgstr "Використовувати адреси з датой"
 
 #: defaults.py:28
 msgid ""
 "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
 "mm/slug/"
 msgstr ""
+"Якщо ``Так``, адреси повідомлень блогу будуть вміщати рік та місяць. "
+"Наприклад: /blog/yyyy/mm/slug/"
 
 #: defaults.py:36
 msgid "Blog posts per page"
-msgstr ""
+msgstr "Записів блогу на сторінку"
 
 #: defaults.py:37
 msgid "Number of blog posts shown on a blog listing page."
-msgstr ""
+msgstr "Кількість записів блогу, які відображаються в списку на одній сторінці"
 
 #: defaults.py:44
 msgid "Blog posts RSS limit"
-msgstr ""
+msgstr "RSS ліміт для записів блогу"
 
 #: defaults.py:45
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
+"Кількість останніх записів блогу, які будуть відображатись в RSS каналі. На "
+"`` None `` для відображення усіх записів в RSS каналІ."
 
 #: defaults.py:53
 msgid "Slug of the page object for the blog."
-msgstr ""
+msgstr "Внутрішній URL головної стріники блогу"
 
 #: models.py:17 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
@@ -66,7 +70,7 @@ msgstr "Категорії"
 
 #: models.py:19
 msgid "Allow comments"
-msgstr ""
+msgstr "Дозволити коментарі"
 
 #: models.py:21 templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:129
@@ -79,11 +83,11 @@ msgstr "Рейтинг"
 
 #: models.py:23
 msgid "Featured Image"
-msgstr ""
+msgstr "Зображення"
 
 #: models.py:27 templates/blog/blog_post_detail.html:113
 msgid "Related posts"
-msgstr ""
+msgstr "Останні записи"
 
 #: models.py:32
 msgid "Blog post"
@@ -118,16 +122,16 @@ msgstr "Написав(-ла)"
 #: templates/blog/blog_post_list.html:95
 #, python-format
 msgid "%(sometime)s ago"
-msgstr ""
+msgstr "%(sometime)s тому"
 
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%(comments_count)s коментар"
+msgstr[1] "%(comments_count)s коментарів"
+msgstr[2] "%(comments_count)s коментарів"
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
@@ -137,27 +141,27 @@ msgstr "Теги"
 
 #: templates/blog/blog_post_detail.html:87
 msgid "Share on Twitter"
-msgstr ""
+msgstr "Опублікувати на Twitter"
 
 #: templates/blog/blog_post_detail.html:88
 msgid "Share on Facebook"
-msgstr ""
+msgstr "Опублікувати на Facebook"
 
 #: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"
-msgstr ""
+msgstr "Блог"
 
 #: templates/blog/blog_post_list.html:31
 msgid "Tag:"
-msgstr ""
+msgstr "Тег:"
 
 #: templates/blog/blog_post_list.html:33
 msgid "Category:"
-msgstr ""
+msgstr "Категорія:"
 
 #: templates/blog/blog_post_list.html:37
 msgid "Author:"
-msgstr ""
+msgstr "Автор:"
 
 #: templates/blog/blog_post_list.html:50
 msgid "Viewing posts tagged"
@@ -197,7 +201,7 @@ msgstr "Автори"
 
 #: templates/blog/includes/filter_panel.html:76
 msgid "Feeds"
-msgstr "Стірічки новин "
+msgstr "Стірічки новин"
 
 #: templates/blog/includes/filter_panel.html:78
 #: templates/blog/includes/filter_panel.html:82

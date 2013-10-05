@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:40-0430\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
 "PO-Revision-Date: 2011-11-12 03:09+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://www.transifex.com/projects/p/mezzanine/"
@@ -81,7 +81,7 @@ msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:23
 msgid "Posted by"
-msgstr ""
+msgstr "作者"
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
@@ -90,7 +90,7 @@ msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
-msgstr ""
+msgstr "标签"
 
 #: templates/mobile/blog/blog_post_detail.html:52
 msgid "Share this on:"

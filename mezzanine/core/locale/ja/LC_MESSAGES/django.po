@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <andreas.lindroos@gmail.com>, 2012.
-# Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# HeliosReds <helios_reds@gmx.net>, 2012-2013
+# HeliosReds <helios_reds@gmx.net>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:59+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-06-17 08:40+0000\n"
+"Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
 "language/ja/)\n"
 "Language: ja\n"
@@ -70,11 +72,11 @@ msgstr ""
 
 #: defaults.py:57
 msgid "bit.ly access token"
-msgstr ""
+msgstr "bit.ly アクセストークン"
 
 #: defaults.py:58
 msgid "Access token for http://bit.ly URL shortening service."
-msgstr ""
+msgstr "http://bit.ly URL 短縮サービス用のアクセストークン"
 
 #: defaults.py:65
 msgid ""
@@ -175,11 +177,12 @@ msgstr "mezzanine/core/static/mezzanine/js/ 内にあるjQueryファイルの名
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
-msgstr ""
+msgstr "jQuery UI ファイルの名前"
 
 #: defaults.py:185
 msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
 msgstr ""
+"mezzanine/core/static/mezzanine/js/ 以下にある jQuery UI ファイルの名前"
 
 #: defaults.py:193
 msgid "Max paging links"
@@ -191,13 +194,15 @@ msgstr "ページ生成する際に表示するページングリンクの最大
 
 #: defaults.py:201
 msgid "Media library per site"
-msgstr ""
+msgstr "サイト毎のメディアライブラリー"
 
 #: defaults.py:202
 msgid ""
 "If ``True``, each site will use its own directory within the filebrowser "
 "media library."
 msgstr ""
+"チェックを入れると、各サイトはファイルブラウザーメディアライブラリー内で それ"
+"ぞれ固有のディレクトリを使用します。"
 
 #: defaults.py:210
 msgid ""
@@ -545,7 +550,7 @@ msgstr "公開を選択すると、ここで設定した日時以降は公開さ
 
 #: models.py:199
 msgid "Show in sitemap"
-msgstr ""
+msgstr "サイトマップ内に表示表示"
 
 #: models.py:402 models.py:422
 msgid "Author"
@@ -553,15 +558,15 @@ msgstr "著者"
 
 #: models.py:425
 msgid "Sites"
-msgstr ""
+msgstr "サイト"
 
 #: models.py:428
 msgid "Site permission"
-msgstr ""
+msgstr "サイトのパーミッション"
 
 #: models.py:429
 msgid "Site permissions"
-msgstr ""
+msgstr "サイトのパーミッション"
 
 #: views.py:87
 msgid "Permission denied"
@@ -569,7 +574,7 @@ msgstr "権限がありません"
 
 #: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
-msgstr ""
+msgstr "全て"
 
 #: templates/base.html:121
 msgid "Powered by"
@@ -652,7 +657,7 @@ msgstr "ダッシュボード"
 
 #: templates/admin/login.html:21
 msgid "You don't have permission to access the admin for this site."
-msgstr ""
+msgstr "このサイトの管理ページにアクセスできる権限が割り当てられていません。"
 
 #: templates/admin/login.html:28
 msgid "Username or email:"
@@ -750,4 +755,4 @@ msgstr "検索"
 
 #: templates/includes/search_form.html:22
 msgid "Go"
-msgstr ""
+msgstr "移動"

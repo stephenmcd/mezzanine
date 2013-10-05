@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jérôme Place <djayp83@hotmail.com>, 2012.
-#   <mathias.ettinger@gmail.com>, 2012.
-#   <strider@strycore.com>, 2012.
-# Vincent Rialland <vincent.rialland@gmail.com>, 2011.
+# Jérôme Place <djayp83@hotmail.com>, 2012
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# Romain Hardouin <romain_hardouin@yahoo.fr>, 2013
+# strider <strider@strycore.com>, 2012
+# Vincent Rialland <vincent.rialland@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:03+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-06-10 17:50+0000\n"
+"Last-Translator: Romain Hardouin <romain_hardouin@yahoo.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -28,6 +29,9 @@ msgid ""
 "that controls the ordering of items in the select drop-down for adding new "
 "pages within the admin page tree interface."
 msgstr ""
+"Séquence des sous-classes de ``Page`` au format ``app_label.model_name``. "
+"Détermine l'ordre des éléments de la liste déroulante d'ajout de nouvelles "
+"pages dans l'interface d'administration."
 
 #: defaults.py:30
 msgid ""

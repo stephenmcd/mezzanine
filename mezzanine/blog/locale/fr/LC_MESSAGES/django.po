@@ -3,18 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jérôme Place <djayp83@hotmail.com>, 2012.
-#   <mathias.ettinger@gmail.com>, 2012.
-#   <strider@strycore.com>, 2012.
-#   <vincent.rialland@gmail.com>, 2011.
-# Vincent Rialland <vincent.rialland@gmail.com>, 2011.
+# Jérôme Place <djayp83@hotmail.com>, 2012
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# strider <strider@strycore.com>, 2012
+# strider <strider@strycore.com>, 2012
+# Vincent Rialland <vincent.rialland@gmail.com>, 2011
+# Vincent Rialland <vincent.rialland@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-06-10 11:30+0000\n"
+"Last-Translator: Romain Hardouin <romain_hardouin@yahoo.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -53,13 +55,15 @@ msgstr "Nombre de billets de blog affichés en mode liste."
 
 #: defaults.py:44
 msgid "Blog posts RSS limit"
-msgstr ""
+msgstr "Nombre d'articles dans les flux"
 
 #: defaults.py:45
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
+"Nombre d'articles les plus récents à afficher dans les flux. ``None`` pour "
+"afficher l'intégralité des articles."
 
 #: defaults.py:53
 msgid "Slug of the page object for the blog."
@@ -169,7 +173,7 @@ msgstr "Afficher les articles taggués"
 
 #: templates/blog/blog_post_list.html:52
 msgid "Viewing posts for the category"
-msgstr "Affichés les articles de la catégorie"
+msgstr "Articles de la catégorie"
 
 #: templates/blog/blog_post_list.html:54
 msgid "Viewing posts from"

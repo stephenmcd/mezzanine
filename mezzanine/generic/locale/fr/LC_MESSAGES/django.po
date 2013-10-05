@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <mathias.ettinger@gmail.com>, 2012.
-#   <strider@strycore.com>, 2012.
-# Vincent Rialland <vincent.rialland@gmail.com>, 2011.
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# Romain Hardouin <romain_hardouin@yahoo.fr>, 2013
+# strider <strider@strycore.com>, 2012
+# Vincent Rialland <vincent.rialland@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:40-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-06-10 17:40+0000\n"
+"Last-Translator: Romain Hardouin <romain_hardouin@yahoo.fr>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -121,21 +122,23 @@ msgstr ""
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
-msgstr ""
+msgstr "Si ``True``, les commentaires peuvent être notés."
 
 #: defaults.py:120
 msgid "Accounts required for rating"
-msgstr ""
+msgstr "Un compte est nécessaire pour noter"
 
 #: defaults.py:121
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
 msgstr ""
+"Si ``True``, les utilisateurs doivent s'authentifier pour noter les contenus "
+"tels que les articles ou les commentaires."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
-msgstr ""
+msgstr "Plage de nombres entiers utilisée pour la notation."
 
 #: forms.py:83
 msgid "Name"
@@ -167,7 +170,7 @@ msgstr "Nouveau commentaire pour :"
 
 #: forms.py:174
 msgid "Already rated."
-msgstr ""
+msgstr "Déjà noté."
 
 #: models.py:26
 msgid "By the blog author"
@@ -203,11 +206,11 @@ msgstr "Valeur"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "Date de l'évaluation"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "Evaluateur"
 
 #: models.py:131
 msgid "Ratings"
@@ -216,6 +219,8 @@ msgstr "Notes"
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
 msgstr ""
+"Vous devez être authentifié. Identifiez-vous ou enregistrez-vous pour "
+"réaliser cette action."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"

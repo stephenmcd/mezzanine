@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Henri Koivuneva <henri.koivuneva@gmail.com>, 2013.
+# hkoivuneva <henri.koivuneva@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-08-13 18:30+0000\n"
+"Last-Translator: hkoivuneva <henri.koivuneva@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/mezzanine/"
 "language/fi/)\n"
 "Language: fi\n"
@@ -36,7 +36,7 @@ msgid ""
 "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
 "mm/slug/"
 msgstr ""
-"Jos ``Kyllä``, blogin linkit sisältävät kirjoitusten vuoden ja kuukauden. "
+"Jos ``Tosi``, blogin linkit sisältävät kirjoitusten vuoden ja kuukauden. "
 "Esim: /blog/yyyy/mm/slug/"
 
 #: defaults.py:36
@@ -49,13 +49,15 @@ msgstr "Blogikirjoitusten määrä yhtä sivua kohti"
 
 #: defaults.py:44
 msgid "Blog posts RSS limit"
-msgstr ""
+msgstr "RSS-syötteen kirjoitusten määrä"
 
 #: defaults.py:45
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
+"Uusinten kirjoitusten määrä RSS-syötteessä. Aseta ``Ei mitään`` näyttääksesi "
+"kaikki kirjoitukset syötteessä."
 
 #: defaults.py:53
 msgid "Slug of the page object for the blog."
@@ -119,7 +121,7 @@ msgstr "Lähettänyt"
 #: templates/blog/blog_post_list.html:95
 #, python-format
 msgid "%(sometime)s ago"
-msgstr "%(sometime) sitten"
+msgstr "%(sometime)s  sitten"
 
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
@@ -177,7 +179,7 @@ msgstr "Näytetään kirjoitukset henkilöltä"
 
 #: templates/blog/blog_post_list.html:89
 msgid "in"
-msgstr "sisällä"
+msgstr "kategoriassa"
 
 #: templates/blog/blog_post_list.html:124
 msgid "read more"

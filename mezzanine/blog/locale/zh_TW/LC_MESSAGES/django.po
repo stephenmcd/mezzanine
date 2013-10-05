@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Tzu-ping Chung <uranusjr@gmail.com>, 2013.
+# Tzu-ping Chung <uranusjr@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-06-14 19:36+0000\n"
+"Last-Translator: Tzu-ping Chung <uranusjr@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
 "mezzanine/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -25,17 +25,17 @@ msgstr "其他文章"
 
 #: defaults.py:20
 msgid "Enable featured images in blog posts"
-msgstr ""
+msgstr "在部落格文章中使用封面圖片"
 
 #: defaults.py:27
 msgid "Use date URLs"
-msgstr ""
+msgstr "在 URL 中使用日期"
 
 #: defaults.py:28
 msgid ""
 "If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
 "mm/slug/"
-msgstr ""
+msgstr "若為 ``True``，文章的 URL 會包含發表年月，形式：/blog/yyyy/mm/slug/"
 
 #: defaults.py:36
 msgid "Blog posts per page"
@@ -43,21 +43,23 @@ msgstr "每頁顯示文章數"
 
 #: defaults.py:37
 msgid "Number of blog posts shown on a blog listing page."
-msgstr ""
+msgstr "文章列表頁中顯示的文章數量。"
 
 #: defaults.py:44
 msgid "Blog posts RSS limit"
-msgstr ""
+msgstr "部落格文章 RSS 上限"
 
 #: defaults.py:45
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
+"RSS feed 中顯示的最近部落格文章數量。若設置為 ``None``，RSS feed 中將包含所有"
+"部落格文章。"
 
 #: defaults.py:53
 msgid "Slug of the page object for the blog."
-msgstr ""
+msgstr "部落格頁面物件的網址"
 
 #: models.py:17 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
@@ -78,7 +80,7 @@ msgstr "評等"
 
 #: models.py:23
 msgid "Featured Image"
-msgstr ""
+msgstr "封面圖片"
 
 #: models.py:27 templates/blog/blog_post_detail.html:113
 msgid "Related posts"
@@ -117,14 +119,14 @@ msgstr "作者："
 #: templates/blog/blog_post_list.html:95
 #, python-format
 msgid "%(sometime)s ago"
-msgstr ""
+msgstr "%(sometime)s 之前"
 
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] ""
+msgstr[0] "%(comments_count)s 個留言"
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
@@ -158,23 +160,23 @@ msgstr "作者："
 
 #: templates/blog/blog_post_list.html:50
 msgid "Viewing posts tagged"
-msgstr ""
+msgstr "檢視文章，標記"
 
 #: templates/blog/blog_post_list.html:52
 msgid "Viewing posts for the category"
-msgstr ""
+msgstr "檢視文章，分類"
 
 #: templates/blog/blog_post_list.html:54
 msgid "Viewing posts from"
-msgstr ""
+msgstr "檢視文章，發表於"
 
 #: templates/blog/blog_post_list.html:57
 msgid "Viewing posts by"
-msgstr ""
+msgstr "檢視文章，作者"
 
 #: templates/blog/blog_post_list.html:89
 msgid "in"
-msgstr ""
+msgstr "於"
 
 #: templates/blog/blog_post_list.html:124
 msgid "read more"
@@ -182,11 +184,11 @@ msgstr "顯示更多"
 
 #: templates/blog/includes/filter_panel.html:6
 msgid "Recent Posts"
-msgstr ""
+msgstr "最近的文章"
 
 #: templates/blog/includes/filter_panel.html:19
 msgid "Archive"
-msgstr ""
+msgstr "過去的文章"
 
 #: templates/blog/includes/filter_panel.html:64
 msgid "Authors"
@@ -194,18 +196,18 @@ msgstr "作者"
 
 #: templates/blog/includes/filter_panel.html:76
 msgid "Feeds"
-msgstr ""
+msgstr "Feeds"
 
 #: templates/blog/includes/filter_panel.html:78
 #: templates/blog/includes/filter_panel.html:82
 #: templates/blog/includes/filter_panel.html:86
 #: templates/blog/includes/filter_panel.html:90
 msgid "RSS"
-msgstr ""
+msgstr "RSS"
 
 #: templates/blog/includes/filter_panel.html:79
 #: templates/blog/includes/filter_panel.html:83
 #: templates/blog/includes/filter_panel.html:87
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
-msgstr ""
+msgstr "Atom"

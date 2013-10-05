@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Christopher R. Parr <fosstux@gmail.com>, 2012.
-# Daniel Seither <post@tiwoc.de>, 2012.
+# Christopher R. Parr <fosstux@gmail.com>, 2012
+# Daniel Seither <post@tiwoc.de>, 2012
+# clemensbasti <mail@sebastian-clemens.de>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-04-27 14:00+0000\n"
+"Last-Translator: clemensbasti <mail@sebastian-clemens.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/mezzanine/"
 "language/de/)\n"
 "Language: de\n"
@@ -118,7 +119,7 @@ msgstr "Datum/Zeit"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Geburtsdatum"
 
 #: fields.py:45
 msgid "Hidden"

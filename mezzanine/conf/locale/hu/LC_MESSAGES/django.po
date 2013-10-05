@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# zeller <zellermester@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2011-11-12 02:51+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-09-18 13:30+0000\n"
+"Last-Translator: zeller <zellermester@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/mezzanine/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -20,28 +21,28 @@ msgstr ""
 
 #: admin.py:38
 msgid "Settings were successfully updated."
-msgstr ""
+msgstr "A beállítások frissítése sikeres volt."
 
 #: admin.py:42
 msgid "Change"
-msgstr ""
+msgstr "Megváltoztat"
 
 #: forms.py:53
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Egyéb"
 
 #: models.py:17
 msgid "Setting"
-msgstr ""
+msgstr "Beállítás"
 
 #: models.py:18
 msgid "Settings"
-msgstr ""
+msgstr "Beállítások"
 
 #: templates/admin/conf/setting/change_list.html:8
 msgid "Please correct the errors below."
-msgstr ""
+msgstr "Kérlek javítsd az alábbi hibákat"
 
 #: templates/admin/conf/setting/change_list.html:31
 msgid "Save"
-msgstr ""
+msgstr "Mentés"

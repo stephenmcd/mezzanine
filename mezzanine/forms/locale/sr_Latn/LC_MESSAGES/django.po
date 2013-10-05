@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Milorad Pop-Tosic <poptosic@gmail.com>, 2012.
+# Milorad Pop-Tosic <poptosic@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 09:38-0430\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-04-19 20:20+0000\n"
+"Last-Translator: Milorad Pop-Tosic <poptosic@gmail.com>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/"
 "mezzanine/language/sr@latin/)\n"
 "Language: sr@latin\n"
@@ -59,7 +59,9 @@ msgstr ""
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr "Apsolutna putanja za smeštanje fajlova za forms aplikaciju."
+msgstr ""
+"Apsolutna putanja za smeštanje fajlova koji se postavljaju kroz forms "
+"aplikaciju."
 
 #: defaults.py:58
 msgid ""
@@ -120,7 +122,7 @@ msgstr "Datum/vreme"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Datum rođenja"
 
 #: fields.py:45
 msgid "Hidden"
@@ -205,8 +207,9 @@ msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
 msgstr ""
-"Unesite niz imejl adresa razdvojenih zarezima koje će biti obaveštene nakon "
-"slanja forme. Ostavite prazno kako biste isključili notifikacije."
+"Unesite niz imejl adresa razdvojenih zarezima na koje će se poslati "
+"obaveštenje nakon slanja forme. Ostavite prazno kako biste isključili "
+"notifikacije."
 
 #: models.py:30
 msgid "Subject"
@@ -256,7 +259,7 @@ msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
 msgstr ""
-"Niz opcija odvojenih zarezima. Ukoliko sama opcija sarži zarez okružite je "
+"Niz opcija odvojenih zarezima. Ukoliko sama opcija sadrži zarez okružite je "
 "`kosim apostrofima`."
 
 #: models.py:63
