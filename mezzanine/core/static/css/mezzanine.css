@@ -174,3 +174,14 @@ img.pull-left {
   display: inline-block;
   margin: 0 5px;
 }
+.comment .rating {
+  margin-top: 5px;
+}
+.comment-author {
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  padding: 15px;
+  margin-bottom: 30px;
+  background-color: #FEFFEE;
+}
