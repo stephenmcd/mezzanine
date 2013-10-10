@@ -64,9 +64,9 @@ class BaseImporterCommand(BaseCommand):
         if comments is None:
             comments = []
         self.posts.append({
-            "title": title,
+            "title": title.decode("utf-8"),
             "publish_date": pub_date,
-            "content": content,
+            "content": content.decode("utf-8"),
             "categories": categories,
             "tags": tags,
             "comments": comments,
