@@ -8,24 +8,24 @@
 {% block breadcrumb_menu %}
 <li>
     <a href="{% url "home" %}">{% trans "Home" %}</a>
-    <span class="divider">/</span>
 </li>
 <li class="active">{% trans "Search Results" %}</li>
 {% endblock %}
 
 {% block main %}
 
-<p>
 {% if results.paginator.count == 0 %}
+<div class="alert alert-danger">
 {% blocktrans %}
 No results were found in {{ search_type }} matching your query: {{ query }}
 {% endblocktrans %}
 {% else %}
+<div class="alert alert-info">
 {% blocktrans with start=results.start_index end=results.end_index total=results.paginator.count %}
 Showing {{ start }} to {{ end }} of {{ total }} results in {{ search_type }} matching your query: {{ query }}
 {% endblocktrans %}
 {% endif %}
-</p>
+</div>
 
 <div id="search-results">
     {% for result in results.object_list %}

@@ -8,7 +8,6 @@
     {% if not has_home and page.is_primary and forloop.first %}
     <li id="breadcrumb-menu-home">
         <a href="{% url "home" %}">{% trans "Home" %}</a>
-        <span class="divider">/</span>
     </li>
     {% endif %}
 
@@ -19,7 +18,6 @@
     {% else %}
     <li id="breadcrumb-menu-{{ page.html_id }}">
         <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
-        <span class="divider">/</span>
     </li>
     {% endif %}
     {% if page.has_children %}{% page_menu page %}{% endif %}

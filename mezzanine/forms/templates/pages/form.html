@@ -5,7 +5,7 @@
 {% block extra_js %}
 {{ block.super }}
 <script>
-$(function() {$('.middle :input:visible:enabled:first').focus();});
+$(function() {$('.mezzanine-form :input:visible:enabled:first').focus();});
 </script>
 {% endblock %}
 
@@ -21,10 +21,10 @@ $(function() {$('.middle :input:visible:enabled:first').focus();});
     {{ page_form.content|richtext_filters|safe }}
     {% endeditable %}
     {% endwith %}
-    <form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form class="mezzanine-form" method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% fields_for form %}
         <div class="form-actions">
-            <input class="btn btn-primary btn-large" type="submit" value="{{ page.form.button_text }}">
+            <input class="btn btn-primary btn-lg" type="submit" value="{{ page.form.button_text }}">
         </div>
     </form>
 {% endif %}

@@ -5,17 +5,12 @@
 <ul class="nav nav-list navlist-menu-level-{{ branch_level }}">
   {% for page in page_branch %}
   {% if not has_home and page.is_primary and forloop.first %}
-  <li class="first{% if on_home %} active{% endif %}"
-      id="tree-menu-home">
+  <li{% if on_home %} class="active"{% endif %} id="tree-menu-home">
     <a href="{% url "home" %}">{% trans "Home" %}</a>
   </li>
   {% endif %}
   {% if page.in_menu %}
-  <li class="
-             {% if page.is_current %} active{% endif %}
-             {% if not page.is_primary and forloop.first %} first{% endif %}
-             {% if forloop.last %} last{% endif %}"
-      id="tree-menu-{{ page.html_id }}">
+  <li{% if page.is_current %} class="active"{% endif %} id="tree-menu-{{ page.html_id }}">
     <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
     {# wrap the next line with 'if page.is_current_or_ascendant' #}
     {# to only show child pages in the menu for the current page #}

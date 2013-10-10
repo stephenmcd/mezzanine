@@ -45,7 +45,7 @@
 
 {% if tag or category or year or month or author %}
     {% block blog_post_list_filterinfo %}
-    <p>
+    <div class="alert alert-info">
     {% if tag %}
         {% trans "Viewing posts tagged" %} {{ tag }}
     {% else %}{% if category %}
@@ -58,7 +58,7 @@
         {{ author.get_full_name|default:author.username }}
     {% endif %}{% endif %}{% endif %}{% endif %}
     {% endblock %}
-    </p>
+    </div>
 {% else %}
     {% if page %}
     {% block blog_post_list_pagecontent %}
@@ -79,7 +79,7 @@
 {% endblock %}
 {% block blog_post_list_post_metainfo %}
 {% editable blog_post.publish_date %}
-<h6>
+<h6 class="post-meta">
     {% trans "Posted by" %}:
     {% with blog_post.user as author %}
     <a href="{% url "blog_post_list_author" author %}">{{ author.get_full_name|default:author.username }}</a>
@@ -99,7 +99,9 @@
 
 {% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
 {% block blog_post_list_post_featured_image %}
-<img class="featured-thumb" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 90 90 %}">
+<a href="{{ blog_post.get_absolute_url }}">
+    <img class="img-thumbnail pull-left" src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 90 90 %}">
+</a>
 {% endblock %}
 {% endif %}
 
@@ -110,17 +112,19 @@
 {% endblock %}
 
 {% block blog_post_list_post_links %}
-<p class="blog-list-detail">
+<div class="blog-list-detail">
     {% keywords_for blog_post as tags %}
     {% if tags %}
+    <ul class="list-inline tags">
     {% trans "Tags" %}:
     {% spaceless %}
     {% for tag in tags %}
-    <a href="{% url "blog_post_list_tag" tag.slug %}" class="tag">{{ tag }}</a>
+    <li><a href="{% url "blog_post_list_tag" tag.slug %}" class="tag">{{ tag }}</a></li>
     {% endfor %}
     {% endspaceless %}
-    <br>
+    </ul>
     {% endif %}
+    <p>
     <a href="{{ blog_post.get_absolute_url }}">{% trans "read more" %}</a>
     /
     {% if settings.COMMENTS_DISQUS_SHORTNAME %}
@@ -133,7 +137,8 @@
         {% blocktrans count comments_count=blog_post.comments_count %}{{ comments_count }} comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
     </a>
     {% endif %}
-</p>
+    </p>
+</div>
 {% endblock %}
 {% endfor %}
 
