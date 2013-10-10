@@ -141,8 +141,8 @@ class UpdateCacheMiddleware(object):
         # wrapped its contents in, and render only the content
         # enclosed by it, to avoid possible template code injection.
         parts = response.content.split(nevercache_token())
-        if (response.has_key("content-type") and 
-            response["content-type"].startswith("text") and len(parts) > 1):
+        content_type = response.get("content-type", "")
+        if content_type.startswith("text") and len(parts) > 1:
             # Restore csrf token from cookie - check the response
             # first as it may be being set for the first time.
             csrf_token = None
