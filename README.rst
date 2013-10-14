@@ -424,6 +424,7 @@ Sites Using Mezzanine
 * `Nektra Advanced Computing <http://www.nektra.com/>`_
 * `Bootstrap ASAP <https://bootstrapasap.com/>`_
 * `California Center for Jobs <http://www.centerforjobs.org/>`_
+* `Sam Kingston <http://www.sjkingston.com>`_
 
 
 Quotes
