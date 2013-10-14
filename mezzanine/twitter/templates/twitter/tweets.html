@@ -10,11 +10,10 @@
     <li class="clearfix">
         <img src="{{ tweet.profile_image_url }}" alt="">
         <a href="http://twitter.com/{{ tweet.user_name }}">@{{ tweet.user_name }}</a>
-        {% if tweet.user_name != tweet.full_name %}<span class="name">@{{ tweet.full_name }}</span>{% endif %}
         {% if tweet.is_retweet %}
-        <p><span class="recycle">&#x267B;</span>
-        <img class="retweet" src="{{ tweet.retweeter_profile_image_url }}">
-        <a href="http://twitter.com/{{ tweet.retweeter_user_name }}">@{{ tweet.retweeter_full_name }}</a></p>
+        <p class="retweet"><span class="recycle">&#x267B;</span>
+        <img src="{{ tweet.retweeter_profile_image_url }}">
+        <a href="http://twitter.com/{{ tweet.retweeter_user_name }}">@{{ tweet.retweeter_user_name }}</a></p>
         {% endif %}
         <div>{{ tweet.text|safe }}</div>
         <span class="timespan">{% blocktrans with sometime=tweet.created_at|timesince %}{{ sometime }} ago{% endblocktrans %}</span>
