@@ -1,9 +1,9 @@
 {% load mezzanine_tags %}
 
 {% if form_for_fields.non_field_errors %}
-<div class="form-group has-error non-field-errors">
+<div class="non-field-errors">
     {% for error in form_for_fields.non_field_errors %}
-    <span class="help-inline">{{ error }}</span>
+    <div class="alert alert-danger">{{ error }}</div>
     {% endfor %}
 </div>
 {% endif %}
