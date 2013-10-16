@@ -201,3 +201,16 @@ img.pull-left {
   margin-bottom: 30px;
   background-color: #FEFFEE;
 }
+/*========================================
+          MEZZANINE TWEETS
+==========================================*/
+.tweeter-image {
+  width: 32px;
+  height: 32px;
+}
+.tweet {
+  margin-bottom: 20px;
+}
+.tweet .timespan {
+  color: #888;
+}
