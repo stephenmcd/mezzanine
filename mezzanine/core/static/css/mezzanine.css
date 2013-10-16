@@ -4,6 +4,9 @@
 body {
   padding-top: 50px;
 }
+.messages {
+  margin-top: 20px;
+}
 .tree > .nav .nav > li {
   padding-left: 15px;
 }
