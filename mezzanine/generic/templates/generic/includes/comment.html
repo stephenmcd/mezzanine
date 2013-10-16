@@ -50,14 +50,14 @@
     </form>
 
     {% else %}
-    <div class="alert alert-info">
+    <p>
         {% if comment.is_removed %}
-        {% trans "Comment deleted" %}
+        <span class="glyphicon glyphicon-remove-circle"></span> {% trans "Comment deleted" %}
         {% else %}
-        {% trans "Comment awaiting approval" %}
+        <span class="glyphicon glyphicon-warning-sign"></span> {% trans "Comment awaiting approval" %}
         {% endif %}
-        <span class="timespan">{% blocktrans with sometime=comment.submit_date|timesince %}{{ sometime }} ago{% endblocktrans %}</span>
-    </div>
+        <small class="timespan">{% blocktrans with sometime=comment.submit_date|timesince %}{{ sometime }} ago{% endblocktrans %}</small>
+    </p>
     {% endif %}
 
     {% comment_thread comment %}
@@ -68,6 +68,6 @@
 {% endfor %}
 
 {% if no_comments %}
-<div class="alert alert-info">{% trans "There are currently no comments" %}</div>
+<p>{% trans "There are currently no comments" %}</p>
 {% endif %}
 
