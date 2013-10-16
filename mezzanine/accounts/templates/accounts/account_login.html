@@ -4,7 +4,9 @@
 {% block main %}
 
 {% if request.user.is_authenticated %}
-    <p>{% trans "You're already logged in." %}</p>
+    <div class="alert alert-info">
+    	{% trans "You're already logged in. If you'd like to log in as a different user, you'll need to log out first." %}
+    </div>
 {% else %}
     {{ block.super }}
     {% url "signup" as signup_url %}
@@ -15,4 +17,3 @@
 {% endif %}
 
 {% endblock %}
-

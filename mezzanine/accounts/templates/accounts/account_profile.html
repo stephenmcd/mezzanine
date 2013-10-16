@@ -11,10 +11,10 @@
 {% endblock %}
 
 {% block main %}
-<div style="float:right;">
-<img style="margin:0 0 20px 10px;" src="{% gravatar_url profile_user.email 128 %}">
+<div class="pull-right">
+<img class="pull-right profile-image img-thumbnail" src="{% gravatar_url profile_user.email 128 %}">
 {% if profile_user == request.user %}
-<br><a class="btn btn-large btn-primary" style="" href="{% url "profile_update" %}">{% trans "Update profile" %}</a>
+<br><a class="btn btn-lg btn-primary" href="{% url "profile_update" %}">{% trans "Update profile" %}</a>
 {% endif %}
 </div>
 <h2>{{ profile_user.get_full_name }}</h2>

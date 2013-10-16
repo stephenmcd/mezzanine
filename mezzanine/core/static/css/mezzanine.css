@@ -165,6 +165,7 @@ img.pull-left {
   background-color: #F8F8F8;
   border-top: 1px solid #E7E7E7;
   padding: 20px;
+  margin-bottom: 15px;
   border-radius: 5px;
 }
 /*========================================
@@ -213,4 +214,10 @@ img.pull-left {
 }
 .tweet .timespan {
   color: #888;
+}
+/*========================================
+          MEZZANINE ACCOUNTS
+==========================================*/
+.profile-image {
+  margin-bottom: 20px;
 }
