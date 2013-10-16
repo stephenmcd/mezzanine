@@ -48,6 +48,9 @@ img.pull-left {
 .alert-error .alert-link {
   color: #953b39;
 }
+.timespan {
+  color: #888;
+}
 /*========================================
             MEZZANINE BLOG
 ==========================================*/
@@ -229,9 +232,6 @@ img.pull-left {
 }
 .tweet {
   margin-bottom: 20px;
-}
-.tweet .timespan {
-  color: #888;
 }
 /*========================================
           MEZZANINE ACCOUNTS
