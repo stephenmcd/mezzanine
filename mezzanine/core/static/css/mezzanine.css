@@ -10,6 +10,9 @@ body {
 .tree > .nav .nav > li {
   padding-left: 15px;
 }
+.tree .active > a {
+  background-color: #EEEEEE;
+}
 .nav-footer > ul {
   line-height: 40px;
 }
