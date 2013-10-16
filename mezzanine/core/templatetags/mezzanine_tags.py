@@ -275,10 +275,7 @@ def thumbnail(image_url, width, height, quality=95):
     if not image_url:
         return ""
 
-    image_url = unquote(unicode(image_url))
-    # Strip query parameters from url, if any
-    if '?' in image_url:
-        image_url = image_url[:image_url.find('?')]
+    image_url = unquote(unicode(image_url)).split("?")[0]
     if image_url.startswith(settings.MEDIA_URL):
         image_url = image_url.replace(settings.MEDIA_URL, "", 1)
     image_dir, image_name = os.path.split(image_url)
