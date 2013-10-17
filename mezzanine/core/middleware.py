@@ -92,7 +92,7 @@ class TemplateForDeviceMiddleware(object):
     def process_template_response(self, request, response):
         if hasattr(response, "template_name"):
             if not isinstance(response.template_name, Template):
-                templates = templates_for_device(request, 
+                templates = templates_for_device(request,
                     response.template_name)
                 response.template_name = templates
         return response
@@ -105,7 +105,7 @@ class TemplateForHostMiddleware(object):
     def process_template_response(self, request, response):
         if hasattr(response, "template_name"):
             if not isinstance(response.template_name, Template):
-                templates = templates_for_host(request, 
+                templates = templates_for_host(request,
                     response.template_name)
                 response.template_name = templates
         return response
