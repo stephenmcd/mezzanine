@@ -210,6 +210,9 @@ img.pull-left {
   vertical-align: middle;
   cursor: pointer;
 }
+.datefield, .datetimefield {
+  max-width: 450px;
+}
 .datefield > select {
   display: inline-block;
   width: 30%;
