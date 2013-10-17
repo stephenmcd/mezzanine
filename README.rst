@@ -504,7 +504,7 @@ Quotes
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users/topics
 .. _`security@jupo.org`: mailto:security@jupo.org?subject=Mezzanine+Security+Issue
 .. _`GitHub issue tracker`: http://github.com/stephenmcd/mezzanine/issues
-.. _`#mezzanine IRC channel`: irc://freenode.net/mezzanine
+.. _`#mezzanine IRC channel`: irc://irc.freenode.net/mezzanine
 .. _`Freenode`: http://freenode.net
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
