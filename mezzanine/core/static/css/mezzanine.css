@@ -98,7 +98,18 @@ img.pull-left {
 */
 .form-group > input[type="text"],
 .form-group > input[type="password"],
+.form-group > input[type="datetime"],
+.form-group > input[type="datetime-local"],
+.form-group > input[type="date"],
+.form-group > input[type="month"],
+.form-group > input[type="time"],
+.form-group > input[type="week"],
+.form-group > input[type="number"],
 .form-group > input[type="email"],
+.form-group > input[type="url"],
+.form-group > input[type="search"],
+.form-group > input[type="tel"],
+.form-group > input[type="color"],
 .form-group > select,
 .form-group > textarea {
   display: block;
@@ -120,7 +131,18 @@ img.pull-left {
 }
 .form-group > input[type="text"]:focus,
 .form-group > input[type="password"]:focus,
+.form-group > input[type="datetime"]:focus,
+.form-group > input[type="datetime-local"]:focus,
+.form-group > input[type="date"]:focus,
+.form-group > input[type="month"]:focus,
+.form-group > input[type="time"]:focus,
+.form-group > input[type="week"]:focus,
+.form-group > input[type="number"]:focus,
 .form-group > input[type="email"]:focus,
+.form-group > input[type="url"]:focus,
+.form-group > input[type="search"]:focus,
+.form-group > input[type="tel"]:focus,
+.form-group > input[type="color"]:focus,
 .form-group > select:focus,
 .form-group > textarea:focus {
   border-color: #66afe9;
@@ -134,18 +156,40 @@ img.pull-left {
 }
 .has-error > input[type="text"],
 .has-error > input[type="password"],
+.has-error > input[type="datetime"],
+.has-error > input[type="datetime-local"],
+.has-error > input[type="date"],
+.has-error > input[type="month"],
+.has-error > input[type="time"],
+.has-error > input[type="week"],
+.has-error > input[type="number"],
 .has-error > input[type="email"],
-.has-error > textarea,
-.has-error > select {
+.has-error > input[type="url"],
+.has-error > input[type="search"],
+.has-error > input[type="tel"],
+.has-error > input[type="color"],
+.has-error > select,
+.has-error > textarea {
   border-color: #b94a48;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-error > input[type="text"]:focus,
 .has-error > input[type="password"]:focus,
+.has-error > input[type="datetime"]:focus,
+.has-error > input[type="datetime-local"]:focus,
+.has-error > input[type="date"]:focus,
+.has-error > input[type="month"]:focus,
+.has-error > input[type="time"]:focus,
+.has-error > input[type="week"]:focus,
+.has-error > input[type="number"]:focus,
 .has-error > input[type="email"]:focus,
-.has-error > textarea:focus,
-.has-error > select:focus {
+.has-error > input[type="url"]:focus,
+.has-error > input[type="search"]:focus,
+.has-error > input[type="tel"]:focus,
+.has-error > input[type="color"]:focus,
+.has-error > select:focus,
+.has-error > textarea:focus {
   border-color: #953b39;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
