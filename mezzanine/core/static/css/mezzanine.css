@@ -103,6 +103,7 @@ img.pull-left {
 .form-group > textarea {
   display: block;
   width: 100%;
+  max-width: 300px;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
@@ -129,6 +130,7 @@ img.pull-left {
 }
 .form-group > textarea {
   height: auto;
+  max-width: 400px;
 }
 .has-error > input[type="text"],
 .has-error > input[type="password"],
