@@ -33,8 +33,8 @@ footer {
   margin-top: 0;
 }
 img.pull-left {
-  margin-right: 15px;
-  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
 }
 /* Style error messages as danger alerts */
 .alert-error {
