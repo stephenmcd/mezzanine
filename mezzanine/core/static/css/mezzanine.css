@@ -288,3 +288,12 @@ img.pull-left {
 .profile-image {
   margin-bottom: 20px;
 }
+/*========================================
+          RESPONSIVE TWEAKS
+==========================================*/
+/* Display dropdowns on hover only in desktops (md and lg classes) */
+@media (min-width: 768px) {
+  .navbar-nav > li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+  }
+}
