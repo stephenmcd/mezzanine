@@ -1,12 +1,16 @@
-{% load mezzanine_tags %}
+{% load mezzanine_tags i18n %}
 
-{% if form_for_fields.non_field_errors %}
-<div class="non-field-errors">
-    {% for error in form_for_fields.non_field_errors %}
-    <div class="alert alert-danger">{{ error }}</div>
+{% with form_for_fields.non_field_errors as non_field_errors %}
+{% if non_field_errors or form_for_fields.errors %}
+<div class="form-errors">
+    {% for error in non_field_errors %}
+    <div class="alert alert-danger non-field-error">{{ error }}</div>
+    {% empty %}
+    <div class="alert alert-danger field-error">{% trans "Please correct the errors below." %}</div>
     {% endfor %}
 </div>
 {% endif %}
+{% endwith %}
 
 {% nevercache %}
 <input type="hidden" name="referrer" value="{{ request.META.HTTP_REFERER }}">
