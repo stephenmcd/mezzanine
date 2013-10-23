@@ -16,19 +16,28 @@ body {
 .tree .active > a {
   background-color: #EEEEEE;
 }
+.nav-footer {
+  display: table;
+  margin: 0 auto;
+}
 .nav-footer > ul {
-  line-height: 40px;
+  display: inline-block;
+  width: 120px;
+  margin-left: 50px;
+  vertical-align: top;
+}
+.nav-footer > ul > li {
+  padding: 10px 0;
 }
 footer {
   background-color: #F8F8F8;
   border-top: 1px solid #E7E7E7;
-  padding-top: 15px;
   margin-top: 15px;
+  padding: 15px 0 10px;
 }
 .site-info {
   font-size: 90%;
-  margin-top: 20px;
-  margin-bottom: 30px;
+  margin-top: 15px;
 }
 .panel-body > h1:first-child,
 .panel-body > h2:first-child,
