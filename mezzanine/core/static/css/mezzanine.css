@@ -4,6 +4,9 @@
 body {
   padding-top: 50px;
 }
+.navbar-form.navbar-right {
+  padding-right: 0;
+}
 .messages {
   margin-top: 20px;
 }
