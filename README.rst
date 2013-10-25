@@ -240,6 +240,8 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   editor for Mezzanine.
 * `mezzanine-meze`_ - Adds support for `reStructuredText`_,
   `Pygments`_ and more, to Mezzanine's rich text editing.
+* `mezzanine-pageimages`_ - Add background and banner images per page
+  in Mezzanine.
 
 Donating
 ========
@@ -569,6 +571,7 @@ Quotes
 .. _`mezzanine-meze`: https://github.com/abakan/mezzanine-meze
 .. _`reStructuredText`: http://docutils.sourceforge.net/rst.html
 .. _`Pygments`: http://pygments.org/
+.. _`mezzanine-pageimages`: https://github.com/bcs-de/mezzanine-pageimages
 
 
 .. PEOPLE WITH QUOTES
