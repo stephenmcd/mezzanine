@@ -39,14 +39,14 @@ msgstr ""
 
 #: defaults.py:43
 msgid "If ``True``, users will have their own public profile pages."
-msgstr "Jos ``Tosi``, käyttäjillä on omat julkiset profiilikuvat."
+msgstr "Jos ``True``, käyttäjillä on omat julkiset profiilikuvat."
 
 #: defaults.py:51
 msgid ""
 "If ``True``, when users create an account, they will be sent an email with a "
 "verification link, which they must click to enable their account."
 msgstr ""
-"Jos ``Tosi``, kun käyttäjä luo tunnuksen, heille lähetetään sähköpostiviesti "
+"Jos ``True``, kun käyttäjä luo tunnuksen, heille lähetetään sähköpostiviesti "
 "jossa on tarkistuslinkki jota heidän täytyy klikata viimeistelläkseen "
 "rekisteröitymisen."
 
