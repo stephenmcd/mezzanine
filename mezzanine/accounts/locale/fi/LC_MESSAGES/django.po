@@ -220,7 +220,7 @@ msgstr "Kirjaudu sisään"
 
 #: templates/accounts/includes/user_panel.html:18
 msgid "or"
-msgstr "taitai"
+msgstr "tai"
 
 #: templates/accounts/includes/user_panel.html:20
 #: templates/accounts/includes/user_panel_nav.html:13
