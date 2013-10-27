@@ -155,7 +155,7 @@ msgstr "vaadittu (ei julkaista)"
 
 #: forms.py:87
 msgid "Website"
-msgstr "Sivusto"
+msgstr "Kotisivu"
 
 #: forms.py:87
 msgid "optional"
