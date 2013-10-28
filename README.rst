@@ -235,13 +235,16 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   them over RSS.
 * `cash-generator`_ - Generate `GnuCash`_ invoices with Mezzanine.
 * `mezzanine-foundation`_ - `Zurb Foundation`_ theme for Mezzanine.
-* `mezzanine-file-collections`_ - Simple file collection page type for Mezzanine.
+* `mezzanine-file-collections`_ - Simple file collection page type
+  for Mezzanine.
 * `mezzanine-wymeditor`_ - `WYMeditor`_ adapted as the rich text
   editor for Mezzanine.
 * `mezzanine-meze`_ - Adds support for `reStructuredText`_,
   `Pygments`_ and more, to Mezzanine's rich text editing.
 * `mezzanine-pageimages`_ - Add background and banner images per page
   in Mezzanine.
+* `mezzanine-protected-pages`_ - Restrict access to pages by group
+  membership.
 
 Donating
 ========
@@ -572,6 +575,7 @@ Quotes
 .. _`reStructuredText`: http://docutils.sourceforge.net/rst.html
 .. _`Pygments`: http://pygments.org/
 .. _`mezzanine-pageimages`: https://github.com/bcs-de/mezzanine-pageimages
+.. _`mezzanine-protected-pages`: https://github.com/evilchili/mezzanine-protected-pages
 
 
 .. PEOPLE WITH QUOTES
