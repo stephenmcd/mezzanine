@@ -59,8 +59,8 @@ def create_project():
         move(os.path.join(project_path, "local_settings.py.template"),
              os.path.join(project_path, "local_settings.py"))
 
-    # Generate a unique SECREY_KEY for the project's setttings module.
-    settings_path = os.path.join(os.getcwd(), project_name, "settings.py")
+    # Generate a unique SECRET_KEY for the project's setttings module.
+    settings_path = os.path.join(os.getcwd(), project_name, "local_settings.py")
     with open(settings_path, "r") as f:
         data = f.read()
     with open(settings_path, "w") as f:
