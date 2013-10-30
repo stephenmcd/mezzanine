@@ -127,3 +127,10 @@ a.btn-large, input.btn-large {width:auto; min-width:100px; margin-right:10px;}
 .image-overlay-next {right:30px;}
 .image-overlay-full {border-radius:5px; max-width:none !important; box-shadow:0 0 30px #222;}
 
+/* Profiles */
+.profile-container {overflow: auto;}
+.profile-image {float: left;}
+.profile-image img {display: block;}
+.profile-content {margin-left: 200px;}
+.profile-title {font-weight: bold;}
+.float_left {float: left; position: relative;}
