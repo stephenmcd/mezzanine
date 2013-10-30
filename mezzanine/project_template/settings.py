@@ -121,8 +121,6 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = False
 
-
-
 # Tuple of IP addresses, as strings, that:
 #   * See debug comments, when DEBUG is true
 #   * Receive x-headers
