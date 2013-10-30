@@ -297,11 +297,7 @@ img.pull-left {
 /*========================================
           MEZZANINE ACCOUNTS
 ==========================================*/
-.profile-controls {
-  margin-right: 20px;
-}
-.profile-controls > img,
-.profile-controls > a.btn {
+.profile-image > img {
   margin-bottom: 20px;
 }
 /*========================================
