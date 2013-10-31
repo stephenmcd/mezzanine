@@ -431,6 +431,7 @@ Sites Using Mezzanine
 * `California Center for Jobs <http://www.centerforjobs.org/>`_
 * `Sam Kingston <http://www.sjkingston.com>`_
 * `Code Juggle DJ <http://www.codejuggle.dj>`_
+* `Food News <http://food.hypertexthero.com>`_
 
 
 Quotes
