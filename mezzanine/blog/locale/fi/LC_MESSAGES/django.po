@@ -122,7 +122,7 @@ msgstr "Lähettänyt"
 #: templates/blog/blog_post_list.html:95
 #, python-format
 msgid "%(sometime)s ago"
-msgstr "%(sometime)  sitten"
+msgstr "%(sometime)s sitten"
 
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
