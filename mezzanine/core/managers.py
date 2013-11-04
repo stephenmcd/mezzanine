@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 from future.builtins import int
-from future.builtins import super
 from future.builtins import isinstance
 from future.builtins import zip
 

@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 from future.builtins import isinstance
-from future.builtins import super
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured

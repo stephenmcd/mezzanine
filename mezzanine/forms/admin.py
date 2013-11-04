@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 from future import standard_library
 from future.builtins import open
-from future.builtins import super
 
 from copy import deepcopy
 from io import StringIO

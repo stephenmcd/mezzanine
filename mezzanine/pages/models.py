@@ -5,7 +5,6 @@ except ImportError:     # Python 2
     from urllib.parse import urljoin
 
 from future import standard_library
-from future.builtins import super
 from future.builtins import filter
 from future.builtins import str
 from django.core.urlresolvers import resolve, reverse

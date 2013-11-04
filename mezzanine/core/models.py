@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from future.builtins import super
 from future.builtins import str
 from future.builtins import isinstance
 from django.contrib.contenttypes.generic import GenericForeignKey

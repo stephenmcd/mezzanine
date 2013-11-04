@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from future.builtins import super
 from mezzanine.utils.cache import (cache_key_prefix, cache_installed,
                                    cache_get, cache_set)
 

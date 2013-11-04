@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 from future import standard_library
-from future.builtins import super
 from future.builtins import str
 
 from io import StringIO
