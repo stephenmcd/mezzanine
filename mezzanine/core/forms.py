@@ -29,7 +29,7 @@ class Html5Mixin(object):
             first_field = next(iter(self.fields.values()))
             first_field.widget.attrs["autofocus"] = ""
 
-            for name, field in list(self.fields.items()):
+            for name, field in self.fields.items():
                 if settings.FORMS_USE_HTML5:
                     if isinstance(field, forms.EmailField):
                         self.fields[name].widget.input_type = "email"
@@ -139,7 +139,7 @@ def get_edit_form(obj, field_names, data=None, files=None):
         def __init__(self, *args, **kwargs):
             super(EditForm, self).__init__(*args, **kwargs)
             self.uuid = str(uuid4())
-            for f in list(self.fields.keys()):
+            for f in self.fields.keys():
                 field_class = self.fields[f].__class__
                 try:
                     field_type = widget_overrides[field_class]

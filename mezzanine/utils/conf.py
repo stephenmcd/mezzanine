@@ -165,7 +165,7 @@ def set_dynamic_settings(s):
         s[setting] = tuple(s[setting])
 
     # Some settings tweaks for different DB engines.
-    for (key, db) in list(s["DATABASES"].items()):
+    for (key, db) in s["DATABASES"].items():
         shortname = db["ENGINE"].split(".")[-1]
         if shortname == "sqlite3" and os.sep not in db["NAME"]:
             # If the Sqlite DB name doesn't contain a path, assume

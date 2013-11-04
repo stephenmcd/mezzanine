@@ -80,7 +80,7 @@ def is_spam_akismet(request, form, url):
         "permalink": host + url,
         "comment_type": "comment" if "comment" in request.POST else "form",
     }
-    for name, field in list(form.fields.items()):
+    for name, field in form.fields.items():
         data_field = None
         if field.label and field.label.lower() in ("name", _("Name").lower()):
             data_field = "comment_author"

@@ -39,7 +39,7 @@ def form_processor(request, page):
         if not subject:
             subject = "%s - %s" % (page.form.title, entry.entry_time)
         fields = [(v.label, format_value(form.cleaned_data[k]))
-                  for (k, v) in list(form.fields.items())]
+                  for (k, v) in form.fields.items()]
         context = {
             "fields": fields,
             "message": page.form.email_message,
@@ -57,7 +57,7 @@ def form_processor(request, page):
         email_copies = split_addresses(page.form.email_copies)
         if email_copies:
             attachments = []
-            for f in list(form.files.values()):
+            for f in form.files.values():
                 f.seek(0)
                 attachments.append((f.name, f.read()))
             send_mail_template(subject, "email/form_response", email_from,

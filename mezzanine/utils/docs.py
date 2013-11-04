@@ -218,7 +218,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
 
     # Write out the changelog.
     with open(changelog_file, "w") as f:
-        for version, version_info in list(versions.items()):
+        for version, version_info in versions.items():
             header = "Version %s (%s)" % (version, version_info["date"])
             f.write("%s\n" % header)
             f.write("%s\n" % ("-" * len(header)))
