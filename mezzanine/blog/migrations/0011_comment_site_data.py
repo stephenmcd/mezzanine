@@ -1,6 +1,6 @@
-from __future__ import unicode_literals
-from future.builtins import isinstance
 # encoding: utf-8
+from future.builtins import isinstance
+from __future__ import unicode_literals
 import datetime
 from south.db import db
 from south.v2 import DataMigration
