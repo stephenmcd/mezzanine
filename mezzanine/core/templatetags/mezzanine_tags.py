@@ -1,3 +1,4 @@
+from __future__ import division
 
 from hashlib import md5
 import os
@@ -324,9 +325,9 @@ def thumbnail(image_url, width, height, quality=95):
         return image_url
     # Set dimensions.
     if width == 0:
-        width = image.size[0] * height / image.size[1]
+        width = image.size[0] * height // image.size[1]
     elif height == 0:
-        height = image.size[1] * width / image.size[0]
+        height = image.size[1] * width // image.size[0]
     if image.mode not in ("P", "L", "RGBA"):
         image = image.convert("RGBA")
     # Required for progressive jpgs.

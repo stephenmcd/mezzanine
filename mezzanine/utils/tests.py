@@ -157,7 +157,7 @@ def run_pyflakes_for_package(package_name, extra_ignore=None):
             source = source_file.read()
         try:
             tree = compile(source, path, "exec", PyCF_ONLY_AST)
-        except (SyntaxError, IndentationError), value:
+        except (SyntaxError, IndentationError) as value:
             info = (path, value.lineno, value.args[0])
             yield "Invalid syntax in %s:%d: %s" % info
         else:

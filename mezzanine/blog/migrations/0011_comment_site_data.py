@@ -104,17 +104,17 @@ class Migration(DataMigration):
                             assert(related in model._base_manager.filter(**{field:new_category}))
                             assert(related not in model._base_manager.filter(**{field:live_category}))
 
-                    except Exception, e:
+                    except Exception as e:
                         import pdb; pdb.set_trace()
                         "It may be OK just to continue."
 
-            except Exception, e:
+            except Exception as e:
                 import pdb; pdb.set_trace()
                 "It may be OK just to continue"
 
             try:
                 category.delete()
-            except Exception, e:
+            except Exception as e:
                 import pdb; pdb.set_trace()
         
 

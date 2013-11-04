@@ -132,7 +132,7 @@ class Page(BasePage):
         Return all Page subclasses.
         """
         is_content_model = lambda m: m is not Page and issubclass(m, Page)
-        return filter(is_content_model, models.get_models())
+        return list(filter(is_content_model, models.get_models()))
 
     def get_content_model(self):
         """
