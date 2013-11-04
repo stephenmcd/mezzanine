@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import range
 """
 Default settings for the ``mezzanine.generic`` app. Each of these can be
 overridden in your project's settings module, just like regular
@@ -128,6 +130,6 @@ register_setting(
     name="RATINGS_RANGE",
     description=_("A sequence of integers that are valid ratings."),
     editable=False,
-    default=range(getattr(settings, "RATINGS_MIN", 1),
-                  getattr(settings, "RATINGS_MAX", 5) + 1),
+    default=list(range(getattr(settings, "RATINGS_MIN", 1),
+                  getattr(settings, "RATINGS_MAX", 5) + 1)),
 )

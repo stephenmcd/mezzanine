@@ -1,8 +1,12 @@
+from __future__ import unicode_literals
+from future import standard_library
+from future.builtins import super
+from future.builtins import str
 
-from cStringIO import StringIO
+from io import StringIO
 import os
 from string import punctuation
-from urllib import unquote
+from urllib.parse import unquote
 from zipfile import ZipFile
 
 from django.core.files.base import ContentFile
@@ -78,7 +82,7 @@ class Gallery(Page, RichText):
                          "locale does not support utf-8. You may need to set "
                          "'LC_ALL' to a correct value, eg: 'en_US.UTF-8'.")
                     path = os.path.join(GALLERIES_UPLOAD_DIR, self.slug,
-                                        unicode(name, errors="ignore"))
+                                        str(name, errors="ignore"))
                     saved_path = default_storage.save(path, ContentFile(data))
                 self.images.add(GalleryImage(file=saved_path))
             if delete_zip_import:

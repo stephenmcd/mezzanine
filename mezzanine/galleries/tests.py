@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import str
 
 import os
 from shutil import rmtree
@@ -26,7 +28,7 @@ class GalleriesTests(TestCase):
         self.assertTrue(images)
         self.assertTrue(all([image.description for image in images]))
         # Clean up.
-        rmtree(unicode(os.path.join(settings.MEDIA_ROOT,
+        rmtree(str(os.path.join(settings.MEDIA_ROOT,
                                     GALLERIES_UPLOAD_DIR, title)))
 
     def test_thumbnail_generation(self):

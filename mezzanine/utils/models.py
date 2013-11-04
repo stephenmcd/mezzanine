@@ -1,9 +1,13 @@
+from __future__ import unicode_literals
+from future.builtins import isinstance
+from future.builtins import super
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model, Field
 
 from mezzanine.utils.importing import import_dotted_path
+from future.utils import with_metaclass
 
 
 # Backward compatibility with Django 1.5's "get_user_model".
@@ -68,7 +72,7 @@ def upload_to(field_path, default):
     ``UPLOAD_TO_HANDLERS`` setting.
     """
     from mezzanine.conf import settings
-    for k, v in settings.UPLOAD_TO_HANDLERS.items():
+    for k, v in list(settings.UPLOAD_TO_HANDLERS.items()):
         if k.lower() == field_path.lower():
             return import_dotted_path(v)
     return default
@@ -126,7 +130,7 @@ class ModelMixinBase(type):
                                        "with a value that is a valid model.")
         # Copy fields and methods onto the model being mixed into, and
         # return it as the definition for the mixin class itself.
-        for k, v in attrs.items():
+        for k, v in list(attrs.items()):
             if isinstance(v, Field):
                 v.contribute_to_class(mixin_for, k)
             elif k != "__module__":
@@ -134,11 +138,10 @@ class ModelMixinBase(type):
         return mixin_for
 
 
-class ModelMixin(object):
+class ModelMixin(with_metaclass(ModelMixinBase, object)):
     """
     Used as a subclass for mixin models that inject their behaviour onto
     models defined outside of a project. The subclass should define an
     inner ``Meta`` class with a ``mixin_for`` attribute containing the
     model that will be mixed into.
     """
-    __metaclass__ = ModelMixinBase

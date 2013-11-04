@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from future.builtins import isinstance
+from future.builtins import map
 
 import os
 
@@ -59,7 +62,7 @@ class OverExtendsNode(ExtendsNode):
             all_dirs = list(settings.TEMPLATE_DIRS) + list(app_template_dirs)
             # os.path.abspath is needed under uWSGI, and also ensures we
             # have consistent path separators across different OSes.
-            context[context_name][name] = map(os.path.abspath, all_dirs)
+            context[context_name][name] = list(map(os.path.abspath, all_dirs))
 
         # Build a list of template loaders to use. For loaders that wrap
         # other loaders like the ``cached`` template loader, unwind its

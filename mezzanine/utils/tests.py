@@ -1,3 +1,8 @@
+from __future__ import unicode_literals
+from future.builtins import open
+from future.builtins import super
+from future.builtins import range
+from future.builtins import str
 
 from _ast import PyCF_ONLY_AST
 import os
@@ -88,7 +93,7 @@ class TestCase(BaseTestCase):
         """
         Create multiple levels of recursive objects.
         """
-        per_level = range(3)
+        per_level = list(range(3))
         for _ in per_level:
             kwargs[parent_field] = None
             level1 = model.objects.create(**kwargs)
@@ -163,7 +168,7 @@ def run_pyflakes_for_package(package_name, extra_ignore=None):
         else:
             result = Checker(tree, path)
             for warning in result.messages:
-                yield unicode(warning)
+                yield str(warning)
 
     args = (pyflakes_checker, package_name, extra_ignore)
     return _run_checker_for_package(*args)

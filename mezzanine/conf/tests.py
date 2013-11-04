@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import str
 
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
@@ -26,7 +28,7 @@ class ConfTests(TestCase):
                 setting_value += 1
             elif setting_type is bool:
                 setting_value = not setting_value
-            elif setting_type in (str, unicode):
+            elif setting_type in (str, str):
                 setting_value += "test"
             else:
                 setting = "%s: %s" % (setting_name, setting_type)

@@ -1,3 +1,7 @@
+from __future__ import unicode_literals
+from future.builtins import super
+from future.builtins import str
+from future.builtins import map
 
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.generic import GenericForeignKey
@@ -109,7 +113,7 @@ class AssignedKeyword(Orderable):
         order_with_respect_to = "content_object"
 
     def __unicode__(self):
-        return unicode(self.keyword)
+        return str(self.keyword)
 
 
 class Rating(models.Model):
@@ -134,7 +138,7 @@ class Rating(models.Model):
         """
         Validate that the rating falls between the min and max values.
         """
-        valid = map(str, settings.RATINGS_RANGE)
+        valid = list(map(str, settings.RATINGS_RANGE))
         if str(self.value) not in valid:
             raise ValueError("Invalid rating. %s is not in %s" % (self.value,
                 ", ".join(valid)))

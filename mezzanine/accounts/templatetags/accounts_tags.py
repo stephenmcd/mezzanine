@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import isinstance
 
 from django.utils.datastructures import SortedDict
 
@@ -73,7 +75,7 @@ def profile_fields(user):
             if field.name not in ("id", user_fieldname) + exclude:
                 value = getattr(profile, field.name)
                 fields[field.verbose_name.title()] = value
-    return fields.items()
+    return list(fields.items())
 
 
 @register.filter

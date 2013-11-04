@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import str
 
 from django.db import connection
 from django.template import Context, Template
@@ -154,7 +156,7 @@ class PagesTests(TestCase):
         for i, label, path in settings.PAGE_MENU_TEMPLATES:
             menus.append(i)
             pages.append(RichTextPage.objects.create(in_menus=list(menus),
-                title="Page for %s" % unicode(label),
+                title="Page for %s" % str(label),
                 status=CONTENT_STATUS_PUBLISHED))
             template += "{%% page_menu '%s' %%}" % path
         rendered = Template(template).render(Context({}))

@@ -1,3 +1,7 @@
+from __future__ import unicode_literals
+from future.builtins import super
+from future.builtins import str
+from future.builtins import isinstance
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.db import models
 from django.db.models.base import ModelBase
@@ -15,6 +19,7 @@ from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model, get_user_model_name
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import admin_url, slugify, unique_slug
+from future.utils import with_metaclass
 
 
 user_model_name = get_user_model_name()
@@ -121,7 +126,7 @@ class MetaData(models.Model):
         Accessor for the optional ``_meta_title`` field, which returns
         the string version of the instance if not provided.
         """
-        return self._meta_title or unicode(self)
+        return self._meta_title or str(self)
 
     def description_from_content(self):
         """
@@ -143,7 +148,7 @@ class MetaData(models.Model):
                             break
         # Fall back to the title if description couldn't be determined.
         if not description:
-            description = unicode(self)
+            description = str(self)
         # Strip everything after the first block or sentence.
         ends = ("</p>", "<br />", "<br/>", "<br>", "</ul>",
                 "\n", ". ", "! ", "? ")
@@ -309,7 +314,7 @@ class OrderableBase(ModelBase):
         return super(OrderableBase, cls).__new__(cls, name, bases, attrs)
 
 
-class Orderable(models.Model):
+class Orderable(with_metaclass(OrderableBase, models.Model)):
     """
     Abstract model that provides a custom ordering integer field
     similar to using Meta's ``order_with_respect_to``, since to
@@ -317,8 +322,6 @@ class Orderable(models.Model):
     or with Generic Relations. We may also want this feature for
     models that aren't ordered with respect to a particular field.
     """
-
-    __metaclass__ = OrderableBase
 
     _order = models.IntegerField(_("Order"), null=True)
 

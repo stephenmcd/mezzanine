@@ -4,6 +4,12 @@ documentation is generated.
 """
 from __future__ import division
 from __future__ import print_function
+from __future__ import unicode_literals
+from future import standard_library
+from future.builtins import open
+from future.builtins import isinstance
+from future.builtins import map
+from future.builtins import str
 
 from datetime import datetime
 import os.path
@@ -28,9 +34,9 @@ def deep_force_unicode(value):
     Recursively call force_unicode on value.
     """
     if isinstance(value, (list, tuple, set)):
-        value = type(value)(map(deep_force_unicode, value))
+        value = type(value)(list(map(deep_force_unicode, value)))
     elif isinstance(value, dict):
-        value = type(value)(map(deep_force_unicode, value.items()))
+        value = type(value)(list(map(deep_force_unicode, list(value.items()))))
     elif isinstance(value, Promise):
         value = force_unicode(value)
     return value
@@ -51,7 +57,7 @@ def build_settings_docs(docs_path, prefix=None):
         setting = registry[name]
         settings_name = "``%s``" % name
         setting_default = setting["default"]
-        if isinstance(setting_default, basestring):
+        if isinstance(setting_default, str):
             if gethostname() in setting_default or (
                 setting_default.startswith("/") and
                 os.path.exists(setting_default)):
@@ -63,7 +69,7 @@ def build_settings_docs(docs_path, prefix=None):
             ).replace("<a href=\"", "`"
             ).replace("\" rel=\"nofollow\">", " <").replace("</a>", ">`_")])
         if setting["choices"]:
-            choices = ", ".join(["%s: ``%s``" % (unicode(v), force_unicode(k))
+            choices = ", ".join(["%s: ``%s``" % (str(v), force_unicode(k))
                                  for k, v in setting["choices"]])
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
@@ -156,7 +162,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
         if version_file in files:
             for line in cs[version_file].data().split("\n"):
                 if line.startswith(version_var):
-                    exec line
+                    exec(line)
                     if locals()[version_var] == "0.1.0":
                         locals()[version_var] = "1.0.0"
                         break
@@ -212,7 +218,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
 
     # Write out the changelog.
     with open(changelog_file, "w") as f:
-        for version, version_info in versions.items():
+        for version, version_info in list(versions.items()):
             header = "Version %s (%s)" % (version, version_info["date"])
             f.write("%s\n" % header)
             f.write("%s\n" % ("-" * len(header)))

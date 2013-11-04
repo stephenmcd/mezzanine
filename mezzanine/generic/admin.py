@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import super
 
 from django.contrib import admin
 from django.contrib.comments.admin import CommentsAdmin

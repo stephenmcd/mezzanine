@@ -1,6 +1,10 @@
+from __future__ import unicode_literals
+from future import standard_library
+from future.builtins import open
+from future.builtins import super
 
 from copy import deepcopy
-from cStringIO import StringIO
+from io import StringIO
 from csv import writer
 from datetime import datetime
 from mimetypes import guess_type

@@ -1,3 +1,9 @@
+from __future__ import unicode_literals
+from future.builtins import isinstance
+from future.builtins import super
+from future.builtins import range
+from future.builtins import int
+from future.builtins import str
 
 from datetime import date, datetime
 from os.path import join, split
@@ -182,7 +188,7 @@ class FormForForm(forms.ModelForm):
 
             if field.field_type == fields.DOB:
                 _now = datetime.now()
-                years = range(_now.year, _now.year - 120, -1)
+                years = list(range(_now.year, _now.year - 120, -1))
                 self.fields[field_key].widget.years = years
 
             # Add identifying type attr to the field for styling.
@@ -253,7 +259,7 @@ class EntriesForm(forms.Form):
         self.form = form
         self.request = request
         self.form_fields = form.fields.all()
-        self.entry_time_name = unicode(FormEntry._meta.get_field(
+        self.entry_time_name = str(FormEntry._meta.get_field(
             "entry_time").verbose_name).encode("utf-8")
         super(EntriesForm, self).__init__(*args, **kwargs)
         for field in self.form_fields:

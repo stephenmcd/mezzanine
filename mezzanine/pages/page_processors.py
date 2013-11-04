@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import isinstance
 
 from collections import defaultdict
 
@@ -26,7 +28,7 @@ def processor_for(content_model_or_slug, exact_page=False):
     """
     content_model = None
     slug = ""
-    if isinstance(content_model_or_slug, basestring):
+    if isinstance(content_model_or_slug, str):
         try:
             content_model = get_model(*content_model_or_slug.split(".", 1))
         except TypeError:

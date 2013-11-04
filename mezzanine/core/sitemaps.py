@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from future.builtins import super
+from future.builtins import isinstance
 
 from django.contrib.sitemaps import Sitemap
 from django.contrib.sites.models import Site
@@ -35,7 +38,7 @@ class DisplayableSitemap(Sitemap):
                              .exclude(slug__startswith="http://")
                              .exclude(slug__startswith="https://")):
                     items[item.get_absolute_url()] = item
-        return items.values()
+        return list(items.values())
 
     def lastmod(self, obj):
         if blog_installed and isinstance(obj, BlogPost):

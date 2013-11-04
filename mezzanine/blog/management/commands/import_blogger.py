@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 
 from datetime import datetime, timedelta
 from optparse import make_option

@@ -1,6 +1,13 @@
 from __future__ import print_function
+from __future__ import unicode_literals
+from future.builtins import super
+from future.builtins import int
+from future.builtins import input
 from optparse import make_option
-from urlparse import urlparse
+try:
+    from urllib.parse import urlparse
+except:
+    from urlparse import urlparse
 
 from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
@@ -128,7 +135,7 @@ class BaseImporterCommand(BaseCommand):
                 continue
             while len(value) > max_length:
                 encoded_value = value.encode("utf-8")
-                new_value = raw_input("The value for the field %s.%s exceeds "
+                new_value = input("The value for the field %s.%s exceeds "
                     "its maximum length of %s chars: %s\n\nEnter a new value "
                     "for it, or press return to have it truncated: " %
                     (model.__name__, field_name, max_length, encoded_value))

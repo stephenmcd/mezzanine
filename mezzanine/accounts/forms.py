@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import super
 
 from django.contrib.auth import authenticate
 from django.db.models import Q

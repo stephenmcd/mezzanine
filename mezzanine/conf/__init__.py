@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import isinstance
 """
 Drop-in replacement for ``django.conf.settings`` that provides a
 consistent access method for settings defined in applications, the project
@@ -39,7 +41,7 @@ def register_setting(name="", label="", editable=False, description="",
         if not label:
             label = name.replace("_", " ").title()
         if setting_type is str:
-            setting_type = unicode
+            setting_type = str
         registry[name] = {"name": name, "label": label,
                           "description": description,
                           "editable": editable, "default": default,

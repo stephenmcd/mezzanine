@@ -1,6 +1,10 @@
+from __future__ import unicode_literals
+from future import standard_library
+from future.builtins import chr
+from future.builtins import int
 
-from HTMLParser import HTMLParser, HTMLParseError
-from htmlentitydefs import name2codepoint
+from html.parser import HTMLParser, HTMLParseError
+from html.entities import name2codepoint
 import re
 
 SELF_CLOSING_TAGS = ['br', 'img']
@@ -16,14 +20,14 @@ def decode_entities(html):
         if html[:2] == "&#":
             try:
                 if html[:3] == "&#x":
-                    return unichr(int(html[3:-1], 16))
+                    return chr(int(html[3:-1], 16))
                 else:
-                    return unichr(int(html[2:-1]))
+                    return chr(int(html[2:-1]))
             except ValueError:
                 pass
         else:
             try:
-                html = unichr(name2codepoint[html[1:-1]])
+                html = chr(name2codepoint[html[1:-1]])
             except KeyError:
                 pass
         return html

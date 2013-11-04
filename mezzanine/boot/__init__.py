@@ -8,6 +8,7 @@ until ``admin.autodiscover`` to avoid some timing issues around
 custom fields not being available when custom admin classes are
 registered.
 """
+from __future__ import unicode_literals
 
 from collections import defaultdict
 

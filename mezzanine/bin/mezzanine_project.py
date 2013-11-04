@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from __future__ import unicode_literals
+from future.builtins import open
 
 from distutils.dir_util import copy_tree
 from optparse import OptionParser

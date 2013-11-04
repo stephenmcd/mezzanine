@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Q

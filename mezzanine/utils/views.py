@@ -1,9 +1,12 @@
 from __future__ import division
+from __future__ import unicode_literals
+from future.builtins import isinstance
+from future.builtins import int
 
 from datetime import datetime, timedelta
 
-from urllib import urlencode
-from urllib2 import Request, urlopen
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 import django
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
@@ -77,7 +80,7 @@ def is_spam_akismet(request, form, url):
         "permalink": host + url,
         "comment_type": "comment" if "comment" in request.POST else "form",
     }
-    for name, field in form.fields.items():
+    for name, field in list(form.fields.items()):
         data_field = None
         if field.label and field.label.lower() in ("name", _("Name").lower()):
             data_field = "comment_author"

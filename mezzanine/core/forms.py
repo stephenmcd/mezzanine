@@ -1,3 +1,7 @@
+from __future__ import unicode_literals
+from future.builtins import super
+from future.builtins import str
+from future.builtins import isinstance
 
 from uuid import uuid4
 
@@ -22,10 +26,10 @@ class Html5Mixin(object):
         super(Html5Mixin, self).__init__(*args, **kwargs)
         if hasattr(self, "fields"):
             # Autofocus first field
-            first_field = self.fields.itervalues().next()
+            first_field = next(iter(self.fields.values()))
             first_field.widget.attrs["autofocus"] = ""
 
-            for name, field in self.fields.items():
+            for name, field in list(self.fields.items()):
                 if settings.FORMS_USE_HTML5:
                     if isinstance(field, forms.EmailField):
                         self.fields[name].widget.input_type = "email"
@@ -135,7 +139,7 @@ def get_edit_form(obj, field_names, data=None, files=None):
         def __init__(self, *args, **kwargs):
             super(EditForm, self).__init__(*args, **kwargs)
             self.uuid = str(uuid4())
-            for f in self.fields.keys():
+            for f in list(self.fields.keys()):
                 field_class = self.fields[f].__class__
                 try:
                     field_type = widget_overrides[field_class]

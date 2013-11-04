@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import str
 
 from datetime import datetime, timedelta
 from django.db import models
@@ -10,7 +12,7 @@ from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_USER, \
 from mezzanine.twitter.managers import TweetManager
 from requests_oauthlib import OAuth1
 from time import timezone
-from urllib2 import quote
+from urllib.parse import quote
 import re
 import requests
 

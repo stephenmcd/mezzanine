@@ -1,8 +1,13 @@
+from __future__ import unicode_literals
 try:
     from urllib.parse import urljoin
 except ImportError:     # Python 2
-    from urlparse import urljoin
+    from urllib.parse import urljoin
 
+from future import standard_library
+from future.builtins import super
+from future.builtins import filter
+from future.builtins import str
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -256,7 +261,7 @@ class Page(BasePage):
     def in_menu_template(self, template_name):
         if self.in_menus is not None:
             for i, l, t in settings.PAGE_MENU_TEMPLATES:
-                if not unicode(i) in self.in_menus and t == template_name:
+                if not str(i) in self.in_menus and t == template_name:
                     return False
         return True
 

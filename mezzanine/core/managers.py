@@ -1,3 +1,8 @@
+from __future__ import unicode_literals
+from future.builtins import int
+from future.builtins import super
+from future.builtins import isinstance
+from future.builtins import zip
 
 from operator import ior, iand
 from string import punctuation
@@ -49,9 +54,9 @@ def search_fields_to_dict(fields):
     if not fields:
         return {}
     try:
-        int(dict(fields).values()[0])
+        int(list(dict(fields).values())[0])
     except (TypeError, ValueError):
-        fields = dict(zip(fields, [1] * len(fields)))
+        fields = dict(list(zip(fields, [1] * len(fields))))
     return fields
 
 
@@ -120,11 +125,11 @@ class SearchableQuerySet(QuerySet):
 
         # Create the queryset combining each set of terms.
         excluded = [reduce(iand, [~Q(**{"%s__icontains" % f: t[1:]}) for f in
-            self._search_fields.keys()]) for t in terms if t[0:1] == "-"]
+            list(self._search_fields.keys())]) for t in terms if t[0:1] == "-"]
         required = [reduce(ior, [Q(**{"%s__icontains" % f: t[1:]}) for f in
-            self._search_fields.keys()]) for t in terms if t[0:1] == "+"]
+            list(self._search_fields.keys())]) for t in terms if t[0:1] == "+"]
         optional = [reduce(ior, [Q(**{"%s__icontains" % f: t}) for f in
-            self._search_fields.keys()]) for t in terms if t[0:1] not in "+-"]
+            list(self._search_fields.keys())]) for t in terms if t[0:1] not in "+-"]
         queryset = self
         if excluded:
             queryset = queryset.filter(reduce(iand, excluded))

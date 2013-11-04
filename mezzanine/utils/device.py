@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 
 
 def device_from_request(request):
@@ -46,3 +47,5 @@ def templates_for_device(request, templates):
             device_templates.append(default)
         device_templates.append(template)
     return device_templates
+
+from future.builtins import isinstance

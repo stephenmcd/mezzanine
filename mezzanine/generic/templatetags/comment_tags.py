@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from future.builtins import isinstance
+from future.builtins import int
 
 from collections import defaultdict
 
