@@ -1,3 +1,4 @@
+
 from django.contrib.auth import authenticate
 from django.db.models import Q
 from django import forms
@@ -179,7 +180,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         password = self.cleaned_data.get("password1")
         if password:
             user.set_password(password)
-        else if self._signup:
+        elif self._signup:
             user.set_unusable_password()
         user.save()
 
