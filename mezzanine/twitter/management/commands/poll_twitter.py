@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 from optparse import make_option
 
@@ -22,5 +23,5 @@ class Command(NoArgsCommand):
         for query in queries:
             try:
                 query.run()
-            except TwitterQueryException, e:
-                print "Twitter query error [%s]: %s" % (query, e)
+            except TwitterQueryException as e:
+                print("Twitter query error [%s]: %s" % (query, e))

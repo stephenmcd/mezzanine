@@ -41,7 +41,7 @@ class Command(BaseImporterCommand):
         query.max_results = 500
         try:
             feed = blogger.Get(query.ToUri())
-        except service.RequestError, err:
+        except service.RequestError as err:
             message = "There was a service error. The response was: " \
                 "%(status)s %(reason)s - %(body)s" % err.message
             raise CommandError(message, blogger.server + query.feed,

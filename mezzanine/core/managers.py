@@ -11,6 +11,7 @@ from django.utils.timezone import now
 
 from mezzanine.conf import settings
 from mezzanine.utils.sites import current_site_id
+from functools import reduce
 
 
 class PublishedManager(Manager):

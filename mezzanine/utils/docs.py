@@ -2,6 +2,8 @@
 Utils called from project_root/docs/conf.py when Sphinx
 documentation is generated.
 """
+from __future__ import division
+from __future__ import print_function
 
 from datetime import datetime
 import os.path
@@ -175,7 +177,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
                 except KeyError:
                     version_tag = None
             if version_tag and version_tag not in cs.tags():
-                print "Tagging version %s" % version_tag
+                print("Tagging version %s" % version_tag)
                 tag(ui, repo, version_tag, rev=cs.hex())
 
         # Ignore changesets that are merges, bumped the version, closed
@@ -244,26 +246,26 @@ def build_modelgraph(docs_path, package_name="mezzanine"):
                    "layout": "dot"}
         try:
             graph_models.Command().execute(*apps, **options)
-        except Exception, e:
+        except Exception as e:
             warn("Couldn't build model_graph, graph_models failed on: %s" % e)
         else:
             try:
                 move("graph.png", to_path)
-            except OSError, e:
+            except OSError as e:
                 warn("Couldn't build model_graph, move failed on: %s" % e)
     # docs/img/graph.png should exist in the repo - move it to the build path.
     try:
         if not os.path.exists(build_path):
             os.makedirs(build_path)
         copyfile(to_path, os.path.join(build_path, "graph.png"))
-    except OSError, e:
+    except OSError as e:
         warn("Couldn't build model_graph, copy to build failed on: %s" % e)
     try:
         image = Image.open(to_path)
         image.width = 800
-        image.height = image.size[1] * 800 / image.size[0]
+        image.height = image.size[1] * 800 // image.size[0]
         image.save(resized_path, "PNG", quality=100)
-    except Exception, e:
+    except Exception as e:
         warn("Couldn't build model_graph, resize failed on: %s" % e)
         return
 

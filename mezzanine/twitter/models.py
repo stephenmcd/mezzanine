@@ -68,7 +68,7 @@ class Query(models.Model):
             raise TwitterQueryException("Twitter OAuth settings missing")
         try:
             tweets = requests.get(url, auth=OAuth1(*auth_settings)).json()
-        except Exception, e:
+        except Exception as e:
             raise TwitterQueryException("Error retrieving: %s" % e)
         try:
             raise TwitterQueryException(tweets["errors"][0]["message"])
