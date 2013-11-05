@@ -180,6 +180,8 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         password = self.cleaned_data.get("password1")
         if password:
             user.set_password(password)
+        elif self._signup:
+            user.set_unusable_password()
         user.save()
 
         # Save profile model.
@@ -197,9 +199,6 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                 settings.ACCOUNTS_APPROVAL_REQUIRED):
                 user.is_active = False
                 user.save()
-            else:
-                user = authenticate(username=user.username,
-                                    password=password, is_active=True)
         return user
 
     def get_profile_fields_form(self):
