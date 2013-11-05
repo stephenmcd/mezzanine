@@ -64,6 +64,49 @@ img.pull-left {
   color: #888;
 }
 /*========================================
+          MULTILEVEL DROPDOWN NAV
+==========================================*/
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-top-left-radius: 0;
+}
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+.dropdown-submenu > a:after {
+  display: inline-block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 4px 0 4px 4px;
+  border-left-color: #777;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu > a:hover:after {
+  border-left-color: #333;
+}
+.dropdown-submenu.active > a:after {
+  border-left-color: #fff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-top-right-radius: 0;
+}
+/*========================================
             MEZZANINE BLOG
 ==========================================*/
 .blog-list-detail {
