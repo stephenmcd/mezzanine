@@ -35,7 +35,7 @@ install_requires = [
     "pytz >= 2013b",
     "requests == 1.2.3",
     "requests-oauthlib > 0.3.2, < 0.4",
-    "future == 0.8.2",
+    "future >= 0.8.2",
 ]
 
 try:
