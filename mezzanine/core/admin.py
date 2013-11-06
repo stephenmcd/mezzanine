@@ -58,8 +58,10 @@ class DisplayableAdmin(admin.ModelAdmin):
 
     def __init__(self, *args, **kwargs):
         super(DisplayableAdmin, self).__init__(*args, **kwargs)
+        # TODO: check if the list() call is necessary below on Python 3:
         try:
-            self.search_fields = list(self.model.objects.get_search_fields().keys())
+            self.search_fields = list(
+                               self.model.objects.get_search_fields().keys())
         except AttributeError:
             pass
 

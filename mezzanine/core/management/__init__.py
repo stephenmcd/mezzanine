@@ -23,8 +23,8 @@ def create_user(app, created_models, verbosity, interactive, **kwargs):
             return
         if verbosity >= 1:
             print()
-            print ("Creating default account "
-                   "(username: admin / password: default) ...")
+            print("Creating default account "
+                  "(username: admin / password: default) ...")
             print()
         args = "admin", "example@example.com", "default"
         User.objects.create_superuser(*args)

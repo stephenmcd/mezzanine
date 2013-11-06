@@ -1,7 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import open
-from future.builtins import range
-from future.builtins import str
+from future.builtins import open, range, str
 
 from _ast import PyCF_ONLY_AST
 import os
@@ -50,6 +48,8 @@ IGNORE_ERRORS = (
     # Deprecated compat timezones for Django 1.3
     "mezzanine/utils/timezone",
 
+    # 'from future import standard_library' installs PEP 302 import hooks
+    "'standard_library' imported but unused",
 )
 
 

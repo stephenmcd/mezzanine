@@ -1,7 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import int
-from future.builtins import zip
-from future.builtins import str
+from future.builtins import int, str, zip
 
 from django import forms
 from django.contrib.comments.forms import CommentSecurityForm, CommentForm
@@ -156,7 +154,8 @@ class RatingForm(CommentSecurityForm):
     of its easy setup for generic relations.
     """
     value = forms.ChoiceField(label="", widget=forms.RadioSelect,
-                              choices=list(zip(*(settings.RATINGS_RANGE,) * 2)))
+                              choices=list(zip(
+                                             *(settings.RATINGS_RANGE,) * 2)))
 
     def __init__(self, request, *args, **kwargs):
         self.request = request

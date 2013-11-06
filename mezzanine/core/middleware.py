@@ -39,7 +39,9 @@ class _Deprecated(object):
         warn(msg)
 
 for old, new in _deprecated.items():
-    globals()[old] = type(native_str(old), (_Deprecated,), {"old": old, "new": new})
+    globals()[old] = type(native_str(old),
+                          (_Deprecated,),
+                          {"old": old, "new": new})
 
 
 class AdminLoginInterfaceSelectorMiddleware(object):
