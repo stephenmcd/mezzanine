@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from future.builtins import open
 
 import os
 import sys
@@ -34,8 +33,9 @@ install_requires = [
     "html5lib == 0.95",
     "bleach",
     "pytz >= 2013b",
-    "requests==1.2.3",
+    "requests == 1.2.3",
     "requests-oauthlib > 0.3.2, < 0.4",
+    "future == 0.8.2",
 ]
 
 try:
