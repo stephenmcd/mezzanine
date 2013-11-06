@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import int
-from future.builtins import str
+from future.builtins import int, str
 import base64
 import hashlib
 import hmac

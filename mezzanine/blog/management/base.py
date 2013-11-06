@@ -1,7 +1,5 @@
-from __future__ import print_function
-from __future__ import unicode_literals
-from future.builtins import int
-from future.builtins import input
+from __future__ import print_function, unicode_literals
+from future.builtins import input, int
 from optparse import make_option
 try:
     from urllib.parse import urlparse

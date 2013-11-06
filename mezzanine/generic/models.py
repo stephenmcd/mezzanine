@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import str
-from future.builtins import map
+from future.builtins import map, str
 
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.generic import GenericForeignKey
