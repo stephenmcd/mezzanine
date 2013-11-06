@@ -7,7 +7,11 @@ or Django itself. Settings can also be made editable via the admin.
 """
 
 from django.conf import settings as django_settings
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    # Backward compatibility for Py2 and Django < 1.5
+    from django.utils.encoding import force_unicode as force_text
 from django.utils.functional import Promise
 from django.utils.importlib import import_module
 from django.utils.module_loading import module_has_submodule
@@ -36,7 +40,7 @@ def register_setting(name="", label="", editable=False, description="",
         if hasattr(django_settings, name):
             editable = False
         if isinstance(default, Promise):
-            default = force_unicode(default)
+            default = force_text(default)
         if not label:
             label = name.replace("_", " ").title()
         # The next six lines are for Python 2/3 compatibility.
