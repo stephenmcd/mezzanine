@@ -1,3 +1,4 @@
+from __future__ import division
 
 from copy import copy
 
@@ -258,7 +259,7 @@ class RatingField(BaseGenericRelation):
         ratings = [r.value for r in related_manager.all()]
         count = len(ratings)
         _sum = sum(ratings)
-        average = _sum / float(count) if count > 0 else 0
+        average = _sum / count if count > 0 else 0
         setattr(instance, "%s_count" % self.related_field_name, count)
         setattr(instance, "%s_sum" % self.related_field_name, _sum)
         setattr(instance, "%s_average" % self.related_field_name, average)

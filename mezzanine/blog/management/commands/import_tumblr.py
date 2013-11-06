@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 from datetime import datetime
 from optparse import make_option
@@ -58,7 +59,7 @@ class Command(BaseImporterCommand):
             try:
                 call_url = "%s?start=%s" % (json_url, start_index)
                 if verbosity >= 2:
-                    print "Calling %s" % call_url
+                    print("Calling %s" % call_url)
                 response = urlopen(call_url)
                 if response.code == 404:
                     raise CommandError("Invalid Tumblr user.")
@@ -73,7 +74,7 @@ class Command(BaseImporterCommand):
                     continue
                 elif response.code != 200:
                     raise IOError("HTTP status %s" % response.code)
-            except IOError, e:
+            except IOError as e:
                 error = "Error communicating with Tumblr API (%s)" % e
                 raise CommandError(error)
 

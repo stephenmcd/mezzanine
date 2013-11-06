@@ -1,3 +1,4 @@
+from __future__ import print_function
 from optparse import make_option
 from urlparse import urlparse
 
@@ -175,21 +176,21 @@ class BaseImporterCommand(BaseCommand):
                 setattr(post, k, v)
             post.save()
             if created and verbosity >= 1:
-                print "Imported post: %s" % post
+                print("Imported post: %s" % post)
             for name in categories:
                 cat = self.trunc(BlogCategory, prompt, title=name)
                 if not cat["title"]:
                     continue
                 cat, created = BlogCategory.objects.get_or_create(**cat)
                 if created and verbosity >= 1:
-                    print "Imported category: %s" % cat
+                    print("Imported category: %s" % cat)
                 post.categories.add(cat)
             for comment in comments:
                 comment = self.trunc(ThreadedComment, prompt, **comment)
                 comment["site"] = site
                 post.comments.add(ThreadedComment(**comment))
                 if verbosity >= 1:
-                    print "Imported comment by: %s" % comment["user_name"]
+                    print("Imported comment by: %s" % comment["user_name"])
             self.add_meta(post, tags, prompt, verbosity, old_url)
 
         # Create any pages imported (Wordpress can include pages)
@@ -213,7 +214,7 @@ class BaseImporterCommand(BaseCommand):
             page["in_menus"] = in_menus
             page, created = RichTextPage.objects.get_or_create(**page)
             if created and verbosity >= 1:
-                print "Imported page: %s" % page
+                print("Imported page: %s" % page)
             self.add_meta(page, tags, prompt, verbosity, old_url)
             parents.append({
                 'old_id': old_id,
@@ -239,7 +240,7 @@ class BaseImporterCommand(BaseCommand):
             keyword, created = Keyword.objects.get_or_create_iexact(**keyword)
             obj.keywords.add(AssignedKeyword(keyword=keyword))
             if created and verbosity >= 1:
-                print "Imported tag: %s" % keyword
+                print("Imported tag: %s" % keyword)
         if old_url is not None:
             old_path = urlparse(old_url).path
             if not old_path.strip("/"):
@@ -250,7 +251,7 @@ class BaseImporterCommand(BaseCommand):
             redirect.new_path = obj.get_absolute_url()
             redirect.save()
             if created and verbosity >= 1:
-                print "Created redirect for: %s" % old_url
+                print("Created redirect for: %s" % old_url)
 
     def handle_import(self, options):
         """

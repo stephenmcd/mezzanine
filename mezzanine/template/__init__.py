@@ -38,7 +38,7 @@ class Library(template.Library):
                     for arg in parts[1:-2]:
                         if "=" in arg:
                             name, val = arg.split("=", 1)
-                            if name in tag_func.func_code.co_varnames:
+                            if name in tag_func.__code__.co_varnames:
                                 kwargs[name] = resolve(val)
                                 continue
                         args.append(resolve(arg))
@@ -82,7 +82,7 @@ class Library(template.Library):
 
                 def render(self, context):
                     args = (self.nodelist.render(context), context, token)
-                    return tag_func(*args[:tag_func.func_code.co_argcount])
+                    return tag_func(*args[:tag_func.__code__.co_argcount])
 
             return ToEndTagNode()
 

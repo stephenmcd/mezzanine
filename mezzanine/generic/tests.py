@@ -1,3 +1,4 @@
+from __future__ import division
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
@@ -31,7 +32,7 @@ class GenericTests(TestCase):
         blog_post = BlogPost.objects.get(id=blog_post.id)
         count = len(settings.RATINGS_RANGE)
         _sum = sum(settings.RATINGS_RANGE)
-        average = _sum / float(count)
+        average = _sum / count
         self.assertEqual(blog_post.rating_count, count)
         self.assertEqual(blog_post.rating_sum, _sum)
         self.assertEqual(blog_post.rating_average, average)

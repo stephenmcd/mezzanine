@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 from optparse import make_option
 
@@ -45,7 +46,7 @@ class Command(NoArgsCommand):
                         return
                     confirm = raw_input("Please enter either 'yes' or 'no': ")
             if verbosity >= 1:
-                print
-                print "Faking initial migrations ..."
-                print
+                print()
+                print("Faking initial migrations ...")
+                print()
             migrate.Command().execute(fake=True)

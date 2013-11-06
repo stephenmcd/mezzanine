@@ -53,7 +53,7 @@ class Migration(DataMigration):
                         assignment.save()
                     else:
                         uses_original = True
-                except Exception, e:
+                except Exception as e:
                     uses_original = True
 
             if not uses_original:
