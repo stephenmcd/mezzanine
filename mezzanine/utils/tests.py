@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from future import standard_library
 from future.builtins import open, range, str
 
 from _ast import PyCF_ONLY_AST
@@ -154,7 +155,12 @@ def run_pyflakes_for_package(package_name, extra_ignore=None):
     If pyflakes is installed, run it across the given package name
     returning any warnings found.
     """
+    # Pyflakes v0.6.1 incorrectly assumes we're running under Python 3
+    # if "import builtins" succeeds, which it does with "from future
+    # import standard_library" in effect.
+    standard_library.disable_hooks()
     from pyflakes.checker import Checker
+    standard_library.enable_hooks()
 
     def pyflakes_checker(path):
         with open(path, "U") as source_file:
