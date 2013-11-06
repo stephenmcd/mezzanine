@@ -43,5 +43,3 @@ INSTALLED_APPS = (
 
     from django.core.management.commands import test
     sys.exit(test.Command().execute(verbosity=1))
-
-from future.builtins import open
