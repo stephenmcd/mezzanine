@@ -9,6 +9,7 @@ from future.builtins import filter
 from future.builtins import str
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -31,6 +32,7 @@ class BasePage(Orderable, Displayable):
         abstract = True
 
 
+@python_2_unicode_compatible
 class Page(BasePage):
     """
     A page in the page tree. This is the base class that custom content types
@@ -51,7 +53,7 @@ class Page(BasePage):
         ordering = ("titles",)
         order_with_respect_to = "parent"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.titles
 
     def get_absolute_url(self):

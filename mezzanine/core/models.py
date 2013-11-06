@@ -1,11 +1,12 @@
 from __future__ import unicode_literals
-from future.builtins import str
-from future.builtins import isinstance
+from future.builtins import isinstance, str
+from future.utils import with_metaclass
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.db import models
 from django.db.models.base import ModelBase
 from django.db.models.signals import post_save
 from django.template.defaultfilters import truncatewords_html
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import strip_tags
 from django.utils.timesince import timesince
 from django.utils.timezone import now
@@ -18,7 +19,6 @@ from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model, get_user_model_name
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import admin_url, slugify, unique_slug
-from future.utils import with_metaclass
 
 
 user_model_name = get_user_model_name()
@@ -50,6 +50,7 @@ class SiteRelated(models.Model):
         super(SiteRelated, self).save(*args, **kwargs)
 
 
+@python_2_unicode_compatible
 class Slugged(SiteRelated):
     """
     Abstract model that handles auto-generating slugs. Each slugged
@@ -64,7 +65,7 @@ class Slugged(SiteRelated):
     class Meta:
         abstract = True
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):

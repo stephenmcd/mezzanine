@@ -15,6 +15,7 @@ from zipfile import ZipFile
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -103,6 +104,7 @@ class Gallery(Page, RichText):
                 self.zip_import.delete(save=True)
 
 
+@python_2_unicode_compatible
 class GalleryImage(Orderable):
 
     gallery = models.ForeignKey("Gallery", related_name="images")
@@ -115,7 +117,7 @@ class GalleryImage(Orderable):
         verbose_name = _("Image")
         verbose_name_plural = _("Images")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
     def save(self, *args, **kwargs):
