@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 from future.builtins import open
 
-from __future__ import with_statement
 import os
 import sys
 
