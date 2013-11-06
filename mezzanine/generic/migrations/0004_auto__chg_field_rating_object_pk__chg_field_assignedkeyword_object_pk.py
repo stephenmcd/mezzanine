@@ -1,7 +1,6 @@
 # encoding: utf-8
-from future.builtins import str
-from future.builtins import int
 from __future__ import unicode_literals
+from future.builtins import int, str
 import datetime
 from south.db import db
 from south.v2 import SchemaMigration
