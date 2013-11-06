@@ -4,7 +4,7 @@ from future import standard_library
 try:
     from urllib.parse import urlparse
 except ImportError:
-    from urllib import urlparse
+    from urlparse import urlparse
 
 from django.core.urlresolvers import reverse
 from django.utils.unittest import skipUnless
