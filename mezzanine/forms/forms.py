@@ -151,7 +151,7 @@ class FormForForm(forms.ModelForm):
                           "help_text": field.help_text}
             if field.required and not field.help_text:
                 field_args["help_text"] = _("required")
-            arg_names = field_class.__init__.__func__.__code__.co_varnames
+            arg_names = field_class.__init__.__code__.co_varnames
             if "max_length" in arg_names:
                 field_args["max_length"] = settings.FORMS_FIELD_MAX_LENGTH
             if "choices" in arg_names:
