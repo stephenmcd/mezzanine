@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from future.builtins import isinstance
+from future.utils import native_str
 
 from django.contrib import admin
 from django.contrib.auth import logout
@@ -38,7 +39,7 @@ class _Deprecated(object):
         warn(msg)
 
 for old, new in _deprecated.items():
-    globals()[old] = type(old, (_Deprecated,), {"old": old, "new": new})
+    globals()[old] = type(native_str(old), (_Deprecated,), {"old": old, "new": new})
 
 
 class AdminLoginInterfaceSelectorMiddleware(object):
