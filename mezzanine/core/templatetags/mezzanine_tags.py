@@ -1,14 +1,15 @@
-from __future__ import division
-from __future__ import unicode_literals
+from __future__ import absolute_import, division, unicode_literals
 from future.builtins import int
 from future.builtins import isinstance
 from future.builtins import open
-from future.builtins import str
 
 from hashlib import md5
 import os
-from urllib.request import urlopen
-from urllib.parse import urlencode, quote, unquote
+try:
+    from urllib.request import urlopen
+    from urllib.parse import urlencode, quote, unquote
+except ImportError:
+    from urllib import urlopen, urlencode, quote, unquote
 
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -282,7 +283,7 @@ def thumbnail(image_url, width, height, quality=95):
     if not image_url:
         return ""
 
-    image_url = unquote(str(image_url)).split("?")[0]
+    image_url = unquote(image_url).split("?")[0]
     if image_url.startswith(settings.MEDIA_URL):
         image_url = image_url.replace(settings.MEDIA_URL, "", 1)
     image_dir, image_name = os.path.split(image_url)

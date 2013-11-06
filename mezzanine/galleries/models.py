@@ -5,7 +5,10 @@ from future.builtins import str
 from io import StringIO
 import os
 from string import punctuation
-from urllib.parse import unquote
+try:
+    from urllib.parse import unquote
+except ImportError:     # Python 2
+    from urllib import unquote
 from zipfile import ZipFile
 
 from django.core.files.base import ContentFile

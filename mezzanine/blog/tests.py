@@ -1,7 +1,10 @@
 from __future__ import unicode_literals
 from future import standard_library
 
-from urllib.parse import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urllib import urlparse
 
 from django.core.urlresolvers import reverse
 from django.utils.unittest import skipUnless

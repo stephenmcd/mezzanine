@@ -5,8 +5,14 @@ from future.builtins import int
 
 from datetime import datetime, timedelta
 
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
+try:
+    from urllib.parse import urlencode
+except ImportError:     # Python 2
+    from urllib import urlencode
+try:
+    from urllib.request import Request, urlopen
+except ImportError:     # Python 2
+    from urllib2 import Request, urlopen
 
 import django
 from django.core.paginator import Paginator, InvalidPage, EmptyPage

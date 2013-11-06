@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 try:
     from urllib.parse import urljoin
 except ImportError:     # Python 2
-    from urllib.parse import urljoin
+    from urlparse import urljoin
 
 from future import standard_library
 from future.builtins import filter

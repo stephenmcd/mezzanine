@@ -12,7 +12,10 @@ from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_USER, \
 from mezzanine.twitter.managers import TweetManager
 from requests_oauthlib import OAuth1
 from time import timezone
-from urllib.parse import quote
+try:
+    from urllib.parse import quote
+except ImportError:     # Python 2
+    from urllib import quote
 import re
 import requests
 
