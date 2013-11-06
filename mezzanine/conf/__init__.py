@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import isinstance
+from future.builtins import bytes, int, isinstance, str
 """
 Drop-in replacement for ``django.conf.settings`` that provides a
 consistent access method for settings defined in applications, the project
@@ -37,11 +37,20 @@ def register_setting(name="", label="", editable=False, description="",
             editable = False
         if isinstance(default, Promise):
             default = force_unicode(default)
-        setting_type = type(default)
         if not label:
             label = name.replace("_", " ").title()
-        if setting_type is str:
+        # The next six lines are for Python 2/3 compatibility.
+        # isinstance() is overridden by future on Python 2 to behave as
+        # on Python 3 in conjunction with either Python 2's native types
+        # or the future.builtins types.
+        if isinstance(default, int):        # an int or long or subclass on Py2
+            setting_type = int
+        elif isinstance(default, str):      # a unicode or subclass on Py2
             setting_type = str
+        elif isinstance(default, bytes):    # a byte-string or subclass on Py2
+            setting_type = bytes
+        else:
+            setting_type = type(default)
         registry[name] = {"name": name, "label": label,
                           "description": description,
                           "editable": editable, "default": default,

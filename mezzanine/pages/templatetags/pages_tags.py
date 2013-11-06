@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import isinstance
+from future.builtins import isinstance, str
 
 from collections import defaultdict
 
