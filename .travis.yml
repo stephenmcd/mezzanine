@@ -5,6 +5,7 @@ env:
 python:
   - "2.6"
   - "2.7"
+  - "3.3"
 install:
   - pip install django==$DJANGO_VERSION --use-mirrors
   - pip install . --use-mirrors
