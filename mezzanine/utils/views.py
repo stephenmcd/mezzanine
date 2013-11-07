@@ -1,7 +1,6 @@
 from __future__ import division
 from __future__ import unicode_literals
-from future.builtins import isinstance
-from future.builtins import int
+from future.builtins import int, isinstance
 
 from datetime import datetime, timedelta
 
@@ -175,4 +174,11 @@ def set_cookie(response, name, value, expiry_seconds=None, secure=False):
                                 timedelta(seconds=expiry_seconds),
                                 "%a, %d-%b-%Y %H:%M:%S GMT")
     value = value.encode("utf-8")
-    response.set_cookie(name, value, expires=expires, secure=secure)
+    # Django doesn't seem to support unicode cookie keys correctly on
+    # Python 2. Work around by encoding it. See
+    # https://code.djangoproject.com/ticket/19802
+    try:
+        response.set_cookie(name, value, expires=expires, secure=secure)
+    except (KeyError, TypeError):
+        response.set_cookie(name.encode('utf-8'), value, expires=expires,
+                            secure=secure)
