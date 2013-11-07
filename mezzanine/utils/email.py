@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future import bytes, isinstance, str
+from future.builtins import bytes, isinstance, str
 
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
