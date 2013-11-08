@@ -1,11 +1,11 @@
 from __future__ import unicode_literals
+from future import standard_library
+from future.builtins import filter, str
 try:
     from urllib.parse import urljoin
 except ImportError:     # Python 2
     from urlparse import urljoin
 
-from future import standard_library
-from future.builtins import filter, str
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible

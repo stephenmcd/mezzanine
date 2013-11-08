@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import isinstance
-from future.builtins import map
+from future.builtins import isinstance, map
 
 import os
 

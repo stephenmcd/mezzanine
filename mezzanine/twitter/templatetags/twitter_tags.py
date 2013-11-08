@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import str
-from future.builtins import int
+from future.builtins import int, str
 
 from collections import defaultdict
 
@@ -30,7 +29,7 @@ def tweets_for(query_type, args, per_user=None):
         for tweet in tweets:
             if len(_tweets[tweet.user_name]) < per_user:
                 _tweets[tweet.user_name].append(tweet)
-        tweets = sum(list(_tweets.values()), [])
+        tweets = sum(_tweets.values(), [])
         tweets.sort(key=lambda t: t.created_at, reverse=True)
     if len(args) > 1 and str(args[-1]).isdigit():
         tweets = tweets[:int(args[-1])]

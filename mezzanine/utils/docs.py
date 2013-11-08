@@ -2,14 +2,9 @@
 Utils called from project_root/docs/conf.py when Sphinx
 documentation is generated.
 """
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import division, print_function, unicode_literals
 from future import standard_library
-from future.builtins import open
-from future.builtins import isinstance
-from future.builtins import map
-from future.builtins import str
+from future.builtins import isinstance, map, open, str
 
 from datetime import datetime
 import os.path
@@ -20,7 +15,11 @@ from warnings import warn
 
 from django.template.defaultfilters import urlize
 from django.utils.datastructures import SortedDict
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    # Backward compatibility for Py2 and Django < 1.5
+    from django.utils.encoding import force_unicode as force_text
 from django.utils.functional import Promise
 from PIL import Image
 
@@ -31,14 +30,14 @@ from mezzanine.utils.importing import import_dotted_path, path_for_import
 
 def deep_force_unicode(value):
     """
-    Recursively call force_unicode on value.
+    Recursively call force_text on value.
     """
     if isinstance(value, (list, tuple, set)):
         value = type(value)(list(map(deep_force_unicode, value)))
     elif isinstance(value, dict):
-        value = type(value)(list(map(deep_force_unicode, list(value.items()))))
+        value = type(value)(list(map(deep_force_unicode, value.items())))
     elif isinstance(value, Promise):
-        value = force_unicode(value)
+        value = force_text(value)
     return value
 
 
@@ -69,7 +68,7 @@ def build_settings_docs(docs_path, prefix=None):
             ).replace("<a href=\"", "`"
             ).replace("\" rel=\"nofollow\">", " <").replace("</a>", ">`_")])
         if setting["choices"]:
-            choices = ", ".join(["%s: ``%s``" % (str(v), force_unicode(k))
+            choices = ", ".join(["%s: ``%s``" % (str(v), force_text(k))
                                  for k, v in setting["choices"]])
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
