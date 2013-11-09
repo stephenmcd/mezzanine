@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2013-04-18 07:40+0000\n"
 "Last-Translator: Tzu-ping Chung <uranusjr@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
@@ -69,39 +69,39 @@ msgstr ""
 "``login_required`` 的頁面。無論此設定為何，當未登入的使用者進入已選取 "
 "``login_required`` 的頁面時，都會被重導向至登入頁面。"
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
 msgstr "顯示於選單"
 
-#: models.py:36
+#: models.py:41
 msgid "Login required"
 msgstr "需要登入"
 
-#: models.py:37
+#: models.py:42
 msgid "If checked, only logged in users can view this page"
 msgstr "如果選取，則只有已登入的使用者可以瀏覽這個頁面"
 
-#: models.py:40
+#: models.py:45
 msgid "Page"
 msgstr "頁面"
 
-#: models.py:41
+#: models.py:46
 msgid "Pages"
 msgstr "頁面"
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
 msgstr "Rich text 頁面"
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
 msgstr "Rich text 頁面"
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr "連結"
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
 msgstr "連結"
 
@@ -119,7 +119,11 @@ msgstr "增加"
 msgid "Home"
 msgstr "首頁"
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
+msgstr ""
+
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr "以下的類別發生錯誤。這個類別有直接繼承自 Page 嗎？"

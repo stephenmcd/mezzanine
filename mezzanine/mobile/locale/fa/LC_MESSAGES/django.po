@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"POT-Creation-Date: 2013-11-09 10:32-0430\n"
 "PO-Revision-Date: 2011-11-12 03:09+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Persian (http://www.transifex.com/projects/p/mezzanine/"
@@ -85,8 +85,9 @@ msgstr "پست شده توسط"
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
-msgid "ago"
-msgstr "قبل"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
@@ -130,3 +131,6 @@ msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
 msgstr ""
+
+#~ msgid "ago"
+#~ msgstr "قبل"

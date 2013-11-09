@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2013-03-30 11:56+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/"
@@ -26,39 +26,43 @@ msgstr ""
 msgid "Other posts"
 msgstr "تدوينات أخرى"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr "تفعيل الصور الرئيسية للتدوينات"
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "استخدم التاريخ ضمن العنوان الإلكتروني"
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
+#: defaults.py:36
+msgid "Blog post URL date format"
 msgstr ""
 
-#: defaults.py:36
+#: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+
+#: defaults.py:49
 msgid "Blog posts per page"
 msgstr "عدد التدوينات لكل صفحة"
 
-#: defaults.py:37
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "عدد التدوينات التي يتم عرضها في صفحة سرد التدوينات."
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr ""
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr ""
 
@@ -95,11 +99,11 @@ msgstr "تدوينة"
 msgid "Blog posts"
 msgstr "التدوينات"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "فئة التدوينة"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "فئات التدوينات"
 
@@ -125,14 +129,14 @@ msgstr "منذ %(sometime)s"
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "لا يوجد تعليقات"
-msgstr[1] "تعليق واحد"
-msgstr[2] "تعليقان %(comments_count)s"
-msgstr[3] "%(comments_count)s تعليقات"
-msgstr[4] "%(comments_count)s تعليقاً"
-msgstr[5] "%(comments_count)s تعليق"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
@@ -217,3 +221,15 @@ msgstr "آر إس إس"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "أتوم"
+
+#~ msgid "Use date URLs"
+#~ msgstr "استخدم التاريخ ضمن العنوان الإلكتروني"
+
+#~ msgid "1 comment"
+#~ msgid_plural "%(comments_count)s comments"
+#~ msgstr[0] "لا يوجد تعليقات"
+#~ msgstr[1] "تعليق واحد"
+#~ msgstr[2] "تعليقان %(comments_count)s"
+#~ msgstr[3] "%(comments_count)s تعليقات"
+#~ msgstr[4] "%(comments_count)s تعليقاً"
+#~ msgstr[5] "%(comments_count)s تعليق"

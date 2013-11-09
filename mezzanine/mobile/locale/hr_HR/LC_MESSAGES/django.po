@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"POT-Creation-Date: 2013-11-09 10:32-0430\n"
 "PO-Revision-Date: 2012-08-16 21:08+0000\n"
 "Last-Translator: Gour <gour@atmarama.net>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/"
@@ -87,8 +87,9 @@ msgstr "Autor"
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
-msgid "ago"
-msgstr "ranije"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
@@ -133,3 +134,6 @@ msgid ""
 "word or phrase."
 msgstr ""
 "za tačne fraze, + da učinite reč potrebnom, - da isključite reč ili frazu."
+
+#~ msgid "ago"
+#~ msgstr "ranije"

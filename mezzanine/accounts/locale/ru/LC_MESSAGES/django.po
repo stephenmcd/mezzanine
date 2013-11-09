@@ -10,15 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 09:34-0430\n"
+"POT-Creation-Date: 2013-11-09 10:34-0430\n"
 "PO-Revision-Date: 2013-10-13 18:10+0000\n"
 "Last-Translator: Elrengil <yagleb@mail.ru>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: defaults.py:20
 msgid "Minimum length for passwords"
@@ -61,7 +63,8 @@ msgid ""
 "interface."
 msgstr ""
 "Если ``Да``, то когда пользователи создают учетную запись, они не включаться "
-"по-умолчанию, администратор должен будет активировать их через панель управления."
+"по-умолчанию, администратор должен будет активировать их через панель "
+"управления."
 
 #: defaults.py:77
 msgid "Account approval email addresses"
@@ -126,7 +129,7 @@ msgstr "Длина пароля должна быть не меньше %s си�
 msgid "This email is already registered"
 msgstr "Этот email уже зарегистрирован"
 
-#: forms.py:221
+#: forms.py:224
 msgid "Invalid username/email"
 msgstr "Неправильный логин/email"
 
@@ -148,8 +151,8 @@ msgid ""
 "Thanks for signing up! You'll receive an email when your account is "
 "activated."
 msgstr ""
-"Благодарим за регистрацию! Вы получите письмо, когда "
-"ваша учетная запись будет активирована."
+"Благодарим за регистрацию! Вы получите письмо, когда ваша учетная запись "
+"будет активирована."
 
 #: views.py:60
 msgid ""

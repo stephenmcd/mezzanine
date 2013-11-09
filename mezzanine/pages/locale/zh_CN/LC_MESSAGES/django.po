@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2013-03-30 12:03+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -76,39 +76,39 @@ msgstr ""
 "被列在菜单和搜索结果。不管这里如何设置，当未经授权的用户访问一"
 "个”login_required``被选中的页面，会被重定向到登录页面。"
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
 msgstr "在菜单中显示"
 
-#: models.py:36
+#: models.py:41
 msgid "Login required"
 msgstr "需要登录"
 
-#: models.py:37
+#: models.py:42
 msgid "If checked, only logged in users can view this page"
 msgstr "如果选中，只有登录的用户可以看到"
 
-#: models.py:40
+#: models.py:45
 msgid "Page"
 msgstr "页面"
 
-#: models.py:41
+#: models.py:46
 msgid "Pages"
 msgstr "页面"
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
 msgstr "Rich text页面"
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
 msgstr "Rich text页面"
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr "链接"
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
 msgstr "链接"
 
@@ -126,7 +126,11 @@ msgstr "添加"
 msgid "Home"
 msgstr "首页"
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
+msgstr ""
+
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr "发生一个错误，是页面的了类吗？"

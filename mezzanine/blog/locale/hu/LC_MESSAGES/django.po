@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"POT-Creation-Date: 2013-11-09 10:34-0430\n"
 "PO-Revision-Date: 2013-09-18 13:50+0000\n"
 "Last-Translator: zeller <zellermester@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/mezzanine/"
@@ -23,35 +23,38 @@ msgstr ""
 msgid "Other posts"
 msgstr "További bejegyzések"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr "Kiemelt képek engedélyezése blog bejegyzéseknél"
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "Dátum URL-ek használata"
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"Ha ``True`` a bejegyzések URL-jei tartalmazni fogják a hónapot és az évet "
-"is. Pl.:  /blog/yyyy/mm/slug/"
-
 #: defaults.py:36
+#, fuzzy
+msgid "Blog post URL date format"
+msgstr "RSS limit blog bejegyzésekhez"
+
+#: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+
+#: defaults.py:49
 msgid "Blog posts per page"
 msgstr "Bejegyzések száma oldalanként"
 
-#: defaults.py:37
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "Bejegyzések száma a blog listázó oldalon"
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr "RSS limit blog bejegyzésekhez"
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
@@ -59,7 +62,7 @@ msgstr ""
 "Az RRS-ben megjelenő friss bejegyzések száma. ``None``-ra állítva az összes "
 "bejegyzés szerepelni fog az RSS-ben."
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr "Az oldal objektum slug-ja a blogon"
 
@@ -96,11 +99,11 @@ msgstr "Blog bejegyzés"
 msgid "Blog posts"
 msgstr "Blog bejegyzések"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "Blog kategória"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "Blog kategóriák"
 
@@ -126,10 +129,10 @@ msgstr "%(sometime)s ideje"
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "1 megjegyzés"
-msgstr[1] "%(comments_count)s megjegyzés"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
@@ -214,3 +217,18 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
+
+#~ msgid "Use date URLs"
+#~ msgstr "Dátum URL-ek használata"
+
+#~ msgid ""
+#~ "If ``True``, URLs for blog post include the month and year. Eg: /blog/"
+#~ "yyyy/mm/slug/"
+#~ msgstr ""
+#~ "Ha ``True`` a bejegyzések URL-jei tartalmazni fogják a hónapot és az évet "
+#~ "is. Pl.:  /blog/yyyy/mm/slug/"
+
+#~ msgid "1 comment"
+#~ msgid_plural "%(comments_count)s comments"
+#~ msgstr[0] "1 megjegyzés"
+#~ msgstr[1] "%(comments_count)s megjegyzés"

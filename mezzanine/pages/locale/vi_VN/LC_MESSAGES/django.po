@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2013-05-09 12:40+0000\n"
 "Last-Translator: Lê Thanh <lethanhx2k@gmail.com>\n"
 "Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/"
@@ -79,39 +79,39 @@ msgstr ""
 "trong menu và kết quả tìm kiếm cho người dùng chưa đăng kí làm thành viên. "
 "Nhưng khi truy xuất vào các trang này, họ sẽ được chuyển sang trang đăng nhập"
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
 msgstr "Hiển thị trong menus"
 
-#: models.py:36
+#: models.py:41
 msgid "Login required"
 msgstr "Yêu cầu đăng nhập"
 
-#: models.py:37
+#: models.py:42
 msgid "If checked, only logged in users can view this page"
 msgstr "Nếu chọn, chỉ người dùng đăng nhập mới xem được trang này"
 
-#: models.py:40
+#: models.py:45
 msgid "Page"
 msgstr "Trang"
 
-#: models.py:41
+#: models.py:46
 msgid "Pages"
 msgstr "Các trang"
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
 msgstr "Rich text page"
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
 msgstr "Rich text page"
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr "Liên kết"
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
 msgstr "Liên kết"
 
@@ -129,7 +129,11 @@ msgstr "Thêm"
 msgid "Home"
 msgstr "Trang nhà"
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
+msgstr ""
+
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr "Có lỗi xảy ra. Có phải nó subclass Page trực tiếp?"

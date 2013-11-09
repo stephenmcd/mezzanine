@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"POT-Creation-Date: 2013-11-09 10:32-0430\n"
 "PO-Revision-Date: 2012-05-26 18:09+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.net/projects/p/mezzanine/"
@@ -86,8 +86,9 @@ msgstr "Postitas"
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
-msgid "ago"
-msgstr "tagasi"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
@@ -133,3 +134,6 @@ msgid ""
 msgstr ""
 " täpsete fraaside otsimiseks, + et teha sõna kohustulikuksja - et jätta sõna "
 "või fraas otsingust välja."
+
+#~ msgid "ago"
+#~ msgstr "tagasi"

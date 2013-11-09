@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2013-06-14 11:49+0000\n"
 "Last-Translator: Tzu-ping Chung <uranusjr@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
@@ -37,18 +37,18 @@ msgstr "相片庫"
 msgid "Galleries"
 msgstr "相片庫"
 
-#: models.py:91
+#: models.py:92
 msgid "File"
 msgstr "檔案"
 
-#: models.py:93
+#: models.py:94
 msgid "Description"
 msgstr "描述"
 
-#: models.py:97
+#: models.py:98
 msgid "Image"
 msgstr "影像"
 
-#: models.py:98
+#: models.py:99
 msgid "Images"
 msgstr "影像"

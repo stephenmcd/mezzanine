@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2013-06-08 17:30+0000\n"
 "Last-Translator: jammon <j.ammon@dr-ammon.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/mezzanine/"
@@ -26,35 +26,38 @@ msgstr ""
 msgid "Other posts"
 msgstr "Sonstige Einträge"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr "Hervorgehobenes Bild aktivieren"
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "Verwende Datums-URL"
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"Beitrags-URLs beinhalten Monat und Jahr, wenn ``Wahr`` - z.B. /blog/yyyy/"
-"mmmm/pfad"
-
 #: defaults.py:36
+#, fuzzy
+msgid "Blog post URL date format"
+msgstr "Blogbeiträge im RSS-Feed"
+
+#: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+
+#: defaults.py:49
 msgid "Blog posts per page"
 msgstr "Blog-Beiträge pro Seite"
 
-#: defaults.py:37
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "Anzahl der Beiträge auf einer Blog-Listing-Seite"
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr "Blogbeiträge im RSS-Feed"
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
@@ -62,7 +65,7 @@ msgstr ""
 "Anzahl der letzten Beiträge, die im RSS-Feed gezeigt werden. Um alle "
 "Beiträge anzuzeigen, den Wert auf ``None`` setzen."
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr "Pfad des Seitenobjekts des Blogs"
 
@@ -99,11 +102,11 @@ msgstr "Blogbeitrag"
 msgid "Blog posts"
 msgstr "Blogbeiträge"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "Blog-Kategorie"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "Blog-Kategorien"
 
@@ -129,10 +132,10 @@ msgstr "%(sometime)s her"
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "1 Kommentar"
-msgstr[1] "%(comments_count)s Kommentare"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
@@ -217,3 +220,18 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
+
+#~ msgid "Use date URLs"
+#~ msgstr "Verwende Datums-URL"
+
+#~ msgid ""
+#~ "If ``True``, URLs for blog post include the month and year. Eg: /blog/"
+#~ "yyyy/mm/slug/"
+#~ msgstr ""
+#~ "Beitrags-URLs beinhalten Monat und Jahr, wenn ``Wahr`` - z.B. /blog/yyyy/"
+#~ "mmmm/pfad"
+
+#~ msgid "1 comment"
+#~ msgid_plural "%(comments_count)s comments"
+#~ msgstr[0] "1 Kommentar"
+#~ msgstr[1] "%(comments_count)s Kommentare"

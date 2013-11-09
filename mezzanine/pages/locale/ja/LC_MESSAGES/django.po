@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2013-06-17 09:10+0000\n"
 "Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
@@ -84,39 +84,39 @@ msgstr ""
 "ず、 ``login_required``にチェックの入ったページに未認証のユーザーが アクセス"
 "すると、ログインページにリダイレクトされることになります。"
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
 msgstr "メニューに追加する"
 
-#: models.py:36
+#: models.py:41
 msgid "Login required"
 msgstr "ログインが必要です"
 
-#: models.py:37
+#: models.py:42
 msgid "If checked, only logged in users can view this page"
 msgstr "有効にすると、ログインしたユーザーのみがこのページを見られます"
 
-#: models.py:40
+#: models.py:45
 msgid "Page"
 msgstr "ページ"
 
-#: models.py:41
+#: models.py:46
 msgid "Pages"
 msgstr "ページ"
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
 msgstr "リッチテキストページ"
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
 msgstr "リッチテキストページ"
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr "リンク"
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
 msgstr "リンク"
 
@@ -134,7 +134,11 @@ msgstr "追加"
 msgid "Home"
 msgstr "ホーム"
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
+msgstr ""
+
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr "以下のクラスでエラーが発生しました。ページを直接サブクラスしますか？"

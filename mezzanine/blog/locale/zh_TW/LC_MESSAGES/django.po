@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"POT-Creation-Date: 2013-11-09 10:34-0430\n"
 "PO-Revision-Date: 2013-06-14 19:36+0000\n"
 "Last-Translator: Tzu-ping Chung <uranusjr@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
@@ -23,33 +23,38 @@ msgstr ""
 msgid "Other posts"
 msgstr "其他文章"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr "在部落格文章中使用封面圖片"
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "在 URL 中使用日期"
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr "若為 ``True``，文章的 URL 會包含發表年月，形式：/blog/yyyy/mm/slug/"
-
 #: defaults.py:36
+#, fuzzy
+msgid "Blog post URL date format"
+msgstr "部落格文章 RSS 上限"
+
+#: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+
+#: defaults.py:49
 msgid "Blog posts per page"
 msgstr "每頁顯示文章數"
 
-#: defaults.py:37
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "文章列表頁中顯示的文章數量。"
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr "部落格文章 RSS 上限"
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
@@ -57,7 +62,7 @@ msgstr ""
 "RSS feed 中顯示的最近部落格文章數量。若設置為 ``None``，RSS feed 中將包含所有"
 "部落格文章。"
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr "部落格頁面物件的網址"
 
@@ -94,11 +99,11 @@ msgstr "部落格文章"
 msgid "Blog posts"
 msgstr "部落格文章"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "文章分類"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "文章分類"
 
@@ -124,9 +129,9 @@ msgstr "%(sometime)s 之前"
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "%(comments_count)s 個留言"
+msgstr[0] ""
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
@@ -211,3 +216,15 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
+
+#~ msgid "Use date URLs"
+#~ msgstr "在 URL 中使用日期"
+
+#~ msgid ""
+#~ "If ``True``, URLs for blog post include the month and year. Eg: /blog/"
+#~ "yyyy/mm/slug/"
+#~ msgstr "若為 ``True``，文章的 URL 會包含發表年月，形式：/blog/yyyy/mm/slug/"
+
+#~ msgid "1 comment"
+#~ msgid_plural "%(comments_count)s comments"
+#~ msgstr[0] "%(comments_count)s 個留言"

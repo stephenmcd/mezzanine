@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 23:05+0400\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2013-03-30 12:03+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
@@ -78,40 +78,40 @@ msgstr ""
 "пользователь пытается просмотреть страницу с отмеченной галочкой "
 "``login_required``, он будет перенаправлен на страницу авторизации."
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
 msgstr "Показать в меню"
 
-#: models.py:36
+#: models.py:41
 msgid "Login required"
 msgstr "Необходима аутентификация"
 
-#: models.py:37
+#: models.py:42
 msgid "If checked, only logged in users can view this page"
 msgstr ""
 "Если отмечено, то только вошедшие на сайт пользователи увидят эту страницу"
 
-#: models.py:40
+#: models.py:45
 msgid "Page"
 msgstr "Страница"
 
-#: models.py:41
+#: models.py:46
 msgid "Pages"
 msgstr "Страницы"
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
 msgstr "Текстовая страница"
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
 msgstr "Текстовые страницы"
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr "Ссылка"
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
 msgstr "Ссылки"
 
@@ -129,7 +129,11 @@ msgstr "Добавить"
 msgid "Home"
 msgstr "Главная"
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
+msgstr ""
+
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""

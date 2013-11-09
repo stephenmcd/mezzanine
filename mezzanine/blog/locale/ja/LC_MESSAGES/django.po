@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"POT-Creation-Date: 2013-11-09 10:34-0430\n"
 "PO-Revision-Date: 2013-06-17 09:20+0000\n"
 "Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
@@ -26,35 +26,38 @@ msgstr ""
 msgid "Other posts"
 msgstr "他の投稿"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr "特集写真をブログ投稿で有効にする"
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "日付URLを使う"
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"チェックを入れると、ブログ投稿のURLに年月が含まれます。例: /blog/yyyy/mm/"
-"slug/"
-
 #: defaults.py:36
+#, fuzzy
+msgid "Blog post URL date format"
+msgstr "ブログ投稿の RSS 上限"
+
+#: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+
+#: defaults.py:49
 msgid "Blog posts per page"
 msgstr "ページごとのブログ投稿"
 
-#: defaults.py:37
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "ブログリストページに表示されるブログ投稿の数"
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr "ブログ投稿の RSS 上限"
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
@@ -62,7 +65,7 @@ msgstr ""
 "RSS フィード内に表示させる最新ブログ投稿の数。RSS フィード内に全ブログ投稿を "
 "表示させたいときは ``None`` とします。"
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr "ブログのためのページオブジェクト用のURL文字列"
 
@@ -99,11 +102,11 @@ msgstr "ブログ投稿"
 msgid "Blog posts"
 msgstr "ブログ投稿"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "ブログカテゴリー"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "ブログカテゴリー"
 
@@ -129,9 +132,9 @@ msgstr "%(sometime)s 前"
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "%(comments_count)s コメント"
+msgstr[0] ""
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
@@ -216,3 +219,17 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
+
+#~ msgid "Use date URLs"
+#~ msgstr "日付URLを使う"
+
+#~ msgid ""
+#~ "If ``True``, URLs for blog post include the month and year. Eg: /blog/"
+#~ "yyyy/mm/slug/"
+#~ msgstr ""
+#~ "チェックを入れると、ブログ投稿のURLに年月が含まれます。例: /blog/yyyy/mm/"
+#~ "slug/"
+
+#~ msgid "1 comment"
+#~ msgid_plural "%(comments_count)s comments"
+#~ msgstr[0] "%(comments_count)s コメント"

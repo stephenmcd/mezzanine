@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"POT-Creation-Date: 2013-11-09 10:32-0430\n"
 "PO-Revision-Date: 2012-11-15 14:59+0000\n"
 "Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
@@ -87,8 +87,9 @@ msgstr "Posted by"
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
-msgid "ago"
-msgstr "前"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
@@ -135,3 +136,6 @@ msgstr ""
 "正確にフレーズを指定したい場合、指定単語やフレーズが含まれる結果を探したい場"
 "合は + を、 指定単語やフレーズが出てこない結果を探したい場合は - を付けてくだ"
 "さい。"
+
+#~ msgid "ago"
+#~ msgstr "前"

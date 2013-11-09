@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2013-08-15 08:20+0000\n"
 "Last-Translator: Bornazadeh <bornazadeh@gmail.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/mezzanine/"
@@ -24,35 +24,38 @@ msgstr ""
 msgid "Other posts"
 msgstr "پست های دیگر"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr "فعال کردن ویژگی تصویر در پست های بلاگ"
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "استفاده از URL های تاریخ"
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"اگر \" علامت دار \" باشد, URL های پست های بلاگ شامل ماه و سال می شود.\n"
-"/شماره گردشی/ماه/سال/بلاگ/: مثال"
-
 #: defaults.py:36
+#, fuzzy
+msgid "Blog post URL date format"
+msgstr "محدودیت پست های وبلاگ در RSS"
+
+#: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+
+#: defaults.py:49
 msgid "Blog posts per page"
 msgstr "پست های بلاگ در هر صفحه"
 
-#: defaults.py:37
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "تعداد پست های قابل نمایش بلاگ در لیست صفحات بلاگ"
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr "محدودیت پست های وبلاگ در RSS"
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
@@ -60,7 +63,7 @@ msgstr ""
 "تعداد پست های جدید وبلاگ برای نمایش در فید RSS. برای نمایش همه پست های وبلاگ "
 "درفید RSS این مورد را به ``None`` تنظیم کنید."
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr "شماره گردشی برای صفحات بلاگ "
 
@@ -97,11 +100,11 @@ msgstr "پست بلاگ"
 msgid "Blog posts"
 msgstr "پست های بلاگ"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "دسته بندی بلاگ"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "دسته بندی های بلاگ"
 
@@ -127,11 +130,9 @@ msgstr "%(sometime)s قبل"
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
 msgstr[0] ""
-"ترجمه های جمعی\n"
-"%(comments_count)s comments"
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
@@ -216,3 +217,19 @@ msgstr "آر اس اس"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "اتم"
+
+#~ msgid "Use date URLs"
+#~ msgstr "استفاده از URL های تاریخ"
+
+#~ msgid ""
+#~ "If ``True``, URLs for blog post include the month and year. Eg: /blog/"
+#~ "yyyy/mm/slug/"
+#~ msgstr ""
+#~ "اگر \" علامت دار \" باشد, URL های پست های بلاگ شامل ماه و سال می شود.\n"
+#~ "/شماره گردشی/ماه/سال/بلاگ/: مثال"
+
+#~ msgid "1 comment"
+#~ msgid_plural "%(comments_count)s comments"
+#~ msgstr[0] ""
+#~ "ترجمه های جمعی\n"
+#~ "%(comments_count)s comments"

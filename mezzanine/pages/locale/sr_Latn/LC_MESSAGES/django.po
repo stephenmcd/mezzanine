@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2013-04-19 23:30+0000\n"
 "Last-Translator: Milorad Pop-Tosic <poptosic@gmail.com>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/"
@@ -68,40 +68,40 @@ msgid ""
 "``login_required`` checked, they'll be redirected to the login page."
 msgstr ""
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
 msgstr "Prikaži u menijima"
 
-#: models.py:36
+#: models.py:41
 msgid "Login required"
 msgstr "Potrebno prijavljivanje"
 
-#: models.py:37
+#: models.py:42
 msgid "If checked, only logged in users can view this page"
 msgstr ""
 "Ako je potvrđeno, samo prijavljeni korisnici mogu da prikažu ovu stranu."
 
-#: models.py:40
+#: models.py:45
 msgid "Page"
 msgstr "Stranica"
 
-#: models.py:41
+#: models.py:46
 msgid "Pages"
 msgstr "Stranice"
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
 msgstr "Stranica sa bogatim tekstom"
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
 msgstr "Stranice sa bogatim tekstom"
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr "Link"
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
 msgstr "Linkovi"
 
@@ -119,7 +119,11 @@ msgstr "Dodaj"
 msgid "Home"
 msgstr "Početna"
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
+msgstr ""
+
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""
