@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:34-0430\n"
-"PO-Revision-Date: 2012-10-14 21:42+0000\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Estonian (http://www.transifex.com/projects/p/mezzanine/"
-"language/et/)\n"
-"Language: et\n"
+"Language-Team: Estonian (http://www.transifex.com/projects/p/mezzanine/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: defaults.py:20
@@ -44,8 +43,8 @@ msgstr ""
 
 #: defaults.py:59
 msgid ""
-"If ``True``, when users create an account, they will be sent an email with a "
-"verification link, which they must click to enable their account."
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
 msgstr ""
 
 #: defaults.py:68
@@ -183,21 +182,22 @@ msgstr ""
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
-"\">sign up</a> for one now."
+"If you don't have an account you can <a "
+"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
 msgstr ""
 
 #: templates/accounts/account_login.html:14
 #, python-format
 msgid ""
-"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
-"\">reset your password</a> if you've forgotten it.</p>"
+"<p>You can also <a "
+"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
+"password</a> if you've forgotten it.</p>"
 msgstr ""
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
-"Enter your username or email address and you'll receive an email with a link "
-"you need to click, in order to log in and change your password."
+"Enter your username or email address and you'll receive an email with a link"
+" you need to click, in order to log in and change your password."
 msgstr ""
 
 #: templates/accounts/account_profile.html:17
@@ -207,8 +207,8 @@ msgstr ""
 
 #: templates/accounts/account_signup.html:7
 msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need "
-"to log out first."
+"You're already logged in. If you'd like to create a new account, you'll need"
+" to log out first."
 msgstr ""
 
 #: templates/accounts/account_signup.html:11
@@ -242,12 +242,12 @@ msgstr ""
 #: templates/email/account_approve.html:5
 #: templates/email/account_approve.txt:5
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: templates/email/account_approve.html:6
 #: templates/email/account_approve.txt:6
 msgid "Email"
-msgstr ""
+msgstr "E-post"
 
 #: templates/email/account_approve.html:11
 #: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
@@ -256,15 +256,13 @@ msgid "Please use the link below to activate it."
 msgstr ""
 
 #: templates/email/account_approve_subject.txt:2
-#, fuzzy
 msgid "An account requires activation"
-msgstr "Sinu konto pole aktiivne"
+msgstr ""
 
 #: templates/email/account_approved.html:3
 #: templates/email/account_approved.txt:3
-#, fuzzy
 msgid "Hey there, your account has been activated."
-msgstr "Sinu konto pole aktiivne"
+msgstr ""
 
 #: templates/email/account_approved.html:4
 #: templates/email/account_approved.txt:4
@@ -272,9 +270,8 @@ msgid "Please use the link below to log in."
 msgstr ""
 
 #: templates/email/account_approved_subject.txt:2
-#, fuzzy
 msgid "Your account has been activated"
-msgstr "Sinu konto pole aktiivne"
+msgstr ""
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
@@ -304,9 +301,3 @@ msgstr ""
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"
 msgstr ""
-
-#~ msgid "Login"
-#~ msgstr "Logi sisse"
-
-#~ msgid "Signup"
-#~ msgstr "Registreeru"

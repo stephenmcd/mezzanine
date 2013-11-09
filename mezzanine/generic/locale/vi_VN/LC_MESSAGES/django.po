@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Lê Thanh <lethanhx2k@gmail.com>, 2013
 # Lê Thanh <lethanhx2k@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-05 07:19-0430\n"
-"PO-Revision-Date: 2013-05-09 08:03+0000\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Lê Thanh <lethanhx2k@gmail.com>\n"
-"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/"
-"mezzanine/language/vi_VN/)\n"
-"Language: vi_VN\n"
+"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/mezzanine/language/vi_VN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi_VN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20 models.py:69
@@ -67,9 +67,7 @@ msgstr "Nếu ``True``, built-in comments are approved by default."
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr ""
-"Đường dẫn dấu chấm đến hàm gọi giá trị của một bình luận trước khi nó được  "
-"truyền vào template"
+msgstr "Đường dẫn dấu chấm đến hàm gọi giá trị của một bình luận trước khi nó được  truyền vào template"
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
@@ -79,9 +77,7 @@ msgstr "Địa chỉ thông báo bình luận"
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"Danh sách các email ngăn cách bởi dấu phẩy dùng để nhận thông báo mỗi khi có "
-"nhận xét mới được đăng lên site"
+msgstr "Danh sách các email ngăn cách bởi dấu phẩy dùng để nhận thông báo mỗi khi có nhận xét mới được đăng lên site"
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -99,9 +95,7 @@ msgstr "Hiển thị nhận xét  chưa phê duyệt"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"Nếu ``True``, nhận xét không được chọn ``is_public`` vẫn sẽ được hiển thị "
-"nhưng được thay thế bằng thông  báo ``đang chờ phê duyệt``."
+msgstr "Nếu ``True``, nhận xét không được chọn ``is_public`` vẫn sẽ được hiển thị nhưng được thay thế bằng thông  báo ``đang chờ phê duyệt``."
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -109,11 +103,9 @@ msgstr "Hiển thị nhận xét đã xóa"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"Nếu ``True``, nhận xét được chọn ``Đã xóa`` vẫn sẽ được hiển thị những được "
-"thay thế bằng một thông báo ``Đã xóa``."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Nếu ``True``, nhận xét được chọn ``Đã xóa`` vẫn sẽ được hiển thị những được thay thế bằng một thông báo ``Đã xóa``."
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
@@ -211,8 +203,7 @@ msgstr "Đánh giá"
 
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
-"Bạn phải đăng nhập. Vui lòng đăng nhập hoặc đăng kí để hoàn thành tác vụ này"
+msgstr "Bạn phải đăng nhập. Vui lòng đăng nhập hoặc đăng kí để hoàn thành tác vụ này"
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -235,19 +226,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"    Vào lúc %(submit_date)s %(user_name)s đã viết:\n"
-"    "
+msgstr "\n    Vào lúc %(submit_date)s %(user_name)s đã viết:\n    "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"Vào lúc %(submit_date)s %(user_name)s đã viết:\n"
+msgstr "\nVào lúc %(submit_date)s %(user_name)s đã viết:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

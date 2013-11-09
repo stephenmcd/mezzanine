@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <andreas.lindroos@gmail.com>, 2012.
-# Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# HeliosReds <helios_reds@gmx.net>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:34-0430\n"
-"PO-Revision-Date: 2012-11-17 22:00+0000\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
-"language/ja/)\n"
-"Language: ja\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: defaults.py:20
@@ -38,36 +37,24 @@ msgstr "プロファイルフォームから除外するフィールドのリス
 msgid ""
 "Dotted package path and class name of profile form to use for users signing "
 "up and updating their profile, when ``mezzanine.accounts`` is installed."
-msgstr ""
-"``mezzanine.accounts``がインストールされている時にユーザーの登録や プロファイ"
-"ルの更新に使用するドット区切りのパッケージパス及びプロファイルフォームのクラ"
-"ス名。"
+msgstr "``mezzanine.accounts``がインストールされている時にユーザーの登録や プロファイルの更新に使用するドット区切りのパッケージパス及びプロファイルフォームのクラス名。"
 
 #: defaults.py:51
 msgid "If ``True``, users will have their own public profile pages."
-msgstr ""
-"チェックを入れると、ユーザーはそれぞれの公開プロファイルページを持つことにな"
-"ります。"
+msgstr "チェックを入れると、ユーザーはそれぞれの公開プロファイルページを持つことになります。"
 
 #: defaults.py:59
 msgid ""
-"If ``True``, when users create an account, they will be sent an email with a "
-"verification link, which they must click to enable their account."
-msgstr ""
-"チェックを入れると、ユーザーがアカウントを作成した際、アカウントを有効化する"
-"ために クリックしなければいけない確認リンクの記載されたEメールが送信されま"
-"す。"
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
+msgstr "チェックを入れると、ユーザーがアカウントを作成した際、アカウントを有効化するために クリックしなければいけない確認リンクの記載されたEメールが送信されます。"
 
 #: defaults.py:68
-#, fuzzy
 msgid ""
 "If ``True``, when users create an account, they will not be enabled by "
 "default and a staff member will need to activate their account in the admin "
 "interface."
 msgstr ""
-"チェックを入れると、ユーザーがアカウントを作成した際、アカウントを有効化する"
-"ために クリックしなければいけない確認リンクの記載されたEメールが送信されま"
-"す。"
 
 #: defaults.py:77
 msgid "Account approval email addresses"
@@ -80,9 +67,8 @@ msgid ""
 msgstr ""
 
 #: forms.py:29
-#, fuzzy
 msgid "Email address"
-msgstr "ユーザー名またはEメールアドレス"
+msgstr ""
 
 #: forms.py:31
 msgid "Username or email address"
@@ -114,8 +100,7 @@ msgstr "パスワードを変更したくない場合は空欄のままにして
 
 #: forms.py:122
 msgid "Username can only contain letters, numbers, dashes or underscores."
-msgstr ""
-"ユーザー名に使用できるのは、英数字とダッシュ(-)、アンダースコア(_)のみです。"
+msgstr "ユーザー名に使用できるのは、英数字とダッシュ(-)、アンダースコア(_)のみです。"
 
 #: forms.py:129
 msgid "This username is already registered"
@@ -152,18 +137,15 @@ msgid "Successfully logged out"
 msgstr "ログアウトしました"
 
 #: views.py:56
-#, fuzzy
 msgid ""
 "Thanks for signing up! You'll receive an email when your account is "
 "activated."
 msgstr ""
-"登録すると、アカウントを有効にするためのリンクが記載されたEメールが届きます。"
 
 #: views.py:60
 msgid ""
 "A verification email has been sent with a link for activating your account."
-msgstr ""
-"アカウントを有効にするためのリンクが記載された確認Eメールが送信されました。"
+msgstr "アカウントを有効にするためのリンクが記載された確認Eメールが送信されました。"
 
 #: views.py:64 views.py:83
 msgid "Successfully signed up"
@@ -189,8 +171,7 @@ msgstr "プロファイル更新"
 #: views.py:141
 msgid ""
 "A verification email has been sent with a link for resetting your password."
-msgstr ""
-"パスワードをリセットするためのリンクが記載された確認Eメールが送信されました。"
+msgstr "パスワードをリセットするためのリンクが記載された確認Eメールが送信されました。"
 
 #: views.py:143
 msgid "Password Reset"
@@ -203,29 +184,23 @@ msgstr "既にログインしています。"
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
-"\">sign up</a> for one now."
-msgstr ""
-"まだアカウントをお持ちでないならお持ちでないなら、ここから<a href="
-"\"%(signup_url)s?next=%(next)s\">登録</a>することができます。"
+"If you don't have an account you can <a "
+"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgstr "まだアカウントをお持ちでないならお持ちでないなら、ここから<a href=\"%(signup_url)s?next=%(next)s\">登録</a>することができます。"
 
 #: templates/accounts/account_login.html:14
 #, python-format
 msgid ""
-"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
-"\">reset your password</a> if you've forgotten it.</p>"
-msgstr ""
-"<p>また、パスワードをお忘れになった場合は、こちらから<a href="
-"\"%(password_reset_url)s?next=%(profile_update_url)s\">パスワードをリセット</"
-"a>することもできます。</p>"
+"<p>You can also <a "
+"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
+"password</a> if you've forgotten it.</p>"
+msgstr "<p>また、パスワードをお忘れになった場合は、こちらから<a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">パスワードをリセット</a>することもできます。</p>"
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
-"Enter your username or email address and you'll receive an email with a link "
-"you need to click, in order to log in and change your password."
-msgstr ""
-"ユーザー名もしくはEメールアドレスを記入して上のボタンをクリックすると、 ログ"
-"インしてパスワードを変更するためのリンクが記載されたEメールが届きます。"
+"Enter your username or email address and you'll receive an email with a link"
+" you need to click, in order to log in and change your password."
+msgstr "ユーザー名もしくはEメールアドレスを記入して上のボタンをクリックすると、 ログインしてパスワードを変更するためのリンクが記載されたEメールが届きます。"
 
 #: templates/accounts/account_profile.html:17
 #: templates/accounts/includes/user_panel.html:10
@@ -234,18 +209,15 @@ msgstr "プロファイル更新"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need "
-"to log out first."
-msgstr ""
-"既にログインしています。新しいアカウントを作成したいのであれば、まず ログアウ"
-"トしてください。"
+"You're already logged in. If you'd like to create a new account, you'll need"
+" to log out first."
+msgstr "既にログインしています。新しいアカウントを作成したいのであれば、まず ログアウトしてください。"
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
-msgstr ""
-"登録すると、アカウントを有効にするためのリンクが記載されたEメールが届きます。"
+msgstr "登録すると、アカウントを有効にするためのリンクが記載されたEメールが届きます。"
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
@@ -272,12 +244,12 @@ msgstr ""
 #: templates/email/account_approve.html:5
 #: templates/email/account_approve.txt:5
 msgid "Name"
-msgstr ""
+msgstr "お名前"
 
 #: templates/email/account_approve.html:6
 #: templates/email/account_approve.txt:6
 msgid "Email"
-msgstr ""
+msgstr "Eメール"
 
 #: templates/email/account_approve.html:11
 #: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
@@ -286,26 +258,22 @@ msgid "Please use the link below to activate it."
 msgstr "下のリンクからアカウントを有効化してください。"
 
 #: templates/email/account_approve_subject.txt:2
-#, fuzzy
 msgid "An account requires activation"
-msgstr "アカウント休止中"
+msgstr ""
 
 #: templates/email/account_approved.html:3
 #: templates/email/account_approved.txt:3
-#, fuzzy
 msgid "Hey there, your account has been activated."
-msgstr "アカウント休止中"
+msgstr ""
 
 #: templates/email/account_approved.html:4
 #: templates/email/account_approved.txt:4
-#, fuzzy
 msgid "Please use the link below to log in."
-msgstr "下のリンクからアカウントを有効化してください。"
+msgstr ""
 
 #: templates/email/account_approved_subject.txt:2
-#, fuzzy
 msgid "Your account has been activated"
-msgstr "アカウント休止中"
+msgstr ""
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
@@ -322,9 +290,7 @@ msgstr "下のリンクからログインしてパスワードを更新してく
 msgid ""
 "If you didn't request for your password to be reset, please ignore this "
 "email."
-msgstr ""
-"パスワードをリセットしたいというリクエストを送った覚えがない場合は、このEメー"
-"ルは 無視してください。"
+msgstr "パスワードをリセットしたいというリクエストを送った覚えがない場合は、このEメールは 無視してください。"
 
 #: templates/email/password_reset_verify_subject.txt:2
 msgid "Reset your password"
@@ -337,9 +303,3 @@ msgstr "アカウント作成、どうもありがとうございました。"
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"
 msgstr "アカウントの有効化"
-
-#~ msgid "Login"
-#~ msgstr "ログイン"
-
-#~ msgid "Signup"
-#~ msgstr "登録"

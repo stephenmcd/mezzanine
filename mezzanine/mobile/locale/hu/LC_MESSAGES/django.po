@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# zeller <zellermester@gmail.com>, 2013
 # zeller <zellermester@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:32-0430\n"
-"PO-Revision-Date: 2013-09-19 14:50+0000\n"
-"Last-Translator: zeller <zellermester@gmail.com>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/mezzanine/"
-"language/hu/)\n"
-"Language: hu\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/mezzanine/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/mobile/404.html:6
@@ -88,7 +88,7 @@ msgstr "Szerző"
 #: templates/mobile/blog/blog_post_list.html:28
 #, python-format
 msgid "%(sometime)s ago"
-msgstr ""
+msgstr "%(sometime)s ideje"
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
@@ -132,6 +132,3 @@ msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
 msgstr ""
-
-#~ msgid "ago"
-#~ msgstr "óta"

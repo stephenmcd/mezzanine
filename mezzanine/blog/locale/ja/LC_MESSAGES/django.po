@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # andreas.lindroos <andreas.lindroos@gmail.com>, 2012
 # andreas.lindroos <andreas.lindroos@gmail.com>, 2012
@@ -11,15 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-09 10:34-0430\n"
-"PO-Revision-Date: 2013-06-17 09:20+0000\n"
-"Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
-"language/ja/)\n"
-"Language: ja\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20
@@ -31,9 +30,8 @@ msgid "Enable featured images in blog posts"
 msgstr "特集写真をブログ投稿で有効にする"
 
 #: defaults.py:36
-#, fuzzy
 msgid "Blog post URL date format"
-msgstr "ブログ投稿の RSS 上限"
+msgstr ""
 
 #: defaults.py:37
 msgid ""
@@ -61,9 +59,7 @@ msgstr "ブログ投稿の RSS 上限"
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
-msgstr ""
-"RSS フィード内に表示させる最新ブログ投稿の数。RSS フィード内に全ブログ投稿を "
-"表示させたいときは ``None`` とします。"
+msgstr "RSS フィード内に表示させる最新ブログ投稿の数。RSS フィード内に全ブログ投稿を 表示させたいときは ``None`` とします。"
 
 #: defaults.py:66
 msgid "Slug of the page object for the blog."
@@ -219,17 +215,3 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
-
-#~ msgid "Use date URLs"
-#~ msgstr "日付URLを使う"
-
-#~ msgid ""
-#~ "If ``True``, URLs for blog post include the month and year. Eg: /blog/"
-#~ "yyyy/mm/slug/"
-#~ msgstr ""
-#~ "チェックを入れると、ブログ投稿のURLに年月が含まれます。例: /blog/yyyy/mm/"
-#~ "slug/"
-
-#~ msgid "1 comment"
-#~ msgid_plural "%(comments_count)s comments"
-#~ msgstr[0] "%(comments_count)s コメント"

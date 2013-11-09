@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <bornazadeh@gmail.com>, 2012.
+# Bornazadeh <bornazadeh@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:33-0430\n"
-"PO-Revision-Date: 2013-03-30 12:10+0000\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Persian (http://www.transifex.com/projects/p/mezzanine/"
-"language/fa/)\n"
-"Language: fa\n"
+"Language-Team: Persian (http://www.transifex.com/projects/p/mezzanine/language/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20
@@ -213,19 +212,3 @@ msgstr "آر اس اس"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "اتم"
-
-#~ msgid "Use date URLs"
-#~ msgstr "استفاده از URL های تاریخ"
-
-#~ msgid ""
-#~ "If ``True``, URLs for blog post include the month and year. Eg: /blog/"
-#~ "yyyy/mm/slug/"
-#~ msgstr ""
-#~ "اگر \" علامت دار \" باشد, URL های پست های بلاگ شامل ماه و سال می شود.\n"
-#~ "/شماره گردشی/ماه/سال/بلاگ/: مثال"
-
-#~ msgid "1 comment"
-#~ msgid_plural "%(comments_count)s comments"
-#~ msgstr[0] ""
-#~ "ترجمه های جمعی\n"
-#~ "%(comments_count)s comments"

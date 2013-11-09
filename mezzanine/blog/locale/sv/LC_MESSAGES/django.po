@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <avtobiff@gmail.com>, 2012.
+# avtobiff <avtobiff@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-09 10:34-0430\n"
-"PO-Revision-Date: 2013-03-30 11:56+0000\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/projects/p/mezzanine/"
-"language/sv/)\n"
-"Language: sv\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/mezzanine/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:20
@@ -214,18 +213,3 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
-
-#~ msgid "Use date URLs"
-#~ msgstr "Använd datum-URLer"
-
-#~ msgid ""
-#~ "If ``True``, URLs for blog post include the month and year. Eg: /blog/"
-#~ "yyyy/mm/slug/"
-#~ msgstr ""
-#~ "Om ``True`` så inkluderar URLer för bloggposter månad och år. Exempel: /"
-#~ "blog/yyyy/mm/slug/"
-
-#~ msgid "1 comment"
-#~ msgid_plural "%(comments_count)s comments"
-#~ msgstr[0] "1 kommentar"
-#~ msgstr[1] "%(comments_count)s kommentarer"

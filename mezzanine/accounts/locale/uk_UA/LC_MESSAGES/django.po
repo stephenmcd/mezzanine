@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Taras Kozlovskyi <ktarasz@gmail.com>, 2013
 msgid ""
@@ -9,16 +9,14 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:34-0430\n"
-"PO-Revision-Date: 2013-06-10 11:27+0000\n"
-"Last-Translator: Taras Kozlovskyi <ktarasz@gmail.com>\n"
-"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/"
-"mezzanine/language/uk_UA/)\n"
-"Language: uk_UA\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/mezzanine/language/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk_UA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: defaults.py:20
 msgid "Minimum length for passwords"
@@ -38,36 +36,24 @@ msgstr "Список полів, що будуть виключені із фо�
 msgid ""
 "Dotted package path and class name of profile form to use for users signing "
 "up and updating their profile, when ``mezzanine.accounts`` is installed."
-msgstr ""
-"Розділений точками шлях до пакету та ім'я класу для форми профілю, що "
-"використовується для реєстрації користувачів і поновлення їх профілю, коли "
-"`` mezzanine.accounts `` встановлений."
+msgstr "Розділений точками шлях до пакету та ім'я класу для форми профілю, що використовується для реєстрації користувачів і поновлення їх профілю, коли `` mezzanine.accounts `` встановлений."
 
 #: defaults.py:51
 msgid "If ``True``, users will have their own public profile pages."
-msgstr ""
-"Якщо `` Так ``, то користувачі будуть мати сторінки зі своїм публічним "
-"профілем"
+msgstr "Якщо `` Так ``, то користувачі будуть мати сторінки зі своїм публічним профілем"
 
 #: defaults.py:59
 msgid ""
-"If ``True``, when users create an account, they will be sent an email with a "
-"verification link, which they must click to enable their account."
-msgstr ""
-"Якщо `` Так ``, то коли користувачі створюють обліковий запис, їм буде "
-"надіслано листа з перевіряючої посиланням, за якою потрібно пройти для "
-"активації"
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
+msgstr "Якщо `` Так ``, то коли користувачі створюють обліковий запис, їм буде надіслано листа з перевіряючої посиланням, за якою потрібно пройти для активації"
 
 #: defaults.py:68
-#, fuzzy
 msgid ""
 "If ``True``, when users create an account, they will not be enabled by "
 "default and a staff member will need to activate their account in the admin "
 "interface."
 msgstr ""
-"Якщо `` Так ``, то коли користувачі створюють обліковий запис, їм буде "
-"надіслано листа з перевіряючої посиланням, за якою потрібно пройти для "
-"активації"
 
 #: defaults.py:77
 msgid "Account approval email addresses"
@@ -80,9 +66,8 @@ msgid ""
 msgstr ""
 
 #: forms.py:29
-#, fuzzy
 msgid "Email address"
-msgstr "Логін або email"
+msgstr ""
 
 #: forms.py:31
 msgid "Username or email address"
@@ -151,20 +136,15 @@ msgid "Successfully logged out"
 msgstr "Ви успішно вийшли"
 
 #: views.py:56
-#, fuzzy
 msgid ""
 "Thanks for signing up! You'll receive an email when your account is "
 "activated."
 msgstr ""
-"Після реєстрації ви отримаєте лист з посиланням, по якому необхідно пройти, "
-"щоб ваш обліковий запис було активовано."
 
 #: views.py:60
 msgid ""
 "A verification email has been sent with a link for activating your account."
-msgstr ""
-"Лист з підтверджуючим посиланням вашого облікового запису було вислано на "
-"ваш email."
+msgstr "Лист з підтверджуючим посиланням вашого облікового запису було вислано на ваш email."
 
 #: views.py:64 views.py:83
 msgid "Successfully signed up"
@@ -203,28 +183,23 @@ msgstr "Ви вже увійшли під своїм обліковим запи
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
-"\">sign up</a> for one now."
-msgstr ""
-"Якщо у вас немає облікового запису, ви можете <a href=\"%(signup_url)s?next="
-"%(next)s\">зареєструватись</ A>."
+"If you don't have an account you can <a "
+"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgstr "Якщо у вас немає облікового запису, ви можете <a href=\"%(signup_url)s?next=%(next)s\">зареєструватись</ A>."
 
 #: templates/accounts/account_login.html:14
 #, python-format
 msgid ""
-"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
-"\">reset your password</a> if you've forgotten it.</p>"
-msgstr ""
-"А також ви можете <a href=\"%(password_reset_url)s?next="
-"%(profile_update_url)s\"> скинути пароль </ a>, якщо ви його забули."
+"<p>You can also <a "
+"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
+"password</a> if you've forgotten it.</p>"
+msgstr "А також ви можете <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\"> скинути пароль </ a>, якщо ви його забули."
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
-"Enter your username or email address and you'll receive an email with a link "
-"you need to click, in order to log in and change your password."
-msgstr ""
-"Введіть ім'я вашого облікового запису або email і ви отримаєте лист з "
-"посиланням по якій зможете задати пароль."
+"Enter your username or email address and you'll receive an email with a link"
+" you need to click, in order to log in and change your password."
+msgstr "Введіть ім'я вашого облікового запису або email і ви отримаєте лист з посиланням по якій зможете задати пароль."
 
 #: templates/accounts/account_profile.html:17
 #: templates/accounts/includes/user_panel.html:10
@@ -233,19 +208,15 @@ msgstr "Оновити профіль"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need "
-"to log out first."
-msgstr ""
-"Ви вже увійшли під своїм обліковим записом. Якщо ви хочете створити новий "
-"обліковий запис, вам необхідно вийти з системи."
+"You're already logged in. If you'd like to create a new account, you'll need"
+" to log out first."
+msgstr "Ви вже увійшли під своїм обліковим записом. Якщо ви хочете створити новий обліковий запис, вам необхідно вийти з системи."
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
-msgstr ""
-"Після реєстрації ви отримаєте лист з посиланням, по якому необхідно пройти, "
-"щоб ваш обліковий запис було активовано."
+msgstr "Після реєстрації ви отримаєте лист з посиланням, по якому необхідно пройти, щоб ваш обліковий запис було активовано."
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
@@ -272,55 +243,46 @@ msgstr ""
 #: templates/email/account_approve.html:5
 #: templates/email/account_approve.txt:5
 msgid "Name"
-msgstr ""
+msgstr "Ім'я"
 
 #: templates/email/account_approve.html:6
 #: templates/email/account_approve.txt:6
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: templates/email/account_approve.html:11
 #: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
 #: templates/email/signup_verify.txt:4
 msgid "Please use the link below to activate it."
-msgstr ""
-"Будь ласка, використовуйте посилання нижче для активації облікового запису."
+msgstr "Будь ласка, використовуйте посилання нижче для активації облікового запису."
 
 #: templates/email/account_approve_subject.txt:2
-#, fuzzy
 msgid "An account requires activation"
-msgstr "Ваш обліковий запис не є активним"
+msgstr ""
 
 #: templates/email/account_approved.html:3
 #: templates/email/account_approved.txt:3
-#, fuzzy
 msgid "Hey there, your account has been activated."
-msgstr "Ваш обліковий запис не є активним"
+msgstr ""
 
 #: templates/email/account_approved.html:4
 #: templates/email/account_approved.txt:4
-#, fuzzy
 msgid "Please use the link below to log in."
 msgstr ""
-"Будь ласка, використовуйте посилання нижче для активації облікового запису."
 
 #: templates/email/account_approved_subject.txt:2
-#, fuzzy
 msgid "Your account has been activated"
-msgstr "Ваш обліковий запис не є активним"
+msgstr ""
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
 msgid "Hey there, the password reset form was used for your account."
-msgstr ""
-"Увага, форма скидання пароля була використана для вашого облікового запису."
+msgstr "Увага, форма скидання пароля була використана для вашого облікового запису."
 
 #: templates/email/password_reset_verify.html:4
 #: templates/email/password_reset_verify.txt:4
 msgid "Please use the link below to log in and update your password."
-msgstr ""
-"Будь ласка, використовуйте посилання нижче, для того щоб увійти на сайт і "
-"оновити ваш пароль."
+msgstr "Будь ласка, використовуйте посилання нижче, для того щоб увійти на сайт і оновити ваш пароль."
 
 #: templates/email/password_reset_verify.html:6
 #: templates/email/password_reset_verify.txt:6
@@ -340,9 +302,3 @@ msgstr "Дякуємо за створення облікового запису
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"
 msgstr "Активація облікового запису"
-
-#~ msgid "Login"
-#~ msgstr "Вхід"
-
-#~ msgid "Signup"
-#~ msgstr "Реєстрація"

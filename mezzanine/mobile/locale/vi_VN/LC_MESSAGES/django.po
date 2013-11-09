@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Lê Thanh <lethanhx2k@gmail.com>, 2013
 # Lê Thanh <lethanhx2k@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-09 10:33-0430\n"
-"PO-Revision-Date: 2013-05-09 12:40+0000\n"
-"Last-Translator: Lê Thanh <lethanhx2k@gmail.com>\n"
-"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/"
-"mezzanine/language/vi_VN/)\n"
-"Language: vi_VN\n"
+"POT-Creation-Date: 2013-11-09 10:32-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/mezzanine/language/vi_VN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi_VN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: templates/mobile/404.html:6
@@ -88,7 +88,7 @@ msgstr "Gửi bởi"
 #: templates/mobile/blog/blog_post_list.html:28
 #, python-format
 msgid "%(sometime)s ago"
-msgstr ""
+msgstr "%(sometime)s trước"
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
@@ -132,6 +132,3 @@ msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
 msgstr "để trích xuất các từ, + để tạo từ theo yêu cầu, - để loại bỏ từ"
-
-#~ msgid "ago"
-#~ msgstr "trước"

@@ -1,56 +1,52 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# mozgur <mozgurbayhan@gmail.com>, 2013
-# mozgur <mozgurbayhan@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:33-0430\n"
-"PO-Revision-Date: 2013-05-20 00:10+0000\n"
-"Last-Translator: mozgur <mozgurbayhan@gmail.com>\n"
-"Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/"
-"mezzanine/language/tr_TR/)\n"
-"Language: tr_TR\n"
+"PO-Revision-Date: 2013-11-09 19:57+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/projects/p/mezzanine/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: models.py:38
 msgid "Zip import"
-msgstr "İçeri Zip aktarımı"
+msgstr ""
 
 #: models.py:40
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
 msgstr ""
-"Resimler içeren bir zip dosyası yükleyin, ve resimler bu galeriye aktarılsın."
 
 #: models.py:44
 msgid "Gallery"
-msgstr "Galeri"
+msgstr ""
 
 #: models.py:45
 msgid "Galleries"
-msgstr "Galeriler"
+msgstr ""
 
 #: models.py:92
 msgid "File"
-msgstr "Dosya"
+msgstr ""
 
 #: models.py:94
 msgid "Description"
-msgstr "Tanımlama"
+msgstr ""
 
 #: models.py:98
 msgid "Image"
-msgstr "Resim"
+msgstr ""
 
 #: models.py:99
 msgid "Images"
-msgstr "Resmler"
+msgstr ""

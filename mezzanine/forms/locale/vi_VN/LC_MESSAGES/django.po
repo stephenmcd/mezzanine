@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Lê Thanh <lethanhx2k@gmail.com>, 2013
 # Lê Thanh <lethanhx2k@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-05 07:21-0430\n"
-"PO-Revision-Date: 2013-05-09 23:20+0000\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Lê Thanh <lethanhx2k@gmail.com>\n"
-"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/"
-"mezzanine/language/vi_VN/)\n"
-"Language: vi_VN\n"
+"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/mezzanine/language/vi_VN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi_VN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:32 fields.py:33
@@ -37,9 +37,7 @@ msgstr "Xem bài viết"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"Nếu ``True``, email gửi đến các danh sách mở rộng khi gửi từ form sẽ không "
-"được gửi từ địa chỉ đã khai báo trong trường email của form."
+msgstr "Nếu ``True``, email gửi đến các danh sách mở rộng khi gửi từ form sẽ không được gửi từ địa chỉ đã khai báo trong trường email của form."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -59,16 +57,12 @@ msgstr "Đường dẫn tuyệt đối để lưu các tập tin tải lên từ
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
-msgstr ""
-"Kiểu trường mở rộng dành cho form app. Nên gồm chuỗi 3 đối tượng:ID, đường "
-"dẫn đến class trường và tên trường cho  mỗi kiểu trường tùy biến. ID là kiểu "
-"số nguyên duy nhất, vì vậy nên chọn một giá trị lớn, chẳng hạn như 100 hoặc "
-"lớn hơn nữa để tránh xung đột."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "Kiểu trường mở rộng dành cho form app. Nên gồm chuỗi 3 đối tượng:ID, đường dẫn đến class trường và tên trường cho  mỗi kiểu trường tùy biến. ID là kiểu số nguyên duy nhất, vì vậy nên chọn một giá trị lớn, chẳng hạn như 100 hoặc lớn hơn nữa để tránh xung đột."
 
 #: fields.py:31
 msgid "Single line text"
@@ -204,9 +198,7 @@ msgstr "Gửi email đến người khác"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"Dánh sách các địa chỉ email cách nhau bởi dấu phẩy được dùng để thông báo "
-"khi submit form. Để trống để tắt tính năng này"
+msgstr "Dánh sách các địa chỉ email cách nhau bởi dấu phẩy được dùng để thông báo khi submit form. Để trống để tắt tính năng này"
 
 #: models.py:30
 msgid "Subject"
@@ -221,9 +213,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
-"Các email được gửi dựa trên các thiết lập trước sẽ chứa các trường form đã "
-"được nhập. Bạn cũng có thể nhập thông điệ gửi kèm email tại đây"
+msgstr "Các email được gửi dựa trên các thiết lập trước sẽ chứa các trường form đã được nhập. Bạn cũng có thể nhập thông điệ gửi kèm email tại đây"
 
 #: models.py:37
 msgid "Form"
@@ -257,9 +247,7 @@ msgstr "Lựa chọn"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Dấu phẩy  tách các tùy chọn. Nếu một tùy chọn có dấu phẩy, sử dụng thêm kí "
-"tự (`) xung quanh nó."
+msgstr "Dấu phẩy  tách các tùy chọn. Nếu một tùy chọn có dấu phẩy, sử dụng thêm kí tự (`) xung quanh nó."
 
 #: models.py:63
 msgid "Default value"

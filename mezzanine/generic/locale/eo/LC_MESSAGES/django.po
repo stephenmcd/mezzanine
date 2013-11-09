@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Baptiste <baptiste+transifex@darthenay.fr>, 2013
+# Baptiste <baptiste+transifex@darthenay.fr>, 2013
 # Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 09:33-0430\n"
-"PO-Revision-Date: 2013-10-28 08:30+0000\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Baptiste <baptiste+transifex@darthenay.fr>\n"
 "Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/language/eo/)\n"
 "MIME-Version: 1.0\n"

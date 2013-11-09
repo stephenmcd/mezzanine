@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# zeller <zellermester@gmail.com>, 2013
 # zeller <zellermester@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-05 07:21-0430\n"
-"PO-Revision-Date: 2013-09-18 14:40+0000\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: zeller <zellermester@gmail.com>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/mezzanine/"
-"language/hu/)\n"
-"Language: hu\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/mezzanine/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:33
@@ -38,9 +38,7 @@ msgstr "Bejegyzések megnyitása"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"Ha ``True``, az űrlapokban megadott extra címzetteknek küldött levelek "
-"feladójaként nem az űrlapok egyikéből választott cím lesz. Mivan???"
+msgstr "Ha ``True``, az űrlapokban megadott extra címzetteknek küldött levelek feladójaként nem az űrlapok egyikéből választott cím lesz. Mivan???"
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -60,17 +58,12 @@ msgstr "Abszolút útvonal a form app-pal feltöltött fájlokhoz"
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
-msgstr ""
-"Az extra mezők típusai a form appban. Három elemű listák listája kell "
-"legyen, amelyben minden bejegyzés egy ID-ből a mező osztály pontokkal "
-"elválasztott import utvonalából és a mező nevéből áll. Az ID egy numerikus "
-"konstans a mező számára, amely egyedi kell legyen. Ennek érdekében a 100 "
-"feletti tartományból válassz az ütközések elkerüléséhez."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "Az extra mezők típusai a form appban. Három elemű listák listája kell legyen, amelyben minden bejegyzés egy ID-ből a mező osztály pontokkal elválasztott import utvonalából és a mező nevéből áll. Az ID egy numerikus konstans a mező számára, amely egyedi kell legyen. Ennek érdekében a 100 feletti tartományból válassz az ütközések elkerüléséhez."
 
 #: fields.py:31
 msgid "Single line text"
@@ -188,9 +181,7 @@ msgstr "Email küldése a felhasználónak"
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
-"Ha emailt szeretnél küldeni az űrlapban megadott email címre mikor az "
-"kitöltésre került, pipáld be ezt a dobozt."
+msgstr "Ha emailt szeretnél küldeni az űrlapban megadott email címre mikor az kitöltésre került, pipáld be ezt a dobozt."
 
 #: models.py:23
 msgid "From address"
@@ -208,10 +199,7 @@ msgstr "Email küldése a többieknek"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"Adj meg egy vesszőkkel elválasztott email cím listát, amelyek értesítést "
-"kapnak mikor egy űrlap kitöltésre került. Ha üresen hagyod, az értesítések "
-"elmaradnak."
+msgstr "Adj meg egy vesszőkkel elválasztott email cím listát, amelyek értesítést kapnak mikor egy űrlap kitöltésre került. Ha üresen hagyod, az értesítések elmaradnak."
 
 #: models.py:30
 msgid "Subject"
@@ -226,10 +214,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
-"A fent kiválasztott opciók által kiküldött emailek tartalmazni fogják az "
-"űrlap mezőiben megadott értékeket. Itt ezek mellé egy szöveget írhatsz még "
-"az emailekhez."
+msgstr "A fent kiválasztott opciók által kiküldött emailek tartalmazni fogják az űrlap mezőiben megadott értékeket. Itt ezek mellé egy szöveget írhatsz még az emailekhez."
 
 #: models.py:37
 msgid "Form"
@@ -263,9 +248,7 @@ msgstr "Választások"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Vesszővel elválasztott opciók, ahol értelmezhetőek. Ha maga a választható "
-"érték vesszőt tartalmaz azt végrehajtó operátorral (`) kell korülvenni."
+msgstr "Vesszővel elválasztott opciók, ahol értelmezhetőek. Ha maga a választható érték vesszőt tartalmaz azt végrehajtó operátorral (`) kell korülvenni."
 
 #: models.py:63
 msgid "Default value"

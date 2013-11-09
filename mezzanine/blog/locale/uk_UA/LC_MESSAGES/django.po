@@ -1,24 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Taras Kozlovskyi <ktarasz@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-09 10:34-0430\n"
-"PO-Revision-Date: 2013-06-10 11:10+0000\n"
-"Last-Translator: Taras Kozlovskyi <ktarasz@gmail.com>\n"
-"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/"
-"mezzanine/language/uk_UA/)\n"
-"Language: uk_UA\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/mezzanine/language/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk_UA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:20
 msgid "Other posts"
@@ -29,9 +27,8 @@ msgid "Enable featured images in blog posts"
 msgstr "Включити зображення для записів блогу"
 
 #: defaults.py:36
-#, fuzzy
 msgid "Blog post URL date format"
-msgstr "RSS ліміт для записів блогу"
+msgstr ""
 
 #: defaults.py:37
 msgid ""
@@ -59,9 +56,7 @@ msgstr "RSS ліміт для записів блогу"
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
-msgstr ""
-"Кількість останніх записів блогу, які будуть відображатись в RSS каналі. На "
-"`` None `` для відображення усіх записів в RSS каналІ."
+msgstr "Кількість останніх записів блогу, які будуть відображатись в RSS каналі. На `` None `` для відображення усіх записів в RSS каналІ."
 
 #: defaults.py:66
 msgid "Slug of the page object for the blog."
@@ -219,19 +214,3 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
-
-#~ msgid "Use date URLs"
-#~ msgstr "Використовувати адреси з датой"
-
-#~ msgid ""
-#~ "If ``True``, URLs for blog post include the month and year. Eg: /blog/"
-#~ "yyyy/mm/slug/"
-#~ msgstr ""
-#~ "Якщо ``Так``, адреси повідомлень блогу будуть вміщати рік та місяць. "
-#~ "Наприклад: /blog/yyyy/mm/slug/"
-
-#~ msgid "1 comment"
-#~ msgid_plural "%(comments_count)s comments"
-#~ msgstr[0] "%(comments_count)s коментар"
-#~ msgstr[1] "%(comments_count)s коментарів"
-#~ msgstr[2] "%(comments_count)s коментарів"

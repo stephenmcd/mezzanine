@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Taras Kozlovskyi <ktarasz@gmail.com>, 2012-2013
 msgid ""
@@ -9,16 +9,14 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-05 07:19-0430\n"
-"PO-Revision-Date: 2013-06-10 12:30+0000\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Taras Kozlovskyi <ktarasz@gmail.com>\n"
-"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/"
-"mezzanine/language/uk_UA/)\n"
-"Language: uk_UA\n"
+"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/mezzanine/language/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk_UA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:20 models.py:69
 msgid "User"
@@ -30,9 +28,7 @@ msgstr "Необхідно обліковий запис для коментув
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr ""
-"Якщо `` Так ``, то користувачі повинні увійти під своїм обліковим записом, "
-"щоб мати можливість залишати коментарі."
+msgstr "Якщо `` Так ``, то користувачі повинні увійти під своїм обліковим записом, щоб мати можливість залишати коментарі."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -70,9 +66,7 @@ msgstr "Якщо `` Так ``, то коментарі будуть затвер
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr ""
-"Розділений точками шлях до функції, що оброблятиме значення коментарів, "
-"перед опрацюванням шаблону."
+msgstr "Розділений точками шлях до функції, що оброблятиме значення коментарів, перед опрацюванням шаблону."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
@@ -82,10 +76,7 @@ msgstr "Адреси електронної пошти для повідомле
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"Список адрес електронної пошти, розділених комами, які отримуватиме "
-"повідомлення по електронній пошті кожен раз при появі нових коментарів на "
-"сайті."
+msgstr "Список адрес електронної пошти, розділених комами, які отримуватиме повідомлення по електронній пошті кожен раз при появі нових коментарів на сайті."
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -103,9 +94,7 @@ msgstr "Показувати непідтверджені коментарі"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"Якщо `` Так ``, то неопубліковані коментарі будуть відображатися, але при "
-"цьому будуть замінені на напис `` чекає підтвердження ``"
+msgstr "Якщо `` Так ``, то неопубліковані коментарі будуть відображатися, але при цьому будуть замінені на напис `` чекає підтвердження ``"
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -113,11 +102,9 @@ msgstr "Показувати видалені коментарі"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"Якщо `` Так ``, то видалені коментарі продовжать відображатися, але при "
-"цьому будуть замінені на напис `` Видалено ``"
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Якщо `` Так ``, то видалені коментарі продовжать відображатися, але при цьому будуть замінені на напис `` Видалено ``"
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
@@ -131,9 +118,7 @@ msgstr "Щоб проголосувати необхідно увійти в с�
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
-msgstr ""
-"Якщо `` Так ``, тоді користувачі повинні увійти в систему, щоб голосувати за "
-"контент, наприклад блоги і коментарі."
+msgstr "Якщо `` Так ``, тоді користувачі повинні увійти в систему, щоб голосувати за контент, наприклад блоги і коментарі."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
@@ -217,9 +202,7 @@ msgstr "Рейтинги"
 
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
-"Ви повинні зайти в систему. Будь ласка, увійдіть або зареєструйтесь, щоб "
-"виконати цю дію."
+msgstr "Ви повинні зайти в систему. Будь ласка, увійдіть або зареєструйтесь, щоб виконати цю дію."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -242,18 +225,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"    %(submit_date)s користувач %(user_name)s написав:"
+msgstr "\n    %(submit_date)s користувач %(user_name)s написав:"
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"%(submit_date)s користувач %(user_name)s написав:\n"
+msgstr "\n%(submit_date)s користувач %(user_name)s написав:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

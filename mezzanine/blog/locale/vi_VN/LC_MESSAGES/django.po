@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Lê Thanh <lethanhx2k@gmail.com>, 2013
 # Lê Thanh <lethanhx2k@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-09 10:34-0430\n"
-"PO-Revision-Date: 2013-05-09 23:30+0000\n"
-"Last-Translator: Lê Thanh <lethanhx2k@gmail.com>\n"
-"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/"
-"mezzanine/language/vi_VN/)\n"
-"Language: vi_VN\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/mezzanine/language/vi_VN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi_VN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20
@@ -28,9 +28,8 @@ msgid "Enable featured images in blog posts"
 msgstr "Bật tính năng ảnh trong bài viết"
 
 #: defaults.py:36
-#, fuzzy
 msgid "Blog post URL date format"
-msgstr "Giới hạn RSS bài viết"
+msgstr ""
 
 #: defaults.py:37
 msgid ""
@@ -58,9 +57,7 @@ msgstr "Giới hạn RSS bài viết"
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
-msgstr ""
-"Số bài viết mới nhất hiển thị trong RSS feed. Chọn ``None`` để hiển thị tất "
-"cả."
+msgstr "Số bài viết mới nhất hiển thị trong RSS feed. Chọn ``None`` để hiển thị tất cả."
 
 #: defaults.py:66
 msgid "Slug of the page object for the blog."
@@ -216,17 +213,3 @@ msgstr "RSS"
 #: templates/blog/includes/filter_panel.html:91
 msgid "Atom"
 msgstr "Atom"
-
-#~ msgid "Use date URLs"
-#~ msgstr "Sử dụng URLs ngày"
-
-#~ msgid ""
-#~ "If ``True``, URLs for blog post include the month and year. Eg: /blog/"
-#~ "yyyy/mm/slug/"
-#~ msgstr ""
-#~ "Nếu ``True``, URL cho các bài viết của blog sẽ gồm tháng và năm. Ví dụ: /"
-#~ "blog/yyyy/mm/slug/"
-
-#~ msgid "1 comment"
-#~ msgid_plural "%(comments_count)s comments"
-#~ msgstr[0] "%(comments_count)s nhận xét"
