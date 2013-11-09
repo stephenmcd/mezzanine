@@ -118,23 +118,24 @@ of TinyMCE, a different editor or even no editor at all.
     which lets you specify the URL to your own TinyMCE setup JavaScript
     file.
 
-The default value for the ``RICHTEXT_WIDGET_CLASS`` setting is the string
-``"mezzanine.core.forms.TinyMceWidget"``. The ``TinyMceWidget`` class
-referenced here provides the necessary media files and HTML for
+The default value for the ``RICHTEXT_WIDGET_CLASS`` setting is the
+string ``"mezzanine.core.forms.TinyMceWidget"``. The ``TinyMceWidget``
+class referenced here provides the necessary media files and HTML for
 implementing the TinyMCE editor, and serves as a good reference point
 for implementing your own widget class which would then be specified
 via the ``RICHTEXT_WIDGET_CLASS`` setting.
 
-In addition to ``RICHTEXT_WIDGET_CLASS`` you may need to customize the way
-your content is rendered at the template level. Post processing of the content
-can be achieved through the ``RICHTEXT_FILTER`` setting.
+In addition to ``RICHTEXT_WIDGET_CLASS`` you may need to customize the
+way your content is rendered at the template level. Post processing of
+the content can be achieved through the ``RICHTEXT_FILTERS`` setting,
+which is a sequence of string, each one containing the dotted path to
+a Python function, that will be used as a processing pipeline for the
+content. Think of them like Django's middleware or context processors.
 
-The default behaviour for ``RICHTEXT_FILTER`` is to simply return the parameter
-passed to it.
-
-Say, for example, you had a ``RICHTEXT_WIDGET_CLASS`` that allowed you to write
-your content in a popular wiki syntax. You'd need a way to convert that wiki
-syntax into html right before the content was rendered::
+Say, for example, you had a ``RICHTEXT_WIDGET_CLASS`` that allowed you
+to write your content in a popular wiki syntax such as markdown. You'd
+need a way to convert that wiki syntax into HTML right before the
+content was rendered::
 
     # ... in myproj.filter
     from markdown import markdown
@@ -145,9 +146,13 @@ syntax into html right before the content was rendered::
         """
         return markdown(content)
 
-Then by setting ``RICHTEXT_FILTER`` to ``'myproj.filter.markdown_filter'``
-you'd see the converted html content rendered to the template, rather than
-the raw markdown formatting.
+    # ... in myproj.settings
+    RICHTEXT_FILTERS = (
+        "myproj.filter.markdown_filter",
+    )
+
+With the above, you'd now see the converted HTML content rendered to
+the template, rather than the raw markdown formatting.
 
 Media Library Integration
 =========================

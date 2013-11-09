@@ -1,3 +1,4 @@
+from __future__ import division
 
 from copy import copy
 
@@ -39,7 +40,7 @@ class BaseGenericRelation(GenericRelation):
             kwargs.setdefault("to", to)
         super(BaseGenericRelation, self).__init__(*args, **kwargs)
 
-    def db_type(self):
+    def db_type(self, connection):
         """
         South expects this to return a string for initial migrations
         against MySQL, to check for text or geometery columns. These
@@ -98,8 +99,9 @@ class BaseGenericRelation(GenericRelation):
             to = self.rel.to
             if isinstance(to, basestring):
                 to = get_model(*to.split(".", 1))
-            assert isinstance(kwargs["instance"], to)
-        except (TypeError, ValueError, AssertionError):
+            if not isinstance(kwargs["instance"], to):
+                raise TypeError
+        except (TypeError, ValueError):
             return
         for_model = kwargs["instance"].content_type.model_class()
         if issubclass(for_model, self.model):
@@ -257,7 +259,7 @@ class RatingField(BaseGenericRelation):
         ratings = [r.value for r in related_manager.all()]
         count = len(ratings)
         _sum = sum(ratings)
-        average = _sum / float(count) if count > 0 else 0
+        average = _sum / count if count > 0 else 0
         setattr(instance, "%s_count" % self.related_field_name, count)
         setattr(instance, "%s_sum" % self.related_field_name, _sum)
         setattr(instance, "%s_average" % self.related_field_name, average)

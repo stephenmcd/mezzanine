@@ -1,26 +1,24 @@
 {% extends "base.html" %}
-{% load i18n future mezzanine_tags %}
+{% load i18n future mezzanine_tags accounts_tags %}
 
-{% block meta_title %}{{ profile_user.username }}{% endblock %}
-{% block title %}{{ profile_user.username }}{% endblock %}
+{% block meta_title %}{{ profile_user|username_or:"get_full_name" }}{% endblock %}
+{% block title %}{{ profile_user|username_or:"get_full_name" }}{% endblock %}
 {% block body_id %}account{% endblock %}
 
 {% block breadcrumb_menu %}
 {{ block.super }}
-<li>{{ profile_user.username }}</li>
+<li>{{ profile_user|username_or:"get_full_name" }}</li>
 {% endblock %}
 
 {% block main %}
 <div style="float:right;">
-<img style="margin-right:20px;" src="{% gravatar_url profile_user.email 128 %}">
+<img style="margin:0 0 20px 10px;" src="{% gravatar_url profile_user.email 128 %}">
 {% if profile_user == request.user %}
-<br><br><a class="btn btn-large btn-primary" style="" href="{% url "profile_update" %}">{% trans "Update profile" %}</a>
+<br><a class="btn btn-large btn-primary" style="" href="{% url "profile_update" %}">{% trans "Update profile" %}</a>
 {% endif %}
 </div>
 <h2>{{ profile_user.get_full_name }}</h2>
-<div style="float:left;">
-{% for field, value in profile_fields %}
-{{ field }}: {{ value|linebreaks }}<br>
+{% for field, value in profile_user|profile_fields %}
+<p>{{ field }}: {{ value|linebreaksbr }}</p>
 {% endfor %}
-</div>
 {% endblock %}

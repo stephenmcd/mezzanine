@@ -1,4 +1,7 @@
+
+from django.db import connection
 from django.db.models.signals import post_save
+from django.db.utils import DatabaseError
 from django.dispatch import receiver
 
 from mezzanine.utils.models import get_user_model
@@ -14,4 +17,11 @@ if Profile:
 
     @receiver(post_save, sender=User)
     def user_saved(sender=None, instance=None, **kwargs):
-        Profile.objects.get_or_create(**{str(user_field): instance})
+        try:
+            Profile.objects.get_or_create(**{str(user_field): instance})
+        except DatabaseError:
+            # User creation in initial syncdb may have been triggered,
+            # while profile model is under migration management and
+            # doesn't exist yet. We close the connection so that it
+            # gets re-opened, allowing syncdb to continue and complete.
+            connection.close()

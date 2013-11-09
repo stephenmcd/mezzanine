@@ -28,12 +28,13 @@ var anyFieldsDirty = function(fields) {
                 return false;
         }
     }).length > 0;
-}
+};
 
 $(function() {
 
     var itemSelector = window.__grappelli_installed ? '.items' : 'tbody';
     var parentSelector = '.dynamic-inline ' + itemSelector;
+    var orderSelector = window.__grappelli_installed ? '._order input' : '.field-_order input';
 
     // Apply drag and drop to orderable inlines.
     $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7',
@@ -43,9 +44,12 @@ $(function() {
 
     // Set the value of the _order fields on submit.
     $('input[type=submit]').click(function() {
+        if (typeof tinyMCE != 'undefined') {
+            tinyMCE.triggerSave();
+        }
         $.each($(parentSelector), function(i, parent) {
             var order = 0;
-            $.each($(parent).find('._order input'), function(i, field) {
+            $.each($(parent).find(orderSelector), function(i, field) {
                 var parent = $(field).parent().parent();
                 if (window.__grappelli_installed) {
                     parent = parent.parent();
@@ -83,7 +87,7 @@ $(function() {
         if (window.__grappelli_installed && $(rows[0]).hasClass('legend')) {
             $(rows[1]).show();
         }
-        if (getRows().length == 0) {
+        if (getRows().length === 0) {
             $(this).hide();
         }
         return false;

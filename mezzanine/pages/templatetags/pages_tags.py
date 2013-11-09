@@ -2,7 +2,7 @@
 from collections import defaultdict
 
 from django.core.exceptions import ImproperlyConfigured
-from django.template import TemplateSyntaxError, Variable
+from django.template import Context, TemplateSyntaxError, Variable
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
@@ -127,7 +127,7 @@ def page_menu(context, token):
             context["page_branch_in_footer"] = True
 
     t = get_template(template_name)
-    return t.render(context)
+    return t.render(Context(context))
 
 
 @register.as_tag
@@ -178,11 +178,17 @@ def set_page_permissions(context, token):
     try:
         opts = model._meta
     except AttributeError:
-        # A missing inner Meta class usually means the Page model
-        # hasn't been directly subclassed.
-        error = _("An error occured with the following class. Does "
-                  "it subclass Page directly?")
-        raise ImproperlyConfigured(error + " '%s'" % model.__class__.__name__)
+        if model is None:
+            error = _("Could not load the model for the following page,"
+                      "was it removed?")
+            obj = page
+        else:
+            # A missing inner Meta class usually means the Page model
+            # hasn't been directly subclassed.
+            error = _("An error occured with the following class. Does "
+                      "it subclass Page directly?")
+            obj = model.__class__.__name__
+        raise ImproperlyConfigured(error + " '%s'" % obj)
     perm_name = opts.app_label + ".%s_" + opts.object_name.lower()
     request = context["request"]
     setattr(page, "perms", {})

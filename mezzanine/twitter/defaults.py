@@ -11,7 +11,6 @@ them would require an application reload.
 """
 
 from django.utils.translation import ugettext_lazy as _
-
 from mezzanine.conf import register_setting
 from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_SEARCH
 
@@ -40,4 +39,32 @@ register_setting(
     description=_("Number of tweets to display in the default Twitter feed."),
     editable=True,
     default=3,
+)
+
+register_setting(
+    name="TWITTER_CONSUMER_KEY",
+    label=_("Twitter OAuth consumer key"),
+    editable=True,
+    default='',
+)
+
+register_setting(
+    name="TWITTER_CONSUMER_SECRET",
+    label=_("Twitter OAuth consumer secret"),
+    editable=True,
+    default='',
+)
+
+register_setting(
+    name="TWITTER_ACCESS_TOKEN_KEY",
+    label=_("Twitter OAuth access token"),
+    editable=True,
+    default='',
+)
+
+register_setting(
+    name="TWITTER_ACCESS_TOKEN_SECRET",
+    label=_("Twitter OAuth access token secret"),
+    editable=True,
+    default='',
 )

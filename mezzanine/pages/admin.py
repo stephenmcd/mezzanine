@@ -125,16 +125,17 @@ class PageAdmin(DisplayableAdmin):
         self._check_permission(request, content_model, "delete")
         return super(PageAdmin, self).delete_view(request, object_id, **kwargs)
 
-    def changelist_view(self, request, **kwargs):
+    def changelist_view(self, request, extra_context=None):
         """
         Redirect to the ``Page`` changelist view for ``Page``
         subclasses.
         """
         if self.model is not Page:
             return HttpResponseRedirect(admin_url(Page, "changelist"))
-        kwargs.setdefault("extra_context", {})
-        kwargs["extra_context"]["page_models"] = self.get_content_models()
-        return super(PageAdmin, self).changelist_view(request, **kwargs)
+        if not extra_context:
+            extra_context = {}
+        extra_context["page_models"] = self.get_content_models()
+        return super(PageAdmin, self).changelist_view(request, extra_context)
 
     def save_model(self, request, obj, form, change):
         """
@@ -195,7 +196,7 @@ class PageAdmin(DisplayableAdmin):
             except NoReverseMatch:
                 continue
             else:
-                setattr(model, "name", model._meta.verbose_name)
+                setattr(model, "meta_verbose_name", model._meta.verbose_name)
                 setattr(model, "add_url", admin_url(model, "add"))
                 models.append(model)
         order = [name.lower() for name in settings.ADD_PAGE_ORDER]
@@ -203,9 +204,9 @@ class PageAdmin(DisplayableAdmin):
         def sort_key(page):
             name = "%s.%s" % (page._meta.app_label, page._meta.object_name)
             try:
-                order.index(name.lower())
+                return order.index(name.lower())
             except ValueError:
-                return page.name
+                return page.meta_verbose_name
         return sorted(models, key=sort_key)
 
 # Drop the meta data fields, and move slug towards the stop.

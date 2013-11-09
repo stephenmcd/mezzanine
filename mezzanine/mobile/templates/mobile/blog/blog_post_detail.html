@@ -27,12 +27,12 @@
                 >{{ author.get_full_name|default:author.username }}</a>
             {% endwith %}
         </strong>
-        {{ blog_post.publish_date|timesince }} {% trans "ago" %}
+        {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
     </em>
 </p>
 
 {% editable blog_post.content %}
-{{ blog_post.content|richtext_filter|safe }}
+{{ blog_post.content|richtext_filters|safe }}
 {% endeditable %}
 
 {% keywords_for blog_post as tags %}

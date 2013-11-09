@@ -1,12 +1,15 @@
-
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.messages import error
 from django.core.urlresolvers import reverse
 from django.db.models import get_model, ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import redirect
-from django.utils.simplejson import dumps
 from django.utils.translation import ugettext_lazy as _
+
+try:
+    from json import dumps
+except ImportError:  # Python < 2.6
+    from django.utils.simplejson import dumps
 
 from mezzanine.conf import settings
 from mezzanine.generic.forms import ThreadedCommentForm, RatingForm
@@ -22,17 +25,16 @@ def admin_keywords_submit(request):
     admin, and returns their IDs for use when saving a model with a
     keywords field.
     """
-    ids, titles = [], []
+    keyword_ids, titles = [], []
     for title in request.POST.get("text_keywords", "").split(","):
-        title = "".join([c for c in title if c.isalnum() or c in "- "])
-        title = title.strip().lower()
+        title = "".join([c for c in title if c.isalnum() or c in "- "]).strip()
         if title:
-            keyword, created = Keyword.objects.get_or_create(title=title)
-            id = str(keyword.id)
-            if id not in ids:
-                ids.append(id)
+            kw, created = Keyword.objects.get_or_create_iexact(title=title)
+            keyword_id = str(kw.id)
+            if keyword_id not in keyword_ids:
+                keyword_ids.append(keyword_id)
                 titles.append(title)
-    return HttpResponse("%s|%s" % (",".join(ids), ", ".join(titles)))
+    return HttpResponse("%s|%s" % (",".join(keyword_ids), ", ".join(titles)))
 
 
 def initial_validation(request, prefix):
@@ -59,7 +61,7 @@ def initial_validation(request, prefix):
     if getattr(settings, login_required_setting_name, False):
         if not request.user.is_authenticated():
             request.session[posted_session_key] = request.POST
-            error(request, _("You must logged in. Please log in or "
+            error(request, _("You must be logged in. Please log in or "
                              "sign up to complete this action."))
             redirect_url = "%s?next=%s" % (settings.LOGIN_URL, reverse(prefix))
         elif posted_session_key in request.session:

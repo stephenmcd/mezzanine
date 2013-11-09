@@ -1,8 +1,10 @@
+from __future__ import print_function
 
 from optparse import make_option
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import NoArgsCommand, CommandError
 from django.core.management.commands import syncdb
+from django.db import connection
 
 from mezzanine.core.management import install_optional_data
 from mezzanine.conf import settings
@@ -21,6 +23,10 @@ class Command(NoArgsCommand):
         verbosity = int(options.get("verbosity", 0))
         interactive = int(options.get("interactive", 0))
         no_data = int(options.get("nodata", 0))
+        if "conf_setting" in connection.introspection.table_names():
+            raise CommandError("Database already created, you probably "
+                               "want the syncdb or migrate command")
+
         syncdb.Command().execute(**options)
         if not interactive and not no_data:
             install_optional_data(verbosity)
@@ -40,7 +46,7 @@ class Command(NoArgsCommand):
                         return
                     confirm = raw_input("Please enter either 'yes' or 'no': ")
             if verbosity >= 1:
-                print
-                print "Faking initial migrations ..."
-                print
+                print()
+                print("Faking initial migrations ...")
+                print()
             migrate.Command().execute(fake=True)

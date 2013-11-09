@@ -1,14 +1,15 @@
-{% load i18n future mezzanine_tags %}
+{% load i18n future mezzanine_tags accounts_tags %}
 
 {% if request.user.is_authenticated %}
     {% trans "Logged in as: " %}
     {% url "profile" request.user.username as profile_url %}
     {% if profile_url %}
-        <a href="{{ profile_url }}">{{ request.user.username }}</a><br>
+        <a href="{{ profile_url }}">{{ request.user|username_or:"email" }}</a>
+        <br>
         <a href="{% url "profile_update" %}"
             class="btn btn-small btn-account">{% trans "Update profile" %}</a>
     {% else %}
-        <a href="{% url "profile_update" %}">{{ request.user.username }}</a>
+        <a href="{% url "profile_update" %}">{{ request.user|username_or:"email" }}</a>
     {% endif %}
     <a href="{% url "logout" %}?next={{ request.path }}"
         class="btn btn-small btn-danger btn-account">{% trans "Log out" %}</a>

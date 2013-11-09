@@ -31,7 +31,10 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         blog_posts = blog_posts.filter(publish_date__year=year)
         if month is not None:
             blog_posts = blog_posts.filter(publish_date__month=month)
-            month = month_name[int(month)]
+            try:
+                month = month_name[int(month)]
+            except IndexError:
+                raise Http404()
     if category is not None:
         category = get_object_or_404(BlogCategory, slug=category)
         blog_posts = blog_posts.filter(categories=category)

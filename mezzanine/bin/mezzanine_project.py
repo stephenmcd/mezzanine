@@ -53,19 +53,20 @@ def create_project():
     # Build the project up copying over the project_template from
     # each of the packages. An alternate package will overwrite
     # files from Mezzanine.
+    local_settings_path = os.path.join(project_path, "local_settings.py")
     for package_name in packages:
         package_path = path_for_import(package_name)
         copy_tree(os.path.join(package_path, "project_template"), project_path)
-        move(os.path.join(project_path, "local_settings.py.template"),
-             os.path.join(project_path, "local_settings.py"))
+        move(local_settings_path + ".template", local_settings_path)
 
-    # Generate a unique SECREY_KEY for the project's setttings module.
-    settings_path = os.path.join(os.getcwd(), project_name, "settings.py")
-    with open(settings_path, "r") as f:
+    # Generate a unique SECRET_KEY for the project's setttings module.
+    with open(local_settings_path, "r") as f:
         data = f.read()
-    with open(settings_path, "w") as f:
-        secret_key = "%s%s%s" % (uuid4(), uuid4(), uuid4())
-        f.write(data.replace("%(SECRET_KEY)s", secret_key))
+    with open(local_settings_path, "w") as f:
+        make_key = lambda: "%s%s%s" % (uuid4(), uuid4(), uuid4())
+        data = data.replace("%(SECRET_KEY)s", make_key())
+        data = data.replace("%(NEVERCACHE_KEY)s", make_key())
+        f.write(data)
 
     # Clean up pyc files.
     for (root, dirs, files) in os.walk(project_path, False):

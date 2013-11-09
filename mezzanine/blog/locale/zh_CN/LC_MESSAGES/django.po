@@ -126,9 +126,8 @@ msgstr "%(sometime)s 以前"
 msgid "1 comment"
 msgid_plural "%(comments_count)s comments"
 msgstr[0] ""
-"多元化翻译Pluralized Translations \n"
-"一个：1个评论\n"
-"其它：%(comments_count)s 个可选"
+"1个评论"
+"%(comments_count)s 个评论"
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
@@ -138,11 +137,11 @@ msgstr "标签"
 
 #: templates/blog/blog_post_detail.html:87
 msgid "Share on Twitter"
-msgstr "分享到Twitter 这是不可能的在中国"
+msgstr "分享到Twitter"
 
 #: templates/blog/blog_post_detail.html:88
 msgid "Share on Facebook"
-msgstr "分享到Facebook,目前来看中国说不了"
+msgstr "分享到Facebook"
 
 #: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"
@@ -158,7 +157,7 @@ msgstr "目录："
 
 #: templates/blog/blog_post_list.html:37
 msgid "Author:"
-msgstr "作者"
+msgstr "作者："
 
 #: templates/blog/blog_post_list.html:50
 msgid "Viewing posts tagged"

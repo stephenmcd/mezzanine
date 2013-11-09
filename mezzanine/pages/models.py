@@ -1,3 +1,8 @@
+try:
+    from urllib.parse import urljoin
+except ImportError:     # Python 2
+    from urlparse import urljoin
+
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -33,7 +38,7 @@ class Page(BasePage):
     in_menus = MenusField(_("Show in menus"), blank=True, null=True)
     titles = models.CharField(editable=False, max_length=1000, null=True)
     content_model = models.CharField(editable=False, max_length=50, null=True)
-    login_required = models.BooleanField(_("Login required"),
+    login_required = models.BooleanField(_("Login required"), default=False,
         help_text=_("If checked, only logged in users can view this page"))
 
     class Meta:
@@ -54,8 +59,7 @@ class Page(BasePage):
         slug = self.slug
         if self.content_model == "link":
             # Ensure the URL is absolute.
-            if not slug.lower().startswith("http"):
-                slug = "/" + self.slug.lstrip("/")
+            slug = urljoin('/', slug)
             return slug
         if slug == "/":
             return reverse("home")
@@ -128,7 +132,7 @@ class Page(BasePage):
         Return all Page subclasses.
         """
         is_content_model = lambda m: m is not Page and issubclass(m, Page)
-        return filter(is_content_model, models.get_models())
+        return list(filter(is_content_model, models.get_models()))
 
     def get_content_model(self):
         """
@@ -241,6 +245,7 @@ class Page(BasePage):
             parent_id = context["_parent_page_ids"].get(page_id)
             return self.id == page_id or (parent_id and is_c_or_a(parent_id))
         self.is_current_or_ascendant = lambda: bool(is_c_or_a(current_page_id))
+        self.is_current_parent = self.id == current_parent_id
         # Am I a primary page?
         self.is_primary = self.parent_id is None
         # What's an ID I can use in HTML?

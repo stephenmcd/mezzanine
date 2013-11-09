@@ -8,6 +8,7 @@ from mezzanine import template
 from mezzanine.conf import settings
 from mezzanine.generic.forms import ThreadedCommentForm
 from mezzanine.generic.models import ThreadedComment
+from mezzanine.utils.importing import import_dotted_path
 
 
 register = template.Library()
@@ -82,5 +83,8 @@ def comment_filter(comment_text):
     """
     filter_func = settings.COMMENT_FILTER
     if not filter_func:
-        filter_func = lambda s: linebreaksbr(urlize(s))
+        def filter_func(s):
+            return linebreaksbr(urlize(s, autoescape=True), autoescape=True)
+    elif not callable(filter_func):
+        filter_func = import_dotted_path(filter_func)
     return filter_func(comment_text)

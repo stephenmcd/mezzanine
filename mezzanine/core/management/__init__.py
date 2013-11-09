@@ -1,3 +1,4 @@
+from __future__ import print_function
 from socket import gethostname
 
 from django.conf import settings
@@ -19,10 +20,10 @@ def create_user(app, created_models, verbosity, interactive, **kwargs):
         if User.objects.count() > 0:
             return
         if verbosity >= 1:
-            print
+            print()
             print ("Creating default account "
                    "(username: admin / password: default) ...")
-            print
+            print()
         args = "admin", "example@example.com", "default"
         User.objects.create_superuser(*args)
 
@@ -72,9 +73,9 @@ def create_site(app, created_models, verbosity, interactive, **kwargs):
             if entered:
                 domain = entered.strip("': ")
         if verbosity >= 1:
-            print
-            print "Creating default site record: %s ... " % domain
-            print
+            print()
+            print("Creating default site record: %s ... " % domain)
+            print()
         Site.objects.create(name="Default", domain=domain)
 
 
@@ -82,9 +83,9 @@ def install_optional_data(verbosity):
     if not is_full_install():
         return
     if verbosity >= 1:
-        print
-        print "Creating demo pages: About us, Contact form, Gallery ..."
-        print
+        print()
+        print("Creating demo pages: About us, Contact form, Gallery ...")
+        print()
     from mezzanine.galleries.models import Gallery
     call_command("loaddata", "mezzanine_optional.json")
     zip_name = "gallery.zip"

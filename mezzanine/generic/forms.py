@@ -3,13 +3,13 @@ from django import forms
 from django.contrib.comments.forms import CommentSecurityForm, CommentForm
 from django.contrib.comments.signals import comment_was_posted
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import Html5Mixin
 from mezzanine.generic.models import Keyword, ThreadedComment, Rating
 from mezzanine.utils.cache import add_cache_bypass
-from mezzanine.utils.email import send_mail_template
+from mezzanine.utils.email import split_addresses, send_mail_template
 from mezzanine.utils.views import ip_for_request
 
 
@@ -31,8 +31,7 @@ class KeywordsWidget(forms.MultiWidget):
     """
 
     class Media:
-        js = ("mezzanine/js/%s" % settings.JQUERY_FILENAME,
-              "mezzanine/js/admin/keywords_field.js",)
+        js = ("mezzanine/js/admin/keywords_field.js",)
 
     def __init__(self, attrs=None):
         """
@@ -132,8 +131,7 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
         comment.save()
         comment_was_posted.send(sender=comment.__class__, comment=comment,
                                 request=request)
-        notify_emails = settings.COMMENTS_NOTIFICATION_EMAILS.split(",")
-        notify_emails = filter(None, [addr.strip() for addr in notify_emails])
+        notify_emails = split_addresses(settings.COMMENTS_NOTIFICATION_EMAILS)
         if notify_emails:
             subject = _("New comment for: ") + unicode(obj)
             context = {

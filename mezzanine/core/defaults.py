@@ -151,8 +151,8 @@ register_setting(
 register_setting(
     name="GOOGLE_ANALYTICS_ID",
     label=_("Google Analytics ID"),
-    editable=True,
     description=_("Google Analytics ID (http://www.google.com/analytics/)"),
+    editable=True,
     default="",
 )
 
@@ -168,6 +168,13 @@ register_setting(
                   "when loading templates."),
     editable=False,
     default=(),
+)
+
+register_setting(
+    name="INLINE_EDITING_ENABLED",
+    description=_("If ``True``, front-end inline editing will be enabled."),
+    editable=False,
+    default=True,
 )
 
 register_setting(
@@ -264,15 +271,16 @@ register_setting(
     description=_("List of inline CSS styles that won't be stripped from "
         "``RichTextField`` instances."),
     editable=False,
-    default=(),
+    default=("margin-top", "margin-bottom", "margin-left", "margin-right",
+        "float", "vertical-align", "border", "margin"),
 )
 
 register_setting(
-    name="RICHTEXT_FILTER",
-    description=_("Dotted path to the function to call on a ``RichTextField`` "
-        "value before it is rendered to the template."),
+    name="RICHTEXT_FILTERS",
+    description=_("List of dotted paths to functions, called in order, on a "
+        "``RichTextField`` value before it is rendered to the template."),
     editable=False,
-    default=None,
+    default=(),
 )
 
 RICHTEXT_FILTER_LEVEL_HIGH = 1

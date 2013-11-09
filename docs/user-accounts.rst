@@ -80,6 +80,9 @@ Django's user model. In our ``settings.py`` module we would define::
         "signup_date",
     )
 
+If you don't want to expose the ``username`` field to the user, Mezzanine
+provides the setting ``ACCOUNTS_NO_USERNAME``, which when set to ``True``, will expose the ``email`` field as the sole login for the user.
+
 Account Verification
 ====================
 
@@ -92,5 +95,16 @@ which when set to ``True``, will send new user an email with a
 verification link that they must click on, in order to activate their
 account.
 
+Account Approval
+================
 
+You may also wish to manually activate newly created public accounts.
+To enable this, Mezzanine provides the setting
+``ACCOUNTS_APPROVAL_REQUIRED``, which when set to ``True``, will set
+newly created accounts as inactive, requiring a staff member to
+activate each account in the admin interface. A list of email addresses
+can be configured in the admin settings interface, which will then be
+notified by email each time a new account is created and requires
+activation. Users are then sent a notification when their accounts
+are activated by a staff member.
 

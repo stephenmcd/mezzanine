@@ -4,7 +4,8 @@ from uuid import uuid4
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 from mezzanine.conf import settings
 from mezzanine.core.models import Orderable
@@ -36,9 +37,8 @@ class Html5Mixin(object):
 
 _tinymce_js = ()
 if settings.GRAPPELLI_INSTALLED:
-    _tinymce_js = (settings.STATIC_URL +
-                   "grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js",
-                   settings.TINYMCE_SETUP_JS,)
+    _path = "grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js"
+    _tinymce_js = (staticfiles_storage.url(_path), settings.TINYMCE_SETUP_JS)
 
 
 class TinyMceWidget(forms.Textarea):

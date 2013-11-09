@@ -1,3 +1,4 @@
+from __future__ import division
 
 from datetime import datetime, timedelta
 
@@ -85,14 +86,14 @@ def is_spam_akismet(request, form, url):
         elif isinstance(field, URLField):
             data_field = "comment_author_url"
         elif isinstance(field.widget, Textarea):
-            data_field = "comment"
+            data_field = "comment_content"
         if data_field and not data.get(data_field):
             cleaned_data = form.cleaned_data.get(name)
             try:
                 data[data_field] = cleaned_data.encode('utf-8')
             except UnicodeEncodeError:
                 data[data_field] = cleaned_data
-    if not data.get("comment"):
+    if not data.get("comment_content"):
         return False
     api_url = ("http://%s.rest.akismet.com/1.1/comment-check" %
                settings.AKISMET_API_KEY)
@@ -134,7 +135,7 @@ def paginate(objects, page_num, per_page, max_paging_links):
     page_range = objects.paginator.page_range
     if len(page_range) > max_paging_links:
         start = min(objects.paginator.num_pages - max_paging_links,
-            max(0, objects.number - (max_paging_links / 2) - 1))
+            max(0, objects.number - (max_paging_links // 2) - 1))
         page_range = page_range[start:start + max_paging_links]
     objects.visible_page_range = page_range
     return objects

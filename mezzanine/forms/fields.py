@@ -76,13 +76,12 @@ WIDGETS = {
 }
 
 # Some helper groupings of field types.
-CHOICES = (CHECKBOX, CHECKBOX_MULTIPLE, SELECT,
-           SELECT_MULTIPLE, RADIO_MULTIPLE)
+CHOICES = (CHECKBOX, SELECT, RADIO_MULTIPLE)
 DATES = (DATE, DATE_TIME, DOB)
 MULTIPLE = (CHECKBOX_MULTIPLE, SELECT_MULTIPLE)
 
 # HTML5 Widgets
-if settings.FORMS_USE_HTML5:
+if getattr(settings, "FORMS_USE_HTML5", False):
     html5_field = lambda name, base: type("", (base,), {"input_type": name})
     WIDGETS.update({
         DATE: html5_field("date", forms.DateInput),
@@ -97,7 +96,8 @@ if settings.FORMS_USE_HTML5:
 # setting, which should contain a sequence of three-item sequences,
 # each containing the ID, dotted import path for the field class,
 # and field name, for each custom field type.
-for field_id, field_path, field_name in settings.FORMS_EXTRA_FIELDS:
+extra_fields = getattr(settings, "FORMS_EXTRA_FIELDS", [])
+for field_id, field_path, field_name in extra_fields:
     if field_id in CLASSES:
         err = "ID %s for field %s in FORMS_EXTRA_FIELDS already exists"
         raise ImproperlyConfigured(err % (field_id, field_name))

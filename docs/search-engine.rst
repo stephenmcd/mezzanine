@@ -186,6 +186,12 @@ we can search across the ``GalleryImage`` and ``Document`` models at once::
     models via an abstract model, this is not the case and the result is a
     list of model instances.
 
+    Also of importance is the ``SEARCH_MODEL_CHOICES`` setting mentioned
+    above. When searching across heterogeneous models via an abstract
+    model, the models searched will only be used if they are defined
+    within the ``SEARCH_MODEL_CHOICES`` setting, either explicitly, or
+    implicitly by a model's parent existing in ``SEARCH_MODEL_CHOICES``.
+
 Query Behaviour
 ===============
 

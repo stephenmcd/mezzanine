@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # andreyivankov <andrey.ivankov@gmail.com>, 2013
 # Dmitry Falk <tfalc@mail.ru>, 2012
@@ -30,7 +30,9 @@ msgstr "Требовать учетную запись"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr "Если ``Да``, то пользователи должны войти под своей учетной записью, чтобы иметь возможность оставлять комментарии."
+msgstr ""
+"Если ``Да``, то пользователи должны войти под своей учетной записью, чтобы "
+"иметь возможность оставлять комментарии."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -96,7 +98,9 @@ msgstr "Показывать неподтверждённые комментар
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом будут заменены на надпись ``ожидает подтверждения``"
+msgstr ""
+"Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом "
+"будут заменены на надпись ``ожидает подтверждения``"
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -104,27 +108,31 @@ msgstr "Показывать удалённые комментарии"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
-msgstr "Если ``Да``, то удалённые комментарии продолжат отображаться, но при этом будут заменены на надпись ``Удалено``"
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Если ``Да``, то удалённые комментарии продолжат отображаться, но при этом "
+"будут заменены на надпись ``Удалено``"
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
-msgstr "Если ``True``, комментарии могут быть оценены."
+msgstr ""
 
 #: defaults.py:120
 msgid "Accounts required for rating"
-msgstr "Чтобы проголосовать, нужно войти в систему"
+msgstr "Учетные записи необходимы для оценки рейтинга"
 
 #: defaults.py:121
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
 msgstr ""
+"Если ``Да``, то пользователи должны войти под своей учетной записью, "
+"чтобы иметь возможность оценивать содержимое сайта."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
-msgstr "Список чисел, используемых для оценки."
+msgstr ""
 
 #: forms.py:83
 msgid "Name"
@@ -136,7 +144,7 @@ msgstr "обязательно"
 
 #: forms.py:85
 msgid "Email"
-msgstr "E-mail"
+msgstr "Email"
 
 #: forms.py:86
 msgid "required (not published)"
@@ -150,13 +158,13 @@ msgstr "Веб-сайт"
 msgid "optional"
 msgstr "необязательно"
 
-#: forms.py:138
+#: forms.py:137
 msgid "New comment for: "
 msgstr "Новый комментарий:"
 
-#: forms.py:174
+#: forms.py:173
 msgid "Already rated."
-msgstr ""
+msgstr "Уже оценено."
 
 #: models.py:26
 msgid "By the blog author"
@@ -192,19 +200,20 @@ msgstr "Значение"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "Дата оценки"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "Оценщик"
 
 #: models.py:131
 msgid "Ratings"
 msgstr "Рейтинг"
 
-#: views.py:62
+#: views.py:61
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
+msgstr "Вы должны войти под своей учетной записью. "
+"Пожалуйста войдите или зарегистрируйтесь, чтобы завершить это действие."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -214,8 +223,9 @@ msgstr "Последние комментарии"
 #: templates/generic/includes/comment.html:22
 #: templates/generic/includes/comment.html:53
 #: templates/generic/includes/comment.html:63
-msgid "ago"
-msgstr "назад"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "%(sometime)s назад"
 
 #: templates/email/comment_notification.html:6
 msgid "A new comment has been posted on"
@@ -228,6 +238,9 @@ msgid ""
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
 msgstr ""
+"\n"
+"    %(submit_date)s %(user_name)s написал:\n"
+"    "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
@@ -235,6 +248,8 @@ msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
 msgstr ""
+"\n"
+"%(submit_date)s %(user_name)s написал:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

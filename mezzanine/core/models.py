@@ -1,5 +1,4 @@
 from django.contrib.contenttypes.generic import GenericForeignKey
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.base import ModelBase
 from django.db.models.signals import post_save
@@ -15,7 +14,7 @@ from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model, get_user_model_name
 from mezzanine.utils.sites import current_site_id
-from mezzanine.utils.urls import admin_url, slugify
+from mezzanine.utils.urls import admin_url, slugify, unique_slug
 
 
 user_model_name = get_user_model_name()
@@ -73,20 +72,8 @@ class Slugged(SiteRelated):
         # For custom content types, use the ``Page`` instance for
         # slug lookup.
         concrete_model = base_concrete_model(Slugged, self)
-        i = 0
-        while True:
-            if i > 0:
-                if i > 1:
-                    self.slug = self.slug.rsplit("-", 1)[0]
-                self.slug = "%s-%s" % (self.slug, i)
-            qs = concrete_model.objects.all()
-            if self.id is not None:
-                qs = qs.exclude(id=self.id)
-            try:
-                qs.get(slug=self.slug)
-            except ObjectDoesNotExist:
-                break
-            i += 1
+        slug_qs = concrete_model.objects.exclude(id=self.id)
+        self.slug = unique_slug(slug_qs, "slug", self.slug)
         super(Slugged, self).save(*args, **kwargs)
 
     def get_slug(self):
@@ -151,8 +138,8 @@ class MetaData(models.Model):
                         description = getattr(self, field.name)
                         if description:
                             from mezzanine.core.templatetags.mezzanine_tags \
-                            import richtext_filter
-                            description = richtext_filter(description)
+                            import richtext_filters
+                            description = richtext_filters(description)
                             break
         # Fall back to the title if description couldn't be determined.
         if not description:
@@ -170,6 +157,25 @@ class MetaData(models.Model):
         return description
 
 
+class TimeStamped(models.Model):
+    """
+    Provides created and updated timestamps on models.
+    """
+
+    class Meta:
+        abstract = True
+
+    created = models.DateTimeField(null=True, editable=False)
+    updated = models.DateTimeField(null=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        _now = now()
+        self.updated = _now
+        if not self.id:
+            self.created = _now
+        super(TimeStamped, self).save(*args, **kwargs)
+
+
 CONTENT_STATUS_DRAFT = 1
 CONTENT_STATUS_PUBLISHED = 2
 CONTENT_STATUS_CHOICES = (
@@ -178,7 +184,7 @@ CONTENT_STATUS_CHOICES = (
 )
 
 
-class Displayable(Slugged, MetaData):
+class Displayable(Slugged, MetaData, TimeStamped):
     """
     Abstract model that provides features of a visible page on the
     website such as publishing fields. Basis of Mezzanine pages,

@@ -39,7 +39,7 @@ class DisplayableSitemap(Sitemap):
 
     def lastmod(self, obj):
         if blog_installed and isinstance(obj, BlogPost):
-            return obj.publish_date
+            return obj.updated or obj.publish_date
 
     def get_urls(self, **kwargs):
         """

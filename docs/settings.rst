@@ -1,11 +1,32 @@
 .. THIS DOCUMENT IS AUTO GENERATED VIA conf.py
 
+``ACCOUNTS_APPROVAL_EMAILS``
+----------------------------
+
+A comma separated list of email addresses that will receive an email notification each time a new account is created that requires approval.
+
+Default: ``''``
+
+``ACCOUNTS_APPROVAL_REQUIRED``
+------------------------------
+
+If ``True``, when users create an account, they will not be enabled by default and a staff member will need to activate their account in the admin interface.
+
+Default: ``False``
+
 ``ACCOUNTS_MIN_PASSWORD_LENGTH``
 --------------------------------
 
 Minimum length for passwords
 
 Default: ``6``
+
+``ACCOUNTS_NO_USERNAME``
+------------------------
+
+If ``True``, the username field will be excluded from sign up and account update forms.
+
+Default: ``False``
 
 ``ACCOUNTS_PROFILE_FORM_CLASS``
 -------------------------------
@@ -98,12 +119,12 @@ Slug of the page object for the blog.
 
 Default: ``'blog'``
 
-``BLOG_URLS_USE_DATE``
-----------------------
+``BLOG_URLS_DATE_FORMAT``
+-------------------------
 
-If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/mm/slug/
+A string containing the value ``year``, ``month``, or ``day``, which controls the granularity of the date portion in the URL for each blog post. Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string means the URLs will only use the slug, and not contain any portion of the date at all.
 
-Default: ``False``
+Default: ``''``
 
 ``BLOG_USE_FEATURED_IMAGE``
 ---------------------------
@@ -231,13 +252,6 @@ Char to use as a field delimiter when exporting form responses as CSV.
 
 Default: ``','``
 
-``FORMS_DISABLE_SEND_FROM_EMAIL_FIELD``
----------------------------------------
-
-If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields.
-
-Default: ``False``
-
 ``FORMS_EXTRA_FIELDS``
 ----------------------
 
@@ -286,6 +300,13 @@ Default: ``''``
 A sequence mapping host names to themes, allowing different templates to be served per HTTP hosts Each item in the sequence is a two item sequence, containing a host such as ``othersite.example.com``, and the name of an importable Python package for the theme. If the host is matched for a request, the templates directory inside the theme package will be first searched when loading templates.
 
 Default: ``()``
+
+``INLINE_EDITING_ENABLED``
+--------------------------
+
+If ``True``, front-end inline editing will be enabled.
+
+Default: ``True``
 
 ``JQUERY_FILENAME``
 -------------------
@@ -369,7 +390,7 @@ Default: ``('abbr', 'accept', 'accept-charset', 'accesskey', 'action', 'align', 
 
 List of inline CSS styles that won't be stripped from ``RichTextField`` instances.
 
-Default: ``()``
+Default: ``('margin-top', 'margin-bottom', 'margin-left', 'margin-right', 'float', 'vertical-align', 'border', 'margin')``
 
 ``RICHTEXT_ALLOWED_TAGS``
 -------------------------
@@ -378,12 +399,12 @@ List of HTML tags that won't be stripped from ``RichTextField`` instances.
 
 Default: ``('a', 'abbr', 'acronym', 'address', 'area', 'b', 'bdo', 'big', 'blockquote', 'br', 'button', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'dd', 'del', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'fieldset', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'map', 'menu', 'ol', 'optgroup', 'option', 'p', 'pre', 'q', 's', 'samp', 'select', 'small', 'span', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'tr', 'tt', 'u', 'ul', 'var', 'wbr')``
 
-``RICHTEXT_FILTER``
--------------------
+``RICHTEXT_FILTERS``
+--------------------
 
-Dotted path to the function to call on a ``RichTextField`` value before it is rendered to the template.
+List of dotted paths to functions, called in order, on a ``RichTextField`` value before it is rendered to the template.
 
-Default: ``None``
+Default: ``()``
 
 ``RICHTEXT_FILTER_LEVEL``
 -------------------------
@@ -519,6 +540,34 @@ Default: ``'.thumbnails'``
 URL for the JavaScript file (relative to ``STATIC_URL``) that handles configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used.
 
 Default: ``'mezzanine/js/tinymce_setup.js'``
+
+``TWITTER_ACCESS_TOKEN_KEY``
+----------------------------
+
+
+
+Default: ``''``
+
+``TWITTER_ACCESS_TOKEN_SECRET``
+-------------------------------
+
+
+
+Default: ``''``
+
+``TWITTER_CONSUMER_KEY``
+------------------------
+
+
+
+Default: ``''``
+
+``TWITTER_CONSUMER_SECRET``
+---------------------------
+
+
+
+Default: ``''``
 
 ``TWITTER_DEFAULT_NUM_TWEETS``
 ------------------------------

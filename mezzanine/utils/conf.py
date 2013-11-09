@@ -53,7 +53,7 @@ def set_dynamic_settings(s):
     # Define some settings based on management command being run.
     management_command = sys.argv[1] if len(sys.argv) > 1 else ""
     # Some kind of testing is running via test or testserver.
-    s["TESTING"] = management_command.startswith("test")
+    s["TESTING"] = management_command in ("test", "testserver")
     # Some kind of development server is running via runserver,
     # runserver_plus or harvest (lettuce)
     s["DEV_SERVER"] = management_command.startswith(("runserver", "harvest"))
@@ -66,18 +66,11 @@ def set_dynamic_settings(s):
     for setting in tuple_list_settings:
         s[setting] = list(s[setting])
 
-    if s["DEV_SERVER"]:
-        s["STATICFILES_DIRS"] = list(s.get("STATICFILES_DIRS", []))
-        s["STATICFILES_DIRS"].append(s.pop("STATIC_ROOT"))
-
     # Set up cookie messaging if none defined.
     storage = "django.contrib.messages.storage.cookie.CookieStorage"
     s.setdefault("MESSAGE_STORAGE", storage)
 
     if s["TESTING"]:
-        # Enable accounts when testing so the URLs exist.
-        append("INSTALLED_APPS", "mezzanine.accounts")
-
         # Following bits are work-arounds for some assumptions that
         # Django 1.5's tests make.
 

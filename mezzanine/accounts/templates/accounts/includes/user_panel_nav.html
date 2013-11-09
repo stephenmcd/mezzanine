@@ -1,4 +1,4 @@
-{% load i18n future mezzanine_tags %}
+{% load i18n future mezzanine_tags accounts_tags %}
 
 <ul class="nav pull-right"><li class="divider-vertical"></li></ul>
 
@@ -18,7 +18,7 @@
 <ul class="nav pull-right">
     {% url "profile" request.user.username as profile_url %}
     {% if not profile_url %}{% url "profile_update" as profile_url %}{% endif %}
-    <li><a href="{{ profile_url }}">{{ request.user.username }}</a></li>
+    <li><a href="{{ profile_url }}">{{ request.user|username_or:"email" }}</a></li>
 </ul>
 {% endif %}
 

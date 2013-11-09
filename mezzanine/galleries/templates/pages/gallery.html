@@ -13,7 +13,7 @@
 {{ block.super }}
 
 {% editable page.gallery.content %}
-{{ page.gallery.content|richtext_filter|safe }}
+{{ page.gallery.content|richtext_filters|safe }}
 {% endeditable %}
 
 <ul class="thumbnails gallery">

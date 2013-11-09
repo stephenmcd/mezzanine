@@ -463,7 +463,7 @@ msgid ""
 "Optional title to be used in the HTML title tag. If left blank, the main "
 "title field will be used."
 msgstr ""
-"Valgfri tittel for bruk i HTML <title>-taggen. Dersom feltet står blankt, "
+"Valgfri tittel for bruk i HTML title-taggen. Dersom feltet står blankt, "
 "brukes hovedtittelen."
 
 #: models.py:114

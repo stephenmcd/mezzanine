@@ -36,8 +36,24 @@ class CommentManager(CurrentSiteManager, DjangoCM):
 
 
 class KeywordManager(CurrentSiteManager):
-    """
-    Provides natural key method.
-    """
+
     def get_by_natural_key(self, value):
+        """
+        Provides natural key method.
+        """
         return self.get(value=value)
+
+    def get_or_create_iexact(self, **kwargs):
+        """
+        Case insensitive title version of ``get_or_create``. Also
+        allows for multiple existing results.
+        """
+        lookup = dict(**kwargs)
+        try:
+            lookup["title__iexact"] = lookup.pop("title")
+        except KeyError:
+            pass
+        try:
+            return self.filter(**lookup)[0], False
+        except IndexError:
+            return self.create(**kwargs), True
