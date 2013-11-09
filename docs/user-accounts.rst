@@ -53,7 +53,7 @@ update profile forms, as well as in the user's public profile page.
     model is configured.
 
 For more information consult the `Django docs for profiles
-<https://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users>`_.
+<https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users>`_.
 
 Restricting Account Fields
 ==========================
