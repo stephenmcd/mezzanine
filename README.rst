@@ -432,6 +432,7 @@ Sites Using Mezzanine
 * `Sam Kingston <http://www.sjkingston.com>`_
 * `Code Juggle DJ <http://www.codejuggle.dj>`_
 * `Food News <http://food.hypertexthero.com>`_
+* `Australian Discworld Conventions <http://ausdwcon.org>`_
 
 
 Quotes
