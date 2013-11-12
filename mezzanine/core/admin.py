@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import isinstance
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.db.models import AutoField

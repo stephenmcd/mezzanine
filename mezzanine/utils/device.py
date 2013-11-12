@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from future.builtins import isinstance
 
 
 def device_from_request(request):

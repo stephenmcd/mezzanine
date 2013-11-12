@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import bytes, int, isinstance, str
+from future.builtins import bytes, int, str
 """
 Drop-in replacement for ``django.conf.settings`` that provides a
 consistent access method for settings defined in applications, the project

@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from future.builtins import isinstance
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import MultiChoiceField

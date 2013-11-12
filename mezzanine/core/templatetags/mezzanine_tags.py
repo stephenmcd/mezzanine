@@ -1,7 +1,5 @@
 from __future__ import absolute_import, division, unicode_literals
-from future.builtins import int
-from future.builtins import isinstance
-from future.builtins import open
+from future.builtins import int, open
 
 from hashlib import md5
 import os

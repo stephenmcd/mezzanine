@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import int, isinstance, zip
+from future.builtins import int, zip
 
 from operator import ior, iand
 from string import punctuation

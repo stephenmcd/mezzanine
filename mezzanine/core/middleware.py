@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import isinstance
+
 from future.utils import native_str
 
 from django.contrib import admin

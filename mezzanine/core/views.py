@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 from future import standard_library
-from future.builtins import int, isinstance, open, str
+from future.builtins import int, open, str
 
 import os
 try:

@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import isinstance, str
+from future.builtins import str
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, ValidationError

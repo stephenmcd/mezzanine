@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
-from future.builtins import isinstance, str
+from future.builtins import str
 from future.utils import with_metaclass
+
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.db import models
 from django.db.models.base import ModelBase

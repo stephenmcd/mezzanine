@@ -1,6 +1,5 @@
-from __future__ import division
-from __future__ import unicode_literals
-from future.builtins import isinstance, str
+from __future__ import division, unicode_literals
+from future.builtins import str
 
 from copy import copy
 

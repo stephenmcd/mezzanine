@@ -1,6 +1,5 @@
-from __future__ import division
-from __future__ import unicode_literals
-from future.builtins import int, isinstance
+from __future__ import division, unicode_literals
+from future.builtins import int
 
 from datetime import datetime, timedelta
 
