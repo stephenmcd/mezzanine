@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,39 +21,43 @@ msgstr ""
 msgid "Other posts"
 msgstr ""
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr ""
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr ""
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-
 #: defaults.py:36
-msgid "Blog posts per page"
+msgid "Blog post URL date format"
 msgstr ""
 
 #: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+
+#: defaults.py:49
+msgid "Blog posts per page"
+msgstr ""
+
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
 msgstr ""
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr ""
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr ""
 
@@ -90,11 +94,11 @@ msgstr ""
 msgid "Blog posts"
 msgstr ""
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr ""
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr ""
 

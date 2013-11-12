@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Nicola Larosa <transifex@teknico.net>, 2012-2013.
+# Nicola Larosa <transifex@teknico.net>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-03-30 07:16-0430\n"
-"PO-Revision-Date: 2013-04-02 12:20+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -66,9 +66,7 @@ msgstr "Se ``True``, i commenti sono approvati per default."
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr ""
-"Percorso puntato alla funzione da chiamare sul valore di un commento, prima "
-"che venga renderizzato nel template."
+msgstr "Percorso puntato alla funzione da chiamare sul valore di un commento, prima che venga renderizzato nel template."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
@@ -78,9 +76,7 @@ msgstr "Indirizzi email di notifica dei commenti"
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"Una lista, separata da virgole, di indirizzi email che riceveranno messaggi "
-"di notifica ogni volta che un nuovo commento viene inserito sul sito."
+msgstr "Una lista, separata da virgole, di indirizzi email che riceveranno messaggi di notifica ogni volta che un nuovo commento viene inserito sul sito."
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -88,9 +84,7 @@ msgstr "Commenti dell'admin"
 
 #: defaults.py:85
 msgid "Number of latest comments shown in the admin dashboard."
-msgstr ""
-"Numero dei commenti più recenti mostrati sul pannello di controllo "
-"dell'admin."
+msgstr "Numero dei commenti più recenti mostrati sul pannello di controllo dell'admin."
 
 #: defaults.py:93
 msgid "Show unapproved comments"
@@ -100,9 +94,7 @@ msgstr "Mostra commenti non approvati"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"Se ``True``, commenti il cui ``is_public`` non è barrato verrano mostrati "
-"comunque, ma sostituiti dal messaggio ``in attesa di approvazione``."
+msgstr "Se ``True``, commenti il cui ``is_public`` non è barrato verrano mostrati comunque, ma sostituiti dal messaggio ``in attesa di approvazione``."
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -110,11 +102,9 @@ msgstr "Mostra commenti rimossi"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"Se ``True``, i commenti il cui ``removed`` è barrato verranno mostrati "
-"comunque, ma sostituiti dal messaggio ``rimosso``."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Se ``True``, i commenti il cui ``removed`` è barrato verranno mostrati comunque, ma sostituiti dal messaggio ``rimosso``."
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
@@ -128,9 +118,7 @@ msgstr "Un account è necessario per poter valutare."
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
-msgstr ""
-"Se ``True``, gli utenti devono accedere per valutare contenuti come articoli "
-"di blog e commenti."
+msgstr "Se ``True``, gli utenti devono accedere per valutare contenuti come articoli di blog e commenti."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
@@ -214,9 +202,7 @@ msgstr "Valutazioni"
 
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
-"Occorre aver effettuato l'accesso. Accedi o iscriviti per completare questa "
-"azione."
+msgstr "Occorre aver effettuato l'accesso. Accedi o iscriviti per completare questa azione."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -239,19 +225,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"    Il %(submit_date)s %(user_name)s ha scritto:\n"
-"   "
+msgstr "\n    Il %(submit_date)s %(user_name)s ha scritto:\n   "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"Il %(submit_date)s %(user_name)s ha scritto:\n"
+msgstr "\nIl %(submit_date)s %(user_name)s ha scritto:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

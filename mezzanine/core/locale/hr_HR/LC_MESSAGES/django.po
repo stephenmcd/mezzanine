@@ -1,24 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Milorad Pop-Tosic <poptosic@gmail.com>, 2012.
+# legendri <legendri@gmail.com>, 2013
+# Milorad Pop-Tosic <poptosic@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:59+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/"
-"mezzanine/language/hr_HR/)\n"
-"Language: hr_HR\n"
+"POT-Creation-Date: 2013-04-07 09:34-0430\n"
+"PO-Revision-Date: 2013-10-13 08:20+0000\n"
+"Last-Translator: legendri <legendri@gmail.com>\n"
+"Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/mezzanine/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: admin.py:27
 msgid "This field is required if status is set to published."
@@ -42,7 +41,7 @@ msgstr "Medija sadržaj"
 
 #: defaults.py:26 templates/admin/login.html:43
 msgid "Site"
-msgstr "Sajt"
+msgstr "Web stranica"
 
 #: defaults.py:27
 msgid "Users"
@@ -50,23 +49,21 @@ msgstr "Korisnici"
 
 #: defaults.py:33
 msgid "Unregister these models from the admin."
-msgstr "Deregistruj ove modele iz admina."
+msgstr "Deregistriraj ove modele iz admina."
 
 #: defaults.py:40
 msgid "Size of thumbnail previews for image fields in the admin interface."
-msgstr ""
+msgstr "Veličina sličice za pregled za slikovna polja u admin sučelju"
 
 #: defaults.py:48
 msgid "Akismet API Key"
-msgstr "Akismet API kluč"
+msgstr "Akismet API ključ"
 
 #: defaults.py:49
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
-msgstr ""
-"Ključ za http://akismet.com servis za filtriranje spama. Koristi se za "
-"filtriranje komentara i formi."
+msgstr "Ključ za http://akismet.com servis za filtriranje spama. Koristi se za filtriranje komentara i formi."
 
 #: defaults.py:57
 msgid "bit.ly access token"
@@ -78,45 +75,30 @@ msgstr ""
 
 #: defaults.py:65
 msgid ""
-"Mezzanine's caching uses a technique know as mint caching. This is where the "
-"requested expiry for a cache entry is stored with the cache entry in cache, "
-"and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
-"cache get, the store expiry is checked, and if it has past, the cache entry "
-"is set again, and no entry is returned. This tries to ensure that cache "
+"Mezzanine's caching uses a technique know as mint caching. This is where the"
+" requested expiry for a cache entry is stored with the cache entry in cache,"
+" and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a"
+" cache get, the store expiry is checked, and if it has past, the cache entry"
+" is set again, and no entry is returned. This tries to ensure that cache "
 "misses never occur, and if many clients were to get a cache miss at once, "
 "only one would actually need to re-generated the cache entry."
-msgstr ""
-"Mezzanine sistem za keširanje koristi tehniku poznatu pod nazivom mint "
-"caching. Ovde se smešta zahtevano vreme isticanja zapisa u kešu  zajedno sa "
-"zapisom u kešu, a na stvarno vreme isticanja dodaje se još vrednost "
-"podešavanja ``CACHE_SET_DELAY``. Kada se nešto zahteva iz keša zabeleženo "
-"vreme isticanja se proverava, pa ukoliko je ono u prošlosti zapis u kešu se "
-"ponovo postavlja, ali se ne vraća pozivaocu. Ovim se obezbeđuje da se "
-"promašaji u kešu nikad ne dešavaju, i u slučaju kada više klijenata treba da "
-"napravi promašaj u kešu, samo jedan zaista mora da regeneriše zapis u kešu."
+msgstr "Mezzanine sistem za keširanje koristi tehniku poznatu pod nazivom mint caching. Ovdije se smiješta zahtijevano vrijeme isticanja zapisa u kešu  zajedno sa zapisom u kešu, a na stvarno vrijeme isticanja dodaje se još vrijednost podešavanja ``CACHE_SET_DELAY``. Kada se nešto zahtjeva iz keša zabillježeno vrijeme isticanja se provjerava, i ukoliko je ono u prošlosti zapis u kešu se ponovo postavlja, ali se ništa ne vraća. Ovim se osigurava da se keš promašaji nikad ne dešavaju, i u slučaju kada bi više klijenata trebalo napraviti promašaj u kešu, samo jedan zaista mora regenerirati zapis u kešu."
 
 #: defaults.py:93
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
-msgstr ""
-"Niz od 3 člana koji svaki sadrži niz templejt tagova koji se koriste za "
-"prikaz  administratorske kontrolne table."
+msgstr "Niz od 3 elementa, od kojih svaki sadrži niz tagova za predloške koji se koriste za prikaz  administratorske upravljačke ploče."
 
 #: defaults.py:101
 msgid "Device specific template sub-directory to use as the default device."
-msgstr ""
-"Poddirektorijum unutar template direktorijuma, specifičan za uređaj, koji će "
-"se podrazumevano koristiti."
+msgstr "Pod direktorij unutar direktorija s predlošcima, specifičan za uređaj, koji će se standardno koristiti."
 
 #: defaults.py:109
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
-msgstr ""
-"Preslikavanje imena poddirektorijuma specifičnih za uređaj direktorijuma "
-"template u niz stringova koji bi se mogli naći u User-Agent polju koji šalje "
-"dati uređaj."
+msgstr "Preslikavanje imena poddirektorijuma specifičnih za uređaj direktorijuma template u niz stringova koji bi se mogli naći u User-Agent polju koji šalje dati uređaj."
 
 #: defaults.py:131
 msgid "If ``True``, website forms will use HTML5 features."
@@ -128,18 +110,11 @@ msgid ""
 "library's) models. Each item in the sequence is a four item sequence. The "
 "first two items are the dotted path to the model and its field name to be "
 "added, and the dotted path to the field class to use for the field. The "
-"third and fourth items are a sequence of positional args and a dictionary of "
-"keyword args, to use when creating the field instance. When specifying the "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
 "field class, the path ``django.models.db.`` can be omitted for regular "
 "Django model fields."
-msgstr ""
-"Niz polja koja će se ubrizgati u Mezzanine-ove modele (ili modele neke druge "
-"biblioteke). Svaki član niza je sekvenca sa četiri člana. Prva dva člana su "
-"putanje razdvojene tačkama do  polja modela i ista takva putanja do klase "
-"koja će se koristiti za to polje. Treći i četvrti član su nizovi pozicionih "
-"i imenovanih argumenata koji će se koristiti prilikom instanciranja polja. "
-"Prilikom zadavanja klase polja, nije neophodno navesti prefiks ``django."
-"models.db.``."
+msgstr "Niz polja koja će se ubrizgati u Mezzanine-ove modele (ili modele neke druge biblioteke). Svaki element niza je sekvenca sa četiri člana. Prva dva člana su putanje razdvojene točkama do  polja modela i ista takva putanja do klase koja će se koristiti za to polje. Treći i četvrti član su nizovi pozicijskih i imenovanih argumenata koji će se koristiti prilikom instanciranja polja. Prilikom zadavanja klase polja, nije neophodno navesti prefiks ``django.models.db.``."
 
 #: defaults.py:153
 msgid "Google Analytics ID"
@@ -157,37 +132,32 @@ msgid ""
 "importable Python package for the theme. If the host is matched for a "
 "request, the templates directory inside the theme package will be first "
 "searched when loading templates."
-msgstr ""
-"Niz koji preslikava imena hostova na teme, čime je omogućeno serviranje "
-"različitih templejta za različite hostove. Svaki član niza jeste niz od dva "
-"elementa koji sadrži ime hosta, npr. ``othersite.example.com``, i ime Python "
-"paketa koji sadrži temu. Ukoliko zahtev stiže sa navedenog hosta, templates "
-"direktorijum unutar navedenog paketa će se prvi pretraživati prilikom "
-"učitavanja templejta."
+msgstr "Niz koji preslikava imena hostova na teme, čime je omogućeno serviranje različitih predložaka za različite hostove. Svaki član niza je niz od dva elementa koji sadrži ime hosta, npr. ``othersite.example.com``, i ime Python paketa koji sadrži temu. Ukoliko zahtjev stiže sa navedenog hosta, templates direktorij unutar navedenog paketa će se prvi pretraživati prilikom učitavanja predloška."
 
 #: defaults.py:175
 msgid "Name of the jQuery file."
-msgstr "Ime jQuery fajla."
+msgstr "Ime jQuery datoteke."
 
 #: defaults.py:176
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
-msgstr "Ime jQuery fajla koji se nalazi u mezzanine/core/static/mezzanine/js/"
+msgstr "Ime jQuery datoteke koji se nalazi u mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
 msgstr ""
 
 #: defaults.py:185
-msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
+msgid ""
+"Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
 msgstr ""
 
 #: defaults.py:193
 msgid "Max paging links"
-msgstr "Najviše strana za paginaciju"
+msgstr "Najviše veza za paginaciju"
 
 #: defaults.py:194
 msgid "Max number of paging links to display when paginating."
-msgstr "Maksimalni broj linkova koji se mogu prikazati u paginaciji."
+msgstr "Maksimalni broj veza koji se mogu prikazati u paginaciji."
 
 #: defaults.py:201
 msgid "Media library per site"
@@ -203,29 +173,28 @@ msgstr ""
 msgid ""
 "Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
 "admin change-list records filtered down to records owned by the current "
-"user. This setting contains a sequence of models in the format ``app_label."
-"object_name``, that when subclassing ``Ownable``, will still show all "
-"records in the admin change-list interface, regardless of the current user."
+"user. This setting contains a sequence of models in the format "
+"``app_label.object_name``, that when subclassing ``Ownable``, will still "
+"show all records in the admin change-list interface, regardless of the "
+"current user."
 msgstr ""
 
 #: defaults.py:222
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
-msgstr ""
-"Putanja razdvojena tačkama do klase vidžeta koji će se koristiti za "
-"``RichTextField``."
+msgstr "Putanja razdvojena točkama i klasa dodatka koji će se koristiti za ``RichTextField``."
 
 #: defaults.py:230
 msgid ""
 "List of HTML tags that won't be stripped from ``RichTextField`` instances."
-msgstr "Lista HTML tagova koja se neće uklanjati iz ``RichTextField`` polja."
+msgstr "Lista HTML tagova koji se neće uklanjati iz ``RichTextField`` polja."
 
 #: defaults.py:246
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr "Lista HTML atributa koja se neće uklanjati iz ``RichTextField`` polja."
+msgstr "Lista HTML atributa koji se neće uklanjati iz ``RichTextField`` polja."
 
 #: defaults.py:264
 msgid ""
@@ -237,17 +206,15 @@ msgstr ""
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
-msgstr ""
-"Putanja razdvojena tačkama do metode klase za ``RichTextField`` koja će se "
-"pozivati prilikom renderovanja vrednosti unutar šablona."
+msgstr "Putanja razdvojena točkama do funkcije za ``RichTextField`` koja će se pozivati prilikom renderiranja vrijednosti unutar predloška."
 
 #: defaults.py:282
 msgid "High"
-msgstr "Jako"
+msgstr "Visoko"
 
 #: defaults.py:283
 msgid "Low (allows video, iframe, Flash, etc)"
-msgstr "Slabo (dozvoli video, iframe, Flash, itd.)"
+msgstr "Nisko (dozvoli video, iframe, Flash, itd.)"
 
 #: defaults.py:284
 msgid "No filtering"
@@ -261,50 +228,23 @@ msgstr "Nivo filtriranja za Rich Text polja"
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
-"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and "
-"attributes are stripped from the content to protect against staff members "
-"intentionally adding code that could be used to cause problems, such as "
-"changing their account to a super-user with full access to the system.\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and attributes are stripped from the content to protect against staff members intentionally adding code that could be used to cause problems, such as changing their account to a super-user with full access to the system.\n"
 "\n"
-"This setting allows you to change the level of filtering that occurs. "
-"Setting it to low will allow certain extra tags to be permitted, such as "
-"those required for embedding video. While these tags are not the main "
-"candidates for users adding malicious code, they are still considered "
-"dangerous and could potentially be mis-used by a particularly technical "
-"user, and so are filtered out when the filtering level is set to high.\n"
+"This setting allows you to change the level of filtering that occurs. Setting it to low will allow certain extra tags to be permitted, such as those required for embedding video. While these tags are not the main candidates for users adding malicious code, they are still considered dangerous and could potentially be mis-used by a particularly technical user, and so are filtered out when the filtering level is set to high.\n"
 "\n"
-"Setting the filtering level to no filtering, will disable all filtering, and "
-"allow any code to be entered by staff members, including script tags."
-msgstr ""
-"*Nemojte menjati ovo podešavanje ukoliko niste sigurni šta radite.*\n"
-"\n"
-"Kada se sadržaj smešta u Rich Text (WYSIWYG) polje, nebezbedni HTML atributi "
-"i tagovi će biti uklonjeni iz sadržaja kako bi se sprečilo da članovi posade "
-"namerno dodaju kod koji može stvoriti probleme, na primer kod koji im može "
-"poslužiti da dobiju pune privilegije za pristup sistemu.\n"
-"\n"
-"Ovo podešavanje vam omogućava da promenite nivo takvog filtriranja. Ukoliko "
-"se filtriranje postavi na nizak nivo, neki dodatni tagovi će biti "
-"dozvoljeni, kao na primer tagovi za ugrađivanje video snimaka. Iako oni nisu "
-"glavni kandidati za korisnike koji žele da dodaju opasan kod, ipak se "
-"smatraju opasnim jer se mogu zloupotrebiti od strane tehnički veštog "
-"korisnika, pa se zato i oni uklanjaju kada je nivo filtriranja podešen na "
-"visok.\n"
-"\n"
-"Podešavanjem nivoa filtriranja na nivo bez filtriranja će se isključiti "
-"filtriranje i time dozvoliti članovima posade da unesu bilo kakav kod, "
-"uključujući i script tagove.  "
+"Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
+msgstr "*Nemojte mijenjati ove postavke ukoliko niste sigurni šta radite.*⏎\n⏎\nKada se sadržaj stavlja u Rich Text (WYSIWYG) polje, nesigurni HTML atributi i tagovi biti će uklonjeni iz sadržaja kako bi se spriječilo da korisnici namjerno dodaju kod koji može stvoriti probleme, na primjer kod koji im može poslužiti da dobiju ovlasti za puni pristup sistemu.⏎\n⏎\nOve postavke vam omogućavaju da promijenite nivo takvog filtriranja. Ukoliko se filtriranje postavi na nizak nivo, neki dodatni tagovi će biti dozvoljeni, kao na primjer tagovi za ugrađivanje video sadržaja. Iako oni nisu glavni kandidati za korisnike koji žele da dodaju opasan kod, ipak se smatraju opasnim jer se mogu zloupotrijebiti od strane tehnički sposobnijeg korisnika, pa se zato i oni uklanjaju kada je nivo filtriranja podešen na visok.⏎\n⏎\nPodešavanjem nivoa filtriranja na nivo bez filtriranja će se isključiti filtriranje i time dozvoliti korisnicima da unesu bilo kakav kod, uključujući i script tagove.  "
 
 #: defaults.py:313
 msgid ""
-"Sequence of models that will be provided by default as choices in the search "
-"form. Each model should be in the format ``app_label.model_name``. Only "
+"Sequence of models that will be provided by default as choices in the search"
+" form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
 
 #: defaults.py:323
 msgid "Search results per page"
-msgstr "Rezultata pretrage po strani"
+msgstr "Rezultata pretrage po stranici"
 
 #: defaults.py:324
 msgid "Number of results shown in the search results page."
@@ -313,22 +253,20 @@ msgstr "Broj rezultata prikazanih na stranici s rezultatima pretrage."
 #: defaults.py:331
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
-"this, you'll also need to manually apply it to your project's root ``urls."
-"py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-"
-"project`` command contains an example of this towards its end."
+"this, you'll also need to manually apply it to your project's root "
+"``urls.py`` module. The root ``urls.py`` module provided by Mezzanine's "
+"``mezzanine-project`` command contains an example of this towards its end."
 msgstr ""
 
 #: defaults.py:342
 msgid "Site Title"
-msgstr "Naslov sajta"
+msgstr "Naslov web stranice"
 
 #: defaults.py:343
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
-msgstr ""
-"Naslov koji će se prikazivati u vrhu strane i koji će biti dodat na sadržaj "
-"HTML title oznaka na svakoj stranici."
+msgstr "Naslov koji će se prikazivati u vrhu stranice i koji će biti dodan na sadržaj HTML title oznake na svakoj stranici."
 
 #: defaults.py:351
 msgid "Tagline"
@@ -348,12 +286,7 @@ msgid ""
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
 "ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
 "Django's slugify function, or something of your own if required."
-msgstr ""
-"Putanja razdvojena tačkama to Python callable objekta koji će se koristiti "
-"za konverziju stringova u slagove. Podrazumeva se ``mezzanine.utils.urls."
-"slugify_unicode`` koji konvertuje ne-ASCII URL-ove. Promenite na ``django."
-"template.defaultfilters.slugify`` ako želite da koristite Djangovu funkciju "
-"za tu namenu, ili unesite sopstvenu ukoliko je potrebno."
+msgstr "Putanja razdvojena tačkama to Python callable objekta koji će se koristiti za konverziju stringova u slagove. Podrazumeva se ``mezzanine.utils.urls.slugify_unicode`` koji konvertuje ne-ASCII URL-ove. Promenite na ``django.template.defaultfilters.slugify`` ako želite da koristite Djangovu funkciju za tu namenu, ili unesite sopstvenu ukoliko je potrebno."
 
 #: defaults.py:370
 msgid ""
@@ -373,9 +306,7 @@ msgstr "Uključi SSL"
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
-msgstr ""
-"Ako je ``True``, korisnici će automatski biti redirektovani na HTTPS za one "
-"URL-ove koji su navedeni u podešavanju ``SSL_FORCE_URL_PREFIXES``."
+msgstr "Ako je ``True``, korisnici će automatski biti preusmijereni na HTTPS za one URL-ove koji su navedeni u postavci ``SSL_FORCE_URL_PREFIXES``."
 
 #: defaults.py:393
 msgid "Force Host"
@@ -385,9 +316,7 @@ msgstr "Force Host"
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
-msgstr ""
-"Ime hosta preko kojeg bi uvek trebalo pristupati, a koji se poklapa sa SSL "
-"sertifikatom."
+msgstr "Ime hosta preko kojeg bi uvijek trebalo pristupati, a koji se poklapa sa SSL certifikatom."
 
 #: defaults.py:412
 msgid ""
@@ -398,7 +327,7 @@ msgstr ""
 
 #: defaults.py:422
 msgid "List of words which will be stripped from search queries."
-msgstr "Spisak riječi koje će se ukloniti iz upita za pretragu."
+msgstr "Lista riječi koje će se ukloniti iz upita za pretragu."
 
 #: defaults.py:479
 msgid "Tag Cloud Sizes"
@@ -416,42 +345,35 @@ msgstr "Niz konstanti podešavanja koji je dostupan unutar predloška."
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
-msgstr ""
-"Naziv direktorijuma u koji će se smeštati thumbnail slike i koji će biti "
-"kreiran relativno u odnosu na direktorijum originalne slike."
+msgstr "Naziv direktorija u koji će se smiještati umanjene slike i koji će biti kreiran relativno u odnosu na direktorij originalne slike."
 
 #: defaults.py:510
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
-msgstr ""
-"URL do JavaScript fajla (relativno u odnosu na ``STATIC_URL``) koji se "
-"koristi za konfigurisanje TinyMCE kada se koristi podrazumevana "
-"``RICHTEXT_WIDGET_CLASS``."
+msgstr "URL do JavaScript datoteke (relativno u odnosu na ``STATIC_URL``) koji se koristi za konfiguriranje TinyMCE kada se koristi standardni ``RICHTEXT_WIDGET_CLASS``."
 
 #: defaults.py:519
 msgid ""
-"Dict mapping file field names in the format ``app_label.model_name."
-"field_name`` to the Python dotted path to function names that will be used "
-"for the file field's ``upload_to`` argument."
+"Dict mapping file field names in the format "
+"``app_label.model_name.field_name`` to the Python dotted path to function "
+"names that will be used for the file field's ``upload_to`` argument."
 msgstr ""
 
 #: defaults.py:535
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
-msgstr ""
-"Ako je uključeno, south aplikacija će se automatski dodati u "
-"``INSTALLED_APPS`` podešavanje."
+msgstr "Ako je uključeno, south aplikacija će se automatski dodati u ``INSTALLED_APPS``."
 
 #: fields.py:37
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
-msgstr "Nije uspelo uvoženje vrednosti settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "Neuspijeli uvoz vrijednosti settings.RICHTEXT_WIDGET_CLASS: %s"
 
 #: forms.py:84 models.py:317
 msgid "Order"
-msgstr "Redosled"
+msgstr "Poredak"
 
 #: models.py:56 models.py:110
 msgid "Title"
@@ -463,17 +385,17 @@ msgstr "URL"
 
 #: models.py:58
 msgid "Leave blank to have the URL auto-generated from the title."
-msgstr ""
+msgstr "Ostavi prazno tako da URL bude automatski generiran iz naslova."
 
 #: models.py:100
 msgid "View on site"
-msgstr "Prikaži na sajtu"
+msgstr "Prikaži na web stranici"
 
 #: models.py:112
 msgid ""
 "Optional title to be used in the HTML title tag. If left blank, the main "
 "title field will be used."
-msgstr ""
+msgstr "Opcionalni naslov koji će se koristiti u HTML title tagu. Ako je prazno, glavni naslov će se koristiti."
 
 #: models.py:114
 msgid "Description"
@@ -481,23 +403,21 @@ msgstr "Opis"
 
 #: models.py:115
 msgid "Generate description"
-msgstr "Generiši opis"
+msgstr "Generiraj opis"
 
 #: models.py:116
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
-msgstr ""
-"Ukoliko je uključeno, opis će se automatski generisati iz sadržaja. "
-"Isključite ukoliko želite da ručno unesete opis."
+msgstr "Ukoliko je uključeno, opis će se automatski generirati iz sadržaja. Isključite ukoliko želite ručno unijeti opis."
 
 #: models.py:119
 msgid "Keywords"
-msgstr "Ključne reči"
+msgstr "Ključne riječi"
 
 #: models.py:176
 msgid "Draft"
-msgstr "Nacrt"
+msgstr "Skica"
 
 #: models.py:177
 msgid "Published"
@@ -509,7 +429,7 @@ msgstr "Status"
 
 #: models.py:190
 msgid "With Draft chosen, will only be shown for admin users on the site."
-msgstr ""
+msgstr "Kada je \"Skica\" označena, prikazati će se samo admin korisnicima."
 
 #: models.py:192 models.py:225
 msgid "Published from"
@@ -517,15 +437,15 @@ msgstr "Objavljen od"
 
 #: models.py:193
 msgid "With Published chosen, won't be shown until this time"
-msgstr ""
+msgstr "Ako je objavljen, neće se videti nakon ovog vremena"
 
 #: models.py:195
 msgid "Expires on"
-msgstr "Ističe"
+msgstr "Istjče"
 
 #: models.py:196
 msgid "With Published chosen, won't be shown after this time"
-msgstr ""
+msgstr "Ako je objavljen, neće se videti prije ovog vremena"
 
 #: models.py:199
 msgid "Show in sitemap"
@@ -549,7 +469,7 @@ msgstr ""
 
 #: views.py:87
 msgid "Permission denied"
-msgstr "Zabranjen pristup"
+msgstr "Odbijen pristup"
 
 #: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
@@ -569,7 +489,7 @@ msgstr ""
 
 #: templates/base.html:130
 msgid "View Mobile Site"
-msgstr "Prikaži sajt za mobilne"
+msgstr "Prikaži mobilnu stranicu"
 
 #: templates/index.html:4 templates/index.html.py:5 templates/index.html:8
 #: templates/search_results.html:10 templates/admin/index.html:15
@@ -586,19 +506,12 @@ msgid ""
 "</p>\n"
 "<ul>\n"
 "    <li><a href=\"/admin/\">Log in to the admin interface</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
-"\">Creating custom page types</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html#templates\">Modifying HTML templates</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
-"\">Changing this homepage</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html\">Other frequently asked questions</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
-"settings\">Full list of settings</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying "
-"to a production server</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html\">Creating custom page types</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html#templates\">Modifying HTML templates</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin\">Changing this homepage</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html\">Other frequently asked questions</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-settings\">Full list of settings</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying to a production server</a></li>\n"
 "</ul>\n"
 msgstr ""
 
@@ -618,8 +531,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
-"matching your query: %(query)s\n"
+"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
 
 #: templates/search_results.html:35
@@ -632,7 +544,7 @@ msgstr ""
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"
-msgstr "Komandna tabla"
+msgstr "Upravljačka ploča"
 
 #: templates/admin/login.html:21
 msgid "You don't have permission to access the admin for this site."
@@ -640,7 +552,7 @@ msgstr ""
 
 #: templates/admin/login.html:28
 msgid "Username or email:"
-msgstr "Korisničko ime ili imejl:"
+msgstr "Korisničko ime ili email:"
 
 #: templates/admin/login.html:32
 msgid "Password:"
@@ -648,7 +560,7 @@ msgstr "Lozinka:"
 
 #: templates/admin/login.html:37
 msgid "Interface:"
-msgstr "Interfejs:"
+msgstr "Sučelje:"
 
 #: templates/admin/login.html:40 templates/includes/editable_toolbar.html:7
 #: templates/includes/editable_toolbar.html:9
@@ -657,7 +569,7 @@ msgstr "Admin"
 
 #: templates/admin/login.html:47
 msgid "Log in"
-msgstr "Prijavi me"
+msgstr "Prijavi se"
 
 #: templates/admin/login.html:50
 msgid "Forgot password?"
@@ -669,7 +581,7 @@ msgstr "Dodaj"
 
 #: templates/admin/includes/app_list.html:27
 msgid "Change"
-msgstr "Izmeni"
+msgstr "Izmijeni"
 
 #: templates/admin/includes/dynamic_inline_stacked.html:6
 #: templates/admin/includes/dynamic_inline_tabular.html:6
@@ -678,7 +590,7 @@ msgstr "Dodaj još"
 
 #: templates/admin/includes/recent_actions.html:4
 msgid "Recent Actions"
-msgstr "Skorije aktivnosti"
+msgstr "Recentne aktivnosti"
 
 #: templates/admin/includes/recent_actions.html:5
 msgid "My Actions"
@@ -706,7 +618,7 @@ msgstr "Nažalost, došlo je do greške."
 
 #: templates/includes/editable_form.html:16
 msgid "Save"
-msgstr "Sačuvaj"
+msgstr "Spremi"
 
 #: templates/includes/editable_form.html:17
 msgid "Cancel"
@@ -714,7 +626,7 @@ msgstr "Otkaži"
 
 #: templates/includes/editable_form.html:25
 msgid "Edit"
-msgstr "Izmeni"
+msgstr "Izmijeni"
 
 #: templates/includes/editable_toolbar.html:11
 msgid "Log out"

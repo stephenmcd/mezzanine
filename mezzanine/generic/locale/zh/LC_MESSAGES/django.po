@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:40-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-07-12 11:50+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/projects/p/mezzanine/"
 "language/zh/)\n"
@@ -162,7 +162,7 @@ msgstr ""
 
 #: models.py:29 models.py:130
 msgid "Rating"
-msgstr ""
+msgstr "评分"
 
 #: models.py:34 models.py:61 templates/generic/includes/comments.html:25
 msgid "Comment"
@@ -170,7 +170,7 @@ msgstr ""
 
 #: models.py:35 templates/generic/includes/comments.html:3
 msgid "Comments"
-msgstr ""
+msgstr "评论"
 
 #: models.py:73
 msgid "View on site"

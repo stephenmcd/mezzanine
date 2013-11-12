@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-04-07 09:34-0430\n"
-"PO-Revision-Date: 2013-04-30 15:20+0000\n"
-"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/mezzanine/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,39 +22,43 @@ msgstr ""
 msgid "Other posts"
 msgstr "Outros posts"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr "Habilitar imagens de destaque nos posts do blog"
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "Usar URLs de data"
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: "
-"/blog/yyyy/mm/slug/"
-msgstr "Se checado, URLs para post de blog incluirão o mês e ano. Por exemplo: /blog/aaaa/mm/slug/"
-
 #: defaults.py:36
+msgid "Blog post URL date format"
+msgstr ""
+
+#: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+
+#: defaults.py:49
 msgid "Blog posts per page"
 msgstr "Posts por página no blog"
 
-#: defaults.py:37
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "Número de posts do blog exibidos de uma vez numa página de listagem do blog."
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr "Limite de posts do blog no RSS"
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr "Número dos mais recentes posts do blog exibidos no RSS. Configure como ``None`` para exibir todos posts do blog no RSS."
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr "Slug do objeto da página para o blog."
 
@@ -91,11 +95,11 @@ msgstr "Post do blog"
 msgid "Blog posts"
 msgstr "Posts do blog"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "Categoria do Blog"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "Categorias do Blog"
 
@@ -121,10 +125,10 @@ msgstr "%(sometime)s atrás"
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "1 comentário"
-msgstr[1] "%(comments_count)s comentários"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116

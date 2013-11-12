@@ -1,25 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Andrew Grigorev <andrew@ei-grad.ru>, 2011.
-# Dmitry Falk <tfalc@mail.ru>, 2012.
+# eigrad <andrew@ei-grad.ru>, 2011
+# Dmitry Falk <tfalc@mail.ru>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 23:04+0400\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
+"POT-Creation-Date: 2013-11-09 10:32-0430\n"
+"PO-Revision-Date: 2013-11-09 20:10+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
-"language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
@@ -133,6 +131,4 @@ msgstr "кавычки"
 msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
-msgstr ""
-" для точного совпадения, + чтобы сделать слово и фразу обязательным, и - "
-"чтобы исключить слово или фразу."
+msgstr " для точного совпадения, + чтобы сделать слово и фразу обязательным, и - чтобы исключить слово или фразу."

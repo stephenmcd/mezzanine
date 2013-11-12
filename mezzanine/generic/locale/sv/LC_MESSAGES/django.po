@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <avtobiff@gmail.com>, 2012.
+# avtobiff <avtobiff@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:40-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/projects/p/mezzanine/"
-"language/sv/)\n"
-"Language: sv\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/mezzanine/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:20 models.py:69
@@ -67,9 +66,7 @@ msgstr "Om ``True`` blir inbyggda kommentarer godkända som standard."
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr ""
-"Punktad sökväg till funktion att anropa på ett kommentarsvärde före det "
-"renderas till sidmallen."
+msgstr "Punktad sökväg till funktion att anropa på ett kommentarsvärde före det renderas till sidmallen."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
@@ -79,9 +76,7 @@ msgstr "E-postadress för kommentarsnotifiering"
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"En kommaseparerad lista av e-postadresser som kommer att få en notifiering "
-"via e-brev varje gång en ny kommentar är postad på webbplatsen."
+msgstr "En kommaseparerad lista av e-postadresser som kommer att få en notifiering via e-brev varje gång en ny kommentar är postad på webbplatsen."
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -99,10 +94,7 @@ msgstr "Visa ej godkända kommentarer"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"Om ``True`` kommer kommentarer som inte har ``is_public`` ikryssad "
-"fortfarande att visas men ersättas med ett meddelande om ``väntar på "
-"godkännande``."
+msgstr "Om ``True`` kommer kommentarer som inte har ``is_public`` ikryssad fortfarande att visas men ersättas med ett meddelande om ``väntar på godkännande``."
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -110,11 +102,9 @@ msgstr "Visa raderade kommentarer"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"Om ``True`` kommer kommentarer som har ``raderad`` ikryssad fortfarande "
-"visas men ersättas med ett meddelande om ``radering``."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Om ``True`` kommer kommentarer som har ``raderad`` ikryssad fortfarande visas men ersättas med ett meddelande om ``radering``."
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
@@ -235,18 +225,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"Den %(submit_date)s skrev %(user_name)s:"
+msgstr "\nDen %(submit_date)s skrev %(user_name)s:"
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"Den %(submit_date)s skrev %(user_name)s:\n"
+msgstr "\nDen %(submit_date)s skrev %(user_name)s:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

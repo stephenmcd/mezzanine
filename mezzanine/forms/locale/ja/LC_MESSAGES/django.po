@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <andreas.lindroos@gmail.com>, 2012.
-# Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# HeliosReds <helios_reds@gmx.net>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-12-11 01:25+0000\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
-"language/ja/)\n"
-"Language: ja\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:32 fields.py:33
@@ -38,10 +37,7 @@ msgstr "エントリーを見る"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"チェックを入れると、フォームのEメールフィールドの一つから得られたアドレスから"
-"は、 フォームからの投稿による追加受信者に対して送られるEメールは送信されませ"
-"ん。　"
+msgstr "チェックを入れると、フォームのEメールフィールドの一つから得られたアドレスからは、 フォームからの投稿による追加受信者に対して送られるEメールは送信されません。　"
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -53,9 +49,7 @@ msgstr "フォームアプリでフィールドラベルとして入力可能な
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
-"フォームに書き込まれた内容をCSVとしてエクスポートする際にフィールド区切りとし"
-"て用いる記号文字。"
+msgstr "フォームに書き込まれた内容をCSVとしてエクスポートする際にフィールド区切りとして用いる記号文字。"
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
@@ -63,17 +57,12 @@ msgstr "フォームアプリでファイルをアップロードした際の保
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
-msgstr ""
-"フォームアプリ用の追加フィールドタイプ。各カスタムフィールドタイプごとに、 "
-"ID、フィールドクラスのためのドット区切りのインポートパス、フィールド名という "
-"3項目のシークエンスからなるシークエンスを含む必要があります。IDはフィールドを"
-"示す 単なる固定数値ですが、既に使われている値は利用できませんので、衝突を避け"
-"るため 例えば100以上の大きな数を選んでください。"
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "フォームアプリ用の追加フィールドタイプ。各カスタムフィールドタイプごとに、 ID、フィールドクラスのためのドット区切りのインポートパス、フィールド名という 3項目のシークエンスからなるシークエンスを含む必要があります。IDはフィールドを示す 単なる固定数値ですが、既に使われている値は利用できませんので、衝突を避けるため 例えば100以上の大きな数を選んでください。"
 
 #: fields.py:31
 msgid "Single line text"
@@ -191,9 +180,7 @@ msgstr "ユーザーにEメールを送信する"
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
-"投稿時のフォームから得られたEメールアドレスにEメールを送信する場合は、 この"
-"ボックスにチェックを入れる。"
+msgstr "投稿時のフォームから得られたEメールアドレスにEメールを送信する場合は、 このボックスにチェックを入れる。"
 
 #: models.py:23
 msgid "From address"
@@ -211,9 +198,7 @@ msgstr "他の人にEメールを送信する"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"フォームからの投稿があった際にお知らせを送信するEメールアドレスのCSV形式の リ"
-"スト。お知らせを無効にするなら空欄のままにしておく。"
+msgstr "フォームからの投稿があった際にお知らせを送信するEメールアドレスのCSV形式の リスト。お知らせを無効にするなら空欄のままにしておく。"
 
 #: models.py:30
 msgid "Subject"
@@ -228,10 +213,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
-"上記のオプションを元にして送信されたEメールには、各フォームフィールドに入力さ"
-"れた内容が書き込まれます。そのEメールに追記したいメッセージをここで設定するこ"
-"ともできます。"
+msgstr "上記のオプションを元にして送信されたEメールには、各フォームフィールドに入力された内容が書き込まれます。そのEメールに追記したいメッセージをここで設定することもできます。"
 
 #: models.py:37
 msgid "Form"
@@ -265,9 +247,7 @@ msgstr "チョイス"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"必要に応じてコンマ区切りのオプションを。オプションそのものにコンマが含まれる"
-"場合は、バッククォート(`)でそのオプションを囲んでください。"
+msgstr "必要に応じてコンマ区切りのオプションを。オプションそのものにコンマが含まれる場合は、バッククォート(`)でそのオプションを囲んでください。"
 
 #: models.py:63
 msgid "Default value"

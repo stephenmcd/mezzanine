@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Rivo Zängov <eraser@eraser.ee>, 2011, 2012.
+# Rivo Zängov <eraser@eraser.ee>, 2011-2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:40-0430\n"
-"PO-Revision-Date: 2012-05-26 18:09+0000\n"
+"POT-Creation-Date: 2013-11-09 10:32-0430\n"
+"PO-Revision-Date: 2013-11-09 20:05+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Estonian (http://www.transifex.net/projects/p/mezzanine/"
-"language/et/)\n"
-"Language: et\n"
+"Language-Team: Estonian (http://www.transifex.com/projects/p/mezzanine/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
@@ -86,8 +85,9 @@ msgstr "Postitas"
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
-msgid "ago"
-msgstr "tagasi"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
@@ -130,6 +130,4 @@ msgstr "jutumärgid"
 msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
-msgstr ""
-" täpsete fraaside otsimiseks, + et teha sõna kohustulikuksja - et jätta sõna "
-"või fraas otsingust välja."
+msgstr " täpsete fraaside otsimiseks, + et teha sõna kohustulikuksja - et jätta sõna või fraas otsingust välja."

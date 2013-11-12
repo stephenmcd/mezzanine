@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012.
+# Baptiste <baptiste+transifex@darthenay.fr>, 2013
+# Baptiste <baptiste+transifex@darthenay.fr>, 2013
+# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/"
-"language/eo/)\n"
-"Language: eo\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Baptiste <baptiste+transifex@darthenay.fr>\n"
+"Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eo\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:33
@@ -38,9 +39,7 @@ msgstr "Rigardu Entries"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"Se ``Vera``, retleteroj senditaj al ekstra ricevintoj por formo submetiĝo ne "
-"estos senditaj el adreson prenita de unu el la formo de retpoŝto kampoj."
+msgstr "Se ``Vera``, retleteroj senditaj al ekstra ricevintoj por formo submetiĝo ne estos senditaj el adreson prenita de unu el la formo de retpoŝto kampoj."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -52,8 +51,7 @@ msgstr "Maksimuma longo permesita por kampaj etiketoj en la formoj aplikaĵo."
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
-"Signo uzi kiel kampa disigilo kiam eksportante formo respondoj kiel CSV."
+msgstr "Signo uzi kiel kampa disigilo kiam eksportante formo respondoj kiel CSV."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
@@ -61,12 +59,12 @@ msgstr "Absoluta vojon por stoki dosieraj alŝutoj por la formoj aplikaĵo."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
-msgstr ""
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "Kromaj kampaj tipoj por la formularaj aplikaĵoj. Devus enhavi sinsekvon de tri-eraj sinsekvoj, ĉiu enhavanta la identigilo, punktuma importa vojo por la kampa klaso kaj kampa nomo, pro tio ke ĉiu laŭmenda kampa tipo. La identigilo estas simple cifera konstanto por la kampo, sed ne povas esti valoro jam uzita, do elektu altan ciferon kiel 100 aŭ pli granda eviti konfliktojn."
 
 #: fields.py:31
 msgid "Single line text"
@@ -118,7 +116,7 @@ msgstr "Dato / tempo"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Naskiĝdato"
 
 #: fields.py:45
 msgid "Hidden"
@@ -178,13 +176,13 @@ msgstr "Respondo"
 
 #: models.py:20
 msgid "Send email to user"
-msgstr ""
+msgstr "Sendi retpoŝton al uzanto"
 
 #: models.py:21
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
+msgstr "Por sendi retpoŝton al la retpoŝta adreso provizita en la formularo al sendo, kontrolu ĉi-tiun skatolon."
 
 #: models.py:23
 msgid "From address"
@@ -196,13 +194,13 @@ msgstr "La adreso de kie la poŝto estos elsendita"
 
 #: models.py:25
 msgid "Send email to others"
-msgstr ""
+msgstr "Sendi retpoŝton al aliaj"
 
 #: models.py:26
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
+msgstr "Provizu koman apartigitan liston de retpoŝtaj adresoj por esti sciigita al formulara sendo. Lasu malplena por malfunkciigi sciigojn."
 
 #: models.py:30
 msgid "Subject"
@@ -217,7 +215,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
+msgstr "Retpoŝtoj senditaj bazitaj sur la supraj elektoj enhavos ĉiun el la formularaj kampoj plenigitaj. Vi ankaŭ povas tajpi mesaĝon ĉi tie, kiu estos inkluzivita en la retpoŝto."
 
 #: models.py:37
 msgid "Form"
@@ -251,9 +249,7 @@ msgstr "Elektoj"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Komo disigitaj elektoj, se aplikebla. Se elekto mem enhavas komojn, ĉirkaŭas "
-"la eblon kun `dorsa-apostrofoj`."
+msgstr "Komo disigitaj elektoj, se aplikebla. Se elekto mem enhavas komojn, ĉirkaŭas la eblon kun `dorsa-apostrofoj`."
 
 #: models.py:63
 msgid "Default value"

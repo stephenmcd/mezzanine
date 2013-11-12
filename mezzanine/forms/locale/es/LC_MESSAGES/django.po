@@ -1,25 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Eduardo Rivas <jerivasmelgar@gmail.com>, 2012.
-# Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2012.
-# William Díaz <leprosys@gmail.com>, 2012.
-# William Díaz Valdez <leprosys@gmail.com>, 2012.
+# Eduardo Rivas <jerivasmelgar@gmail.com>, 2012
+# Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2012
+# William Díaz <leprosys@gmail.com>, 2012
+# William Díaz Valdez <leprosys@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2013-03-30 12:10+0000\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/"
-"language/es/)\n"
-"Language: es\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:33
@@ -41,49 +40,32 @@ msgstr "Ver entradas"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"Si es ``True``, los correos electrónicos enviados a destinatarios "
-"adicionales durante el envío de formularios no se enviarán desde una "
-"dirección tomada desde uno de los campos de correo electrónico."
+msgstr "Si es ``True``, los correos electrónicos enviados a destinatarios adicionales durante el envío de formularios no se enviarán desde una dirección tomada desde uno de los campos de correo electrónico."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
-msgstr ""
-"Máxima longitud permitida para los valores de campos en la aplicación de "
-"formularios."
+msgstr "Máxima longitud permitida para los valores de campos en la aplicación de formularios."
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr ""
-"Máxima longitud permitida para las etiquetas de los campos en la aplicación "
-"de formularios."
+msgstr "Máxima longitud permitida para las etiquetas de los campos en la aplicación de formularios."
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
-"Carácter a usar como delimitador de campos cuando se exporten las respuestas "
-"a un formulario como CSV."
+msgstr "Carácter a usar como delimitador de campos cuando se exporten las respuestas a un formulario como CSV."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr ""
-"Ruta absoluta donde se almacenarán los archivos para la aplicación de "
-"formularios."
+msgstr "Ruta absoluta donde se almacenarán los archivos para la aplicación de formularios."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
-msgstr ""
-"Tipos de campo adicionales para la aplicación de formularios. Debería "
-"contener una secuencia de secuencias de tres elementos, cada una con el ID, "
-"ruta de importación de la clase del campo y el nombre del mismo para cada "
-"uno de los campos adicionales. El ID es simplemente una constante numérica "
-"para el campo, pero debe ser único, así que debe elegir un número alto, como "
-"100 o mayor para evitar conflictos."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "Tipos de campo adicionales para la aplicación de formularios. Debería contener una secuencia de secuencias de tres elementos, cada una con el ID, ruta de importación de la clase del campo y el nombre del mismo para cada uno de los campos adicionales. El ID es simplemente una constante numérica para el campo, pero debe ser único, así que debe elegir un número alto, como 100 o mayor para evitar conflictos."
 
 #: fields.py:31
 msgid "Single line text"
@@ -201,9 +183,7 @@ msgstr "Enviar correo electrónico a usuario"
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
-"Para enviar un correo electrónico a la dirección de correo electrónico "
-"proporciona con la presentación del formulario, marque esta casilla."
+msgstr "Para enviar un correo electrónico a la dirección de correo electrónico proporciona con la presentación del formulario, marque esta casilla."
 
 #: models.py:23
 msgid "From address"
@@ -221,10 +201,7 @@ msgstr "Enviar correo electrónico a otros"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"Proporcionar una lista separada por comas de las direcciones de correo "
-"electrónico que serán notificadas del envío de formularios. Dejar en blanco "
-"para desactivar las notificaciones."
+msgstr "Proporcionar una lista separada por comas de las direcciones de correo electrónico que serán notificadas del envío de formularios. Dejar en blanco para desactivar las notificaciones."
 
 #: models.py:30
 msgid "Subject"
@@ -239,10 +216,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
-"Los correos electrónicos serán enviados en base a las opciones anteriores "
-"contendrán cada uno de los campos introducidos en el formulario. También "
-"puede introducir un mensaje aquí que se incluirá en el correo electrónico."
+msgstr "Los correos electrónicos serán enviados en base a las opciones anteriores contendrán cada uno de los campos introducidos en el formulario. También puede introducir un mensaje aquí que se incluirá en el correo electrónico."
 
 #: models.py:37
 msgid "Form"

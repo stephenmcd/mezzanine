@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:03+0000\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/projects/p/"
-"mezzanine/language/id_ID/)\n"
-"Language: id_ID\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/projects/p/mezzanine/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: defaults.py:20
@@ -27,8 +26,8 @@ msgstr ""
 
 #: defaults.py:30
 msgid ""
-"A sequence of templates used by the ``page_menu`` template tag. Each item in "
-"the sequence is a three item sequence, containing a unique ID for the "
+"A sequence of templates used by the ``page_menu`` template tag. Each item in"
+" the sequence is a three item sequence, containing a unique ID for the "
 "template, a label for the template, and the template path. These templates "
 "are then available for selection when editing which menus a page should "
 "appear in. Note that if a menu template is used that doesn't appear in this "
@@ -50,8 +49,8 @@ msgstr ""
 #: defaults.py:47
 msgid ""
 "A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the "
-"default menu templates selected when creating new pages. By default all menu "
-"templates are selected. Set this setting to an empty sequence to have no "
+"default menu templates selected when creating new pages. By default all menu"
+" templates are selected. Set this setting to an empty sequence to have no "
 "templates selected by default."
 msgstr ""
 
@@ -63,39 +62,39 @@ msgid ""
 "``login_required`` checked, they'll be redirected to the login page."
 msgstr ""
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
 msgstr ""
 
-#: models.py:36
+#: models.py:41
 msgid "Login required"
 msgstr ""
 
-#: models.py:37
+#: models.py:42
 msgid "If checked, only logged in users can view this page"
 msgstr ""
 
-#: models.py:40
+#: models.py:45
 msgid "Page"
 msgstr ""
 
-#: models.py:41
+#: models.py:46
 msgid "Pages"
 msgstr ""
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
 msgstr ""
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
 msgstr ""
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr ""
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
 msgstr ""
 
@@ -113,7 +112,11 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
+msgstr ""
+
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""

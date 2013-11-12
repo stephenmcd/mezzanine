@@ -1,66 +1,65 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <bart@dispectu.com>, 2012.
-# Tim Slot <tim.slot@gmail.com>, 2013.
-#
+# bartdegoede <bart@dispectu.com>, 2012
+# Tim Slot <tim.slot@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-05-17 18:39+0200\n"
-"Last-Translator: Tim Slot <tim.slot@gmail.com>\n"
-"Language-Team: Dutch; Flemish <>\n"
-"Language: nl\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
 
 #: admin.py:20
 msgid "Other posts"
 msgstr "Andere posts"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr "Schakel uitgelichte afbeeldingen in voor blogposts"
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "Gebruik datum URLs"
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"Als deze instelling ``True`` is, worden maand en jaar in de URLs voor blog "
-"posts gebruikt. Bijvoorbeeld: /blog/jjjj/mm/slug"
-
 #: defaults.py:36
+msgid "Blog post URL date format"
+msgstr ""
+
+#: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+
+#: defaults.py:49
 msgid "Blog posts per page"
 msgstr "Blogposts per pagina"
 
-#: defaults.py:37
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
-msgstr ""
-"Het aantal blogposts dat getoond moet worden op een blogpost indexpagina."
+msgstr "Het aantal blogposts dat getoond moet worden op een blogpost indexpagina."
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr "Blogposts RSS limiet"
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
 msgstr ""
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr "URL-vriendelijke naam van het pagina-object voor het blog."
 
@@ -97,11 +96,11 @@ msgstr "Blog post"
 msgid "Blog posts"
 msgstr "Blog posts"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "Blog categorie"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "Blog categorieën"
 
@@ -127,10 +126,10 @@ msgstr "%(sometime)s geleden"
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "1 comment"
-msgstr[1] "%(comments_count)s comments"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Taras Kozlovskyi <ktarasz@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-06-10 11:05+0000\n"
+"Last-Translator: Taras Kozlovskyi <ktarasz@gmail.com>\n"
 "Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/"
 "mezzanine/language/uk_UA/)\n"
 "Language: uk_UA\n"
@@ -21,34 +22,35 @@ msgstr ""
 
 #: models.py:38
 msgid "Zip import"
-msgstr ""
+msgstr "Імпорт ZIP-архіву"
 
 #: models.py:40
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
 msgstr ""
+"Завантажити ZIP-архів з зображеннями, які хочете імпортувати в цю галерею."
 
 #: models.py:44
 msgid "Gallery"
-msgstr ""
+msgstr "Галерея"
 
 #: models.py:45
 msgid "Galleries"
-msgstr ""
+msgstr "Галереї"
 
-#: models.py:91
+#: models.py:92
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
-#: models.py:93
+#: models.py:94
 msgid "Description"
-msgstr ""
-
-#: models.py:97
-msgid "Image"
-msgstr ""
+msgstr "Опис"
 
 #: models.py:98
+msgid "Image"
+msgstr "Зображення"
+
+#: models.py:99
 msgid "Images"
-msgstr ""
+msgstr "Зображення"

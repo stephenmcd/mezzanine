@@ -1,24 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012.
-#   <kristjan.schmidt@googlemail.com>, 2012.
-#   <manuel@elarte.coop>, 2012.
+# Baptiste <baptiste+transifex@darthenay.fr>, 2013
+# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012
+# kristjan <kristjan.schmidt@googlemail.com>, 2012
+# elektrolupo <manuel@elarte.coop>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:59+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/"
-"language/eo/)\n"
-"Language: eo\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-11-09 16:40+0000\n"
+"Last-Translator: Baptiste <baptiste+transifex@darthenay.fr>\n"
+"Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eo\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:27
@@ -55,19 +55,17 @@ msgstr "Malregistru tiujn modelojn de la administranto."
 
 #: defaults.py:40
 msgid "Size of thumbnail previews for image fields in the admin interface."
-msgstr ""
-"Grando de la miniatura antaŭrigardo por la bildaj kampoj en la administra "
-"interfaco."
+msgstr "Grando de la miniatura antaŭrigardo por la bildaj kampoj en la administra interfaco."
 
 #: defaults.py:48
 msgid "Akismet API Key"
-msgstr ""
+msgstr "Akismet API ŝlosilo"
 
 #: defaults.py:49
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
-msgstr ""
+msgstr "Ŝlosilo por http://akismet.com, spam-filtraĵa servo. Uzita por filtri komentojn kaj formularojn."
 
 #: defaults.py:57
 msgid "bit.ly access token"
@@ -79,11 +77,11 @@ msgstr ""
 
 #: defaults.py:65
 msgid ""
-"Mezzanine's caching uses a technique know as mint caching. This is where the "
-"requested expiry for a cache entry is stored with the cache entry in cache, "
-"and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
-"cache get, the store expiry is checked, and if it has past, the cache entry "
-"is set again, and no entry is returned. This tries to ensure that cache "
+"Mezzanine's caching uses a technique know as mint caching. This is where the"
+" requested expiry for a cache entry is stored with the cache entry in cache,"
+" and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a"
+" cache get, the store expiry is checked, and if it has past, the cache entry"
+" is set again, and no entry is returned. This tries to ensure that cache "
 "misses never occur, and if many clients were to get a cache miss at once, "
 "only one would actually need to re-generated the cache entry."
 msgstr ""
@@ -92,9 +90,7 @@ msgstr ""
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
-msgstr ""
-"Tri ero vico, ĉiu enhavanta sekvencon de ŝablonaj markoj uzata por bildigi "
-"la administranta panelo."
+msgstr "Tri ero vico, ĉiu enhavanta sekvencon de ŝablonaj markoj uzata por bildigi la administranta panelo."
 
 #: defaults.py:101
 msgid "Device specific template sub-directory to use as the default device."
@@ -104,9 +100,7 @@ msgstr "Aparato specifa ŝablona sub-dosierujo uzi kiel la defaŭlta aparato."
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
-msgstr ""
-"Mapeado de aparato specifa ŝablonaj sub-dosierujaj nomoj al la vico de ĉenoj "
-"kiuj povas trovi en sia uzantaj agentoj"
+msgstr "Mapeado de aparato specifa ŝablonaj sub-dosierujaj nomoj al la vico de ĉenoj kiuj povas trovi en sia uzantaj agentoj"
 
 #: defaults.py:131
 msgid "If ``True``, website forms will use HTML5 features."
@@ -118,19 +112,11 @@ msgid ""
 "library's) models. Each item in the sequence is a four item sequence. The "
 "first two items are the dotted path to the model and its field name to be "
 "added, and the dotted path to the field class to use for the field. The "
-"third and fourth items are a sequence of positional args and a dictionary of "
-"keyword args, to use when creating the field instance. When specifying the "
+"third and fourth items are a sequence of positional args and a dictionary of"
+" keyword args, to use when creating the field instance. When specifying the "
 "field class, the path ``django.models.db.`` can be omitted for regular "
 "Django model fields."
-msgstr ""
-"Vico de kampoj kiuj estos injektitaj en la modeloj de Mezzanine (aŭ ajna "
-"biblioteko) . Ĉiu ero en la vico estas kvar item vico. La du unuaj eroj "
-"estas la punktita pado al la modelo kaj lia kampa nomo estu aldonitaj, kaj "
-"la punktita vojo al la kampa klaso uzi por la kampo. La tria kaj kvara eroj "
-"estas vico de poziciaj argumentoj kaj vortaro de ŝlosilvorto argumentoj, por "
-"uzi kiam kreante la kampa petskribo. Kiam preciziganta la kampa klaso, la "
-"vojo ``django.models.db.`` povas esti nefarita por regulaj Django modelaj "
-"kampoj."
+msgstr "Vico de kampoj kiuj estos injektitaj en la modeloj de Mezzanine (aŭ ajna biblioteko) . Ĉiu ero en la vico estas kvar item vico. La du unuaj eroj estas la punktita pado al la modelo kaj lia kampa nomo estu aldonitaj, kaj la punktita vojo al la kampa klaso uzi por la kampo. La tria kaj kvara eroj estas vico de poziciaj argumentoj kaj vortaro de ŝlosilvorto argumentoj, por uzi kiam kreante la kampa petskribo. Kiam preciziganta la kampa klaso, la vojo ``django.models.db.`` povas esti nefarita por regulaj Django modelaj kampoj."
 
 #: defaults.py:153
 msgid "Google Analytics ID"
@@ -148,13 +134,7 @@ msgid ""
 "importable Python package for the theme. If the host is matched for a "
 "request, the templates directory inside the theme package will be first "
 "searched when loading templates."
-msgstr ""
-"Vico kiu mapas gastigantajn nomojn al temoj, permesante malsamajn ŝablonojn "
-"por esti utilita por HTTP gastigoj. Ĉiu elemento en la vico estas du item "
-"vico, enhavante gastigon kiel ``aliareto.ekzamplo.com``, kaj la nomon de "
-"importeblan Pitonan pakaĵon por la temo. Se la gastigo estas parigitaj por "
-"peto, la ŝablonaj dosierujon ene de la temo pako estos unuaj serĉis kiam "
-"ŝarĝante ŝablonoj."
+msgstr "Vico kiu mapas gastigantajn nomojn al temoj, permesante malsamajn ŝablonojn por esti utilita por HTTP gastigoj. Ĉiu elemento en la vico estas du item vico, enhavante gastigon kiel ``aliareto.ekzamplo.com``, kaj la nomon de importeblan Pitonan pakaĵon por la temo. Se la gastigo estas parigitaj por peto, la ŝablonaj dosierujon ene de la temo pako estos unuaj serĉis kiam ŝarĝante ŝablonoj."
 
 #: defaults.py:175
 msgid "Name of the jQuery file."
@@ -162,15 +142,15 @@ msgstr "Nomo de la jQuery dosiero."
 
 #: defaults.py:176
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
-msgstr ""
-"Nomo de la jQuery dosiero trovita en mezzanine/core/statikaj/mezzanine/js/"
+msgstr "Nomo de la jQuery dosiero trovita en mezzanine/core/statikaj/mezzanine/js/"
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
 msgstr ""
 
 #: defaults.py:185
-msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
+msgid ""
+"Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
 msgstr ""
 
 #: defaults.py:193
@@ -195,18 +175,17 @@ msgstr ""
 msgid ""
 "Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
 "admin change-list records filtered down to records owned by the current "
-"user. This setting contains a sequence of models in the format ``app_label."
-"object_name``, that when subclassing ``Ownable``, will still show all "
-"records in the admin change-list interface, regardless of the current user."
+"user. This setting contains a sequence of models in the format "
+"``app_label.object_name``, that when subclassing ``Ownable``, will still "
+"show all records in the admin change-list interface, regardless of the "
+"current user."
 msgstr ""
 
 #: defaults.py:222
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
-msgstr ""
-"Punktita paka padon kaj klasa nomo de la fenestraĵa uzi por la "
-"``RichTextField``."
+msgstr "Punktita paka padon kaj klasa nomo de la fenestraĵa uzi por la ``RichTextField``."
 
 #: defaults.py:230
 msgid ""
@@ -229,9 +208,7 @@ msgstr ""
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
-msgstr ""
-"Punktita pado al la funkcio voki sur ``RichTextField`` valoro antaŭ ĝi estas "
-"bildigita al la ŝablono."
+msgstr "Punktita pado al la funkcio voki sur ``RichTextField`` valoro antaŭ ĝi estas bildigita al la ŝablono."
 
 #: defaults.py:282
 msgid "High"
@@ -253,26 +230,17 @@ msgstr ""
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
-"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and "
-"attributes are stripped from the content to protect against staff members "
-"intentionally adding code that could be used to cause problems, such as "
-"changing their account to a super-user with full access to the system.\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and attributes are stripped from the content to protect against staff members intentionally adding code that could be used to cause problems, such as changing their account to a super-user with full access to the system.\n"
 "\n"
-"This setting allows you to change the level of filtering that occurs. "
-"Setting it to low will allow certain extra tags to be permitted, such as "
-"those required for embedding video. While these tags are not the main "
-"candidates for users adding malicious code, they are still considered "
-"dangerous and could potentially be mis-used by a particularly technical "
-"user, and so are filtered out when the filtering level is set to high.\n"
+"This setting allows you to change the level of filtering that occurs. Setting it to low will allow certain extra tags to be permitted, such as those required for embedding video. While these tags are not the main candidates for users adding malicious code, they are still considered dangerous and could potentially be mis-used by a particularly technical user, and so are filtered out when the filtering level is set to high.\n"
 "\n"
-"Setting the filtering level to no filtering, will disable all filtering, and "
-"allow any code to be entered by staff members, including script tags."
+"Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags."
 msgstr ""
 
 #: defaults.py:313
 msgid ""
-"Sequence of models that will be provided by default as choices in the search "
-"form. Each model should be in the format ``app_label.model_name``. Only "
+"Sequence of models that will be provided by default as choices in the search"
+" form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
 
@@ -287,9 +255,9 @@ msgstr "Nombro de rezultoj montritaj en la rezultojn de serĉo paĝo."
 #: defaults.py:331
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
-"this, you'll also need to manually apply it to your project's root ``urls."
-"py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-"
-"project`` command contains an example of this towards its end."
+"this, you'll also need to manually apply it to your project's root "
+"``urls.py`` module. The root ``urls.py`` module provided by Mezzanine's "
+"``mezzanine-project`` command contains an example of this towards its end."
 msgstr ""
 
 #: defaults.py:342
@@ -300,9 +268,7 @@ msgstr "Reteja Titolo"
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
-msgstr ""
-"Titolo ke montros ĉe la supro de la retejo, kaj esti aldonita al la enhavo "
-"de la HTML titolo markoj sur ĉiu paĝo."
+msgstr "Titolo ke montros ĉe la supro de la retejo, kaj esti aldonita al la enhavo de la HTML titolo markoj sur ĉiu paĝo."
 
 #: defaults.py:351
 msgid "Tagline"
@@ -381,32 +347,26 @@ msgstr "Vico de agordaj nomoj disponebla en ŝablonoj."
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
-msgstr ""
-"Dosierujo nomo por enstoki bildetojn, kiu estos kreita relativa al la "
-"originala bildo de dosierujo."
+msgstr "Dosierujo nomo por enstoki bildetojn, kiu estos kreita relativa al la originala bildo de dosierujo."
 
 #: defaults.py:510
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
-msgstr ""
-"URL por ĝavaskripto dosieron (relativa al ``STATIC_URL``) kiu manipulas "
-"agordi TinyMCE kiam oni uzas la defaŭlta ``RICHTEXT_WIDGET_CLASS``."
+msgstr "URL por ĝavaskripto dosieron (relativa al ``STATIC_URL``) kiu manipulas agordi TinyMCE kiam oni uzas la defaŭlta ``RICHTEXT_WIDGET_CLASS``."
 
 #: defaults.py:519
 msgid ""
-"Dict mapping file field names in the format ``app_label.model_name."
-"field_name`` to the Python dotted path to function names that will be used "
-"for the file field's ``upload_to`` argument."
+"Dict mapping file field names in the format "
+"``app_label.model_name.field_name`` to the Python dotted path to function "
+"names that will be used for the file field's ``upload_to`` argument."
 msgstr ""
 
 #: defaults.py:535
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
-msgstr ""
-"Se ``Vera``, la sudo aplikaĵo estos aŭtomate aldonita al la "
-"``INSTALLED_APPS`` agordo."
+msgstr "Se ``Vera``, la sudo aplikaĵo estos aŭtomate aldonita al la ``INSTALLED_APPS`` agordo."
 
 #: fields.py:37
 #, python-format
@@ -451,9 +411,7 @@ msgstr "Generi priskribon"
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
-msgstr ""
-"Se kontrolita, la priskribo estos aŭtomate generita de enhavo. Malmarku se "
-"vi volas permane agordi kutimo priskribo."
+msgstr "Se kontrolita, la priskribo estos aŭtomate generita de enhavo. Malmarku se vi volas permane agordi kutimo priskribo."
 
 #: models.py:119
 msgid "Keywords"
@@ -550,19 +508,12 @@ msgid ""
 "</p>\n"
 "<ul>\n"
 "    <li><a href=\"/admin/\">Log in to the admin interface</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
-"\">Creating custom page types</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html#templates\">Modifying HTML templates</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
-"\">Changing this homepage</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
-"html\">Other frequently asked questions</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
-"settings\">Full list of settings</a></li>\n"
-"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying "
-"to a production server</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html\">Creating custom page types</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html#templates\">Modifying HTML templates</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin\">Changing this homepage</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions.html\">Other frequently asked questions</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-settings\">Full list of settings</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying to a production server</a></li>\n"
 "</ul>\n"
 msgstr ""
 
@@ -582,8 +533,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
-"matching your query: %(query)s\n"
+"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
 
 #: templates/search_results.html:35

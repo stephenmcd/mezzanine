@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Tzu-ping Chung <uranusjr@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-04-18 08:00+0000\n"
+"Last-Translator: Tzu-ping Chung <uranusjr@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
 "mezzanine/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -24,7 +25,7 @@ msgstr "使用者"
 
 #: __init__.py:17
 msgid "List"
-msgstr ""
+msgstr "列表"
 
 #: __init__.py:18
 msgid "Search"
@@ -32,33 +33,33 @@ msgstr "搜尋"
 
 #: defaults.py:21
 msgid "Default Twitter Query Type"
-msgstr ""
+msgstr "預設 Twitter 查詢類型"
 
 #: defaults.py:22
 msgid ""
 "Type of query that will be used to retrieve tweets for the default Twitter "
 "feed."
-msgstr ""
+msgstr "預設 Twitter feed 推文截取查詢的類型。"
 
 #: defaults.py:31
 msgid "Default Twitter Query"
-msgstr ""
+msgstr "預設 Twitter 查詢"
 
 #: defaults.py:32
 msgid "Twitter query to use for the default query type."
-msgstr ""
+msgstr "預設查詢類型的 Twitter 查詢。"
 
 #: defaults.py:39
 msgid "Default Number of Tweets"
-msgstr ""
+msgstr "預設推文數"
 
 #: defaults.py:40
 msgid "Number of tweets to display in the default Twitter feed."
-msgstr ""
+msgstr "預設 Twitter feed 鍾顯示的推文數。"
 
 #: models.py:27
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 #: models.py:29
 msgid "Value"
@@ -66,35 +67,35 @@ msgstr "值"
 
 #: models.py:33
 msgid "Twitter query"
-msgstr ""
+msgstr "Twitter 查詢"
 
 #: models.py:34
 msgid "Twitter queries"
-msgstr ""
+msgstr "Twitter 查詢"
 
 #: models.py:102
 msgid "Twitter ID"
-msgstr ""
+msgstr "Twitter ID"
 
 #: models.py:103
 msgid "Date/time"
-msgstr ""
+msgstr "日期/時間"
 
 #: models.py:104
 msgid "Message"
-msgstr ""
+msgstr "訊息"
 
 #: models.py:105
 msgid "Profile image URL"
-msgstr ""
+msgstr "設定檔圖片 URL"
 
 #: models.py:106
 msgid "User name"
-msgstr ""
+msgstr "使用者名稱"
 
 #: models.py:107
 msgid "Full name"
-msgstr ""
+msgstr "全名"
 
 #: models.py:109
 msgid "Profile image URL (Retweeted by)"
@@ -110,16 +111,16 @@ msgstr ""
 
 #: models.py:119
 msgid "Tweet"
-msgstr ""
+msgstr "推文"
 
 #: models.py:120
 msgid "Tweets"
-msgstr ""
+msgstr "推文"
 
 #: templates/twitter/tweets.html:7
 msgid "Recent Tweets"
-msgstr ""
+msgstr "最近的推文"
 
 #: templates/twitter/tweets.html:20
 msgid "ago"
-msgstr "歷史"
+msgstr "前"

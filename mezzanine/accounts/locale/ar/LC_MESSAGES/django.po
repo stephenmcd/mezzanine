@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-04-07 09:34-0430\n"
-"PO-Revision-Date: 2013-07-02 07:08+0000\n"
-"Last-Translator: Ahmad Khayyat <akhayyat@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-09 10:34-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/mezzanine/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,121 +23,156 @@ msgid "Minimum length for passwords"
 msgstr "الحد الأدنى لطول كلمة السر"
 
 #: defaults.py:27
+msgid ""
+"If ``True``, the username field will be excluded from sign up and account "
+"update forms."
+msgstr ""
+
+#: defaults.py:35
 msgid "List of fields to exclude from the profile form."
 msgstr "قائمة بالحقول المستثناة من نموذج الملف الشخصي."
 
-#: defaults.py:34
+#: defaults.py:42
 msgid ""
 "Dotted package path and class name of profile form to use for users signing "
 "up and updating their profile, when ``mezzanine.accounts`` is installed."
 msgstr ""
 
-#: defaults.py:43
+#: defaults.py:51
 msgid "If ``True``, users will have their own public profile pages."
 msgstr "إنشاء صفحات ملف شخصي عامة للمستخدمين."
 
-#: defaults.py:51
+#: defaults.py:59
 msgid ""
 "If ``True``, when users create an account, they will be sent an email with a"
 " verification link, which they must click to enable their account."
 msgstr ""
 
-#: forms.py:21 forms.py:190
+#: defaults.py:68
+msgid ""
+"If ``True``, when users create an account, they will not be enabled by "
+"default and a staff member will need to activate their account in the admin "
+"interface."
+msgstr ""
+
+#: defaults.py:77
+msgid "Account approval email addresses"
+msgstr ""
+
+#: defaults.py:78
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new account is created that requires approval."
+msgstr ""
+
+#: forms.py:29
+msgid "Email address"
+msgstr ""
+
+#: forms.py:31
 msgid "Username or email address"
 msgstr "اسم المستخدم أو البريد الإلكتروني"
 
-#: forms.py:22 forms.py:66
+#: forms.py:39 forms.py:71
 msgid "Password"
 msgstr "كلمة السر"
 
-#: forms.py:35
+#: forms.py:52
 msgid "Invalid username/email and password"
 msgstr "اسم المستخدم أو كلمة السر غير صحيحة"
 
-#: forms.py:37
+#: forms.py:54
 msgid "Your account is inactive"
 msgstr "حسابك غير نشط"
 
-#: forms.py:68
+#: forms.py:73
 msgid "Password (again)"
 msgstr "كلمة السر (مجدداً)"
 
-#: forms.py:81
+#: forms.py:87
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr "فضلاً استخدم الحروف والأرقام والشرطة والخط السفلي فقط"
 
-#: forms.py:95
+#: forms.py:103
 msgid "Leave blank unless you want to change your password"
 msgstr "اتركه فارغاً ما لم ترد تغيير كلمة السر"
 
-#: forms.py:114
+#: forms.py:122
 msgid "Username can only contain letters, numbers, dashes or underscores."
 msgstr "يمكن لاسم المستخدم أن يحوي حروفاً وأرقاماً وشرطة وخطاً سفلياً فقط."
 
-#: forms.py:122
+#: forms.py:129
 msgid "This username is already registered"
 msgstr "تم تسجيل اسم المستخدم هذا من قبل"
 
-#: forms.py:135
+#: forms.py:142
 msgid "Passwords do not match"
 msgstr "كلمة السر غير متطابفة"
 
-#: forms.py:137
+#: forms.py:144
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "يجب أن تحوي كلمة السر %s رمزاً على الأقل"
 
-#: forms.py:152
+#: forms.py:158
 msgid "This email is already registered"
 msgstr "تم تسجيل هذا البريد الإلكتروني من قبل"
 
-#: forms.py:199
+#: forms.py:224
 msgid "Invalid username/email"
 msgstr "اسم المستخدم أو البريد الإلكتروني غير صالح"
 
-#: views.py:31
+#: views.py:29
 msgid "Successfully logged in"
 msgstr "تم تسجيل الدخول بنجاح"
 
-#: views.py:34
-msgid "Login"
+#: views.py:32 templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log in"
 msgstr "تسجيل الدخول"
 
-#: views.py:43
+#: views.py:41
 msgid "Successfully logged out"
 msgstr "تم تسجيل الخروج بنجاح"
 
-#: views.py:57
+#: views.py:56
+msgid ""
+"Thanks for signing up! You'll receive an email when your account is "
+"activated."
+msgstr ""
+
+#: views.py:60
 msgid ""
 "A verification email has been sent with a link for activating your account."
 msgstr "تم إرسال رسالة إلكترونية تحوي رابط تنشيط حسابك إلى بريدك الإلكتروني للتأكد من صحته."
 
-#: views.py:61 views.py:80
+#: views.py:64 views.py:83
 msgid "Successfully signed up"
 msgstr "تم إنشاء حسابك بنجاح"
 
-#: views.py:64
-msgid "Signup"
+#: views.py:67 templates/accounts/includes/user_panel.html:21
+#: templates/accounts/includes/user_panel_nav.html:13
+msgid "Sign up"
 msgstr "إنشاء حساب جديد"
 
-#: views.py:83 views.py:167
+#: views.py:86 views.py:153
 msgid "The link you clicked is no longer valid."
 msgstr "الرابط الذي استخدمته لم يعد صالحاً."
 
-#: views.py:141
+#: views.py:127
 msgid "Profile updated"
 msgstr "تم تحديث الملف الشخصي"
 
-#: views.py:146
+#: views.py:132
 msgid "Update Profile"
 msgstr "تحديث الملف الشخصي"
 
-#: views.py:155
+#: views.py:141
 msgid ""
 "A verification email has been sent with a link for resetting your password."
 msgstr "تم إرسال رسالة إلكترونية تحوي رابط إعادة ضبط كلمة السر إليك."
 
-#: views.py:157
+#: views.py:143
 msgid "Password Reset"
 msgstr "إعادة ضبط كلمة السر"
 
@@ -167,7 +202,7 @@ msgid ""
 msgstr "أدخل اسم المستخدم أو عنوان البريد الإلكتروني الخاصين بك، وستتلقى رسالة إلكترونية تحوي رابطاً يمكنك من إعادة ضبط كلمة السر الخاصة بك."
 
 #: templates/accounts/account_profile.html:17
-#: templates/accounts/includes/user_panel.html:9
+#: templates/accounts/includes/user_panel.html:10
 msgid "Update profile"
 msgstr "تحديث الملف الشخصي"
 
@@ -187,28 +222,57 @@ msgstr "بعد إنشاء حساب جديد، ستتلقى رسالة إلكتر
 msgid "Logged in as: "
 msgstr "المستخدم:"
 
-#: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel.html:15
 #: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
 msgstr "تسجيل الخروج"
 
-#: templates/accounts/includes/user_panel.html:17
-#: templates/accounts/includes/user_panel_nav.html:11
-msgid "Log in"
-msgstr "تسجيل الدخول"
-
-#: templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel.html:19
 msgid "or"
 msgstr "من"
-
-#: templates/accounts/includes/user_panel.html:20
-#: templates/accounts/includes/user_panel_nav.html:13
-msgid "Sign up"
-msgstr "إنشاء حساب جديد"
 
 #: templates/admin/profile_inline.html:10
 msgid "Profile information"
 msgstr "بيانات الملف الشخصي"
+
+#: templates/email/account_approve.html:3
+#: templates/email/account_approve.txt:3
+msgid "Hey there, a new account has been created and requires activation."
+msgstr ""
+
+#: templates/email/account_approve.html:5
+#: templates/email/account_approve.txt:5
+msgid "Name"
+msgstr "الاسم"
+
+#: templates/email/account_approve.html:6
+#: templates/email/account_approve.txt:6
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: templates/email/account_approve.html:11
+#: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
+#: templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "فضلاً استخدم الرابط التالي لتنشيطه."
+
+#: templates/email/account_approve_subject.txt:2
+msgid "An account requires activation"
+msgstr ""
+
+#: templates/email/account_approved.html:3
+#: templates/email/account_approved.txt:3
+msgid "Hey there, your account has been activated."
+msgstr ""
+
+#: templates/email/account_approved.html:4
+#: templates/email/account_approved.txt:4
+msgid "Please use the link below to log in."
+msgstr ""
+
+#: templates/email/account_approved_subject.txt:2
+msgid "Your account has been activated"
+msgstr ""
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
@@ -234,10 +298,6 @@ msgstr "إعادة ضبط كلمة السر"
 #: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
 msgstr "شكراً لك على إنشاء حساب جديد."
-
-#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
-msgid "Please use the link below to activate it."
-msgstr "فضلاً استخدم الرابط التالي لتنشيطه."
 
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"

@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012.
+# Baptiste <baptiste+transifex@darthenay.fr>, 2013
+# Baptiste <baptiste+transifex@darthenay.fr>, 2013
+# Jaffa McNeill <jaffa.mcneill@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/"
-"language/eo/)\n"
-"Language: eo\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Baptiste <baptiste+transifex@darthenay.fr>\n"
+"Language-Team: Esperanto (http://www.transifex.com/projects/p/mezzanine/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eo\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:20 models.py:69
@@ -29,7 +30,7 @@ msgstr "Kontoj postulita por komenti"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr ""
+msgstr "Se ``Vera``, uzantoj devas ensaluti por komenti."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -57,7 +58,7 @@ msgstr "Sekreta ŝlosilo por http://disqus.com programista API"
 
 #: defaults.py:57
 msgid "Auto-approve comments"
-msgstr ""
+msgstr "Aŭto-aprobu komentoj"
 
 #: defaults.py:58
 msgid "If ``True``, built-in comments are approved by default."
@@ -67,7 +68,7 @@ msgstr "Se ``Vera``, korpigita komentoj estas aprobitaj implicite."
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr ""
+msgstr "Punktita pado al la funkcio voki sur komenta valoro antaŭ ĝi estas bildigita al la ŝablono."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
@@ -95,9 +96,7 @@ msgstr "Montru malaprobitajn komentojn"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"Se ``Vera``, komentoj kiuj havas ``is_public`` nehaltigite estos ankoraŭ "
-"esti montrata, sed remetis kun ``atendas esti aprobitaj`` mesaĝo."
+msgstr "Se ``Vera``, komentoj kiuj havas ``is_public`` nehaltigite estos ankoraŭ esti montrata, sed remetis kun ``atendas esti aprobitaj`` mesaĝo."
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -105,11 +104,9 @@ msgstr "Montru forigitajn komentojn"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"Se ``Vera``, komentojn kiuj havas ``forigitaj`` kontrolitaj estos ankoraŭ "
-"esti montrata, sed remetis kun ``forigitaj`` mesaĝo."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Se ``Vera``, komentojn kiuj havas ``forigitaj`` kontrolitaj estos ankoraŭ esti montrata, sed remetis kun ``forigitaj`` mesaĝo."
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
@@ -155,7 +152,7 @@ msgstr "laŭvola"
 
 #: forms.py:138
 msgid "New comment for: "
-msgstr ""
+msgstr "Nova komento por:"
 
 #: forms.py:174
 msgid "Already rated."
@@ -230,14 +227,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
+msgstr "\n    Je %(submit_date)s %(user_name)s skribis:\n    "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
+msgstr "\nJe %(submit_date)s %(user_name)s skribis:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

@@ -1,48 +1,45 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Gour  <gour@atmarama.net>, 2012.
+# Gour <gour@atmarama.net>, 2012
+# legendri <legendri@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/"
-"mezzanine/language/hr_HR/)\n"
-"Language: hr_HR\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: legendri <legendri@gmail.com>\n"
+"Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/mezzanine/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: admin.py:32 fields.py:33
 msgid "Email"
-msgstr "Imejl"
+msgstr "Email"
 
 #: admin.py:115
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "1 unos obrisan"
+msgstr[1] "%(count)s unosa obrisano"
+msgstr[2] "%(count)s unosa obrisano"
 
 #: admin.py:119
 msgid "View Entries"
-msgstr ""
+msgstr "Pogledaj unose"
 
 #: defaults.py:20
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"Ako je uključeno, imejlovi koji se šalju dodatnim primaocima, neće se slati "
-"sa adrese koja se nalazi u nekoj od imejl polja unutar forme."
+msgstr "Ako je uključeno, emailovi koji se šalju dodatnim primaocima, neće se slati sa adrese koja se nalazi u nekoj od email polja unutar obrazca."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -50,37 +47,36 @@ msgstr "Maksimalna dužina polja u forms aplikaciji."
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr "Maksimalna veličina za labele u forms aplikaciji."
+msgstr "Maksimalna veličina za ozbake u forms aplikaciji."
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
-"Karakter koji se koristi kao razdvojnik prilikom izvoza odgovora u CSV."
+msgstr "Znak koji se koristi za razdvajanje prilikom izvoza odgovora u CSV."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr "Apsolutna putanja za smeštanje fajlova za forms aplikaciju."
+msgstr "Apsolutna putanja za smještanje datoteka za forms aplikaciju."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
 msgid "Single line text"
-msgstr ""
+msgstr "Jedna linija teksta"
 
 #: fields.py:32
 msgid "Multi line text"
-msgstr ""
+msgstr "Više linijski tekst"
 
 #: fields.py:34
 msgid "Number"
-msgstr ""
+msgstr "Broj"
 
 #: fields.py:35
 msgid "URL"
@@ -96,7 +92,7 @@ msgstr ""
 
 #: fields.py:38
 msgid "Drop down"
-msgstr ""
+msgstr "Padajući izbornik"
 
 #: fields.py:39
 msgid "Multi select"
@@ -108,7 +104,7 @@ msgstr ""
 
 #: fields.py:41
 msgid "File upload"
-msgstr ""
+msgstr "Postavljanje datoteke"
 
 #: fields.py:42
 msgid "Date"
@@ -120,15 +116,15 @@ msgstr "Datum/vrijeme"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Datum rođenja"
 
 #: fields.py:45
 msgid "Hidden"
-msgstr ""
+msgstr "Skriveno"
 
 #: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
-msgstr ""
+msgstr "Ništa"
 
 #: forms.py:29
 msgid "Contains"
@@ -136,7 +132,7 @@ msgstr "Sadrži"
 
 #: forms.py:30
 msgid "Doesn't contain"
-msgstr "N sadrži"
+msgstr "Ne sadrži"
 
 #: forms.py:31 forms.py:37
 msgid "Equals"
@@ -168,43 +164,43 @@ msgstr ""
 
 #: models.py:17
 msgid "Button text"
-msgstr ""
+msgstr "Tekst na gumbu"
 
 #: models.py:18
 msgid "Submit"
-msgstr "Podnesi"
+msgstr "Pošalji"
 
 #: models.py:19
 msgid "Response"
-msgstr ""
+msgstr "Odgovor"
 
 #: models.py:20
 msgid "Send email to user"
-msgstr ""
+msgstr "Pošalji email korisniku"
 
 #: models.py:21
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
+msgstr "Da bi poslali email prilikom slanja obrazca na adresu unesenu u obrazac, označite ovo polje."
 
 #: models.py:23
 msgid "From address"
-msgstr ""
+msgstr "Sa adrese"
 
 #: models.py:24
 msgid "The address the email will be sent from"
-msgstr ""
+msgstr "Adresa s koje će email biti poslan"
 
 #: models.py:25
 msgid "Send email to others"
-msgstr ""
+msgstr "Pošalji email ostalima"
 
 #: models.py:26
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
+msgstr "Unesite listu email adresa odvojenu zarezom koje će biti obavješteni prilikom slanja obrasca. Ostavite prazno da onemogućite obavijesti."
 
 #: models.py:30
 msgid "Subject"
@@ -219,19 +215,19 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
+msgstr "Email poslan na osnovu gornjih postavki, sadržavati će sva polja s obrasca. Također, ovdije možete upisati neku poruku koja će biti uvrštena u taj email."
 
 #: models.py:37
 msgid "Form"
-msgstr "Od"
+msgstr "Obrazac"
 
 #: models.py:38
 msgid "Forms"
-msgstr ""
+msgstr "Forme"
 
 #: models.py:55
 msgid "Label"
-msgstr ""
+msgstr "Oznaka"
 
 #: models.py:57
 msgid "Type"
@@ -239,7 +235,7 @@ msgstr "Tip"
 
 #: models.py:58
 msgid "Required"
-msgstr ""
+msgstr "Obavezno"
 
 #: models.py:59
 msgid "Visible"
@@ -257,15 +253,15 @@ msgstr ""
 
 #: models.py:63
 msgid "Default value"
-msgstr ""
+msgstr "Standardna vrijednost"
 
 #: models.py:65
 msgid "Placeholder Text"
-msgstr ""
+msgstr "Tekst za čuvanje mjesta"
 
 #: models.py:67
 msgid "Help text"
-msgstr ""
+msgstr "Pomoć"
 
 #: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
@@ -277,24 +273,24 @@ msgstr "Polja"
 
 #: models.py:119
 msgid "Form entry"
-msgstr ""
+msgstr "Unos u obrazac"
 
 #: models.py:120
 msgid "Form entries"
-msgstr ""
+msgstr "Unosi obrazca"
 
 #: models.py:134
 msgid "Form field entry"
-msgstr ""
+msgstr "Unos u polje obrazca"
 
 #: models.py:135
 msgid "Form field entries"
-msgstr ""
+msgstr "Unosi u polje obrazca"
 
 #: templates/admin/forms/change_form.html:8
 #: templates/admin/forms/entries.html:57
 msgid "View entries"
-msgstr ""
+msgstr "Pogledaj unose"
 
 #: templates/admin/forms/change_form.html:9
 msgid "History"
@@ -302,7 +298,7 @@ msgstr "Povijest"
 
 #: templates/admin/forms/change_form.html:10
 msgid "View on site"
-msgstr "Prikaži na sajtu"
+msgstr "Prikaži na web stranici"
 
 #: templates/admin/forms/entries.html:14
 msgid "Home"
@@ -310,32 +306,32 @@ msgstr "Početna"
 
 #: templates/admin/forms/entries.html:29
 msgid "Include"
-msgstr "Uključi"
+msgstr "Uvrsti"
 
 #: templates/admin/forms/entries.html:30
 msgid "Filter by"
-msgstr ""
+msgstr "Filtriraj"
 
 #: templates/admin/forms/entries.html:48
 msgid "All"
-msgstr ""
+msgstr "Sve"
 
 #: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
-msgstr ""
+msgstr "Nazad na obrazac"
 
 #: templates/admin/forms/entries.html:58
 msgid "Export CSV"
-msgstr ""
+msgstr "Izvezi CSV"
 
 #: templates/admin/forms/entries.html:60
 msgid "Entries"
-msgstr ""
+msgstr "Unosi"
 
 #: templates/admin/forms/entries.html:94
 msgid "Delete selected"
-msgstr ""
+msgstr "Izbriši označeno"
 
 #: templates/admin/forms/entries.html:98
 msgid "No entries to display"
-msgstr ""
+msgstr "Nema unosa za prikaz"

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Lê Thanh <lethanhx2k@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-05-09 14:00+0000\n"
+"Last-Translator: Lê Thanh <lethanhx2k@gmail.com>\n"
 "Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/"
 "mezzanine/language/vi_VN/)\n"
 "Language: vi_VN\n"
@@ -20,106 +21,106 @@ msgstr ""
 
 #: __init__.py:16
 msgid "User"
-msgstr ""
+msgstr "Tên"
 
 #: __init__.py:17
 msgid "List"
-msgstr ""
+msgstr "Danh sách"
 
 #: __init__.py:18
 msgid "Search"
-msgstr ""
+msgstr "TÌm kiếm"
 
 #: defaults.py:21
 msgid "Default Twitter Query Type"
-msgstr ""
+msgstr "Kiểu truy vấn Twitter mặc định"
 
 #: defaults.py:22
 msgid ""
 "Type of query that will be used to retrieve tweets for the default Twitter "
 "feed."
-msgstr ""
+msgstr "Kiểu truy vấn dùng để lấy tweets cho Twitter feed"
 
 #: defaults.py:31
 msgid "Default Twitter Query"
-msgstr ""
+msgstr "Truy vấn Twitter mặc định"
 
 #: defaults.py:32
 msgid "Twitter query to use for the default query type."
-msgstr ""
+msgstr "Truy vấn Twitter dùng cho kiểu truy vấn mặc định"
 
 #: defaults.py:39
 msgid "Default Number of Tweets"
-msgstr ""
+msgstr "Số Tweets mặc định"
 
 #: defaults.py:40
 msgid "Number of tweets to display in the default Twitter feed."
-msgstr ""
+msgstr "Số tweet hiển thị trong Twitter feed"
 
 #: models.py:27
 msgid "Type"
-msgstr ""
+msgstr "Kiểu"
 
 #: models.py:29
 msgid "Value"
-msgstr ""
+msgstr "Giá trị"
 
 #: models.py:33
 msgid "Twitter query"
-msgstr ""
+msgstr "Truy vấn Twitter"
 
 #: models.py:34
 msgid "Twitter queries"
-msgstr ""
+msgstr "Truy vấn Twitter"
 
 #: models.py:102
 msgid "Twitter ID"
-msgstr ""
+msgstr "Twitter ID"
 
 #: models.py:103
 msgid "Date/time"
-msgstr ""
+msgstr "Ngày/thời gian"
 
 #: models.py:104
 msgid "Message"
-msgstr ""
+msgstr "Tin nhắn"
 
 #: models.py:105
 msgid "Profile image URL"
-msgstr ""
+msgstr "URL ảnh của Profile"
 
 #: models.py:106
 msgid "User name"
-msgstr ""
+msgstr "Tên truy cập"
 
 #: models.py:107
 msgid "Full name"
-msgstr ""
+msgstr "Tên đầy đủ"
 
 #: models.py:109
 msgid "Profile image URL (Retweeted by)"
-msgstr ""
+msgstr "URL ảnh Profile (Đăng lại bởi)"
 
 #: models.py:111
 msgid "User name (Retweeted by)"
-msgstr ""
+msgstr "Tên thành viên (Đăng lại bởi)"
 
 #: models.py:113
 msgid "Full name (Retweeted by)"
-msgstr ""
+msgstr "Tên đầy đủ (Đăng lại bởi)"
 
 #: models.py:119
 msgid "Tweet"
-msgstr ""
+msgstr "Tweet"
 
 #: models.py:120
 msgid "Tweets"
-msgstr ""
+msgstr "Tweet"
 
 #: templates/twitter/tweets.html:7
 msgid "Recent Tweets"
-msgstr ""
+msgstr "Tweets gần đây"
 
 #: templates/twitter/tweets.html:20
 msgid "ago"
-msgstr ""
+msgstr "trước"

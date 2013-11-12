@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,39 +62,39 @@ msgid ""
 "``login_required`` checked, they'll be redirected to the login page."
 msgstr ""
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
 msgstr ""
 
-#: models.py:36
+#: models.py:41
 msgid "Login required"
 msgstr ""
 
-#: models.py:37
+#: models.py:42
 msgid "If checked, only logged in users can view this page"
 msgstr ""
 
-#: models.py:40
+#: models.py:45
 msgid "Page"
 msgstr ""
 
-#: models.py:41
+#: models.py:46
 msgid "Pages"
 msgstr ""
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
 msgstr ""
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
 msgstr ""
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr ""
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
 msgstr ""
 
@@ -112,7 +112,11 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
+msgstr ""
+
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr ""

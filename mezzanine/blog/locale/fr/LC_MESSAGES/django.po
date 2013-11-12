@@ -1,67 +1,70 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Jérôme Place <djayp83@hotmail.com>, 2012.
-#   <mathias.ettinger@gmail.com>, 2012.
-#   <strider@strycore.com>, 2012.
-#   <vincent.rialland@gmail.com>, 2011.
-# Vincent Rialland <vincent.rialland@gmail.com>, 2011.
+# Jérôme Place <djayp83@hotmail.com>, 2012
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# strider <strider@strycore.com>, 2012
+# strider <strider@strycore.com>, 2012
+# Vincent Rialland <vincent.rialland@gmail.com>, 2011
+# Vincent Rialland <vincent.rialland@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-06-20 14:34+0100\n"
-"Last-Translator: Romain Hardouin <romain_hardouin@yahoo.fr>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
-"language/fr/)\n"
-"Language: fr\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: admin.py:20
 msgid "Other posts"
 msgstr "Autres articles"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr "Activer l'image du jour"
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "Utiliser des URLs contenant des dates"
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: /blog/yyyy/"
-"mm/slug/"
-msgstr ""
-"Si ``vrai``, les URLs de billets de blog incluront le mois et l'année. Ex : /"
-"blog/aaaa/mm/slug/"
-
 #: defaults.py:36
+msgid "Blog post URL date format"
+msgstr ""
+
+#: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+
+#: defaults.py:49
 msgid "Blog posts per page"
 msgstr "Billets de blog par page"
 
-#: defaults.py:37
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "Nombre de billets de blog affichés en mode liste."
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
-msgstr ""
+msgstr "Nombre d'articles dans les flux"
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
-msgstr ""
+msgstr "Nombre d'articles les plus récents à afficher dans les flux. ``None`` pour afficher l'intégralité des articles."
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr "Label de la page associée au blog."
 
@@ -98,11 +101,11 @@ msgstr "Article de blog"
 msgid "Blog posts"
 msgstr "Articles de blog"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "Catégorie d'articles"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "Catégories d'articles"
 
@@ -130,8 +133,8 @@ msgstr "Il y a %(sometime)s"
 #, python-format
 msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "%(comments_count)s commentaire"
-msgstr[1] "%(comments_count)s commentaires"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116

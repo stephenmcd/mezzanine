@@ -1,243 +1,305 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Lê Thanh <lethanhx2k@gmail.com>, 2013
+# Lê Thanh <lethanhx2k@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-14 21:42+0000\n"
+"POT-Creation-Date: 2013-11-09 10:34-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/"
-"mezzanine/language/vi_VN/)\n"
-"Language: vi_VN\n"
+"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/mezzanine/language/vi_VN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi_VN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: defaults.py:20
 msgid "Minimum length for passwords"
-msgstr ""
+msgstr "Số kí tự tối thiểu cho mật khẩu"
 
 #: defaults.py:27
-msgid "List of fields to exclude from the profile form."
+msgid ""
+"If ``True``, the username field will be excluded from sign up and account "
+"update forms."
 msgstr ""
 
-#: defaults.py:34
+#: defaults.py:35
+msgid "List of fields to exclude from the profile form."
+msgstr "Danh sách các trường loại khỏi form profile"
+
+#: defaults.py:42
 msgid ""
 "Dotted package path and class name of profile form to use for users signing "
 "up and updating their profile, when ``mezzanine.accounts`` is installed."
-msgstr ""
-
-#: defaults.py:43
-msgid "If ``True``, users will have their own public profile pages."
-msgstr ""
+msgstr "Đường dẫn và tên class của form profile cho người dùng đăng nhập và cập nhật profile, khi ``mezzanine.accounts`` được cài."
 
 #: defaults.py:51
+msgid "If ``True``, users will have their own public profile pages."
+msgstr "Nếu ``True``, người dùng sẽ có trang cá nhân công khai riêng"
+
+#: defaults.py:59
 msgid ""
-"If ``True``, when users create an account, they will be sent an email with a "
-"verification link, which they must click to enable their account."
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
+msgstr "Nếu ``True``, khi người dùng tạo tài khoản, họ sẽ được gửi một email kèm theo liên kết xác nhận để kích hoạt tài khoản."
+
+#: defaults.py:68
+msgid ""
+"If ``True``, when users create an account, they will not be enabled by "
+"default and a staff member will need to activate their account in the admin "
+"interface."
 msgstr ""
 
-#: forms.py:21 forms.py:190
+#: defaults.py:77
+msgid "Account approval email addresses"
+msgstr ""
+
+#: defaults.py:78
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new account is created that requires approval."
+msgstr ""
+
+#: forms.py:29
+msgid "Email address"
+msgstr ""
+
+#: forms.py:31
 msgid "Username or email address"
-msgstr ""
+msgstr "Tên truy cập hoặc Email"
 
-#: forms.py:22 forms.py:66
+#: forms.py:39 forms.py:71
 msgid "Password"
-msgstr ""
+msgstr "Mật khẩu"
 
-#: forms.py:35
+#: forms.py:52
 msgid "Invalid username/email and password"
-msgstr ""
+msgstr "Tên truy cập/Email và Mật khẩu không đúng"
 
-#: forms.py:37
+#: forms.py:54
 msgid "Your account is inactive"
-msgstr ""
+msgstr "Tài khoản của bạn không hoạt động"
 
-#: forms.py:68
+#: forms.py:73
 msgid "Password (again)"
-msgstr ""
+msgstr "Mật khẩu (lần nữa)"
 
-#: forms.py:81
+#: forms.py:87
 msgid "Only letters, numbers, dashes or underscores please"
-msgstr ""
+msgstr "Chỉ có chữ, số, gạch ngang và gạch chân được cho phép"
 
-#: forms.py:95
+#: forms.py:103
 msgid "Leave blank unless you want to change your password"
-msgstr ""
-
-#: forms.py:114
-msgid "Username can only contain letters, numbers, dashes or underscores."
-msgstr ""
+msgstr "Để trống trừ khi bạn muốn thay đổi mật khẩu"
 
 #: forms.py:122
+msgid "Username can only contain letters, numbers, dashes or underscores."
+msgstr "Tên truy cập chỉ có thể gồm chữ, số, gạch ngang hoặc gạch chân"
+
+#: forms.py:129
 msgid "This username is already registered"
-msgstr ""
+msgstr "Tên truy cập này đã được đăng kí"
 
-#: forms.py:135
+#: forms.py:142
 msgid "Passwords do not match"
-msgstr ""
+msgstr "Mật khẩu không khớp"
 
-#: forms.py:137
+#: forms.py:144
 #, python-format
 msgid "Password must be at least %s characters"
-msgstr ""
+msgstr "Mật khẩu phải gồm ít nhất %s kí tự"
 
-#: forms.py:152
+#: forms.py:158
 msgid "This email is already registered"
-msgstr ""
+msgstr "Email này đã được dùng"
 
-#: forms.py:199
+#: forms.py:224
 msgid "Invalid username/email"
-msgstr ""
+msgstr "Tên truy cập/Email không đúng"
 
-#: views.py:31
+#: views.py:29
 msgid "Successfully logged in"
-msgstr ""
+msgstr "Đăng nhập thành công"
 
-#: views.py:34
-msgid "Login"
-msgstr ""
+#: views.py:32 templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log in"
+msgstr "Đăng nhập"
 
-#: views.py:43
+#: views.py:41
 msgid "Successfully logged out"
+msgstr "Thoát thành công"
+
+#: views.py:56
+msgid ""
+"Thanks for signing up! You'll receive an email when your account is "
+"activated."
 msgstr ""
 
-#: views.py:57
+#: views.py:60
 msgid ""
 "A verification email has been sent with a link for activating your account."
-msgstr ""
+msgstr "Liên kết để kích hoạt tài khoản đã được gửi đến hòm thư điện tử của bạn"
 
-#: views.py:61 views.py:80
+#: views.py:64 views.py:83
 msgid "Successfully signed up"
-msgstr ""
+msgstr "Đăng kí thành công"
 
-#: views.py:64
-msgid "Signup"
-msgstr ""
+#: views.py:67 templates/accounts/includes/user_panel.html:21
+#: templates/accounts/includes/user_panel_nav.html:13
+msgid "Sign up"
+msgstr "Đăng kí"
 
-#: views.py:83 views.py:167
+#: views.py:86 views.py:153
 msgid "The link you clicked is no longer valid."
-msgstr ""
+msgstr "Liên kết không tồn tại"
+
+#: views.py:127
+msgid "Profile updated"
+msgstr "Profile được cập nhật"
+
+#: views.py:132
+msgid "Update Profile"
+msgstr "Cập nhật Profile"
 
 #: views.py:141
-msgid "Profile updated"
-msgstr ""
-
-#: views.py:146
-msgid "Update Profile"
-msgstr ""
-
-#: views.py:155
 msgid ""
 "A verification email has been sent with a link for resetting your password."
-msgstr ""
+msgstr "Liên kết để lấy lại mật khẩu đã được gửi đến hòm thư điện tử của bạn"
 
-#: views.py:157
+#: views.py:143
 msgid "Password Reset"
-msgstr ""
+msgstr "Lấy lại mật khẩu"
 
 #: templates/accounts/account_login.html:7
 msgid "You're already logged in."
-msgstr ""
+msgstr "Bạn đã đăng nhập"
 
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
-"\">sign up</a> for one now."
-msgstr ""
+"If you don't have an account you can <a "
+"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgstr "Nếu không có tài khoản, bạn có thể  <a href=\"%(signup_url)s?next=%(next)s\">đăng kí</a> lấy một cái"
 
 #: templates/accounts/account_login.html:14
 #, python-format
 msgid ""
-"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
-"\">reset your password</a> if you've forgotten it.</p>"
-msgstr ""
+"<p>You can also <a "
+"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
+"password</a> if you've forgotten it.</p>"
+msgstr "<p>Bạn cũng có thể <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">lấy lại mật khẩu</a> nếu quên.</p>"
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
-"Enter your username or email address and you'll receive an email with a link "
-"you need to click, in order to log in and change your password."
-msgstr ""
+"Enter your username or email address and you'll receive an email with a link"
+" you need to click, in order to log in and change your password."
+msgstr "Khai báo tên truy cập hoặc email. Bạn sẽ nhận được email kèm liên kết để đăng nhập và đổi mật khẩu"
 
 #: templates/accounts/account_profile.html:17
-#: templates/accounts/includes/user_panel.html:9
+#: templates/accounts/includes/user_panel.html:10
 msgid "Update profile"
-msgstr ""
+msgstr "Cập nhật Profile"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need "
-"to log out first."
-msgstr ""
+"You're already logged in. If you'd like to create a new account, you'll need"
+" to log out first."
+msgstr "Bạn đã đăng nhập. Nếu muốn tạo một tài khoản mới, bạn cần thoát ra trước"
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
-msgstr ""
+msgstr "Sau khi đăng kí, bạn sẽ nhận được một email kèm link để kích hoạt tài khoản"
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
-msgstr ""
+msgstr "Đăng nhập  với tên:"
 
-#: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel.html:15
 #: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
-msgstr ""
+msgstr "Thoát"
 
-#: templates/accounts/includes/user_panel.html:17
-#: templates/accounts/includes/user_panel_nav.html:11
-msgid "Log in"
-msgstr ""
-
-#: templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel.html:19
 msgid "or"
-msgstr ""
-
-#: templates/accounts/includes/user_panel.html:20
-#: templates/accounts/includes/user_panel_nav.html:13
-msgid "Sign up"
-msgstr ""
+msgstr "hoặc"
 
 #: templates/admin/profile_inline.html:10
 msgid "Profile information"
+msgstr "Thông tin Profile"
+
+#: templates/email/account_approve.html:3
+#: templates/email/account_approve.txt:3
+msgid "Hey there, a new account has been created and requires activation."
+msgstr ""
+
+#: templates/email/account_approve.html:5
+#: templates/email/account_approve.txt:5
+msgid "Name"
+msgstr "Name"
+
+#: templates/email/account_approve.html:6
+#: templates/email/account_approve.txt:6
+msgid "Email"
+msgstr "Email"
+
+#: templates/email/account_approve.html:11
+#: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
+#: templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "Vui lòng dùng liên kết dưới đây để kích hoạt tài khoản"
+
+#: templates/email/account_approve_subject.txt:2
+msgid "An account requires activation"
+msgstr ""
+
+#: templates/email/account_approved.html:3
+#: templates/email/account_approved.txt:3
+msgid "Hey there, your account has been activated."
+msgstr ""
+
+#: templates/email/account_approved.html:4
+#: templates/email/account_approved.txt:4
+msgid "Please use the link below to log in."
+msgstr ""
+
+#: templates/email/account_approved_subject.txt:2
+msgid "Your account has been activated"
 msgstr ""
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
 msgid "Hey there, the password reset form was used for your account."
-msgstr ""
+msgstr "Xin chào, form lấy lại mật khẩu được dùng cho tài khoản của bạn"
 
 #: templates/email/password_reset_verify.html:4
 #: templates/email/password_reset_verify.txt:4
 msgid "Please use the link below to log in and update your password."
-msgstr ""
+msgstr "Vui lòng dùng liên kết dưới đây để đăng nhập và cập nhật mật khẩu"
 
 #: templates/email/password_reset_verify.html:6
 #: templates/email/password_reset_verify.txt:6
 msgid ""
 "If you didn't request for your password to be reset, please ignore this "
 "email."
-msgstr ""
+msgstr "Nếu bạn không yêu cầu lấy lại mật khẩu, vui lòng bỏ qua email này."
 
 #: templates/email/password_reset_verify_subject.txt:2
 msgid "Reset your password"
-msgstr ""
+msgstr "Lấy lại mật khẩu"
 
 #: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
-msgstr ""
-
-#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
-msgid "Please use the link below to activate it."
-msgstr ""
+msgstr "Cảm ơn đã đăng kí"
 
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"
-msgstr ""
+msgstr "Kích hoạt tài khoản "

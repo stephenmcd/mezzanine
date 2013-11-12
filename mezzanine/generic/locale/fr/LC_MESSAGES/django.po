@@ -1,24 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <mathias.ettinger@gmail.com>, 2012.
-#   <strider@strycore.com>, 2012.
-# Vincent Rialland <vincent.rialland@gmail.com>, 2011.
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# Romain Hardouin <romain_hardouin@yahoo.fr>, 2013
+# strider <strider@strycore.com>, 2012
+# strider <strider@strycore.com>, 2012
+# Vincent Rialland <vincent.rialland@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:40-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
-"language/fr/)\n"
-"Language: fr\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Romain Hardouin <romain_hardouin@yahoo.fr>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/mezzanine/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: admin.py:20 models.py:69
@@ -31,9 +33,7 @@ msgstr "Un compte est nécessaire pour poster des commentaires"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr ""
-"Si ``vrai``, les utilisateurs doivent se connecter pour poster des "
-"commentaires."
+msgstr "Si ``vrai``, les utilisateurs doivent se connecter pour poster des commentaires."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -71,9 +71,7 @@ msgstr "Si ``vrai``, les commentaires seront validés par défaut."
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr ""
-"Chemin d'accès en notation pointée vers la fonction à appeler sur le contenu "
-"d'un commentaire avant qu'il soit fournit au template."
+msgstr "Chemin d'accès en notation pointée vers la fonction à appeler sur le contenu d'un commentaire avant qu'il soit fournit au template."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
@@ -83,9 +81,7 @@ msgstr "Adresses e-mail pour signaler un nouveau commentaire"
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"Une liste d'adresses e-mail, séparée par des virgules, qui recevront un e-"
-"mail d'avertissement à chaque nouveau commentaire publié sur le site."
+msgstr "Une liste d'adresses e-mail, séparée par des virgules, qui recevront un e-mail d'avertissement à chaque nouveau commentaire publié sur le site."
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -103,9 +99,7 @@ msgstr "Afficher les commentaires non-modérés"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"Si ``vrai``, les commentaires qui ont ``is_public`` décochés seront "
-"affichés, mais remplacés par le message ``en attente de modération``."
+msgstr "Si ``vrai``, les commentaires qui ont ``is_public`` décochés seront affichés, mais remplacés par le message ``en attente de modération``."
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -113,29 +107,27 @@ msgstr "Afficher les commentaires effacés"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"Si ``vrai``, les commenaires qui ont le champ ``removed`` coché seront "
-"toujours affichés mais remplacés par le message ``effacé``."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Si ``vrai``, les commenaires qui ont le champ ``removed`` coché seront toujours affichés mais remplacés par le message ``effacé``."
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
-msgstr ""
+msgstr "Si ``True``, les commentaires peuvent être notés."
 
 #: defaults.py:120
 msgid "Accounts required for rating"
-msgstr ""
+msgstr "Un compte est nécessaire pour noter"
 
 #: defaults.py:121
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
-msgstr ""
+msgstr "Si ``True``, les utilisateurs doivent s'authentifier pour noter les contenus tels que les articles ou les commentaires."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
-msgstr ""
+msgstr "Plage de nombres entiers utilisée pour la notation."
 
 #: forms.py:83
 msgid "Name"
@@ -167,7 +159,7 @@ msgstr "Nouveau commentaire pour :"
 
 #: forms.py:174
 msgid "Already rated."
-msgstr ""
+msgstr "Déjà noté."
 
 #: models.py:26
 msgid "By the blog author"
@@ -203,11 +195,11 @@ msgstr "Valeur"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "Date de l'évaluation"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "Evaluateur"
 
 #: models.py:131
 msgid "Ratings"
@@ -215,7 +207,7 @@ msgstr "Notes"
 
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
+msgstr "Vous devez être authentifié. Identifiez-vous ou enregistrez-vous pour réaliser cette action."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -238,19 +230,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"    Le %(submit_date)s, %(user_name)s a écrit :\n"
-"    "
+msgstr "\n    Le %(submit_date)s, %(user_name)s a écrit :\n    "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"Le %(submit_date)s, %(user_name)s a écrit :\n"
+msgstr "\nLe %(submit_date)s, %(user_name)s a écrit :\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

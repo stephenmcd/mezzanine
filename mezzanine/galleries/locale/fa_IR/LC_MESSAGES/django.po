@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
 "PO-Revision-Date: 2012-10-16 08:50+0000\n"
 "Last-Translator: Bornazadeh <bornazadeh@gmail.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/mezzanine/"
@@ -38,18 +38,18 @@ msgstr "گالری"
 msgid "Galleries"
 msgstr "گالری ها"
 
-#: models.py:91
+#: models.py:92
 msgid "File"
 msgstr "فایل"
 
-#: models.py:93
+#: models.py:94
 msgid "Description"
 msgstr "توضیح"
 
-#: models.py:97
+#: models.py:98
 msgid "Image"
 msgstr "عکس"
 
-#: models.py:98
+#: models.py:99
 msgid "Images"
 msgstr "عکس ها"

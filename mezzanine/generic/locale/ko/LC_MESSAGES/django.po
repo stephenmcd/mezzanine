@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Korean (http://www.transifex.com/projects/p/mezzanine/"
-"language/ko/)\n"
-"Language: ko\n"
+"Language-Team: Korean (http://www.transifex.com/projects/p/mezzanine/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20 models.py:69
@@ -94,9 +93,7 @@ msgstr "미승인 댓글들 보여주기"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"``True``는 ``is_public``로 체크되지 않은 댓글들도 페이지에서 보이지만, "
-"``waiting to be approved`` 란 글로 바꿔서 보여집니다."
+msgstr "``True``는 ``is_public``로 체크되지 않은 댓글들도 페이지에서 보이지만, ``waiting to be approved`` 란 글로 바꿔서 보여집니다."
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -104,11 +101,9 @@ msgstr "삭제된 댓글들 보여주기"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"``True``는, ``removed``로 체크된 댓글들도 페이지에서 보이지만, ``removed`` "
-"란 글로 바꿔서 보여집니다."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "``True``는, ``removed``로 체크된 댓글들도 페이지에서 보이지만, ``removed`` 란 글로 바꿔서 보여집니다."
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."

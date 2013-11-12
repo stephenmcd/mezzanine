@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# zeller <zellermester@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-09-19 11:30+0000\n"
+"Last-Translator: zeller <zellermester@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/mezzanine/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -20,106 +21,107 @@ msgstr ""
 
 #: __init__.py:16
 msgid "User"
-msgstr ""
+msgstr "Felhasználó"
 
 #: __init__.py:17
 msgid "List"
-msgstr ""
+msgstr "Lista"
 
 #: __init__.py:18
 msgid "Search"
-msgstr ""
+msgstr "Keresés"
 
 #: defaults.py:21
 msgid "Default Twitter Query Type"
-msgstr ""
+msgstr "Alapértelmezett Twitter lekérdezés típusa"
 
 #: defaults.py:22
 msgid ""
 "Type of query that will be used to retrieve tweets for the default Twitter "
 "feed."
 msgstr ""
+"Az a lekérdezés, amivel az alapértelmezett Twitter folyam olvasva lesz."
 
 #: defaults.py:31
 msgid "Default Twitter Query"
-msgstr ""
+msgstr "Alapértelmezett Twitter lekérdezés"
 
 #: defaults.py:32
 msgid "Twitter query to use for the default query type."
-msgstr ""
+msgstr "Az alapértelmezett lekérdezés típushoz használt Twitter lekérdezés."
 
 #: defaults.py:39
 msgid "Default Number of Tweets"
-msgstr ""
+msgstr "Alapértelmezett tweet darabszám"
 
 #: defaults.py:40
 msgid "Number of tweets to display in the default Twitter feed."
-msgstr ""
+msgstr "Az alapértelmezett Twitter folyamban megjelenő tweetek száma."
 
 #: models.py:27
 msgid "Type"
-msgstr ""
+msgstr "Típus"
 
 #: models.py:29
 msgid "Value"
-msgstr ""
+msgstr "Érték"
 
 #: models.py:33
 msgid "Twitter query"
-msgstr ""
+msgstr "Twitter lekérdezés"
 
 #: models.py:34
 msgid "Twitter queries"
-msgstr ""
+msgstr "Twitter lekérdezések"
 
 #: models.py:102
 msgid "Twitter ID"
-msgstr ""
+msgstr "Twitter ID"
 
 #: models.py:103
 msgid "Date/time"
-msgstr ""
+msgstr "Dátum/idő"
 
 #: models.py:104
 msgid "Message"
-msgstr ""
+msgstr "Üzenet"
 
 #: models.py:105
 msgid "Profile image URL"
-msgstr ""
+msgstr "Profilkép URL"
 
 #: models.py:106
 msgid "User name"
-msgstr ""
+msgstr "Felhasználónév"
 
 #: models.py:107
 msgid "Full name"
-msgstr ""
+msgstr "Teljes név"
 
 #: models.py:109
 msgid "Profile image URL (Retweeted by)"
-msgstr ""
+msgstr "Profilkép URL (retweetelte:)"
 
 #: models.py:111
 msgid "User name (Retweeted by)"
-msgstr ""
+msgstr "Felhasználónév (retweetelte:)"
 
 #: models.py:113
 msgid "Full name (Retweeted by)"
-msgstr ""
+msgstr "Teljes név (retweetelte:)"
 
 #: models.py:119
 msgid "Tweet"
-msgstr ""
+msgstr "Tweet"
 
 #: models.py:120
 msgid "Tweets"
-msgstr ""
+msgstr "Tweetek"
 
 #: templates/twitter/tweets.html:7
 msgid "Recent Tweets"
-msgstr ""
+msgstr "Friss Tweetek"
 
 #: templates/twitter/tweets.html:20
 msgid "ago"
-msgstr ""
+msgstr "óta"

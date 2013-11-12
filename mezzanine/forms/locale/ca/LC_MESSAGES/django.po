@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Sergi Almacellas Abellana <pokoli@gmail.com>, 2011.
-# Sergi Almacellas <pokoli@gmail.com>, 2012.
+# Sergi Almacellas <pokoli@gmail.com>, 2011
+# Sergi Almacellas <pokoli@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.com/projects/p/mezzanine/"
-"language/ca/)\n"
-"Language: ca\n"
+"Language-Team: Catalan (http://www.transifex.com/projects/p/mezzanine/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:33
@@ -43,33 +42,27 @@ msgstr ""
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
-msgstr ""
-"Longitud màxima permesa pels valors dels camps de l'aplicació formulari."
+msgstr "Longitud màxima permesa pels valors dels camps de l'aplicació formulari."
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr ""
-"Longitud màxima permesa per les etiquetes dels camps de l'aplicació "
-"formulari."
+msgstr "Longitud màxima permesa per les etiquetes dels camps de l'aplicació formulari."
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
-"Caràcter utilitzar com a delimitador de camps al exportar les respostes a "
-"CSV."
+msgstr "Caràcter utilitzar com a delimitador de camps al exportar les respostes a CSV."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr ""
-"Ruta absoluta per guardar els fitxers pujats a l'aplicació de formulari."
+msgstr "Ruta absoluta per guardar els fitxers pujats a l'aplicació de formulari."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -255,9 +248,7 @@ msgstr "Opcions"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Opcions separades per comes. Si una opció conté comes, envoltar amb `accents "
-"oberts`."
+msgstr "Opcions separades per comes. Si una opció conté comes, envoltar amb `accents oberts`."
 
 #: models.py:63
 msgid "Default value"

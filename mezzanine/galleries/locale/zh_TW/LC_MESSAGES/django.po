@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Tzu-ping Chung <uranusjr@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-06-14 11:49+0000\n"
+"Last-Translator: Tzu-ping Chung <uranusjr@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
 "mezzanine/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -20,34 +21,34 @@ msgstr ""
 
 #: models.py:38
 msgid "Zip import"
-msgstr ""
+msgstr "從 zip 匯入"
 
 #: models.py:40
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
-msgstr ""
+msgstr "上傳一個包含影像的 zip 檔，則它們會被匯入至相片庫。"
 
 #: models.py:44
 msgid "Gallery"
-msgstr ""
+msgstr "相片庫"
 
 #: models.py:45
 msgid "Galleries"
-msgstr ""
+msgstr "相片庫"
 
-#: models.py:91
+#: models.py:92
 msgid "File"
-msgstr ""
+msgstr "檔案"
 
-#: models.py:93
+#: models.py:94
 msgid "Description"
 msgstr "描述"
 
-#: models.py:97
-msgid "Image"
-msgstr ""
-
 #: models.py:98
+msgid "Image"
+msgstr "影像"
+
+#: models.py:99
 msgid "Images"
-msgstr ""
+msgstr "影像"

@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Korean (http://www.transifex.com/projects/p/mezzanine/"
-"language/ko/)\n"
-"Language: ko\n"
+"Language-Team: Korean (http://www.transifex.com/projects/p/mezzanine/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:32 fields.py:33
@@ -56,11 +55,11 @@ msgstr ""
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -246,9 +245,7 @@ msgstr "선택"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"적용가능한 경우 쉼표로 구분된 옵션. 옵션 자체가 쉼표를 갖는 경우, 옵션을 "
-"`backticks`로 둘러쌉니다."
+msgstr "적용가능한 경우 쉼표로 구분된 옵션. 옵션 자체가 쉼표를 갖는 경우, 옵션을 `backticks`로 둘러쌉니다."
 
 #: models.py:63
 msgid "Default value"

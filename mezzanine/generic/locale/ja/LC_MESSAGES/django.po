@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <andreas.lindroos@gmail.com>, 2012.
-# Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# HeliosReds <helios_reds@gmx.net>, 2012-2013
+# HeliosReds <helios_reds@gmx.net>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
-"language/ja/)\n"
-"Language: ja\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20 models.py:69
@@ -30,9 +31,7 @@ msgstr "コメントするにはアカウントが必要"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr ""
-"チェックを入れると、ユーザーがコメントするにはログインしなければいけなくなり"
-"ます。"
+msgstr "チェックを入れると、ユーザーがコメントするにはログインしなければいけなくなります。"
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -70,9 +69,7 @@ msgstr "チェックを入れると、ビルトインコメントは既定で承
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr ""
-"テンプレートに読み込まれる前にコメントの値を求める機能へのドット区切りのパ"
-"ス。"
+msgstr "テンプレートに読み込まれる前にコメントの値を求める機能へのドット区切りのパス。"
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
@@ -82,9 +79,7 @@ msgstr "コメントが付いたことを知らせるEメールアドレス"
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"サイトに何か新しいコメントが書き込まれる度にお知らせが届くEメール アドレスの"
-"CSV形式リスト。"
+msgstr "サイトに何か新しいコメントが書き込まれる度にお知らせが届くEメール アドレスのCSV形式リスト。"
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -102,9 +97,7 @@ msgstr "未承認のコメントを表示"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"チェックを入れると、``is_public``としてチェックされていないコメントも表示され"
-"たままに なりますが、``承認待ち``メッセージに置き換えられます。"
+msgstr "チェックを入れると、``is_public``としてチェックされていないコメントも表示されたままに なりますが、``承認待ち``メッセージに置き換えられます。"
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -112,29 +105,27 @@ msgstr "削除されたコメントを表示"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"チェックを入れると、``removed``としてチェックされたコメントも表示されたままに"
-"なりますが、 ``削除済み``メッセージに置き換えられます。"
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "チェックを入れると、``removed``としてチェックされたコメントも表示されたままになりますが、 ``削除済み``メッセージに置き換えられます。"
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
-msgstr ""
+msgstr "チェックを入れると、コメントに投票できます。"
 
 #: defaults.py:120
 msgid "Accounts required for rating"
-msgstr ""
+msgstr "投票できるアカウント"
 
 #: defaults.py:121
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
-msgstr ""
+msgstr "チェックを入れると、ブログやコメントといったコンテンツに投票するにはログインが 求められるようになります。"
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
-msgstr ""
+msgstr "有効投票となる整数のシークエンス。"
 
 #: forms.py:83
 msgid "Name"
@@ -166,7 +157,7 @@ msgstr "以下に寄せられた新しいコメント: "
 
 #: forms.py:174
 msgid "Already rated."
-msgstr ""
+msgstr "投票済み。"
 
 #: models.py:26
 msgid "By the blog author"
@@ -202,11 +193,11 @@ msgstr "評価値"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "投票日"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "投票者"
 
 #: models.py:131
 msgid "Ratings"
@@ -214,7 +205,7 @@ msgstr "評価"
 
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
+msgstr "ログイン必須。この操作を完了するにはログインもしくはサインアップしてください。"
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -237,19 +228,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"   %(submit_date)s に %(user_name)s は書きました:\n"
-"   "
+msgstr "\n   %(submit_date)s に %(user_name)s は書きました:\n   "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"%(submit_date)s に %(user_name)s は書きました:\n"
+msgstr "\n%(submit_date)s に %(user_name)s は書きました:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

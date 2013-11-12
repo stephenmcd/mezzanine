@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <avtobiff@gmail.com>, 2012.
+# avtobiff <avtobiff@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-11-30 17:13+0000\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: avtobiff <avtobiff@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/projects/p/mezzanine/"
-"language/sv/)\n"
-"Language: sv\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/mezzanine/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:33
@@ -38,9 +37,7 @@ msgstr "Visa inlägg"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"Om ``True`` kommer e-brev inte att skickas från en adress tagen från en av "
-"formulärets e-brevsfält till extra mottagare för formulärinskickning ."
+msgstr "Om ``True`` kommer e-brev inte att skickas från en adress tagen från en av formulärets e-brevsfält till extra mottagare för formulärinskickning ."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -52,27 +49,20 @@ msgstr "Max tillåten längd för fältetiketter i formulärapplikationen."
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
-"Tecken att använda för fältavskiljare vid export av formulärsvar som CSV."
+msgstr "Tecken att använda för fältavskiljare vid export av formulärsvar som CSV."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr ""
-"Absolut sökväg för att lagra filuppladdningar för formulärapplikationen."
+msgstr "Absolut sökväg för att lagra filuppladdningar för formulärapplikationen."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
-msgstr ""
-"Extra fälttyper för formulärapplikation. Ska innehålla en sekvens av tre-"
-"elements-sekvenser, innehållandes ID, punktad importsökväg för fältklassen "
-"och fältnamn, för varje anpassad fälttyp. ID:t är en numerisk konstant för "
-"fälter men kan inte vara ett värde som redan används, så välj ett högt "
-"nummer typiskt 100 eller större för att undvika konflikter."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "Extra fälttyper för formulärapplikation. Ska innehålla en sekvens av tre-elements-sekvenser, innehållandes ID, punktad importsökväg för fältklassen och fältnamn, för varje anpassad fälttyp. ID:t är en numerisk konstant för fälter men kan inte vara ett värde som redan används, så välj ett högt nummer typiskt 100 eller större för att undvika konflikter."
 
 #: fields.py:31
 msgid "Single line text"
@@ -190,9 +180,7 @@ msgstr "Skicka e-post till användare"
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
-"För att skicka e-brev till e-postadressen angiven i formuläret vid "
-"inskickning, kryssa i denna ruta."
+msgstr "För att skicka e-brev till e-postadressen angiven i formuläret vid inskickning, kryssa i denna ruta."
 
 #: models.py:23
 msgid "From address"
@@ -210,9 +198,7 @@ msgstr "Skicka e-brev till andra"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"Ge en kommaseparerad lista av e-postadresser som ska notifieras vid "
-"formulärinskickning. Lämna tom för att inaktivera notifieringar."
+msgstr "Ge en kommaseparerad lista av e-postadresser som ska notifieras vid formulärinskickning. Lämna tom för att inaktivera notifieringar."
 
 #: models.py:30
 msgid "Subject"
@@ -227,10 +213,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
-"E-brev skickade baserade på ovanstående alternativ kommer att innehålla "
-"ifyllda formulärfält. Du kan också fylla i ett meddelande här som inkluderas "
-"i e-brevet."
+msgstr "E-brev skickade baserade på ovanstående alternativ kommer att innehålla ifyllda formulärfält. Du kan också fylla i ett meddelande här som inkluderas i e-brevet."
 
 #: models.py:37
 msgid "Form"
@@ -264,9 +247,7 @@ msgstr "Val"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Kommaseparerad lista med alternativ där det är applicerbart. Om ett "
-"alternativ innehåller kommatecken omslut alternativet med `grava accenter`."
+msgstr "Kommaseparerad lista med alternativ där det är applicerbart. Om ett alternativ innehåller kommatecken omslut alternativet med `grava accenter`."
 
 #: models.py:63
 msgid "Default value"

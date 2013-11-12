@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Nicola Larosa <transifex@teknico.net>, 2012-2013.
+# Nicola Larosa <transifex@teknico.net>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-03-30 07:17-0430\n"
-"PO-Revision-Date: 2013-04-02 10:10+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:10+0000\n"
 "Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -22,41 +22,43 @@ msgstr ""
 msgid "Other posts"
 msgstr "Altri articoli"
 
-#: defaults.py:20
+#: defaults.py:21
 msgid "Enable featured images in blog posts"
 msgstr "Abilita immagini in evidenza negli articoli del blog"
 
-#: defaults.py:27
-msgid "Use date URLs"
-msgstr "Usa URL contenenti date."
-
-#: defaults.py:28
-msgid ""
-"If ``True``, URLs for blog post include the month and year. Eg: "
-"/blog/yyyy/mm/slug/"
-msgstr "Se ``True``, le URL dell'articolo del blog includono il mese e l'anno. Es.: /blog/aaaa/mm/slug/"
-
 #: defaults.py:36
+msgid "Blog post URL date format"
+msgstr "Formato data nelle URL dei post del blog"
+
+#: defaults.py:37
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr "Una stringa contenente il valore ``year``, ``month`` o ``day``, che controlla la granularità della porzione di data presente nella URL di ciascun post del blog. Ad esempio: ``year`` definirà delle URL nel formato /blog/yyyy/slug/, mentre ``day`` definirà URL col formato /blog/yyyy/mm/dd/slug/. Una stringa vuota significa che le URL useranno solo lo slug, e non conterranno alcuna porzione di data."
+
+#: defaults.py:49
 msgid "Blog posts per page"
 msgstr "Articoli blog per pagina"
 
-#: defaults.py:37
+#: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "Numero di articoli mostrati su una pagina elenco del blog."
 
-#: defaults.py:44
+#: defaults.py:57
 msgid "Blog posts RSS limit"
 msgstr "Limite agli articoli del blog nel feed RSS"
 
-#: defaults.py:45
+#: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
-msgstr ""
-"Numero degli articoli più recenti del blog mostrati nel feed RSS. Impostare "
-"a ``None`` per mostrare nel feed RSS tutti gli articoli del blog."
+msgstr "Numero degli articoli più recenti del blog mostrati nel feed RSS. Impostare a ``None`` per mostrare nel feed RSS tutti gli articoli del blog."
 
-#: defaults.py:53
+#: defaults.py:66
 msgid "Slug of the page object for the blog."
 msgstr "Slug dell'oggetto pagina per il blog."
 
@@ -93,11 +95,11 @@ msgstr "Articolo del blog"
 msgid "Blog posts"
 msgstr "Articoli del blog"
 
-#: models.py:85
+#: models.py:93
 msgid "Blog Category"
 msgstr "Categoria del blog"
 
-#: models.py:86
+#: models.py:94
 msgid "Blog Categories"
 msgstr "Categorie del blog"
 
@@ -123,9 +125,9 @@ msgstr "%(sometime)s fa"
 #: templates/blog/blog_post_detail.html:46
 #: templates/blog/blog_post_list.html:133
 #, python-format
-msgid "1 comment"
+msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] "1 commento"
+msgstr[0] "%(comments_count)s commento"
 msgstr[1] "%(comments_count)s commenti"
 
 #: templates/blog/blog_post_detail.html:74

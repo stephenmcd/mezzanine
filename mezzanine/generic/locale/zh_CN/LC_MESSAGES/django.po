@@ -1,24 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <chance.jiang@gmail.com>, 2012.
-#   <chengwenge988@gmail.com>, 2012.
-# 王 充 <wjcroom@gmail.com>, 2012.
+# chancejiang <chance.jiang@gmail.com>, 2012
+# chengwenge <chengwenge988@gmail.com>, 2012
+# 王 充 <wjcroom@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
-"mezzanine/language/zh_CN/)\n"
-"Language: zh_CN\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:20 models.py:69
@@ -79,8 +78,7 @@ msgstr "接收评论提醒的邮件地址"
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"站点有新评论时，接收新增评论提醒的邮件地址（如多个邮箱则用分号 ';' 分隔）。"
+msgstr "站点有新评论时，接收新增评论提醒的邮件地址（如多个邮箱则用分号 ';' 分隔）。"
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -98,9 +96,7 @@ msgstr "显示未审核评论"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"如果 ``True``,  ``is_public``未选中的评论依然显示，但“等待审核”的信息被替"
-"换。 "
+msgstr "如果 ``True``,  ``is_public``未选中的评论依然显示，但“等待审核”的信息被替换。 "
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -108,10 +104,9 @@ msgstr "显示移除的评论"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"如果 ``True``,  ``remmoved``未选中的评论依然显示，但“移除”的信息被替换。 "
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "如果 ``True``,  ``remmoved``未选中的评论依然显示，但“移除”的信息被替换。 "
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
@@ -232,18 +227,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"%(submit_date)s ，%(user_name)s 写到："
+msgstr "\n%(submit_date)s ，%(user_name)s 写到："
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"%(submit_date)s ，%(user_name)s 写到：\n"
+msgstr "\n%(submit_date)s ，%(user_name)s 写到：\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

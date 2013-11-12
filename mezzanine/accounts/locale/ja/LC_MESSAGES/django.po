@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <andreas.lindroos@gmail.com>, 2012.
-# Satoru Matsumoto aka HeliosReds <helios_reds@gmx.net>, 2012.
+# andreas.lindroos <andreas.lindroos@gmail.com>, 2012
+# HeliosReds <helios_reds@gmx.net>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-11-17 22:00+0000\n"
+"POT-Creation-Date: 2013-11-09 10:34-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
-"language/ja/)\n"
-"Language: ja\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: defaults.py:20
@@ -25,132 +24,156 @@ msgid "Minimum length for passwords"
 msgstr "パスワードの最低文字数"
 
 #: defaults.py:27
+msgid ""
+"If ``True``, the username field will be excluded from sign up and account "
+"update forms."
+msgstr ""
+
+#: defaults.py:35
 msgid "List of fields to exclude from the profile form."
 msgstr "プロファイルフォームから除外するフィールドのリスト。"
 
-#: defaults.py:34
+#: defaults.py:42
 msgid ""
 "Dotted package path and class name of profile form to use for users signing "
 "up and updating their profile, when ``mezzanine.accounts`` is installed."
-msgstr ""
-"``mezzanine.accounts``がインストールされている時にユーザーの登録や プロファイ"
-"ルの更新に使用するドット区切りのパッケージパス及びプロファイルフォームのクラ"
-"ス名。"
-
-#: defaults.py:43
-msgid "If ``True``, users will have their own public profile pages."
-msgstr ""
-"チェックを入れると、ユーザーはそれぞれの公開プロファイルページを持つことにな"
-"ります。"
+msgstr "``mezzanine.accounts``がインストールされている時にユーザーの登録や プロファイルの更新に使用するドット区切りのパッケージパス及びプロファイルフォームのクラス名。"
 
 #: defaults.py:51
-msgid ""
-"If ``True``, when users create an account, they will be sent an email with a "
-"verification link, which they must click to enable their account."
-msgstr ""
-"チェックを入れると、ユーザーがアカウントを作成した際、アカウントを有効化する"
-"ために クリックしなければいけない確認リンクの記載されたEメールが送信されま"
-"す。"
+msgid "If ``True``, users will have their own public profile pages."
+msgstr "チェックを入れると、ユーザーはそれぞれの公開プロファイルページを持つことになります。"
 
-#: forms.py:21 forms.py:190
+#: defaults.py:59
+msgid ""
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
+msgstr "チェックを入れると、ユーザーがアカウントを作成した際、アカウントを有効化するために クリックしなければいけない確認リンクの記載されたEメールが送信されます。"
+
+#: defaults.py:68
+msgid ""
+"If ``True``, when users create an account, they will not be enabled by "
+"default and a staff member will need to activate their account in the admin "
+"interface."
+msgstr ""
+
+#: defaults.py:77
+msgid "Account approval email addresses"
+msgstr ""
+
+#: defaults.py:78
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new account is created that requires approval."
+msgstr ""
+
+#: forms.py:29
+msgid "Email address"
+msgstr ""
+
+#: forms.py:31
 msgid "Username or email address"
 msgstr "ユーザー名またはEメールアドレス"
 
-#: forms.py:22 forms.py:66
+#: forms.py:39 forms.py:71
 msgid "Password"
 msgstr "パスワード"
 
-#: forms.py:35
+#: forms.py:52
 msgid "Invalid username/email and password"
 msgstr "ユーザー名/Eメールアドレスとパスワードが間違っています"
 
-#: forms.py:37
+#: forms.py:54
 msgid "Your account is inactive"
 msgstr "アカウント休止中"
 
-#: forms.py:68
+#: forms.py:73
 msgid "Password (again)"
 msgstr "パスワード (もう一度)"
 
-#: forms.py:81
+#: forms.py:87
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr "英数字とダッシュ(-)、アンダースコア(_)のみ使用可"
 
-#: forms.py:95
+#: forms.py:103
 msgid "Leave blank unless you want to change your password"
 msgstr "パスワードを変更したくない場合は空欄のままにしておいてください"
 
-#: forms.py:114
-msgid "Username can only contain letters, numbers, dashes or underscores."
-msgstr ""
-"ユーザー名に使用できるのは、英数字とダッシュ(-)、アンダースコア(_)のみです。"
-
 #: forms.py:122
+msgid "Username can only contain letters, numbers, dashes or underscores."
+msgstr "ユーザー名に使用できるのは、英数字とダッシュ(-)、アンダースコア(_)のみです。"
+
+#: forms.py:129
 msgid "This username is already registered"
 msgstr "このユーザー名は既に登録済みです。"
 
-#: forms.py:135
+#: forms.py:142
 msgid "Passwords do not match"
 msgstr "パスワードが一致しません"
 
-#: forms.py:137
+#: forms.py:144
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "パスワードは最低 %s 文字必要です"
 
-#: forms.py:152
+#: forms.py:158
 msgid "This email is already registered"
 msgstr "このEメールアドレスは既に登録済みです。"
 
-#: forms.py:199
+#: forms.py:224
 msgid "Invalid username/email"
 msgstr "無効なユーザー名/Eメールアドレス"
 
-#: views.py:31
+#: views.py:29
 msgid "Successfully logged in"
 msgstr "ログインしました"
 
-#: views.py:34
-msgid "Login"
+#: views.py:32 templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log in"
 msgstr "ログイン"
 
-#: views.py:43
+#: views.py:41
 msgid "Successfully logged out"
 msgstr "ログアウトしました"
 
-#: views.py:57
+#: views.py:56
+msgid ""
+"Thanks for signing up! You'll receive an email when your account is "
+"activated."
+msgstr ""
+
+#: views.py:60
 msgid ""
 "A verification email has been sent with a link for activating your account."
-msgstr ""
-"アカウントを有効にするためのリンクが記載された確認Eメールが送信されました。"
+msgstr "アカウントを有効にするためのリンクが記載された確認Eメールが送信されました。"
 
-#: views.py:61 views.py:80
+#: views.py:64 views.py:83
 msgid "Successfully signed up"
 msgstr "登録しました"
 
-#: views.py:64
-msgid "Signup"
+#: views.py:67 templates/accounts/includes/user_panel.html:21
+#: templates/accounts/includes/user_panel_nav.html:13
+msgid "Sign up"
 msgstr "登録"
 
-#: views.py:83 views.py:167
+#: views.py:86 views.py:153
 msgid "The link you clicked is no longer valid."
 msgstr "クリックしたリンクは有効期限切れです。"
 
-#: views.py:141
+#: views.py:127
 msgid "Profile updated"
 msgstr "プロファイルが更新されました"
 
-#: views.py:146
+#: views.py:132
 msgid "Update Profile"
 msgstr "プロファイル更新"
 
-#: views.py:155
+#: views.py:141
 msgid ""
 "A verification email has been sent with a link for resetting your password."
-msgstr ""
-"パスワードをリセットするためのリンクが記載された確認Eメールが送信されました。"
+msgstr "パスワードをリセットするためのリンクが記載された確認Eメールが送信されました。"
 
-#: views.py:157
+#: views.py:143
 msgid "Password Reset"
 msgstr "パスワードのリセット"
 
@@ -161,76 +184,96 @@ msgstr "既にログインしています。"
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
-"\">sign up</a> for one now."
-msgstr ""
-"まだアカウントをお持ちでないならお持ちでないなら、ここから<a href="
-"\"%(signup_url)s?next=%(next)s\">登録</a>することができます。"
+"If you don't have an account you can <a "
+"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgstr "まだアカウントをお持ちでないならお持ちでないなら、ここから<a href=\"%(signup_url)s?next=%(next)s\">登録</a>することができます。"
 
 #: templates/accounts/account_login.html:14
 #, python-format
 msgid ""
-"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
-"\">reset your password</a> if you've forgotten it.</p>"
-msgstr ""
-"<p>また、パスワードをお忘れになった場合は、こちらから<a href="
-"\"%(password_reset_url)s?next=%(profile_update_url)s\">パスワードをリセット</"
-"a>することもできます。</p>"
+"<p>You can also <a "
+"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
+"password</a> if you've forgotten it.</p>"
+msgstr "<p>また、パスワードをお忘れになった場合は、こちらから<a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">パスワードをリセット</a>することもできます。</p>"
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
-"Enter your username or email address and you'll receive an email with a link "
-"you need to click, in order to log in and change your password."
-msgstr ""
-"ユーザー名もしくはEメールアドレスを記入して上のボタンをクリックすると、 ログ"
-"インしてパスワードを変更するためのリンクが記載されたEメールが届きます。"
+"Enter your username or email address and you'll receive an email with a link"
+" you need to click, in order to log in and change your password."
+msgstr "ユーザー名もしくはEメールアドレスを記入して上のボタンをクリックすると、 ログインしてパスワードを変更するためのリンクが記載されたEメールが届きます。"
 
 #: templates/accounts/account_profile.html:17
-#: templates/accounts/includes/user_panel.html:9
+#: templates/accounts/includes/user_panel.html:10
 msgid "Update profile"
 msgstr "プロファイル更新"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need "
-"to log out first."
-msgstr ""
-"既にログインしています。新しいアカウントを作成したいのであれば、まず ログアウ"
-"トしてください。"
+"You're already logged in. If you'd like to create a new account, you'll need"
+" to log out first."
+msgstr "既にログインしています。新しいアカウントを作成したいのであれば、まず ログアウトしてください。"
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
-msgstr ""
-"登録すると、アカウントを有効にするためのリンクが記載されたEメールが届きます。"
+msgstr "登録すると、アカウントを有効にするためのリンクが記載されたEメールが届きます。"
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
 msgstr "右記ユーザーとしてログイン中: "
 
-#: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel.html:15
 #: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
 msgstr "ログアウト"
 
-#: templates/accounts/includes/user_panel.html:17
-#: templates/accounts/includes/user_panel_nav.html:11
-msgid "Log in"
-msgstr "ログイン"
-
-#: templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel.html:19
 msgid "or"
 msgstr "もしくは"
-
-#: templates/accounts/includes/user_panel.html:20
-#: templates/accounts/includes/user_panel_nav.html:13
-msgid "Sign up"
-msgstr "登録"
 
 #: templates/admin/profile_inline.html:10
 msgid "Profile information"
 msgstr "プロファイル情報"
+
+#: templates/email/account_approve.html:3
+#: templates/email/account_approve.txt:3
+msgid "Hey there, a new account has been created and requires activation."
+msgstr ""
+
+#: templates/email/account_approve.html:5
+#: templates/email/account_approve.txt:5
+msgid "Name"
+msgstr "お名前"
+
+#: templates/email/account_approve.html:6
+#: templates/email/account_approve.txt:6
+msgid "Email"
+msgstr "Eメール"
+
+#: templates/email/account_approve.html:11
+#: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
+#: templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "下のリンクからアカウントを有効化してください。"
+
+#: templates/email/account_approve_subject.txt:2
+msgid "An account requires activation"
+msgstr ""
+
+#: templates/email/account_approved.html:3
+#: templates/email/account_approved.txt:3
+msgid "Hey there, your account has been activated."
+msgstr ""
+
+#: templates/email/account_approved.html:4
+#: templates/email/account_approved.txt:4
+msgid "Please use the link below to log in."
+msgstr ""
+
+#: templates/email/account_approved_subject.txt:2
+msgid "Your account has been activated"
+msgstr ""
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
@@ -247,9 +290,7 @@ msgstr "下のリンクからログインしてパスワードを更新してく
 msgid ""
 "If you didn't request for your password to be reset, please ignore this "
 "email."
-msgstr ""
-"パスワードをリセットしたいというリクエストを送った覚えがない場合は、このEメー"
-"ルは 無視してください。"
+msgstr "パスワードをリセットしたいというリクエストを送った覚えがない場合は、このEメールは 無視してください。"
 
 #: templates/email/password_reset_verify_subject.txt:2
 msgid "Reset your password"
@@ -258,10 +299,6 @@ msgstr "パスワードのリセット"
 #: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
 msgstr "アカウント作成、どうもありがとうございました。"
-
-#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
-msgid "Please use the link below to activate it."
-msgstr "下のリンクからアカウントを有効化してください。"
 
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"

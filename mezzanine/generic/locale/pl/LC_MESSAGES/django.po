@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Kniyl <mathias.ettinger@gmail.com>, 2012
+# Kniyl <mathias.ettinger@gmail.com>, 2012
 # Michał Oleniec <moleniec@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-04-07 09:33-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
 "MIME-Version: 1.0\n"

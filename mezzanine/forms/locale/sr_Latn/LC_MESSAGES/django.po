@@ -1,24 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Milorad Pop-Tosic <poptosic@gmail.com>, 2012.
+# Milorad Pop-Tosic <poptosic@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 09:38-0430\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/"
-"mezzanine/language/sr@latin/)\n"
-"Language: sr@latin\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Milorad Pop-Tosic <poptosic@gmail.com>\n"
+"Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/mezzanine/language/sr@latin/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: sr@latin\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:32 fields.py:33
 msgid "Email"
@@ -40,9 +38,7 @@ msgstr "Prikaži zapise"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"Ako je uključeno, imejlovi koji se šalju dodatnim primaocima, neće se slati "
-"sa adrese koja se nalazi u nekoj od imejl polja unutar forme."
+msgstr "Ako je uključeno, imejlovi koji se šalju dodatnim primaocima, neće se slati sa adrese koja se nalazi u nekoj od imejl polja unutar forme."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -54,20 +50,19 @@ msgstr "Maksimalna veličina za labele u forms aplikaciji."
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
-"Karakter koji se koristi kao razdvojnik prilikom izvoza odgovora u CSV."
+msgstr "Karakter koji se koristi kao razdvojnik prilikom izvoza odgovora u CSV."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr "Apsolutna putanja za smeštanje fajlova za forms aplikaciju."
+msgstr "Apsolutna putanja za smeštanje fajlova koji se postavljaju kroz forms aplikaciju."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -120,7 +115,7 @@ msgstr "Datum/vreme"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Datum rođenja"
 
 #: fields.py:45
 msgid "Hidden"
@@ -204,9 +199,7 @@ msgstr "Pošaljite imejl ostalima"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"Unesite niz imejl adresa razdvojenih zarezima koje će biti obaveštene nakon "
-"slanja forme. Ostavite prazno kako biste isključili notifikacije."
+msgstr "Unesite niz imejl adresa razdvojenih zarezima na koje će se poslati obaveštenje nakon slanja forme. Ostavite prazno kako biste isključili notifikacije."
 
 #: models.py:30
 msgid "Subject"
@@ -255,9 +248,7 @@ msgstr "Opcije"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Niz opcija odvojenih zarezima. Ukoliko sama opcija sarži zarez okružite je "
-"`kosim apostrofima`."
+msgstr "Niz opcija odvojenih zarezima. Ukoliko sama opcija sadrži zarez okružite je `kosim apostrofima`."
 
 #: models.py:63
 msgid "Default value"

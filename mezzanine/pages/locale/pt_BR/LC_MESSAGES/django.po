@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-04-07 09:34-0430\n"
-"PO-Revision-Date: 2013-04-30 15:10+0000\n"
-"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:02+0000\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/mezzanine/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,39 +64,39 @@ msgid ""
 "``login_required`` checked, they'll be redirected to the login page."
 msgstr "Se checado, páginas com autenticação obrigatória checada irão ainda assim ser listadas em menus e resultados de busca, para usuários autenticados. Independente dessa configuração, quando um usuário não autenticado acessar uma página com autenticação obrigatória checada, ele irá ser redirecionado para a página de autenticação."
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
 msgstr "Mostrar nos menus"
 
-#: models.py:36
+#: models.py:41
 msgid "Login required"
 msgstr "Autenticação obrigatória"
 
-#: models.py:37
+#: models.py:42
 msgid "If checked, only logged in users can view this page"
 msgstr "Se checado, apenas usuários logados podem ver esta página"
 
-#: models.py:40
+#: models.py:45
 msgid "Page"
 msgstr "Página"
 
-#: models.py:41
+#: models.py:46
 msgid "Pages"
 msgstr "Páginas"
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
 msgstr "Página de texto"
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
 msgstr "Páginas de texto"
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr "Link"
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
 msgstr "Links"
 
@@ -114,7 +114,11 @@ msgstr "Adicionar"
 msgid "Home"
 msgstr "Início"
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
+msgstr ""
+
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
 msgstr "Ocorreu um erro com a seguinte classe. Ela herda Page diretamente?"

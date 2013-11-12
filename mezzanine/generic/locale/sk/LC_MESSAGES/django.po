@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <richard.kellner@ajty.info>, 2012.
+# ricco386 <richard.kellner@ajty.info>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:40-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/"
-"language/sk/)\n"
-"Language: sk\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/mezzanine/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: admin.py:20 models.py:69
@@ -77,9 +76,7 @@ msgstr "Notifikačný email pre komentáre"
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"Čiarkou oddelený zoznam emailových adries, na ktoré bude zaslaný notifikačný "
-"email, vždy keď je na stránke pridaný nový komentár."
+msgstr "Čiarkou oddelený zoznam emailových adries, na ktoré bude zaslaný notifikačný email, vždy keď je na stránke pridaný nový komentár."
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -97,9 +94,7 @@ msgstr "Zobraz neodsúhlasené komentáre"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"Pokiaľ ``True``, komentáre ktoré nemajú ``is_public`` zaškrtnuté, budú stále "
-"zobrazené, ale nahradené s ``waiting to be approved`` správou."
+msgstr "Pokiaľ ``True``, komentáre ktoré nemajú ``is_public`` zaškrtnuté, budú stále zobrazené, ale nahradené s ``waiting to be approved`` správou."
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -107,11 +102,9 @@ msgstr "Zobraz odstránené komentáre"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"Pokiaľ ``True``, komentáre ktoré majú ``removed`` zaškrtnuté, budú stále "
-"zobrazené, ale nahradené s ``removed`` správou."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Pokiaľ ``True``, komentáre ktoré majú ``removed`` zaškrtnuté, budú stále zobrazené, ale nahradené s ``removed`` správou."
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
@@ -232,18 +225,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"Na %(submit_date)s %(user_name)s nápísal:"
+msgstr "\nNa %(submit_date)s %(user_name)s nápísal:"
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"Na %(submit_date)s %(user_name)s nápísal:\n"
+msgstr "\nNa %(submit_date)s %(user_name)s nápísal:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

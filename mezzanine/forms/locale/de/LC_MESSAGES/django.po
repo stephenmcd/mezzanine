@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Christopher R. Parr <fosstux@gmail.com>, 2012.
-# Daniel Seither <post@tiwoc.de>, 2012.
+# Christopher R. Parr <fosstux@gmail.com>, 2012
+# clemensbasti <mail@sebastian-clemens.de>, 2013
+# Daniel Seither <post@tiwoc.de>, 2012
+# clemensbasti <mail@sebastian-clemens.de>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/mezzanine/"
-"language/de/)\n"
-"Language: de\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: clemensbasti <mail@sebastian-clemens.de>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/mezzanine/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:33
@@ -39,9 +40,7 @@ msgstr "Einträge ansehen"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"Wenn ``Wahr``, werden gesendete E-Mails an zusätzliche Empfänger für "
-"Formulareingaben nicht von einer Adresse aus dem Formular gesendet."
+msgstr "Wenn ``Wahr``, werden gesendete E-Mails an zusätzliche Empfänger für Formulareingaben nicht von einer Adresse aus dem Formular gesendet."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -61,11 +60,11 @@ msgstr "Absoluter Pfad, um Dateiuploads für die Form App zu speichern."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
@@ -118,7 +117,7 @@ msgstr "Datum/Zeit"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Geburtsdatum"
 
 #: fields.py:45
 msgid "Hidden"
@@ -184,9 +183,7 @@ msgstr "E-Mail an Benutzer senden"
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
-"Wenn dieses Feld ausgewählt wird, wird beim Absenden des Formulars eine "
-"Nachricht an die im Formular angegebene E-Mail-Adresse gesendet."
+msgstr "Wenn dieses Feld ausgewählt wird, wird beim Absenden des Formulars eine Nachricht an die im Formular angegebene E-Mail-Adresse gesendet."
 
 #: models.py:23
 msgid "From address"
@@ -204,10 +201,7 @@ msgstr "E-Mail an andere senden"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"Geben Sie eine Liste von durch Kommas getrennte E-Mail-Adressen an, die beim "
-"Absenden des Formulars benachrichtigt werden sollen. Wenn Sie dieses Feld "
-"leer lassen, werden die Benachrichtigungen deaktiviert."
+msgstr "Geben Sie eine Liste von durch Kommas getrennte E-Mail-Adressen an, die beim Absenden des Formulars benachrichtigt werden sollen. Wenn Sie dieses Feld leer lassen, werden die Benachrichtigungen deaktiviert."
 
 #: models.py:30
 msgid "Subject"
@@ -222,10 +216,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
-"Die E-Mails, die aufgrund der obigen Angaben versendet werden, enthalten die "
-"Einträge aller Formularfelder. Zusätzlich können Sie hier eine Nachricht "
-"eingeben, die an die E-Mails angefügt werden soll."
+msgstr "Die E-Mails, die aufgrund der obigen Angaben versendet werden, enthalten die Einträge aller Formularfelder. Zusätzlich können Sie hier eine Nachricht eingeben, die an die E-Mails angefügt werden soll."
 
 #: models.py:37
 msgid "Form"
@@ -259,9 +250,7 @@ msgstr "Möglichkeiten"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Durch Komma getrennte Optionen, wenn zutreffend. Wenn eine Option selbst ein "
-"Komma beinhaltet, diese Option durch `Backticks` umgeben."
+msgstr "Durch Komma getrennte Optionen, wenn zutreffend. Wenn eine Option selbst ein Komma beinhaltet, diese Option durch `Backticks` umgeben."
 
 #: models.py:63
 msgid "Default value"

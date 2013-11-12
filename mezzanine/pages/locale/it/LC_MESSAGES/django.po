@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Nicola Larosa <transifex@teknico.net>, 2012-2013.
+# Nicola Larosa <transifex@teknico.net>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
-"Report-Msgid-Bugs-To: https://github.com/stephenmcd/mezzanine/issues\n"
-"POT-Creation-Date: 2013-03-30 07:16-0430\n"
-"PO-Revision-Date: 2013-04-02 10:10+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:10+0000\n"
 "Last-Translator: Nicola Larosa <transifex@teknico.net>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/mezzanine/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -23,27 +23,17 @@ msgid ""
 "A sequence of ``Page`` subclasses in the format ``app_label.model_name``, "
 "that controls the ordering of items in the select drop-down for adding new "
 "pages within the admin page tree interface."
-msgstr ""
-"Una sequenza di sottoclassi di ``Page`` nel formato ``app_label."
-"model_name``, che controlla l'ordinamento degli elementi nel menu a discesa "
-"di scelta per aggiungere nuove pagine all'interno dell'albero di pagine "
-"dell'interfaccia di amministrazione."
+msgstr "Una sequenza di sottoclassi di ``Page`` nel formato ``app_label.model_name``, che controlla l'ordinamento degli elementi nel menu a discesa di scelta per aggiungere nuove pagine all'interno dell'albero di pagine dell'interfaccia di amministrazione."
 
 #: defaults.py:30
 msgid ""
-"A sequence of templates used by the ``page_menu`` template tag. Each item in "
-"the sequence is a three item sequence, containing a unique ID for the "
+"A sequence of templates used by the ``page_menu`` template tag. Each item in"
+" the sequence is a three item sequence, containing a unique ID for the "
 "template, a label for the template, and the template path. These templates "
 "are then available for selection when editing which menus a page should "
 "appear in. Note that if a menu template is used that doesn't appear in this "
 "setting, all pages will appear in it."
-msgstr ""
-"Una sequenza di template usati dal template tag ``page_menu``. Ogni elemento "
-"della sequenza è una sequenza di tre elementi, contenente ID univoco, "
-"etichetta e path del template. Questi template sono poi selezionabili quando "
-"si sceglie in quali menu la pagina dovrà comparire. Si noti che se si usa un "
-"template di menu che non appare in questa impostazione, tutte le pagine "
-"appariranno in esso."
+msgstr "Una sequenza di template usati dal template tag ``page_menu``. Ogni elemento della sequenza è una sequenza di tre elementi, contenente ID univoco, etichetta e path del template. Questi template sono poi selezionabili quando si sceglie in quali menu la pagina dovrà comparire. Si noti che se si usa un template di menu che non appare in questa impostazione, tutte le pagine appariranno in esso."
 
 #: defaults.py:39
 msgid "Top navigation bar"
@@ -60,15 +50,10 @@ msgstr "Pié di pagina"
 #: defaults.py:47
 msgid ""
 "A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the "
-"default menu templates selected when creating new pages. By default all menu "
-"templates are selected. Set this setting to an empty sequence to have no "
+"default menu templates selected when creating new pages. By default all menu"
+" templates are selected. Set this setting to an empty sequence to have no "
 "templates selected by default."
-msgstr ""
-"Una sequenza di ID dall'impostazione ``PAGE_MENU_TEMPLATES`` che definisce i "
-"template di menu scelti per default nella creazione di nuove pagine. Per "
-"default tutti i template di menu vengono scelti. Assegnare una sequenza "
-"vuota a questa impostazione per far sì che nessun template venga scelto per "
-"default."
+msgstr "Una sequenza di ID dall'impostazione ``PAGE_MENU_TEMPLATES`` che definisce i template di menu scelti per default nella creazione di nuove pagine. Per default tutti i template di menu vengono scelti. Assegnare una sequenza vuota a questa impostazione per far sì che nessun template venga scelto per default."
 
 #: defaults.py:58
 msgid ""
@@ -76,48 +61,41 @@ msgid ""
 "menus and search results, for unauthenticated users. Regardless of this "
 "setting, when an unauthenticated user accesses a page with "
 "``login_required`` checked, they'll be redirected to the login page."
-msgstr ""
-"Se ``True``, le pagine con ``login_required`` barrato verranno ugualmente "
-"elencate nei menu e nei risultati di ricerca, per utenti non autenticati. "
-"Indipendentemente da questa impostazione, quando gli utenti non autenticati "
-"accede a una pagina in cui ``login_required`` è barrato, essi verranno "
-"ridiretti alla pagina di login."
+msgstr "Se ``True``, le pagine con ``login_required`` barrato verranno ugualmente elencate nei menu e nei risultati di ricerca, per utenti non autenticati. Indipendentemente da questa impostazione, quando gli utenti non autenticati accede a una pagina in cui ``login_required`` è barrato, essi verranno ridiretti alla pagina di login."
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
 msgstr "Mostra nei menu"
 
-#: models.py:36
+#: models.py:41
 msgid "Login required"
 msgstr "Occorre aver effettuato l'accesso"
 
-#: models.py:37
+#: models.py:42
 msgid "If checked, only logged in users can view this page"
-msgstr ""
-"Se selezionato, solo gli utenti che hanno effettuato l'accesso possono "
-"vedere questa pagina"
+msgstr "Se selezionato, solo gli utenti che hanno effettuato l'accesso possono vedere questa pagina"
 
-#: models.py:40
+#: models.py:45
 msgid "Page"
 msgstr "Pagina"
 
-#: models.py:41
+#: models.py:46
 msgid "Pages"
 msgstr "Pagine"
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
 msgstr "Pagina con testo \"rich\""
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
 msgstr "Pagine con testo \"rich\""
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr "Collegamento"
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
 msgstr "Collegamenti"
 
@@ -135,8 +113,11 @@ msgstr "Aggiungi"
 msgid "Home"
 msgstr "Pagina principale"
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
+msgstr "Impossibile caricare il modello della pagina seguente, è stato rimosso?"
+
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
-msgstr ""
-"C'è stato un errore con la classe seguente. Discende direttamente da Page?"
+msgstr "C'è stato un errore con la classe seguente. Discende direttamente da Page?"

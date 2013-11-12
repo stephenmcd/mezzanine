@@ -1,25 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Andrey Ivankov <andrey.ivankov@gmail.com>, 2013.
-# Dmitry Falk <tfalc@mail.ru>, 2012.
+# andreyivankov <andrey.ivankov@gmail.com>, 2013
+# andreyivankov <andrey.ivankov@gmail.com>, 2013
+# Dmitry Falk <tfalc@mail.ru>, 2012
+# Elrengil <yagleb@mail.ru>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 22:56+0400\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
-"language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:20 models.py:69
 msgid "User"
@@ -31,9 +31,7 @@ msgstr "Требовать учетную запись"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr ""
-"Если ``Да``, то пользователи должны войти под своей учетной записью, чтобы "
-"иметь возможность оставлять комментарии."
+msgstr "Если ``Да``, то пользователи должны войти под своей учетной записью, чтобы иметь возможность оставлять комментарии."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -81,10 +79,7 @@ msgstr "Адреса электронной почты для уведомлен
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"Список адресов электронной почты, разделенных запятыми, которые будут "
-"получать уведомление по электронной почте каждый раз при появлении новых "
-"комментариев на сайте."
+msgstr "Список адресов электронной почты, разделенных запятыми, которые будет получать уведомление по электронной почте каждый раз при появлении новых комментариев на сайте."
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -102,9 +97,7 @@ msgstr "Показывать неподтверждённые комментар
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом "
-"будут заменены на надпись ``ожидает подтверждения``"
+msgstr "Если ``Да``, то неопубликованные комментарии будут отображаться, но при этом будут заменены на надпись ``ожидает подтверждения``"
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -112,15 +105,13 @@ msgstr "Показывать удалённые комментарии"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"Если ``Да``, то удалённые комментарии продолжат отображаться, но при этом "
-"будут заменены на надпись ``Удалено``"
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Если ``Да``, то удалённые комментарии продолжат отображаться, но при этом будут заменены на надпись ``Удалено``"
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
-msgstr ""
+msgstr "Если ``True``, комментарии могут быть оценены."
 
 #: defaults.py:120
 msgid "Accounts required for rating"
@@ -130,13 +121,11 @@ msgstr "Учетные записи необходимы для оценки р�
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
-msgstr ""
-"Если ``Да``, то пользователи должны войти под своей учетной записью, "
-"чтобы иметь возможность оценивать содержимое сайта."
+msgstr "Если ``Да``, то пользователи должны войти под своей учетной записью, чтобы иметь возможность оценивать содержимое сайта."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
-msgstr ""
+msgstr "Список чисел, используемых для оценки."
 
 #: forms.py:83
 msgid "Name"
@@ -162,11 +151,11 @@ msgstr "Веб-сайт"
 msgid "optional"
 msgstr "необязательно"
 
-#: forms.py:137
+#: forms.py:138
 msgid "New comment for: "
 msgstr "Новый комментарий:"
 
-#: forms.py:173
+#: forms.py:174
 msgid "Already rated."
 msgstr "Уже оценено."
 
@@ -214,10 +203,9 @@ msgstr "Оценщик"
 msgid "Ratings"
 msgstr "Рейтинг"
 
-#: views.py:61
+#: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr "Вы должны войти под своей учетной записью. "
-"Пожалуйста войдите или зарегистрируйтесь, чтобы завершить это действие."
+msgstr "Вы должны войти под своей учетной записью. Пожалуйста войдите или зарегистрируйтесь, чтобы завершить это действие."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -227,9 +215,8 @@ msgstr "Последние комментарии"
 #: templates/generic/includes/comment.html:22
 #: templates/generic/includes/comment.html:53
 #: templates/generic/includes/comment.html:63
-#, python-format
-msgid "%(sometime)s ago"
-msgstr "%(sometime)s назад"
+msgid "ago"
+msgstr "назад"
 
 #: templates/email/comment_notification.html:6
 msgid "A new comment has been posted on"
@@ -241,19 +228,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"    %(submit_date)s %(user_name)s написал:\n"
-"    "
+msgstr "\n    %(submit_date)s %(user_name)s написал:\n    "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"%(submit_date)s %(user_name)s написал:\n"
+msgstr "\n%(submit_date)s %(user_name)s написал:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

@@ -1,25 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <mathias.ettinger@gmail.com>, 2012.
-# Michał Oleniec <moleniec@gmail.com>, 2011.
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# manveru <manveru@manveru.pl>, 2013
+# manveru <manveru@manveru.pl>, 2013
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# Michał Oleniec <moleniec@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-10-26 11:04+0000\n"
-"Last-Translator: Kniyl <mathias.ettinger@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/"
-"language/pl/)\n"
-"Language: pl\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: manveru <manveru@manveru.pl>\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/mezzanine/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:32 fields.py:33
 msgid "Email"
@@ -41,9 +42,7 @@ msgstr "Zobacz wpisy"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"Jeśli ``Prawda``, e-maile wysłane do  dodatkowych odbiorców z formularza nie "
-"zostaną wysłane z adresu wziętego z jednego z pól formularza e-maili."
+msgstr "Jeśli ``Prawda``, e-maile wysłane do  dodatkowych odbiorców z formularza nie zostaną wysłane z adresu wziętego z jednego z pól formularza e-maili."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -59,18 +58,16 @@ msgstr "Znak separacji pól dla plików CSV przy eksporcie danych formularzy."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr ""
-"Ścieżka absolutna do katalogu w którym będą przechowywane pliki wysłane za "
-"pomocą formularzy."
+msgstr "Ścieżka absolutna do katalogu w którym będą przechowywane pliki wysłane za pomocą formularzy."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
-msgstr ""
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "Dodatkowe typy pół dla aplikacji formularzy. Powinno zawierać sekwencję trójelementowych sekwencji dla każdego własnego typu, składających się z ID, kropkowanej ścieżki importu klasy pola oraz jego nazwy. Numer ID jest stałą dla tego pola, nie może być wartością wcześniej użytą, dlatego należy wybrać numer równy bądź większy od 100, aby uniknąć konfliktów."
 
 #: fields.py:31
 msgid "Single line text"
@@ -188,8 +185,7 @@ msgstr "Wyslij e-mail do użytkownika"
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
-"Aby wysłać e-mail na adres z formularza po zatwierdzeniu, zaznacz to pole."
+msgstr "Aby wysłać e-mail na adres z formularza po zatwierdzeniu, zaznacz to pole."
 
 #: models.py:23
 msgid "From address"
@@ -207,10 +203,7 @@ msgstr "Wyślij e-mail do innych odbiorców"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"Wskaż liste e-maili oddzielonych przecinkami, na które zostanie wysłana "
-"lista po zatwierdzeniu formularza. Pozostaw puste pole, aby dezaktywować "
-"powiadomienia."
+msgstr "Wskaż liste e-maili oddzielonych przecinkami, na które zostanie wysłana lista po zatwierdzeniu formularza. Pozostaw puste pole, aby dezaktywować powiadomienia."
 
 #: models.py:30
 msgid "Subject"
@@ -225,10 +218,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
-"E-maile wysłane według powyższych opcji, będą zawierać każde wypełnione w "
-"formularzu pole. Możesz tu również dodać wiadomość, która zostanie zawarta w "
-"e-mailu."
+msgstr "E-maile wysłane według powyższych opcji, będą zawierać każde wypełnione w formularzu pole. Możesz tu również dodać wiadomość, która zostanie zawarta w e-mailu."
 
 #: models.py:37
 msgid "Form"
@@ -262,9 +252,7 @@ msgstr "Opcje"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Opcje oddzielone przecinkami. Jeżeli opcja sama w sobie zawiera przecinek "
-"należy ją otoczyć `lewym apostrofem`"
+msgstr "Opcje oddzielone przecinkami. Jeżeli opcja sama w sobie zawiera przecinek należy ją otoczyć `lewym apostrofem`"
 
 #: models.py:63
 msgid "Default value"

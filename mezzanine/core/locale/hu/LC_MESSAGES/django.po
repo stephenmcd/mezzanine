@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <csillag.kristof@gmail.com>, 2013.
+# csillag <csillag.kristof@gmail.com>, 2013
+# zeller <zellermester@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:59+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-09-19 14:50+0000\n"
+"Last-Translator: zeller <zellermester@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/mezzanine/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -29,7 +30,7 @@ msgstr "Metaadat"
 
 #: defaults.py:21
 msgid "Controls the ordering and grouping of the admin menu."
-msgstr ""
+msgstr "Az admin menü rendezéseit és a csoportosjait állítja."
 
 #: defaults.py:24 models.py:275
 msgid "Content"
@@ -37,7 +38,7 @@ msgstr "Tartalom"
 
 #: defaults.py:25
 msgid "Media Library"
-msgstr ""
+msgstr "Médiatár"
 
 #: defaults.py:26 templates/admin/login.html:43
 msgid "Site"
@@ -49,25 +50,27 @@ msgstr "Felhasználók"
 
 #: defaults.py:33
 msgid "Unregister these models from the admin."
-msgstr ""
+msgstr "Ezen modellek eltávolítása az admin felületről."
 
 #: defaults.py:40
 msgid "Size of thumbnail previews for image fields in the admin interface."
-msgstr ""
+msgstr "A kép típusú mezők indexképeinek mérete az admin felületen."
 
 #: defaults.py:48
 msgid "Akismet API Key"
-msgstr ""
+msgstr "Akismet API kulcs"
 
 #: defaults.py:49
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
 msgstr ""
+"Kulcs az http://akismet.com spamszűrő szolgáltatáshoz. Kommentek és űrlapok "
+"szűréséhez használjuk."
 
 #: defaults.py:57
 msgid "bit.ly access token"
-msgstr ""
+msgstr "token bit.ly-hez"
 
 #: defaults.py:58
 msgid "Access token for http://bit.ly URL shortening service."
@@ -82,17 +85,19 @@ msgid ""
 "is set again, and no entry is returned. This tries to ensure that cache "
 "misses never occur, and if many clients were to get a cache miss at once, "
 "only one would actually need to re-generated the cache entry."
-msgstr ""
+msgstr "A mezzanine cache a mint caching nevű technikán alapszik. )Ö)Ö)Ö)Ö)"
 
 #: defaults.py:93
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
 msgstr ""
+"Háromelemű lista amely minden eleme sablon tagek sorozata, melyek az admin "
+"műszerfal renderelése során vannak használva."
 
 #: defaults.py:101
 msgid "Device specific template sub-directory to use as the default device."
-msgstr ""
+msgstr "Eszközfüggő sablon alkönyvtár az alapértelmezett eszközhöz."
 
 #: defaults.py:109
 msgid ""
@@ -102,7 +107,7 @@ msgstr ""
 
 #: defaults.py:131
 msgid "If ``True``, website forms will use HTML5 features."
-msgstr ""
+msgstr "Ha ``True`` az űrlapok HTML5 funkciókat is használni fognak."
 
 #: defaults.py:138
 msgid ""
@@ -118,11 +123,11 @@ msgstr ""
 
 #: defaults.py:153
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Analytics ID"
 
 #: defaults.py:155
 msgid "Google Analytics ID (http://www.google.com/analytics/)"
-msgstr ""
+msgstr "Google Analytics ID (http://www.google.com/analytics/)"
 
 #: defaults.py:161
 msgid ""
@@ -136,11 +141,12 @@ msgstr ""
 
 #: defaults.py:175
 msgid "Name of the jQuery file."
-msgstr ""
+msgstr "A jQuery fájl neve."
 
 #: defaults.py:176
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
 msgstr ""
+"A mezzanine/core/static/mezzanine/js/ alatt található  jQuery fájl neve."
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
@@ -160,13 +166,14 @@ msgstr ""
 
 #: defaults.py:201
 msgid "Media library per site"
-msgstr ""
+msgstr "Oldalankénti médiatár "
 
 #: defaults.py:202
 msgid ""
 "If ``True``, each site will use its own directory within the filebrowser "
 "media library."
 msgstr ""
+"Ha ``True`` minden oldalnak  saját mappája lesz a médiatár fájlválasztójában."
 
 #: defaults.py:210
 msgid ""
@@ -208,19 +215,19 @@ msgstr ""
 
 #: defaults.py:282
 msgid "High"
-msgstr ""
+msgstr "Magas"
 
 #: defaults.py:283
 msgid "Low (allows video, iframe, Flash, etc)"
-msgstr ""
+msgstr "Alacsony (flash, videók, iframe stb. megengedett)"
 
 #: defaults.py:284
 msgid "No filtering"
-msgstr ""
+msgstr "Nincs szűrés"
 
 #: defaults.py:289
 msgid "Rich Text filter level"
-msgstr ""
+msgstr "Rich text szűrés szintje"
 
 #: defaults.py:290
 msgid ""
@@ -241,6 +248,21 @@ msgid ""
 "Setting the filtering level to no filtering, will disable all filtering, and "
 "allow any code to be entered by staff members, including script tags."
 msgstr ""
+"*Csak akkor baszogasd ha tudod mit csinálsz.*\n"
+"\n"
+"Mikor a Rich text (WYSWIG) editorral szerkesztett szöveg mentésre kerül, a "
+"HTML tagek és attribútumok tartalma szűrve lesz, nehogy az oldalszerkesztők "
+"szándékosan problémás kódót hajthassanak végre amely superuserré tehetné "
+"őket, minden jogosultsgággal.\n"
+"\n"
+"Ezzel a beállítással a szűrés erőssége állítható. Alacsonyra állítva "
+"bizonyos tagek engedélyezve lesznek, pl. videó beágyazásához. Bár nem ezek "
+"az elsődlegesen rosszindulatú kód becsempészésére használt tagek, azért "
+"veszélyesek és könnyedén kihasználhatóak egy technikás felhasználó által, "
+"ezért magasra állított szűrő beállítások mellett tiltva vannak.\n"
+"\n"
+"\"Nincs szűrés\"-re állítva egyáltalán nem lesznek a tagek szűrve és "
+"bármilyen kód elmentésre kerül, beleértve a script tagben levőket."
 
 #: defaults.py:313
 msgid ""
@@ -251,11 +273,11 @@ msgstr ""
 
 #: defaults.py:323
 msgid "Search results per page"
-msgstr ""
+msgstr "Találatok száma oldalanként"
 
 #: defaults.py:324
 msgid "Number of results shown in the search results page."
-msgstr ""
+msgstr "Hány találat fog megjelenni a keresési eredmények oldalon."
 
 #: defaults.py:331
 msgid ""
@@ -267,7 +289,7 @@ msgstr ""
 
 #: defaults.py:342
 msgid "Site Title"
-msgstr ""
+msgstr "Oldal címe"
 
 #: defaults.py:343
 msgid ""
@@ -285,7 +307,7 @@ msgstr ""
 
 #: defaults.py:354
 msgid "An open source content management platform."
-msgstr ""
+msgstr "Egy nyílt forrású CMS platform."
 
 #: defaults.py:359
 msgid ""
@@ -307,7 +329,7 @@ msgstr ""
 
 #: defaults.py:383
 msgid "Enable SSL"
-msgstr ""
+msgstr "SSL engedélyezése"
 
 #: defaults.py:384
 msgid ""
@@ -338,11 +360,11 @@ msgstr ""
 
 #: defaults.py:479
 msgid "Tag Cloud Sizes"
-msgstr ""
+msgstr "Címkefelhő méretek"
 
 #: defaults.py:480
 msgid "Number of different sizes for tags when shown as a cloud."
-msgstr ""
+msgstr "A címkefelhőben megjelenő címkék méretei."
 
 #: defaults.py:487
 msgid "Sequence of setting names available within templates."
@@ -376,7 +398,7 @@ msgstr ""
 #: fields.py:37
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
-msgstr ""
+msgstr "A beállítások importálása sikertelen volt. RICHTEXT_WIDGET_CLASS: %s"
 
 #: forms.py:84 models.py:317
 msgid "Order"
@@ -396,7 +418,7 @@ msgstr ""
 
 #: models.py:100
 msgid "View on site"
-msgstr ""
+msgstr "Előnézet az éles oldalon"
 
 #: models.py:112
 msgid ""
@@ -417,6 +439,8 @@ msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
 msgstr ""
+"Ha ki van választva a leírás a tartalom alapján automatikusan generálódik. "
+"Ha saját leírást szeretnél írni, kapcsold ki."
 
 #: models.py:119
 msgid "Keywords"
@@ -444,7 +468,7 @@ msgstr "Közzétéve innen"
 
 #: models.py:193
 msgid "With Published chosen, won't be shown until this time"
-msgstr ""
+msgstr "Publikálás után ezután az időpont után lesz látható."
 
 #: models.py:195
 msgid "Expires on"
@@ -452,11 +476,11 @@ msgstr "Lejár ekkor"
 
 #: models.py:196
 msgid "With Published chosen, won't be shown after this time"
-msgstr ""
+msgstr "Publikálás után ezután az időpont után már nem lesz látható."
 
 #: models.py:199
 msgid "Show in sitemap"
-msgstr ""
+msgstr "Látszódjon az oldaltérképben"
 
 #: models.py:402 models.py:422
 msgid "Author"
@@ -464,15 +488,15 @@ msgstr "Szerző"
 
 #: models.py:425
 msgid "Sites"
-msgstr ""
+msgstr "Oldalak"
 
 #: models.py:428
 msgid "Site permission"
-msgstr ""
+msgstr "Oldal jogosultsága"
 
 #: models.py:429
 msgid "Site permissions"
-msgstr ""
+msgstr "Oldal jogosultságai"
 
 #: views.py:87
 msgid "Permission denied"
@@ -480,11 +504,11 @@ msgstr "Hozzáférés megtagadva"
 
 #: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
-msgstr ""
+msgstr "Minden"
 
 #: templates/base.html:121
 msgid "Powered by"
-msgstr ""
+msgstr "Powered by"
 
 #: templates/base.html:124
 msgid "and"
@@ -492,7 +516,7 @@ msgstr "és"
 
 #: templates/base.html:127
 msgid "Theme by"
-msgstr ""
+msgstr "Témát csinálta:"
 
 #: templates/base.html:130
 msgid "View Mobile Site"
@@ -501,7 +525,7 @@ msgstr "Váltás a mobil változatra"
 #: templates/index.html:4 templates/index.html.py:5 templates/index.html:8
 #: templates/search_results.html:10 templates/admin/index.html:15
 msgid "Home"
-msgstr ""
+msgstr "Kezdőlap"
 
 #: templates/index.html:12
 msgid ""
@@ -551,7 +575,7 @@ msgstr ""
 
 #: templates/search_results.html:35
 msgid "read more"
-msgstr ""
+msgstr "tovább"
 
 #: templates/admin/base_site.html:34
 msgid "View site"
@@ -559,7 +583,7 @@ msgstr ""
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"
-msgstr ""
+msgstr "Műszerfal"
 
 #: templates/admin/login.html:21
 msgid "You don't have permission to access the admin for this site."
@@ -575,7 +599,7 @@ msgstr "Jelszó:"
 
 #: templates/admin/login.html:37
 msgid "Interface:"
-msgstr ""
+msgstr "Felület:"
 
 #: templates/admin/login.html:40 templates/includes/editable_toolbar.html:7
 #: templates/includes/editable_toolbar.html:9
@@ -629,7 +653,7 @@ msgstr "Hiba"
 
 #: templates/errors/500.html:10
 msgid "Sorry, an error occurred."
-msgstr ""
+msgstr "Sajons hiba történt."
 
 #: templates/includes/editable_form.html:16
 msgid "Save"
@@ -653,7 +677,7 @@ msgstr "Oldal"
 
 #: templates/includes/pagination.html:8
 msgid "of"
-msgstr ""
+msgstr "of"
 
 #: templates/includes/search_form.html:4
 msgid "Search"

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Milorad Pop-Tosic <poptosic@gmail.com>, 2012.
+# Milorad Pop-Tosic <poptosic@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-08-26 13:23+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-04-19 23:15+0000\n"
+"Last-Translator: Milorad Pop-Tosic <poptosic@gmail.com>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/"
 "mezzanine/language/sr@latin/)\n"
 "Language: sr@latin\n"

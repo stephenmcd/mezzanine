@@ -1,152 +1,178 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <edgars.sulcs@gmail.com>, 2012.
+# edijs <edgars.sulcs@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-14 21:42+0000\n"
+"POT-Creation-Date: 2013-11-09 10:34-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Latvian (http://www.transifex.com/projects/p/mezzanine/"
-"language/lv/)\n"
-"Language: lv\n"
+"Language-Team: Latvian (http://www.transifex.com/projects/p/mezzanine/language/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
 #: defaults.py:20
 msgid "Minimum length for passwords"
 msgstr "Minimālais paroles garums"
 
 #: defaults.py:27
+msgid ""
+"If ``True``, the username field will be excluded from sign up and account "
+"update forms."
+msgstr ""
+
+#: defaults.py:35
 msgid "List of fields to exclude from the profile form."
 msgstr "Lauki, ko nerādīt profila formā"
 
-#: defaults.py:34
+#: defaults.py:42
 msgid ""
 "Dotted package path and class name of profile form to use for users signing "
 "up and updating their profile, when ``mezzanine.accounts`` is installed."
 msgstr ""
 
-#: defaults.py:43
+#: defaults.py:51
 msgid "If ``True``, users will have their own public profile pages."
 msgstr "Katram lietotājam būs sava publiskā profila lapa."
 
-#: defaults.py:51
+#: defaults.py:59
 msgid ""
-"If ``True``, when users create an account, they will be sent an email with a "
-"verification link, which they must click to enable their account."
-msgstr ""
-"Lietotājiem pēc reģistrācijas uz e-pastu tiks nosūtīta apstiprinājuma saite, "
-"kuru nospiežot profils tiks aktivizēts."
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
+msgstr "Lietotājiem pēc reģistrācijas uz e-pastu tiks nosūtīta apstiprinājuma saite, kuru nospiežot profils tiks aktivizēts."
 
-#: forms.py:21 forms.py:190
+#: defaults.py:68
+msgid ""
+"If ``True``, when users create an account, they will not be enabled by "
+"default and a staff member will need to activate their account in the admin "
+"interface."
+msgstr ""
+
+#: defaults.py:77
+msgid "Account approval email addresses"
+msgstr ""
+
+#: defaults.py:78
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new account is created that requires approval."
+msgstr ""
+
+#: forms.py:29
+msgid "Email address"
+msgstr ""
+
+#: forms.py:31
 msgid "Username or email address"
 msgstr "Lietotāja vārds vai e-pasta adrese"
 
-#: forms.py:22 forms.py:66
+#: forms.py:39 forms.py:71
 msgid "Password"
 msgstr "Parole"
 
-#: forms.py:35
+#: forms.py:52
 msgid "Invalid username/email and password"
 msgstr "Nepareizs lietotāja vārds / e-pasta parole vai parole"
 
-#: forms.py:37
+#: forms.py:54
 msgid "Your account is inactive"
 msgstr "Jūsu lietotāja konts nav aktīvs"
 
-#: forms.py:68
+#: forms.py:73
 msgid "Password (again)"
 msgstr "Parole (vēlreiz)"
 
-#: forms.py:81
+#: forms.py:87
 msgid "Only letters, numbers, dashes or underscores please"
 msgstr "Tikai burti, cipari, domuzīmes un apakšsvītras"
 
-#: forms.py:95
+#: forms.py:103
 msgid "Leave blank unless you want to change your password"
 msgstr "Atstājiet tukšu, ja vien nevēlaties mainīt savu paroli"
 
-#: forms.py:114
-msgid "Username can only contain letters, numbers, dashes or underscores."
-msgstr ""
-"Lietotāja vārds var saturēt tikai burtus, ciparus, domuzīmes un apakšsvītras."
-
 #: forms.py:122
+msgid "Username can only contain letters, numbers, dashes or underscores."
+msgstr "Lietotāja vārds var saturēt tikai burtus, ciparus, domuzīmes un apakšsvītras."
+
+#: forms.py:129
 msgid "This username is already registered"
 msgstr "Šis lietotāja vārds ir jau reģistrēts"
 
-#: forms.py:135
+#: forms.py:142
 msgid "Passwords do not match"
 msgstr "Paroles nesakrīt"
 
-#: forms.py:137
+#: forms.py:144
 #, python-format
 msgid "Password must be at least %s characters"
 msgstr "Parolei jābūt vismaz %s simbolus garai"
 
-#: forms.py:152
+#: forms.py:158
 msgid "This email is already registered"
 msgstr "Šī e-pasta adrese jau ir reģistrēta"
 
-#: forms.py:199
+#: forms.py:224
 msgid "Invalid username/email"
 msgstr "Nepareizi ievadīts lietotāja vārds / e-pasta adrese"
 
-#: views.py:31
+#: views.py:29
 msgid "Successfully logged in"
 msgstr "Veiksmīgi autorizējies"
 
-#: views.py:34
-msgid "Login"
+#: views.py:32 templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log in"
 msgstr "Autorizēties"
 
-#: views.py:43
+#: views.py:41
 msgid "Successfully logged out"
 msgstr "Veiksmīgi atvienojies"
 
-#: views.py:57
+#: views.py:56
+msgid ""
+"Thanks for signing up! You'll receive an email when your account is "
+"activated."
+msgstr ""
+
+#: views.py:60
 msgid ""
 "A verification email has been sent with a link for activating your account."
-msgstr ""
-"Uz jūsu e-pastu nosūtīta apstiprinājuma vēstule ar saiti jūsu lietotāja "
-"konta aktivizācijai."
+msgstr "Uz jūsu e-pastu nosūtīta apstiprinājuma vēstule ar saiti jūsu lietotāja konta aktivizācijai."
 
-#: views.py:61 views.py:80
+#: views.py:64 views.py:83
 msgid "Successfully signed up"
 msgstr "Veiksmīgi reģistrējies"
 
-#: views.py:64
-msgid "Signup"
+#: views.py:67 templates/accounts/includes/user_panel.html:21
+#: templates/accounts/includes/user_panel_nav.html:13
+msgid "Sign up"
 msgstr "Reģistrēties"
 
-#: views.py:83 views.py:167
+#: views.py:86 views.py:153
 msgid "The link you clicked is no longer valid."
 msgstr "Šī saite vairs nav derīga."
 
-#: views.py:141
+#: views.py:127
 msgid "Profile updated"
 msgstr "Profila informācija atjaunota."
 
-#: views.py:146
+#: views.py:132
 msgid "Update Profile"
 msgstr "Atjaunināt profila informāciju"
 
-#: views.py:155
+#: views.py:141
 msgid ""
 "A verification email has been sent with a link for resetting your password."
-msgstr ""
-"Uz jūsu e-pasta adresi tika nosūtīta apstiprinājuma vēstule ar saiti paroles "
-"maiņai."
+msgstr "Uz jūsu e-pasta adresi tika nosūtīta apstiprinājuma vēstule ar saiti paroles maiņai."
 
-#: views.py:157
+#: views.py:143
 msgid "Password Reset"
 msgstr "Paroles maiņa"
 
@@ -157,74 +183,96 @@ msgstr "Jūs jau esat autorizējies."
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
-"\">sign up</a> for one now."
+"If you don't have an account you can <a "
+"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
 msgstr ""
 
 #: templates/accounts/account_login.html:14
 #, python-format
 msgid ""
-"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
-"\">reset your password</a> if you've forgotten it.</p>"
-msgstr ""
-"<p>Jūs carat arī <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
-"\">mainīt savu paroli</a>, ja esat to aizmirsis.</p>"
+"<p>You can also <a "
+"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
+"password</a> if you've forgotten it.</p>"
+msgstr "<p>Jūs carat arī <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">mainīt savu paroli</a>, ja esat to aizmirsis.</p>"
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
-"Enter your username or email address and you'll receive an email with a link "
-"you need to click, in order to log in and change your password."
-msgstr ""
-"Ievadiet savu lietotāja vārdu un e-pasta adresi, lai saņemtu saiti, uz kuras "
-"nospiežot, varēsiet nomainīt savu paroli."
+"Enter your username or email address and you'll receive an email with a link"
+" you need to click, in order to log in and change your password."
+msgstr "Ievadiet savu lietotāja vārdu un e-pasta adresi, lai saņemtu saiti, uz kuras nospiežot, varēsiet nomainīt savu paroli."
 
 #: templates/accounts/account_profile.html:17
-#: templates/accounts/includes/user_panel.html:9
+#: templates/accounts/includes/user_panel.html:10
 msgid "Update profile"
 msgstr "Atjaunināt profila informāciju"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need "
-"to log out first."
-msgstr ""
-"Jūs jau esat autorizējies. Ja vēlaties izveidot jaunu lietotāja kontu, jums "
-"vispirms jāatvienojas."
+"You're already logged in. If you'd like to create a new account, you'll need"
+" to log out first."
+msgstr "Jūs jau esat autorizējies. Ja vēlaties izveidot jaunu lietotāja kontu, jums vispirms jāatvienojas."
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
-msgstr ""
-"Pēc reģistrācijas jūs saņemsiet e-pasta vēstuli ar saiti jūsu lietotāja "
-"konta aktivizācijai."
+msgstr "Pēc reģistrācijas jūs saņemsiet e-pasta vēstuli ar saiti jūsu lietotāja konta aktivizācijai."
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
 msgstr "Autorizējies kā:"
 
-#: templates/accounts/includes/user_panel.html:14
+#: templates/accounts/includes/user_panel.html:15
 #: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
 msgstr "Atvienoties"
 
-#: templates/accounts/includes/user_panel.html:17
-#: templates/accounts/includes/user_panel_nav.html:11
-msgid "Log in"
-msgstr "Autorizēties"
-
-#: templates/accounts/includes/user_panel.html:18
+#: templates/accounts/includes/user_panel.html:19
 msgid "or"
 msgstr "vai"
-
-#: templates/accounts/includes/user_panel.html:20
-#: templates/accounts/includes/user_panel_nav.html:13
-msgid "Sign up"
-msgstr "Reģistrēties"
 
 #: templates/admin/profile_inline.html:10
 msgid "Profile information"
 msgstr "Profila informācija"
+
+#: templates/email/account_approve.html:3
+#: templates/email/account_approve.txt:3
+msgid "Hey there, a new account has been created and requires activation."
+msgstr ""
+
+#: templates/email/account_approve.html:5
+#: templates/email/account_approve.txt:5
+msgid "Name"
+msgstr "Vārds"
+
+#: templates/email/account_approve.html:6
+#: templates/email/account_approve.txt:6
+msgid "Email"
+msgstr "E-pasts"
+
+#: templates/email/account_approve.html:11
+#: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
+#: templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "izmanto zemāk esošo saiti, lai aktivizētu."
+
+#: templates/email/account_approve_subject.txt:2
+msgid "An account requires activation"
+msgstr ""
+
+#: templates/email/account_approved.html:3
+#: templates/email/account_approved.txt:3
+msgid "Hey there, your account has been activated."
+msgstr ""
+
+#: templates/email/account_approved.html:4
+#: templates/email/account_approved.txt:4
+msgid "Please use the link below to log in."
+msgstr ""
+
+#: templates/email/account_approved_subject.txt:2
+msgid "Your account has been activated"
+msgstr ""
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
@@ -250,10 +298,6 @@ msgstr "Mainīt paroli"
 #: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
 msgstr "Paldies, ka izveidoji savu lietotāja kontu!"
-
-#: templates/email/signup_verify.html:4 templates/email/signup_verify.txt:4
-msgid "Please use the link below to activate it."
-msgstr "izmanto zemāk esošo saiti, lai aktivizētu."
 
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"

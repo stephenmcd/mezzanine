@@ -1,24 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Taras Kozlovskyi <ktarasz@gmail.com>, 2012.
+# Taras Kozlovskyi <ktarasz@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/"
-"mezzanine/language/uk_UA/)\n"
-"Language: uk_UA\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Taras Kozlovskyi <ktarasz@gmail.com>\n"
+"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/mezzanine/language/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk_UA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:20 models.py:69
 msgid "User"
@@ -26,105 +24,105 @@ msgstr "Користувач"
 
 #: defaults.py:24
 msgid "Accounts required for commenting"
-msgstr ""
+msgstr "Необхідно обліковий запис для коментування"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr ""
+msgstr "Якщо `` Так ``, то користувачі повинні увійти під своїм обліковим записом, щоб мати можливість залишати коментарі."
 
 #: defaults.py:32
 msgid "Disqus shortname"
-msgstr ""
+msgstr "Логін Disqus"
 
 #: defaults.py:33
 msgid "Shortname for the http://disqus.com comments service."
-msgstr ""
+msgstr "Логін на сервісі коментарів http://disqus.com"
 
 #: defaults.py:41
 msgid "Disqus public key"
-msgstr ""
+msgstr "Публічний ключ Disqus"
 
 #: defaults.py:42
 msgid "Public key for http://disqus.com developer API"
-msgstr ""
+msgstr "Публічний ключ API для сервісу коментарів http://disqus.com"
 
 #: defaults.py:49
 msgid "Disqus secret key"
-msgstr ""
+msgstr "Секретний ключ Disqus"
 
 #: defaults.py:50
 msgid "Secret key for http://disqus.com developer API"
-msgstr ""
+msgstr "Секретний ключ API для сервісу коментарів http://disqus.com"
 
 #: defaults.py:57
 msgid "Auto-approve comments"
-msgstr ""
+msgstr "Автоматичне затвердження коментарів"
 
 #: defaults.py:58
 msgid "If ``True``, built-in comments are approved by default."
-msgstr ""
+msgstr "Якщо `` Так ``, то коментарі будуть затверджуюватися автоматично."
 
 #: defaults.py:66
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr ""
+msgstr "Розділений точками шлях до функції, що оброблятиме значення коментарів, перед опрацюванням шаблону."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
-msgstr ""
+msgstr "Адреси електронної пошти для повідомлень про коментарі"
 
 #: defaults.py:75
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
+msgstr "Список адрес електронної пошти, розділених комами, які отримуватиме повідомлення по електронній пошті кожен раз при появі нових коментарів на сайті."
 
 #: defaults.py:84
 msgid "Admin comments"
-msgstr ""
+msgstr "Коментарі в панелі управління"
 
 #: defaults.py:85
 msgid "Number of latest comments shown in the admin dashboard."
-msgstr ""
+msgstr "Кількість останніх коментарів, які відображуються в панелі управління."
 
 #: defaults.py:93
 msgid "Show unapproved comments"
-msgstr ""
+msgstr "Показувати непідтверджені коментарі"
 
 #: defaults.py:94
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
+msgstr "Якщо `` Так ``, то неопубліковані коментарі будуть відображатися, але при цьому будуть замінені на напис `` чекає підтвердження ``"
 
 #: defaults.py:103
 msgid "Show removed comments"
-msgstr ""
+msgstr "Показувати видалені коментарі"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Якщо `` Так ``, то видалені коментарі продовжать відображатися, але при цьому будуть замінені на напис `` Видалено ``"
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
-msgstr ""
+msgstr "Якщо `` Так ``, тоді коментарі можуть бути оцінені голосуванням."
 
 #: defaults.py:120
 msgid "Accounts required for rating"
-msgstr ""
+msgstr "Щоб проголосувати необхідно увійти в систему"
 
 #: defaults.py:121
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
-msgstr ""
+msgstr "Якщо `` Так ``, тоді користувачі повинні увійти в систему, щоб голосувати за контент, наприклад блоги і коментарі."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
-msgstr ""
+msgstr "Список цілих чисел, які використовуються для оцінки."
 
 #: forms.py:83
 msgid "Name"
@@ -152,11 +150,11 @@ msgstr "не обов'язково"
 
 #: forms.py:138
 msgid "New comment for: "
-msgstr ""
+msgstr "Новий коментар:"
 
 #: forms.py:174
 msgid "Already rated."
-msgstr ""
+msgstr "Уже проголосовано."
 
 #: models.py:26
 msgid "By the blog author"
@@ -192,11 +190,11 @@ msgstr "Значення"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "Дата голосування"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "Проголосував"
 
 #: models.py:131
 msgid "Ratings"
@@ -204,7 +202,7 @@ msgstr "Рейтинги"
 
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
+msgstr "Ви повинні зайти в систему. Будь ласка, увійдіть або зареєструйтесь, щоб виконати цю дію."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -219,7 +217,7 @@ msgstr "тому"
 
 #: templates/email/comment_notification.html:6
 msgid "A new comment has been posted on"
-msgstr ""
+msgstr "Новий коментар був опублікований"
 
 #: templates/email/comment_notification.html:10
 #, python-format
@@ -227,14 +225,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
+msgstr "\n    %(submit_date)s користувач %(user_name)s написав:"
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
+msgstr "\n%(submit_date)s користувач %(user_name)s написав:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

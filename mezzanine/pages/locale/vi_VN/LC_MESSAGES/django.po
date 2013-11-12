@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Lê Thanh <lethanhx2k@gmail.com>, 2013
+# Lê Thanh <lethanhx2k@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:03+0000\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/"
-"mezzanine/language/vi_VN/)\n"
-"Language: vi_VN\n"
+"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/mezzanine/language/vi_VN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi_VN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: defaults.py:20
@@ -23,37 +24,37 @@ msgid ""
 "A sequence of ``Page`` subclasses in the format ``app_label.model_name``, "
 "that controls the ordering of items in the select drop-down for adding new "
 "pages within the admin page tree interface."
-msgstr ""
+msgstr "Danh sách các lớp con của ``Page`` với định dạng ``app_label.model_name`` nhằm kiểm soát thứ tự các đối tượng trong phần drop-down để tạo thêm trang mới trong phần quản trị."
 
 #: defaults.py:30
 msgid ""
-"A sequence of templates used by the ``page_menu`` template tag. Each item in "
-"the sequence is a three item sequence, containing a unique ID for the "
+"A sequence of templates used by the ``page_menu`` template tag. Each item in"
+" the sequence is a three item sequence, containing a unique ID for the "
 "template, a label for the template, and the template path. These templates "
 "are then available for selection when editing which menus a page should "
 "appear in. Note that if a menu template is used that doesn't appear in this "
 "setting, all pages will appear in it."
-msgstr ""
+msgstr "Một chuỗi các template được dùng bởi thẻ template ``page_menu``. Mỗi đối tượng trong chuỗi này gồm 3 thành phần: ID của template, Nhãn của template và Đường dẫn đến template. Các template này được hiển thị để lựa chọn khi chính sửa menu hiển thị của một Page. Lưu ý rằng nếu một template menu được dùng không hiển thị trong thiết lập này, tất cả các Pages sẽ hiện thị với nó"
 
 #: defaults.py:39
 msgid "Top navigation bar"
-msgstr ""
+msgstr "Top navigation bar"
 
 #: defaults.py:40
 msgid "Left-hand tree"
-msgstr ""
+msgstr "Left-hand tree"
 
 #: defaults.py:41
 msgid "Footer"
-msgstr ""
+msgstr "Footer"
 
 #: defaults.py:47
 msgid ""
 "A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the "
-"default menu templates selected when creating new pages. By default all menu "
-"templates are selected. Set this setting to an empty sequence to have no "
+"default menu templates selected when creating new pages. By default all menu"
+" templates are selected. Set this setting to an empty sequence to have no "
 "templates selected by default."
-msgstr ""
+msgstr "Danh sách các ID thiết lập trong ``PAGE_MENU_TEMPLATES`` dùng để khai báo menu template mặc định khi tạo trang mới. Theo mặc định, tất cả các menu template được chọn. Khai báo thiết lập này thành một chuỗi trống để loại bỏ các template được chọn theo mặc định"
 
 #: defaults.py:58
 msgid ""
@@ -61,48 +62,48 @@ msgid ""
 "menus and search results, for unauthenticated users. Regardless of this "
 "setting, when an unauthenticated user accesses a page with "
 "``login_required`` checked, they'll be redirected to the login page."
-msgstr ""
+msgstr "Nếu ``True`, các trang với lựa chọn ``login_required`` vẫn được hiển thị trong menu và kết quả tìm kiếm cho người dùng chưa đăng kí làm thành viên. Nhưng khi truy xuất vào các trang này, họ sẽ được chuyển sang trang đăng nhập"
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
-msgstr ""
-
-#: models.py:36
-msgid "Login required"
-msgstr ""
-
-#: models.py:37
-msgid "If checked, only logged in users can view this page"
-msgstr ""
-
-#: models.py:40
-msgid "Page"
-msgstr ""
+msgstr "Hiển thị trong menus"
 
 #: models.py:41
+msgid "Login required"
+msgstr "Yêu cầu đăng nhập"
+
+#: models.py:42
+msgid "If checked, only logged in users can view this page"
+msgstr "Nếu chọn, chỉ người dùng đăng nhập mới xem được trang này"
+
+#: models.py:45
+msgid "Page"
+msgstr "Trang"
+
+#: models.py:46
 msgid "Pages"
-msgstr ""
+msgstr "Các trang"
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
-msgstr ""
+msgstr "Rich text page"
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
-msgstr ""
+msgstr "Rich text page"
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
-msgstr ""
+msgstr "Liên kết"
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
-msgstr ""
+msgstr "Liên kết"
 
 #: templates/admin/pages/page/change_list.html:24
 #: templates/pages/menus/admin.html:31
 msgid "Add"
-msgstr ""
+msgstr "Thêm"
 
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
@@ -111,9 +112,13 @@ msgstr ""
 #: templates/pages/menus/mobile.html:10 templates/pages/menus/primary.html:8
 #: templates/pages/menus/tree.html:10
 msgid "Home"
+msgstr "Trang nhà"
+
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
 msgstr ""
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
-msgstr ""
+msgstr "Có lỗi xảy ra. Có phải nó subclass Page trực tiếp?"

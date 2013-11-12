@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Breno Uchoa <brenouchoa@gmail.com>, 2012.
-# Hilton Medeiros <medeiros.hilton@gmail.com>, 2012.
+# Breno Uchoa <brenouchoa@gmail.com>, 2012
+# Hilton Medeiros <medeiros.hilton@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:04+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
-"mezzanine/language/pt_BR/)\n"
-"Language: pt_BR\n"
+"POT-Creation-Date: 2013-10-05 07:19-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Hilton Medeiros <medeiros.hilton@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/mezzanine/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: admin.py:20 models.py:69
@@ -30,7 +29,7 @@ msgstr "Contas obrigatórias para comentar"
 
 #: defaults.py:25
 msgid "If ``True``, users must log in to comment."
-msgstr "Se ``Checado``, usuários devem logar para comentar."
+msgstr "Se checado, usuários devem logar para comentar."
 
 #: defaults.py:32
 msgid "Disqus shortname"
@@ -58,7 +57,7 @@ msgstr "Chave secreta para a API de desenvolvedor no Disqus"
 
 #: defaults.py:57
 msgid "Auto-approve comments"
-msgstr "Auto aprovar comentários"
+msgstr "Aprovar comentários automaticamente"
 
 #: defaults.py:58
 msgid "If ``True``, built-in comments are approved by default."
@@ -68,19 +67,17 @@ msgstr "Se checado, os comentários serão aprovados automaticamente."
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr ""
+msgstr "Caminho pontilhado para a função a ser chamada com o conteúdo do comentário antes de ser passado para o template."
 
 #: defaults.py:74
 msgid "Comment notification email addresses"
-msgstr "Email para notificação de novos comentários."
+msgstr "E-mails para notificação de novos comentários"
 
 #: defaults.py:75
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr ""
-"Forneça uma lista separada por virgolas dos endereços emails que serão "
-"contactados quando novos comentários forem enviados. "
+msgstr "Forneça uma lista separada por virgolas dos endereços emails que serão contactados quando novos comentários forem enviados. "
 
 #: defaults.py:84
 msgid "Admin comments"
@@ -98,9 +95,7 @@ msgstr "Exibir comentários não aprovados"
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr ""
-"Se checado, comentários que não tem ``is_public`` checado ainda assim serão "
-"exibidos, porém trocados por uma mensagem ``aguardando aprovação``."
+msgstr "Se checado, comentários que não tem ``is_public`` checado ainda assim serão exibidos, porém trocados por uma mensagem ``aguardando aprovação``."
 
 #: defaults.py:103
 msgid "Show removed comments"
@@ -108,29 +103,27 @@ msgstr "Exibir comentários removidos"
 
 #: defaults.py:104
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed, "
-"but replaced with a ``removed`` message."
-msgstr ""
-"Se checado, comentários que tem ``removed`` checado ainda assim serão "
-"exibidos, porém trocados por uma mensagem ``removido``."
+"If ``True``, comments that have ``removed`` checked will still be displayed,"
+" but replaced with a ``removed`` message."
+msgstr "Se checado, comentários que tem ``removed`` checado ainda assim serão exibidos, porém trocados por uma mensagem ``removido``."
 
 #: defaults.py:113
 msgid "If ``True``, comments can be rated."
-msgstr ""
+msgstr "Se checado, comentários podem ser avaliados."
 
 #: defaults.py:120
 msgid "Accounts required for rating"
-msgstr ""
+msgstr "Contas são obrigatórias para avaliar"
 
 #: defaults.py:121
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
-msgstr ""
+msgstr "Se checado, usuários devem se autenticar para avaliar conteúdos como posts de blog e comentários."
 
 #: defaults.py:129
 msgid "A sequence of integers that are valid ratings."
-msgstr ""
+msgstr "Uma sequência de números inteiros que são avaliações válidas."
 
 #: forms.py:83
 msgid "Name"
@@ -142,7 +135,7 @@ msgstr "obrigatório"
 
 #: forms.py:85
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #: forms.py:86
 msgid "required (not published)"
@@ -162,7 +155,7 @@ msgstr "Novo comentário para:"
 
 #: forms.py:174
 msgid "Already rated."
-msgstr ""
+msgstr "Já avaliado."
 
 #: models.py:26
 msgid "By the blog author"
@@ -198,11 +191,11 @@ msgstr "Valor"
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "Data da avaliação"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "Avaliador"
 
 #: models.py:131
 msgid "Ratings"
@@ -210,7 +203,7 @@ msgstr "Avaliações"
 
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
+msgstr "Você deve estar autenticado. Por favor, autentique-se ou registre-se para completar esta ação."
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -233,19 +226,14 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr ""
-"\n"
-"Em %(submit_date)s %(user_name)s escreveu:\n"
-"    "
+msgstr "\nEm %(submit_date)s %(user_name)s escreveu:\n    "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr ""
-"\n"
-"Em %(submit_date)s %(user_name)s escreveu:\n"
+msgstr "\nEm %(submit_date)s %(user_name)s escreveu:\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"

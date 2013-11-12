@@ -1,23 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <chance.jiang@gmail.com>, 2012.
-# 王 充 <wjcroom@gmail.com>, 2012.
+# chancejiang <chance.jiang@gmail.com>, 2012
+# chengwenge <chengwenge988@gmail.com>, 2012
+# 王 充 <wjcroom@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
-"mezzanine/language/zh_CN/)\n"
-"Language: zh_CN\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: chengwenge <chengwenge988@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:32 fields.py:33
@@ -28,11 +28,7 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
-"Pluralized Translations\n"
-"one:1个条目被删除\n"
-"\n"
-"other:%(count)s 个条目被删除"
+msgstr[0] "Pluralized Translations\none:1个条目被删除\n\nother:%(count)s 个条目被删除"
 
 #: admin.py:119
 msgid "View Entries"
@@ -42,9 +38,7 @@ msgstr "查看条目"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"如果``True``, emails sent to extra recipients for form submissions won't be "
-"sent from an address taken from one of the form's email fields."
+msgstr "如果``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -64,12 +58,12 @@ msgstr "存放上传forms app 文件的绝对路径"
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
-msgstr ""
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "表单应用的额外字段类型。应包含三个项目的顺序，每个都包含ID，字段类的路径和字段名。ID是一个简单的数字常量，但不能是已经使用的值，因此选择一个大点的数字，如100或更高，以避免冲突。"
 
 #: fields.py:31
 msgid "Single line text"
@@ -121,7 +115,7 @@ msgstr "日期/时间"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "生日"
 
 #: fields.py:45
 msgid "Hidden"
@@ -205,9 +199,7 @@ msgstr "发邮件给其他人"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"提供用分号 ';' 隔开的邮件地址，以便表单提交时向这些邮件发送提醒。如不需要提醒"
-"则留空。"
+msgstr "提供用分号 ';' 隔开的邮件地址，以便表单提交时向这些邮件发送提醒。如不需要提醒则留空。"
 
 #: models.py:30
 msgid "Subject"
@@ -222,9 +214,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
-"基于上述选项发送的邮件将包含表单里已输入的所有字段。你也可以在这里输入一段文"
-"字，它将出现在邮件中。"
+msgstr "基于上述选项发送的邮件将包含表单里已输入的所有字段。你也可以在这里输入一段文字，它将出现在邮件中。"
 
 #: models.py:37
 msgid "Form"

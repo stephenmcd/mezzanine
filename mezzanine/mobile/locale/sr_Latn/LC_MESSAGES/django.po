@@ -1,24 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Milorad Pop-Tosic <poptosic@gmail.com>, 2012.
+# Milorad Pop-Tosic <poptosic@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:40-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
+"POT-Creation-Date: 2013-11-09 10:32-0430\n"
+"PO-Revision-Date: 2013-11-09 20:05+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/"
-"mezzanine/language/sr@latin/)\n"
-"Language: sr@latin\n"
+"Language-Team: Serbian (Latin) (http://www.transifex.com/projects/p/mezzanine/language/sr@latin/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: sr@latin\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
@@ -87,8 +85,9 @@ msgstr "Autor"
 
 #: templates/mobile/blog/blog_post_detail.html:30
 #: templates/mobile/blog/blog_post_list.html:28
-msgid "ago"
-msgstr "ranije"
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
 
 #: templates/mobile/blog/blog_post_detail.html:41
 msgid "Tags"
@@ -125,11 +124,10 @@ msgstr "Koristi"
 
 #: templates/mobile/includes/search.html:5
 msgid "quotes"
-msgstr "navodnici"
+msgstr "navodnike"
 
 #: templates/mobile/includes/search.html:5
 msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
-msgstr ""
-"za tačne fraze, + da učinite reč potrebnom, - da isključite reč ili frazu."
+msgstr "za tačne fraze, + da učinite reč ili frazu potrebnom, - da isključite reč ili frazu."

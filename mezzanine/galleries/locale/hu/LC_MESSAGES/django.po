@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# zeller <zellermester@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-09-18 13:20+0000\n"
+"Last-Translator: zeller <zellermester@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/mezzanine/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -20,34 +21,36 @@ msgstr ""
 
 #: models.py:38
 msgid "Zip import"
-msgstr ""
+msgstr "Zip fájl importálása"
 
 #: models.py:40
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
 msgstr ""
+"Feltölt egy képeket tartalmazó zip  fájlt, amely képek ezután ebbe a "
+"galériába kerülnek."
 
 #: models.py:44
 msgid "Gallery"
-msgstr ""
+msgstr "Galéria"
 
 #: models.py:45
 msgid "Galleries"
-msgstr ""
+msgstr "Galériák"
 
-#: models.py:91
+#: models.py:92
 msgid "File"
-msgstr ""
+msgstr "Fájl"
 
-#: models.py:93
+#: models.py:94
 msgid "Description"
-msgstr ""
-
-#: models.py:97
-msgid "Image"
-msgstr ""
+msgstr "Leírás"
 
 #: models.py:98
+msgid "Image"
+msgstr "Kép"
+
+#: models.py:99
 msgid "Images"
-msgstr ""
+msgstr "Képek"

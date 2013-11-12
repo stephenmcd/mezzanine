@@ -1,24 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Dmitry Falk <tfalc@mail.ru>, 2012.
+# andreyivankov <andrey.ivankov@gmail.com>, 2013
+# andreyivankov <andrey.ivankov@gmail.com>, 2013
+# Dmitry Falk <tfalc@mail.ru>, 2012
+# Elrengil <yagleb@mail.ru>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 21:44+0400\n"
-"PO-Revision-Date: 2013-04-24 06:15-0430\n"
+"POT-Creation-Date: 2013-11-09 10:34-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
-"language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: defaults.py:20
 msgid "Minimum length for passwords"
@@ -38,30 +39,24 @@ msgstr "Список полей исключаемых из формы проф�
 msgid ""
 "Dotted package path and class name of profile form to use for users signing "
 "up and updating their profile, when ``mezzanine.accounts`` is installed."
-msgstr ""
+msgstr "Разделённый точками путь к пакету и имя класса для формы профиля, который используется для регистрации пользователей и обновления их профиля, когда установлен `` mezzanine.accounts ``."
 
 #: defaults.py:51
 msgid "If ``True``, users will have their own public profile pages."
-msgstr ""
-"Если ``Да``, то пользователи будут иметь страницы со своим публичным профилем"
+msgstr "Если ``Да``, то пользователи будут иметь страницы со своим публичным профилем"
 
 #: defaults.py:59
 msgid ""
-"If ``True``, when users create an account, they will be sent an email with a "
-"verification link, which they must click to enable their account."
-msgstr ""
-"Если ``Да``, то когда пользователи создают учетную запись, им будет послано "
-"письмо с проверяющей ссылкой, по которой нужно пройти для активации аккаунта."
+"If ``True``, when users create an account, they will be sent an email with a"
+" verification link, which they must click to enable their account."
+msgstr "Если ``Да``, то когда пользователи создают учетную запись, им будет послано письмо с проверяющей ссылкой, по которой нужно пройти для активации аккаунта."
 
 #: defaults.py:68
-#, fuzzy
 msgid ""
 "If ``True``, when users create an account, they will not be enabled by "
 "default and a staff member will need to activate their account in the admin "
 "interface."
 msgstr ""
-"Если ``Да``, то когда пользователи создают учетную запись, они не включаться "
-"по-умолчанию, администратор должен будет активировать их через панель управления."
 
 #: defaults.py:77
 msgid "Account approval email addresses"
@@ -126,7 +121,7 @@ msgstr "Длина пароля должна быть не меньше %s си�
 msgid "This email is already registered"
 msgstr "Этот email уже зарегистрирован"
 
-#: forms.py:221
+#: forms.py:224
 msgid "Invalid username/email"
 msgstr "Неправильный логин/email"
 
@@ -147,9 +142,7 @@ msgstr "Вы успешно вышли"
 msgid ""
 "Thanks for signing up! You'll receive an email when your account is "
 "activated."
-msgstr ""
-"Благодарим за регистрацию! Вы получите письмо, когда "
-"ваша учетная запись будет активирована."
+msgstr "Благодарим за регистрацию! Вы получите письмо, когда ваша учетная запись будет активирована."
 
 #: views.py:60
 msgid ""
@@ -180,8 +173,7 @@ msgstr "Обновить профиль"
 #: views.py:141
 msgid ""
 "A verification email has been sent with a link for resetting your password."
-msgstr ""
-"Письмо с подтверждающей ссылкой для сброса пароля было выслано на ваш email."
+msgstr "Письмо с подтверждающей ссылкой для сброса пароля было выслано на ваш email."
 
 #: views.py:143
 msgid "Password Reset"
@@ -194,28 +186,23 @@ msgstr "Вы уже вошли под своей учетной записью."
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
-"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
-"\">sign up</a> for one now."
-msgstr ""
-"Если у вас нет учетной записи, вы можете <a href=\"%(signup_url)s?next="
-"%(next)s\">зарегистрироваться</a>."
+"If you don't have an account you can <a "
+"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgstr "Если у вас нет учетной записи, вы можете <a href=\"%(signup_url)s?next=%(next)s\">зарегистрироваться</a>."
 
 #: templates/accounts/account_login.html:14
 #, python-format
 msgid ""
-"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
-"\">reset your password</a> if you've forgotten it.</p>"
-msgstr ""
-"А также вы можете <a href=\"%(password_reset_url)s?next="
-"%(profile_update_url)s\">сбросить пароль</a>, если вы его забыли."
+"<p>You can also <a "
+"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
+"password</a> if you've forgotten it.</p>"
+msgstr "А также вы можете <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">сбросить пароль</a>, если вы его забыли."
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
-"Enter your username or email address and you'll receive an email with a link "
-"you need to click, in order to log in and change your password."
-msgstr ""
-"Введите имя вашей учетной записи или email и вы получите письмо со ссылкой "
-"по которой сможете задать пароль."
+"Enter your username or email address and you'll receive an email with a link"
+" you need to click, in order to log in and change your password."
+msgstr "Введите имя вашей учетной записи или email и вы получите письмо со ссылкой по которой сможете задать пароль."
 
 #: templates/accounts/account_profile.html:17
 #: templates/accounts/includes/user_panel.html:10
@@ -224,19 +211,15 @@ msgstr "Обновить профиль"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need "
-"to log out first."
-msgstr ""
-"Вы уже вошли под своей учетной записью. Если вы хотите создать новую учетную "
-"запись, вам необходимо сделать выход из старой."
+"You're already logged in. If you'd like to create a new account, you'll need"
+" to log out first."
+msgstr "Вы уже вошли под своей учетной записью. Если вы хотите создать новую учетную запись, вам необходимо сделать выход из старой."
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
-msgstr ""
-"После регистрации вы получите письмо со ссылкой, по которой необходимо "
-"пройти, чтобы ваша учетная запись активировалась."
+msgstr "После регистрации вы получите письмо со ссылкой, по которой необходимо пройти, чтобы ваша учетная запись активировалась."
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
@@ -297,15 +280,12 @@ msgstr "Ваша учетная запись был активирована"
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
 msgid "Hey there, the password reset form was used for your account."
-msgstr ""
-"Внимание, форма сброса пароля была использована для вашей учетной записи."
+msgstr "Внимание, форма сброса пароля была использована для вашей учетной записи."
 
 #: templates/email/password_reset_verify.html:4
 #: templates/email/password_reset_verify.txt:4
 msgid "Please use the link below to log in and update your password."
-msgstr ""
-"Пожалуйста, используйте ссылку ниже, для того чтобы войти на сайт и обновить "
-"ваш пароль."
+msgstr "Пожалуйста, используйте ссылку ниже, для того чтобы войти на сайт и обновить ваш пароль."
 
 #: templates/email/password_reset_verify.html:6
 #: templates/email/password_reset_verify.txt:6

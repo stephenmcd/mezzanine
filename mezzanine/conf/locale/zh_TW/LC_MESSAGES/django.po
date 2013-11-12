@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Tzu-ping Chung <uranusjr@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-08-26 13:23+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-04-18 06:00+0000\n"
+"Last-Translator: Tzu-ping Chung <uranusjr@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
 "mezzanine/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: admin.py:38
 msgid "Settings were successfully updated."
-msgstr ""
+msgstr "已成功更新設定"
 
 #: admin.py:42
 msgid "Change"
@@ -28,19 +29,19 @@ msgstr "變更"
 
 #: forms.py:53
 msgid "Miscellaneous"
-msgstr ""
+msgstr "雜項"
 
 #: models.py:17
 msgid "Setting"
-msgstr ""
+msgstr "設定"
 
 #: models.py:18
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 #: templates/admin/conf/setting/change_list.html:8
 msgid "Please correct the errors below."
-msgstr ""
+msgstr "請修正下方的錯誤"
 
 #: templates/admin/conf/setting/change_list.html:31
 msgid "Save"

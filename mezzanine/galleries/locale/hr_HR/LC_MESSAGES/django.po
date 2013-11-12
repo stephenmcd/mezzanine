@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# legendri <legendri@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-10-13 08:50+0000\n"
+"Last-Translator: legendri <legendri@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/"
 "mezzanine/language/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -21,34 +22,34 @@ msgstr ""
 
 #: models.py:38
 msgid "Zip import"
-msgstr ""
+msgstr "Zip uvoz"
 
 #: models.py:40
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
-msgstr ""
+msgstr "Prenesi zip datoteku sa slikama, i one će biti uvezene u ovu galeriju."
 
 #: models.py:44
 msgid "Gallery"
-msgstr ""
+msgstr "Galerija"
 
 #: models.py:45
 msgid "Galleries"
-msgstr ""
+msgstr "Galerije"
 
-#: models.py:91
+#: models.py:92
 msgid "File"
-msgstr ""
+msgstr "Datoteka"
 
-#: models.py:93
+#: models.py:94
 msgid "Description"
 msgstr "Opis"
 
-#: models.py:97
-msgid "Image"
-msgstr ""
-
 #: models.py:98
+msgid "Image"
+msgstr "Slika"
+
+#: models.py:99
 msgid "Images"
-msgstr ""
+msgstr "Slike"

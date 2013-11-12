@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <bart@dispectu.com>, 2012.
+# bartdegoede <bart@dispectu.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: bartdegoede <bart@dispectu.com>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/"
-"nl/)\n"
-"Language: nl\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/mezzanine/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:32 fields.py:33
@@ -38,42 +37,32 @@ msgstr "Toon entries"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"Wanneer deze instelling ``True`` is, worden emails die naar extra ontvangers "
-"van formulierinzendingen niet vanaf een adres dat in een van de velden van "
-"het formulier staat gestuurd."
+msgstr "Wanneer deze instelling ``True`` is, worden emails die naar extra ontvangers van formulierinzendingen niet vanaf een adres dat in een van de velden van het formulier staat gestuurd."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
-msgstr ""
-"Maximum toegestane lengte voor de waarde van velden in de formulier "
-"applicatie."
+msgstr "Maximum toegestane lengte voor de waarde van velden in de formulier applicatie."
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr ""
-"Maximum toegestane lengte voor de waarde van velden in de formulier "
-"applicatie."
+msgstr "Maximum toegestane lengte voor de waarde van velden in de formulier applicatie."
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
-"Karakter dat als scheidingsteken gebruikt moet worden wanneer ingevulde "
-"formulieren als CSV geëxporteerd worden."
+msgstr "Karakter dat als scheidingsteken gebruikt moet worden wanneer ingevulde formulieren als CSV geëxporteerd worden."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr ""
-"Absoluut pad voor het opslaan van bestanden uit de formulier applicatie."
+msgstr "Absoluut pad voor het opslaan van bestanden uit de formulier applicatie."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
-msgstr ""
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "Extra velden voor de forms applicatie. Moet een reeks van reeksen die uit drie items bestaan bevatten, waarbij elke subreeks het ID, import path voor de class van het field, en de naam van het field, voor elk custom field type. Het ID is simpelweg een numerieke constante voor het field, maar kan niet een reeds gebruikte waarde zijn, dus kies een groot getal zoals 100 of hoger om conflicten te vermijden."
 
 #: fields.py:31
 msgid "Single line text"
@@ -191,9 +180,7 @@ msgstr "Stuur email naar gebruiker"
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
-"Om een email naar het opgegeven emailadres te sturen wanneer het formulier "
-"ingezonden wordt, vink dit vakje aan."
+msgstr "Om een email naar het opgegeven emailadres te sturen wanneer het formulier ingezonden wordt, vink dit vakje aan."
 
 #: models.py:23
 msgid "From address"
@@ -211,10 +198,7 @@ msgstr "Stuur email naar anderen"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"Geef een komma gescheiden lijst van emailadressen op die een notificatie "
-"moeten krijgen wanneer een formulier ingezonden wordt. Laat leeg om "
-"notificaties uit te schakelen."
+msgstr "Geef een komma gescheiden lijst van emailadressen op die een notificatie moeten krijgen wanneer een formulier ingezonden wordt. Laat leeg om notificaties uit te schakelen."
 
 #: models.py:30
 msgid "Subject"
@@ -229,10 +213,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
-"Emails die gebaseerd op bovenstaande opties verstuurd worden bevatten alle "
-"ingevulde formuliervelden. Je kan hier een bericht invullen dat bij de email "
-"gevoegd zal worden."
+msgstr "Emails die gebaseerd op bovenstaande opties verstuurd worden bevatten alle ingevulde formuliervelden. Je kan hier een bericht invullen dat bij de email gevoegd zal worden."
 
 #: models.py:37
 msgid "Form"
@@ -266,9 +247,7 @@ msgstr "Keuzes"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"Door komma gescheiden opties wanneer van toepassing. Als een optie zelf "
-"komma's bevat, zet de optie dan tussen accent graves: `mijn, optie`."
+msgstr "Door komma gescheiden opties wanneer van toepassing. Als een optie zelf komma's bevat, zet de optie dan tussen accent graves: `mijn, optie`."
 
 #: models.py:63
 msgid "Default value"

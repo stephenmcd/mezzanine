@@ -1,60 +1,59 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Taras Kozlovskyi <ktarasz@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 12:03+0000\n"
+"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"PO-Revision-Date: 2013-11-09 20:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/"
-"mezzanine/language/uk_UA/)\n"
-"Language: uk_UA\n"
+"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/mezzanine/language/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk_UA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: defaults.py:20
 msgid ""
 "A sequence of ``Page`` subclasses in the format ``app_label.model_name``, "
 "that controls the ordering of items in the select drop-down for adding new "
 "pages within the admin page tree interface."
-msgstr ""
+msgstr "Список із підкласів `` Page `` у форматі ``  app_label.model_name ``, які контролюють порядок розташування елементів у випадайці для додавання нових сторінок в інтерфейсі адміністратора у вигляді дерева."
 
 #: defaults.py:30
 msgid ""
-"A sequence of templates used by the ``page_menu`` template tag. Each item in "
-"the sequence is a three item sequence, containing a unique ID for the "
+"A sequence of templates used by the ``page_menu`` template tag. Each item in"
+" the sequence is a three item sequence, containing a unique ID for the "
 "template, a label for the template, and the template path. These templates "
 "are then available for selection when editing which menus a page should "
 "appear in. Note that if a menu template is used that doesn't appear in this "
 "setting, all pages will appear in it."
-msgstr ""
+msgstr "Список шаблонів, що використовуються для при використанні тега `` page_menu ``. Кожен елемент в списку повинен вміщати список із трьох пунктів, що містять унікальний ідентифікатор шаблону, мітку для шаблону і шляху до шаблону. Ці шаблони потім доступні для вибору при редагуванні та дають можливість вибрати які із шаблонів меню використовувати на сторінці. Зауважимо, що якщо використовується шаблонменю, який не зазначений в налаштуваннях, тоді всі на усіх сторінках будуть з'являтися зазначений шаблон меню."
 
 #: defaults.py:39
 msgid "Top navigation bar"
-msgstr ""
+msgstr "Верхня панель навігації"
 
 #: defaults.py:40
 msgid "Left-hand tree"
-msgstr ""
+msgstr "Ліва панель навігації"
 
 #: defaults.py:41
 msgid "Footer"
-msgstr ""
+msgstr "Футер"
 
 #: defaults.py:47
 msgid ""
 "A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the "
-"default menu templates selected when creating new pages. By default all menu "
-"templates are selected. Set this setting to an empty sequence to have no "
+"default menu templates selected when creating new pages. By default all menu"
+" templates are selected. Set this setting to an empty sequence to have no "
 "templates selected by default."
-msgstr ""
+msgstr "Послідовність ID з налаштування `` PAGE_MENU_TEMPLATES ``, яка визначає які шаблони меню вибрано за замовчуванням при створенні нових сторінок. За умовчанням вибрані всі шаблони. Зробіть цю настройку порожній, щоб жоден шаблон не був вибраний за замовчуванням."
 
 #: defaults.py:58
 msgid ""
@@ -62,48 +61,48 @@ msgid ""
 "menus and search results, for unauthenticated users. Regardless of this "
 "setting, when an unauthenticated user accesses a page with "
 "``login_required`` checked, they'll be redirected to the login page."
-msgstr ""
+msgstr "Якщо `` True ``, сторінки з зазначеної галочкою `` login_required `` як і раніше будуть відображатися в меню та результатах пошуку для неавторизованих користувачів. Незалежно від цього параметра, коли неавторизований користувач намагається переглянути сторінку із зазначеною галочкою `` login_required ``, він буде перенаправлено на сторінку авторизації."
 
-#: models.py:33
+#: models.py:38
 msgid "Show in menus"
-msgstr ""
-
-#: models.py:36
-msgid "Login required"
-msgstr ""
-
-#: models.py:37
-msgid "If checked, only logged in users can view this page"
-msgstr ""
-
-#: models.py:40
-msgid "Page"
-msgstr ""
+msgstr "Показати в меню"
 
 #: models.py:41
+msgid "Login required"
+msgstr "Необхідна аутентифікація"
+
+#: models.py:42
+msgid "If checked, only logged in users can view this page"
+msgstr "Якщо відзначене, то тільки користувачі, що увійшли на сайт побачать цю сторінку"
+
+#: models.py:45
+msgid "Page"
+msgstr "Сторінка"
+
+#: models.py:46
 msgid "Pages"
-msgstr ""
+msgstr "Сторінки"
 
-#: models.py:266
+#: models.py:271
 msgid "Rich text page"
-msgstr ""
+msgstr "Текстова сторінка"
 
-#: models.py:267
+#: models.py:272
 msgid "Rich text pages"
-msgstr ""
+msgstr "Текстові сторінки"
 
-#: models.py:277
+#: models.py:282
 msgid "Link"
 msgstr "Посилання"
 
-#: models.py:278
+#: models.py:283
 msgid "Links"
-msgstr ""
+msgstr "Посилання"
 
 #: templates/admin/pages/page/change_list.html:24
 #: templates/pages/menus/admin.html:31
 msgid "Add"
-msgstr ""
+msgstr "Додати"
 
 #: templates/pages/menus/breadcrumb.html:4
 #: templates/pages/menus/breadcrumb.html:10
@@ -112,9 +111,13 @@ msgstr ""
 #: templates/pages/menus/mobile.html:10 templates/pages/menus/primary.html:8
 #: templates/pages/menus/tree.html:10
 msgid "Home"
+msgstr "Головна"
+
+#: templatetags/pages_tags.py:182
+msgid "Could not load the model for the following page,was it removed?"
 msgstr ""
 
-#: templatetags/pages_tags.py:183
+#: templatetags/pages_tags.py:188
 msgid ""
 "An error occured with the following class. Does it subclass Page directly?"
-msgstr ""
+msgstr "Сталася помилка з наслідуваннм класу. Чи є він прямим підкласом класу Page?"

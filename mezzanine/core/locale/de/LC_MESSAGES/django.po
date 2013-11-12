@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Christopher R. Parr <fosstux@gmail.com>, 2012.
-# Daniel Seither <post@tiwoc.de>, 2012.
-# Yassine Elassad <yassine.elassad@gmail.com>, 2012.
+# Christopher R. Parr <fosstux@gmail.com>, 2012
+# Daniel Seither <post@tiwoc.de>, 2012
+# clemensbasti <mail@sebastian-clemens.de>, 2013
+# Yassine Elassad <yassine.elassad@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:59+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-04-27 13:30+0000\n"
+"Last-Translator: clemensbasti <mail@sebastian-clemens.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/mezzanine/"
 "language/de/)\n"
 "Language: de\n"
@@ -641,7 +642,7 @@ msgstr "Weiterlesen"
 
 #: templates/admin/base_site.html:34
 msgid "View site"
-msgstr ""
+msgstr "Seite ansehen"
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"

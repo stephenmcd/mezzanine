@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Tzu-ping Chung <uranusjr@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
-"mezzanine/language/zh_TW/)\n"
-"Language: zh_TW\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Tzu-ping Chung <uranusjr@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/mezzanine/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:32 fields.py:33
@@ -26,11 +26,11 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
+msgstr[0] "已刪除 %(count)s 筆資料"
 
 #: admin.py:119
 msgid "View Entries"
-msgstr ""
+msgstr "瀏覽資料"
 
 #: defaults.py:20
 msgid ""
@@ -40,40 +40,40 @@ msgstr ""
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
-msgstr ""
+msgstr "表單 app 所允許的欄位值最大長度。"
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr ""
+msgstr "表單 app 所允許的欄位標籤最大長度。"
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
+msgstr "將表單回應輸出成 CSV 時所使用的分隔符字元。"
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr ""
+msgstr "表單 app 儲存上傳檔案時所使用的絕對路徑。"
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
 msgid "Single line text"
-msgstr ""
+msgstr "單行文字"
 
 #: fields.py:32
 msgid "Multi line text"
-msgstr ""
+msgstr "多行文字"
 
 #: fields.py:34
 msgid "Number"
-msgstr ""
+msgstr "數字"
 
 #: fields.py:35
 msgid "URL"
@@ -81,67 +81,67 @@ msgstr "URL"
 
 #: fields.py:36
 msgid "Check box"
-msgstr ""
+msgstr "核取方塊"
 
 #: fields.py:37
 msgid "Check boxes"
-msgstr ""
+msgstr "核取方塊"
 
 #: fields.py:38
 msgid "Drop down"
-msgstr ""
+msgstr "下拉選單"
 
 #: fields.py:39
 msgid "Multi select"
-msgstr ""
+msgstr "多選"
 
 #: fields.py:40
 msgid "Radio buttons"
-msgstr ""
+msgstr "單選鈕"
 
 #: fields.py:41
 msgid "File upload"
-msgstr ""
+msgstr "檔案上傳"
 
 #: fields.py:42
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: fields.py:43 models.py:116
 msgid "Date/time"
-msgstr ""
+msgstr "日期/時間"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "出生日"
 
 #: fields.py:45
 msgid "Hidden"
-msgstr ""
+msgstr "隱藏"
 
 #: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
-msgstr ""
+msgstr "無"
 
 #: forms.py:29
 msgid "Contains"
-msgstr ""
+msgstr "包含"
 
 #: forms.py:30
 msgid "Doesn't contain"
-msgstr ""
+msgstr "不包含"
 
 #: forms.py:31 forms.py:37
 msgid "Equals"
-msgstr ""
+msgstr "相等"
 
 #: forms.py:32 forms.py:38
 msgid "Doesn't equal"
-msgstr ""
+msgstr "不相等"
 
 #: forms.py:43
 msgid "Is between"
-msgstr ""
+msgstr "介於"
 
 #: forms.py:100
 msgid "required"
@@ -149,49 +149,49 @@ msgstr "必填"
 
 #: forms.py:216
 msgid "Checked"
-msgstr ""
+msgstr "已選取"
 
 #: forms.py:216
 msgid "Not checked"
-msgstr ""
+msgstr "未選取"
 
 #: forms.py:230 forms.py:245
 msgid "and"
-msgstr ""
+msgstr "且"
 
 #: models.py:17
 msgid "Button text"
-msgstr ""
+msgstr "按鈕文字"
 
 #: models.py:18
 msgid "Submit"
-msgstr ""
+msgstr "送出"
 
 #: models.py:19
 msgid "Response"
-msgstr ""
+msgstr "回應"
 
 #: models.py:20
 msgid "Send email to user"
-msgstr ""
+msgstr "寄送 email 給使用者"
 
 #: models.py:21
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
+msgstr "如果要在表單被提交時向提供的地址寄送 email，請勾選此項。"
 
 #: models.py:23
 msgid "From address"
-msgstr ""
+msgstr "寄件人"
 
 #: models.py:24
 msgid "The address the email will be sent from"
-msgstr ""
+msgstr "該 email 的寄件人位址"
 
 #: models.py:25
 msgid "Send email to others"
-msgstr ""
+msgstr "寄送 email 給其他人"
 
 #: models.py:26
 msgid ""
@@ -201,11 +201,11 @@ msgstr ""
 
 #: models.py:30
 msgid "Subject"
-msgstr ""
+msgstr "主旨"
 
 #: models.py:31
 msgid "Message"
-msgstr ""
+msgstr "訊息"
 
 #: models.py:32
 msgid ""
@@ -216,31 +216,31 @@ msgstr ""
 
 #: models.py:37
 msgid "Form"
-msgstr ""
+msgstr "表單"
 
 #: models.py:38
 msgid "Forms"
-msgstr ""
+msgstr "表單"
 
 #: models.py:55
 msgid "Label"
-msgstr ""
+msgstr "標籤"
 
 #: models.py:57
 msgid "Type"
-msgstr ""
+msgstr "類別"
 
 #: models.py:58
 msgid "Required"
-msgstr ""
+msgstr "必填"
 
 #: models.py:59
 msgid "Visible"
-msgstr ""
+msgstr "可見"
 
 #: models.py:60
 msgid "Choices"
-msgstr ""
+msgstr "選擇"
 
 #: models.py:61
 msgid ""
@@ -250,7 +250,7 @@ msgstr ""
 
 #: models.py:63
 msgid "Default value"
-msgstr ""
+msgstr "預設值"
 
 #: models.py:65
 msgid "Placeholder Text"
@@ -258,40 +258,40 @@ msgstr ""
 
 #: models.py:67
 msgid "Help text"
-msgstr ""
+msgstr "說明文字"
 
 #: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
-msgstr ""
+msgstr "欄位"
 
 #: models.py:73
 msgid "Fields"
-msgstr ""
+msgstr "欄位"
 
 #: models.py:119
 msgid "Form entry"
-msgstr ""
+msgstr "表單資料"
 
 #: models.py:120
 msgid "Form entries"
-msgstr ""
+msgstr "表單資料"
 
 #: models.py:134
 msgid "Form field entry"
-msgstr ""
+msgstr "表單欄位資料"
 
 #: models.py:135
 msgid "Form field entries"
-msgstr ""
+msgstr "表單欄位資料"
 
 #: templates/admin/forms/change_form.html:8
 #: templates/admin/forms/entries.html:57
 msgid "View entries"
-msgstr ""
+msgstr "瀏覽資料"
 
 #: templates/admin/forms/change_form.html:9
 msgid "History"
-msgstr ""
+msgstr "歷史"
 
 #: templates/admin/forms/change_form.html:10
 msgid "View on site"
@@ -311,24 +311,24 @@ msgstr ""
 
 #: templates/admin/forms/entries.html:48
 msgid "All"
-msgstr ""
+msgstr "全部"
 
 #: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
-msgstr ""
+msgstr "回到表單"
 
 #: templates/admin/forms/entries.html:58
 msgid "Export CSV"
-msgstr ""
+msgstr "匯出 CSV"
 
 #: templates/admin/forms/entries.html:60
 msgid "Entries"
-msgstr ""
+msgstr "資料"
 
 #: templates/admin/forms/entries.html:94
 msgid "Delete selected"
-msgstr ""
+msgstr "刪除所選項目"
 
 #: templates/admin/forms/entries.html:98
 msgid "No entries to display"
-msgstr ""
+msgstr "無資料可顯示"

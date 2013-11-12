@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <bornazadeh@gmail.com>, 2012.
+# Bornazadeh <bornazadeh@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2013-03-30 12:20+0000\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Persian (http://www.transifex.com/projects/p/mezzanine/"
-"language/fa/)\n"
-"Language: fa\n"
+"Language-Team: Persian (http://www.transifex.com/projects/p/mezzanine/language/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin.py:32 fields.py:33
@@ -37,10 +36,7 @@ msgstr "نمایش ورودی ها"
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
-"اگر `` علامت دار`` باشد, ایمیل های تایید ارسال فرم که به گیرندگان اضافی "
-"فرستاده خواهد شد, از یک آدرس گرفته شده از ایمیل های  موجود درفرم استفاده نمی "
-"کند."
+msgstr "اگر `` علامت دار`` باشد, ایمیل های تایید ارسال فرم که به گیرندگان اضافی فرستاده خواهد شد, از یک آدرس گرفته شده از ایمیل های  موجود درفرم استفاده نمی کند."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
@@ -60,17 +56,12 @@ msgstr "مسیر مطلق برای ذخیره ی فایل های آپلود شد
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
-msgstr ""
-"فیلدهای سفارشی نوع  داده  برای فرمها. باید شامل یک توالی از گزینه های سه "
-"قسمتی باشند، هر یک حاوی یک شناسه ID، مسیر نقطه دار ورود کلاس فیلد و نام "
-"فیلد، برای هر نوع فیلد سفارشی باشد.ID  به سادگی یک ثابت عددی برای فیلد است، "
-"اما نمی تواند مقداری باشد که در حال حاضر استفاده شده است، پس برای جلوگیری از "
-"تداخل,  یک عدد بزرگ مثل 100 یا بیشتر را انتخاب کنید."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
+msgstr "فیلدهای سفارشی نوع  داده  برای فرمها. باید شامل یک توالی از گزینه های سه قسمتی باشند، هر یک حاوی یک شناسه ID، مسیر نقطه دار ورود کلاس فیلد و نام فیلد، برای هر نوع فیلد سفارشی باشد.ID  به سادگی یک ثابت عددی برای فیلد است، اما نمی تواند مقداری باشد که در حال حاضر استفاده شده است، پس برای جلوگیری از تداخل,  یک عدد بزرگ مثل 100 یا بیشتر را انتخاب کنید."
 
 #: fields.py:31
 msgid "Single line text"
@@ -188,9 +179,7 @@ msgstr "ارسال ایمیل به کاربر"
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
-"برای ارسال یک ایمیل پس از ارسال فرم به آدرس پست الکترونیکی وارد شده در فرم، "
-"از این جعبه انتخاب استفاده کنید."
+msgstr "برای ارسال یک ایمیل پس از ارسال فرم به آدرس پست الکترونیکی وارد شده در فرم، از این جعبه انتخاب استفاده کنید."
 
 #: models.py:23
 msgid "From address"
@@ -208,9 +197,7 @@ msgstr "ارسال ایمیل به دیگران"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
-"ارائه یک لیست که با کاما از هم جداشده از آدرس ایمیل هایی که از ارسال یک فرم "
-"مطلع شوند. اگر فیلد را خالی بگذارید این مطلع کردن غیر فعال می شود."
+msgstr "ارائه یک لیست که با کاما از هم جداشده از آدرس ایمیل هایی که از ارسال یک فرم مطلع شوند. اگر فیلد را خالی بگذارید این مطلع کردن غیر فعال می شود."
 
 #: models.py:30
 msgid "Subject"
@@ -225,10 +212,7 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
-"ایمیل های فرستاده شده بر اساس گزینه های فوق شامل هر یک از موارد پر شده در "
-"فرم می باشد. شما همچنین می توانید یک پیام  دلخواه در اینجا وارد کنید تا در "
-"ایمیل ارسال شود."
+msgstr "ایمیل های فرستاده شده بر اساس گزینه های فوق شامل هر یک از موارد پر شده در فرم می باشد. شما همچنین می توانید یک پیام  دلخواه در اینجا وارد کنید تا در ایمیل ارسال شود."
 
 #: models.py:37
 msgid "Form"
@@ -262,9 +246,7 @@ msgstr "انتخاب ها"
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
-"گزینه های از هم جدا با کاما قابل قبول است. اگرگزینه ای خود شامل کاما باشد، "
-"می توان این گزینه را  با ` backticks `احاطه کرد."
+msgstr "گزینه های از هم جدا با کاما قابل قبول است. اگرگزینه ای خود شامل کاما باشد، می توان این گزینه را  با ` backticks `احاطه کرد."
 
 #: models.py:63
 msgid "Default value"

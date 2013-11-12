@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Roman Kozlovskiy <krzroman@gmail.com>, 2013
+# Roman Kozlovskiy <krzroman@gmail.com>, 2013
+# Taras Kozlovskyi <ktarasz@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:42-0430\n"
-"PO-Revision-Date: 2012-10-18 18:02+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/"
-"mezzanine/language/uk_UA/)\n"
-"Language: uk_UA\n"
+"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Roman Kozlovskiy <krzroman@gmail.com>\n"
+"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/mezzanine/language/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk_UA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: admin.py:32 fields.py:33
 msgid "Email"
@@ -27,124 +28,124 @@ msgstr "E-mail"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%(count)s запис віддалено"
+msgstr[1] "%(count)s записів віддалено"
+msgstr[2] "%(count)s записів віддалено"
 
 #: admin.py:119
 msgid "View Entries"
-msgstr ""
+msgstr "Дивитись"
 
 #: defaults.py:20
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr ""
+msgstr "Якщо відмічено, то листи, відправлені додатковим одержувачам заповненої форми не буде відправлено з адреси, взятої з одного з полів форми електронного листа."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
-msgstr ""
+msgstr "Максимальна довжина, допустима для полів форм"
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr ""
+msgstr "Максимально допустима довжина назв полів форм"
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr ""
+msgstr "Символ, який використовувати як роздільник полів при експорті відповідей форми в CSV."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr ""
+msgstr "Абсолютний шлях для зберігання файлів на сервер для форм додатків."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item "
-"sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item"
+" sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high "
-"number such as 100 or greater to avoid conflicts."
+"constant for the field, but cannot be a value already used, so choose a high"
+" number such as 100 or greater to avoid conflicts."
 msgstr ""
 
 #: fields.py:31
 msgid "Single line text"
-msgstr ""
+msgstr "Строка"
 
 #: fields.py:32
 msgid "Multi line text"
-msgstr ""
+msgstr "Текст"
 
 #: fields.py:34
 msgid "Number"
-msgstr ""
+msgstr "Номер"
 
 #: fields.py:35
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: fields.py:36
 msgid "Check box"
-msgstr ""
+msgstr "Прапорець"
 
 #: fields.py:37
 msgid "Check boxes"
-msgstr ""
+msgstr "Прапорці"
 
 #: fields.py:38
 msgid "Drop down"
-msgstr ""
+msgstr "Список"
 
 #: fields.py:39
 msgid "Multi select"
-msgstr ""
+msgstr "Список з вибором декількох значень"
 
 #: fields.py:40
 msgid "Radio buttons"
-msgstr ""
+msgstr "Перемикачі"
 
 #: fields.py:41
 msgid "File upload"
-msgstr ""
+msgstr "Завантаження файлу"
 
 #: fields.py:42
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: fields.py:43 models.py:116
 msgid "Date/time"
-msgstr ""
+msgstr "Дата/час"
 
 #: fields.py:44
 msgid "Date of birth"
-msgstr ""
+msgstr "Дата народження"
 
 #: fields.py:45
 msgid "Hidden"
-msgstr ""
+msgstr "Приховане"
 
 #: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
-msgstr ""
+msgstr "Нічого"
 
 #: forms.py:29
 msgid "Contains"
-msgstr ""
+msgstr "Містить"
 
 #: forms.py:30
 msgid "Doesn't contain"
-msgstr ""
+msgstr "Не містить"
 
 #: forms.py:31 forms.py:37
 msgid "Equals"
-msgstr ""
+msgstr "Рівне"
 
 #: forms.py:32 forms.py:38
 msgid "Doesn't equal"
-msgstr ""
+msgstr "Не рівне"
 
 #: forms.py:43
 msgid "Is between"
-msgstr ""
+msgstr "Є в проміжку"
 
 #: forms.py:100
 msgid "required"
@@ -152,149 +153,149 @@ msgstr "обов'язково"
 
 #: forms.py:216
 msgid "Checked"
-msgstr ""
+msgstr "Встановлений"
 
 #: forms.py:216
 msgid "Not checked"
-msgstr ""
+msgstr "Не встановлений"
 
 #: forms.py:230 forms.py:245
 msgid "and"
-msgstr ""
+msgstr "і"
 
 #: models.py:17
 msgid "Button text"
-msgstr ""
+msgstr "Текст кнопки"
 
 #: models.py:18
 msgid "Submit"
-msgstr ""
+msgstr "Відправити"
 
 #: models.py:19
 msgid "Response"
-msgstr ""
+msgstr "Відповідь"
 
 #: models.py:20
 msgid "Send email to user"
-msgstr ""
+msgstr "Надіслати листа користувачу"
 
 #: models.py:21
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
-msgstr ""
+msgstr "Щоб відправити електронний лист на адресу електронної пошти при заповненні форми, відмітьте цей прапорець."
 
 #: models.py:23
 msgid "From address"
-msgstr ""
+msgstr "Від адреснта "
 
 #: models.py:24
 msgid "The address the email will be sent from"
-msgstr ""
+msgstr "Адреса електронної пошти, від кого буде відправлено лист"
 
 #: models.py:25
 msgid "Send email to others"
-msgstr ""
+msgstr "Надіслати листа іншим"
 
 #: models.py:26
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr ""
+msgstr "Введіть розділений комами список адрес електронної пошти, щоб отримати повідомлення про заповнення форми. Залиште порожнім, щоб відключити повідомлення."
 
 #: models.py:30
 msgid "Subject"
-msgstr ""
+msgstr "Тема"
 
 #: models.py:31
 msgid "Message"
-msgstr ""
+msgstr "Повідомлення"
 
 #: models.py:32
 msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr ""
+msgstr "Повідомлення відправлені виходячи із зазначених вище параметрів буде містити кожну з полів форми введення. Ви також можете тут ввести своє повідомлення, яке буде включене в електронний лист."
 
 #: models.py:37
 msgid "Form"
-msgstr ""
+msgstr "Форма"
 
 #: models.py:38
 msgid "Forms"
-msgstr ""
+msgstr "Форми"
 
 #: models.py:55
 msgid "Label"
-msgstr ""
+msgstr "Ім'я поля"
 
 #: models.py:57
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: models.py:58
 msgid "Required"
-msgstr ""
+msgstr "Обов'язкове"
 
 #: models.py:59
 msgid "Visible"
-msgstr ""
+msgstr "Видиме"
 
 #: models.py:60
 msgid "Choices"
-msgstr ""
+msgstr "Значення"
 
 #: models.py:61
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr ""
+msgstr "Варіанти, розділені комами. Якщо значення містить коми, оточіть його `зворотними лапками`."
 
 #: models.py:63
 msgid "Default value"
-msgstr ""
+msgstr "Значення за замовчуванням"
 
 #: models.py:65
 msgid "Placeholder Text"
-msgstr ""
+msgstr "Заміщающий текст"
 
 #: models.py:67
 msgid "Help text"
-msgstr ""
+msgstr "Текст підказки"
 
 #: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
-msgstr ""
+msgstr "Поле"
 
 #: models.py:73
 msgid "Fields"
-msgstr ""
+msgstr "Поля"
 
 #: models.py:119
 msgid "Form entry"
-msgstr ""
+msgstr "Форма"
 
 #: models.py:120
 msgid "Form entries"
-msgstr ""
+msgstr "Форми"
 
 #: models.py:134
 msgid "Form field entry"
-msgstr ""
+msgstr "Поле форми"
 
 #: models.py:135
 msgid "Form field entries"
-msgstr ""
+msgstr "Поля форми"
 
 #: templates/admin/forms/change_form.html:8
 #: templates/admin/forms/entries.html:57
 msgid "View entries"
-msgstr ""
+msgstr "Перегляд записів"
 
 #: templates/admin/forms/change_form.html:9
 msgid "History"
-msgstr ""
+msgstr "Історія"
 
 #: templates/admin/forms/change_form.html:10
 msgid "View on site"
@@ -302,36 +303,36 @@ msgstr "Переглянути на сайті"
 
 #: templates/admin/forms/entries.html:14
 msgid "Home"
-msgstr ""
+msgstr "Головна"
 
 #: templates/admin/forms/entries.html:29
 msgid "Include"
-msgstr ""
+msgstr "Включати"
 
 #: templates/admin/forms/entries.html:30
 msgid "Filter by"
-msgstr ""
+msgstr "Фільтрувати за"
 
 #: templates/admin/forms/entries.html:48
 msgid "All"
-msgstr ""
+msgstr "Всі"
 
 #: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
 msgid "Back to form"
-msgstr ""
+msgstr "Повернутися до форми"
 
 #: templates/admin/forms/entries.html:58
 msgid "Export CSV"
-msgstr ""
+msgstr "Експортувати CSV"
 
 #: templates/admin/forms/entries.html:60
 msgid "Entries"
-msgstr ""
+msgstr "Записи"
 
 #: templates/admin/forms/entries.html:94
 msgid "Delete selected"
-msgstr ""
+msgstr "Видалити вибрані"
 
 #: templates/admin/forms/entries.html:98
 msgid "No entries to display"
-msgstr ""
+msgstr "Немає записів для відображення"

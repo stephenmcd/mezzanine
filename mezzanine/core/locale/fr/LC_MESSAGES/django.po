@@ -3,18 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jérôme Place <djayp83@hotmail.com>, 2012.
-#   <mathias.ettinger@gmail.com>, 2012.
-#   <strider@strycore.com>, 2012.
-#   <vincent.rialland@gmail.com>, 2011.
-# Vincent Rialland <vincent.rialland@gmail.com>, 2011.
+# Christophe kryskool <christophe.chauvet@gmail.com>, 2013
+# Jérôme Place <djayp83@hotmail.com>, 2012
+# Kniyl <mathias.ettinger@gmail.com>, 2012
+# Romain Hardouin <romain_hardouin@yahoo.fr>, 2013
+# strider <strider@strycore.com>, 2012
+# Vincent Rialland <vincent.rialland@gmail.com>, 2011
+# Vincent Rialland <vincent.rialland@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 10:41-0430\n"
-"PO-Revision-Date: 2013-03-30 11:59+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2013-06-23 11:36+0000\n"
+"Last-Translator: Christophe kryskool <christophe.chauvet@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -75,11 +77,11 @@ msgstr ""
 
 #: defaults.py:57
 msgid "bit.ly access token"
-msgstr ""
+msgstr "Jeton d'accès à bit.ly"
 
 #: defaults.py:58
 msgid "Access token for http://bit.ly URL shortening service."
-msgstr ""
+msgstr "Jeton d'accès pour le raccourcisseur d'URL http://bit.ly."
 
 #: defaults.py:65
 msgid ""
@@ -186,11 +188,12 @@ msgstr "Nom du fichier jQuery trouvé dans mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
-msgstr ""
+msgstr "Nom du fichier jQuery UI."
 
 #: defaults.py:185
 msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
 msgstr ""
+"Nom du fichier jQuery UI trouvé dans mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:193
 msgid "Max paging links"
@@ -203,13 +206,15 @@ msgstr ""
 
 #: defaults.py:201
 msgid "Media library per site"
-msgstr ""
+msgstr "Bibliothèque de media par site"
 
 #: defaults.py:202
 msgid ""
 "If ``True``, each site will use its own directory within the filebrowser "
 "media library."
 msgstr ""
+"Si ``True``, chaque site aura son propre répertoire dans la bibliothèque des "
+"media."
 
 #: defaults.py:210
 msgid ""
@@ -324,6 +329,10 @@ msgid ""
 "form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
+"Séquence des modèles qui seront fournis par défaut comme choix dans le "
+"formulaire de recherche. Chaque modèle doit être au format ``app_label."
+"model_name``. Seuls les modèles qui héritent de ``mezzanine.core.models."
+"Displayable`` doivent être listés."
 
 #: defaults.py:323
 msgid "Search results per page"
@@ -392,6 +401,13 @@ msgid ""
 "which will use the http://akismet.com spam filtering service when the "
 "``AKISMET_API_KEY`` setting is configured."
 msgstr ""
+"Les chemins Python sont une succession de  pointillés pour l'appel fonctions "
+"utilisés pour contrôler si le contenu affiché (tels que les formulaires ou "
+"des commentaires) est un spam. Chaque fonction doit accepter trois "
+"arguments: l'objet de la demande, l'objet de formulaire et l'URL qui a été "
+"affichée à partir. Par défaut, ``mezzanine.utils.views.is_spam_akismet`` qui "
+"utilisera le service de filtrage de spam http://akismet.com lorsque le "
+"paramètre ``AKISMET_API_KEY`` est configuré."
 
 #: defaults.py:383
 msgid "Enable SSL"
@@ -467,6 +483,9 @@ msgid ""
 "field_name`` to the Python dotted path to function names that will be used "
 "for the file field's ``upload_to`` argument."
 msgstr ""
+"Dictionnaire des champs de noms de fichiers au format ``app_label.model_name."
+"field_name`` vers le chemin relatif en Python pour les noms de fonctions qui "
+"seront utilisées pour l'argument du champ de fichier ``upload_to``."
 
 #: defaults.py:535
 msgid ""
@@ -568,7 +587,7 @@ msgstr ""
 
 #: models.py:199
 msgid "Show in sitemap"
-msgstr ""
+msgstr "Afficher dans le plan du site"
 
 #: models.py:402 models.py:422
 msgid "Author"
@@ -576,15 +595,15 @@ msgstr "Auteur"
 
 #: models.py:425
 msgid "Sites"
-msgstr ""
+msgstr "Sites"
 
 #: models.py:428
 msgid "Site permission"
-msgstr ""
+msgstr "Permission d'accès aux sites"
 
 #: models.py:429
 msgid "Site permissions"
-msgstr ""
+msgstr "Permissions d'accès aux sites"
 
 #: views.py:87
 msgid "Permission denied"
@@ -592,7 +611,7 @@ msgstr "Permission refusée"
 
 #: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
-msgstr ""
+msgstr "Partout"
 
 #: templates/base.html:121
 msgid "Powered by"
@@ -640,6 +659,28 @@ msgid ""
 "to a production server</a></li>\n"
 "</ul>\n"
 msgstr ""
+"\n"
+"<h2>Félicitations !</h2>\n"
+"<p>\n"
+"    Bienvenue sur votre nouveau site propulsé par Mezzanine.\n"
+"    Voici quelques liens pour commencer :\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">Interface d'administration</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Créer des types de pages personnalisés</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">Modifier les templates HTML</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin\">Changer "
+"la page d'accueil</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">FAQ</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Tous les paramètres de Mezzanine</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deployer "
+"sur un serveur de production</a></li>\n"
+"</ul>\n"
 
 #: templates/search_results.html:5 templates/search_results.html.py:6
 #: templates/search_results.html:13
@@ -652,6 +693,8 @@ msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"Aucun résultat dans %(search_type)s pour la recherche : %(query)s\n"
 
 #: templates/search_results.html:24
 #, python-format
@@ -660,6 +703,10 @@ msgid ""
 "Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
 "matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"Recherche %(query)s dans %(search_type)s.\n"
+"Résultats %(start)s - %(end)s sur %(total)s.\n"
+"\n"
 
 #: templates/search_results.html:35
 msgid "read more"
@@ -676,6 +723,7 @@ msgstr "Tableau de bord"
 #: templates/admin/login.html:21
 msgid "You don't have permission to access the admin for this site."
 msgstr ""
+"Vous ne disposez pas des droits pour accéder à l'administration de ce site."
 
 #: templates/admin/login.html:28
 msgid "Username or email:"
@@ -773,4 +821,4 @@ msgstr "Recherche"
 
 #: templates/includes/search_form.html:22
 msgid "Go"
-msgstr ""
+msgstr "OK"
