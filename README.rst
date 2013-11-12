@@ -433,7 +433,7 @@ Sites Using Mezzanine
 * `Code Juggle DJ <http://www.codejuggle.dj>`_
 * `Food News <http://food.hypertexthero.com>`_
 * `Australian Discworld Conventions <http://ausdwcon.org>`_
-
+* `Distilled <http://www.distilled.net/>`_
 
 Quotes
 ======
