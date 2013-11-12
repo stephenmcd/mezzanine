@@ -1,8 +1,6 @@
 
 DEBUG = True
 
-TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
-
 # Make these unique, and don't share it with anybody.
 SECRET_KEY = "%(SECRET_KEY)s"
 NEVERCACHE_KEY = "%(NEVERCACHE_KEY)s"
