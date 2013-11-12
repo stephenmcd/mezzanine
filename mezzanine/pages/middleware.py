@@ -90,7 +90,7 @@ class PageMiddleware(object):
 
         # If we can't add context to the response we just return it.
         # (redirects, etc)
-        if not hasattr(response, "context_data"):
+        if getattr(response, "context_data", None) is None:
             return response
 
         # Add the page to its template context, and set helper
