@@ -7,7 +7,7 @@ from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.pages.models import Page
-from mezzanine.utils.urls import admin_url, home_slug
+from mezzanine.utils.urls import home_slug
 from mezzanine import template
 
 
@@ -48,12 +48,8 @@ def page_menu(context, token):
             slug = ""
         num_children = lambda id: lambda: len(context["menu_pages"][id])
         has_children = lambda id: lambda: num_children(id)() > 0
-        published = Page.objects.published(for_user=user)
-        if slug == admin_url(Page, "changelist"):
-            related = [m.__name__.lower() for m in Page.get_content_models()]
-            published = published.select_related(*related)
-        else:
-            published = published.select_related(depth=2)
+        rel = [m.__name__.lower() for m in Page.get_content_models()]
+        published = Page.objects.published(for_user=user).select_related(*rel)
         # Store the current page being viewed in the context. Used
         # for comparisons in page.set_menu_helpers.
         if "page" not in context:
