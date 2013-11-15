@@ -138,7 +138,7 @@ class Rating(models.Model):
         """
         Validate that the rating falls between the min and max values.
         """
-        valid = list(map(str, settings.RATINGS_RANGE))
+        valid = map(str, settings.RATINGS_RANGE)
         if str(self.value) not in valid:
             raise ValueError("Invalid rating. %s is not in %s" % (self.value,
                 ", ".join(valid)))

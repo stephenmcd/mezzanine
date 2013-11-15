@@ -33,9 +33,9 @@ def deep_force_unicode(value):
     Recursively call force_text on value.
     """
     if isinstance(value, (list, tuple, set)):
-        value = type(value)(list(map(deep_force_unicode, value)))
+        value = type(value)(map(deep_force_unicode, value))
     elif isinstance(value, dict):
-        value = type(value)(list(map(deep_force_unicode, value.items())))
+        value = type(value)(map(deep_force_unicode, value.items()))
     elif isinstance(value, Promise):
         value = force_text(value)
     return value
