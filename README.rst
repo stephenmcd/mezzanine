@@ -45,7 +45,7 @@ interface, Mezzanine provides the following:
 * Tagging
 * `Themes Marketplace`_
 * User accounts and profiles with email verification
-* Translated to over 20 languages
+* Translated to over 35 languages
 * Sharing via Facebook or Twitter
 * `Custom templates`_ per page or blog post
 * `Twitter Bootstrap`_ integration
