@@ -445,8 +445,8 @@ def remove():
         remote_path = template["remote_path"]
         if exists(remote_path):
             sudo("rm %s" % remote_path)
-    psql("DROP DATABASE %s;" % env.proj_name)
-    psql("DROP USER %s;" % env.proj_name)
+    psql("DROP DATABASE IF EXISTS %s;" % env.proj_name)
+    psql("DROP USER IF EXISTS %s;" % env.proj_name)
 
 
 ##############
