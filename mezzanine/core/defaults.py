@@ -66,7 +66,7 @@ register_setting(
         "caching. This is where the requested expiry for a cache entry "
         "is stored with the cache entry in cache, and the real expiry "
         "used has the ``CACHE_SET_DELAY`` added to it. Then on a cache get, "
-        "the store expiry is checked, and if it has past, the cache entry "
+        "the store expiry is checked, and if it has passed, the cache entry "
         "is set again, and no entry is returned. This tries to ensure that "
         "cache misses never occur, and if many clients were to get a cache "
         "miss at once, only one would actually need to re-generated the "
@@ -159,7 +159,7 @@ register_setting(
 register_setting(
     name="HOST_THEMES",
     description=_("A sequence mapping host names to themes, allowing "
-                  "different templates to be served per HTTP hosts "
+                  "different templates to be served per HTTP host. "
                   "Each item in the sequence is a two item sequence, "
                   "containing a host such as ``othersite.example.com``, and "
                   "the name of an importable Python package for the theme. "
@@ -367,7 +367,7 @@ register_setting(
     description=_("Dotted Python path to the callable for converting "
         "strings into URL slugs. Defaults to "
         "``mezzanine.utils.urls.slugify_unicode`` which allows for non-ascii "
-        "URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+        "URLs. Change to ``django.template.defaultfilters.slugify`` to use "
         "Django's slugify function, or something of your own if required."),
     editable=False,
     default="mezzanine.utils.urls.slugify_unicode",

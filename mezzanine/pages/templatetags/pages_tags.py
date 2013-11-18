@@ -175,7 +175,7 @@ def set_page_permissions(context, token):
         opts = model._meta
     except AttributeError:
         if model is None:
-            error = _("Could not load the model for the following page,"
+            error = _("Could not load the model for the following page, "
                       "was it removed?")
             obj = page
         else:
