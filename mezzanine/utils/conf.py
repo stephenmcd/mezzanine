@@ -61,10 +61,15 @@ def set_dynamic_settings(s):
     # Change tuple settings to lists for easier manipulation.
     s.setdefault("AUTHENTICATION_BACKENDS", defaults.AUTHENTICATION_BACKENDS)
     s.setdefault("STATICFILES_FINDERS", defaults.STATICFILES_FINDERS)
-    tuple_list_settings = ("AUTHENTICATION_BACKENDS", "INSTALLED_APPS",
-                           "MIDDLEWARE_CLASSES", "STATICFILES_FINDERS")
-    for setting in tuple_list_settings:
-        s[setting] = list(s[setting])
+    tuple_list_settings = ["AUTHENTICATION_BACKENDS", "INSTALLED_APPS",
+                           "MIDDLEWARE_CLASSES", "STATICFILES_FINDERS"]
+    for i, setting in enumerate(tuple_list_settings[:]):
+        if not isinstance(s[setting], list):
+            s[setting] = list(s[setting])
+        else:
+            # Setting is already a list, so we'll exclude it from
+            # the list of settings we'll revert back to tuples.
+            del tuple_list_settings[i]
 
     # Set up cookie messaging if none defined.
     storage = "django.contrib.messages.storage.cookie.CookieStorage"
