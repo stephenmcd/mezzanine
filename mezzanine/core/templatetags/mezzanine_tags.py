@@ -1,5 +1,5 @@
 from __future__ import absolute_import, division, unicode_literals
-from future.builtins import int, open
+from future.builtins import int, open, str
 
 from hashlib import md5
 import os
@@ -281,7 +281,7 @@ def thumbnail(image_url, width, height, quality=95):
     if not image_url:
         return ""
 
-    image_url = unquote(image_url).split("?")[0]
+    image_url = unquote(str(image_url)).split("?")[0]
     if image_url.startswith(settings.MEDIA_URL):
         image_url = image_url.replace(settings.MEDIA_URL, "", 1)
     image_dir, image_name = os.path.split(image_url)
