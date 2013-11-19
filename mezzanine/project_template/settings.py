@@ -1,4 +1,5 @@
 from __future__ import absolute_import, unicode_literals
+
 ######################
 # MEZZANINE SETTINGS #
 ######################
@@ -332,7 +333,7 @@ DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
 # ignored in your version control system allowing for settings to be
 # defined per machine.
 try:
-    from .local_settings import *
+    from local_settings import *
 except ImportError:
     pass
 
