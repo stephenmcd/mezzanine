@@ -203,10 +203,11 @@ class PageAdmin(DisplayableAdmin):
 
         def sort_key(page):
             name = "%s.%s" % (page._meta.app_label, page._meta.object_name)
+            unordered = len(order)
             try:
-                return order.index(name.lower())
+                return (order.index(name.lower()), "")
             except ValueError:
-                return page.meta_verbose_name
+                return (unordered, page.meta_verbose_name)
         return sorted(models, key=sort_key)
 
 # Drop the meta data fields, and move slug towards the stop.
