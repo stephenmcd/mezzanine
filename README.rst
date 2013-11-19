@@ -245,6 +245,8 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   in Mezzanine.
 * `mezzanine-protected-pages`_ - Restrict access to pages by group
   membership.
+* `mezzanine-page-auth`_ - A Mezzanine module for add group-level
+  permission to pages.
 
 Donating
 ========
@@ -579,6 +581,7 @@ Quotes
 .. _`Pygments`: http://pygments.org/
 .. _`mezzanine-pageimages`: https://github.com/bcs-de/mezzanine-pageimages
 .. _`mezzanine-protected-pages`: https://github.com/evilchili/mezzanine-protected-pages
+.. _`mezzanine-page-auth`: https://github.com/simodalla/mezzanine_page_auth
 
 
 .. PEOPLE WITH QUOTES
