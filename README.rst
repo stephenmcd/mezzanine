@@ -434,6 +434,7 @@ Sites Using Mezzanine
 * `Food News <http://food.hypertexthero.com>`_
 * `Australian Discworld Conventions <http://ausdwcon.org>`_
 * `Distilled <http://www.distilled.net/>`_
+* `OpenMRP <http://www.openmrp.es>`_
 
 Quotes
 ======
