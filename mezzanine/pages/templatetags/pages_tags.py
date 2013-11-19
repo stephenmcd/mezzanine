@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import str
 
 from collections import defaultdict
 
@@ -28,7 +30,7 @@ def page_menu(context, token):
     parts = token.split_contents()[1:]
     for part in parts:
         part = Variable(part).resolve(context)
-        if isinstance(part, unicode):
+        if isinstance(part, str):
             template_name = part
         elif isinstance(part, Page):
             parent_page = part

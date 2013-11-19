@@ -1,9 +1,12 @@
+from __future__ import unicode_literals
+from future.builtins import map, str
 
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from mezzanine.generic.fields import RatingField
 from mezzanine.generic.managers import CommentManager, KeywordManager
@@ -94,6 +97,7 @@ class Keyword(Slugged):
         verbose_name_plural = _("Keywords")
 
 
+@python_2_unicode_compatible
 class AssignedKeyword(Orderable):
     """
     A ``Keyword`` assigned to a model instance.
@@ -108,8 +112,8 @@ class AssignedKeyword(Orderable):
     class Meta:
         order_with_respect_to = "content_object"
 
-    def __unicode__(self):
-        return unicode(self.keyword)
+    def __str__(self):
+        return str(self.keyword)
 
 
 class Rating(models.Model):

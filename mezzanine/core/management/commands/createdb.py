@@ -1,4 +1,7 @@
 from __future__ import print_function
+from __future__ import unicode_literals
+from future.builtins import int
+from future.builtins import input
 
 from optparse import make_option
 
@@ -36,7 +39,7 @@ class Command(NoArgsCommand):
             except ImportError:
                 return
             if interactive:
-                confirm = raw_input("\nSouth is installed for this project."
+                confirm = input("\nSouth is installed for this project."
                                     "\nWould you like to fake initial "
                                     "migrations? (yes/no): ")
                 while True:
@@ -44,7 +47,7 @@ class Command(NoArgsCommand):
                         break
                     elif confirm == "no":
                         return
-                    confirm = raw_input("Please enter either 'yes' or 'no': ")
+                    confirm = input("Please enter either 'yes' or 'no': ")
             if verbosity >= 1:
                 print()
                 print("Faking initial migrations ...")

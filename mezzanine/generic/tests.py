@@ -1,4 +1,5 @@
-from __future__ import division
+from __future__ import division, unicode_literals
+from future.utils import native_str
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
@@ -28,7 +29,9 @@ class GenericTests(TestCase):
         for value in settings.RATINGS_RANGE:
             data["value"] = value
             response = self.client.post(reverse("rating"), data=data)
-            response.delete_cookie("mezzanine-rating")
+            # Django doesn't seem to support unicode cookie keys correctly on
+            # Python 2. See https://code.djangoproject.com/ticket/19802
+            response.delete_cookie(native_str("mezzanine-rating"))
         blog_post = BlogPost.objects.get(id=blog_post.id)
         count = len(settings.RATINGS_RANGE)
         _sum = sum(settings.RATINGS_RANGE)

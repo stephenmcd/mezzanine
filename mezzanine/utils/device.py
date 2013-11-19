@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 
 
 def device_from_request(request):

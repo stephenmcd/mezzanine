@@ -1,9 +1,14 @@
+from __future__ import unicode_literals
 
 from django.contrib import admin
 from django.contrib.messages import info
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    # Backward compatibility for Py2 and Django < 1.5
+    from django.utils.encoding import force_unicode as force_text
 
 from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm
@@ -39,7 +44,7 @@ class SettingsAdmin(admin.ModelAdmin):
             return self.changelist_redirect()
         extra_context["settings_form"] = settings_form
         extra_context["title"] = u"%s %s" % (
-            _("Change"), force_unicode(Setting._meta.verbose_name_plural))
+            _("Change"), force_text(Setting._meta.verbose_name_plural))
         return super(SettingsAdmin, self).changelist_view(request,
                                                             extra_context)
 

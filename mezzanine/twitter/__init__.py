@@ -1,6 +1,7 @@
 """
 Provides models and utilities for displaying different types of Twitter feeds.
 """
+from __future__ import unicode_literals
 
 from django.utils.translation import ugettext_lazy as _
 

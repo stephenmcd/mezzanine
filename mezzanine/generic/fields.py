@@ -1,4 +1,5 @@
-from __future__ import division
+from __future__ import division, unicode_literals
+from future.builtins import str
 
 from copy import copy
 
@@ -105,7 +106,7 @@ class BaseGenericRelation(GenericRelation):
         # since we don't specify a sender for the signal.
         try:
             to = self.rel.to
-            if isinstance(to, basestring):
+            if isinstance(to, str):
                 to = get_model(*to.split(".", 1))
             if not isinstance(kwargs["instance"], to):
                 raise TypeError
@@ -154,7 +155,8 @@ class CommentsField(BaseGenericRelation):
             count = related_manager.count_queryset()
         except AttributeError:
             count = related_manager.count()
-        count_field_name = self.fields.keys()[0] % self.related_field_name
+        count_field_name = list(self.fields.keys())[0] % \
+                           self.related_field_name
         setattr(instance, count_field_name, count)
         instance.save()
 
@@ -221,7 +223,8 @@ class KeywordsField(BaseGenericRelation):
         ``KEYWORDS_FIELD_string`` field in ``search_fields``.
         """
         super(KeywordsField, self).contribute_to_class(cls, name)
-        string_field_name = self.fields.keys()[0] % self.related_field_name
+        string_field_name = list(self.fields.keys())[0] % \
+                            self.related_field_name
         if hasattr(cls, "search_fields") and name in cls.search_fields:
             try:
                 weight = cls.search_fields[name]
@@ -241,8 +244,9 @@ class KeywordsField(BaseGenericRelation):
         Stores the keywords as a single string for searching.
         """
         assigned = related_manager.select_related("keyword")
-        keywords = " ".join([unicode(a.keyword) for a in assigned])
-        string_field_name = self.fields.keys()[0] % self.related_field_name
+        keywords = " ".join([str(a.keyword) for a in assigned])
+        string_field_name = list(self.fields.keys())[0] % \
+                            self.related_field_name
         if getattr(instance, string_field_name) != keywords:
             setattr(instance, string_field_name, keywords)
             instance.save()

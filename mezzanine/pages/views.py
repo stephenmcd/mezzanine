@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import str
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ImproperlyConfigured
@@ -73,13 +75,13 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     # Check for a template name matching the page's slug. If the homepage
     # is configured as a page instance, the template "pages/index.html" is
     # used, since the slug "/" won't match a template name.
-    template_name = unicode(slug) if slug != home_slug() else "index"
+    template_name = str(slug) if slug != home_slug() else "index"
     templates = [u"pages/%s.html" % template_name]
     if page.content_model is not None:
         templates.append(u"pages/%s/%s.html" % (template_name,
             page.content_model))
     for parent in page.get_ascendants(for_user=request.user):
-        parent_template_name = unicode(parent.slug)
+        parent_template_name = str(parent.slug)
         # Check for a template matching the page's content model.
         if page.content_model is not None:
             templates.append(u"pages/%s/%s.html" % (parent_template_name,

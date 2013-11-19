@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from future.builtins import str
+
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.messages import error
 from django.core.urlresolvers import reverse

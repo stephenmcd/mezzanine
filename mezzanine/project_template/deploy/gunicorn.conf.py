@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import os
 
 bind = "127.0.0.1:%(gunicorn_port)s"

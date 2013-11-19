@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from future.builtins import str
+from future.builtins import int
 from calendar import month_name
 
 from django.http import Http404
@@ -39,7 +42,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         category = get_object_or_404(BlogCategory, slug=category)
         blog_posts = blog_posts.filter(categories=category)
         templates.append(u"blog/blog_post_list_%s.html" %
-                          unicode(category.slug))
+                          str(category.slug))
     author = None
     if username is not None:
         author = get_object_or_404(User, username=username)
@@ -67,7 +70,7 @@ def blog_post_detail(request, slug, year=None, month=None, day=None,
                                      for_user=request.user).select_related()
     blog_post = get_object_or_404(blog_posts, slug=slug)
     context = {"blog_post": blog_post, "editable_obj": blog_post}
-    templates = [u"blog/blog_post_detail_%s.html" % unicode(slug), template]
+    templates = [u"blog/blog_post_detail_%s.html" % str(slug), template]
     return render(request, templates, context)
 
 

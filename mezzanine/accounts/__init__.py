@@ -5,6 +5,7 @@ with user profiles models defined by the ``AUTH_PROFILE_MODULE``
 setting. Some utility functions for probing the profile model are
 included below.
 """
+from __future__ import unicode_literals
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured

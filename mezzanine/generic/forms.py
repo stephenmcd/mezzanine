@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import int, str, zip
 
 from django import forms
 from django.contrib.comments.forms import CommentSecurityForm, CommentForm
@@ -52,7 +54,7 @@ class KeywordsWidget(forms.MultiWidget):
             keywords = [a.keyword for a in value.select_related("keyword")]
             if keywords:
                 keywords = [(str(k.id), k.title) for k in keywords]
-                self._ids, words = zip(*keywords)
+                self._ids, words = list(zip(*keywords))
                 return (",".join(self._ids), ", ".join(words))
         return ("", "")
 
@@ -65,7 +67,7 @@ class KeywordsWidget(forms.MultiWidget):
         links = ""
         for keyword in Keyword.objects.all().order_by("title"):
             prefix = "+" if str(keyword.id) not in self._ids else "-"
-            links += ("<a href='#'>%s%s</a>" % (prefix, unicode(keyword)))
+            links += ("<a href='#'>%s%s</a>" % (prefix, str(keyword)))
         rendered += mark_safe("<p class='keywords-field'>%s</p>" % links)
         return rendered
 
@@ -133,7 +135,7 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
                                 request=request)
         notify_emails = split_addresses(settings.COMMENTS_NOTIFICATION_EMAILS)
         if notify_emails:
-            subject = _("New comment for: ") + unicode(obj)
+            subject = _("New comment for: ") + str(obj)
             context = {
                 "comment": comment,
                 "comment_url": add_cache_bypass(comment.get_absolute_url()),
@@ -152,7 +154,8 @@ class RatingForm(CommentSecurityForm):
     of its easy setup for generic relations.
     """
     value = forms.ChoiceField(label="", widget=forms.RadioSelect,
-                              choices=zip(*(settings.RATINGS_RANGE,) * 2))
+                              choices=list(zip(
+                                             *(settings.RATINGS_RANGE,) * 2)))
 
     def __init__(self, request, *args, **kwargs):
         self.request = request

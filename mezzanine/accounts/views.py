@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 
 from django.contrib.auth import (authenticate, login as auth_login,
                                                logout as auth_logout)

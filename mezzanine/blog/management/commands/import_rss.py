@@ -1,9 +1,15 @@
+from __future__ import unicode_literals
+from future import standard_library
 
 from datetime import timedelta
 from optparse import make_option
 from time import timezone
-from urllib import urlopen
-from urlparse import urljoin
+try:
+    from urllib.request import urlopen
+    from urllib.parse import urljoin
+except ImportError:
+    from urllib import urlopen
+    from urlparse import urljoin
 
 from django.core.management.base import CommandError
 

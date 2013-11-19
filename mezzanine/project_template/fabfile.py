@@ -1,4 +1,6 @@
 from __future__ import print_function
+from __future__ import unicode_literals
+from future.builtins import input, open
 import os
 import re
 import sys
@@ -365,7 +367,7 @@ def create():
     # Create virtualenv
     with cd(env.venv_home):
         if exists(env.proj_name):
-            prompt = raw_input("\nVirtualenv exists: %s\nWould you like "
+            prompt = input("\nVirtualenv exists: %s\nWould you like "
                                "to replace it? (yes/no) " % env.proj_name)
             if prompt.lower() != "yes":
                 print("\nAborting!")
@@ -478,7 +480,7 @@ def deploy():
     processes for the project.
     """
     if not exists(env.venv_path):
-        prompt = raw_input("\nVirtualenv doesn't exist: %s\nWould you like "
+        prompt = input("\nVirtualenv doesn't exist: %s\nWould you like "
                            "to create it? (yes/no) " % env.proj_name)
         if prompt.lower() != "yes":
             print("\nAborting!")

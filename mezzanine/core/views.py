@@ -1,5 +1,12 @@
+from __future__ import absolute_import, unicode_literals
+from future import standard_library
+from future.builtins import int, open, str
+
 import os
-from urlparse import urljoin, urlparse
+try:
+    from urllib.parse import urljoin, urlparse
+except ImportError:
+    from urlparse import urljoin, urlparse
 
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
@@ -92,8 +99,8 @@ def edit(request):
         model_admin.log_change(request, obj, message)
         response = ""
     else:
-        response = form.errors.values()[0][0]
-    return HttpResponse(unicode(response))
+        response = list(form.errors.values())[0][0]
+    return HttpResponse(str(response))
 
 
 def search(request, template="search_results.html"):
