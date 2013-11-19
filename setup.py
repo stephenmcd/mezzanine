@@ -28,14 +28,18 @@ from mezzanine import __version__ as version
 
 install_requires = [
     "django >= 1.4.8, < 1.6",
-    "filebrowser_safe >= 0.2.27",
-    "grappelli_safe >= 0.2.22",
     "html5lib == 0.95",
-    "bleach",
     "pytz >= 2013b",
     "requests==1.2.3",
     "requests-oauthlib > 0.3.2, < 0.4",
 ]
+
+if sys.version_info[0] == 2:
+    install_requires += [
+        "filebrowser_safe >= 0.2.27",
+        "grappelli_safe >= 0.2.22",
+        "bleach",
+    ]
 
 try:
     from PIL import Image, ImageOps
