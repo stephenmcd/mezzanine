@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import bytes, str
 
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
@@ -42,9 +44,12 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
     # (normally added by a context processor for HTTP requests)
     context.update(context_settings())
     # Allow for a single address to be passed in.
-    if not hasattr(addr_to, "__iter__"):
+    # Python 3 strings have an __iter__ method, so the following hack
+    # doesn't work: if not hasattr(addr_to, "__iter__"):
+    if isinstance(addr_to, str) or isinstance(addr_to, bytes):
         addr_to = [addr_to]
-    if addr_bcc is not None and not hasattr(addr_bcc, "__iter__"):
+    if addr_bcc is not None and (isinstance(addr_bcc, str) or
+                                 isinstance(addr_bcc, bytes)):
         addr_bcc = [addr_bcc]
     # Loads a template passing in vars as context.
     render = lambda type: loader.get_template("%s.%s" %

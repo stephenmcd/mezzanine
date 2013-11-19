@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import bytes, int, str
 """
 Drop-in replacement for ``django.conf.settings`` that provides a
 consistent access method for settings defined in applications, the project
@@ -5,7 +7,11 @@ or Django itself. Settings can also be made editable via the admin.
 """
 
 from django.conf import settings as django_settings
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    # Backward compatibility for Py2 and Django < 1.5
+    from django.utils.encoding import force_unicode as force_text
 from django.utils.functional import Promise
 from django.utils.importlib import import_module
 from django.utils.module_loading import module_has_submodule
@@ -34,12 +40,21 @@ def register_setting(name="", label="", editable=False, description="",
         if hasattr(django_settings, name):
             editable = False
         if isinstance(default, Promise):
-            default = force_unicode(default)
-        setting_type = type(default)
+            default = force_text(default)
         if not label:
             label = name.replace("_", " ").title()
-        if setting_type is str:
-            setting_type = unicode
+        # The next six lines are for Python 2/3 compatibility.
+        # isinstance() is overridden by future on Python 2 to behave as
+        # on Python 3 in conjunction with either Python 2's native types
+        # or the future.builtins types.
+        if isinstance(default, int):        # an int or long or subclass on Py2
+            setting_type = int
+        elif isinstance(default, str):      # a unicode or subclass on Py2
+            setting_type = str
+        elif isinstance(default, bytes):    # a byte-string or subclass on Py2
+            setting_type = bytes
+        else:
+            setting_type = type(default)
         registry[name] = {"name": name, "label": label,
                           "description": description,
                           "editable": editable, "default": default,

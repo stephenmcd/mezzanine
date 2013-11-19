@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from future.builtins import int
+from future.builtins import input
 
 import os
 from optparse import make_option
@@ -88,14 +91,14 @@ class Command(BaseCommand):
                 self.stdout.write("While copying %s [from %s]:\n" %
                                   (name, app))
                 self.stdout.write("Template exists%s.\n" % prev)
-                confirm = raw_input("Overwrite?  (yes/no/abort): ")
+                confirm = input("Overwrite?  (yes/no/abort): ")
                 while True:
                     if confirm in ("yes", "no"):
                         break
                     elif confirm == "abort":
                         self.stdout.write("Aborted\n")
                         return
-                    confirm = raw_input("Please enter either 'yes' or 'no': ")
+                    confirm = input("Please enter either 'yes' or 'no': ")
                 if confirm == "no":
                     self.stdout.write("[Skipped]\n")
                     continue

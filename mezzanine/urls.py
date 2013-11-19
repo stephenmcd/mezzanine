@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import str
 """
 This is the main ``urlconf`` for Mezzanine - it sets up patterns for
 all the various Mezzanine apps, third-party apps like Grappelli and
@@ -18,7 +20,7 @@ from mezzanine.core.sitemaps import DisplayableSitemap
 for model in settings.ADMIN_REMOVAL:
     try:
         model = tuple(model.rsplit(".", 1))
-        exec "from %s import %s" % model
+        exec("from %s import %s" % model)
     except ImportError:
         pass
     else:
@@ -99,7 +101,7 @@ if "mezzanine.pages" in settings.INSTALLED_APPS:
         PAGES_SLUG = getattr(settings, "PAGES_SLUG", "pages").strip("/") + "/"
         blog_patterns_start = urlpatterns.index(blog_patterns[0])
         urlpatterns[blog_patterns_start:len(blog_patterns)] = patterns("",
-            ("^%s" % unicode(PAGES_SLUG), include("mezzanine.pages.urls")),
+            ("^%s" % str(PAGES_SLUG), include("mezzanine.pages.urls")),
         )
     else:
         urlpatterns += patterns("",

@@ -1,5 +1,5 @@
+from __future__ import unicode_literals
 
-from __future__ import with_statement
 import os
 import sys
 
@@ -30,8 +30,9 @@ install_requires = [
     "django >= 1.4.8, < 1.6",
     "html5lib == 0.95",
     "pytz >= 2013b",
-    "requests==1.2.3",
+    "requests == 1.2.3",
     "requests-oauthlib > 0.3.2, < 0.4",
+    "future == 0.9.0",
 ]
 
 if sys.version_info[0] == 2:
@@ -82,6 +83,10 @@ try:
             "License :: OSI Approved :: BSD License",
             "Operating System :: OS Independent",
             "Programming Language :: Python",
+            "Programming Language :: Python :: 2.6",
+            "Programming Language :: Python :: 2.7",
+            "Programming Language :: Python :: 3",
+            "Programming Language :: Python :: 3.3",
             "Topic :: Internet :: WWW/HTTP",
             "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
             "Topic :: Internet :: WWW/HTTP :: WSGI",

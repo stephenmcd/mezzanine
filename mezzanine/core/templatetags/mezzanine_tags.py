@@ -1,8 +1,13 @@
-from __future__ import division
+from __future__ import absolute_import, division, unicode_literals
+from future.builtins import int, open
 
 from hashlib import md5
 import os
-from urllib import urlopen, urlencode, quote, unquote
+try:
+    from urllib.request import urlopen
+    from urllib.parse import urlencode, quote, unquote
+except ImportError:
+    from urllib import urlopen, urlencode, quote, unquote
 
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -276,7 +281,7 @@ def thumbnail(image_url, width, height, quality=95):
     if not image_url:
         return ""
 
-    image_url = unquote(unicode(image_url)).split("?")[0]
+    image_url = unquote(image_url).split("?")[0]
     if image_url.startswith(settings.MEDIA_URL):
         image_url = image_url.replace(settings.MEDIA_URL, "", 1)
     image_dir, image_name = os.path.split(image_url)
@@ -422,7 +427,7 @@ def editable(parsed, context, token):
         fields = [f for f in fields if len(f) == 2 and f[0] is fields[0][0]]
     if not parsed.strip():
         try:
-            parsed = "".join([unicode(getattr(*field)) for field in fields])
+            parsed = "".join([str(getattr(*field)) for field in fields])
         except AttributeError:
             pass
 
@@ -524,7 +529,7 @@ def admin_app_list(request):
                 })
 
     # Menu may also contain view or url pattern names given as (title, name).
-    for (item_url, item) in menu_order.iteritems():
+    for (item_url, item) in menu_order.items():
         app_index, app_title, item_index, item_title = item
         try:
             item_url = reverse(item_url)
@@ -543,7 +548,7 @@ def admin_app_list(request):
             "admin_url": item_url,
         })
 
-    app_list = app_dict.values()
+    app_list = list(app_dict.values())
     sort = lambda x: x["name"] if x["index"] is None else x["index"]
     for app in app_list:
         app["models"].sort(key=sort)

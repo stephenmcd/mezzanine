@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from future.builtins import str
+from future.utils import native
 
 import os
 from shutil import rmtree
@@ -20,14 +23,14 @@ class GalleriesTests(TestCase):
         """
         zip_name = "gallery.zip"
         copy_test_to_media("mezzanine.core", zip_name)
-        title = str(uuid4())
+        title = native(str(uuid4()))    # i.e. Py3 str / Py2 unicode
         gallery = Gallery.objects.create(title=title, zip_import=zip_name)
         images = list(gallery.images.all())
         self.assertTrue(images)
         self.assertTrue(all([image.description for image in images]))
         # Clean up.
-        rmtree(unicode(os.path.join(settings.MEDIA_ROOT,
-                                    GALLERIES_UPLOAD_DIR, title)))
+        rmtree(os.path.join(settings.MEDIA_ROOT,
+                            GALLERIES_UPLOAD_DIR, title))
 
     def test_thumbnail_generation(self):
         """

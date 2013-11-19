@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import str
 
 from django.db import connection
 from django.db.models.signals import post_save

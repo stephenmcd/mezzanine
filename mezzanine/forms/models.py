@@ -1,5 +1,7 @@
+from __future__ import unicode_literals
 
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -46,6 +48,7 @@ class FieldManager(models.Manager):
         return self.filter(visible=True)
 
 
+@python_2_unicode_compatible
 class Field(Orderable):
     """
     A field for a user-built form.
@@ -73,7 +76,7 @@ class Field(Orderable):
         verbose_name_plural = _("Fields")
         order_with_respect_to = "form"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.label
 
     def get_choices(self):

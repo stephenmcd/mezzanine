@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import str
 
 from uuid import uuid4
 
@@ -22,7 +24,7 @@ class Html5Mixin(object):
         super(Html5Mixin, self).__init__(*args, **kwargs)
         if hasattr(self, "fields"):
             # Autofocus first field
-            first_field = self.fields.itervalues().next()
+            first_field = next(iter(self.fields.values()))
             first_field.widget.attrs["autofocus"] = ""
 
             for name, field in self.fields.items():

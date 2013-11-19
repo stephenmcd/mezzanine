@@ -1,6 +1,9 @@
+from __future__ import unicode_literals
+from future.builtins import str
 
 from datetime import datetime, timedelta
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import urlize
 from django.utils.timezone import get_default_timezone, make_aware
 from django.utils.translation import ugettext_lazy as _
@@ -10,7 +13,10 @@ from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_USER, \
 from mezzanine.twitter.managers import TweetManager
 from requests_oauthlib import OAuth1
 from time import timezone
-from urllib2 import quote
+try:
+    from urllib.parse import quote
+except ImportError:     # Python 2
+    from urllib import quote
 import re
 import requests
 
@@ -24,6 +30,7 @@ class TwitterQueryException(Exception):
     pass
 
 
+@python_2_unicode_compatible
 class Query(models.Model):
 
     type = models.CharField(_("Type"), choices=QUERY_TYPE_CHOICES,
@@ -36,7 +43,7 @@ class Query(models.Model):
         verbose_name_plural = _("Twitter queries")
         ordering = ("-id",)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s: %s" % (self.get_type_display(), self.value)
 
     def run(self):
@@ -136,7 +143,7 @@ class Tweet(models.Model):
         verbose_name_plural = _("Tweets")
         ordering = ("-created_at",)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s: %s" % (self.user_name, self.text)
 
     def is_retweet(self):

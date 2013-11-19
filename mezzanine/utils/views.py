@@ -1,9 +1,16 @@
-from __future__ import division
+from __future__ import division, unicode_literals
+from future.builtins import int
 
 from datetime import datetime, timedelta
 
-from urllib import urlencode
-from urllib2 import Request, urlopen
+try:
+    from urllib.parse import urlencode
+except ImportError:     # Python 2
+    from urllib import urlencode
+try:
+    from urllib.request import Request, urlopen
+except ImportError:     # Python 2
+    from urllib2 import Request, urlopen
 
 import django
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
@@ -166,4 +173,11 @@ def set_cookie(response, name, value, expiry_seconds=None, secure=False):
                                 timedelta(seconds=expiry_seconds),
                                 "%a, %d-%b-%Y %H:%M:%S GMT")
     value = value.encode("utf-8")
-    response.set_cookie(name, value, expires=expires, secure=secure)
+    # Django doesn't seem to support unicode cookie keys correctly on
+    # Python 2. Work around by encoding it. See
+    # https://code.djangoproject.com/ticket/19802
+    try:
+        response.set_cookie(name, value, expires=expires, secure=secure)
+    except (KeyError, TypeError):
+        response.set_cookie(name.encode('utf-8'), value, expires=expires,
+                            secure=secure)

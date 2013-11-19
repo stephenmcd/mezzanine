@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from future import standard_library
+from future.builtins import filter, str
 try:
     from urllib.parse import urljoin
 except ImportError:     # Python 2
@@ -5,6 +8,7 @@ except ImportError:     # Python 2
 
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -27,6 +31,7 @@ class BasePage(Orderable, Displayable):
         abstract = True
 
 
+@python_2_unicode_compatible
 class Page(BasePage):
     """
     A page in the page tree. This is the base class that custom content types
@@ -47,7 +52,7 @@ class Page(BasePage):
         ordering = ("titles",)
         order_with_respect_to = "parent"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.titles
 
     def get_absolute_url(self):
@@ -256,7 +261,7 @@ class Page(BasePage):
     def in_menu_template(self, template_name):
         if self.in_menus is not None:
             for i, l, t in settings.PAGE_MENU_TEMPLATES:
-                if not unicode(i) in self.in_menus and t == template_name:
+                if not str(i) in self.in_menus and t == template_name:
                     return False
         return True
 

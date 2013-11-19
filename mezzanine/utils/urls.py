@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import str
 
 import re
 import unicodedata
@@ -6,7 +8,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import (resolve, reverse, NoReverseMatch,
                                       get_script_prefix)
 from django.shortcuts import redirect
-from django.utils.encoding import smart_unicode
+try:
+    from django.utils.encoding import smart_text
+except ImportError:
+    # Backward compatibility for Py2 and Django < 1.5
+    from django.utils.encoding import smart_unicode as smart_text
 from django.utils.http import is_safe_url
 from django.utils import translation
 
@@ -57,7 +63,7 @@ def slugify_unicode(s):
     Adopted from https://github.com/mozilla/unicode-slugify/
     """
     chars = []
-    for char in unicode(smart_unicode(s)):
+    for char in str(smart_text(s)):
         cat = unicodedata.category(char)[0]
         if cat in "LN" or char in "-_~":
             chars.append(char)

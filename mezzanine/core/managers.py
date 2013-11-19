@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from future.builtins import int, zip
 
 from operator import ior, iand
 from string import punctuation
@@ -49,7 +51,7 @@ def search_fields_to_dict(fields):
     if not fields:
         return {}
     try:
-        int(dict(fields).values()[0])
+        int(list(dict(fields).values())[0])
     except (TypeError, ValueError):
         fields = dict(zip(fields, [1] * len(fields)))
     return fields

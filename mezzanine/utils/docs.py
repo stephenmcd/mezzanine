@@ -2,8 +2,9 @@
 Utils called from project_root/docs/conf.py when Sphinx
 documentation is generated.
 """
-from __future__ import division
-from __future__ import print_function
+from __future__ import division, print_function, unicode_literals
+from future import standard_library
+from future.builtins import map, open, str
 
 from datetime import datetime
 import os.path
@@ -14,7 +15,11 @@ from warnings import warn
 
 from django.template.defaultfilters import urlize
 from django.utils.datastructures import SortedDict
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    # Backward compatibility for Py2 and Django < 1.5
+    from django.utils.encoding import force_unicode as force_text
 from django.utils.functional import Promise
 from PIL import Image
 
@@ -25,14 +30,14 @@ from mezzanine.utils.importing import import_dotted_path, path_for_import
 
 def deep_force_unicode(value):
     """
-    Recursively call force_unicode on value.
+    Recursively call force_text on value.
     """
     if isinstance(value, (list, tuple, set)):
         value = type(value)(map(deep_force_unicode, value))
     elif isinstance(value, dict):
         value = type(value)(map(deep_force_unicode, value.items()))
     elif isinstance(value, Promise):
-        value = force_unicode(value)
+        value = force_text(value)
     return value
 
 
@@ -51,7 +56,7 @@ def build_settings_docs(docs_path, prefix=None):
         setting = registry[name]
         settings_name = "``%s``" % name
         setting_default = setting["default"]
-        if isinstance(setting_default, basestring):
+        if isinstance(setting_default, str):
             if gethostname() in setting_default or (
                 setting_default.startswith("/") and
                 os.path.exists(setting_default)):
@@ -63,7 +68,7 @@ def build_settings_docs(docs_path, prefix=None):
             ).replace("<a href=\"", "`"
             ).replace("\" rel=\"nofollow\">", " <").replace("</a>", ">`_")])
         if setting["choices"]:
-            choices = ", ".join(["%s: ``%s``" % (unicode(v), force_unicode(k))
+            choices = ", ".join(["%s: ``%s``" % (str(v), force_text(k))
                                  for k, v in setting["choices"]])
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
@@ -156,7 +161,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
         if version_file in files:
             for line in cs[version_file].data().split("\n"):
                 if line.startswith(version_var):
-                    exec line
+                    exec(line)
                     if locals()[version_var] == "0.1.0":
                         locals()[version_var] = "1.0.0"
                         break
