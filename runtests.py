@@ -7,10 +7,12 @@ def runtests():
 
     os.environ["DJANGO_SETTINGS_MODULE"] = "project_template.settings"
     mezz_path = path_for_import("mezzanine")
-    sys.path.insert(0, mezz_path)
-
     project_path = os.path.join(mezz_path, "project_template")
     local_settings_path = os.path.join(project_path, "local_settings.py")
+
+    sys.path.insert(0, mezz_path)
+    sys.path.insert(0, project_path)
+
     if not os.path.exists(local_settings_path):
         shutil.copy(local_settings_path + ".template", local_settings_path)
         with open(local_settings_path, "a") as f:
