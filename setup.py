@@ -27,7 +27,7 @@ from setuptools import setup, find_packages
 from mezzanine import __version__ as version
 
 install_requires = [
-    "django >= 1.4.8, < 1.6",
+    "django >= 1.4.10, < 1.6",
     "html5lib == 0.95",
     "pytz >= 2013b",
     "requests == 1.2.3",
