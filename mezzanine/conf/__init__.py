@@ -1,10 +1,11 @@
-from __future__ import unicode_literals
-from future.builtins import bytes, int, str
 """
 Drop-in replacement for ``django.conf.settings`` that provides a
 consistent access method for settings defined in applications, the project
 or Django itself. Settings can also be made editable via the admin.
 """
+
+from __future__ import unicode_literals
+from future.builtins import bytes, int, str
 
 from django.conf import settings as django_settings
 try:

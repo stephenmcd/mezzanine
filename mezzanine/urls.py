@@ -1,10 +1,11 @@
-from __future__ import unicode_literals
-from future.builtins import str
 """
 This is the main ``urlconf`` for Mezzanine - it sets up patterns for
 all the various Mezzanine apps, third-party apps like Grappelli and
 filebrowser.
 """
+
+from __future__ import unicode_literals
+from future.builtins import str
 
 from django.conf.urls import patterns, include
 from django.contrib import admin
@@ -33,10 +34,7 @@ for model in settings.ADMIN_REMOVAL:
 urlpatterns = []
 
 # JavaScript localization feature
-js_info_dict = {
-    'domain': 'django',
-}
-
+js_info_dict = {'domain': 'django'}
 urlpatterns += patterns('django.views.i18n',
     (r'^jsi18n/(?P<packages>\S+?)/$', 'javascript_catalog', js_info_dict),
 )
