@@ -118,8 +118,11 @@ class Settings(object):
         if setting["editable"] and not self._loaded:
             from mezzanine.conf.models import Setting
             settings = Setting.objects.all()
+            editable_settings = (
+                s for s in settings
+                if s.name in registry and registry[s.name]['editable'])
             removed = []
-            for setting_obj in settings:
+            for setting_obj in editable_settings:
                 try:
                     setting_type = registry[setting_obj.name]["type"]
                 except KeyError:
