@@ -54,6 +54,6 @@ class ConfTests(TestCase):
         db_tagline.save()
         settings.use_editable()
         first_tagline = settings.SITE_TAGLINE
-        _ = settings.SITE_TITLE
+        settings.SITE_TITLE
         second_tagline = settings.SITE_TAGLINE
         self.assertEqual(first_tagline, second_tagline)
