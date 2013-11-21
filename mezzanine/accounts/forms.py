@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate
+from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Q
 from django import forms
+from django.utils.http import int_to_base36
 from django.utils.translation import ugettext as _
 
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
@@ -199,8 +201,9 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                 user.is_active = False
                 user.save()
             else:
-                user = authenticate(username=user.username,
-                                    password=password, is_active=True)
+                user = authenticate(uidb36=int_to_base36(user.id),
+                                    token=default_token_generator.make_token(user),
+                                    is_active=True)
         return user
 
     def get_profile_fields_form(self):
