@@ -208,8 +208,9 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                 user.is_active = False
                 user.save()
             else:
+                token = default_token_generator.make_token(user)
                 user = authenticate(uidb36=int_to_base36(user.id),
-                                    token=default_token_generator.make_token(user),
+                                    token=token,
                                     is_active=True)
         return user
 
