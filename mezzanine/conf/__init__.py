@@ -6,6 +6,7 @@ or Django itself. Settings can also be made editable via the admin.
 
 from __future__ import unicode_literals
 from warnings import warn
+from functools import partial
 from future.builtins import bytes, int, str
 
 from django.conf import settings as django_settings
@@ -54,7 +55,7 @@ def register_setting(name="", label="", editable=False, description="",
         elif isinstance(default, str):      # a unicode or subclass on Py2
             setting_type = str
         elif isinstance(default, bytes):    # a byte-string or subclass on Py2
-            setting_type = bytes
+            setting_type = partial(bytes, encoding='utf8')
         else:
             setting_type = type(default)
         registry[name] = {"name": name, "label": label,
