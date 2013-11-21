@@ -183,6 +183,13 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         password = self.cleaned_data.get("password1")
         if password:
             user.set_password(password)
+        elif self._signup:
+            try:
+                user.set_unusable_password()
+            except AttributeError:
+                # This could happen if using a custom user model that
+                # doesn't inherit from Django's AbstractBaseUser.
+                pass
         user.save()
 
         # Save profile model.
