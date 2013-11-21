@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 from future.builtins import bytes, int, str
 
+from django.conf import settings as django_settings
+
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
 from mezzanine.utils.tests import TestCase
@@ -39,3 +41,19 @@ class ConfTests(TestCase):
         settings.use_editable()
         for (name, value) in values_by_name.items():
             self.assertEqual(getattr(settings, name), value)
+
+    def test_editable_override(self):
+        """
+        Test that an editable setting is always overridden by a settings.py
+        setting of the same name.
+        """
+        Setting.objects.all().delete()
+        django_settings.SITE_TAGLINE = 'This tagline is set in settings.py.'
+        db_tagline = Setting(name="SITE_TAGLINE",
+                             value="This tagline is set in the database.")
+        db_tagline.save()
+        settings.use_editable()
+        first_tagline = settings.SITE_TAGLINE
+        _ = settings.SITE_TITLE
+        second_tagline = settings.SITE_TAGLINE
+        self.assertEqual(first_tagline, second_tagline)
