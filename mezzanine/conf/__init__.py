@@ -5,6 +5,7 @@ or Django itself. Settings can also be made editable via the admin.
 """
 
 from __future__ import unicode_literals
+from warnings import warn
 from future.builtins import bytes, int, str
 
 from django.conf import settings as django_settings
@@ -105,6 +106,48 @@ class Settings(object):
         self._loaded = __name__ not in getattr(self, "INSTALLED_APPS")
         self._editable_cache = {}
 
+    def _load(self):
+        """
+        Load settings from the database into cache. Delete any settings from
+        the database that are no longer registered, and emit a warning if
+        there are settings that are defined in settings.py and the database.
+        """
+        from mezzanine.conf.models import Setting
+        db_settings = {s.name: s for s in Setting.objects.all()}
+
+        removed_settings = [s for s in db_settings if s not in registry]
+        if removed_settings:
+            Setting.objects.filter(name__in=removed_settings).delete()
+            for s in removed_settings:
+                del db_settings[s]
+
+        conflicting_settings = [
+            s for s in db_settings
+            if hasattr(django_settings, s)
+            and db_settings[s] != registry[s]["default"]]
+        if conflicting_settings:
+            warn("These settings are defined in both settings.py and "
+                 "the database: %s. The settings.py values will be used."
+                 % ", ".join(conflicting_settings))
+
+        editable_settings = [s for s in db_settings if registry[s]['editable']]
+        for s in editable_settings:
+            setting_obj = db_settings[s]
+            setting_type = registry[setting_obj.name]["type"]
+            if setting_type is bool:
+                setting_value = setting_obj.value != "False"
+            else:
+                try:
+                    setting_value = setting_type(setting_obj.value)
+                except ValueError:
+                    # Shouldn't occur, but just a safeguard
+                    # for if the db value somehow ended up as
+                    # an invalid type.
+                    default = registry[setting_obj.name]["default"]
+                    setting_value = default
+            self._editable_cache[setting_obj.name] = setting_value
+        self._loaded = True
+
     def __getattr__(self, name):
 
         # Lookup name as a registered setting or a Django setting.
@@ -114,35 +157,8 @@ class Settings(object):
             return getattr(django_settings, name)
 
         # First access for an editable setting - load from DB into cache.
-        # Also remove settings from the DB that are no longer registered.
         if setting["editable"] and not self._loaded:
-            from mezzanine.conf.models import Setting
-            settings = Setting.objects.all()
-            editable_settings = (
-                s for s in settings
-                if s.name in registry and registry[s.name]['editable'])
-            removed = []
-            for setting_obj in editable_settings:
-                try:
-                    setting_type = registry[setting_obj.name]["type"]
-                except KeyError:
-                    removed.append(setting_obj.id)
-                else:
-                    if setting_type is bool:
-                        setting_value = setting_obj.value != "False"
-                    else:
-                        try:
-                            setting_value = setting_type(setting_obj.value)
-                        except ValueError:
-                            # Shouldn't occur, but just a safeguard
-                            # for if the db value somehow ended up as
-                            # an invalid type.
-                            default = registry[setting_obj.name]["default"]
-                            setting_value = default
-                    self._editable_cache[setting_obj.name] = setting_value
-            if removed:
-                Setting.objects.filter(id__in=removed).delete()
-            self._loaded = True
+            self._load()
 
         # Use cached editable setting if found, otherwise use the
         # value defined in the project's settings.py module if it
