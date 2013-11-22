@@ -437,6 +437,7 @@ Sites Using Mezzanine
 * `Australian Discworld Conventions <http://ausdwcon.org>`_
 * `Distilled <http://www.distilled.net/>`_
 * `OpenMRP <http://www.openmrp.es>`_
+* `Arkade Snowboarding <http://www.arkadesnowboarding.com>`_
 
 Quotes
 ======
