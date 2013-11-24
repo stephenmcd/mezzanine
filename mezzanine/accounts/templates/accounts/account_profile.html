@@ -11,14 +11,19 @@
 {% endblock %}
 
 {% block main %}
-<div style="float:right;">
-<img style="margin:0 0 20px 10px;" src="{% gravatar_url profile_user.email 128 %}">
-{% if profile_user == request.user %}
-<br><a class="btn btn-large btn-primary" style="" href="{% url "profile_update" %}">{% trans "Update profile" %}</a>
-{% endif %}
+<div class="row">
+<div class="profile-image col-md-3">
+    <img class="img-thumbnail" src="{% gravatar_url profile_user.email 128 %}">
+    {% if profile_user == request.user %}
+    <br><a class="btn btn-primary" href="{% url "profile_update" %}">{% trans "Update profile" %}</a>
+    {% endif %}
 </div>
-<h2>{{ profile_user.get_full_name }}</h2>
-{% for field, value in profile_user|profile_fields %}
-<p>{{ field }}: {{ value|linebreaksbr }}</p>
-{% endfor %}
+<div class="profile-content col-md-9">
+    <h2>{{ profile_user.get_full_name }}</h2>
+    {% for field, value in profile_user|profile_fields %}
+    <h3>{{ field }}</h3>
+    <p>{{ value|linebreaksbr }}</p>
+    {% endfor %}
+</div>
+</div>
 {% endblock %}

@@ -3,35 +3,39 @@
 {% if page_branch_in_menu %}
 
 {% if branch_level == 0 %}
-<ul class="nav pull-right">
+<ul class="nav navbar-nav">
     {% for page in page_branch %}
     {% if not has_home and page.is_primary and forloop.first %}
-    <li class="{% if on_home %} active{% endif %}" id="dropdown-menu-home">
+    <li{% if on_home %} class="active"{% endif %} id="dropdown-menu-home">
         <a href="{% url "home" %}">{% trans "Home" %}</a>
     </li>
     {% endif %}
     {% if page.in_menu %}
-    <li class="dropdown{% if page.is_current_or_ascendant %} active{% endif %}"
-        id="dropdown-menu-{{ page.html_id }}">
-        <a href="{{ page.get_absolute_url }}">
+    <li class="{% if page.has_children_in_menu %}dropdown{% endif %}
+               {% if page.is_current_or_ascendant %}active{% endif %}"
+        id="{{ page.html_id }}">
+        <a href="{{ page.get_absolute_url }}"
+        {% if page.has_children_in_menu %}
+        class="dropdown-toggle disabled" data-toggle="dropdown"
+        {% endif %}>
             {{ page.title }}
-            {% if page.has_children_in_menu %}<span class="caret"></span>{% endif %}
+            {% if page.has_children_in_menu %}<b class="caret"></b>{% endif %}
         </a>
         {% if page.has_children_in_menu %}{% page_menu page %}{% endif %}
     </li>
     {% endif %}
     {% endfor %}
-    <li class="divider-vertical"></li>
 </ul>
-{% endif %}
 
-{% if branch_level == 1 %}
+{% else %}
 <ul class="dropdown-menu">
     {% for page in page_branch %}
     {% if page.in_menu %}
-    <li{% if page.is_current_or_ascendant %} class="active"{% endif %}
-        id="dropdown-menu-{{ page.html_id }}">
+    <li class="{% if page.has_children_in_menu %}dropdown-submenu{% endif %}
+               {% if page.is_current_or_ascendant %}active{% endif %}"
+        id="{{ page.html_id }}">
         <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+        {% if page.has_children_in_menu %}{% page_menu page %}{% endif %}
     </li>
     {% endif %}
     {% endfor %}

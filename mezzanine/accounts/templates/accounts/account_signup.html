@@ -7,7 +7,9 @@
     <p>{% trans "You're already logged in. If you'd like to create a new account, you'll need to log out first." %}</p>
 {% else %}
     {{ block.super }}
-    {% if settings.ACCOUNTS_VERIFICATION_REQUIRED %}
+    {% if settings.ACCOUNTS_APPROVAL_REQUIRED %}
+    <p>{% trans "After signing up, your account will be reviewed for approval. You'll receive an email when your account is activated." %}</p>
+    {% elif settings.ACCOUNTS_VERIFICATION_REQUIRED %}
     <p>{% trans "After signing up, you'll receive an email with a link you need to click, in order to activate your account." %}</p>
     {% endif %}
 {% endif %}

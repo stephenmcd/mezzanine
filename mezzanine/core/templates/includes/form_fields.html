@@ -1,12 +1,16 @@
-{% load mezzanine_tags %}
+{% load mezzanine_tags i18n %}
 
-{% if form_for_fields.non_field_errors %}
-<div class="control-group error non-field-errors">
-    {% for error in form_for_fields.non_field_errors %}
-    <span class="help-inline">{{ error }}</span>
+{% with form_for_fields.non_field_errors as non_field_errors %}
+{% if non_field_errors or form_for_fields.errors %}
+<div class="form-errors">
+    {% for error in non_field_errors %}
+    <div class="alert alert-danger non-field-error">{{ error }}</div>
+    {% empty %}
+    <div class="alert alert-danger field-error">{% trans "Please correct the errors below." %}</div>
     {% endfor %}
 </div>
 {% endif %}
+{% endwith %}
 
 {% nevercache %}
 <input type="hidden" name="referrer" value="{{ request.META.HTTP_REFERER }}">
@@ -17,23 +21,19 @@
 {% if field.is_hidden %}
 {{ field }}
 {% else %}
-<div class="control-group input_{{ field.id_for_label }} {{ field.field.type }}
-    {% if field.errors %} error{% endif %}">
-    <label class="control-label" for="{{ field.auto_id }}">
-        {{ field.label }}
-    </label>
-    <div class="controls">
-        {{ field }}
-        {% if field.errors %}
-        <span class="help-inline">
-            {% for e in field.errors %}
-            {% if not forloop.first %} / {% endif %}{{ e }}
-            {% endfor %}
-        </span>
-        {% else %}
-        <span class="help-inline">{{ field.help_text }}</span>
-        {% endif %}
-    </div>
+<div class="form-group input_{{ field.id_for_label }} {{ field.field.type }}
+    {% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+    {{ field }}
+    {% if field.errors %}
+    <p class="help-block">
+        {% for e in field.errors %}
+        {% if not forloop.first %} / {% endif %}{{ e }}
+        {% endfor %}
+    </p>
+    {% elif field.help_text %}
+    <p class="help-block">{{ field.help_text }}</p>
+    {% endif %}
 </div>
 {% endif %}
 {% endfor %}

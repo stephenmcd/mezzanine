@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
 {% load pages_tags mezzanine_tags i18n future staticfiles %}
-<head>
 
+<head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
 <meta name="description" content="{% block meta_description %}{% endblock %}">
 <title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
@@ -18,7 +18,7 @@
 {% compress css %}
 <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
 <link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
-<link rel="stylesheet" href="{% static "css/bootstrap-responsive.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap-theme.css" %}">
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{% static "css/rtl.css" %}">
 {% endif %}
@@ -34,46 +34,49 @@
 {% compress js %}
 <script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
 <script src="{% static "js/bootstrap.js" %}"></script>
-<script src="{% static "js/bootstrap-extras.js" %}"></script>
 {% block extra_js %}{% endblock %}
 {% endcompress %}
 <!--[if lt IE 9]>
 <script src="{% static "js/html5shiv.js" %}"></script>
+<script src="{% static "js/respond.min.js" %}"></script>
 <![endif]-->
 
 {% block extra_head %}{% endblock %}
-
 </head>
+
 <body id="{% block body_id %}body{% endblock %}">
 
-<div class="navbar navbar-fixed-top">
-<div class="navbar-inner">
-<div class="container">
-    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">{% trans "Toggle Navigation" %}</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-    </a>
-    {% if settings.SITE_TITLE %}<a class="brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
-    {% if settings.SITE_TAGLINE %}<p class="navbar-text">{{ settings.SITE_TAGLINE }}</p>{% endif %}
-    <div class="nav-collapse collapse">
-        {% search_form "all" %}
-        {% page_menu "pages/menus/dropdown.html" %}
-    </div>
+    </button>
+    {% if settings.SITE_TITLE %}<a class="navbar-brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
+    {% if settings.SITE_TAGLINE %}<p class="navbar-text visible-lg">{{ settings.SITE_TAGLINE }}</p>{% endif %}
 </div>
+<div class="navbar-collapse collapse">
+    {% search_form "all" %}
+    {% page_menu "pages/menus/dropdown.html" %}
 </div>
 </div>
 
 <div class="container">
 
 {% nevercache %}
+{% if messages %}
+<div class="messages">
 {% for message in messages %}
-<div class="alert alert-{{ message.tags }}" data-alert="alert">
-    <a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
+<div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    {{ message }}
 </div>
 {% endfor %}
+</div>
+{% endif %}
 {% endnevercache %}
-
 
 <h1>{% block title %}{% endblock %}</h1>
 
@@ -88,26 +91,28 @@
 <div class="container">
 <div class="row">
 
-<div class="span2 left">
+<div class="col-md-2">
     {% block left_panel %}
-    <div class="panel tree">{% page_menu "pages/menus/tree.html" %}</div>
+    <div class="panel panel-default tree">{% page_menu "pages/menus/tree.html" %}</div>
     {% endblock %}
 </div>
 
-<div class="span7 middle">
+<div class="col-md-7">
     {% block main %}{% endblock %}
 </div>
 
-<div class="span3 right">
+<div class="col-md-3">
     {% nevercache %}
     {% include "includes/user_panel.html" %}
     {% endnevercache %}
-    <div class="panel">
+    <div class="panel panel-default">
+    <div class="panel-body">
     {% block right_panel %}
     {% ifinstalled mezzanine.twitter %}
     {% include "twitter/tweets.html" %}
     {% endifinstalled %}
     {% endblock %}
+    </div>
     </div>
 </div>
 
@@ -117,7 +122,9 @@
 <footer>
 <div class="container">
 {% page_menu "pages/menus/footer.html" %}
-<p>
+
+<div class="row">
+<p class="site-info text-center">
     {% trans "Powered by" %}
     <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},
     <a href="http://cartridge.jupo.org">Cartridge</a>{% endifinstalled %}
@@ -130,6 +137,7 @@
     <a href="{% url "set_device" "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
     {% endifinstalled %}
 </p>
+</div>
 </div>
 </footer>
 

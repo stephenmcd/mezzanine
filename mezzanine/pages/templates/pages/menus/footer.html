@@ -6,16 +6,16 @@
 {% for page in page_branch %}
     {% if page.is_primary %}
         {% if forloop.first %}
-            <ul class="clearfix">
+            <div class="nav-footer">
         {% endif %}
         {% if page.in_menu %}
-            <li><ul>
+            <ul class="list-unstyled">
         {% endif %}
     {% endif %}
 
     {% if page.in_menu %}
         {% if forloop.first and not page.parent.in_menu and not page.is_primary %}
-            <li><ul>
+            <ul class="list-unstyled">
         {% endif %}
         <li {% if page.is_current_or_ascendant %}class="active"{% endif %}
             id="footer-menu-{{ page.html_id }}">
@@ -32,10 +32,10 @@
 
     {% if page.is_primary %}
         {% if page.in_menu %}
-            </ul></li>
+            </ul>
         {% endif %}
         {% if forloop.last %}
-            </ul>
+            </div>
         {% endif %}
     {% endif %}
 

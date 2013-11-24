@@ -8,15 +8,14 @@
 {% block breadcrumb_menu %}
 <li>
     <a href="{% url "home" %}">{% trans "Home" %}</a>
-    <span class="divider">/</span>
 </li>
 <li class="active">{% trans "Search Results" %}</li>
 {% endblock %}
 
 {% block main %}
 
-<p>
 {% if results.paginator.count == 0 %}
+<p>
 {% blocktrans %}
 No results were found in {{ search_type }} matching your query: {{ query }}
 {% endblocktrans %}

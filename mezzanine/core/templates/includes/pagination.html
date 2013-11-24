@@ -1,11 +1,10 @@
 {% load i18n %}
 
 {% if current_page.has_previous or current_page.has_next %}
-<div class="pagination">
-<ul>
+<ul class="pagination">
 
-<li class="disabled page-info">
-    <a>{% trans "Page" %} {{ current_page.number }} {% trans "of" %} {{ current_page.paginator.num_pages }}</a>
+<li class="page-info">
+    <span>{% trans "Page" %} {{ current_page.number }} {% trans "of" %} {{ current_page.paginator.num_pages }}</span>
 </li>
 <li class="prev previous{% if not current_page.has_previous %} disabled{% endif %}">
     <a{% if current_page.has_previous %} href="?{{ page_var }}={{ current_page.previous_page_number }}{% if querystring %}&{{ querystring }}{% endif %}"{% endif %}>&larr;</a>
@@ -20,5 +19,4 @@
 </li>
 
 </ul>
-</div>
 {% endif %}

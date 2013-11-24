@@ -4,7 +4,7 @@
 {% blog_recent_posts 5 as recent_posts %}
 {% if recent_posts %}
 <h3>{% trans "Recent Posts" %}</h3>
-<ul class="unstyled recent-posts">
+<ul class="list-unstyled recent-posts">
 {% for recent_post in recent_posts %}
 <li><a href="{{ recent_post.get_absolute_url }}"
     >{{ recent_post.title }}</a></li>
@@ -20,7 +20,7 @@
 {% for month in months %}
     {% ifchanged month.date.year %}
         {% if not forloop.first %}</ul>{% endif %}
-        <h6>{{ month.date.year }}</h6><ul class="unstyled">
+        <h6>{{ month.date.year }}</h6><ul class="list-unstyled">
     {% endifchanged %}
     <li><a href="{% url "blog_post_list_month" year=month.date.year month=month.date.month %}"
         >{{ month.date|date:"F" }}</a> ({{ month.post_count }})</li>
@@ -33,7 +33,7 @@
 {% blog_categories as categories %}
 {% if categories %}
 <h3>{% trans "Categories" %}</h3>
-<ul class="unstyled">
+<ul class="list-unstyled">
 {% for category in categories %}
 <li><a href="{% url "blog_post_list_category" category.slug %}"
     >{{ category }}</a> ({{ category.post_count }})</li>
@@ -46,7 +46,7 @@
 {% keywords_for blog.blogpost as tags %}
 {% if tags %}
 <h3>{% trans "Tags" %}</h3>
-<ul class="unstyled tags">
+<ul class="list-inline tag-cloud">
 {% for tag in tags %}
 <li>
     <a href="{% url "blog_post_list_tag" tag.slug %}"
@@ -62,7 +62,7 @@
 {% blog_authors as authors %}
 {% if authors %}
 <h3>{% trans "Authors" %}</h3>
-<ul class="unstyled">
+<ul class="list-unstyled">
 {% for author in authors %}
     <li><a href="{% url "blog_post_list_author" author.username %}"
         >{{ author.get_full_name|default:author.username }}</a>

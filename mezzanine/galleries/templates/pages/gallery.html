@@ -2,11 +2,24 @@
 
 {% load mezzanine_tags staticfiles %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}">
+{% endblock extra_css %}
+
 {% block extra_js %}
 {{ block.super }}
-<script src="{% static "mezzanine/js/jquery.tools.toolbox.expose.js" %}"></script>
-<script src="{% static "mezzanine/js/jquery.tools.overlay.js" %}"></script>
-<script src="{% static "mezzanine/js/gallery.js" %}"></script>
+<script src="{% static "mezzanine/js/magnific-popup.js" %}"></script>
+<script>
+$(document).ready(function() {
+    $('.gallery').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        gallery: {
+            enabled: true,
+        }
+    });
+});
+</script>
 {% endblock %}
 
 {% block main %}
@@ -16,22 +29,16 @@
 {{ page.gallery.content|richtext_filters|safe }}
 {% endeditable %}
 
-<ul class="thumbnails gallery">
+<div class="gallery row">
 {% with page.gallery.images.all as images %}
 {% for image in images %}
-<li>
+<div class="col-xs-4 col-sm-3">
     <a class="thumbnail" rel="#image-{{ image.id }}" title="{{ image.description }}" href="{{ MEDIA_URL }}{{ image.file }}">
-        <img class="image-overlay-thumb" src="{{ MEDIA_URL }}{% thumbnail image.file 75 75 %}">
+        <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail image.file 131 75 %}">
     </a>
-    <div id="image-{{ image.id }}" class="image-overlay" style="display:none;">
-        <a href="#" class="image-overlay-prev">&larr;</a>
-        <a href="#" class="image-overlay-next">&rarr;</a>
-        <img class="image-overlay-full" src="{{ MEDIA_URL }}{% thumbnail image.file 0 600 %}"><br>
-        <p>{{ image.description }}<br>{{ forloop.counter }} / {{ images|length }}</p>
-    </div>
-</li>
+</div>
 {% endfor %}
 {% endwith %}
-</ul>
+</div>
 {% endblock %}
 
