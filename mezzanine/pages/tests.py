@@ -55,7 +55,7 @@ class PagesTests(TestCase):
         secondary.slug += "custom"
         secondary.save()
         pages_for_slug = Page.objects.with_ascendants_for_slug(tertiary.slug)
-        self.assertEquals(len(pages_for_slug[0]._ascendants), 0)
+        self.assertEqual(len(pages_for_slug[0]._ascendants), 0)
         connection.queries = []
         ascendants = pages_for_slug[0].get_ascendants()
         self.assertEqual(len(connection.queries), 2)  # 2 parent queries
@@ -143,7 +143,7 @@ class PagesTests(TestCase):
         self.create_recursive_objects(RichTextPage, "parent", title="Page",
                                       status=CONTENT_STATUS_PUBLISHED)
         after = self.queries_used_for_template(template)
-        self.assertEquals(before, after)
+        self.assertEqual(before, after)
 
     def test_page_menu_flags(self):
         """
@@ -161,7 +161,7 @@ class PagesTests(TestCase):
             template += "{%% page_menu '%s' %%}" % path
         rendered = Template(template).render(Context({}))
         for page in pages:
-            self.assertEquals(rendered.count(page.title), len(page.in_menus))
+            self.assertEqual(rendered.count(page.title), len(page.in_menus))
 
     def test_page_menu_default(self):
         """

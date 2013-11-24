@@ -61,7 +61,7 @@ class GenericTests(TestCase):
         self.assertTrue(before > 0)
         self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
         after = self.queries_used_for_template(template, **context)
-        self.assertEquals(before, after)
+        self.assertEqual(before, after)
 
     @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
                 "pages app required")
@@ -76,11 +76,11 @@ class GenericTests(TestCase):
             keyword_id = Keyword.objects.get_or_create(title=keyword)[0].id
             page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
         page = RichTextPage.objects.get(id=page.id)
-        self.assertEquals(keywords, set(page.keywords_string.split()))
+        self.assertEqual(keywords, set(page.keywords_string.split()))
         # Test removal.
         first = Keyword.objects.all()[0]
         keywords.remove(first.title)
         first.delete()
         page = RichTextPage.objects.get(id=page.id)
-        self.assertEquals(keywords, set(page.keywords_string.split()))
+        self.assertEqual(keywords, set(page.keywords_string.split()))
         page.delete()
