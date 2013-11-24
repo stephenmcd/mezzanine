@@ -55,7 +55,7 @@ def register_setting(name="", label="", editable=False, description="",
         elif isinstance(default, str):      # a unicode or subclass on Py2
             setting_type = str
         elif isinstance(default, bytes):    # a byte-string or subclass on Py2
-            setting_type = partial(bytes, encoding='utf8')
+            setting_type = bytes
         else:
             setting_type = type(default)
         registry[name] = {"name": name, "label": label,
@@ -81,6 +81,14 @@ class Settings(object):
     ``django.conf.settings``, in order to provide a consistent method
     of access for all settings.
     """
+
+    # These functions map setting types to the functions that should be
+    # used to convert them from the Unicode string stored in the database.
+    # If a type doesn't appear in this map, the type itself will be used.
+    TYPE_FUNCTIONS = {
+        bool: lambda val: val != "False",
+        bytes: partial(bytes, encoding='utf8')
+    }
 
     def __init__(self):
         """
@@ -130,16 +138,14 @@ class Settings(object):
 
             # Convert DB value to correct type.
             setting_type = registry[setting_obj.name]["type"]
-            if setting_type is bool:
-                setting_value = setting_obj.value != "False"
-            else:
-                try:
-                    setting_value = setting_type(setting_obj.value)
-                except ValueError:
-                    # Shouldn't occur, but just a safeguard
-                    # for if the db value somehow ended up as
-                    # an invalid type.
-                    setting_value = registry[setting_obj.name]["default"]
+            type_fn = self.TYPE_FUNCTIONS.get(setting_type, setting_type)
+            try:
+                setting_value = type_fn(setting_obj.value)
+            except ValueError:
+                # Shouldn't occur, but just a safeguard
+                # for if the db value somehow ended up as
+                # an invalid type.
+                setting_value = registry[setting_obj.name]["default"]
 
             # Only use DB setting if it's not defined in settings.py
             # module, in which case add it to conflicting list for
