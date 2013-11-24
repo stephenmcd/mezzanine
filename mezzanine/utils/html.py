@@ -1,11 +1,15 @@
 from __future__ import absolute_import, unicode_literals
-from future import standard_library
-from future.builtins import chr
-from future.builtins import int
+from future.builtins import chr, int
 
-from html.parser import HTMLParser, HTMLParseError
-from html.entities import name2codepoint
+try:
+    from html.parser import HTMLParser, HTMLParseError
+    from html.entities import name2codepoint
+except ImportError:         # Python 2
+    from HTMLParser import HTMLParser, HTMLParseError
+    from htmlentitydefs import name2codepoint
+
 import re
+
 
 SELF_CLOSING_TAGS = ['br', 'img']
 

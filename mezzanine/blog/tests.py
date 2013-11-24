@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from future import standard_library
 
 try:
     from urllib.parse import urlparse

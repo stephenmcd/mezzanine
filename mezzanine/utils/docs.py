@@ -3,7 +3,6 @@ Utils called from project_root/docs/conf.py when Sphinx
 documentation is generated.
 """
 from __future__ import division, print_function, unicode_literals
-from future import standard_library
 from future.builtins import map, open, str
 
 from datetime import datetime

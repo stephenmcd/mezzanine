@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from future import standard_library
 from future.builtins import open, range, str
 from future.utils import native_str
 
@@ -49,9 +48,6 @@ IGNORE_ERRORS = (
 
     # Deprecated compat timezones for Django 1.3
     "mezzanine/utils/timezone",
-
-    # 'from future import standard_library' installs PEP 302 import hooks
-    "'standard_library' imported but unused",
 )
 
 
@@ -160,12 +156,7 @@ def run_pyflakes_for_package(package_name, extra_ignore=None):
     If pyflakes is installed, run it across the given package name
     returning any warnings found.
     """
-    # Pyflakes v0.6.1 incorrectly assumes we're running under Python 3
-    # if "import builtins" succeeds, which it does with "from future
-    # import standard_library" in effect.
-    standard_library.disable_hooks()
     from pyflakes.checker import Checker
-    standard_library.enable_hooks()
 
     def pyflakes_checker(path):
         with open(path, "U") as source_file:
