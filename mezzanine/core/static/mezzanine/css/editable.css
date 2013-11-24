@@ -11,7 +11,7 @@ right ahead and fix it.
 
 #editable-toolbar, .editable-highlight, .editable-link {top:0; left:0;
     z-index:300; position:absolute;}
-#editable-toolbar {z-index:700; display:none;}
+#editable-toolbar {z-index:9000; display:none;}
 #editable-loading {z-index:10000; display:none; position:absolute;}
 #editable-toolbar {position:fixed;}
 .editable-highlight {border:1px solid #ccc;}
@@ -37,7 +37,7 @@ right ahead and fix it.
     -moz-box-shadow: 0 0 20px #222; -webkit-box-shadow: 0 0 20px #222;
     line-height:1em; border-radius:5px; min-width:350px;}
 .editable-form table, .editable-form textarea, .editable-form input {
-    width: 100%; margin: .5em 0;}
+    width: 100%; margin: .5em 0; font-size: 14px;}
 .mceToolbar table {width: auto !important; margin: 0 !important;}
 .editable-form .booleanfield {width: auto;}
 .editable-form input.datetimefield {width: 80px; margin-left: 8px;}

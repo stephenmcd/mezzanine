@@ -3,9 +3,32 @@
 ==========================================*/
 body {
   padding-top: 50px;
+  line-height: 165%;
+}
+h1 {
+  margin-bottom: 15px;
+}
+.alert {
+  padding: 5px 10px;
+  margin-bottom: 0;
+}
+.alert-dismissable .close {
+  right: 0;
+}
+ul, ol {
+  padding-left:20px;
+}
+.navbar-text {
+  font-style: italic;
+  font-size: 12px;
+  color: #aaa !important;
+  margin-left: 5px;
+  line-height: 100%;
+  padding-top: 5px;
 }
 .navbar-form.navbar-right {
   padding-right: 0;
+  margin-right: -10px;
 }
 .messages {
   margin-top: 20px;
@@ -33,7 +56,7 @@ footer {
   background-color: #F8F8F8;
   border-top: 1px solid #E7E7E7;
   margin-top: 15px;
-  padding: 15px 0 10px;
+  padding: 15px 0 30px;
 }
 .site-info {
   font-size: 90%;
@@ -62,6 +85,12 @@ img.pull-left {
 }
 .timespan {
   color: #888;
+}
+#search-results h5 {
+  margin-top: 20px;
+}
+#search-results p {
+  margin: 3px 0;
 }
 /*========================================
           MULTILEVEL DROPDOWN NAV
@@ -116,6 +145,8 @@ img.pull-left {
 }
 .post-meta {
   font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 14px;
 }
 .post-meta > a {
   color: #666;
@@ -337,6 +368,12 @@ img.pull-left {
 .tweet {
   margin-bottom: 20px;
 }
+.tweet h6 {
+  margin-top:-5px;
+}
+.tweet h6 a {
+  margin-left: 4px;
+}
 /*========================================
           MEZZANINE ACCOUNTS
 ==========================================*/
@@ -351,4 +388,15 @@ img.pull-left {
   .navbar-nav > li.dropdown:hover > ul.dropdown-menu {
     display: block;
   }
+}
+.tree {display:none;}
+@media (min-width: 992px) {
+  .tree {display:block;}
+}
+.navbar .container {width:100%;}
+@media (min-width: 992px) {
+  .navbar .container {width:970px;}
+}
+@media (min-width: 1200px) {
+  .navbar .container {width:1170px;}
 }
