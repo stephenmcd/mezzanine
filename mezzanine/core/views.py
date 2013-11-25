@@ -99,7 +99,7 @@ def edit(request):
         response = ""
     else:
         response = list(form.errors.values())[0][0]
-    return HttpResponse(str(response))
+    return HttpResponse(response)
 
 
 def search(request, template="search_results.html"):
