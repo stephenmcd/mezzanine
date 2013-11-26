@@ -438,7 +438,7 @@ Sites Using Mezzanine
 * `Distilled <http://www.distilled.net/>`_
 * `OpenMRP <http://www.openmrp.es>`_
 * `Arkade Snowboarding <http://www.arkadesnowboarding.com>`_
-* `Linktective The Website Investigator <http://www.linktective.com>`_
+* `Linktective The Link Checker <http://www.linktective.com>`_
 
 Quotes
 ======
