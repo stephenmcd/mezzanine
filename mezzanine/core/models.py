@@ -71,16 +71,22 @@ class Slugged(SiteRelated):
 
     def save(self, *args, **kwargs):
         """
-        Create a unique slug by appending an index.
+        If no slug is provided, generates one before saving.
         """
         if not self.slug:
-            self.slug = self.get_slug()
+            self.slug = self.generate_unique_slug()
+        super(Slugged, self).save(*args, **kwargs)
+
+    def generate_unique_slug(self):
+        """
+        Create a unique slug by passing the result of get_slug() to
+        utils.urls.unique_slug, which appends an index if necessary.
+        """
         # For custom content types, use the ``Page`` instance for
         # slug lookup.
         concrete_model = base_concrete_model(Slugged, self)
         slug_qs = concrete_model.objects.exclude(id=self.id)
-        self.slug = unique_slug(slug_qs, "slug", self.slug)
-        super(Slugged, self).save(*args, **kwargs)
+        return unique_slug(slug_qs, "slug", self.get_slug())
 
     def get_slug(self):
         """
