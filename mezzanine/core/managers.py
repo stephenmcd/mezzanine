@@ -241,7 +241,13 @@ class SearchableManager(Manager):
         any models that subclass from this manager's model if the
         model is abstract.
         """
-        if getattr(self.model._meta, "abstract", False):
+        if not settings.SEARCH_MODEL_CHOICES:
+            # No choices defined - build a list of leaf models (those
+            # without subclasses) that inherit from Displayable.
+            models = [m for m in get_models() if issubclass(m, self.model)]
+            parents = reduce(ior, [m._meta.get_parent_list() for m in models])
+            models = [m for m in models if m not in parents]
+        elif getattr(self.model._meta, "abstract", False):
             # When we're combining model subclasses for an abstract
             # model (eg Displayable), we only want to use models that
             # are represented by the ``SEARCH_MODEL_CHOICES`` setting.

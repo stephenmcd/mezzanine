@@ -254,7 +254,7 @@ def search_form(context, search_model_names=None):
     string ``all`` can also be used, in which case the models defined
     by the ``SEARCH_MODEL_CHOICES`` setting will be used.
     """
-    if not search_model_names:
+    if not search_model_names or not settings.SEARCH_MODEL_CHOICES:
         search_model_names = []
     elif search_model_names == "all":
         search_model_names = list(settings.SEARCH_MODEL_CHOICES)
