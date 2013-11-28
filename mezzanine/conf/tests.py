@@ -3,7 +3,7 @@ from future.builtins import bytes, int, str
 
 from django.conf import settings as django_settings
 
-from mezzanine.conf import settings, registry
+from mezzanine.conf import settings, registry, register_setting
 from mezzanine.conf.models import Setting
 from mezzanine.utils.tests import TestCase
 
@@ -30,13 +30,15 @@ class ConfTests(TestCase):
                 setting_value += 1
             elif setting_type is bool:
                 setting_value = not setting_value
-            elif setting_type in (bytes, str):
-                setting_value += "test"
+            elif setting_type is str:
+                setting_value += u"test"
+            elif setting_type is bytes:
+                setting_value += b"test"
             else:
                 setting = "%s: %s" % (setting_name, setting_type)
                 self.fail("Unsupported setting type for %s" % setting)
             values_by_name[setting_name] = setting_value
-            Setting.objects.create(name=setting_name, value=str(setting_value))
+            Setting.objects.create(name=setting_name, value=setting_value)
         # Load the settings and make sure the DB values have persisted.
         settings.use_editable()
         for (name, value) in values_by_name.items():
@@ -48,7 +50,7 @@ class ConfTests(TestCase):
         setting of the same name.
         """
         Setting.objects.all().delete()
-        django_settings.SITE_TAGLINE = 'This tagline is set in settings.py.'
+        django_settings.SITE_TAGLINE = "This tagline is set in settings.py."
         db_tagline = Setting(name="SITE_TAGLINE",
                              value="This tagline is set in the database.")
         db_tagline.save()
@@ -57,3 +59,10 @@ class ConfTests(TestCase):
         settings.SITE_TITLE
         second_tagline = settings.SITE_TAGLINE
         self.assertEqual(first_tagline, second_tagline)
+
+    def test_bytes_conversion(self):
+        register_setting(name="BYTES_TEST_SETTING", editable=True, default=b"")
+        Setting.objects.create(name="BYTES_TEST_SETTING",
+                               value="A unicode value")
+        settings.use_editable()
+        self.assertEqual(settings.BYTES_TEST_SETTING, b"A unicode value")

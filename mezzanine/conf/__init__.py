@@ -6,6 +6,7 @@ or Django itself. Settings can also be made editable via the admin.
 
 from __future__ import unicode_literals
 from warnings import warn
+from functools import partial
 from future.builtins import bytes, int, str
 
 from django.conf import settings as django_settings
@@ -83,6 +84,14 @@ class Settings(object):
     of access for all settings.
     """
 
+    # These functions map setting types to the functions that should be
+    # used to convert them from the Unicode string stored in the database.
+    # If a type doesn't appear in this map, the type itself will be used.
+    TYPE_FUNCTIONS = {
+        bool: lambda val: val != "False",
+        bytes: partial(bytes, encoding='utf8')
+    }
+
     def __init__(self):
         """
         The ``_loaded`` attribute is a flag for defining whether
@@ -131,16 +140,14 @@ class Settings(object):
 
             # Convert DB value to correct type.
             setting_type = registry[setting_obj.name]["type"]
-            if setting_type is bool:
-                setting_value = setting_obj.value != "False"
-            else:
-                try:
-                    setting_value = setting_type(setting_obj.value)
-                except ValueError:
-                    # Shouldn't occur, but just a safeguard
-                    # for if the db value somehow ended up as
-                    # an invalid type.
-                    setting_value = registry[setting_obj.name]["default"]
+            type_fn = self.TYPE_FUNCTIONS.get(setting_type, setting_type)
+            try:
+                setting_value = type_fn(setting_obj.value)
+            except ValueError:
+                # Shouldn't occur, but just a safeguard
+                # for if the db value somehow ended up as
+                # an invalid type.
+                setting_value = registry[setting_obj.name]["default"]
 
             # Only use DB setting if it's not defined in settings.py
             # module, in which case add it to conflicting list for
