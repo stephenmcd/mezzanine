@@ -61,7 +61,7 @@ class SettingsForm(forms.Form):
             setattr(fields[i], "group", group(field))
             if groups[fields[i].group] == 1:
                 fields[i].group = misc
-        return iter(sorted(fields, key=lambda x: x.group != misc or x.group))
+        return iter(sorted(fields, key=lambda x: (x.group == misc, x.group)))
 
     def save(self):
         """
