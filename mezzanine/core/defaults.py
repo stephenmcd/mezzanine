@@ -445,7 +445,7 @@ register_setting(
         "done", "down", "due", "during", "each", "eg", "eight",
         "either", "eleven", "else", "elsewhere", "empty", "enough",
         "etc", "even", "ever", "every", "everyone", "everything",
-        "everywhere", "except", "few", "fifteen", "fify", "fill",
+        "everywhere", "except", "few", "fifteen", "fifty", "fill",
         "find", "fire", "first", "five", "for", "former", "formerly",
         "forty", "found", "four", "from", "front", "full", "further",
         "get", "give", "go", "had", "has", "hasnt", "have", "he",
