@@ -44,8 +44,12 @@ as a parameter. For example, to create a blog-only search form, you can
 use ``{% search_form "blog.BlogPost" %}``.
 
 If no parameter is passed to ``{% search_form %}``, no drop-down will
-be provided, and the search will be performed on all models that
-subclass ``Displayable``.
+be provided, and the search will be performed on all models defined in
+the ``SEARCH_MODEL_CHOICES`` setting.
+
+Finally, by setting ``SEARCH_MODEL_CHOICES`` to ``None``, the search
+form will not contain a drop-down, but in this case all models that
+subclass ``Displayable`` will be automatically searched.
 
 Search API
 ==========
