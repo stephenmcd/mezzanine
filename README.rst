@@ -439,6 +439,7 @@ Sites Using Mezzanine
 * `OpenMRP <http://www.openmrp.es>`_
 * `Arkade Snowboarding <http://www.arkadesnowboarding.com>`_
 * `Linktective The Link Checker <http://www.linktective.com>`_
+* `Zetalab <http://www.zetalab.de>`_
 
 Quotes
 ======
