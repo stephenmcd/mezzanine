@@ -49,7 +49,9 @@ def register_setting(name="", label="", editable=False, description="",
         # isinstance() is overridden by future on Python 2 to behave as
         # on Python 3 in conjunction with either Python 2's native types
         # or the future.builtins types.
-        if isinstance(default, int):        # an int or long or subclass on Py2
+        if isinstance(default, bool):       # prevent bools treated as ints
+            setting_type = bool
+        elif isinstance(default, int):      # an int or long or subclass on Py2
             setting_type = int
         elif isinstance(default, str):      # a unicode or subclass on Py2
             setting_type = str
