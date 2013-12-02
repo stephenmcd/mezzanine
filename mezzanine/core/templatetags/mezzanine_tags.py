@@ -271,7 +271,7 @@ def search_form(context, search_model_names=None):
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height, left=0.5, top=0.5, quality=95):
+def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5):
     """
     Given the URL to an image, resizes the image using the given width and
     height on the first time it is requested, and returns the URL to the new
@@ -288,15 +288,9 @@ def thumbnail(image_url, width, height, left=0.5, top=0.5, quality=95):
     image_prefix, image_ext = os.path.splitext(image_name)
     filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext, "JPEG")
     thumb_name = "%s-%sx%s" % (image_prefix, width, height)
-    if left !=0.5 or top != 0.5:
-        if left > 1:
-            left = 1
-        if left < 0:
-            left = 0
-        if top > 1:
-            top = 1
-        if top < 0:
-            top = 0
+    if left != 0.5 or top != 0.5:
+        left = min(1, max(0, left))
+        top = min(1, max(0, top))
         thumb_name = "%s-%sx%s" % (thumb_name, left, top)
     thumb_name = "%s%s" % (thumb_name, image_ext)
     thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
@@ -348,9 +342,9 @@ def thumbnail(image_url, width, height, left=0.5, top=0.5, quality=95):
         image = image.convert("RGBA")
     # Required for progressive jpgs.
     ImageFile.MAXBLOCK = 2 * (max(image.size) ** 2)
+    pos = (left, top)
     try:
-        centering = (left,top)
-        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS, 0, centering)
+        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS, 0, pos)
         image = image.save(thumb_path, filetype, quality=quality, **image_info)
         # Push a remote copy of the thumbnail if MEDIA_URL is
         # absolute.
