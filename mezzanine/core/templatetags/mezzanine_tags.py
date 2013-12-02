@@ -271,7 +271,7 @@ def search_form(context, search_model_names=None):
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height, quality=95):
+def thumbnail(image_url, width, height, left=0.5, top=0.5, quality=95):
     """
     Given the URL to an image, resizes the image using the given width and
     height on the first time it is requested, and returns the URL to the new
@@ -287,7 +287,18 @@ def thumbnail(image_url, width, height, quality=95):
     image_dir, image_name = os.path.split(image_url)
     image_prefix, image_ext = os.path.splitext(image_name)
     filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext, "JPEG")
-    thumb_name = "%s-%sx%s%s" % (image_prefix, width, height, image_ext)
+    thumb_name = "%s-%sx%s" % (image_prefix, width, height)
+    if left !=0.5 or top != 0.5:
+        if left > 1:
+            left = 1
+        if left < 0:
+            left = 0
+        if top > 1:
+            top = 1
+        if top < 0:
+            top = 0
+        thumb_name = "%s-%sx%s" % (thumb_name, left, top)
+    thumb_name = "%s%s" % (thumb_name, image_ext)
     thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
                              settings.THUMBNAILS_DIR_NAME)
     if not os.path.exists(thumb_dir):
@@ -338,7 +349,8 @@ def thumbnail(image_url, width, height, quality=95):
     # Required for progressive jpgs.
     ImageFile.MAXBLOCK = 2 * (max(image.size) ** 2)
     try:
-        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS)
+        centering = (left,top)
+        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS, 0, centering)
         image = image.save(thumb_path, filetype, quality=quality, **image_info)
         # Push a remote copy of the thumbnail if MEDIA_URL is
         # absolute.
