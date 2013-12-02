@@ -93,17 +93,17 @@
 <div class="container">
 <div class="row">
 
-<div class="col-md-2">
+<div class="col-md-2 left">
     {% block left_panel %}
     <div class="panel panel-default tree">{% page_menu "pages/menus/tree.html" %}</div>
     {% endblock %}
 </div>
 
-<div class="col-md-7">
+<div class="col-md-7 middle">
     {% block main %}{% endblock %}
 </div>
 
-<div class="col-md-3">
+<div class="col-md-3 right">
     {% nevercache %}
     {% include "includes/user_panel.html" %}
     {% endnevercache %}
