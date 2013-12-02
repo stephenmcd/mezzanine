@@ -130,6 +130,8 @@ def paginate(objects, page_num, per_page, max_paging_links):
     Return a paginated page for the given objects, giving it a custom
     ``visible_page_range`` attribute calculated from ``max_paging_links``.
     """
+    if not per_page:
+        return Paginator(objects, 0)
     paginator = Paginator(objects, per_page)
     try:
         page_num = int(page_num)
