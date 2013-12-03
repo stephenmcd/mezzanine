@@ -38,7 +38,7 @@ window.__admin_keywords_submit_url = '{% url "admin_keywords_submit" %}';
 window.__filebrowser_url = '{{ fb_browse_url }}';
 window.__admin_url = '{{ admin_index_url }}';
 window.__static_proxy = '{{ static_proxy_url }}';
-window.__admin_media_prefix__ = '{% static "admin/" %}';
+window.__admin_media_prefix__ = '{% static "admin" %}/';
 window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
 window.__language_code = '{{ LANGUAGE_CODE }}';
 </script>
