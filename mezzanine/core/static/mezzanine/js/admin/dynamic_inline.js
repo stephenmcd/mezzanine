@@ -30,7 +30,7 @@ var anyFieldsDirty = function(fields) {
     }).length > 0;
 };
 
-$(function() {
+jQuery(function($) {
 
     var itemSelector = window.__grappelli_installed ? '.items' : 'tbody';
     var parentSelector = '.dynamic-inline ' + itemSelector;
