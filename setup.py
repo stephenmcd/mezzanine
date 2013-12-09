@@ -38,7 +38,7 @@ install_requires = [
 if sys.version_info[0] == 2:
     install_requires += [
         "filebrowser_safe >= 0.2.27",
-        "grappelli_safe >= 0.2.22",
+        "grappelli_safe >= 0.2.24",
         "bleach",
     ]
 
