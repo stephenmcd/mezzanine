@@ -3,188 +3,190 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# mozgur <mozgurbayhan@gmail.com>, 2013
+# mozgur <mozgurbayhan@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:34-0430\n"
-"PO-Revision-Date: 2013-11-09 20:30+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/mezzanine/language/tr/)\n"
+"PO-Revision-Date: 2013-12-02 18:30+0000\n"
+"Last-Translator: mozgur <mozgurbayhan@gmail.com>\n"
+"Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/mezzanine/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: defaults.py:20
 msgid "Minimum length for passwords"
-msgstr ""
+msgstr "En kısa parola uzunluğu"
 
 #: defaults.py:27
 msgid ""
 "If ``True``, the username field will be excluded from sign up and account "
 "update forms."
-msgstr ""
+msgstr "Eğer işaretli ise , kullanıcı adı alanı, kayıt olma ve hesap güncelleştirme formlarında gözükmeyecektir."
 
 #: defaults.py:35
 msgid "List of fields to exclude from the profile form."
-msgstr ""
+msgstr "Profil formunda gösterilmeyecek alanlar listesi"
 
 #: defaults.py:42
 msgid ""
 "Dotted package path and class name of profile form to use for users signing "
 "up and updating their profile, when ``mezzanine.accounts`` is installed."
-msgstr ""
+msgstr "Kullanıcıların, ``mezzanine.accounts`` uygulama listesine eklendiğinde, sisteme kayıt olurken ve profillerini güncellerken kullanacakları formun nokta kullanılarak belirtilmiş paket ve sınıf adı."
 
 #: defaults.py:51
 msgid "If ``True``, users will have their own public profile pages."
-msgstr ""
+msgstr "Eğer işaretli ise, kullanıcılar  genele açık kendi profil sayfalarına sahip olurlar."
 
 #: defaults.py:59
 msgid ""
 "If ``True``, when users create an account, they will be sent an email with a"
 " verification link, which they must click to enable their account."
-msgstr ""
+msgstr "Eğer işaretli ise, kullanıcılar yeni bir hesap açtıklarında, hesaplarını etkinleştirmek için onaylama bağlantısı içeren bir e-posta gönderilir."
 
 #: defaults.py:68
 msgid ""
 "If ``True``, when users create an account, they will not be enabled by "
 "default and a staff member will need to activate their account in the admin "
 "interface."
-msgstr ""
+msgstr "Eğer işaretli ise kullanıcılar kayıt olduklarında hesapları aktifleştirilmeyecek, yönetici arayüzünden etkinleştirilmeleri geekecektir."
 
 #: defaults.py:77
 msgid "Account approval email addresses"
-msgstr ""
+msgstr "Hesap onayı e-posta adresi."
 
 #: defaults.py:78
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new account is created that requires approval."
-msgstr ""
+msgstr "Her bir etkinleştirme onayı bekleyen hesap yaratıldığında, bilgilendirme e-postası alacak olan virgülle ayrılmış e-posta adresi listesi."
 
 #: forms.py:29
 msgid "Email address"
-msgstr ""
+msgstr "E-Posta adresi"
 
 #: forms.py:31
 msgid "Username or email address"
-msgstr ""
+msgstr "Kullanıcı adı veya e-posta adresi"
 
 #: forms.py:39 forms.py:71
 msgid "Password"
-msgstr ""
+msgstr "Parola"
 
 #: forms.py:52
 msgid "Invalid username/email and password"
-msgstr ""
+msgstr "Geçersiz kullanıcı/e-posta ve parola"
 
 #: forms.py:54
 msgid "Your account is inactive"
-msgstr ""
+msgstr "Hesabınız etkin değil"
 
 #: forms.py:73
 msgid "Password (again)"
-msgstr ""
+msgstr "Parola (tekrar) "
 
 #: forms.py:87
 msgid "Only letters, numbers, dashes or underscores please"
-msgstr ""
+msgstr "Sadece harfler, rakamlar, tireler veya alt çizgiler lütfen"
 
 #: forms.py:103
 msgid "Leave blank unless you want to change your password"
-msgstr ""
+msgstr "Parolanızı değiltirmek istemediğiniz sürece boş bırakınız"
 
 #: forms.py:122
 msgid "Username can only contain letters, numbers, dashes or underscores."
-msgstr ""
+msgstr "Kullanıcı adı sadece harfler, rakamlar, tireler veya alt çizgiler içerebilir."
 
 #: forms.py:129
 msgid "This username is already registered"
-msgstr ""
+msgstr "Bu kullanıcı adı zaten kayıtlı"
 
 #: forms.py:142
 msgid "Passwords do not match"
-msgstr ""
+msgstr "Parolalar uyuşmuyor"
 
 #: forms.py:144
 #, python-format
 msgid "Password must be at least %s characters"
-msgstr ""
+msgstr "Parolalar en az %s karakter olmalı"
 
 #: forms.py:158
 msgid "This email is already registered"
-msgstr ""
+msgstr "Bu e-posta adresi zaten kayıtlı"
 
 #: forms.py:224
 msgid "Invalid username/email"
-msgstr ""
+msgstr "Geçersiz kullanıcı adı/e-posta"
 
 #: views.py:29
 msgid "Successfully logged in"
-msgstr ""
+msgstr "Başarıyla giriş yapıldı"
 
 #: views.py:32 templates/accounts/includes/user_panel.html:18
 #: templates/accounts/includes/user_panel_nav.html:11
 msgid "Log in"
-msgstr ""
+msgstr "Giriş"
 
 #: views.py:41
 msgid "Successfully logged out"
-msgstr ""
+msgstr "Başarıyla çıkış yapıldı"
 
 #: views.py:56
 msgid ""
 "Thanks for signing up! You'll receive an email when your account is "
 "activated."
-msgstr ""
+msgstr "Kayıt olduğunuz için teşekkürler! Hesabınız etkinleştirildiğinde bir e-posta alacaksınız."
 
 #: views.py:60
 msgid ""
 "A verification email has been sent with a link for activating your account."
-msgstr ""
+msgstr "Hesabınızı etkin hale getirmek için gerekli etkinleştirme bağlantısını içeren bir e-posta gönderildi"
 
 #: views.py:64 views.py:83
 msgid "Successfully signed up"
-msgstr ""
+msgstr "Başarıyla kayıt olundu"
 
 #: views.py:67 templates/accounts/includes/user_panel.html:21
 #: templates/accounts/includes/user_panel_nav.html:13
 msgid "Sign up"
-msgstr ""
+msgstr "Kayıt ol"
 
 #: views.py:86 views.py:153
 msgid "The link you clicked is no longer valid."
-msgstr ""
+msgstr "Tıkladığınız bağlantı kullanılmamaktadır."
 
 #: views.py:127
 msgid "Profile updated"
-msgstr ""
+msgstr "Profil güncellendi"
 
 #: views.py:132
 msgid "Update Profile"
-msgstr ""
+msgstr "Profili güncelle"
 
 #: views.py:141
 msgid ""
 "A verification email has been sent with a link for resetting your password."
-msgstr ""
+msgstr "Parolanızı sıfırlamak için gerekli bağlantıyı içeren bir e-posta gönderildi"
 
 #: views.py:143
 msgid "Password Reset"
-msgstr ""
+msgstr "Parola Sıfırlama"
 
 #: templates/accounts/account_login.html:7
 msgid "You're already logged in."
-msgstr ""
+msgstr "Zaten giriş yapmışsınız."
 
 #: templates/accounts/account_login.html:11
 #, python-format
 msgid ""
 "If you don't have an account you can <a "
 "href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
-msgstr ""
+msgstr "Eğer hesabınız yoksa <a href=\"%(signup_url)s?next=%(next)s\">yeni bir hesap</a> yaratabilirsiniz."
 
 #: templates/accounts/account_login.html:14
 #, python-format
@@ -192,57 +194,57 @@ msgid ""
 "<p>You can also <a "
 "href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
 "password</a> if you've forgotten it.</p>"
-msgstr ""
+msgstr "<p>Ayrıca eğer unuttuysanız <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">parolanızı sıfırlayabilirsiniz.</a></p>"
 
 #: templates/accounts/account_password_reset.html:6
 msgid ""
 "Enter your username or email address and you'll receive an email with a link"
 " you need to click, in order to log in and change your password."
-msgstr ""
+msgstr "Giriş yapıp şifrenizi değiştirebileceğiniz bir e-posta almak için kullanıcı adınızı veya e-posta adresinizi giriniz."
 
 #: templates/accounts/account_profile.html:17
 #: templates/accounts/includes/user_panel.html:10
 msgid "Update profile"
-msgstr ""
+msgstr "Profili güncelle"
 
 #: templates/accounts/account_signup.html:7
 msgid ""
 "You're already logged in. If you'd like to create a new account, you'll need"
 " to log out first."
-msgstr ""
+msgstr "Zaten giriş yaptınız.Eğer yeni bir hesap oluşturmak istiyorsanız önce çıkış yapmanız gerekmektedir."
 
 #: templates/accounts/account_signup.html:11
 msgid ""
 "After signing up, you'll receive an email with a link you need to click, in "
 "order to activate your account."
-msgstr ""
+msgstr "Kayıt olduktan sonra hesabınızı etkinleştirebilmek için tıklamanız gereken bağlantı yı içeren bir e-posta alacaksınız."
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
-msgstr ""
+msgstr "Giriş yapmış kullanıcı:"
 
 #: templates/accounts/includes/user_panel.html:15
 #: templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
-msgstr ""
+msgstr "Çıkış"
 
 #: templates/accounts/includes/user_panel.html:19
 msgid "or"
-msgstr ""
+msgstr "veya"
 
 #: templates/admin/profile_inline.html:10
 msgid "Profile information"
-msgstr ""
+msgstr "Profil bilgisi"
 
 #: templates/email/account_approve.html:3
 #: templates/email/account_approve.txt:3
 msgid "Hey there, a new account has been created and requires activation."
-msgstr ""
+msgstr "Hey oradaki, bir hesap yaratıldı ve etkinleştirilmeyi bekliyor."
 
 #: templates/email/account_approve.html:5
 #: templates/email/account_approve.txt:5
 msgid "Name"
-msgstr "İsim"
+msgstr "Ad"
 
 #: templates/email/account_approve.html:6
 #: templates/email/account_approve.txt:6
@@ -253,51 +255,51 @@ msgstr "E-posta"
 #: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
 #: templates/email/signup_verify.txt:4
 msgid "Please use the link below to activate it."
-msgstr ""
+msgstr "Etkinleştirmek için aşağıdaki bağlantıyı kullanın."
 
 #: templates/email/account_approve_subject.txt:2
 msgid "An account requires activation"
-msgstr ""
+msgstr "Bir hesap etkinleştirilmek için bekliyor"
 
 #: templates/email/account_approved.html:3
 #: templates/email/account_approved.txt:3
 msgid "Hey there, your account has been activated."
-msgstr ""
+msgstr "Hey oradaki, hesabın etkinleştirildi."
 
 #: templates/email/account_approved.html:4
 #: templates/email/account_approved.txt:4
 msgid "Please use the link below to log in."
-msgstr ""
+msgstr "Lütfen giriş Yapmak için aşağıdaki linki kullanın."
 
 #: templates/email/account_approved_subject.txt:2
 msgid "Your account has been activated"
-msgstr ""
+msgstr "Hesabınız etkinleştirildi"
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3
 msgid "Hey there, the password reset form was used for your account."
-msgstr ""
+msgstr "Hey oradaki, hesabın için parola sıfırlama formu kullanıldı."
 
 #: templates/email/password_reset_verify.html:4
 #: templates/email/password_reset_verify.txt:4
 msgid "Please use the link below to log in and update your password."
-msgstr ""
+msgstr "Lütfen giriş yapıp şifrenizi değiştirmek için aşağıdaki bağlantıyı kullanın."
 
 #: templates/email/password_reset_verify.html:6
 #: templates/email/password_reset_verify.txt:6
 msgid ""
 "If you didn't request for your password to be reset, please ignore this "
 "email."
-msgstr ""
+msgstr "Eğer parolanızın sıfırlanmasını istemediyseniz, lütfen bu e-posta'yı görmezden gelin."
 
 #: templates/email/password_reset_verify_subject.txt:2
 msgid "Reset your password"
-msgstr ""
+msgstr "Parolanızı sıfırlayın"
 
 #: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
 msgid "Hey there, thanks for creating your account."
-msgstr ""
+msgstr "Hesabınızı oluşturduğunuz için teşekkür ederiz."
 
 #: templates/email/signup_verify_subject.txt:2
 msgid "Activate your account"
-msgstr ""
+msgstr "Hesabınızı aktifleştirin"
