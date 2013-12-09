@@ -1,5 +1,5 @@
-jQuery(document).ready(function($){
-     
+jQuery(function($) {
+
     /// FIELDSETS
     $('fieldset[class*="collapse-closed"]').each(function() {
         $(this).addClass("collapsed");
