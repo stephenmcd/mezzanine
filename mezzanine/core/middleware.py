@@ -149,7 +149,12 @@ class UpdateCacheMiddleware(object):
         # content. Split on the delimiter the ``nevercache`` tag
         # wrapped its contents in, and render only the content
         # enclosed by it, to avoid possible template code injection.
-        parts = response.content.split(nevercache_token())
+        token = nevercache_token()
+        try:
+            token = token.encode('utf-8')
+        except AttributeError:
+            pass
+        parts = response.content.split(token)
         content_type = response.get("content-type", "")
         if content_type.startswith("text") and len(parts) > 1:
             # Restore csrf token from cookie - check the response
@@ -169,7 +174,7 @@ class UpdateCacheMiddleware(object):
                 if i % 2:
                     part = Template(part).render(context).encode("utf-8")
                 parts[i] = part
-            response.content = "".join(parts)
+            response.content = b"".join(parts)
             response["Content-Length"] = len(response.content)
             if hasattr(request, '_messages'):
                 # Required to clear out user messages.
