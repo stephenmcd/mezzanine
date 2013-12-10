@@ -113,7 +113,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
             if not self._signup:
                 for field in profile_fields:
                     value = getattr(self.instance.get_profile(), field)
-                    # Check for multipl initial values
+                    # Check for multiple initial values
                     if issubclass(value.__class__, Manager):
                         value = value.all()
                     self.initial[field] = value
