@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Q
+from django.db.models.manager import Manager
 from django import forms
 from django.utils.http import int_to_base36
 from django.utils.translation import ugettext as _
@@ -112,6 +113,9 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
             if not self._signup:
                 for field in profile_fields:
                     value = getattr(self.instance.get_profile(), field)
+                    # Check for multipl initial values
+                    if issubclass(value.__class__, Manager):
+                        value = value.all()
                     self.initial[field] = value
 
     def clean_username(self):
