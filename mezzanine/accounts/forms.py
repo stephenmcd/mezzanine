@@ -114,7 +114,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                 for field in profile_fields:
                     value = getattr(self.instance.get_profile(), field)
                     # Check for multipl initial values
-                    if issubclass(value.__class__, Manager):
+                    if isinstance(value, Manager):
                         value = value.all()
                     self.initial[field] = value
 
