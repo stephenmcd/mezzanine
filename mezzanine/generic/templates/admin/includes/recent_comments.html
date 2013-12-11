@@ -3,7 +3,7 @@
 <div class="module" id="comments-module">
     <h2>{% trans "Recent Comments" %}</h2>
     {% if settings.COMMENTS_DISQUS_SHORTNAME %}
-    <script src="http://{{ settings.COMMENTS_DISQUS_SHORTNAME }}.disqus.com/recent_comments_widget.js?num_items={{ settings.COMMENTS_NUM_LATEST }}&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
+    <script src="//{{ settings.COMMENTS_DISQUS_SHORTNAME }}.disqus.com/recent_comments_widget.js?num_items={{ settings.COMMENTS_NUM_LATEST }}&hide_avatars=0&avatar_size=32&excerpt_length=200"></script>
     {% else %}
     <ul>
         {% for comment in comments %}
