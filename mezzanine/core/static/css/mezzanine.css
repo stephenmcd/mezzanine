@@ -71,6 +71,9 @@ img.pull-left {
   margin-right: 10px;
   margin-bottom: 5px;
 }
+.user-panel .btn {
+  margin: 5px 5px 5px 0;
+}
 /* Style error messages as danger alerts */
 .alert-error {
   color: #b94a48;
