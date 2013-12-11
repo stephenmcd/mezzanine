@@ -324,6 +324,17 @@ img.pull-left {
   margin-bottom: 15px;
   border-radius: 5px;
 }
+/* We apply the clearfix hack to .form-actions because we often
+float the buttons inside it. This prevents collapsing. */
+.form-actions:before,
+.form-actions:after {
+  display: table;
+  content: " ";
+}
+
+.form-actions:after {
+  clear: both;
+}
 /*========================================
           MEZZANINE GALLERY
 ==========================================*/
