@@ -117,6 +117,15 @@ def fields_for(context, form):
     return context
 
 
+@register.inclusion_tag("includes/form_errors.html", takes_context=True)
+def errors_for(context, form):
+    """
+    Renders an alert if the form has any errors.
+    """
+    context["form"] = form
+    return context
+
+
 @register.filter
 def sort_by(items, attr):
     """
