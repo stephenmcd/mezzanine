@@ -33,7 +33,7 @@
                     {% set_model_permissions model %}
                     {% if model.perms.add %}
                     <option value="{{ model.add_url }}?parent={{ page.id }}"
-                        >{{ model.meta_verbose_name }}</option>
+                        >{{ model.meta_verbose_name|capfirst }}</option>
                     {% endif %}
                 {% endfor %}
             </select>
