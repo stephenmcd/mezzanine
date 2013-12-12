@@ -19,9 +19,8 @@ ul, ol {
 }
 .navbar-text {
   font-style: italic;
-  font-size: 12px;
+  font-size: 11px;
   color: #aaa !important;
-  margin-left: 5px;
   line-height: 100%;
   padding-top: 5px;
 }

@@ -1,3 +1,4 @@
+
 jQuery(function($) {
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {

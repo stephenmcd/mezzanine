@@ -1,4 +1,5 @@
-$(function() {
+
+jQuery(function($) {
     // Show the filter criteria fields when a filter option is selected.
     $('.filter select').change(function() {
         var filtering = this.selectedIndex > 0;

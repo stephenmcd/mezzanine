@@ -1,3 +1,4 @@
+
 jQuery(function($) {
 
     $('.keywords-field').css(window.__grappelli_installed ?

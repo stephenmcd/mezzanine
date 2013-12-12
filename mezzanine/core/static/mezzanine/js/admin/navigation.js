@@ -1,4 +1,6 @@
+
 jQuery(function($) {
+
     // Empty out the breadcrumbs div and add the menu into it.
     $('.breadcrumbs').html('')
                      .append($('.dropdown-menu').show())
@@ -31,11 +33,8 @@ jQuery(function($) {
     // contentMargin();
     // $(window).resize(contentMargin);
 
-});
-
-// Remove extraneous ``template`` forms from inline formsets since
-// Mezzanine has its own method of dynamic inlines.
-jQuery(function($) {
+    // Remove extraneous ``template`` forms from inline formsets since
+    // Mezzanine has its own method of dynamic inlines.
     var removeRows = {};
     $.each($('*[name*=__prefix__]'), function(i, e) {
         var row = $(e).parent();
@@ -47,4 +46,5 @@ jQuery(function($) {
     for (var rowID in removeRows) {
         $('#' + rowID).remove();
     }
+
 });
