@@ -75,7 +75,7 @@ Mezzanine makes use of as few libraries as possible (apart from a
 standard Django environment), with the following dependencies:
 
 * `Python`_ 2.6 / 2.7 / 3.3
-* `Django`_ 1.4 / 1.5
+* `Django`_ 1.4 / 1.5 / 1.6
 * `Python Imaging Library`_ - for image resizing
 * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
 * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
