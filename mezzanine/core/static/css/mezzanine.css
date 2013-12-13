@@ -17,6 +17,12 @@ h1 {
 ul, ol {
   padding-left:20px;
 }
+.tree {
+  padding: 5px 0;
+}
+.tree ul a {
+  padding: 7px 15px;
+}
 .navbar-text {
   font-style: italic;
   font-size: 11px;
@@ -55,6 +61,10 @@ footer {
   border-top: 1px solid #E7E7E7;
   margin-top: 15px;
   padding: 15px 0 30px;
+}
+footer .separator {
+  opacity: 0.3;
+  margin: 0 10px;
 }
 .site-info {
   font-size: 90%;
