@@ -33,7 +33,6 @@ if (typeof tinyMCE != 'undefined') {
         height: '350',
         indentation : '10px',
         fix_list_elements : true,
-        relative_urls: false,
         remove_script_host : true,
         accessibility_warnings : false,
         object_resizing: false,
@@ -42,6 +41,8 @@ if (typeof tinyMCE != 'undefined') {
         remove_trailing_nbsp: true,
 
         external_link_list_url: '/displayable_links.js',
+        relative_urls: false,
+        convert_urls: false,
 
         // callbackss
         file_browser_callback: "CustomFileBrowser",
