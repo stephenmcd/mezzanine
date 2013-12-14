@@ -22,4 +22,6 @@ urlpatterns += patterns("mezzanine.core.views",
     url("^set_site/$", "set_site", name="set_site"),
     url("^set_device/(?P<device>.*)/$", "set_device", name="set_device"),
     url("^asset_proxy/$", "static_proxy", name="static_proxy"),
+    url("^displayable_links.js$", "displayable_links_js",
+        name="displayable_links_js"),
 )

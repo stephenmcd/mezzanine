@@ -171,6 +171,33 @@ def static_proxy(request):
     return HttpResponse(response, mimetype=mimetype)
 
 
+def displayable_links_js(request, template_name="admin/displayable_links.js"):
+    """
+    Renders a list of url/title pairs for all ``Displayable`` subclass
+    instances into JavaScript that's used to populate a list of links
+    in TinyMCE.
+    """
+    links = []
+    if "mezzanine.pages" in settings.INSTALLED_APPS:
+        from mezzanine.pages.models import Page
+        is_page = lambda obj: isinstance(obj, Page)
+    else:
+        is_page = lambda obj: False
+    # For each item's title, we use its model's verbose_name, but in the
+    # case of Page subclasses, we just use "Page", and then sort the items
+    # by whether they're a Page subclass or not, then by their URL.
+    for url, obj in Displayable.objects.url_map(for_user=request.user).items():
+        title = getattr(obj, "titles", obj.title)
+        real = hasattr(obj, "id")
+        page = is_page(obj)
+        if real:
+            verbose_name = _("Page") if page else obj._meta.verbose_name
+            title = "%s: %s" % (verbose_name, title)
+        links.append((not page and real, url, title))
+    context = {"links": [link[1:] for link in sorted(links)]}
+    return render(request, template_name, context, mimetype="text/javascript")
+
+
 @requires_csrf_token
 def page_not_found(request, template_name="errors/404.html"):
     """

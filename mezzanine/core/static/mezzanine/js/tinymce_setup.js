@@ -41,6 +41,8 @@ if (typeof tinyMCE != 'undefined') {
         forced_root_block: "p",
         remove_trailing_nbsp: true,
 
+        external_link_list_url: '/displayable_links.js',
+
         // callbackss
         file_browser_callback: "CustomFileBrowser",
 
@@ -77,3 +79,4 @@ if (typeof tinyMCE != 'undefined') {
 	});
 
 }
+
