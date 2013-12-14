@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from future.builtins import int, zip
 
+from functools import reduce
 from operator import ior, iand
 from string import punctuation
 
@@ -10,10 +11,11 @@ from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
 from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
 from django.utils.timezone import now
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.utils.sites import current_site_id
-from functools import reduce
+from mezzanine.utils.urls import home_slug
 
 
 class PublishedManager(Manager):
@@ -323,4 +325,21 @@ class DisplayableManager(CurrentSiteManager, PublishedManager,
     and ``SearchableManager`` for the ``Displayable`` model.
 
     """
-    pass
+
+    def url_map(self, for_user=None, **kwargs):
+        """
+        Returns a dictionary of urls mapped to Displayable subclass
+        instances, including a fake homepage instance if none exists.
+        Used in ``mezzanine.core.sitemaps``.
+        """
+        home = self.model(title=_("Home"))
+        setattr(home, "get_absolute_url", home_slug)
+        items = {home.get_absolute_url(): home}
+        for model in get_models():
+            if issubclass(model, self.model):
+                for item in (model.objects.published(for_user=for_user)
+                                  .filter(**kwargs)
+                                  .exclude(slug__startswith="http://")
+                                  .exclude(slug__startswith="https://")):
+                    items[item.get_absolute_url()] = item
+        return items
