@@ -63,8 +63,12 @@ if getattr(settings, "PACKAGE_NAME_FILEBROWSER") in settings.INSTALLED_APPS:
 # Miscellanous Mezzanine patterns.
 urlpatterns += patterns("",
     ("^", include("mezzanine.core.urls")),
-    ("^", include("mezzanine.generic.urls")),
 )
+
+if "mezzanine.generic" in settings.INSTALLED_APPS:
+    urlpatterns += patterns("",
+        ("^", include("mezzanine.generic.urls")),
+    )
 
 # Mezzanine's Accounts app
 _old_accounts_enabled = getattr(settings, "ACCOUNTS_ENABLED", False)
