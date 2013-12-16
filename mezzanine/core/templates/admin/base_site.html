@@ -34,7 +34,9 @@ and mezzanine.core.admin.SingletonAdmin
 {% get_current_language as LANGUAGE_CODE %}
 window.__home_link = '<a href="{% url "home" %}">{% trans "View site" %}</a>';
 window.__csrf_token = '{{ csrf_token }}';
+{% ifinstalled mezzanine.generic %}
 window.__admin_keywords_submit_url = '{% url "admin_keywords_submit" %}';
+{% endifinstalled %}
 window.__filebrowser_url = '{{ fb_browse_url }}';
 window.__admin_url = '{{ admin_index_url }}';
 window.__static_proxy = '{{ static_proxy_url }}';
