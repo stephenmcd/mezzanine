@@ -16,6 +16,17 @@
     </li>
     {% endfor %}
 </ul>
+<form>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+        <select id="id_language" onchange="if (this.value) window.location.href=this.value">
+        {% for lang_code, lang_name in LANGUAGES %}
+        {% language lang_code %}
+        <option{% if LANGUAGE_CODE == lang_code %} selected="selected"{% endif %} value="{% url 'admin:index' %}">{{ lang_name }}</option>
+        {% endlanguage %}
+        {% endfor %}
+    </select>
+</form>
 {% if dropdown_menu_sites and dropdown_menu_sites|length > 1 %}
 <form action="{% url "set_site" %}">
 <input type="hidden" name="next" value="{{ request.path }}">
