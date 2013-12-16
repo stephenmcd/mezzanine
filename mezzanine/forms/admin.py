@@ -1,8 +1,8 @@
 from __future__ import unicode_literals
-from future.builtins import open
+from future.builtins import open, bytes
 
 from copy import deepcopy
-from io import StringIO
+from io import BytesIO, StringIO
 from csv import writer
 from datetime import datetime
 from mimetypes import guess_type
@@ -98,13 +98,17 @@ class FormAdmin(PageAdmin):
                 header = "attachment; filename=%s" % fname
                 response["Content-Disposition"] = header
                 queue = StringIO()
-                csv = writer(queue, delimiter=settings.FORMS_CSV_DELIMITER)
+                delimiter = settings.FORMS_CSV_DELIMITER
+                try:
+                    csv = writer(queue, delimiter=delimiter)
+                except TypeError:
+                    queue = BytesIO()
+                    delimiter = bytes(delimiter, encoding="utf-8")
+                    csv = writer(queue, delimiter=delimiter)
                 csv.writerow(entries_form.columns())
                 for row in entries_form.rows(csv=True):
                     csv.writerow(row)
-                # Decode and reencode the response into utf-16 to be
-                # Excel compatible.
-                data = queue.getvalue().decode("utf-8").encode("utf-16")
+                data = queue.getvalue()
                 response.write(data)
                 return response
             elif request.POST.get("delete") and can_delete_entries:
