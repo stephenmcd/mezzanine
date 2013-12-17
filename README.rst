@@ -247,6 +247,8 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   membership.
 * `mezzanine-page-auth`_ - A Mezzanine module for add group-level
   permission to pages.
+* `django-widgy`_ - Widget-oriented content editing. Includes an adapter for
+  Mezzanine and a powerful form builder.
 
 Donating
 ========
@@ -585,6 +587,7 @@ Quotes
 .. _`mezzanine-pageimages`: https://github.com/bcs-de/mezzanine-pageimages
 .. _`mezzanine-protected-pages`: https://github.com/evilchili/mezzanine-protected-pages
 .. _`mezzanine-page-auth`: https://github.com/simodalla/mezzanine_page_auth
+.. _`django-widgy`: http://django-widgy.readthedocs.org/en/latest/
 
 
 .. PEOPLE WITH QUOTES
