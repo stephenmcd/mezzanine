@@ -33,11 +33,12 @@
             <input type="password" required  name="password" id="id_password">
             <input type="hidden" name="this_is_the_login_form" value="1" />
         </div>
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% if LANGUAGES|length > 1 %}
         <div class="form-row">
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_available_languages as LANGUAGES %}
             <label for="id_language">{% trans "Language" %}:</label>
-            <select id="id_language" onchange="if (this.value) window.location.href=this.value">
+            <select id="id_language" onchange="window.location.href=this.value;">
                 {% for lang_code, lang_name in LANGUAGES %}
                 {% language lang_code %}
                 <option{% if LANGUAGE_CODE == lang_code %} selected="selected"{% endif %} value="{% url 'admin:index' %}">{{ lang_name }}</option>
@@ -45,6 +46,7 @@
                 {% endfor %}
             </select>
         </div>
+        {% endif %}
         <div class="form-row" id="extra-login-fields">
             <label class="required">{% trans "Interface:" %}</label>
             <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
