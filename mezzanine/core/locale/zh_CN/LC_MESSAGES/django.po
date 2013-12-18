@@ -681,7 +681,7 @@ msgstr "不允许"
 
 #: templates/errors/404.html:6
 msgid "Page not found"
-msgstr "页而未找到"
+msgstr "页面未找到"
 
 #: templates/errors/404.html:10
 msgid "The page you requested does not exist."
