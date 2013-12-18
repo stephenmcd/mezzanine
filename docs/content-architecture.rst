@@ -143,14 +143,14 @@ checked for. So given the above example the templates
 ``pages/dr-seuss.html`` and ``pages/author.html`` would be checked for
 respectively.
 
-The view function futher looks through the parent hierarchy of the ``Page``.
-If a ``Page`` instance with slug ``authors/dr-suess`` is a child of the
+The view function further looks through the parent hierarchy of the ``Page``.
+If a ``Page`` instance with slug ``authors/dr-seuss`` is a child of the
 ``Page`` with slug ``authors``, the templates ``pages/authors/dr-seuss.html``,
 ``pages/authors/dr-seuss/author.html``, ``pages/authors/author.html``,
 ``pages/author.html``, and ``pages/page.html`` would be checked for
 respectively. This lets you specify a template for all children of a ``Page``
 and a different template for the ``Page`` itself. For example, if an
-additional author were added as a child page of ``authors/dr-suess`` with the
+additional author were added as a child page of ``authors/dr-seuss`` with the
 slug ``authors/dr-seuss/theo-lesieg``, the template
 ``pages/authors/dr-seuss/author.html`` would be among those checked.
 
@@ -173,7 +173,7 @@ app's template instead, and only override the template blocks we're
 interested in. The problem with this however, is that the app will
 attempt to load the template with a specific name, so we can't override
 *and* extend a template at the same time, as circular inheritance will
-occur, eg Django thinks the template is trying to extend itself, which
+occur, e.g. Django thinks the template is trying to extend itself, which
 is impossible.
 
 To solve this problem, Mezzanine provides the ``overextends`` template
@@ -282,7 +282,7 @@ Page Menus
 ==========
 
 We've looked closely at the aspects of individual pages, now let's look
-at displaying all of the pages as a heirarchical menu. A typical site
+at displaying all of the pages as a hierarchical menu. A typical site
 may contain several different page menus, for example a menu that shows
 primary pages on the header of the site, with secondary pages as
 drop-down lists. Another type of menu would be a full or partial tree in
