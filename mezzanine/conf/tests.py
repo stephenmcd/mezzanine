@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import bytes, int, str
+from future.builtins import bytes, str
 
 from django.conf import settings as django_settings
 

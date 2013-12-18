@@ -7,7 +7,7 @@ or Django itself. Settings can also be made editable via the admin.
 from __future__ import unicode_literals
 from warnings import warn
 from functools import partial
-from future.builtins import bytes, int, str
+from future.builtins import bytes, str
 
 from django.conf import settings as django_settings
 try:
