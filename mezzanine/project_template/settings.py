@@ -113,8 +113,9 @@ USE_TZ = True
 LANGUAGE_CODE = "en"
 
 # Supported languages
+_ = lambda s: S
 LANGUAGES = (
-    ('en', 'English'),
+    ('en', _('English')),
 )
 
 # A boolean that turns on/off debug mode. When set to ``True``, stack traces
