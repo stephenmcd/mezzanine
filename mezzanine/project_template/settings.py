@@ -113,7 +113,7 @@ USE_TZ = True
 LANGUAGE_CODE = "en"
 
 # Supported languages
-_ = lambda s: S
+_ = lambda s: s
 LANGUAGES = (
     ('en', _('English')),
 )
