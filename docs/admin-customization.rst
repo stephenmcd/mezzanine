@@ -39,7 +39,30 @@ you would define the following in your projects's ``settings`` module::
     )
 
 Any admin classes that aren't specifed are included using Django's normal
-approach of grouping models alphabetically by application name.
+approach of grouping models alphabetically by application name. You can
+also control this behavior by implementing a ``in_menu`` method on your
+admin class, which should return ``True`` or ``False``. When implemented,
+this method controls whether the admin class appears in the menu or not.
+Here's an advanced example that excludes the ``BlogCategoryAdmin`` class
+from the menu, unless it is explicitly defined in ``ADMIN_MENU_ORDER``::
+
+    class BlogCategoryAdmin(admin.ModelAdmin):
+        """
+        Admin class for blog categories. Hides itself from the admin menu
+        unless explicitly specified.
+        """
+
+        fieldsets = ((None, {"fields": ("title",)}),)
+
+        def in_menu(self):
+            """
+            Hide from the admin menu unless explicitly set in ``ADMIN_MENU_ORDER``.
+            """
+            for (name, items) in settings.ADMIN_MENU_ORDER:
+                if "blog.BlogCategory" in items:
+                    return True
+            return False
+
 
 Custom Items
 ============
