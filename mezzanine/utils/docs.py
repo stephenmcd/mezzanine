@@ -281,8 +281,7 @@ def build_requirements(docs_path, package_name="mezzanine"):
     mezz_string = "Mezzanine=="
     project_path = os.path.join(docs_path, "..")
     requirements_file = os.path.join(project_path, package_name,
-                                     "project_template", "requirements",
-                                     "project.txt")
+                                     "project_template", "requirements.txt")
     with open(requirements_file, "r") as f:
         requirements = f.readlines()
     with open(requirements_file, "w") as f:
