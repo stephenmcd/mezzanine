@@ -62,7 +62,7 @@ class RichTextField(models.TextField):
             attrs += LOW_FILTER_ATTRS
         try:
             from bleach import clean
-        except ImportError:
+        except:
             return value
         else:
             return clean(value, tags=tags, attributes=attrs, strip=True,
