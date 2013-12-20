@@ -442,6 +442,7 @@ Sites Using Mezzanine
 * `Arkade Snowboarding <http://www.arkadesnowboarding.com>`_
 * `Linktective The Link Checker <http://www.linktective.com>`_
 * `Zetalab <http://www.zetalab.de>`_
+* `Make-Up Artists & Hair Stylists Guild <http://www.local706.org>`_
 
 Quotes
 ======
