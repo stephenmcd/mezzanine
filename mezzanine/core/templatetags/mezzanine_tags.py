@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, unicode_literals
 from future.builtins import int, open, str
 
 from hashlib import md5
+from json import loads
 import os
 try:
     from urllib.request import urlopen
@@ -16,20 +17,12 @@ from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Model, get_model
-
 from django.template import (Context, Node, TextNode, Template,
-                             TemplateSyntaxError, TOKEN_TEXT, TOKEN_VAR,
-                             TOKEN_COMMENT, TOKEN_BLOCK)
-
+    TemplateSyntaxError, TOKEN_TEXT, TOKEN_VAR, TOKEN_COMMENT, TOKEN_BLOCK)
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.utils.text import capfirst
-
-try:
-    from json import loads
-except ImportError:  # Python < 2.6
-    from django.utils.simplejson import loads
 
 # Try to import PIL in either of the two ways it can end up installed.
 try:

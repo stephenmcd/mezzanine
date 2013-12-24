@@ -3,8 +3,10 @@ from __future__ import unicode_literals
 from future.builtins import int
 
 from datetime import datetime
+from json import loads
 from optparse import make_option
 from time import sleep
+
 try:
     from urllib.request import urlopen
 except ImportError:
@@ -12,11 +14,6 @@ except ImportError:
 
 from django.core.management.base import CommandError
 from django.utils.html import strip_tags
-
-try:
-    from json import loads
-except ImportError:  # Python < 2.6
-    from django.utils.simplejson import loads
 
 from mezzanine.blog.management.base import BaseImporterCommand
 

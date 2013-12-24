@@ -2,23 +2,26 @@ from __future__ import unicode_literals
 from future.builtins import str
 
 from datetime import datetime, timedelta
-from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.html import urlize
-from django.utils.timezone import get_default_timezone, make_aware
-from django.utils.translation import ugettext_lazy as _
-from mezzanine.conf import settings
-from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_USER, \
-    QUERY_TYPE_LIST, QUERY_TYPE_SEARCH
-from mezzanine.twitter.managers import TweetManager
-from requests_oauthlib import OAuth1
+import re
 from time import timezone
 try:
     from urllib.parse import quote
 except ImportError:     # Python 2
     from urllib import quote
-import re
+
+from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.html import urlize
+from django.utils.timezone import get_default_timezone, make_aware
+from django.utils.translation import ugettext_lazy as _
+from requests_oauthlib import OAuth1
 import requests
+
+from mezzanine.conf import settings
+from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_USER, \
+    QUERY_TYPE_LIST, QUERY_TYPE_SEARCH
+from mezzanine.twitter.managers import TweetManager
+
 
 re_usernames = re.compile("@([0-9a-zA-Z+_]+)", re.IGNORECASE)
 re_hashtags = re.compile("#([0-9a-zA-Z+_]+)", re.IGNORECASE)

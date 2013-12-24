@@ -1,14 +1,11 @@
 from __future__ import unicode_literals
 from future.builtins import int, str
+
 import base64
 import hashlib
 import hmac
+import json
 import time
-
-try:
-    import json
-except ImportError:  # Python 2.6
-    from django.utils import simplejson as json
 
 from mezzanine import template
 
