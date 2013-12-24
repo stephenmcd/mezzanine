@@ -107,7 +107,7 @@ def set_dynamic_settings(s):
                     s["INSTALLED_APPS"].append(app)
     if "debug_toolbar" in s["INSTALLED_APPS"]:
         debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
-        prepend("MIDDLEWARE_CLASSES", debug_mw)
+        append("MIDDLEWARE_CLASSES", debug_mw)
     # If compressor installed, ensure it's configured and make
     # Mezzanine's settings available to its offline context,
     # since jQuery is configured via a setting.
