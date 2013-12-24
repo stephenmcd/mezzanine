@@ -439,7 +439,7 @@ Sites Using Mezzanine
 * `Australian Discworld Conventions <http://ausdwcon.org>`_
 * `Distilled <http://www.distilled.net/>`_
 * `OpenMRP <http://www.openmrp.es>`_
-* `Arkade Snowboarding <http://www.arkadesnowboarding.com>`_
+* `Arkade Snowboarding <http://www.arkadesnowboarding.com/>`_
 * `Linktective The Link Checker <http://www.linktective.com>`_
 * `Zetalab <http://www.zetalab.de>`_
 * `Make-Up Artists & Hair Stylists Guild <http://www.local706.org>`_
