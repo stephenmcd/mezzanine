@@ -1,3 +1,125 @@
+Version 3.0.0 (Dec 24, 2013)
+----------------------------
+
+  * Python 2/3 port: be conservative: no magic super() imports - Ed Schofield
+  * Put ``__future__`` imports below the # encoding: utf-8 lines - Ed Schofield
+  * Correctly handle page slug lookups when ``APPEND_SLASH`` is False - Stephen McDonald
+  * disqus counts should follow the protocol of the original request, see: ``http://help.disqus.com/customer/portal/articles/542119`` - John Henry
+  * Fall back to Python 2 urllib imports if needed. * Also fix one bug triggered by passing a newstr to ``urllib.unquote`` - Ed Schofield
+  * Remove obsolete ``with_statement`` import from ``__future__`` - Ed Schofield
+  * Always pass a native string to first arg of 3-arg type() call in ``middleware.py`` - Ed Schofield
+  * Add ``absolute_import`` to prevent implicit relative import of ``html.py`` on Py2 - Ed Schofield
+  * Python 2/3 compatibility for types in the settings registry - Ed Schofield
+  * Fix a few out-of-order ``__future__`` imports - Ed Schofield
+  * Python 3 compatibility: Use Django's newer ``smart_text`` and ``force_text`` if available. - ``smart_unicode`` and ``force_unicode`` aren't defined in ``django.utils.encoding`` on Py3 - Ed Schofield
+  * Python 3: fix ``arg_names`` lookup in ``FormForForm.__init__`` - Ed Schofield
+  * Python 3 compatibility: Fix ``galleries/models.py:`` use BytesIO etc - Ed Schofield
+  * Add Python 3.3 to ``.travis.yml`` - Ed Schofield
+  * Revert "Add Python 3.3 to ``.travis.yml"``. This reverts commit 4dee3b787d040613fa632c3300a29def955ca128. Django 1.4.x doesn't support Python 3.x, so the ``.travis.yml`` file needs to. specify that the combination of Python 3.3 and Django 1.4.x should not be. tested - Ed Schofield
+  * Change ``__unicode__`` -> ``__str__`` and add ``python_2_unicode_compatible`` decorator - Ed Schofield
+  * Disable ``standard_library`` import hooks for pychecker - Ed Schofield
+  * Add future == 0.8.2 to requirements; remove dependency for ``setup.py`` - Ed Schofield
+  * Change future dependency to >= 0.8.2 - Ed Schofield
+  * Add Python 3.3 back to ``.travis.yml`` and disable tests on ``Py3.3`` + Django 1.4 - Ed Schofield
+  * Fix location of urlparse on Python 2 - Ed Schofield
+  * Add Python 3 classifier for PyPI - Ed Schofield
+  * Prevent UnicodeDecodeError in test run on Py2 if files in the local dir have high-bit chars. - Also remove an extraneous import - Ed Schofield
+  * Python 3: import ``local_settings`` correctly from ``project_template.settings`` - Ed Schofield
+  * Work around Django / Python 2.x not supporting unicode cookie keys - Ed Schofield
+  * Change Py3-incompatible is-this-a-string type-check hack in ``send_mail_template`` - Ed Schofield
+  * Fix for ``mezzanine.utils.email`` imports - Ed Schofield
+  * Remove Django 1.4.x from ``.travis.yml`` for pull request for early testing - Ed Schofield
+  * ``import_rss`` and ``import_tumblr`` scripts: fix urllib imports on Py2 - Ed Schofield
+  * Clean up imports - Ed Schofield
+  * Remove all isinstance() imports (with future ``v0.9)``. - These are not needed in future ``v0.9`` - Ed Schofield
+  * Handle ``context_data`` is None in PageMiddleware - Stephen McDonald
+  * No need to provide ``TEST_RUNNER`` in settings - Stephen McDonald
+  * Restore 1.6 fix for generic relations - Stephen McDonald
+  * Don't use deprectaed depth arg for ``select_related`` in ``page_menu`` tag - use the built up list of subclass models instead, as per in the admin - Stephen McDonald
+  * Revert "Restore 1.6 fix for generic ``relations."``. This reverts commit 19288b896a5ccb146ae8fe8e25cde5a768079c0d. ``_meta.get_all_field_names()`` load the app cache. This cannot be called. during the app cache loading. Those line have been posing problems as seen in: * 19288b896a5ccb146ae8fe8e25cde5a768079c0d. * d2b68151ca936422eef3d0b7cc2a8e63f5e2d4d1. * 69acbfd8f025d2b245c4c8e8ca4d1484f0c1228d - Antoine Catton
+  * Fix circular import problem and keep Django 1.6 compatibility. See: * f48390c4c8d61ca499f277f2ae1c2346262b949d. * 19288b896a5ccb146ae8fe8e25cde5a768079c0d. * d2b68151ca936422eef3d0b7cc2a8e63f5e2d4d1. * 69acbfd8f025d2b245c4c8e8ca4d1484f0c1228d. Thank you Gavin Wahl (gwahl at fusionbox dot com) for the solution - Antoine Catton
+  * Bump future version requirement to 0.9.0 - Ed Schofield
+  * Add Django 1.4.8 back to ``.travis.yml`` and disable tests on ``Py3.3`` + Django 1.4.8 - Ed Schofield
+  * Remove some unnecessary list() calls around map() results - Ed Schofield
+  * Allow fab remove to run when db/user don't exist - Stephen McDonald
+  * Allow multiple deployed projects with ssl in nginx conf - Stephen McDonald
+  * Fixed a few small spelling errors - Tuk Bredsdorff
+  * In ``set_dynamic_settings`` don't convert tuple settings back to tuples if they were already a list. Closes #821 - Stephen McDonald
+  * Python 3 fix - can't compare string and int when sorting content types in page admin - Stephen McDonald
+  * Don't install optional dependencies for Python 3 that aren't yet compatible with it - Stephen McDonald
+  * Fix ``local_settings`` import - Stephen McDonald
+  * Fix string cast for file fields in thumbnail template tag - Stephen McDonald
+  * Overide staticfiles' runserver command and wsgi handler during development, to allow uploaded files to be served from within the static dir - Stephen McDonald
+  * Restore some docstrings - Stephen McDonald
+  * Update refs to latest Django 1.4/1.5 versions - Stephen McDonald
+  * Fix travis - Stephen McDonald
+  * Add project path to search path in tests - Stephen McDonald
+  * Authenticate new user using a token instead of a password to support password-less configurations - Alex Hill
+  * If new user's password is empty, make this explicit by calling ``set_unusable_password()`` - Alex Hill
+  * Only load editable settings from the database - Alex Hill
+  * Add a test for fixed editable settings behaviour - Alex Hill
+  * Load settings in a separate method, emit warnings for settings that are defined twice - Alex Hill
+  * Assume settings pulled from the database are UTF-8 - Alex Hill
+  * Remove assignment to make pyflakes happy - Alex Hill
+  * Adding Arkade Snowboarding - Josh Batchelor
+  * Remove use of ``from future import standard_library`` for now (issue #826). - This feature in ``future`` is currently buggy. - The import was not actually needed by some modules anyway - Ed Schofield
+  * Remove deprecated assert methods - Stephen McDonald
+  * Clean up editable setting loading - Stephen McDonald
+  * Move special-case bytes conversion to ``_load`` method - Alex Hill
+  * Add test for special-case bytes conversion - Alex Hill
+  * Fix tests - Alex Hill
+  * Fix inline editing response. Closes #829 - Stephen McDonald
+  * Added Linktective - procmail
+  * Upstream update to Bootstrap 3.0.2 - Eduardo Rivas
+  * Update footer link to point to the Bootstrap 3 site - Eduardo Rivas
+  * Inline Admin: Convert ``editable_form.html`` to BS3 - Eduardo Rivas
+  * Make auto-generated slugs propagate. Fixes #831 - Alex Hill
+  * Use reverse instead of ``models.permalink`` in ``BlogPost.get_absolute_url`` - Stephen McDonald
+  * Allow all models subclassing Displayable to be searched by setting ``SEARCH_MODEL_CHOICES`` to None - Stephen McDonald
+  * Update search engine docs - Stephen McDonald
+  * Fix some type handling for settings in ``mezzanine.conf`` - Stephen McDonald
+  * More Python 3 fixes for types in ``mezzanine.conf`` - Stephen McDonald
+  * Allow specifying optional left and top values to the thumbnail tag which control the centering of the thumbnail. If non default values are used update the thumbnail name - Josh Cartmell
+  * Allow None to be used as a ``per_page`` arg for pagination, to bypass pagination altogther - Stephen McDonald
+  * Force string type names for HTML5 form fields - Stephen McDonald
+  * Clean up positioning code in thumbnail tag - Stephen McDonald
+  * added three classes "left", "middle" and "right". these classes are used by cartridge to use the entire space in checkout process - Sebastian Clemens
+  * fix on ``__admin_media_prefix__`` about the trailing slash - Alexandre Hajjar
+  * Namespace jQuery in the admin pages to prevent conflicts - Zachery Metcalf
+  * Upstream update to Bootstrap 3.0.3 - Eduardo Rivas
+  * Use the new BS 3.0.3 colors for error fields - Eduardo Rivas
+  * Py3k compatibility fixes in two-phase rendering - Alex Hill
+  * Update ``forms.py``. Added a check to see if the initial value for a field is a manager - Tim Harton
+  * Fixed multipleschoiceselect error with profiles - Tim Harton
+  * Slightly cleaner related field check in profile form - Stephen McDonald
+  * Fix setup - Stephen McDonald
+  * Add a {% block %} to ``.form-actions`` in ``account_form.html`` for Cartridge. to extend. This makes it easier for Cartridge to insert an "Order History" button - Eduardo Rivas
+  * Increased margin around buttons in the user panel. Makes it look less. crammed - Eduardo Rivas
+  * Render form errors with a new {% ``errors_for`` %} template tag. This new template tag accomplishes three things: - Fixes the bug of multiple form error messages appearing when using. {% ``fields_for`` %}. This bug was intruduced in [this ``commit](https://github.com/jerivas/mezzanine/commit/323660db5bee7e21358315c4e247eaa8ee77b034)``. and was discovered when [migrating Cartridge to ``BS3](https://github.com/clemensbasti/cartridge/pull/1)``. - Decouples error message rendering from form field rendering, with. the added flexibility of placing the error messages wherever we want. - Creates a new template ``(includes/form_errors.html)`` as the single. location to control form error rendering through all Mezzanine and. Cartridge - Eduardo Rivas
+  * Admin href disqus recent comments to https or http via double slash. Changed how the disqus widget in the admin panel loads its recent. comments. This will fix any errors for loading insecure content - Daniel Lawrence
+  * ``verbose_names`` should be capitalized when output. The convention is to always use lowercase ``verbose_names`` and capitalize. in the template where necessary. ``<https://docs.djangoproject.com/en/1.0/topics/db/models/#verbose-field-names>``. > The convention is not to capitalize the first letter of the. > ``verbose_name``. Django will automatically capitalize the first letter. > where it needs to - Gavin Wahl
+  * Fix a bunch of regressions from namespacing jQuery in admin - Stephen McDonald
+  * Add django 1.6.1 to supported/tested versions - Stephen McDonald
+  * Move sitemap generation logic for Displayable instances into DisplayableManager - Stephen McDonald
+  * Added the url/view for ``displayable_links.js`` which is then used by TinyMCE to render a list of site links to use - Stephen McDonald
+  * In TinyMCE, don't convert relative urls to absolute - Stephen McDonald
+  * Added ``ALLOWED_HOSTS`` configuration for Django. As it's part of the default django settings, we also need this in mezzanine - Sebastian Clemens
+  * Python 2/3 fix for forms export - Stephen McDonald
+  * Added LANGUAGES to settings, since they're needed for multilingual support - Sebastian Clemens
+  * Added ``django.middleware.locale.LocaleMiddleware`` to ``MIDDLEWARE_CLASSES`` - Sebastian Clemens
+  * Added a language selector field to the login and admin site - Sebastian Clemens
+  * Mention Widgy in the list of third-party modules - Gavin Wahl
+  * Only show admin language selector when multiple languages configured - Stephen McDonald
+  * Don't use future's int for int settings. Closes #855 - Stephen McDonald
+  * In admin customization section of docs, mention ``in_menu`` method on admin classes for controlling ``ADMIN_MENU_ORDER`` behavior - Stephen McDonald
+  * Move requirements file for ``project_template`` into project root to better conform with hosting providers like Heroku. Closes #859 - Stephen McDonald
+  * Moved requirements files - Stephen McDonald
+  * Broader excpetion handling for importing bleach since its deps aren't Python 3 ready - Stephen McDonald
+  * Fix for django-debug-tolbar 1.0 which prevents later middleware from running - Stephen McDonald
+  * Add config for wheel distribution - Stephen McDonald
+  * Remove use of deprecated simplejson module and clean up other imports - Stephen McDonald
+  * Provide read-only twitter settings for the default query - Stephen McDonald
+
 Version 1.4.16 (Sep 30, 2013)
 -----------------------------
 
@@ -8,6 +130,8 @@ Version 1.4.15 (Sep 29, 2013)
 -----------------------------
 
   * Blog: Generate RSS and Atom feeds through ``richtext_filters`` - Eduardo Rivas
+  * Delete BS2 static resources. Add BS3 resources: css, js and fonts - Eduardo Rivas
+  * Migrated ``base.html`` and all it's includes to BS3 - Eduardo Rivas
   * Strip ``STATIC_URL``, leading / from proxied URLs. ``STATIC_URL`` often contains host or ``generic_host`` (esp. if ``STATIC_URL`` is a. path on the same domain), so it needs to be removed first to ensure it. is removed completely. Also removed leading '/' from URL, since it. appears staticfiles doesn't like absolute paths - Adam Brenecki
   * Added a function ``mezzanine.utils.urls.next_url`` which is used to retrieve redirect URLs from a request's next param, while verifying that the redirect URL is valid - Stephen McDonald
   * Fix min Dajngo version - Stephen McDonald
@@ -337,7 +461,7 @@ Version 1.4.0 (Feb 17, 2013)
   * Don't need to uncheck ``in_menus`` for an editable homepage anymore, so remove the comment describing that - Stephen McDonald
   * Correctly handle file uploads in profile forms - Stephen McDonald
   * Alpha-sort options for the search form - Stephen McDonald
-  * Remove Nimbis Services link for now. We haven't deployed our Mezzanine-based Nimbis Services site. into production yet (the old link was to a testing site that is only. used internally). We'll add this back in once we go live with our Mezzanine site - Lorin Hochstein
+  * Remove Nimbis Services link for now. We haven't deployed our Mezzanine-based Nimbis Services site. into production yet (the old link was to a testing site that is only. used internally). We'll add this back in once we go live with our Mezzanine site - Lorin Hochstein
   * Also check ``BLOG_USE_FEATURED_IMAGE`` in templates when displaying blog post's featured image - Stephen McDonald
   * Added a ``sort_by`` template filter for general use - Stephen McDonald
   * Removed ``Slugged.Meta.ordering`` since it'll generally always be nuked by Meta on a subclass - and added correct ordering to BlogCategory - Stephen McDonald
@@ -420,7 +544,7 @@ Version 1.3.0 (Dec 26, 2012)
   * Update ``mezzanine/core/admin.py``. Add some stuff to OwnableAdmin to make its use more obvious to new users - David Novakovic
   * Filter urls that use https - Eduardo Rivas
   * Added mezzanine-polls to third party apps - Stephen McDonald
-  * Update ``mezzanine/accounts/__init__.py``. Display more informative error if this exception is thrown. This exception handler can hide informative errors about model unrelated model ``declaration. `` - David Novakovic
+  * Update ``mezzanine/accounts/__init__.py``. Display more informative error if this exception is thrown. This exception handler can hide informative errors about model unrelated model declaration. - David Novakovic
   * Update ``mezzanine/accounts/__init__.py``. Even better checks for the profile model string - David Novakovic
   * Fix unfiltered RSS feeds for Django 1.3 - Stephen McDonald
   * Use tag slugs for tag RSS feeds - Stephen McDonald
