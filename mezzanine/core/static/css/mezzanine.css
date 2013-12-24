@@ -1,6 +1,8 @@
+
 /*========================================
         MEZZANINE GENERAL STYLES
 ==========================================*/
+
 body {
   padding-top: 50px;
   line-height: 165%;
@@ -23,12 +25,16 @@ ul, ol {
 .tree ul a {
   padding: 7px 15px;
 }
+.navlist-menu-level-0 {
+  margin:-5px 0;
+}
 .navbar-text {
   font-style: italic;
   font-size: 11px;
   color: #aaa !important;
   line-height: 100%;
   padding-top: 5px;
+  margin:15px 20px 0 5px;
 }
 .navbar-form.navbar-right {
   padding-right: 0;
@@ -42,6 +48,9 @@ ul, ol {
 }
 .tree .active > a {
   background-color: #EEEEEE;
+}
+.breadcrumb > li + li:before {
+  padding: 0 5px 0 10px;
 }
 .nav-footer {
   display: table;
@@ -79,6 +88,9 @@ img.pull-left {
   margin-right: 10px;
   margin-bottom: 5px;
 }
+.user-panel p {
+  margin-bottom:3px;
+}
 .user-panel .btn {
   margin: 5px 5px 5px 0;
 }
@@ -103,9 +115,11 @@ img.pull-left {
 #search-results p {
   margin: 3px 0;
 }
+
 /*========================================
-          MULTILEVEL DROPDOWN NAV
+          MULTI-LEVEL DROP-DOWN NAV
 ==========================================*/
+
 .dropdown-submenu {
   position: relative;
 }
@@ -146,9 +160,11 @@ img.pull-left {
   margin-left: 10px;
   border-top-right-radius: 0;
 }
+
 /*========================================
             MEZZANINE BLOG
 ==========================================*/
+
 .blog-list-detail {
   border-bottom: 1px dashed #CCCCCC;
   margin-bottom: 30px;
@@ -185,14 +201,16 @@ img.pull-left {
 .tag-weight-4 {
   font-size: 180%;
 }
+
 /*========================================
             MEZZANINE FORMS
 ==========================================
-  This rules mirror the rules for .form-control included with Bootstrap.
-  They are needed because we can not directly apply CSS classes to the form fields
-  when rendering them in the template.
+  These rules mirror the rules for .form-control included with
+  Bootstrap. They are needed because we can not directly apply
+  CSS classes to the form fields when rendering them in the template.
   They also cover special cases for date and date/time inputs.
 */
+
 .form-group > input[type="text"],
 .form-group > input[type="password"],
 .form-group > input[type="datetime"],
@@ -346,18 +364,25 @@ float the buttons inside it. This prevents collapsing. */
 .form-actions:after {
   clear: both;
 }
+
 /*========================================
           MEZZANINE GALLERY
 ==========================================*/
+
 .gallery .thumbnail {
   margin: 15px 0;
 }
 .gallery .thumbnail > img {
   width: 100%;
 }
+
 /*========================================
           MEZZANINE GENERIC
 ==========================================*/
+
+#comments, .rating {
+  margin:20px 0;
+}
 .rating span, .rating form {
   display: inline-block;
 }
@@ -380,9 +405,11 @@ float the buttons inside it. This prevents collapsing. */
   margin-bottom: 30px;
   background-color: #FEFFEE;
 }
+
 /*========================================
           MEZZANINE TWEETS
 ==========================================*/
+
 .tweeter-image {
   width: 32px;
   height: 32px;
@@ -390,21 +417,31 @@ float the buttons inside it. This prevents collapsing. */
 .tweet {
   margin-bottom: 20px;
 }
-.tweet h6 {
-  margin-top:-5px;
+.tweet h4 {
+  margin-bottom:2px;
+  font-size:17px;
 }
-.tweet h6 a {
-  margin-left: 4px;
+.tweet h4 small {
+  display:block;
+  line-height:150%;
 }
+.tweet p {
+  font-size:13px;
+  line-height:160%;
+}
+
 /*========================================
           MEZZANINE ACCOUNTS
 ==========================================*/
+
 .profile-image > img {
   margin-bottom: 20px;
 }
+
 /*========================================
           RESPONSIVE TWEAKS
 ==========================================*/
+
 /* Display dropdowns on hover only in desktops (md and lg classes) */
 @media (min-width: 768px) {
   .navbar-nav > li.dropdown:hover > ul.dropdown-menu {
