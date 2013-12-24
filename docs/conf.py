@@ -17,7 +17,9 @@ import sys
 import os
 
 docs_path = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(docs_path, ".."))
+parts = (docs_path, "..", "mezzanine")
+sys.path.insert(0, os.path.join(*parts))
+sys.path.insert(0, os.path.join(*parts + ("project_template",)))
 os.environ["DJANGO_SETTINGS_MODULE"] = "mezzanine.project_template.settings"
 
 import mezzanine

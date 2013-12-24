@@ -140,7 +140,8 @@ def build_changelog(docs_path, package_name="mezzanine"):
         files = cs.files()
         new_version = False
         # Commit message cleanup hacks.
-        description = cs.description().rstrip(".").replace("\n", ". ")
+        description = cs.description().decode("utf-8")
+        description = description.rstrip(".").replace("\n", ". ")
         while "  " in description:
             description = description.replace("  ", " ")
         description = description.replace(". . ", ". ").replace("...", ",")
@@ -203,7 +204,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
         except KeyError:
             if not hotfix:
                 continue
-        user = cs.user().split("<")[0].strip()
+        user = cs.user().decode("utf-8").split("<")[0].strip()
         entry = "%s - %s" % (description, user)
         if hotfix or entry not in versions[version]["changes"]:
             if hotfix:
