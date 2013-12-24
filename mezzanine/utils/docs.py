@@ -72,7 +72,7 @@ def build_settings_docs(docs_path, prefix=None):
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
     with open(os.path.join(docs_path, "settings.rst"), "w") as f:
-        f.write("\n".join(lines))
+        f.write("\n".join(lines).replace("u'", "'"))
 
 
 def build_deploy_docs(docs_path):
@@ -182,8 +182,11 @@ def build_changelog(docs_path, package_name="mezzanine"):
                 except KeyError:
                     version_tag = None
             if version_tag and version_tag not in cs.tags():
-                print("Tagging version %s" % version_tag)
-                tag(ui, repo, version_tag, rev=cs.hex())
+                try:
+                    tag(ui, repo, version_tag, rev=cs.hex())
+                    print("Tagging version %s" % version_tag)
+                except:
+                    pass
 
         # Ignore changesets that are merges, bumped the version, closed
         # a branch, regenerated the changelog itself, contain an ignore

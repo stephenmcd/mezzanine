@@ -1,3 +1,8 @@
+Version 3.0.1 (Dec 25, 2013)
+----------------------------
+
+  * Fix Python 2/3 str/bytes error in cache bypass util - Stephen McDonald
+
 Version 3.0.0 (Dec 24, 2013)
 ----------------------------
 
