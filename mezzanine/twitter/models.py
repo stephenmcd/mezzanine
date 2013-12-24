@@ -75,7 +75,18 @@ class Query(models.Model):
                          settings.TWITTER_ACCESS_TOKEN_KEY,
                          settings.TWITTER_ACCESS_TOKEN_SECRET)
         if not all(auth_settings):
-            raise TwitterQueryException("Twitter OAuth settings missing")
+            from mezzanine.conf import registry
+            if self.value == registry["TWITTER_DEFAULT_QUERY"]["default"]:
+                # These are some read-only keys and secrets we use
+                # for the default query (eg nothing has been configured)
+                auth_settings = (
+                    "KxZTRD3OBft4PP0iQW0aNQ",
+                    "sXpQRSDUVJ2AVPZTfh6MrJjHfOGcdK4wRb1WTGQ",
+                    "1368725588-ldWCsd54AJpG2xcB5nyTHyCeIC3RJcNVUAkB1OI",
+                    "r9u7qS18t8ad4Hu9XVqmCGxlIpzoCN3e1vx6LOSVgyw3R",
+                )
+            else:
+                raise TwitterQueryException("Twitter OAuth settings missing")
         try:
             tweets = requests.get(url, auth=OAuth1(*auth_settings)).json()
         except Exception as e:

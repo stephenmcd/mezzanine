@@ -429,6 +429,12 @@ float the buttons inside it. This prevents collapsing. */
   font-size:13px;
   line-height:160%;
 }
+.tweet h6 {
+  margin:5px 0 10px 0;
+}
+.tweet .glyphicon {
+  margin:0 3px;
+}
 
 /*========================================
           MEZZANINE ACCOUNTS

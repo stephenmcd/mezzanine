@@ -31,7 +31,7 @@ register_setting(
     label=_("Default Twitter Query"),
     description=_("Twitter query to use for the default query type."),
     editable=True,
-    default="django mezzanine",
+    default="from:stephen_mcd mezzanine",
 )
 
 register_setting(
