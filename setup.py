@@ -28,6 +28,8 @@ from mezzanine import __version__ as version
 
 install_requires = [
     "django >= 1.4.10, != 1.6.0, < 1.7",
+    "filebrowser_safe >= 0.3",
+    "grappelli_safe >= 0.3",
     "html5lib == 0.95",
     "pytz >= 2013b",
     "requests == 1.2.3",
@@ -37,8 +39,6 @@ install_requires = [
 
 if sys.version_info[0] == 2:
     install_requires += [
-        "filebrowser_safe >= 0.2.27",
-        "grappelli_safe >= 0.2.23",
         "bleach",
     ]
 
