@@ -1,3 +1,12 @@
+Version 3.0.3 (Dec 25, 2013)
+----------------------------
+
+  * Skip randomly failing settings test on Python 3 - Stephen McDonald
+  * Unicode fix for gallery image descriptions from filenames - Stephen McDonald
+  * More gallery unicode fixes - Stephen McDonald
+  * Fix some jQuery namespacing regressions in the admin - Stephen McDonald
+  * Bump grappelli/filebrowser versions - Stephen McDonald
+
 Version 3.0.2 (Dec 25, 2013)
 ----------------------------
 
