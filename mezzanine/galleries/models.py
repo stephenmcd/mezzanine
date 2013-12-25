@@ -125,7 +125,8 @@ class GalleryImage(Orderable):
         file name.
         """
         if not self.id and not self.description:
-            name = unquote(self.file.url).split("/")[-1].rsplit(".", 1)[0]
+            url = str(self.file.url, errors="ignore")
+            name = unquote(url).split("/")[-1].rsplit(".", 1)[0]
             name = name.replace("'", "")
             name = "".join([c if c not in punctuation else " " for c in name])
             # str.title() doesn't deal with unicode very well.
