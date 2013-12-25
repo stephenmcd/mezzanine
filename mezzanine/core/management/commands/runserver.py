@@ -1,6 +1,6 @@
 
 from django.conf import settings
-from django.core.management.commands.runserver import Command as Runserver
+from django.contrib.staticfiles.management.commands import runserver
 from django.contrib.staticfiles.handlers import StaticFilesHandler
 from django.views.static import serve
 
@@ -14,7 +14,7 @@ class MezzStaticFilesHandler(StaticFilesHandler):
         return super(MezzStaticFilesHandler, self).get_response(request)
 
 
-class Command(Runserver):
+class Command(runserver.Command):
     """
     Overrides runserver so that we can serve uploaded files
     during development, and not require every single developer on
@@ -25,6 +25,6 @@ class Command(Runserver):
 
     def get_handler(self, *args, **options):
         handler = super(Command, self).get_handler(*args, **options)
-        if settings.DEBUG:
-            return MezzStaticFilesHandler(handler)
+        if settings.DEBUG or options["insecure_serving"]:
+            handler = MezzStaticFilesHandler(handler)
         return handler
