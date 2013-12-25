@@ -40,6 +40,9 @@ ul, ol {
   padding-right: 0;
   margin-right: -10px;
 }
+.navbar-form.navbar-right .form-group {
+  margin-right: 2px;
+}
 .messages {
   margin-top: 20px;
 }
