@@ -16,14 +16,13 @@
     </li>
     {% endfor %}
 </ul>
-{% get_current_language as LANGUAGE_CODE %}
-{% get_available_languages as LANGUAGES %}
 {% if LANGUAGES|length > 1 %}
+{% get_language_info_list for LANGUAGES as languages %}
 <form>
     <select id="id_language" onchange="window.location.href=this.value;">
-        {% for lang_code, lang_name in LANGUAGES %}
-        {% language lang_code %}
-        <option{% if LANGUAGE_CODE == lang_code %} selected="selected"{% endif %} value="{% url 'admin:index' %}">{{ lang_name }}</option>
+        {% for lang in languages %}
+        {% language lang.code %}
+        <option{% if LANGUAGE_CODE == lang.code %} selected="selected"{% endif %} value="{% url 'admin:index' %}">{{ lang.name_local }}</option>
         {% endlanguage %}
         {% endfor %}
     </select>
