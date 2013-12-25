@@ -4,7 +4,7 @@
 <script>
 // Format newlines for HTML in the quick blog form, since the content
 // is HTML but the form field is plain text.
-$(function() {
+jQuery(function($) {
     $('#quick-blog-form').submit(function() {
         var field = $('#quick-blog-form #id_content');
         var value = field.attr('value').split('\n\n').join('</p><p>');

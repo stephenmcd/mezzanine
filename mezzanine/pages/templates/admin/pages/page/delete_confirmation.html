@@ -3,7 +3,7 @@
 {% block extrahead %}
 {{ block.super }}
 <script>
-$(function() {
+jQuery(function($) {
     if (location.search == '?fromtree') {
         $('.cancellink').attr('href', '../../')
     }
