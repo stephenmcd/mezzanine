@@ -125,7 +125,9 @@ class GalleryImage(Orderable):
         file name.
         """
         if not self.id and not self.description:
-            url = str(self.file.url, errors="ignore")
+            url = self.file.url
+            if PY2
+                url = str(url, errors="ignore")
             name = unquote(url).split("/")[-1].rsplit(".", 1)[0]
             name = name.replace("'", "")
             name = "".join([c if c not in punctuation else " " for c in name])
