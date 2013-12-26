@@ -22,7 +22,7 @@
         <select id="id_language" onchange="if (this.value) window.location.href=this.value">
         {% for lang_code, lang_name in LANGUAGES %}
         {% language lang_code %}
-        <option{% if LANGUAGE_CODE == lang_code %} selected="selected"{% endif %} value="{% url 'admin:index' %}">{{ lang_name }}</option>
+        <option{% if LANGUAGE_CODE == lang_code %} selected="selected"{% endif %} value="/{{ lang.code }}{{ request.get_full_path|slice:'3:' }}">{{ lang_name }}</option>
         {% endlanguage %}
         {% endfor %}
     </select>
