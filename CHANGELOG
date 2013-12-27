@@ -1,3 +1,13 @@
+Version 3.0.4 (Dec 27, 2013)
+----------------------------
+
+  * Shadow staticfiles runserver instead of ``django.core`` - Stephen McDonald
+  * Use local names for the language selector. Also dropping creation of the two variables LANGUAGES and ``LANGUAGE_CODE``. because they already exists - Sebastian Clemens
+  * Use correct indents - Sebastian Clemens
+  * Bump grappelli version - Stephen McDonald
+  * More unicode fixes - Stephen McDonald
+  * Correctly handle serving files under ``MEDIA_ROOT`` during development on Windows. Closes #865 - Stephen McDonald
+
 Version 3.0.3 (Dec 25, 2013)
 ----------------------------
 
