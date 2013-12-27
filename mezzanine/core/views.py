@@ -155,19 +155,21 @@ def static_proxy(request):
     if path:
         if isinstance(path, (list, tuple)):
             path = path[0]
-        with open(path, "rb") as f:
-            response = f.read()
-        mimetype = "application/octet-stream"
         if url.endswith(".htm"):
             # Inject <base href="{{ STATIC_URL }}"> into TinyMCE
             # plugins, since the path static files in these won't be
             # on the same domain.
-            mimetype = "text/html"
             static_url = settings.STATIC_URL + os.path.split(url)[0] + "/"
             if not urlparse(static_url).scheme:
                 static_url = urljoin(host, static_url)
             base_tag = "<base href='%s'>" % static_url
-            response = response.replace("<head>", "<head>" + base_tag)
+            mimetype = "text/html"
+            with open(path, "r") as f:
+                response = f.read().replace("<head>", "<head>" + base_tag)
+        else:
+            mimetype = "application/octet-stream"
+            with open(path, "rb") as f:
+                response = f.read()
     return HttpResponse(response, mimetype=mimetype)
 
 
