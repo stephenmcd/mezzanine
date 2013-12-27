@@ -1,4 +1,6 @@
 
+import os
+
 from django.conf import settings
 from django.contrib.staticfiles.management.commands import runserver
 from django.contrib.staticfiles.handlers import StaticFilesHandler
@@ -9,7 +11,7 @@ class MezzStaticFilesHandler(StaticFilesHandler):
 
     def get_response(self, request):
         if request.path.startswith(settings.MEDIA_URL):
-            path = self.file_path(request.path)
+            path = self.file_path(request.path).replace(os.sep, "/")
             return serve(request, path, document_root=settings.STATIC_ROOT)
         return super(MezzStaticFilesHandler, self).get_response(request)
 
