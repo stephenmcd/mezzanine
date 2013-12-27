@@ -612,3 +612,15 @@ def dashboard_column(context, token):
         t = Template("{%% load %s %%}{%% %s %%}" % tuple(tag.split(".")))
         output.append(t.render(Context(context)))
     return "".join(output)
+
+
+@register.render_tag
+def url_without_prefix(context, token):
+    """
+    Drop the language prefix from url if there is any
+    """
+    request = context["request"]
+    url = request.path.split("/")
+    if url[1] in zip(*settings.LANGUAGES)[0]:
+        del url[1]
+    return "/".join(url)
