@@ -1,4 +1,4 @@
-{% load i18n future %}
+{% load i18n future mezzanine_tags %}
 <div class="dropdown-menu" style="display:none;">
 <ul>
     <li><a href="{% url "admin:index" %}">{% trans "Dashboard" %}</a></li>
@@ -21,9 +21,7 @@
 <form>
     <select id="id_language" onchange="window.location.href=this.value;">
         {% for lang in languages %}
-        {% language lang.code %}
-        <option{% if LANGUAGE_CODE == lang.code %} selected="selected"{% endif %} value="{% url 'admin:index' %}">{{ lang.name_local }}</option>
-        {% endlanguage %}
+        <option{% if LANGUAGE_CODE == lang.code %} selected="selected"{% endif %} value="{% translate_url lang.code %}">{{ lang.name_local }}</option>
         {% endfor %}
     </select>
 </form>
