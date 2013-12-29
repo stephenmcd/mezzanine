@@ -105,9 +105,10 @@ class OverExtendsNode(ExtendsNode):
         if hasattr(parent, "render"):
             return parent
         template = self.find_template(parent, context)
-        if (isinstance(template.nodelist[0], ExtendsNode) and
-            template.nodelist[0].parent_name.resolve(context) == parent):
-            return self.find_template(parent, context, peeking=True)
+        for node in template.nodelist:
+            if (isinstance(node, ExtendsNode) and
+                    node.parent_name.resolve(context) == parent):
+                return self.find_template(parent, context, peeking=True)
         return template
 
 
