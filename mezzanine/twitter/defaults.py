@@ -29,7 +29,11 @@ register_setting(
 register_setting(
     name="TWITTER_DEFAULT_QUERY",
     label=_("Default Twitter Query"),
-    description=_("Twitter query to use for the default query type."),
+    description=_("Twitter query to use for the default query type. "
+        "\n\n*Note:* Once you change this from the default, you'll need to "
+        "configure each of the oAuth consumer/access key/secret settings. "
+        "Please refer to http://dev.twitter.com for more information "
+        "on creating an application and acquiring these settings."),
     editable=True,
     default="from:stephen_mcd mezzanine",
 )
