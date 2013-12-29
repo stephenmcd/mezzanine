@@ -77,6 +77,9 @@ label.interface {display:inline !important; float:none !important;
 fieldset .field-box {margin-right:150px !important;}
 .help b {color:#666;}
 
+/* Some reasonable font sizes */
+td, th, th a, label, .help, p.help {font-size:12px;}
+
 /* mezzanine.core.fields.MultiChoiceField */
 .multicheckbox li {list-style-type:none; float:left; margin-right:10px;}
 .multicheckbox li label {width:auto; font-weight:normal;}
