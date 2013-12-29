@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import int, str
+from future.builtins import bytes, int
 
 import base64
 import hashlib
@@ -49,11 +49,12 @@ def _get_disqus_sso(user, public_key, secret_key):
         'email': user.email,
     })
     # encode the data to base64
-    message = base64.b64encode(data)
+    message = base64.b64encode(bytes(data, encoding="utf8"))
     # generate a timestamp for signing the message
     timestamp = int(time.time())
     # generate our hmac signature
-    sig = hmac.HMAC(str(secret_key), '%s %s' % (message, timestamp),
+    sig = hmac.HMAC(bytes(secret_key, encoding="utf8"),
+                    bytes('%s %s' % (message, timestamp), encoding="utf8"),
                     hashlib.sha1).hexdigest()
 
     # Messages are of the form <message> <signature> <timestamp>
