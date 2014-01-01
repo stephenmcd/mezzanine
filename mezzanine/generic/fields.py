@@ -34,24 +34,24 @@ class BaseGenericRelation(GenericRelation):
         Set up some defaults and check for a ``related_model``
         attribute for the ``to`` argument.
         """
-        self.frozen_by_south = kwargs.pop("frozen_by_south", False)
+        if kwargs.get("frozen_by_south", False):
+            raise Exception("""
+
+    Your project contains migrations that include one of the fields
+    from mezzanine.generic in its Migration.model dict: possibly
+    KeywordsField, CommentsField or RatingField. These migratons no
+    longer work with the latest versions of Django and South, so you'll
+    need to fix them by hand. This is as simple as commenting out or
+    deleting the field from the Migration.model dict.
+    See http://bit.ly/1hecVsD for an example.
+
+    """)
+
         kwargs.setdefault("object_id_field", "object_pk")
         to = getattr(self, "related_model", None)
         if to:
             kwargs.setdefault("to", to)
         super(BaseGenericRelation, self).__init__(*args, **kwargs)
-
-    def db_type(self, connection):
-        """
-        South expects this to return a string for initial migrations
-        against MySQL, to check for text or geometery columns. These
-        generic fields are neither of those, but returning an empty
-        string here at least allows migrations to run successfully.
-        See http://south.aeracode.org/ticket/1204
-        """
-        if self.frozen_by_south:
-            return ""
-        return None
 
     def contribute_to_class(self, cls, name):
         """
@@ -69,7 +69,7 @@ class BaseGenericRelation(GenericRelation):
         self.related_field_name = name
         super(BaseGenericRelation, self).contribute_to_class(cls, name)
         # Not applicable to abstract classes, and in fact will break.
-        if not cls._meta.abstract and not self.frozen_by_south:
+        if not cls._meta.abstract:
             for (name_string, field) in self.fields.items():
                 if "%s" in name_string:
                     name_string = name_string % name
@@ -283,8 +283,7 @@ class RatingField(BaseGenericRelation):
 if "south" in settings.INSTALLED_APPS:
     try:
         from south.modelsinspector import add_introspection_rules
-        add_introspection_rules(rules=[((BaseGenericRelation,), [],
-                            {"frozen_by_south": [True, {"is_value": True}]})],
+        add_introspection_rules(rules=[((BaseGenericRelation,), [], {})],
             patterns=["mezzanine\.generic\.fields\."])
     except ImportError:
         pass
