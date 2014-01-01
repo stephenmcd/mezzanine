@@ -20,6 +20,8 @@ jQuery(function($) {
                 case 'textarea':
                 case 'file':
                 case 'url':
+                case 'email':
+                case 'number':
                     return field.value && field.value != field.defaultValue;
                 case 'checkbox':
                     return field.checked != field.defaultChecked;
