@@ -19,6 +19,9 @@ jQuery(function($) {
                 case 'text':
                 case 'textarea':
                 case 'file':
+                // HTML5 input types
+                case 'email':
+                case 'number':
                 case 'url':
                     return field.value && field.value != field.defaultValue;
                 case 'checkbox':
