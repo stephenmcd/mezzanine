@@ -6,25 +6,25 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Changing field 'Form.response'
         db.alter_column('forms_form', 'response', self.gf('mezzanine.core.fields.RichTextField')())
 
         # Changing field 'Form.content'
         db.alter_column('forms_form', 'content', self.gf('mezzanine.core.fields.RichTextField')())
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Changing field 'Form.response'
         db.alter_column('forms_form', 'response', self.gf('mezzanine.core.fields.HtmlField')())
 
         # Changing field 'Form.content'
         db.alter_column('forms_form', 'content', self.gf('mezzanine.core.fields.HtmlField')())
-    
-    
+
+
     models = {
         'contenttypes.contenttype': {
             'Meta': {'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
@@ -94,7 +94,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'in_footer': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'in_navigation': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'blank': 'True'}),
-            'keywords': ('mezzanine.generic.fields.KeywordsField', [], {'object_id_field': "'object_pk'", 'to': "orm['generic.AssignedKeyword']"}),
+            #'keywords': ('mezzanine.generic.fields.KeywordsField', [], {'object_id_field': "'object_pk'", 'to': "orm['generic.AssignedKeyword']"}),
             'keywords_string': ('django.db.models.fields.CharField', [], {'max_length': '500', 'blank': 'True'}),
             'login_required': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'parent': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': "orm['pages.Page']"}),
@@ -113,5 +113,5 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         }
     }
-    
+
     complete_apps = ['forms']
