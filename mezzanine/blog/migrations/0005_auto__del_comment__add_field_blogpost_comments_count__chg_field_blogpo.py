@@ -6,9 +6,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Deleting model 'Comment'
         db.delete_table('blog_comment')
 
@@ -17,10 +17,10 @@ class Migration(SchemaMigration):
 
         # Changing field 'BlogPost.description'
         db.alter_column('blog_blogpost', 'description', self.gf('django.db.models.fields.TextField')(blank=True))
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Adding model 'Comment'
         db.create_table('blog_comment', (
             ('blog_post', self.gf('django.db.models.fields.related.ForeignKey')(related_name='comments', to=orm['blog.BlogPost'])),
@@ -43,8 +43,8 @@ class Migration(SchemaMigration):
 
         # Changing field 'BlogPost.description'
         db.alter_column('blog_blogpost', 'description', self.gf('mezzanine.core.fields.HtmlField')(blank=True))
-    
-    
+
+
     models = {
         'auth.group': {
             'Meta': {'object_name': 'Group'},
@@ -85,7 +85,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'BlogPost'},
             '_keywords': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             'categories': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "'blogposts'", 'blank': 'True', 'to': "orm['blog.BlogCategory']"}),
-            'comments': ('mezzanine.generic.fields.CommentsField', [], {'object_id_field': "'object_pk'", 'to': "orm['generic.ThreadedComment']"}),
+            #'comments': ('mezzanine.generic.fields.CommentsField', [], {'object_id_field': "'object_pk'", 'to': "orm['generic.ThreadedComment']"}),
             'comments_count': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'content': ('mezzanine.core.fields.HtmlField', [], {}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
@@ -142,5 +142,5 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         }
     }
-    
+
     complete_apps = ['blog']

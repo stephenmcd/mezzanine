@@ -6,9 +6,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Deleting field 'Page._keywords'
         db.delete_column('pages_page', '_keywords')
 
@@ -20,10 +20,10 @@ class Migration(SchemaMigration):
 
         # Changing field 'Page.description'
         db.alter_column('pages_page', 'description', self.gf('django.db.models.fields.TextField')(blank=True))
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Adding field 'Page._keywords'
         db.add_column('pages_page', '_keywords', self.gf('django.db.models.fields.CharField')(default='', max_length=500), keep_default=False)
 
@@ -40,8 +40,8 @@ class Migration(SchemaMigration):
 
         # Changing field 'Page.description'
         db.alter_column('pages_page', 'description', self.gf('mezzanine.core.fields.HtmlField')(blank=True))
-    
-    
+
+
     models = {
         'contenttypes.contenttype': {
             'Meta': {'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
@@ -77,7 +77,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'in_footer': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'in_navigation': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'blank': 'True'}),
-            'keywords': ('mezzanine.generic.fields.KeywordsField', [], {'object_id_field': "'object_pk'", 'to': "orm['generic.AssignedKeyword']"}),
+            #'keywords': ('mezzanine.generic.fields.KeywordsField', [], {'object_id_field': "'object_pk'", 'to': "orm['generic.AssignedKeyword']"}),
             'keywords_string': ('django.db.models.fields.CharField', [], {'max_length': '500', 'blank': 'True'}),
             'login_required': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'parent': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': "orm['pages.Page']"}),
@@ -89,5 +89,5 @@ class Migration(SchemaMigration):
             'titles': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'null': 'True'})
         }
     }
-    
+
     complete_apps = ['pages']
