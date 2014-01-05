@@ -33,7 +33,7 @@ $(document).ready(function() {
 {% with page.gallery.images.all as images %}
 {% for image in images %}
 <div class="col-xs-4 col-sm-3">
-    <a class="thumbnail" rel="#image-{{ image.id }}" title="{{ image.description }}" href="{{ MEDIA_URL }}{{ image.file }}">
+    <a class="thumbnail" rel="#image-{{ image.id }}" title="{{ image.description }}" href="{{ image.file.url }}">
         <img class="img-responsive" src="{{ MEDIA_URL }}{% thumbnail image.file 131 75 %}">
     </a>
 </div>
