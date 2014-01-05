@@ -139,7 +139,7 @@ msgstr "Nome do arquivo jQuery."
 
 #: defaults.py:176
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
-msgstr "Nome fo arquivo jQuery localizado em mezzanine/core/static/mezzanine/js/"
+msgstr "Nome do arquivo jQuery localizado em mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
@@ -193,7 +193,7 @@ msgstr "Lista de tags HTML que não serão removidas de instâncias ``RichTextFi
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr "Lista de atributos HTML que não serão removidos de instânciasa ``RichTextField``."
+msgstr "Lista de atributos HTML que não serão removidos de instâncias ``RichTextField``."
 
 #: defaults.py:264
 msgid ""
@@ -265,7 +265,7 @@ msgstr "Título do Site"
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
-msgstr "Título que será exibido no topo do site, e ser concatenado no conteúdo das title tags do HTML em todas páginas."
+msgstr "Título que será exibido no topo do site, e será concatenado no conteúdo das title tags do HTML em todas páginas."
 
 #: defaults.py:351
 msgid "Tagline"
@@ -295,7 +295,7 @@ msgid ""
 "that was posted from. Defaults to ``mezzanine.utils.views.is_spam_akismet`` "
 "which will use the http://akismet.com spam filtering service when the "
 "``AKISMET_API_KEY`` setting is configured."
-msgstr "Sequência de caminhos pontilhados Pythonianos  para funcões callable usadas para checar se conteúdo postado (como formulários ou comentários) é spam. Cada função deveria aceitar três argumentos: o objeto de request, o objeto do formulário, e a URL de onde foi postado. É selecionado por default ``mezzanine.utils.views.is_spam_akismet`` que usará o serviço de filtro de spam http://akismet.com quando a ``AKISMET_API_KEY`` estiver configurada."
+msgstr "Sequência de caminhos pontilhados Pythonianos para funcões callable usadas para checar se conteúdo postado (como formulários ou comentários) é spam. Cada função deveria aceitar três argumentos: o objeto de request, o objeto do formulário, e a URL de onde foi postado. É selecionado por default ``mezzanine.utils.views.is_spam_akismet`` que usará o serviço de filtro de spam http://akismet.com quando a ``AKISMET_API_KEY`` estiver configurada."
 
 #: defaults.py:383
 msgid "Enable SSL"
@@ -428,7 +428,7 @@ msgstr "Status"
 
 #: models.py:190
 msgid "With Draft chosen, will only be shown for admin users on the site."
-msgstr "Se marcado come rascunho, sera mostrado somente para os administradores desse site."
+msgstr "Se marcado como rascunho, será mostrado somente para os administradores desse site."
 
 #: models.py:192 models.py:225
 msgid "Published from"
@@ -436,7 +436,7 @@ msgstr "Publicado de"
 
 #: models.py:193
 msgid "With Published chosen, won't be shown until this time"
-msgstr "Se marcado come publicado, não sera mostrado antes dessa data."
+msgstr "Se marcado como publicado, não será mostrado antes dessa data."
 
 #: models.py:195
 msgid "Expires on"
@@ -444,7 +444,7 @@ msgstr "Vence em"
 
 #: models.py:196
 msgid "With Published chosen, won't be shown after this time"
-msgstr "Se marcado come publicado, não sera mostrado depois dessa data."
+msgstr "Se marcado como publicado, não será mostrado depois dessa data."
 
 #: models.py:199
 msgid "Show in sitemap"
@@ -484,7 +484,7 @@ msgstr "e"
 
 #: templates/base.html:127
 msgid "Theme by"
-msgstr "Tema dessenvolvido por"
+msgstr "Tema desenvolvido por"
 
 #: templates/base.html:130
 msgid "View Mobile Site"
