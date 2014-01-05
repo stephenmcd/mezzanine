@@ -31,8 +31,8 @@ install_requires = [
     "grappelli_safe >= 0.3.3",
     "html5lib == 0.95",
     "pytz >= 2013b",
-    "requests == 1.2.3",
-    "requests-oauthlib > 0.3.2, < 0.4",
+    "requests >= 2.1.0",
+    "requests-oauthlib >= 0.4",
     "future == 0.9.0",
 ]
 
