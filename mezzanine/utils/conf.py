@@ -2,9 +2,12 @@ from __future__ import unicode_literals
 
 import os
 import sys
+from warnings import warn
 
 from django.conf import global_settings as defaults
 from django.template.loader import add_to_builtins
+
+from mezzanine.utils.timezone import get_best_local_timezone
 
 
 class SitesAllowedHosts(object):
@@ -45,11 +48,15 @@ def set_dynamic_settings(s):
     add_to_builtins("mezzanine.template.loader_tags")
 
     if not s.get("ALLOWED_HOSTS", []):
-        from warnings import warn
         warn("You haven't defined the ALLOWED_HOSTS settings, which "
              "Django 1.5 requires. Will fall back to the domains "
              "configured as sites.")
         s["ALLOWED_HOSTS"] = SitesAllowedHosts()
+
+    if s.get("TIME_ZONE", None) is None:
+        tz = get_best_local_timezone()
+        s["TIME_ZONE"] = tz
+        warn("TIME_ZONE setting is not set, using closest match: %s" % tz)
 
     # Define some settings based on management command being run.
     management_command = sys.argv[1] if len(sys.argv) > 1 else ""
