@@ -13,6 +13,7 @@ from mezzanine.pages.models import Page
 from mezzanine.conf import settings
 from mezzanine.utils.models import get_user_model
 
+
 User = get_user_model()
 
 
@@ -20,8 +21,6 @@ class PostsRSS(Feed):
     """
     RSS feed for all blog posts.
     """
-
-    link = "/"
 
     def __init__(self, *args, **kwargs):
         """
@@ -55,6 +54,9 @@ class PostsRSS(Feed):
 
     def description(self):
         return self._description
+
+    def link(self):
+        return reverse("blog_post_list")
 
     def items(self):
         if not self._public:
