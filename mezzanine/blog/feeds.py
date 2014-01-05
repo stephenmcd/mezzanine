@@ -21,6 +21,8 @@ class PostsRSS(Feed):
     RSS feed for all blog posts.
     """
 
+    link = "/"
+
     def __init__(self, *args, **kwargs):
         """
         Use the title and description of the Blog page for the feed's
@@ -53,9 +55,6 @@ class PostsRSS(Feed):
 
     def description(self):
         return self._description
-
-    def link(self):
-        return reverse("blog_post_feed", kwargs={"format": "rss"})
 
     def items(self):
         if not self._public:
@@ -106,6 +105,3 @@ class PostsAtom(PostsRSS):
 
     def subtitle(self):
         return self.description()
-
-    def link(self):
-        return reverse("blog_post_feed", kwargs={"format": "atom"})
