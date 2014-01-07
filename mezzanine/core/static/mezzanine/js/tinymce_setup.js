@@ -75,7 +75,8 @@ if (typeof tinyMCE != 'undefined') {
         paste_strip_class_attributes: true,
 
         // don't strip anything since this is handled by bleach
-        valid_elements : "*[*]"
+        valid_elements: "+*[*]",
+        valid_children: "+button[a]"
 
 	});
 
