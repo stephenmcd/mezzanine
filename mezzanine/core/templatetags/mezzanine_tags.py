@@ -616,27 +616,26 @@ def dashboard_column(context, token):
     return "".join(output)
 
 
-@register.render_tag
-def translate_url(context, token):
+@register.simple_tag(takes_context=True)
+def translate_url(context, language):
     """
-    Translates the current url depends on the given language code
-    For example:
-    
+    Translates the current URL for the given language code, eg:
+
         {% translate_url de %}
     """
-    bits = token.split_contents()
-    if len(bits) != 2:
-        raise TemplateSyntaxError("'%s' takes one argument (language code)" % bits[0])
-    view = resolve(context['request'].path)
-    request_language = translation.get_language()
-    translation.activate(django_template.Variable(bits[1]).resolve(context))
-    
+    try:
+        request = context["request"]
+    except KeyError:
+        return ""
+    view = resolve(request.path)
+    current_language = translation.get_language()
+    translation.activate(language)
     try:
         url = reverse(view.url_name, args=view.args, kwargs=view.kwargs)
-    except:
-        url = reverse("admin:"+view.url_name, args=view.args, kwargs=view.kwargs)
-    
-    translation.activate(request_language)
+    except NoReverseMatch:
+        url_name = "admin:" + view.url_name
+        url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+    translation.activate(current_language)
     if context['request'].META["QUERY_STRING"]:
         url += "?" + context['request'].META["QUERY_STRING"]
     return url
