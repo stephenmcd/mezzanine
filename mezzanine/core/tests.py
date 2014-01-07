@@ -89,10 +89,10 @@ class CoreTests(TestCase):
         self.client.logout()
         draft = RichTextPage.objects.create(title="Draft",
                                             status=CONTENT_STATUS_DRAFT)
-        response = self.client.get(draft.get_absolute_url())
+        response = self.client.get(draft.get_absolute_url(), follow=True)
         self.assertEqual(response.status_code, 404)
         self.client.login(username=self._username, password=self._password)
-        response = self.client.get(draft.get_absolute_url())
+        response = self.client.get(draft.get_absolute_url(), follow=True)
         self.assertEqual(response.status_code, 200)
 
     def test_searchable_manager_search_fields(self):
@@ -161,7 +161,7 @@ class CoreTests(TestCase):
         # test response status code
         code = 200 if status == CONTENT_STATUS_PUBLISHED else 404
         pages = RichTextPage.objects.filter(status=status)
-        response = self.client.get(pages[0].get_absolute_url())
+        response = self.client.get(pages[0].get_absolute_url(), follow=True)
         self.assertEqual(response.status_code, code)
 
     @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
@@ -191,7 +191,7 @@ class CoreTests(TestCase):
         self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
 
         # original page should 404
-        response = self.client.get(site1_page.get_absolute_url())
+        response = self.client.get(site1_page.get_absolute_url(), follow=True)
         self.assertEqual(response.status_code, 404)
 
         # change back to site1, and only the site1 pages should be retrieved
