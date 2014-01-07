@@ -10,7 +10,6 @@ try:
 except ImportError:
     from urllib import urlopen, urlencode, quote, unquote
 
-from django import template as django_template
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site
