@@ -53,13 +53,6 @@ if getattr(settings, "DEBUG", False):
                                                 mimetype="text/plain")),
     )
 
-# Filebrowser admin media library.
-if getattr(settings, "PACKAGE_NAME_FILEBROWSER") in settings.INSTALLED_APPS:
-    urlpatterns += patterns("",
-        ("^admin/media-library/", include("%s.urls" %
-                                        settings.PACKAGE_NAME_FILEBROWSER)),
-    )
-
 # Miscellanous Mezzanine patterns.
 urlpatterns += patterns("",
     ("^", include("mezzanine.core.urls")),
