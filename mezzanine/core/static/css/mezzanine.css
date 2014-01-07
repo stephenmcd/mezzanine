@@ -122,7 +122,10 @@ img.pull-left {
 /*========================================
           MULTI-LEVEL DROP-DOWN NAV
 ==========================================*/
-
+.nav > li > a.dropdown-toggle:hover{
+  background-color: #e7e7e7;
+  color: #555;
+}
 .dropdown-submenu {
   position: relative;
 }
