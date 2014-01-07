@@ -19,6 +19,9 @@ jQuery(function($) {
                 case 'text':
                 case 'textarea':
                 case 'file':
+                case 'email':
+                case 'number':
+                case 'password':
                 case 'url':
                 case 'email':
                 case 'number':
