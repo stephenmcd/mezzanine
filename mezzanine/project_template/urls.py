@@ -5,6 +5,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 
 from mezzanine.core.views import direct_to_template
+from mezzanine.conf import settings
 
 
 admin.autodiscover()
@@ -19,6 +20,13 @@ urlpatterns = i18n_patterns("",
     # admin interface, which would be marginally more secure.
     ("^admin/", include(admin.site.urls)),
 )
+
+# Filebrowser admin media library.
+if getattr(settings, "PACKAGE_NAME_FILEBROWSER") in settings.INSTALLED_APPS:
+    urlpatterns += i18n_patterns("",
+        ("^admin/media-library/", include("%s.urls" %
+                                        settings.PACKAGE_NAME_FILEBROWSER)),
+    )
 
 urlpatterns += patterns('',
 

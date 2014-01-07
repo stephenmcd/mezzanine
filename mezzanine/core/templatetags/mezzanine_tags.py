@@ -10,17 +10,19 @@ try:
 except ImportError:
     from urllib import urlopen, urlencode, quote, unquote
 
+from django import template as django_template
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site
 from django.core.files import File
 from django.core.files.storage import default_storage
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.core.urlresolvers import reverse, resolve, NoReverseMatch
 from django.db.models import Model, get_model
 from django.template import (Context, Node, TextNode, Template,
     TemplateSyntaxError, TOKEN_TEXT, TOKEN_VAR, TOKEN_COMMENT, TOKEN_BLOCK)
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
+from django.utils import translation
 from django.utils.html import strip_tags
 from django.utils.text import capfirst
 
@@ -612,3 +614,29 @@ def dashboard_column(context, token):
         t = Template("{%% load %s %%}{%% %s %%}" % tuple(tag.split(".")))
         output.append(t.render(Context(context)))
     return "".join(output)
+
+
+@register.render_tag
+def translate_url(context, token):
+    """
+    Translates the current url depends on the given language code
+    For example:
+    
+        {% translate_url de %}
+    """
+    bits = token.split_contents()
+    if len(bits) != 2:
+        raise TemplateSyntaxError("'%s' takes one argument (language code)" % bits[0])
+    view = resolve(context['request'].path)
+    request_language = translation.get_language()
+    translation.activate(django_template.Variable(bits[1]).resolve(context))
+    
+    try:
+        url = reverse(view.url_name, args=view.args, kwargs=view.kwargs)
+    except:
+        url = reverse("admin:"+view.url_name, args=view.args, kwargs=view.kwargs)
+    
+    translation.activate(request_language)
+    if context['request'].META["QUERY_STRING"]:
+        url += "?" + context['request'].META["QUERY_STRING"]
+    return url
