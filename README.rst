@@ -249,6 +249,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   permission to pages.
 * `django-widgy`_ - Widget-oriented content editing. Includes an adapter for
   Mezzanine and a powerful form builder.
+* `mezzanine-admin-backup`_ - Export your Mezzanine database and assets directly from the admin.
 
 Donating
 ========
@@ -591,6 +592,7 @@ Quotes
 .. _`mezzanine-protected-pages`: https://github.com/evilchili/mezzanine-protected-pages
 .. _`mezzanine-page-auth`: https://github.com/simodalla/mezzanine_page_auth
 .. _`django-widgy`: http://django-widgy.readthedocs.org/en/latest/
+.. _`mezzanine-admin-backup`: https://bitbucket.org/joshcartme/mezzanine-admin-backup
 
 
 .. PEOPLE WITH QUOTES
