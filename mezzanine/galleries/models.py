@@ -80,7 +80,11 @@ class Gallery(Page, RichText):
                     tempname = name.decode('utf-8')
                 else:
                     tempname = name
-                path = os.path.join(GALLERIES_UPLOAD_DIR, self.slug, tempname)
+
+                # A gallery with a slug of "/" tries to extract files
+                # to / on disk; see os.path.join docs.
+                slug = self.slug if self.slug != "/" else ""
+                path = os.path.join(GALLERIES_UPLOAD_DIR, slug, tempname)
                 try:
                     saved_path = default_storage.save(path, ContentFile(data))
                 except UnicodeEncodeError:
@@ -94,7 +98,7 @@ class Gallery(Page, RichText):
                     # mixes byte-strings with unicode strings without
                     # explicit conversion, which raises a TypeError as it
                     # would on Python 3.
-                    path = os.path.join(GALLERIES_UPLOAD_DIR, self.slug,
+                    path = os.path.join(GALLERIES_UPLOAD_DIR, slug,
                                         native(str(name, errors="ignore")))
                     saved_path = default_storage.save(path, ContentFile(data))
                 self.images.add(GalleryImage(file=saved_path))
