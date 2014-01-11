@@ -116,7 +116,7 @@ def login_redirect(request):
         try:
             next = reverse(settings.LOGIN_REDIRECT_URL)
         except NoReverseMatch:
-            next = "/"
+            next = get_script_prefix()
     return redirect(next)
 
 

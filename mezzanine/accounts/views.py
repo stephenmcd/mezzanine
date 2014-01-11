@@ -4,7 +4,7 @@ from django.contrib.auth import (authenticate, login as auth_login,
                                                logout as auth_logout)
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import info, error
-from django.core.urlresolvers import NoReverseMatch
+from django.core.urlresolvers import NoReverseMatch, get_script_prefix
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
 
@@ -40,7 +40,7 @@ def logout(request):
     """
     auth_logout(request)
     info(request, _("Successfully logged out"))
-    return redirect(next_url(request) or "/")
+    return redirect(next_url(request) or get_script_prefix())
 
 
 def signup(request, template="accounts/account_signup.html"):
