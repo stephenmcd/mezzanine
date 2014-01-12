@@ -444,8 +444,8 @@ Sites Using Mezzanine
 * `Linktective The Link Checker <http://www.linktective.com>`_
 * `Zetalab <http://www.zetalab.de>`_
 * `Make-Up Artists & Hair Stylists Guild <http://www.local706.org>`_
-* `Anywhereism http://www.anywhereism.net>`_
-* `Assistive Listening Device Locator http://aldlocator.com>`_
+* `Anywhereism <http://www.anywhereism.net>`_
+* `Assistive Listening Device Locator <http://aldlocator.com>`_
 
 Quotes
 ======
