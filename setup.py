@@ -29,7 +29,7 @@ install_requires = [
     "django >= 1.4.10, != 1.6.0, < 1.7",
     "filebrowser_safe >= 0.3.1",
     "grappelli_safe >= 0.3.3",
-    "html5lib == 0.95",
+    "html5lib == 0.999",
     "pytz >= 2013b",
     "requests >= 2.1.0",
     "requests-oauthlib >= 0.4",
