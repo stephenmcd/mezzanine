@@ -72,7 +72,7 @@ def build_settings_docs(docs_path, prefix=None):
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
     with open(os.path.join(docs_path, "settings.rst"), "w") as f:
-        f.write("\n".join(lines).replace("u'", "'"))
+        f.write("\n".join(lines).replace("u'", "'").replace("yo'", "you'"))
 
 
 def build_deploy_docs(docs_path):

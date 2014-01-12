@@ -1,3 +1,38 @@
+Version 3.0.5 (Jan 13, 2014)
+----------------------------
+
+  * Fix bytes/string handling in Python 3 ``static_proxy``. Closes #866 - Stephen McDonald
+  * Move the file browser url to i18n patterns - Sebastian Clemens
+  * Use the new template tag for url generation - Sebastian Clemens
+  * Add a given query string to url - Sebastian Clemens
+  * Move jQuery setup for ajax/csrf outside of ``document.ready`` handler - Stephen McDonald
+  * In overextends template tag, don't assume extends node is first in node list - Stephen McDonald
+  * Fix bytes/str handling in disqus SSO - Stephen McDonald
+  * Communicate the requirement for twitter credentials on changing the default query in the help text - Stephen McDonald
+  * Slight increase to font size throughout the admin - Stephen McDonald
+  * Add url field type to anyFieldsDirty in ``dynamic_inline.js`` - Adrian Carpenter
+  * Patch all migrations to remove generic fields - these break with Django 1.6 and aren't actually necessary with the latest version of south - Stephen McDonald
+  * Added two more HTML5 input types in ``dynamic_inline.js`` - Adrian Carpenter
+  * ``dynamic_inline.js`` updated for HTML5 input types in Django 1.6 - Adrian Carpenter
+  * Remove all the ``frozen_by_south`` hacks and use it to provide a warning for old migrations - Stephen McDonald
+  * Add some more html5 field types to dynamic inlines JavaScript - Stephen McDonald
+  * Update to use multiprocessing library - tyescott
+  * Use pytz to determine a closest matching timezone fro ``TIME_ZONE`` default - Stephen McDonald
+  * Have RSS/Atom feed link attribute go to homepage of site - David Tomaschik
+  * Don't hard code rss link url - Stephen McDonald
+  * Use ``FieldFile.url`` to get full image-url in gallery. Closes #877 - Denis Cornehl
+  * SS: Bumped requests and requests-oauthlib versions - Sachin Shende
+  * Fix tuple/list setting handling. Closes #883 - Stephen McDonald
+  * allow <a> tags inside <button> in TinyMCE - Neum
+  * Add back ``bootstrap-extras.js``. Menus stay open for a few hundred milliseconds after the cursor leaves them and the dropdowns in the main menu are useable when the menu is collapsed - Josh Cartmell
+  * Relative schemes for twitter avatar urls. Closes #878 - Stephen McDonald
+  * Fix some failing http status code tests that need to follow redirects when multiple languages defined - Stephen McDonald
+  * Make the label element optional for form fields. Labels for form fields can be disabled by setting them to an empty string. Previously this would produce the intended result visually, but left an empty label element in the HTML. This change causes the element to only be inserted if a label value exists - David Sanders
+  * Fix for uploading zip files to a homepage gallery - Jeff Fein-Worton
+  * Update to latest bleach/html5lib and enable for Python 3 - Stephen McDonald
+  * Fix admin menu app/model sorting for Python 3 - Stephen McDonald
+  * Bump version to 3.0.5 - Stephen McDonald
+
 Version 3.0.4 (Dec 27, 2013)
 ----------------------------
 
@@ -2289,7 +2324,7 @@ Version 0.1.2 (Jun 11, 2010)
   * Remove local settings module from repo and packaging - stephenmcd
   * Actual ``local_settings`` module removal - stephenmcd
 
-Version 0.1.1 (Jun 10, 2010)
+Version 0.1.1 (Jun 11, 2010)
 ----------------------------
 
   * No changes listed.
