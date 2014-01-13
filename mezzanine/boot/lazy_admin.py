@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.conf.urls import patterns, include
 from django.contrib.admin.sites import AdminSite
 
 
@@ -28,3 +29,16 @@ class LazyAdminSite(AdminSite):
     def lazy_registration(self):
         for name, deferred_args, deferred_kwargs in self._deferred:
             getattr(AdminSite, name)(self, *deferred_args, **deferred_kwargs)
+
+    @property
+    def urls(self):
+        from django.conf import settings
+        urls = patterns("", ("", super(LazyAdminSite, self).urls),)
+        # Filebrowser admin media library.
+        fb_name = getattr(settings, "PACKAGE_NAME_FILEBROWSER", "")
+        if fb_name in settings.INSTALLED_APPS:
+            urls += patterns("",
+                ("^media-library/", include("%s.urls" % fb_name)),
+            )
+        return urls
+

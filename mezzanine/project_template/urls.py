@@ -15,18 +15,10 @@ admin.autodiscover()
 # to the project's homepage.
 
 urlpatterns = i18n_patterns("",
-
     # Change the admin prefix here to use an alternate URL for the
     # admin interface, which would be marginally more secure.
     ("^admin/", include(admin.site.urls)),
 )
-
-# Filebrowser admin media library.
-if getattr(settings, "PACKAGE_NAME_FILEBROWSER") in settings.INSTALLED_APPS:
-    urlpatterns += i18n_patterns("",
-        ("^admin/media-library/", include("%s.urls" %
-                                        settings.PACKAGE_NAME_FILEBROWSER)),
-    )
 
 urlpatterns += patterns('',
 
