@@ -6,6 +6,7 @@ from django.db.models import Model, Field
 
 from mezzanine.utils.importing import import_dotted_path
 from future.utils import with_metaclass
+from importlib import import_module
 
 
 # Backward compatibility with Django 1.5's "get_user_model".
@@ -13,7 +14,8 @@ try:
     from django.contrib.auth import get_user_model
 except ImportError:
     def get_user_model():
-        from django.contrib.auth.models import User
+        model_name = get_user_model_name()
+        User = import_module(model_name)
         return User
 
 
