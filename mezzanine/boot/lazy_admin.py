@@ -41,4 +41,3 @@ class LazyAdminSite(AdminSite):
                 ("^media-library/", include("%s.urls" % fb_name)),
             )
         return urls
-
