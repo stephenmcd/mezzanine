@@ -446,7 +446,7 @@ Sites Using Mezzanine
 * `Make-Up Artists & Hair Stylists Guild <http://www.local706.org>`_
 * `Anywhereism <http://www.anywhereism.net>`_
 * `Assistive Listening Device Locator <http://aldlocator.com>`_
-* `Frank & Connie Spitzer <http://sdhome4you.com/>`_
+* `Frank & Connie Spitzer <http://sdhome4you.com>`_
 * `Coronado Unified School District <http://coronadousd.net>`_
 * `Coronado Inn <http://coronadoinn.com>`_
 * `Coronado Schools Foundation <http://csfkids.org>`_
