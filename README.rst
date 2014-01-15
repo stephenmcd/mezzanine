@@ -80,7 +80,7 @@ standard Django environment), with the following dependencies:
 * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
 * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
 * `bleach`_ - for sanitizing markup in content
-* `pytz`_ - for timezone support
+* `pytz`_ and `tzlocal`_ - for timezone support
 * `South`_ - for database migrations (optional)
 * `django-compressor`_ - for merging JS/CSS assets (optional)
 * `requests`_ and `requests-oauth`_ - for interacting with external APIs
@@ -489,6 +489,7 @@ Quotes
 .. _`pip`: http://www.pip-installer.org/
 .. _`bleach`: http://pypi.python.org/pypi/bleach
 .. _`pytz`: http://pypi.python.org/pypi/pytz/
+.. _`tzlocal`: http://pypi.python.org/pypi/tzlocal/
 .. _`django-compressor`: https://pypi.python.org/pypi/django_compressor
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`grappelli-safe`: http://github.com/stephenmcd/grappelli-safe
