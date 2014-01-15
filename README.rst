@@ -446,6 +446,20 @@ Sites Using Mezzanine
 * `Make-Up Artists & Hair Stylists Guild <http://www.local706.org>`_
 * `Anywhereism <http://www.anywhereism.net>`_
 * `Assistive Listening Device Locator <http://aldlocator.com>`_
+* `Frank & Connie Spitzer <http://sdhome4you.com>`_
+* `Coronado Unified School District <http://coronadousd.net>`_
+* `Coronado Inn <http://coronadoinn.com>`_
+* `Coronado Schools Foundation <http://csfkids.org>`_
+* `Light and Life Christian School <http://www.lightandlifechristianschool.com>`_
+* `The Morabito Group <http://themorabitogroup.com>`_
+* `Law Offices of Nancy Gardner <http://nancygardnerlaw.com>`_
+* `Soden & Steinberger APLC <http://legalmattersllp.com>`_
+* `Stalwart Communications <http://stalwartcom.com>`_
+* `Ubuntu Consultants <http://ubuntuconsultants.com>`_
+* `Wine a Bit Coronado <http://wineabitcoronado.com>`_
+* `Mercury Mastering <http://mercurymastering.com>`_
+* `Flowgrammable <http://flowgrammable.org>`_
+* `Shibe Mart <http://shibemart.com>`_
 
 Quotes
 ======
