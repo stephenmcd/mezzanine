@@ -29,7 +29,7 @@ and mezzanine.core.admin.SingletonAdmin
 </style>
 <script>
 {% url "static_proxy" as static_proxy_url %}
-{% url "fb_browse" as fb_browse_url %}
+{% url "filebrowser:fb_browse" as fb_browse_url %}
 {% url "admin:index" as admin_index_url %}
 {% get_current_language as LANGUAGE_CODE %}
 window.__home_link = '<a href="{% url "home" %}">{% trans "View site" %}</a>';
