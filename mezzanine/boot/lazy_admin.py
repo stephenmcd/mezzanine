@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.conf.urls import patterns, include
 from django.contrib.admin.sites import AdminSite
+from filebrowser.sites import site as filebrowser_site
 
 
 class LazyAdminSite(AdminSite):
@@ -38,6 +39,6 @@ class LazyAdminSite(AdminSite):
         fb_name = getattr(settings, "PACKAGE_NAME_FILEBROWSER", "")
         if fb_name in settings.INSTALLED_APPS:
             urls += patterns("",
-                ("^media-library/", include("%s.urls" % fb_name)),
+                ("^media-library/", include(filebrowser_site.urls)),
             )
         return urls

@@ -11,6 +11,7 @@ from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.http import HttpResponse
+from filebrowser.sites import site as filebrowser_site
 
 from mezzanine.conf import settings
 from mezzanine.core.sitemaps import DisplayableSitemap
@@ -52,6 +53,11 @@ if getattr(settings, "DEBUG", False):
         ("^robots.txt$", lambda r: HttpResponse("User-agent: *\nDisallow: /",
                                                 mimetype="text/plain")),
     )
+
+# Grappelli
+urlpatterns += patterns("",
+    ("^grappelli/", include("grappelli.urls"))
+)
 
 # Miscellanous Mezzanine patterns.
 urlpatterns += patterns("",
