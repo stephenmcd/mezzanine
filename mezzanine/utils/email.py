@@ -30,7 +30,7 @@ def subject_template(template, context):
 
 
 def send_mail_template(subject, template, addr_from, addr_to, context=None,
-                       attachments=None, fail_silently=False, addr_bcc=None,
+                       attachments=None, fail_silently=None, addr_bcc=None,
                        headers=None):
     """
     Send email rendering text and html versions for the specified
@@ -40,6 +40,8 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
         context = {}
     if attachments is None:
         attachments = []
+    if fail_silently is None:
+        fail_silently = settings.EMAIL_FAIL_SILENTLY
     # Add template accessible settings from Mezzanine to the context
     # (normally added by a context processor for HTTP requests)
     context.update(context_settings())
@@ -86,7 +88,7 @@ def send_verification_mail(request, user, verification_type):
     subject = subject_template(subject_template_name, context)
     send_mail_template(subject, "email/%s" % verification_type,
                        settings.DEFAULT_FROM_EMAIL, user.email,
-                       context=context, fail_silently=settings.DEBUG)
+                       context=context)
 
 
 def send_approve_mail(request, user):
@@ -107,7 +109,7 @@ def send_approve_mail(request, user):
     subject = subject_template("email/account_approve_subject.txt", context)
     send_mail_template(subject, "email/account_approve",
                        settings.DEFAULT_FROM_EMAIL, approval_emails,
-                       context=context, fail_silently=settings.DEBUG)
+                       context=context)
 
 
 def send_approved_mail(request, user):
@@ -120,4 +122,4 @@ def send_approved_mail(request, user):
     subject = subject_template("email/account_approved_subject.txt", context)
     send_mail_template(subject, "email/account_approved",
                        settings.DEFAULT_FROM_EMAIL, user.email,
-                       context=context, fail_silently=settings.DEBUG)
+                       context=context)

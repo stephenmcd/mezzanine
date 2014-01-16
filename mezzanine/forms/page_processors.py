@@ -48,7 +48,7 @@ def form_processor(request, page):
         email_to = form.email_to()
         if email_to and page.form.send_email:
             send_mail_template(subject, "email/form_response", email_from,
-                               email_to, context, fail_silently=settings.DEBUG)
+                               email_to, context)
         headers = None
         if email_to:
             # Add the email entered as a Reply-To header
@@ -61,7 +61,7 @@ def form_processor(request, page):
                 attachments.append((f.name, f.read()))
             send_mail_template(subject, "email/form_response", email_from,
                                email_copies, context, attachments=attachments,
-                               fail_silently=settings.DEBUG, headers=headers)
+                               headers=headers)
         form_valid.send(sender=request, form=form, entry=entry)
         return redirect(url)
     form_invalid.send(sender=request, form=form)

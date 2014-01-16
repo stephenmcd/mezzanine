@@ -144,7 +144,7 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
             }
             send_mail_template(subject, "email/comment_notification",
                                settings.DEFAULT_FROM_EMAIL, notify_emails,
-                               context, fail_silently=settings.DEBUG)
+                               context)
         return comment
 
 

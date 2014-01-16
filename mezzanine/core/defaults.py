@@ -135,6 +135,15 @@ register_setting(
 )
 
 register_setting(
+    name="EMAIL_FAIL_SILENTLY",
+    description=_("If ``True``, failures to send email will happen "
+                  "silently, otherwise an exception is raised. "
+                  "Defaults to ``settings.DEBUG``."),
+    editable=False,
+    default=settings.DEBUG,
+)
+
+register_setting(
     name="EXTRA_MODEL_FIELDS",
     description=_("A sequence of fields that will be injected into "
         "Mezzanine's (or any library's) models. Each item in the sequence is "
