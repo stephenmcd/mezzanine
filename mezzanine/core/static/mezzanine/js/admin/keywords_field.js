@@ -1,5 +1,5 @@
 
-jQuery(function($) {
+grp.jQuery(function($) {
 
     $('.keywords-field').css(window.__grappelli_installed ?
                             {margin: '5px 0 0 130px', width: '700px'} :
