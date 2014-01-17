@@ -1,3 +1,10 @@
+Version 3.0.6 (Jan 18, 2014)
+----------------------------
+
+  * Don't require specifying filebrowser urls separately in a project's urlconf - Stephen McDonald
+  * Improved support for determining timezone with tzlocal lib - Stephen McDonald
+  * New setting ``EMAIL_FAIL_SILENTLY`` for controlling the default ``fail_silently`` arg in sending email - Stephen McDonald
+
 Version 3.0.5 (Jan 13, 2014)
 ----------------------------
 
