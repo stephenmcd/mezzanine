@@ -1,12 +1,13 @@
 {% load i18n %}
 
-<div class="module" id="recent-actions-module">
+<div class="grp-module" id="recent-actions-module">
     <h2>{% trans 'Recent Actions' %}</h2>
     <h3>{% trans 'My Actions' %}</h3>
+        <div class="grp-row">
         {% load log %}
         {% get_admin_log 10 as admin_log for_user user %}
         {% if not admin_log %}
-        <p>{% trans 'None available' %}</p>
+            <p>{% trans 'None available' %}</p>
         {% else %}
         <ul class="actionlist" style="margin:0;">
         {% for entry in admin_log %}
@@ -14,5 +15,6 @@
         {% endfor %}
         </ul>
         {% endif %}
+        </div>
 </div>
 

@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% if app_list %}
-<div class="g-d-12 g-d-f group-collapsible">
+<div class="group-collapsible">
    {% for app in dashboard_app_list %}
    <div class="grp-module" id="app_{{ app.name|lower }}">
        <h2>{% trans app.name %}</h2>
