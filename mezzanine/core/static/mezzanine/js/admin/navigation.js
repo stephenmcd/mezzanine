@@ -13,9 +13,6 @@ grp.jQuery(function($) {
        }
     });
 
-    // Provides link to site.
-    $('#user-tools li:last').before('<li>' + window.__home_link + '</li>');
-
     // Fixes issue #594 but is incomplete, see #677
 
     // function contentMargin() {
