@@ -10,9 +10,10 @@ label.interface {display:inline !important; float:none !important;
 
 /* Nav stuff */
 .add-row {display:none;}
-.breadcrumbs {
+#grp-breadcrumbs {
     display:none; margin:0; padding:0; background:#e6e6e6 !important;
     width:100%;
+    padding: 3px 8px 3px 15px;
 }
 .dropdown-menu {left:0; padding:0; display:block;}
 .dropdown-menu ul {display:inline-block; padding:0; margin:0;}
