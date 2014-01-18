@@ -1,8 +1,7 @@
 
 grp.jQuery(function($) {
-
     // Empty out the breadcrumbs div and add the menu into it.
-    $('.breadcrumbs').html('')
+    $('#grp-breadcrumbs').html('')
                      .append($('.dropdown-menu').show())
                      .css({display: 'inline-block'});
 
