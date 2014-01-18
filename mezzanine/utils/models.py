@@ -1,17 +1,18 @@
 from __future__ import unicode_literals
 
+from django import get_version
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model, Field
 
 from mezzanine.utils.importing import import_dotted_path
 from future.utils import with_metaclass
-
+from distutils.version import StrictVersion
 
 # Backward compatibility with Django 1.5's "get_user_model".
-try:
+if StrictVersion(get_version()) >= StrictVersion('1.5'):
     from django.contrib.auth import get_user_model
-except ImportError:
+else:
     def get_user_model():
         from django.contrib.auth.models import User
         return User
