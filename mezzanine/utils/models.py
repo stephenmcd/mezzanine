@@ -9,6 +9,7 @@ from mezzanine.utils.importing import import_dotted_path
 from future.utils import with_metaclass
 from distutils.version import StrictVersion
 
+# Backward compatibility with Django 1.5's "get_user_model".
 if StrictVersion(get_version()) >= StrictVersion('1.5'):
     from django.contrib.auth import get_user_model
 else:
