@@ -59,5 +59,5 @@ if Profile:
 
 
 if User in admin.site._registry:
-	admin.site.unregister(User)
+    admin.site.unregister(User)
 admin.site.register(User, UserProfileAdmin)
