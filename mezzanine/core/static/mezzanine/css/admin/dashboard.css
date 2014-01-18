@@ -1,4 +1,4 @@
-#quick-blog input, textarea {width:98%;}
+#quick-blog div.submit { text-align: right; }
 #quick-blog label {white-space:nowrap; width:auto;}
 #quick-blog th {width:auto;}
 .default {width:auto !important;}
