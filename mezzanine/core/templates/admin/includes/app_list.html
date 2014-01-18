@@ -1,36 +1,33 @@
 {% load i18n %}
 
 {% if app_list %}
-<div class="group-collapsible">
+<div class="g-d-12 g-d-f group-collapsible">
    {% for app in dashboard_app_list %}
-   <div class="module" id="app_{{ app.name|lower }}">
-       <table>
-           <caption>{% trans app.name %}</caption>
-           {% for model in app.models %}
-           <tr>
+   <div class="grp-module" id="app_{{ app.name|lower }}">
+       <h2>{% trans app.name %}</h2>
+       {% for model in app.models %}
+           <div class="grp-row">
            {% if model.perms.change or model.perms.custom %}
-               <th scope="row" width="100%"><a
-                    href="{{ model.admin_url }}">{{ model.name }}</a></th>
+               <a href="{{ model.admin_url }}"><strong>{{ model.name }}</strong></a>
            {% else %}
-               <th scope="row" width="100%">{{ model.name }}</th>
+               {{ model.name }}
            {% endif %}
 
-           {% if model.perms.add %}
-               <td><a href="{{ model.add_url }}"
-                    class="addlink">{% trans 'Add' %}</a></td>
-           {% else %}
-               <td>&nbsp;</td>
-           {% endif %}
+           <ul class="grp-actions">
+               {% if model.perms.add %}
+                   <li class="grp-add-link">
+                       <a href="{{ model.add_url }}">{% trans 'Add' %}</a>
+                   </li>
+               {% endif %}
 
-           {% if model.perms.change %}
-               <td><a href="{{ model.admin_url }}"
-                    class="changelink">{% trans 'Change' %}</a></td>
-           {% else %}
-               <td>&nbsp;</td>
-           {% endif %}
-           </tr>
-           {% endfor %}
-       </table>
+               {% if model.perms.change %}
+                   <li class="grp-change-link">
+                       <a href="{{ model.admin_url }}">{% trans 'Change' %}</a>
+                   </li>
+               {% endif %}
+           </ul>
+           </div>
+       {% endfor %}
    </div>
    {% endfor %}
 </div>
