@@ -461,6 +461,8 @@ Sites Using Mezzanine
 * `Mercury Mastering <http://mercurymastering.com>`_
 * `Flowgrammable <http://flowgrammable.org>`_
 * `Shibe Mart <http://shibemart.com>`_
+* `Carlos Isaac Balderas <http://caisbalderas.com/>`_
+
 
 Quotes
 ======
