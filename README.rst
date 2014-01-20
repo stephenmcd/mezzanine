@@ -528,7 +528,7 @@ Quotes
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.core.tests
 .. _`JVM`: http://en.wikipedia.org/wiki/Java_virtual_machine
 .. _`Jython`: http://www.jython.org/
-.. _`Twitter Bootstrap`: http://twitter.github.com/bootstrap/
+.. _`Twitter Bootstrap`: http://getbootstrap.com/
 .. _`Disqus`: http://disqus.com/
 .. _`Gravatar`: http://gravatar.com/
 .. _`Google Analytics`: http://www.google.com/analytics/
