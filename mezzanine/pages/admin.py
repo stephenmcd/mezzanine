@@ -15,7 +15,12 @@ from mezzanine.utils.urls import admin_url
 
 
 page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
-page_fieldsets[0][1]["fields"] += ("in_menus", "login_required",)
+
+# Don't add a menu field if no menus are defined
+if getattr(settings, "PAGE_MENU_TEMPLATES", []):
+    page_fieldsets[0][1]["fields"] += ("in_menus",)
+
+page_fieldsets[0][1]["fields"] += ("login_required",)
 
 
 class PageAdminForm(DisplayableAdminForm):
