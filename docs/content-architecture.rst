@@ -417,6 +417,7 @@ helping you to build advanced menus.
   * ``page.html_id`` - a unique string that can be used as the HTML ID
     attribute
   * ``page.branch_level`` - an integer for the branch page's depth
+  * ``parent_page`` - a reference to the parent page
 
 Here's a commonly requested example of custom menu logic. Suppose you
 have primary navigation across the top of the site showing only primary
