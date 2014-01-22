@@ -15,8 +15,9 @@ label.interface {display:inline !important; float:none !important;
     width:100%;
     padding: 3px 8px 3px 15px;
 }
-.grp-popin #grp-breadcrumbs {
+.grp-popup #grp-breadcrumbs {
     display: block;
+    padding: 0;
 }
 .dropdown-menu {left:0; padding:0; display:block;}
 .dropdown-menu ul {display:inline-block; padding:0; margin:0;}
