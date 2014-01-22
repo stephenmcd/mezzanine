@@ -11,7 +11,6 @@ from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.http import HttpResponse
-from filebrowser.sites import site as filebrowser_site
 
 from mezzanine.conf import settings
 from mezzanine.core.sitemaps import DisplayableSitemap
