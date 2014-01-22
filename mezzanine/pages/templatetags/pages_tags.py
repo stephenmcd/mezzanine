@@ -111,6 +111,7 @@ def page_menu(context, token):
         page.has_children_in_menu = page.num_children_in_menu > 0
         page.branch_level = context["branch_level"]
         page.parent = parent_page
+        context["parent_page"] = page.parent
 
         # Prior to pages having the ``in_menus`` field, pages had two
         # boolean fields ``in_navigation`` and ``in_footer`` for

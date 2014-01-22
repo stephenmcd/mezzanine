@@ -393,6 +393,7 @@ helping you to build advanced menus.
   * ``branch_level`` - an integer for the current branch depth
   * ``page_branch_in_menu`` - a boolean for whether this branch should
     be in the menu (see "filtering menus" below)
+  * ``parent_page`` - a reference to the parent page
   * ``page.in_menu`` - a boolean for whether the branch page should
     be in the menu (see "filtering menus" below)
   * ``page.has_children`` - a boolean for whether the branch page has
