@@ -15,7 +15,8 @@ mostly get applied globally to different parts of the admin.
 {% block title %}{{ title }} | Mezzanine{% endblock %}
 {% block branding %}<h1 id="site-name">Mezzanine</h1>{% endblock %}
 
-{% block extrahead %}
+{% block stylesheets %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static "mezzanine/css/admin/global.css" %}">
 <style>
 /*
