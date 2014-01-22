@@ -1,5 +1,5 @@
 
-jQuery(function($) {
+grp.jQuery(function($) {
     // Fix the ``Home`` breadcrumb link non logged-in views.
     var home = $('.breadcrumbs a:first');
     if (home.length == 1) {
