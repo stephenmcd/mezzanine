@@ -146,9 +146,28 @@ def static_proxy(request):
     # first otherwise the replacement loop below won't work.
     static_url = settings.STATIC_URL.replace(host, "", 1)
     static_url = static_url.replace(generic_host, "", 1)
+    # If STATIC_URL is based on the host:
+    old_url = url
     for prefix in (host, generic_host, static_url, "/"):
         if url.startswith(prefix):
             url = url.replace(prefix, "", 1)
+    # If ``STATIC_URL`` is on another host, which is also in ``url`` (but not in
+    # ``request``):
+    if url == old_url:
+        # ``url`` is either with protocol, either already generic
+        generic_url = (url.lstrip("htps:") if url.startswith("http")
+                       else url)
+        # 1. ``STATIC_URL`` generic or without host
+        if not static_url.startswith("http"):
+            url_host = generic_url.split("/")[2]
+            # ``STATIC_URL`` no host => remove host in ``url``
+            if not static_url.startswith("//"):
+                url = generic_url.replace(url_host, "", 1)
+            url = generic_url.replace(static_url, "", 1).lstrip("/")
+        # 2. ``STATIC_URL`` full with host and protocol
+        else:
+            generic_static_url = static_url.lstrip("htps:")
+            url = generic_url.replace(generic_static_url, "", 1)
     response = ""
     mimetype = ""
     path = finders.find(url)
