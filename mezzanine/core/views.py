@@ -135,18 +135,16 @@ def static_proxy(request):
     SWF, as these are normally static files, and will break with
     cross-domain JavaScript errors if ``STATIC_URL`` is an external
     host. URL for the file is passed in via querystring in the inline
-    popup plugin template.
+    popup plugin template, and we then attempt to pull out the relative
+    path to the file, so that we can serve it locally via Django.
     """
-    # Get the relative URL after STATIC_URL.
-    url = request.GET["u"]
-    protocol = "http" if not request.is_secure() else "https"
-    host = protocol + "://" + request.get_host()
-    generic_host = "//" + request.get_host()
-    # STATIC_URL often contains host or generic_host, so remove it
-    # first otherwise the replacement loop below won't work.
-    static_url = settings.STATIC_URL.replace(host, "", 1)
-    static_url = static_url.replace(generic_host, "", 1)
-    for prefix in (host, generic_host, static_url, "/"):
+    normalize = lambda u: "//" + u.split("://")[-1]
+    url = normalize(request.GET["u"])
+    host = normalize(request.get_host())
+    static_url = settings.STATIC_URL
+    if "://" in static_url:
+        static_url = normalize(static_url)
+    for prefix in (host, static_url, "/"):
         if url.startswith(prefix):
             url = url.replace(prefix, "", 1)
     response = ""
