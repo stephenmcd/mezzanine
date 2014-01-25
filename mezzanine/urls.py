@@ -53,6 +53,11 @@ if getattr(settings, "DEBUG", False):
                                                 mimetype="text/plain")),
     )
 
+# Grappelli
+urlpatterns += patterns("",
+    ("^grappelli/", include("grappelli.urls"))
+)
+
 # Miscellanous Mezzanine patterns.
 urlpatterns += patterns("",
     ("^", include("mezzanine.core.urls")),

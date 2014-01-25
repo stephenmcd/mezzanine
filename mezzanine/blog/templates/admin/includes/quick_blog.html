@@ -4,7 +4,7 @@
 <script>
 // Format newlines for HTML in the quick blog form, since the content
 // is HTML but the form field is plain text.
-jQuery(function($) {
+grp.jQuery(function($) {
     $('#quick-blog-form').submit(function() {
         var field = $('#quick-blog-form #id_content');
         var value = field.attr('value').split('\n\n').join('</p><p>');
@@ -14,20 +14,23 @@ jQuery(function($) {
     });
 });
 </script>
-<div class="module">
+<div class="grp-module">
     <h2>{% trans "Quick Blog" %}</h2>
     <form method="post" id="quick-blog-form" action="{% url "admin:blog_blogpost_add" %}">
         {% csrf_token %}
-        <table id="quick-blog">
-            {{ form.as_table }}
-            <tr>
-                <td>&nbsp;</td>
-                <td style="width:100%;text-align:right;">
-                    <input type="submit" class="default"
-                        value="{% trans "Save Draft" %}" />
-                </td>
-            </tr>
-        </table>
+        <div id="quick-blog">
+            {% for field in form %}
+                {% if not field.is_hidden %}
+                    <div class="grp-row">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="grp-row submit">
+                <input type="submit" class="default" value="{% trans "Save Draft" %}" />
+            </div>
+        </div>
     </form>
 </div>
 {% endif %}

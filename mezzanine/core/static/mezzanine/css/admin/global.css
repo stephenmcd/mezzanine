@@ -10,9 +10,14 @@ label.interface {display:inline !important; float:none !important;
 
 /* Nav stuff */
 .add-row {display:none;}
-.breadcrumbs {
-    display:none; margin:0; padding:0; background:#e6e6e6 !important;
+#grp-breadcrumbs {
+    display:none; margin:0; padding:0;
     width:100%;
+    padding: 3px 8px 3px 15px;
+}
+.grp-popup #grp-breadcrumbs {
+    display: block;
+    padding: 0;
 }
 .dropdown-menu {left:0; padding:0; display:block;}
 .dropdown-menu ul {display:inline-block; padding:0; margin:0;}
@@ -21,7 +26,7 @@ label.interface {display:inline !important; float:none !important;
     font-size:15px; font-weight:bold; list-style-type:none;
 }
 .dropdown-menu li ul {
-    background: #e6e6e6;
+    background: #eee;
     border-bottom: 1px solid #ccc;
     border-radius: 0 0 5px 5px;
     display: none;

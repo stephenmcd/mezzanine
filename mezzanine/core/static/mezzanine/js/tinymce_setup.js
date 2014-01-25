@@ -1,8 +1,12 @@
 
 function CustomFileBrowser(field_name, url, type, win) {
+
+    var cmsURL = window.__filebrowser_url + '?pop=2';
+    cmsURL = cmsURL + '&type=' + type;
+
     tinyMCE.activeEditor.windowManager.open({
-        file: window.__filebrowser_url + '?pop=2&type=' + type,
-        width: 820,  // Your dimensions may differ - toy around with them!
+        file: cmsURL,
+        width: 980,  // Your dimensions may differ - toy around with them!
         height: 500,
         resizable: "yes",
         scrollbars: "yes",
@@ -21,20 +25,20 @@ if (typeof tinyMCE != 'undefined') {
     tinyMCE.init({
 
         // main settings
-        mode : "specific_textareas",
-        editor_selector : "mceEditor",
+        mode: "specific_textareas",
         theme: "advanced",
         language: "en",
         dialog_type: "window",
-        editor_deselector : "mceNoEditor",
+        editor_deselector: "mceNoEditor",
+        skin: "grappelli",
 
         // general settings
         width: '700',
         height: '350',
-        indentation : '10px',
-        fix_list_elements : true,
-        remove_script_host : true,
-        accessibility_warnings : false,
+        indentation: '10px',
+        fix_list_elements: true,
+        remove_script_host: true,
+        accessibility_warnings: false,
         object_resizing: false,
         //cleanup: false, // SETTING THIS TO FALSE WILL BREAK EMBEDDING YOUTUBE VIDEOS
         forced_root_block: "p",
@@ -44,7 +48,7 @@ if (typeof tinyMCE != 'undefined') {
         relative_urls: false,
         convert_urls: false,
 
-        // callbackss
+        // callbacks
         file_browser_callback: "CustomFileBrowser",
 
         // theme_advanced
@@ -55,8 +59,7 @@ if (typeof tinyMCE != 'undefined') {
         theme_advanced_buttons2: "",
         theme_advanced_buttons3: "",
         theme_advanced_path: false,
-        theme_advanced_blockformats: "p,h1,h2,h3,h4,pre",
-        theme_advanced_styles: "[all] clearfix=clearfix;[p] small=small;[img] Image left-aligned=img_left;[img] Image left-aligned (nospace)=img_left_nospacetop;[img] Image right-aligned=img_right;[img] Image right-aligned (nospace)=img_right_nospacetop;[img] Image Block=img_block;[img] Image Block (nospace)=img_block_nospacetop;[div] column span-2=column span-2;[div] column span-4=column span-4;[div] column span-8=column span-8",
+        theme_advanced_blockformats: 'p,h1,h2,h3,h4,pre',
         theme_advanced_resizing : true,
         theme_advanced_resize_horizontal : false,
         theme_advanced_resizing_use_cookie : true,
@@ -64,7 +67,7 @@ if (typeof tinyMCE != 'undefined') {
         advlink_styles: "intern=internal;extern=external",
 
         // plugins
-        plugins: "inlinepopups,contextmenu,tabfocus,searchreplace,fullscreen,advimage,advlink,paste,media,table",
+        plugins: 'inlinepopups,advimage,advlink,fullscreen,paste,media,searchreplace,grappelli,template',
         advimage_update_dimensions_onchange: true,
 
         // remove MS Word's inline styles when copying and pasting.
@@ -76,9 +79,10 @@ if (typeof tinyMCE != 'undefined') {
 
         // don't strip anything since this is handled by bleach
         valid_elements: "+*[*]",
-        valid_children: "+button[a]"
+        valid_children: "+button[a]",
 
-	});
-
+        // Grappelli Settings
+        grappelli_adv_hidden: false,
+        grappelli_show_documentstructure: 'on'
+    });
 }
-

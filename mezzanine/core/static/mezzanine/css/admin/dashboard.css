@@ -1,4 +1,4 @@
-#quick-blog input, textarea {width:98%;}
+#quick-blog div.submit { text-align: right; }
 #quick-blog label {white-space:nowrap; width:auto;}
 #quick-blog th {width:auto;}
 .default {width:auto !important;}
@@ -14,3 +14,34 @@
 #comments-module span {display:block; }
 #comments-module p {padding:0; border-top: 1px solid #ddd; font-size:80%;
                     margin-top:4px; clear:both;}
+
+/*  Recent Actions ................................................... */
+
+ul.actionlist li {
+    margin: 5px 0 0; padding: 2px 10px 0 20px;
+    line-height: 12px;
+}
+ul.actionlist li a {
+    margin-left: -20px; padding-left: 19px;
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+}
+
+ul.actionlist li.addlink a:link, ul.actionlist li.addlink a:visited {
+    background-image:url('../../../grappelli/images/icons-small/add-link.png');
+}
+ul.actionlist li.addlink a:hover, ul.actionlist li.addlink a:active {
+    background-image:url('../../../grappelli/images/icons-small/add-link_hover.png');
+}
+ul.actionlist li.changelink a:link, ul.actionlist li.changelink a:visited {
+    background-image:url('../../../grappelli/images/icons-small/change-link.png');
+}
+ul.actionlist li.changelink a:hover, ul.actionlist li.changelink a:active {
+    background-image:url('../../../grappelli/images/icons-small/change-link_hover.png');
+}
+
+ul.actionlist li.deletelink {
+    color: #666;
+    text-decoration: line-through;
+    background-image: url('../../../grappelli/images/icons-small/delete-link.png');
+}

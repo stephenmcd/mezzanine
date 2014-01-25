@@ -1,5 +1,5 @@
 
-jQuery(function($) {
+grp.jQuery(function($) {
 
     var cookie = 'mezzanine-admin-tree';
     var at = ('; ' + document.cookie).indexOf('; ' + cookie + '=');

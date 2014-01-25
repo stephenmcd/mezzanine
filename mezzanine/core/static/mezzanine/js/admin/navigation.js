@@ -1,8 +1,7 @@
 
-jQuery(function($) {
-
+grp.jQuery(function($) {
     // Empty out the breadcrumbs div and add the menu into it.
-    $('.breadcrumbs').html('')
+    $('#grp-breadcrumbs').html('')
                      .append($('.dropdown-menu').show())
                      .css({display: 'inline-block'});
 
@@ -13,9 +12,6 @@ jQuery(function($) {
          $(this).attr('href', $(this).parent().find('.dropdown-menu-menu a:first').attr('href'));
        }
     });
-
-    // Provides link to site.
-    $('#user-tools li:last').before('<li>' + window.__home_link + '</li>');
 
     // Fixes issue #594 but is incomplete, see #677
 

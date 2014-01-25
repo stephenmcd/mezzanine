@@ -4,7 +4,6 @@
 
 {% block extrahead %}
 {{ block.super }}
-<link rel="stylesheet" href="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"css/dashboard.css" %}">
 <link rel="stylesheet" href="{% static "mezzanine/css/admin/dashboard.css" %}">
 <!--[if IE 7]><style>.dashboard #content {padding-top: 80px;}</style><![endif]-->
 {% endblock %}
@@ -12,15 +11,24 @@
 {% block coltype %}colMS{% endblock %}
 {% block bodyclass %}dashboard{% endblock %}
 
-{% block breadcrumbs %}<div class="breadcrumbs">{% trans "Home" %}</div>{% endblock %}
+{% block breadcrumbs %}<nav id="grp-breadcrumbs">{% trans "Home" %}</nav>{% endblock %}
 
 {% block content_title %}<h1>{% trans "Dashboard" %}</h1>{% endblock %}
 
-{% block content %}<div id="content-main">{% dashboard_column 0 %}</div>{% endblock %}
-
-{% block sidebar %}
-    <div id="content-related" class="dashboard1">{% dashboard_column 2 %}</div>
-    {% block extendedsidebar %}
-    <div id="content-related" class="dashboard2">{% dashboard_column 1 %}</div>
-    {% endblock %}
+{% block content %}
+    <div class="g-d-c" id="content-main">
+        <div class="g-d-12 g-d-f">
+            {% dashboard_column 0 %}
+        </div>
+        <div class="g-d-6">
+            {% block sidebar %}
+                {% dashboard_column 1 %}
+            {% endblock %}
+        </div>
+        <div class="g-d-6 g-d-l">
+            {% block extendedsidebar %}
+                {% dashboard_column 2 %}
+            {% endblock %}
+        </div>
+    </div>
 {% endblock %}

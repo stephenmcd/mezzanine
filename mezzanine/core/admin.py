@@ -50,7 +50,7 @@ class DisplayableAdmin(admin.ModelAdmin):
             "fields": ["_meta_title", "slug",
                        ("description", "gen_description"),
                         "keywords", "in_sitemap"],
-            "classes": ("collapse-closed",)
+            "classes": ("grp-collapse grp-closed",)
         }),
     )
 

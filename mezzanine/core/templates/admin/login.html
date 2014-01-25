@@ -1,68 +1,98 @@
 {% extends "admin/base_site.html" %}
-{% load i18n future staticfiles %}
+{% load grp_tags i18n future staticfiles %}
 
-{% block stylesheets %}
-{{ block.super }}
-<link rel="stylesheet" type="text/css" href="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"css/login.css" %}">
-{% endblock %}
-
-{% block bodyclass %}login{% endblock %}
+{% block bodyclass %}grp-login{% endblock %}
 {% block content_title %}{% endblock %}
 {% block breadcrumbs %}{% endblock %}
 
-{% block content %}
-
-{% if form.non_field_errors %}
-{% for error in form.non_field_errors %}
-<p class="errornote">{{ error }}</p>
-{% endfor %}
-{% endif %}
-{% if no_site_permission %}
-<p class="errornote">{% trans "You don't have permission to access the admin for this site." %}</p>
-{% endif %}
-
-<form action="{{ app_path }}" method="post" id="login-form">
-    {% csrf_token %}
-    <div id="content-main">
-        <div class="form-row">
-            <label for="id_username" class="required">{% trans 'Username or email:' %}</label>
-            <input type="text" required name="username" id="id_username" value="{{ request.POST.username }}">
-        </div>
-        <div class="form-row">
-            <label for="id_password" class="required">{% trans 'Password:' %}</label>
-            <input type="password" required  name="password" id="id_password">
-            <input type="hidden" name="this_is_the_login_form" value="1" />
-        </div>
-        {% if LANGUAGES|length > 1 %}
-        {% get_language_info_list for LANGUAGES as languages %}
-        <div class="form-row">
-            <label for="id_language">{% trans "Language" %}:</label>
-            <select id="id_language" onchange="window.location.href=this.value;">
-                {% for lang in languages %}
-                {% language lang.code %}
-                <option{% if LANGUAGE_CODE == lang.code %} selected="selected"{% endif %} value="{% url 'admin:index' %}">{{ lang.name_local }}</option>
-                {% endlanguage %}
-                {% endfor %}
-            </select>
-        </div>
-        {% endif %}
-        <div class="form-row" id="extra-login-fields">
-            <label class="required">{% trans "Interface:" %}</label>
-            <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
-                value="admin"{% if request.REQUEST.mezzanine_login_interface != "site" %} checked{% endif %} />
-            <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
-            <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_site"
-                value="site"{% if request.REQUEST.mezzanine_login_interface == "site" %} checked{% endif %} />
-            <label class="interface" for="interface_site">{% trans "Site" %}</label>
-        </div>
-    </div>
-    <div class="submit-row">
-        <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" />
-    </div>
-    <p id="forgot-password">
-        <a href="{% url "password_reset" %}">{% trans "Forgot password?" %}</a>
-    </p>
-</form>
-
+<!-- EXTRAHEAD-->
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript">
+        (function($) {
+            $(window).load(function(){ $('#id_username').focus(); });
+        })(grp.jQuery);
+    </script>
 {% endblock %}
 
+<!-- CONTENT -->
+{% block content %}
+    <div class="g-d-c g-d-10 g-centered">
+        <form action="{{ app_path }}" method="post">{% csrf_token %}
+            <fieldset class="grp-module grp-module-login">
+                <h1>
+                    <span class="grp-admin-title">{% if grappelli_admin_title %}{{ grappelli_admin_title }}{% else %}{% get_admin_title %}{% endif %}</span>
+                    <span class="grp-current-page">{% trans "Login" %}</span>
+                </h1>
+                <div class="grp-module">
+
+                    {% if form.errors and not form.non_field_errors and not form.this_is_the_login_form.errors %}
+                        <div class="grp-row grp-error-row">
+                            <p class="errornote">{% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}</p>
+                        </div>
+                    {% endif %}
+                    {% if form.non_field_errors or form.this_is_the_login_form.errors %}
+                        <div class="grp-row grp-error-row">
+                            {% for error in form.non_field_errors|add:form.this_is_the_login_form.errors %}
+                                <p class="errornote">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if no_site_permission %}
+                    <p class="errornote">{% trans "You don't have permission to access the admin for this site." %}</p>
+                    {% endif %}
+                    {% if error_message %}
+                        <div class="grp-row grp-error-row">
+                            <p class="errornote">{{ error_message }}</p>
+                        </div>
+                    {% endif %}
+
+                    <div class="grp-row{% if form.username.errors %} grp-errors{% endif %}">
+                        <label for="id_username" class="required">{{ form.username.label }}:</label>
+                        <input type="text" name="username" id="id_username" />
+                        {% if not form.this_is_the_login_form.errors %}{{ form.username.errors }}{% endif %}
+                    </div>
+                    <div class="grp-row grp-connected{% if form.password.errors %} grp-errors{% endif %}">
+                        <label for="id_password" class="required">{% trans 'Password:' %}</label>
+                        <input type="password" name="password" id="id_password" />
+                        <input type="hidden" name="this_is_the_login_form" value="1" />
+                        {% if not form.this_is_the_login_form.errors %}{{ form.password.errors }}{% endif %}
+                        {% url 'admin_password_reset' as password_reset_url %}
+                    </div>
+                    {% if LANGUAGES|length > 1 %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    <div class="grp-row grp-connected">
+                        <label for="id_language">{% trans "Language" %}:</label>
+                        <select id="id_language" onchange="window.location.href=this.value;">
+                            {% for lang in languages %}
+                            {% language lang.code %}
+                            <option{% if LANGUAGE_CODE == lang.code %} selected="selected"{% endif %} value="{% url 'admin:index' %}">{{ lang.name_local }}</option>
+                            {% endlanguage %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+                    <div class="grp-row grp-connected" id="extra-login-fields">
+                        <label>{% trans "Interface:" %}</label>
+                        <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
+                            value="admin"{% if request.REQUEST.mezzanine_login_interface != "site" %} checked{% endif %} />
+                        <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
+                        <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_site"
+                            value="site"{% if request.REQUEST.mezzanine_login_interface == "site" %} checked{% endif %} />
+                        <label class="interface" for="interface_site">{% trans "Site" %}</label>
+                    </div>
+                    {% if password_reset_url %}
+                        <div class="grp-row">
+                            <p class="grp-description" style="font-size: 11px; line-height: 13px; margin-top: 2px;"><a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a></p>
+                        </div>
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="grp-module grp-submit-row">
+                <ul>
+                    <li><input type="submit" class="grp-button grp-default" value="{% trans 'Log in' %}" /></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+{% endblock %}
