@@ -201,7 +201,7 @@ def set_short_url_for(context, token):
                 "access_token": context["settings"].BITLY_ACCESS_TOKEN,
                 "uri": obj.short_url,
             })
-            response = loads(urlopen(url).read())
+            response = loads(urlopen(url).read().decode("utf-8"))
             if response["status_code"] == 200:
                 obj.short_url = response["data"]["url"]
                 obj.save()
