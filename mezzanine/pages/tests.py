@@ -211,3 +211,17 @@ class PagesTests(TestCase):
             return
         page, created = RichTextPage.objects.get_or_create(slug="edit")
         self.assertTrue(page.overridden())
+
+    def test_unicode_slug_parm_to_processor_for(self):
+        """
+        Test that passing an unicode slug to processor_for works for
+        python 2.x
+        """
+        from mezzanine.pages.page_processors import processor_for
+
+        @processor_for(u'test unicode string')
+        def test_page_processor(request, page):
+            return {}
+
+        page, _ = RichTextPage.objects.get_or_create(title="test page")
+        self.assertEqual(test_page_processor(current_request(), page), {})
