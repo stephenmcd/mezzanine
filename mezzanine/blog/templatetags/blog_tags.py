@@ -70,7 +70,7 @@ def blog_recent_posts(limit=5, tag=None, username=None, category=None):
     if tag is not None:
         try:
             tag = Keyword.objects.get(title_or_slug(tag))
-            assigned = tag.assignments.all()
+            assigned = tag.assignments.get_for_model(BlogPost)
             blog_posts = blog_posts.filter(keywords__in=assigned).distinct()
         except Keyword.DoesNotExist:
             return []

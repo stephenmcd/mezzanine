@@ -9,7 +9,8 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 
 from mezzanine.generic.fields import RatingField
-from mezzanine.generic.managers import CommentManager, KeywordManager
+from mezzanine.generic.managers import (AssignedKeywordManager,
+                                        CommentManager, KeywordManager)
 from mezzanine.core.models import Slugged, Orderable
 from mezzanine.conf import settings
 from mezzanine.utils.models import get_user_model_name
@@ -108,6 +109,8 @@ class AssignedKeyword(Orderable):
     content_type = models.ForeignKey("contenttypes.ContentType")
     object_pk = models.IntegerField()
     content_object = GenericForeignKey("content_type", "object_pk")
+
+    objects = AssignedKeywordManager()
 
     class Meta:
         order_with_respect_to = "content_object"
