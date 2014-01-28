@@ -64,7 +64,8 @@ class PostsRSS(Feed):
         blog_posts = BlogPost.objects.published().select_related("user")
         if self.tag:
             tag = get_object_or_404(Keyword, slug=self.tag)
-            blog_posts = blog_posts.filter(keywords__in=tag.assignments.all())
+            assigned = tag.assignments.all()
+            blog_posts = blog_posts.filter(keywords__in=assigned).distinct()
         if self.category:
             category = get_object_or_404(BlogCategory, slug=self.category)
             blog_posts = blog_posts.filter(categories=category)

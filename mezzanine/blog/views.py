@@ -29,7 +29,8 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
     blog_posts = BlogPost.objects.published(for_user=request.user)
     if tag is not None:
         tag = get_object_or_404(Keyword, slug=tag)
-        blog_posts = blog_posts.filter(keywords__in=tag.assignments.all())
+        assigned = tag.assignments.all()
+        blog_posts = blog_posts.filter(keywords__in=assigned).distinct()
     if year is not None:
         blog_posts = blog_posts.filter(publish_date__year=year)
         if month is not None:
