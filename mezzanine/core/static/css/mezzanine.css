@@ -193,7 +193,10 @@ img.pull-left {
   background-color: #4667A6;
 }
 .share-twitter {
-    background-color: #00A3D4;
+  background-color: #00A3D4;
+}
+.tag-cloud li {
+  padding-left: 0;
 }
 .tag-weight-1 {
   font-size: 90%;
