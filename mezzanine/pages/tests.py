@@ -1,3 +1,4 @@
+#-*-coding:utf8-*-
 from __future__ import unicode_literals
 from future.builtins import str
 
@@ -219,7 +220,7 @@ class PagesTests(TestCase):
         """
         from mezzanine.pages.page_processors import processor_for
 
-        @processor_for(unicode('unicode string'))
+        @processor_for('áéíóú')
         def test_page_processor(request, page):
             return {}
 
