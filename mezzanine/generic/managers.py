@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 
 from django.contrib.comments.managers import CommentManager as DjangoCM
-from django.contrib.contenttypes.models import ContentType
-from django.db.models import Manager
 
 from mezzanine.conf import settings
 from mezzanine.core.managers import CurrentSiteManager
