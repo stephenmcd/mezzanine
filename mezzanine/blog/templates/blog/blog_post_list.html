@@ -126,6 +126,7 @@
     {% endif %}
     <p>
     <a href="{{ blog_post.get_absolute_url }}">{% trans "read more" %}</a>
+    {% if blog_post.allow_comments %}
     /
     {% if settings.COMMENTS_DISQUS_SHORTNAME %}
     <a href="{{ blog_post.get_absolute_url }}#disqus_thread"
@@ -136,6 +137,7 @@
     <a href="{{ blog_post.get_absolute_url }}#comments">
         {% blocktrans count comments_count=blog_post.comments_count %}{{ comments_count }} comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
     </a>
+    {% endif %}
     {% endif %}
     </p>
 </div>
