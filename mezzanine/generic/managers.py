@@ -60,14 +60,3 @@ class KeywordManager(CurrentSiteManager):
             return self.filter(**lookup)[0], False
         except IndexError:
             return self.create(**kwargs), True
-
-
-class AssignedKeywordManager(Manager):
-
-    def get_for_model(self, model):
-        """
-        Helper method for retrieving assigned keywords for a
-        specific model.
-        """
-        content_type = ContentType.objects.get_for_model(model)
-        return self.filter(content_type=content_type)
