@@ -138,7 +138,7 @@ def static_proxy(request):
     popup plugin template, and we then attempt to pull out the relative
     path to the file, so that we can serve it locally via Django.
     """
-    normalize = lambda u: "//" + u.split("://")[-1]
+    normalize = lambda u: ("//" + u.split("://")[-1]) if "://" in u else u
     url = normalize(request.GET["u"])
     host = normalize(request.get_host())
     static_url = settings.STATIC_URL
