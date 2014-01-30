@@ -220,3 +220,18 @@ class CoreTests(TestCase):
 
         site1.delete()
         site2.delete()
+
+    def test_static_proxy(self):
+        from filebrowser_safe import settings
+        from urllib import urlencode
+
+        self.client.login(username=self._username, password=self._password)
+        url = "%s%s/%s" % (settings.URL_FILEBROWSER_MEDIA,
+                           'uploadify',
+                           'uploadify.swf')
+
+        assert url.startswith("/static/")
+
+        response = self.client.get(
+            '%s?u=%s' % (reverse('static_proxy'), urlencode([('u', url)])))
+        self.assertEqual(response.status_code, 200)
