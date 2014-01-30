@@ -1,6 +1,14 @@
 from __future__ import unicode_literals
 
+try:
+    # Python 3
+    from urllib.parse import urlencode
+except ImportError:
+    # Python 2
+    from urllib import urlencode
+
 from django.contrib.sites.models import Site
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.urlresolvers import reverse
 from django.utils.html import strip_tags
 from django.utils.unittest import skipUnless
@@ -222,16 +230,8 @@ class CoreTests(TestCase):
         site2.delete()
 
     def test_static_proxy(self):
-        from filebrowser_safe import settings
-        from urllib import urlencode
-
         self.client.login(username=self._username, password=self._password)
-        url = "%s%s/%s" % (settings.URL_FILEBROWSER_MEDIA,
-                           'uploadify',
-                           'uploadify.swf')
-
-        assert url.startswith("/static/")
-
-        response = self.client.get(
-            '%s?u=%s' % (reverse('static_proxy'), urlencode([('u', url)])))
+        querystring = urlencode([('u', static("test/image.jpg"))])
+        proxy_url = '%s?%s' % (reverse('static_proxy'), querystring)
+        response = self.client.get(proxy_url)
         self.assertEqual(response.status_code, 200)
