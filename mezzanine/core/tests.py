@@ -229,9 +229,22 @@ class CoreTests(TestCase):
         site1.delete()
         site2.delete()
 
-    def test_static_proxy(self):
+    def _static_proxy(self, querystring):
         self.client.login(username=self._username, password=self._password)
-        querystring = urlencode([('u', static("test/image.jpg"))])
         proxy_url = '%s?%s' % (reverse('static_proxy'), querystring)
         response = self.client.get(proxy_url)
         self.assertEqual(response.status_code, 200)
+
+    def test_static_proxy_with_static_prefix(self):
+        querystring = urlencode([('u', static("test/image.jpg"))])
+        self._static_proxy(querystring)
+
+    def test_static_proxy_with_host(self):
+        querystring = urlencode(
+            [('u', 'http://testserver%s' % static("test/image.jpg"))])
+        self._static_proxy(querystring)
+
+    def test_static_proxy_with_host_and_port(self):
+        querystring = urlencode(
+            [('u', 'http://testserver:8000%s' % static("test/image.jpg"))])
+        self._static_proxy(querystring)
