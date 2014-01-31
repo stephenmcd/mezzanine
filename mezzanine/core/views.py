@@ -3,9 +3,9 @@ from future.builtins import int, open
 
 import os
 try:
-    from urllib.parse import urljoin, urlparse
+    from urllib.parse import urljoin, urlparse, unquote
 except ImportError:
-    from urlparse import urljoin, urlparse
+    from urlparse import urljoin, urlparse, unquote
 
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
@@ -139,25 +139,26 @@ def static_proxy(request):
     path to the file, so that we can serve it locally via Django.
     """
     normalize = lambda u: ("//" + u.split("://")[-1]) if "://" in u else u
-    url = normalize(request.GET["u"])
+    url = request.GET["u"]
+    path = urlparse(unquote(url)).path
     host = normalize(request.get_host())
     static_url = settings.STATIC_URL
     if "://" in static_url:
         static_url = normalize(static_url)
-    for prefix in (host, static_url, "/"):
-        if url.startswith(prefix):
-            url = url.replace(prefix, "", 1)
+    for prefix in (static_url, "/"):
+        if path.startswith(prefix):
+            path = path.replace(prefix, "", 1)
     response = ""
     mimetype = ""
-    path = finders.find(url)
+    path = finders.find(path)
     if path:
         if isinstance(path, (list, tuple)):
             path = path[0]
-        if url.endswith(".htm"):
+        if path.endswith(".htm"):
             # Inject <base href="{{ STATIC_URL }}"> into TinyMCE
             # plugins, since the path static files in these won't be
             # on the same domain.
-            static_url = settings.STATIC_URL + os.path.split(url)[0] + "/"
+            static_url = settings.STATIC_URL + os.path.split(path)[0] + "/"
             if not urlparse(static_url).scheme:
                 static_url = urljoin(host, static_url)
             base_tag = "<base href='%s'>" % static_url
