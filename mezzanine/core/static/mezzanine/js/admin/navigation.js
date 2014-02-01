@@ -36,7 +36,7 @@ jQuery(function($) {
     // Remove extraneous ``template`` forms from inline formsets since
     // Mezzanine has its own method of dynamic inlines.
     var removeRows = {};
-    $.each($('*[name*=__prefix__]'), function(i, e) {
+    $.each($('.dynamic-inline *[name*=__prefix__]'), function(i, e) {
         var row = $(e).parent();
         if (!row.attr('id')) {
             row.attr('id', 'remove__prefix__' + i);
