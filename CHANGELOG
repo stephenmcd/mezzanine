@@ -1,7 +1,38 @@
+Version 3.0.7 (Feb 02, 2014)
+----------------------------
+
+  * check if the user model is already registered. Fix usage of overwriting the UserProfileAdmin because it will be under ``mezzanine.accounts`` in ``INSTALLED_APPS`` - Sebastian Clemens
+  * check django version instead of ImportError. Closes ``https://github.com/stephenmcd/mezzanine/issues/893`` - Sebastian Clemens
+  * Restore comment - Sebastian Clemens
+  * Use space indent instead of tab - Sebastian Clemens
+  * Do not show the ``in_menus`` field in page admin if ``PAGE_MENU_TEMPLATES`` is empty - Laurent Prodon
+  * Fix admin password reset page. Closes #909 - Stephen McDonald
+  * Clean up ``PAGE_MENU_TEMPLATES`` check in page admin - Stephen McDonald
+  * Fix failing account tests for foreignkey and date/datetime fields on user profile models - Stephen McDonald
+  * menu: include parent page in context - Laurent Prodon
+  * menu: modify doc accordingly - Laurent Prodon
+  * Handle multiple ip addresses in ``mezzanine.utils.views.ip_for_request`` - Stephen McDonald
+  * Fix handling for schemeless static urls in static proxy - Stephen McDonald
+  * fix on python3 loads() required string found bytes <- reads(). adding ``.decode("utf-8")`` to support python3 - Simone Federici
+  * Fixed bug in ``processor_for`` if it receives an unicode slug - Vindio
+  * Replaced unicode string for ``python3.x`` compatibility - Vindio
+  * Previous commit breaked test for ``python2.x`` - Vindio
+  * Previous commit broke test for ``python2.x`` - Vindio
+  * Dont show comments in blogpost list if they are not allowed - Laurent Prodon
+  * wrap ratings in a block in blogpost detail template - Laurent Prodon
+  * More Django 1.6 generic relation regressions - underlying sql has changed, returning duplicates, so apply distinct for correct results. Closes #918 - Stephen McDonald
+  * Fix tag cloud padding - Stephen McDonald
+  * Ensure filtering blog posts by keyword uses the correct content type - Stephen McDonald
+  * Much simpler keywords lookup fix - Stephen McDonald
+  * Don't assume static proxy url param contains a host. Closes #920 - Stephen McDonald
+  * Added test to check that /static/ as a prefix of url is removed - Alejandro Peralta
+  * Fix static proxy test for Python 3 and remove fb dependency from test - Stephen McDonald
+
 Version 3.0.6 (Jan 18, 2014)
 ----------------------------
 
   * Don't require specifying filebrowser urls separately in a project's urlconf - Stephen McDonald
+  * import the user model from settings - Sebastian Clemens
   * Improved support for determining timezone with tzlocal lib - Stephen McDonald
   * New setting ``EMAIL_FAIL_SILENTLY`` for controlling the default ``fail_silently`` arg in sending email - Stephen McDonald
 
