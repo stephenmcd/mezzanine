@@ -331,7 +331,6 @@ Sites Using Mezzanine
 * `Raymond Chandler <http://www.codearchaeologist.org>`_
 * `Nashsb <http://nashpp.com>`_
 * `AciBASE <http://acinetobacter.bham.ac.uk>`_
-* `Enrico Tröger <http://www.uvena.de>`_
 * `Matthe Wahn <http://www.matthewahn.com>`_
 * `Bit of Pixels <http://bitofpixels.com>`_
 * `European Crystallographic Meeting <http://ecm29.ecanews.org>`_
