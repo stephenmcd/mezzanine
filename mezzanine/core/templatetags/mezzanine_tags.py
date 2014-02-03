@@ -352,7 +352,7 @@ def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5):
         # Push a remote copy of the thumbnail if MEDIA_URL is
         # absolute.
         if "://" in settings.MEDIA_URL:
-            with open(thumb_path, "r") as f:
+            with open(thumb_path, "rb") as f:
                 default_storage.save(thumb_url, File(f))
     except Exception:
         # If an error occurred, a corrupted image may have been saved,
