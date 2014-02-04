@@ -4,16 +4,21 @@ import os
 from django.conf import settings
 from django.contrib.staticfiles.management.commands import runserver
 from django.contrib.staticfiles.handlers import StaticFilesHandler
+from django.http import Http404
 from django.views.static import serve
 
 
 class MezzStaticFilesHandler(StaticFilesHandler):
 
     def get_response(self, request):
-        if request.path.startswith(settings.MEDIA_URL):
-            path = self.file_path(request.path).replace(os.sep, "/")
-            return serve(request, path, document_root=settings.STATIC_ROOT)
-        return super(MezzStaticFilesHandler, self).get_response(request)
+        try:
+            return super(MezzStaticFilesHandler, self).get_response(request)
+        except Http404:
+            handled = (settings.STATIC_URL, settings.MEDIA_URL)
+            if request.path.startswith(handled):
+                path = self.file_path(request.path).replace(os.sep, "/")
+                return serve(request, path, document_root=settings.STATIC_ROOT)
+            raise
 
 
 class Command(runserver.Command):
@@ -23,6 +28,9 @@ class Command(runserver.Command):
     every single one of their projects to have to set up multiple
     web server aliases for serving static content.
     See https://code.djangoproject.com/ticket/15199
+
+    For ease, we also serve any static files that have been stored
+    under the project's ``STATIC_ROOT``.
     """
 
     def get_handler(self, *args, **options):
