@@ -462,6 +462,7 @@ Sites Using Mezzanine
 * `Shibe Mart <http://shibemart.com>`_
 * `Carlos Isaac Balderas <http://caisbalderas.com/>`_
 * `Enrico Tröger <http://www.pending.io>`_
+* `Perugini <http://peruginicase.it/>`_
 
 
 Quotes
