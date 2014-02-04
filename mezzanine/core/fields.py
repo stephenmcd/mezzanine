@@ -43,6 +43,7 @@ class RichTextField(models.TextField):
                                          "settings.RICHTEXT_WIDGET_CLASS: %s"
                                          % settings.RICHTEXT_WIDGET_CLASS))
         kwargs["widget"] = widget_class()
+        kwargs.setdefault("required", False)
         formfield = super(RichTextField, self).formfield(**kwargs)
         return formfield
 
