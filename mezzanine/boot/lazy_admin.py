@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from django.conf.urls import patterns, include
 from django.contrib.admin.sites import AdminSite
 
+from mezzanine.utils.importing import import_dotted_path
+
 
 class LazyAdminSite(AdminSite):
     """
@@ -37,7 +39,9 @@ class LazyAdminSite(AdminSite):
         # Filebrowser admin media library.
         fb_name = getattr(settings, "PACKAGE_NAME_FILEBROWSER", "")
         if fb_name in settings.INSTALLED_APPS:
-            urls += patterns("",
-                ("^media-library/", include("%s.urls" % fb_name)),
-            )
+            try:
+                fb_urls = import_dotted_path("%s.sites.site" % fb_name).urls
+            except ImportError:
+                fb_urls = "%s.urls" % fb_name
+            urls += patterns("", ("^media-library/", include(fb_urls)),)
         return urls
