@@ -8,10 +8,11 @@ except ImportError:
     from urllib import urlencode
 
 from django.contrib.sites.models import Site
-from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.templatetags.static import static
 from django.core.urlresolvers import reverse
 from django.utils.html import strip_tags
 from django.utils.unittest import skipUnless
+from django.test.utils import override_settings
 
 from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
@@ -229,9 +230,25 @@ class CoreTests(TestCase):
         site1.delete()
         site2.delete()
 
-    def test_static_proxy(self):
+    def _static_proxy(self, querystring):
         self.client.login(username=self._username, password=self._password)
-        querystring = urlencode([('u', static("test/image.jpg"))])
         proxy_url = '%s?%s' % (reverse('static_proxy'), querystring)
         response = self.client.get(proxy_url)
         self.assertEqual(response.status_code, 200)
+
+    @override_settings(STATIC_URL='/static/')
+    def test_static_proxy(self):
+        querystring = urlencode([('u', static("test/image.jpg"))])
+        self._static_proxy(querystring)
+
+    @override_settings(STATIC_URL='http://testserver/static/')
+    def test_static_proxy_with_host(self):
+        querystring = urlencode(
+            [('u', static("test/image.jpg"))])
+        self._static_proxy(querystring)
+
+    @override_settings(STATIC_URL='http://testserver:8000/static/')
+    def test_static_proxy_with_static_url_with_full_host(self):
+        from django.templatetags.static import static
+        querystring = urlencode([('u', static("test/image.jpg"))])
+        self._static_proxy(querystring)
