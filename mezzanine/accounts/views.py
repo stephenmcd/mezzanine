@@ -162,10 +162,11 @@ def old_account_redirect(request, url_suffix):
     The URL is constructed manually, handling slashes as appropriate.
     """
     if url_suffix is None:
-        return redirect(reverse("account_redirect"))
-    correct_url = "{account_url}{middle_slash}{suffix}{slash}".format(
-            account_url=reverse("account_redirect"),
-            middle_slash="/" if not settings.APPEND_SLASH else "",
-            suffix=url_suffix,
-            slash="/" if settings.APPEND_SLASH else "")
+        correct_url = reverse("account_redirect")
+    else:
+        correct_url = "{account_url}{middle_slash}{suffix}{slash}".format(
+                account_url=reverse("account_redirect"),
+                middle_slash="/" if not settings.APPEND_SLASH else "",
+                suffix=url_suffix,
+                slash="/" if settings.APPEND_SLASH else "")
     return redirect(correct_url)
