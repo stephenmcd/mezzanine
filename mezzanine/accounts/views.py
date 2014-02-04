@@ -169,4 +169,7 @@ def old_account_redirect(request, url_suffix):
                 middle_slash="/" if not settings.APPEND_SLASH else "",
                 suffix=url_suffix,
                 slash="/" if settings.APPEND_SLASH else "")
+    next = next_url(request)
+    if next:
+        correct_url += "?next=%s" % next
     return redirect(correct_url)
