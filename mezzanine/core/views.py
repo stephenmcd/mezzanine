@@ -140,10 +140,8 @@ def static_proxy(request):
     """
     normalize = lambda u: ("//" + u.split("://")[-1]) if "://" in u else u
     url = normalize(request.GET["u"])
-    host = normalize(request.get_host())
-    static_url = settings.STATIC_URL
-    if "://" in static_url:
-        static_url = normalize(static_url)
+    host = "//" + request.get_host()
+    static_url = normalize(settings.STATIC_URL)
     for prefix in (host, static_url, "/"):
         if url.startswith(prefix):
             url = url.replace(prefix, "", 1)
