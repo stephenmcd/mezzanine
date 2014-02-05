@@ -5,16 +5,17 @@ from future.utils import native, PY2
 from io import BytesIO
 import os
 from string import punctuation
-try:
-    from urllib.parse import unquote
-except ImportError:     # Python 2
-    from urllib import unquote
 from zipfile import ZipFile
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    # Django < 1.5
+    from django.utils.encoding import force_unicode as force_text
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -129,10 +130,8 @@ class GalleryImage(Orderable):
         file name.
         """
         if not self.id and not self.description:
-            url = self.file.url
-            if PY2:
-                url = str(url, errors="ignore")
-            name = unquote(url).split("/")[-1].rsplit(".", 1)[0]
+            name = force_text(self.file.name)
+            name = name.rsplit("/", 1)[-1].rsplit(".", 1)[0]
             name = name.replace("'", "")
             name = "".join([c if c not in punctuation else " " for c in name])
             # str.title() doesn't deal with unicode very well.
