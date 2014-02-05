@@ -1,3 +1,19 @@
+Version 3.0.8 (Feb 06, 2014)
+----------------------------
+
+  * Use binary mode when opening the image to be copied on a remote server - Sylvain Fankhauser
+  * Fixed regression when validating displayable content field against published status - Stephen McDonald
+  * Fix static proxy handling - Stephen McDonald
+  * Fix string checking in page processors. Closes #931 - Stephen McDonald
+  * Handle the different method of importing filebrowser urls when the upstream version is installed. Closes #925 - Stephen McDonald
+  * Rename account URL prefix to match Django's by adding the plural s. Catch and redirect any old urls to the new scheme - Sam Kingston
+  * Tidy up old account redirect view - Sam Kingston
+  * Added tests to ``static_proxy`` - Alejandro Peralta
+  * Handle next param in ``old_account_redirect`` - Stephen McDonald
+  * In Mezzanine's runserver, also serve up static files in ``STATIC_ROOT`` - Stephen McDonald
+  * Bump filebrowser-safe to 0.3.2 - Stephen McDonald
+  * Use ``file.name`` instead of ``file.url`` for getting name of file in GalleryImage. `file.name` is universal accross storages and can be used not only with. FileSystem storage but with S3 storage as well (`file.name` is used to. create the url). Also with using `name` instead of `url` we will not have. problems with encoding and python version - Venelin Stoykov
+
 Version 3.0.7 (Feb 02, 2014)
 ----------------------------
 
