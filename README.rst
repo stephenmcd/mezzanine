@@ -463,6 +463,7 @@ Sites Using Mezzanine
 * `Carlos Isaac Balderas <http://caisbalderas.com/>`_
 * `Enrico Tröger <http://www.pending.io>`_
 * `Perugini <http://peruginicase.it/>`_
+* `YouPatch <https://www.youpatch.com>`_
 
 
 Quotes
