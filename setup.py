@@ -25,7 +25,7 @@ for e in exclude:
 
 install_requires = [
     "django >= 1.4.10, != 1.6.0, < 1.7",
-    "filebrowser_safe >= 0.3.1",
+    "filebrowser_safe >= 0.3.2",
     "grappelli_safe >= 0.3.4",
     "tzlocal == 1.0",
     "bleach >= 1.4",
