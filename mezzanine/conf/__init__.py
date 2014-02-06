@@ -44,7 +44,14 @@ def register_setting(name="", label="", editable=False, description="",
             editable = False
         if isinstance(default, Promise):
             default = force_text(default)
-        if not label:
+        # Checking to see if the label exists when label is a lazy
+        # translation object triggers the evaluation of that object.
+        # If the app registry is not ready when the evaluation occurs,
+        # Django will throw a RuntimeError.
+        try:
+            if not label:
+                label = name.replace("_", " ").title()
+        except RuntimeError:
             label = name.replace("_", " ").title()
         # The next six lines are for Python 2/3 compatibility.
         # isinstance() is overridden by future on Python 2 to behave as
