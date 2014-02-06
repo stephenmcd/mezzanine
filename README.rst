@@ -464,6 +464,7 @@ Sites Using Mezzanine
 * `Enrico Tröger <http://www.pending.io>`_
 * `Perugini <http://peruginicase.it/>`_
 * `YouPatch <https://www.youpatch.com>`_
+* `Batista Peniel <http://batistapeniel.org>`_
 
 
 Quotes
