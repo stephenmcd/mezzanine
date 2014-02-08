@@ -309,11 +309,9 @@ class CurrentSiteManager(DjangoCSM):
     def __init__(self, field_name=None, *args, **kwargs):
         super(DjangoCSM, self).__init__(*args, **kwargs)
         self.__field_name = field_name
-        self.__is_validated = False
 
     def get_query_set(self):
-        if not self.__is_validated:
-            self._validate_field_name()
+        self._check_field_name()
         lookup = {self.__field_name + "__id__exact": current_site_id()}
         return super(DjangoCSM, self).get_query_set().filter(**lookup)
 
