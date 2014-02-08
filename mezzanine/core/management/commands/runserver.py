@@ -4,21 +4,17 @@ import os
 from django.conf import settings
 from django.contrib.staticfiles.management.commands import runserver
 from django.contrib.staticfiles.handlers import StaticFilesHandler
-from django.http import Http404
 from django.views.static import serve
 
 
 class MezzStaticFilesHandler(StaticFilesHandler):
 
     def get_response(self, request):
-        try:
-            return super(MezzStaticFilesHandler, self).get_response(request)
-        except Http404:
-            handled = (settings.STATIC_URL, settings.MEDIA_URL)
-            if request.path.startswith(handled):
-                path = self.file_path(request.path).replace(os.sep, "/")
-                return serve(request, path, document_root=settings.STATIC_ROOT)
-            raise
+        response = super(MezzStaticFilesHandler, self).get_response(request)
+        handled = (settings.STATIC_URL, settings.MEDIA_URL)
+        if response.status_code == 404 and request.path.startswith(handled):
+            path = self.file_path(request.path).replace(os.sep, "/")
+            return serve(request, path, document_root=settings.STATIC_ROOT)
 
 
 class Command(runserver.Command):
