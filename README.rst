@@ -465,6 +465,7 @@ Sites Using Mezzanine
 * `Perugini <http://peruginicase.it/>`_
 * `YouPatch <https://www.youpatch.com>`_
 * `Batista Peniel <http://batistapeniel.org>`_
+* `Perceptyx <http://www.perceptyx.com/>`_
 
 
 Quotes
