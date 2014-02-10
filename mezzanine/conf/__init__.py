@@ -8,6 +8,7 @@ from __future__ import unicode_literals
 from warnings import warn
 from functools import partial
 from future.builtins import bytes, str
+import logging
 
 from django.conf import settings as django_settings
 try:
@@ -23,6 +24,8 @@ from mezzanine import __version__
 
 
 registry = {}
+
+logger = logging.getLogger(__name__)
 
 
 def register_setting(name="", label="", editable=False, description="",
@@ -203,7 +206,7 @@ for app in sorted(django_settings.INSTALLED_APPS, key=mezz_first):
         module = import_module(app)
     except:
         # We can't import AppConfigs at this time
-        print "{} could not be imported for defaults".format(app)
+        logger.error("%s could not be imported for Mezzanine defaults.", app)
         continue
     try:
         import_module("%s.defaults" % app)
