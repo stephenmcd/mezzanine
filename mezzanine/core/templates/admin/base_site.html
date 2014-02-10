@@ -19,13 +19,14 @@ mostly get applied globally to different parts of the admin.
 {% block extrahead %}
 <link rel="stylesheet" href="{% static "mezzanine/css/admin/global.css" %}">
 <style>
-/*
-These are set in PageAdmin's view methods,
-and mezzanine.core.admin.SingletonAdmin
-*/
+/* These are set in PageAdmin's view methods, and mezzanine.core.admin.SingletonAdmin */
 {% if hide_delete_link or singleton %}.submit-row .deletelink {display:none !important;}{% endif %}
 {% if hide_slug_field %}.slug {display:none !important;}{% endif %}
 {% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
+{% if not settings.GRAPPELLI_INSTALLED %}
+/* Extra space required by the fixed bottom toolbar in all change forms. */
+body {margin-bottom:40px;}
+{% endif %}
 </style>
 <script>
 {% url "static_proxy" as static_proxy_url %}
@@ -61,7 +62,9 @@ window.__language_code = '{{ LANGUAGE_CODE }}';
         <script src="{% static "mezzanine/js/admin/navigation.js" %}"></script>
         {% endif %}
         <script src="{% static "mezzanine/js/admin/ajax_csrf.js" %}"></script>
+        {% if settings.GRAPPELLI_INSTALLED %}
         <script src="{% static "mezzanine/js/admin/collapse_backport.js" %}"></script>
+        {% endif %}
         {% admin_dropdown_menu %}
     {% endif %}
 {% endif %}
