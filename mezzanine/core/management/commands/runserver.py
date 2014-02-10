@@ -14,7 +14,8 @@ class MezzStaticFilesHandler(StaticFilesHandler):
         handled = (settings.STATIC_URL, settings.MEDIA_URL)
         if response.status_code == 404 and request.path.startswith(handled):
             path = self.file_path(request.path).replace(os.sep, "/")
-            return serve(request, path, document_root=settings.STATIC_ROOT)
+            response = serve(request, path, document_root=settings.STATIC_ROOT)
+        return response
 
 
 class Command(runserver.Command):
