@@ -2,6 +2,10 @@
 jQuery(function($) {
 
     /// FIELDSETS
+    $('fieldset[class*="collapse"]').each(function() {
+        $(this).addClass("collapse-open");
+        $(this).removeClass("collapse");
+    });
     $('fieldset[class*="collapse-closed"]').each(function() {
         $(this).addClass("collapsed");
         $(this).find('h2:first').addClass("collapse-toggle");
