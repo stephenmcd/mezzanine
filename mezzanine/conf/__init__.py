@@ -199,7 +199,12 @@ class Settings(object):
 
 mezz_first = lambda app: not app.startswith("mezzanine.")
 for app in sorted(django_settings.INSTALLED_APPS, key=mezz_first):
-    module = import_module(app)
+    try:
+        module = import_module(app)
+    except:
+        # We can't import AppConfigs at this time
+        print "{} could not be imported for defaults".format(app)
+        continue
     try:
         import_module("%s.defaults" % app)
     except:
