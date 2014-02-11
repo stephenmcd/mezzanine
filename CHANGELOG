@@ -1,3 +1,12 @@
+Version 3.0.9 (Feb 12, 2014)
+----------------------------
+
+  * Add noindex tag to search results. Search results shouldn't normally be indexed, given that they can be generated for arbitrary queries. This patch adds a noindex tag to the head - Samir Shah
+  * Fix serving uploaded files during development - Stephen McDonald
+  * Fix static files handling - Stephen McDonald
+  * Support collapse classes in admin. Closes #943 - Stephen McDonald
+  * Add some HTML5 tags to ``RICHTEXT_ALLOWED_TAGS``. Hi,. This patch adds the following tags to ``RICHTEXT_ALLOWED_TAGS:`` * article. * aside. * figure. * caption. * header. * footer. * nav. * section. , all of which are becoming increasingly common, and should all be safe to allow. Thanks! - Samir Shah
+
 Version 3.0.8 (Feb 06, 2014)
 ----------------------------
 
