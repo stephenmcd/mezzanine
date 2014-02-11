@@ -11,31 +11,31 @@ right ahead and fix it.
 
 #editable-toolbar, .editable-highlight, .editable-link {top:0; left:0;
     z-index:300; position:absolute;}
-#editable-toolbar {z-index:9000; display:none;}
+#editable-toolbar {z-index:9000; display:none; padding-left:2px !important;}
 #editable-loading {z-index:10000; display:none; position:absolute;}
 #editable-toolbar {position:fixed;}
 .editable-highlight {border:1px solid #ccc;}
 .editable-link {display: block;}
 
 #editable-toolbar, .editable-link {
-    background:#fffcc3; float:left; cursor:pointer; padding:4px;
-    white-space:nowrap; border:1px solid #ccc; line-height:1em;
-    -moz-box-shadow: 0 0 5px #999; -webkit-box-shadow: 0 0 5px #999}
+    background:#fffcc3; float:left; cursor:pointer; padding:6px 8px;
+    white-space:nowrap; border:1px solid #ccc; line-height:1em;}
 
 #editable-toolbar a, .editable-link {text-decoration:none;
-    color:#000 !important; font-size:15px !important; font-style:italic;
-    font-weight:normal;}
+    color:#222 !important; font-size:11px !important;
+    font-weight:normal; text-transform:uppercase;}
 
-#editable-toolbar a {border-left:1px solid #666; padding:0 5px;
+#editable-toolbar a {border-left:1px solid #bbb; padding:0 8px 0 12px;
     display:none;}
-#editable-toolbar-toggle {border-left:0px !important;
-    text-decoration:none; display:inline !important;}
+a#editable-toolbar-toggle {border-left:0px !important; text-decoration:none;
+    display:inline !important; font-weight:bold !important;
+    font-size:14px !important;}
 
 /* FORM */
 
 .editable-form {padding:20px; background:#fffcc3; border:1px solid #000;
-    -moz-box-shadow: 0 0 20px #222; -webkit-box-shadow: 0 0 20px #222;
-    line-height:1em; border-radius:5px; min-width:350px;}
+    line-height:1em; border-radius:4px; min-width:350px;
+    box-shadow: 0 0 80px #222;}
 .editable-form table, .editable-form textarea, .editable-form input {
     width: 100%; margin: .5em 0; font-size: 14px;}
 .mceToolbar table {width: auto !important; margin: 0 !important;}
@@ -51,4 +51,4 @@ right ahead and fix it.
     font-weight: bold !important; line-height: 1.1em !important;
     font-size: 15px !important; color: #000 !important; float:none;}
 .editable-form .btn {width:auto; cursor:pointer; float:right;
-    margin:15px 0 0 15px; padding:5px 15px;}
+    margin:15px 0 0 15px; padding:5px 15px; border-radius:3px;}

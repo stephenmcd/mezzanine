@@ -1,15 +1,13 @@
 {% load i18n future staticfiles %}
 
-<form id="editable-toolbar" method="POST" action="{% url "admin:logout" %}?{{ REDIRECT_FIELD_NAME }}={{ request.path }}">
-    {% csrf_token %}
-    <a id="editable-toolbar-toggle" href="#">&gt;&gt;</a>
-    {% if editable_obj.get_admin_url  %}
-    <a href="{{ editable_obj.get_admin_url }}">{% trans "Admin" %}</a>
-    {% else %}
-    <a href="{% url "admin:index" %}">{% trans "Admin" %}</a>
-    {% endif %}
-    <a id="editable-toolbar-logout" href="#">{% trans "Log out" %}</a>
-</form>
+<div id="editable-toolbar" method="POST" action="{% url "admin:logout" %}">
+    {% url "admin:index" as admin_index_url %}
+    {% url "admin:logout" as admin_logout_url %}
+    {% url "logout" as accounts_logout_url %}
+    <a id="editable-toolbar-toggle" href="#"></a>
+    <a href="{{ editable_obj.get_admin_url|default:admin_index_url }}">{% trans "Admin" %}</a>
+    <a href="{{ accounts_logout_url|default:admin_logout_url }}?{{ REDIRECT_FIELD_NAME }}={{ request.path }}">{% trans "Log out" %}</a>
+</div>
 
-<img id="editable-loading" src="{% static "mezzanine/img/loadingAnimation.gif" %}" />
+<img id="editable-loading" src="{% static "mezzanine/img/loadingAnimation.gif" %}">
 
