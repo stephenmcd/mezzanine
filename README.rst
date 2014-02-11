@@ -466,6 +466,7 @@ Sites Using Mezzanine
 * `YouPatch <https://www.youpatch.com>`_
 * `Batista Peniel <http://batistapeniel.org>`_
 * `Perceptyx <http://www.perceptyx.com/>`_
+* `Guddina Coffee <http://guddina.com>`_
 
 
 Quotes
