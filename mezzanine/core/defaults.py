@@ -247,15 +247,15 @@ register_setting(
     description=_("List of HTML tags that won't be stripped from "
         "``RichTextField`` instances."),
     editable=False,
-    default=("a", "abbr", "acronym", "address", "area", "b", "bdo", "big",
-        "blockquote", "br", "button", "caption", "center", "cite", "code",
-        "col", "colgroup", "dd", "del", "dfn", "dir", "div", "dl", "dt",
-        "em", "fieldset", "font", "form", "h1", "h2", "h3", "h4", "h5",
-        "h6", "hr", "i", "img", "input", "ins", "kbd", "label", "legend",
-        "li", "map", "menu", "ol", "optgroup", "option", "p", "pre", "q",
-        "s", "samp", "select", "small", "span", "strike", "strong", "sub",
-        "sup", "table", "tbody", "td", "textarea", "tfoot", "th", "thead",
-        "tr", "tt", "u", "ul", "var", "wbr"),
+    default=("a", "abbr", "acronym", "address", "area", "article", "aside", 
+        "b", "bdo", "big", "blockquote", "br", "button", "caption", "center",
+        "cite", "code", "col", "colgroup", "dd", "del", "dfn", "dir", "div",
+        "dl", "dt", "em", "fieldset", "figure", "font", "footer", "form", "h1",
+        "h2", "h3", "h4", "h5", "h6", "header", "hr", "i", "img", "input", "ins",
+        "kbd", "label", "legend", "li", "map", "menu", "nav", "ol", "optgroup",
+        "option", "p", "pre", "q", "s", "samp", "section", "select", "small", 
+        "span", "strike", "strong", "sub", "sup", "table", "tbody", "td", "textarea",
+        "tfoot", "th", "thead", "tr", "tt", "u", "ul", "var", "wbr"),
 )
 
 register_setting(
