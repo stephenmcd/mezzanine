@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, include
+from django.conf.urls import patterns, include, url
 from django.contrib.admin.sites import AdminSite
 
 from mezzanine.utils.importing import import_dotted_path
@@ -43,5 +43,10 @@ class LazyAdminSite(AdminSite):
                 fb_urls = import_dotted_path("%s.sites.site" % fb_name).urls
             except ImportError:
                 fb_urls = "%s.urls" % fb_name
-            urls += patterns("", ("^media-library/", include(fb_urls)),)
+            urls = patterns("",
+                ("^media-library/", include(fb_urls)),
+                url("^auth/user/(\d+)/password/$",
+                    lambda request, user_id: self.password_change(request),
+                    name="password_change"),
+            ) + urls
         return urls
