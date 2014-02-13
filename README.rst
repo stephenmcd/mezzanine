@@ -76,7 +76,7 @@ standard Django environment), with the following dependencies:
 
 * `Python`_ 2.6 / 2.7 / 3.3
 * `Django`_ 1.4 / 1.5 / 1.6
-* `Python Imaging Library`_ - for image resizing
+* `Pillow`_ - for image resizing (`Python Imaging Library`_ fork)
 * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
 * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
 * `bleach`_ - for sanitizing markup in content
@@ -85,6 +85,12 @@ standard Django environment), with the following dependencies:
 * `django-compressor`_ - for merging JS/CSS assets (optional)
 * `requests`_ and `requests-oauth`_ - for interacting with external APIs
 * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
+
+Users on Debian or Ubuntu will require some system packages to support
+the imaging library::
+
+    $ apt-get install libjpeg8 libjpeg8-dev
+    $ apt-get build-dep python-imaging
 
 Browser Support
 ===============
@@ -514,6 +520,7 @@ Quotes
 .. _`tzlocal`: http://pypi.python.org/pypi/tzlocal/
 .. _`django-compressor`: https://pypi.python.org/pypi/django_compressor
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
+.. _`Pillow`: https://github.com/python-imaging/Pillow
 .. _`grappelli-safe`: http://github.com/stephenmcd/grappelli-safe
 .. _`filebrowser-safe`: http://github.com/stephenmcd/filebrowser-safe/
 .. _`Grappelli`: http://code.google.com/p/django-grappelli/
