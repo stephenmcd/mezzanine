@@ -6,8 +6,6 @@ import os
 from shutil import rmtree
 from uuid import uuid4
 
-from PIL import Image
-
 from mezzanine.conf import settings
 from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 from mezzanine.galleries.models import Gallery, GALLERIES_UPLOAD_DIR
@@ -23,7 +21,7 @@ class GalleriesTests(TestCase):
         """
         zip_name = "gallery.zip"
         copy_test_to_media("mezzanine.core", zip_name)
-        title = native(str(uuid4()))    # i.e. Py3 str / Py2 unicode
+        title = native(str(uuid4()))  # i.e. Py3 str / Py2 unicode
         gallery = Gallery.objects.create(title=title, zip_import=zip_name)
         images = list(gallery.images.all())
         self.assertTrue(images)
@@ -36,6 +34,10 @@ class GalleriesTests(TestCase):
         """
         Test that a thumbnail is created and resized.
         """
+        try:
+            from PIL import Image
+        except ImportError:
+            return
         image_name = "image.jpg"
         size = (24, 24)
         copy_test_to_media("mezzanine.core", image_name)

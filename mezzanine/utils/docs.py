@@ -20,7 +20,6 @@ except ImportError:
     # Backward compatibility for Py2 and Django < 1.5
     from django.utils.encoding import force_unicode as force_text
 from django.utils.functional import Promise
-from PIL import Image
 
 from mezzanine import __version__
 from mezzanine.conf import registry
@@ -269,6 +268,7 @@ def build_modelgraph(docs_path, package_name="mezzanine"):
     except OSError as e:
         warn("Couldn't build model_graph, copy to build failed on: %s" % e)
     try:
+        from PIL import Image
         image = Image.open(to_path)
         image.width = 800
         image.height = image.size[1] * 800 // image.size[0]

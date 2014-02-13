@@ -25,14 +25,6 @@ from django.utils import translation
 from django.utils.html import strip_tags
 from django.utils.text import capfirst
 
-# Try to import PIL in either of the two ways it can end up installed.
-try:
-    from PIL import Image, ImageFile, ImageOps
-except ImportError:
-    import Image
-    import ImageFile
-    import ImageOps
-
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.forms import get_edit_form
@@ -282,6 +274,10 @@ def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5):
     maintained.
     """
     if not image_url:
+        return ""
+    try:
+        from PIL import Image, ImageFile, ImageOps
+    except ImportError:
         return ""
 
     image_url = unquote(str(image_url)).split("?")[0]

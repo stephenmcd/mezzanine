@@ -23,30 +23,8 @@ for e in exclude:
     except:
         pass
 
-install_requires = [
-    "django >= 1.4.10, != 1.6.0, < 1.7",
-    "filebrowser_safe >= 0.3.2",
-    "grappelli_safe >= 0.3.4",
-    "tzlocal == 1.0",
-    "bleach >= 1.4",
-    "requests >= 2.1.0",
-    "requests-oauthlib >= 0.4",
-    "future == 0.9.0",
-]
-
-try:
-    from PIL import Image, ImageOps
-except ImportError:
-    try:
-        import Image, ImageFile, ImageOps
-    except ImportError:
-        # no way to install pillow/PIL with jython, so exclude this in any case
-        if not sys.platform.startswith('java'):
-            install_requires += ["pillow"]
-
 try:
     setup(
-
         name="Mezzanine",
         version=version,
         author="Stephen McDonald",
@@ -59,7 +37,17 @@ try:
         zip_safe=False,
         include_package_data=True,
         packages=find_packages(),
-        install_requires=install_requires,
+        install_requires=[
+            "django >= 1.4.10, != 1.6.0, < 1.7",
+            "filebrowser_safe >= 0.3.2",
+            "grappelli_safe >= 0.3.4",
+            "tzlocal == 1.0",
+            "bleach >= 1.4",
+            "requests >= 2.1.0",
+            "requests-oauthlib >= 0.4",
+            "future == 0.9.0",
+            "pillow",
+        ],
         entry_points="""
             [console_scripts]
             mezzanine-project=mezzanine.bin.mezzanine_project:create_project
@@ -85,7 +73,6 @@ try:
                                                 "Application Frameworks",
             "Topic :: Software Development :: Libraries :: Python Modules",
         ])
-
 finally:
     for e in exclude:
         if exclude[e] is not None:
