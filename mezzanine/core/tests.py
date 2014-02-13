@@ -258,8 +258,8 @@ class CoreTests(TestCase):
 
     def _get_csrftoken(self, response):
         csrf = re.findall(
-            r'\<input type\=\'hidden\' name\=\'csrfmiddlewaretoken\' '
-            'value\=\'([^"\']+)\' \/\>',
+            b'\<input type\=\'hidden\' name\=\'csrfmiddlewaretoken\' '
+            b'value\=\'([^"\']+)\' \/\>',
             response.content
         )
         self.assertEqual(len(csrf), 1, 'No csrfmiddlewaretoken found!')
@@ -267,11 +267,11 @@ class CoreTests(TestCase):
 
     def _get_formurl(self, response):
         action = re.findall(
-            r'\<form action\=\"([^\"]*)\" method\=\"post\"\>',
+            b'\<form action\=\"([^\"]*)\" method\=\"post\"\>',
             response.content
         )
         self.assertEqual(len(action), 1, 'No form with action found!')
-        if action[0] == '':
+        if action[0] == b'':
             action = response.request['PATH_INFO']
         return action
 
@@ -288,7 +288,7 @@ class CoreTests(TestCase):
         response = self.client.get('/admin/')
         self.assertContains(response, u'Forgot password?')
         url = re.findall(
-            r'\<a href\=["\']([^\'"]+)["\']\>Forgot password\?\<\/a\>',
+            b'\<a href\=["\']([^\'"]+)["\']\>Forgot password\?\<\/a\>',
             response.content
         )
         self.assertEqual(len(url), 1)
@@ -299,7 +299,7 @@ class CoreTests(TestCase):
         self.assertEqual(response.status_code, 200)
         csrf = self._get_csrftoken(response)
         url = self._get_formurl(response)
-        #print "csrf: %s, url: %s" % (csrf, url)
+        #print("csrf: %s, url: %s" % (csrf, url))
 
         response = self.client.post(url, {
             'csrfmiddlewaretoken': csrf,
