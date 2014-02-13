@@ -286,7 +286,7 @@ class CoreTests(TestCase):
 
         ## Go to admin-login, search for reset-link
         response = self.client.get('/admin/')
-        self.assertIn('Forgot password?', response.content)
+        self.assertContains(response, u'Forgot password?')
         url = re.findall(
             r'\<a href\=["\']([^\'"]+)["\']\>Forgot password\?\<\/a\>',
             response.content
