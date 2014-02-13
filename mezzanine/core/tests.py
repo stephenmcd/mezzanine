@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import re
+
 try:
     # Python 3
     from urllib.parse import urlencode
@@ -252,3 +254,28 @@ class CoreTests(TestCase):
         from django.templatetags.static import static
         querystring = urlencode([('u', static("test/image.jpg"))])
         self._static_proxy(querystring)
+
+    @skipUnless('mezzanine.pages' in settings.INSTALLED_APPS,
+                'pages app required')
+    def test_password_reset(self):
+        """
+        Test sending of password-reset mails and evaluation of the links.
+        """
+        self.client.logout()
+        response = self.client.get('/admin/')
+        self.assertIn('Forgot password?', response.content)
+        url = re.findall(r'\<a href\=["\']([^\'"]+)["\']\>Forgot password\?\<\/a\>', response.content)
+        self.assertEqual(len(url), 1)
+        url = url[0]
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        csrf = re.findall(r'\<input type\=\'hidden\' name\=\'csrfmiddlewaretoken\' value\=\'([^"\']+)\' \/\>', response.content)[0]
+        action = re.findall(r'\<form action\=\"([^\"]*)\" method\=\"post\"\>', response.content)[0]
+        if action != '':
+            url = action
+        print "csrf: %s, url: %s" % (csrf, url)
+        response = self.client.post(url, {'csrfmiddlewaretoken': csrf, 'email': self._emailaddress})
+        print response.status_code
+        print response.content
+
+        # TODO: finish this test
