@@ -86,6 +86,12 @@ standard Django environment), with the following dependencies:
 * `requests`_ and `requests-oauth`_ - for interacting with external APIs
 * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
+Users on Debian or Ubuntu will require some system packages to support
+the imaging library::
+
+    $ apt-get install libjpeg8 libjpeg8-dev
+    $ apt-get build-dep python-imaging
+
 Browser Support
 ===============
 
