@@ -92,6 +92,10 @@ the imaging library::
     $ apt-get install libjpeg8 libjpeg8-dev
     $ apt-get build-dep python-imaging
 
+OSX users can do the same via `Homebrew`_::
+
+    $ brew install libjpeg
+
 Browser Support
 ===============
 
@@ -530,6 +534,7 @@ Quotes
 .. _`requests-oauth`: https://github.com/maraujop/requests-oauth
 .. _`pyflakes`: http://pypi.python.org/pypi/pyflakes
 .. _`pep8`: http://pypi.python.org/pypi/pep8
+.. _`Homebrew`: http://mxcl.github.com/homebrew/
 .. _`In-line page editing`: http://mezzanine.jupo.org/docs/inline-editing.html
 .. _`custom content types`: http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
