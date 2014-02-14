@@ -277,6 +277,7 @@ class CoreTests(TestCase):
 
     @skipUnless('mezzanine.pages' in settings.INSTALLED_APPS,
                 'pages app required')
+    @override_settings(LANGUAGE_CODE="en")
     def test_password_reset(self):
         """
         Test sending of password-reset mails and evaluation of the links.
@@ -285,7 +286,7 @@ class CoreTests(TestCase):
         del mail.outbox[:]
 
         ## Go to admin-login, search for reset-link
-        response = self.client.get('/admin/')
+        response = self.client.get('/admin/', follow=True)
         self.assertContains(response, u'Forgot password?')
         url = re.findall(
             b'\<a href\=["\']([^\'"]+)["\']\>Forgot password\?\<\/a\>',
