@@ -43,10 +43,17 @@ class LazyAdminSite(AdminSite):
                 fb_urls = import_dotted_path("%s.sites.site" % fb_name).urls
             except ImportError:
                 fb_urls = "%s.urls" % fb_name
-            urls = patterns("",
-                ("^media-library/", include(fb_urls)),
-                url("^auth/user/(\d+)/password/$",
-                    lambda request, user_id: self.password_change(request),
-                    name="password_change"),
-            ) + urls
+            urls = patterns("", ("^media-library/", include(fb_urls)),) + urls
+        # Give the urlpatterm for the user password change view an
+        # actual name, so that it can be reversed with multiple
+        # languages are supported in the admin.
+        for admin in self._registry.values():
+            user_change_password = getattr(admin, "user_change_password", None)
+            if user_change_password:
+                urls = patterns("",
+                    url("^auth/user/(\d+)/password/$",
+                        self.admin_view(user_change_password),
+                        name="user_change_password"),
+                ) + urls
+                break
         return urls
