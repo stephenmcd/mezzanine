@@ -29,7 +29,7 @@ if "django.contrib.admin" in settings.INSTALLED_APPS:
             url("^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$",
                 "password_reset_confirm", name="password_reset_confirm"),
             url("^reset/(?P<uidb36>[-\w]+)/(?P<token>[-\w]+)/$",
-                "password_reset_confirm_uidb36"),
+                password_reset_confirm_uidb36),
         )
 
 urlpatterns += patterns("mezzanine.core.views",
