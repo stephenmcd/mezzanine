@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import re
+
 try:
     # Python 3
     from urllib.parse import urlencode
@@ -10,6 +12,7 @@ except ImportError:
 from django.contrib.sites.models import Site
 from django.templatetags.static import static
 from django.core.urlresolvers import reverse
+from django.core import mail
 from django.utils.html import strip_tags
 from django.utils.unittest import skipUnless
 from django.test.utils import override_settings
@@ -252,3 +255,73 @@ class CoreTests(TestCase):
         from django.templatetags.static import static
         querystring = urlencode([('u', static("test/image.jpg"))])
         self._static_proxy(querystring)
+
+    def _get_csrftoken(self, response):
+        csrf = re.findall(
+            b'\<input type\=\'hidden\' name\=\'csrfmiddlewaretoken\' '
+            b'value\=\'([^"\']+)\' \/\>',
+            response.content
+        )
+        self.assertEqual(len(csrf), 1, 'No csrfmiddlewaretoken found!')
+        return csrf[0]
+
+    def _get_formurl(self, response):
+        action = re.findall(
+            b'\<form action\=\"([^\"]*)\" method\=\"post\"\>',
+            response.content
+        )
+        self.assertEqual(len(action), 1, 'No form with action found!')
+        if action[0] == b'':
+            action = response.request['PATH_INFO']
+        return action
+
+    @skipUnless('mezzanine.pages' in settings.INSTALLED_APPS,
+                'pages app required')
+    @override_settings(LANGUAGE_CODE="en")
+    def test_password_reset(self):
+        """
+        Test sending of password-reset mails and evaluation of the links.
+        """
+        self.client.logout()
+        del mail.outbox[:]
+
+        ## Go to admin-login, search for reset-link
+        response = self.client.get('/admin/', follow=True)
+        self.assertContains(response, u'Forgot password?')
+        url = re.findall(
+            b'\<a href\=["\']([^\'"]+)["\']\>Forgot password\?\<\/a\>',
+            response.content
+        )
+        self.assertEqual(len(url), 1)
+        url = url[0]
+
+        ## Go to reset-page, submit form
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        csrf = self._get_csrftoken(response)
+        url = self._get_formurl(response)
+        #print("csrf: %s, url: %s" % (csrf, url))
+
+        response = self.client.post(url, {
+            'csrfmiddlewaretoken': csrf,
+            'email': self._emailaddress
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(mail.outbox), 1)
+
+        ## Get reset-link, submit form
+        url = re.findall(
+            r'http://example.com(/reset/[^/]+/[^/]+/)',
+            mail.outbox[0].body
+        )[0]
+        response = self.client.get(url)
+        csrf = self._get_csrftoken(response)
+        url = self._get_formurl(response)
+        response = self.client.post(url, {
+            'csrfmiddlewaretoken': csrf,
+            'new_password1': 'newdefault',
+            'new_password2': 'newdefault'
+        }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        # TODO: This now contains a link that is '/accounts/login'
+        #       and doesn't exist:-(

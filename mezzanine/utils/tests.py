@@ -64,7 +64,8 @@ class TestCase(BaseTestCase):
         """
         self._username = "test"
         self._password = "test"
-        args = (self._username, "example@example.com", self._password)
+        self._emailaddress = "example@example.com"
+        args = (self._username, self._emailaddress, self._password)
         self._user = User.objects.create_superuser(*args)
         self._debug_cursor = connection.use_debug_cursor
         connection.use_debug_cursor = True
