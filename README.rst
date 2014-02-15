@@ -261,6 +261,9 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   Mezzanine and a powerful form builder.
 * `mezzanine-admin-backup`_ - Export your Mezzanine database and assets directly from the admin.
 * `mezzanine-mailchimp`_ - Integrate Mezzanine forms with a MailChimp subscription list.
+* `mezzanine-grappelli`_ - Integrates latest upstream grappelli/filebrowser with Mezzanine.
+* `mezzanine-workout`_ - Store and display FIT data in Mezzanine.
+
 
 Donating
 ========
@@ -629,7 +632,8 @@ Quotes
 .. _`django-widgy`: http://django-widgy.readthedocs.org/en/latest/
 .. _`mezzanine-admin-backup`: https://bitbucket.org/joshcartme/mezzanine-admin-backup
 .. _`mezzanine-mailchimp`: https://bitbucket.org/naritasltda/mezzanine-mailchimp
-
+.. _`mezzanine-grappelli`: https://github.com/sephii/mezzanine-grappelli
+.. _`mezzanine-workout`: https://github.com/kampfschlaefer/mezzanine-workout
 
 .. PEOPLE WITH QUOTES
 
