@@ -1,20 +1,23 @@
 from __future__ import unicode_literals
-
 from future.utils import native_str
 
 from django.contrib import admin
 from django.contrib.auth import logout
+from django.contrib.messages import error
 from django.contrib.redirects.models import Redirect
 from django.core.exceptions import MiddlewareNotUsed
 from django.core.urlresolvers import reverse
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponsePermanentRedirect, HttpResponseGone)
-from django.utils.cache import get_max_age
-from django.template import Template, RequestContext
 from django.middleware.csrf import CsrfViewMiddleware, get_token
+from django.template import Template, RequestContext
+from django.utils.cache import get_max_age
+from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
 
 from mezzanine.conf import settings
 from mezzanine.core.models import SitePermission
+from mezzanine.core.management import DEFAULT_USERNAME, DEFAULT_PASSWORD
 from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
                                    cache_get, cache_set, cache_installed)
 from mezzanine.utils.device import templates_for_device
@@ -56,6 +59,13 @@ class AdminLoginInterfaceSelectorMiddleware(object):
             if request.user.is_authenticated():
                 if login_type == "admin":
                     next = request.get_full_path()
+                    if (request.user.username == DEFAULT_USERNAME and
+                            request.user.check_password(DEFAULT_PASSWORD)):
+                        error(request, mark_safe(_(
+                              "Your account is using the default password, "
+                              "please <a href='%s'>change it</a> immediately.")
+                              % reverse("user_change_password",
+                                        args=(request.user.id,))))
                 else:
                     next = next_url(request) or "/"
                 return HttpResponseRedirect(next)

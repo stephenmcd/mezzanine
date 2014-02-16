@@ -1,6 +1,7 @@
-from __future__ import print_function
-from __future__ import unicode_literals
+
+from __future__ import print_function, unicode_literals
 from future.builtins import input
+
 from socket import gethostname
 
 from django.conf import settings
@@ -14,7 +15,12 @@ from django.db.models.signals import post_syncdb
 from mezzanine.utils.models import get_user_model
 from mezzanine.utils.tests import copy_test_to_media
 
+
 User = get_user_model()
+
+DEFAULT_USERNAME = "admin"
+DEFAULT_EMAIL = "example@example.com"
+DEFAULT_PASSWORD = "default"
 
 
 def create_user(app, created_models, verbosity, interactive, **kwargs):
@@ -23,10 +29,10 @@ def create_user(app, created_models, verbosity, interactive, **kwargs):
             return
         if verbosity >= 1:
             print()
-            print("Creating default account "
-                  "(username: admin / password: default) ...")
+            print("Creating default account (username: %s / password: %s) ..."
+                  % (DEFAULT_USERNAME, DEFAULT_PASSWORD))
             print()
-        args = "admin", "example@example.com", "default"
+        args = (DEFAULT_USERNAME, DEFAULT_EMAIL, DEFAULT_PASSWORD)
         User.objects.create_superuser(*args)
 
 
@@ -51,8 +57,8 @@ def create_pages(app, created_models, verbosity, interactive, **kwargs):
         call_command("loaddata", "mezzanine_required.json")
         if interactive:
             confirm = input("\nWould you like to install some initial "
-                                "demo pages?\nEg: About us, Contact form, "
-                                "Gallery. (yes/no): ")
+                              "demo pages?\nEg: About us, Contact form, "
+                              "Gallery. (yes/no): ")
             while True:
                 if confirm == "yes":
                     break
