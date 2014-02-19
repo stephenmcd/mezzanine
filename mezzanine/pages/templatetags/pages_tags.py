@@ -55,7 +55,7 @@ def page_menu(context, token):
         # Store the current page being viewed in the context. Used
         # for comparisons in page.set_menu_helpers.
         if "page" not in context:
-           context["_current_page"] = None
+            context["_current_page"] = None
 
             # Obtain page with the deepest URL that matches within the
             # current URL. Used when page is not placed in current
