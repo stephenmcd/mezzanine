@@ -9,7 +9,7 @@ from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.pages.models import Page
-from mezzanine.utils.urls import home_slug
+from mezzanine.utils.urls import home_slug, path_to_slug
 from mezzanine import template
 
 
@@ -44,7 +44,7 @@ def page_menu(context, token):
     if "menu_pages" not in context:
         try:
             user = context["request"].user
-            slug = context["request"].path
+            slug = path_to_slug(context["request"].path)
         except KeyError:
             user = None
             slug = ""
@@ -55,10 +55,15 @@ def page_menu(context, token):
         # Store the current page being viewed in the context. Used
         # for comparisons in page.set_menu_helpers.
         if "page" not in context:
-            try:
-                context["_current_page"] = published.get(slug=slug)
-            except Page.DoesNotExist:
-                context["_current_page"] = None
+           context["_current_page"] = None
+
+            # Obtain page with the deepest URL that matches within the
+            # current URL. Used when page is not placed in current
+            # context by PageMiddleware.
+            temppages = Page.objects.with_ascendants_for_slug(slug,
+                for_user=user, include_login_required=True)
+            if temppages:
+                context["_current_page"] = temppages[0]
         elif slug:
             context["_current_page"] = context["page"]
         # Some homepage related context flags. on_home is just a helper
