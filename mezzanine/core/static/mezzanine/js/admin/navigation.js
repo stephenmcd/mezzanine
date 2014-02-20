@@ -1,4 +1,3 @@
-
 jQuery(function($) {
 
     // Empty out the breadcrumbs div and add the menu into it.
@@ -32,19 +31,5 @@ jQuery(function($) {
     // // Check that content clears menus on both load and resize
     // contentMargin();
     // $(window).resize(contentMargin);
-
-    // Remove extraneous ``template`` forms from inline formsets since
-    // Mezzanine has its own method of dynamic inlines.
-    var removeRows = {};
-    $.each($('*[name*=__prefix__]'), function(i, e) {
-        var row = $(e).parent();
-        if (!row.attr('id')) {
-            row.attr('id', 'remove__prefix__' + i);
-        }
-        removeRows[row.attr('id')] = true;
-    });
-    for (var rowID in removeRows) {
-        $('#' + rowID).remove();
-    }
 
 });
