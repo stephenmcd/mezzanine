@@ -198,6 +198,7 @@ def set_page_permissions(context, token):
         page.perms[perm_type] = perm
     return ""
 
+
 @register.render_tag
 def set_in_page_menu(context, token):
     model = context[token.split_contents()[1]]
