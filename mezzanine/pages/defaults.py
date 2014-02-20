@@ -64,3 +64,12 @@ register_setting(
     editable=False,
     default=False,
 )
+
+register_setting(
+    name="EXCLUDE_FROM_PAGE_MENU",
+    description=_("List of models to exclude from the page admin menus. "
+        "Each item must be the full name of the model including the module, "
+        "e.g. ``mezzanine.pages.models.RichTextPage``."),
+    editable=False,
+    default=[],
+)

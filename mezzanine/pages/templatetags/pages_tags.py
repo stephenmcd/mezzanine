@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.pages.models import Page
 from mezzanine.utils.urls import home_slug
+from mezzanine.conf import settings
 from mezzanine import template
 
 
@@ -195,4 +196,11 @@ def set_page_permissions(context, token):
         perm = request.user.has_perm(perm_name % perm_type)
         perm = perm and getattr(model, "can_%s" % perm_type)(request)
         page.perms[perm_type] = perm
+    return ""
+
+@register.render_tag
+def set_in_page_menu(context, token):
+    model = context[token.split_contents()[1]]
+    str = u"{0}.{1}".format(model.__module__, model.__name__)
+    model.in_page_menu = str not in settings.EXCLUDE_FROM_PAGE_MENU
     return ""
