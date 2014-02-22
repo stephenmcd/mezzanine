@@ -5,7 +5,7 @@ import sys
 from warnings import warn
 
 from django.conf import global_settings as defaults
-from django.template.loader import add_to_builtins
+from django.template.base import add_to_builtins
 
 from mezzanine.utils.timezone import get_best_local_timezone
 
