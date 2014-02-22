@@ -1,5 +1,5 @@
 {% load i18n future mezzanine_tags %}
-<div class="dropdown-menu" style="display:none;">
+<div class="dropdown-menu">
 <ul>
     <li><a href="{% url "admin:index" %}">{% trans "Dashboard" %}</a></li>
     {% for app in dropdown_menu_app_list %}
@@ -16,6 +16,7 @@
     </li>
     {% endfor %}
 </ul>
+
 {% if LANGUAGES|length > 1 %}
 {% get_language_info_list for LANGUAGES as languages %}
 <form>

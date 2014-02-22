@@ -53,7 +53,6 @@ window.__language_code = '{{ LANGUAGE_CODE }}';
 {% endblock %}
 
 {% block footer %}
-{{ block.super }}
 {% if form.this_is_the_login_form %}
     <script src="{% static "mezzanine/js/admin/login.js" %}"></script>
 {% else %}

@@ -1,4 +1,12 @@
 
+
+* {font-family: sans-serif !important; font-weight:normal;}
+#header {height:40px;}
+#header * {font-size:13px; font-weight:normal;}
+.admin-title, #user-tools {margin:5px 10px 5px 2px;}
+h1 {font-size:24px; padding:10px 0 20px;}
+.object-tools {margin:-50px 0 -35px;}
+
 /* Login stuff */
 #extra-login-fields .required {margin-top:1px;}
 input.interface {margin:0 5px 0 0px; vertical-align:middle;}
@@ -10,52 +18,35 @@ label.interface {display:inline !important; float:none !important;
 
 /* Nav stuff */
 .add-row {display:none;}
-.breadcrumbs {
-    display:none; margin:0; padding:0; background:#e6e6e6 !important;
-    width:100%;
-}
-.dropdown-menu {left:0; padding:0; display:block;}
-.dropdown-menu ul {display:inline-block; padding:0; margin:0;}
-.dropdown-menu li {
-    float:left; width:auto; padding:7px 23px 2px 0; cursor:pointer;
-    font-size:15px; font-weight:bold; list-style-type:none;
-}
-.dropdown-menu li ul {
-    background: #e6e6e6;
-    border-bottom: 1px solid #ccc;
-    border-radius: 0 0 5px 5px;
-    display: none;
-    margin: 0 0 0 -20px;
-    padding: 0;
-}
-.dropdown-menu li ul li {
-    border-top: 1px solid #eee;
-    display: block;
-    float: none;
-    font-size: 13px;
-    font-weight: normal;
-    padding: 0;
-}
-.dropdown-menu li ul li a {
-    display: block;
-    padding: 15px 25px 15px 20px;
-}
-.dropdown-menu li ul li.first {
-    border-top: 0px;
-}
-.dropdown-menu li ul li.first a {
-    padding-top: 20px;
-}
-.dropdown-menu li:hover ul {
-    display: block;
-    position: absolute;
-    z-index:2;
+.breadcrumbs {display:none;}
+
+.dropdown-menu {
+    position:fixed; overflow:scroll; max-height:100%;
+    width:215px !important; float:left; border:0 !important;
+    margin:-20px 0 0 0; padding:0 0 50px 0 !important; background:#3f3f3f !important;
+    border-right:1px solid #111 !important;
 }
 
-.dropdown-menu form {float:right; margin:3px 22px 0 0;}
+.dropdown-menu ul {margin-bottom:200px; border-bottom:1px solid #555;}
+.dropdown-menu ul ul {margin-bottom:0; border-bottom:0;}
+
+.dropdown-menu li {
+    padding:20px 17px !important; cursor:pointer; list-style-type:none;
+    border-bottom:1px solid #222;
+    border-top:1px solid #555;
+}
+
+.dropdown-menu li li {border: none; padding: 15px 0 0 1px !important;}
+.dropdown-menu li a {font-size:20px;}
+.dropdown-menu li a:hover {color:#fff;}
+.dropdown-menu li li a {font-size:15px; color:#ccc;}
+
 #djDebugToolbarHandle {margin-top:50px !important;}
 
-.messagelist {margin-top:14px; z-index:0 !important;}
+.messagelist li {
+    font-size:14px !important; font-weight:normal !important;
+}
+
 .inline-stacked ._order, div.dynamic-fields ._order {display:none;}
 .items .placeholder {display:block;}
 
@@ -68,17 +59,18 @@ label.interface {display:inline !important; float:none !important;
 
 /* Make save/delete buttons always available at bottom of screen. */
 .change-form div.submit-row {
-    position: fixed; left: 0; bottom: 0; right: 0;
-    margin: 0; padding: 10px 15px;
+    position: fixed; left: 216px; bottom: 0; right: 0;
+    margin: 0; padding: 10px 25px;
     background: #e6e6e6; border-top: 1px solid #ccc;
     text-align: right;
 }
 
+fieldset.module {margin-bottom:25px;}
 fieldset .field-box {margin-right:150px !important;}
 .help b {color:#666;}
 
 /* Some reasonable font sizes */
-td, th, th a, label, .help, p.help {font-size:12px;}
+td, th, th a, label, .help, p.help {font-size:13px !important;}
 
 /* mezzanine.core.fields.MultiChoiceField */
 .multicheckbox li {list-style-type:none; float:left; margin-right:10px;}
@@ -88,6 +80,6 @@ td, th, th a, label, .help, p.help {font-size:12px;}
 /* description / generate */
 .gen_description textarea {margin-bottom:10px;}
 
-/* Fix for IE7 layout issue */
-#content { margin-left: 0; margin-right: 0; padding: 0 15px; }
+#container {position:inherit;}
+#content {margin: 60px 10px 60px 225px; padding: 0 15px 0 15px; }
 

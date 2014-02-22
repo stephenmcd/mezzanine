@@ -2,9 +2,8 @@
 jQuery(function($) {
 
     // Empty out the breadcrumbs div and add the menu into it.
-    $('.breadcrumbs').html('')
-                     .append($('.dropdown-menu').show())
-                     .css({display: 'inline-block'});
+    $('body').prepend($('.dropdown-menu'));
+    $('body').prepend($('.messagelist'));
 
     // Set the hrefs for the primary menu items to the href of their first
     // child (unless the primary menu item already has an href).
