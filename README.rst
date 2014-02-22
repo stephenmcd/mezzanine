@@ -480,6 +480,7 @@ Sites Using Mezzanine
 * `Batista Peniel <http://batistapeniel.org>`_
 * `Perceptyx <http://www.perceptyx.com/>`_
 * `Guddina Coffee <http://guddina.com>`_
+* `Atami Escape Resort <http://www.atami.com.sv>`_
 
 
 Quotes
