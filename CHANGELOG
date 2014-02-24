@@ -416,7 +416,7 @@ Version 1.4.7 (May 18, 2013)
   * Fixed 0005 migration wrt custom user models - Rocky Meza
   * Correctly validate float settings in ``mezzanine.conf`` - Stephen McDonald
   * Added some validation in the createdb command that fails if a Mezzanine table exists, to prevent people from running it and accidentally faking new migrations that need to be run - Stephen McDonald
-  * ``mezzanine/accounts/templates/email/account_approved.html:`` removed the extra. "http://" - Alexandre Hajjar
+  * ``mezzanine/accounts/templates/email/account_approved.html:`` removed the extra \http:// - Alexandre Hajjar
   * Make fabfile work in Windows. Two small changes allow deployment via Fabric from Windows: * Use ``posixpath.join`` instead of ``os.path.join`` to construct all paths destined for the remote machine. * Check for ``"fab-file.py"`` as well as "fab" in ``sys.argv``, to handle the way setuptools-generated command-line scripts work in Windows - Alex Hill
   * Fix urlpattern for archive year - Stephen McDonald
   * Hide printing ``STATIC_ROOT`` in deploys - Stephen McDonald
