@@ -632,7 +632,7 @@ Quotes
 .. _`mezzanine-page-auth`: https://github.com/simodalla/mezzanine_page_auth
 .. _`django-widgy`: http://django-widgy.readthedocs.org/en/latest/
 .. _`mezzanine-admin-backup`: https://bitbucket.org/joshcartme/mezzanine-admin-backup
-.. _`mezzanine-mailchimp`: https://bitbucket.org/naritasltda/mezzanine-mailchimp
+.. _`mezzanine-mailchimp`: https://bitbucket.org/naritas/mezzanine-mailchimp
 .. _`mezzanine-grappelli`: https://github.com/sephii/mezzanine-grappelli
 .. _`mezzanine-workout`: https://github.com/kampfschlaefer/mezzanine-workout
 
