@@ -17,7 +17,7 @@ label.interface {display:inline !important; float:none !important;
 .login .errornote {width:101%; margin-left:-15px !important; padding-left:15px; top: 50px !important;}
 
 /* Global Message Box */
-ul.messagelist { margin-left: 216px; }
+ul.messagelist { margin-left: 216px; top:40px;}
 /* Nav stuff */
 .add-row {display:none;}
 .breadcrumbs {display:none;}
