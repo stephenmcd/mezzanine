@@ -14,11 +14,16 @@ label.interface {display:inline !important; float:none !important;
     vertical-align:middle; cursor:pointer;}
 #forgot-password {margin-top:30px; text-align:center;}
 .submit-row input {margin-left:8px;}
-.login .errornote {width:110%; margin-left:-15px !important; padding-left:15px;}
+.login .errornote {width:101%; margin-left:-15px !important; padding-left:15px; top: 50px !important;}
 
+/* Global Message Box */
+ul.messagelist { margin-left: 216px; }
 /* Nav stuff */
 .add-row {display:none;}
 .breadcrumbs {display:none;}
+ul.messagelist + .dropdown-menu {
+    margin-top: 13px;
+}
 
 .dropdown-menu {
     position:fixed; overflow:scroll; max-height:100%;
