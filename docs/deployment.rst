@@ -113,6 +113,154 @@ Here's the list of checks in the pipeline, in order:
   * Finally, Mezzanine will fall back to the ``SITE_ID`` setting if none
     of the above checks can occur.
 
+Configuration
+-------------
+
+Consider a project for an organization or business with several related domains
+that are to be managed by the same people, or for which sharing of
+resources is a big benefit. These related domains can the same Django (and/or
+perhaps gunicorn) process, which can offer easier management and reduced
+resource needs in the server environment.
+
+The domains involved could have a direct subsidiary relationship, as with
+example.com and several subdomains, or they may be completely separate domains,
+as with example.com, example2.com, example3.com. Either way, the domains are
+different hosts to which themes may be independently associated using the
+HOST_THEMES setting::
+
+    for a main domain and several subdomains,
+
+    HOST_THEMES = [('example.com', 'example_theme'),
+                   ('something.example.com', 'something_theme'),
+                   ('somethingelse.example.com', 'somethingelse_theme')]
+
+    or for separate domains,
+
+    HOST_THEMES = [('www.example.com', 'example_theme'),
+                   ('example.com', 'example_theme'),
+                   ('www.example2.com', 'example2_theme'),
+                   ('www.example3.com', 'example3_theme')]
+
+It may be necessary to add rewrite rules to handle use of www and non-www
+domains, or some other combinations. For example, in nginx configuration, the
+following lines would work to rewrite a non-www domain to a www domain, as used
+in the example for separate domains::
+
+    server {
+        server_name example2.com;
+        return 301 $scheme://www.example2.com$request_uri;
+    }
+
+    server {
+        listen 80;
+        listen 443 default ssl;
+        server_name example.com www.example.com www.example2.com www.example3.com;
+        ...
+    }
+
+In the first server block we rewrite example2.com to www.example2.com so that
+the host name is forced to the www variant, ready for differentiation in
+Mezzanine via the HOST_THEMES setting. In the second server block, we have the
+domains involved listed in the server_name directive.
+
+In either HOST_THEMES example above, there are three themes. Let's continue
+with the second case, for example.com, example2.com, and example3.com, for
+which there are three theme apps constructed: example_theme, example2_theme,
+and example3_theme. The following treatment illustrates a kind of theme
+inheritance across the domains, with example_theme serving as the "base" theme.
+example_theme contains a dedicated page content type, HomePage, which is given
+a model definition in example_theme/models.py, along with any other
+theme-related custom content definitions.
+
+Here is the layout for example_theme, the "base" theme in this arrangement::
+
+    /example_theme
+        admin.py
+        models.py <-- has a HomePage type, subclassing Page
+        ...
+        /static
+            /css
+            /img
+            /js
+        /templates
+            /base.html <-- used by this and the other two themes
+            /pages
+                /index.html <-- for the HomePage content type
+        /templatetags
+            some_tags.py <-- for code supporting HomePage functionality
+
+The second and third themes, example2_theme and example3_theme, could be just
+as expansive, or they could be much simplified, as shown by this layout for
+example2_theme (example3_theme could be identical)::
+
+    /example2_theme
+        /templates
+            /pages
+                /index.html <-- for the HomePage content type
+
+Each theme would be listed under the INSTALLED_APPS setting, with the
+"base" theme, example_theme, listed first.
+
+The main project urls.py would need the following line active, so that "/" is
+the target URL Mezzanine finds for home page rendering (via the HomePage
+content type)::
+
+    url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
+
+Mezzanine will look for a page instance at '/' for each theme.  HomePage
+instances would be created via the Admin system for each site, and given the
+URL of '/' under the ``Meta data`` URL field. (Log in to /admin, pick each
+site, in turn, creating a HomePage instance, and editing the ``Meta data`` URL
+of each).
+
+Although these aren't the only commands involved, they are useful during the
+process::
+
+    python manage.py startapp theme <-- start a theme; add/edit files next;
+                                        add to INSTALLED_APPS before restart
+
+    python manage.py syncdb --migrate <-- after changes to themes; could
+                                          require writing migrations
+
+    python manage.py collectstatic <-- gather static resources from the themes
+                                       on occasion
+
+Finally, under /admin, these sites will share some resources, such as the media
+library, while there is separation of content stored in the database
+(independent HomePage instances, independant blog posts, an independent page
+hierarchy, etc.).  Furthermore, the content types added to, say example_theme,
+e.g. HomePage, are shared and available in the different sites. Such nuances of
+sharing must be considered when employing this approach.
+
+Use of SSL with Multiple Sites [PERHAPS OMIT]
+------------------------------
+
+In scenarios like those above, there may be a need for an online shop, which
+requires a security certificate and SSL configuration.  To save money, only one
+shop could be used, on the main domain. This would require only one security
+certificate, with the other two websites linking into it.  Several settings may
+prove useful. In the second example above, we might have the shop on
+example.com, and we may have purchased the security certificate explicitly for
+www.example.com. In this case, we could configure as follows::
+
+    SSL_ENABLED = True
+    #SSL_FORCE_HOST = "www.example.com"
+    SSL_FORCE_URL_PREFIXES = (u'/admin', u'/account', u'/shop/checkout')
+
+[FIXME: The second line is commented out, because the forcing triggered by this
+setting interferes with the mapping done via HOST_THEMES. Perhaps this has to
+do with the order that middleware processes happen?]
+
+Virtual server configurations are commonly used to host multiple sites on a
+single server, perhaps with several Mezzanine-Django-gunicorn processes running
+behind nginx, as the default Mezzanine fabric script prepares. If there is only
+one Cartridge shop in the mix, then the server hosting the shop can be
+configured as the default. However, when there are multiple sites with shops,
+something more advanced is needed, such as adding support for multiple IP
+addresses on the same server, or using Server Name Indication, which allows
+multiple secure websites to be served off the same IP address without requiring
+use of a single certificate.
+
 Twitter Feeds
 =============
 
@@ -135,3 +283,7 @@ as Mezzanine settings. See the :doc:`configuration` section for more
 information on these, as well as the `Twitter developer site
 <https://dev.twitter.com/>`_ for info on configuring your OAuth
 credentials.
+
+Caveats:
+
+I haven't actually tried this with subdomains.
