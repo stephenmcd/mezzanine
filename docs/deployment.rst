@@ -283,7 +283,3 @@ as Mezzanine settings. See the :doc:`configuration` section for more
 information on these, as well as the `Twitter developer site
 <https://dev.twitter.com/>`_ for info on configuring your OAuth
 credentials.
-
-Caveats:
-
-I haven't actually tried this with subdomains.
