@@ -118,9 +118,9 @@ Configuration
 
 Consider a project for an organization or business with several related domains
 that are to be managed by the same people, or for which sharing of
-resources is a big benefit. These related domains can the same Django (and/or
-perhaps gunicorn) process, which can offer easier management and reduced
-resource needs in the server environment.
+resources is a big benefit. These related domains can share the same Django
+process, which can offer easier management and reduced resource needs in the
+server environment.
 
 The domains involved could have a direct subsidiary relationship, as with
 example.com and several subdomains, or they may be completely separate domains,
@@ -214,7 +214,7 @@ site, in turn, creating a HomePage instance, and editing the ``Meta data`` URL
 of each).
 
 Although these aren't the only commands involved, they are useful during the
-process::
+development process::
 
     python manage.py startapp theme <-- start a theme; add/edit files next;
                                         add to INSTALLED_APPS before restart
