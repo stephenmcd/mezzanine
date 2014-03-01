@@ -45,5 +45,39 @@ jQuery(function($) {
     for (var rowID in removeRows) {
         $('#' + rowID).remove();
     }
-
+    
+    // SIDE NAV
+    var cur_menu, grandparent, menu_opened;
+    
+    // hide all dropdown menus
+    $('.dropdown-menu-menu').removeClass('open').hide();
+   
+    // on li click see if the li contains a dropdown-menu-menu and open it
+    $('.dropdown-menu > ul > li').click(function(){
+        cur_menu = $(this).children('.dropdown-menu-menu');
+        if(cur_menu.length > 0){
+            if (!cur_menu.hasClass('open'))  {
+                $('.dropdown-menu-menu').removeClass('open').hide(400);
+                cur_menu.show(400).addClass('open');
+                menu_opened = true;
+                return false;
+            }
+        }
+    });
+    
+    // open the menu corresopnding to the current path
+    menu_opened = false;
+    $('.dropdown-menu ul li > a').each(function(){
+        if (~window.location.pathname.indexOf($(this).attr('href'))){
+            grandparent = $(this).parent().parent();
+            if(grandparent.hasClass('dropdown-menu-menu')){
+                grandparent.parent().click();
+            } else {
+                $(this).parent().click();
+            }
+            if (menu_opened){
+                return false;
+            }
+        }
+    });
 });
