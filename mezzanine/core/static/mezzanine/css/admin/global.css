@@ -6,6 +6,11 @@
 .admin-title, #user-tools {margin:5px 10px 5px 2px;}
 h1 {font-size:24px; padding:10px 0 20px;}
 .object-tools {margin:-50px 0 -35px;}
+.admin-title {
+    background: #BD362F; font-weight: bold !important;
+    text-transform: uppercase; width: 181px; padding: 13px 17px; margin: 0;
+    font-size: 12px !important;
+}
 
 /* Login stuff */
 .login .submit-row, .login #content-main {width:400px;}
@@ -21,14 +26,13 @@ label.interface {display:inline !important; float:none !important;
 #user-tools, #header form {float:right; position:relative;}
 #header form {margin:7px 4px;}
 
-/* Global Message Box */
-ul.messagelist { margin-left: 216px; top:40px;}
 /* Nav stuff */
 .add-row {display:none;}
 .breadcrumbs {display:none;}
-ul.messagelist + .dropdown-menu {
-    margin-top: 13px;
-}
+ul.messagelist + .dropdown-menu {margin-top: 3px;}
+ul.messagelist { margin-left: 216px; top:40px;}
+ul.messagelist li {padding: 10px 28px;}
+ul.messagelist li.error {background: #BD362F;}
 
 .dropdown-menu {
     position:fixed; overflow:auto; height:100%;
