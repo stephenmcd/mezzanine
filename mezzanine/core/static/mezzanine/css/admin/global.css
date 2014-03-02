@@ -16,6 +16,8 @@ label.interface {display:inline !important; float:none !important;
 .submit-row input {margin-left:8px;}
 .login .errornote {width:101%; margin-left:-15px !important; padding-left:15px; top: 50px !important;}
 .admin-title {cursor: pointer;}
+#user-tools, #header form {float:right; position:relative;}
+#header form {margin:7px;}
 
 /* Global Message Box */
 ul.messagelist { margin-left: 216px; top:40px;}

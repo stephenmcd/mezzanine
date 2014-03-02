@@ -5,6 +5,7 @@ jQuery(function($) {
     $('body').prepend($('.dropdown-menu'));
     $('body').prepend($('.messagelist'));
     $('.admin-title').click(function() {location = window.__admin_url;});
+    $('#user-tools').after($('.dropdown-menu form'));
 
     // Set the hrefs for the primary menu items to the href of their first
     // child (unless the primary menu item already has an href).
