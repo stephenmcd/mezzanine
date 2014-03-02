@@ -7,7 +7,7 @@
 h1 {font-size:24px; padding:10px 0 20px;}
 .object-tools {margin:-50px 0 -35px;}
 .admin-title {
-    background: #BD362F; font-weight: bold !important;
+    background: #555; font-weight: bold !important;
     text-transform: uppercase; width: 181px; padding: 13px 17px; margin: 0;
     font-size: 12px !important;
 }
