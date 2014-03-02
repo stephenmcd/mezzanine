@@ -8,6 +8,8 @@ h1 {font-size:24px; padding:10px 0 20px;}
 .object-tools {margin:-50px 0 -35px;}
 
 /* Login stuff */
+.login .submit-row, .login #content-main {width:400px;}
+.login .form-row label {width:160px;}
 #extra-login-fields .required {margin-top:1px;}
 input.interface {margin:0 5px 0 0px; vertical-align:middle;}
 label.interface {display:inline !important; float:none !important;
@@ -17,7 +19,7 @@ label.interface {display:inline !important; float:none !important;
 .login .errornote {width:101%; margin-left:-15px !important; padding-left:15px; top: 50px !important;}
 .admin-title {cursor: pointer;}
 #user-tools, #header form {float:right; position:relative;}
-#header form {margin:7px;}
+#header form {margin:7px 4px;}
 
 /* Global Message Box */
 ul.messagelist { margin-left: 216px; top:40px;}

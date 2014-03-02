@@ -45,6 +45,8 @@
 {% else %}
     {% if user.is_authenticated %}
         {% if not is_popup and not request.GET.pop %}
+        <link rel="stylesheet" href="{% static "mezzanine/chosen/chosen.css" %}">
+        <script src="{% static "mezzanine/chosen/chosen.jquery.js" %}"></script>
         <script src="{% static "mezzanine/js/admin/navigation.js" %}"></script>
         {% endif %}
         <script src="{% static "mezzanine/js/admin/ajax_csrf.js" %}"></script>
