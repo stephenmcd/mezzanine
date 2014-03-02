@@ -43,8 +43,11 @@ ul.messagelist + .dropdown-menu {
 }
 
 .dropdown-menu li li {border: none; padding: 15px 0 0 1px !important;}
-.dropdown-menu li a {font-size:20px;}
+.dropdown-menu li a {font-size: 20px;}
 .dropdown-menu li a:hover {color:#fff;}
+.dropdown-menu .selected, .dropdown-menu li li a:hover {
+    border-left: 10px solid #666; margin-left: -20px; padding-left: 10px;
+}
 .dropdown-menu li li a {font-size:15px; color:#ccc;}
 
 #djDebugToolbarHandle {margin-top:50px !important;}

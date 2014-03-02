@@ -31,38 +31,43 @@ jQuery(function($) {
         $('#' + rowID).remove();
     }
 
-    // SIDE NAV
+    // Hide all dropdown menus and apply click handlers.
     if (window.__admin_menu_collapsed) {
-
-        var cur_menu, grandparent;
-
-        // hide all dropdown menus
         $('.dropdown-menu-menu').removeClass('open').hide();
-
-        // on li click see if the li contains a dropdown-menu-menu and open it
         $('.dropdown-menu > ul > li').click(function(){
-            cur_menu = $(this).children('.dropdown-menu-menu');
-            if (cur_menu.length > 0){
-                if (!cur_menu.hasClass('open')) {
+            var menu = $(this).children('.dropdown-menu-menu');
+            if (menu.length > 0){
+                if (!menu.hasClass('open')) {
                     $('.dropdown-menu-menu').removeClass('open').hide(400);
-                    cur_menu.show(400).addClass('open');
+                    menu.show(400).addClass('open');
                     return false;
                 }
             }
         });
+    }
 
-        // open the menu corresopnding to the current path
-        $('.dropdown-menu ul li > a').each(function() {
-            if (!window.location.pathname.indexOf($(this).attr('href'))) {
-                grandparent = $(this).parent().parent();
-                if (grandparent.hasClass('dropdown-menu-menu')) {
-                    grandparent.addClass('open').show();
-                } else {
-                    $(this).addClass('open').show();
-                }
-            }
+    var pages, selected = false;
+    $('.dropdown-menu ul li li > a').each(function() {
+        // Open current section on load.
+        var href = $(this).attr('href');
+        if (href.substr(href.length - 12, href.length) == '/pages/page/') {
+            pages = href;
+        }
+        $(this).click(function() {
+            $('.dropdown-menu .selected').removeClass('selected');
+            $(this).addClass('selected');
+            return true;
         });
-
+        if (location.pathname.indexOf(href) == 0) {
+            selected = true;
+            $(this).addClass('selected');
+            if (window.__admin_menu_collapsed) {
+                $(this).parent().parent().addClass('open').show();
+            }
+        }
+    });
+    if (!selected && location.pathname != window.__admin_url) {
+        $('.dropdown-menu li li a[href="' + pages + '"]').addClass('selected');
     }
 
 });
