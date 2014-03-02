@@ -264,6 +264,13 @@ class Page(BasePage):
                     return False
         return True
 
+    def get_template_name(self):
+        """
+        Subclasses can implement this to provide a template to use
+        in ``mezzanine.pages.views.page``.
+        """
+        return None
+
 
 class RichTextPage(Page, RichText):
     """
