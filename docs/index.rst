@@ -62,6 +62,7 @@ Table Of Contents
     device-handling
     inline-editing
     caching-strategy
+    multi-tenancy
     deployment
     frequently-asked-questions
     user-accounts
