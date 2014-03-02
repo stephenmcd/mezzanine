@@ -71,9 +71,13 @@ ul.messagelist + .dropdown-menu {
 /* Make save/delete buttons always available at bottom of screen. */
 .change-form div.submit-row {
     position: fixed; left: 216px; bottom: 0; right: 0;
-    margin: 0; padding: 10px 25px;
+    margin: 0; padding: 10px 20px;
     background: #e6e6e6; border-top: 1px solid #ccc;
     text-align: right;
+}
+
+.submit-row input, .button, .submit-row a, .object-tools a {
+    margin:0 3px; padding: 7px 15px !important; font-size: 15px; height:auto !important;
 }
 
 fieldset.module {margin-bottom:25px;}
