@@ -70,7 +70,8 @@ def set_dynamic_settings(s):
     s.setdefault("AUTHENTICATION_BACKENDS", defaults.AUTHENTICATION_BACKENDS)
     s.setdefault("STATICFILES_FINDERS", defaults.STATICFILES_FINDERS)
     tuple_list_settings = ["AUTHENTICATION_BACKENDS", "INSTALLED_APPS",
-                           "MIDDLEWARE_CLASSES", "STATICFILES_FINDERS"]
+                           "MIDDLEWARE_CLASSES", "STATICFILES_FINDERS",
+                           "LANGUAGES",]
     for setting in tuple_list_settings[:]:
         if not isinstance(s[setting], list):
             s[setting] = list(s[setting])
@@ -174,6 +175,11 @@ def set_dynamic_settings(s):
         s["MIDDLEWARE_CLASSES"] = [mw for mw in s["MIDDLEWARE_CLASSES"] if not
                                    (mw.endswith("UpdateCacheMiddleware") or
                                     mw.endswith("FetchFromCacheMiddleware"))]
+
+    if s["LANGUAGE_CODE"] and s["LANGUAGE_CODE"] != "en":
+        s["USE_I18N"] = True
+        if s["LANGUAGE_CODE"] not in [l[0] for l in s["LANGUAGES"]]:
+            s["LANGUAGES"].append((s["LANGUAGE_CODE"], ""))
 
     # Revert tuple settings back to tuples.
     for setting in tuple_list_settings:
