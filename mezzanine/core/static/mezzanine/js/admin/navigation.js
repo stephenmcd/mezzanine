@@ -4,6 +4,7 @@ jQuery(function($) {
     // Empty out the breadcrumbs div and add the menu into it.
     $('body').prepend($('.dropdown-menu'));
     $('body').prepend($('.messagelist'));
+    $('.admin-title').click(function() {location = window.__admin_url;});
 
     // Set the hrefs for the primary menu items to the href of their first
     // child (unless the primary menu item already has an href).

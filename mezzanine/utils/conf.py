@@ -147,8 +147,6 @@ def set_dynamic_settings(s):
         s["GRAPPELLI_INSTALLED"] = False
     else:
         s["GRAPPELLI_INSTALLED"] = True
-        s.setdefault("GRAPPELLI_ADMIN_HEADLINE", "Mezzanine")
-        s.setdefault("GRAPPELLI_ADMIN_TITLE", "Mezzanine")
 
     # Ensure admin is last in the app order so that admin templates
     # are loaded in the correct order.

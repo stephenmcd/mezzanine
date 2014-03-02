@@ -1,53 +1,39 @@
 {% extends "admin/base.html" %}
 {% load mezzanine_tags i18n future staticfiles %}
-{% comment %}
-
-This file contains a handful of unrelated admin customizations that
-mostly get applied globally to different parts of the admin.
-
-  * Global CSS fixes (when logged in)
-  * Javascript and HTML for injecting Mezzanine's menu into the top of
-    every page
-  * Javascript for fixing inlines to work with Mezzanine's dynamic inlines
-
-{% endcomment %}
-
-{% block title %}{{ title }} | Mezzanine{% endblock %}
-{% block branding %}<h1 id="site-name">Mezzanine</h1>{% endblock %}
-{% block nav-global %}{% endblock %}
 
 {% block extrahead %}
 <link rel="stylesheet" href="{% static "mezzanine/css/admin/global.css" %}">
 <style>
-/* These are set in PageAdmin's view methods, and mezzanine.core.admin.SingletonAdmin */
-{% if hide_delete_link or singleton %}.submit-row .deletelink {display:none !important;}{% endif %}
-{% if hide_slug_field %}.slug {display:none !important;}{% endif %}
-{% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
-{% if not settings.GRAPPELLI_INSTALLED %}
-/* Extra space required by the fixed bottom toolbar in all change forms. */
-body {margin-bottom:40px;}
+    /* These are set in PageAdmin's view methods, and mezzanine.core.admin.SingletonAdmin */
+    {% if hide_delete_link or singleton %}.submit-row .deletelink {display:none !important;}{% endif %}
+    {% if hide_slug_field %}.slug {display:none !important;}{% endif %}
+    {% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
+    {% if not settings.GRAPPELLI_INSTALLED %}
 {% endif %}
 </style>
 <script>
-{% url "static_proxy" as static_proxy_url %}
-{% url "fb_browse" as fb_browse_url %}
-{% url "admin:index" as admin_index_url %}
-{% get_current_language as LANGUAGE_CODE %}
-window.__home_link = '<a href="{% url "home" %}">{% trans "View site" %}</a>';
-window.__csrf_token = '{{ csrf_token }}';
-window.__admin_keywords_submit_url = '{% url "admin_keywords_submit" %}';
-window.__filebrowser_url = '{{ fb_browse_url }}';
-window.__admin_url = '{{ admin_index_url }}';
-window.__static_proxy = '{{ static_proxy_url }}';
-window.__admin_media_prefix__ = '{% static "admin" %}/';
-window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
-window.__admin_menu_collapsed = {{ settings.ADMIN_MENU_COLLAPSED|lower }};
-window.__language_code = '{{ LANGUAGE_CODE }}';
+    {% url "static_proxy" as static_proxy_url %}
+    {% url "fb_browse" as fb_browse_url %}
+    {% url "admin:index" as admin_index_url %}
+    {% get_current_language as LANGUAGE_CODE %}
+    window.__home_link = '<a href="{% url "home" %}">{% trans "View site" %}</a>';
+    window.__csrf_token = '{{ csrf_token }}';
+    window.__admin_keywords_submit_url = '{% url "admin_keywords_submit" %}';
+    window.__filebrowser_url = '{{ fb_browse_url }}';
+    window.__admin_url = '{{ admin_index_url }}';
+    window.__static_proxy = '{{ static_proxy_url }}';
+    window.__admin_media_prefix__ = '{% static "admin" %}/';
+    window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
+    window.__admin_menu_collapsed = {{ settings.ADMIN_MENU_COLLAPSED|lower }};
+    window.__language_code = '{{ LANGUAGE_CODE }}';
 </script>
+
 {% if not settings.GRAPPELLI_INSTALLED %}
 <script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
 {% endif %}
+
 {% endblock %}
+
 {% block rtl_styles %}
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static "mezzanine/css/admin/rtl.css" %}" />

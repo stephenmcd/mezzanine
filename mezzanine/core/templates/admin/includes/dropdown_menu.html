@@ -1,7 +1,6 @@
 {% load i18n future mezzanine_tags %}
 <div class="dropdown-menu">
 <ul>
-    <li><a href="{% url "admin:index" %}">{% trans "Dashboard" %}</a></li>
     {% for app in dropdown_menu_app_list %}
     <li>
         <a href="#">{% trans app.name %}</a>
