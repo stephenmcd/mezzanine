@@ -44,14 +44,14 @@ ul.messagelist { margin-left: 216px; top:40px;}
     position:fixed; overflow:auto; height:100%;
     width:215px !important; float:left; border:0 !important;
     margin:-20px 0 0 0; padding:0 0 50px 0 !important; background:#3f3f3f !important;
-    border-right:1px solid #111 !important;
+    border-right:1px solid #111 !important; z-index: 2;
 }
 
 .dropdown-menu ul {margin-bottom:200px; border-bottom:1px solid #555;}
 .dropdown-menu ul ul {margin-bottom:0; border-bottom:0;}
 
 .dropdown-menu li {
-    padding:20px 17px !important; cursor:pointer; list-style-type:none;
+    padding:20px 17px !important; list-style-type:none;
     border-bottom:1px solid #222; border-top:1px solid #555;
 }
 
