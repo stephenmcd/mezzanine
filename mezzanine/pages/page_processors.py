@@ -9,6 +9,7 @@ from django.utils.module_loading import module_has_submodule
 
 from mezzanine.conf import settings
 from mezzanine.pages.models import Page
+from mezzanine.utils.importing import get_app_name_list
 
 
 processors = defaultdict(list)
@@ -64,10 +65,10 @@ def autodiscover():
     if LOADED:
         return
     LOADED = True
-    for app in settings.INSTALLED_APPS:
-        module = import_module(app)
+    for module_name in get_app_name_list():
+        module = import_module(module_name)
         try:
-            import_module("%s.page_processors" % app)
+            import_module("%s.page_processors" % module_name)
         except:
             if module_has_submodule(module, "page_processors"):
                 raise
