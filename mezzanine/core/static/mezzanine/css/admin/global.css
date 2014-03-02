@@ -21,7 +21,10 @@ label.interface {display:inline !important; float:none !important;
     vertical-align:middle; cursor:pointer;}
 #forgot-password {margin-top:30px; text-align:center;}
 .submit-row input {margin-left:8px;}
-.login .errornote {width:101%; margin-left:-15px !important; padding-left:15px; top: 50px !important;}
+.login .errornote {
+    width:101%; margin-left:-15px !important; padding-left:15px;
+    top: 40px !important;
+}
 .admin-title {cursor: pointer;}
 #user-tools, #header form {float:right; position:relative;}
 #header form {margin:7px 4px;}
@@ -31,8 +34,11 @@ label.interface {display:inline !important; float:none !important;
 .breadcrumbs {display:none;}
 ul.messagelist + .dropdown-menu {margin-top: 3px;}
 ul.messagelist { margin-left: 216px; top:40px;}
-ul.messagelist li {padding: 10px 28px;}
-ul.messagelist li.error {background: #BD362F;}
+.login .errornote, ul.messagelist li {
+    font-size:14px !important; font-weight:normal !important;
+    padding: 10px 28px;
+}
+.login .errornote, ul.messagelist li.error {background: #BD362F;}
 
 .dropdown-menu {
     position:fixed; overflow:auto; height:100%;
@@ -46,8 +52,7 @@ ul.messagelist li.error {background: #BD362F;}
 
 .dropdown-menu li {
     padding:20px 17px !important; cursor:pointer; list-style-type:none;
-    border-bottom:1px solid #222;
-    border-top:1px solid #555;
+    border-bottom:1px solid #222; border-top:1px solid #555;
 }
 
 .dropdown-menu li li {border: none; padding: 15px 0 0 1px !important;}
@@ -60,9 +65,6 @@ ul.messagelist li.error {background: #BD362F;}
 
 #djDebugToolbarHandle {margin-top:50px !important;}
 
-.messagelist li {
-    font-size:14px !important; font-weight:normal !important;
-}
 
 .inline-stacked ._order, div.dynamic-fields ._order {display:none;}
 .items .placeholder {display:block;}
