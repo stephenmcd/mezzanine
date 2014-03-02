@@ -71,7 +71,7 @@ def set_dynamic_settings(s):
     s.setdefault("STATICFILES_FINDERS", defaults.STATICFILES_FINDERS)
     tuple_list_settings = ["AUTHENTICATION_BACKENDS", "INSTALLED_APPS",
                            "MIDDLEWARE_CLASSES", "STATICFILES_FINDERS",
-                           "LANGUAGES",]
+                           "LANGUAGES"]
     for setting in tuple_list_settings[:]:
         if not isinstance(s.get(setting, []), list):
             s[setting] = list(s[setting])
