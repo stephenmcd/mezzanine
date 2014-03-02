@@ -30,6 +30,14 @@ register_setting(
 )
 
 register_setting(
+    name="ADMIN_MENU_COLLAPSED",
+    description=_("Controls whether or not the left-hand admin menu is "
+                  "collpased by default."),
+    editable=True,
+    default=False,
+)
+
+register_setting(
     name="ADMIN_REMOVAL",
     description=_("Unregister these models from the admin."),
     editable=False,
@@ -507,6 +515,7 @@ register_setting(
     editable=False,
     default=(
         "ACCOUNTS_APPROVAL_REQUIRED", "ACCOUNTS_VERIFICATION_REQUIRED",
+        "ADMIN_MENU_COLLAPSED",
         "BITLY_ACCESS_TOKEN", "BLOG_USE_FEATURED_IMAGE",
         "COMMENTS_DISQUS_SHORTNAME", "COMMENTS_NUM_LATEST",
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
