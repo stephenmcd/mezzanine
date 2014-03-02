@@ -73,7 +73,7 @@ def set_dynamic_settings(s):
                            "MIDDLEWARE_CLASSES", "STATICFILES_FINDERS",
                            "LANGUAGES",]
     for setting in tuple_list_settings[:]:
-        if not isinstance(s[setting], list):
+        if not isinstance(s.get(setting, []), list):
             s[setting] = list(s[setting])
         else:
             # Setting is already a list, so we'll exclude it from
