@@ -1,9 +1,12 @@
 {% extends "admin/base_site.html" %}
 {% load i18n future staticfiles %}
 
-{% block stylesheets %}
-{{ block.super }}
+{% block extrahead %}
 <link rel="stylesheet" type="text/css" href="{% static settings.MEZZANINE_ADMIN_PREFIX|add:"css/login.css" %}">
+{{ block.super }}
+<link rel="stylesheet" href="{% static "mezzanine/chosen/chosen.css" %}">
+<script src="{% static "mezzanine/chosen/chosen.jquery.js" %}"></script>
+<script> jQuery(function($) {$('select').chosen();}); </script>
 {% endblock %}
 
 {% block bodyclass %}login{% endblock %}
@@ -36,7 +39,7 @@
         {% if LANGUAGES|length > 1 %}
         {% get_language_info_list for LANGUAGES as languages %}
         <div class="form-row">
-            <label for="id_language">{% trans "Language" %}:</label>
+            <label for="id_language" class="required">{% trans "Language" %}:</label>
             <select id="id_language" onchange="window.location.href=this.value;">
                 {% for lang in languages %}
                 {% language lang.code %}

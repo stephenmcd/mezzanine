@@ -11,8 +11,10 @@ h1 {font-size:24px; padding:10px 0 20px;}
     text-transform: uppercase; width: 181px; padding: 13px 17px; margin: 0;
     font-size: 12px !important;
 }
+.action-counter {padding: 5px 0 0 2px;}
 
 /* Login stuff */
+#login-form {margin-top:100px;}
 .login .submit-row, .login #content-main {width:400px;}
 .login .form-row label {width:160px;}
 #extra-login-fields .required {margin-top:1px;}
@@ -25,11 +27,12 @@ label.interface {display:inline !important; float:none !important;
     width:101%; margin-left:-15px !important; padding-left:15px;
     top: 40px !important;
 }
+.login .form-row {overflow: visible; height:25px;}
+
+/* Nav stuff */
 .admin-title {cursor: pointer;}
 #user-tools, #header form {float:right; position:relative;}
 #header form {margin:7px 4px;}
-
-/* Nav stuff */
 .add-row {display:none;}
 .breadcrumbs {display:none;}
 ul.messagelist + .dropdown-menu {margin-top: 3px;}

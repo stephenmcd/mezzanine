@@ -6,7 +6,8 @@ jQuery(function($) {
     $('body').prepend($('.messagelist'));
     $('.admin-title').click(function() {location = window.__admin_url;});
     $('#user-tools').after($('.dropdown-menu form'));
-    $('#header select').chosen({disable_search: true});
+    $('#header form').addClass('dark-select').find('select').chosen();
+    $('.changelist-actions select').chosen();
 
     // Set the hrefs for the primary menu items to the href of their first
     // child (unless the primary menu item already has an href).
