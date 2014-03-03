@@ -174,10 +174,12 @@ def set_dynamic_settings(s):
                                    (mw.endswith("UpdateCacheMiddleware") or
                                     mw.endswith("FetchFromCacheMiddleware"))]
 
-    if s["LANGUAGE_CODE"] and s["LANGUAGE_CODE"] != "en":
+    # If only LANGUAGE_CODE has been defined, ensure the other required
+    # settings for translations are configured.
+    if (s.get("LANGUAGE_CODE") and len(s.get("LANGUAGES", [])) == 1 and
+            s["LANGUAGE_CODE"] != s["LANGUAGES"][0][0]):
         s["USE_I18N"] = True
-        if s["LANGUAGE_CODE"] not in [l[0] for l in s["LANGUAGES"]]:
-            s["LANGUAGES"].append((s["LANGUAGE_CODE"], ""))
+        s["LANGUAGES"] = [(s["LANGUAGE_CODE"], "")]
 
     # Revert tuple settings back to tuples.
     for setting in tuple_list_settings:
