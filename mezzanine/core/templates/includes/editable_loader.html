@@ -11,6 +11,7 @@ window.__filebrowser_url = '{{ fb_browse_url }}';
 window.__toolbar_html = '{{ toolbar|escapejs }}';
 window.__static_proxy = '{{ static_proxy_url }}';
 window.__language_code = '{{ LANGUAGE_CODE }}';
+window.__tinymce_css = '{% static "mezzanine/css/tinymce.css" %}';
 </script>
 <script src="{% static "mezzanine/js/jquery.tools.toolbox.expose.js" %}"></script>
 <script src="{% static "mezzanine/js/jquery.tools.overlay.js" %}"></script>

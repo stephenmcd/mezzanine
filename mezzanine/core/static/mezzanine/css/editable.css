@@ -1,10 +1,9 @@
 /*
 You'll notice this littered with !important declarations - this is due
 to the inline-editing controls being injected into abitrary layouts and
-this is my hackish attempt at trying to keep them consistant across
-implementations by not being overridden by the stylesheets for each
-particular site's layout. If there's a better way of doing this then go
-right ahead and fix it.
+this is the hackish attempt at trying to keep them consistant across
+implementations, by not being overridden by the stylesheets for each
+particular site's layout.
 */
 
 /* TOOLBAR */

@@ -15,7 +15,7 @@ h1 {font-size:24px; padding:10px 0 20px;}
 
 /* Login stuff */
 #login-form {margin-top:100px;}
-.login .submit-row, .login #content-main {width:400px;}
+.login .submit-row, .login #content-main {width:450px;}
 .login .form-row label {width:160px;}
 #extra-login-fields .required {margin-top:1px;}
 input.interface {margin:0 5px 0 0px; vertical-align:middle;}
