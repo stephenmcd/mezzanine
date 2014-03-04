@@ -45,29 +45,24 @@ jQuery(function($) {
     //  - position the editable area's edit link
     //  - apply the editable area's overlay handler
     //  - position the editable area's highlight
-    var alignEditButtons = function() {
-        $.each($('.editable-original'), function(i, editable) {
-            editable = $(editable);
-            var link = editable.next('.editable-link');
-            link.offset({
-                top: editable.offset().top,
-                left: editable.offset().left - link.outerWidth() - 5
-            }).overlay({
-                expose: {color: '#333', loadSpeed: 200, opacity: 0.9},
-                closeOnClick: true, close: ':button',
-                left: 'center', top: 'center'
-            });
-            link.next('.editable-highlight').css({
-                width: editable.width(),
-                height: editable.height()
-            }).offset({
-                top: editable.offset().top, left: editable.offset().left
-            });
+    $.each($('.editable-original'), function(i, editable) {
+        editable = $(editable);
+        var link = editable.next('.editable-link');
+        link.offset({
+            top: editable.offset().top,
+            left: editable.offset().left - link.outerWidth() - 5
+        }).overlay({
+            expose: {color: '#333', loadSpeed: 200, opacity: 0.9},
+            closeOnClick: true, close: ':button',
+            left: 'center', top: 'center'
         });
-    };
-
-    alignEditButtons();
-    $('body, .editable-original').on('resize', alignEditButtons);
+        link.next('.editable-highlight').css({
+            width: editable.width(),
+            height: editable.height()
+        }).offset({
+            top: editable.offset().top, left: editable.offset().left
+        });
+    });
 
     // Show/hide the editable area's highlight when mousing over/out the of
     // the edit link.
