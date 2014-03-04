@@ -93,6 +93,7 @@ ul.messagelist { margin-left: 216px; top:40px;}
 
 fieldset.module {margin-bottom:25px;}
 fieldset .field-box {margin-right:150px !important;}
+fieldset .field-box .help {margin: -10px 25px 15px 131px !important}
 .help b {color:#666;}
 
 /* Some reasonable font sizes */
