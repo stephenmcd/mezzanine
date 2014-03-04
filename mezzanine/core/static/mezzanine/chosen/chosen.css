@@ -378,11 +378,11 @@
 /* dark color overrides */
 
 .dark-select .chzn-container .chzn-results li {
-  color: #999999;
+  color: #bbbbbb;
 }
-.dark-select .chzn-container .chzn-drop, .chzn-container-single .chzn-single {
+.dark-select .chzn-container .chzn-drop, .dark-select .chzn-single {
   background-color: #252525;
-  color: #999999;
+  color: #bbbbbb;
 }
 /* Some IE 7-9 fun with this next one - filter likes to override background */
 .dark-select .chzn-container-single .chzn-single {
