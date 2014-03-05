@@ -1,8 +1,9 @@
 
 jQuery(function($) {
 
+    $('body').prepend('<div id="side-panel"></div>')
     // Empty out the breadcrumbs div and add the menu into it.
-    $('body').prepend($('.dropdown-menu'));
+    $('#side-panel').prepend($('.dropdown-menu'));
     $('body').prepend($('.messagelist'));
     $('.admin-title').click(function() {location = window.__admin_url;});
     $('#user-tools').after($('.dropdown-menu form'));
@@ -72,5 +73,12 @@ jQuery(function($) {
     if (!selected && location.pathname != window.__admin_url) {
         $('.dropdown-menu li li a[href="' + pages + '"]').addClass('selected');
     }
+
+    // Add controls and logic for hiding/showing the admin panel
+    $('.dropdown-menu').after('<div id="side-panel-toggle"></div>');
+    $('#side-panel-toggle').click(function() {
+        $('.dropdown-menu').toggleClass('hidden');
+        $('#content').toggleClass('full');
+    });
 
 });
