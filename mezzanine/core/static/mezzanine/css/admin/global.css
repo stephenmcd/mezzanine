@@ -1,109 +1,237 @@
-#header {height:40px;}
-#header * {font-size:13px; font-weight:normal;}
-.admin-title, #user-tools {margin:5px 10px 5px 2px;}
-h1 {font-size:24px; padding:10px 0 20px;}
-.object-tools {margin:-50px 0 -35px;}
+/*=====================================
+                HEADER
+=======================================*/
+#header {
+    height: 40px;
+}
+#header * {
+    font-size: 13px;
+    font-weight: normal;
+}
+.admin-title, #user-tools {
+    margin: 5px 10px 5px 2px;
+}
+h1 {
+    font-size: 24px;
+    padding: 10px 0 20px;
+}
+.object-tools {
+    margin: -50px 0 -35px;
+}
 .admin-title {
-    background: #555; font-weight: bold !important;
-    text-transform: uppercase; width: 181px; padding: 13px 17px; margin: 0;
+    background: #555;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    width: 181px;
+    padding: 13px 17px;
+    margin: 0;
     font-size: 12px !important;
 }
-.action-counter {padding: 5px 0 0 2px;}
-
-/* Login stuff */
-#login-form {margin-top:100px;}
-.login .submit-row, .login #content-main {width:450px;}
-.login .form-row label {width:160px;}
-#extra-login-fields .required {margin-top:1px;}
-input.interface {margin:0 5px 0 0px; vertical-align:middle;}
-label.interface {display:inline !important; float:none !important;
-    vertical-align:middle; cursor:pointer;}
-#forgot-password {margin-top:30px; text-align:center;}
-.submit-row input {margin-left:8px;}
+.action-counter {
+    padding: 5px 0 0 2px;
+}
+/*=====================================
+            LOGIN ELEMENTS
+=======================================*/
+#login-form {
+    margin-top: 100px;
+}
+.login .submit-row, .login #content-main {
+    width: 450px;
+}
+.login .form-row label {
+    width: 160px;
+}
+#extra-login-fields .required {
+    margin-top: 1px;
+}
+input.interface {
+    margin: 0 5px 0 0px;
+    vertical-align: middle;
+}
+label.interface {
+    display: inline !important;
+    float: none !important;
+    vertical-align: middle;
+    cursor: pointer;
+}
+#forgot-password {
+    margin-top: 30px;
+    text-align: center;
+}
+.submit-row input {
+    margin-left: 8px;
+}
 .login .errornote {
-    width:101%; margin-left:-15px !important; padding-left:15px;
+    width: 101%;
+    margin-left: -15px !important;
+    padding-left: 15px;
     top: 40px !important;
 }
-.login .form-row {overflow: visible; height:25px;}
-
-/* Nav stuff */
-.admin-title {cursor: pointer;}
-#user-tools, #header form {float:right; position:relative;}
-#header form {margin:7px 4px;}
-.add-row {display:none;}
-.breadcrumbs {display:none;}
-ul.messagelist + .dropdown-menu {margin-top: 3px;}
-ul.messagelist { margin-left: 216px; top:40px;}
+.login .form-row {
+    overflow: visible;
+    height: 25px;
+}
+/*=====================================
+            NAVIGATION
+=======================================*/
+.admin-title {
+    cursor: pointer;
+}
+#user-tools, #header form {
+    float: right;
+    position: relative;
+}
+#header form {
+    margin: 7px 4px;
+}
+.add-row {
+    display: none;
+}
+.breadcrumbs {
+    display: none;
+}
+ul.messagelist + .dropdown-menu {
+    margin-top: 3px;
+}
+ul.messagelist {
+    margin-left: 216px;
+    top: 40px;
+}
 .login .errornote, ul.messagelist li {
-    font-size:14px !important; font-weight:normal !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
     padding: 10px 28px;
 }
-.login .errornote, ul.messagelist li.error {background: #BD362F;}
-
+.login .errornote, ul.messagelist li.error {
+    background: #BD362F;
+}
 .dropdown-menu {
-    position:fixed; overflow:auto; height:100%;
-    width:215px !important; float:left; border:0 !important;
-    margin:-20px 0 0 0; padding:0 0 50px 0 !important; background:#3f3f3f !important;
-    border-right:1px solid #111 !important; z-index: 2;
+    background-color: #3f3f3f;
+    border-right: 1px solid #111;
+    height: 95%; /* Fallback height */
+    height: -webkit-calc(100% - 40px); /* Safari 6.0 */
+    height: calc(100% - 40px); /* Firefox, Chrome, IE9+ */
+    overflow: auto;
+    position: fixed;
+    top: 40px;
+    left: 0;
+    width: 215px;
+    z-index: 2;
 }
-
-.dropdown-menu ul {margin-bottom:200px; border-bottom:1px solid #555;}
-.dropdown-menu ul ul {margin-bottom:0; border-bottom:0;}
-
-.dropdown-menu li {
-    padding:20px 17px !important; list-style-type:none;
-    border-bottom:1px solid #222; border-top:1px solid #555;
+.dropdown-menu > ul {
+    border-bottom: 1px solid #555;
 }
-
-.dropdown-menu li li {border: none; padding: 15px 0 0 1px !important;}
-.dropdown-menu li a {font-size: 20px;}
-.dropdown-menu li a:hover {color:#fff;}
-.dropdown-menu .selected, .dropdown-menu li li a:hover {
-    border-left: 10px solid #666; margin-left: -20px; padding-left: 10px;
+.dropdown-menu > ul > li {
+    padding: 20px 17px;
+    list-style-type: none;
+    border-bottom: 1px solid #222;
+    border-top: 1px solid #555;
 }
-.dropdown-menu li li a {font-size:15px; color:#ccc;}
-
-#djDebugToolbarHandle {margin-top:50px !important;}
-
-
-.inline-stacked ._order, div.dynamic-fields ._order {display:none;}
-.items .placeholder {display:block;}
-
-.keywords-field a {margin-right:10px; float:left;}
-
-#settings-form .module {width:50%;}
-#settings-form .help {margin-right:10px;}
-#settings-form .charfield {width:50% !important;}
-#settings-form .integerfield {width:30px !important;}
-
-/* Make save/delete buttons always available at bottom of screen. */
+.dropdown-menu-menu > li {
+    padding: 15px 0 0 1px;
+}
+.dropdown-menu li a {
+    font-size: 20px;
+}
+.dropdown-menu li a:hover {
+    color: #fff;
+}
+.dropdown-menu .selected,
+.dropdown-menu-menu > li > a:hover {
+    border-left: 10px solid #666;
+    margin-left: -20px;
+    padding-left: 10px;
+}
+.dropdown-menu li li a {
+    font-size: 15px;
+    color: #ccc;
+}
+/*=====================================
+        FIXED BOTTOM CONTROLS
+=======================================*/
 .change-form div.submit-row {
-    position: fixed; left: 216px; bottom: 0; right: 0;
-    margin: 0; padding: 10px 20px;
-    background: #e6e6e6; border-top: 1px solid #ccc;
+    position: fixed;
+    left: 216px;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    padding: 10px 20px;
+    background: #e6e6e6;
+    border-top: 1px solid #ccc;
     text-align: right;
 }
-
 .submit-row input, .button, .submit-row a, .object-tools a {
-    margin:0 3px; padding: 7px 15px !important; font-size: 15px; height:auto !important;
+    margin: 0 3px;
+    padding: 7px 15px !important;
+    font-size: 15px;
+    height: auto !important;
 }
-
-fieldset.module {margin-bottom:25px;}
-fieldset .field-box {margin-right:150px !important;}
-fieldset .field-box .help {margin: -10px 25px 15px 131px !important}
-.help b {color:#666;}
-
+fieldset.module {
+    margin-bottom: 25px;
+}
+fieldset .field-box {
+    margin-right: 150px !important;
+}
+fieldset .field-box .help {
+    margin: -10px 25px 15px 131px !important;
+}
+.help b {
+    color: #666;
+}
+/*=====================================
+        GENERAL STYLE TWEAKS
+=======================================*/
 /* Some reasonable font sizes */
-td, th, th a, label, .help, p.help {font-size:13px !important;}
-
+td, th, th a, label, .help, p.help {
+    font-size: 13px !important;
+}
 /* mezzanine.core.fields.MultiChoiceField */
-.multicheckbox li {list-style-type:none; float:left; margin-right:10px;}
-.multicheckbox li label {width:auto; font-weight:normal;}
-.multicheckbox input {margin:-1px 6px 0 0;}
-
+.multicheckbox li {
+    list-style-type: none;
+    float: left;
+    margin-right: 10px;
+}
+.multicheckbox li label {
+    width: auto;
+    font-weight: normal;
+}
+.multicheckbox input {
+    margin: -1px 6px 0 0;
+}
 /* description / generate */
-.gen_description textarea {margin-bottom:10px;}
-
-#container {position:inherit;}
-#content {margin: 60px 10px 60px 225px; padding: 0 15px 0 15px; }
-
+.gen_description textarea {
+    margin-bottom: 10px;
+}
+#container {
+    position: inherit;
+}
+#content {
+    margin: 60px 10px 60px 225px;
+    padding: 0 15px 0 15px;
+}
+#djDebugToolbarHandle {
+    margin-top: 50px !important;
+}
+.inline-stacked ._order, div.dynamic-fields ._order {
+    display: none;
+}
+.items .placeholder {
+    display: block;
+}
+.keywords-field a {
+    margin-right: 10px;
+    float: left;
+}
+#settings-form .module {
+    width: 50%;
+}
+#settings-form .help {
+    margin-right: 10px;
+}
+#settings-form .charfield {
+    width: 50% !important;
+}
+#settings-form .integerfield {
+    width: 30px !important;
+}
