@@ -49,12 +49,12 @@
         <link rel="stylesheet" href="{% static "mezzanine/chosen/chosen.css" %}">
         <script src="{% static "mezzanine/chosen/chosen.jquery.js" %}"></script>
         <script src="{% static "mezzanine/js/admin/navigation.js" %}"></script>
+        {% admin_dropdown_menu %}
         {% endif %}
         <script src="{% static "mezzanine/js/admin/ajax_csrf.js" %}"></script>
         {% if settings.GRAPPELLI_INSTALLED %}
         <script src="{% static "mezzanine/js/admin/collapse_backport.js" %}"></script>
         {% endif %}
-        {% admin_dropdown_menu %}
     {% endif %}
 {% endif %}
 {% endblock %}
