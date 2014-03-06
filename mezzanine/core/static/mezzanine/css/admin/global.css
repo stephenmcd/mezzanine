@@ -176,7 +176,7 @@ ul.messagelist li {
 /*=====================================
         FIXED BOTTOM CONTROLS
 =======================================*/
-#content .submit-row {
+.change-form .submit-row {
     position: fixed;
     left: 216px;
     bottom: 0;
@@ -187,7 +187,7 @@ ul.messagelist li {
     border-top: 1px solid #ccc;
     text-align: right;
 }
-#content.full .submit-row {
+.change-form .full .submit-row {
     left: 12px;
 }
 .submit-row input, .button, .submit-row a, .object-tools a {
