@@ -157,9 +157,11 @@ back your enhancements.
 
 Please note the following guidelines for contributing:
 
-* Contributed code must be written in the existing style. This is
-  as simple as following the `Django coding style`_ and (most
-  importantly) `PEP 8`_.
+* Contributed code must be written in the existing style. For Python
+  (and to a decent extent, JavaScript as well), this is as simple as
+  following the `Django coding style`_ and (most importantly)
+  `PEP 8`_. Front-end CSS should adhere to the
+  `Bootstrap CSS guidelines`_.
 * Contributions must be available on a separately named branch
   based on the latest version of the main branch.
 * Run the tests before committing your changes. If your changes
@@ -566,6 +568,7 @@ Quotes
 .. _`Freenode`: http://freenode.net
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
+.. _`Bootstrap CSS guidelines`: https://github.com/twbs/bootstrap/blob/master/CONTRIBUTING.md#css
 .. _`Transiflex`: https://www.transifex.net/projects/p/mezzanine/
 .. _`Mezzanine Grid on djangopackages.com`: http://www.djangopackages.com/grids/g/mezzanine/
 .. _`Django's internationalization`: https://docs.djangoproject.com/en/dev/topics/i18n/translation/

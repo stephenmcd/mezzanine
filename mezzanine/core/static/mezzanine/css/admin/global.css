@@ -96,16 +96,20 @@ ul.messagelist {
     top: 40px;
 }
 .messagelist.full {
-    margin-left: 12px;
+    margin-left: 9px;
 }
-.login .errornote,
-ul.messagelist li {
+.login .errornote, ul.messagelist li {
     font-size: 14px !important;
     font-weight: normal !important;
     padding: 10px 28px;
 }
 .login .errornote, ul.messagelist li.error {
     background: #BD362F;
+}
+body.popup .breadcrumbs + ul.messagelist {
+    top: -10px;
+    margin-left: -10px;
+    margin-right: -10px;
 }
 #side-panel {
     background-color: #3f3f3f;
@@ -124,10 +128,10 @@ ul.messagelist li {
     margin-top: 40px;
     overflow-x: hidden;
     overflow-y: auto;
-    width: 204px;
+    width: 206px;
 }
 .dropdown-menu.hidden {
-    margin-left: -204px;
+    margin-left: -207px;
 }
 .dropdown-menu > ul {
     border-bottom: 1px solid #555;
@@ -167,7 +171,7 @@ ul.messagelist li {
     cursor: pointer;
     float: right;
     height: 100%;
-    width: 9px;
+    width: 7px;
 }
 #side-panel-toggle:hover,
 #side-panel-toggle:focus {
@@ -187,9 +191,12 @@ ul.messagelist li {
     border-top: 1px solid #ccc;
     text-align: right;
 }
+.popup div.submit-row {
+    left: 0;
+}
 .change-form .full .submit-row,
 .full #settings-form .submit-row {
-    left: 12px;
+    left: 9px;
 }
 .submit-row input, .button, .submit-row a, .object-tools a {
     margin: 0 3px;
@@ -244,8 +251,11 @@ td, th, th a, label, .help, p.help {
     margin: 60px 10px 60px 225px;
     padding: 0 15px 0 15px;
 }
+.popup #content {
+    margin-left: 0;
+}
 #content.full {
-    margin-left: 25px;
+    margin-left: 22px;
 }
 #djDebugToolbarHandle {
     margin-top: 50px !important;

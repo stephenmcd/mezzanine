@@ -29,6 +29,7 @@ jQuery(function($) {
             language: "en",
             dialog_type: "window",
             editor_deselector : "mceNoEditor",
+            skin: "thebigreason",
 
             // general settings
             width: '800px',
