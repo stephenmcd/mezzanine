@@ -76,12 +76,13 @@ jQuery(function($) {
 
     // Get panel hidden/shown state from local storage
     var side_menu = $('.dropdown-menu');
+    var messages = $('.messagelist');
     var content = $('#content');
     var bottom_controls = $('.change-form .submit-row');
     if (localStorage['panel_hidden'] == '1') {
         side_menu.addClass('hidden');
         content.addClass('full');
-        bottom_controls.addClass('full');
+        messages.addClass('full');
     }
 
     // Add controls and logic for hiding/showing the admin panel
@@ -89,12 +90,11 @@ jQuery(function($) {
     side_menu.after('<div id="side-panel-toggle"></div>');
     $('#side-panel-toggle').click(function() {
         // Initialize animated elements
-        side_menu.addClass('animated');
-        content.addClass('animated');
         bottom_controls.addClass('animated');
-        side_menu.toggleClass('hidden');
-        content.toggleClass('full');
-        bottom_controls.toggleClass('full');
+        // Toggle the content, message list, and side panel
+        messages.addClass('animated').toggleClass('full');
+        side_menu.addClass('animated').toggleClass('hidden');
+        content.addClass('animated').toggleClass('full');
         // Make panel state persistant by toggling the local storage
         localStorage['panel_hidden'] = (localStorage['panel_hidden'] == '1' ? '0':'1');
     });
