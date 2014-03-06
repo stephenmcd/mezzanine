@@ -121,7 +121,6 @@ ul.messagelist {
     margin-top: 40px;
     overflow-x: hidden;
     overflow-y: auto;
-    transition: margin-left 0.5s ease-in-out;
     width: 204px;
     z-index: 2;
 }
@@ -186,6 +185,9 @@ ul.messagelist {
     border-top: 1px solid #ccc;
     text-align: right;
 }
+.change-form div.submit-row.full {
+    left: 12px;
+}
 .submit-row input, .button, .submit-row a, .object-tools a {
     margin: 0 3px;
     padding: 7px 15px !important;
@@ -207,6 +209,10 @@ fieldset .field-box .help {
 /*=====================================
         GENERAL STYLE TWEAKS
 =======================================*/
+/* CSS Animations (used for the sliding panel) */
+.animated {
+    transition: all 0.5s ease-in-out;
+}
 /* Some reasonable font sizes */
 td, th, th a, label, .help, p.help {
     font-size: 13px !important;
@@ -234,7 +240,6 @@ td, th, th a, label, .help, p.help {
 #content {
     margin: 60px 10px 60px 225px;
     padding: 0 15px 0 15px;
-    transition: margin-left 0.5s ease-in-out;
 }
 #content.full {
     margin-left: 25px;

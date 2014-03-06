@@ -1,7 +1,7 @@
 
 jQuery(function($) {
 
-    $('body').prepend('<div id="side-panel"></div>')
+    $('<div id="side-panel"></div>').insertBefore('#content');
     // Empty out the breadcrumbs div and add the menu into it.
     $('#side-panel').prepend($('.dropdown-menu'));
     $('body').prepend($('.messagelist'));
@@ -74,11 +74,29 @@ jQuery(function($) {
         $('.dropdown-menu li li a[href="' + pages + '"]').addClass('selected');
     }
 
+    // Get panel hidden/shown state from local storage
+    var side_menu = $('.dropdown-menu');
+    var content = $('#content');
+    var bottom_controls = $('.change-form .submit-row');
+    if (localStorage['panel_hidden'] == '1') {
+        side_menu.addClass('hidden');
+        content.addClass('full');
+        bottom_controls.addClass('full');
+    }
+
     // Add controls and logic for hiding/showing the admin panel
-    $('.dropdown-menu').after('<div id="side-panel-toggle"></div>');
+    // and toggle the panel_hidden element in local storage
+    side_menu.after('<div id="side-panel-toggle"></div>');
     $('#side-panel-toggle').click(function() {
-        $('.dropdown-menu').toggleClass('hidden');
-        $('#content').toggleClass('full');
+        // Initialize animated elements
+        side_menu.addClass('animated');
+        content.addClass('animated');
+        bottom_controls.addClass('animated');
+        side_menu.toggleClass('hidden');
+        content.toggleClass('full');
+        bottom_controls.toggleClass('full');
+        // Make panel state persistant by toggling the local storage
+        localStorage['panel_hidden'] = (localStorage['panel_hidden'] == '1' ? '0':'1');
     });
 
 });
