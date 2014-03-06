@@ -187,7 +187,8 @@ ul.messagelist li {
     border-top: 1px solid #ccc;
     text-align: right;
 }
-.change-form .full .submit-row {
+.change-form .full .submit-row,
+.full #settings-form .submit-row {
     left: 12px;
 }
 .submit-row input, .button, .submit-row a, .object-tools a {
