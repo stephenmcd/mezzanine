@@ -113,6 +113,7 @@ ul.messagelist li {
     left: 0;
     position: fixed;
     top: 0;
+    z-index: 2;
 }
 .dropdown-menu {
     border-right: 1px solid #222;
@@ -124,7 +125,6 @@ ul.messagelist li {
     overflow-x: hidden;
     overflow-y: auto;
     width: 204px;
-    z-index: 2;
 }
 .dropdown-menu.hidden {
     margin-left: -204px;
