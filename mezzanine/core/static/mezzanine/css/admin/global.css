@@ -108,18 +108,26 @@ body.popup .breadcrumbs + ul.messagelist {
 .login .errornote, ul.messagelist li.error {
     background: #BD362F;
 }
-.dropdown-menu {
+#side-panel {
     background-color: #3f3f3f;
-    border-right: 1px solid #111;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+}
+.dropdown-menu {
+    float: left;
     height: 95%; /* Fallback height */
     height: -webkit-calc(100% - 40px); /* Safari 6.0 */
     height: calc(100% - 40px); /* Firefox, Chrome, IE9+ */
-    overflow: auto;
-    position: fixed;
-    top: 40px;
-    left: 0;
-    width: 215px;
+    margin-top: 40px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 204px;
     z-index: 2;
+}
+.dropdown-menu.hidden {
+    margin-left: -204px;
 }
 .dropdown-menu > ul {
     border-bottom: 1px solid #555;
@@ -129,6 +137,9 @@ body.popup .breadcrumbs + ul.messagelist {
     list-style-type: none;
     border-bottom: 1px solid #222;
     border-top: 1px solid #555;
+}
+.dropdown-menu > ul > li:first-child {
+    border-top: 0;
 }
 .dropdown-menu-menu > li {
     padding: 15px 0 0 1px;
@@ -149,6 +160,19 @@ body.popup .breadcrumbs + ul.messagelist {
     font-size: 15px;
     color: #ccc;
 }
+#side-panel-toggle {
+    background-color: #3f3f3f;
+    border-left: 1px solid #111;
+    border-right: 1px solid #111;
+    cursor: pointer;
+    float: right;
+    height: 100%;
+    width: 10px;
+}
+#side-panel-toggle:hover,
+#side-panel-toggle:focus {
+    background-color: #555;
+}
 /*=====================================
         FIXED BOTTOM CONTROLS
 =======================================*/
@@ -165,6 +189,9 @@ body.popup .breadcrumbs + ul.messagelist {
 }
 .popup div.submit-row {
     left: 0;
+}
+.change-form div.submit-row.full {
+    left: 12px;
 }
 .submit-row input, .button, .submit-row a, .object-tools a {
     margin: 0 3px;
@@ -187,6 +214,10 @@ fieldset .field-box .help {
 /*=====================================
         GENERAL STYLE TWEAKS
 =======================================*/
+/* CSS Animations (used for the sliding panel) */
+.animated {
+    transition: all 0.5s ease-in-out;
+}
 /* Some reasonable font sizes */
 td, th, th a, label, .help, p.help {
     font-size: 13px !important;
@@ -217,6 +248,9 @@ td, th, th a, label, .help, p.help {
 }
 .popup #content {
     margin-left: 0;
+}
+#content.full {
+    margin-left: 25px;
 }
 #djDebugToolbarHandle {
     margin-top: 50px !important;
