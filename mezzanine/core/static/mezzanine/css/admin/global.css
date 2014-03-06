@@ -92,7 +92,7 @@ label.interface {
     display: none;
 }
 ul.messagelist {
-    margin-left: 216px;
+    margin-left: 224px;
     top: 40px;
 }
 .messagelist.full {
@@ -105,6 +105,7 @@ ul.messagelist {
 }
 .login .errornote, ul.messagelist li.error {
     background: #BD362F;
+    padding-left: 25px;
 }
 body.popup .breadcrumbs + ul.messagelist {
     top: -10px;
@@ -128,7 +129,7 @@ body.popup .breadcrumbs + ul.messagelist {
     margin-top: 40px;
     overflow-x: hidden;
     overflow-y: auto;
-    width: 206px;
+    width: 216px;
 }
 .dropdown-menu.hidden {
     margin-left: -207px;
@@ -165,9 +166,7 @@ body.popup .breadcrumbs + ul.messagelist {
     color: #ccc;
 }
 #side-panel-toggle {
-    background-color: #3f3f3f;
-    border-left: 1px solid #555;
-    border-right: 1px solid #222;
+    background-color: #333;
     cursor: pointer;
     float: right;
     height: 100%;
@@ -248,7 +247,7 @@ td, th, th a, label, .help, p.help {
     position: inherit;
 }
 #content {
-    margin: 60px 10px 60px 225px;
+    margin: 60px 10px 60px 235px;
     padding: 0 15px 0 15px;
 }
 .popup #content {
