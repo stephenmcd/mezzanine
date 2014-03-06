@@ -91,9 +91,6 @@ label.interface {
 .breadcrumbs {
     display: none;
 }
-ul.messagelist + .dropdown-menu {
-    margin-top: 3px;
-}
 ul.messagelist {
     margin-left: 216px;
     top: 40px;
