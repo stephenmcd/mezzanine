@@ -98,7 +98,11 @@ ul.messagelist {
     margin-left: 216px;
     top: 40px;
 }
-.login .errornote, ul.messagelist li {
+.messagelist.full {
+    margin-left: 12px;
+}
+.login .errornote,
+ul.messagelist li {
     font-size: 14px !important;
     font-weight: normal !important;
     padding: 10px 28px;
@@ -114,6 +118,7 @@ ul.messagelist {
     top: 0;
 }
 .dropdown-menu {
+    border-right: 1px solid #222;
     float: left;
     height: 95%; /* Fallback height */
     height: -webkit-calc(100% - 40px); /* Safari 6.0 */
@@ -160,12 +165,12 @@ ul.messagelist {
 }
 #side-panel-toggle {
     background-color: #3f3f3f;
-    border-left: 1px solid #111;
-    border-right: 1px solid #111;
+    border-left: 1px solid #555;
+    border-right: 1px solid #222;
     cursor: pointer;
     float: right;
     height: 100%;
-    width: 10px;
+    width: 9px;
 }
 #side-panel-toggle:hover,
 #side-panel-toggle:focus {
@@ -174,7 +179,7 @@ ul.messagelist {
 /*=====================================
         FIXED BOTTOM CONTROLS
 =======================================*/
-.change-form div.submit-row {
+#content .submit-row {
     position: fixed;
     left: 216px;
     bottom: 0;
@@ -185,7 +190,7 @@ ul.messagelist {
     border-top: 1px solid #ccc;
     text-align: right;
 }
-.change-form div.submit-row.full {
+#content.full .submit-row {
     left: 12px;
 }
 .submit-row input, .button, .submit-row a, .object-tools a {
