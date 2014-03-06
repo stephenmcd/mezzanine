@@ -95,10 +95,8 @@ ul.messagelist {
     margin-left: 216px;
     top: 40px;
 }
-body.popup .breadcrumbs + ul.messagelist {
-    top: -10px;
-    margin-left: -10px;
-    margin-right: -10px;
+.messagelist.full {
+    margin-left: 9px;
 }
 .login .errornote, ul.messagelist li {
     font-size: 14px !important;
@@ -108,14 +106,21 @@ body.popup .breadcrumbs + ul.messagelist {
 .login .errornote, ul.messagelist li.error {
     background: #BD362F;
 }
+body.popup .breadcrumbs + ul.messagelist {
+    top: -10px;
+    margin-left: -10px;
+    margin-right: -10px;
+}
 #side-panel {
     background-color: #3f3f3f;
     height: 100%;
     left: 0;
     position: fixed;
     top: 0;
+    z-index: 2;
 }
 .dropdown-menu {
+    border-right: 1px solid #222;
     float: left;
     height: 95%; /* Fallback height */
     height: -webkit-calc(100% - 40px); /* Safari 6.0 */
@@ -123,11 +128,10 @@ body.popup .breadcrumbs + ul.messagelist {
     margin-top: 40px;
     overflow-x: hidden;
     overflow-y: auto;
-    width: 215px;
-    z-index: 2;
+    width: 206px;
 }
 .dropdown-menu.hidden {
-    margin-left: -204px;
+    margin-left: -207px;
 }
 .dropdown-menu > ul {
     border-bottom: 1px solid #555;
@@ -161,7 +165,9 @@ body.popup .breadcrumbs + ul.messagelist {
     color: #ccc;
 }
 #side-panel-toggle {
-    background-color: #333;
+    background-color: #3f3f3f;
+    border-left: 1px solid #555;
+    border-right: 1px solid #222;
     cursor: pointer;
     float: right;
     height: 100%;
@@ -174,7 +180,7 @@ body.popup .breadcrumbs + ul.messagelist {
 /*=====================================
         FIXED BOTTOM CONTROLS
 =======================================*/
-.change-form div.submit-row {
+.change-form .submit-row {
     position: fixed;
     left: 216px;
     bottom: 0;
@@ -188,8 +194,9 @@ body.popup .breadcrumbs + ul.messagelist {
 .popup div.submit-row {
     left: 0;
 }
-.change-form div.submit-row.full {
-    left: 12px;
+.change-form .full .submit-row,
+.full #settings-form .submit-row {
+    left: 9px;
 }
 .submit-row input, .button, .submit-row a, .object-tools a {
     margin: 0 3px;
@@ -248,7 +255,7 @@ td, th, th a, label, .help, p.help {
     margin-left: 0;
 }
 #content.full {
-    margin-left: 25px;
+    margin-left: 22px;
 }
 #djDebugToolbarHandle {
     margin-top: 50px !important;
