@@ -96,7 +96,7 @@ ul.messagelist {
     top: 40px;
 }
 .messagelist.full {
-    margin-left: 9px;
+    margin-left: 17px;
 }
 .login .errornote, ul.messagelist li {
     font-size: 14px !important;
