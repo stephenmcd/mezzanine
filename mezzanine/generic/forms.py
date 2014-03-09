@@ -194,6 +194,10 @@ class RatingForm(CommentSecurityForm):
                 if rating_instance.value != int(rating_value):
                     rating_instance.value = rating_value
                     rating_instance.save()
+                else:
+                    # User submitted the same rating as previously,
+                    # which we treat as undoing the rating (like a toggle).
+                    rating_instance.delete()
         else:
             rating_instance = Rating(value=rating_value)
             rating_manager.add(rating_instance)
