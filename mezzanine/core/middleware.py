@@ -242,7 +242,7 @@ class SSLRedirectMiddleware(object):
                     response = HttpResponseRedirect("https://%s" % url)
             elif request.is_secure() and settings.SSL_FORCED_PREFIXES_ONLY:
                 response = HttpResponseRedirect("http://%s" % url)
-        if request.method == "POST":
+        if response and request.method == "POST":
             if resolve(request.get_full_path()).url_name == "fb_do_upload":
                 # The handler for the flash file uploader in filebrowser
                 # doesn't have access to the http headers Django will use
