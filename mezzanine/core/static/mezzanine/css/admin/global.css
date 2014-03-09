@@ -166,7 +166,7 @@ body.popup .breadcrumbs + ul.messagelist {
     color: #ccc;
 }
 #side-panel-toggle {
-    background-color: #333;
+    background-color: #eee;
     cursor: pointer;
     float: right;
     height: 100%;
@@ -174,7 +174,7 @@ body.popup .breadcrumbs + ul.messagelist {
 }
 #side-panel-toggle:hover,
 #side-panel-toggle:focus {
-    background-color: #555;
+    background-color: #ccc;
 }
 /*=====================================
         FIXED BOTTOM CONTROLS
