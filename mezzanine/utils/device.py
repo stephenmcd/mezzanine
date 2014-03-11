@@ -21,6 +21,10 @@ def device_from_request(request):
         except KeyError:
             pass
         else:
+            try:
+                user_agent = user_agent.decode("utf-8")
+            except AttributeError:
+                pass
             for (device, ua_strings) in settings.DEVICE_USER_AGENTS:
                 for ua_string in ua_strings:
                     if ua_string.lower() in user_agent:
