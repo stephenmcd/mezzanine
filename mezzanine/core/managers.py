@@ -138,7 +138,7 @@ class SearchableQuerySet(QuerySet):
         # terms that are explicitly required.
         elif optional:
             queryset = queryset.filter(reduce(ior, optional))
-        return queryset
+        return queryset.distinct()
 
     def _clone(self, *args, **kwargs):
         """
