@@ -1,6 +1,8 @@
 {% extends "admin/base.html" %}
 {% load mezzanine_tags i18n future staticfiles %}
 
+{% block title %}{{ title }} | Mezzanine{% endblock %}
+
 {% block extrahead %}
 <link rel="stylesheet" href="{% static "mezzanine/css/admin/global.css" %}">
 <style>
