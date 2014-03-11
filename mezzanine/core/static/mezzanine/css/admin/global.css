@@ -94,6 +94,7 @@ label.interface {
 ul.messagelist {
     margin-left: 224px;
     top: 40px;
+    z-index: 0;
 }
 .messagelist.full {
     margin-left: 17px;
