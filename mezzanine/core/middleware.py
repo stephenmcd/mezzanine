@@ -166,7 +166,7 @@ class UpdateCacheMiddleware(object):
             pass
         parts = response.content.split(token)
         content_type = response.get("content-type", "")
-        if content_type.startswith("text") and len(parts) > 1:
+        if valid_status and content_type.startswith("text") and len(parts) > 1:
             # Restore csrf token from cookie - check the response
             # first as it may be being set for the first time.
             csrf_token = None
