@@ -484,6 +484,7 @@ Sites Using Mezzanine
 * `Guddina Coffee <http://guddina.com>`_
 * `Atami Escape Resort <http://www.atami.com.sv>`_
 * `Philip Southwell <http://www.philipsouthwell.com>`_
+* `Justine & Katie's Bowtique <http://www.jnkbows.com>`_
 
 
 Quotes
