@@ -101,13 +101,16 @@ class FormAdmin(PageAdmin):
                 delimiter = settings.FORMS_CSV_DELIMITER
                 try:
                     csv = writer(queue, delimiter=delimiter)
+                    writerow = csv.writerow
                 except TypeError:
                     queue = BytesIO()
                     delimiter = bytes(delimiter, encoding="utf-8")
                     csv = writer(queue, delimiter=delimiter)
-                csv.writerow(entries_form.columns())
+                    writerow = lambda row: csv.writerow([c.encode("utf-8")
+                        if hasattr(c, "encode") else c for c in row])
+                writerow(entries_form.columns())
                 for row in entries_form.rows(csv=True):
-                    csv.writerow(row)
+                    writerow(row)
                 data = queue.getvalue()
                 response.write(data)
                 return response

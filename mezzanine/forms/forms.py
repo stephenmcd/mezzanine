@@ -256,7 +256,7 @@ class EntriesForm(forms.Form):
         self.request = request
         self.form_fields = form.fields.all()
         self.entry_time_name = str(FormEntry._meta.get_field(
-            "entry_time").verbose_name).encode("utf-8")
+            "entry_time").verbose_name)
         super(EntriesForm, self).__init__(*args, **kwargs)
         for field in self.form_fields:
             field_key = "field_%s" % field.id
@@ -320,7 +320,7 @@ class EntriesForm(forms.Form):
         """
         Returns the list of selected column names.
         """
-        fields = [f.label.encode("utf-8") for f in self.form_fields
+        fields = [f.label for f in self.form_fields
                   if self.cleaned_data["field_%s_export" % f.id]]
         if self.cleaned_data["field_0_export"]:
             fields.append(self.entry_time_name)
@@ -413,7 +413,6 @@ class EntriesForm(forms.Form):
                     field_value = mark_safe("<a href=\"%s\">%s</a>" % parts)
             # Only use values for fields that were selected.
             try:
-                field_value = field_value.encode("utf-8")
                 current_row[field_indexes[field_id]] = field_value
             except KeyError:
                 pass
