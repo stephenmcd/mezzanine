@@ -486,6 +486,7 @@ Sites Using Mezzanine
 * `Philip Southwell <http://www.philipsouthwell.com>`_
 * `Justine & Katie's Bowtique <http://www.jnkbows.com>`_
 * `The Grantwell LLC <https://www.thegrantwell.com>`_
+* `PyCon Asia-Pacific <https://tw.pycon.org/>`_
 
 
 Quotes
