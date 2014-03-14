@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.comments.forms import CommentSecurityForm, CommentForm
 from django.contrib.comments.signals import comment_was_posted
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import Html5Mixin
@@ -134,7 +134,7 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
                                 request=request)
         notify_emails = split_addresses(settings.COMMENTS_NOTIFICATION_EMAILS)
         if notify_emails:
-            subject = _("New comment for: ") + unicode(obj)
+            subject = ugettext("New comment for: ") + unicode(obj)
             context = {
                 "comment": comment,
                 "comment_url": add_cache_bypass(comment.get_absolute_url()),
@@ -170,7 +170,7 @@ class RatingForm(CommentSecurityForm):
         self.previous = request.COOKIES.get("mezzanine-rating", "").split(",")
         already_rated = self.current in self.previous
         if already_rated and not self.request.user.is_authenticated():
-            raise forms.ValidationError(_("Already rated."))
+            raise forms.ValidationError(ugettext("Already rated."))
         return self.cleaned_data
 
     def save(self):
