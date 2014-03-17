@@ -1,5 +1,4 @@
 # encoding: utf-8
-from __future__ import unicode_literals
 from future.builtins import int, str
 import datetime
 from south.db import db
