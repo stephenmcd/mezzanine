@@ -56,3 +56,12 @@ register_setting(
     editable=False,
     default=(),
 )
+
+register_setting(
+    name="FORMS_EXTRA_WIDGETS",
+    description=_("Extra field widgets for the forms app. Should contain a "
+        "sequence of two-item sequences, each containing an existing ID "
+        "for a form field, and a dotted import path for the widget class."),
+    editable=False,
+    default=(),
+)
