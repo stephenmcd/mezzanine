@@ -1,6 +1,6 @@
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import print_function, unicode_literals
 from future.builtins import input, open
+
 import os
 import re
 import sys
@@ -20,8 +20,7 @@ from fabric.colors import yellow, green, blue, red
 ################
 
 conf = {}
-if sys.argv[0].split(os.sep)[-1] in ("fab",             # POSIX
-                                     "fab-script.py"):  # Windows
+if sys.argv[0].split(os.sep)[-1] in ("fab", "fab-script.py"):
     # Ensure we import settings from the current dir
     try:
         conf = __import__("settings", globals(), locals(), [], 0).FABRIC
@@ -45,9 +44,11 @@ env.venv_home = conf.get("VIRTUALENV_HOME", "/home/%s" % env.user)
 env.venv_path = "%s/%s" % (env.venv_home, env.proj_name)
 env.proj_dirname = "project"
 env.proj_path = "%s/%s" % (env.venv_path, env.proj_dirname)
-env.manage = "%s/bin/python %s/project/manage.py" % (env.venv_path,
-                                                     env.venv_path)
-env.live_host = conf.get("LIVE_HOSTNAME", env.hosts[0] if env.hosts else None)
+env.manage = "%s/bin/python %s/project/manage.py" % ((env.venv_path,) * 2)
+env.domains = conf.get("DOMAINS", [conf.get("LIVE_HOSTNAME", env.hosts[0])])
+env.domains_nginx = " ".join(env.domains)
+env.domains_python = ", ".join(["'%s'" % s for s in env.domains])
+env.ssl_disabled = "#" if len(env.domains) > 1 else ""
 env.repo_url = conf.get("REPO_URL", "")
 env.git = env.repo_url.startswith("git") or env.repo_url.endswith(".git")
 env.reqs_path = conf.get("REQUIREMENTS_PATH", None)
@@ -367,8 +368,9 @@ def create():
     # Create virtualenv
     with cd(env.venv_home):
         if exists(env.proj_name):
-            prompt = input("\nVirtualenv exists: %s\nWould you like "
-                               "to replace it? (yes/no) " % env.proj_name)
+            prompt = input("\nVirtualenv exists: %s"
+                           "\nWould you like to replace it? (yes/no) "
+                           % env.proj_name)
             if prompt.lower() != "yes":
                 print("\nAborting!")
                 return False
@@ -389,23 +391,24 @@ def create():
          (env.proj_name, env.proj_name, env.locale, env.locale))
 
     # Set up SSL certificate.
-    conf_path = "/etc/nginx/conf"
-    if not exists(conf_path):
-        sudo("mkdir %s" % conf_path)
-    with cd(conf_path):
-        crt_file = env.proj_name + ".crt"
-        key_file = env.proj_name + ".key"
-        if not exists(crt_file) and not exists(key_file):
-            try:
-                crt_local, = glob(join("deploy", "*.crt"))
-                key_local, = glob(join("deploy", "*.key"))
-            except ValueError:
-                parts = (crt_file, key_file, env.live_host)
-                sudo("openssl req -new -x509 -nodes -out %s -keyout %s "
-                     "-subj '/CN=%s' -days 3650" % parts)
-            else:
-                upload_template(crt_local, crt_file, use_sudo=True)
-                upload_template(key_local, key_file, use_sudo=True)
+    if not env.ssl_disabled:
+        conf_path = "/etc/nginx/conf"
+        if not exists(conf_path):
+            sudo("mkdir %s" % conf_path)
+        with cd(conf_path):
+            crt_file = env.proj_name + ".crt"
+            key_file = env.proj_name + ".key"
+            if not exists(crt_file) and not exists(key_file):
+                try:
+                    crt_local, = glob(join("deploy", "*.crt"))
+                    key_local, = glob(join("deploy", "*.key"))
+                except ValueError:
+                    parts = (crt_file, key_file, env.domains[0])
+                    sudo("openssl req -new -x509 -nodes -out %s -keyout %s "
+                         "-subj '/CN=%s' -days 3650" % parts)
+                else:
+                    upload_template(crt_local, crt_file, use_sudo=True)
+                    upload_template(key_local, key_file, use_sudo=True)
 
     # Set up project.
     upload_template_and_reload("settings")
@@ -417,9 +420,11 @@ def create():
         manage("createdb --noinput --nodata")
         python("from django.conf import settings;"
                "from django.contrib.sites.models import Site;"
-               "site, _ = Site.objects.get_or_create(id=settings.SITE_ID);"
-               "site.domain = '" + env.live_host + "';"
-               "site.save();")
+               "Site.objects.filter(id=settings.SITE_ID).update(domain='%s');"
+               % env.domains[0])
+        for domain in env.domains:
+            python("from django.contrib.sites.models import Site;"
+                   "Site.objects.get_or_create(domain='%s');" % domain)
         if env.admin_pass:
             pw = env.admin_pass
             user_py = ("from mezzanine.utils.models import get_user_model;"
@@ -480,8 +485,9 @@ def deploy():
     processes for the project.
     """
     if not exists(env.venv_path):
-        prompt = input("\nVirtualenv doesn't exist: %s\nWould you like "
-                           "to create it? (yes/no) " % env.proj_name)
+        prompt = input("\nVirtualenv doesn't exist: %s"
+                       "\nWould you like to create it? (yes/no) "
+                       % env.proj_name)
         if prompt.lower() != "yes":
             print("\nAborting!")
             return False
