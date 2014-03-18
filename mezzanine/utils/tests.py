@@ -48,6 +48,10 @@ IGNORE_ERRORS = (
 
     # Deprecated compat timezones for Django 1.3
     "mezzanine/utils/timezone",
+
+    # Actually a Python template file.
+    "live_settings.py",
+
 )
 
 
