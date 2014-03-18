@@ -353,8 +353,8 @@ the template path. For example in your ``settings.py`` module::
 
 Which of these entries is selected for new pages (all are selected by default)
 is controlled by the ``PAGE_MENU_TEMPLATES_DEFAULT`` setting. For example,
-``PAGE_MENU_TEMPLATES_DEFAULT = (1, 3)`` will cause the admin section 
-to pre-select the "Top navigation bar" and the "Footer" when using 
+``PAGE_MENU_TEMPLATES_DEFAULT = (1, 3)`` will cause the admin section
+to pre-select the "Top navigation bar" and the "Footer" when using
 the example above.
 
 The selections made for the ``in_menus`` field on each page don't
@@ -400,6 +400,7 @@ helping you to build advanced menus.
   * ``page_branch_in_menu`` - a boolean for whether this branch should
     be in the menu (see "filtering menus" below)
   * ``parent_page`` - a reference to the parent page
+  * ``page.parent`` - same as ``parent_page``.
   * ``page.in_menu`` - a boolean for whether the branch page should
     be in the menu (see "filtering menus" below)
   * ``page.has_children`` - a boolean for whether the branch page has
