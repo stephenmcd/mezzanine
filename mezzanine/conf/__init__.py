@@ -11,11 +11,6 @@ from functools import partial
 from warnings import warn
 
 from django.conf import settings as django_settings
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    # Backward compatibility for Py2 and Django < 1.5
-    from django.utils.encoding import force_unicode as force_text
 from django.utils.functional import Promise
 from django.utils.importlib import import_module
 from django.utils.module_loading import module_has_submodule
