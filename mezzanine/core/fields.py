@@ -35,14 +35,15 @@ class RichTextField(models.TextField):
         Apply the widget class defined by the
         ``RICHTEXT_WIDGET_CLASS`` setting.
         """
-        from mezzanine.conf import settings
-        try:
-            widget_class = import_dotted_path(settings.RICHTEXT_WIDGET_CLASS)
-        except ImportError:
-            raise ImproperlyConfigured(_("Could not import the value of "
-                                         "settings.RICHTEXT_WIDGET_CLASS: %s"
-                                         % settings.RICHTEXT_WIDGET_CLASS))
-        kwargs["widget"] = widget_class()
+        if "widget" not in kwargs:
+            from mezzanine.conf import settings
+            try:
+                widget_class = import_dotted_path(settings.RICHTEXT_WIDGET_CLASS)
+            except ImportError:
+                raise ImproperlyConfigured(_("Could not import the value of "
+                                             "settings.RICHTEXT_WIDGET_CLASS: %s"
+                                             % settings.RICHTEXT_WIDGET_CLASS))
+            kwargs["widget"] = widget_class()
         kwargs.setdefault("required", False)
         formfield = super(RichTextField, self).formfield(**kwargs)
         return formfield
