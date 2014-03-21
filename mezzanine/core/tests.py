@@ -346,5 +346,7 @@ class CoreTests(TestCase):
 
         richtext_widget = import_dotted_path(settings.RICHTEXT_WIDGET_CLASS)
 
-        self.assertIsInstance(form.fields['text_default'].widget, richtext_widget)
-        self.assertIsInstance(form.fields['text_overridden'].widget, Textarea)
+        self.assertIsInstance(form.fields['text_default'].widget,
+                              richtext_widget)
+        self.assertIsInstance(form.fields['text_overridden'].widget,
+                              Textarea)

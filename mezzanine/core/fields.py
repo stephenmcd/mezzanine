@@ -37,12 +37,13 @@ class RichTextField(models.TextField):
         """
         if "widget" not in kwargs:
             from mezzanine.conf import settings
+            richtext_widget_path = settings.RICHTEXT_WIDGET_CLASS
             try:
-                widget_class = import_dotted_path(settings.RICHTEXT_WIDGET_CLASS)
+                widget_class = import_dotted_path(richtext_widget_path)
             except ImportError:
                 raise ImproperlyConfigured(_("Could not import the value of "
-                                             "settings.RICHTEXT_WIDGET_CLASS: %s"
-                                             % settings.RICHTEXT_WIDGET_CLASS))
+                                             "settings.RICHTEXT_WIDGET_CLASS: "
+                                             "%s" % richtext_widget_path))
             kwargs["widget"] = widget_class()
         kwargs.setdefault("required", False)
         formfield = super(RichTextField, self).formfield(**kwargs)
