@@ -319,6 +319,7 @@ class CurrentSiteManager(DjangoCSM):
     management commands with the ``--site`` arg, finally falling back
     to ``settings.SITE_ID`` if none of those match a site.
     """
+
     def __init__(self, field_name=None, *args, **kwargs):
         super(DjangoCSM, self).__init__(*args, **kwargs)
         self.__field_name = field_name
@@ -326,7 +327,11 @@ class CurrentSiteManager(DjangoCSM):
 
     def get_query_set(self):
         if not self.__is_validated:
-            self._validate_field_name()
+            try:
+                # Django <= 1.6
+                self._validate_field_name()
+            except AttributeError:
+                pass
         lookup = {self.__field_name + "__id__exact": current_site_id()}
         return super(DjangoCSM, self).get_query_set().filter(**lookup)
 
