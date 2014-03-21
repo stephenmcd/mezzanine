@@ -5,9 +5,10 @@ or Django itself. Settings can also be made editable via the admin.
 """
 
 from __future__ import unicode_literals
-from warnings import warn
-from functools import partial
 from future.builtins import bytes, str
+
+from functools import partial
+from warnings import warn
 
 from django.conf import settings as django_settings
 try:
@@ -25,45 +26,52 @@ from mezzanine import __version__
 registry = {}
 
 
-def register_setting(name="", label="", editable=False, description="",
+def register_setting(name=None, label=None, editable=False, description=None,
                      default=None, choices=None, append=False):
     """
-    Registers a setting that can be edited via the admin.
+    Registers a setting that can be edited via the admin. This mostly
+    equates to storing the given args as a dict in the ``registry``
+    dict by name.
     """
+    if name is None:
+        raise TypeError("mezzanine.conf.register_setting requires a name")
+
     # append is True when called from an app (typically external)
     # after the setting has already been registered, with the
     # intention of appending to its default value.
     if append and name in registry:
         registry[name]["default"] += default
+        return
+
+    # If an editable setting has a value defined in the
+    # project's settings.py module, it can't be editable, since
+    # these lead to a lot of confusion once its value gets
+    # defined in the db.
+    if hasattr(django_settings, name):
+        editable = False
+    if label is None:
+        label = name.replace("_", " ").title()
+
+    # Python 2/3 compatibility. isinstance() is overridden by future
+    # on Python 2 to behave as Python 3 in conjunction with either
+    # Python 2's native types or the future.builtins types.
+    if isinstance(default, bool):
+        # Prevent bools treated as ints
+        setting_type = bool
+    elif isinstance(default, int):
+        # An int or long or subclass on Py2
+        setting_type = int
+    elif isinstance(default, (str, Promise)):
+        # A unicode or subclass on Py2
+        setting_type = str
+    elif isinstance(default, bytes):
+        # A byte-string or subclass on Py2
+        setting_type = bytes
     else:
-        # If an editable setting has a value defined in the
-        # project's settings.py module, it can't be editable, since
-        # these lead to a lot of confusion once its value gets
-        # defined in the db.
-        if hasattr(django_settings, name):
-            editable = False
-        if isinstance(default, Promise):
-            default = force_text(default)
-        if not label:
-            label = name.replace("_", " ").title()
-        # The next six lines are for Python 2/3 compatibility.
-        # isinstance() is overridden by future on Python 2 to behave as
-        # on Python 3 in conjunction with either Python 2's native types
-        # or the future.builtins types.
-        if isinstance(default, bool):       # prevent bools treated as ints
-            setting_type = bool
-        elif isinstance(default, int):      # an int or long or subclass on Py2
-            setting_type = int
-        elif isinstance(default, str):      # a unicode or subclass on Py2
-            setting_type = str
-        elif isinstance(default, bytes):    # a byte-string or subclass on Py2
-            setting_type = bytes
-        else:
-            setting_type = type(default)
-        registry[name] = {"name": name, "label": label,
-                          "description": description,
-                          "editable": editable, "default": default,
-                          "choices": choices, "type": setting_type}
+        setting_type = type(default)
+    registry[name] = {"name": name, "label": label, "editable": editable,
+                      "description": description, "default": default,
+                      "choices": choices, "type": setting_type}
 
 
 class Settings(object):
