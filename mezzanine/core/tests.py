@@ -9,6 +9,9 @@ except ImportError:
     # Python 2
     from urllib import urlencode
 
+from django.db import models
+from django.forms import Textarea
+from django.forms.models import modelform_factory
 from django.contrib.sites.models import Site
 from django.templatetags.static import static
 from django.core.urlresolvers import reverse
@@ -21,6 +24,7 @@ from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
                                    CONTENT_STATUS_PUBLISHED)
+from mezzanine.core.fields import RichTextField
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
@@ -325,3 +329,24 @@ class CoreTests(TestCase):
         self.assertEqual(response.status_code, 200)
         # TODO: This now contains a link that is '/accounts/login'
         #       and doesn't exist:-(
+
+    def test_richtext_widget(self):
+        """
+        Test that the RichTextField gets its widget type correctly from
+        settings, and is able to be overridden in a form's Meta.
+        """
+
+        class RichTextModel(models.Model):
+            text_default = RichTextField()
+            text_overridden = RichTextField()
+
+        form_class = modelform_factory(RichTextModel,
+                                       widgets={'text_overridden': Textarea})
+        form = form_class()
+
+        richtext_widget = import_dotted_path(settings.RICHTEXT_WIDGET_CLASS)
+
+        self.assertIsInstance(form.fields['text_default'].widget,
+                              richtext_widget)
+        self.assertIsInstance(form.fields['text_overridden'].widget,
+                              Textarea)
