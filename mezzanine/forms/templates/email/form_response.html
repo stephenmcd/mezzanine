@@ -6,7 +6,7 @@
 {% for field, value in fields %}
 <tr>
     <td><b>{{ field }}:</b></td>
-    <td>{{ value }}</td>
+    <td>{{ value|linebreaks }}</td>
 </tr>
 {% endfor %}
 </table>

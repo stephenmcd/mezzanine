@@ -4,6 +4,6 @@
 {{ message }}
 
 {% endif %}{% for field, value in fields %}
-{{ field }}: {{ value }}
+{{ field }}: {{ value|safe }}
 {% endfor %}
 {% endblock %}
