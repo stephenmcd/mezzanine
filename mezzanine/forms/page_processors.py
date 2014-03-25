@@ -59,9 +59,9 @@ def form_processor(request, page):
             for f in form.files.values():
                 f.seek(0)
                 attachments.append((f.name, f.read()))
-            send_mail_template(subject, "email/form_response", email_from,
-                               email_copies, context, attachments=attachments,
-                               headers=headers)
+            send_mail_template(subject, "email/form_response_copies",
+                               email_from, email_copies, context,
+                               attachments=attachments, headers=headers)
         form_valid.send(sender=request, form=form, entry=entry)
         return redirect(url)
     form_invalid.send(sender=request, form=form)
