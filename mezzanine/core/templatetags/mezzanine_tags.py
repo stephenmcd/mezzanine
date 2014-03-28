@@ -266,7 +266,7 @@ def search_form(context, search_model_names=None):
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5):
+def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5, padding=False):
     """
     Given the URL to an image, resizes the image using the given width and
     height on the first time it is requested, and returns the URL to the new
@@ -291,6 +291,7 @@ def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5):
         left = min(1, max(0, left))
         top = min(1, max(0, top))
         thumb_name = "%s-%sx%s" % (thumb_name, left, top)
+    thumb_name += "-padded" if padding else ""
     thumb_name = "%s%s" % (thumb_name, image_ext)
     thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
                              settings.THUMBNAILS_DIR_NAME)
@@ -319,6 +320,7 @@ def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5):
         return image_url
 
     f = default_storage.open(image_url)
+    print image_url
     try:
         image = Image.open(f)
     except:
@@ -343,6 +345,27 @@ def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5):
     ImageFile.MAXBLOCK = 2 * (max(image.size) ** 2)
     pos = (left, top)
     try:
+        img_width, img_height = image.size
+
+        img_ratio = img_width/img_height
+        des_ratio = width/height
+
+        if padding and img_ratio != des_ratio:
+
+            if des_ratio < img_ratio:
+                #desired height > height
+                new_image_size = (img_width, int(round(height * (img_width/width))))
+                pad_top = (new_image_size[1] - img_height) // 2
+                pad_left = 0
+            elif des_ratio > img_ratio:
+                #desired width > width
+                new_image_size = (int(round(width * (img_height/height))), img_height)
+                pad_top = 0
+                pad_left = (new_image_size[0] - img_width) // 2
+
+            new_image = Image.new('RGBA', new_image_size)
+            new_image.paste(image, (pad_left, pad_top))
+            image = new_image
         image = ImageOps.fit(image, (width, height), Image.ANTIALIAS, 0, pos)
         image = image.save(thumb_path, filetype, quality=quality, **image_info)
         # Push a remote copy of the thumbnail if MEDIA_URL is
