@@ -320,7 +320,6 @@ def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5, padding=F
         return image_url
 
     f = default_storage.open(image_url)
-    print image_url
     try:
         image = Image.open(f)
     except:
