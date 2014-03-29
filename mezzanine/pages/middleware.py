@@ -10,6 +10,7 @@ from mezzanine.conf import settings
 from mezzanine.pages import page_processors
 from mezzanine.pages.models import Page
 from mezzanine.pages.views import page as page_view
+from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.urls import path_to_slug
 
 
@@ -37,6 +38,29 @@ class PageMiddleware(object):
     def __init__(self):
         if "mezzanine.pages" not in settings.INSTALLED_APPS:
             raise MiddlewareNotUsed
+
+    @classmethod
+    def installed(cls):
+        """
+        Used in ``mezzanine.pages.views.page`` to ensure
+        ``PageMiddleware`` or a subclass has been installed. We cache
+        the result on the ``PageMiddleware._installed`` to only run
+        this once. Short path is to just check for the dotted path to
+        ``PageMiddleware`` in ``MIDDLEWARE_CLASSES`` - if not found,
+        we need to load each middleware class to match a subclass.
+        """
+        try:
+            return cls._installed
+        except AttributeError:
+            name = "mezzanine.pages.middleware.PageMiddleware"
+            installed = name in settings.MIDDLEWARE_CLASSES
+            if not installed:
+                for name in settings.MIDDLEWARE_CLASSES:
+                    if issubclass(import_dotted_path(name), cls):
+                        installed = True
+                        break
+            setattr(cls, "_installed", installed)
+            return installed
 
     def process_view(self, request, view_func, view_args, view_kwargs):
 

@@ -6,7 +6,6 @@ from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
 
-from mezzanine.conf import settings
 from mezzanine.pages.models import Page
 from mezzanine.utils.urls import home_slug
 from mezzanine.utils.views import render
@@ -61,9 +60,10 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     templates match, the default pages/page.html is used.
     """
 
-    page_middleware = "mezzanine.pages.middleware.PageMiddleware"
-    if page_middleware not in settings.MIDDLEWARE_CLASSES:
-        raise ImproperlyConfigured(page_middleware + " is missing from " +
+    from mezzanine.pages.middleware import PageMiddleware
+    if not PageMiddleware.installed():
+        raise ImproperlyConfigured("mezzanine.pages.middleware.PageMiddleware "
+                                   "(or a subclass of it) is missing from " +
                                    "settings.MIDDLEWARE_CLASSES")
 
     extra_context = extra_context or {}
