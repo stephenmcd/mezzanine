@@ -266,7 +266,8 @@ def search_form(context, search_model_names=None):
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5, padding=False):
+def thumbnail(image_url, width, height,
+              quality=95, left=0.5, top=0.5, padding=False):
     """
     Given the URL to an image, resizes the image using the given width and
     height on the first time it is requested, and returns the URL to the new
@@ -327,45 +328,47 @@ def thumbnail(image_url, width, height, quality=95, left=0.5, top=0.5, padding=F
         return image_url
 
     image_info = image.info
-    width = int(width)
-    height = int(height)
+    to_width = int(width)
+    to_height = int(height)
+    from_width = image.size[0]
+    from_height = image.size[1]
 
     # If already right size, don't do anything.
-    if width == image.size[0] and height == image.size[1]:
+    if to_width == from_width and to_height == from_height:
         return image_url
     # Set dimensions.
-    if width == 0:
-        width = image.size[0] * height // image.size[1]
-    elif height == 0:
-        height = image.size[1] * width // image.size[0]
+    if to_width == 0:
+        to_width = from_width * to_height // from_height
+    elif to_height == 0:
+        to_height = from_height * to_width // from_width
     if image.mode not in ("P", "L", "RGBA"):
         image = image.convert("RGBA")
     # Required for progressive jpgs.
     ImageFile.MAXBLOCK = 2 * (max(image.size) ** 2)
     pos = (left, top)
+
+    # Padding.
+    if padding and to_width and to_height:
+        from_ratio = from_width / from_height
+        to_ratio = to_width / to_height
+        pad_size = None
+        if to_ratio < from_ratio:
+            pad_size = (from_width, int(to_height * (from_width / to_width)))
+            pad_top = (pad_size[1] - from_height) // 2
+            pad_left = 0
+        elif to_ratio > from_ratio:
+            pad_size = (int(to_width * (from_height / to_height)), from_height)
+            pad_top = 0
+            pad_left = (pad_size[0] - from_width) // 2
+        if pad_size is not None:
+            pad_container = Image.new("RGBA", pad_size)
+            pad_container.paste(image, (pad_left, pad_top))
+            image = pad_container
+
+    # Create the thumbnail.
+    to_size = (to_width, to_height)
     try:
-        img_width, img_height = image.size
-
-        img_ratio = img_width/img_height
-        des_ratio = width/height
-
-        if padding and img_ratio != des_ratio:
-
-            if des_ratio < img_ratio:
-                #desired height > height
-                new_image_size = (img_width, int(round(height * (img_width/width))))
-                pad_top = (new_image_size[1] - img_height) // 2
-                pad_left = 0
-            elif des_ratio > img_ratio:
-                #desired width > width
-                new_image_size = (int(round(width * (img_height/height))), img_height)
-                pad_top = 0
-                pad_left = (new_image_size[0] - img_width) // 2
-
-            new_image = Image.new('RGBA', new_image_size)
-            new_image.paste(image, (pad_left, pad_top))
-            image = new_image
-        image = ImageOps.fit(image, (width, height), Image.ANTIALIAS, 0, pos)
+        image = ImageOps.fit(image, to_size, Image.ANTIALIAS, 0, pos)
         image = image.save(thumb_path, filetype, quality=quality, **image_info)
         # Push a remote copy of the thumbnail if MEDIA_URL is
         # absolute.
