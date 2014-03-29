@@ -61,10 +61,17 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     templates match, the default pages/page.html is used.
     """
 
-    page_middleware = "mezzanine.pages.middleware.PageMiddleware"
+    page_middleware = 'mezzanine.pages.middleware.PageMiddleware'
+
     if page_middleware not in settings.MIDDLEWARE_CLASSES:
         raise ImproperlyConfigured(page_middleware + " is missing from " +
                                    "settings.MIDDLEWARE_CLASSES")
+
+    # Look for PageMiddleware override
+    for middleware in reversed(settings.MIDDLEWARE_CLASSES):
+        if middleware.find('.middleware.PageMiddleware') != -1:
+            page_middleware = middleware
+            break
 
     extra_context = extra_context or {}
     try:
