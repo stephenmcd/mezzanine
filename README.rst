@@ -498,6 +498,9 @@ Sites Using Mezzanine
 * `Justine & Katie's Bowtique <http://www.jnkbows.com>`_
 * `The Grantwell LLC <https://www.thegrantwell.com>`_
 * `PyCon Asia-Pacific <https://tw.pycon.org/>`_
+* `Nerdot <http://nerdot.com.do>`_
+* `Coworking.do <http://coworking.do>`_
+* `Arlette Pichardo <http://arlettepichardo.com>`_
 
 
 Quotes
