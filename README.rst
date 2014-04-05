@@ -502,6 +502,7 @@ Sites Using Mezzanine
 * `Coworking.do <http://coworking.do>`_
 * `Arlette Pichardo <http://arlettepichardo.com>`_
 * `Sani Dental Group <http://sanidentalgroup.com>`_
+* `Biocap 06 <http://www.biocap06.fr>`_
 
 Quotes
 ======
