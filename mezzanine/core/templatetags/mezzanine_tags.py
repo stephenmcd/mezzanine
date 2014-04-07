@@ -352,15 +352,15 @@ def thumbnail(image_url, width, height,
 
     # Padding.
     if padding and to_width and to_height:
-        from_ratio = from_width / from_height
-        to_ratio = to_width / to_height
+        from_ratio = float(from_width) / from_height
+        to_ratio = float(to_width) / to_height
         pad_size = None
         if to_ratio < from_ratio:
-            pad_size = (from_width, int(to_height * (from_width / to_width)))
+            pad_size = (from_width, int(to_height * (float(from_width) / to_width)))
             pad_top = (pad_size[1] - from_height) // 2
             pad_left = 0
         elif to_ratio > from_ratio:
-            pad_size = (int(to_width * (from_height / to_height)), from_height)
+            pad_size = (int(to_width * (float(from_height) / to_height)), from_height)
             pad_top = 0
             pad_left = (pad_size[0] - from_width) // 2
         if pad_size is not None:
