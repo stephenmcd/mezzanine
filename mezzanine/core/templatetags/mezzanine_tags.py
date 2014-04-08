@@ -314,7 +314,6 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     if image_url_path:
         thumb_url = "%s/%s" % (image_url_path, thumb_url)
 
-
     try:
         thumb_exists = os.path.exists(thumb_path)
     except UnicodeEncodeError:
