@@ -267,7 +267,8 @@ def search_form(context, search_model_names=None):
 
 @register.simple_tag
 def thumbnail(image_url, width, height,
-              quality=95, left=.5, top=.5, padding=False):
+              quality=95, left=.5, top=.5, padding=False,
+              padding_color=(255,255,255,255)):
     """
     Given the URL to an image, resizes the image using the given width and
     height on the first time it is requested, and returns the URL to the new
@@ -352,19 +353,19 @@ def thumbnail(image_url, width, height,
 
     # Padding.
     if padding and to_width and to_height:
-        from_ratio = from_width / from_height
-        to_ratio = to_width / to_height
+        from_ratio = float(from_width) / from_height
+        to_ratio = float(to_width) / to_height
         pad_size = None
         if to_ratio < from_ratio:
-            pad_size = (from_width, int(to_height * (from_width / to_width)))
+            pad_size = (from_width, int(to_height * (float(from_width) / to_width)))
             pad_top = (pad_size[1] - from_height) // 2
             pad_left = 0
         elif to_ratio > from_ratio:
-            pad_size = (int(to_width * (from_height / to_height)), from_height)
+            pad_size = (int(to_width * (float(from_height) / to_height)), from_height)
             pad_top = 0
             pad_left = (pad_size[0] - from_width) // 2
         if pad_size is not None:
-            pad_container = Image.new("RGBA", pad_size)
+            pad_container = Image.new("RGBA", pad_size, padding_color)
             pad_container.paste(image, (pad_left, pad_top))
             image = pad_container
 
