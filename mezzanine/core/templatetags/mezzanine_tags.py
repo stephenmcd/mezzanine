@@ -266,9 +266,8 @@ def search_form(context, search_model_names=None):
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height,
-              quality=95, left=.5, top=.5, padding=False,
-              padding_color=(255,255,255,255)):
+def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
+              padding=False, padding_color="#fff"):
     """
     Given the URL to an image, resizes the image using the given width and
     height on the first time it is requested, and returns the URL to the new
@@ -294,21 +293,27 @@ def thumbnail(image_url, width, height,
         left = min(1, max(0, left))
         top = min(1, max(0, top))
         thumb_name = "%s-%sx%s" % (thumb_name, left, top)
-    thumb_name += "-padded" if padding else ""
+    thumb_name += "-padded-%s" % padding_color if padding else ""
     thumb_name = "%s%s" % (thumb_name, image_ext)
 
-    thumb_dir_name = "thumbs-%s" % image_name
-    thumb_dir_path = os.path.join(settings.MEDIA_ROOT, image_dir,
-                                  settings.THUMBNAILS_DIR_NAME, thumb_dir_name)
-    if not os.path.exists(thumb_dir_path):
-        os.makedirs(thumb_dir_path)
-    thumb_path = os.path.join(thumb_dir_path, thumb_name)
+    # `image_name` is used here for the directory path, as each image
+    # requires its own sub-directory using its own name - this is so
+    # we can consistently delete all thumbnails for an individual
+    # image, which is something we do in filebrowser when a new image
+    # is written, allowing us to purge any previously generated
+    # thumbnails that may match a new image name.
+    thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
+                             settings.THUMBNAILS_DIR_NAME, image_name)
+    if not os.path.exists(thumb_dir):
+        os.makedirs(thumb_dir)
+    thumb_path = os.path.join(thumb_dir, thumb_name)
     thumb_url = "%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
-                              quote(thumb_dir_name.encode("utf-8")),
+                              quote(image_name.encode("utf-8")),
                               quote(thumb_name.encode("utf-8")))
     image_url_path = os.path.dirname(image_url)
     if image_url_path:
         thumb_url = "%s/%s" % (image_url_path, thumb_url)
+
 
     try:
         thumb_exists = os.path.exists(thumb_path)
@@ -329,7 +334,7 @@ def thumbnail(image_url, width, height,
     try:
         image = Image.open(f)
     except:
-        # Invalid image format
+        # Invalid image format.
         return image_url
 
     image_info = image.info
@@ -357,13 +362,15 @@ def thumbnail(image_url, width, height,
         to_ratio = float(to_width) / to_height
         pad_size = None
         if to_ratio < from_ratio:
-            pad_size = (from_width, int(to_height * (float(from_width) / to_width)))
-            pad_top = (pad_size[1] - from_height) // 2
+            pad_height = int(to_height * (float(from_width) / to_width))
+            pad_size = (from_width, pad_height)
+            pad_top = (pad_height - from_height) // 2
             pad_left = 0
         elif to_ratio > from_ratio:
-            pad_size = (int(to_width * (float(from_height) / to_height)), from_height)
+            pad_width = int(to_width * (float(from_height) / to_height))
+            pad_size = (pad_width, from_height)
             pad_top = 0
-            pad_left = (pad_size[0] - from_width) // 2
+            pad_left = (pad_width - from_width) // 2
         if pad_size is not None:
             pad_container = Image.new("RGBA", pad_size, padding_color)
             pad_container.paste(image, (pad_left, pad_top))
