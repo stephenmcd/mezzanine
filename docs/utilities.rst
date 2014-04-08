@@ -241,10 +241,8 @@ template::
 -------------
 
 The ``thumbnail`` template tag provides on-the-fly image resizing. It
-takes the relative path to the image file to resize, a mandatory width
-and height argument, and an optional quality argument (from 1 to 100).
-A value of zero can be provided for either the width or height
-arguments, in which case the image will be resized proportionally.
+takes the relative path to the image file to resize, and mandatory width
+and height arguments.
 
 When the ``thumbnail`` template tag is called for a given set of
 arguments the first time, the thumbnail is generated and its relative
@@ -260,3 +258,14 @@ height::
 
     <img src="{{ MEDIA_URL }}{% thumbnail book.cover 100 0 %}">
 
+The ``thumbnail`` template tag also accepts several other optional
+arguments for controlling the generated thumbnail:
+
+  * ``quality`` - A value from 0 to 100 controlling the JPG quality
+    (defaults to 95)
+  * ``left`` and ``top`` - Values from 0 to 1 controlling where the
+    image will be cropped (each defaults to 0.5, namely the center)
+  * ``padding`` - A boolean controlling whether the thumbnail will
+    be padded rather than cropped (default to False)
+  * ``padding_color`` - RGB string controlling the background color
+    when ``padding`` is True (defaults to "#fff")
