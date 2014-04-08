@@ -41,8 +41,7 @@ class GalleriesTests(TestCase):
         image_name = "image.jpg"
         size = (24, 24)
         copy_test_to_media("mezzanine.core", image_name)
-        thumb_name = os.path.join(settings.THUMBNAILS_DIR_NAME,
-                                  "thumbs-%s" % image_name,
+        thumb_name = os.path.join(settings.THUMBNAILS_DIR_NAME, image_name,
                                   image_name.replace(".", "-%sx%s." % size))
         thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
         thumb_image = thumbnail(image_name, *size)
