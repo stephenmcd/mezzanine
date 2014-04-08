@@ -37,7 +37,7 @@ env.admin_pass = conf.get("ADMIN_PASS", None)
 env.user = conf.get("SSH_USER", getuser())
 env.password = conf.get("SSH_PASS", None)
 env.key_filename = conf.get("SSH_KEY_PATH", None)
-env.hosts = conf.get("HOSTS", [])
+env.hosts = conf.get("HOSTS", [""])
 
 env.proj_name = conf.get("PROJECT_NAME", os.getcwd().split(os.sep)[-1])
 env.venv_home = conf.get("VIRTUALENV_HOME", "/home/%s" % env.user)

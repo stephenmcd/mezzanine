@@ -62,7 +62,7 @@ def build_settings_docs(docs_path, prefix=None):
         if setting_default != dynamic:
             setting_default = repr(deep_force_unicode(setting_default))
         lines.extend(["", settings_name, "-" * len(settings_name)])
-        lines.extend(["", urlize(setting["description"]
+        lines.extend(["", urlize(setting["description"] or ""
             ).replace("<a href=\"", "`"
             ).replace("\" rel=\"nofollow\">", " <").replace("</a>", ">`_")])
         if setting["choices"]:
