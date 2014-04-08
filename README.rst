@@ -503,6 +503,8 @@ Sites Using Mezzanine
 * `Arlette Pichardo <http://arlettepichardo.com>`_
 * `Sani Dental Group <http://sanidentalgroup.com>`_
 * `Biocap 06 <http://www.biocap06.fr>`_
+* `Python Baja California <http://pythonbc.co/>`_
+
 
 Quotes
 ======
