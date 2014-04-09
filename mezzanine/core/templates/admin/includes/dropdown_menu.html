@@ -16,7 +16,7 @@
     {% endfor %}
 </ul>
 
-{% if USE_L10N and LANGUAGES|length > 1 %}
+{% if settings.USE_L10N and LANGUAGES|length > 1 %}
 {% get_language_info_list for LANGUAGES as languages %}
 <form>
     <select id="id_language" onchange="window.location.href=this.value;">
