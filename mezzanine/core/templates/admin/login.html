@@ -36,7 +36,7 @@
             <input type="password" required  name="password" id="id_password">
             <input type="hidden" name="this_is_the_login_form" value="1" />
         </div>
-        {% if LANGUAGES|length > 1 %}
+        {% if USE_L10N and LANGUAGES|length > 1 %}
         {% get_language_info_list for LANGUAGES as languages %}
         <div class="form-row">
             <label for="id_language" class="required">{% trans "Language" %}:</label>
