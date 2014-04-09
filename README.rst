@@ -265,6 +265,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
 * `mezzanine-mailchimp`_ - Integrate Mezzanine forms with a MailChimp subscription list.
 * `mezzanine-grappelli`_ - Integrates latest upstream grappelli/filebrowser with Mezzanine.
 * `mezzanine-workout`_ - Store and display FIT data in Mezzanine.
+* `mezzanine-agenda`_ - Event functionality for your Mezzanine sites.
 
 
 Donating
@@ -659,6 +660,7 @@ Quotes
 .. _`mezzanine-mailchimp`: https://bitbucket.org/naritas/mezzanine-mailchimp
 .. _`mezzanine-grappelli`: https://github.com/sephii/mezzanine-grappelli
 .. _`mezzanine-workout`: https://github.com/kampfschlaefer/mezzanine-workout
+.. _`mezzanine-agenda`: https://github.com/jpells/mezzanine-agenda
 
 .. PEOPLE WITH QUOTES
 
