@@ -78,6 +78,8 @@ class SettingsForm(forms.Form):
         """
         for bold in ("``", "*"):
             parts = []
+            if description is None:
+                description = ""
             for i, s in enumerate(description.split(bold)):
                 parts.append(s if i % 2 == 0 else "<b>%s</b>" % s)
             description = "".join(parts)
