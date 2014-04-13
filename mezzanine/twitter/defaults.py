@@ -49,6 +49,7 @@ register_setting(
 register_setting(
     name="TWITTER_CONSUMER_KEY",
     label=_("Twitter OAuth consumer key"),
+    description=_("Twitter OAuth consumer key"),
     editable=True,
     default='',
 )
@@ -56,6 +57,7 @@ register_setting(
 register_setting(
     name="TWITTER_CONSUMER_SECRET",
     label=_("Twitter OAuth consumer secret"),
+    description=_("Twitter OAuth consumer secret"),
     editable=True,
     default='',
 )
@@ -63,6 +65,7 @@ register_setting(
 register_setting(
     name="TWITTER_ACCESS_TOKEN_KEY",
     label=_("Twitter OAuth access token"),
+    description=_("Twitter OAuth access token"),
     editable=True,
     default='',
 )
@@ -70,6 +73,7 @@ register_setting(
 register_setting(
     name="TWITTER_ACCESS_TOKEN_SECRET",
     label=_("Twitter OAuth access token secret"),
+    description=_("Twitter OAuth access token secret"),
     editable=True,
     default='',
 )
