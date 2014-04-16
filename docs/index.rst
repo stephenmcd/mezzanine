@@ -44,8 +44,9 @@ requirements and operations in the :doc:`deployment` and
 information about Mezzanine's :doc:`search-engine`, and a section
 on Mezzanine's :doc:`configuration` which outlines the various settings
 for configuring Mezzanine. Lastly, you can learn about
-:doc:`blog-importing` into Mezzanine, or just browse the auto-generated
-docs for each of Mezzanine's :doc:`packages`.
+:doc:`blog-importing` into Mezzanine, :doc:`twitter-integration`, or
+just browse the auto-generated docs for each of Mezzanine's
+:doc:`packages`.
 
 Table Of Contents
 =================
@@ -69,5 +70,6 @@ Table Of Contents
     search-engine
     configuration
     blog-importing
+    twitter-integration
     packages
     colophon

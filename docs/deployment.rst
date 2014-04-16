@@ -74,27 +74,3 @@ Here's the list of commands provided in a Mezzanine project's
 for more information on working with these:
 
 .. include:: fabfile.rst
-
-
-Twitter Feeds
-=============
-
-If Twitter feeds are implemented in your templates, a cron job is
-required that will run the following management command. For example,
-if we want the tweets to be updated every 10 minutes::
-
-    */10 * * * * python path/to/your/site/manage.py poll_twitter
-
-This ensures that the data is always available in the site's database
-when accessed, and allows you to control how often the Twitter API is
-queried. Note that the Fabric script described earlier includes
-features for deploying templates for cron jobs, which includes the
-job for polling Twitter by default.
-
-As of June 2013, Twitter also requires that all API access is
-authenticated. For this you'll need to configure OAuth credentials for
-your site to access the Twitter API. These settings are configurable
-as Mezzanine settings. See the :doc:`configuration` section for more
-information on these, as well as the `Twitter developer site
-<https://dev.twitter.com/>`_ for info on configuring your OAuth
-credentials.
