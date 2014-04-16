@@ -9,7 +9,7 @@ import sys
 # and the project layout still being in Django 1.3 format.
 from settings import PROJECT_ROOT, PROJECT_DIRNAME
 os.chdir(PROJECT_ROOT)
-sys.path.insert(0, os.path.abspath(os.path.join(PROJECT_ROOT, "..")))
+sys.path.append(os.path.abspath(os.path.join(PROJECT_ROOT, "..")))
 
 
 # Add the site ID CLI arg to the environment, which allows for the site

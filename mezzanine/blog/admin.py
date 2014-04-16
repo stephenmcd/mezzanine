@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
 from mezzanine.core.admin import DisplayableAdmin, OwnableAdmin
+from mezzanine.twitter.admin import TweetableAdminMixin
 
 
 blogpost_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
@@ -24,7 +25,7 @@ blogpost_fieldsets.insert(1, (_("Other posts"), {
 blogpost_list_filter = deepcopy(DisplayableAdmin.list_filter) + ("categories",)
 
 
-class BlogPostAdmin(DisplayableAdmin, OwnableAdmin):
+class BlogPostAdmin(TweetableAdminMixin, DisplayableAdmin, OwnableAdmin):
     """
     Admin class for blog posts.
     """

@@ -20,6 +20,7 @@ import requests
 from mezzanine.conf import settings
 from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_USER, \
     QUERY_TYPE_LIST, QUERY_TYPE_SEARCH
+from mezzanine.twitter import get_auth_settings
 from mezzanine.twitter.managers import TweetManager
 
 
@@ -70,11 +71,8 @@ class Query(models.Model):
         except KeyError:
             raise TwitterQueryException("Invalid query type: %s" % self.type)
         settings.use_editable()
-        auth_settings = (settings.TWITTER_CONSUMER_KEY,
-                         settings.TWITTER_CONSUMER_SECRET,
-                         settings.TWITTER_ACCESS_TOKEN_KEY,
-                         settings.TWITTER_ACCESS_TOKEN_SECRET)
-        if not all(auth_settings):
+        auth_settings = get_auth_settings()
+        if not auth_settings:
             from mezzanine.conf import registry
             if self.value == registry["TWITTER_DEFAULT_QUERY"]["default"]:
                 # These are some read-only keys and secrets we use
