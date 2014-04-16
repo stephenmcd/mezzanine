@@ -505,6 +505,7 @@ Sites Using Mezzanine
 * `Sani Dental Group <http://sanidentalgroup.com>`_
 * `Biocap 06 <http://www.biocap06.fr>`_
 * `Python Baja California <http://pythonbc.co/>`_
+* `The Art Rebellion <http://www.theartrebellion.com/>`_
 
 
 Quotes
