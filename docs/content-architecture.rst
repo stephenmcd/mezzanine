@@ -2,10 +2,78 @@
 Content Architecture
 ====================
 
-Mezzanine primarily revolves around the models found in two packages,
-``mezzanine.core`` and ``mezzanine.pages``. This section describes
-these models and how to extend them to create your own custom content
-for a Mezzanine site.
+Content in Mezzanine primarily revolves around the models found in
+two packages, ``mezzanine.core`` and ``mezzanine.pages``. Many of
+these models are abstract, and very small in scope, and are then
+combined together as the building blocks that form the models you'll
+actually be exposed to, such as ``mezzanine.core.models.Displayable``
+and ``mezzanine.core.pages.Page``, which are the two main models you
+will inherit from when building your own models for content types.
+
+Before we look at ``Displayable`` and ``Page``, here's a quick list of
+all the abstract models used to build them:
+
+  * ``mezzanine.core.models.SiteRelated`` - Contains a related
+    ``django.contrib.sites.models.Site`` field.
+  * ``mezzanine.core.models.Slugged`` - Implements a title and URL
+    (slug).
+  * ``mezzanine.core.models.MetaData`` - Provides SEO meta data, such
+    as title, description and keywords.
+  * ``mezzanine.core.models.TimeStamped`` - Provides created and
+    updated timestamps.
+  * ``mezzanine.core.models.Displayable`` - Combines all the models
+    above, then implements publishing features, such as status and
+    dates.
+  * ``mezzanine.core.models.Ownable`` - Contains a related user field,
+    suitable for content owned by specific authors.
+  * ``mezzanine.core.models.RichText`` - Provides a WYSIWYG editable
+    field.
+  * ``mezzanine.core.models.Orderable`` - Used to implement drag/drop
+    ordering of content, whether out of the box as Django admin
+    inlines, or custom such as Mezzanine's page tree.
+
+And for completeness, here are the primary content types provided
+out of the box to end users, that make use of ``Displayable`` and
+``Page``:
+
+  * ``mezzanine.blog.models.BlogPost`` - Blog posts that subclass
+    ``Displayable`` as they're not part of the site's navigation.
+  * ``mezzanine.pages.models.RichTextPage`` - Default ``Page`` subclass,
+    providing a WYSIWYG editable field.
+  * ``mezzanine.pages.models.Link`` - ``Page`` subclass for links
+    pointing to other URLs.
+  * ``mezzanine.forms.models.Form`` - ``Page`` subclass for building
+    forms.
+  * ``mezzanine.galleries.models.Gallery`` - ``Page`` subclass for
+    building image gallery pages.
+
+These certainly serve as examples for implementing your own types of
+content.
+
+``Displayable`` vs ``Page``
+===========================
+
+``Displayable`` itself is also an abstract model, that at its simplest,
+is used to represent content that contains a URL (also known as a slug).
+It also provides the core features of content such as:
+
+  * Meta data such as a title, description and keywords.
+  * Auto-generated slug from the title.
+  * Draft/published status with the ability to preview drafts.
+  * Pre-dated publishing.
+  * Searchable by Mezzanine's :doc:`search-engine`.
+
+Subclassing ``Displayable`` best suits low-level content that doesn't
+form part of the site's navigation - such as blog posts, or events in a
+calendar. Unlike ``Page``, there's nothing particularly special about
+the ``Displayable`` model - it simply provides a common set of features
+useful to content.
+
+In contrast, the concrete ``Page`` model forms the primary API for
+building a Mezzanine site. It extends ``Displayable``, and implements a
+hierarchical navigation tree. The rest of this section of the
+documentation will focus on the ``Page`` model, and the way it is
+used to build all the types of content a site will have available.
 
 The ``Page`` Model
 ==================
@@ -454,8 +522,8 @@ page if it isn't the primary page for the section::
     {% endfor %}
     </ul>
 
-Non-Page Content
-================
+Third-party App Integration
+---------------------------
 
 Sometimes you might need to use regular Django applications within your
 site, that fall outside of Mezzanine's page structure. Mezzanine fully
@@ -464,37 +532,11 @@ the app's urlpatterns to your project's ``urls.py`` module. Mezzanine's
 blog application for example, does not use ``Page`` content types, and
 is just a regular Django app.
 
-Mezzanine provides some helpers for your Django apps to integrate more
-closely with Mezzanine.
+A common requirement however is for pages in the site's navigation to
+point to the urlpatterns for these regaulr Django apps. Implementing
+this simply requires creating a page with a URL used by the application.
+The template rendered by the application's view will have a ``page``
+variable in its context, that contains the current page object that was
+created with the same URL.
 
-The ``Displayable`` Model
--------------------------
 
-The abstract model ``mezzanine.core.models.Displayable`` and associated
-manager ``mezzanine.core.managers.PublishedManager`` provide common
-features for items that can be displayed on the site with their own
-URLs (also known as slugs). Mezzanine's ``Page`` model subclasses it.
-Some of its features are:
-
-  * Meta data such as a title, description and keywords.
-  * Auto-generated slug from the title.
-  * Draft/published status with the ability to preview drafts.
-  * Pre-dated publishing.
-  * Searchable by Mezzanine's :doc:`search-engine`.
-
-Models that do not inherit from the ``Page`` model described earlier
-should subclass the ``Displayable`` model if any of the above features
-are required. An example of this can be found in the ``mezzanine.blog``
-application, where ``BlogPost`` instances contain their own URLs and
-views that fall outside of the regular URL/view structure of the
-``Page`` model.
-
-Third-party App Integration
----------------------------
-
-A common requirement when using regular Django apps with Mezzanine is
-for pages in the site's navigation to point to the urlpatterns for the
-app. Implementing this simply requires creating a page with a URL used
-by the application. The template rendered by the application's view
-will have a ``page`` variable in its context, that contains the current
-page object that was created with the same URL.
