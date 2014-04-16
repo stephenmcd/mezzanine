@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 from future.builtins import open, range, str
-from future.utils import native_str
 
 from _ast import PyCF_ONLY_AST
 import os
@@ -137,16 +136,11 @@ def _run_checker_for_package(checker, package_name, extra_ignore=None):
     if extra_ignore:
         ignore_strings += extra_ignore
     package_path = path_for_import(package_name)
-    for (root, dirs, files) in os.walk(package_path):
+    for (root, dirs, files) in os.walk(str(package_path)):
         for f in files:
-            # Ignore migrations.
-            directory = root.split(os.sep)[-1]
-            # Using native_str here avoids the dreaded UnicodeDecodeError
-            # on Py2 with filenames with high-bit characters when
-            # unicode_literals in effect:
-            ext = native_str(".py")
-            if (f == "local_settings.py" or not f.endswith(ext)
-                or directory == "migrations"):
+            if (f == "local_settings.py" or not f.endswith(".py")
+                or root.split(os.sep)[-1] == "migrations"):
+                # Ignore
                 continue
             for warning in checker(os.path.join(root, f)):
                 for ignore in ignore_strings:

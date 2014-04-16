@@ -55,15 +55,14 @@ class ConfTests(TestCase):
         setting of the same name.
         """
         Setting.objects.all().delete()
-        django_settings.SITE_TAGLINE = "This tagline is set in settings.py."
-        db_tagline = Setting(name="SITE_TAGLINE",
-                             value="This tagline is set in the database.")
-        db_tagline.save()
+        django_settings.FOO = "Set in settings.py"
+        db_value = Setting(name="FOO", value="Set in database")
+        db_value.save()
         settings.use_editable()
-        first_tagline = settings.SITE_TAGLINE
-        settings.SITE_TITLE
-        second_tagline = settings.SITE_TAGLINE
-        self.assertEqual(first_tagline, second_tagline)
+        first_value = settings.FOO
+        settings.SITE_TITLE  # Triggers access?
+        second_value = settings.FOO
+        self.assertEqual(first_value, second_value)
 
     def test_bytes_conversion(self):
         register_setting(name="BYTES_TEST_SETTING", editable=True, default=b"")
