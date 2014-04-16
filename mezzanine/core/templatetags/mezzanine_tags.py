@@ -2,13 +2,11 @@ from __future__ import absolute_import, division, unicode_literals
 from future.builtins import int, open, str
 
 from hashlib import md5
-from json import loads
 import os
 try:
-    from urllib.request import urlopen
-    from urllib.parse import urlencode, quote, unquote
+    from urllib.parse import quote, unquote
 except ImportError:
-    from urllib import urlopen, urlencode, quote, unquote
+    from urllib import quote, unquote
 
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -181,22 +179,11 @@ def ifinstalled(parser, token):
 @register.render_tag
 def set_short_url_for(context, token):
     """
-    Sets the ``short_url`` attribute of the given model using the
-    bit.ly credentials if they have been specified and saves it.
+    Sets the ``short_url`` attribute of the given model for share
+    links in the template.
     """
     obj = context[token.split_contents()[1]]
-    request = context["request"]
-    if getattr(obj, "short_url") is None:
-        obj.short_url = request.build_absolute_uri(request.path)
-        if context["settings"].BITLY_ACCESS_TOKEN:
-            url = "https://api-ssl.bit.ly/v3/shorten?%s" % urlencode({
-                "access_token": context["settings"].BITLY_ACCESS_TOKEN,
-                "uri": obj.short_url,
-            })
-            response = loads(urlopen(url).read().decode("utf-8"))
-            if response["status_code"] == 200:
-                obj.short_url = response["data"]["url"]
-                obj.save()
+    obj.set_short_url()
     return ""
 
 
