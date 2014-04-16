@@ -338,7 +338,10 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     elif to_height == 0:
         to_height = from_height * to_width // from_width
     if image.mode not in ("P", "L", "RGBA"):
-        image = image.convert("RGBA")
+        try:
+            image = image.convert("RGBA")
+        except:
+            return image_url
     # Required for progressive jpgs.
     ImageFile.MAXBLOCK = 2 * (max(image.size) ** 2)
 
