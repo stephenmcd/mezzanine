@@ -10,8 +10,6 @@
     {% if hide_delete_link or singleton %}.submit-row .deletelink {display:none !important;}{% endif %}
     {% if hide_slug_field %}.slug {display:none !important;}{% endif %}
     {% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
-    {% if not settings.GRAPPELLI_INSTALLED %}
-{% endif %}
 </style>
 <script>
     {% url "static_proxy" as static_proxy_url %}
@@ -42,6 +40,12 @@
 <link rel="stylesheet" type="text/css" href="{% static "mezzanine/css/admin/rtl.css" %}" />
 {% endblock %}
 
+{% block before_content %}
+{% if user.is_authenticated and not is_popup and not request.GET.pop %}
+{% admin_dropdown_menu %}
+{% endif %}
+{% endblock %}
+
 {% block footer %}
 {% if form.this_is_the_login_form %}
     <script src="{% static "mezzanine/js/admin/login.js" %}"></script>
@@ -51,7 +55,7 @@
         <link rel="stylesheet" href="{% static "mezzanine/chosen/chosen.css" %}">
         <script src="{% static "mezzanine/chosen/chosen.jquery.js" %}"></script>
         <script src="{% static "mezzanine/js/admin/navigation.js" %}"></script>
-        {% admin_dropdown_menu %}
+
         {% endif %}
         <script src="{% static "mezzanine/js/admin/ajax_csrf.js" %}"></script>
         {% if settings.GRAPPELLI_INSTALLED %}

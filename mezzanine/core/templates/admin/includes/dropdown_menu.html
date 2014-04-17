@@ -1,4 +1,5 @@
 {% load i18n future mezzanine_tags %}
+<div id="side-panel">
 <div class="dropdown-menu">
 <ul>
     {% for app in dropdown_menu_app_list %}
@@ -26,16 +27,6 @@
     </select>
 </form>
 {% endif %}
-{% if dropdown_menu_sites and dropdown_menu_sites|length > 1 %}
-<form action="{% url "set_site" %}">
-<input type="hidden" name="next" value="{{ request.path }}">
-<select name="site_id" onchange="this.form.submit();">
-{% for site in dropdown_menu_sites %}
-<option value="{{ site.id }}"
-    {% if site.id == dropdown_menu_selected_site_id %} selected{% endif %}
-    >{{ site }}</option>
-{% endfor %}
-</select>
-</form>
-{% endif %}
+</div>
+<div id="side-panel-toggle"></div>
 </div>

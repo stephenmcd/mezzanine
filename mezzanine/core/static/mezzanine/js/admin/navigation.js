@@ -1,13 +1,9 @@
 
 jQuery(function($) {
 
-    $('<div id="side-panel"></div>').insertBefore('#content');
-    // Empty out the breadcrumbs div and add the menu into it.
-    $('#side-panel').prepend($('.dropdown-menu'));
-    $('body').prepend($('.messagelist'));
     $('.admin-title').click(function() {location = window.__admin_url;});
     $('#user-tools').after($('.dropdown-menu form'));
-    $('#header form').addClass('dark-select').find('select').chosen();
+    $('#header form').show().addClass('dark-select').find('select').chosen();
     $('.changelist-actions select').chosen();
 
     // Set the hrefs for the primary menu items to the href of their first
@@ -74,7 +70,7 @@ jQuery(function($) {
         $('.dropdown-menu li li a[href="' + pages + '"]').addClass('selected');
     }
 
-    // Get panel hidden/shown state from local storage
+    // Get panel hidden/shown state from local storage.
     var side_menu = $('.dropdown-menu');
     var messages = $('.messagelist');
     var content = $('#content');
@@ -86,17 +82,17 @@ jQuery(function($) {
     }
 
     // Add controls and logic for hiding/showing the admin panel
-    // and toggle the panel_hidden element in local storage
-    side_menu.after('<div id="side-panel-toggle"></div>');
+    // and toggle the panel_hidden element in local storage.
     $('#side-panel-toggle').click(function() {
+        var panelHidden = localStorage['panel_hidden'] == '1' ? '0' : '1';
         // Initialize animated elements
         bottom_controls.addClass('animated');
         // Toggle the content, message list, and side panel
         messages.addClass('animated').toggleClass('full');
         side_menu.addClass('animated').toggleClass('hidden');
         content.addClass('animated').toggleClass('full');
-        // Make panel state persistant by toggling the local storage
-        localStorage['panel_hidden'] = (localStorage['panel_hidden'] == '1' ? '0':'1');
+        // Make panel state persistant by toggling the local storage.
+        localStorage['panel_hidden'] = panelHidden;
     });
 
 });

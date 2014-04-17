@@ -166,6 +166,9 @@ body.popup .breadcrumbs + ul.messagelist {
     font-size: 15px;
     color: #ccc;
 }
+.dropdown-menu form {
+    display: none;
+}
 #side-panel-toggle {
     background-color: #eee;
     cursor: pointer;
