@@ -1,3 +1,113 @@
+Version 3.1.0 (Apr 17, 2014)
+----------------------------
+
+  * Allow auth admin's change password view to be reversed - Stephen McDonald
+  * Fix for ignoring ``search_fields`` when they are set on the ModelAdmin - Sam Kingston
+  * Make pillow an explicit dependency since wheel distributions can't have optional dependencies, and clean up uses of it - Stephen McDonald
+  * Update reference and link for Pillow in Deps - Matt Stevenson
+  * Add Debian and Ubuntu prereqs for Pillow - Matt Stevenson
+  * Something is broken with password-resetting. Building a test to reproduce the issue (already hitting the first problem). Will do further testing and fixes in this branch - Arnold Krille
+  * Further up the test-road. Running this with ``Django1.5.5`` works here. The test reaches the page congratulating to the new password and showing a link to "Log in". Unfortunately that link leads to an invalid url '/accounts/login' by default:-( But thats probably stuff for a different Issue/PR - Arnold Krille
+  * fix for the python3 problem? - Arnold Krille
+  * Make the urls version-dependant. This feels a bit dirty. But it could actually work - Arnold Krille
+  * Python3 fixes. Don't know if this is correct, its my first actual encounter with python3;-) - Arnold Krille
+  * Add a note about osx setup for libjpeg - Stephen McDonald
+  * When testing, do so in english. And follow any language-redirects should these occure - Arnold Krille
+  * Better uidb64 password reset version check - Stephen McDonald
+  * Fix the fix for reversing the change password form when multiple langages are enabled in the admin - Stephen McDonald
+  * Provide a warning on admin login when the default password is being used - Stephen McDonald
+  * Bump grappelli version to 0.3.6 - Stephen McDonald
+  * Fix ``add_to_builtins`` import for Django 1.7 - Stephen McDonald
+  * Initial version of new admin menu - Stephen McDonald
+  * Fixing messages location - Josh Batchelor
+  * Adds docs for ``HOST_THEMES`` configuration - geojeff
+  * Made a few grammatical fixes - geojeff
+  * Removed a caveat that can go in the PR comments - geojeff
+  * Update css to make side nav full height. Add js to open/close section subnav - Josh Cartmell
+  * Don't animate the admin menu when first loading - Stephen McDonald
+  * Better defaults for non-english language codes - Stephen McDonald
+  * Added setting ``ADMIN_MENU_COLLAPSED`` for controlling admin side-nav behaviour - Stephen McDonald
+  * Remove dashboard link from admin menu - replace with cliackable Mezzanine title - Stephen McDonald
+  * Highlight selected item in admin nav - Stephen McDonald
+  * Move site/lang drop-downs into top nav bar - Stephen McDonald
+  * Bigger buttons throughout admin - Stephen McDonald
+  * regen settings docs - Stephen McDonald
+  * Move multi-site docs into new section - Stephen McDonald
+  * Fix tuple/list setting handling - Stephen McDonald
+  * Allow page subclasses to implement ``get_template_name`` to customize template selection in the page view. Closes #957 - Stephen McDonald
+  * Use dark chosen plugin for top nav dropdowns in admin - Stephen McDonald
+  * Use Mezzanine's branding for the admin nav title - Stephen McDonald
+  * Consistent message styling in admin - Stephen McDonald
+  * Mentioning ``PAGE_MENU_TEMPLATES_DEFAULT``. Updated the *Filtering Menus* section to mention the `PAGE_MENU_TEMPLATES_DEFAULT` setting which controls what entries get pre-selected in the admin section - Philip Mateescu
+  * Apply jquery chosen to other selects in the admin - Stephen McDonald
+  * Better languages defaults - Stephen McDonald
+  * Remove broken/unnecessary jquery resize plugin - Stephen McDonald
+  * Don't use sans-serif as the admin font (should fall back to Arial) - Eduardo Rivas
+  * Adjust CSS selector and colors for dark language selector. The dropdown in the admin login was being targeted as a dark dropdown - Eduardo Rivas
+  * Fix admin nav margin with alert messages - Stephen McDonald
+  * Use bigreason tinymce theme - Stephen McDonald
+  * Actually apply tinymce skin - Stephen McDonald
+  * Make admin panel collapsible to the left with a nice animation - Eduardo Rivas
+  * Make the admin panel hidden/show state persist in between page loads. This one uses localStorage instead of cookies - Eduardo Rivas
+  * Make the admin menu toggle panel a bit more subtle - Stephen McDonald
+  * Make sure the messages bar responds to panel toggling - Eduardo Rivas
+  * Remove left-over rule - Eduardo Rivas
+  * Fix regression in save bottom of change-list view - Eduardo Rivas
+  * Apply z-index to the whole side panel, not just the inner list - Eduardo Rivas
+  * Handle edge case of bottom controls in settings page - Eduardo Rivas
+  * Fix message margin with collapsed nav - Stephen McDonald
+  * Deal with POSTS in ssl middleware. Closes #975 - Stephen McDonald
+  * Fix POST handling in ssl middleware - Stephen McDonald
+  * Allow authentiated users to undo their ratings - Stephen McDonald
+  * Messages shouldn't cover admin nav when scrolling horizontally - Stephen McDonald
+  * Added support for search fields across model relations - Stephen McDonald
+  * Fix device handling for non-ascii user agents. Closes #976 - Stephen McDonald
+  * Bring back admin meta title - Eduardo Rivas
+  * Added distinct to search queryset, to prevent relation spanning search fields from producing duplicate results - Stephen McDonald
+  * Fix non-ascii form response CSV downloads on Python 3 - Stephen McDonald
+  * Update test Django version - Stephen McDonald
+  * Only attempt second phase cache render on valid http status. Closes #967 - Stephen McDonald
+  * Fix deprecated depth arg to ``select_related`` - Stephen McDonald
+  * Port over ``FORMS_EXTRA_WIDGETS`` feature from forms-builder - Stephen McDonald
+  * ``unicode_literals`` shouldn't be used in migrations. Because strings are passed to type(), which requires a non-unicode. string in python 2. Fixes #871 refs toastdriven/django-tastypie#1007 - Gavin Wahl
+  * Fix forms-builer port - Stephen McDonald
+  * Add ``FORMS_EXTRA_WIDGETS`` to Mezzanine's settings - Stephen McDonald
+  * Changed fabfile ``LIVE_HOSTNAME`` setting to DOMAINS, and handle multiple domains for a single project - Stephen McDonald
+  * Mention ``parent.page`` in the menu variables docs section - Stephen McDonald
+  * Only use ``RICHTEXT_WIDGET_CLASS`` if a RichTextField's widget is not. specified in the form's Meta - Alex Hill
+  * Add tests for RichTextField - Alex Hill
+  * update the migration files of blog and generic to use custom user model - Ziwei Zhou
+  * Handle removal of ``CurrentSiteManager._validate_field_name()`` in Django 1.7 - Stephen McDonald
+  * Better line break and HTML entities handling in form emails. Support line breaks in HTML email (so that they don't collapse when. rendered) and HTML entities in plain text email (unescape them to make. them legible) - Dominique Bischof
+  * Provide separate overridable email templates for the extra recipients in ``mezzanine.forms`` - Stephen McDonald
+  * added padding functionality to thumbnail tag - Bryan Clement
+  * removed rogue print statement - Bryan Clement
+  * Support hard-coded URLs in ``LOGIN_REDIRECT_URL``. Closes #992 - Stephen McDonald
+  * Port forms-builder fix for large file uploads - Stephen McDonald
+  * Allow subclasses of PageMiddleware to be used in page view check - Stephen McDonald
+  * Clean up thumbnail padding - Stephen McDonald
+  * Correctly handle 404 exceptions for static files during development - Stephen McDonald
+  * Store thumbnails in individual directories named after the original filename, so that we can accurately delete them from within filebrowser where necessary. Closes #995 - Stephen McDonald
+  * Update thumbnail test path - Stephen McDonald
+  * Disable the 'Add' option of comments in the admin, because the program crash when you try to create a new comment, is better delete this option for avoid this problem - Jesus Armando Anaya Orozco
+  * Add a new site. Add new site created with Mezzanine - Anthony
+  * converted ratios to floats. ratios were integer division, which didn't work as desired. casting the numerators to floats cures this ailment - lykkin
+  * added padding color option into thumbnail tag - lykkin
+  * Document optional thumbnail tag args - Stephen McDonald
+  * Fix thumbnail test - Stephen McDonald
+  * Added ``USE_L10N`` check for language dropdowns in admin - Rocky Meza
+  * Fix ``USE_L10N`` check for admin language selector - Stephen McDonald
+  * Handle null descriptions ofr settings in conf form - Stephen McDonald
+  * Catches exceptions in thumbnail ``image.convert`` - Doug Evenhouse
+  * Prevent some warnings during tests - Stephen McDonald
+  * Restructure content architecture docs - lead in with describing how Page/Displayable are built and used - Stephen McDonald
+  * Move ``short_url`` generation code from template tag to model, so we can use it for tweets - Stephen McDonald
+  * Added TweetableAdminMixin and applied to BlogPostAdmin - used for sending tweets from admin - Stephen McDonald
+  * Updated docs for twitter integration - document setup for sending tweets plus move to own section - Stephen McDonald
+  * Move the side-menu directly where it should be in the admin template so we don't have to juggle it with jQuery - Stephen McDonald
+  * Update dashoboard screenshot - Stephen McDonald
+  * Bump grappelli/FB versions - Stephen McDonald
+
 Version 3.0.9 (Feb 12, 2014)
 ----------------------------
 
@@ -416,7 +526,7 @@ Version 1.4.7 (May 18, 2013)
   * Fixed 0005 migration wrt custom user models - Rocky Meza
   * Correctly validate float settings in ``mezzanine.conf`` - Stephen McDonald
   * Added some validation in the createdb command that fails if a Mezzanine table exists, to prevent people from running it and accidentally faking new migrations that need to be run - Stephen McDonald
-  * ``mezzanine/accounts/templates/email/account_approved.html:`` removed the extra \http:// - Alexandre Hajjar
+  * ``mezzanine/accounts/templates/email/account_approved.html:`` removed the extra. "http://" - Alexandre Hajjar
   * Make fabfile work in Windows. Two small changes allow deployment via Fabric from Windows: * Use ``posixpath.join`` instead of ``os.path.join`` to construct all paths destined for the remote machine. * Check for ``"fab-file.py"`` as well as "fab" in ``sys.argv``, to handle the way setuptools-generated command-line scripts work in Windows - Alex Hill
   * Fix urlpattern for archive year - Stephen McDonald
   * Hide printing ``STATIC_ROOT`` in deploys - Stephen McDonald
