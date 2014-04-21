@@ -266,6 +266,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
 * `mezzanine-grappelli`_ - Integrates latest upstream grappelli/filebrowser with Mezzanine.
 * `mezzanine-workout`_ - Store and display FIT data in Mezzanine.
 * `mezzanine-agenda`_ - Event functionality for your Mezzanine sites.
+* `mezzanine-dpaste`_ - Integrate `dpaste`_, a Django pastebin, into your Mezzanine site.
 
 
 Donating
@@ -663,6 +664,8 @@ Quotes
 .. _`mezzanine-grappelli`: https://github.com/sephii/mezzanine-grappelli
 .. _`mezzanine-workout`: https://github.com/kampfschlaefer/mezzanine-workout
 .. _`mezzanine-agenda`: https://github.com/jpells/mezzanine-agenda
+.. _`mezzanine-dpaste`: https://github.com/prikhi/mezzanine-dpaste
+.. _`dpaste`: https://github.com/bartTC/dpaste
 
 .. PEOPLE WITH QUOTES
 
