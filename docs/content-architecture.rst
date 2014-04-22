@@ -522,28 +522,24 @@ page if it isn't the primary page for the section::
     {% endfor %}
     </ul>
 
-Third-party App Integration
----------------------------
+Integrating Third-party Apps with Pages
+=======================================
 
 Sometimes you might need to use regular Django applications within your
-site, that fall outside of Mezzanine's page structure. Mezzanine fully
-supports using regular Django applications. All you need to do is add
-the app's urlpatterns to your project's ``urls.py`` module. Mezzanine's
-blog application for example, does not use ``Page`` content types, and
-is just a regular Django app.
+site, that fall outside of Mezzanine's page structure. Of course this is
+fine since Mezzanine is just Django - you can simply add the app's
+urlpatterns to your project's ``urls.py`` module like a regular Django
+project.
 
-A common requirement however is for pages in the site's navigation to
+A common requirement however is for pages in Mezzanine's navigation to
 point to the urlpatterns for these regular Django apps. Implementing
-this simply requires creating a page with a URL used by the application.
-The template rendered by the application's view will have a ``page``
-variable in its context, that contains the current page object that was
-created with the same URL. This allows Mezzanine to mark the ``Page`` as
-active in the Navigation, and to generate breadcrumbs up to the ``Page``.
+this simply requires creating a page in the admin, with a URL matching
+a pattern used by the application. With that in place, the template
+rendered by the application's view will have a ``page`` variable in
+its context, that contains the current page object that was created
+with the same URL. This allows Mezzanine to mark the ``page`` instance
+as active in the navigation, and to generate breadcrumbs for the
+``page`` instance as well.
 
-.. note::
-
-    In order to have the ``page`` variable added to a request's context,
-    the Django app's views must return a ``TemplateResponse`` object.
-    This is easily accomplished by rendering the response using the
-    ``mezzanine.utils.views`` module's ``render`` function instead of
-    Django's ``render_to_response`` or ``render`` functions.
+An example of this setup is Mezzanine's blog application, which does not
+use ``Page`` content types, and is just a regular Django app.
