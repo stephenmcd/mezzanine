@@ -85,11 +85,11 @@ templates = {
         "mode": "600",
     },
     "gunicorn": {
-        "local_path": "deploy/gunicorn.conf.py",
+        "local_path": "deploy/gunicorn.conf.py.template",
         "remote_path": "%(proj_path)s/gunicorn.conf.py",
     },
     "settings": {
-        "local_path": "deploy/live_settings.py",
+        "local_path": "deploy/local_settings.py.template",
         "remote_path": "%(proj_path)s/local_settings.py",
     },
 }
