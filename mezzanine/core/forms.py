@@ -38,7 +38,6 @@ class Html5Mixin(object):
 
 _tinymce_js = ()
 if settings.GRAPPELLI_INSTALLED:
-    _path =
     _tinymce_js = ("grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js",
                    settings.TINYMCE_SETUP_JS)
 
