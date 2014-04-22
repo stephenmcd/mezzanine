@@ -52,6 +52,9 @@ ul, ol {
 .tree .active > a {
   background-color: #EEEEEE;
 }
+.tree .active-branch > a {
+  font-weight: bold;
+}
 .breadcrumb > li + li:before {
   padding: 0 5px 0 10px;
 }
