@@ -50,7 +50,7 @@ if "django.contrib.sitemaps" in settings.INSTALLED_APPS:
 if getattr(settings, "DEBUG", False):
     urlpatterns += patterns("",
         ("^robots.txt$", lambda r: HttpResponse("User-agent: *\nDisallow: /",
-                                                mimetype="text/plain")),
+                                                content_type="text/plain")),
     )
 
 # Miscellanous Mezzanine patterns.

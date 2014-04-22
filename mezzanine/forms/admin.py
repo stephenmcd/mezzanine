@@ -92,7 +92,7 @@ class FormAdmin(PageAdmin):
         submitted = entries_form.is_valid()
         if submitted:
             if request.POST.get("export"):
-                response = HttpResponse(mimetype="text/csv")
+                response = HttpResponse(content_type="text/csv")
                 timestamp = slugify(datetime.now().ctime())
                 fname = "%s-%s.csv" % (form.slug, timestamp)
                 header = "attachment; filename=%s" % fname
@@ -137,7 +137,7 @@ class FormAdmin(PageAdmin):
         """
         field_entry = get_object_or_404(FieldEntry, id=field_entry_id)
         path = join(fs.location, field_entry.value)
-        response = HttpResponse(mimetype=guess_type(path)[0])
+        response = HttpResponse(content_type=guess_type(path)[0])
         f = open(path, "r+b")
         response["Content-Disposition"] = "attachment; filename=%s" % f.name
         response.write(f.read())
