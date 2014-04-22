@@ -398,6 +398,10 @@ def editable_loader(context):
     if settings.INLINE_EDITING_ENABLED and context["has_site_permission"]:
         t = get_template("includes/editable_toolbar.html")
         context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
+        try:
+            context["editable_obj"]
+        except KeyError:
+            context["editable_obj"] = context.get("page", None)
         context["toolbar"] = t.render(Context(context))
         context["richtext_media"] = RichTextField().formfield().widget.media
     return context

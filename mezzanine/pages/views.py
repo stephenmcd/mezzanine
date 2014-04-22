@@ -42,13 +42,12 @@ def admin_page_ordering(request):
 
 def page(request, slug, template=u"pages/page.html", extra_context=None):
     """
-    Select a template for a page and render it. The ``extra_context``
-    arg will include a ``page`` object that's added via
+    Select a template for a page and render it. The request
+    object should have a ``page`` attribute that's added via
     ``mezzanine.pages.middleware.PageMiddleware``. The page is loaded
-    via the middleware so that other apps with urlpatterns that match
-    the current page can include a page in their template context.
+    earlier via middleware to perform various other functions.
     The urlpattern that maps to this view is a catch-all pattern, in
-    which case the page instance will be None, so raise a 404 then.
+    which case the page attribute won't exist, so raise a 404 then.
 
     For template selection, a list of possible templates is built up
     based on the current page. This list is order from most granular
@@ -65,11 +64,9 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
         raise ImproperlyConfigured("mezzanine.pages.middleware.PageMiddleware "
                                    "(or a subclass of it) is missing from " +
                                    "settings.MIDDLEWARE_CLASSES")
-
-    extra_context = extra_context or {}
     try:
-        page = extra_context["page"]
-    except KeyError:
+        request.page
+    except AttributeError:
         raise Http404
 
     # Check for a template name matching the page's slug. If the homepage
@@ -77,20 +74,20 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     # used, since the slug "/" won't match a template name.
     template_name = str(slug) if slug != home_slug() else "index"
     templates = [u"pages/%s.html" % template_name]
-    method_template = page.get_content_model().get_template_name()
+    method_template = request.page.get_content_model().get_template_name()
     if method_template:
         templates.insert(0, method_template)
-    if page.content_model is not None:
+    if request.page.content_model is not None:
         templates.append(u"pages/%s/%s.html" % (template_name,
-            page.content_model))
-    for parent in page.get_ascendants(for_user=request.user):
+            request.page.content_model))
+    for parent in request.page.get_ascendants(for_user=request.user):
         parent_template_name = str(parent.slug)
         # Check for a template matching the page's content model.
-        if page.content_model is not None:
+        if request.page.content_model is not None:
             templates.append(u"pages/%s/%s.html" % (parent_template_name,
-                page.content_model))
+                request.page.content_model))
     # Check for a template matching the page's content model.
-    if page.content_model is not None:
-        templates.append(u"pages/%s.html" % page.content_model)
+    if request.page.content_model is not None:
+        templates.append(u"pages/%s.html" % request.page.content_model)
     templates.append(template)
-    return render(request, templates, extra_context)
+    return render(request, templates, extra_context or {})
