@@ -71,7 +71,7 @@ def set_dynamic_settings(s):
     s.setdefault("STATICFILES_FINDERS", defaults.STATICFILES_FINDERS)
     tuple_list_settings = ["AUTHENTICATION_BACKENDS", "INSTALLED_APPS",
                            "MIDDLEWARE_CLASSES", "STATICFILES_FINDERS",
-                           "LANGUAGES"]
+                           "LANGUAGES", "TEMPLATE_CONTEXT_PROCESSORS"]
     for setting in tuple_list_settings[:]:
         if not isinstance(s.get(setting, []), list):
             s[setting] = list(s[setting])
@@ -79,6 +79,18 @@ def set_dynamic_settings(s):
             # Setting is already a list, so we'll exclude it from
             # the list of settings we'll revert back to tuples.
             tuple_list_settings.remove(setting)
+
+    # From Mezzanine 3.1.2 and onward we added the context processor
+    # for handling the page variable in templates - here we help
+    # upgrading by adding it if missing, with a warning. This helper
+    # can go away eventually.
+    cp = "mezzanine.pages.context_processors.page"
+    if ("mezzanine.pages" in s["INSTALLED_APPS"] and
+            cp not in s["TEMPLATE_CONTEXT_PROCESSORS"]):
+        warn("%s is required in the TEMPLATE_CONTEXT_PROCESSORS setting. "
+             "Adding it now, but you should update settings.py to "
+             "explicitly include it." % cp)
+        append("TEMPLATE_CONTEXT_PROCESSORS", cp)
 
     # Set up cookie messaging if none defined.
     storage = "django.contrib.messages.storage.cookie.CookieStorage"
