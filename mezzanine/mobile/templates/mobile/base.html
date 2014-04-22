@@ -25,11 +25,6 @@
 {% block extra_css %}{% endblock %}
 {% endcompress %}
 
-{% compress js %}
-<script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
-<script src="{% static "js/jquery.mobile-1.0a2.js" %}"></script>
-{% endcompress %}
-
 {% block extra_head %}{% endblock %}
 
 </head>
@@ -57,7 +52,11 @@
 
 </div>
 
+{% compress js %}
+<script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
+<script src="{% static "js/jquery.mobile-1.0a2.js" %}"></script>
 {% include "mobile/includes/footer_scripts.html" %}
+{% endcompress %}
 
 </body>
 </html>
