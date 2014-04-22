@@ -533,10 +533,17 @@ blog application for example, does not use ``Page`` content types, and
 is just a regular Django app.
 
 A common requirement however is for pages in the site's navigation to
-point to the urlpatterns for these regaulr Django apps. Implementing
+point to the urlpatterns for these regular Django apps. Implementing
 this simply requires creating a page with a URL used by the application.
 The template rendered by the application's view will have a ``page``
 variable in its context, that contains the current page object that was
-created with the same URL.
+created with the same URL. This allows Mezzanine to mark the ``Page`` as
+active in the Navigation, and to generate breadcrumbs up to the ``Page``.
 
+.. note::
 
+    In order to have the ``page`` variable added to a request's context,
+    the Django app's views must return a ``TemplateResponse`` object.
+    This is easily accomplished by rendering the response using the
+    ``mezzanine.utils.views`` module's ``render`` function instead of
+    Django's ``render_to_response`` or ``render`` functions.
