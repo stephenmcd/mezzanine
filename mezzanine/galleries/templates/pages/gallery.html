@@ -6,22 +6,6 @@
 <link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}">
 {% endblock extra_css %}
 
-{% block extra_js %}
-{{ block.super }}
-<script src="{% static "mezzanine/js/magnific-popup.js" %}"></script>
-<script>
-$(document).ready(function() {
-    $('.gallery').magnificPopup({
-        delegate: 'a',
-        type: 'image',
-        gallery: {
-            enabled: true,
-        }
-    });
-});
-</script>
-{% endblock %}
-
 {% block main %}
 {{ block.super }}
 
@@ -42,3 +26,18 @@ $(document).ready(function() {
 </div>
 {% endblock %}
 
+{% block extra_js %}
+{{ block.super }}
+<script src="{% static "mezzanine/js/magnific-popup.js" %}"></script>
+<script>
+$(document).ready(function() {
+    $('.gallery').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        gallery: {
+            enabled: true,
+        }
+    });
+});
+</script>
+{% endblock %}

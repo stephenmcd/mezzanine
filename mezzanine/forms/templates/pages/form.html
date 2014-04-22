@@ -2,13 +2,6 @@
 
 {% load mezzanine_tags %}
 
-{% block extra_js %}
-{{ block.super }}
-<script>
-$(function() {$('.mezzanine-form :input:visible:enabled:first').focus();});
-</script>
-{% endblock %}
-
 {% block main %}
 {{ block.super }}
 {% if request.GET.sent %}
@@ -34,3 +27,10 @@ $(function() {$('.mezzanine-form :input:visible:enabled:first').focus();});
 
 {% endblock %}
 
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+$(function() {$('.mezzanine-form :input:visible:enabled:first').focus();});
+</script>
+{% endblock %}
