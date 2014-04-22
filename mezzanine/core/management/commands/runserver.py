@@ -10,14 +10,15 @@ from django.views.static import serve
 
 class MezzStaticFilesHandler(StaticFilesHandler):
 
+    def _should_handle(self, path):
+        return path.startswith(self.base_url[2])
+
     def get_response(self, request):
         response = super(MezzStaticFilesHandler, self).get_response(request)
-        handled = (settings.STATIC_URL, settings.MEDIA_URL)
-        if response.status_code == 404 and request.path.startswith(handled):
+        if response.status_code == 404:
             path = self.file_path(request.path).replace(os.sep, "/")
             try:
-                response = serve(request, path,
-                                 document_root=settings.STATIC_ROOT)
+                return serve(request, path, document_root=settings.STATIC_ROOT)
             except Http404:
                 # Just return the original 404 response.
                 pass
