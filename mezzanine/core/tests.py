@@ -320,6 +320,9 @@ class CoreTests(TestCase):
         response = self.client.get(url)
         csrf = self._get_csrftoken(response)
         url = self._get_formurl(response)
+        from django import VERSION
+        if VERSION < (1, 6):
+            return
         response = self.client.post(url, {
             'csrfmiddlewaretoken': csrf,
             'new_password1': 'newdefault',
