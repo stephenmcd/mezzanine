@@ -211,10 +211,19 @@ fieldset.module {
     margin-bottom: 25px;
 }
 fieldset .field-box {
-    margin-right: 150px !important;
+    margin: 0 150px 10px 0 !important;
 }
-fieldset .field-box .help {
-    margin: -10px 25px 15px 131px !important;
+.form-row label + p.datetime {
+    margin-bottom: 5px;
+}
+.datetimeshortcuts a {
+    margin: 5px;
+}
+form .aligned input + label + p.help {
+    margin: 2px 0 0 152px !important;
+}
+.form-row .nbsp {
+    display: none;
 }
 .help b {
     color: #666;
