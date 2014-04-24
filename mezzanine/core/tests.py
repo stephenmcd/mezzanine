@@ -304,7 +304,6 @@ class CoreTests(TestCase):
         self.assertEqual(response.status_code, 200)
         csrf = self._get_csrftoken(response)
         url = self._get_formurl(response)
-        #print("csrf: %s, url: %s" % (csrf, url))
 
         response = self.client.post(url, {
             'csrfmiddlewaretoken': csrf,
@@ -327,8 +326,6 @@ class CoreTests(TestCase):
             'new_password2': 'newdefault'
         }, follow=True)
         self.assertEqual(response.status_code, 200)
-        # TODO: This now contains a link that is '/accounts/login'
-        #       and doesn't exist:-(
 
     def test_richtext_widget(self):
         """
@@ -350,3 +347,23 @@ class CoreTests(TestCase):
                               richtext_widget)
         self.assertIsInstance(form.fields['text_overridden'].widget,
                               Textarea)
+
+    def test_admin_sites_dropdown(self):
+        """
+        Ensures the site selection dropdown appears in the admin.
+        """
+        self.client.login(username=self._username, password=self._password)
+        response = self.client.get('/admin/', follow=True)
+        set_site_url = reverse("set_site")
+        # Set site URL shouldn't appear without multiple sites.
+        self.assertNotContains(response, set_site_url)
+        site1 = Site.objects.create(domain="test-site-dropdown1.com",
+                                    name="test-site-dropdown1.com")
+        site2 = Site.objects.create(domain="test-site-dropdown2.com",
+                                    name="test-site-dropdown2.com")
+        response = self.client.get('/admin/', follow=True)
+        self.assertContains(response, set_site_url)
+        self.assertContains(response, site1.name)
+        self.assertContains(response, site2.name)
+        site1.delete()
+        site2.delete()
