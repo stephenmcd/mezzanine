@@ -45,7 +45,10 @@ jQuery(function($) {
         });
     }
 
-    var pages, selected = false;
+    var pages, path = location.pathname, selected = false;
+    if (path == '/admin/password_change/') {
+        path = '/admin/auth/user/';
+    }
     $('.dropdown-menu ul li li > a').each(function() {
         // Open current section on load.
         var href = $(this).attr('href');
@@ -57,7 +60,7 @@ jQuery(function($) {
             $(this).addClass('selected');
             return true;
         });
-        if (location.pathname.indexOf(href) == 0) {
+        if (path.indexOf(href) == 0) {
             selected = true;
             $(this).addClass('selected');
             if (window.__admin_menu_collapsed) {
@@ -65,7 +68,7 @@ jQuery(function($) {
             }
         }
     });
-    if (!selected && location.pathname != window.__admin_url) {
+    if (!selected && path != window.__admin_url) {
         $('.dropdown-menu li li a[href="' + pages + '"]').addClass('selected');
     }
 
