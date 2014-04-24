@@ -153,6 +153,15 @@ def set_dynamic_settings(s):
     # Ensure Grappelli is after Mezzanine in app order so that
     # admin templates are loaded in the correct order.
     grappelli_name = s.get("PACKAGE_NAME_GRAPPELLI")
+    if s["TESTING"]:
+        # Optional apps aren't installed when testing, but we need
+        # grappelli to perform some admin tests for certain HTML.
+        try:
+            __import__(grappelli_name)
+        except ImportError:
+            pass
+        else:
+            append("INSTALLED_APPS", grappelli_name)
     try:
         move("INSTALLED_APPS", grappelli_name, len(s["INSTALLED_APPS"]))
     except ValueError:
