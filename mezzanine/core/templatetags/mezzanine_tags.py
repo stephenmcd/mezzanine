@@ -455,6 +455,9 @@ def editable(parsed, context, token):
         attr = field.pop()
         while field:
             obj = getattr(obj, field.pop(0))
+            if callable(obj):
+                # Allows {% editable page.get_content_model.content %}
+                obj = obj()
         return obj, attr
 
     fields = [parse_field(f) for f in token.split_contents()[1:]]
