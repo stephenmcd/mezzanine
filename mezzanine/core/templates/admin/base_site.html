@@ -37,6 +37,12 @@
 {% endif %}
 {% endif %}
 
+<script>
+jQuery(function($) {
+    $('.admin-title').click(function() {location = window.__admin_url;});
+});
+</script>
+
 {% endblock %}
 
 {% block rtl_styles %}

@@ -1,7 +1,6 @@
 
 jQuery(function($) {
 
-    $('.admin-title').click(function() {location = window.__admin_url;});
     $('#user-tools').after($('.dropdown-menu form'));
     $('#header form').show().addClass('dark-select').find('select').chosen();
     $('.changelist-actions select').chosen();
