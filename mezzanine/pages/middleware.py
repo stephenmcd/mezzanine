@@ -120,7 +120,7 @@ class PageMiddleware(object):
             processor_response = processor(request, page)
             if isinstance(processor_response, HttpResponse):
                 return processor_response
-            elif processor_response:
+            elif processor_response and hasattr(response, "context_data"):
                 try:
                     for k in processor_response:
                         if k not in response.context_data:
