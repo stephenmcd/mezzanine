@@ -2,6 +2,7 @@
 import os
 import sys
 from setuptools import setup, find_packages
+from shutil import rmtree
 from mezzanine import __version__ as version
 
 
@@ -10,6 +11,7 @@ exclude = ["mezzanine/project_template/dev.db",
 if sys.argv == ["setup.py", "test"]:
     exclude = []
 exclude = dict([(e, None) for e in exclude])
+
 for e in exclude:
     if e.endswith(".py"):
         try:
@@ -20,6 +22,16 @@ for e in exclude:
         with open(e, "r") as f:
             exclude[e] = (f.read(), os.stat(e))
         os.remove(e)
+    except:
+        pass
+
+if sys.argv[:2] == ["setup.py", "bdist_wheel"]:
+    # Remove previous build dir when creating a wheel build,
+    # since if files have been removed from the project,
+    # they'll still be cached in the build dir and end up
+    # as part of the build, which is really neat!
+    try:
+        rmtree("build")
     except:
         pass
 
