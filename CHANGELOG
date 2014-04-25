@@ -1,3 +1,9 @@
+Version 3.1.3 (Apr 25, 2014)
+----------------------------
+
+  * Fix regression in page middleware on non TemplateResponse responses - Stephen McDonald
+  * Revert change to javascript location in default templates - Stephen McDonald
+
 Version 3.1.2 (Apr 25, 2014)
 ----------------------------
 
