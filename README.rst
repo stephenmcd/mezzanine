@@ -508,7 +508,7 @@ Sites Using Mezzanine
 * `Python Baja California <http://pythonbc.co/>`_
 * `The Art Rebellion <http://www.theartrebellion.com/>`_
 * `Engineered Arts <https://www.engineeredarts.co.uk>`_
-* `Paul Whipp Consulting <www.paulwhippconsulting.com>`_
+* `Paul Whipp Consulting <http://www.paulwhippconsulting.com>`_
 * `Lipman Art <https://lipmanart.com/>`_
 
 
