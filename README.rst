@@ -510,6 +510,7 @@ Sites Using Mezzanine
 * `Engineered Arts <https://www.engineeredarts.co.uk>`_
 * `Paul Whipp Consulting <http://www.paulwhippconsulting.com>`_
 * `Lipman Art <https://lipmanart.com/>`_
+* `MODCo Group <http://modcogroup.com/>`_
 
 
 Quotes
