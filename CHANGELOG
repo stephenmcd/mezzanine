@@ -1,3 +1,28 @@
+Version 3.1.2 (Apr 25, 2014)
+----------------------------
+
+  * [#1004] Move Javascript to the Bottom of the Body. * Move all Javascript Includes to Bottom of the ``base.html`` and. ``mobile/base.html`` templates. * Move ``extra_js`` Blocks Below main Blocks in the ``pages/form.html`` and. ``pages/gallery.html`` templates. closes #1004: JS should be at the bottom of body - Pavan Rikhi
+  * Widget js shouldn't need staticfiles handling - Stephen McDonald
+  * Allow local testing of ``STATIC_URL`` containing host - Stephen McDonald
+  * Fix bad commit - Stephen McDonald
+  * Add Additional 3rd Party Integration Documentation - Pavan Rikhi
+  * Indicate active tree branch in tree page menu - Stephen McDonald
+  * Move the logic for assigning a page variable to the template context, from PageMiddleware into a context processor. This ensures we don't reply on TemplateResponse objects - Stephen McDonald
+  * More reworking of the docs for integrating apps with pages - Stephen McDonald
+  * Give a ``.template`` extension to Python files under ``project_template/deploy`` since they aren't valid Python files and an attempt to compile them may be made when installing. Closes #1010 - Stephen McDonald
+  * Make the new page context processor backward compatible with older projects - Stephen McDonald
+  * Fix some deprecation warnings: mimetype -> ``content_type`` - Stephen McDonald
+  * Restore site selection dropdown menu in admin nav - Stephen McDonald
+  * Decouple the Blog Post List from RichTextPages. The ``blog_post_list.html`` template currently requires that any `page`. context variable passed to it has a `richtextpage` attribute. These changes modify the template, making the `richtextpage` attribute. optional. This allows users to create other Page types pointing to the. URL of the Blog Post List - Pavan Rikhi
+  * Fix styling of admin help text. Closes #1013 - Stephen McDonald
+  * Further decoupling of richtextpage in blog templates - Stephen McDonald
+  * Apply admin title click globally - Stephen McDonald
+  * Show users section in admin nav highlighted as active for the change password view - Stephen McDonald
+  * Include grappelli in ``INSTALLED_APPS`` during tests - Stephen McDonald
+  * Skip reset password test for older Django versions since we now include grappelli, which has a bad url name in the reset password template. Since fixed but not released - Stephen McDonald
+  * Ensure missing settings vars don't break admin JS. Closes #1015 - Stephen McDonald
+  * Bump grappelli safe version to 0.3.9 - Stephen McDonald
+
 Version 3.1.1 (Apr 19, 2014)
 ----------------------------
 
