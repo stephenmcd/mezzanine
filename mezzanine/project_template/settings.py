@@ -79,6 +79,10 @@ from __future__ import absolute_import, unicode_literals
 # INSTALLED_APPS setting.
 USE_SOUTH = True
 
+# If True, the django-modeltranslation will be added to the
+# INSTALLED_APPS setting when USE_I18N is True
+USE_MODELTRANSLATION = True
+
 
 ########################
 # MAIN DJANGO SETTINGS #
@@ -243,9 +247,9 @@ INSTALLED_APPS = (
     "mezzanine.conf",
     "mezzanine.core",
     "mezzanine.generic",
+    "mezzanine.pages",
     "mezzanine.blog",
     "mezzanine.forms",
-    "mezzanine.pages",
     "mezzanine.galleries",
     "mezzanine.twitter",
     #"mezzanine.accounts",

@@ -113,10 +113,16 @@ def set_dynamic_settings(s):
     else:
         # Setup for optional apps.
         optional = list(s.get("OPTIONAL_APPS", []))
-        if s.get("USE_SOUTH"):
-            optional.append("south")
-        elif not s.get("USE_SOUTH", True) and "south" in s["INSTALLED_APPS"]:
-            s["INSTALLED_APPS"].remove("south")
+        for setting_name, app in (("USE_SOUTH","south"),("USE_MODELTRANSLATION","modeltranslation")):
+            if s.get(setting_name):
+                optional.append(app)
+            elif not s.get(setting_name, True) and app in s["INSTALLED_APPS"]:
+                s["INSTALLED_APPS"].remove(app)
+        if not s.get("USE_I18N", True):
+            if "modeltranslation" in s["INSTALLED_APPS"]:
+                s["INSTALLED_APPS"].remove("modeltranslation")
+            if "modeltranslation" in optional:
+                optional.remove("modeltranslation")
         for app in optional:
             if app not in s["INSTALLED_APPS"]:
                 try:

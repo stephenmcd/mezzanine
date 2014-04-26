@@ -16,6 +16,15 @@ from mezzanine.core.models import (Orderable, SitePermission,
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.models import get_user_model
 
+need_translation = settings.USE_MODELTRANSLATION and settings.USE_I18N
+
+if need_translation:
+    from django.utils.translation import activate, get_language
+    from modeltranslation.admin import (TranslationAdmin,
+                                        TabbedTranslationAdmin,
+                                        TranslationTabularInline,
+                                        TranslationStackedInline)
+
 
 User = get_user_model()
 
@@ -31,7 +40,8 @@ class DisplayableAdminForm(ModelForm):
         return content
 
 
-class DisplayableAdmin(admin.ModelAdmin):
+BaseAdminClass = need_translation and TabbedTranslationAdmin or admin.ModelAdmin
+class DisplayableAdmin(BaseAdminClass):
     """
     Admin class for subclasses of the abstract ``Displayable`` model.
     """
@@ -63,6 +73,19 @@ class DisplayableAdmin(admin.ModelAdmin):
                                self.model.objects.get_search_fields().keys())))
         except AttributeError:
             pass
+
+    def save_model(self, request, obj, form, change):
+        super(DisplayableAdmin, self).save_model(request, obj, form, change)
+        if need_translation:
+            lang = get_language()
+            for code, _ in settings.LANGUAGES:
+                try:
+                    activate(code)
+                except:
+                    pass
+                else:
+                    obj.save()
+            activate(lang)
 
 
 class BaseDynamicInlineAdmin(object):

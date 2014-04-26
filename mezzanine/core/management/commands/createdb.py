@@ -37,19 +37,35 @@ class Command(NoArgsCommand):
             try:
                 from south.management.commands import migrate
             except ImportError:
+                pass
+            else:
+                confirm = "yes"
+                if interactive:
+                    confirm = input("\nSouth is installed for this project."
+                                        "\nWould you like to fake initial "
+                                        "migrations? (yes/no): ")
+                    while confirm not in ("yes", "no",):
+                        confirm = input("Please enter either 'yes' or 'no': ")
+                if confirm == "yes":
+                    if verbosity >= 1:
+                        print()
+                        print("Faking initial migrations ...")
+                        print()
+                    migrate.Command().execute(fake=True)
+        if settings.USE_MODELTRANSLATION and settings.USE_I18N:
+            try:
+                from modeltranslation.management.commands import update_translation_fields
+            except ImportError:
                 return
             if interactive:
-                confirm = input("\nSouth is installed for this project."
-                                    "\nWould you like to fake initial "
-                                    "migrations? (yes/no): ")
+                confirm = input("\nDjango-modeltranslation is installed for "
+                                "this project and you have specified to use "
+                                "i18n.\nWould you like to update translation "
+                                "fields from the default ones? (yes/no): ")
                 while True:
                     if confirm == "yes":
                         break
                     elif confirm == "no":
                         return
                     confirm = input("Please enter either 'yes' or 'no': ")
-            if verbosity >= 1:
-                print()
-                print("Faking initial migrations ...")
-                print()
-            migrate.Command().execute(fake=True)
+            update_translation_fields.Command().execute(verbosity=verbosity)

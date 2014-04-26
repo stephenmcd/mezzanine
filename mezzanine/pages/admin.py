@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from mezzanine.conf import settings
-from mezzanine.core.admin import DisplayableAdmin, DisplayableAdminForm
+from mezzanine.core.admin import DisplayableAdmin, DisplayableAdminForm, need_translation
 from mezzanine.pages.models import Page, RichTextPage, Link
 from mezzanine.utils.urls import admin_url
 
@@ -73,7 +73,8 @@ class PageAdmin(DisplayableAdmin):
             fields = self.model._meta.fields + self.model._meta.many_to_many
             for field in reversed(fields):
                 if field.name not in exclude_fields and field.editable:
-                    self.fieldsets[0][1]["fields"].insert(3, field.name)
+                    if need_translation and field.name.split('_')[-1] not in [code for code, _ in settings.LANGUAGES]:
+                        self.fieldsets[0][1]["fields"].insert(3, field.name)
 
     def in_menu(self):
         """
