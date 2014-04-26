@@ -7,9 +7,11 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
-from mezzanine.core.admin import DisplayableAdmin, OwnableAdmin, need_translation
+from mezzanine.core.admin import (DisplayableAdmin,
+                                  OwnableAdmin,
+                                  NEED_TRANSLATION)
 from mezzanine.twitter.admin import TweetableAdminMixin
-if need_translation:
+if NEED_TRANSLATION:
     from modeltranslation.admin import TranslationAdmin
 
 blogpost_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
@@ -44,7 +46,7 @@ class BlogPostAdmin(TweetableAdminMixin, DisplayableAdmin, OwnableAdmin):
         return DisplayableAdmin.save_form(self, request, form, change)
 
 
-BaseAdminClass = need_translation and TranslationAdmin or admin.ModelAdmin
+BaseAdminClass = NEED_TRANSLATION and TranslationAdmin or admin.ModelAdmin
 class BlogCategoryAdmin(BaseAdminClass):
     """
     Admin class for blog categories. Hides itself from the admin menu

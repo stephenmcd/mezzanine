@@ -96,6 +96,18 @@ def set_dynamic_settings(s):
     storage = "django.contrib.messages.storage.cookie.CookieStorage"
     s.setdefault("MESSAGE_STORAGE", storage)
 
+    # If required, add django-modeltranslation for both tests and deployment
+    if not s.get("USE_MODELTRANSLATION", True):
+        remove("INSTALLED_APPS", "modeltranslation")
+    else:
+        if s.get("USE_I18N"):
+            try:
+                __import__("modeltranslation")
+            except ImportError:
+                pass
+            else:
+                append("INSTALLED_APPS", "modeltranslation")
+
     if s["TESTING"]:
         # Following bits are work-arounds for some assumptions that
         # Django 1.5's tests make.
@@ -113,16 +125,10 @@ def set_dynamic_settings(s):
     else:
         # Setup for optional apps.
         optional = list(s.get("OPTIONAL_APPS", []))
-        for setting_name, app in (("USE_SOUTH","south"),("USE_MODELTRANSLATION","modeltranslation")):
-            if s.get(setting_name):
-                optional.append(app)
-            elif not s.get(setting_name, True) and app in s["INSTALLED_APPS"]:
-                s["INSTALLED_APPS"].remove(app)
-        if not s.get("USE_I18N", True):
-            if "modeltranslation" in s["INSTALLED_APPS"]:
-                s["INSTALLED_APPS"].remove("modeltranslation")
-            if "modeltranslation" in optional:
-                optional.remove("modeltranslation")
+        if s.get("USE_SOUTH"):
+            optional.append("south")
+        elif not s.get("USE_SOUTH", True) and "south" in s["INSTALLED_APPS"]:
+            s["INSTALLED_APPS"].remove("south")
         for app in optional:
             if app not in s["INSTALLED_APPS"]:
                 try:

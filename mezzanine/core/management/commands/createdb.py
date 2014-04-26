@@ -54,7 +54,8 @@ class Command(NoArgsCommand):
                     migrate.Command().execute(fake=True)
         if settings.USE_MODELTRANSLATION and settings.USE_I18N:
             try:
-                from modeltranslation.management.commands import update_translation_fields
+                from modeltranslation.management.commands \
+                        import update_translation_fields
             except ImportError:
                 return
             if interactive:

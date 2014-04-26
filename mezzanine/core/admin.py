@@ -16,14 +16,11 @@ from mezzanine.core.models import (Orderable, SitePermission,
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.models import get_user_model
 
-need_translation = settings.USE_MODELTRANSLATION and settings.USE_I18N
+NEED_TRANSLATION = settings.USE_MODELTRANSLATION and settings.USE_I18N
 
-if need_translation:
+if NEED_TRANSLATION:
     from django.utils.translation import activate, get_language
-    from modeltranslation.admin import (TranslationAdmin,
-                                        TabbedTranslationAdmin,
-                                        TranslationTabularInline,
-                                        TranslationStackedInline)
+    from modeltranslation.admin import TranslationAdmin
 
 
 User = get_user_model()
@@ -40,7 +37,7 @@ class DisplayableAdminForm(ModelForm):
         return content
 
 
-BaseAdminClass = need_translation and TabbedTranslationAdmin or admin.ModelAdmin
+BaseAdminClass = NEED_TRANSLATION and TranslationAdmin or admin.ModelAdmin
 class DisplayableAdmin(BaseAdminClass):
     """
     Admin class for subclasses of the abstract ``Displayable`` model.
@@ -76,7 +73,7 @@ class DisplayableAdmin(BaseAdminClass):
 
     def save_model(self, request, obj, form, change):
         super(DisplayableAdmin, self).save_model(request, obj, form, change)
-        if need_translation:
+        if NEED_TRANSLATION:
             lang = get_language()
             for code, _ in settings.LANGUAGES:
                 try:
