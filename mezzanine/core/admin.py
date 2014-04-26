@@ -16,12 +16,13 @@ from mezzanine.core.models import (Orderable, SitePermission,
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.models import get_user_model
 
-NEED_TRANSLATION = settings.USE_MODELTRANSLATION and settings.USE_I18N
+TRANSLATED = settings.USE_MODELTRANSLATION and settings.USE_I18N
 
-if NEED_TRANSLATION:
+if TRANSLATED:
     from django.utils.translation import activate, get_language
-    from modeltranslation.admin import TranslationAdmin
-
+    from modeltranslation.admin import (TranslationAdmin,
+                                        TranslationTabularInline,
+                                        TranslationStackedInline)
 
 User = get_user_model()
 
@@ -37,8 +38,7 @@ class DisplayableAdminForm(ModelForm):
         return content
 
 
-BaseAdminClass = NEED_TRANSLATION and TranslationAdmin or admin.ModelAdmin
-class DisplayableAdmin(BaseAdminClass):
+class DisplayableAdmin(TRANSLATED and TranslationAdmin or admin.ModelAdmin):
     """
     Admin class for subclasses of the abstract ``Displayable`` model.
     """
@@ -72,8 +72,12 @@ class DisplayableAdmin(BaseAdminClass):
             pass
 
     def save_model(self, request, obj, form, change):
+        """
+        Save model for every language so that field auto-population
+        is done for every each of it.
+        """
         super(DisplayableAdmin, self).save_model(request, obj, form, change)
-        if NEED_TRANSLATION:
+        if TRANSLATED:
             lang = get_language()
             for code, _ in settings.LANGUAGES:
                 try:
@@ -104,18 +108,21 @@ class BaseDynamicInlineAdmin(object):
                 fields = self.model._meta.fields
                 exclude = self.exclude or []
                 fields = [f.name for f in fields if f.editable and
-                    f.name not in exclude and not isinstance(f, AutoField)]
+                    f.name not in exclude and not isinstance(f, AutoField) and
+                    not hasattr(f, "translated_field")]
             if "_order" in fields:
                 del fields[fields.index("_order")]
                 fields.append("_order")
             self.fields = fields
 
 
-class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.TabularInline):
+class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin, TRANSLATED and
+        TranslationTabularInline or admin.TabularInline):
     template = "admin/includes/dynamic_inline_tabular.html"
 
 
-class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.StackedInline):
+class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin, TRANSLATED and
+        TranslationStackedInline or admin.StackedInline):
     template = "admin/includes/dynamic_inline_stacked.html"
 
     def __init__(self, *args, **kwargs):
