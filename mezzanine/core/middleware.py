@@ -135,11 +135,15 @@ class UpdateCacheMiddleware(object):
 
     def process_response(self, request, response):
 
+        # Can't do two-phased rendering on streaming responses.
+        if getattr(response, "streaming", False):
+            return response
+
         # Cache the response if all the required conditions are met.
         # Response must be marked for updating by the
         # ``FetchFromCacheMiddleware`` having a cache get miss, the
         # user must not be authenticated, the HTTP status must be OK
-        # and the response mustn't include an expiry age, incicating it
+        # and the response mustn't include an expiry age, indicating it
         # shouldn't be cached.
         marked_for_update = getattr(request, "_update_cache", False)
         anon = hasattr(request, "user") and not request.user.is_authenticated()
