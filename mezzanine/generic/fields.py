@@ -81,7 +81,7 @@ class BaseGenericRelation(GenericRelation):
                 if name_string in [i.name for i, _ in
                                    cls._meta.get_fields_with_model()]:
                     continue
-                if not field.verbose_name:
+                if field.verbose_name is None:
                     field.verbose_name = self.verbose_name
                 cls.add_to_class(name_string, copy(field))
             # Add a getter function to the model we can use to retrieve
