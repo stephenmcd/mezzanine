@@ -10,11 +10,11 @@ from mezzanine.utils.models import get_user_model
 from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
 
 
-# Signal for ensuring users have a profile instance.
 Profile = get_profile_model()
-User = get_user_model()
 
 if Profile:
+
+    User = get_user_model()
     user_field = get_profile_user_fieldname()
 
     @receiver(post_save, sender=User)
