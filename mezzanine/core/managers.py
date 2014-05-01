@@ -331,7 +331,8 @@ class CurrentSiteManager(DjangoCSM):
                 # Django <= 1.6
                 self._validate_field_name()
             except AttributeError:
-                pass
+                # Django >= 1.7: will populate "self.__field_name".
+                self._get_field_name()
         lookup = {self.__field_name + "__id__exact": current_site_id()}
         return super(DjangoCSM, self).get_query_set().filter(**lookup)
 
