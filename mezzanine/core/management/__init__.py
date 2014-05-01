@@ -84,7 +84,13 @@ def create_site(app, created_models, verbosity, interactive, **kwargs):
             print()
             print("Creating default site record: %s ... " % domain)
             print()
-        Site.objects.create(name="Default", domain=domain)
+        try:
+            site = Site.objects.get()
+        except Site.DoesNotExist:
+            site = Site()
+        site.name = "Default"
+        site.domain = domain
+        site.save()
 
 
 def install_optional_data(verbosity):
