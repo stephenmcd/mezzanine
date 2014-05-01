@@ -31,7 +31,7 @@ def processor_for(content_model_or_slug, exact_page=False):
     if isinstance(content_model_or_slug, (str, _str)):
         try:
             content_model = get_model(*content_model_or_slug.split(".", 1))
-        except TypeError:
+        except (TypeError, ValueError, LookupError):
             slug = content_model_or_slug
     elif issubclass(content_model_or_slug, Page):
         content_model = content_model_or_slug
