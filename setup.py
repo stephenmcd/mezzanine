@@ -52,7 +52,7 @@ try:
         install_requires=[
             "django >= 1.4.10, != 1.6.0, < 1.7",
             "filebrowser_safe >= 0.3.3",
-            "grappelli_safe >= 0.3.9",
+            "grappelli_safe >= 0.3.10",
             "tzlocal == 1.0",
             "bleach >= 1.4",
             "requests >= 2.1.0",
