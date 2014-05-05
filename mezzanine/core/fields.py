@@ -114,7 +114,7 @@ class MultiChoiceField(with_metaclass(models.SubfieldBase, models.CharField)):
     def contribute_to_class(self, cls, name):
         def _get_FIELD_display(self, field):
             value = getattr(self, field.attname)
-            value = force_text(" & ".join([dict(field.choices).get(v, v) \
+            value = force_text(" & ".join([dict(field.choices).get(v, v)
                                            for v in value]), strings_only=True)
             return value
         setattr(cls, '_get_FIELD_display', _get_FIELD_display)
