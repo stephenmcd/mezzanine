@@ -135,8 +135,13 @@ class UpdateCacheMiddleware(object):
 
     def process_response(self, request, response):
 
-        # Can't do two-phased rendering on streaming responses.
-        if getattr(response, "streaming", False):
+        # Caching is only applicable for text-based, non-streaming
+        # responses. We also skip it for non-200 statuses during
+        # development, so that stack traces are correctly rendered.
+        is_text = response.get("content-type", "").startswith("text")
+        valid_status = response.status_code == 200
+        streaming = getattr(response, "streaming", False)
+        if not is_text or streaming or (settings.DEBUG and not valid_status):
             return response
 
         # Cache the response if all the required conditions are met.
@@ -147,7 +152,6 @@ class UpdateCacheMiddleware(object):
         # shouldn't be cached.
         marked_for_update = getattr(request, "_update_cache", False)
         anon = hasattr(request, "user") and not request.user.is_authenticated()
-        valid_status = response.status_code == 200
         timeout = get_max_age(response)
         if timeout is None:
             timeout = settings.CACHE_MIDDLEWARE_SECONDS
@@ -169,30 +173,28 @@ class UpdateCacheMiddleware(object):
         except AttributeError:
             pass
         parts = response.content.split(token)
-        content_type = response.get("content-type", "")
-        if valid_status and content_type.startswith("text") and len(parts) > 1:
-            # Restore csrf token from cookie - check the response
-            # first as it may be being set for the first time.
-            csrf_token = None
+        # Restore csrf token from cookie - check the response
+        # first as it may be being set for the first time.
+        csrf_token = None
+        try:
+            csrf_token = response.cookies[settings.CSRF_COOKIE_NAME].value
+        except KeyError:
             try:
-                csrf_token = response.cookies[settings.CSRF_COOKIE_NAME].value
+                csrf_token = request.COOKIES[settings.CSRF_COOKIE_NAME]
             except KeyError:
-                try:
-                    csrf_token = request.COOKIES[settings.CSRF_COOKIE_NAME]
-                except KeyError:
-                    pass
-            if csrf_token:
-                request.META["CSRF_COOKIE"] = csrf_token
-            context = RequestContext(request)
-            for i, part in enumerate(parts):
-                if i % 2:
-                    part = Template(part).render(context).encode("utf-8")
-                parts[i] = part
-            response.content = b"".join(parts)
-            response["Content-Length"] = len(response.content)
-            if hasattr(request, '_messages'):
-                # Required to clear out user messages.
-                request._messages.update(response)
+                pass
+        if csrf_token:
+            request.META["CSRF_COOKIE"] = csrf_token
+        context = RequestContext(request)
+        for i, part in enumerate(parts):
+            if i % 2:
+                part = Template(part).render(context).encode("utf-8")
+            parts[i] = part
+        response.content = b"".join(parts)
+        response["Content-Length"] = len(response.content)
+        if hasattr(request, '_messages'):
+            # Required to clear out user messages.
+            request._messages.update(response)
         return response
 
 
