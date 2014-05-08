@@ -171,7 +171,8 @@ def set_dynamic_settings(s):
 
     # Ensure admin is last in the app order so that admin templates
     # are loaded in the correct order.
-    move("INSTALLED_APPS", "django.contrib.admin", len(s["INSTALLED_APPS"]))
+    if "django.contrib.admin" in s["INSTALLED_APPS"]:
+        move("INSTALLED_APPS", "django.contrib.admin", len(s["INSTALLED_APPS"]))
 
     # Ensure we have a test runner (removed in Django 1.6)
     s.setdefault("TEST_RUNNER", "django.test.simple.DjangoTestSuiteRunner")
