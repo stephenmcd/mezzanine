@@ -171,8 +171,9 @@ def set_dynamic_settings(s):
 
     # Ensure admin is last in the app order so that admin templates
     # are loaded in the correct order.
+    admin_name = "django.contrib.admin"
     try:
-        move("INSTALLED_APPS", "django.contrib.admin", len(s["INSTALLED_APPS"]))
+        move("INSTALLED_APPS", admin_name, len(s["INSTALLED_APPS"]))
     except ValueError:
         pass
 
