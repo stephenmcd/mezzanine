@@ -6,8 +6,8 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.blog.models import BlogPost, BlogCategory
-from mezzanine.conf import settings
-from mezzanine.core.admin import DisplayableAdmin, OwnableAdmin, TRANSLATED
+from mezzanine.conf import settings, TRANSLATED
+from mezzanine.core.admin import DisplayableAdmin, OwnableAdmin
 from mezzanine.twitter.admin import TweetableAdminMixin
 if TRANSLATED:
     from modeltranslation.admin import TranslationAdmin

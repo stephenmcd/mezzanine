@@ -8,8 +8,11 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import urlize
 
-from mezzanine.conf import settings, registry
+from mezzanine.conf import settings, registry, TRANSLATED
 from mezzanine.conf.models import Setting
+
+if TRANSLATED:
+    from modeltranslation.utils import build_localized_fieldname
 
 
 FIELD_TYPES = {
@@ -69,7 +72,14 @@ class SettingsForm(forms.Form):
         """
         for (name, value) in self.cleaned_data.items():
             setting_obj, created = Setting.objects.get_or_create(name=name)
-            setting_obj.value = value
+            if TRANSLATED and not registry[name]["translatable"]:
+                # Duplicate the value of the setting for every language
+                for code, _ in settings.LANGUAGES:
+                    setattr(setting_obj,
+                            build_localized_fieldname('value', code),
+                            value)
+            else:
+                setting_obj.value = value
             setting_obj.save()
 
     def format_help(self, description):

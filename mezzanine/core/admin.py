@@ -9,14 +9,12 @@ from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User as AuthUser
 
-from mezzanine.conf import settings
+from mezzanine.conf import settings, TRANSLATED
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.models import get_user_model
-
-TRANSLATED = settings.USE_MODELTRANSLATION and settings.USE_I18N
 
 if TRANSLATED:
     from django.utils.translation import activate, get_language
