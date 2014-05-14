@@ -76,16 +76,20 @@ class DisplayableAdmin(TRANSLATED and TranslationAdmin or admin.ModelAdmin):
         Save model for every language so that field auto-population
         is done for every each of it.
         """
-        super(DisplayableAdmin, self).save_model(request, obj, form, change)
+        # But do it for the default language first to uniformly handle slugs
         if TRANSLATED:
             lang = get_language()
+            activate(settings.LANGUAGE_CODE)
+        super(DisplayableAdmin, self).save_model(request, obj, form, change)
+        if TRANSLATED:
             for code, _ in settings.LANGUAGES:
-                try:
-                    activate(code)
-                except:
-                    pass
-                else:
-                    obj.save()
+                if code != settings.LANGUAGE_CODE: # Already done
+                    try:
+                        activate(code)
+                    except:
+                        pass
+                    else:
+                        obj.save()
             activate(lang)
 
 
