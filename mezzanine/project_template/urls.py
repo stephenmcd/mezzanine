@@ -5,6 +5,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 
 from mezzanine.core.views import direct_to_template
+from mezzanine.conf import settings
 
 
 admin.autodiscover()
@@ -19,8 +20,12 @@ urlpatterns = i18n_patterns("",
     ("^admin/", include(admin.site.urls)),
 )
 
-urlpatterns += patterns('',
+if settings.USE_L10N:
+    urlpatterns += patterns('',
+        url('^i18n/$', 'django.views.i18n.set_language', name='set_language'),
+    )
 
+urlpatterns += patterns('',
     # We don't want to presume how your homepage works, so here are a
     # few patterns you can use to set it up.
 
