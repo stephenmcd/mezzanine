@@ -80,8 +80,8 @@ class DisplayableAdmin(TRANSLATED and TranslationAdmin or admin.ModelAdmin):
             activate(settings.LANGUAGE_CODE)
         super(DisplayableAdmin, self).save_model(request, obj, form, change)
         if TRANSLATED:
-            for code, _ in settings.LANGUAGES:
-                if code != settings.LANGUAGE_CODE: # Already done
+            for code, l in settings.LANGUAGES:
+                if code != settings.LANGUAGE_CODE:  # Already done
                     try:
                         activate(code)
                     except:

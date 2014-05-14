@@ -74,7 +74,7 @@ class SettingsForm(forms.Form):
             setting_obj, created = Setting.objects.get_or_create(name=name)
             if TRANSLATED and not registry[name]["translatable"]:
                 # Duplicate the value of the setting for every language
-                for code, _ in settings.LANGUAGES:
+                for code, l in settings.LANGUAGES:
                     setattr(setting_obj,
                             build_localized_fieldname('value', code),
                             value)
