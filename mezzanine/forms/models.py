@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
@@ -17,7 +17,7 @@ class Form(Page, RichText):
     """
 
     button_text = models.CharField(_("Button text"), max_length=50,
-        default=_("Submit"))
+        default=ugettext("Submit"))
     response = RichTextField(_("Response"))
     send_email = models.BooleanField(_("Send email to user"), default=True,
         help_text=_("To send an email to the email address supplied in "
