@@ -1,0 +1,297 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# tiktuk <tiktuk@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-15 12:45+0000\n"
+"PO-Revision-Date: 2013-11-15 10:20+0000\n"
+"Last-Translator: tiktuk <tiktuk@gmail.com>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/mezzanine/"
+"language/da/)\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:21 models.py:72
+msgid "User"
+msgstr "Bruger"
+
+#: defaults.py:27
+msgid "Accounts required for commenting"
+msgstr "Konto påkrævet for at man kan kommentere"
+
+#: defaults.py:28
+msgid "If ``True``, users must log in to comment."
+msgstr "Hvis sat til ``True``, skal brugere være logget ind for at kommentere."
+
+#: defaults.py:35
+msgid "Disqus shortname"
+msgstr "Disqus shortname"
+
+#: defaults.py:36
+msgid "Shortname for the http://disqus.com comments service."
+msgstr "Shortname for http://disqus.com kommentarservicen."
+
+#: defaults.py:44
+msgid "Disqus public key"
+msgstr "Disqus offentlig nøgle"
+
+#: defaults.py:45
+msgid "Public key for http://disqus.com developer API"
+msgstr "Offentlig nøgle til http://disqus.com udvikler API'et"
+
+#: defaults.py:52
+msgid "Disqus secret key"
+msgstr "Disqus hemmelig nøgle"
+
+#: defaults.py:53
+msgid "Secret key for http://disqus.com developer API"
+msgstr "Hemmelig nøgle til http://disqus.com udvikler API'et"
+
+#: defaults.py:60
+msgid "Auto-approve comments"
+msgstr "Godkend kommentarer automatisk"
+
+#: defaults.py:61
+msgid "If ``True``, built-in comments are approved by default."
+msgstr ""
+"Hvis sat til ``True``, er indbyggede kommentarer godkendt som standard."
+
+#: defaults.py:69
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
+msgstr ""
+"Punktumadskilt sti til funktion, der skal kaldes på en kommentars værdi før "
+"den er renderet til skabelonen."
+
+#: defaults.py:77
+msgid "Comment notification email addresses"
+msgstr "Emailadresse til kommentarnotifikationer."
+
+#: defaults.py:78
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
+msgstr ""
+"En kommasepareret liste af emailadresser, der vil modtage emailnotifikation "
+"hver gang en ny kommentar er skrevet på websiden."
+
+#: defaults.py:87
+msgid "Admin comments"
+msgstr "Adminkommentarer"
+
+#: defaults.py:88
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr "Antal af de seneste kommentarer vist i admin oversigten."
+
+#: defaults.py:96
+msgid "Show unapproved comments"
+msgstr "Vis ikke-godkendte kommentarer"
+
+#: defaults.py:97
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+"Hvis sat til ``True``, vil kommentarer, der har ``is_public`` afmarkeret "
+"stadig blive vist, men teksten vil være udskiftet med en ``venter på "
+"godkendelse``-besked."
+
+#: defaults.py:106
+msgid "Show removed comments"
+msgstr "Vis slettede kommentarer"
+
+#: defaults.py:107
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Hvis sat til ``True``, vil kommentarer, der har ``removed`` afkrydset stadig "
+"blive vist, men teksten vil være udskiftet med en ``slettet``-besked."
+
+#: defaults.py:116
+msgid "If ``True``, comments can be rated."
+msgstr "Hvis sat til ``True``, kan kommentarer blive bedømt."
+
+#: defaults.py:123
+msgid "Accounts required for rating"
+msgstr "Konti påkrævet for bedømmelser"
+
+#: defaults.py:124
+msgid ""
+"If ``True``, users must log in to rate content such as blog posts and "
+"comments."
+msgstr ""
+"Hvis sat til ``True``, skal brugere være logget ind for at bedømme indhold "
+"såsom blogindlæg of kommentarer."
+
+#: defaults.py:132
+msgid "A sequence of integers that are valid ratings."
+msgstr "En sekvens af heltal som er gyldige bedømmelser."
+
+#: forms.py:84
+msgid "Name"
+msgstr "Navn"
+
+#: forms.py:84
+msgid "required"
+msgstr "påkrævet"
+
+#: forms.py:86
+msgid "Email"
+msgstr "Email"
+
+#: forms.py:87
+msgid "required (not published)"
+msgstr "påkrævet (ikke udgivet)"
+
+#: forms.py:88
+msgid "Website"
+msgstr "Webside"
+
+#: forms.py:88
+msgid "optional"
+msgstr "valgfri"
+
+#: forms.py:138
+msgid "New comment for: "
+msgstr "Ny kommentar til:"
+
+#: forms.py:175
+msgid "Already rated."
+msgstr "Allerede bedømt."
+
+#: models.py:29
+msgid "By the blog author"
+msgstr "Af blog forfatteren"
+
+#: models.py:32 models.py:134
+msgid "Rating"
+msgstr "Bedømmelse"
+
+#: models.py:37 models.py:64 templates/generic/includes/comments.html:25
+msgid "Comment"
+msgstr "Kommentar"
+
+#: models.py:38 templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: models.py:76
+msgid "View on site"
+msgstr "Se på siden"
+
+#: models.py:96 models.py:106
+msgid "Keyword"
+msgstr "Nøgleord"
+
+#: models.py:97
+msgid "Keywords"
+msgstr "Nøgleord"
+
+#: models.py:124
+msgid "Value"
+msgstr "Værdi"
+
+#: models.py:125
+msgid "Rating date"
+msgstr "Bedømmelsesdato"
+
+#: models.py:130
+msgid "Rater"
+msgstr "Bedømmer"
+
+#: models.py:135
+msgid "Ratings"
+msgstr "Bedømmelser"
+
+#: views.py:64
+#, fuzzy
+msgid ""
+"You must be logged in. Please log in or sign up to complete this action."
+msgstr ""
+"Du skal være logget ind. Vær venlig at logge ind eller at indmelde dig, så "
+"du kan fuldføre denne handling."
+
+#: templates/admin/includes/recent_comments.html:4
+msgid "Recent Comments"
+msgstr "Nylige kommentarer"
+
+#: templates/admin/includes/recent_comments.html:22
+#: templates/generic/includes/comment.html:22
+#: templates/generic/includes/comment.html:59
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
+
+#: templates/email/comment_notification.html:6
+msgid "A new comment has been posted on"
+msgstr "En ny kommentar er blevet skrevet om"
+
+#: templates/email/comment_notification.html:10
+#, python-format
+msgid ""
+"\n"
+"    At %(submit_date)s %(user_name)s wrote:\n"
+"    "
+msgstr ""
+"\n"
+"    Den %(submit_date)s skrev %(user_name)s:\n"
+"    "
+
+#: templates/email/comment_notification.txt:7
+#, python-format
+msgid ""
+"\n"
+"At %(submit_date)s %(user_name)s wrote:\n"
+msgstr ""
+"\n"
+"Den %(submit_date)s skrev %(user_name)s:\n"
+
+#: templates/generic/includes/comment.html:30
+msgid "Link"
+msgstr "Link"
+
+#: templates/generic/includes/comment.html:33
+#: templates/generic/includes/comment.html:49
+msgid "Reply"
+msgstr "Svar"
+
+#: templates/generic/includes/comment.html:55
+msgid "Comment deleted"
+msgstr "Kommentar slettet"
+
+#: templates/generic/includes/comment.html:57
+msgid "Comment awaiting approval"
+msgstr "Kommentar afventer godkendelse"
+
+#: templates/generic/includes/comment.html:71
+msgid "There are currently no comments"
+msgstr "Der er ikke nogle kommentarer lige nu"
+
+#: templates/generic/includes/comments.html:17
+msgid "New Comment"
+msgstr "Ny kommentar"
+
+#: templates/generic/includes/rating.html:5
+msgid "Current rating"
+msgstr "Nuværende bedømmelse"
+
+#: templates/generic/includes/rating.html:7
+msgid "Currently unrated"
+msgstr "Ikke bedømt"
+
+#: templates/generic/includes/rating.html:17
+msgid "Rate"
+msgstr "Bedøm"
+
+#~ msgid "ago"
+#~ msgstr "siden"
