@@ -1,0 +1,56 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# tiktuk <tiktuk@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-15 12:46+0000\n"
+"PO-Revision-Date: 2013-11-15 10:50+0000\n"
+"Last-Translator: tiktuk <tiktuk@gmail.com>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/mezzanine/"
+"language/da/)\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:46
+msgid "Zip import"
+msgstr "Zip import"
+
+#: models.py:48
+msgid ""
+"Upload a zip file containing images, and they'll be imported into this "
+"gallery."
+msgstr ""
+"Upload en zip-fil indeholdende billeder og de vil blive importeret i dette "
+"galleri."
+
+#: models.py:52
+msgid "Gallery"
+msgstr "Galleri"
+
+#: models.py:53
+msgid "Galleries"
+msgstr "Gallerier"
+
+#: models.py:113
+msgid "File"
+msgstr "Fil"
+
+#: models.py:115
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: models.py:119
+msgid "Image"
+msgstr "Billeder"
+
+#: models.py:120
+msgid "Images"
+msgstr "Billeder"
