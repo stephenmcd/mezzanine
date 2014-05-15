@@ -511,6 +511,7 @@ Sites Using Mezzanine
 * `Paul Whipp Consulting <http://www.paulwhippconsulting.com>`_
 * `Lipman Art <https://lipmanart.com/>`_
 * `MODCo Group <http://modcogroup.com/>`_
+* `Terminal Labs <http://www.terminallabs.com>`_
 
 
 Quotes
