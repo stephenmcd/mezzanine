@@ -1,0 +1,48 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# tiktuk <tiktuk@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-15 12:45+0000\n"
+"PO-Revision-Date: 2013-11-20 12:18+0000\n"
+"Last-Translator: tiktuk <tiktuk@gmail.com>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/mezzanine/"
+"language/da/)\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:43
+msgid "Settings were successfully updated."
+msgstr "Indstillingerne var opdateret succesfuldt."
+
+#: admin.py:47
+msgid "Change"
+msgstr "Ændr"
+
+#: forms.py:56
+msgid "Miscellaneous"
+msgstr "Forskelligt"
+
+#: models.py:20
+msgid "Setting"
+msgstr "Indstilling"
+
+#: models.py:21
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: templates/admin/conf/setting/change_list.html:8
+msgid "Please correct the errors below."
+msgstr "Ret venligst fejlene nedenfor."
+
+#: templates/admin/conf/setting/change_list.html:31
+msgid "Save"
+msgstr "Gem"

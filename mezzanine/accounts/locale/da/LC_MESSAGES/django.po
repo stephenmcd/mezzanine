@@ -1,0 +1,350 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# tiktuk <tiktuk@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-15 12:46+0000\n"
+"PO-Revision-Date: 2013-11-18 08:25+0000\n"
+"Last-Translator: tiktuk <tiktuk@gmail.com>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/mezzanine/"
+"language/da/)\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: defaults.py:21
+msgid "Minimum length for passwords"
+msgstr "Minimumslængde for passwords"
+
+#: defaults.py:28
+msgid ""
+"If ``True``, the username field will be excluded from sign up and account "
+"update forms."
+msgstr ""
+"Hvis sat til ``True``, vil brugernavnet blive ekskluderet fra "
+"brugeroprettelses- og opdateringsformularene."
+
+#: defaults.py:36
+msgid "List of fields to exclude from the profile form."
+msgstr "Liste af felter, der skal ekskluderes fra profilformularen."
+
+#: defaults.py:43
+msgid ""
+"Dotted package path and class name of profile form to use for users signing "
+"up and updating their profile, when ``mezzanine.accounts`` is installed."
+msgstr ""
+"Punktumadskilt pakkesti og klassenavn til profilformularen for brugere, der "
+"tilmelder sig og opdaterer deres profil, når ``mezzanine.accounts`` er "
+"installeret."
+
+#: defaults.py:52
+msgid "If ``True``, users will have their own public profile pages."
+msgstr ""
+"Hvis sat til ``True``, vil brugere have deres egne offentlige profilsider."
+
+#: defaults.py:60
+msgid ""
+"If ``True``, when users create an account, they will be sent an email with a "
+"verification link, which they must click to enable their account."
+msgstr ""
+"Hvis sat til ``True``, vil brugere, når de opretter en konto, få tilsendt en "
+"aktiveringsemail med et aktiveringslink, som skal klikkes for at kontoen "
+"bliver aktiveret."
+
+#: defaults.py:69
+msgid ""
+"If ``True``, when users create an account, they will not be enabled by "
+"default and a staff member will need to activate their account in the admin "
+"interface."
+msgstr ""
+"Hvis sat til ``True``, når brugere opretter en konto, vil de ikke være "
+"aktiveret som standard og et stabmedlem vil skulle aktivere deres konto i "
+"admin interfacet."
+
+#: defaults.py:78
+msgid "Account approval email addresses"
+msgstr "Emailadresser til brugergodkendelse"
+
+#: defaults.py:79
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new account is created that requires approval."
+msgstr ""
+"En kommasepareret liste af emailadresser, der vil modtage en notifikation "
+"hver gang en ny brugerkonto er oprettet og behøver godkendelse."
+
+#: forms.py:33
+msgid "Email address"
+msgstr "Email adresse"
+
+#: forms.py:35
+msgid "Username or email address"
+msgstr "Brugernavn eller emailadresse"
+
+#: forms.py:43 forms.py:75
+msgid "Password"
+msgstr "Kodeord"
+
+#: forms.py:56
+msgid "Invalid username/email and password"
+msgstr "Ugyldig bruger/email og kodeord"
+
+#: forms.py:58
+msgid "Your account is inactive"
+msgstr "Din brugerkonto er inaktiv"
+
+#: forms.py:77
+msgid "Password (again)"
+msgstr "Kodeord (igen)"
+
+#: forms.py:91
+msgid "Only letters, numbers, dashes or underscores please"
+msgstr "Kun bogstaver, tal, bindestreger og underscores, tak"
+
+#: forms.py:107
+msgid "Leave blank unless you want to change your password"
+msgstr "Efterlad tom medmindre du vil ændre dit kodeord"
+
+#: forms.py:130
+msgid "Username can only contain letters, numbers, dashes or underscores."
+msgstr ""
+"Brugernavn kan kun indeholde bogstaver, tal, bindestreger eller underscores."
+
+#: forms.py:138
+msgid "This username is already registered"
+msgstr "Dette brugernavn er allerede registreret"
+
+#: forms.py:151
+msgid "Passwords do not match"
+msgstr "Kodeord matcher ikke"
+
+#: forms.py:154
+#, python-format
+msgid "Password must be at least %s characters"
+msgstr "Kodeord skal bestå af mindst %s tegn"
+
+#: forms.py:169
+msgid "This email is already registered"
+msgstr "Denne email er allerede registreret"
+
+#: forms.py:244
+msgid "Invalid username/email"
+msgstr "Ugyldig bruger/email"
+
+#: views.py:30
+msgid "Successfully logged in"
+msgstr "Succesfuldt logget ind"
+
+#: views.py:33 templates/accounts/includes/user_panel.html:20
+#: templates/accounts/includes/user_panel_nav.html:14
+msgid "Log in"
+msgstr "Log ind"
+
+#: views.py:42
+msgid "Successfully logged out"
+msgstr "Succesfuldt logget ud"
+
+#: views.py:57
+msgid ""
+"Thanks for signing up! You'll receive an email when your account is "
+"activated."
+msgstr ""
+"Tak for din tilmelding! Du vil modtage en email, når din brugerkonto er "
+"aktiveret."
+
+#: views.py:61
+msgid ""
+"A verification email has been sent with a link for activating your account."
+msgstr "En email er blevet sendt med et godkendelseslink til din brugerkonto."
+
+#: views.py:65 views.py:84
+msgid "Successfully signed up"
+msgstr "Succesfuldt tilmeldt"
+
+#: views.py:68 templates/accounts/includes/user_panel.html:23
+#: templates/accounts/includes/user_panel_nav.html:16
+msgid "Sign up"
+msgstr "Tilmeld dig"
+
+#: views.py:87 views.py:154
+msgid "The link you clicked is no longer valid."
+msgstr "Linket du klikkede på er ikke længere gyldigt."
+
+#: views.py:128
+msgid "Profile updated"
+msgstr "Profil opdateret"
+
+#: views.py:133
+msgid "Update Profile"
+msgstr "Opdater profil"
+
+#: views.py:142
+msgid ""
+"A verification email has been sent with a link for resetting your password."
+msgstr "En email med link til nulstilling af dit kodeord er afsendt."
+
+#: views.py:144
+msgid "Password Reset"
+msgstr "Nulstil kodeord"
+
+#: templates/accounts/account_login.html:7
+#, fuzzy
+msgid ""
+"You're already logged in. If you'd like to log in as a different user, "
+"you'll need to log out first."
+msgstr ""
+"Du er allerede logget ind. Hvis du vil oprette en ny brugerkonto, er du nødt "
+"til at logge ud først."
+
+#: templates/accounts/account_login.html:11
+#, python-format
+msgid ""
+"If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s"
+"\">sign up</a> for one now."
+msgstr ""
+"Hvis du ikke har en brugerkonto kan du <a href=\"%(signup_url)s?next=%(next)s"
+"\">oprette dig</a> og få en."
+
+#: templates/accounts/account_login.html:14
+#, python-format
+msgid ""
+"<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">reset your password</a> if you've forgotten it.</p>"
+msgstr ""
+"<p>Du kan også <a href=\"%(password_reset_url)s?next=%(profile_update_url)s"
+"\">nulstille dit kodeord</a>, hvis du har glemt det.</p>"
+
+#: templates/accounts/account_password_reset.html:6
+msgid ""
+"Enter your username or email address and you'll receive an email with a link "
+"you need to click, in order to log in and change your password."
+msgstr ""
+"Skriv dit brugernavn eller din emailadresse og du vil modtage en email med "
+"et link, som du skal klikke, for at kunne logge ind og ændre dit password."
+
+#: templates/accounts/account_profile.html:18
+#: templates/accounts/includes/user_panel.html:11
+msgid "Update profile"
+msgstr "Opdater profil"
+
+#: templates/accounts/account_signup.html:7
+msgid ""
+"You're already logged in. If you'd like to create a new account, you'll need "
+"to log out first."
+msgstr ""
+"Du er allerede logget ind. Hvis du vil oprette en ny brugerkonto, er du nødt "
+"til at logge ud først."
+
+#: templates/accounts/account_signup.html:11
+#, fuzzy
+msgid ""
+"After signing up, your account will be reviewed for approval. You'll receive "
+"an email when your account is activated."
+msgstr ""
+"Tak for din tilmelding! Du vil modtage en email, når din brugerkonto er "
+"aktiveret."
+
+#: templates/accounts/account_signup.html:13
+msgid ""
+"After signing up, you'll receive an email with a link you need to click, in "
+"order to activate your account."
+msgstr ""
+"Efter at du har tilmeldt dig, vil du modtage en email med et link, som du "
+"skal klikke for at aktivere din brugerkonto."
+
+#: templates/accounts/includes/user_panel.html:5
+msgid "Logged in as: "
+msgstr "Logget ind som:"
+
+#: templates/accounts/includes/user_panel.html:17
+#: templates/accounts/includes/user_panel_nav.html:11
+msgid "Log out"
+msgstr "Log ud"
+
+#: templates/accounts/includes/user_panel.html:21
+msgid "or"
+msgstr "eller"
+
+#: templates/admin/profile_inline.html:10
+msgid "Profile information"
+msgstr "Profilinformation"
+
+#: templates/email/account_approve.html:3
+#: templates/email/account_approve.txt:3
+msgid "Hey there, a new account has been created and requires activation."
+msgstr "Hey, en ny brugerkonto er oprettet og kræver aktivering."
+
+#: templates/email/account_approve.html:5
+#: templates/email/account_approve.txt:5
+msgid "Name"
+msgstr "Navn"
+
+#: templates/email/account_approve.html:6
+#: templates/email/account_approve.txt:6
+msgid "Email"
+msgstr "Email"
+
+#: templates/email/account_approve.html:11
+#: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
+#: templates/email/signup_verify.txt:4
+msgid "Please use the link below to activate it."
+msgstr "Brug venligst linket nedenunder til at aktiverer den."
+
+#: templates/email/account_approve_subject.txt:2
+msgid "An account requires activation"
+msgstr "En brugerkonto kræver aktivering"
+
+#: templates/email/account_approved.html:3
+#: templates/email/account_approved.txt:3
+msgid "Hey there, your account has been activated."
+msgstr "Hey, din brugerkonto er blevet aktiveret."
+
+#: templates/email/account_approved.html:4
+#: templates/email/account_approved.txt:4
+msgid "Please use the link below to log in."
+msgstr "Brug venligst linket nedenunder til at logge ind med."
+
+#: templates/email/account_approved_subject.txt:2
+msgid "Your account has been activated"
+msgstr "Din brugerkonto er blevet aktiveret"
+
+#: templates/email/password_reset_verify.html:3
+#: templates/email/password_reset_verify.txt:3
+msgid "Hey there, the password reset form was used for your account."
+msgstr "Hey, du fik et nyt kodeord via funktionen til nulstilling."
+
+#: templates/email/password_reset_verify.html:4
+#: templates/email/password_reset_verify.txt:4
+msgid "Please use the link below to log in and update your password."
+msgstr ""
+"Brug venligst linket nedenunder til at logge ind og opdatere dit password."
+
+#: templates/email/password_reset_verify.html:6
+#: templates/email/password_reset_verify.txt:6
+msgid ""
+"If you didn't request for your password to be reset, please ignore this "
+"email."
+msgstr ""
+"Hvis du ikke har efterspurgt et nyt kodeord, så ignorer venligst denne email."
+
+#: templates/email/password_reset_verify_subject.txt:2
+msgid "Reset your password"
+msgstr "Nulstil dit kodeord"
+
+#: templates/email/signup_verify.html:3 templates/email/signup_verify.txt:3
+msgid "Hey there, thanks for creating your account."
+msgstr "Hey, tak for at du oprettede en brugerkonto."
+
+#: templates/email/signup_verify_subject.txt:2
+msgid "Activate your account"
+msgstr "Aktiver din brugerkonto"
+
+#~ msgid "You're already logged in."
+#~ msgstr "Du er allerede logget ind."

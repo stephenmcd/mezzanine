@@ -1,0 +1,390 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# tiktuk <tiktuk@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-15 12:45+0000\n"
+"PO-Revision-Date: 2013-11-19 16:45+0000\n"
+"Last-Translator: tiktuk <tiktuk@gmail.com>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/mezzanine/"
+"language/da/)\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:34 fields.py:34
+msgid "Email"
+msgstr "Email"
+
+#: admin.py:124
+#, python-format
+msgid "1 entry deleted"
+msgid_plural "%(count)s entries deleted"
+msgstr[0] "1 entry slettet"
+msgstr[1] "%(count)s entries slettede"
+
+#: admin.py:128
+msgid "View Entries"
+msgstr "Vis indlæg"
+
+#: defaults.py:21
+msgid "Max length allowed for field values in the forms app."
+msgstr "Maksimum længde tilladt for feltværdier i formular app'en."
+
+#: defaults.py:28
+msgid "Max length allowed for field labels in the forms app."
+msgstr "Maksimum længde tilladt for feltmærker i formular app'en."
+
+#: defaults.py:35
+msgid "Char to use as a field delimiter when exporting form responses as CSV."
+msgstr ""
+"Tegn til brug som feltadskiller når formular responser eksporteres som CSV."
+
+#: defaults.py:43
+msgid "Absolute path for storing file uploads for the forms app."
+msgstr "Absolut sti til at gemme formular app'ens fil uploads."
+
+#: defaults.py:50
+msgid ""
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
+"and field name, for each custom field type. The ID is simply a numeric "
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
+msgstr ""
+"Ekstra felter til formularapp'en. Skal indeholde en sekvens af tre-element "
+"sekvenser, hver indeholdende ID, punktumadskilt import sti til feltklasse og "
+"feltnavn, for hver custom felttype. ID'en er simpelthen numerisk konstant "
+"for feltet, men kan ikke være en værdi der allerede er brugt, så vælg et "
+"højt tal såsom 100 eller større, for at undgå konflikter."
+
+#: defaults.py:62
+msgid ""
+"Extra field widgets for the forms app. Should contain a sequence of two-item "
+"sequences, each containing an existing ID for a form field, and a dotted "
+"import path for the widget class."
+msgstr ""
+
+#: fields.py:32
+msgid "Single line text"
+msgstr "Enkelt linje tekst"
+
+#: fields.py:33
+msgid "Multi line text"
+msgstr "Multilinje tekst"
+
+#: fields.py:35
+msgid "Number"
+msgstr "Antal"
+
+#: fields.py:36
+msgid "URL"
+msgstr "URL"
+
+#: fields.py:37
+msgid "Check box"
+msgstr "Checkboks"
+
+#: fields.py:38
+msgid "Check boxes"
+msgstr "Checkbokse"
+
+#: fields.py:39
+msgid "Drop down"
+msgstr "Drop down"
+
+#: fields.py:40
+msgid "Multi select"
+msgstr "Multi select"
+
+#: fields.py:41
+msgid "Radio buttons"
+msgstr "Radio knapper"
+
+#: fields.py:42
+msgid "File upload"
+msgstr "Fil upload"
+
+#: fields.py:43
+msgid "Date"
+msgstr "Dato"
+
+#: fields.py:44 models.py:119
+msgid "Date/time"
+msgstr "Dato/tid"
+
+#: fields.py:45
+msgid "Date of birth"
+msgstr "Fødselsdato"
+
+#: fields.py:46
+msgid "Hidden"
+msgstr "Skjult"
+
+#: forms.py:52 forms.py:61 forms.py:68 forms.py:77
+msgid "Nothing"
+msgstr "Intet"
+
+#: forms.py:53
+msgid "Contains"
+msgstr "Indeholder"
+
+#: forms.py:54
+msgid "Doesn't contain"
+msgstr "Indeholder ikke"
+
+#: forms.py:55
+msgid "Equals"
+msgstr "Er lig med"
+
+#: forms.py:56
+msgid "Doesn't equal"
+msgstr "Er ikke lig med"
+
+#: forms.py:62
+#, fuzzy
+msgid "Equals any"
+msgstr "Er lig med"
+
+#: forms.py:63
+#, fuzzy
+msgid "Doesn't equal any"
+msgstr "Er ikke lig med"
+
+#: forms.py:69
+#, fuzzy
+msgid "Contains any"
+msgstr "Indeholder"
+
+#: forms.py:70
+#, fuzzy
+msgid "Contains all"
+msgstr "Indeholder"
+
+#: forms.py:71
+#, fuzzy
+msgid "Doesn't contain any"
+msgstr "Indeholder ikke"
+
+#: forms.py:72
+#, fuzzy
+msgid "Doesn't contain all"
+msgstr "Indeholder ikke"
+
+#: forms.py:78
+msgid "Is between"
+msgstr "Er imellem"
+
+#: forms.py:150
+msgid "required"
+msgstr "påkrævet"
+
+#: forms.py:269
+msgid "Checked"
+msgstr "Afmærket"
+
+#: forms.py:269
+msgid "Not checked"
+msgstr "Ikke afmærket"
+
+#: forms.py:292 forms.py:307
+msgid "and"
+msgstr "og"
+
+#: models.py:19
+msgid "Button text"
+msgstr "Knaptekst"
+
+#: models.py:20
+msgid "Submit"
+msgstr "Send"
+
+#: models.py:21
+msgid "Response"
+msgstr "Respons"
+
+#: models.py:22
+msgid "Send email to user"
+msgstr "Send email til bruger"
+
+#: models.py:23
+msgid ""
+"To send an email to the email address supplied in the form upon submission, "
+"check this box."
+msgstr ""
+"For at sende en email til emailadressen givet i formularen selv, når "
+"formularer sendes, afmærk denne boks."
+
+#: models.py:25
+msgid "From address"
+msgstr "Fraadresse"
+
+#: models.py:26
+msgid "The address the email will be sent from"
+msgstr "Adressen emailen var sendt fra"
+
+#: models.py:27
+msgid "Send email to others"
+msgstr "Send email til andre"
+
+#: models.py:28
+msgid ""
+"Provide a comma separated list of email addresses to be notified upon form "
+"submission. Leave blank to disable notifications."
+msgstr ""
+"Giv en kommasepareret liste af emailadresser, som skal notificeres når en "
+"formular sendes. Hvis blank sendes der ikke nogen notifikationer."
+
+#: models.py:32
+msgid "Subject"
+msgstr "Overskrift"
+
+#: models.py:33
+msgid "Message"
+msgstr "Besked"
+
+#: models.py:34
+msgid ""
+"Emails sent based on the above options will contain each of the form fields "
+"entered. You can also enter a message here that will be included in the "
+"email."
+msgstr ""
+"Emails sendt baseret på ovenstående indstillinger vil indeholde hver af de "
+"indtastede formularfelter. Du kan også indtaste en besked her, der vil blive "
+"inkluderet i emailen."
+
+#: models.py:39
+msgid "Form"
+msgstr "Formular"
+
+#: models.py:40
+msgid "Forms"
+msgstr "Formularer"
+
+#: models.py:58
+msgid "Label"
+msgstr "Mærke"
+
+#: models.py:60
+msgid "Type"
+msgstr "Type"
+
+#: models.py:61
+msgid "Required"
+msgstr "Påkrævet"
+
+#: models.py:62
+msgid "Visible"
+msgstr "Synlig"
+
+#: models.py:63
+msgid "Choices"
+msgstr "Valgmuligheder"
+
+#: models.py:64
+msgid ""
+"Comma separated options where applicable. If an option itself contains "
+"commas, surround the option with `backticks`."
+msgstr ""
+"Kommaseparerede valgmuligheder, hvor det er passende. Hvis en valgmulighed "
+"selv indeholder kommaer, så sæt `accent graver` omkring den."
+
+#: models.py:66
+msgid "Default value"
+msgstr "Standard værdi"
+
+#: models.py:68
+msgid "Placeholder Text"
+msgstr "Pladsholdertekst"
+
+#: models.py:70
+msgid "Help text"
+msgstr "Hjælpetekst"
+
+#: models.py:75 templates/admin/forms/entries.html:28
+msgid "Field"
+msgstr "Felt"
+
+#: models.py:76
+msgid "Fields"
+msgstr "Felter"
+
+#: models.py:122
+msgid "Form entry"
+msgstr "Formular entry"
+
+#: models.py:123
+msgid "Form entries"
+msgstr "Formular entries"
+
+#: models.py:137
+msgid "Form field entry"
+msgstr "Formular felt entry"
+
+#: models.py:138
+msgid "Form field entries"
+msgstr "Formular felt entries"
+
+#: templates/admin/forms/change_form.html:8
+#: templates/admin/forms/entries.html:57
+msgid "View entries"
+msgstr "Vis entries"
+
+#: templates/admin/forms/change_form.html:9
+msgid "History"
+msgstr "Historie"
+
+#: templates/admin/forms/change_form.html:10
+msgid "View on site"
+msgstr "Se på websiden"
+
+#: templates/admin/forms/entries.html:14
+msgid "Home"
+msgstr "Hjem"
+
+#: templates/admin/forms/entries.html:29
+msgid "Include"
+msgstr "Inkluder"
+
+#: templates/admin/forms/entries.html:30
+msgid "Filter by"
+msgstr "Filtrer efter"
+
+#: templates/admin/forms/entries.html:48
+msgid "All"
+msgstr "Alle"
+
+#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
+msgid "Back to form"
+msgstr "Tilbage til formular"
+
+#: templates/admin/forms/entries.html:58
+msgid "Export CSV"
+msgstr "Eksporter CSV"
+
+#: templates/admin/forms/entries.html:60
+msgid "Entries"
+msgstr "Entries"
+
+#: templates/admin/forms/entries.html:94
+msgid "Delete selected"
+msgstr "Slet valgte"
+
+#: templates/admin/forms/entries.html:98
+msgid "No entries to display"
+msgstr "Ingen entries at vise"
+
+#~ msgid ""
+#~ "If ``True``, emails sent to extra recipients for form submissions won't "
+#~ "be sent from an address taken from one of the form's email fields."
+#~ msgstr ""
+#~ "Hvis sat til ``True``, vil emails sendt til ekstra modtagere af formular "
+#~ "forsendelser ikke bliver sendt fra en adresse taget fra en af formularens "
+#~ "email felter."
