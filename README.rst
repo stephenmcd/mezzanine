@@ -267,6 +267,8 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
 * `mezzanine-workout`_ - Store and display FIT data in Mezzanine.
 * `mezzanine-agenda`_ - Event functionality for your Mezzanine sites.
 * `mezzanine-dpaste`_ - Integrate `dpaste`_, a Django pastebin, into your Mezzanine site.
+* `mezzanine-linkdump`_ - Create, display and track links in Mezzanine.
+* `mezzanine-people`_ - Categorize and list people on your Mezzanine site.
 
 
 Donating
@@ -512,6 +514,8 @@ Sites Using Mezzanine
 * `Lipman Art <https://lipmanart.com/>`_
 * `MODCo Group <http://modcogroup.com/>`_
 * `Terminal Labs <http://www.terminallabs.com>`_
+* `Resource Management Companies <http://rmcrecycle.com>`_
+* `Humboldt Community Christian School <http://humboldtccs.org/>`_
 
 
 Quotes
@@ -609,6 +613,7 @@ Quotes
 .. _`The Linux Journal`: http://www.linuxjournal.com
 .. _`Work For Pie`: http://workforpie.com/
 .. _`virtualenvwrapper`: http://www.doughellmann.com/projects/virtualenvwrapper
+.. _`dpaste`: https://github.com/bartTC/dpaste
 
 
 .. THIRD PARTY LIBS
@@ -669,7 +674,9 @@ Quotes
 .. _`mezzanine-workout`: https://github.com/kampfschlaefer/mezzanine-workout
 .. _`mezzanine-agenda`: https://github.com/jpells/mezzanine-agenda
 .. _`mezzanine-dpaste`: https://github.com/prikhi/mezzanine-dpaste
-.. _`dpaste`: https://github.com/bartTC/dpaste
+.. _`mezzanine-linkdump`: https://github.com/prikhi/mezzanine-linkdump
+.. _`mezzanine-people`: https://github.com/eci/mezzanine-people
+
 
 .. PEOPLE WITH QUOTES
 
