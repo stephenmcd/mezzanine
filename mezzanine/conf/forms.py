@@ -43,10 +43,11 @@ class SettingsForm(forms.Form):
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
                 help_text = setting["description"]
                 if translatable:
-                    help_text = string_concat(help_text, "\n\n¹",
+                    help_text = string_concat(help_text, "\n\n<sup>1</sup>",
                                               HELP_MODELTRANSLATION)
                 kwargs = {
-                    "label": setting["label"] + (translatable and "¹:" or ":"),
+                    "label": mark_safe(urlize(setting["label"] +
+                        (translatable and "<sup>1</sup>:" or ":"))),
                     "required": setting["type"] in (int, float),
                     "initial": getattr(settings, name),
                     "help_text": self.format_help(help_text),
