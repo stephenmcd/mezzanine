@@ -5,7 +5,7 @@ from collections import defaultdict
 
 from django import forms
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import string_concat, ugettext_lazy as _
 from django.template.defaultfilters import urlize
 
 from mezzanine.conf import settings, registry, TRANSLATED
@@ -21,6 +21,10 @@ FIELD_TYPES = {
     float: forms.FloatField,
 }
 
+HELP_MODELTRANSLATION = _(
+        "This setting value is language dependent, "
+        "update its value for every language you have defined.")
+
 
 class SettingsForm(forms.Form):
     """
@@ -34,13 +38,18 @@ class SettingsForm(forms.Form):
         # Create a form field for each editable setting's from its type.
         for name in sorted(registry.keys()):
             setting = registry[name]
+            translatable = TRANSLATED and setting["translatable"]
             if setting["editable"]:
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
+                help_text = setting["description"]
+                if translatable:
+                    help_text = string_concat(help_text, "\n\n¹",
+                                              HELP_MODELTRANSLATION)
                 kwargs = {
-                    "label": setting["label"] + ":",
+                    "label": setting["label"] + (translatable and "¹:" or ":"),
                     "required": setting["type"] in (int, float),
                     "initial": getattr(settings, name),
-                    "help_text": self.format_help(setting["description"]),
+                    "help_text": self.format_help(help_text),
                 }
                 if setting["choices"]:
                     field_class = forms.ChoiceField
