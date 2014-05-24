@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User as AuthUser
 
-from mezzanine.conf import settings, TRANSLATED
+from mezzanine.conf import settings, TRANSLATED, CODE_LIST
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
@@ -80,7 +80,7 @@ class DisplayableAdmin(TRANSLATED and TranslationAdmin or admin.ModelAdmin):
             activate(settings.LANGUAGE_CODE)
         super(DisplayableAdmin, self).save_model(request, obj, form, change)
         if TRANSLATED:
-            for code, l in settings.LANGUAGES:
+            for code in CODE_LIST:
                 if code != settings.LANGUAGE_CODE:  # Already done
                     try:
                         activate(code)
