@@ -9,7 +9,6 @@ from django.contrib.admin.widgets import AdminTextareaWidget
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.db import models
 from django.forms import MultipleChoiceField
-from django.utils.encoding import force_text
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
@@ -110,16 +109,6 @@ class MultiChoiceField(with_metaclass(models.SubfieldBase, models.CharField)):
     def value_to_string(self, obj):
         value = self._get_val_from_obj(obj)
         return ",".join(value)
-
-    def contribute_to_class(self, cls, name):
-        def _get_FIELD_display(self, field):
-            value = getattr(self, field.attname)
-            value = force_text(" & ".join([dict(field.choices).get(v, v)
-                                           for v in value]), strings_only=True)
-            return value
-        setattr(cls, '_get_FIELD_display', _get_FIELD_display)
-
-        super(MultiChoiceField, self).contribute_to_class(cls, name)
 
 
 # Define a ``FileField`` that maps to filebrowser's ``FileBrowseField``
