@@ -14,7 +14,7 @@ from mezzanine.conf import settings
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
-from mezzanine.utils.urls import path_to_slug, slugify
+from mezzanine.utils.urls import path_to_slug
 
 
 class BasePage(Orderable, Displayable):
@@ -149,7 +149,7 @@ class Page(BasePage):
         """
         Recursively build the slug from the chain of parents.
         """
-        slug = slugify(self.title)
+        slug = super(Page, self).get_slug()
         if self.parent is not None:
             return "%s/%s" % (self.parent.slug, slug)
         return slug

@@ -20,6 +20,7 @@ from django.utils.timesince import timesince
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from mezzanine.conf import settings, TRANSLATED
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
@@ -99,7 +100,13 @@ class Slugged(SiteRelated):
         """
         Allows subclasses to implement their own slug creation logic.
         """
-        return slugify(self.title)
+        attr = "title"
+        if TRANSLATED:
+            from modeltranslation.utils import build_localized_fieldname
+            attr = build_localized_fieldname(attr, settings.LANGUAGE_CODE)
+        # Get self.title_xx where xx is the default language, if any.
+        # Get self.title otherwise.
+        return slugify(getattr(self, attr, self.title))
 
     def admin_link(self):
         return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
