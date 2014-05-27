@@ -106,7 +106,7 @@ class Slugged(SiteRelated):
             attr = build_localized_fieldname(attr, settings.LANGUAGE_CODE)
         # Get self.title_xx where xx is the default language, if any.
         # Get self.title otherwise.
-        return slugify(getattr(self, attr, self.title))
+        return slugify(getattr(self, attr, None) or self.title)
 
     def admin_link(self):
         return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
