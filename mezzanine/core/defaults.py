@@ -365,6 +365,14 @@ register_setting(
 )
 
 register_setting(
+    name="SITE_ADMIN_TITLE",
+    label=_("Admin Title"),
+    description=_("Title that will display at the top of the admin site."),
+    editable=True,
+    default=_("mezzanine"),
+)
+
+register_setting(
     name="SITE_TITLE",
     label=_("Site Title"),
     description=_("Title that will display at the top of the site, and be "
@@ -521,7 +529,7 @@ register_setting(
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
         "COMMENTS_USE_RATINGS", "DEV_SERVER", "FORMS_USE_HTML5",
         "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID", "JQUERY_FILENAME",
-        "LOGIN_URL", "LOGOUT_URL", "SITE_TITLE", "SITE_TAGLINE", "USE_L10N",
+        "LOGIN_URL", "LOGOUT_URL", "SITE_ADMIN_TITLE", "SITE_TITLE", "SITE_TAGLINE", "USE_L10N",
     ),
 )
 
