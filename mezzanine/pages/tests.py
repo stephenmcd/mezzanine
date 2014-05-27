@@ -2,9 +2,10 @@ from __future__ import unicode_literals
 from future.builtins import str
 
 from django.db import connection
+from django.utils.unittest import skipUnless
 from django.template import Context, Template
 
-from mezzanine.conf import settings
+from mezzanine.conf import settings, TRANSLATED
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
 from mezzanine.pages.models import Page, RichTextPage
@@ -225,3 +226,37 @@ class PagesTests(TestCase):
 
         page, _ = RichTextPage.objects.get_or_create(title="test page")
         self.assertEqual(test_page_processor(current_request(), page), {})
+
+    @skipUnless(TRANSLATED and len(settings.LANGUAGES) > 1,
+                "modeltranslation configured for several languages required")
+    def test_page_slug_has_correct_lang(self):
+        """
+        Test that slug generation is done for the default language and
+        not the active one.
+        """
+        from django.utils.translation import get_language, activate
+        from mezzanine.conf import CODE_LIST
+        from mezzanine.utils.urls import slugify
+
+        default_language = get_language()
+        code_list = [c for c in CODE_LIST if c != default_language]
+        title_1 = "Title firt language"
+        title_2 = "Title second language"
+        page, _ = RichTextPage.objects.get_or_create(title=title_1)
+        for code in code_list:
+            try:
+                activate(code)
+            except:
+                pass
+            else:
+                break
+            # No valid language found
+            page.delete()
+            return
+        page.title = title_2
+        page.save()
+        self.assertEqual(page.get_slug(), slugify(title_1))
+        self.assertEqual(page.title, title_2)
+        activate(default_language)
+        self.assertEqual(page.title, title_1)
+        page.delete()

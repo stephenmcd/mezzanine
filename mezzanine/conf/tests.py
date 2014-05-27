@@ -70,3 +70,25 @@ class ConfTests(TestCase):
                                value="A unicode value")
         settings.use_editable()
         self.assertEqual(settings.BYTES_TEST_SETTING, b"A unicode value")
+
+    def test_modeltranslation_configuration(self):
+        """
+        Test that modeltranslation is properly configured in
+        settings.INSTALLED_APPS and in mezzanine.conf.TRANSLATED.
+        """
+        from mezzanine.conf import TRANSLATED
+        has_modeltranslation = "modeltranslation" in settings.INSTALLED_APPS
+        if settings.USE_MODELTRANSLATION:
+            self.assertEqual(has_modeltranslation, settings.USE_I18N)
+            self.assertEqual(TRANSLATED, settings.USE_I18N)
+        else:
+            self.assertFalse(has_modeltranslation)
+            self.assertFalse(TRANSLATED)
+
+    def test_code_list(self):
+        """
+        Test that mezzanine.conf.CODE_LIST contains valid values.
+        """
+        from mezzanine.conf import CODE_LIST
+        for language in settings.LANGUAGES:
+            self.assertTrue(language[0] in CODE_LIST)
