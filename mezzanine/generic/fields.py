@@ -7,7 +7,57 @@ from django.conf import settings
 from django.contrib.contenttypes.generic import GenericRelation
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import get_model, IntegerField, CharField, FloatField
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, class_prepared
+from django.utils import six
+
+
+class LazyModelOperations(object):
+    """
+    This class connects itself to Django's class_prepared signal. Pass a
+    function and a model or model name to its add() method, and the function
+    will be called with the model as its only parameter once the model has been
+    loaded. If the model is already loaded, the function is called immediately.
+
+    Adapted from code found at the top of django/db/models/fields/related.py.
+    """
+    def __init__(self):
+        self.pending_operations = {}
+        class_prepared.connect(self.signal_receiver)
+
+    @staticmethod
+    def model_key(model_or_name):
+        """
+        Returns an (app_label, model_name) tuple from a model or string.
+        """
+        if isinstance(model_or_name, six.string_types):
+            app_label, model_name = model_or_name.split(".")
+        else:
+            # it's actually a model class
+            app_label = model_or_name._meta.app_label
+            model_name = model_or_name._meta.object_name
+        return app_label, model_name
+
+    def add(self, function, model_or_name):
+        model_key = self.model_key(model_or_name)
+
+        # If the model is already loaded, pass it to the function immediately.
+        # Otherwise, delay execution until the class is prepared.
+        model = get_model(*model_key, seed_cache=False, only_installed=False)
+        if model:
+            function(model)
+        else:
+            self.pending_operations.setdefault(model_key, []).append(function)
+
+    def signal_receiver(self, sender, **_):
+        """
+        Receive class_prepared, and pass the freshly prepared model to each
+        function waiting for it.
+        """
+        key = (sender._meta.app_label, sender.__name__)
+        for function in self.pending_operations.pop(key, []):
+            function(sender)
+
+lazy_model_ops = LazyModelOperations()
 
 
 class BaseGenericRelation(GenericRelation):
@@ -93,8 +143,15 @@ class BaseGenericRelation(GenericRelation):
             # Cartridge with the field RichTextPage.keywords - so
             # instead of specifying self.rel.to as the sender, we
             # check for it inside the signal itself.
-            post_save.connect(self._related_items_changed)
-            post_delete.connect(self._related_items_changed)
+
+            def connect_save(sender):
+                post_save.connect(self._related_items_changed, sender=sender)
+
+            def connect_delete(sender):
+                post_delete.connect(self._related_items_changed, sender=sender)
+
+            lazy_model_ops.add(connect_save, self.rel.to)
+            lazy_model_ops.add(connect_delete, self.rel.to)
 
     def _related_items_changed(self, **kwargs):
         """
@@ -102,16 +159,6 @@ class BaseGenericRelation(GenericRelation):
         this field applies to, and pass the instance to the real
         ``related_items_changed`` handler.
         """
-        # Manually check that the instance matches the relation,
-        # since we don't specify a sender for the signal.
-        try:
-            to = self.rel.to
-            if isinstance(to, str):
-                to = get_model(*to.split(".", 1))
-            if not isinstance(kwargs["instance"], to):
-                raise TypeError
-        except (TypeError, ValueError):
-            return
         for_model = kwargs["instance"].content_type.model_class()
         if issubclass(for_model, self.model):
             instance_id = kwargs["instance"].object_pk
