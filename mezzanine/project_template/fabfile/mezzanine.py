@@ -45,5 +45,3 @@ class MezzanineTask(Task):
             self.print_command(command)
         with hide("running"):
             return sudo(command)
-
-            #TODO: abstract the class
