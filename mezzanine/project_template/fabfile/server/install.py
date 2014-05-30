@@ -19,7 +19,7 @@ class InstallTask(AbstractServerTask):
 
         self.as_sudo("apt-get update -y -q")
 
-        AptTask().run("nginx libjpeg-dev python-dev python-setuptools git-core "
+        AptTask(self.env).run("nginx libjpeg-dev python-dev python-setuptools git-core "
                          "postgresql libpq-dev memcached supervisor")
 
         self.as_sudo("easy_install pip")
