@@ -4,6 +4,7 @@ from getpass import getuser
 from fabric.api import env
 import os
 
+
 conf = {}
 if sys.argv[0].split(os.sep)[-1] in ("fab", "fab-script.py"):
     # Ensure we import settings from the current dir
@@ -47,3 +48,6 @@ env.nevercache_key = conf.get("NEVERCACHE_KEY", "")
 import server
 import deploy
 import website
+from .all import AllTask
+
+all_instance = AllTask(env)
