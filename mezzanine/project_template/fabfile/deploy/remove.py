@@ -17,6 +17,6 @@ class RemoveTask(AbstractDeployTask):
             remote_path = template["remote_path"]
             if exists(remote_path):
                 self.as_sudo("rm %s" % remote_path)
-        psql_task = PsqlTask()
+        psql_task = PsqlTask(self.env)
         psql_task.run("DROP DATABASE IF EXISTS %s;" % self.env.proj_name)
         psql_task.run("DROP USER IF EXISTS %s;" % self.env.proj_name)

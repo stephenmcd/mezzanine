@@ -6,6 +6,10 @@ from fabric.api import run, hide, sudo, cd, prefix
 
 
 class MezzanineTask(Task):
+    def __init__(self, environment, *args, **kwargs):
+        super(MezzanineTask, self).__init__(*args, **kwargs)
+        self.env = environment
+
     @contextmanager
     def virtualenv(self):
         """

@@ -1,6 +1,7 @@
-from posixpath import join
 from glob import glob
 
+from future.builtins import input
+from posixpath import join
 from fabric.api import cd
 from fabric.contrib.files import exists
 from fabric.contrib.files import upload_template
@@ -31,7 +32,7 @@ class CreateTask(AbstractDeployTask):
                 if prompt.lower() != "yes":
                     print("\nAborting!")
                     return False
-                RemoveTask(self.env).run()
+                RemoveTask(self.env, self.templates).run()
             self.run_command("virtualenv %s --distribute" % self.env.proj_name)
             vcs = "git" if self.env.git else "hg"
             self.run_command("%s clone %s %s" % (vcs, self.env.repo_url, self.env.proj_path))
@@ -40,7 +41,7 @@ class CreateTask(AbstractDeployTask):
         pw = self.db_pass()
         user_sql_args = (self.env.proj_name, pw.replace("'", "\'"))
         user_sql = "CREATE USER %s WITH ENCRYPTED PASSWORD '%s';" % user_sql_args
-        psql_task = PsqlTask()
+        psql_task = PsqlTask(self.env)
         psql_task.run(user_sql, show=False)
         shadowed = "*" * len(pw)
         self.print_command(user_sql.replace("'%s'" % pw, "'%s'" % shadowed))

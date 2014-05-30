@@ -1,4 +1,4 @@
-from ..mezzanine import MezzanineTask
+from .abstract_deploy import MezzanineTask
 
 
 class PipTask(MezzanineTask):

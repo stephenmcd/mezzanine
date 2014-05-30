@@ -9,10 +9,6 @@ class InstallTask(AbstractServerTask):
     """
     name = "install"
 
-    def __init__(self, environment, *args, **kwargs):
-        super(AbstractServerTask, self).__init__(*args, **kwargs)
-        self.env = environment
-
     def run(self):
         locale = "LC_ALL=%s" % self.env.locale
 

@@ -6,7 +6,7 @@ from .apt import AptTask
 from .install import InstallTask
 
 
-run_instance = RunTask()
-sudo_instance = SudoTask()
-apt_instance = AptTask()
+run_instance = RunTask(env)
+sudo_instance = SudoTask(env)
+apt_instance = AptTask(env)
 install_instance = InstallTask(env)
