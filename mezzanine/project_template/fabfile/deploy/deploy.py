@@ -1,4 +1,5 @@
 from fabric.contrib.files import exists
+from future.builtins import input
 
 from .db import BackupTask
 from .create import CreateTask
@@ -36,7 +37,10 @@ class DeployTask(AbstractDeployTask):
             last_commit = "git rev-parse HEAD" if git else "hg id -i"
             self.run_command("%s > last.commit" % last_commit)
             with self.update_changed_requirements():
-                self.run_command("git pull origin master -f" if git else "hg pull && hg up -C")
+                if git:
+                    self.run_command("git pull origin master -f")
+                else:
+                    self.run_command("hg pull && hg up -C")
             manage_task = ManageTask(self.env)
             manage_task.run("collectstatic -v 0 --noinput")
             manage_task.run("syncdb --noinput")

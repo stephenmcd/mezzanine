@@ -3,6 +3,7 @@ from fabric.api import hide
 from .abstract_server import AbstractServerTask
 from .apt import AptTask
 
+
 class InstallTask(AbstractServerTask):
     """
     Installs the base system and Python requirements for the entire server.
@@ -19,8 +20,9 @@ class InstallTask(AbstractServerTask):
 
         self.as_sudo("apt-get update -y -q")
 
-        AptTask(self.env).run("nginx libjpeg-dev python-dev python-setuptools git-core "
-                         "postgresql libpq-dev memcached supervisor")
+        AptTask(self.env).run(
+            "nginx libjpeg-dev python-dev python-setuptools git-core "
+            "postgresql libpq-dev memcached supervisor")
 
         self.as_sudo("easy_install pip")
         self.as_sudo("pip install virtualenv mercurial")

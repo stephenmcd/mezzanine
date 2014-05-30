@@ -1,5 +1,6 @@
-from .abstract_website import AbstractWebsiteTask
 from fabric.contrib.files import exists
+
+from .abstract_website import AbstractWebsiteTask
 
 
 class RestartTask(AbstractWebsiteTask):

@@ -1,5 +1,4 @@
 from .abstract_website import AbstractWebsiteTask
-from posixpath import join
 
 
 class PythonTask(AbstractWebsiteTask):
@@ -9,7 +8,8 @@ class PythonTask(AbstractWebsiteTask):
     name = "python"
 
     def run(self, code, show=True):
-        setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';"
+        setup = \
+            "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';"
         full_code = 'python -c "%s%s"' % (setup, code.replace("`", "\\\`"))
         with self.project():
             result = self.run_command(full_code, show=False)

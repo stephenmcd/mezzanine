@@ -78,7 +78,8 @@ class AbstractDeployTask(MezzanineTask):
                 else:
                     # All requirements are pinned.
                     return
-            PipTask(self.env).run("-r %s/%s" % (self.env.proj_path, self.env.reqs_path))
+            PipTask(self.env).run(
+                "-r %s/%s" % (self.env.proj_path, self.env.reqs_path))
 
     def db_pass(self):
         """
@@ -94,15 +95,17 @@ class AbstractDeployTask(MezzanineTask):
         """
         injected = {}
         for name, data in self.templates.items():
-            injected[name] = dict([(k, v % self.env) for k, v in data.items()])
+            injected[name] = dict(
+                [(k, v % self.env) for k, v in data.items()])
         return injected
 
     def static(self):
         """
         Returns the live STATIC_ROOT directory.
         """
-        return PythonTask(self.env).run("from django.conf import settings;"
-                                                "print settings.STATIC_ROOT", show=False).split("\n")[-1]
+        return PythonTask(self.env).run(
+            "from django.conf import settings;"
+            "print settings.STATIC_ROOT", show=False).split("\n")[-1]
 
     def upload_template_and_reload(self, name):
         """
@@ -132,7 +135,8 @@ class AbstractDeployTask(MezzanineTask):
         clean = lambda s: s.replace("\n", "").replace("\r", "").strip()
         if clean(remote_data) == clean(local_data):
             return
-        upload_template(local_path, remote_path, self.env, use_sudo=True, backup=False)
+        upload_template(
+            local_path, remote_path, self.env, use_sudo=True, backup=False)
         if owner:
             self.as_sudo("chown %s %s" % (owner, remote_path))
         if mode:

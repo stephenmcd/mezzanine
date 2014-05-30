@@ -7,4 +7,5 @@ class AbstractDatabaseTask(AbstractDeployTask):
         Runs the given command as the postgres user.
         """
         show = not command.startswith("psql")
-        return self.run_command("sudo -u root sudo -u postgres %s" % command, show=show)
+        return self.run_command(
+            "sudo -u root sudo -u postgres %s" % command, show=show)

@@ -1,5 +1,4 @@
 from posixpath import join
-
 from fabric.api import cd
 
 from .abstract_deploy import AbstractDeployTask
@@ -23,6 +22,7 @@ class RollbackTask(AbstractDeployTask):
                 update = "git checkout" if self.env.git else "hg up -C"
                 self.run_command("%s `cat last.commit`" % update)
             with cd(join(self.static(), "..")):
-                self.run_command("tar -xf %s" % join(self.env.proj_path, "last.tar"))
+                self.run_command(
+                    "tar -xf %s" % join(self.env.proj_path, "last.tar"))
             RestoreTask(self.env).run("last.db")
         RestartTask(self.env).run()

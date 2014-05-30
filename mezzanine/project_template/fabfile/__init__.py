@@ -44,7 +44,7 @@ env.locale = conf.get("LOCALE", "en_US.UTF-8")
 env.secret_key = conf.get("SECRET_KEY", "")
 env.nevercache_key = conf.get("NEVERCACHE_KEY", "")
 
-#env is adjusted before importing tasks
+# env is adjusted before importing tasks
 import server
 import deploy
 import website

@@ -8,4 +8,5 @@ class BackupTask(AbstractDatabaseTask):
     name = "backup"
 
     def run(self, filename):
-        return self.postgres("pg_dump -Fc %s > %s" % (self.env.proj_name, filename))
+        return self.postgres(
+            "pg_dump -Fc %s > %s" % (self.env.proj_name, filename))
