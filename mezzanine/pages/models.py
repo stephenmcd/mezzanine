@@ -8,7 +8,7 @@ except ImportError:     # Python 2
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 
 from mezzanine.conf import settings
 from mezzanine.core.models import Displayable, Orderable, RichText
@@ -221,6 +221,15 @@ class Page(BasePage):
         """
         return True
 
+    def can_move(self, request, new_parent):
+        """
+        Dynamic ``move`` permission for content types to override. Controls
+        whether a given page move in the page tree is permitted. When the
+        permission is denied, raises a ``PageMoveException`` with a single
+        argument (message explaining the reason).
+        """
+        pass
+
     def set_helpers(self, context):
         """
         Called from the ``page_menu`` template tag and assigns a
@@ -292,3 +301,17 @@ class Link(Page):
     class Meta:
         verbose_name = _("Link")
         verbose_name_plural = _("Links")
+
+
+class PageMoveException(Exception):
+    '''
+    Raised by ``can_move()`` when the move permission is denied. Takes
+    an optinal single argument: a message explaining the denial.
+    '''
+    def __init__(self, msg=ugettext('Illegal page move')):
+        self.msg = msg
+
+    def __str__(self):
+        return self.msg
+
+    __unicode__ = __str__
