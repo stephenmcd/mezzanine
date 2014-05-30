@@ -26,7 +26,7 @@ class PageAdminForm(DisplayableAdminForm):
 
     def clean_slug(self):
         """
-        Save the old slug to be used later in PageAdmin.model_save()
+        Save the old slug to be used later in PageAdmin.save_model()
         to make the slug change propagate down the page tree.
         """
         self.instance._old_slug = self.instance.slug
