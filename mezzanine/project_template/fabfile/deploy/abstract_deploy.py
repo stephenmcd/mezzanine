@@ -101,7 +101,7 @@ class AbstractDeployTask(MezzanineTask):
         """
         Returns the live STATIC_ROOT directory.
         """
-        return PythonTask(self.env).run_command("from django.conf import settings;"
+        return PythonTask(self.env).run("from django.conf import settings;"
                                                 "print settings.STATIC_ROOT", show=False).split("\n")[-1]
 
     def upload_template_and_reload(self, name):

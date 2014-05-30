@@ -28,7 +28,7 @@ class DeployTask(AbstractDeployTask):
         for name in self.get_templates():
             self.upload_template_and_reload(name)
         with self.project():
-            BackupTask(self.env).run_command("last.db")
+            BackupTask(self.env).run("last.db")
             static_dir = self.static()
             if exists(static_dir):
                 self.run_command("tar -cf last.tar %s" % static_dir)
