@@ -53,6 +53,13 @@ if getattr(settings, "DEBUG", False):
                                                 content_type="text/plain")),
     )
 
+# API URLs
+if "mezzanine.api" in settings.INSTALLED_APPS:
+    urlpatterns += patterns("",
+        ("^api/", include("mezzanine.api.urls"))
+    )
+
+
 # Miscellanous Mezzanine patterns.
 urlpatterns += patterns("",
     ("^", include("mezzanine.core.urls")),
