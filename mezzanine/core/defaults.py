@@ -299,7 +299,7 @@ register_setting(
     description=_("List of dotted paths to functions, called in order, on a "
         "``RichTextField`` value before it is rendered to the template."),
     editable=False,
-    default=(),
+    default=("mezzanine.utils.html.thumbnails",),
 )
 
 RICHTEXT_FILTER_LEVEL_HIGH = 1

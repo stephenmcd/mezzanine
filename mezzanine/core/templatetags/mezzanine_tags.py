@@ -329,9 +329,6 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     from_width = image.size[0]
     from_height = image.size[1]
 
-    # If already right size, don't do anything.
-    if to_width == from_width and to_height == from_height:
-        return image_url
     # Set dimensions.
     if to_width == 0:
         to_width = from_width * to_height // from_height
