@@ -299,8 +299,11 @@ td, th, th a, label, .help, p.help {
     display: none;
 }
 .send_tweet_container {
-    margin: -27px 0 -11px 250px;
+    display: inline;
 }
-.send_tweet_container .vCheckboxLabel {
-    margin-left: 5px;
+.send_tweet_container * {
+    margin-right: -5px !important;
+    vertical-align: top;
+    top: 5px !important;
+    position: relative;
 }
