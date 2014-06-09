@@ -1,6 +1,6 @@
 {% load i18n %}
 {% get_language_info_list for LANGUAGES as languages %}
-{% if settings.USE_L10N and languages|length > 1 %}
+{% if settings.USE_MODELTRANSLATION and languages|length > 1 %}
 {# hide submit button if browser has javascript support and can react to onchange event #}
 <script>$(document).ready(function(){$('#language_selector_form').change(function(){this.submit();});$('#language_selector_form input').hide();});</script>
 <div>
