@@ -93,20 +93,23 @@ class SettingsForm(forms.Form):
             else:
                 code = None
             setting_obj, created = Setting.objects.get_or_create(name=name)
-            if settings.USE_MODELTRANSLATION and not registry[name]["translatable"]:
-                # Duplicate the value of the setting for every language
-                for code in SortedDict(settings.LANGUAGES):
-                    setattr(setting_obj,
-                            build_localized_fieldname('value', code),
-                            value)
+            if settings.USE_MODELTRANSLATION:
+                if registry[name]["translatable"]:
+                    try:
+                        activate(code)
+                    except:
+                        pass
+                    finally:
+                        setting_obj.value = value
+                        activate(active_language)
+                else:
+                    # Duplicate the value of the setting for every language
+                    for code in SortedDict(settings.LANGUAGES):
+                        setattr(setting_obj,
+                                build_localized_fieldname('value', code),
+                                value)
             else:
-                try:
-                    activate(code)
-                except:
-                    pass
-                finally:
-                    setting_obj.value = value
-                    activate(active_language)
+                setting_obj.value = value
             setting_obj.save()
 
     def format_help(self, description):

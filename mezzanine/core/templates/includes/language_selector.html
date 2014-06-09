@@ -3,7 +3,8 @@
 {% if settings.USE_L10N and languages|length > 1 %}
 {# hide submit button if browser has javascript support and can react to onchange event #}
 <script>$(document).ready(function(){$('#language_selector_form').change(function(){this.submit();});$('#language_selector_form input').hide();});</script>
-<form action="{% url "set_language" %}" method="post" id="language_selector_form" class="navbar-form navbar-right">
+<div>
+<form action="{% url "set_language" %}" method="post" id="language_selector_form">
   {% csrf_token %}
   <div class="form-group">
     <select name="language" class="form-control">
@@ -17,4 +18,5 @@
   </div>
   <input type="submit" class="btn btn-default" value="{% trans "Change" %}" />
 </form>
+</div>
 {% endif %}

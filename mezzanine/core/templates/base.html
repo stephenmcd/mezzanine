@@ -63,7 +63,6 @@
 </div>
 <div class="navbar-collapse collapse">
     {% search_form "all" %}
-    {% include "includes/language_selector.html" %}
     {% page_menu "pages/menus/dropdown.html" %}
 </div>
 </div>
@@ -114,6 +113,7 @@
     <div class="panel panel-default">
     <div class="panel-body">
     {% block right_panel %}
+    {% include "includes/language_selector.html" %}
     {% ifinstalled mezzanine.twitter %}
     {% include "twitter/tweets.html" %}
     {% endifinstalled %}
