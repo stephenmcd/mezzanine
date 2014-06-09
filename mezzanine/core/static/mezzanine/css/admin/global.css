@@ -233,7 +233,7 @@ form .aligned input + label + p.help {
 =======================================*/
 /* CSS Animations (used for the sliding panel) */
 .animated {
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 /* Some reasonable font sizes */
 td, th, th a, label, .help, p.help {
