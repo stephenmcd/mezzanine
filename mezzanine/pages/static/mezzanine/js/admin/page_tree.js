@@ -92,8 +92,7 @@ jQuery(function($) {
         $.post(window.__page_ordering_url, args, function(data) {
             if (String(data).substr(0, 2) !== "ok") {
                 location.reload();
-            }
-            else {
+            } else {
                 $(".messagelist").remove();
             }
         });

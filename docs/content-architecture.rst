@@ -317,7 +317,7 @@ navigation tree in the admin.
 
 In conjunction with Django's permission system, the ``Page`` model
 also implements the methods ``can_add``, ``can_change``,
-``can_delete`` and ``can_move``. These methods provide a way for
+``can_delete``, and ``can_move``. These methods provide a way for
 custom page types to implement their own permissions by being
 overridden on subclasses of the ``Page`` model.
 
@@ -334,14 +334,14 @@ with access to the current user as well.
     instance, ``can_add`` refers to the ability to add child pages.
 
 The ``can_move`` method has a slightly different interface, as it
-needs an additional input, which is the new parent should the move be
-completed, and an additional output, which is a message to be
+needs an additional argument, which is the new parent should the move
+be completed, and an additional output, which is a message to be
 displayed when the move is denied. The message helps justify reverting
 the page to its position prior to the move, and is displayed using
-Django messages framework. Instead of a Boolean
-return value, ``can_move`` raises a ``PageMoveException`` when the
-move is denied, with an optional argument representing the message to
-be displayed. In any case, ``can_move`` does not return any values.
+Django messages framework. Instead of a Boolean return value,
+``can_move`` raises a ``PageMoveException`` when the move is denied,
+with an optional argument representing the message to be displayed.
+In any case, ``can_move`` does not return any values.
 
 .. note::
 
@@ -357,6 +357,8 @@ child page at most, can only be deleted when added as a child page
 (unless you're a superuser), and cannot be moved to a top-level
 position, the following permission methods could be implemented::
 
+    from mezzanine.pages.models import Page, PageMoveException
+
     class Author(Page):
         dob = models.DateField("Date of birth")
 
@@ -368,8 +370,8 @@ position, the following permission methods could be implemented::
 
         def can_move(self, request, new_parent):
             if new_parent is None:
-                raise PageMoveException('An author page cannot be a
-                    top-level page')
+                msg = 'An author page cannot be a top-level page'
+                raise PageMoveException(msg)
 
 Page Menus
 ==========
