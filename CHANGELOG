@@ -1,3 +1,24 @@
+Version 3.1.5 (Jun 09, 2014)
+----------------------------
+
+  * Small css fix for settings admin page - Mario Rosa
+  * Check if ``django.contrib.admin`` is in ``INSTALLED_APPS``. Make sure ``django.contrib.admin`` is in ``INSTALLED_APPS`` before moving. it to the end of the list. Adding this enables moving admin app. on a different domain - Dovydas Stepanavicius
+  * Update ``conf.py`` - Dovydas Stepanavicius
+  * rtl: fix margins in admin - Ahmad Khayyat
+  * Fix ID check in ``admin_page_ordering`` view to prevent some redundant queries - Stephen McDonald
+  * Revert bad ``get_FOO_display`` change. Closes #1032 - Stephen McDonald
+  * Don't strip quotes from twitter template tag args which was only needed in early Django versions. Closes #1034 - Stephen McDonald
+  * Remove global signal handlers in ``mezzanine.generic``. Fixes #1036 - Alex Hill
+  * Implement a new ``can_move`` dynamic page permission. Content types can override ``can_move()`` to control whether a given page. move in the page tree is permitted. ``can_move()`` should raise a. PageMoveException if the move is denied. PageMoveException takes a. single argument: a message explaining the reason for the denial - Ahmad Khayyat
+  * page tree: reload on move exception to revert the tree and display any messages - Ahmad Khayyat
+  * Move LazyModelOperations into ``mezzanine.utils.models`` - Stephen McDonald
+  * Added ``mezzanine.utils.html.thumbnails`` to ``RICHTEXT_FILTERS`` setting, which converts images within richtext fields into thumbnail references. Closes #567 - Stephen McDonald
+  * CSS fixes for send to twitter admin checkobx - Stephen McDonald
+  * Document the ``can_move`` dynamic permission - Ahmad Khayyat
+  * Bump grappelli/filebrowser versions - Stephen McDonald
+  * Faster admin left-hand menu animation - Stephen McDonald
+  * Show featured images in recent blog posts section - Stephen McDonald
+
 Version 3.1.4 (May 05, 2014)
 ----------------------------
 

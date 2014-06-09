@@ -425,7 +425,7 @@ Default: ``('a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'b', 
 
 List of dotted paths to functions, called in order, on a ``RichTextField`` value before it is rendered to the template.
 
-Default: ``()``
+Default: ``('mezzanine.utils.html.thumbnails',)``
 
 ``RICHTEXT_FILTER_LEVEL``
 -------------------------
