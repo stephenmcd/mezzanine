@@ -20,7 +20,7 @@ from django.utils.timesince import timesince
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.conf import settings, TRANSLATED
+from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
@@ -101,7 +101,7 @@ class Slugged(SiteRelated):
         Allows subclasses to implement their own slug creation logic.
         """
         attr = "title"
-        if TRANSLATED:
+        if settings.USE_MODELTRANSLATION:
             from modeltranslation.utils import build_localized_fieldname
             attr = build_localized_fieldname(attr, settings.LANGUAGE_CODE)
         # Get self.title_xx where xx is the default language, if any.

@@ -97,16 +97,17 @@ def set_dynamic_settings(s):
     s.setdefault("MESSAGE_STORAGE", storage)
 
     # If required, add django-modeltranslation for both tests and deployment
-    if not s.get("USE_MODELTRANSLATION", True):
+    if not s.get("USE_MODELTRANSLATION", False):
         remove("INSTALLED_APPS", "modeltranslation")
     else:
-        if s.get("USE_I18N"):
-            try:
-                __import__("modeltranslation")
-            except ImportError:
-                pass
-            else:
-                append("INSTALLED_APPS", "modeltranslation")
+        try:
+            __import__("modeltranslation")
+        except ImportError:
+            pass
+        else:
+            # Force i18n so we are assured that modeltranslation is active
+            s["USE_I18N"] = True
+            append("INSTALLED_APPS", "modeltranslation")
 
     if s["TESTING"]:
         # Following bits are work-arounds for some assumptions that

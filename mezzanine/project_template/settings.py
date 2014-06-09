@@ -80,8 +80,8 @@ from __future__ import absolute_import, unicode_literals
 USE_SOUTH = True
 
 # If True, the django-modeltranslation will be added to the
-# INSTALLED_APPS setting when USE_I18N is True
-USE_MODELTRANSLATION = True
+# INSTALLED_APPS setting.
+USE_MODELTRANSLATION = False
 
 
 ########################

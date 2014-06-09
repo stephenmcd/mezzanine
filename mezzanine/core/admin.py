@@ -9,18 +9,17 @@ from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User as AuthUser
 
-from mezzanine.conf import settings, TRANSLATED, CODE_LIST
+from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.models import get_user_model
 
-if TRANSLATED:
+if settings.USE_MODELTRANSLATION:
+    from django.utils.datastructures import SortedDict
     from django.utils.translation import activate, get_language
-    from modeltranslation.admin import (TranslationAdmin,
-                                        TranslationTabularInline,
-                                        TranslationStackedInline)
+    import modeltranslation.admin
 
 User = get_user_model()
 
@@ -36,7 +35,16 @@ class DisplayableAdminForm(ModelForm):
         return content
 
 
-class DisplayableAdmin(TRANSLATED and TranslationAdmin or admin.ModelAdmin):
+class BaseTranslationModelAdmin(settings.USE_MODELTRANSLATION and
+        modeltranslation.admin.TranslationAdmin or admin.ModelAdmin):
+    """
+    Abstract class used to factorize the switch between translation
+    and no-translation class logic.
+    """
+    pass
+
+
+class DisplayableAdmin(BaseTranslationModelAdmin):
     """
     Admin class for subclasses of the abstract ``Displayable`` model.
     """
@@ -75,9 +83,9 @@ class DisplayableAdmin(TRANSLATED and TranslationAdmin or admin.ModelAdmin):
         is done for every each of it.
         """
         super(DisplayableAdmin, self).save_model(request, obj, form, change)
-        if TRANSLATED:
+        if settings.USE_MODELTRANSLATION:
             lang = get_language()
-            for code in CODE_LIST:
+            for code in SortedDict(settings.LANGUAGES):
                 if code != lang:  # Already done
                     try:
                         activate(code)
@@ -115,13 +123,20 @@ class BaseDynamicInlineAdmin(object):
             self.fields = fields
 
 
-class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin, TRANSLATED and
-        TranslationTabularInline or admin.TabularInline):
+def getInlineBaseClass(inline_type):
+    if settings.USE_MODELTRANSLATION:
+        name = "Translation%sInline" % inline_type
+        return getattr(modeltranslation.admin, name)
+    return getattr(admin, "%sInline" % inline_type)
+
+
+class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin,
+                                getInlineBaseClass("Tabular")):
     template = "admin/includes/dynamic_inline_tabular.html"
 
 
-class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin, TRANSLATED and
-        TranslationStackedInline or admin.StackedInline):
+class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin,
+                                getInlineBaseClass("Stacked")):
     template = "admin/includes/dynamic_inline_stacked.html"
 
     def __init__(self, *args, **kwargs):

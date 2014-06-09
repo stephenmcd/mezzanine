@@ -205,6 +205,3 @@ for app in sorted(django_settings.INSTALLED_APPS, key=mezz_first):
             raise
 
 settings = Settings()
-
-TRANSLATED = settings.USE_MODELTRANSLATION and settings.USE_I18N
-CODE_LIST = [lang[0] for lang in settings.LANGUAGES]

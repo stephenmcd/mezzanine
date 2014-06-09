@@ -573,5 +573,5 @@ register_setting(
     description=_("If ``True``, the django-modeltranslation application will "
         "be automatically added to the ``INSTALLED_APPS`` setting."),
     editable=False,
-    default=True,
+    default=False,
 )

@@ -5,7 +5,7 @@ from django.db import connection
 from django.utils.unittest import skipUnless
 from django.template import Context, Template
 
-from mezzanine.conf import settings, TRANSLATED
+from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
 from mezzanine.pages.models import Page, RichTextPage
@@ -227,7 +227,7 @@ class PagesTests(TestCase):
         page, _ = RichTextPage.objects.get_or_create(title="test page")
         self.assertEqual(test_page_processor(current_request(), page), {})
 
-    @skipUnless(TRANSLATED and len(settings.LANGUAGES) > 1,
+    @skipUnless(settings.USE_MODELTRANSLATION and len(settings.LANGUAGES) > 1,
                 "modeltranslation configured for several languages required")
     def test_page_slug_has_correct_lang(self):
         """
@@ -235,11 +235,12 @@ class PagesTests(TestCase):
         not the active one.
         """
         from django.utils.translation import get_language, activate
-        from mezzanine.conf import CODE_LIST
+        from django.utils.datastructures import SortedDict
         from mezzanine.utils.urls import slugify
 
         default_language = get_language()
-        code_list = [c for c in CODE_LIST if c != default_language]
+        code_list = SortedDict(settings.LANGUAGES)
+        del code_list[default_language]
         title_1 = "Title firt language"
         title_2 = "Title second language"
         page, _ = RichTextPage.objects.get_or_create(title=title_1)

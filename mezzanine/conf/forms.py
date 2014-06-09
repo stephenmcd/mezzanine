@@ -8,10 +8,11 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import activate, get_language, ugettext_lazy as _
 from django.template.defaultfilters import urlize
 
-from mezzanine.conf import settings, registry, TRANSLATED, CODE_LIST
+from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
 
-if TRANSLATED:
+if settings.USE_MODELTRANSLATION:
+    from django.utils.datastructures import SortedDict
     from modeltranslation.utils import build_localized_fieldname
 
 
@@ -36,8 +37,8 @@ class SettingsForm(forms.Form):
             setting = registry[name]
             if setting["editable"]:
                 codes = [active_language]
-                if TRANSLATED and setting["translatable"]:
-                    codes = CODE_LIST
+                if settings.USE_MODELTRANSLATION and setting["translatable"]:
+                    codes = SortedDict(settings.LANGUAGES)
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
                 for code in codes:
                     try:
@@ -92,9 +93,9 @@ class SettingsForm(forms.Form):
             else:
                 code = None
             setting_obj, created = Setting.objects.get_or_create(name=name)
-            if TRANSLATED and not registry[name]["translatable"]:
+            if settings.USE_MODELTRANSLATION and not registry[name]["translatable"]:
                 # Duplicate the value of the setting for every language
-                for code in CODE_LIST:
+                for code in SortedDict(settings.LANGUAGES):
                     setattr(setting_obj,
                             build_localized_fieldname('value', code),
                             value)

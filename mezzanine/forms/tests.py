@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.utils.unittest import skipUnless
 
-from mezzanine.conf import settings, TRANSLATED
+from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
 from mezzanine.forms.models import Form
@@ -29,7 +29,7 @@ class TestsForm(TestCase):
             response = self.client.post(form.get_absolute_url(), data=data)
             self.assertEqual(response.status_code, 200)
 
-    @skipUnless(TRANSLATED and len(settings.LANGUAGES) > 1,
+    @skipUnless(settings.USE_MODELTRANSLATION and len(settings.LANGUAGES) > 1,
                 "modeltranslation configured for several languages required")
     def test_submit_button_text(self):
         """
@@ -39,11 +39,12 @@ class TestsForm(TestCase):
         from django.core.urlresolvers import reverse
         from django.utils.translation import (get_language, activate,
                                               ugettext as _)
-        from mezzanine.conf import CODE_LIST
+        from django.utils.datastructures import SortedDict
         from modeltranslation.utils import auto_populate
 
         default_language = get_language()
-        code_list = [c for c in CODE_LIST if c != default_language]
+        code_list = SortedDict(settings.LANGUAGES)
+        del code_list[default_language]
         for c in code_list:
             try:
                 activate(c)
