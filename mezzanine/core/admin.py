@@ -19,7 +19,8 @@ from mezzanine.utils.models import get_user_model
 if settings.USE_MODELTRANSLATION:
     from django.utils.datastructures import SortedDict
     from django.utils.translation import activate, get_language
-    import modeltranslation.admin
+    from modeltranslation.admin import (TranslationAdmin,
+                                        TranslationInlineModelAdmin)
 
 User = get_user_model()
 
@@ -36,7 +37,7 @@ class DisplayableAdminForm(ModelForm):
 
 
 class BaseTranslationModelAdmin(settings.USE_MODELTRANSLATION and
-        modeltranslation.admin.TranslationAdmin or admin.ModelAdmin):
+        TranslationAdmin or admin.ModelAdmin):
     """
     Abstract class used to factorize the switch between translation
     and no-translation class logic.
@@ -123,20 +124,26 @@ class BaseDynamicInlineAdmin(object):
             self.fields = fields
 
 
-def getInlineBaseClass(inline_type):
+def getInlineBaseClass(cls):
     if settings.USE_MODELTRANSLATION:
-        name = "Translation%sInline" % inline_type
-        return getattr(modeltranslation.admin, name)
-    return getattr(admin, "%sInline" % inline_type)
+        class InlineBase(TranslationInlineModelAdmin, cls):
+            """
+            Abstract class that mimics django-modeltranslation's
+            Translation{Tabular,Stacked}Inline. Used as a placeholder
+            for future improvement.
+            """
+            pass
+        return InlineBase
+    return cls
 
 
 class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin,
-                                getInlineBaseClass("Tabular")):
+                                getInlineBaseClass(admin.TabularInline)):
     template = "admin/includes/dynamic_inline_tabular.html"
 
 
 class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin,
-                                getInlineBaseClass("Stacked")):
+                                getInlineBaseClass(admin.StackedInline)):
     template = "admin/includes/dynamic_inline_stacked.html"
 
     def __init__(self, *args, **kwargs):
