@@ -159,7 +159,8 @@ class Page(BasePage):
         Changes this page's slug, and all other pages whose slugs
         start with this page's slug.
         """
-        for page in Page.objects.filter(slug__startswith=self.slug):
+        slug_prefix = "%s/" % self.slug
+        for page in Page.objects.filter(slug__startswith=slug_prefix):
             if not page.overridden():
                 page.slug = new_slug + page.slug[len(self.slug):]
                 page.save()
