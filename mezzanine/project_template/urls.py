@@ -20,7 +20,7 @@ urlpatterns = i18n_patterns("",
     ("^admin/", include(admin.site.urls)),
 )
 
-if settings.USE_L10N:
+if settings.USE_MODELTRANSLATION:
     urlpatterns += patterns('',
         url('^i18n/$', 'django.views.i18n.set_language', name='set_language'),
     )
