@@ -139,11 +139,11 @@ def get_edit_form(obj, field_names, data=None, files=None):
             for f in self.fields.keys():
                 field_class = self.fields[f].__class__
                 try:
-                    field_type = widget_overrides[field_class]
+                    widget = fields.WIDGETS[widget_overrides[field_class]]
                 except KeyError:
                     pass
                 else:
-                    self.fields[f].widget = fields.WIDGETS[field_type]()
+                    self.fields[f].widget = widget()
                 css_class = self.fields[f].widget.attrs.get("class", "")
                 css_class += " " + field_class.__name__.lower()
                 self.fields[f].widget.attrs["class"] = css_class
