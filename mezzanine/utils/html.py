@@ -45,11 +45,10 @@ def thumbnails(html):
     one of the default values in the ``RICHTEXT_FILTERS`` setting.
     """
     from django.conf import settings
-    from html5lib.treebuilders import getTreeBuilder
-    from html5lib.html5parser import HTMLParser
+    from html5lib import parse
     from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 
-    dom = HTMLParser(tree=getTreeBuilder("dom")).parse(html)
+    dom = parse(html, treebuilder="dom")
     for img in dom.getElementsByTagName("img"):
         src = img.getAttribute("src")
         width = img.getAttribute("width")
@@ -57,8 +56,13 @@ def thumbnails(html):
         if src and width and height:
             src = settings.MEDIA_URL + thumbnail(src, width, height)
             img.setAttribute("src", src)
-    nodes = dom.getElementsByTagName("body")[0].childNodes
-    return "".join([node.toxml() for node in nodes])
+    output = []
+    for parent in ("head", "body"):
+        for node in dom.getElementsByTagName(parent)[0].childNodes:
+            output.append(node.toxml())
+            if node.localName == "script":
+                output.append("</script>")
+    return "".join(output)
 
 
 class TagCloser(HTMLParser):
