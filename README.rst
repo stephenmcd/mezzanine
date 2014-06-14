@@ -269,6 +269,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
 * `mezzanine-dpaste`_ - Integrate `dpaste`_, a Django pastebin, into your Mezzanine site.
 * `mezzanine-linkdump`_ - Create, display and track links in Mezzanine.
 * `mezzanine-people`_ - Categorize and list people on your Mezzanine site.
+* `mezzanine-webf`_ - Fabfile for deploying Mezzanine sites to Webfaction.
 
 
 Donating
@@ -677,6 +678,7 @@ Quotes
 .. _`mezzanine-dpaste`: https://github.com/prikhi/mezzanine-dpaste
 .. _`mezzanine-linkdump`: https://github.com/prikhi/mezzanine-linkdump
 .. _`mezzanine-people`: https://github.com/eci/mezzanine-people
+.. _`mezzanine-webf`: https://github.com/jerivas/mezzanine-webf
 
 
 .. PEOPLE WITH QUOTES
