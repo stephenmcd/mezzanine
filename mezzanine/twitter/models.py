@@ -4,10 +4,6 @@ from future.builtins import str
 from datetime import datetime, timedelta
 import re
 from time import timezone
-try:
-    from urllib.parse import quote
-except ImportError:     # Python 2
-    from urllib import quote
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
