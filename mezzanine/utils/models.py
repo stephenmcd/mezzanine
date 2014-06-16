@@ -3,10 +3,10 @@ from future.utils import with_metaclass
 
 from distutils.version import StrictVersion
 
-from django import get_version
+from django import get_version, VERSION
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import Model, Field, get_model
+from django.db.models import Model, Field
 from django.db.models.signals import class_prepared
 from django.utils import six
 
@@ -20,6 +20,22 @@ else:
     def get_user_model():
         from django.contrib.auth.models import User
         return User
+
+
+# Emulate Django 1.7's exception-raising get_registered_model
+# when running under earlier versions
+if VERSION >= (1, 7):
+    from django.apps import apps
+    get_model = apps.get_registered_model
+else:
+    from django.db.models import get_model as django_get_model
+
+    def get_model(app_label, model_name):
+        model = django_get_model(app_label, model_name,
+                                 seed_cache=False, only_installed=False)
+        if not model:
+            raise LookupError
+        return model
 
 
 def get_user_model_name():
@@ -185,11 +201,12 @@ class LazyModelOperations(object):
         # If the model is already loaded, pass it to the function
         # immediately. Otherwise, delay execution until the class
         # is prepared.
-        model = get_model(*model_key, seed_cache=False, only_installed=False)
-        if model:
-            function(model)
-        else:
+        try:
+            model = get_model(*model_key)
+        except LookupError:
             self.pending_operations.setdefault(model_key, []).append(function)
+        else:
+            function(model)
 
     def signal_receiver(self, sender, **kwargs):
         """
