@@ -518,6 +518,8 @@ Sites Using Mezzanine
 * `Resource Management Companies <http://rmcrecycle.com>`_
 * `DollFires <http://dollfires.com>`_
 * `Quantifind <http://quantifind.com/>`_
+* `ZHackers <https://www.zhackers.com>`_
+* `Open ERP Arabia <http://openerparabia.org/>`_
 
 
 Quotes
