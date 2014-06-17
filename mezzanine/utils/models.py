@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from functools import partial
 from future.utils import with_metaclass
 
 from distutils.version import StrictVersion
@@ -202,12 +203,27 @@ class LazyModelOperations(object):
             model_name = model_or_name._meta.object_name
         return app_label, model_name
 
-    def add(self, function, model_or_name):
-        model_key = self.model_key(model_or_name)
+    def add(self, function, *models_or_names):
+        """
+        The function passed to this method should accept n arguments,
+        where n=len(models_or_names). When all the models are ready,
+        the function will be called with the models as arguments, in
+        the order they appear in this argument list.
+        """
+
+        # If this function depends on more than one model, we recursively
+        # call add for each model, partially applying the given function
+        # on each iteration.
+        model_or_name, more_models = models_or_names[0], models_or_names[1:]
+        if more_models:
+            inner_function = function
+            function = lambda m: self.add(partial(inner_function, m),
+                                          *more_models)
 
         # If the model is already loaded, pass it to the function
         # immediately. Otherwise, delay execution until the class
         # is prepared.
+        model_key = self.model_key(model_or_name)
         try:
             model = get_registered_model(*model_key)
         except LookupError:
