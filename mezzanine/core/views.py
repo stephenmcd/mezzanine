@@ -2,6 +2,8 @@ from __future__ import absolute_import, unicode_literals
 from future.builtins import int, open
 
 import os
+from mezzanine.utils.models import get_model
+
 try:
     from urllib.parse import urljoin, urlparse
 except ImportError:
@@ -13,7 +15,6 @@ from django.contrib.admin.options import ModelAdmin
 from django.contrib.staticfiles import finders
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
-from django.db.models import get_model
 from django.http import (HttpResponse, HttpResponseServerError,
                          HttpResponseNotFound)
 from django.shortcuts import redirect
@@ -116,7 +117,7 @@ def search(request, template="search_results.html"):
         search_model = get_model(*request.GET.get("type", "").split(".", 1))
         if not issubclass(search_model, Displayable):
             raise TypeError
-    except TypeError:
+    except (TypeError, LookupError):
         search_model = Displayable
         search_type = _("Everything")
     else:

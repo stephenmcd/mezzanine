@@ -9,9 +9,8 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import get_model
 
-from mezzanine.utils.models import get_user_model
+from mezzanine.utils.models import get_user_model, get_model
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -20,14 +19,48 @@ def get_profile_model():
     Returns the profile model defined by the ``AUTH_PROFILE_MODULE``
     setting, or ``None`` if no profile model is defined.
     """
-    profile_model = getattr(settings, "AUTH_PROFILE_MODULE", None)
-    if profile_model:
-        if profile_model and profile_model.count(".") == 1:
-            Profile = get_model(*profile_model.split("."))
-            if Profile is not None:
-                return Profile
-        raise ImproperlyConfigured("Value for AUTH_PROFILE_MODULE could "
-                                   "not be loaded: %s" % profile_model)
+    profile_model_name = getattr(settings, "AUTH_PROFILE_MODULE", None)
+
+    if not profile_model_name:
+        return None
+
+    try:
+        app_label, model_name = profile_model_name.split(".")
+        try:
+            profile_model = get_model(app_label, model_name)
+        except LookupError:
+            raise ImproperlyConfigured("No model corresponding to the value "
+                                       "of AUTH_PROFILE_MODULE was found.")
+        else:
+            return profile_model
+    except (ValueError, AttributeError):
+        raise ImproperlyConfigured("Value for AUTH_PROFILE_MODULE must "
+                                   "be an \"app_label.ModelName\" string.")
+
+
+def get_profile_for_user(user):
+    """
+    Returns site-specific profile for this user. Raises
+    SiteProfileNotAvailable if this site does not allow profiles.
+    """
+    if not hasattr(user, '_mezzanine_profile'):
+        from django.conf import settings
+        if not getattr(settings, 'AUTH_PROFILE_MODULE', False):
+            raise ImproperlyConfigured(
+                'You need to set AUTH_PROFILE_MODULE in your project '
+                'settings')
+
+        profile_model = get_profile_model()
+        if not profile_model:
+            return None
+
+        try:
+            user._mezzanine_profile = profile_model._default_manager.using(
+                user._state.db).get(user__id__exact=user.id)
+            user._mezzanine_profile.user = user
+        except (ImportError, ImproperlyConfigured):
+            raise ImproperlyConfigured
+    return user._mezzanine_profile
 
 
 def get_profile_form():
@@ -43,13 +76,13 @@ def get_profile_form():
                                    settings.ACCOUNTS_PROFILE_FORM_CLASS)
 
 
-def get_profile_user_fieldname():
+def get_profile_user_fieldname(profile_model=None, user_model=None):
     """
     Returns the name of the first field on the profile model that
     points to the ``auth.User`` model.
     """
-    Profile = get_profile_model()
-    User = get_user_model()
+    Profile = profile_model or get_profile_model()
+    User = user_model or get_user_model()
     if Profile is not None:
         for field in Profile._meta.fields:
             if field.rel and field.rel.to == User:

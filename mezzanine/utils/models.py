@@ -26,11 +26,18 @@ else:
 # when running under earlier versions
 if VERSION >= (1, 7):
     from django.apps import apps
-    get_model = apps.get_registered_model
+    get_model = apps.get_model
+    get_registered_model = apps.get_registered_model
 else:
     from django.db.models import get_model as django_get_model
 
     def get_model(app_label, model_name):
+        model = django_get_model(app_label, model_name)
+        if not model:
+            raise LookupError
+        return model
+
+    def get_registered_model(app_label, model_name):
         model = django_get_model(app_label, model_name,
                                  seed_cache=False, only_installed=False)
         if not model:
@@ -202,7 +209,7 @@ class LazyModelOperations(object):
         # immediately. Otherwise, delay execution until the class
         # is prepared.
         try:
-            model = get_model(*model_key)
+            model = get_registered_model(*model_key)
         except LookupError:
             self.pending_operations.setdefault(model_key, []).append(function)
         else:

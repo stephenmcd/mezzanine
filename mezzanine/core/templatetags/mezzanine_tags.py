@@ -244,8 +244,11 @@ def search_form(context, search_model_names=None):
         search_model_names = search_model_names.split(" ")
     search_model_choices = []
     for model_name in search_model_names:
-        model = get_model(*model_name.split(".", 1))
-        if model:  # Might not be installed.
+        try:
+            model = get_model(*model_name.split(".", 1))
+        except LookupError:
+            pass
+        else:
             verbose_name = model._meta.verbose_name_plural.capitalize()
             search_model_choices.append((verbose_name, model_name))
     context["search_model_choices"] = sorted(search_model_choices)

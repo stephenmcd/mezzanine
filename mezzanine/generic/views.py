@@ -6,7 +6,7 @@ from json import dumps
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.messages import error
 from django.core.urlresolvers import reverse
-from django.db.models import get_model, ObjectDoesNotExist
+from django.db.models import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
@@ -15,6 +15,7 @@ from mezzanine.conf import settings
 from mezzanine.generic.forms import ThreadedCommentForm, RatingForm
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.cache import add_cache_bypass
+from mezzanine.utils.models import get_model
 from mezzanine.utils.views import render, set_cookie, is_spam
 
 
@@ -69,9 +70,8 @@ def initial_validation(request, prefix):
     if not redirect_url:
         try:
             model = get_model(*post_data.get("content_type", "").split(".", 1))
-            if model:
-                obj = model.objects.get(id=post_data.get("object_pk", None))
-        except (TypeError, ObjectDoesNotExist):
+            obj = model.objects.get(id=post_data.get("object_pk", None))
+        except (TypeError, ObjectDoesNotExist, LookupError):
             redirect_url = "/"
     if redirect_url:
         if request.is_ajax():
