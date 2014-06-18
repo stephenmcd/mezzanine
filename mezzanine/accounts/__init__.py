@@ -30,9 +30,12 @@ def get_profile_model():
     try:
         return get_model(settings.AUTH_PROFILE_MODULE)
     except ValueError:
-        raise ImproperlyConfigured("AUTH_PROFILE_MODULE must be of the form 'app_label.model_name'")
+        raise ImproperlyConfigured("AUTH_PROFILE_MODULE must be of "
+                                   "the form 'app_label.model_name'")
     except LookupError:
-        raise ImproperlyConfigured("AUTH_PROFILE_MODULE refers to model '%s' that has not been installed" % settings.AUTH_PROFILE_MODULE)
+        raise ImproperlyConfigured("AUTH_PROFILE_MODULE refers to "
+                                   "model '%s' that has not been installed"
+                                   % settings.AUTH_PROFILE_MODULE)
 
 
 def get_profile_for_user(user):
