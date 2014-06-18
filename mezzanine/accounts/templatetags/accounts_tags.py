@@ -73,9 +73,9 @@ def profile_fields(user):
             if field.name not in ("id", user_fieldname) + exclude:
                 value = getattr(profile, field.name)
                 fields[field.verbose_name.title()] = value
-        return list(fields.items())
     except ProfileNotConfigured:
         pass
+    return list(fields.items())
 
 
 @register.filter
