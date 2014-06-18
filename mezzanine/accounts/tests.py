@@ -6,7 +6,8 @@ from django.core.urlresolvers import reverse
 from django.forms.fields import DateField, DateTimeField
 from django.utils.http import int_to_base36
 
-from mezzanine.accounts import get_profile_user_fieldname, ProfileNotConfigured
+from mezzanine.accounts import ProfileNotConfigured
+from mezzanine.accounts.forms import ProfileForm
 from mezzanine.conf import settings
 from mezzanine.utils.models import get_user_model
 from mezzanine.utils.tests import TestCase
@@ -32,10 +33,10 @@ class AccountsTests(TestCase):
             data[field] = value
         # Profile fields
         try:
-            from mezzanine.accounts.forms import ProfileFieldsForm
-            user_fieldname = get_profile_user_fieldname()
+            profile_form = ProfileForm()
+            ProfileFieldsForm = profile_form.get_profile_fields_form()
             for name, field in ProfileFieldsForm().fields.items():
-                if name not in (user_fieldname, "id"):
+                if name != "id":
                     if hasattr(field, "choices"):
                         value = list(field.choices)[0][0]
                     elif isinstance(field, (DateField, DateTimeField)):

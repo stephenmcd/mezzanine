@@ -29,7 +29,7 @@ try:
             model = get_profile_model()
             exclude = (get_profile_user_fieldname(),) + _exclude_fields
 except ProfileNotConfigured:
-    ProfileFieldsForm = None
+    pass
 
 
 if settings.ACCOUNTS_NO_USERNAME:
@@ -231,7 +231,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
     def get_profile_fields_form(self):
         try:
             return ProfileFieldsForm
-        except UnboundLocalError:
+        except NameError:
             raise ProfileNotConfigured
 
 
