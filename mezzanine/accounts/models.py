@@ -1,6 +1,6 @@
 from django.db import DatabaseError, connection
 from django.db.models.signals import post_save
-from mezzanine.accounts import get_profile_user_fieldname, get_profile_for_user
+from mezzanine.accounts import get_profile_for_user
 from mezzanine.conf import settings
 from mezzanine.utils.models import lazy_model_ops
 
@@ -13,8 +13,6 @@ if getattr(settings, "AUTH_PROFILE_MODULE", None):
     # This will be called when class_prepared signal has been sent
     # for both the profile and user model.
     def wait_for_models(profile_model, user_model):
-
-        user_field = get_profile_user_fieldname(profile_model, user_model)
 
         def create_profile(sender, instance, created, **_):
             if created:
