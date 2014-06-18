@@ -213,25 +213,27 @@ class LazyModelOperations(object):
         the order they appear in this argument list.
         """
 
-        # If this function depends on more than one model, we recursively
-        # call add for each model, partially applying the given function
-        # on each iteration.
-        model_or_name, more_models = models_or_names[0], models_or_names[1:]
+        # Eagerly parse all model strings so we can fail immediately
+        # if any are plainly invalid.
+        model_keys = [self.model_key(m) if not isinstance(m, tuple) else m
+                      for m in models_or_names]
+
+        # If this function depends on more than one model, recursively call add
+        # for each, partially applying the given function on each iteration.
+        model_key, more_models = model_keys[0], model_keys[1:]
         if more_models:
             inner_function = function
-            function = lambda m: self.add(partial(inner_function, m),
-                                          *more_models)
+            function = lambda model: self.add(partial(inner_function, model),
+                                              *more_models)
 
-        # If the model is already loaded, pass it to the function
-        # immediately. Otherwise, delay execution until the class
-        # is prepared.
-        model_key = self.model_key(model_or_name)
+        # If the model is already loaded, pass it to the function immediately.
+        # Otherwise, delay execution until the class is prepared.
         try:
-            model = get_registered_model(*model_key)
+            model_class = get_registered_model(*model_key)
         except LookupError:
             self.pending_operations.setdefault(model_key, []).append(function)
         else:
-            function(model)
+            function(model_class)
 
     def signal_receiver(self, sender, **kwargs):
         """
