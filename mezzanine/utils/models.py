@@ -32,7 +32,9 @@ if VERSION >= (1, 7):
 else:
     from django.db.models import get_model as django_get_model
 
-    def get_model(app_label, model_name):
+    def get_model(app_label, model_name=None):
+        if model_name is None:
+            app_label, model_name = app_label.split('.')
         model = django_get_model(app_label, model_name)
         if not model:
             raise LookupError
