@@ -95,6 +95,18 @@ class CoreTests(TestCase):
         page = RichTextPage.objects.create(title="Draft",
                                            content=description * 3)
         self.assertEqual(page.description, strip_tags(description))
+    
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
+                "pages app required")
+    @override_settings(DESCRIPTION_LENGTH=2)
+    def test_longer_description(self):
+        """
+        Test that generated description is the first two lines/paragraphs.
+        """
+        content = "<p>old pond…</p><p>a frog leaps in</p><p>water's sound</p>"
+        page = RichTextPage.objects.create(title="Draft", content=content)
+        self.assertEqual(page.description_from_content(),
+                         "<p>old pond…</p><p>a frog leaps in</p>")
 
     @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
                 "pages app required")

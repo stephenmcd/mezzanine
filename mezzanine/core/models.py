@@ -25,6 +25,7 @@ from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model, get_user_model_name
+from mezzanine.utils.models import findnth
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import admin_url, slugify, unique_slug
 
@@ -147,6 +148,8 @@ class MetaData(models.Model):
         Returns the first block or sentence of the first content-like
         field.
         """
+        from mezzanine.conf import settings
+        description_length = getattr(settings, "DESCRIPTION_LENGTH", 1)
         description = ""
         # Use the first RichTextField, or TextField if none found.
         for field_type in (RichTextField, models.TextField):
@@ -167,7 +170,7 @@ class MetaData(models.Model):
         ends = ("</p>", "<br />", "<br/>", "<br>", "</ul>",
                 "\n", ". ", "! ", "? ")
         for end in ends:
-            pos = description.lower().find(end)
+            pos = findnth(description, end, description_length)
             if pos > -1:
                 description = TagCloser(description[:pos]).html
                 break
