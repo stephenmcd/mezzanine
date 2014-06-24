@@ -98,7 +98,7 @@ class CoreTests(TestCase):
     
     @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
                 "pages app required")
-    @override_settings(DESCRIPTION_LENGTH=2)
+    @override_settings(DESCRIPTION_SIZE=2)
     def test_longer_description(self):
         """
         Test that generated description is the first two lines/paragraphs.

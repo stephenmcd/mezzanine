@@ -149,7 +149,7 @@ class MetaData(models.Model):
         field.
         """
         from mezzanine.conf import settings
-        description_length = getattr(settings, "DESCRIPTION_LENGTH", 1)
+        description_length = getattr(settings, "DESCRIPTION_SIZE", 1)
         description = ""
         # Use the first RichTextField, or TextField if none found.
         for field_type in (RichTextField, models.TextField):
