@@ -83,7 +83,7 @@ standard Django environment), with the following dependencies:
 * `pytz`_ and `tzlocal`_ - for timezone support
 * `South`_ - for database migrations (optional)
 * `django-compressor`_ - for merging JS/CSS assets (optional)
-* `requests`_ and `requests-oauth`_ - for interacting with external APIs
+* `requests`_ and `requests_oauthlib`_ - for interacting with external APIs
 * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
 Users on Debian or Ubuntu will require some system packages to support
@@ -576,7 +576,7 @@ Quotes
 .. _`FileBrowser`: http://code.google.com/p/django-filebrowser/
 .. _`South`: http://south.aeracode.org/
 .. _`requests`: http://docs.python-requests.org/en/latest/
-.. _`requests-oauth`: https://github.com/maraujop/requests-oauth
+.. _`requests_oauthlib`: http://requests-oauthlib.readthedocs.org/
 .. _`pyflakes`: http://pypi.python.org/pypi/pyflakes
 .. _`pep8`: http://pypi.python.org/pypi/pep8
 .. _`Homebrew`: http://mxcl.github.com/homebrew/
