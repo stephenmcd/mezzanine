@@ -79,7 +79,7 @@ standard Django environment), with the following dependencies:
 * `Pillow`_ - for image resizing (`Python Imaging Library`_ fork)
 * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
 * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
-* `bleach`_ - for sanitizing markup in content
+* `bleach`_ and `BeautifulSoup`_ - for sanitizing markup in content
 * `pytz`_ and `tzlocal`_ - for timezone support
 * `South`_ - for database migrations (optional)
 * `django-compressor`_ - for merging JS/CSS assets (optional)
@@ -564,6 +564,7 @@ Quotes
 .. _`Python`: http://python.org/
 .. _`pip`: http://www.pip-installer.org/
 .. _`bleach`: http://pypi.python.org/pypi/bleach
+.. _`BeautifulSoup`: http://www.crummy.com/software/BeautifulSoup/
 .. _`pytz`: http://pypi.python.org/pypi/pytz/
 .. _`tzlocal`: http://pypi.python.org/pypi/tzlocal/
 .. _`django-compressor`: https://pypi.python.org/pypi/django_compressor
