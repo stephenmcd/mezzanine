@@ -51,10 +51,11 @@ def thumbnails(html):
 
     dom = BeautifulSoup(html)
     for img in dom.findAll("img"):
-        src = img.get("src")
+        src = img.get("src", "")
+        src_in_media = src.lower().startswith(settings.MEDIA_URL.lower())
         width = img.get("width")
         height = img.get("height")
-        if src and width and height:
+        if src_in_media and width and height:
             img["src"] = settings.MEDIA_URL + thumbnail(src, width, height)
     return str(dom)
 
