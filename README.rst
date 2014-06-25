@@ -520,6 +520,7 @@ Sites Using Mezzanine
 * `Quantifind <http://quantifind.com/>`_
 * `ZHackers <https://www.zhackers.com>`_
 * `Open ERP Arabia <http://openerparabia.org/>`_
+* `DataKind <http://www.datakind.org/>`_
 
 
 Quotes
