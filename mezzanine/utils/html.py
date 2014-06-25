@@ -46,7 +46,7 @@ def thumbnails(html):
     one of the default values in the ``RICHTEXT_FILTERS`` setting.
     """
     from django.conf import settings
-    from BeautifulSoup import BeautifulSoup
+    from bs4 import BeautifulSoup
     from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 
     dom = BeautifulSoup(html)
