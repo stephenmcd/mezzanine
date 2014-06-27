@@ -219,3 +219,16 @@ class LazyModelOperations(object):
 
 
 lazy_model_ops = LazyModelOperations()
+
+
+# Original function by Kevin Altis / Steve Purcell
+def findnth(s, substr, n):
+    """
+    Find the nth occurance of substr in s and return the offset.
+    """
+    offset = -1
+    for i in range(n):
+        offset = s.find(substr, offset + 1)
+        if offset == -1:
+            break
+    return offset
