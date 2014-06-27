@@ -64,3 +64,11 @@ register_setting(
     editable=False,
     default=False,
 )
+
+register_setting(
+    name="DESCRIPTION_SIZE",
+    description=_("The amount of paragraphs/blocks/sentences in the "
+        "description automatically generated from content."),
+    editable=True,
+    default=1,
+)
