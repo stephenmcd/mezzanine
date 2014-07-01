@@ -259,18 +259,23 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   membership.
 * `mezzanine-page-auth`_ - A Mezzanine module for add group-level
   permission to pages.
-* `django-widgy`_ - Widget-oriented content editing. Includes an adapter for
-  Mezzanine and a powerful form builder.
-* `mezzanine-admin-backup`_ - Export your Mezzanine database and assets directly from the admin.
-* `mezzanine-mailchimp`_ - Integrate Mezzanine forms with a MailChimp subscription list.
-* `mezzanine-grappelli`_ - Integrates latest upstream grappelli/filebrowser with Mezzanine.
+* `django-widgy`_ - Widget-oriented content editing. Includes an
+  adapter for Mezzanine and a powerful form builder.
+* `mezzanine-admin-backup`_ - Export your Mezzanine database and assets
+  directly from the admin.
+* `mezzanine-mailchimp`_ - Integrate Mezzanine forms with a MailChimp
+  subscription list.
+* `mezzanine-grappelli`_ - Integrates latest upstream
+  grappelli/filebrowser with Mezzanine.
 * `mezzanine-workout`_ - Store and display FIT data in Mezzanine.
 * `mezzanine-agenda`_ - Event functionality for your Mezzanine sites.
-* `mezzanine-dpaste`_ - Integrate `dpaste`_, a Django pastebin, into your Mezzanine site.
+* `mezzanine-dpaste`_ - Integrate `dpaste`_, a Django pastebin, into
+  your Mezzanine site.
 * `mezzanine-linkdump`_ - Create, display and track links in Mezzanine.
-* `mezzanine-people`_ - Categorize and list people on your Mezzanine site.
-* `mezzanine-webf`_ - Fabfile for deploying Mezzanine sites to Webfaction.
-
+* `mezzanine-people`_ - Categorize and list people in Mezzanine.
+* `mezzanine-webf`_ - Fabfile for deploying Mezzanine to Webfaction.
+* `mezzanineopenshift`_ Another setup for `Redhat's OpenShift`_ cloud
+  platform.
 
 Donating
 ========
@@ -683,6 +688,7 @@ Quotes
 .. _`mezzanine-linkdump`: https://github.com/prikhi/mezzanine-linkdump
 .. _`mezzanine-people`: https://github.com/eci/mezzanine-people
 .. _`mezzanine-webf`: https://github.com/jerivas/mezzanine-webf
+.. _`mezzanineopenshift`: https://bitbucket.org/radeksvarz/mezzanineopenshift
 
 
 .. PEOPLE WITH QUOTES
