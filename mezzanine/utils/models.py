@@ -2,9 +2,7 @@ from __future__ import unicode_literals
 from functools import partial
 from future.utils import with_metaclass
 
-from distutils.version import StrictVersion
-
-from django import get_version, VERSION
+from django import VERSION
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model, Field
@@ -15,7 +13,7 @@ from mezzanine.utils.importing import import_dotted_path
 
 
 # Backward compatibility with Django 1.5's "get_user_model".
-if StrictVersion(get_version()) >= StrictVersion('1.5'):
+if VERSION >= (1, 5):
     from django.contrib.auth import get_user_model
 else:
     def get_user_model():
