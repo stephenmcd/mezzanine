@@ -3,12 +3,12 @@ from future.builtins import str as _str
 
 from collections import defaultdict
 
-from django.db.models import get_model
 from django.utils.importlib import import_module
 from django.utils.module_loading import module_has_submodule
 
 from mezzanine.conf import settings
 from mezzanine.pages.models import Page
+from mezzanine.utils.models import get_model
 
 
 processors = defaultdict(list)

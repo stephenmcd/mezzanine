@@ -1,24 +1,15 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from mezzanine.accounts import get_profile_model, ProfileNotConfigured
 
-from mezzanine.accounts.models import get_profile_model
 from mezzanine.core.admin import SitePermissionUserAdmin
 from mezzanine.conf import settings
 from mezzanine.utils.email import send_approved_mail, send_verification_mail
 from mezzanine.utils.models import get_user_model
 
 
-Profile = get_profile_model()
 User = get_user_model()
-
-
-class ProfileInline(admin.StackedInline):
-    model = Profile
-    can_delete = False
-    template = "admin/profile_inline.html"
-    extra = 0
-
 
 user_list_display = SitePermissionUserAdmin.list_display
 user_list_display += ("is_active", "date_joined", "last_login")
@@ -54,8 +45,15 @@ class UserProfileAdmin(SitePermissionUserAdmin):
             send_verification_mail(request, user, "signup_verify")
 
 
-if Profile:
+try:
+    class ProfileInline(admin.StackedInline):
+        model = get_profile_model()
+        can_delete = False
+        template = "admin/profile_inline.html"
+        extra = 0
     UserProfileAdmin.inlines += (ProfileInline,)
+except ProfileNotConfigured:
+    pass
 
 
 if User in admin.site._registry:

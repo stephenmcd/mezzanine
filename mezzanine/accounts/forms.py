@@ -8,7 +8,8 @@ from django import forms
 from django.utils.http import int_to_base36
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.accounts import get_profile_model, get_profile_user_fieldname
+from mezzanine.accounts import (get_profile_model, get_profile_user_fieldname,
+                                get_profile_for_user, ProfileNotConfigured)
 from mezzanine.conf import settings
 from mezzanine.core.forms import Html5Mixin
 from mezzanine.utils.models import get_user_model
@@ -17,16 +18,19 @@ from mezzanine.utils.urls import slugify, unique_slug
 
 User = get_user_model()
 
+_exclude_fields = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
+
 # If a profile model has been configured with the ``AUTH_PROFILE_MODULE``
 # setting, create a model form for it that will have its fields added to
 # ``ProfileForm``.
-Profile = get_profile_model()
-_exclude_fields = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
-if Profile is not None:
+try:
     class ProfileFieldsForm(forms.ModelForm):
         class Meta:
-            model = Profile
+            model = get_profile_model()
             exclude = (get_profile_user_fieldname(),) + _exclude_fields
+except ProfileNotConfigured:
+    pass
+
 
 if settings.ACCOUNTS_NO_USERNAME:
     _exclude_fields += ("username",)
@@ -105,18 +109,22 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                     if field == "password1":
                         self.fields[field].help_text = ugettext(
                         "Leave blank unless you want to change your password")
+
         # Add any profile fields to the form.
-        self._has_profile = Profile is not None
-        if self._has_profile:
-            profile_fields = ProfileFieldsForm().fields
+        try:
+            profile_fields_form = self.get_profile_fields_form()
+            profile_fields = profile_fields_form().fields
             self.fields.update(profile_fields)
             if not self._signup:
+                user_profile = get_profile_for_user(self.instance)
                 for field in profile_fields:
-                    value = getattr(self.instance.get_profile(), field)
-                    # Check for multipl initial values
+                    value = getattr(user_profile, field)
+                    # Check for multiple initial values, i.e. a m2m field
                     if isinstance(value, Manager):
                         value = value.all()
                     self.initial[field] = value
+        except ProfileNotConfigured:
+            pass
 
     def clean_username(self):
         """
@@ -200,14 +208,12 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                 pass
         user.save()
 
-        # Save profile model.
-        if self._has_profile:
-            try:
-                profile = user.get_profile()
-            except Profile.DoesNotExist:
-                profile = Profile(user=user)
-            profile_fields_form = self.get_profile_fields_form()
-            profile_fields_form(self.data, self.files, instance=profile).save()
+        try:
+            profile = get_profile_for_user(user)
+            profile_form = self.get_profile_fields_form()
+            profile_form(self.data, self.files, instance=profile).save()
+        except ProfileNotConfigured:
+            pass
 
         if self._signup:
             settings.use_editable()
@@ -223,7 +229,10 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         return user
 
     def get_profile_fields_form(self):
-        return ProfileFieldsForm
+        try:
+            return ProfileFieldsForm
+        except NameError:
+            raise ProfileNotConfigured
 
 
 class PasswordResetForm(Html5Mixin, forms.Form):

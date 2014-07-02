@@ -5,8 +5,7 @@ from functools import reduce
 from operator import ior, iand
 from string import punctuation
 
-from django.db.models import (Manager, Q, CharField, TextField,
-                              get_models, get_model)
+from django.db.models import Manager, Q, CharField, TextField, get_models
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
 from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
@@ -14,6 +13,7 @@ from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
+from mezzanine.utils.models import get_model
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import home_slug
 
