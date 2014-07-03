@@ -16,11 +16,13 @@ from __future__ import unicode_literals
 import sys
 import os
 
-docs_path = os.path.abspath(os.path.dirname(__file__))
-parts = (docs_path, "..", "mezzanine")
-sys.path.insert(0, os.path.join(*parts))
-sys.path.insert(0, os.path.join(*parts + ("project_template",)))
-os.environ["DJANGO_SETTINGS_MODULE"] = "mezzanine.project_template.settings"
+if "DJANGO_SETTINGS_MODULE" not in os.environ:
+    docs_path = os.path.abspath(os.path.dirname(__file__))
+    parts = (docs_path, "..", "mezzanine")
+    sys.path.insert(0, os.path.join(*parts))
+    sys.path.insert(0, os.path.join(*parts + ("project_template",)))
+    settings_module = "mezzanine.project_template.settings"
+    os.environ["DJANGO_SETTINGS_MODULE"] = settings_module
 
 import mezzanine
 from mezzanine.utils import docs
