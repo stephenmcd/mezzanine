@@ -1,3 +1,34 @@
+Version 3.1.6 (Jul 05, 2014)
+----------------------------
+
+  * Stricter child page lookup when parent slug is updated. Fixes #1045 - Stephen McDonald
+  * In thumbnails richtext filter, maintain markup that html5lib deems belonging in a head tag, and fix any script tags that have been self-closed - Stephen McDonald
+  * In front-end editing, handle widget overrides not existing when ``FORMS_USE_HTML5`` is False - Stephen McDonald
+  * Remove some redundant encoding/escaping from Twitter queries, and handle some MySQL unicode warnings - Stephen McDonald
+  * Fix regression in generic signal handling in Django 1.7 - Alex Hill
+  * Initial refactor of profile support for Django 1.7 - Alex Hill
+  * LazyModelOperations can wait on multiple models - Alex Hill
+  * Add trailing newline to ``accounts/models.py`` - Alex Hill
+  * Allow ``'app_label.ModelName'`` passed to ``get_model()`` - Alex Hill
+  * Fail early with invalid lazy model names - Alex Hill
+  * Use ``get_profile_for_user()`` in profile signal handler - Alex Hill
+  * Use ProfileNotConfigured in profile functions - Alex Hill
+  * Use ProfileNotConfigured in ``accounts/admin.py`` - Alex Hill
+  * Update accounts tests to use ProfileNotConfigured - Alex Hill
+  * Use ``get_profile_fields_form()`` rather than importing - Alex Hill
+  * Fix return statement in ``accounts_tags.profile_fields()`` - Alex Hill
+  * Fix dependency: oauthlib is used - Melvyn Sopacua
+  * Initial flake8 config - Stephen McDonald
+  * Replace html5lib with BeautifulSoup in thumbnails richtext filter, to preserve original HTML. Closes #1056 - Stephen McDonald
+  * In thumbnails richtext filter, only resize images uploaded to ``MEDIA_URL``. Closes #1058 - Stephen McDonald
+  * Use beautifulsoup4 for Python 3 support - Stephen McDonald
+  * Added mezzanineopenshift to third-party apps - Stephen McDonald
+  * Remove distutils version checking code which doesn't work with strings in versions - Stephen McDonald
+  * Allow alternate settings module when building docs. Closes #1062 - Stephen McDonald
+  * Remove redundant encoding. Closes #1063 - Stephen McDonald
+  * Redundant forms admin attribute - Stephen McDonald
+  * Bump grappelli version - Stephen McDonald
+
 Version 3.1.5 (Jun 09, 2014)
 ----------------------------
 
