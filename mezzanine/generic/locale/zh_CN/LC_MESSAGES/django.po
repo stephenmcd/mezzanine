@@ -6,6 +6,7 @@
 # chancejiang <chance.jiang@gmail.com>, 2012
 # chengwenge <chengwenge988@gmail.com>, 2012
 # 王 充 <wjcroom@gmail.com>, 2012
+# TiantianGao <gtt116@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
@@ -192,11 +193,11 @@ msgstr "值 "
 
 #: models.py:121
 msgid "Rating date"
-msgstr ""
+msgstr "评价日期"
 
 #: models.py:126
 msgid "Rater"
-msgstr ""
+msgstr "评价者"
 
 #: models.py:131
 msgid "Ratings"
@@ -204,7 +205,7 @@ msgstr "评价"
 
 #: views.py:62
 msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr ""
+msgstr "请登录再进行操作"
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -238,7 +239,7 @@ msgstr "\n%(submit_date)s ，%(user_name)s 写到：\n"
 
 #: templates/generic/includes/comment.html:25
 msgid "Link"
-msgstr "回复"
+msgstr "链接"
 
 #: templates/generic/includes/comment.html:26
 #: templates/generic/includes/comment.html:36
