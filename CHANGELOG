@@ -1,3 +1,8 @@
+Version 3.1.7 (Jul 06, 2014)
+----------------------------
+
+  * Fix twitter query encoding - Stephen McDonald
+
 Version 3.1.6 (Jul 05, 2014)
 ----------------------------
 
