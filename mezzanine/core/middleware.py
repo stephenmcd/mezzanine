@@ -59,7 +59,11 @@ class AdminLoginInterfaceSelectorMiddleware(object):
             if request.user.is_authenticated():
                 if login_type == "admin":
                     next = request.get_full_path()
-                    if (request.user.username == DEFAULT_USERNAME and
+                    try:
+                        username = request.user.get_username()
+                    except AttributeError:  # Django < 1.5
+                        username = request.user.username
+                    if (username == DEFAULT_USERNAME and
                             request.user.check_password(DEFAULT_PASSWORD)):
                         error(request, mark_safe(_(
                               "Your account is using the default password, "
