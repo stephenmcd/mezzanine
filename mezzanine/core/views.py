@@ -117,7 +117,7 @@ def search(request, template="search_results.html"):
         search_model = get_model(*request.GET.get("type", "").split(".", 1))
         if not issubclass(search_model, Displayable):
             raise TypeError
-    except (TypeError, LookupError):
+    except (ValueError, TypeError, LookupError):
         search_model = Displayable
         search_type = _("Everything")
     else:
