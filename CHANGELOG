@@ -1,3 +1,10 @@
+Version 3.1.8 (Jul 10, 2014)
+----------------------------
+
+  * Support custom User model in AdminLoginInterfaceSelectorMiddleware - Rocky Meza
+  * Fix call to ``get_model`` in search view - Stephen McDonald
+  * Add test for the search view - Stephen McDonald
+
 Version 3.1.7 (Jul 06, 2014)
 ----------------------------
 
