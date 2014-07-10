@@ -159,6 +159,9 @@ class CoreTests(TestCase):
         self.assertEqual(len(results), 2)
         if results:
             self.assertEqual(results[0].id, second)
+        # Test the actual search view.
+        response = self.client.get(reverse("search") + "?q=test")
+        self.assertEqual(response.status_code, 200)
 
     def _create_page(self, title, status):
         return RichTextPage.objects.create(title=title, status=status)
