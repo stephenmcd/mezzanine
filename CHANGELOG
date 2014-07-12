@@ -1,3 +1,10 @@
+Version 3.1.9 (Jul 12, 2014)
+----------------------------
+
+  * Nicer error message when ``register_setting`` is called with editable and no default - Stephen McDonald
+  * In thumbnails richtext filter, use built-in HTML parser with BeautifulSoup to better preserve original markup - Stephen McDonald
+  * Bail early in thumbnails richtext filter if ``MEDIA_URL`` isn't used - Stephen McDonald
+
 Version 3.1.8 (Jul 10, 2014)
 ----------------------------
 
