@@ -49,7 +49,7 @@ def thumbnails(html):
     from bs4 import BeautifulSoup
     from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 
-    dom = BeautifulSoup(html)
+    dom = BeautifulSoup(html, "html.parser")
     for img in dom.findAll("img"):
         src = img.get("src", "")
         src_in_media = src.lower().startswith(settings.MEDIA_URL.lower())
