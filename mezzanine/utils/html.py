@@ -49,6 +49,11 @@ def thumbnails(html):
     from bs4 import BeautifulSoup
     from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 
+    # If MEDIA_URL isn't in the HTML string, there aren't any
+    # images to replace, so bail early.
+    if settings.MEDIA_URL.lower() not in html.lower():
+        return html
+
     dom = BeautifulSoup(html, "html.parser")
     for img in dom.findAll("img"):
         src = img.get("src", "")
