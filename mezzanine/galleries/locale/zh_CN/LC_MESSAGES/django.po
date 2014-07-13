@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Tiantian Gao <gtt116@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
@@ -20,25 +21,25 @@ msgstr ""
 
 #: models.py:38
 msgid "Zip import"
-msgstr ""
+msgstr "导入zip"
 
 #: models.py:40
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
-msgstr ""
+msgstr "上传zip包，将包中的图片导入图库中"
 
 #: models.py:44
 msgid "Gallery"
-msgstr ""
+msgstr "图库"
 
 #: models.py:45
 msgid "Galleries"
-msgstr ""
+msgstr "图库"
 
 #: models.py:92
 msgid "File"
-msgstr ""
+msgstr "文件"
 
 #: models.py:94
 msgid "Description"
@@ -46,8 +47,8 @@ msgstr "描述"
 
 #: models.py:98
 msgid "Image"
-msgstr ""
+msgstr "图片"
 
 #: models.py:99
 msgid "Images"
-msgstr ""
+msgstr "图片"
