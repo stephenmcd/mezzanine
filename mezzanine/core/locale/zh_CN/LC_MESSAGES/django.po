@@ -444,7 +444,7 @@ msgstr "不能导入值 settings.RICHTEXT_WIDGET_CLASS:%s"
 
 #: forms.py:84 models.py:317
 msgid "Order"
-msgstr "订单"
+msgstr "顺序"
 
 #: models.py:56 models.py:110
 msgid "Title"
