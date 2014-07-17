@@ -20,7 +20,7 @@ from mezzanine.core.models import SitePermission
 from mezzanine.core.management import DEFAULT_USERNAME, DEFAULT_PASSWORD
 from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
                                    cache_get, cache_set, cache_installed)
-from mezzanine.utils.device import templates_for_device
+from mezzanine.utils.device import templates_for_device, device_from_request
 from mezzanine.utils.sites import current_site_id, templates_for_host
 from mezzanine.utils.urls import next_url
 
@@ -114,6 +114,8 @@ class TemplateForDeviceMiddleware(object):
                 templates = templates_for_device(request,
                     response.template_name)
                 response.template_name = templates
+                response.context_data["device_group"] =
+                    device_from_request(request)
         return response
 
 
