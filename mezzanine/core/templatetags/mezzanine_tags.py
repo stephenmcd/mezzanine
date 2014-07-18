@@ -659,12 +659,15 @@ def translate_url(context, language):
     current_language = translation.get_language()
     translation.activate(language)
     try:
-        url_name = (view.url_name if not view.namespace
-                    else '%s:%s' % (view.namespace, view.url_name))
-        url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+        url = reverse(view.func, args=view.args, kwargs=view.kwargs)
     except NoReverseMatch:
-        url_name = "admin:" + view.url_name
-        url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+        try:
+            url_name = (view.url_name if not view.namespace
+                        else '%s:%s' % (view.namespace, view.url_name))
+            url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+        except NoReverseMatch:
+            url_name = "admin:" + view.url_name
+            url = reverse(url_name, args=view.args, kwargs=view.kwargs)
     translation.activate(current_language)
     if context['request'].META["QUERY_STRING"]:
         url += "?" + context['request'].META["QUERY_STRING"]
