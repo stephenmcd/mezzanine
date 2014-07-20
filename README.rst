@@ -43,7 +43,7 @@ interface, Mezzanine provides the following:
 * Configurable `dashboard`_ widgets
 * Blog engine
 * Tagging
-* `Themes Marketplace`_
+* `Free Themes`_, and a `Premium Themes`_ Marketplace
 * User accounts and profiles with email verification
 * Translated to over 35 languages
 * Sharing via Facebook or Twitter
@@ -95,6 +95,13 @@ the imaging library::
 OSX users can do the same via `Homebrew`_::
 
     $ brew install libjpeg
+
+Themes
+======
+
+A handful of attractive `Free Themes`_ are available thanks to
+`@abhinavsohani`_, while there is also a marketplace for buying and
+selling `Premium Themes`_ thanks to `@joshcartme`_.
 
 Browser Support
 ===============
@@ -591,7 +598,10 @@ Quotes
 .. _`custom content types`: http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
 .. _`dashboard`: http://mezzanine.jupo.org/docs/admin-customization.html#dashboard
-.. _`Themes Marketplace`: http://mezzathe.me/
+.. _`Free Themes`: http://thecodinghouse.in/themes/
+.. _`Premium Themes`: http://mezzathe.me/
+.. _`@abhinavsohani`: https://twitter.com/abhinavsohani
+.. _`@joshcartme`: https://twitter.com/joshcartme
 .. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.core.tests
