@@ -527,6 +527,7 @@ Sites Using Mezzanine
 * `Open ERP Arabia <http://openerparabia.org/>`_
 * `DataKind <http://www.datakind.org/>`_
 * `New Zealand Institute of Economic Research <http://nzier.org.nz/>`_
+* `CodingHouse <http://thecodinghouse.in>`_
 
 
 Quotes
