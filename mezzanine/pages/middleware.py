@@ -107,7 +107,7 @@ class PageMiddleware(object):
                 # Matched a non-page urlpattern, but got a 404
                 # for a URL that matches a valid page slug, so
                 # use the page view.
-                response = page_view(request, slug, **view_kwargs)
+                response = page_view(request, slug)
             else:
                 raise
 
