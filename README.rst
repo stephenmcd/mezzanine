@@ -283,6 +283,8 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
 * `mezzanine-webf`_ - Fabfile for deploying Mezzanine to Webfaction.
 * `mezzanineopenshift`_ Another setup for `Redhat's OpenShift`_ cloud
   platform.
+* `mezzanine-bsbanners`_ Add `Twitter Bootstrap`_ Carousels and
+  Jumbotrons to Mezzanine.
 
 Donating
 ========
@@ -701,6 +703,7 @@ Quotes
 .. _`mezzanine-people`: https://github.com/eci/mezzanine-people
 .. _`mezzanine-webf`: https://github.com/jerivas/mezzanine-webf
 .. _`mezzanineopenshift`: https://bitbucket.org/radeksvarz/mezzanineopenshift
+.. _`mezzanine-bsbanners`: https://pypi.python.org/pypi/mezzanine-bsbanners
 
 
 .. PEOPLE WITH QUOTES
