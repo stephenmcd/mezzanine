@@ -176,13 +176,12 @@ Please note the following guidelines for contributing:
 * If you are adding new functionality, you must include basic tests
   and documentation.
 
-If you want to do development with mezzanine, here's a quick way to set
-up a development environment and run the unit tests, using
-`virtualenvwrapper`_ to set up a virtualenv::
+Here's a quick way to set up an environment for developing Mezzanine
+itself using `virtualenvwrapper`_, and running unit tests::
 
     $ mkvirtualenv mezzanine
     $ workon mezzanine
-    $ pip install Django pep8 pyflakes
+    $ pip install django pep8 pyflakes
     $ git clone https://github.com/stephenmcd/mezzanine/
     $ cd mezzanine
     $ python setup.py develop
