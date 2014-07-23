@@ -21,7 +21,8 @@ class ProfileNotConfigured(Exception):
 def get_profile_model():
     """
     Returns the Mezzanine profile model, defined in
-    settings.AUTH_PROFILE_MODULE, or None if no profile model is configured.
+    ``settings.AUTH_PROFILE_MODULE``, or ``None`` if no profile
+    model is configured.
     """
 
     if not getattr(settings, "AUTH_PROFILE_MODULE", None):
@@ -41,8 +42,9 @@ def get_profile_model():
 def get_profile_for_user(user):
     """
     Returns site-specific profile for this user. Raises
-    ProfileNotConfigured if AUTH_PROFILE_MODULE is not set,
-    and ImproperlyConfigured if the corresponding model can't be found.
+    ``ProfileNotConfigured`` if ``settings.AUTH_PROFILE_MODULE`` is not
+    set, and ``ImproperlyConfigured`` if the corresponding model can't
+    be found.
     """
     if not hasattr(user, '_mezzanine_profile'):
         # Raises ProfileNotConfigured if not bool(AUTH_PROFILE_MODULE)
@@ -60,7 +62,8 @@ def get_profile_for_user(user):
 
 def get_profile_form():
     """
-    Returns the profile form defined by ``ACCOUNTS_PROFILE_FORM_CLASS``.
+    Returns the profile form defined by
+    ``settings.ACCOUNTS_PROFILE_FORM_CLASS``.
     """
     from mezzanine.conf import settings
     try:
