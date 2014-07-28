@@ -16,7 +16,7 @@
         id="{{ page.html_id }}">
         <a href="{{ page.get_absolute_url }}"
         {% if page.has_children_in_menu %}
-        class="dropdown-toggle disabled" data-toggle="dropdown"
+        class="dropdown-toggle" data-toggle="dropdown"
         {% endif %}>
             {{ page.title }}
             {% if page.has_children_in_menu %}<b class="caret"></b>{% endif %}
