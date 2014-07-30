@@ -152,7 +152,11 @@ class FormForForm(forms.ModelForm):
             if "max_length" in arg_names:
                 field_args["max_length"] = settings.FORMS_FIELD_MAX_LENGTH
             if "choices" in arg_names:
-                field_args["choices"] = field.get_choices()
+                choices = list(field.get_choices())
+                if (field.field_type == fields.SELECT and
+                        field.default not in [c[0] for c in choices]):
+                    choices.insert(0, ("", field.placeholder_text))
+                field_args["choices"] = choices
             if field_widget is not None:
                 field_args["widget"] = field_widget
             #
