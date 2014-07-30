@@ -58,8 +58,8 @@ jQuery(function($) {
 {% else %}
     {% if user.is_authenticated %}
         {% if not is_popup and not request.GET.pop %}
-        <link rel="stylesheet" href="{% static "mezzanine/chosen/chosen.css" %}">
-        <script src="{% static "mezzanine/chosen/chosen.jquery.js" %}"></script>
+        <link rel="stylesheet" href="{% static "mezzanine/chosen/chosen-1.1.0.css" %}">
+        <script src="{% static "mezzanine/chosen/chosen-1.1.0.jquery.js" %}"></script>
         <script src="{% static "mezzanine/js/admin/navigation.js" %}"></script>
 
         {% endif %}
