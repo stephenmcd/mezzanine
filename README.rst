@@ -176,17 +176,24 @@ Please note the following guidelines for contributing:
 * If you are adding new functionality, you must include basic tests
   and documentation.
 
-Here's a quick way to set up an environment for developing Mezzanine
-itself using `virtualenvwrapper`_, and running unit tests::
+Here's a quick start to hacking on Mezzanine after forking it on
+GitHub, by using the internal "project_template" as your current
+project::
 
-    $ mkvirtualenv mezzanine
-    $ workon mezzanine
-    $ pip install django pep8 pyflakes
-    $ git clone https://github.com/stephenmcd/mezzanine/
+    $ git clone https://github.com/your-github-username/mezzanine/
     $ cd mezzanine
+    $ git checkout -b your-new-branch-name
+    $ cp mezzanine/project_template/local_settings{.py.template,.py}
     $ python setup.py develop
-    $ cp mezzanine/project_template/local_settings.py.template mezzanine/project_template/local_settings.py
-    $ ./mezzanine/project_template/manage.py test
+    $ python mezzanine/project_template/manage.py createdb --noinput
+    $ python mezzanine/project_template/manage.py runserver
+
+    "hack hack hack"
+
+    $ python setup.py test
+    $ git commit -am "A message describing what you changed."
+    $ git push origin your-new-branch-name
+
 
 Language Translations
 =====================
