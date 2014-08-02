@@ -65,7 +65,7 @@ try:
             [console_scripts]
             mezzanine-project=mezzanine.bin.mezzanine_project:create_project
         """,
-        test_suite="runtests.runtests",
+        test_suite="mezzanine.bin.runtests.main",
         tests_require=["pyflakes==0.6.1", "pep8==1.4.1"],
         classifiers=[
             "Development Status :: 5 - Production/Stable",
