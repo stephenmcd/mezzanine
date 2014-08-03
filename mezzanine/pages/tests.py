@@ -147,13 +147,23 @@ class PagesTests(TestCase):
         self.assertTrue(not private in RichTextPage.objects.published(
                 for_user=user
             ))
-        user = User.objects.get(username='test')
+        user = User.objects.get(username=self._username)
         self.assertTrue(public in RichTextPage.objects.published(
                 for_user=user
             ))
         self.assertTrue(private in RichTextPage.objects.published(
                 for_user=user
             ))
+        self.client.logout()
+        response = self.client.get(private.get_absolute_url(), follow=True)
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get(public.get_absolute_url(), follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.client.login(username=self._username, password=self._password)
+        response = self.client.get(private.get_absolute_url(), follow=True)
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(public.get_absolute_url(), follow=True)
+        self.assertEqual(response.status_code, 200)
 
     def test_page_menu_queries(self):
         """
