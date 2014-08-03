@@ -17,6 +17,7 @@ User = get_user_model()
 
 
 class PagesTests(TestCase):
+
     def test_page_ascendants(self):
         """
         Test the methods for looking up ascendants efficiently
