@@ -1,6 +1,9 @@
 *.pyc
 *.pyo
 *.db
+*.pot
+*.doctree
+.doctrees
 .DS_Store
 .coverage
 .idea/
