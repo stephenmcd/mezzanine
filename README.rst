@@ -543,6 +543,8 @@ Sites Using Mezzanine
 * `DataKind <http://www.datakind.org/>`_
 * `New Zealand Institute of Economic Research <http://nzier.org.nz/>`_
 * `CodingHouse <http://thecodinghouse.in>`_
+* `Triple J Products <http://triplejcoilproducts.com>`_
+* `Aaron E. Balderas <http://abalderas.com/>`_
 
 
 Quotes
