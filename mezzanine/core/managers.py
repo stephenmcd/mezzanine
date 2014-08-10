@@ -5,6 +5,7 @@ from functools import reduce
 from operator import ior, iand
 from string import punctuation
 
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Manager, Q, CharField, TextField, get_models
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
@@ -271,10 +272,22 @@ class SearchableManager(Manager):
             # as ``Page``, so we check the parent class list of each
             # model when determining whether a model falls within the
             # ``SEARCH_MODEL_CHOICES`` setting.
-            search_choices = set([get_model(*name.split(".", 1)) for name in
-                                  settings.SEARCH_MODEL_CHOICES])
+            search_choices = set()
             models = set()
             parents = set()
+            errors = []
+            for name in settings.SEARCH_MODEL_CHOICES:
+                try:
+                    model = get_model(*name.split(".", 1))
+                except LookupError:
+                    errors.append(name)
+                else:
+                    search_choices.add(model)
+            if errors:
+                raise ImproperlyConfigured("Could not load the model(s) "
+                        "%s defined in the 'SEARCH_MODEL_CHOICES' setting."
+                        % ", ".join(errors))
+
             for model in get_models():
                 # Model is actually a subclasses of what we're
                 # searching (eg Displayabale)
