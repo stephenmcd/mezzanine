@@ -494,7 +494,7 @@ msgstr "Ordine"
 
 #: models.py:56 models.py:110
 msgid "Title"
-msgstr "Title"
+msgstr "Titolo"
 
 #: models.py:57
 msgid "URL"
