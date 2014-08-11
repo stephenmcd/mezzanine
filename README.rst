@@ -544,7 +544,7 @@ Sites Using Mezzanine
 * `New Zealand Institute of Economic Research <http://nzier.org.nz/>`_
 * `CodingHouse <http://thecodinghouse.in>`_
 * `Triple J Products <http://triplejcoilproducts.com>`_
-* `Aaron E. Balderas <http://abalderas.com/>`_
+* `Aaron E. Balderas <http://abalderas.com>`_
 * `DVD.nl <http://dvd.nl/>`_
 
 
