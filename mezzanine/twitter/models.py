@@ -1,9 +1,8 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
-from datetime import datetime, timedelta
+from datetime import datetime
 import re
-from time import timezone
 
 try:
     from urllib.parse import quote
@@ -14,7 +13,7 @@ except ImportError:
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import urlize
-from django.utils.timezone import get_default_timezone, make_aware
+from django.utils.timezone import make_aware,utc
 from django.utils.translation import ugettext_lazy as _
 from requests_oauthlib import OAuth1
 import requests
@@ -128,8 +127,7 @@ class Query(models.Model):
                 chars = [ch for ch in tweet.text if ord(ch) < 0x800]
                 tweet.text = ''.join(chars)
             d = datetime.strptime(tweet_json["created_at"], date_format)
-            d -= timedelta(seconds=timezone)
-            tweet.created_at = make_aware(d, get_default_timezone())
+            tweet.created_at = make_aware(d, utc)
             try:
                 tweet.save()
             except Warning:
