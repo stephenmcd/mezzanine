@@ -1,9 +1,8 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
-from datetime import datetime, timedelta
+from datetime import datetime
 import re
-from time import timezone
 
 try:
     from urllib.parse import quote
@@ -14,7 +13,7 @@ except ImportError:
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import urlize
-from django.utils.timezone import get_default_timezone, make_aware, utc
+from django.utils.timezone import make_aware, utc
 from django.utils.translation import ugettext_lazy as _
 from requests_oauthlib import OAuth1
 import requests
