@@ -89,6 +89,28 @@ class PageMiddleware(object):
             bits = (settings.LOGIN_URL, REDIRECT_FIELD_NAME, path)
             return redirect("%s?%s=%s" % bits)
 
+        # Run page processors.
+        processor_context = dict()
+        model_processors = page_processors.processors[page.content_model]
+        slug_processors = page_processors.processors["slug:%s" % page.slug]
+        for (processor, exact_page) in slug_processors + model_processors:
+            if exact_page and not page.is_current:
+                continue
+            processor_response = processor(request, page)
+            if isinstance(processor_response, HttpResponse):
+                return processor_response
+            elif processor_response:
+                try:
+                    for k, v in processor_response.items():
+                        if k not in processor_context:
+                            processor_context[k] = v
+                except (TypeError, ValueError):
+                    name = "%s.%s" % (processor.__module__, processor.__name__)
+                    error = ("The page processor %s returned %s but must "
+                             "return HttpResponse or dict." %
+                             (name, type(processor_response)))
+                    raise ValueError(error)
+
         # Here we do a wacky check with non-page views and 404s.
         # Basically if the view function isn't the page view and
         # raises a 404, but also matches an exact page slug, we then
@@ -111,25 +133,9 @@ class PageMiddleware(object):
             else:
                 raise
 
-        # Run page processors.
-        model_processors = page_processors.processors[page.content_model]
-        slug_processors = page_processors.processors["slug:%s" % page.slug]
-        for (processor, exact_page) in slug_processors + model_processors:
-            if exact_page and not page.is_current:
-                continue
-            processor_response = processor(request, page)
-            if isinstance(processor_response, HttpResponse):
-                return processor_response
-            elif processor_response and hasattr(response, "context_data"):
-                try:
-                    for k in processor_response:
-                        if k not in response.context_data:
-                            response.context_data[k] = processor_response[k]
-                except (TypeError, ValueError):
-                    name = "%s.%s" % (processor.__module__, processor.__name__)
-                    error = ("The page processor %s returned %s but must "
-                             "return HttpResponse or dict." %
-                             (name, type(processor_response)))
-                    raise ValueError(error)
+        if hasattr(response, "context_data"):
+            for k, v in processor_context.items():
+                if k not in response.context_data:
+                    response.context_data[k] = v
 
         return response
