@@ -149,7 +149,8 @@ class PagesTests(TestCase):
         self.client.logout()
 
         response = self.client.get(private.get_absolute_url(), follow=True)
-        self.assertEqual(response.status_code, 404)
+        login = "%s?next=%s" % (settings.LOGIN_URL, private.get_absolute_url())
+        self.assertRedirects(response, login)
         response = self.client.get(public.get_absolute_url(), follow=True)
         self.assertEqual(response.status_code, 200)
         self.client.login(username=self._username, password=self._password)
