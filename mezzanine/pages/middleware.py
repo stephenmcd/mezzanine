@@ -89,6 +89,22 @@ class PageMiddleware(object):
             bits = (settings.LOGIN_URL, REDIRECT_FIELD_NAME, path)
             return redirect("%s?%s=%s" % bits)
 
+        # If the view isn't Mezzanine's page view, try to return the result
+        # immediately. In the case of a 404 with an URL slug that matches a
+        # page exactly, swallow the exception and try Mezzanine's page view.
+        #
+        # This allows us to set up pages with URLs that also match non-page
+        # urlpatterns. For example, a page could be created with the URL
+        # /blog/about/, which would match the blog urlpattern, and assuming
+        # there wasn't a blog post with the slug "about", would raise a 404
+        # and subsequently be rendered by Mezzanine's page view.
+        if view_func != page_view:
+            try:
+                return view_func(request, *view_args, **view_kwargs)
+            except Http404:
+                if page.slug != slug:
+                    raise
+
         # Run page processors.
         processor_context = dict()
         model_processors = page_processors.processors[page.content_model]
@@ -111,31 +127,4 @@ class PageMiddleware(object):
                              (name, type(processor_response)))
                     raise ValueError(error)
 
-        # Here we do a wacky check with non-page views and 404s.
-        # Basically if the view function isn't the page view and
-        # raises a 404, but also matches an exact page slug, we then
-        # forget about the non-page view, and run the page view
-        # with the correct args.
-        # This check allows us to set up pages with URLs that also
-        # match non-page urlpatterns, for example a page could be
-        # created with the URL /blog/about/, which would match the
-        # blog urlpattern, and assuming there wasn't a blog post
-        # with the slug "about", would raise a 404.
-        try:
-            response = view_func(request, *view_args, **view_kwargs)
-        except Http404:
-            if (page.slug == slug and view_func != page_view and
-                    page.content_model != 'link'):
-                # Matched a non-page urlpattern, but got a 404
-                # for a URL that matches a valid page slug, so
-                # use the page view.
-                response = page_view(request, slug)
-            else:
-                raise
-
-        if hasattr(response, "context_data"):
-            for k, v in processor_context.items():
-                if k not in response.context_data:
-                    response.context_data[k] = v
-
-        return response
+        return page_view(request, slug, extra_context=processor_context)
