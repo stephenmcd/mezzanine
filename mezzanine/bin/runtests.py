@@ -25,12 +25,14 @@ def main(package="mezzanine"):
     sys.path.insert(0, project_path)
     if not os.path.exists(test_settings_path):
         shutil.copy(local_settings_path + ".template", test_settings_path)
-        with open(test_settings_path, "a") as f:
+        with open(test_settings_path, "r") as f:
+            local_settings = f.read()
+        with open(test_settings_path, "w") as f:
             f.write("""
 from project_template import settings
 globals().update(settings.__dict__)
 INSTALLED_APPS = list(settings.INSTALLED_APPS) + ["mezzanine.accounts"]
-""")
+""" + local_settings)
         atexit.register(lambda: os.remove(test_settings_path))
 
     from django.core.management.commands import test
