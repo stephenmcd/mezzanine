@@ -42,7 +42,7 @@ def main(package="mezzanine"):
         # importing *first* happens in the foreground process, the
         # local_settings.py file will have be written.
         #
-        # This is up there in my worst hacks of all time. ¯\_(ツ)_/¯
+        # This is up there in my worst hacks of all time.
         #
         # PS: We need to import the top-level multiprocessing module
         # otherwise we hit: http://bugs.python.org/issue15881#msg170215
