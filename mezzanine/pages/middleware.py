@@ -106,7 +106,7 @@ class PageMiddleware(object):
                     raise
 
         # Run page processors.
-        processor_context = dict()
+        extra_context = {}
         model_processors = page_processors.processors[page.content_model]
         slug_processors = page_processors.processors["slug:%s" % page.slug]
         for (processor, exact_page) in slug_processors + model_processors:
@@ -118,8 +118,8 @@ class PageMiddleware(object):
             elif processor_response:
                 try:
                     for k, v in processor_response.items():
-                        if k not in processor_context:
-                            processor_context[k] = v
+                        if k not in extra_context:
+                            extra_context[k] = v
                 except (TypeError, ValueError):
                     name = "%s.%s" % (processor.__module__, processor.__name__)
                     error = ("The page processor %s returned %s but must "
@@ -127,4 +127,4 @@ class PageMiddleware(object):
                              (name, type(processor_response)))
                     raise ValueError(error)
 
-        return page_view(request, slug, extra_context=processor_context)
+        return page_view(request, slug, extra_context=extra_context)
