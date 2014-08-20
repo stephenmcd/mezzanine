@@ -289,8 +289,10 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
 * `mezzanine-webf`_ - Fabfile for deploying Mezzanine to Webfaction.
 * `mezzanineopenshift`_ Another setup for `Redhat's OpenShift`_ cloud
   platform.
-* `mezzanine-bsbanners`_ Add `Twitter Bootstrap`_ Carousels and
+* `mezzanine-bsbanners`_ - Add `Twitter Bootstrap`_ Carousels and
   Jumbotrons to Mezzanine.
+* `mezzanine-business-theme` Starter business theme for Mezzanine.
+
 
 Donating
 ========
@@ -548,6 +550,7 @@ Sites Using Mezzanine
 * `DVD.nl <http://dvd.nl/>`_
 * `Constantia Fabrics <http://www.constantiafabrics.co.za/>`_
 * `Potrillo al Pie <http://potrilloalpie.com/>`_
+* `Skyfalk Web Studio <http://skyfalk.ru>`_
 
 
 Quotes
@@ -715,6 +718,7 @@ Quotes
 .. _`mezzanine-webf`: https://github.com/jerivas/mezzanine-webf
 .. _`mezzanineopenshift`: https://bitbucket.org/radeksvarz/mezzanineopenshift
 .. _`mezzanine-bsbanners`: https://pypi.python.org/pypi/mezzanine-bsbanners
+.. _`mezzanine-business-theme`: https://github.com/dfalk/mezzanine-business-themebsbanners
 
 
 .. PEOPLE WITH QUOTES
