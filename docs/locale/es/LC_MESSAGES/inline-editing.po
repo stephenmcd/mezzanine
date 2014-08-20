@@ -1,0 +1,92 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-19 13:59-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../inline-editing.rst:3
+msgid "In-line Editing"
+msgstr ""
+
+#: ../inline-editing.rst:5
+msgid ""
+"Mezzanine comes with the ability for content authors to edit content "
+"directly within a page while viewing it on the website, rather than having "
+"to log into the admin area. Content authors can simply log into the admin "
+"area as usual, but by selecting *Site* on the login screen the author will "
+"then be redirected back to the website where a small *Edit* icon will be "
+"found next to each piece of editable content, such as a page's title or a "
+"blog post's body. Clicking on the Edit icon will allow the author to update "
+"the individual piece of content without leaving the page."
+msgstr ""
+
+#: ../inline-editing.rst:14
+msgid ""
+"In-line editing can be disabled by setting ``INLINE_EDITING_ENABLED`` to "
+"``False``."
+msgstr ""
+
+#: ../inline-editing.rst:18
+msgid "Template Configuration"
+msgstr ""
+
+#: ../inline-editing.rst:20
+msgid ""
+"Making content in-line editable is as simple as wrapping model fields with a"
+" template tag in your templates. The default templates installed with "
+"Mezzanine all have their content configured to be in-line editable. When "
+"developing your own templates from scratch though, you'll need to perform "
+"this step yourself."
+msgstr ""
+
+#: ../inline-editing.rst:26
+msgid ""
+"The first step is to ensure you have a the template tag ``editable_loader`` "
+"specified right before the closing ``</body>`` tag in each template. "
+"Typically this only needs to be defined in your top-most base template::"
+msgstr ""
+
+#: ../inline-editing.rst:41
+msgid ""
+"If your site does not use jQuery, you'll need to include it conditionally in"
+" your template's `<head>` if the user is a staff member. If you're using a "
+"different JS library, you can use `jQuery.noConflict()` to avoid it "
+"overwriting the `$` symbol."
+msgstr ""
+
+#: ../inline-editing.rst:54
+msgid ""
+"The second step is to wrap each instance of a model field with the "
+"``editable`` and ``endeditable`` template tags, with the field specified as "
+"the ``editable`` tag's argument. The content between the two tags is what "
+"will visibly be hinted to the content author as being editable. It's "
+"possible to not provide any content between the two tags, in which case the "
+"value for the model field specified for the ``editable`` tag will simply be "
+"used. The model field must always be specified in the format "
+"``instance_name.field_name`` where ``instance_name`` is the name of a model "
+"instance in the template context. For example, suppose we had a ``page`` "
+"variable in our template with ``title`` and ``content`` fields::"
+msgstr ""
+
+#: ../inline-editing.rst:97
+msgid ""
+"The ``editable`` template tag also allows multiple fields for a model "
+"instance to be given as arguments to a single ``editable`` tag. The result "
+"of this is still a single Edit icon, but when clicked will display each of "
+"the fields specified for editing, grouped together in a single form. "
+"Continuing on from the previous example, if we wanted to group together the "
+"``title`` and ``content`` fields::"
+msgstr ""
+
+#: ../inline-editing.rst:131
+msgid ""
+"The only caveat to consider with grouping together fields in a single "
+"``editable`` tag is that they must all belong to the same model instance."
+msgstr ""

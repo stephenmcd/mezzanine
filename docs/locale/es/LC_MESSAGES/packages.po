@@ -1,0 +1,526 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-19 13:59-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../packages.rst:3
+msgid "Packages"
+msgstr ""
+
+#: ../packages.rst:5
+msgid ""
+"Below are auto-generated docs mostly covering each of the packages contained"
+" within Mezzanine that are added to ``settings.INSTALLED_APPS``."
+msgstr ""
+
+#: ../packages.rst:12
+msgid "``mezzanine.boot``"
+msgstr ""
+
+#: ../packages.rst:20
+msgid "``mezzanine.core``"
+msgstr ""
+
+#: ../../mezzanine/core/__init__.pydocstring of mezzanine.core:1
+msgid ""
+"Provides abstract models and admin features used throughout the various "
+"Mezzanine apps."
+msgstr ""
+
+#: ../packages.rst:25
+msgid "``mezzanine.core.models``"
+msgstr ""
+
+#: ../packages.rst:31
+msgid "``mezzanine.core.managers``"
+msgstr ""
+
+#: ../packages.rst:37
+msgid "``mezzanine.core.views``"
+msgstr ""
+
+#: ../packages.rst:43
+msgid "``mezzanine.core.forms``"
+msgstr ""
+
+#: ../packages.rst:49
+msgid "``mezzanine.core.admin``"
+msgstr ""
+
+#: ../packages.rst:55
+msgid "``mezzanine.core.middleware``"
+msgstr ""
+
+#: ../packages.rst:61
+msgid "``mezzanine.core.templatetags.mezzanine_tags``"
+msgstr ""
+
+#: ../packages.rst:67
+msgid "``mezzanine.core.management.commands``"
+msgstr ""
+
+#: ../packages.rst:73
+msgid "``mezzanine.core.request``"
+msgstr ""
+
+#: ../../mezzanine/core/request.pydocstring of
+#: mezzanine.core.request.CurrentRequestMiddleware:1
+msgid "Stores the request in the current thread for global access."
+msgstr ""
+
+#: ../../mezzanine/core/request.pydocstring of
+#: mezzanine.core.request.current_request:1
+msgid "Retrieves the request from the current thread."
+msgstr ""
+
+#: ../packages.rst:79
+msgid "``mezzanine.core.tests``"
+msgstr ""
+
+#: ../packages.rst:88
+msgid "``mezzanine.pages``"
+msgstr ""
+
+#: ../../mezzanine/pages/__init__.pydocstring of mezzanine.pages:1
+msgid ""
+"Provides the main structure of a Mezzanine site with a hierarchical tree of "
+"pages, each subclassing the Page model to create a content structure."
+msgstr ""
+
+#: ../packages.rst:93
+msgid "``mezzanine.pages.models``"
+msgstr ""
+
+#: ../packages.rst:99
+msgid "``mezzanine.pages.views``"
+msgstr ""
+
+#: ../packages.rst:105
+msgid "``mezzanine.pages.admin``"
+msgstr ""
+
+#: ../packages.rst:111
+msgid "``mezzanine.pages.middleware``"
+msgstr ""
+
+#: ../packages.rst:117
+msgid "``mezzanine.pages.templatetags.pages_tags``"
+msgstr ""
+
+#: ../packages.rst:123
+msgid "``mezzanine.pages.page_processors``"
+msgstr ""
+
+#: ../packages.rst:132
+msgid "``mezzanine.generic``"
+msgstr ""
+
+#: ../../mezzanine/generic/__init__.pydocstring of mezzanine.generic:1
+msgid ""
+"Provides various models and associated functionality, that can be related to"
+" any other model using generic relationshipswith Django's contenttypes "
+"framework, such as comments, keywords/tags and voting."
+msgstr ""
+
+#: ../packages.rst:137
+msgid "``mezzanine.generic.models``"
+msgstr ""
+
+#: ../packages.rst:143
+msgid "``mezzanine.generic.managers``"
+msgstr ""
+
+#: ../packages.rst:149
+msgid "``mezzanine.generic.fields``"
+msgstr ""
+
+#: ../packages.rst:155
+msgid "``mezzanine.generic.views``"
+msgstr ""
+
+#: ../packages.rst:161
+msgid "``mezzanine.generic.forms``"
+msgstr ""
+
+#: ../packages.rst:167
+msgid "``mezzanine.generic.admin``"
+msgstr ""
+
+#: ../packages.rst:173
+msgid "``mezzanine.generic.templatetags.comment_tags``"
+msgstr ""
+
+#: ../packages.rst:179
+msgid "``mezzanine.generic.templatetags.disqus_tags``"
+msgstr ""
+
+#: ../../mezzanine/generic/templatetags/disqus_tags.pydocstring of
+#: mezzanine.generic.templatetags.disqus_tags.disqus_id_for:1
+msgid ""
+"Returns a unique identifier for the object to be used in DISQUS JavaScript."
+msgstr ""
+
+#: ../../mezzanine/generic/templatetags/disqus_tags.pydocstring of
+#: mezzanine.generic.templatetags.disqus_tags.disqus_sso_script:1
+msgid ""
+"Provides a generic context variable which adds single-sign-on support to "
+"DISQUS if ``COMMENTS_DISQUS_API_PUBLIC_KEY`` and "
+"``COMMENTS_DISQUS_API_SECRET_KEY`` are specified."
+msgstr ""
+
+#: ../packages.rst:185
+msgid "``mezzanine.generic.templatetags.keyword_tags``"
+msgstr ""
+
+#: ../packages.rst:191
+msgid "``mezzanine.generic.templatetags.rating_tags``"
+msgstr ""
+
+#: ../packages.rst:200
+msgid "``mezzanine.blog``"
+msgstr ""
+
+#: ../../mezzanine/blog/__init__.pydocstring of mezzanine.blog:1
+msgid ""
+"Provides a blogging app with posts, keywords, categories and comments. Posts"
+" can be listed by month, keyword, category or author."
+msgstr ""
+
+#: ../packages.rst:205
+msgid "``mezzanine.blog.models``"
+msgstr ""
+
+#: ../packages.rst:211
+msgid "``mezzanine.blog.views``"
+msgstr ""
+
+#: ../packages.rst:217
+msgid "``mezzanine.blog.forms``"
+msgstr ""
+
+#: ../packages.rst:223
+msgid "``mezzanine.blog.admin``"
+msgstr ""
+
+#: ../packages.rst:229
+msgid "``mezzanine.blog.feeds``"
+msgstr ""
+
+#: ../packages.rst:235
+msgid "``mezzanine.blog.templatetags.blog_tags``"
+msgstr ""
+
+#: ../packages.rst:241
+msgid "``mezzanine.blog.management.base``"
+msgstr ""
+
+#: ../packages.rst:247
+msgid "``mezzanine.blog.management.commands``"
+msgstr ""
+
+#: ../packages.rst:264
+msgid "``mezzanine.accounts``"
+msgstr ""
+
+#: ../packages.rst:270
+msgid "``mezzanine.accounts.views``"
+msgstr ""
+
+#: ../packages.rst:276
+msgid "``mezzanine.accounts.forms``"
+msgstr ""
+
+#: ../packages.rst:282
+msgid "``mezzanine.accounts.templatetags.accounts_tags``"
+msgstr ""
+
+#: ../packages.rst:288
+msgid "``mezzanine.accounts.admin``"
+msgstr ""
+
+#: ../packages.rst:296
+msgid "``mezzanine.forms``"
+msgstr ""
+
+#: ../../mezzanine/forms/__init__.pydocstring of mezzanine.forms:1
+msgid ""
+"A port of django-forms-builder for Mezzanine. Allows admin users to create "
+"their own HTML5 forms and export form submissions as CSV."
+msgstr ""
+
+#: ../packages.rst:301
+msgid "``mezzanine.forms.models``"
+msgstr ""
+
+#: ../packages.rst:307
+msgid "``mezzanine.forms.forms``"
+msgstr ""
+
+#: ../packages.rst:313
+msgid "``mezzanine.forms.page_processors``"
+msgstr ""
+
+#: ../packages.rst:319
+msgid "``mezzanine.forms.admin``"
+msgstr ""
+
+#: ../packages.rst:328
+msgid "``mezzanine.galleries``"
+msgstr ""
+
+#: ../../mezzanine/galleries/__init__.pydocstring of mezzanine.galleries:1
+msgid "Implements a photo gallery content type."
+msgstr ""
+
+#: ../packages.rst:333
+msgid "``mezzanine.galleries.models``"
+msgstr ""
+
+#: ../packages.rst:339
+msgid "``mezzanine.galleries.admin``"
+msgstr ""
+
+#: ../packages.rst:348
+msgid "``mezzanine.conf``"
+msgstr ""
+
+#: ../packages.rst:354
+msgid "``mezzanine.conf.models``"
+msgstr ""
+
+#: ../packages.rst:360
+msgid "``mezzanine.conf.forms``"
+msgstr ""
+
+#: ../packages.rst:366
+msgid "``mezzanine.conf.admin``"
+msgstr ""
+
+#: ../packages.rst:372
+msgid "``mezzanine.conf.context_processors``"
+msgstr ""
+
+#: ../packages.rst:381
+msgid "``mezzanine.template``"
+msgstr ""
+
+#: ../../mezzanine/template/__init__.pydocstring of
+#: mezzanine.template.Library:1
+msgid ""
+"Extends ``django.template.Library`` providing several shortcuts that attempt"
+" to take the leg-work out of creating different types of template tags."
+msgstr ""
+
+#: ../../mezzanine/template/__init__.pydocstring of
+#: mezzanine.template.Library.as_tag:1
+msgid ""
+"Creates a tag expecting the format: ``{% tag_name as var_name %}`` The "
+"decorated func returns the value that is given to ``var_name`` in the "
+"template."
+msgstr ""
+
+#: ../../mezzanine/template/__init__.pydocstring of
+#: mezzanine.template.Library.inclusion_tag:1
+msgid ""
+"Replacement for Django's ``inclusion_tag`` which looks up device specific "
+"templates at render time."
+msgstr ""
+
+#: ../../mezzanine/template/__init__.pydocstring of
+#: mezzanine.template.Library.render_tag:1
+msgid ""
+"Creates a tag using the decorated func as the render function for the "
+"template tag node. The render function takes two arguments - the template "
+"context and the tag token."
+msgstr ""
+
+#: ../../mezzanine/template/__init__.pydocstring of
+#: mezzanine.template.Library.to_end_tag:1
+msgid ""
+"Creates a tag that parses until it finds the corresponding end tag, eg: for "
+"a tag named ``mytag`` it will parse until ``endmytag``. The decorated func's"
+" return value is used to render the parsed content and takes three arguments"
+" - the parsed content between the start and end tags, the template context "
+"and the tag token."
+msgstr ""
+
+#: ../packages.rst:387
+msgid "``mezzanine.template.loader_tags``"
+msgstr ""
+
+#: ../../mezzanine/template/loader_tags.pydocstring of
+#: mezzanine.template.loader_tags.OverExtendsNode:1
+msgid ""
+"Allows the template ``foo/bar.html`` to extend ``foo/bar.html``, given that "
+"there is another version of it that can be loaded. This allows templates to "
+"be created in a project that extend their app template counterparts, or even"
+" app templates that extend other app templates with the same relative "
+"name/path."
+msgstr ""
+
+#: ../../mezzanine/template/loader_tags.pydocstring of
+#: mezzanine.template.loader_tags.OverExtendsNode:7
+msgid ""
+"We use our own version of ``find_template``, that uses an explict list of "
+"template directories to search for the template, based on the directories "
+"that the known template loaders (``app_directories`` and ``filesystem``) "
+"use. This list gets stored in the template context, and each time a template"
+" is found, its absolute path gets removed from the list, so that subsequent "
+"searches for the same relative name/path can find parent templates in other "
+"directories, which allows circular inheritance to occur."
+msgstr ""
+
+#: ../../mezzanine/template/loader_tags.pydocstring of
+#: mezzanine.template.loader_tags.OverExtendsNode:16
+msgid ""
+"Django's ``app_directories``, ``filesystem``, and ``cached`` loaders are "
+"supported. The ``eggs`` loader, and any loader that implements "
+"``load_template_source`` with a source string returned, should also "
+"theoretically work."
+msgstr ""
+
+#: ../../mezzanine/template/loader_tags.pydocstring of
+#: mezzanine.template.loader_tags.OverExtendsNode.find_template:1
+msgid ""
+"Replacement for Django's ``find_template`` that uses the current template "
+"context to keep track of which template directories it has used when finding"
+" a template. This allows multiple templates with the same relative name/path"
+" to be discovered, so that circular template inheritance can occur."
+msgstr ""
+
+#: ../../mezzanine/template/loader_tags.pydocstring of
+#: mezzanine.template.loader_tags.OverExtendsNode.get_parent:1
+msgid ""
+"Load the parent template using our own ``find_template``, which will cause "
+"its absolute path to not be used again. Then peek at the first node, and if "
+"its parent arg is the same as the current parent arg, we know circular "
+"inheritance is going to occur, in which case we try and find the template "
+"again, with the absolute directory removed from the search list."
+msgstr ""
+
+#: ../../mezzanine/template/loader_tags.pydocstring of
+#: mezzanine.template.loader_tags.overextends:1
+msgid ""
+"Extended version of Django's ``extends`` tag that allows circular "
+"inheritance to occur, eg a template can both be overridden and extended at "
+"once."
+msgstr ""
+
+#: ../packages.rst:396
+msgid "``mezzanine.twitter``"
+msgstr ""
+
+#: ../../mezzanine/twitter/__init__.pydocstring of mezzanine.twitter:1
+msgid ""
+"Provides models and utilities for displaying different types of Twitter "
+"feeds."
+msgstr ""
+
+#: ../packages.rst:401
+msgid "``mezzanine.twitter.models``"
+msgstr ""
+
+#: ../packages.rst:407
+msgid "``mezzanine.twitter.managers``"
+msgstr ""
+
+#: ../packages.rst:413
+msgid "``mezzanine.twitter.templatetags.twitter_tags``"
+msgstr ""
+
+#: ../packages.rst:419
+msgid "``mezzanine.twitter.management.commands``"
+msgstr ""
+
+#: ../packages.rst:428
+msgid "``mezzanine.utils``"
+msgstr ""
+
+#: ../../mezzanine/utils/__init__.pydocstring of mezzanine.utils:1
+msgid ""
+"Various utility functions used throughout the different Mezzanine apps."
+msgstr ""
+
+#: ../../mezzanine/utils/conf.pydocstring of
+#: mezzanine.utils.conf.SitesAllowedHosts:1
+msgid ""
+"This is a fallback for Django 1.5's ALLOWED_HOSTS setting which is required "
+"when DEBUG is False. It looks up the ``Site`` model and uses any domains "
+"added to it, the first time the setting is accessed."
+msgstr ""
+
+#: ../../mezzanine/utils/conf.pydocstring of
+#: mezzanine.utils.conf.set_dynamic_settings:1
+msgid ""
+"Called at the end of the project's settings module, and is passed its "
+"globals dict for updating with some final tweaks for settings that generally"
+" aren't specified, but can be given some better defaults based on other "
+"settings that have been specified. Broken out into its own function so that "
+"the code need not be replicated in the settings modules of other project-"
+"based apps that leverage Mezzanine's settings module."
+msgstr ""
+
+#: ../../mezzanine/utils/device.pydocstring of
+#: mezzanine.utils.device.device_from_request:1
+msgid ""
+"Determine's the device name from the request by first looking for an "
+"overridding cookie, and if not found then matching the user agent. Used at "
+"both the template level for choosing the template to load and also at the "
+"cache level as a cache key prefix."
+msgstr ""
+
+#: ../../mezzanine/utils/device.pydocstring of
+#: mezzanine.utils.device.templates_for_device:1
+msgid ""
+"Given a template name (or list of them), returns the template names as a "
+"list, with each name prefixed with the device directory inserted before it's"
+" associate default in the list."
+msgstr ""
+
+#: ../../mezzanine/utils/html.pydocstring of mezzanine.utils.html.TagCloser:1
+msgid ""
+"HTMLParser that closes open tags. Takes a HTML string as its first arg, and "
+"populate a ``html`` attribute on the parser with the original HTML arg and "
+"any required closing tags."
+msgstr ""
+
+#: ../../mezzanine/utils/html.pydocstring of
+#: mezzanine.utils.html.decode_entities:1
+msgid ""
+"Remove HTML entities from a string. Adapted from http://effbot.org/zone/re-"
+"sub.htm#unescape-html"
+msgstr ""
+
+#: ../../mezzanine/utils/html.pydocstring of mezzanine.utils.html.thumbnails:1
+msgid ""
+"Given a HTML string, converts paths in img tags to thumbnail paths, using "
+"Mezzanine's ``thumbnail`` template tag. Used as one of the default values in"
+" the ``RICHTEXT_FILTERS`` setting."
+msgstr ""
+
+#: ../../mezzanine/utils/importing.pydocstring of
+#: mezzanine.utils.importing.import_dotted_path:1
+msgid ""
+"Takes a dotted path to a member name in a module, and returns the member "
+"after importing it."
+msgstr ""
+
+#: ../../mezzanine/utils/importing.pydocstring of
+#: mezzanine.utils.importing.path_for_import:1
+msgid "Returns the directory path for the given package or module."
+msgstr ""
+
+#: ../../mezzanine/utils/timezone.pydocstring of
+#: mezzanine.utils.timezone.get_best_local_timezone:1
+msgid ""
+"Compares local timezone offset to pytz's timezone db, to determine a "
+"matching timezone name to use when TIME_ZONE is not set."
+msgstr ""

@@ -1,0 +1,171 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-19 13:59-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../deployment.rst:3
+msgid "Deployment"
+msgstr ""
+
+#: ../deployment.rst:5
+msgid ""
+"Deployment of a Mezzanine site to production is mostly identical to "
+"deploying a regular Django site. For serving static content, Mezzanine makes"
+" full use of Django's ``staticfiles`` app. For more information, see the "
+"Django docs for `deployment "
+"<https://docs.djangoproject.com/en/dev/howto/deployment/>`_ and `staticfiles"
+" <https://docs.djangoproject.com/en/dev/howto/static-files/>`_."
+msgstr ""
+
+#: ../deployment.rst:13
+msgid "Fabric"
+msgstr ""
+
+#: ../deployment.rst:15
+msgid ""
+"Each Mezzanine project comes bundled with utilities for deploying production"
+" Mezzanine sites, using `Fabric <http://fabfile.org>`_. The provided "
+"``fabfile.py`` contains composable commands that can be used to set up all "
+"the system-level requirements on a new `Debian <http://debian.org>`_ based "
+"system, manage each of the project-level virtual environments for initial "
+"and continuous deployments, and much more."
+msgstr ""
+
+#: ../deployment.rst:24
+msgid "Server Stack"
+msgstr ""
+
+#: ../deployment.rst:26
+msgid "The deployed stack consists of the following components:"
+msgstr ""
+
+#: ../deployment.rst:28
+msgid "`NGINX <http://nginx.org>`_ - public facing web server"
+msgstr ""
+
+#: ../deployment.rst:29
+msgid "`gunicorn <http://gunicorn.org>`_ - internal HTTP application server"
+msgstr ""
+
+#: ../deployment.rst:30
+msgid "`PostgreSQL <http://postgresql.org>`_ - database server"
+msgstr ""
+
+#: ../deployment.rst:31
+msgid "`memcached <http://memcached.org>`_ - in-memory caching server"
+msgstr ""
+
+#: ../deployment.rst:32
+msgid "`supervisord <http://supervisord.org>`_ - process control and monitor"
+msgstr ""
+
+#: ../deployment.rst:36
+msgid ""
+"None of the items listed above are required for deploying Mezzanine, they're"
+" simply the components that have been chosen for use in the bundled "
+"``fabfile.py``. Alternatives such as `Apache <http://httpd.apache.org/>`_ "
+"and `MySQL <http://www.mysql.com/>`_ will work fine, but you'll need to take"
+" care of setting these up and deploying yourself. Consult the Django "
+"documentation for more information on using different `web "
+"<https://docs.djangoproject.com/en/dev/howto/deployment/>`_ and `database "
+"<https://docs.djangoproject.com/en/dev/ref/databases/>`_ servers."
+msgstr ""
+
+#: ../deployment.rst:48
+msgid "Configuration"
+msgstr ""
+
+#: ../deployment.rst:50
+msgid ""
+"Configurable variables are implemented in the project's ``settings.py`` "
+"module. Here's an example, that leverages some existing setting names::"
+msgstr ""
+
+#: ../deployment.rst:70
+msgid "Commands"
+msgstr ""
+
+#: ../deployment.rst:72
+msgid ""
+"Here's the list of commands provided in a Mezzanine project's "
+"``fabfile.py``. Consult the `Fabric documentation <http://fabfile.org>`_ for"
+" more information on working with these:"
+msgstr ""
+
+#: ../fabfile.rst:1
+msgid "``fab all`` - Installs everything required on a new system and deploy."
+msgstr ""
+
+#: ../fabfile.rst:2
+msgid "``fab apt`` - Installs one or more system packages via apt."
+msgstr ""
+
+#: ../fabfile.rst:3
+msgid "``fab backup`` - Backs up the database."
+msgstr ""
+
+#: ../fabfile.rst:4
+msgid "``fab create`` - Create a new virtual environment for a project."
+msgstr ""
+
+#: ../fabfile.rst:5
+msgid "``fab deploy`` - Deploy latest version of the project."
+msgstr ""
+
+#: ../fabfile.rst:6
+msgid ""
+"``fab install`` - Installs the base system and Python requirements for the "
+"entire server."
+msgstr ""
+
+#: ../fabfile.rst:7
+msgid "``fab manage`` - Runs a Django management command."
+msgstr ""
+
+#: ../fabfile.rst:8
+msgid ""
+"``fab pip`` - Installs one or more Python packages within the virtual "
+"environment."
+msgstr ""
+
+#: ../fabfile.rst:9
+msgid "``fab psql`` - Runs SQL against the project's database."
+msgstr ""
+
+#: ../fabfile.rst:10
+msgid ""
+"``fab python`` - Runs Python code in the project's virtual environment, with"
+" Django loaded."
+msgstr ""
+
+#: ../fabfile.rst:11
+msgid "``fab remove`` - Blow away the current project."
+msgstr ""
+
+#: ../fabfile.rst:12
+msgid "``fab restart`` - Restart gunicorn worker processes for the project."
+msgstr ""
+
+#: ../fabfile.rst:13
+msgid "``fab restore`` - Restores the database."
+msgstr ""
+
+#: ../fabfile.rst:14
+msgid "``fab rollback`` - Reverts project state to the last deploy."
+msgstr ""
+
+#: ../fabfile.rst:15
+msgid "``fab run`` - Runs a shell comand on the remote server."
+msgstr ""
+
+#: ../fabfile.rst:16
+msgid "``fab sudo`` - Runs a command as sudo."
+msgstr ""

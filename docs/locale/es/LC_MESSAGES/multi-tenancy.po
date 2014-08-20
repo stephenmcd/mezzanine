@@ -1,0 +1,162 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-19 13:59-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../multi-tenancy.rst:3
+msgid "Multi-Tenancy"
+msgstr ""
+
+#: ../multi-tenancy.rst:5
+msgid ""
+"Mezzanine makes use of Django's ``sites`` app to support multiple sites in a"
+" single project. This functionality is always \"turned on\" in Mezzanine: a "
+"single ``Site`` record always exists, and is referenced when retrieving site"
+" related data, which most content in Mezzanine falls under."
+msgstr ""
+
+#: ../multi-tenancy.rst:11
+msgid ""
+"Where Mezzanine diverges from Django is how the ``Site`` record is "
+"retrieved. Typically a running instance of a Django project is bound to a "
+"single site defined by the ``SITE_ID`` setting, so while a project may "
+"contain support for multiple sites, a separate running instance of the "
+"project is required per site."
+msgstr ""
+
+#: ../multi-tenancy.rst:17
+msgid ""
+"Mezzanine uses a pipeline of checks to determine which site to reference "
+"when accessing content. The most import of these is one where the host name "
+"of the current request is compared to the domain name specified for each "
+"``Site`` record. With this in place, true multi-tenancy is achieved, and "
+"multiple sites can be hosted within a single running instance of the "
+"project."
+msgstr ""
+
+#: ../multi-tenancy.rst:24
+msgid "Here's the list of checks in the pipeline, in order:"
+msgstr ""
+
+#: ../multi-tenancy.rst:26
+msgid ""
+"The session variable ``site_id``. This allows a project to include features "
+"where a user's session is explicitly associated with a site. Mezzanine uses "
+"this in its admin to allow admin users to switch between sites to manage, "
+"while accessing the admin on a single domain."
+msgstr ""
+
+#: ../multi-tenancy.rst:30
+msgid ""
+"The domain matching the host of the current request, as described above."
+msgstr ""
+
+#: ../multi-tenancy.rst:32
+msgid ""
+"The environment variable ``MEZZANINE_SITE_ID``. This allows developers to "
+"specify the site for contexts outside of a HTTP request, such as management "
+"commands. Mezzanine includes a custom ``manage.py`` which will check for "
+"(and remove) a ``--site=ID`` argument."
+msgstr ""
+
+#: ../multi-tenancy.rst:37
+msgid ""
+"Finally, Mezzanine will fall back to the ``SITE_ID`` setting if none of the "
+"above checks can occur."
+msgstr ""
+
+#: ../multi-tenancy.rst:41
+msgid "Per-site Themes"
+msgstr ""
+
+#: ../multi-tenancy.rst:43
+msgid ""
+"Consider a project for an organization or business with several related "
+"domains that are to be managed by the same people, or for which sharing of "
+"resources is a big benefit. These related domains can share the same Django "
+"process, which can offer easier management and reduced resource needs in the"
+" server environment."
+msgstr ""
+
+#: ../multi-tenancy.rst:49
+msgid ""
+"The domains involved could have a direct subsidiary relationship, as with "
+"example.com and several subdomains, or they may be completely separate "
+"domains, as with example.com, example2.com, example3.com. Either way, the "
+"domains are different hosts to which themes may be independently associated "
+"using the ``HOST_THEMES`` setting::"
+msgstr ""
+
+#: ../multi-tenancy.rst:65
+msgid ""
+"In either ``HOST_THEMES`` example above, there are three themes. Let's "
+"continue with the second case, for example.com, example2.com, and "
+"example3.com, for which there are three theme apps constructed: "
+"``example_theme``, ``example2_theme``, and ``example3_theme``. The following"
+" treatment illustrates a kind of theme inheritance across the domains, with "
+"``example_theme`` serving as the \"base\" theme. Suppose ``example_theme`` "
+"contains a dedicated page content type (see :ref:`creating-custom-content-"
+"types`), we'll call it the ``HomePage``, which is given a model definition "
+"in ``example_theme/models.py``, along with any other theme-related custom "
+"content definitions."
+msgstr ""
+
+#: ../multi-tenancy.rst:77
+msgid ""
+"Here is the layout for ``example_theme``, the \"base\" theme in this "
+"arrangement::"
+msgstr ""
+
+#: ../multi-tenancy.rst:95
+msgid ""
+"The second and third themes, ``example2_theme`` and ``example3_theme``, "
+"could be just as expansive, or they could be much simplified, as shown by "
+"this layout for ``example2_theme`` (``example3_theme`` could be identical)::"
+msgstr ""
+
+#: ../multi-tenancy.rst:105
+msgid ""
+"Each theme would be listed under the ``INSTALLED_APPS`` setting, with the "
+"\"base\" theme, ``example_theme``, listed first."
+msgstr ""
+
+#: ../multi-tenancy.rst:108
+msgid ""
+"The project's main ``urls.py`` would need the following line active, so that"
+" \"/\" is the target URL Mezzanine finds for home page rendering (via the "
+"``HomePage`` content type)::"
+msgstr ""
+
+#: ../multi-tenancy.rst:114
+msgid ""
+"Mezzanine will look for a page instance at '/' for each theme. ``HomePage`` "
+"instances would be created via the admin system for each site, and given the"
+" URL of '/' under the \"Meta data\" URL field. (Log in to /admin, pick each "
+"site, in turn, creating a ``HomePage`` instance, and editing the \"Meta "
+"data\" URL of each)."
+msgstr ""
+
+#: ../multi-tenancy.rst:120
+msgid ""
+"Although these aren't the only commands involved, they are useful during the"
+" development process::"
+msgstr ""
+
+#: ../multi-tenancy.rst:130
+msgid ""
+"Finally, under /admin, these sites will share some resources, such as the "
+"media library, while there is separation of content stored in the database "
+"(independent ``HomePage`` instances, independant blog posts, an independent "
+"page hierarchy, etc.). Furthermore, the content types added to, say "
+"``example_theme``, e.g. ``HomePage``, are shared and available in the "
+"different sites. Such nuances of sharing must be considered when employing "
+"this approach."
+msgstr ""

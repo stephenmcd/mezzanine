@@ -1,0 +1,228 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-19 13:59-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../blog-importing.rst:3
+msgid "Importing External Blogs"
+msgstr ""
+
+#: ../blog-importing.rst:5
+msgid ""
+"Mezzanine has the ability to import blog posts from other blogging platforms"
+" using a `Django management command "
+"<http://docs.djangoproject.com/en/dev/howto/custom-management-commands/>`_. "
+"These are the currently supported formats and their commands:"
+msgstr ""
+
+#: ../blog-importing.rst:10
+msgid "`WordPress <http://wordpress.org>`_: ``import_wordpress``"
+msgstr ""
+
+#: ../blog-importing.rst:11
+msgid "`Blogger <http://blogger.com>`_: ``import_blogger``"
+msgstr ""
+
+#: ../blog-importing.rst:12
+msgid "`Tumblr <http://tumblr.com>`_: ``import_tumblr``"
+msgstr ""
+
+#: ../blog-importing.rst:13
+msgid "`Posterous <http://posterous.com>`_: ``import_posterous``"
+msgstr ""
+
+#: ../blog-importing.rst:14
+msgid "`RSS <http://en.wikipedia.org/wiki/RSS>`_: ``import_rss``"
+msgstr ""
+
+#: ../blog-importing.rst:16
+msgid ""
+"Each command takes a Mezzanine username to assign the blog posts to as well "
+"as certain arguments specific to the blog platform. For example to import an"
+" existing Wordpress blog::"
+msgstr ""
+
+#: ../blog-importing.rst:22
+msgid ""
+"Use the ``--help`` argument to learn more about the arguments specific to "
+"each blog platform's command. For example you can see all options for "
+"Wordpress by running::"
+msgstr ""
+
+#: ../blog-importing.rst:29
+msgid "Considerations"
+msgstr ""
+
+#: ../blog-importing.rst:31
+msgid ""
+"There are some known issues with HTML formatting loss - specifically where a"
+" heading tag is followed by a paragraph tag or another block HTML element "
+"that is not typically enclosed with a ``<p>`` tag is followed by a "
+"paragraph. This depends heavily on the originating platform and how it "
+"encodes the blog post's copy. The import processor gets this about 90% "
+"correct but you may need to do some quick clean up afterwards."
+msgstr ""
+
+#: ../blog-importing.rst:39
+msgid ""
+"Generally speaking you shouldn't be able to import your data twice. There is"
+" a check in place to either create or update for both comments and posts as "
+"they are processed, so even if you run the importer multiple times you "
+"should only end up with data imported once. However if you have changed any "
+"data this will be overwritten."
+msgstr ""
+
+#: ../blog-importing.rst:46
+msgid "Importing from Wordpress"
+msgstr ""
+
+#: ../blog-importing.rst:49 ../blog-importing.rst:77 ../blog-importing.rst:105
+#: ../blog-importing.rst:118
+msgid "Dependencies"
+msgstr ""
+
+#: ../blog-importing.rst:51 ../blog-importing.rst:107
+msgid "Mark Pilgrim's `feedparser <http://code.google.com/p/feedparser/>`_"
+msgstr ""
+
+#: ../blog-importing.rst:53
+msgid ""
+"The first step is to export your Wordpress data. Login to Wordpress and go "
+"to ``Settings -> Export``. Here you can select your filters, otherwise only "
+"published posts will be exported. Once you have saved your export file make "
+"a note of the location you saved it to."
+msgstr ""
+
+#: ../blog-importing.rst:60
+msgid ""
+"It is faster to import directly from your filesystem if you can, especially "
+"if you have a large blog with lots of comments."
+msgstr ""
+
+#: ../blog-importing.rst:63
+msgid ""
+"The next step is to run the ``import_wordpress`` command where the ``url`` "
+"argument contains the path or URL to your export file::"
+msgstr ""
+
+#: ../blog-importing.rst:69
+msgid "Importing from Blogger"
+msgstr ""
+
+#: ../blog-importing.rst:71
+msgid ""
+"The Blogger import currently has one known limitation which is a maximum of "
+"500 blogs or 500 comments per blog that can be imported. If you have more "
+"than this the import will still work but end up being truncated."
+msgstr ""
+
+#: ../blog-importing.rst:79
+msgid ""
+"Google's `gdata <http://code.google.com/p/gdata-python-client/>`_ Library"
+msgstr ""
+
+#: ../blog-importing.rst:81
+msgid ""
+"The first step is to obtain your Blogger ID. Login to Blogger and go to "
+"``Settings``. You'll see that the address in your browser end with "
+"``BlogID=XXX`` where ``XXX`` is your Blogger ID. Make a note of this and "
+"while you're in settings, go to ``Site Feed`` then set ``Allow Blog Feeds`` "
+"to be ``Full`` - this will give you all your data when you run the import."
+msgstr ""
+
+#: ../blog-importing.rst:88
+msgid ""
+"The next step is to run the ``import_blogger`` command where the ``blogger-"
+"id`` argument contains the Blogger ID you retrieved::"
+msgstr ""
+
+#: ../blog-importing.rst:94
+msgid "Importing from Tumblr"
+msgstr ""
+
+#: ../blog-importing.rst:96
+msgid ""
+"Simply run the ``import_tumblr`` command where the ``tumblr-user`` argument "
+"contains your Tumblr username::"
+msgstr ""
+
+#: ../blog-importing.rst:102
+msgid "Importing RSS"
+msgstr ""
+
+#: ../blog-importing.rst:109
+msgid ""
+"Simply run the ``import_rss`` command where the ``rss-url`` argument "
+"contains the URL for your RSS feed::"
+msgstr ""
+
+#: ../blog-importing.rst:115
+msgid "Importing from Posterous"
+msgstr ""
+
+#: ../blog-importing.rst:120
+msgid ""
+"Kenneth Reitz's `requests <http://docs.python-"
+"requests.org/en/latest/index.html>`_"
+msgstr ""
+
+#: ../blog-importing.rst:122
+msgid ""
+"Simply run ``import_posterous`` command with the right params. You need to "
+"get your API key from the `Posterous API Reference "
+"<https://posterous.com/api>`_::"
+msgstr ""
+
+#: ../blog-importing.rst:128
+msgid ""
+"If you have more than one blog on your posterous account check out the "
+"``-posterous-host`` option. Be aware that like the tumblr importer, this "
+"leaves your media assets on the Posterous servers. If you're worried about "
+"posterous being shut down you may want want to have a closer look at the API"
+" to actually export your media."
+msgstr ""
+
+#: ../blog-importing.rst:135
+msgid "Importer API - Adding New Importers"
+msgstr ""
+
+#: ../blog-importing.rst:137
+msgid ""
+"The importer system has been designed to be extensible so that import "
+"commands can easily be added for other blogging platforms."
+msgstr ""
+
+#: ../blog-importing.rst:140
+msgid ""
+"Each importer's management command is located in the "
+"``mezzanine.blog.management.commands`` package, and should have its module "
+"named ``import_type`` where ``type`` represents the type of import the "
+"command is for. This module will then contain a class named ``Command`` "
+"which subclasses ``mezzanine.blog.base.BaseImporterCommand``."
+msgstr ""
+
+#: ../blog-importing.rst:147
+msgid ""
+"The first step is to define any custom arguments the command will require "
+"using Python's `optparse <http://docs.python.org/library/optparse.html>`_ "
+"handling."
+msgstr ""
+
+#: ../blog-importing.rst:151
+msgid ""
+"The main responsbility of the ``Command`` class is then to implement a "
+"``handle_import`` method which handles retrieving blog posts and comments "
+"from the particular blogging platform. The ``handle_import`` method is "
+"passed a dictionary of options for the command. The ``add_post`` and "
+"``add_comment`` methods should be called inside the ``handle_import`` "
+"method, adding posts and comments respectively. The ``add_post`` method "
+"returns a post to be used with the ``add_comment`` method. For example::"
+msgstr ""
