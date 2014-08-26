@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from future.builtins import str
-from future.utils import native, PY2
+from future.utils import native
 
 from io import BytesIO
 import os
@@ -75,7 +75,7 @@ class Gallery(Page, RichText):
                 name = os.path.split(name)[1]
                 # This is a way of getting around the broken nature of
                 # os.path.join on Python 2.x. See also the comment below.
-                if PY2:
+                if isinstance(name, bytes):
                     tempname = name.decode('utf-8')
                 else:
                     tempname = name
