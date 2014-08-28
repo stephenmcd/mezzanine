@@ -342,8 +342,9 @@ OPTIONAL_APPS = (
 # defined per machine.
 try:
     from local_settings import *
-except ImportError:
-    pass
+except ImportError as e:
+    if "local_settings" not in e.message:
+        raise e
 
 
 ####################
