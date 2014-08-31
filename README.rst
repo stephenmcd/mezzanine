@@ -552,7 +552,7 @@ Sites Using Mezzanine
 * `Constantia Fabrics <http://www.constantiafabrics.co.za/>`_
 * `Potrillo al Pie <http://potrilloalpie.com/>`_
 * `Skyfalk Web Studio <http://skyfalk.ru>`_
-
+* `Firefox OS Partners <https://mobilepartners.mozilla.org/>`_
 
 Quotes
 ======
