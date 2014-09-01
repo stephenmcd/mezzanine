@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from future.builtins import str
 
 from json import dumps
+from string import punctuation
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.messages import error
@@ -27,8 +28,9 @@ def admin_keywords_submit(request):
     keywords field.
     """
     keyword_ids, titles = [], []
+    remove = punctuation.replace("-", "")  # Strip punctuation, allow dashes.
     for title in request.POST.get("text_keywords", "").split(","):
-        title = "".join([c for c in title if c.isalnum() or c in "- "]).strip()
+        title = "".join([c for c in title if c not in remove]).strip()
         if title:
             kw, created = Keyword.objects.get_or_create_iexact(title=title)
             keyword_id = str(kw.id)
