@@ -47,7 +47,7 @@ jQuery(function($) {
             relative_urls: false,
             convert_urls: false,
             
-            // enable browser's build in spell checking
+            // enable browser's built in spell checking
             gecko_spellcheck: true,
 
             // callbackss
