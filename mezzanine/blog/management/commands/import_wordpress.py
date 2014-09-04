@@ -24,12 +24,22 @@ class Command(BaseImporterCommand):
         make_option("-u", "--url", dest="url", help="URL to import file"),
     )
 
+    def dec(self, s):
+        try:
+            return s.decode('ascii')
+        except UnicodeDecodeError as e:
+            print(e)
+            return ""
+        except:
+            print("Something weird happened (not a UnicodeDecodeError) but I handled it (sorta)")
+            return ""
+
     def get_text(self, xml, name, nodetype):
         """
         Gets the element's text value from the XML object provided.
         """
         nodes = xml.getElementsByTagName("wp:comment_" + name)[0].childNodes
-        return "".join([n.data for n in nodes if n.nodeType == nodetype])
+        return "".join([self.dec(n.data) for n in nodes if n.nodeType == nodetype])
 
     def handle_import(self, options):
         """
