@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import int
+from future.builtins import int, input
 
 from collections import defaultdict
 from datetime import datetime, timedelta
@@ -24,12 +24,32 @@ class Command(BaseImporterCommand):
         make_option("-u", "--url", dest="url", help="URL to import file"),
     )
 
-    def get_text(self, xml, name, nodetype):
+    def decode(self, s, options=option_list):
+        decoded_string = ""
+
+        for char in s:
+            try:
+                decoded_string += char.decode("ascii")
+            except:
+                if options.get("interactive"):
+                    print(char)
+                    decoded = input("This character cannot be decoded, because"
+                        "it is not valid ASCII. Press [ENTER] to jump over it,"
+                        " or enter a manual decoding: ")
+                    decoded_string += decoded
+                else:
+                    print "Dropping an undecodable char."
+                    return ""
+
+        return decoded_string
+
+    def get_text(self, xml, name, nodetype, options):
         """
         Gets the element's text value from the XML object provided.
         """
         nodes = xml.getElementsByTagName("wp:comment_" + name)[0].childNodes
-        return "".join([n.data for n in nodes if n.nodeType == nodetype])
+        return "".join([self.decode(n.data, options)
+            for n in nodes if n.nodeType == nodetype])
 
     def handle_import(self, options):
         """
