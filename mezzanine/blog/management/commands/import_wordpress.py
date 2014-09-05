@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import int
+from future.builtins import int, input
 
 from collections import defaultdict
 from datetime import datetime, timedelta
@@ -24,22 +24,29 @@ class Command(BaseImporterCommand):
         make_option("-u", "--url", dest="url", help="URL to import file"),
     )
 
-    def dec(self, s):
-        try:
-            return s.decode('ascii')
-        except UnicodeDecodeError as e:
-            print(e)
-            return ""
-        except:
-            print("Something weird happened (not a UnicodeDecodeError) but I handled it (sorta)")
-            return ""
+    def decode(self, s, options):
+        decoded_string = ""
 
-    def get_text(self, xml, name, nodetype):
+        for char in s:
+            try:
+                decoded_string += char.decode("ascii")
+            except:
+                if options.get("interactive"):
+                    print(char)
+                    decoded = input("This character cannot be decoded, because it is not valid ASCII. Press [ENTER] to jump over it, or enter a manual decoding: ")
+                    decoded_string += decoded
+                else:
+                    print "Dropping an undecodable char."
+                    return  ""
+
+        return decoded_string
+
+    def get_text(self, xml, name, nodetype, options):
         """
         Gets the element's text value from the XML object provided.
         """
         nodes = xml.getElementsByTagName("wp:comment_" + name)[0].childNodes
-        return "".join([self.dec(n.data) for n in nodes if n.nodeType == nodetype])
+        return "".join([self.decode(n.data, options) for n in nodes if n.nodeType == nodetype])
 
     def handle_import(self, options):
         """
@@ -87,11 +94,11 @@ class Command(BaseImporterCommand):
 
                 # Get the comments from the xml doc.
                 for c in xmlitem.getElementsByTagName("wp:comment"):
-                    name = self.get_text(c, "author", c.CDATA_SECTION_NODE)
-                    email = self.get_text(c, "author_email", c.TEXT_NODE)
-                    url = self.get_text(c, "author_url", c.TEXT_NODE)
-                    body = self.get_text(c, "content", c.CDATA_SECTION_NODE)
-                    pub_date = self.get_text(c, "date_gmt", c.TEXT_NODE)
+                    name = self.get_text(c, "author", c.CDATA_SECTION_NODE, options)
+                    email = self.get_text(c, "author_email", c.TEXT_NODE, options)
+                    url = self.get_text(c, "author_url", c.TEXT_NODE, options)
+                    body = self.get_text(c, "content", c.CDATA_SECTION_NODE, options)
+                    pub_date = self.get_text(c, "date_gmt", c.TEXT_NODE, options)
                     fmt = "%Y-%m-%d %H:%M:%S"
                     pub_date = datetime.strptime(pub_date, fmt)
                     pub_date -= timedelta(seconds=timezone)
