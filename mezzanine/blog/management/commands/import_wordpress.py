@@ -39,7 +39,7 @@ class Command(BaseImporterCommand):
                     decoded_string += decoded
                 else:
                     print "Dropping an undecodable char."
-                    return  ""
+                    return ""
 
         return decoded_string
 
