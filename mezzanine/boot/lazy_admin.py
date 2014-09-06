@@ -52,8 +52,9 @@ class LazyAdminSite(AdminSite):
         for admin in self._registry.values():
             user_change_password = getattr(admin, "user_change_password", None)
             if user_change_password:
+                bits = (User._meta.app_label, User._meta.object_name.lower())
                 urls = patterns("",
-                    url("^%s/%s/(\d+)/password/$" % (User._meta.app_label, User._meta.model_name),
+                    url("^%s/%s/(\d+)/password/$" % bits,
                         self.admin_view(user_change_password),
                         name="user_change_password"),
                 ) + urls
