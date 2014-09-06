@@ -1,174 +1,69 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
-
-try:
-    from django.contrib.auth import get_user_model
-except ImportError: # django < 1.5
-    from django.contrib.auth.models import User
-else:
-    User = get_user_model()
-
-user_orm_label = '%s.%s' % (User._meta.app_label, User._meta.object_name)
-user_model_label = '%s.%s' % (User._meta.app_label, User._meta.module_name)
-
-class Migration(SchemaMigration):
-
-    depends_on = [
-        ("core", "0001_initial"),
-        ]
-
-    def forwards(self, orm):
-
-        # Adding model 'BlogPost'
-        db.create_table('blog_blogpost', (
-            ('status', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('category', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='blogposts', null=True, to=orm['blog.BlogCategory'])),
-            ('description', self.gf('mezzanine.core.fields.HtmlField')(blank=True)),
-            ('_keywords', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('short_url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('content', self.gf('mezzanine.core.fields.HtmlField')()),
-            ('expiry_date', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('publish_date', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='blogposts', to=orm[user_orm_label])),
-            ('slug', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-        ))
-        db.send_create_signal('blog', ['BlogPost'])
-
-        # Adding M2M table for field keywords on 'BlogPost'
-        db.create_table('blog_blogpost_keywords', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('blogpost', models.ForeignKey(orm['blog.blogpost'], null=False)),
-            ('keyword', models.ForeignKey(orm['core.keyword'], null=False))
-        ))
-        db.create_unique('blog_blogpost_keywords', ['blogpost_id', 'keyword_id'])
-
-        # Adding model 'BlogCategory'
-        db.create_table('blog_blogcategory', (
-            ('slug', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100)),
-        ))
-        db.send_create_signal('blog', ['BlogCategory'])
-
-        # Adding model 'Comment'
-        db.create_table('blog_comment', (
-            ('body', self.gf('django.db.models.fields.TextField')()),
-            ('email_hash', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('by_author', self.gf('django.db.models.fields.BooleanField')(default=False, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('approved', self.gf('django.db.models.fields.BooleanField')(default=True, blank=True)),
-            ('time_created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('website', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
-            ('blog_post', self.gf('django.db.models.fields.related.ForeignKey')(related_name='comments', to=orm['blog.BlogPost'])),
-            ('replied_to', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='comments', null=True, to=orm['blog.Comment'])),
-            ('ip_address', self.gf('django.db.models.fields.IPAddressField')(max_length=15, null=True, blank=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
-        ))
-        db.send_create_signal('blog', ['Comment'])
+from django.db import models, migrations
+import mezzanine.core.fields
+import mezzanine.utils.models
+from django.conf import settings
 
 
-    def backwards(self, orm):
+class Migration(migrations.Migration):
 
-        # Deleting model 'BlogPost'
-        db.delete_table('blog_blogpost')
+    dependencies = [
+        ('sites', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
-        # Removing M2M table for field keywords on 'BlogPost'
-        db.delete_table('blog_blogpost_keywords')
-
-        # Deleting model 'BlogCategory'
-        db.delete_table('blog_blogcategory')
-
-        # Deleting model 'Comment'
-        db.delete_table('blog_comment')
-
-
-    models = {
-        'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        'auth.permission': {
-            'Meta': {'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        user_model_label: {
-            'Meta': {'object_name': User.__name__, 'db_table': "'%s'" % User._meta.db_table},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'blank': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        'blog.blogcategory': {
-            'Meta': {'object_name': 'BlogCategory'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slug': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'blog.blogpost': {
-            'Meta': {'object_name': 'BlogPost'},
-            '_keywords': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
-            'category': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'blogposts'", 'null': 'True', 'to': "orm['blog.BlogCategory']"}),
-            'content': ('mezzanine.core.fields.HtmlField', [], {}),
-            'description': ('mezzanine.core.fields.HtmlField', [], {'blank': 'True'}),
-            'expiry_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'keywords': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Keyword']", 'symmetrical': 'False', 'blank': 'True'}),
-            'publish_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'short_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'status': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'blogposts'", 'to': "orm['%s']" % user_orm_label})
-        },
-        'blog.comment': {
-            'Meta': {'object_name': 'Comment'},
-            'approved': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'blank': 'True'}),
-            'blog_post': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'comments'", 'to': "orm['blog.BlogPost']"}),
-            'body': ('django.db.models.fields.TextField', [], {}),
-            'by_author': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'email_hash': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ip_address': ('django.db.models.fields.IPAddressField', [], {'max_length': '15', 'null': 'True', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'replied_to': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'comments'", 'null': 'True', 'to': "orm['blog.Comment']"}),
-            'time_created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'website': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'core.keyword': {
-            'Meta': {'object_name': 'Keyword'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'slug': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        }
-    }
-
-    complete_apps = ['blog']
+    operations = [
+        migrations.CreateModel(
+            name='BlogCategory',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=500, verbose_name='Title')),
+                ('slug', models.CharField(help_text='Leave blank to have the URL auto-generated from the title.', max_length=2000, null=True, verbose_name='URL', blank=True)),
+                ('site', models.ForeignKey(editable=False, to='sites.Site')),
+            ],
+            options={
+                'ordering': ('title',),
+                'verbose_name': 'Blog Category',
+                'verbose_name_plural': 'Blog Categories',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='BlogPost',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('comments_count', models.IntegerField(default=0, editable=False)),
+                ('keywords_string', models.CharField(max_length=500, editable=False, blank=True)),
+                ('rating_count', models.IntegerField(default=0, editable=False)),
+                ('rating_sum', models.IntegerField(default=0, editable=False)),
+                ('rating_average', models.FloatField(default=0, editable=False)),
+                ('title', models.CharField(max_length=500, verbose_name='Title')),
+                ('slug', models.CharField(help_text='Leave blank to have the URL auto-generated from the title.', max_length=2000, null=True, verbose_name='URL', blank=True)),
+                ('_meta_title', models.CharField(help_text='Optional title to be used in the HTML title tag. If left blank, the main title field will be used.', max_length=500, null=True, verbose_name='Title', blank=True)),
+                ('description', models.TextField(verbose_name='Description', blank=True)),
+                ('gen_description', models.BooleanField(default=True, help_text='If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description.', verbose_name='Generate description')),
+                ('created', models.DateTimeField(null=True, editable=False)),
+                ('updated', models.DateTimeField(null=True, editable=False)),
+                ('status', models.IntegerField(default=2, help_text='With Draft chosen, will only be shown for admin users on the site.', verbose_name='Status', choices=[(1, 'Draft'), (2, 'Published')])),
+                ('publish_date', models.DateTimeField(help_text="With Published chosen, won't be shown until this time", null=True, verbose_name='Published from', blank=True)),
+                ('expiry_date', models.DateTimeField(help_text="With Published chosen, won't be shown after this time", null=True, verbose_name='Expires on', blank=True)),
+                ('short_url', models.URLField(null=True, blank=True)),
+                ('in_sitemap', models.BooleanField(default=True, verbose_name='Show in sitemap')),
+                ('content', mezzanine.core.fields.RichTextField(verbose_name='Content')),
+                ('allow_comments', models.BooleanField(default=True, verbose_name='Allow comments')),
+                ('featured_image', mezzanine.core.fields.FileField(max_length=255, null=True, verbose_name='Featured Image', blank=True)),
+                ('categories', models.ManyToManyField(related_name='blogposts', verbose_name='Categories', to='blog.BlogCategory', blank=True)),
+                ('related_posts', models.ManyToManyField(related_name='related_posts_rel_+', verbose_name='Related posts', to='blog.BlogPost', blank=True)),
+                ('site', models.ForeignKey(editable=False, to='sites.Site')),
+                ('user', models.ForeignKey(related_name='blogposts', verbose_name='Author', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'ordering': ('-publish_date',),
+                'verbose_name': 'Blog post',
+                'verbose_name_plural': 'Blog posts',
+            },
+            bases=(models.Model, mezzanine.utils.models.AdminThumbMixin),
+        ),
+    ]

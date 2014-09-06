@@ -3,6 +3,7 @@ import atexit
 import os
 import shutil
 import sys
+import django
 
 
 def main(package="mezzanine"):
@@ -28,11 +29,14 @@ def main(package="mezzanine"):
         with open(test_settings_path, "r") as f:
             local_settings = f.read()
         with open(test_settings_path, "w") as f:
-            f.write("""
+            test_reqs_str = """
 from project_template import settings
 globals().update(settings.__dict__)
 INSTALLED_APPS = list(settings.INSTALLED_APPS) + ["mezzanine.accounts"]
-""" + local_settings)
+"""
+            if django.VERSION >= (1, 7):
+                test_reqs_str += "import django\ndjango.setup()"
+            f.write(test_reqs_str + local_settings)
         atexit.register(lambda: os.remove(test_settings_path))
 
     from django.core.management.commands import test

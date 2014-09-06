@@ -1,35 +1,28 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-
-    def forwards(self, orm):
-
-        # Adding model 'Setting'
-        db.create_table('conf_setting', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('value', self.gf('django.db.models.fields.CharField')(max_length=2000)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=50)),
-        ))
-        db.send_create_signal('conf', ['Setting'])
+from django.db import models, migrations
 
 
-    def backwards(self, orm):
+class Migration(migrations.Migration):
 
-        # Deleting model 'Setting'
-        db.delete_table('conf_setting')
+    dependencies = [
+        ('sites', '0001_initial'),
+    ]
 
-
-    models = {
-        'conf.setting': {
-            'Meta': {'object_name': 'Setting'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'value': ('django.db.models.fields.CharField', [], {'max_length': '2000'})
-        }
-    }
-
-    complete_apps = ['conf']
+    operations = [
+        migrations.CreateModel(
+            name='Setting',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50)),
+                ('value', models.CharField(max_length=2000)),
+                ('site', models.ForeignKey(editable=False, to='sites.Site')),
+            ],
+            options={
+                'verbose_name': 'Setting',
+                'verbose_name_plural': 'Settings',
+            },
+            bases=(models.Model,),
+        ),
+    ]
