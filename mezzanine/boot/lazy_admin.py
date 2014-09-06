@@ -4,6 +4,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib.admin.sites import AdminSite
 
 from mezzanine.utils.importing import import_dotted_path
+from mezzanine.utils.models import get_user_model
 
 
 class LazyAdminSite(AdminSite):
@@ -47,11 +48,12 @@ class LazyAdminSite(AdminSite):
         # Give the urlpatterm for the user password change view an
         # actual name, so that it can be reversed with multiple
         # languages are supported in the admin.
+        User = get_user_model()
         for admin in self._registry.values():
             user_change_password = getattr(admin, "user_change_password", None)
             if user_change_password:
                 urls = patterns("",
-                    url("^auth/user/(\d+)/password/$",
+                    url("^%s/%s/(\d+)/password/$" % (User._meta.app_label, User._meta.model_name),
                         self.admin_view(user_change_password),
                         name="user_change_password"),
                 ) + urls
