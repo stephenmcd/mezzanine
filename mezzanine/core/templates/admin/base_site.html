@@ -47,7 +47,7 @@ jQuery(function($) {
 {% endblock %}
 
 {% block before_content %}
-{% if user.is_authenticated and not is_popup and not request.GET.pop %}
+{% if user.is_staff and not is_popup and not request.GET.pop %}
 {% admin_dropdown_menu %}
 {% endif %}
 {% endblock %}
@@ -56,7 +56,7 @@ jQuery(function($) {
 {% if form.this_is_the_login_form %}
     <script src="{% static "mezzanine/js/admin/login.js" %}"></script>
 {% else %}
-    {% if user.is_authenticated %}
+    {% if user.is_staff %}
         {% if not is_popup and not request.GET.pop %}
         <link rel="stylesheet" href="{% static "mezzanine/chosen/chosen.css" %}">
         <script src="{% static "mezzanine/chosen/chosen-0.9.12.jquery.js" %}"></script>
