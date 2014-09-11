@@ -55,7 +55,7 @@ try:
             "grappelli_safe >= 0.3.12",
             "tzlocal >= 1.0",
             "bleach >= 1.4",
-            "beautifulsoup4 == 4.1.3",
+            "beautifulsoup4 >= 4.1.3",
             "requests >= 2.1.0",
             "requests-oauthlib >= 0.4",
             "future == 0.9.0",
