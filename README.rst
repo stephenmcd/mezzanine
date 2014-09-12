@@ -553,6 +553,7 @@ Sites Using Mezzanine
 * `Potrillo al Pie <http://potrilloalpie.com/>`_
 * `Skyfalk Web Studio <http://skyfalk.ru>`_
 * `Firefox OS Partners <https://mobilepartners.mozilla.org/>`_
+* `You Name It <http://you-name-it.net>`_
 
 Quotes
 ======
