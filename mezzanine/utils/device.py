@@ -23,7 +23,7 @@ def device_from_request(request):
         else:
             try:
                 user_agent = user_agent.decode("utf-8")
-            except AttributeError:
+            except (AttributeError, UnicodeDecodeError):
                 pass
             for (device, ua_strings) in settings.DEVICE_USER_AGENTS:
                 for ua_string in ua_strings:
