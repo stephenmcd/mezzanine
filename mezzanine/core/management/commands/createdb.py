@@ -1,7 +1,5 @@
-from __future__ import print_function
-from __future__ import unicode_literals
-from future.builtins import int
-from future.builtins import input
+from __future__ import print_function, unicode_literals
+from future.builtins import int, input
 
 from optparse import make_option
 
@@ -33,7 +31,7 @@ class Command(NoArgsCommand):
         syncdb.Command().execute(**options)
         if not interactive and not no_data:
             install_optional_data(verbosity)
-        if settings.USE_SOUTH:
+        if "south" in settings.INSTALLED_APPS:
             try:
                 from south.management.commands import migrate
             except ImportError:

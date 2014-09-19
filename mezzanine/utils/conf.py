@@ -8,6 +8,7 @@ from django import VERSION
 from django.conf import global_settings as defaults
 from django.template.base import add_to_builtins
 
+from mezzanine.utils.importing import path_for_import
 from mezzanine.utils.timezone import get_best_local_timezone
 
 
@@ -126,6 +127,31 @@ def set_dynamic_settings(s):
                     pass
                 else:
                     s["INSTALLED_APPS"].append(app)
+
+    # To support migrations for both Django 1.7 and South, Sotuh's old
+    # migrations for each app were moved into "app.migrations.south"
+    # packages. Here we assign each of these to SOUTH_MIGRATION_MODULES
+    # allowing South to find them.
+    if "south" in s["INSTALLED_APPS"]:
+        s.setdefault("SOUTH_MIGRATION_MODULES", {})
+        for app in s["INSTALLED_APPS"]:
+            # We need to verify the path to the custom migrations
+            # package exists for each app. We can't simply try
+            # and import it, for some apps this causes side effects,
+            # so we need to import something higher up to get at its
+            # filesystem path - this can't be the actual app either,
+            # side effects again, but we can generally import the
+            # top-level package for apps that are contained within
+            # one, which covers Mezzanine, Cartridge, Drum.
+            if "." not in app:
+                continue
+            migrations = "%s.migrations.south" % app
+            parts = migrations.split(".", 1)
+            root = path_for_import(parts[0])
+            other = parts[1].replace(".", os.sep)
+            if os.path.exists(os.path.join(root, other)):
+                s["SOUTH_MIGRATION_MODULES"][app.split(".")[-1]] = migrations
+
     if "debug_toolbar" in s["INSTALLED_APPS"]:
         debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
         append("MIDDLEWARE_CLASSES", debug_mw)
