@@ -554,6 +554,8 @@ Sites Using Mezzanine
 * `Skyfalk Web Studio <http://skyfalk.ru>`_
 * `Firefox OS Partners <https://mobilepartners.mozilla.org/>`_
 * `You Name It <http://you-name-it.net>`_
+* `Atlas of Human Infectious Diseases <https://infectionatlas.org>`_
+
 
 Quotes
 ======
