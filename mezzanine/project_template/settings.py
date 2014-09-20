@@ -311,6 +311,14 @@ OPTIONAL_APPS = (
     PACKAGE_NAME_GRAPPELLI,
 )
 
+
+#################
+# REST SETTINGS #
+#################
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+}
+
 ###################
 # DEPLOY SETTINGS #
 ###################
