@@ -139,8 +139,7 @@ def _run_checker_for_package(checker, package_name, extra_ignore=None):
     for (root, dirs, files) in os.walk(str(package_path)):
         for f in files:
             if (f == "local_settings.py" or not f.endswith(".py")
-                or root.split(os.sep)[-1] in
-                    ["migrations", "south_migrations"]):
+                or root.split(os.sep)[-1] in ["migrations", "south"]):
                 # Ignore
                 continue
             for warning in checker(os.path.join(root, f)):
