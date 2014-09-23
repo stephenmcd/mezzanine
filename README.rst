@@ -555,6 +555,7 @@ Sites Using Mezzanine
 * `Firefox OS Partners <https://mobilepartners.mozilla.org/>`_
 * `You Name It <http://you-name-it.net>`_
 * `Atlas of Human Infectious Diseases <https://infectionatlas.org>`_
+* `The Entrepreneurial School <http://theentrepreneurialschool.com/>`_
 
 
 Quotes
