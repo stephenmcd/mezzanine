@@ -293,6 +293,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   Jumbotrons to Mezzanine.
 * `mezzanine-business-theme` Starter business theme for Mezzanine.
 * `open-helpdesk` A helpdesk app built with Mezzanine.
+* `mezzanine-invites` Allow site registration via alphanumeric invite codes.
 
 
 Donating
@@ -724,6 +725,7 @@ Quotes
 .. _`mezzanine-bsbanners`: https://pypi.python.org/pypi/mezzanine-bsbanners
 .. _`mezzanine-business-theme`: https://github.com/dfalk/mezzanine-business-themebsbanners
 .. _`open-helpdesk`: https://github.com/simodalla/open-helpdesk
+.. _`mezzanine-invites`: https://github.com/averagehuman/mezzanine-invites
 
 
 .. PEOPLE WITH QUOTES
