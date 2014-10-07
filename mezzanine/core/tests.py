@@ -344,6 +344,7 @@ class CoreTests(TestCase):
             text_overridden = RichTextField()
 
         form_class = modelform_factory(RichTextModel,
+                                       fields="__all__",
                                        widgets={'text_overridden': Textarea})
         form = form_class()
 
