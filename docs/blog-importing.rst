@@ -51,7 +51,7 @@ Dependencies
   * Mark Pilgrim's `feedparser <http://code.google.com/p/feedparser/>`_
 
 The first step is to export your Wordpress data. Login to Wordpress and
-go to ``Settings -> Export``. Here you can select your filters,
+go to ``Tools -> Export``. Here you can select your filters,
 otherwise only published posts will be exported. Once you have saved
 your export file make a note of the location you saved it to.
 
