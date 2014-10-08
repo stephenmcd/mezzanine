@@ -343,9 +343,10 @@ class CoreTests(TestCase):
             text_default = RichTextField()
             text_overridden = RichTextField()
 
-        form_class = modelform_factory(RichTextModel,
-                                       fields="__all__",
-                                       widgets={'text_overridden': Textarea})
+        form_class = modelform_factory(
+            RichTextModel,
+            fields=('text_default', 'text_overridden'),
+            widgets={'text_overridden': Textarea})
         form = form_class()
 
         richtext_widget = import_dotted_path(settings.RICHTEXT_WIDGET_CLASS)
