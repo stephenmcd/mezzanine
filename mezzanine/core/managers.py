@@ -80,7 +80,7 @@ class SearchableQuerySet(QuerySet):
         to require and exclude.
         """
 
-        #### DETERMINE FIELDS TO SEARCH ###
+        # ### DETERMINE FIELDS TO SEARCH ###
 
         # Use search_fields arg if given, otherwise use search_fields
         # initially configured by the manager class.
@@ -89,7 +89,7 @@ class SearchableQuerySet(QuerySet):
         if not self._search_fields:
             return self.none()
 
-        #### BUILD LIST OF TERMS TO SEARCH FOR ###
+        # ### BUILD LIST OF TERMS TO SEARCH FOR ###
 
         # Remove extra spaces, put modifiers inside quoted terms.
         terms = " ".join(query.split()).replace("+ ", "+")     \
@@ -121,7 +121,7 @@ class SearchableQuerySet(QuerySet):
         else:
             self._search_terms.update(positive_terms)
 
-        #### BUILD QUERYSET FILTER ###
+        # ### BUILD QUERYSET FILTER ###
 
         # Create the queryset combining each set of terms.
         excluded = [reduce(iand, [~Q(**{"%s__icontains" % f: t[1:]}) for f in

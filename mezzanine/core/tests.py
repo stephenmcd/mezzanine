@@ -292,7 +292,7 @@ class CoreTests(TestCase):
         self.client.logout()
         del mail.outbox[:]
 
-        ## Go to admin-login, search for reset-link
+        # Go to admin-login, search for reset-link
         response = self.client.get('/admin/', follow=True)
         self.assertContains(response, u'Forgot password?')
         url = re.findall(
@@ -302,7 +302,7 @@ class CoreTests(TestCase):
         self.assertEqual(len(url), 1)
         url = url[0]
 
-        ## Go to reset-page, submit form
+        # Go to reset-page, submit form
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         csrf = self._get_csrftoken(response)
@@ -315,7 +315,7 @@ class CoreTests(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 1)
 
-        ## Get reset-link, submit form
+        # Get reset-link, submit form
         url = re.findall(
             r'http://example.com(/reset/[^/]+/[^/]+/)',
             mail.outbox[0].body
