@@ -142,7 +142,7 @@ class PagesTests(TestCase):
 
         args = {"for_user": AnonymousUser()}
         self.assertTrue(public in RichTextPage.objects.published(**args))
-        self.assertTrue(not private in RichTextPage.objects.published(**args))
+        self.assertTrue(private not in RichTextPage.objects.published(**args))
         args = {"for_user": User.objects.get(username=self._username)}
         self.assertTrue(public in RichTextPage.objects.published(**args))
         self.assertTrue(private in RichTextPage.objects.published(**args))
