@@ -18,17 +18,23 @@ import mezzanine
 class MezzStaticFilesHandler(StaticFilesHandler):
 
     def _should_handle(self, path):
-        return path.startswith(self.base_url[2])
+        return path.startswith((settings.STATIC_URL, settings.MEDIA_URL))
 
     def get_response(self, request):
         response = super(MezzStaticFilesHandler, self).get_response(request)
         if response.status_code == 404:
-            path = self.file_path(request.path).replace(os.sep, "/")
-            try:
-                return serve(request, path, document_root=settings.STATIC_ROOT)
-            except Http404:
-                # Just return the original 404 response.
-                pass
+            locations = (
+                (settings.STATIC_URL, settings.STATIC_ROOT),
+                (settings.MEDIA_URL, settings.MEDIA_ROOT),
+            )
+            for url, root in locations:
+                if request.path.startswith(url):
+                    path = request.path.replace(url, "", 1)
+                    try:
+                        return serve(request, path, document_root=root)
+                    except Http404:
+                        # Just return the original 404 response.
+                        pass
         return response
 
 
