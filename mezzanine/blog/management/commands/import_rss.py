@@ -53,7 +53,7 @@ class Command(BaseImporterCommand):
                 raise CommandError("BeautifulSoup package is required")
             for l in BeautifulSoup(urlopen(page_url).read()).findAll("link"):
                 if ("application/rss" in l.get("type", "") or
-                    "application/atom" in l.get("type", "")):
+                        "application/atom" in l.get("type", "")):
                     rss_url = urljoin(page_url, l["href"])
                     break
             else:

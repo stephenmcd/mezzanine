@@ -211,7 +211,7 @@ class FetchFromCacheMiddleware(object):
 
     def process_request(self, request):
         if (cache_installed() and request.method == "GET" and
-            not request.user.is_authenticated()):
+                not request.user.is_authenticated()):
             cache_key = cache_key_prefix(request) + request.get_full_path()
             response = cache_get(cache_key)
             # We need to force a csrf token here, as new sessions

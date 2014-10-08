@@ -54,11 +54,11 @@ class Command(BaseImporterCommand):
             post_id = entry.GetSelfLink().href.split("/")[-1]
             title = entry.title.text
             content = entry.content.text
-            #this strips off the time zone info off the end as we want UTC
+            # this strips off the time zone info off the end as we want UTC
             published_date = datetime.strptime(entry.published.text[:-6],
                     "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
 
-            #TODO - issues with content not generating correct <P> tags
+            # TODO - issues with content not generating correct <P> tags
 
             tags = [tag.term for tag in entry.category]
             post = self.add_post(title=title, content=content,
@@ -73,7 +73,7 @@ class Command(BaseImporterCommand):
             for comment in comments.entry:
                 email = comment.author[0].email.text
                 author_name = comment.author[0].name.text
-                #this strips off the time zone info off the end as we want UTC
+                # this strips off the time zone info off the end as we want UTC
                 comment_date = datetime.strptime(comment.published.text[:-6],
                     "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
                 website = ""
