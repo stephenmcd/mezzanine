@@ -45,9 +45,6 @@ IGNORE_ERRORS = (
     # Django 1.5 custom user compatibility
     "redefinition of unused 'get_user_model",
 
-    # Deprecated compat timezones for Django 1.3
-    "mezzanine/utils/timezone",
-
     # Actually a Python template file.
     "live_settings.py",
 
