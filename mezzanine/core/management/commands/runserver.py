@@ -6,6 +6,7 @@ import django
 from django.conf import settings
 from django.contrib.staticfiles.management.commands import runserver
 from django.contrib.staticfiles.handlers import StaticFilesHandler
+from django.core.management.color import supports_color
 from django.db import connection
 from django.http import Http404
 from django.utils.termcolors import colorize
@@ -100,6 +101,9 @@ def banner():
     }).splitlines()
     if django.VERSION >= (1, 7):
         lines = lines[2:]
+
+    if not supports_color():
+        return "\n".join(lines)
 
     # Pairs of function / colorize args for coloring the banner.
     # These are each of the states moving from left to right on
