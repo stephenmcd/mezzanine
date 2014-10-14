@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
+from django.contrib.auth.models import AnonymousUser
 from django.db import connection
 from django.template import Context, Template
+from django.test.utils import override_settings
 
 from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
@@ -11,7 +13,7 @@ from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.tests import TestCase
 from mezzanine.utils.models import get_user_model
-from django.contrib.auth.models import AnonymousUser
+
 
 User = get_user_model()
 
@@ -203,38 +205,21 @@ class PagesTests(TestCase):
 
     def test_page_menu_default(self):
         """
-        Test that the default value for the ``in_menus`` field is used
-        and that it doesn't get forced to unicode.
+        Test that the settings-defined default value for the ``in_menus``
+        field is used, also checking that it doesn't get forced to text,
+        but that sequences are made immutable.
         """
-        old_menu_temp = settings.PAGE_MENU_TEMPLATES
-        old_menu_temp_def = settings.PAGE_MENU_TEMPLATES_DEFAULT
-        try:
-            # MenusField initializes choices and default during model
-            # loading, so we can't just override settings.
-            from mezzanine.pages.models import BasePage
-            from mezzanine.pages.fields import MenusField
-            settings.PAGE_MENU_TEMPLATES = ((8, 'a', 'a'), (9, 'b', 'b'))
-
-            settings.PAGE_MENU_TEMPLATES_DEFAULT = None
-
-            class P1(BasePage):
-                in_menus = MenusField(blank=True, null=True)
-            self.assertEqual(P1().in_menus[0], 8)
-
-            settings.PAGE_MENU_TEMPLATES_DEFAULT = tuple()
-
-            class P2(BasePage):
-                in_menus = MenusField(blank=True, null=True)
-            self.assertEqual(P2().in_menus, tuple())
-
-            settings.PAGE_MENU_TEMPLATES_DEFAULT = [9]
-
-            class P3(BasePage):
-                in_menus = MenusField(blank=True, null=True)
-            self.assertEqual(P3().in_menus[0], 9)
-        finally:
-            settings.PAGE_MENU_TEMPLATES = old_menu_temp
-            settings.PAGE_MENU_TEMPLATES_DEFAULT = old_menu_temp_def
+        with override_settings(
+                PAGE_MENU_TEMPLATES=((8, "a", "a"), (9, "b", "b"))):
+            with override_settings(PAGE_MENU_TEMPLATES_DEFAULT=None):
+                page_in_all_menus = Page.objects.create()
+                self.assertEqual(page_in_all_menus.in_menus, (8, 9))
+            with override_settings(PAGE_MENU_TEMPLATES_DEFAULT=tuple()):
+                page_not_in_menus = Page.objects.create()
+                self.assertEqual(page_not_in_menus.in_menus, tuple())
+            with override_settings(PAGE_MENU_TEMPLATES_DEFAULT=[9]):
+                page_in_a_menu = Page.objects.create()
+                self.assertEqual(page_in_a_menu.in_menus, (9,))
 
     def test_overridden_page(self):
         """
