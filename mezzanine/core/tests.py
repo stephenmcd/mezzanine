@@ -185,7 +185,7 @@ class CoreTests(TestCase):
 
     @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
                 "pages app required")
-    def test_mulisite(self):
+    def test_multisite(self):
         from django.conf import settings
 
         # setup

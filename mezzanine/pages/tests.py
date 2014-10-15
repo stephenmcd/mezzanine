@@ -13,6 +13,7 @@ from mezzanine.utils.tests import TestCase
 from mezzanine.utils.models import get_user_model
 from django.contrib.auth.models import AnonymousUser
 
+
 User = get_user_model()
 
 
@@ -211,27 +212,41 @@ class PagesTests(TestCase):
         try:
             # MenusField initializes choices and default during model
             # loading, so we can't just override settings.
+            # The below models are made abstract to avoid creating
+            # related sets on ``sites.Site``.
+            # TODO: Avoid initialization on module loading (allow
+            #       dynamic changes to templates settings) and
+            #       move model creation to the usual place.
             from mezzanine.pages.models import BasePage
             from mezzanine.pages.fields import MenusField
             settings.PAGE_MENU_TEMPLATES = ((8, 'a', 'a'), (9, 'b', 'b'))
 
             settings.PAGE_MENU_TEMPLATES_DEFAULT = None
 
-            class P1(BasePage):
+            class PageInAllMenus(BasePage):
                 in_menus = MenusField(blank=True, null=True)
-            self.assertEqual(P1().in_menus[0], 8)
+
+                class Meta:
+                    abstract = True
+            self.assertEqual(PageInAllMenus().in_menus, (8, 9))
 
             settings.PAGE_MENU_TEMPLATES_DEFAULT = tuple()
 
-            class P2(BasePage):
+            class PageNotInMenus(BasePage):
                 in_menus = MenusField(blank=True, null=True)
-            self.assertEqual(P2().in_menus, None)
+
+                class Meta:
+                    abstract = True
+            self.assertEqual(PageNotInMenus().in_menus, None)
 
             settings.PAGE_MENU_TEMPLATES_DEFAULT = [9]
 
-            class P3(BasePage):
+            class PageInAMenu(BasePage):
                 in_menus = MenusField(blank=True, null=True)
-            self.assertEqual(P3().in_menus[0], 9)
+
+                class Meta:
+                    abstract = True
+            self.assertEqual(PageInAMenu().in_menus, (9,))
         finally:
             settings.PAGE_MENU_TEMPLATES = old_menu_temp
             settings.PAGE_MENU_TEMPLATES_DEFAULT = old_menu_temp_def
