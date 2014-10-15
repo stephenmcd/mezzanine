@@ -65,9 +65,10 @@ class ConfTests(TestCase):
         for result in thread_pool.imap_unordered(retrieve_setting,
                                                  choose_random_setting()):
             setting_name, retrieved_value = result
-            if retrieved_value != editable_settings[setting_name]:
-                self.fail("Setting race condition encountered")
+            self.assertEqual(retrieved_value, editable_settings[setting_name])
 
+        Setting.objects.all().delete()
+        settings.use_editable()
 
     @skipUnless(sys.version_info[0] == 2,
                 "Randomly fails or succeeds under Python 3 as noted in "
