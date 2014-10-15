@@ -32,17 +32,11 @@ class ConfTests(TestCase):
                 Setting.objects.create(name=setting["name"], value=modified)
                 editable_settings[setting["name"]] = modified
 
-        def test_setting(setting_name):
-            settings.use_editable()
-            return setting_name, getattr(settings, setting_name)
-
-        def random_setting_generator(length=5000):
-            choices = list(editable_settings)
-            for _ in range(length):
-                yield random.choice(choices)
-
-        # This is taken from Django's LiveServerTestCase. See also Django
-        # ticket #12118, about SQLite not sharing connections between threads
+        # Make our child threads use this thread's connections. Recent SQLite
+        # do support access from multiple threads for in-memory databases, but
+        # Django doesn't support it currently - so we have to resort to this
+        # workaround, taken from Django's LiveServerTestCase.
+        # See Django ticket #12118 for discussion.
         connections_override = {}
         for conn in connections.all():
             # If using in-memory sqlite databases, pass the connections to
@@ -59,8 +53,17 @@ class ConfTests(TestCase):
 
         thread_pool = multiprocessing.pool.ThreadPool(8, initialise_thread)
 
-        for result in thread_pool.imap_unordered(test_setting,
-                                                 random_setting_generator()):
+        def retrieve_setting(setting_name):
+            settings.use_editable()
+            return setting_name, getattr(settings, setting_name)
+
+        def choose_random_setting(length=5000):
+            choices = list(editable_settings)
+            for _ in range(length):
+                yield random.choice(choices)
+
+        for result in thread_pool.imap_unordered(retrieve_setting,
+                                                 choose_random_setting()):
             setting_name, retrieved_value = result
             if retrieved_value != editable_settings[setting_name]:
                 self.fail("Setting race condition encountered")
