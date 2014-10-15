@@ -223,12 +223,12 @@ class PagesTests(TestCase):
 
             settings.PAGE_MENU_TEMPLATES_DEFAULT = None
 
-            class PageInDefaultMenus(BasePage):
+            class PageInAllMenus(BasePage):
                 in_menus = MenusField(blank=True, null=True)
 
                 class Meta:
                     abstract = True
-            self.assertEqual(PageInDefaultMenus().in_menus, (8, 9))
+            self.assertEqual(PageInAllMenus().in_menus, (8, 9))
 
             settings.PAGE_MENU_TEMPLATES_DEFAULT = tuple()
 
