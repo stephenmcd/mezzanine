@@ -8,7 +8,6 @@ from __future__ import unicode_literals
 from future.builtins import bytes, str
 
 from functools import partial
-from threading import Lock
 from warnings import warn
 
 from django.conf import settings as django_settings
@@ -114,7 +113,6 @@ class Settings(object):
         """
         self._loaded = True
         self._editable_cache = {}
-        self._lock = Lock()
 
     def use_editable(self):
         """
@@ -123,9 +121,7 @@ class Settings(object):
         access. If the conf app is not installed then set the loaded
         flag to ``True`` in order to bypass DB lookup entirely.
         """
-        with self._lock:
-            self._loaded = __name__ not in getattr(self, "INSTALLED_APPS")
-            self._editable_cache = {}
+        self._loaded = __name__ not in getattr(self, "INSTALLED_APPS")
 
     def _load(self):
         """
@@ -133,55 +129,50 @@ class Settings(object):
         the database that are no longer registered, and emit a warning if
         there are settings that are defined in settings.py and the database.
         """
-        
-        with self._lock:
-            if self._loaded:
-                return
-        
-            from mezzanine.conf.models import Setting
-    
-            removed_settings = []
-            conflicting_settings = []
-    
-            for setting_obj in Setting.objects.all():
-    
-                try:
-                    registry[setting_obj.name]
-                except KeyError:
-                    # Setting in DB isn't registered (removed from code),
-                    # so add to removal list and skip remaining handling.
-                    removed_settings.append(setting_obj.name)
-                    continue
-    
-                # Convert DB value to correct type.
-                setting_type = registry[setting_obj.name]["type"]
-                type_fn = self.TYPE_FUNCTIONS.get(setting_type, setting_type)
-                try:
-                    setting_value = type_fn(setting_obj.value)
-                except ValueError:
-                    # Shouldn't occur, but just a safeguard
-                    # for if the db value somehow ended up as
-                    # an invalid type.
-                    setting_value = registry[setting_obj.name]["default"]
-    
-                # Only use DB setting if it's not defined in settings.py
-                # module, in which case add it to conflicting list for
-                # warning.
-                try:
-                    getattr(django_settings, setting_obj.name)
-                except AttributeError:
-                    self._editable_cache[setting_obj.name] = setting_value
-                else:
-                    if setting_value != registry[setting_obj.name]["default"]:
-                        conflicting_settings.append(setting_obj.name)
-    
-            if removed_settings:
-                Setting.objects.filter(name__in=removed_settings).delete()
-            if conflicting_settings:
-                warn("These settings are defined in both settings.py and "
-                     "the database: %s. The settings.py values will be used."
-                     % ", ".join(conflicting_settings))
-            self._loaded = True
+        from mezzanine.conf.models import Setting
+
+        removed_settings = []
+        conflicting_settings = []
+
+        for setting_obj in Setting.objects.all():
+
+            try:
+                registry[setting_obj.name]
+            except KeyError:
+                # Setting in DB isn't registered (removed from code),
+                # so add to removal list and skip remaining handling.
+                removed_settings.append(setting_obj.name)
+                continue
+
+            # Convert DB value to correct type.
+            setting_type = registry[setting_obj.name]["type"]
+            type_fn = self.TYPE_FUNCTIONS.get(setting_type, setting_type)
+            try:
+                setting_value = type_fn(setting_obj.value)
+            except ValueError:
+                # Shouldn't occur, but just a safeguard
+                # for if the db value somehow ended up as
+                # an invalid type.
+                setting_value = registry[setting_obj.name]["default"]
+
+            # Only use DB setting if it's not defined in settings.py
+            # module, in which case add it to conflicting list for
+            # warning.
+            try:
+                getattr(django_settings, setting_obj.name)
+            except AttributeError:
+                self._editable_cache[setting_obj.name] = setting_value
+            else:
+                if setting_value != registry[setting_obj.name]["default"]:
+                    conflicting_settings.append(setting_obj.name)
+
+        if removed_settings:
+            Setting.objects.filter(name__in=removed_settings).delete()
+        if conflicting_settings:
+            warn("These settings are defined in both settings.py and "
+                 "the database: %s. The settings.py values will be used."
+                 % ", ".join(conflicting_settings))
+        self._loaded = True
 
     def __getattr__(self, name):
 
