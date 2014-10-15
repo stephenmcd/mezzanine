@@ -44,6 +44,7 @@ class ConfTests(TestCase):
             if (conn.vendor == 'sqlite'
                     and conn.settings_dict['NAME'] == ':memory:'):
                 # Explicitly enable thread-shareability for this connection
+                conn._old_allow_thread_sharing = conn.allow_thread_sharing
                 conn.allow_thread_sharing = True
                 connections_override[conn.alias] = conn
 
@@ -62,13 +63,17 @@ class ConfTests(TestCase):
             for _ in range(length):
                 yield random.choice(choices)
 
-        for result in thread_pool.imap_unordered(retrieve_setting,
+        try:
+            for setting in thread_pool.imap_unordered(retrieve_setting,
                                                  choose_random_setting()):
-            setting_name, retrieved_value = result
-            self.assertEqual(retrieved_value, editable_settings[setting_name])
-
-        Setting.objects.all().delete()
-        settings.use_editable()
+                name, retrieved_value = setting
+                self.assertEqual(retrieved_value, editable_settings[name])
+        finally:
+            for conn in connections_override.values():
+                conn.allow_thread_sharing = conn._old_allow_thread_sharing
+                del conn._old_allow_thread_sharing
+            Setting.objects.all().delete()
+            settings.use_editable()
 
     @skipUnless(sys.version_info[0] == 2,
                 "Randomly fails or succeeds under Python 3 as noted in "
