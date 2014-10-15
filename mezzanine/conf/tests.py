@@ -12,6 +12,60 @@ from mezzanine.utils.tests import TestCase
 
 class ConfTests(TestCase):
 
+    @skipUnless(True, "Only run manually")
+    def test_threading_race(self):
+        import multiprocessing.pool
+        import random
+        from django.db import connections
+
+        type_modifiers = {int: lambda s: s + 1,
+                          float: lambda s: s + 1.0,
+                          bool: lambda s: not s,
+                          str: lambda s: s + u"test",
+                          bytes: lambda s: s + b"test"}
+
+        # Store a non-default value for every editable setting in the database
+        editable_settings = {}
+        for setting in registry.values():
+            if setting["editable"]:
+                modified = type_modifiers[setting["type"]](setting["default"])
+                Setting.objects.create(name=setting["name"], value=modified)
+                editable_settings[setting["name"]] = modified
+
+        def test_setting(setting_name):
+            settings.use_editable()
+            return setting_name, getattr(settings, setting_name)
+
+        def random_setting_generator(length=5000):
+            choices = list(editable_settings)
+            for _ in range(length):
+                yield random.choice(choices)
+
+        # This is taken from Django's LiveServerTestCase. See also Django
+        # ticket #12118, about SQLite not sharing connections between threads
+        connections_override = {}
+        for conn in connections.all():
+            # If using in-memory sqlite databases, pass the connections to
+            # the server thread.
+            if (conn.vendor == 'sqlite'
+                    and conn.settings_dict['NAME'] == ':memory:'):
+                # Explicitly enable thread-shareability for this connection
+                conn.allow_thread_sharing = True
+                connections_override[conn.alias] = conn
+
+        def initialise_thread():
+            for alias, connection in connections_override.items():
+                connections[alias] = connection
+
+        thread_pool = multiprocessing.pool.ThreadPool(8, initialise_thread)
+
+        for result in thread_pool.imap_unordered(test_setting,
+                                                 random_setting_generator()):
+            setting_name, retrieved_value = result
+            if retrieved_value != editable_settings[setting_name]:
+                self.fail("Setting race condition encountered")
+
+
     @skipUnless(sys.version_info[0] == 2,
                 "Randomly fails or succeeds under Python 3 as noted in "
                 "GH #858 - please fix.")
