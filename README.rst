@@ -557,6 +557,7 @@ Sites Using Mezzanine
 * `You Name It <http://you-name-it.net>`_
 * `Atlas of Human Infectious Diseases <https://infectionatlas.org>`_
 * `The Entrepreneurial School <http://theentrepreneurialschool.com/>`_
+* `Wednesday Martin <http://wednesdaymartin.com/>`_
 
 
 Quotes

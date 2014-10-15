@@ -245,11 +245,12 @@ def set_dynamic_settings(s):
     # Some settings tweaks for different DB engines.
     for (key, db) in s["DATABASES"].items():
         shortname = db["ENGINE"].split(".")[-1]
-        if shortname == "sqlite3" and os.sep not in db["NAME"]:
+        if shortname == "sqlite3":
             # If the Sqlite DB name doesn't contain a path, assume
             # it's in the project directory and add the path to it.
-            db_path = os.path.join(s.get("PROJECT_ROOT", ""), db["NAME"])
-            s["DATABASES"][key]["NAME"] = db_path
+            if "NAME" in db and os.sep not in db["NAME"]:
+                db_path = os.path.join(s.get("PROJECT_ROOT", ""), db["NAME"])
+                s["DATABASES"][key]["NAME"] = db_path
         elif shortname == "mysql":
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"

@@ -218,7 +218,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         if self._signup:
             settings.use_editable()
             if (settings.ACCOUNTS_VERIFICATION_REQUIRED or
-                settings.ACCOUNTS_APPROVAL_REQUIRED):
+                    settings.ACCOUNTS_APPROVAL_REQUIRED):
                 user.is_active = False
                 user.save()
             else:

@@ -142,17 +142,26 @@ class PagesTests(TestCase):
 
         args = {"for_user": AnonymousUser()}
         self.assertTrue(public in RichTextPage.objects.published(**args))
-        self.assertTrue(not private in RichTextPage.objects.published(**args))
+        self.assertTrue(private not in RichTextPage.objects.published(**args))
         args = {"for_user": User.objects.get(username=self._username)}
         self.assertTrue(public in RichTextPage.objects.published(**args))
         self.assertTrue(private in RichTextPage.objects.published(**args))
-        self.client.logout()
 
+        self.client.logout()
         response = self.client.get(private.get_absolute_url(), follow=True)
         login = "%s?next=%s" % (settings.LOGIN_URL, private.get_absolute_url())
-        self.assertRedirects(response, login)
+        if "mezzanine.accounts" in settings.INSTALLED_APPS:
+            # For an inaccessible page with mezzanine.accounts we should
+            # see a login page, without it 404 is more appropriate than an
+            # admin login.
+            target_status_code = 200
+        else:
+            target_status_code = 404
+        self.assertRedirects(response, login,
+                             target_status_code=target_status_code)
         response = self.client.get(public.get_absolute_url(), follow=True)
         self.assertEqual(response.status_code, 200)
+
         self.client.login(username=self._username, password=self._password)
         response = self.client.get(private.get_absolute_url(), follow=True)
         self.assertEqual(response.status_code, 200)
