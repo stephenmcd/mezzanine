@@ -5,6 +5,15 @@ from django import VERSION
 
 if VERSION < (1, 6):
 
+    def get_permission_codename(action, opts):
+        """
+        Returns the codename of the permission for the specified action,
+        in a 1.5 compatible manner.
+
+        Compare with ``django/contrib/auth/__init__.py``.
+        """
+        return "%s_%s" % (action, opts.object_name.lower())
+
     def renamed_get_queryset(cls):
         """
         On classes and their bases with ``get_queryset`` defines
@@ -24,6 +33,8 @@ if VERSION < (1, 6):
         return cls
 
 else:
+
+    from django.contrib.auth import get_permission_codename
 
     def renamed_get_queryset(cls):
         return cls
