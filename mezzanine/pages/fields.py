@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from django.db import connection
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import MultiChoiceField
@@ -7,43 +6,48 @@ from mezzanine.core.fields import MultiChoiceField
 
 class MenusField(MultiChoiceField):
     """
-    ``MultiChoiceField`` for specifying which menus a page should
-    appear in.
+    ``MultiChoiceField`` for specifying which menus a page should appear in.
     """
 
     def __init__(self, *args, **kwargs):
-        choices = [t[:2] for t in getattr(settings, "PAGE_MENU_TEMPLATES", [])]
-        default = getattr(settings, "PAGE_MENU_TEMPLATES_DEFAULT", None)
-        if default is None:
-            default = [t[0] for t in choices]
-        elif not default:
-            default = None
-        if isinstance(default, (tuple, list)):
-            # Django seeing just a mutable default would force it to unicode.
-            default = tuple(default)
-        defaults = {"max_length": 100, "choices": choices, "default": default}
+        choices = (m[:2] for m in getattr(settings, "PAGE_MENU_TEMPLATES", []))
+        defaults = {"max_length": 100, "choices": choices}
         defaults.update(kwargs)
         super(MenusField, self).__init__(*args, **defaults)
+        self._overridden_default = ("default" in kwargs)
+
+    def has_default(self):
+        """
+        We either have a user-provided default or can determine one based on
+        settings.
+        """
+        return True
 
     def get_default(self):
         """
-        Django's default behavior for `get_default` forces to unicode unless
-        the field is callable, as referenced here:
-        https://github.com/stephenmcd/mezzanine/commit/97a92f92
-
-        But the purpose of this behavior was to prevent mutable values being
-        passed as default, which the conversion to a tuple in __init__ already
-        handles.
-
-        Django 1.7 migrations do not allow lambdas in field definitions, so
-        instead overwriting `get_default` to not require a callable.
+        If the user provided a default in the field definition, returns it,
+        otherwise determines the default menus based on available choices and
+        ``PAGE_MENU_TEMPLATES_DEFAULT``. Ensures the default is not mutable.
         """
-        if self.has_default():
-            return self.default
-        if (not self.empty_strings_allowed or (self.null and
-                   not connection.features.interprets_empty_strings_as_nulls)):
-            return None
-        return ""
+        if self._overridden_default:
+            # Even with user-provided default we'd rather not have it
+            # forced to text. Compare with Field.get_default().
+            if callable(self.default):
+                default = self.default()
+            else:
+                default = self.default
+        else:
+            # Depending on PAGE_MENU_TEMPLATES_DEFAULT:
+            # * None or no value: all choosable menus;
+            # * some sequence: specified menus;
+            # (* empty sequence: no menus).
+            default = getattr(settings, "PAGE_MENU_TEMPLATES_DEFAULT", None)
+            if default is None:
+                choices = self.get_flatchoices(include_blank=False)
+                default = (c[0] for c in choices)
+        # Default can't be mutable, as references to it are shared among
+        # model instances; all sane values should be castable to a tuple.
+        return tuple(default)
 
 
 # South requires custom fields to be given "rules".
