@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
+from django.contrib.auth.models import AnonymousUser
 from django.db import connection
 from django.template import Context, Template
+from django.test.utils import override_settings
 
 from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
@@ -11,7 +13,7 @@ from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.tests import TestCase
 from mezzanine.utils.models import get_user_model
-from django.contrib.auth.models import AnonymousUser
+
 
 User = get_user_model()
 
@@ -134,7 +136,6 @@ class PagesTests(TestCase):
         self.assertTrue(child.slug == "new-parent-slug/child")
 
     def test_login_required(self):
-
         public, _ = RichTextPage.objects.get_or_create(
             title="Public", slug="public", login_required=False)
         private, _ = RichTextPage.objects.get_or_create(
@@ -147,9 +148,12 @@ class PagesTests(TestCase):
         self.assertTrue(public in RichTextPage.objects.published(**args))
         self.assertTrue(private in RichTextPage.objects.published(**args))
 
+        public_url = public.get_absolute_url()
+        private_url = private.get_absolute_url()
+
         self.client.logout()
-        response = self.client.get(private.get_absolute_url(), follow=True)
-        login = "%s?next=%s" % (settings.LOGIN_URL, private.get_absolute_url())
+        response = self.client.get(private_url, follow=True)
+        login = "%s?next=%s" % (settings.LOGIN_URL, private_url)
         if "mezzanine.accounts" in settings.INSTALLED_APPS:
             # For an inaccessible page with mezzanine.accounts we should
             # see a login page, without it 404 is more appropriate than an
@@ -159,14 +163,41 @@ class PagesTests(TestCase):
             target_status_code = 404
         self.assertRedirects(response, login,
                              target_status_code=target_status_code)
-        response = self.client.get(public.get_absolute_url(), follow=True)
+        response = self.client.get(public_url, follow=True)
         self.assertEqual(response.status_code, 200)
 
+        if "mezzanine.accounts" in settings.INSTALLED_APPS:
+            # Test if view name or URL pattern can be used as LOGIN_URL.
+            with override_settings(LOGIN_URL="mezzanine.accounts.views.login"):
+                # Note: With 1.7 this loops if the view app isn't installed.
+                response = self.client.get(public_url, follow=True)
+                self.assertEqual(response.status_code, 200)
+                response = self.client.get(private_url, follow=True)
+                self.assertRedirects(response, login)
+            with override_settings(LOGIN_URL="login"):
+                # Note: The "login" is a pattern name in accounts.urls.
+                response = self.client.get(public_url, follow=True)
+                self.assertEqual(response.status_code, 200)
+                response = self.client.get(private_url, follow=True)
+                self.assertRedirects(response, login)
+
         self.client.login(username=self._username, password=self._password)
-        response = self.client.get(private.get_absolute_url(), follow=True)
+        response = self.client.get(private_url, follow=True)
         self.assertEqual(response.status_code, 200)
-        response = self.client.get(public.get_absolute_url(), follow=True)
+        response = self.client.get(public_url, follow=True)
         self.assertEqual(response.status_code, 200)
+
+        if "mezzanine.accounts" in settings.INSTALLED_APPS:
+            with override_settings(LOGIN_URL="mezzanine.accounts.views.login"):
+                response = self.client.get(public_url, follow=True)
+                self.assertEqual(response.status_code, 200)
+                response = self.client.get(private_url, follow=True)
+                self.assertEqual(response.status_code, 200)
+            with override_settings(LOGIN_URL="login"):
+                response = self.client.get(public_url, follow=True)
+                self.assertEqual(response.status_code, 200)
+                response = self.client.get(private_url, follow=True)
+                self.assertEqual(response.status_code, 200)
 
     def test_page_menu_queries(self):
         """
