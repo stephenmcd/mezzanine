@@ -13,6 +13,7 @@ except ImportError:     # Python 2
     from urllib2 import Request, urlopen
 
 import django
+from django.contrib.auth import get_permission_codename
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.forms import EmailField, URLField, Textarea
 from django.template import RequestContext
@@ -35,7 +36,8 @@ def is_editable(obj, request):
     if hasattr(obj, "is_editable"):
         return obj.is_editable(request)
     else:
-        perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
+        codename = get_permission_codename("change", obj._meta)
+        perm = "%s.%s" % (obj._meta.app_label, codename)
         return (request.user.is_authenticated() and
                 has_site_permission(request.user) and
                 request.user.has_perm(perm))
