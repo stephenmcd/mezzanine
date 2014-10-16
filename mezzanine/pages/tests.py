@@ -225,7 +225,7 @@ class PagesTests(TestCase):
 
             class P2(BasePage):
                 in_menus = MenusField(blank=True, null=True)
-            self.assertEqual(P2().in_menus, None)
+            self.assertEqual(P2().in_menus, tuple())
 
             settings.PAGE_MENU_TEMPLATES_DEFAULT = [9]
 
