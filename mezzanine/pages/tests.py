@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
+from django import VERSION
 from django.contrib.auth.models import AnonymousUser
 from django.db import connection
 from django.template import Context, Template
@@ -140,6 +141,7 @@ class PagesTests(TestCase):
             title="Public", slug="public", login_required=False)
         private, _ = RichTextPage.objects.get_or_create(
             title="Private", slug="private", login_required=True)
+        accounts_installed = ("mezzanine.accounts" in settings.INSTALLED_APPS)
 
         args = {"for_user": AnonymousUser()}
         self.assertTrue(public in RichTextPage.objects.published(**args))
@@ -154,7 +156,7 @@ class PagesTests(TestCase):
         self.client.logout()
         response = self.client.get(private_url, follow=True)
         login = "%s?next=%s" % (settings.LOGIN_URL, private_url)
-        if "mezzanine.accounts" in settings.INSTALLED_APPS:
+        if accounts_installed:
             # For an inaccessible page with mezzanine.accounts we should
             # see a login page, without it 404 is more appropriate than an
             # admin login.
@@ -166,7 +168,7 @@ class PagesTests(TestCase):
         response = self.client.get(public_url, follow=True)
         self.assertEqual(response.status_code, 200)
 
-        if "mezzanine.accounts" in settings.INSTALLED_APPS:
+        if accounts_installed and VERSION >= (1, 5):
             # Test if view name or URL pattern can be used as LOGIN_URL.
             with override_settings(LOGIN_URL="mezzanine.accounts.views.login"):
                 # Note: With 1.7 this loops if the view app isn't installed.
@@ -187,7 +189,7 @@ class PagesTests(TestCase):
         response = self.client.get(public_url, follow=True)
         self.assertEqual(response.status_code, 200)
 
-        if "mezzanine.accounts" in settings.INSTALLED_APPS:
+        if accounts_installed and VERSION >= (1, 5):
             with override_settings(LOGIN_URL="mezzanine.accounts.views.login"):
                 response = self.client.get(public_url, follow=True)
                 self.assertEqual(response.status_code, 200)
