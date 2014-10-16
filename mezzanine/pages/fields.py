@@ -10,11 +10,11 @@ class MenusField(MultiChoiceField):
     """
 
     def __init__(self, *args, **kwargs):
-        choices = (m[:2] for m in getattr(settings, "PAGE_MENU_TEMPLATES", []))
-        defaults = {"max_length": 100, "choices": choices}
+        defaults = {"max_length": 100}
         defaults.update(kwargs)
         super(MenusField, self).__init__(*args, **defaults)
         self._overridden_default = ("default" in kwargs)
+        self._overridden_choices = ("choices" in kwargs)
 
     def has_default(self):
         """
@@ -48,6 +48,19 @@ class MenusField(MultiChoiceField):
         # Default can't be mutable, as references to it are shared among
         # model instances; all sane values should be castable to a tuple.
         return tuple(default)
+
+    @property
+    def choices(self):
+        """
+        Returns menus specified in ``PAGE_MENU_TEMPLATES`` unless you provide
+        some custom choices in the field definition.
+        """
+        if self._overridden_choices:
+            # Note: choices is a property on Field bound to _get_choices().
+            return self._get_choices()
+        else:
+            menus = getattr(settings, "PAGE_MENU_TEMPLATES", [])
+            return (m[:2] for m in menus)
 
 
 # South requires custom fields to be given "rules".
