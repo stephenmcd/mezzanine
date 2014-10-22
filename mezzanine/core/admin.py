@@ -13,6 +13,7 @@ from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
+from mezzanine.utils.deprecation import renamed_get_queryset
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.models import get_user_model
 
@@ -112,6 +113,7 @@ class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.StackedInline):
         super(StackedDynamicInlineAdmin, self).__init__(*args, **kwargs)
 
 
+@renamed_get_queryset
 class OwnableAdmin(admin.ModelAdmin):
     """
     Admin class for models that subclass the abstract ``Ownable``
@@ -135,7 +137,7 @@ class OwnableAdmin(admin.ModelAdmin):
             obj.user = request.user
         return super(OwnableAdmin, self).save_form(request, form, change)
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         """
         Filter the change list by currently logged in user if not a
         superuser. We also skip filtering if the model for this admin
@@ -149,7 +151,7 @@ class OwnableAdmin(admin.ModelAdmin):
         model_name = ("%s.%s" % (opts.app_label, opts.object_name)).lower()
         models_all_editable = settings.OWNABLE_MODELS_ALL_EDITABLE
         models_all_editable = [m.lower() for m in models_all_editable]
-        qs = super(OwnableAdmin, self).queryset(request)
+        qs = super(OwnableAdmin, self).get_queryset(request)
         if request.user.is_superuser or model_name in models_all_editable:
             return qs
         return qs.filter(user__id=request.user.id)

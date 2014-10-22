@@ -24,12 +24,13 @@ if VERSION < (1, 6):
         Compare with ``django.utils.deprecation.RenameMethodsBase``.
         """
         for base in getmro(cls):
-            old_method = base.__dict__.get("get_query_set")
-            new_method = base.__dict__.get("get_queryset")
-            if not old_method and new_method:
-                setattr(base, "get_query_set", new_method)
-            elif not new_method and old_method:
-                setattr(base, "get_queryset", old_method)
+            for old_method_name in ["get_query_set", "queryset"]:
+                old_method = base.__dict__.get(old_method_name)
+                new_method = base.__dict__.get("get_queryset")
+                if not old_method and new_method:
+                    setattr(base, old_method_name, new_method)
+                elif not new_method and old_method:
+                    setattr(base, "get_queryset", old_method)
         return cls
 
 else:
