@@ -32,7 +32,8 @@ def main(package="mezzanine"):
             test_reqs_str = """
 from project_template import settings
 globals().update(settings.__dict__)
-INSTALLED_APPS = list(settings.INSTALLED_APPS) + ["mezzanine.accounts"]
+if "mezzanine.accounts" not in settings.INSTALLED_APPS:
+    INSTALLED_APPS = list(settings.INSTALLED_APPS) + ["mezzanine.accounts"]
 """
             if django.VERSION >= (1, 7):
                 test_reqs_str += "import django\ndjango.setup()"
