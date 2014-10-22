@@ -14,6 +14,7 @@ from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
+from mezzanine.utils.deprecation import renamed_get_queryset
 from mezzanine.utils.models import get_model
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import home_slug
@@ -191,6 +192,7 @@ class SearchableQuerySet(QuerySet):
         return results
 
 
+@renamed_get_queryset
 class SearchableManager(Manager):
     """
     Manager providing a chainable queryset.
@@ -206,7 +208,7 @@ class SearchableManager(Manager):
     def get_search_fields(self):
         """
         Returns the search field names mapped to weights as a dict.
-        Used in ``get_query_set`` below to tell ``SearchableQuerySet``
+        Used in ``get_queryset`` below to tell ``SearchableQuerySet``
         which search fields to use. Also used by ``DisplayableAdmin``
         to populate Django admin's ``search_fields`` attribute.
 
@@ -238,7 +240,7 @@ class SearchableManager(Manager):
             search_fields = search_fields_to_dict(search_fields)
         return search_fields
 
-    def get_query_set(self):
+    def get_queryset(self):
         search_fields = self.get_search_fields()
         return SearchableQuerySet(self.model, search_fields=search_fields)
 
@@ -318,11 +320,12 @@ class SearchableManager(Manager):
             try:
                 queryset = model.objects.published(for_user=user)
             except AttributeError:
-                queryset = model.objects.get_query_set()
+                queryset = model.objects.get_queryset()
             all_results.extend(queryset.search(*args, **kwargs))
         return sorted(all_results, key=lambda r: r.result_count, reverse=True)
 
 
+@renamed_get_queryset
 class CurrentSiteManager(DjangoCSM):
     """
     Extends Django's site manager to first look up site by ID stored in
@@ -338,7 +341,7 @@ class CurrentSiteManager(DjangoCSM):
         self.__field_name = field_name
         self.__is_validated = False
 
-    def get_query_set(self):
+    def get_queryset(self):
         if not self.__is_validated:
             try:
                 # Django <= 1.6
@@ -347,7 +350,7 @@ class CurrentSiteManager(DjangoCSM):
                 # Django >= 1.7: will populate "self.__field_name".
                 self._get_field_name()
         lookup = {self.__field_name + "__id__exact": current_site_id()}
-        return super(DjangoCSM, self).get_query_set().filter(**lookup)
+        return super(DjangoCSM, self).get_queryset().filter(**lookup)
 
 
 class DisplayableManager(CurrentSiteManager, PublishedManager,

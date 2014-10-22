@@ -45,6 +45,9 @@ IGNORE_ERRORS = (
     # Django 1.5 custom user compatibility
     "redefinition of unused 'get_user_model",
 
+    # Django 1.5 deprecated methods compatibility.
+    "'get_permission_codename' imported but unused",
+
     # Actually a Python template file.
     "live_settings.py",
 
