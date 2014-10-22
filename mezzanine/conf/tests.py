@@ -65,7 +65,7 @@ class ConfTests(TestCase):
 
         try:
             for setting in thread_pool.imap_unordered(retrieve_setting,
-                                                 choose_random_setting()):
+                                                      choose_random_setting()):
                 name, retrieved_value = setting
                 self.assertEqual(retrieved_value, editable_settings[name])
         finally:
