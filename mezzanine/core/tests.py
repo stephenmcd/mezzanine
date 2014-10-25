@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 import re
+import sys
 
 try:
     # Python 3
@@ -9,40 +10,30 @@ except ImportError:
     # Python 2
     from urllib import urlencode
 
+from django.contrib.sites.models import Site
+from django.core import mail
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.forms import Textarea
 from django.forms.models import modelform_factory
-from django.contrib.sites.models import Site
 from django.templatetags.static import static
-from django.core.urlresolvers import reverse
-from django.core import mail
+from django.test.utils import override_settings
 from django.utils.html import strip_tags
 from django.utils.unittest import skipUnless
-from django.test.utils import override_settings
 
 from mezzanine.conf import settings
+from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
                                    CONTENT_STATUS_PUBLISHED)
-from mezzanine.core.fields import RichTextField
 from mezzanine.pages.models import RichTextPage
+from mezzanine.utils.html import TagCloser
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
                                              run_pep8_for_package)
-from mezzanine.utils.html import TagCloser
 
 
 class CoreTests(TestCase):
-
-    def test_tagcloser(self):
-        """
-        Test tags are closed, and tags that shouldn't be closed aren't.
-        """
-        self.assertEqual(TagCloser("<p>Unclosed paragraph").html,
-                         "<p>Unclosed paragraph</p>")
-
-        self.assertEqual(TagCloser("Line break<br>").html,
-                         "Line break<br>")
 
     @skipUnless("mezzanine.mobile" in settings.INSTALLED_APPS and
                 "mezzanine.pages" in settings.INSTALLED_APPS,
@@ -70,19 +61,6 @@ class CoreTests(TestCase):
         warnings.extend(run_pep8_for_package("mezzanine"))
         if warnings:
             self.fail("Syntax warnings!\n\n%s" % "\n".join(warnings))
-
-    def test_utils(self):
-        """
-        Miscellanous tests for the ``mezzanine.utils`` package.
-        """
-        self.assertRaises(ImportError, import_dotted_path, "mezzanine")
-        self.assertRaises(ImportError, import_dotted_path, "mezzanine.NO")
-        self.assertRaises(ImportError, import_dotted_path, "mezzanine.core.NO")
-        try:
-            import_dotted_path("mezzanine.core")
-        except ImportError:
-            self.fail("mezzanine.utils.imports.import_dotted_path"
-                      "could not import \"mezzanine.core\"")
 
     @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
                 "pages app required")
@@ -375,3 +353,33 @@ class CoreTests(TestCase):
         self.assertContains(response, site2.name)
         site1.delete()
         site2.delete()
+
+
+class UtilsTests(TestCase):
+    """
+    Miscellanous tests for the ``mezzanine.utils`` package.
+    """
+    def test_tagcloser(self):
+        """
+        Test tags are closed, and tags that shouldn't be closed aren't.
+        """
+        self.assertEqual(TagCloser("<p>Unclosed paragraph").html,
+                         "<p>Unclosed paragraph</p>")
+
+        self.assertEqual(TagCloser("Line break<br>").html,
+                         "Line break<br>")
+
+    def test_import_dotted_path(self):
+        """
+        Checks if ``importing.import_dotted_path`` is able to import and return
+        the right object.
+        """
+        self.assertRaises(ImportError, import_dotted_path, "mezzanine")
+        self.assertRaises(ImportError, import_dotted_path, "mezzanine.NO")
+        self.assertRaises(ImportError, import_dotted_path, "mezzanine.core.NO")
+        try:
+            core = import_dotted_path("mezzanine.core")
+        except ImportError:
+            self.fail("mezzanine.utils.imports.import_dotted_path"
+                      "could not import \"mezzanine.core\"")
+        self.assertIs(core, sys.modules["mezzanine.core"])
