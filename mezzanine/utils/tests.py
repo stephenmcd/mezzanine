@@ -1,13 +1,19 @@
 from __future__ import unicode_literals
 from future.builtins import open, range, str
+from future.utils import native_str
 
 from _ast import PyCF_ONLY_AST
+from contextlib import contextmanager
+import locale
 import os
 from shutil import copyfile, copytree
+import threading
 
 from django.db import connection
 from django.template import Context, Template
 from django.test import TestCase as BaseTestCase
+from django.utils import six
+from django.utils.unittest import SkipTest
 
 from mezzanine.conf import settings
 from mezzanine.utils.importing import path_for_import
@@ -209,3 +215,30 @@ def run_pep8_for_package(package_name, extra_ignore=None):
 
     args = (pep8_checker, package_name, extra_ignore)
     return _run_checker_for_package(*args)
+
+
+_locale_lock = threading.Lock()
+
+
+@contextmanager
+def override_locale(locale_code):
+    """
+    Overrides the current locale in a thread-safe manner.
+
+    Should only be used within a test or (with Python 3) to decorate
+    a test. Skips the test if the given locale isn't available.
+    """
+    with _locale_lock:
+        old_locale = locale.setlocale(locale.LC_ALL)
+        try:
+            if isinstance(locale_code, six.string_types):
+                # Note: setlocale compares the type of its argument with
+                #       type("") or builtins.str and treats it as a tuple
+                #       if they don't match...
+                locale_code = native_str(locale_code)
+            yield locale.setlocale(locale.LC_ALL, locale_code)
+        except locale.Error:
+            # Ubuntu: sudo apt-get install language-pack-xx.
+            raise SkipTest("locale %s is required" % locale_code)
+        finally:
+            locale.setlocale(locale.LC_ALL, old_locale)
