@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from datetime import datetime
 import re
 import sys
 
@@ -16,9 +18,11 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.forms import Textarea
 from django.forms.models import modelform_factory
+from django.http import HttpResponse
 from django.templatetags.static import static
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
+from django.utils.six.moves import http_cookies
 from django.utils.unittest import skipUnless
 
 from mezzanine.conf import settings
@@ -29,8 +33,10 @@ from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
-                                             run_pep8_for_package)
+from mezzanine.utils.tests import (TestCase, override_locale,
+                                   run_pyflakes_for_package,
+                                   run_pep8_for_package)
+from mezzanine.utils.views import set_cookie
 
 
 class CoreTests(TestCase):
@@ -361,7 +367,7 @@ class UtilsTests(TestCase):
     """
     def test_tagcloser(self):
         """
-        Test tags are closed, and tags that shouldn't be closed aren't.
+        Tests if tags are closed, and tags that shouldn't be closed aren't.
         """
         self.assertEqual(TagCloser("<p>Unclosed paragraph").html,
                          "<p>Unclosed paragraph</p>")
@@ -371,8 +377,8 @@ class UtilsTests(TestCase):
 
     def test_import_dotted_path(self):
         """
-        Checks if ``importing.import_dotted_path`` is able to import and return
-        the right object.
+        Checks if ``importing.import_dotted_path`` is able to import and
+        return the right object.
         """
         self.assertRaises(ImportError, import_dotted_path, "mezzanine")
         self.assertRaises(ImportError, import_dotted_path, "mezzanine.NO")
@@ -383,3 +389,49 @@ class UtilsTests(TestCase):
             self.fail("mezzanine.utils.imports.import_dotted_path"
                       "could not import \"mezzanine.core\"")
         self.assertIs(core, sys.modules["mezzanine.core"])
+
+    def test_set_cookie(self):
+        """
+        Confirms that Unicode cookie names and values may be used and
+        that locale with non-ASCII characters in month and week days
+        won't cause trouble.
+        """
+        response = HttpResponse()
+
+        # http://tools.ietf.org/html/rfc6265#section-4.1
+        # cookie-name       = <token, defined in [RFC2616], Section 2.2>
+        #
+        # http://tools.ietf.org/html/rfc2616#section-2.2
+        # token          = 1*<any CHAR except CTLs or separators>
+        # CHAR           = <any US-ASCII character (octets 0 - 127)>
+        with self.assertRaises(http_cookies.CookieError):
+            set_cookie(response, "쿠키", "")
+
+        # http://tools.ietf.org/html/rfc6265#section-4.1
+        # cookie-value      = *cookie-octet / ( DQUOTE *cookie-octet DQUOTE )
+        # cookie-octet      = %x21 / %x23-2B / %x2D-3A / %x3C-5B / %x5D-7E
+        #                       ; US-ASCII characters excluding CTLs,
+        #                       ; whitespace DQUOTE, comma, semicolon,
+        #                       ; and backslash
+        try:
+            set_cookie(response, "!", "クッキー")
+            str(response.cookies).encode("ascii")
+        except UnicodeEncodeError:
+            self.fail("cookie value contains unallowed bytes")
+
+        # http://tools.ietf.org/html/rfc6265#section-4.1
+        # sane-cookie-date  = <rfc1123-date,
+        #                      defined in [RFC2616], Section 3.3.1>
+        # http://tools.ietf.org/html/rfc2616#section-3.3.1
+        # A non-obsolete example: Sun, 06 Nov 1994 08:49:37 GMT.
+        # Note that "month" and "wkday" productions use English.
+        with override_locale("zh_CN.utf8"):
+            expires = datetime(9999, 12, 31)
+            with self.assertRaises(UnicodeDecodeError):
+                expires.strftime("%a, %d-%b-%Y %H:%M:%S GMT").encode("ascii")
+            expiry_seconds = (expires - datetime.utcnow()).total_seconds()
+            try:
+                set_cookie(response, "#", "饼干", expiry_seconds=expiry_seconds)
+                str(response.cookies).encode("ascii")
+            except UnicodeEncodeError:
+                self.fail("cookie date contains unallowed bytes")
