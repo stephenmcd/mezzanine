@@ -166,6 +166,9 @@ def run_pyflakes_for_package(package_name, extra_ignore=None):
     def pyflakes_checker(path):
         with open(path, "U") as source_file:
             source = source_file.read()
+        encoding_declaration = "# -*- coding: utf-8 -*-"
+        if source.startswith(encoding_declaration):
+            source = source[len(encoding_declaration):]
         try:
             tree = compile(source, path, "exec", PyCF_ONLY_AST)
         except (SyntaxError, IndentationError) as value:
