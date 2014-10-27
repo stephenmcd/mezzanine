@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from __future__ import division, unicode_literals
 
 from datetime import datetime
 import re
@@ -429,7 +429,13 @@ class UtilsTests(TestCase):
             expires = datetime(9999, 12, 31)
             with self.assertRaises(UnicodeDecodeError):
                 expires.strftime("%a, %d-%b-%Y %H:%M:%S GMT").encode("ascii")
-            expiry_seconds = (expires - datetime.utcnow()).total_seconds()
+            try:
+                # Python 2.6 doesn't have timedelta.total_seconds.
+                expiry_seconds = (expires - datetime.utcnow()).total_seconds()
+            except AttributeError:
+                delta = expires - datetime.utcnow()
+                expiry_seconds = ((delta.days * 86400 + delta.seconds) * 1e6 +
+                    delta.microseconds) / 1e6
             try:
                 set_cookie(response, "#", "饼干", expiry_seconds=expiry_seconds)
                 str(response.cookies).encode("ascii")

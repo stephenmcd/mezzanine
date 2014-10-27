@@ -17,9 +17,22 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.forms import EmailField, URLField, Textarea
 from django.template import RequestContext
 from django.template.response import TemplateResponse
-from django.utils.encoding import force_str
 from django.utils.six.moves import http_cookies
 from django.utils.translation import ugettext as _
+
+try:
+    # Some string helpers were introduced in Django 1.5.
+    from django.utils.encoding import force_str
+except ImportError:
+    from future.utils import native_str
+
+    def force_str(s):
+        # Note: This is for backwards compatibility with 1.4 and previous
+        # workaround in set_cookie. Not suitable for other uses.
+        try:
+            return native_str(s)
+        except UnicodeEncodeError:
+            return s.encode("utf-8")
 
 import mezzanine
 from mezzanine.conf import settings
@@ -184,7 +197,8 @@ def set_cookie(response, name, value, expiry_seconds=None, secure=False):
     # turn results in sending "Set-Cookie: None=None".
     # There is no way to fix keys without breaking user-code on this level,
     # but we should let the cookie complain loudly.
-    http_cookies.SimpleCookie()[force_str(name)] = ""
+    name = force_str(name)
+    http_cookies.SimpleCookie()[name] = None
 
     # Django (1.8+) workaround for Unicode cookie values with Python 2.
     # https://code.djangoproject.com/ticket/19802
