@@ -115,9 +115,8 @@ def search(request, template="search_results.html"):
     max_paging_links = settings.MAX_PAGING_LINKS
     try:
         search_model = get_model(*request.GET.get("type", "").split(".", 1))
-        if not issubclass(search_model, Displayable):
-            raise TypeError
-    except (ValueError, TypeError, LookupError):
+        search_model.objects.search  # Attribute check
+    except (ValueError, TypeError, LookupError, AttributeError):
         search_model = Displayable
         search_type = _("Everything")
     else:

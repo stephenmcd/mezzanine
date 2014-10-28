@@ -30,12 +30,24 @@ Showing {{ start }} to {{ end }} of {{ total }} results in {{ search_type }} mat
 </p>
 
 <div id="search-results">
-    {% for result in results.object_list %}
-    <h5>{{ forloop.counter0|add:results.start_index }})
-        <a href="{{ result.get_absolute_url }}">{{ result }}</a></h5>
-    <p>{{ result.description|truncatewords_html:20|safe }}</p>
-    <a href="{{ result.get_absolute_url }}">{% trans "read more" %}</a>
-    {% endfor %}
+{% for result in results.object_list %}
+{% with result.get_absolute_url as result_url %}
+    <h5>
+        {{ forloop.counter0|add:results.start_index }})
+        {% if result_url %}
+            <a href="{{ result_url }}">{{ result }}</a>
+        {% else %}
+            {{ result }}
+        {% endif %}
+    </h5>
+    {% if result.description != result|stringformat:"s" %}
+        <p>{{ result.description|truncatewords_html:20|safe }}</p>
+    {% endif %}
+    {% if result_url %}
+        <a href="{{ result_url }}">{% trans "read more" %}</a>
+    {% endif %}
+{% endwith %}
+{% endfor %}
 </div>
 
 {% pagination_for results %}
