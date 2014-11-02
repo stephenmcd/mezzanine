@@ -18,6 +18,7 @@ you then call the function ``mezzanine.conf.register_setting`` for
 each setting you want to define which takes four keyword arguments:
 
   * ``name``: The name of the setting.
+  * ``label``: The verbose name of the setting for the admin.
   * ``description``: The description of the setting.
   * ``editable``: If ``True``, the setting will be editable via the admin.
   * ``default``: The default value of the setting.
@@ -40,6 +41,7 @@ page, we would define the following in ``authors.defaults``::
 
     register_setting(
         name="AUTHORS_BOOKS_PER_PAGE",
+        label="Authors books per page",
         description="The number of books to show per author page.",
         editable=True,
         default=10,
