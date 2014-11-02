@@ -30,7 +30,7 @@ def check_created(created, *required):
     signal for Django 1.6 or lower, so that we can install initial
     data. For Django 1.7 and greater, this can always retrun True.
     """
-    return VERSION > (1, 7) or set(required).issubset(set(created))
+    return VERSION >= (1, 7) or set(required).issubset(set(created))
 
 
 def create_user(app, created_models, verbosity, interactive, **kwargs):
