@@ -118,6 +118,10 @@ dependencies mentioned above::
 
     $ pip install mezzanine
 
+Also you can use pip to install the development version::
+
+    $ pip install -e git+https://github.com/stephenmcd/mezzanine.git#egg=mezzanine-dev
+
 If you prefer, you can download Mezzanine and install it directly from
 source::
 
