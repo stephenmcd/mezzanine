@@ -133,8 +133,8 @@ class Settings(object):
 
         removed_settings = []
         conflicting_settings = []
+        new_cache = {}
 
-        valid_settings = []
         for setting_obj in Setting.objects.all():
             try:
                 registry[setting_obj.name]
@@ -161,7 +161,7 @@ class Settings(object):
             try:
                 getattr(django_settings, setting_obj.name)
             except AttributeError:
-                valid_settings.append((setting_obj.name, setting_value))
+                new_cache[setting_obj.name] = setting_value
             else:
                 if setting_value != registry[setting_obj.name]["default"]:
                     conflicting_settings.append(setting_obj.name)
@@ -172,7 +172,7 @@ class Settings(object):
             warn("These settings are defined in both settings.py and "
                  "the database: %s. The settings.py values will be used."
                  % ", ".join(conflicting_settings))
-        self._editable_cache = dict(valid_settings)
+        self._editable_cache = new_cache
         self._loaded = True
 
     def __getattr__(self, name):
