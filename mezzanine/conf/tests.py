@@ -12,7 +12,7 @@ from mezzanine.utils.tests import TestCase
 
 class ConfTests(TestCase):
 
-    @skipUnless(True, "Only run manually - see Github issue #1126")
+    @skipUnless(False, "Only run manually - see Github issue #1126")
     def test_threading_race(self):
         import multiprocessing.pool
         import random
