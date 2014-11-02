@@ -4,6 +4,7 @@ from future.builtins import input
 
 from socket import gethostname
 
+from django import VERSION
 from django.conf import settings
 from django.contrib.auth import models as auth_app
 from django.contrib.sites.models import Site
@@ -23,8 +24,18 @@ DEFAULT_EMAIL = "example@example.com"
 DEFAULT_PASSWORD = "default"
 
 
+def check_created(created, *required):
+    """
+    Checks the given models were created inside a ``post_syncdb``
+    signal for Django 1.6 or lower, so that we can install initial
+    data. For Django 1.7 and greater, this can always retrun True.
+    """
+    return VERSION > (1, 7) or set(required).issubset(set(created))
+
+
 def create_user(app, created_models, verbosity, interactive, **kwargs):
-    if settings.DEBUG and User in created_models and not interactive:
+    if (settings.DEBUG and check_created(created_models, User)
+            and not interactive):
         if User.objects.count() > 0:
             return
         if verbosity >= 1:
@@ -52,8 +63,7 @@ def create_pages(app, created_models, verbosity, interactive, **kwargs):
     from mezzanine.forms.models import Form
     from mezzanine.galleries.models import Gallery
 
-    required = set([Page, Form, Gallery])
-    if required.issubset(set(created_models)):
+    if check_created(created_models, Page, Form, Gallery):
         call_command("loaddata", "mezzanine_required.json")
         if interactive:
             confirm = input("\nWould you like to install some initial "
@@ -69,7 +79,7 @@ def create_pages(app, created_models, verbosity, interactive, **kwargs):
 
 
 def create_site(app, created_models, verbosity, interactive, **kwargs):
-    if Site in created_models:
+    if check_created(created_models, Site):
         domain = "127.0.0.1:8000" if settings.DEBUG else gethostname()
         if interactive:
             entered = input("\nA site record is required.\nPlease "
