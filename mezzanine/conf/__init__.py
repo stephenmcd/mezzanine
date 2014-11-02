@@ -116,18 +116,19 @@ class Settings(object):
 
     def use_editable(self):
         """
-        Empty the editable settings cache and set the loaded flag to
-        ``False`` so that settings will be loaded from the DB on next
-        access. If the conf app is not installed then set the loaded
-        flag to ``True`` in order to bypass DB lookup entirely.
+        Sets the ``_loaded`` flag to ``False`` so that settings will
+        be loaded from the DB on next access. If the conf app is not
+        installed then set the loaded flag to ``True`` in order to
+        bypass DB lookup entirely.
         """
         self._loaded = __name__ not in getattr(self, "INSTALLED_APPS")
 
     def _load(self):
         """
-        Load settings from the database into cache. Delete any settings from
-        the database that are no longer registered, and emit a warning if
-        there are settings that are defined in settings.py and the database.
+        Load settings from the database into cache. Delete any
+        settings from the database that are no longer registered, and
+        emit a warning if there are settings that are defined in
+        settings.py and the database.
         """
         from mezzanine.conf.models import Setting
 
