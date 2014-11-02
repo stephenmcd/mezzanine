@@ -127,7 +127,6 @@ class PagesTests(TestCase):
         child, _ = RichTextPage.objects.get_or_create(
             title="Child", slug="parent/child", parent_id=parent.id)
         parent.set_slug("new-parent-slug")
-        parent.save()
         self.assertTrue(parent.slug == "new-parent-slug")
 
         parent = RichTextPage.objects.get(id=parent.id)
