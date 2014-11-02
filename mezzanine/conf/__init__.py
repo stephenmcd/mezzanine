@@ -122,7 +122,6 @@ class Settings(object):
         flag to ``True`` in order to bypass DB lookup entirely.
         """
         self._loaded = __name__ not in getattr(self, "INSTALLED_APPS")
-        self._editable_cache = {}
 
     def _load(self):
         """
@@ -135,8 +134,8 @@ class Settings(object):
         removed_settings = []
         conflicting_settings = []
 
+        valid_settings = []
         for setting_obj in Setting.objects.all():
-
             try:
                 registry[setting_obj.name]
             except KeyError:
@@ -162,7 +161,7 @@ class Settings(object):
             try:
                 getattr(django_settings, setting_obj.name)
             except AttributeError:
-                self._editable_cache[setting_obj.name] = setting_value
+                valid_settings.append((setting_obj.name, setting_value))
             else:
                 if setting_value != registry[setting_obj.name]["default"]:
                     conflicting_settings.append(setting_obj.name)
@@ -173,6 +172,7 @@ class Settings(object):
             warn("These settings are defined in both settings.py and "
                  "the database: %s. The settings.py values will be used."
                  % ", ".join(conflicting_settings))
+        self._editable_cache = dict(valid_settings)
         self._loaded = True
 
     def __getattr__(self, name):
