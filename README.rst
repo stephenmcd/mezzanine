@@ -291,9 +291,9 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   platform.
 * `mezzanine-bsbanners`_ - Add `Twitter Bootstrap`_ Carousels and
   Jumbotrons to Mezzanine.
-* `mezzanine-business-theme` Starter business theme for Mezzanine.
-* `open-helpdesk` A helpdesk app built with Mezzanine.
-* `mezzanine-invites` Allow site registration via alphanumeric invite codes.
+* `mezzanine-business-theme`_ Starter business theme for Mezzanine.
+* `open-helpdesk`_ A helpdesk app built with Mezzanine.
+* `mezzanine-invites`_ Allow site registration via alphanumeric invite codes.
 
 
 Donating
