@@ -558,6 +558,7 @@ Sites Using Mezzanine
 * `Atlas of Human Infectious Diseases <https://infectionatlas.org>`_
 * `The Entrepreneurial School <http://theentrepreneurialschool.com/>`_
 * `Wednesday Martin <http://wednesdaymartin.com/>`_
+* `Avaris to Avanim <https://avaristoavanim.com>`_
 
 
 Quotes
