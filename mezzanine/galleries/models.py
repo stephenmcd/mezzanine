@@ -105,7 +105,7 @@ class BaseGallery(models.Model):
                 self.zip_import.delete(save=True)
 
 
-class Gallery(BaseGallery, Page, RichText):
+class Gallery(Page, RichText, BaseGallery):
     """
     Page bucket for gallery photos.
     """
