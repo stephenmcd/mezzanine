@@ -9,22 +9,26 @@ except ImportError:
     # Python 2
     from urllib import urlencode
 
+from django import VERSION
+from django.contrib.admin import AdminSite
+from django.contrib.sites.models import Site
+from django.core import mail
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.forms import Textarea
 from django.forms.models import modelform_factory
-from django.contrib.sites.models import Site
 from django.templatetags.static import static
-from django.core.urlresolvers import reverse
-from django.core import mail
+from django.test.utils import override_settings
 from django.utils.html import strip_tags
 from django.utils.unittest import skipUnless
-from django.test.utils import override_settings
 
 from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
                                    CONTENT_STATUS_PUBLISHED)
 from mezzanine.core.fields import RichTextField
+from mezzanine.forms.models import Form
+from mezzanine.forms.admin import FieldAdmin
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
@@ -323,7 +327,6 @@ class CoreTests(TestCase):
         response = self.client.get(url)
         csrf = self._get_csrftoken(response)
         url = self._get_formurl(response)
-        from django import VERSION
         if VERSION < (1, 6):
             return
         response = self.client.post(url, {
@@ -375,3 +378,17 @@ class CoreTests(TestCase):
         self.assertContains(response, site2.name)
         site1.delete()
         site2.delete()
+
+    def test_dynamic_inline_admins(self):
+        """
+        Verifies that ``DynamicInlineAdmin`` properly adds the order
+        field for ``Orderable`` subclasses.
+        """
+        request = self._request_factory.get('/admin/')
+        request.user = self._user
+        field_admin = FieldAdmin(Form, AdminSite())
+        fieldsets = field_admin.get_fieldsets(request)
+        self.assertEqual(fieldsets[0][1]['fields'][-1], '_order')
+        if VERSION >= (1, 7):
+            fields = field_admin.get_fields(request)
+            self.assertEqual(fields[-1], '_order')
