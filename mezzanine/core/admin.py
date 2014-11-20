@@ -79,6 +79,7 @@ class BaseDynamicInlineAdmin(object):
     def get_fields(self, request, obj=None):
         fields = super(BaseDynamicInlineAdmin, self).get_fields(request, obj)
         if issubclass(self.model, Orderable):
+            fields = list(fields)
             fields.remove("_order")
             fields.append("_order")
         return fields

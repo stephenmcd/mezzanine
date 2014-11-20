@@ -21,12 +21,14 @@ from django.templatetags.static import static
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
 from django.utils.unittest import skipUnless
+from django.contrib import admin
 
 from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
                                    CONTENT_STATUS_PUBLISHED)
 from mezzanine.core.fields import RichTextField
+from mezzanine.core.admin import BaseDynamicInlineAdmin
 from mezzanine.forms.models import Form
 from mezzanine.forms.admin import FieldAdmin
 from mezzanine.pages.models import RichTextPage
@@ -392,3 +394,14 @@ class CoreTests(TestCase):
         if VERSION >= (1, 7):
             fields = field_admin.get_fields(request)
             self.assertEqual(fields[-1], '_order')
+
+    def test_BaseDynamicInlineAdmin_supports_fields_tuple(self):
+        class MyModelInline(BaseDynamicInlineAdmin):
+            # Any model would work since we're only instantiating the class and
+            # not actually using it.
+            model = RichTextPage
+            fields = ('a', '_order', 'b')
+
+        inline = MyModelInline()
+
+        self.assertSequenceEqual(inline.fields, ('a', 'b', '_order'))
