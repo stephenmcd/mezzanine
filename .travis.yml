@@ -1,8 +1,8 @@
 language: python
 env:
-  - DJANGO_VERSION=1.4.13
-  - DJANGO_VERSION=1.5.8
-  - DJANGO_VERSION=1.6.5
+  - DJANGO_VERSION=https://github.com/django/django/archive/stable/1.4.x.zip
+  - DJANGO_VERSION=https://github.com/django/django/archive/stable/1.5.x.zip
+  - DJANGO_VERSION=https://github.com/django/django/archive/stable/1.6.x.zip
 python:
   - "2.6"
   - "2.7"
@@ -10,7 +10,7 @@ python:
 matrix:
   exclude:
      - python: "3.3"
-       env: DJANGO_VERSION=1.4.13
+       env: DJANGO_VERSION=https://github.com/django/django/archive/stable/1.4.x.zip
 install:
   - pip install django==$DJANGO_VERSION --use-mirrors
   - pip install . --use-mirrors
