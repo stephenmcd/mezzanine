@@ -19,12 +19,14 @@ from django.core import mail
 from django.utils.html import strip_tags
 from django.utils.unittest import skipUnless
 from django.test.utils import override_settings
+from django.contrib import admin
 
 from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
                                    CONTENT_STATUS_PUBLISHED)
 from mezzanine.core.fields import RichTextField
+from mezzanine.core.admin import BaseDynamicInlineAdmin
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
@@ -375,3 +377,14 @@ class CoreTests(TestCase):
         self.assertContains(response, site2.name)
         site1.delete()
         site2.delete()
+
+    def test_BaseDynamicInlineAdmin_supports_fields_tuple(self):
+        class MyModelInline(BaseDynamicInlineAdmin):
+            # Any model would work since we're only instantiating the class and
+            # not actually using it.
+            model = RichTextPage
+            fields = ('a', '_order', 'b')
+
+        inline = MyModelInline()
+
+        self.assertSequenceEqual(inline.fields, ('a', 'b', '_order'))

@@ -87,6 +87,7 @@ class BaseDynamicInlineAdmin(object):
                 fields = [f.name for f in fields if f.editable and
                     f.name not in exclude and not isinstance(f, AutoField)]
             if "_order" in fields:
+                fields = list(fields)
                 del fields[fields.index("_order")]
                 fields.append("_order")
             self.fields = fields
