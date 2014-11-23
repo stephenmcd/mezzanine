@@ -10,6 +10,19 @@ jQuery(function($) {
     var toolbarElements = toolbar.find('*[id!=editable-toolbar-toggle]');
     var links = $('.editable-link');
 
+    // ensure any unsaved changes to storage area of inline form are discarded
+    $('.editable-form').find('input[value="Cancel"]').click(function() {
+        var the_form = $(this).parent();
+        if (the_form != null) {
+            var content_id = the_form.attr('id');
+            if (content_id != null) {
+                var orig_content = the_form.find('textarea#content-' + content_id).html();
+                var orig_html = $('<div />').html(orig_content).text();
+                the_form.find('iframe').contents().children('html').children('body').html(orig_html);
+            }
+        }
+    });
+
     // Add AJAX submit handler for each editable form.
     $('.editable-form').submit(function() {
         var form = $(this);
@@ -28,6 +41,11 @@ jQuery(function($) {
         loading.show();
         if (typeof tinyMCE != "undefined" ) {
             tinyMCE.triggerSave();
+        }
+        if (typeof CKEDITOR != "undefined") {
+            var content_id = form.attr('id');
+            if (CKEDITOR.instances["content-" + content_id] != "undefined")
+                CKEDITOR.instances["content-" + content_id].updateElement();
         }
         form.ajaxSubmit({success: function(data) {
             if (data && data != '<head></head><body></body>') {
