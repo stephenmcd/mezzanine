@@ -75,9 +75,6 @@ class ConfTests(TestCase):
             Setting.objects.all().delete()
             settings.use_editable()
 
-    @skipUnless(sys.version_info[0] == 2,
-                "Randomly fails or succeeds under Python 3 as noted in "
-                "GH #858 - please fix.")
     def test_settings(self):
         """
         Test that an editable setting can be overridden with a DB
