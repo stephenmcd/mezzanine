@@ -80,18 +80,25 @@ class BaseDynamicInlineAdmin(object):
         fields = super(BaseDynamicInlineAdmin, self).get_fields(request, obj)
         if issubclass(self.model, Orderable):
             fields = list(fields)
-            fields.remove("_order")
+            try:
+                fields.remove("_order")
+            except ValueError:
+                pass
             fields.append("_order")
         return fields
 
     def get_fieldsets(self, request, obj=None):
-        # Compatibility with Django < 1.7, when there was no get_fields().
         fieldsets = super(BaseDynamicInlineAdmin, self).get_fieldsets(
                                                             request, obj)
         if issubclass(self.model, Orderable):
-            fields = fieldsets[0][1]["fields"]
-            fields.remove("_order")
-            fields.append("_order")
+            for fieldset in fieldsets:
+                fields = list(fieldset[1]["fields"])
+                try:
+                    fields.remove("_order")
+                except ValueError:
+                    pass
+                fieldset[1]["fields"] = fields
+            fieldsets[-1][1]["fields"].append("_order")
         return fieldsets
 
 

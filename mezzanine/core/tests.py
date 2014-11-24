@@ -11,6 +11,7 @@ except ImportError:
 
 from django import VERSION
 from django.contrib.admin import AdminSite
+from django.contrib.admin.options import InlineModelAdmin
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.urlresolvers import reverse
@@ -21,16 +22,15 @@ from django.templatetags.static import static
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
 from django.utils.unittest import skipUnless
-from django.contrib import admin
 
 from mezzanine.conf import settings
+from mezzanine.core.admin import BaseDynamicInlineAdmin
+from mezzanine.core.fields import RichTextField
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
                                    CONTENT_STATUS_PUBLISHED)
-from mezzanine.core.fields import RichTextField
-from mezzanine.core.admin import BaseDynamicInlineAdmin
-from mezzanine.forms.models import Form
 from mezzanine.forms.admin import FieldAdmin
+from mezzanine.forms.models import Form
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
@@ -383,8 +383,8 @@ class CoreTests(TestCase):
 
     def test_dynamic_inline_admins(self):
         """
-        Verifies that ``DynamicInlineAdmin`` properly adds the order
-        field for ``Orderable`` subclasses.
+        Verifies that ``BaseDynamicInlineAdmin`` properly adds the ``_order``
+        field for admins of ``Orderable`` subclasses.
         """
         request = self._request_factory.get('/admin/')
         request.user = self._user
@@ -395,13 +395,47 @@ class CoreTests(TestCase):
             fields = field_admin.get_fields(request)
             self.assertEqual(fields[-1], '_order')
 
-    def test_BaseDynamicInlineAdmin_supports_fields_tuple(self):
-        class MyModelInline(BaseDynamicInlineAdmin):
+    def test_dynamic_inline_admins_fields_tuple(self):
+        """
+        Checks if moving the ``_order`` field works with non-mutable sequences.
+        """
+        class MyModelInline(BaseDynamicInlineAdmin, InlineModelAdmin):
             # Any model would work since we're only instantiating the class and
             # not actually using it.
             model = RichTextPage
             fields = ('a', '_order', 'b')
 
-        inline = MyModelInline()
+        request = self._request_factory.get('/admin/')
+        inline = MyModelInline(None, None)
+        fields = inline.get_fieldsets(request)[0][1]['fields']
+        self.assertSequenceEqual(fields, ('a', 'b', '_order'))
 
-        self.assertSequenceEqual(inline.fields, ('a', 'b', '_order'))
+    def test_dynamic_inline_admins_fields_without_order(self):
+        """
+        Checks that ``_order`` field will be added if ``fields`` are listed
+        without it.
+        """
+        class MyModelInline(BaseDynamicInlineAdmin, InlineModelAdmin):
+            model = RichTextPage
+            fields = ('a', 'b')
+
+        request = self._request_factory.get('/admin/')
+        inline = MyModelInline(None, None)
+        fields = inline.get_fieldsets(request)[0][1]['fields']
+        self.assertSequenceEqual(fields, ('a', 'b', '_order'))
+
+    def test_dynamic_inline_admins_fieldsets(self):
+        """
+        Tests if ``_order`` is moved to the end of the last fieldsets fields.
+        """
+        class MyModelInline(BaseDynamicInlineAdmin, InlineModelAdmin):
+            model = RichTextPage
+            fieldsets = (("Fieldset 1", {'fields': ('a',)}),
+                         ("Fieldset 2", {'fields': ('_order', 'b')}),
+                         ("Fieldset 3", {'fields': ('c')}))
+
+        request = self._request_factory.get('/admin/')
+        inline = MyModelInline(None, None)
+        fieldsets = inline.get_fieldsets(request)
+        self.assertEqual(fieldsets[-1][1]["fields"][-1], '_order')
+        self.assertNotIn('_order', fieldsets[1][1]["fields"])
