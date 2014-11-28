@@ -1,5 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 
+_ = lambda s: s  # Dummy ugettext function, see Django 1.4 docs for info.
+
+
 ######################
 # MEZZANINE SETTINGS #
 ######################
@@ -15,7 +18,7 @@ from __future__ import absolute_import, unicode_literals
 #
 # ADMIN_MENU_ORDER = (
 #     ("Content", ("pages.Page", "blog.BlogPost",
-#        "generic.ThreadedComment", ("Media Library", "fb_browse"),)),
+#        "generic.ThreadedComment", (_("Media Library"), "fb_browse"),)),
 #     ("Site", ("sites.Site", "redirects.Redirect", "conf.Setting")),
 #     ("Users", ("auth.User", "auth.Group",)),
 # )
@@ -37,9 +40,9 @@ from __future__ import absolute_import, unicode_literals
 # that doesn't appear in this setting, all pages will appear in it.
 
 # PAGE_MENU_TEMPLATES = (
-#     (1, "Top navigation bar", "pages/menus/dropdown.html"),
-#     (2, "Left-hand tree", "pages/menus/tree.html"),
-#     (3, "Footer", "pages/menus/footer.html"),
+#     (1, _("Top navigation bar"), "pages/menus/dropdown.html"),
+#     (2, _("Left-hand tree"), "pages/menus/tree.html"),
+#     (3, _("Footer"), "pages/menus/footer.html"),
 # )
 
 # A sequence of fields that will be injected into Mezzanine's (or any
@@ -58,7 +61,7 @@ from __future__ import absolute_import, unicode_literals
 #         # Dotted path to field class.
 #         "somelib.fields.ImageField",
 #         # Positional args for field class.
-#         ("Image",),
+#         (_("Image"),),
 #         # Keyword args for field class.
 #         {"blank": True, "upload_to": "blog"},
 #     ),
@@ -66,7 +69,7 @@ from __future__ import absolute_import, unicode_literals
 #     (
 #         "mezzanine.pages.models.Page.another_field",
 #         "IntegerField", # 'django.db.models.' is implied if path is omitted.
-#         ("Another name",),
+#         (_("Another name"),),
 #         {"blank": True, "default": 1},
 #     ),
 # )
@@ -113,7 +116,6 @@ USE_TZ = True
 LANGUAGE_CODE = "en"
 
 # Supported languages
-_ = lambda s: s
 LANGUAGES = (
     ('en', _('English')),
 )
