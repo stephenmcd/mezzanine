@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.db.models import AutoField
 from django.forms import ValidationError, ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
@@ -77,19 +76,30 @@ class BaseDynamicInlineAdmin(object):
     form = DynamicInlineAdminForm
     extra = 20
 
-    def __init__(self, *args, **kwargs):
-        super(BaseDynamicInlineAdmin, self).__init__(*args, **kwargs)
+    def get_fields(self, request, obj=None):
+        fields = super(BaseDynamicInlineAdmin, self).get_fields(request, obj)
         if issubclass(self.model, Orderable):
-            fields = self.fields
-            if not fields:
-                fields = self.model._meta.fields
-                exclude = self.exclude or []
-                fields = [f.name for f in fields if f.editable and
-                    f.name not in exclude and not isinstance(f, AutoField)]
-            if "_order" in fields:
-                del fields[fields.index("_order")]
-                fields.append("_order")
-            self.fields = fields
+            fields = list(fields)
+            try:
+                fields.remove("_order")
+            except ValueError:
+                pass
+            fields.append("_order")
+        return fields
+
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super(BaseDynamicInlineAdmin, self).get_fieldsets(
+                                                            request, obj)
+        if issubclass(self.model, Orderable):
+            for fieldset in fieldsets:
+                fields = list(fieldset[1]["fields"])
+                try:
+                    fields.remove("_order")
+                except ValueError:
+                    pass
+                fieldset[1]["fields"] = fields
+            fieldsets[-1][1]["fields"].append("_order")
+        return fieldsets
 
 
 class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.TabularInline):
