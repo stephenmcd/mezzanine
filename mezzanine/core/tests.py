@@ -375,3 +375,74 @@ class CoreTests(TestCase):
         self.assertContains(response, site2.name)
         site1.delete()
         site2.delete()
+
+
+@skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
+            "pages app required")
+class SiteRelatedTestCase(TestCase):
+
+    def test_update_site(self):
+        from django.conf import settings
+        from mezzanine.utils.sites import current_site_id
+
+        # setup
+        try:
+            old_site_id = settings.SITE_ID
+        except:
+            old_site_id = None
+
+        site1 = Site.objects.create(domain="site1.com")
+        site2 = Site.objects.create(domain="site2.com")
+
+        # default behaviour, page gets assigned current site
+        settings.SITE_ID = site2.pk
+        self.assertEqual(settings.SITE_ID, current_site_id())
+        page = RichTextPage()
+        page.save()
+        self.assertEqual(page.site_id, site2.pk)
+
+        # Subsequent saves do not update site to current site
+        page.site = site1
+        page.save()
+        self.assertEqual(page.site_id, site1.pk)
+
+        # resave w/ update_site=True, page gets assigned current site
+        settings.SITE_ID = site1.pk
+        page.site = site2
+        page.save(update_site=True)
+        self.assertEqual(page.site_id, site1.pk)
+
+        # resave w/ update_site=False, page does not update site
+        settings.SITE_ID = site2.pk
+        page.save(update_site=False)
+        self.assertEqual(page.site_id, site1.pk)
+
+        # When update_site=True, new page gets assigned current site
+        settings.SITE_ID = site2.pk
+        page = RichTextPage()
+        page.site = site1
+        page.save(update_site=True)
+        self.assertEqual(page.site_id, site2.pk)
+
+        # When update_site=False, new page keeps current site
+        settings.SITE_ID = site2.pk
+        page = RichTextPage()
+        page.site = site1
+        page.save(update_site=False)
+        self.assertEqual(page.site_id, site1.pk)
+
+        # When site explicitly assigned, new page keeps assigned site
+        settings.SITE_ID = site2.pk
+        page = RichTextPage()
+        page.site = site1
+        page.save()
+        self.assertEqual(page.site_id, site1.pk)
+
+        # tear down
+        if old_site_id:
+            settings.SITE_ID = old_site_id
+        else:
+            del settings.SITE_ID
+
+        site1.delete()
+        site2.delete()
