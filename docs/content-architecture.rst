@@ -7,7 +7,7 @@ two packages, ``mezzanine.core`` and ``mezzanine.pages``. Many of
 these models are abstract, and very small in scope, and are then
 combined together as the building blocks that form the models you'll
 actually be exposed to, such as ``mezzanine.core.models.Displayable``
-and ``mezzanine.core.pages.Page``, which are the two main models you
+and ``mezzanine.pages.models.Page``, which are the two main models you
 will inherit from when building your own models for content types.
 
 Before we look at ``Displayable`` and ``Page``, here's a quick list of
