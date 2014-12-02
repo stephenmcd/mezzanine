@@ -356,8 +356,9 @@ class EntriesForm(forms.Form):
 
         # Get the field entries for the given form and filter by entry_time
         # if specified.
-        field_entries = FieldEntry.objects.filter(entry__form=self.form
-            ).order_by("-entry__id").select_related("entry")
+        field_entries = FieldEntry.objects.filter(
+            entry__form=self.form).order_by(
+            "-entry__id").select_related("entry")
         if self.cleaned_data["field_0_filter"] == FILTER_CHOICE_BETWEEN:
             time_from = self.cleaned_data["field_0_from"]
             time_to = self.cleaned_data["field_0_to"]

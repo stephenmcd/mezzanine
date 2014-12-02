@@ -397,7 +397,7 @@ class CoreTests(TestCase):
 
     def test_dynamic_inline_admins_fields_tuple(self):
         """
-        Checks if moving the ``_order`` field works with non-mutable sequences.
+        Checks if moving the ``_order`` field works with immutable sequences.
         """
         class MyModelInline(BaseDynamicInlineAdmin, InlineModelAdmin):
             # Any model would work since we're only instantiating the class and

@@ -66,7 +66,7 @@ class Query(models.Model):
             QUERY_TYPE_LIST: ("https://api.twitter.com/1.1/lists/statuses.json"
                               "?list_id=%s&include_rts=true" % value),
             QUERY_TYPE_SEARCH: "https://api.twitter.com/1.1/search/tweets.json"
-                                "?q=%s" % value,
+                               "?q=%s" % value,
         }
         try:
             url = urls[self.type]

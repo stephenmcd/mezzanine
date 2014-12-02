@@ -152,12 +152,12 @@ class MetaData(models.Model):
         for field_type in (RichTextField, models.TextField):
             if not description:
                 for field in self._meta.fields:
-                    if isinstance(field, field_type) and \
-                        field.name != "description":
+                    if (isinstance(field, field_type) and
+                            field.name != "description"):
                         description = getattr(self, field.name)
                         if description:
                             from mezzanine.core.templatetags.mezzanine_tags \
-                            import richtext_filters
+                                                    import richtext_filters
                             description = richtext_filters(description)
                             break
         # Fall back to the title if description couldn't be determined.
