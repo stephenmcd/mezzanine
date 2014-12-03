@@ -112,23 +112,22 @@ def set_dynamic_settings(s):
         remove("MIDDLEWARE_CLASSES",
             "django.contrib.redirects.middleware.RedirectFallbackMiddleware")
 
-    else:
-        # Setup for optional apps.
-        optional = list(s.get("OPTIONAL_APPS", []))
-        if s.get("USE_SOUTH") and VERSION < (1, 7):
-            optional.append("south")
-        elif not s.get("USE_SOUTH", True) and "south" in s["INSTALLED_APPS"]:
-            s["INSTALLED_APPS"].remove("south")
-        for app in optional:
-            if app not in s["INSTALLED_APPS"]:
-                try:
-                    __import__(app)
-                except ImportError:
-                    pass
-                else:
-                    s["INSTALLED_APPS"].append(app)
+    # Setup for optional apps.
+    optional = list(s.get("OPTIONAL_APPS", []))
+    if s.get("USE_SOUTH") and VERSION < (1, 7):
+        optional.append("south")
+    elif not s.get("USE_SOUTH", True) and "south" in s["INSTALLED_APPS"]:
+        s["INSTALLED_APPS"].remove("south")
+    for app in optional:
+        if app not in s["INSTALLED_APPS"]:
+            try:
+                __import__(app)
+            except ImportError:
+                pass
+            else:
+                s["INSTALLED_APPS"].append(app)
 
-    # To support migrations for both Django 1.7 and South, Sotuh's old
+    # To support migrations for both Django 1.7 and South, South's old
     # migrations for each app were moved into "app.migrations.south"
     # packages. Here we assign each of these to SOUTH_MIGRATION_MODULES
     # allowing South to find them.
@@ -181,15 +180,6 @@ def set_dynamic_settings(s):
     # Ensure Grappelli is after Mezzanine in app order so that
     # admin templates are loaded in the correct order.
     grappelli_name = s.get("PACKAGE_NAME_GRAPPELLI")
-    if s["TESTING"]:
-        # Optional apps aren't installed when testing, but we need
-        # grappelli to perform some admin tests for certain HTML.
-        try:
-            __import__(grappelli_name)
-        except ImportError:
-            pass
-        else:
-            append("INSTALLED_APPS", grappelli_name)
     try:
         move("INSTALLED_APPS", grappelli_name, len(s["INSTALLED_APPS"]))
     except ValueError:
