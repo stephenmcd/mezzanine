@@ -76,7 +76,8 @@ def page_menu(context, token):
             setattr(page, "num_children", num_children(page.id))
             setattr(page, "has_children", has_children(page.id))
             pages[page.parent_id].append(page)
-        context["menu_pages"] = pages
+        # include menu_pages in all contexts not only in the block being rendered
+        context.dicts[0]["menu_pages"] = pages
         context["on_home"] = slug == reverse("home")
     # ``branch_level`` must be stored against each page so that the
     # calculation of it is correctly applied. This looks weird but if we do
