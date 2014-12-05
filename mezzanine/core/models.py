@@ -261,25 +261,32 @@ class Displayable(Slugged, MetaData, TimeStamped):
 
     def set_short_url(self):
         """
-        Sets the ``short_url`` attribute using the bit.ly credentials
-        if they have been specified, and saves it. Used by the
-        ``set_short_url_for`` template tag, and ``TweetableAdmin``.
+        Generates the ``short_url`` attribute if the model does not already
+        have one.
+
+        Used by the ``set_short_url_for`` template tag and ``TweetableAdmin``.
         """
         if not self.short_url:
-            from mezzanine.conf import settings
-            settings.use_editable()
-            parts = (self.site.domain, self.get_absolute_url())
-            self.short_url = "http://%s%s" % parts
-            if settings.BITLY_ACCESS_TOKEN:
-                url = "https://api-ssl.bit.ly/v3/shorten?%s" % urlencode({
-                    "access_token": settings.BITLY_ACCESS_TOKEN,
-                    "uri": self.short_url,
-                })
-                response = loads(urlopen(url).read().decode("utf-8"))
-                if response["status_code"] == 200:
-                    self.short_url = response["data"]["url"]
+            self.short_url = self.generate_short_url()
             self.save()
-        return ""
+
+    def generate_short_url(self):
+        """
+        Returns a new short URL generated using bit.ly if credentials for the
+        service have been specified. Otherwise returns model's absolute URL.
+        """
+        from mezzanine.conf import settings
+        settings.use_editable()
+        uri = "http://%s%s" % (self.site.domain, self.get_absolute_url())
+        if settings.BITLY_ACCESS_TOKEN:
+            url = "https://api-ssl.bit.ly/v3/shorten?%s" % urlencode({
+                "access_token": settings.BITLY_ACCESS_TOKEN,
+                "uri": uri,
+            })
+            response = loads(urlopen(url).read().decode("utf-8"))
+            if response["status_code"] == 200:
+                return response["data"]["url"]
+        return uri
 
     def _get_next_or_previous_by_publish_date(self, is_next, **kwargs):
         """
