@@ -69,12 +69,12 @@ def create_pages(app, created_models, verbosity, interactive, **kwargs):
             confirm = input("\nWould you like to install some initial "
                               "demo pages?\nEg: About us, Contact form, "
                               "Gallery. (yes/no): ")
-            while True:
-                if confirm == "yes":
-                    break
-                elif confirm == "no":
-                    return
+            while confirm not in ("yes", "no"):
                 confirm = input("Please enter either 'yes' or 'no': ")
+            install_optional = (confirm == "yes")
+        else:
+            install_optional = True
+        if install_optional:
             install_optional_data(verbosity)
 
 

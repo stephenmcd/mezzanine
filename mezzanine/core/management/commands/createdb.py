@@ -40,14 +40,14 @@ class Command(NoArgsCommand):
                 confirm = input("\nSouth is installed for this project."
                                     "\nWould you like to fake initial "
                                     "migrations? (yes/no): ")
-                while True:
-                    if confirm == "yes":
-                        break
-                    elif confirm == "no":
-                        return
+                while confirm not in ("yes", "no"):
                     confirm = input("Please enter either 'yes' or 'no': ")
-            if verbosity >= 1:
-                print()
-                print("Faking initial migrations ...")
-                print()
-            migrate.Command().execute(fake=True)
+                fake_migrations = (confirm == "yes")
+            else:
+                fake_migrations = True
+            if fake_migrations:
+                if verbosity >= 1:
+                    print()
+                    print("Faking initial migrations ...")
+                    print()
+                migrate.Command().execute(fake=True)

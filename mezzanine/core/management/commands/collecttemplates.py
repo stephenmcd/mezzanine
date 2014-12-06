@@ -83,6 +83,7 @@ class Command(BaseCommand):
                                   "\nFrom:    %s"
                                   "\nTo:      %s"
                                   "\n" % (name, path, dest))
+            copy = True
             if options.get("interactive") and os.path.exists(dest):
                 if name in template_src:
                     prev = ' [copied from %s]' % template_src[name]
@@ -92,23 +93,23 @@ class Command(BaseCommand):
                                   (name, app))
                 self.stdout.write("Template exists%s.\n" % prev)
                 confirm = input("Overwrite?  (yes/no/abort): ")
-                while True:
-                    if confirm in ("yes", "no"):
-                        break
-                    elif confirm == "abort":
-                        self.stdout.write("Aborted\n")
-                        return
-                    confirm = input("Please enter either 'yes' or 'no': ")
-                if confirm == "no":
+                while confirm not in ("yes", "no", "abort"):
+                    confirm = input(
+                        "Please enter either 'yes', 'no' or 'abort': ")
+                if confirm == "abort":
+                    self.stdout.write("Aborted\n")
+                    break  # exit templates copying loop
+                elif confirm == "no":
                     self.stdout.write("[Skipped]\n")
-                    continue
-            try:
-                os.makedirs(os.path.dirname(dest))
-            except OSError:
-                pass
-            shutil.copy2(path, dest)
-            template_src[name] = app
-            count += 1
+                    copy = False
+            if copy:
+                try:
+                    os.makedirs(os.path.dirname(dest))
+                except OSError:
+                    pass
+                shutil.copy2(path, dest)
+                template_src[name] = app
+                count += 1
         if verbosity >= 1:
             s = "s" if count != 1 else ""
             self.stdout.write("\nCopied %s template%s\n" % (count, s))
