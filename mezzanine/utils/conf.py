@@ -128,7 +128,7 @@ def set_dynamic_settings(s):
                 else:
                     s["INSTALLED_APPS"].append(app)
 
-    # To support migrations for both Django 1.7 and South, Sotuh's old
+    # To support migrations for both Django 1.7 and South, South's old
     # migrations for each app were moved into "app.migrations.south"
     # packages. Here we assign each of these to SOUTH_MIGRATION_MODULES
     # allowing South to find them.
