@@ -127,6 +127,10 @@ def set_dynamic_settings(s):
         remove("MIDDLEWARE_CLASSES",
             "django.contrib.redirects.middleware.RedirectFallbackMiddleware")
 
+        # Triggers interactive superuser creation and some pyc/pyo tests
+        # fail with standard permissions.
+        remove("INSTALLED_APPS", "django_extensions")
+
     # To support migrations for both Django 1.7 and South, South's old
     # migrations for each app were moved into "app.migrations.south"
     # packages. Here we assign each of these to SOUTH_MIGRATION_MODULES
