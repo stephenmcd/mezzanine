@@ -220,8 +220,6 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   `html5boilerplate project`_  into Mezzanine.
 * `mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich
   text editor.
-* `mezzanine-openshift`_ - Setup for running Mezzanine on
-  `Redhat's OpenShift`_ cloud platform.
 * `mezzanine-stackato`_ - Setup for running Mezzanine on
   `ActiveState's Stackato`_ cloud platform.
 * `mezzanine-blocks`_ - A Mezzanine flavored fork of
@@ -673,7 +671,6 @@ Quotes
 .. _`html5boilerplate project`: http://html5boilerplate.com/
 .. _`mezzanine-mdown`: https://bitbucket.org/onelson/mezzanine-mdown
 .. _`Markdown`: http://en.wikipedia.org/wiki/Markdown
-.. _`mezzanine-openshift`: https://github.com/overshard/mezzanine-openshift
 .. _`Redhat's OpenShift`: https://openshift.redhat.com/
 .. _`mezzanine-stackato`: https://github.com/Stackato-Apps/mezzanine
 .. _`ActiveState's Stackato`: http://www.activestate.com/stackato
