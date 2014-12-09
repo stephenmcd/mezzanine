@@ -189,7 +189,14 @@ class UpdateCacheMiddleware(object):
                 pass
         if csrf_token:
             request.META["CSRF_COOKIE"] = csrf_token
-        context = RequestContext(request)
+
+        # Use the response context_data if it exists in order to avoid
+        # running all of the context processors again if unnecessary
+        if hasattr(response, "context_data"):
+            context = response.context_data
+        else:
+            context = RequestContext(request)
+
         for i, part in enumerate(parts):
             if i % 2:
                 part = Template(part).render(context).encode("utf-8")
