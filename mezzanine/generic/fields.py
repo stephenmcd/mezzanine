@@ -210,12 +210,8 @@ class KeywordsField(BaseGenericRelation):
         # Convert the data into AssignedKeyword instances.
         if data:
             data = [AssignedKeyword(keyword_id=i) for i in new_ids]
-        # Remove Keyword instances than no longer have a
-        # related AssignedKeyword instance.
-        existing = AssignedKeyword.objects.filter(keyword__id__in=removed_ids)
-        existing_ids = set([str(a.keyword_id) for a in existing])
-        unused_ids = removed_ids - existing_ids
-        Keyword.objects.filter(id__in=unused_ids).delete()
+        # Remove keywords that are no longer assigned to anything.
+        Keyword.objects.delete_unused(removed_ids)
         super(KeywordsField, self).save_form_data(instance, data)
 
     def contribute_to_class(self, cls, name):
