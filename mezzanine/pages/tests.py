@@ -6,6 +6,9 @@ from django.contrib.auth.models import AnonymousUser
 from django.db import connection
 from django.template import Context, Template
 from django.test.utils import override_settings
+from django.utils.http import urlquote_plus
+from django.utils.six.moves.urllib.parse import urlparse
+from django.utils.translation import get_language
 
 from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
@@ -154,7 +157,28 @@ class PagesTests(TestCase):
 
         self.client.logout()
         response = self.client.get(private_url, follow=True)
-        login = "%s?next=%s" % (settings.LOGIN_URL, private_url)
+        login_prefix = ""
+        login_url = settings.LOGIN_URL
+        login_next = private_url
+        if VERSION >= (1, 5):
+            # Newer Django's allow various objects as values for LOGIN_URL.
+            from django.shortcuts import resolve_url
+            login_url = resolve_url(login_url)
+        try:
+            redirects_count = len(response.redirect_chain)
+            response_url = response.redirect_chain[-1][0]
+        except (AttributeError, IndexError):
+            redirects_count = 0
+            response_url = ""
+        if urlparse(response_url).path.startswith("/%s/" % get_language()):
+            # With LocaleMiddleware a language code can be added at the
+            # beginning of the path.
+            login_prefix = "/%s" % get_language()
+        if redirects_count > 1:
+            # With LocaleMiddleware and a string LOGIN_URL there can be
+            # a second redirect that encodes the next parameter.
+            login_next = urlquote_plus(login_next)
+        login = "%s%s?next=%s" % (login_prefix, login_url, login_next)
         if accounts_installed:
             # For an inaccessible page with mezzanine.accounts we should
             # see a login page, without it 404 is more appropriate than an
@@ -168,6 +192,8 @@ class PagesTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
         if accounts_installed and VERSION >= (1, 5):
+            # View / pattern name redirect properly, without encoding next.
+            login = "%s%s?next=%s" % (login_prefix, login_url, private_url)
             # Test if view name or URL pattern can be used as LOGIN_URL.
             with override_settings(LOGIN_URL="mezzanine.accounts.views.login"):
                 # Note: With 1.7 this loops if the view app isn't installed.

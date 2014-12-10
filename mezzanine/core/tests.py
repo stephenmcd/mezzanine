@@ -323,7 +323,7 @@ class CoreTests(TestCase):
 
         # Get reset-link, submit form
         url = re.findall(
-            r'http://example.com(/reset/[^/]+/[^/]+/)',
+            r'http://example.com((?:/\w{2,3})?/reset/[^/]+/[^/]+/)',
             mail.outbox[0].body
         )[0]
         response = self.client.get(url)
