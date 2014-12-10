@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse, resolve
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponsePermanentRedirect, HttpResponseGone)
 from django.middleware.csrf import CsrfViewMiddleware, get_token
-from django.template import Template, RequestContext, Context
+from django.template import Template, RequestContext
 from django.utils.cache import get_max_age
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -189,14 +189,7 @@ class UpdateCacheMiddleware(object):
                 pass
         if csrf_token:
             request.META["CSRF_COOKIE"] = csrf_token
-
-        # Use the response context_data if it exists in order to avoid
-        # running all of the context processors again if unnecessary
-        if hasattr(response, "context_data"):
-            context = Context(response.context_data)
-        else:
-            context = RequestContext(request)
-
+        context = RequestContext(request)
         for i, part in enumerate(parts):
             if i % 2:
                 part = Template(part).render(context).encode("utf-8")
