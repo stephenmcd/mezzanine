@@ -47,8 +47,7 @@ jQuery(function($) {
     $('.ordering').css({cursor: 'move'});
 
     // Set the value of the _order fields on submit.
-    $('input[type=submit]').click(function(e) {
-        e.preventDefault();
+    $('.dynamic-inline').closest("form").submit(function() {
         if (typeof tinyMCE != 'undefined') {
             tinyMCE.triggerSave();
         }
@@ -67,7 +66,6 @@ jQuery(function($) {
                 }
             });
         });
-        $(this).closest('form').submit();
     });
 
     // Hide the exta inlines.
