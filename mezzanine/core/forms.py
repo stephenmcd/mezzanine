@@ -6,10 +6,8 @@ from uuid import uuid4
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
 
 from mezzanine.conf import settings
-from mezzanine.core.models import Orderable
 
 
 class Html5Mixin(object):
@@ -78,12 +76,6 @@ class DynamicInlineAdminForm(forms.ModelForm):
     class Media:
         js = ("mezzanine/js/jquery-ui-1.9.1.custom.min.js",
               "mezzanine/js/admin/dynamic_inline.js",)
-
-    def __init__(self, *args, **kwargs):
-        super(DynamicInlineAdminForm, self).__init__(*args, **kwargs)
-        if issubclass(self._meta.model, Orderable):
-            self.fields["_order"] = forms.CharField(label=_("Order"),
-                widget=OrderWidget, required=False)
 
 
 class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
