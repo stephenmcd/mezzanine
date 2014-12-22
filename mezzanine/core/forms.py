@@ -59,6 +59,11 @@ class OrderWidget(forms.HiddenInput):
     Add up and down arrows for ordering controls next to a hidden
     form field.
     """
+
+    @property
+    def is_hidden(self):
+        return False
+
     def render(self, *args, **kwargs):
         rendered = super(OrderWidget, self).render(*args, **kwargs)
         arrows = ["<img src='%sadmin/img/admin/arrow-%s.gif' />" %
