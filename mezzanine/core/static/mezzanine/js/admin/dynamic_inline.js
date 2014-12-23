@@ -47,7 +47,7 @@ jQuery(function($) {
     $('.ordering').css({cursor: 'move'});
 
     // Set the value of the _order fields on submit.
-    $('input[type=submit]').click(function() {
+    $('.dynamic-inline').closest("form").submit(function() {
         if (typeof tinyMCE != 'undefined') {
             tinyMCE.triggerSave();
         }
