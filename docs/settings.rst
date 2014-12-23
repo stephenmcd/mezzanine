@@ -66,7 +66,7 @@ Default: ``('pages.RichTextPage',)``
 ``ADMIN_MENU_COLLAPSED``
 ------------------------
 
-Controls whether or not the left-hand admin menu is collpased by default.
+Controls whether or not the left-hand admin menu is collapsed by default.
 
 Default: ``False``
 
