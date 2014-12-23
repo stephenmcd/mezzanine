@@ -49,7 +49,7 @@ msgstr "Brugere"
 
 #: defaults.py:34
 msgid ""
-"Controls whether or not the left-hand admin menu is collpased by default."
+"Controls whether or not the left-hand admin menu is collapsed by default."
 msgstr ""
 
 #: defaults.py:42
