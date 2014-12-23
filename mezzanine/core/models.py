@@ -20,7 +20,7 @@ from django.utils.timesince import timesince
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.core.fields import RichTextField
+from mezzanine.core.fields import RichTextField, OrderField
 from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
@@ -366,7 +366,7 @@ class Orderable(with_metaclass(OrderableBase, models.Model)):
     models that aren't ordered with respect to a particular field.
     """
 
-    _order = models.IntegerField(_("Order"), null=True)
+    _order = OrderField(_("Order"), null=True)
 
     class Meta:
         abstract = True

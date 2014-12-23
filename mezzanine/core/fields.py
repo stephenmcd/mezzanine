@@ -12,6 +12,7 @@ from django.forms import MultipleChoiceField
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.core.forms import OrderWidget
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -24,6 +25,13 @@ from mezzanine.utils.importing import import_dotted_path
 LOW_FILTER_TAGS = ("iframe", "embed", "video", "param", "source", "object")
 LOW_FILTER_ATTRS = ("allowfullscreen", "autostart", "loop", "hidden",
                     "playcount", "volume", "controls", "data", "classid")
+
+
+class OrderField(models.IntegerField):
+    def formfield(self, **kwargs):
+        kwargs.update({'widget': OrderWidget,
+                       'required': False})
+        return super(OrderField, self).formfield(**kwargs)
 
 
 class RichTextField(models.TextField):
