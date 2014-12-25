@@ -17,7 +17,8 @@ from django.utils.translation import ugettext as _
 
 from mezzanine.conf import settings
 from mezzanine.core.models import SitePermission
-from mezzanine.core.management import DEFAULT_USERNAME, DEFAULT_PASSWORD
+from mezzanine.core.management.commands.createdb import (DEFAULT_USERNAME,
+                                                         DEFAULT_PASSWORD)
 from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
                                    cache_get, cache_set, cache_installed)
 from mezzanine.utils.device import templates_for_device
