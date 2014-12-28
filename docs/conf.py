@@ -25,6 +25,12 @@ if "DJANGO_SETTINGS_MODULE" not in os.environ:
     sys.path.insert(0, os.path.join(*parts + ("project_template",)))
     settings_module = "mezzanine.project_template.settings"
     os.environ["DJANGO_SETTINGS_MODULE"] = settings_module
+    # Django 1.7's setup is required before touching translated strings.
+    import django
+    try:
+        django.setup()
+    except AttributeError:  # < 1.7
+        pass
 
 # When a full build is run (eg from the root of the repo), we
 # run all the Mezzanine utils for dynamically generated docs.
