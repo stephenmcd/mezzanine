@@ -278,6 +278,11 @@ def build_modelgraph(docs_path, package_name="mezzanine"):
     except Exception as e:
         warn("Couldn't build model_graph, resize failed on: %s" % e)
         return
+    # Copy the dashboard screenshot to the build dir too. This doesn't
+    # really belong anywhere, so we do it here since this is the only
+    # spot we deal with doc images.
+    d = "dashboard.png"
+    copyfile(os.path.join(docs_path, "img", d), os.path.join(build_path, d))
 
 
 def build_requirements(docs_path, package_name="mezzanine"):

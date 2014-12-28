@@ -66,7 +66,7 @@ interface, Mezzanine provides the following:
 
 The Mezzanine admin dashboard:
 
-.. image:: http://github.com/stephenmcd/mezzanine/raw/master/docs/img/dashboard.png
+.. image:: http://mezzanine.jupo.org/docs/_images/dashboard.png
 
 Dependencies
 ============
