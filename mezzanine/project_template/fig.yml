@@ -1,0 +1,13 @@
+db:
+  image: postgres
+  volumes:
+    - ./volumes/data:/var/lib/postgresql/data
+web:
+  build: .
+  ports:
+    - "20022:22"
+    - "80:80"
+  volumes:
+    - ./volumes/media:/mezzanine-project/static/media
+  links:
+    - db
