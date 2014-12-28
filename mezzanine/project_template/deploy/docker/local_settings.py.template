@@ -1,0 +1,32 @@
+from __future__ import unicode_literals
+
+SECRET_KEY = "%(SECRET_KEY)s"
+NEVERCACHE_KEY = "%(NEVERCACHE_KEY)s"
+ALLOWED_HOSTS = ['localhost']
+
+DEBUG = False
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "mysecretpassword",
+        "HOST": "db",
+    }
+}
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
+
+CACHE_MIDDLEWARE_SECONDS = 60
+
+CACHE_MIDDLEWARE_KEY_PREFIX = "mezzanine-project"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": "127.0.0.1:11211",
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"

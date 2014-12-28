@@ -56,19 +56,27 @@ def create_project():
     # each of the packages. An alternate package will overwrite
     # files from Mezzanine.
     local_settings_path = os.path.join(project_path, "local_settings.py")
+    docker_settings_path = os.path.join(
+        project_path, "deploy", "docker", "local_settings.py"
+    )
     for package_name in packages:
         package_path = path_for_import(package_name)
         copy_tree(os.path.join(package_path, "project_template"), project_path)
         move(local_settings_path + ".template", local_settings_path)
+        move(docker_settings_path + ".template", docker_settings_path)
 
     # Generate a unique SECRET_KEY for the project's setttings module.
-    with open(local_settings_path, "r") as f:
-        data = f.read()
-    with open(local_settings_path, "w") as f:
-        make_key = lambda: "%s%s%s" % (uuid4(), uuid4(), uuid4())
-        data = data.replace("%(SECRET_KEY)s", make_key())
-        data = data.replace("%(NEVERCACHE_KEY)s", make_key())
-        f.write(data)
+    make_key = lambda: "%s%s%s" % (uuid4(), uuid4(), uuid4())
+    secret_key = make_key()
+    nevercache_key = make_key()
+
+    for path in [local_settings_path, docker_settings_path]:
+        with open(path, "r") as f:
+            data = f.read()
+        with open(path, "w") as f:
+            data = data.replace("%(SECRET_KEY)s", secret_key)
+            data = data.replace("%(NEVERCACHE_KEY)s", nevercache_key)
+            f.write(data)
 
     # Clean up pyc files.
     for (root, dirs, files) in os.walk(project_path, False):
