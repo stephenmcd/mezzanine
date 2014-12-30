@@ -73,7 +73,7 @@
 <ul class="list-inline tags">
     <li>{% trans "Tags" %}:</li>
     {% for tag in tags %}
-    <li><a href="{% url "blog_post_list_tag" tag.slug %}">{{ tag }}</a></li>
+    <li><a href="{% url "blog_post_list_tag" tag.slug %}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}</li>
     {% endfor %}
 </ul>
 {% endspaceless %}

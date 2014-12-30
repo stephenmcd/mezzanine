@@ -213,6 +213,9 @@ img.pull-left {
 .tag-weight-4 {
   font-size: 180%;
 }
+.tags li {
+  padding-left: 0;
+}
 .recent-posts img {
     margin: 2px;
 }

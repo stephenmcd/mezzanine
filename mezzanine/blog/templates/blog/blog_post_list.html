@@ -121,7 +121,7 @@
     {% trans "Tags" %}:
     {% spaceless %}
     {% for tag in tags %}
-    <li><a href="{% url "blog_post_list_tag" tag.slug %}" class="tag">{{ tag }}</a></li>
+    <li><a href="{% url "blog_post_list_tag" tag.slug %}" class="tag">{{ tag }}</a>{% if not forloop.last %}, {% endif %}</li>
     {% endfor %}
     {% endspaceless %}
     </ul>
