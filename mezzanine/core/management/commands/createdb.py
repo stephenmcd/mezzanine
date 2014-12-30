@@ -58,7 +58,7 @@ class Command(NoArgsCommand):
 
     def confirm(self, prompt):
         if not self.interactive:
-            return False
+            return True
         confirm = input(prompt)
         while confirm not in ("yes", "no"):
             confirm = input("Please enter either 'yes' or 'no': ")
