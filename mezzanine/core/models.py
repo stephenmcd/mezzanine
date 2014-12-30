@@ -25,7 +25,7 @@ from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model, get_user_model_name
-from mezzanine.utils.sites import current_site_id
+from mezzanine.utils.sites import current_site_id, current_request
 from mezzanine.utils.urls import admin_url, slugify, unique_slug
 
 
@@ -202,6 +202,8 @@ CONTENT_STATUS_CHOICES = (
     (CONTENT_STATUS_PUBLISHED, _("Published")),
 )
 
+SHORT_URL_UNSET = "unset"
+
 
 class Displayable(Slugged, MetaData, TimeStamped):
     """
@@ -259,34 +261,56 @@ class Displayable(Slugged, MetaData, TimeStamped):
         raise NotImplementedError("The model %s does not have "
                                   "get_absolute_url defined" % name)
 
+    def get_absolute_url_with_host(self):
+        """
+        Returns host + ``get_absolute_url`` - used by the various
+        ``short_url`` mechanics below.
+
+        Technically we should use ``self.site.domain``, here, however
+        if we were to invoke the ``short_url`` mechanics on a list of
+        data (eg blog post list view), we'd trigger a db query per
+        item. Using ``current_request`` should provide the same
+        result, since site related data should only be loaded based
+        on the current host anyway.
+        """
+        return current_request().build_absolute_uri(self.get_absolute_url())
+
     def set_short_url(self):
         """
-        Generates the ``short_url`` attribute if the model does not already
-        have one.
+        Generates the ``short_url`` attribute if the model does not
+        already have one. Used by the ``set_short_url_for`` template
+        tag and ``TweetableAdmin``.
 
-        Used by the ``set_short_url_for`` template tag and ``TweetableAdmin``.
+        If no sharing service is defined (bitly is the one implemented,
+        but others could be by overriding ``generate_short_url``), the
+        ``SHORT_URL_UNSET`` marker gets stored in the DB. In this case,
+        ``short_url`` is temporarily (eg not persisted) set to
+        host + ``get_absolute_url`` - this is so that we don't
+        permanently store ``get_absolute_url``, since it may change
+        over time.
         """
-        if not self.short_url:
+        if self.short_url == SHORT_URL_UNSET:
+            self.short_url = self.get_absolute_url_with_host()
+        elif not self.short_url:
             self.short_url = self.generate_short_url()
             self.save()
 
     def generate_short_url(self):
         """
         Returns a new short URL generated using bit.ly if credentials for the
-        service have been specified. Otherwise returns model's absolute URL.
+        service have been specified.
         """
         from mezzanine.conf import settings
         settings.use_editable()
-        uri = "http://%s%s" % (self.site.domain, self.get_absolute_url())
         if settings.BITLY_ACCESS_TOKEN:
             url = "https://api-ssl.bit.ly/v3/shorten?%s" % urlencode({
                 "access_token": settings.BITLY_ACCESS_TOKEN,
-                "uri": uri,
+                "uri": self.get_absolute_url_with_host(),
             })
             response = loads(urlopen(url).read().decode("utf-8"))
             if response["status_code"] == 200:
                 return response["data"]["url"]
-        return uri
+        return SHORT_URL_UNSET
 
     def _get_next_or_previous_by_publish_date(self, is_next, **kwargs):
         """
