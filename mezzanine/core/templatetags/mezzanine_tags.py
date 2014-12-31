@@ -92,13 +92,13 @@ else:
         return parsed
 
 
-@register.inclusion_tag("includes/form_fields.html", takes_context=True)
-def fields_for(context, form):
+@register.simple_tag(takes_context=True)
+def fields_for(context, form, template="includes/form_fields.html"):
     """
-    Renders fields for a form.
+    Renders fields for a form with an optional template choice.
     """
     context["form_for_fields"] = form
-    return context
+    return get_template(template).render(Context(context))
 
 
 @register.inclusion_tag("includes/form_errors.html", takes_context=True)
