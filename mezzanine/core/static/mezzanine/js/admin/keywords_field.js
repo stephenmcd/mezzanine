@@ -56,6 +56,12 @@ jQuery(function($) {
             });
         };
         submitKeywords();
+        if (keywordsSaved == false){
+            var force_save = confirm("The keywords did not submit successfully, continue saving?");
+            if (force_save == true) {
+                return true;
+            }
+        }
         return false;
     });
 
