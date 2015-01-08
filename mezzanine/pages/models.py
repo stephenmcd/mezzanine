@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from future.builtins import filter, str
 try:
     from urllib.parse import urljoin
-except ImportError:     # Python 2
+except ImportError:  # Python 2
     from urlparse import urljoin
 
 from django.core.urlresolvers import resolve, reverse

@@ -11,6 +11,7 @@ from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.generic.models import Keyword
 from mezzanine.pages.models import Page
 from mezzanine.conf import settings
+from mezzanine.utils.html import absolute_urls
 from mezzanine.utils.models import get_user_model
 
 
@@ -77,7 +78,11 @@ class PostsRSS(Feed):
         return blog_posts
 
     def item_description(self, item):
-        return richtext_filters(item.content)
+        description = richtext_filters(item.content)
+        absolute_urls_name = "mezzanine.utils.html.absolute_urls"
+        if absolute_urls_name not in settings.RICHTEXT_FILTERS:
+            description = absolute_urls(description)
+        return description
 
     def categories(self):
         if not self._public:

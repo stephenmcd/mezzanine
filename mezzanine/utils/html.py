@@ -4,7 +4,7 @@ from future.builtins import chr, int, str
 try:
     from html.parser import HTMLParser, HTMLParseError
     from html.entities import name2codepoint
-except ImportError:         # Python 2
+except ImportError:  # Python 2
     from HTMLParser import HTMLParser, HTMLParseError
     from htmlentitydefs import name2codepoint
 
@@ -13,6 +13,29 @@ import re
 
 SELF_CLOSING_TAGS = ['br', 'img']
 NON_SELF_CLOSING_TAGS = ['script', 'iframe']
+ABSOLUTE_URL_TAGS = {"img": "src", "a": "href", "iframe": "src"}
+
+
+def absolute_urls(html):
+    """
+    Converts relative URLs into absolute URLs. Used for RSS feeds to
+    provide more complete HTML for item descriptions, but could also
+    be used as a general richtext filter.
+    """
+
+    from bs4 import BeautifulSoup
+    from mezzanine.core.request import current_request
+
+    request = current_request()
+    if request is not None:
+        dom = BeautifulSoup(html, "html.parser")
+        for tag, attr in ABSOLUTE_URL_TAGS.items():
+            for node in dom.findAll(tag):
+                url = node.get(attr, "")
+                if url:
+                    node[attr] = request.build_absolute_uri(url)
+        html = str(dom)
+    return html
 
 
 def decode_entities(html):
@@ -84,7 +107,7 @@ class TagCloser(HTMLParser):
             self.html += "".join(["</%s>" % tag for tag in self.tags])
 
     def handle_starttag(self, tag, attrs):
-        if(tag not in SELF_CLOSING_TAGS):
+        if tag not in SELF_CLOSING_TAGS:
             self.tags.insert(0, tag)
 
     def handle_endtag(self, tag):
