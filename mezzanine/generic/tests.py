@@ -12,6 +12,7 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import (AssignedKeyword, Keyword,
                                       ThreadedComment, Rating)
+from mezzanine.generic.views import comment
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.tests import TestCase
 
@@ -121,3 +122,12 @@ class GenericTests(TestCase):
         Keyword.objects.delete_unused()
         self.assertEqual(Keyword.objects.count(), 1)
         self.assertEqual(Keyword.objects.all()[0].id, assigned_keyword.id)
+
+    def test_comment_form_returns_400_when_missing_data(self):
+        """
+        Assert 400 status code response when expected data is missing from
+        the comment form. This simulates typical malicious bot behavior.
+        """
+        request = self._request_factory.post(reverse('comment'))
+        response = comment(request)
+        self.assertEquals(response.status_code, 400)
