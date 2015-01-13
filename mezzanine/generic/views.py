@@ -8,7 +8,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.messages import error
 from django.core.urlresolvers import reverse
 from django.db.models import ObjectDoesNotExist
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
@@ -71,8 +71,11 @@ def initial_validation(request, prefix):
         elif posted_session_key in request.session:
             post_data = request.session.pop(posted_session_key)
     if not redirect_url:
+        model_data = post_data.get("content_type", "").split(".", 1)
+        if len(model_data) != 2:
+            return HttpResponseBadRequest()
         try:
-            model = get_model(*post_data.get("content_type", "").split(".", 1))
+            model = get_model(*model_data)
             obj = model.objects.get(id=post_data.get("object_pk", None))
         except (TypeError, ObjectDoesNotExist, LookupError):
             redirect_url = "/"
