@@ -6,6 +6,7 @@ from io import BytesIO
 import os
 from string import punctuation
 from zipfile import ZipFile
+from chardet import detect as charsetdetect
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -75,7 +76,8 @@ class BaseGallery(models.Model):
                 # This is a way of getting around the broken nature of
                 # os.path.join on Python 2.x. See also the comment below.
                 if isinstance(name, bytes):
-                    tempname = name.decode('utf-8')
+                    encoding = charsetdetect(name)['encoding']
+                    tempname = name.decode(encoding)
                 else:
                     tempname = name
 
