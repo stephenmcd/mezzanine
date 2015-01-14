@@ -85,6 +85,7 @@ standard Django environment), with the following dependencies:
 * `django-compressor`_ - for merging JS/CSS assets (optional)
 * `requests`_ and `requests_oauthlib`_ - for interacting with external APIs
 * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
+* `chardet`_ - for correct charset detection of file names in ZIP file
 
 Users on Debian or Ubuntu will require some system packages to support
 the imaging library::

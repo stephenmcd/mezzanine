@@ -60,6 +60,7 @@ try:
             "requests-oauthlib >= 0.4",
             "future >= 0.9.0",
             "pillow",
+            "chardet",
         ],
         entry_points="""
             [console_scripts]
