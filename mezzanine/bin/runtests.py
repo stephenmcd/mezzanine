@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 import atexit
 import os
-import shutil
 import sys
 import django
 
@@ -36,7 +35,7 @@ if "mezzanine.accounts" not in settings.INSTALLED_APPS:
         # database for its tests. Also, these databases are in-memory.
         django_default_settings = """
 DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'},
-             'other': {'ENGINE': 'django.db.backends.sqlite3',}}
+             'other': {'ENGINE': 'django.db.backends.sqlite3'}}
 PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
 """
         with open(local_settings_path, "r") as f:
