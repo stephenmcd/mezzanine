@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('sites', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('comments', '__first__'),
+        ('django_comments', '__first__'),
         ('contenttypes', '0001_initial'),
     ]
 
