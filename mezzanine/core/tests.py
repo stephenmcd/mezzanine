@@ -406,7 +406,7 @@ class CoreTests(TestCase):
             fields = ('a', '_order', 'b')
 
         request = self._request_factory.get('/admin/')
-        inline = MyModelInline(None, None)
+        inline = MyModelInline(None, AdminSite())
         fields = inline.get_fieldsets(request)[0][1]['fields']
         self.assertSequenceEqual(fields, ('a', 'b', '_order'))
 
@@ -420,7 +420,7 @@ class CoreTests(TestCase):
             fields = ('a', 'b')
 
         request = self._request_factory.get('/admin/')
-        inline = MyModelInline(None, None)
+        inline = MyModelInline(None, AdminSite())
         fields = inline.get_fieldsets(request)[0][1]['fields']
         self.assertSequenceEqual(fields, ('a', 'b', '_order'))
 
@@ -435,7 +435,7 @@ class CoreTests(TestCase):
                          ("Fieldset 3", {'fields': ('c')}))
 
         request = self._request_factory.get('/admin/')
-        inline = MyModelInline(None, None)
+        inline = MyModelInline(None, AdminSite())
         fieldsets = inline.get_fieldsets(request)
         self.assertEqual(fieldsets[-1][1]["fields"][-1], '_order')
         self.assertNotIn('_order', fieldsets[1][1]["fields"])

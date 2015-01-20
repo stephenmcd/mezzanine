@@ -203,15 +203,12 @@ def set_dynamic_settings(s):
         except ValueError:
             pass
 
-    # Ensure we have a test runner (removed in Django 1.6)
-    s.setdefault("TEST_RUNNER", "django.test.simple.DjangoTestSuiteRunner")
-
     # Add missing apps if existing apps depend on them.
     if "mezzanine.blog" in s["INSTALLED_APPS"]:
         append("INSTALLED_APPS", "mezzanine.generic")
     if "mezzanine.generic" in s["INSTALLED_APPS"]:
         s.setdefault("COMMENTS_APP", "mezzanine.generic")
-        append("INSTALLED_APPS", "django.contrib.comments")
+        append("INSTALLED_APPS", "django_comments")
 
     # Ensure mezzanine.boot is first.
     try:

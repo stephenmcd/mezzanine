@@ -51,6 +51,7 @@ try:
         packages=find_packages(),
         install_requires=[
             "django >= 1.4.10, != 1.6.0",
+            "django-contrib-comments",
             "filebrowser_safe >= 0.3.4",
             "grappelli_safe >= 0.3.12",
             "tzlocal >= 1.0",

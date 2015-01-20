@@ -80,8 +80,13 @@ class BaseGenericRelation(GenericRelation):
                 # contribute_to_class needs to be idempotent. We
                 # don't call get_all_field_names() which fill the app
                 # cache get_fields_with_model() is safe.
-                if name_string in [i.name for i, _ in
-                                   cls._meta.get_fields_with_model()]:
+                try:
+                    # Django >= 1.8
+                    extant_fields = cls._meta._forward_fields_map
+                except AttributeError:
+                    # Django <= 1.7
+                    extant_fields = (i.name for i in cls._meta.fields)
+                if name_string in extant_fields:
                     continue
                 if field.verbose_name is None:
                     field.verbose_name = self.verbose_name
