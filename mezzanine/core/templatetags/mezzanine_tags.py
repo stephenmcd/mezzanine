@@ -15,8 +15,15 @@ from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, resolve, NoReverseMatch
 from django.db.models import Model, get_model
-from django.template import (Context, Node, TextNode, Template,
-    TemplateSyntaxError, TOKEN_TEXT, TOKEN_VAR, TOKEN_COMMENT, TOKEN_BLOCK)
+from django.template import Context, Node, Template, TemplateSyntaxError
+
+try:
+    # Django >= 1.8
+    from django.template.base import TextNode, TOKEN_TEXT, TOKEN_VAR, TOKEN_COMMENT, TOKEN_BLOCK
+except ImportError:
+    # Django <= 1.7
+    from django.template import TextNode, TOKEN_TEXT, TOKEN_VAR, TOKEN_COMMENT, TOKEN_BLOCK
+
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils import translation
