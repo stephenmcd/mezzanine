@@ -35,10 +35,11 @@ globals().update(settings.__dict__)
 if "mezzanine.accounts" not in settings.INSTALLED_APPS:
     INSTALLED_APPS = list(settings.INSTALLED_APPS) + ["mezzanine.accounts"]
 """
-            if django.VERSION >= (1, 7):
-                test_reqs_str += "import django\ndjango.setup()"
             f.write(test_reqs_str + local_settings)
         atexit.register(lambda: os.remove(test_settings_path))
+
+    if django.VERSION >= (1, 7):
+        django.setup()
 
     from django.core.management.commands import test
     sys.exit(test.Command().execute(verbosity=1))
