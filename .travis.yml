@@ -4,6 +4,7 @@ env:
   - DJANGO_VERSION=https://github.com/django/django/archive/stable/1.5.x.zip
   - DJANGO_VERSION=https://github.com/django/django/archive/stable/1.6.x.zip
   - DJANGO_VERSION=https://github.com/django/django/archive/stable/1.7.x.zip
+  - DJANGO_VERSION=https://github.com/django/django/archive/stable/1.8.x.zip
 python:
   - "2.6"
   - "2.7"
@@ -13,6 +14,8 @@ matrix:
   exclude:
      - python: "2.6"
        env: DJANGO_VERSION=https://github.com/django/django/archive/stable/1.7.x.zip
+     - python: "2.6"
+       env: DJANGO_VERSION=https://github.com/django/django/archive/stable/1.8.x.zip
      - python: "3.3"
        env: DJANGO_VERSION=https://github.com/django/django/archive/stable/1.4.x.zip
      - python: "3.4"
