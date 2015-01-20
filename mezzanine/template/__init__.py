@@ -110,7 +110,8 @@ class Library(template.Library):
                             else:
                                 ts = templates_for_device(request, name)
                                 t = select_template(ts)
-                            self.nodelist = t.nodelist
+
+                            self.template = t
                         parts = [template.Variable(part).resolve(context)
                                  for part in token.split_contents()[1:]]
                         if takes_context:
@@ -118,7 +119,7 @@ class Library(template.Library):
                         result = tag_func(*parts)
                         autoescape = context.autoescape
                         context = context_class(result, autoescape=autoescape)
-                        return self.nodelist.render(context)
+                        return self.template.render(context)
 
                 return InclusionTagNode()
             return self.tag(tag_wrapper)
