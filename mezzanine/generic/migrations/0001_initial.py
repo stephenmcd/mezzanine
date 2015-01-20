@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Comment',
                 'verbose_name_plural': 'Comments',
             },
-            bases=('comments.comment',),
+            bases=('django_comments.comment',),
         ),
         migrations.AddField(
             model_name='assignedkeyword',
