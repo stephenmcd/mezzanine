@@ -98,7 +98,11 @@ class TestCase(BaseTestCase):
         Return the number of queries used when rendering a template
         string.
         """
-        connection.queries = []
+        try:
+            # Django 1.8+ - queries_log is a deque
+            connection.queries_log.clear()
+        except AttributeError:
+            connection.queries = []
         t = Template(template)
         t.render(Context(context))
         return len(connection.queries)
