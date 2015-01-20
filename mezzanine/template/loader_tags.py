@@ -46,13 +46,13 @@ class OverExtendsNode(ExtendsNode):
 
         # These imports want settings, which aren't available when this
         # module is imported to ``add_to_builtins``, so do them here.
+        import django.template.loaders.app_directories as app_directories
         try:
             # Django >= 1.8
-            from django.template.loaders.app_directories import get_app_template_dirs
-            app_template_dirs = get_app_template_dirs
-        except ImportError:
+            app_template_dirs = app_directories.get_app_template_dirs
+        except AttributeError:
             # Django <= 1.7
-            from django.template.loaders.app_directories import app_template_dirs
+            app_template_dirs = app_directories.app_template_dirs
 
         try:
             # Django >= 1.8

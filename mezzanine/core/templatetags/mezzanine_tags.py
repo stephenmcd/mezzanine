@@ -20,10 +20,12 @@ from django.template import Context, Node, Template, TemplateSyntaxError
 
 try:
     # Django >= 1.8
-    from django.template.base import TextNode, TOKEN_TEXT, TOKEN_VAR, TOKEN_COMMENT, TOKEN_BLOCK
+    from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
+                                      TOKEN_TEXT, TOKEN_VAR, TextNode)
 except ImportError:
     # Django <= 1.7
-    from django.template import TextNode, TOKEN_TEXT, TOKEN_VAR, TOKEN_COMMENT, TOKEN_BLOCK
+    from django.template import (TOKEN_BLOCK, TOKEN_COMMENT,
+                                 TOKEN_TEXT, TOKEN_VAR, TextNode)
 
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
