@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ThreadedComment',
             fields=[
-                ('comment_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='comments.Comment')),
+                ('comment_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='django_comments.Comment')),
                 ('rating_count', models.IntegerField(default=0, editable=False)),
                 ('rating_sum', models.IntegerField(default=0, editable=False)),
                 ('rating_average', models.FloatField(default=0, editable=False)),
