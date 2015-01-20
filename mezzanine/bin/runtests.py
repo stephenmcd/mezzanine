@@ -23,7 +23,6 @@ def main(package="mezzanine"):
     test_settings_path = os.path.join(project_path, "test_settings.py")
 
     sys.path.insert(0, package_path)
-    sys.path.insert(0, project_path)
     if not os.path.exists(test_settings_path):
         test_reqs_str = """
 from project_template import settings
