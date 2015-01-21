@@ -5,7 +5,6 @@ import os
 
 from django.template import Template, TemplateSyntaxError, TemplateDoesNotExist
 from django.template.loader_tags import ExtendsNode
-from django.template.loader import find_template_loader
 
 from mezzanine import template
 
@@ -47,7 +46,21 @@ class OverExtendsNode(ExtendsNode):
 
         # These imports want settings, which aren't available when this
         # module is imported to ``add_to_builtins``, so do them here.
-        from django.template.loaders.app_directories import app_template_dirs
+        import django.template.loaders.app_directories as app_directories
+        try:
+            # Django >= 1.8
+            app_template_dirs = app_directories.get_app_template_dirs
+        except AttributeError:
+            # Django <= 1.7
+            app_template_dirs = app_directories.app_template_dirs
+
+        try:
+            # Django >= 1.8
+            find_template_loader = context.engine.find_template_loader
+        except AttributeError:
+            # Django <= 1.7
+            from django.template.loaders import find_template_loader
+
         from mezzanine.conf import settings
 
         # Store a dictionary in the template context mapping template
