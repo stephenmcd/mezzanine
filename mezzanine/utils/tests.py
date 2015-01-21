@@ -72,23 +72,37 @@ class TestCase(BaseTestCase):
         self._emailaddress = "example@example.com"
         args = (self._username, self._emailaddress, self._password)
         self._user = User.objects.create_superuser(*args)
-        self._debug_cursor = connection.use_debug_cursor
         self._request_factory = RequestFactory()
-        connection.use_debug_cursor = True
+
+        try:
+            # Django 1.8+
+            self._debug_cursor = connection.force_debug_cursor
+            connection.force_debug_cursor = True
+        except AttributeError:
+            self._debug_cursor = connection.use_debug_cursor
+            connection.use_debug_cursor = True
 
     def tearDown(self):
         """
         Clean up the admin user created and debug cursor.
         """
         self._user.delete()
-        connection.use_debug_cursor = self._debug_cursor
+        try:
+            # Django 1.8+
+            connection.force_debug_cursor = self._debug_cursor
+        except AttributeError:
+            connection.use_debug_cursor = self._debug_cursor
 
     def queries_used_for_template(self, template, **context):
         """
         Return the number of queries used when rendering a template
         string.
         """
-        connection.queries = []
+        try:
+            # Django 1.8+ - queries_log is a deque
+            connection.queries_log.clear()
+        except AttributeError:
+            connection.queries = []
         t = Template(template)
         t.render(Context(context))
         return len(connection.queries)

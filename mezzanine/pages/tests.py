@@ -24,6 +24,14 @@ User = get_user_model()
 
 class PagesTests(TestCase):
 
+    @staticmethod
+    def reset_queries(connection):
+        try:
+            # Django 1.8+ - queries_log is a deque
+            connection.queries_log.clear()
+        except AttributeError:
+            connection.queries = []
+
     def test_page_ascendants(self):
         """
         Test the methods for looking up ascendants efficiently
@@ -44,7 +52,7 @@ class PagesTests(TestCase):
 
         # Test ascendants are returned in order for slug, using
         # a single DB query.
-        connection.queries = []
+        self.reset_queries(connection)
         pages_for_slug = Page.objects.with_ascendants_for_slug(tertiary.slug)
         self.assertEqual(len(connection.queries), 1)
         self.assertEqual(pages_for_slug[0].id, tertiary.id)
@@ -53,7 +61,7 @@ class PagesTests(TestCase):
 
         # Test page.get_ascendants uses the cached attribute,
         # without any more queries.
-        connection.queries = []
+        self.reset_queries(connection)
         ascendants = pages_for_slug[0].get_ascendants()
         self.assertEqual(len(connection.queries), 0)
         self.assertEqual(ascendants[0].id, secondary.id)
@@ -66,7 +74,7 @@ class PagesTests(TestCase):
         secondary.save()
         pages_for_slug = Page.objects.with_ascendants_for_slug(tertiary.slug)
         self.assertEqual(len(pages_for_slug[0]._ascendants), 0)
-        connection.queries = []
+        self.reset_queries(connection)
         ascendants = pages_for_slug[0].get_ascendants()
         self.assertEqual(len(connection.queries), 2)  # 2 parent queries
         self.assertEqual(pages_for_slug[0].id, tertiary.id)
