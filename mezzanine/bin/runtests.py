@@ -38,8 +38,10 @@ if "mezzanine.accounts" not in settings.INSTALLED_APPS:
 # Use an in-memory database for tests.
 DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}}
 
-# Use the md5 password hasher for quicker test runs.
-PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
+# Use the MD5 password hasher by default for quicker test runs. SHA1 still
+# needs to be turned on for the contrib.auth tests to pass in Django 1.4.
+PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',
+                    'django.contrib.auth.hashers.SHA1PasswordHasher')
 
 # These just need to be defined as something.
 SECRET_KEY = "django_tests_secret_key"
