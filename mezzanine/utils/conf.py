@@ -51,7 +51,7 @@ def set_dynamic_settings(s):
 
     if not s.get("ALLOWED_HOSTS", []):
         warn("You haven't defined the ALLOWED_HOSTS settings, which "
-             "Django 1.5 requires. Will fall back to the domains "
+             "Django requires. Will fall back to the domains "
              "configured as sites.")
         s["ALLOWED_HOSTS"] = SitesAllowedHosts()
 
@@ -116,16 +116,6 @@ def set_dynamic_settings(s):
     if s["TESTING"]:
         # Following bits are work-arounds for some assumptions that
         # Django 1.5's tests make.
-
-        # contrib.auth tests fail without its own auth backend installed.
-        append("AUTHENTICATION_BACKENDS",
-               "django.contrib.auth.backends.ModelBackend")
-
-        # Tests in contrib.redirects simply don't work with a
-        # catch-all urlpattern such as Mezzanine's pages app.
-        remove("INSTALLED_APPS", "django.contrib.redirects")
-        remove("MIDDLEWARE_CLASSES",
-            "django.contrib.redirects.middleware.RedirectFallbackMiddleware")
 
         # Triggers interactive superuser creation and some pyc/pyo tests
         # fail with standard permissions.

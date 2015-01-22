@@ -60,10 +60,7 @@ class AdminLoginInterfaceSelectorMiddleware(object):
             if request.user.is_authenticated():
                 if login_type == "admin":
                     next = request.get_full_path()
-                    try:
-                        username = request.user.get_username()
-                    except AttributeError:  # Django < 1.5
-                        username = request.user.username
+                    username = request.user.get_username()
                     if (username == DEFAULT_USERNAME and
                             request.user.check_password(DEFAULT_PASSWORD)):
                         error(request, mark_safe(_(
