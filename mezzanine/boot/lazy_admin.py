@@ -1,10 +1,10 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import patterns, include, url
+from django.contrib.auth import get_user_model
 from django.contrib.admin.sites import AdminSite
 
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.models import get_user_model
 
 
 class LazyAdminSite(AdminSite):

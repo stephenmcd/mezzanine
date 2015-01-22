@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.forms import ValidationError, ModelForm
 from django.http import HttpResponseRedirect
@@ -14,7 +15,6 @@ from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
 from mezzanine.utils.deprecation import renamed_get_queryset
 from mezzanine.utils.urls import admin_url
-from mezzanine.utils.models import get_user_model
 
 
 User = get_user_model()
