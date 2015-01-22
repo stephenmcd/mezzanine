@@ -6,7 +6,8 @@ from operator import ior, iand
 from string import punctuation
 
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import Manager, Q, CharField, TextField, get_models
+from django.db.models import Manager, Q, CharField, TextField
+from django.db.models.loading import get_models
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
 from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
