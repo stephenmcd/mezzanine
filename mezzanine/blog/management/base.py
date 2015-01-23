@@ -160,7 +160,10 @@ class BaseImporterCommand(BaseCommand):
         except ValueError:
             pass
         else:
-            site = Site.objects.get(id=site)
+            try:
+                site = Site.objects.get(id=site)
+            except Site.DoesNotExist:
+                raise CommandError("No Site with id %s" % str(site))
 
         # Validate the Mezzanine user.
         if mezzanine_user is None:
