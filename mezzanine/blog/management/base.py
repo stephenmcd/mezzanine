@@ -150,7 +150,7 @@ class BaseImporterCommand(BaseCommand):
         """
 
         mezzanine_user = options.get("mezzanine_user")
-        site = Site.objects.get_current()
+        site = options.get("site_id", Site.objects.get_current())
         verbosity = int(options.get("verbosity", 1))
         prompt = options.get("interactive")
 
