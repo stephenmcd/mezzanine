@@ -5,6 +5,7 @@ from optparse import make_option
 from socket import gethostname
 
 from django.core.management.base import NoArgsCommand, CommandError
+from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.core.management import call_command
 from django.db import connection
@@ -15,7 +16,6 @@ except ImportError:
     from django.core.management.commands import syncdb as migrate
 
 from mezzanine.conf import settings
-from mezzanine.utils.models import get_user_model
 from mezzanine.utils.tests import copy_test_to_media
 
 

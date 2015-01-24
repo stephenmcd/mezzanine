@@ -14,11 +14,7 @@ from warnings import warn
 
 from django.template.defaultfilters import urlize
 from django.utils.datastructures import SortedDict
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    # Backward compatibility for Py2 and Django < 1.5
-    from django.utils.encoding import force_unicode as force_text
+from django.utils.encoding import force_text
 from django.utils.functional import Promise
 
 from mezzanine import __version__

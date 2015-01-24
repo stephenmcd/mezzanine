@@ -5,6 +5,7 @@ from _ast import PyCF_ONLY_AST
 import os
 from shutil import copyfile, copytree
 
+from django.contrib.auth import get_user_model
 from django.db import connection
 from django.template import Context, Template
 from django.test import TestCase as BaseTestCase
@@ -12,7 +13,6 @@ from django.test.client import RequestFactory
 
 from mezzanine.conf import settings
 from mezzanine.utils.importing import path_for_import
-from mezzanine.utils.models import get_user_model
 
 
 User = get_user_model()
@@ -44,10 +44,7 @@ IGNORE_ERRORS = (
     "redefinition of unused 'Image",
 
     # Django 1.5 custom user compatibility
-    "redefinition of unused 'get_user_model",
-
-    # Django 1.5 deprecated methods compatibility.
-    "'get_permission_codename' imported but unused",
+    "'get_user_model' imported but unused",
 
     # Actually a Python template file.
     "live_settings.py",

@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from future.builtins import str
 
 from django import VERSION
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.db import connection
 from django.template import Context, Template
@@ -16,7 +17,6 @@ from mezzanine.core.request import current_request
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.tests import TestCase
-from mezzanine.utils.models import get_user_model
 
 
 User = get_user_model()

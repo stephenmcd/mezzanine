@@ -6,7 +6,8 @@ from operator import ior, iand
 from string import punctuation
 
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import Manager, Q, CharField, TextField, get_models
+from django.db.models import Manager, Q, CharField, TextField
+from django.db.models.loading import get_models
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
 from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
@@ -14,7 +15,6 @@ from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
-from mezzanine.utils.deprecation import renamed_get_queryset
 from mezzanine.utils.models import get_model
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import home_slug
@@ -192,7 +192,6 @@ class SearchableQuerySet(QuerySet):
         return results
 
 
-@renamed_get_queryset
 class SearchableManager(Manager):
     """
     Manager providing a chainable queryset.
@@ -325,7 +324,6 @@ class SearchableManager(Manager):
         return sorted(all_results, key=lambda r: r.result_count, reverse=True)
 
 
-@renamed_get_queryset
 class CurrentSiteManager(DjangoCSM):
     """
     Extends Django's site manager to first look up site by ID stored in

@@ -4,21 +4,13 @@ from future.utils import with_metaclass
 
 from django import VERSION
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model, Field
 from django.db.models.signals import class_prepared
 from django.utils import six
 
 from mezzanine.utils.importing import import_dotted_path
-
-
-# Backward compatibility with Django 1.5's "get_user_model".
-if VERSION >= (1, 5):
-    from django.contrib.auth import get_user_model
-else:
-    def get_user_model():
-        from django.contrib.auth.models import User
-        return User
 
 
 # Emulate Django 1.7's exception-raising get_registered_model
@@ -28,7 +20,7 @@ if VERSION >= (1, 7):
     get_model = apps.get_model
     get_registered_model = apps.get_registered_model
 else:
-    from django.db.models import get_model as django_get_model
+    from django.db.models.loading import get_model as django_get_model
 
     def get_model(app_label, model_name=None):
         if model_name is None:

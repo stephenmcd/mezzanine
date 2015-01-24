@@ -427,7 +427,7 @@ def create():
                    "Site.objects.get_or_create(domain='%s');" % domain)
         if env.admin_pass:
             pw = env.admin_pass
-            user_py = ("from mezzanine.utils.models import get_user_model;"
+            user_py = ("from django.contrib.auth import get_user_model;"
                        "User = get_user_model();"
                        "u, _ = User.objects.get_or_create(username='admin');"
                        "u.is_staff = u.is_superuser = True;"

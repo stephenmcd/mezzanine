@@ -8,9 +8,10 @@ included below.
 from __future__ import unicode_literals
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
 
-from mezzanine.utils.models import get_user_model, get_model
+from mezzanine.utils.models import get_model
 from mezzanine.utils.importing import import_dotted_path
 
 
