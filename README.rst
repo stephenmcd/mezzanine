@@ -295,6 +295,7 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
 * `mezzanine-business-theme`_ Starter business theme for Mezzanine.
 * `open-helpdesk`_ A helpdesk app built with Mezzanine.
 * `mezzanine-invites`_ Allow site registration via alphanumeric invite codes.
+* `ansible-mezzanine`_ Full pipeline (dev, staging, production) deployment of Mezzanine using `Ansible`_.
 
 
 Donating
@@ -677,6 +678,7 @@ Quotes
 .. _`Markdown`: http://en.wikipedia.org/wiki/Markdown
 .. _`mezzanine-openshift`: https://github.com/overshard/mezzanine-openshift
 .. _`Redhat's OpenShift`: https://openshift.redhat.com/
+.. _`Ansible`: http://www.ansible.com/
 .. _`mezzanine-stackato`: https://github.com/Stackato-Apps/mezzanine
 .. _`ActiveState's Stackato`: http://www.activestate.com/stackato
 .. _`mezzanine-blocks`: https://github.com/renyi/mezzanine-blocks
@@ -731,6 +733,7 @@ Quotes
 .. _`mezzanine-business-theme`: https://github.com/dfalk/mezzanine-business-theme
 .. _`open-helpdesk`: https://github.com/simodalla/open-helpdesk
 .. _`mezzanine-invites`: https://github.com/averagehuman/mezzanine-invites
+.. _`ansible-mezzanine`: https://github.com/keithadavidson/ansible-mezzanine
 
 
 .. PEOPLE WITH QUOTES
