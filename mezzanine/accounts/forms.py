@@ -191,9 +191,12 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
             self.cleaned_data["username"]
         except KeyError:
             if not self.instance.username:
-                if "first_name" in self.cleaned_data and "last_name" in self.cleaned_data:
-                    username = "%(first_name)s %(last_name)s" % self.cleaned_data
-                else:
+                try:
+                    username = ("%(first_name)s %(last_name)s" %
+                                self.cleaned_data).strip()
+                except KeyError:
+                    username = ""
+                if not username:
                     username = self.cleaned_data["email"].split("@")[0]
                 qs = User.objects.exclude(id=self.instance.id)
                 user.username = unique_slug(qs, "username", slugify(username))
