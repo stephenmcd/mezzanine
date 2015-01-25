@@ -50,7 +50,10 @@ PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
 
         def cleanup_test_settings():
             for fn in [test_settings_path, test_settings_path + 'c']:
-                os.remove(fn)
+                try:
+                    os.remove(fn)
+                except OSError:
+                    pass
         atexit.register(cleanup_test_settings)
 
     if django.VERSION >= (1, 7):
