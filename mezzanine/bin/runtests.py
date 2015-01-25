@@ -56,7 +56,10 @@ PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
     if django.VERSION >= (1, 7):
         django.setup()
 
-    from django.core.management.commands import test
+    try:
+        from south.management.commands import test
+    except ImportError:
+        from django.core.management.commands import test
     sys.exit(test.Command().execute(verbosity=1))
 
 
