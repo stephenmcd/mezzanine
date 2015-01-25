@@ -11,6 +11,12 @@ from settings import PROJECT_ROOT, PROJECT_DIRNAME
 sys.path.append(os.path.abspath(os.path.join(PROJECT_ROOT, "..")))
 
 
+# Allow tests to be discovered during development.
+if (PROJECT_DIRNAME == "project_template" and sys.argv[1] == "test" and
+        os.getcwd().split(os.sep)[-1] == PROJECT_DIRNAME):
+    os.chdir("..")
+
+
 # Add the site ID CLI arg to the environment, which allows for the site
 # used in any site related queries to be manually set for management
 # commands.
