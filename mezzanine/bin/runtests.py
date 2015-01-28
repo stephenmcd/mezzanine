@@ -49,6 +49,7 @@ PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
             f.write(test_settings + local_settings)
 
         def cleanup_test_settings():
+            import os  # Outer scope sometimes unavailable in atexit functions.
             for fn in [test_settings_path, test_settings_path + 'c']:
                 try:
                     os.remove(fn)
