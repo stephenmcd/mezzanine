@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from mezzanine import template
 from mezzanine.generic.forms import RatingForm
+from mezzanine.generic.models import Rating
 
 
 register = template.Library()
@@ -15,10 +16,12 @@ def rating_for(context, obj):
     """
     context["rating_object"] = context["rating_obj"] = obj
     context["rating_form"] = RatingForm(context["request"], obj)
-    ratings = context["request"].COOKIES.get("mezzanine-rating", "")
-    rating_string = "%s.%s" % (obj._meta, obj.pk)
-    context["rated"] = (rating_string in ratings)
     rating_name = obj.get_ratingfield_name()
+    rating_handle = getattr(obj,rating_name)
+    try:
+        context["rated"] = rating_handle.get(user=context["request"].user)
+    except Rating.DoesNotExist:
+        context["rated"] = False
     for f in ("average", "count", "sum"):
         context["rating_" + f] = getattr(obj, "%s_%s" % (rating_name, f))
     return context
