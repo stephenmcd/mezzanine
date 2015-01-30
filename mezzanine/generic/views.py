@@ -141,6 +141,9 @@ def rating(request):
             for f in ("average", "count", "sum"):
                 json["rating_" + f] = getattr(obj, "%s_%s" % (rating_name, f))
             response = HttpResponse(dumps(json))
-        ratings = ",".join(rating_form.previous + [rating_form.current])
+        if rating_form.undoRating:
+            ratings = list(set(rating_form.previous) ^ set([rating_form.current]))
+        else:
+            ratings = ",".join(rating_form.previous + [rating_form.current])
         set_cookie(response, "mezzanine-rating", ratings)
     return response
