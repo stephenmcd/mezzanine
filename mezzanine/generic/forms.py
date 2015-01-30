@@ -181,7 +181,7 @@ class RatingForm(CommentSecurityForm):
         value if they've previously rated.
         """
         user = self.request.user
-        self.rating_undo = False
+        self.undoRating = False
         rating_value = self.cleaned_data["value"]
         rating_name = self.target_object.get_ratingfield_name()
         rating_manager = getattr(self.target_object, rating_name)
@@ -199,7 +199,7 @@ class RatingForm(CommentSecurityForm):
                     # User submitted the same rating as previously,
                     # which we treat as undoing the rating (like a toggle).
                     rating_instance.delete()
-                    self.rating_undo = True
+                    self.undoRating = True
         else:
             rating_instance = Rating(value=rating_value)
             rating_manager.add(rating_instance)
