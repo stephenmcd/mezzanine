@@ -167,8 +167,8 @@ class RatingForm(CommentSecurityForm):
         prevent duplicate votes.
         """
         bits = (self.data["content_type"], self.data["object_pk"])
-        self.current = "%s.%s" % bits
         request = self.request
+        self.current = "%s.%s" % bits
         self.previous = request.COOKIES.get("mezzanine-rating", "").split(",")
         already_rated = self.current in self.previous
         if already_rated and not self.request.user.is_authenticated():
@@ -181,7 +181,7 @@ class RatingForm(CommentSecurityForm):
         value if they've previously rated.
         """
         user = self.request.user
-        self.undoRating = False
+        self.undoing = False
         rating_value = self.cleaned_data["value"]
         rating_name = self.target_object.get_ratingfield_name()
         rating_manager = getattr(self.target_object, rating_name)
@@ -199,7 +199,7 @@ class RatingForm(CommentSecurityForm):
                     # User submitted the same rating as previously,
                     # which we treat as undoing the rating (like a toggle).
                     rating_instance.delete()
-                    self.undoRating = True
+                    self.undoing = True
         else:
             rating_instance = Rating(value=rating_value)
             rating_manager.add(rating_instance)
