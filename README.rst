@@ -561,6 +561,8 @@ Sites Using Mezzanine
 * `The Entrepreneurial School <http://theentrepreneurialschool.com/>`_
 * `Wednesday Martin <http://wednesdaymartin.com/>`_
 * `Avaris to Avanim <https://avaristoavanim.com>`_
+* `Cognitions Coaching and Consulting <https://avaristoavanim.com>`_
+* `Foundation Engineering Group <http://fegroup.net.au>`_
 
 
 Quotes
