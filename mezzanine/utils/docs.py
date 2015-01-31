@@ -187,14 +187,14 @@ def build_changelog(docs_path, package_name="mezzanine"):
 
         # Ignore changesets that are merges, bumped the version, closed
         # a branch, regenerated the changelog itself, contain an ignore
-        # word, or are one word long.
+        # word, or contain too few words to be meaningful.
         merge = len(cs.parents()) > 1
         branch_closed = len(files) == 0
         changelog_update = changelog_filename in files
         ignored = [w for w in ignore if w.lower() in description.lower()]
-        one_word = len(description.split()) == 1
+        too_few_words = len(description.split()) <= 3
         if (merge or new_version or branch_closed or changelog_update or
-                ignored or one_word):
+                ignored or too_few_words):
             continue
         # Ensure we have a current version and if so, add this changeset's
         # description to it.
