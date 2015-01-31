@@ -9,6 +9,7 @@ class BlogPostFilter(django_filters.FilterSet):
     author = django_filters.Filter(name='user__username', lookup_type='exact')
     tag = django_filters.Filter(name='keywords_string', lookup_type='contains')
 
+    date = django_filters.Filter(name='publish_date', lookup_type='lte')
     year = django_filters.Filter(name='publish_date', lookup_type='year')
     month = django_filters.Filter(name='publish_date', lookup_type='month')
 

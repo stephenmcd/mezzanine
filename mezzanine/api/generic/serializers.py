@@ -6,7 +6,7 @@ from mezzanine.generic.models import ThreadedComment
 
 
 class ThreadedCommentSerializer(serializers.ModelSerializer):
-    user = UserSerializer(source='user')
+    user = UserSerializer()
 
     class Meta:
         model = ThreadedComment

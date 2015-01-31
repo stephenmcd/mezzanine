@@ -20,6 +20,7 @@ class BlogPostsAPIView(generics.ListAPIView):
     serializer_class = BlogPostSerializer
     filter_class = BlogPostFilter
     paginate_by = 5
+    paginate_by_param = 'page'
 
 
 class BlogCategoryAPIView(generics.ListAPIView):
@@ -37,7 +38,7 @@ def blog_recent_posts(request, number=5):
 @api_view(['GET'])
 def posts_by_categories(*args):
     """
-    receives number blog posts per category
+    receives number of blog posts per category
     """
     posts = BlogPost.objects.published()
     categories = BlogCategory.objects.filter(blogposts__in=posts)
@@ -51,7 +52,7 @@ def posts_by_categories(*args):
 @api_view(['GET'])
 def posts_by_months(*args):
     """
-    receives number blog posts per month
+    receives number of blog posts per month
     """
     dates = BlogPost.objects.published().values_list("publish_date", flat=True)
     date_dicts = [{"date": datetime(d.year, d.month, 1)} for d in dates]
@@ -67,7 +68,7 @@ def posts_by_months(*args):
 @api_view(['GET'])
 def posts_by_authors(*args):
     """
-    receives number blog posts per author
+    receives number of blog posts per author
     """
     blog_posts = BlogPost.objects.published()
     authors = User.objects.filter(blogposts__in=blog_posts)

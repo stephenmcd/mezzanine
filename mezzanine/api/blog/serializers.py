@@ -12,9 +12,9 @@ class BlogCategorySerializer(serializers.ModelSerializer):
 
 
 class BlogPostSerializer(serializers.ModelSerializer):
-    user = UserSerializer(source='user')
-    categories = BlogCategorySerializer(source='categories', many=True)
-    comments = ThreadedCommentSerializer(source='comments', many=True)
+    user = UserSerializer()
+    categories = BlogCategorySerializer(many=True)
+    comments = ThreadedCommentSerializer(many=True)
 
     class Meta:
         model = BlogPost
