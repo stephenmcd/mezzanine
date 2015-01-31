@@ -1,7 +1,14 @@
 from django.conf.urls import patterns, url
-from .views import BlogPostsAPIView, BlogCategoryAPIView
+import views
 
 urlpatterns = patterns("mezzanine.api.blog.views",
-    url('^blog_post$', BlogPostsAPIView.as_view(), name='blogpost_api'),
-    url('^blog_category$', BlogCategoryAPIView.as_view(), name='blogcategory_api'),
+    url('^blog_post$', views.BlogPostsAPIView.as_view()),
+    url('^blog_category$', views.BlogCategoryAPIView.as_view()),
+
+    url('^recent_posts$', views.blog_recent_posts),
+    url('^recent_posts/(?P<number>\d+)$', views.blog_recent_posts),
+
+    url('^posts_by_categories$', views.posts_by_categories),
+    url('^posts_by_months$', views.posts_by_months),
+    url('^posts_by_authors$', views.posts_by_authors),
 )
