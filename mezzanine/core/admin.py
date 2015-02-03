@@ -19,7 +19,7 @@ from mezzanine.utils.models import get_user_model
 if settings.USE_MODELTRANSLATION:
     from django.utils.datastructures import SortedDict
     from django.utils.translation import activate, get_language
-    from modeltranslation.admin import (TranslationAdmin,
+    from modeltranslation.admin import (TabbedTranslationAdmin,
                                         TranslationInlineModelAdmin)
 
 User = get_user_model()
@@ -37,7 +37,7 @@ class DisplayableAdminForm(ModelForm):
 
 
 class BaseTranslationModelAdmin(settings.USE_MODELTRANSLATION and
-        TranslationAdmin or admin.ModelAdmin):
+        TabbedTranslationAdmin or admin.ModelAdmin):
     """
     Abstract class used to factorize the switch between translation
     and no-translation class logic.
