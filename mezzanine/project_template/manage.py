@@ -8,8 +8,13 @@ import sys
 # Corrects some pathing issues in various contexts, such as cron jobs,
 # and the project layout still being in Django 1.3 format.
 from settings import PROJECT_ROOT, PROJECT_DIRNAME
-os.chdir(PROJECT_ROOT)
 sys.path.append(os.path.abspath(os.path.join(PROJECT_ROOT, "..")))
+
+
+# Allow tests to be discovered during development.
+if (PROJECT_DIRNAME == "project_template" and sys.argv[1] == "test" and
+        os.getcwd().split(os.sep)[-1] == PROJECT_DIRNAME):
+    os.chdir("..")
 
 
 # Add the site ID CLI arg to the environment, which allows for the site

@@ -19,7 +19,7 @@ def tweets_for(query_type, args, per_user=None):
     ``per_user`` arg limits the number of tweets per user, for
     example to allow a fair spread of tweets per user for a list.
     """
-    lookup = {"query_type": query_type, "value": args[0].strip("\"'")}
+    lookup = {"query_type": query_type, "value": args[0]}
     try:
         tweets = Tweet.objects.get_for(**lookup)
     except TwitterQueryException:

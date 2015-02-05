@@ -66,7 +66,7 @@ Default: ``('pages.RichTextPage',)``
 ``ADMIN_MENU_COLLAPSED``
 ------------------------
 
-Controls whether or not the left-hand admin menu is collpased by default.
+Controls whether or not the left-hand admin menu is collapsed by default.
 
 Default: ``False``
 
@@ -425,7 +425,7 @@ Default: ``('a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'b', 
 
 List of dotted paths to functions, called in order, on a ``RichTextField`` value before it is rendered to the template.
 
-Default: ``()``
+Default: ``('mezzanine.utils.html.thumbnails',)``
 
 ``RICHTEXT_FILTER_LEVEL``
 -------------------------

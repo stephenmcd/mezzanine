@@ -32,7 +32,7 @@ register_setting(
 register_setting(
     name="ADMIN_MENU_COLLAPSED",
     description=_("Controls whether or not the left-hand admin menu is "
-                  "collpased by default."),
+                  "collapsed by default."),
     editable=True,
     default=False,
 )
@@ -130,8 +130,7 @@ register_setting(
             "TS21i-10", "UP.Browser", "UP.Link", "webOS", "Windows CE",
             "WinWAP", "YahooSeeker/M1A1-R2D2", "iPhone", "iPod", "Android",
             "BlackBerry9530", "LG-TU915 Obigo", "LGE VX", "webOS",
-            "Nokia5800",)
-        ),
+            "Nokia5800",)),
     ),
 )
 
@@ -299,7 +298,7 @@ register_setting(
     description=_("List of dotted paths to functions, called in order, on a "
         "``RichTextField`` value before it is rendered to the template."),
     editable=False,
-    default=(),
+    default=("mezzanine.utils.html.thumbnails",),
 )
 
 RICHTEXT_FILTER_LEVEL_HIGH = 1
@@ -523,8 +522,8 @@ register_setting(
         "COMMENTS_DISQUS_API_PUBLIC_KEY", "COMMENTS_DISQUS_API_SECRET_KEY",
         "COMMENTS_USE_RATINGS", "DEV_SERVER", "FORMS_USE_HTML5",
         "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID", "JQUERY_FILENAME",
-        "LOGIN_URL", "LOGOUT_URL", "SITE_TITLE", "SITE_TAGLINE", "USE_L10N",
-        "USE_MODELTRANSLATION",
+        "JQUERY_UI_FILENAME", "LOGIN_URL", "LOGOUT_URL", "SITE_TITLE",
+        "SITE_TAGLINE", "USE_L10N", "USE_MODELTRANSLATION",
     ),
 )
 

@@ -14,9 +14,19 @@ from django.contrib.sites.models import Site
 from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, resolve, NoReverseMatch
-from django.db.models import Model, get_model
-from django.template import (Context, Node, TextNode, Template,
-    TemplateSyntaxError, TOKEN_TEXT, TOKEN_VAR, TOKEN_COMMENT, TOKEN_BLOCK)
+from django.db.models import Model
+from django.db.models.loading import get_model
+from django.template import Context, Node, Template, TemplateSyntaxError
+
+try:
+    # Django >= 1.8
+    from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
+                                      TOKEN_TEXT, TOKEN_VAR, TextNode)
+except ImportError:
+    # Django <= 1.7
+    from django.template import (TOKEN_BLOCK, TOKEN_COMMENT,
+                                 TOKEN_TEXT, TOKEN_VAR, TextNode)
+
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils import translation
@@ -92,13 +102,13 @@ else:
         return parsed
 
 
-@register.inclusion_tag("includes/form_fields.html", takes_context=True)
-def fields_for(context, form):
+@register.simple_tag(takes_context=True)
+def fields_for(context, form, template="includes/form_fields.html"):
     """
-    Renders fields for a form.
+    Renders fields for a form with an optional template choice.
     """
     context["form_for_fields"] = form
-    return context
+    return get_template(template).render(Context(context))
 
 
 @register.inclusion_tag("includes/form_errors.html", takes_context=True)
@@ -244,8 +254,11 @@ def search_form(context, search_model_names=None):
         search_model_names = search_model_names.split(" ")
     search_model_choices = []
     for model_name in search_model_names:
-        model = get_model(*model_name.split(".", 1))
-        if model:  # Might not be installed.
+        try:
+            model = get_model(*model_name.split(".", 1))
+        except LookupError:
+            pass
+        else:
             verbose_name = model._meta.verbose_name_plural.capitalize()
             search_model_choices.append((verbose_name, model_name))
     context["search_model_choices"] = sorted(search_model_choices)
@@ -329,9 +342,6 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     from_width = image.size[0]
     from_height = image.size[1]
 
-    # If already right size, don't do anything.
-    if to_width == from_width and to_height == from_height:
-        return image_url
     # Set dimensions.
     if to_width == 0:
         to_width = from_width * to_height // from_height
@@ -600,15 +610,16 @@ def admin_dropdown_menu(context):
     """
     Renders the app list for the admin dropdown menu navigation.
     """
-    context["dropdown_menu_app_list"] = admin_app_list(context["request"])
     user = context["request"].user
-    if user.is_superuser:
-        sites = Site.objects.all()
-    else:
-        sites = user.sitepermissions.get().sites.all()
-    context["dropdown_menu_sites"] = list(sites)
-    context["dropdown_menu_selected_site_id"] = current_site_id()
-    return context
+    if user.is_staff:
+        context["dropdown_menu_app_list"] = admin_app_list(context["request"])
+        if user.is_superuser:
+            sites = Site.objects.all()
+        else:
+            sites = user.sitepermissions.get().sites.all()
+        context["dropdown_menu_sites"] = list(sites)
+        context["dropdown_menu_selected_site_id"] = current_site_id()
+        return context
 
 
 @register.inclusion_tag("admin/includes/app_list.html", takes_context=True)
@@ -659,12 +670,15 @@ def translate_url(context, language):
     current_language = translation.get_language()
     translation.activate(language)
     try:
-        url_name = (view.url_name if not view.namespace
-                    else '%s:%s' % (view.namespace, view.url_name))
-        url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+        url = reverse(view.func, args=view.args, kwargs=view.kwargs)
     except NoReverseMatch:
-        url_name = "admin:" + view.url_name
-        url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+        try:
+            url_name = (view.url_name if not view.namespace
+                        else '%s:%s' % (view.namespace, view.url_name))
+            url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+        except NoReverseMatch:
+            url_name = "admin:" + view.url_name
+            url = reverse(url_name, args=view.args, kwargs=view.kwargs)
     translation.activate(current_language)
     if context['request'].META["QUERY_STRING"]:
         url += "?" + context['request'].META["QUERY_STRING"]

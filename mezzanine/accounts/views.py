@@ -1,14 +1,13 @@
 from __future__ import unicode_literals
 
-from django.contrib.auth import (authenticate, login as auth_login,
-                                               logout as auth_logout)
+from django.contrib.auth import (login as auth_login, authenticate,
+                                 logout as auth_logout, get_user_model)
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import info, error
 from django.core.urlresolvers import NoReverseMatch, get_script_prefix, reverse
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.utils.models import get_user_model
 from mezzanine.accounts import get_profile_form
 from mezzanine.accounts.forms import LoginForm, PasswordResetForm
 from mezzanine.conf import settings

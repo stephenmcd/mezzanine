@@ -30,7 +30,11 @@ def register_setting(name=None, label=None, editable=False, description=None,
     dict by name.
     """
     if name is None:
-        raise TypeError("mezzanine.conf.register_setting requires a name")
+        raise TypeError("mezzanine.conf.register_setting requires the "
+                        "'name' keyword argument.")
+    if editable and default is None:
+        raise TypeError("mezzanine.conf.register_setting requires the "
+                        "'default' keyword argument when 'editable' is True.")
 
     # append is True when called from an app (typically external)
     # after the setting has already been registered, with the
@@ -114,27 +118,27 @@ class Settings(object):
 
     def use_editable(self):
         """
-        Empty the editable settings cache and set the loaded flag to
-        ``False`` so that settings will be loaded from the DB on next
-        access. If the conf app is not installed then set the loaded
-        flag to ``True`` in order to bypass DB lookup entirely.
+        Sets the ``_loaded`` flag to ``False`` so that settings will
+        be loaded from the DB on next access. If the conf app is not
+        installed then set the loaded flag to ``True`` in order to
+        bypass DB lookup entirely.
         """
         self._loaded = __name__ not in getattr(self, "INSTALLED_APPS")
-        self._editable_cache = {}
 
     def _load(self):
         """
-        Load settings from the database into cache. Delete any settings from
-        the database that are no longer registered, and emit a warning if
-        there are settings that are defined in settings.py and the database.
+        Load settings from the database into cache. Delete any
+        settings from the database that are no longer registered, and
+        emit a warning if there are settings that are defined in
+        settings.py and the database.
         """
         from mezzanine.conf.models import Setting
 
         removed_settings = []
         conflicting_settings = []
+        new_cache = {}
 
         for setting_obj in Setting.objects.all():
-
             try:
                 registry[setting_obj.name]
             except KeyError:
@@ -160,7 +164,7 @@ class Settings(object):
             try:
                 getattr(django_settings, setting_obj.name)
             except AttributeError:
-                self._editable_cache[setting_obj.name] = setting_value
+                new_cache[setting_obj.name] = setting_value
             else:
                 if setting_value != registry[setting_obj.name]["default"]:
                     conflicting_settings.append(setting_obj.name)
@@ -171,6 +175,7 @@ class Settings(object):
             warn("These settings are defined in both settings.py and "
                  "the database: %s. The settings.py values will be used."
                  % ", ".join(conflicting_settings))
+        self._editable_cache = new_cache
         self._loaded = True
 
     def __getattr__(self, name):

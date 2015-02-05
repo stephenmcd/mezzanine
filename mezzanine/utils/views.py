@@ -5,14 +5,15 @@ from datetime import datetime, timedelta
 
 try:
     from urllib.parse import urlencode
-except ImportError:     # Python 2
+except ImportError:  # Python 2
     from urllib import urlencode
 try:
     from urllib.request import Request, urlopen
-except ImportError:     # Python 2
+except ImportError:  # Python 2
     from urllib2 import Request, urlopen
 
 import django
+from django.contrib.auth import get_permission_codename
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.forms import EmailField, URLField, Textarea
 from django.template import RequestContext
@@ -21,8 +22,8 @@ from django.utils.translation import ugettext as _
 
 import mezzanine
 from mezzanine.conf import settings
-from mezzanine.utils.sites import has_site_permission
 from mezzanine.utils.importing import import_dotted_path
+from mezzanine.utils.sites import has_site_permission
 
 
 def is_editable(obj, request):
@@ -35,7 +36,8 @@ def is_editable(obj, request):
     if hasattr(obj, "is_editable"):
         return obj.is_editable(request)
     else:
-        perm = obj._meta.app_label + "." + obj._meta.get_change_permission()
+        codename = get_permission_codename("change", obj._meta)
+        perm = "%s.%s" % (obj._meta.app_label, codename)
         return (request.user.is_authenticated() and
                 has_site_permission(request.user) and
                 request.user.has_perm(perm))
@@ -174,7 +176,6 @@ def set_cookie(response, name, value, expiry_seconds=None, secure=False):
     expires = datetime.strftime(datetime.utcnow() +
                                 timedelta(seconds=expiry_seconds),
                                 "%a, %d-%b-%Y %H:%M:%S GMT")
-    value = value.encode("utf-8")
     # Django doesn't seem to support unicode cookie keys correctly on
     # Python 2. Work around by encoding it. See
     # https://code.djangoproject.com/ticket/19802

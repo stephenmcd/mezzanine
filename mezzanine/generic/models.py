@@ -1,12 +1,13 @@
 from __future__ import unicode_literals
 from future.builtins import map, str
 
-from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
+
+from django_comments import Comment
 
 from mezzanine.generic.fields import RatingField
 from mezzanine.generic.managers import CommentManager, KeywordManager
@@ -18,7 +19,7 @@ from mezzanine.utils.sites import current_site_id
 
 class ThreadedComment(Comment):
     """
-    Extend the ``Comment`` model from ``django.contrib.comments`` to
+    Extend the ``Comment`` model from ``django_comments`` to
     add comment threading. ``Comment`` provides its own site foreign key,
     so we can't inherit from ``SiteRelated`` in ``mezzanine.core``, and
     therefore need to set the site on ``save``. ``CommentManager``

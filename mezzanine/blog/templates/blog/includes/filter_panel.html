@@ -1,4 +1,4 @@
-{% load blog_tags keyword_tags i18n future %}
+{% load blog_tags keyword_tags mezzanine_tags i18n future %}
 
 {% block blog_recent_posts %}
 {% blog_recent_posts 5 as recent_posts %}
@@ -6,8 +6,16 @@
 <h3>{% trans "Recent Posts" %}</h3>
 <ul class="list-unstyled recent-posts">
 {% for recent_post in recent_posts %}
-<li><a href="{{ recent_post.get_absolute_url }}"
-    >{{ recent_post.title }}</a></li>
+<li>
+    {% spaceless %}
+    <a href="{{ recent_post.get_absolute_url }}">
+        {% if settings.BLOG_USE_FEATURED_IMAGE and recent_post.featured_image %}
+        <img src="{{ MEDIA_URL }}{% thumbnail recent_post.featured_image 24 24 %}">
+        {% endif %}
+    {{ recent_post.title }}
+    </a>
+    {% endspaceless %}
+</li>
 {% endfor %}
 </ul>
 {% endif %}

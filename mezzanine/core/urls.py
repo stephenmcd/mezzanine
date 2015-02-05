@@ -8,29 +8,16 @@ from mezzanine.conf import settings
 urlpatterns = []
 
 if "django.contrib.admin" in settings.INSTALLED_APPS:
+    reset_pattern = "^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$"
     urlpatterns += patterns("django.contrib.auth.views",
         url("^password_reset/$", "password_reset", name="password_reset"),
         url("^password_reset/done/$", "password_reset_done",
             name="password_reset_done"),
         url("^reset/done/$", "password_reset_complete",
             name="password_reset_complete"),
+        url(reset_pattern, "password_reset_confirm",
+            name="password_reset_confirm"),
     )
-    try:
-        from django.contrib.auth.views import password_reset_confirm_uidb36
-    except ImportError:
-        # Django < 1.6
-        urlpatterns += patterns("django.contrib.auth.views",
-            url("^reset/(?P<uidb36>[-\w]+)/(?P<token>[-\w]+)/$",
-                "password_reset_confirm", name="password_reset_confirm"),
-        )
-    else:
-        # Django >= 1.6: http://bit.ly/1dvcV4Z
-        urlpatterns += patterns("django.contrib.auth.views",
-            url("^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$",
-                "password_reset_confirm", name="password_reset_confirm"),
-            url("^reset/(?P<uidb36>[-\w]+)/(?P<token>[-\w]+)/$",
-                password_reset_confirm_uidb36),
-        )
 
 urlpatterns += patterns("mezzanine.core.views",
     url("^edit/$", "edit", name="edit"),

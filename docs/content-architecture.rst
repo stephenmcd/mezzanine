@@ -7,7 +7,7 @@ two packages, ``mezzanine.core`` and ``mezzanine.pages``. Many of
 these models are abstract, and very small in scope, and are then
 combined together as the building blocks that form the models you'll
 actually be exposed to, such as ``mezzanine.core.models.Displayable``
-and ``mezzanine.core.pages.Page``, which are the two main models you
+and ``mezzanine.pages.models.Page``, which are the two main models you
 will inherit from when building your own models for content types.
 
 Before we look at ``Displayable`` and ``Page``, here's a quick list of
@@ -315,15 +315,16 @@ instances of the ``Author`` model from our previous example, it won't
 be listed in the types of pages that user can add when viewing the
 navigation tree in the admin.
 
-In conjunction with Django's permission system, the ``Page`` model also
-implements the methods ``can_add``, ``can_change`` and ``can_delete``.
-These methods provide a way for custom page types to implement their
-own permissions by being overridden on subclasses of the ``Page``
-model.
+In conjunction with Django's permission system, the ``Page`` model
+also implements the methods ``can_add``, ``can_change``,
+``can_delete``, and ``can_move``. These methods provide a way for
+custom page types to implement their own permissions by being
+overridden on subclasses of the ``Page`` model.
 
-Each of these methods takes a single argument which is the current
-request object. This provides the ability to define custom permission
-methods with access to the current user as well.
+With the exception of ``can_move``, each of these methods takes a
+single argument which is the current request object, and return a
+Boolean. This provides the ability to define custom permission methods
+with access to the current user as well.
 
 .. note::
 
@@ -332,10 +333,31 @@ methods with access to the current user as well.
     the case with Django's permission system. In the case of a page
     instance, ``can_add`` refers to the ability to add child pages.
 
+The ``can_move`` method has a slightly different interface, as it
+needs an additional argument, which is the new parent should the move
+be completed, and an additional output, which is a message to be
+displayed when the move is denied. The message helps justify reverting
+the page to its position prior to the move, and is displayed using
+Django messages framework. Instead of a Boolean return value,
+``can_move`` raises a ``PageMoveException`` when the move is denied,
+with an optional argument representing the message to be displayed.
+In any case, ``can_move`` does not return any values.
+
+.. note::
+
+    The ``can_move`` permission can only constrain moving existing
+    pages, and is not observed when creating a new page. If you want
+    to enforce the same rules when creating pages, you need to
+    implement them explicitly through other means, such as the
+    ``save`` method of the model or the ``save_model`` method of the
+    model's admin.
+
 For example, if our ``Author`` content type should only contain one
-child page at most, and only be deletable when added as a child page
-(unless you're a superuser), the following permission methods could
-be implemented::
+child page at most, can only be deleted when added as a child page
+(unless you're a superuser), and cannot be moved to a top-level
+position, the following permission methods could be implemented::
+
+    from mezzanine.pages.models import Page, PageMoveException
 
     class Author(Page):
         dob = models.DateField("Date of birth")
@@ -345,6 +367,11 @@ be implemented::
 
         def can_delete(self, request):
             return request.user.is_superuser or self.parent is not None
+
+        def can_move(self, request, new_parent):
+            if new_parent is None:
+                msg = 'An author page cannot be a top-level page'
+                raise PageMoveException(msg)
 
 Page Menus
 ==========

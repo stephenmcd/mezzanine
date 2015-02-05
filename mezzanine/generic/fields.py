@@ -6,8 +6,10 @@ from copy import copy
 from django.conf import settings
 from django.contrib.contenttypes.generic import GenericRelation
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import get_model, IntegerField, CharField, FloatField
+from django.db.models import IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
+
+from mezzanine.utils.models import lazy_model_ops
 
 
 class BaseGenericRelation(GenericRelation):
@@ -78,23 +80,30 @@ class BaseGenericRelation(GenericRelation):
                 # contribute_to_class needs to be idempotent. We
                 # don't call get_all_field_names() which fill the app
                 # cache get_fields_with_model() is safe.
-                if name_string in [i.name for i, _ in
-                                   cls._meta.get_fields_with_model()]:
+                try:
+                    # Django >= 1.8
+                    extant_fields = cls._meta._forward_fields_map
+                except AttributeError:
+                    # Django <= 1.7
+                    extant_fields = (i.name for i in cls._meta.fields)
+                if name_string in extant_fields:
                     continue
-                if not field.verbose_name:
+                if field.verbose_name is None:
                     field.verbose_name = self.verbose_name
                 cls.add_to_class(name_string, copy(field))
             # Add a getter function to the model we can use to retrieve
             # the field/manager by name.
             getter_name = "get_%s_name" % self.__class__.__name__.lower()
             cls.add_to_class(getter_name, lambda self: name)
-            # For some unknown reason the signal won't be triggered
-            # if given a sender arg, particularly when running
-            # Cartridge with the field RichTextPage.keywords - so
-            # instead of specifying self.rel.to as the sender, we
-            # check for it inside the signal itself.
-            post_save.connect(self._related_items_changed)
-            post_delete.connect(self._related_items_changed)
+
+            def connect_save(sender):
+                post_save.connect(self._related_items_changed, sender=sender)
+
+            def connect_delete(sender):
+                post_delete.connect(self._related_items_changed, sender=sender)
+
+            lazy_model_ops.add(connect_save, self.rel.to)
+            lazy_model_ops.add(connect_delete, self.rel.to)
 
     def _related_items_changed(self, **kwargs):
         """
@@ -102,16 +111,6 @@ class BaseGenericRelation(GenericRelation):
         this field applies to, and pass the instance to the real
         ``related_items_changed`` handler.
         """
-        # Manually check that the instance matches the relation,
-        # since we don't specify a sender for the signal.
-        try:
-            to = self.rel.to
-            if isinstance(to, str):
-                to = get_model(*to.split(".", 1))
-            if not isinstance(kwargs["instance"], to):
-                raise TypeError
-        except (TypeError, ValueError):
-            return
         for_model = kwargs["instance"].content_type.model_class()
         if issubclass(for_model, self.model):
             instance_id = kwargs["instance"].object_pk
@@ -133,6 +132,13 @@ class BaseGenericRelation(GenericRelation):
         field are passed as arguments.
         """
         pass
+
+    def value_from_object(self, obj):
+        """
+        Returns the value of this field in the given model instance.
+        Needed for Django 1.7: https://code.djangoproject.com/ticket/22552
+        """
+        return getattr(obj, self.attname).all()
 
 
 class CommentsField(BaseGenericRelation):
@@ -209,12 +215,8 @@ class KeywordsField(BaseGenericRelation):
         # Convert the data into AssignedKeyword instances.
         if data:
             data = [AssignedKeyword(keyword_id=i) for i in new_ids]
-        # Remove Keyword instances than no longer have a
-        # related AssignedKeyword instance.
-        existing = AssignedKeyword.objects.filter(keyword__id__in=removed_ids)
-        existing_ids = set([str(a.keyword_id) for a in existing])
-        unused_ids = removed_ids - existing_ids
-        Keyword.objects.filter(id__in=unused_ids).delete()
+        # Remove keywords that are no longer assigned to anything.
+        Keyword.objects.delete_unused(removed_ids)
         super(KeywordsField, self).save_form_data(instance, data)
 
     def contribute_to_class(self, cls, name):

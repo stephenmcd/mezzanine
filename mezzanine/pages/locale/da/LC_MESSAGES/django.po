@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# tiktuk <tiktuk@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-15 12:45+0000\n"
+"PO-Revision-Date: 2013-11-12 17:50+0000\n"
+"Last-Translator: tiktuk <tiktuk@gmail.com>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/mezzanine/"
+"language/da/)\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: defaults.py:21
+msgid ""
+"A sequence of ``Page`` subclasses in the format ``app_label.model_name``, "
+"that controls the ordering of items in the select drop-down for adding new "
+"pages within the admin page tree interface."
+msgstr ""
+"En sekvens af ``Page`` subklasser i formatet ``app_label.model_name``, der "
+"kontrollerer rækkefølgen af elementer i den valgte drop-down for at tilføje "
+"nye sider indenfor admin page træ interfacet."
+
+#: defaults.py:31
+msgid ""
+"A sequence of templates used by the ``page_menu`` template tag. Each item in "
+"the sequence is a three item sequence, containing a unique ID for the "
+"template, a label for the template, and the template path. These templates "
+"are then available for selection when editing which menus a page should "
+"appear in. Note that if a menu template is used that doesn't appear in this "
+"setting, all pages will appear in it."
+msgstr ""
+"En sekvens af skabeloner brugt af ``page_menu`` temple tagget. Hvert element "
+"i sekvensen er en tre-elements sekvens, indeholdende en unik ID for "
+"skabelonen, et label for skabelonen, og skabelonstien. Disse skabeloner er "
+"så valgbare når det redigeres hvilke menuer en side skal vises i. Noter dog "
+"at hvis der er brugt en menuskabelon, der ikke er indeholdt i denne "
+"indstilling, så vil alle sider vises i den."
+
+#: defaults.py:40
+msgid "Top navigation bar"
+msgstr "Top navigationsbar"
+
+#: defaults.py:41
+msgid "Left-hand tree"
+msgstr "Venstre sides træ"
+
+#: defaults.py:42
+msgid "Footer"
+msgstr "Fod"
+
+#: defaults.py:48
+msgid ""
+"A sequence of IDs from the ``PAGE_MENU_TEMPLATES`` setting that defines the "
+"default menu templates selected when creating new pages. By default all menu "
+"templates are selected. Set this setting to an empty sequence to have no "
+"templates selected by default."
+msgstr ""
+"En sekvens af ID'er fra ``PAGE_MENU_TEMPLATES`` indstillingen, som definerer "
+"standard menuskabeloner, der er valgt når nye sider skabes. Som standard er "
+"alle menuskabeloner valgt. Sæt denne indstilling til en tom sekvens for ikke "
+"at have nogen skabeloner valgt som standard."
+
+#: defaults.py:59
+msgid ""
+"If ``True``, pages with ``login_required`` checked will still be listed in "
+"menus and search results, for unauthenticated users. Regardless of this "
+"setting, when an unauthenticated user accesses a page with "
+"``login_required`` checked, they'll be redirected to the login page."
+msgstr ""
+"Hvis sat til ``True``, vil sider med ``login_required`` afmærket stadig være "
+"listet i menuer og søgeresultater, for ikke-autentificerede brugere. Uanset "
+"af denne indstilling, når en ikke-autentificeret bruger tilgår en side med "
+"``login_required`` afmærket, vil de blive omdirigeret til loginsiden."
+
+#: models.py:42
+msgid "Show in menus"
+msgstr "Vis i menuer"
+
+#: models.py:45
+msgid "Login required"
+msgstr "Login påkrævet"
+
+#: models.py:46
+msgid "If checked, only logged in users can view this page"
+msgstr "Hvis afmærket kan kun brugere, der er logget ind, se denne side"
+
+#: models.py:49
+msgid "Page"
+msgstr "Side"
+
+#: models.py:50
+msgid "Pages"
+msgstr "Sider"
+
+#: models.py:282
+msgid "Rich text page"
+msgstr "Rich text side"
+
+#: models.py:283
+msgid "Rich text pages"
+msgstr "Rich text sider"
+
+#: models.py:293
+msgid "Link"
+msgstr "Link"
+
+#: models.py:294
+msgid "Links"
+msgstr "Links"
+
+#: templates/admin/pages/page/change_list.html:24
+#: templates/pages/menus/admin.html:31
+msgid "Add"
+msgstr "Tilføj"
+
+#: templates/pages/menus/breadcrumb.html:4
+#: templates/pages/menus/breadcrumb.html:10
+#: templates/pages/menus/dropdown.html:10
+#: templates/pages/menus/footer_tree.html:11
+#: templates/pages/menus/mobile.html:10 templates/pages/menus/primary.html:8
+#: templates/pages/menus/tree.html:9
+msgid "Home"
+msgstr "Hjem"
+
+#: templatetags/pages_tags.py:181
+#, fuzzy
+msgid "Could not load the model for the following page, was it removed?"
+msgstr "Kunne ikke loade modellen for den følgende side, var den fjernet?"
+
+#: templatetags/pages_tags.py:187
+msgid ""
+"An error occured with the following class. Does it subclass Page directly?"
+msgstr ""
+"En fejl er sket med den følgende klasse. Nedarver den fra Page direkte?"

@@ -1,0 +1,840 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# tiktuk <tiktuk@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-15 12:45+0000\n"
+"PO-Revision-Date: 2013-11-20 13:19+0000\n"
+"Last-Translator: tiktuk <tiktuk@gmail.com>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/mezzanine/"
+"language/da/)\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:29
+msgid "This field is required if status is set to published."
+msgstr "Feltet er påkrævet hvis status er sat til udgivet."
+
+#: admin.py:49
+msgid "Meta data"
+msgstr "Metadata"
+
+#: defaults.py:22
+msgid "Controls the ordering and grouping of the admin menu."
+msgstr "Bestemmer rækkefølgen og grupperingen af administrationsmenuen."
+
+#: defaults.py:25 models.py:322
+msgid "Content"
+msgstr "Indhold"
+
+#: defaults.py:26
+msgid "Media Library"
+msgstr "Mediebibliotek"
+
+#: defaults.py:27 templates/admin/login.html:59
+msgid "Site"
+msgstr "Side"
+
+#: defaults.py:28
+msgid "Users"
+msgstr "Brugere"
+
+#: defaults.py:34
+msgid ""
+"Controls whether or not the left-hand admin menu is collapsed by default."
+msgstr ""
+
+#: defaults.py:42
+msgid "Unregister these models from the admin."
+msgstr "Afregistrer disse modeller fra administratoren."
+
+#: defaults.py:49
+msgid "Size of thumbnail previews for image fields in the admin interface."
+msgstr "Størrelsen af thumbnail previews for billedfelter i admin interfacet."
+
+#: defaults.py:57
+msgid "Akismet API Key"
+msgstr "Akismet API nøgle"
+
+#: defaults.py:58
+msgid ""
+"Key for http://akismet.com spam filtering service. Used for filtering "
+"comments and forms."
+msgstr ""
+"Nøgle til http://akismet.com spam filter servicen. Brugt til at filtrere "
+"spam fra kommentare og formulare."
+
+#: defaults.py:66
+msgid "bit.ly access token"
+msgstr "bit.ly adgangstoken"
+
+#: defaults.py:67
+msgid "Access token for http://bit.ly URL shortening service."
+msgstr "Adgangstoken til http://bit.ly URL forkortningsservicen."
+
+#: defaults.py:74
+#, fuzzy
+msgid ""
+"Mezzanine's caching uses a technique know as mint caching. This is where the "
+"requested expiry for a cache entry is stored with the cache entry in cache, "
+"and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
+"cache get, the store expiry is checked, and if it has passed, the cache "
+"entry is set again, and no entry is returned. This tries to ensure that "
+"cache misses never occur, and if many clients were to get a cache miss at "
+"once, only one would actually need to re-generated the cache entry."
+msgstr ""
+"Mezzanines caching bruger en teknik beskrevet som \"mint caching\". Det er "
+"når det requestede udløbstidspunkt for en cache entry er gemt med cache "
+"entry'en i cachen, og ``CACHE_SET_DELAY`` lægges til det virkelige cache-"
+"tidspunkt. Når der så hentes fra cachen er store-udløbstidspunktet tjekket "
+"og hvis det er udløbet er det cachede element lagt tilbage i cachen og intet "
+"element er returneret. På den måde forsøges det at forsikre at cache misses "
+"aldrig forekommer, og hvis mange klienter skulle få et cache miss samtidigt "
+"vil kun en af dem behøve at regenerere cache entry'en."
+
+#: defaults.py:102
+msgid ""
+"A three item sequence, each containing a sequence of template tags used to "
+"render the admin dashboard."
+msgstr ""
+"En tre dels sekvens, hver indeholdene en sekvens af template tags brugt til "
+"at rendere admin oversigten."
+
+#: defaults.py:110
+msgid "Device specific template sub-directory to use as the default device."
+msgstr ""
+"Enhedsspecifik skabelon underbibliotek der skal bruges som standardenhed."
+
+#: defaults.py:118
+msgid ""
+"Mapping of device specific template sub-directory names to the sequence of "
+"strings that may be found in their user agents."
+msgstr ""
+"Mapping af enhedsspecifikke skabelonunderbiblioteksnavne til sekvenser af "
+"strenge, der kan blive fundet i deres brugeragenter."
+
+#: defaults.py:140
+msgid "If ``True``, website forms will use HTML5 features."
+msgstr "Hvis ``True``, vil website formularer bruge HTML5 features."
+
+#: defaults.py:147
+msgid ""
+"If ``True``, failures to send email will happen silently, otherwise an "
+"exception is raised. Defaults to ``settings.DEBUG``."
+msgstr ""
+
+#: defaults.py:156
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of "
+"keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
+msgstr ""
+"En sekvens af felter der vil blive injiceret ind i Mezzanines (eller et "
+"hvilket som helst andet biblioteks) modeller. Hver del af sekvensen er selv "
+"en fire-elements sekvens. De første to elementer er den punktumadskilte sti "
+"til modellen og det feltnavn, der skal tilføjes, og den punktumadskilte sti "
+"til den feltklasse, der skal bruges til feltet. Det tredje og fjerde element "
+"er en sekvens af positionelle argumenter og et dictionary af "
+"nøgleordsargumenter til brug ved skabelsen af feltinstansen. Ved "
+"specificeringen af feltklassen kan stien ``django.models.db.`` udelades for "
+"regulære Django modelfelter."
+
+#: defaults.py:171
+msgid "Google Analytics ID"
+msgstr "Google Analytics ID"
+
+#: defaults.py:172
+msgid "Google Analytics ID (http://www.google.com/analytics/)"
+msgstr "Google Analytics ID (http://www.google.com/analytics/)"
+
+#: defaults.py:179
+#, fuzzy
+msgid ""
+"A sequence mapping host names to themes, allowing different templates to be "
+"served per HTTP host. Each item in the sequence is a two item sequence, "
+"containing a host such as ``othersite.example.com``, and the name of an "
+"importable Python package for the theme. If the host is matched for a "
+"request, the templates directory inside the theme package will be first "
+"searched when loading templates."
+msgstr ""
+"En sekvens der mapper hostnames til temaer, hvilket tillader forskellige "
+"skabeloner at blive betjent per HTTP host. Hvert element i sekvensen er en "
+"to-elements sekvens indeholdende en host såsom ``side.eksempel.dk``, og "
+"navnet på en importerbar Python pakke for temaet. Hvis hosten er matchet til "
+"en request vil skabelonbiblioteket indeni temapakken blive søgt først ifbm. "
+"loadning af skabeloner."
+
+#: defaults.py:193
+msgid "If ``True``, front-end inline editing will be enabled."
+msgstr ""
+
+#: defaults.py:200
+msgid "Name of the jQuery file."
+msgstr "Navnet på jQuery filen."
+
+#: defaults.py:201
+msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
+msgstr ""
+"Navnet på jQuery filen, der findes i mezzanine/core/static/mezzanine/js/"
+
+#: defaults.py:209
+msgid "Name of the jQuery UI file."
+msgstr "Navn på jQuery UI filen."
+
+#: defaults.py:210
+msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
+msgstr ""
+"Navn på jQuery UI filen der findes i mezzanine/core/static/mezzanine/js/"
+
+#: defaults.py:218
+msgid "Max paging links"
+msgstr "Maksimum antal sidelinks."
+
+#: defaults.py:219
+msgid "Max number of paging links to display when paginating."
+msgstr "Maksimum antal sidelinks til visning under paginering."
+
+#: defaults.py:226
+msgid "Media library per site"
+msgstr "Mediebibliotek per webside"
+
+#: defaults.py:227
+msgid ""
+"If ``True``, each site will use its own directory within the filebrowser "
+"media library."
+msgstr ""
+"Hvis sat til ``True``, vil hver side bruge sin egen folder i filbrowser "
+"mediebiblioteket."
+
+#: defaults.py:235
+msgid ""
+"Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
+"admin change-list records filtered down to records owned by the current "
+"user. This setting contains a sequence of models in the format ``app_label."
+"object_name``, that when subclassing ``Ownable``, will still show all "
+"records in the admin change-list interface, regardless of the current user."
+msgstr ""
+"Modeller der nedarver fra ``Ownable`` og bruger ``OwnableAdmin`` har deres "
+"admin change-list records filtreret ned til records eget af den nuværende "
+"bruger. Denne indstilling indeholder en sekvens af modeller i formatet "
+"``app_label.object_name``, der, når nedarvet fra ``Ownable``, stadig vil "
+"vise alle records i admin change-list interfacet, ligemeget hvem den "
+"nuværende bruger er."
+
+#: defaults.py:247
+msgid ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
+msgstr ""
+"Punktumadskilt pakkesti og klassenavn på den widget, der skal bruges til "
+"``RichTextField``."
+
+#: defaults.py:255
+msgid ""
+"List of HTML tags that won't be stripped from ``RichTextField`` instances."
+msgstr ""
+"Liste af HTML tags, der ikke skal blive strippet fra ``RichTextField`` "
+"instanser."
+
+#: defaults.py:272
+msgid ""
+"List of HTML attributes that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr ""
+"Liste af HTML attributter, der ikke vil blive strippet fra ``RichTextField``."
+
+#: defaults.py:290
+msgid ""
+"List of inline CSS styles that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr ""
+"List af inline CSS styles der ikke vil blive fjernet fra ``RichTextField`` "
+"instanser."
+
+#: defaults.py:299
+#, fuzzy
+msgid ""
+"List of dotted paths to functions, called in order, on a ``RichTextField`` "
+"value before it is rendered to the template."
+msgstr ""
+"Punktumadskilt sti til den funktion, der skal kaldes med en "
+"``RichTextField`` værdi før den renderes til skabelonen."
+
+#: defaults.py:309
+msgid "High"
+msgstr "Høj"
+
+#: defaults.py:310
+msgid "Low (allows video, iframe, Flash, etc)"
+msgstr "Lav (tillader video, iframe, Flash, etc.)"
+
+#: defaults.py:311
+msgid "No filtering"
+msgstr "Ingen filtrering"
+
+#: defaults.py:316
+msgid "Rich Text filter level"
+msgstr "Rich Text filter niveau"
+
+#: defaults.py:317
+msgid ""
+"*Do not change this setting unless you know what you're doing.*\n"
+"\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and "
+"attributes are stripped from the content to protect against staff members "
+"intentionally adding code that could be used to cause problems, such as "
+"changing their account to a super-user with full access to the system.\n"
+"\n"
+"This setting allows you to change the level of filtering that occurs. "
+"Setting it to low will allow certain extra tags to be permitted, such as "
+"those required for embedding video. While these tags are not the main "
+"candidates for users adding malicious code, they are still considered "
+"dangerous and could potentially be mis-used by a particularly technical "
+"user, and so are filtered out when the filtering level is set to high.\n"
+"\n"
+"Setting the filtering level to no filtering, will disable all filtering, and "
+"allow any code to be entered by staff members, including script tags."
+msgstr ""
+"*Ændr ikke denne indstilling med mindre du ved hvad du gør.*\n"
+"\n"
+"Når indhold er gemt i et Rich Text (WYSIWYG) felt, vil usikre HTML tags og "
+"attributter blive strippet fra indholdet for at beskytte mod at "
+"stabmedlemmer med vilje kan tilføje kode, der kunne give problemer, såsom at "
+"give deres brugerkonto superbrugerstatus med fuld adgang til systemet.\n"
+"\n"
+"Denne indstilling tillader dig at ændre filtreringsniveauet. At indstille "
+"det til lav vil tillade bestemte ekstra tags, såsom dem der er nødvendige "
+"for at embedde video. Selvom disse tags ikke er hovedmål for de brugere, der "
+"måtte tilføje skadelig kode, er de stadig betragtet som farlige og kunne "
+"potentielt blive misbrugt af meget tekniske brugere og er derfor "
+"bortfiltreret, når filtreringsniveauet er sat til høj.\n"
+"\n"
+"At indstille det til ingen filtrering vil fjerne al filtrering og tillade "
+"stabmedlemmer at bruge enhver kode, inklusiv script tags."
+
+#: defaults.py:340
+msgid ""
+"Sequence of models that will be provided by default as choices in the search "
+"form. Each model should be in the format ``app_label.model_name``. Only "
+"models that subclass ``mezzanine.core.models.Displayable`` should be used."
+msgstr ""
+"Sekvens af modeller der vil være tilgængelige som standard somvalgmuligheder "
+"i søgeformularen. Hver model skal være i formatet ``app_label.model_name``. "
+"Kun modeller som nedarver fra ``mezzanine.core.models.Displayable`` kan "
+"bruges."
+
+#: defaults.py:350
+msgid "Search results per page"
+msgstr "Søgeresultater per side"
+
+#: defaults.py:351
+msgid "Number of results shown in the search results page."
+msgstr "Antal resultater vist på søgeresultatsiden."
+
+#: defaults.py:358
+msgid ""
+"A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
+"this, you'll also need to manually apply it to your project's root ``urls."
+"py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-"
+"project`` command contains an example of this towards its end."
+msgstr ""
+"Et URL prefiks til at montere alle Mezzanines url patterns under. Når dette "
+"bruges er du også nødt til manuelt at sætte det i dit projekts rods ``urls."
+"py`` modul. Rod ``urls.py`` modulet lavet af Mezzanines ``mezzanine-"
+"project`` kommando indeholder et eksempel på dette i slutningen af filen."
+
+#: defaults.py:369
+msgid "Site Title"
+msgstr "Side titel"
+
+#: defaults.py:370
+msgid ""
+"Title that will display at the top of the site, and be appended to the "
+"content of the HTML title tags on every page."
+msgstr ""
+"Titel der vil blive vist i toppen af siden og blive tilføjet til indholdet "
+"af hver sides HTML title tag."
+
+#: defaults.py:378
+msgid "Tagline"
+msgstr "Tagline"
+
+#: defaults.py:379
+msgid "A tag line that will appear at the top of all pages."
+msgstr "En tagline der vil blive vist i toppen af hver side."
+
+#: defaults.py:381
+msgid "An open source content management platform."
+msgstr "En open source content management platform."
+
+#: defaults.py:386
+#, fuzzy
+msgid ""
+"Dotted Python path to the callable for converting strings into URL slugs. "
+"Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
+"ascii URLs. Change to ``django.template.defaultfilters.slugify`` to use "
+"Django's slugify function, or something of your own if required."
+msgstr ""
+"Punktumadskilt Python sti til en funktion, der konverterer tekststrenge til "
+"URL slugs. Er som standard sat til  ``mezzanine.utils.urls.slugify_unicode`` "
+"hvilket tillader ikke-ascii URL'er. Ændr til ``django.template."
+"defaultfilters.slugify`` for at bruge Djangos slugify funktion, eller din "
+"egen funktion, om nødvendigt."
+
+#: defaults.py:397
+msgid ""
+"Sequence of dotted Python paths to callable functions used for checking "
+"posted content (such as forms or comments) is spam. Each function should "
+"accept three arguments: the request object, the form object, and the URL "
+"that was posted from. Defaults to ``mezzanine.utils.views.is_spam_akismet`` "
+"which will use the http://akismet.com spam filtering service when the "
+"``AKISMET_API_KEY`` setting is configured."
+msgstr ""
+"Sekvens af punktumadskilte Python stier til funktioner brugt til at tjekke "
+"om indhold (såsom formularer eller kommentarer) er spam. Hver funktion skal "
+"tage tre argumenter: request objektet, formular objektet, og URL'en som der "
+"er skrevet fra. Standard er ``mezzanine.utils.views.is_spam_akismet`` "
+"hvilket vil bruge http://akismet.com spam filtreringsservicen når "
+"``AKISMET_API_KEY`` indstillingen er sat."
+
+#: defaults.py:410
+msgid "Enable SSL"
+msgstr "Aktiver SSL"
+
+#: defaults.py:411
+msgid ""
+"If ``True``, users will be automatically redirected to HTTPS for the URLs "
+"specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
+msgstr ""
+"Hvis sat til ``True``, vil brugere automatisk blive omdirrigeret til HTTPS "
+"for URL'erne specificeret af ``SSL_FORCE_URL_PREFIXES`` indstillingen."
+
+#: defaults.py:420
+msgid "Force Host"
+msgstr "Gennemtving host"
+
+#: defaults.py:421
+msgid ""
+"Host name that the site should always be accessed via that matches the SSL "
+"certificate."
+msgstr ""
+"Host navn som websiden altid burde blive tilgået via som matcher SSL "
+"certifikatet."
+
+#: defaults.py:439
+msgid ""
+"If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
+"will be accessible over SSL, and all other URLs will be redirected back to "
+"HTTP if accessed over HTTPS."
+msgstr ""
+"Hvis sat til ``True``, vil kun URL'er specificeret af "
+"``SSL_FORCE_URL_PREFIXES`` indstillingen blive gjort tilgængelige  over SSL, "
+"og alle andre URL'er vil blive omdirrigerede tilbage til HTTP hvis tilgået "
+"over HTTPS."
+
+#: defaults.py:449
+msgid "List of words which will be stripped from search queries."
+msgstr "List af ord, der vil blive fjernet fra søgninger."
+
+#: defaults.py:506
+msgid "Tag Cloud Sizes"
+msgstr "Tag Cloud størrelser"
+
+#: defaults.py:507
+msgid "Number of different sizes for tags when shown as a cloud."
+msgstr "Antal af forskellige størrelser for tags når vist som tag cloud."
+
+#: defaults.py:514
+msgid "Sequence of setting names available within templates."
+msgstr "Sekvens af indstillingsnavne tilgængelige fra skabeloner."
+
+#: defaults.py:530
+msgid ""
+"Directory name to store thumbnails in, that will be created relative to the "
+"original image's directory."
+msgstr ""
+"Biblioteksnavn til at gemme thumbnails i, der vil blive skabt relativt til "
+"det oprindelige billedes bibliotek."
+
+#: defaults.py:538
+msgid ""
+"URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
+"configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+msgstr ""
+"URL til JavaScript filen (relativ til ``STATIC_URL``) der håndterer "
+"konfigurering af TinyMCE når standard ``RICHTEXT_WIDGET_CLASS``'en er brugt."
+
+#: defaults.py:547
+msgid ""
+"Dict mapping file field names in the format ``app_label.model_name."
+"field_name`` to the Python dotted path to function names that will be used "
+"for the file field's ``upload_to`` argument."
+msgstr ""
+"Dict som mapper filfelt navne i formatet ``app_label.model_name.field_name`` "
+"til den Python punktumadskilte sti til funktionsnavne der vil blive brugt "
+"til filfeltets ``upload_to`` argument."
+
+#: defaults.py:563
+msgid ""
+"If ``True``, the south application will be automatically added to the "
+"``INSTALLED_APPS`` setting."
+msgstr ""
+"Hvis sat til ``True``, vil south applikationen automatisk blive tilføjet til "
+"``INSTALLED_APPS`` indstillingen."
+
+#: fields.py:47
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "Kunne ikke importere værdien af settings.RICHTEXT_WIDGET_CLASS: %s"
+
+#: forms.py:85 models.py:362
+msgid "Order"
+msgstr "Rækkefølge"
+
+#: managers.py:354 templates/index.html:4 templates/index.html.py:5
+#: templates/index.html:8 templates/search_results.html:13
+#: templates/admin/index.html:15
+msgid "Home"
+msgstr "Hjem"
+
+#: middleware.py:65
+#, python-format
+msgid ""
+"Your account is using the default password, please <a href='%s'>change it</"
+"a> immediately."
+msgstr ""
+
+#: models.py:68 models.py:116
+msgid "Title"
+msgstr "Titel"
+
+#: models.py:69
+msgid "URL"
+msgstr "URL"
+
+#: models.py:70
+msgid "Leave blank to have the URL auto-generated from the title."
+msgstr "Efterlad feltet tomt for at få URL'en autogenereret fra titlen."
+
+#: models.py:106
+msgid "View on site"
+msgstr "Se på siden"
+
+#: models.py:118
+msgid ""
+"Optional title to be used in the HTML title tag. If left blank, the main "
+"title field will be used."
+msgstr ""
+"Valgfri titel til brug i HTML title tagget. Hvis du lader den være tom vil "
+"hovedtitelfeltet blive brugt."
+
+#: models.py:120
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: models.py:121
+msgid "Generate description"
+msgstr "Generer beskrivelse"
+
+#: models.py:122
+msgid ""
+"If checked, the description will be automatically generated from content. "
+"Uncheck if you want to manually set a custom description."
+msgstr ""
+"Hvis markeret vil beskrivelsen automatisk blive genereret fra indholdet. "
+"Afmarker hvis du selv vil skrive beskrivelsen."
+
+#: models.py:125
+msgid "Keywords"
+msgstr "Nøgleord"
+
+#: models.py:201
+msgid "Draft"
+msgstr "Kladde"
+
+#: models.py:202
+msgid "Published"
+msgstr "Udgivet"
+
+#: models.py:213
+msgid "Status"
+msgstr "Status"
+
+#: models.py:215
+msgid "With Draft chosen, will only be shown for admin users on the site."
+msgstr "Vil kun blive vist til admin brugere, hvis Kladde er valgt."
+
+#: models.py:217 models.py:250
+msgid "Published from"
+msgstr "Udgivet fra"
+
+#: models.py:218
+msgid "With Published chosen, won't be shown until this time"
+msgstr "Vil ikke blive vist før dette tidspunkt, hvis Udgivet er valgt."
+
+#: models.py:220
+msgid "Expires on"
+msgstr "Udløber den"
+
+#: models.py:221
+msgid "With Published chosen, won't be shown after this time"
+msgstr "Vil ikke blive vist før efter dette tidspunkt, hvis Udgivet er valgt."
+
+#: models.py:224
+msgid "Show in sitemap"
+msgstr "Vis i sitemap"
+
+#: models.py:447 models.py:467
+msgid "Author"
+msgstr "Forfatter"
+
+#: models.py:470
+msgid "Sites"
+msgstr "Websider"
+
+#: models.py:473
+msgid "Site permission"
+msgstr "Webside tilladelse"
+
+#: models.py:474
+msgid "Site permissions"
+msgstr "Webside tilladelser"
+
+#: views.py:93
+msgid "Permission denied"
+msgstr "Tilladelse nægtet"
+
+#: views.py:121 templates/includes/search_form.html:14
+msgid "Everything"
+msgstr "Alt"
+
+#: views.py:192 templates/includes/pagination.html:7
+msgid "Page"
+msgstr "Side"
+
+#: templates/base.html:56
+msgid "Toggle Navigation"
+msgstr ""
+
+#: templates/base.html:133
+msgid "Powered by"
+msgstr "Drevet af"
+
+#: templates/base.html:136
+msgid "and"
+msgstr "og"
+
+#: templates/base.html:139
+msgid "Theme by"
+msgstr "Tema af"
+
+#: templates/base.html:142
+msgid "View Mobile Site"
+msgstr "Vis mobil side"
+
+#: templates/index.html:12
+msgid ""
+"\n"
+"<h2>Congratulations!</h2>\n"
+"<p>\n"
+"    Welcome to your new Mezzanine powered website.\n"
+"    Here are some quick links to get you started:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">Log in to the admin interface</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Creating custom page types</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">Modifying HTML templates</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
+"\">Changing this homepage</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">Other frequently asked questions</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Full list of settings</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying "
+"to a production server</a></li>\n"
+"</ul>\n"
+msgstr ""
+"\n"
+"<h2>Tillykke!</h2>\n"
+"<p>\n"
+"    Velkommen til din nye Mezzanine-drevede webside.\n"
+"    Her er et par hurtige links til at få dig i gang:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">Log ind i administrationsinterfacet</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Lav dine egne sidetyper</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">Modificer HTML skabeloner</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin\">Ændr "
+"denne startside</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">Andre ofte stillede spørgsmål</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Hele listen med indstillinger</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html"
+"\">Deployment til produktionsserver</a></li>\n"
+"</ul>\n"
+
+#: templates/search_results.html:5 templates/search_results.html.py:6
+#: templates/search_results.html:15
+msgid "Search Results"
+msgstr "Søgeresultater"
+
+#: templates/search_results.html:22
+#, python-format
+msgid ""
+"\n"
+"No results were found in %(search_type)s matching your query: %(query)s\n"
+msgstr ""
+"\n"
+"Ingen resultater fundet i %(search_type)s der matchede din søgning: "
+"%(query)s\n"
+
+#: templates/search_results.html:26
+#, python-format
+msgid ""
+"\n"
+"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
+"matching your query: %(query)s\n"
+msgstr ""
+"\n"
+"Viser %(start)s til %(end)s af %(total)s resultater i %(search_type)s "
+"matchende din søgning: %(query)s\n"
+
+#: templates/search_results.html:37
+msgid "read more"
+msgstr "læs mere"
+
+#: templates/admin/base_site.html:19
+msgid "View site"
+msgstr "Vis webside"
+
+#: templates/admin/index.html:17
+msgid "Dashboard"
+msgstr "Oversigt"
+
+#: templates/admin/login.html:24
+msgid "You don't have permission to access the admin for this site."
+msgstr ""
+"Du har ikke tilladelse til adgang til administrationen af denne webside."
+
+#: templates/admin/login.html:31
+msgid "Username or email:"
+msgstr "Brugernavn eller email:"
+
+#: templates/admin/login.html:35
+msgid "Password:"
+msgstr "Kodeord:"
+
+#: templates/admin/login.html:42
+msgid "Language"
+msgstr ""
+
+#: templates/admin/login.html:53
+msgid "Interface:"
+msgstr "Interface:"
+
+#: templates/admin/login.html:56 templates/includes/editable_toolbar.html:8
+msgid "Admin"
+msgstr "Administrator"
+
+#: templates/admin/login.html:63
+msgid "Log in"
+msgstr "Log ind"
+
+#: templates/admin/login.html:66
+msgid "Forgot password?"
+msgstr "Glemt password?"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "Tilføj"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "Ændr"
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr "Tilføj en til"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "Nylige handlinger"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "Mine handlinger"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "Ingen tilgængelige"
+
+#: templates/errors/404.html:6 templates/errors/404.html.py:10
+#: templates/errors/404.html:15
+msgid "Page not found"
+msgstr "Side ikke fundet"
+
+#: templates/errors/404.html:16
+msgid "The page you requested does not exist."
+msgstr "Siden eksisterer ikke."
+
+#: templates/errors/500.html:6 templates/errors/500.html.py:10
+#: templates/errors/500.html:15
+msgid "Error"
+msgstr "Fejl"
+
+#: templates/errors/500.html:16
+msgid "Sorry, an error occurred."
+msgstr "Beklager, der er sket en fejl."
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "Gem"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "Fortryd"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "Rediger"
+
+#: templates/includes/editable_toolbar.html:9
+msgid "Log out"
+msgstr "Log ud"
+
+#: templates/includes/form_errors.html:8
+msgid "Please correct the errors below."
+msgstr ""
+
+#: templates/includes/pagination.html:7
+msgid "of"
+msgstr "af"
+
+#: templates/includes/search_form.html:5
+msgid "Search"
+msgstr "Søg"
+
+#: templates/includes/search_form.html:26
+msgid "Go"
+msgstr "Send"

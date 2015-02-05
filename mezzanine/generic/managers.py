@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.contrib.comments.managers import CommentManager as DjangoCM
+from django_comments.managers import CommentManager as DjangoCM
 
 from mezzanine.conf import settings
 from mezzanine.core.managers import CurrentSiteManager
@@ -58,3 +58,14 @@ class KeywordManager(CurrentSiteManager):
             return self.filter(**lookup)[0], False
         except IndexError:
             return self.create(**kwargs), True
+
+    def delete_unused(self, keyword_ids=None):
+        """
+        Removes all instances that are not assigned to any object. Limits
+        processing to ``keyword_ids`` if given.
+        """
+        if keyword_ids is None:
+            keywords = self.all()
+        else:
+            keywords = self.filter(id__in=keyword_ids)
+        keywords.filter(assignments__isnull=True).delete()

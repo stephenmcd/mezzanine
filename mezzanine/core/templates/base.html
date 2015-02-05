@@ -36,7 +36,6 @@
 <script src="{% static "js/bootstrap.js" %}"></script>
 <script src="{% static "js/bootstrap-extras.js" %}"></script>
 {% block extra_js %}{% endblock %}
-{% include "includes/footer_scripts.html" %}
 {% endcompress %}
 
 <!--[if lt IE 9]>
@@ -146,6 +145,8 @@
 </div>
 </div>
 </footer>
+
+{% include "includes/footer_scripts.html" %}
 
 </body>
 </html>

@@ -2,19 +2,22 @@ from __future__ import unicode_literals
 from future.builtins import str
 
 from json import dumps
+from string import punctuation
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.messages import error
 from django.core.urlresolvers import reverse
-from django.db.models import get_model, ObjectDoesNotExist
-from django.http import HttpResponse
+from django.db.models import ObjectDoesNotExist
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.http import require_POST
 
 from mezzanine.conf import settings
 from mezzanine.generic.forms import ThreadedCommentForm, RatingForm
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.cache import add_cache_bypass
+from mezzanine.utils.models import get_model
 from mezzanine.utils.views import render, set_cookie, is_spam
 
 
@@ -26,8 +29,9 @@ def admin_keywords_submit(request):
     keywords field.
     """
     keyword_ids, titles = [], []
+    remove = punctuation.replace("-", "")  # Strip punctuation, allow dashes.
     for title in request.POST.get("text_keywords", "").split(","):
-        title = "".join([c for c in title if c.isalnum() or c in "- "]).strip()
+        title = "".join([c for c in title if c not in remove]).strip()
         if title:
             kw, created = Keyword.objects.get_or_create_iexact(title=title)
             keyword_id = str(kw.id)
@@ -67,11 +71,13 @@ def initial_validation(request, prefix):
         elif posted_session_key in request.session:
             post_data = request.session.pop(posted_session_key)
     if not redirect_url:
+        model_data = post_data.get("content_type", "").split(".", 1)
+        if len(model_data) != 2:
+            return HttpResponseBadRequest()
         try:
-            model = get_model(*post_data.get("content_type", "").split(".", 1))
-            if model:
-                obj = model.objects.get(id=post_data.get("object_pk", None))
-        except (TypeError, ObjectDoesNotExist):
+            model = get_model(*model_data)
+            obj = model.objects.get(id=post_data.get("object_pk", None))
+        except (TypeError, ObjectDoesNotExist, LookupError):
             redirect_url = "/"
     if redirect_url:
         if request.is_ajax():
@@ -81,6 +87,7 @@ def initial_validation(request, prefix):
     return obj, post_data
 
 
+@require_POST
 def comment(request, template="generic/comments.html"):
     """
     Handle a ``ThreadedCommentForm`` submission and redirect back to its
@@ -111,6 +118,7 @@ def comment(request, template="generic/comments.html"):
     return response
 
 
+@require_POST
 def rating(request):
     """
     Handle a ``RatingForm`` submission and redirect back to its
@@ -133,6 +141,9 @@ def rating(request):
             for f in ("average", "count", "sum"):
                 json["rating_" + f] = getattr(obj, "%s_%s" % (rating_name, f))
             response = HttpResponse(dumps(json))
-        ratings = ",".join(rating_form.previous + [rating_form.current])
-        set_cookie(response, "mezzanine-rating", ratings)
+        if rating_form.undoing:
+            ratings = set(rating_form.previous) ^ set([rating_form.current])
+        else:
+            ratings = rating_form.previous + [rating_form.current]
+        set_cookie(response, "mezzanine-rating", ",".join(ratings))
     return response

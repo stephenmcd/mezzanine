@@ -4,11 +4,7 @@ from django.contrib import admin
 from django.contrib.messages import info
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    # Backward compatibility for Py2 and Django < 1.5
-    from django.utils.encoding import force_unicode as force_text
+from django.utils.encoding import force_text
 
 from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm

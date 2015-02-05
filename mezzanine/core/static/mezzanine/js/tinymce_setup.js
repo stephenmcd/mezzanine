@@ -46,6 +46,9 @@ jQuery(function($) {
             external_link_list_url: '/displayable_links.js',
             relative_urls: false,
             convert_urls: false,
+            
+            // enable browser's built in spell checking
+            gecko_spellcheck: true,
 
             // callbackss
             file_browser_callback: "CustomFileBrowser",

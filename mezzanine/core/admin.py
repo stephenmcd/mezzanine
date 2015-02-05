@@ -1,8 +1,8 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
-from django.db.models import AutoField
 from django.forms import ValidationError, ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
@@ -14,7 +14,6 @@ from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
 from mezzanine.utils.urls import admin_url
-from mezzanine.utils.models import get_user_model
 
 if settings.USE_MODELTRANSLATION:
     from django.utils.datastructures import SortedDict
@@ -108,20 +107,30 @@ class BaseDynamicInlineAdmin(object):
     form = DynamicInlineAdminForm
     extra = 20
 
-    def __init__(self, *args, **kwargs):
-        super(BaseDynamicInlineAdmin, self).__init__(*args, **kwargs)
+    def get_fields(self, request, obj=None):
+        fields = super(BaseDynamicInlineAdmin, self).get_fields(request, obj)
         if issubclass(self.model, Orderable):
-            fields = self.fields
-            if not fields:
-                fields = self.model._meta.fields
-                exclude = self.exclude or []
-                fields = [f.name for f in fields if f.editable and
-                    f.name not in exclude and not isinstance(f, AutoField) and
-                    not hasattr(f, "translated_field")]
-            if "_order" in fields:
-                del fields[fields.index("_order")]
-                fields.append("_order")
-            self.fields = fields
+            fields = list(fields)
+            try:
+                fields.remove("_order")
+            except ValueError:
+                pass
+            fields.append("_order")
+        return fields
+
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super(BaseDynamicInlineAdmin, self).get_fieldsets(
+                                                            request, obj)
+        if issubclass(self.model, Orderable):
+            for fieldset in fieldsets:
+                fields = [f for f in list(fieldset[1]["fields"]) if not hasattr(f, "translated_field")]
+                try:
+                    fields.remove("_order")
+                except ValueError:
+                    pass
+                fieldset[1]["fields"] = fields
+            fieldsets[-1][1]["fields"].append("_order")
+        return fieldsets
 
 
 def getInlineBaseClass(cls):
@@ -183,7 +192,7 @@ class OwnableAdmin(admin.ModelAdmin):
             obj.user = request.user
         return super(OwnableAdmin, self).save_form(request, form, change)
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         """
         Filter the change list by currently logged in user if not a
         superuser. We also skip filtering if the model for this admin
@@ -197,7 +206,7 @@ class OwnableAdmin(admin.ModelAdmin):
         model_name = ("%s.%s" % (opts.app_label, opts.object_name)).lower()
         models_all_editable = settings.OWNABLE_MODELS_ALL_EDITABLE
         models_all_editable = [m.lower() for m in models_all_editable]
-        qs = super(OwnableAdmin, self).queryset(request)
+        qs = super(OwnableAdmin, self).get_queryset(request)
         if request.user.is_superuser or model_name in models_all_editable:
             return qs
         return qs.filter(user__id=request.user.id)

@@ -14,6 +14,8 @@
 h1 {
     font-size: 24px;
     padding: 10px 0 20px;
+    z-index: 0; /* Grappelli defines a zindex that places h1s on top
+                   of date-picker widgets, making them unclickable. */
 }
 .object-tools {
     margin: -50px 0 -35px;
@@ -233,7 +235,7 @@ form .aligned input + label + p.help {
 =======================================*/
 /* CSS Animations (used for the sliding panel) */
 .animated {
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 /* Some reasonable font sizes */
 td, th, th a, label, .help, p.help {
@@ -283,7 +285,7 @@ td, th, th a, label, .help, p.help {
     float: left;
 }
 #settings-form .module {
-    width: 50%;
+    width: 60%;
 }
 #settings-form .help {
     margin-right: 10px;
@@ -299,8 +301,11 @@ td, th, th a, label, .help, p.help {
     display: none;
 }
 .send_tweet_container {
-    margin: -27px 0 -11px 250px;
+    display: inline;
 }
-.send_tweet_container .vCheckboxLabel {
-    margin-left: 5px;
+.send_tweet_container * {
+    margin-right: -5px !important;
+    vertical-align: top;
+    top: 5px !important;
+    position: relative;
 }

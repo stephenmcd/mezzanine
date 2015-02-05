@@ -96,8 +96,8 @@ Threaded Comments
 =================
 
 Threaded comments provided by the ``mezzanine.generic`` app are an
-extension of Django's `django.contrib.comments
-<https://docs.djangoproject.com/en/dev/ref/contrib/comments/>`_ app.
+extension of Django's `django_comments
+<https://github.com/django/django-contrib-comments>`_ app.
 Mezzanine's threaded comments fundamentally extend Django's comments
 to allow for threaded conversations, where comments can be made in
 reply to other comments.

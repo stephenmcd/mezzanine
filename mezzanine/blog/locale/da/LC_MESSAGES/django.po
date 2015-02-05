@@ -1,0 +1,224 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# tiktuk <tiktuk@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-15 12:46+0000\n"
+"PO-Revision-Date: 2013-11-20 10:26+0000\n"
+"Last-Translator: tiktuk <tiktuk@gmail.com>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/mezzanine/"
+"language/da/)\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:22
+msgid "Other posts"
+msgstr "Andre posts"
+
+#: defaults.py:22
+msgid "Enable featured images in blog posts"
+msgstr "Aktiver udvalgte billeder i blog posts"
+
+#: defaults.py:37
+msgid "Blog post URL date format"
+msgstr "Blog post URL dato format"
+
+#: defaults.py:38
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+"En tekststreng indeholdende værdien ``year``, ``month``, eller ``day``, "
+"hvilket kontrollerer granulariteten af datodelen i URL'en for hver blog "
+"post. F.eks.: ``year`` vil definere URL'er i formatet /blog/yyyy/slug/, "
+"imens ``day`` vil definere URL'er med formatet /blog/yyyy/mm/dd/slug/. En "
+"tom tekststreng betyder at URL'er vil kun bruge slug'en, og ikke indeholde "
+"nogen del af datoen."
+
+#: defaults.py:50
+msgid "Blog posts per page"
+msgstr "Blog posts per side"
+
+#: defaults.py:51
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Antal blog posts vist på side med blog posts"
+
+#: defaults.py:58
+msgid "Blog posts RSS limit"
+msgstr "Blog posts RSS grænse"
+
+#: defaults.py:59
+msgid ""
+"Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
+"display all blog posts in the RSS feed."
+msgstr ""
+"Antal nylige blog posts vist i RSS feed'en. Sæt til ``None`` for at vise "
+"alle blog posts i RSS feeden."
+
+#: defaults.py:67
+msgid "Slug of the page object for the blog."
+msgstr "Slug på bloggens Page objekt"
+
+#: models.py:21 templates/blog/includes/filter_panel.html:35
+msgid "Categories"
+msgstr "Kategorier"
+
+#: models.py:23
+msgid "Allow comments"
+msgstr "Tillad kommentarer"
+
+#: models.py:25 templates/blog/blog_post_detail.html:43
+#: templates/blog/blog_post_list.html:136
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: models.py:26
+msgid "Rating"
+msgstr "Bedømmelse"
+
+#: models.py:27
+msgid "Featured Image"
+msgstr "Udvalgt billede"
+
+#: models.py:31 templates/blog/blog_post_detail.html:119
+msgid "Related posts"
+msgstr "Relaterede posts"
+
+#: models.py:36
+msgid "Blog post"
+msgstr "Blog post"
+
+#: models.py:37
+msgid "Blog posts"
+msgstr "Blog posts"
+
+#: models.py:96
+msgid "Blog Category"
+msgstr "Blog Kategori"
+
+#: models.py:97
+msgid "Blog Categories"
+msgstr "Blog kategorier"
+
+#: templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr "Kvik Blog"
+
+#: templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr "Gem kladde"
+
+#: templates/blog/blog_post_detail.html:29
+#: templates/blog/blog_post_list.html:85
+msgid "Posted by"
+msgstr "Lagt op af"
+
+#: templates/blog/blog_post_detail.html:33
+#: templates/blog/blog_post_list.html:97
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "%(sometime)s siden"
+
+#: templates/blog/blog_post_detail.html:46
+#: templates/blog/blog_post_list.html:140
+#, python-format
+msgid "%(comments_count)s comment"
+msgid_plural "%(comments_count)s comments"
+msgstr[0] "%(comments_count)s kommentar"
+msgstr[1] "%(comments_count)s kommentarer"
+
+#: templates/blog/blog_post_detail.html:74
+#: templates/blog/blog_post_list.html:121
+#: templates/blog/includes/filter_panel.html:48
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/blog/blog_post_detail.html:93
+msgid "Share on Twitter"
+msgstr "Del på Twitter"
+
+#: templates/blog/blog_post_detail.html:94
+msgid "Share on Facebook"
+msgstr "Del på Facebook"
+
+#: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/blog/blog_post_list.html:31
+msgid "Tag:"
+msgstr "Tag:"
+
+#: templates/blog/blog_post_list.html:33
+msgid "Category:"
+msgstr "Kategori:"
+
+#: templates/blog/blog_post_list.html:37
+msgid "Author:"
+msgstr "Forfatter:"
+
+#: templates/blog/blog_post_list.html:50
+msgid "Viewing posts tagged"
+msgstr "Viser posts tagget"
+
+#: templates/blog/blog_post_list.html:52
+msgid "Viewing posts for the category"
+msgstr "Viser posts i kategorien"
+
+#: templates/blog/blog_post_list.html:54
+msgid "Viewing posts from"
+msgstr "Viser posts fra"
+
+#: templates/blog/blog_post_list.html:57
+msgid "Viewing posts by"
+msgstr "Viser posts af"
+
+#: templates/blog/blog_post_list.html:91
+msgid "in"
+msgstr "i"
+
+#: templates/blog/blog_post_list.html:130
+msgid "read more"
+msgstr "læs mere"
+
+#: templates/blog/includes/filter_panel.html:6
+msgid "Recent Posts"
+msgstr "Nylige poster"
+
+#: templates/blog/includes/filter_panel.html:19
+msgid "Archive"
+msgstr "Arkiv"
+
+#: templates/blog/includes/filter_panel.html:64
+msgid "Authors"
+msgstr "Forfattere"
+
+#: templates/blog/includes/filter_panel.html:76
+msgid "Feeds"
+msgstr "Feeds"
+
+#: templates/blog/includes/filter_panel.html:78
+#: templates/blog/includes/filter_panel.html:82
+#: templates/blog/includes/filter_panel.html:86
+#: templates/blog/includes/filter_panel.html:90
+msgid "RSS"
+msgstr "RSS"
+
+#: templates/blog/includes/filter_panel.html:79
+#: templates/blog/includes/filter_panel.html:83
+#: templates/blog/includes/filter_panel.html:87
+#: templates/blog/includes/filter_panel.html:91
+msgid "Atom"
+msgstr "Atom"

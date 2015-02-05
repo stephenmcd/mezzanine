@@ -10,7 +10,9 @@ from mezzanine.conf import settings
 
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.forms import RatingForm
-from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
+from mezzanine.generic.models import (AssignedKeyword, Keyword,
+                                      ThreadedComment, Rating)
+from mezzanine.generic.views import comment
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.tests import TestCase
 
@@ -39,6 +41,28 @@ class GenericTests(TestCase):
         self.assertEqual(blog_post.rating_count, count)
         self.assertEqual(blog_post.rating_sum, _sum)
         self.assertEqual(blog_post.rating_average, average)
+
+    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
+                "blog app required")
+    def test_comment_ratings(self):
+        """
+        Test that a generic relation defined on one of Mezzanine's generic
+        models (in this case ratings of comments) correctly sets its
+        extra fields.
+        """
+        blog_post = BlogPost.objects.create(title="Post with comments",
+                                            user=self._user)
+        content_type = ContentType.objects.get_for_model(blog_post)
+        kwargs = {"content_type": content_type, "object_pk": blog_post.id,
+                  "site_id": settings.SITE_ID, "comment": "First!!!11"}
+        comment = ThreadedComment.objects.create(**kwargs)
+        comment.rating.create(value=3)
+        comment.rating.add(Rating(value=5))
+        comment = ThreadedComment.objects.get(pk=comment.pk)
+
+        self.assertEqual(len(comment.rating.all()), comment.rating_count)
+
+        self.assertEqual(comment.rating_average, 4)
 
     @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
                 "blog app required")
@@ -84,3 +108,26 @@ class GenericTests(TestCase):
         page = RichTextPage.objects.get(id=page.id)
         self.assertEqual(keywords, set(page.keywords_string.split()))
         page.delete()
+
+    def test_delete_unused(self):
+        """
+        Only ``Keyword`` instances without any assignments should be deleted.
+        """
+        assigned_keyword = Keyword.objects.create(title="assigned")
+        Keyword.objects.create(title="unassigned")
+        AssignedKeyword.objects.create(keyword_id=assigned_keyword.id,
+                                       content_object=RichTextPage(pk=1))
+        Keyword.objects.delete_unused(keyword_ids=[assigned_keyword.id])
+        self.assertEqual(Keyword.objects.count(), 2)
+        Keyword.objects.delete_unused()
+        self.assertEqual(Keyword.objects.count(), 1)
+        self.assertEqual(Keyword.objects.all()[0].id, assigned_keyword.id)
+
+    def test_comment_form_returns_400_when_missing_data(self):
+        """
+        Assert 400 status code response when expected data is missing from
+        the comment form. This simulates typical malicious bot behavior.
+        """
+        request = self._request_factory.post(reverse('comment'))
+        response = comment(request)
+        self.assertEquals(response.status_code, 400)

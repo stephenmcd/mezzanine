@@ -8,11 +8,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import (resolve, reverse, NoReverseMatch,
                                       get_script_prefix)
 from django.shortcuts import redirect
-try:
-    from django.utils.encoding import smart_text
-except ImportError:
-    # Backward compatibility for Py2 and Django < 1.5
-    from django.utils.encoding import smart_unicode as smart_text
+from django.utils.encoding import smart_text
+
 from django.utils.http import is_safe_url
 from django.utils import translation
 

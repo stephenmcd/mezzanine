@@ -5,8 +5,9 @@ from functools import reduce
 from operator import ior, iand
 from string import punctuation
 
-from django.db.models import (Manager, Q, CharField, TextField,
-                              get_models, get_model)
+from django.core.exceptions import ImproperlyConfigured
+from django.db.models import Manager, Q, CharField, TextField
+from django.db.models.loading import get_models
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
 from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
@@ -14,6 +15,7 @@ from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
+from mezzanine.utils.models import get_model
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import home_slug
 
@@ -79,7 +81,7 @@ class SearchableQuerySet(QuerySet):
         to require and exclude.
         """
 
-        #### DETERMINE FIELDS TO SEARCH ###
+        # ### DETERMINE FIELDS TO SEARCH ###
 
         # Use search_fields arg if given, otherwise use search_fields
         # initially configured by the manager class.
@@ -88,7 +90,7 @@ class SearchableQuerySet(QuerySet):
         if not self._search_fields:
             return self.none()
 
-        #### BUILD LIST OF TERMS TO SEARCH FOR ###
+        # ### BUILD LIST OF TERMS TO SEARCH FOR ###
 
         # Remove extra spaces, put modifiers inside quoted terms.
         terms = " ".join(query.split()).replace("+ ", "+")     \
@@ -120,7 +122,7 @@ class SearchableQuerySet(QuerySet):
         else:
             self._search_terms.update(positive_terms)
 
-        #### BUILD QUERYSET FILTER ###
+        # ### BUILD QUERYSET FILTER ###
 
         # Create the queryset combining each set of terms.
         excluded = [reduce(iand, [~Q(**{"%s__icontains" % f: t[1:]}) for f in
@@ -205,7 +207,7 @@ class SearchableManager(Manager):
     def get_search_fields(self):
         """
         Returns the search field names mapped to weights as a dict.
-        Used in ``get_query_set`` below to tell ``SearchableQuerySet``
+        Used in ``get_queryset`` below to tell ``SearchableQuerySet``
         which search fields to use. Also used by ``DisplayableAdmin``
         to populate Django admin's ``search_fields`` attribute.
 
@@ -237,7 +239,7 @@ class SearchableManager(Manager):
             search_fields = search_fields_to_dict(search_fields)
         return search_fields
 
-    def get_query_set(self):
+    def get_queryset(self):
         search_fields = self.get_search_fields()
         return SearchableQuerySet(self.model, search_fields=search_fields)
 
@@ -271,10 +273,22 @@ class SearchableManager(Manager):
             # as ``Page``, so we check the parent class list of each
             # model when determining whether a model falls within the
             # ``SEARCH_MODEL_CHOICES`` setting.
-            search_choices = set([get_model(*name.split(".", 1)) for name in
-                                  settings.SEARCH_MODEL_CHOICES])
+            search_choices = set()
             models = set()
             parents = set()
+            errors = []
+            for name in settings.SEARCH_MODEL_CHOICES:
+                try:
+                    model = get_model(*name.split(".", 1))
+                except LookupError:
+                    errors.append(name)
+                else:
+                    search_choices.add(model)
+            if errors:
+                raise ImproperlyConfigured("Could not load the model(s) "
+                        "%s defined in the 'SEARCH_MODEL_CHOICES' setting."
+                        % ", ".join(errors))
+
             for model in get_models():
                 # Model is actually a subclasses of what we're
                 # searching (eg Displayabale)
@@ -305,7 +319,7 @@ class SearchableManager(Manager):
             try:
                 queryset = model.objects.published(for_user=user)
             except AttributeError:
-                queryset = model.objects.get_query_set()
+                queryset = model.objects.get_queryset()
             all_results.extend(queryset.search(*args, **kwargs))
         return sorted(all_results, key=lambda r: r.result_count, reverse=True)
 
@@ -325,15 +339,16 @@ class CurrentSiteManager(DjangoCSM):
         self.__field_name = field_name
         self.__is_validated = False
 
-    def get_query_set(self):
+    def get_queryset(self):
         if not self.__is_validated:
             try:
                 # Django <= 1.6
                 self._validate_field_name()
             except AttributeError:
-                pass
+                # Django >= 1.7: will populate "self.__field_name".
+                self._get_field_name()
         lookup = {self.__field_name + "__id__exact": current_site_id()}
-        return super(DjangoCSM, self).get_query_set().filter(**lookup)
+        return super(DjangoCSM, self).get_queryset().filter(**lookup)
 
 
 class DisplayableManager(CurrentSiteManager, PublishedManager,

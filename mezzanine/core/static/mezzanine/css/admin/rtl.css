@@ -10,9 +10,50 @@
 
 /* global */
 
-.dropdown-menu li {
+#side-panel {
+    left: auto;
+    right: 0;
+}
+
+.dropdown-menu {
     float: right;
-    padding: 7px 0 0 23px;
+}
+
+#side-panel-toggle {
+    float: left;
+}
+
+.dropdown-menu.hidden {
+    margin-left: auto;
+    margin-right: -207px;
+}
+
+#content {
+    margin: 60px 235px 60px 10px !important;
+}
+
+#content.full {
+    margin-left: auto;
+    margin-right: 22px !important;
+}
+
+ul.messagelist {
+    margin-left: 0;
+    margin-right: 224px;
+}
+
+.messagelist.full {
+    margin-left: 0;
+    margin-right: 17px;
+}
+
+.dropdown-menu .selected, .dropdown-menu-menu > li > a:hover {
+    border-left: none;
+    margin-left: 0;
+    padding-left: 0;
+    border-right: 10px solid #666;
+    margin-right: -20px;
+    padding-right: 10px;
 }
 
 .dropdown-menu form {
@@ -45,6 +86,10 @@
     margin-left: 10px;
 }
 
+.multicheckbox li label {
+    white-space: nowrap; /* workaround for chrome to prevent line breaks */
+}
+
 .multicheckbox input {
     margin: -1px 0 0 6px;
 }
@@ -55,11 +100,22 @@ fieldset .field-box {
 }
 
 .change-form div.submit-row {
+    left: 0;
+    right: 216px;
     text-align: left;
+}
+
+.change-form .full .submit-row, .full #settings-form .submit-row {
+    left: 0;
+    right: 9px;
 }
 
 input.interface {
     margin: 0 0 0 5px;
+}
+
+form .aligned input + label + p.help {
+    margin: 2px 152px 0 0  !important;
 }
 
 /* page tree */
