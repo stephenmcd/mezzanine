@@ -142,7 +142,7 @@ class Command(NoArgsCommand):
     def translation_fields(self):
         try:
             from modeltranslation.management.commands \
-                    import update_translation_fields
+                    import update_translation_fields as update_fields
         except ImportError:
             return
         update = self.confirm(
@@ -151,4 +151,4 @@ class Command(NoArgsCommand):
             "i18n.\nWould you like to update translation "
             "fields from the default ones? (yes/no): ")
         if update:
-            update_translation_fields.Command().execute(verbosity=self.verbosity)
+            update_fields.Command().execute(verbosity=self.verbosity)
