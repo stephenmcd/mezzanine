@@ -123,7 +123,8 @@ class BaseDynamicInlineAdmin(object):
                                                             request, obj)
         if issubclass(self.model, Orderable):
             for fieldset in fieldsets:
-                fields = [f for f in list(fieldset[1]["fields"]) if not hasattr(f, "translated_field")]
+                fields = [f for f in list(fieldset[1]["fields"])
+                          if not hasattr(f, "translated_field")]
                 try:
                     fields.remove("_order")
                 except ValueError:
