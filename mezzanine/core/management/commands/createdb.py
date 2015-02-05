@@ -151,4 +151,4 @@ class Command(NoArgsCommand):
             "i18n.\nWould you like to update translation "
             "fields from the default ones? (yes/no): ")
         if update:
-            update_translation_fields.Command().execute(verbosity=verbosity)
+            update_translation_fields.Command().execute(verbosity=self.verbosity)
