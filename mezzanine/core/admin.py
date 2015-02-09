@@ -18,8 +18,32 @@ from mezzanine.utils.urls import admin_url
 if settings.USE_MODELTRANSLATION:
     from django.utils.datastructures import SortedDict
     from django.utils.translation import activate, get_language
-    from modeltranslation.admin import (TabbedTranslationAdmin,
+    from modeltranslation.admin import (TranslationAdmin,
                                         TranslationInlineModelAdmin)
+
+    class BaseTranslationModelAdmin(TranslationAdmin):
+        """Mimic modeltranslation's TabbedTranslationAdmin but uses a
+        custom tabbed_translation_fields.js
+        """
+        class Media:
+            js = (
+                'modeltranslation/js/force_jquery.js',
+                '//ajax.googleapis.com/ajax/libs/jqueryui\
+                        /1.8.2/jquery-ui.min.js',
+                'admin/js/tabbed_translation_fields.js',
+            )
+            css = {
+                'all': ('modeltranslation/css/tabbed_translation_fields.css',),
+            }
+
+else:
+    class BaseTranslationModelAdmin(admin.ModelAdmin):
+        """
+        Abstract class used to handle the switch between translation
+        and no-translation class logic.
+        """
+        pass
+
 
 User = get_user_model()
 
@@ -33,15 +57,6 @@ class DisplayableAdminForm(ModelForm):
             raise ValidationError(_("This field is required if status "
                                     "is set to published."))
         return content
-
-
-class BaseTranslationModelAdmin(settings.USE_MODELTRANSLATION and
-        TabbedTranslationAdmin or admin.ModelAdmin):
-    """
-    Abstract class used to factorize the switch between translation
-    and no-translation class logic.
-    """
-    pass
 
 
 class DisplayableAdmin(BaseTranslationModelAdmin):
