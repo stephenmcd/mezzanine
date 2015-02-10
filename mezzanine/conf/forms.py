@@ -36,34 +36,41 @@ class SettingsForm(forms.Form):
         for name in sorted(registry.keys()):
             setting = registry[name]
             if setting["editable"]:
-                codes = [active_language]
-                if settings.USE_MODELTRANSLATION and setting["translatable"]:
-                    codes = SortedDict(settings.LANGUAGES)
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
-                for code in codes:
-                    try:
-                        activate(code)
-                    except:
-                        pass
-                    else:
-                        # refresh settings cache for each language to properly
-                        # handle initial values.
-                        settings.use_editable()
-                        kwargs = {
-                            "label": setting["label"] + ":",
-                            "required": setting["type"] in (int, float),
-                            "initial": getattr(settings, name),
-                            "help_text":
-                                self.format_help(setting["description"]),
-                        }
-                        if setting["choices"]:
-                            field_class = forms.ChoiceField
-                            kwargs["choices"] = setting["choices"]
-                        field_instance = field_class(**kwargs)
-                        self.fields[name + "/" + code] = field_instance
-                        css_class = field_class.__name__.lower()
-                        field_instance.widget.attrs["class"] = css_class
+                if settings.USE_MODELTRANSLATION and setting["translatable"]:
+                    for code in SortedDict(settings.LANGUAGES):
+                        try:
+                            activate(code)
+                        except:
+                            pass
+                        else:
+                            self._init_field(setting, field_class, name, code)
+                else:
+                    self._init_field(setting, field_class, name)
         activate(active_language)
+
+    def _init_field(self, setting, field_class, name, code=None):
+        """Initialize a field wether it is built with a
+        custom name for a specific translation language
+        or not.
+        """
+        settings.use_editable()
+        kwargs = {
+            "label": setting["label"] + ":",
+            "required": setting["type"] in (int, float),
+            "initial": getattr(settings, name),
+            "help_text": self.format_help(setting["description"]),
+        }
+        if setting["choices"]:
+            field_class = forms.ChoiceField
+            kwargs["choices"] = setting["choices"]
+        field_instance = field_class(**kwargs)
+        code_name = ('_modeltranslation_' + code if code else '')
+        self.fields[name + code_name] = field_instance
+        css_class = field_class.__name__.lower()
+        field_instance.widget.attrs["class"] = css_class
+        if code:
+            field_instance.widget.attrs["class"] += " modeltranslation"
 
     def __iter__(self):
         """
@@ -89,7 +96,7 @@ class SettingsForm(forms.Form):
         active_language = get_language()
         for (name, value) in self.cleaned_data.items():
             if name not in registry:
-                name, code = name.rsplit('/', 1)
+                name, code = name.rsplit('_modeltranslation_', 1)
             else:
                 code = None
             setting_obj, created = Setting.objects.get_or_create(name=name)

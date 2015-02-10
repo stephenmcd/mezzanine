@@ -18,7 +18,18 @@ class SettingsAdmin(admin.ModelAdmin):
     """
 
     class Media:
-        css = {"all": ("mezzanine/css/admin/settings.css",)}
+        js = (
+            'modeltranslation/js/force_jquery.js',
+            '//ajax.googleapis.com/ajax/libs/jqueryui'
+                    '/1.8.2/jquery-ui.min.js',
+            'mezzanine/js/admin/tabbed_translatable_settings.js',
+        )
+        css = {
+            'all': (
+                'modeltranslation/css/tabbed_translation_fields.css',
+                'mezzanine/css/admin/settings.css',
+            ),
+        }
 
     def changelist_redirect(self):
         changelist_url = admin_url(Setting, "changelist")
