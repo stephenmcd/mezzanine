@@ -339,7 +339,9 @@ var google, django, gettext;
                                         language.replace('_', '-') + '</option>'));
                 });
                 this.update(tabs);
-                $('#content').find('h1').append('&nbsp;').append(self.$select);
+                self.$select.css({'position': 'fixed', 'right': '25px', 'z-index': 10000});
+                $('#content').css({'position': 'relative'});
+                $('#content').prepend(self.$select);
             },
 
             update: function(tabs) {

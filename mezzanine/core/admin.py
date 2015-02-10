@@ -28,8 +28,8 @@ if settings.USE_MODELTRANSLATION:
         class Media:
             js = (
                 'modeltranslation/js/force_jquery.js',
-                '//ajax.googleapis.com/ajax/libs/jqueryui\
-                        /1.8.2/jquery-ui.min.js',
+                '//ajax.googleapis.com/ajax/libs/jqueryui'
+                        '/1.8.2/jquery-ui.min.js',
                 'admin/js/tabbed_translation_fields.js',
             )
             css = {
