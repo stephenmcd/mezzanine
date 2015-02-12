@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
-from mezzanine.utils.cache import cache_installed, cache_get, cache_set
+from mezzanine.utils.cache import (cache_key_prefix, cache_installed,
+                                   cache_get, cache_set)
 
 
 # Deprecated settings and their defaults.
@@ -35,7 +36,8 @@ def settings(request=None):
     settings_dict = None
     cache_settings = request and cache_installed()
     if cache_settings:
-        cache_key = "context-settings"
+        cache_key = (cache_key_prefix(request, ignore_device=True) +
+            "context-settings")
         settings_dict = cache_get(cache_key)
     if not settings_dict:
         settings.use_editable()
