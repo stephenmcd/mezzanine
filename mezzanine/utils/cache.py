@@ -55,6 +55,13 @@ def cache_get(key):
     return value
 
 
+def cache_delete(key):
+    """
+    Wrapper for ``cache.delete``.
+    """
+    return cache.delete(_hashed_key(key))
+
+
 def cache_installed():
     """
     Returns ``True`` if a cache backend is configured, and the
