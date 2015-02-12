@@ -11,7 +11,7 @@ var google, django, gettext;
     };
 
     jQuery(function ($) {
-        var TranslationFieldMezzanine = function (options) {
+        var TranslationField = function (options) {
             this.el = options.el;
             this.cls = options.cls;
             this.id = '';
@@ -21,7 +21,7 @@ var google, django, gettext;
 
             this.init = function () {
                 var clsBits = this.cls.substring(
-                    TranslationFieldMezzanine.cssPrefix.length, this.cls.length).split('-');
+                    TranslationField.cssPrefix.length, this.cls.length).split('-');
                 this.origFieldname = clsBits[0];
                 this.lang = clsBits[1];
                 this.id = $(this.el).attr('id');
@@ -85,9 +85,9 @@ var google, django, gettext;
 
             this.init();
         };
-        TranslationFieldMezzanine.cssPrefix = 'mt-field-';
+        TranslationField.cssPrefix = 'mt-field-';
 
-        var TranslationFieldGrouperMezzanine = function (options) {
+        var TranslationFieldGrouper = function (options) {
             this.$fields = options.$fields;
             this.groupedTranslations = {};
 
@@ -104,7 +104,7 @@ var google, django, gettext;
                  * The returned datastructure will look something like this:
                  *
                  * {
-                 *     'id_name_de': {
+                 *     'id_name': {
                  *         'en': HTMLInputElement,
                  *         'de': HTMLInputElement,
                  *         'zh_tw': HTMLInputElement
@@ -122,14 +122,14 @@ var google, django, gettext;
                  * }
                  *
                  * The keys are unique group identifiers as returned by
-                 * TranslationFieldMezzanine.buildGroupId() to handle inlines properly.
+                 * TranslationField.buildGroupId() to handle inlines properly.
                  */
                 var self = this,
-                    cssPrefix = TranslationFieldMezzanine.cssPrefix;
+                    cssPrefix = TranslationField.cssPrefix;
                 this.$fields.each(function (idx, el) {
                     $.each($(el).attr('class').split(' '), function(idx, cls) {
                         if (cls.substring(0, cssPrefix.length) === cssPrefix) {
-                            var tfield = new TranslationFieldMezzanine({el: el, cls: cls});
+                            var tfield = new TranslationField({el: el, cls: cls});
                             if (!self.groupedTranslations[tfield.groupId]) {
                                 self.groupedTranslations[tfield.groupId] = {};
                             }
@@ -143,62 +143,7 @@ var google, django, gettext;
             this.init();
         };
 
-        function createTabsMezzanine(groupedTranslations) {
-            var tabs = [];
-            $.each(groupedTranslations, function (groupId, lang) {
-                var tabsContainer = $('<div></div>'),
-                    tabsList = $('<ul></ul>'),
-                    insertionPoint;
-                tabsContainer.append(tabsList);
-                $.each(lang, function (lang, el) {
-                    var container = $(el).closest('.form-row'),
-                        label = $('label', container),
-                        fieldLabel = container.find('label'),
-                        tabId = 'tab_' + $(el).attr('id'),
-                        panel,
-                        tab;
-                    // Remove language and brackets from field label, they are
-                    // displayed in the tab already.
-                    if (fieldLabel.html()) {
-                        fieldLabel.html(fieldLabel.html().replace(/ \[.+\]/, ''));
-                    }
-                    if (!insertionPoint) {
-                        insertionPoint = {
-                            'insert': container.prev().length ? 'after' :
-                                container.next().length ? 'prepend' : 'append',
-                            'el': container.prev().length ? container.prev() : container.parent()
-                        };
-                    }
-                    container.find('script').remove();
-                    panel = $('<div id="' + tabId + '"></div>').append(container);
-                    tab = $('<li' + (label.hasClass('required') ? ' class="required"' : '') +
-                            '><a href="#' + tabId + '">' + lang.replace('_', '-') + '</a></li>');
-                    tabsList.append(tab);
-                    tabsContainer.append(panel);
-                });
-                insertionPoint.el[insertionPoint.insert](tabsContainer);
-                tabsContainer.tabs();
-                tabsContainer.find('ul').hide();
-                tabs.push(tabsContainer);
-            });
-            return tabs;
-        }
-
-        function handleAddAnotherInlineMezzanine() {
-            // TODO: Refactor
-            $('.mt').parents('.inline-group').not('.inline-tabular').find('.add-row a').click(function () {
-                var grouper = new TranslationFieldGrouperMezzanine({
-                    $fields: $(this).parent().prev().prev().find('.mt')
-                });
-                var tabs = createTabsMezzanine(grouper.groupedTranslations);
-                // Update the main switch as it is not aware of the newly created tabs
-                MainSwitchMezzanine.update(tabs);
-                // Activate the language tab selected in the main switch
-                MainSwitchMezzanine.activateTab(tabs);
-            });
-        }
-
-        var TabularInlineGroupMezzanine = function (options) {
+        var TabularInlineGroup = function (options) {
             this.$el = options.el;
             this.$table = null;
             this.translationColumns = [];
@@ -208,7 +153,7 @@ var google, django, gettext;
             };
 
             this.getAllGroupedTranslations = function () {
-                var grouper = new TranslationFieldGrouperMezzanine({
+                var grouper = new TranslationFieldGrouper({
                     $fields: this.$table.find('.mt').filter(
                         'input:visible, textarea:visible, select:visible')
                 });
@@ -217,7 +162,7 @@ var google, django, gettext;
             };
 
             this.getGroupedTranslations = function ($fields) {
-                var grouper = new TranslationFieldGrouperMezzanine({
+                var grouper = new TranslationFieldGrouper({
                     $fields: $fields
                 });
                 return grouper.groupedTranslations;
@@ -227,13 +172,11 @@ var google, django, gettext;
                 var self = this;
                 // The table header requires special treatment. In case an inline
                 // is declared with extra=0, the translation fields are not visible.
-                var thGrouper = new TranslationFieldGrouperMezzanine({
+                var thGrouper = new TranslationFieldGrouper({
                     $fields: this.$table.find('.mt').filter('input, textarea, select')
                 });
                 this.translationColumns = this.getTranslationColumns(thGrouper.groupedTranslations);
 
-                // The markup of tabular inlines is kinda weird. There is an additional
-                // leading td.original per row, so we have one td more than ths.
                 this.$table.find('.legend .form-cell').each(function (idx) {
                     // Hide table heads from which translation fields have been moved out.
                     if($.inArray(idx + 1, self.translationColumns) !== -1) {
@@ -269,135 +212,59 @@ var google, django, gettext;
             this.init();
         };
 
-        function handleTabularAddAnotherInlineMezzanine(tabularInlineGroup) {
-            tabularInlineGroup.$table.find('.add-row a').click(function () {
-                var tabs = createTabularTabsMezzanine(
-                    tabularInlineGroup.getGroupedTranslations(
-                        $(this).parent().parent().prev().prev().find('.mt')));
-                // Update the main switch as it is not aware of the newly created tabs
-                MainSwitchMezzanine.update(tabs);
-                // Activate the language tab selected in the main switch
-                MainSwitchMezzanine.activateTab(tabs);
-            });
-        }
-
-        function createTabularTabsMezzanine(groupedTranslations) {
-            var tabs = [];
-
+        function activateFields(groupedTranslations, activeLanguage, containerClass) {
             $.each(groupedTranslations, function (groupId, lang) {
-                var tabsContainer = $('<div class="form-cell"></div>'),
-                    tabsList = $('<ul></ul>'),
-                    insertionPoint;
-                tabsContainer.append(tabsList);
+                var activeField = null,
+                    container;
 
                 $.each(lang, function (lang, el) {
-                    var $container = $(el).closest('.form-cell'),
-                        $panel,
-                        $tab,
-                        tabId = 'tab_' + $(el).attr('id');
-                    if (!insertionPoint) {
-                        insertionPoint = {
-                            'insert': $container.prev().length ? 'after' :
-                                $container.next().length ? 'prepend' : 'append',
-                            'el': $container.prev().length ? $container.prev() : $container.parent()
-                        };
+                    var curLang = lang.replace('_', '-');
+                    if (!activeField) {
+                        activeField = el;
+                    } else {
+                        if (curLang === activeLanguage) {
+                            $(activeField).closest(containerClass).hide()
+                            activeField = el;
+                        } else {
+                            $(el).closest(containerClass).hide();
+                        }
                     }
-                    $panel = $('<div id="' + tabId + '"></div>').append($container);
-                    $container.removeClass('form-cell');
-
-                    // TODO: Setting the required state based on the default field is naive.
-                    // The user might have tweaked his admin. We somehow have to keep track of the
-                    // column indexes _before_ the tds have been moved around.
-                    $tab = $('<li' + ($(el).hasClass('mt-default') ? ' class="required"' : '') +
-                             '><a href="#' + tabId + '">' + lang.replace('_', '-') + '</a></li>');
-                    tabsList.append($tab);
-                    tabsContainer.append($panel);
                 });
-                insertionPoint.el[insertionPoint.insert](tabsContainer);
-                tabsContainer.tabs();
-                tabsContainer.find('ul').hide();
-                tabs.push(tabsContainer);
+                
+                container = $(activeField).closest(containerClass).find('label');
+                if (container.html()) {
+                    container.html(container.html().replace(/ \[.+\]/, ''));
+                }
             });
-            return tabs;
         }
 
-        var MainSwitchMezzanine = {
-            languages: [],
-            $select: $('<select>'),
-
-            init: function(groupedTranslations, tabs) {
-                var self = this;
-                $.each(groupedTranslations, function (id, languages) {
-                    $.each(languages, function (lang) {
-                        if ($.inArray(lang, self.languages) < 0) {
-                            self.languages.push(lang);
-                        }
-                    });
-                });
-                $.each(this.languages, function (idx, language) {
-                    self.$select.append($('<option value="' + idx + '">' +
-                                        language.replace('_', '-') + '</option>'));
-                });
-                this.update(tabs);
-                self.$select.css({'position': 'fixed', 'right': '25px', 'z-index': 10000});
-                $('#content').css({'position': 'relative'});
-                $('#content').prepend(self.$select);
-            },
-
-            update: function(tabs) {
-                var self = this;
-                this.$select.change(function () {
-                    $.each(tabs, function (idx, tab) {
-                        try { //jquery ui => 1.10 api changed, we keep backward compatibility
-                            tab.tabs('select', parseInt(self.$select.val(), 10));
-                        } catch(e) {
-                            tab.tabs('option', 'active', parseInt(self.$select.val(), 10));
-                        }
-                    });
-                });
-            },
-
-            activateTab: function(tabs) {
-                var self = this;
-                $.each(tabs, function (idx, tab) {
-                    try { //jquery ui => 1.10 api changed, we keep backward compatibility
-                        tab.tabs('select', parseInt(self.$select.val(), 10));
-                    } catch(e) {
-                        tab.tabs('option', 'active', parseInt(self.$select.val(), 10));
-                    }
-                });
-            }
-        };
+        function getActiveLanguage(selector) {
+            $options = selector.find('option');
+            language = 'undefined';
+            $.each($options, function(idx, opt) {
+                if ($(opt).prop('selected')) {
+                    language = $(opt).attr('value').split('/')[1];
+                }
+            });
+            return language;
+        }
 
         if ($('body').hasClass('change-form')) {
-            // Group normal fields and fields in (existing) stacked inlines
-            var grouper = new TranslationFieldGrouperMezzanine({
-                $fields: $('.mt').filter(
-                    'input:visible, textarea:visible, select:visible, iframe').filter(':parents(.inline-tabular)')
-            });
-            MainSwitchMezzanine.init(grouper.groupedTranslations, createTabsMezzanine(grouper.groupedTranslations));
+            // Get active language from language selector
+            var activeLanguage = getActiveLanguage($('#id_language'));
 
-            // Note: The add another functionality in admin is injected through inline javascript,
-            // here we have to run after that (and after all other ready events just to be sure).
-            $(document).ready(function() {
-                $(window).load(function() {
-                    handleAddAnotherInlineMezzanine();
-                });
+            // Group normal fields and fields in (existing) stacked inlines
+            var grouper = new TranslationFieldGrouper({
+                $fields: $('.mt').filter('input:visible, textarea:visible, select:visible, iframe').filter(':parents(.inline-tabular)')
             });
+            activateFields(grouper.groupedTranslations, activeLanguage, '.form-row');
 
             // Group fields in (existing) tabular inlines
             $('div.inline-group.inline-tabular').each(function () {
-                var tabularInlineGroup = new TabularInlineGroupMezzanine({
+                var tabularInlineGroup = new TabularInlineGroup({
                     'el': $(this).parent()
                 });
-                MainSwitchMezzanine.update(
-                    createTabularTabsMezzanine(tabularInlineGroup.getAllGroupedTranslations()));
-
-                $(document).ready(function() {
-                    $(window).load(function() {
-                        handleTabularAddAnotherInlineMezzanine(tabularInlineGroup);
-                    });
-                });
+                activateFields(tabularInlineGroup.getAllGroupedTranslations(), activeLanguage, '.form-cell');
             });
         }
     });

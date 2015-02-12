@@ -109,6 +109,8 @@ def set_dynamic_settings(s):
         else:
             # Force i18n so we are assured that modeltranslation is active
             s["USE_I18N"] = True
+            # Force l10n so we are assured that the admin's language selector is active
+            s["USE_L10N"] = True
             append("INSTALLED_APPS", "modeltranslation")
 
     # Setup for optional apps.
