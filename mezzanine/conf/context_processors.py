@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
-from mezzanine.utils.cache import (cache_key_prefix, cache_installed,
-                                   cache_get, cache_set)
+from mezzanine.utils.cache import cache_installed, cache_get, cache_set
 
 
 # Deprecated settings and their defaults.
