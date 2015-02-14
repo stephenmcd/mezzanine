@@ -26,7 +26,7 @@ class SettingsAdmin(admin.ModelAdmin):
         )
         css = {
             'all': (
-                'modeltranslation/css/tabbed_translation_fields.css',
+                'mezzanine/css/admin/tabbed_translation_fields.css',
                 'mezzanine/css/admin/settings.css',
             ),
         }

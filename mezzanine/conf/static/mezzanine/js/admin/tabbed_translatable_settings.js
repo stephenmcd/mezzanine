@@ -6,7 +6,7 @@ var django;
     var jQuery = window.jQuery || $ || django.jQuery;
 
     jQuery(function ($) {
-        var TranslationFieldMezzanine = function (options) {
+        var TranslationField = function (options) {
             this.el = options.el;
             this.id = '';
             this.lang = '';
@@ -22,7 +22,7 @@ var django;
             this.init();
         };
 
-        var TranslationFieldGrouperMezzanine = function (options) {
+        var TranslationFieldGrouper = function (options) {
             this.$fields = options.$fields;
             this.groupedTranslations = {};
 
@@ -50,7 +50,7 @@ var django;
                  */
                 var self = this;
                 this.$fields.each(function (idx, el) {
-                      var tfield = new TranslationFieldMezzanine({el: el});
+                      var tfield = new TranslationField({el: el});
                       if (!self.groupedTranslations[tfield.groupId]) {
                           self.groupedTranslations[tfield.groupId] = {};
                       }
@@ -62,39 +62,78 @@ var django;
             this.init();
         };
 
-        function activateFields(groupedTranslations) {
-            var options = $('#id_language').find('option'),
-                language;
-            $.each(options, function(idx, opt) {
-                if ($(opt).prop('selected')) {
-                    language = $(opt).attr('value').split('/')[1];
-                }
-            });
-
+        function createTabs(groupedTranslations) {
+            var tabs = [];
             $.each(groupedTranslations, function (groupId, lang) {
-                var activeField = null;
-
+                var tabsContainer = $('<p></p>'),
+                tabsList = $('<ul></ul>'),
+                insertionPoint;
+                tabsContainer.append(tabsList);
                 $.each(lang, function (lang, el) {
-                    if (!activeField) {
-                        activeField = el;
-                    } else {
-                        if (language === lang.replace('_', '-')) {
-                            $(activeField).parent().hide();
-                            activeField = el;
-                        } else {
-                            $(el).parent().hide();
-                        }
+                    var container = $(el).parent(),
+                        divContainer = $('<div>'),
+                        label = $('label', container),
+                        fieldLabel = container.find('label'),
+                        tabId = 'tab_' + $(el).attr('id'),
+                        panel,
+                        tab;
+                    if (!insertionPoint) {
+                        insertionPoint = {
+                            'insert': container.prev().length ? 'after' : container.next().length ? 'prepend' : 'append',
+                            'el': container.prev().length ? container.prev() : container.parent()
+                        };
                     }
+                    divContainer.html(container.html());
+                    container.remove();
+                    panel = $('<div id="' + tabId + '"></div>').append(divContainer);
+                    tab = $('<li' + (label.hasClass('required') ? ' class="required"' : '') + '><a href="#' + tabId + '">' + lang.replace('_', '-') + '</a></li>');
+                    tabsList.append(tab);
+                    tabsContainer.append(panel);
                 });
+                insertionPoint.el[insertionPoint.insert](tabsContainer);
+                tabsContainer.tabs();
+                tabs.push(tabsContainer);
             });
+            return tabs;
         }
+
+        var TabsSwitcher = function (options) {
+            this.tabs = options.tabs;
+            this.switching = false;
+
+            this.init = function() {
+                var self = this;
+                $.each(tabs, function (idx, tab) {
+                    tab.on('tabsselect', self.switchAllTabsSelect);
+                    tab.on('tabsactivate', self.switchAllTabsActivate);
+                });
+            };
+
+            this.switchAllTabsSelect = function (event, ui) {
+                if (!this.switching) {
+                    this.switching = true;
+                    $.each(tabs, function (idx, tab) { tab.tabs('select', ui.index); });
+                    this.switching = false;
+                }
+            };
+            
+            this.switchAllTabsActivate = function (event, ui) {
+                if (!this.switching) {
+                    this.switching = true;
+                    $.each(tabs, function (idx, tab) { tab.tabs('option', 'active', ui.newTab.index()); });
+                    this.switching = false;
+                }
+            };
+
+            this.init();
+        };
 
         if ($('body').hasClass('change-list')) {
             // Group normal fields and fields in (existing) stacked inlines
-            var grouper = new TranslationFieldGrouperMezzanine({
+            var grouper = new TranslationFieldGrouper({
                 $fields: $('.modeltranslation').filter('input:visible, textarea:visible, select:visible, iframe')
             });
-            activateFields(grouper.groupedTranslations);
+            TabsSwitcher({ tabs: createTabs(grouper.groupedTranslations) });
         }
     });
 }());

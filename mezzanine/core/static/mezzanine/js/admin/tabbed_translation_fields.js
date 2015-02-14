@@ -20,8 +20,7 @@ var google, django, gettext;
             this.groupId = '';
 
             this.init = function () {
-                var clsBits = this.cls.substring(
-                    TranslationField.cssPrefix.length, this.cls.length).split('-');
+                var clsBits = this.cls.substring(TranslationField.cssPrefix.length, this.cls.length).split('-');
                 this.origFieldname = clsBits[0];
                 this.lang = clsBits[1];
                 this.id = $(this.el).attr('id');
@@ -57,9 +56,6 @@ var google, django, gettext;
                  *  'id_news-data2-content_type-object_id-0-1-name_zh_cn':
                  *      id_news-data2-content_type-object_id-0-1-name'
                  */
-                // TODO: We should be able to simplify this, the modeltranslation specific
-                // field classes are already build to be easily splitable, so we could use them
-                // to slice off the language code.
                 var idBits = this.id.split('-'),
                     idPrefix = 'id_' + this.origFieldname;
                 if (idBits.length === 3) {
@@ -94,7 +90,6 @@ var google, django, gettext;
             this.init = function () {
                 // Handle fields inside collapsed groups as added by zinnia
                 this.$fields = this.$fields.add('fieldset.collapse-closed .mt');
-
                 this.groupedTranslations = this.getGroupedTranslations();
             };
 
@@ -143,6 +138,44 @@ var google, django, gettext;
             this.init();
         };
 
+        function createTabs(groupedTranslations) {
+            var tabs = [];
+            $.each(groupedTranslations, function (groupId, lang) {
+                var tabsContainer = $('<div class="form-row"></div>'),
+                    tabsList = $('<ul></ul>'),
+                    insertionPoint;
+                tabsContainer.append(tabsList);
+                $.each(lang, function (lang, el) {
+                    var container = $(el).closest('.form-row'),
+                        label = $('label', container),
+                        fieldLabel = container.find('label'),
+                        tabId = 'tab_' + $(el).attr('id'),
+                        panel,
+                        tab;
+                    // Remove language and brackets from field label, they are
+                    // displayed in the tab already.
+                    if (fieldLabel.html()) {
+                        fieldLabel.html(fieldLabel.html().replace(/ \[.+\]/, ''));
+                    }
+                    if (!insertionPoint) {
+                        insertionPoint = {
+                            'insert': container.prev().length ? 'after' : container.next().length ? 'prepend' : 'append',
+                            'el': container.prev().length ? container.prev() : container.parent()
+                        };
+                    }
+                    container.find('script').remove();
+                    panel = $('<div id="' + tabId + '"></div>').append(container);
+                    tab = $('<li' + (label.hasClass('required') ? ' class="required"' : '') + '><a href="#' + tabId + '">' + lang.replace('_', '-') + '</a></li>');
+                    tabsList.append(tab);
+                    tabsContainer.append(panel);
+                });
+                insertionPoint.el[insertionPoint.insert](tabsContainer);
+                tabsContainer.tabs();
+                tabs.push(tabsContainer);
+            });
+            return tabs;
+        }
+
         var TabularInlineGroup = function (options) {
             this.$el = options.el;
             this.$table = null;
@@ -154,17 +187,14 @@ var google, django, gettext;
 
             this.getAllGroupedTranslations = function () {
                 var grouper = new TranslationFieldGrouper({
-                    $fields: this.$table.find('.mt').filter(
-                        'input:visible, textarea:visible, select:visible')
+                    $fields: this.$table.find('.mt').filter('input:visible, textarea:visible, select:visible')
                 });
                 this.initTable();
                 return grouper.groupedTranslations;
             };
 
             this.getGroupedTranslations = function ($fields) {
-                var grouper = new TranslationFieldGrouper({
-                    $fields: $fields
-                });
+                var grouper = new TranslationFieldGrouper({ $fields: $fields });
                 return grouper.groupedTranslations;
             };
 
@@ -212,60 +242,124 @@ var google, django, gettext;
             this.init();
         };
 
-        function activateFields(groupedTranslations, activeLanguage, containerClass) {
+        function createTabularTabs(groupedTranslations, parentElement, index) {
+            var tabs = [],
+                tabsSwitchName = 'tabular-fake-tab-' + index,
+                tabsSwitchContainer = $('<div id="' + tabsSwitchName + '"></div>'),
+                tabsSwitchList = $('<ul>'),
+                tabsSwitchInit = true;
+            tabsSwitchContainer.append(tabsSwitchList);
+
             $.each(groupedTranslations, function (groupId, lang) {
-                var activeField = null,
-                    container;
+                var tabsContainer = $('<div class="form-cell"></div>'),
+                    tabsList = $('<ul></ul>'),
+                    insertionPoint;
+                tabsContainer.append(tabsList);
 
-                $.each(lang, function (lang, el) {
-                    var curLang = lang.replace('_', '-');
-                    if (!activeField) {
-                        activeField = el;
-                    } else {
-                        if (curLang === activeLanguage) {
-                            $(activeField).closest(containerClass).hide()
-                            activeField = el;
-                        } else {
-                            $(el).closest(containerClass).hide();
-                        }
-                    }
+              $.each(lang, function (lang, el) {
+                  var $container = $(el).closest('.form-cell'),
+                      $panel,
+                      $tab,
+                      tabId = 'tab_' + $(el).attr('id');
+                  if (!insertionPoint) {
+                      insertionPoint = {
+                          'insert': $container.prev().length ? 'after' : $container.next().length ? 'prepend' : 'append',
+                          'el': $container.prev().length ? $container.prev() : $container.parent()
+                      };
+                  }
+                  $panel = $('<div id="' + tabId + '"></div>').append($container);
+                  $container.removeClass('form-cell');
+
+                  // TODO: Setting the required state based on the default field is naive.
+                  // The user might have tweaked his admin. We somehow have to keep track of the
+                  // column indexes _before_ the tds have been moved around.
+                  $tab = $('<li' + ($(el).hasClass('mt-default') ? ' class="required"' : '') + '><a href="#' + tabId + '">' + lang.replace('_', '-') + '</a></li>');
+                  tabsList.append($tab);
+                  tabsContainer.append($panel);
+                  if (tabsSwitchInit) {
+                      var tabName = tabsSwitchName + '-' + lang.replace('_', '-');
+                      $panel = $('<div id="' + tabName + '"></div>');
+                      $tab = $('<li' + ($(el).hasClass('mt-default') ? ' class="required"' : '') + '><a href="#' + tabName + '">' + lang.replace('_', '-') + '</a></li>');
+                      tabsSwitchList.append($tab);
+                      tabsSwitchContainer.append($panel);
+                  }
+              });
+              tabsSwitchInit = false;
+
+              insertionPoint.el[insertionPoint.insert](tabsContainer);
+              tabsContainer.tabs();
+              tabsContainer.find('ul').hide();
+              tabs.push(tabsContainer);
+            });
+
+            if (tabs.length === 0) { return null; }
+            parentElement.parent().prepend(tabsSwitchContainer);
+            tabsSwitchContainer.tabs({
+                select: function (event, ui) {
+                    $.each(tabs, function(idx, tab) {
+                        tab.tabs('select', ui.index);
+                    });
+                },
+                activate: function (event, ui) {
+                    $.each(tabs, function(idx, tab) {
+                        tab.tabs('option', 'active', ui.newTab.index());
+                    });
+                }
+            });
+
+            return tabsSwitchContainer;
+        }
+
+        var TabsSwitcher = function (options) {
+            this.tabs = options.tabs;
+            this.switching = false;
+
+            this.init = function() {
+                var self = this;
+                $.each(tabs, function (idx, tab) {
+                    tab.on('tabsselect', self.switchAllTabsSelect);
+                    tab.on('tabsactivate', self.switchAllTabsActivate);
                 });
-                
-                container = $(activeField).closest(containerClass).find('label');
-                if (container.html()) {
-                    container.html(container.html().replace(/ \[.+\]/, ''));
-                }
-            });
-        }
+            };
 
-        function getActiveLanguage(selector) {
-            $options = selector.find('option');
-            language = 'undefined';
-            $.each($options, function(idx, opt) {
-                if ($(opt).prop('selected')) {
-                    language = $(opt).attr('value').split('/')[1];
+            this.switchAllTabsSelect = function (event, ui) {
+                if (!this.switching) {
+                    this.switching = true;
+                    $.each(tabs, function (idx, tab) {
+                        tab.tabs('select', ui.index);
+                    });
+                    this.switching = false;
                 }
-            });
-            return language;
-        }
+            };
+            
+            this.switchAllTabsActivate = function (event, ui) {
+                if (!this.switching) {
+                    this.switching = true;
+                    $.each(tabs, function (idx, tab) {
+                        tab.tabs('option', 'active', ui.newTab.index());
+                    });
+                    this.switching = false;
+                }
+            };
+
+            this.init();
+        };
 
         if ($('body').hasClass('change-form')) {
-            // Get active language from language selector
-            var activeLanguage = getActiveLanguage($('#id_language'));
-
             // Group normal fields and fields in (existing) stacked inlines
             var grouper = new TranslationFieldGrouper({
                 $fields: $('.mt').filter('input:visible, textarea:visible, select:visible, iframe').filter(':parents(.inline-tabular)')
             });
-            activateFields(grouper.groupedTranslations, activeLanguage, '.form-row');
+            var tabs = createTabs(grouper.groupedTranslations);
 
             // Group fields in (existing) tabular inlines
-            $('div.inline-group.inline-tabular').each(function () {
-                var tabularInlineGroup = new TabularInlineGroup({
-                    'el': $(this).parent()
-                });
-                activateFields(tabularInlineGroup.getAllGroupedTranslations(), activeLanguage, '.form-cell');
+            $('div.inline-group.inline-tabular').each(function (index) {
+                var tabularInlineGroup = new TabularInlineGroup({ 'el': $(this).parent() });
+                var tab = createTabularTabs(tabularInlineGroup.getAllGroupedTranslations(), tabularInlineGroup.$table, index);
+                if (tab) { tabs.push(tab); }
             });
+
+            TabsSwitcher({ tabs: tabs });
         }
     });
 }());

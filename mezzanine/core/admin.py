@@ -33,7 +33,7 @@ if settings.USE_MODELTRANSLATION:
                 'mezzanine/js/admin/tabbed_translation_fields.js',
             )
             css = {
-                'all': ('modeltranslation/css/tabbed_translation_fields.css',),
+                'all': ('mezzanine/css/admin/tabbed_translation_fields.css',),
             }
 
 else:
