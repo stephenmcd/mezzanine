@@ -27,10 +27,6 @@ var django;
             this.groupedTranslations = {};
 
             this.init = function () {
-                this.groupedTranslations = this.getGroupedTranslations();
-            };
-
-            this.getGroupedTranslations = function () {
                 /**
                  * Returns a grouped set of all translatable settings fields.
                  * The returned datastructure will look something like this:
@@ -50,13 +46,12 @@ var django;
                  */
                 var self = this;
                 this.$fields.each(function (idx, el) {
-                      var tfield = new TranslationField({el: el});
-                      if (!self.groupedTranslations[tfield.groupId]) {
-                          self.groupedTranslations[tfield.groupId] = {};
-                      }
-                      self.groupedTranslations[tfield.groupId][tfield.lang] = el;
+                    var tfield = new TranslationField({el: el});
+                    if (!self.groupedTranslations[tfield.groupId]) {
+                        self.groupedTranslations[tfield.groupId] = {};
+                    }
+                    self.groupedTranslations[tfield.groupId][tfield.lang] = el;
                 });
-                return this.groupedTranslations;
             };
 
             this.init();
@@ -66,8 +61,8 @@ var django;
             var tabs = [];
             $.each(groupedTranslations, function (groupId, lang) {
                 var tabsContainer = $('<p></p>'),
-                tabsList = $('<ul></ul>'),
-                insertionPoint;
+                    tabsList = $('<ul></ul>'),
+                    insertionPoint;
                 tabsContainer.append(tabsList);
                 $.each(lang, function (lang, el) {
                     var container = $(el).parent(),
@@ -104,35 +99,30 @@ var django;
             this.init = function() {
                 var self = this;
                 $.each(tabs, function (idx, tab) {
-                    tab.on('tabsselect', self.switchAllTabsSelect);
-                    tab.on('tabsactivate', self.switchAllTabsActivate);
+                    tab.on('tabsselect', self.switchAllTabs);
+                    tab.on('tabsactivate', self.switchAllTabs);
                 });
             };
 
             this.switchAllTabsSelect = function (event, ui) {
-                if (!this.switching) {
-                    this.switching = true;
-                    $.each(tabs, function (idx, tab) { tab.tabs('select', ui.index); });
-                    this.switching = false;
+                if (!switching) {
+                    switching = true;
+                    $.each(tabs, function (idx, tab) {
+                        try {
+                            tab.tabs('option', 'active', ui.newTab.index());
+                        } catch (e) {
+                            tab.tabs('select', ui.index);
+                        }
+                    });
+                    switching = false;
                 }
             };
             
-            this.switchAllTabsActivate = function (event, ui) {
-                if (!this.switching) {
-                    this.switching = true;
-                    $.each(tabs, function (idx, tab) { tab.tabs('option', 'active', ui.newTab.index()); });
-                    this.switching = false;
-                }
-            };
-
             this.init();
         };
 
         if ($('body').hasClass('change-list')) {
-            // Group normal fields and fields in (existing) stacked inlines
-            var grouper = new TranslationFieldGrouper({
-                $fields: $('.modeltranslation').filter('input:visible, textarea:visible, select:visible, iframe')
-            });
+            var grouper = new TranslationFieldGrouper({ $fields: $('.modeltranslation').filter('input, textarea, select, iframe') });
             TabsSwitcher({ tabs: createTabs(grouper.groupedTranslations) });
         }
     });

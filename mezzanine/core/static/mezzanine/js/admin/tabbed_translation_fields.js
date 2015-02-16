@@ -1,6 +1,6 @@
 /*jslint white: true, onevar: true, undef: true, nomen: true, eqeqeq: true,
   plusplus: true, bitwise: true, regexp: true, newcap: true, immed: true */
-var google, django, gettext;
+var django;
 
 (function () {
     var jQuery = window.jQuery || $ || django.jQuery;
@@ -88,12 +88,6 @@ var google, django, gettext;
             this.groupedTranslations = {};
 
             this.init = function () {
-                // Handle fields inside collapsed groups as added by zinnia
-                this.$fields = this.$fields.add('fieldset.collapse-closed .mt');
-                this.groupedTranslations = this.getGroupedTranslations();
-            };
-
-            this.getGroupedTranslations = function () {
                 /**
                  * Returns a grouped set of all model translation fields.
                  * The returned datastructure will look something like this:
@@ -132,7 +126,6 @@ var google, django, gettext;
                         }
                     });
                 });
-                return this.groupedTranslations;
             };
 
             this.init();
@@ -187,14 +180,9 @@ var google, django, gettext;
 
             this.getAllGroupedTranslations = function () {
                 var grouper = new TranslationFieldGrouper({
-                    $fields: this.$table.find('.mt').filter('input:visible, textarea:visible, select:visible')
+                    $fields: this.$table.find('.mt').filter('input, textarea, select')
                 });
                 this.initTable();
-                return grouper.groupedTranslations;
-            };
-
-            this.getGroupedTranslations = function ($fields) {
-                var grouper = new TranslationFieldGrouper({ $fields: $fields });
                 return grouper.groupedTranslations;
             };
 
@@ -317,28 +305,22 @@ var google, django, gettext;
             this.init = function() {
                 var self = this;
                 $.each(tabs, function (idx, tab) {
-                    tab.on('tabsselect', self.switchAllTabsSelect);
-                    tab.on('tabsactivate', self.switchAllTabsActivate);
+                    tab.on('tabsselect', self.switchAllTabs);
+                    tab.on('tabsactivate', self.switchAllTabs);
                 });
             };
 
-            this.switchAllTabsSelect = function (event, ui) {
-                if (!this.switching) {
-                    this.switching = true;
+            this.switchAllTabs = function (event, ui) {
+                if (!switching) {
+                    switching = true;
                     $.each(tabs, function (idx, tab) {
-                        tab.tabs('select', ui.index);
+                        try {
+                            tab.tabs('option', 'active', ui.newTab.index());
+                        } catch (e) {
+                            tab.tabs('select', ui.index);
+                        }
                     });
-                    this.switching = false;
-                }
-            };
-            
-            this.switchAllTabsActivate = function (event, ui) {
-                if (!this.switching) {
-                    this.switching = true;
-                    $.each(tabs, function (idx, tab) {
-                        tab.tabs('option', 'active', ui.newTab.index());
-                    });
-                    this.switching = false;
+                    switching = false;
                 }
             };
 
@@ -348,7 +330,7 @@ var google, django, gettext;
         if ($('body').hasClass('change-form')) {
             // Group normal fields and fields in (existing) stacked inlines
             var grouper = new TranslationFieldGrouper({
-                $fields: $('.mt').filter('input:visible, textarea:visible, select:visible, iframe').filter(':parents(.inline-tabular)')
+                $fields: $('.mt').filter('input, textarea, select, iframe').filter(':parents(.inline-tabular)')
             });
             var tabs = createTabs(grouper.groupedTranslations);
 
