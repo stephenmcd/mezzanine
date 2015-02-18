@@ -66,6 +66,7 @@ def blog_recent_posts(limit=5, tag=None, username=None, category=None):
 
     """
     blog_posts = BlogPost.objects.published().select_related("user")
+
     def title_or_slug(s):
         return Q(title=s) | Q(slug=s)
     if tag is not None:

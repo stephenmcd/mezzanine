@@ -179,6 +179,7 @@ def displayable_links_js(request, template_name="admin/displayable_links.js"):
     links = []
     if "mezzanine.pages" in settings.INSTALLED_APPS:
         from mezzanine.pages.models import Page
+
         def is_page(obj):
             return isinstance(obj, Page)
     else:

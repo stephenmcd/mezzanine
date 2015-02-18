@@ -126,6 +126,7 @@ def update_changed_requirements():
     and gets new requirements if changes have occurred.
     """
     reqs_path = join(env.proj_path, env.reqs_path)
+
     def get_reqs():
         return run("cat %s" % reqs_path, show=False)
     old_reqs = get_reqs() if env.reqs_path else ""
@@ -231,6 +232,7 @@ def upload_template_and_reload(name):
         if "%(db_pass)s" in local_data:
             env.db_pass = db_pass()
         local_data %= env
+
     def clean(s):
         return s.replace("\n", "").replace("\r", "").strip()
     if clean(remote_data) == clean(local_data):

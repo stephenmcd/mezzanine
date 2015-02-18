@@ -40,14 +40,17 @@ def set_dynamic_settings(s):
     # Moves an existing list setting value to a different position.
     def move(n, k, i):
         s[n].insert(i, s[n].pop(s[n].index(k)))
+
     # Add a value to the end of a list setting if not in the list.
     def append(n, k):
         if k not in s[n]:
             s[n].append(k)
+
     # Add a value to the start of a list setting if not in the list.
     def prepend(n, k):
         if k not in s[n]:
             s[n].insert(0, k)
+
     # Remove a value from a list setting if in the list.
     def remove(n, k):
         if k in s[n]:

@@ -597,6 +597,7 @@ def admin_app_list(request):
         })
 
     app_list = list(app_dict.values())
+
     def sort(x):
         return (x["index"] if x["index"] is not None else 999, x["name"])
     for app in app_list:

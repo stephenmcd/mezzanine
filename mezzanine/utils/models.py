@@ -213,6 +213,7 @@ class LazyModelOperations(object):
         model_key, more_models = model_keys[0], model_keys[1:]
         if more_models:
             inner_function = function
+
             def function(model):
                 return self.add(partial(inner_function, model), *more_models)
 

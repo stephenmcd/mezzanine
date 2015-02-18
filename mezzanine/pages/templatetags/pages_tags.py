@@ -48,8 +48,10 @@ def page_menu(context, token):
         except KeyError:
             user = None
             slug = ""
+
         def num_children(id):
             return lambda: len(context["menu_pages"][id])
+
         def has_children(id):
             return lambda: num_children(id)() > 0
         rel = [m.__name__.lower() for m in Page.get_content_models()]

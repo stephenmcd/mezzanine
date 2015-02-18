@@ -52,6 +52,7 @@ class SettingsForm(forms.Form):
         heading.
         """
         fields = list(super(SettingsForm, self).__iter__())
+
         def group(field):
             return field.name.split("_", 1)[0].title()
         misc = _("Miscellaneous")
