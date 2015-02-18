@@ -65,7 +65,8 @@ def create_project():
     with open(local_settings_path, "r") as f:
         data = f.read()
     with open(local_settings_path, "w") as f:
-        make_key = lambda: "%s%s%s" % (uuid4(), uuid4(), uuid4())
+        def make_key():
+            return "%s%s%s" % (uuid4(), uuid4(), uuid4())
         data = data.replace("%(SECRET_KEY)s", make_key())
         data = data.replace("%(NEVERCACHE_KEY)s", make_key())
         f.write(data)

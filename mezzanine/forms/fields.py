@@ -82,7 +82,8 @@ DATES = (DATE, DATE_TIME, DOB)
 MULTIPLE = (CHECKBOX_MULTIPLE, SELECT_MULTIPLE)
 
 # HTML5 Widgets
-html5_field = lambda name, base: type(str(""), (base,), {"input_type": name})
+def html5_field(name, base): 
+    return type(str(""), (base,), {"input_type": name})
 if getattr(settings, "FORMS_USE_HTML5", False):
     WIDGETS.update({
         DATE: html5_field("date", forms.DateInput),

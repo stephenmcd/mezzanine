@@ -31,7 +31,8 @@ class Command(BaseCommand):
         make_option('-a', '--admin', action='store_true', dest='admin',
             default=False, help="Include admin templates."),
     )
-    usage = lambda foo, bar: ("usage: %prog [appname1] [appname2] [options] "
+    def usage(foo, bar):
+        return ("usage: %prog [appname1] [appname2] [options] "
                               "\n" + Command.__doc__.rstrip())
 
     def handle(self, *apps, **options):

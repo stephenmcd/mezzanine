@@ -48,8 +48,10 @@ def page_menu(context, token):
         except KeyError:
             user = None
             slug = ""
-        num_children = lambda id: lambda: len(context["menu_pages"][id])
-        has_children = lambda id: lambda: num_children(id)() > 0
+        def num_children(id):
+            return lambda: len(context["menu_pages"][id])
+        def has_children(id):
+            return lambda: num_children(id)() > 0
         rel = [m.__name__.lower() for m in Page.get_content_models()]
         published = Page.objects.published(for_user=user).select_related(*rel)
         # Store the current page being viewed in the context. Used

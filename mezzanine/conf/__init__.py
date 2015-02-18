@@ -198,7 +198,8 @@ class Settings(object):
             return getattr(django_settings, name, setting["default"])
 
 
-mezz_first = lambda app: not app.startswith("mezzanine.")
+def mezz_first(app):
+    return not app.startswith("mezzanine.")
 for app in sorted(django_settings.INSTALLED_APPS, key=mezz_first):
     module = import_module(app)
     try:

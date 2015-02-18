@@ -1,6 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
-_ = lambda s: s  # Dummy ugettext function, see Django 1.4 docs for info.
+import os
+
+def _(s):
+    return s  # Dummy ugettext function, see Django 1.4 docs for info.
 
 
 ######################
@@ -185,8 +188,6 @@ DATABASES = {
 #########
 # PATHS #
 #########
-
-import os
 
 # Full filesystem path to the project.
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))

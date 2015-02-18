@@ -38,13 +38,20 @@ def set_dynamic_settings(s):
     """
 
     # Moves an existing list setting value to a different position.
-    move = lambda n, k, i: s[n].insert(i, s[n].pop(s[n].index(k)))
+    def move(n, k, i):
+        s[n].insert(i, s[n].pop(s[n].index(k)))
     # Add a value to the end of a list setting if not in the list.
-    append = lambda n, k: s[n].append(k) if k not in s[n] else None
+    def append(n, k):
+        if k not in s[n]:
+            s[n].append(k)
     # Add a value to the start of a list setting if not in the list.
-    prepend = lambda n, k: s[n].insert(0, k) if k not in s[n] else None
+    def prepend(n, k):
+        if k not in s[n]:
+            s[n].insert(0, k)
     # Remove a value from a list setting if in the list.
-    remove = lambda n, k: s[n].remove(k) if k in s[n] else None
+    def remove(n, k):
+        if k in s[n]:
+            s[n].remove(k)
 
     s["TEMPLATE_DEBUG"] = s.get("TEMPLATE_DEBUG", s.get("DEBUG", False))
     add_to_builtins("mezzanine.template.loader_tags")
