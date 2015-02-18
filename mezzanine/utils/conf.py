@@ -105,12 +105,15 @@ def set_dynamic_settings(s):
         try:
             __import__("modeltranslation")
         except ImportError:
-            pass
+            # django-modeltranslation is not installed, remove setting so
+            # admin won't try to import it
+            s["USE_MODELTRANSLATION"] = False
+            remove("INSTALLED_APPS", "modeltranslation")
+            warn("USE_MODETRANSLATION setting is set to True but django-"
+                    "modeltranslation is not installed. Disabling it.")
         else:
             # Force i18n so we are assured that modeltranslation is active
             s["USE_I18N"] = True
-            # Force l10n so we are assured that the admin's language selector is active
-            s["USE_L10N"] = True
             append("INSTALLED_APPS", "modeltranslation")
 
     # Setup for optional apps.
