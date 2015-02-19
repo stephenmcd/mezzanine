@@ -563,6 +563,7 @@ Sites Using Mezzanine
 * `Avaris to Avanim <https://avaristoavanim.com>`_
 * `Cognitions Coaching and Consulting <https://avaristoavanim.com>`_
 * `Foundation Engineering Group <http://fegroup.net.au>`_
+* `Hivelocity <https://www.hivelocity.net>`_
 
 
 Quotes
