@@ -36,7 +36,8 @@ def settings(request=None):
     settings_dict = None
     cache_settings = request and cache_installed()
     if cache_settings:
-        cache_key = cache_key_prefix(request) + "context-settings"
+        cache_key = (cache_key_prefix(request, ignore_device=True) +
+            "context-settings")
         settings_dict = cache_get(cache_key)
     if not settings_dict:
         settings.use_editable()
