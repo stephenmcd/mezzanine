@@ -52,7 +52,9 @@ class SettingsForm(forms.Form):
         heading.
         """
         fields = list(super(SettingsForm, self).__iter__())
-        group = lambda field: field.name.split("_", 1)[0].title()
+
+        def group(field):
+            return field.name.split("_", 1)[0].title()
         misc = _("Miscellaneous")
         groups = defaultdict(int)
         for field in fields:

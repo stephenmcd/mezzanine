@@ -89,7 +89,8 @@ def build_deploy_docs(docs_path):
 
 
 # Python complains if this is inside build_changelog which uses exec.
-_changeset_date = lambda cs: datetime.fromtimestamp(cs.date()[0])
+def _changeset_date(cs):
+    return datetime.fromtimestamp(cs.date()[0])
 
 
 def build_changelog(docs_path, package_name="mezzanine"):

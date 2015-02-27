@@ -1,7 +1,11 @@
 from __future__ import absolute_import, unicode_literals
 import os
 
-_ = lambda s: s  # Dummy ugettext function, see Django 1.4 docs for info.
+import os
+
+
+def _(s):
+    return s  # Dummy ugettext function, see Django 1.4 docs for info.
 
 
 ######################

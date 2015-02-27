@@ -138,7 +138,8 @@ def static_proxy(request):
     popup plugin template, and we then attempt to pull out the relative
     path to the file, so that we can serve it locally via Django.
     """
-    normalize = lambda u: ("//" + u.split("://")[-1]) if "://" in u else u
+    def normalize(u):
+        return ("//" + u.split("://")[-1]) if "://" in u else u
     url = normalize(request.GET["u"])
     host = "//" + request.get_host()
     static_url = normalize(settings.STATIC_URL)
@@ -178,9 +179,12 @@ def displayable_links_js(request, template_name="admin/displayable_links.js"):
     links = []
     if "mezzanine.pages" in settings.INSTALLED_APPS:
         from mezzanine.pages.models import Page
-        is_page = lambda obj: isinstance(obj, Page)
+
+        def is_page(obj):
+            return isinstance(obj, Page)
     else:
-        is_page = lambda obj: False
+        def is_page(obj):
+            return False
     # For each item's title, we use its model's verbose_name, but in the
     # case of Page subclasses, we just use "Page", and then sort the items
     # by whether they're a Page subclass or not, then by their URL.

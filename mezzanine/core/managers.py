@@ -108,8 +108,10 @@ class SearchableQuerySet(QuerySet):
         # list, then keep the stop words.
         terms_no_stopwords = [t for t in terms if t.lower() not in
             settings.STOP_WORDS]
-        get_positive_terms = lambda terms: [t.lower().strip(punctuation)
-            for t in terms if t[0:1] != "-"]
+
+        def get_positive_terms(terms):
+            return [t.lower().strip(punctuation)
+                    for t in terms if t[0:1] != "-"]
         positive_terms = get_positive_terms(terms_no_stopwords)
         if positive_terms:
             terms = terms_no_stopwords

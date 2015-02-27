@@ -213,8 +213,9 @@ class LazyModelOperations(object):
         model_key, more_models = model_keys[0], model_keys[1:]
         if more_models:
             inner_function = function
-            function = lambda model: self.add(partial(inner_function, model),
-                                              *more_models)
+
+            def function(model):
+                return self.add(partial(inner_function, model), *more_models)
 
         # If the model is already loaded, pass it to the function immediately.
         # Otherwise, delay execution until the class is prepared.

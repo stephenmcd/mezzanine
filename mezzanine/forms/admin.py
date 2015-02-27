@@ -105,8 +105,10 @@ class FormAdmin(PageAdmin):
                     queue = BytesIO()
                     delimiter = bytes(delimiter, encoding="utf-8")
                     csv = writer(queue, delimiter=delimiter)
-                    writerow = lambda row: csv.writerow([c.encode("utf-8")
-                        if hasattr(c, "encode") else c for c in row])
+
+                    def writerow(row):
+                        return csv.writerow([c.encode("utf-8")
+                            if hasattr(c, "encode") else c for c in row])
                 writerow(entries_form.columns())
                 for row in entries_form.rows(csv=True):
                     writerow(row)
