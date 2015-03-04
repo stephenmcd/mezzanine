@@ -30,6 +30,10 @@ The deployed stack consists of the following components:
   * `PostgreSQL <http://postgresql.org>`_ - database server
   * `memcached <http://memcached.org>`_ - in-memory caching server
   * `supervisord <http://supervisord.org>`_ - process control and monitor
+  * `virtualenv <https://pypi.python.org/pypi/virtualenv>`_ - isolated Python
+    environments for each project
+  * `git <http://git-scm.com/>`_ or `mercurial <http://mercurial.selenic.com/>`_
+    - version control systems (optional)
 
 .. note::
 
@@ -47,21 +51,21 @@ The deployed stack consists of the following components:
 Configuration
 -------------
 
-Configurable variables are implemented in the project's ``settings.py``
+Configurable variables are implemented in the project's ``local_settings.py``
 module. Here's an example, that leverages some existing setting names::
 
+  # Domains for public site
+  ALLOWED_HOSTS = ["example.com"]
+
   FABRIC = {
-      "SSH_USER": "", # SSH username for host deploying to
-      "HOSTS": ALLOWED_HOSTS[:1], # List of hosts to deploy to (eg, first host)
-      "DOMAINS": ALLOWED_HOSTS, # Domains for public site
-      "REPO_URL": "ssh://hg@bitbucket.org/user/project", # Project's repo URL
-      "VIRTUALENV_HOME":  "", # Absolute remote path for virtualenvs
-      "PROJECT_NAME": "", # Unique identifier for project
-      "REQUIREMENTS_PATH": "requirements.txt", # Project's pip requirements
-      "GUNICORN_PORT": 8000, # Port gunicorn will listen on
-      "LOCALE": "en_US.UTF-8", # Should end with ".UTF-8"
-      "DB_PASS": "", # Live database password
-      "ADMIN_PASS": "", # Live admin user password
+      "DEPLOY_TOOL": "rsync",  # Deploy with "git", "hg", or "rsync"
+      "SSH_USER": "server_user",  # VPS SSH username
+      "HOSTS": ["123.123.123.123"],  # The IP address of your VPS
+      "DOMAINS": ALLOWED_HOSTS,  # Edit domains in ALLOWED_HOSTS
+      "REQUIREMENTS_PATH": "requirements.txt",  # Project's pip requirements
+      "LOCALE": "en_US.UTF-8",  # Should end with ".UTF-8"
+      "DB_PASS": "",  # Live database password
+      "ADMIN_PASS": "",  # Live admin user password
       "SECRET_KEY": SECRET_KEY,
       "NEVERCACHE_KEY": NEVERCACHE_KEY,
   }
@@ -74,3 +78,52 @@ Here's the list of commands provided in a Mezzanine project's
 for more information on working with these:
 
 .. include:: fabfile.rst
+
+Tutorial
+========
+
+CASE 1: Deploying to a brand new server
+----------------------------------------
+
+1. Get your sever. Anything that grants you root access works. VPS's like those
+   from Digital Ocean work great and are cheap.
+2. Fill the ``ALLOWED_HOSTS`` and ``FABRIC`` settings in ``local_settings.py``
+   as shown in the `Configuration`_ section above. For ``SSH_USER`` provide any
+   username you want (not root), and the fabfile will create it for you.
+3. Run ``fab secure``. You simply need to know the root password to your VPS.
+   The new user will be created and you can SSH with that from now on (if
+   needed). For security reason, root login via SSH is disabled by this task.
+4. Run ``fab all``. It will take a while to install the required environment,
+   but after that, your Mezzanine site will be live.
+
+Notice that not even once you had to manually SSH into your VPS. *Note: some
+server providers (like Digital Ocean) require you to login as root once to
+change the default password. It should be the only time you are required to SSH
+into the sever.*
+
+CASE 2: Deploying to an existing server
+---------------------------------------
+
+If you already have a server, and you already have created a non-root user with
+sudo privileges:
+
+1. Fill the ``ALLOWED_HOSTS`` and ``FABRIC`` settings in ``local_settings.py``
+   as shown in the `Configuration`_ section above. For ``SSH_USER`` provide the
+   user with sudo privileges.
+2. Run ``fab install`` to install system-wide requirements.
+3. Run ``fab deploy`` to deploy your project.
+   
+Deploying more than one site to the server
+------------------------------------------
+
+After you have completed your first deployment, for all subsequent deployments
+in the same server (either new sites or updates to your existing sites) you only
+need to run ``fab deploy``.
+
+Fixing bugs pushed by accident to the server
+--------------------------------------------
+
+1. Run ``fab rollback``. This will roll back your project files, database, and
+   static files to how they were in the last (working) deployment.
+2. Work on the fixes in your development machine.
+3. Run ``fab deploy`` to push your fixes to production.
