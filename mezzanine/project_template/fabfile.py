@@ -364,12 +364,15 @@ def python(code, show=True):
     """
     Runs Python code in the project's virtual environment, with Django loaded.
     """
-    setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';"
+    # Handle environment variable and special case for Django >= 1.7
+    setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';" \
+            "import django;" \
+            "django.setup() if django.VERSION[1] >= 7 else None;"
     full_code = 'python -c "%s%s"' % (setup, code.replace("`", "\\\`"))
     with project():
-        result = run(full_code, show=False)
         if show:
             print_command(code)
+        result = run(full_code, show=False)
     return result
 
 
