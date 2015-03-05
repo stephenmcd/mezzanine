@@ -6,7 +6,6 @@ from collections import defaultdict
 from django.utils.importlib import import_module
 from django.utils.module_loading import module_has_submodule
 
-from mezzanine.conf import settings
 from mezzanine.pages.models import Page
 from mezzanine.utils.models import get_model
 from mezzanine.utils.importing import get_app_name_list
