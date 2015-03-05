@@ -46,11 +46,11 @@ class Command(NoArgsCommand):
         mapping = [
             [self.create_site, ["django.contrib.sites"]],
             [self.create_user, ["django.contrib.auth"]],
+            [self.translation_fields, ["modeltranslation"]],
             [self.create_pages, ["mezzanine.pages", "mezzanine.forms",
                                  "mezzanine.blog", "mezzanine.galleries"]],
             [self.create_shop, ["cartridge.shop"]],
             [self.fake_migrations, ["south"]],
-            [self.translation_fields, ["modeltranslation"]],
         ]
 
         for func, apps in mapping:
@@ -142,7 +142,8 @@ class Command(NoArgsCommand):
     def translation_fields(self):
         try:
             from modeltranslation.management.commands \
-                    import update_translation_fields as update_fields
+                    import (update_translation_fields as update_fields,
+                            sync_translation_fields as create_fields)
         except ImportError:
             return
         update = self.confirm(
@@ -151,4 +152,5 @@ class Command(NoArgsCommand):
             "i18n.\nWould you like to update translation "
             "fields from the default ones? (yes/no): ")
         if update:
+            create_fields.Command().execute(verbosity=self.verbosity, interactive=False)
             update_fields.Command().execute(verbosity=self.verbosity)
