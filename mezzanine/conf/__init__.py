@@ -202,11 +202,15 @@ class Settings(object):
 
 mezz_first = lambda app: not app.startswith("mezzanine.")
 for app in sorted(django_settings.INSTALLED_APPS, key=mezz_first):
-    module = import_module(app)
     try:
-        import_module("%s.defaults" % app)
-    except:
-        if module_has_submodule(module, "defaults"):
-            raise
+        module = import_module(app)
+    except ImportError:
+        pass
+    else:
+        try:
+            import_module("%s.defaults" % app)
+        except:
+            if module_has_submodule(module, "defaults"):
+                raise
 
 settings = Settings()

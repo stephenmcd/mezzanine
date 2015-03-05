@@ -51,6 +51,13 @@ page, we would define the following in ``authors.defaults``::
         default=10,
     )
 
+.. note::
+
+    If you are using Django 1.7 or greater and your app is included in your
+    INSTALLED_APPS as an AppConfig (eg authors.apps.MyCrazyConfig), Mezzanine
+    won't import your defaults.py automatically. Instead you must import it
+    manually in your AppConfig's ready() method.
+
 Reading Settings
 ================
 
