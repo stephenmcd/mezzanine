@@ -561,8 +561,11 @@ Sites Using Mezzanine
 * `The Entrepreneurial School <http://theentrepreneurialschool.com/>`_
 * `Wednesday Martin <http://wednesdaymartin.com/>`_
 * `Avaris to Avanim <https://avaristoavanim.com>`_
-* `Cognitions Coaching and Consulting <https://avaristoavanim.com>`_
+* `Cognitions Coaching and Consulting <http://www.cognitionscoachingandconsulting.com>`_
 * `Foundation Engineering Group <http://fegroup.net.au>`_
+* `Hivelocity <https://www.hivelocity.net>`_
+* `Zooply <http://zoop.ly>`_
+* `Oceana Technologies <http://oceanatech.com>`_
 
 
 Quotes
@@ -654,7 +657,7 @@ Quotes
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`Bootstrap CSS guidelines`: https://github.com/twbs/bootstrap/blob/master/CONTRIBUTING.md#css
-.. _`Transiflex`: https://www.transifex.net/projects/p/mezzanine/
+.. _`Transiflex`: https://www.transifex.com/projects/p/mezzanine/
 .. _`Mezzanine Grid on djangopackages.com`: http://www.djangopackages.com/grids/g/mezzanine/
 .. _`Django's internationalization`: https://docs.djangoproject.com/en/dev/topics/i18n/translation/
 .. _`Python Software Foundation`: http://www.python.org/psf/

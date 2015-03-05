@@ -49,6 +49,9 @@ IGNORE_ERRORS = (
     # Actually a Python template file.
     "live_settings.py",
 
+    # lambdas are OK.
+    "do not assign a lambda",
+
 )
 
 

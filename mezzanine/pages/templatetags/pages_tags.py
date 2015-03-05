@@ -56,7 +56,8 @@ def page_menu(context, token):
         # for comparisons in page.set_menu_helpers.
         if "page" not in context:
             try:
-                context["_current_page"] = published.get(slug=slug)
+                context["_current_page"] = published.exclude(
+                    content_model="link").get(slug=slug)
             except Page.DoesNotExist:
                 context["_current_page"] = None
         elif slug:

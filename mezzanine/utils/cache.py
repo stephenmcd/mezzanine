@@ -55,6 +55,13 @@ def cache_get(key):
     return value
 
 
+def cache_delete(key):
+    """
+    Wrapper for ``cache.delete``.
+    """
+    return cache.delete(_hashed_key(key))
+
+
 def cache_installed():
     """
     Returns ``True`` if a cache backend is configured, and the
@@ -67,16 +74,20 @@ def cache_installed():
     )).issubset(set(settings.MIDDLEWARE_CLASSES))
 
 
-def cache_key_prefix(request):
+def cache_key_prefix(request, ignore_device=False):
     """
     Cache key for Mezzanine's cache middleware. Adds the current
-    device and site ID.
+    device and site ID, unless ignore_device is True in which case
+    it will only add the current site ID.
     """
-    cache_key = "%s.%s.%s." % (
+    cache_key = "%s.%s." % (
         settings.CACHE_MIDDLEWARE_KEY_PREFIX,
         current_site_id(),
-        device_from_request(request) or "default",
     )
+
+    if not ignore_device:
+        cache_key += (device_from_request(request) or "default") + "."
+
     return _i18n_cache_key_suffix(request, cache_key)
 
 

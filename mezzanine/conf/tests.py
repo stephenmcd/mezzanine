@@ -40,8 +40,8 @@ class ConfTests(TestCase):
         for conn in connections.all():
             # If using in-memory sqlite databases, pass the connections to
             # the server thread.
-            if (conn.vendor == 'sqlite'
-                    and conn.settings_dict['NAME'] == ':memory:'):
+            if (conn.vendor == 'sqlite' and
+                    conn.settings_dict['NAME'] == ':memory:'):
                 # Explicitly enable thread-shareability for this connection
                 conn._old_allow_thread_sharing = conn.allow_thread_sharing
                 conn.allow_thread_sharing = True

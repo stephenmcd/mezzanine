@@ -1,1 +1,3 @@
+# Poll Twitter every 5 minutes
+# Comment-out if you don't use Mezzanine's Twitter app
 */5 * * * * %(user)s %(manage)s poll_twitter
