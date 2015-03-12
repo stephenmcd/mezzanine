@@ -305,7 +305,11 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
                              settings.THUMBNAILS_DIR_NAME, image_name)
     if not os.path.exists(thumb_dir):
-        os.makedirs(thumb_dir)
+        try:
+            os.makedirs(thumb_dir)
+        except OSError:
+            pass
+
     thumb_path = os.path.join(thumb_dir, thumb_name)
     thumb_url = "%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
                               quote(image_name.encode("utf-8")),
