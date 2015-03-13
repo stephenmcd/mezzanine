@@ -27,8 +27,12 @@ def get_auth_settings():
     """
     from mezzanine.conf import settings
     settings.use_editable()
-    auth_settings = (settings.TWITTER_CONSUMER_KEY,
-                     settings.TWITTER_CONSUMER_SECRET,
-                     settings.TWITTER_ACCESS_TOKEN_KEY,
-                     settings.TWITTER_ACCESS_TOKEN_SECRET)
-    return auth_settings if all(auth_settings) else None
+    try:
+        auth_settings = (settings.TWITTER_CONSUMER_KEY,
+                         settings.TWITTER_CONSUMER_SECRET,
+                         settings.TWITTER_ACCESS_TOKEN_KEY,
+                         settings.TWITTER_ACCESS_TOKEN_SECRET)
+    except AttributeError:
+        return None
+    else:
+        return auth_settings if all(auth_settings) else None
