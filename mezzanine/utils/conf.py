@@ -170,6 +170,13 @@ def set_dynamic_settings(s):
         # races for configuration.
         move("INSTALLED_APPS", "debug_toolbar", 0)
 
+    # Ensure mezzanine.pages falls before any apps that subclass the
+    # Page model, otherwise modeltranslation doesn't work. To simplify
+    # things, we don't actually check for Page subclasses, and just
+    # force the pages app to the top.
+    if "mezzanine.pages" in s["INSTALLED_APPS"]:
+        move("INSTALLED_APPS", "mezzanine.pages", 0)
+
     # If compressor installed, ensure it's configured and make
     # Mezzanine's settings available to its offline context,
     # since jQuery is configured via a setting.
