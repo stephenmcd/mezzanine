@@ -58,6 +58,7 @@ Table Of Contents
     content-architecture
     model-customization
     admin-customization
+    multi-lingual
     utilities
     model-graph
     device-handling
