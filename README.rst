@@ -86,6 +86,7 @@ standard Django environment), with the following dependencies:
 * `requests`_ and `requests_oauthlib`_ - for interacting with external APIs
 * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 * `chardet`_ - for supporting arbitrary encoding in file uploads
+* `django-modeltranslation`_ - for managing multi-lingual content (optional)
 
 Users on Debian or Ubuntu will require some system packages to support
 the imaging library::
@@ -206,6 +207,11 @@ internationalization`_ methodology. Translations are managed on the
 `Bitbucket`_. Consult the documentation for `Django's
 internationalization`_ methodology for more information on creating
 translations and using them.
+
+Mezzanine also comes with a `django-modeltranslation`_ integration
+which can be optionally activated, allowing for full user content
+translation. `Multi-Lingual Sites`_ are fully possible with the
+combination of both tools.
 
 Third-party Modules
 ===================
