@@ -2,73 +2,71 @@
 Multi-Lingual Sites
 ===================
 
-Mezzazine comes coupled to `django-modeltranslation
-<https://readthedocs.org/projects/django-modeltranslation/>`_ and provides
-the optionnal ability to enable translation for your models content.
+Mezzanine comes coupled with `django-modeltranslation
+<https://readthedocs.org/projects/django-modeltranslation/>`_ that enables translation for your model's content.
 
 .. note::
     Mezzanine only provides the integration of django-modeltranslation. For
-    dedicated assistance please check out their `documentation
+    dedicated assistance, please check out the documentation for django-modeltranslation: `documentation
     <https://readthedocs.org/projects/django-modeltranslation/>`_ or their
     `code <https://github.com/deschler/django-modeltranslation>`_.
 
 Enabling Translation Fields in Mezzanine
 ========================================
 
-In order to enable translation fields for mezzanine content, you will need to
-both install django-modeltranslation and activate it in your ``settings.py``.
+In order to enable translation fields for Mezzanine content, you will need to install django-modeltranslation and activate the app in your ``settings.py``.
 
 The former is generally done using ``pip install django-modeltranslation`` but
-`other methods exists
+`other methods exist
 <http://django-modeltranslation.readthedocs.org/en/latest/installation.html>`_.
+
 The latter is simply done by having ``USE_MODELTRANSLATION = True`` in your
 ``settings.py`` and defining at least two ``LANGUAGES``.
 
 For new projects, ``manage.py createdb`` will take care of creating extraneous
-columns in the database for each language. For older ones, you can catch up
+columns in the database for each language. For current or older projects, you can catch up
 by running ``manage.py sync_translation_fields`` and then
 ``manage.py update_translation_fields``.
 
 .. note::
     A modeltranslation setting that can help managing the transition when
     content is partially in several languages is
-    ``MODELTRANSLATION_FALLBACK_LANGUAGES``. It can help avoiding blank
-    content when translation is not provided for some languages. Check
-    `their documentation
+    ``MODELTRANSLATION_FALLBACK_LANGUAGES``.  This setting allows you to avoid having blank
+    content when the translation is not provided for a specific language. Review
+    `django-modeltranslation documentation
     <http://django-modeltranslation.readthedocs.org/en/latest/usage.html#fallback-languages>`_
-    to understand how.
+    for more details.
 
 Enabling Translation Fields for Custom Applications
 ===================================================
 
-For models that don't inherit from mezzanine models, it is a simple matter of
-following `the documentation
+For models that don't inherit from Mezzanine models - please review `the django-modeltranslation documentation
 <http://django-modeltranslation.readthedocs.org/en/latest/registration.html>`_. 
-Mainly, you'll have to provide a ``translation.py`` file containing classes
+To start, you'll have to provide a ``translation.py`` file containing classes
 describing which fields of your models you wish to translate and registering
 your models using the ``modeltranslation.translator.translator.register``
 method.
 
-For models that extends mezzanine capabilities, two rules are to be followed.
-First and foremost, the application in which your model is defined should be
+For models that extends Mezzanine capabilities, there are two rules:
+
+* The application in which your model is defined must be
 listed *after* the application it is extending from in your ``INSTALLED_APPS``
 setting. For example, ``mezzanine.forms`` extends models from
-``mezzanine.pages`` and thus should appear after it.
+``mezzanine.pages`` and should appear after it.
 
 .. note::
     If your application defines both models that need to be translated and
-    static content or templates that overide default ones from mezzanine, it
-    may means that you will want to place it both before ``mezzanine.pages``
-    (to benefit from the static files finder) and after it in ``INSTALLED_APPS``
+    static content or templates that overide default ones from mezzanine: **place it both before ``mezzanine.pages``**
+    (to benefit from the static files finder) and after in ``INSTALLED_APPS``
     (to enable translations). In this case consider splitting your application
     and distinguish between presentation and content.
 
-The second thing to do is, as for an external application, to create a
+* As for an external application, to create a
 ``translation.py`` file at the root of your application. The content of this
 file might benefit from ``mezzanine.core.translation`` 
 depending what you are extending from.
 
-Let's say, for example, that you want to improve the model from
+For example, to improve the model from
 :doc:`content-architecture` and provide translatable fields::
 
     from django.db import models
@@ -97,15 +95,14 @@ A corresponding ``translation.py`` file in this application would look like::
     translator.register(Author, TranslatedAuthor)
     translator.register(Book, TranslatedBook)
 
-Note how, in this case, ``mezzanine.pages.translation.TranslatedPage`` is not
+In this case, please note ``mezzanine.pages.translation.TranslatedPage`` is not
 referenced in any way. This is due to the fact that
 ``mezzanine.pages.models.Page`` is not abstract and thus has its own table in
-the database. Its fields have already been registered for translation and
+the database. The fields have already been registered for translation and
 modeltranslation will happily handle it for you.
 
 If you want to extend an abstract model, such as
-``mezzanine.core.models.Slugged`` or ``mezzanine.core.models.Displayable``,
-however you will have to subclass their translation registration. The
+``mezzanine.core.models.Slugged`` or ``mezzanine.core.models.Displayable`` - you will have to subclass their translation registration. The
 ``mezzanine.blog`` application makes use of this in its ``translation.py``::
 
     from modeltranslation.translator import translator
@@ -123,8 +120,8 @@ however you will have to subclass their translation registration. The
     translator.register(BlogPost, TranslatedBlogPost)
     translator.register(BlogCategory, TranslatedBlogCategory)
 
-Even though you don't add translatable fields in your model beside those
-already defined inside mezzanine's models, you have to extends from
+You don't add translatable fields in your model beside those
+already defined inside Mezzanine's models. You have to extend from
 ``mezzanine.core.translation`` classes so modeltranslation is aware of the
 abstract fields it will have to manage.
 
@@ -135,11 +132,11 @@ an existing one.
 Enabling Translation for Injected Fields
 ========================================
 
-If you added some fields in mezzanine's models through ``EXTRA_MODEL_FIELDS``
-and want to translate them, you will have to create a custom application that
+If you added fields in Mezzanine's models through ``EXTRA_MODEL_FIELDS``
+and want to add translations, you will have to create a custom application that
 will hold the necessary ``translation.py`` file.
 
-Adding a translation field to all of mezzanine's content type would look like::
+Adding a translation field to all of Mezzanine's content type would look like::
 
   EXTRA_MODEL_FIELDS = (
       (
@@ -166,18 +163,19 @@ The ``translation.py`` file itself would be::
     translator.unregister(Page)
     translator.register(Page, TranslatedInjectedPage)
 
-Redistribuable Applications for Mezzanine
+Redistributable Applications for Mezzanine
 =========================================
 
-If you want to provide translation support for your mezzanine application,
+If you want to provide translation support for your Mezzanine application,
 make sure it works with both ``USE_MODELTRANSLATION`` set to ``True`` or
-``False``. Mezzanine enforces its value to ``False`` if django-modeltranslation
-is not properly installed. Thus it is reliable to check against this setting
-when extra steps are required (such as saving an instance of a model in every
+``False``. Mezzanine enforces the value to ``False`` if django-modeltranslation
+is not properly installed. 
+
+The value is also reliable to check against when extra steps are required (such as saving an instance of a model in every
 languages). In cases of a project with ``USE_MODELTRANSLATION`` set to
 ``False``, the ``translation.py`` file will just be ignored.
 
-The ``USE_MODELTRANSLATION`` setting is also availlable in the template's
-``settings`` dictionnary. Have a look at the
+The ``USE_MODELTRANSLATION`` setting is also available in the template's
+``settings`` dictionary. Have a look at the
 ``includes/language_selector.html`` template in ``mezzanine.core`` for a
 working example.
