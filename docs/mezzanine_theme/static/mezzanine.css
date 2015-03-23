@@ -384,6 +384,10 @@ h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
     background-color: transparent;
 }
 
+.viewcode-link, .viewcode-back {
+  float: right;
+}
+
 /* -- math display ---------------------------------------------------------- */
 
 img.math {
