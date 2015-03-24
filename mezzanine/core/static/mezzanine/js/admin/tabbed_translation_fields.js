@@ -179,17 +179,7 @@ var django;
             };
 
             this.getAllGroupedTranslations = function () {
-                var grouper = new TranslationFieldGrouper({
-                    $fields: this.$table.find('.mt').filter('input, textarea, select')
-                });
-                this.initTable();
-                return grouper.groupedTranslations;
-            };
-
-            this.initTable = function () {
                 var self = this;
-                // The table header requires special treatment. In case an inline
-                // is declared with extra=0, the translation fields are not visible.
                 var thGrouper = new TranslationFieldGrouper({
                     $fields: this.$table.find('.mt').filter('input, textarea, select')
                 });
@@ -208,6 +198,7 @@ var django;
                         $(this).html($(this).html().replace(/ \[.+\]/, ''));
                     }
                 });
+                return thGrouper.groupedTranslations;
             };
 
             this.getTranslationColumns = function (groupedTranslations) {
@@ -336,10 +327,14 @@ var django;
 
             // Group fields in (existing) tabular inlines
             $('div.inline-group.inline-tabular').each(function (index) {
-                var tabularInlineGroup = new TabularInlineGroup({ 'el': $(this).parent() });
-                var tab = createTabularTabs(tabularInlineGroup.getAllGroupedTranslations(), tabularInlineGroup.$table, index);
-                if (tab) { tabs.push(tab); }
-            });
+              if(!$(this).parent().hasClass("dynamic-inline")) {
+                // Regular admin.TabularInline instead of custom TabularDynamicInlineAdmin
+                $(this).wrap('<div>');
+              }
+              var tabularInlineGroup = new TabularInlineGroup({ 'el': $(this).parent() });
+              var tab = createTabularTabs(tabularInlineGroup.getAllGroupedTranslations(), tabularInlineGroup.$table, index);
+              if (tab) { tabs.push(tab); }
+           });
 
             TabsSwitcher({ tabs: tabs });
         }
