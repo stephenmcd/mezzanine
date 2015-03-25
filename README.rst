@@ -566,6 +566,7 @@ Sites Using Mezzanine
 * `Hivelocity <https://www.hivelocity.net>`_
 * `Zooply <http://zoop.ly>`_
 * `Oceana Technologies <http://oceanatech.com>`_
+* `TerraHub <http://terrahub.org/>`_
 
 
 Quotes
