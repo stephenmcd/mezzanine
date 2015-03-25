@@ -170,12 +170,17 @@ def ifinstalled(parser, token):
                                   "{% endifinstalled %}")
 
     end_tag = "end" + tag
+    unmatched_end_tag = 1
     if app.strip("\"'") not in settings.INSTALLED_APPS:
-        while True:
+        while unmatched_end_tag:
             token = parser.tokens.pop(0)
-            if token.token_type == TOKEN_BLOCK and token.contents == end_tag:
-                parser.tokens.insert(0, token)
-                break
+            if token.token_type == TOKEN_BLOCK:
+                block_name = token.contents.split()[0]
+                if block_name == tag:
+                    unmatched_end_tag += 1
+                if block_name == end_tag:
+                    unmatched_end_tag -= 1
+        parser.tokens.insert(0, token)
     nodelist = parser.parse((end_tag,))
     parser.delete_first_token()
 
