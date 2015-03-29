@@ -8,7 +8,6 @@ from django.template.defaultfilters import linebreaksbr, urlize
 
 from mezzanine import template
 from mezzanine.conf import settings
-from mezzanine.generic.forms import ThreadedCommentForm
 from mezzanine.generic.models import ThreadedComment
 from mezzanine.utils.importing import import_dotted_path
 
@@ -22,7 +21,8 @@ def comments_for(context, obj):
     Provides a generic context variable name for the object that
     comments are being rendered for.
     """
-    form = ThreadedCommentForm(context["request"], obj)
+    form_class = import_dotted_path(settings.COMMENT_FORM_CLASS)
+    form = form_class(context["request"], obj)
     try:
         context["posted_comment_form"]
     except KeyError:

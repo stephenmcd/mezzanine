@@ -19,6 +19,7 @@ from mezzanine.generic.models import Keyword
 from mezzanine.utils.cache import add_cache_bypass
 from mezzanine.utils.models import get_model
 from mezzanine.utils.views import render, set_cookie, is_spam
+from mezzanine.utils.importing import import_dotted_path
 
 
 @staff_member_required
@@ -97,7 +98,8 @@ def comment(request, template="generic/comments.html"):
     if isinstance(response, HttpResponse):
         return response
     obj, post_data = response
-    form = ThreadedCommentForm(request, obj, post_data)
+    form_class = import_dotted_path(settings.COMMENT_FORM_CLASS)
+    form = form_class(request, obj, post_data)
     if form.is_valid():
         url = obj.get_absolute_url()
         if is_spam(request, form, url):
