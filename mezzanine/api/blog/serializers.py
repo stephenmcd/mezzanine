@@ -6,7 +6,8 @@ from mezzanine.api.generic.serializers import ThreadedCommentSerializer
 
 
 class BlogCategorySerializer(serializers.ModelSerializer):
-    class Meta:
+
+    class Meta(object):
         model = BlogCategory
         fields = ['id', 'title', 'slug']
 
@@ -16,8 +17,8 @@ class BlogPostSerializer(serializers.ModelSerializer):
     categories = BlogCategorySerializer(many=True)
     comments = ThreadedCommentSerializer(many=True)
 
-    class Meta:
+    class Meta(object):
         model = BlogPost
-        fields = ['id','slug', 'user', 'categories', 'content', 'title',
+        fields = ['id', 'slug', 'user', 'categories', 'content', 'title',
                   'allow_comments', 'comments_count', 'comments',
                   'publish_date', 'keywords_string', 'featured_image']

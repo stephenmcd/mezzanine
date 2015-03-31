@@ -1,6 +1,9 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns
+from django.conf.urls import url
 from .views import ThreadedCommentAPIView
 
-urlpatterns = patterns("mezzanine.api.generic.views",
+urls = [
     url('^$', ThreadedCommentAPIView.as_view(), name='comments_api'),
-)
+]
+
+urlpatterns = patterns("mezzanine.api.generic.views", urls)

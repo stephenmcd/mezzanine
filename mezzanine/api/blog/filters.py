@@ -1,19 +1,22 @@
-import django_filters
+from django_filters import CharFilter
+from django_filters import Filter
+from django_filters import FilterSet
+
 from mezzanine.blog.models import BlogPost
 
 
-class BlogPostFilter(django_filters.FilterSet):
-    title = django_filters.CharFilter(name='title', lookup_type='contains')
-    name = django_filters.CharFilter(name='slug', lookup_type='exact')
-    category = django_filters.Filter(name='categories__slug')
-    author = django_filters.Filter(name='user__username', lookup_type='exact')
-    tag = django_filters.Filter(name='keywords_string', lookup_type='contains')
+class BlogPostFilter(FilterSet):
+    author = Filter(name='user__username', lookup_type='exact')
+    title = CharFilter(name='title', lookup_type='contains')
+    name = CharFilter(name='slug', lookup_type='exact')
+    category = Filter(name='categories__slug')
+    tag = Filter(name='keywords_string', lookup_type='contains')
 
-    date = django_filters.Filter(name='publish_date', lookup_type='lte')
-    year = django_filters.Filter(name='publish_date', lookup_type='year')
-    month = django_filters.Filter(name='publish_date', lookup_type='month')
+    date = Filter(name='publish_date', lookup_type='lte')
+    year = Filter(name='publish_date', lookup_type='year')
+    month = Filter(name='publish_date', lookup_type='month')
 
-    class Meta:
+    class Meta(object):
         model = BlogPost
         fields = ['name', 'title', 'tag', 'year', 'month',
                   'author', 'category']

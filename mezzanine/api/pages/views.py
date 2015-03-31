@@ -1,17 +1,18 @@
 from rest_framework import generics
-from mezzanine.pages.models import Page, RichTextPage
-from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
+from mezzanine.pages.models import Page
+from mezzanine.pages.models import RichTextPage
 
-from .serializers import PageSerializer, RichTextPageSerializer
+from .serializers import PageSerializer
+from .serializers import RichTextPageSerializer
 from .filters import PageFilter
 
 
 class PagesAPIView(generics.ListAPIView):
-    queryset = Page.objects.all().filter(status=CONTENT_STATUS_PUBLISHED)
+    queryset = Page.objects.published()
     serializer_class = PageSerializer
     filter_class = PageFilter
 
 
 class RichTextPageAPIView(generics.ListAPIView):
-    queryset = RichTextPage.objects.all()
+    queryset = RichTextPage.objects.published()
     serializer_class = RichTextPageSerializer

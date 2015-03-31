@@ -250,6 +250,7 @@ INSTALLED_APPS = (
     "mezzanine.galleries",
     "mezzanine.twitter",
     "mezzanine.api",
+    "rest_framework",
     #"mezzanine.accounts",
     #"mezzanine.mobile",
 )

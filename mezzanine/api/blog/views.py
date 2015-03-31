@@ -1,21 +1,26 @@
 from datetime import datetime
 
+from django.db.models import Count
+from django.contrib.auth.models import User
+
 from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from django.db.models import Count
-
-from django.contrib.auth.models import User
-
-from mezzanine.blog.models import BlogPost, BlogCategory
-
 from mezzanine.api.core.serializers import UserSerializer
-from .serializers import BlogCategorySerializer, BlogPostSerializer
+from mezzanine.blog.models import BlogCategory
+from mezzanine.blog.models import BlogPost
+
 from .filters import BlogPostFilter
+from .serializers import BlogCategorySerializer
+from .serializers import BlogPostSerializer
 
 
 class BlogPostsAPIView(generics.ListAPIView):
+
+    """
+    Returns a list of all **active** accounts in the system.
+    """
     queryset = BlogPost.objects.published()
     serializer_class = BlogPostSerializer
     filter_class = BlogPostFilter
@@ -72,6 +77,6 @@ def posts_by_authors(*args):
     """
     blog_posts = BlogPost.objects.published()
     authors = User.objects.filter(blogposts__in=blog_posts)
-    posts_by_authors = list(authors.annotate(post_count=Count("blogposts")))
-    serialized = UserSerializer(posts_by_authors, many=True)
+    posts_per_author = list(authors.annotate(post_count=Count("blogposts")))
+    serialized = UserSerializer(posts_per_author, many=True)
     return Response(serialized.data)

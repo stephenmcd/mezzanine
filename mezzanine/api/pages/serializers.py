@@ -3,6 +3,7 @@ from mezzanine.pages.models import Page, RichTextPage
 
 
 class RichTextPageSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = RichTextPage
         fields = ['content']

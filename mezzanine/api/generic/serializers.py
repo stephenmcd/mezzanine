@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from mezzanine.api.core.serializers import UserSerializer
-
 from mezzanine.generic.models import ThreadedComment
 
 
