@@ -1,18 +1,11 @@
-from rest_framework import generics
+from rest_framework import viewsets
 from mezzanine.pages.models import Page
-from mezzanine.pages.models import RichTextPage
 
 from .serializers import PageSerializer
-from .serializers import RichTextPageSerializer
 from .filters import PageFilter
 
 
-class PagesAPIView(generics.ListAPIView):
+class PagesViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Page.objects.published()
     serializer_class = PageSerializer
     filter_class = PageFilter
-
-
-class RichTextPageAPIView(generics.ListAPIView):
-    queryset = RichTextPage.objects.published()
-    serializer_class = RichTextPageSerializer

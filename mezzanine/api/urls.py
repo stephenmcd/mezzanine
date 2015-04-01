@@ -1,10 +1,12 @@
-from __future__ import unicode_literals
-from django.conf.urls import patterns, include
+from rest_framework.routers import DefaultRouter
 
-urls = [
-    ("^blog/", include("mezzanine.api.blog.urls")),
-    ("^pages/", include("mezzanine.api.pages.urls")),
-    ("^generic/", include("mezzanine.api.generic.urls")),
-]
+from blog.views import BlogViewSet, BlogCategoryViewSet
+from pages.views import PagesViewSet
 
-urlpatterns = patterns("", urls)
+router = DefaultRouter()
+router.register(r'blog', BlogViewSet)
+router.register(r'categories', BlogCategoryViewSet)
+
+router.register(r'pages', PagesViewSet)
+
+urlpatterns = router.urls
