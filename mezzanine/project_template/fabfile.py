@@ -517,7 +517,7 @@ def create():
     with project():
         if env.reqs_path:
             pip("-r %s/%s" % (env.proj_path, env.reqs_path))
-        pip("gunicorn setproctitle south psycopg2 "
+        pip("gunicorn setproctitle psycopg2 "
             "django-compressor python-memcached")
     # Bootstrap the DB
         manage("createdb --noinput --nodata")

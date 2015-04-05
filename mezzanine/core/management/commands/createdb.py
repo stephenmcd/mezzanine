@@ -50,7 +50,6 @@ class Command(NoArgsCommand):
             [self.create_pages, ["mezzanine.pages", "mezzanine.forms",
                                  "mezzanine.blog", "mezzanine.galleries"]],
             [self.create_shop, ["cartridge.shop"]],
-            [self.fake_migrations, ["south"]],
         ]
 
         for func, apps in mapping:
@@ -124,20 +123,6 @@ class Command(NoArgsCommand):
                 print("\nCreating demo product and sale ...\n")
             call_command("loaddata", "cartridge_optional.json")
             copy_test_to_media("cartridge.shop", "product")
-
-    def fake_migrations(self):
-        try:
-            from south.management.commands import migrate
-        except ImportError:
-            return
-        fake_migrations = self.confirm(
-            "\nSouth is installed for this project."
-            "\nWould you like to fake initial "
-            "migrations? (yes/no): ")
-        if fake_migrations:
-            if self.verbosity >= 1:
-                print("\nFaking initial migrations ...\n")
-            migrate.Command().execute(fake=True)
 
     def translation_fields(self):
         try:

@@ -3,7 +3,6 @@ from future.builtins import str
 
 from copy import copy
 
-from django.conf import settings
 from django.contrib.contenttypes.generic import GenericRelation
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import IntegerField, CharField, FloatField
@@ -36,19 +35,6 @@ class BaseGenericRelation(GenericRelation):
         Set up some defaults and check for a ``related_model``
         attribute for the ``to`` argument.
         """
-        if kwargs.get("frozen_by_south", False):
-            raise Exception("""
-
-    Your project contains migrations that include one of the fields
-    from mezzanine.generic in its Migration.model dict: possibly
-    KeywordsField, CommentsField or RatingField. These migratons no
-    longer work with the latest versions of Django and South, so you'll
-    need to fix them by hand. This is as simple as commenting out or
-    deleting the field from the Migration.model dict.
-    See http://bit.ly/1hecVsD for an example.
-
-    """)
-
         kwargs.setdefault("object_id_field", "object_pk")
         to = getattr(self, "related_model", None)
         if to:
@@ -278,14 +264,3 @@ class RatingField(BaseGenericRelation):
         setattr(instance, "%s_sum" % self.related_field_name, _sum)
         setattr(instance, "%s_average" % self.related_field_name, average)
         instance.save()
-
-
-# South requires custom fields to be given "rules".
-# See http://south.aeracode.org/docs/customfields.html
-if "south" in settings.INSTALLED_APPS:
-    try:
-        from south.modelsinspector import add_introspection_rules
-        add_introspection_rules(rules=[((BaseGenericRelation,), [], {})],
-            patterns=["mezzanine\.generic\.fields\."])
-    except ImportError:
-        pass

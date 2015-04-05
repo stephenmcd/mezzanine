@@ -136,16 +136,3 @@ else:
             kwargs.setdefault("directory", kwargs.pop("upload_to", None))
             kwargs.setdefault("max_length", 255)
             super(FileField, self).__init__(*args, **kwargs)
-
-
-HtmlField = RichTextField  # For backward compatibility in south migrations.
-
-# South requires custom fields to be given "rules".
-# See http://south.aeracode.org/docs/customfields.html
-if "south" in settings.INSTALLED_APPS:
-    try:
-        from south.modelsinspector import add_introspection_rules
-        add_introspection_rules(patterns=["mezzanine\.core\.fields\."],
-            rules=[((FileField, RichTextField, MultiChoiceField), [], {})])
-    except ImportError:
-        pass
