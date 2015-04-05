@@ -261,11 +261,14 @@ height::
 The ``thumbnail`` template tag also accepts several other optional
 arguments for controlling the generated thumbnail:
 
+  * ``no_grow`` - A boolean controlling whether the thumbnail is
+    forbidden to grow beyond its original size when resizing (defaults
+    to False)
   * ``quality`` - A value from 0 to 100 controlling the JPG quality
     (defaults to 95)
   * ``left`` and ``top`` - Values from 0 to 1 controlling where the
     image will be cropped (each defaults to 0.5, namely the center)
   * ``padding`` - A boolean controlling whether the thumbnail will
-    be padded rather than cropped (default to False)
+    be padded rather than cropped (defaults to False)
   * ``padding_color`` - RGB string controlling the background color
     when ``padding`` is True (defaults to "#fff")
