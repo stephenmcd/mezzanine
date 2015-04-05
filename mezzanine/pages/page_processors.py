@@ -3,11 +3,11 @@ from future.builtins import str as _str
 
 from collections import defaultdict
 
+from django.apps import apps
 from django.utils.importlib import import_module
 from django.utils.module_loading import module_has_submodule
 
 from mezzanine.pages.models import Page
-from mezzanine.utils.models import get_model
 from mezzanine.utils.importing import get_app_name_list
 
 
@@ -30,7 +30,8 @@ def processor_for(content_model_or_slug, exact_page=False):
     slug = ""
     if isinstance(content_model_or_slug, (str, _str)):
         try:
-            content_model = get_model(*content_model_or_slug.split(".", 1))
+            parts = content_model_or_slug.split(".", 1)
+            content_model = apps.get_model(*parts)
         except (TypeError, ValueError, LookupError):
             slug = content_model_or_slug
     elif issubclass(content_model_or_slug, Page):

@@ -4,7 +4,6 @@ import os
 import sys
 from warnings import warn
 
-from django import VERSION
 from django.conf import global_settings as defaults
 from django.template.base import add_to_builtins
 
@@ -13,7 +12,7 @@ from mezzanine.utils.timezone import get_best_local_timezone
 
 class SitesAllowedHosts(object):
     """
-    This is a fallback for Django 1.5's ALLOWED_HOSTS setting
+    This is a fallback for Django's ALLOWED_HOSTS setting
     which is required when DEBUG is False. It looks up the
     ``Site`` model and uses any domains added to it, the
     first time the setting is accessed.
@@ -127,9 +126,6 @@ def set_dynamic_settings(s):
                 s["INSTALLED_APPS"].append(app)
 
     if s["TESTING"]:
-        # Following bits are work-arounds for some assumptions that
-        # Django 1.5's tests make.
-
         # Triggers interactive superuser creation and some pyc/pyo tests
         # fail with standard permissions.
         remove("INSTALLED_APPS", "django_extensions")
@@ -176,10 +172,7 @@ def set_dynamic_settings(s):
     # Ensure admin is at the bottom of the app order so that admin
     # templates are loaded in the correct order, and that staticfiles
     # is also at the end so its runserver can be overridden.
-    apps = ["django.contrib.admin"]
-    if VERSION >= (1, 7):
-        apps += ["django.contrib.staticfiles"]
-    for app in apps:
+    for app in ["django.contrib.admin", "django.contrib.staticfiles"]:
         try:
             move("INSTALLED_APPS", app, len(s["INSTALLED_APPS"]))
         except ValueError:

@@ -8,6 +8,7 @@ try:
 except ImportError:
     from urllib import quote, unquote
 
+from django.apps import apps
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site
@@ -15,7 +16,6 @@ from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, resolve, NoReverseMatch
 from django.db.models import Model
-from django.db.models.loading import get_model
 from django.template import Context, Node, Template, TemplateSyntaxError
 
 try:
@@ -260,7 +260,7 @@ def search_form(context, search_model_names=None):
     search_model_choices = []
     for model_name in search_model_names:
         try:
-            model = get_model(*model_name.split(".", 1))
+            model = apps.get_model(*model_name.split(".", 1))
         except LookupError:
             pass
         else:

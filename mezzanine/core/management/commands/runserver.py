@@ -98,9 +98,7 @@ def banner():
         "db_version": db_version,
         "os_name": platform.system(),
         "os_version": platform.release(),
-    }).splitlines()
-    if django.VERSION >= (1, 7):
-        lines = lines[2:]
+    }).splitlines()[2:]
 
     if not supports_color():
         return "\n".join(lines)

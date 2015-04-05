@@ -2,13 +2,13 @@ from __future__ import absolute_import, unicode_literals
 from future.builtins import int, open
 
 import os
-from mezzanine.utils.models import get_model
 
 try:
     from urllib.parse import urljoin, urlparse
 except ImportError:
     from urlparse import urljoin, urlparse
 
+from django.apps import apps
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin.options import ModelAdmin
@@ -86,7 +86,7 @@ def edit(request):
     """
     Process the inline editing form.
     """
-    model = get_model(request.POST["app"], request.POST["model"])
+    model = apps.get_model(request.POST["app"], request.POST["model"])
     obj = model.objects.get(id=request.POST["id"])
     form = get_edit_form(obj, request.POST["fields"], data=request.POST,
                          files=request.FILES)
@@ -114,7 +114,8 @@ def search(request, template="search_results.html"):
     per_page = settings.SEARCH_PER_PAGE
     max_paging_links = settings.MAX_PAGING_LINKS
     try:
-        search_model = get_model(*request.GET.get("type", "").split(".", 1))
+        parts = request.GET.get("type", "").split(".", 1)
+        search_model = apps.get_model(*parts)
         search_model.objects.search  # Attribute check
     except (ValueError, TypeError, LookupError, AttributeError):
         search_model = Displayable

@@ -522,7 +522,7 @@ def create_site_permission(sender, **kw):
         if created or perm.sites.count() < 1:
             perm.sites.add(current_site_id())
 
-# We don't specify the user model here, because with 1.5's custom
+# We don't specify the user model here, because with Django's custom
 # user models, everything explodes. So we check the name of it in
 # the signal.
 post_save.connect(create_site_permission)

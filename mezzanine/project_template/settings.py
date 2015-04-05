@@ -1,7 +1,7 @@
+
 from __future__ import absolute_import, unicode_literals
 import os
-
-_ = lambda s: s  # Dummy ugettext function, see Django 1.4 docs for info.
+from django.utils.translation import ugettext_lazy as _
 
 
 ######################
@@ -97,7 +97,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+# See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:

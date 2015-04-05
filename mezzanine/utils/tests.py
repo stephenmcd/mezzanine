@@ -27,23 +27,23 @@ IGNORE_ERRORS = (
     # Used to version subpackages.
     "'__version__' imported but unused",
 
-    # No caching fallback
+    # No caching fallback.
     "redefinition of function 'nevercache'",
 
-    # Dummy fallback in templates for django-compressor
+    # Dummy fallback in templates for django-compressor.
     "redefinition of function 'compress'",
 
-    # Fabic config fallback
+    # Fabic config fallback.
     "redefinition of unused 'conf'",
 
     # Fixing these would make the code ugiler IMO.
     "continuation line",
     "closing bracket does not match",
 
-    # Jython compatiblity
+    # Jython compatiblity.
     "redefinition of unused 'Image",
 
-    # Django 1.5 custom user compatibility
+    # Django custom user compatibility.
     "'get_user_model' imported but unused",
 
     # Actually a Python template file.
