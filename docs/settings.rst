@@ -224,6 +224,13 @@ Dotted path to the function to call on a comment's value before it is rendered t
 
 Default: ``None``
 
+``COMMENT_FORM_CLASS``
+----------------------
+
+The form class to use for adding new comments.
+
+Default: ``'mezzanine.generic.forms.ThreadedCommentForm'``
+
 ``DASHBOARD_TAGS``
 ------------------
 
@@ -629,10 +636,3 @@ Default: ``{}``
 If ``True``, the django-modeltranslation application will be automatically added to the ``INSTALLED_APPS`` setting.
 
 Default: ``False``
-
-``USE_SOUTH``
--------------
-
-If ``True``, the south application will be automatically added to the ``INSTALLED_APPS`` setting.
-
-Default: ``True``

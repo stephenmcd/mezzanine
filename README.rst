@@ -47,6 +47,7 @@ interface, Mezzanine provides the following:
 * User accounts and profiles with email verification
 * Translated to over 35 languages
 * Sharing via Facebook or Twitter
+* `Multi-lingual sites`_
 * `Custom templates`_ per page or blog post
 * `Twitter Bootstrap`_ integration
 * API for `custom content types`_
@@ -74,19 +75,18 @@ Dependencies
 Mezzanine makes use of as few libraries as possible (apart from a
 standard Django environment), with the following dependencies:
 
-* `Python`_ 2.6 / 2.7 / 3.3
-* `Django`_ 1.4 / 1.5 / 1.6
+* `Python`_ 2.7 to 3.3
+* `Django`_ 1.7 to 1.8
 * `Pillow`_ - for image resizing (`Python Imaging Library`_ fork)
 * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
 * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
 * `bleach`_ and `BeautifulSoup`_ - for sanitizing markup in content
 * `pytz`_ and `tzlocal`_ - for timezone support
-* `South`_ - for database migrations (optional)
+* `chardet`_ - for supporting arbitrary encoding in file uploads
+* `django-modeltranslation`_ - for multi-lingual content (optional)
 * `django-compressor`_ - for merging JS/CSS assets (optional)
 * `requests`_ and `requests_oauthlib`_ - for interacting with external APIs
 * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
-* `chardet`_ - for supporting arbitrary encoding in file uploads
-* `django-modeltranslation`_ - for managing multi-lingual content (optional)
 
 Users on Debian or Ubuntu will require some system packages to support
 the imaging library::
@@ -136,15 +136,10 @@ create a new Mezzanine project in similar fashion to
 
 .. note::
 
-    The ``createdb`` command is a shortcut for using Django's ``syncdb``
-    command and setting the initial migration state for `South`_. You
-    can alternatively use ``syncdb`` and ``migrate`` if preferred.
-    South is automatically added to INSTALLED_APPS if the
-    ``USE_SOUTH`` setting is set to ``True``.
-
-    ``createdb`` will also install some demo content, such as a contact
-    form and image gallery. If you'd like to omit this step, use the
-    ``--nodata`` option with ``createdb``.
+    The ``createdb`` command is a shortcut for using Django's
+    ``migrate`` command, which will also install some demo content,
+    such as a contact form, image gallery, andmore. If you'd like to
+    omit this step, use the ``--nodata`` option with ``createdb``.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and
 log in using the default account (``username: admin, password:
@@ -197,23 +192,23 @@ project::
     $ git push origin your-new-branch-name
 
 
-Language Translations
-=====================
+Multi-Lingual Sites
+===================
 
-Mezzanine makes full use of translation strings, which allow Mezzanine
-to be translated into multiple languages using `Django's
-internationalization`_ methodology. Translations are managed on the
-`Transiflex`_ website but can also be submitted via `GitHub`_ or
-`Bitbucket`_. Consult the documentation for `Django's
-internationalization`_ methodology for more information on creating
-translations and using them.
+Mezzanine makes full use of translation strings, which allows
+Mezzanine's interface and templates to be translated into multiple
+languages using `Django's internationalization`_ support. New
+translations can be contributed via `GitHub`_ or `Bitbucket`_. Consult
+the documentation for `Django's internationalization`_ support for more
+information on creating translations and using them.
 
-Mezzanine also comes with a `django-modeltranslation`_ integration
-which can be optionally activated, allowing for full user content
-translation. `Multi-Lingual Sites`_ are fully possible with the
-combination of both tools.
+More importantly, Mezzanine also provides optional integration with
+`django-modeltranslation`_, allowing for all user generated content to
+be translated into multiple langagues to create multi-lingual sites.
+Consult Mezzanine's documentation on `Multi-lingual sites`_ for more
+information.
 
-Third-party Modules
+Third-Party Modules
 ===================
 
 The following modules have been developed outside of Mezzanine. If you
@@ -656,6 +651,8 @@ Quotes
 .. _`project_template`: https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template
 .. _`GitHub`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
+.. _`django-modeltranslation`: http://django-modeltranslation.readthedocs.org
+.. _`Multi-lingual sites`: http://mezzanine.jupo.org/docs/multi-lingual-sites.html
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users/topics
 .. _`security@jupo.org`: mailto:security@jupo.org?subject=Mezzanine+Security+Issue
 .. _`GitHub issue tracker`: http://github.com/stephenmcd/mezzanine/issues
