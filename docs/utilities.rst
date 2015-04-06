@@ -261,9 +261,8 @@ height::
 The ``thumbnail`` template tag also accepts several other optional
 arguments for controlling the generated thumbnail:
 
-  * ``no_grow`` - A boolean controlling whether the thumbnail is
-    forbidden to grow beyond its original size when resizing (defaults
-    to False)
+  * ``upscale`` - A boolean controlling whether the thumbnail should
+     grow beyond its original size when resizing (defaults to True)
   * ``quality`` - A value from 0 to 100 controlling the JPG quality
     (defaults to 95)
   * ``left`` and ``top`` - Values from 0 to 1 controlling where the
