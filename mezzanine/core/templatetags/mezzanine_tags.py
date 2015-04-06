@@ -271,13 +271,15 @@ def search_form(context, search_model_names=None):
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
-              padding=False, padding_color="#fff"):
+def thumbnail(image_url, width, height, no_grow=False, quality=95, left=.5,
+              top=.5, padding=False, padding_color="#fff"):
     """
     Given the URL to an image, resizes the image using the given width and
     height on the first time it is requested, and returns the URL to the new
-    resized image. if width or height are zero then original ratio is
-    maintained.
+    resized image. If width or height are zero then original ratio is
+    maintained. When no_grow is True, images smaller than the given size will
+    not be grown to fill that size. The given width and height thus act as
+    maximum dimensions.
     """
 
     if not image_url:
@@ -294,6 +296,8 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     image_prefix, image_ext = os.path.splitext(image_name)
     filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext, "JPEG")
     thumb_name = "%s-%sx%s" % (image_prefix, width, height)
+    if no_grow:
+        thumb_name += "-no-grow"
     if left != .5 or top != .5:
         left = min(1, max(0, left))
         top = min(1, max(0, top))
@@ -350,6 +354,10 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     to_height = int(height)
     from_width = image.size[0]
     from_height = image.size[1]
+
+    if no_grow:
+        to_width = min(to_width, from_width)
+        to_height = min(to_height, from_height)
 
     # Set dimensions.
     if to_width == 0:
