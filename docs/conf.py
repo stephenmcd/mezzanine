@@ -20,10 +20,10 @@ import mezzanine
 
 if "DJANGO_SETTINGS_MODULE" not in os.environ:
     docs_path = os.getcwd()
-    parts = (docs_path, "..")
-    sys.path.insert(0, os.path.realpath(os.path.join(*parts)))
-    settings_module = "docs_settings"
-    os.environ["DJANGO_SETTINGS_MODULE"] = settings_module
+    mezzanine_path_parts = (docs_path, "..")
+    sys.path.insert(0, docs_path)
+    sys.path.insert(0, os.path.realpath(os.path.join(*mezzanine_path_parts)))
+    os.environ["DJANGO_SETTINGS_MODULE"] = "docs_settings"
     # Django 1.7's setup is required before touching translated strings.
     import django
     try:
