@@ -568,6 +568,7 @@ Sites Using Mezzanine
 * `Zooply <http://zoop.ly>`_
 * `Oceana Technologies <http://oceanatech.com>`_
 * `TerraHub <http://terrahub.org/>`_
+* `djangoproject.jp <http://djangoproject.jp/>`_
 
 
 Quotes
