@@ -5,6 +5,7 @@ from future.builtins import open
 from distutils.dir_util import copy_tree
 from optparse import OptionParser
 import os
+import re
 from shutil import move
 from uuid import uuid4
 
@@ -25,8 +26,11 @@ def create_project():
     if len(args) != 1:
         parser.error("project_name must be specified")
     project_name = args[0]
-    if project_name.startswith("-"):
-        parser.error("project_name cannot start with '-'")
+    if not re.match("^[a-z0-9_]+$", project_name) or project_name[0].isdigit():
+        parser.error("%s is an invalid Python package name, specifically "
+            "it must start with a lowercase letter or underscore, followed "
+            "by zero or more lowercase letters, numbers, or underscores." %
+            project_name)
     project_path = os.path.join(os.getcwd(), project_name)
 
     # Ensure the given directory name doesn't clash with an existing
