@@ -334,6 +334,8 @@ class CurrentSiteManager(DjangoCSM):
     to ``settings.SITE_ID`` if none of those match a site.
     """
 
+    use_in_migrations = False
+
     def __init__(self, field_name=None, *args, **kwargs):
         super(DjangoCSM, self).__init__(*args, **kwargs)
         self.__field_name = field_name
