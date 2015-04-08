@@ -1,0 +1,45 @@
+{% extends "rest_framework/base.html" %}
+{% load pages_tags mezzanine_tags i18n future staticfiles %}
+<!doctype html>
+<html>
+<head lang="en">
+{% block head %}
+        {% block meta %}
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <meta name="robots" content="NONE,NOARCHIVE" />
+        {% endblock %}
+
+        <title>{% block title %}Mezzanine API{% endblock %}</title>
+
+        {% block style %}
+            {% compress css %}
+                {% block bootstrap_theme %}
+                    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+                    <link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
+                    <link rel="stylesheet" href="{% static "css/bootstrap-theme.css" %}">
+                {% endblock %}
+                <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap-tweaks.css" %}"/>
+                <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/default.css" %}"/>
+                <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/prettify.css" %}"/>
+            {% block extra_css %}{% endblock %}
+            {% endcompress %}
+        {% endblock %}
+{% endblock %}
+</head>
+<body>
+
+{% block navbar %}
+<div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <span>
+            {% block branding %}
+                <a class='navbar-brand' rel="nofollow" href='http://mezzanine.jupo.org'>
+                    Mezzanine <span class="version">{{ version }}</span>
+                </a>
+            {% endblock %}
+        </span>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>
