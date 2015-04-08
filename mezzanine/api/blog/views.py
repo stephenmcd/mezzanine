@@ -19,21 +19,23 @@ from .serializers import BlogPostSerializer
 
 
 class BlogViewSet(viewsets.ReadOnlyModelViewSet):
+    """Blog endpoint."""
+
     queryset = BlogPost.objects.published()
     serializer_class = BlogPostSerializer
     filter_class = BlogPostFilter
     paginate_by = 5
     paginate_by_param = 'page'
 
-    @list_route()
+    @list_route(methods=['get'], url_path='recent-posts')
     def recent_posts(self, request):
+        """Return last five posts from blog."""
         blog_posts = self.queryset.order_by('-publish_date')
         serialized_posts = BlogPostSerializer(list(blog_posts[:5]), many=True)
         return Response(serialized_posts.data)
 
-    @list_route()
+    @list_route(methods=['get'], url_path='posts-by-months')
     def posts_by_months(self, request):
-
         posts_dates = self.queryset.values_list("publish_date", flat=True)
 
         normalized_dates = []
@@ -46,7 +48,7 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
                              reverse=True)
         return Response(sorted_date)
 
-    @list_route()
+    @list_route(methods=['get'], url_path='posts-by-categories')
     def posts_by_categories(self, request):
         posts = self.queryset
         categories = BlogCategory.objects.filter(blogposts__in=posts)
@@ -56,7 +58,7 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
         serialized = BlogCategorySerializer(counted_categories, many=True)
         return Response(serialized.data)
 
-    @list_route()
+    @list_route(methods=['get'], url_path='posts-by-authors')
     def posts_by_authors(self, request):
         blog_posts = BlogPost.objects.published()
         authors = User.objects.filter(blogposts__in=blog_posts)
@@ -66,5 +68,7 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class BlogCategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    """Blog Category endpoint."""
+
     queryset = BlogCategory.objects.all()
     serializer_class = BlogCategorySerializer

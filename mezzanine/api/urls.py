@@ -1,7 +1,8 @@
 from rest_framework.routers import DefaultRouter
 
-from blog.views import BlogViewSet, BlogCategoryViewSet
-from pages.views import PagesViewSet
+from mezzanine.api.blog.views import BlogCategoryViewSet
+from mezzanine.api.blog.views import BlogViewSet
+from mezzanine.api.pages.views import PagesViewSet
 
 router = DefaultRouter()
 router.register(r'blog', BlogViewSet)
