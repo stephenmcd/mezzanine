@@ -31,6 +31,7 @@ register_setting(
 
 register_setting(
     name="ADMIN_MENU_COLLAPSED",
+    label=_("Collapse the Admin menu"),
     description=_("Controls whether or not the left-hand admin menu is "
                   "collapsed by default."),
     editable=True,
