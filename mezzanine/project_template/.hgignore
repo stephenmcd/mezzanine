@@ -4,7 +4,7 @@ syntax: glob
 *.db
 .DS_Store
 .coverage
-local_settings.py
 
 syntax: regexp
 ^static/
+^local_settings.py
