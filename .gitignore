@@ -7,10 +7,11 @@
 .DS_Store
 .coverage
 .idea/
+local_settings.py
 Mezzanine.egg-info/
 build/
 docs/build/
 dist/
-/mezzanine/project_template/static/
+mezzanine/project_template/static/
 /mezzanine/.project
 /mezzanine/.pydevproject

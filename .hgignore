@@ -8,6 +8,7 @@ syntax: glob
 .DS_Store
 .coverage
 .idea
+local_settings.py
 build
 dist
 *.egg-info

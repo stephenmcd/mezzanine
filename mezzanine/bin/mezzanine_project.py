@@ -11,7 +11,6 @@ def create_project():
     settings.INSTALLED_APPS = list(settings.INSTALLED_APPS) + ['mezzanine.bin']
 
     argv = sys.argv[:1] + ['mezzanine_project'] + sys.argv[1:]
-    print(sys.argv)
     management.execute_from_command_line(argv)
 
 
