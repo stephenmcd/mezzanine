@@ -30,7 +30,7 @@ def main(package="mezzanine"):
     sys.path.insert(0, project_path)
 
     if not os.path.exists(test_settings_path):
-        shutil.copy(local_settings_path, test_settings_path)
+        shutil.copy(local_settings_path + ".template", test_settings_path)
         with open(test_settings_path, "r") as f:
             local_settings = f.read()
         with open(test_settings_path, "w") as f:
