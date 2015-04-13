@@ -26,12 +26,12 @@ class Command(BaseCommand):
         super(Command, self).handle(*args, **options)
 
         if django.VERSION < (1, 8):
-            project_name, target = args + (None,) * max(0, 2 - len(args))
+            proj_name, target = args + (None,) * max(0, 2 - len(args))
         else:
-            project_name, target = options.pop('name'), options.pop('directory')
+            proj_name, target = options.pop('name'), options.pop('directory')
 
-        project_dir = self.get_project_directory(project_name, target)
-        project_app_dir = os.path.join(project_dir, project_name)
+        project_dir = self.get_project_directory(proj_name, target)
+        project_app_dir = os.path.join(project_dir, proj_name)
 
         # Now rename "local_settings.py.template" to "local_settings.py"
         move(os.path.join(project_app_dir, "local_settings.py.template"),
