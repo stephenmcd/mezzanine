@@ -22,8 +22,8 @@ class Form(Page, RichText):
     send_email = models.BooleanField(_("Send email to user"), default=True,
         help_text=_("To send an email to the email address supplied in "
                     "the form upon submission, check this box."))
-    email_from = models.EmailField(_("From address"), blank=True,
-        help_text=_("The address the email will be sent from"))
+    email_from = models.EmailField(_("From address"), max_length=254,
+        help_text=_("The address the email will be sent from"), blank=True)
     email_copies = models.CharField(_("Send email to others"), blank=True,
         help_text=_("Provide a comma separated list of email addresses "
                     "to be notified upon form submission. Leave blank to "
