@@ -502,8 +502,8 @@ class SitePermission(models.Model):
     access.
     """
 
-    user = models.ForeignKey(user_model_name, verbose_name=_("Author"),
-        related_name="%(class)ss", unique=True)
+    user = models.OneToOneField(user_model_name, verbose_name=_("Author"),
+        related_name="%(class)ss")
     sites = models.ManyToManyField("sites.Site", blank=True,
                                    verbose_name=_("Sites"))
 
