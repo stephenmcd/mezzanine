@@ -570,6 +570,9 @@ Sites Using Mezzanine
 * `TerraHub <http://terrahub.org/>`_
 * `djangoproject.jp <http://djangoproject.jp/>`_
 * `Joshua Ginsberg <http://starboard.flowtheory.net>`_
+* `Savant Digital <http://www.savantdigital.net>`_
+* `weBounty <https://webounty.com>`_
+
 
 Quotes
 ======
