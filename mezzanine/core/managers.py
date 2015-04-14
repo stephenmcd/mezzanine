@@ -262,7 +262,8 @@ class SearchableManager(Manager):
             # without subclasses) that inherit from Displayable.
             models = [m for m in apps.get_models()
                       if issubclass(m, self.model)]
-            parents = reduce(ior, [m._meta.get_parent_list() for m in models])
+            parents = reduce(ior, [set(m._meta.get_parent_list())
+                                   for m in models])
             models = [m for m in models if m not in parents]
         elif getattr(self.model._meta, "abstract", False):
             # When we're combining model subclasses for an abstract
