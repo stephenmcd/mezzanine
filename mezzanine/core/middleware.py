@@ -290,5 +290,5 @@ class RedirectFallbackMiddleware(object):
                 if not redirect.new_path:
                     response = HttpResponseGone()
                 else:
-                    response = HttpResponseRedirect(redirect.new_path)
+                    response = HttpResponsePermanentRedirect(redirect.new_path)
         return response
