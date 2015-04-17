@@ -574,6 +574,7 @@ Sites Using Mezzanine
 * `Savant Digital <http://www.savantdigital.net>`_
 * `weBounty <https://webounty.com>`_
 * `Oxfam America <http://www.oxfamamerica.org/>`_
+* `Artivest <https://artivest.co/>`_
 
 
 Quotes
