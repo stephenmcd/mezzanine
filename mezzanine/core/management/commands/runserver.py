@@ -55,9 +55,9 @@ def banner():
     # to join with dots.
     db_version_func = {
         "postgresql": lambda: (
-            conn.pg_version / 10000,
-            conn.pg_version % 10000 / 100,
-            conn.pg_version % 10000 % 100,
+            conn.pg_version // 10000,
+            conn.pg_version // 100 % 100,
+            conn.pg_version % 100,
         ),
         "mysql": lambda: conn.mysql_version,
         "sqlite": lambda: conn.Database.sqlite_version_info,
