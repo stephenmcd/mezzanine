@@ -625,7 +625,7 @@ def admin_dropdown_menu(context):
         if user.is_superuser:
             sites = Site.objects.all()
         else:
-            sites = user.sitepermissions.get().sites.all()
+            sites = user.sitepermissions.sites.all()
         context["dropdown_menu_sites"] = list(sites)
         context["dropdown_menu_selected_site_id"] = current_site_id()
         return context
