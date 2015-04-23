@@ -575,6 +575,7 @@ Sites Using Mezzanine
 * `weBounty <https://webounty.com>`_
 * `Oxfam America <http://www.oxfamamerica.org/>`_
 * `Artivest <https://artivest.co/>`_
+* `Dark Matter Sheep <http://darkmattersheep.net>`_
 
 
 Quotes
