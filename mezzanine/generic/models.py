@@ -7,7 +7,7 @@ from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 
-from django_comments import Comment
+from django_comments.models import Comment
 
 from mezzanine.generic.fields import RatingField
 from mezzanine.generic.managers import CommentManager, KeywordManager
