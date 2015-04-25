@@ -9,7 +9,7 @@ try:
 except ImportError:
     from urllib import urlopen, urlencode
 
-from django.contrib.contenttypes.generic import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.db.models.base import ModelBase
 from django.db.models.signals import post_save

@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
 
 import os
+from importlib import import_module
 
 from django.apps import apps
-from django.utils.importlib import import_module
 
 
 def path_for_import(name):

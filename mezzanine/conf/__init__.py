@@ -8,11 +8,11 @@ from __future__ import unicode_literals
 from future.builtins import bytes, str
 
 from functools import partial
+from importlib import import_module
 from warnings import warn
 
 from django.conf import settings as django_settings
 from django.utils.functional import Promise
-from django.utils.importlib import import_module
 from django.utils.module_loading import module_has_submodule
 
 from mezzanine import __version__
