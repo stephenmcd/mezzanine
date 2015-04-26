@@ -10,7 +10,9 @@
 .grappelli-delete:hover {background:url('{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/icons/icon-inline_item_tools-deletelink-hover.png" %}');}
 </style>
 <script>window.__page_ordering_url = '{% url "admin_page_ordering" %}';</script>
-<script src="{% static "mezzanine/js/jquery-ui-1.9.1.custom.min.js" %}"></script>
+{% if not settings.USE_MODELTRANSLATION %}
+<script src="{% static "mezzanine/js/"|add:settings.JQUERY_UI_FILENAME %}"></script>
+{% endif %}
 <script src="{% static "mezzanine/js/admin/jquery.mjs.nestedSortable.js" %}"></script>
 <script src="{% static "mezzanine/js/admin/page_tree.js" %}"></script>
 {% endblock %}

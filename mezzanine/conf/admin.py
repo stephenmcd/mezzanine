@@ -1,11 +1,14 @@
 from __future__ import unicode_literals
 
+from copy import copy
+
 from django.contrib import admin
 from django.contrib.messages import info
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_text
 
+from mezzanine.core.admin import BaseTranslationModelAdmin
 from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm
 from mezzanine.utils.cache import (cache_delete, cache_installed,
@@ -19,19 +22,9 @@ class SettingsAdmin(admin.ModelAdmin):
     view where a single form is rendered for editing all settings.
     """
 
-    class Media:
-        js = (
-            'modeltranslation/js/force_jquery.js',
-            '//ajax.googleapis.com/ajax/libs/jqueryui'
-                    '/1.8.2/jquery-ui.min.js',
-            'mezzanine/js/admin/tabbed_translatable_settings.js',
-        )
-        css = {
-            'all': (
-                'mezzanine/css/admin/tabbed_translation_fields.css',
-                'mezzanine/css/admin/settings.css',
-            ),
-        }
+    class Media(BaseTranslationModelAdmin.Media):
+        css = copy(BaseTranslationModelAdmin.Media.css)
+        css["all"] += ('mezzanine/css/admin/settings.css',)
 
     def changelist_redirect(self):
         changelist_url = admin_url(Setting, "changelist")
