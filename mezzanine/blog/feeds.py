@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import get_user_model
+from django.contrib.sites.models import Site
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
@@ -102,6 +103,11 @@ class PostsRSS(Feed):
     def item_categories(self, item):
         return item.categories.all()
 
+    def item_enclosure_url(self, item): 
+        if item.featured_image: 
+            domain = Site.objects.get_current().domain 
+            enclosure_url = "http://%s%s" % (domain, item.featured_image.url) 
+            return enclosure_url 
 
 class PostsAtom(PostsRSS):
     """
