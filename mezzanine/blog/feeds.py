@@ -103,11 +103,12 @@ class PostsRSS(Feed):
     def item_categories(self, item):
         return item.categories.all()
 
-    def item_enclosure_url(self, item): 
-        if item.featured_image: 
-            domain = Site.objects.get_current().domain 
-            enclosure_url = "http://%s%s" % (domain, item.featured_image.url) 
-            return enclosure_url 
+    def item_enclosure_url(self, item):
+        if item.featured_image:
+            domain = Site.objects.get_current().domain
+            enclosure_url = "http://%s%s" % (domain, item.featured_image.url)
+            return enclosure_url
+
 
 class PostsAtom(PostsRSS):
     """

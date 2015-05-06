@@ -293,11 +293,12 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   platform.
 * `mezzanine-bsbanners`_ - Add `Twitter Bootstrap`_ Carousels and
   Jumbotrons to Mezzanine.
-* `mezzanine-business-theme`_ Starter business theme for Mezzanine.
-* `open-helpdesk`_ A helpdesk app built with Mezzanine.
-* `mezzanine-invites`_ Allow site registration via alphanumeric invite codes.
-* `ansible-mezzanine`_ Full pipeline (dev, staging, production) deployment of Mezzanine using `Ansible`_.
-* `mezzanine-modal-announcements`_ Popup announcements for Mezzanine websites via Bootstrap modals.
+* `mezzanine-business-theme`_ - Starter business theme for Mezzanine.
+* `open-helpdesk`_ - A helpdesk app built with Mezzanine.
+* `mezzanine-invites`_ - Allow site registration via alphanumeric invite codes.
+* `ansible-mezzanine`_ - Full pipeline (dev, staging, production) deployment of Mezzanine using `Ansible`_.
+* `mezzanine-modal-announcements`_ - Popup announcements for Mezzanine websites via Bootstrap modals.
+* `mezzanine-buffer`_ - `Buffer`_ integration for Mezzanine.
 
 
 Donating
@@ -752,6 +753,8 @@ Quotes
 .. _`mezzanine-invites`: https://github.com/averagehuman/mezzanine-invites
 .. _`ansible-mezzanine`: https://github.com/keithadavidson/ansible-mezzanine
 .. _`mezzanine-modal-announcements`: https://github.com/joshcartme/mezzanine-modal-announcements
+.. _`mezzanine-buffer`: https://github.com/caffodian/mezzanine-bufferannouncements
+.. _`Buffer`: http://buffer.com
 
 
 .. PEOPLE WITH QUOTES
