@@ -119,6 +119,14 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
         """
         return ThreadedComment
 
+    def check_for_duplicate_comment(self, new):
+        """
+        We handle duplicates inside ``save``, since django_comments'
+        `check_for_duplicate_comment` doesn't deal with extra fields
+        defined on the comment model.
+        """
+        return new
+
     def save(self, request):
         """
         Saves a new comment and sends any notification emails.
@@ -130,6 +138,21 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
         comment.by_author = request.user == getattr(obj, "user", None)
         comment.ip_address = ip_for_request(request)
         comment.replied_to_id = self.data.get("replied_to")
+
+        # Mezzanine's duplicate check that also checks `replied_to_id`.
+        lookup = {
+            "content_type": comment.content_type,
+            "object_pk": comment.object_pk,
+            "user_name": comment.user_name,
+            "user_email": comment.user_email,
+            "user_url": comment.user_url,
+            "replied_to_id": comment.replied_to_id,
+        }
+        for duplicate in self.get_comment_model().objects.filter(**lookup):
+            if (duplicate.submit_date.date() == comment.submit_date.date() and
+                    duplicate.comment == comment.comment):
+                return duplicate
+
         comment.save()
         comment_was_posted.send(sender=comment.__class__, comment=comment,
                                 request=request)
