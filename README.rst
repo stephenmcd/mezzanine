@@ -208,13 +208,15 @@ be translated into multiple langagues to create multi-lingual sites.
 Consult Mezzanine's documentation on `Multi-lingual sites`_ for more
 information.
 
-Third-Party Modules
-===================
+Third-Party Plug-Ins
+====================
 
-The following modules have been developed outside of Mezzanine. If you
-have developed a module to integrate with Mezzanine and would like to
-list it here, send an email to the `mezzanine-users`_ mailing list.
-You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
+The following plug-ins have been developed outside of Mezzanine. If you
+have developed a plug-in to integrate with Mezzanine and would like to
+list it here, send an email to the `mezzanine-users`_ mailing list, or
+better yet, fork the project and create a pull request with your
+plug-in added to the list below. We also ask that you add it to the
+`Mezzanine Grid on djangopackages.com`_.
 
 * `Cartridge`_ - ecommerce for Mezzanine.
 * `Drum`_ - A `Hacker News`_ / `Reddit`_ clone powered by Mezzanine.
@@ -295,9 +297,12 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   Jumbotrons to Mezzanine.
 * `mezzanine-business-theme`_ - Starter business theme for Mezzanine.
 * `open-helpdesk`_ - A helpdesk app built with Mezzanine.
-* `mezzanine-invites`_ - Allow site registration via alphanumeric invite codes.
-* `ansible-mezzanine`_ - Full pipeline (dev, staging, production) deployment of Mezzanine using `Ansible`_.
-* `mezzanine-modal-announcements`_ - Popup announcements for Mezzanine websites via Bootstrap modals.
+* `mezzanine-invites`_ - Allow site registration via alphanumeric
+  invite codes.
+* `ansible-mezzanine`_ - Full pipeline (dev, staging, production)
+  deployment of Mezzanine using `Ansible`_.
+* `mezzanine-modal-announcements`_ - Popup announcements for Mezzanine
+  websites via Bootstrap modals.
 * `mezzanine-buffer`_ - `Buffer`_ integration for Mezzanine.
 * `mezzanine-slideshows`_ - Allows placement of Mezzanine galleries
   within other Mezzanine pages as slideshows.
@@ -338,6 +343,12 @@ to the `Django Code of Conduct`_.
 
 Sites Using Mezzanine
 =====================
+
+Got a site built with Mezzanine? You can add it to the gallery on
+the `Mezzanine project page`_ by adding it to the list below - just
+fork the project and create a pull request. Please omit the trailing
+slash in the URL, as we manually add that ourselves to feature
+certain sites.
 
 * `Citrus Agency <http://citrus.com.au/>`_
 * `Mezzanine Project <http://mezzanine.jupo.org>`_
