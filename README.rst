@@ -299,6 +299,8 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
 * `ansible-mezzanine`_ - Full pipeline (dev, staging, production) deployment of Mezzanine using `Ansible`_.
 * `mezzanine-modal-announcements`_ - Popup announcements for Mezzanine websites via Bootstrap modals.
 * `mezzanine-buffer`_ - `Buffer`_ integration for Mezzanine.
+* `mezzanine-slideshows`_ - Allows placement of Mezzanine galleries
+  within other Mezzanine pages as slideshows.
 
 
 Donating
@@ -758,8 +760,9 @@ Quotes
 .. _`mezzanine-invites`: https://github.com/averagehuman/mezzanine-invites
 .. _`ansible-mezzanine`: https://github.com/keithadavidson/ansible-mezzanine
 .. _`mezzanine-modal-announcements`: https://github.com/joshcartme/mezzanine-modal-announcements
-.. _`mezzanine-buffer`: https://github.com/caffodian/mezzanine-bufferannouncements
+.. _`mezzanine-buffer`: https://github.com/caffodian/mezzanine-buffer
 .. _`Buffer`: http://buffer.com
+.. _`mezzanine-slideshows`: https://github.com/philipsouthwell/mezzanine-slideshows
 
 
 .. PEOPLE WITH QUOTES
