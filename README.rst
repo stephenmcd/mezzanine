@@ -318,7 +318,7 @@ Support
 =======
 
 To report a security issue, please send an email privately to
-`security@jupo.org`_. This gives us a chance to fix the issue and
+`core-team@mezzaninecms.com`_. This gives us a chance to fix the issue and
 create an official release prior to the issue being made
 public.
 
@@ -682,7 +682,7 @@ Quotes
 .. _`django-modeltranslation`: http://django-modeltranslation.readthedocs.org
 .. _`Multi-lingual sites`: http://mezzanine.jupo.org/docs/multi-lingual-sites.html
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users/topics
-.. _`security@jupo.org`: mailto:security@jupo.org?subject=Mezzanine+Security+Issue
+.. _`core-team@mezzaninecms.com`: mailto:core-team@mezzaninecms.com?subject=Mezzanine+Security+Issue
 .. _`GitHub issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`#mezzanine IRC channel`: irc://irc.freenode.net/mezzanine
 .. _`Freenode`: http://freenode.net
