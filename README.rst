@@ -595,7 +595,7 @@ certain sites.
 * `Rodeo Austin <http://rodeoaustin.com/>`_
 * `Krisers <http://krisers.com/>`_
 * `Intentional Creation <http://intentionalcreation.com/>`_
-* `BytesArea <http://www.bytesarea.com/>`_
+* `BytesArea <http://www.bytesarea.com>`_
 
 
 Quotes
