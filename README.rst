@@ -597,6 +597,7 @@ certain sites.
 * `Krisers <http://krisers.com/>`_
 * `Intentional Creation <http://intentionalcreation.com/>`_
 * `BytesArea <http://www.bytesarea.com>`_
+* `Debra Solomon <http://www.debrasolomon.com>`_
 
 
 Quotes
