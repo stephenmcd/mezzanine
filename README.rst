@@ -306,6 +306,7 @@ plug-in added to the list below. We also ask that you add it to the
 * `mezzanine-buffer`_ - `Buffer`_ integration for Mezzanine.
 * `mezzanine-slideshows`_ - Allows placement of Mezzanine galleries
   within other Mezzanine pages as slideshows.
+* `mezzanine-onepage`_ - Design helper for single-page Mezzanine sites.
 
 
 Donating
@@ -775,6 +776,7 @@ Quotes
 .. _`mezzanine-buffer`: https://github.com/caffodian/mezzanine-buffer
 .. _`Buffer`: http://buffer.com
 .. _`mezzanine-slideshows`: https://github.com/philipsouthwell/mezzanine-slideshows
+.. _`mezzanine-onepage`: https://github.com/lucmilland/mezzanine-onepage
 
 
 .. PEOPLE WITH QUOTES
