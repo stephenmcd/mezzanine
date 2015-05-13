@@ -44,7 +44,7 @@ class BaseGenericRelation(GenericRelation):
         try:
             # Check if ``related_model`` has been modified by a subclass
             self.related_model
-        except AppRegistryNotReady:
+        except (AppRegistryNotReady, AttributeError):
             # if not, all is good
             super(BaseGenericRelation, self).__init__(*args, **kwargs)
         else:
