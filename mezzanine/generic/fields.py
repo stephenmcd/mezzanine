@@ -4,7 +4,7 @@ from future.builtins import str
 from copy import copy
 
 from django.contrib.contenttypes.generic import GenericRelation
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, AppRegistryNotReady
 from django.db.models import IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
 
@@ -16,8 +16,8 @@ class BaseGenericRelation(GenericRelation):
     Extends ``GenericRelation`` to:
 
     - Add a consistent default value for ``object_id_field`` and
-      check for a ``related_model`` attribute which can be defined
-      on subclasses as a default for the ``to`` argument.
+      check for a ``default_related_model`` attribute which can be
+      defined on subclasses as a default for the ``to`` argument.
 
     - Add one or more custom fields to the model that the relation
       field is applied to, and then call a ``related_items_changed``
@@ -32,14 +32,29 @@ class BaseGenericRelation(GenericRelation):
 
     def __init__(self, *args, **kwargs):
         """
-        Set up some defaults and check for a ``related_model``
+        Set up some defaults and check for a ``default_related_model``
         attribute for the ``to`` argument.
         """
         kwargs.setdefault("object_id_field", "object_pk")
-        to = getattr(self, "related_model", None)
-        if to:
+        to = getattr(self, "default_related_model", None)
+        # Avoid having both a positional arg and a keyword arg for
+        # the parameter ``to``
+        if to and not args:
             kwargs.setdefault("to", to)
-        super(BaseGenericRelation, self).__init__(*args, **kwargs)
+        try:
+            # Check if ``related_model`` has been modified by a subclass
+            self.related_model
+        except AppRegistryNotReady:
+            # if not, all is good
+            super(BaseGenericRelation, self).__init__(*args, **kwargs)
+        else:
+            # otherwise, warn the user to stick to the new (as of 3.2)
+            # ``default_related_model`` attribute
+            raise ImproperlyConfigured("BaseGenericRelation changed the "
+                "way it handled a default ``related_model`` in mezzanine "
+                "3.2. Please override ``default_related_model`` instead "
+                "and do not tamper with django's ``related_model`` "
+                "property anymore.")
 
     def contribute_to_class(self, cls, name):
         """
@@ -134,7 +149,7 @@ class CommentsField(BaseGenericRelation):
     deleted.
     """
 
-    related_model = "generic.ThreadedComment"
+    default_related_model = "generic.ThreadedComment"
     fields = {"%s_count": IntegerField(editable=False, default=0)}
 
     def related_items_changed(self, instance, related_manager):
@@ -160,7 +175,7 @@ class KeywordsField(BaseGenericRelation):
     searching.
     """
 
-    related_model = "generic.AssignedKeyword"
+    default_related_model = "generic.AssignedKeyword"
     fields = {"%s_string": CharField(editable=False, blank=True,
                                      max_length=500)}
 
@@ -247,7 +262,7 @@ class RatingField(BaseGenericRelation):
     fields when a rating is saved or deleted.
     """
 
-    related_model = "generic.Rating"
+    default_related_model = "generic.Rating"
     fields = {"%s_count": IntegerField(default=0, editable=False),
               "%s_sum": IntegerField(default=0, editable=False),
               "%s_average": FloatField(default=0, editable=False)}
