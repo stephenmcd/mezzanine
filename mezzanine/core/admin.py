@@ -17,6 +17,52 @@ from mezzanine.utils.urls import admin_url
 from mezzanine.utils.models import get_user_model
 
 
+if settings.USE_MODELTRANSLATION:
+    from django.utils.datastructures import SortedDict
+    from django.utils.translation import activate, get_language
+    from modeltranslation.admin import (TranslationAdmin,
+                                        TranslationInlineModelAdmin)
+
+    class BaseTranslationModelAdmin(TranslationAdmin):
+        """
+        Mimic modeltranslation's TabbedTranslationAdmin but uses a
+        custom tabbed_translation_fields.js
+        """
+        class Media:
+            js = (
+                "modeltranslation/js/force_jquery.js",
+                "mezzanine/js/%s" % settings.JQUERY_UI_FILENAME,
+                "mezzanine/js/admin/tabbed_translation_fields.js",
+            )
+            css = {
+                "all": ("mezzanine/css/admin/tabbed_translation_fields.css",),
+            }
+
+else:
+    class BaseTranslationModelAdmin(admin.ModelAdmin):
+        """
+        Abstract class used to handle the switch between translation
+        and no-translation class logic. We define the basic structure
+        for the Media class so we can extend it consistently regardless
+        of whether or not modeltranslation is used.
+        """
+        class Media:
+            css = {"all": ()}
+
+
+def getInlineBaseClass(cls):
+    if settings.USE_MODELTRANSLATION:
+        class InlineBase(TranslationInlineModelAdmin, cls):
+            """
+            Abstract class that mimics django-modeltranslation's
+            Translation{Tabular,Stacked}Inline. Used as a placeholder
+            for future improvement.
+            """
+            pass
+        return InlineBase
+    return cls
+
+
 User = get_user_model()
 
 
@@ -31,7 +77,7 @@ class DisplayableAdminForm(ModelForm):
         return content
 
 
-class DisplayableAdmin(admin.ModelAdmin):
+class DisplayableAdmin(BaseTranslationModelAdmin):
     """
     Admin class for subclasses of the abstract ``Displayable`` model.
     """
@@ -91,11 +137,11 @@ class BaseDynamicInlineAdmin(object):
             self.fields = fields
 
 
-class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.TabularInline):
+class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin, getInlineBaseClass(admin.TabularInline)):
     template = "admin/includes/dynamic_inline_tabular.html"
 
 
-class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.StackedInline):
+class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin, getInlineBaseClass(admin.StackedInline)):
     template = "admin/includes/dynamic_inline_stacked.html"
 
     def __init__(self, *args, **kwargs):
