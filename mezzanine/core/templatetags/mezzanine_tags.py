@@ -713,7 +713,7 @@ def translated_urls(parser, token):
     sequences: translated_url, language_code, language_name.
 
     Usage::
-    
+
         {% get_translated_urls as urls %}
         {% for translated_url in urls %}
         ...
