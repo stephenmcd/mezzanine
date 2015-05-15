@@ -18,11 +18,11 @@
 </ul>
 
 {% if settings.USE_L10N and LANGUAGES|length > 1 %}
-{% get_language_info_list for LANGUAGES as languages %}
+{% get_translated_urls as translated_urls %}
 <form>
     <select id="id_language" onchange="window.location.href=this.value;">
-        {% for lang in languages %}
-        <option{% if LANGUAGE_CODE == lang.code %} selected="selected"{% endif %} value="{% translate_url lang.code %}">{{ lang.name_local }}</option>
+        {% for url_info in translated_urls %}
+        <option{% if LANGUAGE_CODE == url_info.1 %} selected="selected"{% endif %} value="{{ url_info.0 }}">{{ url_info.2 }}</option>
         {% endfor %}
     </select>
 </form>

@@ -664,31 +664,63 @@ def dashboard_column(context, token):
     return "".join(output)
 
 
-@register.simple_tag(takes_context=True)
-def translate_url(context, language):
-    """
-    Translates the current URL for the given language code, eg:
+class TranslateURL(Node):
+    def __init__(self, variable):
+        self.variable = variable
 
-        {% translate_url de %}
-    """
-    try:
-        request = context["request"]
-    except KeyError:
-        return ""
-    view = resolve(request.path)
-    current_language = translation.get_language()
-    translation.activate(language)
-    try:
-        url = reverse(view.func, args=view.args, kwargs=view.kwargs)
-    except NoReverseMatch:
+    def render(self, context):
         try:
-            url_name = (view.url_name if not view.namespace
-                        else '%s:%s' % (view.namespace, view.url_name))
-            url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+            request = context['request']
+        except KeyError:
+            return ''
+        view = resolve(request.path)
+        current_language = translation.get_language()
+        if request.META['QUERY_STRING']:
+            qs = request.META['QUERY_STRING']
+            context[self.variable] = [
+                (
+                    '%s?%s' % (self._do_translate_url(view, k), qs),
+                    k,
+                    translation.ugettext(v)
+                ) for k, v in settings.LANGUAGES]
+        else:
+            context[self.variable] = [
+                (self._do_translate_url(view, k), k, translation.ugettext(v))
+                for k, v in settings.LANGUAGES]
+        translation.activate(current_language)
+        return ''
+
+    def _do_translate_url(self, view, language):
+        translation.activate(language)
+        try:
+            url = reverse(view.func, args=view.args, kwargs=view.kwargs)
         except NoReverseMatch:
-            url_name = "admin:" + view.url_name
-            url = reverse(url_name, args=view.args, kwargs=view.kwargs)
-    translation.activate(current_language)
-    if context['request'].META["QUERY_STRING"]:
-        url += "?" + context['request'].META["QUERY_STRING"]
-    return url
+            try:
+                url_name = (view.url_name if not view.namespace
+                            else '%s:%s' % (view.namespace, view.url_name))
+                url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+            except NoReverseMatch:
+                url_name = "admin:" + view.url_name
+                url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+        return url
+
+
+@register.tag("get_translated_urls")
+def translated_urls(parser, token):
+    """
+    This will store a list of the current URL translated for
+    every laguages in the context. The list contains 3-items
+    sequences: translated_url, language_code, language_name.
+
+    Usage::
+    
+        {% get_translated_urls as urls %}
+        {% for translated_url in urls %}
+        ...
+        {% endfor %}
+    """
+    args = token.contents.split()
+    if len(args) != 3 or args[1] != 'as':
+        raise TemplateSyntaxError(
+                "'get_translated_urls' requires 'as variable' (got %r)" % args)
+    return TranslateURL(args[2])
