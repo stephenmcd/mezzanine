@@ -25,6 +25,9 @@ class SettingsAdmin(admin.ModelAdmin):
     class Media(BaseTranslationModelAdmin.Media):
         css = copy(BaseTranslationModelAdmin.Media.css)
         css["all"] += ("mezzanine/css/admin/settings.css",)
+        js = [js.replace("tabbed_translation_fields.js",
+                         "tabbed_translatable_settings.js")
+              for js in BaseTranslationModelAdmin.Media.js]
 
     def changelist_redirect(self):
         changelist_url = admin_url(Setting, "changelist")

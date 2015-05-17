@@ -45,6 +45,7 @@ else:
         of whether or not modeltranslation is used.
         """
         class Media:
+            js = ()
             css = {"all": ()}
 
 
