@@ -18,13 +18,13 @@ from mezzanine.utils.urls import admin_url
 
 class SettingsAdmin(admin.ModelAdmin):
     """
-    Admin class for settings model. Redirect add/change views to the list
-    view where a single form is rendered for editing all settings.
+    Admin class for settings model. Redirect add/change views to the
+    list view where a single form is rendered for editing all settings.
     """
 
     class Media(BaseTranslationModelAdmin.Media):
         css = copy(BaseTranslationModelAdmin.Media.css)
-        css["all"] += ('mezzanine/css/admin/settings.css',)
+        css["all"] += ("mezzanine/css/admin/settings.css",)
 
     def changelist_redirect(self):
         changelist_url = admin_url(Setting, "changelist")
