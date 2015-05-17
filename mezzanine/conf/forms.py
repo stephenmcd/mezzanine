@@ -130,4 +130,5 @@ class SettingsForm(forms.Form):
             for i, s in enumerate(description.split(bold)):
                 parts.append(s if i % 2 == 0 else "<b>%s</b>" % s)
             description = "".join(parts)
-        return mark_safe(urlize(description).replace("\n", "<br>"))
+        description = urlize(description, autoescape=False)
+        return mark_safe(description.replace("\n", "<br>"))
