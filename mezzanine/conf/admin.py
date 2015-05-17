@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_text
 
 from mezzanine.core.admin import BaseTranslationModelAdmin
+from mezzanine.conf import settings
 from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm
 from mezzanine.utils.cache import (cache_delete, cache_installed,
@@ -25,6 +26,12 @@ class SettingsAdmin(admin.ModelAdmin):
     class Media(BaseTranslationModelAdmin.Media):
         css = copy(BaseTranslationModelAdmin.Media.css)
         css["all"] += ('mezzanine/css/admin/settings.css',)
+        if settings.USE_MODELTRANSLATION:
+            js = (
+                "modeltranslation/js/force_jquery.js",
+                "mezzanine/js/%s" % settings.JQUERY_UI_FILENAME,
+                "mezzanine/js/admin/tabbed_translatable_settings.js",
+            )
 
     def changelist_redirect(self):
         changelist_url = admin_url(Setting, "changelist")
