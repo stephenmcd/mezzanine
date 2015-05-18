@@ -377,10 +377,10 @@ register_setting(
 register_setting(
     name="SITE_LOGO",
     label=_("Site Logo"),
-    description=_("Site Logo, if defined, will be displayed at the top of every page "
-        "instead of `Site Title`, with `Site Title` added as ALT text."),
+    description=_("Site Logo, if defined, will be displayed at top of every"
+        "page instead of `Site Title`, with `Site Title` added as ALT text."),
     editable=True,
-    default=settings.STATIC_URL+"img/mezzanine-logo.png",
+    default=settings.STATIC_URL + "img/mezzanine-logo.png",
 )
 
 register_setting(
