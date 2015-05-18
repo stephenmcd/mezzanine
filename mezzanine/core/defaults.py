@@ -375,6 +375,15 @@ register_setting(
 )
 
 register_setting(
+    name="SITE_LOGO",
+    label=_("Site Logo"),
+    description=_("Site Logo, if defined, will be displayed at the top of every page "
+        "instead of `Site Title`, with `Site Title` added as ALT text."),
+    editable=True,
+    default=settings.STATIC_URL+"img/mezzanine-logo.png",
+)
+
+register_setting(
     name="SITE_TAGLINE",
     label=_("Tagline"),
     description=_("A tag line that will appear at the top of all pages."),
@@ -524,7 +533,7 @@ register_setting(
         "COMMENTS_USE_RATINGS", "DEV_SERVER", "FORMS_USE_HTML5",
         "GRAPPELLI_INSTALLED", "GOOGLE_ANALYTICS_ID", "JQUERY_FILENAME",
         "JQUERY_UI_FILENAME", "LOGIN_URL", "LOGOUT_URL", "SITE_TITLE",
-        "SITE_TAGLINE", "USE_L10N", "USE_MODELTRANSLATION",
+        "SITE_LOGO", "SITE_TAGLINE", "USE_L10N", "USE_MODELTRANSLATION",
     ),
 )
 

@@ -57,7 +57,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    {% if settings.SITE_TITLE %}<a class="navbar-brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
+    {% if settings.SITE_LOGO %}
+        <a class="navbar-brand" href="/">
+            <img src="{{ settings.SITE_LOGO }}" border="0" alt="{{ settings.SITE_TITLE }}" />
+        </a>
+    {% elif settings.SITE_TITLE %}
+        <a class="navbar-brand" href="/">{{ settings.SITE_TITLE }}</a>
+    {% endif %}
+
     {% if settings.SITE_TAGLINE %}<p class="navbar-text visible-lg">{{ settings.SITE_TAGLINE }}</p>{% endif %}
 </div>
 <div class="navbar-collapse collapse">
