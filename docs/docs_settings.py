@@ -8,3 +8,6 @@ from mezzanine.project_template.settings import *
 from random import choice
 characters = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
 SECRET_KEY = ''.join([choice(characters) for i in range(50)])
+
+if "mezzanine.accounts" not in INSTALLED_APPS:
+    INSTALLED_APPS = tuple(INSTALLED_APPS) + ("mezzanine.accounts",)
