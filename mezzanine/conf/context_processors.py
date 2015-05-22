@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from django.utils.functional import lazy
 from mezzanine.utils.cache import (cache_key_prefix, cache_installed,
                                    cache_get, cache_set)
 
@@ -59,4 +60,4 @@ def settings(request=None):
             settings_dict["MEZZANINE_ADMIN_PREFIX"] = "admin/"
         lazy_settings.settings_dict = settings_dict
         return settings_dict
-    return {"settings": lazy_settings}
+    return {"settings": lazy(lazy_settings, TemplateSettings)()}
