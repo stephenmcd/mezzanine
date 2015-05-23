@@ -26,7 +26,7 @@ setting to ``True`` in your project's ``settings.py`` module, and
 also defining at least two entries in the ``LANGUAGES`` setting.
 
 For new projects, ``manage.py createdb`` will take care of creating
-extraneous columns in the database for each language. For current or
+extra columns in the database for each language. For current or
 older projects, you can catch up by running
 ``manage.py sync_translation_fields`` and then
 ``manage.py update_translation_fields``.
@@ -67,7 +67,7 @@ setting. For example, ``mezzanine.forms`` extends models from
     ideas with translated model inheritance, and template or static
     file overriding, in regard to the order of ``INSTALLED_APPS``.
 
-Secondly for an external app, create a ``translation.py`` module
+Secondly, for an external app, create a ``translation.py`` module
 at the root of your app. The content of this file might benefit
 from ``mezzanine.core.translation`` depending on what you are
 extending from. For example, to improve the model from
@@ -140,7 +140,7 @@ Translation Fields and Migrations
 Mezzanine is shipped with its own migration files but these do not take
 translation fields into account. These fields are created by every
 project's ``LANGUAGES`` setting and thus can't be provided by default.
-If you want to both manage migrations for your project and enables
+If you want to both manage migrations for your project and enable
 translation fields, there are two possibilities.
 
  1. You can disable translation fields while managing your migrations
