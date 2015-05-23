@@ -47,6 +47,8 @@ class Command(BaseImporterCommand):
         except ImportError:
             raise CommandError("feedparser package is required")
         if not rss_url and page_url:
+            if "://" not in page_url:
+                page_url = "http://%s" % page_url
             try:
                 from BeautifulSoup import BeautifulSoup
             except ImportError:

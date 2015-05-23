@@ -153,7 +153,7 @@ class BaseDynamicInlineAdmin(object):
         return fieldsets
 
 
-def getInlineBaseClass(cls):
+def get_inline_base_class(cls):
     if settings.USE_MODELTRANSLATION:
         class InlineBase(TranslationInlineModelAdmin, cls):
             """
@@ -167,12 +167,12 @@ def getInlineBaseClass(cls):
 
 
 class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin,
-                                getInlineBaseClass(admin.TabularInline)):
+                                get_inline_base_class(admin.TabularInline)):
     template = "admin/includes/dynamic_inline_tabular.html"
 
 
 class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin,
-                                getInlineBaseClass(admin.StackedInline)):
+                                get_inline_base_class(admin.StackedInline)):
     template = "admin/includes/dynamic_inline_stacked.html"
 
     def __init__(self, *args, **kwargs):
