@@ -134,6 +134,37 @@ After that, you can ``manage.py createdb`` for a new project or
 ``manage.py sync_translation_fields`` and then
 ``manage.py update_translation_fields`` for an existing one.
 
+Translation Fields and Migrations
+=================================
+
+Mezzanine is shipped with its own migration files but these do not take
+translation fields into account. These fields are created by every
+project's ``LANGUAGES`` setting and thus can't be provided by default.
+If you want to both manage migrations for your project and enables
+translation fields, there are two possibilities.
+
+ 1. You can disable translation fields while managing your migrations
+     as usual and then catch up by adding the missing fields if any::
+
+     # edit settings.py to set USE_MODELTRANSLATION = False
+     $ python manage.py makemigrations
+     $ python manage.py migrate
+     # edit settings.py to set USE_MODELTRANSLATION back to True
+     $ python manage.py sync_translation_fields
+
+    This way, your migration files will never contains references to
+    your specific ``LANGUAGES`` setting.
+
+ 2. You can create migration files including all the translation fields
+     for your project. This way you won't need to rely on the
+     ``manage.py sync_translation_fields`` command anymore. You will
+     need to define a custom ``MIGRATION_MODULES`` and then run::
+
+     $ python manage.py makemigrations
+
+    Have a look at :ref:`field-injection-caveats` for a better introduction
+    to ``MIGRATION_MODULES``.
+
 Translation for Injected Fields
 ===============================
 
