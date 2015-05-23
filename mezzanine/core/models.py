@@ -12,7 +12,6 @@ except ImportError:
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.db.models.base import ModelBase
-from django.db.models.signals import post_save
 from django.template.defaultfilters import truncatewords_html
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import strip_tags
