@@ -514,19 +514,3 @@ class SitePermission(models.Model):
     class Meta:
         verbose_name = _("Site permission")
         verbose_name_plural = _("Site permissions")
-
-
-def create_site_permission(sender, **kw):
-    sender_name = "%s.%s" % (sender._meta.app_label, sender._meta.object_name)
-    if sender_name.lower() != user_model_name.lower():
-        return
-    user = kw["instance"]
-    if user.is_staff and not user.is_superuser:
-        perm, created = SitePermission.objects.get_or_create(user=user)
-        if created or perm.sites.count() < 1:
-            perm.sites.add(current_site_id())
-
-# We don't specify the user model here, because with Django's custom
-# user models, everything explodes. So we check the name of it in
-# the signal.
-post_save.connect(create_site_permission)
