@@ -180,6 +180,10 @@ class MetaData(models.Model):
                 break
         else:
             description = truncatewords_html(description, 100)
+        try:
+            description = unicode(description)
+        except NameError:
+            pass  # Python 3.
         return description
 
 
