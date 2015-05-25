@@ -33,7 +33,7 @@ class LazyAdminSite(AdminSite):
     def lazy_registration(self):
         # First, directly handle models we don't want at all,
         # as per the ``ADMIN_REMOVAL`` setting.
-        for model in settings.ADMIN_REMOVAL:
+        for model in getattr(settings, "ADMIN_REMOVAL", []):
             try:
                 model = tuple(model.rsplit(".", 1))
                 exec("from %s import %s" % model)
