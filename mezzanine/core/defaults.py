@@ -395,6 +395,19 @@ register_setting(
 )
 
 register_setting(
+    name="PATH_TO_SLUG",
+    description=_("Dotted Python path to the callable to convert full urls to "
+        "slugs to lookup Page objects. Defaults to "
+        "``mezzanine.utils.urls.mezzanine_path_to_slug`` which strips the "
+        "language code (eg en-us), SITE_PREFIX and PAGES_SLUG. If you have, "
+        "for example, a different i18n url scheme you may need to wrap or "
+        "replace mezzanine_path_to_slug with your own function and change "
+        "this setting."),
+    editable=False,
+    default="mezzanine.utils.urls.mezzanine_path_to_slug",
+)
+
+register_setting(
     name="SPAM_FILTERS",
     description=_("Sequence of dotted Python paths to callable functions "
         "used for checking posted content (such as forms or comments) is "
