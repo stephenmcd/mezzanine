@@ -124,6 +124,14 @@ def login_redirect(request):
 
 def path_to_slug(path):
     """
+    Loads the callable defined by the ``PATH_TO_SLUG`` setting, which defaults
+    to the ``mezzanine_path_to_slug`` function.
+    """
+    return import_dotted_path(settings.PATH_TO_SLUG)(path)
+
+
+def mezzanine_path_to_slug(path):
+    """
     Removes everything from the given URL path, including
     language code and ``PAGES_SLUG`` if any is set, returning
     a slug that would match a ``Page`` instance's slug.
