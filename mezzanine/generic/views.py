@@ -89,7 +89,7 @@ def initial_validation(request, prefix):
 
 
 @require_POST
-def comment(request, template="generic/comments.html"):
+def comment(request, template="generic/comments.html", extra_context=None):
     """
     Handle a ``ThreadedCommentForm`` submission and redirect back to its
     related object.
@@ -116,6 +116,7 @@ def comment(request, template="generic/comments.html"):
         return HttpResponse(dumps({"errors": form.errors}))
     # Show errors with stand-alone comment form.
     context = {"obj": obj, "posted_comment_form": form}
+    context.update(extra_context or {})
     response = render(request, template, context)
     return response
 

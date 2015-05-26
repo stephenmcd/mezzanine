@@ -103,7 +103,7 @@ def edit(request):
     return HttpResponse(response)
 
 
-def search(request, template="search_results.html"):
+def search(request, template="search_results.html", extra_context=None):
     """
     Display search results. Takes an optional "contenttype" GET parameter
     in the form "app-name.ModelName" to limit search results to a single model.
@@ -126,6 +126,7 @@ def search(request, template="search_results.html"):
     paginated = paginate(results, page, per_page, max_paging_links)
     context = {"query": query, "results": paginated,
                "search_type": search_type}
+    context.update(extra_context or {})
     return render(request, template, context)
 
 
