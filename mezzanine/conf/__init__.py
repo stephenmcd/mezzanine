@@ -16,6 +16,7 @@ from django.utils.functional import Promise
 from django.utils.module_loading import module_has_submodule
 
 from mezzanine import __version__
+from mezzanine.core.request import current_request
 
 
 registry = {}
@@ -115,6 +116,12 @@ class Settings(object):
         """
         self._loaded = True
         self._editable_cache = {}
+        
+        request = current_request()
+        
+        if request:
+            request._loaded_editable_settings = False
+            request._editable_settings = {}
 
     def use_editable(self):
         """
@@ -177,8 +184,15 @@ class Settings(object):
                  % ", ".join(conflicting_settings))
         self._editable_cache = new_cache
         self._loaded = True
+        
+        request = current_request()
+        
+        if request:
+            request._loaded_editable_settings = True
+            request._editable_settings = new_cache
 
     def __getattr__(self, name):
+        request = current_request()
 
         # Lookup name as a registered setting or a Django setting.
         try:
@@ -186,8 +200,13 @@ class Settings(object):
         except KeyError:
             return getattr(django_settings, name)
 
+        loaded = self._loaded
+        
+        if request:
+            loaded = getattr(request, "_loaded_editable_settings", False)
+
         # First access for an editable setting - load from DB into cache.
-        if setting["editable"] and not self._loaded:
+        if setting["editable"] and not loaded:
             self._load()
 
         # Use cached editable setting if found, otherwise use the
@@ -195,7 +214,10 @@ class Settings(object):
         # exists, finally falling back to the default defined when
         # registered.
         try:
-            return self._editable_cache[name]
+            if request and hasattr(request, "_editable_settings"):
+                return request._editable_settings[name]
+            else:
+                return self._editable_cache[name]
         except KeyError:
             return getattr(django_settings, name, setting["default"])
 
