@@ -17,7 +17,7 @@
             {% endif %}
             {% if page.perms.change %}
             <a href="{% url "admin:pages_page_change" page.id %}{% if not page.is_primary %}?parent={{ page.parent_id }}{% endif %}"
-                class="changelink">{{ page.title }}</a>
+                class="changelink">{{ page.title.strip|default:"&nbsp;" }}</a>
             {% else %}
             <span class="uneditable">{{ page.title }}</span>
             {% endif %}
