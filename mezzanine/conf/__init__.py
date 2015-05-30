@@ -116,9 +116,9 @@ class Settings(object):
         """
         self._loaded = True
         self._editable_cache = {}
-        
+
         request = current_request()
-        
+
         if request:
             request._loaded_editable_settings = False
             request._editable_settings = {}
@@ -184,9 +184,9 @@ class Settings(object):
                  % ", ".join(conflicting_settings))
         self._editable_cache = new_cache
         self._loaded = True
-        
+
         request = current_request()
-        
+
         if request:
             request._loaded_editable_settings = True
             request._editable_settings = new_cache
@@ -201,7 +201,7 @@ class Settings(object):
             return getattr(django_settings, name)
 
         loaded = self._loaded
-        
+
         if request:
             loaded = getattr(request, "_loaded_editable_settings", False)
 
