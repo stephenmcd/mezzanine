@@ -124,20 +124,15 @@ class Settings(object):
         installed then set the loaded flag to ``True`` in order to
         bypass DB lookup entirely.
         """
-        self.clear_cache()
-        warn(
-            "Settings.use_editable() is deprecated in favour of "
-            "Settings.clear_cache(). Please update your code.",
-            DeprecationWarning,
-            stacklevel=2
-        )
+        self.clear_cache(current_request())
+        warn("Settings.use_editable() is deprecated in favour of "
+             "Settings.clear_cache(). Please update your code.",
+             DeprecationWarning,
+             stacklevel=2)
 
     def clear_cache(self, request=None):
         """Clear the settings cache for a given request (or no request)."""
-        try:
-            del self._editable_caches[request or self.NULL_REQUEST]
-        except KeyError:
-            pass
+        self._editable_caches.pop(request or self.NULL_REQUEST, None)
 
     def _editable(self, request=None):
         request = request or self.NULL_REQUEST
