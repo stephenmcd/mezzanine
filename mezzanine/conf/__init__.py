@@ -11,6 +11,8 @@ from functools import partial
 from importlib import import_module
 from warnings import warn
 
+import inspect
+
 from django.conf import settings as django_settings
 from django.utils.functional import Promise
 from django.utils.module_loading import module_has_submodule
@@ -23,7 +25,7 @@ registry = {}
 
 def register_setting(name=None, label=None, editable=False, description=None,
                      default=None, choices=None, append=False,
-                     translatable=False):
+                     translatable=False, app=None):
     """
     Registers a setting that can be edited via the admin. This mostly
     equates to storing the given args as a dict in the ``registry``
@@ -35,6 +37,10 @@ def register_setting(name=None, label=None, editable=False, description=None,
     if editable and default is None:
         raise TypeError("mezzanine.conf.register_setting requires the "
                         "'default' keyword argument when 'editable' is True.")
+    if app is None:
+        caller_frame = inspect.currentframe().f_back
+        module = inspect.getmodule(caller_frame)
+        app = module.__name__.rsplit('.', 1)[0]
 
     # append is True when called from an app (typically external)
     # after the setting has already been registered, with the
@@ -72,7 +78,7 @@ def register_setting(name=None, label=None, editable=False, description=None,
     registry[name] = {"name": name, "label": label, "editable": editable,
                       "description": description, "default": default,
                       "choices": choices, "type": setting_type,
-                      "translatable": translatable}
+                      "translatable": translatable, "app": app}
 
 
 class Settings(object):
