@@ -30,10 +30,11 @@ def pretty_format(value, indent=4, depth=0):
 
         for item in value:
             # Format each item in the collection and add it to the total output
-            new_item = pretty_format(item, indent=indent, depth=depth+1) + ", "
+            new_item = pretty_format(item, indent=indent, depth=depth + 1)
+            new_item += ", "
 
             # Start to calculate max line length at this depth
-            length = indent*(depth + 1) + len(items_line)
+            length = indent * (depth + 1) + len(items_line)
 
             # Check if the formatted item has newlines
             first_newline = new_item.find("\n")
@@ -68,8 +69,8 @@ def pretty_format(value, indent=4, depth=0):
         if multi_line:
             # Start content on a new line and indent it properly
             output += newline
-            output += " "*indent
-            output += items_output.replace(newline, newline + " "*indent)
+            output += " " * indent
+            output += items_output.replace(newline, newline + " " * indent)
         else:
             output += items_output
         if multi_line:
@@ -129,9 +130,9 @@ class Command(BaseCommand):
                 sys.stdout.write("\n\n")
 
             # Output a nice text block header
-            sys.stdout.write("#"*len(header) + "\n")
+            sys.stdout.write("#" * len(header) + "\n")
             sys.stdout.write(header + "\n")
-            sys.stdout.write("#"*len(header) + "\n")
+            sys.stdout.write("#" * len(header) + "\n")
 
             # Output each setting in the app
             for setting in app_settings[app_prefix]:
@@ -162,6 +163,6 @@ class Command(BaseCommand):
                 # to continue it on the next line, indented accordingly
                 if end > LINE_LENGTH:
                     sys.stdout.write(PREFIX + name + " = \\\n")
-                    sys.stdout.write(PREFIX + " "*INDENT + default + "\n")
+                    sys.stdout.write(PREFIX + " " * INDENT + default + "\n")
                 else:
                     sys.stdout.write(PREFIX + value + "\n")
