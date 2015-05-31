@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from builtins import str as text
 from collections import defaultdict
 
 import sys
@@ -92,7 +93,7 @@ def pretty_format(value, indent=4, depth=0):
         output = str(value)
     elif isinstance(value, int) or isinstance(value, float):
         output = str(value)
-    elif isinstance(value, str) or isinstance(value, unicode):
+    elif isinstance(value, text):
         output = '"%s"' % value
     elif isinstance(value, Promise):
         output = '_("%s")' % value.encode("utf-8")
