@@ -108,7 +108,6 @@ def search(request, template="search_results.html", extra_context=None):
     Display search results. Takes an optional "contenttype" GET parameter
     in the form "app-name.ModelName" to limit search results to a single model.
     """
-    settings.use_editable()
     query = request.GET.get("q", "")
     page = request.GET.get("page", 1)
     per_page = settings.SEARCH_PER_PAGE

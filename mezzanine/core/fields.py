@@ -66,7 +66,6 @@ class RichTextField(models.TextField):
         from mezzanine.conf import settings
         from mezzanine.core.defaults import (RICHTEXT_FILTER_LEVEL_NONE,
                                              RICHTEXT_FILTER_LEVEL_LOW)
-        settings.use_editable()
         if settings.RICHTEXT_FILTER_LEVEL == RICHTEXT_FILTER_LEVEL_NONE:
             return value
         tags = settings.RICHTEXT_ALLOWED_TAGS

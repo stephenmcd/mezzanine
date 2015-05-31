@@ -26,7 +26,6 @@ def get_auth_settings():
     only if they're all defined.
     """
     from mezzanine.conf import settings
-    settings.use_editable()
     try:
         auth_settings = (settings.TWITTER_CONSUMER_KEY,
                          settings.TWITTER_CONSUMER_SECRET,

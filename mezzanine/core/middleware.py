@@ -237,7 +237,6 @@ class SSLRedirectMiddleware(object):
     to HTTPS, and redirect all other URLs to HTTP if on HTTPS.
     """
     def process_request(self, request):
-        settings.use_editable()
         force_host = settings.SSL_FORCE_HOST
         response = None
         if force_host and request.get_host().split(":")[0] != force_host:

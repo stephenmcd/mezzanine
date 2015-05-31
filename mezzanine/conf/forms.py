@@ -54,7 +54,6 @@ class SettingsForm(forms.Form):
         Initialize a field wether it is built with a custom name for a
         specific translation language or not.
         """
-        settings.use_editable()
         kwargs = {
             "label": setting["label"] + ":",
             "required": setting["type"] in (int, float),
