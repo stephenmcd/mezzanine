@@ -7,6 +7,7 @@ from django.conf import settings as django_settings
 
 from mezzanine.conf import settings, registry, register_setting
 from mezzanine.conf.models import Setting
+from mezzanine.core.request import current_request
 from mezzanine.utils.tests import TestCase
 
 
@@ -55,7 +56,6 @@ class ConfTests(TestCase):
         thread_pool = multiprocessing.pool.ThreadPool(8, initialise_thread)
 
         def retrieve_setting(setting_name):
-            settings.use_editable()
             return setting_name, getattr(settings, setting_name)
 
         def choose_random_setting(length=5000):
@@ -73,7 +73,6 @@ class ConfTests(TestCase):
                 conn.allow_thread_sharing = conn._old_allow_thread_sharing
                 del conn._old_allow_thread_sharing
             Setting.objects.all().delete()
-            settings.use_editable()
 
     def test_settings(self):
         """
@@ -82,6 +81,9 @@ class ConfTests(TestCase):
         returned back out of the DB. Also checks to ensure no
         unsupported types are defined for editable settings.
         """
+
+        settings.clear_cache(current_request())
+
         # Find an editable setting for each supported type.
         names_by_type = {}
         for setting in registry.values():
@@ -105,7 +107,6 @@ class ConfTests(TestCase):
             values_by_name[setting_name] = setting_value
             Setting.objects.create(name=setting_name, value=setting_value)
         # Load the settings and make sure the DB values have persisted.
-        settings.use_editable()
         for (name, value) in values_by_name.items():
             self.assertEqual(getattr(settings, name), value)
 
@@ -114,21 +115,25 @@ class ConfTests(TestCase):
         Test that an editable setting is always overridden by a settings.py
         setting of the same name.
         """
+
+        settings.clear_cache(current_request())
+
         Setting.objects.all().delete()
         django_settings.FOO = "Set in settings.py"
         db_value = Setting(name="FOO", value="Set in database")
         db_value.save()
-        settings.use_editable()
         first_value = settings.FOO
         settings.SITE_TITLE  # Triggers access?
         second_value = settings.FOO
         self.assertEqual(first_value, second_value)
 
     def test_bytes_conversion(self):
+
+        settings.clear_cache(current_request())
+
         register_setting(name="BYTES_TEST_SETTING", editable=True, default=b"")
         Setting.objects.create(name="BYTES_TEST_SETTING",
                                value="A unicode value")
-        settings.use_editable()
         self.assertEqual(settings.BYTES_TEST_SETTING, b"A unicode value")
 
     def test_modeltranslation_configuration(self):
