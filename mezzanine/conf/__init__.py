@@ -134,7 +134,13 @@ class Settings(object):
         """Clear the settings cache for a given request (or no request)."""
         self._editable_caches.pop(request or self.NULL_REQUEST, None)
 
-    def _editable(self, request=None):
+    def _get_editable(self, request=None):
+        """
+        Get the dictionary of editable settings for a given request. Settings
+        are fetched from the database once per request and then stored in
+        ``_editable_caches``, a WeakKeyDictionary that will automatically
+        discard each entry when no more references to the request exist.
+        """
         request = request or self.NULL_REQUEST
         try:
             editable_settings = self._editable_caches[request]
@@ -211,7 +217,7 @@ class Settings(object):
         # value defined in the project's settings.py module if it
         # exists, finally falling back to the default defined when
         # registered.
-        editable_cache = self._editable(request=current_request())
+        editable_cache = self._get_editable(request=current_request())
         try:
             return editable_cache[name]
         except KeyError:
