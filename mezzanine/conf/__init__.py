@@ -119,10 +119,9 @@ class Settings(object):
 
     def use_editable(self):
         """
-        Sets the ``_loaded`` flag to ``False`` so that settings will
-        be loaded from the DB on next access. If the conf app is not
-        installed then set the loaded flag to ``True`` in order to
-        bypass DB lookup entirely.
+        Clear the cache for the current request so that editable settings are
+        fetched from the database on next access. Using editable settings
+        is the default, so this is deprecated in favour of ``clear_cache()``.
         """
         self.clear_cache(current_request())
         warn("Settings.use_editable() is deprecated in favour of "
