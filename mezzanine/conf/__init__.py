@@ -115,7 +115,7 @@ class Settings(object):
         request to ensure that the database is hit at most once per request,
         and that each request sees the same settings for its duration.
         """
-        self._editable_caches = WeakKeyDictionary({self.NULL_REQUEST: {}})
+        self._editable_caches = WeakKeyDictionary()
 
     @property
     def _current_request(self):
