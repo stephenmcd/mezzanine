@@ -94,11 +94,11 @@ class Settings(object):
     of access for all settings.
     """
 
-    class Sentinel(object):
-        """A Weakly-referable wrapper of 'object'."""
+    class Placeholder(object):
+        """A Weakly-referable wrapper of ``object``."""
         pass
 
-    NULL_REQUEST = Sentinel()
+    NULL_REQUEST = Placeholder()
 
     # These functions map setting types to the functions that should be
     # used to convert them from the Unicode string stored in the database.
