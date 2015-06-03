@@ -128,13 +128,15 @@ class Settings(object):
         is the default, so this is deprecated in favour of ``clear_cache()``.
         """
         self.clear_cache()
-        warn("Settings.use_editable() is deprecated in favour of "
-             "Settings.clear_cache(). Please update your code.",
+        warn("Because editable settings are now used by default, "
+             "settings.use_editable() is deprecated. If you need to re-load "
+             "settings from the database during a request, please use "
+             "settings.clear_cache() instead.",
              DeprecationWarning,
              stacklevel=2)
 
     def clear_cache(self):
-        """Clear the settings cache for a given request (or no request)."""
+        """Clear the settings cache for the current request."""
         self._editable_caches.pop(self._current_request, None)
 
     def _get_editable(self, request):
