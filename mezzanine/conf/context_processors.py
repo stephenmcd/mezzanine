@@ -12,6 +12,10 @@ class TemplateSettings(dict):
     Dict wrapper for template settings. This exists to enforce
     the restriction of settings in templates to those named in
     TEMPLATE_ACCESSIBLE_SETTINGS, and to warn about deprecated settings.
+
+    Django's template system attempts a dict-style index lookup before an
+    attribute lookup when resolving dot notation in template variables, so we
+    use ``__getitem__()`` this as the primary way of getting at the settings.
     """
 
     def __init__(self, settings, allowed_settings, *args, **kwargs):
@@ -32,7 +36,7 @@ class TemplateSettings(dict):
 
         if k in DEPRECATED:
             from warnings import warn
-            warn("%s is deprecated. Please remove it from your templates" % k)
+            warn("%s is deprecated. Please remove it from your templates." % k)
 
         try:
             return getattr(self.settings, k)
