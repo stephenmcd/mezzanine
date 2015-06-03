@@ -2,12 +2,12 @@ from __future__ import unicode_literals
 from future.builtins import bytes, str
 
 from unittest import skipUnless
+import warnings
 
 from django.conf import settings as django_settings
 
 from mezzanine.conf import settings, registry, register_setting
 from mezzanine.conf.models import Setting
-from mezzanine.core.request import current_request
 from mezzanine.utils.tests import TestCase
 
 
@@ -135,6 +135,43 @@ class ConfTests(TestCase):
         Setting.objects.create(name="BYTES_TEST_SETTING",
                                value="A unicode value")
         self.assertEqual(settings.BYTES_TEST_SETTING, b"A unicode value")
+
+    def test_invalid_value_warning(self):
+        """
+        Test that a warning is raised when a database setting has an invalid
+        value, i.e. one that can't be converted to the correct Python type.
+        """
+
+        settings.clear_cache()
+
+        register_setting(name="INVALID_INT_SETTING", editable=True, default=0)
+        Setting.objects.create(name="INVALID_INT_SETTING", value='zero')
+        with warnings.catch_warnings():
+            warnings.simplefilter('error', UserWarning)
+            with self.assertRaises(UserWarning):
+                self.assertEqual(settings.INVALID_INT_SETTING, 0)
+
+    def test_unregistered_setting(self):
+        """
+        Test that accessing any editable setting will delete all Settings
+        with no corresponding registered setting from the database.
+        """
+
+        settings.clear_cache()
+
+        register_setting(name="REGISTERED_SETTING", editable=True, default="")
+        Setting.objects.create(name="UNREGISTERED_SETTING", value='')
+
+        with self.assertRaises(AttributeError):
+            settings.UNREGISTERED_SETTING
+
+        qs = Setting.objects.filter(name="UNREGISTERED_SETTING")
+        self.assertEqual(qs.count(), 1)
+
+        # This triggers Settings._load(), which deletes unregistered Settings
+        settings.REGISTERED_SETTING
+
+        self.assertEqual(qs.count(), 0)
 
     def test_modeltranslation_configuration(self):
         """
