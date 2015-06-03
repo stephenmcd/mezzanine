@@ -82,7 +82,7 @@ class ConfTests(TestCase):
         unsupported types are defined for editable settings.
         """
 
-        settings.clear_cache(current_request())
+        settings.clear_cache()
 
         # Find an editable setting for each supported type.
         names_by_type = {}
@@ -116,7 +116,7 @@ class ConfTests(TestCase):
         setting of the same name.
         """
 
-        settings.clear_cache(current_request())
+        settings.clear_cache()
 
         Setting.objects.all().delete()
         django_settings.FOO = "Set in settings.py"
@@ -129,7 +129,7 @@ class ConfTests(TestCase):
 
     def test_bytes_conversion(self):
 
-        settings.clear_cache(current_request())
+        settings.clear_cache()
 
         register_setting(name="BYTES_TEST_SETTING", editable=True, default=b"")
         Setting.objects.create(name="BYTES_TEST_SETTING",

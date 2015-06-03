@@ -117,30 +117,33 @@ class Settings(object):
         """
         self._editable_caches = WeakKeyDictionary({self.NULL_REQUEST: {}})
 
+    @property
+    def _current_request(self):
+        return current_request() or self.NULL_REQUEST
+
     def use_editable(self):
         """
         Clear the cache for the current request so that editable settings are
         fetched from the database on next access. Using editable settings
         is the default, so this is deprecated in favour of ``clear_cache()``.
         """
-        self.clear_cache(current_request())
+        self.clear_cache()
         warn("Settings.use_editable() is deprecated in favour of "
              "Settings.clear_cache(). Please update your code.",
              DeprecationWarning,
              stacklevel=2)
 
-    def clear_cache(self, request=None):
+    def clear_cache(self):
         """Clear the settings cache for a given request (or no request)."""
-        self._editable_caches.pop(request or self.NULL_REQUEST, None)
+        self._editable_caches.pop(self._current_request, None)
 
-    def _get_editable(self, request=None):
+    def _get_editable(self, request):
         """
         Get the dictionary of editable settings for a given request. Settings
         are fetched from the database once per request and then stored in
         ``_editable_caches``, a WeakKeyDictionary that will automatically
         discard each entry when no more references to the request exist.
         """
-        request = request or self.NULL_REQUEST
         try:
             editable_settings = self._editable_caches[request]
         except KeyError:
@@ -216,7 +219,7 @@ class Settings(object):
         # value defined in the project's settings.py module if it
         # exists, finally falling back to the default defined when
         # registered.
-        editable_cache = self._get_editable(request=current_request())
+        editable_cache = self._get_editable(request=self._current_request)
         try:
             return editable_cache[name]
         except KeyError:
