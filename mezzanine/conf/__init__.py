@@ -232,10 +232,9 @@ class Settings(object):
         if not setting["editable"]:
             return getattr(django_settings, name, setting["default"])
 
-        # Use cached editable setting if found, otherwise use the
-        # value defined in the project's settings.py module if it
-        # exists, finally falling back to the default defined when
-        # registered.
+        # Use cached editable setting if found, otherwise use the value
+        # defined in the project's settings.py module if it exists,
+        # finally falling back to the default defined when registered.
         editable_cache = self._get_editable(request=self._current_request)
         try:
             return editable_cache[name]
