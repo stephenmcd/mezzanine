@@ -150,6 +150,29 @@ class Settings(object):
             editable_settings = self._editable_caches[request] = self._load()
         return editable_settings
 
+    @classmethod
+    def _to_python(cls, setting, raw_value):
+        """
+        Convert a value stored in the database for a particular setting
+        to its correct type, as determined by ``register_setting()``.
+        """
+
+        type_fn = cls.TYPE_FUNCTIONS.get(setting["type"], setting["type"])
+
+        try:
+            value = type_fn(raw_value)
+        except ValueError:
+            # Shouldn't occur, but just a safeguard in case
+            # the db value somehow ended up as an invalid type.
+            warn("The setting %s should be of type %s, but the value "
+                 "retrieved from the database (%s) could not be converted. "
+                 "Using the default instead: %s"
+                 % (setting["name"], setting["type"].__name__,
+                    raw_value, setting["default"]))
+            value = setting["default"]
+
+        return value
+
     def _load(self):
         """
         Load editable settings from the database and return them as a dict.
@@ -164,38 +187,32 @@ class Settings(object):
         new_cache = {}
 
         for setting_obj in Setting.objects.all():
+
+            # Check that the Setting object corresponds to a setting that has
+            # been declared in code using ``register_setting()``. If not, add
+            # it to a list of items to be deleted from the database later.
             try:
-                registry[setting_obj.name]
+                setting = registry[setting_obj.name]
             except KeyError:
-                # Setting in DB isn't registered (removed from code),
-                # so add to removal list and skip remaining handling.
                 removed_settings.append(setting_obj.name)
                 continue
 
-            # Convert DB value to correct type.
-            setting_type = registry[setting_obj.name]["type"]
-            type_fn = self.TYPE_FUNCTIONS.get(setting_type, setting_type)
-            try:
-                setting_value = type_fn(setting_obj.value)
-            except ValueError:
-                # Shouldn't occur, but just a safeguard
-                # for if the db value somehow ended up as
-                # an invalid type.
-                setting_value = registry[setting_obj.name]["default"]
+            # Convert a string from the database to the correct Python type.
+            setting_value = self._to_python(setting, setting_obj.value)
 
-            # Only use DB setting if it's not defined in settings.py
-            # module, in which case add it to conflicting list for
-            # warning.
-            try:
-                getattr(django_settings, setting_obj.name)
-            except AttributeError:
-                new_cache[setting_obj.name] = setting_value
-            else:
-                if setting_value != registry[setting_obj.name]["default"]:
+            # If a setting is defined both in the database and in settings.py,
+            # raise a warning and use the value defined in settings.py.
+            if hasattr(django_settings, setting["name"]):
+                if setting_value != setting["default"]:
                     conflicting_settings.append(setting_obj.name)
+                    continue
+
+            # If nothing went wrong, use the value from the database!
+            new_cache[setting["name"]] = setting_value
 
         if removed_settings:
             Setting.objects.filter(name__in=removed_settings).delete()
+
         if conflicting_settings:
             warn("These settings are defined in both settings.py and "
                  "the database: %s. The settings.py values will be used."
