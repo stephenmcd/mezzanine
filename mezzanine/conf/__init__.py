@@ -168,7 +168,7 @@ class Settings(object):
                  "retrieved from the database (%s) could not be converted. "
                  "Using the default instead: %s"
                  % (setting["name"], setting["type"].__name__,
-                    raw_value, setting["default"]))
+                    repr(raw_value), repr(setting["default"])))
             value = setting["default"]
 
         return value
