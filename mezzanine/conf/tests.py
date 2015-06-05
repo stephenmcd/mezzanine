@@ -120,8 +120,7 @@ class ConfTests(TestCase):
 
         Setting.objects.all().delete()
         django_settings.FOO = "Set in settings.py"
-        db_value = Setting(name="FOO", value="Set in database")
-        db_value.save()
+        Setting.objects.create(name="FOO", value="Set in database")
         first_value = settings.FOO
         settings.SITE_TITLE  # Triggers access?
         second_value = settings.FOO
@@ -147,9 +146,11 @@ class ConfTests(TestCase):
         register_setting(name="INVALID_INT_SETTING", editable=True, default=0)
         Setting.objects.create(name="INVALID_INT_SETTING", value='zero')
         with warnings.catch_warnings():
-            warnings.simplefilter('error', UserWarning)
+            warning_re = r'The setting \w+ should be of type'
+            warnings.filterwarnings('error', warning_re, UserWarning)
             with self.assertRaises(UserWarning):
-                self.assertEqual(settings.INVALID_INT_SETTING, 0)
+                settings.INVALID_INT_SETTING
+        self.assertEqual(settings.INVALID_INT_SETTING, 0)
 
     def test_unregistered_setting(self):
         """
@@ -172,6 +173,30 @@ class ConfTests(TestCase):
         settings.REGISTERED_SETTING
 
         self.assertEqual(qs.count(), 0)
+
+    def test_conflicting_setting(self):
+        """
+        Test that conflicting settings raise a warning and use the settings.py
+        value instead of the value from the database.
+        """
+
+        settings.clear_cache()
+
+        register_setting(name="CONFLICTING_SETTING", editable=True, default=1)
+        Setting.objects.create(name="CONFLICTING_SETTING", value=2)
+        settings.CONFLICTING_SETTING = 3
+
+        with warnings.catch_warnings():
+            warning_re = ("These settings are defined in both "
+                          "settings\.py and the database")
+            warnings.filterwarnings('error', warning_re, UserWarning)
+
+            with self.assertRaises(UserWarning):
+                settings.CONFLICTING_SETTING
+
+        self.assertEqual(settings.CONFLICTING_SETTING, 3)
+
+        del settings.CONFLICTING_SETTING
 
     def test_modeltranslation_configuration(self):
         """
