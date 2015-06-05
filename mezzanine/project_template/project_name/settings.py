@@ -161,7 +161,7 @@ DATABASES = {
 #########
 
 # Full filesystem path to the project.
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Name of the directory for the project.
 PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
@@ -296,7 +296,7 @@ OPTIONAL_APPS = (
 # ignored in your version control system allowing for settings to be
 # defined per machine.
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError as e:
     if "local_settings" not in str(e):
         raise e
