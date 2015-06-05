@@ -560,9 +560,9 @@ def remove():
             sudo("rm %s" % remote_path)
     if exists(env.repo_path):
         run("rm -rf %s" % env.repo_path)
+    sudo("supervisorctl update")
     psql("DROP DATABASE IF EXISTS %s;" % env.proj_name)
     psql("DROP USER IF EXISTS %s;" % env.proj_name)
-    sudo("supervisorctl update")
 
 
 ##############
