@@ -161,16 +161,13 @@ DATABASES = {
 #########
 
 # Full filesystem path to the project.
-PROJECT_APP_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.dirname(PROJECT_APP_DIR)
-
-# Name of the directory for the project.
-PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
+PROJECT_APP = os.path.basename(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Every cache key will get prefixed with this value - here we set it to
 # the name of the directory the project is in to try and use something
 # project specific.
-CACHE_MIDDLEWARE_KEY_PREFIX = PROJECT_DIRNAME
+CACHE_MIDDLEWARE_KEY_PREFIX = PROJECT_APP
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -192,7 +189,7 @@ MEDIA_URL = STATIC_URL + "media/"
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip("/").split("/"))
 
 # Package/module name to import the root urlpatterns from for the project.
-ROOT_URLCONF = "%s.urls" % PROJECT_APP_DIR
+ROOT_URLCONF = "%s.urls" % PROJECT_APP
 
 # Put strings here, like "/home/html/django_templates"
 # or "C:/www/django/templates".
