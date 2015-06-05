@@ -4,10 +4,11 @@ from future.builtins import open
 import os
 import re
 import sys
+from contextlib import contextmanager
 from functools import wraps
 from getpass import getpass, getuser
 from glob import glob
-from contextlib import contextmanager
+from importlib import import_module
 from posixpath import join
 
 from fabric.api import abort, env, cd, prefix, sudo as _sudo, run as _run, \
@@ -28,7 +29,7 @@ conf = {}
 if sys.argv[0].split(os.sep)[-1] in ("fab", "fab-script.py"):
     # Ensure we import settings from the current dir
     try:
-        conf = __import__("settings", globals(), locals(), [], 0).FABRIC
+        conf = import_module("{{ project_name }}.settings").FABRIC
         try:
             conf["HOSTS"][0]
         except (KeyError, ValueError):
@@ -102,7 +103,7 @@ templates = {
     },
     "settings": {
         "local_path": "deploy/local_settings.py.template",
-        "remote_path": "%(proj_path)s/local_settings.py",
+        "remote_path": "%(proj_path)s/%(proj_name)s/local_settings.py",
     },
 }
 
@@ -364,7 +365,8 @@ def python(code, show=True):
     """
     Runs Python code in the project's virtual environment, with Django loaded.
     """
-    setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';" \
+    setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=" \
+            "\'{{ project_name }}.settings\';" \
             "import django;" \
             "django.setup();"
     full_code = 'python -c "%s%s"' % (setup, code.replace("`", "\\\`"))
