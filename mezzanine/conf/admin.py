@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_text
 
 from mezzanine.core.admin import BaseTranslationModelAdmin
+from mezzanine.conf import settings
 from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm
 from mezzanine.utils.urls import admin_url
@@ -43,6 +44,7 @@ class SettingsAdmin(admin.ModelAdmin):
         settings_form = SettingsForm(request.POST or None)
         if settings_form.is_valid():
             settings_form.save()
+            settings.clear_cache()
             info(request, _("Settings were successfully updated."))
             return self.changelist_redirect()
         extra_context["settings_form"] = settings_form
