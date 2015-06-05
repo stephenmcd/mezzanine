@@ -224,24 +224,29 @@ class Settings(object):
 
     def __getattr__(self, name):
 
-        # Lookup name as a registered setting or a Django setting.
+        # If this setting isn't registered, defer to Django's settings object
         try:
             setting = registry[name]
         except KeyError:
             return getattr(django_settings, name)
 
-        # If the setting isn't editable, just return it
-        if not setting["editable"]:
-            return getattr(django_settings, name, setting["default"])
+        # If the setting is editable, try the Django setting, then a value
+        # fetched from the database, then the registered default.
+        if setting["editable"]:
+            editable_cache = self._get_editable(request=self._current_request)
+            return getattr(django_settings, name,
+                           editable_cache.get(name, setting["default"]))
 
-        # Use cached editable setting if found, otherwise use the value
-        # defined in the project's settings.py module if it exists,
-        # finally falling back to the default defined when registered.
-        editable_cache = self._get_editable(request=self._current_request)
-        try:
-            return editable_cache[name]
-        except KeyError:
-            return getattr(django_settings, name, setting["default"])
+        # If if isn't editable, just try Django and then default.
+        return getattr(django_settings, name, setting["default"])
+
+    def __setattr__(self, key, value):
+        """Forward attribute setting to the Django settings object."""
+        setattr(django_settings, key, value)
+
+    def __delattr__(self, item):
+        """Forward attribute deletion to the Django settings object."""
+        delattr(django_settings, item)
 
 
 mezz_first = lambda app: not app.startswith("mezzanine.")
