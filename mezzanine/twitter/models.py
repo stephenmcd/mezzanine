@@ -72,7 +72,6 @@ class Query(models.Model):
             url = urls[self.type]
         except KeyError:
             raise TwitterQueryException("Invalid query type: %s" % self.type)
-        settings.use_editable()
         auth_settings = get_auth_settings()
         if not auth_settings:
             from mezzanine.conf import registry

@@ -311,7 +311,6 @@ class Displayable(Slugged, MetaData, TimeStamped):
         service have been specified.
         """
         from mezzanine.conf import settings
-        settings.use_editable()
         if settings.BITLY_ACCESS_TOKEN:
             url = "https://api-ssl.bit.ly/v3/shorten?%s" % urlencode({
                 "access_token": settings.BITLY_ACCESS_TOKEN,

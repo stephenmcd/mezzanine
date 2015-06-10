@@ -59,7 +59,6 @@ def initial_validation(request, prefix):
     ratings view functions to deal with as needed.
     """
     post_data = request.POST
-    settings.use_editable()
     login_required_setting_name = prefix.upper() + "S_ACCOUNT_REQUIRED"
     posted_session_key = "unauthenticated_" + prefix
     redirect_url = ""

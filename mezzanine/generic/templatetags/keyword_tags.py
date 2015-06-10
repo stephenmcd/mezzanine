@@ -47,7 +47,6 @@ def keywords_for(*args):
     keywords = keywords.annotate(item_count=Count("assignments"))
     if not keywords:
         return []
-    settings.use_editable()
     counts = [keyword.item_count for keyword in keywords]
     min_count, max_count = min(counts), max(counts)
     factor = (settings.TAG_CLOUD_SIZES - 1.)

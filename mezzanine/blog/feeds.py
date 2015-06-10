@@ -45,7 +45,6 @@ class PostsRSS(Feed):
         else:
             self._public = not page.login_required
         if self._public:
-            settings.use_editable()
             if page is not None:
                 self._title = "%s | %s" % (page.title, settings.SITE_TITLE)
                 self._description = strip_tags(page.description)

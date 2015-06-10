@@ -9,10 +9,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_text
 
 from mezzanine.core.admin import BaseTranslationModelAdmin
+from mezzanine.conf import settings
 from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm
-from mezzanine.utils.cache import (cache_delete, cache_installed,
-                                   cache_key_prefix)
 from mezzanine.utils.urls import admin_url
 
 
@@ -45,11 +44,8 @@ class SettingsAdmin(admin.ModelAdmin):
         settings_form = SettingsForm(request.POST or None)
         if settings_form.is_valid():
             settings_form.save()
+            settings.clear_cache()
             info(request, _("Settings were successfully updated."))
-            if cache_installed():
-                cache_key = (cache_key_prefix(request, ignore_device=True) +
-                             "context-settings")
-                cache_delete(cache_key)
             return self.changelist_redirect()
         extra_context["settings_form"] = settings_form
         extra_context["title"] = u"%s %s" % (
