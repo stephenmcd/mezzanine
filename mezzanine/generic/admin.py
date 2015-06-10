@@ -1,11 +1,10 @@
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib import admin
 from django_comments.admin import CommentsAdmin
-from django.db.utils import OperationalError
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.conf import settings
 from mezzanine.generic.models import ThreadedComment
 
 
@@ -39,15 +38,7 @@ class ThreadedCommentAdmin(CommentsAdmin):
 
 
 generic_comments = getattr(settings, "COMMENTS_APP", "") == "mezzanine.generic"
-
-try:
-    using_disqus = bool(settings.COMMENTS_DISQUS_SHORTNAME)
-except OperationalError as e:
-    # COMMENTS_DISQUS_SHORTNAME is editable, so this exception is raised when
-    # this file is imported before any database tables have been created.
-    if str(e) != "no such table: conf_setting":
-        raise
-    using_disqus = False
+using_disqus = bool(getattr(settings, "COMMENTS_DISQUS_SHORTNAME", False))
 
 if generic_comments and not using_disqus:
     admin.site.register(ThreadedComment, ThreadedCommentAdmin)
