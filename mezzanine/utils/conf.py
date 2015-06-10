@@ -221,6 +221,7 @@ def set_dynamic_settings(s):
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
 
+
 def real_project_name(project_name):
     """
     Used to let Mezzanine run from its project template directory, in which
