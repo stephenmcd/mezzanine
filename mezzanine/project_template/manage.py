@@ -3,7 +3,7 @@ import os
 import sys
 
 if __name__ == "__main__":
-    
+
     from mezzanine.utils.conf import real_project_name
 
     settings_module = "%s.settings" % real_project_name("{{ project_name }}")
