@@ -220,3 +220,12 @@ def set_dynamic_settings(s):
         elif shortname == "mysql":
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
+
+def real_project_name(project_name):
+    """
+    Used to let Mezzanine run from its project template directory, in which
+    case "{{ project_name }}" won't have been replaced by a real project name.
+    """
+    if project_name == "{{ project_name }}":
+        return "project_name"
+    return project_name
