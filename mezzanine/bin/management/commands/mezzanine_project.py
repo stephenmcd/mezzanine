@@ -5,6 +5,7 @@ from os import path
 
 from django.core.management.commands.startproject import Command as BaseCommand
 from django.utils.crypto import get_random_string
+from django.utils.six import text_type
 import os
 
 import mezzanine
@@ -64,5 +65,5 @@ class Command(BaseCommand):
         """Use Mezzanine's project template by default. The method of picking
         the default directory is copied from Django's TemplateCommand."""
         if template is None:
-            return path.join(mezzanine.__path__[0], subdir)
+            return six.text_type(path.join(mezzanine.__path__[0], subdir))
         return super(Command, self).handle_template(template, subdir)
