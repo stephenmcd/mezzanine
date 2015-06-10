@@ -4,8 +4,8 @@ from django.core.management import CommandError
 from os import path
 
 from django.core.management.commands.startproject import Command as BaseCommand
+from django.utils import six
 from django.utils.crypto import get_random_string
-from django.utils.six import text_type
 import os
 
 import mezzanine
