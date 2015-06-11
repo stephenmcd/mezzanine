@@ -2,7 +2,9 @@
 This is the local_settings file for Mezzanine's docs.
 """
 
-from mezzanine.project_template.settings import *
+from mezzanine.project_template.project_name.settings import *
+
+ROOT_URLCONF = "mezzanine.project_template.project_name.urls"
 
 # Generate a SECRET_KEY for this build
 from random import choice

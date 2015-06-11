@@ -240,7 +240,8 @@ def build_modelgraph(docs_path, package_name="mezzanine"):
     to_path = os.path.join(docs_path, "img", "graph.png")
     build_path = os.path.join(docs_path, "build", "_images")
     resized_path = os.path.join(os.path.dirname(to_path), "graph-small.png")
-    settings = import_dotted_path(package_name + ".project_template.settings")
+    settings = import_dotted_path(package_name +
+                                  ".project_template.project_name.settings")
     apps = [a.rsplit(".")[1] for a in settings.INSTALLED_APPS
             if a.startswith("mezzanine.") or a.startswith(package_name + ".")]
     try:
