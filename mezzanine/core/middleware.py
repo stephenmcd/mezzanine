@@ -122,9 +122,8 @@ class TemplateForHostMiddleware(object):
     def process_template_response(self, request, response):
         if hasattr(response, "template_name"):
             if not isinstance(response.template_name, Template):
-                templates = templates_for_host(request,
+                response.template_name = templates_for_host(
                     response.template_name)
-                response.template_name = templates
         return response
 
 
