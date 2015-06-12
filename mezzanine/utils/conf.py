@@ -204,6 +204,12 @@ def set_dynamic_settings(s):
         s["USE_I18N"] = True
         s["LANGUAGES"] = [(s["LANGUAGE_CODE"], "")]
 
+    # Ensure required middleware is installed, otherwise admin
+    # becomes inaccessible.
+    mw = "django.middleware.locale.LocaleMiddleware"
+    if s["USE_I18N"] and mw not in s["MIDDLEWARE_CLASSES"]:
+        prepend("MIDDLEWARE_CLASSES", mw)
+
     # Revert tuple settings back to tuples.
     for setting in tuple_list_settings:
         s[setting] = tuple(s[setting])
