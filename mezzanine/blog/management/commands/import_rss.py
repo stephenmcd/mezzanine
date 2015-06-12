@@ -68,7 +68,10 @@ class Command(BaseImporterCommand):
             else:
                 content = post.summary
             tags = [tag["term"] for tag in getattr(post, 'tags', [])]
-            pub_date = parser.parse(post.updated)
-            pub_date -= timedelta(seconds=timezone)
+            try:
+                pub_date = parser.parse(getattr(post, "published", post.updated))
+                pub_date -= timedelta(seconds=timezone)
+            except AttributeError:
+                pub_date = None
             self.add_post(title=post.title, content=content,
                           pub_date=pub_date, tags=tags, old_url=None)
