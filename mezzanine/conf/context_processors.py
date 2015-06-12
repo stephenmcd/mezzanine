@@ -43,6 +43,10 @@ class TemplateSettings(dict):
         except AttributeError:
             return super(TemplateSettings, self).__getitem__(k)
 
+    def __setitem__(self, k, v):
+        self.allowed_settings.add(k)
+        super(TemplateSettings, self).__setitem__(k, v)
+
 
 def settings(request=None):
     """
