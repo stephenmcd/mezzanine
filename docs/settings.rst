@@ -341,7 +341,7 @@ Default: ``True``
 
 Name of the jQuery file found in mezzanine/core/static/mezzanine/js/
 
-Default: ``'jquery-1.7.1.min.js'``
+Default: ``'jquery-1.7.2.min.js'``
 
 ``JQUERY_UI_FILENAME``
 ----------------------
