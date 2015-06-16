@@ -97,7 +97,6 @@ def send_approve_mail(request, user):
     ``ACCOUNTS_APPROVAL_EMAILS``, when a new user signs up and the
     ``ACCOUNTS_APPROVAL_REQUIRED`` setting is ``True``.
     """
-    settings.use_editable()
     approval_emails = split_addresses(settings.ACCOUNTS_APPROVAL_EMAILS)
     if not approval_emails:
         return

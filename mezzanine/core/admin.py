@@ -22,27 +22,31 @@ if settings.USE_MODELTRANSLATION:
                                         TranslationInlineModelAdmin)
 
     class BaseTranslationModelAdmin(TranslationAdmin):
-        """Mimic modeltranslation's TabbedTranslationAdmin but uses a
+        """
+        Mimic modeltranslation's TabbedTranslationAdmin but uses a
         custom tabbed_translation_fields.js
         """
         class Media:
             js = (
-                'modeltranslation/js/force_jquery.js',
-                '//ajax.googleapis.com/ajax/libs/jqueryui'
-                        '/1.8.2/jquery-ui.min.js',
-                'mezzanine/js/admin/tabbed_translation_fields.js',
+                "modeltranslation/js/force_jquery.js",
+                "mezzanine/js/%s" % settings.JQUERY_UI_FILENAME,
+                "mezzanine/js/admin/tabbed_translation_fields.js",
             )
             css = {
-                'all': ('mezzanine/css/admin/tabbed_translation_fields.css',),
+                "all": ("mezzanine/css/admin/tabbed_translation_fields.css",),
             }
 
 else:
     class BaseTranslationModelAdmin(admin.ModelAdmin):
         """
         Abstract class used to handle the switch between translation
-        and no-translation class logic.
+        and no-translation class logic. We define the basic structure
+        for the Media class so we can extend it consistently regardless
+        of whether or not modeltranslation is used.
         """
-        pass
+        class Media:
+            js = ()
+            css = {"all": ()}
 
 
 User = get_user_model()
@@ -149,7 +153,7 @@ class BaseDynamicInlineAdmin(object):
         return fieldsets
 
 
-def getInlineBaseClass(cls):
+def get_inline_base_class(cls):
     if settings.USE_MODELTRANSLATION:
         class InlineBase(TranslationInlineModelAdmin, cls):
             """
@@ -163,12 +167,12 @@ def getInlineBaseClass(cls):
 
 
 class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin,
-                                getInlineBaseClass(admin.TabularInline)):
+                                get_inline_base_class(admin.TabularInline)):
     template = "admin/includes/dynamic_inline_tabular.html"
 
 
 class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin,
-                                getInlineBaseClass(admin.StackedInline)):
+                                get_inline_base_class(admin.StackedInline)):
     template = "admin/includes/dynamic_inline_stacked.html"
 
     def __init__(self, *args, **kwargs):

@@ -92,7 +92,7 @@ def next_url(request):
     """
     Returns URL to redirect to from the ``next`` param in the request.
     """
-    next = request.REQUEST.get("next", "")
+    next = request.GET.get("next", request.POST.get("next", ""))
     host = request.get_host()
     return next if next and is_safe_url(next, host=host) else None
 

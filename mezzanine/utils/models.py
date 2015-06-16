@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from functools import partial
 from future.utils import with_metaclass
 
-from django import VERSION
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
@@ -11,31 +11,6 @@ from django.db.models.signals import class_prepared
 from django.utils import six
 
 from mezzanine.utils.importing import import_dotted_path
-
-
-# Emulate Django 1.7's exception-raising get_registered_model
-# when running under earlier versions
-if VERSION >= (1, 7):
-    from django.apps import apps
-    get_model = apps.get_model
-    get_registered_model = apps.get_registered_model
-else:
-    from django.db.models.loading import get_model as django_get_model
-
-    def get_model(app_label, model_name=None):
-        if model_name is None:
-            app_label, model_name = app_label.split('.')
-        model = django_get_model(app_label, model_name)
-        if not model:
-            raise LookupError
-        return model
-
-    def get_registered_model(app_label, model_name):
-        model = django_get_model(app_label, model_name,
-                                 seed_cache=False, only_installed=False)
-        if not model:
-            raise LookupError
-        return model
 
 
 def get_user_model_name():
@@ -219,7 +194,7 @@ class LazyModelOperations(object):
         # If the model is already loaded, pass it to the function immediately.
         # Otherwise, delay execution until the class is prepared.
         try:
-            model_class = get_registered_model(*model_key)
+            model_class = apps.get_registered_model(*model_key)
         except LookupError:
             self.pending_operations.setdefault(model_key, []).append(function)
         else:

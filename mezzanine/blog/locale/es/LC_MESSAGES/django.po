@@ -1,39 +1,41 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
-# Eduardo Rivas <jerivasmelgar@gmail.com>, 2012
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2013
 # Sergi Almacellas <pokoli@gmail.com>, 2012
 # William Díaz <leprosys@gmail.com>, 2012
+# Eduardo Rivas <jerivasmelgar@gmail.com>, 2012, 2015.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-09 10:33-0430\n"
-"PO-Revision-Date: 2013-11-09 20:30+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/language/es/)\n"
+"POT-Creation-Date: 2015-04-09 12:43-0600\n"
+"PO-Revision-Date: 2015-04-09 12:39-0600\n"
+"Last-Translator: Eduardo Rivas <jerivasmelgar@gmail.com>\n"
+"Language-Team: Español; Castellano <>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
-#: admin.py:20
+#: admin.py:22
 msgid "Other posts"
-msgstr "Otras entradas"
+msgstr "Otras publicaciones"
 
-#: defaults.py:21
+#: defaults.py:22
 msgid "Enable featured images in blog posts"
-msgstr "Activar imágenes destacadas en entradas del blog"
-
-#: defaults.py:36
-msgid "Blog post URL date format"
-msgstr "Formato de fecha en URL de publicación del Blog"
+msgstr "Activar imágenes destacadas en las publicaciones"
 
 #: defaults.py:37
+msgid "Blog post URL date format"
+msgstr "Formato de fecha en URL de publicaciones"
+
+#: defaults.py:38
 msgid ""
 "A string containing the value ``year``, ``month``, or ``day``, which "
 "controls the granularity of the date portion in the URL for each blog post. "
@@ -41,68 +43,76 @@ msgid ""
 "will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
 "means the URLs will only use the slug, and not contain any portion of the "
 "date at all."
-msgstr "Una cadena que contiene los valores ``year``, ``month``, o ``day``, la cual contrla la granularidad de la parte de fecha en la URL de cada publicación del blog. Por ejemplo, ``year`` definirá las URLs con el formato /blog/yyyy/slug/, mientras ``day`` definirá las URLs con el formato /blog/yyyy/mm/dd/slug/. Una cadena vacía implica que solo se usará el slug en las URLs, y éstas no tendrán ninguna información de fecha."
+msgstr ""
+"Una cadena que contiene los valores ``year``, ``month``, o ``day``, la cual "
+"controla la granularidad de la parte de fecha en la URL de cada entrada del "
+"blog. Por ejemplo, ``year`` definirá las URLs con el formato /blog/yyyy/"
+"slug/, mientras ``day`` definirá las URLs con el formato /blog/yyyy/mm/dd/"
+"slug/. Una cadena vacía implica que solo se usará el slug en las URLs, y "
+"éstas no tendrán ninguna información de fecha."
 
-#: defaults.py:49
+#: defaults.py:50
 msgid "Blog posts per page"
 msgstr "Número de publicaciones a mostrar por página"
 
-#: defaults.py:50
+#: defaults.py:51
 msgid "Number of blog posts shown on a blog listing page."
 msgstr "Número de publicaciones a mostrar en la página inicial del blog."
 
-#: defaults.py:57
-msgid "Blog posts RSS limit"
-msgstr "Límite de entradas en RSS"
-
 #: defaults.py:58
+msgid "Blog posts RSS limit"
+msgstr "Límite de publicaciones en RSS"
+
+#: defaults.py:59
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
-msgstr "Número de entradas recientes del blog que se muestran en el feed RSS. Establezca esta opción a ``None`` para mostrar todas las entradas."
+msgstr ""
+"Número de publicaciones recientes que se muestran en el feed RSS. Establezca "
+"esta opción a ``None`` para mostrar todas las publicaciones."
 
-#: defaults.py:66
+#: defaults.py:67
 msgid "Slug of the page object for the blog."
-msgstr "Slug de la página del blog"
+msgstr "Slug de la página del blog."
 
-#: models.py:17 templates/blog/includes/filter_panel.html:35
+#: models.py:21 templates/blog/includes/filter_panel.html:43
 msgid "Categories"
 msgstr "Categorías"
 
-#: models.py:19
+#: models.py:23
 msgid "Allow comments"
 msgstr "Permitir comentarios"
 
-#: models.py:21 templates/blog/blog_post_detail.html:43
-#: templates/blog/blog_post_list.html:129
+#: models.py:25 templates/blog/blog_post_detail.html:43
+#: templates/blog/blog_post_list.html:136
 msgid "Comments"
 msgstr "Comentarios"
 
-#: models.py:22
+#: models.py:26
 msgid "Rating"
-msgstr "Puntuación"
+msgstr "Calificación"
 
-#: models.py:23
+#: models.py:27
 msgid "Featured Image"
 msgstr "Imagen destacada"
 
-#: models.py:27 templates/blog/blog_post_detail.html:113
+#: models.py:31 templates/blog/blog_post_detail.html:119
 msgid "Related posts"
-msgstr "Entradas relacionadas"
+msgstr "Publicaciones relacionadas"
 
-#: models.py:32
+#: models.py:36
 msgid "Blog post"
-msgstr "Entrada del blog"
+msgstr "Publicación"
 
-#: models.py:33
+#: models.py:37
 msgid "Blog posts"
-msgstr "Entradas del blog"
+msgstr "Publicaciones"
 
-#: models.py:93
+#: models.py:96
 msgid "Blog Category"
 msgstr "Categoría del blog"
 
-#: models.py:94
+#: models.py:97
 msgid "Blog Categories"
 msgstr "Categorías del blog"
 
@@ -115,18 +125,18 @@ msgid "Save Draft"
 msgstr "Guardar borrador"
 
 #: templates/blog/blog_post_detail.html:29
-#: templates/blog/blog_post_list.html:83
+#: templates/blog/blog_post_list.html:85
 msgid "Posted by"
 msgstr "Publicado por"
 
 #: templates/blog/blog_post_detail.html:33
-#: templates/blog/blog_post_list.html:95
+#: templates/blog/blog_post_list.html:97
 #, python-format
 msgid "%(sometime)s ago"
 msgstr "hace %(sometime)s"
 
 #: templates/blog/blog_post_detail.html:46
-#: templates/blog/blog_post_list.html:133
+#: templates/blog/blog_post_list.html:140
 #, python-format
 msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
@@ -134,16 +144,16 @@ msgstr[0] "%(comments_count)s comentario"
 msgstr[1] "%(comments_count)s comentarios"
 
 #: templates/blog/blog_post_detail.html:74
-#: templates/blog/blog_post_list.html:116
-#: templates/blog/includes/filter_panel.html:48
+#: templates/blog/blog_post_list.html:121
+#: templates/blog/includes/filter_panel.html:56
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: templates/blog/blog_post_detail.html:87
+#: templates/blog/blog_post_detail.html:93
 msgid "Share on Twitter"
 msgstr "Compartir en Twitter"
 
-#: templates/blog/blog_post_detail.html:88
+#: templates/blog/blog_post_detail.html:94
 msgid "Share on Facebook"
 msgstr "Compartir en Facebook"
 
@@ -165,25 +175,25 @@ msgstr "Autor:"
 
 #: templates/blog/blog_post_list.html:50
 msgid "Viewing posts tagged"
-msgstr "Ver las publicaciones etiquetadas"
+msgstr "Viendo publicaciones etiquetadas con"
 
 #: templates/blog/blog_post_list.html:52
 msgid "Viewing posts for the category"
-msgstr "Ver las publicaciones de la categoría"
+msgstr "Viendo publicaciones de la categoría"
 
 #: templates/blog/blog_post_list.html:54
 msgid "Viewing posts from"
-msgstr "Ver las publicaciones de"
+msgstr "Viendo publicaciones de"
 
 #: templates/blog/blog_post_list.html:57
 msgid "Viewing posts by"
-msgstr "Ver las publicaciones por"
+msgstr "Viendo publicaciones por"
 
-#: templates/blog/blog_post_list.html:89
+#: templates/blog/blog_post_list.html:91
 msgid "in"
 msgstr "en"
 
-#: templates/blog/blog_post_list.html:124
+#: templates/blog/blog_post_list.html:130
 msgid "read more"
 msgstr "leer más"
 
@@ -191,28 +201,28 @@ msgstr "leer más"
 msgid "Recent Posts"
 msgstr "Publicaciones recientes"
 
-#: templates/blog/includes/filter_panel.html:19
+#: templates/blog/includes/filter_panel.html:27
 msgid "Archive"
 msgstr "Archivo"
 
-#: templates/blog/includes/filter_panel.html:64
+#: templates/blog/includes/filter_panel.html:72
 msgid "Authors"
 msgstr "Autores"
 
-#: templates/blog/includes/filter_panel.html:76
+#: templates/blog/includes/filter_panel.html:84
 msgid "Feeds"
-msgstr "Canal Web"
+msgstr "Feeds"
 
-#: templates/blog/includes/filter_panel.html:78
-#: templates/blog/includes/filter_panel.html:82
 #: templates/blog/includes/filter_panel.html:86
 #: templates/blog/includes/filter_panel.html:90
+#: templates/blog/includes/filter_panel.html:94
+#: templates/blog/includes/filter_panel.html:98
 msgid "RSS"
 msgstr "RSS"
 
-#: templates/blog/includes/filter_panel.html:79
-#: templates/blog/includes/filter_panel.html:83
 #: templates/blog/includes/filter_panel.html:87
 #: templates/blog/includes/filter_panel.html:91
+#: templates/blog/includes/filter_panel.html:95
+#: templates/blog/includes/filter_panel.html:99
 msgid "Atom"
 msgstr "Atom"

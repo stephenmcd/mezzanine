@@ -61,8 +61,9 @@ class Command(BaseImporterCommand):
             # Get the time struct of the published date if possible and
             # the updated date if we can't.
             pub_date = getattr(entry, "published_parsed", entry.updated_parsed)
-            pub_date = datetime.fromtimestamp(mktime(pub_date))
-            pub_date -= timedelta(seconds=timezone)
+            if pub_date:
+                pub_date = datetime.fromtimestamp(mktime(pub_date))
+                pub_date -= timedelta(seconds=timezone)
 
             # Tags and categories are all under "tags" marked with a scheme.
             terms = defaultdict(set)

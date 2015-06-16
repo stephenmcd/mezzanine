@@ -12,7 +12,8 @@ powered by Mezzanine <http://mezzanine.jupo.org/sites/>`_.
     A working knowledge of `Django <https://www.djangoproject.com/>`_
     is required to work with Mezzanine and the documentation assumes as
     much. If you're new to Django, you'll need to work through the
-    `Django tutorial <https://docs.djangoproject.com/en/dev/intro/tutorial01/>`_
+    `Django tutorial
+    <https://docs.djangoproject.com/en/dev/intro/tutorial01/>`_
     before being able to understand the concepts used throughout the
     Mezzanine documentation. *A mantra for working with Mezzanine:
     Mezzanine Is Just Django* - `Ken Bolton <http://bscientific.org/>`_,
@@ -40,10 +41,11 @@ requirements and operations in the :doc:`deployment` and
 :doc:`caching-strategy` sections.
 
 **Further reading** includes :doc:`frequently-asked-questions`,
-:doc:`utilities`, a section on :doc:`user-accounts`,
-information about Mezzanine's :doc:`search-engine`, and a section
-on Mezzanine's :doc:`configuration` which outlines the various settings
-for configuring Mezzanine. Lastly, you can learn about
+:doc:`utilities`, a section on :doc:`user-accounts`, support for
+:doc:`multi-lingual-sites`, information about Mezzanine's
+:doc:`search-engine`, and a section on Mezzanine's
+:doc:`configuration` which outlines the various settings for
+configuring Mezzanine. Lastly, you can learn about
 :doc:`blog-importing` into Mezzanine, :doc:`twitter-integration`, or
 just browse the auto-generated docs for each of Mezzanine's
 :doc:`packages`.
@@ -58,6 +60,7 @@ Table Of Contents
     content-architecture
     model-customization
     admin-customization
+    multi-lingual-sites
     utilities
     model-graph
     device-handling

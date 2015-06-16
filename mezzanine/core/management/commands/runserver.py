@@ -55,9 +55,9 @@ def banner():
     # to join with dots.
     db_version_func = {
         "postgresql": lambda: (
-            conn.pg_version / 10000,
-            conn.pg_version % 10000 / 100,
-            conn.pg_version % 10000 % 100,
+            conn.pg_version // 10000,
+            conn.pg_version // 100 % 100,
+            conn.pg_version % 100,
         ),
         "mysql": lambda: conn.mysql_version,
         "sqlite": lambda: conn.Database.sqlite_version_info,
@@ -98,9 +98,7 @@ def banner():
         "db_version": db_version,
         "os_name": platform.system(),
         "os_version": platform.release(),
-    }).splitlines()
-    if django.VERSION >= (1, 7):
-        lines = lines[2:]
+    }).splitlines()[2:]
 
     if not supports_color():
         return "\n".join(lines)

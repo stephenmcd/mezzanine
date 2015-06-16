@@ -5,6 +5,7 @@ try:
 except ImportError:  # Python 2
     from urlparse import urljoin
 
+from django.apps import apps
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -135,8 +136,9 @@ class Page(BasePage):
         """
         Return all Page subclasses.
         """
-        is_content_model = lambda m: m is not Page and issubclass(m, Page)
-        return list(filter(is_content_model, models.get_models()))
+        def is_content_model(m):
+            return m is not Page and issubclass(m, Page) and not m._meta.proxy
+        return list(filter(is_content_model, apps.get_models()))
 
     def get_content_model(self):
         """

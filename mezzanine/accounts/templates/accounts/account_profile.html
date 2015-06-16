@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n future mezzanine_tags accounts_tags %}
+{% load i18n mezzanine_tags accounts_tags %}
 
 {% block meta_title %}{{ profile_user|username_or:"get_full_name" }}{% endblock %}
 {% block title %}{{ profile_user|username_or:"get_full_name" }}{% endblock %}

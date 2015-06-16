@@ -5,9 +5,9 @@ from functools import reduce
 from operator import ior, iand
 from string import punctuation
 
+from django.apps import apps
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Manager, Q, CharField, TextField
-from django.db.models.loading import get_models
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
 from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
@@ -15,7 +15,6 @@ from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
-from mezzanine.utils.models import get_model
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import home_slug
 
@@ -245,9 +244,9 @@ class SearchableManager(Manager):
 
     def contribute_to_class(self, model, name):
         """
-        Django 1.5 explicitly prevents managers being accessed from
-        abstract classes, which is behaviour the search API has relied
-        on for years. Here we reinstate it.
+        Newer versions of Django explicitly prevent managers being
+        accessed from abstract classes, which is behaviour the search
+        API has always relied on. Here we reinstate it.
         """
         super(SearchableManager, self).contribute_to_class(model, name)
         setattr(model, name, ManagerDescriptor(self))
@@ -261,8 +260,10 @@ class SearchableManager(Manager):
         if not settings.SEARCH_MODEL_CHOICES:
             # No choices defined - build a list of leaf models (those
             # without subclasses) that inherit from Displayable.
-            models = [m for m in get_models() if issubclass(m, self.model)]
-            parents = reduce(ior, [m._meta.get_parent_list() for m in models])
+            models = [m for m in apps.get_models()
+                      if issubclass(m, self.model)]
+            parents = reduce(ior, [set(m._meta.get_parent_list())
+                                   for m in models])
             models = [m for m in models if m not in parents]
         elif getattr(self.model._meta, "abstract", False):
             # When we're combining model subclasses for an abstract
@@ -279,7 +280,7 @@ class SearchableManager(Manager):
             errors = []
             for name in settings.SEARCH_MODEL_CHOICES:
                 try:
-                    model = get_model(*name.split(".", 1))
+                    model = apps.get_model(*name.split(".", 1))
                 except LookupError:
                     errors.append(name)
                 else:
@@ -289,7 +290,7 @@ class SearchableManager(Manager):
                         "%s defined in the 'SEARCH_MODEL_CHOICES' setting."
                         % ", ".join(errors))
 
-            for model in get_models():
+            for model in apps.get_models():
                 # Model is actually a subclasses of what we're
                 # searching (eg Displayabale)
                 is_subclass = issubclass(model, self.model)
@@ -334,6 +335,8 @@ class CurrentSiteManager(DjangoCSM):
     to ``settings.SITE_ID`` if none of those match a site.
     """
 
+    use_in_migrations = False
+
     def __init__(self, field_name=None, *args, **kwargs):
         super(DjangoCSM, self).__init__(*args, **kwargs)
         self.__field_name = field_name
@@ -341,12 +344,7 @@ class CurrentSiteManager(DjangoCSM):
 
     def get_queryset(self):
         if not self.__is_validated:
-            try:
-                # Django <= 1.6
-                self._validate_field_name()
-            except AttributeError:
-                # Django >= 1.7: will populate "self.__field_name".
-                self._get_field_name()
+            self._get_field_name()
         lookup = {self.__field_name + "__id__exact": current_site_id()}
         return super(DjangoCSM, self).get_queryset().filter(**lookup)
 
@@ -368,7 +366,7 @@ class DisplayableManager(CurrentSiteManager, PublishedManager,
         home = self.model(title=_("Home"))
         setattr(home, "get_absolute_url", home_slug)
         items = {home.get_absolute_url(): home}
-        for model in get_models():
+        for model in apps.get_models():
             if issubclass(model, self.model):
                 for item in (model.objects.published(for_user=for_user)
                                   .filter(**kwargs)

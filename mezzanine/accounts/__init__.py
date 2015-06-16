@@ -7,11 +7,11 @@ included below.
 """
 from __future__ import unicode_literals
 
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
 
-from mezzanine.utils.models import get_model
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -30,7 +30,7 @@ def get_profile_model():
         raise ProfileNotConfigured
 
     try:
-        return get_model(settings.AUTH_PROFILE_MODULE)
+        return apps.get_model(settings.AUTH_PROFILE_MODULE)
     except ValueError:
         raise ImproperlyConfigured("AUTH_PROFILE_MODULE must be of "
                                    "the form 'app_label.model_name'")

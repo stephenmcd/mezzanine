@@ -19,7 +19,7 @@ from mezzanine.utils.views import render
 User = get_user_model()
 
 
-def login(request, template="accounts/account_login.html"):
+def login(request, template="accounts/account_login.html", extra_context=None):
     """
     Login form.
     """
@@ -30,6 +30,7 @@ def login(request, template="accounts/account_login.html"):
         auth_login(request, authenticated_user)
         return login_redirect(request)
     context = {"form": form, "title": _("Log in")}
+    context.update(extra_context or {})
     return render(request, template, context)
 
 
@@ -42,7 +43,8 @@ def logout(request):
     return redirect(next_url(request) or get_script_prefix())
 
 
-def signup(request, template="accounts/account_signup.html"):
+def signup(request, template="accounts/account_signup.html",
+           extra_context=None):
     """
     Signup form.
     """
@@ -65,6 +67,7 @@ def signup(request, template="accounts/account_signup.html"):
             auth_login(request, new_user)
             return login_redirect(request)
     context = {"form": form, "title": _("Sign up")}
+    context.update(extra_context or {})
     return render(request, template, context)
 
 
@@ -96,12 +99,14 @@ def profile_redirect(request):
     return redirect("profile", username=request.user.username)
 
 
-def profile(request, username, template="accounts/account_profile.html"):
+def profile(request, username, template="accounts/account_profile.html",
+            extra_context=None):
     """
     Display a profile.
     """
     lookup = {"username__iexact": username, "is_active": True}
     context = {"profile_user": get_object_or_404(User, **lookup)}
+    context.update(extra_context or {})
     return render(request, template, context)
 
 
@@ -115,7 +120,8 @@ def account_redirect(request):
 
 
 @login_required
-def profile_update(request, template="accounts/account_profile_update.html"):
+def profile_update(request, template="accounts/account_profile_update.html",
+                   extra_context=None):
     """
     Profile update form.
     """
@@ -130,10 +136,12 @@ def profile_update(request, template="accounts/account_profile_update.html"):
         except NoReverseMatch:
             return redirect("profile_update")
     context = {"form": form, "title": _("Update Profile")}
+    context.update(extra_context or {})
     return render(request, template, context)
 
 
-def password_reset(request, template="accounts/account_password_reset.html"):
+def password_reset(request, template="accounts/account_password_reset.html",
+                   extra_context=None):
     form = PasswordResetForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
         user = form.save()
@@ -141,6 +149,7 @@ def password_reset(request, template="accounts/account_password_reset.html"):
         info(request, _("A verification email has been sent with "
                         "a link for resetting your password."))
     context = {"form": form, "title": _("Password Reset")}
+    context.update(extra_context or {})
     return render(request, template, context)
 
 

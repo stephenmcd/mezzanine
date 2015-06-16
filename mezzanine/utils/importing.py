@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
 
 import os
+from importlib import import_module
 
-import django
-from django.utils.importlib import import_module
+from django.apps import apps
 
 
 def path_for_import(name):
@@ -27,11 +27,5 @@ def import_dotted_path(path):
 
 
 def get_app_name_list():
-    if django.VERSION >= (1, 7):
-        from django.apps import apps as django_apps
-        for app in django_apps.get_app_configs():
-            yield app.name
-    else:
-        from django.conf import settings
-        for app in settings.INSTALLED_APPS:
-            yield app
+    for app in apps.get_app_configs():
+        yield app.name

@@ -1,4 +1,4 @@
-{% load i18n future %}
+{% load i18n %}
 
 <form method="get" action="{% url "search" %}" id="search">
     <input type="search" name="q" placeholder="{% trans "Search"%}..." value="{{ request.REQUEST.q }}">

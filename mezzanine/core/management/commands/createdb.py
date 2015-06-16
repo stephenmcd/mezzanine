@@ -4,16 +4,13 @@ from future.builtins import int, input
 from optparse import make_option
 from socket import gethostname
 
-from django.core.management.base import NoArgsCommand, CommandError
+from django import VERSION
+from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.core.management import call_command
+from django.core.management.commands import migrate
 from django.db import connection
-
-try:
-    from django.core.management.commands import migrate
-except ImportError:
-    from django.core.management.commands import syncdb as migrate
 
 from mezzanine.conf import settings
 from mezzanine.utils.tests import copy_test_to_media
@@ -24,24 +21,43 @@ DEFAULT_EMAIL = "example@example.com"
 DEFAULT_PASSWORD = "default"
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
 
     help = "Performs initial Mezzanine database setup."
     can_import_settings = True
-    option_list = migrate.Command.option_list + (
-        make_option("--nodata", action="store_true", dest="nodata",
-                    default=False, help="Do not add demo data"),)
 
-    def handle_noargs(self, **options):
+    def __init__(self, *args, **kwargs):
+        """
+        Adds extra command options (executed only by Django <= 1.7).
+        """
+        super(Command, self).__init__(*args, **kwargs)
+        if VERSION[0] == 1 and VERSION[1] <= 7:
+            self.option_list = migrate.Command.option_list + (
+                make_option("--nodata", action="store_true", dest="nodata",
+                    default=False, help="Do not add demo data."),)
+
+    def add_arguments(self, parser):
+        """
+        Adds extra command options (executed only by Django >= 1.8).
+        """
+        parser.add_argument("--nodata", action="store_true", dest="nodata",
+            default=False, help="Do not add demo data.")
+        parser.add_argument("--noinput", action="store_false",
+            dest="interactive", default=True, help="Do not prompt the user "
+            "for input of any kind.")
+
+    def handle(self, **options):
 
         if "conf_setting" in connection.introspection.table_names():
             raise CommandError("Database already created, you probably "
                                "want the migrate command")
-        migrate.Command().execute(**options)
 
         self.verbosity = int(options.get("verbosity", 0))
         self.interactive = int(options.get("interactive", 0))
         self.no_data = int(options.get("nodata", 0))
+
+        call_command("migrate", verbosity=self.verbosity,
+                     interactive=self.interactive)
 
         mapping = [
             [self.create_site, ["django.contrib.sites"]],
@@ -50,7 +66,6 @@ class Command(NoArgsCommand):
             [self.create_pages, ["mezzanine.pages", "mezzanine.forms",
                                  "mezzanine.blog", "mezzanine.galleries"]],
             [self.create_shop, ["cartridge.shop"]],
-            [self.fake_migrations, ["south"]],
         ]
 
         for func, apps in mapping:
@@ -124,20 +139,6 @@ class Command(NoArgsCommand):
                 print("\nCreating demo product and sale ...\n")
             call_command("loaddata", "cartridge_optional.json")
             copy_test_to_media("cartridge.shop", "product")
-
-    def fake_migrations(self):
-        try:
-            from south.management.commands import migrate
-        except ImportError:
-            return
-        fake_migrations = self.confirm(
-            "\nSouth is installed for this project."
-            "\nWould you like to fake initial "
-            "migrations? (yes/no): ")
-        if fake_migrations:
-            if self.verbosity >= 1:
-                print("\nFaking initial migrations ...\n")
-            migrate.Command().execute(fake=True)
 
     def translation_fields(self):
         try:

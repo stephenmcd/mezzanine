@@ -9,10 +9,9 @@ try:
 except ImportError:
     from urllib import urlopen, urlencode
 
-from django.contrib.contenttypes.generic import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.db.models.base import ModelBase
-from django.db.models.signals import post_save
 from django.template.defaultfilters import truncatewords_html
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import strip_tags
@@ -180,6 +179,10 @@ class MetaData(models.Model):
                 break
         else:
             description = truncatewords_html(description, 100)
+        try:
+            description = unicode(description)
+        except NameError:
+            pass  # Python 3.
         return description
 
 
@@ -225,7 +228,7 @@ class Displayable(Slugged, MetaData, TimeStamped):
             "on the site."))
     publish_date = models.DateTimeField(_("Published from"),
         help_text=_("With Published chosen, won't be shown until this time"),
-        blank=True, null=True)
+        blank=True, null=True, db_index=True)
     expiry_date = models.DateTimeField(_("Expires on"),
         help_text=_("With Published chosen, won't be shown after this time"),
         blank=True, null=True)
@@ -308,7 +311,6 @@ class Displayable(Slugged, MetaData, TimeStamped):
         service have been specified.
         """
         from mezzanine.conf import settings
-        settings.use_editable()
         if settings.BITLY_ACCESS_TOKEN:
             url = "https://api-ssl.bit.ly/v3/shorten?%s" % urlencode({
                 "access_token": settings.BITLY_ACCESS_TOKEN,
@@ -502,27 +504,11 @@ class SitePermission(models.Model):
     access.
     """
 
-    user = models.ForeignKey(user_model_name, verbose_name=_("Author"),
-        related_name="%(class)ss", unique=True)
+    user = models.OneToOneField(user_model_name, verbose_name=_("Author"),
+        related_name="%(class)ss")
     sites = models.ManyToManyField("sites.Site", blank=True,
                                    verbose_name=_("Sites"))
 
     class Meta:
         verbose_name = _("Site permission")
         verbose_name_plural = _("Site permissions")
-
-
-def create_site_permission(sender, **kw):
-    sender_name = "%s.%s" % (sender._meta.app_label, sender._meta.object_name)
-    if sender_name.lower() != user_model_name.lower():
-        return
-    user = kw["instance"]
-    if user.is_staff and not user.is_superuser:
-        perm, created = SitePermission.objects.get_or_create(user=user)
-        if created or perm.sites.count() < 1:
-            perm.sites.add(current_site_id())
-
-# We don't specify the user model here, because with 1.5's custom
-# user models, everything explodes. So we check the name of it in
-# the signal.
-post_save.connect(create_site_permission)

@@ -17,14 +17,14 @@ User = get_user_model()
 
 
 def blog_post_list(request, tag=None, year=None, month=None, username=None,
-                   category=None, template="blog/blog_post_list.html"):
+                   category=None, template="blog/blog_post_list.html",
+                   extra_context=None):
     """
     Display a list of blog posts that are filtered by tag, year, month,
     author or category. Custom templates are checked for using the name
     ``blog/blog_post_list_XXX.html`` where ``XXX`` is either the
     category slug or author's username if given.
     """
-    settings.use_editable()
     templates = []
     blog_posts = BlogPost.objects.published(for_user=request.user)
     if tag is not None:
@@ -56,12 +56,14 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
                           settings.MAX_PAGING_LINKS)
     context = {"blog_posts": blog_posts, "year": year, "month": month,
                "tag": tag, "category": category, "author": author}
+    context.update(extra_context or {})
     templates.append(template)
     return render(request, templates, context)
 
 
 def blog_post_detail(request, slug, year=None, month=None, day=None,
-                     template="blog/blog_post_detail.html"):
+                     template="blog/blog_post_detail.html",
+                     extra_context=None):
     """. Custom templates are checked for using the name
     ``blog/blog_post_detail_XXX.html`` where ``XXX`` is the blog
     posts's slug.
@@ -70,6 +72,7 @@ def blog_post_detail(request, slug, year=None, month=None, day=None,
                                      for_user=request.user).select_related()
     blog_post = get_object_or_404(blog_posts, slug=slug)
     context = {"blog_post": blog_post, "editable_obj": blog_post}
+    context.update(extra_context or {})
     templates = [u"blog/blog_post_detail_%s.html" % str(slug), template]
     return render(request, templates, context)
 

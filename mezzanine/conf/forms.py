@@ -50,11 +50,10 @@ class SettingsForm(forms.Form):
         activate(active_language)
 
     def _init_field(self, setting, field_class, name, code=None):
-        """Initialize a field wether it is built with a
-        custom name for a specific translation language
-        or not.
         """
-        settings.use_editable()
+        Initialize a field wether it is built with a custom name for a
+        specific translation language or not.
+        """
         kwargs = {
             "label": setting["label"] + ":",
             "required": setting["type"] in (int, float),
@@ -74,8 +73,8 @@ class SettingsForm(forms.Form):
 
     def __iter__(self):
         """
-        Calculate and apply a group heading to each field and order by the
-        heading.
+        Calculate and apply a group heading to each field and order by
+        the heading.
         """
         fields = list(super(SettingsForm, self).__iter__())
         group = lambda field: field.name.split("_", 1)[0].title()
@@ -130,4 +129,5 @@ class SettingsForm(forms.Form):
             for i, s in enumerate(description.split(bold)):
                 parts.append(s if i % 2 == 0 else "<b>%s</b>" % s)
             description = "".join(parts)
-        return mark_safe(urlize(description).replace("\n", "<br>"))
+        description = urlize(description, autoescape=False)
+        return mark_safe(description.replace("\n", "<br>"))
