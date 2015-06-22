@@ -48,11 +48,11 @@ class BaseGenericRelation(GenericRelation):
             # if not, all is good
             super(BaseGenericRelation, self).__init__(*args, **kwargs)
         else:
-            # otherwise, warn the user to stick to the new (as of 3.2)
+            # otherwise, warn the user to stick to the new (as of 4.0)
             # ``default_related_model`` attribute
             raise ImproperlyConfigured("BaseGenericRelation changed the "
                 "way it handled a default ``related_model`` in mezzanine "
-                "3.2. Please override ``default_related_model`` instead "
+                "4.0. Please override ``default_related_model`` instead "
                 "and do not tamper with django's ``related_model`` "
                 "property anymore.")
 
