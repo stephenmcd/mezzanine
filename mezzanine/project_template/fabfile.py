@@ -49,10 +49,10 @@ if sys.argv[0].split(os.sep)[-1] in ("fab", "fab-script.py"):
 
 
 def conf_lookup(default_conf, conf_overrides, key, fallback=None):
-    '''
+    """
     Returns the value of the specified key in the passed FABENV,
     falling back to defaults
-    '''
+    """
     return conf_overrides.get(key, default_conf.get(key, fallback)) or fallback
 
 def setup_env(env_string=None):
