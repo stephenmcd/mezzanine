@@ -599,6 +599,7 @@ certain sites.
 * `Intentional Creation <http://intentionalcreation.com/>`_
 * `BytesArea <http://www.bytesarea.com>`_
 * `Debra Solomon <http://www.debrasolomon.com>`_
+* `Pampanga Food Company <http://pampangafood.com>`_
 
 
 Quotes
