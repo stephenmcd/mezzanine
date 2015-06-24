@@ -783,7 +783,7 @@ def sync_to(to_env):
         red("You're about to overwrite the database and uploaded media in "
             "%s with database and uploaded media from %s. Are you "
             "sure?" % (to_env, from_env), bold=True)):
-        abort();
+        abort("Sync canceled")
 
     current_dt_string = str(datetime.now()).replace(' ', '_').replace(':', '-')
 
