@@ -779,6 +779,12 @@ def sync_to(to_env):
     except KeyError:
         abort('ENV %s does not exist in the FABRIC dict' % to_env)
 
+    if not confirm(
+        red("You're about to overwrite the database and uploaded media in "
+            "%s with database and uploaded media from %s. Are you "
+            "sure?" % (to_env, from_env), bold=True)):
+        abort();
+
     current_dt_string = str(datetime.now()).replace(' ', '_').replace(':', '-')
 
     print("Syncing database and static files from %s to %s" % (from_env,
