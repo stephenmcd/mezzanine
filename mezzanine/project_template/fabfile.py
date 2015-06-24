@@ -766,7 +766,7 @@ def sync_restore(to_env, from_env, db_filename, static_filename):
 
 @task
 @log_call
-def sync_to(to_env):
+def sync_to(to_env, no_input=False):
     """
     Syncs datbase and media from the current ENV to to_env
     """
@@ -779,11 +779,11 @@ def sync_to(to_env):
     except KeyError:
         abort('ENV %s does not exist in the FABRIC dict' % to_env)
 
-    if not confirm(
-        red("You're about to overwrite the database and uploaded media in "
-            "%s with database and uploaded media from %s. Are you "
-            "sure?" % (to_env, from_env), bold=True)):
-        abort("Sync canceled")
+    if no_input != 'True' and not confirm(
+            red("You're about to overwrite the database and uploaded media in "
+                "%s with database and uploaded media from %s. Are you "
+                "sure?" % (to_env, from_env), bold=True)):
+        abort('Sync canceled')
 
     current_dt_string = str(datetime.now()).replace(' ', '_').replace(':', '-')
 
