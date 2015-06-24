@@ -14,8 +14,8 @@ from posixpath import join
 
 from mezzanine.utils.conf import real_project_name
 
-from fabric.api import abort, env, execute, cd, prefix, sudo as _sudo, run as _run, \
-    hide, task, local
+from fabric.api import abort, env, execute, cd, prefix, sudo as _sudo, \
+    run as _run, hide, task, local
 from fabric.context_managers import settings as fab_settings
 from fabric.contrib.console import confirm
 from fabric.contrib.files import exists, upload_template
@@ -38,7 +38,8 @@ if sys.argv[0].split(os.sep)[-1] in ("fab", "fab-script.py"):
         try:
             conf = fabric_dict['DEFAULT']
         except KeyError:
-            print('Your FABRIC dictionary uses the old, deprecated format, continuing.')
+            print('Your FABRIC dictionary uses the old, deprecated '
+                  'format, continuing.')
             conf = fabric_dict
         try:
             conf["HOSTS"][0]
@@ -56,15 +57,19 @@ def conf_lookup(default_conf, conf_overrides, key, fallback=None):
     return conf_overrides.get(key, default_conf.get(key, fallback)) or fallback
 
 def setup_env(env_string=None):
-
+    """
+    Sets up the fabric env dict potentially with a specified sub dict from
+    the setting FABRIC
+    """
     conf_overrides = {}
 
     if env_string:
-        # Allowing overriding config based on a passed in key, i.e. DEV/STAGE/PROD
+        # Override config based on a passed in key, i.e. DEV/STAGE/PROD
         try:
             conf_overrides = fabric_dict[env_string]
         except KeyError:
-            abort('Specified ENV, %s, does not exist in the FABRIC dict' % env.FABENV)
+            abort('Specified ENV, %s, does not exist in the '
+                  'FABRIC dict' % env.FABENV)
 
     env.db_pass = conf_lookup(conf, conf_overrides, "DB_PASS")
     env.admin_pass = conf_lookup(conf, conf_overrides, "ADMIN_PASS")
@@ -73,24 +78,30 @@ def setup_env(env_string=None):
     env.key_filename = conf_lookup(conf, conf_overrides, "SSH_KEY_PATH")
     env.hosts = conf_lookup(conf, conf_overrides, "HOSTS", [""])
 
-    env.proj_name = conf_lookup(conf, conf_overrides, "PROJECT_NAME", os.getcwd().split(os.sep)[-1])
-    env.venv_home = conf_lookup(conf, conf_overrides, "VIRTUALENV_HOME", "/home/%s" % env.user)
+    env.proj_name = conf_lookup(conf, conf_overrides,
+                                "PROJECT_NAME", os.getcwd().split(os.sep)[-1])
+    env.venv_home = conf_lookup(conf, conf_overrides,
+                                "VIRTUALENV_HOME", "/home/%s" % env.user)
     env.venv_path = join(env.venv_home, env.proj_name)
     env.proj_path = "/home/%s/mezzanine/%s" % (env.user, env.proj_name)
     env.manage = "%s/bin/python %s/manage.py" % (env.venv_path, env.proj_path)
-    env.domains = conf_lookup(conf, conf_overrides, "DOMAINS", [conf_lookup(conf, conf_overrides, "LIVE_HOSTNAME", env.hosts[0])])
+    env.domains = conf_lookup(
+        conf, conf_overrides, "DOMAINS",
+        [conf_lookup(conf, conf_overrides, "LIVE_HOSTNAME", env.hosts[0])])
     env.domains_nginx = " ".join(env.domains)
     env.domains_regex = "|".join(env.domains)
     env.domains_python = ", ".join(["'%s'" % s for s in env.domains])
     env.ssl_disabled = "#" if len(env.domains) > 1 else ""
     env.vcs_tools = ["git", "hg"]
     env.deploy_tool = conf_lookup(conf, conf_overrides, "DEPLOY_TOOL", "rsync")
-    env.reqs_path = conf_lookup(conf, conf_overrides, "REQUIREMENTS_PATH")    env.locale = conf.get("LOCALE", "en_US.UTF-8")
+    env.reqs_path = conf_lookup(conf, conf_overrides, "REQUIREMENTS_PATH")
+    env.locale = conf.get("LOCALE", "en_US.UTF-8")
     env.num_workers = conf_lookup(conf, conf_overrides, "NUM_WORKERS",
                                "multiprocessing.cpu_count() * 2 + 1")
 
     env.secret_key = conf_lookup(conf, conf_overrides, "SECRET_KEY", "")
-    env.nevercache_key = conf_lookup(conf, conf_overrides, "NEVERCACHE_KEY", "")
+    env.nevercache_key = conf_lookup(conf, conf_overrides,
+                                     "NEVERCACHE_KEY", "")
 
     # Remote git repos need to be "bare" and reside separated from the project
     if env.deploy_tool == "git":
@@ -384,9 +395,11 @@ def backup_static(filename="static.tar", no_directory_structure=False):
     static_dir = static()
     if exists(static_dir):
         if no_directory_structure:
-            run("tar -cf %s --exclude='*.thumbnails' -C %s ." % (filename, static_dir))
+            run("tar -cf %s --exclude='*.thumbnails' -C %s ." % (filename,
+                                                                 static_dir))
         else:
-            run("tar -cf %s --exclude='*.thumbnails' %s" % (filename, static_dir))
+            run("tar -cf %s --exclude='*.thumbnails' %s" % (filename,
+                                                            static_dir))
 
 @task
 def restore(filename, drop_first=False):
@@ -715,7 +728,8 @@ def sync_transfer(to_env, to_dict, from_env, db_filename, static_filename):
     backup(db_filename)
     backup_static(filename=static_filename, no_directory_structure=True)
 
-    print('%s: Copying files to destination environment, %s' % (from_env, to_env))
+    print('%s: Copying files to destination environment, %s' % (from_env,
+                                                                to_env))
     run('scp %s %s@%s:~' % (db_filename, to_user, to_host))
     run('scp %s %s@%s:~' % (static_filename, to_user, to_host))
 
@@ -734,7 +748,8 @@ def sync_restore(to_env, from_env, db_filename, static_filename):
         print('%s: Restoring to database copied from %s' % (to_env, from_env))
         restore('~/%s' % db_filename, drop_first=True)
 
-        print('%s: Updating to static directory copied from %s' % (to_env, from_env))
+        print('%s: Updating to static directory copied from %s' % (to_env,
+                                                                   from_env))
         run('mkdir %s.new' % static_dir)
         run('tar -xf ~/%s -C %s.new' % (static_filename, static_dir))
 
@@ -766,15 +781,17 @@ def sync_to(to_env):
 
     current_dt_string = str(datetime.now()).replace(' ', '_').replace(':', '-')
 
-    print("Syncing database and static files from %s to %s" % (from_env, to_env))
+    print("Syncing database and static files from %s to %s" % (from_env,
+                                                               to_env))
 
     db_filename = '%s_transfer.db' % current_dt_string
     static_filename = '%s_transfer.tar' % current_dt_string
 
-    execute(sync_transfer, to_env, to_dict, from_env, db_filename, static_filename)
+    execute(sync_transfer, to_env, to_dict, from_env,
+            db_filename, static_filename)
     # switch to the desitination env
-    # using exexcute forces a new SSH connection for the new env setup
     setup_env(to_env)
+    # using exexcute forces a new SSH connection for the new env setup
     execute(sync_restore, to_env, from_env, db_filename, static_filename)
 
     return True
