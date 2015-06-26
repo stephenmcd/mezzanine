@@ -58,16 +58,18 @@ module. Here's an example, that leverages some existing setting names::
   ALLOWED_HOSTS = ["example.com"]
 
   FABRIC = {
-      "DEPLOY_TOOL": "rsync",  # Deploy with "git", "hg", or "rsync"
-      "SSH_USER": "server_user",  # VPS SSH username
-      "HOSTS": ["123.123.123.123"],  # The IP address of your VPS
-      "DOMAINS": ALLOWED_HOSTS,  # Edit domains in ALLOWED_HOSTS
-      "REQUIREMENTS_PATH": "requirements.txt",  # Project's pip requirements
-      "LOCALE": "en_US.UTF-8",  # Should end with ".UTF-8"
-      "DB_PASS": "",  # Live database password
-      "ADMIN_PASS": "",  # Live admin user password
-      "SECRET_KEY": SECRET_KEY,
-      "NEVERCACHE_KEY": NEVERCACHE_KEY,
+      "DEFAULT": {
+          "DEPLOY_TOOL": "rsync",  # Deploy with "git", "hg", or "rsync"
+          "SSH_USER": "",  # VPS SSH username
+          "HOSTS": ["123.123.123.123"],  # The IP address of your VPS
+          "DOMAINS": ALLOWED_HOSTS,  # Edit domains in ALLOWED_HOSTS
+          "REQUIREMENTS_PATH": "requirements.txt",  # Project's pip requirements
+          "LOCALE": "en_US.UTF-8",  # Should end with ".UTF-8"
+          "DB_PASS": "",  # Live database password
+          "ADMIN_PASS": "",  # Live admin user password
+          "SECRET_KEY": SECRET_KEY,
+          "NEVERCACHE_KEY": NEVERCACHE_KEY,
+      }
   }
 
 Commands
@@ -78,6 +80,51 @@ Here's the list of commands provided in a Mezzanine project's
 for more information on working with these:
 
 .. include:: fabfile.rst
+
+Environments
+------------
+Multiple environments can be configured to work with a fabfile.  To do so, add
+additional dictionaries, like ``DEFAUL`` above to the ``FABRIC`` dictionary.
+For example::
+
+  FABRIC = {
+      "DEFAULT": {
+          "DEPLOY_TOOL": "rsync",  # Deploy with "git", "hg", or "rsync"
+          "SSH_USER": "",  # VPS SSH username
+          "HOSTS": [""],  # The IP address of your VPS
+          "DOMAINS": ALLOWED_HOSTS,  # Edit domains in ALLOWED_HOSTS
+          "REQUIREMENTS_PATH": "requirements.txt",  # Project's pip requirements
+          "LOCALE": "en_US.UTF-8",  # Should end with ".UTF-8"
+          "DB_PASS": "",  # Live database password
+          "ADMIN_PASS": "",  # Live admin user password
+          "SECRET_KEY": SECRET_KEY,
+          "NEVERCACHE_KEY": NEVERCACHE_KEY,
+      },
+      "DEV": {
+          "SSH_USER": "dev",
+          "HOSTS": ["dev.example.com"],
+          "DB_PASS": "dev-db-password",
+          "VIRTUALENV_HOME": "/home/dev"
+      },
+      "PROD": {
+          "SSH_USER": "prod",
+          "HOSTS": ["prod.example.com"],
+          "DB_PASS": "prod-db-password",
+          "VIRTUALENV_HOME": "/home/prod"
+      }
+  }
+
+In the above ``DEV`` and ``PROD`` are optional dictionaries that can override values in the ``DEFAULT`` dictionary.  ``DEV`` and ``PROD`` are not required and any other names or number of dictionaries can be used.
+
+To have a non default dictionary override pass ``--set FABENV=ENV`` to any fabric command where ``ENV`` is a key in the ``FABRIC`` dictionary. For example::
+
+  $ fab all --set FABENV=DEV
+
+would call the ``all`` task and override any values in ``DEFAULT`` that are also in ``DEV`` with the values from ``DEV``.
+
+Only the ``DEFAULT`` dictionary is required, additional environments are optional. If no overrides are desired call fabric commands without the ``--set FABENV=ENV`` option, i.e.::
+
+  $ fab all
 
 Tutorial
 ========
@@ -127,3 +174,11 @@ Fixing bugs pushed by accident to the server
    static files to how they were in the last (working) deployment.
 2. Work on the fixes in your development machine.
 3. Run ``fab deploy`` to push your fixes to production.
+
+Syncing the database and static files between two environments:
+---------------------------------------------------------------
+
+1. Define at least two environments in your fabric settings.
+2. Run ``fab sync_to:TOENV --set FABENV=FROMENV`` where ``TOENV`` and
+   ``FROMENV`` are keys in the ``FABRIC`` dictionary.
+3. Confirm that the action is destructive and will overwrite ``TOENV``.
