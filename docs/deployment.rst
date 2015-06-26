@@ -83,6 +83,7 @@ for more information on working with these:
 
 Environments
 ------------
+
 Multiple environments can be configured to work with a fabfile.  To do so, add
 additional dictionaries, like ``DEFAUL`` above to the ``FABRIC`` dictionary.
 For example::
