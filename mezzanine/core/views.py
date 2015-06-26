@@ -1,8 +1,9 @@
 from __future__ import absolute_import, unicode_literals
-from future.builtins import int, open
+from future.builtins import int, open, str
 
 import os
 
+from json import dumps
 try:
     from urllib.parse import urljoin, urlparse
 except ImportError:
@@ -170,11 +171,11 @@ def static_proxy(request):
     return HttpResponse(response, content_type=content_type)
 
 
-def displayable_links_js(request, template_name="admin/displayable_links.js"):
+def displayable_links_js(request):
     """
     Renders a list of url/title pairs for all ``Displayable`` subclass
-    instances into JavaScript that's used to populate a list of links
-    in TinyMCE.
+    instances into JSON that's used to populate a list of links in
+    TinyMCE.
     """
     links = []
     if "mezzanine.pages" in settings.INSTALLED_APPS:
@@ -192,10 +193,8 @@ def displayable_links_js(request, template_name="admin/displayable_links.js"):
         if real:
             verbose_name = _("Page") if page else obj._meta.verbose_name
             title = "%s: %s" % (verbose_name, title)
-        links.append((not page and real, url, title))
-    context = {"links": [link[1:] for link in sorted(links)]}
-    content_type = "text/javascript"
-    return render(request, template_name, context, content_type=content_type)
+        links.append((not page and real, {"title": str(title), "value": url}))
+    return HttpResponse(dumps([link[1] for link in sorted(links)]))
 
 
 @requires_csrf_token

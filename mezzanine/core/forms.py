@@ -34,12 +34,6 @@ class Html5Mixin(object):
                     self.fields[name].widget.attrs["required"] = ""
 
 
-_tinymce_js = ()
-if settings.GRAPPELLI_INSTALLED:
-    _tinymce_js = ("grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js",
-                   settings.TINYMCE_SETUP_JS)
-
-
 class TinyMceWidget(forms.Textarea):
     """
     Setup the JS files and targetting CSS class for a textarea to
@@ -47,7 +41,8 @@ class TinyMceWidget(forms.Textarea):
     """
 
     class Media:
-        js = _tinymce_js
+        js = ("mezzanine/tinymce/tinymce.min.js", settings.TINYMCE_SETUP_JS)
+        css = {'all': ("mezzanine/tinymce/tinymce.css",)}
 
     def __init__(self, *args, **kwargs):
         super(TinyMceWidget, self).__init__(*args, **kwargs)
