@@ -384,6 +384,10 @@ h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
     background-color: transparent;
 }
 
+.viewcode-link, .viewcode-back {
+  float: right;
+}
+
 /* -- math display ---------------------------------------------------------- */
 
 img.math {
@@ -423,7 +427,7 @@ body * {font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:#444;}
 .body {padding:0 20px 40px 20px;}
 .body img {display:none;}
 .body .section img {display:inline;}
-ul.simple {margin-left:-30px;}
+ul.simple {margin-left:-10px;}
 #authors .simple {margin-left:0;}
 #authors li {float:left; width:30%;}
 #license {clear:left; padding-top:1px;}

@@ -12,6 +12,7 @@ from django.forms import MultipleChoiceField
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
+from mezzanine.core.forms import OrderWidget
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -24,6 +25,13 @@ from mezzanine.utils.importing import import_dotted_path
 LOW_FILTER_TAGS = ("iframe", "embed", "video", "param", "source", "object")
 LOW_FILTER_ATTRS = ("allowfullscreen", "autostart", "loop", "hidden",
                     "playcount", "volume", "controls", "data", "classid")
+
+
+class OrderField(models.IntegerField):
+    def formfield(self, **kwargs):
+        kwargs.update({'widget': OrderWidget,
+                       'required': False})
+        return super(OrderField, self).formfield(**kwargs)
 
 
 class RichTextField(models.TextField):
@@ -58,7 +66,6 @@ class RichTextField(models.TextField):
         from mezzanine.conf import settings
         from mezzanine.core.defaults import (RICHTEXT_FILTER_LEVEL_NONE,
                                              RICHTEXT_FILTER_LEVEL_LOW)
-        settings.use_editable()
         if settings.RICHTEXT_FILTER_LEVEL == RICHTEXT_FILTER_LEVEL_NONE:
             return value
         tags = settings.RICHTEXT_ALLOWED_TAGS
@@ -128,16 +135,3 @@ else:
             kwargs.setdefault("directory", kwargs.pop("upload_to", None))
             kwargs.setdefault("max_length", 255)
             super(FileField, self).__init__(*args, **kwargs)
-
-
-HtmlField = RichTextField  # For backward compatibility in south migrations.
-
-# South requires custom fields to be given "rules".
-# See http://south.aeracode.org/docs/customfields.html
-if "south" in settings.INSTALLED_APPS:
-    try:
-        from south.modelsinspector import add_introspection_rules
-        add_introspection_rules(patterns=["mezzanine\.core\.fields\."],
-            rules=[((FileField, RichTextField, MultiChoiceField), [], {})])
-    except ImportError:
-        pass

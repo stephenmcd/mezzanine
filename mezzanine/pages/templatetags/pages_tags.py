@@ -56,7 +56,8 @@ def page_menu(context, token):
         # for comparisons in page.set_menu_helpers.
         if "page" not in context:
             try:
-                context["_current_page"] = published.get(slug=slug)
+                context["_current_page"] = published.exclude(
+                    content_model="link").get(slug=slug)
             except Page.DoesNotExist:
                 context["_current_page"] = None
         elif slug:
@@ -82,7 +83,9 @@ def page_menu(context, token):
             pages[page.parent_id].append(page)
             if page.slug == home:
                 context["has_home"] = True
-        context["menu_pages"] = pages
+        # Include menu_pages in all contexts, not only in the
+        # block being rendered.
+        context.dicts[0]["menu_pages"] = pages
     # ``branch_level`` must be stored against each page so that the
     # calculation of it is correctly applied. This looks weird but if we do
     # the ``branch_level`` as a separate arg to the template tag with the

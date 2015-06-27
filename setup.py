@@ -50,24 +50,25 @@ try:
         include_package_data=True,
         packages=find_packages(),
         install_requires=[
-            "django >= 1.4.10, != 1.6.0, < 1.7",
-            "filebrowser_safe >= 0.3.3",
-            "grappelli_safe >= 0.3.10",
-            "tzlocal == 1.0",
+            "django-contrib-comments",
+            "django >= 1.7, < 1.9",
+            "filebrowser_safe >= 0.3.4",
+            "grappelli_safe >= 0.3.12",
+            "tzlocal >= 1.0",
             "bleach >= 1.4",
+            "beautifulsoup4 >= 4.1.3",
             "requests >= 2.1.0",
             "requests-oauthlib >= 0.4",
-            "future == 0.9.0",
+            "future >= 0.9.0",
             "pillow",
-            "djangorestframework",
-            "django-filter"
+            "chardet",
         ],
         entry_points="""
             [console_scripts]
             mezzanine-project=mezzanine.bin.mezzanine_project:create_project
         """,
-        test_suite="runtests.runtests",
-        tests_require=["pyflakes==0.6.1", "pep8==1.4.1"],
+        test_suite="mezzanine.bin.runtests.main",
+        tests_require=["pyflakes>=0.6.1", "pep8>=1.4.1"],
         classifiers=[
             "Development Status :: 5 - Production/Stable",
             "Environment :: Web Environment",

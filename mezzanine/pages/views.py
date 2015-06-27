@@ -5,8 +5,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
-from mezzanine.pages.models import Page
+from mezzanine.pages.models import Page, PageMoveException
 from mezzanine.utils.urls import home_slug
 from mezzanine.utils.views import render
 
@@ -23,13 +24,18 @@ def admin_page_ordering(request):
     page = get_object_or_404(Page, id=get_id(request.POST['id']))
     old_parent_id = page.parent_id
     new_parent_id = get_id(request.POST['parent_id'])
+    new_parent = Page.objects.get(id=new_parent_id) if new_parent_id else None
+
+    try:
+        page.get_content_model().can_move(request, new_parent)
+    except PageMoveException as e:
+        messages.error(request, e)
+        return HttpResponse('error')
+
+    # Perform the page move
     if new_parent_id != page.parent_id:
         # Parent changed - set the new parent and re-order the
         # previous siblings.
-        if new_parent_id is not None:
-            new_parent = Page.objects.get(id=new_parent_id)
-        else:
-            new_parent = None
         page.set_parent(new_parent)
         pages = Page.objects.filter(parent_id=old_parent_id)
         for i, page in enumerate(pages.order_by('_order')):
@@ -37,6 +43,7 @@ def admin_page_ordering(request):
     # Set the new order for the moved page and its current siblings.
     for i, page_id in enumerate(request.POST.getlist('siblings[]')):
         Page.objects.filter(id=get_id(page_id)).update(_order=i)
+
     return HttpResponse("ok")
 
 
@@ -64,9 +71,8 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
         raise ImproperlyConfigured("mezzanine.pages.middleware.PageMiddleware "
                                    "(or a subclass of it) is missing from " +
                                    "settings.MIDDLEWARE_CLASSES")
-    try:
-        request.page
-    except AttributeError:
+
+    if not hasattr(request, "page") or request.page.slug != slug:
         raise Http404
 
     # Check for a template name matching the page's slug. If the homepage

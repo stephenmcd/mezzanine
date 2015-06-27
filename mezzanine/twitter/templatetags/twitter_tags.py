@@ -65,7 +65,6 @@ def tweets_default(*args):
     """
     Tweets for the default settings.
     """
-    settings.use_editable()
     query_type = settings.TWITTER_DEFAULT_QUERY_TYPE
     args = (settings.TWITTER_DEFAULT_QUERY,
             settings.TWITTER_DEFAULT_NUM_TWEETS)

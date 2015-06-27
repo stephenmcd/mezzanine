@@ -1,16 +1,16 @@
 from __future__ import unicode_literals
 
+from unittest import skipUnless
+
 try:
     from urllib.parse import urlparse
 except ImportError:
     from urlparse import urlparse
 
 from django.core.urlresolvers import reverse
-from django.utils.unittest import skipUnless
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings
-
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.utils.tests import TestCase

@@ -1,4 +1,4 @@
-{% load i18n future %}
+{% load i18n %}
 {% block main %}
 {% trans "Hey there, your account has been activated." %}
 {% trans "Please use the link below to log in." %}

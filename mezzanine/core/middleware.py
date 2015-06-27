@@ -17,7 +17,8 @@ from django.utils.translation import ugettext as _
 
 from mezzanine.conf import settings
 from mezzanine.core.models import SitePermission
-from mezzanine.core.management import DEFAULT_USERNAME, DEFAULT_PASSWORD
+from mezzanine.core.management.commands.createdb import (DEFAULT_USERNAME,
+                                                         DEFAULT_PASSWORD)
 from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
                                    cache_get, cache_set, cache_installed)
 from mezzanine.utils.device import templates_for_device
@@ -59,7 +60,8 @@ class AdminLoginInterfaceSelectorMiddleware(object):
             if request.user.is_authenticated():
                 if login_type == "admin":
                     next = request.get_full_path()
-                    if (request.user.username == DEFAULT_USERNAME and
+                    username = request.user.get_username()
+                    if (username == DEFAULT_USERNAME and
                             request.user.check_password(DEFAULT_PASSWORD)):
                         error(request, mark_safe(_(
                               "Your account is using the default password, "
@@ -120,9 +122,8 @@ class TemplateForHostMiddleware(object):
     def process_template_response(self, request, response):
         if hasattr(response, "template_name"):
             if not isinstance(response.template_name, Template):
-                templates = templates_for_host(request,
+                response.template_name = templates_for_host(
                     response.template_name)
-                response.template_name = templates
         return response
 
 
@@ -207,7 +208,7 @@ class FetchFromCacheMiddleware(object):
 
     def process_request(self, request):
         if (cache_installed() and request.method == "GET" and
-            not request.user.is_authenticated()):
+                not request.user.is_authenticated()):
             cache_key = cache_key_prefix(request) + request.get_full_path()
             response = cache_get(cache_key)
             # We need to force a csrf token here, as new sessions
@@ -235,7 +236,6 @@ class SSLRedirectMiddleware(object):
     to HTTPS, and redirect all other URLs to HTTP if on HTTPS.
     """
     def process_request(self, request):
-        settings.use_editable()
         force_host = settings.SSL_FORCE_HOST
         response = None
         if force_host and request.get_host().split(":")[0] != force_host:
@@ -288,5 +288,5 @@ class RedirectFallbackMiddleware(object):
                 if not redirect.new_path:
                     response = HttpResponseGone()
                 else:
-                    response = HttpResponseRedirect(redirect.new_path)
+                    response = HttpResponsePermanentRedirect(redirect.new_path)
         return response

@@ -43,10 +43,11 @@ interface, Mezzanine provides the following:
 * Configurable `dashboard`_ widgets
 * Blog engine
 * Tagging
-* `Themes Marketplace`_
+* `Free Themes`_, and a `Premium Themes`_ Marketplace
 * User accounts and profiles with email verification
 * Translated to over 35 languages
 * Sharing via Facebook or Twitter
+* `Multi-lingual sites`_
 * `Custom templates`_ per page or blog post
 * `Twitter Bootstrap`_ integration
 * API for `custom content types`_
@@ -66,7 +67,7 @@ interface, Mezzanine provides the following:
 
 The Mezzanine admin dashboard:
 
-.. image:: http://github.com/stephenmcd/mezzanine/raw/master/docs/img/dashboard.png
+.. image:: http://mezzanine.jupo.org/docs/_images/dashboard.png
 
 Dependencies
 ============
@@ -74,16 +75,17 @@ Dependencies
 Mezzanine makes use of as few libraries as possible (apart from a
 standard Django environment), with the following dependencies:
 
-* `Python`_ 2.6 / 2.7 / 3.3
-* `Django`_ 1.4 / 1.5 / 1.6
+* `Python`_ 2.7 to 3.3
+* `Django`_ 1.7 to 1.8
 * `Pillow`_ - for image resizing (`Python Imaging Library`_ fork)
 * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
 * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
-* `bleach`_ - for sanitizing markup in content
+* `bleach`_ and `BeautifulSoup`_ - for sanitizing markup in content
 * `pytz`_ and `tzlocal`_ - for timezone support
-* `South`_ - for database migrations (optional)
+* `chardet`_ - for supporting arbitrary encoding in file uploads
+* `django-modeltranslation`_ - for multi-lingual content (optional)
 * `django-compressor`_ - for merging JS/CSS assets (optional)
-* `requests`_ and `requests-oauth`_ - for interacting with external APIs
+* `requests`_ and `requests_oauthlib`_ - for interacting with external APIs
 * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
 Users on Debian or Ubuntu will require some system packages to support
@@ -95,6 +97,13 @@ the imaging library::
 OSX users can do the same via `Homebrew`_::
 
     $ brew install libjpeg
+
+Themes
+======
+
+A handful of attractive `Free Themes`_ are available thanks to
+`@abhinavsohani`_, while there is also a marketplace for buying and
+selling `Premium Themes`_ thanks to `@joshcartme`_.
 
 Browser Support
 ===============
@@ -127,15 +136,10 @@ create a new Mezzanine project in similar fashion to
 
 .. note::
 
-    The ``createdb`` command is a shortcut for using Django's ``syncdb``
-    command and setting the initial migration state for `South`_. You
-    can alternatively use ``syncdb`` and ``migrate`` if preferred.
-    South is automatically added to INSTALLED_APPS if the
-    ``USE_SOUTH`` setting is set to ``True``.
-
-    ``createdb`` will also install some demo content, such as a contact
-    form and image gallery. If you'd like to omit this step, use the
-    ``--nodata`` option with ``createdb``.
+    The ``createdb`` command is a shortcut for using Django's
+    ``migrate`` command, which will also install some demo content,
+    such as a contact form, image gallery, andmore. If you'd like to
+    omit this step, use the ``--nodata`` option with ``createdb``.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and
 log in using the default account (``username: admin, password:
@@ -169,37 +173,50 @@ Please note the following guidelines for contributing:
 * If you are adding new functionality, you must include basic tests
   and documentation.
 
-If you want to do development with mezzanine, here's a quick way to set
-up a development environment and run the unit tests, using
-`virtualenvwrapper`_ to set up a virtualenv::
+Here's a quick start to hacking on Mezzanine after forking it on
+GitHub, by using the internal "project_template" as your current
+project::
 
-    $ mkvirtualenv mezzanine
-    $ workon mezzanine
-    $ pip install Django pep8 pyflakes
-    $ git clone https://github.com/stephenmcd/mezzanine/
+    $ git clone https://github.com/your-github-username/mezzanine/
     $ cd mezzanine
+    $ git checkout -b your-new-branch-name
+    $ cp mezzanine/project_template/local_settings.py{.template,}
     $ python setup.py develop
-    $ cp mezzanine/project_template/local_settings.py.template mezzanine/project_template/local_settings.py
-    $ ./mezzanine/project_template/manage.py test
+    $ python mezzanine/project_template/manage.py createdb --noinput
+    $ python mezzanine/project_template/manage.py runserver
 
-Language Translations
-=====================
+    "hack hack hack"
 
-Mezzanine makes full use of translation strings, which allow Mezzanine
-to be translated into multiple languages using `Django's
-internationalization`_ methodology. Translations are managed on the
-`Transiflex`_ website but can also be submitted via `GitHub`_ or
-`Bitbucket`_. Consult the documentation for `Django's
-internationalization`_ methodology for more information on creating
-translations and using them.
+    $ python setup.py test
+    $ git commit -am "A message describing what you changed."
+    $ git push origin your-new-branch-name
 
-Third-party Modules
+
+Multi-Lingual Sites
 ===================
 
-The following modules have been developed outside of Mezzanine. If you
-have developed a module to integrate with Mezzanine and would like to
-list it here, send an email to the `mezzanine-users`_ mailing list.
-You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
+Mezzanine makes full use of translation strings, which allows
+Mezzanine's interface and templates to be translated into multiple
+languages using `Django's internationalization`_ support. New
+translations can be contributed via `GitHub`_ or `Bitbucket`_. Consult
+the documentation for `Django's internationalization`_ support for more
+information on creating translations and using them.
+
+More importantly, Mezzanine also provides optional integration with
+`django-modeltranslation`_, allowing for all user generated content to
+be translated into multiple langagues to create multi-lingual sites.
+Consult Mezzanine's documentation on `Multi-lingual sites`_ for more
+information.
+
+Third-Party Plug-Ins
+====================
+
+The following plug-ins have been developed outside of Mezzanine. If you
+have developed a plug-in to integrate with Mezzanine and would like to
+list it here, send an email to the `mezzanine-users`_ mailing list, or
+better yet, fork the project and create a pull request with your
+plug-in added to the list below. We also ask that you add it to the
+`Mezzanine Grid on djangopackages.com`_.
 
 * `Cartridge`_ - ecommerce for Mezzanine.
 * `Drum`_ - A `Hacker News`_ / `Reddit`_ clone powered by Mezzanine.
@@ -259,16 +276,38 @@ You can also add modules to the `Mezzanine Grid on djangopackages.com`_.
   membership.
 * `mezzanine-page-auth`_ - A Mezzanine module for add group-level
   permission to pages.
-* `django-widgy`_ - Widget-oriented content editing. Includes an adapter for
-  Mezzanine and a powerful form builder.
-* `mezzanine-admin-backup`_ - Export your Mezzanine database and assets directly from the admin.
-* `mezzanine-mailchimp`_ - Integrate Mezzanine forms with a MailChimp subscription list.
-* `mezzanine-grappelli`_ - Integrates latest upstream grappelli/filebrowser with Mezzanine.
+* `django-widgy`_ - Widget-oriented content editing. Includes an
+  adapter for Mezzanine and a powerful form builder.
+* `mezzanine-admin-backup`_ - Export your Mezzanine database and assets
+  directly from the admin.
+* `mezzanine-mailchimp`_ - Integrate Mezzanine forms with a MailChimp
+  subscription list.
+* `mezzanine-grappelli`_ - Integrates latest upstream
+  grappelli/filebrowser with Mezzanine.
 * `mezzanine-workout`_ - Store and display FIT data in Mezzanine.
 * `mezzanine-agenda`_ - Event functionality for your Mezzanine sites.
-* `mezzanine-dpaste`_ - Integrate `dpaste`_, a Django pastebin, into your Mezzanine site.
+* `mezzanine-dpaste`_ - Integrate `dpaste`_, a Django pastebin, into
+  your Mezzanine site.
 * `mezzanine-linkdump`_ - Create, display and track links in Mezzanine.
-* `mezzanine-people`_ - Categorize and list people on your Mezzanine site.
+* `mezzanine-people`_ - Categorize and list people in Mezzanine.
+* `mezzanine-webf`_ - Fabfile for deploying Mezzanine to Webfaction.
+* `mezzanineopenshift`_ Another setup for `Redhat's OpenShift`_ cloud
+  platform.
+* `mezzanine-bsbanners`_ - Add `Twitter Bootstrap`_ Carousels and
+  Jumbotrons to Mezzanine.
+* `mezzanine-business-theme`_ - Starter business theme for Mezzanine.
+* `open-helpdesk`_ - A helpdesk app built with Mezzanine.
+* `mezzanine-invites`_ - Allow site registration via alphanumeric
+  invite codes.
+* `ansible-mezzanine`_ - Full pipeline (dev, staging, production)
+  deployment of Mezzanine using `Ansible`_.
+* `mezzanine-modal-announcements`_ - Popup announcements for Mezzanine
+  websites via Bootstrap modals.
+* `mezzanine-buffer`_ - `Buffer`_ integration for Mezzanine.
+* `mezzanine-slideshows`_ - Allows placement of Mezzanine galleries
+  within other Mezzanine pages as slideshows.
+* `mezzanine-onepage`_ - Design helper for single-page Mezzanine sites.
+* `mezzanine-api`_ - RESTful web API for Mezzanine.
 
 
 Donating
@@ -281,7 +320,7 @@ Support
 =======
 
 To report a security issue, please send an email privately to
-`security@jupo.org`_. This gives us a chance to fix the issue and
+`core-team@mezzaninecms.com`_. This gives us a chance to fix the issue and
 create an official release prior to the issue being made
 public.
 
@@ -296,7 +335,7 @@ provided to reproduce the bug. This includes things such as the
 Python stack trace generated by error pages, as well as other aspects
 of the development environment used, such as operating system,
 database, Python version, etc. If you're not sure you've found a
-reproducable bug, then please try the mailing list first.
+reproducible bug, then please try the mailing list first.
 
 Finally, feel free to drop by the `#mezzanine IRC channel`_ on
 `Freenode`_, for a chat!
@@ -306,6 +345,12 @@ to the `Django Code of Conduct`_.
 
 Sites Using Mezzanine
 =====================
+
+Got a site built with Mezzanine? You can add it to the gallery on
+the `Mezzanine project page`_ by adding it to the list below - just
+fork the project and create a pull request. Please omit the trailing
+slash in the URL, as we manually add that ourselves to feature
+certain sites.
 
 * `Citrus Agency <http://citrus.com.au/>`_
 * `Mezzanine Project <http://mezzanine.jupo.org>`_
@@ -515,8 +560,46 @@ Sites Using Mezzanine
 * `MODCo Group <http://modcogroup.com/>`_
 * `Terminal Labs <http://www.terminallabs.com>`_
 * `Resource Management Companies <http://rmcrecycle.com>`_
-* `Humboldt Community Christian School <http://humboldtccs.org/>`_
 * `DollFires <http://dollfires.com>`_
+* `Quantifind <http://quantifind.com/>`_
+* `ZHackers <https://www.zhackers.com>`_
+* `Open ERP Arabia <http://openerparabia.org/>`_
+* `DataKind <http://www.datakind.org/>`_
+* `New Zealand Institute of Economic Research <http://nzier.org.nz/>`_
+* `CodingHouse <http://thecodinghouse.in>`_
+* `Triple J Products <http://triplejcoilproducts.com>`_
+* `Aaron E. Balderas <http://abalderas.com>`_
+* `DVD.nl <http://dvd.nl/>`_
+* `Constantia Fabrics <http://www.constantiafabrics.co.za/>`_
+* `Potrillo al Pie <http://potrilloalpie.com/>`_
+* `Skyfalk Web Studio <http://skyfalk.ru>`_
+* `Firefox OS Partners <https://mobilepartners.mozilla.org/>`_
+* `You Name It <http://you-name-it.net>`_
+* `Atlas of Human Infectious Diseases <https://infectionatlas.org>`_
+* `The Entrepreneurial School <http://theentrepreneurialschool.com/>`_
+* `Wednesday Martin <http://wednesdaymartin.com/>`_
+* `Avaris to Avanim <https://avaristoavanim.com>`_
+* `Cognitions Coaching and Consulting <http://www.cognitionscoachingandconsulting.com>`_
+* `Foundation Engineering Group <http://fegroup.net.au>`_
+* `Hivelocity <https://www.hivelocity.net>`_
+* `Zooply <http://zoop.ly>`_
+* `Oceana Technologies <http://oceanatech.com>`_
+* `TerraHub <http://terrahub.org/>`_
+* `djangoproject.jp <http://djangoproject.jp/>`_
+* `Joshua Ginsberg <http://starboard.flowtheory.net>`_
+* `Savant Digital <http://www.savantdigital.net>`_
+* `weBounty <https://webounty.com>`_
+* `Oxfam America <http://www.oxfamamerica.org/>`_
+* `Artivest <https://artivest.co/>`_
+* `Dark Matter Sheep <http://darkmattersheep.net>`_
+* `Mission Healthcare <http://homewithmission.com>`_
+* `Two Forty Fives <http://twofortyfives.com/>`_
+* `Rodeo Austin <http://rodeoaustin.com/>`_
+* `Krisers <http://krisers.com/>`_
+* `Intentional Creation <http://intentionalcreation.com/>`_
+* `BytesArea <http://www.bytesarea.com>`_
+* `Debra Solomon <http://www.debrasolomon.com>`_
+* `Pampanga Food Company <http://pampangafood.com>`_
 
 
 Quotes
@@ -560,6 +643,7 @@ Quotes
 .. _`Python`: http://python.org/
 .. _`pip`: http://www.pip-installer.org/
 .. _`bleach`: http://pypi.python.org/pypi/bleach
+.. _`BeautifulSoup`: http://www.crummy.com/software/BeautifulSoup/
 .. _`pytz`: http://pypi.python.org/pypi/pytz/
 .. _`tzlocal`: http://pypi.python.org/pypi/tzlocal/
 .. _`django-compressor`: https://pypi.python.org/pypi/django_compressor
@@ -571,15 +655,19 @@ Quotes
 .. _`FileBrowser`: http://code.google.com/p/django-filebrowser/
 .. _`South`: http://south.aeracode.org/
 .. _`requests`: http://docs.python-requests.org/en/latest/
-.. _`requests-oauth`: https://github.com/maraujop/requests-oauth
+.. _`requests_oauthlib`: http://requests-oauthlib.readthedocs.org/
 .. _`pyflakes`: http://pypi.python.org/pypi/pyflakes
+.. _`chardet`: https://chardet.readthedocs.org
 .. _`pep8`: http://pypi.python.org/pypi/pep8
 .. _`Homebrew`: http://mxcl.github.com/homebrew/
 .. _`In-line page editing`: http://mezzanine.jupo.org/docs/inline-editing.html
 .. _`custom content types`: http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
 .. _`dashboard`: http://mezzanine.jupo.org/docs/admin-customization.html#dashboard
-.. _`Themes Marketplace`: http://mezzathe.me/
+.. _`Free Themes`: http://thecodinghouse.in/themes/
+.. _`Premium Themes`: http://mezzathe.me/
+.. _`@abhinavsohani`: https://twitter.com/abhinavsohani
+.. _`@joshcartme`: https://twitter.com/joshcartme
 .. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.core.tests
@@ -595,15 +683,17 @@ Quotes
 .. _`project_template`: https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template
 .. _`GitHub`: http://github.com/stephenmcd/mezzanine/
 .. _`Bitbucket`: http://bitbucket.org/stephenmcd/mezzanine/
+.. _`django-modeltranslation`: http://django-modeltranslation.readthedocs.org
+.. _`Multi-lingual sites`: http://mezzanine.jupo.org/docs/multi-lingual-sites.html
 .. _`mezzanine-users`: http://groups.google.com/group/mezzanine-users/topics
-.. _`security@jupo.org`: mailto:security@jupo.org?subject=Mezzanine+Security+Issue
+.. _`core-team@mezzaninecms.com`: mailto:core-team@mezzaninecms.com?subject=Mezzanine+Security+Issue
 .. _`GitHub issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`#mezzanine IRC channel`: irc://irc.freenode.net/mezzanine
 .. _`Freenode`: http://freenode.net
 .. _`Django coding style`: http://docs.djangoproject.com/en/dev/internals/contributing/#coding-style
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`Bootstrap CSS guidelines`: https://github.com/twbs/bootstrap/blob/master/CONTRIBUTING.md#css
-.. _`Transiflex`: https://www.transifex.net/projects/p/mezzanine/
+.. _`Transiflex`: https://www.transifex.com/projects/p/mezzanine/
 .. _`Mezzanine Grid on djangopackages.com`: http://www.djangopackages.com/grids/g/mezzanine/
 .. _`Django's internationalization`: https://docs.djangoproject.com/en/dev/topics/i18n/translation/
 .. _`Python Software Foundation`: http://www.python.org/psf/
@@ -629,6 +719,7 @@ Quotes
 .. _`Markdown`: http://en.wikipedia.org/wiki/Markdown
 .. _`mezzanine-openshift`: https://github.com/overshard/mezzanine-openshift
 .. _`Redhat's OpenShift`: https://openshift.redhat.com/
+.. _`Ansible`: http://www.ansible.com/
 .. _`mezzanine-stackato`: https://github.com/Stackato-Apps/mezzanine
 .. _`ActiveState's Stackato`: http://www.activestate.com/stackato
 .. _`mezzanine-blocks`: https://github.com/renyi/mezzanine-blocks
@@ -677,6 +768,19 @@ Quotes
 .. _`mezzanine-dpaste`: https://github.com/prikhi/mezzanine-dpaste
 .. _`mezzanine-linkdump`: https://github.com/prikhi/mezzanine-linkdump
 .. _`mezzanine-people`: https://github.com/eci/mezzanine-people
+.. _`mezzanine-webf`: https://github.com/jerivas/mezzanine-webf
+.. _`mezzanineopenshift`: https://bitbucket.org/radeksvarz/mezzanineopenshift
+.. _`mezzanine-bsbanners`: https://pypi.python.org/pypi/mezzanine-bsbanners
+.. _`mezzanine-business-theme`: https://github.com/dfalk/mezzanine-business-theme
+.. _`open-helpdesk`: https://github.com/simodalla/open-helpdesk
+.. _`mezzanine-invites`: https://github.com/averagehuman/mezzanine-invites
+.. _`ansible-mezzanine`: https://github.com/keithadavidson/ansible-mezzanine
+.. _`mezzanine-modal-announcements`: https://github.com/joshcartme/mezzanine-modal-announcements
+.. _`mezzanine-buffer`: https://github.com/caffodian/mezzanine-buffer
+.. _`Buffer`: http://buffer.com
+.. _`mezzanine-slideshows`: https://github.com/philipsouthwell/mezzanine-slideshows
+.. _`mezzanine-onepage`: https://github.com/lucmilland/mezzanine-onepage
+.. _`mezzanine-api`: https://github.com/gcushen/mezzanine-api
 
 
 .. PEOPLE WITH QUOTES

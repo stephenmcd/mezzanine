@@ -12,6 +12,7 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import (AssignedKeyword, Keyword,
                                       ThreadedComment, Rating)
+from mezzanine.generic.views import comment
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.tests import TestCase
 
@@ -107,3 +108,26 @@ class GenericTests(TestCase):
         page = RichTextPage.objects.get(id=page.id)
         self.assertEqual(keywords, set(page.keywords_string.split()))
         page.delete()
+
+    def test_delete_unused(self):
+        """
+        Only ``Keyword`` instances without any assignments should be deleted.
+        """
+        assigned_keyword = Keyword.objects.create(title="assigned")
+        Keyword.objects.create(title="unassigned")
+        AssignedKeyword.objects.create(keyword_id=assigned_keyword.id,
+                                       content_object=RichTextPage(pk=1))
+        Keyword.objects.delete_unused(keyword_ids=[assigned_keyword.id])
+        self.assertEqual(Keyword.objects.count(), 2)
+        Keyword.objects.delete_unused()
+        self.assertEqual(Keyword.objects.count(), 1)
+        self.assertEqual(Keyword.objects.all()[0].id, assigned_keyword.id)
+
+    def test_comment_form_returns_400_when_missing_data(self):
+        """
+        Assert 400 status code response when expected data is missing from
+        the comment form. This simulates typical malicious bot behavior.
+        """
+        request = self._request_factory.post(reverse('comment'))
+        response = comment(request)
+        self.assertEquals(response.status_code, 400)

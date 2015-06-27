@@ -1,22 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011
+# Eduardo Rivas <jerivasmelgar@gmail.com>, 2015.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-09 10:32-0430\n"
-"PO-Revision-Date: 2013-11-09 20:20+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/language/es/)\n"
+"POT-Creation-Date: 2015-04-09 13:38-0600\n"
+"PO-Revision-Date: 2015-04-09 13:40-0600\n"
+"Last-Translator: Eduardo Rivas <jerivasmelgar@gmail.com>\n"
+"Language-Team: Español; Castellano <>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
@@ -34,50 +37,17 @@ msgstr "Error"
 msgid "Sorry, an error occurred."
 msgstr "Lo sentimos, ha ocurrido un error."
 
-#: templates/mobile/base.html:41 templates/mobile/index.html:6
+#: templates/mobile/base.html:36 templates/mobile/index.html:6
 msgid "Home"
 msgstr "Inicio"
 
-#: templates/mobile/base.html:53
+#: templates/mobile/base.html:48
 msgid "Powered by"
-msgstr "Con el poder de"
+msgstr "Gracias a"
 
-#: templates/mobile/base.html:54
+#: templates/mobile/base.html:49
 msgid "View Full Site"
-msgstr "Ver sitio completo"
-
-#: templates/mobile/index.html:10
-msgid "This is the mobile homepage."
-msgstr "Esta es la página de inicio para móviles."
-
-#: templates/mobile/search_results.html:5
-#: templates/mobile/search_results.html:6
-msgid "Search Results"
-msgstr "Resultados de la búsqueda"
-
-#: templates/mobile/search_results.html:12
-msgid "No results were found matching your query: "
-msgstr "No se encontraron resultados que coinciden con su consulta:"
-
-#: templates/mobile/search_results.html:14
-msgid "Showing"
-msgstr "Mostrando"
-
-#: templates/mobile/search_results.html:14
-msgid "to"
-msgstr "a"
-
-#: templates/mobile/search_results.html:14
-msgid "of"
-msgstr "de"
-
-#: templates/mobile/search_results.html:15
-msgid "results matching your query:"
-msgstr "resultados que coinciden con su consulta:"
-
-#: templates/mobile/search_results.html:23
-msgid "read more"
-msgstr "leer más"
+msgstr "Ver sitio para escritorio"
 
 #: templates/mobile/blog/blog_post_detail.html:23
 msgid "Posted by"
@@ -130,4 +100,39 @@ msgstr "comillas"
 msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
-msgstr " para frases exactas, + para hacer una palabra o una frase requerida, y - para excluir una palabra o frase."
+msgstr ""
+" para frases exactas, + para hacer que una palabra o una frase sea "
+"requerida, y - para excluir una palabra o frase."
+
+#: templates/mobile/index.html:10
+msgid "This is the mobile homepage."
+msgstr "Esta es la página de inicio para móviles."
+
+#: templates/mobile/search_results.html:5
+#: templates/mobile/search_results.html:6
+msgid "Search Results"
+msgstr "Resultados de búsqueda"
+
+#: templates/mobile/search_results.html:12
+msgid "No results were found matching your query: "
+msgstr "No se encontraron resultados que coinciden con su consulta:"
+
+#: templates/mobile/search_results.html:14
+msgid "Showing"
+msgstr "Mostrando"
+
+#: templates/mobile/search_results.html:14
+msgid "to"
+msgstr "a"
+
+#: templates/mobile/search_results.html:14
+msgid "of"
+msgstr "de"
+
+#: templates/mobile/search_results.html:15
+msgid "results matching your query:"
+msgstr "resultados que coinciden con su consulta:"
+
+#: templates/mobile/search_results.html:23
+msgid "read more"
+msgstr "leer más"
