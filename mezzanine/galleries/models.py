@@ -1,21 +1,18 @@
 from __future__ import unicode_literals
 from future.builtins import str
-from future.utils import native, PY2
+from future.utils import native
 
 from io import BytesIO
 import os
 from string import punctuation
 from zipfile import ZipFile
+from chardet import detect as charsetdetect
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-try:
-    from django.utils.encoding import force_text
-except ImportError:
-    # Django < 1.5
-    from django.utils.encoding import force_unicode as force_text
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -38,26 +35,25 @@ if settings.PACKAGE_NAME_FILEBROWSER in settings.INSTALLED_APPS:
         pass
 
 
-class Gallery(Page, RichText):
+class BaseGallery(models.Model):
     """
-    Page bucket for gallery photos.
+    Base gallery functionality.
     """
+
+    class Meta:
+        abstract = True
 
     zip_import = models.FileField(verbose_name=_("Zip import"), blank=True,
         upload_to=upload_to("galleries.Gallery.zip_import", "galleries"),
         help_text=_("Upload a zip file containing images, and "
                     "they'll be imported into this gallery."))
 
-    class Meta:
-        verbose_name = _("Gallery")
-        verbose_name_plural = _("Galleries")
-
     def save(self, delete_zip_import=True, *args, **kwargs):
         """
         If a zip file is uploaded, extract any images from it and add
         them to the gallery, before removing the zip file.
         """
-        super(Gallery, self).save(*args, **kwargs)
+        super(BaseGallery, self).save(*args, **kwargs)
         if self.zip_import:
             zip_file = ZipFile(self.zip_import)
             for name in zip_file.namelist():
@@ -75,8 +71,9 @@ class Gallery(Page, RichText):
                 name = os.path.split(name)[1]
                 # This is a way of getting around the broken nature of
                 # os.path.join on Python 2.x. See also the comment below.
-                if PY2:
-                    tempname = name.decode('utf-8')
+                if isinstance(name, bytes):
+                    encoding = charsetdetect(name)['encoding']
+                    tempname = name.decode(encoding)
                 else:
                     tempname = name
 
@@ -104,6 +101,16 @@ class Gallery(Page, RichText):
             if delete_zip_import:
                 zip_file.close()
                 self.zip_import.delete(save=True)
+
+
+class Gallery(Page, RichText, BaseGallery):
+    """
+    Page bucket for gallery photos.
+    """
+
+    class Meta:
+        verbose_name = _("Gallery")
+        verbose_name_plural = _("Galleries")
 
 
 @python_2_unicode_compatible

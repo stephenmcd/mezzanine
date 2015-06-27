@@ -26,7 +26,7 @@ class PageAdminForm(DisplayableAdminForm):
 
     def clean_slug(self):
         """
-        Save the old slug to be used later in PageAdmin.model_save()
+        Save the old slug to be used later in PageAdmin.save_model()
         to make the slug change propagate down the page tree.
         """
         self.instance._old_slug = self.instance.slug
@@ -73,7 +73,8 @@ class PageAdmin(DisplayableAdmin):
             fields = self.model._meta.fields + self.model._meta.many_to_many
             for field in reversed(fields):
                 if field.name not in exclude_fields and field.editable:
-                    self.fieldsets[0][1]["fields"].insert(3, field.name)
+                    if not hasattr(field, "translated_field"):
+                        self.fieldsets[0][1]["fields"].insert(3, field.name)
 
     def in_menu(self):
         """

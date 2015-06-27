@@ -15,21 +15,31 @@ from __future__ import unicode_literals
 
 import sys
 import os
-
-docs_path = os.path.abspath(os.path.dirname(__file__))
-parts = (docs_path, "..", "mezzanine")
-sys.path.insert(0, os.path.join(*parts))
-sys.path.insert(0, os.path.join(*parts + ("project_template",)))
-os.environ["DJANGO_SETTINGS_MODULE"] = "mezzanine.project_template.settings"
-
 import mezzanine
-from mezzanine.utils import docs
 
-docs.build_settings_docs(docs_path)
-docs.build_deploy_docs(docs_path)
-docs.build_changelog(docs_path)
-docs.build_modelgraph(docs_path)
-docs.build_requirements(docs_path)
+
+if "DJANGO_SETTINGS_MODULE" not in os.environ:
+    docs_path = os.getcwd()
+    mezzanine_path_parts = (docs_path, "..")
+    sys.path.insert(0, docs_path)
+    sys.path.insert(0, os.path.realpath(os.path.join(*mezzanine_path_parts)))
+    os.environ["DJANGO_SETTINGS_MODULE"] = "docs_settings"
+    # Django 1.7's setup is required before touching translated strings.
+    import django
+    try:
+        django.setup()
+    except AttributeError:  # < 1.7
+        pass
+
+# When a full build is run (eg from the root of the repo), we
+# run all the Mezzanine utils for dynamically generated docs.
+if sys.argv[-2:] == ["docs", "docs/build"]:
+    from mezzanine.utils import docs
+    docs.build_settings_docs(docs_path)
+    docs.build_deploy_docs(docs_path)
+    docs.build_changelog(docs_path)
+    docs.build_modelgraph(docs_path)
+    docs.build_requirements(docs_path)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -40,7 +50,7 @@ docs.build_requirements(docs_path)
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ["sphinx.ext.autodoc"]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -215,3 +225,4 @@ latex_documents = [
 
 html_theme_path = ["."]
 html_theme = "mezzanine_theme"
+locale_dirs = ['./locale/']

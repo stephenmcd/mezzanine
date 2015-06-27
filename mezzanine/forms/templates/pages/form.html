@@ -1,6 +1,6 @@
 {% extends "pages/page.html" %}
 
-{% load mezzanine_tags %}
+{% load mezzanine_tags i18n %}
 
 {% block main %}
 {{ block.super }}
@@ -20,7 +20,8 @@
     <form class="mezzanine-form" method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% fields_for form %}
         <div class="form-actions">
-            <input class="btn btn-primary btn-lg" type="submit" value="{{ page.form.button_text }}">
+            <input class="btn btn-primary btn-lg" type="submit"
+                value="{% if page.form.button_text %}{{ page.form.button_text }}{% else %}{% trans "Submit" %}{% endif %}">
         </div>
     </form>
 {% endif %}

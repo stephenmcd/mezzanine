@@ -91,7 +91,9 @@ jQuery(function($) {
 
         $.post(window.__page_ordering_url, args, function(data) {
             if (String(data).substr(0, 2) !== "ok") {
-                alert("Error occured: " + data + "\nOrdering wasn't updated.");
+                location.reload();
+            } else {
+                $(".messagelist").remove();
             }
         });
 

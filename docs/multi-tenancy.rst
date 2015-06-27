@@ -15,7 +15,7 @@ may contain support for multiple sites, a separate running instance of
 the project is required per site.
 
 Mezzanine uses a pipeline of checks to determine which site to
-reference when accessing content. The most import of these is one where
+reference when accessing content. The most important of these is the one where
 the host name of the current request is compared to the domain name
 specified for each ``Site`` record. With this in place, true
 multi-tenancy is achieved, and multiple sites can be hosted within a

@@ -2,19 +2,20 @@ from __future__ import unicode_literals
 from future.builtins import filter, str
 try:
     from urllib.parse import urljoin
-except ImportError:     # Python 2
+except ImportError:  # Python 2
     from urlparse import urljoin
 
+from django.apps import apps
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 
 from mezzanine.conf import settings
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
-from mezzanine.utils.urls import path_to_slug, slugify
+from mezzanine.utils.urls import path_to_slug
 
 
 class BasePage(Orderable, Displayable):
@@ -135,8 +136,9 @@ class Page(BasePage):
         """
         Return all Page subclasses.
         """
-        is_content_model = lambda m: m is not Page and issubclass(m, Page)
-        return list(filter(is_content_model, models.get_models()))
+        def is_content_model(m):
+            return m is not Page and issubclass(m, Page) and not m._meta.proxy
+        return list(filter(is_content_model, apps.get_models()))
 
     def get_content_model(self):
         """
@@ -149,7 +151,7 @@ class Page(BasePage):
         """
         Recursively build the slug from the chain of parents.
         """
-        slug = slugify(self.title)
+        slug = super(Page, self).get_slug()
         if self.parent is not None:
             return "%s/%s" % (self.parent.slug, slug)
         return slug
@@ -159,11 +161,13 @@ class Page(BasePage):
         Changes this page's slug, and all other pages whose slugs
         start with this page's slug.
         """
-        for page in Page.objects.filter(slug__startswith=self.slug):
+        slug_prefix = "%s/" % self.slug
+        for page in Page.objects.filter(slug__startswith=slug_prefix):
             if not page.overridden():
                 page.slug = new_slug + page.slug[len(self.slug):]
                 page.save()
         self.slug = new_slug
+        self.save()
 
     def set_parent(self, new_parent):
         """
@@ -220,6 +224,15 @@ class Page(BasePage):
         Dynamic ``delete`` permission for content types to override.
         """
         return True
+
+    def can_move(self, request, new_parent):
+        """
+        Dynamic ``move`` permission for content types to override. Controls
+        whether a given page move in the page tree is permitted. When the
+        permission is denied, raises a ``PageMoveException`` with a single
+        argument (message explaining the reason).
+        """
+        pass
 
     def set_helpers(self, context):
         """
@@ -292,3 +305,18 @@ class Link(Page):
     class Meta:
         verbose_name = _("Link")
         verbose_name_plural = _("Links")
+
+
+class PageMoveException(Exception):
+    """
+    Raised by ``can_move()`` when the move permission is denied. Takes
+    an optinal single argument: a message explaining the denial.
+    """
+
+    def __init__(self, msg=None):
+        self.msg = msg or ugettext("Illegal page move")
+
+    def __str__(self):
+        return self.msg
+
+    __unicode__ = __str__

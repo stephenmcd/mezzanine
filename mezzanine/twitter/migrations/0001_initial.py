@@ -1,70 +1,50 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-
-    def forwards(self, orm):
-
-        # Adding model 'Query'
-        db.create_table('twitter_query', (
-            ('interested', self.gf('django.db.models.fields.BooleanField')(default=True, blank=True)),
-            ('type', self.gf('django.db.models.fields.CharField')(max_length=10)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('value', self.gf('django.db.models.fields.CharField')(max_length=50)),
-        ))
-        db.send_create_signal('twitter', ['Query'])
-
-        # Adding model 'Tweet'
-        db.create_table('twitter_tweet', (
-            ('retweeter_profile_image_url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True)),
-            ('text', self.gf('django.db.models.fields.TextField')(null=True)),
-            ('created_at', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('remote_id', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('retweeter_user_name', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('profile_image_url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True)),
-            ('full_name', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('query', self.gf('django.db.models.fields.related.ForeignKey')(related_name='tweets', to=orm['twitter.Query'])),
-            ('user_name', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('retweeter_full_name', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-        ))
-        db.send_create_signal('twitter', ['Tweet'])
+from django.db import models, migrations
 
 
-    def backwards(self, orm):
+class Migration(migrations.Migration):
 
-        # Deleting model 'Query'
-        db.delete_table('twitter_query')
+    dependencies = [
+    ]
 
-        # Deleting model 'Tweet'
-        db.delete_table('twitter_tweet')
-
-
-    models = {
-        'twitter.query': {
-            'Meta': {'object_name': 'Query'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'interested': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'blank': 'True'}),
-            'type': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'value': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        'twitter.tweet': {
-            'Meta': {'object_name': 'Tweet'},
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'full_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'profile_image_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True'}),
-            'query': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tweets'", 'to': "orm['twitter.Query']"}),
-            'remote_id': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'retweeter_full_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
-            'retweeter_profile_image_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True'}),
-            'retweeter_user_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
-            'text': ('django.db.models.fields.TextField', [], {'null': 'True'}),
-            'user_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'})
-        }
-    }
-
-    complete_apps = ['twitter']
+    operations = [
+        migrations.CreateModel(
+            name='Query',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('type', models.CharField(max_length=10, verbose_name='Type', choices=[('user', 'User'), ('list', 'List'), ('search', 'Search')])),
+                ('value', models.CharField(max_length=140, verbose_name='Value')),
+                ('interested', models.BooleanField(default=True, verbose_name='Interested')),
+            ],
+            options={
+                'ordering': ('-id',),
+                'verbose_name': 'Twitter query',
+                'verbose_name_plural': 'Twitter queries',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Tweet',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('remote_id', models.CharField(max_length=50, verbose_name='Twitter ID')),
+                ('created_at', models.DateTimeField(null=True, verbose_name='Date/time')),
+                ('text', models.TextField(null=True, verbose_name='Message')),
+                ('profile_image_url', models.URLField(null=True, verbose_name='Profile image URL')),
+                ('user_name', models.CharField(max_length=100, null=True, verbose_name='User name')),
+                ('full_name', models.CharField(max_length=100, null=True, verbose_name='Full name')),
+                ('retweeter_profile_image_url', models.URLField(null=True, verbose_name='Profile image URL (Retweeted by)')),
+                ('retweeter_user_name', models.CharField(max_length=100, null=True, verbose_name='User name (Retweeted by)')),
+                ('retweeter_full_name', models.CharField(max_length=100, null=True, verbose_name='Full name (Retweeted by)')),
+                ('query', models.ForeignKey(related_name='tweets', to='twitter.Query')),
+            ],
+            options={
+                'ordering': ('-created_at',),
+                'verbose_name': 'Tweet',
+                'verbose_name_plural': 'Tweets',
+            },
+            bases=(models.Model,),
+        ),
+    ]

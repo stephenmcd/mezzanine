@@ -5,7 +5,7 @@ contenttypes framework, such as comments, keywords/tags and voting.
 """
 from __future__ import unicode_literals
 
-# These methods are part of the API for django.contrib.comments
+# These methods are part of the API for django_comments
 
 
 def get_model():

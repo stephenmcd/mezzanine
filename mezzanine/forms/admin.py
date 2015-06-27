@@ -59,7 +59,6 @@ class FormAdmin(PageAdmin):
     list_filter = ("status",)
     search_fields = ("title", "content", "response", "email_from",
                      "email_copies")
-    radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = form_fieldsets
 
     def get_urls(self):

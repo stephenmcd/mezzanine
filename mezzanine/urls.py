@@ -8,27 +8,10 @@ from __future__ import unicode_literals
 from future.builtins import str
 
 from django.conf.urls import patterns, include
-from django.contrib import admin
-from django.contrib.admin.sites import NotRegistered
 from django.http import HttpResponse
 
 from mezzanine.conf import settings
 from mezzanine.core.sitemaps import DisplayableSitemap
-
-
-# Remove unwanted models from the admin that are installed by default with
-# third-party apps.
-for model in settings.ADMIN_REMOVAL:
-    try:
-        model = tuple(model.rsplit(".", 1))
-        exec("from %s import %s" % model)
-    except ImportError:
-        pass
-    else:
-        try:
-            admin.site.unregister(eval(model[1]))
-        except NotRegistered:
-            pass
 
 
 urlpatterns = []

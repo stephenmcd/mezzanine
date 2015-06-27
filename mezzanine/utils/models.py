@@ -1,25 +1,16 @@
 from __future__ import unicode_literals
+from functools import partial
 from future.utils import with_metaclass
 
-from distutils.version import StrictVersion
-
-from django import get_version
+from django.apps import apps
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import Model, Field, get_model
+from django.db.models import Model, Field
 from django.db.models.signals import class_prepared
 from django.utils import six
 
 from mezzanine.utils.importing import import_dotted_path
-
-
-# Backward compatibility with Django 1.5's "get_user_model".
-if StrictVersion(get_version()) >= StrictVersion('1.5'):
-    from django.contrib.auth import get_user_model
-else:
-    def get_user_model():
-        from django.contrib.auth.models import User
-        return User
 
 
 def get_user_model_name():
@@ -179,17 +170,35 @@ class LazyModelOperations(object):
             model_name = model_or_name._meta.object_name
         return app_label, model_name
 
-    def add(self, function, model_or_name):
-        model_key = self.model_key(model_or_name)
+    def add(self, function, *models_or_names):
+        """
+        The function passed to this method should accept n arguments,
+        where n=len(models_or_names). When all the models are ready,
+        the function will be called with the models as arguments, in
+        the order they appear in this argument list.
+        """
 
-        # If the model is already loaded, pass it to the function
-        # immediately. Otherwise, delay execution until the class
-        # is prepared.
-        model = get_model(*model_key, seed_cache=False, only_installed=False)
-        if model:
-            function(model)
-        else:
+        # Eagerly parse all model strings so we can fail immediately
+        # if any are plainly invalid.
+        model_keys = [self.model_key(m) if not isinstance(m, tuple) else m
+                      for m in models_or_names]
+
+        # If this function depends on more than one model, recursively call add
+        # for each, partially applying the given function on each iteration.
+        model_key, more_models = model_keys[0], model_keys[1:]
+        if more_models:
+            inner_function = function
+            function = lambda model: self.add(partial(inner_function, model),
+                                              *more_models)
+
+        # If the model is already loaded, pass it to the function immediately.
+        # Otherwise, delay execution until the class is prepared.
+        try:
+            model_class = apps.get_registered_model(*model_key)
+        except LookupError:
             self.pending_operations.setdefault(model_key, []).append(function)
+        else:
+            function(model_class)
 
     def signal_receiver(self, sender, **kwargs):
         """

@@ -1,152 +1,173 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011-2013
 # Sergi Almacellas <pokoli@gmail.com>, 2012
 # William Díaz <leprosys@gmail.com>, 2012
+# Eduardo Rivas <jerivasmelgar@gmail.com>, 2015.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:19-0430\n"
-"PO-Revision-Date: 2013-11-09 20:20+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/language/es/)\n"
+"POT-Creation-Date: 2015-04-09 13:30-0600\n"
+"PO-Revision-Date: 2015-04-09 13:36-0600\n"
+"Last-Translator: Eduardo Rivas <jerivasmelgar@gmail.com>\n"
+"Language-Team: Español; Castellano <>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
-#: admin.py:20 models.py:69
+#: admin.py:21 models.py:73
 msgid "User"
 msgstr "Usuario"
 
-#: defaults.py:24
+#: defaults.py:27
 msgid "Accounts required for commenting"
 msgstr "Registro necesario para comentar"
 
-#: defaults.py:25
+#: defaults.py:28
 msgid "If ``True``, users must log in to comment."
-msgstr "Si es ``True``, el usuario se debe identificar para comentar."
+msgstr "Si el valor es ``True``, el usuario debe identificarse para comentar."
 
-#: defaults.py:32
+#: defaults.py:35
 msgid "Disqus shortname"
 msgstr "Nombre corto de Disqus"
 
-#: defaults.py:33
+#: defaults.py:36
 msgid "Shortname for the http://disqus.com comments service."
 msgstr "Nombre corto para el servicio de comentarios http://disqus.com"
 
-#: defaults.py:41
+#: defaults.py:44
 msgid "Disqus public key"
-msgstr "Llave pública de Disqus"
+msgstr "Clave pública de Disqus"
 
-#: defaults.py:42
+#: defaults.py:45
 msgid "Public key for http://disqus.com developer API"
 msgstr "Clave pública para la API de desarrolladores de http://disqus.com"
 
-#: defaults.py:49
+#: defaults.py:52
 msgid "Disqus secret key"
-msgstr "Llave secreta de Disqus"
+msgstr "Clave privada de Disqus"
 
-#: defaults.py:50
+#: defaults.py:53
 msgid "Secret key for http://disqus.com developer API"
 msgstr "Clave privada para la API de desarrolladores de http://disqus.com"
 
-#: defaults.py:57
+#: defaults.py:60
 msgid "Auto-approve comments"
 msgstr "Auto-aprobar comentarios"
 
-#: defaults.py:58
+#: defaults.py:61
 msgid "If ``True``, built-in comments are approved by default."
-msgstr "Si es ``True``, los comentarios incluidos en el sistema son aprobados por defecto."
+msgstr ""
+"Si el valor es ``True``, los comentarios incluidos en el sistema son "
+"aprobados por defecto."
 
-#: defaults.py:66
+#: defaults.py:69
 msgid ""
 "Dotted path to the function to call on a comment's value before it is "
 "rendered to the template."
-msgstr "Trayectoria punteada a la función a llamar en el valor de un comentario antes de mostrarlo en la plantilla."
+msgstr ""
+"Ruta puntuada a la función a llamar con el valor de un comentario antes de "
+"mostrarlo en la plantilla."
 
-#: defaults.py:74
+#: defaults.py:77
 msgid "Comment notification email addresses"
-msgstr "Direcciones de correo electrónico para notificación de comentario"
+msgstr "Direcciones de correo a notificar"
 
-#: defaults.py:75
+#: defaults.py:78
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new comment is posted on the site."
-msgstr "Una lista separada por comas de las direcciones de correo electrónico que recibirán una notificación por correo electrónico cada vez que se publique un nuevo comentario en el sitio."
+msgstr ""
+"Lista separada por comas de las direcciones de correo electrónico que "
+"recibirán una notificación cada vez que se publique un nuevo comentario."
 
-#: defaults.py:84
+#: defaults.py:87
 msgid "Admin comments"
 msgstr "Comentarios en el sitio administrativo"
 
-#: defaults.py:85
+#: defaults.py:88
 msgid "Number of latest comments shown in the admin dashboard."
-msgstr "Número de comentarios más recientes mostrados en el panel de administración."
+msgstr ""
+"Número de comentarios recientes mostrados en el panel de administración."
 
-#: defaults.py:93
+#: defaults.py:96
 msgid "Show unapproved comments"
 msgstr "Mostrar comentarios aún no aprobados"
 
-#: defaults.py:94
+#: defaults.py:97
 msgid ""
 "If ``True``, comments that have ``is_public`` unchecked will still be "
 "displayed, but replaced with a ``waiting to be approved`` message."
-msgstr "Si es ``True``, los comentarios que tienen ``is_public`` desactivado serán mostrados, pero reemplazados por un mensaje de ``en espera de aprobación``."
+msgstr ""
+"Si el valor es ``True``, los comentarios que tienen ``is_public`` "
+"desactivado serán mostrados, pero reemplazados por un mensaje de ``en espera "
+"de aprobación``."
 
-#: defaults.py:103
+#: defaults.py:106
 msgid "Show removed comments"
 msgstr "Mostrar comentarios borrados"
 
-#: defaults.py:104
+#: defaults.py:107
 msgid ""
-"If ``True``, comments that have ``removed`` checked will still be displayed,"
-" but replaced with a ``removed`` message."
-msgstr "Si es ``True``, los comentarios que tienen ``removed`` activado serán mostrados pero reemplazados por un mensaje de ``Borrado``."
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Si el valor es ``True``, los comentarios que tienen ``removed`` activado "
+"serán mostrados pero reemplazados por un mensaje de ``Borrado``."
 
-#: defaults.py:113
+#: defaults.py:116
 msgid "If ``True``, comments can be rated."
-msgstr "Si es ``True``, los comentarios pueden ser puntuados."
+msgstr "Si el valor es ``True``, los comentarios pueden ser calificados."
 
-#: defaults.py:120
+#: defaults.py:123
+msgid "The form class to use for adding new comments."
+msgstr "La clase de formulario utilizada para añadir nuevos comentarios."
+
+#: defaults.py:131
 msgid "Accounts required for rating"
-msgstr "Registro necesario para puntuar"
+msgstr "Registro necesario para calificar"
 
-#: defaults.py:121
+#: defaults.py:132
 msgid ""
 "If ``True``, users must log in to rate content such as blog posts and "
 "comments."
-msgstr "Si es ``True``, el usuario se debe identificar para puntuar contenido como publicaciones y comentarios."
+msgstr ""
+"Si el valor es ``True``, el usuario se debe identificar para calificar "
+"contenido como publicaciones y comentarios."
 
-#: defaults.py:129
+#: defaults.py:140
 msgid "A sequence of integers that are valid ratings."
-msgstr "Una secuencia de enteros que son puntuaciones válidas"
+msgstr "Una secuencia de enteros que son calificaciones válidas"
 
-#: forms.py:83
+#: forms.py:84
 msgid "Name"
 msgstr "Nombre"
 
-#: forms.py:83
+#: forms.py:84
 msgid "required"
 msgstr "obligatorio"
 
-#: forms.py:85
+#: forms.py:86
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: forms.py:86
+#: forms.py:87
 msgid "required (not published)"
 msgstr "obligatorio (no publicado)"
 
-#: forms.py:87
+#: forms.py:88
 msgid "Website"
 msgstr "Sitio Web"
 
-#: forms.py:87
+#: forms.py:88
 msgid "optional"
 msgstr "opcional"
 
@@ -154,57 +175,53 @@ msgstr "opcional"
 msgid "New comment for: "
 msgstr "Comentario nuevo para:"
 
-#: forms.py:174
+#: forms.py:175
 msgid "Already rated."
-msgstr "Ya fué puntuado"
+msgstr "Ya fue calificado"
 
-#: models.py:26
+#: models.py:30
 msgid "By the blog author"
 msgstr "Por el autor del blog"
 
-#: models.py:29 models.py:130
+#: models.py:33 models.py:135
 msgid "Rating"
-msgstr "Puntuación"
+msgstr "Calificación"
 
-#: models.py:34 models.py:61 templates/generic/includes/comments.html:25
+#: models.py:38 models.py:65 templates/generic/includes/comments.html:25
 msgid "Comment"
 msgstr "Comentario"
 
-#: models.py:35 templates/generic/includes/comments.html:3
+#: models.py:39 templates/generic/includes/comments.html:3
 msgid "Comments"
 msgstr "Comentarios"
 
-#: models.py:73
+#: models.py:77
 msgid "View on site"
 msgstr "Ver en el sitio"
 
-#: models.py:93 models.py:102
+#: models.py:97 models.py:107
 msgid "Keyword"
 msgstr "Palabra clave"
 
-#: models.py:94
+#: models.py:98
 msgid "Keywords"
 msgstr "Palabras clave"
 
-#: models.py:120
+#: models.py:125
 msgid "Value"
 msgstr "Valor"
 
-#: models.py:121
-msgid "Rating date"
-msgstr "Fecha de puntuación"
-
 #: models.py:126
-msgid "Rater"
-msgstr "Evaluador"
+msgid "Rating date"
+msgstr "Fecha de calificación"
 
 #: models.py:131
-msgid "Ratings"
-msgstr "Puntuaciones"
+msgid "Rater"
+msgstr "Calificador"
 
-#: views.py:62
-msgid "You must logged in. Please log in or sign up to complete this action."
-msgstr "Tienes que estar identificado en el sistema. Por favor identificate o registrate para completar esta acción."
+#: models.py:136
+msgid "Ratings"
+msgstr "Calificaciones"
 
 #: templates/admin/includes/recent_comments.html:4
 msgid "Recent Comments"
@@ -212,14 +229,14 @@ msgstr "Comentarios recientes"
 
 #: templates/admin/includes/recent_comments.html:22
 #: templates/generic/includes/comment.html:22
-#: templates/generic/includes/comment.html:53
-#: templates/generic/includes/comment.html:63
-msgid "ago"
-msgstr "atrás"
+#: templates/generic/includes/comment.html:59
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "hace %(sometime)s"
 
 #: templates/email/comment_notification.html:6
 msgid "A new comment has been posted on"
-msgstr "Un nuevo comentario se ha publicado en"
+msgstr "Se ha publicado un nuevo comentario en"
 
 #: templates/email/comment_notification.html:10
 #, python-format
@@ -227,33 +244,38 @@ msgid ""
 "\n"
 "    At %(submit_date)s %(user_name)s wrote:\n"
 "    "
-msgstr "\nEn %(submit_date)s %(user_name)s escribió:"
+msgstr ""
+"\n"
+"    En %(submit_date)s %(user_name)s escribió:\n"
+"    "
 
 #: templates/email/comment_notification.txt:7
 #, python-format
 msgid ""
 "\n"
 "At %(submit_date)s %(user_name)s wrote:\n"
-msgstr "\nEn %(submit_date)s %(user_name)s escribió:\n"
+msgstr ""
+"\n"
+"En %(submit_date)s %(user_name)s escribió:\n"
 
-#: templates/generic/includes/comment.html:25
+#: templates/generic/includes/comment.html:30
 msgid "Link"
 msgstr "Enlace"
 
-#: templates/generic/includes/comment.html:26
-#: templates/generic/includes/comment.html:36
+#: templates/generic/includes/comment.html:33
+#: templates/generic/includes/comment.html:49
 msgid "Reply"
 msgstr "Responder"
 
-#: templates/generic/includes/comment.html:59
+#: templates/generic/includes/comment.html:55
 msgid "Comment deleted"
 msgstr "Comentario eliminado"
 
-#: templates/generic/includes/comment.html:61
+#: templates/generic/includes/comment.html:57
 msgid "Comment awaiting approval"
 msgstr "Comentario esperando aprobación"
 
-#: templates/generic/includes/comment.html:75
+#: templates/generic/includes/comment.html:71
 msgid "There are currently no comments"
 msgstr "No existen comentarios"
 
@@ -261,14 +283,25 @@ msgstr "No existen comentarios"
 msgid "New Comment"
 msgstr "Nuevo comentario"
 
-#: templates/generic/includes/rating.html:7
+#: templates/generic/includes/rating.html:5
 msgid "Current rating"
-msgstr "Puntuación actual"
+msgstr "Calificación actual"
 
-#: templates/generic/includes/rating.html:9
+#: templates/generic/includes/rating.html:7
 msgid "Currently unrated"
-msgstr "No ha sido puntuado aún"
+msgstr "No ha sido calificado aún"
 
-#: templates/generic/includes/rating.html:19
+#: templates/generic/includes/rating.html:17
 msgid "Rate"
-msgstr "Puntuar"
+msgstr "Calificar"
+
+#: views.py:69
+#| msgid ""
+#| "You must logged in. Please log in or sign up to complete this action."
+msgid ""
+"You must be logged in. Please log in or sign up to complete this action."
+msgstr ""
+"Se requiere iniciar sesión. Ingrese o registrese para completar esta acción."
+
+#~ msgid "ago"
+#~ msgstr "atrás"

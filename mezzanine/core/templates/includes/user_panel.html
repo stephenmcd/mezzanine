@@ -1,8 +1,12 @@
 {% load mezzanine_tags %}
-{% ifinstalled mezzanine.accounts %}
 <div class="panel panel-default user-panel">
 <div class="panel-body">
-{% include "accounts/includes/user_panel.html" %}
-</div>
-</div>
+{% ifinstalled cartridge.shop %}
+{% include "shop/includes/user_panel.html" %}
 {% endifinstalled %}
+{% ifinstalled mezzanine.accounts %}
+{% ifinstalled cartridge.shop %}<br>{% endifinstalled %}
+{% include "accounts/includes/user_panel.html" %}
+{% endifinstalled %}
+</div>
+</div>
