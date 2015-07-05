@@ -114,11 +114,11 @@
 {% endblock %}
 
 {% block blog_post_detail_related_posts %}
-{% if blog_post.related_posts.all %}
+{% if related_posts %}
 <div id="related-posts">
 <h3>{% trans 'Related posts' %}</h3>
 <ul class="list-unstyled">
-{% for post in blog_post.related_posts.all %}
+{% for post in related_posts %}
      <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
 {% endfor %}
 </ul>
