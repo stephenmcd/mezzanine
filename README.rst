@@ -180,7 +180,7 @@ project::
     $ git clone https://github.com/your-github-username/mezzanine/
     $ cd mezzanine
     $ git checkout -b your-new-branch-name
-    $ cp mezzanine/project_template/local_settings.py{.template,}
+    $ cp mezzanine/project_template/project_name/local_settings.py{.template,}
     $ python setup.py develop
     $ python mezzanine/project_template/manage.py createdb --noinput
     $ python mezzanine/project_template/manage.py runserver
