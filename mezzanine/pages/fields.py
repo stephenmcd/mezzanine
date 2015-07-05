@@ -61,14 +61,3 @@ class MenusField(MultiChoiceField):
         else:
             menus = getattr(settings, "PAGE_MENU_TEMPLATES", [])
             return (m[:2] for m in menus)
-
-
-# South requires custom fields to be given "rules".
-# See http://south.aeracode.org/docs/customfields.html
-if "south" in settings.INSTALLED_APPS:
-    try:
-        from south.modelsinspector import add_introspection_rules
-        add_introspection_rules(patterns=["mezzanine\.pages\.fields\."],
-                                rules=[((MenusField,), [], {})])
-    except ImportError:
-        pass

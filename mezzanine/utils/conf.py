@@ -4,17 +4,15 @@ import os
 import sys
 from warnings import warn
 
-from django import VERSION
 from django.conf import global_settings as defaults
 from django.template.base import add_to_builtins
 
-from mezzanine.utils.importing import path_for_import
 from mezzanine.utils.timezone import get_best_local_timezone
 
 
 class SitesAllowedHosts(object):
     """
-    This is a fallback for Django 1.5's ALLOWED_HOSTS setting
+    This is a fallback for Django's ALLOWED_HOSTS setting
     which is required when DEBUG is False. It looks up the
     ``Site`` model and uses any domains added to it, the
     first time the setting is accessed.
@@ -51,7 +49,7 @@ def set_dynamic_settings(s):
 
     if not s.get("ALLOWED_HOSTS", []):
         warn("You haven't defined the ALLOWED_HOSTS settings, which "
-             "Django 1.5 requires. Will fall back to the domains "
+             "Django requires. Will fall back to the domains "
              "configured as sites.")
         s["ALLOWED_HOSTS"] = SitesAllowedHosts()
 
@@ -98,12 +96,26 @@ def set_dynamic_settings(s):
     storage = "django.contrib.messages.storage.cookie.CookieStorage"
     s.setdefault("MESSAGE_STORAGE", storage)
 
+    # If required, add django-modeltranslation for both tests and deployment
+    if not s.get("USE_MODELTRANSLATION", False):
+        remove("INSTALLED_APPS", "modeltranslation")
+    else:
+        try:
+            __import__("modeltranslation")
+        except ImportError:
+            # django-modeltranslation is not installed, remove setting so
+            # admin won't try to import it
+            s["USE_MODELTRANSLATION"] = False
+            remove("INSTALLED_APPS", "modeltranslation")
+            warn("USE_MODETRANSLATION setting is set to True but django-"
+                    "modeltranslation is not installed. Disabling it.")
+        else:
+            # Force i18n so we are assured that modeltranslation is active
+            s["USE_I18N"] = True
+            append("INSTALLED_APPS", "modeltranslation")
+
     # Setup for optional apps.
     optional = list(s.get("OPTIONAL_APPS", []))
-    if s.get("USE_SOUTH") and VERSION < (1, 7):
-        optional.append("south")
-    elif not s.get("USE_SOUTH", True) and "south" in s["INSTALLED_APPS"]:
-        s["INSTALLED_APPS"].remove("south")
     for app in optional:
         if app not in s["INSTALLED_APPS"]:
             try:
@@ -114,50 +126,16 @@ def set_dynamic_settings(s):
                 s["INSTALLED_APPS"].append(app)
 
     if s["TESTING"]:
-        # Following bits are work-arounds for some assumptions that
-        # Django 1.5's tests make.
-
-        # contrib.auth tests fail without its own auth backend installed.
-        append("AUTHENTICATION_BACKENDS",
-               "django.contrib.auth.backends.ModelBackend")
-
-        # Tests in contrib.redirects simply don't work with a
-        # catch-all urlpattern such as Mezzanine's pages app.
-        remove("INSTALLED_APPS", "django.contrib.redirects")
-        remove("MIDDLEWARE_CLASSES",
-            "django.contrib.redirects.middleware.RedirectFallbackMiddleware")
-
         # Triggers interactive superuser creation and some pyc/pyo tests
         # fail with standard permissions.
         remove("INSTALLED_APPS", "django_extensions")
 
-    # To support migrations for both Django 1.7 and South, South's old
-    # migrations for each app were moved into "app.migrations.south"
-    # packages. Here we assign each of these to SOUTH_MIGRATION_MODULES
-    # allowing South to find them.
-    if "south" in s["INSTALLED_APPS"]:
-        s.setdefault("SOUTH_MIGRATION_MODULES", {})
-        for app in s["INSTALLED_APPS"]:
-            # We need to verify the path to the custom migrations
-            # package exists for each app. We can't simply try
-            # and import it, for some apps this causes side effects,
-            # so we need to import something higher up to get at its
-            # filesystem path - this can't be the actual app either,
-            # side effects again, but we can generally import the
-            # top-level package for apps that are contained within
-            # one, which covers Mezzanine, Cartridge, Drum.
-            if "." not in app:
-                continue
-            migrations = "%s.migrations.south" % app
-            parts = migrations.split(".", 1)
-            root = path_for_import(parts[0])
-            other = parts[1].replace(".", os.sep)
-            if os.path.exists(os.path.join(root, other)):
-                s["SOUTH_MIGRATION_MODULES"][app.split(".")[-1]] = migrations
-
     if "debug_toolbar" in s["INSTALLED_APPS"]:
         debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
         append("MIDDLEWARE_CLASSES", debug_mw)
+        # Ensure debug_toolbar is before modeltranslation to avoid
+        # races for configuration.
+        move("INSTALLED_APPS", "debug_toolbar", 0)
 
     # If compressor installed, ensure it's configured and make
     # Mezzanine's settings available to its offline context,
@@ -194,10 +172,7 @@ def set_dynamic_settings(s):
     # Ensure admin is at the bottom of the app order so that admin
     # templates are loaded in the correct order, and that staticfiles
     # is also at the end so its runserver can be overridden.
-    apps = ["django.contrib.admin"]
-    if VERSION >= (1, 7):
-        apps += ["django.contrib.staticfiles"]
-    for app in apps:
+    for app in ["django.contrib.admin", "django.contrib.staticfiles"]:
         try:
             move("INSTALLED_APPS", app, len(s["INSTALLED_APPS"]))
         except ValueError:
@@ -208,7 +183,7 @@ def set_dynamic_settings(s):
         append("INSTALLED_APPS", "mezzanine.generic")
     if "mezzanine.generic" in s["INSTALLED_APPS"]:
         s.setdefault("COMMENTS_APP", "mezzanine.generic")
-        append("INSTALLED_APPS", "django.contrib.comments")
+        append("INSTALLED_APPS", "django_comments")
 
     # Ensure mezzanine.boot is first.
     try:
@@ -229,6 +204,12 @@ def set_dynamic_settings(s):
         s["USE_I18N"] = True
         s["LANGUAGES"] = [(s["LANGUAGE_CODE"], "")]
 
+    # Ensure required middleware is installed, otherwise admin
+    # becomes inaccessible.
+    mw = "django.middleware.locale.LocaleMiddleware"
+    if s["USE_I18N"] and mw not in s["MIDDLEWARE_CLASSES"]:
+        prepend("MIDDLEWARE_CLASSES", mw)
+
     # Revert tuple settings back to tuples.
     for setting in tuple_list_settings:
         s[setting] = tuple(s[setting])
@@ -245,3 +226,13 @@ def set_dynamic_settings(s):
         elif shortname == "mysql":
             # Required MySQL collation for tests.
             s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
+
+
+def real_project_name(project_name):
+    """
+    Used to let Mezzanine run from its project template directory, in which
+    case "{{ project_name }}" won't have been replaced by a real project name.
+    """
+    if project_name == "{{ project_name }}":
+        return "project_name"
+    return project_name

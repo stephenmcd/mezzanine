@@ -5,6 +5,7 @@ from _ast import PyCF_ONLY_AST
 import os
 from shutil import copyfile, copytree
 
+from django.contrib.auth import get_user_model
 from django.db import connection
 from django.template import Context, Template
 from django.test import TestCase as BaseTestCase
@@ -12,7 +13,6 @@ from django.test.client import RequestFactory
 
 from mezzanine.conf import settings
 from mezzanine.utils.importing import path_for_import
-from mezzanine.utils.models import get_user_model
 
 
 User = get_user_model()
@@ -27,30 +27,30 @@ IGNORE_ERRORS = (
     # Used to version subpackages.
     "'__version__' imported but unused",
 
-    # No caching fallback
+    # No caching fallback.
     "redefinition of function 'nevercache'",
 
-    # Dummy fallback in templates for django-compressor
+    # Dummy fallback in templates for django-compressor.
     "redefinition of function 'compress'",
 
-    # Fabic config fallback
+    # Fabic config fallback.
     "redefinition of unused 'conf'",
 
     # Fixing these would make the code ugiler IMO.
     "continuation line",
     "closing bracket does not match",
 
-    # Jython compatiblity
+    # Jython compatiblity.
     "redefinition of unused 'Image",
 
-    # Django 1.5 custom user compatibility
-    "redefinition of unused 'get_user_model",
-
-    # Django 1.5 deprecated methods compatibility.
-    "'get_permission_codename' imported but unused",
+    # Django custom user compatibility.
+    "'get_user_model' imported but unused",
 
     # Actually a Python template file.
     "live_settings.py",
+
+    # lambdas are OK.
+    "do not assign a lambda",
 
 )
 
@@ -72,23 +72,37 @@ class TestCase(BaseTestCase):
         self._emailaddress = "example@example.com"
         args = (self._username, self._emailaddress, self._password)
         self._user = User.objects.create_superuser(*args)
-        self._debug_cursor = connection.use_debug_cursor
         self._request_factory = RequestFactory()
-        connection.use_debug_cursor = True
+
+        try:
+            # Django 1.8+
+            self._debug_cursor = connection.force_debug_cursor
+            connection.force_debug_cursor = True
+        except AttributeError:
+            self._debug_cursor = connection.use_debug_cursor
+            connection.use_debug_cursor = True
 
     def tearDown(self):
         """
         Clean up the admin user created and debug cursor.
         """
         self._user.delete()
-        connection.use_debug_cursor = self._debug_cursor
+        try:
+            # Django 1.8+
+            connection.force_debug_cursor = self._debug_cursor
+        except AttributeError:
+            connection.use_debug_cursor = self._debug_cursor
 
     def queries_used_for_template(self, template, **context):
         """
         Return the number of queries used when rendering a template
         string.
         """
-        connection.queries = []
+        try:
+            # Django 1.8+ - queries_log is a deque
+            connection.queries_log.clear()
+        except AttributeError:
+            connection.queries = []
         t = Template(template)
         t.render(Context(context))
         return len(connection.queries)
@@ -142,7 +156,7 @@ def _run_checker_for_package(checker, package_name, extra_ignore=None):
     for (root, dirs, files) in os.walk(str(package_path)):
         for f in files:
             if (f == "local_settings.py" or not f.endswith(".py") or
-                    root.split(os.sep)[-1] in ["migrations", "south"]):
+                    root.split(os.sep)[-1] in ["migrations"]):
                 # Ignore
                 continue
             for warning in checker(os.path.join(root, f)):

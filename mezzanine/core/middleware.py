@@ -60,10 +60,7 @@ class AdminLoginInterfaceSelectorMiddleware(object):
             if request.user.is_authenticated():
                 if login_type == "admin":
                     next = request.get_full_path()
-                    try:
-                        username = request.user.get_username()
-                    except AttributeError:  # Django < 1.5
-                        username = request.user.username
+                    username = request.user.get_username()
                     if (username == DEFAULT_USERNAME and
                             request.user.check_password(DEFAULT_PASSWORD)):
                         error(request, mark_safe(_(
@@ -125,9 +122,8 @@ class TemplateForHostMiddleware(object):
     def process_template_response(self, request, response):
         if hasattr(response, "template_name"):
             if not isinstance(response.template_name, Template):
-                templates = templates_for_host(request,
+                response.template_name = templates_for_host(
                     response.template_name)
-                response.template_name = templates
         return response
 
 
@@ -240,7 +236,6 @@ class SSLRedirectMiddleware(object):
     to HTTPS, and redirect all other URLs to HTTP if on HTTPS.
     """
     def process_request(self, request):
-        settings.use_editable()
         force_host = settings.SSL_FORCE_HOST
         response = None
         if force_host and request.get_host().split(":")[0] != force_host:
@@ -293,5 +288,5 @@ class RedirectFallbackMiddleware(object):
                 if not redirect.new_path:
                     response = HttpResponseGone()
                 else:
-                    response = HttpResponseRedirect(redirect.new_path)
+                    response = HttpResponsePermanentRedirect(redirect.new_path)
         return response

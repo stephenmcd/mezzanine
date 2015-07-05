@@ -5,6 +5,7 @@ try:
 except ImportError:  # Python 2
     from urlparse import urljoin
 
+from django.apps import apps
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -14,7 +15,7 @@ from mezzanine.conf import settings
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
-from mezzanine.utils.urls import path_to_slug, slugify
+from mezzanine.utils.urls import path_to_slug
 
 
 class BasePage(Orderable, Displayable):
@@ -135,8 +136,9 @@ class Page(BasePage):
         """
         Return all Page subclasses.
         """
-        is_content_model = lambda m: m is not Page and issubclass(m, Page)
-        return list(filter(is_content_model, models.get_models()))
+        def is_content_model(m):
+            return m is not Page and issubclass(m, Page) and not m._meta.proxy
+        return list(filter(is_content_model, apps.get_models()))
 
     def get_content_model(self):
         """
@@ -149,7 +151,7 @@ class Page(BasePage):
         """
         Recursively build the slug from the chain of parents.
         """
-        slug = slugify(self.title)
+        slug = super(Page, self).get_slug()
         if self.parent is not None:
             return "%s/%s" % (self.parent.slug, slug)
         return slug

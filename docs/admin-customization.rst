@@ -46,6 +46,8 @@ this method controls whether the admin class appears in the menu or not.
 Here's an advanced example that excludes the ``BlogCategoryAdmin`` class
 from the menu, unless it is explicitly defined in ``ADMIN_MENU_ORDER``::
 
+    from django.contrib import admin
+
     class BlogCategoryAdmin(admin.ModelAdmin):
         """
         Admin class for blog categories. Hides itself from the admin menu
@@ -214,3 +216,49 @@ from your custom widget, by doing the following:
 
    :Type (optional): Type of files that are selectable in the
       dialog. Defaults to image.
+
+Singleton Admin
+===============
+
+The admin class ``mezzanine.core.admin.SingletonAdmin`` is a utility
+that can be used to create an admin interface for managing the case
+where only a single instance of a model should exist. Some cases
+include a single page site, where only a few fixed blocks of text
+need to be maintained. Perhaps a stand-alone admin section is
+required for managing a site-wide alert. There's overlap here with
+Mezzanine's :doc:`configuration` admin interface, but you may have a
+case that warrants its own admin section. Let's look at an example of
+a site-wide alert model, that should only ever have a single record
+in the database.
+
+Here's a model with a text field for managing the alert::
+
+    from django.db import models
+
+    class SiteAlert(models.Model):
+
+        message = models.TextField(blank=True)
+
+        # Make the plural name singular, to correctly
+        # label it in the admin interface.
+        class Meta:
+            verbose_name_plural = "Site Alert"
+
+Here's our ``admin.py`` module in the same app::
+
+    from mezzanine.core.admin import SingletonAdmin
+    from .models import SiteAlert
+
+    # Subclassing allows us to customize the admin class,
+    # but you could also register your model directly
+    # against SingletonAdmin below.
+    class SiteAlertAdmin(SingletonAdmin):
+        pass
+
+    admin.site.register(SiteAlert, SiteAlertAdmin)
+
+What we achieve by using ``SingletonAdmin`` above, is an admin
+interface that hides the usual listing interface that lists all
+records in the model's database table. When going to the "Site Alert"
+section of the admin, the user will be taken directly to the editing
+interface.

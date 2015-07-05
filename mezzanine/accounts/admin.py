@@ -1,12 +1,12 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from mezzanine.accounts import get_profile_model, ProfileNotConfigured
 
 from mezzanine.core.admin import SitePermissionUserAdmin
 from mezzanine.conf import settings
 from mezzanine.utils.email import send_approved_mail, send_verification_mail
-from mezzanine.utils.models import get_user_model
 
 
 User = get_user_model()

@@ -47,6 +47,8 @@ class Command(BaseImporterCommand):
         except ImportError:
             raise CommandError("feedparser package is required")
         if not rss_url and page_url:
+            if "://" not in page_url:
+                page_url = "http://%s" % page_url
             try:
                 from BeautifulSoup import BeautifulSoup
             except ImportError:
@@ -66,7 +68,10 @@ class Command(BaseImporterCommand):
             else:
                 content = post.summary
             tags = [tag["term"] for tag in getattr(post, 'tags', [])]
-            pub_date = parser.parse(post.updated)
-            pub_date -= timedelta(seconds=timezone)
+            try:
+                pub_date = parser.parse(getattr(post, "published",
+                    post.updated)) - timedelta(seconds=timezone)
+            except AttributeError:
+                pub_date = None
             self.add_post(title=post.title, content=content,
                           pub_date=pub_date, tags=tags, old_url=None)

@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Q
 from django.db.models.manager import Manager
@@ -12,13 +12,13 @@ from mezzanine.accounts import (get_profile_model, get_profile_user_fieldname,
                                 get_profile_for_user, ProfileNotConfigured)
 from mezzanine.conf import settings
 from mezzanine.core.forms import Html5Mixin
-from mezzanine.utils.models import get_user_model
 from mezzanine.utils.urls import slugify, unique_slug
 
 
 User = get_user_model()
 
-_exclude_fields = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
+_exclude_fields = tuple(getattr(settings,
+                                "ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS", ()))
 
 # If a profile model has been configured with the ``AUTH_PROFILE_MODULE``
 # setting, create a model form for it that will have its fields added to
@@ -192,8 +192,12 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
             self.cleaned_data["username"]
         except KeyError:
             if not self.instance.username:
-                username = "%(first_name)s %(last_name)s" % self.cleaned_data
-                if not username.strip():
+                try:
+                    username = ("%(first_name)s %(last_name)s" %
+                                self.cleaned_data).strip()
+                except KeyError:
+                    username = ""
+                if not username:
                     username = self.cleaned_data["email"].split("@")[0]
                 qs = User.objects.exclude(id=self.instance.id)
                 user.username = unique_slug(qs, "username", slugify(username))
@@ -217,7 +221,6 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
             pass
 
         if self._signup:
-            settings.use_editable()
             if (settings.ACCOUNTS_VERIFICATION_REQUIRED or
                     settings.ACCOUNTS_APPROVAL_REQUIRED):
                 user.is_active = False

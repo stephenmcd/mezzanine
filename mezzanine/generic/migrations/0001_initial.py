@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('sites', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('comments', '__first__'),
+        ('django_comments', '__first__'),
         ('contenttypes', '0001_initial'),
     ]
 
@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ThreadedComment',
             fields=[
-                ('comment_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='comments.Comment')),
+                ('comment_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='django_comments.Comment')),
                 ('rating_count', models.IntegerField(default=0, editable=False)),
                 ('rating_sum', models.IntegerField(default=0, editable=False)),
                 ('rating_average', models.FloatField(default=0, editable=False)),
@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Comment',
                 'verbose_name_plural': 'Comments',
             },
-            bases=('comments.comment',),
+            bases=('django_comments.comment',),
         ),
         migrations.AddField(
             model_name='assignedkeyword',

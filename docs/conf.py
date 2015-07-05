@@ -20,11 +20,10 @@ import mezzanine
 
 if "DJANGO_SETTINGS_MODULE" not in os.environ:
     docs_path = os.getcwd()
-    parts = (docs_path, "..", "mezzanine")
-    sys.path.insert(0, os.path.join(*parts))
-    sys.path.insert(0, os.path.join(*parts + ("project_template",)))
-    settings_module = "mezzanine.project_template.settings"
-    os.environ["DJANGO_SETTINGS_MODULE"] = settings_module
+    mezzanine_path_parts = (docs_path, "..")
+    sys.path.insert(0, docs_path)
+    sys.path.insert(0, os.path.realpath(os.path.join(*mezzanine_path_parts)))
+    os.environ["DJANGO_SETTINGS_MODULE"] = "docs_settings"
     # Django 1.7's setup is required before touching translated strings.
     import django
     try:
@@ -51,7 +50,7 @@ if sys.argv[-2:] == ["docs", "docs/build"]:
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ["sphinx.ext.autodoc"]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

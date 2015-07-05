@@ -79,7 +79,7 @@ class DynamicInlineAdminForm(forms.ModelForm):
     """
 
     class Media:
-        js = ("mezzanine/js/jquery-ui-1.9.1.custom.min.js",
+        js = ("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME,
               "mezzanine/js/admin/dynamic_inline.js",)
 
 

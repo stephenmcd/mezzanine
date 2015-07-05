@@ -13,6 +13,7 @@ except ImportError:  # Python 2
     from urllib2 import Request, urlopen
 
 import django
+from django.contrib.auth import get_permission_codename
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.forms import EmailField, URLField, Textarea
 from django.template import RequestContext
@@ -21,7 +22,6 @@ from django.utils.translation import ugettext as _
 
 import mezzanine
 from mezzanine.conf import settings
-from mezzanine.utils.deprecation import get_permission_codename
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.sites import has_site_permission
 

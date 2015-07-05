@@ -309,3 +309,6 @@ td, th, th a, label, .help, p.help {
     top: 5px !important;
     position: relative;
 }
+.related-widget-wrapper .selector {
+    margin-right: 10px;
+}

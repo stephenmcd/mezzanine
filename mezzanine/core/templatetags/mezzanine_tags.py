@@ -8,15 +8,17 @@ try:
 except ImportError:
     from urllib import quote, unquote
 
+from django.apps import apps
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site
 from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, resolve, NoReverseMatch
-from django.db.models import Model, get_model
-from django.template import (Context, Node, TextNode, Template,
-    TemplateSyntaxError, TOKEN_TEXT, TOKEN_VAR, TOKEN_COMMENT, TOKEN_BLOCK)
+from django.db.models import Model
+from django.template import Context, Node, Template, TemplateSyntaxError
+from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
+                                  TOKEN_TEXT, TOKEN_VAR, TextNode)
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils import translation
@@ -160,12 +162,17 @@ def ifinstalled(parser, token):
                                   "{% endifinstalled %}")
 
     end_tag = "end" + tag
+    unmatched_end_tag = 1
     if app.strip("\"'") not in settings.INSTALLED_APPS:
-        while True:
+        while unmatched_end_tag:
             token = parser.tokens.pop(0)
-            if token.token_type == TOKEN_BLOCK and token.contents == end_tag:
-                parser.tokens.insert(0, token)
-                break
+            if token.token_type == TOKEN_BLOCK:
+                block_name = token.contents.split()[0]
+                if block_name == tag:
+                    unmatched_end_tag += 1
+                if block_name == end_tag:
+                    unmatched_end_tag -= 1
+        parser.tokens.insert(0, token)
     nodelist = parser.parse((end_tag,))
     parser.delete_first_token()
 
@@ -245,7 +252,7 @@ def search_form(context, search_model_names=None):
     search_model_choices = []
     for model_name in search_model_names:
         try:
-            model = get_model(*model_name.split(".", 1))
+            model = apps.get_model(*model_name.split(".", 1))
         except LookupError:
             pass
         else:
@@ -256,13 +263,15 @@ def search_form(context, search_model_names=None):
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
-              padding=False, padding_color="#fff"):
+def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
+              top=.5, padding=False, padding_color="#fff"):
     """
-    Given the URL to an image, resizes the image using the given width and
-    height on the first time it is requested, and returns the URL to the new
-    resized image. if width or height are zero then original ratio is
-    maintained.
+    Given the URL to an image, resizes the image using the given width
+    and height on the first time it is requested, and returns the URL
+    to the new resized image. If width or height are zero then original
+    ratio is maintained. When ``upscale`` is False, images smaller than
+    the given size will not be grown to fill that size. The given width
+    and height thus act as maximum dimensions.
     """
 
     if not image_url:
@@ -279,6 +288,8 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     image_prefix, image_ext = os.path.splitext(image_name)
     filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext, "JPEG")
     thumb_name = "%s-%sx%s" % (image_prefix, width, height)
+    if not upscale:
+        thumb_name += "-no-upscale"
     if left != .5 or top != .5:
         left = min(1, max(0, left))
         top = min(1, max(0, top))
@@ -295,7 +306,11 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
                              settings.THUMBNAILS_DIR_NAME, image_name)
     if not os.path.exists(thumb_dir):
-        os.makedirs(thumb_dir)
+        try:
+            os.makedirs(thumb_dir)
+        except OSError:
+            pass
+
     thumb_path = os.path.join(thumb_dir, thumb_name)
     thumb_url = "%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
                               quote(image_name.encode("utf-8")),
@@ -331,6 +346,10 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     to_height = int(height)
     from_width = image.size[0]
     from_height = image.size[1]
+
+    if not upscale:
+        to_width = min(to_width, from_width)
+        to_height = min(to_height, from_height)
 
     # Set dimensions.
     if to_width == 0:
@@ -606,7 +625,7 @@ def admin_dropdown_menu(context):
         if user.is_superuser:
             sites = Site.objects.all()
         else:
-            sites = user.sitepermissions.get().sites.all()
+            sites = user.sitepermissions.sites.all()
         context["dropdown_menu_sites"] = list(sites)
         context["dropdown_menu_selected_site_id"] = current_site_id()
         return context
