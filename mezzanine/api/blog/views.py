@@ -4,14 +4,16 @@ from collections import Counter
 
 from django.db.models import Count
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework import viewsets
 
-from mezzanine.api.core.serializers import UserSerializer
 from mezzanine.blog.models import BlogCategory
 from mezzanine.blog.models import BlogPost
+from mezzanine.generic.models import AssignedKeyword
+from mezzanine.generic.models import Keyword
 
 from .filters import BlogPostFilter
 from .serializers import BlogCategorySerializer
@@ -28,14 +30,36 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
     paginate_by_param = 'page'
 
     @list_route(methods=['get'], url_path='recent-posts')
-    def recent_posts(self, request):
+    def recent_posts(self, request, limit=5, tag=None, username=None, category=None):
         """Return last five posts from blog."""
         blog_posts = self.queryset.order_by('-publish_date')
         serialized_posts = BlogPostSerializer(list(blog_posts[:5]), many=True)
         return Response(serialized_posts.data)
 
     @list_route(methods=['get'], url_path='posts-by-months')
-    def posts_by_months(self, request):
+    def blog_months(self, request):
+        """
+        Return as JSON list of months with number of posts per that month.
+
+        Used mostly for list a months with number of posts. For ex.
+            Archive 2015
+                July (1)
+                June (2)
+                January (1)
+            Archive 2014
+                December (2)
+        List is sorted by field publish_date in descending order.
+
+        :return: list that item of the list consist of
+                 date in iso format and counted posts.
+            `[
+                "2015-07-01T00:00:00" : 1,
+                "2015-06-01T00:00:00" : 2,
+                "2015-01-01T00:00:00" : 1,
+                "2014-12-01T00:00:00" : 2,
+                ...
+            ]`
+        """
         posts_dates = self.queryset.values_list("publish_date", flat=True)
 
         normalized_dates = []
@@ -49,22 +73,55 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(sorted_date)
 
     @list_route(methods=['get'], url_path='posts-by-categories')
-    def posts_by_categories(self, request):
+    def blog_categories(self, request):
+        """
+        Return as JSON selected categories with number of blog posts.
+        """
         posts = self.queryset
         categories = BlogCategory.objects.filter(blogposts__in=posts)
-        counted_categories = categories.annotate(post_count=Count("blogposts"))
-        counted_categories = list(counted_categories)
+        categories = categories.annotate(post_count=Count("blogposts"))
 
-        serialized = BlogCategorySerializer(counted_categories, many=True)
-        return Response(serialized.data)
+        data = [
+            {'slug': cat.slug, 'title': cat.title, 'count': cat.post_count}
+            for cat in list(categories)
+        ]
+        return Response(data)
 
     @list_route(methods=['get'], url_path='posts-by-authors')
-    def posts_by_authors(self, request):
-        blog_posts = BlogPost.objects.published()
+    def blog_authors(self, request):
+        """
+        Return as JSON list of authors with number their blog posts.
+
+        :return: list, where items are dictionary with keys `author`
+                 and `count` for ex.
+                 [
+                    { 'author': 'Chairman', count: 1 },
+                    { 'author': 'Stephen McDonald', count: 5 }
+                 ]
+        """
+        blog_posts = self.queryset
         authors = User.objects.filter(blogposts__in=blog_posts)
-        posts_per_author = list(authors.annotate(post_count=Count("blogposts")))
-        serialized = UserSerializer(posts_per_author, many=True)
-        return Response(serialized.data)
+        authors = list(authors.annotate(post_count=Count("blogposts")))
+
+        data = [{'author': author.get_full_name() or author.username,
+                 'count': author.post_count}
+                for author in authors]
+        return Response(data)
+
+    @list_route(methods=['get'], url_path='posts-by-tags')
+    def blog_tags(self, request):
+        """
+        Return as JSON list of tags with number of their use in blog posts.
+        """
+        content_type = ContentType.objects.get(app_label='blog', model='blogpost')
+        assigned = AssignedKeyword.objects.filter(content_type=content_type)
+        keywords = Keyword.objects.filter(assignments__in=assigned)
+        keywords = keywords.annotate(item_count=Count("assignments"))
+
+        data = [{'title': kywd.title, 'slug': kywd.slug,
+                 'count': kywd.item_count}
+                for kywd in keywords]
+        return Response(data)
 
 
 class BlogCategoryViewSet(viewsets.ReadOnlyModelViewSet):
