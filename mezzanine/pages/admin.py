@@ -6,7 +6,6 @@ from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import NoReverseMatch
 from django.http import HttpResponseRedirect
-from django.forms import URLField
 from django.shortcuts import get_object_or_404
 
 from mezzanine.conf import settings
@@ -227,10 +226,10 @@ class LinkAdmin(PageAdmin):
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         """
-        Make slug mandatory and require an absolute URL.
+        Make slug mandatory.
         """
         if db_field.name == "slug":
-            return URLField(required=True)
+            kwargs["required"] = True
         return super(LinkAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def save_form(self, request, form, change):
