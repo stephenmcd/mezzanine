@@ -48,7 +48,7 @@ class ApiBlogTest(TestCase):
         :return: response in json.
         """
         data = self.client.get(url).content
-        return json.loads(data)
+        return json.loads(data.decode("utf-8"))
 
     def setUp(self):
         """
