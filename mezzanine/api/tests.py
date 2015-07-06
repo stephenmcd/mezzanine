@@ -21,13 +21,13 @@ from mezzanine.utils.tests import TestCase
             "api and blog app required")
 class ApiBlogTest(TestCase):
     """
+    List of tests for blog rest methods.
 
     .. note::
-        In order to prevent `InSecurePlatformWarning` is recommended
+        In order to prevent `InSecurePlatformWarning` warning is recommended
         to use `requests==2.5.3`.
         For more information about it:
         https://urllib3.readthedocs.org/en/latest/security.html#insecureplatformwarning
-
     """
     def parse_iso_datetime(self, iso_datetime):
         """
@@ -51,6 +51,12 @@ class ApiBlogTest(TestCase):
         return json.loads(data)
 
     def setUp(self):
+        """
+        Created two blog posts.
+
+        One with four keywords, second one with two keywords.
+        Both have same author and category.
+        """
         super(ApiBlogTest, self).setUp()
         Keyword.objects.all().delete()
 
@@ -91,6 +97,10 @@ class ApiBlogTest(TestCase):
         blog_post.save()
 
     def test_blog_list(self):
+        """
+        Test that `/api/blogpost/list/` result with list of serialized
+        blog posts. It's sorted by `publish_date` descending.
+        """
         data = self.get_json_response(reverse('blogpost-list'))
         post = data['results'][0]
         self.assertEqual(post['title'], 'Post 2')
@@ -98,8 +108,13 @@ class ApiBlogTest(TestCase):
         self.assertEqual(len(post['categories']), 1)
 
     def test_blog_tags(self):
+        """
+        Test that view `api.blog.views.blog_tags` result with tags with
+        number of uses in posts. In first post has been used four tags.
+        On second post has been used only two tags.
+        """
         data = self.get_json_response(reverse('blogpost-posts-by-tags'))
-        # data:
+        # data =
         # [{u'count': 1, u'slug': u'how', u'title': u'how'},
         #  {u'count': 1, u'slug': u'now', u'title': u'now'},
         #  {u'count': 2, u'slug': u'brown', u'title': u'brown'},
@@ -113,8 +128,11 @@ class ApiBlogTest(TestCase):
         self.assertEqual(keywords['brown'], 2)
 
     def test_blog_months(self):
+        """
+        Test that view `api.blog.views.blog_months` counts posts in the month.
+        """
         data = self.get_json_response(reverse('blogpost-posts-by-months'))
-        # data: [[u'2015-07-01T00:00:00', 2]]
+        # data = [[u'2015-07-01T00:00:00', 2]]
 
         self.assertGreater(len(data), 0,
                            'Should be at least one date from post')
@@ -127,13 +145,20 @@ class ApiBlogTest(TestCase):
         self.assertEqual(count, 2)
 
     def test_blog_authors(self):
+        """
+        Test that view `api.blog.views.blog_authors` counts author posts.
+        """
         data = self.get_json_response(reverse('blogpost-posts-by-authors'))
-        # data: [{u'count': 2, u'author': u'test'}]
+        # data = [{u'count': 2, u'author': u'test'}]
 
         self.assertEqual(data[0]['author'], self._user.username)
         self.assertEqual(data[0]['count'], 2)
 
     def test_blog_categories(self):
+        """
+        Test that view `api.blog.views.blog_categories` counts usages of
+        categories and proves in return json.
+        """
         data = self.get_json_response(reverse('blogpost-posts-by-categories'))
         # data:
         # [{'count': 2, 'slug': 'blog-category', 'title': u'Blog Category'}]
