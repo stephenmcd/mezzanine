@@ -63,6 +63,7 @@ try:
             "pillow",
             "chardet",
             "djangorestframework",
+            "django-filter",
         ],
         entry_points="""
             [console_scripts]
