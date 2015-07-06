@@ -223,8 +223,8 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     "mezzanine.api",
     "rest_framework",
-    #"mezzanine.accounts",
-    #"mezzanine.mobile",
+    # "mezzanine.accounts",
+    # "mezzanine.mobile",
 )
 
 # List of processors used by RequestContext to populate the context.
@@ -296,8 +296,6 @@ OPTIONAL_APPS = (
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
 }
-
-
 
 ##################
 # LOCAL SETTINGS #

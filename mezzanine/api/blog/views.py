@@ -29,8 +29,11 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
     paginate_by = 5
     paginate_by_param = 'page'
 
+    def get_queryset(self):
+        return BlogPost.objects.published()
+
     @list_route(methods=['get'], url_path='recent-posts')
-    def recent_posts(self, request, limit=5, tag=None, username=None, category=None):
+    def recent_posts(self, request):
         """Return last five posts from blog."""
         blog_posts = self.queryset.order_by('-publish_date')
         serialized_posts = BlogPostSerializer(list(blog_posts[:5]), many=True)
@@ -60,10 +63,10 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
                 ...
             ]`
         """
-        posts_dates = self.queryset.values_list("publish_date", flat=True)
+        post_dates = self.get_queryset().values_list("publish_date", flat=True)
 
         normalized_dates = []
-        for d in posts_dates:
+        for d in post_dates:
             normalized_date = datetime(d.year, d.month, 1).isoformat()
             normalized_dates.append(normalized_date)
 
@@ -77,7 +80,7 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
         """
         Return as JSON selected categories with number of blog posts.
         """
-        posts = self.queryset
+        posts = self.get_queryset()
         categories = BlogCategory.objects.filter(blogposts__in=posts)
         categories = categories.annotate(post_count=Count("blogposts"))
 
@@ -99,7 +102,7 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
                     { 'author': 'Stephen McDonald', count: 5 }
                  ]
         """
-        blog_posts = self.queryset
+        blog_posts = self.get_queryset()
         authors = User.objects.filter(blogposts__in=blog_posts)
         authors = list(authors.annotate(post_count=Count("blogposts")))
 
@@ -113,7 +116,8 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
         """
         Return as JSON list of tags with number of their use in blog posts.
         """
-        content_type = ContentType.objects.get(app_label='blog', model='blogpost')
+        content_type = ContentType.objects.get(app_label='blog',
+                                               model='blogpost')
         assigned = AssignedKeyword.objects.filter(content_type=content_type)
         keywords = Keyword.objects.filter(assignments__in=assigned)
         keywords = keywords.annotate(item_count=Count("assignments"))
