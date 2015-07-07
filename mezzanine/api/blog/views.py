@@ -6,16 +6,16 @@ from django.db.models import Count
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
+from rest_framework import filters
+from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
-from rest_framework import viewsets
 
 from mezzanine.blog.models import BlogCategory
 from mezzanine.blog.models import BlogPost
 from mezzanine.generic.models import AssignedKeyword
 from mezzanine.generic.models import Keyword
 
-from .filters import BlogPostFilter
 from .serializers import BlogCategorySerializer
 from .serializers import BlogPostSerializer
 
@@ -25,9 +25,12 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = BlogPost.objects.published()
     serializer_class = BlogPostSerializer
-    filter_class = BlogPostFilter
     paginate_by = 5
     paginate_by_param = 'page'
+
+    filter_backends = (filters.SearchFilter, )
+    search_fields = ('^title', '^publish_date',
+                     '=slug', '=categories__slug', '=user__username')
 
     def get_queryset(self):
         return BlogPost.objects.published()

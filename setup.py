@@ -62,8 +62,7 @@ try:
             "future >= 0.9.0",
             "pillow",
             "chardet",
-            "djangorestframework",
-            "django-filter",
+            "djangorestframework"
         ],
         entry_points="""
             [console_scripts]
