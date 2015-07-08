@@ -16,6 +16,7 @@ from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
 from mezzanine.pages.models import Page, RichTextPage
+from mezzanine.pages.admin import PageAdminForm
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.tests import TestCase
 
@@ -344,3 +345,23 @@ class PagesTests(TestCase):
         activate(default_language)
         self.assertEqual(page.title, title_1)
         page.delete()
+
+    def test_clean_slug(self):
+        """
+        Test that PageAdminForm strips leading and trailing slashes from slugs
+        or returns `/`.
+        """
+        class TestPageAdminForm(PageAdminForm):
+            class Meta:
+                fields = ["slug"]
+                model = Page
+
+        data = {'slug': '/'}
+        submitted_form = TestPageAdminForm(data=data)
+        self.assertTrue(submitted_form.is_valid())
+        self.assertEqual(submitted_form.cleaned_data['slug'], "/")
+
+        data = {'slug': '/hello/world/'}
+        submitted_form = TestPageAdminForm(data=data)
+        self.assertTrue(submitted_form.is_valid())
+        self.assertEqual(submitted_form.cleaned_data['slug'], 'hello/world')
