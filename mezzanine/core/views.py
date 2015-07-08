@@ -11,6 +11,7 @@ except ImportError:
 
 from django.apps import apps
 from django.contrib import admin
+from django.contrib.sites.models import Site
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.staticfiles import finders
@@ -58,6 +59,8 @@ def set_site(request):
         except SitePermission.DoesNotExist:
             raise PermissionDenied
     request.session["site_id"] = site_id
+    domain = Site.objects.get(pk=site_id).domain
+    request.session["site_domain_url"] = "//%s" % domain
     admin_url = reverse("admin:index")
     next = next_url(request) or admin_url
     # Don't redirect to a change view for an object that won't exist
