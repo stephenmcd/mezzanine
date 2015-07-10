@@ -108,8 +108,9 @@ class Command(BaseCommand):
         if self.confirm("Would you like the default admin account created? "
                         "(yes/no): "):
             if self.verbosity >= 1:
-                print("\nCreating default account (username: %s / password: %s) "
-                      "...\n" % (DEFAULT_USERNAME, DEFAULT_PASSWORD))
+                print("\nCreating default account "
+                      "(username: %s / password: %s) ...\n" %
+                      (DEFAULT_USERNAME, DEFAULT_PASSWORD))
             args = (DEFAULT_USERNAME, DEFAULT_EMAIL, DEFAULT_PASSWORD)
             User.objects.create_superuser(*args)
 
