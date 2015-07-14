@@ -105,11 +105,14 @@ class Command(BaseCommand):
         User = get_user_model()
         if not settings.DEBUG or User.objects.count() > 0:
             return
-        if self.verbosity >= 1:
-            print("\nCreating default account (username: %s / password: %s) "
-                  "...\n" % (DEFAULT_USERNAME, DEFAULT_PASSWORD))
-        args = (DEFAULT_USERNAME, DEFAULT_EMAIL, DEFAULT_PASSWORD)
-        User.objects.create_superuser(*args)
+        if self.confirm("Would you like the default admin account created? "
+                        "(yes/no): "):
+            if self.verbosity >= 1:
+                print("\nCreating default account "
+                      "(username: %s / password: %s) ...\n" %
+                      (DEFAULT_USERNAME, DEFAULT_PASSWORD))
+            args = (DEFAULT_USERNAME, DEFAULT_EMAIL, DEFAULT_PASSWORD)
+            User.objects.create_superuser(*args)
 
     def create_pages(self):
         call_command("loaddata", "mezzanine_required.json")

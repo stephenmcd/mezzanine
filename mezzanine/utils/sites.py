@@ -82,10 +82,12 @@ def host_theme_path():
     """
     Returns the directory of the theme associated with the given host.
     """
-    domain = None  # Set domain to None, which we'll then query for in
-                   # the first iteration of HOST_THEMES. We use the
-                   # current site_id rather than a request object here,
-                   # as it may differ for admin users.
+
+    # Set domain to None, which we'll then query for in the first
+    # iteration of HOST_THEMES. We use the current site_id rather
+    # than a request object here, as it may differ for admin users.
+    domain = None
+
     for (host, theme) in settings.HOST_THEMES:
         if domain is None:
             domain = Site.objects.get(id=current_site_id()).domain
