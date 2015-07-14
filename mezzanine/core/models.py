@@ -45,7 +45,7 @@ class SiteRelated(models.Model):
     class Meta:
         abstract = True
 
-    site = models.ForeignKey("sites.Site", editable=True)
+    site = models.ForeignKey("sites.Site", editable=False)
 
     def save(self, update_site=False, *args, **kwargs):
         """
