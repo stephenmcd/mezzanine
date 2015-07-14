@@ -105,8 +105,11 @@ class Command(BaseCommand):
         User = get_user_model()
         if not settings.DEBUG or User.objects.count() > 0:
             return
-        if self.confirm("Would you like the default admin account created? "
-                        "(yes/no): "):
+        if self.interactive:
+            if self.verbosity >= 1:
+                print("\nCreating default account ...\n")
+            call_command("createsuperuser")
+        else:
             if self.verbosity >= 1:
                 print("\nCreating default account "
                       "(username: %s / password: %s) ...\n" %
