@@ -562,7 +562,7 @@ def admin_app_list(request):
                         menu_order[model_label]
                 except KeyError:
                     app_index = None
-                    app_title = opts.app_label.title()
+                    app_title = opts.app_config.verbose_name.title()
                     model_index = None
                     model_title = None
                 else:
