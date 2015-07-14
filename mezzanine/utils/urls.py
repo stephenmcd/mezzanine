@@ -133,5 +133,12 @@ def path_to_slug(path):
     for prefix in (lang_code, settings.SITE_PREFIX, PAGES_SLUG):
         if prefix:
             path = path.replace(prefix, "", 1)
-    path = path.strip("/") if settings.APPEND_SLASH else path.lstrip("/")
-    return path or "/"
+    return clean_slashes(path) or "/"
+
+
+def clean_slashes(path):
+    """
+    Canonicalize path by removing leading slashes and conditionally
+    removing trailing slashes.
+    """
+    return path.strip("/") if settings.APPEND_SLASH else path.lstrip("/")
