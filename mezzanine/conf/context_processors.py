@@ -2,9 +2,7 @@ from __future__ import unicode_literals
 
 
 # Deprecated settings and their defaults.
-DEPRECATED = {
-    "PAGES_MENU_SHOW_ALL": True
-}
+DEPRECATED = {}
 
 
 class TemplateSettings(dict):

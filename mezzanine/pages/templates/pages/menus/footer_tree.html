@@ -19,8 +19,8 @@
         id="footer-tree-menu-{{ page.html_id }}">
 		<a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
 		{# remove this if tag to always show all nav items #}
-		{% if settings.PAGES_MENU_SHOW_ALL or page.is_current_or_ascendant %}
-		{% if page.has_children_in_menu %}{% page_menu page %}{% endif %}
+		{% if page.is_current_or_ascendant and page.has_children_in_menu %}
+		{% page_menu page %}
 		{% endif %}
 	</li>
     {% endif %}
