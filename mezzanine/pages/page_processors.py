@@ -2,9 +2,9 @@ from __future__ import unicode_literals
 from future.builtins import str as _str
 
 from collections import defaultdict
+from importlib import import_module
 
 from django.apps import apps
-from django.utils.importlib import import_module
 from django.utils.module_loading import module_has_submodule
 
 from mezzanine.pages.models import Page
