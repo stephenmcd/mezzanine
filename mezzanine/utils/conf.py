@@ -208,7 +208,9 @@ def set_dynamic_settings(s):
     # becomes inaccessible.
     mw = "django.middleware.locale.LocaleMiddleware"
     if s["USE_I18N"] and mw not in s["MIDDLEWARE_CLASSES"]:
-        prepend("MIDDLEWARE_CLASSES", mw)
+        session = s["MIDDLEWARE_CLASSES"].index(
+            "django.contrib.sessions.middleware.SessionMiddleware")
+        s["MIDDLEWARE_CLASSES"].insert(session + 1, mw)
 
     # Revert tuple settings back to tuples.
     for setting in tuple_list_settings:
