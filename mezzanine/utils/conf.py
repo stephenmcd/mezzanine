@@ -97,7 +97,8 @@ def set_dynamic_settings(s):
     s.setdefault("MESSAGE_STORAGE", storage)
 
     # If required, add django-modeltranslation for both tests and deployment
-    if not s.get("USE_MODELTRANSLATION", False):
+    if not s.get("USE_MODELTRANSLATION", False) or s["TESTING"]:
+        s["USE_MODELTRANSLATION"] = False
         remove("INSTALLED_APPS", "modeltranslation")
     else:
         try:
