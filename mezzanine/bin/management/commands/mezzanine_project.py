@@ -1,18 +1,33 @@
-from shutil import move
+
+from distutils.dir_util import copy_tree
+from importlib import import_module
+import os
+from optparse import make_option
+from shutil import move, rmtree
+from tempfile import mkdtemp
+
 import django
 from django.core.management import CommandError
-from os import path
-
 from django.core.management.commands.startproject import Command as BaseCommand
 from django.utils import six
 from django.utils.crypto import get_random_string
-import os
 
 import mezzanine
 
 
 class Command(BaseCommand):
+
     help = BaseCommand.help.replace("Django", "Mezzanine")
+
+    if django.VERSION < (1, 8):
+        option_list = BaseCommand.option_list + (make_option(
+            "-a", "--alternate", dest="alt", metavar="PACKAGE",
+            help="Alternate package to use, containing a project_template"),)
+
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+        parser.add_argument("-a", "--alternate", dest="alt", metavar="PACKAGE",
+            help="Alternate package to use, containing a project_template")
 
     def handle(self, *args, **options):
 
@@ -26,35 +41,49 @@ class Command(BaseCommand):
 
         super(Command, self).handle(*args, **options)
 
+        target = options.get("target", None)
         if django.VERSION < (1, 8):
-            proj_name, target = args + (None,) * max(0, 2 - len(args))
+            name = args[0] if args else None
+            if target is None:
+                target = args[1] if len(args) > 1 else None
         else:
-            proj_name, target = options.pop('name'), options.pop('directory')
+            name = options['name']
+            if target is None:
+                target = options['directory']
 
-        project_dir = self.get_project_directory(proj_name, target)
-        project_app_dir = os.path.join(project_dir, proj_name)
+        project_dir = self.get_project_directory(name, target)
+        project_app_dir = os.path.join(project_dir, name)
 
         # Now rename "local_settings.py.template" to "local_settings.py"
-        move(os.path.join(project_app_dir, "local_settings.py.template"),
-             os.path.join(project_app_dir, "local_settings.py"))
+        path = os.path.join(project_app_dir, "local_settings.py.template")
+        if os.path.exists(path):
+            move(path, os.path.join(project_app_dir, "local_settings.py"))
+
+        # Handle an alternate package to install from (Eg cartridge, drum)
+        # We basically re-run handle, pulling in files from the package,
+        # overwriting the ones already copied from Mezzanine.
+        alt = options.pop("alt", "")
+        if alt:
+            options["template"] = six.text_type(
+                os.path.join(os.path.dirname(os.path.abspath(
+                    import_module(alt).__file__)), "project_template"))
+            key = "target" if django.VERSION < (1, 8) else "directory"
+            options[key] = mkdtemp()
+            self.handle(*args, **options)
+            copy_tree(options[key], project_dir)
+            rmtree(options[key])
 
     def get_project_directory(self, name, target):
-        """This code is copied verbatim from Django's TemplateCommand.handle(),
-        but with the directory creation commented out."""
-
-        # if some directory is given, make sure it's nicely expanded
+        """
+        This code is copied verbatim from Django's
+        TemplateCommand.handle(), but with the directory creation
+        code removed.
+        """
+        # if some directory is given, make sure it's nicely expanded.
         if target is None:
-            top_dir = path.join(os.getcwd(), name)
-            # try:
-            #     os.makedirs(top_dir)
-            # except OSError as e:
-            #     if e.errno == errno.EEXIST:
-            #         message = "'%s' already exists" % top_dir
-            #     else:
-            #         message = e
-            #     raise CommandError(message)
+            top_dir = os.path.join(os.getcwd(), name)
         else:
-            top_dir = os.path.abspath(path.expanduser(target))
+            top_dir = os.path.abspath(os.path.expanduser(target))
             if not os.path.exists(top_dir):
                 raise CommandError("Destination directory '%s' does not "
                                    "exist, please create it first." % top_dir)
@@ -62,8 +91,11 @@ class Command(BaseCommand):
         return top_dir
 
     def handle_template(self, template, subdir):
-        """Use Mezzanine's project template by default. The method of picking
-        the default directory is copied from Django's TemplateCommand."""
+        """
+        Use Mezzanine's project template by default. The method of
+        picking the default directory is copied from Django's
+        TemplateCommand.
+        """
         if template is None:
-            return six.text_type(path.join(mezzanine.__path__[0], subdir))
+            return six.text_type(os.path.join(mezzanine.__path__[0], subdir))
         return super(Command, self).handle_template(template, subdir)
