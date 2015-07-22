@@ -351,7 +351,10 @@ def backup(filename):
     """
     tmp_file = "/tmp/%s" % filename
     # We dump to /tmp because user "postgres" can't write to other user folders
-    postgres("pg_dump -Fc %s > %s" % (env.proj_name, tmp_file))
+    # We cd to / because user "postgres" might not have read permissions
+    # elsewhere.
+    with cd("/"):
+        postgres("pg_dump -Fc %s > %s" % (env.proj_name, tmp_file))
     run("cp %s ." % tmp_file)
     sudo("rm -f %s" % tmp_file)
 
