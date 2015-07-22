@@ -131,11 +131,13 @@ def set_dynamic_settings(s):
         remove("INSTALLED_APPS", "django_extensions")
 
     if "debug_toolbar" in s["INSTALLED_APPS"]:
+        # We need to configure debug_toolbar manually otherwise it
+        # breaks in conjunction with modeltranslation. See the
+        # "Explicit setup" section in debug_toolbar docs for more info.
+        s["DEBUG_TOOLBAR_PATCH_SETTINGS"] = False
         debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
         append("MIDDLEWARE_CLASSES", debug_mw)
-        # Ensure debug_toolbar is before modeltranslation to avoid
-        # races for configuration.
-        move("INSTALLED_APPS", "debug_toolbar", 0)
+        s.setdefault("INTERNAL_IPS", ("127.0.0.1",))
 
     # If compressor installed, ensure it's configured and make
     # Mezzanine's settings available to its offline context,

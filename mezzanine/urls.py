@@ -7,7 +7,7 @@ filebrowser.
 from __future__ import unicode_literals
 from future.builtins import str
 
-from django.conf.urls import patterns, include
+from django.conf.urls import patterns, include, url
 from django.http import HttpResponse
 
 from mezzanine.conf import settings
@@ -21,6 +21,16 @@ js_info_dict = {'domain': 'django'}
 urlpatterns += patterns('django.views.i18n',
     (r'^jsi18n/(?P<packages>\S+?)/$', 'javascript_catalog', js_info_dict),
 )
+
+if settings.DEBUG:
+    try:
+        import debug_toolbar
+    except ImportError:
+        pass
+    else:
+        urlpatterns += patterns('',
+            url(r'^__debug__/', include(debug_toolbar.urls)),
+        )
 
 # Django's sitemap app.
 if "django.contrib.sitemaps" in settings.INSTALLED_APPS:
