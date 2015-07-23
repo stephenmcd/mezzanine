@@ -294,11 +294,13 @@ OPTIONAL_APPS = (
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be
 # defined per machine.
-try:
-    from .local_settings import *
-except ImportError as e:
-    if "local_settings" not in str(e):
-        raise e
+
+# Instead of doing "from .local_settings import *", we use exec so that
+# local_settings has full access to everything defined in this module.
+
+f = os.path.join(os.path.dirname(os.path.abspath(__file__)), "local_settings.py")
+if os.path.exists(f):
+    exec(open(f, "rb").read())
 
 
 ####################
