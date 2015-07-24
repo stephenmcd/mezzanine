@@ -298,7 +298,7 @@ OPTIONAL_APPS = (
 # Instead of doing "from .local_settings import *", we use exec so that
 # local_settings has full access to everything defined in this module.
 
-f = os.path.join(os.path.dirname(os.path.abspath(__file__)), "local_settings.py")
+f = os.path.join(PROJECT_APP_PATH, "local_settings.py")
 if os.path.exists(f):
     exec(open(f, "rb").read())
 
