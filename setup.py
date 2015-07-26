@@ -7,7 +7,7 @@ from mezzanine import __version__ as version
 
 
 exclude = ["mezzanine/project_template/dev.db",
-           "mezzanine/project_template/local_settings.py"]
+           "mezzanine/project_template/project_name/local_settings.py"]
 if sys.argv == ["setup.py", "test"]:
     exclude = []
 exclude = dict([(e, None) for e in exclude])
