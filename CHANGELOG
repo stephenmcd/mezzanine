@@ -1,3 +1,17 @@
+Version 4.0.1 (Jul 26, 2015)
+----------------------------
+
+  * Prompt for user creation in createdb command if interactive - Stephen McDonald
+  * Fix #1351 - exception in ``displayable_links_js`` - Alex Hill
+  * Use Django's createsuperuser command when createdb is run in interactive mode - Stephen McDonald
+  * Fix some Django 1.9 warnings - Stephen McDonald
+  * Remove references to long deprecated ``PAGES_MENU_SHOW_ALL`` setting - Stephen McDonald
+  * Locale middleware should fall after session middleware - Stephen McDonald
+  * Set up debug toolbar explicitly when installed. Closes #1358 - Stephen McDonald
+  * Restore support for alternate package option in mezzanine-project command - Stephen McDonald
+  * Fix for issue #1361 - backup command fails when called from deploy - Luke Plant
+  * Use 'exec' instead of import to add ``local_settings``. This allows ``local_settings`` to reference and modify existing settings. Refs issue #1360 - Luke Plant
+
 Version 4.0.0 (Jul 09, 2015)
 ----------------------------
 
@@ -240,6 +254,7 @@ Version 4.0.0 (Jul 09, 2015)
   * Don't show draft blog posts under related posts - Stephen McDonald
   * Ensure link pages only allow external URLs. Closes #1342. Closes #1345 - Stephen McDonald
   * Revert changes to Link model validation - Stephen McDonald
+  * Clean leading/trailing slashes from page admin slugs - Alexander Bliskovsky
 
 Version 3.1.10 (Aug 30, 2014)
 -----------------------------
