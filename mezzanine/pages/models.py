@@ -137,7 +137,7 @@ class Page(BasePage):
         Return all Page subclasses.
         """
         def is_content_model(m):
-            return m is not Page and issubclass(m, Page) and not m._meta.proxy
+            return m is not Page and issubclass(m, Page)
         return list(filter(is_content_model, apps.get_models()))
 
     def get_content_model(self):
