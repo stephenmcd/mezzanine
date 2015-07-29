@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import filter, str
+from future.builtins import str
 try:
     from urllib.parse import urljoin
 except ImportError:  # Python 2
