@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import filter, str
+from future.builtins import str
 try:
     from urllib.parse import urljoin
 except ImportError:  # Python 2
@@ -136,9 +136,8 @@ class Page(BasePage):
         """
         Return all Page subclasses.
         """
-        def is_content_model(m):
-            return m is not Page and issubclass(m, Page) and not m._meta.proxy
-        return list(filter(is_content_model, apps.get_models()))
+        return [m for m in apps.get_models()
+                if m is not Page and issubclass(m, Page)]
 
     def get_content_model(self):
         """

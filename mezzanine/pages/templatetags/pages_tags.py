@@ -50,7 +50,9 @@ def page_menu(context, token):
             slug = ""
         num_children = lambda id: lambda: len(context["menu_pages"][id])
         has_children = lambda id: lambda: num_children(id)() > 0
-        rel = [m.__name__.lower() for m in Page.get_content_models()]
+        rel = [m.__name__.lower()
+               for m in Page.get_content_models()
+               if not m._meta.proxy]
         published = Page.objects.published(for_user=user).select_related(*rel)
         # Store the current page being viewed in the context. Used
         # for comparisons in page.set_menu_helpers.
