@@ -72,7 +72,10 @@ class DisplayableAdmin(BaseTranslationModelAdmin):
     list_display_links = ("title",)
     list_editable = ("status",)
     list_filter = ("status", "keywords__keyword")
-    date_hierarchy = "publish_date"
+    # modeltranslation breaks date hierarchy links, see:
+    # https://github.com/deschler/django-modeltranslation/issues/324
+    # Once that's resolved we can restore this.
+    date_hierarchy = None if settings.USE_MODELTRANSLATION else "publish_date"
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = (
         (None, {
