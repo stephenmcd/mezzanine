@@ -59,7 +59,7 @@ class AdminLoginInterfaceSelectorMiddleware(object):
             response = view_func(request, *view_args, **view_kwargs)
             if request.user.is_authenticated():
                 if login_type == "admin":
-                    next = request.get_full_path()
+                    next = next_url(request) or request.get_full_path()
                     username = request.user.get_username()
                     if (username == DEFAULT_USERNAME and
                             request.user.check_password(DEFAULT_PASSWORD)):
