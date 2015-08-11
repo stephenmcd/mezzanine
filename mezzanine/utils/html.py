@@ -85,7 +85,8 @@ def thumbnails(html):
         height = img.get("height")
         if src_in_media and width and height:
             img["src"] = settings.MEDIA_URL + thumbnail(src, width, height)
-    return str(dom)
+    # BS adds closing br tags, which the browser interprets as br tags.
+    return str(dom).replace("</br>", "")
 
 
 class TagCloser(HTMLParser):
