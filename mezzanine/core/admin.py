@@ -297,6 +297,7 @@ class SingletonAdmin(admin.ModelAdmin):
 
 class SitePermissionInline(admin.TabularInline):
     model = SitePermission
+    extra = 0
     max_num = 1
     can_delete = False
 
