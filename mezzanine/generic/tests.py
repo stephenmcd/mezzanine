@@ -17,9 +17,6 @@ from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.tests import TestCase
 
 
-r_range = settings.RATINGS_RANGE
-
-
 class GenericTests(TestCase):
 
     @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
@@ -33,20 +30,22 @@ class GenericTests(TestCase):
         if settings.RATINGS_ACCOUNT_REQUIRED:
             self.client.login(username=self._username, password=self._password)
         data = RatingForm(None, blog_post).initial
-        for value in r_range:
+        for value in settings.RATINGS_RANGE:
             data["value"] = value
             response = self.client.post(reverse("rating"), data=data)
             # Django doesn't seem to support unicode cookie keys correctly on
             # Python 2. See https://code.djangoproject.com/ticket/19802
             response.delete_cookie(native_str("mezzanine-rating"))
         blog_post = BlogPost.objects.get(id=blog_post.id)
-        count = len(r_range)
-        _sum = sum(r_range)
+        count = len(settings.RATINGS_RANGE)
+        _sum = sum(settings.RATINGS_RANGE)
         average = _sum / count
         if settings.RATINGS_ACCOUNT_REQUIRED:
             self.assertEqual(blog_post.rating_count, 1)
-            self.assertEqual(blog_post.rating_sum, r_range[-1])
-            self.assertEqual(blog_post.rating_average, r_range[-1] / 1)
+            self.assertEqual(blog_post.rating_sum,
+                             settings.RATINGS_RANGE[-1])
+            self.assertEqual(blog_post.rating_average,
+                             settings.RATINGS_RANGE[-1] / 1)
         else:
             self.assertEqual(blog_post.rating_count, count)
             self.assertEqual(blog_post.rating_sum, _sum)
@@ -66,14 +65,15 @@ class GenericTests(TestCase):
         kwargs = {"content_type": content_type, "object_pk": blog_post.id,
                   "site_id": settings.SITE_ID, "comment": "First!!!11"}
         comment = ThreadedComment.objects.create(**kwargs)
-        comment.rating.create(value=r_range[0])
-        comment.rating.add(Rating(value=r_range[-1]))
+        comment.rating.create(value=settings.RATINGS_RANGE[0])
+        comment.rating.add(Rating(value=settings.RATINGS_RANGE[-1]))
         comment = ThreadedComment.objects.get(pk=comment.pk)
 
         self.assertEqual(len(comment.rating.all()), comment.rating_count)
 
-        self.assertEqual(comment.rating_average,
-                         (r_range[0] + r_range[-1]) / 2)
+        self.assertEqual(
+            comment.rating_average,
+            (settings.RATINGS_RANGE[0] + settings.RATINGS_RANGE[-1]) / 2)
 
     @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
                 "blog app required")
