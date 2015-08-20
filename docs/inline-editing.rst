@@ -46,7 +46,7 @@ the `$` symbol.
 ::
 
     {% if user.is_staff %}
-        <script src="{{ STATIC_URL }}mezzanine/js/jquery-1.7.2.min.js">
+        <script src="{{ STATIC_URL }}mezzanine/js/jquery-1.8.3.min.js">
             jQuery.noConflict();
         </script>
     {% endif %}
