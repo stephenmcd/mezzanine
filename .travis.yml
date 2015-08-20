@@ -6,10 +6,6 @@ python:
   - "2.7"
   - "3.3"
   - "3.4"
-matrix:
-  exclude:
-     - python: "2.7"
-       env: DJANGO_VERSION=https://github.com/django/django/archive/stable/1.8.x.zip
 install:
   - pip install $DJANGO_VERSION --use-mirrors
   - pip install . --use-mirrors
