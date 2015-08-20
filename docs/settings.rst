@@ -348,7 +348,7 @@ Default: ``'jquery-1.8.3.min.js'``
 
 Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/
 
-Default: ``'jquery-ui-1.8.2.min.js'``
+Default: ``'jquery-ui-1.8.24.min.js'``
 
 ``MAX_PAGING_LINKS``
 --------------------
