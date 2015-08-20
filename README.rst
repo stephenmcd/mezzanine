@@ -77,6 +77,7 @@ standard Django environment), with the following dependencies:
 
 * `Python`_ 2.7 to 3.3
 * `Django`_ 1.7 to 1.8
+* `django-contrib-comments`_ - for comment support
 * `Pillow`_ - for image resizing (`Python Imaging Library`_ fork)
 * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
 * `filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)
@@ -635,6 +636,7 @@ Quotes
 
 .. _`Django`: http://djangoproject.com/
 .. _`Django Code of Conduct`: https://www.djangoproject.com/conduct/
+.. _`django-contrib-comments`: https://pypi.python.org/pypi/django-contrib-comments
 .. _`BSD licensed`: http://www.linfo.org/bsdlicense.html
 .. _`Wordpress`: http://wordpress.org/
 .. _`great sites people have built using Mezzanine`: http://mezzanine.jupo.org/sites/
