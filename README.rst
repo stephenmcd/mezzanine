@@ -602,6 +602,9 @@ certain sites.
 * `Debra Solomon <http://www.debrasolomon.com>`_
 * `Pampanga Food Company <http://pampangafood.com>`_
 * `Aman Sinaya <http://amansinaya.com>`_
+* `Deschamps osteo <http://http://www.deschamps-osteopathe.fr/>`_
+* `Deschamps kine <http://www.deschamps-kinesitherapeute.fr/>`_
+* `Creactu <http://creactu.fr/>`_
 
 
 Quotes
