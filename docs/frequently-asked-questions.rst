@@ -133,7 +133,7 @@ namely ``mezzanine/core/templates/index.html`` (or
 ``templates/index.html`` if stored directly in your project). You can
 change the ``urlpattern`` for the homepage in your project's
 ``urls.py`` module. Be certain to take a look at the `urls.py module
-<https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template/urls.py>`_,
+<https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template/project_name/urls.py>`_,
 as it contains several examples of different types of homepages.
 In ``urls.py`` you'll find examples of pointing the homepage to a
 ``Page`` object in the page tree, or pointing the homepage to the blog
