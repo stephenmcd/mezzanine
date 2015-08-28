@@ -1,5 +1,6 @@
 from mezzanine.pages.models import Page
 
+
 def page(request):
     """
     Adds the current page to the template context and runs its
