@@ -52,8 +52,13 @@ def add_extra_model_fields(sender, **kwargs):
     by the ``EXTRA_MODEL_FIELDS`` setting.
     """
     model_path = "%s.%s" % (sender.__module__, sender.__name__)
-    for field_name, field in fields.get(model_path, {}).items():
-        field.contribute_to_class(sender, field_name)
+    extra_fields = fields.get(model_path, {})
+    if (extra_fields):
+        for field_name, field in extra_fields.items():
+            field.contribute_to_class(sender, field_name)
+        del fields[model_path]
+        # re-send the class_prepared signal
+        class_prepared.send(sender=sender)
 
 
 if fields:
