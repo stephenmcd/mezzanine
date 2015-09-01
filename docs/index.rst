@@ -17,7 +17,7 @@ powered by Mezzanine <http://mezzanine.jupo.org/sites/>`_.
     before being able to understand the concepts used throughout the
     Mezzanine documentation. *A mantra for working with Mezzanine:
     Mezzanine Is Just Django* - `Ken Bolton <http://bscientific.org/>`_,
-    long-time Mezzanine contributor.
+    Mezzanine core team member.
 
 **Front-end developers** can read about how to set up templates for
 specific :doc:`device-handling` such as phones and tablets. Mezzanine
