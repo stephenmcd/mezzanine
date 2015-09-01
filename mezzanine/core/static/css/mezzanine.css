@@ -28,6 +28,11 @@ ul, ol {
 .navlist-menu-level-0 {
   margin:-5px 0;
 }
+
+.navbar-brand > img {
+    height: 35px;
+}
+
 .navbar-text {
   font-style: italic;
   font-size: 11px;
