@@ -8,6 +8,7 @@ from django.core.management.base import CommandError
 
 from mezzanine.blog.management.base import BaseImporterCommand
 
+
 # TODO: update this to use v3 of the blogger API.
 class Command(BaseImporterCommand):
     """
@@ -81,16 +82,16 @@ class Command(BaseImporterCommand):
 
                 # get the comments from the post feed and then add them to
                 # the post details
-                ids = (blog_id, post_id)
-                comment_url = "/feeds/%s/%s/comments/full?max-results=1000" % ids
-                comments = blogger.Get(comment_url)
+                comment_url = "/feeds/%s/%s/comments/full?max-results=1000"
+                comments = blogger.Get(comment_url % (blog_id, post_id))
 
                 for comment in comments.entry:
                     email = comment.author[0].email.text
                     author_name = comment.author[0].name.text
-                    # this strips off the time zone info off the end as we want UTC
-                    comment_date = datetime.strptime(comment.published.text[:-6],
-                                                     "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
+                    # Strip off the time zone info off the end as we want UTC
+                    comment_date = datetime.strptime(
+                        comment.published.text[:-6],
+                        "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
                     website = ""
                     if comment.author[0].uri:
                         website = comment.author[0].uri.text
@@ -98,7 +99,8 @@ class Command(BaseImporterCommand):
 
                     # add the comment as a dict to the end of the comments list
                     self.add_comment(post=post, name=author_name, email=email,
-                                     body=body, website=website, pub_date=comment_date)
+                                     body=body, website=website,
+                                     pub_date=comment_date)
 
                 processed_posts.append(post_id)
                 new_posts += 1
