@@ -4,32 +4,35 @@
 #
 # Translators:
 # Lê Thanh <lethanhx2k@gmail.com>, 2013
+# Lê Thanh <lethanhx2k@gmail.com>, 2013
+# Ha Pham <me@zniper.net>, 2015.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-05 07:20-0430\n"
-"PO-Revision-Date: 2013-05-09 14:00+0000\n"
-"Last-Translator: Lê Thanh <lethanhx2k@gmail.com>\n"
-"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/"
-"mezzanine/language/vi_VN/)\n"
-"Language: vi_VN\n"
+"PO-Revision-Date: 2015-09-08 10:27+0700\n"
+"Last-Translator: Ha Pham <me@zniper.net>\n"
+"Language-Team: Vietnamese <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: admin.py:27
 msgid "This field is required if status is set to published."
-msgstr "Bắt buộc nếu Trạng thại được chọn là Xuất bản"
+msgstr "Trường này là bắt buộc nếu trạng thái được đặt là công bố."
 
 #: admin.py:47
 msgid "Meta data"
-msgstr "Meta data"
+msgstr "Dữ liệu bổ sung"
 
 #: defaults.py:21
 msgid "Controls the ordering and grouping of the admin menu."
-msgstr "Điều khiển thứ tự và phân nhóm của menu quản trị"
+msgstr "Quản lý sắp xếp và phân nhóm menu quản trị."
 
 #: defaults.py:24 models.py:275
 msgid "Content"
@@ -45,35 +48,35 @@ msgstr "Site"
 
 #: defaults.py:27
 msgid "Users"
-msgstr "Người dùng"
+msgstr "Các người dùng"
 
 #: defaults.py:33
 msgid "Unregister these models from the admin."
-msgstr "Gỡ bỏ model này khỏi quản trị"
+msgstr "Gỡ những model này khỏi phần quản trị."
 
 #: defaults.py:40
 msgid "Size of thumbnail previews for image fields in the admin interface."
-msgstr "Kích thước tảnh humbnail cho các trường image trong giao diện quản trị"
+msgstr "Kích thước thu nhỏ cho các trường hình ảnh trong giao diện quản trị."
 
 #: defaults.py:48
 msgid "Akismet API Key"
-msgstr "Akismet API Key"
+msgstr "Mã Akismet API"
 
 #: defaults.py:49
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
 msgstr ""
-"Key của dịch vụ chặn spam http://akismet.com . Dùng để lọc các nhận xét có "
-"spam."
+"Mã của dịch vụ lọc thư rác http://akismet.com. Được sử dụng để lọc bình luận "
+"và các biểu mẫu."
 
 #: defaults.py:57
 msgid "bit.ly access token"
-msgstr "bit.ly access token"
+msgstr "Mã xác thực cho bit.ly"
 
 #: defaults.py:58
 msgid "Access token for http://bit.ly URL shortening service."
-msgstr "Token key cho http://bit.ly "
+msgstr "Mã xác thực cho dịch vụ thu gọn URL http://bit.ly"
 
 #: defaults.py:65
 msgid ""
@@ -84,31 +87,38 @@ msgid ""
 "is set again, and no entry is returned. This tries to ensure that cache "
 "misses never occur, and if many clients were to get a cache miss at once, "
 "only one would actually need to re-generated the cache entry."
-msgstr "Cache của Mezzanine sử dụng một kĩ thuật gọi là mint caching. "
+msgstr ""
+"Dữ liệu đệm của Mezzanine sử dụng một kĩ thuật gọi là mint caching. Đây là "
+"nơi yêu cầu hết hạn đối với một mẩu đệm được lưu trữ với mẩu đệm trong dữ "
+"liệu đệm, và sự hết hạn thật được dùng với ``CACHE_SET_DELAY``. Như vậy khi "
+"dữ liệu đệm được lấy, hạn lưu trữ được kiểm tra, và nếu nó đã qua, mẩu đệm "
+"được đặt lại, không có thông tin nào được trả về. Điều này cố gắng đảm bảo "
+"những lần trượt đệm không xảy ra, và nếu nhiều client có thể gặp trượt đệm "
+"tại một thời điểm, chỉ có một thực sự cần sinh lại mẩu đệm."
 
 #: defaults.py:93
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
 msgstr ""
-"Danh sách gồm 3 thành phần, mỗi phần chứa 1 danh sách các thẻ template dùng "
-"để hiển thị bảng điều khiển quản trị"
+"Một chuỗi gồm ba mục, mỗi mục có chứa chuỗi các template tag được sử dụng để "
+"sinh bảng điều khiển quản trị."
 
 #: defaults.py:101
 msgid "Device specific template sub-directory to use as the default device."
-msgstr ""
-"Thư mục template tương ứng cho thiết bị truy cập (máy tính, điện thoại, máy "
-"tính bảng) được chọn làm mặc định"
+msgstr "Thư mục template cho thiết bị để sử dụng như thiết bị mặc định."
 
 #: defaults.py:109
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
 msgstr ""
+"Ánh xạ tên thư mục con các thiết bị mẫu cụ thể cho thứ tự của chuỗi mà có "
+"thể được tìm thấy trong các user agents."
 
 #: defaults.py:131
 msgid "If ``True``, website forms will use HTML5 features."
-msgstr "Nếu ``True``, form của website sẽ dùng tính năng HTML5."
+msgstr "Nếu ``Đúng``, các form trong site sẽ sử dụng tính năng của HTML5."
 
 #: defaults.py:138
 msgid ""
@@ -121,12 +131,12 @@ msgid ""
 "field class, the path ``django.models.db.`` can be omitted for regular "
 "Django model fields."
 msgstr ""
-"Danh sách các trường được chèn vào model của Mezzanine (hoặc bất kỳ thư "
-"viện). Mỗi thành phần trong danh sách gồm 1 chuỗi 4 thành phần theo thứ tự: "
-"Đường dẫn đến model và tên trường muốn thêm vào; Đường dẫn đến Class trường; "
-"Danh sách các đối số theo tứ tự ; Từ điển các đối số kí tự để dùng khi tạo "
-"trường. Khi khai báo Class, có thể bỏ qua khai báo ``django.models.db.`` nếu "
-"dùng các trường của Django"
+"Danh sách các trường được chèn vào model của Mezzanine (hoặc thư viện khác). "
+"Mỗi thành phần trong danh sách gồm 1 chuỗi 4 thành phần theo thứ tự: Đường "
+"dẫn đến model và tên trường muốn thêm vào; Đường dẫn đến Class trường; Danh "
+"sách các đối số theo tứ tự; Từ điển các đối số kí tự để dùng khi tạo trường. "
+"Khi khai báo Class, có thể bỏ qua khai báo ``django.models.db.`` nếu dùng "
+"các trường của Django."
 
 #: defaults.py:153
 msgid "Google Analytics ID"
@@ -145,23 +155,27 @@ msgid ""
 "request, the templates directory inside the theme package will be first "
 "searched when loading templates."
 msgstr ""
+"Một chuỗi ánh xạ các tên host và themes, cho phép các template khác nhau "
+"được sử dụng cho các host HTTP. Mỗi phẩn tử trong chuỗi là một chuỗi hai "
+"phần tử, chứa một host như ``othersite.example.com``, và tên của một package "
+"sử dụng được cho theme. Nếu host phù hợp với yêu cầu, thư mục các template "
+"trong gói theme sẽ được tìm trước tiên khi nạp các templates."
 
 #: defaults.py:175
 msgid "Name of the jQuery file."
-msgstr "Tên file jQuery"
+msgstr "Tên của file jQuery."
 
 #: defaults.py:176
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
-msgstr "Tên file jQuery tìm thấy trong mezzanine/core/static/mezzanine/js/"
+msgstr "Tên của file jQuery trong mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
-msgstr "Tên của file jQuery UI"
+msgstr "Tên của file jQuery UI."
 
 #: defaults.py:185
 msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
-msgstr ""
-"Tên của file jQuery UI tìm thấy trong mezzanine/core/static/mezzanine/js/"
+msgstr "Tên của file jQuery UI trong mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:193
 msgid "Max paging links"
@@ -169,18 +183,19 @@ msgstr "Liên kết trang tối đa"
 
 #: defaults.py:194
 msgid "Max number of paging links to display when paginating."
-msgstr "Số liên kết trang tối đa hiển thị khi phân trang"
+msgstr "Số liên kết trang tối đa xuất hiện khi phân trang."
 
 #: defaults.py:201
 msgid "Media library per site"
-msgstr "Thư viện Media cho mỗi site"
+msgstr "Thư viện media cho từ site"
 
 #: defaults.py:202
 msgid ""
 "If ``True``, each site will use its own directory within the filebrowser "
 "media library."
 msgstr ""
-"Nếu ``True``, mỗi site sẽ dùng thư mục riêng trong thư viện media filebrowser"
+"Nếu ``Đúng``, mỗi site sẽ sử dụng thư mục riêng trong trình duyệt file thư "
+"viện media "
 
 #: defaults.py:210
 msgid ""
@@ -190,42 +205,45 @@ msgid ""
 "object_name``, that when subclassing ``Ownable``, will still show all "
 "records in the admin change-list interface, regardless of the current user."
 msgstr ""
-"Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
-"admin change-list records filtered down to records owned by the current "
-"user. This setting contains a sequence of models in the format ``app_label."
-"object_name``, that when subclassing ``Ownable``, will still show all "
-"records in the admin change-list interface, regardless of the current user."
+"Các model thừa kế ``Ownable`` và sử dụng ``OwnableAdmin`` có các bản ghi "
+"thay đổi trong phần quản trị được lọc thành các bản ghi của người dùng hiện "
+"thời. Thiết lập này chứa một chuỗi các models theo dạng ``app_label."
+"object_name``, mà khi thừa kế ``Ownable``, sẽ vẫn hiển thị mọi bản ghi trong "
+"danh sách thay đổi, không phụ thuộc vào người dùng hiện thời."
 
 #: defaults.py:222
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
-msgstr "Đường dẫn và tên của widget dùng cho ``RichTextField``."
+msgstr ""
+"Đường dẫn đến package và tên class của widget được sử dụng cho "
+"``RichTextField``."
 
 #: defaults.py:230
 msgid ""
 "List of HTML tags that won't be stripped from ``RichTextField`` instances."
-msgstr "Danh sách các thẻ HTML không bị loại bỏ khỏi ``RichTextField``"
+msgstr "Danh sách các thẻ HTML không bị loại khỏi ``RichTextField``."
 
 #: defaults.py:246
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr "Danh sách các thuộc tính HTML không bị lọc bỏ khỏi ``RichTextField`` "
+msgstr ""
+"Danh sách các thuộc tính thẻ HTML không bị loại khỏi ``RichTextField``."
 
 #: defaults.py:264
 msgid ""
 "List of inline CSS styles that won't be stripped from ``RichTextField`` "
 "instances."
-msgstr "Danh sách các CSS style không bị lọc bỏ khỏi ``RichTextField`` "
+msgstr "Danh sách các inline CSS style không bị loại khỏi ``RichTextField``."
 
 #: defaults.py:272
 msgid ""
 "Dotted path to the function to call on a ``RichTextField`` value before it "
 "is rendered to the template."
 msgstr ""
-"Đường dẫn tới hàm gọi giá trị ``RichTextField`` trước khi được hiển thị vào "
-"template"
+"Đường dẫn tới hàm để gọi với giá trị của ``RichTextField`` trước khi nó được "
+"thể hiện trên template."
 
 #: defaults.py:282
 msgid "High"
@@ -233,7 +251,7 @@ msgstr "Cao"
 
 #: defaults.py:283
 msgid "Low (allows video, iframe, Flash, etc)"
-msgstr "Thấp (cho phép video, iframe, Flash, v.v..)"
+msgstr "Thấp (cho phép video, iframe, Flash, vv)"
 
 #: defaults.py:284
 msgid "No filtering"
@@ -241,7 +259,7 @@ msgstr "Không lọc"
 
 #: defaults.py:289
 msgid "Rich Text filter level"
-msgstr "Mức độ lọc Rich Text"
+msgstr "Mức lọc Rich Text"
 
 #: defaults.py:290
 msgid ""
@@ -277,7 +295,7 @@ msgstr ""
 "chúng được sẽ bị lọc bỏ khi cấp độ lọc được thiết lập ở mức cao nhất.\n"
 "\n"
 "Thiết lập cấp độ lọc thành không lọc sẽ tắt chế độ lọc và cho phép người "
-"dùng thêm vào các đoạn mã bất kì, bao gồm cả các thẻ script"
+"dùng thêm vào các đoạn mã bất kì, bao gồm cả các thẻ script."
 
 #: defaults.py:313
 msgid ""
@@ -285,17 +303,17 @@ msgid ""
 "form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
-"Danh sách các model trong form tìm kiếm. Mỗi model nên theo định dạng "
-"``app_label.model_name``. Chỉ  `nên dùng model kế thừa từ `mezzanine.core."
-"models.Displayable`"
+"Danh sách các model được mặc định cung cấp trong form tìm kiếm. Mỗi model "
+"nên theo định dạng ``app_label.model_name``. Chỉ nên dùng model kế thừa từ "
+"`mezzanine.core.models.Displayable`."
 
 #: defaults.py:323
 msgid "Search results per page"
-msgstr "Kết quả tìm kiếm từng trang"
+msgstr "Kết quả tìm kiếm trên mỗi trang"
 
 #: defaults.py:324
 msgid "Number of results shown in the search results page."
-msgstr "Kết quả hiện thị trong trang kết quả tìm kiếm"
+msgstr "Số kết quả được hiển thị trong các trang kết quả tìm kiếm."
 
 #: defaults.py:331
 msgid ""
@@ -318,8 +336,8 @@ msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
 msgstr ""
-"Tiêu đề hiển thị  ở phần đầu của site và được gán thêm vào nội dung của các "
-"thẻ HTML title trong mỗi trang"
+"Tiêu đề được hiển thị ở phía trên cùng của trang web, và được thêm vào nội "
+"dung của các thẻ HTML title trên mỗi trang."
 
 #: defaults.py:351
 msgid "Tagline"
@@ -327,11 +345,11 @@ msgstr "Tagline"
 
 #: defaults.py:352
 msgid "A tag line that will appear at the top of all pages."
-msgstr "Một dòng các thẻ sẽ hiển thị tại phần đầu của các trang"
+msgstr "Một dòng tag xuất hiện ở phía trên cùng của tất cả các trang."
 
 #: defaults.py:354
 msgid "An open source content management platform."
-msgstr "Một hệ thống quản trị nội dung mã nguồn mở"
+msgstr "Một nền tảng quản trị nội dung mã nguồn mở."
 
 #: defaults.py:359
 msgid ""
@@ -340,10 +358,10 @@ msgid ""
 "ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
 "Django's slugify function, or something of your own if required."
 msgstr ""
-"Thiết lập chế độ Unicode cho URL Slug. Mặc định là ``mezzanine.utils.urls."
-"slugify_unicode``, cho phép các kí tự không thuộc URL ascii. Chuyển thành "
-"``django.template.defaultfilters.slugify`` để dùng hàm slugify của Django "
-"hoặc hàm do bạn tự viết"
+"Đường dẫn Python đến một khả thi để chuyển các chuỗi thành URL slugs. Mặc "
+"định là ``mezzanine.utils.urls.slugify_unicode`` nó chấp nhận các URLS không "
+"phải ascii. Đổi thành ``django.template.defaultfilters.slugify`` để sử dụng "
+"hàm slugify của Django, hoặc hàm nào đó của bạn nếu cần."
 
 #: defaults.py:370
 msgid ""
@@ -354,10 +372,11 @@ msgid ""
 "which will use the http://akismet.com spam filtering service when the "
 "``AKISMET_API_KEY`` setting is configured."
 msgstr ""
-"Danh sách đường dẫn Python đến các hàm để kiểm tra spam cho nội dung được "
-"gửi. Mỗi hàm nên gồm 3 tham số: request object, form object và URL được gửi "
-"đến. Mặc định, ``mezzanine.utils.views.is_spam_akismet``  sẽ dùng dịch vụ "
-"lọc spam của http://akismet.com khi ``AKISMET_API_KEY`` được khai báo."
+"Một dãy các đường dẫn Python đến các hàm khả thi được sử dụng để đưa nội "
+"dung (như các form hay bình luận) là nội dung rác. Mỗi hàm nên nhận 3 tham "
+"số: đối tượng request, đối tượng form, và URL dùng để post. Mặc định là "
+"``mezzanine.utils.views.is_spam_akismet`` nó sẽ dùng dịch vụ http://akismet."
+"com khi ``AKISMET_API_KEY`` được thiết lập."
 
 #: defaults.py:383
 msgid "Enable SSL"
@@ -368,18 +387,20 @@ msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
 msgstr ""
-"Nếu ``True``, người dùng sẽ tự động được chuyển sang HTTPS đối với URLS khai "
-"báo trong ``SSL_FORCE_URL_PREFIXES``"
+"Nếu ``Đúng``, người dùng sẽ được điều hướng tự động đến HTTPS đối với các "
+"URL trong ``SSL_FORCE_URL_PREFIXES``."
 
 #: defaults.py:393
 msgid "Force Host"
-msgstr "Force Host"
+msgstr "Host bắt buộc"
 
 #: defaults.py:394
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
-msgstr "Tên host truy xuất tới site khớp với chứng chỉ SSL"
+msgstr ""
+"Tên host mà trang web luôn luôn được truy cập qua phải khớp với trong chứng "
+"chỉ SSL."
 
 #: defaults.py:412
 msgid ""
@@ -387,39 +408,41 @@ msgid ""
 "will be accessible over SSL, and all other URLs will be redirected back to "
 "HTTP if accessed over HTTPS."
 msgstr ""
-"Nếu ``True``, chỉ các URL khai báo trong thiết lập "
-"``SSL_FORCE_URL_PREFIXES``sẽ truy xuất qua SSL và tất các các URL khác sẽ "
-"được chuyển hướng ngược sang HTTP nếu truy xuất qua HTTPS"
+"Nếu ``Đúng``, chỉ có các URL trong ``SSL_FORCE_URL_PREFIXES`` là có thể được "
+"tiếp cận qua SSL, và tất cả các URL khác sẽ được điều hướng trở lại HTTP nếu "
+"tiếp cận qua HTTPS."
 
 #: defaults.py:422
 msgid "List of words which will be stripped from search queries."
-msgstr "Danh sách các từ sẽ bị lọc bỏ khỏi chuỗi tìm kiếm"
+msgstr "Danh sách các từ mà sẽ bị loại bỏ từ các truy vấn tìm kiếm."
 
 #: defaults.py:479
 msgid "Tag Cloud Sizes"
-msgstr "Kích thước Tag Cloud"
+msgstr "Độ lớn Tag Cloud"
 
 #: defaults.py:480
 msgid "Number of different sizes for tags when shown as a cloud."
-msgstr "Kích thước cho tags khi hiển thị thành cloud"
+msgstr "Số kích cỡ khác nhau cho các tags khi hiển thị như cloud (đám mây)."
 
 #: defaults.py:487
 msgid "Sequence of setting names available within templates."
-msgstr "Danh sách các tên thiết lập trong template"
+msgstr "Chuỗi các thiết lập tên có sẵn trong các template."
 
 #: defaults.py:502
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
-msgstr "Tên thư mục lưu thumbnails (Sẽ được tạo dựa trên thư mục của ảnh gốc)"
+msgstr ""
+"Tên thư mục để lưu trữ các ảnh nhỏ trong đó, sẽ được tạo ra tương đối đến "
+"thư mục hình ảnh gốc."
 
 #: defaults.py:510
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
 msgstr ""
-"URL cho file javascript (đường dẫn tương đối với ``STATIC_URL``) mà xử lý "
-"thiết lập TinyMCE khi ``RICHTEXT_WIDGET_CLASS` được dùng"
+"URL của file JavaScript (đường dẫn tương đối của ``STATIC_URL``) chứa cấu "
+"hình TinyMCE khi giá trị mặc định ``RICHTEXT_WIDGET_CLASS`` được sử dụng."
 
 #: defaults.py:519
 msgid ""
@@ -427,21 +450,22 @@ msgid ""
 "field_name`` to the Python dotted path to function names that will be used "
 "for the file field's ``upload_to`` argument."
 msgstr ""
-"Từ điển tên trường file theo định dạng ``app_label.model_name.field_name`` "
-"dùng cho đối số ``upload_to``"
+"Dict khớp với các trường theo mẫu ``app_label.model_name.field_name`` đến "
+"đường dẫn đến các tên hàm sẽ được sử dung cho tham sỗ ``upload_to`` của "
+"trường file."
 
 #: defaults.py:535
 msgid ""
 "If ``True``, the south application will be automatically added to the "
 "``INSTALLED_APPS`` setting."
 msgstr ""
-"Nếu ``True``, ứng dụng south sẽ được tự động thêm vào thiết lập "
-"``INSTALLED_APPS``"
+"Nếu ``Đúng``, ứng dụng south sẽ được tự động thêm vào ``INSTALLED_APPS`` "
+"trong settings."
 
 #: fields.py:37
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
-msgstr "Không thể đọc giá trị của  settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "Không thể lấy giá trị của settings.RICHTEXT_WIDGET_CLASS: %s"
 
 #: forms.py:84 models.py:317
 msgid "Order"
@@ -457,7 +481,7 @@ msgstr "URL"
 
 #: models.py:58
 msgid "Leave blank to have the URL auto-generated from the title."
-msgstr "Để trống để tự động tạo URL từ tiêu đề"
+msgstr "Để trống để có URL tự sinh ra từ tiêu đề."
 
 #: models.py:100
 msgid "View on site"
@@ -468,8 +492,8 @@ msgid ""
 "Optional title to be used in the HTML title tag. If left blank, the main "
 "title field will be used."
 msgstr ""
-"Tiêu đề tùy chọn dùng trong thẻ HTML title. Nếu để trống, trường title chính "
-"sẽ được dùng"
+"Tiêu đề tùy chọn để sử dụng trong thẻ HTML title. Nếu để trống, tiêu đề "
+"chính sẽ được sử dụng."
 
 #: models.py:114
 msgid "Description"
@@ -477,15 +501,15 @@ msgstr "Mô tả"
 
 #: models.py:115
 msgid "Generate description"
-msgstr "Tạo mô tả"
+msgstr "Sinh mô tả"
 
 #: models.py:116
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
 msgstr ""
-"Nếu chọn, phần mô tả sẽ được tự động tạo ra từ phần Nội dung. Bỏ chọn nếu "
-"bạn muốn tự viết mô tả"
+"Nếu chọn, phần mô tả sẽ được sinh tự động từ nội dung. Không chọn nếu bạn "
+"muốn tự mình viết mô tả."
 
 #: models.py:119
 msgid "Keywords"
@@ -497,7 +521,7 @@ msgstr "Bản nháp"
 
 #: models.py:177
 msgid "Published"
-msgstr "Xuất bản"
+msgstr "Đã công bố"
 
 #: models.py:188
 msgid "Status"
@@ -505,16 +529,16 @@ msgstr "Trạng thái"
 
 #: models.py:190
 msgid "With Draft chosen, will only be shown for admin users on the site."
-msgstr "Nếu chọn Bản nháp, chỉ có quản trị mới xem được trên site"
+msgstr ""
+"Với Bản Nháp được chọn, chỉ xuất hiện đối với những người quản trị site"
 
 #: models.py:192 models.py:225
 msgid "Published from"
-msgstr "Xuất bản từ"
+msgstr "Đã công bố vào"
 
 #: models.py:193
 msgid "With Published chosen, won't be shown until this time"
-msgstr ""
-"Nếu chọn Xuất bản, nội dung sẽ không được hiển thị cho đến thời gian này"
+msgstr "Với Đã Công Bố được chọn, chỉ xuất hiện sau thời điểm này"
 
 #: models.py:195
 msgid "Expires on"
@@ -522,7 +546,7 @@ msgstr "Hết hạn vào"
 
 #: models.py:196
 msgid "With Published chosen, won't be shown after this time"
-msgstr "Nếu chọn Xuất bản, nội dung sẽ không hiển thị sau thời gian này"
+msgstr "Với Đã Công Bố được chọn, chỉ xuất hiện sau thời điểm này"
 
 #: models.py:199
 msgid "Show in sitemap"
@@ -534,19 +558,19 @@ msgstr "Tác giả"
 
 #: models.py:425
 msgid "Sites"
-msgstr "Sites"
+msgstr "Các site"
 
 #: models.py:428
 msgid "Site permission"
-msgstr "Quyền hạn Site"
+msgstr "Quyền hạn site"
 
 #: models.py:429
 msgid "Site permissions"
-msgstr "Quyền hạn Site"
+msgstr "Các quyền hạn Site"
 
 #: views.py:87
 msgid "Permission denied"
-msgstr "Không có quyền"
+msgstr "Không được phép"
 
 #: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
@@ -554,7 +578,7 @@ msgstr "Mọi thứ"
 
 #: templates/base.html:121
 msgid "Powered by"
-msgstr "Powered by"
+msgstr "Hỗ trợ bởi"
 
 #: templates/base.html:124
 msgid "and"
@@ -562,16 +586,16 @@ msgstr "và"
 
 #: templates/base.html:127
 msgid "Theme by"
-msgstr "Theme bởi"
+msgstr "Giao d bởi"
 
 #: templates/base.html:130
 msgid "View Mobile Site"
-msgstr "Xem trên di động"
+msgstr "Xem Bản Mobile"
 
 #: templates/index.html:4 templates/index.html.py:5 templates/index.html:8
 #: templates/search_results.html:10 templates/admin/index.html:15
 msgid "Home"
-msgstr "Trang nhà"
+msgstr "Trang chủ"
 
 #: templates/index.html:12
 msgid ""
@@ -601,7 +625,7 @@ msgstr ""
 "\n"
 "<h2>Chúc mừng!</h2>\n"
 "<p>\n"
-"Chào mừng bạn đến với website được phát triển trên nền Mezzanine\n"
+"Chào mừng bạn đến với website được phát triển trên nền Mezzanine.\n"
 "Dưới đây là một số liên kết nhanh bạn có thể bắt đầu:\n"
 "</p>\n"
 "<ul>\n"
@@ -616,7 +640,7 @@ msgstr ""
 "    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
 "html\">Các câu hỏi thường gặp</a></li>\n"
 "    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
-"settings\">Full list of settings</a></li>\n"
+"settings\">Đầy dủ danh sách tùy chỉnh</a></li>\n"
 "    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Triển "
 "khai lên server</a></li>\n"
 "</ul>\n"
@@ -633,7 +657,8 @@ msgid ""
 "No results were found in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
 "\n"
-"Không tìm thấy trong %(search_type)s khớp với truy vấn của bạn: %(query)s\n"
+"Không tìm thấy kết quả trong %(search_type)s phù hợp với truy vấn: "
+"%(query)s\n"
 
 #: templates/search_results.html:24
 #, python-format
@@ -644,7 +669,7 @@ msgid ""
 msgstr ""
 "\n"
 "Hiển thị %(start)s đến %(end)s của %(total)s kết quả trong %(search_type)s "
-"khớp với truy vấn: %(query)s\n"
+"phù hợp với truy vấn của bạn: %(query)s\n"
 
 #: templates/search_results.html:35
 msgid "read more"
@@ -660,11 +685,11 @@ msgstr "Bảng điều khiển"
 
 #: templates/admin/login.html:21
 msgid "You don't have permission to access the admin for this site."
-msgstr "Bạn không có quyền truy cập trang quản trị site này"
+msgstr "Bạn không có quyền quản trị của site này"
 
 #: templates/admin/login.html:28
 msgid "Username or email:"
-msgstr "Username or email:"
+msgstr "Tên truy cập hoặc email:"
 
 #: templates/admin/login.html:32
 msgid "Password:"
@@ -698,7 +723,7 @@ msgstr "Thay đổi"
 #: templates/admin/includes/dynamic_inline_stacked.html:6
 #: templates/admin/includes/dynamic_inline_tabular.html:6
 msgid "Add another"
-msgstr "Thêm"
+msgstr "Thêm nữa"
 
 #: templates/admin/includes/recent_actions.html:4
 msgid "Recent Actions"
@@ -710,15 +735,15 @@ msgstr "Hoạt động của tôi"
 
 #: templates/admin/includes/recent_actions.html:9
 msgid "None available"
-msgstr "Không tồn tại"
+msgstr "Không sẵn sàng"
 
 #: templates/errors/404.html:6
 msgid "Page not found"
-msgstr "Không tìm thấy"
+msgstr "Không tìm thấy trang"
 
 #: templates/errors/404.html:10
 msgid "The page you requested does not exist."
-msgstr "Trang bạn yêu cầu không tồn tại"
+msgstr "Trang bạn đã yêu cầu không tồn tại."
 
 #: templates/errors/500.html:6
 msgid "Error"
@@ -726,7 +751,7 @@ msgstr "Lỗi"
 
 #: templates/errors/500.html:10
 msgid "Sorry, an error occurred."
-msgstr "Có lỗi xảy ra"
+msgstr "Rất tiếc, đã có lỗi xảy ra."
 
 #: templates/includes/editable_form.html:16
 msgid "Save"
@@ -738,7 +763,7 @@ msgstr "Hủy"
 
 #: templates/includes/editable_form.html:25
 msgid "Edit"
-msgstr "Chỉnh sửa"
+msgstr "Sửa"
 
 #: templates/includes/editable_toolbar.html:11
 msgid "Log out"
@@ -746,7 +771,7 @@ msgstr "Thoát"
 
 #: templates/includes/pagination.html:8
 msgid "Page"
-msgstr "Page"
+msgstr "Trang"
 
 #: templates/includes/pagination.html:8
 msgid "of"
@@ -754,7 +779,7 @@ msgstr "của"
 
 #: templates/includes/search_form.html:4
 msgid "Search"
-msgstr "TÌm kiếm"
+msgstr "Tìm kiếm"
 
 #: templates/includes/search_form.html:22
 msgid "Go"
