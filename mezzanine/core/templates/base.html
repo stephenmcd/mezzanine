@@ -57,12 +57,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
+    {% block navbar_title %}
     {% if settings.SITE_TITLE %}<a class="navbar-brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
     {% if settings.SITE_TAGLINE %}<p class="navbar-text visible-lg">{{ settings.SITE_TAGLINE }}</p>{% endif %}
+    {% endblock%}
 </div>
 <div class="navbar-collapse collapse">
-    {% search_form "all" %}
-    {% page_menu "pages/menus/dropdown.html" %}
+    {% block navbar_search_form %}{% search_form "all" %}{% endblock %}
+    {% block navbar_dropdown_menu %}{% page_menu "pages/menus/dropdown.html" %}{% endblock%}
 </div>
 </div>
 </div>
