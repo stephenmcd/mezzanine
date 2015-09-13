@@ -72,7 +72,8 @@ class Command(BaseImporterCommand):
                 title = entry.title.text
                 content = entry.content.text
                 # this strips off the time zone info off the end as we want UTC
-                clean_date = entry.published.text[:re.search(r"\.\d{3}", entry.published.text).end()]
+                clean_date = entry.published.text[:re.search(r"\.\d{3}",
+                    entry.published.text).end()]
                 published_date = datetime.strptime(clean_date,
                         "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
 
@@ -91,7 +92,8 @@ class Command(BaseImporterCommand):
                     email = comment.author[0].email.text
                     author_name = comment.author[0].name.text
                     # Strip off the time zone info off the end as we want UTC
-                    clean_date = comment.published.text[:re.search(r"\.\d{3}", comment.published.text).end()]
+                    clean_date = comment.published.text[:re.search(r"\.\d{3}",
+                        comment.published.text).end()]
                     comment_date = datetime.strptime(clean_date,
                         "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
                     website = ""
