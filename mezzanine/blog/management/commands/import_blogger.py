@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from datetime import datetime, timedelta
 from optparse import make_option
 from time import timezone
+import re
 
 from django.core.management.base import CommandError
 
@@ -71,7 +72,8 @@ class Command(BaseImporterCommand):
                 title = entry.title.text
                 content = entry.content.text
                 # this strips off the time zone info off the end as we want UTC
-                published_date = datetime.strptime(entry.published.text[:-6],
+                clean_date = entry.published.text[:re.search(r"\.\d{3}", entry.published.text).end()]
+                published_date = datetime.strptime(clean_date,
                         "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
 
                 # TODO - issues with content not generating correct <P> tags
@@ -89,8 +91,8 @@ class Command(BaseImporterCommand):
                     email = comment.author[0].email.text
                     author_name = comment.author[0].name.text
                     # Strip off the time zone info off the end as we want UTC
-                    comment_date = datetime.strptime(
-                        comment.published.text[:-6],
+                    clean_date = comment.published.text[:re.search(r"\.\d{3}", comment.published.text).end()]
+                    comment_date = datetime.strptime(clean_date,
                         "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
                     website = ""
                     if comment.author[0].uri:
