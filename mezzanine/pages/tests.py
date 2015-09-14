@@ -4,6 +4,7 @@ from future.builtins import str
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.db import connection
+from django.http import HttpResponse
 from django.utils.unittest import skipUnless
 from django.shortcuts import resolve_url
 from django.template import Context, Template
@@ -310,6 +311,28 @@ class PagesTests(TestCase):
 
         page, _ = RichTextPage.objects.get_or_create(title="test page")
         self.assertEqual(test_page_processor(current_request(), page), {})
+
+    def test_exact_page_processor_for(self):
+        """
+        Test that passing exact_page=True works with the PageMiddleware
+        """
+        from mezzanine.pages.middleware import PageMiddleware
+        from mezzanine.pages.page_processors import processor_for
+        from mezzanine.pages.views import page as page_view
+
+        @processor_for('foo/bar', exact_page=True)
+        def test_page_processor(request, page):
+            return HttpResponse("bar")
+
+        foo, _ = RichTextPage.objects.get_or_create(title="foo")
+        bar, _ = RichTextPage.objects.get_or_create(title="bar", parent=foo)
+
+        request = self._request_factory.get('/foo/bar/')
+        request.user = self._user
+        response = PageMiddleware().process_view(request, page_view, [], {})
+
+        self.assertTrue(isinstance(response, HttpResponse))
+        self.assertContains(response, "bar")
 
     @skipUnless(settings.USE_MODELTRANSLATION and len(settings.LANGUAGES) > 1,
                 "modeltranslation configured for several languages required")

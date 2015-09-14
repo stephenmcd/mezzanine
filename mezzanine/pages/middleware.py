@@ -5,7 +5,7 @@ from django.core.exceptions import ImproperlyConfigured, MiddlewareNotUsed
 from django.http import HttpResponse, Http404
 
 from mezzanine.conf import settings
-from mezzanine.pages import page_processors
+from mezzanine.pages import context_processors, page_processors
 from mezzanine.pages.models import Page
 from mezzanine.pages.views import page as page_view
 from mezzanine.utils.importing import import_dotted_path
@@ -78,6 +78,7 @@ class PageMiddleware(object):
         if pages:
             page = pages[0]
             setattr(request, "page", page)
+            context_processors.page(request)
         else:
             return
 
