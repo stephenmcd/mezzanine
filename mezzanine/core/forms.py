@@ -4,6 +4,7 @@ from future.builtins import str
 from uuid import uuid4
 
 from django import forms
+from django.contrib.admin.templatetags.admin_static import static
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.safestring import mark_safe
 
@@ -41,8 +42,8 @@ class TinyMceWidget(forms.Textarea):
     """
 
     class Media:
-        js = ("mezzanine/tinymce/tinymce.min.js", settings.TINYMCE_SETUP_JS)
-        css = {'all': ("mezzanine/tinymce/tinymce.css",)}
+        js = (static("mezzanine/tinymce/tinymce.min.js"), static(settings.TINYMCE_SETUP_JS))
+        css = {'all': (static("mezzanine/tinymce/tinymce.css"),)}
 
     def __init__(self, *args, **kwargs):
         super(TinyMceWidget, self).__init__(*args, **kwargs)
@@ -74,8 +75,8 @@ class DynamicInlineAdminForm(forms.ModelForm):
     """
 
     class Media:
-        js = ("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME,
-              "mezzanine/js/admin/dynamic_inline.js",)
+        js = (static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
+              static("mezzanine/js/admin/dynamic_inline.js"),)
 
 
 class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
