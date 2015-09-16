@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from future.builtins import bytes, int
+from future.builtins import int
 
 import base64
 import hashlib
