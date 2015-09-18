@@ -297,42 +297,60 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     thumb_name += "-padded-%s" % padding_color if padding else ""
     thumb_name = "%s%s" % (thumb_name, image_ext)
 
-    # `image_name` is used here for the directory path, as each image
-    # requires its own sub-directory using its own name - this is so
-    # we can consistently delete all thumbnails for an individual
-    # image, which is something we do in filebrowser when a new image
-    # is written, allowing us to purge any previously generated
-    # thumbnails that may match a new image name.
     thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
                              settings.THUMBNAILS_DIR_NAME, image_name)
-    if not os.path.exists(thumb_dir):
-        try:
-            os.makedirs(thumb_dir)
-        except OSError:
-            pass
-
-    thumb_path = os.path.join(thumb_dir, thumb_name)
     thumb_url = "%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
                               quote(image_name.encode("utf-8")),
                               quote(thumb_name.encode("utf-8")))
-    image_url_path = os.path.dirname(image_url)
-    if image_url_path:
-        thumb_url = "%s/%s" % (image_url_path, thumb_url)
 
-    try:
-        thumb_exists = os.path.exists(thumb_path)
-    except UnicodeEncodeError:
-        # The image that was saved to a filesystem with utf-8 support,
-        # but somehow the locale has changed and the filesystem does not
-        # support utf-8.
-        from mezzanine.core.exceptions import FileSystemEncodingChanged
-        raise FileSystemEncodingChanged()
-    if thumb_exists:
-        # Thumbnail exists, don't generate it.
-        return thumb_url
-    elif not default_storage.exists(image_url):
-        # Requested image does not exist, just return its URL.
-        return image_url
+    # Assume externally hosted.
+    if "://" in settings.MEDIA_URL:
+        thumb_url = "%s/%s" % (image_url, thumb_url)
+
+        try:
+            if default_storage.exists(thumb_url):
+                # Thumbnail exists, don't generate it.
+                return thumb_url
+        except:
+            pass
+
+    else:        
+        # `image_name` is used here for the directory path, as each image
+        # requires its own sub-directory using its own name - this is so
+        # we can consistently delete all thumbnails for an individual
+        # image, which is something we do in filebrowser when a new image
+        # is written, allowing us to purge any previously generated
+        # thumbnails that may match a new image name.
+        thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
+                                 settings.THUMBNAILS_DIR_NAME, image_name)
+        if not os.path.exists(thumb_dir):
+            try:
+                os.makedirs(thumb_dir)
+            except OSError:
+                pass
+
+        thumb_path = os.path.join(thumb_dir, thumb_name)
+        thumb_url = "%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
+                                  quote(image_name.encode("utf-8")),
+                                  quote(thumb_name.encode("utf-8")))
+        image_url_path = os.path.dirname(image_url)
+        if image_url_path:
+            thumb_url = "%s/%s" % (image_url_path, thumb_url)
+
+        try:
+            thumb_exists = os.path.exists(thumb_path)
+        except UnicodeEncodeError:
+            # The image that was saved to a filesystem with utf-8 support,
+            # but somehow the locale has changed and the filesystem does not
+            # support utf-8.
+            from mezzanine.core.exceptions import FileSystemEncodingChanged
+            raise FileSystemEncodingChanged()
+        if thumb_exists:
+            # Thumbnail exists, don't generate it.
+            return thumb_url
+        elif not default_storage.exists(image_url):
+            # Requested image does not exist, just return its URL.
+            return image_url
 
     f = default_storage.open(image_url)
     try:
@@ -389,18 +407,46 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     to_pos = (left, top)
     try:
         image = ImageOps.fit(image, to_size, Image.ANTIALIAS, 0, to_pos)
-        image = image.save(thumb_path, filetype, quality=quality, **image_info)
-        # Push a remote copy of the thumbnail if MEDIA_URL is
-        # absolute.
+
+        # Save to remote storage if URL is absolute
         if "://" in settings.MEDIA_URL:
-            with open(thumb_path, "rb") as f:
-                default_storage.save(thumb_url, File(f))
+            import cStringIO
+            thumb_io = cStringIO.StringIO()
+            try:
+                image.save(thumb_io, filetype, quality=quality, **image_info)            
+
+                thumb_io.seek(0, os.SEEK_END)
+                thumb_io_size = thumb_io.tell()
+
+                thumb_file = InMemoryUploadedFile(thumb_io, None, thumb_name, "image/jpeg",
+                                                  thumb_io_size, None)            
+                try:
+                    default_storage.save(thumb_url, thumb_file)
+                except:
+                    pass
+                finally:
+                    thumb_file.close()            
+
+            except:
+                pass
+            finally:
+                thumb_io.close()
+        else:
+            image = image.save(thumb_path, filetype, quality=quality, **image_info)
+            # # Push a remote copy of the thumbnail if MEDIA_URL is
+            # # absolute.
+            # if "://" in settings.MEDIA_URL:
+            #     with open(thumb_path, "rb") as f:
+            #         default_storage.save(thumb_url, File(f))
     except Exception:
         # If an error occurred, a corrupted image may have been saved,
         # so remove it, otherwise the check for it existing will just
         # return the corrupted image next time it's requested.
         try:
-            os.remove(thumb_path)
+            if "://" in settings.MEDIA_URL:
+                default_storage.delete(thumb_url)            
+            else:
+                os.remove(thumb_path)
         except Exception:
             pass
         return image_url
