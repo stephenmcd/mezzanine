@@ -42,7 +42,8 @@ class TinyMceWidget(forms.Textarea):
     """
 
     class Media:
-        js = (static("mezzanine/tinymce/tinymce.min.js"), static(settings.TINYMCE_SETUP_JS))
+        js = (static("mezzanine/tinymce/tinymce.min.js"),
+              static(settings.TINYMCE_SETUP_JS))
         css = {'all': (static("mezzanine/tinymce/tinymce.css"),)}
 
     def __init__(self, *args, **kwargs):
