@@ -10,6 +10,7 @@ from os.path import join
 
 from django.conf.urls import patterns, url
 from django.contrib import admin
+from django.contrib.admin.templatetags.admin_static import static
 from django.contrib.messages import info
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect
@@ -50,7 +51,7 @@ class FormAdmin(PageAdmin):
     """
 
     class Media:
-        css = {"all": ("mezzanine/css/admin/form.css",)}
+        css = {"all": (static("mezzanine/css/admin/form.css"),)}
 
     inlines = (FieldAdmin,)
     list_display = ("title", "status", "email_copies",)

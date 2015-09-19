@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from django.contrib.admin.templatetags.admin_static import static
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.forms import ValidationError, ModelForm
@@ -28,12 +29,12 @@ if settings.USE_MODELTRANSLATION:
         """
         class Media:
             js = (
-                "modeltranslation/js/force_jquery.js",
-                "mezzanine/js/%s" % settings.JQUERY_UI_FILENAME,
-                "mezzanine/js/admin/tabbed_translation_fields.js",
+                static("modeltranslation/js/force_jquery.js"),
+                static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
+                static("mezzanine/js/admin/tabbed_translation_fields.js"),
             )
             css = {
-                "all": ("mezzanine/css/admin/tabbed_translation_fields.css",),
+                "all": (static("mezzanine/css/admin/tabbed_translation_fields.css"),),
             }
 
 else:

@@ -4,6 +4,7 @@ from future.builtins import int, str, zip
 from django import forms
 from django_comments.forms import CommentSecurityForm, CommentForm
 from django_comments.signals import comment_was_posted
+from django.contrib.admin.templatetags.admin_static import static
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -33,7 +34,7 @@ class KeywordsWidget(forms.MultiWidget):
     """
 
     class Media:
-        js = ("mezzanine/js/admin/keywords_field.js",)
+        js = (static("mezzanine/js/admin/keywords_field.js"),)
 
     def __init__(self, attrs=None):
         """
