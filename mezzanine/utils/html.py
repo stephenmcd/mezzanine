@@ -2,8 +2,13 @@ from __future__ import absolute_import, unicode_literals
 from future.builtins import chr, int, str
 
 try:
-    from html.parser import HTMLParser, HTMLParseError
+    from html.parser import HTMLParser
     from html.entities import name2codepoint
+    try:
+        from html.parser import HTMLParseError
+    except ImportError:  # Python 3.5+
+        class HTMLParseError(Exception):
+            pass
 except ImportError:  # Python 2
     from HTMLParser import HTMLParser, HTMLParseError
     from htmlentitydefs import name2codepoint
