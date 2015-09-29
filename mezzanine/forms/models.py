@@ -34,7 +34,8 @@ class Form(Page, RichText):
                     "each of the form fields entered. You can also enter "
                     "a message here that will be included in the email."))
     use_captcha = models.BooleanField(_("Require captcha"), default=False,
-            help_text=_("Prevent form submit (and email processing) if captcha not OK"))   
+        help_text=_("Prevent form submit (and email processing) "
+                    "if captcha not OK"))
 
     class Meta:
         verbose_name = _("Form")

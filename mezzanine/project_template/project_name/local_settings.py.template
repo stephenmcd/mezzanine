@@ -32,10 +32,8 @@ DATABASES = {
 # GOOGLE RECAPTCHA FOR FORMS #
 ##############################
 
-RECAPTCHA_SECRET="<fill google recaptcha secret>"
-RECAPTCHA_SITEID="<fill google recaptcha site id>"
-
-
+RECAPTCHA_SECRET = "<fill google recaptcha secret>"
+RECAPTCHA_SITEID = "<fill google recaptcha site id>"
 
 ###################
 # DEPLOY SETTINGS #

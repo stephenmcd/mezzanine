@@ -14,6 +14,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='form',
             name='use_captcha',
-            field=models.BooleanField(default=False, help_text='Prevent form submit (and email processing) if captcha not OK', verbose_name='Require captcha'),            
+            field=models.BooleanField(
+                default=False,
+                help_text="Prevent form submit (and email processing)" +
+                " if captcha not OK",
+                verbose_name='Require captcha'),
         ),
     ]
