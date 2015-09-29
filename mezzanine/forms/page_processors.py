@@ -10,6 +10,7 @@ from mezzanine.forms.signals import form_invalid, form_valid
 from mezzanine.pages.page_processors import processor_for
 from mezzanine.utils.email import split_addresses, send_mail_template
 from mezzanine.utils.views import is_spam
+from .google_recaptcha_check import google_recaptcha_validation
 
 
 def format_value(value):
@@ -22,20 +23,6 @@ def format_value(value):
     return value
 
 
-import http.client,urllib.parse
-import json
-
-def google_recaptcha_validation(request,page,rip,response,secret):
-    params = urllib.parse.urlencode({'secret': secret, 'response': response, 'remoteip': rip})
-    headers = {"Content-type": "application/x-www-form-urlencoded",
-                "Accept": "text/plain"}
-    conn = http.client.HTTPSConnection("www.google.com")
-    conn.request("POST", "/recaptcha/api/siteverify", params, headers)
-    response = conn.getresponse()
-    if response.status==200:
-        data=response.read()
-        return json.loads(str(data,'iso-8859-1'))['success']
-    return False
 
 @processor_for(Form)
 def form_processor(request, page):
