@@ -22,14 +22,43 @@ def format_value(value):
     return value
 
 
+import http.client,urllib.parse
+import json
+
+def google_recaptcha_validation(request,page,rip,response,secret):
+    params = urllib.parse.urlencode({'secret': secret, 'response': response, 'remoteip': rip})
+    headers = {"Content-type": "application/x-www-form-urlencoded",
+                "Accept": "text/plain"}
+    conn = http.client.HTTPSConnection("www.google.com")
+    conn.request("POST", "/recaptcha/api/siteverify", params, headers)
+    response = conn.getresponse()
+    if response.status==200:
+        data=response.read()
+        return json.loads(str(data,'iso-8859-1'))['success']
+    return False
+
 @processor_for(Form)
 def form_processor(request, page):
     """
     Display a built form and handle submission.
     """
+    if settings.RECAPTCHA_SITEID:
+        page.form.google_recaptcha_site_id=settings.RECAPTCHA_SITEID    
     form = FormForForm(page.form, RequestContext(request),
                        request.POST or None, request.FILES or None)
-    if form.is_valid():
+        
+    if form.is_valid():        
+        if (request.method=="POST") and ('g-recaptcha-response' in request.POST):
+            prevalidation=False
+            rip=request.environ['REMOTE_ADDR']
+            g_recaptcha_response=request.POST['g-recaptcha-response']
+            secret_part=settings.RECAPTCHA_SECRET
+            if g_recaptcha_response:
+                prevalidation=google_recaptcha_validation(request, page, rip, g_recaptcha_response, secret_part)
+            if not prevalidation:
+                form_invalid.send(sender=request, form=form)
+                return {"form": form}                
+
         url = page.get_absolute_url() + "?sent=1"
         if is_spam(request, form, url):
             return redirect(url)
