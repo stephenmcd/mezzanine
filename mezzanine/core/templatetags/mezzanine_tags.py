@@ -529,7 +529,6 @@ def admin_app_list(request):
     menu_order = {}
     for (group_index, group) in enumerate(settings.ADMIN_MENU_ORDER):
         group_title, items = group
-        group_title = group_title.title()
         for (item_index, item) in enumerate(items):
             if isinstance(item, (tuple, list)):
                 item_title, item = item
