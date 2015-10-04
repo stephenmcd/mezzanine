@@ -19,11 +19,12 @@ from mezzanine.utils.views import render
 User = get_user_model()
 
 
-def login(request, template="accounts/account_login.html", extra_context=None):
+def login(request, template="accounts/account_login.html",
+          form_class=LoginForm, extra_context=None):
     """
     Login form.
     """
-    form = LoginForm(request.POST or None)
+    form = form_class(request.POST or None)
     if request.method == "POST" and form.is_valid():
         authenticated_user = form.save()
         info(request, _("Successfully logged in"))
@@ -141,8 +142,8 @@ def profile_update(request, template="accounts/account_profile_update.html",
 
 
 def password_reset(request, template="accounts/account_password_reset.html",
-                   extra_context=None):
-    form = PasswordResetForm(request.POST or None)
+                   form_class=PasswordResetForm, extra_context=None):
+    form = form_class(request.POST or None)
     if request.method == "POST" and form.is_valid():
         user = form.save()
         send_verification_mail(request, user, "password_reset_verify")
