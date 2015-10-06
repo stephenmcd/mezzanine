@@ -75,7 +75,7 @@ def page_menu(context, token):
         # Maintain a dict of page IDs -> parent IDs for fast
         # lookup in setting page.is_current_or_ascendant in
         # page.set_menu_helpers.
-        context["_parent_page_ids"] = {}
+        context.dicts[0]["_parent_page_ids"] = {}
         pages = defaultdict(list)
         for page in published.order_by("_order"):
             page.set_helpers(context)
