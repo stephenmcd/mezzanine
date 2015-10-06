@@ -605,6 +605,7 @@ certain sites.
 * `Deschamps osteo <http://www.deschamps-osteopathe.fr>`_
 * `Deschamps kine <http://www.deschamps-kinesitherapeute.fr>`_
 * `Creactu <http://creactu.fr>`_
+* `scrunch <https://scrunch.com>`_
 
 
 Quotes
