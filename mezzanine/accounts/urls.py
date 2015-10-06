@@ -43,9 +43,13 @@ urlpatterns = patterns("mezzanine.accounts.views",
         "password_reset_verify", name="password_reset_verify"),
     url("^%s%s$" % (ACCOUNT_URL.strip("/"), _slash),
         "account_redirect", name="account_redirect"),
-    url("^%s(/(?P<url_suffix>.*))?%s$" % (OLD_ACCOUNT_URL.strip("/"), _slash),
-        "old_account_redirect", name="old_account_redirect"),
 )
+
+if ACCOUNT_URL != OLD_ACCOUNT_URL:
+    urlpatterns += patterns("mezzanine.accounts.views",
+        url("^%s(/(?P<url_suffix>.*))?%s$" % (OLD_ACCOUNT_URL.strip("/"), _slash),
+            "old_account_redirect", name="old_account_redirect"),
+    )
 
 if settings.ACCOUNTS_PROFILE_VIEWS_ENABLED:
     urlpatterns += patterns("mezzanine.accounts.views",
