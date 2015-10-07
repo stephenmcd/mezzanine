@@ -198,7 +198,7 @@ from your custom widget, by doing the following:
       ``filebrowser/css/smoothness/jquery-ui.min.css``
    :js:
       | ``mezzanine/js/%s' % settings.JQUERY_FILENAME``
-      | ``filebrowser/js/jquery-ui-1.8.24.min.js``
+      | ``filebrowser/js/jquery-ui-1.10.4.min.js``
       | ``filebrowser/js/filebrowser-popup.js``
 
 2. Call the JavaScript function ``browseMediaLibrary`` to show the

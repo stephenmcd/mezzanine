@@ -201,7 +201,7 @@ register_setting(
     description=_("Name of the jQuery file found in "
                   "mezzanine/core/static/mezzanine/js/"),
     editable=False,
-    default="jquery-1.8.3.min.js",
+    default="jquery-1.9.1.min.js",
 )
 
 register_setting(
@@ -210,7 +210,7 @@ register_setting(
     description=_("Name of the jQuery UI file found in "
                   "mezzanine/core/static/mezzanine/js/"),
     editable=False,
-    default="jquery-ui-1.8.24.min.js",
+    default="jquery-ui-1.10.4.min.js",
 )
 
 register_setting(

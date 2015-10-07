@@ -1,6 +1,6 @@
 jQuery(function($) {
 
-    $(window.__toolbar_html).appendTo('body');
+    $('body').append(window.__toolbar_html);
 
     var iconOpen = '&#8677;', iconClose = '&#8676;';
     var cookieName = 'mezzanine-admin-toolbar';
