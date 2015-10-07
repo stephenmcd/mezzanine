@@ -32,7 +32,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         # Overridden to provide a template value for nevercache_key. The
-        # method is copied verbatim from startproject.Command."""
+        # method is copied verbatim from startproject.Command.
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
         options['nevercache_key'] = get_random_string(50, chars)
 
