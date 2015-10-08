@@ -37,7 +37,7 @@ class Command(BaseCommand):
         options['nevercache_key'] = get_random_string(50, chars)
 
         # Indicate that local_settings.py.template should be rendered
-        options['files'] = ['local_settings.py.template']
+        options['files'].append('local_settings.py.template')
 
         super(Command, self).handle(*args, **options)
 
