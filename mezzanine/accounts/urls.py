@@ -6,7 +6,6 @@ from mezzanine.conf import settings
 
 
 ACCOUNT_URL = getattr(settings, "ACCOUNT_URL", "/accounts/")
-OLD_ACCOUNT_URL = "/account/"
 SIGNUP_URL = getattr(settings, "SIGNUP_URL",
                      "/%s/signup/" % ACCOUNT_URL.strip("/"))
 SIGNUP_VERIFY_URL = getattr(settings, "SIGNUP_VERIFY_URL",
@@ -43,8 +42,6 @@ urlpatterns = patterns("mezzanine.accounts.views",
         "password_reset_verify", name="password_reset_verify"),
     url("^%s%s$" % (ACCOUNT_URL.strip("/"), _slash),
         "account_redirect", name="account_redirect"),
-    url("^%s(/(?P<url_suffix>.*))?%s$" % (OLD_ACCOUNT_URL.strip("/"), _slash),
-        "old_account_redirect", name="old_account_redirect"),
 )
 
 if settings.ACCOUNTS_PROFILE_VIEWS_ENABLED:
