@@ -309,6 +309,7 @@ plug-in added to the list below. We also ask that you add it to the
   within other Mezzanine pages as slideshows.
 * `mezzanine-onepage`_ - Design helper for single-page Mezzanine sites.
 * `mezzanine-api`_ - RESTful web API for Mezzanine.
+* `mezzanine-smartling`_ - Integrates Mezzanine content with `Smartling Translations`_.
 
 
 Donating
@@ -788,6 +789,8 @@ Quotes
 .. _`mezzanine-slideshows`: https://github.com/philipsouthwell/mezzanine-slideshows
 .. _`mezzanine-onepage`: https://github.com/lucmilland/mezzanine-onepage
 .. _`mezzanine-api`: https://github.com/gcushen/mezzanine-api
+.. _`mezzanine-smartling`: https://github.com/Appdynamics/mezzanine-smartling
+.. _`Smartling Translations`: http://www.smartling.com/
 
 
 .. PEOPLE WITH QUOTES
