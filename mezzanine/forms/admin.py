@@ -10,7 +10,6 @@ from os.path import join
 
 from django.conf.urls import patterns, url
 from django.contrib import admin
-from django.contrib.admin.templatetags.admin_static import static
 from django.contrib.messages import info
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect
@@ -23,6 +22,7 @@ from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.forms.forms import EntriesForm
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.pages.admin import PageAdmin
+from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url, slugify
 
 

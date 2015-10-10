@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from django.contrib.admin.templatetags.admin_static import static
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.forms import ValidationError, ModelForm
@@ -14,6 +13,7 @@ from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
+from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url
 
 if settings.USE_MODELTRANSLATION:
