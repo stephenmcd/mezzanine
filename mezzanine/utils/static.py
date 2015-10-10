@@ -8,4 +8,3 @@ from django.utils.functional import lazy
 
 
 static_lazy = lazy(static, str)
-
