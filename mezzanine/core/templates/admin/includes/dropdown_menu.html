@@ -9,7 +9,7 @@
         {% for model in app.models %}
             {% if model.perms.add or model.perms.change or model.perms.custom %}
             <li{% if forloop.first %} class="first"{% endif %}><a
-                href="{{ model.admin_url }}{% if not model.perms.change and not model.perms.custom %}add/{% endif %}">{{ model.name }}</a></li>
+                href="{% if not model.perms.change and not model.perms.custom %}{{ model.add_url }}{% else %}{{ model.admin_url }}{% endif %}">{{ model.name }}</a></li>
             {% endif %}
         {% endfor %}
         </ul>
