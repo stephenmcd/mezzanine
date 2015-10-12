@@ -4,11 +4,11 @@ from future.builtins import str
 from uuid import uuid4
 
 from django import forms
-from django.contrib.admin.templatetags.admin_static import static
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.safestring import mark_safe
 
 from mezzanine.conf import settings
+from mezzanine.utils.static import static_lazy as static
 
 
 class Html5Mixin(object):

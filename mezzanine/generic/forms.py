@@ -4,7 +4,6 @@ from future.builtins import int, str, zip
 from django import forms
 from django_comments.forms import CommentSecurityForm, CommentForm
 from django_comments.signals import comment_was_posted
-from django.contrib.admin.templatetags.admin_static import static
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -13,6 +12,7 @@ from mezzanine.core.forms import Html5Mixin
 from mezzanine.generic.models import Keyword, ThreadedComment, Rating
 from mezzanine.utils.cache import add_cache_bypass
 from mezzanine.utils.email import split_addresses, send_mail_template
+from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.views import ip_for_request
 
 
