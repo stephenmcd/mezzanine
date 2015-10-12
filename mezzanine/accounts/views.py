@@ -162,23 +162,3 @@ def password_reset_verify(request, uidb36=None, token=None):
     else:
         error(request, _("The link you clicked is no longer valid."))
         return redirect("/")
-
-
-def old_account_redirect(request, url_suffix):
-    """
-    Catches and redirects any unmatched account URLs to their
-    correct version (account/ to accounts/) as per #934.
-    The URL is constructed manually, handling slashes as appropriate.
-    """
-    if url_suffix is None:
-        correct_url = reverse("account_redirect")
-    else:
-        correct_url = "{account_url}{middle_slash}{suffix}{slash}".format(
-                account_url=reverse("account_redirect"),
-                middle_slash="/" if not settings.APPEND_SLASH else "",
-                suffix=url_suffix,
-                slash="/" if settings.APPEND_SLASH else "")
-    next = next_url(request)
-    if next:
-        correct_url += "?next=%s" % next
-    return redirect(correct_url)
