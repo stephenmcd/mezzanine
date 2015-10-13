@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from future.builtins import str
 
 from copy import copy
 
@@ -25,8 +26,8 @@ class SettingsAdmin(admin.ModelAdmin):
     class Media(BaseTranslationModelAdmin.Media):
         css = copy(BaseTranslationModelAdmin.Media.css)
         css["all"] += (static("mezzanine/css/admin/settings.css"),)
-        js = [js.replace(static("tabbed_translation_fields.js"),
-                         static("tabbed_translatable_settings.js"))
+        js = [js.replace(str(static("tabbed_translation_fields.js")),
+                         str(static("tabbed_translatable_settings.js")))
               for js in BaseTranslationModelAdmin.Media.js]
 
     def changelist_redirect(self):
