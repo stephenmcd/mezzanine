@@ -113,7 +113,7 @@ class BaseGenericRelation(GenericRelation):
         ``related_items_changed`` handler.
         """
         for_model = kwargs["instance"].content_type.model_class()
-        if issubclass(for_model, self.model):
+        if for_model and issubclass(for_model, self.model):
             instance_id = kwargs["instance"].object_pk
             try:
                 instance = for_model.objects.get(id=instance_id)
