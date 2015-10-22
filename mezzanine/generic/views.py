@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+    from __future__ import unicode_literals
 from future.builtins import str
 
 from json import dumps
@@ -12,7 +12,6 @@ from django.db.models import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
-from django.views.decorators.http import require_POST
 
 from mezzanine.conf import settings
 from mezzanine.generic.forms import ThreadedCommentForm, RatingForm
@@ -87,7 +86,6 @@ def initial_validation(request, prefix):
     return obj, post_data
 
 
-@require_POST
 def comment(request, template="generic/comments.html", extra_context=None):
     """
     Handle a ``ThreadedCommentForm`` submission and redirect back to its
@@ -120,7 +118,6 @@ def comment(request, template="generic/comments.html", extra_context=None):
     return response
 
 
-@require_POST
 def rating(request):
     """
     Handle a ``RatingForm`` submission and redirect back to its
