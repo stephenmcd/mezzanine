@@ -1,0 +1,19 @@
+Django==1.8.5
+-e git+https://github.com/rahul754/mezzanine.git@9125a25c6970eeaa14814add4d929c73c8addab3#egg=Mezzanine-mezzanine12
+Pillow==3.0.0
+argparse==1.2.1
+beautifulsoup4==4.4.1
+bleach==1.4.2
+chardet==2.3.0
+django-contrib-comments==1.6.1
+filebrowser-safe==0.4.0
+future==0.15.2
+grappelli-safe==0.4.1
+html5lib==1.0b8
+oauthlib==1.0.3
+pytz==2015.6
+requests==2.8.1
+requests-oauthlib==0.5.0
+six==1.10.0
+tzlocal==1.2
+wsgiref==0.1.2
