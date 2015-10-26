@@ -35,6 +35,10 @@ form_fieldsets = list(form_fieldsets)
 form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from",
     "email_copies", "email_subject", "email_message")}))
 
+inline_field_excludes = []
+if not settings.FORMS_USE_HTML5:
+    inline_field_excludes += ["placeholder_text"]
+
 
 class FieldAdmin(TabularDynamicInlineAdmin):
     """
@@ -42,6 +46,7 @@ class FieldAdmin(TabularDynamicInlineAdmin):
     add dynamic "Add another" link and drag/drop ordering.
     """
     model = Field
+    exclude = inline_field_excludes
 
 
 class FormAdmin(PageAdmin):
