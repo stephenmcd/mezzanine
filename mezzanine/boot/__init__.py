@@ -21,6 +21,8 @@ from mezzanine.boot.lazy_admin import LazyAdminSite
 from mezzanine.utils.importing import import_dotted_path
 
 
+default_app_config = 'mezzanine.boot.apps.BootConfig'
+
 # Convert ``EXTRA_MODEL_FIELDS`` into a more usable structure, a
 # dictionary mapping module.model paths to dicts of field names mapped
 # to field instances to inject, with some sanity checking to ensure

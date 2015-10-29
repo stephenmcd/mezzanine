@@ -19,6 +19,9 @@ from django.utils.module_loading import module_has_submodule
 from mezzanine import __version__
 from mezzanine.core.request import current_request
 
+
+default_app_config = 'mezzanine.conf.apps.ConfConfig'
+
 registry = {}
 
 

@@ -15,6 +15,9 @@ from django.core.exceptions import ImproperlyConfigured
 from mezzanine.utils.importing import import_dotted_path
 
 
+default_app_config = 'mezzanine.accounts.apps.AccountsConfig'
+
+
 class ProfileNotConfigured(Exception):
     pass
 

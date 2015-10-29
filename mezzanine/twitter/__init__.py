@@ -8,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine import __version__
 
 
+default_app_config = 'mezzanine.twitter.apps.TwitterConfig'
+
 # Constants/choices for the different query types.
 
 QUERY_TYPE_USER = "user"

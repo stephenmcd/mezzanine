@@ -7,6 +7,8 @@ from __future__ import unicode_literals
 
 # These methods are part of the API for django_comments
 
+default_app_config = 'mezzanine.generic.apps.GenericConfig'
+
 
 def get_model():
     from mezzanine.generic.models import ThreadedComment
