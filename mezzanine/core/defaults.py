@@ -290,9 +290,9 @@ register_setting(
     description=_("List of inline CSS styles that won't be stripped from "
         "``RichTextField`` instances."),
     editable=False,
-    default=("border", "float", "list-style-type", "margin", "margin-bottom",
-        "margin-left", "margin-right", "margin-top", "padding-left",
-        "text-align", "text-decoration", "vertical-align"),
+    default=("border", "display", "float", "list-style-type", "margin",
+        "margin-bottom", "margin-left", "margin-right", "margin-top",
+        "padding-left", "text-align", "text-decoration", "vertical-align"),
 )
 
 register_setting(
