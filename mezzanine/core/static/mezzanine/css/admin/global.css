@@ -312,3 +312,7 @@ td, th, th a, label, .help, p.help {
 .related-widget-wrapper .selector {
     margin-right: 10px;
 }
+/* Hide duplicate profile fields */
+fieldset.profile .items .empty-form {
+    display: none;
+}

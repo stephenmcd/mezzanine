@@ -12,7 +12,7 @@
     {{ inline_admin_formset.formset.non_form_errors }}
     <div class="items">
         {% for inline_admin_form in inline_admin_formset %}
-        <div class="{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}">
+        <div class="{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}{% if forloop.last %} empty-form{% endif %}">
             {% if inline_admin_form.form.non_field_errors %}{{ inline_admin_form.form.non_field_errors }}{% endif %}
             {% for fieldset in inline_admin_form %}
                 {% include "admin/includes/fieldset.html" %}
