@@ -203,14 +203,30 @@ purpose and can be used across a variety of scenarios.
 ``fields_for``
 --------------
 
-The ``fields_for`` template tag is an inclusion tag that takes a form
-object as its single argument, and renders the fields for the form. It
-uses the template ``core/templates/form_fields.html``, which can then
-be overridden to customize the look and feel of all forms throughout a
+The ``fields_for`` template tag is a simple tag that takes a form object
+as its single argument, and renders the fields for the form. It uses the
+template ``core/templates/includes/form_fields.html``, which can then be
+overridden to customize the look and feel of all forms throughout a
 Mezzanine site::
 
     {% load mezzanine_tags %}
 
+    <form method="POST">
+        {% fields_for some_form_object %}
+        <input type="submit">
+    </form>
+
+``errors_for``
+--------------
+
+The ``errors_for`` template tag is an inclusion tag that takes a form
+object and renders any error messages with the template
+``core/templates/includes/form_errors.html``. It plays well with
+``fields_for``::
+
+    {% load mezzanine_tags %}
+
+    {% errors_for some_form_object %}
     <form method="POST">
         {% fields_for some_form_object %}
         <input type="submit">
