@@ -141,7 +141,7 @@ class Page(BasePage):
 
     def get_content_model(self):
         """
-        Provies a generic method of retrieving the instance of the custom
+        Provides a generic method of retrieving the instance of the custom
         content type's model for this page.
         """
         return getattr(self, self.content_model, None)
