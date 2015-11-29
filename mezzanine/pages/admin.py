@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 from mezzanine.conf import settings
 from mezzanine.core.admin import DisplayableAdmin, DisplayableAdminForm
 from mezzanine.pages.models import Page, RichTextPage, Link
-from mezzanine.utils.urls import admin_url
+from mezzanine.utils.urls import admin_url, clean_slashes
 
 
 # Add extra fields for pages to the Displayable fields.
@@ -27,10 +27,14 @@ class PageAdminForm(DisplayableAdminForm):
     def clean_slug(self):
         """
         Save the old slug to be used later in PageAdmin.save_model()
-        to make the slug change propagate down the page tree.
+        to make the slug change propagate down the page tree, and clean
+        leading and trailing slashes which are added on elsewhere.
         """
         self.instance._old_slug = self.instance.slug
-        return self.cleaned_data['slug']
+        new_slug = self.cleaned_data['slug']
+        if not isinstance(self.instance, Link) and new_slug != "/":
+            new_slug = clean_slashes(self.cleaned_data['slug'])
+        return new_slug
 
 
 class PageAdmin(DisplayableAdmin):

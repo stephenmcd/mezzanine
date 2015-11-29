@@ -1,10 +1,11 @@
 from __future__ import unicode_literals
-from future.builtins import filter, str
+from future.builtins import str
 try:
     from urllib.parse import urljoin
 except ImportError:  # Python 2
     from urlparse import urljoin
 
+from django.apps import apps
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -135,12 +136,12 @@ class Page(BasePage):
         """
         Return all Page subclasses.
         """
-        is_content_model = lambda m: m is not Page and issubclass(m, Page)
-        return list(filter(is_content_model, models.get_models()))
+        return [m for m in apps.get_models()
+                if m is not Page and issubclass(m, Page)]
 
     def get_content_model(self):
         """
-        Provies a generic method of retrieving the instance of the custom
+        Provides a generic method of retrieving the instance of the custom
         content type's model for this page.
         """
         return getattr(self, self.content_model, None)

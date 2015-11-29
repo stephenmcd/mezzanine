@@ -29,8 +29,8 @@ ordering of both the groups and their models is maintained when they are
 displayed in the admin area.
 
 For example, to specify two groups ``Content`` and ``Site`` in your admin
-with the first group containing models from Mezzanine's ``pages`` and
-``blog`` apps, and the second with the remaining models provided by Django,
+with the first group containing models from Mezzanine's :mod:`.pages` and
+:mod:`.blog` apps, and the second with the remaining models provided by Django,
 you would define the following in your projects's ``settings`` module::
 
     ADMIN_MENU_ORDER = (
@@ -40,11 +40,13 @@ you would define the following in your projects's ``settings`` module::
 
 Any admin classes that aren't specifed are included using Django's normal
 approach of grouping models alphabetically by application name. You can
-also control this behavior by implementing a ``in_menu`` method on your
+also control this behavior by implementing a :meth:`.in_menu` method on your
 admin class, which should return ``True`` or ``False``. When implemented,
 this method controls whether the admin class appears in the menu or not.
-Here's an advanced example that excludes the ``BlogCategoryAdmin`` class
+Here's an advanced example that excludes the :class:`.BlogCategoryAdmin` class
 from the menu, unless it is explicitly defined in ``ADMIN_MENU_ORDER``::
+
+    from django.contrib import admin
 
     class BlogCategoryAdmin(admin.ModelAdmin):
         """
@@ -104,8 +106,8 @@ tags in the format ``tag_lib.tag_name`` that will be rendered in each of the
 columns .
 
 The list of models and recent actions normally found in the Django admin are
-available as inclusion tags via ``mezzanine_tags.app_list`` and
-``mezzanine_tags.recent_actions`` respectively. For example, to configure the
+available as inclusion tags via :func:`.mezzanine_tags.app_list` and
+:func:`.mezzanine_tags.recent_actions` respectively. For example, to configure the
 dashboard with a blog form above the model list in
 the first column, a list of recent comments in the second column and the
 recent actions list in the third column, you would define the following in
@@ -117,10 +119,10 @@ your projects's ``settings`` module::
         ("mezzanine_tags.recent_actions",),
     )
 
-Here we can see the ``quick_blog`` inclusion tag provided by the
-``mezzanine.blog.templatetags.blog_tags`` module and the
-``recent_comments`` inclusion tag provided by the
-``mezzanine.generic.templatetags.comment_tags`` module.
+Here we can see the :func:`.quick_blog` inclusion tag provided by the
+:mod:`.mezzanine.blog.templatetags.blog_tags` module and the
+:func:`.recent_comments` inclusion tag provided by the
+:func:`mezzanine.generic.templatetags.comment_tags` module.
 
 WYSIWYG Editor
 ==============
@@ -128,7 +130,7 @@ WYSIWYG Editor
 By default, Mezzanine uses the
 `TinyMCE editor <http://tinymce.moxiecode.com/>`_ to provide rich
 editing for all model fields of the type
-``mezzanine.core.fields.RichTextField``. The setting ``RICHTEXT_WIDGET_CLASS``
+:class:`mezzanine.core.fields.RichTextField`. The setting ``RICHTEXT_WIDGET_CLASS``
 contains the import path to the widget class that will be used for
 editing each of these fields, which therefore provides the ability for
 implementing your own editor widget which could be a modified version
@@ -142,7 +144,7 @@ of TinyMCE, a different editor or even no editor at all.
     file.
 
 The default value for the ``RICHTEXT_WIDGET_CLASS`` setting is the
-string ``"mezzanine.core.forms.TinyMceWidget"``. The ``TinyMceWidget``
+string ``"mezzanine.core.forms.TinyMceWidget"``. The :class:`.TinyMceWidget`
 class referenced here provides the necessary media files and HTML for
 implementing the TinyMCE editor, and serves as a good reference point
 for implementing your own widget class which would then be specified
@@ -193,10 +195,10 @@ from your custom widget, by doing the following:
    <https://docs.djangoproject.com/en/dev/topics/forms/media/>`_:
 
    :css:
-      ``filebrowser/css/smoothness/jquery-ui-1.9.1.custom.min.css``
+      ``filebrowser/css/smoothness/jquery-ui.min.css``
    :js:
       | ``mezzanine/js/%s' % settings.JQUERY_FILENAME``
-      | ``filebrowser/js/jquery-ui-1.9.1.custom.min.js``
+      | ``filebrowser/js/jquery-ui-1.8.24.min.js``
       | ``filebrowser/js/filebrowser-popup.js``
 
 2. Call the JavaScript function ``browseMediaLibrary`` to show the
@@ -214,3 +216,49 @@ from your custom widget, by doing the following:
 
    :Type (optional): Type of files that are selectable in the
       dialog. Defaults to image.
+
+Singleton Admin
+===============
+
+The admin class :class:`mezzanine.core.admin.SingletonAdmin` is a utility
+that can be used to create an admin interface for managing the case
+where only a single instance of a model should exist. Some cases
+include a single page site, where only a few fixed blocks of text
+need to be maintained. Perhaps a stand-alone admin section is
+required for managing a site-wide alert. There's overlap here with
+Mezzanine's :doc:`configuration` admin interface, but you may have a
+case that warrants its own admin section. Let's look at an example of
+a site-wide alert model, that should only ever have a single record
+in the database.
+
+Here's a model with a text field for managing the alert::
+
+    from django.db import models
+
+    class SiteAlert(models.Model):
+
+        message = models.TextField(blank=True)
+
+        # Make the plural name singular, to correctly
+        # label it in the admin interface.
+        class Meta:
+            verbose_name_plural = "Site Alert"
+
+Here's our ``admin.py`` module in the same app::
+
+    from mezzanine.core.admin import SingletonAdmin
+    from .models import SiteAlert
+
+    # Subclassing allows us to customize the admin class,
+    # but you could also register your model directly
+    # against SingletonAdmin below.
+    class SiteAlertAdmin(SingletonAdmin):
+        pass
+
+    admin.site.register(SiteAlert, SiteAlertAdmin)
+
+What we achieve by using :class:`.SingletonAdmin` above, is an admin
+interface that hides the usual listing interface that lists all
+records in the model's database table. When going to the "Site Alert"
+section of the admin, the user will be taken directly to the editing
+interface.

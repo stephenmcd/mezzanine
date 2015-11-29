@@ -4,11 +4,14 @@ from future.builtins import open
 import os
 import re
 import sys
+from contextlib import contextmanager
 from functools import wraps
 from getpass import getpass, getuser
 from glob import glob
-from contextlib import contextmanager
+from importlib import import_module
 from posixpath import join
+
+from mezzanine.utils.conf import real_project_name
 
 from fabric.api import abort, env, cd, prefix, sudo as _sudo, run as _run, \
     hide, task, local
@@ -24,11 +27,13 @@ from fabric.decorators import hosts
 # Config setup #
 ################
 
+env.proj_app = real_project_name("{{ project_name }}")
+
 conf = {}
 if sys.argv[0].split(os.sep)[-1] in ("fab", "fab-script.py"):
     # Ensure we import settings from the current dir
     try:
-        conf = __import__("settings", globals(), locals(), [], 0).FABRIC
+        conf = import_module("%s.settings" % env.proj_app).FABRIC
         try:
             conf["HOSTS"][0]
         except (KeyError, ValueError):
@@ -44,7 +49,7 @@ env.password = conf.get("SSH_PASS", None)
 env.key_filename = conf.get("SSH_KEY_PATH", None)
 env.hosts = conf.get("HOSTS", [""])
 
-env.proj_name = conf.get("PROJECT_NAME", os.getcwd().split(os.sep)[-1])
+env.proj_name = conf.get("PROJECT_NAME", env.proj_app)
 env.venv_home = conf.get("VIRTUALENV_HOME", "/home/%s/.virtualenvs" % env.user)
 env.venv_path = join(env.venv_home, env.proj_name)
 env.proj_path = "/home/%s/mezzanine/%s" % (env.user, env.proj_name)
@@ -81,17 +86,17 @@ else:
 
 templates = {
     "nginx": {
-        "local_path": "deploy/nginx.conf",
+        "local_path": "deploy/nginx.conf.template",
         "remote_path": "/etc/nginx/sites-enabled/%(proj_name)s.conf",
         "reload_command": "service nginx restart",
     },
     "supervisor": {
-        "local_path": "deploy/supervisor.conf",
+        "local_path": "deploy/supervisor.conf.template",
         "remote_path": "/etc/supervisor/conf.d/%(proj_name)s.conf",
-        "reload_command": "supervisorctl restart gunicorn_%(proj_name)s",
+        "reload_command": "supervisorctl update gunicorn_%(proj_name)s",
     },
     "cron": {
-        "local_path": "deploy/crontab",
+        "local_path": "deploy/crontab.template",
         "remote_path": "/etc/cron.d/%(proj_name)s",
         "owner": "root",
         "mode": "600",
@@ -102,7 +107,7 @@ templates = {
     },
     "settings": {
         "local_path": "deploy/local_settings.py.template",
-        "remote_path": "%(proj_path)s/local_settings.py",
+        "remote_path": "%(proj_path)s/%(proj_app)s/local_settings.py",
     },
 }
 
@@ -346,7 +351,10 @@ def backup(filename):
     """
     tmp_file = "/tmp/%s" % filename
     # We dump to /tmp because user "postgres" can't write to other user folders
-    postgres("pg_dump -Fc %s > %s" % (env.proj_name, tmp_file))
+    # We cd to / because user "postgres" might not have read permissions
+    # elsewhere.
+    with cd("/"):
+        postgres("pg_dump -Fc %s > %s" % (env.proj_name, tmp_file))
     run("cp %s ." % tmp_file)
     sudo("rm -f %s" % tmp_file)
 
@@ -364,10 +372,10 @@ def python(code, show=True):
     """
     Runs Python code in the project's virtual environment, with Django loaded.
     """
-    # Handle environment variable and special case for Django >= 1.7
-    setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';" \
+    setup = "import os;" \
+            "os.environ[\'DJANGO_SETTINGS_MODULE\']=\'%s.settings\';" \
             "import django;" \
-            "django.setup() if django.VERSION[1] >= 7 else None;"
+            "django.setup();" % env.proj_app
     full_code = 'python -c "%s%s"' % (setup, code.replace("`", "\\\`"))
     with project():
         if show:
@@ -517,7 +525,7 @@ def create():
     with project():
         if env.reqs_path:
             pip("-r %s/%s" % (env.proj_path, env.reqs_path))
-        pip("gunicorn setproctitle south psycopg2 "
+        pip("gunicorn setproctitle psycopg2 "
             "django-compressor python-memcached")
     # Bootstrap the DB
         manage("createdb --noinput --nodata")
@@ -559,9 +567,9 @@ def remove():
             sudo("rm %s" % remote_path)
     if exists(env.repo_path):
         run("rm -rf %s" % env.repo_path)
+    sudo("supervisorctl update")
     psql("DROP DATABASE IF EXISTS %s;" % env.proj_name)
     psql("DROP USER IF EXISTS %s;" % env.proj_name)
-    sudo("supervisorctl update")
 
 
 ##############
@@ -620,8 +628,6 @@ def deploy():
             run("tar -cf {0}.tar {1} {0}".format(env.proj_name, exclude_arg))
 
     # Deploy latest version of the project
-    for name in get_templates():
-        upload_template_and_reload(name)
     with update_changed_requirements():
         if env.deploy_tool in env.vcs_tools:
             vcs_upload()
@@ -631,6 +637,8 @@ def deploy():
         manage("collectstatic -v 0 --noinput")
         manage("syncdb --noinput")
         manage("migrate --noinput")
+    for name in get_templates():
+        upload_template_and_reload(name)
     restart()
     return True
 

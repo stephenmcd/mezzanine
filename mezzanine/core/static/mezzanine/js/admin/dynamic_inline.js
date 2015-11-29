@@ -68,9 +68,17 @@ jQuery(function($) {
         });
     });
 
+    // Remove extraneous ``template`` forms from inline formsets since
+    // Mezzanine has its own method of dynamic inlines.
+    $(parentSelector + ' > *:has(*[name*=__prefix__])').remove();
+
+    // Remove the "add another" row used in Django's default admin templates
+    $(parentSelector + ' > *.add-row').remove();
+
     // Hide the exta inlines.
-    $(parentSelector + ' > *:not(.has_original)').hide();
-    // Re-show inlines with errors, poetentially hidden by previous line.
+    $(parentSelector + ' > *:not(.has_original):not(.legend)').hide();
+
+    // Re-show inlines with errors, potentially hidden by previous line.
     var errors = $(parentSelector + ' ul[class=errorlist]').parent().parent();
     if (window.__grappelli_installed) {
         errors = errors.parent();
@@ -86,11 +94,8 @@ jQuery(function($) {
         };
         var rows = getRows();
         $(rows[0]).show();
-        // Grappelli's inline header for tabular inlines is
-        // actually part of the selector, so for it we run this twice.
-        if (window.__grappelli_installed && $(rows[0]).hasClass('legend')) {
-            $(rows[1]).show();
-        }
+
+        // If no more hidden inlines remain, hide the "add another" button
         if (getRows().length === 0) {
             $(this).hide();
         }

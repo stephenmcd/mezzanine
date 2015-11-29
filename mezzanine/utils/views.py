@@ -109,10 +109,13 @@ def is_spam_akismet(request, form, url):
     versions = (django.get_version(), mezzanine.__version__)
     headers = {"User-Agent": "Django/%s | Mezzanine/%s" % versions}
     try:
-        response = urlopen(Request(api_url, urlencode(data), headers)).read()
+        response = urlopen(Request(api_url, urlencode(data).encode('utf-8'),
+                                   headers)).read()
     except Exception:
         return False
-    return response == "true"
+
+    # Python 3 returns response as a bytestring, Python 2 as a regular str
+    return response in (b'true', 'true')
 
 
 def is_spam(request, form, url):

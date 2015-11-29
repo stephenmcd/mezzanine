@@ -104,7 +104,7 @@ var django;
                 });
             };
 
-            this.switchAllTabsSelect = function (event, ui) {
+            this.switchAllTabs = function (event, ui) {
                 if (!switching) {
                     switching = true;
                     $.each(tabs, function (idx, tab) {

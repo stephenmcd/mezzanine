@@ -9,7 +9,6 @@ except ImportError:
     # Python 2
     from urllib import urlencode
 
-from django import VERSION
 from django.contrib.admin import AdminSite
 from django.contrib.admin.options import InlineModelAdmin
 from django.contrib.sites.models import Site
@@ -389,9 +388,8 @@ class CoreTests(TestCase):
         field_admin = FieldAdmin(Form, AdminSite())
         fieldsets = field_admin.get_fieldsets(request)
         self.assertEqual(fieldsets[0][1]['fields'][-1], '_order')
-        if VERSION >= (1, 7):
-            fields = field_admin.get_fields(request)
-            self.assertEqual(fields[-1], '_order')
+        fields = field_admin.get_fields(request)
+        self.assertEqual(fields[-1], '_order')
 
     def test_dynamic_inline_admins_fields_tuple(self):
         """

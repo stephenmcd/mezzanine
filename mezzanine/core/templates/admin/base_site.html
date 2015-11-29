@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load mezzanine_tags i18n future staticfiles %}
+{% load mezzanine_tags i18n staticfiles %}
 
 {% block title %}{{ title }} | Mezzanine{% endblock %}
 
@@ -24,8 +24,8 @@
     window.__admin_url = '{{ admin_index_url }}';
     window.__static_proxy = '{{ static_proxy_url }}';
     window.__admin_media_prefix__ = '{% static "admin" %}/';
-    window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|default:"true"|lower }};
-    window.__admin_menu_collapsed = {{ settings.ADMIN_MENU_COLLAPSED|default:"false"|lower }};
+    window.__grappelli_installed = {{ settings.GRAPPELLI_INSTALLED|lower }};
+    window.__admin_menu_collapsed = {{ settings.ADMIN_MENU_COLLAPSED|lower }};
     window.__language_code = '{{ LANGUAGE_CODE }}';
 </script>
 
@@ -36,6 +36,9 @@
 <script>
 jQuery(function($) {
     $('.admin-title').click(function() {location = window.__admin_url;});
+    // This line can be removed after a decent amount of time has passed since
+    // https://github.com/stephenmcd/grappelli-safe/pull/56/files occurring.
+    $("#id_sitepermissions-__prefix__-sites").parent().parent().parent().remove();
 });
 </script>
 

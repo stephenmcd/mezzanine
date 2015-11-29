@@ -1,5 +1,5 @@
 {% extends "mobile/base.html" %}
-{% load i18n future mezzanine_tags blog_tags keyword_tags %}
+{% load i18n mezzanine_tags blog_tags keyword_tags %}
 
 {% block meta_title %}{% if page %}{{ page.richtextpage.title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
 

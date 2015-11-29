@@ -20,7 +20,6 @@ class CommentManager(CurrentSiteManager, DjangoCM):
         that shouldn't be shown, and are given placeholders in
         the template ``generic/includes/comment.html``.
         """
-        settings.use_editable()
         visible = self.all()
         if not settings.COMMENTS_UNAPPROVED_VISIBLE:
             visible = visible.filter(is_public=True)

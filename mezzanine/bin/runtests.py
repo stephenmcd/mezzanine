@@ -16,16 +16,19 @@ def main(package="mezzanine"):
     """
 
     from mezzanine.utils.importing import path_for_import
-
-    os.environ["DJANGO_SETTINGS_MODULE"] = "project_template.test_settings"
     package_path = path_for_import(package)
     project_path = os.path.join(package_path, "project_template")
 
-    local_settings_path = os.path.join(project_path, "local_settings.py")
-    test_settings_path = os.path.join(project_path, "test_settings.py")
+    os.environ["DJANGO_SETTINGS_MODULE"] = "project_name.test_settings"
+
+    project_app_path = os.path.join(project_path, "project_name")
+
+    local_settings_path = os.path.join(project_app_path, "local_settings.py")
+    test_settings_path = os.path.join(project_app_path, "test_settings.py")
 
     sys.path.insert(0, package_path)
     sys.path.insert(0, project_path)
+
     if not os.path.exists(test_settings_path):
         shutil.copy(local_settings_path + ".template", test_settings_path)
         with open(test_settings_path, "r") as f:
@@ -33,7 +36,7 @@ def main(package="mezzanine"):
         with open(test_settings_path, "w") as f:
             test_settings = """
 
-from project_template import settings
+from . import settings
 
 globals().update(i for i in settings.__dict__.items() if i[0].isupper())
 
@@ -57,13 +60,9 @@ PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
                     pass
         atexit.register(cleanup_test_settings)
 
-    if django.VERSION >= (1, 7):
-        django.setup()
+    django.setup()
 
-    try:
-        from south.management.commands import test
-    except ImportError:
-        from django.core.management.commands import test
+    from django.core.management.commands import test
     sys.exit(test.Command().execute(verbosity=1))
 
 

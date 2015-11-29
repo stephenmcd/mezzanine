@@ -49,17 +49,18 @@ class OverExtendsNode(ExtendsNode):
         import django.template.loaders.app_directories as app_directories
         try:
             # Django >= 1.8
-            app_template_dirs = app_directories.get_app_template_dirs
+            get_app_template_dirs = app_directories.get_app_template_dirs
+            app_template_dirs = get_app_template_dirs('templates')
         except AttributeError:
             # Django <= 1.7
             app_template_dirs = app_directories.app_template_dirs
 
         try:
             # Django >= 1.8
-            find_template_loader = context.engine.find_template_loader
+            find_template_loader = context.template.engine.find_template_loader
         except AttributeError:
             # Django <= 1.7
-            from django.template.loaders import find_template_loader
+            from django.template.loader import find_template_loader
 
         from mezzanine.conf import settings
 

@@ -13,6 +13,7 @@ from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
+from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url
 
 if settings.USE_MODELTRANSLATION:
@@ -22,27 +23,32 @@ if settings.USE_MODELTRANSLATION:
                                         TranslationInlineModelAdmin)
 
     class BaseTranslationModelAdmin(TranslationAdmin):
-        """Mimic modeltranslation's TabbedTranslationAdmin but uses a
+        """
+        Mimic modeltranslation's TabbedTranslationAdmin but uses a
         custom tabbed_translation_fields.js
         """
         class Media:
             js = (
-                'modeltranslation/js/force_jquery.js',
-                '//ajax.googleapis.com/ajax/libs/jqueryui'
-                        '/1.8.2/jquery-ui.min.js',
-                'mezzanine/js/admin/tabbed_translation_fields.js',
+                static("modeltranslation/js/force_jquery.js"),
+                static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
+                static("mezzanine/js/admin/tabbed_translation_fields.js"),
             )
             css = {
-                'all': ('mezzanine/css/admin/tabbed_translation_fields.css',),
+                "all": (static(
+                    "mezzanine/css/admin/tabbed_translation_fields.css"),),
             }
 
 else:
     class BaseTranslationModelAdmin(admin.ModelAdmin):
         """
         Abstract class used to handle the switch between translation
-        and no-translation class logic.
+        and no-translation class logic. We define the basic structure
+        for the Media class so we can extend it consistently regardless
+        of whether or not modeltranslation is used.
         """
-        pass
+        class Media:
+            js = ()
+            css = {"all": ()}
 
 
 User = get_user_model()
@@ -68,7 +74,10 @@ class DisplayableAdmin(BaseTranslationModelAdmin):
     list_display_links = ("title",)
     list_editable = ("status",)
     list_filter = ("status", "keywords__keyword")
-    date_hierarchy = "publish_date"
+    # modeltranslation breaks date hierarchy links, see:
+    # https://github.com/deschler/django-modeltranslation/issues/324
+    # Once that's resolved we can restore this.
+    date_hierarchy = None if settings.USE_MODELTRANSLATION else "publish_date"
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = (
         (None, {
@@ -149,7 +158,7 @@ class BaseDynamicInlineAdmin(object):
         return fieldsets
 
 
-def getInlineBaseClass(cls):
+def get_inline_base_class(cls):
     if settings.USE_MODELTRANSLATION:
         class InlineBase(TranslationInlineModelAdmin, cls):
             """
@@ -163,12 +172,12 @@ def getInlineBaseClass(cls):
 
 
 class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin,
-                                getInlineBaseClass(admin.TabularInline)):
+                                get_inline_base_class(admin.TabularInline)):
     template = "admin/includes/dynamic_inline_tabular.html"
 
 
 class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin,
-                                getInlineBaseClass(admin.StackedInline)):
+                                get_inline_base_class(admin.StackedInline)):
     template = "admin/includes/dynamic_inline_stacked.html"
 
     def __init__(self, *args, **kwargs):

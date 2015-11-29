@@ -1,18 +1,21 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import get_user_model
-from django.contrib.syndication.views import Feed
+from django.contrib.sites.models import Site
+from django.contrib.syndication.views import Feed, add_domain
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.feedgenerator import Atom1Feed
 from django.utils.html import strip_tags
 
-from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.conf import settings
+from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
+from mezzanine.core.request import current_request
 from mezzanine.generic.models import Keyword
 from mezzanine.pages.models import Page
-from mezzanine.conf import settings
 from mezzanine.utils.html import absolute_urls
+from mezzanine.utils.sites import current_site_id
 
 
 User = get_user_model()
@@ -42,13 +45,20 @@ class PostsRSS(Feed):
         else:
             self._public = not page.login_required
         if self._public:
-            settings.use_editable()
             if page is not None:
                 self._title = "%s | %s" % (page.title, settings.SITE_TITLE)
                 self._description = strip_tags(page.description)
             else:
                 self._title = settings.SITE_TITLE
                 self._description = settings.SITE_TAGLINE
+
+    def __call__(self, *args, **kwarg):
+        self._request = current_request()
+        self._site = Site.objects.get(id=current_site_id())
+        return super(PostsRSS, self).__call__(*args, **kwarg)
+
+    def add_domain(self, link):
+        return add_domain(self._site.domain, link, self._request.is_secure())
 
     def title(self):
         return self._title
@@ -57,12 +67,13 @@ class PostsRSS(Feed):
         return self._description
 
     def link(self):
-        return reverse("blog_post_list")
+        return self.add_domain(reverse("blog_post_list"))
 
     def items(self):
         if not self._public:
             return []
-        blog_posts = BlogPost.objects.published().select_related("user")
+        blog_posts = BlogPost.objects.published().select_related("user"
+            ).prefetch_related("categories")
         if self.tag:
             tag = get_object_or_404(Keyword, slug=self.tag)
             blog_posts = blog_posts.filter(keywords__keyword=tag)
@@ -89,18 +100,29 @@ class PostsRSS(Feed):
             return []
         return BlogCategory.objects.all()
 
+    def feed_url(self):
+        return self.add_domain(self._request.path)
+
+    def item_link(self, item):
+        return self.add_domain(super(PostsRSS, self).item_link(item))
+
     def item_author_name(self, item):
         return item.user.get_full_name() or item.user.username
 
     def item_author_link(self, item):
         username = item.user.username
-        return reverse("blog_post_list_author", kwargs={"username": username})
+        link = reverse("blog_post_list_author", kwargs={"username": username})
+        return self.add_domain(link)
 
     def item_pubdate(self, item):
         return item.publish_date
 
     def item_categories(self, item):
         return item.categories.all()
+
+    def item_enclosure_url(self, item):
+        if item.featured_image:
+            return self.add_domain(item.featured_image.url)
 
 
 class PostsAtom(PostsRSS):

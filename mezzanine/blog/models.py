@@ -46,7 +46,7 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
         of the corresponding urlpattern, and if defined, we loop through
         each of these and build up the kwargs for the correct urlpattern.
         The order which we loop through them is important, since the
-        order goes from least granualr (just year) to most granular
+        order goes from least granular (just year) to most granular
         (year/month/day).
         """
         url_name = "blog_post_detail"

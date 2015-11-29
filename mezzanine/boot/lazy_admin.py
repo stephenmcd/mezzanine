@@ -1,8 +1,9 @@
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib.auth import get_user_model
-from django.contrib.admin.sites import AdminSite
+from django.contrib.admin.sites import AdminSite, NotRegistered
 
 from mezzanine.utils.importing import import_dotted_path
 
@@ -30,12 +31,25 @@ class LazyAdminSite(AdminSite):
         self._deferred.append(("unregister", args, kwargs))
 
     def lazy_registration(self):
+        # First, directly handle models we don't want at all,
+        # as per the ``ADMIN_REMOVAL`` setting.
+        for model in getattr(settings, "ADMIN_REMOVAL", []):
+            try:
+                model = tuple(model.rsplit(".", 1))
+                exec("from %s import %s" % model)
+            except ImportError:
+                pass
+            else:
+                try:
+                    AdminSite.unregister(self, eval(model[1]))
+                except NotRegistered:
+                    pass
+        # Call register/unregister.
         for name, deferred_args, deferred_kwargs in self._deferred:
             getattr(AdminSite, name)(self, *deferred_args, **deferred_kwargs)
 
     @property
     def urls(self):
-        from django.conf import settings
         urls = patterns("", ("", super(LazyAdminSite, self).urls),)
         # Filebrowser admin media library.
         fb_name = getattr(settings, "PACKAGE_NAME_FILEBROWSER", "")

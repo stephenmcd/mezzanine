@@ -16,20 +16,6 @@ jQuery(function($) {
     // Provides link to site.
     $('#user-tools li:last').before('<li>' + window.__home_link + '</li>');
 
-    // Remove extraneous ``template`` forms from inline formsets since
-    // Mezzanine has its own method of dynamic inlines.
-    var removeRows = {};
-    $.each($('*[name*=__prefix__]'), function(i, e) {
-        var row = $(e).parent();
-        if (!row.attr('id')) {
-            row.attr('id', 'remove__prefix__' + i);
-        }
-        removeRows[row.attr('id')] = true;
-    });
-    for (var rowID in removeRows) {
-        $('#' + rowID).remove();
-    }
-
     // Hide all dropdown menus and apply click handlers.
     if (window.__admin_menu_collapsed) {
         $('.dropdown-menu-menu').removeClass('open').hide();

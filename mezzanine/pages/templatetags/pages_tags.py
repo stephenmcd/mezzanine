@@ -50,30 +50,32 @@ def page_menu(context, token):
             slug = ""
         num_children = lambda id: lambda: len(context["menu_pages"][id])
         has_children = lambda id: lambda: num_children(id)() > 0
-        rel = [m.__name__.lower() for m in Page.get_content_models()]
+        rel = [m.__name__.lower()
+               for m in Page.get_content_models()
+               if not m._meta.proxy]
         published = Page.objects.published(for_user=user).select_related(*rel)
         # Store the current page being viewed in the context. Used
         # for comparisons in page.set_menu_helpers.
         if "page" not in context:
             try:
-                context["_current_page"] = published.exclude(
+                context.dicts[0]["_current_page"] = published.exclude(
                     content_model="link").get(slug=slug)
             except Page.DoesNotExist:
-                context["_current_page"] = None
+                context.dicts[0]["_current_page"] = None
         elif slug:
-            context["_current_page"] = context["page"]
+            context.dicts[0]["_current_page"] = context["page"]
         # Some homepage related context flags. on_home is just a helper
         # indicated we're on the homepage. has_home indicates an actual
         # page object exists for the homepage, which can be used to
         # determine whether or not to show a hard-coded homepage link
         # in the page menu.
         home = home_slug()
-        context["on_home"] = slug == home
-        context["has_home"] = False
+        context.dicts[0]["on_home"] = slug == home
+        context.dicts[0]["has_home"] = False
         # Maintain a dict of page IDs -> parent IDs for fast
         # lookup in setting page.is_current_or_ascendant in
         # page.set_menu_helpers.
-        context["_parent_page_ids"] = {}
+        context.dicts[0]["_parent_page_ids"] = {}
         pages = defaultdict(list)
         for page in published.order_by("_order"):
             page.set_helpers(context)
@@ -82,7 +84,7 @@ def page_menu(context, token):
             setattr(page, "has_children", has_children(page.id))
             pages[page.parent_id].append(page)
             if page.slug == home:
-                context["has_home"] = True
+                context.dicts[0]["has_home"] = True
         # Include menu_pages in all contexts, not only in the
         # block being rendered.
         context.dicts[0]["menu_pages"] = pages

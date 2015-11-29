@@ -3,9 +3,8 @@ from future.builtins import str
 
 from copy import copy
 
-from django.conf import settings
-from django.contrib.contenttypes.generic import GenericRelation
-from django.core.exceptions import ImproperlyConfigured
+from django.contrib.contenttypes.fields import GenericRelation
+from django.core.exceptions import ImproperlyConfigured, AppRegistryNotReady
 from django.db.models import IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
 
@@ -17,8 +16,8 @@ class BaseGenericRelation(GenericRelation):
     Extends ``GenericRelation`` to:
 
     - Add a consistent default value for ``object_id_field`` and
-      check for a ``related_model`` attribute which can be defined
-      on subclasses as a default for the ``to`` argument.
+      check for a ``default_related_model`` attribute which can be
+      defined on subclasses as a default for the ``to`` argument.
 
     - Add one or more custom fields to the model that the relation
       field is applied to, and then call a ``related_items_changed``
@@ -33,27 +32,29 @@ class BaseGenericRelation(GenericRelation):
 
     def __init__(self, *args, **kwargs):
         """
-        Set up some defaults and check for a ``related_model``
+        Set up some defaults and check for a ``default_related_model``
         attribute for the ``to`` argument.
         """
-        if kwargs.get("frozen_by_south", False):
-            raise Exception("""
-
-    Your project contains migrations that include one of the fields
-    from mezzanine.generic in its Migration.model dict: possibly
-    KeywordsField, CommentsField or RatingField. These migratons no
-    longer work with the latest versions of Django and South, so you'll
-    need to fix them by hand. This is as simple as commenting out or
-    deleting the field from the Migration.model dict.
-    See http://bit.ly/1hecVsD for an example.
-
-    """)
-
         kwargs.setdefault("object_id_field", "object_pk")
-        to = getattr(self, "related_model", None)
-        if to:
+        to = getattr(self, "default_related_model", None)
+        # Avoid having both a positional arg and a keyword arg for
+        # the parameter ``to``
+        if to and not args:
             kwargs.setdefault("to", to)
-        super(BaseGenericRelation, self).__init__(*args, **kwargs)
+        try:
+            # Check if ``related_model`` has been modified by a subclass
+            self.related_model
+        except (AppRegistryNotReady, AttributeError):
+            # if not, all is good
+            super(BaseGenericRelation, self).__init__(*args, **kwargs)
+        else:
+            # otherwise, warn the user to stick to the new (as of 4.0)
+            # ``default_related_model`` attribute
+            raise ImproperlyConfigured("BaseGenericRelation changed the "
+                "way it handled a default ``related_model`` in mezzanine "
+                "4.0. Please override ``default_related_model`` instead "
+                "and do not tamper with django's ``related_model`` "
+                "property anymore.")
 
     def contribute_to_class(self, cls, name):
         """
@@ -112,7 +113,7 @@ class BaseGenericRelation(GenericRelation):
         ``related_items_changed`` handler.
         """
         for_model = kwargs["instance"].content_type.model_class()
-        if issubclass(for_model, self.model):
+        if for_model and issubclass(for_model, self.model):
             instance_id = kwargs["instance"].object_pk
             try:
                 instance = for_model.objects.get(id=instance_id)
@@ -148,7 +149,7 @@ class CommentsField(BaseGenericRelation):
     deleted.
     """
 
-    related_model = "generic.ThreadedComment"
+    default_related_model = "generic.ThreadedComment"
     fields = {"%s_count": IntegerField(editable=False, default=0)}
 
     def related_items_changed(self, instance, related_manager):
@@ -174,7 +175,7 @@ class KeywordsField(BaseGenericRelation):
     searching.
     """
 
-    related_model = "generic.AssignedKeyword"
+    default_related_model = "generic.AssignedKeyword"
     fields = {"%s_string": CharField(editable=False, blank=True,
                                      max_length=500)}
 
@@ -261,7 +262,7 @@ class RatingField(BaseGenericRelation):
     fields when a rating is saved or deleted.
     """
 
-    related_model = "generic.Rating"
+    default_related_model = "generic.Rating"
     fields = {"%s_count": IntegerField(default=0, editable=False),
               "%s_sum": IntegerField(default=0, editable=False),
               "%s_average": FloatField(default=0, editable=False)}
@@ -278,14 +279,3 @@ class RatingField(BaseGenericRelation):
         setattr(instance, "%s_sum" % self.related_field_name, _sum)
         setattr(instance, "%s_average" % self.related_field_name, average)
         instance.save()
-
-
-# South requires custom fields to be given "rules".
-# See http://south.aeracode.org/docs/customfields.html
-if "south" in settings.INSTALLED_APPS:
-    try:
-        from south.modelsinspector import add_introspection_rules
-        add_introspection_rules(rules=[((BaseGenericRelation,), [], {})],
-            patterns=["mezzanine\.generic\.fields\."])
-    except ImportError:
-        pass

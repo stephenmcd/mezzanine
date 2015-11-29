@@ -15,6 +15,7 @@ from django.utils.html import strip_tags
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
+from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
 from mezzanine.pages.models import RichTextPage
@@ -175,6 +176,8 @@ class BaseImporterCommand(BaseCommand):
                 "title": post_data.pop("title"),
                 "user": mezzanine_user,
             }
+            if post_data["publish_date"] is None:
+                post_data["status"] = CONTENT_STATUS_DRAFT
             post, created = BlogPost.objects.get_or_create(**initial)
             for k, v in post_data.items():
                 setattr(post, k, v)

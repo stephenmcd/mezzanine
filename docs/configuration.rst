@@ -64,17 +64,14 @@ Reading Settings
 Mezzanine provides a settings object via ``mezzanine.conf.settings`` in a
 similar way to Django's ``django.conf.settings``. This settings object
 contains each of the settings registered above using their names as
-attributes. The settings object also contains the method ``use_editable``
-which when called will cause the settings object to reload editable settings
-from the database the next time an editable setting is accessed. Continuing
-on from our previous example, suppose we have a view for photos::
+attributes. Continuing on from our previous example, suppose we have a view
+for photos::
 
     from django.shortcuts import render
     from mezzanine.conf import settings
     from .models import Book
 
     def books_view(request):
-        settings.use_editable()
         books = Book.objects.all()[:settings.AUTHORS_BOOKS_PER_PAGE]
         return render(request, "books.html", {"books": books})
 
@@ -83,11 +80,11 @@ where in your project the setting will be used. For example if a setting
 is used in a ``urlpattern`` or the creation of a ``model`` class it would
 only be read when your site is first loaded, and therefore having it
 change at a later point by an admin user would not have any effect without
-reloading your entire project. In the snippet above by calling
-``settings.use_editable()`` within the view, the value of the setting being
-accessed is loaded each time the view is run. This ensures that if the value
-of the setting has been changed by an admin user it will be reflected on the
-website.
+reloading your entire project. In the snippet above, since the settings is
+being read within a view, the value of the setting being accessed is
+loaded each time the view is run. This ensures that if the value of the
+setting has been changed by an admin user it will be reflected on
+the website.
 
 .. note::
 
