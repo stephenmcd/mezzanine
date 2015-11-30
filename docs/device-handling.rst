@@ -43,9 +43,9 @@ module::
 Mobile Theme
 ============
 
-Mezzanine includes the app ``mezzanine.mobile`` which contains a full
+Mezzanine includes the app :mod:`mezzanine.mobile` which contains a full
 set of default templates and assets for creating a mobile version of
-your site. Simply add ``mezzanine.mobile`` to your ``INSTALLED_APPS``
+your site. Simply add :mod:`mezzanine.mobile` to your ``INSTALLED_APPS``
 setting to use it.
 
 Implementation Considerations
@@ -59,17 +59,17 @@ a reference to ``blog/index.html`` will be changed to the list
 ``["mobile/blog/index.html", "blog/index.html"]`` under the hood.
 
 To achieve this, the middleware
-``mezzanine.core.middleware.TemplateForDeviceMiddleware`` catches Django
+:class:`mezzanine.core.middleware.TemplateForDeviceMiddleware` catches Django
 ``TemplateResponse`` responses, and changes the template list prior to
 the response being rendered. As such, any views you implement should
 return ``TemplateResponse`` objects. The table below lists Mezzanine
 versions of Django features that can be used to ensure a
 ``TemplateResponse`` is returned.
 
-==================================================  =============================================
+==================================================  ==================================================
 Django                                              Mezzanine
-==================================================  =============================================
-``django.shortcuts.render``                         ``mezzanine.utils.views.render``
-``django.template.Library().inclusion_tag``         ``mezzanine.template.Library().inclusion_tag``
-``django.views.generic.simple.direct_to_template``  ``mezzanine.core.views.direct_to_template``
-==================================================  =============================================
+==================================================  ==================================================
+``django.shortcuts.render``                         :func:`mezzanine.utils.views.render`
+``django.template.Library().inclusion_tag``         :meth:`mezzanine.template.Library().inclusion_tag`
+``django.views.generic.simple.direct_to_template``  :func:`mezzanine.core.views.direct_to_template`
+==================================================  ==================================================
