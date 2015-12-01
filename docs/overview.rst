@@ -185,7 +185,9 @@ plug-in added to the list below. We also ask that you add it to the
   within other Mezzanine pages as slideshows.
 * `mezzanine-onepage`_ - Design helper for single-page Mezzanine sites.
 * `mezzanine-api`_ - RESTful web API for Mezzanine.
-* `mezzanine-smartling`_ - Integrates Mezzanine content with `Smartling Translations`_.
+* `mezzanine-smartling`_ - Integrates Mezzanine content with
+  `Smartling Translations`_.
+* `mezzanine-shortcodes`_ - `Wordpress shortcodes`_ for Mezzanine.
 
 
 Sites Using Mezzanine
@@ -541,6 +543,9 @@ certain sites.
 .. _`mezzanine-onepage`: https://github.com/lucmilland/mezzanine-onepage
 .. _`mezzanine-api`: https://github.com/gcushen/mezzanine-api
 .. _`mezzanine-smartling`: https://github.com/Appdynamics/mezzanine-smartling
+.. _`mezzanine-shortcodes`: https://github.com/ryneeverett/mezzanine-shortcodes
+
+.. _`Wordpress shortcodes`: https://codex.wordpress.org/Shortcode
 .. _`Smartling Translations`: http://www.smartling.com/
 .. _`dpaste`: https://github.com/bartTC/dpaste
 
