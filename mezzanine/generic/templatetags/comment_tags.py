@@ -33,6 +33,18 @@ def comments_for(context, obj):
     return context
 
 
+@register.assignment_tag(takes_context=True)
+def comment_thread_objects(context, parent):
+    comments = defaultdict(list)
+    if "request" in context and context["request"].user.is_staff:
+        comments_queryset = parent.comments.all()
+    else:
+        comments_queryset = parent.comments.visible()
+    for comment in comments_queryset.select_related("user"):
+        comments[comment.replied_to_id].append(comment)
+    return comments
+
+
 @register.inclusion_tag("generic/includes/comment.html", takes_context=True)
 def comment_thread(context, parent):
     """
@@ -42,14 +54,7 @@ def comment_thread(context, parent):
     comments template.
     """
     if "all_comments" not in context:
-        comments = defaultdict(list)
-        if "request" in context and context["request"].user.is_staff:
-            comments_queryset = parent.comments.all()
-        else:
-            comments_queryset = parent.comments.visible()
-        for comment in comments_queryset.select_related("user"):
-            comments[comment.replied_to_id].append(comment)
-        context["all_comments"] = comments
+        context["all_comments"] = comment_thread_objects(context, parent)
     parent_id = parent.id if isinstance(parent, ThreadedComment) else None
     try:
         replied_to = int(context["request"].POST["replied_to"])
