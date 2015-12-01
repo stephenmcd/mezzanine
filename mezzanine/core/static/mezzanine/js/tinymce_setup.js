@@ -81,7 +81,8 @@ jQuery(function($) {
                       "bullist numlist outdent indent | link image table | " +
                       "code fullscreen"),
             file_browser_callback: custom_file_browser,
-            content_css: window.__tinymce_css
+            content_css: window.__tinymce_css,
+            valid_elements: "*[*]"  // Don't strip anything since this is handled by bleach.
         });
 
     }
