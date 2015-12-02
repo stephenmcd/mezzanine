@@ -249,12 +249,22 @@ class PasswordResetForm(Html5Mixin, forms.Form):
 
     def clean(self):
         username = self.cleaned_data.get("username")
-        username_or_email = Q(username=username) | Q(email=username)
+        email_or_username = Q(email=username)
+
+        if not settings.ACCOUNTS_NO_USERNAME:
+            email_or_username |= Q(username=username)
+
         try:
-            user = User.objects.get(username_or_email, is_active=True)
+            if not username:
+                raise User.DoesNotExist()
+
+            user = User.objects.get(email_or_username, is_active=True)
         except User.DoesNotExist:
             raise forms.ValidationError(
                              ugettext("Invalid username/email"))
+        except User.MultipleObjectsReturned:
+            raise forms.ValidationError(
+                             ugettext("Internal server error"))
         else:
             self._user = user
         return self.cleaned_data
