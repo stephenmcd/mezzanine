@@ -199,7 +199,7 @@ img.pull-left {
   background-color: #00A3D4;
 }
 .tag-cloud li {
-  padding-left: 0;
+  padding-right: 0;
 }
 .tag-weight-1 {
   font-size: 90%;
@@ -212,6 +212,9 @@ img.pull-left {
 }
 .tag-weight-4 {
   font-size: 180%;
+}
+.tags li {
+  padding-left: 0;
 }
 .recent-posts img {
     margin: 2px;

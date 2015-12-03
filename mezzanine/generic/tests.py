@@ -12,6 +12,7 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.forms import RatingForm
 from mezzanine.generic.models import (AssignedKeyword, Keyword,
                                       ThreadedComment, Rating)
+from mezzanine.generic.views import comment
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.tests import TestCase
 
@@ -26,6 +27,8 @@ class GenericTests(TestCase):
         """
         blog_post = BlogPost.objects.create(title="Ratings", user=self._user,
                                             status=CONTENT_STATUS_PUBLISHED)
+        if settings.RATINGS_ACCOUNT_REQUIRED:
+            self.client.login(username=self._username, password=self._password)
         data = RatingForm(None, blog_post).initial
         for value in settings.RATINGS_RANGE:
             data["value"] = value
@@ -37,9 +40,16 @@ class GenericTests(TestCase):
         count = len(settings.RATINGS_RANGE)
         _sum = sum(settings.RATINGS_RANGE)
         average = _sum / count
-        self.assertEqual(blog_post.rating_count, count)
-        self.assertEqual(blog_post.rating_sum, _sum)
-        self.assertEqual(blog_post.rating_average, average)
+        if settings.RATINGS_ACCOUNT_REQUIRED:
+            self.assertEqual(blog_post.rating_count, 1)
+            self.assertEqual(blog_post.rating_sum,
+                             settings.RATINGS_RANGE[-1])
+            self.assertEqual(blog_post.rating_average,
+                             settings.RATINGS_RANGE[-1] / 1)
+        else:
+            self.assertEqual(blog_post.rating_count, count)
+            self.assertEqual(blog_post.rating_sum, _sum)
+            self.assertEqual(blog_post.rating_average, average)
 
     @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
                 "blog app required")
@@ -55,13 +65,15 @@ class GenericTests(TestCase):
         kwargs = {"content_type": content_type, "object_pk": blog_post.id,
                   "site_id": settings.SITE_ID, "comment": "First!!!11"}
         comment = ThreadedComment.objects.create(**kwargs)
-        comment.rating.create(value=3)
-        comment.rating.add(Rating(value=5))
+        comment.rating.create(value=settings.RATINGS_RANGE[0])
+        comment.rating.add(Rating(value=settings.RATINGS_RANGE[-1]))
         comment = ThreadedComment.objects.get(pk=comment.pk)
 
         self.assertEqual(len(comment.rating.all()), comment.rating_count)
 
-        self.assertEqual(comment.rating_average, 4)
+        self.assertEqual(
+            comment.rating_average,
+            (settings.RATINGS_RANGE[0] + settings.RATINGS_RANGE[-1]) / 2)
 
     @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
                 "blog app required")
@@ -80,6 +92,8 @@ class GenericTests(TestCase):
             "posted_comment_form": None,
             "unposted_comment_form": None,
         }
+        if settings.COMMENTS_ACCOUNT_REQUIRED:
+            self.queries_used_for_template(template, **context)
         before = self.queries_used_for_template(template, **context)
         self.assertTrue(before > 0)
         self.create_recursive_objects(ThreadedComment, "replied_to", **kwargs)
@@ -107,3 +121,29 @@ class GenericTests(TestCase):
         page = RichTextPage.objects.get(id=page.id)
         self.assertEqual(keywords, set(page.keywords_string.split()))
         page.delete()
+
+    def test_delete_unused(self):
+        """
+        Only ``Keyword`` instances without any assignments should be deleted.
+        """
+        assigned_keyword = Keyword.objects.create(title="assigned")
+        Keyword.objects.create(title="unassigned")
+        AssignedKeyword.objects.create(keyword_id=assigned_keyword.id,
+                                       content_object=RichTextPage(pk=1))
+        Keyword.objects.delete_unused(keyword_ids=[assigned_keyword.id])
+        self.assertEqual(Keyword.objects.count(), 2)
+        Keyword.objects.delete_unused()
+        self.assertEqual(Keyword.objects.count(), 1)
+        self.assertEqual(Keyword.objects.all()[0].id, assigned_keyword.id)
+
+    def test_comment_form_returns_400_when_missing_data(self):
+        """
+        Assert 400 status code response when expected data is missing from
+        the comment form. This simulates typical malicious bot behavior.
+        """
+        request = self._request_factory.post(reverse('comment'))
+        if settings.COMMENTS_ACCOUNT_REQUIRED:
+            request.user = self._user
+            request.session = {}
+        response = comment(request)
+        self.assertEquals(response.status_code, 400)

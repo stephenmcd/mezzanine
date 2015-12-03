@@ -71,9 +71,8 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
         raise ImproperlyConfigured("mezzanine.pages.middleware.PageMiddleware "
                                    "(or a subclass of it) is missing from " +
                                    "settings.MIDDLEWARE_CLASSES")
-    try:
-        request.page
-    except AttributeError:
+
+    if not hasattr(request, "page") or request.page.slug != slug:
         raise Http404
 
     # Check for a template name matching the page's slug. If the homepage

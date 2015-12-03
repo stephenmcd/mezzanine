@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
-{% load pages_tags mezzanine_tags i18n future staticfiles %}
+{% load pages_tags mezzanine_tags i18n staticfiles %}
 
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
 <link rel="stylesheet" href="{% static "css/bootstrap-theme.css" %}">
 {% if LANGUAGE_BIDI %}
-<link rel="stylesheet" href="{% static "css/rtl.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap-rtl.css" %}">
 {% endif %}
 {% ifinstalled cartridge.shop %}
 <link rel="stylesheet" href="{% static "css/cartridge.css" %}">
@@ -57,12 +57,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
+    {% block navbar_title %}
     {% if settings.SITE_TITLE %}<a class="navbar-brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
     {% if settings.SITE_TAGLINE %}<p class="navbar-text visible-lg">{{ settings.SITE_TAGLINE }}</p>{% endif %}
+    {% endblock%}
 </div>
 <div class="navbar-collapse collapse">
-    {% search_form "all" %}
-    {% page_menu "pages/menus/dropdown.html" %}
+    {% block navbar_search_form %}{% search_form "all" %}{% endblock %}
+    {% block navbar_dropdown_menu %}{% page_menu "pages/menus/dropdown.html" %}{% endblock%}
 </div>
 </div>
 </div>
@@ -107,6 +109,7 @@
 
 <div class="col-md-3 right">
     {% nevercache %}
+    {% include "includes/language_selector.html" %}
     {% include "includes/user_panel.html" %}
     {% endnevercache %}
     <div class="panel panel-default">

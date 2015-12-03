@@ -1,23 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Lê Thanh <lethanhx2k@gmail.com>, 2013
 # Lê Thanh <lethanhx2k@gmail.com>, 2013
+# Ha Pham <me@zniper.net>, 2015.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-05 07:21-0430\n"
-"PO-Revision-Date: 2013-11-09 20:20+0000\n"
-"Last-Translator: Lê Thanh <lethanhx2k@gmail.com>\n"
-"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/mezzanine/language/vi_VN/)\n"
+"PO-Revision-Date: 2015-09-08 11:13+0700\n"
+"Last-Translator: Ha Pham <me@zniper.net>\n"
+"Language-Team: Vietnamese <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi_VN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: admin.py:32 fields.py:33
 msgid "Email"
@@ -27,42 +30,48 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] "%(count)s bài viết đã xóa"
+msgstr[0] "%(count)s m đã xóa"
 
 #: admin.py:119
 msgid "View Entries"
-msgstr "Xem bài viết"
+msgstr "Xem các mục"
 
 #: defaults.py:20
 msgid ""
 "If ``True``, emails sent to extra recipients for form submissions won't be "
 "sent from an address taken from one of the form's email fields."
-msgstr "Nếu ``True``, email gửi đến các danh sách mở rộng khi gửi từ form sẽ không được gửi từ địa chỉ đã khai báo trong trường email của form."
+msgstr ""
+"Nếu ``Đúng``, email gửi đến các danh sách mở rộng khi gửi từ form sẽ không "
+"được gửi từ địa chỉ đã khai báo trong trường email của form."
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
-msgstr "Chiều dài tối đa cho giá trị trường"
+msgstr "Chiều dài tối đa cho giá trị trường trong ứng dụng forms."
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr "Chiều dài tố đa cho nhãn của trường"
+msgstr "Chiều dài tối đa cho các nhãn của trường trong ứng dụng forms."
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr "Kí tự dùng để ngăn cách một trường khi xuất ra định dạng CSV"
+msgstr "Kí tự dùng để ngăn cách một trường khi xuất ra định dạng CSV."
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr "Đường dẫn tuyệt đối để lưu các tập tin tải lên từ form"
+msgstr "Đường dẫn tuyệt đối để lưu các tập tin tải lên từ ứng dụng forms."
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item"
-" sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high"
-" number such as 100 or greater to avoid conflicts."
-msgstr "Kiểu trường mở rộng dành cho form app. Nên gồm chuỗi 3 đối tượng:ID, đường dẫn đến class trường và tên trường cho  mỗi kiểu trường tùy biến. ID là kiểu số nguyên duy nhất, vì vậy nên chọn một giá trị lớn, chẳng hạn như 100 hoặc lớn hơn nữa để tránh xung đột."
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
+msgstr ""
+"Kiểu trường mở rộng dành cho ứng dụng forms. Nên gồm chuỗi 3 đối tượng: ID, "
+"đường dẫn đến class trường và tên trường cho mỗi kiểu trường tùy biến. ID là "
+"một hằng số duy nhất cho trường, vì vậy nên chọn một giá trị lớn, chẳng hạn "
+"như 100 hoặc lớn hơn nữa để tránh xung đột."
 
 #: fields.py:31
 msgid "Single line text"
@@ -150,7 +159,7 @@ msgstr "bắt buộc"
 
 #: forms.py:216
 msgid "Checked"
-msgstr "Chọn"
+msgstr "Đã chọn"
 
 #: forms.py:216
 msgid "Not checked"
@@ -162,7 +171,7 @@ msgstr "và"
 
 #: models.py:17
 msgid "Button text"
-msgstr "Button text"
+msgstr "Nhãn nút"
 
 #: models.py:18
 msgid "Submit"
@@ -198,7 +207,9 @@ msgstr "Gửi email đến người khác"
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
-msgstr "Dánh sách các địa chỉ email cách nhau bởi dấu phẩy được dùng để thông báo khi submit form. Để trống để tắt tính năng này"
+msgstr ""
+"Dánh sách các địa chỉ email cách nhau bởi dấu phẩy được dùng để thông báo "
+"khi submit form. Để trống để tắt tính năng này"
 
 #: models.py:30
 msgid "Subject"
@@ -213,7 +224,9 @@ msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr "Các email được gửi dựa trên các thiết lập trước sẽ chứa các trường form đã được nhập. Bạn cũng có thể nhập thông điệ gửi kèm email tại đây"
+msgstr ""
+"Các email được gửi dựa trên các thiết lập trước sẽ chứa các trường form đã "
+"được nhập. Bạn cũng có thể nhập thông điệp gửi kèm email tại đây."
 
 #: models.py:37
 msgid "Form"
@@ -221,7 +234,7 @@ msgstr "Form"
 
 #: models.py:38
 msgid "Forms"
-msgstr "Form"
+msgstr "Các form"
 
 #: models.py:55
 msgid "Label"
@@ -241,13 +254,15 @@ msgstr "Hiện"
 
 #: models.py:60
 msgid "Choices"
-msgstr "Lựa chọn"
+msgstr "Các lựa chọn"
 
 #: models.py:61
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr "Dấu phẩy  tách các tùy chọn. Nếu một tùy chọn có dấu phẩy, sử dụng thêm kí tự (`) xung quanh nó."
+msgstr ""
+"Dấu phẩy tách các tùy chọn. Nếu một tùy chọn có dấu phẩy, sử dụng thêm kí tự "
+"(`) xung quanh nó."
 
 #: models.py:63
 msgid "Default value"
@@ -255,11 +270,11 @@ msgstr "Giá trị mặc định"
 
 #: models.py:65
 msgid "Placeholder Text"
-msgstr "Giá trị mặc định"
+msgstr "Nội dung minh họa"
 
 #: models.py:67
 msgid "Help text"
-msgstr "Thông tin trợ giúp"
+msgstr "Nội dung trợ giúp"
 
 #: models.py:72 templates/admin/forms/entries.html:28
 msgid "Field"
@@ -267,28 +282,28 @@ msgstr "Trường"
 
 #: models.py:73
 msgid "Fields"
-msgstr "Trường"
+msgstr "Các trường"
 
 #: models.py:119
 msgid "Form entry"
-msgstr "Form entry"
+msgstr "Mục của form"
 
 #: models.py:120
 msgid "Form entries"
-msgstr "Form entries"
+msgstr "Các mục của form"
 
 #: models.py:134
 msgid "Form field entry"
-msgstr "Form field entry"
+msgstr "Mục của trường trong form"
 
 #: models.py:135
 msgid "Form field entries"
-msgstr "Form field entry"
+msgstr "Các mục của trường trong form"
 
 #: templates/admin/forms/change_form.html:8
 #: templates/admin/forms/entries.html:57
 msgid "View entries"
-msgstr "Xem các Entry"
+msgstr "Xem các mục"
 
 #: templates/admin/forms/change_form.html:9
 msgid "History"
@@ -300,7 +315,7 @@ msgstr "Xem trên site"
 
 #: templates/admin/forms/entries.html:14
 msgid "Home"
-msgstr "Trang nhà"
+msgstr "Trang chủ"
 
 #: templates/admin/forms/entries.html:29
 msgid "Include"
@@ -324,7 +339,7 @@ msgstr "Xuất ra CSV"
 
 #: templates/admin/forms/entries.html:60
 msgid "Entries"
-msgstr "Entry"
+msgstr "Các mục"
 
 #: templates/admin/forms/entries.html:94
 msgid "Delete selected"
@@ -332,4 +347,4 @@ msgstr "Đã chọn Xóa"
 
 #: templates/admin/forms/entries.html:98
 msgid "No entries to display"
-msgstr "Không có entry để hiển thị"
+msgstr "Không có mục nào để hiển thị"

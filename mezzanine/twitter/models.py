@@ -1,9 +1,8 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
-from datetime import datetime, timedelta
+from datetime import datetime
 import re
-from time import timezone
 
 try:
     from urllib.parse import quote
@@ -14,7 +13,7 @@ except ImportError:
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import urlize
-from django.utils.timezone import get_default_timezone, make_aware
+from django.utils.timezone import make_aware, utc
 from django.utils.translation import ugettext_lazy as _
 from requests_oauthlib import OAuth1
 import requests
@@ -26,10 +25,10 @@ from mezzanine.twitter import get_auth_settings
 from mezzanine.twitter.managers import TweetManager
 
 
-re_usernames = re.compile("@([0-9a-zA-Z+_]+)", re.IGNORECASE)
+re_usernames = re.compile("(^|\W)@([0-9a-zA-Z+_]+)", re.IGNORECASE)
 re_hashtags = re.compile("#([0-9a-zA-Z+_]+)", re.IGNORECASE)
 replace_hashtags = "<a href=\"http://twitter.com/search?q=%23\\1\">#\\1</a>"
-replace_usernames = "<a href=\"http://twitter.com/\\1\">@\\1</a>"
+replace_usernames = "\\1<a href=\"http://twitter.com/\\2\">@\\2</a>"
 
 
 class TwitterQueryException(Exception):
@@ -67,13 +66,12 @@ class Query(models.Model):
             QUERY_TYPE_LIST: ("https://api.twitter.com/1.1/lists/statuses.json"
                               "?list_id=%s&include_rts=true" % value),
             QUERY_TYPE_SEARCH: "https://api.twitter.com/1.1/search/tweets.json"
-                                "?q=%s" % value,
+                               "?q=%s" % value,
         }
         try:
             url = urls[self.type]
         except KeyError:
             raise TwitterQueryException("Invalid query type: %s" % self.type)
-        settings.use_editable()
         auth_settings = get_auth_settings()
         if not auth_settings:
             from mezzanine.conf import registry
@@ -128,8 +126,7 @@ class Query(models.Model):
                 chars = [ch for ch in tweet.text if ord(ch) < 0x800]
                 tweet.text = ''.join(chars)
             d = datetime.strptime(tweet_json["created_at"], date_format)
-            d -= timedelta(seconds=timezone)
-            tweet.created_at = make_aware(d, get_default_timezone())
+            tweet.created_at = make_aware(d, utc)
             try:
                 tweet.save()
             except Warning:

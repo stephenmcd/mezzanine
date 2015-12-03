@@ -96,8 +96,8 @@ Threaded Comments
 =================
 
 Threaded comments provided by the ``mezzanine.generic`` app are an
-extension of Django's `django.contrib.comments
-<https://docs.djangoproject.com/en/dev/ref/contrib/comments/>`_ app.
+extension of Django's `django_comments
+<https://github.com/django/django-contrib-comments>`_ app.
 Mezzanine's threaded comments fundamentally extend Django's comments
 to allow for threaded conversations, where comments can be made in
 reply to other comments.
@@ -203,14 +203,30 @@ purpose and can be used across a variety of scenarios.
 ``fields_for``
 --------------
 
-The ``fields_for`` template tag is an inclusion tag that takes a form
-object as its single argument, and renders the fields for the form. It
-uses the template ``core/templates/form_fields.html``, which can then
-be overridden to customize the look and feel of all forms throughout a
+The ``fields_for`` template tag is a simple tag that takes a form object
+as its single argument, and renders the fields for the form. It uses the
+template ``core/templates/includes/form_fields.html``, which can then be
+overridden to customize the look and feel of all forms throughout a
 Mezzanine site::
 
     {% load mezzanine_tags %}
 
+    <form method="POST">
+        {% fields_for some_form_object %}
+        <input type="submit">
+    </form>
+
+``errors_for``
+--------------
+
+The ``errors_for`` template tag is an inclusion tag that takes a form
+object and renders any error messages with the template
+``core/templates/includes/form_errors.html``. It plays well with
+``fields_for``::
+
+    {% load mezzanine_tags %}
+
+    {% errors_for some_form_object %}
     <form method="POST">
         {% fields_for some_form_object %}
         <input type="submit">
@@ -261,11 +277,13 @@ height::
 The ``thumbnail`` template tag also accepts several other optional
 arguments for controlling the generated thumbnail:
 
+  * ``upscale`` - A boolean controlling whether the thumbnail should
+     grow beyond its original size when resizing (defaults to True)
   * ``quality`` - A value from 0 to 100 controlling the JPG quality
     (defaults to 95)
   * ``left`` and ``top`` - Values from 0 to 1 controlling where the
     image will be cropped (each defaults to 0.5, namely the center)
   * ``padding`` - A boolean controlling whether the thumbnail will
-    be padded rather than cropped (default to False)
+    be padded rather than cropped (defaults to False)
   * ``padding_color`` - RGB string controlling the background color
     when ``padding`` is True (defaults to "#fff")

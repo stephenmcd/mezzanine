@@ -1,5 +1,4 @@
 
-import os
 import platform
 import sys
 
@@ -7,6 +6,7 @@ import django
 from django.conf import settings
 from django.contrib.staticfiles.management.commands import runserver
 from django.contrib.staticfiles.handlers import StaticFilesHandler
+from django.core.management.color import supports_color
 from django.db import connection
 from django.http import Http404
 from django.utils.termcolors import colorize
@@ -18,17 +18,23 @@ import mezzanine
 class MezzStaticFilesHandler(StaticFilesHandler):
 
     def _should_handle(self, path):
-        return path.startswith(self.base_url[2])
+        return path.startswith((settings.STATIC_URL, settings.MEDIA_URL))
 
     def get_response(self, request):
         response = super(MezzStaticFilesHandler, self).get_response(request)
         if response.status_code == 404:
-            path = self.file_path(request.path).replace(os.sep, "/")
-            try:
-                return serve(request, path, document_root=settings.STATIC_ROOT)
-            except Http404:
-                # Just return the original 404 response.
-                pass
+            locations = (
+                (settings.STATIC_URL, settings.STATIC_ROOT),
+                (settings.MEDIA_URL, settings.MEDIA_ROOT),
+            )
+            for url, root in locations:
+                if request.path.startswith(url):
+                    path = request.path.replace(url, "", 1)
+                    try:
+                        return serve(request, path, document_root=root)
+                    except Http404:
+                        # Just return the original 404 response.
+                        pass
         return response
 
 
@@ -49,9 +55,9 @@ def banner():
     # to join with dots.
     db_version_func = {
         "postgresql": lambda: (
-            conn.pg_version / 10000,
-            conn.pg_version % 10000 / 100,
-            conn.pg_version % 10000 % 100,
+            conn.pg_version // 10000,
+            conn.pg_version // 100 % 100,
+            conn.pg_version % 100,
         ),
         "mysql": lambda: conn.mysql_version,
         "sqlite": lambda: conn.Database.sqlite_version_info,
@@ -92,9 +98,10 @@ def banner():
         "db_version": db_version,
         "os_name": platform.system(),
         "os_version": platform.release(),
-    }).splitlines()
-    if django.VERSION >= (1, 7):
-        lines = lines[2:]
+    }).splitlines()[2:]
+
+    if not supports_color():
+        return "\n".join(lines)
 
     # Pairs of function / colorize args for coloring the banner.
     # These are each of the states moving from left to right on

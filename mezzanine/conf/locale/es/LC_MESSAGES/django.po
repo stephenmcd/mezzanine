@@ -6,44 +6,46 @@
 # Sebastián Ramírez Magrí <sebasmagri@gmail.com>, 2011, 2012.
 # Sergi Almacellas <pokoli@gmail.com>, 2012.
 # William Díaz <leprosys@gmail.com>, 2012.
+# Eduardo Rivas <jerivasmelgar@gmail.com>, 2015.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:21-0430\n"
-"PO-Revision-Date: 2012-08-27 03:41+0000\n"
-"Last-Translator: William Díaz <leprosys@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/"
-"language/es/)\n"
+"POT-Creation-Date: 2015-04-09 12:45-0600\n"
+"PO-Revision-Date: 2015-04-09 12:41-0600\n"
+"Last-Translator: Eduardo Rivas <jerivasmelgar@gmail.com>\n"
+"Language-Team: Español; Castellano <>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
-#: admin.py:38
+#: admin.py:52
 msgid "Settings were successfully updated."
 msgstr "La configuración fue actualizada con éxito."
 
-#: admin.py:42
+#: admin.py:60
 msgid "Change"
 msgstr "Cambiar"
 
-#: forms.py:53
+#: forms.py:82
 msgid "Miscellaneous"
 msgstr "Misceláneos"
 
-#: models.py:17
+#: models.py:20
 msgid "Setting"
 msgstr "Opción"
 
-#: models.py:18
+#: models.py:21
 msgid "Settings"
 msgstr "Opciones"
 
 #: templates/admin/conf/setting/change_list.html:8
 msgid "Please correct the errors below."
-msgstr "Por favor corrija los errores debajo."
+msgstr "Por favor corrija los errores a continuación."
 
 #: templates/admin/conf/setting/change_list.html:31
 msgid "Save"

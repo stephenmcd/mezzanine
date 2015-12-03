@@ -9,10 +9,9 @@ try:
 except ImportError:
     from urllib import urlopen, urlencode
 
-from django.contrib.contenttypes.generic import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.db.models.base import ModelBase
-from django.db.models.signals import post_save
 from django.template.defaultfilters import truncatewords_html
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import strip_tags
@@ -20,12 +19,13 @@ from django.utils.timesince import timesince
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from mezzanine.core.fields import RichTextField
+from mezzanine.conf import settings
+from mezzanine.core.fields import RichTextField, OrderField
 from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model, get_user_model_name
-from mezzanine.utils.sites import current_site_id
+from mezzanine.utils.sites import current_site_id, current_request
 from mezzanine.utils.urls import admin_url, slugify, unique_slug
 
 
@@ -53,7 +53,7 @@ class SiteRelated(models.Model):
         created, or the ``update_site`` argument is explicitly set
         to ``True``.
         """
-        if update_site or not self.id:
+        if update_site or (self.id is None and self.site_id is None):
             self.site_id = current_site_id()
         super(SiteRelated, self).save(*args, **kwargs)
 
@@ -99,7 +99,13 @@ class Slugged(SiteRelated):
         """
         Allows subclasses to implement their own slug creation logic.
         """
-        return slugify(self.title)
+        attr = "title"
+        if settings.USE_MODELTRANSLATION:
+            from modeltranslation.utils import build_localized_fieldname
+            attr = build_localized_fieldname(attr, settings.LANGUAGE_CODE)
+        # Get self.title_xx where xx is the default language, if any.
+        # Get self.title otherwise.
+        return slugify(getattr(self, attr, None) or self.title)
 
     def admin_link(self):
         return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
@@ -152,12 +158,12 @@ class MetaData(models.Model):
         for field_type in (RichTextField, models.TextField):
             if not description:
                 for field in self._meta.fields:
-                    if isinstance(field, field_type) and \
-                        field.name != "description":
+                    if (isinstance(field, field_type) and
+                            field.name != "description"):
                         description = getattr(self, field.name)
                         if description:
                             from mezzanine.core.templatetags.mezzanine_tags \
-                            import richtext_filters
+                                                    import richtext_filters
                             description = richtext_filters(description)
                             break
         # Fall back to the title if description couldn't be determined.
@@ -173,6 +179,10 @@ class MetaData(models.Model):
                 break
         else:
             description = truncatewords_html(description, 100)
+        try:
+            description = unicode(description)
+        except NameError:
+            pass  # Python 3.
         return description
 
 
@@ -202,6 +212,8 @@ CONTENT_STATUS_CHOICES = (
     (CONTENT_STATUS_PUBLISHED, _("Published")),
 )
 
+SHORT_URL_UNSET = "unset"
+
 
 class Displayable(Slugged, MetaData, TimeStamped):
     """
@@ -216,7 +228,7 @@ class Displayable(Slugged, MetaData, TimeStamped):
             "on the site."))
     publish_date = models.DateTimeField(_("Published from"),
         help_text=_("With Published chosen, won't be shown until this time"),
-        blank=True, null=True)
+        blank=True, null=True, db_index=True)
     expiry_date = models.DateTimeField(_("Expires on"),
         help_text=_("With Published chosen, won't be shown after this time"),
         blank=True, null=True)
@@ -259,27 +271,55 @@ class Displayable(Slugged, MetaData, TimeStamped):
         raise NotImplementedError("The model %s does not have "
                                   "get_absolute_url defined" % name)
 
+    def get_absolute_url_with_host(self):
+        """
+        Returns host + ``get_absolute_url`` - used by the various
+        ``short_url`` mechanics below.
+
+        Technically we should use ``self.site.domain``, here, however
+        if we were to invoke the ``short_url`` mechanics on a list of
+        data (eg blog post list view), we'd trigger a db query per
+        item. Using ``current_request`` should provide the same
+        result, since site related data should only be loaded based
+        on the current host anyway.
+        """
+        return current_request().build_absolute_uri(self.get_absolute_url())
+
     def set_short_url(self):
         """
-        Sets the ``short_url`` attribute using the bit.ly credentials
-        if they have been specified, and saves it. Used by the
-        ``set_short_url_for`` template tag, and ``TweetableAdmin``.
+        Generates the ``short_url`` attribute if the model does not
+        already have one. Used by the ``set_short_url_for`` template
+        tag and ``TweetableAdmin``.
+
+        If no sharing service is defined (bitly is the one implemented,
+        but others could be by overriding ``generate_short_url``), the
+        ``SHORT_URL_UNSET`` marker gets stored in the DB. In this case,
+        ``short_url`` is temporarily (eg not persisted) set to
+        host + ``get_absolute_url`` - this is so that we don't
+        permanently store ``get_absolute_url``, since it may change
+        over time.
         """
-        if not self.short_url:
-            from mezzanine.conf import settings
-            settings.use_editable()
-            parts = (self.site.domain, self.get_absolute_url())
-            self.short_url = "http://%s%s" % parts
-            if settings.BITLY_ACCESS_TOKEN:
-                url = "https://api-ssl.bit.ly/v3/shorten?%s" % urlencode({
-                    "access_token": settings.BITLY_ACCESS_TOKEN,
-                    "uri": self.short_url,
-                })
-                response = loads(urlopen(url).read().decode("utf-8"))
-                if response["status_code"] == 200:
-                    self.short_url = response["data"]["url"]
+        if self.short_url == SHORT_URL_UNSET:
+            self.short_url = self.get_absolute_url_with_host()
+        elif not self.short_url:
+            self.short_url = self.generate_short_url()
             self.save()
-        return ""
+
+    def generate_short_url(self):
+        """
+        Returns a new short URL generated using bit.ly if credentials for the
+        service have been specified.
+        """
+        from mezzanine.conf import settings
+        if settings.BITLY_ACCESS_TOKEN:
+            url = "https://api-ssl.bit.ly/v3/shorten?%s" % urlencode({
+                "access_token": settings.BITLY_ACCESS_TOKEN,
+                "uri": self.get_absolute_url_with_host(),
+            })
+            response = loads(urlopen(url).read().decode("utf-8"))
+            if response["status_code"] == 200:
+                return response["data"]["url"]
+        return SHORT_URL_UNSET
 
     def _get_next_or_previous_by_publish_date(self, is_next, **kwargs):
         """
@@ -359,7 +399,7 @@ class Orderable(with_metaclass(OrderableBase, models.Model)):
     models that aren't ordered with respect to a particular field.
     """
 
-    _order = models.IntegerField(_("Order"), null=True)
+    _order = OrderField(_("Order"), null=True)
 
     class Meta:
         abstract = True
@@ -464,7 +504,7 @@ class SitePermission(models.Model):
     access.
     """
 
-    user = models.ForeignKey(user_model_name, verbose_name=_("Author"),
+    user = models.OneToOneField(user_model_name, verbose_name=_("Author"),
         related_name="%(class)ss")
     sites = models.ManyToManyField("sites.Site", blank=True,
                                    verbose_name=_("Sites"))
@@ -472,19 +512,3 @@ class SitePermission(models.Model):
     class Meta:
         verbose_name = _("Site permission")
         verbose_name_plural = _("Site permissions")
-
-
-def create_site_permission(sender, **kw):
-    sender_name = "%s.%s" % (sender._meta.app_label, sender._meta.object_name)
-    if sender_name.lower() != user_model_name.lower():
-        return
-    user = kw["instance"]
-    if user.is_staff and not user.is_superuser:
-        perm, created = SitePermission.objects.get_or_create(user=user)
-        if created or perm.sites.count() < 1:
-            perm.sites.add(current_site_id())
-
-# We don't specify the user model here, because with 1.5's custom
-# user models, everything explodes. So we check the name of it in
-# the signal.
-post_save.connect(create_site_permission)
