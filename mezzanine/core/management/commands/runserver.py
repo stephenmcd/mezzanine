@@ -158,3 +158,6 @@ class Command(runserver.Command):
         if settings.DEBUG or options["insecure_serving"]:
             handler = MezzStaticFilesHandler(handler)
         return handler
+
+if not getattr(settings, 'MEZZANINE_RUNSERVER', True):
+    Command = runserver.Command
