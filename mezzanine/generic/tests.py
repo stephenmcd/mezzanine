@@ -1,9 +1,10 @@
 from __future__ import division, unicode_literals
 from future.utils import native_str
 
+from unittest import skipUnless
+
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
-from django.utils.unittest import skipUnless
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings

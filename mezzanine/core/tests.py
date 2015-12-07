@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 import re
+from unittest import skipUnless
 
 try:
     # Python 3
@@ -20,7 +21,6 @@ from django.forms.models import modelform_factory
 from django.templatetags.static import static
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
-from django.utils.unittest import skipUnless
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import BaseDynamicInlineAdmin

@@ -1,11 +1,12 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
+from unittest import skipUnless
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.db import connection
 from django.http import HttpResponse
-from django.utils.unittest import skipUnless
 from django.shortcuts import resolve_url
 from django.template import Context, Template
 from django.test.utils import override_settings
