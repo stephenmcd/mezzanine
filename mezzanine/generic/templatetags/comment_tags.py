@@ -23,11 +23,11 @@ def comments_for(context, obj):
     """
     form_class = import_dotted_path(settings.COMMENT_FORM_CLASS)
     form = form_class(context["request"], obj)
-    try:
-        context["posted_comment_form"]
-    except KeyError:
+    if context.get("posted_comment_form") is None or \
+                    context.get("posted_comment_form") != form:
         context["posted_comment_form"] = form
-    context["unposted_comment_form"] = form
+        context["unposted_comment_form"] = form 
+
     context["comment_url"] = reverse("comment")
     context["object_for_comments"] = obj
     return context
