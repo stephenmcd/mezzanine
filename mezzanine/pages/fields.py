@@ -43,7 +43,7 @@ class MenusField(MultiChoiceField):
             # (* empty sequence: no menus).
             default = getattr(settings, "PAGE_MENU_TEMPLATES_DEFAULT", None)
             if default is None:
-                choices = self.get_flatchoices(include_blank=False)
+                choices = self.get_choices(include_blank=False)
                 default = (c[0] for c in choices)
         # Default can't be mutable, as references to it are shared among
         # model instances; all sane values should be castable to a tuple.
