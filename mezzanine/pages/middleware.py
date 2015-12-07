@@ -65,11 +65,6 @@ class PageMiddleware(object):
         Per-request mechanics for the current page object.
         """
 
-        cp = "mezzanine.pages.context_processors.page"
-        if cp not in settings.TEMPLATE_CONTEXT_PROCESSORS:
-            raise ImproperlyConfigured("%s is missing from "
-                "settings.TEMPLATE_CONTEXT_PROCESSORS" % cp)
-
         # Load the closest matching page by slug, and assign it to the
         # request object. If none found, skip all further processing.
         slug = path_to_slug(request.path_info)
