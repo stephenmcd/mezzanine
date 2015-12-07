@@ -341,12 +341,12 @@ class PagesTests(TestCase):
         Test that slug generation is done for the default language and
         not the active one.
         """
+        from collections import OrderedDict
         from django.utils.translation import get_language, activate
-        from django.utils.datastructures import SortedDict
         from mezzanine.utils.urls import slugify
 
         default_language = get_language()
-        code_list = SortedDict(settings.LANGUAGES)
+        code_list = OrderedDict(settings.LANGUAGES)
         del code_list[default_language]
         title_1 = "Title firt language"
         title_2 = "Title second language"

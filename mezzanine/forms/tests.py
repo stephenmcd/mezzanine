@@ -35,14 +35,14 @@ class TestsForm(TestCase):
         Test that Form.button_text has its value displayed properly without
         being translated back to the default language.
         """
+        from collections import OrderedDict
         from django.core.urlresolvers import reverse
         from django.utils.translation import (get_language, activate,
                                               ugettext as _)
-        from django.utils.datastructures import SortedDict
         from modeltranslation.utils import auto_populate
 
         default_language = get_language()
-        code_list = SortedDict(settings.LANGUAGES)
+        code_list = OrderedDict(settings.LANGUAGES)
         del code_list[default_language]
         for c in code_list:
             try:

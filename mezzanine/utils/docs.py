@@ -5,6 +5,7 @@ documentation is generated.
 from __future__ import division, print_function, unicode_literals
 from future.builtins import map, open, str
 
+from collections import OrderedDict
 from datetime import datetime
 import os.path
 from shutil import copyfile, move
@@ -13,7 +14,6 @@ from socket import gethostname
 from warnings import warn
 
 from django.template.defaultfilters import urlize
-from django.utils.datastructures import SortedDict
 from django.utils.encoding import force_text
 from django.utils.functional import Promise
 
@@ -103,7 +103,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
     version_var = "__version__"
     changelog_filename = "CHANGELOG"
     changelog_file = os.path.join(project_path, changelog_filename)
-    versions = SortedDict()
+    versions = OrderedDict()
     repo = None
     ignore = ("AUTHORS", "formatting", "typo", "pep8", "pep 8",
               "whitespace", "README", "trans", "print debug",
