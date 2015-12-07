@@ -115,6 +115,8 @@ def set_dynamic_settings(s):
              "Based on your existing configuration, this is our recommended TEMPLATES value:\n\n%s"
              % pprint.pformat(suggested_templates_config), stacklevel=2)
 
+    else:
+        template_context_processors = s["TEMPLATE_CONTEXT_PROCESSORS"]
 
     s["TEMPLATE_DEBUG"] = s.get("TEMPLATE_DEBUG", s.get("DEBUG", False))
 
@@ -163,7 +165,7 @@ def set_dynamic_settings(s):
     # can go away eventually.
     cp = "mezzanine.pages.context_processors.page"
     if ("mezzanine.pages" in s["INSTALLED_APPS"] and
-            cp not in s["TEMPLATE_CONTEXT_PROCESSORS"]):
+            cp not in template_context_processors):
         warn("%s is required in the TEMPLATE_CONTEXT_PROCESSORS setting. "
              "Adding it now, but you should update settings.py to "
              "explicitly include it." % cp)
