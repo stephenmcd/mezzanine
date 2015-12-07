@@ -52,11 +52,11 @@ the `$` symbol.
     {% endif %}
 
 The second step is to wrap each instance of a model field with the
-``editable`` and ``endeditable`` template tags, with the field specified as
-the ``editable`` tag's argument. The content between the two tags is what
+:func:`.editable` and ``endeditable`` template tags, with the field specified as
+the :func:`.editable` tag's argument. The content between the two tags is what
 will visibly be hinted to the content author as being editable. It's possible to not provide any content between
 the two tags, in which case the value for the model field specified for the
-``editable`` tag will simply be used. The model field must always be
+:func:`.editable` tag will simply be used. The model field must always be
 specified in the format ``instance_name.field_name`` where ``instance_name``
 is the name of a model instance in the template context. For example,
 suppose we had a ``page`` variable in our template with ``title`` and
@@ -94,8 +94,8 @@ suppose we had a ``page`` variable in our template with ``title`` and
     </body>
     </html>
 
-The ``editable`` template tag also allows multiple fields for a model
-instance to be given as arguments to a single ``editable`` tag. The
+The :func:`.editable` template tag also allows multiple fields for a model
+instance to be given as arguments to a single :func:`.editable` tag. The
 result of this is still a single Edit icon, but when clicked will display
 each of the fields specified for editing, grouped together in a single form.
 Continuing on from the previous example, if we wanted to group together
@@ -129,4 +129,4 @@ the ``title`` and ``content`` fields::
     </html>
 
 The only caveat to consider with grouping together fields in a single
-``editable`` tag is that they must all belong to the same model instance.
+:func:`.editable` tag is that they must all belong to the same model instance.

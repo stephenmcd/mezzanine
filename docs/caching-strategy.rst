@@ -29,11 +29,11 @@ page-level cache middleware
 cache>`_, and behaves in a similar way.
 
 Pages are fetched from cache by
-``mezzanine.core.middleware.FetchFromCacheMiddleware``, which should
+:class:`mezzanine.core.middleware.FetchFromCacheMiddleware`, which should
 appear at the end of the ``MIDDLEWARE_CLASSES`` setting and therefore
 be activated at the end of the request phase. If a cache miss occurs,
 the request is marked as requiring a cache update, which is handled by
-``mezzanine.core.middleware.UpdateCacheMiddleware``, which in turn
+:class:`mezzanine.core.middleware.UpdateCacheMiddleware`, which in turn
 should appear at the start of ``MIDDLEWARE_CLASSES`` and therefore
 be activated at the end of the response phase.
 
@@ -61,12 +61,12 @@ sections might be anything that makes use of the current request
 object, including session-specific data.
 
 Accordingly, Mezzanine provides the start and end template tags
-``nevercache`` and ``endnevercache``. Content wrapped in these tags
+:func:`.nevercache` and ``endnevercache``. Content wrapped in these tags
 will not be cached. With two-phased
 rendering, the page is cached without any of the template code
-inside ``nevercache`` and ``endnevercache`` executed for the first
+inside :func:`.nevercache` and ``endnevercache`` executed for the first
 phase. The second phase then occurs after the page is retrieved from
-cache (or not), and any template code inside ``nevercache`` and
+cache (or not), and any template code inside :func:`.nevercache` and
 ``endnevercache`` is then executed.
 
 Mezzanine's two-phased rendering is based on Cody Soyland's
@@ -77,7 +77,7 @@ originally described the technique.
 
 .. note::
 
-    The template code inside ``nevercache`` and ``endnevercache`` will
+    The template code inside :func:`.nevercache` and ``endnevercache`` will
     only have access to template tags and variables provided by a
     normal request context, with the exception of any variables passed
     to the template from a view function. Variables added via context

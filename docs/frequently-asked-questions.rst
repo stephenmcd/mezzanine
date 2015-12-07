@@ -136,7 +136,7 @@ change the ``urlpattern`` for the homepage in your project's
 <https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template/project_name/urls.py>`_,
 as it contains several examples of different types of homepages.
 In ``urls.py`` you'll find examples of pointing the homepage to a
-``Page`` object in the page tree, or pointing the homepage to the blog
+:class:`.Page` object in the page tree, or pointing the homepage to the blog
 post listing page, which is useful for sites that are primarily blogs.
 
 Of course with Django's models, admin classes, and template tags, the

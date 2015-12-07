@@ -27,7 +27,7 @@ args and a dictionary of keyword args, to use when creating the field
 instance.
 
 For example suppose you want to inject a custom ``ImageField`` from a
-third party library into Mezzanine's ``BlogPost`` model, you would
+third party library into Mezzanine's :class:`.BlogPost` model, you would
 define the following in your project’s settings module::
 
     EXTRA_MODEL_FIELDS = (
@@ -44,11 +44,11 @@ define the following in your project’s settings module::
         ),
     )
 
-Each ``BlogPost`` instance will now have an ``image`` attribute, using the
+Each :class:`.BlogPost` instance will now have an ``image`` attribute, using the
 ``ImageField`` class defined in the fictitious ``somelib.fields`` module.
 
 Another interesting example would be adding a field to all of Mezzanine's
-content types by injecting fields into the ``Page`` class. Continuing on
+content types by injecting fields into the :class:`.Page` class. Continuing on
 from the previous example, suppose you wanted to add a regular Django
 ``IntegerField`` to all content types::
 
@@ -83,7 +83,7 @@ however some extra consideration is required when used with the
 migrations management commands included in Django starting from
 version 1.7. In the first example above, Django's ``makemigrations``
 command views the new ``image`` field on the
-``BlogPost`` model of the ``mezzanine.blog`` app. As such, in order to
+:class:`.BlogPost` model of the :mod:`mezzanine.blog` app. As such, in order to
 create a migration for it, the migration must be created for the blog
 app itself and by default would end up in the migrations directory of
 the blog app, which completely goes against the notion of not
@@ -126,8 +126,8 @@ often you will also want to expose new fields to the admin interface.
 This can be achieved by simply unregistering the relevant admin class,
 subclassing it, and re-registering your new admin class for the
 associated model. Continuing on from the first example, the code below
-takes a copy of the ``fieldsets`` definition for the original
-``BlogPostAdmin``, and injects our custom field's name into the
+takes a copy of the :attr:`fieldsets` definition for the original
+:class:`.BlogPostAdmin`, and injects our custom field's name into the
 desired position.::
 
     # In myapp/admin.py

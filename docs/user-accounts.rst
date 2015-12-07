@@ -11,7 +11,7 @@ You can also define what a user's profile consists of, allowing users
 to create their own profile page for their account.
 
 The accounts functionality is provided by the app
-``mezzanine.accounts``. Adding it to your ``INSTALLED_APPS`` setting
+:mod:`mezzanine.accounts`. Adding it to your ``INSTALLED_APPS`` setting
 will enable signup, login, account updating, and password retrieval
 features for the public site.
 
@@ -19,7 +19,7 @@ Profiles
 ========
 
 Profiles are implemented via Django's ``AUTH_PROFILE_MODULE`` setting.
-With ``mezzanine.accounts`` installed, you can create a profile model
+With :mod:`mezzanine.accounts` installed, you can create a profile model
 in one of your apps, with each of the profile fields defined, as well
 as a related field to Django's user model. For example suppose we
 wanted to capture bios and dates of birth for each user::
@@ -86,7 +86,7 @@ provides the setting ``ACCOUNTS_NO_USERNAME``, which when set to ``True``, will 
 Account Verification
 ====================
 
-By default, with ``mezzanine.accounts`` installed, any public visitor
+By default, with :mod:`mezzanine.accounts` installed, any public visitor
 to the site can sign up for an account and will be logged in after
 signup. However you may wish to validate that new accounts are only
 created by real people with real email addresses. To enable this,
