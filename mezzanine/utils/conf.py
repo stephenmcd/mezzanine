@@ -116,7 +116,7 @@ def set_dynamic_settings(s):
              % pprint.pformat(suggested_templates_config), stacklevel=2)
 
     else:
-        template_context_processors = s["TEMPLATE_CONTEXT_PROCESSORS"]
+        template_context_processors = s["TEMPLATES"][0]['OPTIONS']['context_processors']
 
     s["TEMPLATE_DEBUG"] = s.get("TEMPLATE_DEBUG", s.get("DEBUG", False))
 
