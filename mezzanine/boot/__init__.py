@@ -63,18 +63,18 @@ if fields:
 # Override django.contrib.admin.site with LazyAdminSite. It must
 # be bound to a separate name (admin_site) for access in autodiscover
 # below.
-
-admin_site = LazyAdminSite()
-admin.site = admin_site
-django_autodiscover = admin.autodiscover
-
-
-def autodiscover(*args, **kwargs):
-    """
-    Replaces django's original autodiscover to add a call to
-    LazyAdminSite's lazy_registration.
-    """
-    django_autodiscover(*args, **kwargs)
-    admin_site.lazy_registration()
-
-admin.autodiscover = autodiscover
+#
+# admin_site = LazyAdminSite()
+# admin.site = admin_site
+# django_autodiscover = admin.autodiscover
+#
+#
+# def autodiscover(*args, **kwargs):
+#     """
+#     Replaces django's original autodiscover to add a call to
+#     LazyAdminSite's lazy_registration.
+#     """
+#     django_autodiscover(*args, **kwargs)
+#     admin_site.lazy_registration()
+#
+# admin.autodiscover = autodiscover
