@@ -23,9 +23,10 @@ installed with Mezzanine all have their content configured to be in-line
 editable. When developing your own templates from scratch though, you'll
 need to perform this step yourself.
 
-The first step is to ensure you have a the template tag ``editable_loader``
-specified right before the closing ``</body>`` tag in each template.
-Typically this only needs to be defined in your top-most base template::
+The first step is to ensure the ``editable_loader`` template tag is called
+right before the closing ``</body>`` tag in each template. The recommended
+way to do this is to include ``includes/footer_scripts`` in your top-most
+base template::
 
     {% load mezzanine_tags %}
     <html>
@@ -34,7 +35,7 @@ Typically this only needs to be defined in your top-most base template::
     </head>
     <body>
         <!-- Content goes here -->
-        {% editable_loader %}
+        {% include "includes/footer_scripts.html" %}
     </body>
     </html>
 
