@@ -226,5 +226,5 @@ class RatingForm(CommentSecurityForm):
                     self.undoing = True
         else:
             rating_instance = Rating(value=rating_value)
-            rating_manager.add(rating_instance)
+            rating_manager.add(rating_instance, bulk=False)
         return rating_instance
