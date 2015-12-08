@@ -308,5 +308,6 @@ class SitePermissionUserAdmin(UserAdmin):
 
 # only register if User hasn't been overridden
 if User == AuthUser:
-    admin.site.unregister(User)
+    if User in admin.site._registry:
+        admin.site.unregister(User)
     admin.site.register(User, SitePermissionUserAdmin)
