@@ -16,7 +16,7 @@ from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
-from mezzanine.boot.lazy_admin import LazyAdminSite
+# from mezzanine.boot.lazy_admin import LazyAdminSite
 from mezzanine.utils.importing import import_dotted_path
 
 

@@ -16,7 +16,7 @@ from django.conf import settings as django_settings
 from django.utils.functional import Promise
 from django.utils.module_loading import module_has_submodule
 
-from mezzanine import __version__
+from mezzanine import __version__  # noqa
 from mezzanine.core.request import current_request
 
 registry = {}
