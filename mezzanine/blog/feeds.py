@@ -72,8 +72,7 @@ class PostsRSS(Feed):
     def items(self):
         if not self._public:
             return []
-        blog_posts = BlogPost.objects.published().select_related("user"
-            ).prefetch_related("categories")
+        blog_posts = BlogPost.objects.published().select_related("user").prefetch_related("categories")
         if self.tag:
             tag = get_object_or_404(Keyword, slug=self.tag)
             blog_posts = blog_posts.filter(keywords__keyword=tag)

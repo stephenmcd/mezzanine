@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 import re
-from unittest import skipUnless
+from unittest import skipUnless, skip
 
 try:
     # Python 3
@@ -66,6 +66,7 @@ class CoreTests(TestCase):
         mobile = self.client.get(url, HTTP_USER_AGENT=ua)
         self.assertNotEqual(default.template_name[0], mobile.template_name[0])
 
+    @skip("Running flake8 from the command line instead")
     def test_syntax(self):
         """
         Run pyflakes/pep8 across the code base to check for potential errors.
