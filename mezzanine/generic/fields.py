@@ -8,8 +8,6 @@ from django.core.exceptions import ImproperlyConfigured, AppRegistryNotReady
 from django.db.models import IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
 
-from mezzanine.utils.models import lazy_model_ops
-
 
 class BaseGenericRelation(GenericRelation):
     """
@@ -97,14 +95,8 @@ class BaseGenericRelation(GenericRelation):
             getter_name = "get_%s_name" % self.__class__.__name__.lower()
             cls.add_to_class(getter_name, lambda self: name)
 
-            def connect_save(sender):
-                post_save.connect(self._related_items_changed, sender=sender)
-
-            def connect_delete(sender):
-                post_delete.connect(self._related_items_changed, sender=sender)
-
-            lazy_model_ops.add(connect_save, self.rel.to)
-            lazy_model_ops.add(connect_delete, self.rel.to)
+            post_save.connect(self._related_items_changed, sender=self.rel.to)
+            post_delete.connect(self._related_items_changed, sender=self.rel.to)
 
     def _related_items_changed(self, **kwargs):
         """
