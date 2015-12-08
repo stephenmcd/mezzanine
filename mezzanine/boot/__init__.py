@@ -12,11 +12,14 @@ from __future__ import unicode_literals
 
 from collections import defaultdict
 
+from django import VERSION as DJANGO_VERSION
 from django.apps import apps
 from django.conf import settings
+from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
 
-# from mezzanine.boot.lazy_admin import LazyAdminSite
+from mezzanine.boot.lazy_admin import LazyAdminSite
+from django.db.models.signals import class_prepared
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -73,15 +76,29 @@ def parse_extra_model_fields(extra_model_fields):
                                        "arguments for the field '%s' which could "
                                        "not be applied: %s" % (entry[1], e))
         fields[model_key].append((field_name, field))
-    return fields.items()
+    return fields
 
 
-extra_model_fields = getattr(settings, "EXTRA_MODEL_FIELDS", [])
-for model_path, fields in parse_extra_model_fields(extra_model_fields):
-    def add_extra_model_fields(model_class, extra_fields=fields):
-        for field_name, field in extra_fields:
-            field.contribute_to_class(model_class, field_name)
-    apps.lazy_model_operation(add_extra_model_fields, model_path)
+fields = parse_extra_model_fields(getattr(settings, "EXTRA_MODEL_FIELDS", []))
+
+
+def add_extra_model_fields(sender, **kwargs):
+    """
+    Injects custom fields onto the given sender model as defined
+    by the ``EXTRA_MODEL_FIELDS`` setting. This is a closure over
+    the "fields" variable.
+    """
+    model_key = sender._meta.app_label, sender._meta.model_name
+    for field_name, field in fields.get(model_key, {}):
+        field.contribute_to_class(sender, field_name)
+
+
+if DJANGO_VERSION < (1, 9):
+    if fields:
+        class_prepared.connect(add_extra_model_fields, dispatch_uid="FQFEQ#rfq3r")
+else:
+    for model_key in fields:
+        apps.lazy_model_operation(add_extra_model_fields, model_key)
 
 
 # Override django.contrib.admin.site with LazyAdminSite. It must
