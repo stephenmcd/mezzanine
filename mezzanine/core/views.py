@@ -4,6 +4,9 @@ from future.builtins import int, open, str
 import os
 
 from json import dumps
+
+from django.template.response import TemplateResponse
+
 try:
     from urllib.parse import urljoin, urlparse
 except ImportError:
@@ -28,7 +31,7 @@ from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Displayable, SitePermission
 from mezzanine.utils.cache import add_cache_bypass
-from mezzanine.utils.views import is_editable, paginate, render, set_cookie
+from mezzanine.utils.views import is_editable, paginate, set_cookie
 from mezzanine.utils.sites import has_site_permission
 from mezzanine.utils.urls import next_url
 
@@ -79,7 +82,7 @@ def direct_to_template(request, template, extra_context=None, **kwargs):
     for (key, value) in context.items():
         if callable(value):
             context[key] = value()
-    return render(request, template, context)
+    return TemplateResponse(request, template, context)
 
 
 @staff_member_required
@@ -127,7 +130,7 @@ def search(request, template="search_results.html", extra_context=None):
     context = {"query": query, "results": paginated,
                "search_type": search_type}
     context.update(extra_context or {})
-    return render(request, template, context)
+    return TemplateResponse(request, template, context)
 
 
 @staff_member_required
