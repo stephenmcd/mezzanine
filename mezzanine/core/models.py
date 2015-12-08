@@ -9,7 +9,6 @@ try:
 except ImportError:
     from urllib import urlopen, urlencode
 
-from django import VERSION as DJANGO_VERSION
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.db.models.base import ModelBase
@@ -391,10 +390,7 @@ class OrderableBase(ModelBase):
         return super(OrderableBase, cls).__new__(cls, name, bases, attrs)
 
 
-OrderableSuper = with_metaclass(OrderableBase, models.Model) if DJANGO_VERSION < (1, 9) else models.Model
-
-
-class Orderable(OrderableSuper):
+class Orderable(with_metaclass(OrderableBase, models.Model)):
     """
     Abstract model that provides a custom ordering integer field
     similar to using Meta's ``order_with_respect_to``, since to
