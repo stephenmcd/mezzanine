@@ -1,11 +1,25 @@
 from __future__ import unicode_literals
+
+import warnings
+
 from future.utils import with_metaclass
 
 from django.conf import settings
+from django.contrib.auth import get_user_model as django_get_user_model
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model, Field
 
 from mezzanine.utils.importing import import_dotted_path
+
+
+def get_user_model():
+    warnings.warn(
+        "Mezzanine's get_user_model() is deprecated and will be removed in a "
+        "future version. Replace all uses of this function with Django's "
+        "django.contrib.auth.get_user_model().",
+        DeprecationWarning
+    )
+    return django_get_user_model()
 
 
 def get_user_model_name():
