@@ -93,11 +93,11 @@ The final step in Mezzanine's caching strategy involves a technique
 known as mint caching, in which the expiry value for any cache entry
 is stored in cache along with the cache entry itself. The real expiry
 value used is the given expiry plus the value defined by Mezzanine's
-``CACHE_SET_DELAY_SECONDS`` setting. Each time a cache entry is
+:ref:`CACHE_SET_DELAY_SECONDS-LABEL` setting. Each time a cache entry is
 requested, the original expiry time is checked, and, if the expiry
 time has passed, the stale cache entry is placed back into the cache
 along with a new expiry time using the value of
-``CACHE_SET_DELAY_SECONDS``. In this case, no cache entry is returned,
+:ref:`CACHE_SET_DELAY_SECONDS-LABEL`. In this case, no cache entry is returned,
 which has the effect of essentially faking a cache miss, so that the
 caller can know to regenerate the cache entry. This approach ensures
 that cache misses never actually occur and that (almost) only one

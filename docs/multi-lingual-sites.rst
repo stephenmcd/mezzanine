@@ -56,8 +56,8 @@ For models that extends Mezzanine capabilities, there are two rules:
 
 Firstly, the app in which your model is defined must be listed *after*
 the app it is extending from in your ``INSTALLED_APPS``
-setting. For example, ``mezzanine.forms`` extends models from
-``mezzanine.pages`` and should appear after it.
+setting. For example, :mod:`mezzanine.forms` extends models from
+:mod:`mezzanine.pages` and should appear after it.
 
 .. note::
     If your app defines both models that need to be translated and
@@ -168,7 +168,7 @@ to ``MIGRATION_MODULES``.
 Translation for Injected Fields
 ===============================
 
-If you added fields in Mezzanine's models through ``EXTRA_MODEL_FIELDS``
+If you added fields in Mezzanine's models through :ref:`EXTRA_MODEL_FIELDS-LABEL`
 and want to add translations, you will need to create a custom app that
 will hold the necessary ``translation.py`` module.
 
@@ -205,17 +205,17 @@ Redistributable Applications for Mezzanine
 ==========================================
 
 If you want to provide translation support for your Mezzanine app,
-make sure it works with both ``USE_MODELTRANSLATION`` set to ``True``
+make sure it works with both :ref:`USE_MODELTRANSLATION-LABEL` set to ``True``
 or ``False``. Mezzanine enforces the value to ``False`` if
 django-modeltranslation is not installed.
 
-The ``USE_MODELTRANSLATION`` setting can therefore be used to check
+The :ref:`USE_MODELTRANSLATION-LABEL` setting can therefore be used to check
 against, when extra steps are required (such as saving an instance of
 a model in every language). In the case of a project with
-``USE_MODELTRANSLATION`` set to ``False``, the ``translation.py``
+:ref:`USE_MODELTRANSLATION-LABEL` set to ``False``, the ``translation.py``
 module will just be ignored.
 
-The ``USE_MODELTRANSLATION`` setting is also available in the
+The :ref:`USE_MODELTRANSLATION-LABEL` setting is also available in the
 template's ``settings`` variable. Have a look at the
 ``includes/language_selector.html`` template in :mod:`mezzanine.core`
 for a working example.

@@ -137,7 +137,7 @@ attribute on the model, and updated each time the number of comments
 change.
 
 You can also require that users must be logged in to comment. This is
-controlled by setting the ``COMMENTS_ACCOUNT_REQUIRED`` setting to
+controlled by setting the :ref:`COMMENTS_ACCOUNT_REQUIRED-LABEL` setting to
 ``True``. In this case, the comment form will still be displayed, but
 on submitting a comment, the user will be redirected to the
 login/signup page, where after logging in, their comment will be posted
@@ -152,7 +152,7 @@ Ratings
 The ratings provided by the :mod:`mezzanine.generic` app allow people to
 give a rating for any model that has ratings set up. Suppose we wanted
 to allow people to rate our books from 1 to 10, first we define what
-the rating range is via the ``RATINGS_RANGE`` setting::
+the rating range is via the :ref:`RATINGS_RANGE-LABEL` setting::
 
     RATINGS_RANGE = range(1, 11)
 
@@ -189,7 +189,7 @@ inject:
   * ``Book.rating_count`` - total count of all ratings
 
 Like threaded comments, ratings can be limited to authenticated users
-by setting the ``RATINGS_ACCOUNT_REQUIRED`` setting to ``True``.
+by setting the :ref:`RATINGS_ACCOUNT_REQUIRED-LABEL` setting to ``True``.
 
 .. _templatetags:
 

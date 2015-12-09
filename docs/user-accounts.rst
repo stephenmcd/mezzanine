@@ -66,7 +66,7 @@ have no profile model at all, and strip the signup and update profile
 forms down to only the minimum required fields on the user model, such
 as username and password.
 
-Mezzanine defines the setting ``ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS``
+Mezzanine defines the setting :ref:`ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS-LABEL`
 which allows you to define a sequence of field names, for both the user
 and profile models, that won't be exposed to the user in any way.
 Suppose we define a ``DateTimeField`` on the profile model called
@@ -81,7 +81,7 @@ Django's user model. In our ``settings.py`` module we would define::
     )
 
 If you don't want to expose the ``username`` field to the user, Mezzanine
-provides the setting ``ACCOUNTS_NO_USERNAME``, which when set to ``True``, will expose the ``email`` field as the sole login for the user.
+provides the setting :ref:`ACCOUNTS_NO_USERNAME-LABEL`, which when set to ``True``, will expose the ``email`` field as the sole login for the user.
 
 Account Verification
 ====================
@@ -90,7 +90,7 @@ By default, with :mod:`mezzanine.accounts` installed, any public visitor
 to the site can sign up for an account and will be logged in after
 signup. However you may wish to validate that new accounts are only
 created by real people with real email addresses. To enable this,
-Mezzanine provides the setting ``ACCOUNTS_VERIFICATION_REQUIRED``,
+Mezzanine provides the setting :ref:`ACCOUNTS_VERIFICATION_REQUIRED-LABEL`,
 which when set to ``True``, will send new user an email with a
 verification link that they must click on, in order to activate their
 account.
@@ -100,7 +100,7 @@ Account Approval
 
 You may also wish to manually activate newly created public accounts.
 To enable this, Mezzanine provides the setting
-``ACCOUNTS_APPROVAL_REQUIRED``, which when set to ``True``, will set
+:ref:`ACCOUNTS_APPROVAL_REQUIRED-LABEL`, which when set to ``True``, will set
 newly created accounts as inactive, requiring a staff member to
 activate each account in the admin interface. A list of email addresses
 can be configured in the admin settings interface, which will then be

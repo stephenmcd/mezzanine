@@ -19,7 +19,7 @@ of models always accessible.
 
 Using the standard Django admin the grouping and ordering of these models
 aren't configurable, so Mezzanine provides the setting
-``ADMIN_MENU_ORDER`` that can be used to control the grouping and
+:ref:`ADMIN_MENU_ORDER-LABEL` that can be used to control the grouping and
 ordering of models when listed in the admin area.
 
 This setting is a sequence of pairs where each pair represents a group of
@@ -44,7 +44,7 @@ also control this behavior by implementing a :meth:`.in_menu` method on your
 admin class, which should return ``True`` or ``False``. When implemented,
 this method controls whether the admin class appears in the menu or not.
 Here's an advanced example that excludes the :class:`.BlogCategoryAdmin` class
-from the menu, unless it is explicitly defined in ``ADMIN_MENU_ORDER``::
+from the menu, unless it is explicitly defined in :ref:`ADMIN_MENU_ORDER-LABEL`::
 
     from django.contrib import admin
 
@@ -70,7 +70,7 @@ Custom Items
 ============
 
 It is possible to inject custom navigation items into the
-``ADMIN_MENU_ORDER`` setting by specifying an
+:ref:`ADMIN_MENU_ORDER-LABEL` setting by specifying an
 item using a two item sequence, the first item containing the title and
 second containing the named urlpattern that resolves to the url to be used.
 
@@ -100,7 +100,7 @@ that will be displayed in the dashboard area.
 
 The dashboard area is broken up into three columns, the first being wide and
 the second and third being narrow. Mezzanine then provides the setting
-``DASHBOARD_TAGS`` which is a sequence of three sequences - one for
+:ref:`DASHBOARD_TAGS-LABEL` which is a sequence of three sequences - one for
 each the three columns. Each sequence contains the names of the inclusion
 tags in the format ``tag_lib.tag_name`` that will be rendered in each of the
 columns .
@@ -130,7 +130,7 @@ WYSIWYG Editor
 By default, Mezzanine uses the
 `TinyMCE editor <http://tinymce.moxiecode.com/>`_ to provide rich
 editing for all model fields of the type
-:class:`mezzanine.core.fields.RichTextField`. The setting ``RICHTEXT_WIDGET_CLASS``
+:class:`mezzanine.core.fields.RichTextField`. The setting :ref:`RICHTEXT_WIDGET_CLASS-LABEL`
 contains the import path to the widget class that will be used for
 editing each of these fields, which therefore provides the ability for
 implementing your own editor widget which could be a modified version
@@ -139,25 +139,25 @@ of TinyMCE, a different editor or even no editor at all.
 .. note::
 
     If you'd only like to customize the TinyMCE options specified in its
-    JavaScript setup, you can do so via the ``TINYMCE_SETUP_JS`` setting
+    JavaScript setup, you can do so via the :ref:`TINYMCE_SETUP_JS-LABEL` setting
     which lets you specify the URL to your own TinyMCE setup JavaScript
     file.
 
-The default value for the ``RICHTEXT_WIDGET_CLASS`` setting is the
+The default value for the :ref:`RICHTEXT_WIDGET_CLASS-LABEL` setting is the
 string ``"mezzanine.core.forms.TinyMceWidget"``. The :class:`.TinyMceWidget`
 class referenced here provides the necessary media files and HTML for
 implementing the TinyMCE editor, and serves as a good reference point
 for implementing your own widget class which would then be specified
-via the ``RICHTEXT_WIDGET_CLASS`` setting.
+via the :ref:`RICHTEXT_WIDGET_CLASS-LABEL` setting.
 
-In addition to ``RICHTEXT_WIDGET_CLASS`` you may need to customize the
+In addition to :ref:`RICHTEXT_WIDGET_CLASS-LABEL` you may need to customize the
 way your content is rendered at the template level. Post processing of
-the content can be achieved through the ``RICHTEXT_FILTERS`` setting,
+the content can be achieved through the :ref:`RICHTEXT_FILTERS-LABEL` setting,
 which is a sequence of string, each one containing the dotted path to
 a Python function, that will be used as a processing pipeline for the
 content. Think of them like Django's middleware or context processors.
 
-Say, for example, you had a ``RICHTEXT_WIDGET_CLASS`` that allowed you
+Say, for example, you had a :ref:`RICHTEXT_WIDGET_CLASS-LABEL` that allowed you
 to write your content in a popular wiki syntax such as markdown. You'd
 need a way to convert that wiki syntax into HTML right before the
 content was rendered::
@@ -187,7 +187,7 @@ Mezzanine's Media Library (based on django-filebrowser) provides a
 uploaded files.
 
 When using a custom widget for the WYSIWYG editor via the
-``RICHTEXT_WIDGET_CLASS`` setting, you can show the Media Library dialog
+:ref:`RICHTEXT_WIDGET_CLASS-LABEL` setting, you can show the Media Library dialog
 from your custom widget, by doing the following:
 
 1. Load the following media resources in your widget, perhaps using a

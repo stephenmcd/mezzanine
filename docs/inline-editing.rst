@@ -11,7 +11,7 @@ found next to each piece of editable content, such as a page's title or a
 blog post's body. Clicking on the Edit icon will allow the author to update
 the individual piece of content without leaving the page.
 
-In-line editing can be disabled by setting ``INLINE_EDITING_ENABLED`` to
+In-line editing can be disabled by setting :ref:`INLINE_EDITING_ENABLED-LABEL` to
 ``False``.
 
 Template Configuration
@@ -23,7 +23,7 @@ installed with Mezzanine all have their content configured to be in-line
 editable. When developing your own templates from scratch though, you'll
 need to perform this step yourself.
 
-The first step is to ensure the ``editable_loader`` template tag is called
+The first step is to ensure the :func:`.editable_loader` template tag is called
 right before the closing ``</body>`` tag in each template. The recommended
 way to do this is to include ``includes/footer_scripts`` in your top-most
 base template::

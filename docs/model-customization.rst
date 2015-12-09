@@ -9,7 +9,7 @@ Mezzanine provides for directly modifying the behaviour of its models.
 Field Injection
 ===============
 
-Mezzanine provides the setting ``EXTRA_MODEL_FIELDS`` which allows you
+Mezzanine provides the setting :ref:`EXTRA_MODEL_FIELDS-LABEL` which allows you
 to define a sequence of fields that will be injected into Mezzanine's
 (or any library's) models.
 
@@ -17,9 +17,9 @@ to define a sequence of fields that will be injected into Mezzanine's
 
     Using the following approach comes with certain trade-offs
     described below in :ref:`field-injection-caveats`. Be sure to fully
-    understand these prior to using the ``EXTRA_MODEL_FIELDS`` setting.
+    understand these prior to using the :ref:`EXTRA_MODEL_FIELDS-LABEL` setting.
 
-Each item in the ``EXTRA_MODEL_FIELDS`` sequence is a four item
+Each item in the :ref:`EXTRA_MODEL_FIELDS-LABEL` sequence is a four item
 sequence. The first two items are the dotted path to the model and its
 field name to be added, and the dotted path to the field class to use
 for the field. The third and fourth items are a sequence of positional

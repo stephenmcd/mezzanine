@@ -435,10 +435,10 @@ Each :class:`.Page` instance has a field :attr:`in_menus` which specifies
 which menus the page should appear in. In the admin interface, the
 :attr:`in_menus` field is a list of checkboxes for each of the menu
 templates. The menu choices for the :attr:`in_menus` field are defined by
-the ``PAGE_MENU_TEMPLATES`` setting, which is a sequence of menu
-templates. Each item in the sequence is a three item sequence,
-containing a unique ID for the template, a label for the template, and
-the template path. For example in your ``settings.py`` module::
+the :ref:`PAGE_MENU_TEMPLATES-LABEL` setting, which is a
+sequence of menu templates. Each item in the sequence is a three item
+sequence, containing a unique ID for the template, a label for the template,
+and the template path. For example in your ``settings.py`` module::
 
     PAGE_MENU_TEMPLATES = (
         (1, "Top navigation bar", "pages/menus/dropdown.html"),
@@ -447,7 +447,7 @@ the template path. For example in your ``settings.py`` module::
     )
 
 Which of these entries is selected for new pages (all are selected by default)
-is controlled by the ``PAGE_MENU_TEMPLATES_DEFAULT`` setting. For example,
+is controlled by the :ref:`PAGE_MENU_TEMPLATES-LABEL` setting. For example,
 ``PAGE_MENU_TEMPLATES_DEFAULT = (1, 3)`` will cause the admin section
 to pre-select the "Top navigation bar" and the "Footer" when using
 the example above.
@@ -473,10 +473,10 @@ menu template, so it's up to your menu template to check the page's
     </ul>
 
 Note that if a menu template is not defined in the
-``PAGE_MENU_TEMPLATES`` setting, the branch pages supplied to it will
+:ref:`PAGE_MENU_TEMPLATES-LABEL` setting, the branch pages supplied to it will
 always have the ``in_menu`` attribute set to ``True``, so the only way
 this will be ``False`` is if the menu template has been added to
-``PAGE_MENU_TEMPLATES``, and then *not* selected for a page in the admin
+:ref:`PAGE_MENU_TEMPLATES-LABEL`, and then *not* selected for a page in the admin
 interface.
 
 Menu Variables
