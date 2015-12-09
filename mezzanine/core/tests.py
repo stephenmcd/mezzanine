@@ -2,6 +2,9 @@ from __future__ import unicode_literals
 
 import re
 
+from mezzanine.core.middleware import FetchFromCacheMiddleware
+from mezzanine.utils.cache import cache_installed
+
 try:
     # Python 3
     from urllib.parse import urlencode
@@ -435,6 +438,31 @@ class CoreTests(TestCase):
         fieldsets = inline.get_fieldsets(request)
         self.assertEqual(fieldsets[-1][1]["fields"][-1], '_order')
         self.assertNotIn('_order', fieldsets[1][1]["fields"])
+
+    def test_cache_installed(self):
+
+        test_contexts = [
+            (False,
+             ['mezzanine.core.middleware.FetchFromCacheMiddleware']),
+            (True,
+             ['mezzanine.core.middleware.UpdateCacheMiddleware',
+              'mezzanine.core.tests.SubclassMiddleware']),
+            (True,
+             ['mezzanine.core.middleware.UpdateCacheMiddleware',
+              'mezzanine.core.middleware.FetchFromCacheMiddleware']),
+        ]
+
+        with self.settings(TESTING=False):  # Well, this is silly
+            for expected_result, middleware_classes in test_contexts:
+                with self.settings(MIDDLEWARE_CLASSES=middleware_classes):
+                    cache_installed.cache_clear()
+                    self.assertEqual(cache_installed(), expected_result)
+
+        cache_installed.cache_clear()
+
+
+class SubclassMiddleware(FetchFromCacheMiddleware):
+    pass
 
 
 @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,

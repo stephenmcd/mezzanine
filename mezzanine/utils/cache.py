@@ -1,10 +1,13 @@
 from __future__ import unicode_literals
 
 from hashlib import md5
+from inspect import getmro
 from time import time
 
 from django.core.cache import cache
+from django.utils.lru_cache import lru_cache
 from django.utils.cache import _i18n_cache_key_suffix
+from django.utils.module_loading import import_string
 
 from mezzanine.conf import settings
 from mezzanine.utils.device import device_from_request
@@ -55,16 +58,28 @@ def cache_get(key):
     return value
 
 
+@lru_cache(maxsize=None)
 def cache_installed():
     """
     Returns ``True`` if a cache backend is configured, and the
-    cache middlware classes are present.
+    cache middleware classes or subclasses thereof are present.
+    This will be evaluated once per run, and then cached.
     """
     has_key = bool(getattr(settings, "NEVERCACHE_KEY", ""))
-    return has_key and settings.CACHES and not settings.TESTING and set((
-        "mezzanine.core.middleware.UpdateCacheMiddleware",
-        "mezzanine.core.middleware.FetchFromCacheMiddleware",
-    )).issubset(set(settings.MIDDLEWARE_CLASSES))
+
+    def flatten(seqs):
+        return (item for seq in seqs for item in seq)
+
+    middleware_classes = map(import_string, settings.MIDDLEWARE_CLASSES)
+    middleware_ancestors = set(flatten(map(getmro, middleware_classes)))
+
+    mezzanine_cache_middleware_classes = {
+        import_string("mezzanine.core.middleware.UpdateCacheMiddleware"),
+        import_string("mezzanine.core.middleware.FetchFromCacheMiddleware"),
+    }
+
+    return (has_key and settings.CACHES and not settings.TESTING and
+            mezzanine_cache_middleware_classes.issubset(middleware_ancestors))
 
 
 def cache_key_prefix(request):
