@@ -97,7 +97,7 @@ class BaseGallery(models.Model):
                     path = os.path.join(GALLERIES_UPLOAD_DIR, slug,
                                         native(str(name, errors="ignore")))
                     saved_path = default_storage.save(path, ContentFile(data))
-                self.images.add(GalleryImage(file=saved_path), bulk=False)
+                self.images.create(file=saved_path)
             if delete_zip_import:
                 zip_file.close()
                 self.zip_import.delete(save=True)
