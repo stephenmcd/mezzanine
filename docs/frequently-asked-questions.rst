@@ -103,13 +103,13 @@ filtering are implemented by default, that can be controlled in
 the settings section of the admin. These are High (the default), Low
 (which allows extra tags such as those required for embedding videos),
 and None (no filtering occurs). This is implemented via the
-``RICHTEXT_FILTER_LEVEL`` setting.
+:ref:`RICHTEXT_FILTER_LEVEL-LABEL` setting.
 
 If your situation is one where your staff members are completely
 trusted, and custom HTML within WYSIWYG fields is required, then you
 can modify the filter level accordingly. Further customisation is
-possible via the ``RICHTEXT_ALLOWED_TAGS``,
-``RICHTEXT_ALLOWED_ATTRIBUTES`` and ``RICHTEXT_ALLOWED_STYLES``
+possible via the :ref:`RICHTEXT_ALLOWED_TAGS-LABEL`,
+:ref:`RICHTEXT_ALLOWED_ATTRIBUTES-LABEL` and :ref:`RICHTEXT_ALLOWED_STYLES-LABEL`
 settings, which can have extra allowed values appended to using
 the ``append`` argument in Mezzanine's settings API. See the
 :ref:`registering-settings` section for more information.

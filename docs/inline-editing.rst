@@ -11,7 +11,7 @@ found next to each piece of editable content, such as a page's title or a
 blog post's body. Clicking on the Edit icon will allow the author to update
 the individual piece of content without leaving the page.
 
-In-line editing can be disabled by setting ``INLINE_EDITING_ENABLED`` to
+In-line editing can be disabled by setting :ref:`INLINE_EDITING_ENABLED-LABEL` to
 ``False``.
 
 Template Configuration
@@ -23,7 +23,7 @@ installed with Mezzanine all have their content configured to be in-line
 editable. When developing your own templates from scratch though, you'll
 need to perform this step yourself.
 
-The first step is to ensure the ``editable_loader`` template tag is called
+The first step is to ensure the :func:`.editable_loader` template tag is called
 right before the closing ``</body>`` tag in each template. The recommended
 way to do this is to include ``includes/footer_scripts`` in your top-most
 base template::
@@ -53,15 +53,15 @@ the `$` symbol.
     {% endif %}
 
 The second step is to wrap each instance of a model field with the
-:func:`.editable` and ``endeditable`` template tags, with the field specified as
-the :func:`.editable` tag's argument. The content between the two tags is what
-will visibly be hinted to the content author as being editable. It's possible to not provide any content between
-the two tags, in which case the value for the model field specified for the
-:func:`.editable` tag will simply be used. The model field must always be
-specified in the format ``instance_name.field_name`` where ``instance_name``
-is the name of a model instance in the template context. For example,
-suppose we had a ``page`` variable in our template with ``title`` and
-``content`` fields::
+:func:`.editable` and ``endeditable`` template tags, with the field specified
+as the :func:`.editable` tag's argument. The content between the two tags is
+what will visibly be hinted to the content author as being editable. It's
+possible to not provide any content between the two tags, in which case the
+value for the model field specified for the :func:`.editable` tag will simply
+be used. The model field must always be specified in the format
+``instance_name.field_name`` where ``instance_name`` is the name of a model
+instance in the template context. For example, suppose we had a ``page``
+variable in our template with ``title`` and ``content`` fields::
 
     {% load mezzanine_tags %}
     <html>

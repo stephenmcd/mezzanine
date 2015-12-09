@@ -11,17 +11,17 @@ Devices are grouped into types with each type being named after the
 sub-directory containing its specific set of templates. Each device is then
 defined by a list of strings that could be found in the user agent that
 matches the particular device. This mapping of device sub-directory names
-to user agent strings is defined in the setting ``DEVICE_USER_AGENTS``::
+to user agent strings is defined in the setting :ref:`DEVICE_USER_AGENTS-LABEL`::
 
     DEVICE_USER_AGENTS = (
         ("mobile", ("Android", "BlackBerry", "iPhone")),
         ("desktop", ("Windows", "Macintosh", "Linux")),
     )
 
-Given the above example value for ``DEVICE_USER_AGENTS``, suppose a view or
-template referenced the template ``blog/index.html``. If an iPhone made
-the request to the website, the template ``mobile/blog/index.html`` would
-be searched for, and if a Windows OS made the request then the template
+Given the above example value for :ref:`DEVICE_USER_AGENTS-LABEL` suppose a
+view or template referenced the template ``blog/index.html``. If an iPhone
+made the request to the website, the template ``mobile/blog/index.html``
+would be searched for, and if a Windows OS made the request then the template
 ``desktop/blog/index.html`` would be searched for.
 
 .. note::
@@ -33,7 +33,7 @@ be searched for, and if a Windows OS made the request then the template
     templates is entirely optional.
 
 You can also specify which device should be treated as the default by
-defining the setting ``DEVICE_DEFAULT``. For example to ensure templates
+defining the setting :ref:`DEVICE_DEFAULT-LABEL`. For example to ensure templates
 for the ``mobile`` device group are used even when no matching user agent
 is found, simply define the following in your project's ``settings``
 module::
@@ -51,7 +51,7 @@ setting to use it.
 Implementation Considerations
 =============================
 
-Using the ``DEVICE_USER_AGENTS`` setting, Mezzanine simply prefixes
+Using the :ref:`DEVICE_USER_AGENTS-LABEL` setting, Mezzanine simply prefixes
 any referenced template path with the device specific sub-directory name
 if a user agent matches one of the strings specified for the device. For
 example if a user agent matches the ``mobile`` device set of templates,
