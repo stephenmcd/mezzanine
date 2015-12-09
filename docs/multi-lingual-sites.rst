@@ -106,9 +106,10 @@ table in the database. The fields have already been registered for
 translation and django-modeltranslation will happily handle it for you.
 
 If you want to extend an abstract model, such as
-:class:`mezzanine.core.models.Slugged` or :class:`mezzanine.core.models.Displayable`,
-you will need to subclass their translation registration. An example of
-this is the :mod:`mezzanine.blog` app in its :mod:`.translation.py` module::
+:class:`mezzanine.core.models.Slugged` or
+:class:`mezzanine.core.models.Displayable`, you will need to subclass their
+translation registration. An example of this is the :mod:`mezzanine.blog` app
+in its :mod:`.translation.py` module::
 
     from modeltranslation.translator import translator
     from mezzanine.core.translation import (TranslatedSlugged,
@@ -127,8 +128,8 @@ this is the :mod:`mezzanine.blog` app in its :mod:`.translation.py` module::
 
 You don't add translatable fields in your model beside those
 already defined inside Mezzanine's models. You need to extend from
-:mod:`mezzanine.core.translation` classes, so django-modeltranslation is aware of
-the abstract fields it will have to manage.
+:mod:`mezzanine.core.translation` classes, so django-modeltranslation
+is aware of the abstract fields it will have to manage.
 
 After that, you can ``manage.py createdb`` for a new project or
 ``manage.py sync_translation_fields`` and then
@@ -168,12 +169,10 @@ to ``MIGRATION_MODULES``.
 Translation for Injected Fields
 ===============================
 
-If you added fields in Mezzanine's models through :ref:`EXTRA_MODEL_FIELDS-LABEL`
-and want to add translations, you will need to create a custom app that
-will hold the necessary ``translation.py`` module.
-
-Adding a translation field to all of Mezzanine's content type would
-look like::
+If you added fields in Mezzanine's models through
+:ref:`EXTRA_MODEL_FIELDS-LABEL` and want to add translations, you will need
+to create a custom app that will hold the necessary ``translation.py`` module.
+Adding a translation field to all of Mezzanine's content type would look like::
 
   EXTRA_MODEL_FIELDS = (
       (

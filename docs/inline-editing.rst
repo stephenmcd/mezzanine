@@ -53,15 +53,15 @@ the `$` symbol.
     {% endif %}
 
 The second step is to wrap each instance of a model field with the
-:func:`.editable` and ``endeditable`` template tags, with the field specified as
-the :func:`.editable` tag's argument. The content between the two tags is what
-will visibly be hinted to the content author as being editable. It's possible to not provide any content between
-the two tags, in which case the value for the model field specified for the
-:func:`.editable` tag will simply be used. The model field must always be
-specified in the format ``instance_name.field_name`` where ``instance_name``
-is the name of a model instance in the template context. For example,
-suppose we had a ``page`` variable in our template with ``title`` and
-``content`` fields::
+:func:`.editable` and ``endeditable`` template tags, with the field specified
+as the :func:`.editable` tag's argument. The content between the two tags is
+what will visibly be hinted to the content author as being editable. It's
+possible to not provide any content between the two tags, in which case the
+value for the model field specified for the :func:`.editable` tag will simply
+be used. The model field must always be specified in the format
+``instance_name.field_name`` where ``instance_name`` is the name of a model
+instance in the template context. For example, suppose we had a ``page``
+variable in our template with ``title`` and ``content`` fields::
 
     {% load mezzanine_tags %}
     <html>

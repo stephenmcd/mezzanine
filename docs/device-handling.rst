@@ -18,10 +18,10 @@ to user agent strings is defined in the setting :ref:`DEVICE_USER_AGENTS-LABEL`:
         ("desktop", ("Windows", "Macintosh", "Linux")),
     )
 
-Given the above example value for :ref:`DEVICE_USER_AGENTS-LABEL` suppose a view or
-template referenced the template ``blog/index.html``. If an iPhone made
-the request to the website, the template ``mobile/blog/index.html`` would
-be searched for, and if a Windows OS made the request then the template
+Given the above example value for :ref:`DEVICE_USER_AGENTS-LABEL` suppose a
+view or template referenced the template ``blog/index.html``. If an iPhone
+made the request to the website, the template ``mobile/blog/index.html``
+would be searched for, and if a Windows OS made the request then the template
 ``desktop/blog/index.html`` would be searched for.
 
 .. note::
