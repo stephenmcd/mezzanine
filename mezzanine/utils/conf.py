@@ -1,12 +1,9 @@
 from __future__ import unicode_literals
 
-import pprint
-
 import os
 import sys
 from warnings import warn
 
-from django import VERSION as DJANGO_VERSION
 from django.conf import global_settings as defaults
 
 from mezzanine.utils.timezone import get_best_local_timezone
@@ -46,86 +43,6 @@ def set_dynamic_settings(s):
     # Remove a value from a list setting if in the list.
     remove = lambda n, k: s[n].remove(k) if k in s[n] else None
 
-    using_new_templates = "TEMPLATES" in s
-
-    if not using_new_templates:
-
-        # Default configuration is to look for templates in app directories.
-        app_dirs = True
-        template_loaders = s.get("TEMPLATE_LOADERS")
-        if template_loaders:
-            template_loaders = list(template_loaders)
-
-            # Django's default TEMPLATES setting doesn't specify loaders, instead
-            # dynamically sets a default based on whether or not APP_DIRS is True.
-            # We check here if the existing TEMPLATE_LOADERS setting matches one
-            # of those default cases, and omit the 'loaders' option if so.
-            default_loaders = ["django.template.loaders.filesystem.Loader",
-                               "django.template.loaders.app_directories.Loader"]
-
-            if template_loaders == default_loaders:
-                # Equivalent to Django's default with APP_DIRS True
-                template_loaders = None
-                app_dirs = True
-            elif template_loaders == default_loaders[:1]:
-                # Equivalent to Django's default with APP_DIRS False
-                template_loaders = None
-                app_dirs = False
-            else:
-                # This project has a custom loaders setting, which we'll use
-                app_dirs = False
-
-        template_debug = s.get("TEMPLATE_DEBUG")
-        template_dirs = s.get("TEMPLATE_DIRS", [])
-        template_context_processors = s.get("TEMPLATE_CONTEXT_PROCESSORS", [
-            "django.contrib.auth.context_processors.auth",
-            "django.contrib.messages.context_processors.messages",
-            "django.core.context_processors.debug",
-            "django.core.context_processors.i18n",
-            "django.core.context_processors.static",
-            "django.core.context_processors.media",
-            "django.core.context_processors.request",
-            "django.core.context_processors.tz",
-            "mezzanine.conf.context_processors.settings",
-            "mezzanine.pages.context_processors.page",
-        ])
-
-        suggested_templates_config = [
-            {
-                "BACKEND": "django.template.backends.django.DjangoTemplates",
-                "APP_DIRS": app_dirs,
-                "OPTIONS": {
-                    "context_processors": template_context_processors,
-                    "builtins": [
-                        "mezzanine.template.loader_tags",
-                    ],
-                },
-            },
-        ]
-
-        if template_loaders is not None:
-            suggested_templates_config[0]["OPTIONS"]['loaders'] = template_loaders
-        if template_debug is not None:
-            suggested_templates_config[0]["OPTIONS"]['debug'] = template_debug
-        if template_dirs is not None:
-            suggested_templates_config[0]["DIRS"] = template_dirs
-
-        warn("You should update your settings to use Django's TEMPLATES setting."
-             "The old TEMPLATES_ settings are deprecated and will be removed.\n\n"
-             "Based on your existing configuration, this is our recommended TEMPLATES value:\n\n%s"
-             % pprint.pformat(suggested_templates_config), stacklevel=2)
-
-    else:
-        template_context_processors = s["TEMPLATES"][0]['OPTIONS']['context_processors']
-
-    s["TEMPLATE_DEBUG"] = s.get("TEMPLATE_DEBUG", s.get("DEBUG", False))
-
-    if DJANGO_VERSION < (1, 9):
-        # add_to_builtins was removed in 1.9 and replaced with a
-        # documented public API configured by the TEMPLATES setting.
-        from django.template.base import add_to_builtins
-        add_to_builtins("mezzanine.template.loader_tags")
-
     if not s.get("ALLOWED_HOSTS", []):
         warn("You haven't defined the ALLOWED_HOSTS settings, which "
              "Django requires. Will fall back to the domains "
@@ -158,18 +75,6 @@ def set_dynamic_settings(s):
             # Setting is already a list, so we'll exclude it from
             # the list of settings we'll revert back to tuples.
             tuple_list_settings.remove(setting)
-
-    # From Mezzanine 3.1.2 and onward we added the context processor
-    # for handling the page variable in templates - here we help
-    # upgrading by adding it if missing, with a warning. This helper
-    # can go away eventually.
-    cp = "mezzanine.pages.context_processors.page"
-    if ("mezzanine.pages" in s["INSTALLED_APPS"] and
-            cp not in template_context_processors):
-        warn("%s is required in the TEMPLATE_CONTEXT_PROCESSORS setting. "
-             "Adding it now, but you should update settings.py to "
-             "explicitly include it." % cp)
-        append("TEMPLATE_CONTEXT_PROCESSORS", cp)
 
     # Set up cookie messaging if none defined.
     storage = "django.contrib.messages.storage.cookie.CookieStorage"
