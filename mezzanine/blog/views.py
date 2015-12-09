@@ -59,7 +59,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
                "tag": tag, "category": category, "author": author}
     context.update(extra_context or {})
     templates.append(template)
-    return TemplateResponse(request, template, context)
+    return TemplateResponse(request, templates, context)
 
 
 def blog_post_detail(request, slug, year=None, month=None, day=None,

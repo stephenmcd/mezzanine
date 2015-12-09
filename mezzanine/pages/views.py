@@ -96,4 +96,4 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     if request.page.content_model is not None:
         templates.append(u"pages/%s.html" % request.page.content_model)
     templates.append(template)
-    return TemplateResponse(request, template, extra_context or {})
+    return TemplateResponse(request, templates, extra_context or {})
