@@ -1,6 +1,8 @@
 
 from __future__ import absolute_import, unicode_literals
 import os
+
+from django import VERSION as DJANGO_VERSION
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -218,6 +220,9 @@ TEMPLATES = [
         },
     },
 ]
+
+if DJANGO_VERSION < (1, 9):
+    del TEMPLATES[0]["OPTIONS"]["builtins"]
 
 
 ################
