@@ -183,7 +183,8 @@ Media Library Integration
 =========================
 
 Mezzanine's Media Library (based on django-filebrowser) provides a
-`jQuery UI <http://jqueryui.com/>`_ `dialog <http://jqueryui.com/dialog/>`_ that can be used by custom widgets to allow users to select previously
+`jQuery UI <http://jqueryui.com/>`_ `dialog <http://jqueryui.com/dialog/>`_
+that can be used by custom widgets to allow users to select previously
 uploaded files.
 
 When using a custom widget for the WYSIWYG editor via the

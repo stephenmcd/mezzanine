@@ -8,11 +8,7 @@ from future.builtins import map, open, str
 from datetime import datetime
 import os.path
 from shutil import copyfile, move
-# Since python3 doesn't have letters handle the exception
-try:
-    from string import ascii_letters
-except ImportError:
-    from string import letters
+from string import ascii_letters
 from socket import gethostname
 from warnings import warn
 
