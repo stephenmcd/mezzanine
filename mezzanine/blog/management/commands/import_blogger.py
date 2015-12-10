@@ -74,8 +74,8 @@ class Command(BaseImporterCommand):
                 # this strips off the time zone info off the end as we want UTC
                 clean_date = entry.published.text[:re.search(r"\.\d{3}",
                     entry.published.text).end()]
-                published_date = datetime.strptime(clean_date,
-                        "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
+
+                published_date = self.parse_datetime(clean_date)
 
                 # TODO - issues with content not generating correct <P> tags
 
@@ -94,8 +94,9 @@ class Command(BaseImporterCommand):
                     # Strip off the time zone info off the end as we want UTC
                     clean_date = comment.published.text[:re.search(r"\.\d{3}",
                         comment.published.text).end()]
-                    comment_date = datetime.strptime(clean_date,
-                        "%Y-%m-%dT%H:%M:%S.%f") - timedelta(seconds=timezone)
+
+                    comment_date = self.parse_datetime(clean_date)
+
                     website = ""
                     if comment.author[0].uri:
                         website = comment.author[0].uri.text
@@ -110,3 +111,14 @@ class Command(BaseImporterCommand):
                 new_posts += 1
 
             start_index += 500
+
+    def parse_datetime(self, datetime_string):
+        try:
+            parsed_datetime = datetime.strptime(datetime_string,
+                                                "%Y-%m-%dT%H:%M:%S.%f")
+        except ValueError:
+            parsed_datetime = datetime.strptime(datetime_string,
+                                                "%Y-%m-%dT%H:%M:%S")
+
+        parsed_datetime -= timedelta(seconds=timezone)
+        return parsed_datetime
