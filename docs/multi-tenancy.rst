@@ -49,7 +49,8 @@ needs in the server environment.
 The domains involved could have a direct subsidiary relationship, as
 with example.com and several subdomains, or they may be completely
 separate domains, as with example.com, example2.com, example3.com.
-Either way, the domains are different hosts to which themes may be independently associated using the ``HOST_THEMES`` setting::
+Either way, the domains are different hosts to which themes may be
+independently associated using the :ref:`HOST_THEMES-LABEL` setting::
 
     # For a main domain and several subdomains.
     HOST_THEMES = [('example.com', 'example_theme'),
@@ -62,7 +63,7 @@ Either way, the domains are different hosts to which themes may be independently
                    ('www.example2.com', 'example2_theme'),
                    ('www.example3.com', 'example3_theme')]
 
-In either ``HOST_THEMES`` example above, there are three themes. Let's
+In either :ref:`HOST_THEMES-LABEL` example above, there are three themes. Let's
 continue with the second case, for example.com, example2.com, and
 example3.com, for which there are three theme apps constructed:
 ``example_theme``, ``example2_theme``, and ``example3_theme``. The

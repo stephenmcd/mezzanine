@@ -10,8 +10,8 @@ actually be exposed to, such as :class:`mezzanine.core.models.Displayable`
 and :class:`mezzanine.pages.models.Page`, which are the two main models you
 will inherit from when building your own models for content types.
 
-Before we look at :class:`.Displayable` and :class:`.Page`, here's a quick list of
-all the abstract models used to build them:
+Before we look at :class:`.Displayable` and :class:`.Page`, here's a quick
+list of all the abstract models used to build them:
 
   * :class:`mezzanine.core.models.SiteRelated` - Contains a related
     ``django.contrib.sites.models.Site`` field.
@@ -38,8 +38,8 @@ out of the box to end users, that make use of :class:`.Displayable` and
 
   * :class:`mezzanine.blog.models.BlogPost` - Blog posts that subclass
     :class:`.Displayable` as they're not part of the site's navigation.
-  * :class:`mezzanine.pages.models.RichTextPage` - Default :class:`.Page` subclass,
-    providing a WYSIWYG editable field.
+  * :class:`mezzanine.pages.models.RichTextPage` - Default :class:`.Page`
+    subclass, providing a WYSIWYG editable field.
   * :class:`mezzanine.pages.models.Link` - :class:`.Page` subclass for links
     pointing to other URLs.
   * :class:`mezzanine.forms.models.Form` - :class:`.Page` subclass for building
@@ -79,8 +79,8 @@ The :class:`.Page` Model
 ========================
 
 The foundation of a Mezzanine site is the model
-:class:`mezzanine.pages.models.Page`. Each :class:`.Page` instance is stored in a
-hierarchical tree to form the site's navigation, and an interface for
+:class:`mezzanine.pages.models.Page`. Each :class:`.Page` instance is stored
+in a hierarchical tree to form the site's navigation, and an interface for
 managing the structure of the navigation tree is provided in the admin
 via :class:`mezzanine.pages.admin.PageAdmin`. All types of content inherit
 from the :class:`.Page` model and Mezzanine provides a default content type
@@ -165,8 +165,8 @@ the navigation tree.
     supported. Therefore you cannot subclass the :class:`.RichTextPage` or
     any other custom content types you create yourself. Should you need
     to implement a WYSIWYG editable field in the way the
-    :class:`.RichTextPage` model does, you can simply subclass both :class:`.Page`
-    and :class:`.RichText`, the latter being imported from
+    :class:`.RichTextPage` model does, you can simply subclass both
+    :class:`.Page` and :class:`.RichText`, the latter being imported from
     :class:`mezzanine.core.models`.
 
 Displaying Custom Content Types
@@ -216,11 +216,12 @@ If a :class:`.Page` instance with slug ``authors/dr-seuss`` is a child of the
 :class:`.Page` with slug ``authors``, the templates ``pages/authors/dr-seuss.html``,
 ``pages/authors/dr-seuss/author.html``, ``pages/authors/author.html``,
 ``pages/author.html``, and ``pages/page.html`` would be checked for
-respectively. This lets you specify a template for all children of a :class:`.Page`
-and a different template for the :class:`.Page` itself. For example, if an
-additional author were added as a child page of ``authors/dr-seuss`` with the
-slug ``authors/dr-seuss/theo-lesieg``, the template
-``pages/authors/dr-seuss/author.html`` would be among those checked.
+respectively. This lets you specify a template for all children of a
+:class:`.Page` and a different template for the :class:`.Page` itself.
+For example, if an additional author were added as a child page of
+``authors/dr-seuss`` with the slug ``authors/dr-seuss/theo-lesieg``,
+the template ``pages/authors/dr-seuss/author.html`` would be among
+those checked.
 
 Overriding vs Extending Templates
 =================================
@@ -435,10 +436,10 @@ Each :class:`.Page` instance has a field :attr:`in_menus` which specifies
 which menus the page should appear in. In the admin interface, the
 :attr:`in_menus` field is a list of checkboxes for each of the menu
 templates. The menu choices for the :attr:`in_menus` field are defined by
-the ``PAGE_MENU_TEMPLATES`` setting, which is a sequence of menu
-templates. Each item in the sequence is a three item sequence,
-containing a unique ID for the template, a label for the template, and
-the template path. For example in your ``settings.py`` module::
+the :ref:`PAGE_MENU_TEMPLATES-LABEL` setting, which is a sequence of
+menu templates. Each item in the sequence is a three item sequence,
+containing a unique ID for the template, a label for the template,
+and the template path. For example in your ``settings.py`` module::
 
     PAGE_MENU_TEMPLATES = (
         (1, "Top navigation bar", "pages/menus/dropdown.html"),
@@ -447,7 +448,7 @@ the template path. For example in your ``settings.py`` module::
     )
 
 Which of these entries is selected for new pages (all are selected by default)
-is controlled by the ``PAGE_MENU_TEMPLATES_DEFAULT`` setting. For example,
+is controlled by the :ref:`PAGE_MENU_TEMPLATES_DEFAULT-LABEL` setting. For example,
 ``PAGE_MENU_TEMPLATES_DEFAULT = (1, 3)`` will cause the admin section
 to pre-select the "Top navigation bar" and the "Footer" when using
 the example above.
@@ -473,11 +474,11 @@ menu template, so it's up to your menu template to check the page's
     </ul>
 
 Note that if a menu template is not defined in the
-``PAGE_MENU_TEMPLATES`` setting, the branch pages supplied to it will
+:ref:`PAGE_MENU_TEMPLATES-LABEL` setting, the branch pages supplied to it will
 always have the ``in_menu`` attribute set to ``True``, so the only way
 this will be ``False`` is if the menu template has been added to
-``PAGE_MENU_TEMPLATES``, and then *not* selected for a page in the admin
-interface.
+:ref:`PAGE_MENU_TEMPLATES-LABEL`, and then *not* selected for a page in the
+admin interface.
 
 Menu Variables
 --------------
