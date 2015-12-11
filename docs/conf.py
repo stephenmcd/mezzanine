@@ -95,6 +95,11 @@ release = mezzanine.__version__
 # for source files.
 exclude_trees = ['_build']
 
+# List of files to be excluded when looking for source files.
+# Added settings.rst its still will be included in configuration.rst
+# only that prevents error of duplicate reference labels.
+exclude_patterns = ['settings.rst']
+
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
 
