@@ -53,9 +53,11 @@
 </div>
 
 {% compress js %}
+{% block footer_js %}
 <script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
 <script src="{% static "js/jquery.mobile-1.2.1.min.js" %}"></script>
 {% include "mobile/includes/footer_scripts.html" %}
+{% endblock %}
 {% endcompress %}
 
 </body>
