@@ -220,7 +220,7 @@ from your custom widget, by doing the following:
 Singleton Admin
 ===============
 
-The admin class :class:`mezzanine.core.admin.SingletonAdmin` is a utility
+The admin class :class:`mezzanine.utils.admin.SingletonAdmin` is a utility
 that can be used to create an admin interface for managing the case
 where only a single instance of a model should exist. Some cases
 include a single page site, where only a few fixed blocks of text
@@ -246,7 +246,7 @@ Here's a model with a text field for managing the alert::
 
 Here's our ``admin.py`` module in the same app::
 
-    from mezzanine.core.admin import SingletonAdmin
+    from mezzanine.utils.admin import SingletonAdmin
     from .models import SiteAlert
 
     # Subclassing allows us to customize the admin class,

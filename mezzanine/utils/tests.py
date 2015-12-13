@@ -52,6 +52,8 @@ IGNORE_ERRORS = (
     # lambdas are OK.
     "do not assign a lambda",
 
+    # Imported during deprecation grace period after moving to utils.admin.
+    "'SingletonAdmin' imported but unused",
 )
 
 

@@ -6,7 +6,7 @@
 {% block extrahead %}
 <link rel="stylesheet" href="{% static "mezzanine/css/admin/global.css" %}">
 <style>
-    /* These are set in PageAdmin's view methods, and mezzanine.core.admin.SingletonAdmin */
+    /* These are set in PageAdmin's view methods, and mezzanine.utils.admin.SingletonAdmin */
     {% if hide_delete_link or singleton %}.submit-row .deletelink {display:none !important;}{% endif %}
     {% if hide_slug_field %}.slug {display:none !important;}{% endif %}
     {% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
