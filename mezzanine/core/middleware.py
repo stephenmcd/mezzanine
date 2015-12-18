@@ -1,17 +1,24 @@
 from __future__ import unicode_literals
 from future.utils import native_str
 
+import logging
+
+from django import http
 from django.contrib import admin
 from django.contrib.auth import logout
 from django.contrib.messages import error
 from django.contrib.redirects.models import Redirect
 from django.core.exceptions import MiddlewareNotUsed
-from django.core.urlresolvers import reverse, resolve
+from django.core import urlresolvers
+from django.core.urlresolvers import reverse, resolve, Resolver404
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponsePermanentRedirect, HttpResponseGone)
+from django.middleware.common import CommonMiddleware as DjangoCommonMiddleware
 from django.middleware.csrf import CsrfViewMiddleware, get_token
 from django.template import Template, RequestContext
+from django.utils import six
 from django.utils.cache import get_max_age
+from django.utils.http import urlquote
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
@@ -19,12 +26,12 @@ from mezzanine.conf import settings
 from mezzanine.core.models import SitePermission
 from mezzanine.core.management.commands.createdb import (DEFAULT_USERNAME,
                                                          DEFAULT_PASSWORD)
+from mezzanine.pages.models import Page
 from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
                                    cache_get, cache_set, cache_installed)
 from mezzanine.utils.device import templates_for_device
 from mezzanine.utils.sites import current_site_id, templates_for_host
 from mezzanine.utils.urls import next_url
-
 
 _deprecated = {
     "AdminLoginInterfaceSelector": "AdminLoginInterfaceSelectorMiddleware",
@@ -290,3 +297,93 @@ class RedirectFallbackMiddleware(object):
                 else:
                     response = HttpResponsePermanentRedirect(redirect.new_path)
         return response
+
+
+class CommonMiddleware(DjangoCommonMiddleware):
+    """
+    Extension of Django's ``CommonMiddleware`` that only issues redirects for
+    matches with the 'pages' URL pattern if that page actually exists.
+    """
+
+    def is_valid_path(self, path, urlconf=None):
+        """
+        Check if path is valid, digging into slugs for matches to Pages
+        """
+
+        try:
+            match = resolve(path, urlconf)
+
+            if match.view_name == 'page':
+                return Page.objects.filter(slug=path.strip('/')).exists()
+
+            return True
+        except Resolver404:
+            return False
+
+    def process_request(self, request):
+        """
+        Check for denied User-Agents and rewrite the URL based on
+        settings.APPEND_SLASH and settings.PREPEND_WWW
+        """
+
+        # Check for denied User-Agents
+        if 'HTTP_USER_AGENT' in request.META:
+            for user_agent_regex in settings.DISALLOWED_USER_AGENTS:
+                if user_agent_regex.search(request.META['HTTP_USER_AGENT']):
+                    logger = logging.getLogger('django.request')
+                    logger.warning('Forbidden (User agent): %s', request.path,
+                        extra={
+                            'status_code': 403,
+                            'request': request
+                        }
+                    )
+                    return http.HttpResponseForbidden('<h1>Forbidden</h1>')
+
+        # Check for a redirect based on settings.APPEND_SLASH
+        # and settings.PREPEND_WWW
+        host = request.get_host()
+        old_url = [host, request.path]
+        new_url = old_url[:]
+
+        if (settings.PREPEND_WWW and old_url[0] and
+                not old_url[0].startswith('www.')):
+            new_url[0] = 'www.' + old_url[0]
+
+        # Append a slash if APPEND_SLASH is set and the URL doesn't have a
+        # trailing slash and there is no pattern for the current path
+        if settings.APPEND_SLASH and (not old_url[1].endswith('/')):
+            urlconf = getattr(request, 'urlconf', None)
+            if (not urlresolvers.is_valid_path(request.path_info, urlconf) and
+                    self.is_valid_path("%s/" % request.path_info, urlconf)):
+                new_url[1] = new_url[1] + '/'
+                if settings.DEBUG and request.method == 'POST':
+                    raise RuntimeError((""
+                    "You called this URL via POST, but the URL doesn't end "
+                    "in a slash and you have APPEND_SLASH set. Django can't "
+                    "redirect to the slash URL while maintaining POST data. "
+                    "Change your form to point to %s%s (note the trailing "
+                    "slash), or set APPEND_SLASH=False in your Django "
+                    "settings.") % (new_url[0], new_url[1]))
+
+        if new_url == old_url:
+            # No redirects required.
+            return
+        if new_url[0]:
+            newurl = "%s://%s%s" % (
+                request.scheme,
+                new_url[0], urlquote(new_url[1]))
+        else:
+            newurl = urlquote(new_url[1])
+        if request.META.get('QUERY_STRING', ''):
+            if six.PY3:
+                newurl += '?' + request.META['QUERY_STRING']
+            else:
+                # `query_string` is a bytestring. Appending it to the unicode
+                # string `newurl` will fail if it isn't ASCII-only. This isn't
+                # allowed; only broken software generates such query strings.
+                # Better drop the invalid query string than crash (#15152).
+                try:
+                    newurl += '?' + request.META['QUERY_STRING'].decode()
+                except UnicodeDecodeError:
+                    pass
+        return self.response_redirect_class(newurl)
