@@ -580,6 +580,7 @@ def admin_app_list(request):
                     "index": model_index,
                     "perms": model_admin.get_model_perms(request),
                     "name": model_title,
+                    "object_name": opts.object_name,
                     "admin_url": change_url,
                     "add_url": add_url
                 })
