@@ -8,7 +8,7 @@ from future.builtins import map, open, str
 from datetime import datetime
 import os.path
 from shutil import copyfile, move
-from string import letters
+from string import ascii_letters as letters
 from socket import gethostname
 from warnings import warn
 
@@ -49,6 +49,7 @@ def build_settings_docs(docs_path, prefix=None):
             continue
         setting = registry[name]
         settings_name = "``%s``" % name
+        settings_label = ".. _%s-LABEL:" % name
         setting_default = setting["default"]
         if isinstance(setting_default, str):
             if gethostname() in setting_default or (
@@ -57,6 +58,7 @@ def build_settings_docs(docs_path, prefix=None):
                 setting_default = dynamic
         if setting_default != dynamic:
             setting_default = repr(deep_force_unicode(setting_default))
+        lines.extend(["", settings_label])
         lines.extend(["", settings_name, "-" * len(settings_name)])
         lines.extend(["",
             urlize(setting["description"] or "").replace(
