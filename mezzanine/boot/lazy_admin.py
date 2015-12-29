@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib.auth import get_user_model
 from django.contrib.admin.sites import AdminSite, NotRegistered
+from django.shortcuts import redirect
 
 from mezzanine.utils.importing import import_dotted_path
 
@@ -58,7 +59,15 @@ class LazyAdminSite(AdminSite):
                 fb_urls = import_dotted_path("%s.sites.site" % fb_name).urls
             except ImportError:
                 fb_urls = "%s.urls" % fb_name
-            urls = patterns("", ("^media-library/", include(fb_urls)),) + urls
+            urls = patterns("",
+                # This gives the media library a root URL (which filebrowser
+                # doesn't provide), so that we can target it in the
+                # ADMIN_MENU_ORDER setting, allowing each view to correctly
+                # highlight its left-hand admin nav item.
+                url("^media-library/$", lambda r: redirect("fb_browse"),
+                    name="media-library"),
+                ("^media-library/", include(fb_urls)),
+            ) + urls
         # Give the urlpatterm for the user password change view an
         # actual name, so that it can be reversed with multiple
         # languages are supported in the admin.

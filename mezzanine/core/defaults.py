@@ -23,7 +23,7 @@ register_setting(
     editable=False,
     default=(
         (_("Content"), ("pages.Page", "blog.BlogPost",
-           "generic.ThreadedComment", (_("Media Library"), "fb_browse"),)),
+           "generic.ThreadedComment", (_("Media Library"), "media-library"),)),
         (_("Site"), ("sites.Site", "redirects.Redirect", "conf.Setting")),
         (_("Users"), ("auth.User", "auth.Group",)),
     ),
