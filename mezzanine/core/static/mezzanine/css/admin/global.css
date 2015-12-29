@@ -37,6 +37,7 @@ h1 {
 =======================================*/
 #login-form {
     margin-top: 100px;
+    min-height: 350px;
 }
 .login .submit-row, .login #content-main {
     width: 450px;
