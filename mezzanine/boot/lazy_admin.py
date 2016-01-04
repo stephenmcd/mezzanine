@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib.auth import get_user_model
-from django.contrib.admin.sites import AdminSite, NotRegistered
+from django.contrib.admin.sites import (AdminSite, site as default_site,
+    NotRegistered, AlreadyRegistered)
 
 from mezzanine.utils.importing import import_dotted_path
 
@@ -44,9 +45,16 @@ class LazyAdminSite(AdminSite):
                     AdminSite.unregister(self, eval(model[1]))
                 except NotRegistered:
                     pass
+        # Pick up any admin classes registered via decorator to the
+        # default admin site.
+        for model, admin in default_site._registry.items():
+            self._deferred.append(("register", (model, admin.__class__), {}))
         # Call register/unregister.
-        for name, deferred_args, deferred_kwargs in self._deferred:
-            getattr(AdminSite, name)(self, *deferred_args, **deferred_kwargs)
+        for name, args, kwargs in self._deferred:
+            try:
+                getattr(AdminSite, name)(self, *args, **kwargs)
+            except AlreadyRegistered:
+                pass
 
     @property
     def urls(self):
