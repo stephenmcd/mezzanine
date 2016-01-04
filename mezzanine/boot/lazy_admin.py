@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib.auth import get_user_model
 from django.contrib.admin.sites import (AdminSite, site as default_site,
     NotRegistered, AlreadyRegistered)
@@ -58,7 +58,9 @@ class LazyAdminSite(AdminSite):
 
     @property
     def urls(self):
-        urls = patterns("", ("", super(LazyAdminSite, self).urls),)
+        urls = [
+            url("", super(LazyAdminSite, self).urls),
+        ]
         # Filebrowser admin media library.
         fb_name = getattr(settings, "PACKAGE_NAME_FILEBROWSER", "")
         if fb_name in settings.INSTALLED_APPS:
@@ -66,8 +68,10 @@ class LazyAdminSite(AdminSite):
                 fb_urls = import_dotted_path("%s.sites.site" % fb_name).urls
             except ImportError:
                 fb_urls = "%s.urls" % fb_name
-            urls = patterns("", ("^media-library/", include(fb_urls)),) + urls
-        # Give the urlpatterm for the user password change view an
+            urls = [
+                url("^media-library/", include(fb_urls)),
+            ] + urls
+        # Give the urlpattern for the user password change view an
         # actual name, so that it can be reversed with multiple
         # languages are supported in the admin.
         User = get_user_model()
@@ -75,10 +79,10 @@ class LazyAdminSite(AdminSite):
             user_change_password = getattr(admin, "user_change_password", None)
             if user_change_password:
                 bits = (User._meta.app_label, User._meta.object_name.lower())
-                urls = patterns("",
+                urls = [
                     url("^%s/%s/(\d+)/password/$" % bits,
                         self.admin_view(user_change_password),
                         name="user_change_password"),
-                ) + urls
+                ] + urls
                 break
         return urls
