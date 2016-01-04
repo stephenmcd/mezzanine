@@ -74,17 +74,7 @@ class BaseGenericRelation(GenericRelation):
             for (name_string, field) in self.fields.items():
                 if "%s" in name_string:
                     name_string = name_string % name
-                # In Django 1.6, add_to_class will be called on a
-                # parent model's field more than once, so
-                # contribute_to_class needs to be idempotent. We
-                # don't call get_all_field_names() which fill the app
-                # cache get_fields_with_model() is safe.
-                try:
-                    # Django >= 1.8
-                    extant_fields = cls._meta._forward_fields_map
-                except AttributeError:
-                    # Django <= 1.7
-                    extant_fields = (i.name for i in cls._meta.fields)
+                extant_fields = cls._meta._forward_fields_map
                 if name_string in extant_fields:
                     continue
                 if field.verbose_name is None:

@@ -65,7 +65,8 @@ class PageAdmin(DisplayableAdmin):
             # Insert each field between the publishing fields and nav
             # fields. Do so in reverse order to retain the order of
             # the model's fields.
-            exclude_fields = Page._meta.get_all_field_names() + ["page_ptr"]
+            exclude_fields = [f.name for f in
+                Page._meta.get_fields()] + ["page_ptr"]
             try:
                 exclude_fields.extend(self.exclude)
             except (AttributeError, TypeError):
