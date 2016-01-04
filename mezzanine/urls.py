@@ -22,7 +22,7 @@ urlpatterns += patterns('django.views.i18n',
     (r'^jsi18n/(?P<packages>\S+?)/$', 'javascript_catalog', js_info_dict),
 )
 
-if settings.DEBUG:
+if settings.DEBUG and "debug_toolbar" in settings.INSTALLED_APPS:
     try:
         import debug_toolbar
     except ImportError:
