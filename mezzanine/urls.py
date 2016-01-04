@@ -66,7 +66,7 @@ if "mezzanine.accounts" in settings.INSTALLED_APPS:
 # Mezzanine's Blog app.
 blog_installed = "mezzanine.blog" in settings.INSTALLED_APPS
 if blog_installed:
-    BLOG_SLUG = settings.BLOG_SLUG.rstrip("/")
+    BLOG_SLUG = settings.BLOG_SLUG.rstrip("/") + "/"
     blog_patterns = [
         url("^%s" % BLOG_SLUG, include("mezzanine.blog.urls")),
     ]
@@ -78,7 +78,7 @@ if "mezzanine.pages" in settings.INSTALLED_APPS:
     # No BLOG_SLUG means catch-all patterns belong to the blog,
     # so give pages their own prefix and inject them before the
     # blog urlpatterns.
-    if blog_installed and not BLOG_SLUG:
+    if blog_installed and not BLOG_SLUG.rstrip("/"):
         PAGES_SLUG = getattr(settings, "PAGES_SLUG", "pages").strip("/") + "/"
         blog_patterns_start = urlpatterns.index(blog_patterns[0])
         urlpatterns[blog_patterns_start:len(blog_patterns)] = [
