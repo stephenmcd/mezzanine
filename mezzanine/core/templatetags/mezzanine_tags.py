@@ -575,6 +575,10 @@ def admin_app_list(request):
                     app_dict[app_title] = {
                         "index": app_index,
                         "name": app_title,
+                        "app_url": reverse(
+                            'admin:app_list',
+                            kwargs={'app_label': opts.app_label}
+                        ),
                         "models": [],
                     }
                 app_dict[app_title]["models"].append({

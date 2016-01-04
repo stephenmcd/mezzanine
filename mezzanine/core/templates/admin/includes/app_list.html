@@ -5,7 +5,13 @@
    {% for app in dashboard_app_list %}
    <div class="module" id="app_{{ app.name|lower }}">
        <table>
-           <caption>{% trans app.name %}</caption>
+           <caption>
+                {% if app.app_url %}
+                    <a href="{{ app.app_url }}" class="section" title="{% blocktrans with name=app.name %}Models in the {{ name }} application{% endblocktrans %}">{{ app.name }}</a>
+                {% else %}
+                    {{ app.name }}
+                {% endif %}
+           </caption>
            {% for model in app.models %}
            <tr class="model-{{ model.object_name|lower }}">
            {% if model.perms.change or model.perms.custom %}
