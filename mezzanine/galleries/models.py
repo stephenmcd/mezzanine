@@ -97,7 +97,7 @@ class BaseGallery(models.Model):
                     path = os.path.join(GALLERIES_UPLOAD_DIR, slug,
                                         native(str(name, errors="ignore")))
                     saved_path = default_storage.save(path, ContentFile(data))
-                self.images.add(GalleryImage(file=saved_path))
+                self.images.create(file=saved_path)
             if delete_zip_import:
                 zip_file.close()
                 self.zip_import.delete(save=True)
@@ -135,7 +135,7 @@ class GalleryImage(Orderable):
         file name.
         """
         if not self.id and not self.description:
-            name = force_text(self.file.name)
+            name = force_text(self.file)
             name = name.rsplit("/", 1)[-1].rsplit(".", 1)[0]
             name = name.replace("'", "")
             name = "".join([c if c not in punctuation else " " for c in name])

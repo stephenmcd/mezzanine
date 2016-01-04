@@ -89,7 +89,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self._signup = self.instance.id is None
-        user_fields = User._meta.get_all_field_names()
+        user_fields = set([f.name for f in User._meta.get_fields()])
         try:
             self.fields["username"].help_text = ugettext(
                         "Only letters, numbers, dashes or underscores please")

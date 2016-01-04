@@ -8,8 +8,6 @@ from django.core.exceptions import ImproperlyConfigured, AppRegistryNotReady
 from django.db.models import IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
 
-from mezzanine.utils.models import lazy_model_ops
-
 
 class BaseGenericRelation(GenericRelation):
     """
@@ -76,17 +74,7 @@ class BaseGenericRelation(GenericRelation):
             for (name_string, field) in self.fields.items():
                 if "%s" in name_string:
                     name_string = name_string % name
-                # In Django 1.6, add_to_class will be called on a
-                # parent model's field more than once, so
-                # contribute_to_class needs to be idempotent. We
-                # don't call get_all_field_names() which fill the app
-                # cache get_fields_with_model() is safe.
-                try:
-                    # Django >= 1.8
-                    extant_fields = cls._meta._forward_fields_map
-                except AttributeError:
-                    # Django <= 1.7
-                    extant_fields = (i.name for i in cls._meta.fields)
+                extant_fields = cls._meta._forward_fields_map
                 if name_string in extant_fields:
                     continue
                 if field.verbose_name is None:
@@ -97,14 +85,8 @@ class BaseGenericRelation(GenericRelation):
             getter_name = "get_%s_name" % self.__class__.__name__.lower()
             cls.add_to_class(getter_name, lambda self: name)
 
-            def connect_save(sender):
-                post_save.connect(self._related_items_changed, sender=sender)
-
-            def connect_delete(sender):
-                post_delete.connect(self._related_items_changed, sender=sender)
-
-            lazy_model_ops.add(connect_save, self.rel.to)
-            lazy_model_ops.add(connect_delete, self.rel.to)
+            post_save.connect(self._related_items_changed, sender=self.rel.to)
+            post_delete.connect(self._related_items_changed, sender=self.rel.to)
 
     def _related_items_changed(self, **kwargs):
         """
@@ -215,7 +197,7 @@ class KeywordsField(BaseGenericRelation):
         related_manager.all().delete()
         # Convert the data into AssignedKeyword instances.
         if data:
-            data = [AssignedKeyword(keyword_id=i) for i in new_ids]
+            data = [related_manager.create(keyword_id=i) for i in new_ids]
         # Remove keywords that are no longer assigned to anything.
         Keyword.objects.delete_unused(removed_ids)
         super(KeywordsField, self).save_form_data(instance, data)

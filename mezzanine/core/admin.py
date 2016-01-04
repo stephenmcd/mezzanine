@@ -15,7 +15,7 @@ from mezzanine.core.models import (Orderable, SitePermission,
 from mezzanine.utils.static import static_lazy as static
 
 if settings.USE_MODELTRANSLATION:
-    from django.utils.datastructures import SortedDict
+    from collections import OrderedDict
     from django.utils.translation import activate, get_language
     from modeltranslation.admin import (TranslationAdmin,
                                         TranslationInlineModelAdmin)
@@ -107,7 +107,7 @@ class DisplayableAdmin(BaseTranslationModelAdmin):
         super(DisplayableAdmin, self).save_model(request, obj, form, change)
         if settings.USE_MODELTRANSLATION:
             lang = get_language()
-            for code in SortedDict(settings.LANGUAGES):
+            for code in OrderedDict(settings.LANGUAGES):
                 if code != lang:  # Already done
                     try:
                         activate(code)
@@ -250,5 +250,6 @@ class SitePermissionUserAdmin(UserAdmin):
 
 # only register if User hasn't been overridden
 if User == AuthUser:
-    admin.site.unregister(User)
+    if User in admin.site._registry:
+        admin.site.unregister(User)
     admin.site.register(User, SitePermissionUserAdmin)

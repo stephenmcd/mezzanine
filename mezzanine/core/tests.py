@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 import re
+from unittest import skipUnless, skip
 
 from mezzanine.core.middleware import FetchFromCacheMiddleware
 from mezzanine.utils.cache import cache_installed
@@ -23,7 +24,6 @@ from django.forms.models import modelform_factory
 from django.templatetags.static import static
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
-from django.utils.unittest import skipUnless
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import BaseDynamicInlineAdmin
@@ -69,6 +69,7 @@ class CoreTests(TestCase):
         mobile = self.client.get(url, HTTP_USER_AGENT=ua)
         self.assertNotEqual(default.template_name[0], mobile.template_name[0])
 
+    @skip("Running flake8 from the command line instead")
     def test_syntax(self):
         """
         Run pyflakes/pep8 across the code base to check for potential errors.

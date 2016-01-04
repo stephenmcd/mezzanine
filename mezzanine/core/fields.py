@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 from future.builtins import str
-from future.utils import with_metaclass
 
 from bleach import clean
 
@@ -78,7 +77,7 @@ class RichTextField(models.TextField):
                      strip_comments=False, styles=styles)
 
 
-class MultiChoiceField(with_metaclass(models.SubfieldBase, models.CharField)):
+class MultiChoiceField(models.CharField):
     """
     Charfield that stores multiple choices selected as a comma
     separated string. Based on http://djangosnippets.org/snippets/2753/
@@ -101,6 +100,9 @@ class MultiChoiceField(with_metaclass(models.SubfieldBase, models.CharField)):
         if isinstance(value, (tuple, list)):
             value = ",".join([str(i) for i in value])
         return value
+
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
 
     def to_python(self, value):
         if isinstance(value, str):

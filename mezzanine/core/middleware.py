@@ -26,28 +26,6 @@ from mezzanine.utils.sites import current_site_id, templates_for_host
 from mezzanine.utils.urls import next_url
 
 
-_deprecated = {
-    "AdminLoginInterfaceSelector": "AdminLoginInterfaceSelectorMiddleware",
-    "DeviceAwareUpdateCacheMiddleware": "UpdateCacheMiddleware",
-    "DeviceAwareFetchFromCacheMiddleware": "FetchFromCacheMiddleware",
-}
-
-
-class _Deprecated(object):
-    def __init__(self, *args, **kwargs):
-        from warnings import warn
-        msg = "mezzanine.core.middleware.%s is deprecated." % self.old
-        if self.new:
-            msg += (" Please change the MIDDLEWARE_CLASSES setting to use "
-                    "mezzanine.core.middleware.%s" % self.new)
-        warn(msg)
-
-for old, new in _deprecated.items():
-    globals()[old] = type(native_str(old),
-                          (_Deprecated,),
-                          {"old": old, "new": new})
-
-
 class AdminLoginInterfaceSelectorMiddleware(object):
     """
     Checks for a POST from the admin login view and if authentication is
@@ -69,7 +47,7 @@ class AdminLoginInterfaceSelectorMiddleware(object):
                               % reverse("user_change_password",
                                         args=(request.user.id,))))
                 else:
-                    next = next_url(request) or "/"
+                    next = "/"
                 return HttpResponseRedirect(next)
             else:
                 return response

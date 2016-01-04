@@ -6,12 +6,13 @@ from calendar import month_name
 from django.contrib.auth import get_user_model
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.template.response import TemplateResponse
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.blog.feeds import PostsRSS, PostsAtom
 from mezzanine.conf import settings
 from mezzanine.generic.models import Keyword
-from mezzanine.utils.views import render, paginate
+from mezzanine.utils.views import paginate
 
 User = get_user_model()
 
@@ -58,7 +59,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
                "tag": tag, "category": category, "author": author}
     context.update(extra_context or {})
     templates.append(template)
-    return render(request, templates, context)
+    return TemplateResponse(request, templates, context)
 
 
 def blog_post_detail(request, slug, year=None, month=None, day=None,
@@ -76,7 +77,7 @@ def blog_post_detail(request, slug, year=None, month=None, day=None,
                "related_posts": related_posts}
     context.update(extra_context or {})
     templates = [u"blog/blog_post_detail_%s.html" % str(slug), template]
-    return render(request, templates, context)
+    return TemplateResponse(request, templates, context)
 
 
 def blog_post_feed(request, format, **kwargs):

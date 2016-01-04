@@ -5,6 +5,7 @@ documentation is generated.
 from __future__ import division, print_function, unicode_literals
 from future.builtins import map, open, str
 
+from collections import OrderedDict
 from datetime import datetime
 import os.path
 from shutil import copyfile, move
@@ -13,7 +14,6 @@ from socket import gethostname
 from warnings import warn
 
 from django.template.defaultfilters import urlize
-from django.utils.datastructures import SortedDict
 from django.utils.encoding import force_text
 from django.utils.functional import Promise
 
@@ -69,8 +69,7 @@ def build_settings_docs(docs_path, prefix=None):
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
     with open(os.path.join(docs_path, "settings.rst"), "w") as f:
-        f.write("\n".join(lines).replace("u'", "'").replace("yo'", "you'"
-            ).replace("&#39;", "'"))
+        f.write("\n".join(lines).replace("u'", "'").replace("yo'", "you'").replace("&#39;", "'"))
 
 
 def build_deploy_docs(docs_path):
@@ -103,7 +102,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
     version_var = "__version__"
     changelog_filename = "CHANGELOG"
     changelog_file = os.path.join(project_path, changelog_filename)
-    versions = SortedDict()
+    versions = OrderedDict()
     repo = None
     ignore = ("AUTHORS", "formatting", "typo", "pep8", "pep 8",
               "whitespace", "README", "trans", "print debug",

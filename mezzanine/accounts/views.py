@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.messages import info, error
 from django.core.urlresolvers import NoReverseMatch, get_script_prefix
 from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.accounts import get_profile_form
@@ -13,7 +14,6 @@ from mezzanine.accounts.forms import LoginForm, PasswordResetForm
 from mezzanine.conf import settings
 from mezzanine.utils.email import send_verification_mail, send_approve_mail
 from mezzanine.utils.urls import login_redirect, next_url
-from mezzanine.utils.views import render
 
 
 User = get_user_model()
@@ -32,7 +32,7 @@ def login(request, template="accounts/account_login.html",
         return login_redirect(request)
     context = {"form": form, "title": _("Log in")}
     context.update(extra_context or {})
-    return render(request, template, context)
+    return TemplateResponse(request, template, context)
 
 
 def logout(request):
@@ -69,7 +69,7 @@ def signup(request, template="accounts/account_signup.html",
             return login_redirect(request)
     context = {"form": form, "title": _("Sign up")}
     context.update(extra_context or {})
-    return render(request, template, context)
+    return TemplateResponse(request, template, context)
 
 
 def signup_verify(request, uidb36=None, token=None):
@@ -108,7 +108,7 @@ def profile(request, username, template="accounts/account_profile.html",
     lookup = {"username__iexact": username, "is_active": True}
     context = {"profile_user": get_object_or_404(User, **lookup)}
     context.update(extra_context or {})
-    return render(request, template, context)
+    return TemplateResponse(request, template, context)
 
 
 @login_required
@@ -138,7 +138,7 @@ def profile_update(request, template="accounts/account_profile_update.html",
             return redirect("profile_update")
     context = {"form": form, "title": _("Update Profile")}
     context.update(extra_context or {})
-    return render(request, template, context)
+    return TemplateResponse(request, template, context)
 
 
 def password_reset(request, template="accounts/account_password_reset.html",
@@ -151,7 +151,7 @@ def password_reset(request, template="accounts/account_password_reset.html",
                         "a link for resetting your password."))
     context = {"form": form, "title": _("Password Reset")}
     context.update(extra_context or {})
-    return render(request, template, context)
+    return TemplateResponse(request, template, context)
 
 
 def password_reset_verify(request, uidb36=None, token=None):

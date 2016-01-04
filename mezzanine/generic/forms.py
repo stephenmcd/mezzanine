@@ -209,22 +209,18 @@ class RatingForm(CommentSecurityForm):
         rating_value = self.cleaned_data["value"]
         rating_name = self.target_object.get_ratingfield_name()
         rating_manager = getattr(self.target_object, rating_name)
+
         if user.is_authenticated():
-            try:
-                rating_instance = rating_manager.get(user=user)
-            except Rating.DoesNotExist:
-                rating_instance = Rating(user=user, value=rating_value)
-                rating_manager.add(rating_instance)
-            else:
-                if rating_instance.value != int(rating_value):
-                    rating_instance.value = rating_value
-                    rating_instance.save()
-                else:
+            rating_instance, created = rating_manager.get_or_create(user=user, defaults={'value': rating_value})
+            if not created:
+                if rating_instance.value == int(rating_value):
                     # User submitted the same rating as previously,
                     # which we treat as undoing the rating (like a toggle).
                     rating_instance.delete()
                     self.undoing = True
+                else:
+                    rating_instance.value = rating_value
+                    rating_instance.save()
         else:
-            rating_instance = Rating(value=rating_value)
-            rating_manager.add(rating_instance)
+            rating_instance = rating_manager.create(value=rating_value)
         return rating_instance

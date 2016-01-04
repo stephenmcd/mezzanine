@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.views import redirect_to_login
-from django.core.exceptions import ImproperlyConfigured, MiddlewareNotUsed
+from django.core.exceptions import MiddlewareNotUsed
 from django.http import HttpResponse, Http404
 
 from mezzanine.conf import settings
@@ -64,11 +64,6 @@ class PageMiddleware(object):
         """
         Per-request mechanics for the current page object.
         """
-
-        cp = "mezzanine.pages.context_processors.page"
-        if cp not in settings.TEMPLATE_CONTEXT_PROCESSORS:
-            raise ImproperlyConfigured("%s is missing from "
-                "settings.TEMPLATE_CONTEXT_PROCESSORS" % cp)
 
         # Load the closest matching page by slug, and assign it to the
         # request object. If none found, skip all further processing.

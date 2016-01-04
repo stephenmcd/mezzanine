@@ -1,11 +1,12 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
+from unittest import skipUnless
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.db import connection
 from django.http import HttpResponse
-from django.utils.unittest import skipUnless
 from django.shortcuts import resolve_url
 from django.template import Context, Template
 from django.test.utils import override_settings
@@ -341,12 +342,12 @@ class PagesTests(TestCase):
         Test that slug generation is done for the default language and
         not the active one.
         """
+        from collections import OrderedDict
         from django.utils.translation import get_language, activate
-        from django.utils.datastructures import SortedDict
         from mezzanine.utils.urls import slugify
 
         default_language = get_language()
-        code_list = SortedDict(settings.LANGUAGES)
+        code_list = OrderedDict(settings.LANGUAGES)
         del code_list[default_language]
         title_1 = "Title firt language"
         title_2 = "Title second language"

@@ -2,7 +2,7 @@
 This is the local_settings file for Mezzanine's docs.
 """
 
-from mezzanine.project_template.project_name.settings import *
+from mezzanine.project_template.project_name.settings import *  # noqa
 
 ROOT_URLCONF = "mezzanine.project_template.project_name.urls"
 
