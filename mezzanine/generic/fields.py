@@ -207,7 +207,7 @@ class KeywordsField(BaseGenericRelation):
         related_manager.all().delete()
         # Convert the data into AssignedKeyword instances.
         if data:
-            data = [AssignedKeyword(keyword_id=i) for i in new_ids]
+            data = [related_manager.create(keyword_id=i) for i in new_ids]
         # Remove keywords that are no longer assigned to anything.
         Keyword.objects.delete_unused(removed_ids)
         super(KeywordsField, self).save_form_data(instance, data)
