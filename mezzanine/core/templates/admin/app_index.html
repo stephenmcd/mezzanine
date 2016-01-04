@@ -1,0 +1,22 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block bodyclass %}{{ block.super }} app-{{ app_label }}{% endblock %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo;
+{% for app in app_list %}
+{{ app.name }}
+{% endfor %}
+</div>
+{% endblock %}
+{% endif %}
+
+{% block content %}
+  {% include "admin/includes/app_list.html" with dashboard_app_list=app_list %}
+{% endblock content %}
+
+{% block sidebar %}{% endblock %}
