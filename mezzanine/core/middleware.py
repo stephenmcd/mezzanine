@@ -47,7 +47,7 @@ class AdminLoginInterfaceSelectorMiddleware(object):
                               % reverse("user_change_password",
                                         args=(request.user.id,))))
                 else:
-                    next = next_url(request) or "/"
+                    next = "/"
                 return HttpResponseRedirect(next)
             else:
                 return response
