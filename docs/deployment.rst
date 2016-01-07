@@ -117,8 +117,8 @@ Deploying more than one site to the server
 ------------------------------------------
 
 After you have completed your first deployment, for all subsequent deployments
-in the same server (either new sites or updates to your existing sites) you only
-need to run ``fab deploy``.
+in the same server (either new sites or updates to your existing sites)
+you only need to run ``fab deploy``.
 
 Fixing bugs pushed by accident to the server
 --------------------------------------------
