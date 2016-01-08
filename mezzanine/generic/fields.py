@@ -119,7 +119,7 @@ class BaseGenericRelation(GenericRelation):
     def value_from_object(self, obj):
         """
         Returns the value of this field in the given model instance.
-        Needed for Django 1.7: https://code.djangoproject.com/ticket/22552
+        See: https://code.djangoproject.com/ticket/22552
         """
         return getattr(obj, self.attname).all()
 
