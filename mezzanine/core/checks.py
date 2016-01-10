@@ -149,4 +149,4 @@ def _build_suggested_template_config(settings):
         new_setting_name = convert_setting_name(setting_name)
         setter(new_setting_name, value)
 
-    return suggested_templates_config
+    return [suggested_templates_config]
