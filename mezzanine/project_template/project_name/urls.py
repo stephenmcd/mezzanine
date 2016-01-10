@@ -7,6 +7,8 @@ from django.views.i18n import set_language
 
 from mezzanine.core.views import direct_to_template
 from mezzanine.conf import settings
+# from mezzanine.pages.views import blog_post_list
+# from mezzanine.pages.views import page
 
 
 admin.autodiscover()
@@ -52,7 +54,7 @@ urlpatterns += [
     # "/.html" - so for this case, the template "pages/index.html"
     # should be used if you want to customize the homepage's template.
 
-    # url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
+    # url("^$", page, {"slug": "/"}, name="home"),
 
     # HOMEPAGE FOR A BLOG-ONLY SITE
     # -----------------------------
@@ -62,7 +64,7 @@ urlpatterns += [
     # ``settings.py`` module, and delete the blog page object from the
     # page tree in the admin if it was installed.
 
-    # url("^$", "mezzanine.blog.views.blog_post_list", name="home"),
+    # url("^$", blog_post_list, name="home"),
 
     # MEZZANINE'S URLS
     # ----------------
