@@ -9,10 +9,10 @@ __all__ = ()
 
 if getattr(settings, "AUTH_PROFILE_MODULE", None):
 
-    def create_profile(user_model, instance, created, **kwargs):
-        if created:
+    def create_profile(**kwargs):
+        if kwargs["created"]:
             try:
-                get_profile_for_user(instance)
+                get_profile_for_user(kwargs["instance"])
             except DatabaseError:
                 # User creation in initial syncdb may have been triggered,
                 # while profile model is under migration management and
