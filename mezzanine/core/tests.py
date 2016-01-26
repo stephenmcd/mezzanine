@@ -272,6 +272,12 @@ class CoreTests(TestCase):
         querystring = urlencode([('u', static("test/image.jpg"))])
         self._static_proxy(querystring)
 
+    def test_displayable_links(self):
+        self.client.login(username=self._username, password=self._password)
+        links_url = reverse('displayable_links_js')
+        response = self.client.get(links_url)
+        self.assertEqual(response.status_code, 200)
+
     def _get_csrftoken(self, response):
         csrf = re.findall(
             b'\<input type\=\'hidden\' name\=\'csrfmiddlewaretoken\' '
