@@ -11,17 +11,17 @@ Devices are grouped into types with each type being named after the
 sub-directory containing its specific set of templates. Each device is then
 defined by a list of strings that could be found in the user agent that
 matches the particular device. This mapping of device sub-directory names
-to user agent strings is defined in the setting ``DEVICE_USER_AGENTS``::
+to user agent strings is defined in the setting :ref:`DEVICE_USER_AGENTS`::
 
     DEVICE_USER_AGENTS = (
         ("mobile", ("Android", "BlackBerry", "iPhone")),
         ("desktop", ("Windows", "Macintosh", "Linux")),
     )
 
-Given the above example value for ``DEVICE_USER_AGENTS``, suppose a view or
-template referenced the template ``blog/index.html``. If an iPhone made
-the request to the website, the template ``mobile/blog/index.html`` would
-be searched for, and if a Windows OS made the request then the template
+Given the above example value for :ref:`DEVICE_USER_AGENTS` suppose a
+view or template referenced the template ``blog/index.html``. If an iPhone
+made the request to the website, the template ``mobile/blog/index.html``
+would be searched for, and if a Windows OS made the request then the template
 ``desktop/blog/index.html`` would be searched for.
 
 .. note::
@@ -33,7 +33,7 @@ be searched for, and if a Windows OS made the request then the template
     templates is entirely optional.
 
 You can also specify which device should be treated as the default by
-defining the setting ``DEVICE_DEFAULT``. For example to ensure templates
+defining the setting :ref:`DEVICE_DEFAULT`. For example to ensure templates
 for the ``mobile`` device group are used even when no matching user agent
 is found, simply define the following in your project's ``settings``
 module::
@@ -43,15 +43,15 @@ module::
 Mobile Theme
 ============
 
-Mezzanine includes the app ``mezzanine.mobile`` which contains a full
+Mezzanine includes the app :mod:`mezzanine.mobile` which contains a full
 set of default templates and assets for creating a mobile version of
-your site. Simply add ``mezzanine.mobile`` to your ``INSTALLED_APPS``
+your site. Simply add :mod:`mezzanine.mobile` to your ``INSTALLED_APPS``
 setting to use it.
 
 Implementation Considerations
 =============================
 
-Using the ``DEVICE_USER_AGENTS`` setting, Mezzanine simply prefixes
+Using the :ref:`DEVICE_USER_AGENTS` setting, Mezzanine simply prefixes
 any referenced template path with the device specific sub-directory name
 if a user agent matches one of the strings specified for the device. For
 example if a user agent matches the ``mobile`` device set of templates,
@@ -59,17 +59,17 @@ a reference to ``blog/index.html`` will be changed to the list
 ``["mobile/blog/index.html", "blog/index.html"]`` under the hood.
 
 To achieve this, the middleware
-``mezzanine.core.middleware.TemplateForDeviceMiddleware`` catches Django
+:class:`mezzanine.core.middleware.TemplateForDeviceMiddleware` catches Django
 ``TemplateResponse`` responses, and changes the template list prior to
 the response being rendered. As such, any views you implement should
 return ``TemplateResponse`` objects. The table below lists Mezzanine
 versions of Django features that can be used to ensure a
 ``TemplateResponse`` is returned.
 
-==================================================  =============================================
+==================================================  ==================================================
 Django                                              Mezzanine
-==================================================  =============================================
-``django.shortcuts.render``                         ``mezzanine.utils.views.render``
-``django.template.Library().inclusion_tag``         ``mezzanine.template.Library().inclusion_tag``
-``django.views.generic.simple.direct_to_template``  ``mezzanine.core.views.direct_to_template``
-==================================================  =============================================
+==================================================  ==================================================
+``django.shortcuts.render``                         :func:`mezzanine.utils.views.render`
+``django.template.Library().inclusion_tag``         :meth:`mezzanine.template.Library().inclusion_tag`
+``django.views.generic.simple.direct_to_template``  :func:`mezzanine.core.views.direct_to_template`
+==================================================  ==================================================

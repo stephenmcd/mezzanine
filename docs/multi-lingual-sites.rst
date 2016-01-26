@@ -56,8 +56,8 @@ For models that extends Mezzanine capabilities, there are two rules:
 
 Firstly, the app in which your model is defined must be listed *after*
 the app it is extending from in your ``INSTALLED_APPS``
-setting. For example, ``mezzanine.forms`` extends models from
-``mezzanine.pages`` and should appear after it.
+setting. For example, :mod:`mezzanine.forms` extends models from
+:mod:`mezzanine.pages` and should appear after it.
 
 .. note::
     If your app defines both models that need to be translated and
@@ -69,7 +69,7 @@ setting. For example, ``mezzanine.forms`` extends models from
 
 Secondly, for an external app, create a ``translation.py`` module
 at the root of your app. The content of this file might benefit
-from ``mezzanine.core.translation`` depending on what you are
+from :mod:`mezzanine.core.translation` depending on what you are
 extending from. For example, to improve the model from
 :doc:`content-architecture` and provide translatable fields::
 
@@ -99,16 +99,17 @@ A corresponding ``translation.py`` module in this app would look like::
     translator.register(Author, TranslatedAuthor)
     translator.register(Book, TranslatedBook)
 
-In this case, please note ``mezzanine.pages.translation.TranslatedPage``
+In this case, please note :class:`mezzanine.pages.translation.TranslatedPage`
 is not referenced in any way. This is due to the fact that
-``mezzanine.pages.models.Page`` is not abstract, and thus has its own
+:class:`mezzanine.pages.models.Page` is not abstract, and thus has its own
 table in the database. The fields have already been registered for
 translation and django-modeltranslation will happily handle it for you.
 
 If you want to extend an abstract model, such as
-``mezzanine.core.models.Slugged`` or ``mezzanine.core.models.Displayable``,
-you will need to subclass their translation registration. An example of
-this is the ``mezzanine.blog`` app in its ``translation.py`` module::
+:class:`mezzanine.core.models.Slugged` or
+:class:`mezzanine.core.models.Displayable`, you will need to subclass their
+translation registration. An example of this is the :mod:`mezzanine.blog` app
+in its :mod:`.translation.py` module::
 
     from modeltranslation.translator import translator
     from mezzanine.core.translation import (TranslatedSlugged,
@@ -127,8 +128,8 @@ this is the ``mezzanine.blog`` app in its ``translation.py`` module::
 
 You don't add translatable fields in your model beside those
 already defined inside Mezzanine's models. You need to extend from
-``mezzanine.core.translation`` classes, so django-modeltranslation is aware of
-the abstract fields it will have to manage.
+:mod:`mezzanine.core.translation` classes, so django-modeltranslation
+is aware of the abstract fields it will have to manage.
 
 After that, you can ``manage.py createdb`` for a new project or
 ``manage.py sync_translation_fields`` and then
@@ -168,12 +169,10 @@ to ``MIGRATION_MODULES``.
 Translation for Injected Fields
 ===============================
 
-If you added fields in Mezzanine's models through ``EXTRA_MODEL_FIELDS``
-and want to add translations, you will need to create a custom app that
-will hold the necessary ``translation.py`` module.
-
-Adding a translation field to all of Mezzanine's content type would
-look like::
+If you added fields in Mezzanine's models through
+:ref:`EXTRA_MODEL_FIELDS` and want to add translations, you will need
+to create a custom app that will hold the necessary ``translation.py`` module.
+Adding a translation field to all of Mezzanine's content type would look like::
 
   EXTRA_MODEL_FIELDS = (
       (
@@ -185,10 +184,10 @@ look like::
   )
 
 The app containing the corresponding ``translation.py`` module should
-be defined *after* ``mezzanine.pages`` in ``INSTALLED_APPS`` but
+be defined *after* :mod:`mezzanine.pages` in ``INSTALLED_APPS`` but
 *before* any app that contains models that subclass
-``mezzanine.pages.models.Page`` (such as ``mezzanine.forms``,
-``mezzanine.galleries`` or ``cartridge.shop``). The ``translation.py``
+:class:`mezzanine.pages.models.Page` (such as :mod:`mezzanine.forms`,
+:mod:`mezzanine.galleries` or ``cartridge.shop``). The ``translation.py``
 file itself would be::
 
     from modeltranslation.translator import translator
@@ -205,17 +204,17 @@ Redistributable Applications for Mezzanine
 ==========================================
 
 If you want to provide translation support for your Mezzanine app,
-make sure it works with both ``USE_MODELTRANSLATION`` set to ``True``
+make sure it works with both :ref:`USE_MODELTRANSLATION` set to ``True``
 or ``False``. Mezzanine enforces the value to ``False`` if
 django-modeltranslation is not installed.
 
-The ``USE_MODELTRANSLATION`` setting can therefore be used to check
+The :ref:`USE_MODELTRANSLATION` setting can therefore be used to check
 against, when extra steps are required (such as saving an instance of
 a model in every language). In the case of a project with
-``USE_MODELTRANSLATION`` set to ``False``, the ``translation.py``
+:ref:`USE_MODELTRANSLATION` set to ``False``, the ``translation.py``
 module will just be ignored.
 
-The ``USE_MODELTRANSLATION`` setting is also available in the
+The :ref:`USE_MODELTRANSLATION` setting is also available in the
 template's ``settings`` variable. Have a look at the
-``includes/language_selector.html`` template in ``mezzanine.core``
+``includes/language_selector.html`` template in :mod:`mezzanine.core`
 for a working example.

@@ -195,7 +195,7 @@ class BaseImporterCommand(BaseCommand):
             for comment in comments:
                 comment = self.trunc(ThreadedComment, prompt, **comment)
                 comment["site"] = site
-                post.comments.add(ThreadedComment(**comment))
+                post.comments.create(**comment)
                 if verbosity >= 1:
                     print("Imported comment by: %s" % comment["user_name"])
             self.add_meta(post, tags, prompt, verbosity, old_url)
@@ -245,7 +245,7 @@ class BaseImporterCommand(BaseCommand):
         for tag in tags:
             keyword = self.trunc(Keyword, prompt, title=tag)
             keyword, created = Keyword.objects.get_or_create_iexact(**keyword)
-            obj.keywords.add(AssignedKeyword(keyword=keyword))
+            obj.keywords.create(keyword=keyword)
             if created and verbosity >= 1:
                 print("Imported tag: %s" % keyword)
         if old_url is not None:

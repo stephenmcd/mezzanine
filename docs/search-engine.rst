@@ -13,29 +13,29 @@ Search Form
 ===========
 
 Developers can easily customize the scope of the searches via the
-``{% search_form %}`` template tag. A default list of searchable models can
-be specified in the ``SEARCH_MODEL_CHOICES`` setting. Only models that
-subclass ``mezzanine.core.models.Displayable`` should be used. In addition,
-the actual HTML form can be customized in the ``includes/search_form.html``
-template.
+``{% search_form %}`` template tag. A default list of searchable models
+can be specified in the :ref:`SEARCH_MODEL_CHOICES` setting. Only
+models that subclass :class:`mezzanine.core.models.Displayable` should
+be used. In addition, the actual HTML form can be customized in the
+``includes/search_form.html`` template.
 
 .. note::
 
     In ``SEARCH_MODEL_CHOICES`` and ``{% search_form %}``, all model names
     must be strings in the format ``app_label.model_name``. These models
     can be part of Mezzanine's core, or part of third party applications.
-    However, all these model must subclass ``Page`` or ``Displayable``.
+    However, all these model must subclass :class:`.Page` or :class:`.Displayable`.
 
 Using ``{% search_form "all" %}`` will render a search form with a
 dropdown menu, letting the user choose on what type of content the
 search will be performed. The dropdown will be populated with all of
-the models found in ``SEARCH_MODEL_CHOICES`` (default: pages and
+the models found in :ref:`SEARCH_MODEL_CHOICES` (default: pages and
 blog posts, with products added if Cartridge is installed).
 
 By passing a sequence of space-separated models to the tag, only those
 models will be made available as choices to the user. For example,
-to offer search for only the ``Page`` and ``Product`` models (provided
-Cartridge is installed), you can use:
+to offer search for only the :class:`.Page` and :class:`.Product`
+models (provided Cartridge is installed), you can use:
 ``{% search_form "pages.Page shop.Product" %}``.
 
 If you don't want to provide users with a dropdown menu, you can
@@ -45,33 +45,35 @@ use ``{% search_form "blog.BlogPost" %}``.
 
 If no parameter is passed to ``{% search_form %}``, no drop-down will
 be provided, and the search will be performed on all models defined in
-the ``SEARCH_MODEL_CHOICES`` setting.
+the :ref:`SEARCH_MODEL_CHOICES` setting.
 
-Finally, by setting ``SEARCH_MODEL_CHOICES`` to ``None``, the search
+Finally, by setting :ref:`SEARCH_MODEL_CHOICES` to ``None``, the search
 form will not contain a drop-down, but in this case all models that
-subclass ``Displayable`` will be automatically searched.
+subclass :class:`.Displayable` will be automatically searched.
 
 Search API
 ==========
 
-The main search API is provided by
-``mezzanine.core.managers.SearchableManager``. This is a Django model
-manager that provides a custom ``search`` method. Adding search
-functionality to any model is as simple as using the ``SearchableManager``
-as a manager for your model.
+The main search API is provided by :class:`mezzanine.core.managers\
+.SearchableManager`. This is a Django model manager that provides a custom
+:meth:`.SearchableManager.search` method. Adding search functionality to
+any model is as simple as using the :class:`.SearchableManager` as a
+manager for your model.
 
 .. note::
 
     By following the previous example outlined in
     :ref:`creating-custom-content-types` no extra work is required to have
     your custom content included in search queries, as the default search
-    functionality in Mezzanine (defined in ``mezzanine.core.views.search``)
+    functionality in Mezzanine (defined in :func:`mezzanine.core.views.search`)
     automatically covers any models that inherit from
-    ``mezzanine.pages.models.Page`` or ``mezzanine.core.models.Displayable``.
+    :class:`mezzanine.pages.models.Page` or
+    :class:`mezzanine.core.models.Displayable`.
 
-In its most simple form, the ``search`` method takes a single string
-argument containing a search query and returns a Django queryset
-representing the results. For example, to search for all pages using the
+In its most simple form, the :meth:`.SearchableManager.search`
+method takes a single string argument containing a search
+query and returns a Django queryset representing the results.
+For example, to search for all pages using the
 term **plans prices projects**::
 
     from mezzanine.pages.models import Page
@@ -90,8 +92,8 @@ search. For example to search ``Page.title`` and ``Page.content`` only::
 If ``search_fields`` is not provided in the call to ``search``, the fields
 used will be the default fields specified for the model. These are specified
 by providing a ``search_fields`` attribute on any model that uses the
-``SearchableManager``. For example, if we wanted to add search capabilities
-to our ``GalleryImage`` model from the previous example in
+:class:`.SearchableManager`. For example, if we wanted to add search
+capabilities to our :class:`.GalleryImage` model from the previous example in
 :ref:`creating-custom-content-types`::
 
     from django.db import models
@@ -116,8 +118,8 @@ to our ``GalleryImage`` model from the previous example in
 
     If ``search_fields`` are not specified using any of the approaches
     above, then all ``CharField`` and ``TextField`` fields defined on
-    the model are used. This isn't the case for ``Page`` subclasses
-    though, since the ``Page`` model defines a ``search_fields``
+    the model are used. This isn't the case for :class:`.Page` subclasses
+    though, since the :class:`.Page` model defines a ``search_fields``
     attribute which your subclass will also contain, so you'll need to
     explicitly define ``search_fields`` yourself.
 
@@ -127,7 +129,7 @@ Ordering Results
 By default, results are ordered by the number of matches found within the
 fields searched. It is possible to control the relative weight of a match
 found within one field over a match found in another field. Given the first
-example of searching ``Page`` instances, you might decide that a match
+example of searching :class:`.Page` instances, you might decide that a match
 within the ``title`` field is worth 5 times as much as a match in the
 ``description`` field. These relative weights can be defined in the same
 fashion as outlined above for defining the fields to be used in a search by
@@ -148,11 +150,11 @@ Searching Heterogeneous Models
 
 So far we've looked at how to search across a single model, but what if we
 want to search across different types of models at once? This is possible
-through the use of abstract models. ``SearchableManager`` is designed so
+through the use of abstract models. :class:`.SearchableManager` is designed so
 that if it is accessed directly through an abstract model, it will search
 across every model that subclasses the abstract model. This makes it
 possible to group together different types of models for the purpose of
-combined search. Continuing on from our ``GalleryImage`` example, suppose
+combined search. Continuing on from our :class:`.GalleryImage` example, suppose
 we also have a ``Document`` model containing files uploaded and that we
 wanted a combined search across these models which could both be
 conceptually defined as assets. We would then go ahead and create an
@@ -176,15 +178,16 @@ for search::
     class Document(Asset):
         image = models.FileField(upload_to="documents")
 
-By accessing ``SearchableManager`` directly via the ``Asset`` abstract model
-we can search across the ``GalleryImage`` and ``Document`` models at once::
+By accessing :class:`.SearchableManager` directly via the ``Asset``
+abstract model we can search across the ``GalleryImage`` and ``Document``
+models at once::
 
     >>> Asset.objects.search("My")
     [<GalleryImage: My Image 1>, <Document: My Doc>, <GalleryImage: My Image 2>]
 
 .. note::
 
-    It was mentioned earlier that the ``search`` method returns a Django
+    It was mentioned earlier that the :meth:`.SearchableManager.search` method returns a Django
     queryset meaning that you can then chain together further queryset
     methods onto the result. However when searching across heterogeneous
     models via an abstract model, this is not the case and the result is a
@@ -199,11 +202,11 @@ we can search across the ``GalleryImage`` and ``Document`` models at once::
 Query Behaviour
 ===============
 
-When a call to ``SearchableManager.search`` is performed, the query entered
-is processed through several steps until it is translated into a Django
-queryset. By default the query is broken up into keywords, so the query
-**plans prices projects** would return results that contain any of the words
-**plans** or **prices** or **projects**.
+When a call to :meth:`.SearchableManager.search` is performed, the query
+entered is processed through several steps until it is translated into a
+Django queryset. By default the query is broken up into keywords, so the
+query **plans prices projects** would return results that contain any of
+the words **plans** or **prices** or **projects**.
 
 The query can contain several special operators which allow for this
 behaviour to be controlled further. Quotes around exact phrases will
@@ -224,4 +227,4 @@ excluded, a second step is performed where the query is stripped of common
 words know as **stop words**. These are common words such as **and**,
 **the** or **like** that are generally not meaningful and cause irrelevant
 results to be returned. The list of stop words is stored in the setting
-``STOP_WORDS`` as described in the :doc:`configuration` section.
+:ref:`STOP_WORDS` as described in the :doc:`configuration` section.

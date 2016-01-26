@@ -1,17 +1,17 @@
 from __future__ import division, unicode_literals
 from future.utils import native_str
 
+from unittest import skipUnless
+
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
-from django.utils.unittest import skipUnless
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings
 
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.forms import RatingForm
-from mezzanine.generic.models import (AssignedKeyword, Keyword,
-                                      ThreadedComment, Rating)
+from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
 from mezzanine.generic.views import comment
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.tests import TestCase
@@ -66,7 +66,7 @@ class GenericTests(TestCase):
                   "site_id": settings.SITE_ID, "comment": "First!!!11"}
         comment = ThreadedComment.objects.create(**kwargs)
         comment.rating.create(value=settings.RATINGS_RANGE[0])
-        comment.rating.add(Rating(value=settings.RATINGS_RANGE[-1]))
+        comment.rating.create(value=settings.RATINGS_RANGE[-1])
         comment = ThreadedComment.objects.get(pk=comment.pk)
 
         self.assertEqual(len(comment.rating.all()), comment.rating_count)
@@ -111,7 +111,7 @@ class GenericTests(TestCase):
         Keyword.objects.all().delete()
         for keyword in keywords:
             keyword_id = Keyword.objects.get_or_create(title=keyword)[0].id
-            page.keywords.add(AssignedKeyword(keyword_id=keyword_id))
+            page.keywords.get_or_create(keyword_id=keyword_id)
         page = RichTextPage.objects.get(id=page.id)
         self.assertEqual(keywords, set(page.keywords_string.split()))
         # Test removal.

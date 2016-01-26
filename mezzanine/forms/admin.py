@@ -8,7 +8,7 @@ from datetime import datetime
 from mimetypes import guess_type
 from os.path import join
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.messages import info
 from django.core.files.storage import FileSystemStorage
@@ -72,14 +72,14 @@ class FormAdmin(PageAdmin):
         Add the entries view to urls.
         """
         urls = super(FormAdmin, self).get_urls()
-        extra_urls = patterns("",
+        extra_urls = [
             url("^(?P<form_id>\d+)/entries/$",
                 self.admin_site.admin_view(self.entries_view),
                 name="form_entries"),
             url("^file/(?P<field_entry_id>\d+)/$",
                 self.admin_site.admin_view(self.file_view),
                 name="form_file"),
-        )
+        ]
         return extra_urls + urls
 
     def entries_view(self, request, form_id):

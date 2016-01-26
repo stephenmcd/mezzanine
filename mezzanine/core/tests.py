@@ -1,6 +1,10 @@
 from __future__ import unicode_literals
 
 import re
+from unittest import skipUnless, skip
+
+from mezzanine.core.middleware import FetchFromCacheMiddleware
+from mezzanine.utils.cache import cache_installed
 
 try:
     # Python 3
@@ -20,7 +24,6 @@ from django.forms.models import modelform_factory
 from django.templatetags.static import static
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
-from django.utils.unittest import skipUnless
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import BaseDynamicInlineAdmin
@@ -66,6 +69,7 @@ class CoreTests(TestCase):
         mobile = self.client.get(url, HTTP_USER_AGENT=ua)
         self.assertNotEqual(default.template_name[0], mobile.template_name[0])
 
+    @skip("Running flake8 from the command line instead")
     def test_syntax(self):
         """
         Run pyflakes/pep8 across the code base to check for potential errors.
@@ -435,6 +439,31 @@ class CoreTests(TestCase):
         fieldsets = inline.get_fieldsets(request)
         self.assertEqual(fieldsets[-1][1]["fields"][-1], '_order')
         self.assertNotIn('_order', fieldsets[1][1]["fields"])
+
+    def test_cache_installed(self):
+
+        test_contexts = [
+            (False,
+             ['mezzanine.core.middleware.FetchFromCacheMiddleware']),
+            (True,
+             ['mezzanine.core.middleware.UpdateCacheMiddleware',
+              'mezzanine.core.tests.SubclassMiddleware']),
+            (True,
+             ['mezzanine.core.middleware.UpdateCacheMiddleware',
+              'mezzanine.core.middleware.FetchFromCacheMiddleware']),
+        ]
+
+        with self.settings(TESTING=False):  # Well, this is silly
+            for expected_result, middleware_classes in test_contexts:
+                with self.settings(MIDDLEWARE_CLASSES=middleware_classes):
+                    cache_installed.cache_clear()
+                    self.assertEqual(cache_installed(), expected_result)
+
+        cache_installed.cache_clear()
+
+
+class SubclassMiddleware(FetchFromCacheMiddleware):
+    pass
 
 
 @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,

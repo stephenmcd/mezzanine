@@ -1,14 +1,14 @@
 language: python
 env:
-  - DJANGO="Django>=1.7.0,<1.8.0"
   - DJANGO="Django>=1.8.0,<1.9.0"
+  - DJANGO="Django>=1.9.0,<1.10.0"
 python:
   - "2.7"
-  - "3.3"
   - "3.4"
+  - "3.5"
 install:
-  - pip install $DJANGO --use-mirrors
-  - pip install . --use-mirrors
+  - pip install $DJANGO
+  - pip install .
 script:
   - python setup.py test
 notifications:

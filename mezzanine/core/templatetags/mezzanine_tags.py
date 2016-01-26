@@ -12,6 +12,7 @@ from django.apps import apps
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, resolve, NoReverseMatch
@@ -580,6 +581,7 @@ def admin_app_list(request):
                     "index": model_index,
                     "perms": model_admin.get_model_perms(request),
                     "name": model_title,
+                    "object_name": opts.object_name,
                     "admin_url": change_url,
                     "add_url": add_url
                 })
@@ -624,7 +626,10 @@ def admin_dropdown_menu(context):
         if user.is_superuser:
             sites = Site.objects.all()
         else:
-            sites = user.sitepermissions.sites.all()
+            try:
+                sites = user.sitepermissions.sites.all()
+            except ObjectDoesNotExist:
+                sites = Site.objects.none()
         context["dropdown_menu_sites"] = list(sites)
         context["dropdown_menu_selected_site_id"] = current_site_id()
         return context

@@ -43,21 +43,25 @@ class MenusField(MultiChoiceField):
             # (* empty sequence: no menus).
             default = getattr(settings, "PAGE_MENU_TEMPLATES_DEFAULT", None)
             if default is None:
-                choices = self.get_flatchoices(include_blank=False)
+                choices = self.get_choices(include_blank=False)
                 default = (c[0] for c in choices)
         # Default can't be mutable, as references to it are shared among
         # model instances; all sane values should be castable to a tuple.
         return tuple(default)
 
-    @property
-    def choices(self):
+    def _get_choices(self):
         """
         Returns menus specified in ``PAGE_MENU_TEMPLATES`` unless you provide
         some custom choices in the field definition.
         """
         if self._overridden_choices:
             # Note: choices is a property on Field bound to _get_choices().
-            return self._get_choices()
+            return self._choices
         else:
             menus = getattr(settings, "PAGE_MENU_TEMPLATES", [])
             return (m[:2] for m in menus)
+
+    def _set_choices(self, choices):
+        self._choices = choices
+
+    choices = property(_get_choices, _set_choices)

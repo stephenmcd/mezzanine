@@ -5,7 +5,6 @@ import sys
 from warnings import warn
 
 from django.conf import global_settings as defaults
-from django.template.base import add_to_builtins
 
 from mezzanine.utils.timezone import get_best_local_timezone
 
@@ -44,9 +43,6 @@ def set_dynamic_settings(s):
     # Remove a value from a list setting if in the list.
     remove = lambda n, k: s[n].remove(k) if k in s[n] else None
 
-    s["TEMPLATE_DEBUG"] = s.get("TEMPLATE_DEBUG", s.get("DEBUG", False))
-    add_to_builtins("mezzanine.template.loader_tags")
-
     if not s.get("ALLOWED_HOSTS", []):
         warn("You haven't defined the ALLOWED_HOSTS settings, which "
              "Django requires. Will fall back to the domains "
@@ -79,18 +75,6 @@ def set_dynamic_settings(s):
             # Setting is already a list, so we'll exclude it from
             # the list of settings we'll revert back to tuples.
             tuple_list_settings.remove(setting)
-
-    # From Mezzanine 3.1.2 and onward we added the context processor
-    # for handling the page variable in templates - here we help
-    # upgrading by adding it if missing, with a warning. This helper
-    # can go away eventually.
-    cp = "mezzanine.pages.context_processors.page"
-    if ("mezzanine.pages" in s["INSTALLED_APPS"] and
-            cp not in s["TEMPLATE_CONTEXT_PROCESSORS"]):
-        warn("%s is required in the TEMPLATE_CONTEXT_PROCESSORS setting. "
-             "Adding it now, but you should update settings.py to "
-             "explicitly include it." % cp)
-        append("TEMPLATE_CONTEXT_PROCESSORS", cp)
 
     # Set up cookie messaging if none defined.
     storage = "django.contrib.messages.storage.cookie.CookieStorage"

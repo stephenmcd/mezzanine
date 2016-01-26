@@ -3,57 +3,57 @@ Content Architecture
 ====================
 
 Content in Mezzanine primarily revolves around the models found in
-two packages, ``mezzanine.core`` and ``mezzanine.pages``. Many of
+two packages, :mod:`mezzanine.core` and :mod:`mezzanine.pages`. Many of
 these models are abstract, and very small in scope, and are then
 combined together as the building blocks that form the models you'll
-actually be exposed to, such as ``mezzanine.core.models.Displayable``
-and ``mezzanine.pages.models.Page``, which are the two main models you
+actually be exposed to, such as :class:`mezzanine.core.models.Displayable`
+and :class:`mezzanine.pages.models.Page`, which are the two main models you
 will inherit from when building your own models for content types.
 
-Before we look at ``Displayable`` and ``Page``, here's a quick list of
-all the abstract models used to build them:
+Before we look at :class:`.Displayable` and :class:`.Page`, here's a quick
+list of all the abstract models used to build them:
 
-  * ``mezzanine.core.models.SiteRelated`` - Contains a related
+  * :class:`mezzanine.core.models.SiteRelated` - Contains a related
     ``django.contrib.sites.models.Site`` field.
-  * ``mezzanine.core.models.Slugged`` - Implements a title and URL
+  * :class:`mezzanine.core.models.Slugged` - Implements a title and URL
     (slug).
-  * ``mezzanine.core.models.MetaData`` - Provides SEO meta data, such
+  * :class:`mezzanine.core.models.MetaData` - Provides SEO meta data, such
     as title, description and keywords.
-  * ``mezzanine.core.models.TimeStamped`` - Provides created and
+  * :class:`mezzanine.core.models.TimeStamped` - Provides created and
     updated timestamps.
-  * ``mezzanine.core.models.Displayable`` - Combines all the models
+  * :class:`mezzanine.core.models.Displayable` - Combines all the models
     above, then implements publishing features, such as status and
     dates.
-  * ``mezzanine.core.models.Ownable`` - Contains a related user field,
+  * :class:`mezzanine.core.models.Ownable` - Contains a related user field,
     suitable for content owned by specific authors.
-  * ``mezzanine.core.models.RichText`` - Provides a WYSIWYG editable
+  * :class:`mezzanine.core.models.RichText` - Provides a WYSIWYG editable
     field.
-  * ``mezzanine.core.models.Orderable`` - Used to implement drag/drop
+  * :class:`mezzanine.core.models.Orderable` - Used to implement drag/drop
     ordering of content, whether out of the box as Django admin
     inlines, or custom such as Mezzanine's page tree.
 
 And for completeness, here are the primary content types provided
-out of the box to end users, that make use of ``Displayable`` and
-``Page``:
+out of the box to end users, that make use of :class:`.Displayable` and
+:class:`.Page`:
 
-  * ``mezzanine.blog.models.BlogPost`` - Blog posts that subclass
-    ``Displayable`` as they're not part of the site's navigation.
-  * ``mezzanine.pages.models.RichTextPage`` - Default ``Page`` subclass,
-    providing a WYSIWYG editable field.
-  * ``mezzanine.pages.models.Link`` - ``Page`` subclass for links
+  * :class:`mezzanine.blog.models.BlogPost` - Blog posts that subclass
+    :class:`.Displayable` as they're not part of the site's navigation.
+  * :class:`mezzanine.pages.models.RichTextPage` - Default :class:`.Page`
+    subclass, providing a WYSIWYG editable field.
+  * :class:`mezzanine.pages.models.Link` - :class:`.Page` subclass for links
     pointing to other URLs.
-  * ``mezzanine.forms.models.Form`` - ``Page`` subclass for building
+  * :class:`mezzanine.forms.models.Form` - :class:`.Page` subclass for building
     forms.
-  * ``mezzanine.galleries.models.Gallery`` - ``Page`` subclass for
+  * :class:`mezzanine.galleries.models.Gallery` - :class:`.Page` subclass for
     building image gallery pages.
 
 These certainly serve as examples for implementing your own types of
 content.
 
-``Displayable`` vs ``Page``
-===========================
+:class:`.Displayable` vs :class:`.Page`
+=======================================
 
-``Displayable`` itself is also an abstract model, that at its simplest,
+:class:`.Displayable` itself is also an abstract model, that at its simplest,
 is used to represent content that contains a URL (also known as a slug).
 It also provides the core features of content such as:
 
@@ -63,28 +63,28 @@ It also provides the core features of content such as:
   * Pre-dated publishing.
   * Searchable by Mezzanine's :doc:`search-engine`.
 
-Subclassing ``Displayable`` best suits low-level content that doesn't
+Subclassing :class:`.Displayable` best suits low-level content that doesn't
 form part of the site's navigation - such as blog posts, or events in a
-calendar. Unlike ``Page``, there's nothing particularly special about
-the ``Displayable`` model - it simply provides a common set of features
+calendar. Unlike :class:`.Page`, there's nothing particularly special about
+the :class:`.Displayable` model - it simply provides a common set of features
 useful to content.
 
-In contrast, the concrete ``Page`` model forms the primary API for
-building a Mezzanine site. It extends ``Displayable``, and implements a
+In contrast, the concrete :class:`.Page` model forms the primary API for
+building a Mezzanine site. It extends :class:`.Displayable`, and implements a
 hierarchical navigation tree. The rest of this section of the
-documentation will focus on the ``Page`` model, and the way it is
+documentation will focus on the :class:`.Page` model, and the way it is
 used to build all the types of content a site will have available.
 
-The ``Page`` Model
-==================
+The :class:`.Page` Model
+========================
 
 The foundation of a Mezzanine site is the model
-``mezzanine.pages.models.Page``. Each ``Page`` instance is stored in a
-hierarchical tree to form the site's navigation, and an interface for
+:class:`mezzanine.pages.models.Page`. Each :class:`.Page` instance is stored
+in a hierarchical tree to form the site's navigation, and an interface for
 managing the structure of the navigation tree is provided in the admin
-via ``mezzanine.pages.admin.PageAdmin``. All types of content inherit
-from the ``Page`` model and Mezzanine provides a default content type
-via the ``mezzanine.pages.models.RichTextPage`` model which simply
+via :class:`mezzanine.pages.admin.PageAdmin`. All types of content inherit
+from the :class:`.Page` model and Mezzanine provides a default content type
+via the :class:`mezzanine.pages.models.RichTextPage` model which simply
 contains a WYSIWYG editable field for managing HTML content.
 
 .. _creating-custom-content-types:
@@ -93,8 +93,8 @@ Creating Custom Content Types
 =============================
 
 In order to handle different types of pages that require more
-structured content than provided by the ``RichTextPage`` model, you can
-simply create your own models that inherit from ``Page``. For example
+structured content than provided by the :class:`.RichTextPage` model, you can
+simply create your own models that inherit from :class:`.Page`. For example
 if we wanted to have pages that were authors with books::
 
     from django.db import models
@@ -116,7 +116,7 @@ if we wanted to have pages that were authors with books::
 Next you'll need to register your model with Django's admin to make it
 available as a content type. If your content type only exposes some new
 fields that you'd like to make editable in the admin, you can simply
-register your model using the ``mezzanine.pages.admin.PageAdmin``
+register your model using the :class:`mezzanine.pages.admin.PageAdmin`
 class::
 
     from django.contrib import admin
@@ -132,10 +132,10 @@ an admin class, or when using an admin class without fieldsets defined.
 In these cases all the fields on the model are available in the admin.
 
 If however you need to customize your admin class, you can inherit from
-``PageAdmin`` and implement your own admin class. The only difference
-is that you'll need to take a copy of ``PageAdmin.fieldsets`` and
+:class:`.PageAdmin` and implement your own admin class. The only difference
+is that you'll need to take a copy of :attr:`.PageAdmin.fieldsets` and
 modify it if you want to implement your own fieldsets, otherwise you'll
-lose the fields that the ``Page`` model implements::
+lose the fields that the :class:`.Page` model implements::
 
     from copy import deepcopy
     from django.contrib import admin
@@ -153,29 +153,29 @@ lose the fields that the ``Page`` model implements::
 
     admin.site.register(Author, AuthorAdmin)
 
-When registering content type models with ``PageAdmin`` or subclasses
+When registering content type models with :class:`.PageAdmin` or subclasses
 of it, the admin class won't be listed in the admin index page, instead
-being made available as a type of ``Page`` when creating new pages from
+being made available as a type of :class:`.Page` when creating new pages from
 the navigation tree.
 
 .. note::
 
     When creating custom content types, you must inherit directly from
-    the ``Page`` model. Further levels of subclassing are currently not
-    supported. Therefore you cannot subclass the ``RichTextPage`` or
+    the :class:`.Page` model. Further levels of subclassing are currently not
+    supported. Therefore you cannot subclass the :class:`.RichTextPage` or
     any other custom content types you create yourself. Should you need
     to implement a WYSIWYG editable field in the way the
-    ``RichTextPage`` model does, you can simply subclass both ``Page``
-    and ``RichText``, the latter being imported from
-    ``mezzanine.core.models``.
+    :class:`.RichTextPage` model does, you can simply subclass both
+    :class:`.Page` and :class:`.RichText`, the latter being imported from
+    :class:`mezzanine.core.models`.
 
 Displaying Custom Content Types
 ===============================
 
-When creating models that inherit from the ``Page`` model, multi-table
+When creating models that inherit from the :class:`.Page` model, multi-table
 inheritance is used under the hood. This means that when dealing with
 the page object, an attribute is created from the subclass model's
-name. So given a ``Page`` instance using the previous example,
+name. So given a :class:`.Page` instance using the previous example,
 accessing the ``Author`` instance would be as follows::
 
     >>> Author.objects.create(title="Dr Seuss")
@@ -192,7 +192,7 @@ And in a template::
     <img src="{{ MEDIA_URL }}{{ book.cover }}">
     {% endfor %}
 
-The ``Page`` model also contains the method ``Page.get_content_model``
+The :class:`.Page` model also contains the method :meth:`.Page.get_content_model`
 for retrieving the custom instance without knowing its type::
 
     >>> page.get_content_model()
@@ -201,26 +201,27 @@ for retrieving the custom instance without knowing its type::
 Page Templates
 ==============
 
-The view function ``mezzanine.pages.views.page`` handles returning a
-``Page`` instance to a template. By default the template
+The view function :func:`mezzanine.pages.views.page` handles returning a
+:class:`.Page` instance to a template. By default the template
 ``pages/page.html`` is used, but if a custom template exists it will be
 used instead. The check for a custom template will first check for a
-template with the same name as the ``Page`` instance's slug, and if not
+template with the same name as the :class:`.Page` instance's slug, and if not
 then a template with a name derived from the subclass model's name is
 checked for. So given the above example the templates
 ``pages/dr-seuss.html`` and ``pages/author.html`` would be checked for
 respectively.
 
-The view function further looks through the parent hierarchy of the ``Page``.
-If a ``Page`` instance with slug ``authors/dr-seuss`` is a child of the
-``Page`` with slug ``authors``, the templates ``pages/authors/dr-seuss.html``,
+The view function further looks through the parent hierarchy of the :class:`.Page`.
+If a :class:`.Page` instance with slug ``authors/dr-seuss`` is a child of the
+:class:`.Page` with slug ``authors``, the templates ``pages/authors/dr-seuss.html``,
 ``pages/authors/dr-seuss/author.html``, ``pages/authors/author.html``,
 ``pages/author.html``, and ``pages/page.html`` would be checked for
-respectively. This lets you specify a template for all children of a ``Page``
-and a different template for the ``Page`` itself. For example, if an
-additional author were added as a child page of ``authors/dr-seuss`` with the
-slug ``authors/dr-seuss/theo-lesieg``, the template
-``pages/authors/dr-seuss/author.html`` would be among those checked.
+respectively. This lets you specify a template for all children of a
+:class:`.Page` and a different template for the :class:`.Page` itself.
+For example, if an additional author were added as a child page of
+``authors/dr-seuss`` with the slug ``authors/dr-seuss/theo-lesieg``,
+the template ``pages/authors/dr-seuss/author.html`` would be among
+those checked.
 
 Overriding vs Extending Templates
 =================================
@@ -244,10 +245,10 @@ attempt to load the template with a specific name, so we can't override
 occur, e.g. Django thinks the template is trying to extend itself, which
 is impossible.
 
-To solve this problem, Mezzanine provides the ``overextends`` template
-tag, which allows you to extend a template with the same name. The
-``overextends`` tag works the same way as Django's ``extends`` tag, (in
-fact it subclasses it), so it must be the first tag in the template.
+To solve this problem, Mezzanine provides the :func:`.overextends`
+template tag, which allows you to extend a template with the same name.
+The :func:`.overextends`  tag works the same way as Django's ``extends`` tag,
+(in fact it subclasses it), so it must be the first tag in the template.
 What it does differently is that the template using it will be excluded
 from loading when Django searches for the template to extend from.
 
@@ -258,26 +259,26 @@ So far we've covered how to create and display custom types of pages,
 but what if we want to extend them further with more advanced features?
 For example adding a form to the page and handling when a user submits
 the form. This type of logic would typically go into a view function,
-but since every ``Page`` instance is handled via the view function
-``mezzanine.pages.views.page`` we can't create our own views for pages.
+but since every :class:`.Page` instance is handled via the view function
+:func:`mezzanine.pages.views.page` we can't create our own views for pages.
 Mezzanine solves this problem using *Page Processors*.
 
 *Page Processors* are simply functions that can be associated to any
-custom ``Page`` models and are then called inside the
-``mezzanine.pages.views.page`` view when viewing the associated
-``Page`` instance. A Page Processor will always be passed two arguments
-- the request and the ``Page`` instance, and can either return a
+custom :class:`.Page` models and are then called inside the
+:func:`mezzanine.pages.views.page` view when viewing the associated
+:class:`.Page` instance. A Page Processor will always be passed two arguments
+- the request and the :class:`.Page` instance, and can either return a
 dictionary that will be added to the template context, or it can return
 any of Django's ``HttpResponse`` classes which will override the
-``mezzanine.pages.views.page`` view entirely.
+:func:`mezzanine.pages.views.page` view entirely.
 
-To associate a Page Processor to a custom ``Page`` model you must
-create the function for it in a module called ``page_processors.py``
+To associate a Page Processor to a custom :class:`.Page` model you must
+create the function for it in a module called :mod:`.page_processors.py`
 inside one of your ``INSTALLED_APPS`` and decorate it using the
-decorator ``mezzanine.pages.page_processors.processor_for``.
+decorator :func:`mezzanine.pages.page_processors.processor_for`.
 
 Continuing on from our author example, suppose we want to add an
-enquiry form to each author page. Our ``page_processors.py`` module in
+enquiry form to each author page. Our :mod:`page_processors.py` module in
 the author app would be as follows::
 
     from django import forms
@@ -300,7 +301,7 @@ the author app would be as follows::
                 return HttpResponseRedirect(redirect)
         return {"form": form}
 
-The ``processor_for`` decorator can also be given a ``slug`` argument
+The :func:`.processor_for` decorator can also be given a ``slug`` argument
 rather than a Page subclass. In this case the Page Processor will be
 run when the exact slug matches the page being viewed.
 
@@ -315,37 +316,37 @@ instances of the ``Author`` model from our previous example, it won't
 be listed in the types of pages that user can add when viewing the
 navigation tree in the admin.
 
-In conjunction with Django's permission system, the ``Page`` model
-also implements the methods ``can_add``, ``can_change``,
-``can_delete``, and ``can_move``. These methods provide a way for
+In conjunction with Django's permission system, the :class:`.Page` model
+also implements the methods :meth:`.can_add`, :meth:`.can_change`,
+:meth:`.can_delete`, and :meth:`.can_move`. These methods provide a way for
 custom page types to implement their own permissions by being
-overridden on subclasses of the ``Page`` model.
+overridden on subclasses of the :class:`.Page` model.
 
-With the exception of ``can_move``, each of these methods takes a
+With the exception of :meth:`.can_move`, each of these methods takes a
 single argument which is the current request object, and return a
 Boolean. This provides the ability to define custom permission methods
 with access to the current user as well.
 
 .. note::
 
-    The ``can_add`` permission in the context of an existing page has
+    The :meth:`.can_add` permission in the context of an existing page has
     a different meaning than in the context of an overall model as is
     the case with Django's permission system. In the case of a page
-    instance, ``can_add`` refers to the ability to add child pages.
+    instance, :meth:`.can_add` refers to the ability to add child pages.
 
-The ``can_move`` method has a slightly different interface, as it
+The :meth:`.can_move` method has a slightly different interface, as it
 needs an additional argument, which is the new parent should the move
 be completed, and an additional output, which is a message to be
 displayed when the move is denied. The message helps justify reverting
 the page to its position prior to the move, and is displayed using
 Django messages framework. Instead of a Boolean return value,
-``can_move`` raises a ``PageMoveException`` when the move is denied,
+:meth:`.can_move` raises a :class:`.PageMoveException` when the move is denied,
 with an optional argument representing the message to be displayed.
-In any case, ``can_move`` does not return any values.
+In any case, :meth:`.can_move` does not return any values.
 
 .. note::
 
-    The ``can_move`` permission can only constrain moving existing
+    The :meth:`.can_move` permission can only constrain moving existing
     pages, and is not observed when creating a new page. If you want
     to enforce the same rules when creating pages, you need to
     implement them explicitly through other means, such as the
@@ -384,22 +385,22 @@ drop-down lists. Another type of menu would be a full or partial tree in
 a side-bar on the site. The footer may display a menu with primary and
 secondary pages grouped together as vertical lists.
 
-Mezzanine provides the ``page_menu`` template tag for rendering the
-above types of page menus, or any other type you can think of. The
-``page_menu`` template tag is responsible for rendering a single
-branch of the page tree at a time, and accepts two optional arguments
-(you'll usually need to supply at least one of them) in either order.
-The arguments are the name of a menu template to use for a single branch
-within the page tree, and the parent menu item for the branch that will
-be rendered.
+Mezzanine provides the :func:`.page_menu`
+template tag for rendering the above types of page menus, or any other
+type you can think of. The :func:`.page_menu` template tag is responsible
+for rendering a single branch of the page tree at a time, and accepts
+two optional arguments (you'll usually need to supply at least one of them)
+in either order. The arguments are the name of a menu template to use
+for a single branch within the page tree, and the parent menu item for
+the branch that will be rendered.
 
 The page menu template will be provided with a variable ``page_branch``,
 which contains a list of pages for the current branch. We can then call
-the ``page_menu`` template tag for each page in the branch, using the
+the :func:`.page_menu` template tag for each page in the branch, using the
 page as the parent argument to render its children. When calling the
-``page_menu`` template tag from within a menu template, we don't need to
+:func:`page_menu` template tag from within a menu template, we don't need to
 supply the template name again, as it can be inferred. Note that by
-omitting the parent page argument for the ``page_menu`` template tag,
+omitting the parent page argument for the :func:`page_menu` template tag,
 the first branch rendered will be all of the primary pages, that is,
 all of the pages without a parent.
 
@@ -425,20 +426,20 @@ The first file starts off the menu without specifying a parent page so
 that primary pages are first rendered, and only passes in the menu
 template to use. The second file is the actual menu template that
 includes itself recursively for each branch in the menu. We could even
-specify a different menu template in the call to ``page_menu`` in our
+specify a different menu template in the call to :func:`.page_menu` in our
 menu template, if we wanted to use a different layout for child pages.
 
 Filtering Menus
 ---------------
 
-Each ``Page`` instance has a field ``in_menus`` which specifies which
-menus the page should appear in. In the admin interface, the
-``in_menus`` field is a list of checkboxes for each of the menu
-templates. The menu choices for the ``in_menus`` field are defined by
-the ``PAGE_MENU_TEMPLATES`` setting, which is a sequence of menu
-templates. Each item in the sequence is a three item sequence,
-containing a unique ID for the template, a label for the template, and
-the template path. For example in your ``settings.py`` module::
+Each :class:`.Page` instance has a field :attr:`in_menus` which specifies
+which menus the page should appear in. In the admin interface, the
+:attr:`in_menus` field is a list of checkboxes for each of the menu
+templates. The menu choices for the :attr:`in_menus` field are defined by
+the :ref:`PAGE_MENU_TEMPLATES` setting, which is a sequence of
+menu templates. Each item in the sequence is a three item sequence,
+containing a unique ID for the template, a label for the template,
+and the template path. For example in your ``settings.py`` module::
 
     PAGE_MENU_TEMPLATES = (
         (1, "Top navigation bar", "pages/menus/dropdown.html"),
@@ -447,12 +448,12 @@ the template path. For example in your ``settings.py`` module::
     )
 
 Which of these entries is selected for new pages (all are selected by default)
-is controlled by the ``PAGE_MENU_TEMPLATES_DEFAULT`` setting. For example,
+is controlled by the :ref:`PAGE_MENU_TEMPLATES_DEFAULT` setting. For example,
 ``PAGE_MENU_TEMPLATES_DEFAULT = (1, 3)`` will cause the admin section
 to pre-select the "Top navigation bar" and the "Footer" when using
 the example above.
 
-The selections made for the ``in_menus`` field on each page don't
+The selections made for the :attr:`in_menus` field on each page don't
 actually filter a page from being included in the ``page_branch``
 variable that contains the list of pages for the current branch. Instead
 it's used to set the value of ``page.in_menu`` for each page in the
@@ -473,16 +474,16 @@ menu template, so it's up to your menu template to check the page's
     </ul>
 
 Note that if a menu template is not defined in the
-``PAGE_MENU_TEMPLATES`` setting, the branch pages supplied to it will
+:ref:`PAGE_MENU_TEMPLATES` setting, the branch pages supplied to it will
 always have the ``in_menu`` attribute set to ``True``, so the only way
 this will be ``False`` is if the menu template has been added to
-``PAGE_MENU_TEMPLATES``, and then *not* selected for a page in the admin
-interface.
+:ref:`PAGE_MENU_TEMPLATES`, and then *not* selected for a page in the
+admin interface.
 
 Menu Variables
 --------------
 
-The ``page_menu`` template tag provides a handful of variables, both in
+The :func:`.page_menu` template tag provides a handful of variables, both in
 the template context, and assigned to each page in the branch, for
 helping you to build advanced menus.
 

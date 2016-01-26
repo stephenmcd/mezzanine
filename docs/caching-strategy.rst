@@ -29,11 +29,11 @@ page-level cache middleware
 cache>`_, and behaves in a similar way.
 
 Pages are fetched from cache by
-``mezzanine.core.middleware.FetchFromCacheMiddleware``, which should
+:class:`mezzanine.core.middleware.FetchFromCacheMiddleware`, which should
 appear at the end of the ``MIDDLEWARE_CLASSES`` setting and therefore
 be activated at the end of the request phase. If a cache miss occurs,
 the request is marked as requiring a cache update, which is handled by
-``mezzanine.core.middleware.UpdateCacheMiddleware``, which in turn
+:class:`mezzanine.core.middleware.UpdateCacheMiddleware`, which in turn
 should appear at the start of ``MIDDLEWARE_CLASSES`` and therefore
 be activated at the end of the response phase.
 
@@ -61,12 +61,12 @@ sections might be anything that makes use of the current request
 object, including session-specific data.
 
 Accordingly, Mezzanine provides the start and end template tags
-``nevercache`` and ``endnevercache``. Content wrapped in these tags
+:func:`.nevercache` and ``endnevercache``. Content wrapped in these tags
 will not be cached. With two-phased
 rendering, the page is cached without any of the template code
-inside ``nevercache`` and ``endnevercache`` executed for the first
+inside :func:`.nevercache` and ``endnevercache`` executed for the first
 phase. The second phase then occurs after the page is retrieved from
-cache (or not), and any template code inside ``nevercache`` and
+cache (or not), and any template code inside :func:`.nevercache` and
 ``endnevercache`` is then executed.
 
 Mezzanine's two-phased rendering is based on Cody Soyland's
@@ -77,7 +77,7 @@ originally described the technique.
 
 .. note::
 
-    The template code inside ``nevercache`` and ``endnevercache`` will
+    The template code inside :func:`.nevercache` and ``endnevercache`` will
     only have access to template tags and variables provided by a
     normal request context, with the exception of any variables passed
     to the template from a view function. Variables added via context
@@ -93,11 +93,11 @@ The final step in Mezzanine's caching strategy involves a technique
 known as mint caching, in which the expiry value for any cache entry
 is stored in cache along with the cache entry itself. The real expiry
 value used is the given expiry plus the value defined by Mezzanine's
-``CACHE_SET_DELAY_SECONDS`` setting. Each time a cache entry is
+:ref:`CACHE_SET_DELAY_SECONDS` setting. Each time a cache entry is
 requested, the original expiry time is checked, and, if the expiry
 time has passed, the stale cache entry is placed back into the cache
 along with a new expiry time using the value of
-``CACHE_SET_DELAY_SECONDS``. In this case, no cache entry is returned,
+:ref:`CACHE_SET_DELAY_SECONDS`. In this case, no cache entry is returned,
 which has the effect of essentially faking a cache miss, so that the
 caller can know to regenerate the cache entry. This approach ensures
 that cache misses never actually occur and that (almost) only one

@@ -11,13 +11,14 @@ from django.core.urlresolvers import reverse
 from django.db.models import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
+from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.generic.forms import ThreadedCommentForm, RatingForm
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.cache import add_cache_bypass
-from mezzanine.utils.views import render, set_cookie, is_spam
+from mezzanine.utils.views import set_cookie, is_spam
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -114,8 +115,7 @@ def comment(request, template="generic/comments.html", extra_context=None):
     # Show errors with stand-alone comment form.
     context = {"obj": obj, "posted_comment_form": form}
     context.update(extra_context or {})
-    response = render(request, template, context)
-    return response
+    return TemplateResponse(request, template, context)
 
 
 def rating(request):

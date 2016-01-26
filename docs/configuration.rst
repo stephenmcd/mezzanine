@@ -4,7 +4,7 @@ Configuration
 
 Mezzanine provides a central system for defining settings within
 your project and applications that can then be edited by admin users.
-The package ``mezzanine.conf`` contains the models for storing
+The package :mod:`mezzanine.conf` contains the models for storing
 editable settings in the database as well as the functions for
 registering and loading these settings throughout your project.
 
@@ -16,7 +16,7 @@ Registering Settings
 Settings are defined by creating a module named ``defaults.py`` inside
 one or more of the applications defined in your project's
 ``settings.INSTALLED_APPS`` setting. Inside your ``defaults.py`` module
-you then call the function ``mezzanine.conf.register_setting`` for
+you then call the function :func:`mezzanine.conf.register_setting` for
 each setting you want to define which takes several keyword arguments:
 
   * ``name``: The name of the setting.
@@ -61,8 +61,8 @@ page, we would define the following in ``authors.defaults``::
 Reading Settings
 ================
 
-Mezzanine provides a settings object via ``mezzanine.conf.settings`` in a
-similar way to Django's ``django.conf.settings``. This settings object
+Mezzanine provides a settings object via :func:`mezzanine.conf.settings` in a
+similar way to Django's :func:`django.conf.settings`. This settings object
 contains each of the settings registered above using their names as
 attributes. Continuing on from our previous example, suppose we have a view
 for photos::
@@ -101,7 +101,7 @@ Mezzanine's settings object integrates with Django's settings object in a
 couple of ways.
 
 Firstly it's possible to override the default value for any setting defined
-using ``mezzanine.conf.register_setting`` by adding its name and value as
+using :func:`mezzanine.conf.register_setting` by adding its name and value as
 a regular setting to your project's settings module. This is especially useful
 when any of your project's ``INSTALLED_APPS`` (including Mezzanine
 itself) register settings that aren't editable and you want to override
