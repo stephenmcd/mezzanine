@@ -1,12 +1,13 @@
 from __future__ import unicode_literals
-from future.builtins import str
-from future.builtins import int
+from future.builtins import str, int
+
 from calendar import month_name
 
 from django.contrib.auth import get_user_model
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.blog.feeds import PostsRSS, PostsAtom
@@ -36,7 +37,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         if month is not None:
             blog_posts = blog_posts.filter(publish_date__month=month)
             try:
-                month = month_name[int(month)]
+                month = _(month_name[int(month)])
             except IndexError:
                 raise Http404()
     if category is not None:
