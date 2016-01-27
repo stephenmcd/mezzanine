@@ -169,8 +169,11 @@ def static_proxy(request):
                 response = f.read().replace("<head>", "<head>" + base_tag)
         else:
             content_type = "application/octet-stream"
-            with open(path, "rb") as f:
-                response = f.read()
+            try:
+                with open(path, "rb") as f:
+                    response = f.read()
+            except IOError:
+                return HttpResponseNotFound()
     return HttpResponse(response, content_type=content_type)
 
 
