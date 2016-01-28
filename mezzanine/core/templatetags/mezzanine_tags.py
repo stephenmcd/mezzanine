@@ -422,7 +422,7 @@ def editable_loader(context):
             context["editable_obj"]
         except KeyError:
             context["editable_obj"] = context.get("page", None)
-        context["toolbar"] = t.render(Context(context))
+        context["toolbar"] = t.render(context)
         context["richtext_media"] = RichTextField().formfield().widget.media
     return context
 
