@@ -51,6 +51,7 @@ try:
         can_delete = False
         template = "admin/profile_inline.html"
         extra = 0
+        min_num = 1
     UserProfileAdmin.inlines += (ProfileInline,)
 except ProfileNotConfigured:
     pass
