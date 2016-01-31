@@ -17,16 +17,11 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
+from django.db.models.signals import class_prepared
 
 from mezzanine.boot.lazy_admin import LazyAdminSite
-from django.db.models.signals import class_prepared
 from mezzanine.utils.importing import import_dotted_path
 
-
-# Convert ``EXTRA_MODEL_FIELDS`` into a more usable structure, a
-# dictionary mapping module.model paths to dicts of field names mapped
-# to field instances to inject, with some sanity checking to ensure
-# the field is importable and the arguments given for it are valid.
 
 def parse_field_path(field_path):
     """
@@ -72,9 +67,9 @@ def parse_extra_model_fields(extra_model_fields):
         try:
             field = field_class(*field_args, **field_kwargs)
         except TypeError as e:
-            raise ImproperlyConfigured("The EXTRA_MODEL_FIELDS setting contains "
-                                       "arguments for the field '%s' which could "
-                                       "not be applied: %s" % (entry[1], e))
+            raise ImproperlyConfigured(
+                "The EXTRA_MODEL_FIELDS setting contains arguments for the "
+                "field '%s' which could not be applied: %s" % (entry[1], e))
         fields[model_key].append((field_name, field))
     return fields
 
@@ -95,7 +90,8 @@ def add_extra_model_fields(sender, **kwargs):
 
 if DJANGO_VERSION < (1, 9):
     if fields:
-        class_prepared.connect(add_extra_model_fields, dispatch_uid="FQFEQ#rfq3r")
+        class_prepared.connect(add_extra_model_fields,
+            dispatch_uid="FQFEQ#rfq3r")
 else:
     for model_key in fields:
         apps.lazy_model_operation(add_extra_model_fields, model_key)

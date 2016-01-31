@@ -18,9 +18,6 @@ from mezzanine.utils.importing import path_for_import
 # Ignore these warnings in pyflakes - if added to, please comment why.
 IGNORE_ERRORS = (
 
-    # local_settings import.
-    "'from local_settings import *' used",
-
     # Used to version subpackages.
     "'__version__' imported but unused",
 
@@ -43,14 +40,9 @@ IGNORE_ERRORS = (
     # Django custom user compatibility.
     "'get_user_model' imported but unused",
 
-    # Actually a Python template file.
-    "live_settings.py",
-
     # lambdas are OK.
     "do not assign a lambda",
 
-    # Imported during deprecation grace period after moving to utils.admin.
-    "'SingletonAdmin' imported but unused",
 )
 
 

@@ -2,8 +2,6 @@ from __future__ import unicode_literals
 
 import pprint
 
-import os
-
 from django import VERSION as DJANGO_VERSION
 from django.conf import global_settings
 from django.core.checks import Warning
@@ -81,12 +79,15 @@ def _build_suggested_template_config(settings):
             suggested_templates_config["OPTIONS"][name.lower()] = value
 
     def get_debug(_):
-        return None if settings.TEMPLATE_DEBUG == settings.DEBUG else settings.TEMPLATE_DEBUG
+        if settings.TEMPLATE_DEBUG != settings.DEBUG:
+            return settings.TEMPLATE_DEBUG
 
     def get_default(default):
         def getter(name):
             value = getattr(settings, name)
-            return value if value != getattr(global_settings, name) else default
+            if value == getattr(global_settings, name):
+                value = default
+            return value
         return getter
 
     default_context_processors = [
@@ -136,7 +137,8 @@ def _build_suggested_template_config(settings):
         ('ALLOWED_INCLUDE_ROOTS', settings.__getattr__, set_option),
         ('TEMPLATE_STRING_IF_INVALID', settings.__getattr__, set_option),
         ('TEMPLATE_DIRS', settings.__getattr__, set_setting),
-        ('TEMPLATE_CONTEXT_PROCESSORS', get_default(default_context_processors), set_option),
+        ('TEMPLATE_CONTEXT_PROCESSORS',
+            get_default(default_context_processors), set_option),
         ('TEMPLATE_DEBUG', get_debug, set_option),
         ('TEMPLATE_LOADERS', get_loaders, set_loaders),
     ]
