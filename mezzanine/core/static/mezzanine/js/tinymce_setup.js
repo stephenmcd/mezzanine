@@ -71,7 +71,7 @@ jQuery(function($) {
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste"
             ],
-            link_list: '/displayable_links.js',
+            link_list: window.__link_list_url,
             relative_urls: false,
             convert_urls: false,
             menubar: false,

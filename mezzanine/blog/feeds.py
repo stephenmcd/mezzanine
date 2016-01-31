@@ -13,7 +13,6 @@ from mezzanine.conf import settings
 from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 from mezzanine.core.request import current_request
 from mezzanine.generic.models import Keyword
-from mezzanine.pages.models import Page
 from mezzanine.utils.html import absolute_urls
 from mezzanine.utils.sites import current_site_id
 
@@ -38,12 +37,15 @@ class PostsRSS(Feed):
         self.username = kwargs.pop("username", None)
         super(PostsRSS, self).__init__(*args, **kwargs)
         self._public = True
-        try:
-            page = Page.objects.published().get(slug=settings.BLOG_SLUG)
-        except Page.DoesNotExist:
-            page = None
-        else:
-            self._public = not page.login_required
+        page = None
+        if "mezzanine.pages" in settings.INSTALLED_APPS:
+            from mezzanine.pages.models import Page
+            try:
+                page = Page.objects.published().get(slug=settings.BLOG_SLUG)
+            except Page.DoesNotExist:
+                pass
+            else:
+                self._public = not page.login_required
         if self._public:
             if page is not None:
                 self._title = "%s | %s" % (page.title, settings.SITE_TITLE)
