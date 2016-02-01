@@ -101,7 +101,7 @@ def fields_for(context, form, template="includes/form_fields.html"):
     Renders fields for a form with an optional template choice.
     """
     context["form_for_fields"] = form
-    return get_template(template).render(Context(context))
+    return get_template(template).render(context)
 
 
 @register.inclusion_tag("includes/form_errors.html", takes_context=True)
@@ -109,8 +109,7 @@ def errors_for(context, form):
     """
     Renders an alert if the form has any errors.
     """
-    context["form"] = form
-    return context
+    return {"form": form}
 
 
 @register.filter
@@ -244,6 +243,9 @@ def search_form(context, search_model_names=None):
     string ``all`` can also be used, in which case the models defined
     by the ``SEARCH_MODEL_CHOICES`` setting will be used.
     """
+    template_vars = {
+        "request": context["request"],
+    }
     if not search_model_names or not settings.SEARCH_MODEL_CHOICES:
         search_model_names = []
     elif search_model_names == "all":
@@ -259,8 +261,8 @@ def search_form(context, search_model_names=None):
         else:
             verbose_name = model._meta.verbose_name_plural.capitalize()
             search_model_choices.append((verbose_name, model_name))
-    context["search_model_choices"] = sorted(search_model_choices)
-    return context
+    template_vars["search_model_choices"] = sorted(search_model_choices)
+    return template_vars
 
 
 @register.simple_tag
@@ -414,17 +416,22 @@ def editable_loader(context):
     Set up the required JS/CSS for the in-line editing toolbar and controls.
     """
     user = context["request"].user
-    context["has_site_permission"] = has_site_permission(user)
-    if settings.INLINE_EDITING_ENABLED and context["has_site_permission"]:
+    template_vars = {
+        "has_site_permission": has_site_permission(user),
+        "request": context["request"],
+    }
+    if (settings.INLINE_EDITING_ENABLED and
+            template_vars["has_site_permission"]):
         t = get_template("includes/editable_toolbar.html")
-        context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
-        try:
-            context["editable_obj"]
-        except KeyError:
-            context["editable_obj"] = context.get("page", None)
-        context["toolbar"] = t.render(Context(context))
-        context["richtext_media"] = RichTextField().formfield().widget.media
-    return context
+        template_vars["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
+        template_vars["editable_obj"] = context.get("editable_obj",
+                                        context.get("page", None))
+        template_vars["accounts_logout_url"] = context.get(
+            "accounts_logout_url", None)
+        template_vars["toolbar"] = t.render(Context(template_vars))
+        template_vars["richtext_media"] = RichTextField().formfield(
+            ).widget.media
+    return template_vars
 
 
 @register.filter
@@ -496,7 +503,7 @@ def editable(parsed, context, token):
             context["editable_form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
             t = get_template("includes/editable_form.html")
-            return t.render(Context(context))
+            return t.render(context)
     return parsed
 
 
@@ -621,8 +628,10 @@ def admin_dropdown_menu(context):
     Renders the app list for the admin dropdown menu navigation.
     """
     user = context["request"].user
+    template_vars = {}
     if user.is_staff:
-        context["dropdown_menu_app_list"] = admin_app_list(context["request"])
+        template_vars["dropdown_menu_app_list"] = admin_app_list(
+            context["request"])
         if user.is_superuser:
             sites = Site.objects.all()
         else:
@@ -630,9 +639,11 @@ def admin_dropdown_menu(context):
                 sites = user.sitepermissions.sites.all()
             except ObjectDoesNotExist:
                 sites = Site.objects.none()
-        context["dropdown_menu_sites"] = list(sites)
-        context["dropdown_menu_selected_site_id"] = current_site_id()
-        return context
+        template_vars["dropdown_menu_sites"] = list(sites)
+        template_vars["dropdown_menu_selected_site_id"] = current_site_id()
+        template_vars["settings"] = context["settings"]
+        template_vars["request"] = context["request"]
+        return template_vars
 
 
 @register.inclusion_tag("admin/includes/app_list.html", takes_context=True)
@@ -664,7 +675,7 @@ def dashboard_column(context, token):
     output = []
     for tag in settings.DASHBOARD_TAGS[column_index]:
         t = Template("{%% load %s %%}{%% %s %%}" % tuple(tag.split(".")))
-        output.append(t.render(Context(context)))
+        output.append(t.render(context))
     return "".join(output)
 
 
