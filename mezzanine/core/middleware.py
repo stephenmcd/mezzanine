@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from future.utils import native_str
 
 from django.contrib import admin
 from django.contrib.auth import logout

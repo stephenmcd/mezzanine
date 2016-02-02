@@ -8,7 +8,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User as AuthUser
 
 from mezzanine.conf import settings
-from mezzanine.utils.admin import SingletonAdmin  # Deprecated import path.
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (Orderable, SitePermission,
                                    CONTENT_STATUS_PUBLISHED)
