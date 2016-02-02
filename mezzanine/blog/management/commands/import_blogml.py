@@ -3,7 +3,10 @@ Python module to implement xml parse and import of blogml blog post data
 """
 from optparse import make_option
 import dateutil.parser
+
 from django.core.management.base import CommandError
+from django.utils import timezone
+
 from mezzanine.blog.management.base import BaseImporterCommand
 
 
@@ -16,8 +19,6 @@ class Command(BaseImporterCommand):
     option_list = BaseImporterCommand.option_list + (
         make_option("-x", "--blogxmlfname", dest="xmlfilename",
                     help="xml file to import blog from BoxAlly"),
-        make_option("-t", "--timezone", dest="tzchoice",
-                    help="timezone utilized")
     )
 
     def handle_import(self, options):
@@ -27,10 +28,8 @@ class Command(BaseImporterCommand):
 
         - options is an optparse object with two relevent params
          * xmlfilename is for path to file
-         * tzchoice is for timezone of published post and localization
         """
         xmlfname = options.get("xmlfilename")
-        tzchoice = options.get("tzchoice")
         # validate xml name entered
         if xmlfname is None:
             raise CommandError("Usage is import_blogml %s" % self.args)
@@ -39,7 +38,7 @@ class Command(BaseImporterCommand):
         # valid string input check, import check
         try:
             import pytz
-            publishtz = pytz.timezone(tzchoice)
+            publishtz = pytz.timezone(timezone.get_current_timezone_name)
         except NameError:
             raise CommandError("Please select a valid timezone " +
                                "(see pytz for possible values)")
