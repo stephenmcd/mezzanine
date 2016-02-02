@@ -2,9 +2,10 @@
 Python module to implement xml parse and import of blogml blog post data
 '''
 from optparse import make_option
+import dateutil.parser
 from django.core.management.base import CommandError
 from mezzanine.blog.management.base import BaseImporterCommand
-import dateutil.parser
+
 
 class Command(BaseImporterCommand):
     '''
@@ -14,8 +15,7 @@ class Command(BaseImporterCommand):
     '''
     option_list = BaseImporterCommand.option_list + (
         make_option("-x", "--blogxmlfname", dest="xmlfilename",
-                    help="xml file to import blog from BoxAlly"
-                   ),
+                    help="xml file to import blog from BoxAlly"),
         make_option("-t", "--timezone", dest="tzchoice",
                     help="timezone utilized")
     )
@@ -41,7 +41,8 @@ class Command(BaseImporterCommand):
             import pytz
             publishtz = pytz.timezone(tzchoice)
         except NameError:
-            raise CommandError("Please select a valid timezone (see pytz for possible values)")
+            raise CommandError("Please select a valid timezone " +
+                               "(see pytz for possible values)")
         except ImportError:
             raise CommandError("Could not import the pytz library")
 
@@ -51,10 +52,9 @@ class Command(BaseImporterCommand):
             raise CommandError("Could not import the xml ElementTree library")
 
         # parsing xml tree and populating variables for post addition
-        tree = ET.parse(xmlfname)
-        blogroot = tree.getroot()
-        namespace = {'blogml':'http://www.blogml.com/2006/09/BlogML'}
-        postroot = blogroot.find('blogml:posts', namespace)
+        tree = ET.parse(xmlfname).getroot()
+        namespace = {'blogml': 'http://www.blogml.com/2006/09/BlogML'}
+        postroot = tree.find('blogml:posts', namespace)
         for post in postroot.getchildren():
             posttitle = post.find('blogml:title', namespace).text
             postcontent = post.find('blogml:content', namespace).text
@@ -62,6 +62,7 @@ class Command(BaseImporterCommand):
             postcategories = post.find('blogml:categories', namespace)
             for category in postcategories.getchildren():
                 postcategoriesfound.append(category.attrib['ref'])
-            postdate = publishtz.localize(dateutil.parser.parse(post.attrib['date-created']))
+            postdate = publishtz.localize(dateutil.parser.parse(
+                post.attrib['date-created']))
             self.add_post(title=posttitle, content=postcontent,
                           pub_date=postdate, categories=postcategoriesfound)
