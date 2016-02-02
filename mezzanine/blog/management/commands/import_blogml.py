@@ -1,6 +1,6 @@
-'''
+"""
 Python module to implement xml parse and import of blogml blog post data
-'''
+"""
 from optparse import make_option
 import dateutil.parser
 from django.core.management.base import CommandError
@@ -8,11 +8,11 @@ from mezzanine.blog.management.base import BaseImporterCommand
 
 
 class Command(BaseImporterCommand):
-    '''
+    """
     This class extends django management and mezzanine custom blog import
     commands to allow for import from blogml styled blogs
     Should supply user to upload as and xmlfilename and a timezone
-    '''
+    """
     option_list = BaseImporterCommand.option_list + (
         make_option("-x", "--blogxmlfname", dest="xmlfilename",
                     help="xml file to import blog from BoxAlly"),
@@ -21,14 +21,14 @@ class Command(BaseImporterCommand):
     )
 
     def handle_import(self, options):
-        '''
+        """
         Gets posts from provided xml dump
         TODO: Handle comment importing
 
         - options is an optparse object with two relevent params
          * xmlfilename is for path to file
          * tzchoice is for timezone of published post and localization
-        '''
+        """
         xmlfname = options.get("xmlfilename")
         tzchoice = options.get("tzchoice")
         # validate xml name entered
