@@ -1,8 +1,8 @@
 '''
 Python module to implement xml parse and import of blogml blog post data
 '''
-import xml.etree.ElementTree as ET
 from optparse import make_option
+from django.core.management.base import CommandError
 from mezzanine.blog.management.base import BaseImporterCommand
 import dateutil.parser
 
@@ -23,11 +23,20 @@ class Command(BaseImporterCommand):
     def handle_import(self, options):
         '''
         Gets posts from provided xml dump
+        TODO: Handle comment importing
+
+        - options is an optparse object with two relevent params
+         * xmlfilename is for path to file
+         * tzchoice is for timezone of published post and localization
         '''
         xmlfname = options.get("xmlfilename")
         tzchoice = options.get("tzchoice")
+        # validate xml name entered
         if xmlfname is None:
             raise CommandError("Usage is import_blogml %s" % self.args)
+
+        # timezone related error handling
+        # valid string input check, import check
         try:
             import pytz
             publishtz = pytz.timezone(tzchoice)
@@ -36,6 +45,12 @@ class Command(BaseImporterCommand):
         except ImportError:
             raise CommandError("Could not import the pytz library")
 
+        try:
+            import xml.etree.ElementTree as ET
+        except ImportError:
+            raise CommandError("Could not import the xml ElementTree library")
+
+        # parsing xml tree and populating variables for post addition
         tree = ET.parse(xmlfname)
         blogroot = tree.getroot()
         namespace = {'blogml':'http://www.blogml.com/2006/09/BlogML'}
