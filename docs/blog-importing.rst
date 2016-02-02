@@ -132,6 +132,15 @@ importer, this leaves your media assets on the Posterous servers.
 If you're worried about posterous being shut down you may want want
 to have a closer look at the API to actually export your media.
 
+Importing from BlogML
+=====================
+
+In order to populate mezzanine with BlogML styled exports, simply use at command
+line with the filename of the local dump as an argument to the blogxmlfname
+parameter
+
+    $ python manage.py import_blogml --mezzanine-user=.. --blogxmlfname=filename
+
 Importer API - Adding New Importers
 ===================================
 

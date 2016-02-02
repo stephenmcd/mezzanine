@@ -14,7 +14,7 @@ class Command(BaseImporterCommand):
     """
     This class extends django management and mezzanine custom blog import
     commands to allow for import from blogml styled blogs
-    Should supply user to upload as and xmlfilename and a timezone
+    Should supply user to upload as and xmlfilename
     """
     option_list = BaseImporterCommand.option_list + (
         make_option("-x", "--blogxmlfname", dest="xmlfilename",
@@ -26,7 +26,7 @@ class Command(BaseImporterCommand):
         Gets posts from provided xml dump
         TODO: Handle comment importing
 
-        - options is an optparse object with two relevent params
+        - options is an optparse object with one relevent param
          * xmlfilename is for path to file
         """
         xmlfname = options.get("xmlfilename")
@@ -39,9 +39,6 @@ class Command(BaseImporterCommand):
         try:
             import pytz
             publishtz = pytz.timezone(timezone.get_current_timezone_name)
-        except NameError:
-            raise CommandError("Please select a valid timezone " +
-                               "(see pytz for possible values)")
         except ImportError:
             raise CommandError("Could not import the pytz library")
 
