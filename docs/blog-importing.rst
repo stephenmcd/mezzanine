@@ -12,6 +12,7 @@ These are the currently supported formats and their commands:
   * `Tumblr <http://tumblr.com>`_: ``import_tumblr``
   * `Posterous <http://posterous.com>`_: ``import_posterous``
   * `RSS <http://en.wikipedia.org/wiki/RSS>`_: ``import_rss``
+  * `BlogML <http://en.wikipedia.org/wiki/BlogML`_: ``import_blogml``
 
 Each command takes a Mezzanine username to assign the blog posts to
 as well as certain arguments specific to the blog platform. For
