@@ -126,6 +126,7 @@ class BaseDynamicInlineAdmin(object):
     """
 
     form = DynamicInlineAdminForm
+    extra = 0
 
     def get_fields(self, request, obj=None):
         fields = super(BaseDynamicInlineAdmin, self).get_fields(request, obj)
@@ -169,12 +170,11 @@ def get_inline_base_class(cls):
 
 class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin,
                                 get_inline_base_class(admin.TabularInline)):
-    template = "admin/includes/dynamic_inline_tabular.html"
+    pass
 
 
 class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin,
                                 get_inline_base_class(admin.StackedInline)):
-    template = "admin/includes/dynamic_inline_stacked.html"
 
     def __init__(self, *args, **kwargs):
         """
