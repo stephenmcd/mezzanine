@@ -8,7 +8,7 @@ from mezzanine.galleries.models import Gallery, GalleryImage
 from mezzanine.utils.static import static_lazy as static
 
 
-class GalleryImageInline(TabularDynamicInlineAdmin):
+class GalleryImageInline(admin.TabularInline):
     model = GalleryImage
 
 

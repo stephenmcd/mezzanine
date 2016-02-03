@@ -76,8 +76,7 @@ class DynamicInlineAdminForm(forms.ModelForm):
     """
 
     class Media:
-        js = (static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
-              static("mezzanine/js/admin/dynamic_inline.js"),)
+        js = [static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME)]
 
 
 class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
