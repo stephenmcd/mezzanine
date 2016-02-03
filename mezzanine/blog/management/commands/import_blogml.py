@@ -1,7 +1,10 @@
 """
 Python module to implement xml parse and import of blogml blog post data
+
+ * Has dependency of python-dateutil
 """
 from optparse import make_option
+
 import dateutil.parser
 
 from django.core.management.base import CommandError
@@ -19,6 +22,8 @@ class Command(BaseImporterCommand):
     option_list = BaseImporterCommand.option_list + (
         make_option("-x", "--blogxmlfname", dest="xmlfilename",
                     help="xml file to import blog from BoxAlly"),
+        make_option("-z", "--timezone", dest="tzinput",
+                    default=timezone.get_current_timezone_name())
     )
 
     def handle_import(self, options):
@@ -30,6 +35,7 @@ class Command(BaseImporterCommand):
          * xmlfilename is for path to file
         """
         xmlfname = options.get("xmlfilename")
+        tzinput = options.get("tzinput")
         # validate xml name entered
         if xmlfname is None:
             raise CommandError("Usage is import_blogml %s" % self.args)
@@ -38,9 +44,13 @@ class Command(BaseImporterCommand):
         # valid string input check, import check
         try:
             import pytz
-            publishtz = pytz.timezone(timezone.get_current_timezone_name)
+            from pytz import UnknownTimeZoneError
+            publishtz = pytz.timezone(tzinput)
         except ImportError:
             raise CommandError("Could not import the pytz library")
+        except UnknownTimeZoneError:
+            raise CommandError("Unknown Time Zone entered, see pytz for" +
+                               "of acceptable strings")
 
         try:
             import xml.etree.ElementTree as ET

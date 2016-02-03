@@ -12,7 +12,7 @@ These are the currently supported formats and their commands:
   * `Tumblr <http://tumblr.com>`_: ``import_tumblr``
   * `Posterous <http://posterous.com>`_: ``import_posterous``
   * `RSS <http://en.wikipedia.org/wiki/RSS>`_: ``import_rss``
-  * `BlogML <http://en.wikipedia.org/wiki/BlogML`_: ``import_blogml``
+  * `BlogML <http://en.wikipedia.org/wiki/BlogML>`_: ``import_blogml``
 
 Each command takes a Mezzanine username to assign the blog posts to
 as well as certain arguments specific to the blog platform. For
@@ -135,11 +135,19 @@ to have a closer look at the API to actually export your media.
 Importing from BlogML
 =====================
 
+Dependencies
+------------
+
+  * `Python-dateutil <https://dateutil.readthedocs.org/en/latest/>`_
+
 In order to populate mezzanine with BlogML styled exports, simply use at command
 line with the filename of the local dump as an argument to the blogxmlfname
 parameter
 
     $ python manage.py import_blogml --mezzanine-user=.. --blogxmlfname=filename
+
+The timezone for post creation will default to the settings.py timezone value
+in Django unless flagged
 
 Importer API - Adding New Importers
 ===================================
