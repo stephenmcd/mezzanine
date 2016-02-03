@@ -519,7 +519,7 @@ def create():
                 else:
                     upload_template(crt_local, crt_file, use_sudo=True)
                     upload_template(key_local, key_file, use_sudo=True)
-    
+
     # Adding unique Diffie-Hellman Group. This is used to protect
     # against the WeakDH/Logjam attack, https://weakdh.org/
     # This was reported as a bug fix against mezzanine issue #1528:
