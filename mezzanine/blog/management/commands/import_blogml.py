@@ -50,7 +50,7 @@ class Command(BaseImporterCommand):
             raise CommandError("Could not import the pytz library")
         except UnknownTimeZoneError:
             raise CommandError("Unknown Time Zone entered, see pytz for" +
-                               "of acceptable strings")
+                               "list of acceptable strings")
 
         try:
             import xml.etree.ElementTree as ET
