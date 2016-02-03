@@ -519,6 +519,19 @@ def create():
                 else:
                     upload_template(crt_local, crt_file, use_sudo=True)
                     upload_template(key_local, key_file, use_sudo=True)
+    
+    # Adding unique Diffie-Hellman Group. This is used to protect
+    # against the WeakDH/Logjam attack, https://weakdh.org/
+    # This was reported as a bug fix against mezzanine issue #1528:
+    # https://github.com/stephenmcd/mezzanine/issues/1528
+    ssl_private = "/etc/ssl/private"
+    if not exists(ssl_private):
+        sudo("mkdir -p %s" % ssl_private)
+        sudo("chmod 710 %s" % ssl_private)
+    dh_file = ssl_private + "/dhparams.pem"
+    if not exists(dh_file, use_sudo=True):
+        sudo("openssl dhparam -out %s 2048" % dh_file)
+        sudo("chmod 600 %s" % dh_file)
 
     # Install project-specific requirements
     upload_template_and_reload("settings")
