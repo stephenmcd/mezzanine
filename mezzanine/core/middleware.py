@@ -212,6 +212,12 @@ class SSLRedirectMiddleware(object):
     Also ensure URLs defined by ``SSL_FORCE_URL_PREFIXES`` are redirect
     to HTTPS, and redirect all other URLs to HTTP if on HTTPS.
     """
+
+    def languages(self):
+        if not hasattr(self, "_languages"):
+            self._languages = dict(settings.LANGUAGES).keys()
+        return self._languages
+
     def process_request(self, request):
         force_host = settings.SSL_FORCE_HOST
         response = None
@@ -220,7 +226,10 @@ class SSLRedirectMiddleware(object):
             response = HttpResponsePermanentRedirect(url)
         elif settings.SSL_ENABLED and not settings.DEV_SERVER:
             url = "%s%s" % (request.get_host(), request.get_full_path())
-            if request.path.startswith(settings.SSL_FORCE_URL_PREFIXES):
+            path = request.path
+            if settings.USE_I18N and path[1:3] in self.languages():
+                path = path[3:]
+            if path.startswith(settings.SSL_FORCE_URL_PREFIXES):
                 if not request.is_secure():
                     response = HttpResponseRedirect("https://%s" % url)
             elif request.is_secure() and settings.SSL_FORCED_PREFIXES_ONLY:
