@@ -327,10 +327,7 @@ var django;
 
             // Group fields in (existing) tabular inlines
             $('div.inline-group.inline-tabular').each(function (index) {
-              if(!$(this).parent().hasClass("dynamic-inline")) {
-                // Regular admin.TabularInline instead of custom TabularDynamicInlineAdmin
-                $(this).wrap('<div>');
-              }
+              $(this).wrap('<div>');
               var tabularInlineGroup = new TabularInlineGroup({ 'el': $(this).parent() });
               var tab = createTabularTabs(tabularInlineGroup.getAllGroupedTranslations(), tabularInlineGroup.$table, index);
               if (tab) { tabs.push(tab); }
