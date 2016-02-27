@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 from future.builtins import int, open, str
 
-import os
+import os, mimetypes
 
 from json import dumps
 
@@ -151,7 +151,9 @@ def static_proxy(request):
         if url.startswith(prefix):
             url = url.replace(prefix, "", 1)
     response = ""
-    content_type = ""
+    (content_type, encoding) = mimetypes.guess_type(url)
+    if content_type is None:
+      content_type = "application/octet-stream"
     path = finders.find(url)
     if path:
         if isinstance(path, (list, tuple)):
@@ -164,11 +166,9 @@ def static_proxy(request):
             if not urlparse(static_url).scheme:
                 static_url = urljoin(host, static_url)
             base_tag = "<base href='%s'>" % static_url
-            content_type = "text/html"
             with open(path, "r") as f:
                 response = f.read().replace("<head>", "<head>" + base_tag)
         else:
-            content_type = "application/octet-stream"
             try:
                 with open(path, "rb") as f:
                     response = f.read()
