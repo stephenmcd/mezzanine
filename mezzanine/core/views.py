@@ -1,7 +1,8 @@
 from __future__ import absolute_import, unicode_literals
 from future.builtins import int, open, str
 
-import os, mimetypes
+import os
+import mimetypes
 
 from json import dumps
 
@@ -35,7 +36,9 @@ from mezzanine.utils.views import is_editable, paginate, set_cookie
 from mezzanine.utils.sites import has_site_permission
 from mezzanine.utils.urls import next_url
 
+
 mimetypes.init()
+
 
 def set_device(request, device=""):
     """
@@ -154,7 +157,7 @@ def static_proxy(request):
     response = ""
     (content_type, encoding) = mimetypes.guess_type(url)
     if content_type is None:
-      content_type = "application/octet-stream"
+        content_type = "application/octet-stream"
     path = finders.find(url)
     if path:
         if isinstance(path, (list, tuple)):
