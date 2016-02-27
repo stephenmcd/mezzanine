@@ -35,6 +35,7 @@ from mezzanine.utils.views import is_editable, paginate, set_cookie
 from mezzanine.utils.sites import has_site_permission
 from mezzanine.utils.urls import next_url
 
+mimetypes.init()
 
 def set_device(request, device=""):
     """
