@@ -235,6 +235,7 @@ class LinkAdmin(PageAdmin):
         """
         if db_field.name == "slug":
             kwargs["required"] = True
+            kwargs["help_text"] = None
         return super(LinkAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def save_form(self, request, form, change):
