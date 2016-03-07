@@ -54,7 +54,7 @@ class LazyAdminSite(AdminSite):
         for name, args, kwargs in self._deferred:
             try:
                 getattr(AdminSite, name)(self, *args, **kwargs)
-            except AlreadyRegistered:
+            except (AlreadyRegistered, NotRegistered):
                 pass
 
     @property
