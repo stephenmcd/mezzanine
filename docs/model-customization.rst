@@ -40,7 +40,7 @@ define the following in your project’s settings module::
             # Positional args for field class.
             ("Image",),
             # Keyword args for field class.
-            {"blank": True, "upload_to: "blog"},
+            {"blank": True, "upload_to": "blog"},
         ),
     )
 
