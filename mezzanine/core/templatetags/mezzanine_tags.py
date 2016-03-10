@@ -528,7 +528,7 @@ def admin_app_list(request):
     Adopted from ``django.contrib.admin.sites.AdminSite.index``.
     Returns a list of lists of models grouped and ordered according to
     ``mezzanine.conf.ADMIN_MENU_ORDER``. Called from the
-    ``admin_dropdown_menu`` template tag as well as the ``app_list``
+    ``admin_sidebar`` template tag as well as the ``app_list``
     dashboard widget.
     """
     app_dict = {}
@@ -621,16 +621,16 @@ def admin_app_list(request):
     return app_list
 
 
-@register.inclusion_tag("admin/includes/dropdown_menu.html",
+@register.inclusion_tag("admin/includes/sidebar.html",
                         takes_context=True)
-def admin_dropdown_menu(context):
+def admin_sidebar(context):
     """
     Renders the app list for the admin dropdown menu navigation.
     """
     user = context["request"].user
     template_vars = {}
     if user.is_staff:
-        template_vars["dropdown_menu_app_list"] = admin_app_list(
+        template_vars["sidebar_app_list"] = admin_app_list(
             context["request"])
         if user.is_superuser:
             sites = Site.objects.all()
@@ -639,8 +639,8 @@ def admin_dropdown_menu(context):
                 sites = user.sitepermissions.sites.all()
             except ObjectDoesNotExist:
                 sites = Site.objects.none()
-        template_vars["dropdown_menu_sites"] = list(sites)
-        template_vars["dropdown_menu_selected_site_id"] = current_site_id()
+        template_vars["sidebar_sites"] = list(sites)
+        template_vars["sidebar_selected_site_id"] = current_site_id()
         template_vars["settings"] = context["settings"]
         template_vars["request"] = context["request"]
         return template_vars

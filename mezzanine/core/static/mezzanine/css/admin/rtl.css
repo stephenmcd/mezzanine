@@ -15,7 +15,7 @@
     right: 0;
 }
 
-.dropdown-menu {
+.admin-sidebar {
     float: right;
 }
 
@@ -23,7 +23,7 @@
     float: left;
 }
 
-.dropdown-menu.hidden {
+.admin-sidebar.hidden {
     margin-left: auto;
     margin-right: -207px;
 }
@@ -47,7 +47,7 @@ ul.messagelist {
     margin-right: 17px;
 }
 
-.dropdown-menu .selected, .dropdown-menu-menu > li > a:hover {
+.admin-sidebar .selected, .admin-app-menu > li > a:hover {
     border-left: none;
     margin-left: 0;
     padding-left: 0;
@@ -56,7 +56,7 @@ ul.messagelist {
     padding-right: 10px;
 }
 
-.dropdown-menu form {
+.admin-sidebar form {
     float: left;
     margin: 3px 0 0 22px;
 }

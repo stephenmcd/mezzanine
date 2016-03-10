@@ -549,7 +549,7 @@ msgstr "читать далее"
 msgid "View site"
 msgstr "Просмотр сайта"
 
-#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
+#: templates/admin/index.html:17 templates/admin/includes/sidebar.html:4
 msgid "Dashboard"
 msgstr "Панель управления"
 
