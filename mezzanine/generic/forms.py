@@ -9,7 +9,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import Html5Mixin
-from mezzanine.generic.models import Keyword, ThreadedComment, Rating
+from mezzanine.generic.models import Keyword, ThreadedComment
 from mezzanine.utils.cache import add_cache_bypass
 from mezzanine.utils.email import split_addresses, send_mail_template
 from mezzanine.utils.static import static_lazy as static
@@ -211,7 +211,8 @@ class RatingForm(CommentSecurityForm):
         rating_manager = getattr(self.target_object, rating_name)
 
         if user.is_authenticated():
-            rating_instance, created = rating_manager.get_or_create(user=user, defaults={'value': rating_value})
+            rating_instance, created = rating_manager.get_or_create(user=user,
+                defaults={'value': rating_value})
             if not created:
                 if rating_instance.value == int(rating_value):
                     # User submitted the same rating as previously,

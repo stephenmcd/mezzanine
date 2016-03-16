@@ -43,7 +43,7 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
     if fail_silently is None:
         fail_silently = settings.EMAIL_FAIL_SILENTLY
     # Add template accessible settings from Mezzanine to the context
-    # (normally added by a context processor for HTTP requests)
+    # (normally added by a context processor for HTTP requests).
     context.update(context_settings())
     # Allow for a single address to be passed in.
     # Python 3 strings have an __iter__ method, so the following hack

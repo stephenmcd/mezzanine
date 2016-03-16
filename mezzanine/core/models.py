@@ -146,7 +146,7 @@ class MetaData(models.Model):
         Accessor for the optional ``_meta_title`` field, which returns
         the string version of the instance if not provided.
         """
-        return self._meta_title or str(self)
+        return self._meta_title or getattr(self, "title", str(self))
 
     def description_from_content(self):
         """

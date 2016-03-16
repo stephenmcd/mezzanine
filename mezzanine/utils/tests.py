@@ -15,14 +15,8 @@ from mezzanine.conf import settings
 from mezzanine.utils.importing import path_for_import
 
 
-User = get_user_model()
-
-
 # Ignore these warnings in pyflakes - if added to, please comment why.
 IGNORE_ERRORS = (
-
-    # local_settings import.
-    "'from local_settings import *' used",
 
     # Used to version subpackages.
     "'__version__' imported but unused",
@@ -46,9 +40,6 @@ IGNORE_ERRORS = (
     # Django custom user compatibility.
     "'get_user_model' imported but unused",
 
-    # Actually a Python template file.
-    "live_settings.py",
-
     # lambdas are OK.
     "do not assign a lambda",
 
@@ -71,38 +62,24 @@ class TestCase(BaseTestCase):
         self._password = "test"
         self._emailaddress = "example@example.com"
         args = (self._username, self._emailaddress, self._password)
-        self._user = User.objects.create_superuser(*args)
+        self._user = get_user_model().objects.create_superuser(*args)
         self._request_factory = RequestFactory()
-
-        try:
-            # Django 1.8+
-            self._debug_cursor = connection.force_debug_cursor
-            connection.force_debug_cursor = True
-        except AttributeError:
-            self._debug_cursor = connection.use_debug_cursor
-            connection.use_debug_cursor = True
+        self._debug_cursor = connection.force_debug_cursor
+        connection.force_debug_cursor = True
 
     def tearDown(self):
         """
         Clean up the admin user created and debug cursor.
         """
         self._user.delete()
-        try:
-            # Django 1.8+
-            connection.force_debug_cursor = self._debug_cursor
-        except AttributeError:
-            connection.use_debug_cursor = self._debug_cursor
+        connection.force_debug_cursor = self._debug_cursor
 
     def queries_used_for_template(self, template, **context):
         """
         Return the number of queries used when rendering a template
         string.
         """
-        try:
-            # Django 1.8+ - queries_log is a deque
-            connection.queries_log.clear()
-        except AttributeError:
-            connection.queries = []
+        connection.queries_log.clear()
         t = Template(template)
         t.render(Context(context))
         return len(connection.queries)

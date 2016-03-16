@@ -45,8 +45,8 @@ standard Django environment), with the following dependencies, which
 unless noted as optional, should be installed automatically following
 the above instructions:
 
-* `Python`_ 2.7 to 3.3
-* `Django`_ 1.7 to 1.8
+* `Python`_ 2.7 to 3.5
+* `Django`_ 1.8 to 1.9
 * `django-contrib-comments`_ - for built-in threaded comments
 * `Pillow`_ - for image resizing (`Python Imaging Library`_ fork)
 * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)

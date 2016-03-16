@@ -51,6 +51,13 @@ try:
         can_delete = False
         template = "admin/profile_inline.html"
         extra = 0
+
+        def get_min_num(self, request, obj=None, **kwargs):
+            """This causes profile forms to be shown when editing but hidden
+            when creating. If min_num is fixed at 1, Django's initial user
+            creation form fails if the profile model has a required field."""
+            return 0 if obj is None else 1
+
     UserProfileAdmin.inlines += (ProfileInline,)
 except ProfileNotConfigured:
     pass

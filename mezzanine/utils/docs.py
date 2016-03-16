@@ -9,7 +9,7 @@ from collections import OrderedDict
 from datetime import datetime
 import os.path
 from shutil import copyfile, move
-from string import letters
+from string import ascii_letters as letters
 from socket import gethostname
 from warnings import warn
 
@@ -49,6 +49,7 @@ def build_settings_docs(docs_path, prefix=None):
             continue
         setting = registry[name]
         settings_name = "``%s``" % name
+        settings_label = ".. _%s:" % name
         setting_default = setting["default"]
         if isinstance(setting_default, str):
             if gethostname() in setting_default or (
@@ -57,6 +58,7 @@ def build_settings_docs(docs_path, prefix=None):
                 setting_default = dynamic
         if setting_default != dynamic:
             setting_default = repr(deep_force_unicode(setting_default))
+        lines.extend(["", settings_label])
         lines.extend(["", settings_name, "-" * len(settings_name)])
         lines.extend(["",
             urlize(setting["description"] or "").replace(
@@ -69,7 +71,8 @@ def build_settings_docs(docs_path, prefix=None):
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
     with open(os.path.join(docs_path, "settings.rst"), "w") as f:
-        f.write("\n".join(lines).replace("u'", "'").replace("yo'", "you'").replace("&#39;", "'"))
+        f.write("\n".join(lines).replace("u'", "'").replace("yo'",
+            "you'").replace("&#39;", "'"))
 
 
 def build_deploy_docs(docs_path):

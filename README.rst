@@ -168,7 +168,7 @@ Quotes
 .. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
 .. _`dashboard`: http://mezzanine.jupo.org/docs/admin-customization.html#dashboard
-.. _`Free Themes`: http://thecodinghouse.in/themes/
+.. _`Free Themes`: https://github.com/thecodinghouse/mezzanine-themes
 .. _`Premium Themes`: http://mezzathe.me/
 .. _`@abhinavsohani`: https://twitter.com/abhinavsohani
 .. _`@joshcartme`: https://twitter.com/joshcartme

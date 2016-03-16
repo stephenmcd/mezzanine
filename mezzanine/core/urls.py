@@ -27,7 +27,4 @@ urlpatterns += [
     url("^set_site/$", core_views.set_site, name="set_site"),
     url("^set_device/(?P<device>.*)/$", core_views.set_device,
         name="set_device"),
-    url("^asset_proxy/$", core_views.static_proxy, name="static_proxy"),
-    url("^displayable_links.js$", core_views.displayable_links_js,
-        name="displayable_links_js"),
 ]

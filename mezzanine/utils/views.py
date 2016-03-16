@@ -153,7 +153,7 @@ def paginate(objects, page_num, per_page, max_paging_links):
     if len(page_range) > max_paging_links:
         start = min(objects.paginator.num_pages - max_paging_links,
             max(0, objects.number - (max_paging_links // 2) - 1))
-        page_range = page_range[start:start + max_paging_links]
+        page_range = list(page_range)[start:start + max_paging_links]
     objects.visible_page_range = page_range
     return objects
 

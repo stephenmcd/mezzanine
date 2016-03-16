@@ -39,7 +39,8 @@ def admin_keywords_submit(request):
             if keyword_id not in keyword_ids:
                 keyword_ids.append(keyword_id)
                 titles.append(title)
-    return HttpResponse("%s|%s" % (",".join(keyword_ids), ", ".join(titles)))
+    return HttpResponse("%s|%s" % (",".join(keyword_ids), ", ".join(titles)),
+        content_type='text/plain')
 
 
 def initial_validation(request, prefix):

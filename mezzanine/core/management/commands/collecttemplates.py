@@ -39,7 +39,7 @@ class Command(BaseCommand):
         admin = options.get("admin")
         single_template = options.get("template")
         verbosity = int(options.get('verbosity', 1))
-        to_dir = settings.TEMPLATE_DIRS[0]
+        to_dir = settings.TEMPLATES[0]["DIRS"][0]
         templates = []
 
         # Build a list of apps to copy templates from.

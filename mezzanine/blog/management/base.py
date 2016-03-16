@@ -17,7 +17,7 @@ from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
-from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
+from mezzanine.generic.models import Keyword, ThreadedComment
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.html import decode_entities
 

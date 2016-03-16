@@ -85,8 +85,9 @@ class BaseGenericRelation(GenericRelation):
             getter_name = "get_%s_name" % self.__class__.__name__.lower()
             cls.add_to_class(getter_name, lambda self: name)
 
-            post_save.connect(self._related_items_changed, sender=self.rel.to)
-            post_delete.connect(self._related_items_changed, sender=self.rel.to)
+            sender = self.rel.to
+            post_save.connect(self._related_items_changed, sender=sender)
+            post_delete.connect(self._related_items_changed, sender=sender)
 
     def _related_items_changed(self, **kwargs):
         """
@@ -119,7 +120,7 @@ class BaseGenericRelation(GenericRelation):
     def value_from_object(self, obj):
         """
         Returns the value of this field in the given model instance.
-        Needed for Django 1.7: https://code.djangoproject.com/ticket/22552
+        See: https://code.djangoproject.com/ticket/22552
         """
         return getattr(obj, self.attname).all()
 
@@ -187,7 +188,7 @@ class KeywordsField(BaseGenericRelation):
         ``Keyword`` instances if their last related ``AssignedKeyword``
         instance is being removed.
         """
-        from mezzanine.generic.models import AssignedKeyword, Keyword
+        from mezzanine.generic.models import Keyword
         related_manager = getattr(instance, self.name)
         # Get a list of Keyword IDs being removed.
         old_ids = [str(a.keyword_id) for a in related_manager.all()]
