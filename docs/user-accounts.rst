@@ -60,7 +60,7 @@ ProfileAdmin
 
 By default, in the Mezzanine admin, Mezzanine will render all
 relevant user profile fields on a User object via the
-`ProfileInline(admin.StackedInline)` class. However, if you need
+``ProfileInline(admin.StackedInline)`` class. However, if you need
 to use a custom inline class create in the admin.py file of
 your app and add a reference to it in settings.py with the
 following setting: :ref:`ACCOUNTS_PROFILE_INLINE_CLASS`.
