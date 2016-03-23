@@ -45,6 +45,13 @@ Dotted package path and class name of profile form to use for users signing up a
 
 Default: ``'mezzanine.accounts.forms.ProfileForm'``
 
+``ACCOUNTS_PROFILE_INLINE_CLASS``
+-------------------------------
+
+Dotted package path of the profile inline class to use, when ``mezzanine.accounts`` is installed.
+
+Default: ``'mezzanine.accounts.admin.ProfileInline'``
+
 .. _ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS:
 
 ``ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS``
