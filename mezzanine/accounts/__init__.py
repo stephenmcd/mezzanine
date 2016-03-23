@@ -75,6 +75,20 @@ def get_profile_form():
                                    settings.ACCOUNTS_PROFILE_FORM_CLASS)
 
 
+def get_profile_inline_form():
+    """
+    Returns the profile inline class defined by
+    ``settings.ACCOUNTS_PROFILE_INLINE_CLASS``.
+    """
+    from mezzanine.conf import settings
+    try:
+        return import_dotted_path(settings.ACCOUNTS_PROFILE_INLINE_CLASS)
+    except ImportError:
+        raise ImproperlyConfigured("Value for ACCOUNTS_PROFILE_INLINE_CLASS "
+                                   "could not be imported: %s" %
+                                   settings.ACCOUNTS_PROFILE_INLINE_CLASS)
+
+
 def get_profile_user_fieldname(profile_model=None, user_model=None):
     """
     Returns the name of the first field on the profile model that

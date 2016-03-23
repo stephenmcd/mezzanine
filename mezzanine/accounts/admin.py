@@ -2,7 +2,8 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from mezzanine.accounts import get_profile_model, ProfileNotConfigured
+from mezzanine.accounts import get_profile_model, ProfileNotConfigured, \
+    get_profile_inline_form
 
 from mezzanine.core.admin import SitePermissionUserAdmin
 from mezzanine.conf import settings
@@ -45,20 +46,15 @@ class UserProfileAdmin(SitePermissionUserAdmin):
             send_verification_mail(request, user, "signup_verify")
 
 
+class ProfileInline(admin.StackedInline):
+    model = get_profile_model()
+    can_delete = False
+    template = "admin/profile_inline.html"
+    extra = 0
+
+
 try:
-    class ProfileInline(admin.StackedInline):
-        model = get_profile_model()
-        can_delete = False
-        template = "admin/profile_inline.html"
-        extra = 0
-
-        def get_min_num(self, request, obj=None, **kwargs):
-            """This causes profile forms to be shown when editing but hidden
-            when creating. If min_num is fixed at 1, Django's initial user
-            creation form fails if the profile model has a required field."""
-            return 0 if obj is None else 1
-
-    UserProfileAdmin.inlines += (ProfileInline,)
+    UserProfileAdmin.inlines += (get_profile_inline_form(),)
 except ProfileNotConfigured:
     pass
 
