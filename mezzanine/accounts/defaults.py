@@ -57,8 +57,9 @@ register_setting(
 
 register_setting(
     name="ACCOUNTS_PROFILE_INLINE_CLASS",
-    description=_("Dotted package path of the profile inline "
-        "class to use when ``mezzanine.accounts`` is installed."),
+    description=_("Dotted package path and class name of the profile inline  "
+        "admin that will be added to the User admin, when ``mezzanine.accounts`` "
+        "is installed and ``settings.AUTH_PROFILE_MODULE`` is defined."),
     editable=False,
     default="mezzanine.accounts.admin.ProfileInline",
 )

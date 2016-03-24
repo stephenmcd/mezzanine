@@ -75,7 +75,7 @@ def get_profile_form():
                                    settings.ACCOUNTS_PROFILE_FORM_CLASS)
 
 
-def get_profile_inline_form():
+def get_profile_inline_admin():
     """
     Returns the profile inline class defined by
     ``settings.ACCOUNTS_PROFILE_INLINE_CLASS``.
