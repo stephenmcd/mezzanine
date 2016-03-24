@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from mezzanine.accounts import get_profile_model, ProfileNotConfigured, \
-    get_profile_inline_form
+    get_profile_inline_admin
 
 from mezzanine.core.admin import SitePermissionUserAdmin
 from mezzanine.conf import settings
