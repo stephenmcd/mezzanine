@@ -54,7 +54,7 @@ class ProfileInline(admin.StackedInline):
 
 
 try:
-    UserProfileAdmin.inlines += (get_profile_inline_form(),)
+    UserProfileAdmin.inlines += (get_profile_inline_admin(),)
 except ProfileNotConfigured:
     pass
 
