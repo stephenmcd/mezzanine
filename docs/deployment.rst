@@ -87,7 +87,7 @@ CASE 1: Deploying to a brand new server
 
 1. Get your sever. Anything that grants you root access works. VPS's like those
    from Digital Ocean work great and are cheap.
-2. Fill the ``ALLOWED_HOSTS`` and ``FABRIC`` settings in ``local_settings.py``
+2. Fill the :django:setting:`ALLOWED_HOSTS` and ``FABRIC`` settings in ``local_settings.py``
    as shown in the `Configuration`_ section above. For ``SSH_USER`` provide any
    username you want (not root), and the fabfile will create it for you.
 3. Run ``fab secure``. You simply need to know the root password to your VPS.
@@ -107,7 +107,7 @@ CASE 2: Deploying to an existing server
 If you already have a server, and you already have created a non-root user with
 sudo privileges:
 
-1. Fill the ``ALLOWED_HOSTS`` and ``FABRIC`` settings in ``local_settings.py``
+1. Fill the :django:setting:`ALLOWED_HOSTS` and ``FABRIC`` settings in ``local_settings.py``
    as shown in the `Configuration`_ section above. For ``SSH_USER`` provide the
    user with sudo privileges.
 2. Run ``fab install`` to install system-wide requirements.

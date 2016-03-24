@@ -62,18 +62,18 @@ Mezzanine makes exclusive use of `Django's staticfiles app
 <https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/>`_,
 for managing static files such as JavaScript, CSS, and images.
 
-When the ``DEBUG`` setting is set to ``True``, as it would be during
-development, the URL defined by the setting ``STATIC_URL`` (usually
+When the :django:setting:`DEBUG` setting is set to ``True``, as it would be during
+development, the URL defined by the setting :django:setting:`STATIC_URL` (usually
 ``/static/``), will host any files found in the ``static`` directory
-of any application listed in the ``INSTALLED_APPS`` setting.
+of any application listed in the :django:setting:`INSTALLED_APPS` setting.
 
-When ``DEBUG`` is set to ``False``, as it would be for your deployed
+When :django:setting:`DEBUG` is set to ``False``, as it would be for your deployed
 production site, you must run the ``collectstatic`` command on your
 live site, which will copy all of the files from the ``static``
 directory in each application, to the location defined by the
-``STATIC_ROOT`` setting. You then need to configure an alias in your
+:django:setting:`STATIC_ROOT` setting. You then need to configure an alias in your
 web server's config (Apache, NGINX, etc) that maps the URL defined by
-``STATIC_URL`` to serve files from this directory.
+:django:setting:`STATIC_URL` to serve files from this directory.
 
 Long story short, Django doesn't serve static content when deployed in
 production, leaving this up to the public facing web server, which is
@@ -205,8 +205,8 @@ as a standard Django app. Simply create a Django app with
 ``templates`` and ``static`` directories, copy the relevant HTML,
 CSS and JavaScript files into it from Mezzanine that you wish to
 modify, and then add the theme app's name to your project's
-``INSTALLED_APPS`` setting. Be sure to add the theme to the top of
-the ``INSTALLED_APPS`` list, so that its templates are found before
+:django:setting:`INSTALLED_APPS` setting. Be sure to add the theme to the top of
+the :django:setting:`INSTALLED_APPS` list, so that its templates are found before
 Mezzanine's versions of the templates.
 
 Have you created a cool theme that you'd like to share with the
@@ -258,9 +258,9 @@ necessary ``settings.py`` and ``urls.py`` modules, containing the
 project-level setup for Mezzanine. Of particular note are the following
 settings:
 
-  * ``INSTALLED_APPS``
-  * ``TEMPLATE_CONTEXT_PROCESSORS``
-  * ``MIDDLEWARE_CLASSES``
+  * :django:setting:`INSTALLED_APPS`
+  * :django:setting:`TEMPLATE_CONTEXT_PROCESSORS`
+  * :django:setting:`MIDDLEWARE_CLASSES`
   * ``PACKAGE_NAME_GRAPPELLI`` and ``PACKAGE_NAME_FILEBROWSER`` (for
     `django-grappelli <https://github.com/sehmaschine/django-grappelli>`_ and
     `django-filebrowser <https://github.com/sehmaschine/django-filebrowser>`_

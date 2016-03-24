@@ -269,7 +269,7 @@ custom :class:`.Page` models and are then called inside the
 :class:`.Page` instance. A Page Processor will always be passed two arguments
 - the request and the :class:`.Page` instance, and can either return a
 dictionary that will be added to the template context, or it can return
-any of Django's `HttpResponse`` classes which will override the
+any of Django's ``HttpResponse`` classes which will override the
 :func:`mezzanine.pages.views.page` view entirely.
 
 To associate a Page Processor to a custom :class:`.Page` model you must

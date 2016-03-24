@@ -23,7 +23,7 @@ need to install django-modeltranslation and activate the app in your
 <http://django-modeltranslation.readthedocs.org/en/latest/installation.html>`_,
 you can enable support for it by setting the ``USE_MODELTRANSLATION``
 setting to ``True`` in your project's ``settings.py`` module, and
-also defining at least two entries in the ``LANGUAGES`` setting.
+also defining at least two entries in the :django:setting:`LANGUAGES` setting.
 
 For new projects, ``manage.py createdb`` will take care of creating
 extra columns in the database for each language. For current or
@@ -55,7 +55,7 @@ translate, as well as registering your models using the
 For models that extends Mezzanine capabilities, there are two rules:
 
 Firstly, the app in which your model is defined must be listed *after*
-the app it is extending from in your ``INSTALLED_APPS``
+the app it is extending from in your :django:setting:`INSTALLED_APPS`
 setting. For example, :mod:`mezzanine.forms` extends models from
 :mod:`mezzanine.pages` and should appear after it.
 
@@ -65,7 +65,7 @@ setting. For example, :mod:`mezzanine.forms` extends models from
     Mezzanine, you'll need to split your app to distinguish
     between presentation and content. This is due to conflicting
     ideas with translated model inheritance, and template or static
-    file overriding, in regard to the order of ``INSTALLED_APPS``.
+    file overriding, in regard to the order of :django:setting:`INSTALLED_APPS``
 
 Secondly, for an external app, create a ``translation.py`` module
 at the root of your app. The content of this file might benefit
@@ -140,7 +140,7 @@ Translation Fields and Migrations
 
 Mezzanine is shipped with its own migration files but these do not take
 translation fields into account. These fields are created by every
-project's ``LANGUAGES`` setting and thus can't be provided by default.
+project's :django:setting:`LANGUAGES` setting and thus can't be provided by default.
 If you want to both manage migrations for your project and enable
 translation fields, there are two possibilities.
 
@@ -154,17 +154,17 @@ as usual and then catch up by adding the missing fields if any::
     $ python manage.py sync_translation_fields
 
 This way, your migration files will never contains references to your
-specific ``LANGUAGES`` setting.
+specific :django:setting:`LANGUAGES` setting.
 
 Or you create migration files including all the translation fields
 for your project. This way you won't need to rely on the
 ``manage.py sync_translation_fields`` command anymore. You will
-need to define a custom ``MIGRATION_MODULES`` and then run::
+need to define a custom :django:setting:`MIGRATION_MODULES` and then run::
 
      $ python manage.py makemigrations
 
 Have a look at :ref:`field-injection-caveats` for a better introduction
-to ``MIGRATION_MODULES``.
+to :django:setting:`MIGRATION_MODULES``
 
 Translation for Injected Fields
 ===============================
@@ -184,7 +184,7 @@ Adding a translation field to all of Mezzanine's content type would look like::
   )
 
 The app containing the corresponding ``translation.py`` module should
-be defined *after* :mod:`mezzanine.pages` in ``INSTALLED_APPS`` but
+be defined *after* :mod:`mezzanine.pages` in :django:setting:`INSTALLED_APPS` but
 *before* any app that contains models that subclass
 :class:`mezzanine.pages.models.Page` (such as :mod:`mezzanine.forms`,
 :mod:`mezzanine.galleries` or ``cartridge.shop``). The ``translation.py``
