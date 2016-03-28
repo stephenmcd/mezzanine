@@ -53,11 +53,7 @@ class ProfileInline(admin.StackedInline):
     extra = 0
 
 
-try:
-    UserProfileAdmin.inlines += (get_profile_inline_admin(),)
-except ProfileNotConfigured:
-    pass
-
+UserProfileAdmin.inlines += (get_profile_inline_admin(),)
 
 if User in admin.site._registry:
     admin.site.unregister(User)
