@@ -467,6 +467,7 @@ certain sites.
 * `American Institute for Foreign Study <http://www.aifs.com.au>`_
 * `Camp America <http://campamerica.com.au>`_
 * `Code Source <http://codesource.com.au/>`_
+* `The Federation of Egalitarian Communities <http://thefec.org>`_
 
 .. _`Mezzanine Grid on djangopackages.com`: http://www.djangopackages.com/grids/g/mezzanine/
 .. _`Cartridge`: http://cartridge.jupo.org/
