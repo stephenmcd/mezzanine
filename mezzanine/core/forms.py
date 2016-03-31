@@ -21,11 +21,13 @@ class Html5Mixin(object):
     def __init__(self, *args, **kwargs):
         super(Html5Mixin, self).__init__(*args, **kwargs)
         if hasattr(self, "fields"):
-            # Autofocus first field
-            first_field = next(iter(self.fields.values()))
-            first_field.widget.attrs["autofocus"] = ""
+            first_field = None
 
             for name, field in self.fields.items():
+                # Autofocus first non-hidden field
+                if not first_field and not field.widget.is_hidden:
+                    first_field = field
+                    first_field.widget.attrs["autofocus"] = ""
                 if settings.FORMS_USE_HTML5:
                     if isinstance(field, forms.EmailField):
                         self.fields[name].widget.input_type = "email"
