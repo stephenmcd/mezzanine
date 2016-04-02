@@ -75,7 +75,8 @@ class PageAdmin(DisplayableAdmin):
                 exclude_fields.extend(self.form.Meta.exclude)
             except (AttributeError, TypeError):
                 pass
-            fields = self.model._meta.fields + self.model._meta.many_to_many
+            fields = self.model._meta.get_fields() \
+                + self.model._meta.many_to_many
             for field in reversed(fields):
                 if field.name not in exclude_fields and field.editable:
                     if not hasattr(field, "translated_field"):
