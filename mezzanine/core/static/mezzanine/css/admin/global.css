@@ -37,6 +37,7 @@ h1 {
 =======================================*/
 #login-form {
     margin-top: 100px;
+    min-height: 350px;
 }
 .login .submit-row, .login #content-main {
     width: 450px;
@@ -86,9 +87,6 @@ label.interface {
 }
 #header form {
     margin: 7px 4px;
-}
-.add-row {
-    display: none;
 }
 .breadcrumbs {
     display: none;
@@ -274,9 +272,6 @@ td, th, th a, label, .help, p.help {
 #djDebugToolbarHandle {
     margin-top: 50px !important;
 }
-.inline-stacked ._order, div.dynamic-fields ._order {
-    display: none;
-}
 .items .placeholder {
     display: block;
 }
@@ -308,4 +303,7 @@ td, th, th a, label, .help, p.help {
     vertical-align: top;
     top: 5px !important;
     position: relative;
+}
+.related-widget-wrapper .selector {
+    margin-right: 10px;
 }

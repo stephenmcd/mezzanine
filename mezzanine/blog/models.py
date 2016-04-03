@@ -46,7 +46,7 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
         of the corresponding urlpattern, and if defined, we loop through
         each of these and build up the kwargs for the correct urlpattern.
         The order which we loop through them is important, since the
-        order goes from least granualr (just year) to most granular
+        order goes from least granular (just year) to most granular
         (year/month/day).
         """
         url_name = "blog_post_detail"
@@ -62,29 +62,6 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
                 if date_part == settings.BLOG_URLS_DATE_FORMAT:
                     break
         return reverse(url_name, kwargs=kwargs)
-
-    # These methods are deprecated wrappers for keyword and category
-    # access. They existed to support Django 1.3 with prefetch_related
-    # not existing, which was therefore manually implemented in the
-    # blog list views. All this is gone now, but the access methods
-    # still exist for older templates.
-
-    def category_list(self):
-        from warnings import warn
-        warn("blog_post.category_list in templates is deprecated"
-             "use blog_post.categories.all which are prefetched")
-        return getattr(self, "_categories", self.categories.all())
-
-    def keyword_list(self):
-        from warnings import warn
-        warn("blog_post.keyword_list in templates is deprecated"
-             "use the keywords_for template tag, as keywords are prefetched")
-        try:
-            return self._keywords
-        except AttributeError:
-            keywords = [k.keyword for k in self.keywords.all()]
-            setattr(self, "_keywords", keywords)
-            return self._keywords
 
 
 class BlogCategory(Slugged):

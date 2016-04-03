@@ -47,19 +47,6 @@ class OverExtendsNode(ExtendsNode):
         # These imports want settings, which aren't available when this
         # module is imported to ``add_to_builtins``, so do them here.
         import django.template.loaders.app_directories as app_directories
-        try:
-            # Django >= 1.8
-            app_template_dirs = app_directories.get_app_template_dirs
-        except AttributeError:
-            # Django <= 1.7
-            app_template_dirs = app_directories.app_template_dirs
-
-        try:
-            # Django >= 1.8
-            find_template_loader = context.engine.find_template_loader
-        except AttributeError:
-            # Django <= 1.7
-            from django.template.loaders import find_template_loader
 
         from mezzanine.conf import settings
 
@@ -71,7 +58,8 @@ class OverExtendsNode(ExtendsNode):
         if context_name not in context:
             context[context_name] = {}
         if name not in context[context_name]:
-            all_dirs = list(settings.TEMPLATE_DIRS) + list(app_template_dirs)
+            all_dirs = list(settings.TEMPLATE_DIRS) + list(
+                app_directories.get_app_template_dirs('templates'))
             # os.path.abspath is needed under uWSGI, and also ensures we
             # have consistent path separators across different OSes.
             context[context_name][name] = list(map(os.path.abspath, all_dirs))
@@ -81,7 +69,7 @@ class OverExtendsNode(ExtendsNode):
         # internal loaders and add those instead.
         loaders = []
         for loader_name in settings.TEMPLATE_LOADERS:
-            loader = find_template_loader(loader_name)
+            loader = context.template.engine.find_template_loader(loader_name)
             loaders.extend(getattr(loader, "loaders", [loader]))
 
         # Go through the loaders and try to find the template. When

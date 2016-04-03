@@ -15,7 +15,7 @@ may contain support for multiple sites, a separate running instance of
 the project is required per site.
 
 Mezzanine uses a pipeline of checks to determine which site to
-reference when accessing content. The most import of these is one where
+reference when accessing content. The most important of these is the one where
 the host name of the current request is compared to the domain name
 specified for each ``Site`` record. With this in place, true
 multi-tenancy is achieved, and multiple sites can be hosted within a
@@ -49,7 +49,8 @@ needs in the server environment.
 The domains involved could have a direct subsidiary relationship, as
 with example.com and several subdomains, or they may be completely
 separate domains, as with example.com, example2.com, example3.com.
-Either way, the domains are different hosts to which themes may be independently associated using the ``HOST_THEMES`` setting::
+Either way, the domains are different hosts to which themes may be
+independently associated using the :ref:`HOST_THEMES` setting::
 
     # For a main domain and several subdomains.
     HOST_THEMES = [('example.com', 'example_theme'),
@@ -62,7 +63,7 @@ Either way, the domains are different hosts to which themes may be independently
                    ('www.example2.com', 'example2_theme'),
                    ('www.example3.com', 'example3_theme')]
 
-In either ``HOST_THEMES`` example above, there are three themes. Let's
+In either :ref:`HOST_THEMES` example above, there are three themes. Let's
 continue with the second case, for example.com, example2.com, and
 example3.com, for which there are three theme apps constructed:
 ``example_theme``, ``example2_theme``, and ``example3_theme``. The

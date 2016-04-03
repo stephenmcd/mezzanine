@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from future.utils import native_str
 
 from django.contrib import admin
 from django.contrib.auth import logout
@@ -26,28 +25,6 @@ from mezzanine.utils.sites import current_site_id, templates_for_host
 from mezzanine.utils.urls import next_url
 
 
-_deprecated = {
-    "AdminLoginInterfaceSelector": "AdminLoginInterfaceSelectorMiddleware",
-    "DeviceAwareUpdateCacheMiddleware": "UpdateCacheMiddleware",
-    "DeviceAwareFetchFromCacheMiddleware": "FetchFromCacheMiddleware",
-}
-
-
-class _Deprecated(object):
-    def __init__(self, *args, **kwargs):
-        from warnings import warn
-        msg = "mezzanine.core.middleware.%s is deprecated." % self.old
-        if self.new:
-            msg += (" Please change the MIDDLEWARE_CLASSES setting to use "
-                    "mezzanine.core.middleware.%s" % self.new)
-        warn(msg)
-
-for old, new in _deprecated.items():
-    globals()[old] = type(native_str(old),
-                          (_Deprecated,),
-                          {"old": old, "new": new})
-
-
 class AdminLoginInterfaceSelectorMiddleware(object):
     """
     Checks for a POST from the admin login view and if authentication is
@@ -59,7 +36,7 @@ class AdminLoginInterfaceSelectorMiddleware(object):
             response = view_func(request, *view_args, **view_kwargs)
             if request.user.is_authenticated():
                 if login_type == "admin":
-                    next = request.get_full_path()
+                    next = next_url(request) or request.get_full_path()
                     username = request.user.get_username()
                     if (username == DEFAULT_USERNAME and
                             request.user.check_password(DEFAULT_PASSWORD)):
@@ -69,7 +46,7 @@ class AdminLoginInterfaceSelectorMiddleware(object):
                               % reverse("user_change_password",
                                         args=(request.user.id,))))
                 else:
-                    next = next_url(request) or "/"
+                    next = "/"
                 return HttpResponseRedirect(next)
             else:
                 return response
@@ -122,9 +99,8 @@ class TemplateForHostMiddleware(object):
     def process_template_response(self, request, response):
         if hasattr(response, "template_name"):
             if not isinstance(response.template_name, Template):
-                templates = templates_for_host(request,
+                response.template_name = templates_for_host(
                     response.template_name)
-                response.template_name = templates
         return response
 
 
@@ -236,8 +212,13 @@ class SSLRedirectMiddleware(object):
     Also ensure URLs defined by ``SSL_FORCE_URL_PREFIXES`` are redirect
     to HTTPS, and redirect all other URLs to HTTP if on HTTPS.
     """
+
+    def languages(self):
+        if not hasattr(self, "_languages"):
+            self._languages = dict(settings.LANGUAGES).keys()
+        return self._languages
+
     def process_request(self, request):
-        settings.use_editable()
         force_host = settings.SSL_FORCE_HOST
         response = None
         if force_host and request.get_host().split(":")[0] != force_host:
@@ -245,7 +226,10 @@ class SSLRedirectMiddleware(object):
             response = HttpResponsePermanentRedirect(url)
         elif settings.SSL_ENABLED and not settings.DEV_SERVER:
             url = "%s%s" % (request.get_host(), request.get_full_path())
-            if request.path.startswith(settings.SSL_FORCE_URL_PREFIXES):
+            path = request.path
+            if settings.USE_I18N and path[1:3] in self.languages():
+                path = path[3:]
+            if path.startswith(settings.SSL_FORCE_URL_PREFIXES):
                 if not request.is_secure():
                     response = HttpResponseRedirect("https://%s" % url)
             elif request.is_secure() and settings.SSL_FORCED_PREFIXES_ONLY:
@@ -290,5 +274,5 @@ class RedirectFallbackMiddleware(object):
                 if not redirect.new_path:
                     response = HttpResponseGone()
                 else:
-                    response = HttpResponseRedirect(redirect.new_path)
+                    response = HttpResponsePermanentRedirect(redirect.new_path)
         return response

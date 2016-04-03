@@ -15,8 +15,9 @@ from django.utils.html import strip_tags
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.conf import settings
+from mezzanine.core.models import CONTENT_STATUS_DRAFT
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
-from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
+from mezzanine.generic.models import Keyword, ThreadedComment
 from mezzanine.pages.models import RichTextPage
 from mezzanine.utils.html import decode_entities
 
@@ -175,6 +176,8 @@ class BaseImporterCommand(BaseCommand):
                 "title": post_data.pop("title"),
                 "user": mezzanine_user,
             }
+            if post_data["publish_date"] is None:
+                post_data["status"] = CONTENT_STATUS_DRAFT
             post, created = BlogPost.objects.get_or_create(**initial)
             for k, v in post_data.items():
                 setattr(post, k, v)
@@ -192,7 +195,7 @@ class BaseImporterCommand(BaseCommand):
             for comment in comments:
                 comment = self.trunc(ThreadedComment, prompt, **comment)
                 comment["site"] = site
-                post.comments.add(ThreadedComment(**comment))
+                post.comments.create(**comment)
                 if verbosity >= 1:
                     print("Imported comment by: %s" % comment["user_name"])
             self.add_meta(post, tags, prompt, verbosity, old_url)
@@ -242,7 +245,7 @@ class BaseImporterCommand(BaseCommand):
         for tag in tags:
             keyword = self.trunc(Keyword, prompt, title=tag)
             keyword, created = Keyword.objects.get_or_create_iexact(**keyword)
-            obj.keywords.add(AssignedKeyword(keyword=keyword))
+            obj.keywords.create(keyword=keyword)
             if created and verbosity >= 1:
                 print("Imported tag: %s" % keyword)
         if old_url is not None:

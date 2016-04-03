@@ -5,32 +5,38 @@
 # Translators:
 # William Díaz <leprosys@gmail.com>, 2012.
 # William Díaz Valdez <leprosys@gmail.com>, 2012.
+# Eduardo Rivas <jerivasmelgar@gmail.com>, 2015.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:20-0430\n"
-"PO-Revision-Date: 2012-09-21 16:11+0000\n"
-"Last-Translator: William Díaz <leprosys@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/mezzanine/"
-"language/es/)\n"
+"POT-Creation-Date: 2015-04-09 13:45-0600\n"
+"PO-Revision-Date: 2015-04-09 13:52-0600\n"
+"Last-Translator: Eduardo Rivas <jerivasmelgar@gmail.com>\n"
+"Language-Team: Español; Castellano <>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
-#: __init__.py:16
+#: __init__.py:17
 msgid "User"
 msgstr "Usuario"
 
-#: __init__.py:17
+#: __init__.py:18
 msgid "List"
 msgstr "Lista"
 
-#: __init__.py:18
+#: __init__.py:19
 msgid "Search"
 msgstr "Búsqueda"
+
+#: admin.py:46
+msgid "Send to Twitter"
+msgstr "Enviar a Twitter"
 
 #: defaults.py:21
 msgid "Default Twitter Query Type"
@@ -41,90 +47,125 @@ msgid ""
 "Type of query that will be used to retrieve tweets for the default Twitter "
 "feed."
 msgstr ""
-"Tipo de consulta que se utilizará para obtener los tuits para la fuente por "
-"defecto de Twitter."
+"Tipo de consulta que se utilizará para obtener los tweets de la fuente "
+"Twitter."
 
 #: defaults.py:31
 msgid "Default Twitter Query"
 msgstr "Consulta por defecto para Twitter"
 
 #: defaults.py:32
-msgid "Twitter query to use for the default query type."
+msgid ""
+"Twitter query to use for the default query type. \n"
+"\n"
+"*Note:* Once you change this from the default, you'll need to configure each "
+"of the oAuth consumer/access key/secret settings. Please refer to http://dev."
+"twitter.com for more information on creating an application and acquiring "
+"these settings."
 msgstr ""
-"Consulta de Twitter que se utilizará para el tipo de consulta por defecto."
+"Consulta utilizada con el tipo de consulta por defecto a Twitter.\n"
+"\n"
+"*Nota:* Una vez se cambie el valor original de este campo, será necesario "
+"configurar las claves de acceso de oAuth. Consulte http://dev.twitter.com "
+"para más información acerca de crear aplicaciones y obtener estas claves."
 
-#: defaults.py:39
+#: defaults.py:43
 msgid "Default Number of Tweets"
-msgstr "Número de Tuits por defecto"
+msgstr "Número de tweets por defecto"
 
-#: defaults.py:40
+#: defaults.py:44
 msgid "Number of tweets to display in the default Twitter feed."
-msgstr "Número de tuits a mostrar en la fuente por defecto de Twitter."
+msgstr "Número de tweets a mostrar en la fuente por defecto de Twitter."
 
-#: models.py:27
+#: defaults.py:51
+#| msgid "Twitter query"
+msgid "Twitter OAuth consumer key"
+msgstr "Clave de consumidor oAuth para Twitter"
+
+#: defaults.py:58
+msgid "Twitter OAuth consumer secret"
+msgstr "Clave secreta de consumidor oAuth para Twitter"
+
+#: defaults.py:65
+msgid "Twitter OAuth access token"
+msgstr "Token de acceso oAuth para Twitter"
+
+#: defaults.py:72
+msgid "Twitter OAuth access token secret"
+msgstr "Token secreto de acceso oAuth para Twitter"
+
+#: models.py:41
 msgid "Type"
 msgstr "Tipo"
 
-#: models.py:29
+#: models.py:43
 msgid "Value"
 msgstr "Valor"
 
-#: models.py:33
+#: models.py:47
 msgid "Twitter query"
 msgstr "Consulta para Twitter"
 
-#: models.py:34
+#: models.py:48
 msgid "Twitter queries"
 msgstr "Consultas para Twitter"
 
-#: models.py:102
+#: models.py:142
 msgid "Twitter ID"
 msgstr "ID de Twitter"
 
-#: models.py:103
+#: models.py:143
 msgid "Date/time"
 msgstr "Fecha/Hora"
 
-#: models.py:104
+#: models.py:144
 msgid "Message"
 msgstr "Mensaje"
 
-#: models.py:105
+#: models.py:145
 msgid "Profile image URL"
 msgstr "URL de la imagen de perfil"
 
-#: models.py:106
+#: models.py:146
 msgid "User name"
 msgstr "Nombre de usuario"
 
-#: models.py:107
+#: models.py:147
 msgid "Full name"
 msgstr "Nombre completo"
 
-#: models.py:109
+#: models.py:149
 msgid "Profile image URL (Retweeted by)"
 msgstr "URL de la imagen de perfil (Retuiteado por)"
 
-#: models.py:111
+#: models.py:151
 msgid "User name (Retweeted by)"
 msgstr "Nombre de usuario (Retuiteado por)"
 
-#: models.py:113
+#: models.py:153
 msgid "Full name (Retweeted by)"
 msgstr "Nombre completo (Retuiteado por)"
 
-#: models.py:119
+#: models.py:159
 msgid "Tweet"
-msgstr "Tuit"
+msgstr "Tweet"
 
-#: models.py:120
+#: models.py:160
 msgid "Tweets"
-msgstr "Tuits"
+msgstr "Tweets"
 
 #: templates/twitter/tweets.html:7
 msgid "Recent Tweets"
-msgstr "Tuits recientes"
+msgstr "Tweets recientes"
 
-#: templates/twitter/tweets.html:20
-msgid "ago"
-msgstr "atrás"
+#: templates/twitter/tweets.html:19
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "hace %(sometime)s"
+
+#~ msgid "Twitter query to use for the default query type."
+#~ msgstr ""
+#~ "Consulta de Twitter que se utilizará para el tipo de consulta por defecto."
+
+#~ msgid "ago"
+#~ msgstr "atrás"

@@ -1,4 +1,7 @@
 from __future__ import division, unicode_literals
+
+import warnings
+
 from future.builtins import int
 
 from datetime import datetime, timedelta
@@ -109,10 +112,13 @@ def is_spam_akismet(request, form, url):
     versions = (django.get_version(), mezzanine.__version__)
     headers = {"User-Agent": "Django/%s | Mezzanine/%s" % versions}
     try:
-        response = urlopen(Request(api_url, urlencode(data), headers)).read()
+        response = urlopen(Request(api_url, urlencode(data).encode('utf-8'),
+                                   headers)).read()
     except Exception:
         return False
-    return response == "true"
+
+    # Python 3 returns response as a bytestring, Python 2 as a regular str
+    return response in (b'true', 'true')
 
 
 def is_spam(request, form, url):
@@ -147,7 +153,7 @@ def paginate(objects, page_num, per_page, max_paging_links):
     if len(page_range) > max_paging_links:
         start = min(objects.paginator.num_pages - max_paging_links,
             max(0, objects.number - (max_paging_links // 2) - 1))
-        page_range = page_range[start:start + max_paging_links]
+        page_range = list(page_range)[start:start + max_paging_links]
     objects.visible_page_range = page_range
     return objects
 
@@ -158,6 +164,14 @@ def render(request, templates, dictionary=None, context_instance=None,
     Mimics ``django.shortcuts.render`` but uses a TemplateResponse for
     ``mezzanine.core.middleware.TemplateForDeviceMiddleware``
     """
+
+    warnings.warn(
+        "mezzanine.utils.views.render is deprecated and will be removed "
+        "in a future version. Please update your project to use Django's "
+        "TemplateResponse, which now provides equivalent functionality.",
+        DeprecationWarning
+    )
+
     dictionary = dictionary or {}
     if context_instance:
         context_instance.update(dictionary)

@@ -7,7 +7,7 @@
        <table>
            <caption>{% trans app.name %}</caption>
            {% for model in app.models %}
-           <tr>
+           <tr class="model-{{ model.object_name|lower }}">
            {% if model.perms.change or model.perms.custom %}
                <th scope="row" width="100%"><a
                     href="{{ model.admin_url }}">{{ model.name }}</a></th>

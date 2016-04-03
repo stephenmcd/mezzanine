@@ -118,6 +118,14 @@ if generic_comments:
         default=True,
     )
 
+    register_setting(
+        name="COMMENT_FORM_CLASS",
+        description=_("The form class to use for adding new comments."),
+        editable=False,
+        default="mezzanine.generic.forms.ThreadedCommentForm",
+    )
+
+
 register_setting(
     name="RATINGS_ACCOUNT_REQUIRED",
     label=_("Accounts required for rating"),

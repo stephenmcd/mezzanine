@@ -17,7 +17,8 @@ from mezzanine.utils.urls import slugify, unique_slug
 
 User = get_user_model()
 
-_exclude_fields = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
+_exclude_fields = tuple(getattr(settings,
+                                "ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS", ()))
 
 # If a profile model has been configured with the ``AUTH_PROFILE_MODULE``
 # setting, create a model form for it that will have its fields added to
@@ -88,7 +89,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self._signup = self.instance.id is None
-        user_fields = User._meta.get_all_field_names()
+        user_fields = set([f.name for f in User._meta.get_fields()])
         try:
             self.fields["username"].help_text = ugettext(
                         "Only letters, numbers, dashes or underscores please")
@@ -220,7 +221,6 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
             pass
 
         if self._signup:
-            settings.use_editable()
             if (settings.ACCOUNTS_VERIFICATION_REQUIRED or
                     settings.ACCOUNTS_APPROVAL_REQUIRED):
                 user.is_active = False

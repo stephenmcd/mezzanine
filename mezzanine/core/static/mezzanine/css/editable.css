@@ -32,9 +32,16 @@ a#editable-toolbar-toggle {border-left:0px !important; text-decoration:none;
 
 /* FORM */
 
-.editable-form {padding:20px; background:#fffcc3; border:1px solid #000;
+.editable-form {
+    padding:20px; background:#fffcc3; border:1px solid #000;
     line-height:1em; border-radius:4px; min-width:350px;
-    box-shadow: 0 0 80px #222;}
+    box-shadow: 0 0 80px #222;
+
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.editable-form .mce-tinymce {min-width: 770px;}
 .editable-form table, .editable-form textarea, .editable-form input {
     width: 100%; margin: .5em 0; font-size: 14px;}
 .mceToolbar table {width: auto !important; margin: 0 !important;}
@@ -51,3 +58,4 @@ a#editable-toolbar-toggle {border-left:0px !important; text-decoration:none;
     font-size: 15px !important; color: #000 !important; float:none;}
 .editable-form .btn {width:auto; cursor:pointer; float:right;
     margin:15px 0 0 15px; padding:5px 15px; border-radius:3px;}
+.editable-form textarea {line-height: normal; width: 500px;} /* GH #1382 */

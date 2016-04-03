@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
 
+from collections import OrderedDict
+
 from django.contrib.auth import get_user_model
-from django.utils.datastructures import SortedDict
 
 from mezzanine import template
 from mezzanine.conf import settings
@@ -64,7 +65,7 @@ def profile_fields(user):
     sent to administrators when the ``ACCOUNTS_APPROVAL_REQUIRED``
     setting is set to ``True``.
     """
-    fields = SortedDict()
+    fields = OrderedDict()
     try:
         profile = get_profile_for_user(user)
         user_fieldname = get_profile_user_fieldname()

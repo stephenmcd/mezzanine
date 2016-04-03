@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 from mezzanine.conf import settings
 from mezzanine.core.admin import DisplayableAdmin, DisplayableAdminForm
 from mezzanine.pages.models import Page, RichTextPage, Link
-from mezzanine.utils.urls import admin_url
+from mezzanine.utils.urls import admin_url, clean_slashes
 
 
 # Add extra fields for pages to the Displayable fields.
@@ -27,10 +27,14 @@ class PageAdminForm(DisplayableAdminForm):
     def clean_slug(self):
         """
         Save the old slug to be used later in PageAdmin.save_model()
-        to make the slug change propagate down the page tree.
+        to make the slug change propagate down the page tree, and clean
+        leading and trailing slashes which are added on elsewhere.
         """
         self.instance._old_slug = self.instance.slug
-        return self.cleaned_data['slug']
+        new_slug = self.cleaned_data['slug']
+        if not isinstance(self.instance, Link) and new_slug != "/":
+            new_slug = clean_slashes(self.cleaned_data['slug'])
+        return new_slug
 
 
 class PageAdmin(DisplayableAdmin):
@@ -61,7 +65,8 @@ class PageAdmin(DisplayableAdmin):
             # Insert each field between the publishing fields and nav
             # fields. Do so in reverse order to retain the order of
             # the model's fields.
-            exclude_fields = Page._meta.get_all_field_names() + ["page_ptr"]
+            exclude_fields = [f.name for f in
+                Page._meta.get_fields()] + ["page_ptr"]
             try:
                 exclude_fields.extend(self.exclude)
             except (AttributeError, TypeError):
@@ -73,7 +78,8 @@ class PageAdmin(DisplayableAdmin):
             fields = self.model._meta.fields + self.model._meta.many_to_many
             for field in reversed(fields):
                 if field.name not in exclude_fields and field.editable:
-                    self.fieldsets[0][1]["fields"].insert(3, field.name)
+                    if not hasattr(field, "translated_field"):
+                        self.fieldsets[0][1]["fields"].insert(3, field.name)
 
     def in_menu(self):
         """
@@ -229,6 +235,7 @@ class LinkAdmin(PageAdmin):
         """
         if db_field.name == "slug":
             kwargs["required"] = True
+            kwargs["help_text"] = None
         return super(LinkAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def save_form(self, request, form, change):

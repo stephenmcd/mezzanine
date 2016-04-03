@@ -103,13 +103,13 @@ filtering are implemented by default, that can be controlled in
 the settings section of the admin. These are High (the default), Low
 (which allows extra tags such as those required for embedding videos),
 and None (no filtering occurs). This is implemented via the
-``RICHTEXT_FILTER_LEVEL`` setting.
+:ref:`RICHTEXT_FILTER_LEVEL` setting.
 
 If your situation is one where your staff members are completely
 trusted, and custom HTML within WYSIWYG fields is required, then you
 can modify the filter level accordingly. Further customisation is
-possible via the ``RICHTEXT_ALLOWED_TAGS``,
-``RICHTEXT_ALLOWED_ATTRIBUTES`` and ``RICHTEXT_ALLOWED_STYLES``
+possible via the :ref:`RICHTEXT_ALLOWED_TAGS`,
+:ref:`RICHTEXT_ALLOWED_ATTRIBUTES` and :ref:`RICHTEXT_ALLOWED_STYLES`
 settings, which can have extra allowed values appended to using
 the ``append`` argument in Mezzanine's settings API. See the
 :ref:`registering-settings` section for more information.
@@ -133,10 +133,10 @@ namely ``mezzanine/core/templates/index.html`` (or
 ``templates/index.html`` if stored directly in your project). You can
 change the ``urlpattern`` for the homepage in your project's
 ``urls.py`` module. Be certain to take a look at the `urls.py module
-<https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template/urls.py>`_,
+<https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template/project_name/urls.py>`_,
 as it contains several examples of different types of homepages.
 In ``urls.py`` you'll find examples of pointing the homepage to a
-``Page`` object in the page tree, or pointing the homepage to the blog
+:class:`.Page` object in the page tree, or pointing the homepage to the blog
 post listing page, which is useful for sites that are primarily blogs.
 
 Of course with Django's models, admin classes, and template tags, the

@@ -8,14 +8,14 @@ Mezzanine. While these aren't a core part of Mezzanine itself,
 they're widely used across many areas of Mezzanine, and can be very
 useful in conjunction with your own custom content and features.
 
-Firstly covered are the utilities found in the ``mezzanine.generic``
+Firstly covered are the utilities found in the :mod:`mezzanine.generic`
 app, such as :ref:`keywords`, :ref:`comments`, and :ref:`ratings`.
 Each of these form a common pattern:
 
   * A model is provided containing generic relationships using
     Django's `django.contrib.contenttypes <https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/>`_ app
   * A custom model field is provided for defining relationships to the
-    ``mezzanine.generic`` model, which can then be applied to any of
+    :mod:`mezzanine.generic` model, which can then be applied to any of
     your own models
   * The custom field injects extra fields onto your model, with
     de-normalized data populated on save
@@ -24,19 +24,19 @@ Each of these form a common pattern:
     applicable
 
 For a complete implementation reference, take a look at the built-in
-blog app ``mezzanine.blog`` which makes use of all these.
+blog app :mod:`mezzanine.blog` which makes use of all these.
 
 Lastly, some of the :ref:`templatetags` found within
-``mezzanine.core.templatetags.mezzanine_tags`` are covered.
+:mod:`mezzanine.core.templatetags.mezzanine_tags` are covered.
 
 .. _keywords:
 
 Keywords
 ========
 
-Keywords provided by the ``mezzanine.generic`` app are pervasive
-throughout Mezzanine. They're assigned to both the ``Page`` model and
-the ``Displayable`` model from which it's derived. Given that these
+Keywords provided by the :mod:`mezzanine.generic` app are pervasive
+throughout Mezzanine. They're assigned to both the :class:`.Page` model and
+the :class:`.Displayable` model from which it's derived. Given that these
 models form the foundation of most content within Mezzanine, more often
 than not you're dealing with models that are already using keywords.
 
@@ -59,7 +59,7 @@ books given any keywords::
     Book.objects.filter(keywords__keyword__title__in=["eggs", "ham"])
 
 Given a ``Book`` instance in a template, we can also display the book's
-keywords using the ``keywords_for`` template tag, which will inject
+keywords using the :func:`keywords_for` template tag, which will inject
 a list of keywords into the template, using the ``as var_name`` variable
 name argument supplied to it::
 
@@ -81,28 +81,28 @@ then retrieve books for a given keyword by slug::
 
     Book.objects.filter(keywords__keyword__slug=slug)
 
-Any model with a ``KeywordsField`` field assigned to it will have a
+Any model with a :class:`.KeywordsField` field assigned to it will have a
 ``FIELD_NAME_string`` field assigned to it, where ``FIELD_NAME`` is the
-name given to the ``KeywordsField`` attribute on your model, which
+name given to the :class:`.KeywordsField` attribute on your model, which
 would be ``Book.keywords_string`` in the above example. Each time
 keywords change, the ``keywords_string`` field is populated with a
 comma separated string list of each of the keywords. This can be used
 in conjunction with Mezzanine's :doc:`search-engine` - behavior that is
-provided by default for the ``Page`` and ``Displayable`` models.
+provided by default for the :class:`.Page` and :class:`,Displayable` models.
 
 .. _comments:
 
 Threaded Comments
 =================
 
-Threaded comments provided by the ``mezzanine.generic`` app are an
+Threaded comments provided by the :mod:`mezzanine.generic` app are an
 extension of Django's `django_comments
 <https://github.com/django/django-contrib-comments>`_ app.
 Mezzanine's threaded comments fundamentally extend Django's comments
 to allow for threaded conversations, where comments can be made in
 reply to other comments.
 
-Again as with our ``Book`` example, suppose we wanted to added threaded
+Again as with our ``Book`` example, suppose we wanted to add threaded
 conversations to our book pages in templates, we first define comments
 on the ``Book`` model::
 
@@ -131,13 +131,13 @@ project.
 
 As you can see in the template example we have a
 ``Book.comments_count`` field injected onto our ``Book`` model. This
-works the same way as described above for the ``KeywordsField``, where
-the name is derived from the name given to the ``CommentsField``
+works the same way as described above for the :class:`.KeywordsField`, where
+the name is derived from the name given to the :class:`.CommentsField`
 attribute on the model, and updated each time the number of comments
 change.
 
 You can also require that users must be logged in to comment. This is
-controlled by setting the ``COMMENTS_ACCOUNT_REQUIRED`` setting to
+controlled by setting the :ref:`COMMENTS_ACCOUNT_REQUIRED` setting to
 ``True``. In this case, the comment form will still be displayed, but
 on submitting a comment, the user will be redirected to the
 login/signup page, where after logging in, their comment will be posted
@@ -149,10 +149,10 @@ for full details on configuring public user accounts in Mezzanine.
 Ratings
 =======
 
-The ratings provided by the ``mezzanine.generic`` app allow people to
+The ratings provided by the :mod:`mezzanine.generic` app allow people to
 give a rating for any model that has ratings set up. Suppose we wanted
 to allow people to rate our books from 1 to 10, first we define what
-the rating range is via the ``RATINGS_RANGE`` setting::
+the rating range is via the :ref:`RATINGS_RANGE` setting::
 
     RATINGS_RANGE = range(1, 11)
 
@@ -172,16 +172,16 @@ And then in our book template::
 
     {% rating_for book %}
 
-The ``rating_for`` template tag is another inclusion tag, which uses
+The :func:`rating_for` template tag is another inclusion tag, which uses
 the template ``generic/includes/rating.html``. It simply displays the
 current average rating, and a form with radio buttons for rating. You
 may wish to customize this and use visual icons, like stars, for the
 ratings.
 
-Like the other custom fields in ``mezzanine.generic``, the
-``RatingField`` will inject fields derived from its attribute name
+Like the other custom fields in :mod:`mezzanine.generic`, the
+:class:`.RatingField` will inject fields derived from its attribute name
 onto the model which it's assigned to, which are updated when a new
-rating is made. Given our ``Book`` example, the ``RatingField`` would
+rating is made. Given our ``Book`` example, the :class:`.RatingField` would
 inject:
 
   * ``Book.rating_average`` - average rating
@@ -189,7 +189,7 @@ inject:
   * ``Book.rating_count`` - total count of all ratings
 
 Like threaded comments, ratings can be limited to authenticated users
-by setting the ``RATINGS_ACCOUNT_REQUIRED`` setting to ``True``.
+by setting the :ref:`RATINGS_ACCOUNT_REQUIRED` setting to ``True``.
 
 .. _templatetags:
 
@@ -197,16 +197,16 @@ General Template Tags
 =====================
 
 Following are some template tags defined in
-``mezzanine.core.templatetags.mezzanine_tags`` - they're general
+:mod:`mezzanine.core.templatetags.mezzanine_tags` - they're general
 purpose and can be used across a variety of scenarios.
 
-``fields_for``
---------------
+:func:`.fields_for`
+-------------------
 
-The ``fields_for`` template tag is an inclusion tag that takes a form
-object as its single argument, and renders the fields for the form. It
-uses the template ``core/templates/form_fields.html``, which can then
-be overridden to customize the look and feel of all forms throughout a
+The :func:`.fields_for` template tag is a simple tag that takes a form object
+as its single argument, and renders the fields for the form. It uses the
+template ``core/templates/includes/form_fields.html``, which can then be
+overridden to customize the look and feel of all forms throughout a
 Mezzanine site::
 
     {% load mezzanine_tags %}
@@ -216,18 +216,34 @@ Mezzanine site::
         <input type="submit">
     </form>
 
-``sort_by``
------------
+:func:`.errors_for`
+-------------------
 
-The ``sort_by`` template tag is a general sorting utility. It's a
+The :func:`.errors_for` template tag is an inclusion tag that takes a form
+object and renders any error messages with the template
+``core/templates/includes/form_errors.html``. It plays well with
+:func:`.fields_for`::
+
+    {% load mezzanine_tags %}
+
+    {% errors_for some_form_object %}
+    <form method="POST">
+        {% fields_for some_form_object %}
+        <input type="submit">
+    </form>
+
+:func:`.sort_by`
+----------------
+
+The :func:`.sort_by` template tag is a general sorting utility. It's a
 filter tag similar to Django's
 `dictsort <https://docs.djangoproject.com/en/dev/ref/templates/builtins/#std:templatefilter-dictsort>`_
 filter tag, but instead of only accepting sequences of dicts and a key
 name, it also accepts sequences of objects and an attribute name,
 making it much more general purpose.
 
-Here's an example with the ``keywords_for`` tag described above, which
-assigns an ``item_count`` attribute to each keyword returned to the
+Here's an example with the :func:`.keywords_for` tag described above, which
+assigns an :func:`.item_count` attribute to each keyword returned to the
 template::
 
     {% load mezzanine_tags keywords_tags %}
@@ -237,14 +253,14 @@ template::
     ... etc ...
     {% endfor %}
 
-``thumbnail``
--------------
+:func:`.thumbnail`
+------------------
 
-The ``thumbnail`` template tag provides on-the-fly image resizing. It
+The :func:`.thumbnail` template tag provides on-the-fly image resizing. It
 takes the relative path to the image file to resize, and mandatory width
 and height arguments.
 
-When the ``thumbnail`` template tag is called for a given set of
+When the :func:`.thumbnail` template tag is called for a given set of
 arguments the first time, the thumbnail is generated and its relative
 path is returned. Subsequent calls with the same arguments will return
 the same thumbnail path, without resizing it again, so resizes only
@@ -258,14 +274,16 @@ height::
 
     <img src="{{ MEDIA_URL }}{% thumbnail book.cover 100 0 %}">
 
-The ``thumbnail`` template tag also accepts several other optional
+The :func:`.thumbnail` template tag also accepts several other optional
 arguments for controlling the generated thumbnail:
 
+  * ``upscale`` - A boolean controlling whether the thumbnail should
+     grow beyond its original size when resizing (defaults to True)
   * ``quality`` - A value from 0 to 100 controlling the JPG quality
     (defaults to 95)
   * ``left`` and ``top`` - Values from 0 to 1 controlling where the
     image will be cropped (each defaults to 0.5, namely the center)
   * ``padding`` - A boolean controlling whether the thumbnail will
-    be padded rather than cropped (default to False)
+    be padded rather than cropped (defaults to False)
   * ``padding_color`` - RGB string controlling the background color
     when ``padding`` is True (defaults to "#fff")

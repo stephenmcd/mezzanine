@@ -1,10 +1,13 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
-from django import VERSION
+from unittest import skipUnless
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.db import connection
+from django.http import HttpResponse
+from django.shortcuts import resolve_url
 from django.template import Context, Template
 from django.test.utils import override_settings
 from django.utils.http import urlquote_plus
@@ -15,6 +18,7 @@ from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
 from mezzanine.pages.models import Page, RichTextPage
+from mezzanine.pages.admin import PageAdminForm
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.tests import TestCase
 
@@ -23,14 +27,6 @@ User = get_user_model()
 
 
 class PagesTests(TestCase):
-
-    @staticmethod
-    def reset_queries(connection):
-        try:
-            # Django 1.8+ - queries_log is a deque
-            connection.queries_log.clear()
-        except AttributeError:
-            connection.queries = []
 
     def test_page_ascendants(self):
         """
@@ -52,7 +48,7 @@ class PagesTests(TestCase):
 
         # Test ascendants are returned in order for slug, using
         # a single DB query.
-        self.reset_queries(connection)
+        connection.queries_log.clear()
         pages_for_slug = Page.objects.with_ascendants_for_slug(tertiary.slug)
         self.assertEqual(len(connection.queries), 1)
         self.assertEqual(pages_for_slug[0].id, tertiary.id)
@@ -61,7 +57,7 @@ class PagesTests(TestCase):
 
         # Test page.get_ascendants uses the cached attribute,
         # without any more queries.
-        self.reset_queries(connection)
+        connection.queries_log.clear()
         ascendants = pages_for_slug[0].get_ascendants()
         self.assertEqual(len(connection.queries), 0)
         self.assertEqual(ascendants[0].id, secondary.id)
@@ -74,7 +70,7 @@ class PagesTests(TestCase):
         secondary.save()
         pages_for_slug = Page.objects.with_ascendants_for_slug(tertiary.slug)
         self.assertEqual(len(pages_for_slug[0]._ascendants), 0)
-        self.reset_queries(connection)
+        connection.queries_log.clear()
         ascendants = pages_for_slug[0].get_ascendants()
         self.assertEqual(len(connection.queries), 2)  # 2 parent queries
         self.assertEqual(pages_for_slug[0].id, tertiary.id)
@@ -166,12 +162,8 @@ class PagesTests(TestCase):
         self.client.logout()
         response = self.client.get(private_url, follow=True)
         login_prefix = ""
-        login_url = settings.LOGIN_URL
+        login_url = resolve_url(settings.LOGIN_URL)
         login_next = private_url
-        if VERSION >= (1, 5):
-            # Newer Django's allow various objects as values for LOGIN_URL.
-            from django.shortcuts import resolve_url
-            login_url = resolve_url(login_url)
         try:
             redirects_count = len(response.redirect_chain)
             response_url = response.redirect_chain[-1][0]
@@ -199,7 +191,7 @@ class PagesTests(TestCase):
         response = self.client.get(public_url, follow=True)
         self.assertEqual(response.status_code, 200)
 
-        if accounts_installed and VERSION >= (1, 5):
+        if accounts_installed:
             # View / pattern name redirect properly, without encoding next.
             login = "%s%s?next=%s" % (login_prefix, login_url, private_url)
             # Test if view name or URL pattern can be used as LOGIN_URL.
@@ -222,7 +214,7 @@ class PagesTests(TestCase):
         response = self.client.get(public_url, follow=True)
         self.assertEqual(response.status_code, 200)
 
-        if accounts_installed and VERSION >= (1, 5):
+        if accounts_installed:
             with override_settings(LOGIN_URL="mezzanine.accounts.views.login"):
                 response = self.client.get(public_url, follow=True)
                 self.assertEqual(response.status_code, 200)
@@ -312,3 +304,80 @@ class PagesTests(TestCase):
 
         page, _ = RichTextPage.objects.get_or_create(title="test page")
         self.assertEqual(test_page_processor(current_request(), page), {})
+
+    def test_exact_page_processor_for(self):
+        """
+        Test that passing exact_page=True works with the PageMiddleware
+        """
+        from mezzanine.pages.middleware import PageMiddleware
+        from mezzanine.pages.page_processors import processor_for
+        from mezzanine.pages.views import page as page_view
+
+        @processor_for('foo/bar', exact_page=True)
+        def test_page_processor(request, page):
+            return HttpResponse("bar")
+
+        foo, _ = RichTextPage.objects.get_or_create(title="foo")
+        bar, _ = RichTextPage.objects.get_or_create(title="bar", parent=foo)
+
+        request = self._request_factory.get('/foo/bar/')
+        request.user = self._user
+        response = PageMiddleware().process_view(request, page_view, [], {})
+
+        self.assertTrue(isinstance(response, HttpResponse))
+        self.assertContains(response, "bar")
+
+    @skipUnless(settings.USE_MODELTRANSLATION and len(settings.LANGUAGES) > 1,
+                "modeltranslation configured for several languages required")
+    def test_page_slug_has_correct_lang(self):
+        """
+        Test that slug generation is done for the default language and
+        not the active one.
+        """
+        from collections import OrderedDict
+        from django.utils.translation import get_language, activate
+        from mezzanine.utils.urls import slugify
+
+        default_language = get_language()
+        code_list = OrderedDict(settings.LANGUAGES)
+        del code_list[default_language]
+        title_1 = "Title firt language"
+        title_2 = "Title second language"
+        page, _ = RichTextPage.objects.get_or_create(title=title_1)
+        for code in code_list:
+            try:
+                activate(code)
+            except:
+                pass
+            else:
+                break
+            # No valid language found
+            page.delete()
+            return
+        page.title = title_2
+        page.save()
+        self.assertEqual(page.get_slug(), slugify(title_1))
+        self.assertEqual(page.title, title_2)
+        activate(default_language)
+        self.assertEqual(page.title, title_1)
+        page.delete()
+
+    def test_clean_slug(self):
+        """
+        Test that PageAdminForm strips leading and trailing slashes
+        from slugs or returns `/`.
+        """
+        class TestPageAdminForm(PageAdminForm):
+            class Meta:
+                fields = ["slug"]
+                model = Page
+
+        data = {'slug': '/'}
+        submitted_form = TestPageAdminForm(data=data)
+        self.assertTrue(submitted_form.is_valid())
+        self.assertEqual(submitted_form.cleaned_data['slug'], "/")
+
+        data = {'slug': '/hello/world/'}
+        submitted_form = TestPageAdminForm(data=data)
+        self.assertTrue(submitted_form.is_valid())
+        self.assertEqual(submitted_form.cleaned_data['slug'], 'hello/world')

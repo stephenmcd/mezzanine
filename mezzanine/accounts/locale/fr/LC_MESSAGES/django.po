@@ -54,7 +54,7 @@ msgid ""
 "If ``True``, when users create an account, they will not be enabled by "
 "default and a staff member will need to activate their account in the admin "
 "interface."
-msgstr ""
+msgstr "Si ``vrai``, quand les utilisateurs créent un compte, ils seront désactivés par défault et un membre de l'équipe devra activer le compte dans l'interface administrateur"
 
 #: defaults.py:77
 msgid "Account approval email addresses"
@@ -64,11 +64,12 @@ msgstr ""
 msgid ""
 "A comma separated list of email addresses that will receive an email "
 "notification each time a new account is created that requires approval."
-msgstr ""
+msgstr "Une liste séparée par des virgules d'adresses email qui recevront une notification par email"
+"à chaque fois qu'un nouveau compte est créé requérant une activation"
 
 #: forms.py:29
 msgid "Email address"
-msgstr ""
+msgstr "Adresse email"
 
 #: forms.py:31
 msgid "Username or email address"
@@ -140,7 +141,7 @@ msgstr "Déconnexion réussie"
 msgid ""
 "Thanks for signing up! You'll receive an email when your account is "
 "activated."
-msgstr ""
+msgstr "Merci pour votre inscription! vous allez recevoir un email quand votre compte est activé"
 
 #: views.py:60
 msgid ""
@@ -239,7 +240,7 @@ msgstr "Informations du profil"
 #: templates/email/account_approve.html:3
 #: templates/email/account_approve.txt:3
 msgid "Hey there, a new account has been created and requires activation."
-msgstr ""
+msgstr "Salut, un nouveau compte a été créé et nécessite une activation"
 
 #: templates/email/account_approve.html:5
 #: templates/email/account_approve.txt:5
@@ -259,21 +260,21 @@ msgstr "Merci d'utiliser le lien ci-dessous pour l'activer."
 
 #: templates/email/account_approve_subject.txt:2
 msgid "An account requires activation"
-msgstr ""
+msgstr "Un compte nécessite une activation"
 
 #: templates/email/account_approved.html:3
 #: templates/email/account_approved.txt:3
 msgid "Hey there, your account has been activated."
-msgstr ""
+msgstr "Salut, vote compte a été activé"
 
 #: templates/email/account_approved.html:4
 #: templates/email/account_approved.txt:4
 msgid "Please use the link below to log in."
-msgstr ""
+msgstr "Veuillez utiliser le lien ci-dessous pour vous connecter"
 
 #: templates/email/account_approved_subject.txt:2
 msgid "Your account has been activated"
-msgstr ""
+msgstr "Votre compte a été activé"
 
 #: templates/email/password_reset_verify.html:3
 #: templates/email/password_reset_verify.txt:3

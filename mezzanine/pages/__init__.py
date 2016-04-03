@@ -4,4 +4,7 @@ of pages, each subclassing the Page model to create a content structure.
 """
 from __future__ import unicode_literals
 
-from mezzanine import __version__
+from mezzanine import __version__  # noqa
+
+
+default_app_config = 'mezzanine.pages.apps.PagesConfig'

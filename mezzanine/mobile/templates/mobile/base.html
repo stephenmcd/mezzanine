@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
-{% load pages_tags mezzanine_tags i18n future staticfiles %}
+{% load pages_tags mezzanine_tags i18n staticfiles %}
 <head>
 
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -18,7 +18,7 @@
 
 {% compress css %}
 <link rel="stylesheet" href="{% static "css/global-mobile.css" %}">
-<link rel="stylesheet" href="{% static "css/jquery.mobile-1.0a2.css" %}" />
+<link rel="stylesheet" href="{% static "css/jquery.mobile-1.2.1.min.css" %}" />
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{% static "css/mobile.rtl.css" %}">
 {% endif %}
@@ -53,9 +53,11 @@
 </div>
 
 {% compress js %}
+{% block footer_js %}
 <script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
-<script src="{% static "js/jquery.mobile-1.0a2.js" %}"></script>
+<script src="{% static "js/jquery.mobile-1.2.1.min.js" %}"></script>
 {% include "mobile/includes/footer_scripts.html" %}
+{% endblock %}
 {% endcompress %}
 
 </body>

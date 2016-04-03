@@ -2,7 +2,7 @@
 Twitter Integration
 ===================
 
-The ``mezzanine.twitter`` application exposes the ability to consume,
+The :mod:`mezzanine.twitter` application exposes the ability to consume,
 store, and display your own tweets on your site in an efficient manner,
 as well as the ability to send tweets when publishing new content to
 the site.
@@ -50,5 +50,5 @@ have a "Send to Twitter" checkbox, which when checked, will send a tweet
 with the post's title and URL.
 
 You can also add this functionality to your own admin classes by making
-use of ``mezzanine.twitter.admin.TweetableAdminMixin``. See
-``mezzanine.blog.admin.BlogPostAdmin`` for an example.
+use of :class:`mezzanine.twitter.admin.TweetableAdminMixin`. See
+:class:`mezzanine.blog.admin.BlogPostAdmin` for an example.

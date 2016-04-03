@@ -54,7 +54,7 @@ jQuery(function($) {
         }).overlay({
             expose: {color: '#333', loadSpeed: 200, opacity: 0.9},
             closeOnClick: true, close: ':button',
-            left: 'center', top: 'center'
+            left: '50%', top: '50%'
         });
         link.next('.editable-highlight').css({
             width: editable.width(),

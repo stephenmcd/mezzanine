@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-05 07:20-0430\n"
-"PO-Revision-Date: 2013-04-27 13:30+0000\n"
-"Last-Translator: clemensbasti <mail@sebastian-clemens.de>\n"
+"PO-Revision-Date: 2015-04-03 21:25+0100\n"
+"Last-Translator: Christian Wiegand <wiegandchristian@me.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/mezzanine/"
 "language/de/)\n"
 "Language: de\n"
@@ -21,6 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: admin.py:27
 msgid "This field is required if status is set to published."
@@ -555,11 +556,11 @@ msgstr ""
 
 #: models.py:428
 msgid "Site permission"
-msgstr ""
+msgstr "Seiten-Berechtigung"
 
 #: models.py:429
 msgid "Site permissions"
-msgstr ""
+msgstr "Seiten-Berechtigungen"
 
 #: views.py:87
 msgid "Permission denied"
@@ -567,7 +568,7 @@ msgstr "Zugang verweigert"
 
 #: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
-msgstr ""
+msgstr "Alles"
 
 #: templates/base.html:121
 msgid "Powered by"
@@ -627,6 +628,8 @@ msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"Keine Ergebnisse gefunden in \"%(search_type)s\" für: %(query)s\n"
 
 #: templates/search_results.html:24
 #, python-format
@@ -635,6 +638,9 @@ msgid ""
 "Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
 "matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"Zeige %(start)s bis %(end)s von %(total)s Ergebnisse in %(search_type)s "
+"passend zur Suche nach: %(query)s\n"
 
 #: templates/search_results.html:35
 msgid "read more"

@@ -78,12 +78,20 @@ def has_site_permission(user):
     return getattr(user, "has_site_permission", False)
 
 
-def host_theme_path(request):
+def host_theme_path():
     """
     Returns the directory of the theme associated with the given host.
     """
+
+    # Set domain to None, which we'll then query for in the first
+    # iteration of HOST_THEMES. We use the current site_id rather
+    # than a request object here, as it may differ for admin users.
+    domain = None
+
     for (host, theme) in settings.HOST_THEMES:
-        if host.lower() == request.get_host().split(":")[0].lower():
+        if domain is None:
+            domain = Site.objects.get(id=current_site_id()).domain
+        if host.lower() == domain.lower():
             try:
                 __import__(theme)
                 module = sys.modules[theme]
@@ -94,7 +102,7 @@ def host_theme_path(request):
     return ""
 
 
-def templates_for_host(request, templates):
+def templates_for_host(templates):
     """
     Given a template name (or list of them), returns the template names
     as a list, with each name prefixed with the device directory
@@ -102,7 +110,7 @@ def templates_for_host(request, templates):
     """
     if not isinstance(templates, (list, tuple)):
         templates = [templates]
-    theme_dir = host_theme_path(request)
+    theme_dir = host_theme_path()
     host_templates = []
     if theme_dir:
         for template in templates:

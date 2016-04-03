@@ -8,25 +8,18 @@ try:
 except ImportError:
     from urllib import quote, unquote
 
+from django.apps import apps
 from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse, resolve, NoReverseMatch
 from django.db.models import Model
-from django.db.models.loading import get_model
 from django.template import Context, Node, Template, TemplateSyntaxError
-
-try:
-    # Django >= 1.8
-    from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
-                                      TOKEN_TEXT, TOKEN_VAR, TextNode)
-except ImportError:
-    # Django <= 1.7
-    from django.template import (TOKEN_BLOCK, TOKEN_COMMENT,
-                                 TOKEN_TEXT, TOKEN_VAR, TextNode)
-
+from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
+                                  TOKEN_TEXT, TOKEN_VAR, TextNode)
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils import translation
@@ -108,7 +101,7 @@ def fields_for(context, form, template="includes/form_fields.html"):
     Renders fields for a form with an optional template choice.
     """
     context["form_for_fields"] = form
-    return get_template(template).render(Context(context))
+    return get_template(template).render(context)
 
 
 @register.inclusion_tag("includes/form_errors.html", takes_context=True)
@@ -116,8 +109,7 @@ def errors_for(context, form):
     """
     Renders an alert if the form has any errors.
     """
-    context["form"] = form
-    return context
+    return {"form": form}
 
 
 @register.filter
@@ -170,12 +162,17 @@ def ifinstalled(parser, token):
                                   "{% endifinstalled %}")
 
     end_tag = "end" + tag
+    unmatched_end_tag = 1
     if app.strip("\"'") not in settings.INSTALLED_APPS:
-        while True:
+        while unmatched_end_tag:
             token = parser.tokens.pop(0)
-            if token.token_type == TOKEN_BLOCK and token.contents == end_tag:
-                parser.tokens.insert(0, token)
-                break
+            if token.token_type == TOKEN_BLOCK:
+                block_name = token.contents.split()[0]
+                if block_name == tag:
+                    unmatched_end_tag += 1
+                if block_name == end_tag:
+                    unmatched_end_tag -= 1
+        parser.tokens.insert(0, token)
     nodelist = parser.parse((end_tag,))
     parser.delete_first_token()
 
@@ -246,6 +243,9 @@ def search_form(context, search_model_names=None):
     string ``all`` can also be used, in which case the models defined
     by the ``SEARCH_MODEL_CHOICES`` setting will be used.
     """
+    template_vars = {
+        "request": context["request"],
+    }
     if not search_model_names or not settings.SEARCH_MODEL_CHOICES:
         search_model_names = []
     elif search_model_names == "all":
@@ -255,24 +255,26 @@ def search_form(context, search_model_names=None):
     search_model_choices = []
     for model_name in search_model_names:
         try:
-            model = get_model(*model_name.split(".", 1))
+            model = apps.get_model(*model_name.split(".", 1))
         except LookupError:
             pass
         else:
             verbose_name = model._meta.verbose_name_plural.capitalize()
             search_model_choices.append((verbose_name, model_name))
-    context["search_model_choices"] = sorted(search_model_choices)
-    return context
+    template_vars["search_model_choices"] = sorted(search_model_choices)
+    return template_vars
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
-              padding=False, padding_color="#fff"):
+def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
+              top=.5, padding=False, padding_color="#fff"):
     """
-    Given the URL to an image, resizes the image using the given width and
-    height on the first time it is requested, and returns the URL to the new
-    resized image. if width or height are zero then original ratio is
-    maintained.
+    Given the URL to an image, resizes the image using the given width
+    and height on the first time it is requested, and returns the URL
+    to the new resized image. If width or height are zero then original
+    ratio is maintained. When ``upscale`` is False, images smaller than
+    the given size will not be grown to fill that size. The given width
+    and height thus act as maximum dimensions.
     """
 
     if not image_url:
@@ -289,6 +291,8 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     image_prefix, image_ext = os.path.splitext(image_name)
     filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext, "JPEG")
     thumb_name = "%s-%sx%s" % (image_prefix, width, height)
+    if not upscale:
+        thumb_name += "-no-upscale"
     if left != .5 or top != .5:
         left = min(1, max(0, left))
         top = min(1, max(0, top))
@@ -305,7 +309,11 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
                              settings.THUMBNAILS_DIR_NAME, image_name)
     if not os.path.exists(thumb_dir):
-        os.makedirs(thumb_dir)
+        try:
+            os.makedirs(thumb_dir)
+        except OSError:
+            pass
+
     thumb_path = os.path.join(thumb_dir, thumb_name)
     thumb_url = "%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
                               quote(image_name.encode("utf-8")),
@@ -341,6 +349,10 @@ def thumbnail(image_url, width, height, quality=95, left=.5, top=.5,
     to_height = int(height)
     from_width = image.size[0]
     from_height = image.size[1]
+
+    if not upscale:
+        to_width = min(to_width, from_width)
+        to_height = min(to_height, from_height)
 
     # Set dimensions.
     if to_width == 0:
@@ -404,17 +416,22 @@ def editable_loader(context):
     Set up the required JS/CSS for the in-line editing toolbar and controls.
     """
     user = context["request"].user
-    context["has_site_permission"] = has_site_permission(user)
-    if settings.INLINE_EDITING_ENABLED and context["has_site_permission"]:
+    template_vars = {
+        "has_site_permission": has_site_permission(user),
+        "request": context["request"],
+    }
+    if (settings.INLINE_EDITING_ENABLED and
+            template_vars["has_site_permission"]):
         t = get_template("includes/editable_toolbar.html")
-        context["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
-        try:
-            context["editable_obj"]
-        except KeyError:
-            context["editable_obj"] = context.get("page", None)
-        context["toolbar"] = t.render(Context(context))
-        context["richtext_media"] = RichTextField().formfield().widget.media
-    return context
+        template_vars["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
+        template_vars["editable_obj"] = context.get("editable_obj",
+                                        context.get("page", None))
+        template_vars["accounts_logout_url"] = context.get(
+            "accounts_logout_url", None)
+        template_vars["toolbar"] = t.render(Context(template_vars))
+        template_vars["richtext_media"] = RichTextField().formfield(
+            ).widget.media
+    return template_vars
 
 
 @register.filter
@@ -486,7 +503,7 @@ def editable(parsed, context, token):
             context["editable_form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
             t = get_template("includes/editable_form.html")
-            return t.render(Context(context))
+            return t.render(context)
     return parsed
 
 
@@ -520,7 +537,6 @@ def admin_app_list(request):
     menu_order = {}
     for (group_index, group) in enumerate(settings.ADMIN_MENU_ORDER):
         group_title, items = group
-        group_title = group_title.title()
         for (item_index, item) in enumerate(items):
             if isinstance(item, (tuple, list)):
                 item_title, item = item
@@ -553,7 +569,7 @@ def admin_app_list(request):
                         menu_order[model_label]
                 except KeyError:
                     app_index = None
-                    app_title = opts.app_label.title()
+                    app_title = opts.app_config.verbose_name.title()
                     model_index = None
                     model_title = None
                 else:
@@ -572,6 +588,7 @@ def admin_app_list(request):
                     "index": model_index,
                     "perms": model_admin.get_model_perms(request),
                     "name": model_title,
+                    "object_name": opts.object_name,
                     "admin_url": change_url,
                     "add_url": add_url
                 })
@@ -611,15 +628,22 @@ def admin_dropdown_menu(context):
     Renders the app list for the admin dropdown menu navigation.
     """
     user = context["request"].user
+    template_vars = {}
     if user.is_staff:
-        context["dropdown_menu_app_list"] = admin_app_list(context["request"])
+        template_vars["dropdown_menu_app_list"] = admin_app_list(
+            context["request"])
         if user.is_superuser:
             sites = Site.objects.all()
         else:
-            sites = user.sitepermissions.get().sites.all()
-        context["dropdown_menu_sites"] = list(sites)
-        context["dropdown_menu_selected_site_id"] = current_site_id()
-        return context
+            try:
+                sites = user.sitepermissions.sites.all()
+            except ObjectDoesNotExist:
+                sites = Site.objects.none()
+        template_vars["dropdown_menu_sites"] = list(sites)
+        template_vars["dropdown_menu_selected_site_id"] = current_site_id()
+        template_vars["settings"] = context["settings"]
+        template_vars["request"] = context["request"]
+        return template_vars
 
 
 @register.inclusion_tag("admin/includes/app_list.html", takes_context=True)
@@ -651,7 +675,7 @@ def dashboard_column(context, token):
     output = []
     for tag in settings.DASHBOARD_TAGS[column_index]:
         t = Template("{%% load %s %%}{%% %s %%}" % tuple(tag.split(".")))
-        output.append(t.render(Context(context)))
+        output.append(t.render(context))
     return "".join(output)
 
 

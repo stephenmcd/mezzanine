@@ -4,21 +4,22 @@ from future.builtins import str
 from json import dumps
 from string import punctuation
 
+from django.apps import apps
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.messages import error
 from django.core.urlresolvers import reverse
 from django.db.models import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
+from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
-from django.views.decorators.http import require_POST
 
 from mezzanine.conf import settings
 from mezzanine.generic.forms import ThreadedCommentForm, RatingForm
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.cache import add_cache_bypass
-from mezzanine.utils.models import get_model
-from mezzanine.utils.views import render, set_cookie, is_spam
+from mezzanine.utils.views import set_cookie, is_spam
+from mezzanine.utils.importing import import_dotted_path
 
 
 @staff_member_required
@@ -38,7 +39,8 @@ def admin_keywords_submit(request):
             if keyword_id not in keyword_ids:
                 keyword_ids.append(keyword_id)
                 titles.append(title)
-    return HttpResponse("%s|%s" % (",".join(keyword_ids), ", ".join(titles)))
+    return HttpResponse("%s|%s" % (",".join(keyword_ids), ", ".join(titles)),
+        content_type='text/plain')
 
 
 def initial_validation(request, prefix):
@@ -58,7 +60,6 @@ def initial_validation(request, prefix):
     ratings view functions to deal with as needed.
     """
     post_data = request.POST
-    settings.use_editable()
     login_required_setting_name = prefix.upper() + "S_ACCOUNT_REQUIRED"
     posted_session_key = "unauthenticated_" + prefix
     redirect_url = ""
@@ -75,7 +76,7 @@ def initial_validation(request, prefix):
         if len(model_data) != 2:
             return HttpResponseBadRequest()
         try:
-            model = get_model(*model_data)
+            model = apps.get_model(*model_data)
             obj = model.objects.get(id=post_data.get("object_pk", None))
         except (TypeError, ObjectDoesNotExist, LookupError):
             redirect_url = "/"
@@ -87,8 +88,7 @@ def initial_validation(request, prefix):
     return obj, post_data
 
 
-@require_POST
-def comment(request, template="generic/comments.html"):
+def comment(request, template="generic/comments.html", extra_context=None):
     """
     Handle a ``ThreadedCommentForm`` submission and redirect back to its
     related object.
@@ -97,7 +97,8 @@ def comment(request, template="generic/comments.html"):
     if isinstance(response, HttpResponse):
         return response
     obj, post_data = response
-    form = ThreadedCommentForm(request, obj, post_data)
+    form_class = import_dotted_path(settings.COMMENT_FORM_CLASS)
+    form = form_class(request, obj, post_data)
     if form.is_valid():
         url = obj.get_absolute_url()
         if is_spam(request, form, url):
@@ -114,11 +115,10 @@ def comment(request, template="generic/comments.html"):
         return HttpResponse(dumps({"errors": form.errors}))
     # Show errors with stand-alone comment form.
     context = {"obj": obj, "posted_comment_form": form}
-    response = render(request, template, context)
-    return response
+    context.update(extra_context or {})
+    return TemplateResponse(request, template, context)
 
 
-@require_POST
 def rating(request):
     """
     Handle a ``RatingForm`` submission and redirect back to its

@@ -5,11 +5,15 @@ from collections import defaultdict
 
 from django import forms
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import activate, get_language, ugettext_lazy as _
 from django.template.defaultfilters import urlize
 
 from mezzanine.conf import settings, registry
 from mezzanine.conf.models import Setting
+
+if settings.USE_MODELTRANSLATION:
+    from collections import OrderedDict
+    from modeltranslation.utils import build_localized_fieldname
 
 
 FIELD_TYPES = {
@@ -27,29 +31,50 @@ class SettingsForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(SettingsForm, self).__init__(*args, **kwargs)
-        settings.use_editable()
         # Create a form field for each editable setting's from its type.
+        active_language = get_language()
         for name in sorted(registry.keys()):
             setting = registry[name]
             if setting["editable"]:
                 field_class = FIELD_TYPES.get(setting["type"], forms.CharField)
-                kwargs = {
-                    "label": setting["label"] + ":",
-                    "required": setting["type"] in (int, float),
-                    "initial": getattr(settings, name),
-                    "help_text": self.format_help(setting["description"]),
-                }
-                if setting["choices"]:
-                    field_class = forms.ChoiceField
-                    kwargs["choices"] = setting["choices"]
-                self.fields[name] = field_class(**kwargs)
-                css_class = field_class.__name__.lower()
-                self.fields[name].widget.attrs["class"] = css_class
+                if settings.USE_MODELTRANSLATION and setting["translatable"]:
+                    for code in OrderedDict(settings.LANGUAGES):
+                        try:
+                            activate(code)
+                        except:
+                            pass
+                        else:
+                            self._init_field(setting, field_class, name, code)
+                else:
+                    self._init_field(setting, field_class, name)
+        activate(active_language)
+
+    def _init_field(self, setting, field_class, name, code=None):
+        """
+        Initialize a field whether it is built with a custom name for a
+        specific translation language or not.
+        """
+        kwargs = {
+            "label": setting["label"] + ":",
+            "required": setting["type"] in (int, float),
+            "initial": getattr(settings, name),
+            "help_text": self.format_help(setting["description"]),
+        }
+        if setting["choices"]:
+            field_class = forms.ChoiceField
+            kwargs["choices"] = setting["choices"]
+        field_instance = field_class(**kwargs)
+        code_name = ('_modeltranslation_' + code if code else '')
+        self.fields[name + code_name] = field_instance
+        css_class = field_class.__name__.lower()
+        field_instance.widget.attrs["class"] = css_class
+        if code:
+            field_instance.widget.attrs["class"] += " modeltranslation"
 
     def __iter__(self):
         """
-        Calculate and apply a group heading to each field and order by the
-        heading.
+        Calculate and apply a group heading to each field and order by
+        the heading.
         """
         fields = list(super(SettingsForm, self).__iter__())
         group = lambda field: field.name.split("_", 1)[0].title()
@@ -67,9 +92,30 @@ class SettingsForm(forms.Form):
         """
         Save each of the settings to the DB.
         """
+        active_language = get_language()
         for (name, value) in self.cleaned_data.items():
+            if name not in registry:
+                name, code = name.rsplit('_modeltranslation_', 1)
+            else:
+                code = None
             setting_obj, created = Setting.objects.get_or_create(name=name)
-            setting_obj.value = value
+            if settings.USE_MODELTRANSLATION:
+                if registry[name]["translatable"]:
+                    try:
+                        activate(code)
+                    except:
+                        pass
+                    finally:
+                        setting_obj.value = value
+                        activate(active_language)
+                else:
+                    # Duplicate the value of the setting for every language
+                    for code in OrderedDict(settings.LANGUAGES):
+                        setattr(setting_obj,
+                                build_localized_fieldname('value', code),
+                                value)
+            else:
+                setting_obj.value = value
             setting_obj.save()
 
     def format_help(self, description):
@@ -83,4 +129,5 @@ class SettingsForm(forms.Form):
             for i, s in enumerate(description.split(bold)):
                 parts.append(s if i % 2 == 0 else "<b>%s</b>" % s)
             description = "".join(parts)
-        return mark_safe(urlize(description).replace("\n", "<br>"))
+        description = urlize(description, autoescape=False)
+        return mark_safe(description.replace("\n", "<br>"))

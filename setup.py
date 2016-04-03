@@ -7,7 +7,7 @@ from mezzanine import __version__ as version
 
 
 exclude = ["mezzanine/project_template/dev.db",
-           "mezzanine/project_template/local_settings.py"]
+           "mezzanine/project_template/project_name/local_settings.py"]
 if sys.argv == ["setup.py", "test"]:
     exclude = []
 exclude = dict([(e, None) for e in exclude])
@@ -51,9 +51,9 @@ try:
         packages=find_packages(),
         install_requires=[
             "django-contrib-comments",
-            "django > 1.6.0",
-            "filebrowser_safe >= 0.3.4",
-            "grappelli_safe >= 0.3.12",
+            "django >= 1.8, < 1.10",
+            "filebrowser_safe >= 0.4.1",
+            "grappelli_safe >= 0.4.2",
             "tzlocal >= 1.0",
             "bleach >= 1.4",
             "beautifulsoup4 >= 4.1.3",
@@ -77,15 +77,14 @@ try:
             "License :: OSI Approved :: BSD License",
             "Operating System :: OS Independent",
             "Programming Language :: Python",
-            "Programming Language :: Python :: 2.6",
             "Programming Language :: Python :: 2.7",
             "Programming Language :: Python :: 3",
-            "Programming Language :: Python :: 3.3",
+            "Programming Language :: Python :: 3.4",
+            "Programming Language :: Python :: 3.5",
             "Topic :: Internet :: WWW/HTTP",
             "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
             "Topic :: Internet :: WWW/HTTP :: WSGI",
-            "Topic :: Software Development :: Libraries :: "
-                                                "Application Frameworks",
+            "Topic :: Software Development :: Libraries :: Application Frameworks",
             "Topic :: Software Development :: Libraries :: Python Modules",
         ])
 finally:

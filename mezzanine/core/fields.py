@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 from future.builtins import str
-from future.utils import with_metaclass
 
 from bleach import clean
 
@@ -66,7 +65,6 @@ class RichTextField(models.TextField):
         from mezzanine.conf import settings
         from mezzanine.core.defaults import (RICHTEXT_FILTER_LEVEL_NONE,
                                              RICHTEXT_FILTER_LEVEL_LOW)
-        settings.use_editable()
         if settings.RICHTEXT_FILTER_LEVEL == RICHTEXT_FILTER_LEVEL_NONE:
             return value
         tags = settings.RICHTEXT_ALLOWED_TAGS
@@ -79,7 +77,7 @@ class RichTextField(models.TextField):
                      strip_comments=False, styles=styles)
 
 
-class MultiChoiceField(with_metaclass(models.SubfieldBase, models.CharField)):
+class MultiChoiceField(models.CharField):
     """
     Charfield that stores multiple choices selected as a comma
     separated string. Based on http://djangosnippets.org/snippets/2753/
@@ -102,6 +100,9 @@ class MultiChoiceField(with_metaclass(models.SubfieldBase, models.CharField)):
         if isinstance(value, (tuple, list)):
             value = ",".join([str(i) for i in value])
         return value
+
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
 
     def to_python(self, value):
         if isinstance(value, str):
@@ -136,16 +137,3 @@ else:
             kwargs.setdefault("directory", kwargs.pop("upload_to", None))
             kwargs.setdefault("max_length", 255)
             super(FileField, self).__init__(*args, **kwargs)
-
-
-HtmlField = RichTextField  # For backward compatibility in south migrations.
-
-# South requires custom fields to be given "rules".
-# See http://south.aeracode.org/docs/customfields.html
-if "south" in settings.INSTALLED_APPS:
-    try:
-        from south.modelsinspector import add_introspection_rules
-        add_introspection_rules(patterns=["mezzanine\.core\.fields\."],
-            rules=[((FileField, RichTextField, MultiChoiceField), [], {})])
-    except ImportError:
-        pass

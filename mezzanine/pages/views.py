@@ -6,10 +6,10 @@ from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.template.response import TemplateResponse
 
 from mezzanine.pages.models import Page, PageMoveException
 from mezzanine.utils.urls import home_slug
-from mezzanine.utils.views import render
 
 
 @staff_member_required
@@ -96,4 +96,4 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     if request.page.content_model is not None:
         templates.append(u"pages/%s.html" % request.page.content_model)
     templates.append(template)
-    return render(request, templates, extra_context or {})
+    return TemplateResponse(request, templates, extra_context or {})

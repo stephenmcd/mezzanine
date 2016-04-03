@@ -2,8 +2,13 @@ from __future__ import absolute_import, unicode_literals
 from future.builtins import chr, int, str
 
 try:
-    from html.parser import HTMLParser, HTMLParseError
+    from html.parser import HTMLParser
     from html.entities import name2codepoint
+    try:
+        from html.parser import HTMLParseError
+    except ImportError:  # Python 3.5+
+        class HTMLParseError(Exception):
+            pass
 except ImportError:  # Python 2
     from HTMLParser import HTMLParser, HTMLParseError
     from htmlentitydefs import name2codepoint
@@ -85,7 +90,8 @@ def thumbnails(html):
         height = img.get("height")
         if src_in_media and width and height:
             img["src"] = settings.MEDIA_URL + thumbnail(src, width, height)
-    return str(dom)
+    # BS adds closing br tags, which the browser interprets as br tags.
+    return str(dom).replace("</br>", "")
 
 
 class TagCloser(HTMLParser):

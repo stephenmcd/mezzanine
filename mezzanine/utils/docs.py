@@ -5,15 +5,15 @@ documentation is generated.
 from __future__ import division, print_function, unicode_literals
 from future.builtins import map, open, str
 
+from collections import OrderedDict
 from datetime import datetime
 import os.path
 from shutil import copyfile, move
-from string import letters
+from string import ascii_letters as letters
 from socket import gethostname
 from warnings import warn
 
 from django.template.defaultfilters import urlize
-from django.utils.datastructures import SortedDict
 from django.utils.encoding import force_text
 from django.utils.functional import Promise
 
@@ -49,6 +49,7 @@ def build_settings_docs(docs_path, prefix=None):
             continue
         setting = registry[name]
         settings_name = "``%s``" % name
+        settings_label = ".. _%s:" % name
         setting_default = setting["default"]
         if isinstance(setting_default, str):
             if gethostname() in setting_default or (
@@ -57,6 +58,7 @@ def build_settings_docs(docs_path, prefix=None):
                 setting_default = dynamic
         if setting_default != dynamic:
             setting_default = repr(deep_force_unicode(setting_default))
+        lines.extend(["", settings_label])
         lines.extend(["", settings_name, "-" * len(settings_name)])
         lines.extend(["",
             urlize(setting["description"] or "").replace(
@@ -69,7 +71,8 @@ def build_settings_docs(docs_path, prefix=None):
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
     with open(os.path.join(docs_path, "settings.rst"), "w") as f:
-        f.write("\n".join(lines).replace("u'", "'").replace("yo'", "you'"))
+        f.write("\n".join(lines).replace("u'", "'").replace("yo'",
+            "you'").replace("&#39;", "'"))
 
 
 def build_deploy_docs(docs_path):
@@ -102,7 +105,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
     version_var = "__version__"
     changelog_filename = "CHANGELOG"
     changelog_file = os.path.join(project_path, changelog_filename)
-    versions = SortedDict()
+    versions = OrderedDict()
     repo = None
     ignore = ("AUTHORS", "formatting", "typo", "pep8", "pep 8",
               "whitespace", "README", "trans", "print debug",
@@ -239,7 +242,8 @@ def build_modelgraph(docs_path, package_name="mezzanine"):
     to_path = os.path.join(docs_path, "img", "graph.png")
     build_path = os.path.join(docs_path, "build", "_images")
     resized_path = os.path.join(os.path.dirname(to_path), "graph-small.png")
-    settings = import_dotted_path(package_name + ".project_template.settings")
+    settings = import_dotted_path(package_name +
+                                  ".project_template.project_name.settings")
     apps = [a.rsplit(".")[1] for a in settings.INSTALLED_APPS
             if a.startswith("mezzanine.") or a.startswith(package_name + ".")]
     try:

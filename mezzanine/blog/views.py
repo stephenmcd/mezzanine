@@ -1,30 +1,32 @@
 from __future__ import unicode_literals
-from future.builtins import str
-from future.builtins import int
+from future.builtins import str, int
+
 from calendar import month_name
 
 from django.contrib.auth import get_user_model
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.template.response import TemplateResponse
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.blog.models import BlogPost, BlogCategory
 from mezzanine.blog.feeds import PostsRSS, PostsAtom
 from mezzanine.conf import settings
 from mezzanine.generic.models import Keyword
-from mezzanine.utils.views import render, paginate
+from mezzanine.utils.views import paginate
 
 User = get_user_model()
 
 
 def blog_post_list(request, tag=None, year=None, month=None, username=None,
-                   category=None, template="blog/blog_post_list.html"):
+                   category=None, template="blog/blog_post_list.html",
+                   extra_context=None):
     """
     Display a list of blog posts that are filtered by tag, year, month,
     author or category. Custom templates are checked for using the name
     ``blog/blog_post_list_XXX.html`` where ``XXX`` is either the
     category slug or author's username if given.
     """
-    settings.use_editable()
     templates = []
     blog_posts = BlogPost.objects.published(for_user=request.user)
     if tag is not None:
@@ -35,7 +37,7 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
         if month is not None:
             blog_posts = blog_posts.filter(publish_date__month=month)
             try:
-                month = month_name[int(month)]
+                month = _(month_name[int(month)])
             except IndexError:
                 raise Http404()
     if category is not None:
@@ -56,12 +58,14 @@ def blog_post_list(request, tag=None, year=None, month=None, username=None,
                           settings.MAX_PAGING_LINKS)
     context = {"blog_posts": blog_posts, "year": year, "month": month,
                "tag": tag, "category": category, "author": author}
+    context.update(extra_context or {})
     templates.append(template)
-    return render(request, templates, context)
+    return TemplateResponse(request, templates, context)
 
 
 def blog_post_detail(request, slug, year=None, month=None, day=None,
-                     template="blog/blog_post_detail.html"):
+                     template="blog/blog_post_detail.html",
+                     extra_context=None):
     """. Custom templates are checked for using the name
     ``blog/blog_post_detail_XXX.html`` where ``XXX`` is the blog
     posts's slug.
@@ -69,9 +73,12 @@ def blog_post_detail(request, slug, year=None, month=None, day=None,
     blog_posts = BlogPost.objects.published(
                                      for_user=request.user).select_related()
     blog_post = get_object_or_404(blog_posts, slug=slug)
-    context = {"blog_post": blog_post, "editable_obj": blog_post}
+    related_posts = blog_post.related_posts.published(for_user=request.user)
+    context = {"blog_post": blog_post, "editable_obj": blog_post,
+               "related_posts": related_posts}
+    context.update(extra_context or {})
     templates = [u"blog/blog_post_detail_%s.html" % str(slug), template]
-    return render(request, templates, context)
+    return TemplateResponse(request, templates, context)
 
 
 def blog_post_feed(request, format, **kwargs):

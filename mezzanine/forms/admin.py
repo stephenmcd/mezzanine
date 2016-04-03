@@ -8,7 +8,7 @@ from datetime import datetime
 from mimetypes import guess_type
 from os.path import join
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.messages import info
 from django.core.files.storage import FileSystemStorage
@@ -22,6 +22,7 @@ from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.forms.forms import EntriesForm
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.pages.admin import PageAdmin
+from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url, slugify
 
 
@@ -34,6 +35,10 @@ form_fieldsets = list(form_fieldsets)
 form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from",
     "email_copies", "email_subject", "email_message")}))
 
+inline_field_excludes = []
+if not settings.FORMS_USE_HTML5:
+    inline_field_excludes += ["placeholder_text"]
+
 
 class FieldAdmin(TabularDynamicInlineAdmin):
     """
@@ -41,6 +46,7 @@ class FieldAdmin(TabularDynamicInlineAdmin):
     add dynamic "Add another" link and drag/drop ordering.
     """
     model = Field
+    exclude = inline_field_excludes
 
 
 class FormAdmin(PageAdmin):
@@ -50,7 +56,7 @@ class FormAdmin(PageAdmin):
     """
 
     class Media:
-        css = {"all": ("mezzanine/css/admin/form.css",)}
+        css = {"all": (static("mezzanine/css/admin/form.css"),)}
 
     inlines = (FieldAdmin,)
     list_display = ("title", "status", "email_copies",)
@@ -66,14 +72,14 @@ class FormAdmin(PageAdmin):
         Add the entries view to urls.
         """
         urls = super(FormAdmin, self).get_urls()
-        extra_urls = patterns("",
+        extra_urls = [
             url("^(?P<form_id>\d+)/entries/$",
                 self.admin_site.admin_view(self.entries_view),
                 name="form_entries"),
             url("^file/(?P<field_entry_id>\d+)/$",
                 self.admin_site.admin_view(self.file_view),
                 name="form_file"),
-        )
+        ]
         return extra_urls + urls
 
     def entries_view(self, request, form_id):
