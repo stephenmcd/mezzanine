@@ -391,8 +391,8 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     to_size = (to_width, to_height)
     to_pos = (left, top)
     try:
-        image = ImageOps.fit(image, to_size, Image.ANTIALIAS, 0, to_pos)
-        image = image.save(thumb_path, filetype, quality=quality, **image_info)
+        thumbnail_image = ImageOps.fit(image, to_size, Image.ANTIALIAS, 0, to_pos)
+        thumbnail_image.save(thumb_path, filetype, quality=quality, **image_info)
         # Push a remote copy of the thumbnail if MEDIA_URL is
         # absolute.
         if "://" in settings.MEDIA_URL:
