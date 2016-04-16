@@ -60,39 +60,44 @@ else:
         return parsed
 
 
-if cache_installed():
-    @register.tag
-    def nevercache(parser, token):
-        """
-        Tag for two phased rendering. Converts enclosed template
-        code and content into text, which gets rendered separately
-        in ``mezzanine.core.middleware.UpdateCacheMiddleware``.
-        This is to bypass caching for the enclosed code and content.
-        """
-        text = []
-        end_tag = "endnevercache"
-        tag_mapping = {
-            TOKEN_TEXT: ("", ""),
-            TOKEN_VAR: ("{{", "}}"),
-            TOKEN_BLOCK: ("{%", "%}"),
-            TOKEN_COMMENT: ("{#", "#}"),
-        }
-        delimiter = nevercache_token()
-        while parser.tokens:
-            token = parser.next_token()
-            if token.token_type == TOKEN_BLOCK and token.contents == end_tag:
-                return TextNode(delimiter + "".join(text) + delimiter)
-            start, end = tag_mapping[token.token_type]
-            text.append("%s%s%s" % (start, token.contents, end))
-        parser.unclosed_block_tag(end_tag)
-else:
-    @register.to_end_tag
-    def nevercache(parsed, context, token):
-        """
-        Dummy fallback ``nevercache`` for when caching is not
-        configured.
-        """
-        return parsed
+def initialize_nevercache():
+    if cache_installed():
+        @register.tag
+        def nevercache(parser, token):
+            """
+            Tag for two phased rendering. Converts enclosed template
+            code and content into text, which gets rendered separately
+            in ``mezzanine.core.middleware.UpdateCacheMiddleware``.
+            This is to bypass caching for the enclosed code and content.
+            """
+            text = []
+            end_tag = "endnevercache"
+            tag_mapping = {
+                TOKEN_TEXT: ("", ""),
+                TOKEN_VAR: ("{{", "}}"),
+                TOKEN_BLOCK: ("{%", "%}"),
+                TOKEN_COMMENT: ("{#", "#}"),
+            }
+            delimiter = nevercache_token()
+            while parser.tokens:
+                token = parser.next_token()
+                token_type = token.token_type
+                if token_type == TOKEN_BLOCK and token.contents == end_tag:
+                    return TextNode(delimiter + "".join(text) + delimiter)
+                start, end = tag_mapping[token_type]
+                text.append("%s%s%s" % (start, token.contents, end))
+            parser.unclosed_block_tag(end_tag)
+    else:
+        @register.to_end_tag
+        def nevercache(parsed, context, token):
+            """
+            Dummy fallback ``nevercache`` for when caching is not
+            configured.
+            """
+            return parsed
+
+
+initialize_nevercache()
 
 
 @register.simple_tag(takes_context=True)
