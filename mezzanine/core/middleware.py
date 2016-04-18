@@ -178,7 +178,7 @@ class UpdateCacheMiddleware(object):
         # the cookie will be correctly set for the the response
         csrf_mw_name = "django.middleware.csrf.CsrfViewMiddleware"
         if csrf_mw_name in settings.MIDDLEWARE_CLASSES:
-            request.csrf_processing_done = False
+            response.csrf_processing_done = False
             csrf_mw = CsrfViewMiddleware()
             csrf_mw.process_response(request, response)
         return response
