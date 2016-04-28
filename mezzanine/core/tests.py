@@ -22,6 +22,7 @@ from django.db import models
 from django.forms import Textarea
 from django.forms.models import modelform_factory
 from django.templatetags.static import static
+from django.test import Client
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
 
@@ -68,6 +69,25 @@ class CoreTests(TestCase):
         default = self.client.get(url)
         mobile = self.client.get(url, HTTP_USER_AGENT=ua)
         self.assertNotEqual(default.template_name[0], mobile.template_name[0])
+
+    def test_bad_user_agent(self):
+        """
+        Ensures malformed UA strings don't crash the device handling
+        middleware.
+        """
+        # Ensure a normal request doesn't fail.
+        try:
+            Client().get("/")
+        except:
+            return
+        try:
+            Client(HTTP_USER_AGENT=u"\xe2\x28\xa1").get("/")
+        except Exception as e:
+            self.fail("Malformed user agent raised an exception %s" % e)
+        try:
+            Client(HTTP_USER_AGENT=b"\xff").get("/")
+        except Exception as e:
+            self.fail("Malformed user agent raised an exception %s" % e)
 
     def test_syntax(self):
         """
