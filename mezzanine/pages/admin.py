@@ -81,7 +81,7 @@ class PageAdmin(DisplayableAdmin):
                     if not hasattr(field, "translated_field"):
                         self.fieldsets[0][1]["fields"].insert(3, field.name)
 
-    def in_menu(self):
+    def has_module_permission(self, request):
         """
         Hide subclasses from the admin menu.
         """
