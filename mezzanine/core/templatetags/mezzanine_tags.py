@@ -559,14 +559,13 @@ def admin_app_list(request):
                 DeprecationWarning)
         in_menu = in_menu and model_admin.has_module_permission(request)
         if in_menu and request.user.has_module_perms(opts.app_label):
-            perms = model_admin.get_model_perms(request)
             admin_url_name = ""
-            if perms["change"]:
+            if model_admin.has_change_permission(request, model):
                 admin_url_name = "changelist"
                 change_url = admin_url(model, admin_url_name)
             else:
                 change_url = None
-            if perms["add"]:
+            if model_admin.has_add_permission(request):
                 admin_url_name = "add"
                 add_url = admin_url(model, admin_url_name)
             else:
