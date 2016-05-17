@@ -40,7 +40,7 @@ you would define the following in your projects's ``settings`` module::
 
 Any admin classes that aren't specifed are included using Django's normal
 approach of grouping models alphabetically by application name. You can
-also control this behavior by implementing a :meth:`.in_menu` method on your
+also control this behavior by implementing a :meth:`.has_module_permission` method on your
 admin class, which should return ``True`` or ``False``. When implemented,
 this method controls whether the admin class appears in the menu or not.
 Here's an advanced example that excludes the :class:`.BlogCategoryAdmin` class
@@ -56,7 +56,7 @@ from the menu, unless it is explicitly defined in :ref:`ADMIN_MENU_ORDER`::
 
         fieldsets = ((None, {"fields": ("title",)}),)
 
-        def in_menu(self):
+        def has_module_permission(self, request):
             """
             Hide from the admin menu unless explicitly set in ``ADMIN_MENU_ORDER``.
             """

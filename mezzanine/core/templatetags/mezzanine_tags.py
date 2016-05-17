@@ -549,15 +549,23 @@ def admin_app_list(request):
     for (model, model_admin) in admin.site._registry.items():
         opts = model._meta
         in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
+        if hasattr(model_admin, "in_menu"):
+            import warnings
+            warnings.warn(
+                'ModelAdmin.in_menu() has been replaced with '
+                'ModelAdmin.has_module_permission(request). See '
+                'https://docs.djangoproject.com/en/stable/ref/contrib/admin/'
+                '#django.contrib.admin.ModelAdmin.has_module_permission.',
+                DeprecationWarning)
+        in_menu = in_menu and model_admin.has_module_permission(request)
         if in_menu and request.user.has_module_perms(opts.app_label):
-            perms = model_admin.get_model_perms(request)
             admin_url_name = ""
-            if perms["change"]:
+            if model_admin.has_change_permission(request, model):
                 admin_url_name = "changelist"
                 change_url = admin_url(model, admin_url_name)
             else:
                 change_url = None
-            if perms["add"]:
+            if model_admin.has_add_permission(request):
                 admin_url_name = "add"
                 add_url = admin_url(model, admin_url_name)
             else:
