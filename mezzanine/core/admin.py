@@ -129,6 +129,10 @@ class BaseDynamicInlineAdmin(object):
     extra = 1
 
     def get_fields(self, request, obj=None):
+        """
+        For subclasses of ``Orderable``, the ``_order`` field must
+        always be present and be the last field.
+        """
         fields = super(BaseDynamicInlineAdmin, self).get_fields(request, obj)
         if issubclass(self.model, Orderable):
             fields = list(fields)
@@ -140,6 +144,9 @@ class BaseDynamicInlineAdmin(object):
         return fields
 
     def get_fieldsets(self, request, obj=None):
+        """
+        Same as above, but for fieldsets.
+        """
         fieldsets = super(BaseDynamicInlineAdmin, self).get_fieldsets(
                                                             request, obj)
         if issubclass(self.model, Orderable):
