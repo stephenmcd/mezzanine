@@ -48,8 +48,13 @@ jQuery(function($) {
 
     // Set the value of the _order fields on submit.
     $('.inline-group').closest("form").submit(function() {
+        // Try to save TinyMCE instances (in case there are some in the inlines)
         if (typeof tinyMCE != 'undefined') {
-            tinyMCE.triggerSave();
+            try {
+                tinyMCE.triggerSave();
+            } catch (e) {
+                console.log("TinyMCE error:", e);
+            }
         }
         $.each($(parentSelector), function(i, parent) {
             var order = 0;
