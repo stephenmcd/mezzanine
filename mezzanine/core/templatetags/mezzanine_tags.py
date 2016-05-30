@@ -420,7 +420,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         # absolute.
         if "://" in settings.MEDIA_URL:
             with open(thumb_path, "rb") as f:
-                default_storage.save(thumb_url, File(f))
+                default_storage.save(unquote(thumb_url), File(f))
     except Exception:
         # If an error occurred, a corrupted image may have been saved,
         # so remove it, otherwise the check for it existing will just
