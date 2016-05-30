@@ -94,6 +94,9 @@ img.pull-left {
   margin-right: 10px;
   margin-bottom: 5px;
 }
+.middle img {
+  max-width: 100%;
+}
 .user-panel p {
   margin-bottom:3px;
 }
