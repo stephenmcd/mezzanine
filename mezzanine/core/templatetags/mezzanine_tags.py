@@ -345,6 +345,29 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         return image_url
 
     image_info = image.info
+
+    # Transpose to align the image to its orientation if necessary.
+    # If the image is transposed, delete the exif information as
+    # not all browsers support the CSS image-orientation:
+    # - http://caniuse.com/#feat=css-image-orientation
+    try:
+        orientation = image._getexif().get(0x0112)
+    except:
+        orientation = None
+    if orientation:
+        methods = {
+           2: (Image.FLIP_LEFT_RIGHT,),
+           3: (Image.ROTATE_180,),
+           4: (Image.FLIP_TOP_BOTTOM,),
+           5: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_90),
+           6: (Image.ROTATE_270,),
+           7: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_270),
+           8: (Image.ROTATE_90,)}.get(orientation, ())
+        if methods:
+            image_info.pop('exif', None)
+            for method in methods:
+                image = image.transpose(method)
+
     to_width = int(width)
     to_height = int(height)
     from_width = image.size[0]
