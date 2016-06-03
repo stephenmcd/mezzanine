@@ -28,7 +28,7 @@ create a new Mezzanine project in similar fashion to
 
     The ``createdb`` command is a shortcut for using Django's
     ``migrate`` command, which will also install some demo content,
-    such as a contact form, image gallery, andmore. If you'd like to
+    such as a contact form, image gallery, and more. If you'd like to
     omit this step, use the ``--nodata`` option with ``createdb``.
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and
