@@ -4,14 +4,14 @@ from copy import deepcopy
 
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import NoReverseMatch
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import DisplayableAdmin, DisplayableAdminForm
+from mezzanine.core.content_typed import ContentTypedAdmin
 from mezzanine.pages.models import Page, RichTextPage, Link
-from mezzanine.utils.urls import admin_url, clean_slashes
+from mezzanine.utils.urls import clean_slashes
 
 
 # Add extra fields for pages to the Displayable fields.
@@ -37,7 +37,7 @@ class PageAdminForm(DisplayableAdminForm):
         return new_slug
 
 
-class PageAdmin(DisplayableAdmin):
+class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
     """
     Admin class for the ``Page`` model and all subclasses of
     ``Page``. Handles redirections between admin interfaces for the
@@ -48,46 +48,7 @@ class PageAdmin(DisplayableAdmin):
     fieldsets = page_fieldsets
     change_list_template = "admin/pages/page/change_list.html"
 
-    def __init__(self, *args, **kwargs):
-        """
-        For ``Page`` subclasses that are registered with an Admin class
-        that doesn't implement fieldsets, add any extra model fields
-        to this instance's fieldsets. This mimics Django's behaviour of
-        adding all model fields when no fieldsets are defined on the
-        Admin class.
-        """
-        super(PageAdmin, self).__init__(*args, **kwargs)
-        # Test that the fieldsets don't differ from PageAdmin's.
-        if self.model is not Page and self.fieldsets == PageAdmin.fieldsets:
-            # Make a copy so that we aren't modifying other Admin
-            # classes' fieldsets.
-            self.fieldsets = deepcopy(self.fieldsets)
-            # Insert each field between the publishing fields and nav
-            # fields. Do so in reverse order to retain the order of
-            # the model's fields.
-            exclude_fields = [f.name for f in
-                Page._meta.get_fields()] + ["page_ptr"]
-            try:
-                exclude_fields.extend(self.exclude)
-            except (AttributeError, TypeError):
-                pass
-            try:
-                exclude_fields.extend(self.form.Meta.exclude)
-            except (AttributeError, TypeError):
-                pass
-            fields = self.model._meta.fields + self.model._meta.many_to_many
-            for field in reversed(fields):
-                if field.name not in exclude_fields and field.editable:
-                    if not hasattr(field, "translated_field"):
-                        self.fieldsets[0][1]["fields"].insert(3, field.name)
-
-    def has_module_permission(self, request):
-        """
-        Hide subclasses from the admin menu.
-        """
-        return self.model is Page
-
-    def _check_permission(self, request, page, permission):
+    def check_permission(self, request, page, permission):
         """
         Runs the custom permission check and raises an
         exception if False.
@@ -106,23 +67,17 @@ class PageAdmin(DisplayableAdmin):
 
     def change_view(self, request, object_id, **kwargs):
         """
-        For the ``Page`` model, check ``page.get_content_model()``
-        for a subclass and redirect to its admin change view.
-        Also enforce custom change permissions for the page instance.
+        Enforce custom permissions for the page instance.
         """
         page = get_object_or_404(Page, pk=object_id)
         content_model = page.get_content_model()
-        self._check_permission(request, content_model, "change")
-        if self.model is Page:
-            if content_model is not None:
-                change_url = admin_url(content_model.__class__, "change",
-                                       content_model.id)
-                return HttpResponseRedirect(change_url)
+
         kwargs.setdefault("extra_context", {})
         kwargs["extra_context"].update({
             "hide_delete_link": not content_model.can_delete(request),
             "hide_slug_field": content_model.overridden(),
         })
+
         return super(PageAdmin, self).change_view(request, object_id, **kwargs)
 
     def delete_view(self, request, object_id, **kwargs):
@@ -131,20 +86,8 @@ class PageAdmin(DisplayableAdmin):
         """
         page = get_object_or_404(Page, pk=object_id)
         content_model = page.get_content_model()
-        self._check_permission(request, content_model, "delete")
+        self.check_permission(request, content_model, "delete")
         return super(PageAdmin, self).delete_view(request, object_id, **kwargs)
-
-    def changelist_view(self, request, extra_context=None):
-        """
-        Redirect to the ``Page`` changelist view for ``Page``
-        subclasses.
-        """
-        if self.model is not Page:
-            return HttpResponseRedirect(admin_url(Page, "changelist"))
-        if not extra_context:
-            extra_context = {}
-        extra_context["page_models"] = self.get_content_models()
-        return super(PageAdmin, self).changelist_view(request, extra_context)
 
     def save_model(self, request, obj, form, change):
         """
@@ -192,22 +135,13 @@ class PageAdmin(DisplayableAdmin):
         response = super(PageAdmin, self).response_change(request, obj)
         return self._maintain_parent(request, response)
 
-    @classmethod
-    def get_content_models(cls):
+    def get_content_models(self):
         """
         Return all Page subclasses that are admin registered, ordered
         based on the ``ADD_PAGE_ORDER`` setting.
         """
-        models = []
-        for model in Page.get_content_models():
-            try:
-                admin_url(model, "add")
-            except NoReverseMatch:
-                continue
-            else:
-                setattr(model, "meta_verbose_name", model._meta.verbose_name)
-                setattr(model, "add_url", admin_url(model, "add"))
-                models.append(model)
+        models = super(PageAdmin, self).get_content_models()
+
         order = [name.lower() for name in settings.ADD_PAGE_ORDER]
 
         def sort_key(page):

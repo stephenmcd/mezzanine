@@ -5,13 +5,13 @@ try:
 except ImportError:  # Python 2
     from urlparse import urljoin
 
-from django.apps import apps
 from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _, ugettext
 
 from mezzanine.conf import settings
+from mezzanine.core.content_typed import ContentTyped
 from mezzanine.core.models import Displayable, Orderable, RichText
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
@@ -32,7 +32,7 @@ class BasePage(Orderable, Displayable):
 
 
 @python_2_unicode_compatible
-class Page(BasePage):
+class Page(BasePage, ContentTyped):
     """
     A page in the page tree. This is the base class that custom content types
     need to subclass.
@@ -42,7 +42,6 @@ class Page(BasePage):
         related_name="children")
     in_menus = MenusField(_("Show in menus"), blank=True, null=True)
     titles = models.CharField(editable=False, max_length=1000, null=True)
-    content_model = models.CharField(editable=False, max_length=50, null=True)
     login_required = models.BooleanField(_("Login required"), default=False,
         help_text=_("If checked, only logged in users can view this page"))
 
@@ -77,7 +76,7 @@ class Page(BasePage):
         and set the initial value for ordering.
         """
         if self.id is None:
-            self.content_model = self._meta.object_name.lower()
+            self.content_model = self.get_content_model_name()
         titles = [self.title]
         parent = self.parent
         while parent is not None:
@@ -130,21 +129,6 @@ class Page(BasePage):
                 self._ascendants.append(child.parent)
                 child = child.parent
         return self._ascendants
-
-    @classmethod
-    def get_content_models(cls):
-        """
-        Return all Page subclasses.
-        """
-        return [m for m in apps.get_models()
-                if m is not Page and issubclass(m, Page)]
-
-    def get_content_model(self):
-        """
-        Provies a generic method of retrieving the instance of the custom
-        content type's model for this page.
-        """
-        return getattr(self, self.content_model, None)
 
     def get_slug(self):
         """

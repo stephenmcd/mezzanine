@@ -98,6 +98,13 @@ class DisplayableAdmin(BaseTranslationModelAdmin):
         except AttributeError:
             pass
 
+    def check_permission(self, request, page, permission):
+        """
+        Subclasses can define a custom permission check and raise an exception
+        if False.
+        """
+        pass
+
     def save_model(self, request, obj, form, change):
         """
         Save model for every language so that field auto-population
