@@ -4,8 +4,7 @@ In order to use them:
 
 - Inherit model from CustomContentTypes.
 - Inherit that model's ModelAdmin from CustomContentTypesAdmin.
-- Allow selection of custom models in the change_list, in the spirit of
-templates/admin/pages/page/change_list.html.
+- Include "content_typed/change_list.html" in the change_list.html template.
 """
 from copy import deepcopy
 
