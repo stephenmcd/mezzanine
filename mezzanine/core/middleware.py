@@ -10,6 +10,7 @@ from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponsePermanentRedirect, HttpResponseGone)
 from django.middleware.csrf import CsrfViewMiddleware, get_token
 from django.template import Template, RequestContext
+from django.template.backends.django import Template as BackendTemplate
 from django.utils.cache import get_max_age
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -23,6 +24,13 @@ from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
 from mezzanine.utils.device import templates_for_device
 from mezzanine.utils.sites import current_site_id, templates_for_host
 from mezzanine.utils.urls import next_url
+
+
+def is_template(obj):
+    """ Check if the instance is a Template """
+
+    # In Django 1.10 (future) TemplateResponse can only take a BackendTemplate
+    return isinstance(obj, Template) or isinstance(obj, BackendTemplate)
 
 
 class AdminLoginInterfaceSelectorMiddleware(object):
@@ -85,7 +93,7 @@ class TemplateForDeviceMiddleware(object):
     """
     def process_template_response(self, request, response):
         if hasattr(response, "template_name"):
-            if not isinstance(response.template_name, Template):
+            if not is_template(response.template_name):
                 templates = templates_for_device(request,
                     response.template_name)
                 response.template_name = templates
@@ -98,7 +106,7 @@ class TemplateForHostMiddleware(object):
     """
     def process_template_response(self, request, response):
         if hasattr(response, "template_name"):
-            if not isinstance(response.template_name, Template):
+            if not is_template(response.template_name):
                 response.template_name = templates_for_host(
                     response.template_name)
         return response
