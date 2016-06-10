@@ -56,6 +56,15 @@ register_setting(
 )
 
 register_setting(
+    name="ACCOUNTS_PROFILE_INLINE_CLASS",
+    description=_("Dotted package path and class name of the profile inline  "
+        "admin that will be added to the User admin, when ``mezzanine.accounts`` "
+        "is installed and ``settings.AUTH_PROFILE_MODULE`` is defined."),
+    editable=False,
+    default="mezzanine.accounts.admin.ProfileInline",
+)
+
+register_setting(
     name="ACCOUNTS_VERIFICATION_REQUIRED",
     description=_("If ``True``, when users create an account, they will be "
         "sent an email with a verification link, which they must click to "

@@ -55,6 +55,18 @@ update profile forms, as well as in the user's public profile page.
 For more information consult the `Django docs for profiles
 <https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users>`_.
 
+ProfileAdmin
+============
+
+By default, in the Mezzanine admin, Mezzanine will render all
+relevant user profile fields on a User object via the
+``ProfileInline(admin.StackedInline)`` class. However, if you need
+to use a custom inline class you can create the custom class in the
+admin.py file of your app and add a reference to it in
+settings.py with the following setting:
+:ref:`ACCOUNTS_PROFILE_INLINE_CLASS`.
+
+
 Restricting Account Fields
 ==========================
 
