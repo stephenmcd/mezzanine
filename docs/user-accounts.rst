@@ -2,18 +2,18 @@
 Public User Accounts
 ====================
 
-Mezzanine provides the ability for public users to create their
-own accounts for logging into your Mezzanine powered site. Features
-that can be restricted to logged-in users include the ability to
-post comments, make purchases (using `Cartridge <http://cartridge.jupo.org>`_),
-view restricted pages, and anything else you'd like to implement.
-You can also define what a user's profile consists of, allowing users
-to create their own profile page for their account.
+Mezzanine provides the ability for public users to create their own
+accounts for logging into your Mezzanine powered site. Features that can
+be restricted to logged-in users include the ability to post comments,
+make purchases (using `Cartridge <http://cartridge.jupo.org>`_), view
+restricted pages, and anything else you'd like to implement.  You can also
+define what a user's profile consists of, allowing users to create their
+own profile page for their account.
 
 The accounts functionality is provided by the app
-:mod:`mezzanine.accounts`. Adding it to your ``INSTALLED_APPS`` setting
-will enable signup, login, account updating, and password retrieval
-features for the public site.
+:mod:`mezzanine.accounts`. Adding it to your
+:django:setting:`INSTALLED_APPS` setting will enable signup, login,
+account updating, and password retrieval features for the public site.
 
 Profiles
 ========
@@ -81,7 +81,8 @@ Django's user model. In our ``settings.py`` module we would define::
     )
 
 If you don't want to expose the ``username`` field to the user, Mezzanine
-provides the setting :ref:`ACCOUNTS_NO_USERNAME`, which when set to ``True``, will expose the ``email`` field as the sole login for the user.
+provides the setting :ref:`ACCOUNTS_NO_USERNAME`, which when set to
+``True``, will expose the ``email`` field as the sole login for the user.
 
 Account Verification
 ====================
@@ -101,10 +102,10 @@ Account Approval
 You may also wish to manually activate newly created public accounts.
 To enable this, Mezzanine provides the setting
 :ref:`ACCOUNTS_APPROVAL_REQUIRED`, which when set to ``True``, will set
-newly created accounts as inactive, requiring a staff member to
-activate each account in the admin interface. A list of email addresses
-can be configured in the admin settings interface, which will then be
-notified by email each time a new account is created and requires
-activation. Users are then sent a notification when their accounts
-are activated by a staff member.
+newly created accounts as inactive, requiring a staff member to activate
+each account in the admin interface. A list of email addresses can be
+configured in the admin settings interface, which will then be notified by
+email each time a new account is created and requires activation. Users
+are then sent a notification when their accounts are activated by a staff
+member.
 

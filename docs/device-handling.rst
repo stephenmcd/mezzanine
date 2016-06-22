@@ -45,7 +45,7 @@ Mobile Theme
 
 Mezzanine includes the app :mod:`mezzanine.mobile` which contains a full
 set of default templates and assets for creating a mobile version of
-your site. Simply add :mod:`mezzanine.mobile` to your ``INSTALLED_APPS``
+your site. Simply add :mod:`mezzanine.mobile` to your :django:setting:`INSTALLED_APPS`
 setting to use it.
 
 Implementation Considerations
