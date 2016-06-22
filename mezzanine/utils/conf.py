@@ -211,10 +211,10 @@ def set_dynamic_settings(s):
             # it's in the project directory and add the path to it.
             if "NAME" in db and os.sep not in db["NAME"]:
                 db_path = os.path.join(s.get("PROJECT_ROOT", ""), db["NAME"])
-                s["DATABASES"][key]["NAME"] = db_path
+                db["NAME"] = db_path
         elif shortname == "mysql":
             # Required MySQL collation for tests.
-            s["DATABASES"][key]["TEST_COLLATION"] = "utf8_general_ci"
+            db.setdefault("TEST", {})["COLLATION"] = "utf8_general_ci"
 
 
 def real_project_name(project_name):

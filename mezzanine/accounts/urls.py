@@ -12,7 +12,7 @@ SIGNUP_URL = getattr(settings, "SIGNUP_URL",
 SIGNUP_VERIFY_URL = getattr(settings, "SIGNUP_VERIFY_URL",
                             "/%s/verify/" % ACCOUNT_URL.strip("/"))
 LOGIN_URL = settings.LOGIN_URL
-LOGOUT_URL = settings.LOGOUT_URL
+LOGOUT_URL = getattr(settings, "LOGOUT_URL", "/accounts/logout/")
 PROFILE_URL = getattr(settings, "PROFILE_URL", "/users/")
 PROFILE_UPDATE_URL = getattr(settings, "PROFILE_UPDATE_URL",
                              "/%s/update/" % ACCOUNT_URL.strip("/"))

@@ -60,39 +60,44 @@ else:
         return parsed
 
 
-if cache_installed():
-    @register.tag
-    def nevercache(parser, token):
-        """
-        Tag for two phased rendering. Converts enclosed template
-        code and content into text, which gets rendered separately
-        in ``mezzanine.core.middleware.UpdateCacheMiddleware``.
-        This is to bypass caching for the enclosed code and content.
-        """
-        text = []
-        end_tag = "endnevercache"
-        tag_mapping = {
-            TOKEN_TEXT: ("", ""),
-            TOKEN_VAR: ("{{", "}}"),
-            TOKEN_BLOCK: ("{%", "%}"),
-            TOKEN_COMMENT: ("{#", "#}"),
-        }
-        delimiter = nevercache_token()
-        while parser.tokens:
-            token = parser.next_token()
-            if token.token_type == TOKEN_BLOCK and token.contents == end_tag:
-                return TextNode(delimiter + "".join(text) + delimiter)
-            start, end = tag_mapping[token.token_type]
-            text.append("%s%s%s" % (start, token.contents, end))
-        parser.unclosed_block_tag(end_tag)
-else:
-    @register.to_end_tag
-    def nevercache(parsed, context, token):
-        """
-        Dummy fallback ``nevercache`` for when caching is not
-        configured.
-        """
-        return parsed
+def initialize_nevercache():
+    if cache_installed():
+        @register.tag
+        def nevercache(parser, token):
+            """
+            Tag for two phased rendering. Converts enclosed template
+            code and content into text, which gets rendered separately
+            in ``mezzanine.core.middleware.UpdateCacheMiddleware``.
+            This is to bypass caching for the enclosed code and content.
+            """
+            text = []
+            end_tag = "endnevercache"
+            tag_mapping = {
+                TOKEN_TEXT: ("", ""),
+                TOKEN_VAR: ("{{", "}}"),
+                TOKEN_BLOCK: ("{%", "%}"),
+                TOKEN_COMMENT: ("{#", "#}"),
+            }
+            delimiter = nevercache_token()
+            while parser.tokens:
+                token = parser.next_token()
+                token_type = token.token_type
+                if token_type == TOKEN_BLOCK and token.contents == end_tag:
+                    return TextNode(delimiter + "".join(text) + delimiter)
+                start, end = tag_mapping[token_type]
+                text.append("%s%s%s" % (start, token.contents, end))
+            parser.unclosed_block_tag(end_tag)
+    else:
+        @register.to_end_tag
+        def nevercache(parsed, context, token):
+            """
+            Dummy fallback ``nevercache`` for when caching is not
+            configured.
+            """
+            return parsed
+
+
+initialize_nevercache()
 
 
 @register.simple_tag(takes_context=True)
@@ -345,6 +350,29 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         return image_url
 
     image_info = image.info
+
+    # Transpose to align the image to its orientation if necessary.
+    # If the image is transposed, delete the exif information as
+    # not all browsers support the CSS image-orientation:
+    # - http://caniuse.com/#feat=css-image-orientation
+    try:
+        orientation = image._getexif().get(0x0112)
+    except:
+        orientation = None
+    if orientation:
+        methods = {
+           2: (Image.FLIP_LEFT_RIGHT,),
+           3: (Image.ROTATE_180,),
+           4: (Image.FLIP_TOP_BOTTOM,),
+           5: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_90),
+           6: (Image.ROTATE_270,),
+           7: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_270),
+           8: (Image.ROTATE_90,)}.get(orientation, ())
+        if methods:
+            image_info.pop('exif', None)
+            for method in methods:
+                image = image.transpose(method)
+
     to_width = int(width)
     to_height = int(height)
     from_width = image.size[0]
@@ -397,7 +425,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         # absolute.
         if "://" in settings.MEDIA_URL:
             with open(thumb_path, "rb") as f:
-                default_storage.save(thumb_url, File(f))
+                default_storage.save(unquote(thumb_url), File(f))
     except Exception:
         # If an error occurred, a corrupted image may have been saved,
         # so remove it, otherwise the check for it existing will just
@@ -549,15 +577,23 @@ def admin_app_list(request):
     for (model, model_admin) in admin.site._registry.items():
         opts = model._meta
         in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
+        if hasattr(model_admin, "in_menu"):
+            import warnings
+            warnings.warn(
+                'ModelAdmin.in_menu() has been replaced with '
+                'ModelAdmin.has_module_permission(request). See '
+                'https://docs.djangoproject.com/en/stable/ref/contrib/admin/'
+                '#django.contrib.admin.ModelAdmin.has_module_permission.',
+                DeprecationWarning)
+        in_menu = in_menu and model_admin.has_module_permission(request)
         if in_menu and request.user.has_module_perms(opts.app_label):
-            perms = model_admin.get_model_perms(request)
             admin_url_name = ""
-            if perms["change"]:
+            if model_admin.has_change_permission(request, model):
                 admin_url_name = "changelist"
                 change_url = admin_url(model, admin_url_name)
             else:
                 change_url = None
-            if perms["add"]:
+            if model_admin.has_add_permission(request):
                 admin_url_name = "add"
                 add_url = admin_url(model, admin_url_name)
             else:

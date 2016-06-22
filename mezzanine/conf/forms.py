@@ -51,7 +51,7 @@ class SettingsForm(forms.Form):
 
     def _init_field(self, setting, field_class, name, code=None):
         """
-        Initialize a field wether it is built with a custom name for a
+        Initialize a field whether it is built with a custom name for a
         specific translation language or not.
         """
         kwargs = {

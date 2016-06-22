@@ -19,7 +19,7 @@ from mezzanine.utils.importing import path_for_import
 IGNORE_ERRORS = (
 
     # Used to version subpackages.
-    "'__version__' imported but unused",
+    ".__version__' imported but unused",
 
     # No caching fallback.
     "redefinition of function 'nevercache'",
