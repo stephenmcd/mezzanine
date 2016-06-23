@@ -7,7 +7,7 @@ from mezzanine.conf import settings
 __all__ = ()
 
 
-if getattr(settings, "AUTH_PROFILE_MODULE", None):
+if getattr(settings, "ACCOUNTS_PROFILE_MODEL", None):
 
     def create_profile(**kwargs):
         if kwargs["created"]:

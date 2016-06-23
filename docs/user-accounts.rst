@@ -18,7 +18,7 @@ account updating, and password retrieval features for the public site.
 Profiles
 ========
 
-Profiles are implemented via Django's ``AUTH_PROFILE_MODULE`` setting.
+Profiles are implemented via the :ref:`ACCOUNTS_PROFILE_MODEL` setting.
 With :mod:`mezzanine.accounts` installed, you can create a profile model
 in one of your apps, with each of the profile fields defined, as well
 as a related field to Django's user model. For example suppose we
@@ -42,7 +42,7 @@ wanted to capture bios and dates of birth for each user::
         # Many more
     )
 
-    AUTH_PROFILE_MODULE = "myapp.MyProfile"
+    ACCOUNTS_PROFILE_MODEL = "myapp.MyProfile"
 
 The bio and date of birth fields will be available in the signup and
 update profile forms, as well as in the user's public profile page.
@@ -51,9 +51,6 @@ update profile forms, as well as in the user's public profile page.
 
     Profile pages are automatically made available when a profile
     model is configured.
-
-For more information consult the `Django docs for profiles
-<https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users>`_.
 
 Restricting Account Fields
 ==========================
