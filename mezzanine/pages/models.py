@@ -11,8 +11,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _, ugettext
 
 from mezzanine.conf import settings
-from mezzanine.core.content_typed import ContentTyped
-from mezzanine.core.models import Displayable, Orderable, RichText
+from mezzanine.core.models import (
+    ContentTyped, Displayable, Orderable, RichText)
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
 from mezzanine.utils.urls import path_to_slug

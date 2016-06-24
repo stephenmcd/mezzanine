@@ -8,8 +8,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from mezzanine.conf import settings
-from mezzanine.core.admin import DisplayableAdmin, DisplayableAdminForm
-from mezzanine.core.content_typed import ContentTypedAdmin
+from mezzanine.core.admin import (
+    ContentTypedAdmin, DisplayableAdmin, DisplayableAdminForm)
 from mezzanine.pages.models import Page, RichTextPage, Link
 from mezzanine.utils.urls import clean_slashes
 

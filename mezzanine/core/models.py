@@ -9,6 +9,7 @@ try:
 except ImportError:
     from urllib import urlopen, urlencode
 
+from django.apps import apps
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.db.models.base import ModelBase
@@ -495,6 +496,36 @@ class Ownable(models.Model):
         Restrict in-line editing to the objects's owner and superusers.
         """
         return request.user.is_superuser or request.user.id == self.user_id
+
+
+class ContentTyped(models.Model):
+    """
+    Mixin for models that can be subclassed to create custom types.
+    In order to use them:
+
+    - Inherit model from ContentTyped.
+    - Inherit that model's ModelAdmin from ContentTypesAdmin.
+    - Include "admin/includes/content_typed_change_list.html" in the
+    change_list.html template.
+    """
+    content_model = models.CharField(editable=False, max_length=50, null=True)
+
+    class Meta:
+        abstract = True
+
+    @classmethod
+    def get_content_model_name(cls):
+        return cls._meta.object_name.lower()
+
+    @classmethod
+    def get_content_models(cls):
+        """ Return all subclasses of the concrete model.  """
+        concrete_model = base_concrete_model(ContentTyped, cls)
+        return [m for m in apps.get_models()
+                if m is not concrete_model and issubclass(m, concrete_model)]
+
+    def get_content_model(self):
+        return getattr(self, self.content_model, None)
 
 
 class SitePermission(models.Model):

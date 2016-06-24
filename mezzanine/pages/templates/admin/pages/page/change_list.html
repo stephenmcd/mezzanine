@@ -21,7 +21,7 @@
 <div id="content-main">
 
     {% if has_add_permission %}
-        {% include "content_typed/change_list.html" %}
+        {% include "admin/includes/content_typed_change_list.html" %}
     {% endif %}
 
     {% if cl.result_count == 0 %}
