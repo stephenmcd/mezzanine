@@ -1,0 +1,21 @@
+{% load pages_tags i18n %}
+
+<script type="text/javascript">
+jQuery(function($) {
+    $('.addlist').change(function() {
+        location.href = this[this.selectedIndex].value;
+    });
+});
+</script>
+
+<div id="addlist-primary">
+    <select class="addlist">
+        <option value="">{% trans "Add" %} ...</option>
+        {% for model in content_models %}
+          {% set_model_permissions model %}
+          {% if model.perms.add %}
+            <option value="{{ model.add_url }}">{{ model.meta_verbose_name|capfirst }}</option>
+          {% endif %}
+        {% endfor %}
+    </select>
+</div>
