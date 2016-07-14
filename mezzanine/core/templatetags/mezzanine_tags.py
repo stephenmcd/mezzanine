@@ -605,7 +605,12 @@ def admin_app_list(request):
                         menu_order[model_label]
                 except KeyError:
                     app_index = None
-                    app_title = opts.app_config.verbose_name.title()
+                    try:
+                        app_title = opts.app_config.verbose_name.title()
+                    except AttributeError:
+                        # Third party admin classes doing weird things.
+                        # See GH #1628
+                        app_title = ""
                     model_index = None
                     model_title = None
                 else:
