@@ -588,7 +588,7 @@ def admin_app_list(request):
         in_menu = in_menu and model_admin.has_module_permission(request)
         if in_menu and request.user.has_module_perms(opts.app_label):
             admin_url_name = ""
-            if model_admin.has_change_permission(request, model):
+            if model_admin.has_change_permission(request):
                 admin_url_name = "changelist"
                 change_url = admin_url(model, admin_url_name)
             else:
