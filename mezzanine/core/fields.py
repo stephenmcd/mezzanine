@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
-from bleach import clean
+from bleach import clean, sanitizer
 
 from django.conf import settings
 from django.contrib.admin.widgets import AdminTextareaWidget
@@ -24,6 +24,10 @@ from mezzanine.utils.importing import import_dotted_path
 LOW_FILTER_TAGS = ("iframe", "embed", "video", "param", "source", "object")
 LOW_FILTER_ATTRS = ("allowfullscreen", "autostart", "loop", "hidden",
                     "playcount", "volume", "controls", "data", "classid")
+
+# https://github.com/mozilla/bleach/issues/102
+if "tel" not in sanitizer.BleachSanitizer.allowed_protocols:
+    sanitizer.BleachSanitizer.allowed_protocols += ["tel"]
 
 
 class OrderField(models.IntegerField):
