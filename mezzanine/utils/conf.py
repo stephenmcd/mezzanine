@@ -4,6 +4,7 @@ import os
 import sys
 from warnings import warn
 
+from django.db import OperationalError
 from django.conf import global_settings as defaults
 
 from mezzanine.utils.timezone import get_best_local_timezone
@@ -19,8 +20,16 @@ class SitesAllowedHosts(object):
     def __iter__(self):
         if getattr(self, "_hosts", None) is None:
             from django.contrib.sites.models import Site
-            self._hosts = [s.domain.split(":")[0] for s in Site.objects.all()]
+            try:
+                self._hosts = [
+                    s.domain.split(":")[0] for s in Site.objects.all()
+                ]
+            except OperationalError:
+                return iter([])
         return iter(self._hosts)
+
+    def __add__(self, other):
+        return list(self) + other
 
 
 def set_dynamic_settings(s):
