@@ -30,7 +30,6 @@ def comments_for(context, obj):
         'unposted_comment_form': form,
         'comment_url': reverse("comment"),
         'object_for_comments': obj,
-        'request': context.get('request'),
     }
 
 

@@ -3,7 +3,6 @@ from future.builtins import int
 from future.builtins import input
 
 import os
-from optparse import make_option
 import shutil
 
 from django.conf import settings
@@ -21,16 +20,20 @@ class Command(BaseCommand):
     """
 
     can_import_settings = True
-    option_list = BaseCommand.option_list + (
-        make_option('--noinput', action='store_false', dest='interactive',
-            default=True, help="Do NOT prompt for input of any kind. "
-                               "Existing templates will be overwritten."),
-        make_option('-t', '--template', dest='template',
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--noinput', action='store_false', dest='interactive',
+            help="Do NOT prompt for input of any kind. "
+                 "Existing templates will be overwritten.")
+        parser.add_argument(
+            '-t', '--template', dest='template',
             help="The template name and relative path of a single template "
-                 "to copy, eg: blog/blog_post_list.html"),
-        make_option('-a', '--admin', action='store_true', dest='admin',
-            default=False, help="Include admin templates."),
-    )
+                 "to copy, eg: blog/blog_post_list.html")
+        parser.add_argument(
+            '-a', '--admin', action='store_true', dest='admin',
+            help="Include admin templates.")
+
     usage = lambda foo, bar: ("usage: %prog [appname1] [appname2] [options] "
                               "\n" + Command.__doc__.rstrip())
 

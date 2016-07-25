@@ -2,7 +2,6 @@
 from distutils.dir_util import copy_tree
 from importlib import import_module
 import os
-from optparse import make_option
 from shutil import move, rmtree
 from tempfile import mkdtemp
 
@@ -18,11 +17,6 @@ import mezzanine
 class Command(BaseCommand):
 
     help = BaseCommand.help.replace("Django", "Mezzanine")
-
-    if django.VERSION < (1, 8):
-        option_list = BaseCommand.option_list + (make_option(
-            "-a", "--alternate", dest="alt", metavar="PACKAGE",
-            help="Alternate package to use, containing a project_template"),)
 
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
