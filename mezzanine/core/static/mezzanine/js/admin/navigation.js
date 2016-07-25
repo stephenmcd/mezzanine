@@ -3,7 +3,7 @@ jQuery(function($) {
 
     $('#user-tools').after($('.dropdown-menu form'));
     $('#header form').show().addClass('dark-select').find('select').chosen();
-    $('.changelist-actions select').chosen();
+    $('.changelist-actions select').removeAttr('required').chosen();
 
     // Set the hrefs for the primary menu items to the href of their first
     // child (unless the primary menu item already has an href).
