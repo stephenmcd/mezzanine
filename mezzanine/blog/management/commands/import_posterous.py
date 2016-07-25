@@ -15,6 +15,7 @@ class Command(BaseImporterCommand):
     """
 
     def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
         parser.add_argument(
             "-a", "--api-token", dest="api_token",
             help="Posterous API Key")
