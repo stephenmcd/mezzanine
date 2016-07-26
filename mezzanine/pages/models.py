@@ -113,13 +113,13 @@ class Page(BasePage, ContentTyped):
             # run it to see if we can retrieve all parents in a single
             # query, which will occur if the slugs for each of the pages
             # have not been customised.
+            self._ascendants = []
             if self.slug:
                 kwargs = {"for_user": for_user}
                 pages = Page.objects.with_ascendants_for_slug(self.slug,
                                                               **kwargs)
-                self._ascendants = pages[0]._ascendants
-            else:
-                self._ascendants = []
+                if(pages):
+                    self._ascendants = pages[0]._ascendants
         if not self._ascendants:
             # Page has a parent but with_ascendants_for_slug failed to
             # find them due to custom slugs, so retrieve the parents
