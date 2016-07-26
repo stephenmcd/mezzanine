@@ -8,6 +8,7 @@ python:
   - "3.4"
   - "3.5"
 install:
+  - pip install --upgrade pip setuptools
   - pip install $DJANGO
   - pip install .
   - pip install coveralls
