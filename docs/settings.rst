@@ -54,6 +54,15 @@ List of fields to exclude from the profile form.
 
 Default: ``()``
 
+.. _ACCOUNTS_PROFILE_MODEL:
+
+``ACCOUNTS_PROFILE_MODEL``
+--------------------------
+
+String in the form `app_label.model_name` for the model used for account profiles.
+
+Default: ``None``
+
 .. _ACCOUNTS_PROFILE_VIEWS_ENABLED:
 
 ``ACCOUNTS_PROFILE_VIEWS_ENABLED``
@@ -104,7 +113,7 @@ Default: ``(('Content', ('pages.Page', 'blog.BlogPost', 'generic.ThreadedComment
 ``ADMIN_REMOVAL``
 -----------------
 
-Unregister these models from the admin.
+A sequence of Python dotted paths to models (eg: ``['mezzanine.blog.models.BlogPost',]``) that should be removed from the admin.
 
 Default: ``()``
 
