@@ -189,7 +189,7 @@ class RatingForm(CommentSecurityForm):
     """
     value = forms.ChoiceField(label="", widget=forms.RadioSelect,
                               choices=list(zip(
-                                  *(settings.RATINGS_RANGE,) * 2)))
+                                             *(settings.RATINGS_RANGE,) * 2)))
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
@@ -230,7 +230,7 @@ class RatingForm(CommentSecurityForm):
 
         if user.is_authenticated():
             rating_instance, created = manager.get_or_create(user=user,
-                                                             defaults={'value': rating_value})
+                defaults={'value': rating_value})
             if not created:
                 if rating_instance.value == int(rating_value):
                     # User submitted the same rating as previously,
