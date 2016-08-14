@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from future.builtins import map
 
 import os
+from itertools import chain
 
 from django.template import Template, TemplateSyntaxError, TemplateDoesNotExist
 from django.template.loader_tags import ExtendsNode
@@ -58,8 +59,11 @@ class OverExtendsNode(ExtendsNode):
         if context_name not in context:
             context[context_name] = {}
         if name not in context[context_name]:
-            all_dirs = list(settings.TEMPLATE_DIRS) + list(
-                app_directories.get_app_template_dirs('templates'))
+            all_dirs = (
+                list(chain.from_iterable(
+                    [template_engine.get('DIRS', [])
+                     for template_engine in settings.TEMPLATES])) +
+                list(app_directories.get_app_template_dirs('templates')))
             # os.path.abspath is needed under uWSGI, and also ensures we
             # have consistent path separators across different OSes.
             context[context_name][name] = list(map(os.path.abspath, all_dirs))
@@ -68,7 +72,13 @@ class OverExtendsNode(ExtendsNode):
         # other loaders like the ``cached`` template loader, unwind its
         # internal loaders and add those instead.
         loaders = []
-        for loader_name in settings.TEMPLATE_LOADERS:
+        loader_names = set(chain.from_iterable(
+            [template_engine.get('OPTIONS', {}).get('loaders', [])
+             for template_engine in settings.TEMPLATES]))
+        loader_names.update(  # default template loaders
+            ['django.template.loaders.filesystem.Loader',
+             'django.template.loaders.app_directories.Loader'])
+        for loader_name in loader_names:
             loader = context.template.engine.find_template_loader(loader_name)
             loaders.extend(getattr(loader, "loaders", [loader]))
 
