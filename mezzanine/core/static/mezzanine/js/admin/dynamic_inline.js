@@ -38,7 +38,7 @@ jQuery(function($) {
 
     var itemSelector = window.__grappelli_installed ? '.items' : 'tbody';
     var parentSelector = '.inline-group ' + itemSelector;
-    var orderSelector = window.__grappelli_installed ? '._order input' : '.field-_order input';
+    var orderSelector = window.__grappelli_installed ? '.field-_order input, ._order input' : '.field-_order input';
 
     // Apply drag and drop to orderable inlines.
     $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7',
