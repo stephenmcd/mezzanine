@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 from future.builtins import str
+from mezzanine.utils.sites import override_current_site_id
+
 try:
     from urllib.parse import urljoin
 except ImportError:  # Python 2
@@ -115,8 +117,9 @@ class Page(BasePage, ContentTyped):
             # have not been customised.
             if self.slug:
                 kwargs = {"for_user": for_user}
-                pages = Page.objects.with_ascendants_for_slug(self.slug,
-                                                              **kwargs)
+                with override_current_site_id(self.site_id):
+                    pages = Page.objects.with_ascendants_for_slug(self.slug,
+                                                                  **kwargs)
                 self._ascendants = pages[0]._ascendants
             else:
                 self._ascendants = []
