@@ -468,31 +468,10 @@ def richtext_filters(content):
     Takes a value edited via the WYSIWYG editor, and passes it through
     each of the functions specified by the RICHTEXT_FILTERS setting.
     """
-    filter_names = settings.RICHTEXT_FILTERS
-    if not filter_names:
-        try:
-            filter_names = [settings.RICHTEXT_FILTER]
-        except AttributeError:
-            pass
-        else:
-            from warnings import warn
-            warn("The `RICHTEXT_FILTER` setting is deprecated in favor of "
-                 "the new plural setting `RICHTEXT_FILTERS`.")
-    for filter_name in filter_names:
+    for filter_name in settings.RICHTEXT_FILTERS:
         filter_func = import_dotted_path(filter_name)
         content = filter_func(content)
     return content
-
-
-@register.filter
-def richtext_filter(content):
-    """
-    Deprecated version of richtext_filters above.
-    """
-    from warnings import warn
-    warn("The `richtext_filter` template tag is deprecated in favor of "
-         "the new plural tag `richtext_filters`.")
-    return richtext_filters(content)
 
 
 @register.to_end_tag
