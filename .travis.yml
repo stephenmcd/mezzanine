@@ -2,11 +2,13 @@ language: python
 env:
   - DJANGO="Django>=1.8.0,<1.9.0"
   - DJANGO="Django>=1.9.0,<1.10.0"
+  - DJANGO=https://github.com/django/django/archive/stable/1.10.x.zip
 python:
   - "2.7"
   - "3.4"
   - "3.5"
 install:
+  - pip install --upgrade pip setuptools
   - pip install $DJANGO
   - pip install .
   - pip install coveralls

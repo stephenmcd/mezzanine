@@ -173,6 +173,14 @@ class UpdateCacheMiddleware(object):
         if hasattr(request, '_messages'):
             # Required to clear out user messages.
             request._messages.update(response)
+        # Response needs to be run-through the CSRF middleware again so
+        # that if there was a {% csrf_token %} inside of the nevercache
+        # the cookie will be correctly set for the the response
+        csrf_mw_name = "django.middleware.csrf.CsrfViewMiddleware"
+        if csrf_mw_name in settings.MIDDLEWARE_CLASSES:
+            response.csrf_processing_done = False
+            csrf_mw = CsrfViewMiddleware()
+            csrf_mw.process_response(request, response)
         return response
 
 

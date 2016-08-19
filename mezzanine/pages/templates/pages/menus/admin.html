@@ -29,7 +29,7 @@
             {% if page.perms.add %}
             <select class="addlist" id="addlink-{{ page.id }}">
                 <option value="">{% trans "Add" %} ...</option>
-                {% for model in page_models %}
+                {% for model in content_models %}
                     {% if model.perms.add %}
                     <option value="{{ model.add_url }}?parent={{ page.id }}"
                         >{{ model.meta_verbose_name|capfirst }}</option>

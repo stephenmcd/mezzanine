@@ -1,0 +1,32 @@
+{% load pages_tags i18n %}
+
+<script type="text/javascript">
+jQuery(function($) {
+    $('.addlist').change(function() {
+        var addUrl = this[this.selectedIndex].value;
+        // If the browser's back button is hit from the add interface,
+        // the browser may maintain the state of the select list in the
+        // list interface, in which case the previously selected option
+        // will still be selected. This would mean the first option
+        // (eg "Add ..."") could be selected, which contains no URL to
+        // redirect to, so we guard against that, also set selectedIndex
+        // back to zero, to also protect against this scenario.
+        if (addUrl) {
+            location.href = addUrl;
+            this.selectedIndex = 0;
+        }
+    });
+});
+</script>
+
+<div id="addlist-primary">
+    <select class="addlist">
+        <option value="">{% trans "Add" %} ...</option>
+        {% for model in content_models %}
+          {% set_model_permissions model %}
+          {% if model.perms.add %}
+            <option value="{{ model.add_url }}">{{ model.meta_verbose_name|capfirst }}</option>
+          {% endif %}
+        {% endfor %}
+    </select>
+</div>

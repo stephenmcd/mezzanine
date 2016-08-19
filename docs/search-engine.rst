@@ -5,9 +5,10 @@ Search Engine
 Mezzanine provides a built-in search engine that allows site visitors to
 search across different types of content. It includes several tools that
 enable developers to adjust the scope of the site search. It also includes
-a Search API to programmatically interact with the search engine, customize
-the way the search engine accesses different types of content, and perform
-search queries that are broken down and used to query models for results.
+a Search API to programmatically interact with the search engine,
+customize the way the search engine accesses different types of content,
+and perform search queries that are broken down and used to query models
+for results.
 
 Search Form
 ===========
@@ -65,9 +66,9 @@ manager for your model.
     By following the previous example outlined in
     :ref:`creating-custom-content-types` no extra work is required to have
     your custom content included in search queries, as the default search
-    functionality in Mezzanine (defined in :func:`mezzanine.core.views.search`)
-    automatically covers any models that inherit from
-    :class:`mezzanine.pages.models.Page` or
+    functionality in Mezzanine (defined in
+    :func:`mezzanine.core.views.search`) automatically covers any models
+    that inherit from :class:`mezzanine.pages.models.Page` or
     :class:`mezzanine.core.models.Displayable`.
 
 In its most simple form, the :meth:`.SearchableManager.search`
@@ -90,11 +91,11 @@ search. For example to search ``Page.title`` and ``Page.content`` only::
     results = Page.objects.search(query, search_fields=search_fields)
 
 If ``search_fields`` is not provided in the call to ``search``, the fields
-used will be the default fields specified for the model. These are specified
-by providing a ``search_fields`` attribute on any model that uses the
-:class:`.SearchableManager`. For example, if we wanted to add search
-capabilities to our :class:`.GalleryImage` model from the previous example in
-:ref:`creating-custom-content-types`::
+used will be the default fields specified for the model. These are
+specified by providing a ``search_fields`` attribute on any model that
+uses the :class:`.SearchableManager`. For example, if we wanted to add
+search capabilities to our :class:`.GalleryImage` model from the previous
+example in :ref:`creating-custom-content-types`::
 
     from django.db import models
     from mezzanine.pages.models import Page
@@ -128,12 +129,13 @@ Ordering Results
 
 By default, results are ordered by the number of matches found within the
 fields searched. It is possible to control the relative weight of a match
-found within one field over a match found in another field. Given the first
-example of searching :class:`.Page` instances, you might decide that a match
-within the ``title`` field is worth 5 times as much as a match in the
-``description`` field. These relative weights can be defined in the same
-fashion as outlined above for defining the fields to be used in a search by
-using a slightly different format for the ``search_fields`` argument::
+found within one field over a match found in another field. Given the
+first example of searching :class:`.Page` instances, you might decide that
+a match within the ``title`` field is worth 5 times as much as a match in
+the ``description`` field. These relative weights can be defined in the
+same fashion as outlined above for defining the fields to be used in a
+search by using a slightly different format for the ``search_fields``
+argument::
 
     from mezzanine.pages.models import Page
 
@@ -141,25 +143,25 @@ using a slightly different format for the ``search_fields`` argument::
     search_fields = {"title": 5, "content": 1}
     results = Page.objects.search(query, search_fields=search_fields)
 
-As shown, a dictionary or mapping sequence can be used to associate weights
-to fields in any of the cases described above where ``search_fields`` can
-be defined.
+As shown, a dictionary or mapping sequence can be used to associate
+weights to fields in any of the cases described above where
+``search_fields`` can be defined.
 
 Searching Heterogeneous Models
 ==============================
 
 So far we've looked at how to search across a single model, but what if we
 want to search across different types of models at once? This is possible
-through the use of abstract models. :class:`.SearchableManager` is designed so
-that if it is accessed directly through an abstract model, it will search
-across every model that subclasses the abstract model. This makes it
-possible to group together different types of models for the purpose of
-combined search. Continuing on from our :class:`.GalleryImage` example, suppose
-we also have a ``Document`` model containing files uploaded and that we
-wanted a combined search across these models which could both be
-conceptually defined as assets. We would then go ahead and create an
-abstract model called ``Asset`` for the sake of grouping these together
-for search::
+through the use of abstract models. :class:`.SearchableManager` is
+designed so that if it is accessed directly through an abstract model, it
+will search across every model that subclasses the abstract model. This
+makes it possible to group together different types of models for the
+purpose of combined search. Continuing on from our :class:`.GalleryImage`
+example, suppose we also have a ``Document`` model containing files
+uploaded and that we wanted a combined search across these models which
+could both be conceptually defined as assets. We would then go ahead and
+create an abstract model called ``Asset`` for the sake of grouping these
+together for search::
 
     class Asset(models.Model):
         title = models.CharField("Title", max_length=100)
@@ -187,11 +189,11 @@ models at once::
 
 .. note::
 
-    It was mentioned earlier that the :meth:`.SearchableManager.search` method returns a Django
-    queryset meaning that you can then chain together further queryset
-    methods onto the result. However when searching across heterogeneous
-    models via an abstract model, this is not the case and the result is a
-    list of model instances.
+    It was mentioned earlier that the :meth:`.SearchableManager.search`
+    method returns a Django queryset meaning that you can then chain
+    together further queryset methods onto the result. However when
+    searching across heterogeneous models via an abstract model, this is
+    not the case and the result is a list of model instances.
 
     Also of importance is the ``SEARCH_MODEL_CHOICES`` setting mentioned
     above. When searching across heterogeneous models via an abstract

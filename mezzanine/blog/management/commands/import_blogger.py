@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 from datetime import datetime, timedelta
-from optparse import make_option
 from time import timezone
 import re
 
@@ -17,10 +16,11 @@ class Command(BaseImporterCommand):
     determine which blog it should point to and harvest the XML from.
     """
 
-    option_list = BaseImporterCommand.option_list + (
-        make_option("-b", "--blogger-id", dest="blog_id",
-            help="Blogger Blog ID from blogger dashboard"),
-    )
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+        parser.add_argument(
+            "-b", "--blogger-id", dest="blog_id",
+            help="Blogger Blog ID from blogger dashboard")
 
     def handle_import(self, options):
         """

@@ -1,23 +1,20 @@
 from __future__ import print_function, unicode_literals
 
-from optparse import make_option
-
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django import db
 
 from mezzanine.twitter.models import Query, TwitterQueryException
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     """
     Polls the Twitter API for tweets associated to the queries in templates.
     """
 
-    option_list = NoArgsCommand.option_list + (
-        make_option("--force", default=False, action="store_true"),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument("--force", action="store_true")
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         queries = Query.objects.all()
         if not options["force"]:
             queries = queries.filter(interested=True)

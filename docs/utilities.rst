@@ -88,7 +88,7 @@ would be ``Book.keywords_string`` in the above example. Each time
 keywords change, the ``keywords_string`` field is populated with a
 comma separated string list of each of the keywords. This can be used
 in conjunction with Mezzanine's :doc:`search-engine` - behavior that is
-provided by default for the :class:`.Page` and :class:`,Displayable` models.
+provided by default for the :class:`.Page` and :class:`.Displayable` models.
 
 .. _comments:
 
@@ -97,10 +97,10 @@ Threaded Comments
 
 Threaded comments provided by the :mod:`mezzanine.generic` app are an
 extension of Django's `django_comments
-<https://github.com/django/django-contrib-comments>`_ app.
-Mezzanine's threaded comments fundamentally extend Django's comments
-to allow for threaded conversations, where comments can be made in
-reply to other comments.
+<https://github.com/django/django-contrib-comments>`_ app. Mezzanine's
+threaded comments fundamentally extend Django's comments to allow for
+threaded conversations, where comments can be made in reply to other
+comments.
 
 Again as with our ``Book`` example, suppose we wanted to add threaded
 conversations to our book pages in templates, we first define comments

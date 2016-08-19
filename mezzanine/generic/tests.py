@@ -1,4 +1,7 @@
 from __future__ import division, unicode_literals
+
+from django.template import Context
+from django.template import Template
 from future.utils import native_str
 
 from unittest import skipUnless
@@ -147,3 +150,28 @@ class GenericTests(TestCase):
             request.session = {}
         response = comment(request)
         self.assertEquals(response.status_code, 400)
+
+    def test_multiple_comment_forms(self):
+
+        template = Template("""
+            {% load comment_tags %}
+            {% comments_for post1 %}
+            {% comments_for post2 %}
+        """)
+
+        request = self._request_factory.get(reverse('comment'))
+        request.user = self._user
+
+        context = {
+            'post1': BlogPost.objects.create(title="Post #1", user=self._user),
+            'post2': BlogPost.objects.create(title="Post #2", user=self._user),
+            'request': request,
+        }
+
+        result = template.render(Context(context))
+
+        self.assertIn(
+            '<input id="id_object_pk" name="object_pk" '
+            'type="hidden" value="%d" />' % context['post2'].pk,
+            result
+        )

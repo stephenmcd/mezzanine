@@ -60,39 +60,44 @@ else:
         return parsed
 
 
-if cache_installed():
-    @register.tag
-    def nevercache(parser, token):
-        """
-        Tag for two phased rendering. Converts enclosed template
-        code and content into text, which gets rendered separately
-        in ``mezzanine.core.middleware.UpdateCacheMiddleware``.
-        This is to bypass caching for the enclosed code and content.
-        """
-        text = []
-        end_tag = "endnevercache"
-        tag_mapping = {
-            TOKEN_TEXT: ("", ""),
-            TOKEN_VAR: ("{{", "}}"),
-            TOKEN_BLOCK: ("{%", "%}"),
-            TOKEN_COMMENT: ("{#", "#}"),
-        }
-        delimiter = nevercache_token()
-        while parser.tokens:
-            token = parser.next_token()
-            if token.token_type == TOKEN_BLOCK and token.contents == end_tag:
-                return TextNode(delimiter + "".join(text) + delimiter)
-            start, end = tag_mapping[token.token_type]
-            text.append("%s%s%s" % (start, token.contents, end))
-        parser.unclosed_block_tag(end_tag)
-else:
-    @register.to_end_tag
-    def nevercache(parsed, context, token):
-        """
-        Dummy fallback ``nevercache`` for when caching is not
-        configured.
-        """
-        return parsed
+def initialize_nevercache():
+    if cache_installed():
+        @register.tag
+        def nevercache(parser, token):
+            """
+            Tag for two phased rendering. Converts enclosed template
+            code and content into text, which gets rendered separately
+            in ``mezzanine.core.middleware.UpdateCacheMiddleware``.
+            This is to bypass caching for the enclosed code and content.
+            """
+            text = []
+            end_tag = "endnevercache"
+            tag_mapping = {
+                TOKEN_TEXT: ("", ""),
+                TOKEN_VAR: ("{{", "}}"),
+                TOKEN_BLOCK: ("{%", "%}"),
+                TOKEN_COMMENT: ("{#", "#}"),
+            }
+            delimiter = nevercache_token()
+            while parser.tokens:
+                token = parser.next_token()
+                token_type = token.token_type
+                if token_type == TOKEN_BLOCK and token.contents == end_tag:
+                    return TextNode(delimiter + "".join(text) + delimiter)
+                start, end = tag_mapping[token_type]
+                text.append("%s%s%s" % (start, token.contents, end))
+            parser.unclosed_block_tag(end_tag)
+    else:
+        @register.to_end_tag
+        def nevercache(parsed, context, token):
+            """
+            Dummy fallback ``nevercache`` for when caching is not
+            configured.
+            """
+            return parsed
+
+
+initialize_nevercache()
 
 
 @register.simple_tag(takes_context=True)
@@ -345,6 +350,29 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         return image_url
 
     image_info = image.info
+
+    # Transpose to align the image to its orientation if necessary.
+    # If the image is transposed, delete the exif information as
+    # not all browsers support the CSS image-orientation:
+    # - http://caniuse.com/#feat=css-image-orientation
+    try:
+        orientation = image._getexif().get(0x0112)
+    except:
+        orientation = None
+    if orientation:
+        methods = {
+           2: (Image.FLIP_LEFT_RIGHT,),
+           3: (Image.ROTATE_180,),
+           4: (Image.FLIP_TOP_BOTTOM,),
+           5: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_90),
+           6: (Image.ROTATE_270,),
+           7: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_270),
+           8: (Image.ROTATE_90,)}.get(orientation, ())
+        if methods:
+            image_info.pop('exif', None)
+            for method in methods:
+                image = image.transpose(method)
+
     to_width = int(width)
     to_height = int(height)
     from_width = image.size[0]
@@ -397,7 +425,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         # absolute.
         if "://" in settings.MEDIA_URL:
             with open(thumb_path, "rb") as f:
-                default_storage.save(thumb_url, File(f))
+                default_storage.save(unquote(thumb_url), File(f))
     except Exception:
         # If an error occurred, a corrupted image may have been saved,
         # so remove it, otherwise the check for it existing will just
@@ -440,31 +468,10 @@ def richtext_filters(content):
     Takes a value edited via the WYSIWYG editor, and passes it through
     each of the functions specified by the RICHTEXT_FILTERS setting.
     """
-    filter_names = settings.RICHTEXT_FILTERS
-    if not filter_names:
-        try:
-            filter_names = [settings.RICHTEXT_FILTER]
-        except AttributeError:
-            pass
-        else:
-            from warnings import warn
-            warn("The `RICHTEXT_FILTER` setting is deprecated in favor of "
-                 "the new plural setting `RICHTEXT_FILTERS`.")
-    for filter_name in filter_names:
+    for filter_name in settings.RICHTEXT_FILTERS:
         filter_func = import_dotted_path(filter_name)
         content = filter_func(content)
     return content
-
-
-@register.filter
-def richtext_filter(content):
-    """
-    Deprecated version of richtext_filters above.
-    """
-    from warnings import warn
-    warn("The `richtext_filter` template tag is deprecated in favor of "
-         "the new plural tag `richtext_filters`.")
-    return richtext_filters(content)
 
 
 @register.to_end_tag
@@ -560,7 +567,7 @@ def admin_app_list(request):
         in_menu = in_menu and model_admin.has_module_permission(request)
         if in_menu and request.user.has_module_perms(opts.app_label):
             admin_url_name = ""
-            if model_admin.has_change_permission(request, model):
+            if model_admin.has_change_permission(request):
                 admin_url_name = "changelist"
                 change_url = admin_url(model, admin_url_name)
             else:
@@ -577,7 +584,12 @@ def admin_app_list(request):
                         menu_order[model_label]
                 except KeyError:
                     app_index = None
-                    app_title = opts.app_config.verbose_name.title()
+                    try:
+                        app_title = opts.app_config.verbose_name.title()
+                    except AttributeError:
+                        # Third party admin classes doing weird things.
+                        # See GH #1628
+                        app_title = ""
                     model_index = None
                     model_title = None
                 else:

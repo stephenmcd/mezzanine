@@ -2,6 +2,11 @@
 
 {% load mezzanine_tags i18n %}
 
+{% block extra_head %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
 {% block main %}
 {{ block.super }}
 {% if request.GET.sent %}

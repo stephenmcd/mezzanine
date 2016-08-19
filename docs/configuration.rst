@@ -15,7 +15,7 @@ Registering Settings
 
 Settings are defined by creating a module named ``defaults.py`` inside
 one or more of the applications defined in your project's
-``settings.INSTALLED_APPS`` setting. Inside your ``defaults.py`` module
+:django:setting:`INSTALLED_APPS` setting. Inside your ``defaults.py`` module
 you then call the function :func:`mezzanine.conf.register_setting` for
 each setting you want to define which takes several keyword arguments:
 
@@ -103,7 +103,7 @@ couple of ways.
 Firstly it's possible to override the default value for any setting defined
 using :func:`mezzanine.conf.register_setting` by adding its name and value as
 a regular setting to your project's settings module. This is especially useful
-when any of your project's ``INSTALLED_APPS`` (including Mezzanine
+when any of your project's :django:setting:`INSTALLED_APPS` (including Mezzanine
 itself) register settings that aren't editable and you want to override
 these settings without modifying the application that registered them.
 

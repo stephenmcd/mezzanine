@@ -168,10 +168,11 @@ management.base.BaseImporterCommand.add_comment` method. For example::
 
     class Command(BaseImporterCommand):
 
-        option_list = BaseImporterCommand.option_list + (
-            make_option("-s", "--some-arg-name", dest="some_arg_var",
-                help="Description of some-arg-name"),
-        )
+        def add_arguments(self, parser):
+            super(Command, self).add_arguments(parser)
+            parser.add_argument(
+                "-s", "--some-arg-name", dest="some_arg_var",
+                help="Description of some-arg-name")
 
         def handle_import(self, options):
             # Perform the tasks that need to occur to retrieve blog posts.

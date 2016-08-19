@@ -269,12 +269,12 @@ custom :class:`.Page` models and are then called inside the
 :class:`.Page` instance. A Page Processor will always be passed two arguments
 - the request and the :class:`.Page` instance, and can either return a
 dictionary that will be added to the template context, or it can return
-any of Django's ``HttpResponse`` classes which will override the
+any of Django's :class:`~django.http.HttpResponse` classes which will override the
 :func:`mezzanine.pages.views.page` view entirely.
 
 To associate a Page Processor to a custom :class:`.Page` model you must
 create the function for it in a module called :mod:`.page_processors.py`
-inside one of your ``INSTALLED_APPS`` and decorate it using the
+inside one of your :django:setting:`INSTALLED_APPS` and decorate it using the
 decorator :func:`mezzanine.pages.page_processors.processor_for`.
 
 Continuing on from our author example, suppose we want to add an
@@ -570,4 +570,4 @@ as active in the navigation, and to generate breadcrumbs for the
 ``page`` instance as well.
 
 An example of this setup is Mezzanine's blog application, which does not
-use ``Page`` content types, and is just a regular Django app.
+use :class:`.Page` content types, and is just a regular Django app.

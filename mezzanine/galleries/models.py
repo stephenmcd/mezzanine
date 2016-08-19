@@ -69,13 +69,21 @@ class BaseGallery(models.Model):
                 except:
                     continue
                 name = os.path.split(name)[1]
-                # This is a way of getting around the broken nature of
-                # os.path.join on Python 2.x. See also the comment below.
+
+                # In python3, name is a string. Convert it to bytes.
+                if not isinstance(name, bytes):
+                    try:
+                        name = name.encode('cp437')
+                    except UnicodeEncodeError:
+                        # File name includes characters that aren't in cp437,
+                        # which isn't supported by most zip tooling. They will
+                        # not appear correctly.
+                        tempname = name
+
+                # Decode byte-name.
                 if isinstance(name, bytes):
                     encoding = charsetdetect(name)['encoding']
                     tempname = name.decode(encoding)
-                else:
-                    tempname = name
 
                 # A gallery with a slug of "/" tries to extract files
                 # to / on disk; see os.path.join docs.

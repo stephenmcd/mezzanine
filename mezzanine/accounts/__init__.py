@@ -1,7 +1,7 @@
 """
 Provides features for non-staff user accounts, such as login, signup
 with optional email verification, password reset, and integration
-with user profiles models defined by the ``AUTH_PROFILE_MODULE``
+with user profiles models defined by the ``ACCOUNTS_PROFILE_MODEL``
 setting. Some utility functions for probing the profile model are
 included below.
 """
@@ -22,33 +22,33 @@ class ProfileNotConfigured(Exception):
 def get_profile_model():
     """
     Returns the Mezzanine profile model, defined in
-    ``settings.AUTH_PROFILE_MODULE``, or ``None`` if no profile
+    ``settings.ACCOUNTS_PROFILE_MODEL``, or ``None`` if no profile
     model is configured.
     """
 
-    if not getattr(settings, "AUTH_PROFILE_MODULE", None):
+    if not getattr(settings, "ACCOUNTS_PROFILE_MODEL", None):
         raise ProfileNotConfigured
 
     try:
-        return apps.get_model(settings.AUTH_PROFILE_MODULE)
+        return apps.get_model(settings.ACCOUNTS_PROFILE_MODEL)
     except ValueError:
-        raise ImproperlyConfigured("AUTH_PROFILE_MODULE must be of "
+        raise ImproperlyConfigured("ACCOUNTS_PROFILE_MODEL must be of "
                                    "the form 'app_label.model_name'")
     except LookupError:
-        raise ImproperlyConfigured("AUTH_PROFILE_MODULE refers to "
+        raise ImproperlyConfigured("ACCOUNTS_PROFILE_MODEL refers to "
                                    "model '%s' that has not been installed"
-                                   % settings.AUTH_PROFILE_MODULE)
+                                   % settings.ACCOUNTS_PROFILE_MODEL)
 
 
 def get_profile_for_user(user):
     """
     Returns site-specific profile for this user. Raises
-    ``ProfileNotConfigured`` if ``settings.AUTH_PROFILE_MODULE`` is not
+    ``ProfileNotConfigured`` if ``settings.ACCOUNTS_PROFILE_MODEL`` is not
     set, and ``ImproperlyConfigured`` if the corresponding model can't
     be found.
     """
     if not hasattr(user, '_mezzanine_profile'):
-        # Raises ProfileNotConfigured if not bool(AUTH_PROFILE_MODULE)
+        # Raises ProfileNotConfigured if not bool(ACCOUNTS_PROFILE_MODEL)
         profile_model = get_profile_model()
         profile_manager = profile_model._default_manager.using(user._state.db)
 
@@ -85,6 +85,6 @@ def get_profile_user_fieldname(profile_model=None, user_model=None):
     for field in Profile._meta.fields:
         if field.rel and field.rel.to == User:
             return field.name
-    raise ImproperlyConfigured("Value for AUTH_PROFILE_MODULE does not "
+    raise ImproperlyConfigured("Value for ACCOUNTS_PROFILE_MODEL does not "
                                "contain a ForeignKey field for auth.User: %s"
                                % Profile.__name__)

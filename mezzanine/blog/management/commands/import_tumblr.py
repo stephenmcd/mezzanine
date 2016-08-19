@@ -4,7 +4,6 @@ from future.builtins import int
 
 from datetime import datetime
 from json import loads
-from optparse import make_option
 from time import sleep
 
 try:
@@ -39,10 +38,12 @@ class Command(BaseImporterCommand):
     Import Tumblr blog posts into the blog app.
     """
 
-    option_list = BaseImporterCommand.option_list + (
-        make_option("-t", "--tumblr-user", dest="tumblr_user",
-            help="Tumblr username"),
-    )
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+        parser.add_argument(
+            "-t", "--tumblr-user", dest="tumblr_user",
+            help="Tumblr username")
+
     help = "Import Tumblr blog posts into the blog app."
 
     def handle_import(self, options):

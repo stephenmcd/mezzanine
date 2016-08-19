@@ -20,7 +20,7 @@ User = get_user_model()
 _exclude_fields = tuple(getattr(settings,
                                 "ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS", ()))
 
-# If a profile model has been configured with the ``AUTH_PROFILE_MODULE``
+# If a profile model has been configured with the ``ACCOUNTS_PROFILE_MODEL``
 # setting, create a model form for it that will have its fields added to
 # ``ProfileForm``.
 try:
@@ -72,7 +72,7 @@ class LoginForm(Html5Mixin, forms.Form):
 class ProfileForm(Html5Mixin, forms.ModelForm):
     """
     ModelForm for auth.User - used for signup and profile update.
-    If a Profile model is defined via ``AUTH_PROFILE_MODULE``, its
+    If a Profile model is defined via ``ACCOUNTS_PROFILE_MODEL``, its
     fields are injected into the form.
     """
 

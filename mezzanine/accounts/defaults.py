@@ -16,6 +16,21 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import register_setting
 
 
+from django.conf import settings
+profile_model_default = getattr(settings, "AUTH_PROFILE_MODULE", None)
+if profile_model_default:
+    from warnings import warn
+    warn("Django's AUTH_PROFILE_MODULE setting is deprecated, use "
+         "Mezzanine's ACCOUNTS_PROFILE_MODEL instead.")
+
+register_setting(
+    name="ACCOUNTS_PROFILE_MODEL",
+    description=_("String in the form `app_label.model_name` for the model "
+        "used for account profiles."),
+    editable=False,
+    default=profile_model_default,
+)
+
 register_setting(
     name="ACCOUNTS_MIN_PASSWORD_LENGTH",
     description=_("Minimum length for passwords"),

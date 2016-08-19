@@ -1,6 +1,5 @@
 from __future__ import print_function, unicode_literals
 from future.builtins import input, int
-from optparse import make_option
 try:
     from urllib.parse import urlparse
 except:
@@ -32,17 +31,20 @@ class BaseImporterCommand(BaseCommand):
     import mechanism specific to the blogging platform being dealt with.
     """
 
-    option_list = BaseCommand.option_list + (
-        make_option("-m", "--mezzanine-user", dest="mezzanine_user",
-            help="Mezzanine username to assign the imported blog posts to."),
-        make_option("--noinput", action="store_false", dest="interactive",
-            default=True, help="Do NOT prompt for input of any kind. "
-                               "Fields will be truncated if too long."),
-        make_option("-n", "--navigation", action="store_true",
-            dest="in_navigation", help="Add any imported pages to navigation"),
-        make_option("-f", "--footer", action="store_true", dest="in_footer",
-            help="Add any imported pages to footer navigation"),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "-m", "--mezzanine-user", dest="mezzanine_user",
+            help="Mezzanine username to assign the imported blog posts to.")
+        parser.add_argument(
+            "--noinput", action="store_false", dest="interactive",
+            help="Do NOT prompt for input of any kind. "
+                 "Fields will be truncated if too long.")
+        parser.add_argument(
+            "-n", "--navigation", action="store_true", dest="in_navigation",
+            help="Add any imported pages to navigation")
+        parser.add_argument(
+            "-f", "--footer", action="store_true", dest="in_footer",
+            help="Add any imported pages to footer navigation")
 
     def __init__(self, **kwargs):
         self.posts = []

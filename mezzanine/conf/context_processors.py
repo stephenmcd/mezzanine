@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+from warnings import warn
+
 
 # Deprecated settings and their defaults.
 DEPRECATED = {}
@@ -30,10 +32,10 @@ class TemplateSettings(dict):
     def __getitem__(self, k):
 
         if k not in self.allowed_settings:
+            warn("%s is not in TEMPLATE_ACCESSIBLE_SETTINGS." % k)
             raise KeyError
 
         if k in DEPRECATED:
-            from warnings import warn
             warn("%s is deprecated. Please remove it from your templates." % k)
 
         try:

@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from datetime import datetime
 import json
 import time
-from optparse import make_option
 
 from django.core.management.base import CommandError
 
@@ -15,16 +14,21 @@ class Command(BaseImporterCommand):
     Import Tumblr blog posts into the blog app.
     """
 
-    option_list = BaseImporterCommand.option_list + (
-        make_option("-a", "--api-token", dest="api_token",
-            help="Posterous API Key"),
-        make_option("-u", "--posterous-user", dest="username",
-            help="Posterous Username"),
-        make_option("-p", "--posterous-pass", dest="password",
-            help="Posterous Password"),
-        make_option("-d", "--posterous-host", dest="hostname",
-            help="Posterous Blog Hostname (no http.. eg. 'foo.com')"),
-    )
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+        parser.add_argument(
+            "-a", "--api-token", dest="api_token",
+            help="Posterous API Key")
+        parser.add_argument(
+            "-u", "--posterous-user", dest="username",
+            help="Posterous Username")
+        parser.add_argument(
+            "-p", "--posterous-pass", dest="password",
+            help="Posterous Password")
+        parser.add_argument(
+            "-d", "--posterous-host", dest="hostname",
+            help="Posterous Blog Hostname (no http.. eg. 'foo.com')")
+
     help = "Import Posterous blog posts into the blog app."
 
     def request(self, path, data=None):

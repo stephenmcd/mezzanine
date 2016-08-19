@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+
+import django
 from future.builtins import int, zip
 
 from functools import reduce
@@ -17,6 +19,34 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import home_slug
+
+
+if django.VERSION >= (1, 10):
+    class ManagerDescriptor(ManagerDescriptor):
+        """
+        This class exists purely to skip the abstract model check
+        in the __get__ method of Django's ManagerDescriptor.
+        """
+        def __get__(self, instance, cls=None):
+            if instance is not None:
+                raise AttributeError(
+                    "Manager isn't accessible via %s instances" % cls.__name__
+                )
+
+            # In ManagerDescriptor.__get__, an exception is raised here
+            # if cls is abstract
+
+            if cls._meta.swapped:
+                raise AttributeError(
+                    "Manager isn't available; "
+                    "'%s.%s' has been swapped for '%s'" % (
+                        cls._meta.app_label,
+                        cls._meta.object_name,
+                        cls._meta.swapped,
+                    )
+                )
+
+            return cls._meta.managers_map[self.manager.name]
 
 
 class PublishedManager(Manager):

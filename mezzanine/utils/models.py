@@ -29,7 +29,13 @@ def get_user_model_name():
     return getattr(settings, "AUTH_USER_MODEL", "auth.User")
 
 
-def base_concrete_model(abstract, instance):
+def _base_concrete_model(abstract, klass):
+    for kls in reversed(klass.__mro__):
+        if issubclass(kls, abstract) and not kls._meta.abstract:
+            return kls
+
+
+def base_concrete_model(abstract, model):
     """
     Used in methods of abstract models to find the super-most concrete
     (non abstract) model in the inheritance chain that inherits from the
@@ -62,10 +68,14 @@ def base_concrete_model(abstract, instance):
     and ``_order`` which are only relevant in the context of the ``Page``
     model and not the model of the custom content type.
     """
-    for cls in reversed(instance.__class__.__mro__):
-        if issubclass(cls, abstract) and not cls._meta.abstract:
-            return cls
-    return instance.__class__
+    if hasattr(model, 'objects'):
+        # "model" is a model class
+        return (model if model._meta.abstract else
+                _base_concrete_model(abstract, model))
+    # "model" is a model instance
+    return (
+        _base_concrete_model(abstract, model.__class__) or
+        model.__class__)
 
 
 def upload_to(field_path, default):

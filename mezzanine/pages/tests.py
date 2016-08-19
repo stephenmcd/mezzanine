@@ -194,13 +194,6 @@ class PagesTests(TestCase):
         if accounts_installed:
             # View / pattern name redirect properly, without encoding next.
             login = "%s%s?next=%s" % (login_prefix, login_url, private_url)
-            # Test if view name or URL pattern can be used as LOGIN_URL.
-            with override_settings(LOGIN_URL="mezzanine.accounts.views.login"):
-                # Note: With 1.7 this loops if the view app isn't installed.
-                response = self.client.get(public_url, follow=True)
-                self.assertEqual(response.status_code, 200)
-                response = self.client.get(private_url, follow=True)
-                self.assertRedirects(response, login)
             with override_settings(LOGIN_URL="login"):
                 # Note: The "login" is a pattern name in accounts.urls.
                 response = self.client.get(public_url, follow=True)

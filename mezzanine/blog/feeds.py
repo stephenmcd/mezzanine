@@ -19,6 +19,11 @@ from mezzanine.utils.sites import current_site_id
 
 User = get_user_model()
 
+try:
+    unicode
+except NameError:  # Python 3
+    unicode = lambda s: s
+
 
 class PostsRSS(Feed):
     """
@@ -63,10 +68,10 @@ class PostsRSS(Feed):
         return add_domain(self._site.domain, link, self._request.is_secure())
 
     def title(self):
-        return self._title
+        return unicode(self._title)
 
     def description(self):
-        return self._description
+        return unicode(self._description)
 
     def link(self):
         return self.add_domain(reverse("blog_post_list"))
@@ -95,7 +100,7 @@ class PostsRSS(Feed):
         absolute_urls_name = "mezzanine.utils.html.absolute_urls"
         if absolute_urls_name not in settings.RICHTEXT_FILTERS:
             description = absolute_urls(description)
-        return description
+        return unicode(description)
 
     def categories(self):
         if not self._public:

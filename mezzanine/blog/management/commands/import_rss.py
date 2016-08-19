@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 from datetime import timedelta
-from optparse import make_option
 from time import timezone
 try:
     from urllib.request import urlopen
@@ -20,12 +19,15 @@ class Command(BaseImporterCommand):
     Import an RSS feed into the blog app.
     """
 
-    option_list = BaseImporterCommand.option_list + (
-        make_option("-r", "--rss-url", dest="rss_url",
-            help="RSS feed URL"),
-        make_option("-p", "--page-url", dest="page_url",
-            help="URL for a web page containing the RSS link"),
-    )
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+        parser.add_argument(
+            "-r", "--rss-url", dest="rss_url",
+            help="RSS feed URL")
+        parser.add_argument(
+            "-p", "--page-url", dest="page_url",
+            help="URL for a web page containing the RSS link")
+
     help = ("Import an RSS feed into the blog app. Requires the "
             "dateutil and feedparser packages installed, and also "
             "BeautifulSoup if using the --page-url option.")
