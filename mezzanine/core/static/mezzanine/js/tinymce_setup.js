@@ -58,6 +58,29 @@ function custom_file_browser(field_name, url, type, win) {
     return false;
 }
 
+function onInlineAdded($row, prefix) {
+    // Create new TinyMCE instances after adding new inlines
+    $row.find(".mce-tinymce").remove(); // Remove cloned, non-working editors
+    $row.find("textarea.mceEditor").each(function (i, textarea) {
+        // Create new TinyMCE instances
+        tinyMCE.execCommand("mceAddEditor", false, textarea.id);
+    });
+    $row.find(".mce-tinymce").show(); // Show the newly intialized editors
+}
+
+function onInlineRemoved($row, prefix) {
+    // Remove all TinyMCE instances after removing inlines
+    $row.find("textarea.mceEditor").each(function (i, textarea) {
+        // tinyMCE.remove() causes an exception in Firefox
+        // http://stackoverflow.com/q/33278834/1330003
+        try {
+            tinyMCE.remove(tinyMCE.get(textarea.id));
+        } catch(e) {
+            console.log(e);
+        }
+    });
+}
+
 jQuery(function($) {
 
     if (typeof tinyMCE != 'undefined') {
@@ -84,6 +107,12 @@ jQuery(function($) {
             content_css: window.__tinymce_css,
             valid_elements: "*[*]"  // Don't strip anything since this is handled by bleach.
         });
+
+        // Configure the TinyMCE callbacks to fire when adding/removing inlines
+        window.__onTabularInlineAdded = onInlineAdded
+        window.__onStackedInlineAdded = onInlineAdded
+        window.__onTabularInlineRemoved = onInlineRemoved
+        window.__onStackedInlineRemoved = onInlineRemoved
 
     }
 
