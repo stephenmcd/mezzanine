@@ -31,6 +31,16 @@ User = get_user_model()
 
 class PagesTests(TestCase):
 
+    def setUp(self):
+        """
+        Make sure we have a thread-local request with a site_id attribute set.
+        """
+        super(PagesTests, self).setUp()
+        from mezzanine.core.request import _thread_local
+        request = self._request_factory.get('/')
+        request.site_id = settings.SITE_ID
+        _thread_local.request = request
+
     def test_page_ascendants(self):
         """
         Test the methods for looking up ascendants efficiently
@@ -40,8 +50,6 @@ class PagesTests(TestCase):
         primary, created = RichTextPage.objects.get_or_create(title="Primary")
         secondary, created = primary.children.get_or_create(title="Secondary")
         tertiary, created = secondary.children.get_or_create(title="Tertiary")
-        # Force a site ID to avoid the site query when measuring queries.
-        setattr(current_request(), "site_id", settings.SITE_ID)
 
         # Test that get_ascendants() returns the right thing.
         page = Page.objects.get(id=tertiary.id)
@@ -380,9 +388,6 @@ class PagesTests(TestCase):
 
     def test_ascendants_different_site(self):
         site2 = Site.objects.create(domain='site2.example.com', name='Site 2')
-
-        # Force a site ID to avoid the site query when measuring queries.
-        setattr(current_request(), "site_id", settings.SITE_ID)
 
         parent = Page.objects.create(title="Parent", site=site2)
         child = parent.children.create(title="Child", site=site2)
