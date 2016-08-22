@@ -6,6 +6,7 @@ from unittest import skipUnless
 from mezzanine.core.middleware import FetchFromCacheMiddleware
 from mezzanine.core.templatetags.mezzanine_tags import initialize_nevercache
 from mezzanine.utils.cache import cache_installed
+from mezzanine.utils.sites import current_site_id, override_current_site_id
 
 try:
     # Python 3
@@ -558,6 +559,12 @@ class SiteRelatedTestCase(TestCase):
 
         site1.delete()
         site2.delete()
+
+    def test_override_site_id(self):
+        self.assertEqual(current_site_id(), 1)
+        with override_current_site_id(2):
+            self.assertEqual(current_site_id(), 2)
+        self.assertEqual(current_site_id(), 1)
 
 
 class CSRFTestViews(object):
