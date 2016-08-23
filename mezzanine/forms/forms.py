@@ -233,10 +233,10 @@ class FormForForm(forms.ModelForm):
     def email_to(self):
         """
         Return the value entered for the first field of type
-        ``forms.fields.EMAIL``.
+        ``forms.EmailField``.
         """
         for field in self.form_fields:
-            if field.is_a(fields.EMAIL):
+            if issubclass(fields.CLASSES[field.field_type], forms.EmailField):
                 return self.cleaned_data["field_%s" % field.id]
         return None
 
