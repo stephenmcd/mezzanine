@@ -208,3 +208,5 @@ class GenericTests(TestCase):
         self.assertIn("how", values_from_relation[1])
         self.assertIn("now", values_from_relation[1])
         self.assertIn("brown", values_from_relation[1])
+
+        self.assertEqual(("", ""), keyword_widget.decompress(None))
