@@ -70,7 +70,8 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     if not PageMiddleware.installed():
         raise ImproperlyConfigured("mezzanine.pages.middleware.PageMiddleware "
                                    "(or a subclass of it) is missing from " +
-                                   "settings.MIDDLEWARE_CLASSES")
+                                   "settings.MIDDLEWARE_CLASSES or " +
+                                   "settings.MIDDLEWARE")
 
     if not hasattr(request, "page") or request.page.slug != slug:
         raise Http404
