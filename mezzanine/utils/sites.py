@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 
 import os
 import sys
+import threading
+from contextlib import contextmanager
 
 from django.contrib.sites.models import Site
 
@@ -12,21 +14,26 @@ from mezzanine.core.request import current_request
 def current_site_id():
     """
     Responsible for determining the current ``Site`` instance to use
-    when retrieving data for any ``SiteRelated`` models. If a request
-    is available, and the site can be determined from it, we store the
-    site against the request for subsequent retrievals. Otherwise the
-    order of checks is as follows:
+    when retrieving data for any ``SiteRelated`` models. If we're inside an
+    override_current_site_id context manager, return the overriding site ID.
+    Otherwise, try to determine the site using the following methods in order:
 
       - ``site_id`` in session. Used in the admin so that admin users
         can switch sites and stay on the same domain for the admin.
-      - host for the current request matched to the domain of the site
-        instance.
+      - The id of the Site object corresponding to the hostname in the current
+        request. This result is cached.
       - ``MEZZANINE_SITE_ID`` environment variable, so management
         commands or anything else outside of a request can specify a
         site.
       - ``SITE_ID`` setting.
 
+    If a current request exists and the current site is not overridden, the
+    site ID is stored on the request object to speed up subsequent calls.
     """
+
+    if hasattr(override_current_site_id.thread_local, "site_id"):
+        return override_current_site_id.thread_local.site_id
+
     from mezzanine.utils.cache import cache_installed, cache_get, cache_set
     request = current_request()
     site_id = getattr(request, "site_id", None)
@@ -57,6 +64,18 @@ def current_site_id():
     if request and site_id and not getattr(settings, "TESTING", False):
         request.site_id = site_id
     return site_id
+
+
+@contextmanager
+def override_current_site_id(site_id):
+    """
+    Context manager that overrides the current site id for code executed
+    within it. Used to access SiteRelated objects outside the current site.
+    """
+    override_current_site_id.thread_local.site_id = site_id
+    yield
+    del override_current_site_id.thread_local.site_id
+override_current_site_id.thread_local = threading.local()
 
 
 def has_site_permission(user):
