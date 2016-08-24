@@ -39,7 +39,7 @@ from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
                                    CONTENT_STATUS_PUBLISHED)
 from mezzanine.forms.admin import FieldAdmin
 from mezzanine.forms.models import Form
-from mezzanine.pages.models import RichTextPage
+from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
                                              run_pep8_for_package)
@@ -623,3 +623,15 @@ class CSRFTestCase(TestCase):
         # The CSRF cookie should be present
         csrf_cookie = response.cookies.get(settings.CSRF_COOKIE_NAME, False)
         self.assertNotEqual(csrf_cookie, False)
+
+
+class ContentTypedTestCase(TestCase):
+    def test_set_content_model_base_concrete_class(self):
+        page = Page.objects.create()
+        page.set_content_model()
+        self.assertEqual(page.content_model, None)
+
+    def test_set_content_model_subclass(self):
+        page = RichTextPage.objects.create()
+        page.set_content_model()
+        self.assertEqual(page.content_model, 'richtextpage')

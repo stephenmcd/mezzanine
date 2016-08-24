@@ -24,8 +24,8 @@ def keywords_for(*args):
     # Handle a model instance.
     if isinstance(args[0], Model):
         obj = args[0]
-        if hasattr(obj, "get_content_model"):
-            obj = obj.get_content_model() or obj
+        if getattr(obj, "content_model", None):
+            obj = obj.get_content_model()
         keywords_name = obj.get_keywordsfield_name()
         keywords_queryset = getattr(obj, keywords_name).all()
         # Keywords may have been prefetched already. If not, we
