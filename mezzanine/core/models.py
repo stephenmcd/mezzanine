@@ -515,6 +515,10 @@ class ContentTyped(models.Model):
 
     @classmethod
     def get_content_model_name(cls):
+        """
+        Return the name of the OneToOneField django automatically creates for
+        child classes in multi-table inheritance.
+        """
         return cls._meta.object_name.lower()
 
     @classmethod
@@ -525,6 +529,9 @@ class ContentTyped(models.Model):
                 if m is not concrete_model and issubclass(m, concrete_model)]
 
     def get_content_model(self):
+        """
+        Return the child class or None if this is the parent.
+        """
         return getattr(self, self.content_model, None)
 
 
