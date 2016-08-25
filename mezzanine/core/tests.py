@@ -7,6 +7,7 @@ from mezzanine.core.middleware import FetchFromCacheMiddleware
 from mezzanine.core.templatetags.mezzanine_tags import initialize_nevercache
 from mezzanine.utils.cache import cache_installed
 from mezzanine.utils.sites import current_site_id, override_current_site_id
+from mezzanine.utils.urls import admin_url
 
 try:
     # Python 3
@@ -639,3 +640,17 @@ class ContentTypedTestCase(TestCase):
         page = Page.objects.get(pk=richtextpage.pk)
         self.assertEqual(page.content_model, 'richtextpage')
         self.assertEqual(page.get_content_model(), richtextpage)
+
+    def test_contenttyped_admin_redirects(self):
+        self.client.login(username=self._username, password=self._password)
+
+        # Unsubclassed objects should not redirect
+        page = Page.objects.create(title="Test page")
+        response = self.client.get(admin_url(Page, "change", page.pk))
+        self.assertEqual(response.status_code, 200)
+
+        # Subclassed objects should redirect to the admin for child class
+        richtext = RichTextPage.objects.create(title="Test rich text")
+        response = self.client.get(admin_url(Page, "change", richtext.pk))
+        richtext_change_url = admin_url(RichTextPage, "change", richtext.pk)
+        self.assertRedirects(response, richtext_change_url)

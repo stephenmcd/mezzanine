@@ -328,11 +328,10 @@ class ContentTypedAdmin(object):
 
         self.check_permission(request, content_model, "change")
 
-        if self.model is self.concrete_model:
-            if content_model is not None:
-                change_url = admin_url(content_model.__class__, "change",
-                                       content_model.id)
-                return HttpResponseRedirect(change_url)
+        if content_model.__class__ != self.model:
+            change_url = admin_url(content_model.__class__, "change",
+                                   content_model.id)
+            return HttpResponseRedirect(change_url)
 
         return super(ContentTypedAdmin, self).change_view(
             request, object_id, **kwargs)
