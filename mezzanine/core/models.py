@@ -544,7 +544,7 @@ class ContentTyped(models.Model):
         Return content model, or if this is the base class return it.
         """
         return (getattr(self, self.content_model) if self.content_model
-                else self.__class__)
+                else self)
 
 
 class SitePermission(models.Model):

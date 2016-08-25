@@ -626,12 +626,16 @@ class CSRFTestCase(TestCase):
 
 
 class ContentTypedTestCase(TestCase):
+
     def test_set_content_model_base_concrete_class(self):
         page = Page.objects.create()
         page.set_content_model()
         self.assertEqual(page.content_model, None)
+        self.assertIs(page.get_content_model(), page)
 
     def test_set_content_model_subclass(self):
-        page = RichTextPage.objects.create()
-        page.set_content_model()
+        richtextpage = RichTextPage.objects.create()
+        richtextpage.set_content_model()
+        page = Page.objects.get(pk=richtextpage.pk)
         self.assertEqual(page.content_model, 'richtextpage')
+        self.assertEqual(page.get_content_model(), richtextpage)
