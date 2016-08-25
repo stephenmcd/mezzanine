@@ -504,6 +504,7 @@ class ContentTyped(models.Model):
     In order to use them:
 
     - Inherit model from ContentTyped.
+    - Call the set_content_model() method in the model's save() method.
     - Inherit that model's ModelAdmin from ContentTypesAdmin.
     - Include "admin/includes/content_typed_change_list.html" in the
     change_list.html template.
@@ -515,6 +516,10 @@ class ContentTyped(models.Model):
 
     @classmethod
     def get_content_model_name(cls):
+        """
+        Return the name of the OneToOneField django automatically creates for
+        child classes in multi-table inheritance.
+        """
         return cls._meta.object_name.lower()
 
     @classmethod
@@ -524,8 +529,22 @@ class ContentTyped(models.Model):
         return [m for m in apps.get_models()
                 if m is not concrete_model and issubclass(m, concrete_model)]
 
+    def set_content_model(self):
+        """
+        Set content_model to the child class's related name, or None if this is
+        the base class.
+        """
+        is_base_class = (
+            base_concrete_model(ContentTyped, self) == self.__class__)
+        self.content_model = (
+            None if is_base_class else self.get_content_model_name())
+
     def get_content_model(self):
-        return getattr(self, self.content_model, None)
+        """
+        Return content model, or if this is the base class return it.
+        """
+        return (getattr(self, self.content_model) if self.content_model
+                else self.__class__)
 
 
 class SitePermission(models.Model):

@@ -77,8 +77,7 @@ class Page(BasePage, ContentTyped):
         Create the titles field using the titles up the parent chain
         and set the initial value for ordering.
         """
-        if self.id is None:
-            self.content_model = self.get_content_model_name()
+        self.set_content_model()
         titles = [self.title]
         parent = self.parent
         while parent is not None:
@@ -95,9 +94,8 @@ class Page(BasePage, ContentTyped):
         are available for generating the description.
         """
         if self.__class__ == Page:
-            content_model = self.get_content_model()
-            if content_model:
-                return content_model.description_from_content()
+            if self.content_model:
+                return self.get_content_model().description_from_content()
         return super(Page, self).description_from_content()
 
     def get_ascendants(self, for_user=None):
