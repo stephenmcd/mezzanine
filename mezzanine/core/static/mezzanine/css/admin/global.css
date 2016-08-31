@@ -121,7 +121,7 @@ body.popup .breadcrumbs + ul.messagelist {
     top: 0;
     z-index: 2;
 }
-.dropdown-menu {
+.admin-sidebar {
     border-right: 1px solid #222;
     float: left;
     height: 95%; /* Fallback height */
@@ -132,41 +132,41 @@ body.popup .breadcrumbs + ul.messagelist {
     overflow-y: auto;
     width: 216px;
 }
-.dropdown-menu.hidden {
+.admin-sidebar.hidden {
     margin-left: -207px;
 }
-.dropdown-menu > ul {
+.admin-sidebar > ul {
     border-bottom: 1px solid #555;
 }
-.dropdown-menu > ul > li {
+.admin-sidebar > ul > li {
     padding: 20px 17px;
     list-style-type: none;
     border-bottom: 1px solid #222;
     border-top: 1px solid #555;
 }
-.dropdown-menu > ul > li:first-child {
+.admin-sidebar > ul > li:first-child {
     border-top: 0;
 }
-.dropdown-menu-menu > li {
+.admin-app-menu > li {
     padding: 15px 0 0 1px;
 }
-.dropdown-menu li a {
+.admin-sidebar li a {
     font-size: 20px;
 }
-.dropdown-menu li a:hover {
+.admin-sidebar li a:hover {
     color: #fff;
 }
-.dropdown-menu .selected,
-.dropdown-menu-menu > li > a:hover {
+.admin-sidebar .selected,
+.admin-app-menu > li > a:hover {
     border-left: 10px solid #666;
     margin-left: -20px;
     padding-left: 10px;
 }
-.dropdown-menu li li a {
+.admin-sidebar li li a {
     font-size: 15px;
     color: #ccc;
 }
-.dropdown-menu form {
+.admin-sidebar form {
     display: none;
 }
 #side-panel-toggle {

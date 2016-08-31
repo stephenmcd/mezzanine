@@ -653,7 +653,7 @@ msgstr "läs mer"
 msgid "View site"
 msgstr "Se webbplatsen"
 
-#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
+#: templates/admin/index.html:17 templates/admin/includes/sidebar.html:4
 msgid "Dashboard"
 msgstr "Panel"
 

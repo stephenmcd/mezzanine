@@ -542,7 +542,7 @@ msgstr "daha fazlasını oku"
 msgid "View site"
 msgstr "Siteye dön"
 
-#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
+#: templates/admin/index.html:17 templates/admin/includes/sidebar.html:4
 msgid "Dashboard"
 msgstr "Kontrol Paneli"
 
