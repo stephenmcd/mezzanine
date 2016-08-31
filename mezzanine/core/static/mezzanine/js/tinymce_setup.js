@@ -76,9 +76,9 @@ jQuery(function($) {
             convert_urls: false,
             menubar: false,
             statusbar: false,
-            toolbar: ("insertfile undo redo | styleselect | bold italic | " +
+            toolbar: ("insertfile undo redo | styleselect | bold italic removeformat | " +
                       "alignleft aligncenter alignright alignjustify | " +
-                      "bullist numlist outdent indent | link image table | " +
+                      "bullist numlist outdent indent blockquote | link image table | " +
                       "code fullscreen"),
             file_browser_callback: custom_file_browser,
             content_css: window.__tinymce_css,
