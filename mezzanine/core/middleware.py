@@ -21,7 +21,7 @@ from mezzanine.core.management.commands.createdb import (DEFAULT_USERNAME,
 from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
                                    cache_get, cache_set, cache_installed)
 from mezzanine.utils.device import templates_for_device
-from mezzanine.utils.deprecation import MiddlewareMixin, MIDDLEWARE_SETTING
+from mezzanine.utils.deprecation import MiddlewareMixin, get_middleware_setting
 from mezzanine.utils.sites import current_site_id, templates_for_host
 from mezzanine.utils.urls import next_url
 
@@ -178,7 +178,7 @@ class UpdateCacheMiddleware(MiddlewareMixin):
         # that if there was a {% csrf_token %} inside of the nevercache
         # the cookie will be correctly set for the the response
         csrf_mw_name = "django.middleware.csrf.CsrfViewMiddleware"
-        if csrf_mw_name in MIDDLEWARE_SETTING:
+        if csrf_mw_name in get_middleware_setting():
             response.csrf_processing_done = False
             csrf_mw = CsrfViewMiddleware()
             csrf_mw.process_response(request, response)
@@ -201,7 +201,7 @@ class FetchFromCacheMiddleware(MiddlewareMixin):
             # won't receieve one on their first request, with cache
             # middleware running.
             csrf_mw_name = "django.middleware.csrf.CsrfViewMiddleware"
-            if csrf_mw_name in MIDDLEWARE_SETTING:
+            if csrf_mw_name in get_middleware_setting():
                 csrf_mw = CsrfViewMiddleware()
                 csrf_mw.process_view(request, lambda x: None, None, None)
                 get_token(request)

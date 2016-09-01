@@ -8,7 +8,7 @@ from mezzanine.conf import settings
 from mezzanine.pages import context_processors, page_processors
 from mezzanine.pages.models import Page
 from mezzanine.pages.views import page as page_view
-from mezzanine.utils.deprecation import MiddlewareMixin, MIDDLEWARE_SETTING
+from mezzanine.utils.deprecation import MiddlewareMixin, get_middleware_setting
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.urls import path_to_slug
 
@@ -53,9 +53,10 @@ class PageMiddleware(MiddlewareMixin):
             return cls._installed
         except AttributeError:
             name = "mezzanine.pages.middleware.PageMiddleware"
-            installed = name in MIDDLEWARE_SETTING
+            mw_setting = get_middleware_setting()
+            installed = name in mw_setting
             if not installed:
-                for name in MIDDLEWARE_SETTING:
+                for name in mw_setting:
                     if issubclass(import_dotted_path(name), cls):
                         installed = True
                         break

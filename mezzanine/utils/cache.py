@@ -10,6 +10,7 @@ from django.utils.cache import _i18n_cache_key_suffix
 from django.utils.module_loading import import_string
 
 from mezzanine.conf import settings
+from mezzanine.utils.deprecation import get_middleware_setting
 from mezzanine.utils.device import device_from_request
 from mezzanine.utils.sites import current_site_id
 
@@ -70,7 +71,7 @@ def cache_installed():
     def flatten(seqs):
         return (item for seq in seqs for item in seq)
 
-    middleware_classes = map(import_string, settings.MIDDLEWARE_CLASSES)
+    middleware_classes = map(import_string, get_middleware_setting())
     middleware_ancestors = set(flatten(map(getmro, middleware_classes)))
 
     mezzanine_cache_middleware_classes = {

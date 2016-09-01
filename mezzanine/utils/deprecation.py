@@ -9,6 +9,7 @@ except ImportError:
         pass
 
 
-MIDDLEWARE_SETTING = settings.MIDDLEWARE if hasattr(settings, 'MIDDLEWARE') \
+def get_middleware_setting():
+    return settings.MIDDLEWARE if hasattr(settings, 'MIDDLEWARE') \
                                         and settings.MIDDLEWARE is not None \
                                         else settings.MIDDLEWARE_CLASSES
