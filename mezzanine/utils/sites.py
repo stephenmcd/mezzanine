@@ -9,6 +9,7 @@ from django.contrib.sites.models import Site
 
 from mezzanine.conf import settings
 from mezzanine.core.request import current_request
+from mezzanine.utils.deprecation import get_middleware_setting
 
 
 def current_site_id():
@@ -87,9 +88,9 @@ def has_site_permission(user):
     installed, to ease migration.
     """
     mw = "mezzanine.core.middleware.SitePermissionMiddleware"
-    if mw not in settings.MIDDLEWARE_CLASSES:
+    if mw not in get_middleware_setting():
         from warnings import warn
-        warn(mw + " missing from settings.MIDDLEWARE_CLASSES - per site"
+        warn(mw + " missing from settings.MIDDLEWARE - per site"
              "permissions not applied")
         return user.is_staff and user.is_active
     return getattr(user, "has_site_permission", False)
