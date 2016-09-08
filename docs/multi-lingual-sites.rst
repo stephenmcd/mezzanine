@@ -195,7 +195,7 @@ file itself would be::
     from mezzanine.pages.models import Page
 
     class TranslatedInjectedPage(TranslatedPage):
-        field = ('quote',),
+        fields = ('quote',),
 
     translator.unregister(Page)
     translator.register(Page, TranslatedInjectedPage)

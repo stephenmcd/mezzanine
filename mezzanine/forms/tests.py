@@ -2,9 +2,12 @@ from __future__ import unicode_literals
 
 from unittest import skipUnless
 
+from django.template import RequestContext
+from django import forms
 from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
+from mezzanine.forms.forms import FormForForm
 from mezzanine.forms.models import Form
 from mezzanine.utils.tests import TestCase
 
@@ -72,3 +75,23 @@ class TestsForm(TestCase):
         self.client.post(reverse('set_language'), data={'language':
                                                         default_language})
         self.assertContains(response, submit_text)
+
+    def test_custom_email_type(self):
+
+        class CustomEmailField(forms.EmailField):
+            pass
+
+        fields.CLASSES[16] = CustomEmailField
+        fields.NAMES += ((16, 'Custom email field'),)
+
+        form_page = Form.objects.create(title="Email form tests")
+        form_page.fields.create(label="Email field test", field_type=16)
+
+        test_email = 'test@example.com'
+        request = self._request_factory.post('/', {'field_1': test_email})
+
+        form = FormForForm(form_page, RequestContext(request),
+                           request.POST or None, request.FILES or None)
+
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.email_to(), test_email)

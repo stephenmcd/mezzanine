@@ -8,11 +8,12 @@ from mezzanine.conf import settings
 from mezzanine.pages import context_processors, page_processors
 from mezzanine.pages.models import Page
 from mezzanine.pages.views import page as page_view
+from mezzanine.utils.deprecation import MiddlewareMixin, get_middleware_setting
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.urls import path_to_slug
 
 
-class PageMiddleware(object):
+class PageMiddleware(MiddlewareMixin):
     """
     Adds a page to the template context for the current response.
 
@@ -33,7 +34,8 @@ class PageMiddleware(object):
     context, so that the current page is always available.
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super(PageMiddleware, self).__init__(*args, **kwargs)
         if "mezzanine.pages" not in settings.INSTALLED_APPS:
             raise MiddlewareNotUsed
 
@@ -51,9 +53,10 @@ class PageMiddleware(object):
             return cls._installed
         except AttributeError:
             name = "mezzanine.pages.middleware.PageMiddleware"
-            installed = name in settings.MIDDLEWARE_CLASSES
+            mw_setting = get_middleware_setting()
+            installed = name in mw_setting
             if not installed:
-                for name in settings.MIDDLEWARE_CLASSES:
+                for name in mw_setting:
                     if issubclass(import_dotted_path(name), cls):
                         installed = True
                         break

@@ -100,7 +100,7 @@ class MultiChoiceField(models.CharField):
         defaults.update(kwargs)
         return MultipleChoiceField(**defaults)
 
-    def get_db_prep_value(self, value, **kwargs):
+    def get_db_prep_value(self, value, connection, **kwargs):
         if isinstance(value, (tuple, list)):
             value = ",".join([str(i) for i in value])
         return value

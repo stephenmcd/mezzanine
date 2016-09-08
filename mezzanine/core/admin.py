@@ -143,6 +143,10 @@ class BaseDynamicInlineAdmin(object):
     extra = 1
 
     def get_fields(self, request, obj=None):
+        """
+        For subclasses of ``Orderable``, the ``_order`` field must
+        always be present and be the last field.
+        """
         fields = super(BaseDynamicInlineAdmin, self).get_fields(request, obj)
         if issubclass(self.model, Orderable):
             fields = list(fields)
@@ -154,6 +158,9 @@ class BaseDynamicInlineAdmin(object):
         return fields
 
     def get_fieldsets(self, request, obj=None):
+        """
+        Same as above, but for fieldsets.
+        """
         fieldsets = super(BaseDynamicInlineAdmin, self).get_fieldsets(
                                                             request, obj)
         if issubclass(self.model, Orderable):
@@ -321,11 +328,10 @@ class ContentTypedAdmin(object):
 
         self.check_permission(request, content_model, "change")
 
-        if self.model is self.concrete_model:
-            if content_model is not None:
-                change_url = admin_url(content_model.__class__, "change",
-                                       content_model.id)
-                return HttpResponseRedirect(change_url)
+        if content_model.__class__ != self.model:
+            change_url = admin_url(content_model.__class__, "change",
+                                   content_model.id)
+            return HttpResponseRedirect(change_url)
 
         return super(ContentTypedAdmin, self).change_view(
             request, object_id, **kwargs)

@@ -307,3 +307,11 @@ td, th, th a, label, .help, p.help {
 .related-widget-wrapper .selector {
     margin-right: 10px;
 }
+/*=====================================
+               INLINES
+=======================================*/
+/* Hide the _order field in stacked inlines, since it's added
+   by the template in the <h3> handle */
+.inline-stacked .field-_order {
+    display: none;
+}
