@@ -668,8 +668,8 @@ def admin_dropdown_menu(context):
     """
     Renders the app list for the admin dropdown menu navigation.
     """
+    template_vars = context.flatten()
     user = context["request"].user
-    template_vars = {}
     if user.is_staff:
         template_vars["dropdown_menu_app_list"] = admin_app_list(
             context["request"])
