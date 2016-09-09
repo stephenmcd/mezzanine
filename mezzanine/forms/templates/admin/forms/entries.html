@@ -5,7 +5,6 @@
 {% block extrahead %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static "mezzanine/css/admin/form_entries.css" %}">
-<script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' packages="mezzanine.forms" %}"></script>
 <script src="{% static "mezzanine/js/admin/form_entries.js" %}"></script>
 {% endblock %}
 
@@ -30,7 +29,7 @@
             <th class="last" colspan="2">{% trans "Filter by" %}</th>
         </tr>
         {% for include_field, filter_field, filter_option_fields in entries_form %}
-        <tr class="{% cycle on,off as row %}">
+        <tr class="{% cycle "on" "off" as row %}">
             <td class="field">{{ include_field.label_tag }}</td>
             <td class="include">{{ include_field }}</td>
             <td class="filter last">{{ filter_field }}</td>
@@ -70,7 +69,7 @@
             {% endfor %}
         </tr>
     {% endif %}
-        <tr class="{% cycle on,off %}">
+        <tr class="{% cycle "on" "off" %}">
             {% if can_delete_entries %}
             <td class="include">
                 <input type="checkbox" name="selected" value="{{ row.0 }}">
