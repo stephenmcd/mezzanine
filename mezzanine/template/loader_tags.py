@@ -72,14 +72,7 @@ class OverExtendsNode(ExtendsNode):
         # other loaders like the ``cached`` template loader, unwind its
         # internal loaders and add those instead.
         loaders = []
-        loader_names = set(chain.from_iterable(
-            [template_engine.get('OPTIONS', {}).get('loaders', [])
-             for template_engine in settings.TEMPLATES]))
-        loader_names.update(  # default template loaders
-            ['django.template.loaders.filesystem.Loader',
-             'django.template.loaders.app_directories.Loader'])
-        for loader_name in loader_names:
-            loader = context.template.engine.find_template_loader(loader_name)
+        for loader in context.template.engine.template_loaders:
             loaders.extend(getattr(loader, "loaders", [loader]))
 
         # Go through the loaders and try to find the template. When
