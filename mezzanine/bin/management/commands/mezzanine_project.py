@@ -5,7 +5,6 @@ import os
 from shutil import move, rmtree
 from tempfile import mkdtemp
 
-import django
 from django.core.management import CommandError
 from django.core.management.commands.startproject import Command as BaseCommand
 from django.utils import six
