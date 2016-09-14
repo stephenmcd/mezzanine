@@ -2,8 +2,10 @@ from __future__ import unicode_literals
 from future.builtins import map
 
 import os
+import warnings
 from itertools import chain
 
+from django import VERSION as DJANGO_VERSION
 from django.template import Template, TemplateSyntaxError, TemplateDoesNotExist
 from django.template.loader_tags import ExtendsNode
 
@@ -123,6 +125,14 @@ def overextends(parser, token):
     inheritance to occur, eg a template can both be overridden and
     extended at once.
     """
+    if DJANGO_VERSION >= (1, 9):
+        warnings.warn(
+            "The `overextends` template tag is deprecated in favour of "
+            "Django's built-in `extends` tag, which supports recursive "
+            "extension in Django 1.9 and above.",
+            DeprecationWarning, stacklevel=2
+        )
+
     bits = token.split_contents()
     if len(bits) != 2:
         raise TemplateSyntaxError("'%s' takes one argument" % bits[0])
