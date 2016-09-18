@@ -48,12 +48,11 @@ class FieldManager(models.Manager):
 
 
 @python_2_unicode_compatible
-class Field(Orderable):
+class AbstractBaseField(Orderable):
     """
     A field for a user-built form.
     """
 
-    form = models.ForeignKey("Form", related_name="fields")
     label = models.CharField(_("Label"),
         max_length=settings.FORMS_LABEL_MAX_LENGTH)
     field_type = models.IntegerField(_("Type"), choices=fields.NAMES)
@@ -71,9 +70,9 @@ class Field(Orderable):
     objects = FieldManager()
 
     class Meta:
+        abstract = True
         verbose_name = _("Field")
         verbose_name_plural = _("Fields")
-        order_with_respect_to = "form"
 
     def __str__(self):
         return self.label
@@ -107,6 +106,13 @@ class Field(Orderable):
         Helper that returns ``True`` if the field's type is given in any arg.
         """
         return self.field_type in args
+
+
+class Field(AbstractBaseField):
+    form = models.ForeignKey("Form", related_name="fields")
+
+    class Meta(AbstractBaseField.Meta):
+        order_with_respect_to = "form"
 
 
 class FormEntry(models.Model):
