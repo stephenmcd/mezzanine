@@ -416,7 +416,7 @@ register_setting(
     description=_("If ``True``, users will be automatically redirected to "
         "HTTPS for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` "
         "setting."),
-    editable=True,
+    editable=False,
     default=False,
 )
 
@@ -425,7 +425,7 @@ register_setting(
     label=_("Force Host"),
     description=_("Host name that the site should always be accessed via that "
                 "matches the SSL certificate."),
-    editable=True,
+    editable=False,
     default="",
 )
 
