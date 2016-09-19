@@ -6,6 +6,7 @@ from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.html import escape
 
 from django_comments.models import Comment
 
@@ -66,7 +67,8 @@ class ThreadedComment(Comment):
 
     def avatar_link(self):
         from mezzanine.core.templatetags.mezzanine_tags import gravatar_url
-        vars = (self.user_email, gravatar_url(self.email), self.user_name)
+        vars = (escape(self.user_email), gravatar_url(self.email),
+                escape(self.user_name))
         return ("<a href='mailto:%s'><img style='vertical-align:middle; "
                 "margin-right:3px;' src='%s' />%s</a>" % vars)
     avatar_link.allow_tags = True
