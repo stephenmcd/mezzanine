@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
-from bleach import clean, sanitizer
-
 from django.conf import settings
 from django.contrib.admin.widgets import AdminTextareaWidget
 from django.core.exceptions import ImproperlyConfigured, ValidationError
@@ -13,21 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.forms import OrderWidget
 from mezzanine.utils.importing import import_dotted_path
-
-
-# Tags and attributes added to richtext filtering whitelist when the
-# RICHTEXT_FILTER_LEVEL is set to low. General use-case for these is
-# allowing embedded video, but we will add to this fixed list over
-# time as more use-cases come up. We won't ever add script tags or
-# events (onclick etc) to this list. To enable those, filtering can
-# be turned off in the settings admin.
-LOW_FILTER_TAGS = ("iframe", "embed", "video", "param", "source", "object")
-LOW_FILTER_ATTRS = ("allowfullscreen", "autostart", "loop", "hidden",
-                    "playcount", "volume", "controls", "data", "classid")
-
-# https://github.com/mozilla/bleach/issues/102
-if "tel" not in sanitizer.BleachSanitizer.allowed_protocols:
-    sanitizer.BleachSanitizer.allowed_protocols += ["tel"]
+from mezzanine.utils.html import escape
 
 
 class OrderField(models.IntegerField):
@@ -66,19 +50,7 @@ class RichTextField(models.TextField):
         """
         Remove potentially dangerous HTML tags and attributes.
         """
-        from mezzanine.conf import settings
-        from mezzanine.core.defaults import (RICHTEXT_FILTER_LEVEL_NONE,
-                                             RICHTEXT_FILTER_LEVEL_LOW)
-        if settings.RICHTEXT_FILTER_LEVEL == RICHTEXT_FILTER_LEVEL_NONE:
-            return value
-        tags = settings.RICHTEXT_ALLOWED_TAGS
-        attrs = settings.RICHTEXT_ALLOWED_ATTRIBUTES
-        styles = settings.RICHTEXT_ALLOWED_STYLES
-        if settings.RICHTEXT_FILTER_LEVEL == RICHTEXT_FILTER_LEVEL_LOW:
-            tags += LOW_FILTER_TAGS
-            attrs += LOW_FILTER_ATTRS
-        return clean(value, tags=tags, attributes=attrs, strip=True,
-                     strip_comments=False, styles=styles)
+        return escape(value)
 
 
 class MultiChoiceField(models.CharField):
