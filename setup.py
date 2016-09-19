@@ -52,8 +52,8 @@ try:
         install_requires=[
             "django-contrib-comments",
             "django >= 1.8, < 1.11",
-            "filebrowser_safe >= 0.4.4",
-            "grappelli_safe >= 0.4.3",
+            "filebrowser_safe >= 0.4.6",
+            "grappelli_safe >= 0.4.5",
             "tzlocal >= 1.0",
             "bleach >= 1.4",
             "beautifulsoup4 >= 4.1.3",
