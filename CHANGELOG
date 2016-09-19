@@ -1,3 +1,33 @@
+Version 4.2.1 (Sep 19, 2016)
+----------------------------
+
+  * Stop using deprecated template settings. - ``TEMPLATE_DIRS``. - ``TEMPLATE_LOADERS``. I think these must have been actually removed in ``django-1.10.0`` because. they're throwing AttributeError's now - ryneeverett
+  * Remove deprecated ``richtext_filter`` tag. I don't see how the fallback could even work without the user defining. ``RICHTEXT_FILTERS`` as empty in their own settings, because it defaults to. `("mezzanine.utils.html.thumbnails",)` so the `if not filternames` path. would never be taken. Give that the fallback does nothing, I think. printing a warning is deceptive so better just to remove it entirely - ryneeverett
+  * Fixed crash in ``Page.get_ascendants`` with non-current site - Alex Hill
+  * Add ``override_current_site_id`` context manager - Alex Hill
+  * Make sure a thread-local request is set in PagesTests. We rely in these tests on a “current request” being stored as a. thread-local, but without explicitly assigning one we were dependent on. other tests that make requests being executed before these - Alex Hill
+  * Exclude ``.pyc``, ``.pyo`` and ``__pycache__`` files from release - Edward Betts
+  * Correctly handle custom email fields in ``mezzanine.forms``. The `is_a` method checks whether a field is one of Mezzanine's built-in. form fields. As far as I can tell, every other usage is for the purpose. of initializing the built-in fields and widgets, so it makes sense to. exclude user-defined fields. However in this instance, we only want to know whether the field is an. EmailField, not that it is *the* built-in Mezzanine email field. Therefore, check the class rather than identity. The effective change here is that user-defined fields (in. ``FORMS_EXTRA_FIELDS)`` which subclass django's EmailField will be able to. receive confirmation emails - ryneeverett
+  * Remove redundant assignment of ``request.site_id`` - Alex Hill
+  * Add compatibility with the Django 1.10 MIDDLEWARE setting - Samir Shah
+  * Add more docstrings to ContentTyped - ryneeverett
+  * Set base ContentTyped ``content_model`` to None. Per discussion with @AlexHill in cartridge#293, ``content_model`` is the. name of django's automatic OneToOneField's linking the concrete base. class inheriting from ContentTyped to it's subclasses. There is no such. field when the base class itself is instantiated, so the ``content_model``. should be None - ryneeverett
+  * ``ContentTyped.get_content_model()`` should return instance, not class - Alex Hill
+  * Test admin redirects for ContentTyped models - Alex Hill
+  * Small error documentation. I think there are a small error : fields (plural) not field - Anthony
+  * Add some MIDDLEWARE compatibility fixes that were missing from #1660. Also change the way in which the middleware setting is determined. A statis variable will fail when settings are modified on the fly, ``e.g.``, when running tests - Samir Shah
+  * Fix positional argument count on ``get_db_prep_value`` - Jeff Cook
+  * Restore context vars in ``admin_dropdown_menu`` templatetag. Closes #1669 - Stephen McDonald
+  * Fix request context for form entries in admin - Stephen McDonald
+  * Fix template for form entries in admin - Stephen McDonald
+  * Fix overextends tag with cached template loader - Alex Hill
+  * Deprecate overextends tag since Django now includes its functionality - Alex Hill
+  * Remove some obsolete checks for Django < 1.8 - Alex Hill
+  * Deprecate SSLRedirectMiddleware. Resolve #1600. Also, set default SSL settings to `editable=False` so they do not. display in the settings by default - ryneeverett
+  * Move most Field functionality into abstract base class - Alex Hill
+  * Escape comment usernames in admin list - Stephen McDonald
+  * Move richtext filtering into a util function - Stephen McDonald
+
 Version 4.2.0 (Aug 12, 2016)
 ----------------------------
 
@@ -35,6 +65,10 @@ Version 4.2.0 (Aug 12, 2016)
   * ``ModelAdmin.in_menu`` -> ``has_module_permission``. Deprecate `ModelAdmin.in_menu` now that django has an equivalent method,. `ModelAdmin.has_module_permission`. See. ``<https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#django.contrib.admin.ModelAdmin.has_module_permission>`` - ryneeverett
   * Replace undocumented ``ModelAdmin.get_model_perms``. Instead use the documented methods `ModelAdmin.has_change_permission`. and `ModelAdmin.has_add_permission` - ryneeverett
   * Fix tests for pyflakes 1.2.x. The warning message now includes the module name - ryneeverett
+  * Fix selector of the ``_order`` field to make stacked inlines sortable - Eduardo Rivas
+  * Catch TinyMCE errors when trying to save inlines. Previously this used to prevent the new ``_order`` values from being computed - Eduardo Rivas
+  * Annotate special handling of the ``_order`` field in inlines - Eduardo Rivas
+  * Add CSS to hide the ``_order`` field in stacked inlines - Eduardo Rivas
   * Constrain content images to max width in default templates - Stephen McDonald
   * un-urlencode thumbnail filenames. Closes #1580 - Stephen McDonald
   * Clarify format of ``ADMIN_REMOVAL`` setting - Stephen McDonald
