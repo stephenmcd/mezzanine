@@ -58,12 +58,9 @@ function custom_file_browser(field_name, url, type, win) {
     return false;
 }
 
-jQuery(function($) {
-
+function initialise_richtext_fields($elements) {
     if (typeof tinyMCE != 'undefined') {
-
-        tinyMCE.init({
-            selector: "textarea.mceEditor",
+        $elements.tinymce({
             height: '500px',
             language: language_codes[window.__language_code] || 'en',
             plugins: [
@@ -84,7 +81,21 @@ jQuery(function($) {
             content_css: window.__tinymce_css,
             valid_elements: "*[*]"  // Don't strip anything since this is handled by bleach.
         });
-
     }
+}
 
+django.jQuery(function($) {
+    // Initialise all existing editor fields, except those with an id
+    // containing the string "__prefix__". Those elements are part of the
+    // hidden template inline rows used by Django's dynamic inlines, and they
+    // shouldn't be initialised as editors.
+    initialise_richtext_fields($('textarea.mceEditor').filter(function(i, e) {
+        return (e.id || '').indexOf('__prefix__') === -1;
+    }));
+
+    // Register a handler for Django's formset:added event, to initialise
+    // any rich text fields in dynamically added inline forms.
+    $(document).on('formset:added', function(e, $row) {
+        initialise_richtext_fields($row.find('textarea.mceEditor'));
+    });
 });
