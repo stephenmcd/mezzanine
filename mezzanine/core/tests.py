@@ -641,6 +641,24 @@ class ContentTypedTestCase(TestCase):
         self.assertEqual(page.content_model, 'richtextpage')
         self.assertEqual(page.get_content_model(), richtextpage)
 
+    def test_set_content_model_again(self):
+        """
+        Content model cannot change after initial save.
+
+        That's the only time we'll know for certain that the __class__ is the
+        lowest class in the hierarchy. Of course, content_model will keep
+        getting set to None for base concrete classes, which is confusing but
+        not necessarily a problem.
+        """
+        richtextpage = RichTextPage.objects.create()
+        richtextpage.set_content_model()
+        page = Page.objects.get(pk=richtextpage.pk)
+        self.assertEqual(page.content_model, 'richtextpage')
+        self.assertEqual(page.get_content_model(), richtextpage)
+        page.set_content_model()
+        self.assertEqual(page.content_model, 'richtextpage')
+        self.assertEqual(page.get_content_model(), richtextpage)
+
     def test_contenttyped_admin_redirects(self):
         self.client.login(username=self._username, password=self._password)
 
