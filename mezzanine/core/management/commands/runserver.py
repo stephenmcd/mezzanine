@@ -142,15 +142,24 @@ class Command(runserver.Command):
     under the project's ``STATIC_ROOT``.
     """
 
-    def inner_run(self, *args, **kwargs):
-        # Show Mezzanine's own cool banner in the terminal. There
-        # aren't really any exceptions to catch here, but we do
-        # so blanketly since such a trivial thing like the banner
-        # shouldn't be able to crash the development server.
-        try:
-            self.stdout.write(banner())
-        except:
-            pass
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+        parser.add_argument(
+            '--nobanner', action="store_false", dest='show_banner',
+            default=True,
+            help='Tells Mezzanine not to show a banner at startup.',
+        )
+
+    def inner_run(self, show_banner, *args, **kwargs):
+        if show_banner:
+            # Show Mezzanine's own cool banner in the terminal. There
+            # aren't really any exceptions to catch here, but we do
+            # so blanketly since such a trivial thing like the banner
+            # shouldn't be able to crash the development server.
+            try:
+                self.stdout.write(banner())
+            except:
+                pass
         super(Command, self).inner_run(*args, **kwargs)
 
     def get_handler(self, *args, **options):
