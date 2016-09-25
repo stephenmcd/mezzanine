@@ -1,3 +1,9 @@
+Version 4.2.2 (Sep 25, 2016)
+----------------------------
+
+  * Add an option for turning off the runserver banner. Add an option to Mezzanine’s runserver command for not showing the. banner at startup - Simen Heggestøyl
+  * Only set ``content_model`` first time. Fix #1676 - ryneeverett
+
 Version 4.2.1 (Sep 19, 2016)
 ----------------------------
 
