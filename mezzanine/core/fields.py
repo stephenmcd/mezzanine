@@ -88,7 +88,7 @@ class MultiChoiceField(models.CharField):
     def validate(self, value, instance):
         choices = [str(choice[0]) for choice in self.choices]
         if set(value) - set(choices):
-            error = self.error_messages["invalid_choice"] % value
+            error = self.error_messages["invalid_choice"] % {'value': value}
             raise ValidationError(error)
 
     def value_to_string(self, obj):
