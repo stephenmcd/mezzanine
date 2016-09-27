@@ -676,7 +676,11 @@ class ContentTypedTestCase(TestCase):
 
 
 class FieldsTestCase(TestCase):
+    def test_multichoicefield_validate_valid(self):
+        field = MultiChoiceField(choices=[('valid choice',)])
+        field.validate(['valid choice'], None)
+
     def test_multichoicefield_validate_invalid(self):
-        field = MultiChoiceField(choices=['valid choice'])
+        field = MultiChoiceField(choices=[('valid choice',)])
         with self.assertRaises(ValidationError):
             field.validate(['invalid choice'], None)
