@@ -43,6 +43,7 @@ class Command(BaseCommand):
         self.verbosity = int(options.get("verbosity", 0))
         self.interactive = int(options.get("interactive", 0))
         self.no_data = int(options.get("nodata", 0))
+        self.no_color = bool(options.get("no_color", False))
 
         call_command("migrate", verbosity=self.verbosity,
                      interactive=self.interactive)
@@ -147,6 +148,10 @@ class Command(BaseCommand):
             "i18n.\nWould you like to update translation "
             "fields from the default ones? (yes/no): ")
         if update:
-            create_fields.Command().execute(
-                    verbosity=self.verbosity, interactive=False)
-            update_fields.Command().execute(verbosity=self.verbosity)
+            options = {
+                "verbosity": self.verbosity,
+                "interactive": self.interactive,
+                "no_color": self.no_color,
+            }
+            create_fields.Command().execute(**options)
+            update_fields.Command().execute(**options)
