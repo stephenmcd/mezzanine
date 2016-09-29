@@ -96,6 +96,8 @@ class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     """
     Wraps render with a CSS class for styling.
     """
+    dont_use_model_field_default_for_empty_data = True
+
     def render(self, *args, **kwargs):
         rendered = super(CheckboxSelectMultiple, self).render(*args, **kwargs)
         return mark_safe("<span class='multicheckbox'>%s</span>" % rendered)
