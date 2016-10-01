@@ -338,6 +338,8 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     if thumb_exists:
         # Thumbnail exists, don't generate it.
         return thumb_url
+    elif default_storage.exists(thumb_url):
+        return thumb_url
     elif not default_storage.exists(image_url):
         # Requested image does not exist, just return its URL.
         return image_url
