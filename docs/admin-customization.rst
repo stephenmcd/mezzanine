@@ -163,13 +163,15 @@ need a way to convert that wiki syntax into HTML right before the
 content was rendered::
 
     # ... in myproj.filter
+    from django.utils.safestring import mark_safe
     from markdown import markdown
+
 
     def markdown_filter(content):
         """
         Converts markdown formatted content to html
         """
-        return markdown(content)
+        return mark_safe(markdown(content))
 
     # ... in myproj.settings
     RICHTEXT_FILTERS = (

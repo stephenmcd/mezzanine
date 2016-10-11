@@ -15,6 +15,8 @@ except ImportError:  # Python 2
 
 import re
 
+from django.utils.safestring import mark_safe
+
 from bleach import clean, sanitizer
 
 
@@ -99,8 +101,8 @@ def escape(html):
     if settings.RICHTEXT_FILTER_LEVEL == defaults.RICHTEXT_FILTER_LEVEL_LOW:
         tags += LOW_FILTER_TAGS
         attrs += LOW_FILTER_ATTRS
-    return clean(html, tags=tags, attributes=attrs, strip=True,
-                 strip_comments=False, styles=styles)
+    return mark_safe(clean(html, tags=tags, attributes=attrs, strip=True,
+                           strip_comments=False, styles=styles))
 
 
 def thumbnails(html):
@@ -127,7 +129,7 @@ def thumbnails(html):
         if src_in_media and width and height:
             img["src"] = settings.MEDIA_URL + thumbnail(src, width, height)
     # BS adds closing br tags, which the browser interprets as br tags.
-    return str(dom).replace("</br>", "")
+    return mark_safe(str(dom).replace("</br>", ""))
 
 
 class TagCloser(HTMLParser):

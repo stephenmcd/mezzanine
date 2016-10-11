@@ -5,9 +5,9 @@
 {% block main %}{{ block.super }}
 
 {% if request.GET.sent %}
-    {{ page.form.response|richtext_filters|safe }}
+    {{ page.form.response|richtext_filters }}
 {% else %}
-    {{ page.form.content|richtext_filters|safe }}
+    {{ page.form.content|richtext_filters }}
     <form method="post" class="form"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% nevercache %}
         <input type="hidden" name="referrer" value="{{ request.META.HTTP_REFERER }}">
