@@ -31,6 +31,14 @@ register_setting(
 )
 
 register_setting(
+    name="FORMS_REQUIRED_DEFAULT_HELP_TEXT",
+    description=_("Default help text to use for required fields in the forms "
+        "app."),
+    editable=False,
+    default=_("required"),
+)
+
+register_setting(
     name="FORMS_CSV_DELIMITER",
     description=_("Char to use as a field delimiter when exporting form "
         "responses as CSV."),
