@@ -396,6 +396,13 @@ Max length allowed for field labels in the forms app.
 
 Default: ``200``
 
+``FORMS_REQUIRED_DEFAULT_HELP_TEXT``
+------------------------------------
+
+Default help text to use for required fields in the forms app.
+
+Default: ``"required"``
+
 .. _FORMS_UPLOAD_ROOT:
 
 ``FORMS_UPLOAD_ROOT``

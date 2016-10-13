@@ -147,7 +147,8 @@ class FormForForm(forms.ModelForm):
             field_args = {"label": field.label, "required": field.required,
                           "help_text": field.help_text}
             if field.required and not field.help_text:
-                field_args["help_text"] = _("required")
+                field_args["help_text"] \
+                    = settings.FORMS_REQUIRED_DEFAULT_HELP_TEXT
             arg_names = field_class.__init__.__code__.co_varnames
             if "max_length" in arg_names:
                 field_args["max_length"] = settings.FORMS_FIELD_MAX_LENGTH
