@@ -153,5 +153,5 @@ class Command(BaseCommand):
                 "interactive": self.interactive,
                 "no_color": self.no_color,
             }
-            create_fields.Command().execute(**options)
-            update_fields.Command().execute(**options)
+            call_command(create_fields.Command(), **options)
+            call_command(update_fields.Command(), **options)
