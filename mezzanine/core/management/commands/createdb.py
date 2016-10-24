@@ -43,7 +43,6 @@ class Command(BaseCommand):
         self.verbosity = int(options.get("verbosity", 0))
         self.interactive = int(options.get("interactive", 0))
         self.no_data = int(options.get("nodata", 0))
-        self.no_color = bool(options.get("no_color", False))
 
         call_command("migrate", verbosity=self.verbosity,
                      interactive=self.interactive)
@@ -151,7 +150,6 @@ class Command(BaseCommand):
             options = {
                 "verbosity": self.verbosity,
                 "interactive": self.interactive,
-                "no_color": self.no_color,
             }
-            create_fields.Command().execute(**options)
-            update_fields.Command().execute(**options)
+            call_command(create_fields.Command(), **options)
+            call_command(update_fields.Command(), **options)
