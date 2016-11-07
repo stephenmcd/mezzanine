@@ -21,7 +21,6 @@ from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.forms.forms import EntriesForm
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.pages.admin import PageAdmin
-from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url, slugify
 
 
@@ -55,7 +54,7 @@ class FormAdmin(PageAdmin):
     """
 
     class Media:
-        css = {"all": (static("mezzanine/css/admin/form.css"),)}
+        css = {"all": ("mezzanine/css/admin/form.css",)}
 
     inlines = (FieldAdmin,)
     list_display = ("title", "status", "email_copies",)
