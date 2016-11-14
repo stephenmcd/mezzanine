@@ -13,7 +13,6 @@ from mezzanine.core.admin import BaseTranslationModelAdmin
 from mezzanine.conf import settings
 from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm
-from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url
 
 
@@ -25,9 +24,9 @@ class SettingsAdmin(admin.ModelAdmin):
 
     class Media(BaseTranslationModelAdmin.Media):
         css = copy(BaseTranslationModelAdmin.Media.css)
-        css["all"] += (static("mezzanine/css/admin/settings.css"),)
-        js = [js.replace(str(static("tabbed_translation_fields.js")),
-                         str(static("tabbed_translatable_settings.js")))
+        css["all"] += ("mezzanine/css/admin/settings.css",)
+        js = [js.replace(str("tabbed_translation_fields.js"),
+                         str("tabbed_translatable_settings.js"))
               for js in BaseTranslationModelAdmin.Media.js]
 
     def changelist_redirect(self):

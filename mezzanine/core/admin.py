@@ -17,7 +17,6 @@ from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (
     Orderable, ContentTyped, SitePermission, CONTENT_STATUS_PUBLISHED)
 from mezzanine.utils.models import base_concrete_model
-from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url
 
 if settings.USE_MODELTRANSLATION:
@@ -33,13 +32,13 @@ if settings.USE_MODELTRANSLATION:
         """
         class Media:
             js = (
-                static("modeltranslation/js/force_jquery.js"),
-                static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
-                static("mezzanine/js/admin/tabbed_translation_fields.js"),
+                "modeltranslation/js/force_jquery.js",
+                "mezzanine/js/%s" % settings.JQUERY_UI_FILENAME,
+                "mezzanine/js/admin/tabbed_translation_fields.js",
             )
             css = {
-                "all": (static(
-                    "mezzanine/css/admin/tabbed_translation_fields.css"),),
+                "all": (
+                    "mezzanine/css/admin/tabbed_translation_fields.css",),
             }
 
 else:
