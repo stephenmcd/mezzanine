@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # chengwenge <chengwenge988@gmail.com>, 2012
 # 王 充 <wjcroom@gmail.com>, 2012
@@ -10,14 +10,16 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:33-0430\n"
-"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"PO-Revision-Date: 2016-11-18 18:04+0800\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
+"mezzanine/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: admin.py:20
 msgid "Other posts"
@@ -25,11 +27,11 @@ msgstr "其他文章"
 
 #: defaults.py:21
 msgid "Enable featured images in blog posts"
-msgstr "允许在日志使用标志图片"
+msgstr "允许在文章中使用特色图片，即每页有一个不同的主题图片"
 
 #: defaults.py:36
 msgid "Blog post URL date format"
-msgstr ""
+msgstr "博客 URL 中的日期格式"
 
 #: defaults.py:37
 msgid ""
@@ -40,41 +42,44 @@ msgid ""
 "means the URLs will only use the slug, and not contain any portion of the "
 "date at all."
 msgstr ""
+"``year``, ``month``, 或者 ``day``，用来控制基于时间粒度的博客文章的URL地址。"
+"例如，字符串``year`` 会定义URL为/blog/yyyy/slug/, ``day`` 则会定义URL为/"
+"blog/yyyy/mm/dd/slug/.空字符串表示URLs中只会使用slug,而不会使用日期标记。"
 
 #: defaults.py:49
 msgid "Blog posts per page"
-msgstr "每页日志条数"
+msgstr "每页文章条数"
 
 #: defaults.py:50
 msgid "Number of blog posts shown on a blog listing page."
-msgstr "在日志列表中显示的条数"
+msgstr "在文章列表中显示的条数"
 
 #: defaults.py:57
 msgid "Blog posts RSS limit"
-msgstr ""
+msgstr "RSS中博客文章数的限制"
 
 #: defaults.py:58
 msgid ""
 "Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
 "display all blog posts in the RSS feed."
-msgstr ""
+msgstr "显示在RSS中最近博客文章的数量，``None``表示在RSS中显示全部。"
 
 #: defaults.py:66
 msgid "Slug of the page object for the blog."
-msgstr "Slug of the page object for the blog."
+msgstr "博客中页面的英文短缩写(Slug)."
 
 #: models.py:17 templates/blog/includes/filter_panel.html:35
 msgid "Categories"
-msgstr "目录"
+msgstr "分类"
 
 #: models.py:19
 msgid "Allow comments"
-msgstr "回复"
+msgstr "允许评论"
 
 #: models.py:21 templates/blog/blog_post_detail.html:43
 #: templates/blog/blog_post_list.html:129
 msgid "Comments"
-msgstr "留言"
+msgstr "评论"
 
 #: models.py:22
 msgid "Rating"
@@ -82,7 +87,7 @@ msgstr "评级"
 
 #: models.py:23
 msgid "Featured Image"
-msgstr "图片标志"
+msgstr "主题图片"
 
 #: models.py:27 templates/blog/blog_post_detail.html:113
 msgid "Related posts"
@@ -90,23 +95,23 @@ msgstr "相关文章"
 
 #: models.py:32
 msgid "Blog post"
-msgstr "发布的日志"
+msgstr "文章"
 
 #: models.py:33
 msgid "Blog posts"
-msgstr "发布的日志"
+msgstr "文章"
 
 #: models.py:93
 msgid "Blog Category"
-msgstr "日志目录"
+msgstr "文章分类"
 
 #: models.py:94
 msgid "Blog Categories"
-msgstr "日志目录"
+msgstr "文章分类"
 
 #: templates/admin/includes/quick_blog.html:18
 msgid "Quick Blog"
-msgstr "快速发日志"
+msgstr "快速发文章"
 
 #: templates/admin/includes/quick_blog.html:27
 msgid "Save Draft"
@@ -128,7 +133,7 @@ msgstr "%(sometime)s 以前"
 #, python-format
 msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] ""
+msgstr[0] "%(comments_count)s 条评论"
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
@@ -146,7 +151,7 @@ msgstr "分享到Facebook"
 
 #: templates/blog/blog_post_list.html:4 templates/blog/blog_post_list.html:22
 msgid "Blog"
-msgstr "日志"
+msgstr "博客"
 
 #: templates/blog/blog_post_list.html:31
 msgid "Tag:"
@@ -154,27 +159,28 @@ msgstr "标签："
 
 #: templates/blog/blog_post_list.html:33
 msgid "Category:"
-msgstr "目录："
+msgstr "分类："
 
 #: templates/blog/blog_post_list.html:37
 msgid "Author:"
 msgstr "作者："
 
+# 显示本标签的文章？
 #: templates/blog/blog_post_list.html:50
 msgid "Viewing posts tagged"
-msgstr "显示发布标签"
+msgstr "显示被标签的文章"
 
 #: templates/blog/blog_post_list.html:52
 msgid "Viewing posts for the category"
-msgstr "显示本目录列表"
+msgstr "显示本类文章"
 
 #: templates/blog/blog_post_list.html:54
 msgid "Viewing posts from"
-msgstr "显示来自某人的列表"
+msgstr "显示时期的文章"
 
 #: templates/blog/blog_post_list.html:57
 msgid "Viewing posts by"
-msgstr "显示某人创作"
+msgstr "显示作者的文章"
 
 #: templates/blog/blog_post_list.html:89
 msgid "in"
