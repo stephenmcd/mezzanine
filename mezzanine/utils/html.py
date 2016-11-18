@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 from future.builtins import chr, int, str
-from pillow import Image
+from PIL import Image
 
 try:
     from html.parser import HTMLParser
