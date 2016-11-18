@@ -122,18 +122,17 @@ def thumbnails(html):
     dom = BeautifulSoup(html, "html.parser")
     for img in dom.findAll("img"):
         src = img.get("src", "")
-        
         # check for gif
         if src[-3:] == 'gif':
-            #check if gif is animated
+            #check if gif is animated, don't thumbnail if animated
             gif = Image.open(src)
             try:
                 gif.seek(1)
             except EOFError:
-                pass
+                gif.close()
             else:
+                gif.close()
                 continue
-        
         src_in_media = src.lower().startswith(settings.MEDIA_URL.lower())
         width = img.get("width")
         height = img.get("height")
