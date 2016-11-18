@@ -124,7 +124,7 @@ def thumbnails(html):
         src = img.get("src", "")
         # check for gif
         if src[-3:] == 'gif':
-            #check if gif is animated, don't thumbnail if animated
+            # check if gif is animated, don't thumbnail if animated
             gif = Image.open(src)
             try:
                 gif.seek(1)
