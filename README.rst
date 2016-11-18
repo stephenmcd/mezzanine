@@ -107,8 +107,9 @@ back your enhancements.
 
 Please note the following guidelines for contributing:
 
-* Before doing anything, discuss it on the `mezzanine-users`_ mailing
-  list first.
+* If you're fairly confident you've identified a bug or have already written a
+  patch, feel free to open an issue or pull request. Otherwise, please discuss
+  on the `mezzanine-users`_ mailing list first.
 * Contributed code must be written in the existing style. For Python
   (and to a decent extent, JavaScript as well), this is as simple as
   following the `Django coding style`_ and (most importantly)
