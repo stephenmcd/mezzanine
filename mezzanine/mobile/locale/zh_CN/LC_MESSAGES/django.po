@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # 王 充 <wjcroom@gmail.com>, 2012
 msgid ""
@@ -9,14 +9,16 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:32-0430\n"
-"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"PO-Revision-Date: 2016-11-18 18:31+0800\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
+"mezzanine/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: templates/mobile/404.html:6
 msgid "Page not found"
@@ -24,7 +26,7 @@ msgstr "找不到网页"
 
 #: templates/mobile/404.html:10
 msgid "The page you requested does not exist."
-msgstr "您要找的网页出门了。"
+msgstr "您要找的网页不存在。"
 
 #: templates/mobile/500.html:6
 msgid "Error"
@@ -32,7 +34,7 @@ msgstr "错误"
 
 #: templates/mobile/500.html:10
 msgid "Sorry, an error occurred."
-msgstr "扫兴，为你带来的不便道歉，这里有个错误"
+msgstr "抱歉，有一个错误发生。"
 
 #: templates/mobile/base.html:41 templates/mobile/index.html:6
 msgid "Home"
@@ -40,7 +42,7 @@ msgstr "首页"
 
 #: templates/mobile/base.html:53
 msgid "Powered by"
-msgstr "强劲动力来自－>"
+msgstr "Powered by"
 
 #: templates/mobile/base.html:54
 msgid "View Full Site"
@@ -48,7 +50,7 @@ msgstr "查看整个网站"
 
 #: templates/mobile/index.html:10
 msgid "This is the mobile homepage."
-msgstr "这是手机版的首页啊。"
+msgstr "这是手机版的首页。"
 
 #: templates/mobile/search_results.html:5
 #: templates/mobile/search_results.html:6
@@ -57,7 +59,7 @@ msgstr "查找结果"
 
 #: templates/mobile/search_results.html:12
 msgid "No results were found matching your query: "
-msgstr "没你您要找的结果，换个词，要不就去百度看看吧，"
+msgstr "没有找到: "
 
 #: templates/mobile/search_results.html:14
 msgid "Showing"
@@ -104,11 +106,11 @@ msgstr "或"
 #: templates/mobile/blog/blog_post_list.html:4
 #: templates/mobile/blog/blog_post_list.html:19
 msgid "Blog"
-msgstr "日志"
+msgstr "博客"
 
 #: templates/mobile/includes/pagination.html:6
 msgid "Previous"
-msgstr "下一个"
+msgstr "上一个"
 
 #: templates/mobile/includes/pagination.html:9
 msgid "Next"
@@ -124,10 +126,10 @@ msgstr "用户"
 
 #: templates/mobile/includes/search.html:5
 msgid "quotes"
-msgstr "报价"
+msgstr "引用"
 
 #: templates/mobile/includes/search.html:5
 msgid ""
 " for exact phrases, + to make a word or phrase required, and - to exclude a "
 "word or phrase."
-msgstr "精确的语名，‘+’匹配一个单词或词组， - 排除一个词或短语。"
+msgstr "精确查找，‘+’表示必须包含关键词， -表示不包含关键词。"
