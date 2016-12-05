@@ -8,8 +8,7 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:33-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-11-11 12:00+0100\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/"
 "mezzanine/language/nb/)\n"
 "Language: nb\n"
@@ -17,28 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Simen Heggestøyl <simen@e5r.no>\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: models.py:38
 msgid "Zip import"
-msgstr ""
+msgstr "Zip-import"
 
 #: models.py:40
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
 msgstr ""
+"Last opp en zip-fil med bilder, så vil de bli importert til dette "
+"galleriet."
 
 #: models.py:44
 msgid "Gallery"
-msgstr ""
+msgstr "Galleri"
 
 #: models.py:45
 msgid "Galleries"
-msgstr ""
+msgstr "Gallerier"
 
 #: models.py:92
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: models.py:94
 msgid "Description"
@@ -46,8 +49,8 @@ msgstr "Beskrivelse"
 
 #: models.py:98
 msgid "Image"
-msgstr ""
+msgstr "Bilde"
 
 #: models.py:99
 msgid "Images"
-msgstr ""
+msgstr "Bilder"

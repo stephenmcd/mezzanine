@@ -1,8 +1,9 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
+# Simen Heggestøyl <simen@e5r.no>, 2016
 # asr <audun.runde@frisknett.no>, 2013
 # ambientsound <kimtjen@gmail.com>, 2012
 msgid ""
@@ -10,33 +11,31 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-09 10:34-0430\n"
-"PO-Revision-Date: 2013-11-09 20:20+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"PO-Revision-Date: 2016-11-11 14:53+0100\n"
+"Last-Translator: Simen Heggestøyl <simen@e5r.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/mezzanine/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: defaults.py:20
 msgid "Minimum length for passwords"
-msgstr "Minimum lende for passord"
+msgstr "Minimum lengde for passord"
 
 #: defaults.py:27
-msgid ""
-"If ``True``, the username field will be excluded from sign up and account "
-"update forms."
-msgstr ""
+msgid "If ``True``, the username field will be excluded from sign up and account update forms."
+msgstr "Hvis ``True`` vil brukernavnfeltet ekskluderes fra innmeldings- og kontooppdateringsskjemaene."
 
 #: defaults.py:35
 msgid "List of fields to exclude from the profile form."
-msgstr "Liste med feltet som skal ekskluderes fra profilskjemaet."
+msgstr "Liste med felter som skal ekskluderes fra profilskjemaet."
 
 #: defaults.py:42
 msgid ""
-"Dotted package path and class name of profile form to use for users signing "
-"up and updating their profile, when ``mezzanine.accounts`` is installed."
+"Dotted package path and class name of profile form to use for users signing up and updating their profile, when ``mezzanine.accounts`` is installed."
 msgstr "Navn på klassen som skal brukes som profil-skjema når brukere oppretter konto og oppdaterer sin profil, når ``mezzanine.accounts`` er aktivert."
 
 #: defaults.py:51
@@ -44,31 +43,26 @@ msgid "If ``True``, users will have their own public profile pages."
 msgstr "Hvis ``True`` vil brukere få sine egne, offentlige profilsider."
 
 #: defaults.py:59
-msgid ""
-"If ``True``, when users create an account, they will be sent an email with a"
-" verification link, which they must click to enable their account."
-msgstr "Hvis ``True`` vil det bli sendt ut en epost med bekreftelseslenke til nye brukere, som må klikkes på for å aktivere kontoen."
+msgid "If ``True``, when users create an account, they will be sent an email with a verification link, which they must click to enable their account."
+msgstr "Hvis ``True`` vil det bli sendt ut en e-post med bekreftelseslenke til nye brukere, som må klikkes på for å aktivere kontoen."
 
 #: defaults.py:68
 msgid ""
-"If ``True``, when users create an account, they will not be enabled by "
-"default and a staff member will need to activate their account in the admin "
+"If ``True``, when users create an account, they will not be enabled by default and a staff member will need to activate their account in the admin "
 "interface."
-msgstr ""
+msgstr "Hvis ``True`` vil ikke nye brukerkontoer kunne benyttes før de har blitt aktivert av en administrator gjennom administrasjonsgrensesnittet."
 
 #: defaults.py:77
 msgid "Account approval email addresses"
-msgstr ""
+msgstr "E-postadresser for kontogodkjenning"
 
 #: defaults.py:78
-msgid ""
-"A comma separated list of email addresses that will receive an email "
-"notification each time a new account is created that requires approval."
-msgstr ""
+msgid "A comma separated list of email addresses that will receive an email notification each time a new account is created that requires approval."
+msgstr "En kommaseparert liste over e-postadresser som vil motta en e-postvarsling når en ny konto som krever godkjenning er registert."
 
 #: forms.py:29
 msgid "Email address"
-msgstr ""
+msgstr "E-postadresse"
 
 #: forms.py:31
 msgid "Username or email address"
@@ -127,8 +121,7 @@ msgstr "Feil brukernavn/e-post"
 msgid "Successfully logged in"
 msgstr "Innloggingen var vellykket"
 
-#: views.py:32 templates/accounts/includes/user_panel.html:18
-#: templates/accounts/includes/user_panel_nav.html:11
+#: views.py:32 templates/accounts/includes/user_panel.html:18 templates/accounts/includes/user_panel_nav.html:11
 msgid "Log in"
 msgstr "Logg inn"
 
@@ -137,22 +130,18 @@ msgid "Successfully logged out"
 msgstr "Utloggingen var vellykket"
 
 #: views.py:56
-msgid ""
-"Thanks for signing up! You'll receive an email when your account is "
-"activated."
-msgstr ""
+msgid "Thanks for signing up! You'll receive an email when your account is activated."
+msgstr "Takk for at du registrerte deg! Du vil motta en e-post når kontoen din er aktivert."
 
 #: views.py:60
-msgid ""
-"A verification email has been sent with a link for activating your account."
+msgid "A verification email has been sent with a link for activating your account."
 msgstr "En bekreftelses-epost er sendt til deg med en lenke du må benytte for å aktivere kontoen."
 
 #: views.py:64 views.py:83
 msgid "Successfully signed up"
 msgstr "Registreringen var vellykket"
 
-#: views.py:67 templates/accounts/includes/user_panel.html:21
-#: templates/accounts/includes/user_panel_nav.html:13
+#: views.py:67 templates/accounts/includes/user_panel.html:21 templates/accounts/includes/user_panel_nav.html:13
 msgid "Sign up"
 msgstr "Opprett bruker"
 
@@ -169,9 +158,8 @@ msgid "Update Profile"
 msgstr "Oppdater profil"
 
 #: views.py:141
-msgid ""
-"A verification email has been sent with a link for resetting your password."
-msgstr "En epost er sendt til deg med en lenke du må benytte for å bytte passord."
+msgid "A verification email has been sent with a link for resetting your password."
+msgstr "En e-post er sendt til deg med en lenke du må benytte for å bytte passord."
 
 #: views.py:143
 msgid "Password Reset"
@@ -183,48 +171,35 @@ msgstr "Du er allerede innlogget."
 
 #: templates/accounts/account_login.html:11
 #, python-format
-msgid ""
-"If you don't have an account you can <a "
-"href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
+msgid "If you don't have an account you can <a href=\"%(signup_url)s?next=%(next)s\">sign up</a> for one now."
 msgstr "Dersom du ikke har en konto, kan du <a href=\"%(signup_url)s?next=%(next)s\">opprette en konto</a> nå."
 
 #: templates/accounts/account_login.html:14
 #, python-format
-msgid ""
-"<p>You can also <a "
-"href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your "
-"password</a> if you've forgotten it.</p>"
+msgid "<p>You can also <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">reset your password</a> if you've forgotten it.</p>"
 msgstr "<p>Du kan også <a href=\"%(password_reset_url)s?next=%(profile_update_url)s\">nullstille passordet ditt</a> dersom du har glemt det.</p>"
 
 #: templates/accounts/account_password_reset.html:6
-msgid ""
-"Enter your username or email address and you'll receive an email with a link"
-" you need to click, in order to log in and change your password."
+msgid "Enter your username or email address and you'll receive an email with a link you need to click, in order to log in and change your password."
 msgstr "Skriv inn brukernavn eller e-postadresse, og vi sender deg en e-post med en lenke du benytter for å nullstille passordet ditt."
 
-#: templates/accounts/account_profile.html:17
-#: templates/accounts/includes/user_panel.html:10
+#: templates/accounts/account_profile.html:17 templates/accounts/includes/user_panel.html:10
 msgid "Update profile"
 msgstr "Oppdater profil"
 
 #: templates/accounts/account_signup.html:7
-msgid ""
-"You're already logged in. If you'd like to create a new account, you'll need"
-" to log out first."
+msgid "You're already logged in. If you'd like to create a new account, you'll need to log out first."
 msgstr "Du er allerede innlogget. Ønsker du å lage en ny brukerkonto, må du først logge ut."
 
 #: templates/accounts/account_signup.html:11
-msgid ""
-"After signing up, you'll receive an email with a link you need to click, in "
-"order to activate your account."
+msgid "After signing up, you'll receive an email with a link you need to click, in order to activate your account."
 msgstr "Etter at du har registrert deg, sender vi deg en e-post med en lenke du må benytte for å fullføre registreringen."
 
 #: templates/accounts/includes/user_panel.html:4
 msgid "Logged in as: "
 msgstr "Logget inn som:  "
 
-#: templates/accounts/includes/user_panel.html:15
-#: templates/accounts/includes/user_panel_nav.html:8
+#: templates/accounts/includes/user_panel.html:15 templates/accounts/includes/user_panel_nav.html:8
 msgid "Log out"
 msgstr "Logg ut"
 
@@ -236,60 +211,49 @@ msgstr "eller"
 msgid "Profile information"
 msgstr "Brukerprofil"
 
-#: templates/email/account_approve.html:3
-#: templates/email/account_approve.txt:3
+#: templates/email/account_approve.html:3 templates/email/account_approve.txt:3
 msgid "Hey there, a new account has been created and requires activation."
-msgstr ""
+msgstr "Hei der, en ny konto har blitt opprettet og krever aktivering."
 
-#: templates/email/account_approve.html:5
-#: templates/email/account_approve.txt:5
+#: templates/email/account_approve.html:5 templates/email/account_approve.txt:5
 msgid "Name"
 msgstr "Navn"
 
-#: templates/email/account_approve.html:6
-#: templates/email/account_approve.txt:6
+#: templates/email/account_approve.html:6 templates/email/account_approve.txt:6
 msgid "Email"
 msgstr "E-post"
 
-#: templates/email/account_approve.html:11
-#: templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
+#: templates/email/account_approve.html:11 templates/email/account_approve.txt:9 templates/email/signup_verify.html:4
 #: templates/email/signup_verify.txt:4
 msgid "Please use the link below to activate it."
 msgstr "Vennligst bruk lenken under for å aktivere brukerkontoen, slik at du kan logge inn."
 
 #: templates/email/account_approve_subject.txt:2
 msgid "An account requires activation"
-msgstr ""
+msgstr "En konto krever aktivering"
 
-#: templates/email/account_approved.html:3
-#: templates/email/account_approved.txt:3
+#: templates/email/account_approved.html:3 templates/email/account_approved.txt:3
 msgid "Hey there, your account has been activated."
-msgstr ""
+msgstr "Hei der, kontoen din har blitt aktivert."
 
-#: templates/email/account_approved.html:4
-#: templates/email/account_approved.txt:4
+#: templates/email/account_approved.html:4 templates/email/account_approved.txt:4
 msgid "Please use the link below to log in."
-msgstr ""
+msgstr "Vennligst bruk lenken under for å logge inn."
 
 #: templates/email/account_approved_subject.txt:2
 msgid "Your account has been activated"
-msgstr ""
+msgstr "Kontoen din har blitt aktivert"
 
-#: templates/email/password_reset_verify.html:3
-#: templates/email/password_reset_verify.txt:3
+#: templates/email/password_reset_verify.html:3 templates/email/password_reset_verify.txt:3
 msgid "Hey there, the password reset form was used for your account."
 msgstr "Hei, noen (deg?) ønsker å nullstille passordet ditt."
 
-#: templates/email/password_reset_verify.html:4
-#: templates/email/password_reset_verify.txt:4
+#: templates/email/password_reset_verify.html:4 templates/email/password_reset_verify.txt:4
 msgid "Please use the link below to log in and update your password."
 msgstr "Vennligst trykk på lenken under for å logge inn og nullstille passordet."
 
-#: templates/email/password_reset_verify.html:6
-#: templates/email/password_reset_verify.txt:6
-msgid ""
-"If you didn't request for your password to be reset, please ignore this "
-"email."
+#: templates/email/password_reset_verify.html:6 templates/email/password_reset_verify.txt:6
+msgid "If you didn't request for your password to be reset, please ignore this email."
 msgstr "Dersom du ikke ønsker å nullstille passordet, vennligst se bort fra denne e-posten."
 
 #: templates/email/password_reset_verify_subject.txt:2
