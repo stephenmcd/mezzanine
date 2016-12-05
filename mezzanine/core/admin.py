@@ -390,8 +390,10 @@ class SitePermissionUserAdmin(UserAdmin):
         has_perms = len(user.get_all_permissions()) > 0
         has_sites = SitePermission.objects.filter(user=user).count() > 0
         if user.is_active and user.is_staff and not user.is_superuser and not (
-                has_perms or has_sites):
-            error(request, "Note: admin user has no edit/site permissions")
+                has_perms and has_sites):
+            error(request, "The user is active but won't be able to access "
+                           "the admin, due to no edit/site permissions being "
+                           "selected")
 
 
 # only register if User hasn't been overridden
