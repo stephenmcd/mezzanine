@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User as AuthUser
+from django.contrib.messages import error
 from django.core.urlresolvers import NoReverseMatch
 from django.forms import ValidationError, ModelForm
 from django.http import HttpResponseRedirect
@@ -365,9 +366,9 @@ class ContentTypedAdmin(object):
         return models
 
 
-###########################################
-# Site Permissions Inlines for User Admin #
-###########################################
+####################################
+# User Admin with Site Permissions #
+####################################
 
 class SitePermissionInline(admin.TabularInline):
     model = SitePermission
@@ -376,7 +377,22 @@ class SitePermissionInline(admin.TabularInline):
 
 
 class SitePermissionUserAdmin(UserAdmin):
+
     inlines = [SitePermissionInline]
+
+    def save_model(self, request, obj, form, change):
+        """
+        Provides a warning if the user is an active admin with no admin access.
+        """
+        super(SitePermissionUserAdmin, self).save_model(
+            request, obj, form, change)
+        user = self.model.objects.get(id=obj.id)
+        has_perms = len(user.get_all_permissions()) > 0
+        has_sites = SitePermission.objects.filter(user=user).count() > 0
+        if user.is_active and user.is_staff and not user.is_superuser and not (
+                has_perms or has_sites):
+            error(request, "Note: admin user has no edit/site permissions")
+
 
 # only register if User hasn't been overridden
 if User == AuthUser:
