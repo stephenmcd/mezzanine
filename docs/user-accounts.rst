@@ -30,7 +30,7 @@ wanted to capture bios and dates of birth for each user::
 
     class MyProfile(models.Model):
         user = models.OneToOneField("auth.User")
-        date_of_birth = models.DateField()
+        date_of_birth = models.DateField(null=True)
         bio = models.TextField()
 
 

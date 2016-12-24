@@ -223,13 +223,13 @@ class SSLRedirectMiddleware(MiddlewareMixin):
     Also ensure URLs defined by ``SSL_FORCE_URL_PREFIXES`` are redirect
     to HTTPS, and redirect all other URLs to HTTP if on HTTPS.
     """
-    def __init__(self, get_response):
+    def __init__(self, *args):
         warnings.warn(
             "SSLRedirectMiddleware is deprecated. See "
             "https://docs.djangoproject.com/en/stable/ref/middleware/"
             "#module-django.middleware.security for alternative solutions.",
             DeprecationWarning)
-        super(SSLRedirectMiddleware, self).__init__(get_response)
+        super(SSLRedirectMiddleware, self).__init__(*args)
 
     def languages(self):
         if not hasattr(self, "_languages"):
