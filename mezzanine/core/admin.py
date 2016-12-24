@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User as AuthUser
+from django.contrib.redirects.admin import RedirectAdmin
 from django.contrib.messages import error
 from django.core.urlresolvers import NoReverseMatch
 from django.forms import ValidationError, ModelForm
@@ -18,6 +19,7 @@ from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (
     Orderable, ContentTyped, SitePermission, CONTENT_STATUS_PUBLISHED)
 from mezzanine.utils.models import base_concrete_model
+from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url
 
@@ -401,3 +403,38 @@ if User == AuthUser:
     if User in admin.site._registry:
         admin.site.unregister(User)
     admin.site.register(User, SitePermissionUserAdmin)
+
+
+class SiteRedirectAdmin(RedirectAdmin):
+    """
+    Subclass of Django's redirect admin that modifies it to behave the
+    way most other admin classes do it Mezzanine with regard to site
+    filtering. It filters the list view by current site, hides the site
+    field from the change form, and assigns the current site to the
+    redirect when first created.
+    """
+
+    fields = ("old_path", "new_path")  # Excludes the site field.
+
+    def get_queryset(self, request):
+        """
+        Filters the list view by current site.
+        """
+        queryset = super(SiteRedirectAdmin, self).get_queryset(request)
+        return queryset.filter(site_id=current_site_id())
+
+    def save_form(self, request, form, change):
+        """
+        Assigns the current site to the redirect when first created.
+        """
+        obj = form.save(commit=False)
+        if not obj.site_id:
+            obj.site_id = current_site_id()
+        return super(SiteRedirectAdmin, self).save_form(request, form, change)
+
+
+if "django.contrib.redirects" in settings.INSTALLED_APPS:
+    from django.contrib.redirects.models import Redirect
+    if Redirect in admin.site._registry:
+        admin.site.unregister(Redirect)
+    admin.site.register(Redirect, SiteRedirectAdmin)
