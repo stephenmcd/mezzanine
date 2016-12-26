@@ -4,6 +4,7 @@ Python module to implement xml parse and import of blogml blog post data
  * Has dependency of python-dateutil
 """
 from optparse import make_option
+import xml.etree.ElementTree as ET
 
 import dateutil.parser
 
@@ -11,6 +12,9 @@ from django.core.management.base import CommandError
 from django.utils import timezone
 
 from mezzanine.blog.management.base import BaseImporterCommand
+
+import pytz
+from pytz import UnknownTimeZoneError, timezone
 
 
 class Command(BaseImporterCommand):
@@ -42,8 +46,6 @@ class Command(BaseImporterCommand):
         # timezone related error handling
         # valid string input check, import check
         try:
-            import pytz
-            from pytz import UnknownTimeZoneError
             publishtz = pytz.timezone(tzinput)
         except ImportError:
             raise CommandError("Could not import the pytz library")
@@ -51,27 +53,24 @@ class Command(BaseImporterCommand):
             raise CommandError("Unknown Time Zone entered, see pytz for" +
                                "list of acceptable strings")
 
-        try:
-            import xml.etree.ElementTree as ET
-        except ImportError:
-            raise CommandError("Could not import the xml ElementTree library")
-
         # parsing xml tree and populating variables for post addition
         tree = ET.parse(xmlfname).getroot()
         namespace = {'blogml': 'http://www.blogml.com/2006/09/BlogML'}
         postroot = tree.find('blogml:posts', namespace)
         for post in postroot.getchildren():
-            posttitle = post.find('blogml:title', namespace).text
-            postcontent = post.find('blogml:content', namespace).text
-            postcategoriesfound = []
-            postcategories = post.find('blogml:categories', namespace)
+            post_title = post.find('blogml:title', namespace).text
+            post_content = post.find('blogml:content', namespace).text
+            post_categories_found = []
+            post_comments_found = []
+            post_categories = post.find('blogml:categories', namespace)
             post_comments = post.find('blogml:comments', namespace)
-            for category in postcategories.getchildren():
-                postcategoriesfound.append(category.attrib['ref'])
-            for comments in
+            for category in post_categories.getchildren():
+                post_categories_found.append(category.attrib['ref'])
+            for comments in post_comments:
+                post_comments_found.append(comments.attrib[''])
             postdate = publishtz.localize(dateutil.parser.parse(
                 post.attrib['date-created']))
-            self.add_post(title=posttitle, content=postcontent,
-                          pub_date=postdate, categories=postcategoriesfound
+            self.add_post(title=post_title, content=post_content,
+                          pub_date=postdate, categories=post_categories_found,
                           comments=post_comments_found)
 
