@@ -60,6 +60,7 @@ try:
             "requests >= 2.1.0",
             "requests-oauthlib >= 0.4",
             "future >= 0.9.0",
+            "python-dateutil",
             "pillow",
             "chardet",
         ],

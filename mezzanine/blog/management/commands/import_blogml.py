@@ -16,12 +16,12 @@ from mezzanine.blog.management.base import BaseImporterCommand
 class Command(BaseImporterCommand):
     """
     This class extends django management and mezzanine custom blog import
-    commands to allow for import from blogml styled blogs
-    Should supply user to upload as and xmlfilename
+    commands to allow for import from BlogMl styled blogs
+    see http://www.blogml.com/2006/09/BlogML for .x(ml)s(schema)d(efinition)
     """
     option_list = BaseImporterCommand.option_list + (
         make_option("-x", "--blogxmlfname", dest="xmlfilename",
-                    help="xml file to import blog from BoxAlly"),
+                    help="xml file to import blog from"),
         make_option("-z", "--timezone", dest="tzinput",
                     default=timezone.get_current_timezone_name())
     )
@@ -29,7 +29,6 @@ class Command(BaseImporterCommand):
     def handle_import(self, options):
         """
         Gets posts from provided xml dump
-        TODO: Handle comment importing
 
         - options is an optparse object with one relevent param
          * xmlfilename is for path to file
@@ -66,9 +65,13 @@ class Command(BaseImporterCommand):
             postcontent = post.find('blogml:content', namespace).text
             postcategoriesfound = []
             postcategories = post.find('blogml:categories', namespace)
+            post_comments = post.find('blogml:comments', namespace)
             for category in postcategories.getchildren():
                 postcategoriesfound.append(category.attrib['ref'])
+            for comments in
             postdate = publishtz.localize(dateutil.parser.parse(
                 post.attrib['date-created']))
             self.add_post(title=posttitle, content=postcontent,
-                          pub_date=postdate, categories=postcategoriesfound)
+                          pub_date=postdate, categories=postcategoriesfound
+                          comments=post_comments_found)
+
