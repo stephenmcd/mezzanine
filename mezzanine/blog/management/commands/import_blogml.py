@@ -3,18 +3,16 @@ Python module to implement xml parse and import of blogml blog post data
 
  * Has dependency of python-dateutil
 """
-from optparse import make_option
 import xml.etree.ElementTree as ET
-
-import dateutil.parser
-
-from django.core.management.base import CommandError
-from django.utils import timezone
-
-from mezzanine.blog.management.base import BaseImporterCommand
+from optparse import make_option
 
 import pytz
+from dateutil.parser import parse
+from django.core.management.base import CommandError
+from django.utils import timezone
 from pytz import UnknownTimeZoneError, timezone
+
+from mezzanine.blog.management.base import BaseImporterCommand
 
 
 class Command(BaseImporterCommand):
@@ -34,8 +32,8 @@ class Command(BaseImporterCommand):
         """
         Gets posts from provided xml dump
 
-        - options is an optparse object with one relevent param
-         * xmlfilename is for path to file
+        - options is an optparse object with one relevant param
+         * xmlfname is for path to file
         """
         xmlfname = options.get("xmlfilename")
         tzinput = options.get("tzinput")
@@ -54,23 +52,50 @@ class Command(BaseImporterCommand):
                                "list of acceptable strings")
 
         # parsing xml tree and populating variables for post addition
-        tree = ET.parse(xmlfname).getroot()
-        namespace = {'blogml': 'http://www.blogml.com/2006/09/BlogML'}
-        postroot = tree.find('blogml:posts', namespace)
-        for post in postroot.getchildren():
-            post_title = post.find('blogml:title', namespace).text
-            post_content = post.find('blogml:content', namespace).text
-            post_categories_found = []
-            post_comments_found = []
-            post_categories = post.find('blogml:categories', namespace)
-            post_comments = post.find('blogml:comments', namespace)
-            for category in post_categories.getchildren():
-                post_categories_found.append(category.attrib['ref'])
-            for comments in post_comments:
-                post_comments_found.append(comments.attrib[''])
-            postdate = publishtz.localize(dateutil.parser.parse(
-                post.attrib['date-created']))
-            self.add_post(title=post_title, content=post_content,
-                          pub_date=postdate, categories=post_categories_found,
-                          comments=post_comments_found)
-
+        tree = ET.parse(xmlfname)
+        # namespace for easier searching
+        ns = {"blogml": "http://www.blogml.com/2006/09/BlogML"}
+        # valid xpaths to find relevant items
+        # finds posts from root
+        search_paths = {"find_posts": ".blogml:posts/blogml:post",
+                        # finds comments on a given post element
+                        "find_comments": ".blogml:comments/blogml:comment",
+                        # finds categories on a given post element and from root
+                        "find_categories": "blogml:categories/blogml:category",
+                        # finds tags on a given post element
+                        "find_tags": "blogml:tags/blogml:tag"}
+        # empty found dict to be used mutably in post addition
+        found = {}
+        # find all categories in root, get titles and ref id"s
+        cat_elements = tree.findall(search_paths["find_categories"], namespaces=ns)
+        # gather ref id"s on root categories into tuple
+        cat_ids = tuple((x.attrib["id"] for x in cat_elements))
+        # gather category text from title element on root categories into tuple
+        cat_title_txt = tuple((x.find("blogml:title", namespaces=ns).text for x in cat_elements))
+        # map into dictionary of key=category_id as hash, and value=category title text
+        categories_found = dict(zip(cat_ids, cat_title_txt))
+        # find all posts in root
+        posts_found = tree.findall(search_paths["find_posts"], namespaces=ns)
+        for post in posts_found:
+            found["title"] = post.find("blogml:title", namespaces=ns).text
+            found["content"] = post.find("blogml:content", namespaces=ns).text
+            found["post-url"] = post.attrib["post-url"]
+            found["date-created"] = parse(post.attrib["date-created"])
+            post_category_refs = [x.attrib["ref"] for x in post.findall(search_paths["find_categories"])]
+            found["categories"] = list((categories_found[x] for x in post_category_refs))
+            found["tags"] = [x.attrib["ref"] for x in post.findall("blogml:tags/blogml:tag", namespaces=ns)]
+            post_entered = self.add_post(title=found["title"], content=found["content"], old_url=found["post-url"],
+                                         pub_date=found["date-created"], categories=found["categories"])
+            found.clear()
+            comments_found = post.findall(search_paths["find_comments"])
+            cmmnt = {}
+            for comment in comments_found:
+                cmmnt["name"] = comment.attrib["user-name"]
+                cmmnt["email"] = comment.attrib["user-email"]
+                cmmnt["pub_date"] = parse(comment.attrib["date-created"])
+                cmmnt["website"] = comment.attrib["user-url"]
+                cmmnt["body"] = comment.find("blogml:content").text
+                self.add_comment(post=post_entered, name=cmmnt["name"], email=cmmnt["email"],
+                                 pub_date=cmmnt["pub_date"],
+                                 website=cmmnt["website"], body=cmmnt["body"])
+                cmmnt.clear()
