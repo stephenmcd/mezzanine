@@ -144,10 +144,10 @@ In order to populate mezzanine with BlogML styled exports, simply use at command
 line with the filename of the local dump as an argument to the blogxmlfname
 parameter
 
-    $ python manage.py import_blogml --mezzanine-user=.. --blogxmlfname=filename
+    $ python manage.py import_blogml --blogxmlfname=filename
 
 The timezone for post creation will default to the settings.py timezone value
-in Django unless flagged
+in Django unless flagged optionally as an arg
 
 Importer API - Adding New Importers
 ===================================
@@ -163,8 +163,8 @@ import the command is for. This module will then contain a class named
 :class:`mezzanine.blog.management.base.BaseImporterCommand`.
 
 The first step is to define any custom arguments the command will
-require using Python's `optparse
-<http://docs.python.org/library/optparse.html>`_ handling.
+require using Python's `argparse
+<http://docs.python.org/library/argparse.html>`_ handling.
 
 The main responsbility of the ``Command`` class is then to implement a
 :meth:`~mezzanine.blog.management.base.BaseImporterCommand.handle_import`
@@ -202,3 +202,4 @@ management.base.BaseImporterCommand.add_comment` method. For example::
                 # Another imaginary variable to demo the API.
                 for retrieved_comment in comments:
                     self.add_comment(post=added_post, **retrieved_comment)
+
