@@ -5,8 +5,6 @@ Python module to implement xml parse and import of blogml blog post data
 """
 import xml.etree.ElementTree as ET
 
-from dateutil.parser import parse
-
 from mezzanine.blog.management.base import BaseImporterCommand
 
 
@@ -31,6 +29,12 @@ class Command(BaseImporterCommand):
         - options is an optparse object with one relevant param
          * xmlfname is for path to file
         """
+
+        try:
+            from dateutil.parser import parse
+        except ImportError:
+            raise ImportError("parse not found in dateutil; python-dateutil")
+
         xmlfname = options.get("xmlfilename")
         # parsing xml tree and populating variables for post addition
         tree = ET.parse(xmlfname)
@@ -91,7 +95,8 @@ class Command(BaseImporterCommand):
                 (categories_found[x] for x in post_category_refs))
             found["tags"] = [x.attrib["ref"] for x in
                              post.findall("blogml:tags/blogml:tag",
-                                          namespaces=ns)]
+                                          namespaces=ns)
+                             ]
             post_entered = self.add_post(title=found["title"],
                                          content=found["content"],
                                          old_url=found["post-url"],

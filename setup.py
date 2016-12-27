@@ -1,10 +1,10 @@
-
 import os
 import sys
-from setuptools import setup, find_packages
 from shutil import rmtree
-from mezzanine import __version__ as version
 
+from setuptools import setup, find_packages
+
+from mezzanine import __version__ as version
 
 exclude = ["mezzanine/project_template/dev.db",
            "mezzanine/project_template/project_name/local_settings.py"]
@@ -60,7 +60,6 @@ try:
             "requests >= 2.1.0",
             "requests-oauthlib >= 0.4",
             "future >= 0.9.0",
-            "python-dateutil",
             "pillow",
             "chardet",
         ],
