@@ -77,6 +77,16 @@ class Command(BaseImporterCommand):
         # find all posts in root
         posts_found = tree.findall(search_paths["find_posts"], namespaces=ns)
         for post in posts_found:
+            """
+            By iterating on posts, extract critical information for post addition.
+            - title is extracted as child of post element, text value within tag
+            - content is extracted as child of post element, text value within tag
+            - post-url is extracted as attribute of post element with key post-url
+            - date-created is extracted as attribute of post element with name date-created and converted to datetime
+                with key date-created
+            - categories are found through dict-key comparison to parent found categories, list value for key categories
+            - tags are found as grandchildren of post and children of tag with attribute ref as a text description
+            """
             found["title"] = post.find("blogml:title", namespaces=ns).text
             found["content"] = post.find("blogml:content", namespaces=ns).text
             found["post-url"] = post.attrib["post-url"]
@@ -90,6 +100,14 @@ class Command(BaseImporterCommand):
             comments_found = post.findall(search_paths["find_comments"])
             cmmnt = {}
             for comment in comments_found:
+                """
+                By iterating on comments within single post, extract information for comment addition on post
+                - name of user extracted as attribute of comment element, key name
+                - email of user extracted as attribute of comment element, key email
+                - pub_date of comment extracted as attribute of comment element, datetime parsed, key pub_date
+                - website of comment extracted as attribute of comment element, key website
+                - body of comment extracted as text of child content tag on comment, key body
+                """
                 cmmnt["name"] = comment.attrib["user-name"]
                 cmmnt["email"] = comment.attrib["user-email"]
                 cmmnt["pub_date"] = parse(comment.attrib["date-created"])
