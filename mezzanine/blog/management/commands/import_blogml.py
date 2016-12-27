@@ -4,7 +4,6 @@ Python module to implement xml parse and import of blogml blog post data
  * Has dependency of python-dateutil
 """
 import xml.etree.ElementTree as ET
-from optparse import make_option
 
 import pytz
 from dateutil.parser import parse
@@ -21,12 +20,17 @@ class Command(BaseImporterCommand):
     commands to allow for import from BlogMl styled blogs
     see http://www.blogml.com/2006/09/BlogML for .x(ml)s(schema)d(efinition)
     """
-    option_list = BaseImporterCommand.option_list + (
-        make_option("-x", "--blogxmlfname", dest="xmlfilename",
-                    help="xml file to import blog from"),
-        make_option("-z", "--timezone", dest="tzinput",
-                    default=timezone.get_current_timezone_name())
-    )
+
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+        parser.add_argument(
+            "-x", "--xmldumpfname", dest="xmlfilename", help="xml file to import blog from"
+        )
+
+        parser.add_argument(
+            "-z", "--timezone", dest="tzinput",
+            default=timezone.get_current_timezone_name()
+        )
 
     def handle_import(self, options):
         """
