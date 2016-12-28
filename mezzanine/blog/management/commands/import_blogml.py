@@ -2,8 +2,11 @@
 Python module to implement xml parse and import of blogml blog post data
 
  * Has dependency of python-dateutil
+ TODO: Replace all instances of date time parse with relevant tz from django settings
 """
 import xml.etree.ElementTree
+
+from django.utils import timezone
 
 from mezzanine.blog.management.base import BaseImporterCommand
 
