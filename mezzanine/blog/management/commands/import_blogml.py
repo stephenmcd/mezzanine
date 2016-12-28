@@ -80,7 +80,8 @@ class Command(BaseImporterCommand):
             post_category_refs = [
                 cat_element.attrib["ref"] for cat_element in
                 post_element.findall(
-                    search_paths["find_categories"]
+                    search_paths["find_categories"],
+                    namespaces=ns
                 )
                 ]
             post_dict["categories"] = list(
@@ -114,7 +115,8 @@ class Command(BaseImporterCommand):
                 comment_element.attrib["date-created"]
             )
             comment_dict["website"] = comment_element.attrib["user-url"]
-            comment_dict["body"] = comment_element.find("blogml:content").text
+            comment_dict["body"] = comment_element.find("blogml:content",
+                    namespaces=ns).text
             return comment_dict
 
         def _process_categories(root_tree):
@@ -149,7 +151,8 @@ class Command(BaseImporterCommand):
                                          old_url=post_info["post-url"],
                                          pub_date=post_info["date-created"],
                                          categories=post_info["categories"])
-            comments_found = post.findall(search_paths["find_comments"])
+            comments_found = post.findall(search_paths["find_comments"],
+                                          namespaces=ns)
             for comment in comments_found:
                 comment_info = _process_comment_element(comment)
                 self.add_comment(post=post_entered, name=comment_info["name"],
