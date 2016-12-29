@@ -2,7 +2,6 @@
 Python module to implement xml parse and import of blogml blog post data
 
  * Has dependency of python-dateutil
- TODO: Replace all instances of date time parse with relevant tz from django settings
 """
 import xml.etree.ElementTree
 
@@ -40,6 +39,7 @@ class Command(BaseImporterCommand):
                               "missing")
 
         xmlfname = options.get("xmlfilename")
+        set_tz = timezone.get_current_timezone()
         # parsing xml tree and populating variables for post addition
         tree = xml.etree.ElementTree.parse(xmlfname)
         # namespace for easier searching
@@ -79,7 +79,7 @@ class Command(BaseImporterCommand):
             post_dict["post-url"] = post_element.attrib["post-url"]
             post_dict["date-created"] = parse(
                 post_element.attrib["date-created"]
-            )
+            ).replace(tzinfo=set_tz)
             post_category_refs = [
                 cat_element.attrib["ref"] for cat_element in
                 post_element.findall(
@@ -116,7 +116,7 @@ class Command(BaseImporterCommand):
             comment_dict["email"] = comment_element.attrib["user-email"]
             comment_dict["pub_date"] = parse(
                 comment_element.attrib["date-created"]
-            )
+            ).replace(tzinfo=set_tz)
             comment_dict["website"] = comment_element.attrib["user-url"]
             comment_dict["body"] = comment_element.find("blogml:content",
                     namespaces=ns).text
