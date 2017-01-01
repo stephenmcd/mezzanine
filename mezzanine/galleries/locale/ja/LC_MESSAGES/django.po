@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"POT-Creation-Date: 2017-01-01 17:05+0900\n"
 "PO-Revision-Date: 2012-11-16 03:42+0000\n"
 "Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
@@ -20,11 +20,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:38
+#: models.py:46
 msgid "Zip import"
 msgstr "zipインポート"
 
-#: models.py:40
+#: models.py:48
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
@@ -32,26 +32,26 @@ msgstr ""
 "写真が入ったzipファイルをアップロードすると、このギャラリーにインポートされま"
 "す。"
 
-#: models.py:44
+#: models.py:120
 msgid "Gallery"
 msgstr "ギャラリー"
 
-#: models.py:45
+#: models.py:121
 msgid "Galleries"
 msgstr "ギャラリー"
 
-#: models.py:92
+#: models.py:128
 msgid "File"
 msgstr "ファイル"
 
-#: models.py:94
+#: models.py:130
 msgid "Description"
 msgstr "説明"
 
-#: models.py:98
+#: models.py:134
 msgid "Image"
 msgstr "写真"
 
-#: models.py:99
+#: models.py:135
 msgid "Images"
 msgstr "写真"

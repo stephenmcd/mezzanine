@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"POT-Creation-Date: 2017-01-01 11:42+0900\n"
 "PO-Revision-Date: 2013-06-17 08:40+0000\n"
 "Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
@@ -22,47 +22,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: admin.py:27
+#: admin.py:70
 msgid "This field is required if status is set to published."
 msgstr "このフィールドが空だとステータスを公開にすることができません。"
 
-#: admin.py:47
+#: admin.py:93
 msgid "Meta data"
 msgstr "メタデータ"
 
-#: defaults.py:21
+#: defaults.py:22
 msgid "Controls the ordering and grouping of the admin menu."
 msgstr "管理メニューの順番とグループ分けを調整します。"
 
-#: defaults.py:24 models.py:275
+#: defaults.py:25 models.py:363
 msgid "Content"
 msgstr "内容"
 
-#: defaults.py:25
+#: defaults.py:26
 msgid "Media Library"
 msgstr "メディアライブラリ"
 
-#: defaults.py:26 templates/admin/login.html:43
+#: defaults.py:27 templates/admin/login.html:59
 msgid "Site"
 msgstr "サイト"
 
-#: defaults.py:27
+#: defaults.py:28
 msgid "Users"
 msgstr "ユーザー"
 
-#: defaults.py:33
-msgid "Unregister these models from the admin."
-msgstr "管理ページからこれらのモデルの登録を抹消する。"
+#: defaults.py:34
+msgid "Collapse the Admin menu"
+msgstr "管理者メニューを折り畳む"
 
-#: defaults.py:40
+#: defaults.py:35
+msgid ""
+"Controls whether or not the left-hand admin menu is collapsed by default."
+msgstr ""
+"左側の管理メニューをデフォルトで折りたたむかどうかを制御します。"
+
+#: defaults.py:43
+msgid ""
+"A sequence of Python dotted paths to models (eg: ``['mezzanine.blog.models."
+"BlogPost',]``) that should be removed from the admin."
+msgstr ""
+"管理画面から削除するModelのPathをドット区切りで記述。"
+"例:``['mezzanine.blog.models.BlogPost',]``"
+
+#: defaults.py:52
 msgid "Size of thumbnail previews for image fields in the admin interface."
 msgstr "管理インターフェイスでの画像プレビューサムネイルフィールドのサイズ。"
 
-#: defaults.py:48
+#: defaults.py:60
 msgid "Akismet API Key"
 msgstr "Akismet APIキー"
 
-#: defaults.py:49
+#: defaults.py:61
 msgid ""
 "Key for http://akismet.com spam filtering service. Used for filtering "
 "comments and forms."
@@ -70,23 +84,33 @@ msgstr ""
 "http://akismet.com スパムフィルタリングサービスのためのキー。コメントと "
 "フォームのフィルターに利用されます。"
 
-#: defaults.py:57
+#: defaults.py:69
 msgid "bit.ly access token"
 msgstr "bit.ly アクセストークン"
 
-#: defaults.py:58
+#: defaults.py:70
 msgid "Access token for http://bit.ly URL shortening service."
 msgstr "http://bit.ly URL 短縮サービス用のアクセストークン"
 
-#: defaults.py:65
+#: defaults.py:77
+#, fuzzy
+#| msgid ""
+#| "Mezzanine's caching uses a technique know as mint caching. This is where "
+#| "the requested expiry for a cache entry is stored with the cache entry in "
+#| "cache, and the real expiry used has the ``CACHE_SET_DELAY`` added to it. "
+#| "Then on a cache get, the store expiry is checked, and if it has past, the "
+#| "cache entry is set again, and no entry is returned. This tries to ensure "
+#| "that cache misses never occur, and if many clients were to get a cache "
+#| "miss at once, only one would actually need to re-generated the cache "
+#| "entry."
 msgid ""
 "Mezzanine's caching uses a technique know as mint caching. This is where the "
 "requested expiry for a cache entry is stored with the cache entry in cache, "
 "and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
-"cache get, the store expiry is checked, and if it has past, the cache entry "
-"is set again, and no entry is returned. This tries to ensure that cache "
-"misses never occur, and if many clients were to get a cache miss at once, "
-"only one would actually need to re-generated the cache entry."
+"cache get, the store expiry is checked, and if it has passed, the cache "
+"entry is set again, and no entry is returned. This tries to ensure that "
+"cache misses never occur, and if many clients were to get a cache miss at "
+"once, only one would actually need to re-generated the cache entry."
 msgstr ""
 "Mezzanineのキャッシングはmintキャッシングという技術を利用しています。これ"
 "は、 リクエスト されたキャッシュエントリーの有効期限がキャッシュ内のキャッ"
@@ -97,7 +121,7 @@ msgstr ""
 "る 仕組みで、 仮に多数のクライアントがあるキャッシュを同時に失ってしまうこと"
 "があったとしても、 キャッシュエントリーを一つだけ再生成すれば済みます。"
 
-#: defaults.py:93
+#: defaults.py:105
 msgid ""
 "A three item sequence, each containing a sequence of template tags used to "
 "render the admin dashboard."
@@ -105,13 +129,13 @@ msgstr ""
 "3つの項目からなるシークエンスで、それぞれ管理ダッシュボードを描画するのに使"
 "う テンプレートタグのシークエンスを含んでいます。"
 
-#: defaults.py:101
+#: defaults.py:113
 msgid "Device specific template sub-directory to use as the default device."
 msgstr ""
 "既定のデバイスとして使うための、デバイスに特化されたテンプレートサブディレク"
 "トリ。"
 
-#: defaults.py:109
+#: defaults.py:121
 msgid ""
 "Mapping of device specific template sub-directory names to the sequence of "
 "strings that may be found in their user agents."
@@ -119,11 +143,19 @@ msgstr ""
 "デバイスに特化されたテンプレートサブディレクトリの名前と、ユーザーエージェン"
 "トに含まれている可能性のある文字列とのマッピング。"
 
-#: defaults.py:131
+#: defaults.py:142
 msgid "If ``True``, website forms will use HTML5 features."
 msgstr "チェックを入れると、ウェブサイトのフォームでHTML5機能が使われます。"
 
-#: defaults.py:138
+#: defaults.py:149
+msgid ""
+"If ``True``, failures to send email will happen silently, otherwise an "
+"exception is raised. Defaults to ``settings.DEBUG``."
+msgstr ""
+"``True``の場合、メール送信失敗を無視します。``False``の場合、例外が発生します。"
+"デフォルト値は、``settings.DEBUG``の値が適用されます。"
+
+#: defaults.py:158
 msgid ""
 "A sequence of fields that will be injected into Mezzanine's (or any "
 "library's) models. Each item in the sequence is a four item sequence. The "
@@ -143,18 +175,26 @@ msgstr ""
 "フィールドクラスを指定する際、 通常のDjangoモデルフィールドを作成するのであれ"
 "ば ``django.models.db.``というパスは 省略できます。"
 
-#: defaults.py:153
+#: defaults.py:173
 msgid "Google Analytics ID"
 msgstr "Google Analytics ID"
 
-#: defaults.py:155
+#: defaults.py:174
 msgid "Google Analytics ID (http://www.google.com/analytics/)"
 msgstr "Google Analytics ID (http://www.google.com/analytics/)"
 
-#: defaults.py:161
+#: defaults.py:181
+#, fuzzy
+#| msgid ""
+#| "A sequence mapping host names to themes, allowing different templates to "
+#| "be served per HTTP hosts Each item in the sequence is a two item "
+#| "sequence, containing a host such as ``othersite.example.com``, and the "
+#| "name of an importable Python package for the theme. If the host is "
+#| "matched for a request, the templates directory inside the theme package "
+#| "will be first searched when loading templates."
 msgid ""
 "A sequence mapping host names to themes, allowing different templates to be "
-"served per HTTP hosts Each item in the sequence is a two item sequence, "
+"served per HTTP host. Each item in the sequence is a two item sequence, "
 "containing a host such as ``othersite.example.com``, and the name of an "
 "importable Python package for the theme. If the host is matched for a "
 "request, the templates directory inside the theme package will be first "
@@ -167,36 +207,40 @@ msgstr ""
 "ると、 テンプレートをロードする際、テーマパッケージ内にあるテンプレートディレ"
 "クトリが まず最初に検索対象となります。"
 
-#: defaults.py:175
+#: defaults.py:195
+msgid "If ``True``, front-end inline editing will be enabled."
+msgstr "``True``の場合、フロントエンドのインライン編集が有効になります。"
+
+#: defaults.py:202
 msgid "Name of the jQuery file."
 msgstr "jQueryファイルの名前"
 
-#: defaults.py:176
+#: defaults.py:203
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
 msgstr "mezzanine/core/static/mezzanine/js/ 内にあるjQueryファイルの名前"
 
-#: defaults.py:184
+#: defaults.py:211
 msgid "Name of the jQuery UI file."
 msgstr "jQuery UI ファイルの名前"
 
-#: defaults.py:185
+#: defaults.py:212
 msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
 msgstr ""
 "mezzanine/core/static/mezzanine/js/ 以下にある jQuery UI ファイルの名前"
 
-#: defaults.py:193
+#: defaults.py:220
 msgid "Max paging links"
 msgstr "最大ページングリンク数"
 
-#: defaults.py:194
+#: defaults.py:221
 msgid "Max number of paging links to display when paginating."
 msgstr "ページ生成する際に表示するページングリンクの最大数。"
 
-#: defaults.py:201
+#: defaults.py:228
 msgid "Media library per site"
 msgstr "サイト毎のメディアライブラリー"
 
-#: defaults.py:202
+#: defaults.py:229
 msgid ""
 "If ``True``, each site will use its own directory within the filebrowser "
 "media library."
@@ -204,7 +248,7 @@ msgstr ""
 "チェックを入れると、各サイトはファイルブラウザーメディアライブラリー内で それ"
 "ぞれ固有のディレクトリを使用します。"
 
-#: defaults.py:210
+#: defaults.py:237
 msgid ""
 "Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
 "admin change-list records filtered down to records owned by the current "
@@ -218,7 +262,7 @@ msgstr ""
 "``Ownable``をサブクラス化する際は、 現在使用中のユーザーに関わりなく、全ての"
 "記録を管理者変更リストインターフェイスに 表示します。"
 
-#: defaults.py:222
+#: defaults.py:249
 msgid ""
 "Dotted package path and class name of the widget to use for the "
 "``RichTextField``."
@@ -226,20 +270,20 @@ msgstr ""
 "``RichTextField``のために使用するドット区切りのパッケージパスと ウィジェット"
 "のクラス名。"
 
-#: defaults.py:230
+#: defaults.py:257
 msgid ""
 "List of HTML tags that won't be stripped from ``RichTextField`` instances."
 msgstr ""
 "``RichTextField``インスタンスから剥離されることのないHTMLタグのリスト。"
 
-#: defaults.py:246
+#: defaults.py:274
 msgid ""
 "List of HTML attributes that won't be stripped from ``RichTextField`` "
 "instances."
 msgstr ""
 "``RichTextField``インスタンスから剥離されることのないHTML属性の リスト。"
 
-#: defaults.py:264
+#: defaults.py:292
 msgid ""
 "List of inline CSS styles that won't be stripped from ``RichTextField`` "
 "instances."
@@ -247,31 +291,35 @@ msgstr ""
 "``RichTextField``インスタンスから剥離されることのないインラインCSSスタイルの "
 "リスト。"
 
-#: defaults.py:272
+#: defaults.py:302
+#, fuzzy
+#| msgid ""
+#| "Dotted path to the function to call on a ``RichTextField`` value before "
+#| "it is rendered to the template."
 msgid ""
-"Dotted path to the function to call on a ``RichTextField`` value before it "
-"is rendered to the template."
+"List of dotted paths to functions, called in order, on a ``RichTextField`` "
+"value before it is rendered to the template."
 msgstr ""
 "テンプレートに読み込まれる前に``RichTextField``の値を求める機能への ドット区"
 "切りのパス。"
 
-#: defaults.py:282
+#: defaults.py:312
 msgid "High"
 msgstr "高"
 
-#: defaults.py:283
+#: defaults.py:313
 msgid "Low (allows video, iframe, Flash, etc)"
 msgstr "低(動画、iframe、Flash等を許可する)"
 
-#: defaults.py:284
+#: defaults.py:314
 msgid "No filtering"
 msgstr "フィルタリングなし"
 
-#: defaults.py:289
+#: defaults.py:319
 msgid "Rich Text filter level"
 msgstr "リッチテキストフィルターレベル"
 
-#: defaults.py:290
+#: defaults.py:320
 msgid ""
 "*Do not change this setting unless you know what you're doing.*\n"
 "\n"
@@ -308,22 +356,25 @@ msgstr ""
 "無効になり、スクリプトタグを含め、スタッフメンバーはいかなるコードも挿入でき"
 "るようになります。"
 
-#: defaults.py:313
+#: defaults.py:343
 msgid ""
 "Sequence of models that will be provided by default as choices in the search "
 "form. Each model should be in the format ``app_label.model_name``. Only "
 "models that subclass ``mezzanine.core.models.Displayable`` should be used."
 msgstr ""
+"検索の選択肢としてデフォルトで提供されるモデルの名称。"
+"各モデルの形式は ``app_label.model_name``でなければなりません。"
+"``mezzanine.core.models.Displayable``のサブクラス化のみ使用できます。"
 
-#: defaults.py:323
+#: defaults.py:353
 msgid "Search results per page"
 msgstr "1ページに表示する検索結果"
 
-#: defaults.py:324
+#: defaults.py:354
 msgid "Number of results shown in the search results page."
 msgstr "検索結果ページに表示する検索結果の数。"
 
-#: defaults.py:331
+#: defaults.py:361
 msgid ""
 "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
 "this, you'll also need to manually apply it to your project's root ``urls."
@@ -335,11 +386,11 @@ msgstr ""
 "ります。Mezzanineの``mezzanine-project``コマンドで生成されるルート ``urls."
 "py``の最後尾近くに、これについての例が記述されています。"
 
-#: defaults.py:342
+#: defaults.py:372
 msgid "Site Title"
 msgstr "サイトのタイトル"
 
-#: defaults.py:343
+#: defaults.py:373
 msgid ""
 "Title that will display at the top of the site, and be appended to the "
 "content of the HTML title tags on every page."
@@ -347,23 +398,29 @@ msgstr ""
 "サイトの上部に表示されるタイトルで、全ページの HTMLタイトルタグの内容に追記さ"
 "れます。"
 
-#: defaults.py:351
+#: defaults.py:382
 msgid "Tagline"
 msgstr "タグライン"
 
-#: defaults.py:352
+#: defaults.py:383
 msgid "A tag line that will appear at the top of all pages."
 msgstr "全てのページの上部に表示されるタグライン。"
 
-#: defaults.py:354
+#: defaults.py:385
 msgid "An open source content management platform."
 msgstr "オープンソースCMS"
 
-#: defaults.py:359
+#: defaults.py:391
+#, fuzzy
+#| msgid ""
+#| "Dotted Python path to the callable for converting strings into URL slugs. "
+#| "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
+#| "ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+#| "Django's slugify function, or something of your own if required."
 msgid ""
 "Dotted Python path to the callable for converting strings into URL slugs. "
 "Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
-"ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+"ascii URLs. Change to ``django.template.defaultfilters.slugify`` to use "
 "Django's slugify function, or something of your own if required."
 msgstr ""
 "文字列をURL表記に変換するために呼び出すモジュールへのドット区切りのPythonパ"
@@ -372,7 +429,7 @@ msgstr ""
 "``django.template.defaultfilters.slugify``に変更、 あるいは、必要に応じて自分"
 "で用意したものを使うように変更してください。"
 
-#: defaults.py:370
+#: defaults.py:402
 msgid ""
 "Sequence of dotted Python paths to callable functions used for checking "
 "posted content (such as forms or comments) is spam. Each function should "
@@ -381,12 +438,16 @@ msgid ""
 "which will use the http://akismet.com spam filtering service when the "
 "``AKISMET_API_KEY`` setting is configured."
 msgstr ""
+"スパムチェックに使用される呼び出し可能な```.```区切りの関数名を記載します。"
+"関数は、リクエストオブジェクト、フォームオブジェクト、および投稿されたURLという3つの引数を受け入れる必要があります。"
+"デフォルトは `` mezzanine.utils.views.is_spam_akismet``です。"
+"これは `` AKISMET_API_KEY``設定が構成されているときにhttp://akismet.comのスパムフィルタリングサービスを使用します。"
 
-#: defaults.py:383
+#: defaults.py:415
 msgid "Enable SSL"
 msgstr "SSLを使用"
 
-#: defaults.py:384
+#: defaults.py:416
 msgid ""
 "If ``True``, users will be automatically redirected to HTTPS for the URLs "
 "specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
@@ -394,18 +455,18 @@ msgstr ""
 "チェックを入れると、ユーザーは自動的に``SSL_FORCE_URL_PREFIXES``設定で指定さ"
 "れた HTTPSのURLにリダイレクトされます。 "
 
-#: defaults.py:393
+#: defaults.py:425
 msgid "Force Host"
 msgstr "ホスト固定"
 
-#: defaults.py:394
+#: defaults.py:426
 msgid ""
 "Host name that the site should always be accessed via that matches the SSL "
 "certificate."
 msgstr ""
 "SSL証明書に適合し、常にそこを経由してサイトにアクセスされるべき ホスト名。"
 
-#: defaults.py:412
+#: defaults.py:444
 msgid ""
 "If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
 "will be accessible over SSL, and all other URLs will be redirected back to "
@@ -415,23 +476,23 @@ msgstr ""
 "アクセス可能となり、その他のURLにHTTPSでアクセスしてきた場合は リダイレクトし"
 "てHTTPに戻されます。"
 
-#: defaults.py:422
+#: defaults.py:454
 msgid "List of words which will be stripped from search queries."
 msgstr "検索クエリーから剥離される単語のリスト"
 
-#: defaults.py:479
+#: defaults.py:511
 msgid "Tag Cloud Sizes"
 msgstr "タグクラウドのサイズ"
 
-#: defaults.py:480
+#: defaults.py:512
 msgid "Number of different sizes for tags when shown as a cloud."
 msgstr "クラウドとして表示される時のタグ用のサイズの数。"
 
-#: defaults.py:487
+#: defaults.py:519
 msgid "Sequence of setting names available within templates."
 msgstr "テンプレート内で使用可能な設定名のシークエンス。"
 
-#: defaults.py:502
+#: defaults.py:537
 msgid ""
 "Directory name to store thumbnails in, that will be created relative to the "
 "original image's directory."
@@ -439,7 +500,7 @@ msgstr ""
 "サムネイルを保存するディレクトリ名で、オリジナル画像のディレクトリと紐付いて "
 "生成されるものです。"
 
-#: defaults.py:510
+#: defaults.py:545
 msgid ""
 "URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
 "configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
@@ -447,48 +508,71 @@ msgstr ""
 "(``STATIC_URL``に関連した)JavaScriptファイル用のURLで、既定の "
 "``RICHTEXT_WIDGET_CLASS``が使用されている場合TinyMCEの設定を扱います。"
 
-#: defaults.py:519
+#: defaults.py:554
 msgid ""
 "Dict mapping file field names in the format ``app_label.model_name."
 "field_name`` to the Python dotted path to function names that will be used "
 "for the file field's ``upload_to`` argument."
 msgstr ""
 
-#: defaults.py:535
+
+#: defaults.py:570
+#, fuzzy
+#| msgid ""
+#| "If ``True``, the south application will be automatically added to the "
+#| "``INSTALLED_APPS`` setting."
 msgid ""
-"If ``True``, the south application will be automatically added to the "
-"``INSTALLED_APPS`` setting."
+"If ``True``, the django-modeltranslation application will be automatically "
+"added to the ``INSTALLED_APPS`` setting."
 msgstr ""
 "チェックを入れると、``INSTALLED_APPS``設定に自動的にSouthアプリケーションが追"
 "加されます。"
 
-#: fields.py:37
+#: defaults.py:578
+msgid ""
+"Unique random string like ``SECRET_KEY``, but used for two-phased cache "
+"responses. Like ``SECRET_KEY``, should be automatically generated by the "
+"``mezzanine-project`` command."
+msgstr ""
+"2フェイズキャッシュに使用される``SECRET_KEY``のようなランダムな文字列です。"
+"``SECRET_KEY``と同様に、``mezzanine-project``コマンドで自動生成するべきです。"
+
+#: fields.py:41
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
 msgstr ""
 "settings.RICHTEXT_WIDGET_CLASSの値をインポートすることができませんでした: %s"
 
-#: forms.py:84 models.py:317
-msgid "Order"
-msgstr "順番"
+#: managers.py:397 templates/admin/index.html:15 templates/index.html:4
+#: templates/index.html:5 templates/index.html:8
+#: templates/search_results.html:13
+msgid "Home"
+msgstr "ホーム"
 
-#: models.py:56 models.py:110
+#: middleware.py:47
+#, python-format
+msgid ""
+"Your account is using the default password, please <a href='%s'>change it</"
+"a> immediately."
+msgstr ""
+
+#: models.py:69 models.py:123
 msgid "Title"
 msgstr "タイトル"
 
-#: models.py:57
+#: models.py:70
 msgid "URL"
 msgstr "URL"
 
-#: models.py:58
+#: models.py:71
 msgid "Leave blank to have the URL auto-generated from the title."
 msgstr "タイトルからURLを自動生成させる場合は空欄のままにしておく。"
 
-#: models.py:100
+#: models.py:113
 msgid "View on site"
 msgstr "サイトで見る"
 
-#: models.py:112
+#: models.py:125
 msgid ""
 "Optional title to be used in the HTML title tag. If left blank, the main "
 "title field will be used."
@@ -496,15 +580,15 @@ msgstr ""
 "HTMLタイトルタグ内で使用する任意のタイトル。空欄のままにしておくと、メインの "
 "タイトルフィールドが使用されます。"
 
-#: models.py:114
+#: models.py:127
 msgid "Description"
 msgstr "説明"
 
-#: models.py:115
+#: models.py:128
 msgid "Generate description"
 msgstr "説明を生成する"
 
-#: models.py:116
+#: models.py:129
 msgid ""
 "If checked, the description will be automatically generated from content. "
 "Uncheck if you want to manually set a custom description."
@@ -512,90 +596,209 @@ msgstr ""
 "チェックを入れておくと、内容から説明が自動生成されます。 自分で説明を書きたい"
 "場合はチェックを外してください。"
 
-#: models.py:119
+#: models.py:132
 msgid "Keywords"
 msgstr "キーワード"
 
-#: models.py:176
+#: models.py:212
 msgid "Draft"
 msgstr "下書き"
 
-#: models.py:177
+#: models.py:213
 msgid "Published"
 msgstr "公開しました"
 
-#: models.py:188
+#: models.py:226
 msgid "Status"
 msgstr "ステータス"
 
-#: models.py:190
+#: models.py:228
 msgid "With Draft chosen, will only be shown for admin users on the site."
 msgstr "下書きを選択すると、サイトの管理ユーザーのみが見られる状態になります。"
 
-#: models.py:192 models.py:225
+#: models.py:230 models.py:263
 msgid "Published from"
 msgstr "公開開始"
 
-#: models.py:193
+#: models.py:231
 msgid "With Published chosen, won't be shown until this time"
 msgstr "公開を選択すると、ここで設定した日時までは公開されません"
 
-#: models.py:195
+#: models.py:233
 msgid "Expires on"
 msgstr "有効期限"
 
-#: models.py:196
+#: models.py:234
 msgid "With Published chosen, won't be shown after this time"
 msgstr "公開を選択すると、ここで設定した日時以降は公開されません"
 
-#: models.py:199
+#: models.py:237
 msgid "Show in sitemap"
-msgstr "サイトマップ内に表示表示"
+msgstr "サイトマップ内に表示"
 
-#: models.py:402 models.py:422
+#: models.py:403
+msgid "Order"
+msgstr "順番"
+
+#: models.py:488 models.py:558
 msgid "Author"
 msgstr "著者"
 
-#: models.py:425
+#: models.py:561
 msgid "Sites"
 msgstr "サイト"
 
-#: models.py:428
+#: models.py:564
 msgid "Site permission"
 msgstr "サイトのパーミッション"
 
-#: models.py:429
+#: models.py:565
 msgid "Site permissions"
 msgstr "サイトのパーミッション"
 
-#: views.py:87
-msgid "Permission denied"
-msgstr "権限がありません"
+#: templates/admin/base_site.html:20
+msgid "View site"
+msgstr "サイトを見る"
 
-#: views.py:115 templates/includes/search_form.html:11
-msgid "Everything"
-msgstr "全て"
+#: templates/admin/includes/app_list.html:20
+#: templates/admin/includes/content_typed_change_list.html:24
+msgid "Add"
+msgstr "追加"
 
-#: templates/base.html:121
+#: templates/admin/includes/app_list.html:27
+#: templates/includes/language_selector.html:19
+msgid "Change"
+msgstr "変更"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "最近の操作"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "自分の操作"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "利用可能なものがありません"
+
+#: templates/admin/index.html:17
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: templates/admin/login.html:24
+msgid "You don't have permission to access the admin for this site."
+msgstr "このサイトの管理ページにアクセスできる権限が割り当てられていません。"
+
+#: templates/admin/login.html:31
+msgid "Username or email:"
+msgstr "ユーザー名またはEメールアドレス"
+
+#: templates/admin/login.html:35
+msgid "Password:"
+msgstr "パスワード:"
+
+#: templates/admin/login.html:42
+msgid "Language"
+msgstr ""
+
+#: templates/admin/login.html:53
+msgid "Interface:"
+msgstr "インターフェイス:"
+
+#: templates/admin/login.html:56 templates/includes/editable_toolbar.html:8
+msgid "Admin"
+msgstr "管理"
+
+#: templates/admin/login.html:63
+msgid "Log in"
+msgstr "ログイン"
+
+#: templates/admin/login.html:66
+msgid "Forgot password?"
+msgstr "パスワードをお忘れですか?"
+
+#: templates/base.html:55
+msgid "Toggle Navigation"
+msgstr ""
+
+#: templates/base.html:135
 msgid "Powered by"
 msgstr "Powered by"
 
-#: templates/base.html:124
+#: templates/base.html:138
 msgid "and"
 msgstr "and"
 
-#: templates/base.html:127
+#: templates/base.html:141
 msgid "Theme by"
 msgstr "Theme by"
 
-#: templates/base.html:130
+#: templates/base.html:144
 msgid "View Mobile Site"
 msgstr "モバイルサイトを見る"
 
-#: templates/index.html:4 templates/index.html.py:5 templates/index.html:8
-#: templates/search_results.html:10 templates/admin/index.html:15
-msgid "Home"
-msgstr "ホーム"
+#: templates/errors/404.html:6 templates/errors/404.html:10
+#: templates/errors/404.html:15
+msgid "Page not found"
+msgstr "ページが見つかりません"
+
+#: templates/errors/404.html:16
+msgid "The page you requested does not exist."
+msgstr "リクエストされたページは存在しません。"
+
+#: templates/errors/500.html:6 templates/errors/500.html:10
+#: templates/errors/500.html:15
+msgid "Error"
+msgstr "エラー"
+
+#: templates/errors/500.html:16
+msgid "Sorry, an error occurred."
+msgstr "エラーが起こりました。"
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "保存"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "編集"
+
+#: templates/includes/editable_toolbar.html:9
+msgid "Log out"
+msgstr "ログアウト"
+
+#: templates/includes/form_errors.html:8
+msgid "Please correct the errors below."
+msgstr "以下のエラーを修正してください。"
+
+#: templates/includes/form_fields.html:26
+msgid "required"
+msgstr "必須"
+
+#: templates/includes/pagination.html:7 views.py:203
+msgid "Page"
+msgstr "ページ"
+
+#: templates/includes/pagination.html:7
+msgid "of"
+msgstr "まで - 全件: "
+
+#: templates/includes/search_form.html:5
+msgid "Search"
+msgstr "検索"
+
+#: templates/includes/search_form.html:14 views.py:128
+msgid "Everything"
+msgstr "全て"
+
+#: templates/includes/search_form.html:26
+msgid "Go"
+msgstr "移動"
 
 #: templates/index.html:12
 msgid ""
@@ -622,137 +825,64 @@ msgid ""
 "to a production server</a></li>\n"
 "</ul>\n"
 msgstr ""
+"\n"
+"<h2>おめでとうございます！</h2>\n"
+"<p>\n"
+"    Mezzanineによって提供されたWebサイトへようこそ。\n"
+"    ここには、クイックスタートのためのリンクが幾つかあります。\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">管理インターフェースにログインする</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">カスタムページタイプの作成</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">HTMLテンプレートの変更</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
+"\">ホームページを変更する</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">その他のよくある質問</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">設定の全て</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">プロダクションサーバ "
+"にデプロイする</a></li>\n"
+"</ul>\n"
 
-#: templates/search_results.html:5 templates/search_results.html.py:6
-#: templates/search_results.html:13
+#: templates/search_results.html:5 templates/search_results.html:6
+#: templates/search_results.html:15
 msgid "Search Results"
 msgstr "検索結果"
 
-#: templates/search_results.html:20
+#: templates/search_results.html:22
 #, python-format
 msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"クエリ %(query)s に一致する %(search_type)s の結果は見つかりませんでした。\n"
 
-#: templates/search_results.html:24
+#: templates/search_results.html:26
 #, python-format
 msgid ""
 "\n"
 "Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
 "matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"クエリ %(query)s　に一致する %(search_type)s の結果が、"
+"%(start)s から %(end)s まで 合計 %(total)s 見つかりました。\n"
 
-#: templates/search_results.html:35
+#: templates/search_results.html:47
 msgid "read more"
 msgstr "もっと読む"
 
-#: templates/admin/base_site.html:34
-msgid "View site"
-msgstr "サイトを見る"
+#: views.py:101
+msgid "Permission denied"
+msgstr "権限がありません"
 
-#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
-msgid "Dashboard"
-msgstr "ダッシュボード"
+#~ msgid "Unregister these models from the admin."
+#~ msgstr "管理ページからこれらのモデルの登録を抹消する。"
 
-#: templates/admin/login.html:21
-msgid "You don't have permission to access the admin for this site."
-msgstr "このサイトの管理ページにアクセスできる権限が割り当てられていません。"
-
-#: templates/admin/login.html:28
-msgid "Username or email:"
-msgstr "ユーザー名またはEメールアドレス"
-
-#: templates/admin/login.html:32
-msgid "Password:"
-msgstr "パスワード:"
-
-#: templates/admin/login.html:37
-msgid "Interface:"
-msgstr "インターフェイス:"
-
-#: templates/admin/login.html:40 templates/includes/editable_toolbar.html:7
-#: templates/includes/editable_toolbar.html:9
-msgid "Admin"
-msgstr "管理"
-
-#: templates/admin/login.html:47
-msgid "Log in"
-msgstr "ログイン"
-
-#: templates/admin/login.html:50
-msgid "Forgot password?"
-msgstr "パスワードをお忘れですか?"
-
-#: templates/admin/includes/app_list.html:20
-msgid "Add"
-msgstr "追加"
-
-#: templates/admin/includes/app_list.html:27
-msgid "Change"
-msgstr "変更"
-
-#: templates/admin/includes/dynamic_inline_stacked.html:6
-#: templates/admin/includes/dynamic_inline_tabular.html:6
-msgid "Add another"
-msgstr "他を追加"
-
-#: templates/admin/includes/recent_actions.html:4
-msgid "Recent Actions"
-msgstr "最近の操作"
-
-#: templates/admin/includes/recent_actions.html:5
-msgid "My Actions"
-msgstr "自分の操作"
-
-#: templates/admin/includes/recent_actions.html:9
-msgid "None available"
-msgstr "利用可能なものがありません"
-
-#: templates/errors/404.html:6
-msgid "Page not found"
-msgstr "ページが見つかりません"
-
-#: templates/errors/404.html:10
-msgid "The page you requested does not exist."
-msgstr "リクエストされたページは存在しません。"
-
-#: templates/errors/500.html:6
-msgid "Error"
-msgstr "エラー"
-
-#: templates/errors/500.html:10
-msgid "Sorry, an error occurred."
-msgstr "エラーが起こりました。"
-
-#: templates/includes/editable_form.html:16
-msgid "Save"
-msgstr "保存"
-
-#: templates/includes/editable_form.html:17
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: templates/includes/editable_form.html:25
-msgid "Edit"
-msgstr "編集"
-
-#: templates/includes/editable_toolbar.html:11
-msgid "Log out"
-msgstr "ログアウト"
-
-#: templates/includes/pagination.html:8
-msgid "Page"
-msgstr "ページ"
-
-#: templates/includes/pagination.html:8
-msgid "of"
-msgstr "まで - 全件: "
-
-#: templates/includes/search_form.html:4
-msgid "Search"
-msgstr "検索"
-
-#: templates/includes/search_form.html:22
-msgid "Go"
-msgstr "移動"
+#~ msgid "Add another"
+#~ msgstr "他を追加"
