@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # andreas.lindroos <andreas.lindroos@gmail.com>, 2012
 # HeliosReds <helios_reds@gmx.net>, 2012
@@ -9,327 +9,372 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"POT-Creation-Date: 2017-01-01 13:55+0900\n"
 "PO-Revision-Date: 2013-11-09 20:20+0000\n"
 "Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/language/ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
+"language/ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: admin.py:32 fields.py:33
+#: admin.py:34 fields.py:34
 msgid "Email"
 msgstr "Eメール"
 
-#: admin.py:115
+#: admin.py:128
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
 msgstr[0] "%(count)s エントリーが削除されました"
 
-#: admin.py:119
+#: admin.py:132
 msgid "View Entries"
 msgstr "エントリーを見る"
 
-#: defaults.py:20
-msgid ""
-"If ``True``, emails sent to extra recipients for form submissions won't be "
-"sent from an address taken from one of the form's email fields."
-msgstr "チェックを入れると、フォームのEメールフィールドの一つから得られたアドレスからは、 フォームからの投稿による追加受信者に対して送られるEメールは送信されません。　"
-
-#: defaults.py:29
+#: defaults.py:21
 msgid "Max length allowed for field values in the forms app."
 msgstr "フォームアプリでフィールド値として入力可能な最長値。"
 
-#: defaults.py:36
+#: defaults.py:28
 msgid "Max length allowed for field labels in the forms app."
 msgstr "フォームアプリでフィールドラベルとして入力可能な最長値。"
 
-#: defaults.py:43
+#: defaults.py:35
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
 msgstr "フォームに書き込まれた内容をCSVとしてエクスポートする際にフィールド区切りとして用いる記号文字。"
 
-#: defaults.py:51
+#: defaults.py:43
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "フォームアプリでファイルをアップロードした際の保存先の絶対パス。"
 
-#: defaults.py:58
+#: defaults.py:50
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item"
-" sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high"
-" number such as 100 or greater to avoid conflicts."
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
 msgstr "フォームアプリ用の追加フィールドタイプ。各カスタムフィールドタイプごとに、 ID、フィールドクラスのためのドット区切りのインポートパス、フィールド名という 3項目のシークエンスからなるシークエンスを含む必要があります。IDはフィールドを示す 単なる固定数値ですが、既に使われている値は利用できませんので、衝突を避けるため 例えば100以上の大きな数を選んでください。"
 
-#: fields.py:31
+#: defaults.py:62
+msgid ""
+"Extra field widgets for the forms app. Should contain a sequence of two-item "
+"sequences, each containing an existing ID for a form field, and a dotted "
+"import path for the widget class."
+msgstr ""
+"フォームアプリのための追加フィールドウィジェット。 2つのアイテムのシーケンスを含める必要があります"
+"シーケンスには、それぞれフォームフィールドの既存のIDと、ウィジェットクラスのドット付きインポートパスが含まれています。"
+
+#: fields.py:32
 msgid "Single line text"
 msgstr "一行テキスト"
 
-#: fields.py:32
+#: fields.py:33
 msgid "Multi line text"
 msgstr "複数行テキスト"
 
-#: fields.py:34
+#: fields.py:35
 msgid "Number"
 msgstr "数"
 
-#: fields.py:35
+#: fields.py:36
 msgid "URL"
 msgstr "URL"
 
-#: fields.py:36
+#: fields.py:37
 msgid "Check box"
 msgstr "チェックボックス"
 
-#: fields.py:37
+#: fields.py:38
 msgid "Check boxes"
 msgstr "チェックボックス"
 
-#: fields.py:38
+#: fields.py:39
 msgid "Drop down"
 msgstr "ドロップダウン"
 
-#: fields.py:39
+#: fields.py:40
 msgid "Multi select"
 msgstr "複数選択"
 
-#: fields.py:40
+#: fields.py:41
 msgid "Radio buttons"
 msgstr "ラジオボタン"
 
-#: fields.py:41
+#: fields.py:42
 msgid "File upload"
 msgstr "ファイルアップロード"
 
-#: fields.py:42
+#: fields.py:43
 msgid "Date"
 msgstr "日付"
 
-#: fields.py:43 models.py:116
+#: fields.py:44 models.py:124
 msgid "Date/time"
 msgstr "日付/時刻"
 
-#: fields.py:44
+#: fields.py:45
 msgid "Date of birth"
 msgstr "生年月日"
 
-#: fields.py:45
+#: fields.py:46
 msgid "Hidden"
 msgstr "隠し項目"
 
-#: forms.py:28 forms.py:36 forms.py:42
+#: forms.py:52 forms.py:61 forms.py:68 forms.py:77
 msgid "Nothing"
 msgstr "なし"
 
-#: forms.py:29
+#: forms.py:53
 msgid "Contains"
 msgstr "以下を含む"
 
-#: forms.py:30
+#: forms.py:54
 msgid "Doesn't contain"
 msgstr "以下を含まない"
 
-#: forms.py:31 forms.py:37
+#: forms.py:55
 msgid "Equals"
 msgstr "以下に等しい"
 
-#: forms.py:32 forms.py:38
+#: forms.py:56
 msgid "Doesn't equal"
 msgstr "以下と等しくない"
 
-#: forms.py:43
+#: forms.py:62
+#, fuzzy
+#| msgid "Equals"
+msgid "Equals any"
+msgstr "以下に等しい"
+
+#: forms.py:63
+#, fuzzy
+#| msgid "Doesn't equal"
+msgid "Doesn't equal any"
+msgstr "以下と等しくない"
+
+#: forms.py:69
+#, fuzzy
+#| msgid "Contains"
+msgid "Contains any"
+msgstr "以下を含む"
+
+#: forms.py:70
+#, fuzzy
+#| msgid "Contains"
+msgid "Contains all"
+msgstr "以下を含む"
+
+#: forms.py:71
+#, fuzzy
+#| msgid "Doesn't contain"
+msgid "Doesn't contain any"
+msgstr "以下を含まない"
+
+#: forms.py:72
+#, fuzzy
+#| msgid "Doesn't contain"
+msgid "Doesn't contain all"
+msgstr "以下を含まない"
+
+#: forms.py:78
 msgid "Is between"
 msgstr "以下の値の間にある"
 
-#: forms.py:100
-msgid "required"
-msgstr "必須"
-
-#: forms.py:216
+#: forms.py:271
 msgid "Checked"
 msgstr "チェック済み"
 
-#: forms.py:216
+#: forms.py:271
 msgid "Not checked"
 msgstr "未チェック"
 
-#: forms.py:230 forms.py:245
+#: forms.py:294 forms.py:309
 msgid "and"
 msgstr "と"
 
-#: models.py:17
+#: models.py:19
 msgid "Button text"
 msgstr "ボタンに表示するテキスト"
 
-#: models.py:18
-msgid "Submit"
-msgstr "投稿"
-
-#: models.py:19
+#: models.py:20
 msgid "Response"
 msgstr "回答"
 
-#: models.py:20
+#: models.py:21
 msgid "Send email to user"
 msgstr "ユーザーにEメールを送信する"
 
-#: models.py:21
+#: models.py:22
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
 msgstr "投稿時のフォームから得られたEメールアドレスにEメールを送信する場合は、 このボックスにチェックを入れる。"
 
-#: models.py:23
+#: models.py:24
 msgid "From address"
 msgstr "差出人のアドレス"
 
-#: models.py:24
+#: models.py:25
 msgid "The address the email will be sent from"
 msgstr "メール送信者のアドレス"
 
-#: models.py:25
+#: models.py:26
 msgid "Send email to others"
 msgstr "他の人にEメールを送信する"
 
-#: models.py:26
+#: models.py:27
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
 msgstr "フォームからの投稿があった際にお知らせを送信するEメールアドレスのCSV形式の リスト。お知らせを無効にするなら空欄のままにしておく。"
 
-#: models.py:30
+#: models.py:31
 msgid "Subject"
 msgstr "件名"
 
-#: models.py:31
+#: models.py:32
 msgid "Message"
 msgstr "メッセージ"
 
-#: models.py:32
+#: models.py:33
 msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
 msgstr "上記のオプションを元にして送信されたEメールには、各フォームフィールドに入力された内容が書き込まれます。そのEメールに追記したいメッセージをここで設定することもできます。"
 
-#: models.py:37
+#: models.py:38
 msgid "Form"
 msgstr "フォーム"
 
-#: models.py:38
+#: models.py:39
 msgid "Forms"
 msgstr "フォーム"
 
-#: models.py:55
+#: models.py:56
 msgid "Label"
 msgstr "ラベル"
 
-#: models.py:57
+#: models.py:58
 msgid "Type"
 msgstr "タイプ"
 
-#: models.py:58
+#: models.py:59
 msgid "Required"
 msgstr "必須"
 
-#: models.py:59
+#: models.py:60
 msgid "Visible"
 msgstr "可視"
 
-#: models.py:60
+#: models.py:61
 msgid "Choices"
 msgstr "チョイス"
 
-#: models.py:61
+#: models.py:62
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
 msgstr "必要に応じてコンマ区切りのオプションを。オプションそのものにコンマが含まれる場合は、バッククォート(`)でそのオプションを囲んでください。"
 
-#: models.py:63
+#: models.py:64
 msgid "Default value"
 msgstr "既定値"
 
-#: models.py:65
+#: models.py:66
 msgid "Placeholder Text"
 msgstr "プレースホルダテキスト"
 
-#: models.py:67
+#: models.py:68
 msgid "Help text"
 msgstr "説明文"
 
-#: models.py:72 templates/admin/forms/entries.html:28
+#: models.py:74 templates/admin/forms/entries.html:27
 msgid "Field"
 msgstr "フィールド"
 
-#: models.py:73
+#: models.py:75
 msgid "Fields"
 msgstr "フィールド"
 
-#: models.py:119
+#: models.py:127
 msgid "Form entry"
 msgstr "フォームエントリー"
 
-#: models.py:120
+#: models.py:128
 msgid "Form entries"
 msgstr "フォームエントリー"
 
-#: models.py:134
+#: models.py:142
 msgid "Form field entry"
 msgstr "フォームフィールドエントリー"
 
-#: models.py:135
+#: models.py:143
 msgid "Form field entries"
 msgstr "フォームフィールドエントリー"
 
-#: templates/admin/forms/change_form.html:8
-#: templates/admin/forms/entries.html:57
+#: templates/admin/forms/change_form.html:5
+#: templates/admin/forms/entries.html:56
 msgid "View entries"
 msgstr "エントリーを見る"
 
-#: templates/admin/forms/change_form.html:9
-msgid "History"
-msgstr "履歴"
-
-#: templates/admin/forms/change_form.html:10
-msgid "View on site"
-msgstr "サイトで見る"
-
-#: templates/admin/forms/entries.html:14
+#: templates/admin/forms/entries.html:13
 msgid "Home"
 msgstr "ホーム"
 
-#: templates/admin/forms/entries.html:29
+#: templates/admin/forms/entries.html:28
 msgid "Include"
 msgstr "以下を含む"
 
-#: templates/admin/forms/entries.html:30
+#: templates/admin/forms/entries.html:29
 msgid "Filter by"
 msgstr "以下で並べ替え"
 
-#: templates/admin/forms/entries.html:48
+#: templates/admin/forms/entries.html:47
 msgid "All"
 msgstr "全て"
 
-#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
+#: templates/admin/forms/entries.html:55 templates/admin/forms/entries.html:92
 msgid "Back to form"
 msgstr "フォームに戻る"
 
-#: templates/admin/forms/entries.html:58
+#: templates/admin/forms/entries.html:57
 msgid "Export CSV"
 msgstr "CSVとしてエクスポート"
 
-#: templates/admin/forms/entries.html:60
+#: templates/admin/forms/entries.html:59
 msgid "Entries"
 msgstr "エントリー"
 
-#: templates/admin/forms/entries.html:94
+#: templates/admin/forms/entries.html:93
 msgid "Delete selected"
 msgstr "選択したものを削除"
 
-#: templates/admin/forms/entries.html:98
+#: templates/admin/forms/entries.html:97
 msgid "No entries to display"
 msgstr "エントリーがありません"
+
+#: templates/pages/form.html:29 tests.py:64 tests.py:71
+msgid "Submit"
+msgstr "投稿"
+
+#~ msgid ""
+#~ "If ``True``, emails sent to extra recipients for form submissions won't "
+#~ "be sent from an address taken from one of the form's email fields."
+#~ msgstr ""
+#~ "チェックを入れると、フォームのEメールフィールドの一つから得られたアドレス"
+#~ "からは、 フォームからの投稿による追加受信者に対して送られるEメールは送信さ"
+#~ "れません。　"
+
+#~ msgid "required"
+#~ msgstr "必須"
+
+#~ msgid "History"
+#~ msgstr "履歴"
+
+#~ msgid "View on site"
+#~ msgstr "サイトで見る"
