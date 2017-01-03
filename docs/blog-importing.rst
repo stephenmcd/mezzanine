@@ -132,22 +132,18 @@ importer, this leaves your media assets on the Posterous servers.
 If you're worried about posterous being shut down you may want want
 to have a closer look at the API to actually export your media.
 
-Importing from BlogML
-=====================
+Importing BlogML
+================
 
 Dependencies
 ------------
 
   * `Python-dateutil <https://dateutil.readthedocs.org/en/latest/>`_
 
-In order to populate mezzanine with BlogML styled exports, simply use at command
-line with the filename of the local dump as an argument to the blogxmlfname
-parameter
+Simply run the ``import_blogml`` command where the ``blogxmlfname`` argument
+contains local blogml file name::
 
     $ python manage.py import_blogml --blogxmlfname=filename
-
-The timezone for post creation will default to the settings.py timezone value
-in Django unless flagged optionally as an arg
 
 Importer API - Adding New Importers
 ===================================
