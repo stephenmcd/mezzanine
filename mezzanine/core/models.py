@@ -300,11 +300,11 @@ class Displayable(Slugged, MetaData, TimeStamped):
         permanently store ``get_absolute_url``, since it may change
         over time.
         """
-        if self.short_url == SHORT_URL_UNSET:
-            self.short_url = self.get_absolute_url_with_host()
-        elif not self.short_url:
+        if not self.short_url or self.short_url == SHORT_URL_UNSET:
             self.short_url = self.generate_short_url()
             self.save()
+        if self.short_url == SHORT_URL_UNSET:
+            self.short_url = self.get_absolute_url_with_host()
 
     def generate_short_url(self):
         """
