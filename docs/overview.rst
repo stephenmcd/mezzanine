@@ -209,6 +209,7 @@ certain sites.
 * `Imageinary <http://imageinary.com>`_
 * `Brad Montgomery <http://blog.bradmontgomery.net>`_
 * `Jashua Cloutier <http://www.senexcanis.com>`_
+* `Caffeinated Lifestyle <https://caffeinatedlifestyle.com>`_
 * `Alpha & Omega Contractors <http://alphaomegacontractors.com>`_
 * `Equity Advance <http://equityadvance.com.au/>`_
 * `Head3 Interactive <http://head3.com>`_
