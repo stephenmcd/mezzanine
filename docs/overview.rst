@@ -209,7 +209,6 @@ certain sites.
 * `Imageinary <http://imageinary.com>`_
 * `Brad Montgomery <http://blog.bradmontgomery.net>`_
 * `Jashua Cloutier <http://www.senexcanis.com>`_
-* `Caffeinated Lifestyle <https://caffeinatedlifestyle.com>`_
 * `Alpha & Omega Contractors <http://alphaomegacontractors.com>`_
 * `Equity Advance <http://equityadvance.com.au/>`_
 * `Head3 Interactive <http://head3.com>`_
@@ -469,6 +468,7 @@ certain sites.
 * `Camp America <http://campamerica.com.au>`_
 * `Code Source <http://codesource.com.au/>`_
 * `The Federation of Egalitarian Communities <http://thefec.org>`_
+* `Caffeinated Lifestyle <https://caffeinatedlifestyle.com>`_
 
 .. _`Mezzanine Grid on djangopackages.com`: http://www.djangopackages.com/grids/g/mezzanine/
 .. _`Cartridge`: http://cartridge.jupo.org/
