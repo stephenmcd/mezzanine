@@ -83,7 +83,7 @@
     };
 
     function initialise_richtext_fields($elements) {
-        if (typeof tinyMCE != 'undefined') {
+        if ($elements && typeof tinyMCE != 'undefined') {
             $elements.tinymce(tinymce_config);
         }
     }
@@ -104,4 +104,4 @@
         }));
     });
 
-})(django.jQuery);
+})(window.django ? django.jQuery : jQuery);
