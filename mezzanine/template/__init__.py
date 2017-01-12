@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
 
 from functools import wraps
+import warnings
 
 from django import template
+from django import VERSION as DJANGO_VERSION
 from django.template.context import Context
 from django.template.loader import get_template, select_template
 
@@ -23,6 +25,14 @@ class Library(template.Library):
         The decorated func returns the value that is given to
         ``var_name`` in the template.
         """
+        if DJANGO_VERSION >= (1, 9):
+            warnings.warn(
+                "The `as_tag` template tag builder is deprecated in favour of "
+                "Django's built-in `simple_tag`, which supports variable "
+                "assignment in Django 1.9 and above.",
+                DeprecationWarning, stacklevel=2
+            )
+
         @wraps(tag_func)
         def tag_wrapper(parser, token):
             class AsTagNode(template.Node):

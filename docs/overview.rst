@@ -45,7 +45,7 @@ standard Django environment), with the following dependencies, which
 unless noted as optional, should be installed automatically following
 the above instructions:
 
-* `Python`_ 2.7 to 3.5
+* `Python`_ 2.7 to 3.6
 * `Django`_ 1.8 to 1.10
 * `django-contrib-comments`_ - for built-in threaded comments
 * `Pillow`_ - for image resizing (`Python Imaging Library`_ fork)
@@ -468,6 +468,7 @@ certain sites.
 * `Camp America <http://campamerica.com.au>`_
 * `Code Source <http://codesource.com.au/>`_
 * `The Federation of Egalitarian Communities <http://thefec.org>`_
+* `Caffeinated Lifestyle <https://caffeinatedlifestyle.com>`_
 
 .. _`Mezzanine Grid on djangopackages.com`: http://www.djangopackages.com/grids/g/mezzanine/
 .. _`Cartridge`: http://cartridge.jupo.org/
