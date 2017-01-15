@@ -41,6 +41,10 @@ class PagesTests(TestCase):
         request.site_id = settings.SITE_ID
         _thread_local.request = request
 
+    def tearDown(self):
+        from mezzanine.core.request import _thread_local
+        del _thread_local.request
+
     def test_page_ascendants(self):
         """
         Test the methods for looking up ascendants efficiently
