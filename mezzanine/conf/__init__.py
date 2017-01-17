@@ -149,7 +149,9 @@ class Settings(object):
         try:
             editable_settings = self._editable_caches[request]
         except KeyError:
-            editable_settings = self._editable_caches[request] = self._load()
+            editable_settings = self._load()
+            if request is not self.NULL_REQUEST:
+                self._editable_caches[request] = editable_settings
         return editable_settings
 
     @classmethod
