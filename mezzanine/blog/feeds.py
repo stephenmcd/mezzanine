@@ -149,3 +149,6 @@ class PostsAtom(PostsRSS):
 
     def subtitle(self):
         return self.description()
+
+    def item_updateddate(self, item):
+        return item.updated
