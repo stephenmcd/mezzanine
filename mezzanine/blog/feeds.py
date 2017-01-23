@@ -131,6 +131,10 @@ class PostsRSS(Feed):
         if item.featured_image:
             return self.add_domain(item.featured_image.url)
 
+    def item_enclosure_length(self, item):
+        if item.featured_image:
+            return item.featured_image.size
+
 
 class PostsAtom(PostsRSS):
     """
