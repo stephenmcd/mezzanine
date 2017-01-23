@@ -135,6 +135,10 @@ class PostsRSS(Feed):
         if item.featured_image:
             return item.featured_image.size
 
+    def item_enclosure_mime_type(self, item):
+        if item.featured_image:
+            return item.featured_image.mimetype[0]
+
 
 class PostsAtom(PostsRSS):
     """
