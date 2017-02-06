@@ -11,6 +11,7 @@ except ImportError:
 
 from django.apps import apps
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.sites.models import Site
 from django.db import models
 from django.db.models.base import ModelBase
 from django.template.defaultfilters import truncatewords_html
@@ -46,7 +47,7 @@ class SiteRelated(models.Model):
     class Meta:
         abstract = True
 
-    site = models.ForeignKey("sites.Site", editable=False)
+    site = models.ForeignKey(Site, editable=False)
 
     def save(self, update_site=False, *args, **kwargs):
         """
