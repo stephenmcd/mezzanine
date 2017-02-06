@@ -2,7 +2,6 @@
 
 {% if has_site_permission %}
 <link rel="stylesheet" href="{% static "mezzanine/css/editable.css" %}">
-{{ richtext_media|safe }}
 <script>
 {% url "displayable_links_js" as link_list_url %}
 {% url "fb_browse" as fb_browse_url %}
@@ -15,6 +14,7 @@ window.__static_proxy = '{{ static_proxy_url }}';
 window.__language_code = '{{ LANGUAGE_CODE }}';
 window.__tinymce_css = '{% static "mezzanine/css/tinymce.css" %}';
 </script>
+{{ richtext_media|safe }}
 <script src="{% static "mezzanine/js/jquery.tools.toolbox.expose.js" %}"></script>
 <script src="{% static "mezzanine/js/jquery.tools.overlay.js" %}"></script>
 <script src="{% static "mezzanine/js/jquery.form.js" %}"></script>
