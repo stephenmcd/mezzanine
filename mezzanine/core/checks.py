@@ -4,11 +4,12 @@ import pprint
 
 from django import VERSION as DJANGO_VERSION
 from django.conf import global_settings
-from django.core.checks import Warning
+from django.core.checks import Warning, register
 
 from mezzanine.conf import settings
 
 
+@register()
 def check_template_settings(app_configs, **kwargs):
 
     issues = []
