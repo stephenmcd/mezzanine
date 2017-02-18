@@ -43,6 +43,9 @@ IGNORE_ERRORS = (
     # lambdas are OK.
     "do not assign a lambda",
 
+    # checks modules need to be imported to register check functions, they will
+    # be run by Django.
+    "'.checks' imported but unused"
 )
 
 
