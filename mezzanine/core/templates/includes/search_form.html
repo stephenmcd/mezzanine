@@ -2,7 +2,7 @@
 <form action="{% url "search" %}" class="navbar-form navbar-right" role="search">
 
 <div class="form-group">
-    <input class="form-control" placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.REQUEST.q }}">
+    <input class="form-control" placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.GET.q }}">
 </div>
 
 {% if search_model_choices %}
@@ -14,7 +14,7 @@
         <option value="">{% trans "Everything" %}</option>
         {% for verbose_name, model in search_model_choices %}
         <option value="{{ model }}"
-            {% if model == request.REQUEST.type  %}selected{% endif %}>
+            {% if model == request.GET.type  %}selected{% endif %}>
             {{ verbose_name }}
         </option>
         {% endfor %}
