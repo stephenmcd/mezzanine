@@ -52,10 +52,10 @@
         <div class="form-row" id="extra-login-fields">
             <label class="required">{% trans "Interface:" %}</label>
             <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
-                value="admin"{% if request.REQUEST.mezzanine_login_interface != "site" %} checked{% endif %} />
+                value="admin"{% if request.POST.mezzanine_login_interface != "site" %} checked{% endif %} />
             <label class="interface" for="interface_admin">{% trans "Admin" %}</label>
             <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_site"
-                value="site"{% if request.REQUEST.mezzanine_login_interface == "site" %} checked{% endif %} />
+                value="site"{% if request.POST.mezzanine_login_interface == "site" %} checked{% endif %} />
             <label class="interface" for="interface_site">{% trans "Site" %}</label>
         </div>
     </div>
