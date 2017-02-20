@@ -1,10 +1,11 @@
 from __future__ import unicode_literals
 
-from django.core.checks import Warning
+from django.core.checks import Warning, register
 
 from mezzanine.conf import settings
 
 
+@register
 def check_context_processor(app_configs, **kwargs):
 
     issues = []
