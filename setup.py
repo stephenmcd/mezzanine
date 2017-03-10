@@ -55,7 +55,7 @@ try:
             "filebrowser_safe >= 0.4.6",
             "grappelli_safe >= 0.4.5",
             "tzlocal >= 1.0",
-            "bleach >= 1.4",
+            "bleach >= 1.4, <2.0",
             "beautifulsoup4 >= 4.1.3",
             "requests >= 2.1.0",
             "requests-oauthlib >= 0.4",
