@@ -33,8 +33,8 @@ LOW_FILTER_ATTRS = ("allowfullscreen", "autostart", "loop", "hidden",
                     "playcount", "volume", "controls", "data", "classid")
 
 # https://github.com/mozilla/bleach/issues/102
-if "tel" not in sanitizer.BleachSanitizer.allowed_protocols:
-    sanitizer.BleachSanitizer.allowed_protocols += ["tel"]
+if "tel" not in sanitizer.ALLOWED_PROTOCOLS:
+    sanitizer.ALLOWED_PROTOCOLS += ["tel"]
 
 
 def absolute_urls(html):
