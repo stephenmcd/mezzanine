@@ -1,3 +1,47 @@
+Version 4.2.3 (Mar 10, 2017)
+----------------------------
+
+  * Test ``MultiChoiceField.validate`` when invalid. For the record, this raises a TypeError prior to Simen's commit - ryneeverett
+  * Test ``MultiChoiceField.validate`` when valid. Also, I realized that the `choices` kwarg needs to be a nested list - ryneeverett
+  * Ensure createdb command passes on the exepcted options to base class - Stephen McDonald
+  * Workaround for Django bug with templates field and empty values - Stephen McDonald
+  * Update travis django versions. (#1683). See discussion at. ``https://github.com/stephenmcd/mezzanine/commit/1866997c64725b3161b59628c8deaee544f0c473`` - ryneeverett
+  * Subclass Django's redirect admin to filter by site - Stephen McDonald
+  * Remove "Overriding vs. Extending" Docs. I know we discussed this a little bit somewhere and rewriting this. section was suggested. However, I don't see any reason to keep it. around. This was always a django issue but we provided a. mezzanine-specific solution. Now that there's a django solution, why. clutter our docs with it? - ryneeverett
+  * Fix ``SSLRedirectMiddleware.__init__`` signature. As reported on the mailing list. ``(https://groups.google.com/d/msg/mezzanine-users/d5mcAMOVcnk/uqw61LyjAwAJ),``. this raised a TypeError because the `get_response` argument is optional - ryneeverett
+  * Move “required” from field help text to template. The forms app used to set “required” as the help text for fields that. are required and didn’t have a help text already. Move this text into. the template instead, making it easier to override - Simen Heggestøyl
+  * Use ``call_command()`` instead of execute() (#1691) - Geoffrey ROYER
+  * Remove the ``no_color`` handling in createdb management command (#1691) - Geoffrey ROYER
+  * Fix example in profile docs - Stephen McDonald
+  * Remove outdated message regarding auto-reload. Since ``local_settings.py`` is added to ``sys.modules``, the autoreload is working as expected. See: ``https://github.com/stephenmcd/mezzanine/blob/master/mezzanine/project_template/project_name/settings.py#L308`` - Ed Rivas
+  * Document ``static_lazy's`` purpose. This is a summary of the reasoning in. ``https://github.com/stephenmcd/mezzanine/pull/1411`` - ryneeverett
+  * Update contributing guidelines to reflect practice. The language here is too broad and has caused several users to submit. high quality bug reports or patches to the mailing list when it's. actually easier to deal with them in the tracker - ryneeverett
+  * Fix TinyMCE support in dynamic inlines (#1674). * Fix TinyMCE support in dynamic inlines. Use TinyMCE’s jQuery plugin to initialise our editors, and handle. Django’s formset:added event to initialise editors in dynamically added. forms. * Tidy up TinyMCE initialisation code. * Call out changes to ``jquery.tinymce.min.js`` more visibly - Alex Hill
+  * Warn when editing admin users without permissions. Closes #1707 - Stephen McDonald
+  * Move contributing guidelines to ``CONTRIBUTING.rst``. This will present itself before people open issues which should cut down. on a lot of the erroneous ones - ryneeverett
+  * Fix short URL generation - Stephen McDonald
+  * Add support for importing via blogml - Evan Mattiza
+  * Clean up blogml importer - Stephen McDonald
+  * Added python 3.6 (#1720) - Andrii Soldatenko
+  * Deprecate ``as_tag`` templatetag shortcut. It isn't documented but folks may be using it anyway. We can't switch. over to ``simple_tag`` internally yet until we drop support for ``django-1.8`` - ryneeverett
+  * Restore tinymce support in front-end editing. Closes #1718 - Stephen McDonald
+  * Fix caching editable settings forever when no request - David Sanders
+  * Blog RSS feed - set length property for images (enclosure) - Yuri Prezument
+  * Blog RSS - add ``mime_type`` for images (enclosure) - Yuri Prezument
+  * Blog Atom feed - add "updatedate" property - Yuri Prezument
+  * Fix issue with PyPy2 (#1725). Under PyPy2 you can't do u"foo" == lazy(static, str)("bar") because the. code assumes dir(str) is a strict subset of dir(unicode), which isn't. true on PyPy2. The other way around is no problem however, and the. other strings in the static assets lists are unicode anyway - Ernst Sjöstrand
+  * Fix issue 1710. During user validation, only save POST data in session if it is a POST. request, otherwise saved comment may be overwritten by GET request that. results from redirect if user verification is required - Chris Hawes
+  * Re-order JavaScript loading to ensure TinyMCE has access to correct variables. Closes #1728 - Stephen McDonald
+  * Nicer way to import and register checks. The previous way meant every check gets mentioned 3 times (def, import,. register), with this way it is just once, and all the ``django.core.checks``. are together - Luke Plant
+  * Converted SitePermissionMiddleware warning to a Django check. Refs issue #1400 - Luke Plant
+  * Added hashbangs/permission bits to make scripts more easily runnable - Luke Plant
+  * Made it easier to run individual tests - Luke Plant
+  * Documented how to run tests - Luke Plant
+  * Fixed pyflakes errors for ``.checks`` imports - Luke Plant
+  * Fixed login form to not use ``request.REQUEST``. This is not available in Django 1.9 and greater, so without this fix the. forms are (slightly) broken. There doesn't seem to be any reason to use. REQUEST instead of POST - the form is a POST one, and the parameters are not. used elsewhere in the code base to construct a querystring - Luke Plant
+  * Fixed search forms to use ``request.GET`` instead of ``request.REQUEST``. ``request.REQUEST`` is not available in Django 1.9 and greater - Luke Plant
+  * Support latest bleach, BS, html5lib. Closes #1741, closes #1742, closes #1743 - Stephen McDonald
+
 Version 4.2.2 (Sep 25, 2016)
 ----------------------------
 
