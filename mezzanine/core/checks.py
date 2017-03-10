@@ -164,3 +164,4 @@ def check_sites_middleware(app_configs, **kwargs):
                         " missing from settings.MIDDLEWARE - per site"
                         " permissions not applied",
                         id="mezzanine.core.W04")]
+    return []
