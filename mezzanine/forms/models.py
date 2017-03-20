@@ -109,7 +109,8 @@ class AbstractBaseField(Orderable):
 
 
 class Field(AbstractBaseField):
-    form = models.ForeignKey("Form", related_name="fields")
+    form = models.ForeignKey("Form", on_delete=models.CASCADE,
+        related_name="fields")
 
     class Meta(AbstractBaseField.Meta):
         order_with_respect_to = "form"
@@ -120,7 +121,8 @@ class FormEntry(models.Model):
     An entry submitted via a user-built form.
     """
 
-    form = models.ForeignKey("Form", related_name="entries")
+    form = models.ForeignKey("Form", on_delete=models.CASCADE,
+        related_name="entries")
     entry_time = models.DateTimeField(_("Date/time"))
 
     class Meta:
@@ -133,7 +135,8 @@ class FieldEntry(models.Model):
     A single field value for a form entry submitted via a user-built form.
     """
 
-    entry = models.ForeignKey("FormEntry", related_name="fields")
+    entry = models.ForeignKey("FormEntry", on_delete=models.CASCADE,
+        related_name="fields")
     field_id = models.IntegerField()
     value = models.CharField(max_length=settings.FORMS_FIELD_MAX_LENGTH,
                              null=True)
