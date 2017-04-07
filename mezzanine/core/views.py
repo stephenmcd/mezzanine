@@ -202,7 +202,8 @@ def displayable_links_js(request):
         if real:
             verbose_name = _("Page") if page else obj._meta.verbose_name
             title = "%s: %s" % (verbose_name, title)
-        links.append((not page and real, {"title": str(title), "value": url}))
+        if url is not None:
+            links.append((not page and real, {"title": str(title), "value": url}))
     sorted_links = sorted(links, key=lambda link: (link[0], link[1]['value']))
     return HttpResponse(dumps([link[1] for link in sorted_links]))
 
