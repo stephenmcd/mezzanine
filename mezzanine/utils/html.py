@@ -122,7 +122,7 @@ def thumbnails(html):
         src_in_media = src.lower().startswith(settings.MEDIA_URL.lower())
         width = img.get("width")
         height = img.get("height")
-        if src_in_media and width and height:
+        if src_in_media and str(width).isdigit() and str(height).isdigit():
             img["src"] = settings.MEDIA_URL + thumbnail(src, width, height)
     # BS adds closing br tags, which the browser interprets as br tags.
     return str(dom).replace("</br>", "")
