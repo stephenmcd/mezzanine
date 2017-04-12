@@ -24,7 +24,7 @@ class MezzanineBackend(ModelBackend):
     For signup verficiation, False is given for is_active.
     """
 
-    def authenticate(self, **kwargs):
+    def authenticate(self, *args, **kwargs):
         if kwargs:
             username = kwargs.pop("username", None)
             if username:
