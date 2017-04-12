@@ -4,7 +4,7 @@ from future.builtins import str
 from collections import defaultdict
 
 from django.core.exceptions import ImproperlyConfigured
-from django.template import Context, TemplateSyntaxError, Variable
+from django.template import TemplateSyntaxError, Variable
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
@@ -131,7 +131,7 @@ def page_menu(context, token):
             context["page_branch_in_footer"] = True
 
     t = get_template(template_name)
-    return t.render(Context(context))
+    return t.render(context.flatten())
 
 
 @register.as_tag
