@@ -515,6 +515,15 @@ register_setting(
 )
 
 register_setting(
+    name="TAG_CLOUD_MAX_ITEMS",
+    label=_("Maximum Items in Tag Cloud"),
+    description=_("Limit the number of items in the tag cloud.  (Most "
+      "popular, set to 0 for no limit.)"),
+    editable=True,
+    default=0,
+)
+
+register_setting(
     name="TEMPLATE_ACCESSIBLE_SETTINGS",
     description=_("Sequence of setting names available within templates."),
     editable=False,

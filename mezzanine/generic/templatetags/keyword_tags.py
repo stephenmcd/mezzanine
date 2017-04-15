@@ -41,10 +41,15 @@ def keywords_for(*args):
     except ValueError:
         return []
 
+    settings.use_editable()
     content_type = ContentType.objects.get(app_label=app_label, model=model)
     assigned = AssignedKeyword.objects.filter(content_type=content_type)
     keywords = Keyword.objects.filter(assignments__in=assigned)
     keywords = keywords.annotate(item_count=Count("assignments"))
+    max_items = settings.TAG_CLOUD_MAX_ITEMS
+    if max_items:
+        keywords = keywords.order_by("-item_count")[:max_items]
+        keywords = sorted(keywords, key=lambda k: k.title)
     if not keywords:
         return []
     counts = [keyword.item_count for keyword in keywords]
