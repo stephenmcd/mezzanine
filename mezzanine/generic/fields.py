@@ -145,6 +145,8 @@ class CommentsField(BaseGenericRelation):
             count = related_manager.count_queryset()
         except AttributeError:
             count = related_manager.count()
+        if not count:
+            count = 0
         count_field_name = list(self.fields.keys())[0] % \
                            self.related_field_name
         setattr(instance, count_field_name, count)
