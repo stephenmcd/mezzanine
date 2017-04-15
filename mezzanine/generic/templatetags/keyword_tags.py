@@ -19,6 +19,11 @@ def keywords_for(*args):
     or a model class. In the case of a model class, retrieve all
     keywords for all instances of the model and apply a ``weight``
     attribute that can be used to create a tag cloud.
+
+    Optionally takes two more arguments to sort the resulting list by a
+    certain criterion, e.g.
+    ``keywords_for blog.blogpost order_by title as tags`` to sort the
+    tag list by the title attribute of ``Keyword``.
     """
 
     # Handle a model instance.
@@ -41,9 +46,16 @@ def keywords_for(*args):
     except ValueError:
         return []
 
+    # handle optionally ordering
+    order_by = None
+    if len(args) > 2 and args[1] == u'order_by' and isinstance(args[2], basestring):
+        order_by = args[2]
+
     content_type = ContentType.objects.get(app_label=app_label, model=model)
     assigned = AssignedKeyword.objects.filter(content_type=content_type)
     keywords = Keyword.objects.filter(assignments__in=assigned)
+    if order_by is not None:
+        keywords = keywords.order_by(order_by)
     keywords = keywords.annotate(item_count=Count("assignments"))
     if not keywords:
         return []
