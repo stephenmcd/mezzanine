@@ -153,9 +153,20 @@ class BaseImporterCommand(BaseCommand):
         """
 
         mezzanine_user = options.get("mezzanine_user")
-        site = Site.objects.get_current()
+        site = options.get("site_id", Site.objects.get_current())
         verbosity = int(options.get("verbosity", 1))
         prompt = options.get("interactive")
+
+        # If site id is passed get that site
+        try:
+            site = int(site)
+        except ValueError:
+            pass
+        else:
+            try:
+                site = Site.objects.get(id=site)
+            except Site.DoesNotExist:
+                raise CommandError("No Site with id %s" % str(site))
 
         # Validate the Mezzanine user.
         if mezzanine_user is None:
