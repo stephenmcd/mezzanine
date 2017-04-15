@@ -75,6 +75,10 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
 
     if not hasattr(request, "page") or request.page.slug != slug:
         raise Http404
+    
+    # '/' is not allowed in slug except for home page
+    if slug != home_slug() and '/' in slug:
+        raise Http404
 
     # Check for a template name matching the page's slug. If the homepage
     # is configured as a page instance, the template "pages/index.html" is
