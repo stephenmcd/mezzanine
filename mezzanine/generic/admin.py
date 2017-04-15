@@ -42,3 +42,15 @@ using_disqus = bool(getattr(settings, "COMMENTS_DISQUS_SHORTNAME", False))
 
 if generic_comments and not using_disqus:
     admin.site.register(ThreadedComment, ThreadedCommentAdmin)
+    if "reversion" in settings.INSTALLED_APPS and settings.USE_REVERSION:
+        if "reversion_compare" in settings.INSTALLED_APPS:
+            try:
+                from mezzanine.core.admin import VersionMixedAdmin
+                from reversion_compare.helpers import patch_admin
+                patch_admin(ThreadedComment, AdminClass=VersionMixedAdmin)
+            except ImportError:
+                from reversion.helpers import patch_admin
+                patch_admin(ThreadedComment)
+        else:
+            from reversion.helpers import patch_admin
+            patch_admin(ThreadedComment)
