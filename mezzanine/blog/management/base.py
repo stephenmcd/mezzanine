@@ -199,7 +199,7 @@ class BaseImporterCommand(BaseCommand):
                 comment["site"] = site
                 post.comments.create(**comment)
                 if verbosity >= 1:
-                    print("Imported comment by: %s" % comment["user_name"])
+                    print("Imported comment by: %s" % comment["user_name"].encode("utf-8"))
             self.add_meta(post, tags, prompt, verbosity, old_url)
 
         # Create any pages imported (Wordpress can include pages)
