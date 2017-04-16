@@ -127,6 +127,10 @@ img.pull-left {
 
 /*========================================
           MULTI-LEVEL DROP-DOWN NAV
+ *Why?* The dropdown-submenu has been removed in Bootstrap 3 RC.
+ "Submenus just don't have much of a place on the web right now, 
+ especially the mobile web. They will be removed with 3.0" 
+ https://github.com/twbs/bootstrap/pull/6342
 ==========================================*/
 .nav > li > a.dropdown-toggle:hover{
   background-color: #e7e7e7;
