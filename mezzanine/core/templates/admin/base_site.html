@@ -10,7 +10,7 @@
     {% url "displayable_links_js" as link_list_url %}
     {% url "admin:index" as admin_index_url %}
     {% get_current_language as LANGUAGE_CODE %}
-    window.__home_link = '<a href="{% url "home" %}">{% trans "View site" %}</a>';
+    window.__home_link = '<a href="{{ request.session.site_domain_url }}{% url "home" %}">{% trans "View site" %}</a>';
     window.__csrf_token = '{{ csrf_token }}';
     window.__admin_keywords_submit_url = '{% url "admin_keywords_submit" %}';
     window.__filebrowser_url = '{{ fb_browse_url }}';
