@@ -58,8 +58,8 @@
         <span class="icon-bar"></span>
     </button>
     {% block navbar_title %}
-    {% if settings.SITE_TITLE %}<a class="navbar-brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
-    {% if settings.SITE_TAGLINE %}<p class="navbar-text visible-lg">{{ settings.SITE_TAGLINE }}</p>{% endif %}
+    {% if settings.SITE_TITLE %}<a class="navbar-brand" href="/">Cryenx</a>{% endif %}
+    {% if settings.SITE_TAGLINE %}<p class="navbar-text visible-lg">Our Things</p>{% endif %}
     {% endblock%}
 </div>
 <div class="navbar-collapse collapse">
@@ -133,14 +133,11 @@
 <div class="row">
 <p class="site-info text-center">
     {% trans "Powered by" %}
-    <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},
-    <a href="http://cartridge.jupo.org">Cartridge</a>{% endifinstalled %}
+    <a href="http://mezzanine.jupo.org">Design</a>{% ifinstalled cartridge.shop %},
+    <a href="http://cartridge.jupo.org">Mona Design</a>{% endifinstalled %}
     {% trans "and" %}
     <a href="http://www.djangoproject.com">Django</a>
-    <span class="separator">|</span>
-    {% trans "Theme by" %} <a target="_blank" href="http://getbootstrap.com">Bootstrap</a>
-    {% ifinstalled mezzanine.mobile %}
-    <span class="separator">|</span>
+
     <a href="{% url "set_device" "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
     {% endifinstalled %}
 </p>
