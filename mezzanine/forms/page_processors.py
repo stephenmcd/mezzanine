@@ -10,6 +10,7 @@ from mezzanine.forms.signals import form_invalid, form_valid
 from mezzanine.pages.page_processors import processor_for
 from mezzanine.utils.email import split_addresses, send_mail_template
 from mezzanine.utils.views import is_spam
+from .google_recaptcha_check import google_recaptcha_validation
 
 
 def format_value(value):
@@ -27,9 +28,25 @@ def form_processor(request, page):
     """
     Display a built form and handle submission.
     """
+    if settings.RECAPTCHA_SITEID:
+        page.form.google_recaptcha_site_id = settings.RECAPTCHA_SITEID
     form = FormForForm(page.form, RequestContext(request),
                        request.POST or None, request.FILES or None)
+
     if form.is_valid():
+        if ((request.method == "POST") and
+        ('g-recaptcha-response' in request.POST)):
+            prevalidation = False
+            rip = request.environ['REMOTE_ADDR']
+            g_recaptcha_response = request.POST['g-recaptcha-response']
+            secret_part = settings.RECAPTCHA_SECRET
+            if g_recaptcha_response:
+                prevalidation = google_recaptcha_validation(request, page,
+                                rip, g_recaptcha_response, secret_part)
+            if not prevalidation:
+                form_invalid.send(sender=request, form=form)
+                return {"form": form}
+
         url = page.get_absolute_url() + "?sent=1"
         if is_spam(request, form, url):
             return redirect(url)
