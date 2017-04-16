@@ -50,7 +50,7 @@ a#editable-toolbar-toggle {border-left:0px !important; text-decoration:none;
 .editable-form select {width:auto;}
 .editable-form input[type="file"] {width: 300px;}
 .editable-form p {margin: .5em 0 !important; padding: 0 !important;
-    line-height: 0 !important; border: 0 !important;}
+    border: 0 !important;}
 .editable-form p:first-child {margin-top: 0px;}
 .editable-form .helptext {font-size: 70%; color: #444; font-style: italic;}
 .editable-form label {text-transform: capitalize !important;
