@@ -327,21 +327,18 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     if image_url_path:
         thumb_url = "%s/%s" % (image_url_path, thumb_url)
 
-    try:
-        thumb_exists = os.path.exists(thumb_path)
-    except UnicodeEncodeError:
-        # The image that was saved to a filesystem with utf-8 support,
-        # but somehow the locale has changed and the filesystem does not
-        # support utf-8.
-        from mezzanine.core.exceptions import FileSystemEncodingChanged
-        raise FileSystemEncodingChanged()
-    if thumb_exists:
-        # Thumbnail exists, don't generate it.
-        return thumb_url
-    elif not default_storage.exists(image_url):
+    if not default_storage.exists(image_url):
         # Requested image does not exist, just return its URL.
         return image_url
 
+    if default_storage.exists(thumb_url):
+        thumb_modified_time = default_storage.modified_time(thumb_url)
+        image_modified_time = default_storage.modified_time(image_url)
+        if thumb_modified_time >= image_modified_time:
+            # Thumbnail already exists in storage and is up to date
+            return thumb_url
+
+    # Thumbnail has to be generated
     f = default_storage.open(image_url)
     try:
         image = Image.open(f)
