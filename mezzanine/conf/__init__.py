@@ -114,8 +114,6 @@ class AppSettings(object):
 
     @classmethod
     def register(cls):
-        from mezzanine.conf import register_setting
-
         for key, kwargs in cls.settings.items():
             if cls.prefix:
                 name = cls.prefix_format.format(cls.prefix, key)
