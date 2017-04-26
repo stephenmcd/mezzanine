@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('retweeter_profile_image_url', models.URLField(null=True, verbose_name='Profile image URL (Retweeted by)')),
                 ('retweeter_user_name', models.CharField(max_length=100, null=True, verbose_name='User name (Retweeted by)')),
                 ('retweeter_full_name', models.CharField(max_length=100, null=True, verbose_name='Full name (Retweeted by)')),
-                ('query', models.ForeignKey(related_name='tweets', to='twitter.Query')),
+                ('query', models.ForeignKey(related_name='tweets', to='twitter.Query', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('-created_at',),

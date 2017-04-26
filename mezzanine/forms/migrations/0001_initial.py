@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Form',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='pages.Page')),
+                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='pages.Page', on_delete=models.CASCADE)),
                 ('content', mezzanine.core.fields.RichTextField(verbose_name='Content')),
                 ('button_text', models.CharField(default='Submit', max_length=50, verbose_name='Button text')),
                 ('response', mezzanine.core.fields.RichTextField(verbose_name='Response')),
@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('entry_time', models.DateTimeField(verbose_name='Date/time')),
-                ('form', models.ForeignKey(related_name='entries', to='forms.Form')),
+                ('form', models.ForeignKey(related_name='entries', to='forms.Form', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Form entry',
@@ -82,13 +82,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='fieldentry',
             name='entry',
-            field=models.ForeignKey(related_name='fields', to='forms.FormEntry'),
+            field=models.ForeignKey(related_name='fields', to='forms.FormEntry', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='field',
             name='form',
-            field=models.ForeignKey(related_name='fields', to='forms.Form'),
+            field=models.ForeignKey(related_name='fields', to='forms.Form', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]
