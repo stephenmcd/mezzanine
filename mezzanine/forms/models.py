@@ -53,8 +53,7 @@ class AbstractBaseField(Orderable):
     A field for a user-built form.
     """
 
-    label = models.CharField(_("Label"),
-        max_length=settings.FORMS_LABEL_MAX_LENGTH)
+    label = models.TextField(_("Label"))
     field_type = models.IntegerField(_("Type"), choices=fields.NAMES)
     required = models.BooleanField(_("Required"), default=True)
     visible = models.BooleanField(_("Visible"), default=True)
@@ -65,7 +64,7 @@ class AbstractBaseField(Orderable):
         max_length=settings.FORMS_FIELD_MAX_LENGTH)
     placeholder_text = models.CharField(_("Placeholder Text"), blank=True,
         max_length=100)
-    help_text = models.CharField(_("Help text"), blank=True, max_length=100)
+    help_text = models.TextField(_("Help text"), blank=True)
 
     objects = FieldManager()
 

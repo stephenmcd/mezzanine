@@ -8,6 +8,7 @@ from datetime import datetime
 from mimetypes import guess_type
 from os.path import join
 
+from django import forms
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.messages import info
@@ -39,13 +40,29 @@ if not settings.FORMS_USE_HTML5:
     inline_field_excludes += ["placeholder_text"]
 
 
+class FieldAdminInlineForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        """
+        Ensure the label and help_text fields are rendered as text inputs
+        instead of text areas.
+        """
+        super(FieldAdminInlineForm, self).__init__(*args, **kwargs)
+        self.fields["label"].widget = admin.widgets.AdminTextInputWidget()
+        self.fields["help_text"].widget = admin.widgets.AdminTextInputWidget()
+
+    class Meta:
+        model = Field
+        exclude = inline_field_excludes
+
+
 class FieldAdmin(TabularDynamicInlineAdmin):
     """
     Admin class for the form field. Inherits from TabularDynamicInlineAdmin to
     add dynamic "Add another" link and drag/drop ordering.
     """
     model = Field
-    exclude = inline_field_excludes
+    form = FieldAdminInlineForm
 
 
 class FormAdmin(PageAdmin):
