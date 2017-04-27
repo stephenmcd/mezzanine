@@ -13,7 +13,6 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.messages import info
 from django.core.files.storage import FileSystemStorage
-from django.core.validators import MaxLengthValidator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ungettext, ugettext_lazy as _
@@ -41,34 +40,16 @@ if not settings.FORMS_USE_HTML5:
     inline_field_excludes += ["placeholder_text"]
 
 
-def set_max_length(field, max_length):
-    """
-    Performs all required steps to actually set a field's max_length.
-    """
-    field.max_length = max_length
-    field.widget.attrs["maxlength"] = max_length
-    field.validators.append(MaxLengthValidator(max_length))
-
-
 class FieldAdminInlineForm(forms.ModelForm):
-    """
-    Enforces the user-defined length limits in the admin.
-    If max_length is set in models.py, a migration would be required every
-    time the limits change.
-    """
 
     def __init__(self, *args, **kwargs):
+        """
+        Ensure the label and help_text fields are rendered as text inputs
+        instead of text areas.
+        """
         super(FieldAdminInlineForm, self).__init__(*args, **kwargs)
-
         self.fields["label"].widget = admin.widgets.AdminTextInputWidget()
-        set_max_length(
-            self.fields["label"],
-            settings.FORMS_LABEL_MAX_LENGTH)
-
         self.fields["help_text"].widget = admin.widgets.AdminTextInputWidget()
-        set_max_length(
-            self.fields["help_text"],
-            settings.FORMS_HELP_TEXT_MAX_LENGTH)
 
     class Meta:
         model = Field

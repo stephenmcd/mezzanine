@@ -24,20 +24,6 @@ register_setting(
 )
 
 register_setting(
-    name="FORMS_LABEL_MAX_LENGTH",
-    description=_("Max length allowed for field labels in the forms app."),
-    editable=False,
-    default=200,
-)
-
-register_setting(
-    name="FORMS_HELP_TEXT_MAX_LENGTH",
-    description=_("Max length allowed for field help texts in the forms app."),
-    editable=False,
-    default=200,
-)
-
-register_setting(
     name="FORMS_CSV_DELIMITER",
     description=_("Char to use as a field delimiter when exporting form "
         "responses as CSV."),
