@@ -198,6 +198,9 @@ class FormForForm(forms.ModelForm):
             if field.placeholder_text and not field.default:
                 text = field.placeholder_text
                 self.fields[field_key].widget.attrs["placeholder"] = text
+                
+            # add bootstrap specific class to each field
+            self.fields[field_key].widget.attrs["class"] = "form-control"
 
     def save(self, **kwargs):
         """
