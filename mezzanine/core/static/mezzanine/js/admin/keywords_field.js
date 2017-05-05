@@ -42,7 +42,12 @@ jQuery(function($) {
         var fields = $.makeArray($('.keywords-field').prev('input[type=text]'));
         var submitKeywords = function() {
             var field = fields.shift();
+            var csrfinput = button.closest("form").find("input[name=csrfmiddlewaretoken]");
             var keywords = {text_keywords: field.value};
+            // If there's a csrf token, submit it along with the keywords
+            if (csrfinput.length) {
+              keywords['csrfmiddlewaretoken'] = csrfinput.val();
+            }
             $.post(window.__admin_keywords_submit_url, keywords, function(data) {
                 var ids = data.split("|")[0].split(',');
                 field.value = data.split("|")[1];
