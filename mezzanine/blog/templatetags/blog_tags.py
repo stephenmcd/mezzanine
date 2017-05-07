@@ -28,8 +28,8 @@ def blog_months(*args):
     for date_dict in date_dicts:
         if date_dict not in month_dicts:
             month_dicts.append(date_dict)
-    for i, date_dict in enumerate(month_dicts):
-        month_dicts[i]["post_count"] = date_dicts.count(date_dict)
+    for date_dict in month_dicts:
+        date_dict["post_count"] = date_dicts.count(date_dict)
     return month_dicts
 
 
