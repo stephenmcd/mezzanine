@@ -195,6 +195,6 @@ def set_cookie(response, name, value, expiry_seconds=None, secure=False):
     # https://code.djangoproject.com/ticket/19802
     try:
         response.set_cookie(name, value, expires=expires, secure=secure)
-    except (KeyError, TypeError):
-        response.set_cookie(name.encode('utf-8'), value, expires=expires,
+    except (KeyError, TypeError, UnicodeEncodeError):
+        response.set_cookie(name.encode('utf-8'), value.encode('utf-8'), expires=expires,
                             secure=secure)
