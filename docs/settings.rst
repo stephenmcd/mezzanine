@@ -621,6 +621,15 @@ Number of results shown in the search results page.
 
 Default: ``10``
 
+.. _SEARCH_AGE_SCALE_FACTOR:
+
+``SEARCH_AGE_SCALE_FACTOR``
+---------------------------
+
+The amount of emphasis to put on age when ranking search results. A higher number gives more emphasis to age, ranking newer results higher with less regard to their ordinary score. Setting this to zero disables weighing search results by age.
+
+Default: ``1.5``
+
 .. _SITE_PREFIX:
 
 ``SITE_PREFIX``

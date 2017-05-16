@@ -216,6 +216,11 @@ class SearchableQuerySet(QuerySet):
                             count += field_value.lower().count(term) * weight
                 if not count and related_weights:
                     count = int(sum(related_weights) / len(related_weights))
+
+                if result.publish_date:
+                    age = (now() - result.publish_date).total_seconds()
+                    count = count / age**settings.SEARCH_AGE_SCALE_FACTOR
+
                 results[i].result_count = count
             return iter(results)
         return results
