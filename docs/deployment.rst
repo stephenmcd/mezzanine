@@ -98,6 +98,9 @@ server providers (like Digital Ocean) require you to login as root once to
 change the default password. It should be the only time you are required to SSH
 into the sever.*
 
+For a complete tutorial on how to install and deploy Mezzanine on Debian you can check out `this <https://www.rosehosting.com/blog/install-mezzanine-cms-on-a-debian-vps/>`_ tutorial from RoseHosting
+
+
 CASE 2: Deploying to an existing server
 ---------------------------------------
 
