@@ -12,5 +12,14 @@ Please note the following instructions for opening an issue:
   based on the latest version of the master branch.
 * Run the tests before committing your changes. If your changes
   cause the tests to break, they won't be accepted.
+
+  Tests can be run using::
+
+    ./setup.py test
+
+  Or specified tests using::
+
+    ./mezzanine/bin/runtests.py mezzanine.core.tests.CoreTests
+
 * If you are adding new functionality, you must include basic tests
   and documentation.

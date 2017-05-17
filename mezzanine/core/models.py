@@ -46,7 +46,8 @@ class SiteRelated(models.Model):
     class Meta:
         abstract = True
 
-    site = models.ForeignKey("sites.Site", editable=False)
+    site = models.ForeignKey("sites.Site", on_delete=models.CASCADE,
+        editable=False)
 
     def save(self, update_site=False, *args, **kwargs):
         """
@@ -485,8 +486,8 @@ class Ownable(models.Model):
     Abstract model that provides ownership of an object for a user.
     """
 
-    user = models.ForeignKey(user_model_name, verbose_name=_("Author"),
-        related_name="%(class)ss")
+    user = models.ForeignKey(user_model_name, on_delete=models.CASCADE,
+        verbose_name=_("Author"), related_name="%(class)ss")
 
     class Meta:
         abstract = True
@@ -555,8 +556,8 @@ class SitePermission(models.Model):
     access.
     """
 
-    user = models.OneToOneField(user_model_name, verbose_name=_("Author"),
-        related_name="%(class)ss")
+    user = models.OneToOneField(user_model_name, on_delete=models.CASCADE,
+        verbose_name=_("Author"), related_name="%(class)ss")
     sites = models.ManyToManyField("sites.Site", blank=True,
                                    verbose_name=_("Sites"))
 

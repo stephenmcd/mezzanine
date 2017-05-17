@@ -11,6 +11,8 @@ from mezzanine.conf import settings
 from mezzanine.core.request import current_request
 from mezzanine.utils.deprecation import get_middleware_setting
 
+SITE_PERMISSION_MIDDLEWARE = "mezzanine.core.middleware.SitePermissionMiddleware"
+
 
 def current_site_id():
     """
@@ -87,11 +89,7 @@ def has_site_permission(user):
     also fall back to an ``is_staff`` check if the middleware is not
     installed, to ease migration.
     """
-    mw = "mezzanine.core.middleware.SitePermissionMiddleware"
-    if mw not in get_middleware_setting():
-        from warnings import warn
-        warn(mw + " missing from settings.MIDDLEWARE - per site"
-             "permissions not applied")
+    if SITE_PERMISSION_MIDDLEWARE not in get_middleware_setting():
         return user.is_staff and user.is_active
     return getattr(user, "has_site_permission", False)
 

@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Gallery',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='pages.Page')),
+                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='pages.Page', on_delete=models.CASCADE)),
                 ('content', mezzanine.core.fields.RichTextField(verbose_name='Content')),
                 ('zip_import', models.FileField(help_text="Upload a zip file containing images, and they'll be imported into this gallery.", upload_to='galleries', verbose_name='Zip import', blank=True)),
             ],
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('_order', models.IntegerField(null=True, verbose_name='Order')),
                 ('file', mezzanine.core.fields.FileField(max_length=200, verbose_name='File')),
                 ('description', models.CharField(max_length=1000, verbose_name='Description', blank=True)),
-                ('gallery', models.ForeignKey(related_name='images', to='galleries.Gallery')),
+                ('gallery', models.ForeignKey(related_name='images', to='galleries.Gallery', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('_order',),
