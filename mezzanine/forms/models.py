@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
-from mezzanine.core.models import Orderable, RichText
+from mezzanine.core.models import Orderable, RichText, wrapped_manager
 from mezzanine.forms import fields
 from mezzanine.pages.models import Page
 
@@ -67,7 +67,7 @@ class AbstractBaseField(Orderable):
         max_length=100)
     help_text = models.CharField(_("Help text"), blank=True, max_length=100)
 
-    objects = FieldManager()
+    objects = wrapped_manager(FieldManager)
 
     class Meta:
         abstract = True
