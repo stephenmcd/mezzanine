@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 import re
+import pytz
 from unittest import skipUnless
 
 from mezzanine.core.middleware import FetchFromCacheMiddleware
@@ -32,6 +33,7 @@ from django.templatetags.static import static
 from django.test import Client
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
+from django.utils.timezone import datetime
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import BaseDynamicInlineAdmin
@@ -189,11 +191,26 @@ class CoreTests(TestCase):
         self.assertEqual(len(results), 1)
         if results:
             self.assertEqual(results[0].id, second)
-        # Test ordering.
+
+        # Test ordering without age scaling.
+        settings.SEARCH_AGE_SCALE_FACTOR = 0
+        RichTextPage.objects.filter(id=first).update(
+            publish_date=datetime(2017, 1, 1, tzinfo=pytz.utc))
+        RichTextPage.objects.filter(id=second).update(
+            publish_date=datetime(2016, 1, 1, tzinfo=pytz.utc))
         results = RichTextPage.objects.search("test")
         self.assertEqual(len(results), 2)
         if results:
             self.assertEqual(results[0].id, second)
+
+        # Test ordering with age scaling.
+        settings.SEARCH_AGE_SCALE_FACTOR = 2
+        results = RichTextPage.objects.search("test")
+        self.assertEqual(len(results), 2)
+        if results:
+            # `first` should now be ranked higher.
+            self.assertEqual(results[0].id, first)
+
         # Test the actual search view.
         response = self.client.get(reverse("search") + "?q=test")
         self.assertEqual(response.status_code, 200)
