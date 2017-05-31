@@ -72,11 +72,14 @@ class Command(BaseImporterCommand):
             for item in getattr(entry, "tags", []):
                 terms[item.scheme].add(item.term)
 
+            # Is the URL of the site as determined by WordPress. Should be always present
+            # keep entry.id as old legacy link if entry['link'] is not present
+            old_url = entry.get('link', entry.id)
             if entry.wp_post_type == "post":
                 post = self.add_post(title=entry.title, content=content,
                                      pub_date=pub_date, tags=terms["tag"],
                                      categories=terms["category"],
-                                     old_url=entry.id)
+                                     old_url=old_url)
 
                 # Get the comments from the xml doc.
                 for c in xmlitem.getElementsByTagName("wp:comment"):
