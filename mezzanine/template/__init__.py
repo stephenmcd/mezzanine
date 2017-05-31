@@ -26,7 +26,8 @@ class Library(template.Library):
         The decorated func returns the value that is given to
         ``var_name`` in the template.
         """
-        if DJANGO_VERSION >= (1, 9):
+        package = tag_func.__module__.split(".")[0]
+        if DJANGO_VERSION >= (1, 9) and package != "mezzanine":
             warnings.warn(
                 "The `as_tag` template tag builder is deprecated in favour of "
                 "Django's built-in `simple_tag`, which supports variable "
