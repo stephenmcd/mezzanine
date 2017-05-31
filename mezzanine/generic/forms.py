@@ -14,6 +14,7 @@ from mezzanine.utils.cache import add_cache_bypass
 from mezzanine.utils.email import split_addresses, send_mail_template
 from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.views import ip_for_request
+import six
 
 
 class KeywordsWidget(forms.MultiWidget):
@@ -50,13 +51,22 @@ class KeywordsWidget(forms.MultiWidget):
         Takes the sequence of ``AssignedKeyword`` instances and splits
         them into lists of keyword IDs and titles each mapping to one
         of the form field widgets.
+        If the page has encountered a validation error then
+        Takes a string with ``Keyword`` ids and fetches the
+        sequence of ``AssignedKeyword``
         """
+        keywords = None
+
         if hasattr(value, "select_related"):
             keywords = [a.keyword for a in value.select_related("keyword")]
-            if keywords:
-                keywords = [(str(k.id), k.title) for k in keywords]
-                self._ids, words = list(zip(*keywords))
-                return (",".join(self._ids), ", ".join(words))
+        elif value and isinstance(value, six.string_types):
+            keyword_pks = value.split(",")
+            keywords = Keyword.objects.all().filter(id__in=keyword_pks)
+
+        if keywords:
+            keywords = [(str(k.id), k.title) for k in keywords]
+            self._ids, words = list(zip(*keywords))
+            return (",".join(self._ids), ", ".join(words))
         return ("", "")
 
     def format_output(self, rendered_widgets):

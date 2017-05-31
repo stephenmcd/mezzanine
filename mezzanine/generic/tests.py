@@ -13,7 +13,7 @@ from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings
 
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
-from mezzanine.generic.forms import RatingForm
+from mezzanine.generic.forms import RatingForm, KeywordsWidget
 from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
 from mezzanine.generic.views import comment
 from mezzanine.pages.models import RichTextPage
@@ -175,3 +175,38 @@ class GenericTests(TestCase):
             'type="hidden" value="%d" />' % context['post2'].pk,
             result
         )
+
+    def test_keywords_widget(self):
+        """
+        Test that Keywords widget is returning proper value
+        for form rendering and its support for different data types.
+        """
+
+        keyword_widget = KeywordsWidget()
+
+        keywords = set(["how", "now", "brown"])
+        Keyword.objects.all().delete()
+        keyword_id_list = []
+        for keyword in keywords:
+            keyword_id = Keyword.objects.get_or_create(title=keyword)[0].id
+            keyword_id_list.append(keyword_id)
+
+        keyword_id_string = ",".join(map(str, keyword_id_list))
+        values_from_string = keyword_widget.decompress(keyword_id_string)
+
+        self.assertIn("how", values_from_string[1])
+        self.assertIn("now", values_from_string[1])
+        self.assertIn("brown", values_from_string[1])
+
+        for keyword_id in keyword_id_list:
+            AssignedKeyword.objects.create(keyword_id=keyword_id,
+                                           content_object=RichTextPage(pk=1))
+
+        assigned_keywords = AssignedKeyword.objects.all()
+        values_from_relation = keyword_widget.decompress(assigned_keywords)
+
+        self.assertIn("how", values_from_relation[1])
+        self.assertIn("now", values_from_relation[1])
+        self.assertIn("brown", values_from_relation[1])
+
+        self.assertEqual(("", ""), keyword_widget.decompress(None))
