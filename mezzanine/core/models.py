@@ -32,9 +32,11 @@ from mezzanine.utils.urls import admin_url, slugify, unique_slug
 
 user_model_name = get_user_model_name()
 
+
 def wrapped_manager(klass):
     if settings.USE_MODELTRANSLATION:
         from modeltranslation.manager import MultilingualManager
+
         class Mgr(MultilingualManager, klass):
             pass
         return Mgr()

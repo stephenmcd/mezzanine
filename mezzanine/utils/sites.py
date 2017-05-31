@@ -11,7 +11,9 @@ from mezzanine.conf import settings
 from mezzanine.core.request import current_request
 from mezzanine.utils.deprecation import get_middleware_setting
 
-SITE_PERMISSION_MIDDLEWARE = "mezzanine.core.middleware.SitePermissionMiddleware"
+
+SITE_PERMISSION_MIDDLEWARE = \
+    "mezzanine.core.middleware.SitePermissionMiddleware"
 
 
 def current_site_id():

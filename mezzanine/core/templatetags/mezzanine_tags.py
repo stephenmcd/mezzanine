@@ -641,7 +641,8 @@ def admin_app_list(request):
     return app_list
 
 
-@register.inclusion_tag("admin/includes/dropdown_menu.html", takes_context=True)
+@register.inclusion_tag("admin/includes/dropdown_menu.html",
+    takes_context=True)
 def admin_dropdown_menu(context):
     """
     Renders the app list for the admin dropdown menu navigation.
