@@ -170,7 +170,7 @@ class GenericTests(TestCase):
 
         result = template.render(Context(context))
 
-        self.assertIn(
+        self.assertInHTML(
             '<input id="id_object_pk" name="object_pk" '
             'type="hidden" value="%d" />' % context['post2'].pk,
             result
