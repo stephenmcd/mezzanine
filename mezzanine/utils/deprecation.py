@@ -1,3 +1,4 @@
+import django
 from django.conf import settings
 
 
@@ -13,3 +14,9 @@ def get_middleware_setting():
     return settings.MIDDLEWARE if hasattr(settings, 'MIDDLEWARE') \
                                         and settings.MIDDLEWARE is not None \
                                         else settings.MIDDLEWARE_CLASSES
+
+
+def is_authenticated(user):
+    if django.VERSION < (1, 10):
+        return user.is_authenticated()
+    return user.is_authenticated

@@ -8,7 +8,8 @@ from mezzanine.conf import settings
 from mezzanine.pages import context_processors, page_processors
 from mezzanine.pages.models import Page
 from mezzanine.pages.views import page as page_view
-from mezzanine.utils.deprecation import MiddlewareMixin, get_middleware_setting
+from mezzanine.utils.deprecation import (MiddlewareMixin, is_authenticated,
+                                         get_middleware_setting)
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.urls import path_to_slug
 
@@ -81,7 +82,7 @@ class PageMiddleware(MiddlewareMixin):
             return
 
         # Handle ``page.login_required``.
-        if page.login_required and not request.user.is_authenticated():
+        if page.login_required and not is_authenticated(request.user):
             return redirect_to_login(request.get_full_path())
 
         # If the view isn't Mezzanine's page view, try to return the result
