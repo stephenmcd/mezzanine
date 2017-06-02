@@ -150,8 +150,8 @@ class Command(runserver.Command):
             help='Tells Mezzanine not to show a banner at startup.',
         )
 
-    def inner_run(self, show_banner, *args, **kwargs):
-        if show_banner:
+    def inner_run(self, *args, **kwargs):
+        if kwargs["show_banner"]:
             # Show Mezzanine's own cool banner in the terminal. There
             # aren't really any exceptions to catch here, but we do
             # so blanketly since such a trivial thing like the banner
