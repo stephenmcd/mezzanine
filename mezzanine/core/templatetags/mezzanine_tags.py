@@ -272,14 +272,17 @@ def search_form(context, search_model_names=None):
 
 @register.simple_tag
 def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
-              top=.5, padding=False, padding_color="#fff"):
+              top=.5, padding=False, padding_color="#fff", crop=True):
     """
     Given the URL to an image, resizes the image using the given width
     and height on the first time it is requested, and returns the URL
-    to the new resized image. If width or height are zero then original
-    ratio is maintained. When ``upscale`` is False, images smaller than
-    the given size will not be grown to fill that size. The given width
-    and height thus act as maximum dimensions.
+    to the new resized image. If width or height are zero, the original
+    ratio is maintained; when they are not zero, ``crop`` parameter is
+    taken into account: if it's True, the image is cropped to needed
+    ratio, and if it's False, maximum of two dimensions is set to the
+    given value, and the other is set proportionally. When ``upscale``
+    is False, images smaller than the given size will not be grown to
+    fill that size.
     """
 
     if not image_url:
@@ -298,6 +301,8 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     thumb_name = "%s-%sx%s" % (image_prefix, width, height)
     if not upscale:
         thumb_name += "-no-upscale"
+    if not crop:
+        thumb_name += "-no-crop"
     if left != .5 or top != .5:
         left = min(1, max(0, left))
         top = min(1, max(0, top))
@@ -381,6 +386,12 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     if not upscale:
         to_width = min(to_width, from_width)
         to_height = min(to_height, from_height)
+
+    if not crop:
+        if from_width > from_height:
+            to_height = 0
+        elif from_height > from_width:
+            to_width = 0
 
     # Set dimensions.
     if to_width == 0:
