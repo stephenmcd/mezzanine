@@ -76,6 +76,52 @@ def register_setting(name=None, label=None, editable=False, description=None,
                       "translatable": translatable}
 
 
+class AppSettings(object):
+    """
+    An object to be called in an `AppConfig`'s ready() method to provide
+    defaults for settings it declares.
+
+    This object wraps `register_settings` and provides settings in a
+    declarative way. In addition a Django AppConfig object's ready() method
+    can be made smart enough to pick up the right defaults under the right
+    circumstances. For example, one could declare ProductionSettings,
+    StagingSettings.
+    By convention and for backwards compatibility, these should be declared
+    in a file `defaults.py` at the root directory of the app. The ready()
+    method should import a derived class of this class and call it's
+    `register` method.
+
+    Example::
+
+        from mezzanine.conf import AppSettings
+
+        class StagingSettings(AppSettings):
+            prefix = 'MYAPP'
+            settings = {
+                'SOLAR_HOST': {
+                    'label': 'search engine host',
+                    'default': 'staging.solar.example.com',
+                    'editable': True,
+                },
+            }
+
+    The above declares the settings 'MYAPP_SOLAR_HOST' with default value
+    'staging.solar.example.com' and makes it editable in the Mezzanine Admin.
+    """
+    prefix = None
+    prefix_format = '{}_{}'
+    settings = {}
+
+    @classmethod
+    def register(cls):
+        for key, kwargs in cls.settings.items():
+            if cls.prefix:
+                name = cls.prefix_format.format(cls.prefix, key)
+            else:
+                name = key
+            register_setting(name=name, **kwargs)
+
+
 class Settings(object):
     """
     An object that provides settings via dynamic attribute access.
