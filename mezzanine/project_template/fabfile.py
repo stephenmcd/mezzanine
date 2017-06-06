@@ -63,7 +63,7 @@ env.domains_python = ", ".join(["'%s'" % s for s in env.domains])
 env.ssl_disabled = "#" if len(env.domains) > 1 else ""
 env.vcs_tools = ["git", "hg"]
 env.deploy_tool = conf.get("DEPLOY_TOOL", "rsync")
-env.reqs_path = conf.get("REQUIREMENTS_PATH", None)
+env.reqs_path = conf.get("REQUIREMENTS_PATH", "requirements.txt")
 env.locale = conf.get("LOCALE", "en_US.UTF-8")
 env.num_workers = conf.get("NUM_WORKERS",
                            "multiprocessing.cpu_count() * 2 + 1")
