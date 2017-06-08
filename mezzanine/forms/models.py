@@ -75,7 +75,10 @@ class AbstractBaseField(Orderable):
 
     def __str__(self):
         return self.label
-
+    
+    def __unicode__(self):
+        return self.label
+    
     def get_choices(self):
         """
         Parse a comma separated choice string into a list of choices taking
