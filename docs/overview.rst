@@ -59,16 +59,8 @@ the above instructions:
 * `requests`_ and `requests_oauthlib`_ - for interacting with external APIs
 * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
-Users on Debian or Ubuntu will require some system packages to support
-the imaging library::
-
-    $ apt-get install libjpeg8 libjpeg8-dev
-    $ apt-get build-dep python-imaging
-
-OSX users can do the same via `Homebrew`_::
-
-    $ brew install libjpeg
-
+Note that various systems may contain 
+`specialized instructions for installing Pillow`_. 
 
 Themes
 ======
@@ -571,5 +563,6 @@ certain sites.
 .. _`pyflakes`: http://pypi.python.org/pypi/pyflakes
 .. _`chardet`: https://chardet.readthedocs.org
 .. _`pep8`: http://pypi.python.org/pypi/pep8
+.. _`specialized instructions for installing Pillow`: https://pillow.readthedocs.io/en/latest/installation.html
 .. _`Homebrew`: http://mxcl.github.com/homebrew/
 .. _`django-modeltranslation`: http://django-modeltranslation.readthedocs.org
