@@ -44,21 +44,26 @@ class SettingsForm(forms.Form):
                         except:
                             pass
                         else:
-                            self._init_field(setting, field_class, name, code)
+                            self._init_field(setting, field_class, name, code,
+                                             active_language,)
                 else:
                     self._init_field(setting, field_class, name)
             activate(active_language)
 
-    def _init_field(self, setting, field_class, name, code=None):
+    def _init_field(self, setting, field_class, name, code=None,
+                    active_language=None,):
         """
         Initialize a field whether it is built with a custom name for a
         specific translation language or not.
         """
 
-        if settings.USE_MODELTRANSLATION and setting["translatable"]:
-            initial = Setting.objects.get(name=name).value
-        else:
-            initial = getattr(settings, name)
+        initial = getattr(settings, name)
+        if (code and code != active_language and
+                settings.USE_MODELTRANSLATION and setting["translatable"]):
+            try:
+                initial = Setting.objects.get(name=name).value
+            except Setting.DoesNotExist:
+                pass
 
         kwargs = {
             "label": setting["label"] + ":",
