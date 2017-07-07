@@ -4,8 +4,9 @@ from django.contrib.auth import (login as auth_login, authenticate,
                                  logout as auth_logout, get_user_model)
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import info, error
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import NoReverseMatch, get_script_prefix
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, ge
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
 
@@ -49,6 +50,7 @@ def signup(request, template="accounts/account_signup.html",
     """
     Signup form.
     """
+    current_site =get_current_site(request)
     profile_form = get_profile_form()
     form = profile_form(request.POST or None, request.FILES or None)
     if request.method == "POST" and form.is_valid():
@@ -56,7 +58,7 @@ def signup(request, template="accounts/account_signup.html",
         if not new_user.is_active:
             if settings.ACCOUNTS_APPROVAL_REQUIRED:
                 send_approve_mail(request, new_user)
-                info(request, _("Thanks for signing up! You'll receive "
+                info(request, _("Thank you for registering with" + current_site.name + ". You will receive "
                                 "an email when your account is activated."))
             else:
                 send_verification_mail(request, new_user, "signup_verify")
