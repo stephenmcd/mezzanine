@@ -387,7 +387,8 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         to_width = from_width * to_height // from_height
     elif to_height == 0:
         to_height = from_height * to_width // from_width
-    if image.mode not in ("P", "L", "RGBA"):
+    if image.mode not in ("P", "L", "RGBA") \
+            and filetype not in ("JPG", "JPEG"):
         try:
             image = image.convert("RGBA")
         except:
