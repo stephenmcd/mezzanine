@@ -19,7 +19,7 @@ class UserProfileAdmin(SitePermissionUserAdmin):
 
     list_display = user_list_display
 
-     def save_model(self, request, obj, form, change):
+    def save_model(self, request, obj, form, change):
         """
         If the ``ACCOUNTS_APPROVAL_REQUIRED`` setting is ``True``,
         send a notification email to the user being saved if their
