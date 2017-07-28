@@ -315,24 +315,6 @@ A three item sequence, each containing a sequence of template tags used to rende
 
 Default: ``(('blog_tags.quick_blog', 'mezzanine_tags.app_list'), ('comment_tags.recent_comments',), ('mezzanine_tags.recent_actions',))``
 
-.. _DEVICE_DEFAULT:
-
-``DEVICE_DEFAULT``
-------------------
-
-Device specific template sub-directory to use as the default device.
-
-Default: ``''``
-
-.. _DEVICE_USER_AGENTS:
-
-``DEVICE_USER_AGENTS``
-----------------------
-
-Mapping of device specific template sub-directory names to the sequence of strings that may be found in their user agents.
-
-Default: ``(('mobile', ('2.0 MMP', '240x320', '400X240', 'AvantGo', 'BlackBerry', 'Blazer', 'Cellphone', 'Danger', 'DoCoMo', 'Elaine/3.0', 'EudoraWeb', 'Googlebot-Mobile', 'hiptop', 'IEMobile', 'KYOCERA/WX310K', 'LG/U990', 'MIDP-2.', 'MMEF20', 'MOT-V', 'NetFront', 'Newt', 'Nintendo Wii', 'Nitro', 'Nokia', 'Opera Mini', 'Palm', 'PlayStation Portable', 'portalmmm', 'Proxinet', 'ProxiNet', 'SHARP-TQ-GX10', 'SHG-i900', 'Small', 'SonyEricsson', 'Symbian OS', 'SymbianOS', 'TS21i-10', 'UP.Browser', 'UP.Link', 'webOS', 'Windows CE', 'WinWAP', 'YahooSeeker/M1A1-R2D2', 'iPhone', 'iPod', 'Android', 'BlackBerry9530', 'LG-TU915 Obigo', 'LGE VX', 'webOS', 'Nokia5800')),)``
-
 .. _EMAIL_FAIL_SILENTLY:
 
 ``EMAIL_FAIL_SILENTLY``
@@ -806,7 +788,7 @@ Default: ``3``
 ``TWITTER_DEFAULT_QUERY``
 -------------------------
 
-Twitter query to use for the default query type. 
+Twitter query to use for the default query type.
 
 *Note:* Once you change this from the default, you'll need to configure each of the oAuth consumer/access key/secret settings. Please refer to `http://dev.twitter.com <http://dev.twitter.com>`_ for more information on creating an application and acquiring these settings.
 

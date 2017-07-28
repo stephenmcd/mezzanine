@@ -56,7 +56,6 @@ interface, Mezzanine provides the following:
 * API for `custom content types`_
 * `Search engine and API`_
 * Seamless integration with third-party Django apps
-* Multi-device detection and template handling
 * One step migration from other blogging engines
 * Automated production provisioning and deployments
 * `Disqus`_ integration, or built-in threaded comments
