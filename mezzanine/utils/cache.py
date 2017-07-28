@@ -11,7 +11,6 @@ from django.utils.module_loading import import_string
 
 from mezzanine.conf import settings
 from mezzanine.utils.deprecation import get_middleware_setting
-from mezzanine.utils.device import device_from_request
 from mezzanine.utils.sites import current_site_id
 
 
@@ -86,12 +85,11 @@ def cache_installed():
 def cache_key_prefix(request):
     """
     Cache key for Mezzanine's cache middleware. Adds the current
-    device and site ID.
+    site ID.
     """
-    cache_key = "%s.%s.%s." % (
+    cache_key = "%s.%s." % (
         settings.CACHE_MIDDLEWARE_KEY_PREFIX,
         current_site_id(),
-        device_from_request(request) or "default",
     )
     return _i18n_cache_key_suffix(request, cache_key)
 

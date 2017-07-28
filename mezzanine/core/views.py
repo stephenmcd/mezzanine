@@ -30,23 +30,12 @@ from django.views.decorators.csrf import requires_csrf_token
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Displayable, SitePermission
-from mezzanine.utils.cache import add_cache_bypass
-from mezzanine.utils.views import is_editable, paginate, set_cookie
+from mezzanine.utils.views import is_editable, paginate
 from mezzanine.utils.sites import has_site_permission
 from mezzanine.utils.urls import next_url
 
 
 mimetypes.init()
-
-
-def set_device(request, device=""):
-    """
-    Sets a device name in a cookie when a user explicitly wants to go
-    to the site for a particular device (eg mobile).
-    """
-    response = redirect(add_cache_bypass(next_url(request) or "/"))
-    set_cookie(response, "mezzanine-device", device, 60 * 60 * 24 * 365)
-    return response
 
 
 @staff_member_required

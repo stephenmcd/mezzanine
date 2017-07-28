@@ -30,7 +30,6 @@ from django.forms.models import modelform_factory
 from django.http import HttpResponse
 from django.template import RequestContext, Template
 from django.templatetags.static import static
-from django.test import Client
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
 from django.utils.timezone import datetime
@@ -61,42 +60,6 @@ class CoreTests(TestCase):
 
         self.assertEqual(TagCloser("Line break<br>").html,
                          "Line break<br>")
-
-    @skipUnless("mezzanine.mobile" in settings.INSTALLED_APPS and
-                "mezzanine.pages" in settings.INSTALLED_APPS,
-                "mobile and pages apps required")
-    def test_device_specific_template(self):
-        """
-        Test that an alternate template is rendered when a mobile
-        device is used.
-        """
-        ua = settings.DEVICE_USER_AGENTS[0][1][0]
-        kwargs = {"slug": "device-test"}
-        url = reverse("page", kwargs=kwargs)
-        kwargs["status"] = CONTENT_STATUS_PUBLISHED
-        RichTextPage.objects.get_or_create(**kwargs)
-        default = self.client.get(url)
-        mobile = self.client.get(url, HTTP_USER_AGENT=ua)
-        self.assertNotEqual(default.template_name[0], mobile.template_name[0])
-
-    def test_bad_user_agent(self):
-        """
-        Ensures malformed UA strings don't crash the device handling
-        middleware.
-        """
-        # Ensure a normal request doesn't fail.
-        try:
-            Client().get("/")
-        except:
-            return
-        try:
-            Client(HTTP_USER_AGENT=u"\xe2\x28\xa1").get("/")
-        except Exception as e:
-            self.fail("Malformed user agent raised an exception %s" % e)
-        try:
-            Client(HTTP_USER_AGENT=b"\xff").get("/")
-        except Exception as e:
-            self.fail("Malformed user agent raised an exception %s" % e)
 
     def test_syntax(self):
         """
