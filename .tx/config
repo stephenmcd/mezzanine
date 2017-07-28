@@ -38,12 +38,6 @@ source_file = mezzanine/generic/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[mezzanine.mobile]
-file_filter = mezzanine/mobile/locale/<lang>/LC_MESSAGES/django.po
-source_file = mezzanine/mobile/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
 [mezzanine.galleries]
 file_filter = mezzanine/galleries/locale/<lang>/LC_MESSAGES/django.po
 source_file = mezzanine/galleries/locale/en/LC_MESSAGES/django.po
