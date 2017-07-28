@@ -104,9 +104,8 @@ class TemplateForHostMiddleware(MiddlewareMixin):
         super(TemplateForHostMiddleware, self).__init__(*args, **kwargs)
         warnings.warn(
             "`TemplateForHostMiddleware` is deprecated. "
-            "Please remove it from your middleware settings and add "
-            "`mezzanine.template.loaders.host_themes.Loader` to your "
-            "template loader settings.",
+            "Please upgrade to the template loader. See: "
+            "http://mezzanine.jupo.org/docs/multi-tenancy.html#upgrading-from-templateforhostmiddleware",
             FutureWarning, stacklevel=2
         )
 
