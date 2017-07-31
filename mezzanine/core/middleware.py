@@ -25,7 +25,7 @@ from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
 from mezzanine.utils.device import templates_for_device
 from mezzanine.utils.deprecation import (MiddlewareMixin, is_authenticated,
                                          get_middleware_setting)
-from mezzanine.utils.sites import current_site_id, templates_for_host
+from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import next_url
 
 
@@ -100,12 +100,14 @@ class TemplateForHostMiddleware(MiddlewareMixin):
     """
     Inserts host-specific templates to the template list.
     """
-    def process_template_response(self, request, response):
-        if hasattr(response, "template_name"):
-            if not isinstance(response.template_name, Template):
-                response.template_name = templates_for_host(
-                    response.template_name)
-        return response
+    def __init__(self, *args, **kwargs):
+        super(TemplateForHostMiddleware, self).__init__(*args, **kwargs)
+        warnings.warn(
+            "`TemplateForHostMiddleware` is deprecated. "
+            "Please upgrade to the template loader. See: "
+            "http://mezzanine.jupo.org/docs/multi-tenancy.html#upgrading-from-templateforhostmiddleware",
+            FutureWarning, stacklevel=2
+        )
 
 
 class UpdateCacheMiddleware(MiddlewareMixin):
