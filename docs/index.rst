@@ -19,7 +19,7 @@ powered by Mezzanine <http://mezzanine.jupo.org/sites/>`_.
     Mezzanine Is Just Django* - `Ken Bolton <http://bscientific.org/>`_,
     Mezzanine core team member.
 
-**Front-end developers** migh be interested in Mezzanine's ability for
+**Front-end developers** might be interested in Mezzanine's ability for
 content authors to edit content directly within a page while viewing it
 on the website. You can read about this and how to implement this feature
 within templates under :doc:`inline-editing`.
