@@ -204,7 +204,7 @@ def run_pep8_for_package(package_name, extra_ignore=None):
 
     def pep8_checker(path):
         for line_number, text in Checker(path,
-                                         options=style_guide.options).check_all():
+                options=style_guide.options).check_all():
             yield "%s:%s: %s" % (path, line_number, text)
 
     args = (pep8_checker, package_name, extra_ignore)

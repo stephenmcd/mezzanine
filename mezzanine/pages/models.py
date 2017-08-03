@@ -18,6 +18,7 @@ from mezzanine.core.models import (
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
 from mezzanine.utils.urls import path_to_slug
+from mezzanine.core.models import wrapped_manager
 
 
 class BasePage(Orderable, Displayable):
@@ -27,7 +28,7 @@ class BasePage(Orderable, Displayable):
     ``Page`` subclass loses the custom manager.
     """
 
-    objects = PageManager()
+    objects = wrapped_manager(PageManager)
 
     class Meta:
         abstract = True

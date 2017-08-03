@@ -48,8 +48,18 @@ class FieldAdminInlineForm(forms.ModelForm):
         instead of text areas.
         """
         super(FieldAdminInlineForm, self).__init__(*args, **kwargs)
-        self.fields["label"].widget = admin.widgets.AdminTextInputWidget()
-        self.fields["help_text"].widget = admin.widgets.AdminTextInputWidget()
+        for name in self.fields:
+            # We just want to swap some textareas for inputs here, but
+            # there are some extra considerations for modeltranslation:
+            #   1) Form field names are suffixed with language,
+            #      eg help_text_en, so we check for the name as a prefix.
+            #   2) At this point, modeltranslation has also monkey-patched
+            #      on necessary CSS classes to the widget, so retain those.
+            if name.startswith("label") or name.startswith("help_text"):
+                css_class = self.fields[name].widget.attrs.get("class", None)
+                self.fields[name].widget = admin.widgets.AdminTextInputWidget()
+                if css_class:
+                    self.fields[name].widget.attrs["class"] = css_class
 
     class Meta:
         model = Field

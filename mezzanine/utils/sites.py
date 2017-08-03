@@ -11,7 +11,9 @@ from mezzanine.conf import settings
 from mezzanine.core.request import current_request
 from mezzanine.utils.deprecation import get_middleware_setting
 
-SITE_PERMISSION_MIDDLEWARE = "mezzanine.core.middleware.SitePermissionMiddleware"
+
+SITE_PERMISSION_MIDDLEWARE = \
+    "mezzanine.core.middleware.SitePermissionMiddleware"
 
 
 def current_site_id():
@@ -116,21 +118,3 @@ def host_theme_path():
             else:
                 return os.path.dirname(os.path.abspath(module.__file__))
     return ""
-
-
-def templates_for_host(templates):
-    """
-    Given a template name (or list of them), returns the template names
-    as a list, with each name prefixed with the device directory
-    inserted into the front of the list.
-    """
-    if not isinstance(templates, (list, tuple)):
-        templates = [templates]
-    theme_dir = host_theme_path()
-    host_templates = []
-    if theme_dir:
-        for template in templates:
-            host_templates.append("%s/templates/%s" % (theme_dir, template))
-            host_templates.append(template)
-        return host_templates
-    return templates

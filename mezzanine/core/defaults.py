@@ -357,6 +357,18 @@ register_setting(
 )
 
 register_setting(
+    name="SEARCH_AGE_SCALE_FACTOR",
+    label=_("Emphasis to put on age when ranking search results"),
+    description=_("The amount of emphasis to put on age when ranking search "
+                  "results. A higher number gives more emphasis to age, "
+                  "ranking newer results higher with less regard to their "
+                  "ordinary score. Setting this to zero disables weighing "
+                  "search results by age."),
+    editable=False,
+    default=1.5,
+)
+
+register_setting(
     name="SITE_PREFIX",
     description=_("A URL prefix for mounting all of Mezzanine's urlpatterns "
         "under. When using this, you'll also need to manually apply it to "

@@ -97,4 +97,4 @@ def quick_blog(context):
     Admin dashboard tag for the quick blog form.
     """
     context["form"] = BlogPostForm()
-    return context
+    return context.flatten()

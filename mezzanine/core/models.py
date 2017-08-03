@@ -33,6 +33,17 @@ from mezzanine.utils.urls import admin_url, slugify, unique_slug
 user_model_name = get_user_model_name()
 
 
+def wrapped_manager(klass):
+    if settings.USE_MODELTRANSLATION:
+        from modeltranslation.manager import MultilingualManager
+
+        class Mgr(MultilingualManager, klass):
+            pass
+        return Mgr()
+    else:
+        return klass()
+
+
 class SiteRelated(models.Model):
     """
     Abstract model for all things site-related. Adds a foreignkey to
@@ -41,7 +52,7 @@ class SiteRelated(models.Model):
     details.
     """
 
-    objects = CurrentSiteManager()
+    objects = wrapped_manager(CurrentSiteManager)
 
     class Meta:
         abstract = True
@@ -68,7 +79,7 @@ class Slugged(SiteRelated):
     """
 
     title = models.CharField(_("Title"), max_length=500)
-    slug = models.CharField(_("URL"), max_length=2000, blank=True, null=True,
+    slug = models.CharField(_("URL"), max_length=2000, blank=True,
             help_text=_("Leave blank to have the URL auto-generated from "
                         "the title."))
 
@@ -237,7 +248,7 @@ class Displayable(Slugged, MetaData, TimeStamped):
     short_url = models.URLField(blank=True, null=True)
     in_sitemap = models.BooleanField(_("Show in sitemap"), default=True)
 
-    objects = DisplayableManager()
+    objects = wrapped_manager(DisplayableManager)
     search_fields = {"keywords": 10, "title": 5}
 
     class Meta:

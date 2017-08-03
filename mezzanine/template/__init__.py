@@ -7,6 +7,7 @@ from django import template
 from django import VERSION as DJANGO_VERSION
 from django.template.context import Context
 from django.template.loader import get_template, select_template
+from django.utils.html import conditional_escape
 
 from mezzanine.utils.device import templates_for_device
 
@@ -25,7 +26,8 @@ class Library(template.Library):
         The decorated func returns the value that is given to
         ``var_name`` in the template.
         """
-        if DJANGO_VERSION >= (1, 9):
+        package = tag_func.__module__.split(".")[0]
+        if DJANGO_VERSION >= (1, 9) and package != "mezzanine":
             warnings.warn(
                 "The `as_tag` template tag builder is deprecated in favour of "
                 "Django's built-in `simple_tag`, which supports variable "
@@ -127,9 +129,9 @@ class Library(template.Library):
                         if takes_context:
                             parts.insert(0, context)
                         result = tag_func(*parts)
-                        autoescape = context.autoescape
-                        context = context_class(result, autoescape=autoescape)
-                        return self.template.render(context)
+                        if context.autoescape:
+                            result = conditional_escape(result)
+                        return self.template.render(context.flatten())
 
                 return InclusionTagNode()
             return self.tag(tag_wrapper)
