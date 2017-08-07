@@ -22,7 +22,6 @@ from mezzanine.core.management.commands.createdb import (DEFAULT_USERNAME,
                                                          DEFAULT_PASSWORD)
 from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
                                    cache_get, cache_set, cache_installed)
-from mezzanine.utils.device import templates_for_device
 from mezzanine.utils.deprecation import (MiddlewareMixin, is_authenticated,
                                          get_middleware_setting)
 from mezzanine.utils.sites import current_site_id
@@ -85,15 +84,16 @@ class SitePermissionMiddleware(MiddlewareMixin):
 
 class TemplateForDeviceMiddleware(MiddlewareMixin):
     """
+    DEPRECATED: Device detection has been removed from Mezzanine.
     Inserts device-specific templates to the template list.
     """
-    def process_template_response(self, request, response):
-        if hasattr(response, "template_name"):
-            if not isinstance(response.template_name, Template):
-                templates = templates_for_device(request,
-                    response.template_name)
-                response.template_name = templates
-        return response
+    def __init__(self, *args, **kwargs):
+        super(TemplateForDeviceMiddleware, self).__init__(*args, **kwargs)
+        warnings.warn(
+            "`TemplateForDeviceMiddleware` is deprecated. "
+            "Please remove it from your middleware settings.",
+            FutureWarning, stacklevel=2
+        )
 
 
 class TemplateForHostMiddleware(MiddlewareMixin):

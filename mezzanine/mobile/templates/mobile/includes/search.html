@@ -1,6 +1,0 @@
-{% load i18n %}
-
-<form method="get" action="{% url "search" %}" id="search">
-    <input type="search" name="q" placeholder="{% trans "Search"%}..." value="{{ request.GET.q }}">
-    <p class="help">{% trans "Use "%} "{% trans "quotes" %}" {% trans " for exact phrases, + to make a word or phrase required, and - to exclude a word or phrase." %}"</p>
-</form>
