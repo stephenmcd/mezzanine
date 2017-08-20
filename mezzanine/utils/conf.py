@@ -247,7 +247,7 @@ def real_project_name(project_name):
     return project_name
 
 
-def _get_models_for_app(app_label, dotted=True) -> tuple:
+def _get_models_for_app(app_label, dotted=True):
     """
     Get all models for a given app label. Primary use case is to customize
     the ADMIN_MENU_ORDER without knowing all models an app has. Use if order
