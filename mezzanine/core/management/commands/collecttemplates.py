@@ -23,6 +23,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
+            'app_label', nargs='*'
+        )
+        parser.add_argument(
             '--noinput', action='store_false', dest='interactive',
             help="Do NOT prompt for input of any kind. "
                  "Existing templates will be overwritten.")
@@ -34,9 +37,6 @@ class Command(BaseCommand):
             '-a', '--admin', action='store_true', dest='admin',
             help="Include admin templates.")
 
-    usage = lambda foo, bar: ("usage: %prog [appname1] [appname2] [options] "
-                              "\n" + Command.__doc__.rstrip())
-
     def handle(self, *apps, **options):
 
         admin = options.get("admin")
@@ -44,6 +44,7 @@ class Command(BaseCommand):
         verbosity = int(options.get('verbosity', 1))
         to_dir = settings.TEMPLATES[0]["DIRS"][0]
         templates = []
+        apps = apps or options.get('app_label')
 
         # Build a list of apps to copy templates from.
         if apps:
