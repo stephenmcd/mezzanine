@@ -47,6 +47,7 @@ class Page(BasePage, ContentTyped):
     titles = models.CharField(editable=False, max_length=1000, null=True)
     login_required = models.BooleanField(_("Login required"), default=False,
         help_text=_("If checked, only logged in users can view this page"))
+    target_blank = models.BooleanField(_('open link in new tab or window'), default=False)
 
     class Meta:
         verbose_name = _("Page")

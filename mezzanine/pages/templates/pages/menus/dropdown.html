@@ -34,7 +34,9 @@
     <li class="{% if page.has_children_in_menu %}dropdown-submenu{% endif %}
                {% if page.is_current_or_ascendant %}active{% endif %}"
         id="{{ page.html_id }}">
-        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+        <a href="{{ page.get_absolute_url }}" {% if page.target_blank %}target="_blank"{% endif %}>
+            {{ page.title }}
+        </a>
         {% if page.has_children_in_menu %}{% page_menu page %}{% endif %}
     </li>
     {% endif %}
