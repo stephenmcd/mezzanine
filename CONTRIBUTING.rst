@@ -23,3 +23,5 @@ Please note the following instructions for opening an issue:
 
 * If you are adding new functionality, you must include basic tests
   and documentation.
+* Please add your name to the end of the AUTHORS file as part of your pull
+  request.
