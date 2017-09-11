@@ -267,15 +267,6 @@ class PagesTests(TestCase):
             'request': request}))
         self.assertIsNotNone(rendered)
 
-    # TODO: FIX  PageAdmin.get_content_models() requires self argument
-    # def test_models_for_pages_deprecated(self):
-    #     deprecation_msg = "template tag models_for_pages is deprectaed, use PageAdmin.get_content_models instead"
-    #     template = ('{% load pages_tags %}'
-    #                 '{% models_for_pages as page_models %}{{ page_models }}')
-    #     with self.assertWarns(DeprecationWarning) as w:
-    #         Template(template).render(Context({}))
-    #         self.assertEquals(w.msg, deprecation_msg)
-
     def test_page_menu_key_error(self):
         """
         Test that rendering a page menu without a template name or
