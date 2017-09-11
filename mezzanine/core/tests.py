@@ -23,6 +23,7 @@ from django.contrib.admin.options import InlineModelAdmin
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.exceptions import ValidationError
+from django.core.management import call_command, CommandError
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.forms import Textarea
@@ -687,3 +688,10 @@ class FieldsTestCase(TestCase):
         field = MultiChoiceField(choices=[('valid choice',)])
         with self.assertRaises(ValidationError):
             field.validate(['invalid choice'], None)
+
+
+class CommandsTestCase(TestCase):
+    def test_collect_templates(self):
+        with self.assertRaisesRegex(
+                CommandError, 'Apps are not in INSTALLED_APPS: .*'):
+            call_command('collecttemplates', 'nonexistent')
