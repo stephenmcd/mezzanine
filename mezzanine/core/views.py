@@ -197,7 +197,7 @@ def displayable_links_js(request):
 
 
 @requires_csrf_token
-def page_not_found(request, template_name="errors/404.html"):
+def page_not_found(request, *args, **kwargs):
     """
     Mimics Django's 404 handler but with a different template path.
     """
@@ -205,7 +205,7 @@ def page_not_found(request, template_name="errors/404.html"):
         "STATIC_URL": settings.STATIC_URL,
         "request_path": request.path,
     }
-    t = get_template(template_name)
+    t = get_template(kwargs.get("template_name", "errors/404.html"))
     return HttpResponseNotFound(t.render(context, request))
 
 
