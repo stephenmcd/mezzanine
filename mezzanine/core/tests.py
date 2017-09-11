@@ -611,23 +611,23 @@ class CSRFTestCase(TestCase):
 
 
 class DisplayableTestCase(TestCase):
-    def test_is_public(self):
+    def test_published(self):
         page = Page.objects.create(publish_date=None, expiry_date=None,
                                    status=CONTENT_STATUS_DRAFT)
-        self.assertFalse(page.is_public())
+        self.assertFalse(page.published())
 
         page.status = CONTENT_STATUS_PUBLISHED
-        self.assertTrue(page.is_public())
+        self.assertTrue(page.published())
 
         page.publish_date = now() + timedelta(days=10)
-        self.assertFalse(page.is_public())
+        self.assertFalse(page.published())
 
         page.publish_date = now() - timedelta(days=10)
         page.expiry_date = now() + timedelta(days=10)
-        self.assertTrue(page.is_public())
+        self.assertTrue(page.published())
 
         page.expiry_date = now() - timedelta(days=10)
-        self.assertFalse(page.is_public())
+        self.assertFalse(page.published())
 
 
 class ContentTypedTestCase(TestCase):

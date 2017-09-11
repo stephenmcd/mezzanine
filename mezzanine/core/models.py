@@ -274,14 +274,15 @@ class Displayable(Slugged, MetaData, TimeStamped):
         return timesince(self.publish_date)
     publish_date_since.short_description = _("Published from")
 
-    def is_public(self):
+    def published(self):
         """
-        Return ``True`` if this visible to the public, or ``False`` if it's
-        only shown for admin users.
+        For non-staff users, return True when status is published and
+        the publish and expiry dates fall before and after the
+        current date when specified.
         """
-        return self.status == CONTENT_STATUS_PUBLISHED and \
-            (self.publish_date is None or self.publish_date <= now()) and \
-            (self.expiry_date is None or self.expiry_date >= now())
+        return (self.status == CONTENT_STATUS_PUBLISHED and
+            (self.publish_date is None or self.publish_date <= now()) and
+            (self.expiry_date is None or self.expiry_date >= now()))
 
     def get_absolute_url(self):
         """
