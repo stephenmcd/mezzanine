@@ -1,8 +1,5 @@
 .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
    :target: http://travis-ci.org/stephenmcd/mezzanine
-.. image:: https://coveralls.io/repos/stephenmcd/mezzanine/badge.png
-   :target: https://coveralls.io/repos/stephenmcd/mezzanine
-   :alt: coveralls.io
 
 Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_
 
