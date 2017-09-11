@@ -43,6 +43,8 @@ from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
 from mezzanine.forms.admin import FieldAdmin
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import Page, RichTextPage
+from mezzanine.utils.deprecation import (get_middleware_setting,
+                                         get_middleware_setting_name)
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
                                              run_pep8_for_package)
@@ -461,7 +463,8 @@ class CoreTests(TestCase):
 
         with self.settings(TESTING=False):  # Well, this is silly
             for expected_result, middleware_classes in test_contexts:
-                with self.settings(MIDDLEWARE_CLASSES=middleware_classes):
+                kwargs = {get_middleware_setting_name(): middleware_classes}
+                with self.settings(**kwargs):
                     cache_installed.cache_clear()
                     self.assertEqual(cache_installed(), expected_result)
 
@@ -572,19 +575,19 @@ class CSRFTestCase(TestCase):
         cache_installed.cache_clear()
         initialize_nevercache()
 
-    @override_settings(
-        ROOT_URLCONF=CSRFTestViews,
-        CACHES={
+    @override_settings(**{
+        "ROOT_URLCONF": CSRFTestViews,
+        "CACHES": {
             'default': {
                 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
              }
         },
-        MIDDLEWARE_CLASSES=(
+        get_middleware_setting_name(): (
             'mezzanine.core.middleware.UpdateCacheMiddleware',) +
-            settings.MIDDLEWARE_CLASSES +
+            get_middleware_setting() +
             ('mezzanine.core.middleware.FetchFromCacheMiddleware',
         ),
-        TESTING=False)
+        "TESTING": False})
     def test_csrf_cookie_with_nevercache(self):
         """
         Test that the CSRF cookie is properly set when using nevercache.

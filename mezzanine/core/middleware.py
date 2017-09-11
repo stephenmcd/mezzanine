@@ -103,9 +103,8 @@ class TemplateForHostMiddleware(MiddlewareMixin):
     def __init__(self, *args, **kwargs):
         super(TemplateForHostMiddleware, self).__init__(*args, **kwargs)
         warnings.warn(
-            "`TemplateForHostMiddleware` is deprecated. "
-            "Please upgrade to the template loader. See: "
-            "http://mezzanine.jupo.org/docs/multi-tenancy.html#upgrading-from-templateforhostmiddleware",
+            "`TemplateForHostMiddleware` is deprecated. Please upgrade "
+            "to the template loader. See: https://goo.gl/SzHPR4",
             FutureWarning, stacklevel=2
         )
 

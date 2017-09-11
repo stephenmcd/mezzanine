@@ -10,10 +10,14 @@ except ImportError:
         pass
 
 
-def get_middleware_setting():
-    return settings.MIDDLEWARE if hasattr(settings, 'MIDDLEWARE') \
+def get_middleware_setting_name():
+    return "MIDDLEWARE" if hasattr(settings, 'MIDDLEWARE') \
                                         and settings.MIDDLEWARE is not None \
-                                        else settings.MIDDLEWARE_CLASSES
+                                        else "MIDDLEWARE_CLASSES"
+
+
+def get_middleware_setting():
+    return getattr(settings, get_middleware_setting_name())
 
 
 def is_authenticated(user):
