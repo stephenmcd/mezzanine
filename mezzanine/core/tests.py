@@ -692,6 +692,7 @@ class FieldsTestCase(TestCase):
 
 class CommandsTestCase(TestCase):
     def test_collect_templates(self):
-        with self.assertRaisesRegex(
-                CommandError, 'Apps are not in INSTALLED_APPS: .*'):
-            call_command('collecttemplates', 'nonexistent')
+        if hasattr(self, "assertRaisesRegex"):
+            with self.assertRaisesRegex(
+                    CommandError, 'Apps are not in INSTALLED_APPS: .*'):
+                call_command('collecttemplates', 'nonexistent')
