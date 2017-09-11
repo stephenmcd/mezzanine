@@ -32,7 +32,7 @@ from django.template import RequestContext, Template
 from django.templatetags.static import static
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
-from django.utils.timezone import datetime
+from django.utils.timezone import datetime, now, timedelta
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import BaseDynamicInlineAdmin
@@ -608,6 +608,26 @@ class CSRFTestCase(TestCase):
         # The CSRF cookie should be present
         csrf_cookie = response.cookies.get(settings.CSRF_COOKIE_NAME, False)
         self.assertNotEqual(csrf_cookie, False)
+
+
+class DisplayableTestCase(TestCase):
+    def test_is_public(self):
+        page = Page.objects.create(publish_date=None, expiry_date=None,
+                                   status=CONTENT_STATUS_DRAFT)
+        self.assertFalse(page.is_public())
+
+        page.status = CONTENT_STATUS_PUBLISHED
+        self.assertTrue(page.is_public())
+
+        page.publish_date = now() + timedelta(days=10)
+        self.assertFalse(page.is_public())
+
+        page.publish_date = now() - timedelta(days=10)
+        page.expiry_date = now() + timedelta(days=10)
+        self.assertTrue(page.is_public())
+
+        page.expiry_date = now() - timedelta(days=10)
+        self.assertFalse(page.is_public())
 
 
 class ContentTypedTestCase(TestCase):
