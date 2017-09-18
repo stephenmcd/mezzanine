@@ -387,10 +387,12 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         to_width = from_width * to_height // from_height
     elif to_height == 0:
         to_height = from_height * to_width // from_width
-    if image.mode not in ("P", "L", "RGBA") \
-            and filetype not in ("JPG", "JPEG"):
+    if image.mode not in ("P", "L", "RGBA", "RGB"):
         try:
-            image = image.convert("RGBA")
+            if image.format == "JPEG":
+                image = image.convert("RGB")
+            else:
+                image = image.convert("RGBA")
         except:
             return image_url
     # Required for progressive jpgs.
@@ -412,7 +414,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
             pad_top = 0
             pad_left = (pad_width - from_width) // 2
         if pad_size is not None:
-            pad_container = Image.new("RGBA", pad_size, padding_color)
+            pad_container = Image.new(image.mode, pad_size, padding_color)
             pad_container.paste(image, (pad_left, pad_top))
             image = pad_container
 
