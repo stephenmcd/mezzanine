@@ -25,6 +25,4 @@ urlpatterns += [
     url("^edit/$", core_views.edit, name="edit"),
     url("^search/$", core_views.search, name="search"),
     url("^set_site/$", core_views.set_site, name="set_site"),
-    url("^set_device/(?P<device>.*)/$", core_views.set_device,
-        name="set_device"),
 ]

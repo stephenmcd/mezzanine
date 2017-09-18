@@ -5,11 +5,6 @@ import warnings
 
 from django import template
 from django import VERSION as DJANGO_VERSION
-from django.template.context import Context
-from django.template.loader import get_template, select_template
-from django.utils.html import conditional_escape
-
-from mezzanine.utils.device import templates_for_device
 
 
 class Library(template.Library):
@@ -100,39 +95,3 @@ class Library(template.Library):
             return ToEndTagNode()
 
         return self.tag(tag_wrapper)
-
-    def inclusion_tag(self, name, context_class=Context, takes_context=False):
-        """
-        Replacement for Django's ``inclusion_tag`` which looks up device
-        specific templates at render time.
-        """
-        def tag_decorator(tag_func):
-
-            @wraps(tag_func)
-            def tag_wrapper(parser, token):
-
-                class InclusionTagNode(template.Node):
-
-                    def render(self, context):
-                        if not getattr(self, "nodelist", False):
-                            try:
-                                request = context["request"]
-                            except KeyError:
-                                t = get_template(name)
-                            else:
-                                ts = templates_for_device(request, name)
-                                t = select_template(ts)
-
-                            self.template = t
-                        parts = [template.Variable(part).resolve(context)
-                                 for part in token.split_contents()[1:]]
-                        if takes_context:
-                            parts.insert(0, context)
-                        result = tag_func(*parts)
-                        if context.autoescape:
-                            result = conditional_escape(result)
-                        return self.template.render(context.flatten())
-
-                return InclusionTagNode()
-            return self.tag(tag_wrapper)
-        return tag_decorator

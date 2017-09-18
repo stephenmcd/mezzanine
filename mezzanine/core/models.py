@@ -274,6 +274,16 @@ class Displayable(Slugged, MetaData, TimeStamped):
         return timesince(self.publish_date)
     publish_date_since.short_description = _("Published from")
 
+    def published(self):
+        """
+        For non-staff users, return True when status is published and
+        the publish and expiry dates fall before and after the
+        current date when specified.
+        """
+        return (self.status == CONTENT_STATUS_PUBLISHED and
+            (self.publish_date is None or self.publish_date <= now()) and
+            (self.expiry_date is None or self.expiry_date >= now()))
+
     def get_absolute_url(self):
         """
         Raise an error if called on a subclass without
