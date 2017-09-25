@@ -82,7 +82,7 @@ Tutorial
 CASE 1: Deploying to a brand new server
 ----------------------------------------
 
-1. Get your sever. Anything that grants you root access works. VPS's like those
+1. Get your sever. Anything that grants you root access works. VPSes like those
    from Digital Ocean work great and are cheap.
 2. Fill the ``FABRIC`` settings in ``local_settings.py``
    as shown in the `Configuration`_ section above. For ``SSH_USER`` provide any
