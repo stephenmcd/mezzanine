@@ -95,7 +95,7 @@ templates = {
     "nginx": {
         "local_path": "deploy/nginx.conf.template",
         "remote_path": "/etc/nginx/sites-enabled/%(proj_name)s.conf",
-        "reload_command": "service nginx restart",
+        "reload_command": "nginx -t && service nginx restart",
     },
     "supervisor": {
         "local_path": "deploy/supervisor.conf.template",
