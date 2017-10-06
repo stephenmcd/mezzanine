@@ -110,7 +110,7 @@ def comment(request, template="generic/comments.html", extra_context=None):
         # Store commenter's details in a cookie for 90 days.
         for field in ThreadedCommentForm.cookie_fields:
             cookie_name = ThreadedCommentForm.cookie_prefix + field
-            cookie_value = post_data.get(field, "")
+            cookie_value = post_data.get(field, "").encode('ascii', errors='ignore')
             set_cookie(response, cookie_name, cookie_value)
         return response
     elif request.is_ajax() and form.errors:
