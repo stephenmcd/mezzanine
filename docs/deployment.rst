@@ -82,7 +82,7 @@ Tutorial
 CASE 1: Deploying to a brand new server
 ----------------------------------------
 
-1. Get your sever. Anything that grants you root access works. VPSes like those
+1. Get your server. Anything that grants you root access works. VPSes like those
    from Digital Ocean work great and are cheap.
 2. Fill the ``FABRIC`` settings in ``local_settings.py``
    as shown in the `Configuration`_ section above. For ``SSH_USER`` provide any
@@ -96,7 +96,7 @@ CASE 1: Deploying to a brand new server
 Notice that not even once you had to manually SSH into your VPS. *Note: some
 server providers (like Digital Ocean) require you to login as root once to
 change the default password. It should be the only time you are required to SSH
-into the sever.*
+into the server.*
 
 CASE 2: Deploying to an existing server
 ---------------------------------------
