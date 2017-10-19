@@ -219,7 +219,8 @@ class SearchableQuerySet(QuerySet):
 
                 if result.publish_date:
                     age = (now() - result.publish_date).total_seconds()
-                    count = count / age**settings.SEARCH_AGE_SCALE_FACTOR
+                    if age > 0:
+                        count = count / age**settings.SEARCH_AGE_SCALE_FACTOR
 
                 results[i].result_count = count
             return iter(results)
