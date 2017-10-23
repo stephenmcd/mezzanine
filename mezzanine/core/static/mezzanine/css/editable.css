@@ -36,6 +36,7 @@ a#editable-toolbar-toggle {border-left:0px !important; text-decoration:none;
     padding:20px; background:#fffcc3; border:1px solid #000;
     line-height:1em; border-radius:4px; min-width:350px;
     box-shadow: 0 0 80px #222;
+    color:#000;
 
     -ms-transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
