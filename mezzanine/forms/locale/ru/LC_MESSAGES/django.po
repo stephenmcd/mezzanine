@@ -1,339 +1,385 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# 
+# Translation file for mezzanine
+# Copyright (C) 2017
+# This file is distributed under the same license as the mezzanine package.
+#
 # Translators:
-# eigrad <andrew@ei-grad.ru>, 2011
-# andreyivankov <andrey.ivankov@gmail.com>, 2013
-# Dmitry Falk <tfalc@mail.ru>, 2012
 # Timur Bobrus, 2010
+# eigrad <andrew@ei-grad.ru>, 2011
+# Dmitry Falk <tfalc@mail.ru>, 2012
+# andreyivankov <andrey.ivankov@gmail.com>, 2013
+# Alexander Paramonov <alex@paramono.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:21-0430\n"
+"POT-Creation-Date: 2017-10-25 02:23+0300\n"
 "PO-Revision-Date: 2013-11-09 20:20+0000\n"
-"Last-Translator: andreyivankov <andrey.ivankov@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/language/ru/)\n"
+"Last-Translator: Alexander Paramonov <alex@paramono.com>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:32 fields.py:33
+#: forms/admin.py:35 forms/fields.py:34
 msgid "Email"
 msgstr "Email"
 
-#: admin.py:115
+#: forms/admin.py:155
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%(count)s запись удалена"
+msgstr[1] "%(count)s записи удалено"
+msgstr[2] "%(count)s записей удалено"
 
-#: admin.py:119
+#: forms/admin.py:159
 msgid "View Entries"
-msgstr "Просмотреть"
+msgstr "Просмотреть Записи"
 
-#: defaults.py:20
-msgid ""
-"If ``True``, emails sent to extra recipients for form submissions won't be "
-"sent from an address taken from one of the form's email fields."
-msgstr ""
-
-#: defaults.py:29
+#: forms/defaults.py:21
 msgid "Max length allowed for field values in the forms app."
 msgstr "Максимальная длина, допустимая для полей пользовательских форм"
 
-#: defaults.py:36
-msgid "Max length allowed for field labels in the forms app."
-msgstr "Максимально допустимая длина названий полей пользовательских форм"
-
-#: defaults.py:43
+#: forms/defaults.py:28
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr "Символ, используемый как разделитель полей, при экспорте ответов на форму в формате CSV"
+msgstr ""
+"Символ, используемый как разделитель полей при экспорте ответов на форму в "
+"формате CSV"
 
-#: defaults.py:51
+#: forms/defaults.py:36
 msgid "Absolute path for storing file uploads for the forms app."
 msgstr "Пусть для сохранения файлов, закачанных через пользовательские формы"
 
-#: defaults.py:58
+#: forms/defaults.py:43
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item"
-" sequences, each containing the ID, dotted import path for the field class, "
+"Extra field types for the forms app. Should contain a sequence of three-item "
+"sequences, each containing the ID, dotted import path for the field class, "
 "and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high"
-" number such as 100 or greater to avoid conflicts."
+"constant for the field, but cannot be a value already used, so choose a high "
+"number such as 100 or greater to avoid conflicts."
 msgstr ""
+"Дополнительные типы полей для приложения forms. Должно содержать "
+"последовательность из трёх-элементных последовательностей, каждая из которых "
+"содержит ID, разделённый точками путь для импорта класса поля, и имя поля "
+"для каждого кастомного типа поля. ID - это просто численная константа для "
+"поля, но он не должен повторяться, поэтому выставите большое число порядка "
+"100 или больше, чтобы избежать конфликтов"
 
-#: fields.py:31
+#: forms/defaults.py:55
+msgid ""
+"Extra field widgets for the forms app. Should contain a sequence of two-item "
+"sequences, each containing an existing ID for a form field, and a dotted "
+"import path for the widget class."
+msgstr ""
+"Дополнительные виджеты полей для приложения forms. Должно содерждать "
+"последовательность из двух-элементных последовательностей, где каждая "
+"содержит существующий ID из поля формы, и разделённый точками путь для "
+"импорта класса виджета"
+
+#: forms/fields.py:32
 msgid "Single line text"
 msgstr "Строка"
 
-#: fields.py:32
+#: forms/fields.py:33
 msgid "Multi line text"
 msgstr "Текст"
 
-#: fields.py:34
+#: forms/fields.py:35
 msgid "Number"
 msgstr "Число"
 
-#: fields.py:35
+#: forms/fields.py:36
 msgid "URL"
 msgstr "URL"
 
-#: fields.py:36
+#: forms/fields.py:37
 msgid "Check box"
 msgstr "Флажок"
 
-#: fields.py:37
+#: forms/fields.py:38
 msgid "Check boxes"
 msgstr "Флажки"
 
-#: fields.py:38
+#: forms/fields.py:39
 msgid "Drop down"
 msgstr "Список"
 
-#: fields.py:39
+#: forms/fields.py:40
 msgid "Multi select"
 msgstr "Поле с выбором"
 
-#: fields.py:40
+#: forms/fields.py:41
 msgid "Radio buttons"
 msgstr "Радио кнопки"
 
-#: fields.py:41
+#: forms/fields.py:42
 msgid "File upload"
 msgstr "Загрузка файла"
 
-#: fields.py:42
+#: forms/fields.py:43
 msgid "Date"
 msgstr "Дата"
 
-#: fields.py:43 models.py:116
+#: forms/fields.py:44 forms/models.py:125
 msgid "Date/time"
 msgstr "Дата/время"
 
-#: fields.py:44
+#: forms/fields.py:45
 msgid "Date of birth"
 msgstr "Дата рождения"
 
-#: fields.py:45
+#: forms/fields.py:46
 msgid "Hidden"
 msgstr "Скрытое"
 
-#: forms.py:28 forms.py:36 forms.py:42
+#: forms/forms.py:52 forms/forms.py:61 forms/forms.py:68 forms/forms.py:77
 msgid "Nothing"
 msgstr "Ничего"
 
-#: forms.py:29
+#: forms/forms.py:53
 msgid "Contains"
 msgstr "Содержит"
 
-#: forms.py:30
+#: forms/forms.py:54
 msgid "Doesn't contain"
 msgstr "Не содержит"
 
-#: forms.py:31 forms.py:37
+#: forms/forms.py:55
 msgid "Equals"
 msgstr "Равно"
 
-#: forms.py:32 forms.py:38
+#: forms/forms.py:56
 msgid "Doesn't equal"
 msgstr "Не равно"
 
-#: forms.py:43
+#: forms/forms.py:62
+msgid "Equals any"
+msgstr "Равно любому"
+
+#: forms/forms.py:63
+msgid "Doesn't equal any"
+msgstr "Не равно ни одному из"
+
+#: forms/forms.py:69
+msgid "Contains any"
+msgstr "Содержит хоть одно"
+
+#: forms/forms.py:70
+msgid "Contains all"
+msgstr "Содержит все"
+
+#: forms/forms.py:71
+msgid "Doesn't contain any"
+msgstr "Не содержит даже одного из"
+
+#: forms/forms.py:72
+msgid "Doesn't contain all"
+msgstr "Не содержит ни одного"
+
+#: forms/forms.py:78
 msgid "Is between"
 msgstr "Между"
 
-#: forms.py:100
-msgid "required"
-msgstr "обязательное"
-
-#: forms.py:216
+#: forms/forms.py:271
 msgid "Checked"
 msgstr "Отмечен"
 
-#: forms.py:216
+#: forms/forms.py:271
 msgid "Not checked"
 msgstr "Не отмечен"
 
-#: forms.py:230 forms.py:245
+#: forms/forms.py:294 forms/forms.py:309
 msgid "and"
 msgstr "и"
 
-#: models.py:17
+#: forms/models.py:19
 msgid "Button text"
 msgstr "Текст кнопки"
 
-#: models.py:18
-msgid "Submit"
-msgstr "Отправить"
-
-#: models.py:19
+#: forms/models.py:20
 msgid "Response"
 msgstr "Ответ"
 
-#: models.py:20
+#: forms/models.py:21
 msgid "Send email to user"
 msgstr "Отправить email пользователю"
 
-#: models.py:21
+#: forms/models.py:22
 msgid ""
 "To send an email to the email address supplied in the form upon submission, "
 "check this box."
 msgstr ""
+"Чтобы отправить письмо по электронной почте, указанной при отправлении "
+"формы, поставьте галочку"
 
-#: models.py:23
+#: forms/models.py:24
 msgid "From address"
 msgstr "От кого"
 
-#: models.py:24
+#: forms/models.py:25
 msgid "The address the email will be sent from"
 msgstr "Адрес электронной почты, от кого будет отправлено письмо"
 
-#: models.py:25
+#: forms/models.py:26
 msgid "Send email to others"
 msgstr "Отправить email другим адресатам"
 
-#: models.py:26
+#: forms/models.py:27
 msgid ""
 "Provide a comma separated list of email addresses to be notified upon form "
 "submission. Leave blank to disable notifications."
 msgstr ""
+"Разделённый запятыми список электронных адресов, которые нужно уведомить при "
+"отправлении форм. Оставьте пустым, чтобы отключить уведомления"
 
-#: models.py:30
+#: forms/models.py:31
 msgid "Subject"
 msgstr "Тема"
 
-#: models.py:31
+#: forms/models.py:32
 msgid "Message"
 msgstr "Сообщение"
 
-#: models.py:32
+#: forms/models.py:33
 msgid ""
 "Emails sent based on the above options will contain each of the form fields "
 "entered. You can also enter a message here that will be included in the "
 "email."
-msgstr "Письма отправленные на основе приведенных выше опций, будут содержать все заполненные поля формы. Вы также можете ввести здесь сообщение, которое будет включено в письмо."
+msgstr ""
+"Письма, отправленные на основе приведенных выше опций, будут содержать все "
+"заполненные поля формы. Вы также можете ввести здесь сообщение, которое "
+"будет включено в письмо."
 
-#: models.py:37
+#: forms/models.py:38
 msgid "Form"
 msgstr "Форма"
 
-#: models.py:38
+#: forms/models.py:39
 msgid "Forms"
 msgstr "Формы"
 
-#: models.py:55
+#: forms/models.py:56
 msgid "Label"
 msgstr "Имя поля"
 
-#: models.py:57
+#: forms/models.py:57
 msgid "Type"
 msgstr "Тип"
 
-#: models.py:58
+#: forms/models.py:58
 msgid "Required"
 msgstr "Обязательное"
 
-#: models.py:59
+#: forms/models.py:59
 msgid "Visible"
 msgstr "Видимое"
 
-#: models.py:60
+#: forms/models.py:60
 msgid "Choices"
 msgstr "Значения"
 
-#: models.py:61
+#: forms/models.py:61
 msgid ""
 "Comma separated options where applicable. If an option itself contains "
 "commas, surround the option with `backticks`."
-msgstr "Варианты, разделенные запятыми. Если значение содержит запятые, окружите его `обратными кавычками`."
+msgstr ""
+"Варианты, разделенные запятыми. Если значение содержит запятые, окружите его "
+"`обратными кавычками`."
 
-#: models.py:63
+#: forms/models.py:63
 msgid "Default value"
 msgstr "По умолчанию"
 
-#: models.py:65
+#: forms/models.py:65
 msgid "Placeholder Text"
 msgstr "Замещающий текст"
 
-#: models.py:67
+#: forms/models.py:67
 msgid "Help text"
 msgstr "Подсказка"
 
-#: models.py:72 templates/admin/forms/entries.html:28
+#: forms/models.py:73 forms/templates/admin/forms/entries.html:27
 msgid "Field"
 msgstr "Поле"
 
-#: models.py:73
+#: forms/models.py:74
 msgid "Fields"
 msgstr "Поля"
 
-#: models.py:119
+#: forms/models.py:128
 msgid "Form entry"
 msgstr "Форма"
 
-#: models.py:120
+#: forms/models.py:129
 msgid "Form entries"
 msgstr "Формы"
 
-#: models.py:134
+#: forms/models.py:144
 msgid "Form field entry"
 msgstr "Поле формы"
 
-#: models.py:135
+#: forms/models.py:145
 msgid "Form field entries"
 msgstr "Поля формы"
 
-#: templates/admin/forms/change_form.html:8
-#: templates/admin/forms/entries.html:57
+#: forms/templates/admin/forms/change_form.html:5
+#: forms/templates/admin/forms/entries.html:56
 msgid "View entries"
 msgstr "Просмотр записей"
 
-#: templates/admin/forms/change_form.html:9
-msgid "History"
-msgstr "История"
-
-#: templates/admin/forms/change_form.html:10
-msgid "View on site"
-msgstr "Посмотреть на сайте"
-
-#: templates/admin/forms/entries.html:14
+#: forms/templates/admin/forms/entries.html:13
 msgid "Home"
 msgstr "Начало"
 
-#: templates/admin/forms/entries.html:29
+#: forms/templates/admin/forms/entries.html:28
 msgid "Include"
 msgstr "Включать"
 
-#: templates/admin/forms/entries.html:30
+#: forms/templates/admin/forms/entries.html:29
 msgid "Filter by"
 msgstr "Фильтровать по"
 
-#: templates/admin/forms/entries.html:48
+#: forms/templates/admin/forms/entries.html:47
 msgid "All"
 msgstr "Все"
 
-#: templates/admin/forms/entries.html:56 templates/admin/forms/entries.html:93
+#: forms/templates/admin/forms/entries.html:55
+#: forms/templates/admin/forms/entries.html:92
 msgid "Back to form"
 msgstr "Назад к форме"
 
-#: templates/admin/forms/entries.html:58
+#: forms/templates/admin/forms/entries.html:57
 msgid "Export CSV"
 msgstr "Экспортировать в CSV"
 
-#: templates/admin/forms/entries.html:60
+#: forms/templates/admin/forms/entries.html:59
 msgid "Entries"
 msgstr "Записи"
 
-#: templates/admin/forms/entries.html:94
+#: forms/templates/admin/forms/entries.html:93
 msgid "Delete selected"
 msgstr "Удалить выделенное"
 
-#: templates/admin/forms/entries.html:98
+#: forms/templates/admin/forms/entries.html:97
 msgid "No entries to display"
 msgstr "Нет объектов для отображения"
+
+#: forms/templates/pages/form.html:29 forms/tests.py:64 forms/tests.py:71
+msgid "Submit"
+msgstr "Отправить"
+
+#~ msgid "Max length allowed for field labels in the forms app."
+#~ msgstr "Максимально допустимая длина названий полей пользовательских форм"
+
+#~ msgid "required"
+#~ msgstr "обязательное"
+
+#~ msgid "History"
+#~ msgstr "История"
+
+#~ msgid "View on site"
+#~ msgstr "Посмотреть на сайте"
