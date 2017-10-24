@@ -33,6 +33,50 @@ jQuery(function($) {
     // This line can be removed after a decent amount of time has passed since
     // https://github.com/stephenmcd/grappelli-safe/pull/56/files occurring.
     $("#id_sitepermissions-__prefix__-sites").parent().parent().parent().remove();
+
+     // Automatically point product images into folders depending on their Product Code
+    var product_code = '{{ original.product_code }}';
+    if (product_code != '') {
+        $('.fb_show').each(function () {
+            var onClickVar = ($(this).attr("onclick"));
+            var onClickArray = onClickVar.split("&");
+
+            var path = '';
+
+            if (onClickArray.length == 3) {
+                path = onClickArray[0] + '&' + onClickArray[1] + "/" + product_code + '&' + onClickArray[2];
+            } else if (onClickArray.length == 2) {
+                path = onClickArray[0] + '&' + onClickArray[1].slice(0, -6) + "/" + product_code + '\');';
+            }
+
+            if (path != '') {
+                $(this).attr("onclick", path);
+            }
+        });
+    }
+
+    if ($('#id_gen_description').is(':checked')) {
+        $('#id_description').attr('readonly', 'readonly');
+    }
+
+     $('#id_gen_description').change(function () {
+        if ($('#id_description').attr('readonly') == "readonly") {
+            $('#id_description').removeAttr('readonly');
+        } else {
+            $('#id_description').attr('readonly', 'readonly');
+        }
+    });
+
+    // Highlight products without downloads
+	// Since penstock headwalls don't have downloads (instead they link to other products) we will ignore them
+    $('.result-list tr').each(function () {
+        var dl_count = $(this).find('.field-get_download_count').text();
+        var type = $(this).find('.field-product_code').text();
+        console.log(type.indexOf('_PENSTOCK'));
+	    if((dl_count == '0') && (type.indexOf('_PENSTOCK') == -1)) {
+	        $(this).addClass('no-downloads');
+	    }
+    });
 });
 </script>
 {% endblock %}
@@ -45,6 +89,27 @@ jQuery(function($) {
     {% if hide_delete_link or singleton %}.submit-row .deletelink {display:none !important;}{% endif %}
     {% if hide_slug_field %}.slug {display:none !important;}{% endif %}
     {% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
+
+     /* override for base product style checkboxes i.e period, style etc, hopefully this won't mess stuff up elsewhere */
+    ul#id_style li label, ul#id_period li label{ width: 100%; }
+    .form-row input[type="checkbox"] { margin: -2px 0 0;}
+    .form-row ul label { width: 100%; }
+    select#id_related_service_areas, select#id_services { width: 95%;}
+    span.page-model { float: left; font-size: 0.6rem; padding: 2px 8px 0px; text-transform: uppercase;}
+    #tree { min-width: 600px; width: 80% !important; }
+
+    .filebrowser td.fb_icon img {max-width: 150px; width: 100%; }
+    td.field-admin_thumb {max-width: 150px;} /* #STEV001 */
+    td.field-admin_thumb img {width: 100%;}
+    .selector {width: 100%;}
+    .selector-available, .selector-chosen { max-width: 500px; width: 48%;}
+    .selector-available select[multiple=multiple], .selector-chosen select[multiple=multiple]{ width: 100%; }
+    #changelist table { width: 100%; }
+    #changelist table img { width: 100%; }
+    textarea[readonly] { background: #ddd; color: #eee; }
+	table .field-available img { max-width: 20px; }
+	select[multiple="multiple"] { width: 900px; }
+
 </style>
 {% endblock %}
 
