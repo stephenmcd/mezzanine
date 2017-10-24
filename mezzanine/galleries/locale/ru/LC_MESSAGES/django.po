@@ -1,6 +1,6 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Translation file for mezzanine
+# Copyright (C) 2017
+# This file is distributed under the same license as the mezzanine package.
 #
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-09 10:33-0430\n"
+"POT-Creation-Date: 2017-10-25 02:23+0300\n"
 "PO-Revision-Date: 2012-08-26 13:02+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
@@ -21,11 +21,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: models.py:38
+#: galleries/models.py:46
 msgid "Zip import"
 msgstr "Импорт zip-архива"
 
-#: models.py:40
+#: galleries/models.py:48
 msgid ""
 "Upload a zip file containing images, and they'll be imported into this "
 "gallery."
@@ -33,26 +33,26 @@ msgstr ""
 "Загрузите zip-архив с изображениями, которые хотите импортировать в эту "
 "галерею."
 
-#: models.py:44
+#: galleries/models.py:120
 msgid "Gallery"
 msgstr "Галерея"
 
-#: models.py:45
+#: galleries/models.py:121
 msgid "Galleries"
 msgstr "Галереи"
 
-#: models.py:92
+#: galleries/models.py:129
 msgid "File"
 msgstr "Файл"
 
-#: models.py:94
+#: galleries/models.py:131
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:98
+#: galleries/models.py:135
 msgid "Image"
 msgstr "Изображение"
 
-#: models.py:99
+#: galleries/models.py:136
 msgid "Images"
 msgstr "Изображения"
