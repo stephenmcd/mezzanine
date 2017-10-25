@@ -1,16 +1,17 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Translation file for mezzanine
+# Copyright (C) 2017
+# This file is distributed under the same license as the mezzanine package.
 #
 # Translators:
 # Dmitry Falk <tfalc@mail.ru>, 2012.
+# Alexander Paramonov <alex@paramono.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 22:24+0400\n"
+"POT-Creation-Date: 2017-10-25 02:23+0300\n"
 "PO-Revision-Date: 2012-08-26 13:23+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Last-Translator: Alexander Paramonov <alex@paramono.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -20,30 +21,38 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:38
+#: conf/admin.py:50
 msgid "Settings were successfully updated."
 msgstr "Настройки успешно обновлены."
 
-#: admin.py:42
+#: conf/admin.py:54
 msgid "Change"
 msgstr "Изменить"
 
-#: forms.py:54
+#: conf/forms.py:92
 msgid "Miscellaneous"
 msgstr "Прочее"
 
-#: models.py:17
+#: conf/models.py:20
 msgid "Setting"
 msgstr "Настройка"
 
-#: models.py:18
+#: conf/models.py:21
 msgid "Settings"
 msgstr "Настройки"
 
-#: templates/admin/conf/setting/change_list.html:8
+#: conf/templates/admin/conf/setting/change_list.html:8
 msgid "Please correct the errors below."
 msgstr "Пожалуста, исправьте следующие ошибки"
 
-#: templates/admin/conf/setting/change_list.html:31
+#: conf/templates/admin/conf/setting/change_list.html:31
 msgid "Save"
 msgstr "Сохранить"
+
+#: project_template/project_name/settings.py:115
+msgid "English"
+msgstr "Английский"
+
+#: utils/views.py:95
+msgid "Name"
+msgstr "Имя"

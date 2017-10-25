@@ -54,9 +54,9 @@ class PagesTests(TestCase):
         behave as expected.
         """
         # Create related pages.
-        primary, created = RichTextPage.objects.get_or_create(title="Primary")
-        secondary, created = primary.children.get_or_create(title="Secondary")
-        tertiary, created = secondary.children.get_or_create(title="Tertiary")
+        primary, _ = RichTextPage.objects.get_or_create(title="Primary")
+        secondary, _ = primary.children.get_or_create(title="Secondary")
+        tertiary, _ = secondary.children.get_or_create(title="Tertiary")
 
         # Test that get_ascendants() returns the right thing.
         page = Page.objects.get(id=tertiary.id)
@@ -261,7 +261,7 @@ class PagesTests(TestCase):
                     '{% set_page_permissions page %}{{ page.perms }}')
         request = _thread_local.request
         request.user = AnonymousUser()
-        home_page, created = RichTextPage.objects.get_or_create(slug="/",
+        home_page, _ = RichTextPage.objects.get_or_create(slug="/",
                 title="home")
         rendered = Template(template).render(Context({'page': home_page,
             'request': request}))
@@ -279,12 +279,12 @@ class PagesTests(TestCase):
 
     def test_page_menu_slug_home(self):
         from mezzanine.core.request import _thread_local
-        home_page, created = RichTextPage.objects.get_or_create(slug="/", title="home")
+        home, _ = RichTextPage.objects.get_or_create(slug="/", title="home")
         template = ('{% load pages_tags %}'
                     '{% page_menu "pages/menus/tree.html" %}')
         request = _thread_local.request
         request.user = AnonymousUser()
-        rendered = Template(template).render(Context({'page': home_page,
+        rendered = Template(template).render(Context({'page': home,
             'request': request}))
         self.assertIsNotNone(rendered)
 
@@ -370,7 +370,7 @@ class PagesTests(TestCase):
         # on the test.
         if PAGES_SLUG:
             return
-        page, created = RichTextPage.objects.get_or_create(slug="edit")
+        page, _ = RichTextPage.objects.get_or_create(slug="edit")
         self.assertTrue(page.overridden())
 
     def test_unicode_slug_parm_to_processor_for(self):
