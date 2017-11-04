@@ -8,6 +8,7 @@ from datetime import datetime
 from mimetypes import guess_type
 from os.path import join
 
+from django import forms
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.messages import info
@@ -39,13 +40,39 @@ if not settings.FORMS_USE_HTML5:
     inline_field_excludes += ["placeholder_text"]
 
 
+class FieldAdminInlineForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        """
+        Ensure the label and help_text fields are rendered as text inputs
+        instead of text areas.
+        """
+        super(FieldAdminInlineForm, self).__init__(*args, **kwargs)
+        for name in self.fields:
+            # We just want to swap some textareas for inputs here, but
+            # there are some extra considerations for modeltranslation:
+            #   1) Form field names are suffixed with language,
+            #      eg help_text_en, so we check for the name as a prefix.
+            #   2) At this point, modeltranslation has also monkey-patched
+            #      on necessary CSS classes to the widget, so retain those.
+            if name.startswith("label") or name.startswith("help_text"):
+                css_class = self.fields[name].widget.attrs.get("class", None)
+                self.fields[name].widget = admin.widgets.AdminTextInputWidget()
+                if css_class:
+                    self.fields[name].widget.attrs["class"] = css_class
+
+    class Meta:
+        model = Field
+        exclude = inline_field_excludes
+
+
 class FieldAdmin(TabularDynamicInlineAdmin):
     """
     Admin class for the form field. Inherits from TabularDynamicInlineAdmin to
     add dynamic "Add another" link and drag/drop ordering.
     """
     model = Field
-    exclude = inline_field_excludes
+    form = FieldAdminInlineForm
 
 
 class FormAdmin(PageAdmin):

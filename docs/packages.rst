@@ -435,9 +435,6 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.utils.conf
    :members:
 
-.. automodule:: mezzanine.utils.device
-   :members:
-
 .. automodule:: mezzanine.utils.docs
    :members:
 

@@ -1,8 +1,5 @@
 .. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
    :target: http://travis-ci.org/stephenmcd/mezzanine
-.. image:: https://coveralls.io/repos/stephenmcd/mezzanine/badge.png
-   :target: https://coveralls.io/repos/stephenmcd/mezzanine
-   :alt: coveralls.io
 
 Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_
 
@@ -56,7 +53,6 @@ interface, Mezzanine provides the following:
 * API for `custom content types`_
 * `Search engine and API`_
 * Seamless integration with third-party Django apps
-* Multi-device detection and template handling
 * One step migration from other blogging engines
 * Automated production provisioning and deployments
 * `Disqus`_ integration, or built-in threaded comments

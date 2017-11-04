@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=500, verbose_name='Title')),
                 ('slug', models.CharField(help_text='Leave blank to have the URL auto-generated from the title.', max_length=2000, null=True, verbose_name='URL', blank=True)),
-                ('site', models.ForeignKey(editable=False, to='sites.Site')),
+                ('site', models.ForeignKey(editable=False, to='sites.Site', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('title',),
@@ -56,8 +56,8 @@ class Migration(migrations.Migration):
                 ('featured_image', mezzanine.core.fields.FileField(max_length=255, null=True, verbose_name='Featured Image', blank=True)),
                 ('categories', models.ManyToManyField(related_name='blogposts', verbose_name='Categories', to='blog.BlogCategory', blank=True)),
                 ('related_posts', models.ManyToManyField(related_name='related_posts_rel_+', verbose_name='Related posts', to='blog.BlogPost', blank=True)),
-                ('site', models.ForeignKey(editable=False, to='sites.Site')),
-                ('user', models.ForeignKey(related_name='blogposts', verbose_name='Author', to=settings.AUTH_USER_MODEL)),
+                ('site', models.ForeignKey(editable=False, to='sites.Site', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(related_name='blogposts', verbose_name='Author', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('-publish_date',),

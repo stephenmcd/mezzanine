@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from __future__ import unicode_literals
 
 import atexit
@@ -9,7 +10,7 @@ import django
 from django.core.management import call_command
 
 
-def main(package="mezzanine"):
+def main(package="mezzanine", args=()):
     """
     This is the main test function called via ``python setup.py test``.
     It's responsible for hacking the ``project_template`` dir into
@@ -65,9 +66,9 @@ PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
 
     from django.core.management.commands import test
     if django.VERSION < (1, 10):
-        sys.exit(test.Command().execute(verbosity=1))
-    sys.exit(call_command(test.Command(), verbosity=1))
+        sys.exit(test.Command().execute(*args, verbosity=1))
+    sys.exit(call_command(test.Command(), *args, verbosity=1))
 
 
 if __name__ == "__main__":
-    main()
+    main(args=sys.argv[1:])

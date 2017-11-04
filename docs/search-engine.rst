@@ -128,14 +128,15 @@ Ordering Results
 ================
 
 By default, results are ordered by the number of matches found within the
-fields searched. It is possible to control the relative weight of a match
-found within one field over a match found in another field. Given the
-first example of searching :class:`.Page` instances, you might decide that
-a match within the ``title`` field is worth 5 times as much as a match in
-the ``description`` field. These relative weights can be defined in the
-same fashion as outlined above for defining the fields to be used in a
-search by using a slightly different format for the ``search_fields``
-argument::
+fields searched and their age.
+
+It is possible to control the relative weight of a match found within one
+field over a match found in another field. Given the first example of
+searching :class:`.Page` instances, you might decide that a match within
+the ``title`` field is worth 5 times as much as a match in the
+``description`` field. These relative weights can be defined in the same
+fashion as outlined above for defining the fields to be used in a search
+by using a slightly different format for the ``search_fields`` argument::
 
     from mezzanine.pages.models import Page
 
@@ -146,6 +147,12 @@ argument::
 As shown, a dictionary or mapping sequence can be used to associate
 weights to fields in any of the cases described above where
 ``search_fields`` can be defined.
+
+It is also possible to control the weight given to a match by its age by
+customizing the :ref:`SEARCH_AGE_SCALE_FACTOR` setting. Setting this to a
+high number gives more weight to the age, ranking newer matches higher
+with less regard to their original weight. Setting it to zero disables
+weighing matches by their age entirely.
 
 Searching Heterogeneous Models
 ==============================

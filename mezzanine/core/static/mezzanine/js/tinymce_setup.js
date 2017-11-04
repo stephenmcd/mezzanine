@@ -70,6 +70,7 @@
         ],
         link_list: window.__link_list_url,
         relative_urls: false,
+        browser_spellcheck: true,
         convert_urls: false,
         menubar: false,
         statusbar: false,
