@@ -175,7 +175,7 @@ class FormForForm(forms.ModelForm):
                 try:
                     initial_val = initial[field_key]
                 except KeyError:
-                    initial_val = Template(field.default).render(context)
+                    initial_val = str(Template(field.default).render(context))
             if initial_val:
                 if field.is_a(*fields.MULTIPLE):
                     initial_val = split_choices(initial_val)
