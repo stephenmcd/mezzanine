@@ -175,8 +175,9 @@ class SearchableQuerySet(QuerySet):
         """
         Ensure attributes are copied to subsequent queries.
         """
-        for attr in ("_search_terms", "_search_fields", "_search_ordered"):
-            kwargs[attr] = getattr(self, attr)
+        # i'm not quite sure what this is intended to do.
+        # for attr in ("_search_terms", "_search_fields", "_search_ordered"):
+            #kwargs[attr] = getattr(self, attr)
         return super(SearchableQuerySet, self)._clone(*args, **kwargs)
 
     def order_by(self, *field_names):

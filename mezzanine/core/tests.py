@@ -24,7 +24,8 @@ from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.exceptions import ValidationError
 from django.core.management import call_command, CommandError
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse
+from mezzanine.compat import reverse
 from django.db import models
 from django.forms import Textarea
 from django.forms.models import modelform_factory

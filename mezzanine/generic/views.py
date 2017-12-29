@@ -7,7 +7,8 @@ from string import punctuation
 from django.apps import apps
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.messages import error
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse
+from mezzanine.compat import reverse
 from django.db.models import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect

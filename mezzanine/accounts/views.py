@@ -4,7 +4,8 @@ from django.contrib.auth import (login as auth_login, authenticate,
                                  logout as auth_logout, get_user_model)
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import info, error
-from django.core.urlresolvers import NoReverseMatch, get_script_prefix
+from mezzanine.compat import NoReverseMatch, get_script_prefix
+# from django.core.urlresolvers import NoReverseMatch, get_script_prefix
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _

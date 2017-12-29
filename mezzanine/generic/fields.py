@@ -85,7 +85,9 @@ class BaseGenericRelation(GenericRelation):
             getter_name = "get_%s_name" % self.__class__.__name__.lower()
             cls.add_to_class(getter_name, lambda self: name)
 
-            sender = self.rel.to
+            from mezzanine.compat import get_rel_to
+            sender = get_rel_to(self)
+#            sender = self.rel.to
             post_save.connect(self._related_items_changed, sender=sender)
             post_delete.connect(self._related_items_changed, sender=sender)
 
