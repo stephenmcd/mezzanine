@@ -280,7 +280,7 @@ class Page(BasePage, ContentTyped):
         return any([not self.login_required,
                     user.is_staff,
                     not perm_groups,
-                    perm_groups.intersection(user_groups)])
+                    set(user_groups) & set(perm_groups)])
 
 
 class RichTextPage(Page, RichText):
