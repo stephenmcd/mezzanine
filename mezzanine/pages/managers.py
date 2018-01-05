@@ -23,10 +23,14 @@ class PageManager(DisplayableManager):
         ``PageMiddleware``.
         """
         published = super(PageManager, self).published(for_user=for_user)
-        unauthenticated = for_user and not is_authenticated(for_user)
-        if (unauthenticated and not include_login_required and
-                not settings.PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED):
-            published = published.exclude(login_required=True)
+        if (for_user and not include_login_required and
+           not settings.PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED):
+            if not is_authenticated(for_user):
+                published = published.exclude(login_required=True)
+            elif settings.PAGE_GROUP_PERMISSIONS:
+                for page in published:
+                    if not page.user_has_group_permissions(for_user):
+                        published = published.exclude(pk=page.pk)
         return published
 
     def with_ascendants_for_slug(self, slug, **kwargs):

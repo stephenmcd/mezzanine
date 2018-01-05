@@ -64,3 +64,11 @@ register_setting(
     editable=False,
     default=False,
 )
+
+register_setting(
+    name="PAGE_GROUP_PERMISSIONS",
+    description=_("If ``True`` pages with ``login_required`` checked can be"
+        "limited by groups otherwise all loged in users can see the page."),
+    editable=False,
+    default=False,
+)

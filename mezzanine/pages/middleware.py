@@ -3,6 +3,9 @@ from __future__ import unicode_literals
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import MiddlewareNotUsed
 from django.http import HttpResponse, Http404
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.pages import context_processors, page_processors
@@ -82,8 +85,15 @@ class PageMiddleware(MiddlewareMixin):
             return
 
         # Handle ``page.login_required``.
-        if page.login_required and not is_authenticated(request.user):
-            return redirect_to_login(request.get_full_path())
+        if page.login_required:
+            if not is_authenticated(request.user):
+                return redirect_to_login(request.get_full_path())
+            # handel ``page.permitted_groups``
+            elif (settings.PAGE_GROUP_PERMISSIONS and not
+                 page.user_has_group_permissions(request.user)):
+                    msg = _("You don't have permissions to view this page.")
+                    messages.error(request, msg)
+                    return redirect("/")
 
         # If the view isn't Mezzanine's page view, try to return the result
         # immediately. In the case of a 404 with an URL slug that matches a

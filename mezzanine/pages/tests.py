@@ -168,6 +168,35 @@ class PagesTests(TestCase):
         child = RichTextPage.objects.get(id=child.id)
         self.assertTrue(child.slug == "new-parent-slug/child")
 
+    def test_permitted_groups(self):
+        from django.contrib.auth.models import Group
+        user = get_user_model().objects.create_user(username='groupeduser',
+                                                    password=self._password)
+        self.client.login(username=user.username, password=self._password)
+        group = Group.objects.create(name='testgroup')
+        private, _ = RichTextPage.objects.get_or_create(
+            title="Private", slug="groupprivate", login_required=True)
+        private_url = private.get_absolute_url()
+        args = {"for_user": user}
+
+        with override_settings(PAGE_GROUP_PERMISSIONS=True):
+            # no group assigned to page
+            self.assertIn(private, RichTextPage.objects.published(**args))
+            response = self.client.get(private_url, follow=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.redirect_chain, [])
+            # group assigned to page but not to user
+            private.permitted_groups.add(group)
+            self.assertNotIn(private, RichTextPage.objects.published(**args))
+            response = self.client.get(private_url, follow=True)
+            self.assertRedirects(response, "/")
+            # group also assigned to user
+            group.user_set.add(user)
+            self.assertIn(private, RichTextPage.objects.published(**args))
+            response = self.client.get(private_url, follow=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.redirect_chain, [])
+
     def test_login_required(self):
         public, _ = RichTextPage.objects.get_or_create(
             title="Public", slug="public", login_required=False)
@@ -178,7 +207,7 @@ class PagesTests(TestCase):
         args = {"for_user": AnonymousUser()}
         self.assertTrue(public in RichTextPage.objects.published(**args))
         self.assertTrue(private not in RichTextPage.objects.published(**args))
-        args = {"for_user": User.objects.get(username=self._username)}
+        args = {"for_user": self._user}
         self.assertTrue(public in RichTextPage.objects.published(**args))
         self.assertTrue(private in RichTextPage.objects.published(**args))
 
