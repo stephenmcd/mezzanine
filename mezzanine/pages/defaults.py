@@ -67,8 +67,9 @@ register_setting(
 
 register_setting(
     name="PAGE_GROUP_PERMISSIONS",
-    description=_("If ``True`` pages with ``login_required`` checked can be"
-        "limited by groups otherwise all loged in users can see the page."),
+    description=_("If ``True`` pages with ``login_required`` checked can be "
+        "limited to certain groups. If ``False`` all logged in users can see "
+        "the page."),
     editable=False,
     default=False,
 )
