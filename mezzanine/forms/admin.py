@@ -8,7 +8,6 @@ from datetime import datetime
 from mimetypes import guess_type
 from os.path import join
 
-from django import forms
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.messages import info
@@ -19,6 +18,7 @@ from django.utils.translation import ungettext, ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import TabularDynamicInlineAdmin
+from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.forms.forms import EntriesForm
 from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
 from mezzanine.pages.admin import PageAdmin
@@ -40,7 +40,7 @@ if not settings.FORMS_USE_HTML5:
     inline_field_excludes += ["placeholder_text"]
 
 
-class FieldAdminInlineForm(forms.ModelForm):
+class FieldAdminInlineForm(DynamicInlineAdminForm):
 
     def __init__(self, *args, **kwargs):
         """
