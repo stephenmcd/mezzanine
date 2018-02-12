@@ -11,6 +11,7 @@ from django.core.urlresolvers import resolve, reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _, ugettext
+from django.contrib.auth.models import Group
 
 from mezzanine.conf import settings
 from mezzanine.core.models import (
@@ -47,6 +48,9 @@ class Page(BasePage, ContentTyped):
     titles = models.CharField(editable=False, max_length=1000, null=True)
     login_required = models.BooleanField(_("Login required"), default=False,
         help_text=_("If checked, only logged in users can view this page"))
+    permitted_groups = models.ManyToManyField(Group, blank=True,
+                      verbose_name=_('Permitted groups'),
+                      help_text=_("Limit viewing permission to these groups."))
 
     class Meta:
         verbose_name = _("Page")
@@ -269,6 +273,14 @@ class Page(BasePage, ContentTyped):
         in ``mezzanine.pages.views.page``.
         """
         return None
+
+    def user_has_group_permissions(self, user):
+        user_groups = user.groups.all()
+        perm_groups = self.permitted_groups.all()
+        return any([not self.login_required,
+                    user.is_staff,
+                    not perm_groups,
+                    set(user_groups) & set(perm_groups)])
 
 
 class RichTextPage(Page, RichText):

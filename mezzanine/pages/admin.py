@@ -20,6 +20,8 @@ page_fieldsets = deepcopy(DisplayableAdmin.fieldsets)
 if settings.PAGE_MENU_TEMPLATES:
     page_fieldsets[0][1]["fields"] += ("in_menus",)
 page_fieldsets[0][1]["fields"] += ("login_required",)
+if settings.PAGE_GROUP_PERMISSIONS:
+    page_fieldsets[0][1]["fields"] += ("permitted_groups",)
 
 
 class PageAdminForm(DisplayableAdminForm):
