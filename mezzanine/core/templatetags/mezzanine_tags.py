@@ -721,6 +721,7 @@ def translate_url(context, language):
             url_name = "admin:" + view.url_name
             url = reverse(url_name, args=view.args, kwargs=view.kwargs)
     translation.activate(current_language)
-    if context['request'].META["QUERY_STRING"]:
-        url += "?" + context['request'].META["QUERY_STRING"]
+    qs = context['request'].META.get("QUERY_STRING", "")
+    if qs:
+        url += "?" + qs
     return url
