@@ -170,12 +170,23 @@ class CoreTests(TestCase):
             self.assertEqual(results[0].id, second)
 
         # Test ordering with age scaling.
-        settings.SEARCH_AGE_SCALE_FACTOR = 2
+        settings.SEARCH_AGE_SCALE_FACTOR = 1.5
         results = RichTextPage.objects.search("test")
         self.assertEqual(len(results), 2)
         if results:
             # `first` should now be ranked higher.
             self.assertEqual(results[0].id, first)
+
+        # Test results that have a publish date in the future
+        future = RichTextPage.objects.create(
+            title="test page to be published in the future",
+            publish_date=now() + timedelta(days=10),
+            **published
+        ).id
+        results = RichTextPage.objects.search("test", for_user=self._username)
+        self.assertEqual(len(results), 3)
+        if results:
+            self.assertEqual(results[0].id, future)
 
         # Test the actual search view.
         response = self.client.get(reverse("search") + "?q=test")
