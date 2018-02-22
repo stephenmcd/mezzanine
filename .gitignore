@@ -4,11 +4,13 @@
 *.pot
 *.doctree
 *.swp
+.vscode
 .doctrees
 .DS_Store
 .coverage
 .idea/
 local_settings.py
+.eggs/
 Mezzanine.egg-info/
 build/
 docs/build/
