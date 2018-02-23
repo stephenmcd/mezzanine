@@ -6,6 +6,10 @@ from warnings import warn
 
 from django.db import OperationalError
 from django.conf import global_settings as defaults
+from django.apps import apps
+from django.utils import six
+from django.utils.functional import lazy
+
 
 from mezzanine.utils.timezone import get_best_local_timezone
 
@@ -241,3 +245,30 @@ def real_project_name(project_name):
     if project_name == "{{ project_name }}":
         return "project_name"
     return project_name
+
+
+def _get_models_for_app(app_label, dotted=True):
+    """
+    Get all models for a given app label. Primary use case is to customize
+    the ADMIN_MENU_ORDER without knowing all models an app has. Use if order
+    of the app's models is not as important, but it's place in the menu and
+    forward compatibility is.
+
+    :param app_label: Application label
+    :type app_label: str
+    :param dotted: Whether to return the tuple as dotted strings or classes
+    :type dotted: bool
+    :return: A string or list of models
+    :rtype: tuple of str or tuple of class
+    """
+    models = apps.all_models.get(app_label, None)
+    if models:
+        if dotted:
+            return tuple(
+                ['{}.{}'.format(app_label, k.__name__) for k in
+                 six.itervalues(models)]
+            )
+        else:
+            return tuple(six.itervalues(models))
+
+get_models_for_app = lazy(_get_models_for_app, tuple)
