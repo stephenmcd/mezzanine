@@ -248,8 +248,12 @@ def real_project_name(project_name):
 
 
 def middlewares_or_subclasses_installed(needed_middlewares):
-
+    """
+    When passed an iterable of dotted strings, returns True if all
+    of the middlewares (or their subclasses) are installed.
+    """
     middleware_setting = set(get_middleware_setting())
+
     # Shortcut case, check by string
     if all(m in middleware_setting for m in needed_middlewares):
         return True

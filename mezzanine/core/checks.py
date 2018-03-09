@@ -7,7 +7,7 @@ from django.conf import global_settings
 from django.core.checks import Warning, register
 
 from mezzanine.conf import settings
-from mezzanine.utils.deprecation import get_middleware_setting
+from mezzanine.utils.conf import middlewares_or_subclasses_installed
 from mezzanine.utils.sites import SITE_PERMISSION_MIDDLEWARE
 
 
@@ -159,7 +159,8 @@ def _build_suggested_template_config(settings):
 
 @register()
 def check_sites_middleware(app_configs, **kwargs):
-    if SITE_PERMISSION_MIDDLEWARE not in get_middleware_setting():
+
+    if middlewares_or_subclasses_installed([SITE_PERMISSION_MIDDLEWARE]):
         return [Warning(SITE_PERMISSION_MIDDLEWARE +
                         " missing from settings.MIDDLEWARE - per site"
                         " permissions not applied",
