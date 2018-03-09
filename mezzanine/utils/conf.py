@@ -2,11 +2,15 @@ from __future__ import unicode_literals
 
 import os
 import sys
+from inspect import getmro
 from warnings import warn
 
+import six
 from django.db import OperationalError
 from django.conf import global_settings as defaults
+from django.utils.module_loading import import_string
 
+from mezzanine.utils.deprecation import get_middleware_setting
 from mezzanine.utils.timezone import get_best_local_timezone
 
 
@@ -241,3 +245,24 @@ def real_project_name(project_name):
     if project_name == "{{ project_name }}":
         return "project_name"
     return project_name
+
+
+def middlewares_or_subclasses_installed(needed_middlewares):
+
+    middleware_setting = set(get_middleware_setting())
+    # Shortcut case, check by string
+    if all(m in middleware_setting for m in needed_middlewares):
+        return True
+
+    def flatten(seqs):
+        return (item for seq in seqs for item in seq)
+
+    middleware_items = map(import_string, middleware_setting)
+    middleware_classes = filter(
+        lambda m: isinstance(m, six.class_types),
+        middleware_items)
+    middleware_ancestors = set(flatten(map(getmro, middleware_classes)))
+
+    needed_middlewares = set(map(import_string, needed_middlewares))
+
+    return needed_middlewares.issubset(middleware_ancestors)
