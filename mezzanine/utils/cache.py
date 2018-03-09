@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import types
 from hashlib import md5
 from inspect import getmro
 from time import time
@@ -70,7 +71,10 @@ def cache_installed():
     def flatten(seqs):
         return (item for seq in seqs for item in seq)
 
-    middleware_classes = map(import_string, get_middleware_setting())
+    middleware_items = map(import_string, get_middleware_setting())
+    middleware_classes = filter(
+        lambda m: isinstance(m, (types.ClassType, types.TypeType)),
+        middleware_items)
     middleware_ancestors = set(flatten(map(getmro, middleware_classes)))
 
     mezzanine_cache_middleware_classes = {
