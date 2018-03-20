@@ -33,7 +33,7 @@ from mezzanine.utils.cache import nevercache_token, cache_installed
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.sites import current_site_id, has_site_permission
-from mezzanine.utils.urls import admin_url
+from mezzanine.utils.urls import admin_url, home_slug
 from mezzanine.utils.views import is_editable
 from mezzanine import template
 
@@ -701,7 +701,7 @@ def translate_url(context, language):
     """
     Translates the current URL for the given language code, eg:
 
-        {% translate_url de %}
+        {% translate_url "de" %}
     """
     try:
         request = context["request"]
@@ -710,16 +710,19 @@ def translate_url(context, language):
     view = resolve(request.path)
     current_language = translation.get_language()
     translation.activate(language)
-    try:
-        url = reverse(view.func, args=view.args, kwargs=view.kwargs)
-    except NoReverseMatch:
+    if not view.namespace and view.url_name == "home":
+        url = home_slug()
+    else:
         try:
-            url_name = (view.url_name if not view.namespace
-                        else '%s:%s' % (view.namespace, view.url_name))
-            url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+            url = reverse(view.func, args=view.args, kwargs=view.kwargs)
         except NoReverseMatch:
-            url_name = "admin:" + view.url_name
-            url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+            try:
+                url_name = (view.url_name if not view.namespace
+                            else '%s:%s' % (view.namespace, view.url_name))
+                url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+            except NoReverseMatch:
+                url_name = "admin:" + view.url_name
+                url = reverse(url_name, args=view.args, kwargs=view.kwargs)
     translation.activate(current_language)
     qs = context['request'].META.get("QUERY_STRING", "")
     if qs:
