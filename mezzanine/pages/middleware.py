@@ -8,9 +8,8 @@ from mezzanine.conf import settings
 from mezzanine.pages import context_processors, page_processors
 from mezzanine.pages.models import Page
 from mezzanine.pages.views import page as page_view
-from mezzanine.utils.deprecation import (MiddlewareMixin, is_authenticated,
-                                         get_middleware_setting)
-from mezzanine.utils.importing import import_dotted_path
+from mezzanine.utils.conf import middlewares_or_subclasses_installed
+from mezzanine.utils.deprecation import (MiddlewareMixin, is_authenticated)
 from mezzanine.utils.urls import path_to_slug
 
 
@@ -46,21 +45,13 @@ class PageMiddleware(MiddlewareMixin):
         Used in ``mezzanine.pages.views.page`` to ensure
         ``PageMiddleware`` or a subclass has been installed. We cache
         the result on the ``PageMiddleware._installed`` to only run
-        this once. Short path is to just check for the dotted path to
-        ``PageMiddleware`` in ``MIDDLEWARE_CLASSES`` - if not found,
-        we need to load each middleware class to match a subclass.
+        this once.
         """
         try:
             return cls._installed
         except AttributeError:
             name = "mezzanine.pages.middleware.PageMiddleware"
-            mw_setting = get_middleware_setting()
-            installed = name in mw_setting
-            if not installed:
-                for name in mw_setting:
-                    if issubclass(import_dotted_path(name), cls):
-                        installed = True
-                        break
+            installed = middlewares_or_subclasses_installed([name])
             setattr(cls, "_installed", installed)
             return installed
 

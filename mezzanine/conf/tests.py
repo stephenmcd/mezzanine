@@ -212,7 +212,10 @@ class ConfTests(TestCase):
 
         # Ensure usage with no current request does not break caching
         from mezzanine.core.request import _thread_local
-        del _thread_local.request
+        try:
+            del _thread_local.request
+        except AttributeError:
+            pass
 
         setting = Setting.objects.create(name='SITE_TITLE', value="Mezzanine")
         original_site_title = settings.SITE_TITLE
