@@ -91,7 +91,7 @@ def has_site_permission(user):
     also fall back to an ``is_staff`` check if the middleware is not
     installed, to ease migration.
     """
-    if middlewares_or_subclasses_installed([SITE_PERMISSION_MIDDLEWARE]):
+    if not middlewares_or_subclasses_installed([SITE_PERMISSION_MIDDLEWARE]):
         return user.is_staff and user.is_active
     return getattr(user, "has_site_permission", False)
 
