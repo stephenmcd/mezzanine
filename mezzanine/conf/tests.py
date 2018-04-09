@@ -246,3 +246,16 @@ class TemplateSettingsTests(TestCase):
         ts['EXTRA_THING'] = 'foo'
         self.assertEqual(ts.EXTRA_THING, 'foo')
         self.assertEqual(ts['EXTRA_THING'], 'foo')
+
+    def test_repr(self):
+        ts = TemplateSettings(settings, [])
+        self.assertEqual(repr(ts), '{}')
+
+        ts2 = TemplateSettings(settings,
+                               ['DEBUG', 'SOME_NON_EXISTANT_SETTING'])
+        self.assertIn("'DEBUG': False", repr(ts2))
+
+        ts3 = TemplateSettings(settings, [])
+        ts3['EXTRA_THING'] = 'foo'
+        self.assertIn("'EXTRA_THING'", repr(ts3))
+        self.assertIn("'foo'", repr(ts3))
