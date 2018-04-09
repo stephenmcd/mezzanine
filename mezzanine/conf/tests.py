@@ -5,6 +5,7 @@ from unittest import skipUnless
 import warnings
 
 from django.conf import settings as django_settings
+from django.utils.encoding import force_text
 
 from mezzanine.conf import settings, registry, register_setting
 from mezzanine.conf.context_processors import TemplateSettings
@@ -259,3 +260,10 @@ class TemplateSettingsTests(TestCase):
         ts3['EXTRA_THING'] = 'foo'
         self.assertIn("'EXTRA_THING'", repr(ts3))
         self.assertIn("'foo'", repr(ts3))
+
+    def test_force_text(self):
+        ts = TemplateSettings(settings, [])
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.assertEqual(force_text(ts), '{}')
+        self.assertEqual(len(w), 0)
