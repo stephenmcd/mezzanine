@@ -170,7 +170,7 @@ class MetaData(models.Model):
         # Use the first RichTextField, or TextField if none found.
         for field_type in (RichTextField, models.TextField):
             if not description:
-                for field in self._meta.fields:
+                for field in self._meta.get_fields():
                     if (isinstance(field, field_type) and
                             field.name != "description"):
                         description = getattr(self, field.name)
