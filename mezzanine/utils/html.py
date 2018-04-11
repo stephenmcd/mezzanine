@@ -15,6 +15,8 @@ except ImportError:  # Python 2
 
 import re
 
+from django.utils.safestring import mark_safe
+
 
 SELF_CLOSING_TAGS = ['br', 'img']
 NON_SELF_CLOSING_TAGS = ['script', 'iframe']
@@ -96,9 +98,9 @@ def escape(html):
         attrs += LOW_FILTER_ATTRS
     if isinstance(attrs, tuple):
         attrs = list(attrs)
-    return clean(html, tags=tags, attributes=attrs, strip=True,
-                 strip_comments=False, styles=styles,
-                 protocols=ALLOWED_PROTOCOLS + ["tel"])
+    return mark_safe(clean(html, tags=tags, attributes=attrs, strip=True,
+                           strip_comments=False, styles=styles,
+                           protocols=ALLOWED_PROTOCOLS + ["tel"]))
 
 
 def thumbnails(html):
@@ -125,7 +127,7 @@ def thumbnails(html):
         if src_in_media and str(width).isdigit() and str(height).isdigit():
             img["src"] = settings.MEDIA_URL + thumbnail(src, width, height)
     # BS adds closing br tags, which the browser interprets as br tags.
-    return str(dom).replace("</br>", "")
+    return mark_safe(str(dom).replace("</br>", ""))
 
 
 class TagCloser(HTMLParser):

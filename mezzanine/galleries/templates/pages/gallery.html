@@ -10,7 +10,7 @@
 {{ block.super }}
 
 {% editable page.gallery.content %}
-{{ page.gallery.content|richtext_filters|safe }}
+{{ page.gallery.content|richtext_filters }}
 {% endeditable %}
 
 <div class="gallery row">

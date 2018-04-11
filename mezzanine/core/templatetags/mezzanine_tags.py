@@ -25,6 +25,7 @@ from django.template.loader import get_template
 from django.utils import translation
 from django.utils.html import strip_tags
 from django.utils.text import capfirst
+from django.utils.safestring import SafeString, mark_safe
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
@@ -472,6 +473,20 @@ def richtext_filters(content):
     for filter_name in settings.RICHTEXT_FILTERS:
         filter_func = import_dotted_path(filter_name)
         content = filter_func(content)
+        if not isinstance(content, SafeString):
+            # raise TypeError(
+                # filter_name + " must mark it's return value as safe. See "
+                # "https://docs.djangoproject.com/en/stable/topics/security/"
+                # "#cross-site-scripting-xss-protection")
+            import warnings
+            warnings.warn(
+                filter_name + " needs to insure that any untrusted inputs are "
+                "properly escaped and mark the html it returns as safe. In a "
+                "future release this will cause an exception. See "
+                "https://docs.djangoproject.com/en/stable/topics/security/"
+                "cross-site-scripting-xss-protection",
+                FutureWarning)
+            content = mark_safe(content)
     return content
 
 
