@@ -17,7 +17,6 @@ import re
 
 from django.utils.safestring import mark_safe
 
-from bleach import clean, sanitizer
 
 SELF_CLOSING_TAGS = ['br', 'img']
 NON_SELF_CLOSING_TAGS = ['script', 'iframe']
