@@ -76,7 +76,7 @@ class Command(BaseImporterCommand):
                 post = self.add_post(title=entry.title, content=content,
                                      pub_date=pub_date, tags=terms["tag"],
                                      categories=terms["category"],
-                                     old_url=entry.id)
+                                     old_url=entry.get('link', entry.id))
 
                 # Get the comments from the xml doc.
                 for c in xmlitem.getElementsByTagName("wp:comment"):

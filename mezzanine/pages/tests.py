@@ -4,13 +4,14 @@ from django.contrib.sites.models import Site
 from future.builtins import str
 
 from unittest import skipUnless
-
+from django.apps import apps
+from django.core.checks import Warning
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.db import connection
 from django.http import HttpResponse
 from django.shortcuts import resolve_url
-from django.template import Context, Template
+from django.template import Context, Template, TemplateSyntaxError
 from django.test.utils import override_settings
 from django.utils.http import urlquote_plus
 from django.utils.six.moves.urllib.parse import urlparse
@@ -21,6 +22,8 @@ from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.pages.admin import PageAdminForm
+from mezzanine.pages.fields import MenusField
+from mezzanine.pages.checks import check_context_processor
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.sites import override_current_site_id
 from mezzanine.utils.tests import TestCase
@@ -41,15 +44,22 @@ class PagesTests(TestCase):
         request.site_id = settings.SITE_ID
         _thread_local.request = request
 
+    def tearDown(self):
+        from mezzanine.core.request import _thread_local
+        try:
+            del _thread_local.request
+        except AttributeError:
+            pass
+
     def test_page_ascendants(self):
         """
         Test the methods for looking up ascendants efficiently
         behave as expected.
         """
         # Create related pages.
-        primary, created = RichTextPage.objects.get_or_create(title="Primary")
-        secondary, created = primary.children.get_or_create(title="Secondary")
-        tertiary, created = secondary.children.get_or_create(title="Tertiary")
+        primary, _ = RichTextPage.objects.get_or_create(title="Primary")
+        secondary, _ = primary.children.get_or_create(title="Secondary")
+        tertiary, _ = secondary.children.get_or_create(title="Tertiary")
 
         # Test that get_ascendants() returns the right thing.
         page = Page.objects.get(id=tertiary.id)
@@ -73,6 +83,14 @@ class PagesTests(TestCase):
         self.assertEqual(len(connection.queries), 0)
         self.assertEqual(ascendants[0].id, secondary.id)
         self.assertEqual(ascendants[1].id, primary.id)
+
+        # Test with_ascendants_for_slug with invalid parent
+        primary.parent_id = tertiary.id
+        primary.save()
+        pages_for_slug = Page.objects.with_ascendants_for_slug(tertiary.slug)
+        self.assertEqual(pages_for_slug[0]._ascendants, [])
+        primary.parent_id = None
+        primary.save()
 
         # Use a custom slug in the page path, and test that
         # Page.objects.with_ascendants_for_slug fails, but
@@ -230,6 +248,49 @@ class PagesTests(TestCase):
                 response = self.client.get(private_url, follow=True)
                 self.assertEqual(response.status_code, 200)
 
+    def test_set_model_permissions(self):
+        from mezzanine.core.request import _thread_local
+        template = ('{% load pages_tags %}'
+                    '{% set_model_permissions model %}{{ model.perms }}')
+        request = _thread_local.request
+        request.user = AnonymousUser()
+        rendered = Template(template).render(Context({'model': RichTextPage,
+            'request': request}))
+        self.assertIsNotNone(rendered)
+
+    def test_set_page_permissions(self):
+        from mezzanine.core.request import _thread_local
+        template = ('{% load pages_tags %}'
+                    '{% set_page_permissions page %}{{ page.perms }}')
+        request = _thread_local.request
+        request.user = AnonymousUser()
+        home_page, _ = RichTextPage.objects.get_or_create(slug="/",
+                title="home")
+        rendered = Template(template).render(Context({'page': home_page,
+            'request': request}))
+        self.assertIsNotNone(rendered)
+
+    def test_page_menu_key_error(self):
+        """
+        Test that rendering a page menu without a template name or
+        context["menu_template_name"] raises a TemplateSystemError.
+        """
+        template = ('{% load pages_tags %}'
+                    '{% page_menu %}')
+        with self.assertRaises(TemplateSyntaxError):
+            Template(template).render(Context({}))
+
+    def test_page_menu_slug_home(self):
+        from mezzanine.core.request import _thread_local
+        home, _ = RichTextPage.objects.get_or_create(slug="/", title="home")
+        template = ('{% load pages_tags %}'
+                    '{% page_menu "pages/menus/tree.html" %}')
+        request = _thread_local.request
+        request.user = AnonymousUser()
+        rendered = Template(template).render(Context({'page': home,
+            'request': request}))
+        self.assertIsNotNone(rendered)
+
     def test_page_menu_queries(self):
         """
         Test that rendering a page menu executes the same number of
@@ -281,6 +342,26 @@ class PagesTests(TestCase):
                 page_in_a_menu = Page.objects.create()
                 self.assertEqual(page_in_a_menu.in_menus, (9,))
 
+    def test_menusfield_default(self):
+        my_default = (1, 3)
+
+        def my_default_func():
+            return my_default
+
+        choices = ((1, 'First Menu', 'template1'),
+                (2, 'Second Menu', 'template2'),
+                (3, 'Third Menu', 'template3'))
+        with override_settings(PAGE_MENU_TEMPLATES=choices):
+            with override_settings(PAGE_MENU_TEMPLATES_DEFAULT=(1, 2, 3)):
+                # test default
+                field = MenusField(choices=choices, default=my_default)
+                self.assertTrue(field.has_default())
+                self.assertEqual(my_default, field.get_default())
+                # test callable default
+                field = MenusField(choices=choices, default=my_default_func)
+                self.assertTrue(field.has_default())
+                self.assertEqual(my_default, field.get_default())
+
     def test_overridden_page(self):
         """
         Test that a page with a slug matching a non-page urlpattern
@@ -292,7 +373,7 @@ class PagesTests(TestCase):
         # on the test.
         if PAGES_SLUG:
             return
-        page, created = RichTextPage.objects.get_or_create(slug="edit")
+        page, _ = RichTextPage.objects.get_or_create(slug="edit")
         self.assertTrue(page.overridden())
 
     def test_unicode_slug_parm_to_processor_for(self):
@@ -399,3 +480,25 @@ class PagesTests(TestCase):
 
         with self.assertNumQueries(1):
             self.assertListEqual(grandchild.get_ascendants(), [child, parent])
+
+    def test_check_context_processor(self):
+        context_processor = 'mezzanine.pages.context_processors.page'
+        templates = [{'OPTIONS': {'context_processors': context_processor}}]
+        expected_warning = [Warning(
+            "You haven't included 'mezzanine.pages.context_processors.page' "
+            "as a context processor in any of your template configurations. "
+            "Your templates might not work as expected.",
+            id="mezzanine.pages.W01"
+        )]
+        app_config = apps.get_app_config('pages')
+        with override_settings(TEMPLATES=None):
+            with override_settings(TEMPLATE_CONTEXT_PROCESSORS=tuple()):
+                issues = check_context_processor(app_config)
+                self.assertEqual(issues, expected_warning)
+            with override_settings(
+                    TEMPLATE_CONTEXT_PROCESSORS=(context_processor, )):
+                issues = check_context_processor(app_config)
+                self.assertEqual(issues, [])
+        with override_settings(TEMPLATES=templates):
+            issues = check_context_processor(app_config)
+            self.assertEqual(issues, [])

@@ -9,7 +9,11 @@ from django.contrib.sites.models import Site
 
 from mezzanine.conf import settings
 from mezzanine.core.request import current_request
-from mezzanine.utils.deprecation import get_middleware_setting
+from mezzanine.utils.conf import middlewares_or_subclasses_installed
+
+
+SITE_PERMISSION_MIDDLEWARE = \
+    "mezzanine.core.middleware.SitePermissionMiddleware"
 
 
 def current_site_id():
@@ -87,11 +91,7 @@ def has_site_permission(user):
     also fall back to an ``is_staff`` check if the middleware is not
     installed, to ease migration.
     """
-    mw = "mezzanine.core.middleware.SitePermissionMiddleware"
-    if mw not in get_middleware_setting():
-        from warnings import warn
-        warn(mw + " missing from settings.MIDDLEWARE - per site"
-             "permissions not applied")
+    if not middlewares_or_subclasses_installed([SITE_PERMISSION_MIDDLEWARE]):
         return user.is_staff and user.is_active
     return getattr(user, "has_site_permission", False)
 
@@ -118,21 +118,3 @@ def host_theme_path():
             else:
                 return os.path.dirname(os.path.abspath(module.__file__))
     return ""
-
-
-def templates_for_host(templates):
-    """
-    Given a template name (or list of them), returns the template names
-    as a list, with each name prefixed with the device directory
-    inserted into the front of the list.
-    """
-    if not isinstance(templates, (list, tuple)):
-        templates = [templates]
-    theme_dir = host_theme_path()
-    host_templates = []
-    if theme_dir:
-        for template in templates:
-            host_templates.append("%s/templates/%s" % (theme_dir, template))
-            host_templates.append(template)
-        return host_templates
-    return templates

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # chancejiang <chance.jiang@gmail.com>, 2012
 # chengwenge <chengwenge988@gmail.com>, 2012
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-05 07:21-0430\n"
-"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"PO-Revision-Date: 2016-11-18 18:25+0800\n"
 "Last-Translator: chengwenge <chengwenge988@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/mezzanine/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: admin.py:32 fields.py:33
 msgid "Email"
@@ -28,42 +29,44 @@ msgstr "Email"
 #, python-format
 msgid "1 entry deleted"
 msgid_plural "%(count)s entries deleted"
-msgstr[0] "Pluralized Translations\none:1个条目被删除\n\nother:%(count)s 个条目被删除"
+msgstr[0] ""
+"Pluralized Translations\n"
+"one:1个条目被删除\n"
+"\n"
+"other:%(count)s 个条目被删除"
 
 #: admin.py:119
 msgid "View Entries"
 msgstr "查看条目"
 
 #: defaults.py:20
-msgid ""
-"If ``True``, emails sent to extra recipients for form submissions won't be "
-"sent from an address taken from one of the form's email fields."
-msgstr "如果``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
+msgid "If ``True``, emails sent to extra recipients for form submissions won't be sent from an address taken from one of the form's email fields."
+msgstr "如果``True``，发送到其他收件人的电子邮件不会通过一份电子邮件发送，而会分开发送。"
 
 #: defaults.py:29
 msgid "Max length allowed for field values in the forms app."
-msgstr "在forms app 中允许的最大Fied值长度。"
+msgstr "在forms app 中允许的字段值(field values)的最大长度。"
 
 #: defaults.py:36
 msgid "Max length allowed for field labels in the forms app."
-msgstr "在forms app中最大允许的Field标签值的长度"
+msgstr "在forms app中允许字段标签(field labels)的最大长度。"
 
 #: defaults.py:43
 msgid "Char to use as a field delimiter when exporting form responses as CSV."
-msgstr "在导出反应时做为CSV分隔符的字符"
+msgstr "导出CSV时使用的分隔符。"
 
 #: defaults.py:51
 msgid "Absolute path for storing file uploads for the forms app."
-msgstr "存放上传forms app 文件的绝对路径"
+msgstr "存放forms app上传文件的绝对路径。"
 
 #: defaults.py:58
 msgid ""
-"Extra field types for the forms app. Should contain a sequence of three-item"
-" sequences, each containing the ID, dotted import path for the field class, "
-"and field name, for each custom field type. The ID is simply a numeric "
-"constant for the field, but cannot be a value already used, so choose a high"
-" number such as 100 or greater to avoid conflicts."
-msgstr "表单应用的额外字段类型。应包含三个项目的顺序，每个都包含ID，字段类的路径和字段名。ID是一个简单的数字常量，但不能是已经使用的值，因此选择一个大点的数字，如100或更高，以避免冲突。"
+"Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the "
+"field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, "
+"so choose a high number such as 100 or greater to avoid conflicts."
+msgstr ""
+"表单应用(forms app)的额外字段类型列表。这个列表的每一项应包含三个项目，每个都包含ID，形如 path.to.field.class 的字段类(field class) 和 字段名"
+"称。ID是一个简单的数字常量，但不能是已经使用的值，因此选择一个大点的数字，如100或更高以避免冲突。"
 
 #: fields.py:31
 msgid "Single line text"
@@ -135,11 +138,11 @@ msgstr "不包含"
 
 #: forms.py:31 forms.py:37
 msgid "Equals"
-msgstr "等"
+msgstr "等于"
 
 #: forms.py:32 forms.py:38
 msgid "Doesn't equal"
-msgstr "不等"
+msgstr "不等于"
 
 #: forms.py:43
 msgid "Is between"
@@ -155,7 +158,7 @@ msgstr "选中"
 
 #: forms.py:216
 msgid "Not checked"
-msgstr "未选"
+msgstr "未选中"
 
 #: forms.py:230 forms.py:245
 msgid "and"
@@ -178,28 +181,24 @@ msgid "Send email to user"
 msgstr "发邮件给用户"
 
 #: models.py:21
-msgid ""
-"To send an email to the email address supplied in the form upon submission, "
-"check this box."
+msgid "To send an email to the email address supplied in the form upon submission, check this box."
 msgstr "提交时如果要给表单中的邮箱发送邮件，则勾选此项。"
 
 #: models.py:23
 msgid "From address"
-msgstr "自件地址"
+msgstr "发自地址"
 
 #: models.py:24
 msgid "The address the email will be sent from"
-msgstr "这封邮件发自"
+msgstr "电子邮件使用这个地址发出"
 
 #: models.py:25
 msgid "Send email to others"
 msgstr "发邮件给其他人"
 
 #: models.py:26
-msgid ""
-"Provide a comma separated list of email addresses to be notified upon form "
-"submission. Leave blank to disable notifications."
-msgstr "提供用分号 ';' 隔开的邮件地址，以便表单提交时向这些邮件发送提醒。如不需要提醒则留空。"
+msgid "Provide a comma separated list of email addresses to be notified upon form submission. Leave blank to disable notifications."
+msgstr "提供逗号 ',' 隔开的邮件地址，以便表单提交时向这些邮件发送提醒。如不需要提醒则留空。"
 
 #: models.py:30
 msgid "Subject"
@@ -211,9 +210,8 @@ msgstr "信息"
 
 #: models.py:32
 msgid ""
-"Emails sent based on the above options will contain each of the form fields "
-"entered. You can also enter a message here that will be included in the "
-"email."
+"Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in "
+"the email."
 msgstr "基于上述选项发送的邮件将包含表单里已输入的所有字段。你也可以在这里输入一段文字，它将出现在邮件中。"
 
 #: models.py:37
@@ -245,10 +243,8 @@ msgid "Choices"
 msgstr "选择"
 
 #: models.py:61
-msgid ""
-"Comma separated options where applicable. If an option itself contains "
-"commas, surround the option with `backticks`."
-msgstr "逗号分隔适用，如果一个选项包含分隔符，则用反引号引起。"
+msgid "Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`."
+msgstr "在逗号分隔的内容中，如果一个选项包含逗号分隔符，则用`反引号`（一般在Tab键上面，或者字母键盘区域的数字1左侧）引起。"
 
 #: models.py:63
 msgid "Default value"
@@ -286,8 +282,7 @@ msgstr "表单字段条目"
 msgid "Form field entries"
 msgstr "表单字段条目"
 
-#: templates/admin/forms/change_form.html:8
-#: templates/admin/forms/entries.html:57
+#: templates/admin/forms/change_form.html:8 templates/admin/forms/entries.html:57
 msgid "View entries"
 msgstr "视图条目"
 
@@ -333,4 +328,4 @@ msgstr "删除所选"
 
 #: templates/admin/forms/entries.html:98
 msgid "No entries to display"
-msgstr "没有条目需要显示"
+msgstr "没有需要显示的条目"

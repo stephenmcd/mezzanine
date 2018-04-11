@@ -1,18 +1,15 @@
 from __future__ import unicode_literals
 
 from hashlib import md5
-from inspect import getmro
 from time import time
 
 from django.core.cache import cache
 from django.utils.lru_cache import lru_cache
 from django.utils.cache import _i18n_cache_key_suffix
-from django.utils.module_loading import import_string
 
 from mezzanine.conf import settings
-from mezzanine.utils.deprecation import get_middleware_setting
-from mezzanine.utils.device import device_from_request
 from mezzanine.utils.sites import current_site_id
+from mezzanine.utils.conf import middlewares_or_subclasses_installed
 
 
 def _hashed_key(key):
@@ -68,30 +65,26 @@ def cache_installed():
     """
     has_key = bool(getattr(settings, "NEVERCACHE_KEY", ""))
 
-    def flatten(seqs):
-        return (item for seq in seqs for item in seq)
-
-    middleware_classes = map(import_string, get_middleware_setting())
-    middleware_ancestors = set(flatten(map(getmro, middleware_classes)))
-
-    mezzanine_cache_middleware_classes = {
-        import_string("mezzanine.core.middleware.UpdateCacheMiddleware"),
-        import_string("mezzanine.core.middleware.FetchFromCacheMiddleware"),
-    }
-
     return (has_key and settings.CACHES and not settings.TESTING and
-            mezzanine_cache_middleware_classes.issubset(middleware_ancestors))
+            middlewares_or_subclasses_installed([
+                "mezzanine.core.middleware.UpdateCacheMiddleware",
+                "mezzanine.core.middleware.FetchFromCacheMiddleware",
+            ]))
 
 
 def cache_key_prefix(request):
     """
     Cache key for Mezzanine's cache middleware. Adds the current
-    device and site ID.
+    site ID.
     """
-    cache_key = "%s.%s.%s." % (
+    cache_key = "%s.%s.%s" % (
         settings.CACHE_MIDDLEWARE_KEY_PREFIX,
         current_site_id(),
-        device_from_request(request) or "default",
+        # This last part used to indicate the device type for the request,
+        # but device detection was removed in Mezzanine 4.3.
+        # The "default" value was kept to maintain existing cache keys.
+        # See: https://github.com/stephenmcd/mezzanine/pull/1783
+        "default",
     )
     return _i18n_cache_key_suffix(request, cache_key)
 

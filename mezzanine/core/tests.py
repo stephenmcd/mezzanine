@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 import re
+import pytz
 from unittest import skipUnless
 
 from mezzanine.core.middleware import FetchFromCacheMiddleware
@@ -22,6 +23,7 @@ from django.contrib.admin.options import InlineModelAdmin
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.exceptions import ValidationError
+from django.core.management import call_command, CommandError
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.forms import Textarea
@@ -29,9 +31,9 @@ from django.forms.models import modelform_factory
 from django.http import HttpResponse
 from django.template import RequestContext, Template
 from django.templatetags.static import static
-from django.test import Client
 from django.test.utils import override_settings
 from django.utils.html import strip_tags
+from django.utils.timezone import datetime, now, timedelta
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import BaseDynamicInlineAdmin
@@ -42,6 +44,8 @@ from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
 from mezzanine.forms.admin import FieldAdmin
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import Page, RichTextPage
+from mezzanine.utils.deprecation import (get_middleware_setting,
+                                         get_middleware_setting_name)
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
                                              run_pep8_for_package)
@@ -59,42 +63,6 @@ class CoreTests(TestCase):
 
         self.assertEqual(TagCloser("Line break<br>").html,
                          "Line break<br>")
-
-    @skipUnless("mezzanine.mobile" in settings.INSTALLED_APPS and
-                "mezzanine.pages" in settings.INSTALLED_APPS,
-                "mobile and pages apps required")
-    def test_device_specific_template(self):
-        """
-        Test that an alternate template is rendered when a mobile
-        device is used.
-        """
-        ua = settings.DEVICE_USER_AGENTS[0][1][0]
-        kwargs = {"slug": "device-test"}
-        url = reverse("page", kwargs=kwargs)
-        kwargs["status"] = CONTENT_STATUS_PUBLISHED
-        RichTextPage.objects.get_or_create(**kwargs)
-        default = self.client.get(url)
-        mobile = self.client.get(url, HTTP_USER_AGENT=ua)
-        self.assertNotEqual(default.template_name[0], mobile.template_name[0])
-
-    def test_bad_user_agent(self):
-        """
-        Ensures malformed UA strings don't crash the device handling
-        middleware.
-        """
-        # Ensure a normal request doesn't fail.
-        try:
-            Client().get("/")
-        except:
-            return
-        try:
-            Client(HTTP_USER_AGENT=u"\xe2\x28\xa1").get("/")
-        except Exception as e:
-            self.fail("Malformed user agent raised an exception %s" % e)
-        try:
-            Client(HTTP_USER_AGENT=b"\xff").get("/")
-        except Exception as e:
-            self.fail("Malformed user agent raised an exception %s" % e)
 
     def test_syntax(self):
         """
@@ -189,11 +157,37 @@ class CoreTests(TestCase):
         self.assertEqual(len(results), 1)
         if results:
             self.assertEqual(results[0].id, second)
-        # Test ordering.
+
+        # Test ordering without age scaling.
+        settings.SEARCH_AGE_SCALE_FACTOR = 0
+        RichTextPage.objects.filter(id=first).update(
+            publish_date=datetime(2017, 1, 1, tzinfo=pytz.utc))
+        RichTextPage.objects.filter(id=second).update(
+            publish_date=datetime(2016, 1, 1, tzinfo=pytz.utc))
         results = RichTextPage.objects.search("test")
         self.assertEqual(len(results), 2)
         if results:
             self.assertEqual(results[0].id, second)
+
+        # Test ordering with age scaling.
+        settings.SEARCH_AGE_SCALE_FACTOR = 1.5
+        results = RichTextPage.objects.search("test")
+        self.assertEqual(len(results), 2)
+        if results:
+            # `first` should now be ranked higher.
+            self.assertEqual(results[0].id, first)
+
+        # Test results that have a publish date in the future
+        future = RichTextPage.objects.create(
+            title="test page to be published in the future",
+            publish_date=now() + timedelta(days=10),
+            **published
+        ).id
+        results = RichTextPage.objects.search("test", for_user=self._username)
+        self.assertEqual(len(results), 3)
+        if results:
+            self.assertEqual(results[0].id, future)
+
         # Test the actual search view.
         response = self.client.get(reverse("search") + "?q=test")
         self.assertEqual(response.status_code, 200)
@@ -476,12 +470,17 @@ class CoreTests(TestCase):
               'mezzanine.core.tests.SubclassMiddleware']),
             (True,
              ['mezzanine.core.middleware.UpdateCacheMiddleware',
+              'mezzanine.core.tests.FetchFromCacheMiddleware',
+              'mezzanine.core.tests.function_middleware']),
+            (True,
+             ['mezzanine.core.middleware.UpdateCacheMiddleware',
               'mezzanine.core.middleware.FetchFromCacheMiddleware']),
         ]
 
         with self.settings(TESTING=False):  # Well, this is silly
-            for expected_result, middleware_classes in test_contexts:
-                with self.settings(MIDDLEWARE_CLASSES=middleware_classes):
+            for expected_result, middlewares in test_contexts:
+                kwargs = {get_middleware_setting_name(): middlewares}
+                with self.settings(**kwargs):
                     cache_installed.cache_clear()
                     self.assertEqual(cache_installed(), expected_result)
 
@@ -490,6 +489,12 @@ class CoreTests(TestCase):
 
 class SubclassMiddleware(FetchFromCacheMiddleware):
     pass
+
+
+def function_middleware(get_response):
+    def middleware(request):
+        return get_response(request)
+    return middleware
 
 
 @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
@@ -592,19 +597,19 @@ class CSRFTestCase(TestCase):
         cache_installed.cache_clear()
         initialize_nevercache()
 
-    @override_settings(
-        ROOT_URLCONF=CSRFTestViews,
-        CACHES={
+    @override_settings(**{
+        "ROOT_URLCONF": CSRFTestViews,
+        "CACHES": {
             'default': {
                 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
              }
         },
-        MIDDLEWARE_CLASSES=(
+        get_middleware_setting_name(): (
             'mezzanine.core.middleware.UpdateCacheMiddleware',) +
-            settings.MIDDLEWARE_CLASSES +
+            get_middleware_setting() +
             ('mezzanine.core.middleware.FetchFromCacheMiddleware',
         ),
-        TESTING=False)
+        "TESTING": False})
     def test_csrf_cookie_with_nevercache(self):
         """
         Test that the CSRF cookie is properly set when using nevercache.
@@ -625,6 +630,26 @@ class CSRFTestCase(TestCase):
         # The CSRF cookie should be present
         csrf_cookie = response.cookies.get(settings.CSRF_COOKIE_NAME, False)
         self.assertNotEqual(csrf_cookie, False)
+
+
+class DisplayableTestCase(TestCase):
+    def test_published(self):
+        page = Page.objects.create(publish_date=None, expiry_date=None,
+                                   status=CONTENT_STATUS_DRAFT)
+        self.assertFalse(page.published())
+
+        page.status = CONTENT_STATUS_PUBLISHED
+        self.assertTrue(page.published())
+
+        page.publish_date = now() + timedelta(days=10)
+        self.assertFalse(page.published())
+
+        page.publish_date = now() - timedelta(days=10)
+        page.expiry_date = now() + timedelta(days=10)
+        self.assertTrue(page.published())
+
+        page.expiry_date = now() - timedelta(days=10)
+        self.assertFalse(page.published())
 
 
 class ContentTypedTestCase(TestCase):
@@ -684,3 +709,11 @@ class FieldsTestCase(TestCase):
         field = MultiChoiceField(choices=[('valid choice',)])
         with self.assertRaises(ValidationError):
             field.validate(['invalid choice'], None)
+
+
+class CommandsTestCase(TestCase):
+    def test_collect_templates(self):
+        if hasattr(self, "assertRaisesRegex"):
+            with self.assertRaisesRegex(
+                    CommandError, 'Apps are not in INSTALLED_APPS: .*'):
+                call_command('collecttemplates', 'nonexistent')

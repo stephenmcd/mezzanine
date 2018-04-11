@@ -18,6 +18,7 @@ from mezzanine.conf import settings
 from mezzanine.generic.forms import ThreadedCommentForm, RatingForm
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.cache import add_cache_bypass
+from mezzanine.utils.deprecation import is_authenticated
 from mezzanine.utils.views import set_cookie, is_spam
 from mezzanine.utils.importing import import_dotted_path
 
@@ -64,10 +65,11 @@ def initial_validation(request, prefix):
     posted_session_key = "unauthenticated_" + prefix
     redirect_url = ""
     if getattr(settings, login_required_setting_name, False):
-        if not request.user.is_authenticated():
-            request.session[posted_session_key] = request.POST
-            error(request, _("You must be logged in. Please log in or "
-                             "sign up to complete this action."))
+        if not is_authenticated(request.user):
+            if request.method == "POST":
+                request.session[posted_session_key] = request.POST
+                error(request, _("You must be logged in. Please log in or "
+                                 "sign up to complete this action."))
             redirect_url = "%s?next=%s" % (settings.LOGIN_URL, reverse(prefix))
         elif posted_session_key in request.session:
             post_data = request.session.pop(posted_session_key)

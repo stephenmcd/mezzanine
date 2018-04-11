@@ -146,8 +146,6 @@ class FormForForm(forms.ModelForm):
             field_widget = fields.WIDGETS.get(field.field_type)
             field_args = {"label": field.label, "required": field.required,
                           "help_text": field.help_text}
-            if field.required and not field.help_text:
-                field_args["help_text"] = _("required")
             arg_names = field_class.__init__.__code__.co_varnames
             if "max_length" in arg_names:
                 field_args["max_length"] = settings.FORMS_FIELD_MAX_LENGTH
@@ -177,7 +175,7 @@ class FormForForm(forms.ModelForm):
                 try:
                     initial_val = initial[field_key]
                 except KeyError:
-                    initial_val = Template(field.default).render(context)
+                    initial_val = str(Template(field.default).render(context))
             if initial_val:
                 if field.is_a(*fields.MULTIPLE):
                     initial_val = split_choices(initial_val)

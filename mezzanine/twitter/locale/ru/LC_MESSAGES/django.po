@@ -1,16 +1,17 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Translation file for mezzanine
+# Copyright (C) 2017
+# This file is distributed under the same license as the mezzanine package.
 #
 # Translators:
 # Andrew Grigorev <andrew@ei-grad.ru>, 2011.
+# Alexander Paramonov <alex@paramono.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 23:06+0400\n"
+"POT-Creation-Date: 2017-10-25 02:23+0300\n"
 "PO-Revision-Date: 2012-08-26 13:36+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Last-Translator: Alexander Paramonov <alex@paramono.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -20,23 +21,27 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: __init__.py:16
+#: twitter/__init__.py:17
 msgid "User"
 msgstr "Пользователь"
 
-#: __init__.py:17
+#: twitter/__init__.py:18
 msgid "List"
 msgstr "Список"
 
-#: __init__.py:18
+#: twitter/__init__.py:19
 msgid "Search"
 msgstr "Поиск"
 
-#: defaults.py:20
+#: twitter/admin.py:46
+msgid "Send to Twitter"
+msgstr "Отправить в Твиттер"
+
+#: twitter/defaults.py:21
 msgid "Default Twitter Query Type"
 msgstr "Тип запроса Twitter по умолчанию"
 
-#: defaults.py:21
+#: twitter/defaults.py:22
 msgid ""
 "Type of query that will be used to retrieve tweets for the default Twitter "
 "feed."
@@ -44,104 +49,118 @@ msgstr ""
 "Тип запроса, который будет использован для получения твитов из фида по "
 "умолчанию"
 
-#: defaults.py:30
+#: twitter/defaults.py:31
 msgid "Default Twitter Query"
-msgstr "Запрос Twitter"
+msgstr "Запрос Twitter по умолчанию"
 
-#: defaults.py:31
-msgid "Twitter query to use for the default query type."
-msgstr "Twitter запрос по умолчанию"
+#: twitter/defaults.py:32
+msgid ""
+"Twitter query to use for the default query type. \n"
+"\n"
+"*Note:* Once you change this from the default, you'll need to configure each "
+"of the oAuth consumer/access key/secret settings. Please refer to http://dev."
+"twitter.com for more information on creating an application and acquiring "
+"these settings."
+msgstr ""
+"Twitter-запрос для использования для типа запроса по умолчанию. \n"
+"\n"
+"*Примечание:* Как только вы измените значение по умолчанию, вам потребуется "
+"настроить все настройки oAuth (consumer/access key/secret). Обратитесь к "
+"http://dev.twitter.com за информацией по созданию приложений и получению "
+"этих настроек"
 
-#: defaults.py:38
+#: twitter/defaults.py:43
 msgid "Default Number of Tweets"
-msgstr "Количество твитов"
+msgstr "Количество твитов по умолчанию"
 
-#: defaults.py:39
+#: twitter/defaults.py:44
 msgid "Number of tweets to display in the default Twitter feed."
-msgstr "Количество твитов отобажаемых в фиде по умолчанию"
+msgstr "Количество твитов, отображаемых в фиде по умолчанию"
 
-#: defaults.py:46
-#, fuzzy
+#: twitter/defaults.py:51
 msgid "Twitter OAuth consumer key"
-msgstr "Запрос Twitter"
+msgstr ""
 
-#: defaults.py:53
+#: twitter/defaults.py:58
 msgid "Twitter OAuth consumer secret"
 msgstr ""
 
-#: defaults.py:60
+#: twitter/defaults.py:65
 msgid "Twitter OAuth access token"
 msgstr ""
 
-#: defaults.py:67
+#: twitter/defaults.py:72
 msgid "Twitter OAuth access token secret"
 msgstr ""
 
-#: models.py:25
+#: twitter/models.py:41
 msgid "Type"
 msgstr "Тип"
 
-#: models.py:27
+#: twitter/models.py:43
 msgid "Value"
 msgstr "Значение"
 
-#: models.py:31
+#: twitter/models.py:47
 msgid "Twitter query"
 msgstr "Запрос Twitter"
 
-#: models.py:32
+#: twitter/models.py:48
 msgid "Twitter queries"
 msgstr "Запросы Twitter"
 
-#: models.py:110
+#: twitter/models.py:141
 msgid "Twitter ID"
 msgstr "Twitter ID"
 
-#: models.py:111
+#: twitter/models.py:142
 msgid "Date/time"
 msgstr "Дата и время"
 
-#: models.py:112
+#: twitter/models.py:143
 msgid "Message"
 msgstr "Сообщение"
 
-#: models.py:113
+#: twitter/models.py:144
 msgid "Profile image URL"
 msgstr "URL изображения профиля"
 
-#: models.py:114
+#: twitter/models.py:145
 msgid "User name"
 msgstr "Имя пользователя"
 
-#: models.py:115
+#: twitter/models.py:146
 msgid "Full name"
 msgstr "Полное имя"
 
-#: models.py:117
+#: twitter/models.py:148
 msgid "Profile image URL (Retweeted by)"
 msgstr "URL изображения профиля (Retweeted by)"
 
-#: models.py:119
+#: twitter/models.py:150
 msgid "User name (Retweeted by)"
 msgstr "Имя пользователя (Retweeted by)"
 
-#: models.py:121
+#: twitter/models.py:152
 msgid "Full name (Retweeted by)"
 msgstr "Полное имя (Retweeted by)"
 
-#: models.py:127
+#: twitter/models.py:159
 msgid "Tweet"
 msgstr "Твит"
 
-#: models.py:128
+#: twitter/models.py:160
 msgid "Tweets"
 msgstr "Твиты"
 
-#: templates/twitter/tweets.html:7
+#: twitter/templates/twitter/tweets.html:7
 msgid "Recent Tweets"
 msgstr "Последние твиты"
 
-#: templates/twitter/tweets.html:20
+#: twitter/templates/twitter/tweets.html:19
 #, python-format
 msgid "%(sometime)s ago"
 msgstr "%(sometime)s назад"
+
+#~ msgid "Twitter query to use for the default query type."
+#~ msgstr "Twitter запрос по умолчанию"

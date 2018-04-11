@@ -1,8 +1,8 @@
-
+#!/usr/bin/env python
 import os
 import sys
-from setuptools import setup, find_packages
 from shutil import rmtree
+from setuptools import setup, find_packages
 from mezzanine import __version__ as version
 
 
@@ -51,12 +51,12 @@ try:
         packages=find_packages(),
         install_requires=[
             "django-contrib-comments",
-            "django >= 1.8, < 1.11",
+            "django >= 1.8, < 1.12",
             "filebrowser_safe >= 0.4.6",
             "grappelli_safe >= 0.4.5",
             "tzlocal >= 1.0",
-            "bleach >= 1.4",
-            "beautifulsoup4 >= 4.1.3",
+            "bleach >= 2.0",
+            "beautifulsoup4 >= 4.5.3",
             "requests >= 2.1.0",
             "requests-oauthlib >= 0.4",
             "future >= 0.9.0",
@@ -81,6 +81,7 @@ try:
             "Programming Language :: Python :: 3",
             "Programming Language :: Python :: 3.4",
             "Programming Language :: Python :: 3.5",
+            "Programming Language :: Python :: 3.6",
             "Topic :: Internet :: WWW/HTTP",
             "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
             "Topic :: Internet :: WWW/HTTP :: WSGI",

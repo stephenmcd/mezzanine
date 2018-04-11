@@ -12,6 +12,7 @@ These are the currently supported formats and their commands:
   * `Tumblr <http://tumblr.com>`_: ``import_tumblr``
   * `Posterous <http://posterous.com>`_: ``import_posterous``
   * `RSS <http://en.wikipedia.org/wiki/RSS>`_: ``import_rss``
+  * `BlogML <http://en.wikipedia.org/wiki/BlogML>`_: ``import_blogml``
 
 Each command takes a Mezzanine username to assign the blog posts to
 as well as certain arguments specific to the blog platform. For
@@ -131,6 +132,19 @@ importer, this leaves your media assets on the Posterous servers.
 If you're worried about posterous being shut down you may want want
 to have a closer look at the API to actually export your media.
 
+Importing BlogML
+================
+
+Dependencies
+------------
+
+  * `Python-dateutil <https://dateutil.readthedocs.org/en/latest/>`_
+
+Simply run the ``import_blogml`` command where the ``blogxmlfname`` argument
+contains local blogml file name::
+
+    $ python manage.py import_blogml --blogxmlfname=filename
+
 Importer API - Adding New Importers
 ===================================
 
@@ -145,8 +159,8 @@ import the command is for. This module will then contain a class named
 :class:`mezzanine.blog.management.base.BaseImporterCommand`.
 
 The first step is to define any custom arguments the command will
-require using Python's `optparse
-<http://docs.python.org/library/optparse.html>`_ handling.
+require using Python's `argparse
+<http://docs.python.org/library/argparse.html>`_ handling.
 
 The main responsbility of the ``Command`` class is then to implement a
 :meth:`~mezzanine.blog.management.base.BaseImporterCommand.handle_import`
@@ -185,3 +199,4 @@ management.base.BaseImporterCommand.add_comment` method. For example::
                 # Another imaginary variable to demo the API.
                 for retrieved_comment in comments:
                     self.add_comment(post=added_post, **retrieved_comment)
+

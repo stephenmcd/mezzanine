@@ -1,8 +1,9 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
+# Simen Heggestøyl <simen@e5r.no>, 2016
 # asr <audun.runde@frisknett.no>, 2013
 # ambientsound <kimtjen@gmail.com>, 2012
 # Olav  <>, 2012
@@ -13,14 +14,15 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-05 07:20-0430\n"
-"PO-Revision-Date: 2013-11-09 20:10+0000\n"
-"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"PO-Revision-Date: 2016-11-11 14:55+0100\n"
+"Last-Translator: Simen Heggestøyl <simen@e5r.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/mezzanine/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: admin.py:27
 msgid "This field is required if status is set to published."
@@ -44,7 +46,7 @@ msgstr "Mediebibliotek"
 
 #: defaults.py:26 templates/admin/login.html:43
 msgid "Site"
-msgstr "Side"
+msgstr "Nettsted"
 
 #: defaults.py:27
 msgid "Users"
@@ -63,34 +65,23 @@ msgid "Akismet API Key"
 msgstr "Akismet API-nøkkel"
 
 #: defaults.py:49
-msgid ""
-"Key for http://akismet.com spam filtering service. Used for filtering "
-"comments and forms."
+msgid "Key for http://akismet.com spam filtering service. Used for filtering comments and forms."
 msgstr "Nøkkel for http://akismet.com spamfiltertjeneste. Brukt for å kontrollere kommentarer og skjemainnhold."
 
 #: defaults.py:57
 msgid "bit.ly access token"
-msgstr ""
+msgstr "Tilgangspollett for bit.ly"
 
 #: defaults.py:58
 msgid "Access token for http://bit.ly URL shortening service."
-msgstr ""
+msgstr "Tilgangspollett for http://bit.ly, en tjeneste for forkorting av nettadresser."
 
 #: defaults.py:65
-msgid ""
-"Mezzanine's caching uses a technique know as mint caching. This is where the"
-" requested expiry for a cache entry is stored with the cache entry in cache,"
-" and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a"
-" cache get, the store expiry is checked, and if it has past, the cache entry"
-" is set again, and no entry is returned. This tries to ensure that cache "
-"misses never occur, and if many clients were to get a cache miss at once, "
-"only one would actually need to re-generated the cache entry."
+msgid "Mezzanine's caching uses a technique know as mint caching. This is where the requested expiry for a cache entry is stored with the cache entry in cache, and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a cache get, the store expiry is checked, and if it has past, the cache entry is set again, and no entry is returned. This tries to ensure that cache misses never occur, and if many clients were to get a cache miss at once, only one would actually need to re-generated the cache entry."
 msgstr ""
 
 #: defaults.py:93
-msgid ""
-"A three item sequence, each containing a sequence of template tags used to "
-"render the admin dashboard."
+msgid "A three item sequence, each containing a sequence of template tags used to render the admin dashboard."
 msgstr "En liste med tre underlister av maltagger/template tags brukt til å vise dashbordet i kontrollpanelet."
 
 #: defaults.py:101
@@ -98,26 +89,16 @@ msgid "Device specific template sub-directory to use as the default device."
 msgstr "Enhetsspesifikk undermappe for maler som brukes som standard for alle enheter/plattformer."
 
 #: defaults.py:109
-msgid ""
-"Mapping of device specific template sub-directory names to the sequence of "
-"strings that may be found in their user agents."
-msgstr "Kobling av enhetsspesifikke malmapper til ord som finnes i enhetens User Agent."
+msgid "Mapping of device specific template sub-directory names to the sequence of strings that may be found in their user agents."
+msgstr "Kobling av enhetsspesifikke malmapper til ord som finnes i enhetens brukeragent."
 
 #: defaults.py:131
 msgid "If ``True``, website forms will use HTML5 features."
 msgstr "Hvis ``True`` vil nettsidens skjemaer bruke HTML5-funksjonalitet."
 
 #: defaults.py:138
-msgid ""
-"A sequence of fields that will be injected into Mezzanine's (or any "
-"library's) models. Each item in the sequence is a four item sequence. The "
-"first two items are the dotted path to the model and its field name to be "
-"added, and the dotted path to the field class to use for the field. The "
-"third and fourth items are a sequence of positional args and a dictionary of"
-" keyword args, to use when creating the field instance. When specifying the "
-"field class, the path ``django.models.db.`` can be omitted for regular "
-"Django model fields."
-msgstr "Felter som blir koblet opp mot Mezzanine (eller andre bibliotekers) datamodeller. Hver oppføring er en liste med fire oppføringer. De to første er datamodellens dottede sti og feltnavnet som skal legges til, og  den dottede stien til feltklassen som skal brukes på feltet. De tredje og fjerde elementene er lister med posisjoner og en ordbok/dict med nøkkelordargumenter som skal brukes når feltinstansen lages. Når du velger en feltklasse, stien ``django.models.db.`` trenger ikke være med for vanlige Django datamodellfelter."
+msgid "A sequence of fields that will be injected into Mezzanine's (or any library's) models. Each item in the sequence is a four item sequence. The first two items are the dotted path to the model and its field name to be added, and the dotted path to the field class to use for the field. The third and fourth items are a sequence of positional args and a dictionary of keyword args, to use when creating the field instance. When specifying the field class, the path ``django.models.db.`` can be omitted for regular Django model fields."
+msgstr "Felter som blir koblet opp mot Mezzanine (eller andre bibliotekers) datamodeller. Hver oppføring er en liste med fire oppføringer. De to første er datamodellens dottede sti og feltnavnet som skal legges til, og den dottede stien til feltklassen som skal brukes på feltet. De tredje og fjerde elementene er lister med posisjoner og en ordbok/dict med nøkkelordargumenter som skal brukes når feltinstansen lages. Når du velger en feltklasse, stien ``django.models.db.`` trenger ikke være med for vanlige Django datamodellfelter."
 
 #: defaults.py:153
 msgid "Google Analytics ID"
@@ -128,31 +109,24 @@ msgid "Google Analytics ID (http://www.google.com/analytics/)"
 msgstr "Google Analytics ID (http://www.google.com/analytics/)"
 
 #: defaults.py:161
-msgid ""
-"A sequence mapping host names to themes, allowing different templates to be "
-"served per HTTP hosts Each item in the sequence is a two item sequence, "
-"containing a host such as ``othersite.example.com``, and the name of an "
-"importable Python package for the theme. If the host is matched for a "
-"request, the templates directory inside the theme package will be first "
-"searched when loading templates."
-msgstr "En sekvens som kobler tjenernavn til temaer, slik at forskjellige malfiler kan sendes til forskjellige HTTP-tjenere. Hvert element i sekvensen er en liste på to elementer, som inneholder tjener, som f.eks ``annenside.example.com``, og navnet på en importerbar Pythonpakke for temaet. Hvis en tjener treffer på en forespørsel vil malmappen inni denne temapakken være det første stedet det søkes etter filer."
+msgid "A sequence mapping host names to themes, allowing different templates to be served per HTTP hosts Each item in the sequence is a two item sequence, containing a host such as ``othersite.example.com``, and the name of an importable Python package for the theme. If the host is matched for a request, the templates directory inside the theme package will be first searched when loading templates."
+msgstr "En sekvens som kobler tjenernavn til temaer, slik at forskjellige malfiler kan sendes til forskjellige HTTP-tjenere. Hvert element i sekvensen er en liste på to elementer, som inneholder tjener, som f.eks. ``annenside.example.com``, og navnet på en importerbar Python-pakke for temaet. Hvis en tjener treffer på en forespørsel vil malmappen inni denne temapakken være det første stedet det søkes etter filer."
 
 #: defaults.py:175
 msgid "Name of the jQuery file."
-msgstr "Navn på jQueryfil."
+msgstr "Navnet på jQuery-filen."
 
 #: defaults.py:176
 msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
-msgstr "Navn på jQueryfilen som finnes i mezzanine/core/static/mezzanine/js/"
+msgstr "Navnet på jQuery-filen som finnes i mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:184
 msgid "Name of the jQuery UI file."
-msgstr ""
+msgstr "Navnet på jQuery UI-filen."
 
 #: defaults.py:185
-msgid ""
-"Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
-msgstr ""
+msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
+msgstr "Navnet på jQuery UI-filen som finnes i mezzanine/core/static/mezzanine/js/"
 
 #: defaults.py:193
 msgid "Max paging links"
@@ -164,51 +138,34 @@ msgstr "Maksimalt antall lenker til sider ved sidenavigasjon."
 
 #: defaults.py:201
 msgid "Media library per site"
-msgstr ""
+msgstr "Mediebibliotek per nettsted"
 
 #: defaults.py:202
-msgid ""
-"If ``True``, each site will use its own directory within the filebrowser "
-"media library."
-msgstr ""
+msgid "If ``True``, each site will use its own directory within the filebrowser media library."
+msgstr "Hvis ``True`` vil hvert nettsted bruke sin egen mappe innenfor mediebiblioteket."
 
 #: defaults.py:210
-msgid ""
-"Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
-"admin change-list records filtered down to records owned by the current "
-"user. This setting contains a sequence of models in the format "
-"``app_label.object_name``, that when subclassing ``Ownable``, will still "
-"show all records in the admin change-list interface, regardless of the "
-"current user."
-msgstr ""
+msgid "Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their admin change-list records filtered down to records owned by the current user. This setting contains a sequence of models in the format ``app_label.object_name``, that when subclassing ``Ownable``, will still show all records in the admin change-list interface, regardless of the current user."
+msgstr "Modeller som er underklasser av ``Ownable`` og som bruker ``OwnableAdmin`` vil få oppføringene sine i administrasjonsendringslisten filtrert ned til oppføringer som er eid av den nåværende brukeren. Denne innstillingen inneholder en sekvens av modeller på formen ``app_label.object_name``, som når de er underklasser av ``Ownable``, fortsatt vil vise alle oppføringene sine i administrasjonsendringslisten uavhengig av den nåværende brukeren."
 
 #: defaults.py:222
-msgid ""
-"Dotted package path and class name of the widget to use for the "
-"``RichTextField``."
+msgid "Dotted package path and class name of the widget to use for the ``RichTextField``."
 msgstr "Punktuminndelt pakkesti og klassenavn for widgeten du vil bruke for ``RichTextField``."
 
 #: defaults.py:230
-msgid ""
-"List of HTML tags that won't be stripped from ``RichTextField`` instances."
+msgid "List of HTML tags that won't be stripped from ``RichTextField`` instances."
 msgstr "Liste over HTML-tagger som ikke blir strippet fra ``RichTextField`` felt."
 
 #: defaults.py:246
-msgid ""
-"List of HTML attributes that won't be stripped from ``RichTextField`` "
-"instances."
+msgid "List of HTML attributes that won't be stripped from ``RichTextField`` instances."
 msgstr "Liste over attributter som ikke blir strippet fra ``RichTextField`` felt."
 
 #: defaults.py:264
-msgid ""
-"List of inline CSS styles that won't be stripped from ``RichTextField`` "
-"instances."
+msgid "List of inline CSS styles that won't be stripped from ``RichTextField`` instances."
 msgstr "Liste over CSS-stiler som ikke skal fjernes fra ``RichTextField``-bokser."
 
 #: defaults.py:272
-msgid ""
-"Dotted path to the function to call on a ``RichTextField`` value before it "
-"is rendered to the template."
+msgid "Dotted path to the function to call on a ``RichTextField`` value before it is rendered to the template."
 msgstr "Punktuminndelt sti til funksjonen som som kalles på et ``RichTextField`` før det rendres til malfilen."
 
 #: defaults.py:282
@@ -217,7 +174,7 @@ msgstr "Høy"
 
 #: defaults.py:283
 msgid "Low (allows video, iframe, Flash, etc)"
-msgstr "Lav (støtter video, iframe, Flask osv.)"
+msgstr "Lav (støtter video, iframe, Flash osv.)"
 
 #: defaults.py:284
 msgid "No filtering"
@@ -239,11 +196,8 @@ msgid ""
 msgstr ""
 
 #: defaults.py:313
-msgid ""
-"Sequence of models that will be provided by default as choices in the search"
-" form. Each model should be in the format ``app_label.model_name``. Only "
-"models that subclass ``mezzanine.core.models.Displayable`` should be used."
-msgstr ""
+msgid "Sequence of models that will be provided by default as choices in the search form. Each model should be in the format ``app_label.model_name``. Only models that subclass ``mezzanine.core.models.Displayable`` should be used."
+msgstr "Sekvens av modeller som vil tilbys som standardvalg i søkeskjemaet. Hver modell bør være på formen ``app_label.model_name``. Kun modeller som er underklasser av ``mezzanine.core.models.Displayable`` bør brukes."
 
 #: defaults.py:323
 msgid "Search results per page"
@@ -254,21 +208,15 @@ msgid "Number of results shown in the search results page."
 msgstr "Antall resultater som vises i et søk."
 
 #: defaults.py:331
-msgid ""
-"A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
-"this, you'll also need to manually apply it to your project's root "
-"``urls.py`` module. The root ``urls.py`` module provided by Mezzanine's "
-"``mezzanine-project`` command contains an example of this towards its end."
-msgstr "Et URL prefiks brukt foran alle Mezzanines URLmønster. Når dette blir brukt, må du også manuelt inkludere prefikset i ditt prosjekts ``urls.py`` modul. Basisversjonen av ``urls.py`` som kommer med Mezzanines ``mezzanine-project`` kommando inneholder et eksempel på dette mot slutten av filen."
+msgid "A URL prefix for mounting all of Mezzanine's urlpatterns under. When using this, you'll also need to manually apply it to your project's root ``urls.py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-project`` command contains an example of this towards its end."
+msgstr "Et nettsideprefiks brukt foran alle Mezzanines nettsidemønstre. Når dette blir brukt må du også manuelt inkludere prefikset i ditt prosjekts ``urls.py`` modul. Basisversjonen av ``urls.py`` som kommer med Mezzanines ``mezzanine-project`` kommando inneholder et eksempel på dette mot slutten av filen."
 
 #: defaults.py:342
 msgid "Site Title"
 msgstr "Sidetittel"
 
 #: defaults.py:343
-msgid ""
-"Title that will display at the top of the site, and be appended to the "
-"content of the HTML title tags on every page."
+msgid "Title that will display at the top of the site, and be appended to the content of the HTML title tags on every page."
 msgstr "Tittelen som vil vises på toppen av siden, og på slutten av HTML-titteltaggen på hver side."
 
 #: defaults.py:351
@@ -284,49 +232,32 @@ msgid "An open source content management platform."
 msgstr "En åpen kildekode-basert publiseringsplattform."
 
 #: defaults.py:359
-msgid ""
-"Dotted Python path to the callable for converting strings into URL slugs. "
-"Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
-"ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
-"Django's slugify function, or something of your own if required."
+msgid "Dotted Python path to the callable for converting strings into URL slugs. Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use Django's slugify function, or something of your own if required."
 msgstr "Dottet Python-sti til funksjon for å konvertere strenger til URL-slugger. Er automatisk satt til ``mezzanine.utils.urls.slugify_unicode``, som tillater adresser utenfor ASCII-tegnsettet. Bytt til ``django.template.defaultfilters.slugify`` for å bruke Djangos slugify-funksjon, eller lag en egen, hvis du ønsker."
 
 #: defaults.py:370
-msgid ""
-"Sequence of dotted Python paths to callable functions used for checking "
-"posted content (such as forms or comments) is spam. Each function should "
-"accept three arguments: the request object, the form object, and the URL "
-"that was posted from. Defaults to ``mezzanine.utils.views.is_spam_akismet`` "
-"which will use the http://akismet.com spam filtering service when the "
-"``AKISMET_API_KEY`` setting is configured."
-msgstr ""
+msgid "Sequence of dotted Python paths to callable functions used for checking posted content (such as forms or comments) is spam. Each function should accept three arguments: the request object, the form object, and the URL that was posted from. Defaults to ``mezzanine.utils.views.is_spam_akismet`` which will use the http://akismet.com spam filtering service when the ``AKISMET_API_KEY`` setting is configured."
+msgstr "Sekvens av punktuminndelte Python-stier til funksjoner som brukes for å sjekke om innsendt innhold (slik som skjemaer eller kommentarer) er søppelpost. Hver funksjon bør ta imot tre argumenter: forespørselobjektet, skjemaobjektet og nettadressen som det ble innsendt fra. Standardvalget er ``mezzanine.utils.views.is_spam_akismet``, som vil bruke tjenesten http://akismet.com for filtrering av søppelpost når innstillingen ``AKISMET_API_KEY`` er konfigurert."
 
 #: defaults.py:383
 msgid "Enable SSL"
 msgstr "Aktiver SSL"
 
 #: defaults.py:384
-msgid ""
-"If ``True``, users will be automatically redirected to HTTPS for the URLs "
-"specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
-msgstr "Dersom ``Sant``, vil brukere automatisk bli sendt til HTTPS for URLer spesifisert i ``SSL_FORCE_URL_PREFIXES`` settingen."
+msgid "If ``True``, users will be automatically redirected to HTTPS for the URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
+msgstr "Hvis ``True`` vil brukere automatisk bli sendt til HTTPS for nettadressen spesifisert i ``SSL_FORCE_URL_PREFIXES``-innstillingen."
 
 #: defaults.py:393
 msgid "Force Host"
 msgstr "Tving tjener"
 
 #: defaults.py:394
-msgid ""
-"Host name that the site should always be accessed via that matches the SSL "
-"certificate."
+msgid "Host name that the site should always be accessed via that matches the SSL certificate."
 msgstr "Vertsnavn som alltid skal brukes for å nå nettstedet. Dette navnet er i samsvar med SSL sertifikatet."
 
 #: defaults.py:412
-msgid ""
-"If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
-"will be accessible over SSL, and all other URLs will be redirected back to "
-"HTTP if accessed over HTTPS."
-msgstr "Dersom ``Sant``, vil kun URLer spesifisert i ``SSL_FORCE_URL_PREFIXES`` settingen være tilgjengelig via SSL, og alle andre URLer vil ble sendt tilbake til HTTP dersom HTTPS blir brukt."
+msgid "If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting will be accessible over SSL, and all other URLs will be redirected back to HTTP if accessed over HTTPS."
+msgstr "Hvis ``True`` vil kun nettadresser spesifisert i ``SSL_FORCE_URL_PREFIXES``-innstillingen være tilgjengelige via SSL, og alle andre nettadresser vil ble sendt tilbake til HTTP dersom HTTPS blir brukt."
 
 #: defaults.py:422
 msgid "List of words which will be stripped from search queries."
@@ -334,45 +265,36 @@ msgstr "Liste med ord som fjernes fra søkestrenger."
 
 #: defaults.py:479
 msgid "Tag Cloud Sizes"
-msgstr "Størrelse på taggsky"
+msgstr "Størrelser på taggsky"
 
 #: defaults.py:480
 msgid "Number of different sizes for tags when shown as a cloud."
-msgstr "Antall forskjellige størrelser for tagger som vises i taggskyen"
+msgstr "Antall forskjellige størrelser for tagger som vises i taggskyen."
 
 #: defaults.py:487
 msgid "Sequence of setting names available within templates."
-msgstr "Innstillinger/setting navn som er tilgjengelig i maler."
+msgstr "Sekvens av navn på innstillinger som er tilgjengelige i maler."
 
 #: defaults.py:502
-msgid ""
-"Directory name to store thumbnails in, that will be created relative to the "
-"original image's directory."
+msgid "Directory name to store thumbnails in, that will be created relative to the original image's directory."
 msgstr "Mappenavn for lagring av miniatyrbilder som vil opprettes relativt i forhold til bildemappen."
 
 #: defaults.py:510
-msgid ""
-"URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
-"configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
-msgstr "URL for JavaScriptfilen (relativt i forhold til ``STATIC_URL``) som konfigurerer TinyMCE når standardklassen for ``RICHTEXT_WIDGET_CLASS`` brukes."
+msgid "URL for the JavaScript file (relative to ``STATIC_URL``) that handles configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+msgstr "URL for JavaScript-filen (relativt i forhold til ``STATIC_URL``) som konfigurerer TinyMCE når standardklassen for ``RICHTEXT_WIDGET_CLASS`` brukes."
 
 #: defaults.py:519
-msgid ""
-"Dict mapping file field names in the format "
-"``app_label.model_name.field_name`` to the Python dotted path to function "
-"names that will be used for the file field's ``upload_to`` argument."
-msgstr ""
+msgid "Dict mapping file field names in the format ``app_label.model_name.field_name`` to the Python dotted path to function names that will be used for the file field's ``upload_to`` argument."
+msgstr "Ordbok («dict») som kobler feltnavn på formatet ``app_label.model_name.field_name`` til den punktuminndelte Python-stien til navn på funksjoner som vil bli brukt for filfeltets ``upload_to``-argument."
 
 #: defaults.py:535
-msgid ""
-"If ``True``, the south application will be automatically added to the "
-"``INSTALLED_APPS`` setting."
-msgstr "Hvis sant vil South-applikasjonen automatisk legges til i ``INSTALLED_APPS``-innstillingen."
+msgid "If ``True``, the south application will be automatically added to the ``INSTALLED_APPS`` setting."
+msgstr "Hvis ``True`` vil South-applikasjonen automatisk legges til i ``INSTALLED_APPS``-innstillingen."
 
 #: fields.py:37
 #, python-format
 msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
-msgstr "Kunne ikke importere verdi for settings.RICHTEXT_WIDGET_CLASS:%s"
+msgstr "Kunne ikke importere verdi for settings.RICHTEXT_WIDGET_CLASS: %s"
 
 #: forms.py:84 models.py:317
 msgid "Order"
@@ -395,9 +317,7 @@ msgid "View on site"
 msgstr "Vis på siden"
 
 #: models.py:112
-msgid ""
-"Optional title to be used in the HTML title tag. If left blank, the main "
-"title field will be used."
+msgid "Optional title to be used in the HTML title tag. If left blank, the main title field will be used."
 msgstr "Valgfri tittel for bruk i HTML title-taggen. Dersom feltet står blankt, brukes hovedtittelen."
 
 #: models.py:114
@@ -409,9 +329,7 @@ msgid "Generate description"
 msgstr "Generer beskrivelse"
 
 #: models.py:116
-msgid ""
-"If checked, the description will be automatically generated from content. "
-"Uncheck if you want to manually set a custom description."
+msgid "If checked, the description will be automatically generated from content. Uncheck if you want to manually set a custom description."
 msgstr "Hvis dette er valgt vil en beskrivelse automatisk bli generert ut fra innholdet. Hvis ikke, kan du velge en egen beskrivelse."
 
 #: models.py:119
@@ -432,7 +350,7 @@ msgstr "Status"
 
 #: models.py:190
 msgid "With Draft chosen, will only be shown for admin users on the site."
-msgstr "Vil kun vises for administratorer når Utkast er valgt"
+msgstr "Vil kun vises for administratorer når utkast er valgt."
 
 #: models.py:192 models.py:225
 msgid "Published from"
@@ -452,7 +370,7 @@ msgstr "Vil ikke lengre være publisert etter dette tidspunkt"
 
 #: models.py:199
 msgid "Show in sitemap"
-msgstr ""
+msgstr "Vis i nettstedkart"
 
 #: models.py:402 models.py:422
 msgid "Author"
@@ -460,15 +378,15 @@ msgstr "Forfatter"
 
 #: models.py:425
 msgid "Sites"
-msgstr ""
+msgstr "Nettsteder"
 
 #: models.py:428
 msgid "Site permission"
-msgstr ""
+msgstr "Nettstedtillatelse"
 
 #: models.py:429
 msgid "Site permissions"
-msgstr ""
+msgstr "Nettstedtillatelser"
 
 #: views.py:87
 msgid "Permission denied"
@@ -476,7 +394,7 @@ msgstr "Manglende rettigheter"
 
 #: views.py:115 templates/includes/search_form.html:11
 msgid "Everything"
-msgstr ""
+msgstr "Alt"
 
 #: templates/base.html:121
 msgid "Powered by"
@@ -529,6 +447,8 @@ msgid ""
 "\n"
 "No results were found in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"Ingen resultater ble funnet i %(search_type)s som samsvarer med spørringen din: %(query)s\n"
 
 #: templates/search_results.html:24
 #, python-format
@@ -536,6 +456,8 @@ msgid ""
 "\n"
 "Showing %(start)s to %(end)s of %(total)s results in %(search_type)s matching your query: %(query)s\n"
 msgstr ""
+"\n"
+"Viser %(start)s til %(end)s av %(total)s resultater i %(search_type)s som samsvarer med spørringen din: %(query)s\n"
 
 #: templates/search_results.html:35
 msgid "read more"
@@ -543,7 +465,7 @@ msgstr "les mer"
 
 #: templates/admin/base_site.html:34
 msgid "View site"
-msgstr "Vis webside"
+msgstr "Vis nettsted"
 
 #: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
 msgid "Dashboard"
@@ -551,11 +473,11 @@ msgstr "Dashbord"
 
 #: templates/admin/login.html:21
 msgid "You don't have permission to access the admin for this site."
-msgstr ""
+msgstr "Du har ikke adgang til administrasjonssiden for dette nettstedet."
 
 #: templates/admin/login.html:28
 msgid "Username or email:"
-msgstr "Brukernavn eller epost:"
+msgstr "Brukernavn eller e-post:"
 
 #: templates/admin/login.html:32
 msgid "Password:"
@@ -649,4 +571,4 @@ msgstr "Søk"
 
 #: templates/includes/search_form.html:22
 msgid "Go"
-msgstr ""
+msgstr "Vis"

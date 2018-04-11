@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load mezzanine_tags %}
 
 {% nevercache %}
@@ -21,6 +22,8 @@
     </p>
     {% elif field.help_text %}
     <p class="help-block">{{ field.help_text }}</p>
+    {% elif field.field.required %}
+    <p class="help-block">{% trans "required" %}</p>
     {% endif %}
 </div>
 {% endif %}

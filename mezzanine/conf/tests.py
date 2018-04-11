@@ -204,3 +204,23 @@ class ConfTests(TestCase):
         """
         if settings.USE_MODELTRANSLATION:
             self.assertTrue(settings.USE_I18N)
+
+    def test_editable_caching(self):
+        """
+        Test the editable setting caching behavior.
+        """
+
+        # Ensure usage with no current request does not break caching
+        from mezzanine.core.request import _thread_local
+        try:
+            del _thread_local.request
+        except AttributeError:
+            pass
+
+        setting = Setting.objects.create(name='SITE_TITLE', value="Mezzanine")
+        original_site_title = settings.SITE_TITLE
+        setting.value = "Foobar"
+        setting.save()
+        new_site_title = settings.SITE_TITLE
+        setting.delete()
+        self.assertNotEqual(original_site_title, new_site_title)

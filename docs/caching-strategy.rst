@@ -42,8 +42,7 @@ a few subtle yet significant ways:
 
   * Setting ``CACHE_ANONYMOUS_ONLY`` to ``False`` will have no effect,
     so authenticated users will never use the cache system.
-  * Cache keys include the ID for the current Django ``Site`` object,
-    and device (see :doc:`device-handling`).
+  * Cache keys include the ID for the current Django ``Site`` object.
   * Cache keys do not take Vary headers into account, so all
     unauthenticated visitors will receive the same page content per
     URL.

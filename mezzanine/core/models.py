@@ -33,6 +33,17 @@ from mezzanine.utils.urls import admin_url, slugify, unique_slug
 user_model_name = get_user_model_name()
 
 
+def wrapped_manager(klass):
+    if settings.USE_MODELTRANSLATION:
+        from modeltranslation.manager import MultilingualManager
+
+        class Mgr(MultilingualManager, klass):
+            pass
+        return Mgr()
+    else:
+        return klass()
+
+
 class SiteRelated(models.Model):
     """
     Abstract model for all things site-related. Adds a foreignkey to
@@ -41,12 +52,13 @@ class SiteRelated(models.Model):
     details.
     """
 
-    objects = CurrentSiteManager()
+    objects = wrapped_manager(CurrentSiteManager)
 
     class Meta:
         abstract = True
 
-    site = models.ForeignKey("sites.Site", editable=False)
+    site = models.ForeignKey("sites.Site", on_delete=models.CASCADE,
+        editable=False)
 
     def save(self, update_site=False, *args, **kwargs):
         """
@@ -67,7 +79,7 @@ class Slugged(SiteRelated):
     """
 
     title = models.CharField(_("Title"), max_length=500)
-    slug = models.CharField(_("URL"), max_length=2000, blank=True, null=True,
+    slug = models.CharField(_("URL"), max_length=2000, blank=True,
             help_text=_("Leave blank to have the URL auto-generated from "
                         "the title."))
 
@@ -236,7 +248,7 @@ class Displayable(Slugged, MetaData, TimeStamped):
     short_url = models.URLField(blank=True, null=True)
     in_sitemap = models.BooleanField(_("Show in sitemap"), default=True)
 
-    objects = DisplayableManager()
+    objects = wrapped_manager(DisplayableManager)
     search_fields = {"keywords": 10, "title": 5}
 
     class Meta:
@@ -261,6 +273,16 @@ class Displayable(Slugged, MetaData, TimeStamped):
         """
         return timesince(self.publish_date)
     publish_date_since.short_description = _("Published from")
+
+    def published(self):
+        """
+        For non-staff users, return True when status is published and
+        the publish and expiry dates fall before and after the
+        current date when specified.
+        """
+        return (self.status == CONTENT_STATUS_PUBLISHED and
+            (self.publish_date is None or self.publish_date <= now()) and
+            (self.expiry_date is None or self.expiry_date >= now()))
 
     def get_absolute_url(self):
         """
@@ -300,11 +322,11 @@ class Displayable(Slugged, MetaData, TimeStamped):
         permanently store ``get_absolute_url``, since it may change
         over time.
         """
-        if self.short_url == SHORT_URL_UNSET:
-            self.short_url = self.get_absolute_url_with_host()
-        elif not self.short_url:
+        if not self.short_url or self.short_url == SHORT_URL_UNSET:
             self.short_url = self.generate_short_url()
             self.save()
+        if self.short_url == SHORT_URL_UNSET:
+            self.short_url = self.get_absolute_url_with_host()
 
     def generate_short_url(self):
         """
@@ -485,8 +507,8 @@ class Ownable(models.Model):
     Abstract model that provides ownership of an object for a user.
     """
 
-    user = models.ForeignKey(user_model_name, verbose_name=_("Author"),
-        related_name="%(class)ss")
+    user = models.ForeignKey(user_model_name, on_delete=models.CASCADE,
+        verbose_name=_("Author"), related_name="%(class)ss")
 
     class Meta:
         abstract = True
@@ -555,8 +577,8 @@ class SitePermission(models.Model):
     access.
     """
 
-    user = models.OneToOneField(user_model_name, verbose_name=_("Author"),
-        related_name="%(class)ss")
+    user = models.OneToOneField(user_model_name, on_delete=models.CASCADE,
+        verbose_name=_("Author"), related_name="%(class)ss")
     sites = models.ManyToManyField("sites.Site", blank=True,
                                    verbose_name=_("Sites"))
 

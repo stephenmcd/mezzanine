@@ -2,9 +2,6 @@ from __future__ import unicode_literals
 
 from django import VERSION as DJANGO_VERSION
 from django.apps import AppConfig
-from django.core.checks import register
-
-from .checks import check_template_settings
 
 
 class CoreConfig(AppConfig):
@@ -12,7 +9,7 @@ class CoreConfig(AppConfig):
     name = 'mezzanine.core'
 
     def ready(self):
-        register()(check_template_settings)
+        from . import checks  # noqa
 
         if DJANGO_VERSION < (1, 9):
             # add_to_builtins was removed in 1.9 and replaced with a

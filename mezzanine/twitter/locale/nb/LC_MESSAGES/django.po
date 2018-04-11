@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Simen Heggestøyl <simen@e5r.no>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-05 07:20-0430\n"
-"PO-Revision-Date: 2012-08-26 12:31+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-11-11 14:52+0100\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/"
 "mezzanine/language/nb/)\n"
 "Language: nb\n"
@@ -17,6 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Simen Heggestøyl <simen@e5r.no>\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: __init__.py:16
 msgid "User"
@@ -54,7 +56,7 @@ msgstr "Standard antall Tweets"
 
 #: defaults.py:40
 msgid "Number of tweets to display in the default Twitter feed."
-msgstr "Antall tweets som vises i Twitterstrømmen."
+msgstr "Antall Tweets som vises i Twitterstrømmen."
 
 #: models.py:27
 msgid "Type"
@@ -70,11 +72,11 @@ msgstr ""
 
 #: models.py:34
 msgid "Twitter queries"
-msgstr ""
+msgstr "Twitter-spørringer"
 
 #: models.py:102
 msgid "Twitter ID"
-msgstr ""
+msgstr "Twitter ID"
 
 #: models.py:103
 msgid "Date/time"
@@ -86,39 +88,39 @@ msgstr "Melding"
 
 #: models.py:105
 msgid "Profile image URL"
-msgstr ""
+msgstr "Nettadresse for profilbilde"
 
 #: models.py:106
 msgid "User name"
-msgstr ""
+msgstr "Brukernavn"
 
 #: models.py:107
 msgid "Full name"
-msgstr ""
+msgstr "Fullt navn"
 
 #: models.py:109
 msgid "Profile image URL (Retweeted by)"
-msgstr ""
+msgstr "Nettadresse for profilbilde (Retweeted av)"
 
 #: models.py:111
 msgid "User name (Retweeted by)"
-msgstr ""
+msgstr "Brukernavn (Retweeted av)"
 
 #: models.py:113
 msgid "Full name (Retweeted by)"
-msgstr ""
+msgstr "Fullt navn (Retweeted av)"
 
 #: models.py:119
 msgid "Tweet"
-msgstr ""
+msgstr "Tweet"
 
 #: models.py:120
 msgid "Tweets"
-msgstr ""
+msgstr "Tweets"
 
 #: templates/twitter/tweets.html:7
 msgid "Recent Tweets"
-msgstr ""
+msgstr "Nylige Tweets"
 
 #: templates/twitter/tweets.html:20
 msgid "ago"

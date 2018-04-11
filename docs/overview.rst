@@ -45,8 +45,8 @@ standard Django environment), with the following dependencies, which
 unless noted as optional, should be installed automatically following
 the above instructions:
 
-* `Python`_ 2.7 to 3.5
-* `Django`_ 1.8 to 1.9
+* `Python`_ 2.7 to 3.6
+* `Django`_ 1.8 to 1.10
 * `django-contrib-comments`_ - for built-in threaded comments
 * `Pillow`_ - for image resizing (`Python Imaging Library`_ fork)
 * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
@@ -59,16 +59,8 @@ the above instructions:
 * `requests`_ and `requests_oauthlib`_ - for interacting with external APIs
 * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
-Users on Debian or Ubuntu will require some system packages to support
-the imaging library::
-
-    $ apt-get install libjpeg8 libjpeg8-dev
-    $ apt-get build-dep python-imaging
-
-OSX users can do the same via `Homebrew`_::
-
-    $ brew install libjpeg
-
+Note that various systems may contain 
+`specialized instructions for installing Pillow`_. 
 
 Themes
 ======
@@ -468,7 +460,8 @@ certain sites.
 * `Camp America <http://campamerica.com.au>`_
 * `Code Source <http://codesource.com.au/>`_
 * `The Federation of Egalitarian Communities <http://thefec.org>`_
-
+* `Caffeinated Lifestyle <https://caffeinatedlifestyle.com>`_
+* `The National: New Australian Art <https://the-national.com.au>`_
 .. _`Mezzanine Grid on djangopackages.com`: http://www.djangopackages.com/grids/g/mezzanine/
 .. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Drum`: https://github.com/stephenmcd/drum
@@ -570,5 +563,6 @@ certain sites.
 .. _`pyflakes`: http://pypi.python.org/pypi/pyflakes
 .. _`chardet`: https://chardet.readthedocs.org
 .. _`pep8`: http://pypi.python.org/pypi/pep8
+.. _`specialized instructions for installing Pillow`: https://pillow.readthedocs.io/en/latest/installation.html
 .. _`Homebrew`: http://mxcl.github.com/homebrew/
 .. _`django-modeltranslation`: http://django-modeltranslation.readthedocs.org

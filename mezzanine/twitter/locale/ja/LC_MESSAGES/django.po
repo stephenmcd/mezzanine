@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"POT-Creation-Date: 2017-01-01 17:17+0900\n"
 "PO-Revision-Date: 2012-11-15 14:07+0000\n"
 "Last-Translator: HeliosReds <helios_reds@gmx.net>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/mezzanine/"
@@ -20,17 +20,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: __init__.py:16
+#: __init__.py:17
 msgid "User"
 msgstr "ユーザー"
 
-#: __init__.py:17
+#: __init__.py:18
 msgid "List"
 msgstr "リスト"
 
-#: __init__.py:18
+#: __init__.py:19
 msgid "Search"
 msgstr "検索"
+
+#: admin.py:46
+msgid "Send to Twitter"
+msgstr "Twitterに送信"
 
 #: defaults.py:21
 msgid "Default Twitter Query Type"
@@ -48,74 +52,102 @@ msgid "Default Twitter Query"
 msgstr "既定のTwitterクエリー"
 
 #: defaults.py:32
-msgid "Twitter query to use for the default query type."
-msgstr "既定のクエリータイプ用に用いるTwitterクエリー。"
+msgid ""
+"Twitter query to use for the default query type. \n"
+"\n"
+"*Note:* Once you change this from the default, you'll need to configure each "
+"of the oAuth consumer/access key/secret settings. Please refer to http://dev."
+"twitter.com for more information on creating an application and acquiring "
+"these settings."
+msgstr ""
+"デフォルトで使用するTwitterクエリ。"
+"\n"
+"*注:*これをデフォルトから変更した場合、oAuthコンシューマ/アクセスキー/シークレットをそれぞれ設定する必要があります。"
+"アプリケーションの作成とこれらの設定の取得の詳細については、http://dev.twitter.comを参照してください。"
 
-#: defaults.py:39
+#: defaults.py:43
 msgid "Default Number of Tweets"
 msgstr "既定のつぶやき数"
 
-#: defaults.py:40
+#: defaults.py:44
 msgid "Number of tweets to display in the default Twitter feed."
 msgstr "既定のTwitterフィードで表示するつぶやきの数。"
 
-#: models.py:27
+#: defaults.py:51
+#, fuzzy
+#| msgid "Twitter query"
+msgid "Twitter OAuth consumer key"
+msgstr "Twitterクエリー"
+
+#: defaults.py:58
+msgid "Twitter OAuth consumer secret"
+msgstr ""
+
+#: defaults.py:65
+msgid "Twitter OAuth access token"
+msgstr ""
+
+#: defaults.py:72
+msgid "Twitter OAuth access token secret"
+msgstr ""
+
+#: models.py:41
 msgid "Type"
 msgstr "タイプ"
 
-#: models.py:29
+#: models.py:43
 msgid "Value"
 msgstr "値"
 
-#: models.py:33
+#: models.py:47
 msgid "Twitter query"
 msgstr "Twitterクエリー"
 
-#: models.py:34
+#: models.py:48
 msgid "Twitter queries"
 msgstr "Twitterクエリー"
 
-#: models.py:102
+#: models.py:141
 msgid "Twitter ID"
 msgstr "Twitter ID"
 
-#: models.py:103
+#: models.py:142
 msgid "Date/time"
 msgstr "日付/時刻"
 
-#: models.py:104
+#: models.py:143
 msgid "Message"
 msgstr "メッセージ"
 
-#: models.py:105
+#: models.py:144
 msgid "Profile image URL"
 msgstr "プロファイル写真のURL"
 
-#: models.py:106
+#: models.py:145
 msgid "User name"
 msgstr "ユーザー名"
 
-#: models.py:107
+#: models.py:146
 msgid "Full name"
 msgstr "フルネーム"
 
-#: models.py:109
+#: models.py:148
 msgid "Profile image URL (Retweeted by)"
 msgstr "プロファイル写真のURL (リツイートされたもの)"
 
-#: models.py:111
+#: models.py:150
 msgid "User name (Retweeted by)"
 msgstr "ユーザー名 (リツイートされたもの)"
 
-#: models.py:113
+#: models.py:152
 msgid "Full name (Retweeted by)"
 msgstr "フルネーム (リツイートされたもの)"
 
-#: models.py:119
+#: models.py:158
 msgid "Tweet"
 msgstr "ツイート"
 
-#: models.py:120
+#: models.py:159
 msgid "Tweets"
 msgstr "ツイート"
 
@@ -123,6 +155,13 @@ msgstr "ツイート"
 msgid "Recent Tweets"
 msgstr "最近のツイート"
 
-#: templates/twitter/tweets.html:20
-msgid "ago"
-msgstr "前"
+#: templates/twitter/tweets.html:19
+#, python-format
+msgid "%(sometime)s ago"
+msgstr ""
+
+#~ msgid "Twitter query to use for the default query type."
+#~ msgstr "既定のクエリータイプ用に用いるTwitterクエリー。"
+
+#~ msgid "ago"
+#~ msgstr "前"

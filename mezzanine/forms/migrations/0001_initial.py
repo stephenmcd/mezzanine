@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import mezzanine.core.fields
+from mezzanine.forms.fields import NAMES
 
 
 class Migration(migrations.Migration):
@@ -18,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('_order', models.IntegerField(null=True, verbose_name='Order')),
                 ('label', models.CharField(max_length=200, verbose_name='Label')),
-                ('field_type', models.IntegerField(verbose_name='Type', choices=[(1, 'Single line text'), (2, 'Multi line text'), (3, 'Email'), (13, 'Number'), (14, 'URL'), (4, 'Check box'), (5, 'Check boxes'), (6, 'Drop down'), (7, 'Multi select'), (8, 'Radio buttons'), (9, 'File upload'), (10, 'Date'), (11, 'Date/time'), (15, 'Date of birth'), (12, 'Hidden')])),
+                ('field_type', models.IntegerField(verbose_name='Type', choices=NAMES)),
                 ('required', models.BooleanField(default=True, verbose_name='Required')),
                 ('visible', models.BooleanField(default=True, verbose_name='Visible')),
                 ('choices', models.CharField(help_text='Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`.', max_length=1000, verbose_name='Choices', blank=True)),
@@ -49,7 +50,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Form',
             fields=[
-                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='pages.Page')),
+                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='pages.Page', on_delete=models.CASCADE)),
                 ('content', mezzanine.core.fields.RichTextField(verbose_name='Content')),
                 ('button_text', models.CharField(default='Submit', max_length=50, verbose_name='Button text')),
                 ('response', mezzanine.core.fields.RichTextField(verbose_name='Response')),
@@ -71,7 +72,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('entry_time', models.DateTimeField(verbose_name='Date/time')),
-                ('form', models.ForeignKey(related_name='entries', to='forms.Form')),
+                ('form', models.ForeignKey(related_name='entries', to='forms.Form', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Form entry',
@@ -82,13 +83,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='fieldentry',
             name='entry',
-            field=models.ForeignKey(related_name='fields', to='forms.FormEntry'),
+            field=models.ForeignKey(related_name='fields', to='forms.FormEntry', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='field',
             name='form',
-            field=models.ForeignKey(related_name='fields', to='forms.Form'),
+            field=models.ForeignKey(related_name='fields', to='forms.Form', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

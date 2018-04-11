@@ -18,6 +18,7 @@ from mezzanine.core.models import (
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
 from mezzanine.utils.urls import path_to_slug
+from mezzanine.core.models import wrapped_manager
 
 
 class BasePage(Orderable, Displayable):
@@ -27,7 +28,7 @@ class BasePage(Orderable, Displayable):
     ``Page`` subclass loses the custom manager.
     """
 
-    objects = PageManager()
+    objects = wrapped_manager(PageManager)
 
     class Meta:
         abstract = True
@@ -40,8 +41,8 @@ class Page(BasePage, ContentTyped):
     need to subclass.
     """
 
-    parent = models.ForeignKey("Page", blank=True, null=True,
-        related_name="children")
+    parent = models.ForeignKey("Page", on_delete=models.CASCADE,
+        blank=True, null=True, related_name="children")
     in_menus = MenusField(_("Show in menus"), blank=True, null=True)
     titles = models.CharField(editable=False, max_length=1000, null=True)
     login_required = models.BooleanField(_("Login required"), default=False,
@@ -173,7 +174,8 @@ class Page(BasePage, ContentTyped):
         self.parent = new_parent
         self.save()
 
-        if self_slug:
+        if self_slug and not (self.content_model == "link" and
+                              self.slug.startswith("http")):
             if not old_parent_slug:
                 self.set_slug("/".join((new_parent_slug, self.slug)))
             elif self.slug.startswith(old_parent_slug):

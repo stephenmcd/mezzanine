@@ -4,11 +4,14 @@ import pprint
 
 from django import VERSION as DJANGO_VERSION
 from django.conf import global_settings
-from django.core.checks import Warning
+from django.core.checks import Warning, register
 
 from mezzanine.conf import settings
+from mezzanine.utils.conf import middlewares_or_subclasses_installed
+from mezzanine.utils.sites import SITE_PERMISSION_MIDDLEWARE
 
 
+@register()
 def check_template_settings(app_configs, **kwargs):
 
     issues = []
@@ -152,3 +155,14 @@ def _build_suggested_template_config(settings):
         setter(new_setting_name, value)
 
     return [suggested_templates_config]
+
+
+@register()
+def check_sites_middleware(app_configs, **kwargs):
+
+    if not middlewares_or_subclasses_installed([SITE_PERMISSION_MIDDLEWARE]):
+        return [Warning(SITE_PERMISSION_MIDDLEWARE +
+                        " missing from settings.MIDDLEWARE - per site"
+                        " permissions not applied",
+                        id="mezzanine.core.W04")]
+    return []

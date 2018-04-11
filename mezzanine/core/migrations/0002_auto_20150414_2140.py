@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='sitepermission',
             name='user',
-            field=models.OneToOneField(related_name='sitepermissions', verbose_name='Author', to=settings.AUTH_USER_MODEL),
+            field=models.OneToOneField(related_name='sitepermissions', verbose_name='Author', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
     ]

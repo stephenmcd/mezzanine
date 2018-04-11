@@ -131,6 +131,14 @@ class PostsRSS(Feed):
         if item.featured_image:
             return self.add_domain(item.featured_image.url)
 
+    def item_enclosure_length(self, item):
+        if item.featured_image:
+            return item.featured_image.size
+
+    def item_enclosure_mime_type(self, item):
+        if item.featured_image:
+            return item.featured_image.mimetype[0]
+
 
 class PostsAtom(PostsRSS):
     """
@@ -141,3 +149,6 @@ class PostsAtom(PostsRSS):
 
     def subtitle(self):
         return self.description()
+
+    def item_updateddate(self, item):
+        return item.updated

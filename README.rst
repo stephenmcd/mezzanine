@@ -53,7 +53,6 @@ interface, Mezzanine provides the following:
 * API for `custom content types`_
 * `Search engine and API`_
 * Seamless integration with third-party Django apps
-* Multi-device detection and template handling
 * One step migration from other blogging engines
 * Automated production provisioning and deployments
 * `Disqus`_ integration, or built-in threaded comments
@@ -104,22 +103,6 @@ Mercurial version control systems. These repositories are hosted on
 both `GitHub`_ and `Bitbucket`_ respectively, so contributing is as
 easy as forking the project on either of these sites and committing
 back your enhancements.
-
-Please note the following guidelines for contributing:
-
-* Before doing anything, discuss it on the `mezzanine-users`_ mailing
-  list first.
-* Contributed code must be written in the existing style. For Python
-  (and to a decent extent, JavaScript as well), this is as simple as
-  following the `Django coding style`_ and (most importantly)
-  `PEP 8`_. Front-end CSS should adhere to the
-  `Bootstrap CSS guidelines`_.
-* Contributions must be available on a separately named branch
-  based on the latest version of the main branch.
-* Run the tests before committing your changes. If your changes
-  cause the tests to break, they won't be accepted.
-* If you are adding new functionality, you must include basic tests
-  and documentation.
 
 
 Donating
@@ -191,9 +174,6 @@ Quotes
 .. _`GitHub issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`#mezzanine IRC channel`: irc://irc.freenode.net/mezzanine
 .. _`Freenode`: http://freenode.net
-.. _`Django coding style`: https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/
-.. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
-.. _`Bootstrap CSS guidelines`: https://github.com/twbs/bootstrap/blob/master/CONTRIBUTING.md#css
 .. _`Mezzanine Project`: http://mezzanine.jupo.org
 
 .. _`Python Software Foundation`: http://www.python.org/psf/

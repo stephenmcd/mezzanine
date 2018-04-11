@@ -1,5 +1,8 @@
 from __future__ import unicode_literals
 
+import re
+import pytz
+import datetime
 from unittest import skipUnless
 
 try:
@@ -8,6 +11,8 @@ except ImportError:
     from urlparse import urlparse
 
 from django.core.urlresolvers import reverse
+from django.template import Context, Template
+from django.test import override_settings
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings
@@ -56,3 +61,48 @@ class BlogTests(TestCase):
         Page.objects.create(title="blog", slug=slug)
         response = self.client.get(reverse("blog_post_list"))
         self.assertEqual(response.status_code, 200)
+
+
+class BlogTemplatetagsTests(TestCase):
+
+    def test_blog_months(self):
+        def make_blog_post(*datetime_args):
+            blog_post = BlogPost.objects.create(
+                user=self._user, status=CONTENT_STATUS_PUBLISHED,
+                publish_date=datetime.datetime(*datetime_args))
+            blog_post.save()
+
+        make_blog_post(2016, 4, 15)
+        make_blog_post(2017, 4, 15)
+        make_blog_post(2017, 4, 20)
+        make_blog_post(2014, 5, 15)
+
+        html = Template("""\n
+            {% load blog_tags %}
+            {% blog_months as months %}
+            {% for month in months %}
+            {{ month.date.year }}-{{ month.date.month}}: {{month.post_count}}
+            {% endfor %}""").render(Context({}))
+        months = re.sub('\n\s*', ', ', html.strip())
+
+        self.assertEqual(months, '2017-4: 2, 2016-4: 1, 2014-5: 1')
+
+    @override_settings(USE_TZ=True)
+    def test_blog_months_timezone(self):
+        """ Months should be relative to timezone. """
+        blog_post = BlogPost.objects.create(
+            user=self._user, status=CONTENT_STATUS_PUBLISHED,
+            publish_date=datetime.datetime(2017, 4, 30, 23, tzinfo=pytz.utc))
+        blog_post.save()
+
+        def render_blog_months():
+            return Template("""\n
+                {% load blog_tags %}
+                {% blog_months as months %}
+                {% for month in months %}{{ month.date }}{% endfor %}
+                """).render(Context({})).strip()
+
+        self.assertEqual(render_blog_months(), 'April 1, 2017, midnight')
+
+        with self.settings(TIME_ZONE='Etc/GMT-1'):
+            self.assertEqual(render_blog_months(), 'May 1, 2017, midnight')
