@@ -5,8 +5,10 @@ from unittest import skipUnless
 import warnings
 
 from django.conf import settings as django_settings
+from django.utils.encoding import force_text
 
 from mezzanine.conf import settings, registry, register_setting
+from mezzanine.conf.context_processors import TemplateSettings
 from mezzanine.conf.models import Setting
 from mezzanine.utils.tests import TestCase
 
@@ -224,3 +226,44 @@ class ConfTests(TestCase):
         new_site_title = settings.SITE_TITLE
         setting.delete()
         self.assertNotEqual(original_site_title, new_site_title)
+
+
+class TemplateSettingsTests(TestCase):
+    def test_allowed(self):
+        # We choose a setting that will definitely exist:
+        ts = TemplateSettings(settings, ['INSTALLED_APPS'])
+        self.assertEqual(ts.INSTALLED_APPS, settings.INSTALLED_APPS)
+        self.assertEqual(ts['INSTALLED_APPS'], settings.INSTALLED_APPS)
+
+    def test_not_allowed(self):
+        ts = TemplateSettings(settings, [])
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            self.assertRaises(AttributeError, lambda: ts.INSTALLED_APPS)
+            self.assertRaises(KeyError, lambda: ts['INSTALLED_APPS'])
+
+    def test_add(self):
+        ts = TemplateSettings(settings, ['INSTALLED_APPS'])
+        ts['EXTRA_THING'] = 'foo'
+        self.assertEqual(ts.EXTRA_THING, 'foo')
+        self.assertEqual(ts['EXTRA_THING'], 'foo')
+
+    def test_repr(self):
+        ts = TemplateSettings(settings, [])
+        self.assertEqual(repr(ts), '{}')
+
+        ts2 = TemplateSettings(settings,
+                               ['DEBUG', 'SOME_NON_EXISTANT_SETTING'])
+        self.assertIn("'DEBUG': False", repr(ts2))
+
+        ts3 = TemplateSettings(settings, [])
+        ts3['EXTRA_THING'] = 'foo'
+        self.assertIn("'EXTRA_THING'", repr(ts3))
+        self.assertIn("'foo'", repr(ts3))
+
+    def test_force_text(self):
+        ts = TemplateSettings(settings, [])
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.assertEqual(force_text(ts), '{}')
+        self.assertEqual(len(w), 0)

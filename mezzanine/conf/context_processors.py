@@ -2,11 +2,14 @@ from __future__ import unicode_literals
 
 from warnings import warn
 
+from django.utils.encoding import python_2_unicode_compatible
+
 
 # Deprecated settings and their defaults.
 DEPRECATED = {}
 
 
+@python_2_unicode_compatible
 class TemplateSettings(dict):
     """
     Dict wrapper for template settings. This exists to enforce
@@ -46,6 +49,13 @@ class TemplateSettings(dict):
     def __setitem__(self, k, v):
         self.allowed_settings.add(k)
         super(TemplateSettings, self).__setitem__(k, v)
+
+    def __repr__(self):
+        return repr(dict((k, self[k]) for k in self.allowed_settings
+                         if hasattr(self.settings, k) or k in self))
+
+    def __str__(self):
+        return repr(self)
 
 
 def settings(request=None):
