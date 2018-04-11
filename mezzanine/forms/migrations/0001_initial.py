@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import mezzanine.core.fields
+from mezzanine.forms.fields import NAMES
 
 
 class Migration(migrations.Migration):
@@ -18,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('_order', models.IntegerField(null=True, verbose_name='Order')),
                 ('label', models.CharField(max_length=200, verbose_name='Label')),
-                ('field_type', models.IntegerField(verbose_name='Type', choices=[(1, 'Single line text'), (2, 'Multi line text'), (3, 'Email'), (13, 'Number'), (14, 'URL'), (4, 'Check box'), (5, 'Check boxes'), (6, 'Drop down'), (7, 'Multi select'), (8, 'Radio buttons'), (9, 'File upload'), (10, 'Date'), (11, 'Date/time'), (15, 'Date of birth'), (12, 'Hidden')])),
+                ('field_type', models.IntegerField(verbose_name='Type', choices=NAMES)),
                 ('required', models.BooleanField(default=True, verbose_name='Required')),
                 ('visible', models.BooleanField(default=True, verbose_name='Visible')),
                 ('choices', models.CharField(help_text='Comma separated options where applicable. If an option itself contains commas, surround the option with `backticks`.', max_length=1000, verbose_name='Choices', blank=True)),
