@@ -2,7 +2,8 @@ from __future__ import unicode_literals
 
 from django.core.exceptions import ImproperlyConfigured
 from django import forms
-from django.forms.extras import SelectDateWidget
+#from django.forms.extras import SelectDateWidget
+from mezzanine.compat import SelectDateWidget
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings

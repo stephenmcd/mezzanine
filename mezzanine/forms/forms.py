@@ -6,9 +6,11 @@ from os.path import join, split
 from uuid import uuid4
 
 from django import forms
-from django.forms.extras import SelectDateWidget
+#from django.forms.extras import SelectDateWidget
+from mezzanine.compat import SelectDateWidget
 from django.core.files.storage import FileSystemStorage
-from django.core.urlresolvers import reverse
+from mezzanine.compat import reverse
+# from django.core.urlresolvers import reverse
 from django.template import Template
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _

@@ -10,7 +10,8 @@ try:
 except ImportError:
     from urlparse import urlparse
 
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse
+from mezzanine.compat import reverse
 from django.template import Context, Template
 from django.test import override_settings
 

@@ -40,7 +40,8 @@ class TestsForm(TestCase):
         being translated back to the default language.
         """
         from collections import OrderedDict
-        from django.core.urlresolvers import reverse
+        # from django.core.urlresolvers import reverse
+        from mezzanine.compat import reverse
         from django.utils.translation import (get_language, activate,
                                               ugettext as _)
         from modeltranslation.utils import auto_populate
