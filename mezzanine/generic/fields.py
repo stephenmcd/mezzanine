@@ -8,6 +8,8 @@ from django.core.exceptions import ImproperlyConfigured, AppRegistryNotReady
 from django.db.models import IntegerField, CharField, FloatField
 from django.db.models.signals import post_save, post_delete
 
+from mezzanine.utils.deprecation import get_related_model
+
 
 class BaseGenericRelation(GenericRelation):
     """
@@ -85,7 +87,7 @@ class BaseGenericRelation(GenericRelation):
             getter_name = "get_%s_name" % self.__class__.__name__.lower()
             cls.add_to_class(getter_name, lambda self: name)
 
-            sender = self.remote_field.model if hasattr(self, 'remote_field') else self.rel.to
+            sender = get_related_model(self)
             post_save.connect(self._related_items_changed, sender=sender)
             post_delete.connect(self._related_items_changed, sender=sender)
 

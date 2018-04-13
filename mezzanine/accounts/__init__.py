@@ -12,6 +12,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured
 
+from mezzanine.utils.deprecation import get_related_model
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -83,12 +84,8 @@ def get_profile_user_fieldname(profile_model=None, user_model=None):
     Profile = profile_model or get_profile_model()
     User = user_model or get_user_model()
     for field in Profile._meta.get_fields():
-        # Support for Django 2.
-        # Can be simplified when dropping support for Django 1.8
-        if hasattr(field, 'remote_field') or hasattr(field, 'rel'):
-            related_model = field.remote_field.model if hasattr(field, 'remote_field') else field.rel.to
-            if related_model == User:
-                return field.name
+        if get_related_model(field) == User:
+            return field.name
     raise ImproperlyConfigured("Value for ACCOUNTS_PROFILE_MODEL does not "
                                "contain a ForeignKey field for auth.User: %s"
                                % Profile.__name__)
