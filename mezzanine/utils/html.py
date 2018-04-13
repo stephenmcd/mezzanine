@@ -15,7 +15,7 @@ except ImportError:  # Python 2
 
 import re
 
-from django.utils.safestring import mark_safe
+from mezzanine.utils.deprecation import mark_safe
 
 
 SELF_CLOSING_TAGS = ['br', 'img']

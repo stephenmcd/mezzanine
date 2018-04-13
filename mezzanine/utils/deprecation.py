@@ -2,6 +2,8 @@
 Various utils for dealing with backward compatibility across Django
 versions.
 """
+from functools import wraps
+
 import django
 from django.conf import settings
 
@@ -18,7 +20,7 @@ def get_middleware_setting_name():
     """
     Returns the name of the middleware setting.
     """
-    if getattr(settings, "MIDDLEWARE") is not None:
+    if hasattr(settings, "MIDDLEWARE") and settings.MIDDLEWARE is not None:
         return "MIDDLEWARE"
     else:
         return "MIDDLEWARE_CLASSES"
@@ -56,3 +58,13 @@ def get_related_model(field):
             return field.remote_field.model
         except AttributeError:
             pass
+
+
+def mark_safe(s):
+    from django.utils.safestring import mark_safe as django_safe
+    if callable(s):
+        @wraps(s)
+        def wrapper(*args, **kwargs):
+            return django_safe(*args, **kwargs)
+        return wrapper
+    return django_safe(s)
