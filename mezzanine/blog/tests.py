@@ -67,9 +67,10 @@ class BlogTemplatetagsTests(TestCase):
 
     def test_blog_months(self):
         def make_blog_post(*datetime_args):
+            publish_date = datetime.datetime(*datetime_args, tzinfo=pytz.utc)
             blog_post = BlogPost.objects.create(
                 user=self._user, status=CONTENT_STATUS_PUBLISHED,
-                publish_date=datetime.datetime(*datetime_args))
+                publish_date=publish_date)
             blog_post.save()
 
         make_blog_post(2016, 4, 15)
