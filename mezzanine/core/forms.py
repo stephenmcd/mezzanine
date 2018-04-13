@@ -1,10 +1,12 @@
 from __future__ import unicode_literals
 from future.builtins import str
 
+from datetime import datetime
 from uuid import uuid4
 
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
+from django.forms.utils import to_current_timezone
 from django.utils.safestring import mark_safe
 
 from mezzanine.conf import settings
@@ -91,6 +93,18 @@ class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
         date_widget = SelectDateWidget(attrs=attrs)
         time_widget = forms.TimeInput(attrs=attrs, format=time_format)
         forms.MultiWidget.__init__(self, (date_widget, time_widget), attrs)
+
+    def decompress(self, value):
+        if isinstance(value, str):
+            return value.split(" ", 1)
+        elif isinstance(value, datetime):
+            value = to_current_timezone(value)
+            return [value.date(), value.time().replace(microsecond=0)]
+        return [None, None]
+
+    def value_from_datadict(self, data, files, name):
+        return " ".join([x or "" for x in super(SplitSelectDateTimeWidget,
+            self).value_from_datadict(data, files, name)])
 
 
 class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
