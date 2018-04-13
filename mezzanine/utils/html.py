@@ -79,6 +79,7 @@ def decode_entities(html):
     return re.sub("&#?\w+;", decode, html.replace("&amp;", "&"))
 
 
+@mark_safe
 def escape(html):
     """
     Escapes HTML according to the rules defined by the settings
@@ -98,11 +99,12 @@ def escape(html):
         attrs += LOW_FILTER_ATTRS
     if isinstance(attrs, tuple):
         attrs = list(attrs)
-    return mark_safe(clean(html, tags=tags, attributes=attrs, strip=True,
-                           strip_comments=False, styles=styles,
-                           protocols=ALLOWED_PROTOCOLS + ["tel"]))
+    return clean(html, tags=tags, attributes=attrs, strip=True,
+                 strip_comments=False, styles=styles,
+                 protocols=ALLOWED_PROTOCOLS + ["tel"])
 
 
+@mark_safe
 def thumbnails(html):
     """
     Given a HTML string, converts paths in img tags to thumbnail
@@ -127,7 +129,7 @@ def thumbnails(html):
         if src_in_media and str(width).isdigit() and str(height).isdigit():
             img["src"] = settings.MEDIA_URL + thumbnail(src, width, height)
     # BS adds closing br tags, which the browser interprets as br tags.
-    return mark_safe(str(dom).replace("</br>", ""))
+    return str(dom).replace("</br>", "")
 
 
 class TagCloser(HTMLParser):
