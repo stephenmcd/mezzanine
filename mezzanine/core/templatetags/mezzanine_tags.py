@@ -295,7 +295,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         image_url = image_url.replace(settings.MEDIA_URL, "", 1)
     image_dir, image_name = os.path.split(image_url)
     image_prefix, image_ext = os.path.splitext(image_name)
-    filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext, "JPEG")
+    filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext.lower(), "JPEG")
     thumb_name = "%s-%sx%s" % (image_prefix, width, height)
     if not upscale:
         thumb_name += "-no-upscale"
