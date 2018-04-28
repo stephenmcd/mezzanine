@@ -444,6 +444,7 @@ def install():
     sudo("apt-get update -y -q")
     apt("nginx libjpeg-dev python-dev python-setuptools git-core "
         "postgresql libpq-dev memcached supervisor python-pip")
+    apt('gcc rsync')
     run("mkdir -p /home/%s/logs" % env.user)
 
     # Install Python requirements
