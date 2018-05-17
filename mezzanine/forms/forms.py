@@ -8,7 +8,7 @@ from uuid import uuid4
 from django import forms
 try:
     from django.forms.widgets import SelectDateWidget
-except:
+except ImportError:
     # Django 1.8
     from django.forms.extras.widgets import SelectDateWidget
 
