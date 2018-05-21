@@ -5,7 +5,12 @@ from datetime import datetime
 from uuid import uuid4
 
 from django import forms
-from django.forms.extras.widgets import SelectDateWidget
+try:
+    from django.forms.widgets import SelectDateWidget
+except ImportError:
+    # Django 1.8
+    from django.forms.extras.widgets import SelectDateWidget
+
 from django.forms.utils import to_current_timezone
 from django.utils.safestring import mark_safe
 
