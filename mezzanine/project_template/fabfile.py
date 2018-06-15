@@ -71,7 +71,8 @@ env.num_workers = conf.get("NUM_WORKERS",
 env.secret_key = conf.get("SECRET_KEY", "")
 env.nevercache_key = conf.get("NEVERCACHE_KEY", "")
 
-if not env.secret_key:
+if not env.secret_key and \
+        os.environ.get("DJANGO_SETTINGS_MODULE", "") != "docs_settings":
     print("Aborting, no SECRET_KEY setting defined.")
     exit()
 
