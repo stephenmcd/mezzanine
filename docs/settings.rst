@@ -369,15 +369,6 @@ Max length allowed for field values in the forms app.
 
 Default: ``2000``
 
-.. _FORMS_LABEL_MAX_LENGTH:
-
-``FORMS_LABEL_MAX_LENGTH``
---------------------------
-
-Max length allowed for field labels in the forms app.
-
-Default: ``200``
-
 .. _FORMS_UPLOAD_ROOT:
 
 ``FORMS_UPLOAD_ROOT``
@@ -585,6 +576,15 @@ Dotted package path and class name of the widget to use for the ``RichTextField`
 
 Default: ``'mezzanine.core.forms.TinyMceWidget'``
 
+.. _SEARCH_AGE_SCALE_FACTOR:
+
+``SEARCH_AGE_SCALE_FACTOR``
+---------------------------
+
+The amount of emphasis to put on age when ranking search results. A higher number gives more emphasis to age, ranking newer results higher with less regard to their ordinary score. Setting this to zero disables weighing search results by age.
+
+Default: ``1.5``
+
 .. _SEARCH_MODEL_CHOICES:
 
 ``SEARCH_MODEL_CHOICES``
@@ -602,15 +602,6 @@ Default: ``('pages.Page', 'blog.BlogPost')``
 Number of results shown in the search results page.
 
 Default: ``10``
-
-.. _SEARCH_AGE_SCALE_FACTOR:
-
-``SEARCH_AGE_SCALE_FACTOR``
----------------------------
-
-The amount of emphasis to put on age when ranking search results. A higher number gives more emphasis to age, ranking newer results higher with less regard to their ordinary score. Setting this to zero disables weighing search results by age.
-
-Default: ``1.5``
 
 .. _SITE_PREFIX:
 
@@ -788,7 +779,7 @@ Default: ``3``
 ``TWITTER_DEFAULT_QUERY``
 -------------------------
 
-Twitter query to use for the default query type.
+Twitter query to use for the default query type. 
 
 *Note:* Once you change this from the default, you'll need to configure each of the oAuth consumer/access key/secret settings. Please refer to `http://dev.twitter.com <http://dev.twitter.com>`_ for more information on creating an application and acquiring these settings.
 
