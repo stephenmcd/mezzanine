@@ -71,7 +71,8 @@ env.num_workers = conf.get("NUM_WORKERS",
 env.secret_key = conf.get("SECRET_KEY", "")
 env.nevercache_key = conf.get("NEVERCACHE_KEY", "")
 
-if not env.secret_key:
+if not env.secret_key and \
+        os.environ.get("DJANGO_SETTINGS_MODULE", "") != "docs_settings":
     print("Aborting, no SECRET_KEY setting defined.")
     exit()
 
@@ -444,6 +445,7 @@ def install():
     sudo("apt-get update -y -q")
     apt("nginx libjpeg-dev python-dev python-setuptools git-core "
         "postgresql libpq-dev memcached supervisor python-pip")
+    apt('gcc rsync')
     run("mkdir -p /home/%s/logs" % env.user)
 
     # Install Python requirements

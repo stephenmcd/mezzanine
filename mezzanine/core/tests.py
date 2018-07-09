@@ -170,12 +170,23 @@ class CoreTests(TestCase):
             self.assertEqual(results[0].id, second)
 
         # Test ordering with age scaling.
-        settings.SEARCH_AGE_SCALE_FACTOR = 2
+        settings.SEARCH_AGE_SCALE_FACTOR = 1.5
         results = RichTextPage.objects.search("test")
         self.assertEqual(len(results), 2)
         if results:
             # `first` should now be ranked higher.
             self.assertEqual(results[0].id, first)
+
+        # Test results that have a publish date in the future
+        future = RichTextPage.objects.create(
+            title="test page to be published in the future",
+            publish_date=now() + timedelta(days=10),
+            **published
+        ).id
+        results = RichTextPage.objects.search("test", for_user=self._username)
+        self.assertEqual(len(results), 3)
+        if results:
+            self.assertEqual(results[0].id, future)
 
         # Test the actual search view.
         response = self.client.get(reverse("search") + "?q=test")
@@ -459,12 +470,16 @@ class CoreTests(TestCase):
               'mezzanine.core.tests.SubclassMiddleware']),
             (True,
              ['mezzanine.core.middleware.UpdateCacheMiddleware',
+              'mezzanine.core.tests.FetchFromCacheMiddleware',
+              'mezzanine.core.tests.function_middleware']),
+            (True,
+             ['mezzanine.core.middleware.UpdateCacheMiddleware',
               'mezzanine.core.middleware.FetchFromCacheMiddleware']),
         ]
 
         with self.settings(TESTING=False):  # Well, this is silly
-            for expected_result, middleware_classes in test_contexts:
-                kwargs = {get_middleware_setting_name(): middleware_classes}
+            for expected_result, middlewares in test_contexts:
+                kwargs = {get_middleware_setting_name(): middlewares}
                 with self.settings(**kwargs):
                     cache_installed.cache_clear()
                     self.assertEqual(cache_installed(), expected_result)
@@ -474,6 +489,12 @@ class CoreTests(TestCase):
 
 class SubclassMiddleware(FetchFromCacheMiddleware):
     pass
+
+
+def function_middleware(get_response):
+    def middleware(request):
+        return get_response(request)
+    return middleware
 
 
 @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,

@@ -70,12 +70,12 @@ class KeywordsWidget(forms.MultiWidget):
             return (",".join(self._ids), ", ".join(words))
         return ("", "")
 
-    def format_output(self, rendered_widgets):
+    def render(self, *args, **kwargs):
         """
         Wraps the output HTML with a list of all available ``Keyword``
         instances that can be clicked on to toggle a keyword.
         """
-        rendered = super(KeywordsWidget, self).format_output(rendered_widgets)
+        rendered = super(KeywordsWidget, self).render(*args, **kwargs)
         links = ""
         for keyword in Keyword.objects.all().order_by("title"):
             prefix = "+" if str(keyword.id) not in self._ids else "-"

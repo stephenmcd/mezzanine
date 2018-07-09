@@ -70,7 +70,7 @@ def profile_fields(user):
         profile = get_profile_for_user(user)
         user_fieldname = get_profile_user_fieldname()
         exclude = tuple(settings.ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS)
-        for field in profile._meta.fields:
+        for field in profile._meta.get_fields():
             if field.name not in ("id", user_fieldname) + exclude:
                 value = getattr(profile, field.name)
                 fields[field.verbose_name.title()] = value

@@ -1,3 +1,72 @@
+Version 4.3.0 (Jun 15, 2018)
+----------------------------
+
+  * Added explicit ``on_delete`` arguments for all ForeignKey models - Samir Shah
+  * Only generate thumbnails in RichText when absolute width/height used. Closes #1748 - Stephen McDonald
+  * Removed null attribute from slug CharField - Samir Shah
+  * Converted all ``template.render`` calls to pass a dict instead of a Context object - Samir Shah
+  * Fixed ``MezzanineBackend.authenticate`` backend to accept a request argument, added in Django 1.11 - Samir Shah
+  * Fixed ``test_multiple_comment_forms`` to be agnostic of the order of HTML attributes - Samir Shah
+  * Altered annotation behaviour of search results. Previously this was done implicitly in the ``SearchQuerySet.iterator()`` method,. which Django would call internally when evaluating the queryset. Django 1.11 changed its behaviour to use a ModelIterator class instead of. just calling `iterator()` on the queryset. Rather than suppy a custom. ModelIterator, we just make the annotate explicit - Samir Shah
+  * Updated setup and test configuration to include Django 1.11 - Samir Shah
+  * password reset: 'http' -> ``request.schema``. This fixes a potential security vulnerability in which the password. reset url is exposed to untrusted intermediary nodes in the network. Thanks to John Barham for reporting. See. ``<https://groups.google.com/forum/?_escaped_fragment_=topic/mezzanine-users/KaDzCzCJDPM#!topic/mezzanine-users/KaDzCzCJDPM>`` - ryneeverett
+  * Add explicit ``on_delete`` arguments to foreign keys in migrations - Samir Shah
+  * Use TextField for ``Field.label`` and ``Field.help_text``. Fixes #1753. Now length limits for user-defined labels and ``help_texts`` are enforced in the admin instead of the DB, which should prevent any further migrations - Eduardo Rivas
+  * Get rid of ``max_length`` settings for `mezzanine.forms` - Eduardo Rivas
+  * Timezone aware blog months. From [the mailing. ``list](https://groups.google.com/forum/#!topic/mezzanine-users/W1HNoqj1ZHI):`` Quoting Luke Addison (2017-04-30 21:20:09). > When ``USE_TZ`` is set to True,. > ``mezzanine.blog.templatetags.blog_tags.blog_months`` pulls the month and year. > from an array of timezone aware datatime objects but uses them to create an. > array of timezone unaware datatime objects which is the used to create the. > ``month_dicts`` return value. This seems like a bug to me. >. > For example, if a UTC time is stored in the database less than an hour. > before the end of a month, and then this tag is used with timezone. > Europe/London (UTC+1 currently) then wouldn't this tag return the pervious. > month instead of the current month? - ryneeverett
+  * Test and simplify ``blog_months`` - ryneeverett
+  * Weigh search results by age. Weigh search results by their age by default. Add a new setting,. `SEARCH_AGE_SCALE_FACTOR`, controlling how much emphasis to put on the. age when ranking results (set this to 0 to revert to the old behavior) - Simen Heggestøyl
+  * Split dev and prod ``ALLOWED_HOSTS``. Django started checking `ALLOWED_HOSTS` when `DEBUG=True` a few releases back. See ``https://www.djangoproject.com/weblog/2016/nov/01/security-releases/#s-cve-2016-9014-dns-rebinding-vulnerability-when-debug-true`` - Ed Rivas
+  * Update docs related to ``ALLOWED_HOSTS`` - Ed Rivas
+  * Fix the old url parsing in import wordpress - Karim N Gorjux
+  * Use Django's six module - Stephen McDonald
+  * Don't warn Mezzanine about itself - Stephen McDonald
+  * Looser check for LocalMiddleware. Closes #1621 - Stephen McDonald
+  * Modified the blog homepage pattern to a working version. Added import it requires - Ville Ranki
+  * Remove explicit ``show_banner`` argument from ``inner_run``. This broke --noreload for me. When called from ``https://github.com/django/django/blob/master/django/core/management/commands/runserver.py#L107``, if **options contains a ``show_banner`` arg (which, seemingly, is set just above in ``add_arguments)``, this throws a "Got multiple values for argument" TypeError - Kevin Shen
+  * Handle ``MIDDLEWARE_CLASSES`` -> MIDDLEWARE - Stephen McDonald
+  * Don't use lazy static loading when Django's ManifestStaticFilesStorage is configured. Closes #1772 - Stephen McDonald
+  * Link to Pillow docs for dependencies - Stephen McDonald
+  * Adding new site to site list. Adding "The National: New Australian Art" to the site list. ``https://the-national.com.au`` - pegl
+  * Doesn't convert JPG/JPEG images to RGBA. resolve #1781 - Bruno Barbosa
+  * Remove all device-detection features - Eduardo Rivas
+  * Remove mentions of device handling from docs - Eduardo Rivas
+  * Use template loaders instead of middlware for host-based template swapping - Eduardo Rivas
+  * Add docs on upgrading from TemplateForHostMiddleware - Eduardo Rivas
+  * Create ``__init__.py`` so Python can find directory - Dylan Peter Hayward
+  * Properly parse positional args. As demonstrated by using ``call_command``, the positional args not. processed. This may be a left-over from optarg migration. Usage property is no longer necessary - Melvyn Sopacua
+  * Fix build fail while in here - Melvyn Sopacua
+  * Added more tests por pages - Vindio
+  * Update ``page_not_found`` view args. Closes #1795 - Stephen McDonald
+  * Rename Displayable ``is_public`` to published - Stephen McDonald
+  * Test Nginx config before restarting. This way the configuration won't be updated if it's broken, and you also get an error message in the terminal explaining why it's broken (instead of just telling you to check service status/journal) - Andrés Martano
+  * Enable browser-native spell checking in WYSIWYG tinymce editor, which got wiped in 82339b0 . Previously introduced in 86f6ef6 - Michel
+  * Fixing the support for external links which are moved to child categories in the menu hierarchy - Gerik Peterson
+  * Update ``LOGOUT_URL`` to make use of ``ACCOUNT_URL`` - Adam Radwon
+  * Ensure template vars for form defaults are properly escaped - Stephen McDonald
+  * Fix drag-n-drop for Form field inlines. Fixes #1841. Inherit from DynamicInlineAdminForm to inject the necessary JS files - Eduardo Rivas
+  * Fix failing tests that assume threadlocals have been set up - Luke Plant
+  * Pulled out middleware present check into its own function. And fixed Python 3 compat - Luke Plant
+  * Made all middleware installation checking consistent. All check by string first, and then for classes and subclasses,. correctly ignoring things that aren't classes - Luke Plant
+  * Fix failing tests that assume threadlocals have been set up (#1848) - Luke Plant
+  * Fix keywords widget for Django 1.11. Closes #1844 - stephenmcd
+  * Fix sense of ``SITE_PERMISSION_MIDDLEWARE`` check. Issue introduced by commit 00f4a63c - Ross Younger
+  * Fix sense of other check for ``SITE_PERMISSION_MIDDLEWARE``. Issue introduced by commit 00f4a63 - Ross Younger
+  * Added basic tests for TemplateSettings. The tests follow the existing functionality - Luke Plant
+  * Gave TemplateSettings a useful ``__repr__``. Previously it just returned '{}' always, from super()s empty dict - Luke Plant
+  * Don't emit warning when doing ``force_text(TestSettings())``. This is to fix the behaviour of getting lots of instances of: UserWarning: ``__unicode__`` is not in ``TEMPLATE_ACCESSIBLE_SETTINGS``. if you have django-debug-tool installed - Luke Plant
+  * Prevent changes to ``FORMS_EXTRA_FIELDS`` setting creating new migrations - steve@jupo.org
+  * Support access to related model on Django 2+ - Williams Mendez
+  * Fix safe string handling in richtext filters - steve@jupo.org
+  * Fix some test warnings - steve@jupo.org
+  * Add deprecation handling for ``mark_safe`` as decorator - steve@jupo.org
+  * Fix SplitSelectDateTimeWidget which Django 1.9 broke. Closes #1838 - steve@jupo.org
+  * Fix usage of ``request.scheme`` in password reset email - Eduardo Rivas
+  * Make thumbnail tag recognize ``.PNG`` and ``.GIF``. Files with the upper case extensions ``.PNG`` and ``.GIF`` are now recognized by. the thumbnail template tag as being PNG- and GIF images, respectively,. instead of being treated as JPEG images - Simen Heggestøyl
+  * Added gcc and rsync for the full deployment on the freshly installed Debian (eg. on OVH) - lukasz
+  * Support `SelectDateWidget` in django 1.8 and django 2.x - Williams Mendez
+  * Narrow exception handling to ImportError only - Williams Mendez
+
 Version 4.2.3 (Mar 10, 2017)
 ----------------------------
 
@@ -8,6 +77,7 @@ Version 4.2.3 (Mar 10, 2017)
   * Update travis django versions. (#1683). See discussion at. ``https://github.com/stephenmcd/mezzanine/commit/1866997c64725b3161b59628c8deaee544f0c473`` - ryneeverett
   * Subclass Django's redirect admin to filter by site - Stephen McDonald
   * Remove "Overriding vs. Extending" Docs. I know we discussed this a little bit somewhere and rewriting this. section was suggested. However, I don't see any reason to keep it. around. This was always a django issue but we provided a. mezzanine-specific solution. Now that there's a django solution, why. clutter our docs with it? - ryneeverett
+  * Richtext filters must return SafeString. For now, just raise a warning. In the way-off future I'd like to see. ``richtext_filters`` raise an exception when a SafeString is not received. Django makes a contract with users: "Unless you explicitly mark. untrusted input as safe, we'll escape it and you don't need to worry. about XSS ``vulnerabilities."`` My position is that reusable apps should. proxy this contract to users. In doing so, this also moves the SafeString conversion out of templates. and into the `escape` function in which bleach actually makes the html. safe. The closer these two components are to each other the less likely. we are to make a mistake in between them - ryneeverett
   * Fix ``SSLRedirectMiddleware.__init__`` signature. As reported on the mailing list. ``(https://groups.google.com/d/msg/mezzanine-users/d5mcAMOVcnk/uqw61LyjAwAJ),``. this raised a TypeError because the `get_response` argument is optional - ryneeverett
   * Move “required” from field help text to template. The forms app used to set “required” as the help text for fields that. are required and didn’t have a help text already. Move this text into. the template instead, making it easier to override - Simen Heggestøyl
   * Use ``call_command()`` instead of execute() (#1691) - Geoffrey ROYER
@@ -51,6 +121,7 @@ Version 4.2.2 (Sep 25, 2016)
 Version 4.2.1 (Sep 19, 2016)
 ----------------------------
 
+  * Issue #1565. Added conditions for assigning keywords to the keyword widget, when a validation error occurs - xuryax
   * Stop using deprecated template settings. - ``TEMPLATE_DIRS``. - ``TEMPLATE_LOADERS``. I think these must have been actually removed in ``django-1.10.0`` because. they're throwing AttributeError's now - ryneeverett
   * Remove deprecated ``richtext_filter`` tag. I don't see how the fallback could even work without the user defining. ``RICHTEXT_FILTERS`` as empty in their own settings, because it defaults to. `("mezzanine.utils.html.thumbnails",)` so the `if not filternames` path. would never be taken. Give that the fallback does nothing, I think. printing a warning is deceptive so better just to remove it entirely - ryneeverett
   * Fixed crash in ``Page.get_ascendants`` with non-current site - Alex Hill
@@ -60,6 +131,8 @@ Version 4.2.1 (Sep 19, 2016)
   * Correctly handle custom email fields in ``mezzanine.forms``. The `is_a` method checks whether a field is one of Mezzanine's built-in. form fields. As far as I can tell, every other usage is for the purpose. of initializing the built-in fields and widgets, so it makes sense to. exclude user-defined fields. However in this instance, we only want to know whether the field is an. EmailField, not that it is *the* built-in Mezzanine email field. Therefore, check the class rather than identity. The effective change here is that user-defined fields (in. ``FORMS_EXTRA_FIELDS)`` which subclass django's EmailField will be able to. receive confirmation emails - ryneeverett
   * Remove redundant assignment of ``request.site_id`` - Alex Hill
   * Add compatibility with the Django 1.10 MIDDLEWARE setting - Samir Shah
+  * Added test for KeywordWidget - xuryax
+  * Updated Test for KeywordWidget - xuryax
   * Add more docstrings to ContentTyped - ryneeverett
   * Set base ContentTyped ``content_model`` to None. Per discussion with @AlexHill in cartridge#293, ``content_model`` is the. name of django's automatic OneToOneField's linking the concrete base. class inheriting from ContentTyped to it's subclasses. There is no such. field when the base class itself is instantiated, so the ``content_model``. should be None - ryneeverett
   * ``ContentTyped.get_content_model()`` should return instance, not class - Alex Hill
@@ -107,6 +180,7 @@ Version 4.2.0 (Aug 12, 2016)
   * Clear ``TEST_COLLATION`` deprecation warning - David Sanders
   * Add Federation of Egalitarian Communities Website - Pavan Rikhi
   * Only autofocus visible fields with Html5Mixin - David Sanders
+  * Replace all ``_meta.fields`` with ``_meta.get_fields``. According to ``https://docs.djangoproject.com/en/1.8/ref/models/meta/`` to. access all the fields of the ``_meta`` object you should call ``get_fields()``. This. is new with Django 1.8. The ``_meta.fields`` is now a property with a docstring. saying it's Private API intended only to be used by Django itself - Geoff Crompton
   * Ensure csrftoken cookie is set inside nevercache tag - David Sanders
   * Remove check for CSRF token before re-running CSRF middleware - David Sanders
   * Add testcase for nevercache and CSRF cookie - David Sanders

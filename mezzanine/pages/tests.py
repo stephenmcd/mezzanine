@@ -46,7 +46,10 @@ class PagesTests(TestCase):
 
     def tearDown(self):
         from mezzanine.core.request import _thread_local
-        del _thread_local.request
+        try:
+            del _thread_local.request
+        except AttributeError:
+            pass
 
     def test_page_ascendants(self):
         """
