@@ -45,15 +45,15 @@ if "django.contrib.sitemaps" in settings.INSTALLED_APPS:
 # Return a robots.txt that disallows all spiders when DEBUG is True.
 if getattr(settings, "DEBUG", False):
     urlpatterns += [
-        url("^robots.txt$",
+        url(r"^robots\.txt$",
             lambda r: HttpResponse("User-agent: *\nDisallow: /",
                                    content_type="text/plain")),
     ]
 
 # Miscellanous Mezzanine patterns.
 urlpatterns += [
-    url("^", include("mezzanine.core.urls")),
-    url("^", include("mezzanine.generic.urls")),
+    url(r"^", include("mezzanine.core.urls")),
+    url(r"^", include("mezzanine.generic.urls")),
 ]
 
 # Mezzanine's Accounts app
@@ -62,7 +62,7 @@ if "mezzanine.accounts" in settings.INSTALLED_APPS:
     # to honour the LOGIN_* settings, which Django has prefixed with
     # /account/ by default. So those settings are used in accounts.urls
     urlpatterns += [
-        url("^", include("mezzanine.accounts.urls")),
+        url(r"^", include("mezzanine.accounts.urls")),
     ]
 
 # Mezzanine's Blog app.
@@ -72,7 +72,7 @@ if blog_installed:
     if BLOG_SLUG:
         BLOG_SLUG += "/"
     blog_patterns = [
-        url("^%s" % BLOG_SLUG, include("mezzanine.blog.urls")),
+        url(r"^%s" % BLOG_SLUG, include("mezzanine.blog.urls")),
     ]
     urlpatterns += blog_patterns
 
@@ -86,9 +86,9 @@ if "mezzanine.pages" in settings.INSTALLED_APPS:
         PAGES_SLUG = getattr(settings, "PAGES_SLUG", "pages").strip("/") + "/"
         blog_patterns_start = urlpatterns.index(blog_patterns[0])
         urlpatterns[blog_patterns_start:len(blog_patterns)] = [
-            url("^%s" % str(PAGES_SLUG), include("mezzanine.pages.urls")),
+            url(r"^%s" % str(PAGES_SLUG), include("mezzanine.pages.urls")),
         ]
     else:
         urlpatterns += [
-            url("^", include("mezzanine.pages.urls")),
+            url(r"^", include("mezzanine.pages.urls")),
         ]

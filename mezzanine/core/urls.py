@@ -11,18 +11,18 @@ urlpatterns = []
 
 if "django.contrib.admin" in settings.INSTALLED_APPS:
     urlpatterns += [
-        url("^password_reset/$", auth_views.password_reset,
+        url(r"^password_reset/$", auth_views.password_reset,
             name="password_reset"),
-        url("^password_reset/done/$", auth_views.password_reset_done,
+        url(r"^password_reset/done/$", auth_views.password_reset_done,
             name="password_reset_done"),
-        url("^reset/done/$", auth_views.password_reset_complete,
+        url(r"^reset/done/$", auth_views.password_reset_complete,
             name="password_reset_complete"),
-        url("^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$",
+        url(r"^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$",
             auth_views.password_reset_confirm, name="password_reset_confirm"),
     ]
 
 urlpatterns += [
-    url("^edit/$", core_views.edit, name="edit"),
-    url("^search/$", core_views.search, name="search"),
-    url("^set_site/$", core_views.set_site, name="set_site"),
+    url(r"^edit/$", core_views.edit, name="edit"),
+    url(r"^search/$", core_views.search, name="search"),
+    url(r"^set_site/$", core_views.set_site, name="set_site"),
 ]

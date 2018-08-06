@@ -108,7 +108,7 @@ The project's main ``urls.py`` would need the following line active,
 so that "/" is the target URL Mezzanine finds for home page rendering
 (via the ``HomePage`` content type)::
 
-    url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
+    url(r"^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
 
 Mezzanine will look for a page instance at '/' for each theme.
 ``HomePage`` instances would be created via the admin system for each
