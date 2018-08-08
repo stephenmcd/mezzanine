@@ -1,3 +1,10 @@
+Version 4.3.1 (Aug 08, 2018)
+----------------------------
+
+  * Allow fabfile to be importable when building docs - steve@jupo.org
+  * Remove top-level ``__init__.py`` from new projects. Closes #1860 - steve@jupo.org
+  * Fix HTML escaping. Closes #1866 - steve@jupo.org
+
 Version 4.3.0 (Jun 15, 2018)
 ----------------------------
 
