@@ -13,12 +13,7 @@ install:
   - pip install --upgrade pip setuptools
   - pip install $DJANGO
   - pip install .
-  - pip install coveralls
-  - pip install coverage
-script:
-  - coverage run --source mezzanine setup.py test
 notifications:
   irc: "irc.freenode.org#mezzanine"
   on_success: change
   on_failure: change
-after_success: coveralls
