@@ -35,6 +35,16 @@ class LazyAdminSite(AdminSite):
     def lazy_registration(self):
         # First, directly handle models we don't want at all,
         # as per the ``ADMIN_REMOVAL`` setting.
+        for model, admin in default_site._registry.items():
+            self._deferred.append(("register", (model, admin.__class__), {}))
+        # Call register/unregister.
+        for name, args, kwargs in self._deferred:
+            try:
+                getattr(AdminSite, name)(self, *args, **kwargs)
+            except (AlreadyRegistered, NotRegistered):
+                pass
+        # Pick up any admin classes registered via decorator to the
+        # default admin site.
         for model in getattr(settings, "ADMIN_REMOVAL", []):
             try:
                 model = tuple(model.rsplit(".", 1))
@@ -46,16 +56,6 @@ class LazyAdminSite(AdminSite):
                     AdminSite.unregister(self, eval(model[1]))
                 except NotRegistered:
                     pass
-        # Pick up any admin classes registered via decorator to the
-        # default admin site.
-        for model, admin in default_site._registry.items():
-            self._deferred.append(("register", (model, admin.__class__), {}))
-        # Call register/unregister.
-        for name, args, kwargs in self._deferred:
-            try:
-                getattr(AdminSite, name)(self, *args, **kwargs)
-            except (AlreadyRegistered, NotRegistered):
-                pass
 
     @property
     def urls(self):
