@@ -13,6 +13,8 @@ install:
   - pip install --upgrade pip setuptools
   - pip install $DJANGO
   - pip install .
+script:
+  - python setup.py test
 notifications:
   irc: "irc.freenode.org#mezzanine"
   on_success: change
