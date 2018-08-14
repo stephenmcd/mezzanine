@@ -418,6 +418,17 @@ if User == AuthUser:
     admin.site.register(User, SitePermissionUserAdmin)
 
 
+class SiteRedirectAdminForm(RedirectAdmin.form):
+
+    def clean_old_path(form):
+        path = form.cleaned_data.get("old_path")
+        try:
+            Redirect.objects.exclude(id=form.instance.id).get(old_path=path)
+        except Redirect.DoesNotExist:
+            return path
+        raise ValidationError(_("A redirect from this path already exists"))
+
+
 class SiteRedirectAdmin(RedirectAdmin):
     """
     Subclass of Django's redirect admin that modifies it to behave the
@@ -428,6 +439,7 @@ class SiteRedirectAdmin(RedirectAdmin):
     """
 
     fields = ("old_path", "new_path")  # Excludes the site field.
+    form = SiteRedirectAdminForm
 
     def get_queryset(self, request):
         """
