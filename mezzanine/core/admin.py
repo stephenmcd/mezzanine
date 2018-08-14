@@ -379,9 +379,21 @@ class SitePermissionInline(admin.TabularInline):
     can_delete = False
 
 
+class SitePermissionUserAdminForm(UserAdmin.form):
+
+    def clean_email(form):
+        email = form.cleaned_data.get("email")
+        try:
+            User.objects.exclude(id=form.instance.id).get(email=email)
+        except User.DoesNotExist:
+            return email
+        raise ValidationError(_("This email is already registered"))
+
+
 class SitePermissionUserAdmin(UserAdmin):
 
     inlines = [SitePermissionInline]
+    form = SitePermissionUserAdminForm
 
     def save_model(self, request, obj, form, change):
         """
