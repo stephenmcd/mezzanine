@@ -65,6 +65,6 @@ def mark_safe(s):
     if callable(s):
         @wraps(s)
         def wrapper(*args, **kwargs):
-            return django_safe(*args, **kwargs)
+            return django_safe(s(*args, **kwargs))
         return wrapper
     return django_safe(s)
