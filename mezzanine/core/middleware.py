@@ -7,7 +7,7 @@ from django.contrib.auth import logout
 from django.contrib.messages import error
 from django.contrib.redirects.models import Redirect
 from django.core.exceptions import MiddlewareNotUsed
-from django.core.urlresolvers import reverse, resolve
+from django.urls import reverse, resolve
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponsePermanentRedirect, HttpResponseGone)
 from django.middleware.csrf import CsrfViewMiddleware, get_token
