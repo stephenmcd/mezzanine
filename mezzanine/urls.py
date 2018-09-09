@@ -9,7 +9,7 @@ from future.builtins import str
 
 from django.conf.urls import include, url
 from django.contrib.sitemaps.views import sitemap
-from django.views.i18n import javascript_catalog
+from django.views.i18n import JavaScriptCatalog
 from django.http import HttpResponse
 
 from mezzanine.conf import settings
@@ -21,7 +21,8 @@ urlpatterns = []
 # JavaScript localization feature
 js_info_dict = {'domain': 'django'}
 urlpatterns += [
-    url(r'^jsi18n/(?P<packages>\S+?)/$', javascript_catalog, js_info_dict),
+    url(r'^jsi18n/(?P<packages>\S+?)/$', JavaScriptCatalog.as_view(),
+        js_info_dict),
 ]
 
 if settings.DEBUG and "debug_toolbar" in settings.INSTALLED_APPS:
