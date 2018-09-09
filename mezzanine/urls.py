@@ -38,7 +38,7 @@ if settings.DEBUG and "debug_toolbar" in settings.INSTALLED_APPS:
 if "django.contrib.sitemaps" in settings.INSTALLED_APPS:
     sitemaps = {"sitemaps": {"all": DisplayableSitemap}}
     urlpatterns += [
-        url("^sitemap\.xml$", sitemap, sitemaps),
+        url(r"^sitemap\.xml$", sitemap, sitemaps),
     ]
 
 # Return a robots.txt that disallows all spiders when DEBUG is True.
