@@ -16,8 +16,6 @@ from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
-from treebeard.mp_tree import MP_NodeManager
-
 from mezzanine.conf import settings
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import home_slug
@@ -389,7 +387,7 @@ class CurrentSiteManager(DjangoCSM):
 
 
 class DisplayableManager(CurrentSiteManager, PublishedManager,
-                         SearchableManager, MP_NodeManager):
+                         SearchableManager):
     """
     Manually combines ``CurrentSiteManager``, ``PublishedManager``
     and ``SearchableManager`` for the ``Displayable`` model.
