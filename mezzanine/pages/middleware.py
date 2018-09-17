@@ -55,7 +55,7 @@ class PageMiddleware(MiddlewareMixin):
             setattr(cls, "_installed", installed)
             return installed
 
-    def process_view(self, request, view_func, view_args, view_kwargs, **foo):
+    def process_view(self, request, view_func, view_args, view_kwargs):
         """
         Per-request mechanics for the current page object.
         """
@@ -93,7 +93,10 @@ class PageMiddleware(MiddlewareMixin):
                     raise
 
         # Run page processors.
-        extra_context = request.resolver_match.kwargs.get("extra_context", {})
+        extra_context = {}
+        if request.resolver_match:
+            extra_context = request.resolver_match.kwargs.get("extra_context",
+                                                              {})
         model_processors = page_processors.processors[page.content_model]
         slug_processors = page_processors.processors["slug:%s" % page.slug]
         for (processor, exact_page) in slug_processors + model_processors:
