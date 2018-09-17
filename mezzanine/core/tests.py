@@ -49,7 +49,7 @@ from mezzanine.utils.deprecation import (get_middleware_setting,
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
                                              run_pep8_for_package)
-from mezzanine.utils.html import TagCloser
+from mezzanine.utils.html import TagCloser, escape
 
 
 class CoreTests(TestCase):
@@ -63,6 +63,12 @@ class CoreTests(TestCase):
 
         self.assertEqual(TagCloser("Line break<br>").html,
                          "Line break<br>")
+
+    def test_escape(self):
+        """
+        Test HTML is escaped to whitelist.
+        """
+        self.assertEqual(escape("<foo><div></div></foo>"), "<div></div>")
 
     def test_syntax(self):
         """
