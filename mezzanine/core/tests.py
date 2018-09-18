@@ -167,7 +167,7 @@ class CoreTests(TestCase):
         # Test ordering without age scaling.
         settings.SEARCH_AGE_SCALE_FACTOR = 0
         RichTextPage.objects.filter(id=first).update(
-            publish_date=datetime(2017, 1, 1, tzinfo=pytz.utc))
+            publish_date=now() - timedelta(days=3))
         RichTextPage.objects.filter(id=second).update(
             publish_date=datetime(2016, 1, 1, tzinfo=pytz.utc))
         results = RichTextPage.objects.search("test")
