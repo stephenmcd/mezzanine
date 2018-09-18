@@ -8,7 +8,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User as AuthUser
 from django.contrib.redirects.admin import RedirectAdmin
 from django.contrib.messages import error
-from django.core.urlresolvers import NoReverseMatch
+from django.urls import NoReverseMatch
 from django.forms import ValidationError, ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404

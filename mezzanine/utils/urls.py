@@ -5,8 +5,7 @@ import re
 import unicodedata
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import (resolve, reverse, NoReverseMatch,
-                                      get_script_prefix)
+from django.urls import resolve, reverse, NoReverseMatch, get_script_prefix
 from django.shortcuts import redirect
 from django.utils.encoding import smart_text
 
