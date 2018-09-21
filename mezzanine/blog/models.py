@@ -74,6 +74,6 @@ class BlogCategory(Slugged):
         verbose_name_plural = _("Blog Categories")
         ordering = ("title",)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ("blog_post_list_category", (), {"category": self.slug})
+        return reverse("blog_post_list_category",
+                       kwargs={"category": self.slug})
