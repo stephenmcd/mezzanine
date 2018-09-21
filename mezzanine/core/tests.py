@@ -355,7 +355,7 @@ class CoreTests(TestCase):
             r'http://example.com((?:/\w{2,3})?/reset/[^/]+/[^/]+/)',
             mail.outbox[0].body
         )[0]
-        response = self.client.get(url)
+        response = self.client.get(url, follow=True)
         csrf = self._get_csrftoken(response)
         url = self._get_formurl(response)
         response = self.client.post(url, {
