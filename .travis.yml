@@ -1,18 +1,27 @@
 language: python
 env:
-  - DJANGO="Django>=1.11,<2.0"
-  - DJANGO="Django>=2.0,<2.1"
+  - DJANGO="111"
+  - DJANGO="20"
+  - DJANGO="21"
+  - DJANGO="master"
 python:
-  - "2.7"
-  - "3.4"
   - "3.5"
   - "3.6"
 install:
-  - pip install --upgrade pip setuptools
-  - pip install $DJANGO
-  - pip install .
+  - pip install --upgrade pip setuptools tox
 script:
-  - python setup.py test
+  - tox -e py$(python -c 'import sys;print("".join(map(str, sys.version_info[:2])))')-dj${DJANGO}
+matrix:
+  fast_finish: true
+  include:
+    - python: "2.7"
+      env: DJANGO="111"
+    - python: "3.4"
+      env: DJANGO="111"
+    - python: "3.4"
+      env: DJANGO="20"
+  allow_failures:
+    - env: DJANGO="master"
 notifications:
   irc: "irc.freenode.org#mezzanine"
   on_success: change
