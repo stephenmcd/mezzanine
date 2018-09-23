@@ -4,6 +4,8 @@ import re
 import pytz
 from unittest import skipUnless
 
+from django.utils.encoding import force_str
+
 from mezzanine.core.middleware import FetchFromCacheMiddleware
 from mezzanine.core.templatetags.mezzanine_tags import initialize_nevercache
 from mezzanine.utils.cache import cache_installed
@@ -335,7 +337,7 @@ class CoreTests(TestCase):
             response.content
         )
         self.assertEqual(len(url), 1)
-        url = url[0]
+        url = force_str(url[0])
 
         # Go to reset-page, submit form
         response = self.client.get(url)
