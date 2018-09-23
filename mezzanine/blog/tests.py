@@ -84,7 +84,7 @@ class BlogTemplatetagsTests(TestCase):
             {% for month in months %}
             {{ month.date.year }}-{{ month.date.month}}: {{month.post_count}}
             {% endfor %}""").render(Context({}))
-        months = re.sub('\n\s*', ', ', html.strip())
+        months = re.sub(r'\n\s*', ', ', html.strip())
 
         self.assertEqual(months, '2017-4: 2, 2016-4: 1, 2014-5: 1')
 

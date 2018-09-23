@@ -76,7 +76,7 @@ def decode_entities(html):
             except KeyError:
                 pass
         return html
-    return re.sub("&#?\w+;", decode, html.replace("&amp;", "&"))
+    return re.sub(r"&#?\w+;", decode, html.replace("&amp;", "&"))
 
 
 @mark_safe

@@ -11,6 +11,6 @@ page_processors.autodiscover()
 
 # Page patterns.
 urlpatterns = [
-    url("^(?P<slug>.*)%s$" % ("/" if settings.APPEND_SLASH else ""),
+    url(r"^(?P<slug>.*)%s$" % ("/" if settings.APPEND_SLASH else ""),
         views.page, name="page"),
 ]

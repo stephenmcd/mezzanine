@@ -190,7 +190,7 @@ class ConfTests(TestCase):
 
         with warnings.catch_warnings():
             warning_re = ("These settings are defined in both "
-                          "settings\.py and the database")
+                          r"settings\.py and the database")
             warnings.filterwarnings('error', warning_re, UserWarning)
 
             with self.assertRaises(UserWarning):

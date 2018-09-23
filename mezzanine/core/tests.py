@@ -300,8 +300,8 @@ class CoreTests(TestCase):
 
     def _get_csrftoken(self, response):
         csrf = re.findall(
-            b'\<input type\=\'hidden\' name\=\'csrfmiddlewaretoken\' '
-            b'value\=\'([^"\']+)\' \/\>',
+            br"<input type='hidden' name='csrfmiddlewaretoken' "
+            br"value='([^']+)' />",
             response.content
         )
         self.assertEqual(len(csrf), 1, 'No csrfmiddlewaretoken found!')
@@ -309,7 +309,7 @@ class CoreTests(TestCase):
 
     def _get_formurl(self, response):
         action = re.findall(
-            b'\<form action\=\"([^\"]*)\" method\=\"post\"\>',
+            br'<form action="([^"]*)" method="post">',
             response.content
         )
         self.assertEqual(len(action), 1, 'No form with action found!')
@@ -331,7 +331,7 @@ class CoreTests(TestCase):
         response = self.client.get('/admin/', follow=True)
         self.assertContains(response, u'Forgot password?')
         url = re.findall(
-            b'\<a href\=["\']([^\'"]+)["\']\>Forgot password\?\<\/a\>',
+            b'<a href=["\']([^\'"]+)["\']>Forgot password\\?</a>',
             response.content
         )
         self.assertEqual(len(url), 1)
@@ -355,7 +355,7 @@ class CoreTests(TestCase):
             r'http://example.com((?:/\w{2,3})?/reset/[^/]+/[^/]+/)',
             mail.outbox[0].body
         )[0]
-        response = self.client.get(url)
+        response = self.client.get(url, follow=True)
         csrf = self._get_csrftoken(response)
         url = self._get_formurl(response)
         response = self.client.post(url, {
@@ -592,7 +592,7 @@ class CSRFTestViews(object):
         return HttpResponse(rendered)
 
     urlpatterns = [
-        url("^nevercache_view/", nevercache_view),
+        url(r"^nevercache_view/", nevercache_view),
     ]
 
 

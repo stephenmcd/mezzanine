@@ -65,7 +65,7 @@ def slugify_unicode(s):
             chars.append(char)
         elif cat == "Z":
             chars.append(" ")
-    return re.sub("[-\s]+", "-", "".join(chars).strip()).lower()
+    return re.sub(r"[-\s]+", "-", "".join(chars).strip()).lower()
 
 
 def unique_slug(queryset, slug_field, slug):

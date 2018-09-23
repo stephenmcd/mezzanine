@@ -59,7 +59,7 @@ class LazyAdminSite(AdminSite):
 
     @property
     def urls(self):
-        urls = [url("", super(LazyAdminSite, self).urls)]
+        urls = [url(r"", super(LazyAdminSite, self).urls)]
 
         # Filebrowser admin media library.
         fb_name = getattr(settings, "PACKAGE_NAME_FILEBROWSER", "")
@@ -73,9 +73,9 @@ class LazyAdminSite(AdminSite):
                 # doesn't provide), so that we can target it in the
                 # ADMIN_MENU_ORDER setting, allowing each view to correctly
                 # highlight its left-hand admin nav item.
-                url("^media-library/$", lambda r: redirect("fb_browse"),
+                url(r"^media-library/$", lambda r: redirect("fb_browse"),
                     name="media-library"),
-                url("^media-library/", include(fb_urls)),
+                url(r"^media-library/", include(fb_urls)),
             ] + urls
 
         # Give the urlpattern for the user password change view an
@@ -87,7 +87,7 @@ class LazyAdminSite(AdminSite):
             if user_change_password:
                 bits = (User._meta.app_label, User._meta.object_name.lower())
                 urls = [
-                    url("^%s/%s/(\d+)/password/$" % bits,
+                    url(r"^%s/%s/(\d+)/password/$" % bits,
                         self.admin_view(user_change_password),
                         name="user_change_password"),
                 ] + urls
@@ -98,15 +98,15 @@ class LazyAdminSite(AdminSite):
         from mezzanine.core.views import displayable_links_js, static_proxy
         from mezzanine.generic.views import admin_keywords_submit
         urls += [
-            url("^admin_keywords_submit/$", admin_keywords_submit,
+            url(r"^admin_keywords_submit/$", admin_keywords_submit,
                 name="admin_keywords_submit"),
-            url("^asset_proxy/$", static_proxy, name="static_proxy"),
-            url("^displayable_links.js$", displayable_links_js,
+            url(r"^asset_proxy/$", static_proxy, name="static_proxy"),
+            url(r"^displayable_links.js$", displayable_links_js,
                 name="displayable_links_js"),
         ]
         if "mezzanine.pages" in settings.INSTALLED_APPS:
             from mezzanine.pages.views import admin_page_ordering
-            urls.append(url("^admin_page_ordering/$", admin_page_ordering,
+            urls.append(url(r"^admin_page_ordering/$", admin_page_ordering,
                             name="admin_page_ordering"))
 
         return urls
