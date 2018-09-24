@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from future.builtins import bytes, str
 
+import sys
 from unittest import skipUnless
 import warnings
 
@@ -11,6 +12,8 @@ from mezzanine.conf import settings, registry, register_setting
 from mezzanine.conf.context_processors import TemplateSettings
 from mezzanine.conf.models import Setting
 from mezzanine.utils.tests import TestCase
+
+PY2 = sys.version_info[0] == 2
 
 
 class ConfTests(TestCase):
@@ -128,6 +131,7 @@ class ConfTests(TestCase):
         second_value = settings.FOO
         self.assertEqual(first_value, second_value)
 
+    @skipUnless(PY2, "Needed only in Python 2")
     def test_bytes_conversion(self):
 
         settings.clear_cache()
