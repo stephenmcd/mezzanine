@@ -76,8 +76,14 @@ def override_current_site_id(site_id):
     within it. Used to access SiteRelated objects outside the current site.
     """
     override_current_site_id.thread_local.site_id = site_id
-    yield
-    del override_current_site_id.thread_local.site_id
+    try:
+        yield
+    except Exception:
+        raise
+    finally:
+        del override_current_site_id.thread_local.site_id
+
+
 override_current_site_id.thread_local = threading.local()
 
 
