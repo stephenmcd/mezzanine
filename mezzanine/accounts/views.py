@@ -8,6 +8,7 @@ from django.urls import NoReverseMatch, get_script_prefix
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.debug import sensitive_post_parameters
 
 from mezzanine.accounts import get_profile_form
 from mezzanine.accounts.forms import LoginForm, PasswordResetForm
@@ -19,6 +20,7 @@ from mezzanine.utils.urls import login_redirect, next_url
 User = get_user_model()
 
 
+@sensitive_post_parameters('password')
 def login(request, template="accounts/account_login.html",
           form_class=LoginForm, extra_context=None):
     """
@@ -44,6 +46,7 @@ def logout(request):
     return redirect(next_url(request) or get_script_prefix())
 
 
+@sensitive_post_parameters('password1', 'password2')
 def signup(request, template="accounts/account_signup.html",
            extra_context=None):
     """
@@ -120,6 +123,7 @@ def account_redirect(request):
     return redirect("profile_update")
 
 
+@sensitive_post_parameters('password1', 'password2')
 @login_required
 def profile_update(request, template="accounts/account_profile_update.html",
                    extra_context=None):
