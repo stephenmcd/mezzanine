@@ -34,7 +34,7 @@ msgstr "Activer l'image du jour"
 
 #: defaults.py:36
 msgid "Blog post URL date format"
-msgstr ""
+msgstr "Format de date pour l'URL des articles de Blog"
 
 #: defaults.py:37
 msgid ""
@@ -45,6 +45,13 @@ msgid ""
 "means the URLs will only use the slug, and not contain any portion of the "
 "date at all."
 msgstr ""
+"Une chaîne contenant les valeurs ``year``, ``month``, ou ``day``, qui "
+"controle la granularité de la portion concernant la date dans l'URL de "
+"chaque article de blog. "
+"Eg: ``year`` définiera des URLs au format /blog/yyyy/slug/, alors  que "
+"``day`` définiera des URLs au format /blog/yyyy/mm/dd/slug/. Une chaîne vide "
+"définiera les URLs pour n'utiliser que l'identifiant résumé, et n'aura "
+"aucune portion liée à la date."
 
 #: defaults.py:49
 msgid "Blog posts per page"
@@ -133,8 +140,8 @@ msgstr "Il y a %(sometime)s"
 #, python-format
 msgid "%(comments_count)s comment"
 msgid_plural "%(comments_count)s comments"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(comments_count)s commentaire"
+msgstr[1] "%(comments_count)s commentaires"
 
 #: templates/blog/blog_post_detail.html:74
 #: templates/blog/blog_post_list.html:116
