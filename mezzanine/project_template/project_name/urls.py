@@ -20,7 +20,7 @@ admin.autodiscover()
 urlpatterns = i18n_patterns(
     # Change the admin prefix here to use an alternate URL for the
     # admin interface, which would be marginally more secure.
-    url("^admin/", include(admin.site.urls)),
+    url(r"^admin/", include(admin.site.urls)),
 )
 
 if settings.USE_MODELTRANSLATION:
@@ -39,7 +39,7 @@ urlpatterns += [
     # one homepage pattern, so if you use a different one, comment this
     # one out.
 
-    url("^$", direct_to_template, {"template": "index.html"}, name="home"),
+    url(r"^$", direct_to_template, {"template": "index.html"}, name="home"),
 
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------
@@ -55,7 +55,7 @@ urlpatterns += [
     # should be used if you want to customize the homepage's template.
     # NOTE: Don't forget to import the view function too!
 
-    # url("^$", mezzanine.pages.views.page, {"slug": "/"}, name="home"),
+    # url(r"^$", mezzanine.pages.views.page, {"slug": "/"}, name="home"),
 
     # HOMEPAGE FOR A BLOG-ONLY SITE
     # -----------------------------
@@ -66,7 +66,7 @@ urlpatterns += [
     # page tree in the admin if it was installed.
     # NOTE: Don't forget to import the view function too!
 
-    # url("^$", blog_views.blog_post_list, name="home"),
+    # url(r"^$", blog_views.blog_post_list, name="home"),
 
     # MEZZANINE'S URLS
     # ----------------
@@ -79,7 +79,7 @@ urlpatterns += [
     # ``mezzanine.urls``, go right ahead and take the parts you want
     # from it, and use them directly below instead of using
     # ``mezzanine.urls``.
-    url("^", include("mezzanine.urls")),
+    url(r"^", include("mezzanine.urls")),
 
     # MOUNTING MEZZANINE UNDER A PREFIX
     # ---------------------------------

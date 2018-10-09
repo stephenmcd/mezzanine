@@ -15,7 +15,7 @@ from django.db import models
 from django.db.models.base import ModelBase
 from django.template.defaultfilters import truncatewords_html
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.html import strip_tags
+from django.utils.html import format_html, strip_tags
 from django.utils.timesince import timesince
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -121,9 +121,8 @@ class Slugged(SiteRelated):
         return slugify(getattr(self, attr, None) or self.title)
 
     def admin_link(self):
-        return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
-                                        ugettext("View on site"))
-    admin_link.allow_tags = True
+        return format_html("<a href='{}'>{}</a>", self.get_absolute_url(),
+                           ugettext("View on site"))
     admin_link.short_description = ""
 
 

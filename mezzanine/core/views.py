@@ -19,7 +19,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.staticfiles import finders
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import (HttpResponse, HttpResponseServerError,
                          HttpResponseNotFound)
 from django.shortcuts import redirect

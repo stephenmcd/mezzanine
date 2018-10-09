@@ -15,7 +15,7 @@ from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.storage import default_storage
-from django.core.urlresolvers import reverse, resolve, NoReverseMatch
+from django.urls import reverse, resolve, NoReverseMatch
 from django.db.models import Model
 from django.template import Node, Template, TemplateSyntaxError
 from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
