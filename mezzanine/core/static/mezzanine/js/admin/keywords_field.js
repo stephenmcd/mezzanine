@@ -6,13 +6,14 @@ jQuery(function($) {
                             {margin: '5px 0 0 75px', width: '620px'} );
 
     // Add click functionality to each keyword so that it toggles
-    // the keyword's existance in the associated input box.
+    // the keyword's existence in the associated input box.
     $('.keywords-field a').click(function() {
         var field = $(this).parent().prev('input[type=text]');
-        var keywords = $.map(field.attr('value').split(','), function(keyword) {
+        var value = field.attr('value') || '';
+        var keywords = $.map(value.split(','), function(keyword) {
             return $.trim(keyword);
         });
-        var keywords = $.grep(keywords, function(keyword) {
+        keywords = $.grep(keywords, function(keyword) {
             return keyword.length > 0;
         });
         var op, keyword = $(this).text().substr(1);
@@ -25,7 +26,7 @@ jQuery(function($) {
             keywords[keywords.length] = keyword;
             op = '-';
         }
-        field.attr('value', keywords.join(', '))
+        field.attr('value', keywords.join(', '));
         $(this).text(op + keyword);
         return false;
     });
