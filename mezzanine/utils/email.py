@@ -59,7 +59,8 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
     # Create and send email.
     msg = EmailMultiAlternatives(subject, render("txt"),
                                  addr_from, addr_to, addr_bcc,
-                                 headers=headers)
+                                 headers=headers,
+                                 reply_to=settings.REPLY_TO_EMAIL or [])
     msg.attach_alternative(render("html"), "text/html")
     for attachment in attachments:
         msg.attach(*attachment)
