@@ -42,6 +42,10 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
         attachments = []
     if fail_silently is None:
         fail_silently = settings.EMAIL_FAIL_SILENTLY
+    try:
+        reply_to = settings.REPLY_TO_EMAIL
+    except AttributeError:
+        reply_to = []
     # Add template accessible settings from Mezzanine to the context
     # (normally added by a context processor for HTTP requests).
     context.update(context_settings())
@@ -60,7 +64,7 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
     msg = EmailMultiAlternatives(subject, render("txt"),
                                  addr_from, addr_to, addr_bcc,
                                  headers=headers,
-                                 reply_to=settings.REPLY_TO_EMAIL or [])
+                                 reply_to=reply_to)
     msg.attach_alternative(render("html"), "text/html")
     for attachment in attachments:
         msg.attach(*attachment)
