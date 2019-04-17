@@ -83,6 +83,7 @@ def send_verification_mail(request, user, verification_type):
         "request": request,
         "user": user,
         "verify_url": verify_url,
+        "token": token,
     }
     subject_template_name = "email/%s_subject.txt" % verification_type
     subject = subject_template(subject_template_name, context)
