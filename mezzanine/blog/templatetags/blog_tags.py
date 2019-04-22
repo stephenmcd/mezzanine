@@ -91,6 +91,44 @@ def blog_recent_posts(limit=5, tag=None, username=None, category=None):
     return list(blog_posts[:limit])
 
 
+@register.as_tag
+def blog_top_rated_posts(limit=5, tag=None, username=None, category=None):
+    """
+    Put a list of top rated published blog posts into the template
+    context. A tag title or slug, category title or slug or author's
+    username can also be specified to filter the recent posts returned.
+
+    Usage::
+
+        {% blog_top_rated_posts 5 as recent_posts %}
+        {% blog_top_rated_posts limit=5 tag="django" as recent_posts %}
+        {% blog_top_rated_posts limit=5 category="python" as recent_posts %}
+        {% blog_top_rated_posts 5 username=admin as recent_posts %}
+
+    """
+    blog_posts = BlogPost.objects.published().select_related("user")
+    title_or_slug = lambda s: Q(title=s) | Q(slug=s)
+    if tag is not None:
+        try:
+            tag = Keyword.objects.get(title_or_slug(tag))
+            blog_posts = blog_posts.filter(keywords__keyword=tag)
+        except Keyword.DoesNotExist:
+            return []
+    if category is not None:
+        try:
+            category = BlogCategory.objects.get(title_or_slug(category))
+            blog_posts = blog_posts.filter(categories=category)
+        except BlogCategory.DoesNotExist:
+            return []
+    if username is not None:
+        try:
+            author = User.objects.get(username=username)
+            blog_posts = blog_posts.filter(user=author)
+        except User.DoesNotExist:
+            return []
+    return list(blog_posts.order_by('-rating_average')[:limit])
+
+
 @register.inclusion_tag("admin/includes/quick_blog.html", takes_context=True)
 def quick_blog(context):
     """

@@ -21,6 +21,27 @@
 {% endif %}
 {% endblock %}
 
+{% block blog_top_rated_posts %}
+{% blog_top_rated_posts 5 as top_rated_posts %}
+{% if top_rated_posts %}
+<h3>{% trans "Top Rated Posts" %}</h3>
+<ul class="list-unstyled recent-posts">
+{% for top_rated_post in top_rated_posts %}
+<li>
+    {% spaceless %}
+    <a href="{{ top_rated_post.get_absolute_url }}">
+        {% if settings.BLOG_USE_FEATURED_IMAGE and top_rated_post.featured_image %}
+        <img src="{{ MEDIA_URL }}{% thumbnail top_rated_post.featured_image 24 24 %}">
+        {% endif %}
+    {{ top_rated_post.title }}
+    </a>
+    {% endspaceless %}
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+
 {% block blog_months %}
 {% blog_months as months %}
 {% if months %}
