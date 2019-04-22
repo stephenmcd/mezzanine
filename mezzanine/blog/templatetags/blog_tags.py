@@ -92,7 +92,7 @@ def blog_recent_posts(limit=5, tag=None, username=None, category=None):
 
 
 @register.as_tag
-def blog_top_rated_posts(limit=5, tag=None, username=None, category=None):
+def blog_top_rated_posts(limit=5, tag=None, username=None, category=None, order_by="average"):
     """
     Put a list of top rated published blog posts into the template
     context. A tag title or slug, category title or slug or author's
@@ -100,10 +100,10 @@ def blog_top_rated_posts(limit=5, tag=None, username=None, category=None):
 
     Usage::
 
-        {% blog_top_rated_posts 5 as recent_posts %}
-        {% blog_top_rated_posts limit=5 tag="django" as recent_posts %}
-        {% blog_top_rated_posts limit=5 category="python" as recent_posts %}
-        {% blog_top_rated_posts 5 username=admin as recent_posts %}
+        {% blog_top_rated_posts 5 as top_rated_posts %}
+        {% blog_top_rated_posts limit=5 tag="django" as top_rated_posts %}
+        {% blog_top_rated_posts limit=5 category="python" as top_rated_posts %}
+        {% blog_top_rated_posts 5 username=admin as top_rated_posts %}
 
     """
     blog_posts = BlogPost.objects.published().select_related("user")
@@ -126,7 +126,10 @@ def blog_top_rated_posts(limit=5, tag=None, username=None, category=None):
             blog_posts = blog_posts.filter(user=author)
         except User.DoesNotExist:
             return []
-    return list(blog_posts.order_by('-rating_average')[:limit])
+    if order_by in ['average', 'sum', 'count']:
+        blog_posts = blog_posts.order_by('-rating_%s' % order_by)
+
+    return list(blog_posts[:limit])
 
 
 @register.inclusion_tag("admin/includes/quick_blog.html", takes_context=True)
