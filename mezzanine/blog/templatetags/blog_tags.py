@@ -96,7 +96,7 @@ def blog_top_rated_posts(limit=5, tag=None, username=None, category=None, order_
     """
     Put a list of top rated published blog posts into the template
     context. A tag title or slug, category title or slug or author's
-    username can also be specified to filter the recent posts returned.
+    username can also be specified to filter the top rated posts returned.
 
     Usage::
 
