@@ -92,7 +92,8 @@ def blog_recent_posts(limit=5, tag=None, username=None, category=None):
 
 
 @register.as_tag
-def blog_top_rated_posts(limit=5, tag=None, username=None, category=None, order_by="average"):
+def blog_top_rated_posts(
+    limit=5, tag=None, username=None, category=None, order_by="average"):
     """
     Put a list of top rated published blog posts into the template
     context. A tag title or slug, category title or slug or author's
