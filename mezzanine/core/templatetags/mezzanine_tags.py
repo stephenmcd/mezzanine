@@ -18,7 +18,8 @@ from django.core.files.storage import default_storage
 from django.urls import reverse, resolve, NoReverseMatch
 from django.db.models import Model
 from django.template import Node, Template, TemplateSyntaxError
-from django.template.base import TokenType
+from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
+                                  TOKEN_TEXT, TOKEN_VAR, TextNode)
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils import translation
@@ -73,16 +74,16 @@ def initialize_nevercache():
             text = []
             end_tag = "endnevercache"
             tag_mapping = {
-                TokenType.TEXT: ("", ""),
-                TokenType.VAR: ("{{", "}}"),
-                TokenType.BLOCK: ("{%", "%}"),
-                TokenType.COMMENT: ("{#", "#}"),
+                TOKEN_TEXT: ("", ""),
+                TOKEN_VAR: ("{{", "}}"),
+                TOKEN_BLOCK: ("{%", "%}"),
+                TOKEN_COMMENT: ("{#", "#}"),
             }
             delimiter = nevercache_token()
             while parser.tokens:
                 token = parser.next_token()
                 token_type = token.token_type
-                if token_type == TokenType.BLOCK and token.contents == end_tag:
+                if token_type == TOKEN_BLOCK and token.contents == end_tag:
                     return TextNode(delimiter + "".join(text) + delimiter)
                 start, end = tag_mapping[token_type]
                 text.append("%s%s%s" % (start, token.contents, end))
@@ -171,7 +172,7 @@ def ifinstalled(parser, token):
     if app.strip("\"'") not in settings.INSTALLED_APPS:
         while unmatched_end_tag:
             token = parser.tokens.pop(0)
-            if token.token_type == TokenType.BLOCK:
+            if token.token_type == TOKEN_BLOCK:
                 block_name = token.contents.split()[0]
                 if block_name == tag:
                     unmatched_end_tag += 1
@@ -337,9 +338,6 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         raise FileSystemEncodingChanged()
     if thumb_exists:
         # Thumbnail exists, don't generate it.
-        return thumb_url
-    elif default_storage.exists(thumb_url):
-        # Fix that apparently speeds up S3
         return thumb_url
     elif not default_storage.exists(image_url):
         # Requested image does not exist, just return its URL.
