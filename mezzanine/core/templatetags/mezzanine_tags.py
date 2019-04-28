@@ -1,5 +1,5 @@
 from __future__ import absolute_import, division, unicode_literals
-from future.builtins import int, open, str
+from future.builtins import int, str
 
 from hashlib import md5
 import os
@@ -13,7 +13,6 @@ from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.files import File
 from django.core.files.storage import default_storage
 from django.urls import reverse, resolve, NoReverseMatch
 from django.db.models import Model
@@ -329,7 +328,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         thumb_url = "%s/%s" % (image_url_path, thumb_url)
 
     try:
-        thumb_exists = os.path.exists(thumb_path)
+        thumb_exists = default_storage.exists(thumb_url)
     except UnicodeEncodeError:
         # The image that was saved to a filesystem with utf-8 support,
         # but somehow the locale has changed and the filesystem does not
@@ -346,7 +345,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     f = default_storage.open(image_url)
     try:
         image = Image.open(f)
-    except:
+    except Exception:
         # Invalid image format.
         return image_url
 
@@ -358,17 +357,19 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     # - http://caniuse.com/#feat=css-image-orientation
     try:
         orientation = image._getexif().get(0x0112)
-    except:
+    except Exception:
         orientation = None
     if orientation:
-        methods = {
-           2: (Image.FLIP_LEFT_RIGHT,),
-           3: (Image.ROTATE_180,),
-           4: (Image.FLIP_TOP_BOTTOM,),
-           5: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_90),
-           6: (Image.ROTATE_270,),
-           7: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_270),
-           8: (Image.ROTATE_90,)}.get(orientation, ())
+        all_methods = {
+            2: (Image.FLIP_LEFT_RIGHT,),
+            3: (Image.ROTATE_180,),
+            4: (Image.FLIP_TOP_BOTTOM,),
+            5: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_90),
+            6: (Image.ROTATE_270,),
+            7: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_270),
+            8: (Image.ROTATE_90,),
+        }
+        methods = all_methods.get(orientation, ())
         if methods:
             image_info.pop('exif', None)
             for method in methods:
@@ -392,7 +393,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
             and filetype not in ("JPG", "JPEG"):
         try:
             image = image.convert("RGBA")
-        except:
+        except Exception:
             return image_url
     # Required for progressive jpgs.
     ImageFile.MAXBLOCK = 2 * (max(image.size) ** 2)
@@ -422,12 +423,8 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     to_pos = (left, top)
     try:
         image = ImageOps.fit(image, to_size, Image.ANTIALIAS, 0, to_pos)
-        image = image.save(thumb_path, filetype, quality=quality, **image_info)
-        # Push a remote copy of the thumbnail if MEDIA_URL is
-        # absolute.
-        if "://" in settings.MEDIA_URL:
-            with open(thumb_path, "rb") as f:
-                default_storage.save(unquote(thumb_url), File(f))
+        with default_storage.open(unquote(thumb_url), 'w+b') as thumb_file:
+            image.save(thumb_file, filetype, quality=quality, **image_info)
     except Exception:
         # If an error occurred, a corrupted image may have been saved,
         # so remove it, otherwise the check for it existing will just
