@@ -302,8 +302,8 @@ class CoreTests(TestCase):
 
     def _get_csrftoken(self, response):
         csrf = re.findall(
-            br"<input type='hidden' name='csrfmiddlewaretoken' "
-            br"value='([^']+)' />",
+            br'<input type="hidden" name="csrfmiddlewaretoken" '
+            br'value="([^"]+)">',
             response.content
         )
         self.assertEqual(len(csrf), 1, 'No csrfmiddlewaretoken found!')
