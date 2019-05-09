@@ -50,7 +50,7 @@ def signup(request, template="accounts/account_signup.html",
     """
     Signup form.
     """
-    current_site =get_current_site(request)
+    current_site = get_current_site(request)
     profile_form = get_profile_form()
     form = profile_form(request.POST or None, request.FILES or None)
     if request.method == "POST" and form.is_valid():
@@ -58,7 +58,8 @@ def signup(request, template="accounts/account_signup.html",
         if not new_user.is_active:
             if settings.ACCOUNTS_APPROVAL_REQUIRED:
                 send_approve_mail(request, new_user)
-                info(request, _("Thank you for registering with" + current_site.name + ". You will receive "
+                info(request, _("Thank you for registering with" +
+                                current_site.name + ". You will receive "
                                 "an email when your account is activated."))
             else:
                 send_verification_mail(request, new_user, "signup_verify")

@@ -411,10 +411,11 @@ class DisplayableManager(CurrentSiteManager, PublishedManager,
             try:
                 if issubclass(model, self.model):
                     if hasattr(model.objects, 'published'):
-                        for item in (model.objects.published(for_user=for_user)
-                                             .filter(**kwargs)
-                                             .exclude(slug__startswith="http://")
-                                             .exclude(slug__startswith="https://")):
+                        for item in (model.objects
+                                .published(for_user=for_user)
+                                .filter(**kwargs)
+                                .exclude(slug__startswith="http://")
+                                .exclude(slug__startswith="https://")):
                             items[item.get_absolute_url()] = item
             except AttributeError:
                 pass
