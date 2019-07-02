@@ -416,6 +416,11 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
             pad_container = Image.new("RGBA", pad_size, padding_color)
             pad_container.paste(image, (pad_left, pad_top))
             image = pad_container
+            # Make thumbnail a PNG - required if original isn't one
+            if filetype != "PNG":
+                filetype = "PNG"
+                thumb_path += ".png"
+                thumb_url += ".png"
 
     # Create the thumbnail.
     to_size = (to_width, to_height)
