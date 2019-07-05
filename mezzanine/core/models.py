@@ -15,7 +15,7 @@ from django.db import models
 from django.db.models.base import ModelBase
 from django.template.defaultfilters import truncatewords_html
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.html import strip_tags
+from django.utils.html import format_html, strip_tags
 from django.utils.timesince import timesince
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -121,9 +121,8 @@ class Slugged(SiteRelated):
         return slugify(getattr(self, attr, None) or self.title)
 
     def admin_link(self):
-        return "<a href='%s'>%s</a>" % (self.get_absolute_url(),
-                                        ugettext("View on site"))
-    admin_link.allow_tags = True
+        return format_html("<a href='{}'>{}</a>", self.get_absolute_url(),
+                           ugettext("View on site"))
     admin_link.short_description = ""
 
 
@@ -170,7 +169,7 @@ class MetaData(models.Model):
         # Use the first RichTextField, or TextField if none found.
         for field_type in (RichTextField, models.TextField):
             if not description:
-                for field in self._meta.fields:
+                for field in self._meta.get_fields():
                     if (isinstance(field, field_type) and
                             field.name != "description"):
                         description = getattr(self, field.name)
@@ -273,6 +272,16 @@ class Displayable(Slugged, MetaData, TimeStamped):
         """
         return timesince(self.publish_date)
     publish_date_since.short_description = _("Published from")
+
+    def published(self):
+        """
+        For non-staff users, return True when status is published and
+        the publish and expiry dates fall before and after the
+        current date when specified.
+        """
+        return (self.status == CONTENT_STATUS_PUBLISHED and
+            (self.publish_date is None or self.publish_date <= now()) and
+            (self.expiry_date is None or self.expiry_date >= now()))
 
     def get_absolute_url(self):
         """

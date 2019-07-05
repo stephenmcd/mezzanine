@@ -171,13 +171,15 @@ class SearchableQuerySet(QuerySet):
             queryset = queryset.filter(reduce(ior, optional))
         return queryset.distinct()
 
-    def _clone(self, *args, **kwargs):
+    def _clone(self):
         """
         Ensure attributes are copied to subsequent queries.
         """
-        for attr in ("_search_terms", "_search_fields", "_search_ordered"):
-            kwargs[attr] = getattr(self, attr)
-        return super(SearchableQuerySet, self)._clone(*args, **kwargs)
+        clone = super(SearchableQuerySet, self)._clone()
+        clone._search_terms = self._search_terms
+        clone._search_fields = self._search_fields
+        clone._search_ordered = self._search_ordered
+        return clone
 
     def order_by(self, *field_names):
         """
@@ -219,7 +221,8 @@ class SearchableQuerySet(QuerySet):
 
                 if result.publish_date:
                     age = (now() - result.publish_date).total_seconds()
-                    count = count / age**settings.SEARCH_AGE_SCALE_FACTOR
+                    if age > 0:
+                        count = count / age**settings.SEARCH_AGE_SCALE_FACTOR
 
                 results[i].result_count = count
             return iter(results)
@@ -267,7 +270,7 @@ class SearchableManager(Manager):
                 search_fields.update(search_fields_to_dict(super_fields))
         if not search_fields:
             search_fields = []
-            for f in self.model._meta.fields:
+            for f in self.model._meta.get_fields():
                 if isinstance(f, (CharField, TextField)):
                     search_fields.append(f.name)
             search_fields = search_fields_to_dict(search_fields)

@@ -7,7 +7,7 @@ try:
 except ImportError:  # Python 2
     from urlparse import urljoin
 
-from django.core.urlresolvers import resolve, reverse
+from django.urls import resolve, reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _, ugettext
@@ -175,7 +175,8 @@ class Page(BasePage, ContentTyped):
         self.parent = new_parent
         self.save()
 
-        if self_slug:
+        if self_slug and not (self.content_model == "link" and
+                              self.slug.startswith("http")):
             if not old_parent_slug:
                 self.set_slug("/".join((new_parent_slug, self.slug)))
             elif self.slug.startswith(old_parent_slug):

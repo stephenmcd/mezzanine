@@ -60,6 +60,11 @@ class Command(BaseCommand):
             copy_tree(options["directory"], project_dir)
             rmtree(options["directory"])
 
+        # The project template dir in Mezzanine requires __init__.py so that
+        # the documentation can be generated, but including it in new projects
+        # causes issues with running tests under Python >= 3.6, so remove it.
+        os.remove(os.path.join(project_dir, "__init__.py"))
+
     def get_project_directory(self, name, target):
         """
         This code is copied verbatim from Django's

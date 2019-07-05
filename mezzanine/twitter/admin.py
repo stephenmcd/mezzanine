@@ -34,7 +34,7 @@ class TweetableAdminMixin(object):
         provided by any ``Displayable`` models. The approach here is
         quite a hack, however the sane approach of using a custom
         form with a boolean field defined, and then adding it to the
-        formssets attribute of the admin class fell apart quite
+        formsets attribute of the admin class fell apart quite
         horrifically.
         """
         formfield = super(TweetableAdminMixin,

@@ -15,7 +15,7 @@ from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.storage import default_storage
-from django.core.urlresolvers import reverse, resolve, NoReverseMatch
+from django.urls import reverse, resolve, NoReverseMatch
 from django.db.models import Model
 from django.template import Node, Template, TemplateSyntaxError
 from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
@@ -25,6 +25,7 @@ from django.template.loader import get_template
 from django.utils import translation
 from django.utils.html import strip_tags
 from django.utils.text import capfirst
+from django.utils.safestring import SafeText, mark_safe
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
@@ -33,7 +34,7 @@ from mezzanine.utils.cache import nevercache_token, cache_installed
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.sites import current_site_id, has_site_permission
-from mezzanine.utils.urls import admin_url
+from mezzanine.utils.urls import admin_url, home_slug
 from mezzanine.utils.views import is_editable
 from mezzanine import template
 
@@ -294,7 +295,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         image_url = image_url.replace(settings.MEDIA_URL, "", 1)
     image_dir, image_name = os.path.split(image_url)
     image_prefix, image_ext = os.path.splitext(image_name)
-    filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext, "JPEG")
+    filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext.lower(), "JPEG")
     thumb_name = "%s-%sx%s" % (image_prefix, width, height)
     if not upscale:
         thumb_name += "-no-upscale"
@@ -472,6 +473,20 @@ def richtext_filters(content):
     for filter_name in settings.RICHTEXT_FILTERS:
         filter_func = import_dotted_path(filter_name)
         content = filter_func(content)
+        if not isinstance(content, SafeText):
+            # raise TypeError(
+                # filter_name + " must mark it's return value as safe. See "
+                # "https://docs.djangoproject.com/en/stable/topics/security/"
+                # "#cross-site-scripting-xss-protection")
+            import warnings
+            warnings.warn(
+                filter_name + " needs to ensure that any untrusted inputs are "
+                "properly escaped and mark the html it returns as safe. In a "
+                "future release this will cause an exception. See "
+                "https://docs.djangoproject.com/en/stable/topics/security/"
+                "cross-site-scripting-xss-protection",
+                FutureWarning)
+            content = mark_safe(content)
     return content
 
 
@@ -701,7 +716,7 @@ def translate_url(context, language):
     """
     Translates the current URL for the given language code, eg:
 
-        {% translate_url de %}
+        {% translate_url "de" %}
     """
     try:
         request = context["request"]
@@ -710,17 +725,21 @@ def translate_url(context, language):
     view = resolve(request.path)
     current_language = translation.get_language()
     translation.activate(language)
-    try:
-        url = reverse(view.func, args=view.args, kwargs=view.kwargs)
-    except NoReverseMatch:
+    if not view.namespace and view.url_name == "home":
+        url = home_slug()
+    else:
         try:
-            url_name = (view.url_name if not view.namespace
-                        else '%s:%s' % (view.namespace, view.url_name))
-            url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+            url = reverse(view.func, args=view.args, kwargs=view.kwargs)
         except NoReverseMatch:
-            url_name = "admin:" + view.url_name
-            url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+            try:
+                url_name = (view.url_name if not view.namespace
+                            else '%s:%s' % (view.namespace, view.url_name))
+                url = reverse(url_name, args=view.args, kwargs=view.kwargs)
+            except NoReverseMatch:
+                url_name = "admin:" + view.url_name
+                url = reverse(url_name, args=view.args, kwargs=view.kwargs)
     translation.activate(current_language)
-    if context['request'].META["QUERY_STRING"]:
-        url += "?" + context['request'].META["QUERY_STRING"]
+    qs = context['request'].META.get("QUERY_STRING", "")
+    if qs:
+        url += "?" + qs
     return url
