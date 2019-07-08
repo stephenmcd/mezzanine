@@ -14,9 +14,7 @@
     {% if page.is_current %} active{% endif %}
     {% if page.is_current_or_ascendant %} active-branch{% endif %}
     " id="tree-menu-{{ page.html_id }}">
-    <a href="{{ page.get_absolute_url }}" {% if page.target_blank %}target="_blank"{% endif %}>
-        {{ page.title }}
-    </a>
+    <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
     {# wrap the next line with 'if page.is_current_or_ascendant' #}
     {# to only show child pages in the menu for the current page #}
     {% if page.has_children_in_menu %}{% page_menu page %}{% endif %}
