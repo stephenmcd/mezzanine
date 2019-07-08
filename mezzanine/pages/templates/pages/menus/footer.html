@@ -19,8 +19,7 @@
         {% endif %}
         <li {% if page.is_current_or_ascendant %}class="active"{% endif %}
             id="footer-menu-{{ page.html_id }}">
-            <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
-        </li>
+            <a href="{{ page.get_absolute_url }}">{{ page.title }}</a></li>
     {% endif %}
 
     {% if page.in_menu and page.has_children_in_menu %}{% page_menu page %}{% endif %}

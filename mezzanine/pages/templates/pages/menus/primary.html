@@ -11,9 +11,7 @@
     {% if page.in_menu %}
     <li id="primary-menu-{{ page.html_id }}"
         class="{% if page.is_current_or_ascendant %}active{% endif %}{% if forloop.last %} last{% endif %}">
-        <a href="{{ page.get_absolute_url }}" {% if page.target_blank %}target="_blank"{% endif %}>
-            {{ page.title }}
-        </a>
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
     </li>
     {% endif %}
     {% endfor %}
