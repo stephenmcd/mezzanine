@@ -96,8 +96,12 @@ def next_url(request):
 
     # host parameter removed in django 2.1 ->
     # https://docs.djangoproject.com/en/2.2/releases/2.1/
-    import inspect
-    if 'host' in inspect.getfullargspec(is_safe_url).args:
+    try:
+        from inspect import getfullargspec as get_argspec
+    except ImportError:
+        from inspect import getargspec as get_argspec
+
+    if 'host' in get_argspec(is_safe_url).args:
         # django < 2.1
         return next if next and is_safe_url(next, host=host) else None
     else:
