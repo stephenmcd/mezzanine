@@ -1,5 +1,5 @@
 
-from mezzanine.pages.models import Page
+from mezzanine.pages.models import AbstractPage
 
 
 def page(request):
@@ -12,7 +12,7 @@ def page(request):
     """
     context = {}
     page = getattr(request, "page", None)
-    if isinstance(page, Page):
+    if isinstance(page, AbstractPage):
         # set_helpers has always expected the current template context,
         # but here we're just passing in our context dict with enough
         # variables to satisfy it.

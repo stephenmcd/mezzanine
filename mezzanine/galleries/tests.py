@@ -8,8 +8,12 @@ from uuid import uuid4
 
 from mezzanine.conf import settings
 from mezzanine.core.templatetags.mezzanine_tags import thumbnail
-from mezzanine.galleries.models import Gallery, GALLERIES_UPLOAD_DIR
+from mezzanine.galleries import get_gallery_model
+from mezzanine.galleries.models import GALLERIES_UPLOAD_DIR
 from mezzanine.utils.tests import TestCase, copy_test_to_media
+
+
+Gallery = get_gallery_model()
 
 
 class GalleriesTests(TestCase):

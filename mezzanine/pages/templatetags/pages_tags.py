@@ -8,10 +8,12 @@ from django.template import TemplateSyntaxError, Variable
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.pages.models import Page
-from mezzanine.utils.urls import home_slug
 from mezzanine import template
+from mezzanine.pages import get_page_model
+from mezzanine.utils.urls import home_slug
 
+
+Page = get_page_model()
 
 register = template.Library()
 

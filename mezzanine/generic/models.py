@@ -14,7 +14,6 @@ from mezzanine.generic.fields import RatingField
 from mezzanine.generic.managers import CommentManager, KeywordManager
 from mezzanine.core.models import Slugged, Orderable
 from mezzanine.conf import settings
-from mezzanine.utils.models import get_user_model_name
 from mezzanine.utils.sites import current_site_id
 
 
@@ -132,8 +131,9 @@ class Rating(models.Model):
                                     on_delete=models.CASCADE)
     object_pk = models.IntegerField()
     content_object = GenericForeignKey("content_type", "object_pk")
-    user = models.ForeignKey(get_user_model_name(), on_delete=models.CASCADE,
-        verbose_name=_("Rater"), null=True, related_name="%(class)ss")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE, verbose_name=_("Rater"),
+        null=True, related_name="%(class)ss")
 
     class Meta:
         verbose_name = _("Rating")

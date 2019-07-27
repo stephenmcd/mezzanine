@@ -9,21 +9,24 @@ from unittest import skipUnless
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 
-from mezzanine.blog.models import BlogPost
+from mezzanine.blog import get_post_model
 from mezzanine.conf import settings
-
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.generic.forms import RatingForm, KeywordsWidget
 from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
 from mezzanine.generic.views import comment
-from mezzanine.pages.models import RichTextPage
+from mezzanine.pages import get_rich_text_page_model
+from mezzanine.utils.apps import blog_installed, pages_installed
 from mezzanine.utils.tests import TestCase
+
+
+BlogPost = get_post_model()
+RichTextPage = get_rich_text_page_model()
 
 
 class GenericTests(TestCase):
 
-    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
-                "blog app required")
+    @skipUnless(blog_installed(), "blog app required")
     def test_rating(self):
         """
         Test that ratings can be posted and avarage/count are calculated.
@@ -54,8 +57,7 @@ class GenericTests(TestCase):
             self.assertEqual(blog_post.rating_sum, _sum)
             self.assertEqual(blog_post.rating_average, average)
 
-    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
-                "blog app required")
+    @skipUnless(blog_installed(), "blog app required")
     def test_comment_ratings(self):
         """
         Test that a generic relation defined on one of Mezzanine's generic
@@ -78,8 +80,7 @@ class GenericTests(TestCase):
             comment.rating_average,
             (settings.RATINGS_RANGE[0] + settings.RATINGS_RANGE[-1]) / 2)
 
-    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
-                "blog app required")
+    @skipUnless(blog_installed(), "blog app required")
     def test_comment_queries(self):
         """
         Test that rendering comments executes the same number of
@@ -103,8 +104,7 @@ class GenericTests(TestCase):
         after = self.queries_used_for_template(template, **context)
         self.assertEqual(before, after)
 
-    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
-                "pages app required")
+    @skipUnless(pages_installed(), "pages app required")
     def test_keywords(self):
         """
         Test that the keywords_string field is correctly populated.

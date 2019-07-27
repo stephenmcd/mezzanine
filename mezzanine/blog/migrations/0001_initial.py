@@ -24,6 +24,7 @@ class Migration(migrations.Migration):
                 ('site', models.ForeignKey(editable=False, to='sites.Site', on_delete=models.CASCADE)),
             ],
             options={
+                'swappable': 'BLOG_CATEGORY_MODEL',
                 'ordering': ('title',),
                 'verbose_name': 'Blog Category',
                 'verbose_name_plural': 'Blog Categories',
@@ -60,6 +61,7 @@ class Migration(migrations.Migration):
                 ('user', models.ForeignKey(related_name='blogposts', verbose_name='Author', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
+                'swappable': 'BLOG_POST_MODEL',
                 'ordering': ('-publish_date',),
                 'verbose_name': 'Blog post',
                 'verbose_name_plural': 'Blog posts',

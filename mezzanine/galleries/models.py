@@ -111,27 +111,35 @@ class BaseGallery(models.Model):
                 self.zip_import.delete(save=True)
 
 
-class Gallery(Page, RichText, BaseGallery):
+class AbstractGallery(Page, RichText, BaseGallery):
     """
     Page bucket for gallery photos.
     """
 
     class Meta:
+        abstract = True
         verbose_name = _("Gallery")
         verbose_name_plural = _("Galleries")
 
 
-@python_2_unicode_compatible
-class GalleryImage(Orderable):
+class Gallery(AbstractGallery):
 
-    gallery = models.ForeignKey("Gallery", on_delete=models.CASCADE,
-        related_name="images")
+    class Meta(AbstractGallery.Meta):
+        swappable = 'GALLERY_MODEL'
+
+
+@python_2_unicode_compatible
+class AbstractGalleryImage(Orderable):
+
+    gallery = models.ForeignKey(settings.GALLERY_MODEL,
+        on_delete=models.CASCADE, related_name="images")
     file = FileField(_("File"), max_length=200, format="Image",
         upload_to=upload_to("galleries.GalleryImage.file", "galleries"))
     description = models.CharField(_("Description"), max_length=1000,
                                                            blank=True)
 
     class Meta:
+        abstract = True
         verbose_name = _("Image")
         verbose_name_plural = _("Images")
 
@@ -153,4 +161,10 @@ class GalleryImage(Orderable):
             name = "".join([s.upper() if i == 0 or name[i - 1] == " " else s
                             for i, s in enumerate(name)])
             self.description = name
-        super(GalleryImage, self).save(*args, **kwargs)
+        super(AbstractGalleryImage, self).save(*args, **kwargs)
+
+
+class GalleryImage(AbstractGalleryImage):
+
+    class Meta(AbstractGalleryImage.Meta):
+        swappable = 'GALLERY_IMAGE_MODEL'

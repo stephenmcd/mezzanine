@@ -25,12 +25,9 @@ from mezzanine.core.fields import RichTextField, OrderField
 from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
-from mezzanine.utils.models import base_concrete_model, get_user_model_name
+from mezzanine.utils.models import base_concrete_model
 from mezzanine.utils.sites import current_site_id, current_request
 from mezzanine.utils.urls import admin_url, slugify, unique_slug
-
-
-user_model_name = get_user_model_name()
 
 
 def wrapped_manager(klass):
@@ -507,8 +504,9 @@ class Ownable(models.Model):
     Abstract model that provides ownership of an object for a user.
     """
 
-    user = models.ForeignKey(user_model_name, on_delete=models.CASCADE,
-        verbose_name=_("Author"), related_name="%(class)ss")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE, verbose_name=_("Author"),
+        related_name="%(class)ss")
 
     class Meta:
         abstract = True
@@ -577,8 +575,9 @@ class SitePermission(models.Model):
     access.
     """
 
-    user = models.OneToOneField(user_model_name, on_delete=models.CASCADE,
-        verbose_name=_("Author"), related_name="%(class)ss")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE, verbose_name=_("Author"),
+        related_name="%(class)ss")
     sites = models.ManyToManyField("sites.Site", blank=True,
                                    verbose_name=_("Sites"))
 

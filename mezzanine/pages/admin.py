@@ -10,8 +10,14 @@ from django.shortcuts import get_object_or_404
 from mezzanine.conf import settings
 from mezzanine.core.admin import (
     ContentTypedAdmin, DisplayableAdmin, DisplayableAdminForm)
-from mezzanine.pages.models import Page, RichTextPage, Link
+from mezzanine.pages import get_page_model, get_rich_text_page_model
+from mezzanine.pages import get_link_model
 from mezzanine.utils.urls import clean_slashes
+
+
+Page = get_page_model()
+RichTextPage = get_rich_text_page_model()
+Link = get_link_model()
 
 
 # Add extra fields for pages to the Displayable fields.

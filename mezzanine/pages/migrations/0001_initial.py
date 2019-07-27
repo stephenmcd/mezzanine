@@ -37,6 +37,7 @@ class Migration(migrations.Migration):
                 ('login_required', models.BooleanField(default=False, help_text='If checked, only logged in users can view this page', verbose_name='Login required')),
             ],
             options={
+                'swappable': 'PAGE_MODEL',
                 'ordering': ('titles',),
                 'verbose_name': 'Page',
                 'verbose_name_plural': 'Pages',
@@ -49,6 +50,7 @@ class Migration(migrations.Migration):
                 ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='pages.Page', on_delete=models.CASCADE)),
             ],
             options={
+                'swappable': 'LINK_MODEL',
                 'ordering': ('_order',),
                 'verbose_name': 'Link',
                 'verbose_name_plural': 'Links',
@@ -62,6 +64,7 @@ class Migration(migrations.Migration):
                 ('content', mezzanine.core.fields.RichTextField(verbose_name='Content')),
             ],
             options={
+                'swappable': 'RICH_TEXT_PAGE_MODEL',
                 'ordering': ('_order',),
                 'verbose_name': 'Rich text page',
                 'verbose_name_plural': 'Rich text pages',

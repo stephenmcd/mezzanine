@@ -8,16 +8,19 @@ from django.shortcuts import get_object_or_404
 from django.utils.feedgenerator import Atom1Feed
 from django.utils.html import strip_tags
 
-from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.blog import get_post_model, get_category_model
 from mezzanine.conf import settings
 from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 from mezzanine.core.request import current_request
 from mezzanine.generic.models import Keyword
+from mezzanine.utils.apps import pages_installed
 from mezzanine.utils.html import absolute_urls
 from mezzanine.utils.sites import current_site_id
 
 
 User = get_user_model()
+BlogPost = get_post_model()
+BlogCategory = get_category_model()
 
 try:
     unicode
@@ -43,8 +46,9 @@ class PostsRSS(Feed):
         super(PostsRSS, self).__init__(*args, **kwargs)
         self._public = True
         page = None
-        if "mezzanine.pages" in settings.INSTALLED_APPS:
-            from mezzanine.pages.models import Page
+        if pages_installed():
+            from mezzanine.pages import get_page_model
+            Page = get_page_model()
             try:
                 page = Page.objects.published().get(slug=settings.BLOG_SLUG)
             except Page.DoesNotExist:

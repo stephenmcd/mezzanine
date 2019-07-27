@@ -20,6 +20,7 @@ class Migration(migrations.Migration):
                 ('zip_import', models.FileField(help_text="Upload a zip file containing images, and they'll be imported into this gallery.", upload_to='galleries', verbose_name='Zip import', blank=True)),
             ],
             options={
+                'swappable': 'GALLERY_MODEL',
                 'ordering': ('_order',),
                 'verbose_name': 'Gallery',
                 'verbose_name_plural': 'Galleries',
@@ -36,6 +37,7 @@ class Migration(migrations.Migration):
                 ('gallery', models.ForeignKey(related_name='images', to='galleries.Gallery', on_delete=models.CASCADE)),
             ],
             options={
+                'swappable': 'GALLERY_IMAGE_MODEL',
                 'ordering': ('_order',),
                 'verbose_name': 'Image',
                 'verbose_name_plural': 'Images',

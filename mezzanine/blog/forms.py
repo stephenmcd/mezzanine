@@ -2,9 +2,11 @@ from __future__ import unicode_literals
 
 from django import forms
 
-from mezzanine.blog.models import BlogPost
+from mezzanine.blog import get_post_model
 from mezzanine.core.models import CONTENT_STATUS_DRAFT
 
+
+BlogPost = get_post_model()
 
 # These fields need to be in the form, hidden, with default values,
 # since it posts to the blog post admin, which includes these fields

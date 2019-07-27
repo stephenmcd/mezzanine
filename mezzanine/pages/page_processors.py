@@ -7,7 +7,7 @@ from importlib import import_module
 from django.apps import apps
 from django.utils.module_loading import module_has_submodule
 
-from mezzanine.pages.models import Page
+from mezzanine.pages.models import AbstractPage
 from mezzanine.utils.importing import get_app_name_list
 
 
@@ -34,13 +34,13 @@ def processor_for(content_model_or_slug, exact_page=False):
             content_model = apps.get_model(*parts)
         except (TypeError, ValueError, LookupError):
             slug = content_model_or_slug
-    elif issubclass(content_model_or_slug, Page):
+    elif issubclass(content_model_or_slug, AbstractPage):
         content_model = content_model_or_slug
     else:
         raise TypeError("%s is not a valid argument for page_processor, "
-                        "which should be a model subclass of Page in class "
-                        "or string form (app.model), or a valid slug" %
-                        content_model_or_slug)
+                        "which should be a model subclass of AbstractPage "
+                        "in class or string form (app.model), "
+                        "or a valid slug" % content_model_or_slug)
 
     def decorator(func):
         parts = (func, exact_page)

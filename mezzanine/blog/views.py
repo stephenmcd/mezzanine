@@ -9,13 +9,15 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.blog import get_post_model, get_category_model
 from mezzanine.blog.feeds import PostsRSS, PostsAtom
 from mezzanine.conf import settings
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.views import paginate
 
 User = get_user_model()
+BlogPost = get_post_model()
+BlogCategory = get_category_model()
 
 
 def blog_post_list(request, tag=None, year=None, month=None, username=None,

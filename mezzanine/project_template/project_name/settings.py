@@ -77,6 +77,20 @@ from django.utils.translation import ugettext_lazy as _
 #     ),
 # )
 
+# Settings to override the content models
+#
+PAGE_MODEL = "pages.Page"
+RICH_TEXT_PAGE_MODEL = "pages.RichTextPage"
+LINK_MODEL = "pages.Link"
+BLOG_POST_MODEL = "blog.BlogPost"
+BLOG_CATEGORY_MODEL = "blog.BlogCategory"
+FORM_MODEL = "forms.Form"
+FORM_ENTRY_MODEL = "forms.FormEntry"
+FIELD_MODEL = "forms.Field"
+FIELD_ENTRY_MODEL = "forms.FieldEntry"
+GALLERY_MODEL = "galleries.Gallery"
+GALLERY_IMAGE_MODEL = "galleries.GalleryImage"
+
 # Setting to turn on featured images for blog posts. Defaults to False.
 #
 # BLOG_USE_FEATURED_IMAGE = True

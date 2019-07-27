@@ -11,7 +11,7 @@ from mezzanine.forms import fields
 from mezzanine.pages.models import Page
 
 
-class Form(Page, RichText):
+class AbstractForm(Page, RichText):
     """
     A user-built form.
     """
@@ -35,8 +35,15 @@ class Form(Page, RichText):
                     "a message here that will be included in the email."))
 
     class Meta:
+        abstract = True
         verbose_name = _("Form")
         verbose_name_plural = _("Forms")
+
+
+class Form(AbstractForm):
+
+    class Meta(AbstractForm.Meta):
+        swappable = 'FORM_MODEL'
 
 
 class FieldManager(models.Manager):
@@ -107,39 +114,60 @@ class AbstractBaseField(Orderable):
         return self.field_type in args
 
 
-class Field(AbstractBaseField):
-    form = models.ForeignKey("Form", on_delete=models.CASCADE,
+class AbstractField(AbstractBaseField):
+    form = models.ForeignKey(settings.FORM_MODEL, on_delete=models.CASCADE,
         related_name="fields")
 
     class Meta(AbstractBaseField.Meta):
+        abstract = True
         order_with_respect_to = "form"
 
 
-class FormEntry(models.Model):
+class Field(AbstractField):
+
+    class Meta(AbstractField.Meta):
+        swappable = 'FIELD_MODEL'
+
+
+class AbstractFormEntry(models.Model):
     """
     An entry submitted via a user-built form.
     """
 
-    form = models.ForeignKey("Form", on_delete=models.CASCADE,
+    form = models.ForeignKey(settings.FORM_MODEL, on_delete=models.CASCADE,
         related_name="entries")
     entry_time = models.DateTimeField(_("Date/time"))
 
     class Meta:
+        abstract = True
         verbose_name = _("Form entry")
         verbose_name_plural = _("Form entries")
 
 
-class FieldEntry(models.Model):
+class FormEntry(AbstractFormEntry):
+
+    class Meta(AbstractFormEntry.Meta):
+        swappable = 'FORM_ENTRY_MODEL'
+
+
+class AbstractFieldEntry(models.Model):
     """
     A single field value for a form entry submitted via a user-built form.
     """
 
-    entry = models.ForeignKey("FormEntry", on_delete=models.CASCADE,
-        related_name="fields")
+    entry = models.ForeignKey(settings.FORM_ENTRY_MODEL,
+        on_delete=models.CASCADE, related_name="fields")
     field_id = models.IntegerField()
     value = models.CharField(max_length=settings.FORMS_FIELD_MAX_LENGTH,
                              null=True)
 
     class Meta:
+        abstract = True
         verbose_name = _("Form field entry")
         verbose_name_plural = _("Form field entries")
+
+
+class FieldEntry(AbstractFieldEntry):
+
+    class Meta(AbstractFieldEntry.Meta):
+        swappable = 'FIELD_ENTRY_MODEL'

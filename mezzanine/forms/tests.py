@@ -6,10 +6,12 @@ from django.template import RequestContext
 from django import forms
 from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
-from mezzanine.forms import fields
+from mezzanine.forms import fields, get_form_model
 from mezzanine.forms.forms import FormForForm
-from mezzanine.forms.models import Form
 from mezzanine.utils.tests import TestCase
+
+
+Form = get_form_model()
 
 
 class TestsForm(TestCase):

@@ -7,6 +7,7 @@ from django.contrib.admin.sites import (AdminSite, site as default_site,
     NotRegistered, AlreadyRegistered)
 from django.shortcuts import redirect
 
+from mezzanine.utils.apps import pages_installed
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -104,7 +105,7 @@ class LazyAdminSite(AdminSite):
             url("^displayable_links.js$", displayable_links_js,
                 name="displayable_links_js"),
         ]
-        if "mezzanine.pages" in settings.INSTALLED_APPS:
+        if pages_installed():
             from mezzanine.pages.views import admin_page_ordering
             urls.append(url("^admin_page_ordering/$", admin_page_ordering,
                             name="admin_page_ordering"))

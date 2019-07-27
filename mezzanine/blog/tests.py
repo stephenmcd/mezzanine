@@ -14,11 +14,17 @@ from django.core.urlresolvers import reverse
 from django.template import Context, Template
 from django.test import override_settings
 
-from mezzanine.blog.models import BlogPost
+from mezzanine.blog import get_post_model
 from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
-from mezzanine.pages.models import Page, RichTextPage
+from mezzanine.pages import get_page_model, get_rich_text_page_model
+from mezzanine.utils.apps import accounts_installed, pages_installed
 from mezzanine.utils.tests import TestCase
+
+
+BlogPost = get_post_model()
+Page = get_page_model()
+RichTextPage = get_rich_text_page_model()
 
 
 class BlogTests(TestCase):
@@ -38,8 +44,7 @@ class BlogTests(TestCase):
         response = self.client.get(blog_post.get_absolute_url())
         self.assertEqual(response.status_code, 200)
 
-    @skipUnless("mezzanine.accounts" in settings.INSTALLED_APPS and
-                "mezzanine.pages" in settings.INSTALLED_APPS,
+    @skipUnless(accounts_installed() and pages_installed(),
                 "accounts and pages apps required")
     def test_login_protected_blog(self):
         """

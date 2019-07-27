@@ -14,6 +14,7 @@ from django.utils.http import is_safe_url
 from django.utils import translation
 
 from mezzanine.conf import settings
+from mezzanine.utils.apps import accounts_installed
 from mezzanine.utils.importing import import_dotted_path
 
 
@@ -105,7 +106,7 @@ def login_redirect(request):
     - homepage
     """
     ignorable_nexts = ("",)
-    if "mezzanine.accounts" in settings.INSTALLED_APPS:
+    if accounts_installed():
         from mezzanine.accounts import urls
         ignorable_nexts += (urls.SIGNUP_URL, urls.LOGIN_URL, urls.LOGOUT_URL)
     next = next_url(request) or ""

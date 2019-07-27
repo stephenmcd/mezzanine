@@ -8,8 +8,12 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.template.response import TemplateResponse
 
-from mezzanine.pages.models import Page, PageMoveException
+from mezzanine.pages import get_page_model
+from mezzanine.pages.models import PageMoveException
 from mezzanine.utils.urls import home_slug
+
+
+Page = get_page_model()
 
 
 @staff_member_required

@@ -21,9 +21,12 @@ from django.utils.timezone import now
 
 from mezzanine.conf import settings
 from mezzanine.forms import fields
-from mezzanine.forms.models import FormEntry, FieldEntry
+from mezzanine.forms import get_form_entry_model, get_field_entry_model
 from mezzanine.utils.email import split_addresses as split_choices
 
+
+FormEntry = get_form_entry_model()
+FieldEntry = get_field_entry_model()
 
 fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)
 

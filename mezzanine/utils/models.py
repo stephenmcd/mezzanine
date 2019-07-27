@@ -4,6 +4,7 @@ import warnings
 
 from future.utils import with_metaclass
 
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model as django_get_user_model
 from django.core.exceptions import ImproperlyConfigured
@@ -22,11 +23,30 @@ def get_user_model():
     return django_get_user_model()
 
 
-def get_user_model_name():
+def get_model(model_name, setting_name):
     """
-    Returns the app_label.object_name string for the user model.
+    Returns the model by its "app_label.object_name" reference.
     """
-    return getattr(settings, "AUTH_USER_MODEL", "auth.User")
+    try:
+        return apps.get_model(model_name, require_ready=False)
+    except ValueError:
+        raise ImproperlyConfigured(
+            "%s must be of the form 'app_label.model_name'" % setting_name
+        )
+    except LookupError:
+        raise ImproperlyConfigured(
+            "%s refers to model '%s' that has not been installed" % (
+                setting_name, model_name
+            )
+        )
+
+
+def get_swappable_model(setting_name):
+    try:
+        model_name = getattr(settings, setting_name)
+    except AttributeError:
+        raise ImproperlyConfigured("settings have no %s" % setting_name)
+    return get_model(model_name, setting_name)
 
 
 def _base_concrete_model(abstract, klass):

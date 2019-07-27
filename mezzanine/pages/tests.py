@@ -20,16 +20,19 @@ from django.utils.translation import get_language
 from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
-from mezzanine.pages.models import Page, RichTextPage
+from mezzanine.pages import get_page_model, get_rich_text_page_model
 from mezzanine.pages.admin import PageAdminForm
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.checks import check_context_processor
 from mezzanine.urls import PAGES_SLUG
+from mezzanine.utils.apps import accounts_installed
 from mezzanine.utils.sites import override_current_site_id
 from mezzanine.utils.tests import TestCase
 
 
 User = get_user_model()
+Page = get_page_model()
+RichTextPage = get_rich_text_page_model()
 
 
 class PagesTests(TestCase):
@@ -176,7 +179,6 @@ class PagesTests(TestCase):
             title="Public", slug="public", login_required=False)
         private, _ = RichTextPage.objects.get_or_create(
             title="Private", slug="private", login_required=True)
-        accounts_installed = ("mezzanine.accounts" in settings.INSTALLED_APPS)
 
         args = {"for_user": AnonymousUser()}
         self.assertTrue(public in RichTextPage.objects.published(**args))
@@ -208,7 +210,7 @@ class PagesTests(TestCase):
             # a second redirect that encodes the next parameter.
             login_next = urlquote_plus(login_next)
         login = "%s%s?next=%s" % (login_prefix, login_url, login_next)
-        if accounts_installed:
+        if accounts_installed():
             # For an inaccessible page with mezzanine.accounts we should
             # see a login page, without it 404 is more appropriate than an
             # admin login.
@@ -220,7 +222,7 @@ class PagesTests(TestCase):
         response = self.client.get(public_url, follow=True)
         self.assertEqual(response.status_code, 200)
 
-        if accounts_installed:
+        if accounts_installed():
             # View / pattern name redirect properly, without encoding next.
             login = "%s%s?next=%s" % (login_prefix, login_url, private_url)
             with override_settings(LOGIN_URL="login"):
@@ -236,7 +238,7 @@ class PagesTests(TestCase):
         response = self.client.get(public_url, follow=True)
         self.assertEqual(response.status_code, 200)
 
-        if accounts_installed:
+        if accounts_installed():
             with override_settings(LOGIN_URL="mezzanine.accounts.views.login"):
                 response = self.client.get(public_url, follow=True)
                 self.assertEqual(response.status_code, 200)

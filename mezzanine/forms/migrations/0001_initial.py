@@ -28,6 +28,7 @@ class Migration(migrations.Migration):
                 ('help_text', models.CharField(max_length=100, verbose_name='Help text', blank=True)),
             ],
             options={
+                'swappable': 'FIELD_MODEL',
                 'ordering': ('_order',),
                 'verbose_name': 'Field',
                 'verbose_name_plural': 'Fields',
@@ -42,6 +43,7 @@ class Migration(migrations.Migration):
                 ('value', models.CharField(max_length=2000, null=True)),
             ],
             options={
+                'swappable': 'FIELD_ENTRY_MODEL',
                 'verbose_name': 'Form field entry',
                 'verbose_name_plural': 'Form field entries',
             },
@@ -61,6 +63,7 @@ class Migration(migrations.Migration):
                 ('email_message', models.TextField(help_text='Emails sent based on the above options will contain each of the form fields entered. You can also enter a message here that will be included in the email.', verbose_name='Message', blank=True)),
             ],
             options={
+                'swappable': 'FORM_MODEL',
                 'ordering': ('_order',),
                 'verbose_name': 'Form',
                 'verbose_name_plural': 'Forms',
@@ -75,6 +78,7 @@ class Migration(migrations.Migration):
                 ('form', models.ForeignKey(related_name='entries', to='forms.Form', on_delete=models.CASCADE)),
             ],
             options={
+                'swappable': 'FORM_ENTRY_MODEL',
                 'verbose_name': 'Form entry',
                 'verbose_name_plural': 'Form entries',
             },

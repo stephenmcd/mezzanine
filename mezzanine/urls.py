@@ -14,6 +14,8 @@ from django.http import HttpResponse
 
 from mezzanine.conf import settings
 from mezzanine.core.sitemaps import DisplayableSitemap
+from mezzanine.utils.apps import accounts_installed, blog_installed
+from mezzanine.utils.apps import pages_installed
 
 
 urlpatterns = []
@@ -56,7 +58,7 @@ urlpatterns += [
 ]
 
 # Mezzanine's Accounts app
-if "mezzanine.accounts" in settings.INSTALLED_APPS:
+if accounts_installed():
     # We don't define a URL prefix here such as /account/ since we want
     # to honour the LOGIN_* settings, which Django has prefixed with
     # /account/ by default. So those settings are used in accounts.urls
@@ -65,8 +67,7 @@ if "mezzanine.accounts" in settings.INSTALLED_APPS:
     ]
 
 # Mezzanine's Blog app.
-blog_installed = "mezzanine.blog" in settings.INSTALLED_APPS
-if blog_installed:
+if blog_installed():
     BLOG_SLUG = settings.BLOG_SLUG.rstrip("/")
     if BLOG_SLUG:
         BLOG_SLUG += "/"
@@ -77,11 +78,11 @@ if blog_installed:
 
 # Mezzanine's Pages app.
 PAGES_SLUG = ""
-if "mezzanine.pages" in settings.INSTALLED_APPS:
+if pages_installed():
     # No BLOG_SLUG means catch-all patterns belong to the blog,
     # so give pages their own prefix and inject them before the
     # blog urlpatterns.
-    if blog_installed and not BLOG_SLUG.rstrip("/"):
+    if blog_installed() and not BLOG_SLUG.rstrip("/"):
         PAGES_SLUG = getattr(settings, "PAGES_SLUG", "pages").strip("/") + "/"
         blog_patterns_start = urlpatterns.index(blog_patterns[0])
         urlpatterns[blog_patterns_start:len(blog_patterns)] = [

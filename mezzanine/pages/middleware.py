@@ -6,11 +6,14 @@ from django.http import HttpResponse, Http404
 
 from mezzanine.conf import settings
 from mezzanine.pages import context_processors, page_processors
-from mezzanine.pages.models import Page
+from mezzanine.pages import get_page_model
 from mezzanine.pages.views import page as page_view
 from mezzanine.utils.conf import middlewares_or_subclasses_installed
 from mezzanine.utils.deprecation import (MiddlewareMixin, is_authenticated)
 from mezzanine.utils.urls import path_to_slug
+
+
+Page = get_page_model()
 
 
 class PageMiddleware(MiddlewareMixin):

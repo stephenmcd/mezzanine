@@ -30,9 +30,10 @@ from django.views.decorators.csrf import requires_csrf_token
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Displayable, SitePermission
-from mezzanine.utils.views import is_editable, paginate
+from mezzanine.utils.apps import pages_installed
 from mezzanine.utils.sites import has_site_permission
 from mezzanine.utils.urls import next_url
+from mezzanine.utils.views import is_editable, paginate
 
 
 mimetypes.init()
@@ -176,8 +177,9 @@ def displayable_links_js(request):
     TinyMCE.
     """
     links = []
-    if "mezzanine.pages" in settings.INSTALLED_APPS:
-        from mezzanine.pages.models import Page
+    if pages_installed():
+        from mezzanine.pages import get_page_model
+        Page = get_page_model()
         is_page = lambda obj: isinstance(obj, Page)
     else:
         is_page = lambda obj: False

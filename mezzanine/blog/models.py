@@ -12,12 +12,12 @@ from mezzanine.generic.fields import CommentsField, RatingField
 from mezzanine.utils.models import AdminThumbMixin, upload_to
 
 
-class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
+class AbstractBlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
     """
     A blog post.
     """
 
-    categories = models.ManyToManyField("BlogCategory",
+    categories = models.ManyToManyField(settings.BLOG_CATEGORY_MODEL,
                                         verbose_name=_("Categories"),
                                         blank=True, related_name="blogposts")
     allow_comments = models.BooleanField(verbose_name=_("Allow comments"),
@@ -33,6 +33,7 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
     admin_thumb_field = "featured_image"
 
     class Meta:
+        abstract = True
         verbose_name = _("Blog post")
         verbose_name_plural = _("Blog posts")
         ordering = ("-publish_date",)
@@ -64,12 +65,19 @@ class BlogPost(Displayable, Ownable, RichText, AdminThumbMixin):
         return reverse(url_name, kwargs=kwargs)
 
 
-class BlogCategory(Slugged):
+class BlogPost(AbstractBlogPost):
+
+    class Meta(AbstractBlogPost.Meta):
+        swappable = 'BLOG_POST_MODEL'
+
+
+class AbstractBlogCategory(Slugged):
     """
     A category for grouping blog posts into a series.
     """
 
     class Meta:
+        abstract = True
         verbose_name = _("Blog Category")
         verbose_name_plural = _("Blog Categories")
         ordering = ("title",)
@@ -77,3 +85,9 @@ class BlogCategory(Slugged):
     @models.permalink
     def get_absolute_url(self):
         return ("blog_post_list_category", (), {"category": self.slug})
+
+
+class BlogCategory(AbstractBlogCategory):
+
+    class Meta(AbstractBlogCategory.Meta):
+        swappable = 'BLOG_CATEGORY_MODEL'
