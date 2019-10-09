@@ -9,7 +9,7 @@ from django.contrib.sites.models import Site
 
 from mezzanine.conf import settings
 from mezzanine.core.request import current_request
-from mezzanine.utils.deprecation import get_middleware_setting
+from mezzanine.utils.conf import middlewares_or_subclasses_installed
 
 
 SITE_PERMISSION_MIDDLEWARE = \
@@ -76,8 +76,14 @@ def override_current_site_id(site_id):
     within it. Used to access SiteRelated objects outside the current site.
     """
     override_current_site_id.thread_local.site_id = site_id
-    yield
-    del override_current_site_id.thread_local.site_id
+    try:
+        yield
+    except Exception:
+        raise
+    finally:
+        del override_current_site_id.thread_local.site_id
+
+
 override_current_site_id.thread_local = threading.local()
 
 
@@ -91,7 +97,7 @@ def has_site_permission(user):
     also fall back to an ``is_staff`` check if the middleware is not
     installed, to ease migration.
     """
-    if SITE_PERMISSION_MIDDLEWARE not in get_middleware_setting():
+    if not middlewares_or_subclasses_installed([SITE_PERMISSION_MIDDLEWARE]):
         return user.is_staff and user.is_active
     return getattr(user, "has_site_permission", False)
 

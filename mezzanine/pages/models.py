@@ -7,7 +7,7 @@ try:
 except ImportError:  # Python 2
     from urlparse import urljoin
 
-from django.core.urlresolvers import resolve, reverse
+from django.urls import resolve, reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _, ugettext

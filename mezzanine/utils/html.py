@@ -15,6 +15,8 @@ except ImportError:  # Python 2
 
 import re
 
+from mezzanine.utils.deprecation import mark_safe
+
 
 SELF_CLOSING_TAGS = ['br', 'img']
 NON_SELF_CLOSING_TAGS = ['script', 'iframe']
@@ -74,9 +76,10 @@ def decode_entities(html):
             except KeyError:
                 pass
         return html
-    return re.sub("&#?\w+;", decode, html.replace("&amp;", "&"))
+    return re.sub(r"&#?\w+;", decode, html.replace("&amp;", "&"))
 
 
+@mark_safe
 def escape(html):
     """
     Escapes HTML according to the rules defined by the settings
@@ -101,6 +104,7 @@ def escape(html):
                  protocols=ALLOWED_PROTOCOLS + ["tel"])
 
 
+@mark_safe
 def thumbnails(html):
     """
     Given a HTML string, converts paths in img tags to thumbnail

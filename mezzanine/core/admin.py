@@ -8,7 +8,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User as AuthUser
 from django.contrib.redirects.admin import RedirectAdmin
 from django.contrib.messages import error
-from django.core.urlresolvers import NoReverseMatch
+from django.urls import NoReverseMatch
 from django.forms import ValidationError, ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -297,7 +297,8 @@ class ContentTypedAdmin(object):
             except (AttributeError, TypeError):
                 pass
 
-            fields = self.model._meta.fields + self.model._meta.many_to_many
+            fields = (self.model._meta.get_fields() +
+                      self.model._meta.many_to_many)
             for field in reversed(fields):
                 if field.name not in exclude_fields and field.editable:
                     if not hasattr(field, "translated_field"):
@@ -378,9 +379,21 @@ class SitePermissionInline(admin.TabularInline):
     can_delete = False
 
 
+class SitePermissionUserAdminForm(UserAdmin.form):
+
+    def clean_email(form):
+        email = form.cleaned_data.get("email")
+        try:
+            User.objects.exclude(id=form.instance.id).get(email=email)
+        except User.DoesNotExist:
+            return email
+        raise ValidationError(_("This email is already registered"))
+
+
 class SitePermissionUserAdmin(UserAdmin):
 
     inlines = [SitePermissionInline]
+    form = SitePermissionUserAdminForm
 
     def save_model(self, request, obj, form, change):
         """
@@ -405,6 +418,17 @@ if User == AuthUser:
     admin.site.register(User, SitePermissionUserAdmin)
 
 
+class SiteRedirectAdminForm(RedirectAdmin.form):
+
+    def clean_old_path(form):
+        path = form.cleaned_data.get("old_path")
+        try:
+            Redirect.objects.exclude(id=form.instance.id).get(old_path=path)
+        except Redirect.DoesNotExist:
+            return path
+        raise ValidationError(_("A redirect from this path already exists"))
+
+
 class SiteRedirectAdmin(RedirectAdmin):
     """
     Subclass of Django's redirect admin that modifies it to behave the
@@ -415,6 +439,7 @@ class SiteRedirectAdmin(RedirectAdmin):
     """
 
     fields = ("old_path", "new_path")  # Excludes the site field.
+    form = SiteRedirectAdminForm
 
     def get_queryset(self, request):
         """

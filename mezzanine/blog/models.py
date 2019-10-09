@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from future.builtins import str
 
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -74,6 +74,6 @@ class BlogCategory(Slugged):
         verbose_name_plural = _("Blog Categories")
         ordering = ("title",)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ("blog_post_list_category", (), {"category": self.slug})
+        return reverse("blog_post_list_category",
+                       kwargs={"category": self.slug})

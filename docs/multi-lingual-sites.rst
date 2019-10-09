@@ -164,7 +164,7 @@ need to define a custom :django:setting:`MIGRATION_MODULES` and then run::
      $ python manage.py makemigrations
 
 Have a look at :ref:`field-injection-caveats` for a better introduction
-to :django:setting:`MIGRATION_MODULES``
+to :django:setting:`MIGRATION_MODULES`.
 
 Translation for Injected Fields
 ===============================

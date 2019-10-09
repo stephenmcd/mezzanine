@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model as django_get_user_model
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model, Field
+from django.utils.html import format_html
 
 from mezzanine.utils.importing import import_dotted_path
 
@@ -109,8 +110,7 @@ class AdminThumbMixin(object):
         from mezzanine.core.templatetags.mezzanine_tags import thumbnail
         x, y = settings.ADMIN_THUMB_SIZE.split('x')
         thumb_url = thumbnail(thumb, x, y)
-        return "<img src='%s%s'>" % (settings.MEDIA_URL, thumb_url)
-    admin_thumb.allow_tags = True
+        return format_html("<img src='{}{}'>", settings.MEDIA_URL, thumb_url)
     admin_thumb.short_description = ""
 
 
