@@ -425,7 +425,10 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         image = ImageOps.fit(image, to_size, Image.ANTIALIAS, 0, to_pos)
         thumb_io = BytesIO()
         image.save(thumb_io, filetype, quality=quality, **image_info)
-        thumb_file = InMemoryUploadedFile(thumb_io, None, 'foo.jpg', 'image/jpg', sys.getsizeof(thumb_io), None)
+        thumb_file = InMemoryUploadedFile(
+            thumb_io, None, 'foo.jpg', 'image/jpg',
+            sys.getsizeof(thumb_io), None
+        )
         default_storage.save(unquote(thumb_url), thumb_file)
     except Exception:
         # If an error occurred, a corrupted image may have been saved,
