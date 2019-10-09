@@ -1,8 +1,15 @@
 from __future__ import absolute_import, division, unicode_literals
-from future.builtins import int, open, str
+
+import sys
+
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from future.builtins import int, str
 
 from hashlib import md5
 import os
+
+from six import BytesIO
+
 try:
     from urllib.parse import quote, unquote
 except ImportError:
@@ -13,7 +20,6 @@ from django.contrib import admin
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.files import File
 from django.core.files.storage import default_storage
 from django.urls import reverse, resolve, NoReverseMatch
 from django.db.models import Model
@@ -314,11 +320,6 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     # thumbnails that may match a new image name.
     thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
                              settings.THUMBNAILS_DIR_NAME, image_name)
-    if not os.path.exists(thumb_dir):
-        try:
-            os.makedirs(thumb_dir)
-        except OSError:
-            pass
 
     thumb_path = os.path.join(thumb_dir, thumb_name)
     thumb_url = "%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
@@ -329,7 +330,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         thumb_url = "%s/%s" % (image_url_path, thumb_url)
 
     try:
-        thumb_exists = os.path.exists(thumb_path)
+        thumb_exists = default_storage.exists(thumb_url)
     except UnicodeEncodeError:
         # The image that was saved to a filesystem with utf-8 support,
         # but somehow the locale has changed and the filesystem does not
@@ -422,18 +423,19 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     to_pos = (left, top)
     try:
         image = ImageOps.fit(image, to_size, Image.ANTIALIAS, 0, to_pos)
-        image = image.save(thumb_path, filetype, quality=quality, **image_info)
-        # Push a remote copy of the thumbnail if MEDIA_URL is
-        # absolute.
-        if "://" in settings.MEDIA_URL:
-            with open(thumb_path, "rb") as f:
-                default_storage.save(unquote(thumb_url), File(f))
+        thumb_io = BytesIO()
+        image.save(thumb_io, filetype, quality=quality, **image_info)
+        thumb_file = InMemoryUploadedFile(
+            thumb_io, None, 'foo.jpg', 'image/jpg',
+            sys.getsizeof(thumb_io), None
+        )
+        default_storage.save(unquote(thumb_url), thumb_file)
     except Exception:
         # If an error occurred, a corrupted image may have been saved,
         # so remove it, otherwise the check for it existing will just
         # return the corrupted image next time it's requested.
         try:
-            os.remove(thumb_path)
+            default_storage.delete(thumb_path)
         except Exception:
             pass
         return image_url
