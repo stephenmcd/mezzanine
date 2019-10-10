@@ -435,7 +435,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         # so remove it, otherwise the check for it existing will just
         # return the corrupted image next time it's requested.
         try:
-            default_storage.remove(thumb_path)
+            default_storage.delete(thumb_path)
         except Exception:
             pass
         return image_url
