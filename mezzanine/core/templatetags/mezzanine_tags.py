@@ -1,7 +1,8 @@
 from __future__ import absolute_import, division, unicode_literals
-from future.builtins import int, open, str
+from future.builtins import int, str
 
 from hashlib import md5
+import io
 import os
 try:
     from urllib.parse import quote, unquote
@@ -312,11 +313,14 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     # image, which is something we do in filebrowser when a new image
     # is written, allowing us to purge any previously generated
     # thumbnails that may match a new image name.
-    thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
-                             settings.THUMBNAILS_DIR_NAME, image_name)
-    if not os.path.exists(thumb_dir):
+    thumb_dir = os.path.join(
+        image_dir,
+        settings.THUMBNAILS_DIR_NAME,
+        image_name
+    )
+    if not default_storage.exists(thumb_dir):
         try:
-            os.makedirs(thumb_dir)
+            default_storage.makedirs(thumb_dir)
         except OSError:
             pass
 
@@ -329,7 +333,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         thumb_url = "%s/%s" % (image_url_path, thumb_url)
 
     try:
-        thumb_exists = os.path.exists(thumb_path)
+        thumb_exists = default_storage.exists(thumb_path)
     except UnicodeEncodeError:
         # The image that was saved to a filesystem with utf-8 support,
         # but somehow the locale has changed and the filesystem does not
@@ -421,21 +425,11 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     to_size = (to_width, to_height)
     to_pos = (left, top)
     try:
+        output = io.BytesIO()
         image = ImageOps.fit(image, to_size, Image.ANTIALIAS, 0, to_pos)
-        image = image.save(thumb_path, filetype, quality=quality, **image_info)
-        # Push a remote copy of the thumbnail if MEDIA_URL is
-        # absolute.
-        if "://" in settings.MEDIA_URL:
-            with open(thumb_path, "rb") as f:
-                default_storage.save(unquote(thumb_url), File(f))
+        image = image.save(output, filetype, quality=quality, **image_info)
+        default_storage.save(unquote(thumb_url), File(output))
     except Exception:
-        # If an error occurred, a corrupted image may have been saved,
-        # so remove it, otherwise the check for it existing will just
-        # return the corrupted image next time it's requested.
-        try:
-            os.remove(thumb_path)
-        except Exception:
-            pass
         return image_url
     return thumb_url
 
