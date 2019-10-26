@@ -518,7 +518,8 @@ register_setting(
 register_setting(
     name="THUMBNAILS_DIR_NAME",
     description=_("Directory name to store thumbnails in, that will be "
-        "created relative to the original image's directory."),
+        "created relative to the original image's directory, or to "
+        "MEDIA_ROOT if an absolute path."),
     editable=False,
     default=".thumbnails",
 )

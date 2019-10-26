@@ -318,16 +318,26 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     # image, which is something we do in filebrowser when a new image
     # is written, allowing us to purge any previously generated
     # thumbnails that may match a new image name.
-    thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
-                             settings.THUMBNAILS_DIR_NAME, image_name)
+    if os.path.isabs(settings.THUMBNAILS_DIR_NAME):
+        thumb_dir = os.path.join(settings.MEDIA_ROOT,
+                                 settings.THUMBNAILS_DIR_NAME,
+                                 image_dir, image_name)
+        thumb_url = ("%s/%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
+                                  os.path.dirname(image_url),
+                                  quote(image_name.encode("utf-8")),
+                                  quote(thumb_name.encode("utf-8")))
+                     ).lstrip('/')
+    else:
+        thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
+                                 settings.THUMBNAILS_DIR_NAME, image_name)
+        thumb_url = "%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
+                                  quote(image_name.encode("utf-8")),
+                                  quote(thumb_name.encode("utf-8")))
+        image_url_path = os.path.dirname(image_url)
+        if image_url_path:
+            thumb_url = "%s/%s" % (image_url_path, thumb_url)
 
     thumb_path = os.path.join(thumb_dir, thumb_name)
-    thumb_url = "%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
-                              quote(image_name.encode("utf-8")),
-                              quote(thumb_name.encode("utf-8")))
-    image_url_path = os.path.dirname(image_url)
-    if image_url_path:
-        thumb_url = "%s/%s" % (image_url_path, thumb_url)
 
     try:
         thumb_exists = default_storage.exists(thumb_url)
