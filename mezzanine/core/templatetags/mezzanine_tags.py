@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, unicode_literals
 from future.builtins import int, str
 
 from hashlib import md5
+import io
 import os
 try:
     from urllib.parse import quote, unquote
@@ -422,9 +423,19 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     to_size = (to_width, to_height)
     to_pos = (left, top)
     try:
+        # default_storage.open() object, while it may support write(), will not
+        # reliably work as expected by clever image.save()
+        #
+        # moreover, cannot assume a filesystem, nor a TemporaryFile
+        # sufficiently vanilla for image.save()
+        #
+        # instead, explicitly write image to memory, and save this result:
+        image_shim = io.BytesIO()
+
         image = ImageOps.fit(image, to_size, Image.ANTIALIAS, 0, to_pos)
-        with default_storage.open(unquote(thumb_url), 'w+b') as thumb_file:
-            image.save(thumb_file, filetype, quality=quality, **image_info)
+        image.save(image_shim, filetype, quality=quality, **image_info)
+
+        default_storage.save(unquote(thumb_url), image_shim)
     except Exception:
         # If an error occurred, a corrupted image may have been saved,
         # so remove it, otherwise the check for it existing will just
