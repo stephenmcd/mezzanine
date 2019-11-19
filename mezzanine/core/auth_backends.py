@@ -21,7 +21,7 @@ class MezzanineBackend(ModelBackend):
     For login, is_active is not given, so that the login form can
     raise a specific error for inactive users.
     For password reset, True is given for is_active.
-    For signup verficiation, False is given for is_active.
+    For signup verification, False is given for is_active.
     """
 
     def authenticate(self, *args, **kwargs):
