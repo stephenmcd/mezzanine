@@ -45,7 +45,8 @@ globals().update(i for i in settings.__dict__.items() if i[0].isupper())
 # Require the mezzanine.accounts app. We use settings.INSTALLED_APPS here so
 # the syntax test doesn't complain about an undefined name.
 if "mezzanine.accounts" not in settings.INSTALLED_APPS:
-    INSTALLED_APPS = list(settings.INSTALLED_APPS) + ["mezzanine.accounts"]
+    INSTALLED_APPS = list(settings.INSTALLED_APPS) + ["mezzanine.accounts",
+         "django.contrib.messages"]
 
 # Use the MD5 password hasher by default for quicker test runs.
 PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)

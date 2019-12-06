@@ -301,10 +301,10 @@ class CoreTests(TestCase):
         self._static_proxy(querystring)
 
     def _get_csrftoken(self, response):
-        csrf = re.findall(
-            br"<input type='hidden' name='csrfmiddlewaretoken' "
-            br"value='([^']+)' />",
-            response.content
+        csrf = re.findall(br"""<input type=['"]hidden['"] """
+                          br"""name=['"]csrfmiddlewaretoken["'] """
+                          br"""value=['"](.*)["'][ ]*""",
+                          response.content
         )
         self.assertEqual(len(csrf), 1, 'No csrfmiddlewaretoken found!')
         return csrf[0]

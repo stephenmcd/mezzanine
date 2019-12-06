@@ -18,8 +18,8 @@ from django.core.files.storage import default_storage
 from django.urls import reverse, resolve, NoReverseMatch
 from django.db.models import Model
 from django.template import Node, Template, TemplateSyntaxError
-from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
-                                  TOKEN_TEXT, TOKEN_VAR, TextNode)
+from django.template.base import TextNode
+
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils import translation
@@ -38,6 +38,20 @@ from mezzanine.utils.urls import admin_url, home_slug
 from mezzanine.utils.views import is_editable
 from mezzanine import template
 
+try:
+    from django.template.base import TokenType
+
+except ImportError:
+    # Django <2.1 uses separate constants for token types
+    from django.template.base import (
+        TOKEN_BLOCK, TOKEN_TEXT, TOKEN_VAR, TOKEN_COMMENT
+    )
+
+    class TokenType:
+        TEXT = TOKEN_TEXT
+        VAR = TOKEN_VAR
+        BLOCK = TOKEN_BLOCK
+        COMMENT = TOKEN_COMMENT
 
 register = template.Library()
 
@@ -74,16 +88,16 @@ def initialize_nevercache():
             text = []
             end_tag = "endnevercache"
             tag_mapping = {
-                TOKEN_TEXT: ("", ""),
-                TOKEN_VAR: ("{{", "}}"),
-                TOKEN_BLOCK: ("{%", "%}"),
-                TOKEN_COMMENT: ("{#", "#}"),
+                TokenType.TEXT: ("", ""),
+                TokenType.VAR: ("{{", "}}"),
+                TokenType.BLOCK: ("{%", "%}"),
+                TokenType.COMMENT: ("{#", "#}"),
             }
             delimiter = nevercache_token()
             while parser.tokens:
                 token = parser.next_token()
                 token_type = token.token_type
-                if token_type == TOKEN_BLOCK and token.contents == end_tag:
+                if token_type == TokenType.BLOCK and token.contents == end_tag:
                     return TextNode(delimiter + "".join(text) + delimiter)
                 start, end = tag_mapping[token_type]
                 text.append("%s%s%s" % (start, token.contents, end))
@@ -172,7 +186,7 @@ def ifinstalled(parser, token):
     if app.strip("\"'") not in settings.INSTALLED_APPS:
         while unmatched_end_tag:
             token = parser.tokens.pop(0)
-            if token.token_type == TOKEN_BLOCK:
+            if token.token_type == TokenType.BLOCK:
                 block_name = token.contents.split()[0]
                 if block_name == tag:
                     unmatched_end_tag += 1
