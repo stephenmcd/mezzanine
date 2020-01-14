@@ -92,7 +92,7 @@ USE_MODELTRANSLATION = False
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -253,10 +253,7 @@ INSTALLED_APPS = [
     'mezzanine.galleries',
     'mezzanine.twitter',
     # 'mezzanine.accounts',
-    'crispy_forms'
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # List of middleware classes to use. Order is important; in the request phase,
 # these middleware classes will be applied in the order given, and in the
