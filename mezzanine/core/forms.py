@@ -102,7 +102,7 @@ class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
 
     def value_from_datadict(self, data, files, name):
         return " ".join([x or "" for x in super(SplitSelectDateTimeWidget,
-                                                self).value_from_datadict(data, files, name)])
+            self).value_from_datadict(data, files, name)])
 
 
 class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
