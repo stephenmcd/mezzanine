@@ -68,7 +68,7 @@ if blog_installed:
     if BLOG_SLUG:
         BLOG_SLUG += "/"
     blog_patterns = [
-        path(f"{BLOG_SLUG}", include("mezzanine.blog.urls")),
+        re_path(r"^%s" % BLOG_SLUG, include("mezzanine.blog.urls")),
     ]
     urlpatterns += blog_patterns
 
