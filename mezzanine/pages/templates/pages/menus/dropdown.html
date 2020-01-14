@@ -3,20 +3,20 @@
 {% if page_branch_in_menu %}
 
 {% if branch_level == 0 %}
-<ul class="nav navbar-nav">
+<ul class="navbar-nav mr-auto">
     {% for page in page_branch %}
     {% if not has_home and page.is_primary and forloop.first %}
-    <li{% if on_home %} class="active"{% endif %} id="dropdown-menu-home">
-        <a href="{% url "home" %}">{% trans "Home" %}</a>
+    <li{% if on_home %} class="nav-item active"{% endif %} id="dropdown-menu-home">
+        <a class="nav-link" href="{% url "home" %}">{% trans "Home" %}</a>
     </li>
     {% endif %}
     {% if page.in_menu %}
-    <li class="{% if page.has_children_in_menu %}dropdown{% endif %}
+    <li class="nav-item {% if page.has_children_in_menu %}dropdown{% endif %}
                {% if page.is_current_or_ascendant %}active{% endif %}"
         id="{{ page.html_id }}">
-        <a href="{{ page.get_absolute_url }}"
+        <a class="nav-link" href="{{ page.get_absolute_url }}"
         {% if page.has_children_in_menu %}
-        class="dropdown-toggle disabled" data-toggle="dropdown"
+        class="nav-link dropdown-toggle disabled" data-toggle="dropdown"
         {% endif %}>
             {{ page.title }}
             {% if page.has_children_in_menu %}<b class="caret"></b>{% endif %}
@@ -31,7 +31,7 @@
 <ul class="dropdown-menu">
     {% for page in page_branch %}
     {% if page.in_menu %}
-    <li class="{% if page.has_children_in_menu %}dropdown-submenu{% endif %}
+    <li class="dropdown-item {% if page.has_children_in_menu %}dropdown-submenu{% endif %}
                {% if page.is_current_or_ascendant %}active{% endif %}"
         id="{{ page.html_id }}">
         <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
