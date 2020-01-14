@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import os
 import sys
 from inspect import getmro
@@ -137,16 +135,10 @@ def set_dynamic_settings(s):
         # We need to configure debug_toolbar manually otherwise it
         # breaks in conjunction with modeltranslation. See the
         # "Explicit setup" section in debug_toolbar docs for more info.
-        # s["DEBUG_TOOLBAR_PATCH_SETTINGS"] = False
+        s["DEBUG_TOOLBAR_PATCH_SETTINGS"] = False
         debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
         append(MIDDLEWARE_SETTING_NAME, debug_mw)
-        s.setdefault("INTERNAL_IPS", (
-            '127.0.0.1',
-            '0.0.0.0',
-            '0.0.0.0:8000',
-            'localhost',
-            'localhost:8000')
-        )
+        s.setdefault("INTERNAL_IPS", ("127.0.0.1",))
 
     # If compressor installed, ensure it's configured and make
     # Mezzanine's settings available to its offline context,

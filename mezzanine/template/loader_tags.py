@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import map
-
 import os
 import warnings
 from itertools import chain

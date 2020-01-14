@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import MiddlewareNotUsed
 from django.http import HttpResponse, Http404

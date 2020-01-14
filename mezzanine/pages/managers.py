@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import range
-
 from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
 from mezzanine.utils.urls import home_slug

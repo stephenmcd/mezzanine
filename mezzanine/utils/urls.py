@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import str
-
 import re
 import unicodedata
 
@@ -93,16 +90,7 @@ def next_url(request):
     """
     next = request.GET.get("next", request.POST.get("next", ""))
     host = request.get_host()
-
-    # host parameter removed in django 2.1 ->
-    # https://docs.djangoproject.com/en/2.2/releases/2.1/
-    import inspect
-    if 'host' in inspect.getfullargspec(is_safe_url).args:
-        # django < 2.1
-        return next if next and is_safe_url(next, host=host) else None
-    else:
-        # django >= 2.1
-        return next if next and is_safe_url(next, allowed_hosts=host) else None
+    return next if next and is_safe_url(next, allowed_hosts=host) else None
 
 
 def login_redirect(request):

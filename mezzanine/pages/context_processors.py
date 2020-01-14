@@ -1,4 +1,3 @@
-
 from mezzanine.pages.models import Page
 
 

@@ -1,8 +1,6 @@
 """
 Utils for working with static files.
 """
-from __future__ import unicode_literals
-
 from django.contrib.admin.templatetags.admin_static import static
 from django.conf import settings
 from django.utils.functional import lazy
