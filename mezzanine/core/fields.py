@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import str
-
 from django.conf import settings
 from django.contrib.admin.widgets import AdminTextareaWidget
 from django.core.exceptions import ImproperlyConfigured, ValidationError

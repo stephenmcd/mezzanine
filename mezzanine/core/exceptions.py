@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-
-
 class FileSystemEncodingChanged(RuntimeError):
     def __init__(self):
         msg = ("Access was attempted on a file that contains unicode "

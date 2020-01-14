@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import re
 import pytz
 from unittest import skipUnless
@@ -12,12 +10,7 @@ from mezzanine.utils.cache import cache_installed
 from mezzanine.utils.sites import current_site_id, override_current_site_id
 from mezzanine.utils.urls import admin_url
 
-try:
-    # Python 3
-    from urllib.parse import urlencode
-except ImportError:
-    # Python 2
-    from urllib import urlencode
+from urllib.parse import urlencode
 
 from django.conf.urls import url
 from django.contrib.admin import AdminSite

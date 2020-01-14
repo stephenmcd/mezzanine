@@ -1,6 +1,3 @@
-from __future__ import print_function, unicode_literals
-from future.builtins import int, input
-
 from socket import gethostname
 
 from django.core.management.base import BaseCommand, CommandError

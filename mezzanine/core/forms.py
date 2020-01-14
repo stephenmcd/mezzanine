@@ -1,15 +1,8 @@
-from __future__ import unicode_literals
-from future.builtins import str
-
 from datetime import datetime
 from uuid import uuid4
 
 from django import forms
-try:
-    from django.forms.widgets import SelectDateWidget
-except ImportError:
-    # Django 1.8
-    from django.forms.extras.widgets import SelectDateWidget
+from django.forms.widgets import SelectDateWidget
 
 from django.forms.utils import to_current_timezone
 from django.utils.safestring import mark_safe
@@ -74,7 +67,7 @@ class OrderWidget(forms.HiddenInput):
     def render(self, *args, **kwargs):
         rendered = super(OrderWidget, self).render(*args, **kwargs)
         arrows = ["<img src='%sadmin/img/admin/arrow-%s.gif' />" %
-            (settings.STATIC_URL, arrow) for arrow in ("up", "down")]
+                  (settings.STATIC_URL, arrow) for arrow in ("up", "down")]
         arrows = "<span class='ordering'>%s</span>" % "".join(arrows)
         return rendered + mark_safe(arrows)
 
@@ -109,7 +102,7 @@ class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
 
     def value_from_datadict(self, data, files, name):
         return " ".join([x or "" for x in super(SplitSelectDateTimeWidget,
-            self).value_from_datadict(data, files, name)])
+                                                self).value_from_datadict(data, files, name)])
 
 
 class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):

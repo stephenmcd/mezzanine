@@ -9,8 +9,6 @@ making it editable, as it may be inappropriate - for example settings
 that are only read during startup shouldn't be editable, since changing
 them would require an application reload.
 """
-from __future__ import unicode_literals
-
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
@@ -174,7 +172,7 @@ register_setting(
     description=_("Name of the jQuery file found in "
                   "mezzanine/core/static/mezzanine/js/"),
     editable=False,
-    default="jquery-1.8.3.min.js",
+    default="jquery-1.12.4.js",
 )
 
 register_setting(
@@ -183,7 +181,7 @@ register_setting(
     description=_("Name of the jQuery UI file found in "
                   "mezzanine/core/static/mezzanine/js/"),
     editable=False,
-    default="jquery-ui-1.8.24.min.js",
+    default="jquery-ui-1.12.1.js",
 )
 
 register_setting(
