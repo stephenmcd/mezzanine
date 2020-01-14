@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import map, str
-
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.template.defaultfilters import truncatewords_html

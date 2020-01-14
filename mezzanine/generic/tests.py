@@ -1,5 +1,3 @@
-from __future__ import division, unicode_literals
-
 from django.template import Context
 from django.template import Template
 from future.utils import native_str

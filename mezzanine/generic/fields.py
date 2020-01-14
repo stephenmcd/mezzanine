@@ -1,6 +1,3 @@
-from __future__ import division, unicode_literals
-from future.builtins import str
-
 from copy import copy
 
 from django.contrib.contenttypes.fields import GenericRelation
@@ -107,11 +104,8 @@ class BaseGenericRelation(GenericRelation):
                 return
             if hasattr(instance, "get_content_model"):
                 instance = instance.get_content_model()
-            try:
-                related_manager = getattr(instance, self.related_field_name)
-                self.related_items_changed(instance, related_manager)
-            except AttributeError:
-                pass
+            related_manager = getattr(instance, self.related_field_name)
+            self.related_items_changed(instance, related_manager)
 
     def related_items_changed(self, instance, related_manager):
         """
@@ -206,8 +200,9 @@ class KeywordsField(BaseGenericRelation):
             data = [related_manager.create(keyword_id=i) for i in new_ids]
         # Remove keywords that are no longer assigned to anything.
         Keyword.objects.delete_unused(removed_ids)
-        # set data in the Django base class
+
         getattr(instance, self.name).set(data)
+        # super(KeywordsField, self).save_form_data(instance, data)
 
     def contribute_to_class(self, cls, name):
         """
