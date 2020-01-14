@@ -18,18 +18,7 @@ from django.core.files.storage import default_storage
 from django.urls import reverse, resolve, NoReverseMatch
 from django.db.models import Model
 from django.template import Node, Template, TemplateSyntaxError
-try:
-    # Django >= 2.1
-    from django.template.base import TokenType
-    TOKEN_TEXT = TokenType.TEXT
-    TOKEN_VAR = TokenType.VAR
-    TOKEN_BLOCK = TokenType.BLOCK
-    TOKEN_COMMENT = TokenType.COMMENT
-except ImportError:
-    # Django < 2.1
-    from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
-        TOKEN_TEXT, TOKEN_VAR)
-
+from django.template.base import TokenType
 from django.template.base import TextNode
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
