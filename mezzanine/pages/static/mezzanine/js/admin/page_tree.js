@@ -107,7 +107,7 @@ jQuery(function($) {
         tabSize: 25,
         tolerance: 'pointer',
         toleranceElement: '> div',
-        isTree: true,
+        // isTree: true,
         expandOnHover: 1000,
         startCollapsed: true
     });
