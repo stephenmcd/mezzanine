@@ -1,12 +1,11 @@
 language: python
 env:
-  - DJANGO="111"
-  - DJANGO="20"
-  - DJANGO="21"
+  - DJANGO="22"
   - DJANGO="master"
 python:
   - "3.5"
   - "3.6"
+  - "3.7"
 install:
   - pip install --upgrade pip setuptools tox
 script:
@@ -14,12 +13,12 @@ script:
 matrix:
   fast_finish: true
   include:
-    - python: "2.7"
-      env: DJANGO="111"
-    - python: "3.4"
-      env: DJANGO="111"
-    - python: "3.4"
-      env: DJANGO="20"
+    - python: "3.5"
+      env: DJANGO="22"
+    - python: "3.6"
+      env: DJANGO="22"
+    - python: "3.7"
+      env: DJANGO="22"
   allow_failures:
     - env: DJANGO="master"
 notifications:
