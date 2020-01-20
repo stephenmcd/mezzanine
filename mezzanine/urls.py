@@ -83,7 +83,7 @@ if "mezzanine.pages" in settings.INSTALLED_APPS:
                 "/")
         blog_patterns_start = urlpatterns.index(blog_patterns[0])
         urlpatterns[blog_patterns_start:len(blog_patterns)] = [
-            path(f"{PAGES_SLUG}", include("mezzanine.pages.urls")),
+            re_path(r"^%s" % PAGES_SLUG, include("mezzanine.pages.urls")),
         ]
     else:
         urlpatterns += [
