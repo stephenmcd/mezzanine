@@ -202,7 +202,6 @@ class KeywordsField(BaseGenericRelation):
         Keyword.objects.delete_unused(removed_ids)
 
         getattr(instance, self.name).set(data)
-        # super(KeywordsField, self).save_form_data(instance, data)
 
     def contribute_to_class(self, cls, name):
         """

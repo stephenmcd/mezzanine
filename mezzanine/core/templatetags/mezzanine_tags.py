@@ -18,8 +18,7 @@ from django.core.files.storage import default_storage
 from django.urls import reverse, resolve, NoReverseMatch
 from django.db.models import Model
 from django.template import Node, Template, TemplateSyntaxError
-from django.template.base import TokenType
-from django.template.base import TextNode
+from django.template.base import TextNode, TokenType
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
 from django.utils import translation

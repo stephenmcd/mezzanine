@@ -34,27 +34,6 @@ jQuery(function($) {
     // https://github.com/stephenmcd/grappelli-safe/pull/56/files occurring.
     $("#id_sitepermissions-__prefix__-sites").parent().parent().parent().remove();
 
-     // Automatically point product images into folders depending on their Product Code
-    var product_code = '{{ original.product_code }}';
-    if (product_code != '') {
-        $('.fb_show').each(function () {
-            var onClickVar = ($(this).attr("onclick"));
-            var onClickArray = onClickVar.split("&");
-
-            var path = '';
-
-            if (onClickArray.length == 3) {
-                path = onClickArray[0] + '&' + onClickArray[1] + "/" + product_code + '&' + onClickArray[2];
-            } else if (onClickArray.length == 2) {
-                path = onClickArray[0] + '&' + onClickArray[1].slice(0, -6) + "/" + product_code + '\');';
-            }
-
-            if (path != '') {
-                $(this).attr("onclick", path);
-            }
-        });
-    }
-
     if ($('#id_gen_description').is(':checked')) {
         $('#id_description').attr('readonly', 'readonly');
     }
@@ -65,17 +44,6 @@ jQuery(function($) {
         } else {
             $('#id_description').attr('readonly', 'readonly');
         }
-    });
-
-    // Highlight products without downloads
-	// Since penstock headwalls don't have downloads (instead they link to other products) we will ignore them
-    $('.result-list tr').each(function () {
-        var dl_count = $(this).find('.field-get_download_count').text();
-        var type = $(this).find('.field-product_code').text();
-        console.log(type.indexOf('_PENSTOCK'));
-	    if((dl_count == '0') && (type.indexOf('_PENSTOCK') == -1)) {
-	        $(this).addClass('no-downloads');
-	    }
     });
 });
 </script>
