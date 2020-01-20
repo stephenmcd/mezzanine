@@ -6,6 +6,7 @@ python:
   - "3.5"
   - "3.6"
   - "3.7"
+  - "3.8"
 install:
   - pip install --upgrade pip setuptools tox
 script:
@@ -13,12 +14,8 @@ script:
 matrix:
   fast_finish: true
   include:
-    - python: "3.5"
-      env: DJANGO="22"
-    - python: "3.6"
-      env: DJANGO="22"
-    - python: "3.7"
-      env: DJANGO="22"
+    - python: "3.4"
+      env: DJANGO="20"
   allow_failures:
     - env: DJANGO="master"
 notifications:
