@@ -305,6 +305,8 @@ td, th, th a, label, .help, p.help {
     position: relative;
 }
 .related-widget-wrapper .selector {
+    align-items: center;
+    display: flex;
     margin-right: 10px;
 }
 /*=====================================
