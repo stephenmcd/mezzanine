@@ -62,6 +62,7 @@
 
     var tinymce_config = {
         height: '500px',
+        width: 'auto',
         language: language_codes[window.__language_code] || 'en',
         plugins: [
             "advlist autolink lists link image charmap print preview anchor",
