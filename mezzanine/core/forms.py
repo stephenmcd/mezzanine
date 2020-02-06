@@ -53,6 +53,11 @@ class TinyMceWidget(forms.Textarea):
         super(TinyMceWidget, self).__init__(*args, **kwargs)
         self.attrs["class"] = "mceEditor"
 
+    def use_required_attribute(self, initial):
+        # TinyMCE does not put content back into the <textarea>, so we want to
+        # allow it to submit when empty.
+        return False
+
 
 class OrderWidget(forms.HiddenInput):
     """
