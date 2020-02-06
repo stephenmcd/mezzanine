@@ -43,11 +43,18 @@ class TinyMceWidget(forms.Textarea):
     use TinyMCE.
     """
 
-    class Media:
-        js = [static("mezzanine/tinymce/tinymce.min.js"),
-              static("mezzanine/tinymce/jquery.tinymce.min.js"),
-              static(settings.TINYMCE_SETUP_JS)]
+    @property
+    def media(self):
+        extra = '' if settings.DEBUG else '.min'
+        js = [
+            'admin/js/vendor/jquery/jquery%s.js' % extra,
+            'admin/js/jquery.init.js',
+            static("mezzanine/tinymce/tinymce.min.js"),
+            static("mezzanine/tinymce/jquery.tinymce.min.js"),
+            static(settings.TINYMCE_SETUP_JS),
+        ]
         css = {'all': [static("mezzanine/tinymce/tinymce.css")]}
+        return forms.Media(js=js, css=css)
 
     def __init__(self, *args, **kwargs):
         super(TinyMceWidget, self).__init__(*args, **kwargs)
@@ -79,8 +86,11 @@ class DynamicInlineAdminForm(forms.ModelForm):
     """
 
     class Media:
-        js = [static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
-              static("mezzanine/js/admin/dynamic_inline.js")]
+        js = [
+            'admin/js/jquery.init.js',
+            static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
+            static("mezzanine/js/admin/dynamic_inline.js")
+        ]
 
 
 class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
