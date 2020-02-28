@@ -57,25 +57,6 @@ jQuery(function($) {
     {% if hide_delete_link or singleton %}.submit-row .deletelink {display:none !important;}{% endif %}
     {% if hide_slug_field %}.slug {display:none !important;}{% endif %}
     {% if singleton %}.change-view-save-another {display:none !important;}{% endif %}
-
-     /* override for base product style checkboxes i.e period, style etc, hopefully this won't mess stuff up elsewhere */
-    ul#id_style li label, ul#id_period li label{ width: 100%; }
-    .form-row input[type="checkbox"] { margin: -2px 0 0;}
-    .form-row ul label { width: 100%; }
-    select#id_related_service_areas, select#id_services { width: 95%;}
-    span.page-model { float: left; font-size: 0.6rem; padding: 2px 8px 0px; text-transform: uppercase;}
-    #tree { min-width: 600px; width: 80% !important; }
-
-    .filebrowser td.fb_icon img {max-width: 150px; width: 100%; }
-    td.field-admin_thumb {max-width: 150px;}
-    td.field-admin_thumb img {max-width: 100%;}
-    .selector {width: 100%;}
-    .selector-available, .selector-chosen { max-width: 500px; width: 48%;}
-    .selector-available select[multiple=multiple], .selector-chosen select[multiple=multiple]{ width: 100%; }
-    #changelist table { width: 100%; }
-    #changelist table img { width: 100%; }
-    textarea[readonly] { background: #ddd; color: #eee; }
-
 </style>
 {% endblock %}
 
