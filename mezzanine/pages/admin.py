@@ -161,14 +161,14 @@ class LinkAdmin(PageAdmin):
 
     fieldsets = link_fieldsets
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
         """
         Make slug mandatory.
         """
         if db_field.name == "slug":
             kwargs["required"] = True
             kwargs["help_text"] = None
-        return super(LinkAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        return super(LinkAdmin, self).formfield_for_dbfield(db_field, request, **kwargs)
 
     def save_form(self, request, form, change):
         """

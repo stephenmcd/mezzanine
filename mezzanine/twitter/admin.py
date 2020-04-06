@@ -28,7 +28,7 @@ class TweetableAdminMixin(object):
     to the object being saved.
     """
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
         """
         Adds the "Send to Twitter" checkbox after the "status" field,
         provided by any ``Displayable`` models. The approach here is
@@ -38,7 +38,7 @@ class TweetableAdminMixin(object):
         horrifically.
         """
         formfield = super(TweetableAdminMixin,
-            self).formfield_for_dbfield(db_field, **kwargs)
+            self).formfield_for_dbfield(db_field, request, **kwargs)
         if Api and db_field.name == "status" and get_auth_settings():
             def wrapper(render):
                 def wrapped(*args, **kwargs):
