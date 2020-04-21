@@ -7,7 +7,7 @@ from future.utils import native_str
 from unittest import skipUnless
 
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings
@@ -149,7 +149,7 @@ class GenericTests(TestCase):
             request.user = self._user
             request.session = {}
         response = comment(request)
-        self.assertEquals(response.status_code, 400)
+        self.assertEqual(response.status_code, 400)
 
     def test_multiple_comment_forms(self):
 

@@ -10,7 +10,7 @@ try:
 except ImportError:
     from urlparse import urlparse
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.template import Context, Template
 from django.test import override_settings
 
@@ -84,7 +84,7 @@ class BlogTemplatetagsTests(TestCase):
             {% for month in months %}
             {{ month.date.year }}-{{ month.date.month}}: {{month.post_count}}
             {% endfor %}""").render(Context({}))
-        months = re.sub('\n\s*', ', ', html.strip())
+        months = re.sub(r'\n\s*', ', ', html.strip())
 
         self.assertEqual(months, '2017-4: 2, 2016-4: 1, 2014-5: 1')
 

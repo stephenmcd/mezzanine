@@ -99,10 +99,10 @@ class FormAdmin(PageAdmin):
         """
         urls = super(FormAdmin, self).get_urls()
         extra_urls = [
-            url("^(?P<form_id>\d+)/entries/$",
+            url(r"^(?P<form_id>\d+)/entries/$",
                 self.admin_site.admin_view(self.entries_view),
                 name="form_entries"),
-            url("^file/(?P<field_entry_id>\d+)/$",
+            url(r"^file/(?P<field_entry_id>\d+)/$",
                 self.admin_site.admin_view(self.file_view),
                 name="form_file"),
         ]
@@ -169,10 +169,10 @@ class FormAdmin(PageAdmin):
         field_entry = get_object_or_404(FieldEntry, id=field_entry_id)
         path = join(fs.location, field_entry.value)
         response = HttpResponse(content_type=guess_type(path)[0])
-        f = open(path, "r+b")
-        response["Content-Disposition"] = "attachment; filename=%s" % f.name
-        response.write(f.read())
-        f.close()
+        with open(path, "r+b") as f:
+            response["Content-Disposition"] = ("attachment; filename=%s"
+                                               % f.name)
+            response.write(f.read())
         return response
 
 admin.site.register(Form, FormAdmin)

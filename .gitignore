@@ -11,6 +11,7 @@
 .idea/
 local_settings.py
 .eggs/
+.tox/
 Mezzanine.egg-info/
 build/
 docs/build/

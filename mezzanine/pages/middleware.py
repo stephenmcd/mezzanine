@@ -94,6 +94,9 @@ class PageMiddleware(MiddlewareMixin):
 
         # Run page processors.
         extra_context = {}
+        if request.resolver_match:
+            extra_context = request.resolver_match.kwargs.get("extra_context",
+                                                              {})
         model_processors = page_processors.processors[page.content_model]
         slug_processors = page_processors.processors["slug:%s" % page.slug]
         for (processor, exact_page) in slug_processors + model_processors:
