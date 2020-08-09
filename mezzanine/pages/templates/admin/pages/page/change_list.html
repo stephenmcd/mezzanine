@@ -9,10 +9,11 @@
 .grappelli-delete {width:11px; height:11px; margin:4px 4px 0 10px; background:url('{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/icons/icon-inline_item_tools-deletelink.png" %}');}
 .grappelli-delete:hover {background:url('{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/icons/icon-inline_item_tools-deletelink-hover.png" %}');}
 </style>
+<script src="{% static "mezzanine/js/"|add:settings.JQUERY_UI_FILENAME %}"></script>
 <script>window.__page_ordering_url = '{% url "admin_page_ordering" %}';</script>
 <script src="{% static "mezzanine/js/admin/jquery.mjs.nestedSortable.js" %}"></script>
 <script src="{% static "mezzanine/js/admin/page_tree.js" %}"></script>
-{% endblock %}
+{% endblock extrahead %}
 
 {% block content %}
 <div id="content-main">
@@ -27,4 +28,4 @@
     {% endif %}
 
 </div>
-{% endblock %}
+{% endblock content %}

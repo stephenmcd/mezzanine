@@ -45,10 +45,7 @@ class TinyMceWidget(forms.Textarea):
 
     @property
     def media(self):
-        extra = '' if settings.DEBUG else '.min'
         js = [
-            'admin/js/vendor/jquery/jquery%s.js' % extra,
-            'admin/js/jquery.init.js',
             static("mezzanine/tinymce/tinymce.min.js"),
             static("mezzanine/tinymce/jquery.tinymce.min.js"),
             static(settings.TINYMCE_SETUP_JS),
@@ -92,6 +89,7 @@ class DynamicInlineAdminForm(forms.ModelForm):
 
     class Media:
         js = [
+            # Ensure Django's noConflict jQuery has loaded BEFORE our scripts
             'admin/js/jquery.init.js',
             static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
             static("mezzanine/js/admin/dynamic_inline.js")
