@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import warnings
 
 from django.contrib import admin
@@ -172,7 +170,11 @@ class UpdateCacheMiddleware(MiddlewareMixin):
         context = RequestContext(request)
         for i, part in enumerate(parts):
             if i % 2:
-                part = Template(part).render(context).encode("utf-8")
+                part = (
+                    Template(part.decode("utf-8"))
+                        .render(context)
+                        .encode("utf-8")
+                )
             parts[i] = part
         response.content = b"".join(parts)
         response["Content-Length"] = len(response.content)

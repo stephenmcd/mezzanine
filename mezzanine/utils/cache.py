@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from hashlib import md5
 from time import time
 

@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from copy import deepcopy
 
 from django.contrib import admin
@@ -9,7 +7,10 @@ from django.shortcuts import get_object_or_404
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import (
-    ContentTypedAdmin, DisplayableAdmin, DisplayableAdminForm)
+    ContentTypedAdmin,
+    DisplayableAdmin,
+    DisplayableAdminForm,
+)
 from mezzanine.pages.models import Page, RichTextPage, Link
 from mezzanine.utils.urls import clean_slashes
 
@@ -23,7 +24,6 @@ page_fieldsets[0][1]["fields"] += ("login_required",)
 
 
 class PageAdminForm(DisplayableAdminForm):
-
     def clean_slug(self):
         """
         Save the old slug to be used later in PageAdmin.save_model()
@@ -31,9 +31,9 @@ class PageAdminForm(DisplayableAdminForm):
         leading and trailing slashes which are added on elsewhere.
         """
         self.instance._old_slug = self.instance.slug
-        new_slug = self.cleaned_data['slug']
+        new_slug = self.cleaned_data["slug"]
         if not isinstance(self.instance, Link) and new_slug != "/":
-            new_slug = clean_slashes(self.cleaned_data['slug'])
+            new_slug = clean_slashes(self.cleaned_data["slug"])
         return new_slug
 
 
@@ -73,10 +73,12 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
         content_model = page.get_content_model()
 
         kwargs.setdefault("extra_context", {})
-        kwargs["extra_context"].update({
-            "hide_delete_link": not content_model.can_delete(request),
-            "hide_slug_field": content_model.overridden(),
-        })
+        kwargs["extra_context"].update(
+            {
+                "hide_delete_link": not content_model.can_delete(request),
+                "hide_slug_field": content_model.overridden(),
+            }
+        )
 
         return super(PageAdmin, self).change_view(request, object_id, **kwargs)
 
@@ -151,7 +153,9 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
                 return (order.index(name.lower()), "")
             except ValueError:
                 return (unordered, page.meta_verbose_name)
+
         return sorted(models, key=sort_key)
+
 
 # Drop the meta data fields, and move slug towards the stop.
 link_fieldsets = deepcopy(page_fieldsets[:1])
@@ -163,14 +167,16 @@ class LinkAdmin(PageAdmin):
 
     fieldsets = link_fieldsets
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
         """
         Make slug mandatory.
         """
         if db_field.name == "slug":
             kwargs["required"] = True
             kwargs["help_text"] = None
-        return super(LinkAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        return super(LinkAdmin, self).formfield_for_dbfield(
+            db_field, request, **kwargs
+        )
 
     def save_form(self, request, form, change):
         """

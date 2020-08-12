@@ -1,7 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import str
-from future.utils import native
-
 import os
 from shutil import rmtree
 from uuid import uuid4
@@ -21,7 +17,7 @@ class GalleriesTests(TestCase):
         """
         zip_name = "gallery.zip"
         copy_test_to_media("mezzanine.core", zip_name)
-        title = native(str(uuid4()))  # i.e. Py3 str / Py2 unicode
+        title = str(uuid4())
         gallery = Gallery.objects.create(title=title, zip_import=zip_name)
         images = list(gallery.images.all())
         self.assertTrue(images)

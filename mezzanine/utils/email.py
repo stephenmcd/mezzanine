@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import bytes, str
-
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
 from django.urls import reverse

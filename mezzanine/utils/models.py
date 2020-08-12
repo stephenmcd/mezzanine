@@ -1,8 +1,4 @@
-from __future__ import unicode_literals
-
 import warnings
-
-from future.utils import with_metaclass
 
 from django.conf import settings
 from django.contrib.auth import get_user_model as django_get_user_model
@@ -151,7 +147,7 @@ class ModelMixinBase(type):
         return mixin_for
 
 
-class ModelMixin(with_metaclass(ModelMixinBase, object)):
+class ModelMixin(metaclass=ModelMixinBase):
     """
     Used as a subclass for mixin models that inject their behaviour onto
     models defined outside of a project. The subclass should define an

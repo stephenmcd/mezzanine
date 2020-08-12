@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import open, bytes
-
 from copy import deepcopy
 from io import BytesIO, StringIO
 from csv import writer

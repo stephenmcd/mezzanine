@@ -1,6 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-from future.builtins import int, open, str
-
 import os
 import mimetypes
 
@@ -8,10 +5,7 @@ from json import dumps
 
 from django.template.response import TemplateResponse
 
-try:
-    from urllib.parse import urljoin, urlparse
-except ImportError:
-    from urlparse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse
 
 from django.apps import apps
 from django.contrib import admin

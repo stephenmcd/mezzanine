@@ -1,13 +1,8 @@
-from __future__ import unicode_literals
-
 from datetime import timedelta
 from time import timezone
-try:
-    from urllib.request import urlopen
-    from urllib.parse import urljoin
-except ImportError:
-    from urllib import urlopen
-    from urlparse import urljoin
+
+from urllib.request import urlopen
+from urllib.parse import urljoin
 
 from django.core.management.base import CommandError
 

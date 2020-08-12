@@ -1,9 +1,4 @@
-from __future__ import print_function, unicode_literals
-from future.builtins import input, int
-try:
-    from urllib.parse import urlparse
-except:
-    from urlparse import urlparse
+from urllib.parse import urlparse
 
 from django.contrib.auth import get_user_model
 from django.contrib.redirects.models import Redirect

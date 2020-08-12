@@ -1,7 +1,4 @@
-from __future__ import unicode_literals
-
 from django.contrib.sites.models import Site
-from future.builtins import str
 
 from unittest import skipUnless
 from django.apps import apps

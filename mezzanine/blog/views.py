@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import str, int
-
 from calendar import month_name
 
 from django.contrib.auth import get_user_model

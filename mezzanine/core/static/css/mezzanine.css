@@ -426,6 +426,17 @@ float the buttons inside it. This prevents collapsing. */
   margin-bottom: 30px;
   background-color: #FEFFEE;
 }
+span.page-model {
+  float: left;
+  font-size: 0.6rem;
+  padding: 2px 8px 0;
+  text-transform: uppercase;
+}
+
+textarea#id_description[readonly] {
+  background: #ddd;
+  color: #eee;
+}
 
 /*========================================
           MEZZANINE TWEETS

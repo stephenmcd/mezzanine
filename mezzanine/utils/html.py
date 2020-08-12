@@ -1,6 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-from future.builtins import chr, int, str
-
 try:
     from html.parser import HTMLParser
     from html.entities import name2codepoint

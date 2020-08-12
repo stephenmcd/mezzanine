@@ -1,20 +1,12 @@
-from __future__ import unicode_literals
-from future.builtins import str
-from future.utils import with_metaclass
-
 from json import loads
-try:
-    from urllib.request import urlopen
-    from urllib.parse import urlencode
-except ImportError:
-    from urllib import urlopen, urlencode
+from urllib.request import urlopen
+from urllib.parse import urlencode
 
 from django.apps import apps
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.db.models.base import ModelBase
 from django.template.defaultfilters import truncatewords_html
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import format_html, strip_tags
 from django.utils.timesince import timesince
 from django.utils.timezone import now
@@ -71,7 +63,6 @@ class SiteRelated(models.Model):
         super(SiteRelated, self).save(*args, **kwargs)
 
 
-@python_2_unicode_compatible
 class Slugged(SiteRelated):
     """
     Abstract model that handles auto-generating slugs. Each slugged
@@ -412,7 +403,7 @@ class OrderableBase(ModelBase):
         return super(OrderableBase, cls).__new__(cls, name, bases, attrs)
 
 
-class Orderable(with_metaclass(OrderableBase, models.Model)):
+class Orderable(models.Model, metaclass=OrderableBase):
     """
     Abstract model that provides a custom ordering integer field
     similar to using Meta's ``order_with_respect_to``, since to
