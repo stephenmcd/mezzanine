@@ -1,19 +1,11 @@
-from __future__ import division, unicode_literals
-
 import warnings
 
 from future.builtins import int
 
 from datetime import datetime, timedelta
 
-try:
-    from urllib.parse import urlencode
-except ImportError:  # Python 2
-    from urllib import urlencode
-try:
-    from urllib.request import Request, urlopen
-except ImportError:  # Python 2
-    from urllib2 import Request, urlopen
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 import django
 from django.contrib.auth import get_permission_codename

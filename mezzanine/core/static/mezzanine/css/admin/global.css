@@ -210,7 +210,7 @@ body.popup .breadcrumbs + ul.messagelist {
 fieldset.module {
     margin-bottom: 25px;
 }
-fieldset .field-box {
+fieldset .fieldBox {
     margin: 0 150px 10px 0 !important;
 }
 .form-row label + p.datetime {
@@ -305,6 +305,8 @@ td, th, th a, label, .help, p.help {
     position: relative;
 }
 .related-widget-wrapper .selector {
+    align-items: center;
+    display: flex;
     margin-right: 10px;
 }
 /*=====================================

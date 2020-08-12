@@ -1,7 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import int
-from future.builtins import input
-
 import os
 import shutil
 

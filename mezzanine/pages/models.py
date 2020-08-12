@@ -1,11 +1,6 @@
-from __future__ import unicode_literals
-from future.builtins import str
 from mezzanine.utils.sites import override_current_site_id
 
-try:
-    from urllib.parse import urljoin
-except ImportError:  # Python 2
-    from urlparse import urljoin
+from urllib.parse import urljoin
 
 from django.urls import resolve, reverse
 from django.db import models

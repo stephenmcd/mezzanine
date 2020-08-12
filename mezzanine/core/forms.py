@@ -1,15 +1,8 @@
-from __future__ import unicode_literals
-from future.builtins import str
-
 from datetime import datetime
 from uuid import uuid4
 
 from django import forms
-try:
-    from django.forms.widgets import SelectDateWidget
-except ImportError:
-    # Django 1.8
-    from django.forms.extras.widgets import SelectDateWidget
+from django.forms.widgets import SelectDateWidget
 
 from django.forms.utils import to_current_timezone
 from django.utils.safestring import mark_safe
@@ -50,15 +43,27 @@ class TinyMceWidget(forms.Textarea):
     use TinyMCE.
     """
 
-    class Media:
-        js = [static("mezzanine/tinymce/tinymce.min.js"),
-              static("mezzanine/tinymce/jquery.tinymce.min.js"),
-              static(settings.TINYMCE_SETUP_JS)]
+    @property
+    def media(self):
+        extra = '' if settings.DEBUG else '.min'
+        js = [
+            'admin/js/vendor/jquery/jquery%s.js' % extra,
+            'admin/js/jquery.init.js',
+            static("mezzanine/tinymce/tinymce.min.js"),
+            static("mezzanine/tinymce/jquery.tinymce.min.js"),
+            static(settings.TINYMCE_SETUP_JS),
+        ]
         css = {'all': [static("mezzanine/tinymce/tinymce.css")]}
+        return forms.Media(js=js, css=css)
 
     def __init__(self, *args, **kwargs):
         super(TinyMceWidget, self).__init__(*args, **kwargs)
         self.attrs["class"] = "mceEditor"
+
+    def use_required_attribute(self, initial):
+        # TinyMCE does not put content back into the <textarea>, so we want to
+        # allow it to submit when empty.
+        return False
 
 
 class OrderWidget(forms.HiddenInput):
@@ -74,7 +79,7 @@ class OrderWidget(forms.HiddenInput):
     def render(self, *args, **kwargs):
         rendered = super(OrderWidget, self).render(*args, **kwargs)
         arrows = ["<img src='%sadmin/img/admin/arrow-%s.gif' />" %
-            (settings.STATIC_URL, arrow) for arrow in ("up", "down")]
+                  (settings.STATIC_URL, arrow) for arrow in ("up", "down")]
         arrows = "<span class='ordering'>%s</span>" % "".join(arrows)
         return rendered + mark_safe(arrows)
 
@@ -86,8 +91,11 @@ class DynamicInlineAdminForm(forms.ModelForm):
     """
 
     class Media:
-        js = [static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
-              static("mezzanine/js/admin/dynamic_inline.js")]
+        js = [
+            'admin/js/jquery.init.js',
+            static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
+            static("mezzanine/js/admin/dynamic_inline.js")
+        ]
 
 
 class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):

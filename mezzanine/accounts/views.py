@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.contrib.auth import (login as auth_login, authenticate,
                                  logout as auth_logout, get_user_model)
 from django.contrib.auth.decorators import login_required

@@ -1,6 +1,3 @@
-from __future__ import division, unicode_literals
-from future.builtins import str
-
 from copy import copy
 
 from django.contrib.contenttypes.fields import GenericRelation
@@ -203,7 +200,8 @@ class KeywordsField(BaseGenericRelation):
             data = [related_manager.create(keyword_id=i) for i in new_ids]
         # Remove keywords that are no longer assigned to anything.
         Keyword.objects.delete_unused(removed_ids)
-        super(KeywordsField, self).save_form_data(instance, data)
+
+        getattr(instance, self.name).set(data)
 
     def contribute_to_class(self, cls, name):
         """

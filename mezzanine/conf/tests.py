@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import bytes, str
-
 import sys
 from unittest import skipUnless
 import warnings

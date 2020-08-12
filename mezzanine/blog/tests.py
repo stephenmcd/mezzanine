@@ -1,14 +1,9 @@
-from __future__ import unicode_literals
-
 import re
 import pytz
 import datetime
 from unittest import skipUnless
 
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
+from urllib.parse import urlparse
 
 from django.urls import reverse
 from django.template import Context, Template

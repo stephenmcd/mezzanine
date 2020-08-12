@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django_comments.managers import CommentManager as DjangoCM
 
 from mezzanine.conf import settings

@@ -1,7 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import str
-from future.utils import native
-
 from io import BytesIO
 import os
 from string import punctuation
@@ -103,7 +99,7 @@ class BaseGallery(models.Model):
                     # explicit conversion, which raises a TypeError as it
                     # would on Python 3.
                     path = os.path.join(GALLERIES_UPLOAD_DIR, slug,
-                                        native(str(name, errors="ignore")))
+                                        str(name, errors="ignore"))
                     saved_path = default_storage.save(path, ContentFile(data))
                 self.images.create(file=saved_path)
             if delete_zip_import:

@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import str
-
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _

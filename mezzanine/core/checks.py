@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import pprint
 
 from django import VERSION as DJANGO_VERSION

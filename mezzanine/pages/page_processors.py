@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import str as _str
-
 from collections import defaultdict
 from importlib import import_module
 
@@ -28,7 +25,7 @@ def processor_for(content_model_or_slug, exact_page=False):
     """
     content_model = None
     slug = ""
-    if isinstance(content_model_or_slug, (str, _str)):
+    if isinstance(content_model_or_slug, str):
         try:
             parts = content_model_or_slug.split(".", 1)
             content_model = apps.get_model(*parts)

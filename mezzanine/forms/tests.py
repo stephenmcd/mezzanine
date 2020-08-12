@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from unittest import skipUnless
 
 from django.template import RequestContext

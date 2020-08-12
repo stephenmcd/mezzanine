@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import int, str, zip
-
 from django import forms
 from django_comments.forms import CommentSecurityForm, CommentForm
 from django_comments.signals import comment_was_posted
@@ -36,7 +33,10 @@ class KeywordsWidget(forms.MultiWidget):
     """
 
     class Media:
-        js = (static("mezzanine/js/admin/keywords_field.js"),)
+        js = (
+            'admin/js/jquery.init.js',
+            static("mezzanine/js/admin/keywords_field.js"),
+        )
 
     def __init__(self, attrs=None):
         """
