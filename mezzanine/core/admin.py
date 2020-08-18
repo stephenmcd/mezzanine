@@ -36,6 +36,7 @@ if settings.USE_MODELTRANSLATION:
         """
         class Media:
             js = (
+                static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
                 static("mezzanine/js/admin/tabbed_translation_fields.js"),
             )
             css = {
