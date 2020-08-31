@@ -716,7 +716,7 @@ Default: ``('ACCOUNTS_APPROVAL_REQUIRED', 'ACCOUNTS_VERIFICATION_REQUIRED', 'ADM
 ``THUMBNAILS_DIR_NAME``
 -----------------------
 
-Directory name to store thumbnails in, that will be created relative to the original image's directory.
+Directory name to store thumbnails in, that will be created relative to the original image's directory, or to MEDIA_ROOT if an absolute path.
 
 Default: ``'.thumbnails'``
 
