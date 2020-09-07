@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.generic.models import ThreadedComment
 
 
-__all__ = ('ThreadedCommentAdmin',)
+__all__ = ("ThreadedCommentAdmin",)
 
 
 class ThreadedCommentAdmin(CommentsAdmin):
@@ -14,8 +14,14 @@ class ThreadedCommentAdmin(CommentsAdmin):
     Admin class for comments.
     """
 
-    list_display = ("avatar_link", "intro", "submit_date", "is_public",
-                    "is_removed", "admin_link")
+    list_display = (
+        "avatar_link",
+        "intro",
+        "submit_date",
+        "is_public",
+        "is_removed",
+        "admin_link",
+    )
     list_display_links = ("intro", "submit_date")
     list_filter = [f for f in CommentsAdmin.list_filter if f != "site"]
     fieldsets = (

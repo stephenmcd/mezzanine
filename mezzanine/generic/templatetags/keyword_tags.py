@@ -46,9 +46,9 @@ def keywords_for(*args):
         return []
     counts = [keyword.item_count for keyword in keywords]
     min_count, max_count = min(counts), max(counts)
-    factor = (settings.TAG_CLOUD_SIZES - 1.)
+    factor = settings.TAG_CLOUD_SIZES - 1.0
     if min_count != max_count:
-        factor /= (max_count - min_count)
+        factor /= max_count - min_count
     for kywd in keywords:
         kywd.weight = int(round((kywd.item_count - min_count) * factor)) + 1
     return keywords

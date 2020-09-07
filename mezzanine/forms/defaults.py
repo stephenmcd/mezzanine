@@ -23,8 +23,9 @@ register_setting(
 
 register_setting(
     name="FORMS_CSV_DELIMITER",
-    description=_("Char to use as a field delimiter when exporting form "
-        "responses as CSV."),
+    description=_(
+        "Char to use as a field delimiter when exporting form " "responses as CSV."
+    ),
     editable=False,
     default=",",
 )
@@ -38,21 +39,25 @@ register_setting(
 
 register_setting(
     name="FORMS_EXTRA_FIELDS",
-    description=_("Extra field types for the forms app. Should contain a "
+    description=_(
+        "Extra field types for the forms app. Should contain a "
         "sequence of three-item sequences, each containing the ID, dotted "
         "import path for the field class, and field name, for each custom "
         "field type. The ID is simply a numeric constant for the field, "
         "but cannot be a value already used, so choose a high number such "
-        "as 100 or greater to avoid conflicts."),
+        "as 100 or greater to avoid conflicts."
+    ),
     editable=False,
     default=(),
 )
 
 register_setting(
     name="FORMS_EXTRA_WIDGETS",
-    description=_("Extra field widgets for the forms app. Should contain a "
+    description=_(
+        "Extra field widgets for the forms app. Should contain a "
         "sequence of two-item sequences, each containing an existing ID "
-        "for a form field, and a dotted import path for the widget class."),
+        "for a form field, and a dotted import path for the widget class."
+    ),
     editable=False,
     default=(),
 )

@@ -15,15 +15,13 @@ User = get_user_model()
 
 
 class AccountsTests(TestCase):
-
     def account_data(self, test_value):
         """
         Returns a dict with test data for all the user/profile fields.
         """
         # User fields
         data = {"email": test_value + "@example.com"}
-        for field in ("first_name", "last_name", "username",
-                      "password1", "password2"):
+        for field in ("first_name", "last_name", "username", "password1", "password2"):
             if field.startswith("password"):
                 value = "x" * settings.ACCOUNTS_MIN_PASSWORD_LENGTH
             else:
@@ -71,10 +69,13 @@ class AccountsTests(TestCase):
         self.assertEqual(mail.outbox[0].to[0], data["email"])
         # Test the verification link.
         new_user = users[0]
-        verification_url = reverse("signup_verify", kwargs={
-            "uidb36": int_to_base36(new_user.id),
-            "token": default_token_generator.make_token(new_user),
-        })
+        verification_url = reverse(
+            "signup_verify",
+            kwargs={
+                "uidb36": int_to_base36(new_user.id),
+                "token": default_token_generator.make_token(new_user),
+            },
+        )
         response = self.client.get(verification_url, follow=True)
         self.assertEqual(response.status_code, 200)
         users = User.objects.filter(email=data["email"], is_active=True)

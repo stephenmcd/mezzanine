@@ -15,7 +15,6 @@ import mezzanine
 
 
 class MezzStaticFilesHandler(StaticFilesHandler):
-
     def _should_handle(self, path):
         return path.startswith((settings.STATIC_URL, settings.MEDIA_URL))
 
@@ -46,8 +45,10 @@ def banner():
     db_name = {
         "microsoft": "sql server",
     }.get(conn.vendor, conn.vendor)
-    db_name = "%s%s" % (db_name[:1].upper(),
-        db_name.replace("sql", "SQL").replace("db", "DB")[1:])
+    db_name = "%s%s" % (
+        db_name[:1].upper(),
+        db_name.replace("sql", "SQL").replace("db", "DB")[1:],
+    )
 
     # Database version - vendor names mapped to functions that
     # retrieve the version, which should be a sequence of things
@@ -70,7 +71,8 @@ def banner():
     db_version = ".".join(map(str, db_version_func()))
 
     # The raw banner split into lines.
-    lines = ("""
+    lines = (
+        """
 
               .....
           _d^^^^^^^^^b_
@@ -89,15 +91,17 @@ def banner():
               ''''
 
 
-""" % {
-        "mezzanine_version": mezzanine.__version__,
-        "django_version": django.get_version(),
-        "python_version": sys.version.split(" ", 1)[0],
-        "db_name": db_name,
-        "db_version": db_version,
-        "os_name": platform.system(),
-        "os_version": platform.release(),
-    }).splitlines()[2:]
+"""
+        % {
+            "mezzanine_version": mezzanine.__version__,
+            "django_version": django.get_version(),
+            "python_version": sys.version.split(" ", 1)[0],
+            "db_name": db_name,
+            "db_version": db_version,
+            "os_name": platform.system(),
+            "os_version": platform.release(),
+        }
+    ).splitlines()[2:]
 
     if not supports_color():
         return "\n".join(lines)
@@ -109,8 +113,10 @@ def banner():
     color_states = [
         (lambda c: c != " ", {}),
         (lambda c: c == " ", {"fg": "red"}),
-        (lambda c: c != " " and not c.isupper(),
-            {"fg": "white", "bg": "red", "opts": ["bold"]}),
+        (
+            lambda c: c != " " and not c.isupper(),
+            {"fg": "white", "bg": "red", "opts": ["bold"]},
+        ),
         (lambda c: c == " ", {"fg": "red"}),
         (lambda c: c == "*", {}),
         (lambda c: c != "*", {"fg": "red"}),
@@ -144,9 +150,11 @@ class Command(runserver.Command):
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
         parser.add_argument(
-            '--nobanner', action="store_false", dest='show_banner',
+            "--nobanner",
+            action="store_false",
+            dest="show_banner",
             default=True,
-            help='Tells Mezzanine not to show a banner at startup.',
+            help="Tells Mezzanine not to show a banner at startup.",
         )
 
     def inner_run(self, *args, **kwargs):

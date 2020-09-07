@@ -3,6 +3,7 @@ from mezzanine.conf.models import Setting
 
 
 class TranslatedSetting(TranslationOptions):
-    fields = ('value',)
+    fields = ("value",)
+
 
 translator.register(Setting, TranslatedSetting)

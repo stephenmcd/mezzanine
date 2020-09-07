@@ -58,11 +58,14 @@ class OverExtendsNode(ExtendsNode):
         if context_name not in context:
             context[context_name] = {}
         if name not in context[context_name]:
-            all_dirs = (
-                list(chain.from_iterable(
-                    [template_engine.get('DIRS', [])
-                     for template_engine in settings.TEMPLATES])) +
-                list(app_directories.get_app_template_dirs('templates')))
+            all_dirs = list(
+                chain.from_iterable(
+                    [
+                        template_engine.get("DIRS", [])
+                        for template_engine in settings.TEMPLATES
+                    ]
+                )
+            ) + list(app_directories.get_app_template_dirs("templates"))
             # os.path.abspath is needed under uWSGI, and also ensures we
             # have consistent path separators across different OSes.
             context[context_name][name] = list(map(os.path.abspath, all_dirs))
@@ -89,7 +92,7 @@ class OverExtendsNode(ExtendsNode):
                 # get_parent, and not when we're peeking during the
                 # second call.
                 if not peeking:
-                    remove_path = os.path.abspath(path[:-len(name) - 1])
+                    remove_path = os.path.abspath(path[: -len(name) - 1])
                     context[context_name][name].remove(remove_path)
                 return Template(source)
         raise TemplateDoesNotExist(name)
@@ -109,8 +112,10 @@ class OverExtendsNode(ExtendsNode):
             return parent
         template = self.find_template(parent, context)
         for node in template.nodelist:
-            if (isinstance(node, ExtendsNode) and
-                    node.parent_name.resolve(context) == parent):
+            if (
+                isinstance(node, ExtendsNode)
+                and node.parent_name.resolve(context) == parent
+            ):
                 return self.find_template(parent, context, peeking=True)
         return template
 
@@ -127,7 +132,8 @@ def overextends(parser, token):
             "The `overextends` template tag is deprecated in favour of "
             "Django's built-in `extends` tag, which supports recursive "
             "extension in Django 1.9 and above.",
-            DeprecationWarning, stacklevel=2
+            DeprecationWarning,
+            stacklevel=2,
         )
 
     bits = token.split_contents()
@@ -136,6 +142,7 @@ def overextends(parser, token):
     parent_name = parser.compile_filter(bits[1])
     nodelist = parser.parse()
     if nodelist.get_nodes_by_type(ExtendsNode):
-        raise TemplateSyntaxError("'%s' cannot appear more than once "
-                                  "in the same template" % bits[0])
+        raise TemplateSyntaxError(
+            "'%s' cannot appear more than once " "in the same template" % bits[0]
+        )
     return OverExtendsNode(nodelist, parent_name, None)

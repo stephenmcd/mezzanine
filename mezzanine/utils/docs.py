@@ -50,26 +50,35 @@ def build_settings_docs(docs_path, prefix=None):
         setting_default = setting["default"]
         if isinstance(setting_default, str):
             if gethostname() in setting_default or (
-                setting_default.startswith("/") and
-                    os.path.exists(setting_default)):
+                setting_default.startswith("/") and os.path.exists(setting_default)
+            ):
                 setting_default = dynamic
         if setting_default != dynamic:
             setting_default = repr(deep_force_unicode(setting_default))
         lines.extend(["", settings_label])
         lines.extend(["", settings_name, "-" * len(settings_name)])
-        lines.extend(["",
-            urlize(setting["description"] or "").replace(
-                "<a href=\"", "`").replace(
-                "\" rel=\"nofollow\">", " <").replace(
-                "</a>", ">`_")])
+        lines.extend(
+            [
+                "",
+                urlize(setting["description"] or "")
+                .replace('<a href="', "`")
+                .replace('" rel="nofollow">', " <")
+                .replace("</a>", ">`_"),
+            ]
+        )
         if setting["choices"]:
-            choices = ", ".join(["%s: ``%s``" % (str(v), force_text(k))
-                                 for k, v in setting["choices"]])
+            choices = ", ".join(
+                ["%s: ``%s``" % (str(v), force_text(k)) for k, v in setting["choices"]]
+            )
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
     with open(os.path.join(docs_path, "settings.rst"), "w") as f:
-        f.write("\n".join(lines).replace("u'", "'").replace("yo'",
-            "you'").replace("&#39;", "'"))
+        f.write(
+            "\n".join(lines)
+            .replace("u'", "'")
+            .replace("yo'", "you'")
+            .replace("&#39;", "'")
+        )
 
 
 def build_deploy_docs(docs_path):
@@ -104,11 +113,29 @@ def build_changelog(docs_path, package_name="mezzanine"):
     changelog_file = os.path.join(project_path, changelog_filename)
     versions = OrderedDict()
     repo = None
-    ignore = ("AUTHORS", "formatting", "typo", "pep8", "pep 8",
-              "whitespace", "README", "trans", "print debug",
-              "debugging", "tabs", "style", "sites", "ignore",
-              "tweak", "cleanup", "minor", "for changeset",
-              ".com``", "oops", "syntax")
+    ignore = (
+        "AUTHORS",
+        "formatting",
+        "typo",
+        "pep8",
+        "pep 8",
+        "whitespace",
+        "README",
+        "trans",
+        "print debug",
+        "debugging",
+        "tabs",
+        "style",
+        "sites",
+        "ignore",
+        "tweak",
+        "cleanup",
+        "minor",
+        "for changeset",
+        ".com``",
+        "oops",
+        "syntax",
+    )
     hotfixes = {
         "40cbc47b8d8a": "1.0.9",
         "a25749986abc": "1.0.10",
@@ -148,8 +175,12 @@ def build_changelog(docs_path, package_name="mezzanine"):
         words = description.split()
         # Format var names in commit.
         for i, word in enumerate(words):
-            if (set("._") & set(word[:-1]) and set(letters) & set(word) and
-                    "`" not in word and not word[0].isdigit()):
+            if (
+                set("._") & set(word[:-1])
+                and set(letters) & set(word)
+                and "`" not in word
+                and not word[0].isdigit()
+            ):
                 last = ""
                 if word[-1] in ",.":
                     last, word = word[-1], word[:-1]
@@ -164,7 +195,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
                         break
                     versions[locals()[version_var]] = {
                         "changes": [],
-                        "date": _changeset_date(cs).strftime("%b %d, %Y")
+                        "date": _changeset_date(cs).strftime("%b %d, %Y"),
                     }
                     new_version = len(files) == 1
 
@@ -193,8 +224,14 @@ def build_changelog(docs_path, package_name="mezzanine"):
         changelog_update = changelog_filename in files
         ignored = [w for w in ignore if w.lower() in description.lower()]
         too_few_words = len(description.split()) <= 3
-        if (merge or new_version or branch_closed or changelog_update or
-                ignored or too_few_words):
+        if (
+            merge
+            or new_version
+            or branch_closed
+            or changelog_update
+            or ignored
+            or too_few_words
+        ):
             continue
         # Ensure we have a current version and if so, add this changeset's
         # description to it.
@@ -239,17 +276,20 @@ def build_modelgraph(docs_path, package_name="mezzanine"):
     to_path = os.path.join(docs_path, "img", "graph.png")
     build_path = os.path.join(docs_path, "build", "_images")
     resized_path = os.path.join(os.path.dirname(to_path), "graph-small.png")
-    settings = import_dotted_path(package_name +
-                                  ".project_template.project_name.settings")
-    apps = [a.rsplit(".")[1] for a in settings.INSTALLED_APPS
-            if a.startswith("mezzanine.") or a.startswith(package_name + ".")]
+    settings = import_dotted_path(
+        package_name + ".project_template.project_name.settings"
+    )
+    apps = [
+        a.rsplit(".")[1]
+        for a in settings.INSTALLED_APPS
+        if a.startswith("mezzanine.") or a.startswith(package_name + ".")
+    ]
     try:
         from django_extensions.management.commands import graph_models
     except ImportError:
         warn("Couldn't build model_graph, django_extensions not installed")
     else:
-        options = {"inheritance": True, "outputfile": "graph.png",
-                   "layout": "dot"}
+        options = {"inheritance": True, "outputfile": "graph.png", "layout": "dot"}
         try:
             graph_models.Command().execute(*apps, **options)
         except Exception as e:
@@ -268,6 +308,7 @@ def build_modelgraph(docs_path, package_name="mezzanine"):
         warn("Couldn't build model_graph, copy to build failed on: %s" % e)
     try:
         from PIL import Image
+
         image = Image.open(to_path)
         image.width = 800
         image.height = image.size[1] * 800 // image.size[0]
@@ -288,8 +329,9 @@ def build_requirements(docs_path, package_name="mezzanine"):
     """
     mezz_string = "Mezzanine=="
     project_path = os.path.join(docs_path, "..")
-    requirements_file = os.path.join(project_path, package_name,
-                                     "project_template", "requirements.txt")
+    requirements_file = os.path.join(
+        project_path, package_name, "project_template", "requirements.txt"
+    )
     with open(requirements_file, "r") as f:
         requirements = f.readlines()
     with open(requirements_file, "w") as f:

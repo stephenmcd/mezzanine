@@ -34,7 +34,7 @@ def home_slug():
     prefix = get_script_prefix()
     slug = reverse("home")
     if slug.startswith(prefix):
-        slug = '/' + slug[len(prefix):]
+        slug = "/" + slug[len(prefix) :]
     try:
         return resolve(slug).kwargs["slug"]
     except KeyError:
@@ -103,6 +103,7 @@ def login_redirect(request):
     ignorable_nexts = ("",)
     if "mezzanine.accounts" in settings.INSTALLED_APPS:
         from mezzanine.accounts import urls
+
         ignorable_nexts += (urls.SIGNUP_URL, urls.LOGIN_URL, urls.LOGOUT_URL)
     next = next_url(request) or ""
     if next in ignorable_nexts:
@@ -125,6 +126,7 @@ def path_to_slug(path):
     a slug that would match a ``Page`` instance's slug.
     """
     from mezzanine.urls import PAGES_SLUG
+
     lang_code = translation.get_language_from_path(path)
     for prefix in (lang_code, settings.SITE_PREFIX, PAGES_SLUG):
         if prefix:

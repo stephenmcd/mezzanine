@@ -8,9 +8,11 @@ contenttypes framework, such as comments, keywords/tags and voting.
 
 def get_model():
     from mezzanine.generic.models import ThreadedComment
+
     return ThreadedComment
 
 
 def get_form():
     from mezzanine.generic.forms import ThreadedCommentForm
+
     return ThreadedCommentForm

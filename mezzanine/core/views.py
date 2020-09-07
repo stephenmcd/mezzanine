@@ -14,8 +14,7 @@ from django.contrib.admin.options import ModelAdmin
 from django.contrib.staticfiles import finders
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
-from django.http import (HttpResponse, HttpResponseServerError,
-                         HttpResponseNotFound)
+from django.http import HttpResponse, HttpResponseServerError, HttpResponseNotFound
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
@@ -78,8 +77,9 @@ def edit(request):
     """
     model = apps.get_model(request.POST["app"], request.POST["model"])
     obj = model.objects.get(id=request.POST["id"])
-    form = get_edit_form(obj, request.POST["fields"], data=request.POST,
-                         files=request.FILES)
+    form = get_edit_form(
+        obj, request.POST["fields"], data=request.POST, files=request.FILES
+    )
     if not (is_editable(obj, request) and has_site_permission(request.user)):
         response = _("Permission denied")
     elif form.is_valid():
@@ -113,8 +113,7 @@ def search(request, template="search_results.html", extra_context=None):
         search_type = search_model._meta.verbose_name_plural.capitalize()
     results = search_model.objects.search(query, for_user=request.user)
     paginated = paginate(results, page, per_page, max_paging_links)
-    context = {"query": query, "results": paginated,
-               "search_type": search_type}
+    context = {"query": query, "results": paginated, "search_type": search_type}
     context.update(extra_context or {})
     return TemplateResponse(request, template, context)
 
@@ -172,6 +171,7 @@ def displayable_links_js(request):
     links = []
     if "mezzanine.pages" in settings.INSTALLED_APPS:
         from mezzanine.pages.models import Page
+
         is_page = lambda obj: isinstance(obj, Page)
     else:
         is_page = lambda obj: False
@@ -186,7 +186,7 @@ def displayable_links_js(request):
             verbose_name = _("Page") if page else obj._meta.verbose_name
             title = "%s: %s" % (verbose_name, title)
         links.append((not page and real, {"title": str(title), "value": url}))
-    sorted_links = sorted(links, key=lambda link: (link[0], link[1]['value']))
+    sorted_links = sorted(links, key=lambda link: (link[0], link[1]["value"]))
     return HttpResponse(dumps([link[1] for link in sorted_links]))
 
 

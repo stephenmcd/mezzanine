@@ -1,4 +1,3 @@
-
 from distutils.dir_util import copy_tree
 from importlib import import_module
 import os
@@ -19,25 +18,30 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
-        parser.add_argument("-a", "--alternate", dest="alt", metavar="PACKAGE",
-            help="Alternate package to use, containing a project_template")
+        parser.add_argument(
+            "-a",
+            "--alternate",
+            dest="alt",
+            metavar="PACKAGE",
+            help="Alternate package to use, containing a project_template",
+        )
 
     def handle(self, *args, **options):
 
         # Overridden to provide a template value for nevercache_key. The
         # method is copied verbatim from startproject.Command.
-        chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
-        options['nevercache_key'] = get_random_string(50, chars)
+        chars = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)"
+        options["nevercache_key"] = get_random_string(50, chars)
 
         # Indicate that local_settings.py.template should be rendered
-        options['files'].append('local_settings.py.template')
+        options["files"].append("local_settings.py.template")
 
         super(Command, self).handle(*args, **options)
 
         target = options.get("target", None)
-        name = options['name']
+        name = options["name"]
         if target is None:
-            target = options['directory']
+            target = options["directory"]
 
         project_dir = self.get_project_directory(name, target)
         project_app_dir = os.path.join(project_dir, name)
@@ -53,8 +57,11 @@ class Command(BaseCommand):
         alt = options.pop("alt", "")
         if alt:
             options["template"] = six.text_type(
-                os.path.join(os.path.dirname(os.path.abspath(
-                    import_module(alt).__file__)), "project_template"))
+                os.path.join(
+                    os.path.dirname(os.path.abspath(import_module(alt).__file__)),
+                    "project_template",
+                )
+            )
             options["directory"] = mkdtemp()
             self.handle(*args, **options)
             copy_tree(options["directory"], project_dir)
@@ -77,8 +84,10 @@ class Command(BaseCommand):
         else:
             top_dir = os.path.abspath(os.path.expanduser(target))
             if not os.path.exists(top_dir):
-                raise CommandError("Destination directory '%s' does not "
-                                   "exist, please create it first." % top_dir)
+                raise CommandError(
+                    "Destination directory '%s' does not "
+                    "exist, please create it first." % top_dir
+                )
 
         return top_dir
 

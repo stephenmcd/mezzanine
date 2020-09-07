@@ -63,11 +63,17 @@ def cache_installed():
     """
     has_key = bool(getattr(settings, "NEVERCACHE_KEY", ""))
 
-    return (has_key and settings.CACHES and not settings.TESTING and
-            middlewares_or_subclasses_installed([
+    return (
+        has_key
+        and settings.CACHES
+        and not settings.TESTING
+        and middlewares_or_subclasses_installed(
+            [
                 "mezzanine.core.middleware.UpdateCacheMiddleware",
                 "mezzanine.core.middleware.FetchFromCacheMiddleware",
-            ]))
+            ]
+        )
+    )
 
 
 def cache_key_prefix(request):

@@ -3,8 +3,12 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.auth import get_user_model
-from django.contrib.admin.sites import (AdminSite, site as default_site,
-    NotRegistered, AlreadyRegistered)
+from django.contrib.admin.sites import (
+    AdminSite,
+    site as default_site,
+    NotRegistered,
+    AlreadyRegistered,
+)
 from django.shortcuts import redirect
 
 from mezzanine.utils.importing import import_dotted_path
@@ -73,8 +77,11 @@ class LazyAdminSite(AdminSite):
                 # doesn't provide), so that we can target it in the
                 # ADMIN_MENU_ORDER setting, allowing each view to correctly
                 # highlight its left-hand admin nav item.
-                url(r"^media-library/$", lambda r: redirect("fb_browse"),
-                    name="media-library"),
+                url(
+                    r"^media-library/$",
+                    lambda r: redirect("fb_browse"),
+                    name="media-library",
+                ),
                 url(r"^media-library/", include(fb_urls)),
             ] + urls
 
@@ -87,9 +94,11 @@ class LazyAdminSite(AdminSite):
             if user_change_password:
                 bits = (User._meta.app_label, User._meta.object_name.lower())
                 urls = [
-                    url(r"^%s/%s/(\d+)/password/$" % bits,
+                    url(
+                        r"^%s/%s/(\d+)/password/$" % bits,
                         self.admin_view(user_change_password),
-                        name="user_change_password"),
+                        name="user_change_password",
+                    ),
                 ] + urls
                 break
 
@@ -97,16 +106,29 @@ class LazyAdminSite(AdminSite):
         # specifically for compatibility with SSLRedirectMiddleware.
         from mezzanine.core.views import displayable_links_js, static_proxy
         from mezzanine.generic.views import admin_keywords_submit
+
         urls += [
-            url(r"^admin_keywords_submit/$", admin_keywords_submit,
-                name="admin_keywords_submit"),
+            url(
+                r"^admin_keywords_submit/$",
+                admin_keywords_submit,
+                name="admin_keywords_submit",
+            ),
             url(r"^asset_proxy/$", static_proxy, name="static_proxy"),
-            url(r"^displayable_links.js$", displayable_links_js,
-                name="displayable_links_js"),
+            url(
+                r"^displayable_links.js$",
+                displayable_links_js,
+                name="displayable_links_js",
+            ),
         ]
         if "mezzanine.pages" in settings.INSTALLED_APPS:
             from mezzanine.pages.views import admin_page_ordering
-            urls.append(url(r"^admin_page_ordering/$", admin_page_ordering,
-                            name="admin_page_ordering"))
+
+            urls.append(
+                url(
+                    r"^admin_page_ordering/$",
+                    admin_page_ordering,
+                    name="admin_page_ordering",
+                )
+            )
 
         return urls

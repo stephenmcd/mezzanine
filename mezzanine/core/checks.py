@@ -18,44 +18,51 @@ def check_template_settings(app_configs, **kwargs):
 
         suggested_config = _build_suggested_template_config(settings)
 
-        declaration = 'TEMPLATES = '
+        declaration = "TEMPLATES = "
         config_formatted = pprint.pformat(suggested_config)
-        config_formatted = "\n".join(' ' * len(declaration) + line
-                                     for line in config_formatted.splitlines())
-        config_formatted = declaration + config_formatted[len(declaration):]
+        config_formatted = "\n".join(
+            " " * len(declaration) + line for line in config_formatted.splitlines()
+        )
+        config_formatted = declaration + config_formatted[len(declaration) :]
 
-        issues.append(Warning(
-            "Please update your settings to use the TEMPLATES setting rather "
-            "than the deprecated individual TEMPLATE_ settings. The latter "
-            "are unsupported and correct behaviour is not guaranteed. Here's "
-            "a suggestion based on on your existing configuration:\n\n%s\n"
-            % config_formatted,
-            id="mezzanine.core.W01"
-        ))
+        issues.append(
+            Warning(
+                "Please update your settings to use the TEMPLATES setting rather "
+                "than the deprecated individual TEMPLATE_ settings. The latter "
+                "are unsupported and correct behaviour is not guaranteed. Here's "
+                "a suggestion based on on your existing configuration:\n\n%s\n"
+                % config_formatted,
+                id="mezzanine.core.W01",
+            )
+        )
 
         if settings.DEBUG != settings.TEMPLATE_DEBUG:
-            issues.append(Warning(
-                "TEMPLATE_DEBUG and DEBUG settings have different values, "
-                "which may not be what you want. Mezzanine used to fix this "
-                "for you, but doesn't any more. Update your settings.py to "
-                "use the TEMPLATES setting to have template debugging "
-                "controlled by the DEBUG setting.",
-                id="mezzanine.core.W02"
-            ))
+            issues.append(
+                Warning(
+                    "TEMPLATE_DEBUG and DEBUG settings have different values, "
+                    "which may not be what you want. Mezzanine used to fix this "
+                    "for you, but doesn't any more. Update your settings.py to "
+                    "use the TEMPLATES setting to have template debugging "
+                    "controlled by the DEBUG setting.",
+                    id="mezzanine.core.W02",
+                )
+            )
 
     else:
         loader_tags_built_in = any(
-            'mezzanine.template.loader_tags'
-            in config.get('OPTIONS', {}).get('builtins', {})
+            "mezzanine.template.loader_tags"
+            in config.get("OPTIONS", {}).get("builtins", {})
             for config in settings.TEMPLATES
         )
         if not DJANGO_VERSION < (1, 9) and not loader_tags_built_in:
-            issues.append(Warning(
-                "You haven't included 'mezzanine.template.loader_tags' as a "
-                "builtin in any of your template configurations. Mezzanine's "
-                "'overextends' tag will not be available in your templates.",
-                id="mezzanine.core.W03"
-            ))
+            issues.append(
+                Warning(
+                    "You haven't included 'mezzanine.template.loader_tags' as a "
+                    "builtin in any of your template configurations. Mezzanine's "
+                    "'overextends' tag will not be available in your templates.",
+                    id="mezzanine.core.W03",
+                )
+            )
 
     return issues
 
@@ -89,6 +96,7 @@ def _build_suggested_template_config(settings):
             if value == getattr(global_settings, name):
                 value = default
             return value
+
         return getter
 
     default_context_processors = [
@@ -132,20 +140,23 @@ def _build_suggested_template_config(settings):
     def set_loaders(name, value):
         template_loaders, app_dirs = value
         set_option(name, template_loaders)
-        set_setting('APP_DIRS', app_dirs, unconditional=True)
+        set_setting("APP_DIRS", app_dirs, unconditional=True)
 
     old_settings = [
-        ('ALLOWED_INCLUDE_ROOTS', settings.__getattr__, set_option),
-        ('TEMPLATE_STRING_IF_INVALID', settings.__getattr__, set_option),
-        ('TEMPLATE_DIRS', settings.__getattr__, set_setting),
-        ('TEMPLATE_CONTEXT_PROCESSORS',
-            get_default(default_context_processors), set_option),
-        ('TEMPLATE_DEBUG', get_debug, set_option),
-        ('TEMPLATE_LOADERS', get_loaders, set_loaders),
+        ("ALLOWED_INCLUDE_ROOTS", settings.__getattr__, set_option),
+        ("TEMPLATE_STRING_IF_INVALID", settings.__getattr__, set_option),
+        ("TEMPLATE_DIRS", settings.__getattr__, set_setting),
+        (
+            "TEMPLATE_CONTEXT_PROCESSORS",
+            get_default(default_context_processors),
+            set_option,
+        ),
+        ("TEMPLATE_DEBUG", get_debug, set_option),
+        ("TEMPLATE_LOADERS", get_loaders, set_loaders),
     ]
 
     def convert_setting_name(old_name):
-        return old_name.rpartition('TEMPLATE_')[2]
+        return old_name.rpartition("TEMPLATE_")[2]
 
     for setting_name, getter, setter in old_settings:
         value = getter(setting_name)
@@ -159,8 +170,12 @@ def _build_suggested_template_config(settings):
 def check_sites_middleware(app_configs, **kwargs):
 
     if not middlewares_or_subclasses_installed([SITE_PERMISSION_MIDDLEWARE]):
-        return [Warning(SITE_PERMISSION_MIDDLEWARE +
-                        " missing from settings.MIDDLEWARE - per site"
-                        " permissions not applied",
-                        id="mezzanine.core.W04")]
+        return [
+            Warning(
+                SITE_PERMISSION_MIDDLEWARE
+                + " missing from settings.MIDDLEWARE - per site"
+                " permissions not applied",
+                id="mezzanine.core.W04",
+            )
+        ]
     return []

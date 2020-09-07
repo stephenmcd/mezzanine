@@ -39,10 +39,15 @@ class BaseGallery(models.Model):
     class Meta:
         abstract = True
 
-    zip_import = models.FileField(verbose_name=_("Zip import"), blank=True,
+    zip_import = models.FileField(
+        verbose_name=_("Zip import"),
+        blank=True,
         upload_to=upload_to("galleries.Gallery.zip_import", "galleries"),
-        help_text=_("Upload a zip file containing images, and "
-                    "they'll be imported into this gallery."))
+        help_text=_(
+            "Upload a zip file containing images, and "
+            "they'll be imported into this gallery."
+        ),
+    )
 
     def save(self, delete_zip_import=True, *args, **kwargs):
         """
@@ -56,6 +61,7 @@ class BaseGallery(models.Model):
                 data = zip_file.read(name)
                 try:
                     from PIL import Image
+
                     image = Image.open(BytesIO(data))
                     image.load()
                     image = Image.open(BytesIO(data))
@@ -69,7 +75,7 @@ class BaseGallery(models.Model):
                 # In python3, name is a string. Convert it to bytes.
                 if not isinstance(name, bytes):
                     try:
-                        name = name.encode('cp437')
+                        name = name.encode("cp437")
                     except UnicodeEncodeError:
                         # File name includes characters that aren't in cp437,
                         # which isn't supported by most zip tooling. They will
@@ -78,7 +84,7 @@ class BaseGallery(models.Model):
 
                 # Decode byte-name.
                 if isinstance(name, bytes):
-                    encoding = charsetdetect(name)['encoding']
+                    encoding = charsetdetect(name)["encoding"]
                     tempname = name.decode(encoding)
 
                 # A gallery with a slug of "/" tries to extract files
@@ -89,17 +95,21 @@ class BaseGallery(models.Model):
                     saved_path = default_storage.save(path, ContentFile(data))
                 except UnicodeEncodeError:
                     from warnings import warn
-                    warn("A file was saved that contains unicode "
-                         "characters in its path, but somehow the current "
-                         "locale does not support utf-8. You may need to set "
-                         "'LC_ALL' to a correct value, eg: 'en_US.UTF-8'.")
+
+                    warn(
+                        "A file was saved that contains unicode "
+                        "characters in its path, but somehow the current "
+                        "locale does not support utf-8. You may need to set "
+                        "'LC_ALL' to a correct value, eg: 'en_US.UTF-8'."
+                    )
                     # The native() call is needed here around str because
                     # os.path.join() in Python 2.x (in posixpath.py)
                     # mixes byte-strings with unicode strings without
                     # explicit conversion, which raises a TypeError as it
                     # would on Python 3.
-                    path = os.path.join(GALLERIES_UPLOAD_DIR, slug,
-                                        str(name, errors="ignore"))
+                    path = os.path.join(
+                        GALLERIES_UPLOAD_DIR, slug, str(name, errors="ignore")
+                    )
                     saved_path = default_storage.save(path, ContentFile(data))
                 self.images.create(file=saved_path)
             if delete_zip_import:
@@ -120,12 +130,16 @@ class Gallery(Page, RichText, BaseGallery):
 @python_2_unicode_compatible
 class GalleryImage(Orderable):
 
-    gallery = models.ForeignKey("Gallery", on_delete=models.CASCADE,
-        related_name="images")
-    file = FileField(_("File"), max_length=200, format="Image",
-        upload_to=upload_to("galleries.GalleryImage.file", "galleries"))
-    description = models.CharField(_("Description"), max_length=1000,
-                                                           blank=True)
+    gallery = models.ForeignKey(
+        "Gallery", on_delete=models.CASCADE, related_name="images"
+    )
+    file = FileField(
+        _("File"),
+        max_length=200,
+        format="Image",
+        upload_to=upload_to("galleries.GalleryImage.file", "galleries"),
+    )
+    description = models.CharField(_("Description"), max_length=1000, blank=True)
 
     class Meta:
         verbose_name = _("Image")
@@ -146,7 +160,11 @@ class GalleryImage(Orderable):
             name = "".join([c if c not in punctuation else " " for c in name])
             # str.title() doesn't deal with unicode very well.
             # http://bugs.python.org/issue6412
-            name = "".join([s.upper() if i == 0 or name[i - 1] == " " else s
-                            for i, s in enumerate(name)])
+            name = "".join(
+                [
+                    s.upper() if i == 0 or name[i - 1] == " " else s
+                    for i, s in enumerate(name)
+                ]
+            )
             self.description = name
         super(GalleryImage, self).save(*args, **kwargs)

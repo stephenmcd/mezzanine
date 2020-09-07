@@ -12,6 +12,7 @@ from django.conf import settings
 try:
     from django.utils.deprecation import MiddlewareMixin
 except ImportError:
+
     class MiddlewareMixin(object):
         pass
 
@@ -62,9 +63,12 @@ def get_related_model(field):
 
 def mark_safe(s):
     from django.utils.safestring import mark_safe as django_safe
+
     if callable(s):
+
         @wraps(s)
         def wrapper(*args, **kwargs):
             return django_safe(s(*args, **kwargs))
+
         return wrapper
     return django_safe(s)

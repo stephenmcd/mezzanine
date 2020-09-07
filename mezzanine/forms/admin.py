@@ -29,8 +29,21 @@ fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)
 form_fieldsets = deepcopy(PageAdmin.fieldsets)
 form_fieldsets[0][1]["fields"][3:0] = ["content", "button_text", "response"]
 form_fieldsets = list(form_fieldsets)
-form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from",
-    "email_copies", "email_subject", "email_message")}))
+form_fieldsets.insert(
+    1,
+    (
+        _("Email"),
+        {
+            "fields": (
+                "send_email",
+                "email_from",
+                "email_copies",
+                "email_subject",
+                "email_message",
+            )
+        },
+    ),
+)
 
 inline_field_excludes = []
 if not settings.FORMS_USE_HTML5:
@@ -38,7 +51,6 @@ if not settings.FORMS_USE_HTML5:
 
 
 class FieldAdminInlineForm(DynamicInlineAdminForm):
-
     def __init__(self, *args, **kwargs):
         """
         Ensure the label and help_text fields are rendered as text inputs
@@ -68,6 +80,7 @@ class FieldAdmin(TabularDynamicInlineAdmin):
     Admin class for the form field. Inherits from TabularDynamicInlineAdmin to
     add dynamic "Add another" link and drag/drop ordering.
     """
+
     model = Field
     form = FieldAdminInlineForm
 
@@ -82,12 +95,15 @@ class FormAdmin(PageAdmin):
         css = {"all": (static("mezzanine/css/admin/form.css"),)}
 
     inlines = (FieldAdmin,)
-    list_display = ("title", "status", "email_copies",)
+    list_display = (
+        "title",
+        "status",
+        "email_copies",
+    )
     list_display_links = ("title",)
     list_editable = ("status", "email_copies")
     list_filter = ("status",)
-    search_fields = ("title", "content", "response", "email_from",
-                     "email_copies")
+    search_fields = ("title", "content", "response", "email_from", "email_copies")
     fieldsets = form_fieldsets
 
     def get_urls(self):
@@ -96,12 +112,16 @@ class FormAdmin(PageAdmin):
         """
         urls = super(FormAdmin, self).get_urls()
         extra_urls = [
-            url(r"^(?P<form_id>\d+)/entries/$",
+            url(
+                r"^(?P<form_id>\d+)/entries/$",
                 self.admin_site.admin_view(self.entries_view),
-                name="form_entries"),
-            url(r"^file/(?P<field_entry_id>\d+)/$",
+                name="form_entries",
+            ),
+            url(
+                r"^file/(?P<field_entry_id>\d+)/$",
                 self.admin_site.admin_view(self.file_view),
-                name="form_file"),
+                name="form_file",
+            ),
         ]
         return extra_urls + urls
 
@@ -134,8 +154,9 @@ class FormAdmin(PageAdmin):
                     queue = BytesIO()
                     delimiter = bytes(delimiter, encoding="utf-8")
                     csv = writer(queue, delimiter=delimiter)
-                    writerow = lambda row: csv.writerow([c.encode("utf-8")
-                        if hasattr(c, "encode") else c for c in row])
+                    writerow = lambda row: csv.writerow(
+                        [c.encode("utf-8") if hasattr(c, "encode") else c for c in row]
+                    )
                 writerow(entries_form.columns())
                 for row in entries_form.rows(csv=True):
                     writerow(row)
@@ -149,14 +170,19 @@ class FormAdmin(PageAdmin):
                     count = entries.count()
                     if count > 0:
                         entries.delete()
-                        message = ungettext("1 entry deleted",
-                                            "%(count)s entries deleted", count)
+                        message = ungettext(
+                            "1 entry deleted", "%(count)s entries deleted", count
+                        )
                         info(request, message % {"count": count})
         template = "admin/forms/entries.html"
-        context = {"title": _("View Entries"), "entries_form": entries_form,
-                   "opts": self.model._meta, "original": form,
-                   "can_delete_entries": can_delete_entries,
-                   "submitted": submitted}
+        context = {
+            "title": _("View Entries"),
+            "entries_form": entries_form,
+            "opts": self.model._meta,
+            "original": form,
+            "can_delete_entries": can_delete_entries,
+            "submitted": submitted,
+        }
         return render(request, template, context)
 
     def file_view(self, request, field_entry_id):
@@ -167,9 +193,9 @@ class FormAdmin(PageAdmin):
         path = join(fs.location, field_entry.value)
         response = HttpResponse(content_type=guess_type(path)[0])
         with open(path, "r+b") as f:
-            response["Content-Disposition"] = ("attachment; filename=%s"
-                                               % f.name)
+            response["Content-Disposition"] = "attachment; filename=%s" % f.name
             response.write(f.read())
         return response
+
 
 admin.site.register(Form, FormAdmin)

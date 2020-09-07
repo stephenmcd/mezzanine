@@ -51,8 +51,13 @@ class TemplateSettings(dict):
         super(TemplateSettings, self).__setitem__(k, v)
 
     def __repr__(self):
-        return repr(dict((k, self[k]) for k in self.allowed_settings
-                         if hasattr(self.settings, k) or k in self))
+        return repr(
+            dict(
+                (k, self[k])
+                for k in self.allowed_settings
+                if hasattr(self.settings, k) or k in self
+            )
+        )
 
     def __str__(self):
         return repr(self)

@@ -8,7 +8,8 @@ class TranslatedGallery(TranslatedRichText):
 
 
 class TranslatedGalleryImage(TranslationOptions):
-    fields = ('description',)
+    fields = ("description",)
+
 
 translator.register(Gallery, TranslatedGallery)
 translator.register(GalleryImage, TranslatedGalleryImage)

@@ -11,7 +11,6 @@ class GalleryImageInline(TabularDynamicInlineAdmin):
 
 
 class GalleryAdmin(PageAdmin):
-
     class Media:
         css = {"all": (static("mezzanine/css/admin/gallery.css"),)}
 

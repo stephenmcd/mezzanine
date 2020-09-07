@@ -36,7 +36,7 @@ class MezzanineBackend(ModelBackend):
                     if user.check_password(password):
                         return user
             else:
-                if 'uidb36' not in kwargs:
+                if "uidb36" not in kwargs:
                     return
                 kwargs["id"] = base36_to_int(kwargs.pop("uidb36"))
                 token = kwargs.pop("token")

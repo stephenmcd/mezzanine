@@ -11,8 +11,8 @@ class MenusField(MultiChoiceField):
         defaults = {"max_length": 100}
         defaults.update(kwargs)
         super(MenusField, self).__init__(*args, **defaults)
-        self._overridden_default = ("default" in kwargs)
-        self._overridden_choices = ("choices" in kwargs)
+        self._overridden_default = "default" in kwargs
+        self._overridden_choices = "choices" in kwargs
 
     def has_default(self):
         """

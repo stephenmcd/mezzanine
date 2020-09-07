@@ -43,6 +43,7 @@ class PostsRSS(Feed):
         page = None
         if "mezzanine.pages" in settings.INSTALLED_APPS:
             from mezzanine.pages.models import Page
+
             try:
                 page = Page.objects.published().get(slug=settings.BLOG_SLUG)
             except Page.DoesNotExist:
@@ -77,8 +78,11 @@ class PostsRSS(Feed):
     def items(self):
         if not self._public:
             return []
-        blog_posts = BlogPost.objects.published().select_related("user"
-            ).prefetch_related("categories")
+        blog_posts = (
+            BlogPost.objects.published()
+            .select_related("user")
+            .prefetch_related("categories")
+        )
         if self.tag:
             tag = get_object_or_404(Keyword, slug=self.tag)
             blog_posts = blog_posts.filter(keywords__keyword=tag)
@@ -90,7 +94,7 @@ class PostsRSS(Feed):
             blog_posts = blog_posts.filter(user=author)
         limit = settings.BLOG_RSS_LIMIT
         if limit is not None:
-            blog_posts = blog_posts[:settings.BLOG_RSS_LIMIT]
+            blog_posts = blog_posts[: settings.BLOG_RSS_LIMIT]
         return blog_posts
 
     def item_description(self, item):

@@ -19,13 +19,13 @@ class SitesAllowedHosts(object):
     ``Site`` model and uses any domains added to it, the
     first time the setting is accessed.
     """
+
     def __iter__(self):
         if getattr(self, "_hosts", None) is None:
             from django.contrib.sites.models import Site
+
             try:
-                self._hosts = [
-                    s.domain.split(":")[0] for s in Site.objects.all()
-                ]
+                self._hosts = [s.domain.split(":")[0] for s in Site.objects.all()]
             except OperationalError:
                 return iter([])
         return iter(self._hosts)
@@ -55,14 +55,18 @@ def set_dynamic_settings(s):
     remove = lambda n, k: s[n].remove(k) if k in s[n] else None
 
     # Django 1.10 middleware compatibility
-    MIDDLEWARE_SETTING_NAME = 'MIDDLEWARE' if 'MIDDLEWARE' in s \
-                            and s['MIDDLEWARE'] is not None \
-                            else 'MIDDLEWARE_CLASSES'
+    MIDDLEWARE_SETTING_NAME = (
+        "MIDDLEWARE"
+        if "MIDDLEWARE" in s and s["MIDDLEWARE"] is not None
+        else "MIDDLEWARE_CLASSES"
+    )
 
     if not s.get("ALLOWED_HOSTS", []):
-        warn("You haven't defined the ALLOWED_HOSTS settings, which "
-             "Django requires. Will fall back to the domains "
-             "configured as sites.")
+        warn(
+            "You haven't defined the ALLOWED_HOSTS settings, which "
+            "Django requires. Will fall back to the domains "
+            "configured as sites."
+        )
         s["ALLOWED_HOSTS"] = SitesAllowedHosts()
 
     if s.get("TIME_ZONE", None) is None:
@@ -81,9 +85,14 @@ def set_dynamic_settings(s):
     # Change tuple settings to lists for easier manipulation.
     s.setdefault("AUTHENTICATION_BACKENDS", defaults.AUTHENTICATION_BACKENDS)
     s.setdefault("STATICFILES_FINDERS", defaults.STATICFILES_FINDERS)
-    tuple_list_settings = ["AUTHENTICATION_BACKENDS", "INSTALLED_APPS",
-                           MIDDLEWARE_SETTING_NAME, "STATICFILES_FINDERS",
-                           "LANGUAGES", "TEMPLATE_CONTEXT_PROCESSORS"]
+    tuple_list_settings = [
+        "AUTHENTICATION_BACKENDS",
+        "INSTALLED_APPS",
+        MIDDLEWARE_SETTING_NAME,
+        "STATICFILES_FINDERS",
+        "LANGUAGES",
+        "TEMPLATE_CONTEXT_PROCESSORS",
+    ]
     for setting in tuple_list_settings[:]:
         if not isinstance(s.get(setting, []), list):
             s[setting] = list(s[setting])
@@ -108,8 +117,10 @@ def set_dynamic_settings(s):
             # admin won't try to import it
             s["USE_MODELTRANSLATION"] = False
             remove("INSTALLED_APPS", "modeltranslation")
-            warn("USE_MODETRANSLATION setting is set to True but django-"
-                    "modeltranslation is not installed. Disabling it.")
+            warn(
+                "USE_MODETRANSLATION setting is set to True but django-"
+                "modeltranslation is not installed. Disabling it."
+            )
         else:
             # Force i18n so we are assured that modeltranslation is active
             s["USE_I18N"] = True
@@ -145,14 +156,19 @@ def set_dynamic_settings(s):
     # since jQuery is configured via a setting.
     if "compressor" in s["INSTALLED_APPS"]:
         append("STATICFILES_FINDERS", "compressor.finders.CompressorFinder")
-        s.setdefault("COMPRESS_OFFLINE_CONTEXT", {
-            "MEDIA_URL": s.get("MEDIA_URL", ""),
-            "STATIC_URL": s.get("STATIC_URL", ""),
-        })
+        s.setdefault(
+            "COMPRESS_OFFLINE_CONTEXT",
+            {
+                "MEDIA_URL": s.get("MEDIA_URL", ""),
+                "STATIC_URL": s.get("STATIC_URL", ""),
+            },
+        )
 
         def mezzanine_settings():
             from mezzanine.conf import settings
+
             return settings
+
         s["COMPRESS_OFFLINE_CONTEXT"]["settings"] = mezzanine_settings
 
     # Ensure the Mezzanine auth backend is enabled if
@@ -196,26 +212,36 @@ def set_dynamic_settings(s):
 
     # Remove caching middleware if no backend defined.
     if not (s.get("CACHE_BACKEND") or s.get("CACHES")):
-        s[MIDDLEWARE_SETTING_NAME] = [mw for mw in s[MIDDLEWARE_SETTING_NAME]
-                                   if not
-                                   (mw.endswith("UpdateCacheMiddleware") or
-                                    mw.endswith("FetchFromCacheMiddleware"))]
+        s[MIDDLEWARE_SETTING_NAME] = [
+            mw
+            for mw in s[MIDDLEWARE_SETTING_NAME]
+            if not (
+                mw.endswith("UpdateCacheMiddleware")
+                or mw.endswith("FetchFromCacheMiddleware")
+            )
+        ]
 
     # If only LANGUAGE_CODE has been defined, ensure the other required
     # settings for translations are configured.
-    if (s.get("LANGUAGE_CODE") and len(s.get("LANGUAGES", [])) == 1 and
-            s["LANGUAGE_CODE"] != s["LANGUAGES"][0][0]):
+    if (
+        s.get("LANGUAGE_CODE")
+        and len(s.get("LANGUAGES", [])) == 1
+        and s["LANGUAGE_CODE"] != s["LANGUAGES"][0][0]
+    ):
         s["USE_I18N"] = True
         s["LANGUAGES"] = [(s["LANGUAGE_CODE"], "")]
 
     # Ensure required middleware is installed, otherwise admin
     # becomes inaccessible.
-    if s["USE_I18N"] and not [mw for mw in s[MIDDLEWARE_SETTING_NAME] if
-            mw.endswith("LocaleMiddleware")]:
+    if s["USE_I18N"] and not [
+        mw for mw in s[MIDDLEWARE_SETTING_NAME] if mw.endswith("LocaleMiddleware")
+    ]:
         session = s[MIDDLEWARE_SETTING_NAME].index(
-            "django.contrib.sessions.middleware.SessionMiddleware")
-        s[MIDDLEWARE_SETTING_NAME].insert(session + 1,
-            "django.middleware.locale.LocaleMiddleware")
+            "django.contrib.sessions.middleware.SessionMiddleware"
+        )
+        s[MIDDLEWARE_SETTING_NAME].insert(
+            session + 1, "django.middleware.locale.LocaleMiddleware"
+        )
 
     # Revert tuple settings back to tuples.
     for setting in tuple_list_settings:
@@ -261,8 +287,8 @@ def middlewares_or_subclasses_installed(needed_middlewares):
 
     middleware_items = map(import_string, middleware_setting)
     middleware_classes = filter(
-        lambda m: isinstance(m, six.class_types),
-        middleware_items)
+        lambda m: isinstance(m, six.class_types), middleware_items
+    )
     middleware_ancestors = set(flatten(map(getmro, middleware_classes)))
 
     needed_middlewares = set(map(import_string, needed_middlewares))

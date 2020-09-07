@@ -41,19 +41,23 @@ def _get_disqus_sso(user, public_key, secret_key):
     # Based on snippet provided on http://docs.disqus.com/developers/sso/
 
     # create a JSON packet of our data attributes
-    data = json.dumps({
-        'id': '%s' % user.id,
-        'username': user.username,
-        'email': user.email,
-    })
+    data = json.dumps(
+        {
+            "id": "%s" % user.id,
+            "username": user.username,
+            "email": user.email,
+        }
+    )
     # encode the data to base64
     message = base64.b64encode(data.encode("utf8"))
     # generate a timestamp for signing the message
     timestamp = int(time.time())
     # generate our hmac signature
-    sig = hmac.HMAC(secret_key.encode("utf8"),
-                    ('%s %s' % (message, timestamp)).encode("utf8"),
-                    hashlib.sha1).hexdigest()
+    sig = hmac.HMAC(
+        secret_key.encode("utf8"),
+        ("%s %s" % (message, timestamp)).encode("utf8"),
+        hashlib.sha1,
+    ).hexdigest()
 
     # Messages are of the form <message> <signature> <timestamp>
-    return '%s %s %s' % (message, sig, timestamp)
+    return "%s %s %s" % (message, sig, timestamp)

@@ -50,16 +50,17 @@ def page_menu(context, token):
             slug = ""
         num_children = lambda id: lambda: len(context["menu_pages"][id])
         has_children = lambda id: lambda: num_children(id)() > 0
-        rel = [m.__name__.lower()
-               for m in Page.get_content_models()
-               if not m._meta.proxy]
+        rel = [
+            m.__name__.lower() for m in Page.get_content_models() if not m._meta.proxy
+        ]
         published = Page.objects.published(for_user=user).select_related(*rel)
         # Store the current page being viewed in the context. Used
         # for comparisons in page.set_menu_helpers.
         if "page" not in context:
             try:
                 context.dicts[0]["_current_page"] = published.exclude(
-                    content_model="link").get(slug=slug)
+                    content_model="link"
+                ).get(slug=slug)
             except Page.DoesNotExist:
                 context.dicts[0]["_current_page"] = None
         elif slug:
@@ -141,9 +142,13 @@ def models_for_pages(*args):
     ``Page`` model.
     """
     from warnings import warn
-    warn("template tag models_for_pages is deprectaed, use "
-        "PageAdmin.get_content_models instead")
+
+    warn(
+        "template tag models_for_pages is deprectaed, use "
+        "PageAdmin.get_content_models instead"
+    )
     from mezzanine.pages.admin import PageAdmin
+
     return PageAdmin.get_content_models()
 
 
@@ -183,14 +188,17 @@ def set_page_permissions(context, token):
         opts = model._meta
     except AttributeError:
         if model is None:
-            error = _("Could not load the model for the following page, "
-                      "was it removed?")
+            error = _(
+                "Could not load the model for the following page, " "was it removed?"
+            )
             obj = page
         else:
             # A missing inner Meta class usually means the Page model
             # hasn't been directly subclassed.
-            error = _("An error occured with the following class. Does "
-                      "it subclass Page directly?")
+            error = _(
+                "An error occured with the following class. Does "
+                "it subclass Page directly?"
+            )
             obj = model.__class__.__name__
         raise ImproperlyConfigured(error + " '%s'" % obj)
     perm_name = opts.app_label + ".%s_" + opts.object_name.lower()

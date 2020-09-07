@@ -14,35 +14,26 @@ from mezzanine.utils.importing import path_for_import
 
 # Ignore these warnings in pyflakes - if added to, please comment why.
 IGNORE_ERRORS = (
-
     # Used to version subpackages.
     ".__version__' imported but unused",
-
     # No caching fallback.
     "redefinition of function 'nevercache'",
-
     # Dummy fallback in templates for django-compressor.
     "redefinition of function 'compress'",
-
     # Fabic config fallback.
     "redefinition of unused 'conf'",
-
     # Fixing these would make the code ugiler IMO.
     "continuation line",
     "closing bracket does not match",
-
     # Jython compatiblity.
     "redefinition of unused 'Image",
-
     # Django custom user compatibility.
     "'get_user_model' imported but unused",
-
     # lambdas are OK.
     "do not assign a lambda",
-
     # checks modules need to be imported to register check functions, they will
     # be run by Django.
-    "'.checks' imported but unused"
+    "'.checks' imported but unused",
 )
 
 
@@ -132,8 +123,11 @@ def _run_checker_for_package(checker, package_name, extra_ignore=None):
     package_path = path_for_import(package_name)
     for (root, dirs, files) in os.walk(str(package_path)):
         for f in files:
-            if (f == "local_settings.py" or not f.endswith(".py") or
-                    root.split(os.sep)[-1] in ["migrations"]):
+            if (
+                f == "local_settings.py"
+                or not f.endswith(".py")
+                or root.split(os.sep)[-1] in ["migrations"]
+            ):
                 # Ignore
                 continue
             for warning in checker(os.path.join(root, f)):
@@ -179,6 +173,7 @@ def run_pep8_for_package(package_name, extra_ignore=None):
         """
         Subclass pep8's Checker to hook into error reporting.
         """
+
         def __init__(self, *args, **kwargs):
             super(Checker, self).__init__(*args, **kwargs)
             self.report_error = self._report_error
@@ -200,8 +195,7 @@ def run_pep8_for_package(package_name, extra_ignore=None):
     style_guide = pep8.StyleGuide(config_file="setup.cfg")
 
     def pep8_checker(path):
-        for line_number, text in Checker(path,
-                options=style_guide.options).check_all():
+        for line_number, text in Checker(path, options=style_guide.options).check_all():
             yield "%s:%s: %s" % (path, line_number, text)
 
     args = (pep8_checker, package_name, extra_ignore)

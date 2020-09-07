@@ -9,6 +9,7 @@ class Loader(filesystem.Loader):
     """
     Template loader that implements host detection.
     """
+
     def get_dirs(self):
         theme_dir = host_theme_path()
         if theme_dir:

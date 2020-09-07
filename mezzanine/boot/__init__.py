@@ -28,8 +28,8 @@ def parse_field_path(field_path):
     and a field name, e.g. "feature_image".
     """
     model_path, field_name = field_path.rsplit(".", 1)
-    app_name, model_name = model_path.split('.models.')
-    _, app_label = app_name.rsplit('.', 1)
+    app_name, model_name = model_path.split(".models.")
+    _, app_label = app_name.rsplit(".", 1)
     return (app_label, model_name.lower()), field_name
 
 
@@ -38,16 +38,18 @@ def import_field(field_classpath):
     Imports a field by its dotted class path, prepending "django.db.models"
     to raw class names and raising an exception if the import fails.
     """
-    if '.' in field_classpath:
+    if "." in field_classpath:
         fully_qualified = field_classpath
     else:
         fully_qualified = "django.db.models.%s" % field_classpath
     try:
         return import_dotted_path(fully_qualified)
     except ImportError:
-        raise ImproperlyConfigured("The EXTRA_MODEL_FIELDS setting contains "
-                                   "the field '%s' which could not be "
-                                   "imported." % field_classpath)
+        raise ImproperlyConfigured(
+            "The EXTRA_MODEL_FIELDS setting contains "
+            "the field '%s' which could not be "
+            "imported." % field_classpath
+        )
 
 
 def parse_extra_model_fields(extra_model_fields):
@@ -67,7 +69,8 @@ def parse_extra_model_fields(extra_model_fields):
         except TypeError as e:
             raise ImproperlyConfigured(
                 "The EXTRA_MODEL_FIELDS setting contains arguments for the "
-                "field '%s' which could not be applied: %s" % (entry[1], e))
+                "field '%s' which could not be applied: %s" % (entry[1], e)
+            )
         fields[model_key].append((field_name, field))
     return fields
 
@@ -88,8 +91,7 @@ def add_extra_model_fields(sender, **kwargs):
 
 if DJANGO_VERSION < (1, 9):
     if fields:
-        class_prepared.connect(add_extra_model_fields,
-            dispatch_uid="FQFEQ#rfq3r")
+        class_prepared.connect(add_extra_model_fields, dispatch_uid="FQFEQ#rfq3r")
 else:
     for model_key in fields:
         apps.lazy_model_operation(add_extra_model_fields, model_key)
@@ -111,5 +113,6 @@ def autodiscover(*args, **kwargs):
     """
     django_autodiscover(*args, **kwargs)
     admin_site.lazy_registration()
+
 
 admin.autodiscover = autodiscover

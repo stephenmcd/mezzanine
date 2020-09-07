@@ -27,7 +27,8 @@ class Library(template.Library):
                 "The `as_tag` template tag builder is deprecated in favour of "
                 "Django's built-in `simple_tag`, which supports variable "
                 "assignment in Django 1.9 and above.",
-                DeprecationWarning, stacklevel=2
+                DeprecationWarning,
+                stacklevel=2,
             )
 
         @wraps(tag_func)
@@ -42,6 +43,7 @@ class Library(template.Library):
                             return template.Variable(arg).resolve(context)
                         except template.VariableDoesNotExist:
                             return arg
+
                     args, kwargs = [], {}
                     for arg in parts[1:-2]:
                         if "=" in arg:
@@ -52,7 +54,9 @@ class Library(template.Library):
                         args.append(resolve(arg))
                     context[parts[-1]] = tag_func(*args, **kwargs)
                     return ""
+
             return AsTagNode()
+
         return self.tag(tag_wrapper)
 
     def render_tag(self, tag_func):
@@ -61,12 +65,15 @@ class Library(template.Library):
         for the template tag node. The render function takes two
         arguments - the template context and the tag token.
         """
+
         @wraps(tag_func)
         def tag_wrapper(parser, token):
             class RenderTagNode(template.Node):
                 def render(self, context):
                     return tag_func(context, token)
+
             return RenderTagNode()
+
         return self.tag(tag_wrapper)
 
     def to_end_tag(self, tag_func):
@@ -78,11 +85,10 @@ class Library(template.Library):
         parsed content between the start and end tags, the template
         context and the tag token.
         """
+
         @wraps(tag_func)
         def tag_wrapper(parser, token):
-
             class ToEndTagNode(template.Node):
-
                 def __init__(self):
                     end_name = "end%s" % tag_func.__name__
                     self.nodelist = parser.parse((end_name,))
@@ -90,7 +96,7 @@ class Library(template.Library):
 
                 def render(self, context):
                     args = (self.nodelist.render(context), context, token)
-                    return tag_func(*args[:tag_func.__code__.co_argcount])
+                    return tag_func(*args[: tag_func.__code__.co_argcount])
 
             return ToEndTagNode()
 

@@ -27,6 +27,7 @@ if "DJANGO_SETTINGS_MODULE" not in os.environ:
     os.environ["DJANGO_SETTINGS_MODULE"] = "docs_settings"
     # Django 1.7's setup is required before touching translated strings.
     import django
+
     try:
         django.setup()
     except AttributeError:  # < 1.7
@@ -36,6 +37,7 @@ if "DJANGO_SETTINGS_MODULE" not in os.environ:
 # run all the Mezzanine utils for dynamically generated docs.
 if sys.argv[-2:] == ["docs", "docs/build"]:
     from mezzanine.utils import docs
+
     docs.build_settings_docs(docs_path)
     docs.build_deploy_docs(docs_path)
     docs.build_changelog(docs_path)
@@ -47,39 +49,42 @@ if sys.argv[-2:] == ["docs", "docs/build"]:
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 # sys.path.append(os.path.abspath('.'))
 # For sphinx to recognize costum Django tags extensions are required.
-sys.path.append(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), "_ext")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "_ext")))
 
 # -- General configuration -----------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
-        "djangodocs",
-        "sphinx.ext.intersphinx",
-        "sphinx.ext.autodoc",
-        "sphinx.ext.viewcode"]
+    "djangodocs",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The suffix of source filenames.
-source_suffix = '.rst'
+source_suffix = ".rst"
 
-# Links for intersphinx mapping
+#  Links for intersphinx mapping
 intersphinx_mapping = {
-        'django':('http://docs.djangoproject.com/en/dev/', 'http://docs.djangoproject.com/en/dev/_objects/'),
-        }
+    "django": (
+        "http://docs.djangoproject.com/en/dev/",
+        "http://docs.djangoproject.com/en/dev/_objects/",
+    ),
+}
 
 # The encoding of source files.
 # source_encoding = 'utf-8'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = "index"
 
 # General information about the project.
-project = 'Mezzanine'
-copyright = '2009 - %s, Stephen McDonald' % datetime.now().year
+project = "Mezzanine"
+copyright = "2009 - %s, Stephen McDonald" % datetime.now().year
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -105,12 +110,12 @@ release = mezzanine.__version__
 
 # List of directories, relative to source directory, that shouldn't be searched
 # for source files.
-exclude_trees = ['_build']
+exclude_trees = ["_build"]
 
 # List of files to be excluded when looking for source files.
-# Added settings.rst its still will be included in configuration.rst
-# only that prevents error of duplicate reference labels.
-exclude_patterns = ['settings.rst', 'fabfile.rst']
+#  Added settings.rst its still will be included in configuration.rst
+#  only that prevents error of duplicate reference labels.
+exclude_patterns = ["settings.rst", "fabfile.rst"]
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 # default_role = None
@@ -127,7 +132,7 @@ exclude_patterns = ['settings.rst', 'fabfile.rst']
 # show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 # A list of ignored prefixes for module index sorting.
 # modindex_common_prefix = []
@@ -204,7 +209,7 @@ pygments_style = 'sphinx'
 # html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Mezzaninedoc'
+htmlhelp_basename = "Mezzaninedoc"
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -218,8 +223,7 @@ htmlhelp_basename = 'Mezzaninedoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-    ('index', 'Mezzanine.tex', 'Mezzanine Documentation',
-     'Stephen McDonald', 'manual'),
+    ("index", "Mezzanine.tex", "Mezzanine Documentation", "Stephen McDonald", "manual"),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -242,4 +246,4 @@ latex_documents = [
 
 html_theme_path = ["."]
 html_theme = "mezzanine_theme"
-locale_dirs = ['./locale/']
+locale_dirs = ["./locale/"]

@@ -84,14 +84,16 @@ MULTIPLE = (CHECKBOX_MULTIPLE, SELECT_MULTIPLE)
 # HTML5 Widgets
 html5_field = lambda name, base: type(str(""), (base,), {"input_type": name})
 if getattr(settings, "FORMS_USE_HTML5", False):
-    WIDGETS.update({
-        DATE: html5_field("date", forms.DateInput),
-        DATE_TIME: html5_field("datetime", forms.DateTimeInput),
-        DOB: html5_field("date", forms.DateInput),
-        EMAIL: html5_field("email", forms.TextInput),
-        NUMBER: html5_field("number", forms.TextInput),
-        URL: html5_field("url", forms.TextInput),
-    })
+    WIDGETS.update(
+        {
+            DATE: html5_field("date", forms.DateInput),
+            DATE_TIME: html5_field("datetime", forms.DateTimeInput),
+            DOB: html5_field("date", forms.DateInput),
+            EMAIL: html5_field("email", forms.TextInput),
+            NUMBER: html5_field("number", forms.TextInput),
+            URL: html5_field("url", forms.TextInput),
+        }
+    )
 
 # Allow extra fields types to be defined via the FORMS_EXTRA_FIELDS
 # setting, which should contain a sequence of three-item sequences,

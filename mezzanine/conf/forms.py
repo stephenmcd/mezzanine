@@ -41,22 +41,37 @@ class SettingsForm(forms.Form):
                         except:
                             pass
                         else:
-                            self._init_field(setting, field_class, name, code,
-                                             active_language,)
+                            self._init_field(
+                                setting,
+                                field_class,
+                                name,
+                                code,
+                                active_language,
+                            )
                 else:
                     self._init_field(setting, field_class, name)
             activate(active_language)
 
-    def _init_field(self, setting, field_class, name, code=None,
-                    active_language=None,):
+    def _init_field(
+        self,
+        setting,
+        field_class,
+        name,
+        code=None,
+        active_language=None,
+    ):
         """
         Initialize a field whether it is built with a custom name for a
         specific translation language or not.
         """
 
         initial = getattr(settings, name)
-        if (code and code != active_language and
-                settings.USE_MODELTRANSLATION and setting["translatable"]):
+        if (
+            code
+            and code != active_language
+            and settings.USE_MODELTRANSLATION
+            and setting["translatable"]
+        ):
             try:
                 initial = Setting.objects.get(name=name).value
             except Setting.DoesNotExist:
@@ -72,7 +87,7 @@ class SettingsForm(forms.Form):
             field_class = forms.ChoiceField
             kwargs["choices"] = setting["choices"]
         field_instance = field_class(**kwargs)
-        code_name = ('_modeltranslation_' + code if code else '')
+        code_name = "_modeltranslation_" + code if code else ""
         self.fields[name + code_name] = field_instance
         css_class = field_class.__name__.lower()
         field_instance.widget.attrs["class"] = css_class
@@ -103,7 +118,7 @@ class SettingsForm(forms.Form):
         active_language = get_language()
         for (name, value) in self.cleaned_data.items():
             if name not in registry:
-                name, code = name.rsplit('_modeltranslation_', 1)
+                name, code = name.rsplit("_modeltranslation_", 1)
             else:
                 code = None
             setting_obj, created = Setting.objects.get_or_create(name=name)
@@ -119,9 +134,9 @@ class SettingsForm(forms.Form):
                 else:
                     # Duplicate the value of the setting for every language
                     for code in OrderedDict(settings.LANGUAGES):
-                        setattr(setting_obj,
-                                build_localized_fieldname('value', code),
-                                value)
+                        setattr(
+                            setting_obj, build_localized_fieldname("value", code), value
+                        )
             else:
                 setting_obj.value = value
             setting_obj.save()

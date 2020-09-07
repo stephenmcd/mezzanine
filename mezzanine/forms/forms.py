@@ -78,38 +78,35 @@ DATE_FILTER_CHOICES = (
 
 # The filter function for each filter type
 FILTER_FUNCS = {
-    FILTER_CHOICE_CONTAINS:
-        lambda val, field: val.lower() in field.lower(),
-    FILTER_CHOICE_DOESNT_CONTAIN:
-        lambda val, field: val.lower() not in field.lower(),
-    FILTER_CHOICE_EQUALS:
-        lambda val, field: val.lower() == field.lower(),
-    FILTER_CHOICE_DOESNT_EQUAL:
-        lambda val, field: val.lower() != field.lower(),
-    FILTER_CHOICE_BETWEEN:
-        lambda val_from, val_to, field: (
-            (not val_from or val_from <= field) and
-            (not val_to or val_to >= field)
-        ),
-    FILTER_CHOICE_CONTAINS_ANY:
-        lambda val, field: set(val) & set(split_choices(field)),
-    FILTER_CHOICE_CONTAINS_ALL:
-        lambda val, field: set(val) == set(split_choices(field)),
-    FILTER_CHOICE_DOESNT_CONTAIN_ANY:
-        lambda val, field: not set(val) & set(split_choices(field)),
-    FILTER_CHOICE_DOESNT_CONTAIN_ALL:
-        lambda val, field: set(val) != set(split_choices(field)),
+    FILTER_CHOICE_CONTAINS: lambda val, field: val.lower() in field.lower(),
+    FILTER_CHOICE_DOESNT_CONTAIN: lambda val, field: val.lower() not in field.lower(),
+    FILTER_CHOICE_EQUALS: lambda val, field: val.lower() == field.lower(),
+    FILTER_CHOICE_DOESNT_EQUAL: lambda val, field: val.lower() != field.lower(),
+    FILTER_CHOICE_BETWEEN: lambda val_from, val_to, field: (
+        (not val_from or val_from <= field) and (not val_to or val_to >= field)
+    ),
+    FILTER_CHOICE_CONTAINS_ANY: lambda val, field: set(val) & set(split_choices(field)),
+    FILTER_CHOICE_CONTAINS_ALL: lambda val, field: set(val)
+    == set(split_choices(field)),
+    FILTER_CHOICE_DOESNT_CONTAIN_ANY: lambda val, field: not set(val)
+    & set(split_choices(field)),
+    FILTER_CHOICE_DOESNT_CONTAIN_ALL: lambda val, field: set(val)
+    != set(split_choices(field)),
 }
 
 # Export form fields for each filter type grouping
-text_filter_field = forms.ChoiceField(label=" ", required=False,
-                                      choices=TEXT_FILTER_CHOICES)
-choice_filter_field = forms.ChoiceField(label=" ", required=False,
-                                        choices=CHOICE_FILTER_CHOICES)
-multiple_filter_field = forms.ChoiceField(label=" ", required=False,
-                                          choices=MULTIPLE_FILTER_CHOICES)
-date_filter_field = forms.ChoiceField(label=" ", required=False,
-                                      choices=DATE_FILTER_CHOICES)
+text_filter_field = forms.ChoiceField(
+    label=" ", required=False, choices=TEXT_FILTER_CHOICES
+)
+choice_filter_field = forms.ChoiceField(
+    label=" ", required=False, choices=CHOICE_FILTER_CHOICES
+)
+multiple_filter_field = forms.ChoiceField(
+    label=" ", required=False, choices=MULTIPLE_FILTER_CHOICES
+)
+date_filter_field = forms.ChoiceField(
+    label=" ", required=False, choices=DATE_FILTER_CHOICES
+)
 
 
 class FormForForm(forms.ModelForm):
@@ -142,15 +139,19 @@ class FormForForm(forms.ModelForm):
             field_key = "field_%s" % field.id
             field_class = fields.CLASSES[field.field_type]
             field_widget = fields.WIDGETS.get(field.field_type)
-            field_args = {"label": field.label, "required": field.required,
-                          "help_text": field.help_text}
+            field_args = {
+                "label": field.label,
+                "required": field.required,
+                "help_text": field.help_text,
+            }
             arg_names = field_class.__init__.__code__.co_varnames
             if "max_length" in arg_names:
                 field_args["max_length"] = settings.FORMS_FIELD_MAX_LENGTH
             if "choices" in arg_names:
                 choices = list(field.get_choices())
-                if (field.field_type == fields.SELECT and
-                        field.default not in [c[0] for c in choices]):
+                if field.field_type == fields.SELECT and field.default not in [
+                    c[0] for c in choices
+                ]:
                     choices.insert(0, ("", field.placeholder_text))
                 field_args["choices"] = choices
             if field_widget is not None:
@@ -188,10 +189,12 @@ class FormForForm(forms.ModelForm):
                 self.fields[field_key].widget.years = years
 
             # Add identifying type attr to the field for styling.
-            setattr(self.fields[field_key], "type",
-                    field_class.__name__.lower())
-            if (field.required and settings.FORMS_USE_HTML5 and
-                    field.field_type != fields.CHECKBOX_MULTIPLE):
+            setattr(self.fields[field_key], "type", field_class.__name__.lower())
+            if (
+                field.required
+                and settings.FORMS_USE_HTML5
+                and field.field_type != fields.CHECKBOX_MULTIPLE
+            ):
                 self.fields[field_key].widget.attrs["required"] = ""
             if field.placeholder_text and not field.default:
                 text = field.placeholder_text
@@ -255,41 +258,48 @@ class EntriesForm(forms.Form):
         self.form = form
         self.request = request
         self.form_fields = form.fields.all()
-        self.entry_time_name = str(FormEntry._meta.get_field(
-            "entry_time").verbose_name)
+        self.entry_time_name = str(FormEntry._meta.get_field("entry_time").verbose_name)
         super(EntriesForm, self).__init__(*args, **kwargs)
         for field in self.form_fields:
             field_key = "field_%s" % field.id
             # Checkbox for including in export.
             self.fields["%s_export" % field_key] = forms.BooleanField(
-                label=field.label, initial=True, required=False)
+                label=field.label, initial=True, required=False
+            )
             if field.is_a(*fields.CHOICES):
                 # A fixed set of choices to filter by.
                 if field.is_a(fields.CHECKBOX):
                     choices = ((True, _("Checked")), (False, _("Not checked")))
                 else:
                     choices = field.get_choices()
-                contains_field = forms.MultipleChoiceField(label=" ",
-                    choices=choices, widget=forms.CheckboxSelectMultiple(),
-                    required=False)
+                contains_field = forms.MultipleChoiceField(
+                    label=" ",
+                    choices=choices,
+                    widget=forms.CheckboxSelectMultiple(),
+                    required=False,
+                )
                 self.fields["%s_filter" % field_key] = choice_filter_field
                 self.fields["%s_contains" % field_key] = contains_field
             elif field.is_a(*fields.MULTIPLE):
                 # A fixed set of choices to filter by, with multiple
                 # possible values in the entry field.
-                contains_field = forms.MultipleChoiceField(label=" ",
+                contains_field = forms.MultipleChoiceField(
+                    label=" ",
                     choices=field.get_choices(),
                     widget=forms.CheckboxSelectMultiple(),
-                    required=False)
+                    required=False,
+                )
                 self.fields["%s_filter" % field_key] = multiple_filter_field
                 self.fields["%s_contains" % field_key] = contains_field
             elif field.is_a(*fields.DATES):
                 # A date range to filter by.
                 self.fields["%s_filter" % field_key] = date_filter_field
                 self.fields["%s_from" % field_key] = forms.DateField(
-                    label=" ", widget=SelectDateWidget(), required=False)
+                    label=" ", widget=SelectDateWidget(), required=False
+                )
                 self.fields["%s_to" % field_key] = forms.DateField(
-                    label=_("and"), widget=SelectDateWidget(), required=False)
+                    label=_("and"), widget=SelectDateWidget(), required=False
+                )
             else:
                 # Text box for search term to filter by.
                 contains_field = forms.CharField(label=" ", required=False)
@@ -297,14 +307,18 @@ class EntriesForm(forms.Form):
                 self.fields["%s_contains" % field_key] = contains_field
         # Add ``FormEntry.entry_time`` as a field.
         field_key = "field_0"
-        self.fields["%s_export" % field_key] = forms.BooleanField(initial=True,
+        self.fields["%s_export" % field_key] = forms.BooleanField(
+            initial=True,
             label=FormEntry._meta.get_field("entry_time").verbose_name,
-            required=False)
+            required=False,
+        )
         self.fields["%s_filter" % field_key] = date_filter_field
         self.fields["%s_from" % field_key] = forms.DateField(
-            label=" ", widget=SelectDateWidget(), required=False)
+            label=" ", widget=SelectDateWidget(), required=False
+        )
         self.fields["%s_to" % field_key] = forms.DateField(
-            label=_("and"), widget=SelectDateWidget(), required=False)
+            label=_("and"), widget=SelectDateWidget(), required=False
+        )
 
     def __iter__(self):
         """
@@ -312,16 +326,22 @@ class EntriesForm(forms.Form):
         """
         for field_id in [f.id for f in self.form_fields] + [0]:
             prefix = "field_%s_" % field_id
-            fields = [f for f in super(EntriesForm, self).__iter__()
-                      if f.name.startswith(prefix)]
+            fields = [
+                f
+                for f in super(EntriesForm, self).__iter__()
+                if f.name.startswith(prefix)
+            ]
             yield fields[0], fields[1], fields[2:]
 
     def columns(self):
         """
         Returns the list of selected column names.
         """
-        fields = [f.label for f in self.form_fields
-                  if self.cleaned_data["field_%s_export" % f.id]]
+        fields = [
+            f.label
+            for f in self.form_fields
+            if self.cleaned_data["field_%s_export" % f.id]
+        ]
         if self.cleaned_data["field_0_export"]:
             fields.append(self.entry_time_name)
         return fields
@@ -352,15 +372,18 @@ class EntriesForm(forms.Form):
 
         # Get the field entries for the given form and filter by entry_time
         # if specified.
-        field_entries = FieldEntry.objects.filter(
-            entry__form=self.form).order_by(
-            "-entry__id").select_related("entry")
+        field_entries = (
+            FieldEntry.objects.filter(entry__form=self.form)
+            .order_by("-entry__id")
+            .select_related("entry")
+        )
         if self.cleaned_data["field_0_filter"] == FILTER_CHOICE_BETWEEN:
             time_from = self.cleaned_data["field_0_from"]
             time_to = self.cleaned_data["field_0_to"]
             if time_from and time_to:
                 field_entries = field_entries.filter(
-                    entry__entry_time__range=(time_from, time_to))
+                    entry__entry_time__range=(time_from, time_to)
+                )
 
         # Loop through each field value ordered by entry, building up each
         # entry as a row. Use the ``valid_row`` flag for marking a row as
@@ -411,7 +434,7 @@ class EntriesForm(forms.Form):
                 field_value = self.request.build_absolute_uri(url)
                 if not csv:
                     parts = (field_value, split(field_entry.value)[1])
-                    field_value = mark_safe("<a href=\"%s\">%s</a>" % parts)
+                    field_value = mark_safe('<a href="%s">%s</a>' % parts)
             # Only use values for fields that were selected.
             try:
                 current_row[field_indexes[field_id]] = field_value

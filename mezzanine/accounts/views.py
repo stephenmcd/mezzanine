@@ -1,5 +1,9 @@
-from django.contrib.auth import (login as auth_login, authenticate,
-                                 logout as auth_logout, get_user_model)
+from django.contrib.auth import (
+    login as auth_login,
+    authenticate,
+    logout as auth_logout,
+    get_user_model,
+)
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import info, error
 from django.urls import NoReverseMatch, get_script_prefix
@@ -17,8 +21,12 @@ from mezzanine.utils.urls import login_redirect, next_url
 User = get_user_model()
 
 
-def login(request, template="accounts/account_login.html",
-          form_class=LoginForm, extra_context=None):
+def login(
+    request,
+    template="accounts/account_login.html",
+    form_class=LoginForm,
+    extra_context=None,
+):
     """
     Login form.
     """
@@ -42,8 +50,7 @@ def logout(request):
     return redirect(next_url(request) or get_script_prefix())
 
 
-def signup(request, template="accounts/account_signup.html",
-           extra_context=None):
+def signup(request, template="accounts/account_signup.html", extra_context=None):
     """
     Signup form.
     """
@@ -54,12 +61,22 @@ def signup(request, template="accounts/account_signup.html",
         if not new_user.is_active:
             if settings.ACCOUNTS_APPROVAL_REQUIRED:
                 send_approve_mail(request, new_user)
-                info(request, _("Thanks for signing up! You'll receive "
-                                "an email when your account is activated."))
+                info(
+                    request,
+                    _(
+                        "Thanks for signing up! You'll receive "
+                        "an email when your account is activated."
+                    ),
+                )
             else:
                 send_verification_mail(request, new_user, "signup_verify")
-                info(request, _("A verification email has been sent with "
-                                "a link for activating your account."))
+                info(
+                    request,
+                    _(
+                        "A verification email has been sent with "
+                        "a link for activating your account."
+                    ),
+                )
             return redirect(next_url(request) or "/")
         else:
             info(request, _("Successfully signed up"))
@@ -98,8 +115,9 @@ def profile_redirect(request):
     return redirect("profile", username=request.user.username)
 
 
-def profile(request, username, template="accounts/account_profile.html",
-            extra_context=None):
+def profile(
+    request, username, template="accounts/account_profile.html", extra_context=None
+):
     """
     Display a profile.
     """
@@ -119,14 +137,16 @@ def account_redirect(request):
 
 
 @login_required
-def profile_update(request, template="accounts/account_profile_update.html",
-                   extra_context=None):
+def profile_update(
+    request, template="accounts/account_profile_update.html", extra_context=None
+):
     """
     Profile update form.
     """
     profile_form = get_profile_form()
-    form = profile_form(request.POST or None, request.FILES or None,
-                        instance=request.user)
+    form = profile_form(
+        request.POST or None, request.FILES or None, instance=request.user
+    )
     if request.method == "POST" and form.is_valid():
         user = form.save()
         info(request, _("Profile updated"))
@@ -139,14 +159,23 @@ def profile_update(request, template="accounts/account_profile_update.html",
     return TemplateResponse(request, template, context)
 
 
-def password_reset(request, template="accounts/account_password_reset.html",
-                   form_class=PasswordResetForm, extra_context=None):
+def password_reset(
+    request,
+    template="accounts/account_password_reset.html",
+    form_class=PasswordResetForm,
+    extra_context=None,
+):
     form = form_class(request.POST or None)
     if request.method == "POST" and form.is_valid():
         user = form.save()
         send_verification_mail(request, user, "password_reset_verify")
-        info(request, _("A verification email has been sent with "
-                        "a link for resetting your password."))
+        info(
+            request,
+            _(
+                "A verification email has been sent with "
+                "a link for resetting your password."
+            ),
+        )
     context = {"form": form, "title": _("Password Reset")}
     context.update(extra_context or {})
     return TemplateResponse(request, template, context)

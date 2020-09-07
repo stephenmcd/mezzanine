@@ -50,7 +50,7 @@ class TinyMceWidget(forms.Textarea):
             static("mezzanine/tinymce/jquery.tinymce.min.js"),
             static(settings.TINYMCE_SETUP_JS),
         ]
-        css = {'all': [static("mezzanine/tinymce/tinymce.css")]}
+        css = {"all": [static("mezzanine/tinymce/tinymce.css")]}
         return forms.Media(js=js, css=css)
 
     def __init__(self, *args, **kwargs):
@@ -75,8 +75,11 @@ class OrderWidget(forms.HiddenInput):
 
     def render(self, *args, **kwargs):
         rendered = super(OrderWidget, self).render(*args, **kwargs)
-        arrows = ["<img src='%sadmin/img/admin/arrow-%s.gif' />" %
-                  (settings.STATIC_URL, arrow) for arrow in ("up", "down")]
+        arrows = [
+            "<img src='%sadmin/img/admin/arrow-%s.gif' />"
+            % (settings.STATIC_URL, arrow)
+            for arrow in ("up", "down")
+        ]
         arrows = "<span class='ordering'>%s</span>" % "".join(arrows)
         return rendered + mark_safe(arrows)
 
@@ -90,9 +93,9 @@ class DynamicInlineAdminForm(forms.ModelForm):
     class Media:
         js = [
             # Ensure Django's noConflict jQuery has loaded BEFORE our scripts
-            'admin/js/jquery.init.js',
+            "admin/js/jquery.init.js",
             static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
-            static("mezzanine/js/admin/dynamic_inline.js")
+            static("mezzanine/js/admin/dynamic_inline.js"),
         ]
 
 
@@ -100,6 +103,7 @@ class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
     """
     Combines Django's ``SelectDateTimeWidget`` and ``SelectDateWidget``.
     """
+
     def __init__(self, attrs=None, date_format=None, time_format=None):
         date_widget = SelectDateWidget(attrs=attrs)
         time_widget = forms.TimeInput(attrs=attrs, format=time_format)
@@ -114,14 +118,21 @@ class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
         return [None, None]
 
     def value_from_datadict(self, data, files, name):
-        return " ".join([x or "" for x in super(SplitSelectDateTimeWidget,
-            self).value_from_datadict(data, files, name)])
+        return " ".join(
+            [
+                x or ""
+                for x in super(SplitSelectDateTimeWidget, self).value_from_datadict(
+                    data, files, name
+                )
+            ]
+        )
 
 
 class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     """
     Wraps render with a CSS class for styling.
     """
+
     dont_use_model_field_default_for_empty_data = True
 
     def render(self, *args, **kwargs):
@@ -137,6 +148,7 @@ def get_edit_form(obj, field_names, data=None, files=None):
     # Map these form fields to their types defined in the forms app so
     # we can make use of their custom widgets.
     from mezzanine.forms import fields
+
     widget_overrides = {
         forms.DateField: fields.DATE,
         forms.DateTimeField: fields.DATE_TIME,
@@ -175,6 +187,10 @@ def get_edit_form(obj, field_names, data=None, files=None):
                 if settings.FORMS_USE_HTML5 and self.fields[f].required:
                     self.fields[f].widget.attrs["required"] = ""
 
-    initial = {"app": obj._meta.app_label, "id": obj.id,
-               "fields": field_names, "model": obj._meta.object_name.lower()}
+    initial = {
+        "app": obj._meta.app_label,
+        "id": obj.id,
+        "fields": field_names,
+        "model": obj._meta.object_name.lower(),
+    }
     return EditForm(instance=obj, initial=initial, data=data, files=files)

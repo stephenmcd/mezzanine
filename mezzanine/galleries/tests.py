@@ -9,7 +9,6 @@ from mezzanine.utils.tests import TestCase, copy_test_to_media
 
 
 class GalleriesTests(TestCase):
-
     def test_gallery_import(self):
         """
         Test that a gallery creates images when given a zip file to
@@ -23,8 +22,7 @@ class GalleriesTests(TestCase):
         self.assertTrue(images)
         self.assertTrue(all([image.description for image in images]))
         # Clean up.
-        rmtree(os.path.join(settings.MEDIA_ROOT,
-                            GALLERIES_UPLOAD_DIR, title))
+        rmtree(os.path.join(settings.MEDIA_ROOT, GALLERIES_UPLOAD_DIR, title))
 
     def test_thumbnail_generation(self):
         """
@@ -37,8 +35,11 @@ class GalleriesTests(TestCase):
         image_name = "image.jpg"
         size = (24, 24)
         copy_test_to_media("mezzanine.core", image_name)
-        thumb_name = os.path.join(settings.THUMBNAILS_DIR_NAME, image_name,
-                                  image_name.replace(".", "-%sx%s." % size))
+        thumb_name = os.path.join(
+            settings.THUMBNAILS_DIR_NAME,
+            image_name,
+            image_name.replace(".", "-%sx%s." % size),
+        )
         thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
         thumb_image = thumbnail(image_name, *size)
         self.assertEqual(os.path.normpath(thumb_image.lstrip("/")), thumb_name)

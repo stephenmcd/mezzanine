@@ -47,11 +47,13 @@ class BaseGenericRelation(GenericRelation):
         else:
             # otherwise, warn the user to stick to the new (as of 4.0)
             # ``default_related_model`` attribute
-            raise ImproperlyConfigured("BaseGenericRelation changed the "
+            raise ImproperlyConfigured(
+                "BaseGenericRelation changed the "
                 "way it handled a default ``related_model`` in mezzanine "
                 "4.0. Please override ``default_related_model`` instead "
                 "and do not tamper with django's ``related_model`` "
-                "property anymore.")
+                "property anymore."
+            )
 
     def contribute_to_class(self, cls, name):
         """
@@ -63,8 +65,12 @@ class BaseGenericRelation(GenericRelation):
         for field in cls._meta.many_to_many:
             if isinstance(field, self.__class__):
                 e = "Multiple %s fields are not supported (%s.%s, %s.%s)" % (
-                    self.__class__.__name__, cls.__name__, cls.__name__,
-                    name, field.name)
+                    self.__class__.__name__,
+                    cls.__name__,
+                    cls.__name__,
+                    name,
+                    field.name,
+                )
                 raise ImproperlyConfigured(e)
         self.related_field_name = name
         super(BaseGenericRelation, self).contribute_to_class(cls, name)
@@ -144,8 +150,7 @@ class CommentsField(BaseGenericRelation):
             count = related_manager.count_queryset()
         except AttributeError:
             count = related_manager.count()
-        count_field_name = list(self.fields.keys())[0] % \
-                           self.related_field_name
+        count_field_name = list(self.fields.keys())[0] % self.related_field_name
         setattr(instance, count_field_name, count)
         instance.save()
 
@@ -158,8 +163,7 @@ class KeywordsField(BaseGenericRelation):
     """
 
     default_related_model = "generic.AssignedKeyword"
-    fields = {"%s_string": CharField(editable=False, blank=True,
-                                     max_length=500)}
+    fields = {"%s_string": CharField(editable=False, blank=True, max_length=500)}
 
     def __init__(self, *args, **kwargs):
         """
@@ -176,6 +180,7 @@ class KeywordsField(BaseGenericRelation):
         isn't a form field mapped to ``GenericRelation`` model fields.
         """
         from mezzanine.generic.forms import KeywordsWidget
+
         kwargs["widget"] = KeywordsWidget
         return super(KeywordsField, self).formfield(**kwargs)
 
@@ -188,6 +193,7 @@ class KeywordsField(BaseGenericRelation):
         instance is being removed.
         """
         from mezzanine.generic.models import Keyword
+
         related_manager = getattr(instance, self.name)
         # Get a list of Keyword IDs being removed.
         old_ids = [str(a.keyword_id) for a in related_manager.all()]
@@ -209,8 +215,7 @@ class KeywordsField(BaseGenericRelation):
         ``KEYWORDS_FIELD_string`` field in ``search_fields``.
         """
         super(KeywordsField, self).contribute_to_class(cls, name)
-        string_field_name = list(self.fields.keys())[0] % \
-                            self.related_field_name
+        string_field_name = list(self.fields.keys())[0] % self.related_field_name
         if hasattr(cls, "search_fields") and name in cls.search_fields:
             try:
                 weight = cls.search_fields[name]
@@ -231,8 +236,7 @@ class KeywordsField(BaseGenericRelation):
         """
         assigned = related_manager.select_related("keyword")
         keywords = " ".join([str(a.keyword) for a in assigned])
-        string_field_name = list(self.fields.keys())[0] % \
-                            self.related_field_name
+        string_field_name = list(self.fields.keys())[0] % self.related_field_name
         if getattr(instance, string_field_name) != keywords:
             setattr(instance, string_field_name, keywords)
             instance.save()
@@ -246,9 +250,11 @@ class RatingField(BaseGenericRelation):
     """
 
     default_related_model = "generic.Rating"
-    fields = {"%s_count": IntegerField(default=0, editable=False),
-              "%s_sum": IntegerField(default=0, editable=False),
-              "%s_average": FloatField(default=0, editable=False)}
+    fields = {
+        "%s_count": IntegerField(default=0, editable=False),
+        "%s_sum": IntegerField(default=0, editable=False),
+        "%s_average": FloatField(default=0, editable=False),
+    }
 
     def related_items_changed(self, instance, related_manager):
         """

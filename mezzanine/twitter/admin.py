@@ -1,4 +1,3 @@
-
 from __future__ import unicode_literals
 
 from django.utils.safestring import mark_safe
@@ -37,15 +36,19 @@ class TweetableAdminMixin(object):
         formsets attribute of the admin class fell apart quite
         horrifically.
         """
-        formfield = super(TweetableAdminMixin,
-            self).formfield_for_dbfield(db_field, request, **kwargs)
+        formfield = super(TweetableAdminMixin, self).formfield_for_dbfield(
+            db_field, request, **kwargs
+        )
         if Api and db_field.name == "status" and get_auth_settings():
+
             def wrapper(render):
                 def wrapped(*args, **kwargs):
                     rendered = render(*args, **kwargs)
                     label = _("Send to Twitter")
                     return mark_safe(rendered + FORMFIELD_HTML % label)
+
                 return wrapped
+
             formfield.widget.render = wrapper(formfield.widget.render)
         return formfield
 

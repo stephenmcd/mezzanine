@@ -19,15 +19,14 @@ from mezzanine.utils.tests import TestCase
 
 
 class GenericTests(TestCase):
-
-    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
-                "blog app required")
+    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS, "blog app required")
     def test_rating(self):
         """
         Test that ratings can be posted and avarage/count are calculated.
         """
-        blog_post = BlogPost.objects.create(title="Ratings", user=self._user,
-                                            status=CONTENT_STATUS_PUBLISHED)
+        blog_post = BlogPost.objects.create(
+            title="Ratings", user=self._user, status=CONTENT_STATUS_PUBLISHED
+        )
         if settings.RATINGS_ACCOUNT_REQUIRED:
             self.client.login(username=self._username, password=self._password)
         data = RatingForm(None, blog_post).initial
@@ -43,28 +42,28 @@ class GenericTests(TestCase):
         average = _sum / count
         if settings.RATINGS_ACCOUNT_REQUIRED:
             self.assertEqual(blog_post.rating_count, 1)
-            self.assertEqual(blog_post.rating_sum,
-                             settings.RATINGS_RANGE[-1])
-            self.assertEqual(blog_post.rating_average,
-                             settings.RATINGS_RANGE[-1] / 1)
+            self.assertEqual(blog_post.rating_sum, settings.RATINGS_RANGE[-1])
+            self.assertEqual(blog_post.rating_average, settings.RATINGS_RANGE[-1] / 1)
         else:
             self.assertEqual(blog_post.rating_count, count)
             self.assertEqual(blog_post.rating_sum, _sum)
             self.assertEqual(blog_post.rating_average, average)
 
-    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
-                "blog app required")
+    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS, "blog app required")
     def test_comment_ratings(self):
         """
         Test that a generic relation defined on one of Mezzanine's generic
         models (in this case ratings of comments) correctly sets its
         extra fields.
         """
-        blog_post = BlogPost.objects.create(title="Post with comments",
-                                            user=self._user)
+        blog_post = BlogPost.objects.create(title="Post with comments", user=self._user)
         content_type = ContentType.objects.get_for_model(blog_post)
-        kwargs = {"content_type": content_type, "object_pk": blog_post.id,
-                  "site_id": settings.SITE_ID, "comment": "First!!!11"}
+        kwargs = {
+            "content_type": content_type,
+            "object_pk": blog_post.id,
+            "site_id": settings.SITE_ID,
+            "comment": "First!!!11",
+        }
         comment = ThreadedComment.objects.create(**kwargs)
         comment.rating.create(value=settings.RATINGS_RANGE[0])
         comment.rating.create(value=settings.RATINGS_RANGE[-1])
@@ -74,10 +73,10 @@ class GenericTests(TestCase):
 
         self.assertEqual(
             comment.rating_average,
-            (settings.RATINGS_RANGE[0] + settings.RATINGS_RANGE[-1]) / 2)
+            (settings.RATINGS_RANGE[0] + settings.RATINGS_RANGE[-1]) / 2,
+        )
 
-    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS,
-                "blog app required")
+    @skipUnless("mezzanine.blog" in settings.INSTALLED_APPS, "blog app required")
     def test_comment_queries(self):
         """
         Test that rendering comments executes the same number of
@@ -85,8 +84,11 @@ class GenericTests(TestCase):
         """
         blog_post = BlogPost.objects.create(title="Post", user=self._user)
         content_type = ContentType.objects.get_for_model(blog_post)
-        kwargs = {"content_type": content_type, "object_pk": blog_post.id,
-                  "site_id": settings.SITE_ID}
+        kwargs = {
+            "content_type": content_type,
+            "object_pk": blog_post.id,
+            "site_id": settings.SITE_ID,
+        }
         template = "{% load comment_tags %}{% comment_thread blog_post %}"
         context = {
             "blog_post": blog_post,
@@ -101,8 +103,7 @@ class GenericTests(TestCase):
         after = self.queries_used_for_template(template, **context)
         self.assertEqual(before, after)
 
-    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
-                "pages app required")
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS, "pages app required")
     def test_keywords(self):
         """
         Test that the keywords_string field is correctly populated.
@@ -129,8 +130,9 @@ class GenericTests(TestCase):
         """
         assigned_keyword = Keyword.objects.create(title="assigned")
         Keyword.objects.create(title="unassigned")
-        AssignedKeyword.objects.create(keyword_id=assigned_keyword.id,
-                                       content_object=RichTextPage(pk=1))
+        AssignedKeyword.objects.create(
+            keyword_id=assigned_keyword.id, content_object=RichTextPage(pk=1)
+        )
         Keyword.objects.delete_unused(keyword_ids=[assigned_keyword.id])
         self.assertEqual(Keyword.objects.count(), 2)
         Keyword.objects.delete_unused()
@@ -142,7 +144,7 @@ class GenericTests(TestCase):
         Assert 400 status code response when expected data is missing from
         the comment form. This simulates typical malicious bot behavior.
         """
-        request = self._request_factory.post(reverse('comment'))
+        request = self._request_factory.post(reverse("comment"))
         if settings.COMMENTS_ACCOUNT_REQUIRED:
             request.user = self._user
             request.session = {}
@@ -151,27 +153,29 @@ class GenericTests(TestCase):
 
     def test_multiple_comment_forms(self):
 
-        template = Template("""
+        template = Template(
+            """
             {% load comment_tags %}
             {% comments_for post1 %}
             {% comments_for post2 %}
-        """)
+        """
+        )
 
-        request = self._request_factory.get(reverse('comment'))
+        request = self._request_factory.get(reverse("comment"))
         request.user = self._user
 
         context = {
-            'post1': BlogPost.objects.create(title="Post #1", user=self._user),
-            'post2': BlogPost.objects.create(title="Post #2", user=self._user),
-            'request': request,
+            "post1": BlogPost.objects.create(title="Post #1", user=self._user),
+            "post2": BlogPost.objects.create(title="Post #2", user=self._user),
+            "request": request,
         }
 
         result = template.render(Context(context))
 
         self.assertInHTML(
             '<input id="id_object_pk" name="object_pk" '
-            'type="hidden" value="%d" />' % context['post2'].pk,
-            result
+            'type="hidden" value="%d" />' % context["post2"].pk,
+            result,
         )
 
     def test_keywords_widget(self):
@@ -197,8 +201,9 @@ class GenericTests(TestCase):
         self.assertIn("brown", values_from_string[1])
 
         for keyword_id in keyword_id_list:
-            AssignedKeyword.objects.create(keyword_id=keyword_id,
-                                           content_object=RichTextPage(pk=1))
+            AssignedKeyword.objects.create(
+                keyword_id=keyword_id, content_object=RichTextPage(pk=1)
+            )
 
         assigned_keywords = AssignedKeyword.objects.all()
         values_from_relation = keyword_widget.decompress(assigned_keywords)

@@ -22,20 +22,30 @@ from mezzanine.core.request import current_request
 registry = {}
 
 
-def register_setting(name=None, label=None, editable=False, description=None,
-                     default=None, choices=None, append=False,
-                     translatable=False):
+def register_setting(
+    name=None,
+    label=None,
+    editable=False,
+    description=None,
+    default=None,
+    choices=None,
+    append=False,
+    translatable=False,
+):
     """
     Registers a setting that can be edited via the admin. This mostly
     equates to storing the given args as a dict in the ``registry``
     dict by name.
     """
     if name is None:
-        raise TypeError("mezzanine.conf.register_setting requires the "
-                        "'name' keyword argument.")
+        raise TypeError(
+            "mezzanine.conf.register_setting requires the " "'name' keyword argument."
+        )
     if editable and default is None:
-        raise TypeError("mezzanine.conf.register_setting requires the "
-                        "'default' keyword argument when 'editable' is True.")
+        raise TypeError(
+            "mezzanine.conf.register_setting requires the "
+            "'default' keyword argument when 'editable' is True."
+        )
 
     # append is True when called from an app (typically external)
     # after the setting has already been registered, with the
@@ -70,10 +80,16 @@ def register_setting(name=None, label=None, editable=False, description=None,
         setting_type = bytes
     else:
         setting_type = type(default)
-    registry[name] = {"name": name, "label": label, "editable": editable,
-                      "description": description, "default": default,
-                      "choices": choices, "type": setting_type,
-                      "translatable": translatable}
+    registry[name] = {
+        "name": name,
+        "label": label,
+        "editable": editable,
+        "description": description,
+        "default": default,
+        "choices": choices,
+        "type": setting_type,
+        "translatable": translatable,
+    }
 
 
 class Settings(object):
@@ -96,6 +112,7 @@ class Settings(object):
 
     class Placeholder(object):
         """A Weakly-referable wrapper of ``object``."""
+
         pass
 
     NULL_REQUEST = Placeholder()
@@ -105,7 +122,7 @@ class Settings(object):
     # If a type doesn't appear in this map, the type itself will be used.
     TYPE_FUNCTIONS = {
         bool: lambda val: val != "False",
-        bytes: partial(bytes, encoding='utf8')
+        bytes: partial(bytes, encoding="utf8"),
     }
 
     def __init__(self):
@@ -128,12 +145,14 @@ class Settings(object):
         is the default, so this is deprecated in favour of ``clear_cache()``.
         """
         self.clear_cache()
-        warn("Because editable settings are now used by default, "
-             "settings.use_editable() is deprecated. If you need to re-load "
-             "settings from the database during a request, please use "
-             "settings.clear_cache() instead.",
-             DeprecationWarning,
-             stacklevel=2)
+        warn(
+            "Because editable settings are now used by default, "
+            "settings.use_editable() is deprecated. If you need to re-load "
+            "settings from the database during a request, please use "
+            "settings.clear_cache() instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
     def clear_cache(self):
         """Clear the settings cache for the current request."""
@@ -168,11 +187,17 @@ class Settings(object):
         except ValueError:
             # Shouldn't occur, but just a safeguard in case
             # the db value somehow ended up as an invalid type.
-            warn("The setting %s should be of type %s, but the value "
-                 "retrieved from the database (%s) could not be converted. "
-                 "Using the default instead: %s"
-                 % (setting["name"], setting["type"].__name__,
-                    repr(raw_value), repr(setting["default"])))
+            warn(
+                "The setting %s should be of type %s, but the value "
+                "retrieved from the database (%s) could not be converted. "
+                "Using the default instead: %s"
+                % (
+                    setting["name"],
+                    setting["type"].__name__,
+                    repr(raw_value),
+                    repr(setting["default"]),
+                )
+            )
             value = setting["default"]
 
         return value
@@ -218,9 +243,11 @@ class Settings(object):
             Setting.objects.filter(name__in=removed_settings).delete()
 
         if conflicting_settings:
-            warn("These settings are defined in both settings.py and "
-                 "the database: %s. The settings.py values will be used."
-                 % ", ".join(conflicting_settings))
+            warn(
+                "These settings are defined in both settings.py and "
+                "the database: %s. The settings.py values will be used."
+                % ", ".join(conflicting_settings)
+            )
 
         return new_cache
 
@@ -236,8 +263,9 @@ class Settings(object):
         # fetched from the database, then the registered default.
         if setting["editable"]:
             editable_cache = self._get_editable(request=self._current_request)
-            return getattr(django_settings, name,
-                           editable_cache.get(name, setting["default"]))
+            return getattr(
+                django_settings, name, editable_cache.get(name, setting["default"])
+            )
 
         # If if isn't editable, just try Django and then default.
         return getattr(django_settings, name, setting["default"])

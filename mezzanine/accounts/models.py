@@ -20,5 +20,4 @@ if getattr(settings, "ACCOUNTS_PROFILE_MODEL", None):
                 # gets re-opened, allowing syncdb to continue and complete.
                 connection.close()
 
-    post_save.connect(create_profile, sender=settings.AUTH_USER_MODEL,
-                      weak=False)
+    post_save.connect(create_profile, sender=settings.AUTH_USER_MODEL, weak=False)

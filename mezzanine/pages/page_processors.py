@@ -34,10 +34,11 @@ def processor_for(content_model_or_slug, exact_page=False):
     elif issubclass(content_model_or_slug, Page):
         content_model = content_model_or_slug
     else:
-        raise TypeError("%s is not a valid argument for page_processor, "
-                        "which should be a model subclass of Page in class "
-                        "or string form (app.model), or a valid slug" %
-                        content_model_or_slug)
+        raise TypeError(
+            "%s is not a valid argument for page_processor, "
+            "which should be a model subclass of Page in class "
+            "or string form (app.model), or a valid slug" % content_model_or_slug
+        )
 
     def decorator(func):
         parts = (func, exact_page)
@@ -47,6 +48,7 @@ def processor_for(content_model_or_slug, exact_page=False):
         else:
             processors["slug:%s" % slug].insert(0, parts)
         return func
+
     return decorator
 
 

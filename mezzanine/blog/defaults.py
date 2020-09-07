@@ -26,19 +26,24 @@ _BLOG_URLS_DATE_FORMAT = ""
 if getattr(settings, "BLOG_URLS_USE_DATE", False):
     _BLOG_URLS_DATE_FORMAT = "day"
     from warnings import warn
-    warn("BLOG_URLS_USE_DATE setting is deprecated, please use the "
+
+    warn(
+        "BLOG_URLS_USE_DATE setting is deprecated, please use the "
         "BLOG_URLS_DATE_FORMAT setting with a value of 'year', 'month', "
-        "or 'day'.")
+        "or 'day'."
+    )
 
 register_setting(
     name="BLOG_URLS_DATE_FORMAT",
     label=_("Blog post URL date format"),
-    description=_("A string containing the value ``year``, ``month``, or "
+    description=_(
+        "A string containing the value ``year``, ``month``, or "
         "``day``, which controls the granularity of the date portion in the "
         "URL for each blog post. Eg: ``year`` will define URLs in the format "
         "/blog/yyyy/slug/, while ``day`` will define URLs with the format "
         "/blog/yyyy/mm/dd/slug/. An empty string means the URLs will only "
-        "use the slug, and not contain any portion of the date at all."),
+        "use the slug, and not contain any portion of the date at all."
+    ),
     editable=False,
     default=_BLOG_URLS_DATE_FORMAT,
 )
@@ -54,8 +59,10 @@ register_setting(
 register_setting(
     name="BLOG_RSS_LIMIT",
     label=_("Blog posts RSS limit"),
-    description=_("Number of most recent blog posts shown in the RSS feed. "
-        "Set to ``None`` to display all blog posts in the RSS feed."),
+    description=_(
+        "Number of most recent blog posts shown in the RSS feed. "
+        "Set to ``None`` to display all blog posts in the RSS feed."
+    ),
     editable=False,
     default=20,
 )

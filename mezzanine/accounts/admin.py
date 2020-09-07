@@ -44,6 +44,7 @@ class UserProfileAdmin(SitePermissionUserAdmin):
 
 
 try:
+
     class ProfileInline(admin.StackedInline):
         model = get_profile_model()
         can_delete = False

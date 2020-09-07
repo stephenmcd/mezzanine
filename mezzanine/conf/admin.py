@@ -23,9 +23,13 @@ class SettingsAdmin(admin.ModelAdmin):
     class Media(BaseTranslationModelAdmin.Media):
         css = copy(BaseTranslationModelAdmin.Media.css)
         css["all"] += (static("mezzanine/css/admin/settings.css"),)
-        js = [js.replace(str(static("tabbed_translation_fields.js")),
-                         str(static("tabbed_translatable_settings.js")))
-              for js in BaseTranslationModelAdmin.Media.js]
+        js = [
+            js.replace(
+                str(static("tabbed_translation_fields.js")),
+                str(static("tabbed_translatable_settings.js")),
+            )
+            for js in BaseTranslationModelAdmin.Media.js
+        ]
 
     def changelist_redirect(self):
         changelist_url = admin_url(Setting, "changelist")
@@ -48,9 +52,10 @@ class SettingsAdmin(admin.ModelAdmin):
             return self.changelist_redirect()
         extra_context["settings_form"] = settings_form
         extra_context["title"] = u"%s %s" % (
-            _("Change"), force_text(Setting._meta.verbose_name_plural))
-        return super(SettingsAdmin, self).changelist_view(request,
-                                                            extra_context)
+            _("Change"),
+            force_text(Setting._meta.verbose_name_plural),
+        )
+        return super(SettingsAdmin, self).changelist_view(request, extra_context)
 
 
 admin.site.register(Setting, SettingsAdmin)

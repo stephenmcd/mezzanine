@@ -21,7 +21,7 @@ def get_best_local_timezone():
     local_offset = datetime.timedelta(seconds=-local_offset)
     for zone_name in pytz.all_timezones:
         timezone = pytz.timezone(zone_name)
-        if not hasattr(timezone, '_tzinfos'):
+        if not hasattr(timezone, "_tzinfos"):
             continue
         for utcoffset, daylight, tzname in timezone._tzinfos:
             if utcoffset == local_offset and tzname == localtz:

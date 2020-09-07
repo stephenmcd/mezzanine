@@ -37,8 +37,9 @@ def admin_keywords_submit(request):
             if keyword_id not in keyword_ids:
                 keyword_ids.append(keyword_id)
                 titles.append(title)
-    return HttpResponse("%s|%s" % (",".join(keyword_ids), ", ".join(titles)),
-        content_type='text/plain')
+    return HttpResponse(
+        "%s|%s" % (",".join(keyword_ids), ", ".join(titles)), content_type="text/plain"
+    )
 
 
 def initial_validation(request, prefix):
@@ -65,8 +66,13 @@ def initial_validation(request, prefix):
         if not is_authenticated(request.user):
             if request.method == "POST":
                 request.session[posted_session_key] = request.POST
-                error(request, _("You must be logged in. Please log in or "
-                                 "sign up to complete this action."))
+                error(
+                    request,
+                    _(
+                        "You must be logged in. Please log in or "
+                        "sign up to complete this action."
+                    ),
+                )
             redirect_url = "%s?next=%s" % (settings.LOGIN_URL, reverse(prefix))
         elif posted_session_key in request.session:
             post_data = request.session.pop(posted_session_key)

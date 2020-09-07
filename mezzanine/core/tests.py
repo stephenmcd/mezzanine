@@ -34,30 +34,33 @@ from mezzanine.conf import settings
 from mezzanine.core.admin import BaseDynamicInlineAdmin
 from mezzanine.core.fields import RichTextField, MultiChoiceField
 from mezzanine.core.managers import DisplayableManager
-from mezzanine.core.models import (CONTENT_STATUS_DRAFT,
-                                   CONTENT_STATUS_PUBLISHED)
+from mezzanine.core.models import CONTENT_STATUS_DRAFT, CONTENT_STATUS_PUBLISHED
 from mezzanine.forms.admin import FieldAdmin
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import Page, RichTextPage
-from mezzanine.utils.deprecation import (get_middleware_setting,
-                                         get_middleware_setting_name)
+from mezzanine.utils.deprecation import (
+    get_middleware_setting,
+    get_middleware_setting_name,
+)
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.tests import (TestCase, run_pyflakes_for_package,
-                                             run_pep8_for_package)
+from mezzanine.utils.tests import (
+    TestCase,
+    run_pyflakes_for_package,
+    run_pep8_for_package,
+)
 from mezzanine.utils.html import TagCloser, escape
 
 
 class CoreTests(TestCase):
-
     def test_tagcloser(self):
         """
         Test tags are closed, and tags that shouldn't be closed aren't.
         """
-        self.assertEqual(TagCloser("<p>Unclosed paragraph").html,
-                         "<p>Unclosed paragraph</p>")
+        self.assertEqual(
+            TagCloser("<p>Unclosed paragraph").html, "<p>Unclosed paragraph</p>"
+        )
 
-        self.assertEqual(TagCloser("Line break<br>").html,
-                         "Line break<br>")
+        self.assertEqual(TagCloser("Line break<br>").html, "Line break<br>")
 
     def test_escape(self):
         """
@@ -85,30 +88,28 @@ class CoreTests(TestCase):
         try:
             import_dotted_path("mezzanine.core")
         except ImportError:
-            self.fail("mezzanine.utils.imports.import_dotted_path"
-                      "could not import \"mezzanine.core\"")
+            self.fail(
+                "mezzanine.utils.imports.import_dotted_path"
+                'could not import "mezzanine.core"'
+            )
 
-    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
-                "pages app required")
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS, "pages app required")
     def test_description(self):
         """
         Test generated description is text version of the first line
         of content.
         """
         description = "<p>How now brown cow</p>"
-        page = RichTextPage.objects.create(title="Draft",
-                                           content=description * 3)
+        page = RichTextPage.objects.create(title="Draft", content=description * 3)
         self.assertEqual(page.description, strip_tags(description))
 
-    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
-                "pages app required")
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS, "pages app required")
     def test_draft(self):
         """
         Test a draft object as only being viewable by a staff member.
         """
         self.client.logout()
-        draft = RichTextPage.objects.create(title="Draft",
-                                            status=CONTENT_STATUS_DRAFT)
+        draft = RichTextPage.objects.create(title="Draft", status=CONTENT_STATUS_DRAFT)
         response = self.client.get(draft.get_absolute_url(), follow=True)
         self.assertEqual(response.status_code, 404)
         self.client.login(username=self._username, password=self._password)
@@ -121,21 +122,22 @@ class CoreTests(TestCase):
         """
         manager = DisplayableManager()
         self.assertFalse(manager._search_fields)
-        manager = DisplayableManager(search_fields={'foo': 10})
+        manager = DisplayableManager(search_fields={"foo": 10})
         self.assertTrue(manager._search_fields)
 
-    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
-                "pages app required")
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS, "pages app required")
     def test_search(self):
         """
         Objects with status "Draft" should not be within search results.
         """
         RichTextPage.objects.all().delete()
         published = {"status": CONTENT_STATUS_PUBLISHED}
-        first = RichTextPage.objects.create(title="test page",
-                                           status=CONTENT_STATUS_DRAFT).id
-        second = RichTextPage.objects.create(title="test another test page",
-                                            **published).id
+        first = RichTextPage.objects.create(
+            title="test page", status=CONTENT_STATUS_DRAFT
+        ).id
+        second = RichTextPage.objects.create(
+            title="test another test page", **published
+        ).id
         # Draft shouldn't be a result.
         results = RichTextPage.objects.search("test")
         self.assertEqual(len(results), 1)
@@ -162,9 +164,11 @@ class CoreTests(TestCase):
         # Test ordering without age scaling.
         settings.SEARCH_AGE_SCALE_FACTOR = 0
         RichTextPage.objects.filter(id=first).update(
-            publish_date=now() - timedelta(days=3))
+            publish_date=now() - timedelta(days=3)
+        )
         RichTextPage.objects.filter(id=second).update(
-            publish_date=datetime(2016, 1, 1, tzinfo=pytz.utc))
+            publish_date=datetime(2016, 1, 1, tzinfo=pytz.utc)
+        )
         results = RichTextPage.objects.search("test")
         self.assertEqual(len(results), 2)
         if results:
@@ -213,8 +217,7 @@ class CoreTests(TestCase):
         response = self.client.get(pages[0].get_absolute_url(), follow=True)
         self.assertEqual(response.status_code, code)
 
-    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
-                "pages app required")
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS, "pages app required")
     def test_multisite(self):
         from django.conf import settings
 
@@ -272,48 +275,43 @@ class CoreTests(TestCase):
 
     def _static_proxy(self, querystring):
         self.client.login(username=self._username, password=self._password)
-        proxy_url = '%s?%s' % (reverse('static_proxy'), querystring)
+        proxy_url = "%s?%s" % (reverse("static_proxy"), querystring)
         response = self.client.get(proxy_url)
         self.assertEqual(response.status_code, 200)
 
-    @override_settings(STATIC_URL='/static/')
+    @override_settings(STATIC_URL="/static/")
     def test_static_proxy(self):
-        querystring = urlencode([('u', static("test/image.jpg"))])
+        querystring = urlencode([("u", static("test/image.jpg"))])
         self._static_proxy(querystring)
 
-    @override_settings(STATIC_URL='http://testserver/static/')
+    @override_settings(STATIC_URL="http://testserver/static/")
     def test_static_proxy_with_host(self):
-        querystring = urlencode(
-            [('u', static("test/image.jpg"))])
+        querystring = urlencode([("u", static("test/image.jpg"))])
         self._static_proxy(querystring)
 
-    @override_settings(STATIC_URL='http://testserver:8000/static/')
+    @override_settings(STATIC_URL="http://testserver:8000/static/")
     def test_static_proxy_with_static_url_with_full_host(self):
         from django.templatetags.static import static
-        querystring = urlencode([('u', static("test/image.jpg"))])
+
+        querystring = urlencode([("u", static("test/image.jpg"))])
         self._static_proxy(querystring)
 
     def _get_csrftoken(self, response):
         csrf = re.findall(
-            br'<input type="hidden" name="csrfmiddlewaretoken" '
-            br'value="([^"]+)">',
-            response.content
+            br'<input type="hidden" name="csrfmiddlewaretoken" ' br'value="([^"]+)">',
+            response.content,
         )
-        self.assertEqual(len(csrf), 1, 'No csrfmiddlewaretoken found!')
+        self.assertEqual(len(csrf), 1, "No csrfmiddlewaretoken found!")
         return csrf[0]
 
     def _get_formurl(self, response):
-        action = re.findall(
-            br'<form action="([^"]*)" method="post">',
-            response.content
-        )
-        self.assertEqual(len(action), 1, 'No form with action found!')
-        if action[0] == b'':
-            action = response.request['PATH_INFO']
+        action = re.findall(br'<form action="([^"]*)" method="post">', response.content)
+        self.assertEqual(len(action), 1, "No form with action found!")
+        if action[0] == b"":
+            action = response.request["PATH_INFO"]
         return action
 
-    @skipUnless('mezzanine.pages' in settings.INSTALLED_APPS,
-                'pages app required')
+    @skipUnless("mezzanine.pages" in settings.INSTALLED_APPS, "pages app required")
     @override_settings(LANGUAGE_CODE="en")
     def test_password_reset(self):
         """
@@ -323,11 +321,10 @@ class CoreTests(TestCase):
         del mail.outbox[:]
 
         # Go to admin-login, search for reset-link
-        response = self.client.get('/admin/', follow=True)
-        self.assertContains(response, u'Forgot password?')
+        response = self.client.get("/admin/", follow=True)
+        self.assertContains(response, u"Forgot password?")
         url = re.findall(
-            b'<a href=["\']([^\'"]+)["\']>Forgot password\\?</a>',
-            response.content
+            b"<a href=[\"']([^'\"]+)[\"']>Forgot password\\?</a>", response.content
         )
         self.assertEqual(len(url), 1)
         url = force_str(url[0])
@@ -338,26 +335,28 @@ class CoreTests(TestCase):
         csrf = self._get_csrftoken(response)
         url = self._get_formurl(response)
 
-        response = self.client.post(url, {
-            'csrfmiddlewaretoken': csrf,
-            'email': self._emailaddress
-        })
+        response = self.client.post(
+            url, {"csrfmiddlewaretoken": csrf, "email": self._emailaddress}
+        )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 1)
 
         # Get reset-link, submit form
         url = re.findall(
-            r'http://example.com((?:/\w{2,3})?/reset/[^/]+/[^/]+/)',
-            mail.outbox[0].body
+            r"http://example.com((?:/\w{2,3})?/reset/[^/]+/[^/]+/)", mail.outbox[0].body
         )[0]
         response = self.client.get(url, follow=True)
         csrf = self._get_csrftoken(response)
         url = self._get_formurl(response)
-        response = self.client.post(url, {
-            'csrfmiddlewaretoken': csrf,
-            'new_password1': 'newdefault',
-            'new_password2': 'newdefault'
-        }, follow=True)
+        response = self.client.post(
+            url,
+            {
+                "csrfmiddlewaretoken": csrf,
+                "new_password1": "newdefault",
+                "new_password2": "newdefault",
+            },
+            follow=True,
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_richtext_widget(self):
@@ -372,31 +371,32 @@ class CoreTests(TestCase):
 
         form_class = modelform_factory(
             RichTextModel,
-            fields=('text_default', 'text_overridden'),
-            widgets={'text_overridden': Textarea})
+            fields=("text_default", "text_overridden"),
+            widgets={"text_overridden": Textarea},
+        )
         form = form_class()
 
         richtext_widget = import_dotted_path(settings.RICHTEXT_WIDGET_CLASS)
 
-        self.assertIsInstance(form.fields['text_default'].widget,
-                              richtext_widget)
-        self.assertIsInstance(form.fields['text_overridden'].widget,
-                              Textarea)
+        self.assertIsInstance(form.fields["text_default"].widget, richtext_widget)
+        self.assertIsInstance(form.fields["text_overridden"].widget, Textarea)
 
     def test_admin_sites_dropdown(self):
         """
         Ensures the site selection dropdown appears in the admin.
         """
         self.client.login(username=self._username, password=self._password)
-        response = self.client.get('/admin/', follow=True)
+        response = self.client.get("/admin/", follow=True)
         set_site_url = reverse("set_site")
         # Set site URL shouldn't appear without multiple sites.
         self.assertNotContains(response, set_site_url)
-        site1 = Site.objects.create(domain="test-site-dropdown1.com",
-                                    name="test-site-dropdown1.com")
-        site2 = Site.objects.create(domain="test-site-dropdown2.com",
-                                    name="test-site-dropdown2.com")
-        response = self.client.get('/admin/', follow=True)
+        site1 = Site.objects.create(
+            domain="test-site-dropdown1.com", name="test-site-dropdown1.com"
+        )
+        site2 = Site.objects.create(
+            domain="test-site-dropdown2.com", name="test-site-dropdown2.com"
+        )
+        response = self.client.get("/admin/", follow=True)
         self.assertContains(response, set_site_url)
         self.assertContains(response, site1.name)
         self.assertContains(response, site2.name)
@@ -408,74 +408,90 @@ class CoreTests(TestCase):
         Verifies that ``BaseDynamicInlineAdmin`` properly adds the ``_order``
         field for admins of ``Orderable`` subclasses.
         """
-        request = self._request_factory.get('/admin/')
+        request = self._request_factory.get("/admin/")
         request.user = self._user
         field_admin = FieldAdmin(Form, AdminSite())
         fieldsets = field_admin.get_fieldsets(request)
-        self.assertEqual(fieldsets[0][1]['fields'][-1], '_order')
+        self.assertEqual(fieldsets[0][1]["fields"][-1], "_order")
         fields = field_admin.get_fields(request)
-        self.assertEqual(fields[-1], '_order')
+        self.assertEqual(fields[-1], "_order")
 
     def test_dynamic_inline_admins_fields_tuple(self):
         """
         Checks if moving the ``_order`` field works with immutable sequences.
         """
+
         class MyModelInline(BaseDynamicInlineAdmin, InlineModelAdmin):
             # Any model would work since we're only instantiating the class and
             # not actually using it.
             model = RichTextPage
-            fields = ('a', '_order', 'b')
+            fields = ("a", "_order", "b")
 
-        request = self._request_factory.get('/admin/')
+        request = self._request_factory.get("/admin/")
         inline = MyModelInline(None, AdminSite())
-        fields = inline.get_fieldsets(request)[0][1]['fields']
-        self.assertSequenceEqual(fields, ('a', 'b', '_order'))
+        fields = inline.get_fieldsets(request)[0][1]["fields"]
+        self.assertSequenceEqual(fields, ("a", "b", "_order"))
 
     def test_dynamic_inline_admins_fields_without_order(self):
         """
         Checks that ``_order`` field will be added if ``fields`` are listed
         without it.
         """
+
         class MyModelInline(BaseDynamicInlineAdmin, InlineModelAdmin):
             model = RichTextPage
-            fields = ('a', 'b')
+            fields = ("a", "b")
 
-        request = self._request_factory.get('/admin/')
+        request = self._request_factory.get("/admin/")
         inline = MyModelInline(None, AdminSite())
-        fields = inline.get_fieldsets(request)[0][1]['fields']
-        self.assertSequenceEqual(fields, ('a', 'b', '_order'))
+        fields = inline.get_fieldsets(request)[0][1]["fields"]
+        self.assertSequenceEqual(fields, ("a", "b", "_order"))
 
     def test_dynamic_inline_admins_fieldsets(self):
         """
         Tests if ``_order`` is moved to the end of the last fieldsets fields.
         """
+
         class MyModelInline(BaseDynamicInlineAdmin, InlineModelAdmin):
             model = RichTextPage
-            fieldsets = (("Fieldset 1", {'fields': ('a',)}),
-                         ("Fieldset 2", {'fields': ('_order', 'b')}),
-                         ("Fieldset 3", {'fields': ('c')}))
+            fieldsets = (
+                ("Fieldset 1", {"fields": ("a",)}),
+                ("Fieldset 2", {"fields": ("_order", "b")}),
+                ("Fieldset 3", {"fields": ("c")}),
+            )
 
-        request = self._request_factory.get('/admin/')
+        request = self._request_factory.get("/admin/")
         inline = MyModelInline(None, AdminSite())
         fieldsets = inline.get_fieldsets(request)
-        self.assertEqual(fieldsets[-1][1]["fields"][-1], '_order')
-        self.assertNotIn('_order', fieldsets[1][1]["fields"])
+        self.assertEqual(fieldsets[-1][1]["fields"][-1], "_order")
+        self.assertNotIn("_order", fieldsets[1][1]["fields"])
 
     def test_cache_installed(self):
 
         test_contexts = [
-            (False,
-             ['mezzanine.core.middleware.FetchFromCacheMiddleware']),
-            (True,
-             ['mezzanine.core.middleware.UpdateCacheMiddleware',
-              'mezzanine.core.tests.SubclassMiddleware']),
-            (True,
-             ['mezzanine.core.middleware.UpdateCacheMiddleware',
-              'mezzanine.core.tests.FetchFromCacheMiddleware',
-              'mezzanine.core.tests.function_middleware']),
-            (True,
-             ['mezzanine.core.middleware.UpdateCacheMiddleware',
-              'mezzanine.core.middleware.FetchFromCacheMiddleware']),
+            (False, ["mezzanine.core.middleware.FetchFromCacheMiddleware"]),
+            (
+                True,
+                [
+                    "mezzanine.core.middleware.UpdateCacheMiddleware",
+                    "mezzanine.core.tests.SubclassMiddleware",
+                ],
+            ),
+            (
+                True,
+                [
+                    "mezzanine.core.middleware.UpdateCacheMiddleware",
+                    "mezzanine.core.tests.FetchFromCacheMiddleware",
+                    "mezzanine.core.tests.function_middleware",
+                ],
+            ),
+            (
+                True,
+                [
+                    "mezzanine.core.middleware.UpdateCacheMiddleware",
+                    "mezzanine.core.middleware.FetchFromCacheMiddleware",
+                ],
+            ),
         ]
 
         with self.settings(TESTING=False):  # Well, this is silly
@@ -495,13 +511,12 @@ class SubclassMiddleware(FetchFromCacheMiddleware):
 def function_middleware(get_response):
     def middleware(request):
         return get_response(request)
+
     return middleware
 
 
-@skipUnless("mezzanine.pages" in settings.INSTALLED_APPS,
-            "pages app required")
+@skipUnless("mezzanine.pages" in settings.INSTALLED_APPS, "pages app required")
 class SiteRelatedTestCase(TestCase):
-
     def test_update_site(self):
         from django.conf import settings
         from mezzanine.utils.sites import current_site_id
@@ -598,19 +613,22 @@ class CSRFTestCase(TestCase):
         cache_installed.cache_clear()
         initialize_nevercache()
 
-    @override_settings(**{
-        "ROOT_URLCONF": CSRFTestViews,
-        "CACHES": {
-            'default': {
-                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-             }
-        },
-        get_middleware_setting_name(): (
-            'mezzanine.core.middleware.UpdateCacheMiddleware',) +
-            get_middleware_setting() +
-            ('mezzanine.core.middleware.FetchFromCacheMiddleware',
-        ),
-        "TESTING": False})
+    @override_settings(
+        **{
+            "ROOT_URLCONF": CSRFTestViews,
+            "CACHES": {
+                "default": {
+                    "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+                }
+            },
+            get_middleware_setting_name(): (
+                "mezzanine.core.middleware.UpdateCacheMiddleware",
+            )
+            + get_middleware_setting()
+            + ("mezzanine.core.middleware.FetchFromCacheMiddleware",),
+            "TESTING": False,
+        }
+    )
     def test_csrf_cookie_with_nevercache(self):
         """
         Test that the CSRF cookie is properly set when using nevercache.
@@ -635,8 +653,9 @@ class CSRFTestCase(TestCase):
 
 class DisplayableTestCase(TestCase):
     def test_published(self):
-        page = Page.objects.create(publish_date=None, expiry_date=None,
-                                   status=CONTENT_STATUS_DRAFT)
+        page = Page.objects.create(
+            publish_date=None, expiry_date=None, status=CONTENT_STATUS_DRAFT
+        )
         self.assertFalse(page.published())
 
         page.status = CONTENT_STATUS_PUBLISHED
@@ -654,7 +673,6 @@ class DisplayableTestCase(TestCase):
 
 
 class ContentTypedTestCase(TestCase):
-
     def test_set_content_model_base_concrete_class(self):
         page = Page.objects.create()
         page.set_content_model()
@@ -665,7 +683,7 @@ class ContentTypedTestCase(TestCase):
         richtextpage = RichTextPage.objects.create()
         richtextpage.set_content_model()
         page = Page.objects.get(pk=richtextpage.pk)
-        self.assertEqual(page.content_model, 'richtextpage')
+        self.assertEqual(page.content_model, "richtextpage")
         self.assertEqual(page.get_content_model(), richtextpage)
 
     def test_set_content_model_again(self):
@@ -680,10 +698,10 @@ class ContentTypedTestCase(TestCase):
         richtextpage = RichTextPage.objects.create()
         richtextpage.set_content_model()
         page = Page.objects.get(pk=richtextpage.pk)
-        self.assertEqual(page.content_model, 'richtextpage')
+        self.assertEqual(page.content_model, "richtextpage")
         self.assertEqual(page.get_content_model(), richtextpage)
         page.set_content_model()
-        self.assertEqual(page.content_model, 'richtextpage')
+        self.assertEqual(page.content_model, "richtextpage")
         self.assertEqual(page.get_content_model(), richtextpage)
 
     def test_contenttyped_admin_redirects(self):
@@ -703,18 +721,19 @@ class ContentTypedTestCase(TestCase):
 
 class FieldsTestCase(TestCase):
     def test_multichoicefield_validate_valid(self):
-        field = MultiChoiceField(choices=[('valid choice',)])
-        field.validate(['valid choice'], None)
+        field = MultiChoiceField(choices=[("valid choice",)])
+        field.validate(["valid choice"], None)
 
     def test_multichoicefield_validate_invalid(self):
-        field = MultiChoiceField(choices=[('valid choice',)])
+        field = MultiChoiceField(choices=[("valid choice",)])
         with self.assertRaises(ValidationError):
-            field.validate(['invalid choice'], None)
+            field.validate(["invalid choice"], None)
 
 
 class CommandsTestCase(TestCase):
     def test_collect_templates(self):
         if hasattr(self, "assertRaisesRegex"):
             with self.assertRaisesRegex(
-                    CommandError, 'Apps are not in INSTALLED_APPS: .*'):
-                call_command('collecttemplates', 'nonexistent')
+                CommandError, "Apps are not in INSTALLED_APPS: .*"
+            ):
+                call_command("collecttemplates", "nonexistent")

@@ -14,7 +14,7 @@ def get_user_model():
         "Mezzanine's get_user_model() is deprecated and will be removed in a "
         "future version. Replace all uses of this function with Django's "
         "django.contrib.auth.get_user_model().",
-        DeprecationWarning
+        DeprecationWarning,
     )
     return django_get_user_model()
 
@@ -65,14 +65,11 @@ def base_concrete_model(abstract, model):
     and ``_order`` which are only relevant in the context of the ``Page``
     model and not the model of the custom content type.
     """
-    if hasattr(model, 'objects'):
+    if hasattr(model, "objects"):
         # "model" is a model class
-        return (model if model._meta.abstract else
-                _base_concrete_model(abstract, model))
+        return model if model._meta.abstract else _base_concrete_model(abstract, model)
     # "model" is a model instance
-    return (
-        _base_concrete_model(abstract, model.__class__) or
-        model.__class__)
+    return _base_concrete_model(abstract, model.__class__) or model.__class__
 
 
 def upload_to(field_path, default):
@@ -82,6 +79,7 @@ def upload_to(field_path, default):
     ``UPLOAD_TO_HANDLERS`` setting.
     """
     from mezzanine.conf import settings
+
     for k, v in settings.UPLOAD_TO_HANDLERS.items():
         if k.lower() == field_path.lower():
             return import_dotted_path(v)
@@ -104,9 +102,11 @@ class AdminThumbMixin(object):
             return ""
         from mezzanine.conf import settings
         from mezzanine.core.templatetags.mezzanine_tags import thumbnail
-        x, y = settings.ADMIN_THUMB_SIZE.split('x')
+
+        x, y = settings.ADMIN_THUMB_SIZE.split("x")
         thumb_url = thumbnail(thumb, x, y)
         return format_html("<img src='{}{}'>", settings.MEDIA_URL, thumb_url)
+
     admin_thumb.short_description = ""
 
 
@@ -133,10 +133,12 @@ class ModelMixinBase(type):
             if not issubclass(mixin_for, Model):
                 raise TypeError
         except (TypeError, KeyError, AttributeError):
-            raise ImproperlyConfigured("The ModelMixin class '%s' requires "
-                                       "an inner Meta class with the "
-                                       "``mixin_for`` attribute defined, "
-                                       "with a value that is a valid model.")
+            raise ImproperlyConfigured(
+                "The ModelMixin class '%s' requires "
+                "an inner Meta class with the "
+                "``mixin_for`` attribute defined, "
+                "with a value that is a valid model."
+            )
         # Copy fields and methods onto the model being mixed into, and
         # return it as the definition for the mixin class itself.
         for k, v in attrs.items():

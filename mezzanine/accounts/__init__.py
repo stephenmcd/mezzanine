@@ -31,12 +31,14 @@ def get_profile_model():
     try:
         return apps.get_model(settings.ACCOUNTS_PROFILE_MODEL)
     except ValueError:
-        raise ImproperlyConfigured("ACCOUNTS_PROFILE_MODEL must be of "
-                                   "the form 'app_label.model_name'")
+        raise ImproperlyConfigured(
+            "ACCOUNTS_PROFILE_MODEL must be of " "the form 'app_label.model_name'"
+        )
     except LookupError:
-        raise ImproperlyConfigured("ACCOUNTS_PROFILE_MODEL refers to "
-                                   "model '%s' that has not been installed"
-                                   % settings.ACCOUNTS_PROFILE_MODEL)
+        raise ImproperlyConfigured(
+            "ACCOUNTS_PROFILE_MODEL refers to "
+            "model '%s' that has not been installed" % settings.ACCOUNTS_PROFILE_MODEL
+        )
 
 
 def get_profile_for_user(user):
@@ -46,7 +48,7 @@ def get_profile_for_user(user):
     set, and ``ImproperlyConfigured`` if the corresponding model can't
     be found.
     """
-    if not hasattr(user, '_mezzanine_profile'):
+    if not hasattr(user, "_mezzanine_profile"):
         # Raises ProfileNotConfigured if not bool(ACCOUNTS_PROFILE_MODEL)
         profile_model = get_profile_model()
         profile_manager = profile_model._default_manager.using(user._state.db)
@@ -66,12 +68,14 @@ def get_profile_form():
     ``settings.ACCOUNTS_PROFILE_FORM_CLASS``.
     """
     from mezzanine.conf import settings
+
     try:
         return import_dotted_path(settings.ACCOUNTS_PROFILE_FORM_CLASS)
     except ImportError:
-        raise ImproperlyConfigured("Value for ACCOUNTS_PROFILE_FORM_CLASS "
-                                   "could not be imported: %s" %
-                                   settings.ACCOUNTS_PROFILE_FORM_CLASS)
+        raise ImproperlyConfigured(
+            "Value for ACCOUNTS_PROFILE_FORM_CLASS "
+            "could not be imported: %s" % settings.ACCOUNTS_PROFILE_FORM_CLASS
+        )
 
 
 def get_profile_user_fieldname(profile_model=None, user_model=None):
@@ -84,6 +88,7 @@ def get_profile_user_fieldname(profile_model=None, user_model=None):
     for field in Profile._meta.get_fields():
         if get_related_model(field) == User:
             return field.name
-    raise ImproperlyConfigured("Value for ACCOUNTS_PROFILE_MODEL does not "
-                               "contain a ForeignKey field for auth.User: %s"
-                               % Profile.__name__)
+    raise ImproperlyConfigured(
+        "Value for ACCOUNTS_PROFILE_MODEL does not "
+        "contain a ForeignKey field for auth.User: %s" % Profile.__name__
+    )

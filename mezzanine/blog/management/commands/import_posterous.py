@@ -15,17 +15,20 @@ class Command(BaseImporterCommand):
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
         parser.add_argument(
-            "-a", "--api-token", dest="api_token",
-            help="Posterous API Key")
+            "-a", "--api-token", dest="api_token", help="Posterous API Key"
+        )
         parser.add_argument(
-            "-u", "--posterous-user", dest="username",
-            help="Posterous Username")
+            "-u", "--posterous-user", dest="username", help="Posterous Username"
+        )
         parser.add_argument(
-            "-p", "--posterous-pass", dest="password",
-            help="Posterous Password")
+            "-p", "--posterous-pass", dest="password", help="Posterous Password"
+        )
         parser.add_argument(
-            "-d", "--posterous-host", dest="hostname",
-            help="Posterous Blog Hostname (no http.. eg. 'foo.com')")
+            "-d",
+            "--posterous-host",
+            dest="hostname",
+            help="Posterous Blog Hostname (no http.. eg. 'foo.com')",
+        )
 
     help = "Import Posterous blog posts into the blog app."
 
@@ -33,18 +36,14 @@ class Command(BaseImporterCommand):
         try:
             import requests
         except ImportError:
-            raise CommandError("Posterous importer requires the requests"
-                               "library installed")
+            raise CommandError(
+                "Posterous importer requires the requests" "library installed"
+            )
         data = data or {}
-        params = {
-            'api_token': self.api_token
-        }
+        params = {"api_token": self.api_token}
         params.update(data)
         url = "http://posterous.com/api/2/%s" % path
-        r = requests.get(url,
-            data=params,
-            auth=(self.username, self.password)
-        )
+        r = requests.get(url, data=params, auth=(self.username, self.password))
         if r.text.startswith("403"):
             raise CommandError(r.text)
         try:
@@ -59,10 +58,10 @@ class Command(BaseImporterCommand):
         self.password = options.get("password")
         hostname = options.get("hostname")
 
-        sites = self.request('sites')
+        sites = self.request("sites")
         site = None
         for s in sites:
-            if s['full_hostname'] == hostname:
+            if s["full_hostname"] == hostname:
                 site = s
                 time.sleep(2)
                 break
@@ -76,53 +75,51 @@ class Command(BaseImporterCommand):
                 )
         page = 1
         while True:
-            path = 'sites/%s/posts' % site['id']
+            path = "sites/%s/posts" % site["id"]
             time.sleep(2)
-            posts = self.request(path, data={'page': page})
+            posts = self.request(path, data={"page": page})
             if not posts:
                 break
             for post in posts:
-                content = post['body_full']
-                title = post['title']
-                old_url = post['full_url']
-                tags = [t['name'] for t in post['tags']]
+                content = post["body_full"]
+                title = post["title"]
+                old_url = post["full_url"]
+                tags = [t["name"] for t in post["tags"]]
                 pub_date = datetime.strptime(
-                    post['display_date'][:-6],
-                    "%Y/%m/%d %H:%M:%S"
+                    post["display_date"][:-6], "%Y/%m/%d %H:%M:%S"
                 )
                 self.add_post(
                     title=title,
                     content=content,
                     pub_date=pub_date,
                     tags=tags,
-                    old_url=old_url
+                    old_url=old_url,
                 )
-                if not post['comments_count']:
+                if not post["comments_count"]:
                     continue
-                path = "sites/%s/posts/%s/comments" % (site['id'], post['id'])
+                path = "sites/%s/posts/%s/comments" % (site["id"], post["id"])
                 time.sleep(2)
                 comments = self.request(path)
                 for comment in comments:
                     post = None
                     email = ""
                     pub_date = datetime.strptime(
-                        comment['created_at'][:-6],
-                        "%Y/%m/%d %H:%M:%S"
+                        comment["created_at"][:-6], "%Y/%m/%d %H:%M:%S"
                     )
                     website = ""
-                    if 'user' in comment:
-                        website = comment['user']['profile_url']
-                        name = comment['user']['display_name']
+                    if "user" in comment:
+                        website = comment["user"]["profile_url"]
+                        name = comment["user"]["display_name"]
                     else:
-                        name = comment['name']
+                        name = comment["name"]
                         website = "http://twitter.com/%s" % name
-                    body = comment['body']
+                    body = comment["body"]
                     self.add_comment(
                         post=post,
                         name=name,
                         email=email,
                         pub_date=pub_date,
                         website=website,
-                        body=body
+                        body=body,
                     )
             page += 1

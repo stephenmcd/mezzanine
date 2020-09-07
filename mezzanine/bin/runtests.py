@@ -16,6 +16,7 @@ def main(package="mezzanine", args=()):
     """
 
     from mezzanine.utils.importing import path_for_import
+
     package_path = path_for_import(package)
     project_path = os.path.join(package_path, "project_template")
 
@@ -53,16 +54,19 @@ PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
 
         def cleanup_test_settings():
             import os  # Outer scope sometimes unavailable in atexit functions.
-            for fn in [test_settings_path, test_settings_path + 'c']:
+
+            for fn in [test_settings_path, test_settings_path + "c"]:
                 try:
                     os.remove(fn)
                 except OSError:
                     pass
+
         atexit.register(cleanup_test_settings)
 
     django.setup()
 
     from django.core.management.commands import test
+
     if django.VERSION < (1, 10):
         sys.exit(test.Command().execute(*args, verbosity=1))
     sys.exit(call_command(test.Command(), *args, verbosity=1))

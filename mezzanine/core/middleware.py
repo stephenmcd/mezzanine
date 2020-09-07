@@ -6,8 +6,12 @@ from django.contrib.messages import error
 from django.contrib.redirects.models import Redirect
 from django.core.exceptions import MiddlewareNotUsed
 from django.urls import reverse, resolve
-from django.http import (HttpResponse, HttpResponseRedirect,
-                         HttpResponsePermanentRedirect, HttpResponseGone)
+from django.http import (
+    HttpResponse,
+    HttpResponseRedirect,
+    HttpResponsePermanentRedirect,
+    HttpResponseGone,
+)
 from django.middleware.csrf import CsrfViewMiddleware, get_token
 from django.template import Template, RequestContext
 from django.utils.cache import get_max_age
@@ -17,12 +21,19 @@ from django.utils.translation import ugettext as _
 
 from mezzanine.conf import settings
 from mezzanine.core.models import SitePermission
-from mezzanine.core.management.commands.createdb import (DEFAULT_USERNAME,
-                                                         DEFAULT_PASSWORD)
-from mezzanine.utils.cache import (cache_key_prefix, nevercache_token,
-                                   cache_get, cache_set, cache_installed)
+from mezzanine.core.management.commands.createdb import (
+    DEFAULT_USERNAME,
+    DEFAULT_PASSWORD,
+)
+from mezzanine.utils.cache import (
+    cache_key_prefix,
+    nevercache_token,
+    cache_get,
+    cache_set,
+    cache_installed,
+)
 from mezzanine.utils.conf import middlewares_or_subclasses_installed
-from mezzanine.utils.deprecation import (MiddlewareMixin, is_authenticated)
+from mezzanine.utils.deprecation import MiddlewareMixin, is_authenticated
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import next_url
 
@@ -32,6 +43,7 @@ class AdminLoginInterfaceSelectorMiddleware(MiddlewareMixin):
     Checks for a POST from the admin login view and if authentication is
     successful and the "site" interface is selected, redirect to the site.
     """
+
     def process_view(self, request, view_func, view_args, view_kwargs):
         login_type = request.POST.get("mezzanine_login_interface")
         if login_type and not is_authenticated(request.user):
@@ -40,13 +52,21 @@ class AdminLoginInterfaceSelectorMiddleware(MiddlewareMixin):
                 if login_type == "admin":
                     next = next_url(request) or request.get_full_path()
                     username = request.user.get_username()
-                    if (username == DEFAULT_USERNAME and
-                            request.user.check_password(DEFAULT_PASSWORD)):
-                        error(request, mark_safe(_(
-                              "Your account is using the default password, "
-                              "please <a href='%s'>change it</a> immediately.")
-                              % reverse("user_change_password",
-                                        args=(request.user.id,))))
+                    if username == DEFAULT_USERNAME and request.user.check_password(
+                        DEFAULT_PASSWORD
+                    ):
+                        error(
+                            request,
+                            mark_safe(
+                                _(
+                                    "Your account is using the default password, "
+                                    "please <a href='%s'>change it</a> immediately."
+                                )
+                                % reverse(
+                                    "user_change_password", args=(request.user.id,)
+                                )
+                            ),
+                        )
                 else:
                     next = "/"
                 return HttpResponseRedirect(next)
@@ -61,6 +81,7 @@ class SitePermissionMiddleware(MiddlewareMixin):
     used in place of ``user.is_staff`` to achieve per-site staff
     access.
     """
+
     def process_view(self, request, view_func, view_args, view_kwargs):
         has_site_permission = False
         if request.user.is_superuser:
@@ -86,12 +107,14 @@ class TemplateForDeviceMiddleware(MiddlewareMixin):
     DEPRECATED: Device detection has been removed from Mezzanine.
     Inserts device-specific templates to the template list.
     """
+
     def __init__(self, *args, **kwargs):
         super(TemplateForDeviceMiddleware, self).__init__(*args, **kwargs)
         warnings.warn(
             "`TemplateForDeviceMiddleware` is deprecated. "
             "Please remove it from your middleware settings.",
-            FutureWarning, stacklevel=2
+            FutureWarning,
+            stacklevel=2,
         )
 
 
@@ -99,12 +122,14 @@ class TemplateForHostMiddleware(MiddlewareMixin):
     """
     Inserts host-specific templates to the template list.
     """
+
     def __init__(self, *args, **kwargs):
         super(TemplateForHostMiddleware, self).__init__(*args, **kwargs)
         warnings.warn(
             "`TemplateForHostMiddleware` is deprecated. Please upgrade "
             "to the template loader. See: https://goo.gl/SzHPR4",
-            FutureWarning, stacklevel=2
+            FutureWarning,
+            stacklevel=2,
         )
 
 
@@ -151,7 +176,7 @@ class UpdateCacheMiddleware(MiddlewareMixin):
         # enclosed by it, to avoid possible template code injection.
         token = nevercache_token()
         try:
-            token = token.encode('utf-8')
+            token = token.encode("utf-8")
         except AttributeError:
             pass
         parts = response.content.split(token)
@@ -170,15 +195,11 @@ class UpdateCacheMiddleware(MiddlewareMixin):
         context = RequestContext(request)
         for i, part in enumerate(parts):
             if i % 2:
-                part = (
-                    Template(part.decode("utf-8"))
-                        .render(context)
-                        .encode("utf-8")
-                )
+                part = Template(part.decode("utf-8")).render(context).encode("utf-8")
             parts[i] = part
         response.content = b"".join(parts)
         response["Content-Length"] = len(response.content)
-        if hasattr(request, '_messages'):
+        if hasattr(request, "_messages"):
             # Required to clear out user messages.
             request._messages.update(response)
         # Response needs to be run-through the CSRF middleware again so
@@ -205,8 +226,11 @@ class FetchFromCacheMiddleware(MiddlewareMixin):
     """
 
     def process_request(self, request):
-        if (cache_installed() and request.method == "GET" and
-                not is_authenticated(request.user)):
+        if (
+            cache_installed()
+            and request.method == "GET"
+            and not is_authenticated(request.user)
+        ):
             cache_key = cache_key_prefix(request) + request.get_full_path()
             response = cache_get(cache_key)
             # We need to force a csrf token here, as new sessions
@@ -232,12 +256,14 @@ class SSLRedirectMiddleware(MiddlewareMixin):
     Also ensure URLs defined by ``SSL_FORCE_URL_PREFIXES`` are redirect
     to HTTPS, and redirect all other URLs to HTTP if on HTTPS.
     """
+
     def __init__(self, *args):
         warnings.warn(
             "SSLRedirectMiddleware is deprecated. See "
             "https://docs.djangoproject.com/en/stable/ref/middleware/"
             "#module-django.middleware.security for alternative solutions.",
-            DeprecationWarning)
+            DeprecationWarning,
+        )
         super(SSLRedirectMiddleware, self).__init__(*args)
 
     def languages(self):

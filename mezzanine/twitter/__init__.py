@@ -26,11 +26,14 @@ def get_auth_settings():
     only if they're all defined.
     """
     from mezzanine.conf import settings
+
     try:
-        auth_settings = (settings.TWITTER_CONSUMER_KEY,
-                         settings.TWITTER_CONSUMER_SECRET,
-                         settings.TWITTER_ACCESS_TOKEN_KEY,
-                         settings.TWITTER_ACCESS_TOKEN_SECRET)
+        auth_settings = (
+            settings.TWITTER_CONSUMER_KEY,
+            settings.TWITTER_CONSUMER_SECRET,
+            settings.TWITTER_ACCESS_TOKEN_KEY,
+            settings.TWITTER_ACCESS_TOKEN_SECRET,
+        )
     except AttributeError:
         return None
     else:

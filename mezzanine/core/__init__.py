@@ -5,4 +5,4 @@ Mezzanine apps.
 from mezzanine import __version__  # noqa
 
 
-default_app_config = 'mezzanine.core.apps.CoreConfig'
+default_app_config = "mezzanine.core.apps.CoreConfig"

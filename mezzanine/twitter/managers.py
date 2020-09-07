@@ -15,6 +15,7 @@ class TweetManager(Manager):
         return the tweets for the query.
         """
         from mezzanine.twitter.models import Query
+
         lookup = {"type": query_type, "value": value}
         query, created = Query.objects.get_or_create(**lookup)
         if created:

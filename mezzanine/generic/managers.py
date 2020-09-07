@@ -34,7 +34,6 @@ class CommentManager(CurrentSiteManager, DjangoCM):
 
 
 class KeywordManager(CurrentSiteManager):
-
     def get_by_natural_key(self, value):
         """
         Provides natural key method.

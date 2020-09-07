@@ -34,8 +34,8 @@ class Command(BaseImporterCommand):
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
         parser.add_argument(
-            "-t", "--tumblr-user", dest="tumblr_user",
-            help="Tumblr username")
+            "-t", "--tumblr-user", dest="tumblr_user", help="Tumblr username"
+        )
 
     help = "Import Tumblr blog posts into the blog app."
 
@@ -84,9 +84,13 @@ class Command(BaseImporterCommand):
                 if handler is not None:
                     title, content = handler(post)
                     pub_date = datetime.strptime(post["date"], date_format)
-                    self.add_post(title=title, content=content,
-                                  pub_date=pub_date, tags=post.get("tags"),
-                                  old_url=post["url-with-slug"])
+                    self.add_post(
+                        title=title,
+                        content=content,
+                        pub_date=pub_date,
+                        tags=post.get("tags"),
+                        old_url=post["url-with-slug"],
+                    )
             if len(posts) < MAX_POSTS_PER_CALL:
                 break
 
@@ -95,14 +99,16 @@ class Command(BaseImporterCommand):
 
     def handle_link_post(self, post):
         title = post["link-text"]
-        content = ('<p><a href="%(link-url)s">%(link-text)s</a></p>'
-                  '%(link-description)s') % post
+        content = (
+            '<p><a href="%(link-url)s">%(link-text)s</a></p>' "%(link-description)s"
+        ) % post
         return title, content
 
     def handle_quote_post(self, post):
         title = post["quote-text"]
-        content = ("<blockquote>%(quote-text)s</blockquote>"
-                  "<p>%(quote-source)s</p>") % post
+        content = (
+            "<blockquote>%(quote-text)s</blockquote>" "<p>%(quote-source)s</p>"
+        ) % post
         return title, content
 
     def handle_photo_post(self, post):

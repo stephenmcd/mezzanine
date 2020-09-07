@@ -6,8 +6,10 @@ from setuptools import setup, find_packages
 from mezzanine import __version__ as version
 
 
-exclude = ["mezzanine/project_template/dev.db",
-           "mezzanine/project_template/project_name/local_settings.py"]
+exclude = [
+    "mezzanine/project_template/dev.db",
+    "mezzanine/project_template/project_name/local_settings.py",
+]
 if sys.argv == ["setup.py", "test"]:
     exclude = []
 exclude = dict([(e, None) for e in exclude])
@@ -42,8 +44,8 @@ try:
         author="Stephen McDonald",
         author_email="stephen.mc@gmail.com",
         description="An open source content management platform built using "
-                    "the Django framework.",
-        long_description=open("README.rst", 'rb').read().decode('utf-8'),
+        "the Django framework.",
+        long_description=open("README.rst", "rb").read().decode("utf-8"),
         license="BSD",
         url="http://mezzanine.jupo.org/",
         zip_safe=False,
@@ -89,7 +91,8 @@ try:
             "Topic :: Internet :: WWW/HTTP :: WSGI",
             "Topic :: Software Development :: Libraries :: Application Frameworks",
             "Topic :: Software Development :: Libraries :: Python Modules",
-        ])
+        ],
+    )
 finally:
     for e in exclude:
         if exclude[e] is not None:
