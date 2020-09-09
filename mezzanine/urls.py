@@ -40,7 +40,7 @@ if "django.contrib.sitemaps" in settings.INSTALLED_APPS:
 # Return a robots.txt that disallows all spiders when DEBUG is True.
 if getattr(settings, "DEBUG", False):
     urlpatterns += [
-        re_path(
+        path(
             "robots.txt",
             lambda r: HttpResponse(
                 "User-agent: *\nDisallow: /", content_type="text/plain"
@@ -70,7 +70,7 @@ if blog_installed:
     if BLOG_SLUG:
         BLOG_SLUG += "/"
     blog_patterns = [
-        re_path(r"^%s" % BLOG_SLUG, include("mezzanine.blog.urls")),
+        path(BLOG_SLUG, include("mezzanine.blog.urls")),
     ]
     urlpatterns += blog_patterns
 
@@ -84,7 +84,7 @@ if "mezzanine.pages" in settings.INSTALLED_APPS:
         PAGES_SLUG = str(getattr(settings, "PAGES_SLUG", "pages").strip("/") + "/")
         blog_patterns_start = urlpatterns.index(blog_patterns[0])
         urlpatterns[blog_patterns_start : len(blog_patterns)] = [
-            re_path(r"^%s" % PAGES_SLUG, include("mezzanine.pages.urls")),
+            path(PAGES_SLUG, include("mezzanine.pages.urls")),
         ]
     else:
         urlpatterns += [

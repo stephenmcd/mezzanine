@@ -1,6 +1,6 @@
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include
 from django.views.i18n import set_language
 from django.views.generic import TemplateView
 
@@ -23,7 +23,7 @@ urlpatterns = i18n_patterns(
 
 if settings.USE_MODELTRANSLATION:
     urlpatterns += [
-        re_path("^i18n/$", set_language, name="set_language"),
+        path("i18n", set_language, name="set_language"),
     ]
 
 urlpatterns += [
