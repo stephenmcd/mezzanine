@@ -2,7 +2,6 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.translation import ugettext, ugettext_lazy as _
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import format_html
 
 from django_comments.models import Comment
@@ -108,7 +107,6 @@ class Keyword(Slugged):
         verbose_name_plural = _("Keywords")
 
 
-@python_2_unicode_compatible
 class AssignedKeyword(Orderable):
     """
     A ``Keyword`` assigned to a model instance.

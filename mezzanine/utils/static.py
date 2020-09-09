@@ -1,7 +1,7 @@
 """
 Utils for working with static files.
 """
-from django.contrib.admin.templatetags.admin_static import static
+from django.templatetags.static import static
 from django.conf import settings
 from django.utils.functional import lazy
 

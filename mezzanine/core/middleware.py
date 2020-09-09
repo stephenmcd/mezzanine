@@ -1,5 +1,7 @@
 import warnings
 
+from functools import lru_cache
+
 from django.contrib import admin
 from django.contrib.auth import logout
 from django.contrib.messages import error
@@ -15,7 +17,6 @@ from django.http import (
 from django.middleware.csrf import CsrfViewMiddleware, get_token
 from django.template import Template, RequestContext
 from django.utils.cache import get_max_age
-from django.utils.lru_cache import lru_cache
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 

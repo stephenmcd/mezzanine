@@ -1,13 +1,10 @@
 from warnings import warn
 
-from django.utils.encoding import python_2_unicode_compatible
-
 
 # Deprecated settings and their defaults.
 DEPRECATED = {}
 
 
-@python_2_unicode_compatible
 class TemplateSettings(dict):
     """
     Dict wrapper for template settings. This exists to enforce

@@ -4,7 +4,6 @@ from urllib.parse import urljoin
 
 from django.urls import resolve, reverse
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _, ugettext
 
 from mezzanine.conf import settings
@@ -28,7 +27,6 @@ class BasePage(Orderable, Displayable):
         abstract = True
 
 
-@python_2_unicode_compatible
 class Page(BasePage, ContentTyped):
     """
     A page in the page tree. This is the base class that custom content types

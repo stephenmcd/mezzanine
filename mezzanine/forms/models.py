@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
@@ -65,7 +64,6 @@ class FieldManager(models.Manager):
         return self.filter(visible=True)
 
 
-@python_2_unicode_compatible
 class AbstractBaseField(Orderable):
     """
     A field for a user-built form.
