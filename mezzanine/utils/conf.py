@@ -3,7 +3,6 @@ import sys
 from inspect import getmro
 from warnings import warn
 
-import six
 from django.db import OperationalError
 from django.conf import global_settings as defaults
 from django.utils.module_loading import import_string
@@ -286,9 +285,7 @@ def middlewares_or_subclasses_installed(needed_middlewares):
         return (item for seq in seqs for item in seq)
 
     middleware_items = map(import_string, middleware_setting)
-    middleware_classes = filter(
-        lambda m: isinstance(m, six.class_types), middleware_items
-    )
+    middleware_classes = filter(lambda m: isinstance(m, type), middleware_items)
     middleware_ancestors = set(flatten(map(getmro, middleware_classes)))
 
     needed_middlewares = set(map(import_string, needed_middlewares))

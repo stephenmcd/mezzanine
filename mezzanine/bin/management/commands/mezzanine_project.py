@@ -6,7 +6,6 @@ from tempfile import mkdtemp
 
 from django.core.management import CommandError
 from django.core.management.commands.startproject import Command as BaseCommand
-from django.utils import six
 from django.utils.crypto import get_random_string
 
 import mezzanine
@@ -56,7 +55,7 @@ class Command(BaseCommand):
         # overwriting the ones already copied from Mezzanine.
         alt = options.pop("alt", "")
         if alt:
-            options["template"] = six.text_type(
+            options["template"] = str(
                 os.path.join(
                     os.path.dirname(os.path.abspath(import_module(alt).__file__)),
                     "project_template",
@@ -98,5 +97,5 @@ class Command(BaseCommand):
         TemplateCommand.
         """
         if template is None:
-            return six.text_type(os.path.join(mezzanine.__path__[0], subdir))
+            return str(os.path.join(mezzanine.__path__[0], subdir))
         return super(Command, self).handle_template(template, subdir)

@@ -1,7 +1,6 @@
 from django import forms
 from django_comments.forms import CommentSecurityForm, CommentForm
 from django_comments.signals import comment_was_posted
-from django.utils import six
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -59,7 +58,7 @@ class KeywordsWidget(forms.MultiWidget):
 
         if hasattr(value, "select_related"):
             keywords = [a.keyword for a in value.select_related("keyword")]
-        elif value and isinstance(value, six.string_types):
+        elif value and isinstance(value, str):
             keyword_pks = value.split(",")
             keywords = Keyword.objects.all().filter(id__in=keyword_pks)
 
