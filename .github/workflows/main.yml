@@ -1,0 +1,44 @@
+name: Test and release
+
+# Fires on all incoming commits
+on: [push]
+
+jobs:
+
+  # Test
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.6, 3.7, 3.8]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install dependencies
+        run: pip install tox tox-gh-actions
+      - name: Run tests
+        run: tox --parallel
+        env:
+          TOX_PARALLEL_NO_SPINNER: 1
+
+  # Create a new semantic release
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - uses: cycjimmy/semantic-release-action@v2
+        with:
+          semantic_version: 17
+          extra_plugins: |
+            @semantic-release/exec@5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}

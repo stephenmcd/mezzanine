@@ -7,3 +7,4 @@ global-exclude __pycache__
 global-exclude *.py[co]
 prune .tx
 prune tests
+exclude .releaserc

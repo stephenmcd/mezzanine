@@ -1,0 +1,19 @@
+{
+  "branches": [
+    "+([0-9])?(.{+([0-9]),x}).x",
+    "stable",
+    {"name": "alpha", "prerelease": true},
+    {"name": "beta", "prerelease": true},
+    {"name": "rc", "prerelease": true}
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/github",
+    ["@semantic-release/exec", {
+      "verifyConditionsCmd": "python -m pip install -U pip setuptools wheel twine",
+      "prepareCmd": "sed -i 's/0.0.dev0/${nextRelease.version}/' mezzanine/__init__.py",
+      "publishCmd": "python setup.py sdist bdist_wheel && twine upload dist/*"
+    }]
+  ]
+}
