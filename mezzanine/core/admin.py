@@ -146,7 +146,7 @@ class DisplayableAdmin(BaseTranslationModelAdmin):
                 if code != lang:  # Already done
                     try:
                         activate(code)
-                    except:
+                    except:  # noqa
                         pass
                     else:
                         obj.save()

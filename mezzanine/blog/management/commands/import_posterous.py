@@ -49,7 +49,7 @@ class Command(BaseImporterCommand):
         try:
             response = json.loads(r.text)
             return response
-        except:
+        except:  # noqa
             raise CommandError(r.text)
 
     def handle_import(self, options):

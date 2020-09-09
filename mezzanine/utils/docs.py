@@ -213,7 +213,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
                 try:
                     tag(ui, repo, version_tag, rev=cs.hex())
                     print("Tagging version %s" % version_tag)
-                except:
+                except:  # noqa
                     pass
 
         # Ignore changesets that are merges, bumped the version, closed

@@ -25,5 +25,5 @@ class Command(BaseCommand):
                 print("Twitter query error [%s]: %s" % (query, e))
         try:
             db.close_connection()
-        except:
+        except:  # noqa
             pass

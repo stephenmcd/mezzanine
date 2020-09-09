@@ -72,6 +72,6 @@ def autodiscover():
         else:
             try:
                 import_module("%s.page_processors" % app)
-            except:
+            except:  # noqa
                 if module_has_submodule(module, "page_processors"):
                     raise

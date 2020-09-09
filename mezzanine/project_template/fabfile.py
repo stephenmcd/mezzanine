@@ -405,7 +405,7 @@ def python(code, show=True):
         "import django;"
         "django.setup();" % env.proj_app
     )
-    full_code = 'python -c "%s%s"' % (setup, code.replace("`", "\\\`"))
+    full_code = 'python -c "%s%s"' % (setup, code.replace("`", "\\\`"))  # noqa
     with project():
         if show:
             print_command(code)

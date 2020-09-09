@@ -374,7 +374,7 @@ def thumbnail(
     f = default_storage.open(image_url)
     try:
         image = Image.open(f)
-    except:
+    except:  # noqa
         # Invalid image format.
         return image_url
 
@@ -386,7 +386,7 @@ def thumbnail(
     # - http://caniuse.com/#feat=css-image-orientation
     try:
         orientation = image._getexif().get(0x0112)
-    except:
+    except:  # noqa
         orientation = None
     if orientation:
         methods = {
@@ -420,7 +420,7 @@ def thumbnail(
     if image.mode not in ("P", "L", "RGBA") and filetype not in ("JPG", "JPEG"):
         try:
             image = image.convert("RGBA")
-        except:
+        except:  # noqa
             return image_url
     # Required for progressive jpgs.
     ImageFile.MAXBLOCK = 2 * (max(image.size) ** 2)

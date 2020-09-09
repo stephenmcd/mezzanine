@@ -54,11 +54,11 @@ class Command(BaseImporterCommand):
                 from BeautifulSoup import BeautifulSoup
             except ImportError:
                 raise CommandError("BeautifulSoup package is required")
-            for l in BeautifulSoup(urlopen(page_url).read()).findAll("link"):
-                if "application/rss" in l.get(
+            for link in BeautifulSoup(urlopen(page_url).read()).findAll("link"):
+                if "application/rss" in link.get(
                     "type", ""
-                ) or "application/atom" in l.get("type", ""):
-                    rss_url = urljoin(page_url, l["href"])
+                ) or "application/atom" in link.get("type", ""):
+                    rss_url = urljoin(page_url, link["href"])
                     break
             else:
                 raise CommandError("Could not parse RSS link from the page")

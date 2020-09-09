@@ -442,7 +442,7 @@ class PagesTests(TestCase):
         for code in code_list:
             try:
                 activate(code)
-            except:
+            except:  # noqa
                 pass
             else:
                 break

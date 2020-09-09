@@ -68,7 +68,7 @@ class BaseGallery(models.Model):
                     image.verify()
                 except ImportError:
                     pass
-                except:
+                except:  # noqa
                     continue
                 name = os.path.split(name)[1]
 

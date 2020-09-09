@@ -165,7 +165,7 @@ class Command(runserver.Command):
             # shouldn't be able to crash the development server.
             try:
                 self.stdout.write(banner())
-            except:
+            except:  # noqa
                 pass
         super(Command, self).inner_run(*args, **kwargs)
 

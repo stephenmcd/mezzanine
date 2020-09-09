@@ -210,7 +210,7 @@ class CoreTests(TestCase):
         # setup
         try:
             old_site_id = settings.SITE_ID
-        except:
+        except:  # noqa
             old_site_id = None
 
         site1 = Site.objects.create(domain="site1.com")
@@ -509,7 +509,7 @@ class SiteRelatedTestCase(TestCase):
         # setup
         try:
             old_site_id = settings.SITE_ID
-        except:
+        except:  # noqa
             old_site_id = None
 
         site1 = Site.objects.create(domain="site1.com")

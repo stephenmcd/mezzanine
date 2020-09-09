@@ -38,7 +38,7 @@ class SettingsForm(forms.Form):
                     for code in OrderedDict(settings.LANGUAGES):
                         try:
                             activate(code)
-                        except:
+                        except:  # noqa
                             pass
                         else:
                             self._init_field(
@@ -126,7 +126,7 @@ class SettingsForm(forms.Form):
                 if registry[name]["translatable"]:
                     try:
                         activate(code)
-                    except:
+                    except:  # noqa
                         pass
                     finally:
                         setting_obj.value = value

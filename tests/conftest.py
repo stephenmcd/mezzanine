@@ -3,7 +3,6 @@ import shutil
 import sys
 
 import django
-import pytest
 
 from pathlib import Path
 

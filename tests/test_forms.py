@@ -52,7 +52,7 @@ class TestsForm(TestCase):
         for c in code_list:
             try:
                 activate(c)
-            except:
+            except:  # noqa
                 pass
             else:
                 break

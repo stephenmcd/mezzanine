@@ -288,7 +288,7 @@ for app in sorted(django_settings.INSTALLED_APPS, key=mezz_first):
     else:
         try:
             import_module("%s.defaults" % app)
-        except:
+        except:  # noqa
             if module_has_submodule(module, "defaults"):
                 raise
 
