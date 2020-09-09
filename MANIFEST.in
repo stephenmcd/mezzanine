@@ -1,7 +1,9 @@
-include CHANGELOG LICENSE README.rst
+include AUTHORS CHANGELOG LICENSE *.rst
 recursive-include docs *
 recursive-exclude docs/build *
 recursive-include mezzanine *
 recursive-exclude */project_template/static *
 global-exclude __pycache__
 global-exclude *.py[co]
+prune .tx
+prune tests

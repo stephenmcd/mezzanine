@@ -43,11 +43,7 @@ from mezzanine.utils.deprecation import (
     get_middleware_setting_name,
 )
 from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.tests import (
-    TestCase,
-    run_pyflakes_for_package,
-    run_pep8_for_package,
-)
+from mezzanine.utils.tests import TestCase
 from mezzanine.utils.html import TagCloser, escape
 
 
@@ -67,16 +63,6 @@ class CoreTests(TestCase):
         Test HTML is escaped to whitelist.
         """
         self.assertEqual(escape("<foo><div></div></foo>"), "<div></div>")
-
-    def test_syntax(self):
-        """
-        Run pyflakes/pep8 across the code base to check for potential errors.
-        """
-        warnings = []
-        warnings.extend(run_pyflakes_for_package("mezzanine"))
-        warnings.extend(run_pep8_for_package("mezzanine"))
-        if warnings:
-            self.fail("Syntax warnings!\n\n%s" % "\n".join(warnings))
 
     def test_utils(self):
         """
@@ -232,37 +218,37 @@ class CoreTests(TestCase):
 
         # create pages under site1, which should be only accessible
         # when SITE_ID is site1
-        settings.SITE_ID = site1.pk
-        site1_page = self._create_page("Site1", CONTENT_STATUS_PUBLISHED)
-        self._test_site_pages("Site1", CONTENT_STATUS_PUBLISHED, count=1)
+        with override_current_site_id(site1.pk):
+            site1_page = self._create_page("Site1", CONTENT_STATUS_PUBLISHED)
+            self._test_site_pages("Site1", CONTENT_STATUS_PUBLISHED, count=1)
 
         # create pages under site2, which should only be accessible
         # when SITE_ID is site2
-        settings.SITE_ID = site2.pk
-        self._create_page("Site2", CONTENT_STATUS_PUBLISHED)
-        self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
+        with override_current_site_id(site2.pk):
+            self._create_page("Site2", CONTENT_STATUS_PUBLISHED)
+            self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
 
-        # original page should 404
-        response = self.client.get(site1_page.get_absolute_url(), follow=True)
-        self.assertEqual(response.status_code, 404)
+            # original page should 404
+            response = self.client.get(site1_page.get_absolute_url(), follow=True)
+            self.assertEqual(response.status_code, 404)
 
         # change back to site1, and only the site1 pages should be retrieved
-        settings.SITE_ID = site1.pk
-        self._test_site_pages("Site1", CONTENT_STATUS_PUBLISHED, count=1)
+        with override_current_site_id(site1.pk):
+            self._test_site_pages("Site1", CONTENT_STATUS_PUBLISHED, count=1)
 
-        # insert a new record, see the count change
-        self._create_page("Site1 Draft", CONTENT_STATUS_DRAFT)
-        self._test_site_pages("Site1 Draft", CONTENT_STATUS_DRAFT, count=2)
-        self._test_site_pages("Site1 Draft", CONTENT_STATUS_PUBLISHED, count=2)
+            # insert a new record, see the count change
+            self._create_page("Site1 Draft", CONTENT_STATUS_DRAFT)
+            self._test_site_pages("Site1 Draft", CONTENT_STATUS_DRAFT, count=2)
+            self._test_site_pages("Site1 Draft", CONTENT_STATUS_PUBLISHED, count=2)
 
         # change back to site2, and only the site2 pages should be retrieved
-        settings.SITE_ID = site2.pk
-        self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
+        with override_current_site_id(site2.pk):
+            self._test_site_pages("Site2", CONTENT_STATUS_PUBLISHED, count=1)
 
-        # insert a new record, see the count change
-        self._create_page("Site2 Draft", CONTENT_STATUS_DRAFT)
-        self._test_site_pages("Site2 Draft", CONTENT_STATUS_DRAFT, count=2)
-        self._test_site_pages("Site2 Draft", CONTENT_STATUS_PUBLISHED, count=2)
+            # insert a new record, see the count change
+            self._create_page("Site2 Draft", CONTENT_STATUS_DRAFT)
+            self._test_site_pages("Site2 Draft", CONTENT_STATUS_DRAFT, count=2)
+            self._test_site_pages("Site2 Draft", CONTENT_STATUS_PUBLISHED, count=2)
 
         # tear down
         if old_site_id:
@@ -474,15 +460,15 @@ class CoreTests(TestCase):
                 True,
                 [
                     "mezzanine.core.middleware.UpdateCacheMiddleware",
-                    "mezzanine.core.tests.SubclassMiddleware",
+                    "tests.test_core.SubclassMiddleware",
                 ],
             ),
             (
                 True,
                 [
                     "mezzanine.core.middleware.UpdateCacheMiddleware",
-                    "mezzanine.core.tests.FetchFromCacheMiddleware",
-                    "mezzanine.core.tests.function_middleware",
+                    "tests.test_core.FetchFromCacheMiddleware",
+                    "tests.test_core.function_middleware",
                 ],
             ),
             (
@@ -519,7 +505,6 @@ def function_middleware(get_response):
 class SiteRelatedTestCase(TestCase):
     def test_update_site(self):
         from django.conf import settings
-        from mezzanine.utils.sites import current_site_id
 
         # setup
         try:
@@ -531,48 +516,47 @@ class SiteRelatedTestCase(TestCase):
         site2 = Site.objects.create(domain="site2.com")
 
         # default behaviour, page gets assigned current site
-        settings.SITE_ID = site2.pk
-        self.assertEqual(settings.SITE_ID, current_site_id())
-        page = RichTextPage()
-        page.save()
-        self.assertEqual(page.site_id, site2.pk)
+        with override_current_site_id(site2.pk):
+            page = RichTextPage()
+            page.save()
+            self.assertEqual(page.site_id, site2.pk)
 
-        # Subsequent saves do not update site to current site
-        page.site = site1
-        page.save()
-        self.assertEqual(page.site_id, site1.pk)
+            # Subsequent saves do not update site to current site
+            page.site = site1
+            page.save()
+            self.assertEqual(page.site_id, site1.pk)
 
         # resave w/ update_site=True, page gets assigned current site
-        settings.SITE_ID = site1.pk
-        page.site = site2
-        page.save(update_site=True)
-        self.assertEqual(page.site_id, site1.pk)
+        with override_current_site_id(site1.pk):
+            page.site = site2
+            page.save(update_site=True)
+            self.assertEqual(page.site_id, site1.pk)
 
         # resave w/ update_site=False, page does not update site
-        settings.SITE_ID = site2.pk
-        page.save(update_site=False)
-        self.assertEqual(page.site_id, site1.pk)
+        with override_current_site_id(site2.pk):
+            page.save(update_site=False)
+            self.assertEqual(page.site_id, site1.pk)
 
         # When update_site=True, new page gets assigned current site
-        settings.SITE_ID = site2.pk
-        page = RichTextPage()
-        page.site = site1
-        page.save(update_site=True)
-        self.assertEqual(page.site_id, site2.pk)
+        with override_current_site_id(site2.pk):
+            page = RichTextPage()
+            page.site = site1
+            page.save(update_site=True)
+            self.assertEqual(page.site_id, site2.pk)
 
         # When update_site=False, new page keeps current site
-        settings.SITE_ID = site2.pk
-        page = RichTextPage()
-        page.site = site1
-        page.save(update_site=False)
-        self.assertEqual(page.site_id, site1.pk)
+        with override_current_site_id(site2.pk):
+            page = RichTextPage()
+            page.site = site1
+            page.save(update_site=False)
+            self.assertEqual(page.site_id, site1.pk)
 
         # When site explicitly assigned, new page keeps assigned site
-        settings.SITE_ID = site2.pk
-        page = RichTextPage()
-        page.site = site1
-        page.save()
-        self.assertEqual(page.site_id, site1.pk)
+        with override_current_site_id(site2.pk):
+            page = RichTextPage()
+            page.site = site1
+            page.save()
+            self.assertEqual(page.site_id, site1.pk)
 
         # tear down
         if old_site_id:
