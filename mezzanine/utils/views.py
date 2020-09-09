@@ -1,7 +1,5 @@
 import warnings
 
-from future.builtins import int
-
 from datetime import datetime, timedelta
 
 from urllib.parse import urlencode

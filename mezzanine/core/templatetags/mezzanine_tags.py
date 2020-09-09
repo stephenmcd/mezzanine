@@ -1,6 +1,3 @@
-from __future__ import absolute_import, division, unicode_literals
-from future.builtins import int, open, str
-
 from hashlib import md5
 import os
 

@@ -4,9 +4,7 @@ consistent access method for settings defined in applications, the project
 or Django itself. Settings can also be made editable via the admin.
 """
 
-from __future__ import unicode_literals
 from weakref import WeakKeyDictionary
-from future.builtins import bytes, str
 
 from functools import partial
 from importlib import import_module
@@ -63,9 +61,6 @@ def register_setting(
     if label is None:
         label = name.replace("_", " ").title()
 
-    # Python 2/3 compatibility. isinstance() is overridden by future
-    # on Python 2 to behave as Python 3 in conjunction with either
-    # Python 2's native types or the future.builtins types.
     if isinstance(default, bool):
         # Prevent bools treated as ints
         setting_type = bool

@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import int, str
-
 from collections import defaultdict
 
 from mezzanine.conf import settings

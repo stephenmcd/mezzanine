@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import str
-
 from collections import defaultdict
 
 from django.core.exceptions import ImproperlyConfigured
