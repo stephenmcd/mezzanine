@@ -9,6 +9,7 @@
 .DS_Store
 .coverage
 .idea/
+.pytest_cache
 local_settings.py
 .eggs/
 .tox/
