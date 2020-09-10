@@ -1,5 +1,10 @@
-.. image:: https://secure.travis-ci.org/stephenmcd/mezzanine.png?branch=master
-   :target: http://travis-ci.org/stephenmcd/mezzanine
+.. image:: https://img.shields.io/pypi/v/mezzanine.svg
+   :target: https://pypi.org/project/mezzanine/
+.. image:: https://img.shields.io/pypi/pyversions/mezzanine.svg
+.. image:: https://github.com/stephenmcd/mezzanine/workflows/Test%20and%20release/badge.svg
+   :target: https://github.com/stephenmcd/mezzanine/actions?query=workflow%3A%22Test+and+release%22
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
 
 Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_
 
