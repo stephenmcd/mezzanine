@@ -198,11 +198,11 @@ class SearchableQuerySet(QuerySet):
             queryset = queryset.filter(reduce(ior, optional))
         return queryset.distinct()
 
-    def _clone(self):
+    def _clone(self, *args, **kwargs):
         """
         Ensure attributes are copied to subsequent queries.
         """
-        clone = super(SearchableQuerySet, self)._clone()
+        clone = super(SearchableQuerySet, self)._clone(*args, **kwargs)
         clone._search_terms = self._search_terms
         clone._search_fields = self._search_fields
         clone._search_ordered = self._search_ordered
