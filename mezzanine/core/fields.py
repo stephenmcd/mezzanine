@@ -79,7 +79,7 @@ class MultiChoiceField(models.CharField):
             value = ",".join([str(i) for i in value])
         return value
 
-    def from_db_value(self, value, expression, connection, context):
+    def from_db_value(self, value, expression, connection):
         return self.to_python(value)
 
     def to_python(self, value):
