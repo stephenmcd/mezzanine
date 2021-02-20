@@ -234,7 +234,9 @@ def set_dynamic_settings(s):
                 db["NAME"] = db_path
         elif shortname == "mysql":
             # Required MySQL collation for tests.
-            db.setdefault("TEST", {})["COLLATION"] = "utf8_general_ci"
+            test_settings = db.setdefault("TEST", {})
+            if "COLLATION" not in test_settings:
+                test_settings["COLLATION"] = "utf8_general_ci"
 
 
 def real_project_name(project_name):
