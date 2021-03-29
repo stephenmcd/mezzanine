@@ -52,7 +52,7 @@ try:
         install_requires=[
             "django-contrib-comments",
             "django >= 1.11, < 2.1",
-            "filebrowser_safe >= 0.5.0",
+            "filebrowser_safe",
             "grappelli_safe >= 0.5.0",
             "tzlocal >= 1.0",
             "bleach >= 2.0",
