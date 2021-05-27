@@ -426,7 +426,7 @@ class SitePermissionUserAdmin(UserAdmin):
         super(SitePermissionUserAdmin, self).save_model(request, obj, form, change)
         user = self.model.objects.get(id=obj.id)
         has_perms = len(user.get_all_permissions()) > 0
-        has_sites = SitePermission.objects.filter(user=user).count() > 0
+        has_sites = SitePermission.objects.filter(user=user).exists()
         if (
             user.is_active
             and user.is_staff
