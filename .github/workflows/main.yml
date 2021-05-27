@@ -1,7 +1,9 @@
 name: Test and release
 
 # Fires on all incoming commits
-on: [push]
+on:
+  pull_request:
+  push:
 
 jobs:
 
@@ -10,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [3.6, 3.7, 3.8]
+        python: [3.6, 3.7, 3.8, 3.9]
 
     steps:
       - uses: actions/checkout@v2
@@ -18,11 +20,16 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Install dependencies
-        run: pip install tox tox-gh-actions
+        run: pip install tox tox-gh-actions -U pip
       - name: Run tests
-        run: tox --parallel
+        run: |
+          tox --skip-missing-interpreters=false --parallel
         env:
           TOX_PARALLEL_NO_SPINNER: 1
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: '**/junit/TEST-*.xml'
 
   # Create a new semantic release
   release:

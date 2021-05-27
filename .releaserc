@@ -12,7 +12,7 @@
     "@semantic-release/github",
     ["@semantic-release/exec", {
       "verifyConditionsCmd": "python -m pip install -U pip setuptools wheel twine",
-      "prepareCmd": "sed -i 's/0.0.dev0/${nextRelease.version}/' mezzanine/__init__.py",
+      "prepareCmd": "sed -i 's/9999dev0/${nextRelease.version}/' mezzanine/__init__.py",
       "publishCmd": "python setup.py sdist bdist_wheel && twine upload dist/*"
     }]
   ]

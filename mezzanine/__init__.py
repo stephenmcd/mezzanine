@@ -1,1 +1,1 @@
-__version__ = "0.0.dev0"  # Do not edit, managed by semantic-release
+__version__ = "9999dev0"  # Do not edit, managed by semantic-release

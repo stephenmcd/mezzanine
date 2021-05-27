@@ -10,6 +10,7 @@
 .coverage
 .idea/
 .pytest_cache
+junit/
 local_settings.py
 .eggs/
 .tox/
