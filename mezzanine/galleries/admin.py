@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 from mezzanine.core.admin import TabularDynamicInlineAdmin
-from mezzanine.pages.admin import PageAdmin
 from mezzanine.galleries.models import Gallery, GalleryImage
+from mezzanine.pages.admin import PageAdmin
 from mezzanine.utils.static import static_lazy as static
 
 

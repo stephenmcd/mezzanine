@@ -2,7 +2,6 @@ import threading
 
 from mezzanine.utils.deprecation import MiddlewareMixin
 
-
 _thread_local = threading.local()
 
 

@@ -11,11 +11,11 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-from datetime import datetime
-import sys
 import os
-import mezzanine
+import sys
+from datetime import datetime
 
+import mezzanine
 
 if "DJANGO_SETTINGS_MODULE" not in os.environ:
     docs_path = os.getcwd()

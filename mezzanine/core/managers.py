@@ -1,22 +1,20 @@
-import django
-
 from functools import reduce
-from operator import ior, iand
+from operator import iand, ior
 from string import punctuation
 
+import django
 from django.apps import apps
+from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import Manager, Q, CharField, TextField
+from django.db.models import CharField, Manager, Q, TextField
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
-from django.contrib.sites.managers import CurrentSiteManager as DjangoCSM
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import home_slug
-
 
 if django.VERSION >= (1, 10):
 

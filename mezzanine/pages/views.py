@@ -1,8 +1,8 @@
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpResponse, Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
-from django.contrib import messages
 from django.template.response import TemplateResponse
 
 from mezzanine.pages.models import Page, PageMoveException

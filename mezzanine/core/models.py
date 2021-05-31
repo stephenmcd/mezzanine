@@ -1,6 +1,6 @@
 from json import loads
-from urllib.request import urlopen
 from urllib.parse import urlencode
+from urllib.request import urlopen
 
 from django.apps import apps
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -10,17 +10,17 @@ from django.template.defaultfilters import truncatewords_html
 from django.utils.html import format_html, strip_tags
 from django.utils.timesince import timesince
 from django.utils.timezone import now
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
-from mezzanine.core.fields import RichTextField, OrderField
-from mezzanine.core.managers import DisplayableManager, CurrentSiteManager
+from mezzanine.core.fields import OrderField, RichTextField
+from mezzanine.core.managers import CurrentSiteManager, DisplayableManager
 from mezzanine.generic.fields import KeywordsField
 from mezzanine.utils.html import TagCloser
 from mezzanine.utils.models import base_concrete_model, get_user_model_name
-from mezzanine.utils.sites import current_site_id, current_request
+from mezzanine.utils.sites import current_request, current_site_id
 from mezzanine.utils.urls import admin_url, slugify, unique_slug
-
 
 user_model_name = get_user_model_name()
 

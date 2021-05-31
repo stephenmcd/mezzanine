@@ -8,26 +8,18 @@ from glob import glob
 from importlib import import_module
 from posixpath import join
 
-from mezzanine.utils.conf import real_project_name
-
-from fabric.api import (
-    abort,
-    env,
-    cd,
-    prefix,
-    sudo as _sudo,
-    run as _run,
-    hide,
-    task,
-    local,
-)
+from fabric.api import abort, cd, env, hide, local, prefix
+from fabric.api import run as _run
+from fabric.api import sudo as _sudo
+from fabric.api import task
+from fabric.colors import blue, green, red, yellow
 from fabric.context_managers import settings as fab_settings
 from fabric.contrib.console import confirm
 from fabric.contrib.files import exists, upload_template
 from fabric.contrib.project import rsync_project
-from fabric.colors import yellow, green, blue, red
 from fabric.decorators import hosts
 
+from mezzanine.utils.conf import real_project_name
 
 ################
 # Config setup #

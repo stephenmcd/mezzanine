@@ -1,16 +1,13 @@
-from django.template import Context
-from django.template import Template
-
 from unittest import skipUnless
 
 from django.contrib.contenttypes.models import ContentType
+from django.template import Context, Template
 from django.urls import reverse
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings
-
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
-from mezzanine.generic.forms import RatingForm, KeywordsWidget
+from mezzanine.generic.forms import KeywordsWidget, RatingForm
 from mezzanine.generic.models import AssignedKeyword, Keyword, ThreadedComment
 from mezzanine.generic.views import comment
 from mezzanine.pages.models import RichTextPage

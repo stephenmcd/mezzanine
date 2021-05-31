@@ -1,10 +1,9 @@
 from collections import defaultdict
 
-from mezzanine.conf import settings
-from mezzanine.twitter import QUERY_TYPE_USER, QUERY_TYPE_LIST, QUERY_TYPE_SEARCH
-from mezzanine.twitter.models import Tweet, TwitterQueryException
 from mezzanine import template
-
+from mezzanine.conf import settings
+from mezzanine.twitter import QUERY_TYPE_LIST, QUERY_TYPE_SEARCH, QUERY_TYPE_USER
+from mezzanine.twitter.models import Tweet, TwitterQueryException
 
 register = template.Library()
 

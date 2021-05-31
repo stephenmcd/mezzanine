@@ -1,8 +1,7 @@
 from datetime import timedelta
 from time import timezone
-
-from urllib.request import urlopen
 from urllib.parse import urljoin
+from urllib.request import urlopen
 
 from django.core.management.base import CommandError
 

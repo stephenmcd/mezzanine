@@ -1,12 +1,12 @@
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
-from django.urls import reverse
 from django.template import loader
+from django.urls import reverse
 from django.utils.http import int_to_base36
 
 from mezzanine.conf import settings
-from mezzanine.utils.urls import admin_url, next_url
 from mezzanine.conf.context_processors import settings as context_settings
+from mezzanine.utils.urls import admin_url, next_url
 
 
 def split_addresses(email_string_list):

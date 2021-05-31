@@ -7,7 +7,6 @@ import time
 from mezzanine import template
 from mezzanine.utils.deprecation import is_authenticated
 
-
 register = template.Library()
 
 

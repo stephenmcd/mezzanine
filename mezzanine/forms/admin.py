@@ -1,7 +1,7 @@
 from copy import deepcopy
-from io import BytesIO, StringIO
 from csv import writer
 from datetime import datetime
+from io import BytesIO, StringIO
 from mimetypes import guess_type
 from os.path import join
 
@@ -10,18 +10,18 @@ from django.contrib import admin
 from django.contrib.messages import info
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.utils.translation import ungettext, ugettext_lazy as _
+from django.shortcuts import get_object_or_404, render
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ungettext
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.forms.forms import EntriesForm
-from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
+from mezzanine.forms.models import Field, FieldEntry, Form, FormEntry
 from mezzanine.pages.admin import PageAdmin
 from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url, slugify
-
 
 fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)
 

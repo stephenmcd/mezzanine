@@ -1,22 +1,18 @@
-from django.contrib.auth import (
-    login as auth_login,
-    authenticate,
-    logout as auth_logout,
-    get_user_model,
-)
+from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.messages import info, error
-from django.urls import NoReverseMatch, get_script_prefix
+from django.contrib.messages import error, info
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.urls import NoReverseMatch, get_script_prefix
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.accounts import get_profile_form
 from mezzanine.accounts.forms import LoginForm, PasswordResetForm
 from mezzanine.conf import settings
-from mezzanine.utils.email import send_verification_mail, send_approve_mail
+from mezzanine.utils.email import send_approve_mail, send_verification_mail
 from mezzanine.utils.urls import login_redirect, next_url
-
 
 User = get_user_model()
 

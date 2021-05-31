@@ -14,7 +14,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import register_setting
 
-
 register_setting(
     name="ADMIN_MENU_ORDER",
     description=_("Controls the ordering and grouping of the admin menu."),

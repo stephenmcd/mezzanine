@@ -1,15 +1,14 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.core import mail
-from django.urls import reverse
 from django.forms.fields import DateField, DateTimeField
+from django.urls import reverse
 from django.utils.http import int_to_base36
 
 from mezzanine.accounts import ProfileNotConfigured
 from mezzanine.accounts.forms import ProfileForm
 from mezzanine.conf import settings
 from mezzanine.utils.tests import TestCase
-
 
 User = get_user_model()
 

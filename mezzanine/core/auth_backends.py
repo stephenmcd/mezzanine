@@ -4,7 +4,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Q
 from django.utils.http import base36_to_int
 
-
 User = get_user_model()
 
 

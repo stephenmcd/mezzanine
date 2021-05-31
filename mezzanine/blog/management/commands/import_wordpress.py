@@ -1,9 +1,9 @@
+import re
 from collections import defaultdict
 from datetime import datetime, timedelta
-import re
 from time import mktime, timezone
-from xml.dom.minidom import parse
 from xml.dom import Node
+from xml.dom.minidom import parse
 
 from django.core.management.base import CommandError
 from django.utils.html import linebreaks

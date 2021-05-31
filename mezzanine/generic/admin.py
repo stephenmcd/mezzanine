@@ -1,10 +1,9 @@
 from django.conf import settings
 from django.contrib import admin
-from django_comments.admin import CommentsAdmin
 from django.utils.translation import ugettext_lazy as _
+from django_comments.admin import CommentsAdmin
 
 from mezzanine.generic.models import ThreadedComment
-
 
 __all__ = ("ThreadedCommentAdmin",)
 

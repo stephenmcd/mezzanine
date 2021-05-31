@@ -4,7 +4,7 @@ from uuid import uuid4
 
 from mezzanine.conf import settings
 from mezzanine.core.templatetags.mezzanine_tags import thumbnail
-from mezzanine.galleries.models import Gallery, GALLERIES_UPLOAD_DIR
+from mezzanine.galleries.models import GALLERIES_UPLOAD_DIR, Gallery
 from mezzanine.utils.tests import TestCase, copy_test_to_media
 
 

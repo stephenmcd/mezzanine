@@ -1,6 +1,6 @@
+import os
 from distutils.dir_util import copy_tree
 from importlib import import_module
-import os
 from shutil import move, rmtree
 from tempfile import mkdtemp
 

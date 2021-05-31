@@ -1,17 +1,22 @@
-from mezzanine.utils.sites import override_current_site_id
-
 from urllib.parse import urljoin
 
-from django.urls import resolve, reverse
 from django.db import models
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.urls import resolve, reverse
+from django.utils.translation import ugettext
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
-from mezzanine.core.models import ContentTyped, Displayable, Orderable, RichText
+from mezzanine.core.models import (
+    ContentTyped,
+    Displayable,
+    Orderable,
+    RichText,
+    wrapped_manager,
+)
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
+from mezzanine.utils.sites import override_current_site_id
 from mezzanine.utils.urls import path_to_slug
-from mezzanine.core.models import wrapped_manager
 
 
 class BasePage(Orderable, Displayable):

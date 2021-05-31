@@ -3,8 +3,8 @@ import sys
 from inspect import getmro
 from warnings import warn
 
-from django.db import OperationalError
 from django.conf import global_settings as defaults
+from django.db import OperationalError
 from django.utils.module_loading import import_string
 
 from mezzanine.utils.deprecation import get_middleware_setting

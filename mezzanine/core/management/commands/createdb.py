@@ -1,14 +1,13 @@
 from socket import gethostname
 
-from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.core.management import call_command
+from django.core.management.base import BaseCommand, CommandError
 from django.db import connection
 
 from mezzanine.conf import settings
 from mezzanine.utils.tests import copy_test_to_media
-
 
 DEFAULT_USERNAME = "admin"
 DEFAULT_EMAIL = "example@example.com"
@@ -149,8 +148,10 @@ class Command(BaseCommand):
     def translation_fields(self):
         try:
             from modeltranslation.management.commands import (
-                update_translation_fields as update_fields,
                 sync_translation_fields as create_fields,
+            )
+            from modeltranslation.management.commands import (
+                update_translation_fields as update_fields,
             )
         except ImportError:
             return

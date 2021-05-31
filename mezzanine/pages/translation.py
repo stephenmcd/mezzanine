@@ -1,6 +1,7 @@
-from modeltranslation.translator import translator, TranslationOptions
+from modeltranslation.translator import TranslationOptions, translator
+
 from mezzanine.core.translation import TranslatedDisplayable, TranslatedRichText
-from mezzanine.pages.models import Page, RichTextPage, Link
+from mezzanine.pages.models import Link, Page, RichTextPage
 
 
 class TranslatedPage(TranslatedDisplayable):

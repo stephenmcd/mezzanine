@@ -10,9 +10,9 @@ that are only read during startup shouldn't be editable, since changing
 them would require an application reload.
 """
 from django.utils.translation import ugettext_lazy as _
+
 from mezzanine.conf import register_setting
 from mezzanine.twitter import QUERY_TYPE_CHOICES, QUERY_TYPE_SEARCH
-
 
 register_setting(
     name="TWITTER_DEFAULT_QUERY_TYPE",

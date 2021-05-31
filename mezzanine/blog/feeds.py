@@ -1,19 +1,18 @@
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.contrib.syndication.views import Feed, add_domain
-from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.feedgenerator import Atom1Feed
 from django.utils.html import strip_tags
 
-from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.blog.models import BlogCategory, BlogPost
 from mezzanine.conf import settings
-from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 from mezzanine.core.request import current_request
+from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.html import absolute_urls
 from mezzanine.utils.sites import current_site_id
-
 
 User = get_user_model()
 

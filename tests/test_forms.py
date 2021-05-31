@@ -1,7 +1,8 @@
 from unittest import skipUnless
 
-from django.template import RequestContext
 from django import forms
+from django.template import RequestContext
+
 from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.forms import fields
@@ -42,8 +43,10 @@ class TestsForm(TestCase):
         being translated back to the default language.
         """
         from collections import OrderedDict
+
         from django.urls import reverse
-        from django.utils.translation import get_language, activate, ugettext as _
+        from django.utils.translation import activate, get_language
+        from django.utils.translation import ugettext as _
         from modeltranslation.utils import auto_populate
 
         default_language = get_language()

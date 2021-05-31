@@ -1,5 +1,5 @@
-from django.core.management.base import BaseCommand
 from django import db
+from django.core.management.base import BaseCommand
 
 from mezzanine.twitter.models import Query, TwitterQueryException
 

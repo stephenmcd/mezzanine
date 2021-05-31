@@ -3,20 +3,18 @@ from os.path import join, split
 from uuid import uuid4
 
 from django import forms
-from django.forms.widgets import SelectDateWidget
-
 from django.core.files.storage import FileSystemStorage
-from django.urls import reverse
+from django.forms.widgets import SelectDateWidget
 from django.template import Template
+from django.urls import reverse
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
 from django.utils.timezone import now
+from django.utils.translation import ugettext as _
 
 from mezzanine.conf import settings
 from mezzanine.forms import fields
-from mezzanine.forms.models import FormEntry, FieldEntry
+from mezzanine.forms.models import FieldEntry, FormEntry
 from mezzanine.utils.email import split_addresses as split_choices
-
 
 fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)
 

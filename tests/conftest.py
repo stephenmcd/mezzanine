@@ -2,10 +2,9 @@ import os
 import shutil
 import sys
 import tempfile
+from pathlib import Path
 
 import django
-
-from pathlib import Path
 
 # Path to the temp mezzanine project folder
 TMP_PATH = Path(tempfile.mkdtemp()) / "project_template"

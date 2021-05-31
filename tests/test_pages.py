@@ -1,10 +1,10 @@
-from django.contrib.sites.models import Site
-
 from unittest import skipUnless
+
 from django.apps import apps
-from django.core.checks import Warning
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.sites.models import Site
+from django.core.checks import Warning
 from django.db import connection
 from django.http import HttpResponse
 from django.shortcuts import resolve_url
@@ -17,14 +17,13 @@ from django.utils.translation import get_language
 from mezzanine.conf import settings
 from mezzanine.core.models import CONTENT_STATUS_PUBLISHED
 from mezzanine.core.request import current_request
-from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.pages.admin import PageAdminForm
-from mezzanine.pages.fields import MenusField
 from mezzanine.pages.checks import check_context_processor
+from mezzanine.pages.fields import MenusField
+from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.sites import override_current_site_id
 from mezzanine.utils.tests import TestCase
-
 
 User = get_user_model()
 
@@ -430,7 +429,9 @@ class PagesTests(TestCase):
         not the active one.
         """
         from collections import OrderedDict
-        from django.utils.translation import get_language, activate
+
+        from django.utils.translation import activate, get_language
+
         from mezzanine.utils.urls import slugify
 
         default_language = get_language()

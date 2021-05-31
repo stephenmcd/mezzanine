@@ -6,8 +6,8 @@ from django.core.cache import cache
 from django.utils.cache import _i18n_cache_key_suffix
 
 from mezzanine.conf import settings
-from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.conf import middlewares_or_subclasses_installed
+from mezzanine.utils.sites import current_site_id
 
 
 def _hashed_key(key):

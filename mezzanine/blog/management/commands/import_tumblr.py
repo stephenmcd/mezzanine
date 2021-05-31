@@ -1,14 +1,12 @@
 from datetime import datetime
 from json import loads
 from time import sleep
-
 from urllib.request import urlopen
 
 from django.core.management.base import CommandError
 from django.utils.html import strip_tags
 
 from mezzanine.blog.management.base import BaseImporterCommand
-
 
 MAX_POSTS_PER_CALL = 20  # Max number of posts Tumblr API will return per call.
 MAX_RETRIES_PER_CALL = 3  # Max times to retry API call after failing.

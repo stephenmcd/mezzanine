@@ -1,7 +1,6 @@
 from mezzanine import template
 from mezzanine.generic.forms import RatingForm
 
-
 register = template.Library()
 
 

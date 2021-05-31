@@ -9,12 +9,10 @@ making it editable, as it may be inappropriate - for example settings
 that are only read during startup shouldn't be editable, since changing
 them would require an application reload.
 """
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import register_setting
-
-
-from django.conf import settings
 
 profile_model_default = getattr(settings, "AUTH_PROFILE_MODULE", None)
 if profile_model_default:

@@ -14,7 +14,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import register_setting
 
-
 register_setting(
     name="BLOG_USE_FEATURED_IMAGE",
     description=_("Enable featured images in blog posts"),

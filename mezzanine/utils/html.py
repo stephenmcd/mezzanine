@@ -1,6 +1,6 @@
 try:
-    from html.parser import HTMLParser
     from html.entities import name2codepoint
+    from html.parser import HTMLParser
 
     try:
         from html.parser import HTMLParseError
@@ -17,7 +17,6 @@ except ImportError:  # Python 2
 import re
 
 from mezzanine.utils.deprecation import mark_safe
-
 
 SELF_CLOSING_TAGS = ["br", "img"]
 NON_SELF_CLOSING_TAGS = ["script", "iframe"]
@@ -51,6 +50,7 @@ def absolute_urls(html):
     """
 
     from bs4 import BeautifulSoup
+
     from mezzanine.core.request import current_request
 
     request = current_request()
@@ -98,7 +98,8 @@ def escape(html):
     ``RICHTEXT_FILTER_LEVEL``, ``RICHTEXT_ALLOWED_TAGS``,
     ``RICHTEXT_ALLOWED_ATTRIBUTES``, ``RICHTEXT_ALLOWED_STYLES``.
     """
-    from bleach import clean, ALLOWED_PROTOCOLS
+    from bleach import ALLOWED_PROTOCOLS, clean
+
     from mezzanine.conf import settings
     from mezzanine.core import defaults
 
@@ -130,8 +131,9 @@ def thumbnails(html):
     paths, using Mezzanine's ``thumbnail`` template tag. Used as
     one of the default values in the ``RICHTEXT_FILTERS`` setting.
     """
-    from django.conf import settings
     from bs4 import BeautifulSoup
+    from django.conf import settings
+
     from mezzanine.core.templatetags.mezzanine_tags import thumbnail
 
     # If MEDIA_URL isn't in the HTML string, there aren't any

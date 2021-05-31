@@ -1,5 +1,4 @@
 import warnings
-
 from functools import lru_cache
 
 from django.contrib import admin
@@ -7,31 +6,31 @@ from django.contrib.auth import logout
 from django.contrib.messages import error
 from django.contrib.redirects.models import Redirect
 from django.core.exceptions import MiddlewareNotUsed
-from django.urls import reverse, resolve
 from django.http import (
     HttpResponse,
-    HttpResponseRedirect,
-    HttpResponsePermanentRedirect,
     HttpResponseGone,
+    HttpResponsePermanentRedirect,
+    HttpResponseRedirect,
 )
 from django.middleware.csrf import CsrfViewMiddleware, get_token
-from django.template import Template, RequestContext
+from django.template import RequestContext, Template
+from django.urls import resolve, reverse
 from django.utils.cache import get_max_age
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
 from mezzanine.conf import settings
-from mezzanine.core.models import SitePermission
 from mezzanine.core.management.commands.createdb import (
-    DEFAULT_USERNAME,
     DEFAULT_PASSWORD,
+    DEFAULT_USERNAME,
 )
+from mezzanine.core.models import SitePermission
 from mezzanine.utils.cache import (
-    cache_key_prefix,
-    nevercache_token,
     cache_get,
-    cache_set,
     cache_installed,
+    cache_key_prefix,
+    cache_set,
+    nevercache_token,
 )
 from mezzanine.utils.conf import middlewares_or_subclasses_installed
 from mezzanine.utils.deprecation import MiddlewareMixin, is_authenticated

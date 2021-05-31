@@ -1,25 +1,15 @@
 import re
-import pytz
 from unittest import skipUnless
-
-from django.utils.encoding import force_str
-
-from mezzanine.core.middleware import FetchFromCacheMiddleware
-from mezzanine.core.templatetags.mezzanine_tags import initialize_nevercache
-from mezzanine.utils.cache import cache_installed
-from mezzanine.utils.sites import current_site_id, override_current_site_id
-from mezzanine.utils.urls import admin_url
-
 from urllib.parse import urlencode
 
+import pytz
 from django.conf.urls import url
 from django.contrib.admin import AdminSite
 from django.contrib.admin.options import InlineModelAdmin
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.exceptions import ValidationError
-from django.core.management import call_command, CommandError
-from django.urls import reverse
+from django.core.management import CommandError, call_command
 from django.db import models
 from django.forms import Textarea
 from django.forms.models import modelform_factory
@@ -27,24 +17,31 @@ from django.http import HttpResponse
 from django.template import RequestContext, Template
 from django.templatetags.static import static
 from django.test.utils import override_settings
+from django.urls import reverse
+from django.utils.encoding import force_str
 from django.utils.html import strip_tags
 from django.utils.timezone import datetime, now, timedelta
 
 from mezzanine.conf import settings
 from mezzanine.core.admin import BaseDynamicInlineAdmin
-from mezzanine.core.fields import RichTextField, MultiChoiceField
+from mezzanine.core.fields import MultiChoiceField, RichTextField
 from mezzanine.core.managers import DisplayableManager
+from mezzanine.core.middleware import FetchFromCacheMiddleware
 from mezzanine.core.models import CONTENT_STATUS_DRAFT, CONTENT_STATUS_PUBLISHED
+from mezzanine.core.templatetags.mezzanine_tags import initialize_nevercache
 from mezzanine.forms.admin import FieldAdmin
 from mezzanine.forms.models import Form
 from mezzanine.pages.models import Page, RichTextPage
+from mezzanine.utils.cache import cache_installed
 from mezzanine.utils.deprecation import (
     get_middleware_setting,
     get_middleware_setting_name,
 )
-from mezzanine.utils.importing import import_dotted_path
-from mezzanine.utils.tests import TestCase
 from mezzanine.utils.html import TagCloser, escape
+from mezzanine.utils.importing import import_dotted_path
+from mezzanine.utils.sites import current_site_id, override_current_site_id
+from mezzanine.utils.tests import TestCase
+from mezzanine.utils.urls import admin_url
 
 
 class CoreTests(TestCase):

@@ -3,12 +3,12 @@ from copy import deepcopy
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.blog.models import BlogCategory, BlogPost
 from mezzanine.conf import settings
 from mezzanine.core.admin import (
+    BaseTranslationModelAdmin,
     DisplayableAdmin,
     OwnableAdmin,
-    BaseTranslationModelAdmin,
 )
 from mezzanine.twitter.admin import TweetableAdminMixin
 

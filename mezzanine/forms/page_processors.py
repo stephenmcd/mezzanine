@@ -6,7 +6,7 @@ from mezzanine.forms.forms import FormForForm
 from mezzanine.forms.models import Form
 from mezzanine.forms.signals import form_invalid, form_valid
 from mezzanine.pages.page_processors import processor_for
-from mezzanine.utils.email import split_addresses, send_mail_template
+from mezzanine.utils.email import send_mail_template, split_addresses
 from mezzanine.utils.views import is_spam
 
 

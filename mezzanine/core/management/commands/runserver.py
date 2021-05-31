@@ -3,8 +3,8 @@ import sys
 
 import django
 from django.conf import settings
-from django.contrib.staticfiles.management.commands import runserver
 from django.contrib.staticfiles.handlers import StaticFilesHandler
+from django.contrib.staticfiles.management.commands import runserver
 from django.core.management.color import supports_color
 from django.db import connection
 from django.http import Http404

@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 
 from mezzanine.utils.urls import admin_url
 

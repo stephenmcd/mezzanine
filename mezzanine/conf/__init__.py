@@ -4,11 +4,10 @@ consistent access method for settings defined in applications, the project
 or Django itself. Settings can also be made editable via the admin.
 """
 
-from weakref import WeakKeyDictionary
-
 from functools import partial
 from importlib import import_module
 from warnings import warn
+from weakref import WeakKeyDictionary
 
 from django.conf import settings as django_settings
 from django.utils.functional import Promise

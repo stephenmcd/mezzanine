@@ -1,9 +1,9 @@
 from copy import copy
 
 from django.contrib.contenttypes.fields import GenericRelation
-from django.core.exceptions import ImproperlyConfigured, AppRegistryNotReady
-from django.db.models import IntegerField, CharField, FloatField
-from django.db.models.signals import post_save, post_delete
+from django.core.exceptions import AppRegistryNotReady, ImproperlyConfigured
+from django.db.models import CharField, FloatField, IntegerField
+from django.db.models.signals import post_delete, post_save
 
 from mezzanine.utils.deprecation import get_related_model
 

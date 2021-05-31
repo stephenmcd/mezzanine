@@ -3,13 +3,13 @@ from copy import copy
 from django.contrib import admin
 from django.contrib.messages import info
 from django.http import HttpResponseRedirect
-from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import force_text
+from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.core.admin import BaseTranslationModelAdmin
 from mezzanine.conf import settings
-from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm
+from mezzanine.conf.models import Setting
+from mezzanine.core.admin import BaseTranslationModelAdmin
 from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url
 

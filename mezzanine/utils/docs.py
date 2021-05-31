@@ -2,12 +2,12 @@
 Utils called from project_root/docs/conf.py when Sphinx
 documentation is generated.
 """
+import os.path
 from collections import OrderedDict
 from datetime import datetime
-import os.path
 from shutil import copyfile, move
-from string import ascii_letters as letters
 from socket import gethostname
+from string import ascii_letters as letters
 from warnings import warn
 
 from django.template.defaultfilters import urlize
@@ -143,7 +143,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
 
     # Load the repo.
     try:
-        from mercurial import ui, hg, error
+        from mercurial import error, hg, ui
         from mercurial.commands import tag
     except ImportError:
         pass

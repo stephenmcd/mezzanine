@@ -1,10 +1,11 @@
 from modeltranslation.translator import translator
+
+from mezzanine.blog.models import BlogCategory, BlogPost
 from mezzanine.core.translation import (
-    TranslatedSlugged,
     TranslatedDisplayable,
     TranslatedRichText,
+    TranslatedSlugged,
 )
-from mezzanine.blog.models import BlogCategory, BlogPost
 
 
 class TranslatedBlogPost(TranslatedDisplayable, TranslatedRichText):

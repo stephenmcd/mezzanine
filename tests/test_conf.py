@@ -1,11 +1,11 @@
 import sys
-from unittest import skipUnless
 import warnings
+from unittest import skipUnless
 
 from django.conf import settings as django_settings
 from django.utils.encoding import force_text
 
-from mezzanine.conf import settings, registry, register_setting
+from mezzanine.conf import register_setting, registry, settings
 from mezzanine.conf.context_processors import TemplateSettings
 from mezzanine.conf.models import Setting
 from mezzanine.utils.tests import TestCase
@@ -18,6 +18,7 @@ class ConfTests(TestCase):
     def test_threading_race(self):
         import multiprocessing.pool
         import random
+
         from django.db import connections
 
         type_modifiers = {

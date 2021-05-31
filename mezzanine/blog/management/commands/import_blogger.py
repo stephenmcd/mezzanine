@@ -1,6 +1,6 @@
+import re
 from datetime import datetime, timedelta
 from time import timezone
-import re
 
 from django.core.management.base import CommandError
 

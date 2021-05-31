@@ -1,15 +1,17 @@
 from collections import defaultdict
 
 from django import forms
-from django.utils.safestring import mark_safe
-from django.utils.translation import activate, get_language, ugettext_lazy as _
 from django.template.defaultfilters import urlize
+from django.utils.safestring import mark_safe
+from django.utils.translation import activate, get_language
+from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.conf import settings, registry
+from mezzanine.conf import registry, settings
 from mezzanine.conf.models import Setting
 
 if settings.USE_MODELTRANSLATION:
     from collections import OrderedDict
+
     from modeltranslation.utils import build_localized_fieldname
 
 

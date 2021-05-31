@@ -4,21 +4,21 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User as AuthUser
-from django.contrib.redirects.admin import RedirectAdmin
 from django.contrib.messages import error
-from django.urls import NoReverseMatch
-from django.forms import ValidationError, ModelForm
+from django.contrib.redirects.admin import RedirectAdmin
+from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.urls import NoReverseMatch
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (
-    Orderable,
-    ContentTyped,
-    SitePermission,
     CONTENT_STATUS_PUBLISHED,
+    ContentTyped,
+    Orderable,
+    SitePermission,
 )
 from mezzanine.utils.models import base_concrete_model
 from mezzanine.utils.sites import current_site_id
@@ -27,6 +27,7 @@ from mezzanine.utils.urls import admin_url
 
 if settings.USE_MODELTRANSLATION:
     from collections import OrderedDict
+
     from django.utils.translation import activate, get_language
     from modeltranslation.admin import TranslationAdmin, TranslationInlineModelAdmin
 

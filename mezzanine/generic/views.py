@@ -4,20 +4,20 @@ from string import punctuation
 from django.apps import apps
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.messages import error
-from django.urls import reverse
 from django.db.models import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
-from mezzanine.generic.forms import ThreadedCommentForm, RatingForm
+from mezzanine.generic.forms import RatingForm, ThreadedCommentForm
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.cache import add_cache_bypass
 from mezzanine.utils.deprecation import is_authenticated
-from mezzanine.utils.views import set_cookie, is_spam
 from mezzanine.utils.importing import import_dotted_path
+from mezzanine.utils.views import is_spam, set_cookie
 
 
 @staff_member_required

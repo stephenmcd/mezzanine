@@ -3,7 +3,6 @@ import os
 from django import VERSION as DJANGO_VERSION
 from django.utils.translation import ugettext_lazy as _
 
-
 ######################
 # MEZZANINE SETTINGS #
 ######################
@@ -307,8 +306,8 @@ OPTIONAL_APPS = (
 
 f = os.path.join(PROJECT_APP_PATH, "local_settings.py")
 if os.path.exists(f):
-    import sys
     import imp
+    import sys
 
     module_name = "%s.local_settings" % PROJECT_APP
     module = imp.new_module(module_name)

@@ -1,21 +1,21 @@
+from django import forms
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Q
 from django.db.models.manager import Manager
-from django import forms
 from django.utils.http import int_to_base36
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext
+from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.accounts import (
+    ProfileNotConfigured,
+    get_profile_for_user,
     get_profile_model,
     get_profile_user_fieldname,
-    get_profile_for_user,
-    ProfileNotConfigured,
 )
 from mezzanine.conf import settings
 from mezzanine.core.forms import Html5Mixin
 from mezzanine.utils.urls import slugify, unique_slug
-
 
 User = get_user_model()
 

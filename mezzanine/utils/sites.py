@@ -9,7 +9,6 @@ from mezzanine.conf import settings
 from mezzanine.core.request import current_request
 from mezzanine.utils.conf import middlewares_or_subclasses_installed
 
-
 SITE_PERMISSION_MIDDLEWARE = "mezzanine.core.middleware.SitePermissionMiddleware"
 
 
@@ -36,7 +35,7 @@ def current_site_id():
     if hasattr(override_current_site_id.thread_local, "site_id"):
         return override_current_site_id.thread_local.site_id
 
-    from mezzanine.utils.cache import cache_installed, cache_get, cache_set
+    from mezzanine.utils.cache import cache_get, cache_installed, cache_set
 
     request = current_request()
     site_id = getattr(request, "site_id", None)

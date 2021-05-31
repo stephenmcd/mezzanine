@@ -3,7 +3,6 @@ from django.conf.urls import url
 from mezzanine.accounts import views
 from mezzanine.conf import settings
 
-
 ACCOUNT_URL = getattr(settings, "ACCOUNT_URL", "/accounts/")
 SIGNUP_URL = getattr(settings, "SIGNUP_URL", "/%s/signup/" % ACCOUNT_URL.strip("/"))
 SIGNUP_VERIFY_URL = getattr(

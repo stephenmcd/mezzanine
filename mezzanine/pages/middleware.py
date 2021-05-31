@@ -1,6 +1,6 @@
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import MiddlewareNotUsed
-from django.http import HttpResponse, Http404
+from django.http import Http404, HttpResponse
 
 from mezzanine.conf import settings
 from mezzanine.pages import context_processors, page_processors

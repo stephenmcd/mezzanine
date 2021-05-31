@@ -1,9 +1,9 @@
-from io import BytesIO
 import os
+from io import BytesIO
 from string import punctuation
 from zipfile import ZipFile
-from chardet import detect as charsetdetect
 
+from chardet import detect as charsetdetect
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db import models
@@ -16,7 +16,6 @@ from mezzanine.core.models import Orderable, RichText
 from mezzanine.pages.models import Page
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.models import upload_to
-
 
 # Set the directory where gallery images are uploaded to,
 # either MEDIA_ROOT + 'galleries', or filebrowser's upload

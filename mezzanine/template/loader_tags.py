@@ -3,11 +3,10 @@ import warnings
 from itertools import chain
 
 from django import VERSION as DJANGO_VERSION
-from django.template import Template, TemplateSyntaxError, TemplateDoesNotExist
+from django.template import Template, TemplateDoesNotExist, TemplateSyntaxError
 from django.template.loader_tags import ExtendsNode
 
 from mezzanine import template
-
 
 register = template.Library()
 

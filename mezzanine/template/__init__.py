@@ -1,8 +1,8 @@
-from functools import wraps
 import warnings
+from functools import wraps
 
-from django import template
 from django import VERSION as DJANGO_VERSION
+from django import template
 
 
 class Library(template.Library):

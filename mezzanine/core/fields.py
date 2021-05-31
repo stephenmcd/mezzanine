@@ -7,8 +7,8 @@ from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.core.forms import OrderWidget
-from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.html import escape
+from mezzanine.utils.importing import import_dotted_path
 
 
 class OrderField(models.IntegerField):

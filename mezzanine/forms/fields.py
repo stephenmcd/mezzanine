@@ -1,14 +1,11 @@
-from django.core.exceptions import ImproperlyConfigured
 from django import forms
-
+from django.core.exceptions import ImproperlyConfigured
 from django.forms.widgets import SelectDateWidget
-
 from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import SplitSelectDateTimeWidget
 from mezzanine.utils.importing import import_dotted_path
-
 
 # Constants for all available field types.
 TEXT = 1

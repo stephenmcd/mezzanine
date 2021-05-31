@@ -2,9 +2,8 @@ from datetime import datetime
 from uuid import uuid4
 
 from django import forms
-from django.forms.widgets import SelectDateWidget
-
 from django.forms.utils import to_current_timezone
+from django.forms.widgets import SelectDateWidget
 from django.utils.safestring import mark_safe
 
 from mezzanine.conf import settings

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.db import models, migrations
-import mezzanine.pages.fields
+from django.db import migrations, models
+
 import mezzanine.core.fields
+import mezzanine.pages.fields
 
 
 class Migration(migrations.Migration):

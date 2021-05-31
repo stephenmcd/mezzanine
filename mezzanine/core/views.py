@@ -1,32 +1,28 @@
-import os
 import mimetypes
-
+import os
 from json import dumps
-
-from django.template.response import TemplateResponse
-
 from urllib.parse import urljoin, urlparse
 
 from django.apps import apps
 from django.contrib import admin
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin.options import ModelAdmin
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.staticfiles import finders
 from django.core.exceptions import PermissionDenied
-from django.urls import reverse
-from django.http import HttpResponse, HttpResponseServerError, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseServerError
 from django.shortcuts import redirect
 from django.template.loader import get_template
+from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import requires_csrf_token
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Displayable, SitePermission
-from mezzanine.utils.views import is_editable, paginate
 from mezzanine.utils.sites import has_site_permission
 from mezzanine.utils.urls import next_url
-
+from mezzanine.utils.views import is_editable, paginate
 
 mimetypes.init()
 

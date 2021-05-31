@@ -7,7 +7,6 @@ from django.utils.module_loading import module_has_submodule
 from mezzanine.pages.models import Page
 from mezzanine.utils.importing import get_app_name_list
 
-
 processors = defaultdict(list)
 
 

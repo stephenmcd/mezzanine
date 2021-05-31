@@ -1,13 +1,12 @@
-import re
-import pytz
 import datetime
+import re
 from unittest import skipUnless
-
 from urllib.parse import urlparse
 
-from django.urls import reverse
+import pytz
 from django.template import Context, Template
 from django.test import override_settings
+from django.urls import reverse
 
 from mezzanine.blog.models import BlogPost
 from mezzanine.conf import settings

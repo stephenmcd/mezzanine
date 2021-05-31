@@ -1,10 +1,9 @@
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Model, Count
+from django.db.models import Count, Model
 
 from mezzanine import template
 from mezzanine.conf import settings
 from mezzanine.generic.models import AssignedKeyword, Keyword
-
 
 register = template.Library()
 

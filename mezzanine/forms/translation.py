@@ -1,6 +1,7 @@
-from modeltranslation.translator import translator, TranslationOptions
+from modeltranslation.translator import TranslationOptions, translator
+
 from mezzanine.core.translation import TranslatedRichText
-from mezzanine.forms.models import Form, Field
+from mezzanine.forms.models import Field, Form
 
 
 class TranslatedForm(TranslatedRichText):

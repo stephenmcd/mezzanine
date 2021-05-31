@@ -1,25 +1,23 @@
-from datetime import datetime
 import re
-
+from datetime import datetime
 from urllib.parse import quote
 
+import requests
 from django.db import models
 from django.utils.html import urlize
 from django.utils.timezone import make_aware, utc
 from django.utils.translation import ugettext_lazy as _
 from requests_oauthlib import OAuth1
-import requests
 
 from mezzanine.conf import settings
 from mezzanine.twitter import (
     QUERY_TYPE_CHOICES,
-    QUERY_TYPE_USER,
     QUERY_TYPE_LIST,
     QUERY_TYPE_SEARCH,
+    QUERY_TYPE_USER,
+    get_auth_settings,
 )
-from mezzanine.twitter import get_auth_settings
 from mezzanine.twitter.managers import TweetManager
-
 
 re_usernames = re.compile(r"(^|\W)@([0-9a-zA-Z+_]+)", re.IGNORECASE)
 re_hashtags = re.compile(r"#([0-9a-zA-Z+_]+)", re.IGNORECASE)

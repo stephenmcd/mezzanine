@@ -3,14 +3,13 @@ This is the main ``urlconf`` for Mezzanine - it sets up patterns for
 all the various Mezzanine apps, third-party apps like Grappelli and
 filebrowser.
 """
-from django.urls import include, re_path, path
 from django.contrib.sitemaps.views import sitemap
-from django.views.i18n import JavaScriptCatalog
 from django.http import HttpResponse
+from django.urls import include, path, re_path
+from django.views.i18n import JavaScriptCatalog
 
 from mezzanine.conf import settings
 from mezzanine.core.sitemaps import DisplayableSitemap
-
 
 urlpatterns = []
 

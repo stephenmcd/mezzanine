@@ -14,7 +14,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import register_setting
 
-
 generic_comments = getattr(settings, "COMMENTS_APP", "") == "mezzanine.generic"
 
 if generic_comments:

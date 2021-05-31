@@ -1,5 +1,5 @@
-from hashlib import md5
 import os
+from hashlib import md5
 
 try:
     from urllib.parse import quote, unquote
@@ -13,28 +13,27 @@ from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.storage import default_storage
-from django.urls import reverse, resolve, NoReverseMatch
 from django.db.models import Model
 from django.template import Node, Template, TemplateSyntaxError
 from django.template.base import TextNode, TokenType
 from django.template.defaultfilters import escape
 from django.template.loader import get_template
+from django.urls import NoReverseMatch, resolve, reverse
 from django.utils import translation
 from django.utils.html import strip_tags
-from django.utils.text import capfirst
 from django.utils.safestring import SafeText, mark_safe
+from django.utils.text import capfirst
 
+from mezzanine import template
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.forms import get_edit_form
-from mezzanine.utils.cache import nevercache_token, cache_installed
+from mezzanine.utils.cache import cache_installed, nevercache_token
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.sites import current_site_id, has_site_permission
 from mezzanine.utils.urls import admin_url, home_slug
 from mezzanine.utils.views import is_editable
-from mezzanine import template
-
 
 register = template.Library()
 

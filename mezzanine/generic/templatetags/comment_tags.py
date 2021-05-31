@@ -1,13 +1,12 @@
 from collections import defaultdict
 
-from django.urls import reverse
 from django.template.defaultfilters import linebreaksbr, urlize
+from django.urls import reverse
 
 from mezzanine import template
 from mezzanine.conf import settings
 from mezzanine.generic.models import ThreadedComment
 from mezzanine.utils.importing import import_dotted_path
-
 
 register = template.Library()
 

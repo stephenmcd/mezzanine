@@ -3,7 +3,7 @@ import warnings
 from django.conf import settings
 from django.contrib.auth import get_user_model as django_get_user_model
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import Model, Field
+from django.db.models import Field, Model
 from django.utils.html import format_html
 
 from mezzanine.utils.importing import import_dotted_path

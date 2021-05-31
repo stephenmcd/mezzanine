@@ -1,6 +1,5 @@
 from warnings import warn
 
-
 # Deprecated settings and their defaults.
 DEPRECATED = {}
 

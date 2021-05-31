@@ -1,7 +1,7 @@
 from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
-from mezzanine.utils.urls import home_slug
 from mezzanine.utils.deprecation import is_authenticated
+from mezzanine.utils.urls import home_slug
 
 
 class PageManager(DisplayableManager):

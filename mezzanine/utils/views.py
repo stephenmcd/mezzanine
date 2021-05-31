@@ -1,14 +1,12 @@
 import warnings
-
 from datetime import datetime, timedelta
-
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 import django
 from django.contrib.auth import get_permission_codename
-from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.forms import EmailField, URLField, Textarea
+from django.core.paginator import EmptyPage, InvalidPage, Paginator
+from django.forms import EmailField, Textarea, URLField
 from django.template import RequestContext
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext as _

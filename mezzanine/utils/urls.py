@@ -2,12 +2,11 @@ import re
 import unicodedata
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.urls import resolve, reverse, NoReverseMatch, get_script_prefix
 from django.shortcuts import redirect
-from django.utils.encoding import smart_text
-
-from django.utils.http import is_safe_url
+from django.urls import NoReverseMatch, get_script_prefix, resolve, reverse
 from django.utils import translation
+from django.utils.encoding import smart_text
+from django.utils.http import is_safe_url
 
 from mezzanine.conf import settings
 from mezzanine.utils.importing import import_dotted_path

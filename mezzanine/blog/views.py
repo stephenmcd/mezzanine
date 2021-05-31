@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
 
-from mezzanine.blog.models import BlogPost, BlogCategory
-from mezzanine.blog.feeds import PostsRSS, PostsAtom
+from mezzanine.blog.feeds import PostsAtom, PostsRSS
+from mezzanine.blog.models import BlogCategory, BlogPost
 from mezzanine.conf import settings
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.views import paginate

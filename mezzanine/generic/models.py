@@ -1,15 +1,15 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.template.defaultfilters import truncatewords_html
-from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.html import format_html
-
+from django.utils.translation import ugettext
+from django.utils.translation import ugettext_lazy as _
 from django_comments.models import Comment
 
+from mezzanine.conf import settings
+from mezzanine.core.models import Orderable, Slugged
 from mezzanine.generic.fields import RatingField
 from mezzanine.generic.managers import CommentManager, KeywordManager
-from mezzanine.core.models import Slugged, Orderable
-from mezzanine.conf import settings
 from mezzanine.utils.models import get_user_model_name
 from mezzanine.utils.sites import current_site_id
 

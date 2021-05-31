@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.db import models, migrations
+from django.db import migrations, models
+
 import mezzanine.core.fields
 from mezzanine.forms.fields import NAMES
 

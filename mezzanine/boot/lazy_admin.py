@@ -1,12 +1,8 @@
 from django.conf import settings
 from django.conf.urls import include, url
+from django.contrib.admin.sites import AdminSite, AlreadyRegistered, NotRegistered
+from django.contrib.admin.sites import site as default_site
 from django.contrib.auth import get_user_model
-from django.contrib.admin.sites import (
-    AdminSite,
-    site as default_site,
-    NotRegistered,
-    AlreadyRegistered,
-)
 from django.shortcuts import redirect
 
 from mezzanine.utils.importing import import_dotted_path

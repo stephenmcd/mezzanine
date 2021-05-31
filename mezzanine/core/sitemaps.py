@@ -5,7 +5,6 @@ from mezzanine.conf import settings
 from mezzanine.core.models import Displayable
 from mezzanine.utils.sites import current_site_id
 
-
 blog_installed = "mezzanine.blog" in settings.INSTALLED_APPS
 if blog_installed:
     from mezzanine.blog.models import BlogPost

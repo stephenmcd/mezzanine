@@ -3,7 +3,6 @@ from django import forms
 from mezzanine.blog.models import BlogPost
 from mezzanine.core.models import CONTENT_STATUS_DRAFT
 
-
 # These fields need to be in the form, hidden, with default values,
 # since it posts to the blog post admin, which includes these fields
 # and will use empty values instead of the model defaults, without
