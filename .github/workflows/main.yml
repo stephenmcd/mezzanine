@@ -31,15 +31,28 @@ jobs:
         with:
           report_paths: '**/junit/TEST-*.xml'
 
-  # Create a new semantic release
-  release:
-    needs: test
+  # Lint
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.9
+      - name: Install dependencies
+        run: pip install tox -U pip
+      - name: Lint
+        run: tox -e package -e flake8 -e black
+
+  # Create a new semantic release
+  release:
+    needs: [test, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
       - uses: cycjimmy/semantic-release-action@v2
         with:
           semantic_version: 17
