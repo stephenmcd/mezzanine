@@ -13,7 +13,7 @@ ROOT_URLCONF = "mezzanine.project_template.project_name.urls"
 
 characters = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)"
 # Generate a SECRET_KEY for this build
-SECRET_KEY = "".join([choice(characters) for i in range(50)])
+SECRET_KEY = "".join(choice(characters) for i in range(50))
 
 if "mezzanine.accounts" not in INSTALLED_APPS:
     INSTALLED_APPS = tuple(INSTALLED_APPS) + ("mezzanine.accounts",)

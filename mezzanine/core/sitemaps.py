@@ -32,4 +32,4 @@ class DisplayableSitemap(Sitemap):
         Ensure the correct host by injecting the current site.
         """
         kwargs["site"] = Site.objects.get(id=current_site_id())
-        return super(DisplayableSitemap, self).get_urls(**kwargs)
+        return super().get_urls(**kwargs)

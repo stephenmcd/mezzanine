@@ -100,7 +100,7 @@ class SearchableQuerySet(QuerySet):
         self._search_ordered = False
         self._search_terms = set()
         self._search_fields = kwargs.pop("search_fields", {})
-        super(SearchableQuerySet, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def search(self, query, search_fields=None):
         """
@@ -200,7 +200,7 @@ class SearchableQuerySet(QuerySet):
         """
         Ensure attributes are copied to subsequent queries.
         """
-        clone = super(SearchableQuerySet, self)._clone(*args, **kwargs)
+        clone = super()._clone(*args, **kwargs)
         clone._search_terms = self._search_terms
         clone._search_fields = self._search_fields
         clone._search_ordered = self._search_ordered
@@ -212,7 +212,7 @@ class SearchableQuerySet(QuerySet):
         """
         if not self._search_ordered:
             self._search_ordered = len(self._search_terms) > 0
-        return super(SearchableQuerySet, self).order_by(*field_names)
+        return super().order_by(*field_names)
 
     def annotate_scores(self):
         """
@@ -228,7 +228,7 @@ class SearchableQuerySet(QuerySet):
         we assume one match for one of the fields, and use the average
         weight of all search fields with relationships.
         """
-        results = super(SearchableQuerySet, self).iterator()
+        results = super().iterator()
         if self._search_terms and not self._search_ordered:
             results = list(results)
             for i, result in enumerate(results):
@@ -264,7 +264,7 @@ class SearchableManager(Manager):
 
     def __init__(self, *args, **kwargs):
         self._search_fields = kwargs.pop("search_fields", {})
-        super(SearchableManager, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def get_search_fields(self):
         """
@@ -311,7 +311,7 @@ class SearchableManager(Manager):
         accessed from abstract classes, which is behaviour the search
         API has always relied on. Here we reinstate it.
         """
-        super(SearchableManager, self).contribute_to_class(model, name)
+        super().contribute_to_class(model, name)
         setattr(model, name, ManagerDescriptor(self))
 
     def search(self, *args, **kwargs):

@@ -25,6 +25,6 @@ class BlogPostForm(forms.ModelForm):
         for field in hidden_field_defaults:
             initial[field] = BlogPost._meta.get_field(field).default
         initial["status"] = CONTENT_STATUS_DRAFT
-        super(BlogPostForm, self).__init__(initial=initial)
+        super().__init__(initial=initial)
         for field in hidden_field_defaults:
             self.fields[field].widget = forms.HiddenInput()

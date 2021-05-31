@@ -88,7 +88,7 @@ def initialize_nevercache():
                 if token_type == TokenType.BLOCK and token.contents == end_tag:
                     return TextNode(delimiter + "".join(text) + delimiter)
                 start, end = tag_mapping[token_type]
-                text.append("%s%s%s" % (start, token.contents, end))
+                text.append(f"{start}{token.contents}{end}")
             parser.unclosed_block_tag(end_tag)
 
     else:
@@ -316,15 +316,15 @@ def thumbnail(
     image_dir, image_name = os.path.split(image_url)
     image_prefix, image_ext = os.path.splitext(image_name)
     filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext.lower(), "JPEG")
-    thumb_name = "%s-%sx%s" % (image_prefix, width, height)
+    thumb_name = f"{image_prefix}-{width}x{height}"
     if not upscale:
         thumb_name += "-no-upscale"
     if left != 0.5 or top != 0.5:
         left = min(1, max(0, left))
         top = min(1, max(0, top))
-        thumb_name = "%s-%sx%s" % (thumb_name, left, top)
+        thumb_name = f"{thumb_name}-{left}x{top}"
     thumb_name += "-padded-%s" % padding_color if padding else ""
-    thumb_name = "%s%s" % (thumb_name, image_ext)
+    thumb_name = f"{thumb_name}{image_ext}"
 
     # `image_name` is used here for the directory path, as each image
     # requires its own sub-directory using its own name - this is so
@@ -342,14 +342,14 @@ def thumbnail(
             pass
 
     thumb_path = os.path.join(thumb_dir, thumb_name)
-    thumb_url = "%s/%s/%s" % (
+    thumb_url = "{}/{}/{}".format(
         settings.THUMBNAILS_DIR_NAME,
         quote(image_name.encode("utf-8")),
         quote(thumb_name.encode("utf-8")),
     )
     image_url_path = os.path.dirname(image_url)
     if image_url_path:
-        thumb_url = "%s/%s" % (image_url_path, thumb_url)
+        thumb_url = f"{image_url_path}/{thumb_url}"
 
     try:
         thumb_exists = os.path.exists(thumb_path)
@@ -540,14 +540,14 @@ def editable(parsed, context, token):
         fields = [f for f in fields if len(f) == 2 and f[0] is fields[0][0]]
     if not parsed.strip():
         try:
-            parsed = "".join([str(getattr(*field)) for field in fields])
+            parsed = "".join(str(getattr(*field)) for field in fields)
         except AttributeError:
             pass
 
     if settings.INLINE_EDITING_ENABLED and fields and "request" in context:
         obj = fields[0][0]
         if isinstance(obj, Model) and is_editable(obj, context["request"]):
-            field_names = ",".join([f[1] for f in fields])
+            field_names = ",".join(f[1] for f in fields)
             context["editable_form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
             t = get_template("includes/editable_form.html")
@@ -621,7 +621,7 @@ def admin_app_list(request):
             else:
                 add_url = None
             if admin_url_name:
-                model_label = "%s.%s" % (opts.app_label, opts.object_name)
+                model_label = f"{opts.app_label}.{opts.object_name}"
                 try:
                     app_index, app_title, model_index, model_title = menu_order[
                         model_label
@@ -765,7 +765,7 @@ def translate_url(context, language):
                 url_name = (
                     view.url_name
                     if not view.namespace
-                    else "%s:%s" % (view.namespace, view.url_name)
+                    else f"{view.namespace}:{view.url_name}"
                 )
                 url = reverse(url_name, args=view.args, kwargs=view.kwargs)
             except NoReverseMatch:

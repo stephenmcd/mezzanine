@@ -8,9 +8,6 @@ exclude = '''
     | \.venv
     | build
     | dist
-    | migrations
   )/
 )
 '''
-
-force_exclude = "migrations/"

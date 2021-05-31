@@ -43,7 +43,7 @@ class KeywordsWidget(forms.MultiWidget):
         Setup the text and hidden form field widgets.
         """
         widgets = (forms.HiddenInput, forms.TextInput(attrs={"class": "vTextField"}))
-        super(KeywordsWidget, self).__init__(widgets, attrs)
+        super().__init__(widgets, attrs)
         self._ids = []
 
     def decompress(self, value):
@@ -74,11 +74,11 @@ class KeywordsWidget(forms.MultiWidget):
         Wraps the output HTML with a list of all available ``Keyword``
         instances that can be clicked on to toggle a keyword.
         """
-        rendered = super(KeywordsWidget, self).render(*args, **kwargs)
+        rendered = super().render(*args, **kwargs)
         links = ""
         for keyword in Keyword.objects.all().order_by("title"):
             prefix = "+" if str(keyword.id) not in self._ids else "-"
-            links += "<a href='#'>%s%s</a>" % (prefix, str(keyword))
+            links += f"<a href='#'>{prefix}{str(keyword)}</a>"
         rendered += mark_safe("<p class='keywords-field'>%s</p>" % links)
         return rendered
 
@@ -119,7 +119,7 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
                 elif field == "email":
                     value = user.email
             kwargs["initial"][field] = value
-        super(ThreadedCommentForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def get_comment_model(self):
         """
@@ -200,7 +200,7 @@ class RatingForm(CommentSecurityForm):
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
-        super(RatingForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if request and is_authenticated(request.user):
             current = self.rating_manager.filter(user=request.user).first()
             if current:

@@ -10,7 +10,7 @@ from mezzanine.conf import settings
 from mezzanine.utils.static import static_lazy as static
 
 
-class Html5Mixin(object):
+class Html5Mixin:
     """
     Mixin for form classes. Adds HTML5 features to forms for client
     side validation by the browser, like a "required" attribute and
@@ -18,7 +18,7 @@ class Html5Mixin(object):
     """
 
     def __init__(self, *args, **kwargs):
-        super(Html5Mixin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if hasattr(self, "fields"):
             first_field = None
 
@@ -53,7 +53,7 @@ class TinyMceWidget(forms.Textarea):
         return forms.Media(js=js, css=css)
 
     def __init__(self, *args, **kwargs):
-        super(TinyMceWidget, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.attrs["class"] = "mceEditor"
 
     def use_required_attribute(self, initial):
@@ -73,7 +73,7 @@ class OrderWidget(forms.HiddenInput):
         return False
 
     def render(self, *args, **kwargs):
-        rendered = super(OrderWidget, self).render(*args, **kwargs)
+        rendered = super().render(*args, **kwargs)
         arrows = [
             "<img src='%sadmin/img/admin/arrow-%s.gif' />"
             % (settings.STATIC_URL, arrow)
@@ -118,12 +118,10 @@ class SplitSelectDateTimeWidget(forms.SplitDateTimeWidget):
 
     def value_from_datadict(self, data, files, name):
         return " ".join(
-            [
-                x or ""
-                for x in super(SplitSelectDateTimeWidget, self).value_from_datadict(
-                    data, files, name
-                )
-            ]
+            x or ""
+            for x in super(SplitSelectDateTimeWidget, self).value_from_datadict(
+                data, files, name
+            )
         )
 
 
@@ -135,7 +133,7 @@ class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     dont_use_model_field_default_for_empty_data = True
 
     def render(self, *args, **kwargs):
-        rendered = super(CheckboxSelectMultiple, self).render(*args, **kwargs)
+        rendered = super().render(*args, **kwargs)
         return mark_safe("<span class='multicheckbox'>%s</span>" % rendered)
 
 
@@ -169,7 +167,7 @@ def get_edit_form(obj, field_names, data=None, files=None):
             fields = field_names.split(",")
 
         def __init__(self, *args, **kwargs):
-            super(EditForm, self).__init__(*args, **kwargs)
+            super().__init__(*args, **kwargs)
             self.uuid = str(uuid4())
             for f in self.fields.keys():
                 field_class = self.fields[f].__class__
@@ -182,7 +180,7 @@ def get_edit_form(obj, field_names, data=None, files=None):
                 css_class = self.fields[f].widget.attrs.get("class", "")
                 css_class += " " + field_class.__name__.lower()
                 self.fields[f].widget.attrs["class"] = css_class
-                self.fields[f].widget.attrs["id"] = "%s-%s" % (f, self.uuid)
+                self.fields[f].widget.attrs["id"] = f"{f}-{self.uuid}"
                 if settings.FORMS_USE_HTML5 and self.fields[f].required:
                     self.fields[f].widget.attrs["required"] = ""
 

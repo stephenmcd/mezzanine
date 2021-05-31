@@ -46,7 +46,7 @@ class ThreadedComment(Comment):
         appended that references the individual comment.
         """
         url = self.content_object.get_absolute_url()
-        return "%s#comment-%s" % (url, self.id)
+        return f"{url}#comment-{self.id}"
 
     def save(self, *args, **kwargs):
         """
@@ -56,7 +56,7 @@ class ThreadedComment(Comment):
         if not self.id:
             self.is_public = settings.COMMENTS_DEFAULT_APPROVED
             self.site_id = current_site_id()
-        super(ThreadedComment, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     ################################
     # Admin listing column methods #
@@ -162,6 +162,6 @@ class Rating(models.Model):
         valid = map(str, settings.RATINGS_RANGE)
         if str(self.value) not in valid:
             raise ValueError(
-                "Invalid rating. %s is not in %s" % (self.value, ", ".join(valid))
+                "Invalid rating. {} is not in {}".format(self.value, ", ".join(valid))
             )
-        super(Rating, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)

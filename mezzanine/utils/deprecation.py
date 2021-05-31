@@ -12,7 +12,7 @@ try:
     from django.utils.deprecation import MiddlewareMixin
 except ImportError:
 
-    class MiddlewareMixin(object):
+    class MiddlewareMixin:
         pass
 
 

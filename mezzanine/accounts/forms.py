@@ -94,9 +94,9 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         exclude = _exclude_fields
 
     def __init__(self, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._signup = self.instance.id is None
-        user_fields = set([f.name for f in User._meta.get_fields()])
+        user_fields = {f.name for f in User._meta.get_fields()}
         try:
             self.fields["username"].help_text = ugettext(
                 "Only letters, numbers, dashes or underscores please"
@@ -197,7 +197,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         """
 
         kwargs["commit"] = False
-        user = super(ProfileForm, self).save(*args, **kwargs)
+        user = super().save(*args, **kwargs)
         try:
             self.cleaned_data["username"]
         except KeyError:

@@ -14,7 +14,7 @@ class Command(BaseImporterCommand):
     """
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument("-r", "--rss-url", dest="rss_url", help="RSS feed URL")
         parser.add_argument(
             "-p",

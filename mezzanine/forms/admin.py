@@ -56,7 +56,7 @@ class FieldAdminInlineForm(DynamicInlineAdminForm):
         Ensure the label and help_text fields are rendered as text inputs
         instead of text areas.
         """
-        super(FieldAdminInlineForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         for name in self.fields:
             # We just want to swap some textareas for inputs here, but
             # there are some extra considerations for modeltranslation:
@@ -110,7 +110,7 @@ class FormAdmin(PageAdmin):
         """
         Add the entries view to urls.
         """
-        urls = super(FormAdmin, self).get_urls()
+        urls = super().get_urls()
         extra_urls = [
             url(
                 r"^(?P<form_id>\d+)/entries/$",
@@ -142,7 +142,7 @@ class FormAdmin(PageAdmin):
             if request.POST.get("export"):
                 response = HttpResponse(content_type="text/csv")
                 timestamp = slugify(datetime.now().ctime())
-                fname = "%s-%s.csv" % (form.slug, timestamp)
+                fname = f"{form.slug}-{timestamp}.csv"
                 header = "attachment; filename=%s" % fname
                 response["Content-Disposition"] = header
                 queue = StringIO()

@@ -258,7 +258,7 @@ class CoreTests(TestCase):
 
     def _static_proxy(self, querystring):
         self.client.login(username=self._username, password=self._password)
-        proxy_url = "%s?%s" % (reverse("static_proxy"), querystring)
+        proxy_url = "{}?{}".format(reverse("static_proxy"), querystring)
         response = self.client.get(proxy_url)
         self.assertEqual(response.status_code, 200)
 
@@ -305,7 +305,7 @@ class CoreTests(TestCase):
 
         # Go to admin-login, search for reset-link
         response = self.client.get("/admin/", follow=True)
-        self.assertContains(response, u"Forgot password?")
+        self.assertContains(response, "Forgot password?")
         url = re.findall(
             b"<a href=[\"']([^'\"]+)[\"']>Forgot password\\?</a>", response.content
         )
@@ -571,7 +571,7 @@ class SiteRelatedTestCase(TestCase):
         self.assertEqual(current_site_id(), 1)
 
 
-class CSRFTestViews(object):
+class CSRFTestViews:
     def nevercache_view(request):
         template = "{% load mezzanine_tags %}"
         template += "{% nevercache %}"

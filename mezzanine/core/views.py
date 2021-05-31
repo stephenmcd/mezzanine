@@ -147,13 +147,13 @@ def static_proxy(request):
             if not urlparse(static_url).scheme:
                 static_url = urljoin(host, static_url)
             base_tag = "<base href='%s'>" % static_url
-            with open(path, "r") as f:
+            with open(path) as f:
                 response = f.read().replace("<head>", "<head>" + base_tag)
         else:
             try:
                 with open(path, "rb") as f:
                     response = f.read()
-            except IOError:
+            except OSError:
                 return HttpResponseNotFound()
     return HttpResponse(response, content_type=content_type)
 
@@ -180,7 +180,7 @@ def displayable_links_js(request):
         page = is_page(obj)
         if real:
             verbose_name = _("Page") if page else obj._meta.verbose_name
-            title = "%s: %s" % (verbose_name, title)
+            title = f"{verbose_name}: {title}"
         links.append((not page and real, {"title": str(title), "value": url}))
     sorted_links = sorted(links, key=lambda link: (link[0], link[1]["value"]))
     return HttpResponse(dumps([link[1] for link in sorted_links]))

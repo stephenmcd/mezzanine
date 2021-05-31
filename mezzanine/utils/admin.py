@@ -32,7 +32,7 @@ class SingletonAdmin(admin.ModelAdmin):
         except (self.model.DoesNotExist, self.model.MultipleObjectsReturned):
             kwargs.setdefault("extra_context", {})
             kwargs["extra_context"]["singleton"] = True
-            response = super(SingletonAdmin, self).add_view(*args, **kwargs)
+            response = super().add_view(*args, **kwargs)
             return self.handle_save(args[0], response)
         return redirect(admin_url(self.model, "change", singleton.id))
 
@@ -44,7 +44,7 @@ class SingletonAdmin(admin.ModelAdmin):
         try:
             singleton = self.model.objects.get()
         except self.model.MultipleObjectsReturned:
-            return super(SingletonAdmin, self).changelist_view(*args, **kwargs)
+            return super().changelist_view(*args, **kwargs)
         except self.model.DoesNotExist:
             return redirect(admin_url(self.model, "add"))
         return redirect(admin_url(self.model, "change", singleton.id))
@@ -57,5 +57,5 @@ class SingletonAdmin(admin.ModelAdmin):
         """
         kwargs.setdefault("extra_context", {})
         kwargs["extra_context"]["singleton"] = self.model.objects.count() == 1
-        response = super(SingletonAdmin, self).change_view(*args, **kwargs)
+        response = super().change_view(*args, **kwargs)
         return self.handle_save(args[0], response)

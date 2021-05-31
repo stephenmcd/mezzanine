@@ -18,7 +18,7 @@ class Command(BaseImporterCommand):
     """
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument("-u", "--url", dest="url", help="URL to import file")
 
     def get_text(self, xml, name):
@@ -27,7 +27,7 @@ class Command(BaseImporterCommand):
         """
         nodes = xml.getElementsByTagName("wp:comment_" + name)[0].childNodes
         accepted_types = [Node.CDATA_SECTION_NODE, Node.TEXT_NODE]
-        return "".join([n.data for n in nodes if n.nodeType in accepted_types])
+        return "".join(n.data for n in nodes if n.nodeType in accepted_types)
 
     def handle_import(self, options):
         """

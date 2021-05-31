@@ -33,7 +33,7 @@ class PagesTests(TestCase):
         """
         Make sure we have a thread-local request with a site_id attribute set.
         """
-        super(PagesTests, self).setUp()
+        super().setUp()
         from mezzanine.core.request import _thread_local
 
         request = self._request_factory.get("/")
@@ -205,7 +205,7 @@ class PagesTests(TestCase):
             # With LocaleMiddleware and a string LOGIN_URL there can be
             # a second redirect that encodes the next parameter.
             login_next = urlquote_plus(login_next)
-        login = "%s%s?next=%s" % (login_prefix, login_url, login_next)
+        login = f"{login_prefix}{login_url}?next={login_next}"
         if accounts_installed:
             # For an inaccessible page with mezzanine.accounts we should
             # see a login page, without it 404 is more appropriate than an
@@ -219,7 +219,7 @@ class PagesTests(TestCase):
 
         if accounts_installed:
             # View / pattern name redirect properly, without encoding next.
-            login = "%s%s?next=%s" % (login_prefix, login_url, private_url)
+            login = f"{login_prefix}{login_url}?next={private_url}"
             with override_settings(LOGIN_URL="login"):
                 # Note: The "login" is a pattern name in accounts.urls.
                 response = self.client.get(public_url, follow=True)
@@ -390,7 +390,7 @@ class PagesTests(TestCase):
         """
         from mezzanine.pages.page_processors import processor_for
 
-        @processor_for(u"test unicode string")
+        @processor_for("test unicode string")
         def test_page_processor(request, page):
             return {}
 

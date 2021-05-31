@@ -86,7 +86,7 @@ def upload_to(field_path, default):
     return default
 
 
-class AdminThumbMixin(object):
+class AdminThumbMixin:
     """
     Provides a thumbnail method on models for admin classes to
     reference in the ``list_display`` definition.
@@ -127,7 +127,7 @@ class ModelMixinBase(type):
         """
         if name == "ModelMixin":
             # Actual ModelMixin class definition.
-            return super(ModelMixinBase, cls).__new__(cls, name, bases, attrs)
+            return super().__new__(cls, name, bases, attrs)
         try:
             mixin_for = attrs.pop("Meta").mixin_for
             if not issubclass(mixin_for, Model):

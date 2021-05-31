@@ -16,7 +16,7 @@ class TemplateSettings(dict):
     """
 
     def __init__(self, settings, allowed_settings, *args, **kwargs):
-        super(TemplateSettings, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.settings = settings
         self.allowed_settings = set(allowed_settings)
 
@@ -38,19 +38,19 @@ class TemplateSettings(dict):
         try:
             return getattr(self.settings, k)
         except AttributeError:
-            return super(TemplateSettings, self).__getitem__(k)
+            return super().__getitem__(k)
 
     def __setitem__(self, k, v):
         self.allowed_settings.add(k)
-        super(TemplateSettings, self).__setitem__(k, v)
+        super().__setitem__(k, v)
 
     def __repr__(self):
         return repr(
-            dict(
-                (k, self[k])
+            {
+                k: self[k]
                 for k in self.allowed_settings
                 if hasattr(self.settings, k) or k in self
-            )
+            }
         )
 
     def __str__(self):

@@ -16,7 +16,7 @@ def format_value(value):
     select multiple values in emails.
     """
     if isinstance(value, list):
-        value = ", ".join([v.strip() for v in value])
+        value = ", ".join(v.strip() for v in value)
     return value
 
 
@@ -39,7 +39,7 @@ def form_processor(request, page):
         entry = form.save()
         subject = page.form.email_subject
         if not subject:
-            subject = "%s - %s" % (page.form.title, entry.entry_time)
+            subject = f"{page.form.title} - {entry.entry_time}"
         fields = [
             (v.label, format_value(form.cleaned_data[k]))
             for (k, v) in form.fields.items()

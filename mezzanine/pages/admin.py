@@ -62,7 +62,7 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
         """
         if self.model is Page:
             return HttpResponseRedirect(self.get_content_models()[0].add_url)
-        return super(PageAdmin, self).add_view(request, **kwargs)
+        return super().add_view(request, **kwargs)
 
     def change_view(self, request, object_id, **kwargs):
         """
@@ -79,7 +79,7 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
             }
         )
 
-        return super(PageAdmin, self).change_view(request, object_id, **kwargs)
+        return super().change_view(request, object_id, **kwargs)
 
     def delete_view(self, request, object_id, **kwargs):
         """
@@ -88,7 +88,7 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
         page = get_object_or_404(Page, pk=object_id)
         content_model = page.get_content_model()
         self.check_permission(request, content_model, "delete")
-        return super(PageAdmin, self).delete_view(request, object_id, **kwargs)
+        return super().delete_view(request, object_id, **kwargs)
 
     def save_model(self, request, obj, form, change):
         """
@@ -106,7 +106,7 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
         if parent is not None and not change:
             obj.parent_id = parent
             obj.save()
-        super(PageAdmin, self).save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
 
     def _maintain_parent(self, request, response):
         """
@@ -116,7 +116,7 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
         location = response._headers.get("location")
         parent = request.GET.get("parent")
         if parent and location and "?" not in location[1]:
-            url = "%s?parent=%s" % (location[1], parent)
+            url = f"{location[1]}?parent={parent}"
             return HttpResponseRedirect(url)
         return response
 
@@ -125,7 +125,7 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
         Enforce page permissions and maintain the parent ID in the
         querystring.
         """
-        response = super(PageAdmin, self).response_add(request, obj)
+        response = super().response_add(request, obj)
         return self._maintain_parent(request, response)
 
     def response_change(self, request, obj):
@@ -133,7 +133,7 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
         Enforce page permissions and maintain the parent ID in the
         querystring.
         """
-        response = super(PageAdmin, self).response_change(request, obj)
+        response = super().response_change(request, obj)
         return self._maintain_parent(request, response)
 
     def get_content_models(self):
@@ -141,12 +141,12 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
         Return all Page subclasses that are admin registered, ordered
         based on the ``ADD_PAGE_ORDER`` setting.
         """
-        models = super(PageAdmin, self).get_content_models()
+        models = super().get_content_models()
 
         order = [name.lower() for name in settings.ADD_PAGE_ORDER]
 
         def sort_key(page):
-            name = "%s.%s" % (page._meta.app_label, page._meta.object_name)
+            name = f"{page._meta.app_label}.{page._meta.object_name}"
             unordered = len(order)
             try:
                 return (order.index(name.lower()), "")
@@ -173,7 +173,7 @@ class LinkAdmin(PageAdmin):
         if db_field.name == "slug":
             kwargs["required"] = True
             kwargs["help_text"] = None
-        return super(LinkAdmin, self).formfield_for_dbfield(db_field, request, **kwargs)
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
 
     def save_form(self, request, form, change):
         """
@@ -182,7 +182,7 @@ class LinkAdmin(PageAdmin):
         obj = form.save(commit=False)
         if not obj.id and "in_sitemap" not in form.fields:
             obj.in_sitemap = False
-        return super(LinkAdmin, self).save_form(request, form, change)
+        return super().save_form(request, form, change)
 
 
 admin.site.register(Page, PageAdmin)

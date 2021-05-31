@@ -57,7 +57,7 @@ class BaseImporterCommand(BaseCommand):
     def __init__(self, **kwargs):
         self.posts = []
         self.pages = []
-        super(BaseImporterCommand, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def add_post(
         self,

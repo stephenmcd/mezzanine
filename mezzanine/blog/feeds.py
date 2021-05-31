@@ -37,7 +37,7 @@ class PostsRSS(Feed):
         self.tag = kwargs.pop("tag", None)
         self.category = kwargs.pop("category", None)
         self.username = kwargs.pop("username", None)
-        super(PostsRSS, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._public = True
         page = None
         if "mezzanine.pages" in settings.INSTALLED_APPS:
@@ -51,7 +51,7 @@ class PostsRSS(Feed):
                 self._public = not page.login_required
         if self._public:
             if page is not None:
-                self._title = "%s | %s" % (page.title, settings.SITE_TITLE)
+                self._title = f"{page.title} | {settings.SITE_TITLE}"
                 self._description = strip_tags(page.description)
             else:
                 self._title = settings.SITE_TITLE
@@ -60,7 +60,7 @@ class PostsRSS(Feed):
     def __call__(self, *args, **kwarg):
         self._request = current_request()
         self._site = Site.objects.get(id=current_site_id())
-        return super(PostsRSS, self).__call__(*args, **kwarg)
+        return super().__call__(*args, **kwarg)
 
     def add_domain(self, link):
         return add_domain(self._site.domain, link, self._request.is_secure())
@@ -112,7 +112,7 @@ class PostsRSS(Feed):
         return self.add_domain(self._request.path)
 
     def item_link(self, item):
-        return self.add_domain(super(PostsRSS, self).item_link(item))
+        return self.add_domain(super().item_link(item))
 
     def item_author_name(self, item):
         return item.user.get_full_name() or item.user.username

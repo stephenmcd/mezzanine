@@ -17,4 +17,4 @@ class Setting(SiteRelated):
         verbose_name_plural = _("Settings")
 
     def __str__(self):
-        return "%s: %s" % (self.name, self.value)
+        return f"{self.name}: {self.value}"

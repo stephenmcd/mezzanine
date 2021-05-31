@@ -17,7 +17,7 @@ class LazyAdminSite(AdminSite):
 
     def __init__(self, *args, **kwargs):
         self._deferred = []
-        super(LazyAdminSite, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def register(self, *args, **kwargs):
         for name, deferred_args, deferred_kwargs in self._deferred:
@@ -25,7 +25,7 @@ class LazyAdminSite(AdminSite):
                 self._deferred.append(("register", args, kwargs))
                 break
         else:
-            super(LazyAdminSite, self).register(*args, **kwargs)
+            super().register(*args, **kwargs)
 
     def unregister(self, *args, **kwargs):
         self._deferred.append(("unregister", args, kwargs))
@@ -57,7 +57,7 @@ class LazyAdminSite(AdminSite):
 
     @property
     def urls(self):
-        urls = [url(r"", super(LazyAdminSite, self).urls)]
+        urls = [url(r"", super().urls)]
 
         # Filebrowser admin media library.
         fb_name = getattr(settings, "PACKAGE_NAME_FILEBROWSER", "")

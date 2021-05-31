@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Mezzanine documentation build configuration file, created by
 # sphinx-quickstart on Wed Mar 10 07:20:42 2010.

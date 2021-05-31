@@ -13,7 +13,7 @@ class Command(BaseImporterCommand):
     """
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument(
             "-a", "--api-token", dest="api_token", help="Posterous API Key"
         )
@@ -97,7 +97,7 @@ class Command(BaseImporterCommand):
                 )
                 if not post["comments_count"]:
                     continue
-                path = "sites/%s/posts/%s/comments" % (site["id"], post["id"])
+                path = "sites/{}/posts/{}/comments".format(site["id"], post["id"])
                 time.sleep(2)
                 comments = self.request(path)
                 for comment in comments:

@@ -103,7 +103,7 @@ class GenericTests(TestCase):
         Test that the keywords_string field is correctly populated.
         """
         page = RichTextPage.objects.create(title="test keywords")
-        keywords = set(["how", "now", "brown", "cow"])
+        keywords = {"how", "now", "brown", "cow"}
         Keyword.objects.all().delete()
         for keyword in keywords:
             keyword_id = Keyword.objects.get_or_create(title=keyword)[0].id
@@ -180,7 +180,7 @@ class GenericTests(TestCase):
 
         keyword_widget = KeywordsWidget()
 
-        keywords = set(["how", "now", "brown"])
+        keywords = {"how", "now", "brown"}
         Keyword.objects.all().delete()
         keyword_id_list = []
         for keyword in keywords:

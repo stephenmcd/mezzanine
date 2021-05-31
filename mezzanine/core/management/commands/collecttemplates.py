@@ -103,7 +103,7 @@ class Command(BaseCommand):
                     prev = " [copied from %s]" % template_src[name]
                 else:
                     prev = ""
-                self.stdout.write("While copying %s [from %s]:\n" % (name, app))
+                self.stdout.write(f"While copying {name} [from {app}]:\n")
                 self.stdout.write("Template exists%s.\n" % prev)
                 confirm = input("Overwrite?  (yes/no/abort): ")
                 while confirm not in ("yes", "no", "abort"):
@@ -124,4 +124,4 @@ class Command(BaseCommand):
                 count += 1
         if verbosity >= 1:
             s = "s" if count != 1 else ""
-            self.stdout.write("\nCopied %s template%s\n" % (count, s))
+            self.stdout.write(f"\nCopied {count} template{s}\n")

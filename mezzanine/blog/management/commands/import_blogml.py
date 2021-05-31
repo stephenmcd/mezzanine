@@ -18,7 +18,7 @@ class Command(BaseImporterCommand):
     """
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument(
             "-x",
             "--xmldumpfname",
@@ -69,7 +69,7 @@ class Command(BaseImporterCommand):
                 )
             ]
             post_dict["categories"] = list(
-                (blog_categories[category_id] for category_id in post_category_refs)
+                blog_categories[category_id] for category_id in post_category_refs
             )
             post_dict["tags"] = [
                 x.attrib["ref"]
@@ -100,9 +100,9 @@ class Command(BaseImporterCommand):
             cat_elements = root_tree.findall(
                 search_paths["find_categories"], namespaces=ns
             )
-            cat_ids = tuple((x.attrib["id"] for x in cat_elements))
+            cat_ids = tuple(x.attrib["id"] for x in cat_elements)
             cat_title_txt = tuple(
-                (x.find("blogml:title", namespaces=ns).text for x in cat_elements)
+                x.find("blogml:title", namespaces=ns).text for x in cat_elements
             )
             categories_dict = dict(zip(cat_ids, cat_title_txt))
             return categories_dict

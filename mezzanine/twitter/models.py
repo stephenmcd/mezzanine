@@ -41,7 +41,7 @@ class Query(models.Model):
         ordering = ("-id",)
 
     def __str__(self):
-        return "%s: %s" % (self.get_type_display(), self.value)
+        return f"{self.get_type_display()}: {self.value}"
 
     def run(self):
         """
@@ -159,7 +159,7 @@ class Tweet(models.Model):
         ordering = ("-created_at",)
 
     def __str__(self):
-        return "%s: %s" % (self.user_name, self.text)
+        return f"{self.user_name}: {self.text}"
 
     def is_retweet(self):
         return self.retweeter_user_name is not None

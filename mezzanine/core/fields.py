@@ -14,7 +14,7 @@ from mezzanine.utils.importing import import_dotted_path
 class OrderField(models.IntegerField):
     def formfield(self, **kwargs):
         kwargs.update({"widget": OrderWidget, "required": False})
-        return super(OrderField, self).formfield(**kwargs)
+        return super().formfield(**kwargs)
 
 
 class RichTextField(models.TextField):
@@ -44,7 +44,7 @@ class RichTextField(models.TextField):
                 )
             kwargs["widget"] = widget_class()
         kwargs.setdefault("required", False)
-        formfield = super(RichTextField, self).formfield(**kwargs)
+        formfield = super().formfield(**kwargs)
         return formfield
 
     def clean(self, value, model_instance):
@@ -76,7 +76,7 @@ class MultiChoiceField(models.CharField):
 
     def get_db_prep_value(self, value, connection, **kwargs):
         if isinstance(value, (tuple, list)):
-            value = ",".join([str(i) for i in value])
+            value = ",".join(str(i) for i in value)
         return value
 
     def from_db_value(self, value, expression, connection):
@@ -110,7 +110,7 @@ except ImportError:
         def __init__(self, *args, **kwargs):
             for fb_arg in ("format", "extensions"):
                 kwargs.pop(fb_arg, None)
-            super(FileField, self).__init__(*args, **kwargs)
+            super().__init__(*args, **kwargs)
 
 
 else:
@@ -119,4 +119,4 @@ else:
         def __init__(self, *args, **kwargs):
             kwargs.setdefault("directory", kwargs.pop("upload_to", None))
             kwargs.setdefault("max_length", 255)
-            super(FileField, self).__init__(*args, **kwargs)
+            super().__init__(*args, **kwargs)

@@ -116,7 +116,7 @@ class DisplayableAdmin(BaseTranslationModelAdmin):
     form = DisplayableAdminForm
 
     def __init__(self, *args, **kwargs):
-        super(DisplayableAdmin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         try:
             self.search_fields = list(
                 set(
@@ -139,7 +139,7 @@ class DisplayableAdmin(BaseTranslationModelAdmin):
         Save model for every language so that field auto-population
         is done for every each of it.
         """
-        super(DisplayableAdmin, self).save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
         if settings.USE_MODELTRANSLATION:
             lang = get_language()
             for code in OrderedDict(settings.LANGUAGES):
@@ -153,7 +153,7 @@ class DisplayableAdmin(BaseTranslationModelAdmin):
             activate(lang)
 
 
-class BaseDynamicInlineAdmin(object):
+class BaseDynamicInlineAdmin:
     """
     Admin inline that uses JS to inject an "Add another" link which
     when clicked, dynamically reveals another fieldset. Also handles
@@ -169,7 +169,7 @@ class BaseDynamicInlineAdmin(object):
         For subclasses of ``Orderable``, the ``_order`` field must
         always be present and be the last field.
         """
-        fields = super(BaseDynamicInlineAdmin, self).get_fields(request, obj)
+        fields = super().get_fields(request, obj)
         if issubclass(self.model, Orderable):
             fields = list(fields)
             try:
@@ -183,7 +183,7 @@ class BaseDynamicInlineAdmin(object):
         """
         Same as above, but for fieldsets.
         """
-        fieldsets = super(BaseDynamicInlineAdmin, self).get_fieldsets(request, obj)
+        fieldsets = super().get_fieldsets(request, obj)
         if issubclass(self.model, Orderable):
             for fieldset in fieldsets:
                 fields = [
@@ -236,7 +236,7 @@ class StackedDynamicInlineAdmin(
         if grappelli_name not in settings.INSTALLED_APPS:
             error = "StackedDynamicInlineAdmin requires Grappelli installed."
             raise Exception(error)
-        super(StackedDynamicInlineAdmin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class OwnableAdmin(admin.ModelAdmin):
@@ -260,7 +260,7 @@ class OwnableAdmin(admin.ModelAdmin):
         obj = form.save(commit=False)
         if obj.user_id is None:
             obj.user = request.user
-        return super(OwnableAdmin, self).save_form(request, form, change)
+        return super().save_form(request, form, change)
 
     def get_queryset(self, request):
         """
@@ -273,16 +273,16 @@ class OwnableAdmin(admin.ModelAdmin):
         not imply permission to edit.
         """
         opts = self.model._meta
-        model_name = ("%s.%s" % (opts.app_label, opts.object_name)).lower()
+        model_name = (f"{opts.app_label}.{opts.object_name}").lower()
         models_all_editable = settings.OWNABLE_MODELS_ALL_EDITABLE
         models_all_editable = [m.lower() for m in models_all_editable]
-        qs = super(OwnableAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request)
         if request.user.is_superuser or model_name in models_all_editable:
             return qs
         return qs.filter(user__id=request.user.id)
 
 
-class ContentTypedAdmin(object):
+class ContentTypedAdmin:
     def __init__(self, *args, **kwargs):
         """
         For subclasses that are registered with an Admin class
@@ -291,7 +291,7 @@ class ContentTypedAdmin(object):
         adding all model fields when no fieldsets are defined on the
         Admin class.
         """
-        super(ContentTypedAdmin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.concrete_model = base_concrete_model(ContentTyped, self.model)
 
@@ -365,7 +365,7 @@ class ContentTypedAdmin(object):
             change_url = admin_url(content_model.__class__, "change", content_model.id)
             return HttpResponseRedirect(change_url)
 
-        return super(ContentTypedAdmin, self).change_view(request, object_id, **kwargs)
+        return super().change_view(request, object_id, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         """ Redirect to the changelist view for subclasses. """
@@ -375,7 +375,7 @@ class ContentTypedAdmin(object):
         extra_context = extra_context or {}
         extra_context["content_models"] = self.get_content_models()
 
-        return super(ContentTypedAdmin, self).changelist_view(request, extra_context)
+        return super().changelist_view(request, extra_context)
 
     def get_content_models(self):
         """ Return all subclasses that are admin registered. """
@@ -424,7 +424,7 @@ class SitePermissionUserAdmin(UserAdmin):
         """
         Provides a warning if the user is an active admin with no admin access.
         """
-        super(SitePermissionUserAdmin, self).save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
         user = self.model.objects.get(id=obj.id)
         has_perms = len(user.get_all_permissions()) > 0
         has_sites = SitePermission.objects.filter(user=user).exists()
@@ -475,7 +475,7 @@ class SiteRedirectAdmin(RedirectAdmin):
         """
         Filters the list view by current site.
         """
-        queryset = super(SiteRedirectAdmin, self).get_queryset(request)
+        queryset = super().get_queryset(request)
         return queryset.filter(site_id=current_site_id())
 
     def save_form(self, request, form, change):
@@ -485,7 +485,7 @@ class SiteRedirectAdmin(RedirectAdmin):
         obj = form.save(commit=False)
         if not obj.site_id:
             obj.site_id = current_site_id()
-        return super(SiteRedirectAdmin, self).save_form(request, form, change)
+        return super().save_form(request, form, change)
 
 
 if "django.contrib.redirects" in settings.INSTALLED_APPS:

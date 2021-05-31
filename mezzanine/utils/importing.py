@@ -21,7 +21,7 @@ def import_dotted_path(path):
         module = import_module(module_path)
         return getattr(module, member_name)
     except (ValueError, ImportError, AttributeError) as e:
-        raise ImportError("Could not import the name: %s: %s" % (path, e))
+        raise ImportError(f"Could not import the name: {path}: {e}")
 
 
 def get_app_name_list():

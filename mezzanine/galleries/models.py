@@ -52,7 +52,7 @@ class BaseGallery(models.Model):
         If a zip file is uploaded, extract any images from it and add
         them to the gallery, before removing the zip file.
         """
-        super(BaseGallery, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         if self.zip_import:
             zip_file = ZipFile(self.zip_import)
             for name in zip_file.namelist():
@@ -154,14 +154,12 @@ class GalleryImage(Orderable):
             name = force_text(self.file)
             name = name.rsplit("/", 1)[-1].rsplit(".", 1)[0]
             name = name.replace("'", "")
-            name = "".join([c if c not in punctuation else " " for c in name])
+            name = "".join(c if c not in punctuation else " " for c in name)
             # str.title() doesn't deal with unicode very well.
             # http://bugs.python.org/issue6412
             name = "".join(
-                [
-                    s.upper() if i == 0 or name[i - 1] == " " else s
-                    for i, s in enumerate(name)
-                ]
+                s.upper() if i == 0 or name[i - 1] == " " else s
+                for i, s in enumerate(name)
             )
             self.description = name
-        super(GalleryImage, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)

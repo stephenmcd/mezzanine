@@ -29,7 +29,7 @@ class TestsForm(TestCase):
             response = self.client.get(form.get_absolute_url())
             self.assertEqual(response.status_code, 200)
             visible_fields = form.fields.visible()
-            data = dict([("field_%s" % f.id, "test") for f in visible_fields])
+            data = {"field_%s" % f.id: "test" for f in visible_fields}
             response = self.client.post(form.get_absolute_url(), data=data)
             self.assertEqual(response.status_code, 200)
 

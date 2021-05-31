@@ -30,7 +30,7 @@ class Command(BaseImporterCommand):
     """
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument(
             "-t", "--tumblr-user", dest="tumblr_user", help="Tumblr username"
         )
@@ -51,7 +51,7 @@ class Command(BaseImporterCommand):
         while True:
             retries = MAX_RETRIES_PER_CALL
             try:
-                call_url = "%s?start=%s" % (json_url, start_index)
+                call_url = f"{json_url}?start={start_index}"
                 if verbosity >= 2:
                     print("Calling %s" % call_url)
                 response = urlopen(call_url)
@@ -67,8 +67,8 @@ class Command(BaseImporterCommand):
                     sleep(3)
                     continue
                 elif response.code != 200:
-                    raise IOError("HTTP status %s" % response.code)
-            except IOError as e:
+                    raise OSError("HTTP status %s" % response.code)
+            except OSError as e:
                 error = "Error communicating with Tumblr API (%s)" % e
                 raise CommandError(error)
 

@@ -131,7 +131,7 @@ class FormForForm(forms.ModelForm):
         if kwargs.get("instance"):
             for field_entry in kwargs["instance"].fields.all():
                 field_entries[field_entry.field_id] = field_entry.value
-        super(FormForForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         # Create the form fields.
         for field in self.form_fields:
             field_key = "field_%s" % field.id
@@ -203,7 +203,7 @@ class FormForForm(forms.ModelForm):
         Create a ``FormEntry`` instance and related ``FieldEntry``
         instances for each form field.
         """
-        entry = super(FormForForm, self).save(commit=False)
+        entry = super().save(commit=False)
         entry.form = self.form
         entry.entry_time = now()
         entry.save()
@@ -215,7 +215,7 @@ class FormForForm(forms.ModelForm):
             if value and self.fields[field_key].widget.needs_multipart_form:
                 value = fs.save(join("forms", str(uuid4()), value.name), value)
             if isinstance(value, list):
-                value = ", ".join([v.strip() for v in value])
+                value = ", ".join(v.strip() for v in value)
             if field.id in entry_fields:
                 field_entry = entry.fields.get(field_id=field.id)
                 field_entry.value = value
@@ -257,7 +257,7 @@ class EntriesForm(forms.Form):
         self.request = request
         self.form_fields = form.fields.all()
         self.entry_time_name = str(FormEntry._meta.get_field("entry_time").verbose_name)
-        super(EntriesForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         for field in self.form_fields:
             field_key = "field_%s" % field.id
             # Checkbox for including in export.

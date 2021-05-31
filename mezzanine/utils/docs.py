@@ -68,7 +68,7 @@ def build_settings_docs(docs_path, prefix=None):
         )
         if setting["choices"]:
             choices = ", ".join(
-                ["%s: ``%s``" % (str(v), force_text(k)) for k, v in setting["choices"]]
+                f"{str(v)}: ``{force_text(k)}``" for k, v in setting["choices"]
             )
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])
@@ -92,7 +92,7 @@ def build_deploy_docs(docs_path):
     lines = []
     for name in sorted(commands.keys()):
         doc = commands[name].__doc__.strip().split("\n")[0]
-        lines.append("  * ``fab %s`` - %s" % (name, doc))
+        lines.append(f"  * ``fab {name}`` - {doc}")
     with open(os.path.join(docs_path, "fabfile.rst"), "w") as f:
         f.write("\n".join(lines))
 
@@ -184,7 +184,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
                 last = ""
                 if word[-1] in ",.":
                     last, word = word[-1], word[:-1]
-                words[i] = "``%s``%s" % (word, last)
+                words[i] = f"``{word}``{last}"
         description = " ".join(words)
         if version_file in files:
             for line in cs[version_file].data().split("\n"):
@@ -242,7 +242,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
             if not hotfix:
                 continue
         user = cs.user().decode("utf-8").split("<")[0].strip()
-        entry = "%s - %s" % (description, user)
+        entry = f"{description} - {user}"
         if hotfix or entry not in versions[version]["changes"]:
             if hotfix:
                 versions[hotfix] = {
@@ -255,7 +255,7 @@ def build_changelog(docs_path, package_name="mezzanine"):
     # Write out the changelog.
     with open(changelog_file, "w") as f:
         for version, version_info in versions.items():
-            header = "Version %s (%s)" % (version, version_info["date"])
+            header = "Version {} ({})".format(version, version_info["date"])
             f.write("%s\n" % header)
             f.write("%s\n" % ("-" * len(header)))
             f.write("\n")
@@ -332,7 +332,7 @@ def build_requirements(docs_path, package_name="mezzanine"):
     requirements_file = os.path.join(
         project_path, package_name, "project_template", "requirements.txt"
     )
-    with open(requirements_file, "r") as f:
+    with open(requirements_file) as f:
         requirements = f.readlines()
     with open(requirements_file, "w") as f:
         f.write("Mezzanine==%s\n" % __version__)

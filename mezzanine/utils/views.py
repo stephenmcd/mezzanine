@@ -29,7 +29,7 @@ def is_editable(obj, request):
         return obj.is_editable(request)
     else:
         codename = get_permission_codename("change", obj._meta)
-        perm = "%s.%s" % (obj._meta.app_label, codename)
+        perm = f"{obj._meta.app_label}.{codename}"
         return (
             is_authenticated(request.user)
             and has_site_permission(request.user)

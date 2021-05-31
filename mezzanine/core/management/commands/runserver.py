@@ -19,7 +19,7 @@ class MezzStaticFilesHandler(StaticFilesHandler):
         return path.startswith((settings.STATIC_URL, settings.MEDIA_URL))
 
     def get_response(self, request):
-        response = super(MezzStaticFilesHandler, self).get_response(request)
+        response = super().get_response(request)
         if response.status_code == 404:
             locations = (
                 (settings.STATIC_URL, settings.STATIC_ROOT),
@@ -45,7 +45,7 @@ def banner():
     db_name = {
         "microsoft": "sql server",
     }.get(conn.vendor, conn.vendor)
-    db_name = "%s%s" % (
+    db_name = "{}{}".format(
         db_name[:1].upper(),
         db_name.replace("sql", "SQL").replace("db", "DB")[1:],
     )
@@ -148,7 +148,7 @@ class Command(runserver.Command):
     """
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument(
             "--nobanner",
             action="store_false",
@@ -167,10 +167,10 @@ class Command(runserver.Command):
                 self.stdout.write(banner())
             except:  # noqa
                 pass
-        super(Command, self).inner_run(*args, **kwargs)
+        super().inner_run(*args, **kwargs)
 
     def get_handler(self, *args, **options):
-        handler = super(Command, self).get_handler(*args, **options)
+        handler = super().get_handler(*args, **options)
         if settings.DEBUG or options["insecure_serving"]:
             handler = MezzStaticFilesHandler(handler)
         return handler

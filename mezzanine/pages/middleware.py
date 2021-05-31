@@ -33,7 +33,7 @@ class PageMiddleware(MiddlewareMixin):
     """
 
     def __init__(self, *args, **kwargs):
-        super(PageMiddleware, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if "mezzanine.pages" not in settings.INSTALLED_APPS:
             raise MiddlewareNotUsed
 
@@ -109,7 +109,7 @@ class PageMiddleware(MiddlewareMixin):
                         if k not in extra_context:
                             extra_context[k] = v
                 except (TypeError, ValueError):
-                    name = "%s.%s" % (processor.__module__, processor.__name__)
+                    name = f"{processor.__module__}.{processor.__name__}"
                     error = (
                         "The page processor %s returned %s but must "
                         "return HttpResponse or dict."

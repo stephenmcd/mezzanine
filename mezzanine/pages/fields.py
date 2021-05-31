@@ -10,7 +10,7 @@ class MenusField(MultiChoiceField):
     def __init__(self, *args, **kwargs):
         defaults = {"max_length": 100}
         defaults.update(kwargs)
-        super(MenusField, self).__init__(*args, **defaults)
+        super().__init__(*args, **defaults)
         self._overridden_default = "default" in kwargs
         self._overridden_choices = "choices" in kwargs
 

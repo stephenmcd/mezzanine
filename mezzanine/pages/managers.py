@@ -18,7 +18,7 @@ class PageManager(DisplayableManager):
         ``login_required`` field manually, such as the case in
         ``PageMiddleware``.
         """
-        published = super(PageManager, self).published(for_user=for_user)
+        published = super().published(for_user=for_user)
         unauthenticated = for_user and not is_authenticated(for_user)
         if (
             unauthenticated

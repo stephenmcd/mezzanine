@@ -45,7 +45,7 @@ def admin_page_ordering(request):
     return HttpResponse("ok")
 
 
-def page(request, slug, template=u"pages/page.html", extra_context=None):
+def page(request, slug, template="pages/page.html", extra_context=None):
     """
     Select a template for a page and render it. The request
     object should have a ``page`` attribute that's added via
@@ -81,23 +81,21 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     # is configured as a page instance, the template "pages/index.html" is
     # used, since the slug "/" won't match a template name.
     template_name = str(slug) if slug != home_slug() else "index"
-    templates = [u"pages/%s.html" % template_name]
+    templates = ["pages/%s.html" % template_name]
     method_template = request.page.get_content_model().get_template_name()
     if method_template:
         templates.insert(0, method_template)
     if request.page.content_model is not None:
-        templates.append(
-            u"pages/%s/%s.html" % (template_name, request.page.content_model)
-        )
+        templates.append(f"pages/{template_name}/{request.page.content_model}.html")
     for parent in request.page.get_ascendants(for_user=request.user):
         parent_template_name = str(parent.slug)
         # Check for a template matching the page's content model.
         if request.page.content_model is not None:
             templates.append(
-                u"pages/%s/%s.html" % (parent_template_name, request.page.content_model)
+                f"pages/{parent_template_name}/{request.page.content_model}.html"
             )
     # Check for a template matching the page's content model.
     if request.page.content_model is not None:
-        templates.append(u"pages/%s.html" % request.page.content_model)
+        templates.append("pages/%s.html" % request.page.content_model)
     templates.append(template)
     return TemplateResponse(request, templates, extra_context or {})

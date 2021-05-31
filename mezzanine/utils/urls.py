@@ -17,7 +17,7 @@ def admin_url(model, url, object_id=None):
     Returns the URL for the given model and admin url name.
     """
     opts = model._meta
-    url = "admin:%s_%s_%s" % (opts.app_label, opts.object_name.lower(), url)
+    url = f"admin:{opts.app_label}_{opts.object_name.lower()}_{url}"
     args = ()
     if object_id is not None:
         args = (object_id,)
@@ -74,7 +74,7 @@ def unique_slug(queryset, slug_field, slug):
         if i > 0:
             if i > 1:
                 slug = slug.rsplit("-", 1)[0]
-            slug = "%s-%s" % (slug, i)
+            slug = f"{slug}-{i}"
         try:
             queryset.get(**{slug_field: slug})
         except ObjectDoesNotExist:

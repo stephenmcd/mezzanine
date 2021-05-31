@@ -16,7 +16,7 @@ def disqus_id_for(obj):
     Returns a unique identifier for the object to be used in
     DISQUS JavaScript.
     """
-    return "%s-%s" % (obj._meta.object_name, obj.id)
+    return f"{obj._meta.object_name}-{obj.id}"
 
 
 @register.inclusion_tag("generic/includes/disqus_sso.html", takes_context=True)
@@ -54,9 +54,9 @@ def _get_disqus_sso(user, public_key, secret_key):
     # generate our hmac signature
     sig = hmac.HMAC(
         secret_key.encode("utf8"),
-        ("%s %s" % (message, timestamp)).encode("utf8"),
+        (f"{message} {timestamp}").encode("utf8"),
         hashlib.sha1,
     ).hexdigest()
 
     # Messages are of the form <message> <signature> <timestamp>
-    return "%s %s %s" % (message, sig, timestamp)
+    return f"{message} {sig} {timestamp}"

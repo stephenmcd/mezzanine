@@ -52,12 +52,12 @@ env.hosts = conf.get("HOSTS", [""])
 env.proj_name = conf.get("PROJECT_NAME", env.proj_app)
 env.venv_home = conf.get("VIRTUALENV_HOME", "/home/%s/.virtualenvs" % env.user)
 env.venv_path = join(env.venv_home, env.proj_name)
-env.proj_path = "/home/%s/mezzanine/%s" % (env.user, env.proj_name)
-env.manage = "%s/bin/python %s/manage.py" % (env.venv_path, env.proj_path)
+env.proj_path = f"/home/{env.user}/mezzanine/{env.proj_name}"
+env.manage = f"{env.venv_path}/bin/python {env.proj_path}/manage.py"
 env.domains = conf.get("DOMAINS", [conf.get("LIVE_HOSTNAME", env.hosts[0])])
 env.domains_nginx = " ".join(env.domains)
 env.domains_regex = "|".join(env.domains)
-env.domains_python = ", ".join(["'%s'" % s for s in env.domains])
+env.domains_python = ", ".join("'%s'" % s for s in env.domains)
 env.ssl_disabled = "#" if len(env.domains) > 1 else ""
 env.vcs_tools = ["git", "hg"]
 env.deploy_tool = conf.get("DEPLOY_TOOL", "rsync")
@@ -78,7 +78,7 @@ if (
 
 # Remote git repos need to be "bare" and reside separated from the project
 if env.deploy_tool == "git":
-    env.repo_path = "/home/%s/git/%s.git" % (env.user, env.proj_name)
+    env.repo_path = f"/home/{env.user}/git/{env.proj_name}.git"
 else:
     env.repo_path = env.proj_path
 
@@ -170,7 +170,7 @@ def update_changed_requirements():
             else:
                 # All requirements are pinned.
                 return
-        pip("-r %s/%s" % (env.proj_path, env.reqs_path))
+        pip(f"-r {env.proj_path}/{env.reqs_path}")
 
 
 ###########################################
@@ -226,7 +226,7 @@ def get_templates():
     """
     injected = {}
     for name, data in templates.items():
-        injected[name] = dict([(k, v % env) for k, v in data.items()])
+        injected[name] = {k: v % env for k, v in data.items()}
     return injected
 
 
@@ -248,7 +248,7 @@ def upload_template_and_reload(name):
     if exists(remote_path):
         with hide("stdout"):
             remote_data = sudo("cat %s" % remote_path, show=False)
-    with open(local_path, "r") as f:
+    with open(local_path) as f:
         local_data = f.read()
         # Escape all non-string-formatting-placeholder occurrences of '%':
         local_data = re.sub(r"%(?!\(\w+\)s)", "%%", local_data)
@@ -260,9 +260,9 @@ def upload_template_and_reload(name):
         return
     upload_template(local_path, remote_path, env, use_sudo=True, backup=False)
     if owner:
-        sudo("chown %s %s" % (owner, remote_path))
+        sudo(f"chown {owner} {remote_path}")
     if mode:
-        sudo("chmod %s %s" % (mode, remote_path))
+        sudo(f"chmod {mode} {remote_path}")
     if reload_command:
         sudo(reload_command)
 
@@ -282,7 +282,7 @@ def rsync_upload():
         "/.git",
         "/.hg",
     ]
-    local_dir = "'%s%s'" % (os.getcwd(), os.sep)
+    local_dir = f"'{os.getcwd()}{os.sep}'"
     return rsync_project(
         remote_dir=env.proj_path, local_dir=local_dir, exclude=excludes
     )
@@ -293,7 +293,7 @@ def vcs_upload():
     Uploads the project with the selected VCS tool.
     """
     if env.deploy_tool == "git":
-        remote_path = "ssh://%s@%s%s" % (env.user, env.host_string, env.repo_path)
+        remote_path = f"ssh://{env.user}@{env.host_string}{env.repo_path}"
         if not exists(env.repo_path):
             run("mkdir -p %s" % env.repo_path)
             with cd(env.repo_path):
@@ -303,7 +303,7 @@ def vcs_upload():
             run("GIT_WORK_TREE=%s git checkout -f master" % env.proj_path)
             run("GIT_WORK_TREE=%s git reset --hard" % env.proj_path)
     elif env.deploy_tool == "hg":
-        remote_path = "ssh://%s@%s/%s" % (env.user, env.host_string, env.repo_path)
+        remote_path = f"ssh://{env.user}@{env.host_string}/{env.repo_path}"
         with cd(env.repo_path):
             if not exists("%s/.hg" % env.repo_path):
                 run("hg init")
@@ -370,7 +370,7 @@ def backup(filename):
     # We cd to / because user "postgres" might not have read permissions
     # elsewhere.
     with cd("/"):
-        postgres("pg_dump -Fc %s > %s" % (env.proj_name, tmp_file))
+        postgres(f"pg_dump -Fc {env.proj_name} > {tmp_file}")
     run("cp %s ." % tmp_file)
     sudo("rm -f %s" % tmp_file)
 
@@ -380,7 +380,7 @@ def restore(filename):
     """
     Restores the project database from a previous backup.
     """
-    return postgres("pg_restore -c -d %s %s" % (env.proj_name, filename))
+    return postgres(f"pg_restore -c -d {env.proj_name} {filename}")
 
 
 @task
@@ -394,7 +394,7 @@ def python(code, show=True):
         "import django;"
         "django.setup();" % env.proj_app
     )
-    full_code = 'python -c "%s%s"' % (setup, code.replace("`", "\\\`"))  # noqa
+    full_code = 'python -c "{}{}"'.format(setup, code.replace("`", "\\\\`"))  # noqa
     with project():
         if show:
             print_command(code)
@@ -416,7 +416,7 @@ def manage(command):
     """
     Runs a Django management command.
     """
-    return run("%s %s" % (env.manage, command))
+    return run(f"{env.manage} {command}")
 
 
 ###########################
@@ -473,7 +473,7 @@ def install():
 
     # Set up virtualenv
     run("mkdir -p %s" % env.venv_home)
-    run("echo 'export WORKON_HOME=%s' >> /home/%s/.bashrc" % (env.venv_home, env.user))
+    run(f"echo 'export WORKON_HOME={env.venv_home}' >> /home/{env.user}/.bashrc")
     run(
         "echo 'source /usr/local/bin/virtualenvwrapper.sh' >> "
         "/home/%s/.bashrc" % env.user
@@ -565,7 +565,7 @@ def create():
     upload_template_and_reload("settings")
     with project():
         if env.reqs_path:
-            pip("-r %s/%s" % (env.proj_path, env.reqs_path))
+            pip(f"-r {env.proj_path}/{env.reqs_path}")
         pip("gunicorn setproctitle psycopg2 " "django-compressor python-memcached")
         # Bootstrap the DB
         manage("createdb --noinput --nodata")

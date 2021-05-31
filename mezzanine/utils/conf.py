@@ -11,7 +11,7 @@ from mezzanine.utils.deprecation import get_middleware_setting
 from mezzanine.utils.timezone import get_best_local_timezone
 
 
-class SitesAllowedHosts(object):
+class SitesAllowedHosts:
     """
     This is a fallback for Django's ALLOWED_HOSTS setting
     which is required when DEBUG is False. It looks up the

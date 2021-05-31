@@ -18,7 +18,7 @@ FORMFIELD_HTML = """
 """
 
 
-class TweetableAdminMixin(object):
+class TweetableAdminMixin:
     """
     Admin mixin that adds a "Send to Twitter" checkbox to the add/change
     views, which when checked, will send a tweet with the title and link
@@ -34,9 +34,7 @@ class TweetableAdminMixin(object):
         formsets attribute of the admin class fell apart quite
         horrifically.
         """
-        formfield = super(TweetableAdminMixin, self).formfield_for_dbfield(
-            db_field, request, **kwargs
-        )
+        formfield = super().formfield_for_dbfield(db_field, request, **kwargs)
         if Api and db_field.name == "status" and get_auth_settings():
 
             def wrapper(render):
@@ -54,10 +52,10 @@ class TweetableAdminMixin(object):
         """
         Sends a tweet with the title/short_url if applicable.
         """
-        super(TweetableAdminMixin, self).save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
         if Api and request.POST.get("send_tweet", False):
             auth_settings = get_auth_settings()
             obj.set_short_url()
             message = truncatechars(obj, 140 - len(obj.short_url) - 1)
             api = Api(*auth_settings)
-            api.PostUpdate("%s %s" % (message, obj.short_url))
+            api.PostUpdate(f"{message} {obj.short_url}")

@@ -81,7 +81,7 @@ def cache_key_prefix(request):
     Cache key for Mezzanine's cache middleware. Adds the current
     site ID.
     """
-    cache_key = "%s.%s.%s" % (
+    cache_key = "{}.{}.{}".format(
         settings.CACHE_MIDDLEWARE_KEY_PREFIX,
         current_site_id(),
         # This last part used to indicate the device type for the request,

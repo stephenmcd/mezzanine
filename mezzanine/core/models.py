@@ -60,7 +60,7 @@ class SiteRelated(models.Model):
         """
         if update_site or (self.id is None and self.site_id is None):
             self.site_id = current_site_id()
-        super(SiteRelated, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class Slugged(SiteRelated):
@@ -89,7 +89,7 @@ class Slugged(SiteRelated):
         """
         if not self.slug:
             self.slug = self.generate_unique_slug()
-        super(Slugged, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def generate_unique_slug(self):
         """
@@ -159,7 +159,7 @@ class MetaData(models.Model):
         """
         if self.gen_description:
             self.description = strip_tags(self.description_from_content())
-        super(MetaData, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def meta_title(self):
         """
@@ -222,7 +222,7 @@ class TimeStamped(models.Model):
         self.updated = _now
         if not self.id:
             self.created = _now
-        super(TimeStamped, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 CONTENT_STATUS_DRAFT = 1
@@ -280,7 +280,7 @@ class Displayable(Slugged, MetaData, TimeStamped):
         """
         if self.publish_date is None:
             self.publish_date = now()
-        super(Displayable, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_admin_url(self):
         return admin_url(self, "change", self.id)
@@ -437,7 +437,7 @@ class OrderableBase(ModelBase):
             del attrs["Meta"].order_with_respect_to
         if not hasattr(attrs["Meta"], "ordering"):
             setattr(attrs["Meta"], "ordering", ("_order",))
-        return super(OrderableBase, cls).__new__(cls, name, bases, attrs)
+        return super().__new__(cls, name, bases, attrs)
 
 
 class Orderable(models.Model, metaclass=OrderableBase):
@@ -472,7 +472,7 @@ class Orderable(models.Model, metaclass=OrderableBase):
         field = getattr(self.__class__, name)
         if isinstance(field, GenericForeignKey):
             names = (field.ct_field, field.fk_field)
-            return dict([(n, getattr(self, n)) for n in names])
+            return {n: getattr(self, n) for n in names}
         return {name: value}
 
     def save(self, *args, **kwargs):
@@ -484,7 +484,7 @@ class Orderable(models.Model, metaclass=OrderableBase):
             lookup["_order__isnull"] = False
             concrete_model = base_concrete_model(Orderable, self)
             self._order = concrete_model.objects.filter(**lookup).count()
-        super(Orderable, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         """
@@ -495,7 +495,7 @@ class Orderable(models.Model, metaclass=OrderableBase):
         concrete_model = base_concrete_model(Orderable, self)
         after = concrete_model.objects.filter(**lookup)
         after.update(_order=models.F("_order") - 1)
-        super(Orderable, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)
 
     def _get_next_or_previous_by_order(self, is_next, **kwargs):
         """

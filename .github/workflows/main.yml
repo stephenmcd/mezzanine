@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: pip install tox -U pip
       - name: Lint
-        run: tox -e package -e lint
+        run: tox -e package -e lint -e pyupgrade
 
   # Create a new semantic release
   release:

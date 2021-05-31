@@ -86,7 +86,7 @@ def register_setting(
     }
 
 
-class Settings(object):
+class Settings:
     """
     An object that provides settings via dynamic attribute access.
 
@@ -104,7 +104,7 @@ class Settings(object):
     of access for all settings.
     """
 
-    class Placeholder(object):
+    class Placeholder:
         """A Weakly-referable wrapper of ``object``."""
 
         pass

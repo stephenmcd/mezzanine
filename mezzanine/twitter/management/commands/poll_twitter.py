@@ -20,7 +20,7 @@ class Command(BaseCommand):
             try:
                 query.run()
             except TwitterQueryException as e:
-                print("Twitter query error [%s]: %s" % (query, e))
+                print(f"Twitter query error [{query}]: {e}")
         try:
             db.close_connection()
         except:  # noqa

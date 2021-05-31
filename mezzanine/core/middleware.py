@@ -109,7 +109,7 @@ class TemplateForDeviceMiddleware(MiddlewareMixin):
     """
 
     def __init__(self, *args, **kwargs):
-        super(TemplateForDeviceMiddleware, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         warnings.warn(
             "`TemplateForDeviceMiddleware` is deprecated. "
             "Please remove it from your middleware settings.",
@@ -124,7 +124,7 @@ class TemplateForHostMiddleware(MiddlewareMixin):
     """
 
     def __init__(self, *args, **kwargs):
-        super(TemplateForHostMiddleware, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         warnings.warn(
             "`TemplateForHostMiddleware` is deprecated. Please upgrade "
             "to the template loader. See: https://goo.gl/SzHPR4",
@@ -264,7 +264,7 @@ class SSLRedirectMiddleware(MiddlewareMixin):
             "#module-django.middleware.security for alternative solutions.",
             DeprecationWarning,
         )
-        super(SSLRedirectMiddleware, self).__init__(*args)
+        super().__init__(*args)
 
     def languages(self):
         if not hasattr(self, "_languages"):
@@ -275,10 +275,10 @@ class SSLRedirectMiddleware(MiddlewareMixin):
         force_host = settings.SSL_FORCE_HOST
         response = None
         if force_host and request.get_host().split(":")[0] != force_host:
-            url = "http://%s%s" % (force_host, request.get_full_path())
+            url = f"http://{force_host}{request.get_full_path()}"
             response = HttpResponsePermanentRedirect(url)
         elif settings.SSL_ENABLED and not settings.DEV_SERVER:
-            url = "%s%s" % (request.get_host(), request.get_full_path())
+            url = f"{request.get_host()}{request.get_full_path()}"
             path = request.path
             if settings.USE_I18N and path[1:3] in self.languages():
                 path = path[3:]
@@ -310,7 +310,7 @@ class RedirectFallbackMiddleware(MiddlewareMixin):
     """
 
     def __init__(self, *args, **kwargs):
-        super(RedirectFallbackMiddleware, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if "django.contrib.redirects" not in settings.INSTALLED_APPS:
             raise MiddlewareNotUsed
 

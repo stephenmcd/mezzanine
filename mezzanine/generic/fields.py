@@ -43,7 +43,7 @@ class BaseGenericRelation(GenericRelation):
             self.related_model
         except (AppRegistryNotReady, AttributeError):
             # if not, all is good
-            super(BaseGenericRelation, self).__init__(*args, **kwargs)
+            super().__init__(*args, **kwargs)
         else:
             # otherwise, warn the user to stick to the new (as of 4.0)
             # ``default_related_model`` attribute
@@ -64,7 +64,7 @@ class BaseGenericRelation(GenericRelation):
         """
         for field in cls._meta.many_to_many:
             if isinstance(field, self.__class__):
-                e = "Multiple %s fields are not supported (%s.%s, %s.%s)" % (
+                e = "Multiple {} fields are not supported ({}.{}, {}.{})".format(
                     self.__class__.__name__,
                     cls.__name__,
                     cls.__name__,
@@ -73,7 +73,7 @@ class BaseGenericRelation(GenericRelation):
                 )
                 raise ImproperlyConfigured(e)
         self.related_field_name = name
-        super(BaseGenericRelation, self).contribute_to_class(cls, name)
+        super().contribute_to_class(cls, name)
         # Not applicable to abstract classes, and in fact will break.
         if not cls._meta.abstract:
             for (name_string, field) in self.fields.items():
@@ -171,7 +171,7 @@ class KeywordsField(BaseGenericRelation):
         admin class fieldsets and pass validation, and also so that
         it shows up in the admin form.
         """
-        super(KeywordsField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.editable = True
 
     def formfield(self, **kwargs):
@@ -182,7 +182,7 @@ class KeywordsField(BaseGenericRelation):
         from mezzanine.generic.forms import KeywordsWidget
 
         kwargs["widget"] = KeywordsWidget
-        return super(KeywordsField, self).formfield(**kwargs)
+        return super().formfield(**kwargs)
 
     def save_form_data(self, instance, data):
         """
@@ -214,7 +214,7 @@ class KeywordsField(BaseGenericRelation):
         Swap out any reference to ``KeywordsField`` with the
         ``KEYWORDS_FIELD_string`` field in ``search_fields``.
         """
-        super(KeywordsField, self).contribute_to_class(cls, name)
+        super().contribute_to_class(cls, name)
         string_field_name = list(self.fields.keys())[0] % self.related_field_name
         if hasattr(cls, "search_fields") and name in cls.search_fields:
             try:
@@ -235,7 +235,7 @@ class KeywordsField(BaseGenericRelation):
         Stores the keywords as a single string for searching.
         """
         assigned = related_manager.select_related("keyword")
-        keywords = " ".join([str(a.keyword) for a in assigned])
+        keywords = " ".join(str(a.keyword) for a in assigned)
         string_field_name = list(self.fields.keys())[0] % self.related_field_name
         if getattr(instance, string_field_name) != keywords:
             setattr(instance, string_field_name, keywords)

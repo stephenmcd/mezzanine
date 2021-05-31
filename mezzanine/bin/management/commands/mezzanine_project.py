@@ -16,7 +16,7 @@ class Command(BaseCommand):
     help = BaseCommand.help.replace("Django", "Mezzanine")
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument(
             "-a",
             "--alternate",
@@ -35,7 +35,7 @@ class Command(BaseCommand):
         # Indicate that local_settings.py.template should be rendered
         options["files"].append("local_settings.py.template")
 
-        super(Command, self).handle(*args, **options)
+        super().handle(*args, **options)
 
         target = options.get("target", None)
         name = options["name"]
@@ -98,4 +98,4 @@ class Command(BaseCommand):
         """
         if template is None:
             return str(os.path.join(mezzanine.__path__[0], subdir))
-        return super(Command, self).handle_template(template, subdir)
+        return super().handle_template(template, subdir)

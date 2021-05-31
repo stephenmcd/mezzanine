@@ -169,7 +169,7 @@ class TagCloser(HTMLParser):
         except HTMLParseError:
             pass
         else:
-            self.html += "".join(["</%s>" % tag for tag in self.tags])
+            self.html += "".join("</%s>" % tag for tag in self.tags)
 
     def handle_starttag(self, tag, attrs):
         if tag not in SELF_CLOSING_TAGS:

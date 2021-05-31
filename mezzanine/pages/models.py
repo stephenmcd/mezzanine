@@ -86,7 +86,7 @@ class Page(BasePage, ContentTyped):
             titles.insert(0, parent.title)
             parent = parent.parent
         self.titles = " / ".join(titles)
-        super(Page, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def description_from_content(self):
         """
@@ -98,7 +98,7 @@ class Page(BasePage, ContentTyped):
         if self.__class__ == Page:
             if self.content_model:
                 return self.get_content_model().description_from_content()
-        return super(Page, self).description_from_content()
+        return super().description_from_content()
 
     def get_ascendants(self, for_user=None):
         """
@@ -136,9 +136,9 @@ class Page(BasePage, ContentTyped):
         """
         Recursively build the slug from the chain of parents.
         """
-        slug = super(Page, self).get_slug()
+        slug = super().get_slug()
         if self.parent is not None:
-            return "%s/%s" % (self.parent.slug, slug)
+            return f"{self.parent.slug}/{slug}"
         return slug
 
     def set_slug(self, new_slug):

@@ -36,7 +36,7 @@ class UserProfileAdmin(SitePermissionUserAdmin):
                     must_send_verification_mail_after_save = True
                 else:
                     send_approved_mail(request, obj)
-        super(UserProfileAdmin, self).save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
         if must_send_verification_mail_after_save:
             user = User.objects.get(id=obj.id)
             send_verification_mail(request, user, "signup_verify")

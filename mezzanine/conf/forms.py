@@ -29,7 +29,7 @@ class SettingsForm(forms.Form):
     """
 
     def __init__(self, *args, **kwargs):
-        super(SettingsForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         # Create a form field for each editable setting's from its type.
         active_language = get_language()
         for name in sorted(registry.keys()):
@@ -101,7 +101,7 @@ class SettingsForm(forms.Form):
         Calculate and apply a group heading to each field and order by
         the heading.
         """
-        fields = list(super(SettingsForm, self).__iter__())
+        fields = list(super().__iter__())
         group = lambda field: field.name.split("_", 1)[0].title()
         misc = _("Miscellaneous")
         groups = defaultdict(int)

@@ -25,7 +25,7 @@ class ConfTests(TestCase):
             int: lambda s: s + 1,
             float: lambda s: s + 1.0,
             bool: lambda s: not s,
-            str: lambda s: s + u"test",
+            str: lambda s: s + "test",
             bytes: lambda s: s + b"test",
         }
 
@@ -102,11 +102,11 @@ class ConfTests(TestCase):
             elif setting_type is bool:
                 setting_value = not setting_value
             elif setting_type is str:
-                setting_value += u"test"
+                setting_value += "test"
             elif setting_type is bytes:
                 setting_value += b"test"
             else:
-                setting = "%s: %s" % (setting_name, setting_type)
+                setting = f"{setting_name}: {setting_type}"
                 self.fail("Unsupported setting type for %s" % setting)
             values_by_name[setting_name] = setting_value
             Setting.objects.create(name=setting_name, value=setting_value)
