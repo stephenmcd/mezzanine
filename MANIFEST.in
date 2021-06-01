@@ -8,4 +8,4 @@ global-exclude __pycache__
 global-exclude *.py[co]
 prune .tx
 prune tests
-exclude .releaserc tox.ini
+exclude .releaserc .isort.cfg tox.ini pytest.ini .coveragerc
