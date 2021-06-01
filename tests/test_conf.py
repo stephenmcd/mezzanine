@@ -1,16 +1,13 @@
-import sys
 import warnings
 from unittest import skipUnless
 
 from django.conf import settings as django_settings
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from mezzanine.conf import register_setting, registry, settings
 from mezzanine.conf.context_processors import TemplateSettings
 from mezzanine.conf.models import Setting
 from mezzanine.utils.tests import TestCase
-
-PY2 = sys.version_info[0] == 2
 
 
 class ConfTests(TestCase):
@@ -129,15 +126,6 @@ class ConfTests(TestCase):
         settings.SITE_TITLE  # Triggers access?
         second_value = settings.FOO
         self.assertEqual(first_value, second_value)
-
-    @skipUnless(PY2, "Needed only in Python 2")
-    def test_bytes_conversion(self):
-
-        settings.clear_cache()
-
-        register_setting(name="BYTES_TEST_SETTING", editable=True, default=b"")
-        Setting.objects.create(name="BYTES_TEST_SETTING", value="A unicode value")
-        self.assertEqual(settings.BYTES_TEST_SETTING, b"A unicode value")
 
     def test_invalid_value_warning(self):
         """
@@ -264,9 +252,9 @@ class TemplateSettingsTests(TestCase):
         self.assertIn("'EXTRA_THING'", repr(ts3))
         self.assertIn("'foo'", repr(ts3))
 
-    def test_force_text(self):
+    def test_force_str(self):
         ts = TemplateSettings(settings, [])
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
-            self.assertEqual(force_text(ts), "{}")
+            self.assertEqual(force_str(ts), "{}")
         self.assertEqual(len(w), 0)

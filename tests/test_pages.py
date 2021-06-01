@@ -1,4 +1,5 @@
 from unittest import skipUnless
+from urllib.parse import urlparse
 
 from django.apps import apps
 from django.contrib.auth import get_user_model
@@ -11,7 +12,6 @@ from django.shortcuts import resolve_url
 from django.template import Context, Template, TemplateSyntaxError
 from django.test.utils import override_settings
 from django.utils.http import urlquote_plus
-from django.utils.six.moves.urllib.parse import urlparse
 from django.utils.translation import get_language
 
 from mezzanine.conf import settings
