@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.widgets import SelectDateWidget
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import SplitSelectDateTimeWidget

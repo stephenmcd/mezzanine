@@ -2,8 +2,8 @@ from urllib.parse import urljoin
 
 from django.db import models
 from django.urls import resolve, reverse
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.models import (
@@ -303,7 +303,7 @@ class PageMoveException(Exception):
     """
 
     def __init__(self, msg=None):
-        self.msg = msg or ugettext("Illegal page move")
+        self.msg = msg or gettext("Illegal page move")
 
     def __str__(self):
         return self.msg

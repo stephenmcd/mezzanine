@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.blog.models import BlogCategory, BlogPost
 from mezzanine.conf import settings

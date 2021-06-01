@@ -46,7 +46,7 @@ class TestsForm(TestCase):
 
         from django.urls import reverse
         from django.utils.translation import activate, get_language
-        from django.utils.translation import ugettext as _
+        from django.utils.translation import gettext as _
         from modeltranslation.utils import auto_populate
 
         default_language = get_language()

@@ -14,7 +14,7 @@ from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import requires_csrf_token
 
 from mezzanine.conf import settings

@@ -4,7 +4,7 @@ from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.db import models
 from django.forms import MultipleChoiceField
 from django.utils.text import capfirst
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.core.forms import OrderWidget
 from mezzanine.utils.html import escape

@@ -9,7 +9,7 @@ making it editable, as it may be inappropriate - for example settings
 that are only read during startup shouldn't be editable, since changing
 them would require an application reload.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import register_setting
 

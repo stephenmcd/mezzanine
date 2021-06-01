@@ -17,7 +17,7 @@ from django.template import RequestContext, Template
 from django.urls import resolve, reverse
 from django.utils.cache import get_max_age
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from mezzanine.conf import settings
 from mezzanine.core.management.commands.createdb import (

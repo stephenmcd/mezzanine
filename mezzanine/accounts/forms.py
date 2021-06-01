@@ -4,8 +4,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Q
 from django.db.models.manager import Manager
 from django.utils.http import int_to_base36
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.accounts import (
     ProfileNotConfigured,
@@ -62,9 +62,9 @@ class LoginForm(Html5Mixin, forms.Form):
         password = self.cleaned_data.get("password")
         self._user = authenticate(username=username, password=password)
         if self._user is None:
-            raise forms.ValidationError(ugettext("Invalid username/email and password"))
+            raise forms.ValidationError(gettext("Invalid username/email and password"))
         elif not self._user.is_active:
-            raise forms.ValidationError(ugettext("Your account is inactive"))
+            raise forms.ValidationError(gettext("Your account is inactive"))
         return self.cleaned_data
 
     def save(self):
@@ -98,7 +98,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         self._signup = self.instance.id is None
         user_fields = {f.name for f in User._meta.get_fields()}
         try:
-            self.fields["username"].help_text = ugettext(
+            self.fields["username"].help_text = gettext(
                 "Only letters, numbers, dashes or underscores please"
             )
         except KeyError:
@@ -115,7 +115,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
                 if not self._signup:
                     self.fields[field].required = False
                     if field == "password1":
-                        self.fields[field].help_text = ugettext(
+                        self.fields[field].help_text = gettext(
                             "Leave blank unless you want " "to change your password"
                         )
 
@@ -144,7 +144,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         username = self.cleaned_data.get("username")
         if username.lower() != slugify(username).lower():
             raise forms.ValidationError(
-                ugettext(
+                gettext(
                     "Username can only contain letters, numbers, dashes "
                     "or underscores."
                 )
@@ -154,7 +154,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
             User.objects.exclude(id=self.instance.id).get(**lookup)
         except User.DoesNotExist:
             return username
-        raise forms.ValidationError(ugettext("This username is already registered"))
+        raise forms.ValidationError(gettext("This username is already registered"))
 
     def clean_password2(self):
         """
@@ -167,10 +167,10 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         if password1:
             errors = []
             if password1 != password2:
-                errors.append(ugettext("Passwords do not match"))
+                errors.append(gettext("Passwords do not match"))
             if len(password1) < settings.ACCOUNTS_MIN_PASSWORD_LENGTH:
                 errors.append(
-                    ugettext("Password must be at least %s characters")
+                    gettext("Password must be at least %s characters")
                     % settings.ACCOUNTS_MIN_PASSWORD_LENGTH
                 )
             if errors:
@@ -185,7 +185,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         qs = User.objects.exclude(id=self.instance.id).filter(email=email)
         if len(qs) == 0:
             return email
-        raise forms.ValidationError(ugettext("This email is already registered"))
+        raise forms.ValidationError(gettext("This email is already registered"))
 
     def save(self, *args, **kwargs):
         """
@@ -266,7 +266,7 @@ class PasswordResetForm(Html5Mixin, forms.Form):
         try:
             user = User.objects.get(username_or_email, is_active=True)
         except User.DoesNotExist:
-            raise forms.ValidationError(ugettext("Invalid username/email"))
+            raise forms.ValidationError(gettext("Invalid username/email"))
         else:
             self._user = user
         return self.cleaned_data

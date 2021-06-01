@@ -1,6 +1,6 @@
 from django.template.defaultfilters import truncatechars
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.twitter import get_auth_settings
 

@@ -10,7 +10,7 @@ from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import NoReverseMatch
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm

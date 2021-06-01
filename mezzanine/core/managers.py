@@ -10,7 +10,7 @@ from django.db.models import CharField, Manager, Q, TextField
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query import QuerySet
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.utils.sites import current_site_id

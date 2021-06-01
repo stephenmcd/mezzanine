@@ -10,8 +10,8 @@ from django.template.defaultfilters import truncatewords_html
 from django.utils.html import format_html, strip_tags
 from django.utils.timesince import timesince
 from django.utils.timezone import now
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import OrderField, RichTextField
@@ -117,7 +117,7 @@ class Slugged(SiteRelated):
 
     def admin_link(self):
         return format_html(
-            "<a href='{}'>{}</a>", self.get_absolute_url(), ugettext("View on site")
+            "<a href='{}'>{}</a>", self.get_absolute_url(), gettext("View on site")
         )
 
     admin_link.short_description = ""

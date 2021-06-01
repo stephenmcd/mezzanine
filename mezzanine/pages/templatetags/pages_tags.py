@@ -3,7 +3,7 @@ from collections import defaultdict
 from django.core.exceptions import ImproperlyConfigured
 from django.template import TemplateSyntaxError, Variable
 from django.template.loader import get_template
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine import template
 from mezzanine.pages.models import Page

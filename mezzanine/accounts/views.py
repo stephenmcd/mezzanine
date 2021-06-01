@@ -6,7 +6,7 @@ from django.contrib.messages import error, info
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, get_script_prefix
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.accounts import get_profile_form
 from mezzanine.accounts.forms import LoginForm, PasswordResetForm

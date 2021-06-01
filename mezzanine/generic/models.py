@@ -2,8 +2,8 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.template.defaultfilters import truncatewords_html
 from django.utils.html import format_html
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 from django_comments.models import Comment
 
 from mezzanine.conf import settings
@@ -82,7 +82,7 @@ class ThreadedComment(Comment):
 
     def admin_link(self):
         return format_html(
-            "<a href='{}'>{}</a>", self.get_absolute_url(), ugettext("View on site")
+            "<a href='{}'>{}</a>", self.get_absolute_url(), gettext("View on site")
         )
 
     admin_link.short_description = ""

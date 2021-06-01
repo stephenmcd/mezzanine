@@ -6,7 +6,7 @@ import requests
 from django.db import models
 from django.utils.html import urlize
 from django.utils.timezone import make_aware, utc
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from requests_oauthlib import OAuth1
 
 from mezzanine.conf import settings

@@ -9,7 +9,7 @@ from django.template import Template
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.timezone import now
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from mezzanine.conf import settings
 from mezzanine.forms import fields

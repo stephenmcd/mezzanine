@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 from django_comments.forms import CommentForm, CommentSecurityForm
 from django_comments.signals import comment_was_posted
 
@@ -169,7 +169,7 @@ class ThreadedCommentForm(CommentForm, Html5Mixin):
         )
         notify_emails = split_addresses(settings.COMMENTS_NOTIFICATION_EMAILS)
         if notify_emails:
-            subject = ugettext("New comment for: ") + str(obj)
+            subject = gettext("New comment for: ") + str(obj)
             context = {
                 "comment": comment,
                 "comment_url": add_cache_bypass(comment.get_absolute_url()),
@@ -222,7 +222,7 @@ class RatingForm(CommentSecurityForm):
         self.previous = request.COOKIES.get("mezzanine-rating", "").split(",")
         already_rated = self.current in self.previous
         if already_rated and not is_authenticated(self.request.user):
-            raise forms.ValidationError(ugettext("Already rated."))
+            raise forms.ValidationError(gettext("Already rated."))
         return self.cleaned_data
 
     def save(self):

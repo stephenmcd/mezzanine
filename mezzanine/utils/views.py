@@ -9,7 +9,7 @@ from django.core.paginator import EmptyPage, InvalidPage, Paginator
 from django.forms import EmailField, Textarea, URLField
 from django.template import RequestContext
 from django.template.response import TemplateResponse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 import mezzanine
 from mezzanine.conf import settings
