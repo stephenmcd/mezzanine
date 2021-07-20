@@ -105,7 +105,6 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
         parent = request.GET.get("parent")
         if parent is not None and not change:
             obj.parent_id = parent
-            obj.save()
         super().save_model(request, obj, form, change)
 
     def _maintain_parent(self, request, response):
@@ -113,10 +112,13 @@ class PageAdmin(ContentTypedAdmin, DisplayableAdmin):
         Maintain the parent ID in the querystring for response_add and
         response_change.
         """
-        location = response._headers.get("location")
+        try:
+            location = response["Location"]
+        except KeyError:
+            location = None
         parent = request.GET.get("parent")
-        if parent and location and "?" not in location[1]:
-            url = f"{location[1]}?parent={parent}"
+        if parent and location and "?" not in location:
+            url = f"{location}?parent={parent}"
             return HttpResponseRedirect(url)
         return response
 
