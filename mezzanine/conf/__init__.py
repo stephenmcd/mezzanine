@@ -119,15 +119,6 @@ class Settings:
         bytes: partial(bytes, encoding="utf8"),
     }
 
-    def __init__(self):
-        """
-        The ``_editable_caches`` attribute maps Request objects to dicts of
-        editable settings loaded from the database. We cache settings per-
-        request to ensure that the database is hit at most once per request,
-        and that each request sees the same settings for its duration.
-        """
-        self._editable_caches = WeakKeyDictionary()
-
     @property
     def _current_request(self):
         return current_request() or self.NULL_REQUEST
@@ -159,6 +150,12 @@ class Settings:
         ``_editable_caches``, a WeakKeyDictionary that will automatically
         discard each entry when no more references to the request exist.
         """
+        if not hasattr(self, "_editable_caches"):
+            # The ``_editable_caches`` attribute maps Request objects to dicts of
+            # editable settings loaded from the database. We cache settings per-request
+            # to ensure that the database is hit at most once per request, and that each
+            # request sees the same settings for its duration.
+            self._editable_caches = WeakKeyDictionary()
         try:
             editable_settings = self._editable_caches[request]
         except KeyError:
