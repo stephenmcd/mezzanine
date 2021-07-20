@@ -155,6 +155,16 @@ def is_installed(app_name):
     return app_name in settings.INSTALLED_APPS
 
 
+class OptionalNodeList(Node):
+    def __init__(self, nodelist=None):
+        self.nodelist = nodelist
+
+    def render(self, context):
+        if self.nodelist is None:
+            return ""
+        return self.nodelist.render(context)
+
+
 @register.tag
 def ifinstalled(parser, token):
     """
@@ -165,9 +175,8 @@ def ifinstalled(parser, token):
     {% include "app_name/template.html" %}
     {% endifinstalled %}
 
-    so we need to manually pull out all tokens if the app isn't
-    installed, since if we used a normal ``if`` tag with a False arg,
-    the include tag will still try and find the template to include.
+    If the app is not installed the entire contents of the block will be skipped without
+    being parsed (like a comment).
     """
     try:
         tag, app = token.split_contents()
@@ -179,25 +188,13 @@ def ifinstalled(parser, token):
         )
 
     end_tag = "end" + tag
-    unmatched_end_tag = 1
-    if app.strip("\"'") not in settings.INSTALLED_APPS:
-        while unmatched_end_tag:
-            token = parser.tokens.pop(0)
-            if token.token_type == TokenType.BLOCK:
-                block_name = token.contents.split()[0]
-                if block_name == tag:
-                    unmatched_end_tag += 1
-                if block_name == end_tag:
-                    unmatched_end_tag -= 1
-        parser.tokens.insert(0, token)
-    nodelist = parser.parse((end_tag,))
-    parser.delete_first_token()
-
-    class IfInstalledNode(Node):
-        def render(self, context):
-            return nodelist.render(context)
-
-    return IfInstalledNode()
+    if app.strip("\"'") in settings.INSTALLED_APPS:
+        nodelist = parser.parse((end_tag,))
+        parser.delete_first_token()
+    else:
+        nodelist = None
+        parser.skip_past(end_tag)
+    return OptionalNodeList(nodelist)
 
 
 @register.render_tag
