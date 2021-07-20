@@ -1,6 +1,5 @@
 import os
 
-from django import VERSION as DJANGO_VERSION
 from django.utils.translation import gettext_lazy as _
 
 ######################
@@ -130,6 +129,8 @@ AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 # a mode you'd pass directly to os.chmod.
 FILE_UPLOAD_PERMISSIONS = 0o644
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
 #############
 # DATABASES #
@@ -218,10 +219,6 @@ TEMPLATES = [
     },
 ]
 
-if DJANGO_VERSION < (1, 9):
-    del TEMPLATES[0]["OPTIONS"]["builtins"]
-
-
 ################
 # APPLICATIONS #
 ################
@@ -268,11 +265,6 @@ MIDDLEWARE = (
     "mezzanine.pages.middleware.PageMiddleware",
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
 )
-
-if DJANGO_VERSION < (1, 10):
-    MIDDLEWARE_CLASSES = MIDDLEWARE
-    del MIDDLEWARE
-
 
 # Store these package names here as they may change in the future since
 # at the moment we are using custom forks of them.
