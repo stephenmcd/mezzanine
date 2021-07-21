@@ -54,7 +54,7 @@ def _get_disqus_sso(user, public_key, secret_key):
     # generate our hmac signature
     sig = hmac.HMAC(
         secret_key.encode("utf8"),
-        (f"{message} {timestamp}").encode("utf8"),
+        (f"{message} {timestamp}").encode(),
         hashlib.sha1,
     ).hexdigest()
 
