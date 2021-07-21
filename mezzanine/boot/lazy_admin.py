@@ -57,7 +57,7 @@ class LazyAdminSite(AdminSite):
 
     @property
     def urls(self):
-        urls = [url(r"", super().urls)]
+        urls = []
 
         # Filebrowser admin media library.
         fb_name = getattr(settings, "PACKAGE_NAME_FILEBROWSER", "")
@@ -66,7 +66,7 @@ class LazyAdminSite(AdminSite):
                 fb_urls = import_dotted_path("%s.sites.site" % fb_name).urls
             except ImportError:
                 fb_urls = "%s.urls" % fb_name
-            urls = [
+            urls += [
                 # This gives the media library a root URL (which filebrowser
                 # doesn't provide), so that we can target it in the
                 # ADMIN_MENU_ORDER setting, allowing each view to correctly
@@ -77,7 +77,7 @@ class LazyAdminSite(AdminSite):
                     name="media-library",
                 ),
                 url(r"^media-library/", include(fb_urls)),
-            ] + urls
+            ]
 
         # Give the urlpattern for the user password change view an
         # actual name, so that it can be reversed with multiple
@@ -87,13 +87,13 @@ class LazyAdminSite(AdminSite):
             user_change_password = getattr(admin, "user_change_password", None)
             if user_change_password:
                 bits = (User._meta.app_label, User._meta.object_name.lower())
-                urls = [
+                urls += [
                     url(
                         r"^%s/%s/(\d+)/password/$" % bits,
                         self.admin_view(user_change_password),
                         name="user_change_password",
                     ),
-                ] + urls
+                ]
                 break
 
         # Misc Mezzanine urlpatterns that should reside under /admin/ url,
@@ -117,12 +117,12 @@ class LazyAdminSite(AdminSite):
         if "mezzanine.pages" in settings.INSTALLED_APPS:
             from mezzanine.pages.views import admin_page_ordering
 
-            urls.append(
+            urls += [
                 url(
                     r"^admin_page_ordering/$",
                     admin_page_ordering,
                     name="admin_page_ordering",
                 )
-            )
+            ]
 
-        return urls
+        return urls + [url(r"", super().urls)]
