@@ -23,9 +23,7 @@ jobs:
         run: pip install tox tox-gh-actions -U pip
       - name: Run tests
         run: |
-          tox --skip-missing-interpreters=false --parallel
-        env:
-          TOX_PARALLEL_NO_SPINNER: 1
+          tox --skip-missing-interpreters=false
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v2
         with:
