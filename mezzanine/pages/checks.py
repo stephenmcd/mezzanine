@@ -10,13 +10,10 @@ def check_context_processor(app_configs, **kwargs):
 
     name = "mezzanine.pages.context_processors.page"
 
-    if settings.TEMPLATES:
-        loaded = any(
-            name in config.get("OPTIONS", {}).get("context_processors", {})
-            for config in settings.TEMPLATES
-        )
-    else:
-        loaded = name in settings.TEMPLATE_CONTEXT_PROCESSORS
+    loaded = any(
+        name in config.get("OPTIONS", {}).get("context_processors", {})
+        for config in settings.TEMPLATES
+    )
 
     if not loaded:
         issues.append(

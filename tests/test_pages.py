@@ -505,13 +505,9 @@ class PagesTests(TestCase):
             )
         ]
         app_config = apps.get_app_config("pages")
-        with override_settings(TEMPLATES=None):
-            with override_settings(TEMPLATE_CONTEXT_PROCESSORS=tuple()):
-                issues = check_context_processor(app_config)
-                self.assertEqual(issues, expected_warning)
-            with override_settings(TEMPLATE_CONTEXT_PROCESSORS=(context_processor,)):
-                issues = check_context_processor(app_config)
-                self.assertEqual(issues, [])
+        with override_settings(TEMPLATES=()):
+            issues = check_context_processor(app_config)
+            self.assertEqual(issues, expected_warning)
         with override_settings(TEMPLATES=templates):
             issues = check_context_processor(app_config)
             self.assertEqual(issues, [])
