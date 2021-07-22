@@ -59,8 +59,8 @@ the above instructions:
 * `requests`_ and `requests_oauthlib`_ - for interacting with external APIs
 * `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
-Note that various systems may contain 
-`specialized instructions for installing Pillow`_. 
+Note that various systems may contain
+`specialized instructions for installing Pillow`_.
 
 Themes
 ======
@@ -462,6 +462,7 @@ certain sites.
 * `The Federation of Egalitarian Communities <http://thefec.org>`_
 * `Caffeinated Lifestyle <https://caffeinatedlifestyle.com>`_
 * `The National: New Australian Art <https://the-national.com.au>`_
+
 .. _`Mezzanine Grid on djangopackages.com`: http://www.djangopackages.com/grids/g/mezzanine/
 .. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Drum`: https://github.com/stephenmcd/drum

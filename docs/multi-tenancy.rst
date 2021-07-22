@@ -143,8 +143,7 @@ are upgrading from a version lower than 4.3 and getting warnings in the
 terminal about ``TemplateForHostMiddleware``, edit your ``settings.py`` to
 switch to the new loader-based approach:
 
- * Remove ``TemplateForHostMiddleware`` from your ``MIDDLEWARE`` or
-   ``MIDDLEWARE_CLASSES`` setting.
+ * Remove ``TemplateForHostMiddleware`` from your ``MIDDLEWARE`` setting.
  * Remove ``"APP_DIRS": True`` from your ``TEMPLATES`` setting.
  * Add ``mezzanine.template.loaders.host_themes.Loader`` to the list of
    template loaders.

@@ -30,11 +30,11 @@ cache>`_, and behaves in a similar way.
 
 Pages are fetched from cache by
 :class:`mezzanine.core.middleware.FetchFromCacheMiddleware`, which should
-appear at the end of the :django:setting:`MIDDLEWARE_CLASSES` setting and therefore
+appear at the end of the :django:setting:`MIDDLEWARE` setting and therefore
 be activated at the end of the request phase. If a cache miss occurs,
 the request is marked as requiring a cache update, which is handled by
 :class:`mezzanine.core.middleware.UpdateCacheMiddleware`, which in turn
-should appear at the start of :django:setting:`MIDDLEWARE_CLASSES` and therefore
+should appear at the start of :django:setting:`MIDDLEWARE` and therefore
 be activated at the end of the response phase.
 
 Mezzanine's cache middleware differs from its Django counterpart in

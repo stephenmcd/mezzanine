@@ -70,8 +70,7 @@ def page(request, slug, template="pages/page.html", extra_context=None):
         raise ImproperlyConfigured(
             "mezzanine.pages.middleware.PageMiddleware "
             "(or a subclass of it) is missing from "
-            + "settings.MIDDLEWARE_CLASSES or "
-            + "settings.MIDDLEWARE"
+            "settings.MIDDLEWARE"
         )
 
     if not hasattr(request, "page") or request.page.slug != slug:

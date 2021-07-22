@@ -67,7 +67,6 @@ interface, Mezzanine provides the following:
 * `Twitter`_ feed integration
 * `bit.ly`_ integration
 * `Akismet`_ spam filtering
-* Built-in `test suite`_
 * `JVM`_ compatible (via `Jython`_)
 
 The Mezzanine admin dashboard:
@@ -162,7 +161,6 @@ Quotes
 .. _`@abhinavsohani`: https://twitter.com/abhinavsohani
 .. _`@joshcartme`: https://twitter.com/joshcartme
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
-.. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.core.tests
 .. _`Multi-lingual sites`: http://mezzanine.jupo.org/docs/multi-lingual-sites.html
 .. _`JVM`: http://en.wikipedia.org/wiki/Java_virtual_machine
 .. _`Jython`: http://www.jython.org/

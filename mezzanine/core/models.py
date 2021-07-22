@@ -553,14 +553,14 @@ class Ownable(models.Model):
 
 class ContentTyped(models.Model):
     """
-    Mixin for models that can be subclassed to create custom types.
-    In order to use them:
+    Mixin for models that can be subclassed to create custom types. In order to use
+    them:
 
     - Inherit model from ContentTyped.
     - Call the set_content_model() method in the model's save() method.
     - Inherit that model's ModelAdmin from ContentTypesAdmin.
-    - Include "admin/includes/content_typed_change_list.html" in the
-    change_list.html template.
+    - Include "admin/includes/content_typed_change_list.html" in the change_list.html
+      template.
     """
 
     content_model = models.CharField(editable=False, max_length=50, null=True)

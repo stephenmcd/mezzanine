@@ -259,13 +259,13 @@ project-level setup for Mezzanine. Of particular note are the following
 settings:
 
   * :django:setting:`INSTALLED_APPS`
-  * :django:setting:`TEMPLATE_CONTEXT_PROCESSORS`
-  * :django:setting:`MIDDLEWARE_CLASSES`
+  * :django:setting:`TEMPLATES`
+  * :django:setting:`MIDDLEWARE`
   * ``PACKAGE_NAME_GRAPPELLI`` and ``PACKAGE_NAME_FILEBROWSER`` (for
     `django-grappelli <https://github.com/sehmaschine/django-grappelli>`_ and
     `django-filebrowser <https://github.com/sehmaschine/django-filebrowser>`_
     integration)
-  * The call to ``mezzanine.utils.conf.set_dynamic_settings`` at the
+  * The call to :func:`mezzanine.utils.conf.set_dynamic_settings` at the
     very end of the ``settings.py`` module.
 
 `Back to top <#>`_

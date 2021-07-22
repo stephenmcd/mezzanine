@@ -421,7 +421,7 @@ Default: ``True``
 
 Name of the jQuery file found in mezzanine/core/static/mezzanine/js/
 
-Default: ``'jquery-1.8.3.min.js'``
+Default: ``'jquery-3.4.1.js'``
 
 .. _JQUERY_UI_FILENAME:
 
@@ -430,7 +430,7 @@ Default: ``'jquery-1.8.3.min.js'``
 
 Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/
 
-Default: ``'jquery-ui-1.8.24.min.js'``
+Default: ``'jquery-ui-1.12.1.js'``
 
 .. _MAX_PAGING_LINKS:
 

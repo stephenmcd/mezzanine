@@ -17,3 +17,6 @@ SECRET_KEY = "".join(choice(characters) for i in range(50))
 
 if "mezzanine.accounts" not in INSTALLED_APPS:
     INSTALLED_APPS = tuple(INSTALLED_APPS) + ("mezzanine.accounts",)
+
+if "mezzanine.twitter" not in INSTALLED_APPS:
+    INSTALLED_APPS = tuple(INSTALLED_APPS) + ("mezzanine.twitter",)

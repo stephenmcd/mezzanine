@@ -78,7 +78,7 @@ Field Injection Caveats
 
 The above technique provides a great way of avoiding the performance
 penalties of SQL JOINS required by the traditional approach of
-`subclassing models <https://docs.djangoproject.com/en/1.3/topics/db/models/#multi-table-inheritance>`_,
+`subclassing models <https://docs.djangoproject.com/en/dev/topics/db/models/#multi-table-inheritance>`_,
 however some extra consideration is required when used with the
 migrations management commands included in Django starting from
 version 1.7. In the first example above, Django's ``makemigrations``
@@ -90,7 +90,7 @@ the blog app, which completely goes against the notion of not
 modifying the blog app to add your own custom fields.
 
 One approach to address this is to use Django's
-`MIGRATION_MODULES <https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-MIGRATION_MODULES>`_
+:django:setting:`MIGRATION_MODULES`
 setting and locate your own migration files somewhere in your project
 or app. However, if you define a custom directory to store migrations
 for an app with injected field (e.g: ``pages`` in the second example
