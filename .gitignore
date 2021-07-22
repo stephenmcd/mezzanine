@@ -17,6 +17,7 @@ local_settings.py
 Mezzanine.egg-info/
 build/
 docs/build/
+docs/_build/
 dist/
 htmlcov/
 mezzanine/project_template/static/

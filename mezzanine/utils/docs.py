@@ -81,22 +81,6 @@ def build_settings_docs(docs_path, prefix=None):
         )
 
 
-def build_deploy_docs(docs_path):
-    try:
-        from fabric.main import load_fabfile
-    except ImportError:
-        warn("Couldn't build fabfile.rst, fabric not installed")
-        return
-    project_template_path = path_for_import("mezzanine.project_template")
-    commands = load_fabfile(os.path.join(project_template_path, "fabfile"))[1]
-    lines = []
-    for name in sorted(commands.keys()):
-        doc = commands[name].__doc__.strip().split("\n")[0]
-        lines.append(f"  * ``fab {name}`` - {doc}")
-    with open(os.path.join(docs_path, "fabfile.rst"), "w") as f:
-        f.write("\n".join(lines))
-
-
 # Python complains if this is inside build_changelog which uses exec.
 _changeset_date = lambda cs: datetime.fromtimestamp(cs.date()[0])
 
