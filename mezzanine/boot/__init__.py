@@ -10,12 +10,10 @@ registered.
 """
 from collections import defaultdict
 
-from django import VERSION as DJANGO_VERSION
 from django.apps import apps
 from django.conf import settings
 from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models.signals import class_prepared
 
 from mezzanine.boot.lazy_admin import LazyAdminSite
 from mezzanine.utils.importing import import_dotted_path
@@ -89,12 +87,8 @@ def add_extra_model_fields(sender, **kwargs):
         field.contribute_to_class(sender, field_name)
 
 
-if DJANGO_VERSION < (1, 9):
-    if fields:
-        class_prepared.connect(add_extra_model_fields, dispatch_uid="FQFEQ#rfq3r")
-else:
-    for model_key in fields:
-        apps.lazy_model_operation(add_extra_model_fields, model_key)
+for model_key in fields:
+    apps.lazy_model_operation(add_extra_model_fields, model_key)
 
 
 # Override django.contrib.admin.site with LazyAdminSite. It must

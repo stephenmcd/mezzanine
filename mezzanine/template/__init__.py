@@ -1,7 +1,6 @@
 import warnings
 from functools import wraps
 
-from django import VERSION as DJANGO_VERSION
 from django import template
 
 
@@ -20,7 +19,7 @@ class Library(template.Library):
         ``var_name`` in the template.
         """
         package = tag_func.__module__.split(".")[0]
-        if DJANGO_VERSION >= (1, 9) and package != "mezzanine":
+        if package != "mezzanine":
             warnings.warn(
                 "The `as_tag` template tag builder is deprecated in favour of "
                 "Django's built-in `simple_tag`, which supports variable "
