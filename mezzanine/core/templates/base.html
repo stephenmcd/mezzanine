@@ -10,7 +10,7 @@
 <title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
 <link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
 
-{% ifinstalled mezzanine.blog %}
+{% ifinstalled "mezzanine.blog" %}
 <link rel="alternate" type="application/rss+xml" title="RSS" href="{% url "blog_post_feed" "rss" %}">
 <link rel="alternate" type="application/atom+xml" title="Atom" href="{% url "blog_post_feed" "atom" %}">
 {% endifinstalled %}
@@ -22,7 +22,7 @@
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{% static "css/bootstrap-rtl.css" %}">
 {% endif %}
-{% ifinstalled cartridge.shop %}
+{% ifinstalled "cartridge.shop" %}
 <link rel="stylesheet" href="{% static "css/cartridge.css" %}">
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{% static "css/cartridge.rtl.css" %}">
@@ -115,7 +115,7 @@
     <div class="panel panel-default">
     <div class="panel-body">
     {% block right_panel %}
-    {% ifinstalled mezzanine.twitter %}
+    {% ifinstalled "mezzanine.twitter" %}
     {% include "twitter/tweets.html" %}
     {% endifinstalled %}
     {% endblock %}
@@ -133,7 +133,7 @@
 <div class="row">
 <p class="site-info text-center">
     {% trans "Powered by" %}
-    <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},
+    <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled "cartridge.shop" %},
     <a href="http://cartridge.jupo.org">Cartridge</a>{% endifinstalled %}
     {% trans "and" %}
     <a href="http://www.djangoproject.com">Django</a>

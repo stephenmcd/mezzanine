@@ -14,9 +14,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.storage import default_storage
 from django.db.models import Model
-from django.template import Node, Template, TemplateSyntaxError
+from django.template import Template, TemplateSyntaxError
 from django.template.base import TextNode, TokenType
 from django.template.defaultfilters import escape
+from django.template.defaulttags import IfNode
 from django.template.loader import get_template
 from django.urls import NoReverseMatch, resolve, reverse
 from django.utils import translation
@@ -155,46 +156,38 @@ def is_installed(app_name):
     return app_name in settings.INSTALLED_APPS
 
 
-class OptionalNodeList(Node):
-    def __init__(self, nodelist=None):
-        self.nodelist = nodelist
+class EvalWrapper:
+    def __init__(self, value):
+        """Compatibility class for ``value`` to work with Django's ``IfNode``"""
+        self.value = value
 
-    def render(self, context):
-        if self.nodelist is None:
-            return ""
-        return self.nodelist.render(context)
+    def eval(self, context):
+        return self.value
 
 
 @register.tag
 def ifinstalled(parser, token):
     """
-    Old-style ``if`` tag that renders contents if the given app is
-    installed. The main use case is:
+    ``if`` tag that renders contents if the given app is installed. The main use case
+    is:
 
-    {% ifinstalled app_name %}
+    {% ifinstalled "app_name" %}
     {% include "app_name/template.html" %}
     {% endifinstalled %}
-
-    If the app is not installed the entire contents of the block will be skipped without
-    being parsed (like a comment).
     """
     try:
         tag, app = token.split_contents()
     except ValueError:
         raise TemplateSyntaxError(
             "ifinstalled should be in the form: "
-            "{% ifinstalled app_name %}"
-            "{% endifinstalled %}"
+            "{% ifinstalled app_name %}{% endifinstalled %}"
         )
 
-    end_tag = "end" + tag
-    if app.strip("\"'") in settings.INSTALLED_APPS:
-        nodelist = parser.parse((end_tag,))
-        parser.delete_first_token()
-    else:
-        nodelist = None
-        parser.skip_past(end_tag)
-    return OptionalNodeList(nodelist)
+    condition = app.strip("\"'") in settings.INSTALLED_APPS
+    nodelist = parser.parse([f"end{tag}"])
+    conditions_nodelists = [(EvalWrapper(condition), nodelist)]
+    token = parser.next_token()
+    return IfNode(conditions_nodelists)
 
 
 @register.render_tag

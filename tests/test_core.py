@@ -2,6 +2,7 @@ import re
 from unittest import skipUnless
 from urllib.parse import urlencode
 
+import pytest
 import pytz
 from django.conf.urls import url
 from django.contrib.admin import AdminSite
@@ -15,6 +16,7 @@ from django.forms import Textarea
 from django.forms.models import modelform_factory
 from django.http import HttpResponse
 from django.template import RequestContext, Template
+from django.template.context import Context
 from django.templatetags.static import static
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -169,7 +171,7 @@ class CoreTests(TestCase):
         future = RichTextPage.objects.create(
             title="test page to be published in the future",
             publish_date=now() + timedelta(days=10),
-            **published
+            **published,
         ).id
         results = RichTextPage.objects.search("test", for_user=self._username)
         self.assertEqual(len(results), 3)
@@ -718,3 +720,38 @@ class CommandsTestCase(TestCase):
                 CommandError, "Apps are not in INSTALLED_APPS: .*"
             ):
                 call_command("collecttemplates", "nonexistent")
+
+
+class TestTemplateTags:
+    @pytest.mark.parametrize(
+        "app, result",
+        (
+            pytest.param("mezzanine.core", True, id="Existing app, no quotes"),
+            pytest.param("'mezzanine.core'", True, id="Existing app, single quotes"),
+            pytest.param('"mezzanine.core"', True, id="Existing app, double quotes"),
+            pytest.param("mezzanine.nope", False, id="Missing app, no quotes"),
+            pytest.param("'mezzanine.nope'", False, id="Missing app, single quotes"),
+            pytest.param('"mezzanine.nope"', False, id="Missing app, double quotes"),
+        ),
+    )
+    def test_ifinstalled(self, app, result):
+        template = Template(
+            "{% load mezzanine_tags %}"
+            f"{{% ifinstalled {app} %}}CONTENT{{% endifinstalled %}}"
+        )
+        html = template.render(Context({}))
+        assert ("CONTENT" in html) == result
+
+    def test_ifinstalled__missing_include(self):
+        """
+        Expect missing {% includes %} to never be parsed inside {% ifinstalled %}
+        """
+        template = Template(
+            """
+            {% load mezzanine_tags %}"
+            {% ifinstalled "missing_app" %}
+            {% include "missing_app/index.html" %}
+            {% endifinstalled %}
+            """
+        )
+        template.render(Context({}))
