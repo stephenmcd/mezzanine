@@ -2,8 +2,7 @@
 Admin Customization
 ===================
 
-Mezzanine uses the standard `Django admin interface
-<http://docs.djangoproject.com/en/dev/ref/contrib/admin/>`_ allowing you to
+Mezzanine uses :doc:`django:ref/contrib/admin/index` allowing you to
 add admin classes as you normally would with a Django project, but also
 provides the following enhancements to the admin interface that are
 configurable by the developer.
@@ -80,9 +79,22 @@ application which contains a named urlpattern ``fb_browse`` and is given
 the title ``Media Library`` to create a custom navigation item::
 
     ADMIN_MENU_ORDER = (
-        ("Content", ("pages.Page", "blog.BlogPost", "blog.Comment",
-            ("Media Library", "fb_browse"),)),
-        ("Site", ("auth.User", "auth.Group", "sites.Site", "redirects.Redirect")),
+        (
+            "Content", (
+                "pages.Page",
+                "blog.BlogPost",
+                "blog.Comment",
+                ("Media Library", "fb_browse"),
+            )
+        ),
+        (
+            "Site", (
+                "auth.User",
+                "auth.Group",
+                "sites.Site",
+                "redirects.Redirect",
+            )
+        ),
     )
 
 You can also use this two-item sequence approach for regular app/model
@@ -140,7 +152,7 @@ of TinyMCE, a different editor or even no editor at all.
 
     If you'd only like to customize the TinyMCE options specified in its
     JavaScript setup, you can do so via the :ref:`TINYMCE_SETUP_JS` setting
-    which lets you specify the URL to your own TinyMCE setup JavaScript
+    which lets you specify the path to your own TinyMCE setup JavaScript
     file.
 
 The default value for the :ref:`RICHTEXT_WIDGET_CLASS` setting is the

@@ -84,10 +84,10 @@ migrations management commands included in Django starting from
 version 1.7. In the first example above, Django's ``makemigrations``
 command views the new ``image`` field on the
 :class:`.BlogPost` model of the :mod:`mezzanine.blog` app. As such, in order to
-create a migration for it, the migration must be created for the blog
+create a migration for it, the migration must be created for the ``blog``
 app itself and by default would end up in the migrations directory of
-the blog app, which completely goes against the notion of not
-modifying the blog app to add your own custom fields.
+the ``blog`` app, which completely goes against the notion of not
+modifying the ``blog`` app to add your own custom fields.
 
 One approach to address this is to use Django's
 :django:setting:`MIGRATION_MODULES`
@@ -116,6 +116,25 @@ Be warned that over time this approach will almost certainly require
 some manual intervention by way of editing migrations, or modifying
 the database manually to create the correct state. Ultimately there is
 a trade-off involved here.
+
+Field Injection Alternatives
+============================
+
+If you don't want to deal with keeping separate migration histories of
+third-party models you can use the "Model Customization" pattern:
+
+#. Create a new model in your own project. Following the previous example on
+   :class:`.BlogPost` let's call it ``BlogPostCustomizations``.
+#. Add all your additional fields to this new model.
+#. Add a :class:`django.db.models.OneToOneField` pointing to
+   :class:`.BlogPost`, with ``related_name="customizations"``.
+#. Now all your customizations will be available on ``BlogPost`` instances as
+   ``blogpost.customizations.*``.
+#. To edit the customizations register your new model as an inline of the
+   parent model in the admin (described below).
+
+The main disadvantage with this approach is that accessing your customizations
+will require an additional query.
 
 Admin Fields
 ============

@@ -9,15 +9,6 @@ that you wish to implement customized caching for your Mezzanine site.
 Mezzanine is preconfigured to cache aggressively when deployed to a
 production site with a cache backend installed.
 
-.. note::
-
-    By using Mezzanine's bundled deployment tools, Mezzanine's caching
-    will be properly configured and in use for your production site.
-    Consult the :doc:`deployment` section for more information. If you
-    would like to have a cache backend configured but to use a
-    different caching strategy, simply remove the cache middleware
-    described in the next section.
-
 Cache Middleware
 ================
 
@@ -60,12 +51,12 @@ sections might be anything that makes use of the current request
 object, including session-specific data.
 
 Accordingly, Mezzanine provides the start and end template tags
-:func:`.nevercache` and ``endnevercache``. Content wrapped in these tags
+``nevercache`` and ``endnevercache``. Content wrapped in these tags
 will not be cached. With two-phased
 rendering, the page is cached without any of the template code
-inside :func:`.nevercache` and ``endnevercache`` executed for the first
+inside ``nevercache`` and ``endnevercache`` executed for the first
 phase. The second phase then occurs after the page is retrieved from
-cache (or not), and any template code inside :func:`.nevercache` and
+cache (or not), and any template code inside ``nevercache`` and
 ``endnevercache`` is then executed.
 
 Mezzanine's two-phased rendering is based on Cody Soyland's
@@ -76,7 +67,7 @@ originally described the technique.
 
 .. note::
 
-    The template code inside :func:`.nevercache` and ``endnevercache`` will
+    The template code inside ``nevercache`` and ``endnevercache`` will
     only have access to template tags and variables provided by a
     normal request context, with the exception of any variables passed
     to the template from a view function. Variables added via context

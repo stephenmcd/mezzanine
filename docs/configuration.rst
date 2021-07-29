@@ -54,9 +54,10 @@ page, we would define the following in ``authors.defaults``::
 .. note::
 
     If you are using Django 1.7 or greater and your app is included in your
-    INSTALLED_APPS as an AppConfig (eg authors.apps.MyCrazyConfig), Mezzanine
-    won't import your defaults.py automatically. Instead you must import it
-    manually in your AppConfig's ready() method.
+    :django:setting:`INSTALLED_APPS` as an ``AppConfig`` (eg
+    ``authors.apps.MyCustomConfig``), Mezzanine won't import your
+    ``defaults.py`` automatically. Instead you must import it manually in your
+    AppConfig's ``ready()`` method.
 
 Reading Settings
 ================
@@ -88,11 +89,9 @@ the website.
 
 .. note::
 
-    It's also important to realize that with any settings flagged as
-    editable, defining a value for these in your project's
-    ``settings.py`` will only serve to provide their default values.
-    Once editable settings are modified via the admin, their values
-    stored in the database will always be used.
+    It's also important to realize that with any settings flagged as editable,
+    defining a value for these in your project's ``settings.py`` will always
+    override the value stored in the database.
 
 Django Settings
 ===============

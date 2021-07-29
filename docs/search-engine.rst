@@ -13,16 +13,14 @@ for results.
 Search Form
 ===========
 
-Developers can easily customize the scope of the searches via the
-``{% search_form %}`` template tag. A default list of searchable models
-can be specified in the :ref:`SEARCH_MODEL_CHOICES` setting. Only
-models that subclass :class:`mezzanine.core.models.Displayable` should
-be used. In addition, the actual HTML form can be customized in the
-``includes/search_form.html`` template.
+Developers can easily customize the scope of the searches via the ``{%
+search_form %}`` template tag. A default list of searchable models can be
+specified in the :ref:`SEARCH_MODEL_CHOICES` setting. The actual HTML form can
+be customized in the ``includes/search_form.html`` template.
 
 .. note::
 
-    In ``SEARCH_MODEL_CHOICES`` and ``{% search_form %}``, all model names
+    In :ref:`SEARCH_MODEL_CHOICES` and ``{% search_form %}``, all model names
     must be strings in the format ``app_label.model_name``. These models
     can be part of Mezzanine's core, or part of third party applications.
     However, all these model must subclass :class:`.Page` or :class:`.Displayable`.
@@ -30,8 +28,7 @@ be used. In addition, the actual HTML form can be customized in the
 Using ``{% search_form "all" %}`` will render a search form with a
 dropdown menu, letting the user choose on what type of content the
 search will be performed. The dropdown will be populated with all of
-the models found in :ref:`SEARCH_MODEL_CHOICES` (default: pages and
-blog posts, with products added if Cartridge is installed).
+the models found in :ref:`SEARCH_MODEL_CHOICES`.
 
 By passing a sequence of space-separated models to the tag, only those
 models will be made available as choices to the user. For example,
@@ -163,7 +160,7 @@ through the use of abstract models. :class:`.SearchableManager` is
 designed so that if it is accessed directly through an abstract model, it
 will search across every model that subclasses the abstract model. This
 makes it possible to group together different types of models for the
-purpose of combined search. Continuing on from our :class:`.GalleryImage`
+purpose of combined search. Continuing on from our ``GalleryImage``
 example, suppose we also have a ``Document`` model containing files
 uploaded and that we wanted a combined search across these models which
 could both be conceptually defined as assets. We would then go ahead and
@@ -196,13 +193,14 @@ models at once::
 
 .. note::
 
-    It was mentioned earlier that the :meth:`.SearchableManager.search`
-    method returns a Django queryset meaning that you can then chain
-    together further queryset methods onto the result. However when
-    searching across heterogeneous models via an abstract model, this is
-    not the case and the result is a list of model instances.
+    It was mentioned earlier that the :meth:`.SearchableManager.search` method
+    returns a Django queryset meaning that you can then chain together further
+    queryset methods onto the result. However when searching across
+    heterogeneous models via an abstract model, this is not the case and the
+    result is a list of model instances. This means further manipulation of the
+    queryset will no longer be possible.
 
-    Also of importance is the ``SEARCH_MODEL_CHOICES`` setting mentioned
+    Also of importance is the :ref:`SEARCH_MODEL_CHOICES` setting mentioned
     above. When searching across heterogeneous models via an abstract
     model, the models searched will only be used if they are defined
     within the ``SEARCH_MODEL_CHOICES`` setting, either explicitly, or
@@ -214,20 +212,20 @@ Query Behaviour
 When a call to :meth:`.SearchableManager.search` is performed, the query
 entered is processed through several steps until it is translated into a
 Django queryset. By default the query is broken up into keywords, so the
-query **plans prices projects** would return results that contain any of
+query ``plans prices projects`` would return results that contain any of
 the words **plans** or **prices** or **projects**.
 
 The query can contain several special operators which allow for this
 behaviour to be controlled further. Quotes around exact phrases will
 ensure that the phrase is searched for specifically, for example the query
-**"plans prices" projects** will return results matching the exact phrase
+``"plans prices" projects`` will return results matching the exact phrase
 **plans prices** or the word **projects**, in contrast to the previous
 example.
 
 You can also prefix both words and phrases with + or - symbols. The +
 symbol will ensure the word or phrase is contained in all results, and the
 - symbol will ensure that no results will be returned containing the word
-or phrase. For example the query **+"plans prices" -projects** would return
+or phrase. For example the query ``+"plans prices" -projects`` would return
 results that must contain the phrase **plans prices** and must not contain
 the word **projects**.
 
@@ -236,4 +234,4 @@ excluded, a second step is performed where the query is stripped of common
 words know as **stop words**. These are common words such as **and**,
 **the** or **like** that are generally not meaningful and cause irrelevant
 results to be returned. The list of stop words is stored in the setting
-:ref:`STOP_WORDS` as described in the :doc:`configuration` section.
+:ref:`STOP_WORDS`.

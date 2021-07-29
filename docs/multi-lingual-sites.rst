@@ -21,7 +21,7 @@ In order to enable translation fields for Mezzanine content, you will
 need to install django-modeltranslation and activate the app in your
 ``settings.py``. Once you have `installed django-modeltranslation
 <http://django-modeltranslation.readthedocs.org/en/latest/installation.html>`_,
-you can enable support for it by setting the ``USE_MODELTRANSLATION``
+you can enable support for it by setting the :ref:`USE_MODELTRANSLATION`
 setting to ``True`` in your project's ``settings.py`` module, and
 also defining at least two entries in the :django:setting:`LANGUAGES` setting.
 
@@ -32,14 +32,12 @@ older projects, you can catch up by running
 ``manage.py update_translation_fields``.
 
 .. note::
-    A django-modeltranslation setting that can help managing the
-    transition for content *partially* in several languages is
-    ``MODELTRANSLATION_FALLBACK_LANGUAGES``.  This setting allows you
-    to avoid having empty content when the translation is not provided
-    for a specific language. Please consult `django-modeltranslation's
-    documentation
-    <http://django-modeltranslation.readthedocs.org/en/latest/usage.html#fallback-languages>`_
-    for more detail.
+    A django-modeltranslation setting that can help managing the transition for
+    content *partially* in several languages is
+    `MODELTRANSLATION_FALLBACK_LANGUAGES
+    <http://django-modeltranslation.readthedocs.org/en/latest/usage.html#fallback-languages>`_.
+    This setting allows you to avoid having empty content when the translation
+    is not provided for a specific language.
 
 Translation Fields for Custom Applications
 ==========================================

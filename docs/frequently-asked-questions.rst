@@ -39,17 +39,17 @@ server  such as `Apache <http://httpd.apache.org/>`_ or `NGINX
 <http://nginx.org/>`_, will all be touched upon.
 
 Modifying the look and feel of a Mezzanine powered site requires at
-least an understanding of HTML, CSS and `Django's templating system
-<https://docs.djangoproject.com/en/dev/topics/templates/>`_.
+least an understanding of HTML, CSS and :doc:`Django's templating system
+<django:topics/templates>`.
 
 Extending Mezzanine by :ref:`creating-custom-content-types` or using
 additional Django apps, will require some knowledge of programming with
 `Python <http://python.org>`_, as well as a good understanding of
 Django's components, such as
-`models <https://docs.djangoproject.com/en/dev/topics/db/models/>`_,
-`views <https://docs.djangoproject.com/en/dev/topics/http/views/>`_,
-`urlpatterns <https://docs.djangoproject.com/en/dev/topics/http/urls/>`_
-and the `admin <https://docs.djangoproject.com/en/dev/ref/contrib/admin/>`_.
+:doc:`django:topics/db/models`,
+:doc:`django:topics/http/views`,
+:doc:`django:topics/http/urls`,
+and :doc:`django:ref/contrib/admin/index`.
 
 `Back to top <#>`_
 
@@ -58,8 +58,7 @@ and the `admin <https://docs.djangoproject.com/en/dev/ref/contrib/admin/>`_.
 Why aren't my JavaScript and CSS files showing up?
 --------------------------------------------------
 
-Mezzanine makes exclusive use of `Django's staticfiles app
-<https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/>`_,
+Mezzanine makes exclusive use of :doc:`django:ref/contrib/staticfiles`,
 for managing static files such as JavaScript, CSS, and images.
 
 When the :django:setting:`DEBUG` setting is set to ``True``, as it would be during

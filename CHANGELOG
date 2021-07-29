@@ -1,7 +1,7 @@
 Version 5.0 and newer
 ---------------------
 
-Please refer to the [GitHub Releases Page](https://github.com/stephenmcd/mezzanine/releases).
+Please refer to the `GitHub Releases Page <https://github.com/stephenmcd/mezzanine/releases>`_.
 
 Version 4.3.1 (Aug 08, 2018)
 ----------------------------
@@ -35,7 +35,7 @@ Version 4.3.0 (Jun 15, 2018)
   * Don't warn Mezzanine about itself - Stephen McDonald
   * Looser check for LocalMiddleware. Closes #1621 - Stephen McDonald
   * Modified the blog homepage pattern to a working version. Added import it requires - Ville Ranki
-  * Remove explicit ``show_banner`` argument from ``inner_run``. This broke --noreload for me. When called from ``https://github.com/django/django/blob/master/django/core/management/commands/runserver.py#L107``, if **options contains a ``show_banner`` arg (which, seemingly, is set just above in ``add_arguments)``, this throws a "Got multiple values for argument" TypeError - Kevin Shen
+  * Remove explicit ``show_banner`` argument from ``inner_run``. This broke --noreload for me. When called from ``https://github.com/django/django/blob/master/django/core/management/commands/runserver.py#L107``, if ``**options`` contains a ``show_banner`` arg (which, seemingly, is set just above in ``add_arguments``), this throws a "Got multiple values for argument" TypeError - Kevin Shen
   * Handle ``MIDDLEWARE_CLASSES`` -> MIDDLEWARE - Stephen McDonald
   * Don't use lazy static loading when Django's ManifestStaticFilesStorage is configured. Closes #1772 - Stephen McDonald
   * Link to Pillow docs for dependencies - Stephen McDonald

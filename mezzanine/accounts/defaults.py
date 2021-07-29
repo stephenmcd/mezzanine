@@ -70,7 +70,7 @@ register_setting(
 
 register_setting(
     name="ACCOUNTS_PROFILE_VIEWS_ENABLED",
-    description=_("If ``True``, users will have their own public profile " "pages."),
+    description=_("If ``True``, users will have their own public profile pages."),
     editable=False,
     default=False,
 )

@@ -1,4 +1,3 @@
-
 =========
 Utilities
 =========
@@ -215,6 +214,9 @@ Mezzanine site::
         {% fields_for some_form_object %}
         <input type="submit">
     </form>
+
+You can also pass a different template name to use a different template on
+specific instances: ``{% fields_for form "includes/myfields.html" %}``.
 
 :func:`.errors_for`
 -------------------
