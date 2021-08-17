@@ -141,7 +141,8 @@ class Settings:
 
     def clear_cache(self):
         """Clear the settings cache for the current request."""
-        self._editable_caches.pop(self._current_request, None)
+        if hasattr(self, "_editable_caches"):
+            self._editable_caches.pop(self._current_request, None)
 
     def _get_editable(self, request):
         """
