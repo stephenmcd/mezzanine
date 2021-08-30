@@ -1,0 +1,9 @@
+before running the server
+
+Delete your database (db.sqlite3 in my case) in your project directory
+Remove everything from __pycache__ folder under your project subdirectory
+For the application you are trying to fix, go to the folder and clear migrations and __pycache__ directories
+When you are sure you have cleared all the above files, run:
+
+python manage.py makemigrations
+python manage.py migrate
