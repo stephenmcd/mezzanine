@@ -94,7 +94,7 @@ class MultiChoiceField(models.CharField):
             raise ValidationError(error)
 
     def value_to_string(self, obj):
-        value = self.value_to_string(obj)
+        value = self.value_from_object(obj)
         return ",".join(value)
 
 
