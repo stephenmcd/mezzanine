@@ -7,23 +7,68 @@ on:
 
 jobs:
 
-  # Test
+  # Test all supported Python & Django versions
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        python: [3.6, 3.7, 3.8, 3.9]
+        include:
+          # Django 2.2
+          - tox-env: "py36-dj22"
+            python-version: "3.6"
+          - tox-env: "py37-dj22"
+            python-version: "3.7"
+          - tox-env: "py38-dj22"
+            python-version: "3.8"
+          - tox-env: "py39-dj22"
+            python-version: "3.9"
+          # Django 3.0
+          - tox-env: "py36-dj30"
+            python-version: "3.6"
+          - tox-env: "py37-dj30"
+            python-version: "3.7"
+          - tox-env: "py38-dj30"
+            python-version: "3.8"
+          - tox-env: "py39-dj30"
+            python-version: "3.9"
+          # Django 3.1
+          - tox-env: "py36-dj31"
+            python-version: "3.6"
+          - tox-env: "py37-dj31"
+            python-version: "3.7"
+          - tox-env: "py38-dj31"
+            python-version: "3.8"
+          - tox-env: "py39-dj31"
+            python-version: "3.9"
+          # Django 3.2
+          - tox-env: "py36-dj32"
+            python-version: "3.6"
+          - tox-env: "py37-dj32"
+            python-version: "3.7"
+          - tox-env: "py38-dj32"
+            python-version: "3.8"
+          - tox-env: "py39-dj32"
+            python-version: "3.9"
+          - tox-env: "py310-dj32"
+            python-version: "3.10"
+          # Django 4.0
+          # - tox-env: "py38-dj40"
+          #   python-version: "3.8"
+          # - tox-env: "py39-dj40"
+          #   python-version: "3.9"
+          # - tox-env: "py310-dj40"
+          #   python-version: "3.10"
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python }}
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: pip install tox tox-gh-actions -U pip
+        run: pip install -U pip tox
       - name: Run tests
-        run: |
-          tox --skip-missing-interpreters=false
+        run: tox -e ${{ matrix.tox-env }}
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v2
         with:
@@ -34,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - uses: actions/setup-python@v2
         with:
           python-version: 3.9
       - name: Install dependencies
@@ -48,12 +93,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - uses: actions/setup-python@v2
         with:
           python-version: 3.9
       - uses: cycjimmy/semantic-release-action@v2
         with:
-          semantic_version: 17
+          semantic_version: 18
           extra_plugins: |
             @semantic-release/exec@5
         env:
