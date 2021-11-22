@@ -1,7 +1,9 @@
 import re
+import subprocess
 from unittest import skipUnless
 from urllib.parse import urlencode
 
+import pkg_resources
 import pytest
 import pytz
 from django.conf.urls import url
@@ -44,6 +46,31 @@ from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.sites import current_site_id, override_current_site_id
 from mezzanine.utils.tests import TestCase
 from mezzanine.utils.urls import admin_url
+
+BRANCH_NAME = (
+    subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"])
+    .decode()
+    .strip()
+)
+VERSION_WARN = (
+    "Unpinned or pre-release dependencies detected in Mezzanine's requirements: {}"
+)
+
+
+@pytest.mark.skipif(
+    BRANCH_NAME != "stable", reason="Only runs when publishing stable releases"
+)
+def test_stable_dependencies():
+    """
+    This test is meant for CI. We want to make sure that when building the `stable`
+    branch of Mezzanine the dependencies are also stable so that we don't publish a
+    stable Mezzanine release with unstable dependencies.
+    """
+    # If a requirement is listed via a git or http url the `specs` attribute will be an
+    # empty list, so we use it to check for "pre-release" status
+    requirements = pkg_resources.working_set.by_key["mezzanine"].requires()
+    prereleases = [r.name for r in requirements if not r.specs]
+    assert not prereleases, VERSION_WARN.format(", ".join(prereleases))
 
 
 class CoreTests(TestCase):
