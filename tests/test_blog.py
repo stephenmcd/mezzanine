@@ -88,7 +88,7 @@ class BlogTemplatetagsTests(TestCase):
 
     @override_settings(USE_TZ=True)
     def test_blog_months_timezone(self):
-        """ Months should be relative to timezone. """
+        """Months should be relative to timezone."""
         blog_post = BlogPost.objects.create(
             user=self._user,
             status=CONTENT_STATUS_PUBLISHED,

@@ -29,8 +29,12 @@ _slash = "/" if settings.APPEND_SLASH else ""
 
 urlpatterns = [
     re_path(r"^{}{}$".format(LOGIN_URL.strip("/"), _slash), views.login, name="login"),
-    re_path(r"^{}{}$".format(LOGOUT_URL.strip("/"), _slash), views.logout, name="logout"),
-    re_path(r"^{}{}$".format(SIGNUP_URL.strip("/"), _slash), views.signup, name="signup"),
+    re_path(
+        r"^{}{}$".format(LOGOUT_URL.strip("/"), _slash), views.logout, name="logout"
+    ),
+    re_path(
+        r"^{}{}$".format(SIGNUP_URL.strip("/"), _slash), views.signup, name="signup"
+    ),
     re_path(
         r"^{}{}{}$".format(SIGNUP_VERIFY_URL.strip("/"), _verify_pattern, _slash),
         views.signup_verify,
