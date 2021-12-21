@@ -23,6 +23,7 @@ from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
 from mezzanine.utils.sites import override_current_site_id
 from mezzanine.utils.tests import TestCase
+from mezzanine.utils.deprecation import get_middleware_request
 
 User = get_user_model()
 
@@ -413,7 +414,8 @@ class PagesTests(TestCase):
 
         request = self._request_factory.get("/foo/bar/")
         request.user = self._user
-        response = PageMiddleware().process_view(request, page_view, [], {})
+
+        response = PageMiddleware(get_middleware_request).process_view(request, page_view, [], {})
 
         self.assertTrue(isinstance(response, HttpResponse))
         self.assertContains(response, "bar")

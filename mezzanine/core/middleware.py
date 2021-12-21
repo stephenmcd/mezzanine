@@ -33,7 +33,7 @@ from mezzanine.utils.cache import (
     nevercache_token,
 )
 from mezzanine.utils.conf import middlewares_or_subclasses_installed
-from mezzanine.utils.deprecation import MiddlewareMixin, is_authenticated
+from mezzanine.utils.deprecation import MiddlewareMixin, is_authenticated, get_middleware_request
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import next_url
 
@@ -207,7 +207,8 @@ class UpdateCacheMiddleware(MiddlewareMixin):
         # the cookie will be correctly set for the the response
         if csrf_middleware_installed():
             response.csrf_processing_done = False
-            CsrfViewMiddleware.process_response(request, response)
+            csrf_mw = CsrfViewMiddleware(get_middleware_request)
+            csrf_mw.process_response(request, response)
         return response
 
 

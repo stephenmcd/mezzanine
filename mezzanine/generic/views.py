@@ -15,7 +15,7 @@ from mezzanine.conf import settings
 from mezzanine.generic.forms import RatingForm, ThreadedCommentForm
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.cache import add_cache_bypass
-from mezzanine.utils.deprecation import is_authenticated
+from mezzanine.utils.deprecation import is_authenticated, request_is_ajax
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.views import is_spam, set_cookie
 
@@ -87,7 +87,7 @@ def initial_validation(request, prefix):
         except (TypeError, ObjectDoesNotExist, LookupError):
             redirect_url = "/"
     if redirect_url:
-        if request.is_ajax():
+        if request_is_ajax(request):
             return HttpResponse(dumps({"location": redirect_url}))
         else:
             return redirect(redirect_url)
@@ -117,7 +117,7 @@ def comment(request, template="generic/comments.html", extra_context=None):
             cookie_value = post_data.get(field, "")
             set_cookie(response, cookie_name, cookie_value)
         return response
-    elif request.is_ajax() and form.errors:
+    elif request_is_ajax(request) and form.errors:
         return HttpResponse(dumps({"errors": form.errors}))
     # Show errors with stand-alone comment form.
     context = {"obj": obj, "posted_comment_form": form}
@@ -139,7 +139,7 @@ def rating(request):
     rating_form = RatingForm(request, obj, post_data)
     if rating_form.is_valid():
         rating_form.save()
-        if request.is_ajax():
+        if request_is_ajax(request):
             # Reload the object and return the rating fields as json.
             obj = obj.__class__.objects.get(id=obj.id)
             rating_name = obj.get_ratingfield_name()

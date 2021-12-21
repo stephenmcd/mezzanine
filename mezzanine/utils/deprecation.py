@@ -15,6 +15,22 @@ except ImportError:
     class MiddlewareMixin:
         pass
 
+def request_is_ajax(request):
+    """
+    request.is_ajax() is deprecated. Check the content_type
+
+    Returns true if request CONTENT_TYPE is "application/json"
+    """
+    return request.META.get("CONTENT_TYPE") == "application/json"
+
+
+def get_middleware_request(request):
+    """
+    Middlewares require get_request in after django4.0
+
+    Returns the passed request object
+    """
+    return request
 
 def get_middleware_setting_name():
     """
