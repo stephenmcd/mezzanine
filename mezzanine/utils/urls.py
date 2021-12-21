@@ -7,10 +7,9 @@ from django.urls import NoReverseMatch, get_script_prefix, resolve, reverse
 from django.utils import translation
 from django.utils.encoding import smart_str
 
-# for Django2.2 support, TODO: can be removed when django2.2 support is removed
 try:
     from django.utils.http import url_has_allowed_host_and_scheme
-except:
+except ImportError:  # for Django2.2 support
     from django.utils.http import is_safe_url as url_has_allowed_host_and_scheme
 
 

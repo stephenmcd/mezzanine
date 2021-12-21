@@ -1,5 +1,5 @@
 from unittest import skipUnless
-from urllib.parse import urlparse, quote_plus
+from urllib.parse import quote_plus, urlparse
 
 from django.apps import apps
 from django.contrib.auth import get_user_model
@@ -21,9 +21,9 @@ from mezzanine.pages.checks import check_context_processor
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
+from mezzanine.utils.deprecation import get_middleware_request
 from mezzanine.utils.sites import override_current_site_id
 from mezzanine.utils.tests import TestCase
-from mezzanine.utils.deprecation import get_middleware_request
 
 User = get_user_model()
 

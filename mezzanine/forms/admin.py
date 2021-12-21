@@ -5,12 +5,12 @@ from io import BytesIO, StringIO
 from mimetypes import guess_type
 from os.path import join
 
-from django.urls import re_path
 from django.contrib import admin
 from django.contrib.messages import info
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.urls import re_path
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 

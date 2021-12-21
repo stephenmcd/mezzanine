@@ -6,7 +6,6 @@ from urllib.parse import urlencode
 import pkg_resources
 import pytest
 import pytz
-from django.urls import re_path
 from django.contrib.admin import AdminSite
 from django.contrib.admin.options import InlineModelAdmin
 from django.contrib.sites.models import Site
@@ -21,7 +20,7 @@ from django.template import RequestContext, Template
 from django.template.context import Context
 from django.templatetags.static import static
 from django.test.utils import override_settings
-from django.urls import reverse
+from django.urls import re_path, reverse
 from django.utils.encoding import force_str
 from django.utils.html import strip_tags
 from django.utils.timezone import datetime, now, timedelta

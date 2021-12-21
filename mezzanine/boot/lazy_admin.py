@@ -1,10 +1,10 @@
 from django.conf import settings
 from django.conf.urls import include
-from django.urls import re_path
 from django.contrib.admin.sites import AdminSite, AlreadyRegistered, NotRegistered
 from django.contrib.admin.sites import site as default_site
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
+from django.urls import re_path
 
 from mezzanine.utils.importing import import_dotted_path
 
