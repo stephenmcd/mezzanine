@@ -33,7 +33,11 @@ from mezzanine.utils.cache import (
     nevercache_token,
 )
 from mezzanine.utils.conf import middlewares_or_subclasses_installed
-from mezzanine.utils.deprecation import MiddlewareMixin, is_authenticated, get_middleware_request
+from mezzanine.utils.deprecation import (
+    MiddlewareMixin,
+    is_authenticated,
+    get_middleware_request,
+)
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import next_url
 

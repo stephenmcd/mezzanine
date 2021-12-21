@@ -415,7 +415,9 @@ class PagesTests(TestCase):
         request = self._request_factory.get("/foo/bar/")
         request.user = self._user
 
-        response = PageMiddleware(get_middleware_request).process_view(request, page_view, [], {})
+        response = PageMiddleware(get_middleware_request).process_view(
+            request, page_view, [], {}
+        )
 
         self.assertTrue(isinstance(response, HttpResponse))
         self.assertContains(response, "bar")

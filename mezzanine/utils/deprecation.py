@@ -15,6 +15,7 @@ except ImportError:
     class MiddlewareMixin:
         pass
 
+
 def request_is_ajax(request):
     """
     request.is_ajax() is deprecated. Check the content_type
@@ -31,6 +32,7 @@ def get_middleware_request(request):
     Returns the passed request object
     """
     return request
+
 
 def get_middleware_setting_name():
     """
