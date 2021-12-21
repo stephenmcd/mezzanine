@@ -1,5 +1,5 @@
 from unittest import skipUnless
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote_plus
 
 from django.apps import apps
 from django.contrib.auth import get_user_model
@@ -11,7 +11,6 @@ from django.http import HttpResponse
 from django.shortcuts import resolve_url
 from django.template import Context, Template, TemplateSyntaxError
 from django.test.utils import override_settings
-from django.utils.http import urlquote_plus
 from django.utils.translation import get_language
 
 from mezzanine.conf import settings
@@ -204,7 +203,7 @@ class PagesTests(TestCase):
         if redirects_count > 1:
             # With LocaleMiddleware and a string LOGIN_URL there can be
             # a second redirect that encodes the next parameter.
-            login_next = urlquote_plus(login_next)
+            login_next = quote_plus(login_next)
         login = f"{login_prefix}{login_url}?next={login_next}"
         if accounts_installed:
             # For an inaccessible page with mezzanine.accounts we should

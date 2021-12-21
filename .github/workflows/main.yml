@@ -53,12 +53,12 @@ jobs:
           - tox-env: "py310-dj32"
             python-version: "3.10"
           # Django 4.0
-          # - tox-env: "py38-dj40"
-          #   python-version: "3.8"
-          # - tox-env: "py39-dj40"
-          #   python-version: "3.9"
-          # - tox-env: "py310-dj40"
-          #   python-version: "3.10"
+          - tox-env: "py38-dj40"
+            python-version: "3.8"
+          - tox-env: "py39-dj40"
+            python-version: "3.9"
+          - tox-env: "py310-dj40"
+            python-version: "3.10"
 
     steps:
       - uses: actions/checkout@v2

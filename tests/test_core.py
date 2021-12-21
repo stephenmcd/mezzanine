@@ -6,7 +6,7 @@ from urllib.parse import urlencode
 import pkg_resources
 import pytest
 import pytz
-from django.conf.urls import url
+from django.urls import re_path
 from django.contrib.admin import AdminSite
 from django.contrib.admin.options import InlineModelAdmin
 from django.contrib.sites.models import Site
@@ -612,7 +612,7 @@ class CSRFTestViews:
         return HttpResponse(rendered)
 
     urlpatterns = [
-        url(r"^nevercache_view/", nevercache_view),
+        re_path(r"^nevercache_view/", nevercache_view),
     ]
 
 

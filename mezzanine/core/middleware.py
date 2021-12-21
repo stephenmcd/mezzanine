@@ -207,8 +207,7 @@ class UpdateCacheMiddleware(MiddlewareMixin):
         # the cookie will be correctly set for the the response
         if csrf_middleware_installed():
             response.csrf_processing_done = False
-            csrf_mw = CsrfViewMiddleware()
-            csrf_mw.process_response(request, response)
+            CsrfViewMiddleware.process_response(request, response)
         return response
 
 
