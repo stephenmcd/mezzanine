@@ -6,7 +6,13 @@ from django.shortcuts import redirect
 from django.urls import NoReverseMatch, get_script_prefix, resolve, reverse
 from django.utils import translation
 from django.utils.encoding import smart_str
-from django.utils.http import url_has_allowed_host_and_scheme
+
+# for Django2.2 support, TODO: can be removed when django2.2 support is removed
+try:
+    from django.utils.http import url_has_allowed_host_and_scheme
+except:
+    from django.utils.http import is_safe_url as url_has_allowed_host_and_scheme
+
 
 from mezzanine.conf import settings
 from mezzanine.utils.importing import import_dotted_path
@@ -89,7 +95,11 @@ def next_url(request):
     """
     next = request.GET.get("next", request.POST.get("next", ""))
     host = request.get_host()
-    return next if next and url_has_allowed_host_and_scheme(next, allowed_hosts=host) else None
+    return (
+        next
+        if next and url_has_allowed_host_and_scheme(next, allowed_hosts=host)
+        else None
+    )
 
 
 def login_redirect(request):
