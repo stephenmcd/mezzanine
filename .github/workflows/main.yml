@@ -88,14 +88,19 @@ jobs:
         run: tox -e package -e lint -e pyupgrade
 
   # Create a new semantic release
+  # Only runs on the original repo, not forks
   release:
-    needs: [test, lint]
+    if: github.repository_owner == 'stephenmcd'
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14' # https://github.com/cycjimmy/semantic-release-action/issues/79#issuecomment-955463633
       - uses: cycjimmy/semantic-release-action@v2
         with:
           semantic_version: 18
