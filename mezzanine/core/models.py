@@ -578,7 +578,7 @@ class ContentTyped(models.Model):
 
     @classmethod
     def get_content_models(cls):
-        """ Return all subclasses of the concrete model.  """
+        """Return all subclasses of the concrete model."""
         concrete_model = base_concrete_model(ContentTyped, cls)
         return [
             m

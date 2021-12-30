@@ -3,7 +3,7 @@ from copy import copy
 from django.contrib import admin
 from django.contrib.messages import info
 from django.http import HttpResponseRedirect
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import settings
@@ -53,7 +53,7 @@ class SettingsAdmin(admin.ModelAdmin):
         extra_context["settings_form"] = settings_form
         extra_context["title"] = "{} {}".format(
             _("Change"),
-            force_text(Setting._meta.verbose_name_plural),
+            force_str(Setting._meta.verbose_name_plural),
         )
         return super().changelist_view(request, extra_context)
 

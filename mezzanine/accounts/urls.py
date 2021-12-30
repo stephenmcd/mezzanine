@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from mezzanine.accounts import views
 from mezzanine.conf import settings
@@ -28,32 +28,36 @@ _verify_pattern = r"/(?P<uidb36>[-\w]+)/(?P<token>[-\w]+)"
 _slash = "/" if settings.APPEND_SLASH else ""
 
 urlpatterns = [
-    url(r"^{}{}$".format(LOGIN_URL.strip("/"), _slash), views.login, name="login"),
-    url(r"^{}{}$".format(LOGOUT_URL.strip("/"), _slash), views.logout, name="logout"),
-    url(r"^{}{}$".format(SIGNUP_URL.strip("/"), _slash), views.signup, name="signup"),
-    url(
+    re_path(r"^{}{}$".format(LOGIN_URL.strip("/"), _slash), views.login, name="login"),
+    re_path(
+        r"^{}{}$".format(LOGOUT_URL.strip("/"), _slash), views.logout, name="logout"
+    ),
+    re_path(
+        r"^{}{}$".format(SIGNUP_URL.strip("/"), _slash), views.signup, name="signup"
+    ),
+    re_path(
         r"^{}{}{}$".format(SIGNUP_VERIFY_URL.strip("/"), _verify_pattern, _slash),
         views.signup_verify,
         name="signup_verify",
     ),
-    url(
+    re_path(
         r"^{}{}$".format(PROFILE_UPDATE_URL.strip("/"), _slash),
         views.profile_update,
         name="profile_update",
     ),
-    url(
+    re_path(
         r"^{}{}$".format(PASSWORD_RESET_URL.strip("/"), _slash),
         views.password_reset,
         name="mezzanine_password_reset",
     ),
-    url(
+    re_path(
         r"^{}{}{}$".format(
             PASSWORD_RESET_VERIFY_URL.strip("/"), _verify_pattern, _slash
         ),
         views.password_reset_verify,
         name="password_reset_verify",
     ),
-    url(
+    re_path(
         r"^{}{}$".format(ACCOUNT_URL.strip("/"), _slash),
         views.account_redirect,
         name="account_redirect",
@@ -62,12 +66,12 @@ urlpatterns = [
 
 if settings.ACCOUNTS_PROFILE_VIEWS_ENABLED:
     urlpatterns += [
-        url(
+        re_path(
             r"^{}{}$".format(PROFILE_URL.strip("/"), _slash),
             views.profile_redirect,
             name="profile_redirect",
         ),
-        url(
+        re_path(
             r"^{}/(?P<username>.*){}$".format(PROFILE_URL.strip("/"), _slash),
             views.profile,
             name="profile",

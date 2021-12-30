@@ -335,7 +335,7 @@ class ContentTypedAdmin:
 
     @property
     def base_concrete_modeladmin(self):
-        """ The class inheriting directly from ContentModelAdmin. """
+        """The class inheriting directly from ContentModelAdmin."""
         candidates = [self.__class__]
         while candidates:
             candidate = candidates.pop()
@@ -368,7 +368,7 @@ class ContentTypedAdmin:
         return super().change_view(request, object_id, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
-        """ Redirect to the changelist view for subclasses. """
+        """Redirect to the changelist view for subclasses."""
         if self.model is not self.concrete_model:
             return HttpResponseRedirect(admin_url(self.concrete_model, "changelist"))
 
@@ -378,7 +378,7 @@ class ContentTypedAdmin:
         return super().changelist_view(request, extra_context)
 
     def get_content_models(self):
-        """ Return all subclasses that are admin registered. """
+        """Return all subclasses that are admin registered."""
         models = []
 
         for model in self.concrete_model.get_content_models():

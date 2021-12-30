@@ -1,5 +1,5 @@
 from unittest import skipUnless
-from urllib.parse import urlparse
+from urllib.parse import quote_plus, urlparse
 
 from django.apps import apps
 from django.contrib.auth import get_user_model
@@ -11,7 +11,6 @@ from django.http import HttpResponse
 from django.shortcuts import resolve_url
 from django.template import Context, Template, TemplateSyntaxError
 from django.test.utils import override_settings
-from django.utils.http import urlquote_plus
 from django.utils.translation import get_language
 
 from mezzanine.conf import settings
@@ -22,6 +21,7 @@ from mezzanine.pages.checks import check_context_processor
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
+from mezzanine.utils.deprecation import get_middleware_request
 from mezzanine.utils.sites import override_current_site_id
 from mezzanine.utils.tests import TestCase
 
@@ -204,7 +204,7 @@ class PagesTests(TestCase):
         if redirects_count > 1:
             # With LocaleMiddleware and a string LOGIN_URL there can be
             # a second redirect that encodes the next parameter.
-            login_next = urlquote_plus(login_next)
+            login_next = quote_plus(login_next)
         login = f"{login_prefix}{login_url}?next={login_next}"
         if accounts_installed:
             # For an inaccessible page with mezzanine.accounts we should
@@ -414,7 +414,10 @@ class PagesTests(TestCase):
 
         request = self._request_factory.get("/foo/bar/")
         request.user = self._user
-        response = PageMiddleware().process_view(request, page_view, [], {})
+
+        response = PageMiddleware(get_middleware_request).process_view(
+            request, page_view, [], {}
+        )
 
         self.assertTrue(isinstance(response, HttpResponse))
         self.assertContains(response, "bar")

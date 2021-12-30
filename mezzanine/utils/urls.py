@@ -5,8 +5,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect
 from django.urls import NoReverseMatch, get_script_prefix, resolve, reverse
 from django.utils import translation
-from django.utils.encoding import smart_text
-from django.utils.http import is_safe_url
+from django.utils.encoding import smart_str
+
+try:
+    from django.utils.http import url_has_allowed_host_and_scheme
+except ImportError:  # for Django2.2 support
+    from django.utils.http import is_safe_url as url_has_allowed_host_and_scheme
+
 
 from mezzanine.conf import settings
 from mezzanine.utils.importing import import_dotted_path
@@ -55,7 +60,7 @@ def slugify_unicode(s):
     Adopted from https://github.com/mozilla/unicode-slugify/
     """
     chars = []
-    for char in str(smart_text(s)):
+    for char in str(smart_str(s)):
         cat = unicodedata.category(char)[0]
         if cat in "LN" or char in "-_~":
             chars.append(char)
@@ -89,7 +94,11 @@ def next_url(request):
     """
     next = request.GET.get("next", request.POST.get("next", ""))
     host = request.get_host()
-    return next if next and is_safe_url(next, allowed_hosts=host) else None
+    return (
+        next
+        if next and url_has_allowed_host_and_scheme(next, allowed_hosts=host)
+        else None
+    )
 
 
 def login_redirect(request):

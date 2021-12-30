@@ -1,9 +1,10 @@
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.contrib.admin.sites import AdminSite, AlreadyRegistered, NotRegistered
 from django.contrib.admin.sites import site as default_site
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
+from django.urls import re_path
 
 from mezzanine.utils.importing import import_dotted_path
 
@@ -71,12 +72,12 @@ class LazyAdminSite(AdminSite):
                 # doesn't provide), so that we can target it in the
                 # ADMIN_MENU_ORDER setting, allowing each view to correctly
                 # highlight its left-hand admin nav item.
-                url(
+                re_path(
                     r"^media-library/$",
                     lambda r: redirect("fb_browse"),
                     name="media-library",
                 ),
-                url(r"^media-library/", include(fb_urls)),
+                re_path(r"^media-library/", include(fb_urls)),
             ]
 
         # Give the urlpattern for the user password change view an
@@ -88,7 +89,7 @@ class LazyAdminSite(AdminSite):
             if user_change_password:
                 bits = (User._meta.app_label, User._meta.object_name.lower())
                 urls += [
-                    url(
+                    re_path(
                         r"^%s/%s/(\d+)/password/$" % bits,
                         self.admin_view(user_change_password),
                         name="user_change_password",
@@ -102,13 +103,13 @@ class LazyAdminSite(AdminSite):
         from mezzanine.generic.views import admin_keywords_submit
 
         urls += [
-            url(
+            re_path(
                 r"^admin_keywords_submit/$",
                 admin_keywords_submit,
                 name="admin_keywords_submit",
             ),
-            url(r"^asset_proxy/$", static_proxy, name="static_proxy"),
-            url(
+            re_path(r"^asset_proxy/$", static_proxy, name="static_proxy"),
+            re_path(
                 r"^displayable_links.js$",
                 displayable_links_js,
                 name="displayable_links_js",
@@ -118,11 +119,11 @@ class LazyAdminSite(AdminSite):
             from mezzanine.pages.views import admin_page_ordering
 
             urls += [
-                url(
+                re_path(
                     r"^admin_page_ordering/$",
                     admin_page_ordering,
                     name="admin_page_ordering",
                 )
             ]
 
-        return urls + [url(r"", super().urls)]
+        return urls + [re_path(r"", super().urls)]
