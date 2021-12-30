@@ -53,7 +53,7 @@ def comment_thread(context, parent):
     parent_id = parent.id if isinstance(parent, ThreadedComment) else None
     try:
         replied_to = int(context["request"].POST["replied_to"])
-    except KeyError:
+    except (KeyError, ValueError):
         replied_to = 0
     context.update(
         {
