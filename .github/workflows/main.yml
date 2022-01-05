@@ -91,7 +91,7 @@ jobs:
   # Only runs on the original repo, not forks
   release:
     if: github.repository_owner == 'stephenmcd'
-    needs: [lint]
+    needs: [test, lint]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
