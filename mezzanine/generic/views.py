@@ -84,7 +84,7 @@ def initial_validation(request, prefix):
         try:
             model = apps.get_model(*model_data)
             obj = model.objects.get(id=post_data.get("object_pk", None))
-        except (TypeError, ObjectDoesNotExist, LookupError):
+        except (TypeError, ObjectDoesNotExist, LookupError, ValueError):
             redirect_url = "/"
     if redirect_url:
         if request_is_ajax(request):
