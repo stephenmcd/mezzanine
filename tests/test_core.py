@@ -468,7 +468,7 @@ class CoreTests(TestCase):
             fieldsets = (
                 ("Fieldset 1", {"fields": ("a",)}),
                 ("Fieldset 2", {"fields": ("_order", "b")}),
-                ("Fieldset 3", {"fields": ("c")}),
+                ("Fieldset 3", {"fields": ("c",)}),
             )
 
         request = self._request_factory.get("/admin/")
