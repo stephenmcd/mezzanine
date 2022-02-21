@@ -65,8 +65,7 @@ Themes
 ======
 
 A handful of attractive `Free Themes`_ are available thanks to
-`@abhinavsohani`_, while there is also a marketplace for buying and
-selling `Premium Themes`_ thanks to `@joshcartme`_.
+`@abhinavsohani`_.
 
 
 Browser Support
@@ -342,7 +341,6 @@ certain sites.
 * `SaniCo <https://sanimedicaltourism.com>`_
 * `Grupo Invista <http://grupoinvista.com>`_
 * `Brooklyn Navy Yard <http://brooklynnavyyard.org/>`_
-* `MEZZaTHEME <http://mezzathe.me/>`_
 * `Nektra Advanced Computing <http://www.nektra.com/>`_
 * `Bootstrap ASAP <https://bootstrapasap.com/>`_
 * `California Center for Jobs <http://www.centerforjobs.org/>`_
