@@ -408,11 +408,9 @@ class SitePermissionInline(admin.TabularInline):
 class SitePermissionUserAdminForm(UserAdmin.form):
     def clean_email(form):
         email = form.cleaned_data.get("email")
-        try:
-            User.objects.exclude(id=form.instance.id).get(email=email)
-        except User.DoesNotExist:
-            return email
-        raise ValidationError(_("This email is already registered"))
+        if User.objects.exclude(id=form.instance.id).filter(email=email).exists():
+            raise ValidationError(_("This email is already registered"))
+        return email
 
 
 class SitePermissionUserAdmin(UserAdmin):
