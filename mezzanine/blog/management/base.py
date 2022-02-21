@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand, CommandError
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.html import strip_tags
 
 from mezzanine.blog.models import BlogCategory, BlogPost
@@ -90,9 +90,9 @@ class BaseImporterCommand(BaseCommand):
             comments = []
         self.posts.append(
             {
-                "title": force_text(title),
+                "title": force_str(title),
                 "publish_date": pub_date,
-                "content": force_text(content),
+                "content": force_str(content),
                 "categories": categories,
                 "tags": tags,
                 "comments": comments,

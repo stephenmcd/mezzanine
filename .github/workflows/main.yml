@@ -87,11 +87,25 @@ jobs:
       - name: Lint
         run: tox -e package -e lint -e pyupgrade
 
+  # Build docs
+  docs:
+    name: Build docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install deps
+        run: pip install -e . && pip install sphinx
+      - name: Build docs
+        run: sphinx-build -b html docs docs/build
+
   # Create a new semantic release
   # Only runs on the original repo, not forks
   release:
     if: github.repository_owner == 'stephenmcd'
-    needs: [test, lint]
+    needs: [test, lint, docs]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
