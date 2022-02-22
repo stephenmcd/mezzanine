@@ -21,7 +21,6 @@ from mezzanine.pages.checks import check_context_processor
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.models import Page, RichTextPage
 from mezzanine.urls import PAGES_SLUG
-from mezzanine.utils.deprecation import get_middleware_request
 from mezzanine.utils.sites import override_current_site_id
 from mezzanine.utils.tests import TestCase
 
@@ -415,7 +414,7 @@ class PagesTests(TestCase):
         request = self._request_factory.get("/foo/bar/")
         request.user = self._user
 
-        response = PageMiddleware(get_middleware_request).process_view(
+        response = PageMiddleware(lambda resp: resp).process_view(
             request, page_view, [], {}
         )
 

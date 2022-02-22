@@ -16,6 +16,7 @@ from django.middleware.csrf import CsrfViewMiddleware, get_token
 from django.template import RequestContext, Template
 from django.urls import resolve, reverse
 from django.utils.cache import get_max_age
+from django.utils.deprecation import MiddlewareMixin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
@@ -33,11 +34,7 @@ from mezzanine.utils.cache import (
     nevercache_token,
 )
 from mezzanine.utils.conf import middlewares_or_subclasses_installed
-from mezzanine.utils.deprecation import (
-    MiddlewareMixin,
-    get_middleware_request,
-    is_authenticated,
-)
+from mezzanine.utils.deprecation import is_authenticated
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.urls import next_url
 
@@ -211,7 +208,7 @@ class UpdateCacheMiddleware(MiddlewareMixin):
         # the cookie will be correctly set for the the response
         if csrf_middleware_installed():
             response.csrf_processing_done = False
-            csrf_mw = CsrfViewMiddleware(get_middleware_request)
+            csrf_mw = CsrfViewMiddleware(self.get_response)
             csrf_mw.process_response(request, response)
         return response
 
@@ -238,10 +235,10 @@ class FetchFromCacheMiddleware(MiddlewareMixin):
             cache_key = cache_key_prefix(request) + request.get_full_path()
             response = cache_get(cache_key)
             # We need to force a csrf token here, as new sessions
-            # won't receieve one on their first request, with cache
+            # won't receive one on their first request, with cache
             # middleware running.
             if csrf_middleware_installed():
-                csrf_mw = CsrfViewMiddleware()
+                csrf_mw = CsrfViewMiddleware(self.get_response)
                 csrf_mw.process_view(request, lambda x: None, None, None)
                 get_token(request)
             if response is None:

@@ -7,14 +7,6 @@ from functools import wraps
 import django
 from django.conf import settings
 
-# Middleware mixin for Django 1.10
-try:
-    from django.utils.deprecation import MiddlewareMixin
-except ImportError:
-
-    class MiddlewareMixin:
-        pass
-
 
 def request_is_ajax(request):
     """
@@ -23,15 +15,6 @@ def request_is_ajax(request):
     Returns true if request CONTENT_TYPE is "application/json"
     """
     return request.META.get("CONTENT_TYPE") == "application/json"
-
-
-def get_middleware_request(request):
-    """
-    Middlewares require get_request in after django4.0
-
-    Returns the passed request object
-    """
-    return request
 
 
 def get_middleware_setting_name():
