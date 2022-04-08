@@ -47,7 +47,6 @@ if settings.USE_MODELTRANSLATION:
                 "all": (static("mezzanine/css/admin/tabbed_translation_fields.css"),),
             }
 
-
 else:
 
     class BaseTranslationModelAdmin(admin.ModelAdmin):

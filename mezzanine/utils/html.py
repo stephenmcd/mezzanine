@@ -9,7 +9,6 @@ try:
         class HTMLParseError(Exception):
             pass
 
-
 except ImportError:  # Python 2
     from HTMLParser import HTMLParser, HTMLParseError
     from htmlentitydefs import name2codepoint
