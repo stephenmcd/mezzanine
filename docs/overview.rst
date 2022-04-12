@@ -45,7 +45,7 @@ standard Django environment), with the following dependencies, which
 unless noted as optional, should be installed automatically following
 the above instructions:
 
-* `Python`_ 3.6 to 3.10
+* `Python`_ 3.7 to 3.10
 * `Django`_ 2.2 to 4.0
 * `django-contrib-comments`_ - for built-in threaded comments
 * `Pillow`_ - for image resizing (`Python Imaging Library`_ fork)
