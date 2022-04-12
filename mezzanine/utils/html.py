@@ -1,17 +1,12 @@
+from html.entities import name2codepoint
+from html.parser import HTMLParser
+
 try:
-    from html.entities import name2codepoint
-    from html.parser import HTMLParser
+    from html.parser import HTMLParseError
+except ImportError:  # Python 3.5+
 
-    try:
-        from html.parser import HTMLParseError
-    except ImportError:  # Python 3.5+
-
-        class HTMLParseError(Exception):
-            pass
-
-except ImportError:  # Python 2
-    from HTMLParser import HTMLParser, HTMLParseError
-    from htmlentitydefs import name2codepoint
+    class HTMLParseError(Exception):
+        pass
 
 import re
 
