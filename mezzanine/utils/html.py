@@ -1,13 +1,6 @@
 from html.entities import name2codepoint
 from html.parser import HTMLParser
 
-try:
-    from html.parser import HTMLParseError
-except ImportError:  # Python 3.5+
-
-    class HTMLParseError(Exception):
-        pass
-
 import re
 
 from mezzanine.utils.deprecation import mark_safe
@@ -161,12 +154,8 @@ class TagCloser(HTMLParser):
         HTMLParser.__init__(self)
         self.html = html
         self.tags = []
-        try:
-            self.feed(self.html)
-        except HTMLParseError:
-            pass
-        else:
-            self.html += "".join("</%s>" % tag for tag in self.tags)
+        self.feed(self.html)
+        self.html += "".join("</%s>" % tag for tag in self.tags)
 
     def handle_starttag(self, tag, attrs):
         if tag not in SELF_CLOSING_TAGS:
