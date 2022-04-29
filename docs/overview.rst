@@ -42,12 +42,12 @@ create a new Mezzanine project in similar fashion to
     ``mezzanine-project`` command.
     
     The ``collecttemplates`` command gathers copies of files that are
-    in the site-packages folders into a new "templates" directory.
-    Edit templates in the generated "templates" directory rather than
-    in site-packages. For example, editing templates/index.html is the
-    only way to edit the "Home" page. Templates use the ".html" file
-    extension but the Django template language is used within the
-    HTML.
+    in the site-packages folders into a new or existing "templates"
+    directory. Edit templates in the generated "templates" directory
+    rather than in site-packages. For example, editing
+    templates/index.html is the only way to edit the "Home" page.
+    Templates use the ".html" file extension but the Django template
+    language is used within the HTML.
 
 
 You should then be able to browse to http://127.0.0.1:8000/admin/ and
