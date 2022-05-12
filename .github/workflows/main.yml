@@ -79,25 +79,11 @@ jobs:
       - name: Lint
         run: tox -e package -e lint -e pyupgrade
 
-  # Build docs
-  docs:
-    name: Build docs
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Install deps
-        run: pip install -e . && pip install sphinx
-      - name: Build docs
-        run: sphinx-build -b html docs docs/build
-
   # Create a new semantic release
   # Only runs on the original repo, not forks
   release:
     if: github.repository_owner == 'stephenmcd'
-    needs: [test, lint, docs]
+    needs: [test, lint]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -116,3 +102,31 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+
+  # Build and deploy docs  
+  docs:
+    if: github.ref == 'refs/heads/stable'
+    needs: release
+    name: build and deploy docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install deps
+        run: pip install -e . && pip install sphinx
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        with:
+          semver_only: true
+      - name: Get release tag
+        run: echo "RELEASE_TAG=${{ steps.get-latest-tag.outputs.tag }}" >> $GITHUB_ENV
+      - name: Build docs
+        run: sphinx-build -b html docs docs/build && touch docs/build/.nojekyll
+      - name: Deploy docs
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          branch: gh-pages
+          folder: docs/build
