@@ -53,8 +53,8 @@ jobs:
             python-version: "3.10"
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
@@ -62,7 +62,7 @@ jobs:
       - name: Run tests
         run: tox -e ${{ matrix.tox-env }}
       - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v2
+        uses: mikepenz/action-junit-report@v3
         with:
           report_paths: '**/junit/TEST-*.xml'
 
@@ -70,8 +70,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
         with:
           python-version: 3.9
       - name: Install dependencies
@@ -86,18 +86,16 @@ jobs:
     needs: [test, lint]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
         with:
           python-version: 3.9
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14' # https://github.com/cycjimmy/semantic-release-action/issues/79#issuecomment-955463633
-      - uses: cycjimmy/semantic-release-action@v2
+      - uses: actions/setup-node@v3
+      - uses: cycjimmy/semantic-release-action@v3
         with:
           semantic_version: 18
           extra_plugins: |
-            @semantic-release/exec@5
+            @semantic-release/exec@6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TWINE_USERNAME: __token__
@@ -112,7 +110,7 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: 3.9
       - name: Install deps
@@ -126,7 +124,7 @@ jobs:
       - name: Build docs
         run: sphinx-build -b html docs docs/build && touch docs/build/.nojekyll
       - name: Deploy docs
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: docs/build
