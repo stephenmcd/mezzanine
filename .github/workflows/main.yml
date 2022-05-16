@@ -122,7 +122,7 @@ jobs:
       - name: Get release tag
         run: echo "RELEASE_TAG=${{ steps.get-latest-tag.outputs.tag }}" >> $GITHUB_ENV
       - name: Build docs
-        run: sphinx-build -b html docs docs/build && touch docs/build/.nojekyll
+        run: sphinx-build -b html docs docs/build
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
@@ -130,5 +130,6 @@ jobs:
           target_branch: gh-pages
           build_dir: docs/build
           fqdn: mezzanine.jupo.org
+          jekyll: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
