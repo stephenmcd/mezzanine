@@ -3,7 +3,7 @@ from django.urls import path, re_path
 from mezzanine.blog import views
 from mezzanine.conf import settings
 
-# Trailing slahes for urlpatterns based on setup.
+# Trailing slashes for urlpatterns based on setup.
 _slash = "/" if settings.APPEND_SLASH else ""
 
 # Blog patterns.

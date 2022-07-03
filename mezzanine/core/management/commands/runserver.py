@@ -38,7 +38,7 @@ class MezzStaticFilesHandler(StaticFilesHandler):
 
 def banner():
 
-    # Database name - this is just the ``vendor`` atrribute of
+    # Database name - this is just the ``vendor`` attribute of
     # the connection backend, with some exceptions where we
     # replace it with something else, such as microsoft -> sql server.
     conn = connection
