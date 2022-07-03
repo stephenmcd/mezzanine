@@ -296,7 +296,7 @@ class SSLRedirectMiddleware(MiddlewareMixin):
                 # in this case we don't attempt a redirect - note that
                 # when /admin is restricted to SSL using Mezzanine's SSL
                 # setup, the flash uploader will post over SSL, so
-                # someone would need to explictly go out of their way to
+                # someone would need to explicitly go out of their way to
                 # trigger this.
                 return
             # Tell the client they need to re-POST.
